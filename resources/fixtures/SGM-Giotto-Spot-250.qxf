@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,26 +9,11 @@
  <Manufacturer>SGM</Manufacturer>
  <Model>Giotto Spot 250</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine</Capability>
- </Channel>
- <Channel Name="Iris">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Opening minimum to maximum</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Iris" Preset="BeamIris"/>
  <Channel Name="Colour (Modified By Channel 20)">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Color="#ffffff" Max="24">White</Capability>
@@ -81,10 +66,7 @@
   <Capability Min="205" Max="221">Open with slow gobo change</Capability>
   <Capability Min="222" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Linear from 0 - 100%</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Gobo rotation">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="111">Rotate clockwise</Capability>
@@ -103,10 +85,7 @@
   <Capability Min="112" Max="143">No rotation</Capability>
   <Capability Min="144" Max="255">Rotate counterclockwise</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Linear 0 - 100%</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Zoom">
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="255">Zoom in: 9° - zoom out: 24°</Capability>
@@ -194,13 +173,6 @@
   <Capability Min="136" Max="255">Reserved</Capability>
  </Channel>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb Type="MSD 250W" ColourTemperature="8500" Lumens="18000"/>
-   <Dimensions Weight="24.8" Depth="412" Height="680" Width="360"/>
-   <Lens Name="Other" DegreesMin="9" DegreesMax="24"/>
-   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="350"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -224,4 +196,11 @@
   <Channel Number="20">Gobo mode</Channel>
   <Channel Number="21">Macro</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="MSD 250W" ColourTemperature="8500" Lumens="18000"/>
+   <Dimensions Weight="24.8" Depth="412" Height="680" Width="360"/>
+   <Lens Name="Other" DegreesMin="9" DegreesMax="24"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+   <Technical DmxConnector="5-pin" PowerConsumption="350"/>
+  </Physical>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,74 +9,23 @@
  <Manufacturer>Showtec</Manufacturer>
  <Model>LED Light Bar RGB V3</Model>
  <Type>Other</Type>
- <Channel Name="Red1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Intensity</Capability>
- </Channel>
- <Channel Name="Green1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Intensity</Capability>
- </Channel>
- <Channel Name="Blue1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Intensity</Capability>
- </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer/Master Dimmer</Capability>
- </Channel>
- <Channel Name="Red2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Intensity</Capability>
- </Channel>
- <Channel Name="Green2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Intensity</Capability>
- </Channel>
- <Channel Name="Blue2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Intensity</Capability>
- </Channel>
+ <Channel Name="Red1" Preset="IntensityRed"/>
+ <Channel Name="Green1" Preset="IntensityGreen"/>
+ <Channel Name="Blue1" Preset="IntensityBlue"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Red2" Preset="IntensityRed"/>
+ <Channel Name="Green2" Preset="IntensityGreen"/>
+ <Channel Name="Blue2" Preset="IntensityBlue"/>
  <Channel Name="Strobe1">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="255">Flashes from slow to fast (0-20 flashes/s)</Capability>
  </Channel>
- <Channel Name="Red3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Intensity</Capability>
- </Channel>
- <Channel Name="Green3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Intensity</Capability>
- </Channel>
- <Channel Name="Blue3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Intensity</Capability>
- </Channel>
- <Channel Name="Red4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Intensity</Capability>
- </Channel>
- <Channel Name="Green4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Intensity</Capability>
- </Channel>
- <Channel Name="Blue4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Intensity</Capability>
- </Channel>
+ <Channel Name="Red3" Preset="IntensityRed"/>
+ <Channel Name="Green3" Preset="IntensityGreen"/>
+ <Channel Name="Blue3" Preset="IntensityBlue"/>
+ <Channel Name="Red4" Preset="IntensityRed"/>
+ <Channel Name="Green4" Preset="IntensityGreen"/>
+ <Channel Name="Blue4" Preset="IntensityBlue"/>
  <Channel Name="Colors/Programs">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="9">No Funtion</Capability>
@@ -120,38 +69,17 @@
   <Capability Min="10" Max="255">Strobe from slow to fast (0-20 flashes/s)</Capability>
  </Channel>
  <Mode Name="P1">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1070" Height="88" Weight="1.68" Depth="65"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="75" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red1</Channel>
   <Channel Number="1">Green1</Channel>
   <Channel Number="2">Blue1</Channel>
  </Mode>
  <Mode Name="P2">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1070" Height="88" Weight="1.68" Depth="65"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="75" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red1</Channel>
   <Channel Number="1">Green1</Channel>
   <Channel Number="2">Blue1</Channel>
   <Channel Number="3">Dimmer</Channel>
  </Mode>
  <Mode Name="P3">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1070" Height="88" Weight="1.68" Depth="65"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="75" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red1</Channel>
   <Channel Number="1">Green1</Channel>
   <Channel Number="2">Blue1</Channel>
@@ -162,13 +90,6 @@
   <Channel Number="7">Dimmer</Channel>
  </Mode>
  <Mode Name="P4">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1070" Height="88" Weight="1.68" Depth="65"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="75" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red1</Channel>
   <Channel Number="1">Green1</Channel>
   <Channel Number="2">Blue1</Channel>
@@ -185,24 +106,10 @@
   <Channel Number="13">Dimmer</Channel>
  </Mode>
  <Mode Name="P5">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1070" Height="88" Weight="1.68" Depth="65"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="75" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Colors/Programs</Channel>
   <Channel Number="1">Speed/Audio Sensitivity (see manual)</Channel>
  </Mode>
  <Mode Name="P6">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1070" Height="88" Weight="1.68" Depth="65"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="75" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Control/Operating Mode</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Strobe2</Channel>
@@ -220,13 +127,6 @@
   <Channel Number="14">Blue4</Channel>
  </Mode>
  <Mode Name="P7">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1070" Height="88" Weight="1.68" Depth="65"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="75" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red1</Channel>
   <Channel Number="1">Green1</Channel>
   <Channel Number="2">Blue1</Channel>
@@ -235,4 +135,11 @@
   <Channel Number="5">Strobe1</Channel>
   <Channel Number="6">Dimmer</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="1070" Height="88" Weight="1.68" Depth="65"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="75" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

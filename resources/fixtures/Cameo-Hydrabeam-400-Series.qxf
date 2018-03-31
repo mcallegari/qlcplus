@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,10 +9,7 @@
  <Manufacturer>Cameo</Manufacturer>
  <Model>Hydrabeam 400 Series</Model>
  <Type>Moving Head</Type>
- <Channel Name="Master dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="254">Master dimmer (0 - 100%)</Capability>
- </Channel>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="10">No strobe</Capability>
@@ -58,126 +55,51 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Lighting pattern speed</Capability>
  </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan (0 - 540°)</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt (0 - 270°)</Capability>
- </Channel>
- <Channel Name="Pan fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine</Capability>
- </Channel>
- <Channel Name="Tilt fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine</Capability>
- </Channel>
- <Channel Name="Heads speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Heads speed (fast to slow)</Capability>
- </Channel>
- <Channel Name="Pan (Head 1)">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan head 1 (0 - 540°)</Capability>
- </Channel>
- <Channel Name="Pan fine (Head 1)">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine head 1</Capability>
- </Channel>
- <Channel Name="Tilt (Head 1)">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt head 1 (0 - 270°)</Capability>
- </Channel>
- <Channel Name="Tilt fine (Head 1)">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine head 1</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Heads speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Pan (Head 1)" Preset="PositionPan"/>
+ <Channel Name="Pan fine (Head 1)" Preset="PositionPanFine"/>
+ <Channel Name="Tilt (Head 1)" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine (Head 1)" Preset="PositionTiltFine"/>
  <Channel Name="Speed (Head 1)">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="10">Fastest value till 11 is reached)</Capability>
   <Capability Min="11" Max="255">Head 1 speed (fast to slow)</Capability>
  </Channel>
- <Channel Name="Dimmer (Head 1)">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer head 1 (0 - 100%)</Capability>
- </Channel>
- <Channel Name="Pan (Head 2)">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan head 2 (0 - 540°)</Capability>
- </Channel>
- <Channel Name="Pan fine (Head 2)">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine head 2</Capability>
- </Channel>
- <Channel Name="Tilt (Head 2)">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt head 2 (0 - 270°)</Capability>
- </Channel>
- <Channel Name="Tilt fine (Head 2)">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine head 2</Capability>
- </Channel>
+ <Channel Name="Dimmer (Head 1)" Preset="IntensityDimmer"/>
+ <Channel Name="Pan (Head 2)" Preset="PositionPan"/>
+ <Channel Name="Pan fine (Head 2)" Preset="PositionPanFine"/>
+ <Channel Name="Tilt (Head 2)" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine (Head 2)" Preset="PositionTiltFine"/>
  <Channel Name="Speed (Head 2)">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="10">Fastest value till 11 is reached)</Capability>
   <Capability Min="11" Max="255">Head 2 speed (fast to slow)</Capability>
  </Channel>
- <Channel Name="Dimmer (Head 2)">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer head 2 (0 - 100%)</Capability>
- </Channel>
- <Channel Name="Pan (Head 3)">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan head 3 (0 - 540°)</Capability>
- </Channel>
- <Channel Name="Pan fine (Head 3)">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine head 3</Capability>
- </Channel>
- <Channel Name="Tilt (Head 3)">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt head 3 (0 - 270°)</Capability>
- </Channel>
- <Channel Name="Tilt fine (Head 3)">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine head 3</Capability>
- </Channel>
+ <Channel Name="Dimmer (Head 2)" Preset="IntensityDimmer"/>
+ <Channel Name="Pan (Head 3)" Preset="PositionPan"/>
+ <Channel Name="Pan fine (Head 3)" Preset="PositionPanFine"/>
+ <Channel Name="Tilt (Head 3)" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine (Head 3)" Preset="PositionTiltFine"/>
  <Channel Name="Speed (Head 3)">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="10">Fastest value till 11 is reached)</Capability>
   <Capability Min="11" Max="255">Head 3 speed (fast to slow)</Capability>
  </Channel>
- <Channel Name="Dimmer (Head 3)">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer head 3 (0 - 100%)</Capability>
- </Channel>
- <Channel Name="Pan (Head 4)">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan head 4 (0 - 540°)</Capability>
- </Channel>
- <Channel Name="Pan fine (Head 4)">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine head 4</Capability>
- </Channel>
- <Channel Name="Tilt (Head 4)">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt head 4 (0 - 270°)</Capability>
- </Channel>
- <Channel Name="Tilt fine (Head 4)">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine head 4</Capability>
- </Channel>
+ <Channel Name="Dimmer (Head 3)" Preset="IntensityDimmer"/>
+ <Channel Name="Pan (Head 4)" Preset="PositionPan"/>
+ <Channel Name="Pan fine (Head 4)" Preset="PositionPanFine"/>
+ <Channel Name="Tilt (Head 4)" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine (Head 4)" Preset="PositionTiltFine"/>
  <Channel Name="Speed (Head 4)">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="10">Fastest value till 11 is reached)</Capability>
   <Capability Min="11" Max="255">Head 4 speed (fast to slow)</Capability>
  </Channel>
- <Channel Name="Dimmer (Head 4)">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer head 4 (0 - 100%)</Capability>
- </Channel>
+ <Channel Name="Dimmer (Head 4)" Preset="IntensityDimmer"/>
  <Channel Name="Sound mode / Reset">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="199">No function</Capability>
@@ -212,26 +134,10 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Automatic colour change speed</Capability>
  </Channel>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red dimmer (0 - 100%)</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green dimmer (0 - 100%)</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue dimmer (0 - 100%)</Capability>
- </Channel>
- <Channel Name="White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White dimmer (0 - 100%)</Capability>
- </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
  <Channel Name="Colour macros (Head 1)">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="30">Use CH29-CH32 to control colour</Capability>
@@ -309,13 +215,6 @@
   <Capability Min="241" Max="255">Red / Green / Blue / White</Capability>
  </Channel>
  <Mode Name="6-CH (CLHB400W)">
-  <Physical>
-   <Bulb Type="LED" Lumens="440" ColourTemperature="0"/>
-   <Dimensions Weight="7.6" Width="810" Height="250" Depth="130"/>
-   <Lens Name="PC" DegreesMin="0" DegreesMax="4.5"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="100" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Master dimmer</Channel>
   <Channel Number="1">Strobe</Channel>
   <Channel Number="2">Show mode</Channel>
@@ -324,13 +223,6 @@
   <Channel Number="5">Lighting pattern speed</Channel>
  </Mode>
  <Mode Name="10-CH (CLHB400W)">
-  <Physical>
-   <Bulb Type="LED" Lumens="440" ColourTemperature="0"/>
-   <Dimensions Weight="7.6" Width="810" Height="250" Depth="130"/>
-   <Lens Name="PC" DegreesMin="0" DegreesMax="4.5"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="100" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Master dimmer</Channel>
@@ -343,13 +235,6 @@
   <Channel Number="9">Tilt fine</Channel>
  </Mode>
  <Mode Name="15-CH (CLHB400W)">
-  <Physical>
-   <Bulb Type="LED" Lumens="440" ColourTemperature="0"/>
-   <Dimensions Weight="7.6" Width="810" Height="250" Depth="130"/>
-   <Lens Name="PC" DegreesMin="0" DegreesMax="4.5"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="100" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Master dimmer</Channel>
   <Channel Number="1">Strobe</Channel>
   <Channel Number="2">Pan (Head 1)</Channel>
@@ -387,13 +272,6 @@
   </Head>
  </Mode>
  <Mode Name="28-CH (CLHB400W)">
-  <Physical>
-   <Bulb Type="LED" Lumens="440" ColourTemperature="0"/>
-   <Dimensions Weight="7.6" Width="810" Height="250" Depth="130"/>
-   <Lens Name="PC" DegreesMin="0" DegreesMax="4.5"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="100" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Master dimmer</Channel>
   <Channel Number="1">Strobe</Channel>
   <Channel Number="2">Pan (Head 1)</Channel>
@@ -456,13 +334,6 @@
   </Head>
  </Mode>
  <Mode Name="6-CH (CLHB400RGBW)">
-  <Physical>
-   <Bulb Type="LED" Lumens="440" ColourTemperature="0"/>
-   <Dimensions Weight="7.6" Width="810" Height="250" Depth="130"/>
-   <Lens Name="PC" DegreesMin="0" DegreesMax="4.5"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="100" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Master dimmer</Channel>
   <Channel Number="1">Strobe</Channel>
   <Channel Number="2">Show mode</Channel>
@@ -471,13 +342,6 @@
   <Channel Number="5">Automatic colour change speed</Channel>
  </Mode>
  <Mode Name="10-CH (CLHB400RGBW)">
-  <Physical>
-   <Bulb Type="LED" Lumens="440" ColourTemperature="0"/>
-   <Dimensions Weight="7.6" Width="810" Height="250" Depth="130"/>
-   <Lens Name="PC" DegreesMin="0" DegreesMax="4.5"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="100" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Master dimmer</Channel>
@@ -490,13 +354,6 @@
   <Channel Number="9">Tilt fine</Channel>
  </Mode>
  <Mode Name="19-CH (CLHB400RGBW)">
-  <Physical>
-   <Bulb Type="LED" Lumens="440" ColourTemperature="0"/>
-   <Dimensions Weight="7.6" Width="810" Height="250" Depth="130"/>
-   <Lens Name="PC" DegreesMin="0" DegreesMax="4.5"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="100" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Master dimmer</Channel>
   <Channel Number="1">Strobe</Channel>
   <Channel Number="2">Pan (Head 1)</Channel>
@@ -538,13 +395,6 @@
   </Head>
  </Mode>
  <Mode Name="32-CH (CLHB400RGBW)">
-  <Physical>
-   <Bulb Type="LED" Lumens="440" ColourTemperature="0"/>
-   <Dimensions Weight="7.6" Width="810" Height="250" Depth="130"/>
-   <Lens Name="PC" DegreesMin="0" DegreesMax="4.5"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="100" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Master dimmer</Channel>
   <Channel Number="1">Strobe</Channel>
   <Channel Number="2">Pan (Head 1)</Channel>
@@ -610,4 +460,11 @@
    <Channel>25</Channel>
   </Head>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="440" ColourTemperature="0"/>
+   <Dimensions Weight="7.6" Width="810" Height="250" Depth="130"/>
+   <Lens Name="PC" DegreesMin="0" DegreesMax="4.5"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="100" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

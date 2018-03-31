@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,26 +9,11 @@
  <Manufacturer>Geni</Manufacturer>
  <Model>OBY 5</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan 0-570°</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt 0-270°</Capability>
- </Channel>
- <Channel Name="Pan fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan Fine</Capability>
- </Channel>
- <Channel Name="Tilt fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt Fine</Capability>
- </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0 &gt; 100%</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Shutter / Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="1" Max="7">Open</Capability>
@@ -114,10 +99,7 @@
   <Capability Min="208" Max="253">Iris out from fast to slow</Capability>
   <Capability Min="254" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">from far to near</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Lamp switch">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="47">Standby</Capability>
@@ -140,13 +122,6 @@
   <Capability Min="128" Max="255">Fast auto reset after 3s</Capability>
  </Channel>
  <Mode Name="14 Channe (CH1 On / 16bit Off)">
-  <Physical>
-   <Bulb Type="HTI 575W" Lumens="0" ColourTemperature="6000"/>
-   <Dimensions Weight="26" Width="400" Height="280" Depth="540"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Head" PanMax="570" TiltMax="270"/>
-   <Technical PowerConsumption="800" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Dimmer</Channel>
@@ -163,13 +138,6 @@
   <Channel Number="13">Lamp switch</Channel>
  </Mode>
  <Mode Name="16 Channel (CH1 On / 16bit On)">
-  <Physical>
-   <Bulb Type="HTI 575W" Lumens="0" ColourTemperature="6000"/>
-   <Dimensions Weight="26" Width="400" Height="280" Depth="540"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Head" PanMax="570" TiltMax="270"/>
-   <Technical PowerConsumption="800" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan fine</Channel>
@@ -188,13 +156,6 @@
   <Channel Number="15">Lamp switch</Channel>
  </Mode>
  <Mode Name="16 Channel (CH1 Off / 16bit On)">
-  <Physical>
-   <Bulb Type="HTI 575W" Lumens="0" ColourTemperature="6000"/>
-   <Dimensions Weight="26" Width="400" Height="280" Depth="540"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Head" PanMax="570" TiltMax="270"/>
-   <Technical PowerConsumption="800" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Shutter / Strobe</Channel>
   <Channel Number="2">Color 1</Channel>
@@ -213,13 +174,6 @@
   <Channel Number="15">Lamp switch</Channel>
  </Mode>
  <Mode Name="14 Channel (CH1 Off / 16bit Off)">
-  <Physical>
-   <Bulb Type="HTI 575W" Lumens="0" ColourTemperature="6000"/>
-   <Dimensions Weight="26" Width="400" Height="280" Depth="540"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Head" PanMax="570" TiltMax="270"/>
-   <Technical PowerConsumption="800" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Shutter / Strobe</Channel>
   <Channel Number="2">Color 1</Channel>
@@ -235,4 +189,11 @@
   <Channel Number="12">Control</Channel>
   <Channel Number="13">Lamp switch</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="HTI 575W" Lumens="0" ColourTemperature="6000"/>
+   <Dimensions Weight="26" Width="400" Height="280" Depth="540"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="570" TiltMax="270"/>
+   <Technical PowerConsumption="800" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

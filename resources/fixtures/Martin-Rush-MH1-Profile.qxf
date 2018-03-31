@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>Martin</Manufacturer>
  <Model>Rush MH1 Profile</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan (0 to 540°)</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan Fine</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt (0 to 270°)</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt Fine</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Pan/Tilt Speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="254">Pan/tilt speed, fast- slow</Capability>
@@ -136,14 +124,8 @@
   <Capability Min="190" Max="193">Stop</Capability>
   <Capability Min="194" Max="255">Counter-clockwise rotation, slow-fast</Capability>
  </Channel>
- <Channel Name="Iris">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Max &gt; Min</Capability>
- </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">close -&gt; distant</Capability>
- </Channel>
+ <Channel Name="Iris" Preset="BeamIris"/>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Control">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="69">No function</Capability>
@@ -165,18 +147,8 @@
   <Capability Min="220" Max="229">Blackout during pan/tilt or color/gobo change</Capability>
   <Capability Min="230" Max="255">No Function</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer (0 to 100%)</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Mode Name="Standard 16bit">
-  <Physical>
-   <Bulb ColourTemperature="0" Lumens="7100" Type="LED"/>
-   <Dimensions Weight="18" Height="588" Width="418" Depth="328"/>
-   <Lens DegreesMin="16" DegreesMax="16" Name=""/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="300" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -195,4 +167,11 @@
   <Channel Number="15">Focus</Channel>
   <Channel Number="16">Control</Channel>
  </Mode>
+<Physical>
+   <Bulb ColourTemperature="0" Lumens="7100" Type="LED"/>
+   <Dimensions Weight="18" Height="588" Width="418" Depth="328"/>
+   <Lens DegreesMin="16" DegreesMax="16" Name=""/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="300" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
 </FixtureDefinition>

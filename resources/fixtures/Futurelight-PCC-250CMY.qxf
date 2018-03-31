@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -23,21 +23,9 @@
   <Capability Min="190" Max="191">No rotation</Capability>
   <Capability Min="192" Max="255" Res="Others/rainbow.png">Rainbow backward slow to fast</Capability>
  </Channel>
- <Channel Name="Cyan">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">Cyan mix</Capability>
- </Channel>
- <Channel Name="Magenta">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">Magenta mix</Capability>
- </Channel>
- <Channel Name="Yellow">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">Yellow mix</Capability>
- </Channel>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
  <Channel Name="Speed of CMY and dimmer">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="225">Fast to slow</Capability>
@@ -90,10 +78,7 @@
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="255">28 to 7 degrees</Capability>
  </Channel>
- <Channel Name="Free">
-  <Group Byte="0">Nothing</Group>
-  <Capability Min="0" Max="255">No function</Capability>
- </Channel>
+ <Channel Name="Free" Preset="NoFunction"/>
  <Channel Name="Shutter, strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="31">Shutter closed</Capability>
@@ -105,10 +90,7 @@
   <Capability Min="192" Max="223">Random strobe speed</Capability>
   <Capability Min="224" Max="255">Shutter open</Capability>
  </Channel>
- <Channel Name="Dimmer intensity">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer intensity</Capability>
- </Channel>
+ <Channel Name="Dimmer intensity" Preset="IntensityDimmer"/>
  <Channel Name="Lamp switch, reset, fan speed">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="15">Normal colour change, shortest distance</Capability>
@@ -129,13 +111,6 @@
   <Capability Min="240" Max="255">No function</Capability>
  </Channel>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="13" Width="435" Height="350" Depth="325"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="440" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Colour</Channel>
   <Channel Number="1">Cyan</Channel>
   <Channel Number="2">Magenta</Channel>
@@ -149,4 +124,11 @@
   <Channel Number="10">Dimmer intensity</Channel>
   <Channel Number="11">Lamp switch, reset, fan speed</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="13" Width="435" Height="350" Depth="325"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="440" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

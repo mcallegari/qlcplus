@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,14 +9,8 @@
  <Manufacturer>Chauvet</Manufacturer>
  <Model>Intimidator Scan 305 IRC</Model>
  <Type>Scanner</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">0-180°</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">0-90°</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="6" Color="#ffffff">Open (white)</Capability>
@@ -49,10 +43,7 @@
   <Capability Min="146" Max="215">Random (slow to fast)</Capability>
   <Capability Min="216" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Gobo Wheel">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="7" Res="Others/open.png">Open</Capability>
@@ -128,18 +119,8 @@
   <Capability Min="232" Max="247">Sound 7</Capability>
   <Capability Min="248" Max="255">Sound 8</Capability>
  </Channel>
- <Channel Name="Pan/Tilt Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Fast to slow</Capability>
- </Channel>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
  <Mode Name="11-Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="1984" ColourTemperature="0"/>
-   <Dimensions Weight="4.6" Width="255" Height="147" Depth="430"/>
-   <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
-   <Focus Type="Head" PanMax="180" TiltMax="90"/>
-   <Technical PowerConsumption="104" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan/Tilt Speed</Channel>
@@ -153,13 +134,6 @@
   <Channel Number="10">Movement Macros</Channel>
  </Mode>
  <Mode Name="7-Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="1984" ColourTemperature="0"/>
-   <Dimensions Weight="4.6" Width="255" Height="147" Depth="430"/>
-   <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
-   <Focus Type="Head" PanMax="180" TiltMax="90"/>
-   <Technical PowerConsumption="104" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Color</Channel>
@@ -168,4 +142,11 @@
   <Channel Number="5">Gobo Rotation</Channel>
   <Channel Number="6">Prism</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="1984" ColourTemperature="0"/>
+   <Dimensions Weight="4.6" Width="255" Height="147" Depth="430"/>
+   <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
+   <Focus Type="Head" PanMax="180" TiltMax="90"/>
+   <Technical PowerConsumption="104" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

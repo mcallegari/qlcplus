@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,25 +9,10 @@
  <Manufacturer>Kam</Manufacturer>
  <Model>Powercan TRI54W Slim</Model>
  <Type>Color Changer</Type>
- <Channel Name="Master dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Master dimmer 0-100%</Capability>
- </Channel>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red 0-100% (step time when playing CUS 01-10)</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green 0-100% (fade time playing CUS 01-10)</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue 0-100%</Capability>
- </Channel>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="Colour">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="10">No function</Capability>
@@ -81,26 +66,10 @@
   <Capability Min="0" Max="250">Linear dimmer</Capability>
   <Capability Min="251" Max="255">Non-linear dimmer</Capability>
  </Channel>
- <Channel Name="Hue">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">H: hue (colour tone)</Capability>
- </Channel>
- <Channel Name="Saturation">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">S: saturation of colour</Capability>
- </Channel>
- <Channel Name="Luminance">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">V: luminance</Capability>
- </Channel>
+ <Channel Name="Hue" Preset="IntensityHue"/>
+ <Channel Name="Saturation" Preset="IntensitySaturation"/>
+ <Channel Name="Luminance" Preset="IntensityLightness"/>
  <Mode Name="9 channel mode">
-  <Physical>
-   <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Width="220" Height="340" Depth="60" Weight="3"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="60"/>
-  </Physical>
   <Channel Number="0">Master dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
@@ -112,40 +81,26 @@
   <Channel Number="8">Dimmer mode</Channel>
  </Mode>
  <Mode Name="3 channel mode">
-  <Physical>
-   <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Width="220" Height="340" Depth="60" Weight="3"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="60"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
  </Mode>
  <Mode Name="4 channel mode">
-  <Physical>
-   <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Width="220" Height="340" Depth="60" Weight="3"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="60"/>
-  </Physical>
   <Channel Number="0">Master dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
   <Channel Number="3">Blue</Channel>
  </Mode>
  <Mode Name="HSV mode">
-  <Physical>
+  <Channel Number="0">Hue</Channel>
+  <Channel Number="1">Saturation</Channel>
+  <Channel Number="2">Luminance</Channel>
+ </Mode>
+<Physical>
    <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
    <Dimensions Width="220" Height="340" Depth="60" Weight="3"/>
    <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical DmxConnector="3-pin" PowerConsumption="60"/>
   </Physical>
-  <Channel Number="0">Hue</Channel>
-  <Channel Number="1">Saturation</Channel>
-  <Channel Number="2">Luminance</Channel>
- </Mode>
-</FixtureDefinition>
+  <Physical/></FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -18,24 +18,17 @@
   <Capability Min="0" Max="255">Min &lt; Max</Capability>
  </Channel>
  <Mode Name="Normal">
-  <Physical>
-   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="10" Width="250" Height="250" Depth="400"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="500" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Pump</Channel>
   <Channel Number="1">Fan</Channel>
  </Mode>
  <Mode Name="Amount">
-  <Physical>
+  <Channel Number="0">Pump</Channel>
+ </Mode>
+<Physical>
    <Bulb Type="" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="10" Width="250" Height="250" Depth="400"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="500" DmxConnector="5-pin"/>
   </Physical>
-  <Channel Number="0">Pump</Channel>
- </Mode>
 </FixtureDefinition>

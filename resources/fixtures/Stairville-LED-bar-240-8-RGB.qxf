@@ -3,35 +3,17 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.7.0 beta1</Version>
+  <Version>4.11.2 GIT</Version>
   <Author>Mikko Toivonen</Author>
  </Creator>
  <Manufacturer>Stairville</Manufacturer>
  <Model>LED Bar 240/8 RGB</Model>
  <Type>Color Changer</Type>
- <Channel Name="Red 1. seg.">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Color Intensity</Capability>
- </Channel>
- <Channel Name="Green 1. seg.">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Color Intensity</Capability>
- </Channel>
- <Channel Name="Blue 1. seg.">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Color Intensity</Capability>
- </Channel>
- <Channel Name="Dimmer (0 % to 100 %) for all LEDs">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer (0 % to 100 %) for all LEDs</Capability>
- </Channel>
- <Channel Name="Strobe effect, increasing speed">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Strobe effect, increasing speed</Capability>
- </Channel>
+ <Channel Name="Red 1. seg." Preset="IntensityRed"/>
+ <Channel Name="Green 1. seg." Preset="IntensityGreen"/>
+ <Channel Name="Blue 1. seg." Preset="IntensityBlue"/>
+ <Channel Name="Dimmer (0 % to 100 %) for all LEDs" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe effect, increasing speed" Preset="ShutterStrobeSlowFast"/>
  <Channel Name="2-channel DMX mode - 1. Channel">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="7">LEDs off</Capability>
@@ -39,129 +21,38 @@
   <Capability Min="16" Max="23">Constant unicoloured pattern in red and green</Capability>
   <Capability Min="24" Max="31">Constant unicoloured pattern in green</Capability>
   <Capability Min="32" Max="39">Constant unicoloured pattern in blue and green</Capability>
-  <Capability Min="40" Max="47">Constant unicoloured pattern in blue&#13;</Capability>
-  <Capability Min="48" Max="55">Constant unicoloured pattern in blue and red&#13;</Capability>
-  <Capability Min="56" Max="63">Constant unicoloured pattern in red, green and blue&#13;</Capability>
+  <Capability Min="40" Max="47">Constant unicoloured pattern in blue</Capability>
+  <Capability Min="48" Max="55">Constant unicoloured pattern in blue and red</Capability>
+  <Capability Min="56" Max="63">Constant unicoloured pattern in red, green and blue</Capability>
   <Capability Min="64" Max="231">Preprogrammed automatic shows</Capability>
-  <Capability Min="232" Max="255">Sound-controlled shows&#13;</Capability>
+  <Capability Min="232" Max="255">Sound-controlled shows</Capability>
  </Channel>
  <Channel Name="2-channel DMX mode - 2. Channel">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="255">Increasing speed / Mic Sensitivity</Capability>
  </Channel>
- <Channel Name="Red2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Color Intensity</Capability>
- </Channel>
- <Channel Name="Green2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Color Intensity</Capability>
- </Channel>
- <Channel Name="Blue2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Color Intensity</Capability>
- </Channel>
- <Channel Name="Red3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Color Intensity</Capability>
- </Channel>
- <Channel Name="Green3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Color Intensity</Capability>
- </Channel>
- <Channel Name="Blue3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Color Intensity</Capability>
- </Channel>
- <Channel Name="Red4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Color Intensity</Capability>
- </Channel>
- <Channel Name="Green4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Color Intensity</Capability>
- </Channel>
- <Channel Name="Blue4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Color Intensity</Capability>
- </Channel>
- <Channel Name="Red5">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Color Intensity</Capability>
- </Channel>
- <Channel Name="Green5">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Color Intensity</Capability>
- </Channel>
- <Channel Name="Blue5">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Color Intensity</Capability>
- </Channel>
- <Channel Name="Red6">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Color Intensity</Capability>
- </Channel>
- <Channel Name="Green6">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Color Intensity</Capability>
- </Channel>
- <Channel Name="Blue6">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Color Intensity</Capability>
- </Channel>
- <Channel Name="Red7">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Color Intensity</Capability>
- </Channel>
- <Channel Name="Green7">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Color Intensity</Capability>
- </Channel>
- <Channel Name="Blue7">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Color Intensity</Capability>
- </Channel>
- <Channel Name="Red8">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Color Intensity</Capability>
- </Channel>
- <Channel Name="Green8">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Color Intensity</Capability>
- </Channel>
- <Channel Name="Blue8">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Color Intensity</Capability>
- </Channel>
+ <Channel Name="Red2" Preset="IntensityRed"/>
+ <Channel Name="Green2" Preset="IntensityGreen"/>
+ <Channel Name="Blue2" Preset="IntensityBlue"/>
+ <Channel Name="Red3" Preset="IntensityRed"/>
+ <Channel Name="Green3" Preset="IntensityGreen"/>
+ <Channel Name="Blue3" Preset="IntensityBlue"/>
+ <Channel Name="Red4" Preset="IntensityRed"/>
+ <Channel Name="Green4" Preset="IntensityGreen"/>
+ <Channel Name="Blue4" Preset="IntensityBlue"/>
+ <Channel Name="Red5" Preset="IntensityRed"/>
+ <Channel Name="Green5" Preset="IntensityGreen"/>
+ <Channel Name="Blue5" Preset="IntensityBlue"/>
+ <Channel Name="Red6" Preset="IntensityRed"/>
+ <Channel Name="Green6" Preset="IntensityGreen"/>
+ <Channel Name="Blue6" Preset="IntensityBlue"/>
+ <Channel Name="Red7" Preset="IntensityRed"/>
+ <Channel Name="Green7" Preset="IntensityGreen"/>
+ <Channel Name="Blue7" Preset="IntensityBlue"/>
+ <Channel Name="Red8" Preset="IntensityRed"/>
+ <Channel Name="Green8" Preset="IntensityGreen"/>
+ <Channel Name="Blue8" Preset="IntensityBlue"/>
  <Mode Name="24-channel">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1064" Height="88" Weight="2.6" Depth="65"/>
-   <Lens DegreesMax="30" Name="Other" DegreesMin="30"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="36" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red 1. seg.</Channel>
   <Channel Number="1">Green 1. seg.</Channel>
   <Channel Number="2">Blue 1. seg.</Channel>
@@ -228,28 +119,21 @@
   </Head>
  </Mode>
  <Mode Name="2-channel">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1064" Height="88" Weight="2.6" Depth="65"/>
-   <Lens DegreesMax="30" Name="Other" DegreesMin="30"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="36" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">2-channel DMX mode - 1. Channel</Channel>
   <Channel Number="1">2-channel DMX mode - 2. Channel</Channel>
  </Mode>
  <Mode Name="5-channel">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1064" Height="88" Weight="2.6" Depth="65"/>
-   <Lens DegreesMax="30" Name="Other" DegreesMin="30"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="36" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red 1. seg.</Channel>
   <Channel Number="1">Green 1. seg.</Channel>
   <Channel Number="2">Blue 1. seg.</Channel>
   <Channel Number="3">Dimmer (0 % to 100 %) for all LEDs</Channel>
   <Channel Number="4">Strobe effect, increasing speed</Channel>
  </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.6" Width="1064" Height="88" Depth="65"/>
+  <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="36" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

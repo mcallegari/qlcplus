@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -17,29 +17,11 @@
   <Capability Max="210" Min="201">Shutter open</Capability>
   <Capability Max="255" Min="211">Random strobe, slow -&gt; fast</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Max="255" Min="0">Closed to open </Capability>
- </Channel>
- <Channel Name="Dimmer fine">
-  <Group Byte="1">Intensity</Group>
-  <Capability Max="255" Min="0">min to max</Capability>
- </Channel>
- <Channel Name="Cyan">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Max="255" Min="0">White -&gt; Full Cyan</Capability>
- </Channel>
- <Channel Name="Magenta">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Max="255" Min="0">White -&gt; Full Magenta</Capability>
- </Channel>
- <Channel Name="Yellow">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Max="255" Min="0">White -&gt; Full Yellow</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer fine" Preset="IntensityDimmerFine"/>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
  <Channel Name="CTO">
   <Group Byte="0">Colour</Group>
   <Capability Max="255" Min="0">Open (6000 K) -&gt; Warm (3200 K)</Capability>
@@ -149,42 +131,21 @@
   <Group Byte="0">Beam</Group>
   <Capability Max="255" Min="0">Open -&gt; full wash effect</Capability>
  </Channel>
- <Channel Name="Iris">
-  <Group Byte="0">Beam</Group>
-  <Capability Max="255" Min="0">Open -&gt; closed</Capability>
- </Channel>
- <Channel Name="Zoom">
-  <Group Byte="0">Beam</Group>
-  <Capability Max="255" Min="0">Flood -&gt; spot</Capability>
- </Channel>
+ <Channel Name="Iris" Preset="BeamIris"/>
+ <Channel Name="Zoom" Preset="BeamZoomBigSmall"/>
  <Channel Name="Zoom fine">
   <Group Byte="1">Beam</Group>
   <Capability Max="255" Min="0">Flood -&gt; spot</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Max="255" Min="0">Infinity -&gt; near </Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusFarNear"/>
  <Channel Name="Focus fine">
   <Group Byte="1">Beam</Group>
   <Capability Max="255" Min="0">Infinity -&gt; near </Capability>
  </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Max="255" Min="0">Left -&gt; right</Capability>
- </Channel>
- <Channel Name="Pan fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Max="255" Min="0">Left -&gt; right</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Max="255" Min="0">Up -&gt; down</Capability>
- </Channel>
- <Channel Name="Tilt fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Max="255" Min="0">Up -&gt; down</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
  <Channel Name="Control / Settings">
   <Group Byte="0">Maintenance</Group>
   <Capability Max="0" Min="0">No function</Capability>
@@ -240,21 +201,11 @@
   <Capability Max="249" Min="245">Reset all calibration values to factory defaults</Capability>
   <Capability Max="255" Min="250">No function</Capability>
  </Channel>
- <Channel Name="Reserved 1">
-  <Group Byte="0">Nothing</Group>
- </Channel>
- <Channel Name="Reserved 2">
-  <Group Byte="0">Nothing</Group>
- </Channel>
- <Channel Name="Reserved 3">
-  <Group Byte="0">Nothing</Group>
- </Channel>
- <Channel Name="Reserved 4">
-  <Group Byte="0">Nothing</Group>
- </Channel>
- <Channel Name="Reserved 5">
-  <Group Byte="0">Nothing</Group>
- </Channel>
+ <Channel Name="Reserved 1" Preset="NoFunction"/>
+ <Channel Name="Reserved 2" Preset="NoFunction"/>
+ <Channel Name="Reserved 3" Preset="NoFunction"/>
+ <Channel Name="Reserved 4" Preset="NoFunction"/>
+ <Channel Name="Reserved 5" Preset="NoFunction"/>
  <Channel Name="Quadray overall control / FX selection">
   <Group Byte="0">Effect</Group>
   <Capability Max="40" Min="0">Indexing Quadray</Capability>
@@ -298,13 +249,6 @@
   <Capability Max="255" Min="254">No rotation</Capability>
  </Channel>
  <Mode Name="Extended">
-  <Physical>
-   <Bulb ColourTemperature="6000" Type="MSR 1000w" Lumens="34500"/>
-   <Dimensions Weight="35.7" Width="472" Depth="473" Height="749"/>
-   <Lens DegreesMax="44" DegreesMin="10" Name=""/>
-   <Focus Type="Head" PanMax="540" TiltMax="268"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="1200"/>
-  </Physical>
   <Channel Number="0">Strobe/shutter</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Dimmer fine</Channel>
@@ -335,13 +279,6 @@
   <Channel Number="27">Reserved 5</Channel>
  </Mode>
  <Mode Name="Basic">
-  <Physical>
-   <Bulb ColourTemperature="6000" Type="MSR 1000w" Lumens="34500"/>
-   <Dimensions Weight="35.7" Width="472" Depth="473" Height="749"/>
-   <Lens DegreesMax="44" DegreesMin="10" Name=""/>
-   <Focus Type="Head" PanMax="540" TiltMax="268"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="1200"/>
-  </Physical>
   <Channel Number="0">Strobe/shutter</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Cyan</Channel>
@@ -364,13 +301,6 @@
   <Channel Number="19">Control / Settings</Channel>
  </Mode>
  <Mode Name="Quadray FX">
-  <Physical>
-   <Bulb ColourTemperature="6000" Type="MSR 1000w" Lumens="34500"/>
-   <Dimensions Weight="35.7" Width="472" Depth="473" Height="749"/>
-   <Lens DegreesMax="44" DegreesMin="10" Name=""/>
-   <Focus Type="Head" PanMax="540" TiltMax="268"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="1200"/>
-  </Physical>
   <Channel Number="0">Strobe/shutter</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Dimmer fine</Channel>
@@ -405,4 +335,11 @@
   <Channel Number="31">Ray 3 / Rotation</Channel>
   <Channel Number="32">Ray 4 / Rotation</Channel>
  </Mode>
+<Physical>
+   <Bulb ColourTemperature="6000" Type="MSR 1000w" Lumens="34500"/>
+   <Dimensions Weight="35.7" Width="472" Depth="473" Height="749"/>
+   <Lens DegreesMax="44" DegreesMin="10" Name=""/>
+   <Focus Type="Head" PanMax="540" TiltMax="268"/>
+   <Technical DmxConnector="5-pin" PowerConsumption="1200"/>
+  </Physical>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>Elation</Manufacturer>
  <Model>Color Spot 150</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan movement by 530deg</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt movement by 280deg</Capability>
- </Channel>
- <Channel Name="Pan fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Fine control of pan movement</Capability>
- </Channel>
- <Channel Name="Tilt fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Fine control of tilt</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
  <Channel Name="Speed of pan/tilt movement">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="0">Max. speed (tracking mode)</Capability>
@@ -90,13 +78,6 @@
   <Capability Min="224" Max="255">Shutter open</Capability>
  </Channel>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb Type="CDM 150W" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="12.5" Width="292" Height="415" Depth="378"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="19"/>
-   <Focus Type="Head" PanMax="530" TiltMax="280"/>
-   <Technical PowerConsumption="300" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan fine</Channel>
@@ -107,4 +88,11 @@
   <Channel Number="7">Rotating gobo rotation</Channel>
   <Channel Number="8">Shutter, strobe, reset</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="CDM 150W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="12.5" Width="292" Height="415" Depth="378"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="19"/>
+   <Focus Type="Head" PanMax="530" TiltMax="280"/>
+   <Technical PowerConsumption="300" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -54,18 +54,9 @@
   <Capability Min="251" Max="253">Rainbow 1</Capability>
   <Capability Min="254" Max="255">Rainbow 2</Capability>
  </Channel>
- <Channel Name="Movement Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Movement Speed</Capability>
- </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
+ <Channel Name="Movement Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Rotation speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="122">Clockwise</Capability>
@@ -73,13 +64,6 @@
   <Capability Min="133" Max="255">Counter clockwise</Capability>
  </Channel>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb Lumens="9500" Type="HTI 150W" ColourTemperature="6900"/>
-   <Dimensions Width="250" Height="550" Weight="12" Depth="150"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Mirror" TiltMax="0"/>
-   <Technical PowerConsumption="250" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Shutter</Channel>
   <Channel Number="1">Gobo</Channel>
   <Channel Number="2">Color</Channel>
@@ -88,4 +72,11 @@
   <Channel Number="5">Tilt</Channel>
   <Channel Number="6">Rotation speed</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="9500" Type="HTI 150W" ColourTemperature="6900"/>
+   <Dimensions Width="250" Height="550" Weight="12" Depth="150"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Mirror" TiltMax="0"/>
+   <Technical PowerConsumption="250" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

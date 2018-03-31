@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -84,10 +84,7 @@
   <Capability Min="192" Max="223">Random strobe effect slow to fast</Capability>
   <Capability Min="224" Max="255">No function (shutter open)</Capability>
  </Channel>
- <Channel Name="Dimmer (intensity)">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Intensity 0 to 100%</Capability>
- </Channel>
+ <Channel Name="Dimmer (intensity)" Preset="IntensityDimmer"/>
  <Channel Name="Rotating gobo index, rotating gobo rotation">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="127">Gobo indexing</Capability>
@@ -137,10 +134,7 @@
   <Capability Min="208" Max="223">Gobo 7 shake slow to fast</Capability>
   <Capability Min="224" Max="255">Gobo wheel rotation from slow to fast</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Continuous adjustment from far to near</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusFarNear"/>
  <Channel Name="Lamp on/off, reset, internal programs">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="19">colour change normal</Capability>
@@ -158,13 +152,6 @@
   <Capability Min="240" Max="255">Internal program 8</Capability>
  </Channel>
  <Mode Name="14 channels (16bit)">
-  <Physical>
-   <Bulb Type="MSD 250W" ColourTemperature="8000" Lumens="0"/>
-   <Dimensions Width="600" Depth="470" Height="610" Weight="27"/>
-   <Lens DegreesMin="16" DegreesMax="35" Name="Other"/>
-   <Focus Type="Fixed" PanMax="630" TiltMax="265"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="400"/>
-  </Physical>
   <Channel Number="0">Pan movement</Channel>
   <Channel Number="1">Pan fine</Channel>
   <Channel Number="2">Tilt movement</Channel>
@@ -181,13 +168,6 @@
   <Channel Number="13">Lamp on/off, reset, internal programs</Channel>
  </Mode>
  <Mode Name="12 channels (8bit)">
-  <Physical>
-   <Bulb Type="MSD 250W" ColourTemperature="8000" Lumens="0"/>
-   <Dimensions Width="600" Depth="470" Height="610" Weight="27"/>
-   <Lens DegreesMin="16" DegreesMax="35" Name="Other"/>
-   <Focus Type="Fixed" PanMax="630" TiltMax="265"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="400"/>
-  </Physical>
   <Channel Number="0">Pan movement</Channel>
   <Channel Number="1">Tilt movement</Channel>
   <Channel Number="2">Speed Pan/Tilt movement</Channel>
@@ -201,4 +181,11 @@
   <Channel Number="10">Focus</Channel>
   <Channel Number="11">Lamp on/off, reset, internal programs</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="MSD 250W" ColourTemperature="8000" Lumens="0"/>
+   <Dimensions Width="600" Depth="470" Height="610" Weight="27"/>
+   <Lens DegreesMin="16" DegreesMax="35" Name="Other"/>
+   <Focus Type="Fixed" PanMax="630" TiltMax="265"/>
+   <Technical DmxConnector="5-pin" PowerConsumption="400"/>
+  </Physical>
 </FixtureDefinition>

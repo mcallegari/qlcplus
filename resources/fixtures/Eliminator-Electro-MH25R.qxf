@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,26 +9,11 @@
  <Manufacturer>Eliminator Lighting</Manufacturer>
  <Model>Electro MH25R</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">PAN</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">TILT</Capability>
- </Channel>
- <Channel Name="16bit Pan">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">16 BIT PAN ADJUS</Capability>
- </Channel>
- <Channel Name="16bit Tilt">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">16 BIT TILT ADJUS</Capability>
- </Channel>
- <Channel Name="Pan/Tilt Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">SLOW &gt; FAST</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="16bit Pan" Preset="PositionPanFine"/>
+ <Channel Name="16bit Tilt" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltSlowFast"/>
  <Channel Name="Color wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="4" Color="#ffffff">White</Capability>
@@ -50,10 +35,7 @@
   <Capability Min="40" Max="249">Strobing Slow &gt; Fast</Capability>
   <Capability Min="250" Max="255">ON</Capability>
  </Channel>
- <Channel Name="Master dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% &gt; 100%</Capability>
- </Channel>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Gobo wheel">
   <Group Byte="0">Gobo</Group>
   <Capability Res="Others/open.png" Min="0" Max="4">Spot</Capability>
@@ -102,13 +84,6 @@
   <Capability Min="251" Max="255">Program Runs By Sound Active</Capability>
  </Channel>
  <Mode Name="12 Channels">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="266" Height="304" Weight="18.6" Depth="254"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
-   <Technical PowerConsumption="250" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">16bit Pan</Channel>
@@ -123,13 +98,6 @@
   <Channel Number="11">Program function</Channel>
  </Mode>
  <Mode Name="8 Channels">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="266" Height="304" Weight="18.6" Depth="254"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
-   <Technical PowerConsumption="250" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan/Tilt Speed</Channel>
@@ -139,4 +107,11 @@
   <Channel Number="6">Strobing</Channel>
   <Channel Number="7">Master dimmer</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="266" Height="304" Weight="18.6" Depth="254"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
+   <Technical PowerConsumption="250" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

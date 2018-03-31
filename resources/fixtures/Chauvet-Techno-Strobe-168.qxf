@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -16,19 +16,16 @@
   <Capability Min="241" Max="250">Full On (all LEDs on)</Capability>
   <Capability Min="251" Max="255">Sound-Active mode</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Mode Name="2-Channel Mode">
-  <Physical>
+  <Channel Number="0">Control Functions</Channel>
+  <Channel Number="1">Dimmer</Channel>
+ </Mode>
+<Physical>
    <Bulb Lumens="500" Type="LED" ColourTemperature="0"/>
    <Dimensions Width="238" Height="220" Weight="1" Depth="140"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="28" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Control Functions</Channel>
-  <Channel Number="1">Dimmer</Channel>
- </Mode>
 </FixtureDefinition>

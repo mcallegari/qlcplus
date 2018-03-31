@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,14 +9,8 @@
  <Manufacturer>Futurelight</Manufacturer>
  <Model>AHS-150</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Pan/tilt speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="4">Tracking mode</Capability>
@@ -25,10 +19,7 @@
   <Capability Min="236" Max="245">BO with colour/gobo change</Capability>
   <Capability Min="246" Max="255">No function</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Near to far</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="9">Open</Capability>
@@ -46,10 +37,7 @@
   <Capability Min="170" Max="189">Gobo 6 shake speed</Capability>
   <Capability Min="190" Max="255">Gobo rainbow speed</Capability>
  </Channel>
- <Channel Name="Gobo index">
-  <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="255">Gobo indexing</Capability>
- </Channel>
+ <Channel Name="Gobo index" Preset="GoboIndex"/>
  <Channel Name="Gobo rotation">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="11">Gobo indexing</Capability>
@@ -87,22 +75,9 @@
   <Capability Min="48" Max="63">Colour change at every position, search clockwise</Capability>
   <Capability Min="240" Max="255">No function</Capability>
  </Channel>
- <Channel Name="Pan fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine</Capability>
- </Channel>
- <Channel Name="Tilt fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine</Capability>
- </Channel>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb Type="HSD 150W" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="13" Width="320" Height="485" Depth="330"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Head" PanMax="540" TiltMax="265"/>
-   <Technical PowerConsumption="285" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan/tilt speed</Channel>
@@ -115,4 +90,11 @@
   <Channel Number="9">Pan fine</Channel>
   <Channel Number="10">Tilt fine</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="HSD 150W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="13" Width="320" Height="485" Depth="330"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="540" TiltMax="265"/>
+   <Technical PowerConsumption="285" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

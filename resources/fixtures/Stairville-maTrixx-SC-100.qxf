@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,14 +9,8 @@
  <Manufacturer>Stairville</Manufacturer>
  <Model>maTrixx SC-100</Model>
  <Type>Scanner</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Pattern/Chase">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="9" Color="#000000">Blackout</Capability>
@@ -53,16 +47,16 @@
   <Capability Min="250" Max="255">Stand-Alone</Capability>
  </Channel>
  <Mode Name="4-Channel Mode">
-  <Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pattern/Chase</Channel>
+  <Channel Number="3">Strobe</Channel>
+ </Mode>
+<Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
    <Dimensions Width="420" Height="140" Weight="3" Depth="171"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="180" Type="Fixed" TiltMax="45"/>
    <Technical PowerConsumption="40" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Pan</Channel>
-  <Channel Number="1">Tilt</Channel>
-  <Channel Number="2">Pattern/Chase</Channel>
-  <Channel Number="3">Strobe</Channel>
- </Mode>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>JB-Lighting</Manufacturer>
  <Model>A12 Tunable White</Model>
  <Type>Color Changer</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">(X) movement 433°</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">(X) fine</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">(Y) movement 333°</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">(Y) fine</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Control - Fade Out With Fader (Slow - Fast)">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="7">Full output power on LEDs - desk mode 1</Capability>
@@ -81,10 +69,7 @@
   <Capability Min="240" Max="254">Random fade, 100% (0.6 sec. - 4.8 sec.)</Capability>
   <Capability Min="255" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0 - 100%</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Zoom">
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="255">8° - 48° (1/10 peak measurements)</Capability>
@@ -167,128 +152,37 @@
   <Capability Min="160" Max="223">Not used</Capability>
   <Capability Min="224" Max="255">Dimmer 0% at change of white tone and P/T, fade time slow - max.</Capability>
  </Channel>
- <Channel Name="Cold White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0-100% (8/16-bit)</Capability>
- </Channel>
- <Channel Name="Cold White Fine">
-  <Group Byte="1">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0-100% (16-bit)</Capability>
- </Channel>
- <Channel Name="Warm White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0-100% (8/16-bit)</Capability>
- </Channel>
- <Channel Name="Warm White Fine">
-  <Group Byte="1">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0-100% (16-bit)</Capability>
- </Channel>
+ <Channel Name="Cold White" Preset="IntensityWhite"/>
+ <Channel Name="Cold White Fine" Preset="IntensityWhiteFine"/>
+ <Channel Name="Warm White" Preset="IntensityWhite"/>
+ <Channel Name="Warm White Fine" Preset="IntensityWhiteFine"/>
  <Channel Name="CTC">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="255">CTC 0-100%</Capability>
  </Channel>
- <Channel Name="Cold White - 1. Ring (LED Middle - A)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="Cold White - 2. Ring (B)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="Cold White - 3. Ring (Upper Half Ring - C)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="Cold White - 3. Ring (Lower Half Ring - D)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="Cold White - 4. Ring (Left Half Ring - E)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="Cold White - 4. Ring (Right Half Ring - F)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="Free 10">
-  <Group Byte="0">Nothing</Group>
- </Channel>
- <Channel Name="Free 1">
-  <Group Byte="0">Nothing</Group>
- </Channel>
- <Channel Name="Free 2">
-  <Group Byte="0">Nothing</Group>
- </Channel>
- <Channel Name="Free 3">
-  <Group Byte="0">Nothing</Group>
- </Channel>
- <Channel Name="Free 4">
-  <Group Byte="0">Nothing</Group>
- </Channel>
- <Channel Name="Free 5">
-  <Group Byte="0">Nothing</Group>
- </Channel>
- <Channel Name="Free 6">
-  <Group Byte="0">Nothing</Group>
- </Channel>
- <Channel Name="Free 7">
-  <Group Byte="0">Nothing</Group>
- </Channel>
- <Channel Name="Free 8">
-  <Group Byte="0">Nothing</Group>
- </Channel>
- <Channel Name="Free 9">
-  <Group Byte="0">Nothing</Group>
- </Channel>
- <Channel Name="Warm White - 1. Ring (LED Middle - A)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="Warm White - 2. Ring (B)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="Warm White - 3. Ring (Upper Half Ring - C)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="Warm White - 3. Ring (Lower Half Ring - D)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="Warm White - 4. Ring (Left Half Ring - E)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="Warm White - 4. Ring (Right Half Ring - F)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
+ <Channel Name="Cold White - 1. Ring (LED Middle - A)" Preset="IntensityWhite"/>
+ <Channel Name="Cold White - 2. Ring (B)" Preset="IntensityWhite"/>
+ <Channel Name="Cold White - 3. Ring (Upper Half Ring - C)" Preset="IntensityWhite"/>
+ <Channel Name="Cold White - 3. Ring (Lower Half Ring - D)" Preset="IntensityWhite"/>
+ <Channel Name="Cold White - 4. Ring (Left Half Ring - E)" Preset="IntensityWhite"/>
+ <Channel Name="Cold White - 4. Ring (Right Half Ring - F)" Preset="IntensityWhite"/>
+ <Channel Name="Free 10" Preset="NoFunction"/>
+ <Channel Name="Free 1" Preset="NoFunction"/>
+ <Channel Name="Free 2" Preset="NoFunction"/>
+ <Channel Name="Free 3" Preset="NoFunction"/>
+ <Channel Name="Free 4" Preset="NoFunction"/>
+ <Channel Name="Free 5" Preset="NoFunction"/>
+ <Channel Name="Free 6" Preset="NoFunction"/>
+ <Channel Name="Free 7" Preset="NoFunction"/>
+ <Channel Name="Free 8" Preset="NoFunction"/>
+ <Channel Name="Free 9" Preset="NoFunction"/>
+ <Channel Name="Warm White - 1. Ring (LED Middle - A)" Preset="IntensityWhite"/>
+ <Channel Name="Warm White - 2. Ring (B)" Preset="IntensityWhite"/>
+ <Channel Name="Warm White - 3. Ring (Upper Half Ring - C)" Preset="IntensityWhite"/>
+ <Channel Name="Warm White - 3. Ring (Lower Half Ring - D)" Preset="IntensityWhite"/>
+ <Channel Name="Warm White - 4. Ring (Left Half Ring - E)" Preset="IntensityWhite"/>
+ <Channel Name="Warm White - 4. Ring (Right Half Ring - F)" Preset="IntensityWhite"/>
  <Mode Name="Standard 8 Bit (S8)">
-  <Physical>
-   <Bulb Type="LED" Lumens="13884" ColourTemperature="0"/>
-   <Dimensions Weight="15.7" Width="437" Height="536" Depth="308"/>
-   <Lens Name="Other" DegreesMin="8" DegreesMax="48"/>
-   <Focus Type="Fixed" PanMax="433" TiltMax="333"/>
-   <Technical PowerConsumption="830" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -307,13 +201,6 @@
   <Channel Number="15">Warm White</Channel>
  </Mode>
  <Mode Name="Standard 16 Bit (S16)">
-  <Physical>
-   <Bulb Type="LED" Lumens="13884" ColourTemperature="0"/>
-   <Dimensions Weight="15.7" Width="437" Height="536" Depth="308"/>
-   <Lens Name="Other" DegreesMin="8" DegreesMax="48"/>
-   <Focus Type="Fixed" PanMax="433" TiltMax="333"/>
-   <Technical PowerConsumption="830" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -334,13 +221,6 @@
   <Channel Number="17">Warm White Fine</Channel>
  </Mode>
  <Mode Name="Compressed 8 Bit (C8)">
-  <Physical>
-   <Bulb Type="LED" Lumens="13884" ColourTemperature="0"/>
-   <Dimensions Weight="15.7" Width="437" Height="536" Depth="308"/>
-   <Lens Name="Other" DegreesMin="8" DegreesMax="48"/>
-   <Focus Type="Fixed" PanMax="433" TiltMax="333"/>
-   <Technical PowerConsumption="830" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -356,13 +236,6 @@
   <Channel Number="12">Warm White</Channel>
  </Mode>
  <Mode Name="Compressed 16 Bit (C16)">
-  <Physical>
-   <Bulb Type="LED" Lumens="13884" ColourTemperature="0"/>
-   <Dimensions Weight="15.7" Width="437" Height="536" Depth="308"/>
-   <Lens Name="Other" DegreesMin="8" DegreesMax="48"/>
-   <Focus Type="Fixed" PanMax="433" TiltMax="333"/>
-   <Technical PowerConsumption="830" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -380,13 +253,6 @@
   <Channel Number="14">Warm White Fine</Channel>
  </Mode>
  <Mode Name="Extended 8 Bit (E8)">
-  <Physical>
-   <Bulb Type="LED" Lumens="13884" ColourTemperature="0"/>
-   <Dimensions Weight="15.7" Width="437" Height="536" Depth="308"/>
-   <Lens Name="Other" DegreesMin="8" DegreesMax="48"/>
-   <Focus Type="Fixed" PanMax="433" TiltMax="333"/>
-   <Technical PowerConsumption="830" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -448,4 +314,11 @@
    <Channel>34</Channel>
   </Head>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="13884" ColourTemperature="0"/>
+   <Dimensions Weight="15.7" Width="437" Height="536" Depth="308"/>
+   <Lens Name="Other" DegreesMin="8" DegreesMax="48"/>
+   <Focus Type="Fixed" PanMax="433" TiltMax="333"/>
+   <Technical PowerConsumption="830" DmxConnector="5-pin"/>
+  </Physical>
 </FixtureDefinition>

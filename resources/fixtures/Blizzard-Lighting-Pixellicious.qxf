@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,29 +9,11 @@
  <Manufacturer>Blizzard Lighting</Manufacturer>
  <Model>Pixellicious</Model>
  <Type>Color Changer</Type>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Strobe">
-  <Group Byte="0">Shutter</Group>
-  <Capability Max="255" Min="0">Slow &lt;--&gt; fast</Capability>
- </Channel>
- <Channel Name="Red Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Max="255" Min="0" Color="#ff0000">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Green Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Max="255" Min="0" Color="#00ff00">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Blue Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Max="255" Min="0" Color="#0000ff">0% &lt;--&gt; 100%</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Red Intensity" Preset="IntensityRed"/>
+ <Channel Name="Green Intensity" Preset="IntensityGreen"/>
+ <Channel Name="Blue Intensity" Preset="IntensityBlue"/>
  <Channel Name="Auto Programs 1-15">
   <Group Byte="0">Effect</Group>
   <Capability Max="255" Min="0">1-15</Capability>
@@ -44,149 +26,34 @@
   <Group Byte="0">Speed</Group>
   <Capability Max="255" Min="0">Slow &lt;--&gt; fast</Capability>
  </Channel>
- <Channel Name="Section 1 Red Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Section 2 Red Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Section 3 Red Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Section 4 Red Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Section 5 Red Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Section 6 Red Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Section 7 Red Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Section 8 Red Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Section 9 Red Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Section 1 Green Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Section 2 Green Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Section 3 Green Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Section 4 Green Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Section 5 Green Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Section 6 Green Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Section 7 Green Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Section 8 Green Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Section 9 Green Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Section 1 Blue Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Section 2 Blue Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Section 3 Blue Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Section 4 Blue Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Section 5 Blue Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Section 6 Blue Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Section 7 Blue Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Section 8 Blue Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Section 9 Blue Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Max="255" Min="0">0% &lt;--&gt; 100%</Capability>
- </Channel>
+ <Channel Name="Section 1 Red Intensity" Preset="IntensityRed"/>
+ <Channel Name="Section 2 Red Intensity" Preset="IntensityRed"/>
+ <Channel Name="Section 3 Red Intensity" Preset="IntensityRed"/>
+ <Channel Name="Section 4 Red Intensity" Preset="IntensityRed"/>
+ <Channel Name="Section 5 Red Intensity" Preset="IntensityRed"/>
+ <Channel Name="Section 6 Red Intensity" Preset="IntensityRed"/>
+ <Channel Name="Section 7 Red Intensity" Preset="IntensityRed"/>
+ <Channel Name="Section 8 Red Intensity" Preset="IntensityRed"/>
+ <Channel Name="Section 9 Red Intensity" Preset="IntensityRed"/>
+ <Channel Name="Section 1 Green Intensity" Preset="IntensityGreen"/>
+ <Channel Name="Section 2 Green Intensity" Preset="IntensityGreen"/>
+ <Channel Name="Section 3 Green Intensity" Preset="IntensityGreen"/>
+ <Channel Name="Section 4 Green Intensity" Preset="IntensityGreen"/>
+ <Channel Name="Section 5 Green Intensity" Preset="IntensityGreen"/>
+ <Channel Name="Section 6 Green Intensity" Preset="IntensityGreen"/>
+ <Channel Name="Section 7 Green Intensity" Preset="IntensityGreen"/>
+ <Channel Name="Section 8 Green Intensity" Preset="IntensityGreen"/>
+ <Channel Name="Section 9 Green Intensity" Preset="IntensityGreen"/>
+ <Channel Name="Section 1 Blue Intensity" Preset="IntensityBlue"/>
+ <Channel Name="Section 2 Blue Intensity" Preset="IntensityBlue"/>
+ <Channel Name="Section 3 Blue Intensity" Preset="IntensityBlue"/>
+ <Channel Name="Section 4 Blue Intensity" Preset="IntensityBlue"/>
+ <Channel Name="Section 5 Blue Intensity" Preset="IntensityBlue"/>
+ <Channel Name="Section 6 Blue Intensity" Preset="IntensityBlue"/>
+ <Channel Name="Section 7 Blue Intensity" Preset="IntensityBlue"/>
+ <Channel Name="Section 8 Blue Intensity" Preset="IntensityBlue"/>
+ <Channel Name="Section 9 Blue Intensity" Preset="IntensityBlue"/>
  <Mode Name="35 Channel Mode">
-  <Physical>
-   <Bulb Lumens="2160" Type="160 LEDs 5050" ColourTemperature="5500"/>
-   <Dimensions Height="117" Weight="3.5" Width="1000" Depth="107"/>
-   <Lens Name="Other" DegreesMin="120" DegreesMax="120"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical PowerConsumption="51" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Strobe</Channel>
   <Channel Number="2">Section 1 Red Intensity</Channel>
@@ -271,13 +138,6 @@
   </Head>
  </Mode>
  <Mode Name="8 Channel Mode">
-  <Physical>
-   <Bulb Lumens="2160" Type="160 LEDs 5050" ColourTemperature="5500"/>
-   <Dimensions Height="117" Weight="3.5" Width="1000" Depth="107"/>
-   <Lens Name="Other" DegreesMin="120" DegreesMax="120"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical PowerConsumption="51" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Strobe</Channel>
   <Channel Number="2">Red Intensity</Channel>
@@ -287,4 +147,11 @@
   <Channel Number="6">Auto Programs 16-29 + Mix Mode</Channel>
   <Channel Number="7">Auto Program Speed</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="2160" Type="160 LEDs 5050" ColourTemperature="5500"/>
+   <Dimensions Height="117" Weight="3.5" Width="1000" Depth="107"/>
+   <Lens Name="Other" DegreesMin="120" DegreesMax="120"/>
+   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Technical PowerConsumption="51" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

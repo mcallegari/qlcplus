@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,18 +9,9 @@
  <Manufacturer>Chauvet</Manufacturer>
  <Model>Intimidator Wave 360 IRC</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Max="255" Min="0">pan movement</Capability>
- </Channel>
- <Channel Name="Pan 16-bit">
-  <Group Byte="1">Pan</Group>
-  <Capability Max="255" Min="0">pan fine movement</Capability>
- </Channel>
- <Channel Name="Pan Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Max="255" Min="0">Pan Speed (decreasing speed)</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan 16-bit" Preset="PositionPanFine"/>
+ <Channel Name="Pan Speed" Preset="SpeedPanFastSlow"/>
  <Channel Name="Continuous Pan Rotating">
   <Group Byte="0">Effect</Group>
   <Capability Max="0" Min="0">No function</Capability>
@@ -29,22 +20,10 @@ increasing speed</Capability>
   <Capability Max="255" Min="128">Continuous clockwise pan rotating with decreasing
 speed</Capability>
  </Channel>
- <Channel Name="Head 1 Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Max="255" Min="0">0 - 270°</Capability>
- </Channel>
- <Channel Name="Head 2 Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Max="255" Min="0">0 - 270°</Capability>
- </Channel>
- <Channel Name="Head 3 Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Max="255" Min="0">0 - 270°</Capability>
- </Channel>
- <Channel Name="Head 4 Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Max="255" Min="0">0 - 270°</Capability>
- </Channel>
+ <Channel Name="Head 1 Tilt" Preset="PositionTilt"/>
+ <Channel Name="Head 2 Tilt" Preset="PositionTilt"/>
+ <Channel Name="Head 3 Tilt" Preset="PositionTilt"/>
+ <Channel Name="Head 4 Tilt" Preset="PositionTilt"/>
  <Channel Name="Built-In Auto Tilt">
   <Group Byte="0">Effect</Group>
   <Capability Max="47" Min="0">No function</Capability>
@@ -75,90 +54,23 @@ speed</Capability>
   <Capability Max="247" Min="240">Built-In Auto 25 (Built-In Auto 1-24)</Capability>
   <Capability Max="255" Min="248">Built-In Sound Control mode</Capability>
  </Channel>
- <Channel Name="Tilt Built-In Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Max="255" Min="0">Fast to slow</Capability>
- </Channel>
- <Channel Name="Head 1 Red Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Max="255" Min="0">0 - 100%</Capability>
- </Channel>
- <Channel Name="Head 1 Green Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Max="255" Min="0">0 - 100%</Capability>
- </Channel>
- <Channel Name="Head 1 Blue Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Max="255" Min="0">0 - 100%</Capability>
- </Channel>
- <Channel Name="Head 1 White Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Max="255" Min="0">0 - 100%</Capability>
- </Channel>
- <Channel Name="Head 2 Red Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Max="255" Min="0">0 - 100%</Capability>
- </Channel>
- <Channel Name="Head 2 Green Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Max="255" Min="0">0 - 100%</Capability>
- </Channel>
- <Channel Name="Head 2 Blue Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Max="255" Min="0">0 - 100%</Capability>
- </Channel>
- <Channel Name="Head 2 White Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Max="255" Min="0">0 - 100%</Capability>
- </Channel>
- <Channel Name="Head 3 Red Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Max="255" Min="0">0 - 100%</Capability>
- </Channel>
- <Channel Name="Head 3 Green Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Max="255" Min="0">0 - 100%</Capability>
- </Channel>
- <Channel Name="Head 3 Blue Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Max="255" Min="0">0 - 100%</Capability>
- </Channel>
- <Channel Name="Head 3 White Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Max="255" Min="0">0 - 100%</Capability>
- </Channel>
- <Channel Name="Head 4 Red Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Max="255" Min="0">0 - 100%</Capability>
- </Channel>
- <Channel Name="Head 4 Green Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Max="255" Min="0">0 - 100%</Capability>
- </Channel>
- <Channel Name="Head 4 Blue Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Max="255" Min="0">0 - 100%</Capability>
- </Channel>
- <Channel Name="Head 4 White Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Max="255" Min="0">0 - 100%</Capability>
- </Channel>
+ <Channel Name="Tilt Built-In Speed" Preset="SpeedTiltFastSlow"/>
+ <Channel Name="Head 1 Red Dimmer" Preset="IntensityRed"/>
+ <Channel Name="Head 1 Green Dimmer" Preset="IntensityGreen"/>
+ <Channel Name="Head 1 Blue Dimmer" Preset="IntensityBlue"/>
+ <Channel Name="Head 1 White Dimmer" Preset="IntensityWhite"/>
+ <Channel Name="Head 2 Red Dimmer" Preset="IntensityRed"/>
+ <Channel Name="Head 2 Green Dimmer" Preset="IntensityGreen"/>
+ <Channel Name="Head 2 Blue Dimmer" Preset="IntensityBlue"/>
+ <Channel Name="Head 2 White Dimmer" Preset="IntensityWhite"/>
+ <Channel Name="Head 3 Red Dimmer" Preset="IntensityRed"/>
+ <Channel Name="Head 3 Green Dimmer" Preset="IntensityGreen"/>
+ <Channel Name="Head 3 Blue Dimmer" Preset="IntensityBlue"/>
+ <Channel Name="Head 3 White Dimmer" Preset="IntensityWhite"/>
+ <Channel Name="Head 4 Red Dimmer" Preset="IntensityRed"/>
+ <Channel Name="Head 4 Green Dimmer" Preset="IntensityGreen"/>
+ <Channel Name="Head 4 Blue Dimmer" Preset="IntensityBlue"/>
+ <Channel Name="Head 4 White Dimmer" Preset="IntensityWhite"/>
  <Channel Name="Colors">
   <Group Byte="0">Colour</Group>
   <Capability Max="7" Min="0">No Function</Capability>
@@ -276,10 +188,7 @@ speed</Capability>
   <Group Byte="0">Speed</Group>
   <Capability Max="255" Min="0">Slow to fast</Capability>
  </Channel>
- <Channel Name="Dimmer All Heads">
-  <Group Byte="0">Intensity</Group>
-  <Capability Max="255" Min="0">0 - 100%</Capability>
- </Channel>
+ <Channel Name="Dimmer All Heads" Preset="IntensityDimmer"/>
  <Channel Name="Shutter Programs">
   <Group Byte="0">Effect</Group>
   <Capability Max="19" Min="0">Off</Capability>
@@ -345,13 +254,6 @@ This is the value for fourth head</Capability>
   <Capability Max="255" Min="145">No Function</Capability>
  </Channel>
  <Mode Name="33 ch.">
-  <Physical>
-   <Bulb Type="LED" ColourTemperature="0" Lumens="400"/>
-   <Dimensions Width="559" Depth="189" Weight="8.8" Height="297"/>
-   <Lens Name="Other" DegreesMax="5" DegreesMin="5"/>
-   <Focus TiltMax="270" Type="Head" PanMax="540"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="177"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan 16-bit</Channel>
   <Channel Number="2">Pan Speed</Channel>
@@ -411,13 +313,6 @@ This is the value for fourth head</Capability>
   </Head>
  </Mode>
  <Mode Name="17 ch.">
-  <Physical>
-   <Bulb Type="LED" ColourTemperature="0" Lumens="400"/>
-   <Dimensions Width="559" Depth="189" Weight="8.8" Height="297"/>
-   <Lens Name="Other" DegreesMax="5" DegreesMin="5"/>
-   <Focus TiltMax="270" Type="Head" PanMax="540"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="177"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan 16-bit</Channel>
   <Channel Number="2">Pan Speed</Channel>
@@ -448,4 +343,11 @@ This is the value for fourth head</Capability>
    <Channel>7</Channel>
   </Head>
  </Mode>
+<Physical>
+   <Bulb Type="LED" ColourTemperature="0" Lumens="400"/>
+   <Dimensions Width="559" Depth="189" Weight="8.8" Height="297"/>
+   <Lens Name="Other" DegreesMax="5" DegreesMin="5"/>
+   <Focus TiltMax="270" Type="Head" PanMax="540"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="177"/>
+  </Physical>
 </FixtureDefinition>

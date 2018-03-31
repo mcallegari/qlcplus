@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,14 +9,8 @@
  <Manufacturer>Futurelight</Manufacturer>
  <Model>PHS-150</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Pan/tilt speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="4">Tracking mode</Capability>
@@ -93,13 +87,6 @@
   <Capability Min="224" Max="239">Lamp off</Capability>
  </Channel>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb Type="CDM 150W" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="13" Width="320" Height="485" Depth="330"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Head" PanMax="540" TiltMax="265"/>
-   <Technical PowerConsumption="285" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan/tilt speed</Channel>
@@ -109,4 +96,11 @@
   <Channel Number="6">Shutter</Channel>
   <Channel Number="7">Lamp switch, reset, programs</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="CDM 150W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="13" Width="320" Height="485" Depth="330"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="540" TiltMax="265"/>
+   <Technical PowerConsumption="285" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -23,14 +23,14 @@
   <Capability Min="171" Max="255">Motor rotation right-to-left-to-right (Slow ~ Fast)</Capability>
  </Channel>
  <Mode Name="Standard">
-  <Physical>
+  <Channel Number="0">Control/Operating Mode</Channel>
+  <Channel Number="1">Motor Rotation</Channel>
+ </Mode>
+<Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
    <Dimensions Weight="2.7" Width="283" Depth="297" Height="264"/>
    <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
    <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
    <Technical DmxConnector="3-pin" PowerConsumption="30"/>
   </Physical>
-  <Channel Number="0">Control/Operating Mode</Channel>
-  <Channel Number="1">Motor Rotation</Channel>
- </Mode>
 </FixtureDefinition>

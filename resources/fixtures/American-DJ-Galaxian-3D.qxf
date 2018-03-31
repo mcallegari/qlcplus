@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -60,17 +60,17 @@
   <Capability Min="248" Max="255">Sound Active</Capability>
  </Channel>
  <Mode Name="DMX Mode">
-  <Physical>
-   <Bulb Lumens="0" Type="Diode Lasers" ColourTemperature="0"/>
-   <Dimensions Width="247" Height="71" Weight="3" Depth="242"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="23" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red Laser</Channel>
   <Channel Number="1">Green Laser</Channel>
   <Channel Number="2">Laser Rotation 1</Channel>
   <Channel Number="3">Laser Rotation 2</Channel>
   <Channel Number="4">Macros</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="Diode Lasers" ColourTemperature="0"/>
+   <Dimensions Width="247" Height="71" Weight="3" Depth="242"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="23" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

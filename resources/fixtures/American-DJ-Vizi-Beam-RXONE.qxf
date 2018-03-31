@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>American DJ</Manufacturer>
  <Model>Vizi Beam RXONE</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan Movement">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">0-360° (540° optional)</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine</Capability>
- </Channel>
- <Channel Name="Tilt Movement">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">0-270°</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine</Capability>
- </Channel>
+ <Channel Name="Pan Movement" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Movement" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Colour Wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="2" Color="#ffffff">White</Capability>
@@ -117,19 +105,13 @@
   <Capability Min="240" Max="247">Random strobe</Capability>
   <Capability Min="248" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Master Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Frost">
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="255">0% - 100%</Capability>
  </Channel>
- <Channel Name="Pan/Tilt Macro Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Fast - slow</Capability>
- </Channel>
+ <Channel Name="Pan/Tilt Macro Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Special Functions">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="49">No function</Capability>
@@ -229,18 +211,8 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Fast - slow</Capability>
  </Channel>
- <Channel Name="Pan/Tilt Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Fast - slow</Capability>
- </Channel>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
  <Mode Name="15-Channel">
-  <Physical>
-   <Bulb Type="Osram Sirius HRI 100W" Lumens="21380" ColourTemperature="9000"/>
-   <Dimensions Weight="23" Width="225" Height="387" Depth="279"/>
-   <Lens Name="Other" DegreesMin="3" DegreesMax="21"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="199" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan Movement</Channel>
   <Channel Number="1">Tilt Movement</Channel>
   <Channel Number="2">Colour Wheel</Channel>
@@ -258,13 +230,6 @@
   <Channel Number="14">Special Functions</Channel>
  </Mode>
  <Mode Name="17-Channel">
-  <Physical>
-   <Bulb Type="Osram Sirius HRI 100W" Lumens="21380" ColourTemperature="9000"/>
-   <Dimensions Weight="23" Width="225" Height="387" Depth="279"/>
-   <Lens Name="Other" DegreesMin="3" DegreesMax="21"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="199" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan Movement</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt Movement</Channel>
@@ -283,4 +248,11 @@
   <Channel Number="15">Pan/Tilt Speed</Channel>
   <Channel Number="16">Special Functions</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="Osram Sirius HRI 100W" Lumens="21380" ColourTemperature="9000"/>
+   <Dimensions Weight="23" Width="225" Height="387" Depth="279"/>
+   <Lens Name="Other" DegreesMin="3" DegreesMax="21"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="199" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

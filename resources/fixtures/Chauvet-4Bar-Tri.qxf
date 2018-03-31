@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -36,74 +36,19 @@
   <Capability Min="0" Max="0">NONE</Capability>
   <Capability Min="10" Max="255">Strobe Slow-&gt;Fast</Capability>
  </Channel>
- <Channel Name="1Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red Level</Capability>
- </Channel>
- <Channel Name="1Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green Level</Capability>
- </Channel>
- <Channel Name="1Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue Level</Capability>
- </Channel>
- <Channel Name="2Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red Level</Capability>
- </Channel>
- <Channel Name="2Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green Level</Capability>
- </Channel>
- <Channel Name="2Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue Level</Capability>
- </Channel>
- <Channel Name="3Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red Level</Capability>
- </Channel>
- <Channel Name="3Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green Level</Capability>
- </Channel>
- <Channel Name="3Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue Level</Capability>
- </Channel>
- <Channel Name="4Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red Level</Capability>
- </Channel>
- <Channel Name="4Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green Level</Capability>
- </Channel>
- <Channel Name="4Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue Level</Capability>
- </Channel>
+ <Channel Name="1Red" Preset="IntensityRed"/>
+ <Channel Name="1Green" Preset="IntensityGreen"/>
+ <Channel Name="1Blue" Preset="IntensityBlue"/>
+ <Channel Name="2Red" Preset="IntensityRed"/>
+ <Channel Name="2Green" Preset="IntensityGreen"/>
+ <Channel Name="2Blue" Preset="IntensityBlue"/>
+ <Channel Name="3Red" Preset="IntensityRed"/>
+ <Channel Name="3Green" Preset="IntensityGreen"/>
+ <Channel Name="3Blue" Preset="IntensityBlue"/>
+ <Channel Name="4Red" Preset="IntensityRed"/>
+ <Channel Name="4Green" Preset="IntensityGreen"/>
+ <Channel Name="4Blue" Preset="IntensityBlue"/>
  <Mode Name="Main ">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="14.1" Width="1219" Height="285" Depth="55"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="115" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Mode</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Strobe</Channel>
@@ -140,4 +85,11 @@
    <Channel>12</Channel>
   </Head>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="14.1" Width="1219" Height="285" Depth="55"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="115" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

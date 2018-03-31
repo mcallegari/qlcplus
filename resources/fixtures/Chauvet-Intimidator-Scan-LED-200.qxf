@@ -3,38 +3,32 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.9.1</Version>
+  <Version>4.11.2 GIT</Version>
   <Author>Scott</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
  <Model>Intimidator Scan LED 200</Model>
  <Type>Scanner</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">0°~180°</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">0°~90°</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
-  <Capability Color="#ffffff" Min="0" Max="7">Open (White)</Capability>
-  <Capability Color="#0000c0" Min="8" Max="15">Dark Blue</Capability>
-  <Capability Color="#ffff00" Min="16" Max="23">Yellow</Capability>
-  <Capability Color="#ffc0ff" Min="24" Max="31">Pink</Capability>
-  <Capability Color="#00ff00" Min="32" Max="39">Green</Capability>
-  <Capability Color="#ff0000" Min="40" Max="47">Red</Capability>
-  <Capability Color="#0000ff" Min="48" Max="55">Blue</Capability>
-  <Capability Color="#ffa883" Min="56" Max="63">Salmon Pink</Capability>
-  <Capability Color2="#0000c0" Color="#ffffff" Min="64" Max="71">White/Dark Blue</Capability>
-  <Capability Color2="#ffff00" Color="#0000c0" Min="72" Max="79">Dark Blue/Yellow</Capability>
-  <Capability Color2="#ffc0ff" Color="#ffff00" Min="80" Max="87">Yellow/Pink</Capability>
-  <Capability Color2="#00ff00" Color="#ffc0ff" Min="88" Max="95">Pink/Green</Capability>
-  <Capability Color2="#ff0000" Color="#00ff00" Min="96" Max="103">Green/Red</Capability>
-  <Capability Color2="#0000ff" Color="#ff0000" Min="104" Max="111">Red/Blue</Capability>
-  <Capability Color2="#ffa883" Color="#0000ff" Min="112" Max="119">Blue/Salmon Pink</Capability>
-  <Capability Color2="#ffffff" Color="#ffa883" Min="120" Max="127">Salmon Pink/White</Capability>
+  <Capability Min="0" Max="7" Preset="ColorMacro" Res1="#ffffff">Open (White)</Capability>
+  <Capability Min="8" Max="15" Preset="ColorMacro" Res1="#0000c0">Dark Blue</Capability>
+  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#ffc0ff">Pink</Capability>
+  <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#ffa883">Salmon Pink</Capability>
+  <Capability Min="64" Max="71" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#0000c0">White/Dark Blue</Capability>
+  <Capability Min="72" Max="79" Preset="ColorDoubleMacro" Res1="#0000c0" Res2="#ffff00">Dark Blue/Yellow</Capability>
+  <Capability Min="80" Max="87" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ffc0ff">Yellow/Pink</Capability>
+  <Capability Min="88" Max="95" Preset="ColorDoubleMacro" Res1="#ffc0ff" Res2="#00ff00">Pink/Green</Capability>
+  <Capability Min="96" Max="103" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff0000">Green/Red</Capability>
+  <Capability Min="104" Max="111" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red/Blue</Capability>
+  <Capability Min="112" Max="119" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffa883">Blue/Salmon Pink</Capability>
+  <Capability Min="120" Max="127" Preset="ColorDoubleMacro" Res1="#ffa883" Res2="#ffffff">Salmon Pink/White</Capability>
   <Capability Min="128" Max="191">Rotate clockwise (slow ~ fast)</Capability>
   <Capability Min="192" Max="255">Rotate Counterclockwise (slow ~ fast)</Capability>
  </Channel>
@@ -45,27 +39,24 @@
   <Capability Min="8" Max="215">Strobe (slow ~ fast)</Capability>
   <Capability Min="216" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">0%~100%</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Gobo, Gobo Shake, &amp; Gobo Scroll">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/open.png" Min="0" Max="7">Open</Capability>
-  <Capability Res="SGM/gobo00046.png" Min="8" Max="15">Gobo 1</Capability>
-  <Capability Res="SGM/gobo00053.png" Min="16" Max="23">Gobo 2</Capability>
-  <Capability Res="Others/gobo00038.png" Min="24" Max="31">Gobo 3</Capability>
-  <Capability Res="Others/gobo00039.png" Min="32" Max="39">Gobo 4</Capability>
-  <Capability Res="GLP/gobo00006.png" Min="40" Max="47">Gobo 5</Capability>
-  <Capability Res="Others/gobo00040.png" Min="48" Max="55">Gobo 6</Capability>
-  <Capability Res="SGM/gobo00289.png" Min="56" Max="63">Gobo 7</Capability>
-  <Capability Res="SGM/gobo00289.png" Min="64" Max="71">Gobo 7 shake, fast to slow</Capability>
-  <Capability Res="Others/gobo00040.png" Min="72" Max="79">Gobo 6 shake, fast to slow</Capability>
-  <Capability Res="GLP/gobo00006.png" Min="80" Max="87">Gobo 5 shake, fast to slow</Capability>
-  <Capability Res="Others/gobo00039.png" Min="88" Max="95">Gobo 4 shake, fast to slow</Capability>
-  <Capability Res="Others/gobo00038.png" Min="96" Max="103">Gobo 3 shake, fast to slow</Capability>
-  <Capability Res="SGM/gobo00053.png" Min="104" Max="111">Gobo 2 Shake shake, fast to slow</Capability>
-  <Capability Res="SGM/gobo00046.png" Min="112" Max="119">Gobo 1 Shake shake, fast to slow</Capability>
+  <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.png">Open</Capability>
+  <Capability Min="8" Max="15" Preset="GoboMacro" Res1="SGM/gobo00046.png">Gobo 1</Capability>
+  <Capability Min="16" Max="23" Preset="GoboMacro" Res1="SGM/gobo00053.png">Gobo 2</Capability>
+  <Capability Min="24" Max="31" Preset="GoboMacro" Res1="Others/gobo00038.png">Gobo 3</Capability>
+  <Capability Min="32" Max="39" Preset="GoboMacro" Res1="Others/gobo00039.png">Gobo 4</Capability>
+  <Capability Min="40" Max="47" Preset="GoboMacro" Res1="GLP/gobo00006.png">Gobo 5</Capability>
+  <Capability Min="48" Max="55" Preset="GoboMacro" Res1="Others/gobo00040.png">Gobo 6</Capability>
+  <Capability Min="56" Max="63" Preset="GoboMacro" Res1="SGM/gobo00289.png">Gobo 7</Capability>
+  <Capability Min="64" Max="71" Preset="GoboMacro" Res1="SGM/gobo00289.png">Gobo 7 shake, fast to slow</Capability>
+  <Capability Min="72" Max="79" Preset="GoboMacro" Res1="Others/gobo00040.png">Gobo 6 shake, fast to slow</Capability>
+  <Capability Min="80" Max="87" Preset="GoboMacro" Res1="GLP/gobo00006.png">Gobo 5 shake, fast to slow</Capability>
+  <Capability Min="88" Max="95" Preset="GoboMacro" Res1="Others/gobo00039.png">Gobo 4 shake, fast to slow</Capability>
+  <Capability Min="96" Max="103" Preset="GoboMacro" Res1="Others/gobo00038.png">Gobo 3 shake, fast to slow</Capability>
+  <Capability Min="104" Max="111" Preset="GoboMacro" Res1="SGM/gobo00053.png">Gobo 2 Shake shake, fast to slow</Capability>
+  <Capability Min="112" Max="119" Preset="GoboMacro" Res1="SGM/gobo00046.png">Gobo 1 Shake shake, fast to slow</Capability>
   <Capability Min="120" Max="127">Open</Capability>
   <Capability Min="128" Max="191">Gobo ccroll: clockwise rotation</Capability>
   <Capability Min="192" Max="255">Gobo scroll: Counterclockwise rotation</Capability>
@@ -110,13 +101,6 @@
   <Capability Min="248" Max="255">Sound 8</Capability>
  </Channel>
  <Mode Name="8-Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="9000" ColourTemperature="0"/>
-   <Dimensions Depth="168" Width="355" Weight="3.4" Height="368"/>
-   <Lens DegreesMax="15" DegreesMin="15" Name="Other"/>
-   <Focus Type="Mirror" PanMax="180" TiltMax="90"/>
-   <Technical PowerConsumption="86" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Color</Channel>
@@ -127,17 +111,17 @@
   <Channel Number="7">Movement Macros</Channel>
  </Mode>
  <Mode Name="5-Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="9000" ColourTemperature="0"/>
-   <Dimensions Depth="168" Width="355" Weight="3.4" Height="368"/>
-   <Lens DegreesMax="15" DegreesMin="15" Name="Other"/>
-   <Focus Type="Mirror" PanMax="180" TiltMax="90"/>
-   <Technical PowerConsumption="86" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Color</Channel>
   <Channel Number="3">Shutter</Channel>
   <Channel Number="4">Gobo, Gobo Shake, &amp; Gobo Scroll</Channel>
  </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="9000" ColourTemperature="0"/>
+  <Dimensions Weight="3.4" Width="355" Height="368" Depth="168"/>
+  <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
+  <Focus Type="Mirror" PanMax="180" TiltMax="90"/>
+  <Technical PowerConsumption="86" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

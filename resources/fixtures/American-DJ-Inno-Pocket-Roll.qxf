@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,10 +9,7 @@
  <Manufacturer>American DJ</Manufacturer>
  <Model>Inno Pocket Roll</Model>
  <Type>Scanner</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
  <Channel Name="Tilt">
   <Group Byte="0">Tilt</Group>
   <Capability Min="0" Max="9">Stop</Capability>
@@ -56,10 +53,7 @@
   <Capability Min="121" Color2="#66ffff" Color="#800080" Max="127">Gobo 8 UV &amp; light blue shake</Capability>
   <Capability Min="128" Res="Others/rainbow.png" Max="255">Gobo wheel rotation slow - fast</Capability>
  </Channel>
- <Channel Name="Master Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Dimmer Mode">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="20">Standard</Capability>
@@ -70,13 +64,6 @@
   <Capability Min="101" Max="255">Default dimmer setting</Capability>
  </Channel>
  <Mode Name="6 Channel Mode">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Depth="329" Weight="2.6" Width="132" Height="165"/>
-   <Lens DegreesMax="14" Name="Other" DegreesMin="14"/>
-   <Focus Type="Barrel" TiltMax="360" PanMax="180"/>
-   <Technical PowerConsumption="36" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Strobe</Channel>
@@ -84,4 +71,11 @@
   <Channel Number="4">Master Dimmer</Channel>
   <Channel Number="5">Dimmer Mode</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Depth="329" Weight="2.6" Width="132" Height="165"/>
+   <Lens DegreesMax="14" Name="Other" DegreesMin="14"/>
+   <Focus Type="Barrel" TiltMax="360" PanMax="180"/>
+   <Technical PowerConsumption="36" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,14 +9,8 @@
  <Manufacturer>American DJ</Manufacturer>
  <Model>DJ Spot 300</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7" Color="#ffffff">White</Capability>
@@ -69,18 +63,8 @@
   <Capability Min="0" Max="190">Gobo shake</Capability>
   <Capability Min="191" Max="255">Reset</Capability>
  </Channel>
- <Channel Name="Pan / tilt speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Pan - tilt speed</Capability>
- </Channel>
+ <Channel Name="Pan / tilt speed" Preset="SpeedPanTiltFastSlow"/>
  <Mode Name="normal">
-  <Physical>
-   <Bulb Lumens="0" Type="MSD 250W" ColourTemperature="6500"/>
-   <Dimensions Width="368" Height="305" Weight="8.80" Depth="457"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Head" TiltMax="265"/>
-   <Technical PowerConsumption="350" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Color</Channel>
@@ -90,4 +74,11 @@
   <Channel Number="6">Gobo shake / reset</Channel>
   <Channel Number="7">Pan / tilt speed</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="MSD 250W" ColourTemperature="6500"/>
+   <Dimensions Width="368" Height="305" Weight="8.80" Depth="457"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="540" Type="Head" TiltMax="265"/>
+   <Technical PowerConsumption="350" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

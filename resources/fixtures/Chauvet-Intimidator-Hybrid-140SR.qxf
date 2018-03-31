@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,26 +9,11 @@
  <Manufacturer>Chauvet</Manufacturer>
  <Model>Intimidator Hybrid 140SR</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255"> 0-540°</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">0-270°</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Fine control</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Fine control</Capability>
- </Channel>
- <Channel Name="Pan/Tilt Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Fast to slow</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Color Wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="3" Color="#ffffff">White</Capability>
@@ -108,10 +93,7 @@
   <Capability Min="240" Max="247">Random strobe, slow to fast</Capability>
   <Capability Min="248" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Function">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="7">No function</Capability>
@@ -196,32 +178,19 @@
   <Capability Min="131" Max="247">Reverse rotation, slow to fast</Capability>
   <Capability Min="248" Max="255">6-facet prism</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Big to small</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamZoomBigSmall"/>
  <Channel Name="Auto Focus">
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="10">No function</Capability>
   <Capability Min="11" Max="127">Auto focus gobo 1</Capability>
   <Capability Min="128" Max="255">Auto focus gobo 2</Capability>
  </Channel>
- <Channel Name="Zoom">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Out to in</Capability>
- </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomBigSmall"/>
  <Channel Name="Frost">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="255">0-100%</Capability>
  </Channel>
  <Mode Name="19 Channel">
-  <Physical>
-   <Bulb Type="HRI 140W" Lumens="5414" ColourTemperature="9200"/>
-   <Dimensions Weight="15.2" Width="220" Height="513" Depth="322"/>
-   <Lens Name="Other" DegreesMin="3" DegreesMax="28"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="260" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -243,13 +212,6 @@
   <Channel Number="18">Movement Macros</Channel>
  </Mode>
  <Mode Name="13 Channel">
-  <Physical>
-   <Bulb Type="HRI 140W" Lumens="5414" ColourTemperature="9200"/>
-   <Dimensions Weight="15.2" Width="220" Height="513" Depth="322"/>
-   <Lens Name="Other" DegreesMin="3" DegreesMax="28"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="260" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Color Wheel</Channel>
@@ -264,4 +226,11 @@
   <Channel Number="11">Frost</Channel>
   <Channel Number="12">Shutter</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="HRI 140W" Lumens="5414" ColourTemperature="9200"/>
+   <Dimensions Weight="15.2" Width="220" Height="513" Depth="322"/>
+   <Lens Name="Other" DegreesMin="3" DegreesMax="28"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="260" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

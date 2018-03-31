@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,126 +9,31 @@
  <Manufacturer>Stairville</Manufacturer>
  <Model>MH-z1915 Quad LED Wash Zoom</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine</Capability>
- </Channel>
- <Channel Name="Moving Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Moving speed fast to slow</Capability>
- </Channel>
- <Channel Name="Intensity Red LED Group 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red</Capability>
- </Channel>
- <Channel Name="Intensity Green LED Group 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green</Capability>
- </Channel>
- <Channel Name="Intensity Blue LED Group 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue</Capability>
- </Channel>
- <Channel Name="Intensity White LED Group 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White</Capability>
- </Channel>
- <Channel Name="Intensity Red LED Group 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red</Capability>
- </Channel>
- <Channel Name="Intensity Green LED Group 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green</Capability>
- </Channel>
- <Channel Name="Intensity Blue LED Group 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue</Capability>
- </Channel>
- <Channel Name="Intensity White LED Group 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White</Capability>
- </Channel>
- <Channel Name="Intensity Red LED Group 3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red</Capability>
- </Channel>
- <Channel Name="Intensity Green LED Group 3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green</Capability>
- </Channel>
- <Channel Name="Intensity Blue LED Group 3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue</Capability>
- </Channel>
- <Channel Name="Intensity White LED Group 3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White</Capability>
- </Channel>
- <Channel Name="Intensity Red LED Group 4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red</Capability>
- </Channel>
- <Channel Name="Intensity Green LED Group 4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green</Capability>
- </Channel>
- <Channel Name="Intensity Blue LED Group 4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue</Capability>
- </Channel>
- <Channel Name="Intensity White LED Group 4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White</Capability>
- </Channel>
- <Channel Name="Intensity Red LED Group 5">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red</Capability>
- </Channel>
- <Channel Name="Intensity Green LED Group 5">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green</Capability>
- </Channel>
- <Channel Name="Intensity Blue LED Group 5">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue</Capability>
- </Channel>
- <Channel Name="Intensity White LED Group 5">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Moving Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Intensity Red LED Group 1" Preset="IntensityRed"/>
+ <Channel Name="Intensity Green LED Group 1" Preset="IntensityGreen"/>
+ <Channel Name="Intensity Blue LED Group 1" Preset="IntensityBlue"/>
+ <Channel Name="Intensity White LED Group 1" Preset="IntensityWhite"/>
+ <Channel Name="Intensity Red LED Group 2" Preset="IntensityRed"/>
+ <Channel Name="Intensity Green LED Group 2" Preset="IntensityGreen"/>
+ <Channel Name="Intensity Blue LED Group 2" Preset="IntensityBlue"/>
+ <Channel Name="Intensity White LED Group 2" Preset="IntensityWhite"/>
+ <Channel Name="Intensity Red LED Group 3" Preset="IntensityRed"/>
+ <Channel Name="Intensity Green LED Group 3" Preset="IntensityGreen"/>
+ <Channel Name="Intensity Blue LED Group 3" Preset="IntensityBlue"/>
+ <Channel Name="Intensity White LED Group 3" Preset="IntensityWhite"/>
+ <Channel Name="Intensity Red LED Group 4" Preset="IntensityRed"/>
+ <Channel Name="Intensity Green LED Group 4" Preset="IntensityGreen"/>
+ <Channel Name="Intensity Blue LED Group 4" Preset="IntensityBlue"/>
+ <Channel Name="Intensity White LED Group 4" Preset="IntensityWhite"/>
+ <Channel Name="Intensity Red LED Group 5" Preset="IntensityRed"/>
+ <Channel Name="Intensity Green LED Group 5" Preset="IntensityGreen"/>
+ <Channel Name="Intensity Blue LED Group 5" Preset="IntensityBlue"/>
+ <Channel Name="Intensity White LED Group 5" Preset="IntensityWhite"/>
  <Channel Name="Virtual Colour Wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="4">Dark/Off</Capability>
@@ -265,10 +170,7 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Light effect speed, slow to fast</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="19">Closed</Capability>
@@ -294,10 +196,7 @@
   <Capability Min="230" Max="244">Strobe Effect 10, inverted pulse series, increasing time between pulses</Capability>
   <Capability Min="245" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Optical Zoom">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Zoom from big to small</Capability>
- </Channel>
+ <Channel Name="Optical Zoom" Preset="BeamZoomBigSmall"/>
  <Channel Name="Special Functions">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="9">No function</Capability>
@@ -344,34 +243,11 @@
   <Capability Min="232" Max="247">Movement pattern 7 with sound control</Capability>
   <Capability Min="248" Max="255">Movement pattern 8 with sound control</Capability>
  </Channel>
- <Channel Name="Intensity Red (when channel 8 = 0)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red</Capability>
- </Channel>
- <Channel Name="Intensity Green (when channel 8 = 0)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green</Capability>
- </Channel>
- <Channel Name="Intensity Blue (when channel 8 = 0)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue</Capability>
- </Channel>
- <Channel Name="Intensity White (when channel 8 = 0)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White</Capability>
- </Channel>
+ <Channel Name="Intensity Red (when channel 8 = 0)" Preset="IntensityRed"/>
+ <Channel Name="Intensity Green (when channel 8 = 0)" Preset="IntensityGreen"/>
+ <Channel Name="Intensity Blue (when channel 8 = 0)" Preset="IntensityBlue"/>
+ <Channel Name="Intensity White (when channel 8 = 0)" Preset="IntensityWhite"/>
  <Mode Name="34 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="10.6" Width="340" Height="420" Depth="250"/>
-   <Lens Name="Other" DegreesMin="10" DegreesMax="50"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="320" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -438,13 +314,6 @@
   </Head>
  </Mode>
  <Mode Name="14 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="10.6" Width="340" Height="420" Depth="250"/>
-   <Lens Name="Other" DegreesMin="10" DegreesMax="50"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="320" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Moving Speed</Channel>
@@ -460,4 +329,11 @@
   <Channel Number="12">Special Functions</Channel>
   <Channel Number="13">Preprogrammed movement patterns</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="10.6" Width="340" Height="420" Depth="250"/>
+   <Lens Name="Other" DegreesMin="10" DegreesMax="50"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="320" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

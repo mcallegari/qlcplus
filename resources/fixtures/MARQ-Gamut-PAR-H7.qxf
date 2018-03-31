@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,40 +9,13 @@
  <Manufacturer>MARQ</Manufacturer>
  <Model>Gamut PAR H7</Model>
  <Type>Color Changer</Type>
- <Channel Name="Master Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dark to bright</Capability>
- </Channel>
- <Channel Name="Red Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Linear, dark to bright</Capability>
- </Channel>
- <Channel Name="Green Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Linear, dark to bright</Capability>
- </Channel>
- <Channel Name="Blue Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Linear, dark to bright</Capability>
- </Channel>
- <Channel Name="Amber Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Amber</Colour>
-  <Capability Min="0" Max="255">Linear, dark to bright</Capability>
- </Channel>
- <Channel Name="White Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">Linear, dark to bright</Capability>
- </Channel>
- <Channel Name="UV Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>UV</Colour>
-  <Capability Min="0" Max="255">Linear, dark to bright</Capability>
- </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red Dimmer" Preset="IntensityRed"/>
+ <Channel Name="Green Dimmer" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimmer" Preset="IntensityBlue"/>
+ <Channel Name="Amber Dimmer" Preset="IntensityAmber"/>
+ <Channel Name="White Dimmer" Preset="IntensityWhite"/>
+ <Channel Name="UV Dimmer" Preset="IntensityUV"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="15">Off (no function)</Capability>
@@ -136,13 +109,6 @@
   <Capability Min="0" Max="255">Program speed (slow to fast)/Sensitivity (low to high)</Capability>
  </Channel>
  <Mode Name="11 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="1598" ColourTemperature="0"/>
-   <Dimensions Weight="3" Width="310" Height="255" Depth="121"/>
-   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="71" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Red Dimmer</Channel>
   <Channel Number="2">Green Dimmer</Channel>
@@ -156,13 +122,6 @@
   <Channel Number="10">Program Speed/Sensitivity</Channel>
  </Mode>
  <Mode Name="8 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="1598" ColourTemperature="0"/>
-   <Dimensions Weight="3" Width="310" Height="255" Depth="121"/>
-   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="71" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Red Dimmer</Channel>
   <Channel Number="2">Green Dimmer</Channel>
@@ -173,13 +132,6 @@
   <Channel Number="7">Strobe</Channel>
  </Mode>
  <Mode Name="6 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="1598" ColourTemperature="0"/>
-   <Dimensions Weight="3" Width="310" Height="255" Depth="121"/>
-   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="71" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red Dimmer</Channel>
   <Channel Number="1">Green Dimmer</Channel>
   <Channel Number="2">Blue Dimmer</Channel>
@@ -187,4 +139,11 @@
   <Channel Number="4">White Dimmer</Channel>
   <Channel Number="5">UV Dimmer</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="1598" ColourTemperature="0"/>
+   <Dimensions Weight="3" Width="310" Height="255" Depth="121"/>
+   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="71" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

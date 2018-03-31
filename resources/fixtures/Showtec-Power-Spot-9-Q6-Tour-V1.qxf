@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,40 +9,13 @@
  <Manufacturer>Showtec</Manufacturer>
  <Model>Power Spot 9 Q6 Tour V1</Model>
  <Type>Color Changer</Type>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment, from darkest to brightest  0-100%</Capability>
- </Channel>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment, from 0-100%</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment, from 0-100%</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment, from 0-100%</Capability>
- </Channel>
- <Channel Name="White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment, from 0-100%</Capability>
- </Channel>
- <Channel Name="Amber">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Amber</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment, from 0-100%</Capability>
- </Channel>
- <Channel Name="UV">
-  <Group Byte="0">Intensity</Group>
-  <Colour>UV</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment, from 0-100%</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="UV" Preset="IntensityUV"/>
  <Channel Name="Program Modes">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="0">No function</Capability>
@@ -86,13 +59,6 @@
   <Capability Min="1" Max="255">Frequency, from slow to fast</Capability>
  </Channel>
  <Mode Name="6-Channel">
-  <Physical>
-   <Bulb Type="9x6-in-1 12W LED RGBWA-UV" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="2.84" Width="264" Height="294" Depth="113"/>
-   <Lens Name="Other" DegreesMin="18" DegreesMax="18"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="64" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
@@ -101,13 +67,6 @@
   <Channel Number="5">UV</Channel>
  </Mode>
  <Mode Name="8-Channel">
-  <Physical>
-   <Bulb Type="9x6-in-1 12W LED RGBWA-UV" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="2.84" Width="264" Height="294" Depth="113"/>
-   <Lens Name="Other" DegreesMin="18" DegreesMax="18"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="64" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
@@ -118,13 +77,6 @@
   <Channel Number="7">Strobe</Channel>
  </Mode>
  <Mode Name="10-Channel">
-  <Physical>
-   <Bulb Type="9x6-in-1 12W LED RGBWA-UV" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="2.84" Width="264" Height="294" Depth="113"/>
-   <Lens Name="Other" DegreesMin="18" DegreesMax="18"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="64" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
@@ -136,4 +88,11 @@
   <Channel Number="8">Static Colors/Program Speed/Sound Sensitivity</Channel>
   <Channel Number="9">Strobe</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="9x6-in-1 12W LED RGBWA-UV" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.84" Width="264" Height="294" Depth="113"/>
+   <Lens Name="Other" DegreesMin="18" DegreesMax="18"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="64" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
 </FixtureDefinition>

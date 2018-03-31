@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,55 +9,16 @@
  <Manufacturer>i-Pix</Manufacturer>
  <Model>BB4</Model>
  <Type>Color Changer</Type>
- <Channel Name="Red all cells">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red all cells</Capability>
- </Channel>
- <Channel Name="Green all cells">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green all cells</Capability>
- </Channel>
- <Channel Name="Blue all cells">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue all cells</Capability>
- </Channel>
- <Channel Name="Red high byte all cells">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red high byte all cells</Capability>
- </Channel>
- <Channel Name="Red low byte all cells">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red low byte all cells</Capability>
- </Channel>
- <Channel Name="Green high byte all cells">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green high byte all cells</Capability>
- </Channel>
- <Channel Name="Green low byte all cells">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green low byte all cells</Capability>
- </Channel>
- <Channel Name="Blue high byte all cells">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue high byte all cells</Capability>
- </Channel>
- <Channel Name="Blue low byte all cells">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue low byte all cells</Capability>
- </Channel>
- <Channel Name="Master intensity all cells">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Master intensity all cells</Capability>
- </Channel>
+ <Channel Name="Red all cells" Preset="IntensityRed"/>
+ <Channel Name="Green all cells" Preset="IntensityGreen"/>
+ <Channel Name="Blue all cells" Preset="IntensityBlue"/>
+ <Channel Name="Red high byte all cells" Preset="IntensityRed"/>
+ <Channel Name="Red low byte all cells" Preset="IntensityRedFine"/>
+ <Channel Name="Green high byte all cells" Preset="IntensityGreen"/>
+ <Channel Name="Green low byte all cells" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue high byte all cells" Preset="IntensityBlue"/>
+ <Channel Name="Blue low byte all cells" Preset="IntensityBlueFine"/>
+ <Channel Name="Master intensity all cells" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobe all cells">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="20">No strobe</Capability>
@@ -74,210 +35,48 @@
   <Capability Min="221" Max="240">Strobe 26.3Hz</Capability>
   <Capability Min="241" Max="255">Strobe 33Hz</Capability>
  </Channel>
- <Channel Name="Master intensity high byte all cells">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Master intensity high byte all cells</Capability>
- </Channel>
- <Channel Name="Master intensity low byte all cells">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">Master intensity low byte all cells</Capability>
- </Channel>
- <Channel Name="Red cell 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red level cell 1</Capability>
- </Channel>
- <Channel Name="Green cell 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green level cell 1</Capability>
- </Channel>
- <Channel Name="Blue cell 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue level cell 1</Capability>
- </Channel>
- <Channel Name="Red cell 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red level cell 2</Capability>
- </Channel>
- <Channel Name="Red cell 3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red level cell 3</Capability>
- </Channel>
- <Channel Name="Red cell 4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red level cell 4</Capability>
- </Channel>
- <Channel Name="Green cell 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green level cell 2</Capability>
- </Channel>
- <Channel Name="Green cell 3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green level cell 3</Capability>
- </Channel>
- <Channel Name="Green cell 4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green level cell 4</Capability>
- </Channel>
- <Channel Name="Blue cell 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue level cell 2</Capability>
- </Channel>
- <Channel Name="Blue cell 3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue level cell 3</Capability>
- </Channel>
- <Channel Name="Blue cell 4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue level cell 4</Capability>
- </Channel>
- <Channel Name="Red high byte cell 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red coarse level cell 1</Capability>
- </Channel>
- <Channel Name="Red low byte cell 1">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red fine level cell 1</Capability>
- </Channel>
- <Channel Name="Green high byte cell 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green high byte cell 1</Capability>
- </Channel>
- <Channel Name="Green low byte cell 1">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green low byte cell 1</Capability>
- </Channel>
- <Channel Name="Blue high byte cell 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue high byte cell 1</Capability>
- </Channel>
- <Channel Name="Blue low byte cell 1">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue low byte cell 1</Capability>
- </Channel>
- <Channel Name="Red high byte cell 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red coarse level cell 2</Capability>
- </Channel>
- <Channel Name="Red low byte cell 2">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red fine level cell 2</Capability>
- </Channel>
- <Channel Name="Green high byte cell 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green high byte cell 2</Capability>
- </Channel>
- <Channel Name="Green low byte cell 2">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green low byte cell 2</Capability>
- </Channel>
- <Channel Name="Blue high byte cell 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue high byte cell 2</Capability>
- </Channel>
- <Channel Name="Blue low byte cell 2">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue low byte cell 2</Capability>
- </Channel>
- <Channel Name="Red high byte cell 3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red coarse level cell 3</Capability>
- </Channel>
- <Channel Name="Red low byte cell 3">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red fine level cell 3</Capability>
- </Channel>
- <Channel Name="Green high byte cell 3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green high byte cell 3</Capability>
- </Channel>
- <Channel Name="Green low byte cell 3">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green low byte cell 3</Capability>
- </Channel>
- <Channel Name="Blue high byte cell 3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue high byte cell 3</Capability>
- </Channel>
- <Channel Name="Blue low byte cell 3">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue low byte cell 3</Capability>
- </Channel>
- <Channel Name="Red high byte cell 4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red coarse level cell 4</Capability>
- </Channel>
- <Channel Name="Red low byte cell 4">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red fine level cell 4</Capability>
- </Channel>
- <Channel Name="Green high byte cell 4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green high byte cell 4</Capability>
- </Channel>
- <Channel Name="Green low byte cell 4">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green low byte cell 4</Capability>
- </Channel>
- <Channel Name="Blue high byte cell 4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue high byte cell 4</Capability>
- </Channel>
- <Channel Name="Blue low byte cell 4">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue low byte cell 4</Capability>
- </Channel>
- <Channel Name="Master intensity cell 1">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Master intensity cell 1</Capability>
- </Channel>
- <Channel Name="Master intensity cell 2">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Master intensity cell 2</Capability>
- </Channel>
- <Channel Name="Master intensity cell 3">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Master intensity cell 3</Capability>
- </Channel>
- <Channel Name="Master intensity cell 4">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Master intensity cell 4</Capability>
- </Channel>
+ <Channel Name="Master intensity high byte all cells" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Master intensity low byte all cells" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Red cell 1" Preset="IntensityRed"/>
+ <Channel Name="Green cell 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue cell 1" Preset="IntensityBlue"/>
+ <Channel Name="Red cell 2" Preset="IntensityRed"/>
+ <Channel Name="Red cell 3" Preset="IntensityRed"/>
+ <Channel Name="Red cell 4" Preset="IntensityRed"/>
+ <Channel Name="Green cell 2" Preset="IntensityGreen"/>
+ <Channel Name="Green cell 3" Preset="IntensityGreen"/>
+ <Channel Name="Green cell 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue cell 2" Preset="IntensityBlue"/>
+ <Channel Name="Blue cell 3" Preset="IntensityBlue"/>
+ <Channel Name="Blue cell 4" Preset="IntensityBlue"/>
+ <Channel Name="Red high byte cell 1" Preset="IntensityRed"/>
+ <Channel Name="Red low byte cell 1" Preset="IntensityRedFine"/>
+ <Channel Name="Green high byte cell 1" Preset="IntensityGreen"/>
+ <Channel Name="Green low byte cell 1" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue high byte cell 1" Preset="IntensityBlue"/>
+ <Channel Name="Blue low byte cell 1" Preset="IntensityBlueFine"/>
+ <Channel Name="Red high byte cell 2" Preset="IntensityRed"/>
+ <Channel Name="Red low byte cell 2" Preset="IntensityRedFine"/>
+ <Channel Name="Green high byte cell 2" Preset="IntensityGreen"/>
+ <Channel Name="Green low byte cell 2" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue high byte cell 2" Preset="IntensityBlue"/>
+ <Channel Name="Blue low byte cell 2" Preset="IntensityBlueFine"/>
+ <Channel Name="Red high byte cell 3" Preset="IntensityRed"/>
+ <Channel Name="Red low byte cell 3" Preset="IntensityRedFine"/>
+ <Channel Name="Green high byte cell 3" Preset="IntensityGreen"/>
+ <Channel Name="Green low byte cell 3" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue high byte cell 3" Preset="IntensityBlue"/>
+ <Channel Name="Blue low byte cell 3" Preset="IntensityBlueFine"/>
+ <Channel Name="Red high byte cell 4" Preset="IntensityRed"/>
+ <Channel Name="Red low byte cell 4" Preset="IntensityRedFine"/>
+ <Channel Name="Green high byte cell 4" Preset="IntensityGreen"/>
+ <Channel Name="Green low byte cell 4" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue high byte cell 4" Preset="IntensityBlue"/>
+ <Channel Name="Blue low byte cell 4" Preset="IntensityBlueFine"/>
+ <Channel Name="Master intensity cell 1" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Master intensity cell 2" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Master intensity cell 3" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Master intensity cell 4" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobe cell 1">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="20">No strobe</Capability>
@@ -342,58 +141,20 @@
   <Capability Min="221" Max="240">Strobe 26.3Hz</Capability>
   <Capability Min="241" Max="255">Strobe 33Hz</Capability>
  </Channel>
- <Channel Name="Master intensity high byte cell 1">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Master intensity high byte cell 1</Capability>
- </Channel>
- <Channel Name="Master intensity low byte cell 1">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">Master intensity low byte cell 1</Capability>
- </Channel>
- <Channel Name="Master intensity high byte cell 2">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Master intensity high byte cell 2</Capability>
- </Channel>
- <Channel Name="Master intensity low byte cell 2">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">Master intensity low byte cell 2</Capability>
- </Channel>
- <Channel Name="Master intensity high byte cell 3">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Master intensity high byte cell 3</Capability>
- </Channel>
- <Channel Name="Master intensity low byte cell 3">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">Master intensity low byte cell 3</Capability>
- </Channel>
- <Channel Name="Master intensity high byte cell 4">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Master intensity high byte cell 4</Capability>
- </Channel>
- <Channel Name="Master intensity low byte cell 4">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">Master intensity low byte cell 4</Capability>
- </Channel>
+ <Channel Name="Master intensity high byte cell 1" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Master intensity low byte cell 1" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Master intensity high byte cell 2" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Master intensity low byte cell 2" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Master intensity high byte cell 3" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Master intensity low byte cell 3" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Master intensity high byte cell 4" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Master intensity low byte cell 4" Preset="IntensityMasterDimmerFine"/>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb Lumens="1000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="600" Height="147" Weight="14" Depth="301"/>
-   <Lens DegreesMax="20" Name="Fresnel" DegreesMin="20"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="120" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Red all cells</Channel>
   <Channel Number="1">Green all cells</Channel>
   <Channel Number="2">Blue all cells</Channel>
  </Mode>
  <Mode Name="Mode 2">
-  <Physical>
-   <Bulb Lumens="1000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="600" Height="147" Weight="14" Depth="301"/>
-   <Lens DegreesMax="20" Name="Fresnel" DegreesMin="20"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="120" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Red high byte all cells</Channel>
   <Channel Number="1">Red low byte all cells</Channel>
   <Channel Number="2">Green high byte all cells</Channel>
@@ -402,13 +163,6 @@
   <Channel Number="5">Blue low byte all cells</Channel>
  </Mode>
  <Mode Name="Mode 3">
-  <Physical>
-   <Bulb Lumens="1000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="600" Height="147" Weight="14" Depth="301"/>
-   <Lens DegreesMax="20" Name="Fresnel" DegreesMin="20"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="120" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Master intensity all cells</Channel>
   <Channel Number="1">Strobe all cells</Channel>
   <Channel Number="2">Red all cells</Channel>
@@ -416,13 +170,6 @@
   <Channel Number="4">Blue all cells</Channel>
  </Mode>
  <Mode Name="Mode 4">
-  <Physical>
-   <Bulb Lumens="1000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="600" Height="147" Weight="14" Depth="301"/>
-   <Lens DegreesMax="20" Name="Fresnel" DegreesMin="20"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="120" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Master intensity high byte all cells</Channel>
   <Channel Number="1">Master intensity low byte all cells</Channel>
   <Channel Number="2">Strobe all cells</Channel>
@@ -434,13 +181,6 @@
   <Channel Number="8">Blue low byte all cells</Channel>
  </Mode>
  <Mode Name="Mode 5">
-  <Physical>
-   <Bulb Lumens="1000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="600" Height="147" Weight="14" Depth="301"/>
-   <Lens DegreesMax="20" Name="Fresnel" DegreesMin="20"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="120" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Red cell 1</Channel>
   <Channel Number="1">Green cell 1</Channel>
   <Channel Number="2">Blue cell 1</Channel>
@@ -475,13 +215,6 @@
   </Head>
  </Mode>
  <Mode Name="Mode 6">
-  <Physical>
-   <Bulb Lumens="1000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="600" Height="147" Weight="14" Depth="301"/>
-   <Lens DegreesMax="20" Name="Fresnel" DegreesMin="20"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="120" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Red high byte cell 1</Channel>
   <Channel Number="1">Red low byte cell 1</Channel>
   <Channel Number="2">Green high byte cell 1</Channel>
@@ -540,13 +273,6 @@
   </Head>
  </Mode>
  <Mode Name="Mode 7">
-  <Physical>
-   <Bulb Lumens="1000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="600" Height="147" Weight="14" Depth="301"/>
-   <Lens DegreesMax="20" Name="Fresnel" DegreesMin="20"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="120" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Master intensity all cells</Channel>
   <Channel Number="1">Strobe all cells</Channel>
   <Channel Number="2">Red cell 1</Channel>
@@ -583,13 +309,6 @@
   </Head>
  </Mode>
  <Mode Name="Mode 8">
-  <Physical>
-   <Bulb Lumens="1000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="600" Height="147" Weight="14" Depth="301"/>
-   <Lens DegreesMax="20" Name="Fresnel" DegreesMin="20"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="120" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Master intensity high byte all cells</Channel>
   <Channel Number="1">Master intensity low byte all cells</Channel>
   <Channel Number="2">Strobe all cells</Channel>
@@ -651,13 +370,6 @@
   </Head>
  </Mode>
  <Mode Name="Mode 9">
-  <Physical>
-   <Bulb Lumens="1000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="600" Height="147" Weight="14" Depth="301"/>
-   <Lens DegreesMax="20" Name="Fresnel" DegreesMin="20"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="120" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Master intensity cell 1</Channel>
   <Channel Number="1">Strobe cell 1</Channel>
   <Channel Number="2">Red cell 1</Channel>
@@ -708,13 +420,6 @@
   </Head>
  </Mode>
  <Mode Name="Mode 10">
-  <Physical>
-   <Bulb Lumens="1000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="600" Height="147" Weight="14" Depth="301"/>
-   <Lens DegreesMax="20" Name="Fresnel" DegreesMin="20"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="120" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Master intensity high byte cell 1</Channel>
   <Channel Number="1">Master intensity low byte cell 1</Channel>
   <Channel Number="2">Strobe cell 1</Channel>
@@ -796,4 +501,11 @@
    <Channel>33</Channel>
   </Head>
  </Mode>
+<Physical>
+   <Bulb Lumens="1000" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="600" Height="147" Weight="14" Depth="301"/>
+   <Lens DegreesMax="20" Name="Fresnel" DegreesMin="20"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="120" DmxConnector="5-pin"/>
+  </Physical>
 </FixtureDefinition>

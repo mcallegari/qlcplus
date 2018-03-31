@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -44,15 +44,15 @@
   <Capability Min="250" Max="255">Sound active</Capability>
  </Channel>
  <Mode Name="Standard">
-  <Physical>
+  <Channel Number="0">Dimmer/Strobe</Channel>
+  <Channel Number="1">Color</Channel>
+  <Channel Number="2">Rotation</Channel>
+ </Mode>
+<Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="2" Width="210" Height="179" Depth="210"/>
    <Lens Name="Other" DegreesMin="138" DegreesMax="138"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="13" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Dimmer/Strobe</Channel>
-  <Channel Number="1">Color</Channel>
-  <Channel Number="2">Rotation</Channel>
- </Mode>
 </FixtureDefinition>

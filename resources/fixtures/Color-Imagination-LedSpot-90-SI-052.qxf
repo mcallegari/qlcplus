@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>Color Imagination</Manufacturer>
  <Model>LedSpot 90 (SI-052)</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan movement</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Fine control of pan movement</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt movement</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Fine control of tilt movement</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="15" Color="#ffffff">Open/White</Capability>
@@ -99,14 +87,8 @@
   <Capability Min="192" Max="223">Random strobe effect slow to fast</Capability>
   <Capability Min="224" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer 0-100%</Capability>
- </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">In (near) to out (far)</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Prism">
   <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="5">Swing out</Capability>
@@ -121,10 +103,7 @@
   <Capability Min="192" Max="223">Pulse opening fast to slow</Capability>
   <Capability Min="224" Max="255">Pulse closing slow to fast</Capability>
  </Channel>
- <Channel Name="Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Max. to mix. speed for pan/tilt</Capability>
- </Channel>
+ <Channel Name="Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Special">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="19">Color change normal</Capability>
@@ -142,13 +121,6 @@
   <Capability Min="240" Max="255">Internal program 8</Capability>
  </Channel>
  <Mode Name="15 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="2700" ColourTemperature="0"/>
-   <Dimensions Weight="12" Width="301" Height="471" Depth="291"/>
-   <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
-   <Focus Type="Head" PanMax="630" TiltMax="270"/>
-   <Technical PowerConsumption="170" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -165,4 +137,11 @@
   <Channel Number="13">Speed</Channel>
   <Channel Number="14">Special</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="2700" ColourTemperature="0"/>
+   <Dimensions Weight="12" Width="301" Height="471" Depth="291"/>
+   <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
+   <Focus Type="Head" PanMax="630" TiltMax="270"/>
+   <Technical PowerConsumption="170" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

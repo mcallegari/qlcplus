@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>Robe</Manufacturer>
  <Model>Scan 575 XT</Model>
  <Type>Scanner</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan coarse</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt coarse</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Speed P/T">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="249">Max to Min</Capability>
@@ -116,10 +104,7 @@
   <Capability Min="192" Max="223">Pulse Closing &gt;&gt;&gt;</Capability>
   <Capability Min="224" Max="255">Pulse Opening &lt;&lt;&lt;</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Focus</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="31">Shutter Closed</Capability>
@@ -131,18 +116,8 @@
   <Capability Min="192" Max="223">Strobe Random &gt;&gt;</Capability>
   <Capability Min="224" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer (0 - 100%)</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Mode Name="Mode 1/2">
-  <Physical>
-   <Bulb Type="HMI 575W" Lumens="49000" ColourTemperature="6000"/>
-   <Dimensions Weight="22" Width="306" Height="346" Depth="769"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Mirror" PanMax="187" TiltMax="58"/>
-   <Technical PowerConsumption="480" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan Fine</Channel>
@@ -161,13 +136,6 @@
   <Channel Number="15">Dimmer</Channel>
  </Mode>
  <Mode Name="8 bits">
-  <Physical>
-   <Bulb Type="HMI 575W" Lumens="49000" ColourTemperature="6000"/>
-   <Dimensions Weight="22" Width="306" Height="346" Depth="769"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Mirror" PanMax="187" TiltMax="58"/>
-   <Technical PowerConsumption="480" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Speed P/T</Channel>
@@ -183,4 +151,11 @@
   <Channel Number="12">Shutter</Channel>
   <Channel Number="13">Dimmer</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="HMI 575W" Lumens="49000" ColourTemperature="6000"/>
+   <Dimensions Weight="22" Width="306" Height="346" Depth="769"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Mirror" PanMax="187" TiltMax="58"/>
+   <Technical PowerConsumption="480" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

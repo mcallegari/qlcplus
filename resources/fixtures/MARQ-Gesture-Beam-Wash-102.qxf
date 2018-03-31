@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,26 +9,11 @@
  <Manufacturer>MARQ</Manufacturer>
  <Model>Gesture Beam/Wash 102</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Pan fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Tilt fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine</Capability>
- </Channel>
- <Channel Name="Pan/Tilt Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Pan/Tilt Speed </Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Pan Continuous Rotation">
   <Group Byte="0">Pan</Group>
   <Capability Min="0" Max="127">No function</Capability>
@@ -57,41 +42,13 @@ bright (255) </Capability>
   <Capability Min="146" Max="215">Random strobe, slow (146) to fast (215) </Capability>
   <Capability Min="216" Max="255"> Open</Capability>
  </Channel>
- <Channel Name="A Red Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red dimmer, A side, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="A Green Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green dimmer, A side, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="A Blue Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue dimmer, A side, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="A White Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White dimmer, A side, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="B Red Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red dimmer, B side, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="B Blue Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue dimmer, B side, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="B White Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White dimmer, B side, dark (000) to bright (255) </Capability>
- </Channel>
+ <Channel Name="A Red Dimmer" Preset="IntensityRed"/>
+ <Channel Name="A Green Dimmer" Preset="IntensityGreen"/>
+ <Channel Name="A Blue Dimmer" Preset="IntensityBlue"/>
+ <Channel Name="A White Dimmer" Preset="IntensityWhite"/>
+ <Channel Name="B Red Dimmer" Preset="IntensityRed"/>
+ <Channel Name="B Blue Dimmer" Preset="IntensityBlue"/>
+ <Channel Name="B White Dimmer" Preset="IntensityWhite"/>
  <Channel Name="Color Presets- Overrides Ch. 10–17">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="29">No function</Capability>
@@ -151,11 +108,7 @@ bright (255) </Capability>
   <Capability Min="200" Max="209">Reset all</Capability>
   <Capability Min="210" Max="255">No function</Capability>
  </Channel>
- <Channel Name="B Green Dimmer 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green dimmer, B side, dark (000) to bright (255) </Capability>
- </Channel>
+ <Channel Name="B Green Dimmer 1" Preset="IntensityGreen"/>
  <Channel Name="A Master Dimmer">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="255">Master dimmer, A side, all colors, dark (000) to bright (255)</Capability>
@@ -164,34 +117,11 @@ bright (255) </Capability>
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="255">Master dimmer, B side, all colors, dark (000) to bright (255)</Capability>
  </Channel>
- <Channel Name="Red Dimmer A&amp;B">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red dimmer, A &amp; B sides, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="Green Dimmer A&amp;B">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green dimmer, A &amp; B sides, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="Blue Dimmer A&amp;B">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue dimmer, A &amp; B sides, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="White Dimmer A&amp;B">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White dimmer, A &amp; B sides, dark (000) to bright (255) </Capability>
- </Channel>
+ <Channel Name="Red Dimmer A&amp;B" Preset="IntensityRed"/>
+ <Channel Name="Green Dimmer A&amp;B" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimmer A&amp;B" Preset="IntensityBlue"/>
+ <Channel Name="White Dimmer A&amp;B" Preset="IntensityWhite"/>
  <Mode Name="22 channel (Beam)">
-  <Physical>
-   <Bulb Type="LED" Lumens="24400" ColourTemperature="6500"/>
-   <Dimensions Weight="2.4" Width="190" Height="150" Depth="230"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="3.4"/>
-   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -271,13 +201,6 @@ bright (255) </Capability>
   </Head>
  </Mode>
  <Mode Name="15 channel (Beam)">
-  <Physical>
-   <Bulb Type="LED" Lumens="24400" ColourTemperature="6500"/>
-   <Dimensions Weight="2.4" Width="190" Height="150" Depth="230"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="3.4"/>
-   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan Continuous Rotation</Channel>
@@ -319,13 +242,6 @@ bright (255) </Capability>
   <Channel Number="14">Macro Functions</Channel>
  </Mode>
  <Mode Name="7 channel (Beam)">
-  <Physical>
-   <Bulb Type="LED" Lumens="24400" ColourTemperature="6500"/>
-   <Dimensions Weight="2.4" Width="190" Height="150" Depth="230"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="3.4"/>
-   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">A Master Dimmer</Channel>
   <Channel Number="1">B Master Dimmer</Channel>
   <Channel Number="2">Shutter A&amp;B</Channel>
@@ -351,13 +267,6 @@ bright (255) </Capability>
   <Channel Number="6">Macro Functions</Channel>
  </Mode>
  <Mode Name="3 channel (Beam)">
-  <Physical>
-   <Bulb Type="LED" Lumens="24400" ColourTemperature="6500"/>
-   <Dimensions Weight="2.4" Width="190" Height="150" Depth="230"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="3.4"/>
-   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Color Presets- Overrides Ch. 10–17</Channel>
   <Channel Number="2">Macro Functions</Channel>
@@ -374,4 +283,11 @@ bright (255) </Capability>
   <Channel Number="1">Color Presets- Overrides Ch. 10–17</Channel>
   <Channel Number="2">Macro Functions</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="24400" ColourTemperature="6500"/>
+   <Dimensions Weight="2.4" Width="190" Height="150" Depth="230"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="3.4"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

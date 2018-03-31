@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -43,30 +43,15 @@
   <Capability Min="128" Max="252">Counterclockwise rotation speed</Capability>
   <Capability Min="253" Max="255">No rotation</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Infinity -&gt; near</Capability>
- </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusFarNear"/>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Image rotation fine">
   <Group Byte="1">Gobo</Group>
   <Capability Min="0" Max="255">Fine position index</Capability>
  </Channel>
- <Channel Name="Pan fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine</Capability>
- </Channel>
- <Channel Name="Tilt fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine</Capability>
- </Channel>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
  <Channel Name="Image and focus speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="2">Tracking mode</Capability>
@@ -82,12 +67,6 @@
   <Capability Min="252" Max="255">Blackout while moving</Capability>
  </Channel>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb ColourTemperature="0" Lumens="1000" Type="CDM 150W"/>
-   <Dimensions Width="316" Height="390" Weight="14" Depth="415"/>
-   <Lens DegreesMax="18" Name="Other" DegreesMin="18"/>
-   <Focus TiltMax="270" PanMax="540" Type="Head"/>
-  </Physical>
   <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
   <Channel Number="1">Image selection</Channel>
   <Channel Number="2">Image rotation</Channel>
@@ -96,12 +75,6 @@
   <Channel Number="5">Tilt</Channel>
  </Mode>
  <Mode Name="Mode 2">
-  <Physical>
-   <Bulb ColourTemperature="0" Lumens="1000" Type="CDM 150W"/>
-   <Dimensions Width="316" Height="390" Weight="14" Depth="415"/>
-   <Lens DegreesMax="18" Name="Other" DegreesMin="18"/>
-   <Focus TiltMax="270" PanMax="540" Type="Head"/>
-  </Physical>
   <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
   <Channel Number="1">Image selection</Channel>
   <Channel Number="2">Image rotation</Channel>
@@ -113,13 +86,6 @@
   <Channel Number="8">Tilt fine</Channel>
  </Mode>
  <Mode Name="Mode 3">
-  <Physical>
-   <Bulb ColourTemperature="0" Lumens="1000" Type="CDM 150W"/>
-   <Dimensions Width="316" Height="390" Weight="14" Depth="415"/>
-   <Lens DegreesMax="18" Name="Other" DegreesMin="18"/>
-   <Focus TiltMax="270" PanMax="540" Type="Head"/>
-   <Technical PowerConsumption="255" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
   <Channel Number="1">Image selection</Channel>
   <Channel Number="2">Image rotation</Channel>
@@ -130,13 +96,6 @@
   <Channel Number="7">Image and focus speed</Channel>
  </Mode>
  <Mode Name="Mode 4">
-  <Physical>
-   <Bulb ColourTemperature="0" Lumens="1000" Type="CDM 150W"/>
-   <Dimensions Width="316" Height="390" Weight="14" Depth="415"/>
-   <Lens DegreesMax="18" Name="Other" DegreesMin="18"/>
-   <Focus TiltMax="270" PanMax="540" Type="Head"/>
-   <Technical PowerConsumption="255" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
   <Channel Number="1">Image selection</Channel>
   <Channel Number="2">Image rotation</Channel>
@@ -149,4 +108,10 @@
   <Channel Number="9">Pan/tilt speed</Channel>
   <Channel Number="10">Image and focus speed</Channel>
  </Mode>
+<Physical>
+   <Bulb ColourTemperature="0" Lumens="1000" Type="CDM 150W"/>
+   <Dimensions Width="316" Height="390" Weight="14" Depth="415"/>
+   <Lens DegreesMax="18" Name="Other" DegreesMin="18"/>
+   <Focus TiltMax="270" PanMax="540" Type="Head"/>
+  </Physical>
 </FixtureDefinition>

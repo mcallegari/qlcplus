@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,30 +9,11 @@
  <Manufacturer>Coemar</Manufacturer>
  <Model>Stage Lite LED</Model>
  <Type>Color Changer</Type>
- <Channel Name="Master Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
  <Channel Name="Strobe Effect">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="9">No effect</Capability>
@@ -101,234 +82,51 @@
   <Capability Min="243" Max="251">LED control frequency tuning 4500 Hz</Capability>
   <Capability Min="252" Max="255">LED control frequency tuning 5000 Hz</Capability>
  </Channel>
- <Channel Name="Zone 1 Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Zone 1 Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Zone 1 Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Zone 1 White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Zone 2 Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Zone 2 Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Zone 2 Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Zone 2 White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Line 1 Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Line 1 Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Line 1 Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Line 1 White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Line 2 Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Line 2 Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Line 2 Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Line 2 White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Line 3 Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Line 3 Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Line 3 Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Line 3 White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Frame 1 Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Frame 1 Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Frame 1 Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Frame 1 White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Frame 2 Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Frame 2 Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Frame 2 Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Frame 2 White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Frame 3 Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Frame 3 Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Frame 3 Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Frame 3 White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Frame 4 Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Frame 4 Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Frame 4 Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Frame 4 White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Frame 5 Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Frame 5 Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Frame 5 Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Frame 5 White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Frame 6 Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Frame 6 Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Frame 6 Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Frame 6 White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
+ <Channel Name="Zone 1 Red" Preset="IntensityRed"/>
+ <Channel Name="Zone 1 Green" Preset="IntensityGreen"/>
+ <Channel Name="Zone 1 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Zone 1 White" Preset="IntensityWhite"/>
+ <Channel Name="Zone 2 Red" Preset="IntensityRed"/>
+ <Channel Name="Zone 2 Green" Preset="IntensityGreen"/>
+ <Channel Name="Zone 2 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Zone 2 White" Preset="IntensityWhite"/>
+ <Channel Name="Line 1 Red" Preset="IntensityRed"/>
+ <Channel Name="Line 1 Green" Preset="IntensityGreen"/>
+ <Channel Name="Line 1 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Line 1 White" Preset="IntensityWhite"/>
+ <Channel Name="Line 2 Red" Preset="IntensityRed"/>
+ <Channel Name="Line 2 Green" Preset="IntensityGreen"/>
+ <Channel Name="Line 2 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Line 2 White" Preset="IntensityWhite"/>
+ <Channel Name="Line 3 Red" Preset="IntensityRed"/>
+ <Channel Name="Line 3 Green" Preset="IntensityGreen"/>
+ <Channel Name="Line 3 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Line 3 White" Preset="IntensityWhite"/>
+ <Channel Name="Frame 1 Red" Preset="IntensityRed"/>
+ <Channel Name="Frame 1 Green" Preset="IntensityGreen"/>
+ <Channel Name="Frame 1 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Frame 1 White" Preset="IntensityWhite"/>
+ <Channel Name="Frame 2 Red" Preset="IntensityRed"/>
+ <Channel Name="Frame 2 Green" Preset="IntensityGreen"/>
+ <Channel Name="Frame 2 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Frame 2 White" Preset="IntensityWhite"/>
+ <Channel Name="Frame 3 Red" Preset="IntensityRed"/>
+ <Channel Name="Frame 3 Green" Preset="IntensityGreen"/>
+ <Channel Name="Frame 3 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Frame 3 White" Preset="IntensityWhite"/>
+ <Channel Name="Frame 4 Red" Preset="IntensityRed"/>
+ <Channel Name="Frame 4 Green" Preset="IntensityGreen"/>
+ <Channel Name="Frame 4 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Frame 4 White" Preset="IntensityWhite"/>
+ <Channel Name="Frame 5 Red" Preset="IntensityRed"/>
+ <Channel Name="Frame 5 Green" Preset="IntensityGreen"/>
+ <Channel Name="Frame 5 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Frame 5 White" Preset="IntensityWhite"/>
+ <Channel Name="Frame 6 Red" Preset="IntensityRed"/>
+ <Channel Name="Frame 6 Green" Preset="IntensityGreen"/>
+ <Channel Name="Frame 6 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Frame 6 White" Preset="IntensityWhite"/>
  <Mode Name="Global">
-  <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Depth="182" Weight="12" Width="609" Height="211"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" TiltMax="180" Type="Fixed"/>
-   <Technical PowerConsumption="230" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
@@ -343,13 +141,6 @@
   <Channel Number="11">Motors reset / special functions</Channel>
  </Mode>
  <Mode Name="Zone">
-  <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Depth="182" Weight="12" Width="609" Height="211"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" TiltMax="180" Type="Fixed"/>
-   <Technical PowerConsumption="230" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Zone 1 Red</Channel>
   <Channel Number="2">Zone 1 Green</Channel>
@@ -380,13 +171,6 @@
   </Head>
  </Mode>
  <Mode Name="Line">
-  <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Depth="182" Weight="12" Width="609" Height="211"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" TiltMax="180" Type="Fixed"/>
-   <Technical PowerConsumption="230" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Line 1 Red</Channel>
   <Channel Number="2">Line 1 Green</Channel>
@@ -430,13 +214,6 @@
   </Head>
  </Mode>
  <Mode Name="Frames">
-  <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Depth="182" Weight="12" Width="609" Height="211"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" TiltMax="180" Type="Fixed"/>
-   <Technical PowerConsumption="230" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Frame 1 Red</Channel>
   <Channel Number="2">Frame 1 Green</Channel>
@@ -506,4 +283,11 @@
    <Channel>24</Channel>
   </Head>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
+   <Dimensions Depth="182" Weight="12" Width="609" Height="211"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" TiltMax="180" Type="Fixed"/>
+   <Technical PowerConsumption="230" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
 </FixtureDefinition>

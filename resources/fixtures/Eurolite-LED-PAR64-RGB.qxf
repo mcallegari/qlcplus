@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,42 +9,27 @@
  <Manufacturer>Eurolite</Manufacturer>
  <Model>LED PAR64 RGB</Model>
  <Type>Color Changer</Type>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red mix</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green mix</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue mix</Capability>
- </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer intensity</Capability>
- </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="10">No function</Capability>
   <Capability Min="11" Max="255">Strobe slow to fast</Capability>
  </Channel>
  <Mode Name="Normal">
-  <Physical>
-   <Bulb Lumens="396" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="265" Height="240" Weight="2.4" Depth="340"/>
-   <Lens DegreesMax="36" Name="Other" DegreesMin="36"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="32" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
   <Channel Number="3">Dimmer</Channel>
   <Channel Number="4">Strobe</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="396" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="265" Height="240" Weight="2.4" Depth="340"/>
+   <Lens DegreesMax="36" Name="Other" DegreesMin="36"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="32" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

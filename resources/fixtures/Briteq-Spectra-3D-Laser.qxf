@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -98,20 +98,14 @@
   <Capability Min="128" Max="191">Clockwise rolling</Capability>
   <Capability Min="192" Max="255">Anticlockwise rolling</Capability>
  </Channel>
- <Channel Name="Y-Axis Roll Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Fast to slow</Capability>
- </Channel>
+ <Channel Name="Y-Axis Roll Speed" Preset="SpeedTiltFastSlow"/>
  <Channel Name="X-Axis Rolling">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="127">0-359 degree fixed X-axis rolled</Capability>
   <Capability Min="128" Max="191">Clockwise rolling</Capability>
   <Capability Min="192" Max="255">Anticlockwise rolling</Capability>
  </Channel>
- <Channel Name="X-Axis Roll Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Fast to slow</Capability>
- </Channel>
+ <Channel Name="X-Axis Roll Speed" Preset="SpeedPanFastSlow"/>
  <Channel Name="Z-Axis Rolling">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="127">0-359 degree fixed Z-axis rolled</Capability>
@@ -128,20 +122,14 @@
   <Capability Min="128" Max="191">Clockwise moving</Capability>
   <Capability Min="192" Max="255">Anticlockwise moving</Capability>
  </Channel>
- <Channel Name="Y-Axis Move Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Fast to slow</Capability>
- </Channel>
+ <Channel Name="Y-Axis Move Speed" Preset="SpeedTiltFastSlow"/>
  <Channel Name="X Axis Moving">
   <Group Byte="0">Pan</Group>
   <Capability Min="0" Max="127">128 different fixed positions on X-axis</Capability>
   <Capability Min="128" Max="191">Clockwise moving</Capability>
   <Capability Min="192" Max="255">Anticlockwise moving</Capability>
  </Channel>
- <Channel Name="X-Axis Move Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Fast to slow</Capability>
- </Channel>
+ <Channel Name="X-Axis Move Speed" Preset="SpeedPanFastSlow"/>
  <Channel Name="Grating Rotation">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="4">No grating rotation</Capability>
@@ -161,34 +149,13 @@
   <Capability Min="224" Max="255">Scanned beam effect (pattern effect)</Capability>
  </Channel>
  <Mode Name="1CH without ILDA">
-  <Physical>
-   <Bulb Type="RGB Laser" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="4.5" Width="290" Height="110" Depth="240"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Mode</Channel>
  </Mode>
  <Mode Name="2CH without ILDA">
-  <Physical>
-   <Bulb Type="RGB Laser" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="4.5" Width="290" Height="110" Depth="240"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Mode</Channel>
   <Channel Number="1">Speed</Channel>
  </Mode>
  <Mode Name="19CH without ILDA">
-  <Physical>
-   <Bulb Type="RGB Laser" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="4.5" Width="290" Height="110" Depth="240"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Mode 19</Channel>
   <Channel Number="1">Group</Channel>
   <Channel Number="2">Pattern Group</Channel>
@@ -210,14 +177,14 @@
   <Channel Number="18">Grating Effect</Channel>
  </Mode>
  <Mode Name="2CH with ILDA">
-  <Physical>
+  <Channel Number="0">Grating Rotation</Channel>
+  <Channel Number="1">Grating Effect</Channel>
+ </Mode>
+<Physical>
    <Bulb Type="RGB Laser" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="4.5" Width="290" Height="110" Depth="240"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="40" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Grating Rotation</Channel>
-  <Channel Number="1">Grating Effect</Channel>
- </Mode>
 </FixtureDefinition>

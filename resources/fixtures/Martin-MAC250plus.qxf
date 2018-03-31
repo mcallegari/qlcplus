@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -31,10 +31,7 @@
   <Capability Min="238" Max="247">Shutter open</Capability>
   <Capability Min="248" Max="255">Lamp off</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer intensity</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="11">White</Capability>
@@ -96,10 +93,7 @@
   <Capability Min="128" Max="252">CCW, fast -&gt; slow</Capability>
   <Capability Min="253" Max="255">No rotation</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Infinity -&gt; 2 meters</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusFarNear"/>
  <Channel Name="Prism">
   <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="19">Prism off</Capability>
@@ -116,22 +110,10 @@
   <Capability Min="246" Max="250">Macro 7</Capability>
   <Capability Min="251" Max="255">Macro 8</Capability>
  </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Pan fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine</Capability>
- </Channel>
- <Channel Name="Tilt fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
  <Channel Name="Pan/tilt speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="2">Tracking mode</Capability>
@@ -149,12 +131,6 @@
   <Capability Min="252" Max="255">Blackout while moving</Capability>
  </Channel>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb ColourTemperature="6500" Lumens="3180" Type="MSD 250W"/>
-   <Dimensions Width="384" Height="525" Weight="22" Depth="330"/>
-   <Lens DegreesMax="18" Name="PC" DegreesMin="18"/>
-   <Focus TiltMax="270" PanMax="540" Type="Head"/>
-  </Physical>
   <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Color</Channel>
@@ -166,12 +142,6 @@
   <Channel Number="8">Tilt</Channel>
  </Mode>
  <Mode Name="Mode 2">
-  <Physical>
-   <Bulb ColourTemperature="6500" Lumens="3180" Type="MSD 250W"/>
-   <Dimensions Width="384" Height="525" Weight="22" Depth="330"/>
-   <Lens DegreesMax="18" Name="PC" DegreesMin="18"/>
-   <Focus TiltMax="270" PanMax="540" Type="Head"/>
-  </Physical>
   <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Color</Channel>
@@ -185,12 +155,6 @@
   <Channel Number="10">Tilt fine</Channel>
  </Mode>
  <Mode Name="Mode 3">
-  <Physical>
-   <Bulb ColourTemperature="6500" Lumens="3180" Type="MSD 250W"/>
-   <Dimensions Width="384" Height="525" Weight="22" Depth="330"/>
-   <Lens DegreesMax="18" Name="PC" DegreesMin="18"/>
-   <Focus TiltMax="270" PanMax="540" Type="Head"/>
-  </Physical>
   <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Color</Channel>
@@ -204,12 +168,6 @@
   <Channel Number="10">Effect speed</Channel>
  </Mode>
  <Mode Name="Mode 4">
-  <Physical>
-   <Bulb ColourTemperature="6500" Lumens="3180" Type="MSD 250W"/>
-   <Dimensions Width="384" Height="525" Weight="22" Depth="330"/>
-   <Lens DegreesMax="18" Name="PC" DegreesMin="18"/>
-   <Focus TiltMax="270" PanMax="540" Type="Head"/>
-  </Physical>
   <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Color</Channel>
@@ -224,4 +182,10 @@
   <Channel Number="11">Pan/tilt speed</Channel>
   <Channel Number="12">Effect speed</Channel>
  </Mode>
+<Physical>
+   <Bulb ColourTemperature="6500" Lumens="3180" Type="MSD 250W"/>
+   <Dimensions Width="384" Height="525" Weight="22" Depth="330"/>
+   <Lens DegreesMax="18" Name="PC" DegreesMin="18"/>
+   <Focus TiltMax="270" PanMax="540" Type="Head"/>
+  </Physical>
 </FixtureDefinition>

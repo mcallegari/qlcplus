@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -31,14 +31,8 @@
   <Capability Max="244" Min="231">16</Capability>
   <Capability Max="255" Min="245">Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Max="255" Min="0">0 to 100%</Capability>
- </Channel>
- <Channel Name="Iris">
-  <Group Byte="0">Beam</Group>
-  <Capability Max="255" Min="0">Linear adjust from open to closed</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Iris" Preset="BeamIris"/>
  <Channel Name="Fixed Gobos">
   <Group Byte="0">Gobo</Group>
   <Capability Max="20" Min="0">Clear</Capability>
@@ -59,18 +53,9 @@
   <Capability Max="247" Min="240">Anti-clockwise rotation in speed 3</Capability>
   <Capability Max="255" Min="248">Anti-clockwise rotation in speed 4 (fastest)</Capability>
  </Channel>
- <Channel Name="Pan rotation">
-  <Group Byte="0">Pan</Group>
-  <Capability Max="255" Min="0">From 0 to 540°</Capability>
- </Channel>
- <Channel Name="Tilt rotation">
-  <Group Byte="0">Tilt</Group>
-  <Capability Max="255" Min="0">From 0 to 270°</Capability>
- </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Max="255" Min="0">Linear adjust iris from near to far</Capability>
- </Channel>
+ <Channel Name="Pan rotation" Preset="PositionPan"/>
+ <Channel Name="Tilt rotation" Preset="PositionTilt"/>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Zoom">
   <Group Byte="0">Effect</Group>
   <Capability Max="50" Min="0">Clear</Capability>
@@ -212,14 +197,8 @@
   <Group Byte="0">Effect</Group>
   <Capability Max="255" Min="0">Adjust</Capability>
  </Channel>
- <Channel Name="Pan Fine (16-bit Extended Function)">
-  <Group Byte="1">Pan</Group>
-  <Capability Max="255" Min="0">Adjust</Capability>
- </Channel>
- <Channel Name="Tile Fine (16-bit Extended Function)">
-  <Group Byte="1">Tilt</Group>
-  <Capability Max="255" Min="0">Adjust</Capability>
- </Channel>
+ <Channel Name="Pan Fine (16-bit Extended Function)" Preset="PositionPanFine"/>
+ <Channel Name="Tile Fine (16-bit Extended Function)" Preset="PositionTiltFine"/>
  <Channel Name="Gobo Rotation Fine (16-bit Extended Function)">
   <Group Byte="1">Gobo</Group>
   <Capability Max="255" Min="0">Adjust</Capability>
@@ -242,13 +221,6 @@
   <Capability Max="255" Min="205">Frost</Capability>
  </Channel>
  <Mode Name="19 Channel">
-  <Physical>
-   <Bulb Type="MSR 575W" Lumens="0" ColourTemperature="7200"/>
-   <Dimensions Depth="500" Height="730" Weight="39" Width="510"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="22"/>
-   <Focus Type="Head" TiltMax="270" PanMax="540"/>
-   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="780"/>
-  </Physical>
   <Channel Number="0">Strobe</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Iris</Channel>
@@ -269,4 +241,11 @@
   <Channel Number="17">Gobo Rotation Fine (16-bit Extended Function)</Channel>
   <Channel Number="18">Control (When Extended functions are Invalid, Shift This Channel to 15th Channel.)</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="MSR 575W" Lumens="0" ColourTemperature="7200"/>
+   <Dimensions Depth="500" Height="730" Weight="39" Width="510"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="22"/>
+   <Focus Type="Head" TiltMax="270" PanMax="540"/>
+   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="780"/>
+  </Physical>
 </FixtureDefinition>

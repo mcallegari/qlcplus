@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,26 +9,11 @@
  <Manufacturer>Showtec</Manufacturer>
  <Model>Phantom 75 LED Spot V2</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan (0° to 540°)</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Min &lt; Max</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt (0° to 270°)</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Min &lt; Max</Capability>
- </Channel>
- <Channel Name="Pan/Tilt Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Speed (slow to fast)</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltSlowFast"/>
  <Channel Name="Color wheel">
   <Group Byte="0">Colour</Group>
   <Capability Color="#ffffff" Min="0" Max="6">Open / White</Capability>
@@ -61,10 +46,7 @@
   <Capability Min="146" Max="215">Random Strobe</Capability>
   <Capability Min="216" Max="255">Shutter Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Gobo Wheel">
   <Group Byte="0">Gobo</Group>
   <Capability Res="Others/open.png" Min="0" Max="7">Open</Capability>
@@ -142,18 +124,8 @@
   <Capability Min="131" Max="247">CCW fast to slow</Capability>
   <Capability Min="248" Max="255">3-Facet Prism Effect</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Far to near</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusFarNear"/>
  <Mode Name="14 Channels 16bit">
-  <Physical>
-   <Bulb Lumens="24000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="338" Weight="11" Depth="247" Height="390"/>
-   <Lens Name="" DegreesMin="17" DegreesMax="20"/>
-   <Focus PanMax="540" Type="Head" TiltMax="270"/>
-   <Technical PowerConsumption="170" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan Fine</Channel>
@@ -170,13 +142,6 @@
   <Channel Number="13">Focus</Channel>
  </Mode>
  <Mode Name="8 Channels 8bit">
-  <Physical>
-   <Bulb Lumens="24000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="338" Weight="11" Depth="247" Height="390"/>
-   <Lens Name="" DegreesMin="17" DegreesMax="20"/>
-   <Focus PanMax="540" Type="Head" TiltMax="270"/>
-   <Technical PowerConsumption="170" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Color wheel</Channel>
@@ -186,4 +151,11 @@
   <Channel Number="6">Prism</Channel>
   <Channel Number="7">Focus</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="24000" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="338" Weight="11" Depth="247" Height="390"/>
+   <Lens Name="" DegreesMin="17" DegreesMax="20"/>
+   <Focus PanMax="540" Type="Head" TiltMax="270"/>
+   <Technical PowerConsumption="170" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

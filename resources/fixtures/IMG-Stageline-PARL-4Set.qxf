@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,82 +9,22 @@
  <Manufacturer>IMG Stageline</Manufacturer>
  <Model>Parl 4-SET</Model>
  <Type>Color Changer</Type>
- <Channel Name="spotlight S 1: red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Helligkeit</Capability>
- </Channel>
- <Channel Name="spotlight S 1: green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Helligkeit</Capability>
- </Channel>
- <Channel Name="spotlight S 1: blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Helligkeit</Capability>
- </Channel>
- <Channel Name="spotlight S 1: dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Helligkeit</Capability>
- </Channel>
- <Channel Name="spotlight S 2: red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Helligkeit</Capability>
- </Channel>
- <Channel Name="spotlight S 2: green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Helligkeit</Capability>
- </Channel>
- <Channel Name="spotlight S 2: blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Helligkeit</Capability>
- </Channel>
- <Channel Name="spotlight S 2: dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Helligkeit</Capability>
- </Channel>
- <Channel Name="spotlight S 3: red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Helligkeit</Capability>
- </Channel>
- <Channel Name="spotlight S 3: green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Helligkeit</Capability>
- </Channel>
- <Channel Name="spotlight S 3: blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Helligkeit</Capability>
- </Channel>
- <Channel Name="spotlight S 3: dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Helligkeit</Capability>
- </Channel>
- <Channel Name="spotlight S 4: red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Helligkeit</Capability>
- </Channel>
- <Channel Name="spotlight S 4: green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Helligkeit</Capability>
- </Channel>
- <Channel Name="spotlight S 4: blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Helligkeit</Capability>
- </Channel>
- <Channel Name="spotlight S 4: dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Helligkeit</Capability>
- </Channel>
+ <Channel Name="spotlight S 1: red" Preset="IntensityRed"/>
+ <Channel Name="spotlight S 1: green" Preset="IntensityGreen"/>
+ <Channel Name="spotlight S 1: blue" Preset="IntensityBlue"/>
+ <Channel Name="spotlight S 1: dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="spotlight S 2: red" Preset="IntensityRed"/>
+ <Channel Name="spotlight S 2: green" Preset="IntensityGreen"/>
+ <Channel Name="spotlight S 2: blue" Preset="IntensityBlue"/>
+ <Channel Name="spotlight S 2: dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="spotlight S 3: red" Preset="IntensityRed"/>
+ <Channel Name="spotlight S 3: green" Preset="IntensityGreen"/>
+ <Channel Name="spotlight S 3: blue" Preset="IntensityBlue"/>
+ <Channel Name="spotlight S 3: dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="spotlight S 4: red" Preset="IntensityRed"/>
+ <Channel Name="spotlight S 4: green" Preset="IntensityGreen"/>
+ <Channel Name="spotlight S 4: blue" Preset="IntensityBlue"/>
+ <Channel Name="spotlight S 4: dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Control of dimmer and stroboscope">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="1">LEDs off</Capability>
@@ -93,29 +33,10 @@
   <Capability Min="201" Max="247">stroboscope  slow → fast</Capability>
   <Capability Min="248" Max="255">full brightness</Capability>
  </Channel>
- <Channel Name="red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">brightness of red</Capability>
- </Channel>
- <Channel Name="green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">brightness of green</Capability>
- </Channel>
- <Channel Name="blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">brightness of blue</Capability>
- </Channel>
+ <Channel Name="red" Preset="IntensityRed"/>
+ <Channel Name="green" Preset="IntensityGreen"/>
+ <Channel Name="blue" Preset="IntensityBlue"/>
  <Mode Name="16-Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="9.2" Width="1060" Height="330" Depth="90"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="110" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">spotlight S 1: red</Channel>
   <Channel Number="1">spotlight S 1: green</Channel>
   <Channel Number="2">spotlight S 1: blue</Channel>
@@ -158,13 +79,6 @@
   </Head>
  </Mode>
  <Mode Name="13-Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="9.2" Width="1060" Height="330" Depth="90"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="110" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">spotlight S 1: red</Channel>
   <Channel Number="1">spotlight S 1: green</Channel>
   <Channel Number="2">spotlight S 1: blue</Channel>
@@ -200,16 +114,16 @@
   </Head>
  </Mode>
  <Mode Name="4-Channel">
-  <Physical>
+  <Channel Number="0">red</Channel>
+  <Channel Number="1">green</Channel>
+  <Channel Number="2">blue</Channel>
+  <Channel Number="3">Control of dimmer and stroboscope</Channel>
+ </Mode>
+<Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="9.2" Width="1060" Height="330" Depth="90"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="110" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">red</Channel>
-  <Channel Number="1">green</Channel>
-  <Channel Number="2">blue</Channel>
-  <Channel Number="3">Control of dimmer and stroboscope</Channel>
- </Mode>
 </FixtureDefinition>

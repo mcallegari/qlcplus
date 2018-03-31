@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -52,26 +52,10 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Speed, when 050-099 in channel 2</Capability>
  </Channel>
- <Channel Name="Red Pars and Derby">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red 0-100%</Capability>
- </Channel>
- <Channel Name="Green Pars and Derby">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green 0-100%</Capability>
- </Channel>
- <Channel Name="Blue Pars and Derby">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue 0-100%</Capability>
- </Channel>
- <Channel Name="UV Pars and Derby">
-  <Group Byte="0">Intensity</Group>
-  <Colour>UV</Colour>
-  <Capability Min="0" Max="255">UV 0-100%</Capability>
- </Channel>
+ <Channel Name="Red Pars and Derby" Preset="IntensityRed"/>
+ <Channel Name="Green Pars and Derby" Preset="IntensityGreen"/>
+ <Channel Name="Blue Pars and Derby" Preset="IntensityBlue"/>
+ <Channel Name="UV Pars and Derby" Preset="IntensityUV"/>
  <Channel Name="Pars and Derby Strobe Controls">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="127">All 0-100%</Capability>
@@ -115,26 +99,10 @@
   <Capability Min="0" Max="54">UV strobe dimmer, 0-100%</Capability>
   <Capability Min="55" Max="255">UV strobe speed, slow to fast</Capability>
  </Channel>
- <Channel Name="Red Par 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red 0-100%</Capability>
- </Channel>
- <Channel Name="Green Par 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green 0-100%</Capability>
- </Channel>
- <Channel Name="Blue Par 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue 0-100%</Capability>
- </Channel>
- <Channel Name="UV Par 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>UV</Colour>
-  <Capability Min="0" Max="255">UV 0-100%</Capability>
- </Channel>
+ <Channel Name="Red Par 1" Preset="IntensityRed"/>
+ <Channel Name="Green Par 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue Par 1" Preset="IntensityBlue"/>
+ <Channel Name="UV Par 1" Preset="IntensityUV"/>
  <Channel Name="Dimmer and Strobe Par 1">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="127">Dimmer 0-100%</Capability>
@@ -142,26 +110,10 @@
   <Capability Min="240" Max="249">Strobe to sound</Capability>
   <Capability Min="250" Max="255">RGB 100%</Capability>
  </Channel>
- <Channel Name="Red Par 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red 0-100%</Capability>
- </Channel>
- <Channel Name="Green Par 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green 0-100%</Capability>
- </Channel>
- <Channel Name="Blue Par 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue 0-100%</Capability>
- </Channel>
- <Channel Name="UV Par 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>UV</Colour>
-  <Capability Min="0" Max="255">UV 0-100%</Capability>
- </Channel>
+ <Channel Name="Red Par 2" Preset="IntensityRed"/>
+ <Channel Name="Green Par 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue Par 2" Preset="IntensityBlue"/>
+ <Channel Name="UV Par 2" Preset="IntensityUV"/>
  <Channel Name="Dimmer and Strobe Par 2">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="127">Dimmer 0-100%</Capability>
@@ -259,40 +211,18 @@
   <Capability Min="190" Max="209">Manual strobe, slow to fast</Capability>
   <Capability Min="210" Max="255">Strobe to sound mode</Capability>
  </Channel>
- <Channel Name="White Strobe Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White 0-100%</Capability>
- </Channel>
- <Channel Name="UV Strobe Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>UV</Colour>
-  <Capability Min="0" Max="255">UV 0-100%</Capability>
- </Channel>
+ <Channel Name="White Strobe Dimmer" Preset="IntensityWhite"/>
+ <Channel Name="UV Strobe Dimmer" Preset="IntensityUV"/>
  <Channel Name="Strobe Speed CH21 or CH22">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Slow to fast</Capability>
  </Channel>
  <Mode Name="3 Channel">
-  <Physical>
-   <Bulb Type="LED, Laser" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="6.6" Width="1185" Height="387" Depth="110"/>
-   <Lens Name="Other" DegreesMin="8" DegreesMax="114"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="68" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">LED Operation</Channel>
   <Channel Number="1">Operation</Channel>
   <Channel Number="2">Auto Speed</Channel>
  </Mode>
  <Mode Name="11 Channel">
-  <Physical>
-   <Bulb Type="LED, Laser" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="6.6" Width="1185" Height="387" Depth="110"/>
-   <Lens Name="Other" DegreesMin="8" DegreesMax="114"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="68" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red Pars and Derby</Channel>
   <Channel Number="1">Green Pars and Derby</Channel>
   <Channel Number="2">Blue Pars and Derby</Channel>
@@ -306,13 +236,6 @@
   <Channel Number="10">UV Strobe Speed</Channel>
  </Mode>
  <Mode Name="23 Channels">
-  <Physical>
-   <Bulb Type="LED, Laser" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="6.6" Width="1185" Height="387" Depth="110"/>
-   <Lens Name="Other" DegreesMin="8" DegreesMax="114"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="68" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red Par 1</Channel>
   <Channel Number="1">Green Par 1</Channel>
   <Channel Number="2">Blue Par 1</Channel>
@@ -372,4 +295,11 @@
    <Channel>21</Channel>
   </Head>
  </Mode>
+<Physical>
+   <Bulb Type="LED, Laser" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="6.6" Width="1185" Height="387" Depth="110"/>
+   <Lens Name="Other" DegreesMin="8" DegreesMax="114"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="68" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

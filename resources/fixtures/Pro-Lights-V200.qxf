@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,14 +9,8 @@
  <Manufacturer>Pro-Lights</Manufacturer>
  <Model>V200</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="7">Blackout</Capability>
@@ -71,10 +65,7 @@
   <Capability Min="135" Max="245">Backwards</Capability>
   <Capability Min="246" Max="255">Pattern</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Special function">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="69">Safe</Capability>
@@ -89,18 +80,9 @@
   <Capability Min="210" Max="239">Safe</Capability>
   <Capability Min="240" Max="255">Stand Alone</Capability>
  </Channel>
- <Channel Name="Pan fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine</Capability>
- </Channel>
- <Channel Name="Tilt fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine</Capability>
- </Channel>
- <Channel Name="Pan/Tilt speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Pan/Tilt speed</Capability>
- </Channel>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Macros">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="15">No macro</Capability>
@@ -122,13 +104,6 @@
   <Capability Min="0" Max="255">Macro speed</Capability>
  </Channel>
  <Mode Name="8 channels">
-  <Physical>
-   <Bulb Lumens="0" Type="HTI 150W" ColourTemperature="5500"/>
-   <Dimensions Width="276" Height="369" Weight="11.5" Depth="266"/>
-   <Lens DegreesMax="14" Name="Other" DegreesMin="14"/>
-   <Focus PanMax="540" Type="Head" TiltMax="270"/>
-   <Technical PowerConsumption="200" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Shutter</Channel>
@@ -139,13 +114,6 @@
   <Channel Number="7">Special function</Channel>
  </Mode>
  <Mode Name="13 channels">
-  <Physical>
-   <Bulb Lumens="0" Type="HTI 150W" ColourTemperature="5500"/>
-   <Dimensions Width="276" Height="369" Weight="11.5" Depth="266"/>
-   <Lens DegreesMax="14" Name="Other" DegreesMin="14"/>
-   <Focus PanMax="540" Type="Head" TiltMax="270"/>
-   <Technical PowerConsumption="200" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -160,4 +128,11 @@
   <Channel Number="11">Gobo rotation</Channel>
   <Channel Number="12">Colour</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="HTI 150W" ColourTemperature="5500"/>
+   <Dimensions Width="276" Height="369" Weight="11.5" Depth="266"/>
+   <Lens DegreesMax="14" Name="Other" DegreesMin="14"/>
+   <Focus PanMax="540" Type="Head" TiltMax="270"/>
+   <Technical PowerConsumption="200" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,14 +9,8 @@
  <Manufacturer>Futurelight</Manufacturer>
  <Model>DJScan200</Model>
  <Type>Scanner</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Left to Right</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Down to Up</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="10">White</Capability>
@@ -59,16 +53,16 @@
   <Capability Min="251" Max="255">Open</Capability>
  </Channel>
  <Mode Name="Mode 1">
-  <Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Color</Channel>
+  <Channel Number="3">Gobo</Channel>
+ </Mode>
+<Physical>
    <Bulb ColourTemperature="8500" Lumens="0" Type="MSD 250W"/>
    <Dimensions Width="260" Height="665" Weight="10" Depth="290"/>
    <Lens DegreesMax="16" Name="Other" DegreesMin="16"/>
    <Focus TiltMax="75" PanMax="180" Type="Mirror"/>
    <Technical PowerConsumption="500" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Pan</Channel>
-  <Channel Number="1">Tilt</Channel>
-  <Channel Number="2">Color</Channel>
-  <Channel Number="3">Gobo</Channel>
- </Mode>
 </FixtureDefinition>

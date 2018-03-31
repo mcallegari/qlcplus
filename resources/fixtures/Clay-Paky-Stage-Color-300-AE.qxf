@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,59 +9,25 @@
  <Manufacturer>Clay Paky</Manufacturer>
  <Model>Stage Color 300 AE</Model>
  <Type>Moving Head</Type>
- <Channel Name="Cyan">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">Cyan intensity (0 - 100%)</Capability>
- </Channel>
- <Channel Name="Magenta">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">Magenta intensity (0 - 100%)</Capability>
- </Channel>
- <Channel Name="Yellow">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">Yellow intensity (0 - 100%)</Capability>
- </Channel>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
  <Channel Name="Stopper/Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="25">Closed</Capability>
   <Capability Min="26" Max="230">Strobe (Slow to fast)</Capability>
   <Capability Min="231" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan ( 0 to 360°)</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan Fine (0.007°)</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt (0 to 252°)</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt Fine (0.004°)</Capability>
- </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Master dimmer (0 - 100%)</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Frost">
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="255">Frost (0 - 100%)</Capability>
  </Channel>
  <Mode Name="Option Stnd">
-  <Physical>
-   <Bulb ColourTemperature="6500" Type="HTI 300W" Lumens="22000"/>
-   <Dimensions Height="225" Width="434" Weight="22.4" Depth="1229"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name=""/>
-   <Focus Type="Head" TiltMax="252" PanMax="360"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="300"/>
-  </Physical>
   <Channel Number="0">Cyan</Channel>
   <Channel Number="1">Magenta</Channel>
   <Channel Number="2">Yellow</Channel>
@@ -72,13 +38,6 @@
   <Channel Number="7">Frost</Channel>
  </Mode>
  <Mode Name="Option 16 b">
-  <Physical>
-   <Bulb ColourTemperature="6500" Type="HTI 300W" Lumens="22000"/>
-   <Dimensions Height="225" Width="434" Weight="22.4" Depth="1229"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name=""/>
-   <Focus Type="Head" TiltMax="252" PanMax="360"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="300"/>
-  </Physical>
   <Channel Number="0">Cyan</Channel>
   <Channel Number="1">Magenta</Channel>
   <Channel Number="2">Yellow</Channel>
@@ -91,13 +50,6 @@
   <Channel Number="9">Tilt Fine</Channel>
  </Mode>
  <Mode Name=" Option Extn">
-  <Physical>
-   <Bulb ColourTemperature="6500" Type="HTI 300W" Lumens="22000"/>
-   <Dimensions Height="225" Width="434" Weight="22.4" Depth="1229"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name=""/>
-   <Focus Type="Head" TiltMax="252" PanMax="360"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="300"/>
-  </Physical>
   <Channel Number="0">Cyan</Channel>
   <Channel Number="1">Magenta</Channel>
   <Channel Number="2">Yellow</Channel>
@@ -109,4 +61,11 @@
   <Channel Number="8">Dimmer</Channel>
   <Channel Number="9">Frost</Channel>
  </Mode>
+<Physical>
+   <Bulb ColourTemperature="6500" Type="HTI 300W" Lumens="22000"/>
+   <Dimensions Height="225" Width="434" Weight="22.4" Depth="1229"/>
+   <Lens DegreesMin="0" DegreesMax="0" Name=""/>
+   <Focus Type="Head" TiltMax="252" PanMax="360"/>
+   <Technical DmxConnector="5-pin" PowerConsumption="300"/>
+  </Physical>
 </FixtureDefinition>

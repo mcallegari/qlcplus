@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -60,16 +60,16 @@
   <Capability Min="230" Max="255">No function</Capability>
  </Channel>
  <Mode Name="Default">
-  <Physical>
+  <Channel Number="0">Static Colors/Color Effects/RGB Color Mix/Sound-Active</Channel>
+  <Channel Number="1">Run Speed/Sound Active/Red Intensity/Fade Speed</Channel>
+  <Channel Number="2">Strobe Speed/Sound Active/Green Intensity</Channel>
+  <Channel Number="3">RGB Blue</Channel>
+ </Mode>
+<Physical>
    <Bulb Type="LED" Lumens="820" ColourTemperature="0"/>
    <Dimensions Depth="97" Width="484" Weight="1.5" Height="130"/>
    <Lens DegreesMax="37" DegreesMin="33" Name="Other"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="23" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Static Colors/Color Effects/RGB Color Mix/Sound-Active</Channel>
-  <Channel Number="1">Run Speed/Sound Active/Red Intensity/Fade Speed</Channel>
-  <Channel Number="2">Strobe Speed/Sound Active/Green Intensity</Channel>
-  <Channel Number="3">RGB Blue</Channel>
- </Mode>
 </FixtureDefinition>

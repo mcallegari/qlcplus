@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -18,14 +18,14 @@
   <Capability Min="0" Max="255">Brightness (0-100%)</Capability>
  </Channel>
  <Mode Name="2-Channel Mode">
-  <Physical>
+  <Channel Number="0">Flash Frequency</Channel>
+  <Channel Number="1">Brightness</Channel>
+ </Mode>
+<Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Depth="165" Weight="2.3" Height="95" Width="380"/>
    <Lens Name="Other" DegreesMin="80" DegreesMax="80"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical DmxConnector="3-pin" PowerConsumption="30"/>
   </Physical>
-  <Channel Number="0">Flash Frequency</Channel>
-  <Channel Number="1">Brightness</Channel>
- </Mode>
 </FixtureDefinition>

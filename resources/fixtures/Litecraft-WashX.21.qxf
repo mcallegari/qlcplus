@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,30 +9,11 @@
  <Manufacturer>Litecraft</Manufacturer>
  <Model>WashX.21</Model>
  <Type>Color Changer</Type>
- <Channel Name="Dimmer Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">Stepless brightness red</Capability>
- </Channel>
- <Channel Name="Dimmer Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00ff00">Stepless brightness green</Capability>
- </Channel>
- <Channel Name="Dimmer Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255" Color="#0000ff">Stepless brightness blue</Capability>
- </Channel>
- <Channel Name="Dimmer White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255" Color="#ffffff">Stepless brightness white</Capability>
- </Channel>
- <Channel Name="Master Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Stepless brightness</Capability>
- </Channel>
+ <Channel Name="Dimmer Red" Preset="IntensityRed"/>
+ <Channel Name="Dimmer Green" Preset="IntensityGreen"/>
+ <Channel Name="Dimmer Blue" Preset="IntensityBlue"/>
+ <Channel Name="Dimmer White" Preset="IntensityWhite"/>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Flash Rate (6 Channel Mode)">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="10">No function</Capability>
@@ -107,26 +88,12 @@
   <Capability Min="204" Max="255">Dimmer 3 (slow)</Capability>
  </Channel>
  <Mode Name="4 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="8.8" Width="493" Height="320" Depth="99"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="184" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer Red</Channel>
   <Channel Number="1">Dimmer Green</Channel>
   <Channel Number="2">Dimmer Blue</Channel>
   <Channel Number="3">Dimmer White</Channel>
  </Mode>
  <Mode Name="6 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="8.8" Width="493" Height="320" Depth="99"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="184" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Dimmer Red</Channel>
   <Channel Number="2">Dimmer Green</Channel>
@@ -135,13 +102,6 @@
   <Channel Number="5">Flash Rate (6 Channel Mode)</Channel>
  </Mode>
  <Mode Name="11 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="8.8" Width="493" Height="320" Depth="99"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="184" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Dimmer Red</Channel>
   <Channel Number="2">Dimmer Green</Channel>
@@ -154,4 +114,11 @@
   <Channel Number="9">Speed</Channel>
   <Channel Number="10">Dimmer Mode</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="8.8" Width="493" Height="320" Depth="99"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="184" DmxConnector="5-pin"/>
+  </Physical>
 </FixtureDefinition>

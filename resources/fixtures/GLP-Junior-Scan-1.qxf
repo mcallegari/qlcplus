@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,14 +9,8 @@
  <Manufacturer>GLP</Manufacturer>
  <Model>Junior-Scan 1</Model>
  <Type>Scanner</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">0° - 230°</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">0° - 110°</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="3" Color="#ffffff">White</Capability>
@@ -132,13 +126,6 @@
   <Capability Min="250" Max="255">Reset after 3 sec</Capability>
  </Channel>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb Type="ELC 250W" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Weight="7.5" Depth="210" Height="535" Width="305"/>
-   <Lens DegreesMin="16" Name="Other" DegreesMax="16"/>
-   <Focus TiltMax="110" PanMax="230" Type="Fixed"/>
-   <Technical PowerConsumption="350" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Color</Channel>
@@ -149,4 +136,11 @@
   <Channel Number="7">Laser</Channel>
   <Channel Number="8">Special</Channel>
  </Mode>
-</FixtureDefinition>
+<Physical>
+   <Bulb Type="ELC 250W" ColourTemperature="0" Lumens="0"/>
+   <Dimensions Weight="7.5" Depth="210" Height="535" Width="305"/>
+   <Lens DegreesMin="16" Name="Other" DegreesMax="16"/>
+   <Focus TiltMax="110" PanMax="230" Type="Fixed"/>
+   <Technical PowerConsumption="350" DmxConnector="3-pin"/>
+  </Physical>
+  <Physical/></FixtureDefinition>

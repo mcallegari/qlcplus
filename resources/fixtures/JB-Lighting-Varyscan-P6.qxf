@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>JB-Lighting</Manufacturer>
  <Model>Varyscan P6</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan Movement Coarse">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Coarse</Capability>
- </Channel>
- <Channel Name="Tilt Movement Coarse">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Coarse</Capability>
- </Channel>
- <Channel Name="Pan Movement Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Fine</Capability>
- </Channel>
- <Channel Name="Tilt Movement Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Fine</Capability>
- </Channel>
+ <Channel Name="Pan Movement Coarse" Preset="PositionPan"/>
+ <Channel Name="Tilt Movement Coarse" Preset="PositionTilt"/>
+ <Channel Name="Pan Movement Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Movement Fine" Preset="PositionTiltFine"/>
  <Channel Name="Lamp, Reset">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="231">Safe</Capability>
@@ -56,10 +44,7 @@
   <Capability Min="240" Max="254">Random ramp open/snap shut (slow to fast)</Capability>
   <Capability Min="255" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Iris">
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="126">0-100%</Capability>
@@ -81,10 +66,7 @@
   <Capability Min="240" Max="254">Randon ramp open/snap shut (slow to fast)</Capability>
   <Capability Min="255" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Gobo Wheel 1">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="15">Open</Capability>
@@ -102,9 +84,7 @@
   <Capability Min="192" Max="223">Spin clockwise (fast to slow)</Capability>
   <Capability Min="224" Max="255">Spin anticlockwise (fast to slow)</Capability>
  </Channel>
- <Channel Name="Not Occupied 3">
-  <Group Byte="0">Intensity</Group>
- </Channel>
+ <Channel Name="Not Occupied 3" Preset="NoFunction"/>
  <Channel Name="Gobo Wheel 2">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="15" Res="Others/open.png">Open</Capability>
@@ -161,9 +141,7 @@
   <Capability Min="96" Max="111">Frost</Capability>
   <Capability Min="112" Max="255" Res="Others/rainbow.png">Colour macros</Capability>
  </Channel>
- <Channel Name="Not Occupied 1">
-  <Group Byte="0">Nothing</Group>
- </Channel>
+ <Channel Name="Not Occupied 1" Preset="NoFunction"/>
  <Channel Name="prism">
   <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="15">Open</Capability>
@@ -179,9 +157,7 @@
   <Capability Min="223" Max="224">Stop</Capability>
   <Capability Min="225" Max="255">Rotation anticlockwise (slow to fast)</Capability>
  </Channel>
- <Channel Name="Not Occupied 2">
-  <Group Byte="0">Nothing</Group>
- </Channel>
+ <Channel Name="Not Occupied 2" Preset="NoFunction"/>
  <Channel Name="Pan/Tilt Speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="3">Moves real time</Capability>
@@ -202,13 +178,6 @@
   <Capability Min="224" Max="255">Fade to zero during gobo, colour, prism, focus or pan-tilt changes</Capability>
  </Channel>
  <Mode Name="22 Channel">
-  <Physical>
-   <Bulb Type="HMI 575W" Lumens="10000" ColourTemperature="6500"/>
-   <Dimensions Weight="33" Width="474" Height="560" Depth="360"/>
-   <Lens Name="PC" DegreesMin="38" DegreesMax="38"/>
-   <Focus Type="Head" PanMax="450" TiltMax="270"/>
-   <Technical PowerConsumption="1200" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Pan Movement Coarse</Channel>
   <Channel Number="1">Tilt Movement Coarse</Channel>
   <Channel Number="2">Pan Movement Fine</Channel>
@@ -232,4 +201,11 @@
   <Channel Number="20">Effect Speed</Channel>
   <Channel Number="21">Blink Mode</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="HMI 575W" Lumens="10000" ColourTemperature="6500"/>
+   <Dimensions Weight="33" Width="474" Height="560" Depth="360"/>
+   <Lens Name="PC" DegreesMin="38" DegreesMax="38"/>
+   <Focus Type="Head" PanMax="450" TiltMax="270"/>
+   <Technical PowerConsumption="1200" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
 </FixtureDefinition>

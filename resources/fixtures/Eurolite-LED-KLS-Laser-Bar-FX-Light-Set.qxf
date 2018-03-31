@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -51,21 +51,9 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Running speed slow → fast</Capability>
  </Channel>
- <Channel Name="Derbies and Spots: Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0-100 %</Capability>
- </Channel>
- <Channel Name="Derbies and Spots: Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0-100 %</Capability>
- </Channel>
- <Channel Name="Derbies and Spots: Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0-100 %</Capability>
- </Channel>
+ <Channel Name="Derbies and Spots: Red" Preset="IntensityRed"/>
+ <Channel Name="Derbies and Spots: Green" Preset="IntensityGreen"/>
+ <Channel Name="Derbies and Spots: Blue" Preset="IntensityBlue"/>
  <Channel Name="Derbies and Spots: Dimmer/ Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="191">Master dimmer 0-100 %</Capability>
@@ -108,21 +96,9 @@
   <Capability Min="5" Max="9">Strobe LEDs on</Capability>
   <Capability Min="10" Max="255">Strobe effect slow → fast</Capability>
  </Channel>
- <Channel Name="Derby 1: Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0-100 %</Capability>
- </Channel>
- <Channel Name="Derby 1: Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0-100 %</Capability>
- </Channel>
- <Channel Name="Derby 1: Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0-100 %</Capability>
- </Channel>
+ <Channel Name="Derby 1: Red" Preset="IntensityRed"/>
+ <Channel Name="Derby 1: Green" Preset="IntensityGreen"/>
+ <Channel Name="Derby 1: Blue" Preset="IntensityBlue"/>
  <Channel Name="Derby 1: Brightness/Sound-Control">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="9">Brightness red, green and blue 0-100 %</Capability>
@@ -135,21 +111,9 @@
   <Capability Min="128" Max="133">No rotation</Capability>
   <Capability Min="134" Max="255">Clockwise rotation slow → fast</Capability>
  </Channel>
- <Channel Name="Spot 2: Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0-100 %</Capability>
- </Channel>
- <Channel Name="Spot 2: Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0-100 %</Capability>
- </Channel>
- <Channel Name="Spot 2: Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0-100 %</Capability>
- </Channel>
+ <Channel Name="Spot 2: Red" Preset="IntensityRed"/>
+ <Channel Name="Spot 2: Green" Preset="IntensityGreen"/>
+ <Channel Name="Spot 2: Blue" Preset="IntensityBlue"/>
  <Channel Name="Spot 2: Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="9">No function</Capability>
@@ -159,21 +123,9 @@
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="255">No function for spots or rotation when operating a derby at this position</Capability>
  </Channel>
- <Channel Name="Spot 3: Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0-100 %</Capability>
- </Channel>
- <Channel Name="Spot 3: Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0-100 %</Capability>
- </Channel>
- <Channel Name="Spot 3: Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0-100 %</Capability>
- </Channel>
+ <Channel Name="Spot 3: Red" Preset="IntensityRed"/>
+ <Channel Name="Spot 3: Green" Preset="IntensityGreen"/>
+ <Channel Name="Spot 3: Blue" Preset="IntensityBlue"/>
  <Channel Name="Spot 3: Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="9">No function</Capability>
@@ -183,21 +135,9 @@
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="255">No function for spots or rotation when operating a derby at this position</Capability>
  </Channel>
- <Channel Name="Derby 4: Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0-100 %</Capability>
- </Channel>
- <Channel Name="Derby 4: Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0-100 %</Capability>
- </Channel>
- <Channel Name="Derby 4: Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0-100 %</Capability>
- </Channel>
+ <Channel Name="Derby 4: Red" Preset="IntensityRed"/>
+ <Channel Name="Derby 4: Green" Preset="IntensityGreen"/>
+ <Channel Name="Derby 4: Blue" Preset="IntensityBlue"/>
  <Channel Name="Derby 4: Brightness/Sound-Control">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="9">Brightness red, green and blue 0-100 %</Capability>
@@ -239,25 +179,11 @@
   <Capability Min="10" Max="255">Strobe effect slow → fast</Capability>
  </Channel>
  <Mode Name="3 Channels">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="7.3" Width="1320" Height="320" Depth="145"/>
-   <Lens Name="Other" DegreesMin="8" DegreesMax="15"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Blackout, Automatic Mode and Sound-Controlled Mode</Channel>
   <Channel Number="1">Program Selection for Channel 1</Channel>
   <Channel Number="2">Running Speed (for Channel 1: 010-127)</Channel>
  </Mode>
  <Mode Name="5 Channels">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="7.3" Width="1320" Height="320" Depth="145"/>
-   <Lens Name="Other" DegreesMin="8" DegreesMax="15"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Derbies and Spots: Red</Channel>
   <Channel Number="1">Derbies and Spots: Green</Channel>
   <Channel Number="2">Derbies and Spots: Blue</Channel>
@@ -265,13 +191,6 @@
   <Channel Number="4">Derbies and Spots: Rotation</Channel>
  </Mode>
  <Mode Name="9 Channels">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="7.3" Width="1320" Height="320" Depth="145"/>
-   <Lens Name="Other" DegreesMin="8" DegreesMax="15"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Derbies and Spots: Red</Channel>
   <Channel Number="1">Derbies and Spots: Green</Channel>
   <Channel Number="2">Derbies and Spots: Blue</Channel>
@@ -298,13 +217,6 @@
   </Head>
  </Mode>
  <Mode Name="27 Channels">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="7.3" Width="1320" Height="320" Depth="145"/>
-   <Lens Name="Other" DegreesMin="8" DegreesMax="15"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Derby 1: Red</Channel>
   <Channel Number="1">Derby 1: Green</Channel>
   <Channel Number="2">Derby 1: Blue</Channel>
@@ -378,4 +290,11 @@
    <Channel>18</Channel>
   </Head>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="7.3" Width="1320" Height="320" Depth="145"/>
+   <Lens Name="Other" DegreesMin="8" DegreesMax="15"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -82,13 +82,6 @@
   <Capability Min="200" Max="255" Color="#ffffff">RGB fade</Capability>
  </Channel>
  <Mode Name="11 channel">
-  <Physical>
-   <Bulb Type="RGB Laser" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="7" Width="330" Height="170" Depth="310"/>
-   <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
-   <Focus Type="Mirror" PanMax="40" TiltMax="40"/>
-   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Mode</Channel>
   <Channel Number="1">Patterns</Channel>
   <Channel Number="2">Circular Movement</Channel>
@@ -101,4 +94,11 @@
   <Channel Number="9">Dot Effect with Strobe</Channel>
   <Channel Number="10">Color Seletion</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="RGB Laser" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="7" Width="330" Height="170" Depth="310"/>
+   <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
+   <Focus Type="Mirror" PanMax="40" TiltMax="40"/>
+   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,26 +9,10 @@
  <Manufacturer>Showtec</Manufacturer>
  <Model>Stage Blinder Series</Model>
  <Type>Color Changer</Type>
- <Channel Name="Dimmer Spot 1">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer Spot 1 (0 - 100%)</Capability>
- </Channel>
- <Channel Name="Dimmer Spot 2">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer Spot 2 (0 - 100%)</Capability>
- </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer (0 - 100%)</Capability>
- </Channel>
+ <Channel Name="Dimmer Spot 1" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer Spot 2" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Mode Name="4 DMX">
-  <Physical>
-   <Bulb Type="MFL 650W" Lumens="48000" ColourTemperature="3200"/>
-   <Dimensions Weight="6.72" Width="475" Height="515" Depth="70"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="2600" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer Spot 1</Channel>
   <Channel Number="1">Dimmer Spot 2</Channel>
   <Head>
@@ -48,4 +32,11 @@
   </Physical>
   <Channel Number="0">Dimmer</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="MFL 650W" Lumens="48000" ColourTemperature="3200"/>
+   <Dimensions Weight="6.72" Width="475" Height="515" Depth="70"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="2600" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

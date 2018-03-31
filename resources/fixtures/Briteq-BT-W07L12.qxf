@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,12 +9,8 @@
  <Manufacturer>Briteq</Manufacturer>
  <Model>BT-W07L12</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="19">Shutter closed</Capability>
@@ -113,26 +109,10 @@
   <Capability Min="245" Max="249">Random color slow</Capability>
   <Capability Min="250" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue</Capability>
- </Channel>
- <Channel Name="White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White</Capability>
- </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
  <Channel Name="Pan/Tilt Macro">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="15">No effect</Capability>
@@ -153,22 +133,10 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Color Macro Speed</Capability>
  </Channel>
- <Channel Name="Pan/Tilt Macro Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Pan/Tilt Macro Speed</Capability>
- </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan Fine</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt Fine</Capability>
- </Channel>
+ <Channel Name="Pan/Tilt Macro Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Color Macro">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="7">Normal</Capability>
@@ -198,98 +166,24 @@
   <Capability Min="210" Max="249">No function</Capability>
   <Capability Min="250" Max="255">Stand alone</Capability>
  </Channel>
- <Channel Name="Pan/Tilt Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Pan/Tilt Speed</Capability>
- </Channel>
- <Channel Name="Red1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red1</Capability>
- </Channel>
- <Channel Name="Red2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red2</Capability>
- </Channel>
- <Channel Name="Red3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red3</Capability>
- </Channel>
- <Channel Name="Red4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red4</Capability>
- </Channel>
- <Channel Name="Green1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green1</Capability>
- </Channel>
- <Channel Name="Green2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green2</Capability>
- </Channel>
- <Channel Name="Green3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green3</Capability>
- </Channel>
- <Channel Name="Green4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green4</Capability>
- </Channel>
- <Channel Name="Blue1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue1</Capability>
- </Channel>
- <Channel Name="Blue2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue2</Capability>
- </Channel>
- <Channel Name="Blue3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue3</Capability>
- </Channel>
- <Channel Name="Blue4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue4</Capability>
- </Channel>
- <Channel Name="White1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White1</Capability>
- </Channel>
- <Channel Name="White2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White2</Capability>
- </Channel>
- <Channel Name="White3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White3</Capability>
- </Channel>
- <Channel Name="White4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White4</Capability>
- </Channel>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Red1" Preset="IntensityRed"/>
+ <Channel Name="Red2" Preset="IntensityRed"/>
+ <Channel Name="Red3" Preset="IntensityRed"/>
+ <Channel Name="Red4" Preset="IntensityRed"/>
+ <Channel Name="Green1" Preset="IntensityGreen"/>
+ <Channel Name="Green2" Preset="IntensityGreen"/>
+ <Channel Name="Green3" Preset="IntensityGreen"/>
+ <Channel Name="Green4" Preset="IntensityGreen"/>
+ <Channel Name="Blue1" Preset="IntensityBlue"/>
+ <Channel Name="Blue2" Preset="IntensityBlue"/>
+ <Channel Name="Blue3" Preset="IntensityBlue"/>
+ <Channel Name="Blue4" Preset="IntensityBlue"/>
+ <Channel Name="White1" Preset="IntensityWhite"/>
+ <Channel Name="White2" Preset="IntensityWhite"/>
+ <Channel Name="White3" Preset="IntensityWhite"/>
+ <Channel Name="White4" Preset="IntensityWhite"/>
  <Mode Name="16 channel mode">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="267" Height="322" Weight="5.6" Depth="154"/>
-   <Lens DegreesMax="10" Name="Other" DegreesMin="10"/>
-   <Focus PanMax="630" Type="Fixed" TiltMax="200"/>
-   <Technical PowerConsumption="150" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Shutter</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Pan</Channel>
@@ -308,13 +202,6 @@
   <Channel Number="15">Pan/Tilt Macro Speed</Channel>
  </Mode>
  <Mode Name="12 channel mode">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="267" Height="322" Weight="5.6" Depth="154"/>
-   <Lens DegreesMax="10" Name="Other" DegreesMin="10"/>
-   <Focus PanMax="630" Type="Fixed" TiltMax="200"/>
-   <Technical PowerConsumption="150" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Shutter</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Pan</Channel>
@@ -329,13 +216,6 @@
   <Channel Number="11">White</Channel>
  </Mode>
  <Mode Name="9 channel mode">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="267" Height="322" Weight="5.6" Depth="154"/>
-   <Lens DegreesMax="10" Name="Other" DegreesMin="10"/>
-   <Focus PanMax="630" Type="Fixed" TiltMax="200"/>
-   <Technical PowerConsumption="150" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Strobe</Channel>
@@ -347,13 +227,6 @@
   <Channel Number="8">Function</Channel>
  </Mode>
  <Mode Name="28 channel mode">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="267" Height="322" Weight="5.6" Depth="154"/>
-   <Lens DegreesMax="10" Name="Other" DegreesMin="10"/>
-   <Focus PanMax="630" Type="Fixed" TiltMax="200"/>
-   <Technical PowerConsumption="150" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -383,4 +256,11 @@
   <Channel Number="26">Color Macro</Channel>
   <Channel Number="27">Color Macro Speed</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="267" Height="322" Weight="5.6" Depth="154"/>
+   <Lens DegreesMax="10" Name="Other" DegreesMin="10"/>
+   <Focus PanMax="630" Type="Fixed" TiltMax="200"/>
+   <Technical PowerConsumption="150" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

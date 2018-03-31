@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,26 +9,11 @@
  <Manufacturer>Martin</Manufacturer>
  <Model>Rush MH3</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan (0 - 540°)</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan Fine</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt (0 - 270°)</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt Fine</Capability>
- </Channel>
- <Channel Name="Pan-Tilt Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Pan-Tilt Speed</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan-Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Funtions">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="29">No Function</Capability>
@@ -217,14 +202,8 @@
   <Group Byte="1">Prism</Group>
   <Capability Min="0" Max="255">Prism Rotation Fine Control</Capability>
  </Channel>
- <Channel Name="Zoom">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Zoom</Capability>
- </Channel>
- <Channel Name="Focus Near - Far">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Focus Near - Far</Capability>
- </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Focus Near - Far" Preset="BeamFocusNearFar"/>
  <Channel Name="Frost">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="255">Frost</Capability>
@@ -240,22 +219,9 @@
   <Capability Min="240" Max="247">Random shutter </Capability>
   <Capability Min="248" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Dimmer Coarse">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer Coarse</Capability>
- </Channel>
- <Channel Name="Dimmer Fine">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer Fine</Capability>
- </Channel>
+ <Channel Name="Dimmer Coarse" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer Fine" Preset="IntensityDimmerFine"/>
  <Mode Name="1">
-  <Physical>
-   <Bulb Type="MSD Platinum 5R" Lumens="0" ColourTemperature="8000"/>
-   <Dimensions Weight="20.5" Width="418" Height="321" Depth="489"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="348" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -276,4 +242,11 @@
   <Channel Number="17">Dimmer Coarse</Channel>
   <Channel Number="18">Dimmer Fine</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="MSD Platinum 5R" Lumens="0" ColourTemperature="8000"/>
+   <Dimensions Weight="20.5" Width="418" Height="321" Depth="489"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="348" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
 </FixtureDefinition>

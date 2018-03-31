@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>Robe</Manufacturer>
  <Model>Spot 160 XT</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Movement by 530°</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Fine control of movement</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Movement by 280°</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Fine control of movement</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Speed of Pan/Tilt Movement">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="0">Max. speed (tracking mode)</Capability>
@@ -101,13 +89,6 @@
   <Capability Min="224" Max="255">Shutter open</Capability>
  </Channel>
  <Mode Name="9-channel, 16-Bit">
-  <Physical>
-   <Bulb Type="HSD 150W" Lumens="5454" ColourTemperature="7000"/>
-   <Dimensions Weight="10.5" Width="292" Height="415" Depth="378"/>
-   <Lens Name="" DegreesMin="19" DegreesMax="19"/>
-   <Focus Type="Head" PanMax="530" TiltMax="280"/>
-   <Technical PowerConsumption="300" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan Fine</Channel>
@@ -119,13 +100,6 @@
   <Channel Number="8">Shutter, Strobe, Reset</Channel>
  </Mode>
  <Mode Name="8-channel, 16-Bit">
-  <Physical>
-   <Bulb Type="HSD 150W" Lumens="5454" ColourTemperature="7000"/>
-   <Dimensions Weight="10.5" Width="292" Height="415" Depth="378"/>
-   <Lens Name="" DegreesMin="19" DegreesMax="19"/>
-   <Focus Type="Head" PanMax="530" TiltMax="280"/>
-   <Technical PowerConsumption="300" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan Fine</Channel>
@@ -136,13 +110,6 @@
   <Channel Number="7">Shutter, Strobe, Reset</Channel>
  </Mode>
  <Mode Name="7-channel, 8-Bit">
-  <Physical>
-   <Bulb Type="HSD 150W" Lumens="5454" ColourTemperature="7000"/>
-   <Dimensions Weight="10.5" Width="292" Height="415" Depth="378"/>
-   <Lens Name="" DegreesMin="19" DegreesMax="19"/>
-   <Focus Type="Head" PanMax="530" TiltMax="280"/>
-   <Technical PowerConsumption="300" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Speed of Pan/Tilt Movement</Channel>
@@ -152,13 +119,6 @@
   <Channel Number="6">Shutter, Strobe, Reset</Channel>
  </Mode>
  <Mode Name="6-channel, 8-Bit">
-  <Physical>
-   <Bulb Type="HSD 150W" Lumens="5454" ColourTemperature="7000"/>
-   <Dimensions Weight="10.5" Width="292" Height="415" Depth="378"/>
-   <Lens Name="" DegreesMin="19" DegreesMax="19"/>
-   <Focus Type="Head" PanMax="530" TiltMax="280"/>
-   <Technical PowerConsumption="300" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Colours</Channel>
@@ -166,4 +126,11 @@
   <Channel Number="4">Gobo Rotation</Channel>
   <Channel Number="5">Shutter, Strobe, Reset</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="HSD 150W" Lumens="5454" ColourTemperature="7000"/>
+   <Dimensions Weight="10.5" Width="292" Height="415" Depth="378"/>
+   <Lens Name="" DegreesMin="19" DegreesMax="19"/>
+   <Focus Type="Head" PanMax="530" TiltMax="280"/>
+   <Technical PowerConsumption="300" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

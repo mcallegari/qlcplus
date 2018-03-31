@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -22,37 +22,15 @@
   <Capability Min="200" Max="224">prog 8</Capability>
   <Capability Min="225" Max="255">sound activation</Capability>
  </Channel>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0 &gt; 100</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0 &gt; 100</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0 &gt; 100</Capability>
- </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="Speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">fast to slow</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">100 &gt; 0</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Mode Name="6 channel">
-  <Physical>
-   <Bulb Lumens="192" Type="LED" ColourTemperature="2000"/>
-   <Dimensions Width="247" Height="165" Weight="2.2" Depth="20"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="24" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Mode</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
@@ -60,4 +38,11 @@
   <Channel Number="4">Speed</Channel>
   <Channel Number="5">Dimmer</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="192" Type="LED" ColourTemperature="2000"/>
+   <Dimensions Width="247" Height="165" Weight="2.2" Depth="20"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="24" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

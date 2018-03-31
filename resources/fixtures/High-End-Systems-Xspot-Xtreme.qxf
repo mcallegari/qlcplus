@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,26 +9,10 @@
  <Manufacturer>High End Systems</Manufacturer>
  <Model>Xspot Xtreme</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan Coarse">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Coarse-adjusts pan to approximately 2 degrees&#13;
-of desired position</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Fine-adjusts pan position in increments less&#13;
-than 1 degree</Capability>
- </Channel>
- <Channel Name="Tillt Coarse">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Coarse-adjusts tilt to approximately 2&#13;
-degrees of desired position</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Fine-adjusts tilt position in increments less than&#13;
-1 degree</Capability>
- </Channel>
+ <Channel Name="Pan Coarse" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tillt Coarse" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Lamp Function">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="31">Normal Shutter Functions</Capability>
@@ -52,10 +36,7 @@ from a minimum?700W; does not go to black</Capability>
   <Capability Min="0" Max="23">Close</Capability>
   <Capability Min="24" Max="255">See manual</Capability>
  </Channel>
- <Channel Name="Dim">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Mechanical dimming</Capability>
- </Channel>
+ <Channel Name="Dim" Preset="IntensityDimmer"/>
  <Channel Name="Frost">
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="0">Open (No Frost)</Capability>
@@ -76,14 +57,8 @@ from a minimum?700W; does not go to black</Capability>
   <Capability Min="32" Max="63">Manual Focus</Capability>
   <Capability Min="64" Max="255">Reserved</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Auto or Manual Focus from In to Out</Capability>
- </Channel>
- <Channel Name="Zoom">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Zoom from In to Out</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
  <Channel Name="MSpeed">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="255">see Conversion Table in Manual</Capability>
@@ -161,21 +136,9 @@ from a minimum?700W; does not go to black</Capability>
   <Capability Min="224" Max="239">MSpeed Control Random</Capability>
   <Capability Min="240" Max="255">MSpeed Control Blink</Capability>
  </Channel>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">See Manual</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">See Manual</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">see manual</Capability>
- </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="Color Temp Orange">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="0">Open</Capability>
@@ -385,13 +348,6 @@ Reserved</Capability>
   <Capability Min="248" Max="255">Open</Capability>
  </Channel>
  <Mode Name="38 Channels">
-  <Physical>
-   <Bulb Lumens="16000" Type="MSR 700W" ColourTemperature="5500"/>
-   <Dimensions Weight="32" Width="523" Height="825" Depth="521"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus TiltMax="240" Type="Fixed" PanMax="630"/>
-   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="1200"/>
-  </Physical>
   <Channel Number="0">Pan Coarse</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tillt Coarse</Channel>
@@ -435,4 +391,11 @@ Fine
   <Channel Number="36">Gobo 2 Rotate Fine</Channel>
   <Channel Number="37">Iris</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="16000" Type="MSR 700W" ColourTemperature="5500"/>
+   <Dimensions Weight="32" Width="523" Height="825" Depth="521"/>
+   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
+   <Focus TiltMax="240" Type="Fixed" PanMax="630"/>
+   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="1200"/>
+  </Physical>
 </FixtureDefinition>

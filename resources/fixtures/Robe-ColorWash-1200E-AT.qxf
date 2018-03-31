@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>Robe</Manufacturer>
  <Model>ColorWash 1200E AT</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Max="255" Min="0">Movement by 530°</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Max="255" Min="0">Fine control of movement</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Max="255" Min="0">Movement by 280°</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Max="255" Min="0">Fine control of movement</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Pan/Tilt Speed, Pan/Tilt Time">
   <Group Byte="0">Speed</Group>
   <Capability Max="0" Min="0">Max. speed (tracking mode)</Capability>
@@ -73,25 +61,10 @@
   <Capability Max="249" Min="244">Random colour selection by audio control</Capability>
   <Capability Max="255" Min="250">Auto random colour selection from fast to slow</Capability>
  </Channel>
- <Channel Name="Colour Wheel 1 - Fine Positioning">
-  <Group Byte="1">Colour</Group>
-  <Capability Max="255" Min="0">Fine</Capability>
- </Channel>
- <Channel Name="Cyan">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Max="255" Min="0">0-white, 255-full cyan</Capability>
- </Channel>
- <Channel Name="Magenta">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Max="255" Min="0">0-white, 255-full magenta</Capability>
- </Channel>
- <Channel Name="Yellow">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Max="255" Min="0">0-white, 255-full yellow</Capability>
- </Channel>
+ <Channel Name="Colour Wheel 1 - Fine Positioning" Preset="ColorWheelFine"/>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
  <Channel Name="CMY Colour Macros">
   <Group Byte="0">Colour</Group>
   <Capability Max="3" Min="0">No function</Capability>
@@ -175,18 +148,9 @@
   <Capability Max="223" Min="192">Random effect from slow to fast</Capability>
   <Capability Max="255" Min="224">Open, full lamp power</Capability>
  </Channel>
- <Channel Name="Dimmer Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Capability Max="255" Min="0">From 0% to 100%</Capability>
- </Channel>
- <Channel Name="Dimmer Intensity Fine">
-  <Group Byte="1">Intensity</Group>
-  <Capability Max="255" Min="0">Fine</Capability>
- </Channel>
- <Channel Name="Zoom">
-  <Group Byte="0">Beam</Group>
-  <Capability Max="255" Min="0">From min. to max.</Capability>
- </Channel>
+ <Channel Name="Dimmer Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer Intensity Fine" Preset="IntensityDimmerFine"/>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
  <Channel Name="Zoom Fine">
   <Group Byte="1">Beam</Group>
   <Capability Max="255" Min="0">Fine positioning</Capability>
@@ -232,17 +196,12 @@
   <Capability Max="249" Min="244">Random colour selection by audio control</Capability>
   <Capability Max="255" Min="250">Auto random colour selection from fast to slow</Capability>
  </Channel>
- <Channel Name="Colour Wheel 2 - Fine Positioning">
-  <Group Byte="1">Colour</Group>
-  <Capability Max="255" Min="0">Fine</Capability>
- </Channel>
+ <Channel Name="Colour Wheel 2 - Fine Positioning" Preset="ColorWheelFine"/>
  <Channel Name="Conversion Temperature Filter 3200K">
   <Group Byte="0">Colour</Group>
   <Capability Color2="#ffbc76" Color="#ffe1ea" Max="255" Min="0">0-5600K, 255-3200K</Capability>
  </Channel>
- <Channel Name="No function">
-  <Group Byte="0">Nothing</Group>
- </Channel>
+ <Channel Name="No function" Preset="NoFunction"/>
  <Channel Name="Effect Speed Assigning">
   <Group Byte="0">Effect</Group>
   <Capability Max="31" Min="0">Dimmer + CMY filters + correction filter</Capability>
@@ -279,13 +238,6 @@
   <Capability Max="255" Min="214">Both ramping (alternately) from fast to slow</Capability>
  </Channel>
  <Mode Name="17-Channel">
-  <Physical>
-   <Bulb Type="MSR 1200W" ColourTemperature="5600" Lumens="110000"/>
-   <Dimensions Depth="545" Width="536" Height="641" Weight="40.8"/>
-   <Lens DegreesMin="10" DegreesMax="87" Name="Fresnel"/>
-   <Focus Type="Head" PanMax="530" TiltMax="280"/>
-   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="1500"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -305,13 +257,6 @@
   <Channel Number="16">Dimmer Intensity</Channel>
  </Mode>
  <Mode Name="23-Channel">
-  <Physical>
-   <Bulb Type="MSR 1200W" ColourTemperature="5600" Lumens="110000"/>
-   <Dimensions Depth="545" Width="536" Height="641" Weight="40.8"/>
-   <Lens DegreesMin="10" DegreesMax="87" Name="Fresnel"/>
-   <Focus Type="Head" PanMax="530" TiltMax="280"/>
-   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="1500"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -337,13 +282,6 @@
   <Channel Number="22">Dimmer Intensity Fine</Channel>
  </Mode>
  <Mode Name="24-Channel">
-  <Physical>
-   <Bulb Type="MSR 1200W" ColourTemperature="5600" Lumens="110000"/>
-   <Dimensions Depth="545" Width="536" Height="641" Weight="40.8"/>
-   <Lens DegreesMin="10" DegreesMax="87" Name="Fresnel"/>
-   <Focus Type="Head" PanMax="530" TiltMax="280"/>
-   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="1500"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -370,13 +308,6 @@
   <Channel Number="23">Dimmer Intensity</Channel>
  </Mode>
  <Mode Name="30-Channel">
-  <Physical>
-   <Bulb Type="MSR 1200W" ColourTemperature="5600" Lumens="110000"/>
-   <Dimensions Depth="545" Width="536" Height="641" Weight="40.8"/>
-   <Lens DegreesMin="10" DegreesMax="87" Name="Fresnel"/>
-   <Focus Type="Head" PanMax="530" TiltMax="280"/>
-   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="1500"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -409,13 +340,6 @@
   <Channel Number="29">Dimmer Intensity Fine</Channel>
  </Mode>
  <Mode Name="21-Channel">
-  <Physical>
-   <Bulb Type="MSR 1200W" ColourTemperature="5600" Lumens="110000"/>
-   <Dimensions Depth="545" Width="536" Height="641" Weight="40.8"/>
-   <Lens DegreesMin="10" DegreesMax="87" Name="Fresnel"/>
-   <Focus Type="Head" PanMax="530" TiltMax="280"/>
-   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="1500"/>
-  </Physical>
   <Channel Number="0">Shutter, Strobe</Channel>
   <Channel Number="1">Dimmer Intensity</Channel>
   <Channel Number="2">Cyan</Channel>
@@ -438,4 +362,11 @@
   <Channel Number="19">Pan/Tilt Speed, Pan/Tilt Time</Channel>
   <Channel Number="20">Power/Special Functions</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="MSR 1200W" ColourTemperature="5600" Lumens="110000"/>
+   <Dimensions Depth="545" Width="536" Height="641" Weight="40.8"/>
+   <Lens DegreesMin="10" DegreesMax="87" Name="Fresnel"/>
+   <Focus Type="Head" PanMax="530" TiltMax="280"/>
+   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="1500"/>
+  </Physical>
 </FixtureDefinition>

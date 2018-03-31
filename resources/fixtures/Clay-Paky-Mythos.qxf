@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,21 +9,9 @@
  <Manufacturer>Clay Paky</Manufacturer>
  <Model>Mythos</Model>
  <Type>Moving Head</Type>
- <Channel Name="Cyan">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">0&lt;Max</Capability>
- </Channel>
- <Channel Name="Magenta">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">0&lt;Max</Capability>
- </Channel>
- <Channel Name="Yellow">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">0&lt;Max</Capability>
- </Channel>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
  <Channel Name="Colour 1">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="27">Empty position</Capability>
@@ -64,14 +52,8 @@
   <Capability Min="239" Max="251">Random Strobe High</Capability>
   <Capability Min="252" Max="255">Light ON</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0&lt;Max</Capability>
- </Channel>
- <Channel Name="Dimmer Fine">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">0&lt;Max</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer Fine" Preset="IntensityDimmerFine"/>
  <Channel Name="Static Gobo">
   <Group Byte="0">Gobo</Group>
   <Capability Res="Others/open.png" Min="0" Max="3">None</Capability>
@@ -153,10 +135,7 @@
   <Capability Min="191" Max="192">Stop Rotation</Capability>
   <Capability Min="193" Max="255">Rotation Slow &lt; Fast</Capability>
  </Channel>
- <Channel Name="Gobo Rotation Fine">
-  <Group Byte="1">Gobo</Group>
-  <Capability Min="0" Max="255">0&lt;Max</Capability>
- </Channel>
+ <Channel Name="Gobo Rotation Fine" Preset="GoboWheelFine"/>
  <Channel Name="Prism Insertion">
   <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="10">Prism out</Capability>
@@ -179,14 +158,8 @@
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="255">0&lt;Max</Capability>
  </Channel>
- <Channel Name="Zoom">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">0&lt;Max</Capability>
- </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">0&lt;Max</Capability>
- </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Focus Fine">
   <Group Byte="1">Beam</Group>
   <Capability Min="0" Max="255">0&lt;Max</Capability>
@@ -196,22 +169,10 @@
   <Capability Min="0" Max="127">Zoom / Autofocus mode</Capability>
   <Capability Min="128" Max="255">Beam mode</Capability>
  </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">0&lt;Max</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">0&lt;Max</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">0&lt;Max</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">0&lt;Max</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Function">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="11">Unused range</Capability>
@@ -252,10 +213,7 @@
   <Capability Min="196" Max="225">Zoom IN OUT Random</Capability>
   <Capability Min="226" Max="255">Standby black 2</Capability>
  </Channel>
- <Channel Name="Pan - Tilt Time">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">0&lt;Max</Capability>
- </Channel>
+ <Channel Name="Pan - Tilt Time" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Colour Time">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">0&lt;Max</Capability>
@@ -283,13 +241,6 @@
   <Capability Min="255" Max="255" Color="#f8b45e">Light Orange</Capability>
  </Channel>
  <Mode Name="Standard">
-  <Physical>
-   <Bulb Lumens="24000" Type="MSD 20R" ColourTemperature="7800"/>
-   <Dimensions Width="404" Height="420" Weight="32" Depth="570"/>
-   <Lens DegreesMax="47.3" Name="Other" DegreesMin="6.5"/>
-   <Focus PanMax="540" Type="Head" TiltMax="244"/>
-   <Technical PowerConsumption="700" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Cyan</Channel>
   <Channel Number="1">Magenta</Channel>
   <Channel Number="2">Yellow</Channel>
@@ -322,13 +273,6 @@
   <Channel Number="29">Macros Effects</Channel>
  </Mode>
  <Mode Name="Vector">
-  <Physical>
-   <Bulb Lumens="24000" Type="MSD 20R" ColourTemperature="7800"/>
-   <Dimensions Width="404" Height="420" Weight="32" Depth="570"/>
-   <Lens DegreesMax="47.3" Name="Other" DegreesMin="6.5"/>
-   <Focus PanMax="540" Type="Head" TiltMax="244"/>
-   <Technical PowerConsumption="700" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Cyan</Channel>
   <Channel Number="1">Magenta</Channel>
   <Channel Number="2">Yellow</Channel>
@@ -364,4 +308,11 @@
   <Channel Number="32">Beam Time</Channel>
   <Channel Number="33">Gobo Time</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="24000" Type="MSD 20R" ColourTemperature="7800"/>
+   <Dimensions Width="404" Height="420" Weight="32" Depth="570"/>
+   <Lens DegreesMax="47.3" Name="Other" DegreesMin="6.5"/>
+   <Focus PanMax="540" Type="Head" TiltMax="244"/>
+   <Technical PowerConsumption="700" DmxConnector="5-pin"/>
+  </Physical>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -28,10 +28,7 @@
   <Capability Min="238" Max="247">Open</Capability>
   <Capability Min="248" Max="255">Lamp Off</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="0" Color="#ffffff">Open</Capability>
@@ -115,14 +112,8 @@
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="255">Sharp edge-&gt;Frost</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Infinity-&gt;2 meters</Capability>
- </Channel>
- <Channel Name="No Func">
-  <Group Byte="0">Nothing</Group>
-  <Capability Min="0" Max="255">no function</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusFarNear"/>
+ <Channel Name="No Func" Preset="NoFunction"/>
  <Channel Name="Effects Speed Dimmer, focus, frost">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="2">Tracking mode</Capability>
@@ -131,13 +122,6 @@
   <Capability Min="252" Max="255">Maximum speed</Capability>
  </Channel>
  <Mode Name="Standard">
-  <Physical>
-   <Bulb Lumens="0" Type="HSD 250W" ColourTemperature="0"/>
-   <Dimensions Width="412" Weight="19" Height="326" Depth="340"/>
-   <Lens Name="" DegreesMax="22" DegreesMin="22"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
-   <Technical PowerConsumption="360" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Shutter, Strobe, Reset, Lamp On/Off</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Color</Channel>
@@ -149,4 +133,11 @@
   <Channel Number="8">No Func</Channel>
   <Channel Number="9">Effects Speed Dimmer, focus, frost</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="HSD 250W" ColourTemperature="0"/>
+   <Dimensions Width="412" Weight="19" Height="326" Depth="340"/>
+   <Lens Name="" DegreesMax="22" DegreesMin="22"/>
+   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
+   <Technical PowerConsumption="360" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

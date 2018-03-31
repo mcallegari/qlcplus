@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>Robe</Manufacturer>
  <Model>ClubSpot 500 CT</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Pan fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Tilt fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
  <Channel Name="Pan/Tilt Speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="0">Tracking</Capability>
@@ -97,10 +85,7 @@
   <Capability Min="191" Max="192">No rotation</Capability>
   <Capability Min="193" Max="255">Backwards rotation slow to fast</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Focus adjustment far to near</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusFarNear"/>
  <Channel Name="Shutter, strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="31">Shutter closed</Capability>
@@ -113,18 +98,8 @@
   <Capability Min="192" Max="223">Random strobe slow to fast</Capability>
   <Capability Min="224" Max="255">Shutter open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer intensity</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Mode Name="Mode 1 (16bit)">
-  <Physical>
-   <Bulb Lumens="0" Type="MSD 575W" ColourTemperature="0"/>
-   <Dimensions Width="467" Height="564" Weight="32" Depth="491"/>
-   <Lens DegreesMax="22" Name="Other" DegreesMin="15"/>
-   <Focus PanMax="530" Type="Head" TiltMax="280"/>
-   <Technical PowerConsumption="740" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan fine</Channel>
@@ -140,13 +115,6 @@
   <Channel Number="12">Dimmer</Channel>
  </Mode>
  <Mode Name="Mode 2 (16bit)">
-  <Physical>
-   <Bulb Lumens="0" Type="MSD 575W" ColourTemperature="0"/>
-   <Dimensions Width="467" Height="564" Weight="32" Depth="491"/>
-   <Lens DegreesMax="22" Name="Other" DegreesMin="15"/>
-   <Focus PanMax="530" Type="Head" TiltMax="280"/>
-   <Technical PowerConsumption="740" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -162,13 +130,6 @@
   <Channel Number="12">Dimmer</Channel>
  </Mode>
  <Mode Name="Mode 3 (8bit)">
-  <Physical>
-   <Bulb Lumens="0" Type="MSD 575W" ColourTemperature="0"/>
-   <Dimensions Width="467" Height="564" Weight="32" Depth="491"/>
-   <Lens DegreesMax="22" Name="Other" DegreesMin="15"/>
-   <Focus PanMax="530" Type="Head" TiltMax="280"/>
-   <Technical PowerConsumption="740" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan/Tilt Speed</Channel>
@@ -181,4 +142,11 @@
   <Channel Number="9">Shutter, strobe</Channel>
   <Channel Number="10">Dimmer</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="MSD 575W" ColourTemperature="0"/>
+   <Dimensions Width="467" Height="564" Weight="32" Depth="491"/>
+   <Lens DegreesMax="22" Name="Other" DegreesMin="15"/>
+   <Focus PanMax="530" Type="Head" TiltMax="280"/>
+   <Technical PowerConsumption="740" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

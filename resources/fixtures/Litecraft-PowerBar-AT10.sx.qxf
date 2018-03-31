@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -14,30 +14,11 @@
   <Capability Min="0" Max="13">No macro</Capability>
   <Capability Min="14" Max="255">preprogrammed colours</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue</Capability>
- </Channel>
- <Channel Name="White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="13">No Strobe</Capability>
@@ -57,420 +38,97 @@
   <Capability Min="225" Max="250">Program 3</Capability>
   <Capability Min="251" Max="255">Audio Mode</Capability>
  </Channel>
- <Channel Name="H01 red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red</Capability>
- </Channel>
- <Channel Name="H01 Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green</Capability>
- </Channel>
- <Channel Name="H01 Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue</Capability>
- </Channel>
- <Channel Name="H01 white">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White</Capability>
- </Channel>
- <Channel Name="H02 red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red</Capability>
- </Channel>
- <Channel Name="H02 Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green</Capability>
- </Channel>
- <Channel Name="H02 Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue</Capability>
- </Channel>
- <Channel Name="H02 white">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White</Capability>
- </Channel>
- <Channel Name="H03 red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red</Capability>
- </Channel>
- <Channel Name="H03 Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green</Capability>
- </Channel>
- <Channel Name="H03 Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue</Capability>
- </Channel>
- <Channel Name="H03 white">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White</Capability>
- </Channel>
- <Channel Name="H04 red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red</Capability>
- </Channel>
- <Channel Name="H04 Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green</Capability>
- </Channel>
- <Channel Name="H04 Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue</Capability>
- </Channel>
- <Channel Name="H04 white">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White</Capability>
- </Channel>
- <Channel Name="H05 red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red</Capability>
- </Channel>
- <Channel Name="H05 Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green</Capability>
- </Channel>
- <Channel Name="H05 Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue</Capability>
- </Channel>
- <Channel Name="H05 white">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White</Capability>
- </Channel>
- <Channel Name="H06 red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red</Capability>
- </Channel>
- <Channel Name="H06 Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green</Capability>
- </Channel>
- <Channel Name="H06 Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue</Capability>
- </Channel>
- <Channel Name="H06 white">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White</Capability>
- </Channel>
- <Channel Name="H07 red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red</Capability>
- </Channel>
- <Channel Name="H07 Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green</Capability>
- </Channel>
- <Channel Name="H07 Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue</Capability>
- </Channel>
- <Channel Name="H07 white">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White</Capability>
- </Channel>
- <Channel Name="H08 red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red</Capability>
- </Channel>
- <Channel Name="H08 Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green</Capability>
- </Channel>
- <Channel Name="H08 Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue</Capability>
- </Channel>
- <Channel Name="H08 white">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White</Capability>
- </Channel>
- <Channel Name="H09 red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red</Capability>
- </Channel>
- <Channel Name="H09 Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green</Capability>
- </Channel>
- <Channel Name="H09 Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue</Capability>
- </Channel>
- <Channel Name="H09 white">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White</Capability>
- </Channel>
- <Channel Name="H10 red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red</Capability>
- </Channel>
- <Channel Name="H10 Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green</Capability>
- </Channel>
- <Channel Name="H10 Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue</Capability>
- </Channel>
- <Channel Name="H10 white">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White</Capability>
- </Channel>
- <Channel Name="H11 red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red</Capability>
- </Channel>
- <Channel Name="H11 Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green</Capability>
- </Channel>
- <Channel Name="H11 Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue</Capability>
- </Channel>
- <Channel Name="H11 white">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White</Capability>
- </Channel>
- <Channel Name="H12 red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red</Capability>
- </Channel>
- <Channel Name="H12 Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green</Capability>
- </Channel>
- <Channel Name="H12 Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue</Capability>
- </Channel>
- <Channel Name="H12 white">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White</Capability>
- </Channel>
- <Channel Name="H13 red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red</Capability>
- </Channel>
- <Channel Name="H13 Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green</Capability>
- </Channel>
- <Channel Name="H13 Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue</Capability>
- </Channel>
- <Channel Name="H13 white">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White</Capability>
- </Channel>
- <Channel Name="H14 red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red</Capability>
- </Channel>
- <Channel Name="H14 Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green</Capability>
- </Channel>
- <Channel Name="H14 Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue</Capability>
- </Channel>
- <Channel Name="H14 white">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White</Capability>
- </Channel>
- <Channel Name="H15 red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red</Capability>
- </Channel>
- <Channel Name="H15 Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green</Capability>
- </Channel>
- <Channel Name="H15 Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue</Capability>
- </Channel>
- <Channel Name="H15 white">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White</Capability>
- </Channel>
- <Channel Name="H16 red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red</Capability>
- </Channel>
- <Channel Name="H16 Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green</Capability>
- </Channel>
- <Channel Name="H16 Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue</Capability>
- </Channel>
- <Channel Name="H16 white">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White</Capability>
- </Channel>
- <Channel Name="H17 red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red</Capability>
- </Channel>
- <Channel Name="H17 Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green</Capability>
- </Channel>
- <Channel Name="H17 Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue</Capability>
- </Channel>
- <Channel Name="H17 white">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White</Capability>
- </Channel>
- <Channel Name="H18 red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red</Capability>
- </Channel>
- <Channel Name="H18 Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green</Capability>
- </Channel>
- <Channel Name="H18 Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue</Capability>
- </Channel>
- <Channel Name="H18 white">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White</Capability>
- </Channel>
+ <Channel Name="H01 red" Preset="IntensityRed"/>
+ <Channel Name="H01 Green" Preset="IntensityGreen"/>
+ <Channel Name="H01 Blue" Preset="IntensityBlue"/>
+ <Channel Name="H01 white" Preset="IntensityWhite"/>
+ <Channel Name="H02 red" Preset="IntensityRed"/>
+ <Channel Name="H02 Green" Preset="IntensityGreen"/>
+ <Channel Name="H02 Blue" Preset="IntensityBlue"/>
+ <Channel Name="H02 white" Preset="IntensityWhite"/>
+ <Channel Name="H03 red" Preset="IntensityRed"/>
+ <Channel Name="H03 Green" Preset="IntensityGreen"/>
+ <Channel Name="H03 Blue" Preset="IntensityBlue"/>
+ <Channel Name="H03 white" Preset="IntensityWhite"/>
+ <Channel Name="H04 red" Preset="IntensityRed"/>
+ <Channel Name="H04 Green" Preset="IntensityGreen"/>
+ <Channel Name="H04 Blue" Preset="IntensityBlue"/>
+ <Channel Name="H04 white" Preset="IntensityWhite"/>
+ <Channel Name="H05 red" Preset="IntensityRed"/>
+ <Channel Name="H05 Green" Preset="IntensityGreen"/>
+ <Channel Name="H05 Blue" Preset="IntensityBlue"/>
+ <Channel Name="H05 white" Preset="IntensityWhite"/>
+ <Channel Name="H06 red" Preset="IntensityRed"/>
+ <Channel Name="H06 Green" Preset="IntensityGreen"/>
+ <Channel Name="H06 Blue" Preset="IntensityBlue"/>
+ <Channel Name="H06 white" Preset="IntensityWhite"/>
+ <Channel Name="H07 red" Preset="IntensityRed"/>
+ <Channel Name="H07 Green" Preset="IntensityGreen"/>
+ <Channel Name="H07 Blue" Preset="IntensityBlue"/>
+ <Channel Name="H07 white" Preset="IntensityWhite"/>
+ <Channel Name="H08 red" Preset="IntensityRed"/>
+ <Channel Name="H08 Green" Preset="IntensityGreen"/>
+ <Channel Name="H08 Blue" Preset="IntensityBlue"/>
+ <Channel Name="H08 white" Preset="IntensityWhite"/>
+ <Channel Name="H09 red" Preset="IntensityRed"/>
+ <Channel Name="H09 Green" Preset="IntensityGreen"/>
+ <Channel Name="H09 Blue" Preset="IntensityBlue"/>
+ <Channel Name="H09 white" Preset="IntensityWhite"/>
+ <Channel Name="H10 red" Preset="IntensityRed"/>
+ <Channel Name="H10 Green" Preset="IntensityGreen"/>
+ <Channel Name="H10 Blue" Preset="IntensityBlue"/>
+ <Channel Name="H10 white" Preset="IntensityWhite"/>
+ <Channel Name="H11 red" Preset="IntensityRed"/>
+ <Channel Name="H11 Green" Preset="IntensityGreen"/>
+ <Channel Name="H11 Blue" Preset="IntensityBlue"/>
+ <Channel Name="H11 white" Preset="IntensityWhite"/>
+ <Channel Name="H12 red" Preset="IntensityRed"/>
+ <Channel Name="H12 Green" Preset="IntensityGreen"/>
+ <Channel Name="H12 Blue" Preset="IntensityBlue"/>
+ <Channel Name="H12 white" Preset="IntensityWhite"/>
+ <Channel Name="H13 red" Preset="IntensityRed"/>
+ <Channel Name="H13 Green" Preset="IntensityGreen"/>
+ <Channel Name="H13 Blue" Preset="IntensityBlue"/>
+ <Channel Name="H13 white" Preset="IntensityWhite"/>
+ <Channel Name="H14 red" Preset="IntensityRed"/>
+ <Channel Name="H14 Green" Preset="IntensityGreen"/>
+ <Channel Name="H14 Blue" Preset="IntensityBlue"/>
+ <Channel Name="H14 white" Preset="IntensityWhite"/>
+ <Channel Name="H15 red" Preset="IntensityRed"/>
+ <Channel Name="H15 Green" Preset="IntensityGreen"/>
+ <Channel Name="H15 Blue" Preset="IntensityBlue"/>
+ <Channel Name="H15 white" Preset="IntensityWhite"/>
+ <Channel Name="H16 red" Preset="IntensityRed"/>
+ <Channel Name="H16 Green" Preset="IntensityGreen"/>
+ <Channel Name="H16 Blue" Preset="IntensityBlue"/>
+ <Channel Name="H16 white" Preset="IntensityWhite"/>
+ <Channel Name="H17 red" Preset="IntensityRed"/>
+ <Channel Name="H17 Green" Preset="IntensityGreen"/>
+ <Channel Name="H17 Blue" Preset="IntensityBlue"/>
+ <Channel Name="H17 white" Preset="IntensityWhite"/>
+ <Channel Name="H18 red" Preset="IntensityRed"/>
+ <Channel Name="H18 Green" Preset="IntensityGreen"/>
+ <Channel Name="H18 Blue" Preset="IntensityBlue"/>
+ <Channel Name="H18 white" Preset="IntensityWhite"/>
  <Mode Name="1 channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="7.8" Width="100" Height="21" Depth="21"/>
-   <Lens Name="Other" DegreesMin="20" DegreesMax="50"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="138" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Colour Macro</Channel>
  </Mode>
  <Mode Name="2 channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="7.8" Width="100" Height="21" Depth="21"/>
-   <Lens Name="Other" DegreesMin="20" DegreesMax="50"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="138" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Colour Macro</Channel>
   <Channel Number="1">Dimmer</Channel>
  </Mode>
  <Mode Name="3 channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="7.8" Width="100" Height="21" Depth="21"/>
-   <Lens Name="Other" DegreesMin="20" DegreesMax="50"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="138" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
  </Mode>
  <Mode Name="4 channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="7.8" Width="100" Height="21" Depth="21"/>
-   <Lens Name="Other" DegreesMin="20" DegreesMax="50"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="138" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
   <Channel Number="3">White</Channel>
  </Mode>
  <Mode Name="8 channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="7.8" Width="100" Height="21" Depth="21"/>
-   <Lens Name="Other" DegreesMin="20" DegreesMax="50"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="138" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
@@ -481,13 +139,6 @@
   <Channel Number="7">Dimmer</Channel>
  </Mode>
  <Mode Name="72 channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="7.8" Width="100" Height="21" Depth="21"/>
-   <Lens Name="Other" DegreesMin="20" DegreesMax="50"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="138" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">H01 red</Channel>
   <Channel Number="1">H01 Green</Channel>
   <Channel Number="2">H01 Blue</Channel>
@@ -669,4 +320,11 @@
    <Channel>71</Channel>
   </Head>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="7.8" Width="100" Height="21" Depth="21"/>
+   <Lens Name="Other" DegreesMin="20" DegreesMax="50"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="138" DmxConnector="5-pin"/>
+  </Physical>
 </FixtureDefinition>

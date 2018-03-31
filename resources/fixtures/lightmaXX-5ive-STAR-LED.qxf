@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -52,25 +52,19 @@
   <Capability Min="135" Max="245">Counter-clockwise slow to fast</Capability>
   <Capability Min="246" Max="255">No rotation</Capability>
  </Channel>
- <Channel Name="Strobe">
-  <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="255">Strobing slow to fast</Capability>
- </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer 0-100%</Capability>
- </Channel>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Mode Name="4 Channel">
-  <Physical>
+  <Channel Number="0">Color and Sound</Channel>
+  <Channel Number="1">Rotation</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Dimmer</Channel>
+ </Mode>
+<Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="2" Width="250" Height="177" Depth="240"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="275" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Color and Sound</Channel>
-  <Channel Number="1">Rotation</Channel>
-  <Channel Number="2">Strobe</Channel>
-  <Channel Number="3">Dimmer</Channel>
- </Mode>
 </FixtureDefinition>

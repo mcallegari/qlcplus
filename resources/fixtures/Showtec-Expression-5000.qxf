@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,41 +9,14 @@
  <Manufacturer>Showtec</Manufacturer>
  <Model>Expression 5000</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan (0 - 540°)</Capability>
- </Channel>
- <Channel Name="Pan fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan Fine</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt (0 - 270°)</Capability>
- </Channel>
- <Channel Name="Tilt fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt Fine</Capability>
- </Channel>
- <Channel Name="Pan/tilt speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Pan/Tilt Speed</Capability>
- </Channel>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red Intensity</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green Intensity</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Bue Intensity</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/tilt speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="Macro colors">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="10">No function</Capability>
@@ -68,10 +41,7 @@
   <Capability Min="246" Max="250">White: 8500K</Capability>
   <Capability Min="251" Max="255">White: 10000K</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer (0 - 100%)</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Shutter / strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="9">Open</Capability>
@@ -101,13 +71,6 @@
   <Capability Min="252" Max="255">DIM 4 activated after 5 seconds</Capability>
  </Channel>
  <Mode Name="Advanced (12CH)">
-  <Physical>
-   <Bulb Type="LED" Lumens="2800" ColourTemperature="0"/>
-   <Dimensions Weight="6.5" Width="190" Height="344" Depth="296"/>
-   <Lens DegreesMin="6" DegreesMax="6" Name="Other"/>
-   <Focus PanMax="540" TiltMax="270" Type="Fixed"/>
-   <Technical PowerConsumption="140" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -122,13 +85,6 @@
   <Channel Number="11">Control</Channel>
  </Mode>
  <Mode Name="Basic (9CH)">
-  <Physical>
-   <Bulb Type="LED" Lumens="2800" ColourTemperature="0"/>
-   <Dimensions Weight="6.5" Width="190" Height="344" Depth="296"/>
-   <Lens DegreesMin="6" DegreesMax="6" Name="Other"/>
-   <Focus PanMax="540" TiltMax="270" Type="Fixed"/>
-   <Technical PowerConsumption="140" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Red</Channel>
@@ -139,4 +95,11 @@
   <Channel Number="7">Shutter / strobe</Channel>
   <Channel Number="8">Control</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="2800" ColourTemperature="0"/>
+   <Dimensions Weight="6.5" Width="190" Height="344" Depth="296"/>
+   <Lens DegreesMin="6" DegreesMax="6" Name="Other"/>
+   <Focus PanMax="540" TiltMax="270" Type="Fixed"/>
+   <Technical PowerConsumption="140" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

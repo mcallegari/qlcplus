@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>American DJ</Manufacturer>
  <Model>Inno Pocket Spot</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Min to Max</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Min to Max</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Min to Max</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Min to Max</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Colors">
   <Group Byte="0">Colour</Group>
   <Capability Color="#ffffff" Min="0" Max="7">White</Capability>
@@ -74,14 +62,8 @@
   <Capability Min="240" Max="247">Random Strobe</Capability>
   <Capability Min="248" Max="255">Shutter Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Pan/Tilt Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Movement Speed Fast to Slow</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Function">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="69">No function</Capability>
@@ -106,13 +88,6 @@
   <Capability Min="214" Max="255">Default to unit curve setting</Capability>
  </Channel>
  <Mode Name="9 Channel Mode">
-  <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Weight="3" Height="265" Width="159" Depth="147"/>
-   <Lens DegreesMin="13" DegreesMax="13" Name=""/>
-   <Focus TiltMax="230" Type="Head" PanMax="540"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="27"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Colors</Channel>
@@ -124,13 +99,6 @@
   <Channel Number="8">Dimmer Curves</Channel>
  </Mode>
  <Mode Name="11 Channel Mode">
-  <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Weight="3" Height="265" Width="159" Depth="147"/>
-   <Lens DegreesMin="13" DegreesMax="13" Name=""/>
-   <Focus TiltMax="230" Type="Head" PanMax="540"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="27"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -143,4 +111,11 @@
   <Channel Number="9">Function</Channel>
   <Channel Number="10">Dimmer Curves</Channel>
  </Mode>
+<Physical>
+   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
+   <Dimensions Weight="3" Height="265" Width="159" Depth="147"/>
+   <Lens DegreesMin="13" DegreesMax="13" Name=""/>
+   <Focus TiltMax="230" Type="Head" PanMax="540"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="27"/>
+  </Physical>
 </FixtureDefinition>

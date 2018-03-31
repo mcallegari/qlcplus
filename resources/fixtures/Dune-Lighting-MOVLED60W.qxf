@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -17,10 +17,7 @@
   <Capability Min="241" Max="250">Reset (after ~ 10 sec)</Capability>
   <Capability Min="251" Max="255">Opened obturator</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer [0 - 100%]</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="18" Color="#ffffff">White</Capability>
@@ -64,35 +61,16 @@
   <Capability Min="140" Max="197">Prism rotation (Fast to Slow speed)</Capability>
   <Capability Min="198" Max="255">Reverse prism rotation (Slow to Fast speed)</Capability>
  </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">0° -&gt; 540°</Capability>
- </Channel>
- <Channel Name="Pan fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">0° -&gt; 2°</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">0° -&gt; 270°</Capability>
- </Channel>
- <Channel Name="Tilt fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">0° -&gt; 1°</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
  <Channel Name="Pan &amp; Tilt speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="251">Fast to Slow speed</Capability>
   <Capability Min="252" Max="255">Vector mode (light off during move)</Capability>
  </Channel>
  <Mode Name="12 channels">
-  <Physical>
-   <Bulb Lumens="18000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="325" Height="401" Weight="8.5" Depth="250"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Head" TiltMax="270"/>
-   <Technical PowerConsumption="150" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Obturator</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Colour</Channel>
@@ -106,4 +84,11 @@
   <Channel Number="10">Tilt fine</Channel>
   <Channel Number="11">Pan &amp; Tilt speed</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="18000" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="325" Height="401" Weight="8.5" Depth="250"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="540" Type="Head" TiltMax="270"/>
+   <Technical PowerConsumption="150" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

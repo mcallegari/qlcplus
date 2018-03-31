@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.1</Version>
+  <Version>4.11.2 GIT</Version>
   <Author>Dag Stenstad</Author>
  </Creator>
  <Manufacturer>Varytec</Manufacturer>
@@ -22,12 +22,12 @@
  <Channel Name="Mirror 1 Pattern">
   <Group Byte="0">Effect</Group>
   <Capability Min="1" Max="10">No Pattern</Capability>
-  <Capability Min="11" Max="15" Color="#ff0004">Red</Capability>
-  <Capability Min="16" Max="20" Color="#00ff1d">Green</Capability>
-  <Capability Min="21" Max="25" Color="#0c6dff">Blue</Capability>
-  <Capability Min="26" Max="30" Color="#ff0000" Color2="#00ff00">Red+Green</Capability>
-  <Capability Min="31" Max="35" Color="#26ff05" Color2="#1170ff">Green+Blue</Capability>
-  <Capability Min="36" Max="40" Color="#ff0000" Color2="#213eff">Red+Blue</Capability>
+  <Capability Min="11" Max="15" Preset="ColorMacro" Res1="#ff0004">Red</Capability>
+  <Capability Min="16" Max="20" Preset="ColorMacro" Res1="#00ff1d">Green</Capability>
+  <Capability Min="21" Max="25" Preset="ColorMacro" Res1="#0c6dff">Blue</Capability>
+  <Capability Min="26" Max="30" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red+Green</Capability>
+  <Capability Min="31" Max="35" Preset="ColorDoubleMacro" Res1="#26ff05" Res2="#1170ff">Green+Blue</Capability>
+  <Capability Min="36" Max="40" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#213eff">Red+Blue</Capability>
   <Capability Min="41" Max="45">Red+Green+Blue</Capability>
   <Capability Min="46" Max="50">Red+Green+Blue+Gray</Capability>
   <Capability Min="51" Max="55">Red+Green+Blue+Gray+Orange</Capability>
@@ -70,12 +70,12 @@
  <Channel Name="Mirror 2 Pattern">
   <Group Byte="0">Effect</Group>
   <Capability Min="1" Max="10">No Pattern</Capability>
-  <Capability Min="11" Max="15" Color="#ff0004">Red</Capability>
-  <Capability Min="16" Max="20" Color="#00ff1d">Green</Capability>
-  <Capability Min="21" Max="25" Color="#0c6dff">Blue</Capability>
-  <Capability Min="26" Max="30" Color="#ff3b00" Color2="#19ff00">Red+Green</Capability>
-  <Capability Min="31" Max="35" Color="#26ff05" Color2="#1170ff">Green+Blue</Capability>
-  <Capability Min="36" Max="40" Color="#ff0000" Color2="#213eff">Red+Blue</Capability>
+  <Capability Min="11" Max="15" Preset="ColorMacro" Res1="#ff0004">Red</Capability>
+  <Capability Min="16" Max="20" Preset="ColorMacro" Res1="#00ff1d">Green</Capability>
+  <Capability Min="21" Max="25" Preset="ColorMacro" Res1="#0c6dff">Blue</Capability>
+  <Capability Min="26" Max="30" Preset="ColorDoubleMacro" Res1="#ff3b00" Res2="#19ff00">Red+Green</Capability>
+  <Capability Min="31" Max="35" Preset="ColorDoubleMacro" Res1="#26ff05" Res2="#1170ff">Green+Blue</Capability>
+  <Capability Min="36" Max="40" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#213eff">Red+Blue</Capability>
   <Capability Min="41" Max="45">Red+Green+Blue</Capability>
   <Capability Min="46" Max="50">Red+Green+Blue+Gray</Capability>
   <Capability Min="51" Max="55">Red+Green+Blue+Gray+Orange</Capability>
@@ -119,24 +119,10 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Slow to Fast</Capability>
  </Channel>
- <Channel Name="Dimmer for White LEDs 0-100%">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">Dimmer for white LEDs 0-100%</Capability>
- </Channel>
- <Channel Name="Shutter for White LEDs">
-  <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="255">Shutter for White LEDs</Capability>
- </Channel>
- <Channel Name="Dimmer for UV LEDs 0-100%">
-  <Group Byte="0">Intensity</Group>
-  <Colour>UV</Colour>
-  <Capability Min="0" Max="255">Dimmer for UV LEDs 0-100%</Capability>
- </Channel>
- <Channel Name="Shutter for UV LEDs">
-  <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="255">Shutter for UV LEDs</Capability>
- </Channel>
+ <Channel Name="Dimmer for White LEDs 0-100%" Preset="IntensityWhite"/>
+ <Channel Name="Shutter for White LEDs" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Dimmer for UV LEDs 0-100%" Preset="IntensityUV"/>
+ <Channel Name="Shutter for UV LEDs" Preset="ShutterStrobeSlowFast"/>
  <Channel Name="Effect Combination Programs">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="10">No function</Capability>
@@ -149,13 +135,6 @@
   <Capability Min="221" Max="255">3 effect change with pattern, white + UV</Capability>
  </Channel>
  <Mode Name="DMX 10-channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="4.8" Width="360" Height="460" Depth="190"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Mirror 1 Rotation</Channel>
   <Channel Number="1">Mirror 2 Rotation</Channel>
   <Channel Number="2">Mirror 1 Pattern</Channel>
@@ -167,4 +146,11 @@
   <Channel Number="8">Shutter for UV LEDs</Channel>
   <Channel Number="9">Effect Combination Programs</Channel>
  </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4.8" Width="360" Height="460" Depth="190"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

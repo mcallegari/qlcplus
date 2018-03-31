@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>JB-Lighting</Manufacturer>
  <Model>JBLED A7</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan (X)">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Movement 430°</Capability>
- </Channel>
- <Channel Name="Pan (X) Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Fine</Capability>
- </Channel>
- <Channel Name="Tilt (Y)">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Movement 300°</Capability>
- </Channel>
- <Channel Name="Tilt (Y) Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Fine</Capability>
- </Channel>
+ <Channel Name="Pan (X)" Preset="PositionPan"/>
+ <Channel Name="Pan (X) Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt (Y)" Preset="PositionTilt"/>
+ <Channel Name="Tilt (Y) Fine" Preset="PositionTiltFine"/>
  <Channel Name="Control">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="7">Full output power on LED fade out (slow - fast)</Capability>
@@ -65,29 +53,14 @@
   <Capability Min="240" Max="254">Random fade 100% (0.6sec - 4.8sec)</Capability>
   <Capability Min="255" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0 - 100%</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Zoom">
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="255">12° - 36° (1/10 peak measurement)</Capability>
  </Channel>
- <Channel Name="Red (8 Bit)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0 - 100%</Capability>
- </Channel>
- <Channel Name="Green (8 Bit)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue (8 Bit)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0 - 100%</Capability>
- </Channel>
+ <Channel Name="Red (8 Bit)" Preset="IntensityRed"/>
+ <Channel Name="Green (8 Bit)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (8 Bit)" Preset="IntensityBlue"/>
  <Channel Name="CTC">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="255">0 - 100%</Capability>
@@ -134,29 +107,10 @@
   <Capability Min="160" Max="223">No function</Capability>
   <Capability Min="224" Max="255">Blackout at colour changes and pan/tilt moves</Capability>
  </Channel>
- <Channel Name="Red Fine (16 Bit)">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0 - 100%</Capability>
- </Channel>
- <Channel Name="Green Fine (16 Bit)">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue Fine (16 Bit)">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0 - 100%</Capability>
- </Channel>
+ <Channel Name="Red Fine (16 Bit)" Preset="IntensityRedFine"/>
+ <Channel Name="Green Fine (16 Bit)" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue Fine (16 Bit)" Preset="IntensityBlueFine"/>
  <Mode Name="Standard RGB 8 Bit (S8)">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="8.9" Width="318" Height="388" Depth="200"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Head" PanMax="430" TiltMax="300"/>
-   <Technical PowerConsumption="350" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Pan (X)</Channel>
   <Channel Number="1">Pan (X) Fine</Channel>
   <Channel Number="2">Tilt (Y)</Channel>
@@ -175,13 +129,6 @@
   <Channel Number="15">Blackout Move</Channel>
  </Mode>
  <Mode Name="Compressed RGB 8 Bit (C8)">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="8.9" Width="318" Height="388" Depth="200"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Head" PanMax="430" TiltMax="300"/>
-   <Technical PowerConsumption="350" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Pan (X)</Channel>
   <Channel Number="1">Pan (X) Fine</Channel>
   <Channel Number="2">Tilt (Y)</Channel>
@@ -196,13 +143,6 @@
   <Channel Number="11">CTC</Channel>
  </Mode>
  <Mode Name="Standard RGB 16 Bit (S16)">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="8.9" Width="318" Height="388" Depth="200"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Head" PanMax="430" TiltMax="300"/>
-   <Technical PowerConsumption="350" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Pan (X)</Channel>
   <Channel Number="1">Pan (X) Fine</Channel>
   <Channel Number="2">Tilt (Y)</Channel>
@@ -224,13 +164,6 @@
   <Channel Number="18">Blackout Move</Channel>
  </Mode>
  <Mode Name="Compressed RGB 16 Bit (C16)">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="8.9" Width="318" Height="388" Depth="200"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Head" PanMax="430" TiltMax="300"/>
-   <Technical PowerConsumption="350" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Pan (X)</Channel>
   <Channel Number="1">Pan (X) Fine</Channel>
   <Channel Number="2">Tilt (Y)</Channel>
@@ -247,4 +180,11 @@
   <Channel Number="13">Blue Fine (16 Bit)</Channel>
   <Channel Number="14">CTC</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="8.9" Width="318" Height="388" Depth="200"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="430" TiltMax="300"/>
+   <Technical PowerConsumption="350" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
 </FixtureDefinition>

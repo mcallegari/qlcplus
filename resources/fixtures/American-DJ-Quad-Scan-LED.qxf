@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -51,14 +51,8 @@
   <Capability Min="233" Max="247">Movement 16</Capability>
   <Capability Min="248" Max="255">Sound controlled active</Capability>
  </Channel>
- <Channel Name="Pan/Tilt Speed Movement">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Slow to fast</Capability>
- </Channel>
- <Channel Name="Master Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
+ <Channel Name="Pan/Tilt Speed Movement" Preset="SpeedPanTiltSlowFast"/>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobing">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="8">Open</Capability>
@@ -106,33 +100,12 @@
   <Capability Min="240" Max="247">Color sequence 31</Capability>
   <Capability Min="248" Max="255">Color sequence 32</Capability>
  </Channel>
- <Channel Name="Mirror 1 Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Mirror 1 Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Red (Mirror 1)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
- <Channel Name="Green (Mirror 1)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
- <Channel Name="Blue (Mirror 1)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
- <Channel Name="Master Dimmer (Mirror 1)">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
+ <Channel Name="Mirror 1 Pan" Preset="PositionPan"/>
+ <Channel Name="Mirror 1 Tilt" Preset="PositionTilt"/>
+ <Channel Name="Red (Mirror 1)" Preset="IntensityRed"/>
+ <Channel Name="Green (Mirror 1)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (Mirror 1)" Preset="IntensityBlue"/>
+ <Channel Name="Master Dimmer (Mirror 1)" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobing (Mirror 1)">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="8">Open</Capability>
@@ -145,33 +118,12 @@
   <Capability Min="240" Max="247">Sound active strobing</Capability>
   <Capability Min="248" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Mirror 2 Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Mirror 2 Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Red (Mirror 2)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
- <Channel Name="Green (Mirror 2)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
- <Channel Name="Blue (Mirror 2)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
- <Channel Name="Master Dimmer (Mirror 2)">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
+ <Channel Name="Mirror 2 Pan" Preset="PositionPan"/>
+ <Channel Name="Mirror 2 Tilt" Preset="PositionTilt"/>
+ <Channel Name="Red (Mirror 2)" Preset="IntensityRed"/>
+ <Channel Name="Green (Mirror 2)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (Mirror 2)" Preset="IntensityBlue"/>
+ <Channel Name="Master Dimmer (Mirror 2)" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobing (Mirror 2)">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="8">Open</Capability>
@@ -184,33 +136,12 @@
   <Capability Min="240" Max="247">Sound active strobing</Capability>
   <Capability Min="248" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Mirror 3 Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Mirror 3 Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Red (Mirror 3)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
- <Channel Name="Green (Mirror 3)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
- <Channel Name="Blue (Mirror 3)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
- <Channel Name="Master Dimmer (Mirror 3)">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
+ <Channel Name="Mirror 3 Pan" Preset="PositionPan"/>
+ <Channel Name="Mirror 3 Tilt" Preset="PositionTilt"/>
+ <Channel Name="Red (Mirror 3)" Preset="IntensityRed"/>
+ <Channel Name="Green (Mirror 3)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (Mirror 3)" Preset="IntensityBlue"/>
+ <Channel Name="Master Dimmer (Mirror 3)" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobing (Mirror 3)">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="8">Open</Capability>
@@ -223,33 +154,12 @@
   <Capability Min="240" Max="247">Sound active strobing</Capability>
   <Capability Min="248" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Mirror 4 Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Mirror 4 Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Red (Mirror 4)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
- <Channel Name="Green (Mirror 4)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
- <Channel Name="Blue (Mirror 4)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
- <Channel Name="Master Dimmer (Mirror 4)">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
+ <Channel Name="Mirror 4 Pan" Preset="PositionPan"/>
+ <Channel Name="Mirror 4 Tilt" Preset="PositionTilt"/>
+ <Channel Name="Red (Mirror 4)" Preset="IntensityRed"/>
+ <Channel Name="Green (Mirror 4)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (Mirror 4)" Preset="IntensityBlue"/>
+ <Channel Name="Master Dimmer (Mirror 4)" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobing (Mirror 4)">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="8">Open</Capability>
@@ -263,23 +173,9 @@
   <Capability Min="248" Max="255">Open</Capability>
  </Channel>
  <Mode Name="1 Channel mode">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="6" Width="438" Height="338" Depth="126"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Mirror" PanMax="180" TiltMax="60"/>
-   <Technical PowerConsumption="65" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Shows</Channel>
  </Mode>
  <Mode Name="5 Channels mode">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="6" Width="438" Height="338" Depth="126"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Mirror" PanMax="180" TiltMax="60"/>
-   <Technical PowerConsumption="65" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan/Tilt Movements</Channel>
   <Channel Number="1">Pan/Tilt Speed Movement</Channel>
   <Channel Number="2">Master Dimmer</Channel>
@@ -287,13 +183,6 @@
   <Channel Number="4">Static Color Sequence</Channel>
  </Mode>
  <Mode Name="28 Channels mode">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="6" Width="438" Height="338" Depth="126"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Mirror" PanMax="180" TiltMax="60"/>
-   <Technical PowerConsumption="65" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Mirror 1 Pan</Channel>
   <Channel Number="1">Mirror 1 Tilt</Channel>
   <Channel Number="2">Red (Mirror 1)</Channel>
@@ -359,4 +248,11 @@
    <Channel>26</Channel>
   </Head>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="6" Width="438" Height="338" Depth="126"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Mirror" PanMax="180" TiltMax="60"/>
+   <Technical PowerConsumption="65" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -33,58 +33,30 @@
   <Capability Min="172" Max="214">Macro 5 - Lighting</Capability>
   <Capability Min="215" Max="255">Macro 6 - Spikes</Capability>
  </Channel>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Min &lt; Max</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Min &lt; Max</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Min &lt; Max</Capability>
- </Channel>
- <Channel Name="White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">Min &lt; MAx</Capability>
- </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
  <Channel Name="Blue Duration">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Min &lt; Max</Capability>
  </Channel>
- <Channel Name="Blue Rate">
-  <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="255">Min &lt; Max</Capability>
- </Channel>
+ <Channel Name="Blue Rate" Preset="ShutterStrobeSlowFast"/>
  <Channel Name="White Duration">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Min &lt; Max</Capability>
  </Channel>
- <Channel Name="White Rate">
-  <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="255">Min &lt; Max</Capability>
- </Channel>
+ <Channel Name="White Rate" Preset="ShutterStrobeSlowFast"/>
  <Channel Name="Green Duration">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Min &lt; MAx</Capability>
  </Channel>
- <Channel Name="Green Rate">
-  <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="255">Min &lt; MAx</Capability>
- </Channel>
+ <Channel Name="Green Rate" Preset="ShutterStrobeSlowFast"/>
  <Channel Name="Red Duration">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Min &lt; Max</Capability>
  </Channel>
- <Channel Name="Red Rate">
-  <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="255">Min &lt; Max</Capability>
- </Channel>
+ <Channel Name="Red Rate" Preset="ShutterStrobeSlowFast"/>
  <Channel Name="Mask">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="31">No overwrinting</Capability>
@@ -104,13 +76,6 @@
   <Capability Min="240" Max="255">GBW overwrinting RED</Capability>
  </Channel>
  <Mode Name="Independent">
-  <Physical>
-   <Bulb Lumens="80000" Type="LED" ColourTemperature="5700"/>
-   <Dimensions Width="482" Height="305" Weight="7.5" Depth="182"/>
-   <Lens DegreesMax="130" Name="Other" DegreesMin="42"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="800" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
@@ -127,13 +92,6 @@
   <Channel Number="13">Mask</Channel>
  </Mode>
  <Mode Name="Standard">
-  <Physical>
-   <Bulb Lumens="80000" Type="LED" ColourTemperature="5700"/>
-   <Dimensions Width="482" Height="305" Weight="7.5" Depth="182"/>
-   <Lens DegreesMax="130" Name="Other" DegreesMin="42"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="800" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
@@ -142,4 +100,11 @@
   <Channel Number="5">Duration</Channel>
   <Channel Number="6">Rate</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="80000" Type="LED" ColourTemperature="5700"/>
+   <Dimensions Width="482" Height="305" Weight="7.5" Depth="182"/>
+   <Lens DegreesMax="130" Name="Other" DegreesMin="42"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="800" DmxConnector="5-pin"/>
+  </Physical>
 </FixtureDefinition>

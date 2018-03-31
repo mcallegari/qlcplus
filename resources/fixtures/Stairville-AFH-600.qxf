@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -14,13 +14,13 @@
   <Capability Min="0" Max="255">Amount of haze</Capability>
  </Channel>
  <Mode Name="DMX">
-  <Physical>
+  <Channel Number="0">Haze Intensity</Channel>
+ </Mode>
+<Physical>
    <Bulb Type="None" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="5.5" Width="290" Height="265" Depth="450"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="1290" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Haze Intensity</Channel>
- </Mode>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -43,74 +43,19 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Flash</Capability>
  </Channel>
- <Channel Name="R1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Color="#ff0000" Min="0" Max="255">Red</Capability>
- </Channel>
- <Channel Name="G1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Color="#00aa00" Min="0" Max="255">Green</Capability>
- </Channel>
- <Channel Name="B1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Color="#0000ff" Min="0" Max="255">Blue</Capability>
- </Channel>
- <Channel Name="R2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Color="#ff0000" Min="0" Max="255">Red</Capability>
- </Channel>
- <Channel Name="G2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Color="#00aa00" Min="0" Max="255">Green</Capability>
- </Channel>
- <Channel Name="B2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Color="#0000ff" Min="0" Max="255">Blue</Capability>
- </Channel>
- <Channel Name="R3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Color="#ff0000" Min="0" Max="255">Red</Capability>
- </Channel>
- <Channel Name="G3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Color="#00aa00" Min="0" Max="255">Green 3</Capability>
- </Channel>
- <Channel Name="B3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Color="#0000ff" Min="0" Max="255">Blue 3</Capability>
- </Channel>
- <Channel Name="R4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red</Capability>
- </Channel>
- <Channel Name="G4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green</Capability>
- </Channel>
- <Channel Name="B4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue</Capability>
- </Channel>
+ <Channel Name="R1" Preset="IntensityRed"/>
+ <Channel Name="G1" Preset="IntensityGreen"/>
+ <Channel Name="B1" Preset="IntensityBlue"/>
+ <Channel Name="R2" Preset="IntensityRed"/>
+ <Channel Name="G2" Preset="IntensityGreen"/>
+ <Channel Name="B2" Preset="IntensityBlue"/>
+ <Channel Name="R3" Preset="IntensityRed"/>
+ <Channel Name="G3" Preset="IntensityGreen"/>
+ <Channel Name="B3" Preset="IntensityBlue"/>
+ <Channel Name="R4" Preset="IntensityRed"/>
+ <Channel Name="G4" Preset="IntensityGreen"/>
+ <Channel Name="B4" Preset="IntensityBlue"/>
  <Mode Name="6 CH - Mode">
-  <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Depth="100" Height="290" Weight="5" Width="1030"/>
-   <Lens DegreesMin="25" DegreesMax="25" Name="Other"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Blackout/Dimmer/Programs</Channel>
   <Channel Number="1">Master</Channel>
   <Channel Number="2">Flash</Channel>
@@ -124,13 +69,6 @@
   </Head>
  </Mode>
  <Mode Name="9 CH - Mode ">
-  <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Depth="100" Height="290" Weight="5" Width="1030"/>
-   <Lens DegreesMin="25" DegreesMax="25" Name="Other"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Blackout/Dimmer/Programs</Channel>
   <Channel Number="1">Master</Channel>
   <Channel Number="2">Flash</Channel>
@@ -152,13 +90,6 @@
   </Head>
  </Mode>
  <Mode Name="15 CH - Mode">
-  <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Depth="100" Height="290" Weight="5" Width="1030"/>
-   <Lens DegreesMin="25" DegreesMax="25" Name="Other"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Blackout/Dimmer/Programs</Channel>
   <Channel Number="1">Master</Channel>
   <Channel Number="2">Flash</Channel>
@@ -195,4 +126,11 @@
    <Channel>14</Channel>
   </Head>
  </Mode>
+<Physical>
+   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
+   <Dimensions Depth="100" Height="290" Weight="5" Width="1030"/>
+   <Lens DegreesMin="25" DegreesMax="25" Name="Other"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

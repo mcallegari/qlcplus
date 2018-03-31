@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -57,22 +57,10 @@
   <Capability Min="236" Max="245">Blackout by all wheel changing</Capability>
   <Capability Min="246" Max="255">Max. speed</Capability>
  </Channel>
- <Channel Name="Pan (coarse)">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan coarse</Capability>
- </Channel>
- <Channel Name="Pan (fine)">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan (fine)</Capability>
- </Channel>
- <Channel Name="Tilt (coarse)">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt (coarse)</Capability>
- </Channel>
- <Channel Name="Tilt (fine)">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt (fine)</Capability>
- </Channel>
+ <Channel Name="Pan (coarse)" Preset="PositionPan"/>
+ <Channel Name="Pan (fine)" Preset="PositionPanFine"/>
+ <Channel Name="Tilt (coarse)" Preset="PositionTilt"/>
+ <Channel Name="Tilt (fine)" Preset="PositionTiltFine"/>
  <Channel Name="Prism">
   <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="31">Open</Capability>
@@ -107,10 +95,7 @@
   <Capability Min="192" Max="223">Random from slow to fast</Capability>
   <Capability Min="224" Max="255">Max. open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Control">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="19">Normal operation</Capability>
@@ -133,13 +118,6 @@
   <Capability Min="240" Max="255">Auto program by music</Capability>
  </Channel>
  <Mode Name="Default">
-  <Physical>
-   <Bulb Type="LED" Lumens="800" ColourTemperature="6500"/>
-   <Dimensions Weight="10.5" Height="520" Width="380" Depth="460"/>
-   <Lens DegreesMin="12" DegreesMax="12" Name="PC"/>
-   <Focus Type="Head" TiltMax="265" PanMax="540"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="20"/>
-  </Physical>
   <Channel Number="0">Colour</Channel>
   <Channel Number="1">Gobo</Channel>
   <Channel Number="2">Gobo spin &amp; pos</Channel>
@@ -153,4 +131,11 @@
   <Channel Number="10">Pan (fine)</Channel>
   <Channel Number="11">Tilt (fine)</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="800" ColourTemperature="6500"/>
+   <Dimensions Weight="10.5" Height="520" Width="380" Depth="460"/>
+   <Lens DegreesMin="12" DegreesMax="12" Name="PC"/>
+   <Focus Type="Head" TiltMax="265" PanMax="540"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="20"/>
+  </Physical>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,100 +9,25 @@
  <Manufacturer>Chauvet</Manufacturer>
  <Model>Hive</Model>
  <Type>Dimmer</Type>
- <Channel Name="Pod1_R">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255"/>
- </Channel>
- <Channel Name="Pod1_G">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255"/>
- </Channel>
- <Channel Name="Pod1_B">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255"/>
- </Channel>
- <Channel Name="Pod2_R">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255"/>
- </Channel>
- <Channel Name="Pod2_G">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255"/>
- </Channel>
- <Channel Name="Pod2_B">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255"/>
- </Channel>
- <Channel Name="Pod3_R">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255"/>
- </Channel>
- <Channel Name="Pod3_G">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255"/>
- </Channel>
- <Channel Name="Pod3_B">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255"/>
- </Channel>
- <Channel Name="Pod4_R">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255"/>
- </Channel>
- <Channel Name="Pod4_G">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255"/>
- </Channel>
- <Channel Name="Pod4_B">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255"/>
- </Channel>
- <Channel Name="Pod5_R">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255"/>
- </Channel>
- <Channel Name="Pod5_G">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255"/>
- </Channel>
- <Channel Name="Pod5_B">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255"/>
- </Channel>
- <Channel Name="Pod6_R">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255"/>
- </Channel>
- <Channel Name="Pod6_G">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255"/>
- </Channel>
- <Channel Name="Pod6_B">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255"/>
- </Channel>
- <Channel Name="Strobe">
-  <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="255">Slow to Fast</Capability>
- </Channel>
+ <Channel Name="Pod1_R" Preset="IntensityRed"/>
+ <Channel Name="Pod1_G" Preset="IntensityGreen"/>
+ <Channel Name="Pod1_B" Preset="IntensityBlue"/>
+ <Channel Name="Pod2_R" Preset="IntensityRed"/>
+ <Channel Name="Pod2_G" Preset="IntensityGreen"/>
+ <Channel Name="Pod2_B" Preset="IntensityBlue"/>
+ <Channel Name="Pod3_R" Preset="IntensityRed"/>
+ <Channel Name="Pod3_G" Preset="IntensityGreen"/>
+ <Channel Name="Pod3_B" Preset="IntensityBlue"/>
+ <Channel Name="Pod4_R" Preset="IntensityRed"/>
+ <Channel Name="Pod4_G" Preset="IntensityGreen"/>
+ <Channel Name="Pod4_B" Preset="IntensityBlue"/>
+ <Channel Name="Pod5_R" Preset="IntensityRed"/>
+ <Channel Name="Pod5_G" Preset="IntensityGreen"/>
+ <Channel Name="Pod5_B" Preset="IntensityBlue"/>
+ <Channel Name="Pod6_R" Preset="IntensityRed"/>
+ <Channel Name="Pod6_G" Preset="IntensityGreen"/>
+ <Channel Name="Pod6_B" Preset="IntensityBlue"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
  <Channel Name="Auto program">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="1">No Effect</Capability>
@@ -134,13 +59,6 @@
   <Capability Min="0" Max="255">Slow to Fast</Capability>
  </Channel>
  <Mode Name="20 Channel Mode">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Weight="4.2" Width="330" Depth="240" Height="225"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="174" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pod1_R</Channel>
   <Channel Number="1">Pod1_G</Channel>
   <Channel Number="2">Pod1_B</Channel>
@@ -193,15 +111,15 @@
   </Head>
  </Mode>
  <Mode Name="3 Channel Mode">
-  <Physical>
+  <Channel Number="0">Auto Program (3 Ch)</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Auto Program Speed</Channel>
+ </Mode>
+<Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
    <Dimensions Weight="4.2" Width="330" Depth="240" Height="225"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="174" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Auto Program (3 Ch)</Channel>
-  <Channel Number="1">Strobe</Channel>
-  <Channel Number="2">Auto Program Speed</Channel>
- </Mode>
 </FixtureDefinition>

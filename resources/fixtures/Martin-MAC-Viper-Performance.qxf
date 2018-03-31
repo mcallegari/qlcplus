@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -17,29 +17,11 @@
   <Capability Min="201" Max="210">Open</Capability>
   <Capability Min="211" Max="255">Random strobe, slow → fast</Capability>
  </Channel>
- <Channel Name="Dimmer fade">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Closed → open </Capability>
- </Channel>
- <Channel Name="Dimmer fade, fine">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">Closed → open </Capability>
- </Channel>
- <Channel Name="Cyan">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">White → full cyan</Capability>
- </Channel>
- <Channel Name="Magenta">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">White → full magenta</Capability>
- </Channel>
- <Channel Name="Yellow">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">White → full yellow</Capability>
- </Channel>
+ <Channel Name="Dimmer fade" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer fade, fine" Preset="IntensityDimmerFine"/>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
  <Channel Name="CTO">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
@@ -203,38 +185,20 @@
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="255">Open → closed</Capability>
  </Channel>
- <Channel Name="Zoom">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Flood → spot </Capability>
- </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomBigSmall"/>
  <Channel Name="Zoom Fine">
   <Group Byte="1">Beam</Group>
   <Capability Min="0" Max="255">Flood → spot </Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Infinity → near</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusFarNear"/>
  <Channel Name="Focus Fine">
   <Group Byte="1">Beam</Group>
   <Capability Min="0" Max="255">Infinity → near</Capability>
  </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Min&lt;Max</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Min&lt;Max</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Min&lt;Max</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Min&lt;Max</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Control/Settings">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="9">No function</Capability>
@@ -289,34 +253,12 @@
   <Capability Min="245" Max="249">Reset all calibration values to factory defaults – 5 sec.</Capability>
   <Capability Min="250" Max="254">No function</Capability>
  </Channel>
- <Channel Name="Reserved for future use">
-  <Group Byte="0">Nothing</Group>
-  <Capability Min="0" Max="255">No Function</Capability>
- </Channel>
- <Channel Name="Reserved for future use 1">
-  <Group Byte="0">Nothing</Group>
-  <Capability Min="0" Max="255">No Function</Capability>
- </Channel>
- <Channel Name="Reserved for future use 2">
-  <Group Byte="0">Nothing</Group>
-  <Capability Min="0" Max="255">No Function</Capability>
- </Channel>
- <Channel Name="Reserved for future use 3">
-  <Group Byte="0">Nothing</Group>
-  <Capability Min="0" Max="255">No Function</Capability>
- </Channel>
- <Channel Name="Reserved for future use 4">
-  <Group Byte="0">Nothing</Group>
-  <Capability Min="0" Max="255">No Function</Capability>
- </Channel>
+ <Channel Name="Reserved for future use" Preset="NoFunction"/>
+ <Channel Name="Reserved for future use 1" Preset="NoFunction"/>
+ <Channel Name="Reserved for future use 2" Preset="NoFunction"/>
+ <Channel Name="Reserved for future use 3" Preset="NoFunction"/>
+ <Channel Name="Reserved for future use 4" Preset="NoFunction"/>
  <Mode Name="Extended">
-  <Physical>
-   <Bulb Type="HTI 1000W" ColourTemperature="6000" Lumens="0"/>
-   <Dimensions Width="471" Height="730" Depth="565" Weight="38"/>
-   <Lens Name="Other" DegreesMin="10" DegreesMax="44"/>
-   <Focus Type="Head" PanMax="540" TiltMax="268"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="1200"/>
-  </Physical>
   <Channel Number="0">Strobe/shutter</Channel>
   <Channel Number="1">Dimmer fade</Channel>
   <Channel Number="2">Dimmer fade, fine</Channel>
@@ -359,13 +301,6 @@
   <Channel Number="39">Reserved for future use 4</Channel>
  </Mode>
  <Mode Name="Basic">
-  <Physical>
-   <Bulb Type="HTI 1000W" ColourTemperature="6000" Lumens="0"/>
-   <Dimensions Width="471" Height="730" Depth="565" Weight="38"/>
-   <Lens Name="Other" DegreesMin="10" DegreesMax="44"/>
-   <Focus Type="Head" PanMax="540" TiltMax="268"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="1200"/>
-  </Physical>
   <Channel Number="0">Strobe/shutter</Channel>
   <Channel Number="1">Dimmer fade</Channel>
   <Channel Number="2">Cyan</Channel>
@@ -399,4 +334,11 @@
   <Channel Number="30">Tilt Fine</Channel>
   <Channel Number="31">Control/Settings</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="HTI 1000W" ColourTemperature="6000" Lumens="0"/>
+   <Dimensions Width="471" Height="730" Depth="565" Weight="38"/>
+   <Lens Name="Other" DegreesMin="10" DegreesMax="44"/>
+   <Focus Type="Head" PanMax="540" TiltMax="268"/>
+   <Technical DmxConnector="5-pin" PowerConsumption="1200"/>
+  </Physical>
 </FixtureDefinition>

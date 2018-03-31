@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -17,25 +17,10 @@
   <Capability Min="230" Max="239">Lamp Off after 3 Sec</Capability>
   <Capability Min="240" Max="255">No function</Capability>
  </Channel>
- <Channel Name="No function 2">
-  <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="255">No function</Capability>
- </Channel>
- <Channel Name="Cyan">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">Cyan (0 White / 255 Full Cyan)</Capability>
- </Channel>
- <Channel Name="Magenta">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">Magenta (0 White / 255 Full Magenta)</Capability>
- </Channel>
- <Channel Name="Yellow">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">Yellow (0 White / 255 Full Yellow)</Capability>
- </Channel>
+ <Channel Name="No function 2" Preset="NoFunction"/>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
  <Channel Name="Speed of CMY and Dimmer">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Max &gt; Min Speed of CMY and Dimmer</Capability>
@@ -75,14 +60,8 @@
   <Capability Min="240" Max="247">Macro 30</Capability>
   <Capability Min="248" Max="255">Macro 31</Capability>
  </Channel>
- <Channel Name="No function 8">
-  <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="255">No function</Capability>
- </Channel>
- <Channel Name="No function 9">
-  <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="255">No function</Capability>
- </Channel>
+ <Channel Name="No function 8" Preset="NoFunction"/>
+ <Channel Name="No function 9" Preset="NoFunction"/>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="31">Shutter Closed</Capability>
@@ -94,18 +73,8 @@
   <Capability Min="192" Max="223">Random Strobe Effect with increasing speed</Capability>
   <Capability Min="224" Max="255">Shutter Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb Lumens="0" Type="MSD 250W" ColourTemperature="0"/>
-   <Dimensions Width="316" Height="250" Weight="13.5" Depth="321"/>
-   <Lens DegreesMax="22" Name="Fresnel" DegreesMin="8"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="390" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Lamp On/Off, Control of Fans</Channel>
   <Channel Number="1">No function 2</Channel>
   <Channel Number="2">Cyan</Channel>
@@ -119,13 +88,6 @@
   <Channel Number="10">Dimmer</Channel>
  </Mode>
  <Mode Name="Mode 2">
-  <Physical>
-   <Bulb Lumens="0" Type="MSD 250W" ColourTemperature="0"/>
-   <Dimensions Width="316" Height="250" Weight="13.5" Depth="321"/>
-   <Lens DegreesMax="22" Name="Fresnel" DegreesMin="8"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="390" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Lamp On/Off, Control of Fans</Channel>
   <Channel Number="1">Cyan</Channel>
   <Channel Number="2">Magenta</Channel>
@@ -135,4 +97,11 @@
   <Channel Number="6">Shutter</Channel>
   <Channel Number="7">Dimmer</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="MSD 250W" ColourTemperature="0"/>
+   <Dimensions Width="316" Height="250" Weight="13.5" Depth="321"/>
+   <Lens DegreesMax="22" Name="Fresnel" DegreesMin="8"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="390" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

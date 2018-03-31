@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,14 +9,8 @@
  <Manufacturer>JB-Lighting</Manufacturer>
  <Model>Varyscan 4 EV</Model>
  <Type>Scanner</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="31">Open</Capability>
@@ -55,10 +49,7 @@
   <Capability Min="140" Max="243">Strobe speed 1-11/sec</Capability>
   <Capability Min="255" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Iris">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Iris</Capability>
- </Channel>
+ <Channel Name="Iris" Preset="BeamIris"/>
  <Channel Name="Gobo rotation">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="191">0-540 degrees</Capability>
@@ -97,13 +88,6 @@
   <Capability Min="194" Max="255">Rotation CW slow to fast</Capability>
  </Channel>
  <Mode Name="Normal">
-  <Physical>
-   <Bulb Lumens="0" Type="HMI 1200W" ColourTemperature="0"/>
-   <Dimensions Width="450" Height="895" Weight="34" Depth="320"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="170" Type="Mirror" TiltMax="90"/>
-   <Technical PowerConsumption="1430" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Gobo</Channel>
@@ -114,4 +98,11 @@
   <Channel Number="7">Effect</Channel>
   <Channel Number="8">Gobo 2</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="HMI 1200W" ColourTemperature="0"/>
+   <Dimensions Width="450" Height="895" Weight="34" Depth="320"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="170" Type="Mirror" TiltMax="90"/>
+   <Technical PowerConsumption="1430" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
 </FixtureDefinition>

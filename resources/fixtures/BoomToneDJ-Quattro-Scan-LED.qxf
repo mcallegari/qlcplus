@@ -3,16 +3,13 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.11.2 GIT</Version>
   <Author>boxr</Author>
  </Creator>
  <Manufacturer>BoomToneDJ</Manufacturer>
  <Model>Quattro Scan LED</Model>
  <Type>Scanner</Type>
- <Channel Name="Total dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Total dimmer</Capability>
- </Channel>
+ <Channel Name="Total dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Mode">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="63">9 channel mode</Capability>
@@ -21,104 +18,29 @@
   <Capability Min="171" Max="213">1 channel - sound control mode 2</Capability>
   <Capability Min="214" Max="255">1 channel - automatic mode</Capability>
  </Channel>
- <Channel Name="Strobe">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Strobe speed setting - slow to fast</Capability>
- </Channel>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red intensity</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green intensity</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue intensity</Capability>
- </Channel>
- <Channel Name="White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White intensity</Capability>
- </Channel>
- <Channel Name="X-axis position">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">X-axis position</Capability>
- </Channel>
- <Channel Name="Y-axis position">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Y-axis position</Capability>
- </Channel>
- <Channel Name="Light 1 - static colours">
-  <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="255">15 static colours</Capability>
- </Channel>
- <Channel Name="Light 2 - static colours">
-  <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="255">15 static colours</Capability>
- </Channel>
- <Channel Name="Light 3 - static colours">
-  <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="255">15 static colours</Capability>
- </Channel>
- <Channel Name="Light 4 - static colours">
-  <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="255">15 static colours</Capability>
- </Channel>
- <Channel Name="Light 1 - X-axis position">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">X-axis position</Capability>
- </Channel>
- <Channel Name="Light 1 - Y-axis position">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Y-axis position</Capability>
- </Channel>
- <Channel Name="Light 2 - X-axis position">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">X-axis position</Capability>
- </Channel>
- <Channel Name="Light 2 - Y-axis position">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Y-axis position</Capability>
- </Channel>
- <Channel Name="Light 3 - X-axis position">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">X-axis position</Capability>
- </Channel>
- <Channel Name="Light 3 - Y-axis position">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Y-axis position</Capability>
- </Channel>
- <Channel Name="Light 4 - X-axis position">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">X-axis position</Capability>
- </Channel>
- <Channel Name="Light 4 - Y-axis position">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Y-axis position</Capability>
- </Channel>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="X-axis position" Preset="PositionPan"/>
+ <Channel Name="Y-axis position" Preset="PositionTilt"/>
+ <Channel Name="Light 1 - static colours" Preset="ColorMacro"/>
+ <Channel Name="Light 2 - static colours" Preset="ColorMacro"/>
+ <Channel Name="Light 3 - static colours" Preset="ColorMacro"/>
+ <Channel Name="Light 4 - static colours" Preset="ColorMacro"/>
+ <Channel Name="Light 1 - X-axis position" Preset="PositionPan"/>
+ <Channel Name="Light 1 - Y-axis position" Preset="PositionTilt"/>
+ <Channel Name="Light 2 - X-axis position" Preset="PositionPan"/>
+ <Channel Name="Light 2 - Y-axis position" Preset="PositionTilt"/>
+ <Channel Name="Light 3 - X-axis position" Preset="PositionPan"/>
+ <Channel Name="Light 3 - Y-axis position" Preset="PositionTilt"/>
+ <Channel Name="Light 4 - X-axis position" Preset="PositionPan"/>
+ <Channel Name="Light 4 - Y-axis position" Preset="PositionTilt"/>
  <Mode Name="Single channel mode">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="9" Width="544" Height="175" Depth="496"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Mirror" PanMax="170" TiltMax="170"/>
-   <Technical PowerConsumption="90" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Mode</Channel>
  </Mode>
  <Mode Name="9 channel mode">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="9" Width="544" Height="175" Depth="496"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Mirror" PanMax="170" TiltMax="170"/>
-   <Technical PowerConsumption="90" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Mode</Channel>
   <Channel Number="1">Total dimmer</Channel>
   <Channel Number="2">Strobe</Channel>
@@ -130,13 +52,6 @@
   <Channel Number="8">Y-axis position</Channel>
  </Mode>
  <Mode Name="15 channel mode">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="9" Width="544" Height="175" Depth="496"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Mirror" PanMax="170" TiltMax="170"/>
-   <Technical PowerConsumption="90" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Mode</Channel>
   <Channel Number="1">Total dimmer</Channel>
   <Channel Number="2">Strobe</Channel>
@@ -173,4 +88,11 @@
    <Channel>14</Channel>
   </Head>
  </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="9" Width="544" Height="175" Depth="496"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Mirror" PanMax="170" TiltMax="170"/>
+  <Technical PowerConsumption="90" DmxConnector="5-pin"/>
+ </Physical>
 </FixtureDefinition>

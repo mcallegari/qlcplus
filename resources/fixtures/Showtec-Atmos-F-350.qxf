@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,18 +9,15 @@
  <Manufacturer>Showtec</Manufacturer>
  <Model>Atmos F-350</Model>
  <Type>Hazer</Type>
- <Channel Name="Intensity">
-  <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="255">Intensity (0% to 100%)</Capability>
- </Channel>
+ <Channel Name="Intensity" Preset="IntensityDimmer"/>
  <Mode Name="Default">
-  <Physical>
+  <Channel Number="0">Intensity</Channel>
+ </Mode>
+<Physical>
    <Bulb Type="" ColourTemperature="0" Lumens="0"/>
    <Dimensions Depth="200" Height="200" Weight="6" Width="565"/>
    <Lens DegreesMin="0" Name="Other" DegreesMax="0"/>
    <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
    <Technical PowerConsumption="1000" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Intensity</Channel>
- </Mode>
 </FixtureDefinition>

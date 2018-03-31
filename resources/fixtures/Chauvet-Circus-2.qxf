@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -66,16 +66,16 @@
   <Capability Min="16" Max="255">SMD Strobe Speed (Slow - Fast)</Capability>
  </Channel>
  <Mode Name="Mode 1">
-  <Physical>
+  <Channel Number="0">Program Mode</Channel>
+  <Channel Number="1">Speed</Channel>
+  <Channel Number="2">Pods Strobe Speed</Channel>
+  <Channel Number="3">SMD Strobe Speed</Channel>
+ </Mode>
+<Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
    <Dimensions Width="200" Height="330" Weight="3.8" Depth="373"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="25" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Program Mode</Channel>
-  <Channel Number="1">Speed</Channel>
-  <Channel Number="2">Pods Strobe Speed</Channel>
-  <Channel Number="3">SMD Strobe Speed</Channel>
- </Mode>
 </FixtureDefinition>

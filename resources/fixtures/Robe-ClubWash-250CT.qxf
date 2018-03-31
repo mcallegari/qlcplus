@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>Robe</Manufacturer>
  <Model>ClubWash 250 CT</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Pan fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Tilt fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
  <Channel Name="Pan/Tilt Speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="0">Tracking</Capability>
@@ -56,10 +44,7 @@
   <Capability Min="128" Max="189">Scroll CW</Capability>
   <Capability Min="194" Max="255">Scroll CCW</Capability>
  </Channel>
- <Channel Name="No Func">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Raw DMX</Capability>
- </Channel>
+ <Channel Name="No Func" Preset="NoFunction"/>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="31">Closed</Capability>
@@ -69,18 +54,8 @@
   <Capability Min="144" Max="159">Open Pulse</Capability>
   <Capability Min="192" Max="223">Random Strobe</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Mode Name="16bit">
-  <Physical>
-   <Bulb Type="Sylvania BA 250/2 SE" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="20.3" Width="417" Height="520" Depth="375"/>
-   <Lens Name="Fresnel" DegreesMin="8" DegreesMax="0"/>
-   <Focus Type="Head" PanMax="530" TiltMax="280"/>
-   <Technical PowerConsumption="410" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -93,13 +68,6 @@
   <Channel Number="9">Dimmer</Channel>
  </Mode>
  <Mode Name="8bit">
-  <Physical>
-   <Bulb Type="Sylvania BA 250/2 SE" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="20.3" Width="417" Height="520" Depth="375"/>
-   <Lens Name="Fresnel" DegreesMin="8" DegreesMax="0"/>
-   <Focus Type="Head" PanMax="530" TiltMax="280"/>
-   <Technical PowerConsumption="410" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan/Tilt Speed</Channel>
@@ -109,4 +77,11 @@
   <Channel Number="6">Shutter</Channel>
   <Channel Number="7">Dimmer</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="Sylvania BA 250/2 SE" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="20.3" Width="417" Height="520" Depth="375"/>
+   <Lens Name="Fresnel" DegreesMin="8" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="530" TiltMax="280"/>
+   <Technical PowerConsumption="410" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

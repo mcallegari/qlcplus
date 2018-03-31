@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,30 +9,11 @@
  <Manufacturer>PixelRANGE</Manufacturer>
  <Model>PixelPar 44</Model>
  <Type>Color Changer</Type>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue 0 - 100%</Capability>
- </Channel>
- <Channel Name="Amber">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Amber</Colour>
-  <Capability Min="0" Max="255">Amber 0 - 100%</Capability>
- </Channel>
- <Channel Name="Master Int">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer 0 - 100%</Capability>
- </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Master Int" Preset="IntensityMasterDimmer"/>
  <Channel Name="C 1 Effect">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="7">Off</Capability>
@@ -83,48 +64,18 @@
  <Channel Name="C 2 Xfade">
   <Group Byte="0">Effect</Group>
  </Channel>
- <Channel Name="Red (fine)">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Red</Colour>
- </Channel>
- <Channel Name="Green (fine)">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Green</Colour>
- </Channel>
- <Channel Name="Blue (fine)">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Blue</Colour>
- </Channel>
- <Channel Name="Amber (fine)">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Amber</Colour>
- </Channel>
- <Channel Name="Red + Amber">
-  <Group Byte="0">Intensity</Group>
- </Channel>
- <Channel Name="Red + Amber (fine)">
-  <Group Byte="1">Intensity</Group>
- </Channel>
+ <Channel Name="Red (fine)" Preset="IntensityRedFine"/>
+ <Channel Name="Green (fine)" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue (fine)" Preset="IntensityBlueFine"/>
+ <Channel Name="Amber (fine)" Preset="IntensityAmberFine"/>
+ <Channel Name="Red + Amber" Preset="IntensityDimmer"/>
+ <Channel Name="Red + Amber (fine)" Preset="IntensityDimmerFine"/>
  <Mode Name="DMX (res=3Ch)">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="275" Height="317" Weight="6.8" Depth="181"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="127" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Red + Amber</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
  </Mode>
  <Mode Name="4+E">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="275" Height="317" Weight="6.8" Depth="181"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="127" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
@@ -138,13 +89,6 @@
   <Channel Number="10">Master Int</Channel>
  </Mode>
  <Mode Name="16bT (res=3Ch)">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="275" Height="317" Weight="6.8" Depth="181"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="127" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Red + Amber</Channel>
   <Channel Number="1">Red + Amber (fine)</Channel>
   <Channel Number="2">Green</Channel>
@@ -153,26 +97,12 @@
   <Channel Number="5">Blue (fine)</Channel>
  </Mode>
  <Mode Name="DMX (res=4Ch)">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="275" Height="317" Weight="6.8" Depth="181"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="127" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
   <Channel Number="3">Amber</Channel>
  </Mode>
  <Mode Name="DMX (res=4Ch) MAST">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="275" Height="317" Weight="6.8" Depth="181"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="127" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
@@ -180,26 +110,12 @@
   <Channel Number="4">Master Int</Channel>
  </Mode>
  <Mode Name="DMX (res=3Ch) MAST">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="275" Height="317" Weight="6.8" Depth="181"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="127" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Red + Amber</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
   <Channel Number="3">Master Int</Channel>
  </Mode>
  <Mode Name="16bT (res=3Ch) MAST">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="275" Height="317" Weight="6.8" Depth="181"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="127" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Red + Amber</Channel>
   <Channel Number="1">Red + Amber (fine)</Channel>
   <Channel Number="2">Green</Channel>
@@ -209,13 +125,6 @@
   <Channel Number="6">Master Int</Channel>
  </Mode>
  <Mode Name="16bT (res=4Ch)">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="275" Height="317" Weight="6.8" Depth="181"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="127" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Red (fine)</Channel>
   <Channel Number="2">Green</Channel>
@@ -226,13 +135,6 @@
   <Channel Number="7">Amber (fine)</Channel>
  </Mode>
  <Mode Name="16bT (res=4Ch) MAST">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="275" Height="317" Weight="6.8" Depth="181"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="127" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Red (fine)</Channel>
   <Channel Number="2">Green</Channel>
@@ -243,4 +145,11 @@
   <Channel Number="7">Amber (fine)</Channel>
   <Channel Number="8">Master Int</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="275" Height="317" Weight="6.8" Depth="181"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="127" DmxConnector="5-pin"/>
+  </Physical>
 </FixtureDefinition>

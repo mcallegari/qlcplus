@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,26 +9,11 @@
  <Manufacturer>Showtec</Manufacturer>
  <Model>Explorer 250 Pro MKII</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Horizontal movement (0-530°)</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Vertical movement (0-280°)</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">16 bit</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">16 bit</Capability>
- </Channel>
- <Channel Name="Pan/Tilt Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">From max. speed (0) to min. speed (255) in vector mode</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Lamp On, Off &amp; Reset">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="127">No function</Capability>
@@ -117,10 +102,7 @@
   <Capability Min="224" Max="239">224-239 Frost°</Capability>
   <Capability Min="240" Max="255">UV-filter</Capability>
  </Channel>
- <Channel Name="From Far Distance to Close Distance">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">From far distance to close distance</Capability>
- </Channel>
+ <Channel Name="From Far Distance to Close Distance" Preset="BeamFocusFarNear"/>
  <Channel Name="Shutter / Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="31">Shutter closed / blackout</Capability>
@@ -132,18 +114,8 @@
   <Capability Min="192" Max="223">Random strobe effect, from slow to fast </Capability>
   <Capability Min="224" Max="255">Shutter open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">From black to brightest</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Mode Name="16 Channels">
-  <Physical>
-   <Bulb Type="MSD 250W" Lumens="6700" ColourTemperature="0"/>
-   <Dimensions Weight="28.2" Width="350" Height="470" Depth="380"/>
-   <Lens Name="Other" DegreesMin="15" DegreesMax="26"/>
-   <Focus Type="Fixed" PanMax="530" TiltMax="280"/>
-   <Technical PowerConsumption="350" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan Fine</Channel>
@@ -161,4 +133,11 @@
   <Channel Number="14">Shutter / Strobe</Channel>
   <Channel Number="15">Dimmer</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="MSD 250W" Lumens="6700" ColourTemperature="0"/>
+   <Dimensions Weight="28.2" Width="350" Height="470" Depth="380"/>
+   <Lens Name="Other" DegreesMin="15" DegreesMax="26"/>
+   <Focus Type="Fixed" PanMax="530" TiltMax="280"/>
+   <Technical PowerConsumption="350" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,14 +9,8 @@
  <Manufacturer>American DJ</Manufacturer>
  <Model>Inno Pocket Spot Twins</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan 2 Movement">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">0° - 540°</Capability>
- </Channel>
- <Channel Name="Tilt 2 Movement">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">0° - 270°</Capability>
- </Channel>
+ <Channel Name="Pan 2 Movement" Preset="PositionPan"/>
+ <Channel Name="Tilt 2 Movement" Preset="PositionTilt"/>
  <Channel Name="Gobo Wheel 1">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="7" Res="Others/open.png">Open</Capability>
@@ -39,14 +33,8 @@
   <Capability Min="190" Max="193">Stop</Capability>
   <Capability Min="194" Max="255">Gobo scroll slow - fast</Capability>
  </Channel>
- <Channel Name="Pan 1 Movement">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">0° - 540°</Capability>
- </Channel>
- <Channel Name="Tilt 1 Movement">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">0° - 270°</Capability>
- </Channel>
+ <Channel Name="Pan 1 Movement" Preset="PositionPan"/>
+ <Channel Name="Tilt 1 Movement" Preset="PositionTilt"/>
  <Channel Name="Built-In Shows">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="7">Off</Capability>
@@ -74,14 +62,8 @@
   <Capability Min="240" Max="247">Random strobe</Capability>
   <Capability Min="248" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Dimmer 2">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer 1">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
+ <Channel Name="Dimmer 2" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 1" Preset="IntensityDimmer"/>
  <Channel Name="Colors Moving Head 1">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7" Color="#ffffff">White</Capability>
@@ -99,14 +81,8 @@
   <Capability Min="194" Max="225" Res="Others/rainbow.png">Counter Clockwise Scroll Slow</Capability>
   <Capability Min="226" Max="255" Res="Others/rainbow.png">Counter Clockwise Scroll Fast</Capability>
  </Channel>
- <Channel Name="Pan/Tilt 2 Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Fast - slow</Capability>
- </Channel>
- <Channel Name="Pan/Tilt 1 Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Fast - slow</Capability>
- </Channel>
+ <Channel Name="Pan/Tilt 2 Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Pan/Tilt 1 Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Function (Head 1)">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="69">No function</Capability>
@@ -128,22 +104,10 @@
   <Capability Min="81" Max="100">Theater</Capability>
   <Capability Min="101" Max="255">Default to unit curve setting</Capability>
  </Channel>
- <Channel Name="Pan 1 Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Fine</Capability>
- </Channel>
- <Channel Name="Pan 2 Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Fine</Capability>
- </Channel>
- <Channel Name="Tilt 2 Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Fine</Capability>
- </Channel>
- <Channel Name="Tilt 1 Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Fine</Capability>
- </Channel>
+ <Channel Name="Pan 1 Fine" Preset="PositionPanFine"/>
+ <Channel Name="Pan 2 Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt 2 Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Tilt 1 Fine" Preset="PositionTiltFine"/>
  <Channel Name="Colors Moving Head 2">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7" Color="#ffffff">White</Capability>
@@ -209,13 +173,6 @@
   <Capability Min="210" Max="255">No function</Capability>
  </Channel>
  <Mode Name="19 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="7.6" Width="153" Height="327" Depth="487"/>
-   <Lens Name="Other" DegreesMin="13" DegreesMax="13"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="85" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan 1 Movement</Channel>
   <Channel Number="1">Tilt 1 Movement</Channel>
   <Channel Number="2">Pan 2 Movement</Channel>
@@ -257,13 +214,6 @@
   </Head>
  </Mode>
  <Mode Name="23 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="7.6" Width="153" Height="327" Depth="487"/>
-   <Lens Name="Other" DegreesMin="13" DegreesMax="13"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="85" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan 1 Movement</Channel>
   <Channel Number="1">Pan 1 Fine</Channel>
   <Channel Number="2">Tilt 1 Movement</Channel>
@@ -312,4 +262,11 @@
    <Channel>6</Channel>
   </Head>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="7.6" Width="153" Height="327" Depth="487"/>
+   <Lens Name="Other" DegreesMin="13" DegreesMax="13"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="85" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

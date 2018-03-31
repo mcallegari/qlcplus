@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,126 +9,30 @@
  <Manufacturer>MARQ</Manufacturer>
  <Model>Colormax Bat</Model>
  <Type>Color Changer</Type>
- <Channel Name="Red Dimmer, Section 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red dimmer, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="Green Dimmer, Section 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green dimmer, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="Blue Dimmer, Section 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue dimmer, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="Red Dimmer, Section 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red dimmer, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="Green Dimmer, Section 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green dimmer, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="Blue Dimmer, Section 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue dimmer, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="Red Dimmer, Section 3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red dimmer, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="Green Dimmer, Section 3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green dimmer, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="Blue Dimmer, Section 3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue dimmer, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="Red Dimmer, Section 4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red dimmer, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="Green Dimmer, Section 4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green dimmer, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="Blue Dimmer, Section 4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue dimmer, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="Red Dimmer, Section 5">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red dimmer, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="Green Dimmer, Section 5">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green dimmer, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="Blue Dimmer, Section 5">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue dimmer, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="Red Dimmer, Section 6">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red dimmer, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="Green Dimmer, Section 6">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green dimmer, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="Blue Dimmer, Section 6">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue dimmer, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="Red Dimmer, Section 7">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red dimmer, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="Green Dimmer, Section 7">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green dimmer, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="Blue Dimmer, Section 7">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue dimmer, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="Red Dimmer, Section 8">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red dimmer, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="Green Dimmer, Section 8">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green dimmer, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="Blue Dimmer, Section 8">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue dimmer, dark (000) to bright (255) </Capability>
- </Channel>
+ <Channel Name="Red Dimmer, Section 1" Preset="IntensityRed"/>
+ <Channel Name="Green Dimmer, Section 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimmer, Section 1" Preset="IntensityBlue"/>
+ <Channel Name="Red Dimmer, Section 2" Preset="IntensityRed"/>
+ <Channel Name="Green Dimmer, Section 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimmer, Section 2" Preset="IntensityBlue"/>
+ <Channel Name="Red Dimmer, Section 3" Preset="IntensityRed"/>
+ <Channel Name="Green Dimmer, Section 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimmer, Section 3" Preset="IntensityBlue"/>
+ <Channel Name="Red Dimmer, Section 4" Preset="IntensityRed"/>
+ <Channel Name="Green Dimmer, Section 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimmer, Section 4" Preset="IntensityBlue"/>
+ <Channel Name="Red Dimmer, Section 5" Preset="IntensityRed"/>
+ <Channel Name="Green Dimmer, Section 5" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimmer, Section 5" Preset="IntensityBlue"/>
+ <Channel Name="Red Dimmer, Section 6" Preset="IntensityRed"/>
+ <Channel Name="Green Dimmer, Section 6" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimmer, Section 6" Preset="IntensityBlue"/>
+ <Channel Name="Red Dimmer, Section 7" Preset="IntensityRed"/>
+ <Channel Name="Green Dimmer, Section 7" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimmer, Section 7" Preset="IntensityBlue"/>
+ <Channel Name="Red Dimmer, Section 8" Preset="IntensityRed"/>
+ <Channel Name="Green Dimmer, Section 8" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimmer, Section 8" Preset="IntensityBlue"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="15">No function </Capability>
@@ -194,93 +98,23 @@ low (000) to high (255) </Capability>
   <Capability Min="216" Max="225">Chase Program 21</Capability>
   <Capability Min="226" Max="255">Sound-active chase programs</Capability>
  </Channel>
- <Channel Name="Red Dimmer, Section 1&amp;2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red dimmer, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="Green Dimmer, Section 1&amp;2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Red dimmer, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="Blue Dimmer, Section 1&amp;2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Red dimmer, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="Red Dimmer, Section 3&amp;4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red dimmer, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="Green Dimmer, Section 3&amp;4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Red dimmer, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="Blue Dimmer, Section 3&amp;4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Red dimmer, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="Red Dimmer, Section 5&amp;6">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red dimmer, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="Green Dimmer, Section 5&amp;6">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Red dimmer, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="Blue Dimmer, Section 5&amp;6">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Red dimmer, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="Red Dimmer, Section 7&amp;8">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red dimmer, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="Green Dimmer, Section 7&amp;8">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Red dimmer, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="Blue Dimmer, Section 7&amp;8">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Red dimmer, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="Master Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Master dimmer, all colors, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="Red Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red dimmer, dark (000) to bright (255)</Capability>
- </Channel>
- <Channel Name="Green Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green dimmer, dark (000) to bright (255) </Capability>
- </Channel>
- <Channel Name="Blue Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue dimmer, dark (000) to bright (255) </Capability>
- </Channel>
+ <Channel Name="Red Dimmer, Section 1&amp;2" Preset="IntensityRed"/>
+ <Channel Name="Green Dimmer, Section 1&amp;2" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimmer, Section 1&amp;2" Preset="IntensityBlue"/>
+ <Channel Name="Red Dimmer, Section 3&amp;4" Preset="IntensityRed"/>
+ <Channel Name="Green Dimmer, Section 3&amp;4" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimmer, Section 3&amp;4" Preset="IntensityBlue"/>
+ <Channel Name="Red Dimmer, Section 5&amp;6" Preset="IntensityRed"/>
+ <Channel Name="Green Dimmer, Section 5&amp;6" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimmer, Section 5&amp;6" Preset="IntensityBlue"/>
+ <Channel Name="Red Dimmer, Section 7&amp;8" Preset="IntensityRed"/>
+ <Channel Name="Green Dimmer, Section 7&amp;8" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimmer, Section 7&amp;8" Preset="IntensityBlue"/>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red Dimmer" Preset="IntensityRed"/>
+ <Channel Name="Green Dimmer" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimmer" Preset="IntensityBlue"/>
  <Mode Name="29 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="3060" ColourTemperature="7000"/>
-   <Dimensions Weight="2.6" Width="1064" Height="65" Depth="89"/>
-   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red Dimmer, Section 1</Channel>
   <Channel Number="1">Green Dimmer, Section 1</Channel>
   <Channel Number="2">Blue Dimmer, Section 1</Channel>
@@ -352,13 +186,6 @@ low (000) to high (255) </Capability>
   </Head>
  </Mode>
  <Mode Name="17 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="3060" ColourTemperature="7000"/>
-   <Dimensions Weight="2.6" Width="1064" Height="65" Depth="89"/>
-   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red Dimmer, Section 1&amp;2</Channel>
   <Channel Number="1">Green Dimmer, Section 1&amp;2</Channel>
   <Channel Number="2">Blue Dimmer, Section 1&amp;2</Channel>
@@ -398,13 +225,6 @@ low (000) to high (255) </Capability>
   </Head>
  </Mode>
  <Mode Name="9 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="3060" ColourTemperature="7000"/>
-   <Dimensions Weight="2.6" Width="1064" Height="65" Depth="89"/>
-   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Red Dimmer</Channel>
   <Channel Number="2">Green Dimmer</Channel>
@@ -416,13 +236,6 @@ low (000) to high (255) </Capability>
   <Channel Number="8">Chase Programs (overrides Ch. 1–24 &amp; 26–27)</Channel>
  </Mode>
  <Mode Name="5 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="3060" ColourTemperature="7000"/>
-   <Dimensions Weight="2.6" Width="1064" Height="65" Depth="89"/>
-   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Red Dimmer</Channel>
   <Channel Number="2">Green Dimmer</Channel>
@@ -430,15 +243,15 @@ low (000) to high (255) </Capability>
   <Channel Number="4">Strobe</Channel>
  </Mode>
  <Mode Name="3 Channel">
-  <Physical>
+  <Channel Number="0">Red Dimmer</Channel>
+  <Channel Number="1">Green Dimmer</Channel>
+  <Channel Number="2">Blue Dimmer</Channel>
+ </Mode>
+<Physical>
    <Bulb Type="LED" Lumens="3060" ColourTemperature="7000"/>
    <Dimensions Weight="2.6" Width="1064" Height="65" Depth="89"/>
    <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="30" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Red Dimmer</Channel>
-  <Channel Number="1">Green Dimmer</Channel>
-  <Channel Number="2">Blue Dimmer</Channel>
- </Mode>
 </FixtureDefinition>

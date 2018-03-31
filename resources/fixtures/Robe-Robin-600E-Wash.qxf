@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>Robe</Manufacturer>
  <Model>Robin 600E Wash</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan Coarse</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan Fine</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt Coarse</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt Fine</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="P/T Speed - P/T Time">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="0">Max Speed (Tracking Mode)</Capability>
@@ -77,25 +65,10 @@
   <Capability Min="244" Max="249">Rndm Colour Audio</Capability>
   <Capability Min="250" Max="255">Auto Rndm selection &lt;&lt;&lt;</Capability>
  </Channel>
- <Channel Name="Colour Wheel Fine">
-  <Group Byte="1">Colour</Group>
-  <Capability Min="0" Max="255">Fine Positioning</Capability>
- </Channel>
- <Channel Name="Cyan">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">Cyan</Capability>
- </Channel>
- <Channel Name="Magenta">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">Magenta</Capability>
- </Channel>
- <Channel Name="Yellow">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">Yellow</Capability>
- </Channel>
+ <Channel Name="Colour Wheel Fine" Preset="ColorWheelFine"/>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
  <Channel Name="CTO Filter">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="255">6900°K -&gt; 3200°K</Capability>
@@ -140,10 +113,7 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">CMY/CTO  Select max to min</Capability>
  </Channel>
- <Channel Name="Zoom">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Min to Max</Capability>
- </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
  <Channel Name="Zoom Fine">
   <Group Byte="1">Beam</Group>
   <Capability Min="0" Max="255">Fine Zooming</Capability>
@@ -160,22 +130,9 @@
   <Capability Min="192" Max="223">Random Strobe &gt;</Capability>
   <Capability Min="224" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer 0% to 100%</Capability>
- </Channel>
- <Channel Name="Dimmer Fine">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">Fine Dimming</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer Fine" Preset="IntensityDimmerFine"/>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb Lumens="37000" Type="MSR 575W/2" ColourTemperature="7500"/>
-   <Dimensions Width="433" Height="518" Weight="21" Depth="408"/>
-   <Lens DegreesMax="35" Name="Other" DegreesMin="10"/>
-   <Focus PanMax="540" Type="Head" TiltMax="260"/>
-   <Technical PowerConsumption="730" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -197,13 +154,6 @@
   <Channel Number="18">Dimmer Fine</Channel>
  </Mode>
  <Mode Name="Mode 2">
-  <Physical>
-   <Bulb Lumens="37000" Type="MSR 575W/2" ColourTemperature="7500"/>
-   <Dimensions Width="433" Height="518" Weight="21" Depth="408"/>
-   <Lens DegreesMax="35" Name="Other" DegreesMin="10"/>
-   <Focus PanMax="540" Type="Head" TiltMax="260"/>
-   <Technical PowerConsumption="730" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -222,13 +172,6 @@
   <Channel Number="15">Dimmer</Channel>
  </Mode>
  <Mode Name="Mode 3">
-  <Physical>
-   <Bulb Lumens="37000" Type="MSR 575W/2" ColourTemperature="7500"/>
-   <Dimensions Width="433" Height="518" Weight="21" Depth="408"/>
-   <Lens DegreesMax="35" Name="Other" DegreesMin="10"/>
-   <Focus PanMax="540" Type="Head" TiltMax="260"/>
-   <Technical PowerConsumption="730" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">P/T Speed - P/T Time</Channel>
@@ -244,4 +187,11 @@
   <Channel Number="12">Shutter</Channel>
   <Channel Number="13">Dimmer</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="37000" Type="MSR 575W/2" ColourTemperature="7500"/>
+   <Dimensions Width="433" Height="518" Weight="21" Depth="408"/>
+   <Lens DegreesMax="35" Name="Other" DegreesMin="10"/>
+   <Focus PanMax="540" Type="Head" TiltMax="260"/>
+   <Technical PowerConsumption="730" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
 </FixtureDefinition>

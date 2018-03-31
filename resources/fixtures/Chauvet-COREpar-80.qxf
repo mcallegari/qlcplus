@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,21 +9,9 @@
  <Manufacturer>Chauvet</Manufacturer>
  <Model>COREpar 80</Model>
  <Type>Color Changer</Type>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="Color Macros">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="15">No function</Capability>
@@ -46,10 +34,7 @@
   <Capability Min="192" Max="223">Auto snap transition (18 colors)</Capability>
   <Capability Min="224" Max="255">Sound-active mode</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Dimmer Speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="51">Default set from menu</Capability>
@@ -59,13 +44,6 @@
   <Capability Min="204" Max="255">Mode 3 (slow)</Capability>
  </Channel>
  <Mode Name="8-CH">
-  <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Weight="2" Width="200" Depth="143" Height="253"/>
-   <Lens Name="Other" DegreesMin="40" DegreesMax="90"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="72"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
@@ -76,15 +54,15 @@
   <Channel Number="7">Dimmer Speed</Channel>
  </Mode>
  <Mode Name="3-CH">
-  <Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+<Physical>
    <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
    <Dimensions Weight="2" Width="200" Depth="143" Height="253"/>
    <Lens Name="Other" DegreesMin="40" DegreesMax="90"/>
    <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
    <Technical DmxConnector="3-pin" PowerConsumption="72"/>
   </Physical>
-  <Channel Number="0">Red</Channel>
-  <Channel Number="1">Green</Channel>
-  <Channel Number="2">Blue</Channel>
- </Mode>
 </FixtureDefinition>

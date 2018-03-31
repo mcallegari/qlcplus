@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -91,20 +91,14 @@
   <Capability Min="128" Max="191">Clockwise</Capability>
   <Capability Min="192" Max="255">Counterclockwise</Capability>
  </Channel>
- <Channel Name="Y-Axis Roll Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Fast to slow</Capability>
- </Channel>
+ <Channel Name="Y-Axis Roll Speed" Preset="SpeedTiltFastSlow"/>
  <Channel Name="X-Axis Rolling">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="127">0-359 degree fixed X axis</Capability>
   <Capability Min="128" Max="191">Clockwise</Capability>
   <Capability Min="192" Max="255">Counterclockwise</Capability>
  </Channel>
- <Channel Name="X-Axis Roll Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Fast to slow</Capability>
- </Channel>
+ <Channel Name="X-Axis Roll Speed" Preset="SpeedPanFastSlow"/>
  <Channel Name="Z-Axis Rolling">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="127">0-359 degree fixed Z axis</Capability>
@@ -121,20 +115,14 @@
   <Capability Min="128" Max="191">Clockwise</Capability>
   <Capability Min="192" Max="255">Counterclockwise</Capability>
  </Channel>
- <Channel Name="Y-Axis Move Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Fast to slow</Capability>
- </Channel>
+ <Channel Name="Y-Axis Move Speed" Preset="SpeedTiltFastSlow"/>
  <Channel Name="X-Axis Move">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="127">128 different fixed position on Y axis</Capability>
   <Capability Min="128" Max="191">Clockwise</Capability>
   <Capability Min="192" Max="255">Counterclockwise</Capability>
  </Channel>
- <Channel Name="X-Axis Move Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Fast to slow</Capability>
- </Channel>
+ <Channel Name="X-Axis Move Speed" Preset="SpeedPanFastSlow"/>
  <Channel Name="Grating Rotation">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="4">No</Capability>
@@ -165,13 +153,6 @@
   <Capability Min="224" Max="255">Scanned beam (pattern)</Capability>
  </Channel>
  <Mode Name="No ILDA">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Height="150" Weight="4.5" Depth="250" Width="340"/>
-   <Lens DegreesMax="0" DegreesMin="0" Name="Other"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Mode</Channel>
   <Channel Number="1">Patterns - Columns</Channel>
   <Channel Number="2">Patterns - Rows</Channel>
@@ -203,4 +184,11 @@
   <Channel Number="0">Grating Rotation</Channel>
   <Channel Number="1">Grating Effect</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Height="150" Weight="4.5" Depth="250" Width="340"/>
+   <Lens DegreesMax="0" DegreesMin="0" Name="Other"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

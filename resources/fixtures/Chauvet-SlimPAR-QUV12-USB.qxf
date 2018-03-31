@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,26 +9,10 @@
  <Manufacturer>Chauvet</Manufacturer>
  <Model>SlimPAR QUV12 USB</Model>
  <Type>Color Changer</Type>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="UV">
-  <Group Byte="0">Intensity</Group>
-  <Colour>UV</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="UV" Preset="IntensityUV"/>
  <Channel Name="Color Macro">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="15">No funtion</Capability>
@@ -51,10 +35,7 @@
   <Capability Min="192" Max="223">Auto snap transition (7 colors)</Capability>
   <Capability Min="224" Max="255">Sound-active</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Dimmer Speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="51">Default set from menu</Capability>
@@ -64,26 +45,12 @@
   <Capability Min="204" Max="255">Mode 3 (slow speed)</Capability>
  </Channel>
  <Mode Name="4 Channel">
-  <Physical>
-   <Bulb Type="LED 4W" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="2.1" Width="247" Height="293" Depth="92"/>
-   <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="44" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
   <Channel Number="3">UV</Channel>
  </Mode>
  <Mode Name="9 Channel">
-  <Physical>
-   <Bulb Type="LED 4W" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="2.1" Width="247" Height="293" Depth="92"/>
-   <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="44" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
@@ -94,4 +61,11 @@
   <Channel Number="7">Dimmer</Channel>
   <Channel Number="8">Dimmer Speed</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED 4W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.1" Width="247" Height="293" Depth="92"/>
+   <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="44" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

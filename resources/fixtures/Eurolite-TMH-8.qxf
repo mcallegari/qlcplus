@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,14 +9,8 @@
  <Manufacturer>Eurolite</Manufacturer>
  <Model>TMH-8</Model>
  <Type>Moving Head</Type>
- <Channel Name="Horizontal movement">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">0-255, 128-center</Capability>
- </Channel>
- <Channel Name="Vertical movement">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">0-255, 128-center</Capability>
- </Channel>
+ <Channel Name="Horizontal movement" Preset="PositionPan"/>
+ <Channel Name="Vertical movement" Preset="PositionTilt"/>
  <Channel Name="Dimmer/strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="7">Closed</Capability>
@@ -65,18 +59,9 @@
   <Capability Min="215" Max="235">Forwards rainbow effect</Capability>
   <Capability Min="236" Max="255">Backwards rainbow effect</Capability>
  </Channel>
- <Channel Name="Horizontal movement 16Bit">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Fine movement</Capability>
- </Channel>
- <Channel Name="Vertical movement 16Bit">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Fine movement</Capability>
- </Channel>
- <Channel Name="Pan/Tilt-Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Decreasing speed (vector mode)</Capability>
- </Channel>
+ <Channel Name="Horizontal movement 16Bit" Preset="PositionPanFine"/>
+ <Channel Name="Vertical movement 16Bit" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt-Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Dimmer/strobe 16Bit">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="7">Closed</Capability>
@@ -84,26 +69,10 @@
   <Capability Min="135" Max="239">Strobe-effect with increasing speed</Capability>
   <Capability Min="240" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red (0=off, 255=100% red)</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green (0=off, 255=100% green)</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue (0=off, 255=100% blue)</Capability>
- </Channel>
- <Channel Name="White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White (0=off, 255=100% white)</Capability>
- </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
  <Channel Name="RGB W-Speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Decreasing speed (vector mode)</Capability>
@@ -129,13 +98,6 @@
   <Capability Min="233" Max="255">Sound-controlled Motion macro 8</Capability>
  </Channel>
  <Mode Name="8bit">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="3" Width="175" Height="245" Depth="170"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Head" PanMax="540" TiltMax="230"/>
-   <Technical PowerConsumption="35" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Horizontal movement</Channel>
   <Channel Number="1">Vertical movement</Channel>
   <Channel Number="2">Dimmer/strobe</Channel>
@@ -143,13 +105,6 @@
   <Channel Number="4">Gobos/Gobo shake</Channel>
  </Mode>
  <Mode Name="16bit">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="3" Width="175" Height="245" Depth="170"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Head" PanMax="540" TiltMax="230"/>
-   <Technical PowerConsumption="35" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Horizontal movement</Channel>
   <Channel Number="1">Horizontal movement 16Bit</Channel>
   <Channel Number="2">Vertical movement</Channel>
@@ -165,4 +120,11 @@
   <Channel Number="12">Motion macros</Channel>
   <Channel Number="13">Gobos/Gobo shake</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="3" Width="175" Height="245" Depth="170"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="540" TiltMax="230"/>
+   <Technical PowerConsumption="35" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

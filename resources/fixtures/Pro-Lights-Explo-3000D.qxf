@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -49,38 +49,24 @@
   <Capability Min="251" Max="255">Spikes</Capability>
  </Channel>
  <Mode Name="Ch3 Mode">
-  <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="5600"/>
-   <Dimensions Width="472" Height="255" Weight="6.7" Depth="152"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="3000" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Flash Intensity</Channel>
   <Channel Number="1">Flash Duration (0-650 ms @ 50Hz or 0-530 ms @ 60Hz)</Channel>
   <Channel Number="2">Flash Rate</Channel>
  </Mode>
  <Mode Name="Ch4 Mode">
-  <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="5600"/>
-   <Dimensions Width="472" Height="255" Weight="6.7" Depth="152"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="3000" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Flash Intensity</Channel>
   <Channel Number="1">Flash Duration (0-650 ms @ 50Hz or 0-530 ms @ 60Hz)</Channel>
   <Channel Number="2">Flash Rate</Channel>
   <Channel Number="3">Build-In Effect</Channel>
  </Mode>
  <Mode Name="Ch1 Mode">
-  <Physical>
+  <Channel Number="0">Flash Rate</Channel>
+ </Mode>
+<Physical>
    <Bulb Lumens="0" Type="" ColourTemperature="5600"/>
    <Dimensions Width="472" Height="255" Weight="6.7" Depth="152"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="3000" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Flash Rate</Channel>
- </Mode>
 </FixtureDefinition>

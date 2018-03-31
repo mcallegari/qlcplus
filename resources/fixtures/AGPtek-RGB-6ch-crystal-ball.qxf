@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -15,21 +15,9 @@
   <Capability Min="6" Max="250">Strobe Speed</Capability>
   <Capability Min="251" Max="255">Full On</Capability>
  </Channel>
- <Channel Name="red/white">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0 &gt;100</Capability>
- </Channel>
- <Channel Name="green/orange">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0 &gt; 100</Capability>
- </Channel>
- <Channel Name="blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0 &gt; 100</Capability>
- </Channel>
+ <Channel Name="red/white" Preset="IntensityRed"/>
+ <Channel Name="green/orange" Preset="IntensityGreen"/>
+ <Channel Name="blue" Preset="IntensityBlue"/>
  <Channel Name="movement">
   <Group Byte="0">Pan</Group>
   <Capability Min="0" Max="127">Manual Operation</Capability>
@@ -46,13 +34,6 @@
   <Capability Min="251" Max="255">Program 3 Audio </Capability>
  </Channel>
  <Mode Name="6 channel">
-  <Physical>
-   <Bulb Lumens="5" Type="LED" ColourTemperature="2000"/>
-   <Dimensions Width="123" Height="123" Weight="1.3" Depth="134"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="360" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="20" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">strobe</Channel>
   <Channel Number="1">red/white</Channel>
   <Channel Number="2">green/orange</Channel>
@@ -60,4 +41,11 @@
   <Channel Number="4">movement</Channel>
   <Channel Number="5">program</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="5" Type="LED" ColourTemperature="2000"/>
+   <Dimensions Width="123" Height="123" Weight="1.3" Depth="134"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="360" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="20" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,26 +9,11 @@
  <Manufacturer>Chauvet</Manufacturer>
  <Model>Intimidator Spot 250</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan Coarse">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan Coarse (0-540°)</Capability>
- </Channel>
- <Channel Name="Tilt Coarse">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt Coarse (0-270°)</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan Fine (0-3°)</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt Fine (0-3°)</Capability>
- </Channel>
- <Channel Name="Pan/Tilt Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Pan Tilt Speed</Capability>
- </Channel>
+ <Channel Name="Pan Coarse" Preset="PositionPan"/>
+ <Channel Name="Tilt Coarse" Preset="PositionTilt"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7" Color="#ffffff">White</Capability>
@@ -87,10 +72,7 @@
   <Capability Min="181" Max="246">Random (Slow-Fast)</Capability>
   <Capability Min="247" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Mode Function">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="9">No Function</Capability>
@@ -151,18 +133,8 @@
   <Capability Min="16" Max="239">Rotation Slow-Fast</Capability>
   <Capability Min="240" Max="255">Stop, Static Prism Effect</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Focus Near-Far</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Mode Name="Advanced">
-  <Physical>
-   <Bulb Type="MSD 250W" Lumens="18000" ColourTemperature="8000"/>
-   <Dimensions Weight="26.6" Width="337" Height="517" Depth="414"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="22"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="350" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Pan Coarse</Channel>
   <Channel Number="1">Tilt Coarse</Channel>
   <Channel Number="2">Pan Fine</Channel>
@@ -179,13 +151,6 @@
   <Channel Number="13">Focus</Channel>
  </Mode>
  <Mode Name="Basic">
-  <Physical>
-   <Bulb Type="MSD 250W" Lumens="18000" ColourTemperature="8000"/>
-   <Dimensions Weight="26.6" Width="337" Height="517" Depth="414"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="22"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="350" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Pan Coarse</Channel>
   <Channel Number="1">Tilt Coarse</Channel>
   <Channel Number="2">Color</Channel>
@@ -197,4 +162,11 @@
   <Channel Number="8">Prism</Channel>
   <Channel Number="9">Focus</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="MSD 250W" Lumens="18000" ColourTemperature="8000"/>
+   <Dimensions Weight="26.6" Width="337" Height="517" Depth="414"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="22"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="350" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
 </FixtureDefinition>

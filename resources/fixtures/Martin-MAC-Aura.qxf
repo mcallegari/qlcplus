@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -34,30 +34,12 @@
   <Capability Min="230" Max="244">Strobe 10: burst (fast → slow)</Capability>
   <Capability Min="245" Max="255">Shutter open</Capability>
  </Channel>
- <Channel Name="Beam dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Beam dimmer (0 - 100%)</Capability>
- </Channel>
- <Channel Name="Zoom">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Wide → narrow</Capability>
- </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan 0° - 540°</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine adjustment (LSB)</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt 0° - 232° </Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine adjustment (LSB)</Capability>
- </Channel>
+ <Channel Name="Beam dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Zoom" Preset="BeamFocusFarNear"/>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Fixture control settings">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="9">No function</Capability>
@@ -127,26 +109,10 @@
   <Capability Res="Others/rainbow.png" Min="245" Max="249">Random color Slow</Capability>
   <Capability Min="250" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Beam Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red intensity (0 - 100%)</Capability>
- </Channel>
- <Channel Name="Beam Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green intensity (0 - 100%)</Capability>
- </Channel>
- <Channel Name="Beam Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue intensity (0 - 100%)</Capability>
- </Channel>
- <Channel Name="Beam White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White intensity (0 - 100%)</Capability>
- </Channel>
+ <Channel Name="Beam Red" Preset="IntensityRed"/>
+ <Channel Name="Beam Green" Preset="IntensityGreen"/>
+ <Channel Name="Beam Blue" Preset="IntensityBlue"/>
+ <Channel Name="Beam White" Preset="IntensityWhite"/>
  <Channel Name="Beam CTC">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="19">Disabled</Capability>
@@ -277,10 +243,7 @@
   <Capability Min="230" Max="244">Strobe 10: burst (fast → slow)</Capability>
   <Capability Min="245" Max="255">open</Capability>
  </Channel>
- <Channel Name="Aura dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Aura dimmer (0 - 100%)</Capability>
- </Channel>
+ <Channel Name="Aura dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Aura color wheel effect">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="9">Open. RGBW color mixing enabled</Capability>
@@ -327,29 +290,10 @@
   <Capability Res="Others/rainbow.png" Min="245" Max="249">Random color Slow</Capability>
   <Capability Min="250" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Aura Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red intensity (0 - 100%)</Capability>
- </Channel>
- <Channel Name="Aura Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green intensity (0 - 100%)</Capability>
- </Channel>
- <Channel Name="Aura Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue intensity (0 - 100%)</Capability>
- </Channel>
+ <Channel Name="Aura Red" Preset="IntensityRed"/>
+ <Channel Name="Aura Green" Preset="IntensityGreen"/>
+ <Channel Name="Aura Blue" Preset="IntensityBlue"/>
  <Mode Name="Extended Mode">
-  <Physical>
-   <Bulb Type="LED" Lumens="3850" ColourTemperature="0"/>
-   <Dimensions Weight="5.6" Width="302" Depth="360" Height="302"/>
-   <Lens Name="Other" DegreesMin="11" DegreesMax="58"/>
-   <Focus Type="Head" PanMax="540" TiltMax="232"/>
-   <Technical PowerConsumption="230" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Beam electronic shutter effect</Channel>
   <Channel Number="1">Beam dimmer</Channel>
   <Channel Number="2">Zoom</Channel>
@@ -377,13 +321,6 @@
   <Channel Number="24">Aura Blue</Channel>
  </Mode>
  <Mode Name="Standard Mode">
-  <Physical>
-   <Bulb Type="LED" Lumens="3850" ColourTemperature="0"/>
-   <Dimensions Weight="5.6" Width="302" Depth="360" Height="302"/>
-   <Lens Name="Other" DegreesMin="11" DegreesMax="58"/>
-   <Focus Type="Head" PanMax="540" TiltMax="232"/>
-   <Technical PowerConsumption="230" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Beam electronic shutter effect</Channel>
   <Channel Number="1">Beam dimmer</Channel>
   <Channel Number="2">Zoom</Channel>
@@ -399,4 +336,11 @@
   <Channel Number="12">Beam White</Channel>
   <Channel Number="13">Beam CTC</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="3850" ColourTemperature="0"/>
+   <Dimensions Weight="5.6" Width="302" Depth="360" Height="302"/>
+   <Lens Name="Other" DegreesMin="11" DegreesMax="58"/>
+   <Focus Type="Head" PanMax="540" TiltMax="232"/>
+   <Technical PowerConsumption="230" DmxConnector="5-pin"/>
+  </Physical>
 </FixtureDefinition>

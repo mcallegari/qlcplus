@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,30 +9,11 @@
  <Manufacturer>Chauvet</Manufacturer>
  <Model>COLORdash Accent Quad</Model>
  <Type>Color Changer</Type>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">0-100%</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00ff00">0-100%</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255" Color="#0000ff">0-100%</Capability>
- </Channel>
- <Channel Name="Amber">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Amber</Colour>
-  <Capability Min="0" Max="255" Color="#ffffff">0-100%</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
  <Channel Name="Color Macro + White Balance">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="10">No function</Capability>
@@ -84,13 +65,6 @@
   <Capability Min="11" Max="255">Slow to fast</Capability>
  </Channel>
  <Mode Name="10 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="191" ColourTemperature="0"/>
-   <Dimensions Weight="0.8" Width="67" Height="172" Depth="110"/>
-   <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="14" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
@@ -103,13 +77,6 @@
   <Channel Number="9">Dimmer Speed</Channel>
  </Mode>
  <Mode Name="6 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="191" ColourTemperature="0"/>
-   <Dimensions Weight="0.8" Width="67" Height="172" Depth="110"/>
-   <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="14" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
@@ -118,16 +85,16 @@
   <Channel Number="5">Strobe</Channel>
  </Mode>
  <Mode Name="4 Channel">
-  <Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Amber</Channel>
+ </Mode>
+<Physical>
    <Bulb Type="LED" Lumens="191" ColourTemperature="0"/>
    <Dimensions Weight="0.8" Width="67" Height="172" Depth="110"/>
    <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="14" DmxConnector="5-pin"/>
   </Physical>
-  <Channel Number="0">Red</Channel>
-  <Channel Number="1">Green</Channel>
-  <Channel Number="2">Blue</Channel>
-  <Channel Number="3">Amber</Channel>
- </Mode>
 </FixtureDefinition>

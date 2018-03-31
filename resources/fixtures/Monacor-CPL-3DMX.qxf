@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,21 +9,9 @@
  <Manufacturer>Monacor</Manufacturer>
  <Model>CPL-3DMX</Model>
  <Type>Dimmer</Type>
- <Channel Name="Proportion of red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">brightness of red</Capability>
- </Channel>
- <Channel Name="Proportion of green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">brightness of green</Capability>
- </Channel>
- <Channel Name="Proportion of blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">brightness of blue</Capability>
- </Channel>
+ <Channel Name="Proportion of red" Preset="IntensityRed"/>
+ <Channel Name="Proportion of green" Preset="IntensityGreen"/>
+ <Channel Name="Proportion of blue" Preset="IntensityBlue"/>
  <Channel Name="Dimmer / music control / stroboscope">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="7">light off</Capability>
@@ -34,16 +22,16 @@ via integrated microphone</Capability>
   <Capability Min="248" Max="255">maximum brightness</Capability>
  </Channel>
  <Mode Name="Default mode">
-  <Physical>
+  <Channel Number="0">Proportion of red</Channel>
+  <Channel Number="1">Proportion of green</Channel>
+  <Channel Number="2">Proportion of blue</Channel>
+  <Channel Number="3">Dimmer / music control / stroboscope</Channel>
+ </Mode>
+<Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
    <Dimensions Width="193" Height="40" Weight="0.46" Depth="72"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="108" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Proportion of red</Channel>
-  <Channel Number="1">Proportion of green</Channel>
-  <Channel Number="2">Proportion of blue</Channel>
-  <Channel Number="3">Dimmer / music control / stroboscope</Channel>
- </Mode>
 </FixtureDefinition>

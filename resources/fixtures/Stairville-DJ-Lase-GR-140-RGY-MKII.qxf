@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -62,13 +62,6 @@
   <Capability Min="255" Max="255">Sound-controlled strobe effect</Capability>
  </Channel>
  <Mode Name="DMX 1 mode">
-  <Physical>
-   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Height="80" Depth="160" Weight="1.8" Width="145"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="15"/>
-  </Physical>
   <Channel Number="0">Mode selection</Channel>
   <Channel Number="1">Patten rotation</Channel>
   <Channel Number="2">Vibration</Channel>
@@ -76,17 +69,17 @@
   <Channel Number="4">Green Laser</Channel>
  </Mode>
  <Mode Name="DMX 2 mode">
-  <Physical>
-   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Height="80" Depth="160" Weight="1.8" Width="145"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="15"/>
-  </Physical>
   <Channel Number="0">Mode selection</Channel>
   <Channel Number="1">Patten rotation</Channel>
   <Channel Number="2">Vibration</Channel>
   <Channel Number="3">Colour selection</Channel>
   <Channel Number="4">Strobing (strobe effect)</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Height="80" Depth="160" Weight="1.8" Width="145"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="15"/>
+  </Physical>
 </FixtureDefinition>

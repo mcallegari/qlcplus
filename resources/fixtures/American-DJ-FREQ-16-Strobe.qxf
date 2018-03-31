@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -107,13 +107,6 @@
   <Capability Min="248" Max="255">Off</Capability>
  </Channel>
  <Mode Name="18 Channels">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1025" Height="65" Weight="3.6" Depth="88"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer 1</Channel>
   <Channel Number="1">Dimmer 2</Channel>
   <Channel Number="2">Dimmer 3</Channel>
@@ -181,4 +174,11 @@
    <Channel>15</Channel>
   </Head>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="1025" Height="65" Weight="3.6" Depth="88"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

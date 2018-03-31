@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -121,13 +121,6 @@
   <Capability Min="134" Max="255">Anticlockwise rotation slow -&gt; fast</Capability>
  </Channel>
  <Mode Name="9-channel">
-  <Physical>
-   <Bulb Type="LED/laser" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="4.2" Width="246" Height="315" Depth="313"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Operating mode</Channel>
   <Channel Number="1">RGBWA LEDs</Channel>
   <Channel Number="2">Color change speed</Channel>
@@ -138,4 +131,11 @@
   <Channel Number="7">Rotation of the RGBWA LEDs</Channel>
   <Channel Number="8">Rotation of the lasers</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED/laser" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4.2" Width="246" Height="315" Depth="313"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -84,22 +84,10 @@
   <Capability Min="233" Max="239">No rotation</Capability>
   <Capability Min="240" Max="255">Gobo swing, slow -&gt; fast</Capability>
  </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Pan fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Channel Level</Capability>
- </Channel>
- <Channel Name="Tilt fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Channel Level</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
  <Channel Name="Pan/tilt speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="2">Tracking mode</Capability>
@@ -115,13 +103,6 @@
   <Capability Min="252" Max="255">Blackout while moving</Capability>
  </Channel>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb ColourTemperature="6500" Lumens="1950" Type="HTI 150W"/>
-   <Dimensions Width="316" Height="390" Weight="12" Depth="415"/>
-   <Lens DegreesMax="17" Name="PC" DegreesMin="17"/>
-   <Focus TiltMax="270" PanMax="540" Type="Head"/>
-   <Technical PowerConsumption="210" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
   <Channel Number="1">Color</Channel>
   <Channel Number="2">Gobo</Channel>
@@ -130,13 +111,6 @@
   <Channel Number="5">Tilt</Channel>
  </Mode>
  <Mode Name="Mode 2">
-  <Physical>
-   <Bulb ColourTemperature="6500" Lumens="1950" Type="HTI 150W"/>
-   <Dimensions Width="316" Height="390" Weight="12" Depth="415"/>
-   <Lens DegreesMax="17" Name="PC" DegreesMin="17"/>
-   <Focus TiltMax="270" PanMax="540" Type="Head"/>
-   <Technical PowerConsumption="210" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
   <Channel Number="1">Color</Channel>
   <Channel Number="2">Gobo</Channel>
@@ -147,13 +121,6 @@
   <Channel Number="7">Tilt fine</Channel>
  </Mode>
  <Mode Name="Mode 4">
-  <Physical>
-   <Bulb ColourTemperature="6500" Lumens="1950" Type="HTI 150W"/>
-   <Dimensions Width="316" Height="390" Weight="12" Depth="415"/>
-   <Lens DegreesMax="17" Name="PC" DegreesMin="17"/>
-   <Focus TiltMax="270" PanMax="540" Type="Head"/>
-   <Technical PowerConsumption="210" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
   <Channel Number="1">Color</Channel>
   <Channel Number="2">Gobo</Channel>
@@ -166,13 +133,6 @@
   <Channel Number="9">Effect speed</Channel>
  </Mode>
  <Mode Name="Mode 3">
-  <Physical>
-   <Bulb ColourTemperature="6500" Lumens="1950" Type="HTI 150W"/>
-   <Dimensions Width="316" Height="390" Weight="12" Depth="415"/>
-   <Lens DegreesMax="17" Name="PC" DegreesMin="17"/>
-   <Focus TiltMax="270" PanMax="540" Type="Head"/>
-   <Technical PowerConsumption="210" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
   <Channel Number="1">Color</Channel>
   <Channel Number="2">Gobo</Channel>
@@ -182,4 +142,11 @@
   <Channel Number="6">Pan/tilt speed</Channel>
   <Channel Number="7">Effect speed</Channel>
  </Mode>
+<Physical>
+   <Bulb ColourTemperature="6500" Lumens="1950" Type="HTI 150W"/>
+   <Dimensions Width="316" Height="390" Weight="12" Depth="415"/>
+   <Lens DegreesMax="17" Name="PC" DegreesMin="17"/>
+   <Focus TiltMax="270" PanMax="540" Type="Head"/>
+   <Technical PowerConsumption="210" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

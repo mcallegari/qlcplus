@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -46,10 +46,7 @@
   <Capability Min="29" Max="249">Strobe from slow to fast</Capability>
   <Capability Min="250" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">From dark to full brightness</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Prism">
   <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="127">Single spot</Capability>
@@ -61,34 +58,12 @@
   <Capability Min="150" Max="200">Reset when held for 3 seconds</Capability>
   <Capability Min="201" Max="255">No action</Capability>
  </Channel>
- <Channel Name="Pan Scan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">0° - 540°</Capability>
- </Channel>
- <Channel Name="Tilt Scan">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">0° - 230°</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">16 bit</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">16 bit</Capability>
- </Channel>
- <Channel Name="Pan &amp; Tilt Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Fast - slow</Capability>
- </Channel>
+ <Channel Name="Pan Scan" Preset="PositionPan"/>
+ <Channel Name="Tilt Scan" Preset="PositionTilt"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan &amp; Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
  <Mode Name="12 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="8000"/>
-   <Dimensions Weight="8" Width="260" Height="260" Depth="300"/>
-   <Lens Name="Other" DegreesMin="12" DegreesMax="12"/>
-   <Focus Type="Head" PanMax="540" TiltMax="230"/>
-   <Technical PowerConsumption="110" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan Scan</Channel>
   <Channel Number="1">Tilt Scan</Channel>
   <Channel Number="2">Pan Fine</Channel>
@@ -102,4 +77,11 @@
   <Channel Number="10">Prism</Channel>
   <Channel Number="11">Reset</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="8000"/>
+   <Dimensions Weight="8" Width="260" Height="260" Depth="300"/>
+   <Lens Name="Other" DegreesMin="12" DegreesMax="12"/>
+   <Focus Type="Head" PanMax="540" TiltMax="230"/>
+   <Technical PowerConsumption="110" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

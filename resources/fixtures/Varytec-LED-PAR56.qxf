@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -52,13 +52,6 @@
   <Capability Min="16" Max="255">Dimmer/on (channel 6&gt;31 and &lt;128)</Capability>
  </Channel>
  <Mode Name="6 DMX channels">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="210" Height="210" Weight="1.2" Depth="300"/>
-   <Lens DegreesMax="30" Name="Other" DegreesMin="30"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="20" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
@@ -66,4 +59,11 @@
   <Channel Number="4">Speed/Strobe</Channel>
   <Channel Number="5">Mode</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="210" Height="210" Weight="1.2" Depth="300"/>
+   <Lens DegreesMax="30" Name="Other" DegreesMin="30"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="20" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

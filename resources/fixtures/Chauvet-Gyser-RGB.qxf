@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -53,13 +53,6 @@
   <Capability Min="10" Max="255">0-100%</Capability>
  </Channel>
  <Mode Name="8 Channel">
-  <Physical>
-   <Bulb Lumens="4870" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="375" Height="250" Weight="9.6" Depth="510"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="1500" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Fog</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
@@ -69,4 +62,11 @@
   <Channel Number="6">Strobe</Channel>
   <Channel Number="7">Dimmer</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="4870" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="375" Height="250" Weight="9.6" Depth="510"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="1500" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
 </FixtureDefinition>

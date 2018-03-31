@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -18,14 +18,14 @@
   <Capability Min="0" Max="255">Fan speed 0-100 %</Capability>
  </Channel>
  <Mode Name="Default">
-  <Physical>
+  <Channel Number="0">Haze</Channel>
+  <Channel Number="1">Fan Speed</Channel>
+ </Mode>
+<Physical>
    <Bulb ColourTemperature="0" Type="" Lumens="0"/>
    <Dimensions Height="380" Width="280" Depth="330" Weight="7.5"/>
    <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
    <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
    <Technical PowerConsumption="615" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Haze</Channel>
-  <Channel Number="1">Fan Speed</Channel>
- </Mode>
 </FixtureDefinition>

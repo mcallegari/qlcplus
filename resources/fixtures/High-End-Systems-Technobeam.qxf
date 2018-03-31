@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>High End Systems</Manufacturer>
  <Model>Technobeam</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan Coarse">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan Coarse</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan Fine</Capability>
- </Channel>
- <Channel Name="Tilt Coarse">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt Coarse</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt Fine</Capability>
- </Channel>
+ <Channel Name="Pan Coarse" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Coarse" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Color Function">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="15">Indexed</Capability>
@@ -132,10 +120,7 @@
   <Capability Min="121" Max="134">rotate stop</Capability>
   <Capability Min="135" Max="255">forward rotate speed</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">close to far</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="7">close</Capability>
@@ -145,10 +130,7 @@
   <Capability Min="188" Max="247">snap open/ramp shut</Capability>
   <Capability Min="248" Max="255">open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">shutter open-close</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Mspeed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="3">controller Crossfade</Capability>
@@ -201,13 +183,6 @@
   <Capability Min="131" Max="255">reserved</Capability>
  </Channel>
  <Mode Name="Technobeam 18 channel indexed mode">
-  <Physical>
-   <Bulb Lumens="18000" Type="MSD 250W" ColourTemperature="6500"/>
-   <Dimensions Width="322" Height="241" Weight="16" Depth="825"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="180" Type="Mirror" TiltMax="95"/>
-   <Technical PowerConsumption="375" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan Coarse</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt Coarse</Channel>
@@ -227,4 +202,11 @@
   <Channel Number="16">Macros / LAD</Channel>
   <Channel Number="17">Control</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="18000" Type="MSD 250W" ColourTemperature="6500"/>
+   <Dimensions Width="322" Height="241" Weight="16" Depth="825"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="180" Type="Mirror" TiltMax="95"/>
+   <Technical PowerConsumption="375" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

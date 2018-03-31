@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,10 +9,7 @@
  <Manufacturer>Varytec</Manufacturer>
  <Model>LED Giga Bar 4 MKII</Model>
  <Type>Color Changer</Type>
- <Channel Name="Dimmer 1-16">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
+ <Channel Name="Dimmer 1-16" Preset="IntensityDimmer"/>
  <Channel Name="LED Functions">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="7">No function</Capability>
@@ -52,331 +49,74 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Slow to fast</Capability>
  </Channel>
- <Channel Name="Strobe">
-  <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="255">Slow to fast</Capability>
- </Channel>
- <Channel Name="Red 1-16">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">Dimmer</Capability>
- </Channel>
- <Channel Name="Green 1-16">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00ff00">Dimmer</Capability>
- </Channel>
- <Channel Name="Blue 1-16">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255" Color="#0000ff">Dimmer</Capability>
- </Channel>
- <Channel Name="White 1-16">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255" Color="#ffffff">Dimmer</Capability>
- </Channel>
- <Channel Name="Red 1-8">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">Dimmer</Capability>
- </Channel>
- <Channel Name="Red 8-16">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">Dimmer</Capability>
- </Channel>
- <Channel Name="Green 1-8">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00ff00">Dimmer</Capability>
- </Channel>
- <Channel Name="Green 8-16">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00ff00">Dimmer</Capability>
- </Channel>
- <Channel Name="Blue 1-8">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255" Color="#0000ff">Dimmer</Capability>
- </Channel>
- <Channel Name="Blue 8-16">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255" Color="#0000ff">Dimmer</Capability>
- </Channel>
- <Channel Name="White 1-8">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255" Color="#ffffff">Dimmer</Capability>
- </Channel>
- <Channel Name="White 8-16">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255" Color="#ffffff">Dimmer</Capability>
- </Channel>
- <Channel Name="Red 1-4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">Dimmer</Capability>
- </Channel>
- <Channel Name="Red 5-8">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">Dimmer</Capability>
- </Channel>
- <Channel Name="Red 9-12">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">Dimmer</Capability>
- </Channel>
- <Channel Name="Red 13-16">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">Dimmer</Capability>
- </Channel>
- <Channel Name="Green 1-4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00ff00">Dimmer</Capability>
- </Channel>
- <Channel Name="Green 5-8">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00ff00">Dimmer</Capability>
- </Channel>
- <Channel Name="Green 9-12">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00ff00">Dimmer</Capability>
- </Channel>
- <Channel Name="Green 13-16">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00ff00">Dimmer</Capability>
- </Channel>
- <Channel Name="Blue 1-4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255" Color="#0000ff">Dimmer</Capability>
- </Channel>
- <Channel Name="Blue 5-8">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255" Color="#0000ff">Dimmer</Capability>
- </Channel>
- <Channel Name="Blue 9-12">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255" Color="#0000ff">Dimmer</Capability>
- </Channel>
- <Channel Name="Blue 13-16">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255" Color="#0000ff">Dimmer</Capability>
- </Channel>
- <Channel Name="White 1-4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255" Color="#ffffff">Dimmer</Capability>
- </Channel>
- <Channel Name="White 5-8">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255" Color="#ffffff">Dimmer</Capability>
- </Channel>
- <Channel Name="White 9-12">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255" Color="#ffffff">Dimmer</Capability>
- </Channel>
- <Channel Name="White 13-16">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255" Color="#ffffff">Dimmer</Capability>
- </Channel>
- <Channel Name="Red 1-2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">Dimmer</Capability>
- </Channel>
- <Channel Name="Red 3-4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">Dimmer</Capability>
- </Channel>
- <Channel Name="Red 5-6">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">Dimmer</Capability>
- </Channel>
- <Channel Name="Red 7-8">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">Dimmer</Capability>
- </Channel>
- <Channel Name="Red 9-10">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">Dimmer</Capability>
- </Channel>
- <Channel Name="Red 11-12">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">Dimmer</Capability>
- </Channel>
- <Channel Name="Red 13-14">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">Dimmer</Capability>
- </Channel>
- <Channel Name="Red 15-16">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">Dimmer</Capability>
- </Channel>
- <Channel Name="Green 1-2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00ff00">Dimmer</Capability>
- </Channel>
- <Channel Name="Green 3-4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00ff00">Dimmer</Capability>
- </Channel>
- <Channel Name="Green 5-6">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00ff00">Dimmer</Capability>
- </Channel>
- <Channel Name="Green 7-8">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00ff00">Dimmer</Capability>
- </Channel>
- <Channel Name="Green 9-10">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00ff00">Dimmer</Capability>
- </Channel>
- <Channel Name="Green 11-12">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00ff00">Dimmer</Capability>
- </Channel>
- <Channel Name="Green 13-14">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00ff00">Dimmer</Capability>
- </Channel>
- <Channel Name="Green 15-16">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00ff00">Dimmer</Capability>
- </Channel>
- <Channel Name="Blue 1-2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255" Color="#0000ff">Dimmer</Capability>
- </Channel>
- <Channel Name="Blue 3-4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255" Color="#0000ff">Dimmer</Capability>
- </Channel>
- <Channel Name="Blue 5-6">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255" Color="#0000ff">Dimmer</Capability>
- </Channel>
- <Channel Name="Blue 7-8">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255" Color="#0000ff">Dimmer</Capability>
- </Channel>
- <Channel Name="Blue 9-10">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255" Color="#0000ff">Dimmer</Capability>
- </Channel>
- <Channel Name="Blue 11-12">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255" Color="#0000ff">Dimmer</Capability>
- </Channel>
- <Channel Name="Blue 13-14">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255" Color="#0000ff">Dimmer</Capability>
- </Channel>
- <Channel Name="Blue 15-16">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255" Color="#0000ff">Dimmer</Capability>
- </Channel>
- <Channel Name="White 1-2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255" Color="#ffffff">Dimmer</Capability>
- </Channel>
- <Channel Name="White 3-4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255" Color="#ffffff">Dimmer</Capability>
- </Channel>
- <Channel Name="White 5-6">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255" Color="#ffffff">Dimmer</Capability>
- </Channel>
- <Channel Name="White 7-8">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255" Color="#ffffff">Dimmer</Capability>
- </Channel>
- <Channel Name="White 9-10">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255" Color="#ffffff">Dimmer</Capability>
- </Channel>
- <Channel Name="White 11-12">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255" Color="#ffffff">Dimmer</Capability>
- </Channel>
- <Channel Name="White 13-14">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255" Color="#ffffff">Dimmer</Capability>
- </Channel>
- <Channel Name="White 15-16">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255" Color="#ffffff">Dimmer</Capability>
- </Channel>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Red 1-16" Preset="IntensityRed"/>
+ <Channel Name="Green 1-16" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1-16" Preset="IntensityBlue"/>
+ <Channel Name="White 1-16" Preset="IntensityWhite"/>
+ <Channel Name="Red 1-8" Preset="IntensityRed"/>
+ <Channel Name="Red 8-16" Preset="IntensityRed"/>
+ <Channel Name="Green 1-8" Preset="IntensityGreen"/>
+ <Channel Name="Green 8-16" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1-8" Preset="IntensityBlue"/>
+ <Channel Name="Blue 8-16" Preset="IntensityBlue"/>
+ <Channel Name="White 1-8" Preset="IntensityWhite"/>
+ <Channel Name="White 8-16" Preset="IntensityWhite"/>
+ <Channel Name="Red 1-4" Preset="IntensityRed"/>
+ <Channel Name="Red 5-8" Preset="IntensityRed"/>
+ <Channel Name="Red 9-12" Preset="IntensityRed"/>
+ <Channel Name="Red 13-16" Preset="IntensityRed"/>
+ <Channel Name="Green 1-4" Preset="IntensityGreen"/>
+ <Channel Name="Green 5-8" Preset="IntensityGreen"/>
+ <Channel Name="Green 9-12" Preset="IntensityGreen"/>
+ <Channel Name="Green 13-16" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1-4" Preset="IntensityBlue"/>
+ <Channel Name="Blue 5-8" Preset="IntensityBlue"/>
+ <Channel Name="Blue 9-12" Preset="IntensityBlue"/>
+ <Channel Name="Blue 13-16" Preset="IntensityBlue"/>
+ <Channel Name="White 1-4" Preset="IntensityWhite"/>
+ <Channel Name="White 5-8" Preset="IntensityWhite"/>
+ <Channel Name="White 9-12" Preset="IntensityWhite"/>
+ <Channel Name="White 13-16" Preset="IntensityWhite"/>
+ <Channel Name="Red 1-2" Preset="IntensityRed"/>
+ <Channel Name="Red 3-4" Preset="IntensityRed"/>
+ <Channel Name="Red 5-6" Preset="IntensityRed"/>
+ <Channel Name="Red 7-8" Preset="IntensityRed"/>
+ <Channel Name="Red 9-10" Preset="IntensityRed"/>
+ <Channel Name="Red 11-12" Preset="IntensityRed"/>
+ <Channel Name="Red 13-14" Preset="IntensityRed"/>
+ <Channel Name="Red 15-16" Preset="IntensityRed"/>
+ <Channel Name="Green 1-2" Preset="IntensityGreen"/>
+ <Channel Name="Green 3-4" Preset="IntensityGreen"/>
+ <Channel Name="Green 5-6" Preset="IntensityGreen"/>
+ <Channel Name="Green 7-8" Preset="IntensityGreen"/>
+ <Channel Name="Green 9-10" Preset="IntensityGreen"/>
+ <Channel Name="Green 11-12" Preset="IntensityGreen"/>
+ <Channel Name="Green 13-14" Preset="IntensityGreen"/>
+ <Channel Name="Green 15-16" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1-2" Preset="IntensityBlue"/>
+ <Channel Name="Blue 3-4" Preset="IntensityBlue"/>
+ <Channel Name="Blue 5-6" Preset="IntensityBlue"/>
+ <Channel Name="Blue 7-8" Preset="IntensityBlue"/>
+ <Channel Name="Blue 9-10" Preset="IntensityBlue"/>
+ <Channel Name="Blue 11-12" Preset="IntensityBlue"/>
+ <Channel Name="Blue 13-14" Preset="IntensityBlue"/>
+ <Channel Name="Blue 15-16" Preset="IntensityBlue"/>
+ <Channel Name="White 1-2" Preset="IntensityWhite"/>
+ <Channel Name="White 3-4" Preset="IntensityWhite"/>
+ <Channel Name="White 5-6" Preset="IntensityWhite"/>
+ <Channel Name="White 7-8" Preset="IntensityWhite"/>
+ <Channel Name="White 9-10" Preset="IntensityWhite"/>
+ <Channel Name="White 11-12" Preset="IntensityWhite"/>
+ <Channel Name="White 13-14" Preset="IntensityWhite"/>
+ <Channel Name="White 15-16" Preset="IntensityWhite"/>
  <Mode Name="Mode 1 - 4 Channels">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="5.45" Width="1030" Height="90" Depth="180"/>
-   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="140" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red 1-16</Channel>
   <Channel Number="1">Green 1-16</Channel>
   <Channel Number="2">Blue 1-16</Channel>
   <Channel Number="3">White 1-16</Channel>
  </Mode>
  <Mode Name="Mode 2 - 8 Channels">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="5.45" Width="1030" Height="90" Depth="180"/>
-   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="140" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer 1-16</Channel>
   <Channel Number="1">LED Functions</Channel>
   <Channel Number="2">Function Speed</Channel>
@@ -387,13 +127,6 @@
   <Channel Number="7">White 1-16</Channel>
  </Mode>
  <Mode Name="Mode 3 - 12 Channels">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="5.45" Width="1030" Height="90" Depth="180"/>
-   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="140" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer 1-16</Channel>
   <Channel Number="1">LED Functions</Channel>
   <Channel Number="2">Function Speed</Channel>
@@ -420,13 +153,6 @@
   </Head>
  </Mode>
  <Mode Name="Mode 4 - 20 Channels">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="5.45" Width="1030" Height="90" Depth="180"/>
-   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="140" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer 1-16</Channel>
   <Channel Number="1">LED Functions</Channel>
   <Channel Number="2">Function Speed</Channel>
@@ -473,13 +199,6 @@
   </Head>
  </Mode>
  <Mode Name="Mode 5 - 32 Channels">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="5.45" Width="1030" Height="90" Depth="180"/>
-   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="140" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red 1-2</Channel>
   <Channel Number="1">Green 1-2</Channel>
   <Channel Number="2">Blue 1-2</Channel>
@@ -562,13 +281,6 @@
   </Head>
  </Mode>
  <Mode Name="Mode 6 - 36 Channels">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="5.45" Width="1030" Height="90" Depth="180"/>
-   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="140" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer 1-16</Channel>
   <Channel Number="1">LED Functions</Channel>
   <Channel Number="2">Function Speed</Channel>
@@ -654,4 +366,11 @@
    <Channel>33</Channel>
   </Head>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="5.45" Width="1030" Height="90" Depth="180"/>
+   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="140" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

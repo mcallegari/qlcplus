@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,14 +9,8 @@
  <Manufacturer>American DJ</Manufacturer>
  <Model>Inno Spot LED</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan movement</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt movement</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Colours">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="14" Color="#ffffff">White</Capability>
@@ -71,10 +65,7 @@
   <Capability Min="240" Max="247">Random strobe</Capability>
   <Capability Min="248" Max="255">Shutter open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer 0% - 100%</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Moving head movement">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="7">No function</Capability>
@@ -91,23 +82,13 @@
   <Capability Min="218" Max="238">Movement 11</Capability>
   <Capability Min="239" Max="255">Movement 12</Capability>
  </Channel>
- <Channel Name="Movement speed fast - slow">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Movement speed fast - slow</Capability>
- </Channel>
+ <Channel Name="Movement speed fast - slow" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Prism effect">
   <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="6">No effect</Capability>
   <Capability Min="7" Max="255">3 facet prism</Capability>
  </Channel>
  <Mode Name="10 channel mode">
-  <Physical>
-   <Bulb Lumens="22300" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="206" Height="285" Weight="6.5" Depth="242"/>
-   <Lens DegreesMax="17" Name="Other" DegreesMin="17"/>
-   <Focus PanMax="540" Type="Head" TiltMax="270"/>
-   <Technical PowerConsumption="93" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Colours</Channel>
@@ -119,4 +100,11 @@
   <Channel Number="8">Movement speed fast - slow</Channel>
   <Channel Number="9">Prism effect</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="22300" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="206" Height="285" Weight="6.5" Depth="242"/>
+   <Lens DegreesMax="17" Name="Other" DegreesMin="17"/>
+   <Focus PanMax="540" Type="Head" TiltMax="270"/>
+   <Technical PowerConsumption="93" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

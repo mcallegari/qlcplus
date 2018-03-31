@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,38 +9,13 @@
  <Manufacturer>Eurolite</Manufacturer>
  <Model>LED TMH-9</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Pan/Tilt Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Decreasing speed</Capability>
- </Channel>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000"> Red intensity</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00ff00">Green intensity</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255" Color="#0000ff">Blue intensity</Capability>
- </Channel>
- <Channel Name="White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255" Color="#ffffff">White intensity</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
  <Channel Name="Colour macros">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="15" Color="#000000">Blackout</Capability>
@@ -68,39 +43,16 @@
   <Capability Min="201" Max="250">Random strobe effect with increasing speed</Capability>
   <Capability Min="251" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Dimmer Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment of the dimmer intensity from 0 to 100%</Capability>
- </Channel>
- <Channel Name="Pan 16 bit">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan movement with 16 bit resolution</Capability>
- </Channel>
- <Channel Name="Tilt 16 bit">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt movement with 16 bit resolution</Capability>
- </Channel>
+ <Channel Name="Dimmer Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Pan 16 bit" Preset="PositionPanFine"/>
+ <Channel Name="Tilt 16 bit" Preset="PositionTiltFine"/>
  <Mode Name="4 channel">
-  <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Depth="175" Weight="3" Height="245" Width="175"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus TiltMax="180" Type="Fixed" PanMax="540"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="80"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Colour macros</Channel>
   <Channel Number="3">Strobe</Channel>
  </Mode>
  <Mode Name="12 channel">
-  <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Depth="175" Weight="3" Height="245" Width="175"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus TiltMax="180" Type="Fixed" PanMax="540"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="80"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan/Tilt Speed</Channel>
@@ -114,4 +66,11 @@
   <Channel Number="10">Pan 16 bit</Channel>
   <Channel Number="11">Tilt 16 bit</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
+   <Dimensions Depth="175" Weight="3" Height="245" Width="175"/>
+   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
+   <Focus TiltMax="180" Type="Fixed" PanMax="540"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="80"/>
+  </Physical>
 </FixtureDefinition>

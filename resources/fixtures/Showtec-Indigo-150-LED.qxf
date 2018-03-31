@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,26 +9,11 @@
  <Manufacturer>Showtec</Manufacturer>
  <Model>Indigo 150 LED</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Max="255" Min="0">Pan (0 to 530°)</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Max="255" Min="0">Min to max</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Max="255" Min="0">Tilt (0 to 270°)</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Max="255" Min="0">Min to max</Capability>
- </Channel>
- <Channel Name="Pan/Tilt Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Max="255" Min="0">Max to min</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Colour Wheel">
   <Group Byte="0">Colour</Group>
   <Capability Color="#ffffff" Max="14" Min="0">Open</Capability>
@@ -76,10 +61,7 @@
   <Capability Max="127" Min="0">No Function</Capability>
   <Capability Max="255" Min="128">3-facet Prism Effect</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Max="255" Min="0">Min to max</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Shutter/Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Max="31" Min="0">Closed</Capability>
@@ -107,13 +89,6 @@
   <Capability Max="255" Min="220">No Function</Capability>
  </Channel>
  <Mode Name="Advanced">
-  <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
-   <Dimensions Height="370" Depth="245" Weight="6.3" Width="210"/>
-   <Lens DegreesMin="16" DegreesMax="16" Name=""/>
-   <Focus Type="Head" PanMax="530" TiltMax="270"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="20"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -128,13 +103,6 @@
   <Channel Number="11">Channel Functions</Channel>
  </Mode>
  <Mode Name="Basic">
-  <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
-   <Dimensions Height="370" Depth="245" Weight="6.3" Width="210"/>
-   <Lens DegreesMin="16" DegreesMax="16" Name=""/>
-   <Focus Type="Head" PanMax="530" TiltMax="270"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="20"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Colour Wheel</Channel>
@@ -145,4 +113,11 @@
   <Channel Number="7">Shutter/Strobe</Channel>
   <Channel Number="8">Channel Functions</Channel>
  </Mode>
+<Physical>
+   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
+   <Dimensions Height="370" Depth="245" Weight="6.3" Width="210"/>
+   <Lens DegreesMin="16" DegreesMax="16" Name=""/>
+   <Focus Type="Head" PanMax="530" TiltMax="270"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="20"/>
+  </Physical>
 </FixtureDefinition>

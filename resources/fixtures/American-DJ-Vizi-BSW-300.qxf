@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>American DJ</Manufacturer>
  <Model>Vizi BSW 300</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Pan (Fine)">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan (Fine)</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Tilt (Fine)">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt (Fine)</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan (Fine)" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt (Fine)" Preset="PositionTiltFine"/>
  <Channel Name="Color Wheel 1">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7" Color="#ffffff">White</Capability>
@@ -131,10 +119,7 @@
   <Capability Min="240" Max="247">Random Strobe</Capability>
   <Capability Min="248" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Master Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Prism (6 Facet)">
   <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="7">No Prism</Capability>
@@ -154,10 +139,7 @@
   <Capability Min="8" Max="127">Aperture</Capability>
   <Capability Min="128" Max="255">Wash</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Near -&gt; Far</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Shows">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="0">Off</Capability>
@@ -176,10 +158,7 @@
   <Capability Min="81" Max="100">Theatre</Capability>
   <Capability Min="101" Max="255">Default to Unit Setting</Capability>
  </Channel>
- <Channel Name="Pan/Tilt Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Fast -&gt; Slow</Capability>
- </Channel>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Special Functions">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="69">No Function</Capability>
@@ -205,18 +184,8 @@
   <Capability Min="190" Max="193">No Rotation</Capability>
   <Capability Min="194" Max="255">Counter-Clockwise Rotation (Slow -&gt; Fast)</Capability>
  </Channel>
- <Channel Name="Dimmer (Fine)">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">(0% -&gt; 100%)</Capability>
- </Channel>
+ <Channel Name="Dimmer (Fine)" Preset="IntensityDimmerFine"/>
  <Mode Name="17 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="8000"/>
-   <Dimensions Weight="22" Width="376" Height="545" Depth="325"/>
-   <Lens Name="Other" DegreesMin="1" DegreesMax="26"/>
-   <Focus Type="Head" PanMax="540" TiltMax="240"/>
-   <Technical PowerConsumption="345" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Color Wheel 1</Channel>
@@ -236,13 +205,6 @@
   <Channel Number="16">Special Functions</Channel>
  </Mode>
  <Mode Name="20 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="8000"/>
-   <Dimensions Weight="22" Width="376" Height="545" Depth="325"/>
-   <Lens Name="Other" DegreesMin="1" DegreesMax="26"/>
-   <Focus Type="Head" PanMax="540" TiltMax="240"/>
-   <Technical PowerConsumption="345" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan (Fine)</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -264,4 +226,11 @@
   <Channel Number="18">Pan/Tilt Speed</Channel>
   <Channel Number="19">Special Functions</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="8000"/>
+   <Dimensions Weight="22" Width="376" Height="545" Depth="325"/>
+   <Lens Name="Other" DegreesMin="1" DegreesMax="26"/>
+   <Focus Type="Head" PanMax="540" TiltMax="240"/>
+   <Technical PowerConsumption="345" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

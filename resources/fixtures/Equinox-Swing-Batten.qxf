@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,10 +9,7 @@
  <Manufacturer>Equinox</Manufacturer>
  <Model>Swing Batten</Model>
  <Type>Color Changer</Type>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Master Dimmer (0-100%)</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="7">No Function</Capability>
@@ -68,14 +65,8 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Show Mode Speed (Slow - Fast)</Capability>
  </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt (0°-270°)</Capability>
- </Channel>
- <Channel Name="Tilt Movement Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Tilt Movement Speed</Capability>
- </Channel>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Movement Speed" Preset="SpeedTiltFastSlow"/>
  <Channel Name="LED 1 Colour">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="8">No Function</Capability>
@@ -229,13 +220,6 @@
   <Capability Min="240" Max="255">LED 8 - RGBW</Capability>
  </Channel>
  <Mode Name="6 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="7.5" Width="1065" Height="160" Depth="80"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="270"/>
-   <Technical PowerConsumption="100" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Strobe</Channel>
   <Channel Number="2">Shows</Channel>
@@ -244,13 +228,6 @@
   <Channel Number="5">Colour Chase Speed</Channel>
  </Mode>
  <Mode Name="12 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="7.5" Width="1065" Height="160" Depth="80"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="270"/>
-   <Technical PowerConsumption="100" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Tilt</Channel>
   <Channel Number="1">Tilt Movement Speed</Channel>
   <Channel Number="2">Dimmer</Channel>
@@ -289,13 +266,6 @@
   </Head>
  </Mode>
  <Mode Name="16 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="7.5" Width="1065" Height="160" Depth="80"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="270"/>
-   <Technical PowerConsumption="100" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Tilt</Channel>
   <Channel Number="1">Tilt Movement Speed</Channel>
   <Channel Number="2">Dimmer</Channel>
@@ -313,4 +283,11 @@
   <Channel Number="14">Colour Macros</Channel>
   <Channel Number="15">Colour Chase Speed</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="7.5" Width="1065" Height="160" Depth="80"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="270"/>
+   <Technical PowerConsumption="100" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -41,22 +41,9 @@
   <Capability Min="0" Max="127">Dimmer[min-max]</Capability>
   <Capability Min="128" Max="255">Strobe [1-7 flashes/sec]</Capability>
  </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan Movement</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt Movement</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Mode Name="6 Channel">
-  <Physical>
-   <Bulb Type="HMI 1200W" Lumens="49000" ColourTemperature="6000"/>
-   <Dimensions Weight="35.5" Width="1230" Height="445" Depth="435"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Mirror" PanMax="150" TiltMax="110"/>
-   <Technical PowerConsumption="1300" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Gobo Rotation</Channel>
   <Channel Number="1">Color Wheel</Channel>
   <Channel Number="2">Gobo Selection</Channel>
@@ -64,4 +51,11 @@
   <Channel Number="4">Pan</Channel>
   <Channel Number="5">Tilt</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="HMI 1200W" Lumens="49000" ColourTemperature="6000"/>
+   <Dimensions Weight="35.5" Width="1230" Height="445" Depth="435"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Mirror" PanMax="150" TiltMax="110"/>
+   <Technical PowerConsumption="1300" DmxConnector="5-pin"/>
+  </Physical>
 </FixtureDefinition>

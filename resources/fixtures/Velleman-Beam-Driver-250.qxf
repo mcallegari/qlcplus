@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -56,26 +56,13 @@
   <Capability Min="245" Max="249">Reset</Capability>
   <Capability Min="250" Max="255">Open shutter</Capability>
  </Channel>
- <Channel Name="Pan - movement">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">360° Movement</Capability>
- </Channel>
- <Channel Name="Tilt - movement">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">270° Movement</Capability>
- </Channel>
+ <Channel Name="Pan - movement" Preset="PositionPan"/>
+ <Channel Name="Tilt - movement" Preset="PositionTilt"/>
  <Channel Name="Effect wheel">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="255">SI-fast 3-facet prism</Capability>
  </Channel>
  <Mode Name="VDP250MH7">
-  <Physical>
-   <Bulb Type="MSD 250W" ColourTemperature="0" Lumens="18000"/>
-   <Dimensions Width="300" Depth="300" Height="480" Weight="17.2"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" TiltMax="270" PanMax="360"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="350"/>
-  </Physical>
   <Channel Number="0">Color</Channel>
   <Channel Number="1">Gobo</Channel>
   <Channel Number="2">Gobo rotation</Channel>
@@ -84,4 +71,11 @@
   <Channel Number="5">Tilt - movement</Channel>
   <Channel Number="6">Effect wheel</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="MSD 250W" ColourTemperature="0" Lumens="18000"/>
+   <Dimensions Width="300" Depth="300" Height="480" Weight="17.2"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" TiltMax="270" PanMax="360"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="350"/>
+  </Physical>
 </FixtureDefinition>

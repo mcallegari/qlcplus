@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -33,10 +33,7 @@
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="255">All dimm / Speed / Sensitivity</Capability>
  </Channel>
- <Channel Name="Flash">
-  <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="255">Flash (0=const, 255=fast)</Capability>
- </Channel>
+ <Channel Name="Flash" Preset="ShutterStrobeSlowFast"/>
  <Channel Name="Red1 / All Red / Select Color">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
@@ -47,49 +44,14 @@
   <Colour>Green</Colour>
   <Capability Min="0" Max="255">Green 1 / All Green</Capability>
  </Channel>
- <Channel Name="Blue 1 / All Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue 1 / All Blue</Capability>
- </Channel>
- <Channel Name="Red 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red 2</Capability>
- </Channel>
- <Channel Name="Green 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green 2</Capability>
- </Channel>
- <Channel Name="Blue 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue 2</Capability>
- </Channel>
- <Channel Name="Red 3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red 3</Capability>
- </Channel>
- <Channel Name="Green 3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green 3</Capability>
- </Channel>
- <Channel Name="Blue 3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue 3</Capability>
- </Channel>
+ <Channel Name="Blue 1 / All Blue" Preset="IntensityBlue"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="4500"/>
-   <Dimensions Width="1070" Height="90" Weight="2.5" Depth="65"/>
-   <Lens DegreesMax="40" Name="Other" DegreesMin="40"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Mode</Channel>
   <Channel Number="1">All dimm / Speed / Sensitivity</Channel>
   <Channel Number="2">Flash</Channel>
@@ -103,4 +65,11 @@
   <Channel Number="10">Green 3</Channel>
   <Channel Number="11">Blue 3</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="4500"/>
+   <Dimensions Width="1070" Height="90" Weight="2.5" Depth="65"/>
+   <Lens DegreesMax="40" Name="Other" DegreesMin="40"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

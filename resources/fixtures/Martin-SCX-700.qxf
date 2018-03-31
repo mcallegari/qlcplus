@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -93,14 +93,8 @@
   <Capability Min="246" Max="250">Music trigger medium</Capability>
   <Capability Min="251" Max="255">Music trigger slow</Capability>
  </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Macro 1">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="15">No macro</Capability>
@@ -149,13 +143,6 @@
   <Capability Min="8" Max="255">Vector fast to slow</Capability>
  </Channel>
  <Mode Name="Normal">
-  <Physical>
-   <Bulb Lumens="9500" Type="HTI 150W" ColourTemperature="5000"/>
-   <Dimensions Width="172" Height="203" Weight="13" Depth="525"/>
-   <Lens DegreesMax="18" Name="Other" DegreesMin="18"/>
-   <Focus PanMax="198" Type="Mirror" TiltMax="72"/>
-   <Technical PowerConsumption="214" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Shutter, strobe</Channel>
   <Channel Number="1">Colour</Channel>
   <Channel Number="2">Gobo</Channel>
@@ -164,13 +151,6 @@
   <Channel Number="5">Tilt</Channel>
  </Mode>
  <Mode Name="Extended">
-  <Physical>
-   <Bulb Lumens="9500" Type="HTI 150W" ColourTemperature="5000"/>
-   <Dimensions Width="172" Height="203" Weight="13" Depth="525"/>
-   <Lens DegreesMax="18" Name="Other" DegreesMin="18"/>
-   <Focus PanMax="198" Type="Mirror" TiltMax="72"/>
-   <Technical PowerConsumption="214" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Shutter, strobe</Channel>
   <Channel Number="1">Colour</Channel>
   <Channel Number="2">Gobo</Channel>
@@ -182,4 +162,11 @@
   <Channel Number="8">Movement speed</Channel>
   <Channel Number="9">Effects speed</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="9500" Type="HTI 150W" ColourTemperature="5000"/>
+   <Dimensions Width="172" Height="203" Weight="13" Depth="525"/>
+   <Lens DegreesMax="18" Name="Other" DegreesMin="18"/>
+   <Focus PanMax="198" Type="Mirror" TiltMax="72"/>
+   <Technical PowerConsumption="214" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

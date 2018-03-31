@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,30 +9,12 @@
  <Manufacturer>MARQ</Manufacturer>
  <Model>Gesture Spot 100 </Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan angle, 0° (000) to 540° (255) </Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Fine control of panning </Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt angle, 0° (000) to 180° (255) </Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Fine control of tilting </Capability>
- </Channel>
- <Channel Name="Pan/Tilt Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Pan/tilt speed, fast (000) to slow (255) </Capability>
- </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer, dark (000) to bright (255) </Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="3">Closed </Capability>
@@ -120,13 +102,6 @@ change </Capability>
   <Capability Min="210" Max="255">No function </Capability>
  </Channel>
  <Mode Name="11 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="980" ColourTemperature="7200"/>
-   <Dimensions Weight="2.5" Width="190" Height="275" Depth="145"/>
-   <Lens Name="Other" DegreesMin="12" DegreesMax="12"/>
-   <Focus Type="Head" PanMax="540" TiltMax="180"/>
-   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -140,13 +115,6 @@ change </Capability>
   <Channel Number="10">Control Functions All functions are executed after 2 seconds</Channel>
  </Mode>
  <Mode Name="7 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="980" ColourTemperature="7200"/>
-   <Dimensions Weight="2.5" Width="190" Height="275" Depth="145"/>
-   <Lens Name="Other" DegreesMin="12" DegreesMax="12"/>
-   <Focus Type="Head" PanMax="540" TiltMax="180"/>
-   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Dimmer</Channel>
@@ -155,4 +123,11 @@ change </Capability>
   <Channel Number="5">Gobo Wheel</Channel>
   <Channel Number="6">Macro Functions</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="980" ColourTemperature="7200"/>
+   <Dimensions Weight="2.5" Width="190" Height="275" Depth="145"/>
+   <Lens Name="Other" DegreesMin="12" DegreesMax="12"/>
+   <Focus Type="Head" PanMax="540" TiltMax="180"/>
+   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -61,72 +61,30 @@
   <Capability Min="191" Max="255">Fan level 1</Capability>
  </Channel>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb Lumens="0" Type="Xenon 3000W" ColourTemperature="5600"/>
-   <Dimensions Width="425" Height="245" Weight="8" Depth="240"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="3000" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Simple</Channel>
  </Mode>
  <Mode Name="Mode 2">
-  <Physical>
-   <Bulb Lumens="0" Type="Xenon 3000W" ColourTemperature="5600"/>
-   <Dimensions Width="425" Height="245" Weight="8" Depth="240"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="3000" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Intensity</Channel>
   <Channel Number="1">Duration</Channel>
   <Channel Number="2">Rate</Channel>
  </Mode>
  <Mode Name="Mode 3">
-  <Physical>
-   <Bulb Lumens="0" Type="Xenon 3000W" ColourTemperature="5600"/>
-   <Dimensions Width="425" Height="245" Weight="8" Depth="240"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="3000" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Intensity</Channel>
   <Channel Number="1">Duration</Channel>
   <Channel Number="2">Rate</Channel>
   <Channel Number="3">Effects</Channel>
  </Mode>
  <Mode Name="Mode 1 with Colour">
-  <Physical>
-   <Bulb Lumens="0" Type="Xenon 3000W" ColourTemperature="5600"/>
-   <Dimensions Width="425" Height="245" Weight="8" Depth="240"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="3000" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Simple</Channel>
   <Channel Number="1">Colour</Channel>
  </Mode>
  <Mode Name="Mode 2 with Colour">
-  <Physical>
-   <Bulb Lumens="0" Type="Xenon 3000W" ColourTemperature="5600"/>
-   <Dimensions Width="425" Height="245" Weight="8" Depth="240"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="3000" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Intensity</Channel>
   <Channel Number="1">Duration</Channel>
   <Channel Number="2">Rate</Channel>
   <Channel Number="3">Colour</Channel>
  </Mode>
  <Mode Name="Mode 3 with Colour">
-  <Physical>
-   <Bulb Lumens="0" Type="Xenon 3000W" ColourTemperature="5600"/>
-   <Dimensions Width="425" Height="245" Weight="8" Depth="240"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="3000" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Intensity</Channel>
   <Channel Number="1">Duration</Channel>
   <Channel Number="2">Rate</Channel>
@@ -134,25 +92,11 @@
   <Channel Number="4">Colour</Channel>
  </Mode>
  <Mode Name="Mode 1 with Colour and Fan">
-  <Physical>
-   <Bulb Lumens="0" Type="Xenon 3000W" ColourTemperature="5600"/>
-   <Dimensions Width="425" Height="245" Weight="8" Depth="240"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="3000" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Simple</Channel>
   <Channel Number="1">Colour</Channel>
   <Channel Number="2">Fan</Channel>
  </Mode>
  <Mode Name="Mode 2 with Colour and Fan">
-  <Physical>
-   <Bulb Lumens="0" Type="Xenon 3000W" ColourTemperature="5600"/>
-   <Dimensions Width="425" Height="245" Weight="8" Depth="240"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="3000" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Intensity</Channel>
   <Channel Number="1">Duration</Channel>
   <Channel Number="2">Rate</Channel>
@@ -160,13 +104,6 @@
   <Channel Number="4">Fan</Channel>
  </Mode>
  <Mode Name="Mode 3 with Colour and Fan">
-  <Physical>
-   <Bulb Lumens="0" Type="Xenon 3000W" ColourTemperature="5600"/>
-   <Dimensions Width="425" Height="245" Weight="8" Depth="240"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="3000" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Intensity</Channel>
   <Channel Number="1">Duration</Channel>
   <Channel Number="2">Rate</Channel>
@@ -174,4 +111,11 @@
   <Channel Number="4">Colour</Channel>
   <Channel Number="5">Fan</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="Xenon 3000W" ColourTemperature="5600"/>
+   <Dimensions Width="425" Height="245" Weight="8" Depth="240"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="3000" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
 </FixtureDefinition>

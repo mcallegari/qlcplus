@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>HQ Power</Manufacturer>
  <Model>Aeron Wash 575</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan coarse</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt coarse</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Pan/Tilt Speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="0">Max. speed (tracking mode)</Capability>
@@ -65,25 +53,10 @@
   <Capability Min="192" Max="223">Strobe Random &gt;&gt;</Capability>
   <Capability Min="224" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer (0 - 100%)</Capability>
- </Channel>
- <Channel Name="Cyan">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">Cyan (0 - 100%)</Capability>
- </Channel>
- <Channel Name="Magenta">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">Magenta (0 - 100%)</Capability>
- </Channel>
- <Channel Name="Yellow">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">Yellow (0 - 100%)</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
  <Channel Name="Speed CMY/Dimmer">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Max to Min</Capability>
@@ -134,13 +107,6 @@
   <Capability Min="255" Max="255">7°</Capability>
  </Channel>
  <Mode Name="16 channel (16 bit)">
-  <Physical>
-   <Bulb Type="MSR 575W" Lumens="49000" ColourTemperature="5500"/>
-   <Dimensions Weight="32" Width="449" Height="583" Depth="467"/>
-   <Lens Name="Fresnel" DegreesMin="7" DegreesMax="28"/>
-   <Focus Type="Fixed" PanMax="530" TiltMax="280"/>
-   <Technical PowerConsumption="575" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -159,13 +125,6 @@
   <Channel Number="15">Dimmer</Channel>
  </Mode>
  <Mode Name="14 channel (8 bit)">
-  <Physical>
-   <Bulb Type="MSR 575W" Lumens="49000" ColourTemperature="5500"/>
-   <Dimensions Weight="32" Width="449" Height="583" Depth="467"/>
-   <Lens Name="Fresnel" DegreesMin="7" DegreesMax="28"/>
-   <Focus Type="Fixed" PanMax="530" TiltMax="280"/>
-   <Technical PowerConsumption="575" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan/Tilt Speed</Channel>
@@ -181,4 +140,11 @@
   <Channel Number="12">Shutter</Channel>
   <Channel Number="13">Dimmer</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="MSR 575W" Lumens="49000" ColourTemperature="5500"/>
+   <Dimensions Weight="32" Width="449" Height="583" Depth="467"/>
+   <Lens Name="Fresnel" DegreesMin="7" DegreesMax="28"/>
+   <Focus Type="Fixed" PanMax="530" TiltMax="280"/>
+   <Technical PowerConsumption="575" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

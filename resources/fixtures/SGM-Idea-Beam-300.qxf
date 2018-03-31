@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>SGM</Manufacturer>
  <Model>Idea BEAM 300</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan movement 8bit</Capability>
- </Channel>
- <Channel Name="Pan fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine 16bit</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt movement 8bit</Capability>
- </Channel>
- <Channel Name="Tilt fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine 16bit</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
  <Channel Name="Speed pan/tilt">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="225">Max to min speed</Capability>
@@ -75,10 +63,7 @@
   <Capability Min="192" Max="223">Random strobe effect slow to fast</Capability>
   <Capability Min="224" Max="255">No function (shutter open)</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Intensity (0 to 100%)</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Rotating gobo index,rotating gobo rotation">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="127">Gobo indexing</Capability>
@@ -153,48 +138,15 @@
   <Capability Min="32" Max="63">Smooth</Capability>
   <Capability Min="64" Max="255">No Function</Capability>
  </Channel>
- <Channel Name="Color Wheel Fine">
-  <Group Byte="1">Colour</Group>
-  <Capability Min="0" Max="255">Color Wheel colour change to any position Fine</Capability>
- </Channel>
- <Channel Name="Cyan Color">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255" Color="#05fff7">Cyan (0-white, 255-100% Cyan)</Capability>
- </Channel>
- <Channel Name="Cyan Color Fine">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255" Color="#05fff7">Cyan Fine</Capability>
- </Channel>
- <Channel Name="Magenta Color">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255" Color="#ff00ff">Magenta (0-white, 255-100% Magenta)</Capability>
- </Channel>
- <Channel Name="Magenta Color Fine">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255" Color="#ff00ff">Magenta Fine</Capability>
- </Channel>
- <Channel Name="Yellow Color">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255" Color="#ffff00">Yellow (0-white, 255-100% Yellow)</Capability>
- </Channel>
- <Channel Name="Yellow Color Fine">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255" Color="#ffff00">Yellow Fine</Capability>
- </Channel>
- <Channel Name="Rotating gobo indexing Fine">
-  <Group Byte="1">Gobo</Group>
-  <Capability Min="0" Max="255">Fine indexing</Capability>
- </Channel>
- <Channel Name="Fine Dimmer intensity">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer intensity fine</Capability>
- </Channel>
+ <Channel Name="Color Wheel Fine" Preset="ColorWheelFine"/>
+ <Channel Name="Cyan Color" Preset="IntensityCyan"/>
+ <Channel Name="Cyan Color Fine" Preset="IntensityCyanFine"/>
+ <Channel Name="Magenta Color" Preset="IntensityMagenta"/>
+ <Channel Name="Magenta Color Fine" Preset="IntensityMagentaFine"/>
+ <Channel Name="Yellow Color" Preset="IntensityYellow"/>
+ <Channel Name="Yellow Color Fine" Preset="IntensityYellowFine"/>
+ <Channel Name="Rotating gobo indexing Fine" Preset="GoboIndexFine"/>
+ <Channel Name="Fine Dimmer intensity" Preset="IntensityDimmerFine"/>
  <Channel Name="Speed Of CMY &amp; Colour macro Speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Speed Max -&gt;Min</Capability>
@@ -216,13 +168,6 @@
   <Capability Min="0" Max="255">Frost Fine</Capability>
  </Channel>
  <Mode Name="Standard v1.1">
-  <Physical>
-   <Bulb Type="MSR 700W" Lumens="0" ColourTemperature="7200"/>
-   <Dimensions Weight="38.5" Width="500" Height="390" Depth="500"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="630" TiltMax="265"/>
-   <Technical PowerConsumption="780" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -244,13 +189,6 @@
   <Channel Number="18">Lamp on/off, Reset, Internal programs</Channel>
  </Mode>
  <Mode Name="Base v1.1">
-  <Physical>
-   <Bulb Type="MSR 700W" Lumens="0" ColourTemperature="7200"/>
-   <Dimensions Weight="38.5" Width="500" Height="390" Depth="500"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="630" TiltMax="265"/>
-   <Technical PowerConsumption="780" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Speed pan/tilt</Channel>
@@ -270,13 +208,6 @@
   <Channel Number="16">Lamp on/off, Reset, Internal programs</Channel>
  </Mode>
  <Mode Name="Extended v1.1">
-  <Physical>
-   <Bulb Type="MSR 700W" Lumens="0" ColourTemperature="7200"/>
-   <Dimensions Weight="38.5" Width="500" Height="390" Depth="500"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="630" TiltMax="265"/>
-   <Technical PowerConsumption="780" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -306,13 +237,6 @@
   <Channel Number="26">Lamp on/off, Reset, Internal programs</Channel>
  </Mode>
  <Mode Name="Standard v1.0">
-  <Physical>
-   <Bulb Type="MSR 700W" Lumens="0" ColourTemperature="7200"/>
-   <Dimensions Weight="38.5" Width="500" Height="390" Depth="500"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="630" TiltMax="265"/>
-   <Technical PowerConsumption="780" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -333,13 +257,6 @@
   <Channel Number="17">Lamp on/off, Reset, Internal programs</Channel>
  </Mode>
  <Mode Name="Base v1.0">
-  <Physical>
-   <Bulb Type="MSR 700W" Lumens="0" ColourTemperature="7200"/>
-   <Dimensions Weight="38.5" Width="500" Height="390" Depth="500"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="630" TiltMax="265"/>
-   <Technical PowerConsumption="780" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Speed pan/tilt</Channel>
@@ -358,13 +275,6 @@
   <Channel Number="15">Lamp on/off, Reset, Internal programs</Channel>
  </Mode>
  <Mode Name="Extended v1.0">
-  <Physical>
-   <Bulb Type="MSR 700W" Lumens="0" ColourTemperature="7200"/>
-   <Dimensions Weight="38.5" Width="500" Height="390" Depth="500"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="630" TiltMax="265"/>
-   <Technical PowerConsumption="780" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -392,4 +302,11 @@
   <Channel Number="24">Colour macros - CMY and colour wheel</Channel>
   <Channel Number="25">Lamp on/off, Reset, Internal programs</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="MSR 700W" Lumens="0" ColourTemperature="7200"/>
+   <Dimensions Weight="38.5" Width="500" Height="390" Depth="500"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="630" TiltMax="265"/>
+   <Technical PowerConsumption="780" DmxConnector="5-pin"/>
+  </Physical>
 </FixtureDefinition>

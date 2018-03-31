@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -240,13 +240,6 @@
   <Capability Min="192" Max="255">Point</Capability>
  </Channel>
  <Mode Name="13 Channel">
-  <Physical>
-   <Bulb ColourTemperature="0" Type="" Lumens="0"/>
-   <Dimensions Height="100" Width="230" Weight="3" Depth="220"/>
-   <Lens DegreesMin="30" DegreesMax="30" Name="Other"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Mode</Channel>
   <Channel Number="1">Graphic/Folder</Channel>
   <Channel Number="2">Strobe/Folder</Channel>
@@ -261,4 +254,11 @@
   <Channel Number="11">RGB</Channel>
   <Channel Number="12">Display Mode</Channel>
  </Mode>
+<Physical>
+   <Bulb ColourTemperature="0" Type="" Lumens="0"/>
+   <Dimensions Height="100" Width="230" Weight="3" Depth="220"/>
+   <Lens DegreesMin="30" DegreesMax="30" Name="Other"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="0" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

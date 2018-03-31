@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,26 +9,11 @@
  <Manufacturer>High End Systems</Manufacturer>
  <Model>Studio Beam</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan Coarse">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan, coarse adjustment</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan, fine adjustment</Capability>
- </Channel>
- <Channel Name="Tilt Coarse">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt, coarse adjustment</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt, fine adjustment</Capability>
- </Channel>
- <Channel Name="Dim">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dim setting, continuous</Capability>
- </Channel>
+ <Channel Name="Pan Coarse" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Coarse" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Dim" Preset="IntensityDimmer"/>
  <Channel Name="Shutter (Normal/Lamp Assisted)">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="23">Closed/Closed</Capability>
@@ -116,10 +101,7 @@
   <Capability Min="188" Max="195">Spin stop/To be determined</Capability>
   <Capability Min="196" Max="255">Spin forward (slowest to fastest)/To be determined</Capability>
  </Channel>
- <Channel Name="Zoom">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Zoom in/out</Capability>
- </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
  <Channel Name="Frost Standard (Default/Audio Modulation Mode)">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="7">Continuous positioning (open to closed/No frost to frost, slow decay</Capability>
@@ -310,13 +292,6 @@
   <Capability Min="240" Max="255">Open</Capability>
  </Channel>
  <Mode Name="Flat Protocol">
-  <Physical>
-   <Bulb Type="MSR 700W" Lumens="18000" ColourTemperature="0"/>
-   <Dimensions Weight="21" Width="485" Height="600" Depth="295"/>
-   <Lens Name="PC" DegreesMin="15" DegreesMax="26"/>
-   <Focus Type="Aspheric" PanMax="540" TiltMax="256"/>
-   <Technical PowerConsumption="1000" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Pan Coarse</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt Coarse</Channel>
@@ -334,13 +309,6 @@
   <Channel Number="14">Control Flat</Channel>
  </Mode>
  <Mode Name="Standard Protocol">
-  <Physical>
-   <Bulb Type="MSR 700W" Lumens="18000" ColourTemperature="0"/>
-   <Dimensions Weight="21" Width="485" Height="600" Depth="295"/>
-   <Lens Name="PC" DegreesMin="15" DegreesMax="26"/>
-   <Focus Type="Aspheric" PanMax="540" TiltMax="256"/>
-   <Technical PowerConsumption="1000" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Pan Coarse</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt Coarse</Channel>
@@ -358,4 +326,11 @@
   <Channel Number="14">Macro</Channel>
   <Channel Number="15">Control Standard</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="MSR 700W" Lumens="18000" ColourTemperature="0"/>
+   <Dimensions Weight="21" Width="485" Height="600" Depth="295"/>
+   <Lens Name="PC" DegreesMin="15" DegreesMax="26"/>
+   <Focus Type="Aspheric" PanMax="540" TiltMax="256"/>
+   <Technical PowerConsumption="1000" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,14 +9,8 @@
  <Manufacturer>Futurelight</Manufacturer>
  <Model>PHW-260</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan (0 to 630°)</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt (0 to 265°)</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Pan/tilt speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="14">Tracking mode</Capability>
@@ -40,21 +34,9 @@
   <Capability Min="188" Max="193">No rotation</Capability>
   <Capability Res="Others/rainbow.png" Min="194" Max="255">Backwards rainbow effect (slow to fast)</Capability>
  </Channel>
- <Channel Name="Cyan">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">Cyan mix</Capability>
- </Channel>
- <Channel Name="Magenta">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">Magenta mix</Capability>
- </Channel>
- <Channel Name="Yellow">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">Yellow mix</Capability>
- </Channel>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
  <Channel Name="CMY/Dimmer speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Speed adjustment max to min</Capability>
@@ -115,10 +97,7 @@
   <Capability Min="192" Max="223">Random strobe speed</Capability>
   <Capability Min="224" Max="255">Shutter open, dimmer deactivation</Capability>
  </Channel>
- <Channel Name="Dimmer intensity">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer intensity (0 to 100%)</Capability>
- </Channel>
+ <Channel Name="Dimmer intensity" Preset="IntensityDimmer"/>
  <Channel Name="Lamp switch, reset, programs">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="31">Normal colour-change, shortest distance</Capability>
@@ -136,25 +115,10 @@
   <Capability Min="224" Max="239">Lamp off</Capability>
   <Capability Min="240" Max="255">No function</Capability>
  </Channel>
- <Channel Name="Pan fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine</Capability>
- </Channel>
- <Channel Name="Tilt fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine</Capability>
- </Channel>
- <Channel Name="Free">
-  <Group Byte="0">Nothing</Group>
- </Channel>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Free" Preset="NoFunction"/>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="MSD 250W"/>
-   <Dimensions Weight="24" Height="470" Width="420" Depth="370"/>
-   <Lens Name="Other" DegreesMin="7" DegreesMax="28"/>
-   <Focus PanMax="630" TiltMax="265" Type="Head"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="485"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan/tilt speed</Channel>
@@ -173,4 +137,11 @@
   <Channel Number="15">Pan fine</Channel>
   <Channel Number="16">Tilt fine</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" ColourTemperature="0" Type="MSD 250W"/>
+   <Dimensions Weight="24" Height="470" Width="420" Depth="370"/>
+   <Lens Name="Other" DegreesMin="7" DegreesMax="28"/>
+   <Focus PanMax="630" TiltMax="265" Type="Head"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="485"/>
+  </Physical>
 </FixtureDefinition>

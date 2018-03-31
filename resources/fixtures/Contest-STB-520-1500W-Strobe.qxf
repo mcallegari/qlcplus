@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -13,19 +13,16 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Slow to fast</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Min. to max.</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Mode Name="2-Channel">
-  <Physical>
+  <Channel Number="0">Speed</Channel>
+  <Channel Number="1">Dimmer</Channel>
+ </Mode>
+<Physical>
    <Bulb Type="" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="5.6" Width="453" Height="207" Depth="136"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="15" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Speed</Channel>
-  <Channel Number="1">Dimmer</Channel>
- </Mode>
 </FixtureDefinition>

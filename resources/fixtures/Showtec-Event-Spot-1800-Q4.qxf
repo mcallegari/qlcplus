@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,54 +9,16 @@
  <Manufacturer>Showtec</Manufacturer>
  <Model>Event Spot 1800 Q4</Model>
  <Type>Color Changer</Type>
- <Channel Name="Dimmer Master">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer Master</Capability>
- </Channel>
- <Channel Name="Dimmer Fine">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer Fine</Capability>
- </Channel>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red</Capability>
- </Channel>
- <Channel Name="Red Fine">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red Fine</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green</Capability>
- </Channel>
- <Channel Name="Green Fine">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green Fine</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue</Capability>
- </Channel>
- <Channel Name="Blue Fine">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue Fine</Capability>
- </Channel>
- <Channel Name="Amber">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Amber</Colour>
-  <Capability Min="0" Max="255">Amber</Capability>
- </Channel>
- <Channel Name="Amber Fine">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Amber</Colour>
-  <Capability Min="0" Max="255">Amber Fine</Capability>
- </Channel>
+ <Channel Name="Dimmer Master" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Dimmer Fine" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Red Fine" Preset="IntensityRedFine"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Green Fine" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Blue Fine" Preset="IntensityBlueFine"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Amber Fine" Preset="IntensityAmberFine"/>
  <Channel Name="Color Macro">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="10">No function</Capability>
@@ -81,10 +43,7 @@
   <Capability Min="246" Max="250">White 10: 8500K</Capability>
   <Capability Min="251" Max="255">White 11: 10000K</Capability>
  </Channel>
- <Channel Name="Strobe">
-  <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="255">Strobe</Capability>
- </Channel>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
  <Channel Name="Auto + Custom">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="40">No Function</Capability>
@@ -122,26 +81,10 @@
   <Capability Min="130" Max="189">Non Linear Dimmer 3</Capability>
   <Capability Min="190" Max="255">Non Linear Dimmer (slowest) 4</Capability>
  </Channel>
- <Channel Name="Hue">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Hue</Capability>
- </Channel>
- <Channel Name="Saturation">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Saturation</Capability>
- </Channel>
- <Channel Name="Value">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Value</Capability>
- </Channel>
+ <Channel Name="Hue" Preset="IntensityHue"/>
+ <Channel Name="Saturation" Preset="IntensitySaturation"/>
+ <Channel Name="Value" Preset="IntensityValue"/>
  <Mode Name="TOUR">
-  <Physical>
-   <Bulb Lumens="600" ColourTemperature="0" Type="LED"/>
-   <Dimensions Weight="5.5" Width="154" Depth="287" Height="154"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
-   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer Master</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
@@ -154,13 +97,6 @@
   <Channel Number="9">Speed Dimmer</Channel>
  </Mode>
  <Mode Name="TR16">
-  <Physical>
-   <Bulb Lumens="600" ColourTemperature="0" Type="LED"/>
-   <Dimensions Weight="5.5" Width="154" Depth="287" Height="154"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
-   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer Master</Channel>
   <Channel Number="1">Dimmer Fine</Channel>
   <Channel Number="2">Red</Channel>
@@ -178,51 +114,23 @@
   <Channel Number="14">Speed Dimmer</Channel>
  </Mode>
  <Mode Name="ARC1">
-  <Physical>
-   <Bulb Lumens="600" ColourTemperature="0" Type="LED"/>
-   <Dimensions Weight="5.5" Width="154" Depth="287" Height="154"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
-   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
  </Mode>
  <Mode Name="AR1.D">
-  <Physical>
-   <Bulb Lumens="600" ColourTemperature="0" Type="LED"/>
-   <Dimensions Weight="5.5" Width="154" Depth="287" Height="154"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
-   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer Master</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
   <Channel Number="3">Blue</Channel>
  </Mode>
  <Mode Name="ARC2">
-  <Physical>
-   <Bulb Lumens="600" ColourTemperature="0" Type="LED"/>
-   <Dimensions Weight="5.5" Width="154" Depth="287" Height="154"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
-   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
   <Channel Number="3">Amber</Channel>
  </Mode>
  <Mode Name="AR2.D">
-  <Physical>
-   <Bulb Lumens="600" ColourTemperature="0" Type="LED"/>
-   <Dimensions Weight="5.5" Width="154" Depth="287" Height="154"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
-   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer Master</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
@@ -230,13 +138,6 @@
   <Channel Number="4">Amber</Channel>
  </Mode>
  <Mode Name="AR2.S">
-  <Physical>
-   <Bulb Lumens="600" ColourTemperature="0" Type="LED"/>
-   <Dimensions Weight="5.5" Width="154" Depth="287" Height="154"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
-   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer Master</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
@@ -244,4 +145,11 @@
   <Channel Number="4">Amber</Channel>
   <Channel Number="5">Strobe</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="600" ColourTemperature="0" Type="LED"/>
+   <Dimensions Weight="5.5" Width="154" Depth="287" Height="154"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
+   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

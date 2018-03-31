@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,26 +9,11 @@
  <Manufacturer>Stairville</Manufacturer>
  <Model>MH-x200 Pro Spot</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">0° to maximum pan range value: 180°, 270° or 540°</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">0° to maximum tilt range value: 90°, 180° or 270°</Capability>
- </Channel>
- <Channel Name="Pan Fine, 16 Bit">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Rotation</Capability>
- </Channel>
- <Channel Name="Tilt Fine, 16 Bit">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Inclination</Capability>
- </Channel>
- <Channel Name="Speed Rotation /Inclination">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Fast to slow</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan Fine, 16 Bit" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Fine, 16 Bit" Preset="PositionTiltFine"/>
+ <Channel Name="Speed Rotation /Inclination" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Colour Wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7" Color="#ffffff">White</Capability>
@@ -61,10 +46,7 @@
   <Capability Min="181" Max="245">Irregular strobe, increasing speed</Capability>
   <Capability Min="246" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0..100%</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Gobo Wheel 1, Movable">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="9" Res="Others/open.png">Open</Capability>
@@ -115,10 +97,7 @@
   <Capability Min="220" Max="237">Rotation clockwise, increasing speed</Capability>
   <Capability Min="238" Max="255">Rotation counter-clockwise, increasing speed</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Focussing</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Aperture">
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="63">Open / close iris diaphragm manually</Capability>
@@ -188,13 +167,6 @@
   <Capability Min="250" Max="255">Effect 25</Capability>
  </Channel>
  <Mode Name="11 Channels">
-  <Physical>
-   <Bulb Type="LED" Lumens="2096" ColourTemperature="0"/>
-   <Dimensions Weight="20.5" Width="495" Height="482" Depth="422"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="200" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Colour Wheel</Channel>
@@ -208,13 +180,6 @@
   <Channel Number="10">Prism</Channel>
  </Mode>
  <Mode Name="16 Channels">
-  <Physical>
-   <Bulb Type="LED" Lumens="2096" ColourTemperature="0"/>
-   <Dimensions Weight="20.5" Width="495" Height="482" Depth="422"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="200" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan Fine, 16 Bit</Channel>
@@ -232,4 +197,11 @@
   <Channel Number="14">Functions</Channel>
   <Channel Number="15">Effects</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="2096" ColourTemperature="0"/>
+   <Dimensions Weight="20.5" Width="495" Height="482" Depth="422"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="200" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

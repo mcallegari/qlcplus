@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -15,13 +15,13 @@
   <Capability Min="13" Max="255">Fog at variable density, (13=minimum, 255=maximum)</Capability>
  </Channel>
  <Mode Name="Mode 1">
-  <Physical>
+  <Channel Number="0">Intensity</Channel>
+ </Mode>
+<Physical>
    <Bulb Lumens="0" Type="" ColourTemperature="0"/>
    <Dimensions Width="345" Height="225" Weight="19" Depth="685"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="1890" DmxConnector="3-pin and 5-pin"/>
   </Physical>
-  <Channel Number="0">Intensity</Channel>
- </Mode>
 </FixtureDefinition>

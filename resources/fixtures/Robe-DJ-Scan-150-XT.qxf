@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,14 +9,8 @@
  <Manufacturer>Robe</Manufacturer>
  <Model>DJ Scan 150 XT</Model>
  <Type>Scanner</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Colours">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7">Open/white</Capability>
@@ -62,16 +56,16 @@
   <Capability Min="248" Max="255">Gobo 13</Capability>
  </Channel>
  <Mode Name="Default">
-  <Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Colours</Channel>
+  <Channel Number="3">Shutter, Strobe, Gobos</Channel>
+ </Mode>
+<Physical>
    <Bulb Type="BLV HIT 150nw,150W,G12" Lumens="265" ColourTemperature="0"/>
    <Dimensions Weight="9.5" Width="308" Height="275" Depth="483"/>
    <Lens Name="Other" DegreesMin="19" DegreesMax="19"/>
    <Focus Type="Fixed" PanMax="147" TiltMax="115"/>
    <Technical PowerConsumption="250" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Pan</Channel>
-  <Channel Number="1">Tilt</Channel>
-  <Channel Number="2">Colours</Channel>
-  <Channel Number="3">Shutter, Strobe, Gobos</Channel>
- </Mode>
 </FixtureDefinition>

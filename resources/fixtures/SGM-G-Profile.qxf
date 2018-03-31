@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -19,25 +19,10 @@
   <Capability Min="200" Max="244">Strobe - random, slow -&gt; fast</Capability>
   <Capability Min="245" Max="255">Open 2 ('pre-heat' enabled)</Capability>
  </Channel>
- <Channel Name="Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">No light -&gt; maximum light</Capability>
- </Channel>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">No red -&gt; maximum red</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">No green -&gt; maximum green</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">No blue -&gt; maximum blue</Capability>
- </Channel>
+ <Channel Name="Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="CTC">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="4">No CTC (raw)</Capability>
@@ -63,14 +48,8 @@
   <Capability Min="239" Max="254">No function</Capability>
   <Capability Min="255" Max="255" Color="#ccdbff">≈10000°K</Capability>
  </Channel>
- <Channel Name="Pan (Coarse)">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">-270° to 270°</Capability>
- </Channel>
- <Channel Name="Tilt (Coarse)">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">-120° to 120°</Capability>
- </Channel>
+ <Channel Name="Pan (Coarse)" Preset="PositionPan"/>
+ <Channel Name="Tilt (Coarse)" Preset="PositionTilt"/>
  <Channel Name="Gobo Wheel 1">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="20" Res="Others/open.png">Open</Capability>
@@ -155,14 +134,8 @@
   <Capability Min="0" Max="5">Open</Capability>
   <Capability Min="6" Max="255">No frost -&gt; maximum frost</Capability>
  </Channel>
- <Channel Name="Zoom">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Wide -&gt; narrow</Capability>
- </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Far -&gt; near</Capability>
- </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomBigSmall"/>
+ <Channel Name="Focus" Preset="BeamFocusFarNear"/>
  <Channel Name="Effect Channel">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="4">No effect</Capability>
@@ -215,33 +188,12 @@
   <Capability Min="208" Max="211">Capture scene 24</Capability>
   <Capability Min="212" Max="255">Reserved (no function)</Capability>
  </Channel>
- <Channel Name="Pan (Fine)">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">-270° to 270°</Capability>
- </Channel>
- <Channel Name="Tilt (Fine)">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">-120° to 120°</Capability>
- </Channel>
- <Channel Name="Red (Fine)">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">No red -&gt; maximum red</Capability>
- </Channel>
- <Channel Name="Green (Fine)">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">No green -&gt; maximum green</Capability>
- </Channel>
- <Channel Name="Blue (Fine)">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">No blue -&gt; maximum blue</Capability>
- </Channel>
- <Channel Name="Intensity (Fine)">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">No light -&gt; maximum light</Capability>
- </Channel>
+ <Channel Name="Pan (Fine)" Preset="PositionPanFine"/>
+ <Channel Name="Tilt (Fine)" Preset="PositionTiltFine"/>
+ <Channel Name="Red (Fine)" Preset="IntensityRedFine"/>
+ <Channel Name="Green (Fine)" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue (Fine)" Preset="IntensityBlueFine"/>
+ <Channel Name="Intensity (Fine)" Preset="IntensityDimmerFine"/>
  <Channel Name="Blade 1 In (Fine)">
   <Group Byte="1">Shutter</Group>
   <Capability Min="0" Max="255">Out -&gt; In</Capability>
@@ -286,25 +238,10 @@
   <Group Byte="1">Beam</Group>
   <Capability Min="0" Max="255">Far -&gt; near</Capability>
  </Channel>
- <Channel Name="Red (Coarse)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">No red -&gt; maximum red</Capability>
- </Channel>
- <Channel Name="Green (Coarse)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">No green -&gt; maximum green</Capability>
- </Channel>
- <Channel Name="Blue (Coarse)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">No blue -&gt; maximum blue</Capability>
- </Channel>
- <Channel Name="Intensity (Coarse)">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">No light -&gt; maximum light</Capability>
- </Channel>
+ <Channel Name="Red (Coarse)" Preset="IntensityRed"/>
+ <Channel Name="Green (Coarse)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (Coarse)" Preset="IntensityBlue"/>
+ <Channel Name="Intensity (Coarse)" Preset="IntensityDimmer"/>
  <Channel Name="Blade 1 In (Coarse)">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="255">Out -&gt; In</Capability>
@@ -341,22 +278,9 @@
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="255">-45° -&gt; +45°</Capability>
  </Channel>
- <Channel Name="Zoom (Coarse)">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Wide -&gt; narrow</Capability>
- </Channel>
- <Channel Name="Focus (Coarse)">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Far -&gt; near</Capability>
- </Channel>
+ <Channel Name="Zoom (Coarse)" Preset="BeamZoomBigSmall"/>
+ <Channel Name="Focus (Coarse)" Preset="BeamFocusFarNear"/>
  <Mode Name="Standard (31 Channels)">
-  <Physical>
-   <Bulb Type="LED" Lumens="170000" ColourTemperature="0"/>
-   <Dimensions Weight="52" Width="492" Height="821" Depth="585"/>
-   <Lens Name="Other" DegreesMin="8" DegreesMax="43"/>
-   <Focus Type="Head" PanMax="540" TiltMax="240"/>
-   <Technical PowerConsumption="11000" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Shutter</Channel>
   <Channel Number="1">Intensity</Channel>
   <Channel Number="2">Red</Channel>
@@ -390,13 +314,6 @@
   <Channel Number="30">Control Channel</Channel>
  </Mode>
  <Mode Name="Extended (46 Channels)">
-  <Physical>
-   <Bulb Type="LED" Lumens="170000" ColourTemperature="0"/>
-   <Dimensions Weight="52" Width="492" Height="821" Depth="585"/>
-   <Lens Name="Other" DegreesMin="8" DegreesMax="43"/>
-   <Focus Type="Head" PanMax="540" TiltMax="240"/>
-   <Technical PowerConsumption="11000" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Shutter</Channel>
   <Channel Number="1">Intensity (Coarse)</Channel>
   <Channel Number="2">Intensity (Fine)</Channel>
@@ -444,4 +361,11 @@
   <Channel Number="44">Effect Channel</Channel>
   <Channel Number="45">Control Channel</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="170000" ColourTemperature="0"/>
+   <Dimensions Weight="52" Width="492" Height="821" Depth="585"/>
+   <Lens Name="Other" DegreesMin="8" DegreesMax="43"/>
+   <Focus Type="Head" PanMax="540" TiltMax="240"/>
+   <Technical PowerConsumption="11000" DmxConnector="5-pin"/>
+  </Physical>
 </FixtureDefinition>

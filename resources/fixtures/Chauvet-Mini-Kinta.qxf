@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -41,15 +41,15 @@
   <Capability Min="128" Max="255">Motor speed (bi-directional)</Capability>
  </Channel>
  <Mode Name="3-Channel">
-  <Physical>
+  <Channel Number="0">Control/Operating Mode</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Motor Rotation</Channel>
+ </Mode>
+<Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="2" Width="258" Height="182" Depth="190"/>
    <Lens Name="Other" DegreesMin="135" DegreesMax="135"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="25" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Control/Operating Mode</Channel>
-  <Channel Number="1">Strobe</Channel>
-  <Channel Number="2">Motor Rotation</Channel>
- </Mode>
 </FixtureDefinition>

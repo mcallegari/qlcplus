@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,11 +9,7 @@
  <Manufacturer>Chauvet</Manufacturer>
  <Model>COREpar UV USB</Model>
  <Type>Color Changer</Type>
- <Channel Name="UV">
-  <Group Byte="0">Intensity</Group>
-  <Colour>UV</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
+ <Channel Name="UV" Preset="IntensityUV"/>
  <Channel Name="Strobe/Speed/Sound Sensivity">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="10">No function/Slow to fast/Off</Capability>
@@ -29,10 +25,7 @@
   <Capability Min="224" Max="240">Sound triggering mode 1</Capability>
   <Capability Min="241" Max="255">Sound triggering mode 2</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Dimmer Speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="51">Default set from menu</Capability>
@@ -42,13 +35,6 @@
   <Capability Min="204" Max="255">Mode 3 (slow speed)</Capability>
  </Channel>
  <Mode Name="5-Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="2.1" Width="200" Height="253" Depth="139"/>
-   <Lens Name="Other" DegreesMin="50" DegreesMax="100"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="67" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">UV</Channel>
   <Channel Number="1">Strobe/Speed/Sound Sensivity</Channel>
   <Channel Number="2">Programs</Channel>
@@ -56,13 +42,13 @@
   <Channel Number="4">Dimmer Speed</Channel>
  </Mode>
  <Mode Name="1-Channel">
-  <Physical>
+  <Channel Number="0">UV</Channel>
+ </Mode>
+<Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="2.1" Width="200" Height="253" Depth="139"/>
    <Lens Name="Other" DegreesMin="50" DegreesMax="100"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="67" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">UV</Channel>
- </Mode>
 </FixtureDefinition>

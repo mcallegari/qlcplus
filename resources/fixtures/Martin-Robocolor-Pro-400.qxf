@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -77,13 +77,6 @@
   <Capability Min="0" Max="255">Fast to slow</Capability>
  </Channel>
  <Mode Name="Mode 1 (Tracking)">
-  <Physical>
-   <Bulb Lumens="0" Type="MSD 200W" ColourTemperature="0"/>
-   <Dimensions Width="337" Height="282" Weight="11" Depth="306"/>
-   <Lens DegreesMax="33" Name="PC" DegreesMin="15"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="270" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Strobe</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Colour 1</Channel>
@@ -91,13 +84,6 @@
   <Channel Number="4">Gobo</Channel>
  </Mode>
  <Mode Name="Mode 2 (Vector)">
-  <Physical>
-   <Bulb Lumens="0" Type="MSD 200W" ColourTemperature="0"/>
-   <Dimensions Width="337" Height="282" Weight="11" Depth="306"/>
-   <Lens DegreesMax="33" Name="PC" DegreesMin="15"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="270" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Strobe</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Colour 1</Channel>
@@ -106,4 +92,11 @@
   <Channel Number="5">Color speed</Channel>
   <Channel Number="6">Dimmer speed</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="MSD 200W" ColourTemperature="0"/>
+   <Dimensions Width="337" Height="282" Weight="11" Depth="306"/>
+   <Lens DegreesMax="33" Name="PC" DegreesMin="15"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="270" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

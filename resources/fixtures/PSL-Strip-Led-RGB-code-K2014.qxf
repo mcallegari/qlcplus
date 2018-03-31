@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -30,123 +30,29 @@
   <Capability Min="221" Max="231">Chase 12</Capability>
   <Capability Min="232" Max="255">Chase 13</Capability>
  </Channel>
- <Channel Name="Main Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">From 0 to 100%</Capability>
- </Channel>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
- <Channel Name="Red 1st Segment">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
- <Channel Name="Green 1st Segment">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
- <Channel Name="Blue 1st Segment">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
- <Channel Name="Red 2nd Segment">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
- <Channel Name="Green 2nd Segment">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
- <Channel Name="Green 3rd Segment">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
- <Channel Name="Blue 2nd Segment">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
- <Channel Name="Blue 3rd Segment">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
- <Channel Name="Green 4th Segment">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
- <Channel Name="Blue 4th Segment">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
- <Channel Name="Red 4th Segment">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
- <Channel Name="Red 3rd Segment">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
- <Channel Name="Red 1st Half Bar">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
- <Channel Name="Green 1st Half Bar">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
- <Channel Name="Blue 1st Half Bar">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
- <Channel Name="Red 2nd Half Bar">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
- <Channel Name="Green 2nd Half Bar">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
- <Channel Name="Blue 2nd Half Bar">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
+ <Channel Name="Main Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Red 1st Segment" Preset="IntensityRed"/>
+ <Channel Name="Green 1st Segment" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1st Segment" Preset="IntensityBlue"/>
+ <Channel Name="Red 2nd Segment" Preset="IntensityRed"/>
+ <Channel Name="Green 2nd Segment" Preset="IntensityGreen"/>
+ <Channel Name="Green 3rd Segment" Preset="IntensityGreen"/>
+ <Channel Name="Blue 2nd Segment" Preset="IntensityBlue"/>
+ <Channel Name="Blue 3rd Segment" Preset="IntensityBlue"/>
+ <Channel Name="Green 4th Segment" Preset="IntensityGreen"/>
+ <Channel Name="Blue 4th Segment" Preset="IntensityBlue"/>
+ <Channel Name="Red 4th Segment" Preset="IntensityRed"/>
+ <Channel Name="Red 3rd Segment" Preset="IntensityRed"/>
+ <Channel Name="Red 1st Half Bar" Preset="IntensityRed"/>
+ <Channel Name="Green 1st Half Bar" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1st Half Bar" Preset="IntensityBlue"/>
+ <Channel Name="Red 2nd Half Bar" Preset="IntensityRed"/>
+ <Channel Name="Green 2nd Half Bar" Preset="IntensityGreen"/>
+ <Channel Name="Blue 2nd Half Bar" Preset="IntensityBlue"/>
  <Mode Name="5Ch F Mode">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1080" Height="120" Weight="4" Depth="115"/>
-   <Lens DegreesMax="30" Name="Other" DegreesMin="30"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="50" DmxConnector="Other"/>
-  </Physical>
   <Channel Number="0">Strobe/Chaser</Channel>
   <Channel Number="1">Main Dimmer</Channel>
   <Channel Number="2">Red</Channel>
@@ -154,13 +60,6 @@
   <Channel Number="4">Blue</Channel>
  </Mode>
  <Mode Name="8Ch P Mode (2 Section)">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1080" Height="120" Weight="4" Depth="115"/>
-   <Lens DegreesMax="30" Name="Other" DegreesMin="30"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="50" DmxConnector="Other"/>
-  </Physical>
   <Channel Number="0">Strobe/Chaser</Channel>
   <Channel Number="1">Main Dimmer</Channel>
   <Channel Number="2">Red 1st Half Bar</Channel>
@@ -181,13 +80,6 @@
   </Head>
  </Mode>
  <Mode Name="14Ch A Mode (4 Section)">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1080" Height="120" Weight="4" Depth="115"/>
-   <Lens DegreesMax="30" Name="Other" DegreesMin="30"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="50" DmxConnector="Other"/>
-  </Physical>
   <Channel Number="0">Strobe/Chaser</Channel>
   <Channel Number="1">Main Dimmer</Channel>
   <Channel Number="2">Red 1st Segment</Channel>
@@ -223,4 +115,11 @@
    <Channel>13</Channel>
   </Head>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="1080" Height="120" Weight="4" Depth="115"/>
+   <Lens DegreesMax="30" Name="Other" DegreesMin="30"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="50" DmxConnector="Other"/>
+  </Physical>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,21 +9,9 @@
  <Manufacturer>GLX Lighting</Manufacturer>
  <Model>Power LED Beam 38 Narrow</Model>
  <Type>Color Changer</Type>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Max="255" Min="0">Red: (0% ~ 100%)</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Max="255" Min="0">Green: (0% ~ 100%)</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Max="255" Min="0">Blue: (0% ~ 100%)</Capability>
- </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="Macro Colors (By LED Levels)">
   <Group Byte="0">Colour</Group>
   <Capability Max="7" Min="0" Color="#000000">Off</Capability>
@@ -70,18 +58,8 @@
   <Capability Max="223" Min="160">Color chase: Use ch 5 to adjust speed</Capability>
   <Capability Max="255" Min="224">Color chase: Use rotary knob to adjust speed</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Max="255" Min="0">Dimmer: (0% ~ 100%)</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Mode Name="7ch">
-  <Physical>
-   <Bulb Type="LED" Lumens="1310" ColourTemperature="0"/>
-   <Dimensions Depth="175" Height="145" Weight="0.8" Width="200"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="13"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
@@ -90,4 +68,11 @@
   <Channel Number="5">Preset Programs</Channel>
   <Channel Number="6">Dimmer</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="1310" ColourTemperature="0"/>
+   <Dimensions Depth="175" Height="145" Weight="0.8" Width="200"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="13"/>
+  </Physical>
 </FixtureDefinition>

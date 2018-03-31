@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,30 +9,11 @@
  <Manufacturer>Clay Paky</Manufacturer>
  <Model>Glow Up</Model>
  <Type>Color Changer</Type>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Max="255" Min="0">Red Intensity (0 to 100%)</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Max="255" Min="0">Green Intensity (0 to 100%)</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Max="255" Min="0">Blue Intensity (0 to 100%)</Capability>
- </Channel>
- <Channel Name="White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Max="255" Min="0">White Intensity (0 to 100%)</Capability>
- </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Max="255" Min="0">Master Dimmer (0 to 100%)</Capability>
- </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Stop / Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Max="3" Min="0">Open</Capability>
@@ -105,24 +86,9 @@
   <Capability Color="#ffd754" Max="247" Min="240">Warm Tone</Capability>
   <Capability Color="#9bd7ff" Max="255" Min="248">Cold Tone</Capability>
  </Channel>
- <Channel Name="Cool White 6200K">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Max="255" Min="0">Cool White Intensity (0 to 100%)</Capability>
- </Channel>
- <Channel Name="Warm White 2700K">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Max="255" Min="0">Warm White Intensity (0 to 100%)</Capability>
- </Channel>
+ <Channel Name="Cool White 6200K" Preset="IntensityWhite"/>
+ <Channel Name="Warm White 2700K" Preset="IntensityWhite"/>
  <Mode Name="Glow Up C">
-  <Physical>
-   <Bulb Type="LED" ColourTemperature="5500" Lumens="1200"/>
-   <Dimensions Depth="226" Height="365" Weight="7.5" Width="226"/>
-   <Lens DegreesMax="30" Name="" DegreesMin="15"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="50" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
@@ -132,26 +98,19 @@
   <Channel Number="6">Macro Color</Channel>
  </Mode>
  <Mode Name="Glow Up TW">
-  <Physical>
-   <Bulb Type="LED" ColourTemperature="5500" Lumens="1200"/>
-   <Dimensions Depth="226" Height="365" Weight="7.5" Width="226"/>
-   <Lens DegreesMax="30" Name="" DegreesMin="15"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="50" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Cool White 6200K</Channel>
   <Channel Number="1">Warm White 2700K</Channel>
   <Channel Number="2">Stop / Strobe</Channel>
  </Mode>
  <Mode Name="Glow Up W">
-  <Physical>
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Stop / Strobe</Channel>
+ </Mode>
+<Physical>
    <Bulb Type="LED" ColourTemperature="5500" Lumens="1200"/>
    <Dimensions Depth="226" Height="365" Weight="7.5" Width="226"/>
    <Lens DegreesMax="30" Name="" DegreesMin="15"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="50" DmxConnector="5-pin"/>
   </Physical>
-  <Channel Number="0">Dimmer</Channel>
-  <Channel Number="1">Stop / Strobe</Channel>
- </Mode>
 </FixtureDefinition>

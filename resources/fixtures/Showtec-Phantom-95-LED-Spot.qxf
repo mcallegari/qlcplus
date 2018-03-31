@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,26 +9,11 @@
  <Manufacturer>Showtec</Manufacturer>
  <Model>Phantom 95 LED Spot</Model>
  <Type>Moving Head</Type>
- <Channel Name="Horizontal Movement (Pan)">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan (0° to 540°)</Capability>
- </Channel>
- <Channel Name="Pan Fine 16-bit">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine</Capability>
- </Channel>
- <Channel Name="Vertical Movement (Tilt)">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt (0° to 270°)</Capability>
- </Channel>
- <Channel Name="Tilt Fine 16-bit">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine</Capability>
- </Channel>
- <Channel Name="Pan/Tilt Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">From max. speed (0) to min. speed (255)</Capability>
- </Channel>
+ <Channel Name="Horizontal Movement (Pan)" Preset="PositionPan"/>
+ <Channel Name="Pan Fine 16-bit" Preset="PositionPanFine"/>
+ <Channel Name="Vertical Movement (Tilt)" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine 16-bit" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Color wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="6" Color="#ffffff">Open / White</Capability>
@@ -61,10 +46,7 @@
   <Capability Min="146" Max="215">Random</Capability>
   <Capability Min="216" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Rotating Gobo-wheel + Gobo Shake">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="7" Res="Others/open.png">Open/white</Capability>
@@ -142,22 +124,9 @@
   <Capability Min="131" Max="247">Counterclockwise rotation, from slow to fast</Capability>
   <Capability Min="248" Max="255">3-facet prism effect</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Continuous adjustment from near to far</Capability>
- </Channel>
- <Channel Name="Zoom">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">From small to big</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
  <Mode Name="15 Channels">
-  <Physical>
-   <Bulb Type="LED" Lumens="1868" ColourTemperature="6500"/>
-   <Dimensions Weight="12.64" Width="250" Height="480" Depth="335"/>
-   <Lens Name="Other" DegreesMin="9" DegreesMax="16.5"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="253" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Horizontal Movement (Pan)</Channel>
   <Channel Number="1">Vertical Movement (Tilt)</Channel>
   <Channel Number="2">Pan Fine 16-bit</Channel>
@@ -175,13 +144,6 @@
   <Channel Number="14">Zoom</Channel>
  </Mode>
  <Mode Name="9 Channels">
-  <Physical>
-   <Bulb Type="LED" Lumens="1868" ColourTemperature="6500"/>
-   <Dimensions Weight="12.64" Width="250" Height="480" Depth="335"/>
-   <Lens Name="Other" DegreesMin="9" DegreesMax="16.5"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="253" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Horizontal Movement (Pan)</Channel>
   <Channel Number="1">Vertical Movement (Tilt)</Channel>
   <Channel Number="2">Color wheel</Channel>
@@ -192,4 +154,11 @@
   <Channel Number="7">Focus</Channel>
   <Channel Number="8">Zoom</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="1868" ColourTemperature="6500"/>
+   <Dimensions Weight="12.64" Width="250" Height="480" Depth="335"/>
+   <Lens Name="Other" DegreesMin="9" DegreesMax="16.5"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="253" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -44,10 +44,7 @@
   <Capability Min="8" Max="131">Clockwise rotation (slow&gt;fast)</Capability>
   <Capability Min="132" Max="255">Counter clockwise rotation (slow&gt;fast)</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Focus</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Prism">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="27">No Prism</Capability>
@@ -65,22 +62,9 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Control of fine movement</Capability>
  </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan movement</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt movement</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Mode Name="Default">
-  <Physical>
-   <Bulb Lumens="0" Type="HMI 575W" ColourTemperature="0"/>
-   <Dimensions Width="467" Height="563" Weight="27" Depth="362"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Head" TiltMax="280"/>
-   <Technical PowerConsumption="675" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Shutter</Channel>
   <Channel Number="1">Colors</Channel>
   <Channel Number="2">Gobo</Channel>
@@ -92,4 +76,11 @@
   <Channel Number="8">Pan</Channel>
   <Channel Number="9">Tilt</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="HMI 575W" ColourTemperature="0"/>
+   <Dimensions Width="467" Height="563" Weight="27" Depth="362"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="540" Type="Head" TiltMax="280"/>
+   <Technical PowerConsumption="675" DmxConnector="5-pin"/>
+  </Physical>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,26 +9,10 @@
  <Manufacturer>Chauvet</Manufacturer>
  <Model>SlimPAR Pro H USB</Model>
  <Type>Color Changer</Type>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="UV">
-  <Group Byte="0">Intensity</Group>
-  <Colour>UV</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="UV" Preset="IntensityUV"/>
  <Channel Name="Color Macros">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="15">No funtion</Capability>
@@ -51,10 +35,7 @@
   <Capability Min="224" Max="249">Sound-active (6 colors)</Capability>
   <Capability Min="250" Max="255">Sound-active (32 colors)</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Dimmer Speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="51">Default set from menu</Capability>
@@ -63,29 +44,14 @@
   <Capability Min="153" Max="203">Mode 2 (medium speed)</Capability>
   <Capability Min="204" Max="255">Mode 3 (slow speed)</Capability>
  </Channel>
- <Channel Name="Amber">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Amber</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="15">No Effect</Capability>
   <Capability Min="16" Max="255">Slow to fast</Capability>
  </Channel>
  <Mode Name="6 Channel">
-  <Physical>
-   <Bulb Type="LED 10W" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="3.3" Width="253" Height="98" Depth="290"/>
-   <Lens Name="Other" DegreesMin="24" DegreesMax="24"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="99" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
@@ -110,13 +76,6 @@
   <Channel Number="6">UV</Channel>
  </Mode>
  <Mode Name="12 Channel">
-  <Physical>
-   <Bulb Type="LED 10W" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="3.3" Width="253" Height="98" Depth="290"/>
-   <Lens Name="Other" DegreesMin="24" DegreesMax="24"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="99" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
@@ -130,4 +89,11 @@
   <Channel Number="10">Speed/Sensitivity</Channel>
   <Channel Number="11">Dimmer Speed</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED 10W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="3.3" Width="253" Height="98" Depth="290"/>
+   <Lens Name="Other" DegreesMin="24" DegreesMax="24"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="99" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -121,24 +121,10 @@
   <Capability Min="192" Max="255">Counter-clockwise movement (slow to fast)</Capability>
  </Channel>
  <Mode Name="2 Channel">
-  <Physical>
-   <Bulb Type="Laser" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="5.4" Width="537" Height="268" Depth="170"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Mirror" PanMax="26" TiltMax="26"/>
-   <Technical PowerConsumption="53" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Auto Program</Channel>
   <Channel Number="1">Program Speed</Channel>
  </Mode>
  <Mode Name="10 Channel">
-  <Physical>
-   <Bulb Type="Laser" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="5.4" Width="537" Height="268" Depth="170"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Mirror" PanMax="26" TiltMax="26"/>
-   <Technical PowerConsumption="53" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Auto Program</Channel>
   <Channel Number="1">Program Speed</Channel>
   <Channel Number="2">Laser Mode</Channel>
@@ -150,4 +136,11 @@
   <Channel Number="8">Moving X-axis</Channel>
   <Channel Number="9">Moving Y-axis</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="Laser" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="5.4" Width="537" Height="268" Depth="170"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Mirror" PanMax="26" TiltMax="26"/>
+   <Technical PowerConsumption="53" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

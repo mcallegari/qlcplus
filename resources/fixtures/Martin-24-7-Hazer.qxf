@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -63,14 +63,14 @@
   <Capability Min="245" Max="255">Fan off, fog off, heater off</Capability>
  </Channel>
  <Mode Name="Main">
-  <Physical>
+  <Channel Number="0">Haze Density</Channel>
+  <Channel Number="1">Fan Speed Setting</Channel>
+ </Mode>
+<Physical>
    <Bulb ColourTemperature="0" Type="None" Lumens="0"/>
    <Dimensions Width="246" Height="350" Weight="25" Depth="419"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="975" DmxConnector="3-pin and 5-pin"/>
   </Physical>
-  <Channel Number="0">Haze Density</Channel>
-  <Channel Number="1">Fan Speed Setting</Channel>
- </Mode>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>Futurelight</Manufacturer>
  <Model>MH-840</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Pan fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine</Capability>
- </Channel>
- <Channel Name="Tilt file">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt file" Preset="PositionTiltFine"/>
  <Channel Name="Pan/tilt speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="0">Tracking mode</Capability>
@@ -52,21 +40,9 @@
   <Capability Min="191" Max="192">No rotation</Capability>
   <Capability Min="193" Max="255" Res="Others/rainbow.png">Rainbow backward slow to fast</Capability>
  </Channel>
- <Channel Name="Cyan">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">Cyan mix</Capability>
- </Channel>
- <Channel Name="Magenta">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">Magenta mix</Capability>
- </Channel>
- <Channel Name="Yellow">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">Yellow mix</Capability>
- </Channel>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
  <Channel Name="Speed of CMY and dimmer">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Fast to slow</Capability>
@@ -127,18 +103,8 @@
   <Capability Min="192" Max="223">Random strobe speed</Capability>
   <Capability Min="224" Max="255">Shutter open</Capability>
  </Channel>
- <Channel Name="Dimmer intensity">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer intensity</Capability>
- </Channel>
+ <Channel Name="Dimmer intensity" Preset="IntensityDimmer"/>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb Type="MSR 575W" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="33" Width="450" Height="580" Depth="470"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Head" PanMax="530" TiltMax="280"/>
-   <Technical PowerConsumption="800" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan fine</Channel>
@@ -156,4 +122,11 @@
   <Channel Number="14">Shutter, strobe</Channel>
   <Channel Number="15">Dimmer intensity</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="MSR 575W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="33" Width="450" Height="580" Depth="470"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="530" TiltMax="280"/>
+   <Technical PowerConsumption="800" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

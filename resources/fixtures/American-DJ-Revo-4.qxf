@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -55,16 +55,16 @@
   <Capability Min="10" Max="255">Speed</Capability>
  </Channel>
  <Mode Name="4-CH">
-  <Physical>
+  <Channel Number="0">Function</Channel>
+  <Channel Number="1">Pattern (Chase)</Channel>
+  <Channel Number="2">Colour (Chase Speed)</Channel>
+  <Channel Number="3">Strobe</Channel>
+ </Mode>
+<Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
    <Dimensions Width="306" Height="334" Weight="4" Depth="312"/>
    <Lens DegreesMax="50" Name="Other" DegreesMin="50"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="29" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Function</Channel>
-  <Channel Number="1">Pattern (Chase)</Channel>
-  <Channel Number="2">Colour (Chase Speed)</Channel>
-  <Channel Number="3">Strobe</Channel>
- </Mode>
 </FixtureDefinition>

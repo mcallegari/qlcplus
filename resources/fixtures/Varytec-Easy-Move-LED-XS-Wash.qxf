@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>Varytec</Manufacturer>
  <Model>Easy Move LED XS Wash</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan coarse">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan coarse</Capability>
- </Channel>
- <Channel Name="Pan fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine</Capability>
- </Channel>
- <Channel Name="Tilt coarse">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt coarse</Capability>
- </Channel>
- <Channel Name="Tilt fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine</Capability>
- </Channel>
+ <Channel Name="Pan coarse" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt coarse" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
  <Channel Name="Vector speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Normal -&gt; Slow</Capability>
@@ -36,21 +24,9 @@
   <Capability Min="135" Max="239">Strobe speed (slow -&gt; fast)</Capability>
   <Capability Min="240" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red mix</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green mix</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue mix</Capability>
- </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="Colour macros">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7">No function</Capability>
@@ -98,13 +74,6 @@
   <Capability Min="233" Max="255">Sound active 8</Capability>
  </Channel>
  <Mode Name="12 channels">
-  <Physical>
-   <Bulb Lumens="100" Type="18x3W LED, RGB" ColourTemperature="0"/>
-   <Dimensions Width="173" Height="249" Weight="4" Depth="173"/>
-   <Lens DegreesMax="15" Name="PC" DegreesMin="15"/>
-   <Focus PanMax="540" Type="Head" TiltMax="270"/>
-   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan coarse</Channel>
   <Channel Number="1">Pan fine</Channel>
   <Channel Number="2">Tilt coarse</Channel>
@@ -119,16 +88,16 @@
   <Channel Number="11">Movement macros</Channel>
  </Mode>
  <Mode Name="4 channels">
-  <Physical>
-   <Bulb Lumens="100" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="173" Height="249" Weight="4" Depth="173"/>
-   <Lens DegreesMax="15" Name="PC" DegreesMin="15"/>
-   <Focus PanMax="540" Type="Head" TiltMax="270"/>
-   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan coarse</Channel>
   <Channel Number="1">Tilt coarse</Channel>
   <Channel Number="2">Dimmer/Strobe</Channel>
   <Channel Number="3">Colour macros</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="100" Type="18x3W LED, RGB" ColourTemperature="0"/>
+   <Dimensions Width="173" Height="249" Weight="4" Depth="173"/>
+   <Lens DegreesMax="15" Name="PC" DegreesMin="15"/>
+   <Focus PanMax="540" Type="Head" TiltMax="270"/>
+   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

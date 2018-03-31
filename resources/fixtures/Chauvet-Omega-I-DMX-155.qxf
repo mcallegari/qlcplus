@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -40,25 +40,19 @@
   <Capability Min="186" Max="220">Strobe speed 5</Capability>
   <Capability Min="221" Max="255">Strobe speed 6</Capability>
  </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan (Left to Right)</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt (Down to Up)</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Mode Name="Default">
-  <Physical>
+  <Channel Number="0">Color/Gobo Combo</Channel>
+  <Channel Number="1">Strobe/Gobo Strobe</Channel>
+  <Channel Number="2">Pan</Channel>
+  <Channel Number="3">Tilt</Channel>
+ </Mode>
+<Physical>
    <Bulb Lumens="0" Type="EFR 150W" ColourTemperature="0"/>
    <Dimensions Height="279" Width="356" Depth="279" Weight="4.72"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus TiltMax="90" PanMax="180" Type="Barrel"/>
    <Technical DmxConnector="3-pin" PowerConsumption="250"/>
   </Physical>
-  <Channel Number="0">Color/Gobo Combo</Channel>
-  <Channel Number="1">Strobe/Gobo Strobe</Channel>
-  <Channel Number="2">Pan</Channel>
-  <Channel Number="3">Tilt</Channel>
- </Mode>
 </FixtureDefinition>

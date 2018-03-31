@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>Elation</Manufacturer>
  <Model>Platinum Spot 5R</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan Fine</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt Fine</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="13" Color="#ffffff">Open / white</Capability>
@@ -40,10 +28,7 @@
   <Capability Min="190" Max="193">No Rotation</Capability>
   <Capability Min="194" Max="255">Scroll Backwards (Slow -&gt; Fast)</Capability>
  </Channel>
- <Channel Name="Color Fine">
-  <Group Byte="1">Colour</Group>
-  <Capability Min="0" Max="255">Change to Any Position Fine</Capability>
- </Channel>
+ <Channel Name="Color Fine" Preset="ColorWheelFine"/>
  <Channel Name="Rotating Gobos (Continuous Rotation)">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="9">Open</Capability>
@@ -72,10 +57,7 @@
   <Capability Min="190" Max="193">No Rotation</Capability>
   <Capability Min="194" Max="255">Backward Gobo Rotation (Slow -&gt; Fast)</Capability>
  </Channel>
- <Channel Name="Rotating Gobo (Indexing) Fine">
-  <Group Byte="1">Gobo</Group>
-  <Capability Min="0" Max="255">Fine Indexing</Capability>
- </Channel>
+ <Channel Name="Rotating Gobo (Indexing) Fine" Preset="GoboIndexFine"/>
  <Channel Name="Fixed Gobos">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="7">Open</Capability>
@@ -109,10 +91,7 @@
   <Capability Res="Others/gobo00021.png" Min="211" Max="217">Gobo 14 Shake (Slow -&gt; Fast)</Capability>
   <Capability Min="218" Max="255">Gobo Wheel Rotation (Slow -&gt; Fast)</Capability>
  </Channel>
- <Channel Name="Fixed Gobo (Indexing) Fine">
-  <Group Byte="1">Gobo</Group>
-  <Capability Min="0" Max="255">Fixed Gobo Indexing</Capability>
- </Channel>
+ <Channel Name="Fixed Gobo (Indexing) Fine" Preset="GoboIndexFine"/>
  <Channel Name="3 Facet Prism / Gobo Macros">
   <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="31">Open</Capability>
@@ -145,10 +124,7 @@
   <Group Byte="1">Prism</Group>
   <Capability Min="0" Max="255">Fine Indexing</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Near -&gt; Far</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Focus Fine">
   <Group Byte="1">Beam</Group>
   <Capability Min="0" Max="255">Fine</Capability>
@@ -164,14 +140,8 @@
   <Capability Min="192" Max="223">Random Strobe (Slow -&gt; Fast)</Capability>
   <Capability Min="224" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer Fine">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">Intensity Fine</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer Fine" Preset="IntensityDimmerFine"/>
  <Channel Name="Iris">
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="191">Max -&gt; Min</Capability>
@@ -218,13 +188,6 @@
   <Capability Min="240" Max="255">Auto Program by Music</Capability>
  </Channel>
  <Mode Name="Basic">
-  <Physical>
-   <Bulb Lumens="0" Type="MSD Platinum 5R" ColourTemperature="8000"/>
-   <Dimensions Width="460" Height="635" Weight="14.8" Depth="350"/>
-   <Lens DegreesMax="16" Name="Other" DegreesMin="16"/>
-   <Focus PanMax="630" Type="Fixed" TiltMax="270"/>
-   <Technical PowerConsumption="350" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Color</Channel>
@@ -242,13 +205,6 @@
   <Channel Number="14">Lamp / Internal Programs</Channel>
  </Mode>
  <Mode Name="Standard">
-  <Physical>
-   <Bulb Lumens="0" Type="MSD Platinum 5R" ColourTemperature="8000"/>
-   <Dimensions Width="460" Height="635" Weight="14.8" Depth="350"/>
-   <Lens DegreesMax="16" Name="Other" DegreesMin="16"/>
-   <Focus PanMax="630" Type="Fixed" TiltMax="270"/>
-   <Technical PowerConsumption="350" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -268,13 +224,6 @@
   <Channel Number="16">Lamp / Internal Programs</Channel>
  </Mode>
  <Mode Name="Extended">
-  <Physical>
-   <Bulb Lumens="0" Type="MSD Platinum 5R" ColourTemperature="8000"/>
-   <Dimensions Width="460" Height="635" Weight="14.8" Depth="350"/>
-   <Lens DegreesMax="16" Name="Other" DegreesMin="16"/>
-   <Focus PanMax="630" Type="Fixed" TiltMax="270"/>
-   <Technical PowerConsumption="350" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -300,4 +249,11 @@
   <Channel Number="22">Speed</Channel>
   <Channel Number="23">Lamp / Internal Programs</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="MSD Platinum 5R" ColourTemperature="8000"/>
+   <Dimensions Width="460" Height="635" Weight="14.8" Depth="350"/>
+   <Lens DegreesMax="16" Name="Other" DegreesMin="16"/>
+   <Focus PanMax="630" Type="Fixed" TiltMax="270"/>
+   <Technical PowerConsumption="350" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
 </FixtureDefinition>

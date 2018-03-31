@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -47,30 +47,11 @@
   <Capability Min="224" Max="239">Gobo 15</Capability>
   <Capability Min="240" Max="255">Gobo 16</Capability>
  </Channel>
- <Channel Name="Strobe">
-  <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="255"/>
- </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255"/>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255"/>
- </Channel>
- <Channel Name="Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255"/>
- </Channel>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Intensity" Preset="IntensityDimmer"/>
  <Mode Name="Main mode">
-  <Physical>
-   <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="9" Width="270" Height="160" Depth="500"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Mirror" PanMax="175" TiltMax="80"/>
-   <Technical PowerConsumption="250" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Colour</Channel>
   <Channel Number="1">Gobo</Channel>
   <Channel Number="2">Strobe</Channel>
@@ -78,4 +59,11 @@
   <Channel Number="4">Tilt</Channel>
   <Channel Number="5">Intensity</Channel>
  </Mode>
-</FixtureDefinition>
+<Physical>
+   <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="9" Width="270" Height="160" Depth="500"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Mirror" PanMax="175" TiltMax="80"/>
+   <Technical PowerConsumption="250" DmxConnector="3-pin"/>
+  </Physical>
+  <Physical/></FixtureDefinition>

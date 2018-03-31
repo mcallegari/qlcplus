@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,42 +9,14 @@
  <Manufacturer>American DJ</Manufacturer>
  <Model>Inno Pocket Beam Q4</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan Movement">
-  <Group Byte="0">Pan</Group>
-  <Capability Max="255" Min="0">0° - 540°</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Max="255" Min="0">Pan fine</Capability>
- </Channel>
- <Channel Name="Tilt Movement">
-  <Group Byte="0">Tilt</Group>
-  <Capability Max="255" Min="0">0° - 210°</Capability>
- </Channel>
- <Channel Name="Tilt Fiine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Max="255" Min="0">Tilt fine</Capability>
- </Channel>
- <Channel Name="Red LED">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Max="255" Min="0">0% - 100%</Capability>
- </Channel>
- <Channel Name="Green LED">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Max="255" Min="0">0% - 100%</Capability>
- </Channel>
- <Channel Name="Blue LED">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Max="255" Min="0">0% - 100%</Capability>
- </Channel>
- <Channel Name="White LED">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Max="255" Min="0">0% - 100%</Capability>
- </Channel>
+ <Channel Name="Pan Movement" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Movement" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fiine" Preset="PositionTiltFine"/>
+ <Channel Name="Red LED" Preset="IntensityRed"/>
+ <Channel Name="Green LED" Preset="IntensityGreen"/>
+ <Channel Name="Blue LED" Preset="IntensityBlue"/>
+ <Channel Name="White LED" Preset="IntensityWhite"/>
  <Channel Name="Shutter/Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Max="7" Min="0">Shutter closed</Capability>
@@ -58,14 +30,8 @@
   <Capability Max="247" Min="240">Random strobe</Capability>
   <Capability Max="255" Min="248">Shutter open</Capability>
  </Channel>
- <Channel Name="Master Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Max="255" Min="0">0% - 100%</Capability>
- </Channel>
- <Channel Name="Pan/Tilt Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Max="255" Min="0">Fast - slow</Capability>
- </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Blackout/Reset">
   <Group Byte="0">Maintenance</Group>
   <Capability Max="69" Min="0">Nothing</Capability>
@@ -87,13 +53,6 @@
   <Capability Max="255" Min="101">Default to unit curve setting</Capability>
  </Channel>
  <Mode Name="13 Channel">
-  <Physical>
-   <Bulb Lumens="1231" ColourTemperature="0" Type="LED"/>
-   <Dimensions Weight="3" Height="265" Width="147" Depth="159"/>
-   <Lens DegreesMax="4" Name="Other" DegreesMin="4"/>
-   <Focus TiltMax="210" Type="Head" PanMax="540"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="46"/>
-  </Physical>
   <Channel Number="0">Pan Movement</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt Movement</Channel>
@@ -109,13 +68,6 @@
   <Channel Number="12">Dimmer Curves</Channel>
  </Mode>
  <Mode Name="11 Channel">
-  <Physical>
-   <Bulb Lumens="1231" ColourTemperature="0" Type="LED"/>
-   <Dimensions Weight="3" Height="265" Width="147" Depth="159"/>
-   <Lens DegreesMax="4" Name="Other" DegreesMin="4"/>
-   <Focus TiltMax="210" Type="Head" PanMax="540"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="46"/>
-  </Physical>
   <Channel Number="0">Pan Movement</Channel>
   <Channel Number="1">Tilt Movement</Channel>
   <Channel Number="2">Red LED</Channel>
@@ -129,13 +81,6 @@
   <Channel Number="10">Dimmer Curves</Channel>
  </Mode>
  <Mode Name="10 Channel">
-  <Physical>
-   <Bulb Lumens="1231" ColourTemperature="0" Type="LED"/>
-   <Dimensions Weight="3" Height="265" Width="147" Depth="159"/>
-   <Lens DegreesMax="4" Name="Other" DegreesMin="4"/>
-   <Focus TiltMax="210" Type="Head" PanMax="540"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="46"/>
-  </Physical>
   <Channel Number="0">Pan Movement</Channel>
   <Channel Number="1">Tilt Movement</Channel>
   <Channel Number="2">Green LED</Channel>
@@ -147,4 +92,11 @@
   <Channel Number="8">Pan/Tilt Speed</Channel>
   <Channel Number="9">Blackout/Reset</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="1231" ColourTemperature="0" Type="LED"/>
+   <Dimensions Weight="3" Height="265" Width="147" Depth="159"/>
+   <Lens DegreesMax="4" Name="Other" DegreesMin="4"/>
+   <Focus TiltMax="210" Type="Head" PanMax="540"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="46"/>
+  </Physical>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,24 +9,10 @@
  <Manufacturer>Eurolite</Manufacturer>
  <Model>LED Theatre 36x3W CW/WW</Model>
  <Type>Color Changer</Type>
- <Channel Name="Cold White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Warm White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Shutter / Strobe">
-  <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="255">Strobe min to max</Capability>
- </Channel>
+ <Channel Name="Cold White" Preset="IntensityWhite"/>
+ <Channel Name="Warm White" Preset="IntensityWhite"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Shutter / Strobe" Preset="ShutterStrobeSlowFast"/>
  <Channel Name="Color temperature">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="0">Nothing</Capability>
@@ -49,17 +35,17 @@
   <Capability Min="241" Max="255">Color temperature 17</Capability>
  </Channel>
  <Mode Name="Standard">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Height="340" Weight="6" Width="180" Depth="305"/>
-   <Lens DegreesMax="20" Name="Other" DegreesMin="20"/>
-   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
-   <Technical PowerConsumption="130" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Cold White</Channel>
   <Channel Number="1">Warm White</Channel>
   <Channel Number="2">Dimmer</Channel>
   <Channel Number="3">Shutter / Strobe</Channel>
   <Channel Number="4">Color temperature</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Height="340" Weight="6" Width="180" Depth="305"/>
+   <Lens DegreesMax="20" Name="Other" DegreesMin="20"/>
+   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
+   <Technical PowerConsumption="130" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

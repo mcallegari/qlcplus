@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,21 +9,9 @@
  <Manufacturer>Clay Paky</Manufacturer>
  <Model>SuperSharpy</Model>
  <Type>Moving Head</Type>
- <Channel Name="Cyan">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">0&lt;Max</Capability>
- </Channel>
- <Channel Name="Magenta">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">0&lt;Max</Capability>
- </Channel>
- <Channel Name="Yellow">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">0&lt;Max</Capability>
- </Channel>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
  <Channel Name="Colour 1">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="27">Empty position</Capability>
@@ -64,14 +52,8 @@
   <Capability Min="239" Max="251">Ramdom Strobe High</Capability>
   <Capability Min="252" Max="255">Light ON</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0&lt;Max</Capability>
- </Channel>
- <Channel Name="Dimmer Fine">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">0&lt;Max</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer Fine" Preset="IntensityDimmerFine"/>
  <Channel Name="Static Gobo">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="3">None</Capability>
@@ -181,14 +163,8 @@
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="255">0&lt;Max</Capability>
  </Channel>
- <Channel Name="Zoom">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">0&lt;Max</Capability>
- </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">0&lt;Max</Capability>
- </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Focus Fine">
   <Group Byte="1">Beam</Group>
   <Capability Min="0" Max="255">0&lt;Max</Capability>
@@ -198,22 +174,10 @@
   <Capability Min="0" Max="127">Zoom / Autofocus mode</Capability>
   <Capability Min="128" Max="255">Beam mode</Capability>
  </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">0&lt;Max</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">0&lt;Max</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">0&lt;Max</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">0&lt;Max</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Function">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="11">Unused range</Capability>
@@ -285,13 +249,6 @@
   <Capability Min="255" Max="255" Color="#f8b45e">Light Orange</Capability>
  </Channel>
  <Mode Name="Vector">
-  <Physical>
-   <Bulb Lumens="24000" Type="MSD Platinum 20R" ColourTemperature="7800"/>
-   <Dimensions Depth="628" Weight="30" Height="420" Width="404"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="4"/>
-   <Focus TiltMax="244" Type="Head" PanMax="540"/>
-   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="700"/>
-  </Physical>
   <Channel Number="0">Cyan</Channel>
   <Channel Number="1">Magenta</Channel>
   <Channel Number="2">Yellow</Channel>
@@ -322,13 +279,6 @@
   <Channel Number="27">Gobo Time</Channel>
  </Mode>
  <Mode Name="Standard">
-  <Physical>
-   <Bulb Lumens="24000" Type="MSD Platinum 20R" ColourTemperature="7800"/>
-   <Dimensions Depth="628" Weight="30" Height="420" Width="404"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="4"/>
-   <Focus TiltMax="244" Type="Head" PanMax="540"/>
-   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="700"/>
-  </Physical>
   <Channel Number="0">Cyan</Channel>
   <Channel Number="1">Magenta</Channel>
   <Channel Number="2">Yellow</Channel>
@@ -354,4 +304,11 @@
   <Channel Number="22">Reset</Channel>
   <Channel Number="23">Lamp Control</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="24000" Type="MSD Platinum 20R" ColourTemperature="7800"/>
+   <Dimensions Depth="628" Weight="30" Height="420" Width="404"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="4"/>
+   <Focus TiltMax="244" Type="Head" PanMax="540"/>
+   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="700"/>
+  </Physical>
 </FixtureDefinition>

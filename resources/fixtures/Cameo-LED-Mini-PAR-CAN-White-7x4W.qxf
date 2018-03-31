@@ -3,30 +3,16 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.8.3 GIT</Version>
+  <Version>4.11.2 GIT</Version>
   <Author>Joachim Wiedorn</Author>
  </Creator>
  <Manufacturer>Cameo</Manufacturer>
  <Model>LED Mini PAR CAN White 7x4W</Model>
  <Type>Color Changer</Type>
- <Channel Name="Cold White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">Cold White</Capability>
- </Channel>
- <Channel Name="Warm White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">Warm White</Capability>
- </Channel>
- <Channel Name="Master">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Master Dimmer</Capability>
- </Channel>
- <Channel Name="Stroboscope">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Stroboscope</Capability>
- </Channel>
+ <Channel Name="Cold White" Preset="IntensityWhite"/>
+ <Channel Name="Warm White" Preset="IntensityWhite"/>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Stroboscope" Preset="ShutterStrobeSlowFast"/>
  <Channel Name="Temperature">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="15">Color Temp 1</Capability>
@@ -60,43 +46,29 @@
   <Capability Min="226" Max="255">Dimmer Curve 9</Capability>
  </Channel>
  <Mode Name="2-Channel">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="168" Height="186" Weight="2" Depth="186"/>
-   <Lens DegreesMax="35" Name="Other" DegreesMin="35"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Cold White</Channel>
   <Channel Number="1">Warm White</Channel>
  </Mode>
  <Mode Name="5-Channel">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="168" Height="186" Weight="2" Depth="186"/>
-   <Lens DegreesMax="35" Name="Other" DegreesMin="35"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Cold White</Channel>
   <Channel Number="1">Warm White</Channel>
-  <Channel Number="2">Master</Channel>
+  <Channel Number="2">Master dimmer</Channel>
   <Channel Number="3">Stroboscope</Channel>
   <Channel Number="4">Temperature</Channel>
  </Mode>
  <Mode Name="6-Channel">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="168" Height="186" Weight="2" Depth="186"/>
-   <Lens DegreesMax="35" Name="Other" DegreesMin="35"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Cold White</Channel>
   <Channel Number="1">Warm White</Channel>
-  <Channel Number="2">Master</Channel>
+  <Channel Number="2">Master dimmer</Channel>
   <Channel Number="3">Stroboscope</Channel>
   <Channel Number="4">Temperature</Channel>
   <Channel Number="5">Dimmer</Channel>
  </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2" Width="168" Height="186" Depth="186"/>
+  <Lens Name="Other" DegreesMin="35" DegreesMax="35"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>American DJ</Manufacturer>
  <Model>Vizi Beam 5R</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan Fine</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt Fine</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="9" Color="#ffffff">Open / White</Capability>
@@ -83,18 +71,12 @@
   <Capability Min="192" Max="223">Random Slow to Fast</Capability>
   <Capability Min="224" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="255">Inensity 0 - 100%</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Frost">
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="255">Intensity 0 - 100%</Capability>
  </Channel>
- <Channel Name="Pan / Tilt Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Max to Min Speed</Capability>
- </Channel>
+ <Channel Name="Pan / Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Maintenance">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="19">Colour Change normal</Capability>
@@ -112,13 +94,6 @@
   <Capability Min="240" Max="255">Sound Active Programs</Capability>
  </Channel>
  <Mode Name="12 Channel">
-  <Physical>
-   <Bulb Lumens="13500" Type="Phillips Platinum 5R" ColourTemperature="8000"/>
-   <Dimensions Width="310" Height="448" Weight="11" Depth="335"/>
-   <Lens DegreesMax="2" Name="Other" DegreesMin="2"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
-   <Technical PowerConsumption="0" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -133,13 +108,6 @@
   <Channel Number="11">Maintenance</Channel>
  </Mode>
  <Mode Name="10 Channel">
-  <Physical>
-   <Bulb Lumens="13500" Type="Phillips Platinum 5R Discharge" ColourTemperature="8000"/>
-   <Dimensions Width="310" Height="448" Weight="11" Depth="335"/>
-   <Lens DegreesMax="2" Name="Other" DegreesMin="2"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
-   <Technical PowerConsumption="0" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Colour</Channel>
@@ -151,4 +119,11 @@
   <Channel Number="8">Pan / Tilt Speed</Channel>
   <Channel Number="9">Maintenance</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="13500" Type="Phillips Platinum 5R" ColourTemperature="8000"/>
+   <Dimensions Width="310" Height="448" Weight="11" Depth="335"/>
+   <Lens DegreesMax="2" Name="Other" DegreesMin="2"/>
+   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
+   <Technical PowerConsumption="0" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

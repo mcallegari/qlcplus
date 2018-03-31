@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,20 +9,9 @@
  <Manufacturer>Eurolite</Manufacturer>
  <Model>LED SLS 5 BCL</Model>
  <Type>Color Changer</Type>
- <Channel Name="White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White (Dim -&gt; Bright)</Capability>
- </Channel>
- <Channel Name="Amber">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Amber</Colour>
-  <Capability Min="0" Max="255">Amber (Dim -&gt; Bright)</Capability>
- </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimming (Dim -&gt; Bright)</Capability>
- </Channel>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Sound / Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="0">No function</Capability>
@@ -46,53 +35,32 @@
   <Capability Min="0" Max="255">Strobe, Color speed, Sound sensitivity (depends on CH5)</Capability>
  </Channel>
  <Mode Name="2 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="3" Width="230" Height="270" Depth="110"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="20"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="24" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">White</Channel>
   <Channel Number="1">Amber</Channel>
  </Mode>
  <Mode Name="3 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="3" Width="230" Height="270" Depth="110"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="20"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="24" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">White</Channel>
   <Channel Number="1">Amber</Channel>
   <Channel Number="2">Dimmer</Channel>
  </Mode>
  <Mode Name="4 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="3" Width="230" Height="270" Depth="110"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="20"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="24" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">White</Channel>
   <Channel Number="1">Amber</Channel>
   <Channel Number="2">Dimmer</Channel>
   <Channel Number="3">Sound / Strobe</Channel>
  </Mode>
  <Mode Name="5 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="3" Width="230" Height="270" Depth="110"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="20"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="24" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">White</Channel>
   <Channel Number="1">Amber</Channel>
   <Channel Number="2">Dimmer</Channel>
   <Channel Number="3">Strobe/Speed/Sensitivity</Channel>
   <Channel Number="4">CH5 Modes</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="3" Width="230" Height="270" Depth="110"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="20"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="24" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

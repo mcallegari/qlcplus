@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -84,26 +84,12 @@
   <Capability Min="2" Max="255">Vector fast to slow</Capability>
  </Channel>
  <Mode Name="Normal">
-  <Physical>
-   <Bulb Lumens="9500" Type="HTI 150W" ColourTemperature="5000"/>
-   <Dimensions Width="500" Height="230" Weight="16" Depth="400"/>
-   <Lens DegreesMax="15" Name="Other" DegreesMin="15"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="204" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Strobe</Channel>
   <Channel Number="1">Gobo</Channel>
   <Channel Number="2">Gobo shake</Channel>
   <Channel Number="3">Mirror dish rotation</Channel>
  </Mode>
  <Mode Name="Extended">
-  <Physical>
-   <Bulb Lumens="9500" Type="HTI 150W" ColourTemperature="5000"/>
-   <Dimensions Width="500" Height="230" Weight="16" Depth="400"/>
-   <Lens DegreesMax="15" Name="Other" DegreesMin="15"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="204" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Strobe</Channel>
   <Channel Number="1">Gobo</Channel>
   <Channel Number="2">Gobo shake</Channel>
@@ -111,4 +97,11 @@
   <Channel Number="4">Macro</Channel>
   <Channel Number="5">Effects speed</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="9500" Type="HTI 150W" ColourTemperature="5000"/>
+   <Dimensions Width="500" Height="230" Weight="16" Depth="400"/>
+   <Lens DegreesMax="15" Name="Other" DegreesMin="15"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="204" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

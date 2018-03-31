@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -91,13 +91,6 @@
   <Capability Min="1" Max="255">Small to large (120 = original)</Capability>
  </Channel>
  <Mode Name="Laserworld RS400G">
-  <Physical>
-   <Bulb Type="Laser" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Weight="15" Width="550" Depth="320" Height="310"/>
-   <Lens DegreesMin="40" DegreesMax="60" Name="Other"/>
-   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="120"/>
-  </Physical>
   <Channel Number="0">Control</Channel>
   <Channel Number="1">Colour</Channel>
   <Channel Number="2">Pattern group</Channel>
@@ -113,4 +106,11 @@
   <Channel Number="12">Colour Speed</Channel>
   <Channel Number="13">Size</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="Laser" ColourTemperature="0" Lumens="0"/>
+   <Dimensions Weight="15" Width="550" Depth="320" Height="310"/>
+   <Lens DegreesMin="40" DegreesMax="60" Name="Other"/>
+   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="120"/>
+  </Physical>
 </FixtureDefinition>

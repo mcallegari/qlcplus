@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,14 +9,8 @@
  <Manufacturer>American DJ</Manufacturer>
  <Model>Comscan LED</Model>
  <Type>Scanner</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="7">Blackout</Capability>
@@ -52,22 +46,19 @@
   <Capability Min="121" Max="127" Color="#ff007f" Color2="#00ffff">Gobo 8 Shake</Capability>
   <Capability Min="128" Max="255" Res="Others/rainbow.png">Gobo wheel rotation slow - fast</Capability>
  </Channel>
- <Channel Name="Master Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
  <Mode Name="5 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="3.6" Width="160" Height="200" Depth="344"/>
-   <Lens Name="Other" DegreesMin="13" DegreesMax="13"/>
-   <Focus Type="Mirror" PanMax="166" TiltMax="54"/>
-   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Strobe</Channel>
   <Channel Number="3">Gobo Wheel</Channel>
   <Channel Number="4">Master Dimmer</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="3.6" Width="160" Height="200" Depth="344"/>
+   <Lens Name="Other" DegreesMin="13" DegreesMax="13"/>
+   <Focus Type="Mirror" PanMax="166" TiltMax="54"/>
+   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

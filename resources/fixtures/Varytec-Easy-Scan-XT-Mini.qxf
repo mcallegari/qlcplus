@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,14 +9,8 @@
  <Manufacturer>Varytec</Manufacturer>
  <Model>Easy Scan XT Mini</Model>
  <Type>Scanner</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan (0 - 166°)</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt (0 - 54°)</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Strobe / Effect">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="7">Off</Capability>
@@ -52,22 +46,19 @@
   <Capability Min="121" Max="127">Gobo Shake 8</Capability>
   <Capability Min="128" Max="255">Gobo rotation Slow to Fast</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer (0 - 100%)</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Mode Name="Standard">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="3.6" Width="344" Height="160" Depth="200"/>
-   <Lens Name="Other" DegreesMin="13" DegreesMax="13"/>
-   <Focus Type="Mirror" PanMax="166" TiltMax="54"/>
-   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Strobe / Effect</Channel>
   <Channel Number="3">Gobo Wheel</Channel>
   <Channel Number="4">Dimmer</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="3.6" Width="344" Height="160" Depth="200"/>
+   <Lens Name="Other" DegreesMin="13" DegreesMax="13"/>
+   <Focus Type="Mirror" PanMax="166" TiltMax="54"/>
+   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

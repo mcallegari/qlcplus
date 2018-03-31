@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>High End Systems</Manufacturer>
  <Model>TechnoSpot</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">0° - 540°</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">0° - 245°</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Color Mix Function">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="47">Pure mix</Capability>
@@ -207,10 +195,7 @@
   <Capability Min="24" Max="229">Set strobe rate from slowest to fastest</Capability>
   <Capability Min="230" Max="255">open</Capability>
  </Channel>
- <Channel Name="Dim">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Closed - open</Capability>
- </Channel>
+ <Channel Name="Dim" Preset="IntensityDimmer"/>
  <Channel Name="Motor Speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="3">Disable</Capability>
@@ -248,11 +233,7 @@
   <Capability Min="144" Max="169">Periodic independent strobe from slowest to fastest</Capability>
   <Capability Min="170" Max="255">No function</Capability>
  </Channel>
- <Channel Name="Indigo Highlighter Dim">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Indigo</Colour>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
+ <Channel Name="Indigo Highlighter Dim" Preset="IntensityIndigo"/>
  <Channel Name="Shutter Functions">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="31">Normal shutter functions</Capability>
@@ -261,13 +242,6 @@
   <Capability Min="96" Max="255">Normal shutter functions</Capability>
  </Channel>
  <Mode Name="37Channel">
-  <Physical>
-   <Bulb Type="MSR 575W" Lumens="12000" ColourTemperature="7000"/>
-   <Dimensions Weight="41" Width="483" Height="348" Depth="793"/>
-   <Lens Name="Other" DegreesMin="11" DegreesMax="34"/>
-   <Focus Type="Head" PanMax="540" TiltMax="245"/>
-   <Technical PowerConsumption="850" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -306,4 +280,11 @@
   <Channel Number="35">Indigo Highlighter Function</Channel>
   <Channel Number="36">Indigo Highlighter Dim</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="MSR 575W" Lumens="12000" ColourTemperature="7000"/>
+   <Dimensions Weight="41" Width="483" Height="348" Depth="793"/>
+   <Lens Name="Other" DegreesMin="11" DegreesMax="34"/>
+   <Focus Type="Head" PanMax="540" TiltMax="245"/>
+   <Technical PowerConsumption="850" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
 </FixtureDefinition>

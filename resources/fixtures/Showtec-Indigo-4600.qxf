@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,11 @@
  <Manufacturer>Showtec</Manufacturer>
  <Model>Indigo 4600</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
- </Channel>
- <Channel Name="Pan/Tilt Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Max speed to Min speed</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Color Wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="9">Open/White</Capability>
@@ -99,13 +88,8 @@
   <Capability Min="128" Max="132">Prism no rotation</Capability>
   <Capability Min="133" Max="255">CW rotation slow to fast</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">near to far</Capability>
- </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Shutter/Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="31">Close</Capability>
@@ -141,13 +125,6 @@
   <Capability Min="252" Max="255">DIM 4 (activated after 5 seconds)</Capability>
  </Channel>
  <Mode Name="11 Channels">
-  <Physical>
-   <Bulb Lumens="1800" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="330" Height="473" Weight="10" Depth="270"/>
-   <Lens DegreesMax="16" Name="PC" DegreesMin="16"/>
-   <Focus PanMax="540" Type="Head" TiltMax="270"/>
-   <Technical PowerConsumption="80" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Color Wheel</Channel>
@@ -161,13 +138,6 @@
   <Channel Number="10">Channel Functions</Channel>
  </Mode>
  <Mode Name="14 Channels">
-  <Physical>
-   <Bulb Lumens="1800" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="330" Height="473" Weight="10" Depth="270"/>
-   <Lens DegreesMax="16" Name="PC" DegreesMin="16"/>
-   <Focus PanMax="540" Type="Head" TiltMax="270"/>
-   <Technical PowerConsumption="80" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -183,4 +153,11 @@
   <Channel Number="12">Shutter/Strobe</Channel>
   <Channel Number="13">Channel Functions</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="1800" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="330" Height="473" Weight="10" Depth="270"/>
+   <Lens DegreesMax="16" Name="PC" DegreesMin="16"/>
+   <Focus PanMax="540" Type="Head" TiltMax="270"/>
+   <Technical PowerConsumption="80" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
 </FixtureDefinition>

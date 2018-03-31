@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -28,10 +28,7 @@
   <Capability Min="233" Max="249">Macro 12</Capability>
   <Capability Min="250" Max="255">RESET (5sec)</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer intensity</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="5">White</Capability>
@@ -92,14 +89,8 @@
   <Capability Min="192" Max="223">CW rotation fast to slow</Capability>
   <Capability Min="224" Max="255">CCW rotation slow to fast</Capability>
  </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Movement speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="2">Tracking</Capability>
@@ -111,13 +102,6 @@
   <Capability Min="3" Max="255">Vector speed fast to slow</Capability>
  </Channel>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb Lumens="0" Type="EFR 150W" ColourTemperature="3100"/>
-   <Dimensions Width="204" Height="445" Weight="7" Depth="178"/>
-   <Lens DegreesMax="15" Name="Other" DegreesMin="15"/>
-   <Focus PanMax="180" Type="Mirror" TiltMax="72"/>
-   <Technical PowerConsumption="173" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Strobe, macros</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Colour</Channel>
@@ -126,13 +110,6 @@
   <Channel Number="5">Tilt</Channel>
  </Mode>
  <Mode Name="Mode 2">
-  <Physical>
-   <Bulb Lumens="0" Type="EFR 150W" ColourTemperature="3100"/>
-   <Dimensions Width="204" Height="445" Weight="7" Depth="178"/>
-   <Lens DegreesMax="15" Name="Other" DegreesMin="15"/>
-   <Focus PanMax="180" Type="Mirror" TiltMax="72"/>
-   <Technical PowerConsumption="173" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Strobe, macros</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Colour</Channel>
@@ -142,4 +119,11 @@
   <Channel Number="6">Movement speed</Channel>
   <Channel Number="7">Color &amp; gobo speed</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="EFR 150W" ColourTemperature="3100"/>
+   <Dimensions Width="204" Height="445" Weight="7" Depth="178"/>
+   <Lens DegreesMax="15" Name="Other" DegreesMin="15"/>
+   <Focus PanMax="180" Type="Mirror" TiltMax="72"/>
+   <Technical PowerConsumption="173" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

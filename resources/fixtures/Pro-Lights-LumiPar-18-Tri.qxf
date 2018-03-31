@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,25 +9,10 @@
  <Manufacturer>Pro-Lights</Manufacturer>
  <Model>LumiPar 18 Tri</Model>
  <Type>Color Changer</Type>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="Color Macro">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="10">No function</Capability>
@@ -79,13 +64,6 @@
   <Capability Min="204" Max="255">Non-linear Dimmer 3</Capability>
  </Channel>
  <Mode Name="9 Ch Mode">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="10000"/>
-   <Dimensions Width="94" Height="256" Weight="2.9" Depth="290"/>
-   <Lens DegreesMax="42" Name="Other" DegreesMin="21"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="102" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
@@ -97,28 +75,21 @@
   <Channel Number="8">Dimmer Speed</Channel>
  </Mode>
  <Mode Name="4 Ch Mode">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="10000"/>
-   <Dimensions Width="94" Height="256" Weight="2.9" Depth="290"/>
-   <Lens DegreesMax="42" Name="Other" DegreesMin="21"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="102" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
   <Channel Number="3">Blue</Channel>
  </Mode>
  <Mode Name="3 Ch Mode">
-  <Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+<Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="10000"/>
    <Dimensions Width="94" Height="256" Weight="2.9" Depth="290"/>
    <Lens DegreesMax="42" Name="Other" DegreesMin="21"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="102" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Red</Channel>
-  <Channel Number="1">Green</Channel>
-  <Channel Number="2">Blue</Channel>
- </Mode>
 </FixtureDefinition>

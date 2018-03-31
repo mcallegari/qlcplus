@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,30 +9,12 @@
  <Manufacturer>JB Systems</Manufacturer>
  <Model>Dynaspot</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">8-bit</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">16-bit</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">8-bit</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">16-bit</Capability>
- </Channel>
- <Channel Name="Pan / Tilt Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">000 = fast ~ 255 = slow</Capability>
- </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan / Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe / Shutter Effect">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="7">Closed (no output)</Capability>
@@ -77,13 +59,6 @@
   <Capability Min="248" Max="255">Random program (audio triggered)</Capability>
  </Channel>
  <Mode Name="8-Ch">
-  <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Height="261" Width="175" Depth="141" Weight="2.8"/>
-   <Lens DegreesMax="0" DegreesMin="0" Name="Other"/>
-   <Focus TiltMax="270" PanMax="540" Type="Fixed"/>
-   <Technical PowerConsumption="37" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan / Tilt Speed</Channel>
@@ -94,13 +69,6 @@
   <Channel Number="7">Special Functions</Channel>
  </Mode>
  <Mode Name="10-Ch">
-  <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Height="261" Width="175" Depth="141" Weight="2.8"/>
-   <Lens DegreesMax="0" DegreesMin="0" Name="Other"/>
-   <Focus TiltMax="270" PanMax="540" Type="Fixed"/>
-   <Technical PowerConsumption="37" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -112,4 +80,11 @@
   <Channel Number="8">Gobo Wheel</Channel>
   <Channel Number="9">Special Functions</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
+   <Dimensions Height="261" Width="175" Depth="141" Weight="2.8"/>
+   <Lens DegreesMax="0" DegreesMin="0" Name="Other"/>
+   <Focus TiltMax="270" PanMax="540" Type="Fixed"/>
+   <Technical PowerConsumption="37" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

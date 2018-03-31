@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -19,10 +19,7 @@
  <Channel Name="Patterns/Animations">
   <Group Byte="0">Effect</Group>
  </Channel>
- <Channel Name="Strobe">
-  <Group Byte="0">Shutter</Group>
-  <Capability Max="255" Min="0">With increasing speed</Capability>
- </Channel>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
  <Channel Name="Point Speed">
   <Group Byte="0">Effect</Group>
  </Channel>
@@ -48,9 +45,7 @@
   <Capability Max="200" Min="147">Automatic large to small</Capability>
   <Capability Max="255" Min="201">Automatic small to large to small...</Capability>
  </Channel>
- <Channel Name="No Function">
-  <Group Byte="0">Nothing</Group>
- </Channel>
+ <Channel Name="No Function" Preset="NoFunction"/>
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>
   <Capability Max="199" Min="0">no function</Capability>
@@ -73,13 +68,6 @@
   <Capability Max="255" Min="151">Automatic rotation</Capability>
  </Channel>
  <Mode Name="std">
-  <Physical>
-   <Bulb Type="Laser" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Weight="4.5" Width="270" Height="160" Depth="230"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="40"/>
-  </Physical>
   <Channel Number="0">Mode</Channel>
   <Channel Number="1">Patterns/Animations</Channel>
   <Channel Number="2">Strobe</Channel>
@@ -93,4 +81,11 @@
   <Channel Number="10">Rotation Y (Height)</Channel>
   <Channel Number="11">Rotation Z</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="Laser" ColourTemperature="0" Lumens="0"/>
+   <Dimensions Weight="4.5" Width="270" Height="160" Depth="230"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="40"/>
+  </Physical>
 </FixtureDefinition>

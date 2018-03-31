@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,14 +9,8 @@
  <Manufacturer>American DJ</Manufacturer>
  <Model>Accu Spot 250 II</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="12" Color="#ffffff">White</Capability>
@@ -70,10 +64,7 @@
   <Capability Min="192" Max="223">Random Strobe (Slow -&gt; Fast)</Capability>
   <Capability Min="224" Max="255">Shutter Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Lamp On/Off/Reset/Internal Programs">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="19">Color Change Normal</Capability>
@@ -103,13 +94,6 @@
   <Capability Min="246" Max="255">No Function</Capability>
  </Channel>
  <Mode Name="8 Channel Mode">
-  <Physical>
-   <Bulb Lumens="0" Type="MSD 250W" ColourTemperature="0"/>
-   <Dimensions Width="295" Height="451" Weight="18" Depth="373"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="360" Type="Head" TiltMax="265"/>
-   <Technical PowerConsumption="350" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Color</Channel>
@@ -120,13 +104,6 @@
   <Channel Number="7">Movement Speed</Channel>
  </Mode>
  <Mode Name="9 Channel Mode">
-  <Physical>
-   <Bulb Lumens="0" Type="MSD 250W" ColourTemperature="0"/>
-   <Dimensions Width="295" Height="451" Weight="18" Depth="373"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="360" Type="Head" TiltMax="265"/>
-   <Technical PowerConsumption="350" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Color</Channel>
@@ -137,4 +114,11 @@
   <Channel Number="7">Lamp On/Off/Reset/Internal Programs</Channel>
   <Channel Number="8">Movement Speed</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="MSD 250W" ColourTemperature="0"/>
+   <Dimensions Width="295" Height="451" Weight="18" Depth="373"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="360" Type="Head" TiltMax="265"/>
+   <Technical PowerConsumption="350" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

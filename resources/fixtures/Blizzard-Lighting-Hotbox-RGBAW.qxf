@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,30 +9,11 @@
  <Manufacturer>Blizzard Lighting</Manufacturer>
  <Model>Hotbox 5 RGBAW</Model>
  <Type>Color Changer</Type>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer 0-100%</Capability>
- </Channel>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red Intensity (0-100%)</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green Intensity (0-100%)</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue Intensity (0-100%)</Capability>
- </Channel>
- <Channel Name="White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White Intensity (0-100%)</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
  <Channel Name="Strobe">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="14">Dimming</Capability>
@@ -62,23 +43,12 @@
   <Capability Min="156" Max="205">Mode 3 = 32 bit, 0-75% intensity range</Capability>
   <Capability Min="206" Max="255">Mode 4 = 32 bit, Full Intensity Dimming</Capability>
  </Channel>
- <Channel Name="Amber">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Amber</Colour>
-  <Capability Min="0" Max="255">Amber intensity (0-100%)</Capability>
- </Channel>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
  <Channel Name="RGB Color Mixing">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="255">RGB Color Mixing</Capability>
  </Channel>
  <Mode Name="10 Channel Mode">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="127" Depth="102" Weight="1.6" Height="127"/>
-   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
-   <Technical PowerConsumption="53" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
@@ -91,13 +61,6 @@
   <Channel Number="9">32-Bit Dimmer</Channel>
  </Mode>
  <Mode Name="9 Channel Mode">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="127" Depth="102" Weight="1.6" Height="127"/>
-   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
-   <Technical PowerConsumption="53" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
@@ -109,13 +72,6 @@
   <Channel Number="8">Program (Fade) Speed</Channel>
  </Mode>
  <Mode Name="7 Channel Mode">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="127" Depth="102" Weight="1.6" Height="127"/>
-   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
-   <Technical PowerConsumption="53" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
@@ -125,13 +81,6 @@
   <Channel Number="6">Strobe</Channel>
  </Mode>
  <Mode Name="5 Channel Mode">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="127" Depth="102" Weight="1.6" Height="127"/>
-   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
-   <Technical PowerConsumption="53" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
@@ -139,15 +88,15 @@
   <Channel Number="4">White</Channel>
  </Mode>
  <Mode Name="3 Channel Mode">
-  <Physical>
+  <Channel Number="0">RGB Color Mixing</Channel>
+  <Channel Number="1">White</Channel>
+  <Channel Number="2">Dimmer</Channel>
+ </Mode>
+<Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
    <Dimensions Width="127" Depth="102" Weight="1.6" Height="127"/>
    <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
    <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
    <Technical PowerConsumption="53" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">RGB Color Mixing</Channel>
-  <Channel Number="1">White</Channel>
-  <Channel Number="2">Dimmer</Channel>
- </Mode>
 </FixtureDefinition>

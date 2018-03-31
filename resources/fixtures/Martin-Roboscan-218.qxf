@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>Martin</Manufacturer>
  <Model>Roboscan 218</Model>
  <Type>Scanner</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Pan fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine</Capability>
- </Channel>
- <Channel Name="Tilt fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
  <Channel Name="Shutter/Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="5">Closed</Capability>
@@ -34,10 +22,7 @@
   <Capability Min="231" Max="252">Remote stand-alone music trig</Capability>
   <Capability Min="253" Max="255">Reset fixture</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer intensity</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="10">White -&gt; Flame red</Capability>
@@ -126,13 +111,6 @@
   <Capability Min="252" Max="255">Blackout while colour/gobo change, fast dimmer</Capability>
  </Channel>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb Lumens="1250" Type="MSD 200W" ColourTemperature="5600"/>
-   <Dimensions Width="280" Height="533" Weight="14" Depth="184"/>
-   <Lens DegreesMax="12" Name="Other" DegreesMin="12"/>
-   <Focus PanMax="175" Type="Mirror" TiltMax="85"/>
-   <Technical PowerConsumption="300" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Shutter/Strobe</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Colour</Channel>
@@ -141,13 +119,6 @@
   <Channel Number="5">Tilt</Channel>
  </Mode>
  <Mode Name="Mode 2">
-  <Physical>
-   <Bulb Lumens="1250" Type="MSD 200W" ColourTemperature="5600"/>
-   <Dimensions Width="280" Height="533" Weight="14" Depth="184"/>
-   <Lens DegreesMax="12" Name="Other" DegreesMin="12"/>
-   <Focus PanMax="175" Type="Mirror" TiltMax="85"/>
-   <Technical PowerConsumption="300" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Shutter/Strobe</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Colour</Channel>
@@ -158,13 +129,6 @@
   <Channel Number="7">Colour/Gobo/Dimmer speed</Channel>
  </Mode>
  <Mode Name="Mode 3">
-  <Physical>
-   <Bulb Lumens="1250" Type="MSD 200W" ColourTemperature="5600"/>
-   <Dimensions Width="280" Height="533" Weight="14" Depth="184"/>
-   <Lens DegreesMax="12" Name="Other" DegreesMin="12"/>
-   <Focus PanMax="175" Type="Mirror" TiltMax="85"/>
-   <Technical PowerConsumption="300" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Shutter/Strobe</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Colour</Channel>
@@ -174,4 +138,11 @@
   <Channel Number="6">Tilt</Channel>
   <Channel Number="7">Tilt fine</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="1250" Type="MSD 200W" ColourTemperature="5600"/>
+   <Dimensions Width="280" Height="533" Weight="14" Depth="184"/>
+   <Lens DegreesMax="12" Name="Other" DegreesMin="12"/>
+   <Focus PanMax="175" Type="Mirror" TiltMax="85"/>
+   <Technical PowerConsumption="300" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

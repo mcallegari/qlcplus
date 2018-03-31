@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,44 +9,14 @@
  <Manufacturer>Blizzard Lighting</Manufacturer>
  <Model>LB-Par Hex</Model>
  <Type>Color Changer</Type>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Red Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Green Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Blue Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Amber Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Amber</Colour>
-  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="White Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="UV Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>UV</Colour>
-  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Strobe">
-  <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="255">Slow &lt;--&gt; fast</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Red Intensity" Preset="IntensityRed"/>
+ <Channel Name="Green Intensity" Preset="IntensityGreen"/>
+ <Channel Name="Blue Intensity" Preset="IntensityBlue"/>
+ <Channel Name="Amber Intensity" Preset="IntensityAmber"/>
+ <Channel Name="White Intensity" Preset="IntensityWhite"/>
+ <Channel Name="UV Intensity" Preset="IntensityUV"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
  <Channel Name="Programs, Auto and Sound Active">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="9">Dimmer speed</Capability>
@@ -79,13 +49,6 @@
   <Capability Min="206" Max="255">Mode 4 = 32-bit, full intensity dimming</Capability>
  </Channel>
  <Mode Name="6-Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="1235" ColourTemperature="0"/>
-   <Dimensions Weight="2.3" Width="215" Height="215" Depth="116"/>
-   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="42" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red Intensity</Channel>
   <Channel Number="1">Green Intensity</Channel>
   <Channel Number="2">Blue Intensity</Channel>
@@ -94,13 +57,6 @@
   <Channel Number="5">UV Intensity</Channel>
  </Mode>
  <Mode Name="11-Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="1235" ColourTemperature="0"/>
-   <Dimensions Weight="2.3" Width="215" Height="215" Depth="116"/>
-   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="42" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red Intensity</Channel>
   <Channel Number="2">Green Intensity</Channel>
@@ -113,4 +69,11 @@
   <Channel Number="9">Auto Program Speed</Channel>
   <Channel Number="10">32-Bit Dimmer</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="1235" ColourTemperature="0"/>
+   <Dimensions Weight="2.3" Width="215" Height="215" Depth="116"/>
+   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="42" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

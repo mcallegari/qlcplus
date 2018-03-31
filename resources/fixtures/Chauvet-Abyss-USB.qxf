@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,10 +9,7 @@
  <Manufacturer>Chauvet</Manufacturer>
  <Model>Abyss USB</Model>
  <Type>Flower</Type>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Color Wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="21" Color="#ffffff">White</Capability>
@@ -33,15 +30,15 @@
   <Capability Min="134" Max="255">Right rotation (fast to slow)</Capability>
  </Channel>
  <Mode Name="3-Channel">
-  <Physical>
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Color Wheel</Channel>
+  <Channel Number="2">Wave Effect Wheel</Channel>
+ </Mode>
+<Physical>
    <Bulb Type="LED" Lumens="2876" ColourTemperature="0"/>
    <Dimensions Weight="2.7" Width="228" Height="246" Depth="195"/>
    <Lens Name="Other" DegreesMin="59" DegreesMax="59"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="38" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Dimmer</Channel>
-  <Channel Number="1">Color Wheel</Channel>
-  <Channel Number="2">Wave Effect Wheel</Channel>
- </Mode>
 </FixtureDefinition>

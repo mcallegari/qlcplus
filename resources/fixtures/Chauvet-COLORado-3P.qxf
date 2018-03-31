@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -205,10 +205,7 @@
   <Capability Min="244" Max="248">Macro 49</Capability>
   <Capability Min="249" Max="255">Macro 50</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Color Macros">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="9">No function</Capability>
@@ -231,59 +228,16 @@
   <Capability Min="230" Max="239">White 95%, Yellow 5%</Capability>
   <Capability Min="240" Max="255" Color="#ffffff">White</Capability>
  </Channel>
- <Channel Name="Block 1 Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red intensity (0 - 100%)</Capability>
- </Channel>
- <Channel Name="Block 2 Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red intensity (0 - 100%)</Capability>
- </Channel>
- <Channel Name="Block 3 Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red intensity (0 - 100%)</Capability>
- </Channel>
- <Channel Name="Block 1 Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green intensity (0 - 100%)</Capability>
- </Channel>
- <Channel Name="Block 2 Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green intensity (0 - 100%)</Capability>
- </Channel>
- <Channel Name="Block 3 Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green intensity (0 - 100%)</Capability>
- </Channel>
- <Channel Name="Block 1 Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue intensity (0 - 100%)</Capability>
- </Channel>
- <Channel Name="Block 2 Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue intensity (0 - 100%)</Capability>
- </Channel>
- <Channel Name="Block 3 Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue intensity (0 - 100%)</Capability>
- </Channel>
+ <Channel Name="Block 1 Red" Preset="IntensityRed"/>
+ <Channel Name="Block 2 Red" Preset="IntensityRed"/>
+ <Channel Name="Block 3 Red" Preset="IntensityRed"/>
+ <Channel Name="Block 1 Green" Preset="IntensityGreen"/>
+ <Channel Name="Block 2 Green" Preset="IntensityGreen"/>
+ <Channel Name="Block 3 Green" Preset="IntensityGreen"/>
+ <Channel Name="Block 1 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Block 2 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Block 3 Blue" Preset="IntensityBlue"/>
  <Mode Name="Stage 1 (DMX mode 1)">
-  <Physical>
-   <Bulb Type="LED" Lumens="7270" ColourTemperature="0"/>
-   <Dimensions Weight="8.2" Width="190" Height="210" Depth="570"/>
-   <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="75" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
@@ -298,13 +252,6 @@
   <Channel Number="11">Effect Macro</Channel>
  </Mode>
  <Mode Name="Stage 2 (DMX mode 1)">
-  <Physical>
-   <Bulb Type="LED" Lumens="7270" ColourTemperature="0"/>
-   <Dimensions Weight="8.2" Width="190" Height="210" Depth="570"/>
-   <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="75" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
@@ -317,13 +264,6 @@
   <Channel Number="9">Effect Macro</Channel>
  </Mode>
  <Mode Name="Pixel">
-  <Physical>
-   <Bulb Type="LED" Lumens="7270" ColourTemperature="0"/>
-   <Dimensions Weight="8.2" Width="190" Height="210" Depth="570"/>
-   <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="75" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Block 1 Red</Channel>
   <Channel Number="1">Block 1 Green</Channel>
   <Channel Number="2">Block 1 Blue</Channel>
@@ -350,28 +290,21 @@
   </Head>
  </Mode>
  <Mode Name="ARC 1">
-  <Physical>
-   <Bulb Type="LED" Lumens="7270" ColourTemperature="0"/>
-   <Dimensions Weight="8.2" Width="190" Height="210" Depth="570"/>
-   <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="75" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
  </Mode>
  <Mode Name="ARC 1 + D">
-  <Physical>
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+ </Mode>
+<Physical>
    <Bulb Type="LED" Lumens="7270" ColourTemperature="0"/>
    <Dimensions Weight="8.2" Width="190" Height="210" Depth="570"/>
    <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="75" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Dimmer</Channel>
-  <Channel Number="1">Red</Channel>
-  <Channel Number="2">Green</Channel>
-  <Channel Number="3">Blue</Channel>
- </Mode>
 </FixtureDefinition>

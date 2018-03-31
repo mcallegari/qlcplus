@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,10 +9,7 @@
  <Manufacturer>Coemar</Manufacturer>
  <Model>Par Lite LED RGB</Model>
  <Type>Color Changer</Type>
- <Channel Name="Master Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Red/Fade Speed">
   <Group Byte="0">Effect</Group>
   <Colour>Red</Colour>
@@ -22,11 +19,7 @@
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="255">0 to 100%/1 second to 3.30 minutes</Capability>
  </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="Strobe Effect">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="9">No effect</Capability>
@@ -51,13 +44,6 @@
   <Capability Min="215" Max="255">Repeat programs in sequence</Capability>
  </Channel>
  <Mode Name="Default">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="3.6" Width="212" Height="268" Depth="184"/>
-   <Lens Name="Other" DegreesMin="12" DegreesMax="12"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="46" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Red/Fade Speed</Channel>
   <Channel Number="2">Green/Pause Time</Channel>
@@ -65,4 +51,11 @@
   <Channel Number="4">Strobe Effect</Channel>
   <Channel Number="5">Automated Functions</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="3.6" Width="212" Height="268" Depth="184"/>
+   <Lens Name="Other" DegreesMin="12" DegreesMax="12"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="46" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>Chauvet</Manufacturer>
  <Model>Q-Spot 260 LED</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">0~540°</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Fine movement control</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">0~270°</Capability>
- </Channel>
- <Channel Name="Pan/Tilt Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Fast~slow</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Color Wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="16" Color="#ffffff">White</Capability>
@@ -86,10 +74,7 @@
   <Capability Min="61" Max="158">Clockwise rotation from slow to fast</Capability>
   <Capability Min="159" Max="255">Anticlockwise rotation from slow to fast</Capability>
  </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Fine movement control</Capability>
- </Channel>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Rotating Prism">
   <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="0">No function</Capability>
@@ -98,14 +83,8 @@
   <Capability Min="128" Max="132">No function</Capability>
   <Capability Min="133" Max="255">CW rotation (slow~fast)</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="255">Focus</Capability>
- </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dark~bright</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="31">Close</Capability>
@@ -133,13 +112,6 @@
   <Capability Min="220" Max="255">No function</Capability>
  </Channel>
  <Mode Name="Advanced">
-  <Physical>
-   <Bulb Type="LED" Lumens="5400" ColourTemperature="0"/>
-   <Dimensions Weight="13.6" Width="295" Height="485" Depth="290"/>
-   <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="150" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -156,13 +128,6 @@
   <Channel Number="13">Control</Channel>
  </Mode>
  <Mode Name="Basic">
-  <Physical>
-   <Bulb Type="LED" Lumens="5400" ColourTemperature="0"/>
-   <Dimensions Weight="13.6" Width="295" Height="485" Depth="290"/>
-   <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="150" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Color Wheel</Channel>
@@ -175,4 +140,11 @@
   <Channel Number="9">Strobe</Channel>
   <Channel Number="10">Control</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="5400" ColourTemperature="0"/>
+   <Dimensions Weight="13.6" Width="295" Height="485" Depth="290"/>
+   <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="150" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

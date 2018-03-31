@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -57,20 +57,17 @@
   <Capability Min="224" Max="225">Stop</Capability>
   <Capability Min="226" Max="255">Rotation slow to fast</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer intensity</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Mode Name="Mode 1">
-  <Physical>
+  <Channel Number="0">Colour</Channel>
+  <Channel Number="1">Gobo</Channel>
+  <Channel Number="2">Dimmer</Channel>
+ </Mode>
+<Physical>
    <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="9" Width="280" Height="280" Depth="320"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="300" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Colour</Channel>
-  <Channel Number="1">Gobo</Channel>
-  <Channel Number="2">Dimmer</Channel>
- </Mode>
 </FixtureDefinition>

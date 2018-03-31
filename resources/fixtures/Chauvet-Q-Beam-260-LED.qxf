@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,26 +9,11 @@
  <Manufacturer>Chauvet</Manufacturer>
  <Model>Q-Beam 260-LED</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">0~540º</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">5 Fine movement control</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">0~270º</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Fine movement control </Capability>
- </Channel>
- <Channel Name="Pan/Tilt Speed ">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Fast~Slow</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt Speed " Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Color Wheel">
   <Group Byte="0">Colour</Group>
   <Capability Color="#ffffff" Min="0" Max="15">White</Capability>
@@ -73,10 +58,7 @@
   <Capability Min="0" Max="127">Prism off </Capability>
   <Capability Min="128" Max="255">Prism on</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dark &lt;&gt; Bright</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Shutter/Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="31">Close</Capability>
@@ -104,13 +86,6 @@
   <Capability Min="220" Max="255">No function</Capability>
  </Channel>
  <Mode Name="Basic">
-  <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="6243"/>
-   <Dimensions Width="321" Height="545" Depth="347" Weight="12.6"/>
-   <Lens DegreesMin="6" DegreesMax="6" Name="Other"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="150"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Color Wheel</Channel>
@@ -123,13 +98,6 @@ Rotation</Channel>
   <Channel Number="8">Control</Channel>
  </Mode>
  <Mode Name="Advanced">
-  <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="6243"/>
-   <Dimensions Width="321" Height="545" Depth="347" Weight="12.6"/>
-   <Lens DegreesMin="6" DegreesMax="6" Name="Other"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="150"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -144,4 +112,11 @@ Rotation</Channel>
   <Channel Number="10">Shutter/Strobe</Channel>
   <Channel Number="11">Control</Channel>
  </Mode>
+<Physical>
+   <Bulb ColourTemperature="0" Type="LED" Lumens="6243"/>
+   <Dimensions Width="321" Height="545" Depth="347" Weight="12.6"/>
+   <Lens DegreesMin="6" DegreesMax="6" Name="Other"/>
+   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="150"/>
+  </Physical>
 </FixtureDefinition>

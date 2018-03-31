@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -78,13 +78,6 @@
   <Capability Min="128" Max="255">Pattern chase slow - fast</Capability>
  </Channel>
  <Mode Name="10 channels">
-  <Physical>
-   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="5" Width="229" Height="248" Depth="305"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="70" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Auto Run/Sound Active</Channel>
   <Channel Number="1">Flower</Channel>
   <Channel Number="2">Auto Run Speed</Channel>
@@ -96,4 +89,11 @@
   <Channel Number="8">LED Rotation</Channel>
   <Channel Number="9">Laser rotation</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="5" Width="229" Height="248" Depth="305"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="70" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,41 +9,14 @@
  <Manufacturer>Showtec</Manufacturer>
  <Model>Phantom 250 Wash</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Pan 16bit">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan 16bit</Capability>
- </Channel>
- <Channel Name="Tilt 16bit">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt 16bit</Capability>
- </Channel>
- <Channel Name="Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Speed Fast - Slow</Capability>
- </Channel>
- <Channel Name="Cyan">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">Cyan intensity (0 to 100%)</Capability>
- </Channel>
- <Channel Name="Magenta">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">Magenta intensity (0 to 100%)</Capability>
- </Channel>
- <Channel Name="Yellow">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">Yellow intensity (0 to 100%)</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan 16bit" Preset="PositionPanFine"/>
+ <Channel Name="Tilt 16bit" Preset="PositionTiltFine"/>
+ <Channel Name="Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
  <Channel Name="CMY Macro">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="255">Preset Colors</Capability>
@@ -110,13 +83,6 @@
   <Capability Min="250" Max="255">effect25</Capability>
  </Channel>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb Lumens="8000" Type="MSD 250W" ColourTemperature="5500"/>
-   <Dimensions Width="420" Height="420" Weight="19.2" Depth="410"/>
-   <Lens DegreesMax="0" Name="Fresnel" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
-   <Technical PowerConsumption="500" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan 16bit</Channel>
@@ -131,4 +97,11 @@
   <Channel Number="11">Lamp Effect</Channel>
   <Channel Number="12">Effect</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="8000" Type="MSD 250W" ColourTemperature="5500"/>
+   <Dimensions Width="420" Height="420" Weight="19.2" Depth="410"/>
+   <Lens DegreesMax="0" Name="Fresnel" DegreesMin="0"/>
+   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
+   <Technical PowerConsumption="500" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

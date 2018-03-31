@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -18,13 +18,13 @@
   <Capability Min="244" Max="255">Open</Capability>
  </Channel>
  <Mode Name="Default">
-  <Physical>
+  <Channel Number="0">Strobe</Channel>
+ </Mode>
+<Physical>
    <Bulb Lumens="49000" Type="HTI 575W" ColourTemperature="5600"/>
    <Dimensions Width="725" Height="400" Weight="27" Depth="600"/>
    <Lens DegreesMax="1" Name="Other" DegreesMin="1"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="575" DmxConnector="5-pin"/>
   </Physical>
-  <Channel Number="0">Strobe</Channel>
- </Mode>
 </FixtureDefinition>

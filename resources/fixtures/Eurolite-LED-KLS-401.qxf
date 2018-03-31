@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -26,10 +26,7 @@
   <Capability Min="230" Max="249">Automatic mode</Capability>
   <Capability Min="250" Max="255">Sound control</Capability>
  </Channel>
- <Channel Name="Master control">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimming from 0 - 100%</Capability>
- </Channel>
+ <Channel Name="Master control" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobe control">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="9">Off</Capability>
@@ -45,64 +42,17 @@
   <Colour>Green</Colour>
   <Capability Min="0" Max="255" Color="#00ff00">Dimming from 0 - 100%/fade time fast -&gt; slow</Capability>
  </Channel>
- <Channel Name="Spot 1: Brightness blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Brightness 0 - 100%</Capability>
- </Channel>
- <Channel Name="Spot 2: Brightness red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Brightness 0 - 100%</Capability>
- </Channel>
- <Channel Name="Spot 2: Brightness green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Brightness 0 - 100%</Capability>
- </Channel>
- <Channel Name="Spot 2: Brightness blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Brightness 0 - 100%</Capability>
- </Channel>
- <Channel Name="Spot 3: Brightness red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Brightness 0 - 100%</Capability>
- </Channel>
- <Channel Name="Spot 3: Brightness green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Brightness 0 - 100%</Capability>
- </Channel>
- <Channel Name="Spot 3: Brightness blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Brightness 0 - 100%</Capability>
- </Channel>
- <Channel Name="Spot 4: Brightness red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Brightness 0 - 100%</Capability>
- </Channel>
- <Channel Name="Spot 4: Brightness green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Brightness 0 - 100%</Capability>
- </Channel>
- <Channel Name="Spot 4: Brightness blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Brightness 0 - 100%</Capability>
- </Channel>
+ <Channel Name="Spot 1: Brightness blue" Preset="IntensityBlue"/>
+ <Channel Name="Spot 2: Brightness red" Preset="IntensityRed"/>
+ <Channel Name="Spot 2: Brightness green" Preset="IntensityGreen"/>
+ <Channel Name="Spot 2: Brightness blue" Preset="IntensityBlue"/>
+ <Channel Name="Spot 3: Brightness red" Preset="IntensityRed"/>
+ <Channel Name="Spot 3: Brightness green" Preset="IntensityGreen"/>
+ <Channel Name="Spot 3: Brightness blue" Preset="IntensityBlue"/>
+ <Channel Name="Spot 4: Brightness red" Preset="IntensityRed"/>
+ <Channel Name="Spot 4: Brightness green" Preset="IntensityGreen"/>
+ <Channel Name="Spot 4: Brightness blue" Preset="IntensityBlue"/>
  <Mode Name="DMX protocol">
-  <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Depth="55" Weight="8.5" Width="1200" Height="310"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="100"/>
-  </Physical>
   <Channel Number="0">Preset programs, automatic mode, sound control</Channel>
   <Channel Number="1">Master control</Channel>
   <Channel Number="2">Strobe control</Channel>
@@ -139,4 +89,11 @@
    <Channel>12</Channel>
   </Head>
  </Mode>
+<Physical>
+   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
+   <Dimensions Depth="55" Weight="8.5" Width="1200" Height="310"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="100"/>
+  </Physical>
 </FixtureDefinition>

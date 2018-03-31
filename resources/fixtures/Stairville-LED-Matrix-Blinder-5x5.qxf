@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,10 +9,7 @@
  <Manufacturer>Stairville</Manufacturer>
  <Model>LED Matrix Blinder 5x5</Model>
  <Type>Color Changer</Type>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% to 100%, for all LEDs together</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Operating-Mode (28-Channel Mode)">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="0">LEDs off</Capability>
@@ -83,106 +80,31 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Increasing speed</Capability>
  </Channel>
- <Channel Name="Dimmer for LED No. 1">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Dimmer for LED No. 2">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Dimmer for LED No. 3">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Dimmer for LED No. 4">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Dimmer for LED No. 5">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Dimmer for LED No. 6">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Dimmer for LED No. 7">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Dimmer for LED No. 8">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Dimmer for LED No. 9">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Dimmer for LED No. 10">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Dimmer for LED No. 11">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Dimmer for LED No. 12">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Dimmer for LED No. 13">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Dimmer for LED No. 14">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Dimmer for LED No. 15">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Dimmer for LED No. 16">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Dimmer for LED No. 17">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Dimmer for LED No. 18">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Dimmer for LED No. 19">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Dimmer for LED No. 20">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Dimmer for LED No. 21">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Dimmer for LED No. 22">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Dimmer for LED No. 23">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Dimmer for LED No. 24">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Dimmer for LED No. 25">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
+ <Channel Name="Dimmer for LED No. 1" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 2" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 3" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 4" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 5" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 6" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 7" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 8" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 9" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 10" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 11" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 12" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 13" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 14" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 15" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 16" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 17" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 18" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 19" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 20" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 21" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 22" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 23" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 24" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer for LED No. 25" Preset="IntensityDimmer"/>
  <Channel Name="Operating Mode (4-Channel Mode)">
   <Group Byte="0">Effect</Group>
   <Capability Min="1" Max="11">Preprogrammed automatic show no. 1</Capability>
@@ -212,28 +134,11 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Increasing</Capability>
  </Channel>
- <Channel Name="Strobe Effect">
-  <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="255">Increasing speed</Capability>
- </Channel>
+ <Channel Name="Strobe Effect" Preset="ShutterStrobeSlowFast"/>
  <Mode Name="1-Channel">
-  <Physical>
-   <Bulb Type="25 × 3 W LEDs (warm white)" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="10.2" Width="638" Height="664" Depth="114"/>
-   <Lens Name="Other" DegreesMin="55" DegreesMax="55"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="96" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
  </Mode>
  <Mode Name="26-Channel">
-  <Physical>
-   <Bulb Type="25 × 3 W LEDs (warm white)" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="10.2" Width="638" Height="664" Depth="114"/>
-   <Lens Name="Other" DegreesMin="55" DegreesMax="55"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="96" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Dimmer for LED No. 1</Channel>
   <Channel Number="2">Dimmer for LED No. 2</Channel>
@@ -337,13 +242,6 @@
   </Head>
  </Mode>
  <Mode Name="28-Channel">
-  <Physical>
-   <Bulb Type="25 × 3 W LEDs (warm white)" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="10.2" Width="638" Height="664" Depth="114"/>
-   <Lens Name="Other" DegreesMin="55" DegreesMax="55"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="96" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Dimmer for LED No. 1</Channel>
   <Channel Number="2">Dimmer for LED No. 2</Channel>
@@ -449,16 +347,16 @@
   </Head>
  </Mode>
  <Mode Name="4-Channel">
-  <Physical>
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Operating Mode (4-Channel Mode)</Channel>
+  <Channel Number="2">Speed</Channel>
+  <Channel Number="3">Strobe Effect</Channel>
+ </Mode>
+<Physical>
    <Bulb Type="25 × 3 W LEDs (warm white)" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="10.2" Width="638" Height="664" Depth="114"/>
    <Lens Name="Other" DegreesMin="55" DegreesMax="55"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="96" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Dimmer</Channel>
-  <Channel Number="1">Operating Mode (4-Channel Mode)</Channel>
-  <Channel Number="2">Speed</Channel>
-  <Channel Number="3">Strobe Effect</Channel>
- </Mode>
 </FixtureDefinition>

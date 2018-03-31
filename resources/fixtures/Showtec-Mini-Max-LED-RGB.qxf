@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,33 +9,12 @@
  <Manufacturer>Showtec</Manufacturer>
  <Model>Mini Max LED RGB</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan coarse">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">0° - 540°</Capability>
- </Channel>
- <Channel Name="Tilt coarse">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">0° - 230°</Capability>
- </Channel>
- <Channel Name="Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Fast - slow</Capability>
- </Channel>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Dark - Deep red</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Dark - Deep green</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Dark - Deep blue</Capability>
- </Channel>
+ <Channel Name="Pan coarse" Preset="PositionPan"/>
+ <Channel Name="Tilt coarse" Preset="PositionTilt"/>
+ <Channel Name="Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="RGB Control Mode">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="24">RGB</Capability>
@@ -49,31 +28,15 @@
   <Capability Min="200" Max="224">Auto Pro 8 No Pan/Tilt</Capability>
   <Capability Min="225" Max="255">Sound-active</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">black to bright</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe / Auto speed">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="7">Full on</Capability>
   <Capability Min="8" Max="255">Strobe, from slow to fast</Capability>
  </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">PAN Adjust 0° - 2,4°</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt Adjust 0° - 2,4°</Capability>
- </Channel>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="260" Height="350" Weight="5.68" Depth="220"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="9"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="230"/>
-   <Technical PowerConsumption="160" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan coarse</Channel>
   <Channel Number="1">Tilt coarse</Channel>
   <Channel Number="2">Speed</Channel>
@@ -86,4 +49,11 @@
   <Channel Number="9">Pan Fine</Channel>
   <Channel Number="10">Tilt Fine</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="260" Height="350" Weight="5.68" Depth="220"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="9"/>
+   <Focus PanMax="540" Type="Fixed" TiltMax="230"/>
+   <Technical PowerConsumption="160" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

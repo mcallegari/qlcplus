@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -52,25 +52,18 @@
   <Capability Max="255" Min="250">Sound active</Capability>
  </Channel>
  <Mode Name="1-Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Depth="214" Weight="1.8" Height="180" Width="220"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="27"/>
-  </Physical>
   <Channel Number="0">Function</Channel>
  </Mode>
  <Mode Name="3-Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Depth="214" Weight="1.8" Height="180" Width="220"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="27"/>
-  </Physical>
   <Channel Number="0">Dimmer/Strobe</Channel>
   <Channel Number="1">Color</Channel>
   <Channel Number="2">Rotation/Sound Active</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Depth="214" Weight="1.8" Height="180" Width="220"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="27"/>
+  </Physical>
 </FixtureDefinition>

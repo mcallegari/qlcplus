@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -44,10 +44,7 @@
   <Capability Min="192" Max="223">Random strobe speed</Capability>
   <Capability Min="224" Max="255">Shutter open, dimmer deactivation</Capability>
  </Channel>
- <Channel Name="Dimmer intensity">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer intensity</Capability>
- </Channel>
+ <Channel Name="Dimmer intensity" Preset="IntensityDimmer"/>
  <Channel Name="Lamp switch, reset, programs">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="15">Normal color change</Capability>
@@ -67,13 +64,6 @@
   <Capability Min="224" Max="239">Lamp off</Capability>
  </Channel>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="14" Width="380" Height="380" Depth="480"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="440" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Colour</Channel>
   <Channel Number="1">Effect</Channel>
   <Channel Number="2">Zoom</Channel>
@@ -81,4 +71,11 @@
   <Channel Number="4">Dimmer intensity</Channel>
   <Channel Number="5">Lamp switch, reset, programs</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="14" Width="380" Height="380" Depth="480"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="440" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

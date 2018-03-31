@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,11 @@
  <Manufacturer>American DJ</Manufacturer>
  <Model>Accu UFO</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
- </Channel>
- <Channel Name="Pan/Tilt Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">MAX - MIN</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Lens Indexing &amp; Rotation">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="3">Lens Indexing</Capability>
@@ -91,13 +80,6 @@
   <Capability Min="240" Max="255">Sound Active</Capability>
  </Channel>
  <Mode Name="10-CH Mode">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="452" Height="354" Weight="12.2" Depth="415"/>
-   <Lens DegreesMax="24" Name="Other" DegreesMin="24"/>
-   <Focus PanMax="360" Type="Head" TiltMax="265"/>
-   <Technical PowerConsumption="240" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -109,4 +91,11 @@
   <Channel Number="8">Strobing</Channel>
   <Channel Number="9">Reset &amp; Internal Programs</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="452" Height="354" Weight="12.2" Depth="415"/>
+   <Lens DegreesMax="24" Name="Other" DegreesMin="24"/>
+   <Focus PanMax="360" Type="Head" TiltMax="265"/>
+   <Technical PowerConsumption="240" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

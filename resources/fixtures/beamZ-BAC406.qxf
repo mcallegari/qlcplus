@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,40 +9,13 @@
  <Manufacturer>beamZ</Manufacturer>
  <Model>BAC406 ProPar 6x18W 6-1 Hex</Model>
  <Type>Color Changer</Type>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red Intensity</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green Intensity</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue Intensity</Capability>
- </Channel>
- <Channel Name="White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White Intensity</Capability>
- </Channel>
- <Channel Name="Amber">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Amber</Colour>
-  <Capability Min="0" Max="255">Amber Intensity</Capability>
- </Channel>
- <Channel Name="UV">
-  <Group Byte="0">Intensity</Group>
-  <Colour>UV</Colour>
-  <Capability Min="0" Max="255">UV Intensity</Capability>
- </Channel>
- <Channel Name="Dimming">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer Intensity</Capability>
- </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="UV" Preset="IntensityUV"/>
+ <Channel Name="Dimming" Preset="IntensityDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="9">No Function</Capability>
@@ -88,13 +61,6 @@
   <Capability Min="250" Max="255" Res="Others/rainbow.png">Red +Green +Blue + White + Amber +UV</Capability>
  </Channel>
  <Mode Name="10 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="1.85" Width="147" Height="205" Depth="160"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="72" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
@@ -107,16 +73,16 @@
   <Channel Number="9">Speed</Channel>
  </Mode>
  <Mode Name="4 Channel">
-  <Physical>
+  <Channel Number="0">Colour</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Mode</Channel>
+  <Channel Number="3">Speed</Channel>
+ </Mode>
+<Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="1.85" Width="147" Height="205" Depth="160"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="72" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Colour</Channel>
-  <Channel Number="1">Strobe</Channel>
-  <Channel Number="2">Mode</Channel>
-  <Channel Number="3">Speed</Channel>
- </Mode>
 </FixtureDefinition>

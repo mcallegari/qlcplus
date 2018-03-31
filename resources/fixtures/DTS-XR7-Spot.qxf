@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>DTS</Manufacturer>
  <Model>XR7 Spot</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan (0 - 540°)</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt (0 - 319°)</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Movement speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="10">Standard</Capability>
@@ -138,10 +126,7 @@
   <Capability Min="128" Max="191">Left rotation</Capability>
   <Capability Min="192" Max="255">Right rotation</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="255">Proportional</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Light beam angle">
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="84">No lens 13°</Capability>
@@ -191,13 +176,6 @@
   <Capability Min="219" Max="255">Frost</Capability>
  </Channel>
  <Mode Name="8 channels">
-  <Physical>
-   <Bulb Type="MSR 575/2 W" Lumens="49000" ColourTemperature="7200"/>
-   <Dimensions Weight="26" Width="450" Height="660" Depth="360"/>
-   <Lens Name="Other" DegreesMin="13" DegreesMax="21"/>
-   <Focus Type="Head" PanMax="540" TiltMax="319"/>
-   <Technical PowerConsumption="800" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Gobo rotation</Channel>
   <Channel Number="1">Color</Channel>
   <Channel Number="2">Gobo wheel</Channel>
@@ -208,13 +186,6 @@
   <Channel Number="7">Focus / light beam angle / frost</Channel>
  </Mode>
  <Mode Name="10 channels">
-  <Physical>
-   <Bulb Type="MSR 575/2 W" Lumens="49000" ColourTemperature="7200"/>
-   <Dimensions Weight="26" Width="450" Height="660" Depth="360"/>
-   <Lens Name="Other" DegreesMin="13" DegreesMax="21"/>
-   <Focus Type="Head" PanMax="540" TiltMax="319"/>
-   <Technical PowerConsumption="800" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Gobo rotation</Channel>
   <Channel Number="1">Color</Channel>
   <Channel Number="2">Gobo wheel</Channel>
@@ -227,13 +198,6 @@
   <Channel Number="9">Tilt Fine</Channel>
  </Mode>
  <Mode Name="16 channels">
-  <Physical>
-   <Bulb Type="MSR 575/2 W" Lumens="49000" ColourTemperature="7200"/>
-   <Dimensions Weight="26" Width="450" Height="660" Depth="360"/>
-   <Lens Name="Other" DegreesMin="13" DegreesMax="21"/>
-   <Focus Type="Head" PanMax="540" TiltMax="319"/>
-   <Technical PowerConsumption="800" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -251,4 +215,11 @@
   <Channel Number="14">Frost (priority)</Channel>
   <Channel Number="15">Reset</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="MSR 575/2 W" Lumens="49000" ColourTemperature="7200"/>
+   <Dimensions Weight="26" Width="450" Height="660" Depth="360"/>
+   <Lens Name="Other" DegreesMin="13" DegreesMax="21"/>
+   <Focus Type="Head" PanMax="540" TiltMax="319"/>
+   <Technical PowerConsumption="800" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

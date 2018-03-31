@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -98,10 +98,7 @@
   <Capability Min="154" Max="204" Color="#0000ff">Blue</Capability>
   <Capability Min="205" Max="255" Color="#aaaaff">UV</Capability>
  </Channel>
- <Channel Name="Wash Strobe">
-  <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="255">Strobe speed (slow to fast)</Capability>
- </Channel>
+ <Channel Name="Wash Strobe" Preset="ShutterStrobeSlowFast"/>
  <Channel Name="Derby">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="9" Color="#000000">Blackout</Capability>
@@ -194,13 +191,6 @@
   <Capability Min="134" Max="255">Rotate left (slow to fast)</Capability>
  </Channel>
  <Mode Name="18 Channel">
-  <Physical>
-   <Bulb Type="" Lumens="5262" ColourTemperature="0"/>
-   <Dimensions Weight="4.2" Width="332" Height="334" Depth="241"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="82"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Auto Programs</Channel>
   <Channel Number="1">Auto Program Speed/Sound Active Mode</Channel>
   <Channel Number="2">Wash Group 1</Channel>
@@ -245,14 +235,14 @@
   </Head>
  </Mode>
  <Mode Name="2 Channel">
-  <Physical>
+  <Channel Number="0">Auto Programs</Channel>
+  <Channel Number="1">Auto Program Speed/Sound Active Mode</Channel>
+ </Mode>
+<Physical>
    <Bulb Type="" Lumens="5262" ColourTemperature="0"/>
    <Dimensions Weight="4.2" Width="332" Height="334" Depth="241"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="82"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="40" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Auto Programs</Channel>
-  <Channel Number="1">Auto Program Speed/Sound Active Mode</Channel>
- </Mode>
 </FixtureDefinition>

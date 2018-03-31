@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -34,44 +34,14 @@
   <Capability Min="243" Max="247">700 W mode</Capability>
   <Capability Min="248" Max="255">Lamp off</Capability>
  </Channel>
- <Channel Name="Dimmer (MSB)">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Closed -&gt; open</Capability>
- </Channel>
- <Channel Name="Dimmer, fine (LSB)">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255"/>
- </Channel>
- <Channel Name="Cyan (MSB)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">White -&gt; Full Cyan</Capability>
- </Channel>
- <Channel Name="Cyan, fine (LSB)">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">Cyan fine</Capability>
- </Channel>
- <Channel Name="Magenta (MSB)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">White -&gt; Full Magenta</Capability>
- </Channel>
- <Channel Name="Magenta, fine (LSB)">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">Magenta fine</Capability>
- </Channel>
- <Channel Name="Yellow (MSB)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">White -&gt; Full Yellow</Capability>
- </Channel>
- <Channel Name="Yellow, fine (LSB)">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">Yellow fine</Capability>
- </Channel>
+ <Channel Name="Dimmer (MSB)" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer, fine (LSB)" Preset="IntensityDimmerFine"/>
+ <Channel Name="Cyan (MSB)" Preset="IntensityCyan"/>
+ <Channel Name="Cyan, fine (LSB)" Preset="IntensityCyanFine"/>
+ <Channel Name="Magenta (MSB)" Preset="IntensityMagenta"/>
+ <Channel Name="Magenta, fine (LSB)" Preset="IntensityMagentaFine"/>
+ <Channel Name="Yellow (MSB)" Preset="IntensityYellow"/>
+ <Channel Name="Yellow, fine (LSB)" Preset="IntensityYellowFine"/>
  <Channel Name="Color Wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="0" Color="#ffffff">Open</Capability>
@@ -108,10 +78,7 @@
   <Capability Min="246" Max="250">Random Medium</Capability>
   <Capability Min="251" Max="255">Random Slow</Capability>
  </Channel>
- <Channel Name="Color Wheel, Fine">
-  <Group Byte="1">Colour</Group>
-  <Capability Min="0" Max="255">Color wheel fine</Capability>
- </Channel>
+ <Channel Name="Color Wheel, Fine" Preset="ColorWheelFine"/>
  <Channel Name="Gobo1">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="11" Res="Others/open.png">Open - Indexed</Capability>
@@ -149,10 +116,7 @@
   <Capability Min="128" Max="252">CCW, fast -&gt; slow</Capability>
   <Capability Min="253" Max="255">No rotation</Capability>
  </Channel>
- <Channel Name="Rotating Gobo, fine indexing">
-  <Group Byte="1">Gobo</Group>
-  <Capability Min="0" Max="255">Rotating gobo, fine indexing</Capability>
- </Channel>
+ <Channel Name="Rotating Gobo, fine indexing" Preset="GoboIndexFine"/>
  <Channel Name="Gobo2">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="0" Res="Others/open.png">Open</Capability>
@@ -227,42 +191,21 @@
   <Capability Min="250" Max="252">Random closing pulse, fast</Capability>
   <Capability Min="253" Max="255">Random closing pulse, slow</Capability>
  </Channel>
- <Channel Name="Iris, fine (LSB)">
-  <Group Byte="1">Beam</Group>
-  <Capability Min="0" Max="255">Iris fine</Capability>
- </Channel>
- <Channel Name="Focus (MSB)">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Infinity-&gt;near</Capability>
- </Channel>
+ <Channel Name="Iris, fine (LSB)" Preset="BeamIrisFine"/>
+ <Channel Name="Focus (MSB)" Preset="BeamFocusFarNear"/>
  <Channel Name="Focus, fine (LSB)">
   <Group Byte="1">Beam</Group>
   <Capability Min="0" Max="255">Focus fine</Capability>
  </Channel>
- <Channel Name="Zoom (MSB)">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Flood-&gt;Spot</Capability>
- </Channel>
+ <Channel Name="Zoom (MSB)" Preset="BeamZoomBigSmall"/>
  <Channel Name="Zoom, fine (LSB)">
   <Group Byte="1">Beam</Group>
   <Capability Min="0" Max="255">Zoom fine</Capability>
  </Channel>
- <Channel Name="Pan (MSB)">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan coarse</Capability>
- </Channel>
- <Channel Name="Pan, fine (LSB)">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine</Capability>
- </Channel>
- <Channel Name="Tilt (MSB)">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt coarse</Capability>
- </Channel>
- <Channel Name="Tilt, fine (LSB)">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine</Capability>
- </Channel>
+ <Channel Name="Pan (MSB)" Preset="PositionPan"/>
+ <Channel Name="Pan, fine (LSB)" Preset="PositionPanFine"/>
+ <Channel Name="Tilt (MSB)" Preset="PositionTilt"/>
+ <Channel Name="Tilt, fine (LSB)" Preset="PositionTiltFine"/>
  <Channel Name="Pan/tilt speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="2">Tracking</Capability>
@@ -277,13 +220,6 @@
   <Capability Min="0" Max="255">See Manual</Capability>
  </Channel>
  <Mode Name="16-bit Basic">
-  <Physical>
-   <Bulb Type="HTI 700W" Lumens="16700" ColourTemperature="7500"/>
-   <Dimensions Weight="34.5" Width="365" Height="636" Depth="450"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Head" PanMax="540" TiltMax="246"/>
-   <Technical PowerConsumption="1019" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Shutter, Strobe, Functions</Channel>
   <Channel Number="1">Dimmer (MSB)</Channel>
   <Channel Number="2">Cyan (MSB)</Channel>
@@ -309,13 +245,6 @@
   <Channel Number="22">Effects Speed</Channel>
  </Mode>
  <Mode Name="16-bit Extended Mode">
-  <Physical>
-   <Bulb Type="HTI 700W" Lumens="16700" ColourTemperature="7500"/>
-   <Dimensions Weight="34.5" Width="365" Height="636" Depth="450"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Head" PanMax="540" TiltMax="246"/>
-   <Technical PowerConsumption="1019" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Shutter, Strobe, Functions</Channel>
   <Channel Number="1">Dimmer (MSB)</Channel>
   <Channel Number="2">Dimmer, fine (LSB)</Channel>
@@ -348,4 +277,11 @@
   <Channel Number="29">Pan/tilt speed</Channel>
   <Channel Number="30">Effects Speed</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="HTI 700W" Lumens="16700" ColourTemperature="7500"/>
+   <Dimensions Weight="34.5" Width="365" Height="636" Depth="450"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="540" TiltMax="246"/>
+   <Technical PowerConsumption="1019" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
 </FixtureDefinition>

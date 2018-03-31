@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -52,26 +52,19 @@
   <Capability Min="254" Max="255">Fast Strobe</Capability>
  </Channel>
  <Mode Name="1 CE (2 Channels)">
-  <Physical>
-   <Bulb Lumens="0" Type="A1/259" ColourTemperature="0"/>
-   <Dimensions Weight="5" Width="200" Height="200" Depth="400"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="250"/>
-  </Physical>
   <Channel Number="0">Rotation</Channel>
   <Channel Number="1">Gobo/Colour</Channel>
  </Mode>
  <Mode Name="HP (3 Channels)">
-  <Physical>
+  <Channel Number="0">Rotation</Channel>
+  <Channel Number="1">Gobo/Colour</Channel>
+  <Channel Number="2">Shutter</Channel>
+ </Mode>
+<Physical>
    <Bulb Lumens="0" Type="A1/259" ColourTemperature="0"/>
    <Dimensions Weight="5" Width="200" Height="200" Depth="400"/>
    <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
    <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
    <Technical DmxConnector="3-pin" PowerConsumption="250"/>
   </Physical>
-  <Channel Number="0">Rotation</Channel>
-  <Channel Number="1">Gobo/Colour</Channel>
-  <Channel Number="2">Shutter</Channel>
- </Mode>
 </FixtureDefinition>

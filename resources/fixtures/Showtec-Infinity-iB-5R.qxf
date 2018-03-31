@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,34 +9,13 @@
  <Manufacturer>Showtec</Manufacturer>
  <Model>Infinity iB-5R</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan 0 - 540°</Capability>
- </Channel>
- <Channel Name="Pan fine 16 bit">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt 0 - 270°</Capability>
- </Channel>
- <Channel Name="Tilt fine 16 bit">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="Pan/Tilt Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Pan/TIlt Speed</Capability>
- </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="Dimmer Fine">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">From black to brightest</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine 16 bit" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine 16 bit" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer Fine" Preset="IntensityDimmerFine"/>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="7">Close</Capability>
@@ -128,10 +107,7 @@
   <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="255">Prism enlarge from big to small</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">0~100%</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Frost">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="255">Frost Effect</Capability>
@@ -203,13 +179,6 @@
   <Capability Min="248" Max="255">XY Smoothing model to shut down</Capability>
  </Channel>
  <Mode Name="15 Channel (Basic)">
-  <Physical>
-   <Bulb Type="Osram Sirius 230W" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="20.5" Width="346" Height="417" Depth="490"/>
-   <Lens Name="Other" DegreesMin="1" DegreesMax="3.8"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="385" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan fine 16 bit</Channel>
@@ -227,13 +196,6 @@
   <Channel Number="14">Channel Functions</Channel>
  </Mode>
  <Mode Name="18 Channel (Advanced)">
-  <Physical>
-   <Bulb Type="Osram Sirius 230W" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="20.5" Width="346" Height="417" Depth="490"/>
-   <Lens Name="Other" DegreesMin="1" DegreesMax="3.8"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="385" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan fine 16 bit</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -253,4 +215,11 @@
   <Channel Number="16">Built-in Programs</Channel>
   <Channel Number="17">Built-in Speed</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="Osram Sirius 230W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="20.5" Width="346" Height="417" Depth="490"/>
+   <Lens Name="Other" DegreesMin="1" DegreesMax="3.8"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="385" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
 </FixtureDefinition>

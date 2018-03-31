@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -33,10 +33,7 @@
   <Capability Min="238" Max="247">Shutter open</Capability>
   <Capability Min="248" Max="255">Lamp off</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Closed -&gt; open</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Color Wheel Scrolling and Rotation, Random CMY">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="0" Color="#ffffff">White (open)</Capability>
@@ -60,22 +57,10 @@
   <Capability Min="249" Max="251" Res="Others/rainbow.png">Random color, medium</Capability>
   <Capability Min="252" Max="255" Res="Others/rainbow.png">Random color, slow</Capability>
  </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Left -&gt; right</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Up -&gt; down</Capability>
- </Channel>
- <Channel Name="Pan Fine (Least Significant Bit)">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">0 - 100%</Capability>
- </Channel>
- <Channel Name="Tilt Fine (Least Significant Bit)">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">0 - 100%</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan Fine (Least Significant Bit)" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Fine (Least Significant Bit)" Preset="PositionTiltFine"/>
  <Channel Name="Pan/tilt Speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="2">Tracking</Capability>
@@ -93,14 +78,8 @@
   <Capability Min="249" Max="251">Tracking, SCUT ON (overrides control menu)/Tracking</Capability>
   <Capability Min="252" Max="255">Vector speed, fast/Blackout while moving</Capability>
  </Channel>
- <Channel Name="Dimmer fine (Least Significant Byte)">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">Closed -&gt; open</Capability>
- </Channel>
- <Channel Name="Color Fine (Least Significant Byte)">
-  <Group Byte="1">Colour</Group>
-  <Capability Min="0" Max="255">0 - 100%</Capability>
- </Channel>
+ <Channel Name="Dimmer fine (Least Significant Byte)" Preset="IntensityDimmerFine"/>
+ <Channel Name="Color Fine (Least Significant Byte)" Preset="ColorWheelFine"/>
  <Channel Name="Cyan/Random CMY">
   <Group Byte="0">Intensity</Group>
   <Colour>Cyan</Colour>
@@ -109,11 +88,7 @@
   <Capability Min="128" Max="254">White -&gt; full cyan/Maximum cyan setting</Capability>
   <Capability Min="255" Max="255">White -&gt; full cyan/Normal</Capability>
  </Channel>
- <Channel Name="Cyan Fine">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">Least significant bit</Capability>
- </Channel>
+ <Channel Name="Cyan Fine" Preset="IntensityCyanFine"/>
  <Channel Name="Magenta/Random CMY">
   <Group Byte="0">Intensity</Group>
   <Colour>Magenta</Colour>
@@ -122,11 +97,7 @@
   <Capability Min="128" Max="254">White -&gt; full magenta/Maximum magenta setting</Capability>
   <Capability Min="255" Max="255">White -&gt; full magenta/Normal</Capability>
  </Channel>
- <Channel Name="Magenta Fine">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">Least significant bit</Capability>
- </Channel>
+ <Channel Name="Magenta Fine" Preset="IntensityMagentaFine"/>
  <Channel Name="Yellow/Random CMY">
   <Group Byte="0">Intensity</Group>
   <Colour>Yellow</Colour>
@@ -135,11 +106,7 @@
   <Capability Min="128" Max="254">White -&gt; full yellow/Maximum yellow setting</Capability>
   <Capability Min="255" Max="255">White -&gt; full yellow/Normal</Capability>
  </Channel>
- <Channel Name="Yellow Fine">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">Least significant bit</Capability>
- </Channel>
+ <Channel Name="Yellow Fine" Preset="IntensityYellowFine"/>
  <Channel Name="Frost Filter">
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="255">Open (off) -&gt; full</Capability>
@@ -149,13 +116,6 @@
   <Capability Min="0" Max="255">0 - 100%</Capability>
  </Channel>
  <Mode Name="16 Bt (16 Bit Mode)">
-  <Physical>
-   <Bulb Type="MSD 250W" Lumens="7700" ColourTemperature="8500"/>
-   <Dimensions Weight="22" Width="393" Height="538" Depth="375"/>
-   <Lens Name="PC" DegreesMin="25.9" DegreesMax="25.9"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="326" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Shutter, Strobe, Reset, Lamp On/Off</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Cyan/Random CMY</Channel>
@@ -171,13 +131,6 @@
   <Channel Number="12">Effects Speed</Channel>
  </Mode>
  <Mode Name="16 Ex (16 Bit Extended)">
-  <Physical>
-   <Bulb Type="MSD 250W" Lumens="7700" ColourTemperature="8500"/>
-   <Dimensions Weight="22" Width="393" Height="538" Depth="375"/>
-   <Lens Name="PC" DegreesMin="25.9" DegreesMax="25.9"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="326" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Shutter, Strobe, Reset, Lamp On/Off</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Dimmer fine (Least Significant Byte)</Channel>
@@ -198,4 +151,11 @@
   <Channel Number="17">Pan/tilt Speed</Channel>
   <Channel Number="18">Effects Speed</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="MSD 250W" Lumens="7700" ColourTemperature="8500"/>
+   <Dimensions Weight="22" Width="393" Height="538" Depth="375"/>
+   <Lens Name="PC" DegreesMin="25.9" DegreesMax="25.9"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="326" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
 </FixtureDefinition>

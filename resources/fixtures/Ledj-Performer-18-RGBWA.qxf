@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,10 +9,7 @@
  <Manufacturer>Ledj</Manufacturer>
  <Model>Performer 18 RGBWA</Model>
  <Type>Other</Type>
- <Channel Name="Master dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Master dimmer</Capability>
- </Channel>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobe speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Strobe speed (slow to fast)</Capability>
@@ -29,39 +26,12 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Chase/fade speed</Capability>
  </Channel>
- <Channel Name="Red intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red intensity</Capability>
- </Channel>
- <Channel Name="Green intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green intensity</Capability>
- </Channel>
- <Channel Name="Blue intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue intensity</Capability>
- </Channel>
- <Channel Name="White intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White intensity</Capability>
- </Channel>
- <Channel Name="Amber intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Amber</Colour>
-  <Capability Min="0" Max="255">Amber intensity</Capability>
- </Channel>
+ <Channel Name="Red intensity" Preset="IntensityRed"/>
+ <Channel Name="Green intensity" Preset="IntensityGreen"/>
+ <Channel Name="Blue intensity" Preset="IntensityBlue"/>
+ <Channel Name="White intensity" Preset="IntensityWhite"/>
+ <Channel Name="Amber intensity" Preset="IntensityAmber"/>
  <Mode Name="9 channel">
-  <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Weight="2.6" Width="297" Depth="325" Height="255"/>
-   <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
-   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
-   <Technical PowerConsumption="190" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Master dimmer</Channel>
   <Channel Number="1">Strobe speed</Channel>
   <Channel Number="2">Programme</Channel>
@@ -73,17 +43,17 @@
   <Channel Number="8">Amber intensity</Channel>
  </Mode>
  <Mode Name="5 channel">
-  <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Weight="2.6" Width="297" Depth="325" Height="255"/>
-   <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
-   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
-   <Technical PowerConsumption="190" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red intensity</Channel>
   <Channel Number="1">Green intensity</Channel>
   <Channel Number="2">Blue intensity</Channel>
   <Channel Number="3">White intensity</Channel>
   <Channel Number="4">Amber intensity</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
+   <Dimensions Weight="2.6" Width="297" Depth="325" Height="255"/>
+   <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
+   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
+   <Technical PowerConsumption="190" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

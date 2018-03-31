@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -111,13 +111,6 @@
   <Capability Min="241" Max="255">No effect</Capability>
  </Channel>
  <Mode Name="11 Channel">
-  <Physical>
-   <Bulb Type="MSR 575W" Lumens="46000" ColourTemperature="6000"/>
-   <Dimensions Weight="35" Width="473" Height="598" Depth="660"/>
-   <Lens Name="PC" DegreesMin="10" DegreesMax="16"/>
-   <Focus Type="Mirror" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="635" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Lamp ON/OFF</Channel>
   <Channel Number="1">Blackout Dimmer Strobo</Channel>
   <Channel Number="2">Color Wheel</Channel>
@@ -130,4 +123,11 @@
   <Channel Number="9">Zap effects</Channel>
   <Channel Number="10">Shake effects</Channel>
  </Mode>
-</FixtureDefinition>
+<Physical>
+   <Bulb Type="MSR 575W" Lumens="46000" ColourTemperature="6000"/>
+   <Dimensions Weight="35" Width="473" Height="598" Depth="660"/>
+   <Lens Name="PC" DegreesMin="10" DegreesMax="16"/>
+   <Focus Type="Mirror" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="635" DmxConnector="3-pin"/>
+  </Physical>
+  <Physical/></FixtureDefinition>

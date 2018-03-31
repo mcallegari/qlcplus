@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>Robe</Manufacturer>
  <Model>ClubWash 600 CT</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Max="255" Min="0">Movement by 530°</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Max="255" Min="0">Fine control of movement</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Max="255" Min="0">Movement by 280°</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Max="255" Min="0">Fine control of movement</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Pan/Tilt Speed">
   <Group Byte="0">Speed</Group>
   <Capability Max="0" Min="0">Max. speed (tracking mode)</Capability>
@@ -66,25 +54,10 @@
   <Capability Max="223" Min="192">Random strobe effect from slow to fast</Capability>
   <Capability Max="255" Min="224">Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Max="255" Min="0">From closed to 100% light output</Capability>
- </Channel>
- <Channel Name="Cyan">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Max="255" Min="0">0-white, 255-full</Capability>
- </Channel>
- <Channel Name="Magenta">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Max="255" Min="0">0-white, 255-full</Capability>
- </Channel>
- <Channel Name="Yellow">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Max="255" Min="0">0-white, 255-full</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
  <Channel Name="Speed of CMY and Dimmer">
   <Group Byte="0">Speed</Group>
   <Capability Max="255" Min="0">From max. speed to min. speed</Capability>
@@ -135,13 +108,6 @@
   <Capability Max="255" Min="0">Zoom from 28° to 7°</Capability>
  </Channel>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb ColourTemperature="0" Type="MSR 575W" Lumens="0"/>
-   <Dimensions Weight="32.6" Width="362" Height="576" Depth="465"/>
-   <Lens DegreesMin="7" Name="Fresnel" DegreesMax="28"/>
-   <Focus PanMax="530" Type="Head" TiltMax="280"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="710"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan Fine</Channel>
@@ -160,13 +126,6 @@
   <Channel Number="15">Dimmer</Channel>
  </Mode>
  <Mode Name="Mode 2">
-  <Physical>
-   <Bulb ColourTemperature="0" Type="MSR 575W" Lumens="0"/>
-   <Dimensions Weight="32.6" Width="362" Height="576" Depth="465"/>
-   <Lens DegreesMin="7" Name="Fresnel" DegreesMax="28"/>
-   <Focus PanMax="530" Type="Head" TiltMax="280"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="710"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -185,13 +144,6 @@
   <Channel Number="15">Dimmer</Channel>
  </Mode>
  <Mode Name="8 Bit">
-  <Physical>
-   <Bulb ColourTemperature="0" Type="MSR 575W" Lumens="0"/>
-   <Dimensions Weight="32.6" Width="362" Height="576" Depth="465"/>
-   <Lens DegreesMin="7" Name="Fresnel" DegreesMax="28"/>
-   <Focus PanMax="530" Type="Head" TiltMax="280"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="710"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan/Tilt Speed</Channel>
@@ -207,4 +159,11 @@
   <Channel Number="12">Shutter, Strobe</Channel>
   <Channel Number="13">Dimmer</Channel>
  </Mode>
+<Physical>
+   <Bulb ColourTemperature="0" Type="MSR 575W" Lumens="0"/>
+   <Dimensions Weight="32.6" Width="362" Height="576" Depth="465"/>
+   <Lens DegreesMin="7" Name="Fresnel" DegreesMax="28"/>
+   <Focus PanMax="530" Type="Head" TiltMax="280"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="710"/>
+  </Physical>
 </FixtureDefinition>

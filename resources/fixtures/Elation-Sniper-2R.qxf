@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>Elation</Manufacturer>
  <Model>Sniper 2R</Model>
  <Type>Scanner</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">PAN Movement</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">PAN Movement FINE [16bit]</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">TILT Movement</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">TILT Movement FINE</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Colors">
   <Group Byte="0">Colour</Group>
   <Capability Color="#ffffff" Min="0" Max="2">White</Capability>
@@ -159,10 +147,7 @@
   <Capability Min="190" Max="193">Stop</Capability>
   <Capability Min="194" Max="255">Counterclockwise PRISM Rotation SLOW to FAST</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer Intensity 0 to 100%</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Functions">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="39">No Function</Capability>
@@ -219,13 +204,6 @@
   <Capability Min="248" Max="255">Open</Capability>
  </Channel>
  <Mode Name="Mode 14 chanels">
-  <Physical>
-   <Bulb Type="132W Platinum 2R" Lumens="45000" ColourTemperature="0"/>
-   <Dimensions Height="295" Width="305" Depth="361" Weight="9.5"/>
-   <Lens DegreesMin="0" DegreesMax="3" Name="Other"/>
-   <Focus TiltMax="180" PanMax="180" Type="Mirror"/>
-   <Technical PowerConsumption="220" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Pan 1</Channel>
   <Channel Number="1">Tilt 1</Channel>
   <Channel Number="2">Colors</Channel>
@@ -242,13 +220,6 @@
   <Channel Number="13">Functions</Channel>
  </Mode>
  <Mode Name="Mode 16 chanels">
-  <Physical>
-   <Bulb Type="132W Platinum 2R" Lumens="45000" ColourTemperature="0"/>
-   <Dimensions Height="295" Width="305" Depth="361" Weight="9.5"/>
-   <Lens DegreesMin="0" DegreesMax="3" Name="Other"/>
-   <Focus TiltMax="180" PanMax="180" Type="Mirror"/>
-   <Technical PowerConsumption="220" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Pan 1</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt 1</Channel>
@@ -267,13 +238,6 @@
   <Channel Number="15">Functions</Channel>
  </Mode>
  <Mode Name="Mode 18 chanels">
-  <Physical>
-   <Bulb Type="132W Platinum 2R" Lumens="45000" ColourTemperature="0"/>
-   <Dimensions Height="295" Width="305" Depth="361" Weight="9.5"/>
-   <Lens DegreesMin="0" DegreesMax="3" Name="Other"/>
-   <Focus TiltMax="180" PanMax="180" Type="Mirror"/>
-   <Technical PowerConsumption="220" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -294,13 +258,6 @@
   <Channel Number="17">Shutter - Strobe</Channel>
  </Mode>
  <Mode Name="Mode 20 chanels">
-  <Physical>
-   <Bulb Type="132W Platinum 2R" Lumens="45000" ColourTemperature="0"/>
-   <Dimensions Height="295" Width="305" Depth="361" Weight="9.5"/>
-   <Lens DegreesMin="0" DegreesMax="3" Name="Other"/>
-   <Focus TiltMax="180" PanMax="180" Type="Mirror"/>
-   <Technical PowerConsumption="220" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -322,4 +279,11 @@
   <Channel Number="18">Pan Shaking Movement Range</Channel>
   <Channel Number="19">Tilt Shaking Movement Range</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="132W Platinum 2R" Lumens="45000" ColourTemperature="0"/>
+   <Dimensions Height="295" Width="305" Depth="361" Weight="9.5"/>
+   <Lens DegreesMin="0" DegreesMax="3" Name="Other"/>
+   <Focus TiltMax="180" PanMax="180" Type="Mirror"/>
+   <Technical PowerConsumption="220" DmxConnector="5-pin"/>
+  </Physical>
 </FixtureDefinition>

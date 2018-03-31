@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -42,21 +42,18 @@
   <Capability Min="240" Max="247">Random strobe-effect</Capability>
   <Capability Min="248" Max="255">Shutter Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment of the dimmer intensity, 0 to 100%</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Mode Name="4 Channel">
-  <Physical>
+  <Channel Number="0">Gobo</Channel>
+  <Channel Number="1">Effect Wheel</Channel>
+  <Channel Number="2">Shutter/Strobe</Channel>
+  <Channel Number="3">Dimmer</Channel>
+ </Mode>
+<Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="4" Width="235" Height="210" Depth="370"/>
    <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="82" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Gobo</Channel>
-  <Channel Number="1">Effect Wheel</Channel>
-  <Channel Number="2">Shutter/Strobe</Channel>
-  <Channel Number="3">Dimmer</Channel>
- </Mode>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -63,13 +63,6 @@
   <Capability Min="10" Max="255">Slow to Fast</Capability>
  </Channel>
  <Mode Name="8 channel">
-  <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
-   <Dimensions Depth="202" Weight="3" Width="256" Height="102"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus PanMax="120" Type="Mirror" TiltMax="120"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="20"/>
-  </Physical>
   <Channel Number="0">Mode</Channel>
   <Channel Number="1">Effects</Channel>
   <Channel Number="2">Vibration</Channel>
@@ -79,4 +72,11 @@
   <Channel Number="6">Color</Channel>
   <Channel Number="7">Strobe</Channel>
  </Mode>
+<Physical>
+   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
+   <Dimensions Depth="202" Weight="3" Width="256" Height="102"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus PanMax="120" Type="Mirror" TiltMax="120"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="20"/>
+  </Physical>
 </FixtureDefinition>

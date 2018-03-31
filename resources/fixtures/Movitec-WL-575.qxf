@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>Movitec</Manufacturer>
  <Model>WL-575</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Pan fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Tilt fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
  <Channel Name="Speed of movement">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="0">Tracking mode</Capability>
@@ -54,21 +42,9 @@
   <Capability Min="193" Max="255">Backwards rainbow speed</Capability>
   <Capability Min="64" Max="79">Orange</Capability>
  </Channel>
- <Channel Name="Cyan">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">Cyan level</Capability>
- </Channel>
- <Channel Name="Magenta">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">Magenta level</Capability>
- </Channel>
- <Channel Name="Yellow">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">Yellow level</Capability>
- </Channel>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
  <Channel Name="Speed of CMY and Dimmer">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Speed of CMY and Dimmer</Capability>
@@ -129,18 +105,8 @@
   <Capability Min="192" Max="223">Random strobe speed</Capability>
   <Capability Min="224" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer intensity</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Mode Name="16bit">
-  <Physical>
-   <Bulb Lumens="43000" Type="HTI 575W" ColourTemperature="7500"/>
-   <Dimensions Width="449" Height="580" Weight="38" Depth="467"/>
-   <Lens DegreesMax="28" Name="Other" DegreesMin="7"/>
-   <Focus PanMax="530" Type="Head" TiltMax="280"/>
-   <Technical PowerConsumption="850" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -159,13 +125,6 @@
   <Channel Number="15">Dimmer</Channel>
  </Mode>
  <Mode Name="8bit">
-  <Physical>
-   <Bulb Lumens="43000" Type="HTI 575W" ColourTemperature="7500"/>
-   <Dimensions Width="449" Height="580" Weight="38" Depth="467"/>
-   <Lens DegreesMax="28" Name="Other" DegreesMin="7"/>
-   <Focus PanMax="530" Type="Head" TiltMax="280"/>
-   <Technical PowerConsumption="850" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Speed of movement</Channel>
@@ -181,4 +140,11 @@
   <Channel Number="12">Shutter, strobe</Channel>
   <Channel Number="13">Dimmer</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="43000" Type="HTI 575W" ColourTemperature="7500"/>
+   <Dimensions Width="449" Height="580" Weight="38" Depth="467"/>
+   <Lens DegreesMax="28" Name="Other" DegreesMin="7"/>
+   <Focus PanMax="530" Type="Head" TiltMax="280"/>
+   <Technical PowerConsumption="850" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

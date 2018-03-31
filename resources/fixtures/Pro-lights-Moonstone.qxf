@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,26 +9,11 @@
  <Manufacturer>Pro-Lights</Manufacturer>
  <Model>Moonstone</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">0~100%</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">0~100%</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">0~100%</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">0~100%</Capability>
- </Channel>
- <Channel Name="Movement Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Fast to slow</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Movement Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Movement Function">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="15">Normal</Capability>
@@ -60,10 +45,7 @@
   <Capability Min="32" Max="223">Strobe rate (slow to fast)</Capability>
   <Capability Min="224" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Closed to open</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Color Function">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="15">Indexed</Capability>
@@ -324,13 +306,6 @@
   <Capability Min="96" Max="255">TBD</Capability>
  </Channel>
  <Mode Name="14 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="5000" ColourTemperature="0"/>
-   <Dimensions Weight="13" Width="338" Height="472" Depth="235"/>
-   <Lens Name="Other" DegreesMin="12" DegreesMax="12"/>
-   <Focus Type="Head" PanMax="630" TiltMax="265"/>
-   <Technical PowerConsumption="210" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Movement Speed</Channel>
@@ -347,13 +322,6 @@
   <Channel Number="13">Control</Channel>
  </Mode>
  <Mode Name="16 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="5000" ColourTemperature="0"/>
-   <Dimensions Weight="13" Width="338" Height="472" Depth="235"/>
-   <Lens Name="Other" DegreesMin="12" DegreesMax="12"/>
-   <Focus Type="Head" PanMax="630" TiltMax="265"/>
-   <Technical PowerConsumption="210" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -372,13 +340,6 @@
   <Channel Number="15">Control</Channel>
  </Mode>
  <Mode Name="21 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="5000" ColourTemperature="0"/>
-   <Dimensions Weight="13" Width="338" Height="472" Depth="235"/>
-   <Lens Name="Other" DegreesMin="12" DegreesMax="12"/>
-   <Focus Type="Head" PanMax="630" TiltMax="265"/>
-   <Technical PowerConsumption="210" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Movement Speed</Channel>
@@ -402,13 +363,6 @@
   <Channel Number="20">Control</Channel>
  </Mode>
  <Mode Name="24 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="5000" ColourTemperature="0"/>
-   <Dimensions Weight="13" Width="338" Height="472" Depth="235"/>
-   <Lens Name="Other" DegreesMin="12" DegreesMax="12"/>
-   <Focus Type="Head" PanMax="630" TiltMax="265"/>
-   <Technical PowerConsumption="210" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -434,4 +388,11 @@
   <Channel Number="22">Iris</Channel>
   <Channel Number="23">Control</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="5000" ColourTemperature="0"/>
+   <Dimensions Weight="13" Width="338" Height="472" Depth="235"/>
+   <Lens Name="Other" DegreesMin="12" DegreesMax="12"/>
+   <Focus Type="Head" PanMax="630" TiltMax="265"/>
+   <Technical PowerConsumption="210" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
 </FixtureDefinition>

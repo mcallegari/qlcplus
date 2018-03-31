@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,10 +9,7 @@
  <Manufacturer>Futurelight</Manufacturer>
  <Model>CY-200</Model>
  <Type>Scanner</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Left to Right</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
  <Channel Name="Cylinder rotation">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="19">No rotation</Capability>
@@ -62,16 +59,16 @@
   <Capability Min="251" Max="255">Open</Capability>
  </Channel>
  <Mode Name="Mode 1">
-  <Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Cylinder rotation</Channel>
+  <Channel Number="2">Color</Channel>
+  <Channel Number="3">Gobo</Channel>
+ </Mode>
+<Physical>
    <Bulb Type="HSD 250W" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="15" Width="300" Height="150" Depth="525"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Mirror" PanMax="180" TiltMax="90"/>
    <Technical PowerConsumption="500" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Pan</Channel>
-  <Channel Number="1">Cylinder rotation</Channel>
-  <Channel Number="2">Color</Channel>
-  <Channel Number="3">Gobo</Channel>
- </Mode>
 </FixtureDefinition>

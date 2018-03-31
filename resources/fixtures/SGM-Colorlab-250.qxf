@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,10 +9,7 @@
  <Manufacturer>SGM</Manufacturer>
  <Model>Colorlab 250</Model>
  <Type>Color Changer</Type>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer intensity</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="12" Color="#ffffff">White</Capability>
@@ -95,13 +92,6 @@
   <Capability Min="214" Max="255">Music hard change</Capability>
  </Channel>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb Type="250W 24V-EVC" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Weight="13.3" Depth="180" Height="460" Width="350"/>
-   <Lens DegreesMin="0" Name="Other" DegreesMax="0"/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
-   <Technical PowerConsumption="300" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Colour</Channel>
   <Channel Number="2">Gobo</Channel>
@@ -109,4 +99,11 @@
   <Channel Number="4">Palette</Channel>
   <Channel Number="5">Colour mode</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="250W 24V-EVC" ColourTemperature="0" Lumens="0"/>
+   <Dimensions Weight="13.3" Depth="180" Height="460" Width="350"/>
+   <Lens DegreesMin="0" Name="Other" DegreesMax="0"/>
+   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
+   <Technical PowerConsumption="300" DmxConnector="5-pin"/>
+  </Physical>
 </FixtureDefinition>

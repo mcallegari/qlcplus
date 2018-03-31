@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,14 +9,8 @@
  <Manufacturer>Martin</Manufacturer>
  <Model>Rush MH5 Profile</Model>
  <Type>Moving Head</Type>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer intensity (coarse)</Capability>
- </Channel>
- <Channel Name="Dimmer fine">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer intensity (fine)</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer fine" Preset="IntensityDimmerFine"/>
  <Channel Name="Strobe">
   <Group Byte="1">Shutter</Group>
   <Capability Min="0" Max="7">Off</Capability>
@@ -183,26 +177,11 @@
   <Capability Min="130" Max="253">Prism rotation - Counter Clockwise - Slow to fast</Capability>
   <Capability Min="254" Max="255">Prism rotation - Stop</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Focus - Infinity to near</Capability>
- </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan (0 - 540°)</Capability>
- </Channel>
- <Channel Name="Pan (fine control)">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan (fine control)</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt (0 - 270°)</Capability>
- </Channel>
- <Channel Name="Tilt (fine control)">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt - Fine control</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusFarNear"/>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan (fine control)" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt (fine control)" Preset="PositionTiltFine"/>
  <Channel Name="Functions / Fixture settings">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="9">No function</Capability>
@@ -240,13 +219,6 @@
   <Capability Min="250" Max="255">No function</Capability>
  </Channel>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="9" Width="290" Height="416" Depth="187"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="40"/>
-   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="75" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Dimmer fine</Channel>
   <Channel Number="2">Strobe</Channel>
@@ -264,4 +236,11 @@
   <Channel Number="14">Tilt (fine control)</Channel>
   <Channel Number="15">Functions / Fixture settings</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="9" Width="290" Height="416" Depth="187"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="40"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="75" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
 </FixtureDefinition>

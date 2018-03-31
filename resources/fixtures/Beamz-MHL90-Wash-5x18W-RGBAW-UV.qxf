@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,30 +9,12 @@
  <Manufacturer>beamZ</Manufacturer>
  <Model>MHL90 Wash 5x18W RGBAW-UV</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">0 to 540°</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan Fine</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">0 to 180°</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt Fine</Capability>
- </Channel>
- <Channel Name="Pan/Tilt Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">X/Y Speed (Fast to Slow)</Capability>
- </Channel>
- <Channel Name="Dimming">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimming (0-100%)</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Dimming" Preset="IntensityDimmer"/>
  <Channel Name="LED Effect">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="7">Turn Off</Capability>
@@ -46,40 +28,13 @@
   <Capability Min="240" Max="247">Random Flash</Capability>
   <Capability Min="248" Max="255">LED Open Switch</Capability>
  </Channel>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">Red, 0-100%</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00ff00">Green, 0-100%</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255" Color="#0000ff">Blue, 0-100%</Capability>
- </Channel>
- <Channel Name="White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255" Color="#ffffff">White, 0-100%</Capability>
- </Channel>
- <Channel Name="Amber">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Amber</Colour>
-  <Capability Min="0" Max="255" Color="#ffc200">Amber, 0-100%</Capability>
- </Channel>
- <Channel Name="UV">
-  <Group Byte="0">Intensity</Group>
-  <Colour>UV</Colour>
-  <Capability Min="0" Max="255" Color="#3e0694">UV, 0-100%</Capability>
- </Channel>
- <Channel Name="Static LED Color Select">
-  <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="255">Static LED Color Select</Capability>
- </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="UV" Preset="IntensityUV"/>
+ <Channel Name="Static LED Color Select" Preset="ColorMacro"/>
  <Channel Name="Movement functions">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="69">No Function</Capability>
@@ -89,13 +44,6 @@
   <Capability Min="240" Max="255">Independent Operation</Capability>
  </Channel>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb Type="5 x HEX LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="3.3" Width="175" Height="245" Depth="178"/>
-   <Lens Name="Other" DegreesMin="22" DegreesMax="42"/>
-   <Focus Type="Fixed" PanMax="540" TiltMax="180"/>
-   <Technical PowerConsumption="60" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -113,13 +61,6 @@
   <Channel Number="14">Movement functions</Channel>
  </Mode>
  <Mode Name="Mode 2">
-  <Physical>
-   <Bulb Type="5 x HEX LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="3.3" Width="175" Height="245" Depth="178"/>
-   <Lens Name="Other" DegreesMin="22" DegreesMax="42"/>
-   <Focus Type="Fixed" PanMax="540" TiltMax="180"/>
-   <Technical PowerConsumption="60" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">LED Effect</Channel>
@@ -132,4 +73,11 @@
   <Channel Number="9">Dimming</Channel>
   <Channel Number="10">Movement functions</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="5 x HEX LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="3.3" Width="175" Height="245" Depth="178"/>
+   <Lens Name="Other" DegreesMin="22" DegreesMax="42"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="180"/>
+   <Technical PowerConsumption="60" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>SGM</Manufacturer>
  <Model>Idea Spot 575</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan movement 8bit</Capability>
- </Channel>
- <Channel Name="Pan fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine 16bit</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt movement 8bit</Capability>
- </Channel>
- <Channel Name="Tilt fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine 16bit</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
  <Channel Name="Speed pan/tilt">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="225">Max to min speed</Capability>
@@ -75,10 +63,7 @@
   <Capability Min="192" Max="223">Random strobe effect slow to fast</Capability>
   <Capability Min="224" Max="255">No function (shutter open)</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Intensity (0 to 100%)</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Rotating gobo index, rotating gobo rotation">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="127">Gobo indexing</Capability>
@@ -164,13 +149,6 @@
   <Capability Min="255" Max="255">100% Frost</Capability>
  </Channel>
  <Mode Name="16 Channels">
-  <Physical>
-   <Bulb Lumens="0" Type="MSR 575W" ColourTemperature="7200"/>
-   <Dimensions Width="500" Height="390" Weight="38.5" Depth="500"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="630" Type="Fixed" TiltMax="265"/>
-   <Technical PowerConsumption="780" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -211,4 +189,11 @@
   <Channel Number="12">Lamp on/off, Reset, Internal programs</Channel>
   <Channel Number="13">Frost</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="MSR 575W" ColourTemperature="7200"/>
+   <Dimensions Width="500" Height="390" Weight="38.5" Depth="500"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="630" Type="Fixed" TiltMax="265"/>
+   <Technical PowerConsumption="780" DmxConnector="5-pin"/>
+  </Physical>
 </FixtureDefinition>

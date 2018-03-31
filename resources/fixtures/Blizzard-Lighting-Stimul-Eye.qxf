@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,26 +9,11 @@
  <Manufacturer>Blizzard Lighting</Manufacturer>
  <Model>Stimul-Eye</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">0-540°</Capability>
- </Channel>
- <Channel Name="Fine Pan">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">16-bit</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">0-250°</Capability>
- </Channel>
- <Channel Name="Fine Tilt">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">16-bit</Capability>
- </Channel>
- <Channel Name="Pan/Tilt Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Fast &lt;--&gt; slow</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Fine Pan" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Fine Tilt" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Beam Angle + Lens Rotation">
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="127">Beam spread (narrow &lt;--&gt; wide)</Capability>
@@ -39,14 +24,8 @@
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="255">Slow &lt;--&gt; fast</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Strobe">
-  <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="255">Slow &lt;--&gt; fast</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
  <Channel Name="LED 1 Intensity">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
@@ -175,13 +154,6 @@
   <Capability Min="0" Max="255">Intensity (0% -&gt; 100%)</Capability>
  </Channel>
  <Mode Name="19 Channel Mode">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="4.2" Width="223" Height="315" Depth="168"/>
-   <Lens Name="Other" DegreesMin="5" DegreesMax="40"/>
-   <Focus Type="Head" PanMax="540" TiltMax="250"/>
-   <Technical PowerConsumption="52" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Fine Pan</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -228,13 +200,6 @@
   </Head>
  </Mode>
  <Mode Name="12 Channel Mode">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="4.2" Width="223" Height="315" Depth="168"/>
-   <Lens Name="Other" DegreesMin="5" DegreesMax="40"/>
-   <Focus Type="Head" PanMax="540" TiltMax="250"/>
-   <Technical PowerConsumption="52" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan/Tilt Speed</Channel>
@@ -248,4 +213,11 @@
   <Channel Number="10">Built-in Program Speed</Channel>
   <Channel Number="11">Auto Run + System Reset</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4.2" Width="223" Height="315" Depth="168"/>
+   <Lens Name="Other" DegreesMin="5" DegreesMax="40"/>
+   <Focus Type="Head" PanMax="540" TiltMax="250"/>
+   <Technical PowerConsumption="52" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

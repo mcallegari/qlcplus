@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -13,19 +13,16 @@
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="255">Flash frequency (0-20Hz)</Capability>
  </Channel>
- <Channel Name="Brightness">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Brightness (0-100%)</Capability>
- </Channel>
+ <Channel Name="Brightness" Preset="IntensityDimmer"/>
  <Mode Name="2-Channel Mode">
-  <Physical>
+  <Channel Number="0">Flash Frequency</Channel>
+  <Channel Number="1">Brightness</Channel>
+ </Mode>
+<Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="2.4" Width="380" Depth="105" Height="130"/>
    <Lens DegreesMin="80" DegreesMax="80" Name="Other"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="40" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Flash Frequency</Channel>
-  <Channel Number="1">Brightness</Channel>
- </Mode>
 </FixtureDefinition>

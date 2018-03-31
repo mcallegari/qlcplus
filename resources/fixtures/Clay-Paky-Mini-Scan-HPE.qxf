@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -51,14 +51,8 @@
   <Capability Min="140" Max="243">Strobe Slow to Fast</Capability>
   <Capability Min="244" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Effects disc">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="35">White</Capability>
@@ -71,13 +65,6 @@
   <Capability Min="255" Max="255">Light Blue</Capability>
  </Channel>
  <Mode Name="Default">
-  <Physical>
-   <Bulb Lumens="22000" Type="HTI 300W" ColourTemperature="6500"/>
-   <Dimensions Width="582" Height="300" Weight="13" Depth="238"/>
-   <Lens DegreesMax="16" Name="Other" DegreesMin="16"/>
-   <Focus PanMax="150" Type="Mirror" TiltMax="110"/>
-   <Technical PowerConsumption="900" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Color Disc</Channel>
   <Channel Number="1">Gobo Rotation</Channel>
   <Channel Number="2">Gobo Select</Channel>
@@ -86,4 +73,11 @@
   <Channel Number="5">Tilt</Channel>
   <Channel Number="6">Effects disc</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="22000" Type="HTI 300W" ColourTemperature="6500"/>
+   <Dimensions Width="582" Height="300" Weight="13" Depth="238"/>
+   <Lens DegreesMax="16" Name="Other" DegreesMin="16"/>
+   <Focus PanMax="150" Type="Mirror" TiltMax="110"/>
+   <Technical PowerConsumption="900" DmxConnector="5-pin"/>
+  </Physical>
 </FixtureDefinition>

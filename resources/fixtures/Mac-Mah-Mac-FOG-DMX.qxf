@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -14,13 +14,13 @@
   <Capability Min="0" Max="255">FOG intensity</Capability>
  </Channel>
  <Mode Name="Full">
-  <Physical>
+  <Channel Number="0">Fog</Channel>
+ </Mode>
+<Physical>
    <Bulb ColourTemperature="0" Type="" Lumens="0"/>
    <Dimensions Height="180" Width="285" Weight="6.5" Depth="390"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="1200" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Fog</Channel>
- </Mode>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -34,26 +34,11 @@
   <Capability Min="230" Max="244">Strobe 10: burst (Fast -&gt; Slow)</Capability>
   <Capability Min="245" Max="255">Shutter open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer (0 - 100%)</Capability>
- </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan Fine</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt Fine</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Fixture Control">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="9">No Function</Capability>
@@ -123,34 +108,15 @@
   <Capability Min="245" Max="249">Random color slow</Capability>
   <Capability Min="250" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue</Capability>
- </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="Colour Temp Control">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="19">No Function</Capability>
   <Capability Min="20" Max="255">CTC 10000K -&gt; 2500K</Capability>
  </Channel>
  <Mode Name="RAW, RGB">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="2800"/>
-   <Dimensions Width="241" Height="304" Weight="3.7" Depth="241"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
-   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Shutter</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Pan</Channel>
@@ -165,13 +131,6 @@
   <Channel Number="11">Colour Temp Control</Channel>
  </Mode>
  <Mode Name="Basic">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="2800"/>
-   <Dimensions Width="241" Height="304" Weight="3.7" Depth="241"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
-   <Technical PowerConsumption="123" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Shutter</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Pan</Channel>
@@ -181,4 +140,11 @@
   <Channel Number="6">Fixture Control</Channel>
   <Channel Number="7">Color Wheel Effect</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="2800"/>
+   <Dimensions Width="241" Height="304" Weight="3.7" Depth="241"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
+   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+  </Physical>
 </FixtureDefinition>

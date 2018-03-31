@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,34 +9,24 @@
  <Manufacturer>Briteq</Manufacturer>
  <Model>BT Theatre 100EC</Model>
  <Type>Strobe</Type>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">dimmer</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="5">open</Capability>
   <Capability Min="6" Max="255">strobe speed</Capability>
  </Channel>
  <Mode Name="Dimmer+Strobe">
-  <Physical>
-   <Bulb Type="LED" ColourTemperature="3200" Lumens="6800"/>
-   <Dimensions Depth="305" Height="280" Weight="6" Width="230"/>
-   <Lens DegreesMin="10" DegreesMax="50" Name="Fresnel"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="120"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Strobe</Channel>
  </Mode>
  <Mode Name="Dimmer">
-  <Physical>
+  <Channel Number="0">Dimmer</Channel>
+ </Mode>
+<Physical>
    <Bulb Type="LED" ColourTemperature="3200" Lumens="6800"/>
    <Dimensions Depth="305" Height="280" Weight="6" Width="230"/>
    <Lens DegreesMin="10" DegreesMax="50" Name="Fresnel"/>
    <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
    <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="120"/>
   </Physical>
-  <Channel Number="0">Dimmer</Channel>
- </Mode>
 </FixtureDefinition>

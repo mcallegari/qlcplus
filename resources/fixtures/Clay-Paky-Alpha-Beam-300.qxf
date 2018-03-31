@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,21 +9,9 @@
  <Manufacturer>Clay Paky</Manufacturer>
  <Model>Alpha Beam 300</Model>
  <Type>Moving Head</Type>
- <Channel Name="Cyan">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">Cyan</Capability>
- </Channel>
- <Channel Name="Magenta">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">Magenta</Capability>
- </Channel>
- <Channel Name="Yellow">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">Yellow</Capability>
- </Channel>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
  <Channel Name="Colour Wheel 1">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="6" Color="#ffffff">White</Capability>
@@ -113,10 +101,7 @@
   <Capability Min="239" Max="251">Random fast strobe</Capability>
   <Capability Min="252" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer (Closed to Open)</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Fixed Gobo Change">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="7" Color="#ffffff">White</Capability>
@@ -142,22 +127,10 @@
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="255">Frost</Capability>
  </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan Fine</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt Fine</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="25">Unused</Capability>
@@ -189,13 +162,6 @@
   <Capability Min="0" Max="255">Fixed Gobo wheel (0 to 310s)</Capability>
  </Channel>
  <Mode Name="Option Stnd 1 - LinC Off, FulC Off, Rain On">
-  <Physical>
-   <Bulb Lumens="23000" Type="HTI 300W" ColourTemperature="9300"/>
-   <Dimensions Width="385" Height="630" Weight="19.1" Depth="405"/>
-   <Lens DegreesMax="8" Name="Other" DegreesMin="8"/>
-   <Focus PanMax="540" Type="Head" TiltMax="250"/>
-   <Technical PowerConsumption="300" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Cyan</Channel>
   <Channel Number="1">Magenta</Channel>
   <Channel Number="2">Yellow</Channel>
@@ -212,13 +178,6 @@
   <Channel Number="13">Lamp Control</Channel>
  </Mode>
  <Mode Name="Option Stnd 2 - LinC Off, FulC On, Rain On">
-  <Physical>
-   <Bulb Lumens="23000" Type="HTI 300W" ColourTemperature="9300"/>
-   <Dimensions Width="385" Height="630" Weight="19.1" Depth="405"/>
-   <Lens DegreesMax="8" Name="Other" DegreesMin="8"/>
-   <Focus PanMax="540" Type="Head" TiltMax="250"/>
-   <Technical PowerConsumption="300" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Cyan</Channel>
   <Channel Number="1">Magenta</Channel>
   <Channel Number="2">Yellow</Channel>
@@ -235,13 +194,6 @@
   <Channel Number="13">Lamp Control</Channel>
  </Mode>
  <Mode Name="Option Stnd 3 - LinC On, Rain On">
-  <Physical>
-   <Bulb Lumens="23000" Type="HTI 300W" ColourTemperature="9300"/>
-   <Dimensions Width="385" Height="630" Weight="19.1" Depth="405"/>
-   <Lens DegreesMax="8" Name="Other" DegreesMin="8"/>
-   <Focus PanMax="540" Type="Head" TiltMax="250"/>
-   <Technical PowerConsumption="300" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Cyan</Channel>
   <Channel Number="1">Magenta</Channel>
   <Channel Number="2">Yellow</Channel>
@@ -258,13 +210,6 @@
   <Channel Number="13">Lamp Control</Channel>
  </Mode>
  <Mode Name="Option Stnd 4 - LinC Off, FulC Off, Rain Off">
-  <Physical>
-   <Bulb Lumens="23000" Type="HTI 300W" ColourTemperature="9300"/>
-   <Dimensions Width="385" Height="630" Weight="19.1" Depth="405"/>
-   <Lens DegreesMax="8" Name="Other" DegreesMin="8"/>
-   <Focus PanMax="540" Type="Head" TiltMax="250"/>
-   <Technical PowerConsumption="300" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Cyan</Channel>
   <Channel Number="1">Magenta</Channel>
   <Channel Number="2">Yellow</Channel>
@@ -281,13 +226,6 @@
   <Channel Number="13">Lamp Control</Channel>
  </Mode>
  <Mode Name="Option Stnd 5 - LinC Off, FulC On, Rain Off">
-  <Physical>
-   <Bulb Lumens="23000" Type="HTI 300W" ColourTemperature="9300"/>
-   <Dimensions Width="385" Height="630" Weight="19.1" Depth="405"/>
-   <Lens DegreesMax="8" Name="Other" DegreesMin="8"/>
-   <Focus PanMax="540" Type="Head" TiltMax="250"/>
-   <Technical PowerConsumption="300" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Cyan</Channel>
   <Channel Number="1">Magenta</Channel>
   <Channel Number="2">Yellow</Channel>
@@ -304,13 +242,6 @@
   <Channel Number="13">Lamp Control</Channel>
  </Mode>
  <Mode Name="Option Stnd 6 - LinC On, Rain Off">
-  <Physical>
-   <Bulb Lumens="23000" Type="HTI 300W" ColourTemperature="9300"/>
-   <Dimensions Width="385" Height="630" Weight="19.1" Depth="405"/>
-   <Lens DegreesMax="8" Name="Other" DegreesMin="8"/>
-   <Focus PanMax="540" Type="Head" TiltMax="250"/>
-   <Technical PowerConsumption="300" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Cyan</Channel>
   <Channel Number="1">Magenta</Channel>
   <Channel Number="2">Yellow</Channel>
@@ -327,13 +258,6 @@
   <Channel Number="13">Lamp Control</Channel>
  </Mode>
  <Mode Name="Option Vect">
-  <Physical>
-   <Bulb Lumens="23000" Type="HTI 300W" ColourTemperature="9300"/>
-   <Dimensions Width="385" Height="630" Weight="19.1" Depth="405"/>
-   <Lens DegreesMax="8" Name="Other" DegreesMin="8"/>
-   <Focus PanMax="540" Type="Head" TiltMax="250"/>
-   <Technical PowerConsumption="300" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Cyan</Channel>
   <Channel Number="1">Magenta</Channel>
   <Channel Number="2">Yellow</Channel>
@@ -353,4 +277,11 @@
   <Channel Number="16">Beam Time</Channel>
   <Channel Number="17">Gobo Time</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="23000" Type="HTI 300W" ColourTemperature="9300"/>
+   <Dimensions Width="385" Height="630" Weight="19.1" Depth="405"/>
+   <Lens DegreesMax="8" Name="Other" DegreesMin="8"/>
+   <Focus PanMax="540" Type="Head" TiltMax="250"/>
+   <Technical PowerConsumption="300" DmxConnector="5-pin"/>
+  </Physical>
 </FixtureDefinition>

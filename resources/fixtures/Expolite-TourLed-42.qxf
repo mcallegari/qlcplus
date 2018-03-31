@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,10 +9,7 @@
  <Manufacturer>Expolite</Manufacturer>
  <Model>TourLed 42</Model>
  <Type>Color Changer</Type>
- <Channel Name="Master Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Master Dimmer</Capability>
- </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Red | Step Time">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
@@ -23,11 +20,7 @@
   <Colour>Green</Colour>
   <Capability Min="0" Max="255">Green or Fade Time when Custom 1-10 in Channel 8 is active</Capability>
  </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue</Capability>
- </Channel>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="Color Macro">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="10">No function</Capability>
@@ -169,26 +162,10 @@
   <Group Byte="0">Nothing</Group>
   <Capability Min="0" Max="255">Store</Capability>
  </Channel>
- <Channel Name="Hue">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Hue (0-100%)</Capability>
- </Channel>
- <Channel Name="Saturation">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Saturation (0-100%)</Capability>
- </Channel>
- <Channel Name="Value">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Value (0-100%)</Capability>
- </Channel>
+ <Channel Name="Hue" Preset="IntensityHue"/>
+ <Channel Name="Saturation" Preset="IntensitySaturation"/>
+ <Channel Name="Value" Preset="IntensityValue"/>
  <Mode Name="Tour">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="245" Height="205" Weight="4.8" Depth="245"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="52" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Red | Step Time</Channel>
   <Channel Number="2">Green | Fade Time</Channel>
@@ -201,38 +178,17 @@
   <Channel Number="9">ID</Channel>
  </Mode>
  <Mode Name="Arc.1">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="245" Height="205" Weight="4.8" Depth="245"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="52" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red | Step Time</Channel>
   <Channel Number="1">Green | Fade Time</Channel>
   <Channel Number="2">Blue</Channel>
  </Mode>
  <Mode Name="Ar1.d">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="245" Height="205" Weight="4.8" Depth="245"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="52" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Red | Step Time</Channel>
   <Channel Number="2">Green | Fade Time</Channel>
   <Channel Number="3">Blue</Channel>
  </Mode>
  <Mode Name="Ar1.S">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="245" Height="205" Weight="4.8" Depth="245"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="52" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Red | Step Time</Channel>
   <Channel Number="2">Green | Fade Time</Channel>
@@ -240,15 +196,15 @@
   <Channel Number="4">Store</Channel>
  </Mode>
  <Mode Name="HSV">
-  <Physical>
+  <Channel Number="0">Hue</Channel>
+  <Channel Number="1">Saturation</Channel>
+  <Channel Number="2">Value</Channel>
+ </Mode>
+<Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
    <Dimensions Width="245" Height="205" Weight="4.8" Depth="245"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="52" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Hue</Channel>
-  <Channel Number="1">Saturation</Channel>
-  <Channel Number="2">Value</Channel>
- </Mode>
 </FixtureDefinition>

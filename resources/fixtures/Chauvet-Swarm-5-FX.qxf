@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -121,13 +121,6 @@
   <Capability Min="134" Max="255">Rotate counter-clockwise</Capability>
  </Channel>
  <Mode Name="Standard Mode">
-  <Physical>
-   <Bulb Lumens="1" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="248" Height="298" Weight="4.5" Depth="310"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="62" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Automatic Programs/Control Mode</Channel>
   <Channel Number="1">LED Operation</Channel>
   <Channel Number="2">Auto Program Speed (when channel 2 is between 165-255)</Channel>
@@ -138,4 +131,11 @@
   <Channel Number="7">Motor LED</Channel>
   <Channel Number="8">Motor Laser</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="1" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="248" Height="298" Weight="4.5" Depth="310"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="62" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

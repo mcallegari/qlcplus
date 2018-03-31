@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -62,17 +62,17 @@
   <Capability Min="128" Max="255">Zoom Speed Slow to Fast</Capability>
  </Channel>
  <Mode Name="DMX Mode">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Height="206" Depth="299" Weight="3.5" Width="194"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="17"/>
-  </Physical>
   <Channel Number="0">Laser On/Off</Channel>
   <Channel Number="1">Patterns</Channel>
   <Channel Number="2">Movement</Channel>
   <Channel Number="3">Rotation</Channel>
   <Channel Number="4">Zoom</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Height="206" Depth="299" Weight="3.5" Width="194"/>
+   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
+   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="17"/>
+  </Physical>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,14 +9,8 @@
  <Manufacturer>Robe</Manufacturer>
  <Model>ClubScan 250 CT</Model>
  <Type>Scanner</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">8bit</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">8bit</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="9" Color="#ffffff">Open</Capability>
@@ -41,10 +35,7 @@
   <Capability Min="244" Max="249">Audio Sel</Capability>
   <Capability Min="250" Max="255">Rnd Sel</Capability>
  </Channel>
- <Channel Name="Gobo Func">
-  <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="0">Index_Func</Capability>
- </Channel>
+ <Channel Name="Gobo Func" Preset="GoboIndex"/>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="9">Open</Capability>
@@ -102,13 +93,6 @@
   <Capability Min="193" Max="255">Spin CCW</Capability>
  </Channel>
  <Mode Name="8bit">
-  <Physical>
-   <Bulb Type="HSD 250W" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="13" Width="238" Height="310" Depth="493"/>
-   <Lens Name="" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Mirror" PanMax="187" TiltMax="58"/>
-   <Technical PowerConsumption="300" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Colour</Channel>
@@ -116,4 +100,11 @@
   <Channel Number="4">Gobo Rotation</Channel>
   <Channel Number="5">Shutter</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="HSD 250W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="13" Width="238" Height="310" Depth="493"/>
+   <Lens Name="" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Mirror" PanMax="187" TiltMax="58"/>
+   <Technical PowerConsumption="300" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

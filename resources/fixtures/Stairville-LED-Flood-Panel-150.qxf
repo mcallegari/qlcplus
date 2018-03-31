@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,10 +9,7 @@
  <Manufacturer>Stairville</Manufacturer>
  <Model>LED Flood Panel 150</Model>
  <Type>Color Changer</Type>
- <Channel Name="Master dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Master dimmer (0 to 100%)</Capability>
- </Channel>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Red/Colour preset/Speed (slow to fast)/Sensitivity (low to high)">
   <Group Byte="0">Intensity</Group>
   <Colour>Red</Colour>
@@ -46,16 +43,8 @@
   <Capability Min="243" Max="251" Color="#ffc896">Red: 255, Green: 200, Blue: 150</Capability>
   <Capability Min="252" Max="255" Color="#ffffff">Red: 255, Green: 255, Blue: 255</Capability>
  </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Intensity of green (0 to 100%)</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Intensity of blue (0 to 100%)</Capability>
- </Channel>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="Strobe">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="9">No function</Capability>
@@ -107,38 +96,17 @@
   <Capability Min="251" Max="255">Delayed fader response for channel 1, 2, 3, 4</Capability>
  </Channel>
  <Mode Name="3-channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="1.8" Width="260" Height="210" Depth="68"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="18" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red/Colour preset/Speed (slow to fast)/Sensitivity (low to high)</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
  </Mode>
  <Mode Name="4-channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="1.8" Width="260" Height="210" Depth="68"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="18" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Master dimmer</Channel>
   <Channel Number="1">Red/Colour preset/Speed (slow to fast)/Sensitivity (low to high)</Channel>
   <Channel Number="2">Green</Channel>
   <Channel Number="3">Blue</Channel>
  </Mode>
  <Mode Name="8-channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="1.8" Width="260" Height="210" Depth="68"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="18" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Master dimmer</Channel>
   <Channel Number="1">Red/Colour preset/Speed (slow to fast)/Sensitivity (low to high)</Channel>
   <Channel Number="2">Green</Channel>
@@ -148,4 +116,11 @@
   <Channel Number="6">ID control</Channel>
   <Channel Number="7">Fader response</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.8" Width="260" Height="210" Depth="68"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="18" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

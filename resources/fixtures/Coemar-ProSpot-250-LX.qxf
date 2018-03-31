@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>Coemar</Manufacturer>
  <Model>ProSpot 250 LX</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan (0 - 530°)</Capability>
- </Channel>
- <Channel Name="Pan fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Fine adjustment for Pan</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt (0 - 284°)</Capability>
- </Channel>
- <Channel Name="Tilt fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Fine adjustment for Tilt</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
  <Channel Name="Pan / Tilt Speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="10">Fast (standard)</Capability>
@@ -50,10 +38,7 @@
   <Capability Min="188" Max="244">Random strobe (slow to fast)</Capability>
   <Capability Min="245" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Gobo selection">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="10" Res="Others/open.png">Open</Capability>
@@ -201,26 +186,10 @@
   <Capability Min="192" Max="223">Random strobe slow - fast</Capability>
   <Capability Min="224" Max="255">open</Capability>
  </Channel>
- <Channel Name="Dimmer 2">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="No Function">
-  <Group Byte="0">Nothing</Group>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="No Function 2">
-  <Group Byte="0">Nothing</Group>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
+ <Channel Name="Dimmer 2" Preset="IntensityDimmer"/>
+ <Channel Name="No Function" Preset="NoFunction"/>
+ <Channel Name="No Function 2" Preset="NoFunction"/>
  <Mode Name="Standard">
-  <Physical>
-   <Bulb Type="Philips MSD 250W/2" Lumens="18000" ColourTemperature="8500"/>
-   <Dimensions Weight="23.5" Width="350" Height="510" Depth="377"/>
-   <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
-   <Focus Type="Head" PanMax="530" TiltMax="284"/>
-   <Technical PowerConsumption="460" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -239,13 +208,6 @@
   <Channel Number="15">Lamp on / Motor reset (hold 6s)</Channel>
  </Mode>
  <Mode Name="ProSpot emulation">
-  <Physical>
-   <Bulb Type="Philips MSD 250W/2" Lumens="18000" ColourTemperature="8500"/>
-   <Dimensions Weight="23.5" Width="350" Height="510" Depth="377"/>
-   <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
-   <Focus Type="Head" PanMax="530" TiltMax="284"/>
-   <Technical PowerConsumption="460" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -263,4 +225,11 @@
   <Channel Number="14">Shutter / Strobe 2</Channel>
   <Channel Number="15">Dimmer 2</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="Philips MSD 250W/2" Lumens="18000" ColourTemperature="8500"/>
+   <Dimensions Weight="23.5" Width="350" Height="510" Depth="377"/>
+   <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
+   <Focus Type="Head" PanMax="530" TiltMax="284"/>
+   <Technical PowerConsumption="460" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

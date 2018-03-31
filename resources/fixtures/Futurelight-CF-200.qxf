@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -16,10 +16,7 @@
   <Capability Min="136" Max="139">No rotation</Capability>
   <Capability Min="140" Max="255">Anti-clockwise rotation speed</Capability>
  </Channel>
- <Channel Name="No function">
-  <Group Byte="0">Nothing</Group>
-  <Capability Min="0" Max="255">No function</Capability>
- </Channel>
+ <Channel Name="No function" Preset="NoFunction"/>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="10" Color="#ffffff">White</Capability>
@@ -63,16 +60,16 @@
   <Capability Min="251" Max="255">Open</Capability>
  </Channel>
  <Mode Name="Mode 1">
-  <Physical>
+  <Channel Number="0">Rotation</Channel>
+  <Channel Number="1">No function</Channel>
+  <Channel Number="2">Colour</Channel>
+  <Channel Number="3">Gobo, Reset, Strobe</Channel>
+ </Mode>
+<Physical>
    <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="11" Width="380" Height="150" Depth="260"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="440" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Rotation</Channel>
-  <Channel Number="1">No function</Channel>
-  <Channel Number="2">Colour</Channel>
-  <Channel Number="3">Gobo, Reset, Strobe</Channel>
- </Mode>
 </FixtureDefinition>

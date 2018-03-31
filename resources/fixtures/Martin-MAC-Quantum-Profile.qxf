@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -17,29 +17,11 @@
   <Capability Min="201" Max="210">Shutter open</Capability>
   <Capability Min="211" Max="255">Random strobe, slow → fast</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Closed → open</Capability>
- </Channel>
- <Channel Name="Dimmer Fine">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">Closed → open</Capability>
- </Channel>
- <Channel Name="Cyan">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">Cyan intensity (0 - 100%)</Capability>
- </Channel>
- <Channel Name="Magenta">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">Magenta intensity (0 - 100%)</Capability>
- </Channel>
- <Channel Name="Yellow">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">Yellow intensity (0 - 100%)</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer Fine" Preset="IntensityDimmerFine"/>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
  <Channel Name="Color wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="0" Color="#ffffff">Open</Capability>
@@ -157,38 +139,20 @@
   <Capability Min="226" Max="230">Iris stops at current position</Capability>
   <Capability Min="231" Max="255">Animate reverse slow → fast</Capability>
  </Channel>
- <Channel Name="Zoom">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Wide → narrow</Capability>
- </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomBigSmall"/>
  <Channel Name="Zoom fine">
   <Group Byte="1">Beam</Group>
   <Capability Min="0" Max="255">Wide → narrow</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Far → near</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusFarNear"/>
  <Channel Name="Focus fine">
   <Group Byte="1">Beam</Group>
   <Capability Min="0" Max="255">Far → near</Capability>
  </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Left → right </Capability>
- </Channel>
- <Channel Name="Pan fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Left → right </Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Up → down</Capability>
- </Channel>
- <Channel Name="Tilt fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Up → down</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
  <Channel Name="Control/Settings">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="9">No function (disables calibration) – 5 sec.</Capability>
@@ -429,13 +393,6 @@
   <Capability Min="254" Max="255">No gobo rotation, gobo indexed at 90°</Capability>
  </Channel>
  <Mode Name="Basic">
-  <Physical>
-   <Bulb Type="LED" ColourTemperature="0" Lumens="12700"/>
-   <Dimensions Weight="23.2" Width="431" Depth="452" Height="648"/>
-   <Lens Name="Other" DegreesMin="12" DegreesMax="36"/>
-   <Focus Type="Head" PanMax="540" TiltMax="268"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="750"/>
-  </Physical>
   <Channel Number="0">Strobe/shutter effect</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Cyan</Channel>
@@ -457,13 +414,6 @@
   <Channel Number="18">Control/Settings</Channel>
  </Mode>
  <Mode Name="Extended">
-  <Physical>
-   <Bulb Type="LED" ColourTemperature="0" Lumens="12700"/>
-   <Dimensions Weight="23.2" Width="431" Depth="452" Height="648"/>
-   <Lens Name="Other" DegreesMin="12" DegreesMax="36"/>
-   <Focus Type="Head" PanMax="540" TiltMax="268"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="750"/>
-  </Physical>
   <Channel Number="0">Strobe/shutter effect</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Dimmer Fine</Channel>
@@ -492,4 +442,11 @@
   <Channel Number="25">FX2 adjustment</Channel>
   <Channel Number="26">FX synchronization</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" ColourTemperature="0" Lumens="12700"/>
+   <Dimensions Weight="23.2" Width="431" Depth="452" Height="648"/>
+   <Lens Name="Other" DegreesMin="12" DegreesMax="36"/>
+   <Focus Type="Head" PanMax="540" TiltMax="268"/>
+   <Technical DmxConnector="5-pin" PowerConsumption="750"/>
+  </Physical>
 </FixtureDefinition>

@@ -3,81 +3,51 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.1</Version>
+  <Version>4.11.2 GIT</Version>
   <Author>Freasy</Author>
  </Creator>
  <Manufacturer>Philips Selecon</Manufacturer>
  <Model>PLProfile1 MkII</Model>
  <Type>Color Changer</Type>
- <Channel Name="Intensity - High Byte">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">High byte</Capability>
- </Channel>
- <Channel Name="Intenisty - Low Byte">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">Low byte</Capability>
- </Channel>
- <Channel Name="Red - High Byte">
-  <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="255" Color="#ff0000">High byte</Capability>
- </Channel>
- <Channel Name="Red - Low Byte">
-  <Group Byte="1">Colour</Group>
-  <Capability Min="0" Max="255" Color="#ff0000">Low byte</Capability>
- </Channel>
- <Channel Name="Green - High Byte">
-  <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="255" Color="#00ff00">High byte</Capability>
- </Channel>
- <Channel Name="Green - Low Byte">
-  <Group Byte="1">Colour</Group>
-  <Capability Min="0" Max="255" Color="#00ff00">Low byte</Capability>
- </Channel>
- <Channel Name="Blue - High Byte">
-  <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="255" Color="#0000ff">High byte</Capability>
- </Channel>
- <Channel Name="Blue - Low Byte">
-  <Group Byte="1">Colour</Group>
-  <Capability Min="0" Max="255" Color="#0000ff">Low byte</Capability>
- </Channel>
- <Channel Name="White - High Byte">
-  <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="255" Color="#ffffff">High byte</Capability>
- </Channel>
- <Channel Name="White - Low Byte">
-  <Group Byte="1">Colour</Group>
-  <Capability Min="0" Max="255" Color="#ffffff">Low byte</Capability>
- </Channel>
+ <Channel Name="Intensity - High Byte" Preset="IntensityDimmer"/>
+ <Channel Name="Intenisty - Low Byte" Preset="IntensityDimmerFine"/>
+ <Channel Name="Red - High Byte" Preset="IntensityRed"/>
+ <Channel Name="Red - Low Byte" Preset="IntensityRedFine"/>
+ <Channel Name="Green - High Byte" Preset="IntensityGreen"/>
+ <Channel Name="Green - Low Byte" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue - High Byte" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Low Byte" Preset="IntensityBlueFine"/>
+ <Channel Name="White - High Byte" Preset="IntensityWhite"/>
+ <Channel Name="White - Low Byte" Preset="IntensityWhiteFine"/>
  <Channel Name="Preset Color Selection">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="3">No Preset Activated</Capability>
   <Capability Min="4" Max="7">Off</Capability>
-  <Capability Min="8" Max="11" Color="#f9f9f9">Scratch Pad</Capability>
-  <Capability Min="12" Max="15" Color="#fffde6">Warm White</Capability>
-  <Capability Min="16" Max="19" Color="#f6fdff">Cool White</Capability>
-  <Capability Min="20" Max="23" Color="#fffbf0">Daylight</Capability>
-  <Capability Min="24" Max="27" Color="#fffcfb">Arc White</Capability>
-  <Capability Min="28" Max="31" Color="#ff0000">Red</Capability>
-  <Capability Min="32" Max="35" Color="#ffff00">Yellow</Capability>
-  <Capability Min="36" Max="39" Color="#00a8ff">Daylight Blue</Capability>
-  <Capability Min="40" Max="43" Color="#ff00fe">Magenta</Capability>
-  <Capability Min="44" Max="47" Color="#129793">Aqua</Capability>
-  <Capability Min="48" Max="51" Color="#fe8d00">Medium Amber</Capability>
-  <Capability Min="52" Max="55" Color="#b378d3">Lavender</Capability>
-  <Capability Min="56" Max="59" Color="#0000ff">Blue</Capability>
-  <Capability Min="60" Max="63" Color="#ffbad2">Light Pink</Capability>
-  <Capability Min="64" Max="67" Color="#00ff00">Green</Capability>
-  <Capability Min="68" Max="71" Color="#fe2373">Pink</Capability>
-  <Capability Min="72" Max="75" Color="#fff0d3">Amber White</Capability>
-  <Capability Min="76" Max="79" Color="#af0d72">Dark Fuchsia</Capability>
-  <Capability Min="80" Max="83" Color="#e6cfa3">Light Amber</Capability>
-  <Capability Min="84" Max="87" Color="#4682b4">Steel Blue</Capability>
-  <Capability Min="88" Max="91" Color="#69e8c4">Light Green/Blue</Capability>
-  <Capability Min="92" Max="95" Color="#ff5e00">Orange</Capability>
-  <Capability Min="96" Max="99" Color="#fc90b0">Medium Pink</Capability>
-  <Capability Min="100" Max="103" Color="#00ffff">Cyan</Capability>
-  <Capability Min="104" Max="107" Color="#7e0b80">Purple</Capability>
+  <Capability Min="8" Max="11" Preset="ColorMacro" Res1="#f9f9f9">Scratch Pad</Capability>
+  <Capability Min="12" Max="15" Preset="ColorMacro" Res1="#fffde6">Warm White</Capability>
+  <Capability Min="16" Max="19" Preset="ColorMacro" Res1="#f6fdff">Cool White</Capability>
+  <Capability Min="20" Max="23" Preset="ColorMacro" Res1="#fffbf0">Daylight</Capability>
+  <Capability Min="24" Max="27" Preset="ColorMacro" Res1="#fffcfb">Arc White</Capability>
+  <Capability Min="28" Max="31" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="32" Max="35" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="36" Max="39" Preset="ColorMacro" Res1="#00a8ff">Daylight Blue</Capability>
+  <Capability Min="40" Max="43" Preset="ColorMacro" Res1="#ff00fe">Magenta</Capability>
+  <Capability Min="44" Max="47" Preset="ColorMacro" Res1="#129793">Aqua</Capability>
+  <Capability Min="48" Max="51" Preset="ColorMacro" Res1="#fe8d00">Medium Amber</Capability>
+  <Capability Min="52" Max="55" Preset="ColorMacro" Res1="#b378d3">Lavender</Capability>
+  <Capability Min="56" Max="59" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="60" Max="63" Preset="ColorMacro" Res1="#ffbad2">Light Pink</Capability>
+  <Capability Min="64" Max="67" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="68" Max="71" Preset="ColorMacro" Res1="#fe2373">Pink</Capability>
+  <Capability Min="72" Max="75" Preset="ColorMacro" Res1="#fff0d3">Amber White</Capability>
+  <Capability Min="76" Max="79" Preset="ColorMacro" Res1="#af0d72">Dark Fuchsia</Capability>
+  <Capability Min="80" Max="83" Preset="ColorMacro" Res1="#e6cfa3">Light Amber</Capability>
+  <Capability Min="84" Max="87" Preset="ColorMacro" Res1="#4682b4">Steel Blue</Capability>
+  <Capability Min="88" Max="91" Preset="ColorMacro" Res1="#69e8c4">Light Green/Blue</Capability>
+  <Capability Min="92" Max="95" Preset="ColorMacro" Res1="#ff5e00">Orange</Capability>
+  <Capability Min="96" Max="99" Preset="ColorMacro" Res1="#fc90b0">Medium Pink</Capability>
+  <Capability Min="100" Max="103" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="104" Max="107" Preset="ColorMacro" Res1="#7e0b80">Purple</Capability>
   <Capability Min="108" Max="111">Custom 1</Capability>
   <Capability Min="112" Max="115">Custom 2</Capability>
   <Capability Min="116" Max="119">Custom 3</Capability>
@@ -142,29 +112,12 @@
   <Capability Min="113" Max="115">Red correction on</Capability>
   <Capability Min="116" Max="118">Red correction off</Capability>
  </Channel>
- <Channel Name="Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0 - 100%</Capability>
- </Channel>
- <Channel Name="Red">
-  <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="255" Color="#ff0000">0 - 100%</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="255" Color="#00ff00">0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="255" Color="#0000ff">0 - 100%</Capability>
- </Channel>
- <Channel Name="White">
-  <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="255" Color="#ffffff">0 - 100%</Capability>
- </Channel>
- <Channel Name="Not used (for future use)">
-  <Group Byte="0">Nothing</Group>
- </Channel>
+ <Channel Name="Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Not used (for future use)" Preset="NoFunction"/>
  <Channel Name="Color Time">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="49">0s - 9.8s (0.2s per step)</Capability>
@@ -186,13 +139,6 @@
   <Capability Min="250" Max="255">60mS - 160mS (20mS per step)</Capability>
  </Channel>
  <Mode Name="16-Bit">
-  <Physical>
-   <Bulb Lumens="2000" Type="True RGBW 120 Watt LED chip" ColourTemperature="0"/>
-   <Dimensions Width="310" Height="405" Weight="7.8" Depth="665"/>
-   <Lens DegreesMax="44" Name="Other" DegreesMin="18"/>
-   <Focus PanMax="360" Type="Barrel" TiltMax="90"/>
-   <Technical PowerConsumption="140" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Intensity - High Byte</Channel>
   <Channel Number="1">Intenisty - Low Byte</Channel>
   <Channel Number="2">Red - High Byte</Channel>
@@ -210,13 +156,6 @@
   <Channel Number="14">Control</Channel>
  </Mode>
  <Mode Name="8-Bit">
-  <Physical>
-   <Bulb Lumens="2000" Type="True RGBW 120 Watt LED chip" ColourTemperature="0"/>
-   <Dimensions Width="310" Height="405" Weight="7.8" Depth="665"/>
-   <Lens DegreesMax="44" Name="Other" DegreesMin="18"/>
-   <Focus PanMax="360" Type="Barrel" TiltMax="90"/>
-   <Technical PowerConsumption="140" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Intensity</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
@@ -228,17 +167,17 @@
   <Channel Number="8">Control</Channel>
  </Mode>
  <Mode Name="5-Channel">
-  <Physical>
-   <Bulb Lumens="2000" Type="True RGBW 120 Watt LED chip" ColourTemperature="0"/>
-   <Dimensions Width="310" Height="405" Weight="7.8" Depth="665"/>
-   <Lens DegreesMax="44" Name="Other" DegreesMin="18"/>
-   <Focus PanMax="360" Type="Barrel" TiltMax="90"/>
-   <Technical PowerConsumption="140" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Intensity</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
   <Channel Number="3">Blue</Channel>
   <Channel Number="4">White</Channel>
  </Mode>
+ <Physical>
+  <Bulb Type="True RGBW 120 Watt LED chip" Lumens="2000" ColourTemperature="0"/>
+  <Dimensions Weight="7.8" Width="310" Height="405" Depth="665"/>
+  <Lens Name="Other" DegreesMin="18" DegreesMax="44"/>
+  <Focus Type="Barrel" PanMax="360" TiltMax="90"/>
+  <Technical PowerConsumption="140" DmxConnector="5-pin"/>
+ </Physical>
 </FixtureDefinition>

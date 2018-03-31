@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -53,15 +53,15 @@
   <Capability Min="251" Max="255">Open</Capability>
  </Channel>
  <Mode Name="Normal">
-  <Physical>
+  <Channel Number="0">Colour</Channel>
+  <Channel Number="1">Gobo</Channel>
+  <Channel Number="2">Shutter, strobe</Channel>
+ </Mode>
+<Physical>
    <Bulb Lumens="18000" Type="MSD 250W" ColourTemperature="6500"/>
    <Dimensions Width="270" Height="285" Weight="7" Depth="315"/>
    <Lens DegreesMax="18" Name="Other" DegreesMin="18"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="450" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Colour</Channel>
-  <Channel Number="1">Gobo</Channel>
-  <Channel Number="2">Shutter, strobe</Channel>
- </Mode>
 </FixtureDefinition>

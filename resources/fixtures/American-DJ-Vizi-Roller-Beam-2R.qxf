@@ -3,28 +3,16 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.4 GIT</Version>
+  <Version>4.11.2 GIT</Version>
   <Author>MaBonzo</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
  <Model>Vizi Roller Beam 2R</Model>
  <Type>Scanner</Type>
- <Channel Name="Pan Coarse">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan Coarse</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan Fine</Capability>
- </Channel>
- <Channel Name="Tilt Coarse">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt Fine</Capability>
- </Channel>
+ <Channel Name="Pan Coarse" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Coarse" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Colour Wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="8" Color="#ffffff">Open / White</Capability>
@@ -45,10 +33,7 @@
   <Capability Min="190" Max="193">No rotation</Capability>
   <Capability Min="194" Max="255">Backwards Rainbow Slow to Fast</Capability>
  </Channel>
- <Channel Name="Colour Wheel Fine">
-  <Group Byte="1">Colour</Group>
-  <Capability Min="0" Max="255">Colour Wheel Change Fine</Capability>
- </Channel>
+ <Channel Name="Color wheel fine" Preset="ColorWheelFine"/>
  <Channel Name="Gobos">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="7">Open</Capability>
@@ -141,14 +126,8 @@
   <Capability Min="192" Max="223">Random Strobe Slow to Fast</Capability>
   <Capability Min="224" Max="255">Shutter Open</Capability>
  </Channel>
- <Channel Name="Master Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Intensity 0 - 100%</Capability>
- </Channel>
- <Channel Name="Master Dimmer Fine">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">Intensity 0 - 100%</Capability>
- </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Master Dimmer Fine" Preset="IntensityMasterDimmerFine"/>
  <Channel Name="Pan/Tilt Speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="225">Max to Min Speed</Capability>
@@ -178,19 +157,12 @@
   <Capability Min="240" Max="255">Sound Active Program</Capability>
  </Channel>
  <Mode Name="Advanced">
-  <Physical>
-   <Bulb Type="MSD 200W" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="16.75" Width="300" Height="233" Depth="440"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="4"/>
-   <Focus Type="Barrel" PanMax="315" TiltMax="90"/>
-   <Technical PowerConsumption="210" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan Coarse</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt Coarse</Channel>
   <Channel Number="3">Tilt Fine</Channel>
   <Channel Number="4">Colour Wheel</Channel>
-  <Channel Number="5">Colour Wheel Fine</Channel>
+  <Channel Number="5">Color wheel fine</Channel>
   <Channel Number="6">Gobos</Channel>
   <Channel Number="7">Gobo Indexing</Channel>
   <Channel Number="8">Rotating Barrel</Channel>
@@ -205,13 +177,6 @@
   <Channel Number="17">Lamp On/Off Program</Channel>
  </Mode>
  <Mode Name="Standard">
-  <Physical>
-   <Bulb Type="MSD 200W" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="16.75" Width="300" Height="233" Depth="440"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="4"/>
-   <Focus Type="Barrel" PanMax="315" TiltMax="90"/>
-   <Technical PowerConsumption="210" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan Coarse</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt Coarse</Channel>
@@ -227,13 +192,6 @@
   <Channel Number="12">Lamp On/Off Program</Channel>
  </Mode>
  <Mode Name="Basic">
-  <Physical>
-   <Bulb Type="MSD 200W" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="16.75" Width="300" Height="233" Depth="440"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="4"/>
-   <Focus Type="Barrel" PanMax="315" TiltMax="90"/>
-   <Technical PowerConsumption="210" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan Coarse</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Colour Wheel</Channel>
@@ -246,4 +204,11 @@
   <Channel Number="9">Pan/Tilt Speed</Channel>
   <Channel Number="10">Lamp On/Off Program</Channel>
  </Mode>
+ <Physical>
+  <Bulb Type="MSD 200W" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="16.75" Width="300" Height="233" Depth="440"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="4"/>
+  <Focus Type="Barrel" PanMax="315" TiltMax="90"/>
+  <Technical PowerConsumption="210" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

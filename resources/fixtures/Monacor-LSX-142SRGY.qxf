@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.7.3 GIT</Version>
+  <Version>4.11.2 GIT</Version>
   <Author>Robert Box</Author>
  </Creator>
  <Manufacturer>Monacor</Manufacturer>
@@ -13,13 +13,13 @@
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="20">Off</Capability>
   <Capability Min="21" Max="40">Auto show with RGY colours</Capability>
-  <Capability Min="41" Max="60" Color="#ff0000">Auto show with red colour</Capability>
-  <Capability Min="61" Max="80" Color="#00ff00">Auto show with green colour</Capability>
-  <Capability Min="81" Max="100" Color="#ffff00">Auto show with yellow colour</Capability>
+  <Capability Min="41" Max="60" Preset="ColorMacro" Res1="#ff0000">Auto show with red colour</Capability>
+  <Capability Min="61" Max="80" Preset="ColorMacro" Res1="#00ff00">Auto show with green colour</Capability>
+  <Capability Min="81" Max="100" Preset="ColorMacro" Res1="#ffff00">Auto show with yellow colour</Capability>
   <Capability Min="101" Max="120">Sound show with RGY colours</Capability>
-  <Capability Min="121" Max="140" Color="#ff0000">Sound show with red colour</Capability>
-  <Capability Min="141" Max="160" Color="#00ff00">Sound show with green colour</Capability>
-  <Capability Min="161" Max="180" Color="#ffff00">Sound show with yellow colour</Capability>
+  <Capability Min="121" Max="140" Preset="ColorMacro" Res1="#ff0000">Sound show with red colour</Capability>
+  <Capability Min="141" Max="160" Preset="ColorMacro" Res1="#00ff00">Sound show with green colour</Capability>
+  <Capability Min="161" Max="180" Preset="ColorMacro" Res1="#ffff00">Sound show with yellow colour</Capability>
   <Capability Min="181" Max="200">Auto pattern show</Capability>
   <Capability Min="201" Max="220">Sound pattern show</Capability>
   <Capability Min="221" Max="255">DMX mode</Capability>
@@ -39,9 +39,9 @@
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="15">Original</Capability>
-  <Capability Min="16" Max="31" Color="#ff0000">Red</Capability>
-  <Capability Min="32" Max="47" Color="#00ff00">Green</Capability>
-  <Capability Min="48" Max="63" Color="#ffff00">Yellow</Capability>
+  <Capability Min="16" Max="31" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="32" Max="47" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="48" Max="63" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
   <Capability Min="64" Max="111">Colour rolling</Capability>
   <Capability Min="112" Max="159">Colour jumping</Capability>
   <Capability Min="160" Max="207">Colour moving</Capability>
@@ -70,20 +70,14 @@
   <Capability Min="128" Max="191">Clockwise rolling</Capability>
   <Capability Min="192" Max="255">Anticlockwise rolling</Capability>
  </Channel>
- <Channel Name="Y-axis roll speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Fast to slow</Capability>
- </Channel>
+ <Channel Name="Y-axis roll speed" Preset="SpeedTiltFastSlow"/>
  <Channel Name="X-axis rolling">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="127">0-359 degree X-axis rolling</Capability>
   <Capability Min="128" Max="191">Clockwise rolling</Capability>
   <Capability Min="192" Max="255">Anticlockwise rolling</Capability>
  </Channel>
- <Channel Name="X-axis roll speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Fast to slow</Capability>
- </Channel>
+ <Channel Name="X-axis roll speed" Preset="SpeedPanFastSlow"/>
  <Channel Name="Z-axis rolling">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="127">0-359 degree Z-axis rolling</Capability>
@@ -100,28 +94,15 @@
   <Capability Min="128" Max="191">Clockwise moving</Capability>
   <Capability Min="192" Max="255">Anticlockwise moving</Capability>
  </Channel>
- <Channel Name="X-axis move speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Fast to slow</Capability>
- </Channel>
+ <Channel Name="X-axis move speed" Preset="SpeedPanFastSlow"/>
  <Channel Name="Y-axis moving">
   <Group Byte="0">Tilt</Group>
   <Capability Min="0" Max="127">Y-axis position</Capability>
   <Capability Min="128" Max="191">Clockwise moving</Capability>
   <Capability Min="192" Max="255">Anticlockwise moving</Capability>
  </Channel>
- <Channel Name="Y-axis move speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Fast to slow</Capability>
- </Channel>
+ <Channel Name="Y-axis move speed" Preset="SpeedTiltFastSlow"/>
  <Mode Name="Default">
-  <Physical>
-   <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Weight="1.5" Width="190" Depth="170" Height="80"/>
-   <Lens Name="Other" DegreesMin="20" DegreesMax="20"/>
-   <Focus Type="Fixed" TiltMax="20" PanMax="20"/>
-   <Technical PowerConsumption="15" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Mode</Channel>
   <Channel Number="1">Pattern group</Channel>
   <Channel Number="2">Pattern</Channel>
@@ -140,4 +121,11 @@
   <Channel Number="15">Y-axis moving</Channel>
   <Channel Number="16">Y-axis move speed</Channel>
  </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.5" Width="190" Height="80" Depth="170"/>
+  <Lens Name="Other" DegreesMin="20" DegreesMax="20"/>
+  <Focus Type="Fixed" PanMax="20" TiltMax="20"/>
+  <Technical PowerConsumption="15" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

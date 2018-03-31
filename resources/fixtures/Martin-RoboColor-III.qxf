@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -135,13 +135,6 @@
   <Capability Min="1" Max="255">Speed (fast -&gt; slow)</Capability>
  </Channel>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb Lumens="900" Type="HTI 150W" ColourTemperature="5000"/>
-   <Dimensions Width="300" Height="267" Weight="6.5" Depth="208"/>
-   <Lens DegreesMax="17" Name="Other" DegreesMin="17"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="150" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Function</Channel>
   <Channel Number="1">Color Head 1</Channel>
   <Channel Number="2">Color Head 2</Channel>
@@ -161,13 +154,6 @@
   </Head>
  </Mode>
  <Mode Name="Mode 2">
-  <Physical>
-   <Bulb Lumens="900" Type="HTI 150W" ColourTemperature="5000"/>
-   <Dimensions Width="300" Height="267" Weight="6.5" Depth="208"/>
-   <Lens DegreesMax="17" Name="Other" DegreesMin="17"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="150" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Function</Channel>
   <Channel Number="1">Color Head 1</Channel>
   <Channel Number="2">Color Head 2</Channel>
@@ -187,4 +173,11 @@
    <Channel>4</Channel>
   </Head>
  </Mode>
+<Physical>
+   <Bulb Lumens="900" Type="HTI 150W" ColourTemperature="5000"/>
+   <Dimensions Width="300" Height="267" Weight="6.5" Depth="208"/>
+   <Lens DegreesMax="17" Name="Other" DegreesMin="17"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="150" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

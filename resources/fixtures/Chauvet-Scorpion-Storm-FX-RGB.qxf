@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -91,13 +91,6 @@
   <Capability Min="169" Max="255">Mode 4, slow to fast</Capability>
  </Channel>
  <Mode Name="7 Channel (Ch. 1 = 000-050)">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Height="191" Width="232" Depth="194" Weight="1.7"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus PanMax="100" TiltMax="100" Type="Mirror"/>
-   <Technical PowerConsumption="31" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Control Functions</Channel>
   <Channel Number="1">Color (Ch. 1 = 000-050)</Channel>
   <Channel Number="2">Strobe</Channel>
@@ -107,13 +100,6 @@
   <Channel Number="6">Stutter (motor 2)</Channel>
  </Mode>
  <Mode Name="7 Channel (Ch. 1 = 051-200)">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Height="191" Width="232" Depth="194" Weight="1.7"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus PanMax="100" TiltMax="100" Type="Mirror"/>
-   <Technical PowerConsumption="31" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Control Functions</Channel>
   <Channel Number="1">Color selection (Ch. 1 = 051-200)</Channel>
   <Channel Number="2">Strobe</Channel>
@@ -122,4 +108,11 @@
   <Channel Number="5">Rotation (motor 2)</Channel>
   <Channel Number="6">Stutter (motor 2)</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Height="191" Width="232" Depth="194" Weight="1.7"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus PanMax="100" TiltMax="100" Type="Mirror"/>
+   <Technical PowerConsumption="31" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

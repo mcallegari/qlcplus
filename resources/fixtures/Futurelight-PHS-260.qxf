@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,14 +9,8 @@
  <Manufacturer>Futurelight</Manufacturer>
  <Model>PHS-260</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan (0 - 630°)</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt (0 - 265°)</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Pan/tilt speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="225">Decreasing speed</Capability>
@@ -124,10 +118,7 @@
   <Capability Min="192" Max="223">Random strobe-effect with increasing speed</Capability>
   <Capability Min="224" Max="255">No function (shutter open)</Capability>
  </Channel>
- <Channel Name="Dimmer intensity">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer intensity</Capability>
- </Channel>
+ <Channel Name="Dimmer intensity" Preset="IntensityDimmer"/>
  <Channel Name="Lamp switch, reset, programs">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="31">Normal colour- and gobo-change, search position via shortest
@@ -149,14 +140,8 @@ shortest distance</Capability>
   <Capability Min="224" Max="239">Lamp off</Capability>
   <Capability Min="240" Max="255">No function</Capability>
  </Channel>
- <Channel Name="Pan fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine</Capability>
- </Channel>
- <Channel Name="Tilt fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine</Capability>
- </Channel>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
  <Channel Name="Frost">
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="191">Frost from 0 to 100 %</Capability>
@@ -165,13 +150,6 @@ shortest distance</Capability>
   <Capability Min="255" Max="255">100% frost</Capability>
  </Channel>
  <Mode Name="Default">
-  <Physical>
-   <Bulb Type="HSD 250W" Lumens="0" ColourTemperature="8000"/>
-   <Dimensions Weight="24" Width="420" Height="470" Depth="370"/>
-   <Lens Name="Other" DegreesMin="14" DegreesMax="20"/>
-   <Focus Type="Head" PanMax="630" TiltMax="265"/>
-   <Technical PowerConsumption="485" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan/tilt speed</Channel>
@@ -188,4 +166,11 @@ shortest distance</Capability>
   <Channel Number="13">Pan fine</Channel>
   <Channel Number="14">Tilt fine</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="HSD 250W" Lumens="0" ColourTemperature="8000"/>
+   <Dimensions Weight="24" Width="420" Height="470" Depth="370"/>
+   <Lens Name="Other" DegreesMin="14" DegreesMax="20"/>
+   <Focus Type="Head" PanMax="630" TiltMax="265"/>
+   <Technical PowerConsumption="485" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

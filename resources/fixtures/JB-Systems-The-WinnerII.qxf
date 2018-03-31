@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -52,26 +52,20 @@
   <Capability Min="121" Max="121" Color="#ff00ff">Magenta</Capability>
   <Capability Min="128" Max="255" Res="Others/rainbow.png">Cycle slow to fast</Capability>
  </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb Type="ELC 250W" Lumens="1800" ColourTemperature="0"/>
-   <Dimensions Weight="10" Width="200" Height="155" Depth="500"/>
-   <Lens Name="Other" DegreesMin="13" DegreesMax="13"/>
-   <Focus Type="Mirror" PanMax="180" TiltMax="90"/>
-   <Technical PowerConsumption="350" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Shutter</Channel>
   <Channel Number="1">Gobo</Channel>
   <Channel Number="2">Color</Channel>
   <Channel Number="3">Pan</Channel>
   <Channel Number="4">Tilt</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="ELC 250W" Lumens="1800" ColourTemperature="0"/>
+   <Dimensions Weight="10" Width="200" Height="155" Depth="500"/>
+   <Lens Name="Other" DegreesMin="13" DegreesMax="13"/>
+   <Focus Type="Mirror" PanMax="180" TiltMax="90"/>
+   <Technical PowerConsumption="350" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

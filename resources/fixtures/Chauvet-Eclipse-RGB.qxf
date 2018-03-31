@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -77,10 +77,7 @@
   <Capability Min="170" Max="209" Color="#0000ff">Fade out (100%~0)</Capability>
   <Capability Min="210" Max="255">Alternating fade (100%~0~100%...)</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer (0~100%)</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe (LED)">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="4">No Function</Capability>
@@ -95,13 +92,6 @@
   <Capability Min="134" Max="255">Counterclockwise rotation (slow to fast)</Capability>
  </Channel>
  <Mode Name="12 Ch">
-  <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Weight="1.7" Height="162" Width="241" Depth="196"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical PowerConsumption="43" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Auto Mode</Channel>
   <Channel Number="1">Color</Channel>
   <Channel Number="2">Strobe (laser)</Channel>
@@ -115,4 +105,11 @@
   <Channel Number="10">Strobe (LED)</Channel>
   <Channel Number="11">Rotation (LED)</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
+   <Dimensions Weight="1.7" Height="162" Width="241" Depth="196"/>
+   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
+   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Technical PowerConsumption="43" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

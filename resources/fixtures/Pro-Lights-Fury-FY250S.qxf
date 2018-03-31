@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,26 +9,11 @@
  <Manufacturer>Pro-Lights</Manufacturer>
  <Model>Fury FY250S</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan Fine</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt Fine</Capability>
- </Channel>
- <Channel Name="Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Speed Fast &gt; Slow</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Color Wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="6" Color="#ffffff">White</Capability>
@@ -59,10 +44,7 @@
   <Capability Min="8" Max="215">Strobe Slow &gt; Fast</Capability>
   <Capability Min="216" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Gobo Wheel">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="7" Res="Others/open.png">Open</Capability>
@@ -135,13 +117,6 @@
   <Capability Min="248" Max="255" Res="Service/gobo_n8.png">Sound Control 8</Capability>
  </Channel>
  <Mode Name="13 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="23000" ColourTemperature="0"/>
-   <Dimensions Weight="5.7" Width="229" Height="336" Depth="213"/>
-   <Lens Name="Other" DegreesMin="17" DegreesMax="17"/>
-   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="84" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan Fine</Channel>
@@ -157,13 +132,6 @@
   <Channel Number="12">Program Built-In</Channel>
  </Mode>
  <Mode Name="8 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="23000" ColourTemperature="0"/>
-   <Dimensions Weight="5.7" Width="229" Height="336" Depth="213"/>
-   <Lens Name="Other" DegreesMin="17" DegreesMax="17"/>
-   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="84" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Color Wheel</Channel>
@@ -173,4 +141,11 @@
   <Channel Number="6">Gobo Rotation</Channel>
   <Channel Number="7">Prism</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="23000" ColourTemperature="0"/>
+   <Dimensions Weight="5.7" Width="229" Height="336" Depth="213"/>
+   <Lens Name="Other" DegreesMin="17" DegreesMax="17"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="84" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

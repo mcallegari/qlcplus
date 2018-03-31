@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -1578,26 +1578,12 @@
   <Capability Max="255" Min="128">On</Capability>
  </Channel>
  <Mode Name="4 Channel">
-  <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Width="526" Weight="5" Height="243" Depth="319"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="32"/>
-  </Physical>
   <Channel Number="0">Function</Channel>
   <Channel Number="1">Chase</Channel>
   <Channel Number="2">Speed</Channel>
   <Channel Number="3">Strobe</Channel>
  </Mode>
  <Mode Name="256 Channel">
-  <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Width="526" Weight="5" Height="243" Depth="319"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="32"/>
-  </Physical>
   <Channel Number="0">Red 1</Channel>
   <Channel Number="1">Green 1</Channel>
   <Channel Number="2">Blue 1</Channel>
@@ -2239,4 +2225,11 @@
    <Channel>255</Channel>
   </Head>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
+   <Dimensions Width="526" Weight="5" Height="243" Depth="319"/>
+   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
+   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="32"/>
+  </Physical>
 </FixtureDefinition>

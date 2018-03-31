@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,35 +9,12 @@
  <Manufacturer>Blizzard Lighting</Manufacturer>
  <Model>Rocklite RGBAW</Model>
  <Type>Color Changer</Type>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Red Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Green Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Blue Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Amber Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Amber</Colour>
-  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="White Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Red Intensity" Preset="IntensityRed"/>
+ <Channel Name="Green Intensity" Preset="IntensityGreen"/>
+ <Channel Name="Blue Intensity" Preset="IntensityBlue"/>
+ <Channel Name="Amber Intensity" Preset="IntensityAmber"/>
+ <Channel Name="White Intensity" Preset="IntensityWhite"/>
  <Channel Name="Strobe">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="14">Dimming</Capability>
@@ -68,13 +45,6 @@
   <Capability Min="206" Max="255">Mode 4 = 32-bit, full intensity dimming</Capability>
  </Channel>
  <Mode Name="10-Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="1090" ColourTemperature="0"/>
-   <Dimensions Weight="2.4" Width="197" Height="197" Depth="254"/>
-   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="160" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red Intensity</Channel>
   <Channel Number="2">Green Intensity</Channel>
@@ -87,13 +57,6 @@
   <Channel Number="9">32-Bit Dimmer</Channel>
  </Mode>
  <Mode Name="9-Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="1090" ColourTemperature="0"/>
-   <Dimensions Weight="2.4" Width="197" Height="197" Depth="254"/>
-   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="160" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red Intensity</Channel>
   <Channel Number="2">Green Intensity</Channel>
@@ -105,13 +68,6 @@
   <Channel Number="8">Fade Speed</Channel>
  </Mode>
  <Mode Name="5-Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="1090" ColourTemperature="0"/>
-   <Dimensions Weight="2.4" Width="197" Height="197" Depth="254"/>
-   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="160" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red Intensity</Channel>
   <Channel Number="1">Green Intensity</Channel>
   <Channel Number="2">Blue Intensity</Channel>
@@ -119,16 +75,16 @@
   <Channel Number="4">White Intensity</Channel>
  </Mode>
  <Mode Name="4-Channel">
-  <Physical>
+  <Channel Number="0">Red Intensity</Channel>
+  <Channel Number="1">Amber Intensity</Channel>
+  <Channel Number="2">White Intensity</Channel>
+  <Channel Number="3">Dimmer</Channel>
+ </Mode>
+<Physical>
    <Bulb Type="LED" Lumens="1090" ColourTemperature="0"/>
    <Dimensions Weight="2.4" Width="197" Height="197" Depth="254"/>
    <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="160" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Red Intensity</Channel>
-  <Channel Number="1">Amber Intensity</Channel>
-  <Channel Number="2">White Intensity</Channel>
-  <Channel Number="3">Dimmer</Channel>
- </Mode>
 </FixtureDefinition>

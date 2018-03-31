@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,34 +9,13 @@
  <Manufacturer>Blizzard Lighting</Manufacturer>
  <Model>Lil G</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Fine Pan">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">16-bit</Capability>
- </Channel>
- <Channel Name="Fine Tilt">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">16-bit</Capability>
- </Channel>
- <Channel Name="Pan/Tilt Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Fast &lt;--&gt; slow</Capability>
- </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Strobe">
-  <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="255">Slow &lt;--&gt; fast</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Fine Pan" Preset="PositionPanFine"/>
+ <Channel Name="Fine Tilt" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
  <Channel Name="Color Wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="19" Color="#ffffff">White</Capability>
@@ -86,13 +65,6 @@
   <Capability Min="255" Max="255">Fixture reset in 3 seconds</Capability>
  </Channel>
  <Mode Name="11 Channel Mode">
-  <Physical>
-   <Bulb Type="40W white LED" Lumens="7730" ColourTemperature="5500"/>
-   <Dimensions Weight="3.5" Width="201" Height="317" Depth="196"/>
-   <Lens Name="Other" DegreesMin="9" DegreesMax="9"/>
-   <Focus Type="Fixed" PanMax="540" TiltMax="220"/>
-   <Technical PowerConsumption="59" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Fine Pan</Channel>
@@ -105,4 +77,11 @@
   <Channel Number="9">Auto/Sound Active</Channel>
   <Channel Number="10">Reset</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="40W white LED" Lumens="7730" ColourTemperature="5500"/>
+   <Dimensions Weight="3.5" Width="201" Height="317" Depth="196"/>
+   <Lens Name="Other" DegreesMin="9" DegreesMax="9"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="220"/>
+   <Technical PowerConsumption="59" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

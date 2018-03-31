@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -81,13 +81,6 @@
   <Capability Min="192" Max="255">Anti-clockwise moving effect, speed increasing</Capability>
  </Channel>
  <Mode Name="DMX">
-  <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type=""/>
-   <Dimensions Height="80" Width="160" Depth="160" Weight="1.3"/>
-   <Lens DegreesMax="0" DegreesMin="0" Name="Other"/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
-   <Technical PowerConsumption="12" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Mode Selection</Channel>
   <Channel Number="1">Pattern Selection</Channel>
   <Channel Number="2">Colour Selection</Channel>
@@ -99,4 +92,11 @@
   <Channel Number="8">X Axis Moving</Channel>
   <Channel Number="9">Y Axis Moving</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" ColourTemperature="0" Type=""/>
+   <Dimensions Height="80" Width="160" Depth="160" Weight="1.3"/>
+   <Lens DegreesMax="0" DegreesMin="0" Name="Other"/>
+   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
+   <Technical PowerConsumption="12" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

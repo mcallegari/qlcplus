@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -179,13 +179,6 @@
   <Capability Min="251" Max="255">Sound Controlled Mode</Capability>
  </Channel>
  <Mode Name="Default">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Weight="4" Width="460" Height="155" Depth="355"/>
-   <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="25"/>
-  </Physical>
   <Channel Number="0">Lens 1</Channel>
   <Channel Number="1">Lens 2</Channel>
   <Channel Number="2">Lens 3</Channel>
@@ -196,4 +189,11 @@
   <Channel Number="7">Strobe</Channel>
   <Channel Number="8">Internal Programs, Auto Mode, Sound Controlled Mode</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Weight="4" Width="460" Height="155" Depth="355"/>
+   <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="25"/>
+  </Physical>
 </FixtureDefinition>

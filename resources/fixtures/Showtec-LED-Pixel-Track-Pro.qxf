@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,21 +9,9 @@
  <Manufacturer>Showtec</Manufacturer>
  <Model>LED Pixel Track Pro</Model>
  <Type>Dimmer</Type>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="Dimmer/Strobe">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="159">Gradual adjustment of dimmer intensity from 0 - 100%</Capability>
@@ -56,1110 +44,241 @@
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
  </Channel>
- <Channel Name="Red - A-E">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - F-J">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - A-E">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - F-J">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - A-E">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - F-J">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - A-E">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - F-J">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - A-B">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - C-D">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - E-F">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - G-H">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - I-J">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - A-B">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - C-D">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - E-F">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - G-H">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - I-J">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - A-B">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - C-D">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - E-F">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - G-H">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - I-J">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - A-B">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - C-D">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - E-F">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - G-H">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - I-J">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - A">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - B">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - C">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - D">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - E">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - F">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - G">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - H">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - I">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - J">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - A">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - B">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - C">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - D">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - E">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - F">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - G">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - H">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - I">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - J">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - A">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - B">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - C">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - D">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - E">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - F">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - G">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - H">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - I">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - J">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - A">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - B">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - C">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - D">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - E">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - F">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - G">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - H">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - I">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - J">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Aa">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Ab">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Ac">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Ad">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Ba">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Bb">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Bc">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Bd">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Ca">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Cb">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Cc">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Cd">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Ea">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Eb">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Ec">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Ed">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Fa">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Fb">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Fc">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Fd">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Ga">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Gb">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Gc">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Gd">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Ha">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Hb">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Hc">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Hd">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Ia">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Ib">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Ic">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Id">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Ja">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Jb">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Jc">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Jd">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Aa">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Ab">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Ac">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Ad">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Ba">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Bb">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Bc">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Bd">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Ca">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Cb">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Cc">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Cd">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Da">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Db">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Dc">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Dd">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Ea">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Eb">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Ec">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Ed">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Fa">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Fb">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Fc">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Fd">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Ga">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Gb">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Gc">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Gd">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Ha">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Hb">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Hc">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Hd">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Ia">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Ib">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Ic">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Id">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Ja">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Jb">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Jc">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Green - Jd">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Aa">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Ab">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Ac">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Ad">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Ba">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Bb">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Bc">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Bd">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Ca">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Cb">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Cc">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Cd">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Da">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Db">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Dc">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Dd">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Ea">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Eb">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Ec">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Ed">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Fa">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Fb">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Fc">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Fd">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Ga">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Gb">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Gc">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Gd">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Ha">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Hb">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Hc">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Hd">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Ia">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Ib">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Ic">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Id">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Ja">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Jb">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Jc">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Blue - Jd">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Aa">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Ab">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Ac">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Ad">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Ba">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Bb">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Bc">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Bd">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Ca">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Cb">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Cc">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Cd">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Da">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Db">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Dc">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Dd">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Ea">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Eb">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Ec">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Ed">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Fa">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Fb">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Fc">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Fd">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Ga">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Gb">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Gc">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Gd">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Ha">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Hb">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Hc">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Hd">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Ia">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Ib">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Ic">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Id">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Ja">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Jb">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Jc">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer - Jd">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Da">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Db">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Dc">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
- <Channel Name="Red - Dd">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Gradual adjustment from 0 - 100%</Capability>
- </Channel>
+ <Channel Name="Red - A-E" Preset="IntensityRed"/>
+ <Channel Name="Red - F-J" Preset="IntensityRed"/>
+ <Channel Name="Green - A-E" Preset="IntensityGreen"/>
+ <Channel Name="Green - F-J" Preset="IntensityGreen"/>
+ <Channel Name="Blue - A-E" Preset="IntensityBlue"/>
+ <Channel Name="Blue - F-J" Preset="IntensityBlue"/>
+ <Channel Name="Dimmer - A-E" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - F-J" Preset="IntensityDimmer"/>
+ <Channel Name="Red - A-B" Preset="IntensityRed"/>
+ <Channel Name="Red - C-D" Preset="IntensityRed"/>
+ <Channel Name="Red - E-F" Preset="IntensityRed"/>
+ <Channel Name="Red - G-H" Preset="IntensityRed"/>
+ <Channel Name="Red - I-J" Preset="IntensityRed"/>
+ <Channel Name="Green - A-B" Preset="IntensityGreen"/>
+ <Channel Name="Green - C-D" Preset="IntensityGreen"/>
+ <Channel Name="Green - E-F" Preset="IntensityGreen"/>
+ <Channel Name="Green - G-H" Preset="IntensityGreen"/>
+ <Channel Name="Green - I-J" Preset="IntensityGreen"/>
+ <Channel Name="Blue - A-B" Preset="IntensityBlue"/>
+ <Channel Name="Blue - C-D" Preset="IntensityBlue"/>
+ <Channel Name="Blue - E-F" Preset="IntensityBlue"/>
+ <Channel Name="Blue - G-H" Preset="IntensityBlue"/>
+ <Channel Name="Blue - I-J" Preset="IntensityBlue"/>
+ <Channel Name="Dimmer - A-B" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - C-D" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - E-F" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - G-H" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - I-J" Preset="IntensityDimmer"/>
+ <Channel Name="Red - A" Preset="IntensityRed"/>
+ <Channel Name="Red - B" Preset="IntensityRed"/>
+ <Channel Name="Red - C" Preset="IntensityRed"/>
+ <Channel Name="Red - D" Preset="IntensityRed"/>
+ <Channel Name="Red - E" Preset="IntensityRed"/>
+ <Channel Name="Red - F" Preset="IntensityRed"/>
+ <Channel Name="Red - G" Preset="IntensityRed"/>
+ <Channel Name="Red - H" Preset="IntensityRed"/>
+ <Channel Name="Red - I" Preset="IntensityRed"/>
+ <Channel Name="Red - J" Preset="IntensityRed"/>
+ <Channel Name="Green - A" Preset="IntensityGreen"/>
+ <Channel Name="Green - B" Preset="IntensityGreen"/>
+ <Channel Name="Green - C" Preset="IntensityGreen"/>
+ <Channel Name="Green - D" Preset="IntensityGreen"/>
+ <Channel Name="Green - E" Preset="IntensityGreen"/>
+ <Channel Name="Green - F" Preset="IntensityGreen"/>
+ <Channel Name="Green - G" Preset="IntensityGreen"/>
+ <Channel Name="Green - H" Preset="IntensityGreen"/>
+ <Channel Name="Green - I" Preset="IntensityGreen"/>
+ <Channel Name="Green - J" Preset="IntensityGreen"/>
+ <Channel Name="Blue - A" Preset="IntensityBlue"/>
+ <Channel Name="Blue - B" Preset="IntensityBlue"/>
+ <Channel Name="Blue - C" Preset="IntensityBlue"/>
+ <Channel Name="Blue - D" Preset="IntensityBlue"/>
+ <Channel Name="Blue - E" Preset="IntensityBlue"/>
+ <Channel Name="Blue - F" Preset="IntensityBlue"/>
+ <Channel Name="Blue - G" Preset="IntensityBlue"/>
+ <Channel Name="Blue - H" Preset="IntensityBlue"/>
+ <Channel Name="Blue - I" Preset="IntensityBlue"/>
+ <Channel Name="Blue - J" Preset="IntensityBlue"/>
+ <Channel Name="Dimmer - A" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - B" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - C" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - D" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - E" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - F" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - G" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - H" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - I" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - J" Preset="IntensityDimmer"/>
+ <Channel Name="Red - Aa" Preset="IntensityRed"/>
+ <Channel Name="Red - Ab" Preset="IntensityRed"/>
+ <Channel Name="Red - Ac" Preset="IntensityRed"/>
+ <Channel Name="Red - Ad" Preset="IntensityRed"/>
+ <Channel Name="Red - Ba" Preset="IntensityRed"/>
+ <Channel Name="Red - Bb" Preset="IntensityRed"/>
+ <Channel Name="Red - Bc" Preset="IntensityRed"/>
+ <Channel Name="Red - Bd" Preset="IntensityRed"/>
+ <Channel Name="Red - Ca" Preset="IntensityRed"/>
+ <Channel Name="Red - Cb" Preset="IntensityRed"/>
+ <Channel Name="Red - Cc" Preset="IntensityRed"/>
+ <Channel Name="Red - Cd" Preset="IntensityRed"/>
+ <Channel Name="Red - Ea" Preset="IntensityRed"/>
+ <Channel Name="Red - Eb" Preset="IntensityRed"/>
+ <Channel Name="Red - Ec" Preset="IntensityRed"/>
+ <Channel Name="Red - Ed" Preset="IntensityRed"/>
+ <Channel Name="Red - Fa" Preset="IntensityRed"/>
+ <Channel Name="Red - Fb" Preset="IntensityRed"/>
+ <Channel Name="Red - Fc" Preset="IntensityRed"/>
+ <Channel Name="Red - Fd" Preset="IntensityRed"/>
+ <Channel Name="Red - Ga" Preset="IntensityRed"/>
+ <Channel Name="Red - Gb" Preset="IntensityRed"/>
+ <Channel Name="Red - Gc" Preset="IntensityRed"/>
+ <Channel Name="Red - Gd" Preset="IntensityRed"/>
+ <Channel Name="Red - Ha" Preset="IntensityRed"/>
+ <Channel Name="Red - Hb" Preset="IntensityRed"/>
+ <Channel Name="Red - Hc" Preset="IntensityRed"/>
+ <Channel Name="Red - Hd" Preset="IntensityRed"/>
+ <Channel Name="Red - Ia" Preset="IntensityRed"/>
+ <Channel Name="Red - Ib" Preset="IntensityRed"/>
+ <Channel Name="Red - Ic" Preset="IntensityRed"/>
+ <Channel Name="Red - Id" Preset="IntensityRed"/>
+ <Channel Name="Red - Ja" Preset="IntensityRed"/>
+ <Channel Name="Red - Jb" Preset="IntensityRed"/>
+ <Channel Name="Red - Jc" Preset="IntensityRed"/>
+ <Channel Name="Red - Jd" Preset="IntensityRed"/>
+ <Channel Name="Green - Aa" Preset="IntensityGreen"/>
+ <Channel Name="Green - Ab" Preset="IntensityGreen"/>
+ <Channel Name="Green - Ac" Preset="IntensityGreen"/>
+ <Channel Name="Green - Ad" Preset="IntensityGreen"/>
+ <Channel Name="Green - Ba" Preset="IntensityGreen"/>
+ <Channel Name="Green - Bb" Preset="IntensityGreen"/>
+ <Channel Name="Green - Bc" Preset="IntensityGreen"/>
+ <Channel Name="Green - Bd" Preset="IntensityGreen"/>
+ <Channel Name="Green - Ca" Preset="IntensityGreen"/>
+ <Channel Name="Green - Cb" Preset="IntensityGreen"/>
+ <Channel Name="Green - Cc" Preset="IntensityGreen"/>
+ <Channel Name="Green - Cd" Preset="IntensityGreen"/>
+ <Channel Name="Green - Da" Preset="IntensityGreen"/>
+ <Channel Name="Green - Db" Preset="IntensityGreen"/>
+ <Channel Name="Green - Dc" Preset="IntensityGreen"/>
+ <Channel Name="Green - Dd" Preset="IntensityGreen"/>
+ <Channel Name="Green - Ea" Preset="IntensityGreen"/>
+ <Channel Name="Green - Eb" Preset="IntensityGreen"/>
+ <Channel Name="Green - Ec" Preset="IntensityGreen"/>
+ <Channel Name="Green - Ed" Preset="IntensityGreen"/>
+ <Channel Name="Green - Fa" Preset="IntensityGreen"/>
+ <Channel Name="Green - Fb" Preset="IntensityGreen"/>
+ <Channel Name="Green - Fc" Preset="IntensityGreen"/>
+ <Channel Name="Green - Fd" Preset="IntensityGreen"/>
+ <Channel Name="Green - Ga" Preset="IntensityGreen"/>
+ <Channel Name="Green - Gb" Preset="IntensityGreen"/>
+ <Channel Name="Green - Gc" Preset="IntensityGreen"/>
+ <Channel Name="Green - Gd" Preset="IntensityGreen"/>
+ <Channel Name="Green - Ha" Preset="IntensityGreen"/>
+ <Channel Name="Green - Hb" Preset="IntensityGreen"/>
+ <Channel Name="Green - Hc" Preset="IntensityGreen"/>
+ <Channel Name="Green - Hd" Preset="IntensityGreen"/>
+ <Channel Name="Green - Ia" Preset="IntensityGreen"/>
+ <Channel Name="Green - Ib" Preset="IntensityGreen"/>
+ <Channel Name="Green - Ic" Preset="IntensityGreen"/>
+ <Channel Name="Green - Id" Preset="IntensityGreen"/>
+ <Channel Name="Green - Ja" Preset="IntensityGreen"/>
+ <Channel Name="Green - Jb" Preset="IntensityGreen"/>
+ <Channel Name="Green - Jc" Preset="IntensityGreen"/>
+ <Channel Name="Green - Jd" Preset="IntensityGreen"/>
+ <Channel Name="Blue - Aa" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Ab" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Ac" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Ad" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Ba" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Bb" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Bc" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Bd" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Ca" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Cb" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Cc" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Cd" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Da" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Db" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Dc" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Dd" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Ea" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Eb" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Ec" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Ed" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Fa" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Fb" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Fc" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Fd" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Ga" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Gb" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Gc" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Gd" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Ha" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Hb" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Hc" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Hd" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Ia" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Ib" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Ic" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Id" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Ja" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Jb" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Jc" Preset="IntensityBlue"/>
+ <Channel Name="Blue - Jd" Preset="IntensityBlue"/>
+ <Channel Name="Dimmer - Aa" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - Ab" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - Ac" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - Ad" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - Ba" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - Bb" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - Bc" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - Bd" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - Ca" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - Cb" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - Cc" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - Cd" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - Da" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - Db" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - Dc" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - Dd" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - Ea" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - Eb" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - Ec" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - Ed" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - Fa" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - Fb" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - Fc" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - Fd" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - Ga" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - Gb" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - Gc" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - Gd" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - Ha" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - Hb" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - Hc" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - Hd" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - Ia" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - Ib" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - Ic" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - Id" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - Ja" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - Jb" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - Jc" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer - Jd" Preset="IntensityDimmer"/>
+ <Channel Name="Red - Da" Preset="IntensityRed"/>
+ <Channel Name="Red - Db" Preset="IntensityRed"/>
+ <Channel Name="Red - Dc" Preset="IntensityRed"/>
+ <Channel Name="Red - Dd" Preset="IntensityRed"/>
  <Mode Name="4 Channels">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="7.14" Width="1010" Height="200" Depth="175"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="70" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
   <Channel Number="3">Dimmer/Strobe</Channel>
  </Mode>
  <Mode Name="7 Channels">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="7.14" Width="1010" Height="200" Depth="175"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="70" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
@@ -1169,13 +288,6 @@
   <Channel Number="6">Fade time</Channel>
  </Mode>
  <Mode Name="8 Channels">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="7.14" Width="1010" Height="200" Depth="175"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="70" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Red - A-E</Channel>
   <Channel Number="1">Green - A-E</Channel>
   <Channel Number="2">Blue - A-E</Channel>
@@ -1186,13 +298,6 @@
   <Channel Number="7">Dimmer - F-J</Channel>
  </Mode>
  <Mode Name="20 Channels">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="7.14" Width="1010" Height="200" Depth="175"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="70" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Red - A-B</Channel>
   <Channel Number="1">Green - A-B</Channel>
   <Channel Number="2">Blue - A-B</Channel>
@@ -1245,13 +350,6 @@
   </Head>
  </Mode>
  <Mode Name="40 Channels">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="7.14" Width="1010" Height="200" Depth="175"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="70" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Red - A</Channel>
   <Channel Number="1">Green - A</Channel>
   <Channel Number="2">Blue - A</Channel>
@@ -1354,13 +452,6 @@
   </Head>
  </Mode>
  <Mode Name="160 Channels">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="7.14" Width="1010" Height="200" Depth="175"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="70" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Red - Aa</Channel>
   <Channel Number="1">Green - Aa</Channel>
   <Channel Number="2">Blue - Aa</Channel>
@@ -1762,4 +853,11 @@
    <Channel>157</Channel>
   </Head>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="7.14" Width="1010" Height="200" Depth="175"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="70" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
 </FixtureDefinition>

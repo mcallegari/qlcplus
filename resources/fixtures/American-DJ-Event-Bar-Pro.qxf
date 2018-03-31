@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,96 +9,33 @@
  <Manufacturer>American DJ</Manufacturer>
  <Model>Event Bar Pro</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan (Head 1)">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Pan Fine (Head 1)">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt (Head 1)">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Tilt Fine (Head 1)">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Pan (Head 2)">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Pan Fine (Head 2)">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt (Head 2)">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Tilt Fine (Head 2)">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Pan (Head 3)">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Pan Fine (Head 3)">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt (Head 3)">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Tilt Fine (Head 3)">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Pan (Head 4)">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Pan Fine (Head 4)">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt (Head 4)">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Tilt Fine (Head 4)">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
+ <Channel Name="Pan (Head 1)" Preset="PositionPan"/>
+ <Channel Name="Pan Fine (Head 1)" Preset="PositionPanFine"/>
+ <Channel Name="Tilt (Head 1)" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine (Head 1)" Preset="PositionTiltFine"/>
+ <Channel Name="Pan (Head 2)" Preset="PositionPan"/>
+ <Channel Name="Pan Fine (Head 2)" Preset="PositionPanFine"/>
+ <Channel Name="Tilt (Head 2)" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine (Head 2)" Preset="PositionTiltFine"/>
+ <Channel Name="Pan (Head 3)" Preset="PositionPan"/>
+ <Channel Name="Pan Fine (Head 3)" Preset="PositionPanFine"/>
+ <Channel Name="Tilt (Head 3)" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine (Head 3)" Preset="PositionTiltFine"/>
+ <Channel Name="Pan (Head 4)" Preset="PositionPan"/>
+ <Channel Name="Pan Fine (Head 4)" Preset="PositionPanFine"/>
+ <Channel Name="Tilt (Head 4)" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine (Head 4)" Preset="PositionTiltFine"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="0">Open</Capability>
   <Capability Min="1" Max="5">Reset</Capability>
   <Capability Min="6" Max="255">Slow - fast</Capability>
  </Channel>
- <Channel Name="Head 1 Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
- <Channel Name="Head 2 Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
- <Channel Name="Head 3 Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
- <Channel Name="Head 4 Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
- <Channel Name="Master Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
+ <Channel Name="Head 1 Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Head 2 Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Head 3 Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Head 4 Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Shows">
   <Group Byte="0">Effect</Group>
   <Colour>Green</Colour>
@@ -128,13 +65,6 @@
   <Capability Min="101" Max="255">Default to unit curve setting</Capability>
  </Channel>
  <Mode Name="22 channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="10000"/>
-   <Dimensions Weight="11" Width="1033" Height="270" Depth="83"/>
-   <Lens Name="Other" DegreesMin="3" DegreesMax="3"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="85" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan (Head 1)</Channel>
   <Channel Number="1">Pan Fine (Head 1)</Channel>
   <Channel Number="2">Tilt (Head 1)</Channel>
@@ -187,13 +117,6 @@
   </Head>
  </Mode>
  <Mode Name="25 channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="10000"/>
-   <Dimensions Weight="11" Width="1033" Height="270" Depth="83"/>
-   <Lens Name="Other" DegreesMin="3" DegreesMax="3"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="85" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan (Head 1)</Channel>
   <Channel Number="1">Pan Fine (Head 1)</Channel>
   <Channel Number="2">Tilt (Head 1)</Channel>
@@ -249,24 +172,10 @@
   </Head>
  </Mode>
  <Mode Name="2 channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="10000"/>
-   <Dimensions Weight="11" Width="1033" Height="270" Depth="83"/>
-   <Lens Name="Other" DegreesMin="3" DegreesMax="3"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="85" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Shows</Channel>
   <Channel Number="1">Show Speed/Sound Sensitivity</Channel>
  </Mode>
  <Mode Name="17 channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="10000"/>
-   <Dimensions Weight="11" Width="1033" Height="270" Depth="83"/>
-   <Lens Name="Other" DegreesMin="3" DegreesMax="3"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="85" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan (Head 1)</Channel>
   <Channel Number="1">Pan Fine (Head 1)</Channel>
   <Channel Number="2">Tilt (Head 1)</Channel>
@@ -309,4 +218,11 @@
    <Channel>15</Channel>
   </Head>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="10000"/>
+   <Dimensions Weight="11" Width="1033" Height="270" Depth="83"/>
+   <Lens Name="Other" DegreesMin="3" DegreesMax="3"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="85" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

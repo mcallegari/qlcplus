@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>Robe</Manufacturer>
  <Model>ClubSpot 160 CT</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">16bit</Capability>
- </Channel>
- <Channel Name="Pan fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">16bit</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">16bit</Capability>
- </Channel>
- <Channel Name="Tilt fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">16bit</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
  <Channel Name="Pan/Tilt Speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="0">Tracking</Capability>
@@ -90,13 +78,6 @@
   <Capability Min="194" Max="255">Scroll CCW</Capability>
  </Channel>
  <Mode Name="16bit">
-  <Physical>
-   <Bulb Type="HSD 150W" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="11" Width="326" Height="419" Depth="362"/>
-   <Lens Name="" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Head" PanMax="530" TiltMax="280"/>
-   <Technical PowerConsumption="200" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -108,13 +89,6 @@
   <Channel Number="8">Shutter</Channel>
  </Mode>
  <Mode Name="8bit">
-  <Physical>
-   <Bulb Type="HSD 150W" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="11" Width="326" Height="419" Depth="362"/>
-   <Lens Name="" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Head" PanMax="530" TiltMax="280"/>
-   <Technical PowerConsumption="200" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan/Tilt Speed</Channel>
@@ -124,13 +98,6 @@
   <Channel Number="6">Shutter</Channel>
  </Mode>
  <Mode Name="8bit Tracking">
-  <Physical>
-   <Bulb Type="HSD 150W" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="11" Width="326" Height="419" Depth="362"/>
-   <Lens Name="" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Head" PanMax="530" TiltMax="280"/>
-   <Technical PowerConsumption="200" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Colour</Channel>
@@ -138,4 +105,11 @@
   <Channel Number="4">Gobo Rotation</Channel>
   <Channel Number="5">Shutter</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="HSD 150W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="11" Width="326" Height="419" Depth="362"/>
+   <Lens Name="" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="530" TiltMax="280"/>
+   <Technical PowerConsumption="200" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

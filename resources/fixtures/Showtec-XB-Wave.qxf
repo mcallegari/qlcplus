@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -46,16 +46,16 @@
   <Capability Min="128" Max="255">Rotation slow to fast</Capability>
  </Channel>
  <Mode Name="4 Channels">
-  <Physical>
+  <Channel Number="0">Colors 1</Channel>
+  <Channel Number="1">Colors 2</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Rotation</Channel>
+ </Mode>
+<Physical>
    <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
    <Dimensions Weight="2.4" Width="325" Height="143" Depth="305"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical DmxConnector="3-pin" PowerConsumption="30"/>
   </Physical>
-  <Channel Number="0">Colors 1</Channel>
-  <Channel Number="1">Colors 2</Channel>
-  <Channel Number="2">Strobe</Channel>
-  <Channel Number="3">Rotation</Channel>
- </Mode>
 </FixtureDefinition>

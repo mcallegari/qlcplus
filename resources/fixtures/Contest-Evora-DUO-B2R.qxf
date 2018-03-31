@@ -3,36 +3,18 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.11.2 GIT</Version>
   <Author>Jan Lachman</Author>
  </Creator>
  <Manufacturer>Contest</Manufacturer>
  <Model>Evora DUO B2R</Model>
  <Type>Moving Head</Type>
- <Channel Name="PAN movement">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">PAN movement</Capability>
- </Channel>
- <Channel Name="16bit - PAN movement">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Very precise PAN movement settings</Capability>
- </Channel>
- <Channel Name="Left head TILT movement">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">TILT movement</Capability>
- </Channel>
- <Channel Name="Left head 16-bit TILT movement">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Very precise TILT movement settings</Capability>
- </Channel>
- <Channel Name="Right head TILT movement">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">TILT movement</Capability>
- </Channel>
- <Channel Name="Right head 16-bit TILT movement">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Very precise TILT movement settings</Capability>
- </Channel>
+ <Channel Name="PAN movement" Preset="PositionPan"/>
+ <Channel Name="16bit - PAN movement" Preset="PositionPanFine"/>
+ <Channel Name="Left head TILT movement" Preset="PositionTilt"/>
+ <Channel Name="Left head 16-bit TILT movement" Preset="PositionTiltFine"/>
+ <Channel Name="Right head TILT movement" Preset="PositionTilt"/>
+ <Channel Name="Right head 16-bit TILT movement" Preset="PositionTiltFine"/>
  <Channel Name="Left head Shutter and Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="31">Shutter closed</Capability>
@@ -55,17 +37,11 @@
   <Capability Min="192" Max="223">Slow to fast random strobe</Capability>
   <Capability Min="224" Max="255">No action, shutter open</Capability>
  </Channel>
- <Channel Name="Left head dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Intensity: 0 - 100%</Capability>
- </Channel>
- <Channel Name="Right head dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Intensity: 0 - 100%</Capability>
- </Channel>
+ <Channel Name="Left head dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Right head dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Left head colour wheel">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="8" Color="#ffffff">Open / White</Capability>
+  <Capability Min="0" Max="8" Preset="ColorMacro" Res1="#ffffff">Open / White</Capability>
   <Capability Min="9" Max="17">Colour 1</Capability>
   <Capability Min="18" Max="26">Colour 2</Capability>
   <Capability Min="27" Max="35">Colour 3</Capability>
@@ -85,7 +61,7 @@
  </Channel>
  <Channel Name="Right head colour wheel">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="8" Color="#ffffff">Open / White</Capability>
+  <Capability Min="0" Max="8" Preset="ColorMacro" Res1="#ffffff">Open / White</Capability>
   <Capability Min="9" Max="17">Colour 1</Capability>
   <Capability Min="18" Max="26">Colour 2</Capability>
   <Capability Min="27" Max="35">Colour 3</Capability>
@@ -284,13 +260,6 @@
   <Capability Min="240" Max="255">Automatic music-sensitive program</Capability>
  </Channel>
  <Mode Name="Standard">
-  <Physical>
-   <Bulb Type="MSD 2R" Lumens="5150" ColourTemperature="8000"/>
-   <Dimensions Weight="13" Width="300" Height="428" Depth="302"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Head" PanMax="540" TiltMax="265"/>
-   <Technical PowerConsumption="210" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">PAN movement</Channel>
   <Channel Number="1">16bit - PAN movement</Channel>
   <Channel Number="2">Left head TILT movement</Channel>
@@ -336,4 +305,11 @@
    <Channel>12</Channel>
   </Head>
  </Mode>
+ <Physical>
+  <Bulb Type="MSD 2R" Lumens="5150" ColourTemperature="8000"/>
+  <Dimensions Weight="13" Width="300" Height="428" Depth="302"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Head" PanMax="540" TiltMax="265"/>
+  <Technical PowerConsumption="210" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

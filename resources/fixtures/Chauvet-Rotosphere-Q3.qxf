@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,21 +9,9 @@
  <Manufacturer>Chauvet</Manufacturer>
  <Model>Rotosphere Q3</Model>
  <Type>Flower</Type>
- <Channel Name="LED Zone 1 Manual Color Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">0-100% Intensity</Capability>
- </Channel>
- <Channel Name="LED Zone 1 Manual Color Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00aa00">0-100% Intensity</Capability>
- </Channel>
- <Channel Name="LED Zone 1 Manual Color Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0-100% Intensity</Capability>
- </Channel>
+ <Channel Name="LED Zone 1 Manual Color Red" Preset="IntensityRed"/>
+ <Channel Name="LED Zone 1 Manual Color Green" Preset="IntensityGreen"/>
+ <Channel Name="LED Zone 1 Manual Color Blue" Preset="IntensityBlue"/>
  <Channel Name="LED Zone 1 Strobe/Sound">
   <Group Byte="0">Speed</Group>
   <Colour>Blue</Colour>
@@ -31,21 +19,9 @@
   <Capability Min="6" Max="250">Strobe Slow-Fast</Capability>
   <Capability Min="251" Max="255">Sound-active Strobe</Capability>
  </Channel>
- <Channel Name="LED Zone 2 Manual Color Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">0-100% Intensity</Capability>
- </Channel>
- <Channel Name="LED Zone 2 Manual Color Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00aa00">0-100% Intensity</Capability>
- </Channel>
- <Channel Name="LED Zone 2 Manual Color Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0-100% Intensity</Capability>
- </Channel>
+ <Channel Name="LED Zone 2 Manual Color Red" Preset="IntensityRed"/>
+ <Channel Name="LED Zone 2 Manual Color Green" Preset="IntensityGreen"/>
+ <Channel Name="LED Zone 2 Manual Color Blue" Preset="IntensityBlue"/>
  <Channel Name="LED Zone 2 Strobe/Sound">
   <Group Byte="0">Speed</Group>
   <Colour>Blue</Colour>
@@ -53,21 +29,9 @@
   <Capability Min="6" Max="250">Strobe Slow-Fast</Capability>
   <Capability Min="251" Max="255">Sound-active Strobe</Capability>
  </Channel>
- <Channel Name="LED Zone 3 Manual Color Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">0-100% Intensity</Capability>
- </Channel>
- <Channel Name="LED Zone 3 Manual Color Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00aa00">0-100% Intensity</Capability>
- </Channel>
- <Channel Name="LED Zone 3 Manual Color Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0-100% Intensity</Capability>
- </Channel>
+ <Channel Name="LED Zone 3 Manual Color Red" Preset="IntensityRed"/>
+ <Channel Name="LED Zone 3 Manual Color Green" Preset="IntensityGreen"/>
+ <Channel Name="LED Zone 3 Manual Color Blue" Preset="IntensityBlue"/>
  <Channel Name="LED Zone 3 Strobe/Sound">
   <Group Byte="0">Speed</Group>
   <Colour>Blue</Colour>
@@ -126,41 +90,13 @@
   <Capability Min="128" Max="128">Stop</Capability>
   <Capability Min="129" Max="255">Rotate right, slow to fast</Capability>
  </Channel>
- <Channel Name="LED Zone 1 Manual Color White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0-100% Intensity</Capability>
- </Channel>
- <Channel Name="LED Zone 2 Manual Color White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0-100% Intensity</Capability>
- </Channel>
- <Channel Name="LED Zone 3 Manual Color White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0-100% Intensity</Capability>
- </Channel>
- <Channel Name="All Manual Color Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red intensity (0 - 100%)</Capability>
- </Channel>
- <Channel Name="All Manual Color Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green intensity (0 - 100%)</Capability>
- </Channel>
- <Channel Name="All Manual Color Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue intensity (0 - 100%)</Capability>
- </Channel>
- <Channel Name="All Manual Color White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White intensity (0 - 100%)</Capability>
- </Channel>
+ <Channel Name="LED Zone 1 Manual Color White" Preset="IntensityWhite"/>
+ <Channel Name="LED Zone 2 Manual Color White" Preset="IntensityWhite"/>
+ <Channel Name="LED Zone 3 Manual Color White" Preset="IntensityWhite"/>
+ <Channel Name="All Manual Color Red" Preset="IntensityRed"/>
+ <Channel Name="All Manual Color Green" Preset="IntensityGreen"/>
+ <Channel Name="All Manual Color Blue" Preset="IntensityBlue"/>
+ <Channel Name="All Manual Color White" Preset="IntensityWhite"/>
  <Channel Name="All Strobe/Sound">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="5">No function</Capability>
@@ -175,13 +111,6 @@
   <Capability Min="129" Max="255">Rotate right, slow to fast</Capability>
  </Channel>
  <Mode Name="19 channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="3.9" Width="319" Height="419" Depth="266"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Barrel" PanMax="360" TiltMax="0"/>
-   <Technical PowerConsumption="46" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">LED Zone 1 Manual Color Red</Channel>
   <Channel Number="1">LED Zone 1 Manual Color Green</Channel>
   <Channel Number="2">LED Zone 1 Manual Color Blue</Channel>
@@ -203,13 +132,6 @@
   <Channel Number="18">Motor Control (Color Macros Channel)</Channel>
  </Mode>
  <Mode Name="9 channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="3.9" Width="319" Height="419" Depth="266"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Barrel" PanMax="360" TiltMax="0"/>
-   <Technical PowerConsumption="46" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">All Manual Color Red</Channel>
   <Channel Number="1">All Manual Color Green</Channel>
   <Channel Number="2">All Manual Color Blue</Channel>
@@ -221,15 +143,15 @@
   <Channel Number="8">Motor Control (Color Macros Channel)</Channel>
  </Mode>
  <Mode Name="3 channel">
-  <Physical>
+  <Channel Number="0">Color Macros and Auto Programs</Channel>
+  <Channel Number="1">Progam Speed / Sound Sensitivity (macro ch. 212-255)</Channel>
+  <Channel Number="2">Motor</Channel>
+ </Mode>
+<Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="3.9" Width="319" Height="419" Depth="266"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Barrel" PanMax="360" TiltMax="0"/>
    <Technical PowerConsumption="46" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Color Macros and Auto Programs</Channel>
-  <Channel Number="1">Progam Speed / Sound Sensitivity (macro ch. 212-255)</Channel>
-  <Channel Number="2">Motor</Channel>
- </Mode>
 </FixtureDefinition>

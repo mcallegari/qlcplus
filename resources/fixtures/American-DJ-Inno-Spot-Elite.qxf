@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>American DJ</Manufacturer>
  <Model>Inno Spot Elite</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Colors">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7" Color="#ffffff">White</Capability>
@@ -80,10 +68,7 @@
   <Capability Min="190" Max="193">Stop</Capability>
   <Capability Min="194" Max="255">Counter-clockwise slow - fast</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Wide - narrow</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamZoomBigSmall"/>
  <Channel Name="Iris">
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="191">Max. diameter - min. diameter</Capability>
@@ -103,14 +88,8 @@
   <Capability Min="240" Max="247">Random strobe</Capability>
   <Capability Min="248" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer 0% - 100%</Capability>
- </Channel>
- <Channel Name="Movement speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Fast - slow</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Movement speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Blackout/Reset">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="69">Nothing</Capability>
@@ -125,13 +104,6 @@
   <Capability Min="210" Max="255">Nothing</Capability>
  </Channel>
  <Mode Name="15 channels">
-  <Physical>
-   <Bulb Type="LED" Lumens="3903" ColourTemperature="8000"/>
-   <Dimensions Weight="13" Width="328" Height="526" Depth="333"/>
-   <Lens Name="Other" DegreesMin="19" DegreesMax="19"/>
-   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="197" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -148,4 +120,11 @@
   <Channel Number="13">Movement speed</Channel>
   <Channel Number="14">Blackout/Reset</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="3903" ColourTemperature="8000"/>
+   <Dimensions Weight="13" Width="328" Height="526" Depth="333"/>
+   <Lens Name="Other" DegreesMin="19" DegreesMax="19"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="197" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

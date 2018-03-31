@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>Elation</Manufacturer>
  <Model>Vision 250</Model>
  <Type>Scanner</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan movement coarse control</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt movement coarse control</Capability>
- </Channel>
- <Channel Name="Pan fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Fine control of pan movement</Capability>
- </Channel>
- <Channel Name="Tilt fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Fine control of tilt</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
  <Channel Name="Speed of pan/tilt movement">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="0">Max. speed (tracking mode)</Capability>
@@ -57,9 +45,7 @@
   <Capability Min="190" Max="193">No rotation</Capability>
   <Capability Min="194" Max="255" Res="Others/rainbow.png">Backwards rainbow effect from slow to fast</Capability>
  </Channel>
- <Channel Name="No function">
-  <Group Byte="0">Nothing</Group>
- </Channel>
+ <Channel Name="No function" Preset="NoFunction"/>
  <Channel Name="Frost, correction filters, 3-facet prism, Macros">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="95">Open position (hole)</Capability>
@@ -106,17 +92,9 @@
   <Capability Min="192" Max="192">No rotation</Capability>
   <Capability Min="193" Max="255">Backwards gobo rotation from slow to fast</Capability>
  </Channel>
- <Channel Name="No function">
-  <Group Byte="0">Nothing</Group>
-  <Capability Min="0" Max="255">No function</Capability>
- </Channel>
- <Channel Name="No function 2">
-  <Group Byte="0">Nothing</Group>
-  <Capability Min="0" Max="255">No function</Capability>
- </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
- </Channel>
+ <Channel Name="No function" Preset="NoFunction"/>
+ <Channel Name="No function 2" Preset="NoFunction"/>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Shutter, strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="31">Shutter closed</Capability>
@@ -128,18 +106,8 @@
   <Capability Min="192" Max="223">Random strobe effect from slow to fast</Capability>
   <Capability Min="224" Max="255">No function (shutter open)</Capability>
  </Channel>
- <Channel Name="Dimmer intensity">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment of the dimmer intensity from 0 to 100%</Capability>
- </Channel>
+ <Channel Name="Dimmer intensity" Preset="IntensityDimmer"/>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="8500"/>
-   <Dimensions Weight="19" Width="306" Height="215" Depth="629"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="15"/>
-   <Focus Type="Mirror" PanMax="170" TiltMax="85"/>
-   <Technical PowerConsumption="400" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan fine</Channel>
@@ -157,4 +125,11 @@
   <Channel Number="14">Shutter, strobe</Channel>
   <Channel Number="15">Dimmer intensity</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="8500"/>
+   <Dimensions Weight="19" Width="306" Height="215" Depth="629"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="15"/>
+   <Focus Type="Mirror" PanMax="170" TiltMax="85"/>
+   <Technical PowerConsumption="400" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

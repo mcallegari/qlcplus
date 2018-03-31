@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,26 +9,11 @@
  <Manufacturer>Eurolite</Manufacturer>
  <Model>LED TMH-6</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">0 &lt; 100%</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">0 &lt; 100%</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">0 &lt; 100%</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">0 &lt; 100%</Capability>
- </Channel>
- <Channel Name="Pan / Tilt Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Decreasing speed (vector mode)</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan / Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Dimmer/strobe">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="7">Closed&#13;</Capability>
@@ -36,21 +21,9 @@
   <Capability Min="135" Max="239">Strobe- Min &lt; Max</Capability>
   <Capability Min="240" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Red 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0 &lt; 100%</Capability>
- </Channel>
- <Channel Name="Green 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0 &lt; 100%</Capability>
- </Channel>
- <Channel Name="Blue 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0 &lt; 100%</Capability>
- </Channel>
+ <Channel Name="Red 1" Preset="IntensityRed"/>
+ <Channel Name="Green 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1" Preset="IntensityBlue"/>
  <Channel Name="Color macros">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7">No function</Capability>
@@ -121,13 +94,6 @@
   <Capability Min="236" Max="255">Backwards rainbow effect with increasing speed</Capability>
  </Channel>
  <Mode Name="13 DMX channel mode">
-  <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Width="175" Depth="240" Height="170" Weight="3.6"/>
-   <Lens DegreesMin="11" DegreesMax="11" Name="Other"/>
-   <Focus TiltMax="270" Type="Head" PanMax="540"/>
-   <Technical PowerConsumption="60" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -143,17 +109,17 @@
   <Channel Number="12">Gobos</Channel>
  </Mode>
  <Mode Name="5 DMX channel mode">
-  <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Width="175" Depth="240" Height="170" Weight="3.6"/>
-   <Lens DegreesMin="11" DegreesMax="11" Name="Other"/>
-   <Focus TiltMax="270" Type="Head" PanMax="540"/>
-   <Technical PowerConsumption="60" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Dimmer/strobe</Channel>
   <Channel Number="3">Color macros</Channel>
   <Channel Number="4">Gobos</Channel>
  </Mode>
+<Physical>
+   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
+   <Dimensions Width="175" Depth="240" Height="170" Weight="3.6"/>
+   <Lens DegreesMin="11" DegreesMax="11" Name="Other"/>
+   <Focus TiltMax="270" Type="Head" PanMax="540"/>
+   <Technical PowerConsumption="60" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

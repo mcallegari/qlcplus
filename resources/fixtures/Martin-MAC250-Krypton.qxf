@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
 <Creator>
@@ -31,11 +31,8 @@
   <Capability Min="238" Max="247">Shutter open</Capability>
   <Capability Min="248" Max="255">Lamp off</Capability>
 </Channel>
-<Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer intensity</Capability>
-</Channel>
-<Channel Name="Color">
+<Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Color">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="0" Color="#ffffff">White</Capability>
   <Capability Min="11" Max="11" Color="#fb7c41">CTC</Capability>
@@ -105,11 +102,8 @@
   <Capability Min="128" Max="252">CCW, fast -&gt; slow</Capability>
   <Capability Min="253" Max="255">No rotation</Capability>
 </Channel>
-<Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Infinity -&gt; 2 meters</Capability>
-</Channel>
-<Channel Name="Prism">
+<Channel Name="Focus" Preset="BeamFocusFarNear"/>
+ <Channel Name="Prism">
   <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="19">Prism off</Capability>
   <Capability Min="20" Max="79">CCW, fast -&gt; slow</Capability>
@@ -125,23 +119,11 @@
   <Capability Min="246" Max="250">Macro 7</Capability>
   <Capability Min="251" Max="255">Macro 8</Capability>
 </Channel>
-<Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
-</Channel>
-<Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
-</Channel>
-<Channel Name="Pan fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine</Capability>
-</Channel>
-<Channel Name="Tilt fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine</Capability>
-</Channel>
-<Channel Name="Pan/tilt speed">
+<Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/tilt speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="2">Tracking mode</Capability>
   <Capability Min="3" Max="242">Fast -&gt; slow</Capability>
@@ -158,11 +140,8 @@
   <Capability Min="249" Max="251">Tracking, Scut = on</Capability>
   <Capability Min="252" Max="255">Maximum speed</Capability>
 </Channel>
-<Channel Name="Dimmer fine (Least Significant Byte)">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">Closed -&gt; open</Capability>
-</Channel>
-<Channel Name="Color (Least Significant Byte)">
+<Channel Name="Dimmer fine (Least Significant Byte)" Preset="IntensityDimmerFine"/>
+ <Channel Name="Color (Least Significant Byte)">
   <Group Byte="1">Colour</Group>
   <Capability Min="0" Max="255">Color (Least Significant Byte)</Capability>
 </Channel>
@@ -175,13 +154,6 @@
   <Capability Min="0" Max="255">Focus fine (LSB)</Capability>
 </Channel>
 <Mode Name="16 Bt (16 Bit Mode)">
-  <Physical>
-   <Bulb Lumens="3180" Type="MSD 250W" ColourTemperature="6500"/>
-   <Dimensions Width="384" Height="525" Weight="22" Depth="330"/>
-   <Lens DegreesMax="18" Name="PC" DegreesMin="18"/>
-   <Focus PanMax="540" Type="Head" TiltMax="270"/>
-   <Technical PowerConsumption="350" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Color</Channel>
@@ -198,13 +170,6 @@
   <Channel Number="13">Effect speed/Color/Gobo selection/gobo rotation/prism</Channel>
 </Mode>
 <Mode Name="16 Ex (16 Bit Extended)">
-  <Physical>
-   <Bulb Lumens="3180" Type="MSD 250W" ColourTemperature="6500"/>
-   <Dimensions Width="384" Height="525" Weight="22" Depth="330"/>
-   <Lens DegreesMax="18" Name="PC" DegreesMin="18"/>
-   <Focus PanMax="540" Type="Head" TiltMax="270"/>
-   <Technical PowerConsumption="350" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Dimmer fine (Least Significant Byte)</Channel>
@@ -223,4 +188,11 @@
   <Channel Number="15">Pan/tilt speed</Channel>
   <Channel Number="16">Effect speed/Color/Gobo selection/gobo rotation/prism</Channel>
 </Mode>
+<Physical>
+   <Bulb Lumens="3180" Type="MSD 250W" ColourTemperature="6500"/>
+   <Dimensions Width="384" Height="525" Weight="22" Depth="330"/>
+   <Lens DegreesMax="18" Name="PC" DegreesMin="18"/>
+   <Focus PanMax="540" Type="Head" TiltMax="270"/>
+   <Technical PowerConsumption="350" DmxConnector="5-pin"/>
+  </Physical>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -90,13 +90,6 @@
   <Capability Min="241" Max="255">Sound</Capability>
  </Channel>
  <Mode Name="7 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="2.7" Width="439" Height="203" Depth="208"/>
-   <Lens Name="Other" DegreesMin="79" DegreesMax="79"/>
-   <Focus Type="Fixed" PanMax="79" TiltMax="0"/>
-   <Technical PowerConsumption="31" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Mode</Channel>
   <Channel Number="1">Strobe</Channel>
   <Channel Number="2">Speed</Channel>
@@ -113,4 +106,11 @@
    <Channel>4</Channel>
   </Head>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.7" Width="439" Height="203" Depth="208"/>
+   <Lens Name="Other" DegreesMin="79" DegreesMax="79"/>
+   <Focus Type="Fixed" PanMax="79" TiltMax="0"/>
+   <Technical PowerConsumption="31" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

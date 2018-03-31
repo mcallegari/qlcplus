@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -65,15 +65,15 @@
   <Capability Min="0" Max="255">Strobe speed (0-100%)</Capability>
  </Channel>
  <Mode Name="Mode 1">
-  <Physical>
+  <Channel Number="0">Program Mode</Channel>
+  <Channel Number="1">Speed</Channel>
+  <Channel Number="2">Strobe Speed</Channel>
+ </Mode>
+<Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
    <Dimensions Width="231" Height="330" Weight="3.7" Depth="300"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="27" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Program Mode</Channel>
-  <Channel Number="1">Speed</Channel>
-  <Channel Number="2">Strobe Speed</Channel>
- </Mode>
 </FixtureDefinition>

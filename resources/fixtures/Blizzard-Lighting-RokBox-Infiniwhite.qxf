@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,25 +9,10 @@
  <Manufacturer>Blizzard Lighting</Manufacturer>
  <Model>Rokbox Infiniwhite</Model>
  <Type>Color Changer</Type>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Amber">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Amber</Colour>
-  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Warm White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
- </Channel>
- <Channel Name="Cool White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0% &lt;--&gt; 100%</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Warm White" Preset="IntensityWhite"/>
+ <Channel Name="Cool White" Preset="IntensityWhite"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="14">Dimming</Capability>
@@ -76,13 +61,6 @@
   <Capability Min="206" Max="255">Mode 4 = 32-bit, full intensity dimming</Capability>
  </Channel>
  <Mode Name="8-Channel">
-  <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Weight="3.3" Width="229" Depth="165" Height="228"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="45"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="90"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Amber</Channel>
   <Channel Number="2">Warm White</Channel>
@@ -93,13 +71,6 @@
   <Channel Number="7">32-Bit Dimmer</Channel>
  </Mode>
  <Mode Name="7 Channel">
-  <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Weight="3.3" Width="229" Depth="165" Height="228"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="45"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="90"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Amber</Channel>
   <Channel Number="2">Warm White</Channel>
@@ -109,13 +80,6 @@
   <Channel Number="6">Color Saturation</Channel>
  </Mode>
  <Mode Name="6 Channel">
-  <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Weight="3.3" Width="229" Depth="165" Height="228"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="45"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="90"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Amber</Channel>
   <Channel Number="2">Warm White</Channel>
@@ -124,15 +88,15 @@
   <Channel Number="5">Fade, Color Change, Sound Active</Channel>
  </Mode>
  <Mode Name="3 Channel (ACW)">
-  <Physical>
+  <Channel Number="0">Amber</Channel>
+  <Channel Number="1">Warm White</Channel>
+  <Channel Number="2">Cool White</Channel>
+ </Mode>
+<Physical>
    <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
    <Dimensions Weight="3.3" Width="229" Depth="165" Height="228"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="45"/>
    <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
    <Technical DmxConnector="3-pin" PowerConsumption="90"/>
   </Physical>
-  <Channel Number="0">Amber</Channel>
-  <Channel Number="1">Warm White</Channel>
-  <Channel Number="2">Cool White</Channel>
- </Mode>
 </FixtureDefinition>

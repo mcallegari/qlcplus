@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -101,13 +101,6 @@
   <Capability Min="210" Max="255">Fast to slow, then slow to fast (automatic repeat)</Capability>
  </Channel>
  <Mode Name="10-Channel">
-  <Physical>
-   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="2.4" Width="226" Height="205" Depth="194"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="360" TiltMax="360"/>
-   <Technical PowerConsumption="20" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Control Functions</Channel>
   <Channel Number="1">Strobe</Channel>
   <Channel Number="2">Pattern Selection</Channel>
@@ -119,4 +112,11 @@
   <Channel Number="8">Tilt</Channel>
   <Channel Number="9">Scan Speed</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.4" Width="226" Height="205" Depth="194"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="360" TiltMax="360"/>
+   <Technical PowerConsumption="20" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

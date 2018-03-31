@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,14 +9,8 @@
  <Manufacturer>Futurelight</Manufacturer>
  <Model>DJ-Scan 600</Model>
  <Type>Scanner</Type>
- <Channel Name="Horizontal movement (Pan)">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Horizontal movement (pan)</Capability>
- </Channel>
- <Channel Name="Vertical movement (Tilt)">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Vertical movement (tilt)</Capability>
- </Channel>
+ <Channel Name="Horizontal movement (Pan)" Preset="PositionPan"/>
+ <Channel Name="Vertical movement (Tilt)" Preset="PositionTilt"/>
  <Channel Name="Colour-Wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="15" Color="#ffffff">Open/white</Capability>
@@ -58,10 +52,7 @@
   <Capability Min="244" Max="249">Reset (after 3-5 seconds)</Capability>
   <Capability Min="250" Max="255">No function (Shutter open)</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Continuous adjustment from near to far</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Effect-wheel">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="47">No function</Capability>
@@ -81,13 +72,6 @@
   <Capability Min="224" Max="255">Rainbow effect with increasing speed</Capability>
  </Channel>
  <Mode Name="8 Channels">
-  <Physical>
-   <Bulb Type="HMI 575W" Lumens="49000" ColourTemperature="6000"/>
-   <Dimensions Weight="24" Width="340" Height="760" Depth="340"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Head" PanMax="180" TiltMax="75"/>
-   <Technical PowerConsumption="1035" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Horizontal movement (Pan)</Channel>
   <Channel Number="1">Vertical movement (Tilt)</Channel>
   <Channel Number="2">Colour-Wheel</Channel>
@@ -97,4 +81,11 @@
   <Channel Number="6">Focus</Channel>
   <Channel Number="7">Effect-wheel</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="HMI 575W" Lumens="49000" ColourTemperature="6000"/>
+   <Dimensions Weight="24" Width="340" Height="760" Depth="340"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="180" TiltMax="75"/>
+   <Technical PowerConsumption="1035" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

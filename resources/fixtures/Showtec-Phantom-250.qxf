@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,26 +9,11 @@
  <Manufacturer>Showtec</Manufacturer>
  <Model>Phantom 250</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Pan 16bit">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan 16bit</Capability>
- </Channel>
- <Channel Name="Tilt 16bit">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt 16bit</Capability>
- </Channel>
- <Channel Name="Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Speed Fast - Slow</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan 16bit" Preset="PositionPanFine"/>
+ <Channel Name="Tilt 16bit" Preset="PositionTiltFine"/>
+ <Channel Name="Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="15">open</Capability>
@@ -77,10 +62,7 @@
   <Capability Min="181" Max="245">random effect slow - fast</Capability>
   <Capability Min="246" Max="255">open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">black - bright</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Function">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="9">no function</Capability>
@@ -132,18 +114,8 @@
   <Capability Min="16" Max="239">backwards rotation fast - slow</Capability>
   <Capability Min="240" Max="255">prism</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">distance close - far</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb Lumens="8000" Type="MSD 250W" ColourTemperature="5500"/>
-   <Dimensions Width="400" Height="476" Weight="25" Depth="400"/>
-   <Lens DegreesMax="22" Name="PC" DegreesMin="8"/>
-   <Focus PanMax="530" Type="Head" TiltMax="280"/>
-   <Technical PowerConsumption="500" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan 16bit</Channel>
@@ -159,4 +131,11 @@
   <Channel Number="12">Prism Rotation</Channel>
   <Channel Number="13">Focus</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="8000" Type="MSD 250W" ColourTemperature="5500"/>
+   <Dimensions Width="400" Height="476" Weight="25" Depth="400"/>
+   <Lens DegreesMax="22" Name="PC" DegreesMin="8"/>
+   <Focus PanMax="530" Type="Head" TiltMax="280"/>
+   <Technical PowerConsumption="500" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

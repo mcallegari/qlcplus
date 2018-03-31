@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,50 +9,15 @@
  <Manufacturer>Eurolite</Manufacturer>
  <Model>LED ML-56 QCL RGBW-RGBA 18x8W</Model>
  <Type>Color Changer</Type>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red (0-100%)</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green (0-100%)</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue (0-100%)</Capability>
- </Channel>
- <Channel Name="Amber">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Amber</Colour>
-  <Capability Min="0" Max="255">Amber (0-100%)</Capability>
- </Channel>
- <Channel Name="Secondary Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red (0-100%)</Capability>
- </Channel>
- <Channel Name="Secondary Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green (0-100%)</Capability>
- </Channel>
- <Channel Name="Secondary Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue (0-100%)</Capability>
- </Channel>
- <Channel Name="White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White (0-100%)</Capability>
- </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer (0-100%)</Capability>
- </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Secondary Red" Preset="IntensityRed"/>
+ <Channel Name="Secondary Green" Preset="IntensityGreen"/>
+ <Channel Name="Secondary Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Sound Control, Strobe">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="0">No function</Capability>
@@ -95,13 +60,6 @@
   <Capability Min="240" Max="255" Color="#fff4c6">Warm white tone 2</Capability>
  </Channel>
  <Mode Name="8 Channel Mode">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="5" Width="300" Height="310" Depth="240"/>
-   <Lens Name="Other" DegreesMin="18" DegreesMax="18"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="190" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
@@ -112,13 +70,6 @@
   <Channel Number="7">White</Channel>
  </Mode>
  <Mode Name="7 Channel Mode">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="5" Width="300" Height="310" Depth="240"/>
-   <Lens Name="Other" DegreesMin="18" DegreesMax="18"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="190" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
@@ -128,13 +79,6 @@
   <Channel Number="6">Sound Control, Strobe</Channel>
  </Mode>
  <Mode Name="5 Channel Mode">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="5" Width="300" Height="310" Depth="240"/>
-   <Lens Name="Other" DegreesMin="18" DegreesMax="18"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="190" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
@@ -142,15 +86,15 @@
   <Channel Number="4">White</Channel>
  </Mode>
  <Mode Name="3 Channel Mode">
-  <Physical>
+  <Channel Number="0">Color Selection</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Sound Control, Strobe</Channel>
+ </Mode>
+<Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="5" Width="300" Height="310" Depth="240"/>
    <Lens Name="Other" DegreesMin="18" DegreesMax="18"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="190" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Color Selection</Channel>
-  <Channel Number="1">Dimmer</Channel>
-  <Channel Number="2">Sound Control, Strobe</Channel>
- </Mode>
 </FixtureDefinition>

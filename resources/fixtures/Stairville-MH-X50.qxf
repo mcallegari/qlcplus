@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>Stairville</Manufacturer>
  <Model>MH-X50+</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan Fine</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt Fine</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Response speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Response speed (normal to slow)</Capability>
@@ -59,10 +47,7 @@
   <Capability Min="8" Max="215">Strobe (speed)</Capability>
   <Capability Min="216" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer (0 to 100%)</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Gobo Wheel">
   <Group Byte="0">Gobo</Group>
   <Capability Res="Others/open.png" Min="0" Max="7">Open</Capability>
@@ -138,18 +123,8 @@
   <Capability Min="8" Max="247">Rotating prism (speed)</Capability>
   <Capability Min="248" Max="255">Fixed</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Infinity -&gt; 2m</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusFarNear"/>
  <Mode Name="8ch">
-  <Physical>
-   <Bulb Lumens="20000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="240" Height="280" Weight="10.3" Depth="370"/>
-   <Lens DegreesMax="0" Name="PC" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Head" TiltMax="270"/>
-   <Technical PowerConsumption="135" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Colour wheel</Channel>
@@ -160,13 +135,6 @@
   <Channel Number="7">Focus</Channel>
  </Mode>
  <Mode Name="14ch">
-  <Physical>
-   <Bulb Lumens="20000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="240" Height="280" Weight="10.3" Depth="370"/>
-   <Lens DegreesMax="0" Name="PC" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Head" TiltMax="270"/>
-   <Technical PowerConsumption="135" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan Fine</Channel>
@@ -182,4 +150,11 @@
   <Channel Number="12">Prism</Channel>
   <Channel Number="13">Focus</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="20000" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="240" Height="280" Weight="10.3" Depth="370"/>
+   <Lens DegreesMax="0" Name="PC" DegreesMin="0"/>
+   <Focus PanMax="540" Type="Head" TiltMax="270"/>
+   <Technical PowerConsumption="135" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

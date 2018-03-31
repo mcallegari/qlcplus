@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,18 +9,9 @@
  <Manufacturer>Eurolite</Manufacturer>
  <Model>TMH-10</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan (0 - 585°)</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt (0 - 270°)</Capability>
- </Channel>
- <Channel Name="Pan/Tilt-speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Decreasing speed</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan/Tilt-speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Colour wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7" Color="#ffffff">Open/white</Capability>
@@ -65,10 +56,7 @@
   <Capability Min="0" Max="0">No function</Capability>
   <Capability Min="1" Max="255">Strobe-effect with increasing speed</Capability>
  </Channel>
- <Channel Name="Dimmer intensity">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment of the dimmer intensity from 0 to 100 %</Capability>
- </Channel>
+ <Channel Name="Dimmer intensity" Preset="IntensityDimmer"/>
  <Channel Name="Prism">
   <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="10">No function</Capability>
@@ -80,22 +68,9 @@
   <Capability Min="150" Max="200">Reset</Capability>
   <Capability Min="201" Max="255">No function</Capability>
  </Channel>
- <Channel Name="Pan 16 bit">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan 16 bit</Capability>
- </Channel>
- <Channel Name="Tilt 16 bit">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt 16 bit</Capability>
- </Channel>
+ <Channel Name="Pan 16 bit" Preset="PositionPanFine"/>
+ <Channel Name="Tilt 16 bit" Preset="PositionTiltFine"/>
  <Mode Name="default">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="7.5" Width="250" Height="320" Depth="280"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="585" TiltMax="270"/>
-   <Technical PowerConsumption="170" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan/Tilt-speed</Channel>
@@ -109,4 +84,11 @@
   <Channel Number="10">Pan 16 bit</Channel>
   <Channel Number="11">Tilt 16 bit</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="7.5" Width="250" Height="320" Depth="280"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="585" TiltMax="270"/>
+   <Technical PowerConsumption="170" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>High End Systems</Manufacturer>
  <Model>Studio Command 1200</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan (coarse)">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan, Coarse Adjustment</Capability>
- </Channel>
- <Channel Name="Pan (fine)">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan, fine adjustment</Capability>
- </Channel>
- <Channel Name="Tilt (Coarse)">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt, Coarse Adjustment</Capability>
- </Channel>
- <Channel Name="Tilt (Fine)">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt, Fine Adjustment</Capability>
- </Channel>
+ <Channel Name="Pan (coarse)" Preset="PositionPan"/>
+ <Channel Name="Pan (fine)" Preset="PositionPanFine"/>
+ <Channel Name="Tilt (Coarse)" Preset="PositionTilt"/>
+ <Channel Name="Tilt (Fine)" Preset="PositionTiltFine"/>
  <Channel Name="Color Function">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="15">Full Speed, Continuous</Capability>
@@ -36,25 +24,10 @@
   <Capability Min="160" Max="175">MSpeed, Random (Speed is set by the Cyan Channel)</Capability>
   <Capability Min="176" Max="255">TBD</Capability>
  </Channel>
- <Channel Name="Cyan">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">Cyan</Capability>
- </Channel>
- <Channel Name="Magenta">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">Magenta</Capability>
- </Channel>
- <Channel Name="Yellow">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">Yellow</Capability>
- </Channel>
- <Channel Name="Zoom">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Zoom (Narrow -&gt; Wide)</Capability>
- </Channel>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
  <Channel Name="Shutter Function">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="23">Close</Capability>
@@ -98,18 +71,8 @@
   <Capability Min="146" Max="149">Lamp only dimming</Capability>
   <Capability Min="150" Max="255">TBD</Capability>
  </Channel>
- <Channel Name="Dim">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Close - Open</Capability>
- </Channel>
+ <Channel Name="Dim" Preset="IntensityDimmer"/>
  <Mode Name="16-Bit Mode">
-  <Physical>
-   <Bulb Lumens="15000" Type="MSR 1200W" ColourTemperature="5900"/>
-   <Dimensions Width="352" Height="544" Weight="24.9" Depth="526"/>
-   <Lens DegreesMax="32" Name="Fresnel" DegreesMin="8"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="240"/>
-   <Technical PowerConsumption="1400" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Pan (coarse)</Channel>
   <Channel Number="1">Pan (fine)</Channel>
   <Channel Number="2">Tilt (Coarse)</Channel>
@@ -125,4 +88,11 @@
   <Channel Number="12">Macro</Channel>
   <Channel Number="13">Control</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="15000" Type="MSR 1200W" ColourTemperature="5900"/>
+   <Dimensions Width="352" Height="544" Weight="24.9" Depth="526"/>
+   <Lens DegreesMax="32" Name="Fresnel" DegreesMin="8"/>
+   <Focus PanMax="540" Type="Fixed" TiltMax="240"/>
+   <Technical PowerConsumption="1400" DmxConnector="5-pin"/>
+  </Physical>
 </FixtureDefinition>

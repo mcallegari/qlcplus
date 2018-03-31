@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -94,71 +94,24 @@
   <Capability Max="159" Min="96">Pulse Effect</Capability>
   <Capability Max="255" Min="160">Random Strobe Slow-Fast</Capability>
  </Channel>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Max="255" Min="0" Color="#ff0000">Red 0% - 100%</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Max="255" Min="0" Color="#00ff00">Green 0% - 100%</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Max="255" Min="0" Color="#0000ff">Blue 0% - 100%</Capability>
- </Channel>
- <Channel Name="Amber">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Amber</Colour>
-  <Capability Max="255" Min="0" Color="#f7b025">Amber 0% - 100%</Capability>
- </Channel>
- <Channel Name="Master Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Max="255" Min="0">0%-100%</Capability>
- </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
  <Mode Name="1 Channel">
-  <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
-   <Dimensions Width="397" Depth="302" Height="191" Weight="7.1"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical PowerConsumption="730" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Fog &amp; Random Colour Change</Channel>
  </Mode>
  <Mode Name="2 Channel">
-  <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
-   <Dimensions Width="397" Depth="302" Height="191" Weight="7.1"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical PowerConsumption="730" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Fog</Channel>
   <Channel Number="1">Colour Macros</Channel>
  </Mode>
  <Mode Name="3 Channel">
-  <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
-   <Dimensions Width="397" Depth="302" Height="191" Weight="7.1"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical PowerConsumption="730" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Fog</Channel>
   <Channel Number="1">Colour Macros</Channel>
   <Channel Number="2">Strobing</Channel>
  </Mode>
  <Mode Name="5 Channel">
-  <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
-   <Dimensions Width="397" Depth="302" Height="191" Weight="7.1"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical PowerConsumption="730" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Fog</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
@@ -166,13 +119,6 @@
   <Channel Number="4">Amber</Channel>
  </Mode>
  <Mode Name="7 Channel">
-  <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
-   <Dimensions Width="397" Depth="302" Height="191" Weight="7.1"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical PowerConsumption="730" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Fog</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
@@ -181,4 +127,11 @@
   <Channel Number="5">Strobing</Channel>
   <Channel Number="6">Master Dimmer</Channel>
  </Mode>
+<Physical>
+   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
+   <Dimensions Width="397" Depth="302" Height="191" Weight="7.1"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Technical PowerConsumption="730" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

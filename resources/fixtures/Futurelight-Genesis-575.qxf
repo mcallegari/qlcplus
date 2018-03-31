@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,14 +9,8 @@
  <Manufacturer>Futurelight</Manufacturer>
  <Model>Genesis 575</Model>
  <Type>Scanner</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Colours">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="0" Color="#ffffff">White</Capability>
@@ -91,13 +85,6 @@
   <Capability Min="250" Max="255">Prisma</Capability>
  </Channel>
  <Mode Name="8 Channel DMX">
-  <Physical>
-   <Bulb Type="HMI 575W" Lumens="0" ColourTemperature="5600"/>
-   <Dimensions Weight="27" Width="280" Height="700" Depth="190"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Mirror" PanMax="180" TiltMax="90"/>
-   <Technical PowerConsumption="750" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Colours</Channel>
@@ -107,4 +94,11 @@
   <Channel Number="6">Dimmer/Strobe</Channel>
   <Channel Number="7">Special effects</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="HMI 575W" Lumens="0" ColourTemperature="5600"/>
+   <Dimensions Weight="27" Width="280" Height="700" Depth="190"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Mirror" PanMax="180" TiltMax="90"/>
+   <Technical PowerConsumption="750" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

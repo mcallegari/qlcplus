@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -16,10 +16,7 @@
   <Capability Min="128" Max="231">Timer-Controlled CH2,3,4</Capability>
   <Capability Min="232" Max="255">Continuos to MAX</Capability>
  </Channel>
- <Channel Name="Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Intensity (0% to 100%)</Capability>
- </Channel>
+ <Channel Name="Intensity" Preset="IntensityDimmer"/>
  <Channel Name="Fog Duration">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="4">Duration 1s</Capability>
@@ -51,16 +48,16 @@
   <Capability Min="255" Max="255">Interval 200s</Capability>
  </Channel>
  <Mode Name="Normal">
-  <Physical>
+  <Channel Number="0">On-Off</Channel>
+  <Channel Number="1">Intensity</Channel>
+  <Channel Number="2">Fog Duration</Channel>
+  <Channel Number="3">Time interval</Channel>
+ </Mode>
+<Physical>
    <Bulb Lumens="0" Type="None" ColourTemperature="0"/>
    <Dimensions Width="300" Height="210" Weight="15" Depth="620"/>
    <Lens DegreesMax="0" Name="None" DegreesMin="0"/>
    <Focus PanMax="0" Type="None" TiltMax="0"/>
    <Technical PowerConsumption="1500" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">On-Off</Channel>
-  <Channel Number="1">Intensity</Channel>
-  <Channel Number="2">Fog Duration</Channel>
-  <Channel Number="3">Time interval</Channel>
- </Mode>
 </FixtureDefinition>

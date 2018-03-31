@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,14 +9,8 @@
  <Manufacturer>Futurelight</Manufacturer>
  <Model>PHS-700</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Pan/tilt speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="14">Tracking mode</Capability>
@@ -124,10 +118,7 @@
   <Capability Min="240" Max="247">Macro 15</Capability>
   <Capability Min="248" Max="255">Macro 16</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Near to far</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Iris">
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="191">Diameter max to min</Capability>
@@ -145,10 +136,7 @@
   <Capability Min="192" Max="223">Random strobe speed</Capability>
   <Capability Min="224" Max="255">Shutter open, dimmer deactivation</Capability>
  </Channel>
- <Channel Name="Dimmer intensity">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer intensity</Capability>
- </Channel>
+ <Channel Name="Dimmer intensity" Preset="IntensityDimmer"/>
  <Channel Name="Lamp switch, reset, programs">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="15">Normal color change</Capability>
@@ -167,22 +155,9 @@
   <Capability Min="208" Max="223">Internal program 8</Capability>
   <Capability Min="224" Max="239">Lamp off</Capability>
  </Channel>
- <Channel Name="Pan fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine</Capability>
- </Channel>
- <Channel Name="Tilt fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine</Capability>
- </Channel>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb Type="MSR 700W" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="37" Width="390" Height="570" Depth="500"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Head" PanMax="630" TiltMax="265"/>
-   <Technical PowerConsumption="1300" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan/tilt speed</Channel>
@@ -201,4 +176,11 @@
   <Channel Number="15">Pan fine</Channel>
   <Channel Number="16">Tilt fine</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="MSR 700W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="37" Width="390" Height="570" Depth="500"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="630" TiltMax="265"/>
+   <Technical PowerConsumption="1300" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

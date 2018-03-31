@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.5 GIT</Version>
+  <Version>4.11.2 GIT</Version>
   <Author>Andres Robles, Massimo Callegari</Author>
  </Creator>
  <Manufacturer>Cameo</Manufacturer>
@@ -60,10 +60,7 @@
   <Capability Min="0" Max="127">Manual position</Capability>
   <Capability Min="128" Max="255">Vertical moving speed</Capability>
  </Channel>
- <Channel Name="No function">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">No function</Capability>
- </Channel>
+ <Channel Name="No function" Preset="NoFunction"/>
  <Channel Name="Mode">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="100">Laser Off</Capability>
@@ -78,49 +75,21 @@
   <Capability Min="192" Max="255" Color="#ffff00">Yellow</Capability>
  </Channel>
  <Mode Name="3 Channel (150G/200R/600B)">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="1.4" Width="192" Height="154" Depth="83"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="60" TiltMax="60"/>
-   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Zooming</Channel>
   <Channel Number="1">No function</Channel>
   <Channel Number="2">Mode</Channel>
  </Mode>
  <Mode Name="3 Channel (200RGY)">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="1.4" Width="192" Height="154" Depth="83"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="60" TiltMax="60"/>
-   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Zooming</Channel>
   <Channel Number="1">Colours RGY</Channel>
   <Channel Number="2">Mode</Channel>
  </Mode>
  <Mode Name="3 Channel (400RGB)">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="1.4" Width="192" Height="154" Depth="83"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="60" TiltMax="60"/>
-   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Zooming</Channel>
   <Channel Number="1">Colours RGB</Channel>
   <Channel Number="2">Mode</Channel>
  </Mode>
  <Mode Name="9 Channel (150G/200R/600B)">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="1.4" Width="192" Height="154" Depth="83"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="60" TiltMax="60"/>
-   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Mode select</Channel>
   <Channel Number="1">No function</Channel>
   <Channel Number="2">Pattern select</Channel>
@@ -132,13 +101,6 @@
   <Channel Number="8">Y axis moving</Channel>
  </Mode>
  <Mode Name="9 Channel (200RGY)">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="1.4" Width="192" Height="154" Depth="83"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="60" TiltMax="60"/>
-   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Mode select</Channel>
   <Channel Number="1">Colours RGY</Channel>
   <Channel Number="2">Pattern select</Channel>
@@ -150,13 +112,6 @@
   <Channel Number="8">Y axis moving</Channel>
  </Mode>
  <Mode Name="9 Channel (400RGB)">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="1.4" Width="192" Height="154" Depth="83"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="60" TiltMax="60"/>
-   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Mode select</Channel>
   <Channel Number="1">Colours RGB</Channel>
   <Channel Number="2">Pattern select</Channel>
@@ -167,4 +122,11 @@
   <Channel Number="7">X axis moving</Channel>
   <Channel Number="8">Y axis moving</Channel>
  </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.4" Width="192" Height="154" Depth="83"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="60" TiltMax="60"/>
+  <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

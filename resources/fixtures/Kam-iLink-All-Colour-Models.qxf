@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -169,13 +169,6 @@
   <Capability Max="255" Min="225">Colour rolling</Capability>
  </Channel>
  <Mode Name="Single colour">
-  <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type=""/>
-   <Dimensions Height="80" Width="165" Depth="145" Weight="1.5"/>
-   <Lens DegreesMin="0" Name="Other" DegreesMax="0"/>
-   <Focus PanMax="90" TiltMax="90" Type="Fixed"/>
-   <Technical PowerConsumption="12" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Mode - Single Colour</Channel>
   <Channel Number="1">Patterns</Channel>
   <Channel Number="2">Zooming</Channel>
@@ -186,13 +179,6 @@
   <Channel Number="7">Y-axis moving</Channel>
  </Mode>
  <Mode Name="Multi-colour - red, blue, purple (RBP)">
-  <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type=""/>
-   <Dimensions Height="80" Width="165" Depth="145" Weight="1.5"/>
-   <Lens DegreesMin="0" Name="Other" DegreesMax="0"/>
-   <Focus PanMax="90" TiltMax="90" Type="Fixed"/>
-   <Technical PowerConsumption="12" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Mode - red, blue, purple (RBP)</Channel>
   <Channel Number="1">Patterns</Channel>
   <Channel Number="2">Colour - red, blue, purple (RBP)</Channel>
@@ -205,13 +191,6 @@
   <Channel Number="9">Z-axis rotating</Channel>
  </Mode>
  <Mode Name="Multi-colour - green, blue, cyan (GBC)">
-  <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type=""/>
-   <Dimensions Height="80" Width="165" Depth="145" Weight="1.5"/>
-   <Lens DegreesMin="0" Name="Other" DegreesMax="0"/>
-   <Focus PanMax="90" TiltMax="90" Type="Fixed"/>
-   <Technical PowerConsumption="12" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Mode - green, blue, cyan (GBC)</Channel>
   <Channel Number="1">Patterns</Channel>
   <Channel Number="2">Colour - green, blue, cyan (GBC)</Channel>
@@ -224,13 +203,6 @@
   <Channel Number="9">Z-axis rotating</Channel>
  </Mode>
  <Mode Name="Multi-colour - red, green, yellow (RGY)">
-  <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type=""/>
-   <Dimensions Height="80" Width="165" Depth="145" Weight="1.5"/>
-   <Lens DegreesMin="0" Name="Other" DegreesMax="0"/>
-   <Focus PanMax="90" TiltMax="90" Type="Fixed"/>
-   <Technical PowerConsumption="12" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Mode - red, green, yellow (RGY)</Channel>
   <Channel Number="1">Patterns</Channel>
   <Channel Number="2">Colour - red, green, yellow (RGY)</Channel>
@@ -242,4 +214,11 @@
   <Channel Number="8">X-axis rolling</Channel>
   <Channel Number="9">Z-axis rotating</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" ColourTemperature="0" Type=""/>
+   <Dimensions Height="80" Width="165" Depth="145" Weight="1.5"/>
+   <Lens DegreesMin="0" Name="Other" DegreesMax="0"/>
+   <Focus PanMax="90" TiltMax="90" Type="Fixed"/>
+   <Technical PowerConsumption="12" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

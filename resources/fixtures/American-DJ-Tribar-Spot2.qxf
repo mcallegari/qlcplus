@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,30 +9,15 @@
  <Manufacturer>American DJ</Manufacturer>
  <Model>Tribar Spot</Model>
  <Type>Color Changer</Type>
- <Channel Name="Red (All)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">Red 0 - 100 %</Capability>
- </Channel>
- <Channel Name="Green (All)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00ff00">Green 0 - 100 %</Capability>
- </Channel>
- <Channel Name="Blue (All)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255" Color="#0000ff">Blue 0 - 100%</Capability>
- </Channel>
+ <Channel Name="Red (All)" Preset="IntensityRed"/>
+ <Channel Name="Green (All)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (All)" Preset="IntensityBlue"/>
  <Channel Name="Strobing">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="7">No function</Capability>
   <Capability Min="8" Max="255">Strobing slow - fast</Capability>
  </Channel>
- <Channel Name="Master dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer 0 - 100 %</Capability>
- </Channel>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Color macros">
   <Group Byte="0">Colour</Group>
   <Capability Min="1" Max="7" Color="#ffce8f">Bastard Amber</Capability>
@@ -96,195 +81,49 @@
   <Capability Min="236" Max="245">Auto Run</Capability>
   <Capability Min="246" Max="255">Sound Active (Ch.6:Sensitivitity)</Capability>
  </Channel>
- <Channel Name="Red (Pinspots 1- 3)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">0 - 100 %</Capability>
- </Channel>
- <Channel Name="Red (Pinspots 4 - 6)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">0 - 100 %</Capability>
- </Channel>
- <Channel Name="Red (Pinspots 1 &amp; 2)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">0 - 100 %</Capability>
- </Channel>
- <Channel Name="Red (Pinspots 3 &amp; 4)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">0 - 100 %</Capability>
- </Channel>
- <Channel Name="Red (Pinspots 5 &amp; 6)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">0 - 100 %</Capability>
- </Channel>
- <Channel Name="Red (Pinspot 1)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">0 - 100 %</Capability>
- </Channel>
- <Channel Name="Red (Pinspot 2)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">0 - 100 %</Capability>
- </Channel>
- <Channel Name="Red (Pinspot 3)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">0 - 100 %</Capability>
- </Channel>
- <Channel Name="Red (Pinspot 4)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">0 - 100 %</Capability>
- </Channel>
- <Channel Name="Red (Pinspot 5)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">0 - 100 %</Capability>
- </Channel>
- <Channel Name="Red (Pinspot 6)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">0 - 100 %</Capability>
- </Channel>
- <Channel Name="Green (Pinspots 1 - 3)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00ff00">0 - 100 %</Capability>
- </Channel>
- <Channel Name="Green (Pinspots 4 - 6)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00ff00">0 - 100 %</Capability>
- </Channel>
- <Channel Name="Green (Pinspots 1 &amp; 2)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00ff00">0 - 100 %</Capability>
- </Channel>
- <Channel Name="Green (Pinspots 3 &amp; 4)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00ff00">0 - 100 %</Capability>
- </Channel>
- <Channel Name="Green (Pinspots 5 &amp; 6)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00ff00">0 - 100 %</Capability>
- </Channel>
- <Channel Name="Green (Pinspot 1)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00ff00">0 - 100 %</Capability>
- </Channel>
- <Channel Name="Green (Pinspot 2)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00ff00">0 - 100%</Capability>
- </Channel>
- <Channel Name="Green (Pinspot 3)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00ff00">0 - 100 %</Capability>
- </Channel>
- <Channel Name="Green (Pinspot 4)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00ff00">0 - 100 %</Capability>
- </Channel>
- <Channel Name="Green (Pinspot 5)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00ff00">0 - 100 %</Capability>
- </Channel>
- <Channel Name="Green (Pinspot 6)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00ff00">0 - 100 %</Capability>
- </Channel>
- <Channel Name="Blue (Pinspots 1- 3)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255" Color="#0000ff">0 - 100 %</Capability>
- </Channel>
- <Channel Name="Blue (Pinspots 4- 6)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255" Color="#0000ff">0 - 100 %</Capability>
- </Channel>
- <Channel Name="Blue (Pinspots 1 &amp; 2)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255" Color="#0000ff">Blue (Pinspots 1 &amp; 2)</Capability>
- </Channel>
- <Channel Name="Blue (Pinspots 3 &amp; 4)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255" Color="#0000ff">0 - 100 %</Capability>
- </Channel>
- <Channel Name="Blue (Pinspots 5 &amp; 6)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255" Color="#0000ff">0 - 100 %</Capability>
- </Channel>
- <Channel Name="Blue (Pinspot 1)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255" Color="#0000ff">0 - 100 %</Capability>
- </Channel>
- <Channel Name="Blue (Pinspot 2)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255" Color="#0000ff">0 - 100 %</Capability>
- </Channel>
- <Channel Name="Blue (Pinspot 3)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255" Color="#0000ff">0 - 100 %</Capability>
- </Channel>
- <Channel Name="Blue (Pinspot 4)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255" Color="#0000ff">0 - 100 %</Capability>
- </Channel>
- <Channel Name="Blue (Pinspot 5)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255" Color="#0000ff">0 - 100 %</Capability>
- </Channel>
- <Channel Name="Blue (Pinspot 6)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255" Color="#0000ff">0 - 100 %</Capability>
- </Channel>
+ <Channel Name="Red (Pinspots 1- 3)" Preset="IntensityRed"/>
+ <Channel Name="Red (Pinspots 4 - 6)" Preset="IntensityRed"/>
+ <Channel Name="Red (Pinspots 1 &amp; 2)" Preset="IntensityRed"/>
+ <Channel Name="Red (Pinspots 3 &amp; 4)" Preset="IntensityRed"/>
+ <Channel Name="Red (Pinspots 5 &amp; 6)" Preset="IntensityRed"/>
+ <Channel Name="Red (Pinspot 1)" Preset="IntensityRed"/>
+ <Channel Name="Red (Pinspot 2)" Preset="IntensityRed"/>
+ <Channel Name="Red (Pinspot 3)" Preset="IntensityRed"/>
+ <Channel Name="Red (Pinspot 4)" Preset="IntensityRed"/>
+ <Channel Name="Red (Pinspot 5)" Preset="IntensityRed"/>
+ <Channel Name="Red (Pinspot 6)" Preset="IntensityRed"/>
+ <Channel Name="Green (Pinspots 1 - 3)" Preset="IntensityGreen"/>
+ <Channel Name="Green (Pinspots 4 - 6)" Preset="IntensityGreen"/>
+ <Channel Name="Green (Pinspots 1 &amp; 2)" Preset="IntensityGreen"/>
+ <Channel Name="Green (Pinspots 3 &amp; 4)" Preset="IntensityGreen"/>
+ <Channel Name="Green (Pinspots 5 &amp; 6)" Preset="IntensityGreen"/>
+ <Channel Name="Green (Pinspot 1)" Preset="IntensityGreen"/>
+ <Channel Name="Green (Pinspot 2)" Preset="IntensityGreen"/>
+ <Channel Name="Green (Pinspot 3)" Preset="IntensityGreen"/>
+ <Channel Name="Green (Pinspot 4)" Preset="IntensityGreen"/>
+ <Channel Name="Green (Pinspot 5)" Preset="IntensityGreen"/>
+ <Channel Name="Green (Pinspot 6)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (Pinspots 1- 3)" Preset="IntensityBlue"/>
+ <Channel Name="Blue (Pinspots 4- 6)" Preset="IntensityBlue"/>
+ <Channel Name="Blue (Pinspots 1 &amp; 2)" Preset="IntensityBlue"/>
+ <Channel Name="Blue (Pinspots 3 &amp; 4)" Preset="IntensityBlue"/>
+ <Channel Name="Blue (Pinspots 5 &amp; 6)" Preset="IntensityBlue"/>
+ <Channel Name="Blue (Pinspot 1)" Preset="IntensityBlue"/>
+ <Channel Name="Blue (Pinspot 2)" Preset="IntensityBlue"/>
+ <Channel Name="Blue (Pinspot 3)" Preset="IntensityBlue"/>
+ <Channel Name="Blue (Pinspot 4)" Preset="IntensityBlue"/>
+ <Channel Name="Blue (Pinspot 5)" Preset="IntensityBlue"/>
+ <Channel Name="Blue (Pinspot 6)" Preset="IntensityBlue"/>
  <Channel Name="Program Speed / Sound Sensitivity">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="255">Slow - Fast or Least Sensitive - Most Sensitive</Capability>
  </Channel>
  <Mode Name="3 Channel DMX Mode">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="800" Height="230" Weight="4.9" Depth="90"/>
-   <Lens DegreesMax="12" Name="Other" DegreesMin="12"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red (All)</Channel>
   <Channel Number="1">Green (All)</Channel>
   <Channel Number="2">Blue (All)</Channel>
  </Mode>
  <Mode Name="5 Channel DMX Mode">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="800" Height="230" Weight="4.9" Depth="90"/>
-   <Lens DegreesMax="12" Name="Other" DegreesMin="12"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red (All)</Channel>
   <Channel Number="1">Green (All)</Channel>
   <Channel Number="2">Blue (All)</Channel>
@@ -292,13 +131,6 @@
   <Channel Number="4">Master dimmer</Channel>
  </Mode>
  <Mode Name="6 Channel DMX Mode">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="800" Height="230" Weight="4.9" Depth="90"/>
-   <Lens DegreesMax="12" Name="Other" DegreesMin="12"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red (All)</Channel>
   <Channel Number="1">Green (All)</Channel>
   <Channel Number="2">Blue (All)</Channel>
@@ -307,13 +139,6 @@
   <Channel Number="5">Master dimmer</Channel>
  </Mode>
  <Mode Name="8 Channel DMX Mode">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="800" Height="230" Weight="4.9" Depth="90"/>
-   <Lens DegreesMax="12" Name="Other" DegreesMin="12"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red (All)</Channel>
   <Channel Number="1">Green (All)</Channel>
   <Channel Number="2">Blue (All)</Channel>
@@ -324,13 +149,6 @@
   <Channel Number="7">Master dimmer</Channel>
  </Mode>
  <Mode Name="8 Channek DMX Mode 2">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="800" Height="230" Weight="4.9" Depth="90"/>
-   <Lens DegreesMax="12" Name="Other" DegreesMin="12"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red (Pinspots 1- 3)</Channel>
   <Channel Number="1">Green (Pinspots 1 - 3)</Channel>
   <Channel Number="2">Blue (Pinspots 1- 3)</Channel>
@@ -351,13 +169,6 @@
   </Head>
  </Mode>
  <Mode Name="11 Channel DMX Mode">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="800" Height="230" Weight="4.9" Depth="90"/>
-   <Lens DegreesMax="12" Name="Other" DegreesMin="12"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red (Pinspots 1 &amp; 2)</Channel>
   <Channel Number="1">Green (Pinspots 1 &amp; 2)</Channel>
   <Channel Number="2">Blue (Pinspots 1 &amp; 2)</Channel>
@@ -386,13 +197,6 @@
   </Head>
  </Mode>
  <Mode Name="20 Channel DMX Mode">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="800" Height="230" Weight="4.9" Depth="90"/>
-   <Lens DegreesMax="12" Name="Other" DegreesMin="12"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red (Pinspot 1)</Channel>
   <Channel Number="1">Green (Pinspot 1)</Channel>
   <Channel Number="2">Blue (Pinspot 1)</Channel>
@@ -444,4 +248,11 @@
    <Channel>16</Channel>
   </Head>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="800" Height="230" Weight="4.9" Depth="90"/>
+   <Lens DegreesMax="12" Name="Other" DegreesMin="12"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

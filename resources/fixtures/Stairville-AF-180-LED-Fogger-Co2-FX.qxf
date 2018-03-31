@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -14,10 +14,7 @@
   <Capability Min="0" Max="9">No fog output (0%)</Capability>
   <Capability Min="10" Max="255">Fog output (100%)</Capability>
  </Channel>
- <Channel Name="Brightness of All LEDs">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">LEDs off to maximum brightness</Capability>
- </Channel>
+ <Channel Name="Brightness of All LEDs" Preset="IntensityDimmer"/>
  <Channel Name="Colour effect">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="20">All LEDs off</Capability>
@@ -35,29 +32,10 @@
   <Capability Min="0" Max="9">Stroboscope effect off</Capability>
   <Capability Min="10" Max="255">Stroboscope effect from slow to fast</Capability>
  </Channel>
- <Channel Name="Intensity Colour Effect Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red LEDs off to maximum brightness when channel 3 ≤ 20</Capability>
- </Channel>
- <Channel Name="Intensity Colour Effect Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green LEDs off to maximum brightness when channel 3 ≤ 20</Capability>
- </Channel>
- <Channel Name="Intensity Colour Effect Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue LEDs off to maximum brightness when channel 3 ≤ 20</Capability>
- </Channel>
+ <Channel Name="Intensity Colour Effect Red" Preset="IntensityRed"/>
+ <Channel Name="Intensity Colour Effect Green" Preset="IntensityGreen"/>
+ <Channel Name="Intensity Colour Effect Blue" Preset="IntensityBlue"/>
  <Mode Name="7 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="8.9" Width="190" Height="300" Depth="340"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="850" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Amount of Fog</Channel>
   <Channel Number="1">Brightness of All LEDs</Channel>
   <Channel Number="2">Colour effect</Channel>
@@ -66,4 +44,11 @@
   <Channel Number="5">Intensity Colour Effect Green</Channel>
   <Channel Number="6">Intensity Colour Effect Blue</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="8.9" Width="190" Height="300" Depth="340"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="850" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

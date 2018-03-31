@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,25 +9,10 @@
  <Manufacturer>Talent</Manufacturer>
  <Model>BL63 10" LED Bar</Model>
  <Type>Color Changer</Type>
- <Channel Name="Red Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Max="255" Min="0">Intensity</Capability>
- </Channel>
- <Channel Name="Green Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Max="255" Min="0">Intensity</Capability>
- </Channel>
- <Channel Name="Blue Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Max="255" Min="0">Intensity</Capability>
- </Channel>
- <Channel Name="Master Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Max="255" Min="0">Intensity</Capability>
- </Channel>
+ <Channel Name="Red Dimmer" Preset="IntensityRed"/>
+ <Channel Name="Green Dimmer" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimmer" Preset="IntensityBlue"/>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Max="6" Min="0">Dimmer mode</Capability>
@@ -39,10 +24,7 @@
   <Capability Max="195" Min="192">None</Capability>
   <Capability Max="255" Min="196">Strobe fading out from slow to fast</Capability>
  </Channel>
- <Channel Name="Static Color">
-  <Group Byte="0">Colour</Group>
-  <Capability Max="255" Min="0">Selection</Capability>
- </Channel>
+ <Channel Name="Static Color" Preset="ColorMacro"/>
  <Channel Name="Function">
   <Group Byte="0">Effect</Group>
   <Capability Max="59" Min="0">Dimmer mode</Capability>
@@ -63,25 +45,11 @@
   <Capability Max="255" Min="196">Strobe fading out from slow to fast/Speed</Capability>
  </Channel>
  <Mode Name="3 Channel">
-  <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Depth="150" Width="326" Height="120" Weight="2.25"/>
-   <Lens Name="Other" DegreesMax="40" DegreesMin="20"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="12"/>
-  </Physical>
   <Channel Number="0">Red Dimmer</Channel>
   <Channel Number="1">Green Dimmer</Channel>
   <Channel Number="2">Blue Dimmer</Channel>
  </Mode>
  <Mode Name="5 Channel">
-  <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Depth="150" Width="326" Height="120" Weight="2.25"/>
-   <Lens Name="Other" DegreesMax="40" DegreesMin="20"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="12"/>
-  </Physical>
   <Channel Number="0">Red Dimmer</Channel>
   <Channel Number="1">Green Dimmer</Channel>
   <Channel Number="2">Blue Dimmer</Channel>
@@ -89,13 +57,6 @@
   <Channel Number="4">Strobe</Channel>
  </Mode>
  <Mode Name="7 Channel">
-  <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Depth="150" Width="326" Height="120" Weight="2.25"/>
-   <Lens Name="Other" DegreesMax="40" DegreesMin="20"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="12"/>
-  </Physical>
   <Channel Number="0">Red Dimmer</Channel>
   <Channel Number="1">Green Dimmer</Channel>
   <Channel Number="2">Blue Dimmer</Channel>
@@ -104,4 +65,11 @@
   <Channel Number="5">Static Color</Channel>
   <Channel Number="6">Function</Channel>
  </Mode>
+<Physical>
+   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
+   <Dimensions Depth="150" Width="326" Height="120" Weight="2.25"/>
+   <Lens Name="Other" DegreesMax="40" DegreesMin="20"/>
+   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="12"/>
+  </Physical>
 </FixtureDefinition>

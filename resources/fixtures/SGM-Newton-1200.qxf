@@ -3,16 +3,13 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.5 GIT</Version>
+  <Version>4.11.2 GIT</Version>
   <Author>Oscar Cervesato</Author>
  </Creator>
  <Manufacturer>SGM</Manufacturer>
  <Model>Newton 1200</Model>
  <Type>Color Changer</Type>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">RGB Dimmer</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="15">Shutter closed</Capability>
@@ -33,18 +30,18 @@
   <Capability Min="240" Max="255">Shutter open</Capability>
  </Channel>
  <Channel Name="Iris">
-  <Group Byte="0">Shutter</Group>
+  <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="255">scale 0% to 100%</Capability>
  </Channel>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="35" Color="#ffffff">White | White+Yellow</Capability>
-  <Capability Min="36" Max="71" Color="#ffff00">Yellow | Yellow+Magenta</Capability>
-  <Capability Min="72" Max="107" Color="#ff00ff">Magenta | Mgenta+Cyan</Capability>
-  <Capability Min="108" Max="143" Color="#00ffff">Cyan | Cyan+Green</Capability>
-  <Capability Min="144" Max="179" Color="#00cf00">Green | Green+Blue</Capability>
-  <Capability Min="180" Max="215" Color="#0000ff">Blue | Blue+Red</Capability>
-  <Capability Min="216" Max="255" Color="#ff0000">Red | Red + White</Capability>
+  <Capability Min="0" Max="35" Preset="ColorMacro" Res1="#ffffff">White | White+Yellow</Capability>
+  <Capability Min="36" Max="71" Preset="ColorMacro" Res1="#ffff00">Yellow | Yellow+Magenta</Capability>
+  <Capability Min="72" Max="107" Preset="ColorMacro" Res1="#ff00ff">Magenta | Mgenta+Cyan</Capability>
+  <Capability Min="108" Max="143" Preset="ColorMacro" Res1="#00ffff">Cyan | Cyan+Green</Capability>
+  <Capability Min="144" Max="179" Preset="ColorMacro" Res1="#00cf00">Green | Green+Blue</Capability>
+  <Capability Min="180" Max="215" Preset="ColorMacro" Res1="#0000ff">Blue | Blue+Red</Capability>
+  <Capability Min="216" Max="255" Preset="ColorMacro" Res1="#ff0000">Red | Red + White</Capability>
  </Channel>
  <Channel Name="Colour Mode">
   <Group Byte="0">Effect</Group>
@@ -53,17 +50,17 @@
   <Capability Min="129" Max="255">Adjustable speed Rainbow effect</Capability>
  </Channel>
  <Mode Name="Default">
-  <Physical>
-   <Bulb Type="HMI 1200W" Lumens="110000" ColourTemperature="6000"/>
-   <Dimensions Weight="4" Width="270" Height="270" Depth="390"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="1500" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Iris</Channel>
   <Channel Number="1">Colour</Channel>
   <Channel Number="2">Dimmer</Channel>
   <Channel Number="3">Strobe</Channel>
   <Channel Number="4">Colour Mode</Channel>
  </Mode>
+ <Physical>
+  <Bulb Type="HMI 1200W" Lumens="110000" ColourTemperature="6000"/>
+  <Dimensions Weight="4" Width="270" Height="270" Depth="390"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="1500" DmxConnector="5-pin"/>
+ </Physical>
 </FixtureDefinition>

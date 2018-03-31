@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,30 +9,12 @@
  <Manufacturer>iSolution</Manufacturer>
  <Model>iMove 250W</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">0° to 540°</Capability>
- </Channel>
- <Channel Name="Pan 16 bit">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Fine</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">0° to 270°</Capability>
- </Channel>
- <Channel Name="Tilt 16 bit">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine</Capability>
- </Channel>
- <Channel Name="Pan/Tilt speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Fast to slow</Capability>
- </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan 16 bit" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt 16 bit" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="7">Blackout</Capability>
@@ -55,21 +37,9 @@
   <Capability Res="Others/rainbow.png" Min="188" Max="247">Fast to slow rotation clockwise</Capability>
   <Capability Min="248" Max="255">Audio</Capability>
  </Channel>
- <Channel Name="Cyan">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Magenta">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Yellow">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
  <Channel Name="CYM Color Mix">
   <Group Byte="0">Colour</Group>
   <Capability Color="#ffffff" Min="0" Max="38">White</Capability>
@@ -117,21 +87,12 @@
   <Capability Min="33" Max="239">Beam shape rotation</Capability>
   <Capability Min="240" Max="255">Frost</Capability>
  </Channel>
- <Channel Name="No Function">
-  <Group Byte="0">Nothing</Group>
- </Channel>
+ <Channel Name="No Function" Preset="NoFunction"/>
  <Channel Name="Lamp On/Off/Reset">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="255">Normal to reset</Capability>
  </Channel>
  <Mode Name="16 channels">
-  <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type="MSD 250W"/>
-   <Dimensions Depth="369" Width="428" Height="481" Weight="24.2"/>
-   <Lens Name="Other" DegreesMin="16" DegreesMax="26"/>
-   <Focus TiltMax="270" PanMax="540" Type="Head"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="390"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan/Tilt speed</Channel>
@@ -150,13 +111,6 @@
   <Channel Number="15">Lamp On/Off/Reset</Channel>
  </Mode>
  <Mode Name="8 channels">
-  <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type="MSD 250W"/>
-   <Dimensions Depth="369" Width="428" Height="481" Weight="24.2"/>
-   <Lens Name="Other" DegreesMin="16" DegreesMax="26"/>
-   <Focus TiltMax="270" PanMax="540" Type="Head"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="390"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Shutter</Channel>
@@ -166,4 +120,11 @@
   <Channel Number="6">Dimmer</Channel>
   <Channel Number="7">CMY Speed</Channel>
  </Mode>
-</FixtureDefinition>
+<Physical>
+   <Bulb ColourTemperature="0" Lumens="0" Type="MSD 250W"/>
+   <Dimensions Depth="369" Width="428" Height="481" Weight="24.2"/>
+   <Lens Name="Other" DegreesMin="16" DegreesMax="26"/>
+   <Focus TiltMax="270" PanMax="540" Type="Head"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="390"/>
+  </Physical>
+  <Physical/></FixtureDefinition>

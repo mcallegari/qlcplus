@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,26 +9,11 @@
  <Manufacturer>Chauvet</Manufacturer>
  <Model>Intimidator Spot LED 350</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan Coarse 0-540">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255"/>
- </Channel>
- <Channel Name="Tilt Coarse 0-270">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt Coarse</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan Fine</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt Fine</Capability>
- </Channel>
- <Channel Name="Pan/Tilt Speed (fast to slow)">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Pan Tilt Speed</Capability>
- </Channel>
+ <Channel Name="Pan Coarse 0-540" Preset="PositionPan"/>
+ <Channel Name="Tilt Coarse 0-270" Preset="PositionTilt"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt Speed (fast to slow)" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="6" Color="#ffffff">White</Capability>
@@ -86,10 +71,7 @@
   <Capability Min="8" Max="215">Strobe effect with increasing speed</Capability>
   <Capability Min="216" Max="255">Shutter Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Control Functions">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="7">No Function</Capability>
@@ -133,18 +115,8 @@
   <Capability Min="0" Max="15">Open</Capability>
   <Capability Min="16" Max="255">Prism ON</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Focus Out to In</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusFarNear"/>
  <Mode Name="Advanced">
-  <Physical>
-   <Bulb Lumens="0" Type="LED 50W" ColourTemperature="0"/>
-   <Dimensions Width="340" Height="392" Weight="10.3" Depth="268"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Head" TiltMax="270"/>
-   <Technical PowerConsumption="285" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan Coarse 0-540</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt Coarse 0-270</Channel>
@@ -161,13 +133,6 @@
   <Channel Number="13">Movement Macros</Channel>
  </Mode>
  <Mode Name="Basic">
-  <Physical>
-   <Bulb Lumens="0" Type="LED 50W" ColourTemperature="0"/>
-   <Dimensions Width="340" Height="392" Weight="10.3" Depth="268"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Head" TiltMax="270"/>
-   <Technical PowerConsumption="285" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan Coarse 0-540</Channel>
   <Channel Number="1">Tilt Coarse 0-270</Channel>
   <Channel Number="2">Color</Channel>
@@ -177,4 +142,11 @@
   <Channel Number="6">Focus</Channel>
   <Channel Number="7">Shutter</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED 50W" ColourTemperature="0"/>
+   <Dimensions Width="340" Height="392" Weight="10.3" Depth="268"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="540" Type="Head" TiltMax="270"/>
+   <Technical PowerConsumption="285" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

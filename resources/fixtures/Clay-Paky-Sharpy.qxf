@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -55,10 +55,7 @@
   <Capability Min="239" Max="251">Random fast strobe</Capability>
   <Capability Min="252" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Intensity 0 to 100%</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Static Gobo Change">
   <Group Byte="0">Gobo</Group>
   <Capability Res="Others/open.png" Min="0" Max="3">White</Capability>
@@ -124,26 +121,11 @@
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="255">Frost insertion (excluded to inserted)</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Focus (0%: Distant to 100%: Near)</Capability>
- </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan coarse (0° to 540°)</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan Fine (0.008°)</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt Coarse (0° to 250°)</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt Fine (0.004°)</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusFarNear"/>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Function">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="11">Unused</Capability>
@@ -183,13 +165,6 @@
   <Capability Min="0" Max="255">Static Gobo (0 to 310s)</Capability>
  </Channel>
  <Mode Name="Standard">
-  <Physical>
-   <Bulb Lumens="7950" Type="MSD 200W" ColourTemperature="8000"/>
-   <Dimensions Width="405" Height="450" Weight="19" Depth="330"/>
-   <Lens DegreesMax="3.8" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="250"/>
-   <Technical PowerConsumption="200" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Colour Wheel</Channel>
   <Channel Number="1">Stop / Strobe</Channel>
   <Channel Number="2">Dimmer</Channel>
@@ -208,13 +183,6 @@
   <Channel Number="15">Lamp Control</Channel>
  </Mode>
  <Mode Name="Vector">
-  <Physical>
-   <Bulb Lumens="7950" Type="MSD 200W" ColourTemperature="8000"/>
-   <Dimensions Width="405" Height="450" Weight="19" Depth="330"/>
-   <Lens DegreesMax="3.8" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="250"/>
-   <Technical PowerConsumption="200" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Colour Wheel</Channel>
   <Channel Number="1">Stop / Strobe</Channel>
   <Channel Number="2">Dimmer</Channel>
@@ -236,4 +204,11 @@
   <Channel Number="18">Beam Time</Channel>
   <Channel Number="19">Gobo Time</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="7950" Type="MSD 200W" ColourTemperature="8000"/>
+   <Dimensions Width="405" Height="450" Weight="19" Depth="330"/>
+   <Lens DegreesMax="3.8" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="540" Type="Fixed" TiltMax="250"/>
+   <Technical PowerConsumption="200" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -67,13 +67,6 @@
   <Capability Min="246" Max="255">No Rotation</Capability>
  </Channel>
  <Mode Name="Normal">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="542" Height="178" Weight="4.7" Depth="143"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="32" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">White Dimmer / Strobe</Channel>
   <Channel Number="1">Moon Flower Dimmer / Strobe</Channel>
   <Channel Number="2">Moon Flower Color</Channel>
@@ -82,4 +75,11 @@
   <Channel Number="5">Green Laser</Channel>
   <Channel Number="6">Laser Rotation</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="542" Height="178" Weight="4.7" Depth="143"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="32" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

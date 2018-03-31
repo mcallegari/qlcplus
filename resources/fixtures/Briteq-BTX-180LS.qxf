@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,30 +9,12 @@
  <Manufacturer>Briteq</Manufacturer>
  <Model>BTX-180LS</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Min &lt; Max</Capability>
- </Channel>
- <Channel Name="Pan fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Min &lt; Max</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Min &lt; Max</Capability>
- </Channel>
- <Channel Name="Tilt fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Min &lt; Max</Capability>
- </Channel>
- <Channel Name="Pan / Tilt Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">fast &gt; slow</Capability>
- </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Min &lt; Max</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan / Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe / Shutter effect">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="7">Shutter closed (no output) </Capability>
@@ -143,10 +125,7 @@
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="255">Max &gt; Min</Capability>
  </Channel>
- <Channel Name="Focus (close to distant)">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Min&lt;Max</Capability>
- </Channel>
+ <Channel Name="Focus (close to distant)" Preset="BeamFocusNearFar"/>
  <Channel Name="Special functions">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="69">No Function</Capability>
@@ -169,13 +148,6 @@
   <Capability Min="230" Max="255">No function </Capability>
  </Channel>
  <Mode Name="Normal">
-  <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Weight="17.5" Height="587" Width="435" Depth="343"/>
-   <Lens Name="Other" DegreesMin="16" DegreesMax="16"/>
-   <Focus Type="Head" TiltMax="270" PanMax="540"/>
-   <Technical PowerConsumption="330" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -194,4 +166,11 @@
   <Channel Number="15">Focus (close to distant)</Channel>
   <Channel Number="16">Special functions</Channel>
  </Mode>
+<Physical>
+   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
+   <Dimensions Weight="17.5" Height="587" Width="435" Depth="343"/>
+   <Lens Name="Other" DegreesMin="16" DegreesMax="16"/>
+   <Focus Type="Head" TiltMax="270" PanMax="540"/>
+   <Technical PowerConsumption="330" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
 </FixtureDefinition>

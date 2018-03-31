@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>Robe</Manufacturer>
  <Model>Robin DLX Spot</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan movement by 540°</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Fine control of pan movement</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt movement by 280°</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Fine control of tilt movement</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Pan/Tilt Speed, Pan/Tilt Time">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="0">Max. speed (tracking mode)</Capability>
@@ -85,21 +73,9 @@
   <Capability Min="248" Max="251" Res="Others/rainbow.png">Rainbow effect (with fade time) from slow-&gt;fast</Capability>
   <Capability Min="252" Max="255" Res="Others/rainbow.png">Rainbow effect from slow-&gt;fast</Capability>
  </Channel>
- <Channel Name="Red/Cyan (8-Bit)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red or cyan colour saturation control - coarse (0-100%)</Capability>
- </Channel>
- <Channel Name="Red/Cyan (16-Bit)">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red or cyan colour saturation control - fine</Capability>
- </Channel>
- <Channel Name="Green/Magenta (8-Bit)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green or magenta colour saturation control - coarse (0-100%)</Capability>
- </Channel>
+ <Channel Name="Red/Cyan (8-Bit)" Preset="IntensityRed"/>
+ <Channel Name="Red/Cyan (16-Bit)" Preset="IntensityRedFine"/>
+ <Channel Name="Green/Magenta (8-Bit)" Preset="IntensityGreen"/>
  <Channel Name="CTC">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="255" Color="#e3e9ff" Color2="#ffa957">Colour temperature correction</Capability>
@@ -146,10 +122,7 @@
   <Capability Min="244" Max="249">Random gobo by selection audio control</Capability>
   <Capability Min="250" Max="255">Auto random gobo selection from fast to slow</Capability>
  </Channel>
- <Channel Name="Static Gobo Wheel - Fine">
-  <Group Byte="1">Gobo</Group>
-  <Capability Min="0" Max="255">Fine positioning</Capability>
- </Channel>
+ <Channel Name="Static Gobo Wheel - Fine" Preset="GoboWheelFine"/>
  <Channel Name="Rotating Gobo Wheel">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="3" Res="Others/open.png">Open/hole</Capability>
@@ -235,10 +208,7 @@
   <Capability Min="252" Max="253">Random pulse closing (fast)</Capability>
   <Capability Min="254" Max="255">Random pulse closing (slow)</Capability>
  </Channel>
- <Channel Name="Zoom">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Zoom from max. to min. beam angle</Capability>
- </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomBigSmall"/>
  <Channel Name="Zoom - Fine">
   <Group Byte="1">Beam</Group>
   <Capability Min="0" Max="255">Fine zooming</Capability>
@@ -255,14 +225,8 @@
   <Capability Min="192" Max="223">Random strobe effect from slow to fast</Capability>
   <Capability Min="224" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Dimmer Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer intensity from 0% to 100%</Capability>
- </Channel>
- <Channel Name="Dimmer Intensity - Fine">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">Fine dimming</Capability>
- </Channel>
+ <Channel Name="Dimmer Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer Intensity - Fine" Preset="IntensityDimmerFine"/>
  <Channel Name="Frost">
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="0">Open</Capability>
@@ -272,47 +236,18 @@
   <Capability Min="212" Max="233">Pulse opening from fast to slow</Capability>
   <Capability Min="234" Max="255">Ramping from fast to slow</Capability>
  </Channel>
- <Channel Name="Rotating Gobo Indexing/Rotation Fine">
-  <Group Byte="1">Gobo</Group>
-  <Capability Min="0" Max="255">Fine indexing/rotation</Capability>
- </Channel>
- <Channel Name="Iris - Fine">
-  <Group Byte="1">Beam</Group>
-  <Capability Min="0" Max="255">Fine iris movement</Capability>
- </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Continuous adjustment from far to near</Capability>
- </Channel>
+ <Channel Name="Rotating Gobo Indexing/Rotation Fine" Preset="GoboIndexFine"/>
+ <Channel Name="Iris - Fine" Preset="BeamIrisFine"/>
+ <Channel Name="Focus" Preset="BeamFocusFarNear"/>
  <Channel Name="Focus - Fine">
   <Group Byte="1">Beam</Group>
   <Capability Min="0" Max="255">Fine focusing</Capability>
  </Channel>
- <Channel Name="Green/Magenta (16-Bit)">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green or magenta colour saturation control - fine</Capability>
- </Channel>
- <Channel Name="Blue/Yellow (8-Bit)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue or yellow colour saturation control - coarse (0-100%)</Capability>
- </Channel>
- <Channel Name="Blue/Yellow (16-Bit)">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue or yellow colour saturation control - fine</Capability>
- </Channel>
- <Channel Name="White (8-Bit)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White colour saturation control - coarse (0-100%)</Capability>
- </Channel>
- <Channel Name="White (16-Bit)">
-  <Group Byte="1">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White colour saturation control - fine</Capability>
- </Channel>
+ <Channel Name="Green/Magenta (16-Bit)" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue/Yellow (8-Bit)" Preset="IntensityBlue"/>
+ <Channel Name="Blue/Yellow (16-Bit)" Preset="IntensityBlueFine"/>
+ <Channel Name="White (8-Bit)" Preset="IntensityWhite"/>
+ <Channel Name="White (16-Bit)" Preset="IntensityWhiteFine"/>
  <Channel Name="Autofocus (Priority &amp; Distance Selection)">
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="0">Off</Capability>
@@ -344,13 +279,6 @@
   <Capability Min="192" Max="255">Reserved</Capability>
  </Channel>
  <Mode Name="35-channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="5370" ColourTemperature="0"/>
-   <Dimensions Weight="20.8" Width="433" Height="517" Depth="480"/>
-   <Lens Name="Other" DegreesMin="10" DegreesMax="45"/>
-   <Focus Type="Head" PanMax="540" TiltMax="280"/>
-   <Technical PowerConsumption="550" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -388,13 +316,6 @@
   <Channel Number="34">Dimmer Intensity - Fine</Channel>
  </Mode>
  <Mode Name="25-channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="5370" ColourTemperature="0"/>
-   <Dimensions Weight="20.8" Width="433" Height="517" Depth="480"/>
-   <Lens Name="Other" DegreesMin="10" DegreesMax="45"/>
-   <Focus Type="Head" PanMax="540" TiltMax="280"/>
-   <Technical PowerConsumption="550" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -422,13 +343,6 @@
   <Channel Number="24">Dimmer Intensity</Channel>
  </Mode>
  <Mode Name="23-channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="5370" ColourTemperature="0"/>
-   <Dimensions Weight="20.8" Width="433" Height="517" Depth="480"/>
-   <Lens Name="Other" DegreesMin="10" DegreesMax="45"/>
-   <Focus Type="Head" PanMax="540" TiltMax="280"/>
-   <Technical PowerConsumption="550" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan/Tilt Speed, Pan/Tilt Time</Channel>
@@ -453,4 +367,11 @@
   <Channel Number="21">Shutter/Strobe</Channel>
   <Channel Number="22">Dimmer Intensity</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="5370" ColourTemperature="0"/>
+   <Dimensions Weight="20.8" Width="433" Height="517" Depth="480"/>
+   <Lens Name="Other" DegreesMin="10" DegreesMax="45"/>
+   <Focus Type="Head" PanMax="540" TiltMax="280"/>
+   <Technical PowerConsumption="550" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
 </FixtureDefinition>

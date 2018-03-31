@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -65,23 +65,9 @@
   <Capability Min="255" Max="255">Sound controlled</Capability>
  </Channel>
  <Mode Name="1-Channel">
-  <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type="Laser/LED"/>
-   <Dimensions Depth="160" Width="233" Height="86" Weight="1.6"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="15"/>
-  </Physical>
   <Channel Number="0">1-Channel Mode</Channel>
  </Mode>
  <Mode Name="7-Channel">
-  <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type="Laser/LED"/>
-   <Dimensions Depth="160" Width="233" Height="86" Weight="1.6"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="15"/>
-  </Physical>
   <Channel Number="0">Mode Select</Channel>
   <Channel Number="1">Red Laser Strobe</Channel>
   <Channel Number="2">Green Laser Strobe</Channel>
@@ -90,4 +76,11 @@
   <Channel Number="5">Dimmer LED</Channel>
   <Channel Number="6">LED Strobe</Channel>
  </Mode>
+<Physical>
+   <Bulb ColourTemperature="0" Lumens="0" Type="Laser/LED"/>
+   <Dimensions Depth="160" Width="233" Height="86" Weight="1.6"/>
+   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
+   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="15"/>
+  </Physical>
 </FixtureDefinition>

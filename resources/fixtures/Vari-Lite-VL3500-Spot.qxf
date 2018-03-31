@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,53 +9,20 @@
  <Manufacturer>Vari-Lite</Manufacturer>
  <Model>VL3500 Spot</Model>
  <Type>Moving Head</Type>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan (0 to 540°)</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan Fine</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt (0 to 270°)</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt Fine</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Edge">
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="255">Edge</Capability>
  </Channel>
- <Channel Name="Zoom">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Zoom</Capability>
- </Channel>
- <Channel Name="CTO">
-  <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="255">CTO</Capability>
- </Channel>
- <Channel Name="Cyan">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">Cyan C-Mix</Capability>
- </Channel>
- <Channel Name="Yellow">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">Yellow C-Mix</Capability>
- </Channel>
- <Channel Name="Magenta">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">Magenta C-Mix</Capability>
- </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="CTO" Preset="ColorCTOMixer"/>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
  <Channel Name="Color Wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="14" Color="#ffffff">Open</Capability>
@@ -94,14 +61,8 @@
   <Capability Min="234" Max="236">Stop</Capability>
   <Capability Min="237" Max="255">Slow to Fast / CW</Capability>
  </Channel>
- <Channel Name="Gobo 1 Rotation">
-  <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="255">Index</Capability>
- </Channel>
- <Channel Name="Gobo 1 Rotation Fine">
-  <Group Byte="1">Gobo</Group>
-  <Capability Min="0" Max="255">Index Fine</Capability>
- </Channel>
+ <Channel Name="Gobo 1 Rotation" Preset="GoboIndex"/>
+ <Channel Name="Gobo 1 Rotation Fine" Preset="GoboIndexFine"/>
  <Channel Name="Gobo Wheel 2">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="13" Res="Others/open.png">Open</Capability>
@@ -726,13 +687,6 @@
   <Capability Min="249" Max="255">Lamp On</Capability>
  </Channel>
  <Mode Name="Standard 16 bit">
-  <Physical>
-   <Bulb Type="MSR 1200W" ColourTemperature="6000" Lumens="20000"/>
-   <Dimensions Height="802" Width="457" Weight="41" Depth="502"/>
-   <Lens Name="" DegreesMin="9" DegreesMax="46"/>
-   <Focus TiltMax="270" Type="Head" PanMax="540"/>
-   <Technical PowerConsumption="1500" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Pan</Channel>
   <Channel Number="2">Pan Fine</Channel>
@@ -765,4 +719,11 @@
   <Channel Number="29">Gobo Time</Channel>
   <Channel Number="30">Control</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="MSR 1200W" ColourTemperature="6000" Lumens="20000"/>
+   <Dimensions Height="802" Width="457" Weight="41" Depth="502"/>
+   <Lens Name="" DegreesMin="9" DegreesMax="46"/>
+   <Focus TiltMax="270" Type="Head" PanMax="540"/>
+   <Technical PowerConsumption="1500" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
 </FixtureDefinition>

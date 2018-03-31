@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -39,10 +39,7 @@
   <Capability Min="245" Max="249">Music trigger slow</Capability>
   <Capability Min="250" Max="255">Music trigger dynamic</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer intensity</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Gobo shake">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="1">No function</Capability>
@@ -106,13 +103,6 @@
   <Capability Min="2" Max="255">Vector fast to slow</Capability>
  </Channel>
  <Mode Name="Normal">
-  <Physical>
-   <Bulb Lumens="0" Type="ELC 250W" ColourTemperature="3200"/>
-   <Dimensions Width="500" Height="230" Weight="13" Depth="410"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="180" Type="Mirror" TiltMax="360"/>
-   <Technical PowerConsumption="265" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Strobe</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Gobo</Channel>
@@ -122,13 +112,6 @@
   <Channel Number="6">Tilt</Channel>
  </Mode>
  <Mode Name="Extended">
-  <Physical>
-   <Bulb Lumens="0" Type="ELC 250W" ColourTemperature="3200"/>
-   <Dimensions Width="500" Height="230" Weight="13" Depth="410"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="180" Type="Mirror" TiltMax="360"/>
-   <Technical PowerConsumption="265" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Strobe</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Gobo</Channel>
@@ -139,4 +122,11 @@
   <Channel Number="7">Macro</Channel>
   <Channel Number="8">Effects speed</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="ELC 250W" ColourTemperature="3200"/>
+   <Dimensions Width="500" Height="230" Weight="13" Depth="410"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="180" Type="Mirror" TiltMax="360"/>
+   <Technical PowerConsumption="265" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

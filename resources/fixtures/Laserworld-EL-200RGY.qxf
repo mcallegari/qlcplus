@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -19,26 +19,14 @@
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="255">Pattern</Capability>
  </Channel>
- <Channel Name="Strobe">
-  <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="255">Strobe</Capability>
- </Channel>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
  <Channel Name="Point Speed">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="255">Point Speed</Capability>
  </Channel>
- <Channel Name="Horizontal movement">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">X</Capability>
- </Channel>
- <Channel Name="Vertical movement">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Y</Capability>
- </Channel>
- <Channel Name="Zoom">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Zoom</Capability>
- </Channel>
+ <Channel Name="Horizontal movement" Preset="PositionPan"/>
+ <Channel Name="Vertical movement" Preset="PositionTilt"/>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="39">Yellow</Capability>
@@ -58,13 +46,6 @@
   <Capability Min="120" Max="255">Change Colours</Capability>
  </Channel>
  <Mode Name="Default">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="265" Height="125" Weight="3.8" Depth="192"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Mode</Channel>
   <Channel Number="1">Pattern</Channel>
   <Channel Number="2">Strobe</Channel>
@@ -76,4 +57,11 @@
   <Channel Number="8">Reset</Channel>
   <Channel Number="9">Colour Effect</Channel>
  </Mode>
-</FixtureDefinition>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="265" Height="125" Weight="3.8" Depth="192"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
+  </Physical>
+  <Physical/></FixtureDefinition>

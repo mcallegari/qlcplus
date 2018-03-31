@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -19,10 +19,7 @@
   <Capability Min="240" Max="249">Stand-alone, auto trigger</Capability>
   <Capability Min="250" Max="255">Reset</Capability>
  </Channel>
- <Channel Name="Not used">
-  <Group Byte="0">Nothing</Group>
-  <Capability Min="0" Max="255">Not used</Capability>
- </Channel>
+ <Channel Name="Not used" Preset="NoFunction"/>
  <Channel Name="Colour / gobo wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="11">Open</Capability>
@@ -47,14 +44,8 @@
   <Capability Min="228" Max="239">Closed</Capability>
   <Capability Min="240" Max="255">Random, stand-alone</Capability>
  </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Pan/tilt speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="2">Tracking mode</Capability>
@@ -65,13 +56,6 @@
   <Capability Min="0" Max="255">Fast to slow</Capability>
  </Channel>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb ColourTemperature="3200" Lumens="0" Type="ELC 250W"/>
-   <Dimensions Width="269" Height="537" Weight="6" Depth="263"/>
-   <Lens DegreesMax="16" Name="Other" DegreesMin="16"/>
-   <Focus TiltMax="77" PanMax="230" Type="Mirror"/>
-   <Technical PowerConsumption="265" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer, strobe, reset</Channel>
   <Channel Number="1">Not used</Channel>
   <Channel Number="2">Colour / gobo wheel</Channel>
@@ -80,4 +64,11 @@
   <Channel Number="5">Pan/tilt speed</Channel>
   <Channel Number="6">Colour / gobo speed</Channel>
  </Mode>
+<Physical>
+   <Bulb ColourTemperature="3200" Lumens="0" Type="ELC 250W"/>
+   <Dimensions Width="269" Height="537" Weight="6" Depth="263"/>
+   <Lens DegreesMax="16" Name="Other" DegreesMin="16"/>
+   <Focus TiltMax="77" PanMax="230" Type="Mirror"/>
+   <Technical PowerConsumption="265" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

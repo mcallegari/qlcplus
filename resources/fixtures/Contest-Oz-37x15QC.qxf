@@ -3,21 +3,15 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.11.2 GIT</Version>
   <Author>Jan Lachman</Author>
  </Creator>
  <Manufacturer>Contest</Manufacturer>
  <Model>Oz-37x15QC</Model>
  <Type>Moving Head</Type>
- <Channel Name="PAN movement">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">PAN movement</Capability>
- </Channel>
- <Channel Name="TILT movement">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">TILT movement</Capability>
- </Channel>
- <Channel Name="PAN/TILT movement speed">
+ <Channel Name="Pan movement" Preset="PositionPan"/>
+ <Channel Name="Tilt movement" Preset="PositionTilt"/>
+ <Channel Name="Pan/Tilt movement speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="225">Fast to slow speed settings</Capability>
   <Capability Min="226" Max="235">Black out during movements</Capability>
@@ -34,44 +28,22 @@
   <Capability Min="192" Max="223">Slow to fast random strobe</Capability>
   <Capability Min="224" Max="255">No function, LEDs off</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Intensity</Capability>
- </Channel>
- <Channel Name="All LEDs Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">All LEDs Red</Capability>
- </Channel>
- <Channel Name="All LEDs Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">All LEDs Green</Capability>
- </Channel>
- <Channel Name="All LEDs Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">All LEDs Blue</Capability>
- </Channel>
- <Channel Name="All LEDs White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">All LEDs White</Capability>
- </Channel>
- <Channel Name="Zoom">
-  <Group Byte="0">Prism</Group>
-  <Capability Min="0" Max="255">Zoom</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="All LEDs Red" Preset="IntensityRed"/>
+ <Channel Name="All LEDs Green" Preset="IntensityGreen"/>
+ <Channel Name="All LEDs Blue" Preset="IntensityBlue"/>
+ <Channel Name="All LEDs White" Preset="IntensityWhite"/>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
  <Channel Name="Colour macros">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7">No function</Capability>
-  <Capability Min="8" Max="39" Color="#ff0000" Color2="#ffff00">From red to yellow</Capability>
-  <Capability Min="40" Max="71" Color="#ffff00" Color2="#55ff00">From yellow to green</Capability>
-  <Capability Min="72" Max="103" Color="#55ff00" Color2="#55ffff">From green to cyan</Capability>
-  <Capability Min="104" Max="135" Color="#55ffff" Color2="#0000ff">From cyan to blue</Capability>
-  <Capability Min="136" Max="167" Color="#0000ff" Color2="#ff00ff">From blue to magenta</Capability>
-  <Capability Min="168" Max="199" Color="#ff00ff" Color2="#ff0000">From magenta to red</Capability>
-  <Capability Min="200" Max="231" Color="#ff0000" Color2="#ffffff">From red to white</Capability>
+  <Capability Min="8" Max="39" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffff00">From red to yellow</Capability>
+  <Capability Min="40" Max="71" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#55ff00">From yellow to green</Capability>
+  <Capability Min="72" Max="103" Preset="ColorDoubleMacro" Res1="#55ff00" Res2="#55ffff">From green to cyan</Capability>
+  <Capability Min="104" Max="135" Preset="ColorDoubleMacro" Res1="#55ffff" Res2="#0000ff">From cyan to blue</Capability>
+  <Capability Min="136" Max="167" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ff00ff">From blue to magenta</Capability>
+  <Capability Min="168" Max="199" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ff0000">From magenta to red</Capability>
+  <Capability Min="200" Max="231" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">From red to white</Capability>
   <Capability Min="232" Max="255">Slow to fast rainbow effect</Capability>
  </Channel>
  <Channel Name="Preset colours">
@@ -83,20 +55,20 @@
   <Capability Min="20" Max="24">White 5600K</Capability>
   <Capability Min="25" Max="29">White 6500K</Capability>
   <Capability Min="30" Max="34">White 8000K</Capability>
-  <Capability Min="35" Max="39" Color="#ff0000">Red</Capability>
-  <Capability Min="40" Max="44" Color="#55ff00">Green</Capability>
-  <Capability Min="45" Max="49" Color="#0000ff">Blue</Capability>
+  <Capability Min="35" Max="39" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="40" Max="44" Preset="ColorMacro" Res1="#55ff00">Green</Capability>
+  <Capability Min="45" Max="49" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
   <Capability Min="50" Max="54">Cold white</Capability>
   <Capability Min="55" Max="59">Warm white</Capability>
-  <Capability Min="60" Max="64" Color="#ffff00">Yellow</Capability>
-  <Capability Min="65" Max="69" Color="#ff00ff">Magenta</Capability>
-  <Capability Min="70" Max="75" Color="#55ffff">Cyan</Capability>
+  <Capability Min="60" Max="64" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="65" Max="69" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="70" Max="75" Preset="ColorMacro" Res1="#55ffff">Cyan</Capability>
   <Capability Min="76" Max="114">Colour palette</Capability>
-  <Capability Min="115" Max="119" Color="#ff0000" Color2="#ffffff">Red/White</Capability>
-  <Capability Min="120" Max="124" Color="#ffffff" Color2="#ff0000">Green/White</Capability>
-  <Capability Min="125" Max="129" Color="#0000ff" Color2="#ff0000">Blue/Red</Capability>
-  <Capability Min="130" Max="134" Color="#ffffff" Color2="#ff0000">White/Red</Capability>
-  <Capability Min="135" Max="139" Color="#ffffff" Color2="#ffaaff">White/Pink</Capability>
+  <Capability Min="115" Max="119" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red/White</Capability>
+  <Capability Min="120" Max="124" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">Green/White</Capability>
+  <Capability Min="125" Max="129" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ff0000">Blue/Red</Capability>
+  <Capability Min="130" Max="134" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">White/Red</Capability>
+  <Capability Min="135" Max="139" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ffaaff">White/Pink</Capability>
   <Capability Min="150" Max="255">Slow to fast rainbow effect</Capability>
  </Channel>
  <Channel Name="Preset colour dimmer">
@@ -132,16 +104,9 @@
   <Capability Min="231" Max="255">Music sensitive program</Capability>
  </Channel>
  <Mode Name="18 Ch Basic mode">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="22.5" Width="498" Height="594" Depth="330"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Head" PanMax="540" TiltMax="265"/>
-   <Technical PowerConsumption="650" DmxConnector="3-pin"/>
-  </Physical>
-  <Channel Number="0">PAN movement</Channel>
-  <Channel Number="1">TILT movement</Channel>
-  <Channel Number="2">PAN/TILT movement speed</Channel>
+  <Channel Number="0">Pan movement</Channel>
+  <Channel Number="1">Tilt movement</Channel>
+  <Channel Number="2">Pan/Tilt movement speed</Channel>
   <Channel Number="3">Shutter &amp; Strobe</Channel>
   <Channel Number="4">Dimmer</Channel>
   <Channel Number="5">All LEDs Red</Channel>
@@ -158,4 +123,11 @@
   <Channel Number="16">White balance</Channel>
   <Channel Number="17">Internal programs and options</Channel>
  </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="22.5" Width="498" Height="594" Depth="330"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Head" PanMax="540" TiltMax="265"/>
+  <Technical PowerConsumption="650" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

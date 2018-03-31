@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,10 +9,7 @@
  <Manufacturer>American DJ</Manufacturer>
  <Model>UV LED Bar 20</Model>
  <Type>Color Changer</Type>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer (0 to 100%)</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobing">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="31">Led OFF</Capability>
@@ -34,33 +31,19 @@
   <Capability Min="101" Max="255">Default to Unit Current Setting</Capability>
  </Channel>
  <Mode Name="1 Channel">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Depth="175" Weight="2.45" Height="61" Width="334"/>
-   <Lens Name="Fresnel" DegreesMin="10" DegreesMax="40"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
  </Mode>
  <Mode Name="2 Channel">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Depth="175" Weight="2.45" Height="61" Width="334"/>
-   <Lens Name="Fresnel" DegreesMin="10" DegreesMax="40"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
  </Mode>
  <Mode Name="3 Channel">
-  <Physical>
+  <Channel Number="0">Dimmer</Channel>
+ </Mode>
+<Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
    <Dimensions Depth="175" Weight="2.45" Height="61" Width="334"/>
    <Lens Name="Fresnel" DegreesMin="10" DegreesMax="40"/>
    <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
    <Technical PowerConsumption="30" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Dimmer</Channel>
- </Mode>
 </FixtureDefinition>

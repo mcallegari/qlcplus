@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -34,10 +34,7 @@
   <Capability Min="230" Max="244">Strobe 10, fast → slow - Electronic Burst</Capability>
   <Capability Min="245" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="0" Color="#ffffff">Open</Capability>
@@ -111,26 +108,11 @@
   <Capability Min="248" Max="251">Chase Medium</Capability>
   <Capability Min="252" Max="255">Chase Slow</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Infinity -&gt; 2 meters</Capability>
- </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan Fine</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt Fine</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusFarNear"/>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Pan/Tilt Speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="2">Tracking</Capability>
@@ -294,13 +276,6 @@
   <Capability Min="250" Max="255">Rnd Cl Pls  Fast -&gt; Slow</Capability>
  </Channel>
  <Mode Name="8 Bit">
-  <Physical>
-   <Bulb Lumens="8000" Type="LED" ColourTemperature="6500"/>
-   <Dimensions Weight="16.6" Width="377" Depth="220" Height="471"/>
-   <Lens DegreesMin="8" DegreesMax="16" Name=""/>
-   <Focus PanMax="630" TiltMax="300" Type="Head"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="463"/>
-  </Physical>
   <Channel Number="0">Shutter Strobe</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Color</Channel>
@@ -317,13 +292,6 @@
   <Channel Number="13">Fixture control settings</Channel>
  </Mode>
  <Mode Name="16 Bit">
-  <Physical>
-   <Bulb Lumens="8000" Type="LED" ColourTemperature="6500"/>
-   <Dimensions Weight="16.6" Width="377" Depth="220" Height="471"/>
-   <Lens DegreesMin="8" DegreesMax="16" Name=""/>
-   <Focus PanMax="630" TiltMax="300" Type="Head"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="463"/>
-  </Physical>
   <Channel Number="0">Shutter Strobe</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Color</Channel>
@@ -342,4 +310,11 @@
   <Channel Number="15">Effects Speed</Channel>
   <Channel Number="16">Fixture control settings</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="8000" Type="LED" ColourTemperature="6500"/>
+   <Dimensions Weight="16.6" Width="377" Depth="220" Height="471"/>
+   <Lens DegreesMin="8" DegreesMax="16" Name=""/>
+   <Focus PanMax="630" TiltMax="300" Type="Head"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="463"/>
+  </Physical>
 </FixtureDefinition>

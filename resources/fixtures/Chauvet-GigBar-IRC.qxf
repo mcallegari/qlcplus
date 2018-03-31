@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,21 +9,9 @@
  <Manufacturer>Chauvet</Manufacturer>
  <Model>GigBar IRC</Model>
  <Type>Color Changer</Type>
- <Channel Name="Par 1 Red Control">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red intensity (0-100%)</Capability>
- </Channel>
- <Channel Name="Par 1 Green Control">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green intensity (0-100%)</Capability>
- </Channel>
- <Channel Name="Par 1 Blue Control">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue intensity (0-100%)</Capability>
- </Channel>
+ <Channel Name="Par 1 Red Control" Preset="IntensityRed"/>
+ <Channel Name="Par 1 Green Control" Preset="IntensityGreen"/>
+ <Channel Name="Par 1 Blue Control" Preset="IntensityBlue"/>
  <Channel Name="Par 1 Control">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="127">RGB, dimmer based on channels 1, 2 and 3</Capability>
@@ -31,21 +19,9 @@
   <Capability Min="240" Max="249">Strobe to sound</Capability>
   <Capability Min="250" Max="255">RGB 100%</Capability>
  </Channel>
- <Channel Name="Par 2 Red Control">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red intensity (0-100%)</Capability>
- </Channel>
- <Channel Name="Par 2 Green Control">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green intensity (0-100%)</Capability>
- </Channel>
- <Channel Name="Par 2 Blue Control">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue intensity (0-100%)</Capability>
- </Channel>
+ <Channel Name="Par 2 Red Control" Preset="IntensityRed"/>
+ <Channel Name="Par 2 Green Control" Preset="IntensityGreen"/>
+ <Channel Name="Par 2 Blue Control" Preset="IntensityBlue"/>
  <Channel Name="Par 2 Control">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="127">RGB, dimmer based on channels 5, 6 and 7</Capability>
@@ -151,21 +127,9 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Slow to fast</Capability>
  </Channel>
- <Channel Name="Pars and Derby Red Color">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="Pars and Derby Green Color">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="Pars and Derby Blue Color">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
+ <Channel Name="Pars and Derby Red Color" Preset="IntensityRed"/>
+ <Channel Name="Pars and Derby Green Color" Preset="IntensityGreen"/>
+ <Channel Name="Pars and Derby Blue Color" Preset="IntensityBlue"/>
  <Channel Name="Pars and Derby Strobe Controls">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="127">All 0-100%</Capability>
@@ -246,13 +210,6 @@
   <Capability Min="0" Max="255">Speed, when 050-099 in channel 2</Capability>
  </Channel>
  <Mode Name="20 Channels">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="6.6" Width="110" Height="387" Depth="1185"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="44" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Par 1 Red Control</Channel>
   <Channel Number="1">Par 1 Green Control</Channel>
   <Channel Number="2">Par 1 Blue Control</Channel>
@@ -307,13 +264,6 @@
   </Head>
  </Mode>
  <Mode Name="9 Channels">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="6.6" Width="110" Height="387" Depth="1185"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="44" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pars and Derby Red Color</Channel>
   <Channel Number="1">Pars and Derby Green Color</Channel>
   <Channel Number="2">Pars and Derby Blue Color</Channel>
@@ -325,15 +275,15 @@
   <Channel Number="8">Strobe Speed/Dimmer</Channel>
  </Mode>
  <Mode Name="3 Channels">
-  <Physical>
+  <Channel Number="0">LED operation</Channel>
+  <Channel Number="1">Operation</Channel>
+  <Channel Number="2">Auto speed</Channel>
+ </Mode>
+<Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="6.6" Width="110" Height="387" Depth="1185"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="44" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">LED operation</Channel>
-  <Channel Number="1">Operation</Channel>
-  <Channel Number="2">Auto speed</Channel>
- </Mode>
 </FixtureDefinition>

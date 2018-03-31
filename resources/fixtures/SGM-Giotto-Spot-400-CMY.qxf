@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,26 +9,11 @@
  <Manufacturer>SGM</Manufacturer>
  <Model>Giotto Spot 400 CMY</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Pan fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Tilt fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine</Capability>
- </Channel>
- <Channel Name="Iris">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Iris</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Iris" Preset="BeamIris"/>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="35" Color="#ffffff">White</Capability>
@@ -78,10 +63,7 @@
   <Capability Min="205" Max="221">Open with slow gobo change</Capability>
   <Capability Min="222" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer intensity</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Gobo 1 rotation or MSB position">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="111">Rotate CW</Capability>
@@ -101,10 +83,7 @@
   <Capability Min="112" Max="143">No rotation</Capability>
   <Capability Min="144" Max="255">Rotate CCW</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Focus</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Zoom">
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="255">Zoom 9 - 22 degrees</Capability>
@@ -244,13 +223,6 @@
   <Capability Min="255" Max="255">Full CTO</Capability>
  </Channel>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb Lumens="32000" Type="MSR 400W" ColourTemperature="6000"/>
-   <Dimensions Width="360" Height="743" Weight="33" Depth="412"/>
-   <Lens DegreesMax="22" Name="Other" DegreesMin="9"/>
-   <Focus PanMax="540" Type="Head" TiltMax="240"/>
-   <Technical PowerConsumption="570" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -285,4 +257,11 @@
   <Channel Number="31">Yellow</Channel>
   <Channel Number="32">CTO</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="32000" Type="MSR 400W" ColourTemperature="6000"/>
+   <Dimensions Width="360" Height="743" Weight="33" Depth="412"/>
+   <Lens DegreesMax="22" Name="Other" DegreesMin="9"/>
+   <Focus PanMax="540" Type="Head" TiltMax="240"/>
+   <Technical PowerConsumption="570" DmxConnector="5-pin"/>
+  </Physical>
 </FixtureDefinition>

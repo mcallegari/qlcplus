@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -33,25 +33,10 @@
   <Capability Min="238" Max="247">Shutter open</Capability>
   <Capability Min="248" Max="255">Lamp power off (hold 5 seconds)</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Intensity (0 - 100%)</Capability>
- </Channel>
- <Channel Name="Cyan">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">White &gt; Cyan</Capability>
- </Channel>
- <Channel Name="Magenta">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">White &gt; Magenta</Capability>
- </Channel>
- <Channel Name="Yellow">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">White &gt; Yellow</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
  <Channel Name="CTC">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
@@ -89,10 +74,7 @@
   <Capability Min="3" Max="127">CCW (slow &gt; fast)</Capability>
   <Capability Min="128" Max="252">CW (fast &gt; slow)</Capability>
  </Channel>
- <Channel Name="Gobo Wheel, Fine Position">
-  <Group Byte="1">Gobo</Group>
-  <Capability Min="0" Max="255">Fine Position (LSB), Min &lt; Max</Capability>
- </Channel>
+ <Channel Name="Gobo Wheel, Fine Position" Preset="GoboWheelFine"/>
  <Channel Name="Gobo Animation wheel position">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="9" Res="Others/open.png">No Effect</Capability>
@@ -135,30 +117,12 @@
   <Capability Min="250" Max="252">Random pulse closing, fast</Capability>
   <Capability Min="253" Max="255">Random pulse closing, slow</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Infinity &gt; near</Capability>
- </Channel>
- <Channel Name="Zoom">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Flood &gt; spot</Capability>
- </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan (0 - 540°)</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">0 &lt; Max</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt (0 - 267°)</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">0 &lt; Max</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusFarNear"/>
+ <Channel Name="Zoom" Preset="BeamZoomBigSmall"/>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Dimmer Speed and Gobo Speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="2">Tracking</Capability>
@@ -228,13 +192,6 @@
   <Capability Min="0" Max="255">Right → Center → Left</Capability>
  </Channel>
  <Mode Name="31 Channel - 16 Bit">
-  <Physical>
-   <Bulb ColourTemperature="0" Lumens="23000" Type="HMI 1200W"/>
-   <Dimensions Weight="39.5" Height="490" Width="408" Depth="743"/>
-   <Lens Name="Other" DegreesMin="12" DegreesMax="29"/>
-   <Focus PanMax="540" Type="Head" TiltMax="267"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="1480"/>
-  </Physical>
   <Channel Number="0">Shutter, Strobe, Reset, Lamp On/Off</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Cyan</Channel>
@@ -268,13 +225,6 @@
   <Channel Number="30">Dimmer Speed and Gobo Speed</Channel>
  </Mode>
  <Mode Name="28 Channel - 8 Bit">
-  <Physical>
-   <Bulb ColourTemperature="0" Lumens="23000" Type="HMI 1200W"/>
-   <Dimensions Weight="39.5" Height="490" Width="408" Depth="743"/>
-   <Lens Name="Other" DegreesMin="12" DegreesMax="29"/>
-   <Focus PanMax="540" Type="Head" TiltMax="267"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="1480"/>
-  </Physical>
   <Channel Number="0">Shutter, Strobe, Reset, Lamp On/Off</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Cyan</Channel>
@@ -304,4 +254,11 @@
   <Channel Number="26">Pan/Tilt Speed</Channel>
   <Channel Number="27">Dimmer Speed and Gobo Speed</Channel>
  </Mode>
+<Physical>
+   <Bulb ColourTemperature="0" Lumens="23000" Type="HMI 1200W"/>
+   <Dimensions Weight="39.5" Height="490" Width="408" Depth="743"/>
+   <Lens Name="Other" DegreesMin="12" DegreesMax="29"/>
+   <Focus PanMax="540" Type="Head" TiltMax="267"/>
+   <Technical DmxConnector="5-pin" PowerConsumption="1480"/>
+  </Physical>
 </FixtureDefinition>

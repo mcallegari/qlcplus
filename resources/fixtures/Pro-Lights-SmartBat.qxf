@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,30 +9,11 @@
  <Manufacturer>Pro-Lights</Manufacturer>
  <Model>SmartBat</Model>
  <Type>Color Changer</Type>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0~100%</Capability>
- </Channel>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0~100%</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0~100%</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0~100%</Capability>
- </Channel>
- <Channel Name="White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0~100%</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
  <Channel Name="Color + Color Temperature">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="10">No function</Capability>
@@ -84,13 +65,6 @@
   <Capability Min="204" Max="255">Dimmer speed mode 3 (slow speed)</Capability>
  </Channel>
  <Mode Name="10 Ch Mode">
-  <Physical>
-   <Bulb Lumens="0" ColourTemperature="10000" Type="LED"/>
-   <Dimensions Height="184" Depth="145" Width="138" Weight="3.4"/>
-   <Lens DegreesMin="15" DegreesMax="0" Name="Other"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="45"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
@@ -103,26 +77,12 @@
   <Channel Number="9">Dim Mode</Channel>
  </Mode>
  <Mode Name="4 Ch Mode">
-  <Physical>
-   <Bulb Lumens="0" ColourTemperature="10000" Type="LED"/>
-   <Dimensions Height="184" Depth="145" Width="138" Weight="3.4"/>
-   <Lens DegreesMin="15" DegreesMax="0" Name="Other"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="45"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
   <Channel Number="3">White</Channel>
  </Mode>
  <Mode Name="6 Ch Mode">
-  <Physical>
-   <Bulb Lumens="0" ColourTemperature="10000" Type="LED"/>
-   <Dimensions Height="184" Depth="145" Width="138" Weight="3.4"/>
-   <Lens DegreesMin="15" DegreesMax="0" Name="Other"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="45"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
@@ -130,4 +90,11 @@
   <Channel Number="4">White</Channel>
   <Channel Number="5">Strobe</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" ColourTemperature="10000" Type="LED"/>
+   <Dimensions Height="184" Depth="145" Width="138" Weight="3.4"/>
+   <Lens DegreesMin="15" DegreesMax="0" Name="Other"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="45"/>
+  </Physical>
 </FixtureDefinition>

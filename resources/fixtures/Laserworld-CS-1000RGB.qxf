@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -20,10 +20,7 @@
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="255">Patterns</Capability>
  </Channel>
- <Channel Name="Strobe">
-  <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="255">Strobe</Capability>
- </Channel>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
  <Channel Name="Horizontal movement">
   <Group Byte="0">Pan</Group>
   <Capability Min="0" Max="0">No effect</Capability>
@@ -79,13 +76,6 @@
   <Capability Min="0" Max="255">Vertical movement: analogus to horizontal movement</Capability>
  </Channel>
  <Mode Name="CS-1000RGB">
-  <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="RGB Laser"/>
-   <Dimensions Width="330" Weight="7" Depth="310" Height="170"/>
-   <Lens DegreesMin="40" DegreesMax="40" Name="Other"/>
-   <Focus PanMax="40" TiltMax="40" Type="Mirror"/>
-   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Mode</Channel>
   <Channel Number="1">Patterns</Channel>
   <Channel Number="2">Strobe</Channel>
@@ -100,4 +90,11 @@
   <Channel Number="11">Colour</Channel>
   <Channel Number="12">Image format</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" ColourTemperature="0" Type="RGB Laser"/>
+   <Dimensions Width="330" Weight="7" Depth="310" Height="170"/>
+   <Lens DegreesMin="40" DegreesMax="40" Name="Other"/>
+   <Focus PanMax="40" TiltMax="40" Type="Mirror"/>
+   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

@@ -3,24 +3,16 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.8.3</Version>
+  <Version>4.11.2 GIT</Version>
   <Author>Moehritz</Author>
  </Creator>
  <Manufacturer>Robe</Manufacturer>
  <Model>Pointe</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Pan/Tilt Speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="0">Maximum Speed</Capability>
@@ -57,28 +49,26 @@
  <Channel Name="Colour wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="0">White</Capability>
-  <Capability Min="130" Max="134" Color="#ff0004">Deep Red</Capability>
-  <Capability Min="135" Max="138" Color="#2600ff">Deep Blue</Capability>
-  <Capability Min="139" Max="143" Color="#ffff00">Yellow</Capability>
-  <Capability Min="144" Max="147" Color="#22ff00">Green</Capability>
-  <Capability Min="148" Max="152" Color="#ff00ff">Magenta</Capability>
-  <Capability Min="153" Max="157" Color="#00aaff">Azure</Capability>
-  <Capability Min="158" Max="161" Color="#ca4345">Red</Capability>
-  <Capability Min="162" Max="166" Color="#0d8700">Dark Green</Capability>
-  <Capability Min="167" Max="171" Color="#ffb339">Amber</Capability>
-  <Capability Min="172" Max="176" Color="#5555ff">Blue</Capability>
-  <Capability Min="177" Max="180" Color="#ff9d00">Orange</Capability>
-  <Capability Min="181" Max="185" Color="#ffffff">CTO</Capability>
-  <Capability Min="186" Max="189" Color="#8800ff">UV</Capability>
+  <Capability Min="130" Max="134" Preset="ColorMacro" Res1="#ff0004">Deep Red</Capability>
+  <Capability Min="135" Max="138" Preset="ColorMacro" Res1="#2600ff">Deep Blue</Capability>
+  <Capability Min="139" Max="143" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="144" Max="147" Preset="ColorMacro" Res1="#22ff00">Green</Capability>
+  <Capability Min="148" Max="152" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="153" Max="157" Preset="ColorMacro" Res1="#00aaff">Azure</Capability>
+  <Capability Min="158" Max="161" Preset="ColorMacro" Res1="#ca4345">Red</Capability>
+  <Capability Min="162" Max="166" Preset="ColorMacro" Res1="#0d8700">Dark Green</Capability>
+  <Capability Min="167" Max="171" Preset="ColorMacro" Res1="#ffb339">Amber</Capability>
+  <Capability Min="172" Max="176" Preset="ColorMacro" Res1="#5555ff">Blue</Capability>
+  <Capability Min="177" Max="180" Preset="ColorMacro" Res1="#ff9d00">Orange</Capability>
+  <Capability Min="181" Max="185" Preset="ColorMacro" Res1="#ffffff">CTO</Capability>
+  <Capability Min="186" Max="189" Preset="ColorMacro" Res1="#8800ff">UV</Capability>
   <Capability Min="190" Max="215">Forwards Rainbow</Capability>
   <Capability Min="216" Max="217">No rotation</Capability>
   <Capability Min="218" Max="243">Backwards Rainbow</Capability>
   <Capability Min="244" Max="249">Audio Control</Capability>
   <Capability Min="250" Max="255">Random</Capability>
  </Channel>
- <Channel Name="Colour wheel fine">
-  <Group Byte="1">Colour</Group>
- </Channel>
+ <Channel Name="Colour wheel fine" Preset="ColorWheelFine"/>
  <Channel Name="Speed of Rot. Gobo wheel">
   <Group Byte="0">Speed</Group>
  </Channel>
@@ -188,24 +178,22 @@
   <Capability Min="248" Max="255">Macro 16</Capability>
  </Channel>
  <Channel Name="Frost">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="179">Frost from 0-100</Capability>
   <Capability Min="180" Max="189">Frost 100%</Capability>
   <Capability Min="190" Max="211">Pulse closing from slow to fast</Capability>
   <Capability Min="212" Max="233">Pulse opening from slow to fast</Capability>
   <Capability Min="234" Max="255">Raming from fast to slow</Capability>
  </Channel>
- <Channel Name="Zoom">
-  <Group Byte="0">Beam</Group>
- </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
  <Channel Name="Zoom fine">
   <Group Byte="1">Beam</Group>
+  <Capability Min="0" Max="255">Zoom fine</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Focus fine">
   <Group Byte="1">Beam</Group>
+  <Capability Min="0" Max="255">Focus fine</Capability>
  </Channel>
  <Channel Name="Autofocus">
   <Group Byte="0">Beam</Group>
@@ -226,20 +214,9 @@
   <Capability Min="192" Max="223">Random strobe effect from slow to fast</Capability>
   <Capability Min="224" Max="255">Shutter open, Full lamp power</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
- </Channel>
- <Channel Name="Dimmer fine">
-  <Group Byte="1">Intensity</Group>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer fine" Preset="IntensityDimmerFine"/>
  <Mode Name="Main">
-  <Physical>
-   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Height="575" Width="364" Weight="15" Depth="260"/>
-   <Lens Name="Other" DegreesMin="5" DegreesMax="20"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="470"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -264,4 +241,11 @@
   <Channel Number="21">Dimmer</Channel>
   <Channel Number="22">Dimmer fine</Channel>
  </Mode>
+ <Physical>
+  <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="15" Width="364" Height="575" Depth="260"/>
+  <Lens Name="Other" DegreesMin="5" DegreesMax="20"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="470" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
 </FixtureDefinition>

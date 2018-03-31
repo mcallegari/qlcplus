@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,21 +9,9 @@
  <Manufacturer>HQ Power</Manufacturer>
  <Model>VDPL110CC LED Tri Spot</Model>
  <Type>Dimmer</Type>
- <Channel Name="Red Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0% ~ 100%</Capability>
- </Channel>
- <Channel Name="Green Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0% ~ 100%</Capability>
- </Channel>
- <Channel Name="Blue Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0% ~ 100%</Capability>
- </Channel>
+ <Channel Name="Red Dimmer" Preset="IntensityRed"/>
+ <Channel Name="Green Dimmer" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimmer" Preset="IntensityBlue"/>
  <Channel Name="Colour Macros">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="15">No function</Capability>
@@ -45,18 +33,8 @@
   <Capability Min="192" Max="223">Auto snap transition - 7 colours</Capability>
   <Capability Min="224" Max="255">Sound triggering mode</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% ~ 100%</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Mode Name="7-Channels">
-  <Physical>
-   <Bulb Type="10W LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Height="100" Weight="1" Width="100" Depth="260"/>
-   <Lens DegreesMax="0" DegreesMin="0" Name="Other"/>
-   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
-   <Technical PowerConsumption="11" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red Dimmer</Channel>
   <Channel Number="1">Green Dimmer</Channel>
   <Channel Number="2">Blue Dimmer</Channel>
@@ -65,4 +43,11 @@
   <Channel Number="5">Mode</Channel>
   <Channel Number="6">Dimmer</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="10W LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Height="100" Weight="1" Width="100" Depth="260"/>
+   <Lens DegreesMax="0" DegreesMin="0" Name="Other"/>
+   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
+   <Technical PowerConsumption="11" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

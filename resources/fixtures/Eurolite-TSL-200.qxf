@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,14 +9,8 @@
  <Manufacturer>Eurolite</Manufacturer>
  <Model>TSL-200</Model>
  <Type>Scanner</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan 128-Center</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt 128-Center</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Color-wheel">
   <Group Byte="0">Colour</Group>
   <Capability Color="#ffffff" Min="0" Max="15">Open / White</Capability>
@@ -68,10 +62,7 @@
   <Capability Min="240" Max="247">Random strobe-effect</Capability>
   <Capability Min="248" Max="255">Shutter open</Capability>
  </Channel>
- <Channel Name="Dimmer intensity">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment of the dimmer intensity from 0 to 100%</Capability>
- </Channel>
+ <Channel Name="Dimmer intensity" Preset="IntensityDimmer"/>
  <Channel Name="Motion macros">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="7">No function</Capability>
@@ -95,13 +86,6 @@
   <Capability Min="0" Max="255">Increasing speed</Capability>
  </Channel>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
-   <Dimensions Height="300" Width="205" Depth="390" Weight="6"/>
-   <Lens Name="Other" DegreesMin="13" DegreesMax="13"/>
-   <Focus PanMax="13" TiltMax="13" Type="Mirror"/>
-   <Technical PowerConsumption="70" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Color-wheel</Channel>
@@ -112,4 +96,11 @@
   <Channel Number="7">Motion macros</Channel>
   <Channel Number="8">Speed Motion macros</Channel>
  </Mode>
+<Physical>
+   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
+   <Dimensions Height="300" Width="205" Depth="390" Weight="6"/>
+   <Lens Name="Other" DegreesMin="13" DegreesMax="13"/>
+   <Focus PanMax="13" TiltMax="13" Type="Mirror"/>
+   <Technical PowerConsumption="70" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -31,13 +31,13 @@
   <Capability Min="209" Max="255">Strobe 1 Flash per 4 Seconds to 4fps</Capability>
  </Channel>
  <Mode Name="1 Channel">
-  <Physical>
+  <Channel Number="0">Colours</Channel>
+ </Mode>
+<Physical>
    <Bulb Type="ELC 24v/250W GX5.3" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="6.7" Width="280" Height="220" Depth="160"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="300" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Colours</Channel>
- </Mode>
 </FixtureDefinition>

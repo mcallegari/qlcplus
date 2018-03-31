@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,23 +9,17 @@
  <Manufacturer>Stairville</Manufacturer>
  <Model>LED PAR56 10MM UV</Model>
  <Type>Color Changer</Type>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer (0% to 100%)</Capability>
- </Channel>
- <Channel Name="Strobe">
-  <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="255">Strobe effect (0% to100%)</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
  <Mode Name="Default">
-  <Physical>
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+ </Mode>
+<Physical>
    <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
    <Dimensions Weight="1.6" Width="205" Height="210" Depth="220"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
    <Technical PowerConsumption="10" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Dimmer</Channel>
-  <Channel Number="1">Strobe</Channel>
- </Mode>
 </FixtureDefinition>

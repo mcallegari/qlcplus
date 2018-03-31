@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -15,30 +15,11 @@
   <Capability Min="1" Max="127">Clockwise Slow-Fast</Capability>
   <Capability Min="128" Max="255">Counter Clockwise Fast-Slow</Capability>
  </Channel>
- <Channel Name="2 Red Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red Intensity</Capability>
- </Channel>
- <Channel Name="3 Green Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green Intensity</Capability>
- </Channel>
- <Channel Name="4 Blue Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue Intensity</Capability>
- </Channel>
- <Channel Name="5 White Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White Intensity</Capability>
- </Channel>
- <Channel Name="6 Master Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Master Intensity</Capability>
- </Channel>
+ <Channel Name="2 Red Intensity" Preset="IntensityRed"/>
+ <Channel Name="3 Green Intensity" Preset="IntensityGreen"/>
+ <Channel Name="4 Blue Intensity" Preset="IntensityBlue"/>
+ <Channel Name="5 White Intensity" Preset="IntensityWhite"/>
+ <Channel Name="6 Master Intensity" Preset="IntensityMasterDimmer"/>
  <Channel Name="7 Programs">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="0">No Program</Capability>
@@ -61,13 +42,6 @@
   <Capability Min="255" Max="255">Sound Active</Capability>
  </Channel>
  <Mode Name="DMX 8CH">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="279" Height="260" Weight="3.85" Depth="249"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="25" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">1 Motor Function</Channel>
   <Channel Number="1">2 Red Intensity</Channel>
   <Channel Number="2">3 Green Intensity</Channel>
@@ -78,14 +52,14 @@
   <Channel Number="7">8 Program Speed</Channel>
  </Mode>
  <Mode Name="DMX 2CH">
-  <Physical>
+  <Channel Number="0">7 Programs</Channel>
+  <Channel Number="1">8 Program Speed</Channel>
+ </Mode>
+<Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
    <Dimensions Width="279" Height="260" Weight="3.85" Depth="249"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="25" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">7 Programs</Channel>
-  <Channel Number="1">8 Program Speed</Channel>
- </Mode>
 </FixtureDefinition>

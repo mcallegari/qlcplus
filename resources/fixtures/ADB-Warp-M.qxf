@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.1 GIT</Version>
+  <Version>4.11.2 GIT</Version>
   <Author>Thorben</Author>
  </Creator>
  <Manufacturer>ADB</Manufacturer>
@@ -52,30 +52,12 @@
   <Capability Min="206" Max="240">Not used</Capability>
   <Capability Min="241" Max="255">Arm</Capability>
  </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Pan fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Fine panning</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Tilt fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Fine tilting</Capability>
- </Channel>
- <Channel Name="Zoom">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Zoom</Capability>
- </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Focus</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Shutter A Rotation/Index Coarse">
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="255">Shutter A Rotation/Index Coarse</Capability>
@@ -142,16 +124,13 @@
  </Channel>
  <Channel Name="Iris coarse, or coarse rotation of Gobo 2">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="255">Iris corse, or coarse rotation of Gobo 2</Capability>
+  <Capability Min="0" Max="255">Iris coarse, or coarse rotation of Gobo 2</Capability>
  </Channel>
  <Channel Name="Iris fine, or fine rotation of Gobo 2">
   <Group Byte="1">Gobo</Group>
   <Capability Min="0" Max="255">Iris fine, or fine rotation of Gobo 2</Capability>
  </Channel>
- <Channel Name="External dimmer (optional)">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">External dimmer</Capability>
- </Channel>
+ <Channel Name="External dimmer (optional)" Preset="IntensityDimmer"/>
  <Channel Name="External DMX output (e.g. color changer) (Channel 1)">
   <Group Byte="0">Nothing</Group>
   <Capability Min="0" Max="255">External DMX output (e.g. color changer) (Channel 1)</Capability>
@@ -185,13 +164,6 @@
   <Capability Min="0" Max="255">External DMX output (e.g. color changer) (Channel 8)</Capability>
  </Channel>
  <Mode Name="34 Channel">
-  <Physical>
-   <Bulb Type="MSR 1200W" Lumens="0" ColourTemperature="3200"/>
-   <Dimensions Weight="11.5" Width="379" Height="495" Depth="748"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="1200" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Control</Channel>
   <Channel Number="1">Pan</Channel>
   <Channel Number="2">Pan fine</Channel>
@@ -227,4 +199,11 @@
   <Channel Number="32">External DMX output (e.g. color changer) (Channel 7)</Channel>
   <Channel Number="33">External DMX output (e.g. color changer) (Channel 8)</Channel>
  </Mode>
+ <Physical>
+  <Bulb Type="MSR 1200W" Lumens="0" ColourTemperature="3200"/>
+  <Dimensions Weight="11.5" Width="379" Height="495" Depth="748"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="1200" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

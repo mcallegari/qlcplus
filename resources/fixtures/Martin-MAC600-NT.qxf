@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -27,25 +27,10 @@
   <Capability Min="238" Max="247">Shutter closed</Capability>
   <Capability Min="248" Max="255">Lamp power off Note: T ≥ 5 seconds</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer intensity</Capability>
- </Channel>
- <Channel Name="Cyan">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">White &gt; Cyan</Capability>
- </Channel>
- <Channel Name="Magenta">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">White &gt; Magenta</Capability>
- </Channel>
- <Channel Name="Yellow">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">White &gt; Yellow</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
  <Channel Name="Colour Wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="40">White &gt; Color 1 (Continuous scroll)</Capability>
@@ -67,22 +52,10 @@
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="255">No Frost &gt; Full Frost</Capability>
  </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Pan fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Tilt fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
  <Channel Name="Pan/tilt speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="2">Tracking mode</Capability>
@@ -109,13 +82,6 @@
   <Capability Min="1" Max="255">Beam shaper left &gt; right</Capability>
  </Channel>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb Type="MSR 575W" Lumens="8500" ColourTemperature="7200"/>
-   <Dimensions Height="356" Width="481" Depth="652" Weight="31"/>
-   <Lens DegreesMin="18" DegreesMax="35" Name="Other"/>
-   <Focus Type="Head" TiltMax="265" PanMax="270"/>
-   <Technical PowerConsumption="700" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Cyan</Channel>
@@ -129,13 +95,6 @@
   <Channel Number="10">Tilt</Channel>
  </Mode>
  <Mode Name="Mode 2">
-  <Physical>
-   <Bulb Type="MSR 575W" Lumens="8500" ColourTemperature="7200"/>
-   <Dimensions Height="356" Width="481" Depth="652" Weight="31"/>
-   <Lens DegreesMin="18" DegreesMax="35" Name="Other"/>
-   <Focus Type="Head" TiltMax="265" PanMax="270"/>
-   <Technical PowerConsumption="700" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Cyan</Channel>
@@ -151,13 +110,6 @@
   <Channel Number="12">Tilt fine</Channel>
  </Mode>
  <Mode Name="Mode 3">
-  <Physical>
-   <Bulb Type="MSR 575W" Lumens="8500" ColourTemperature="7200"/>
-   <Dimensions Height="356" Width="481" Depth="652" Weight="31"/>
-   <Lens DegreesMin="18" DegreesMax="35" Name="Other"/>
-   <Focus Type="Head" TiltMax="265" PanMax="270"/>
-   <Technical PowerConsumption="700" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Cyan</Channel>
@@ -173,13 +125,6 @@
   <Channel Number="12">Effect speed</Channel>
  </Mode>
  <Mode Name="Mode 4">
-  <Physical>
-   <Bulb Type="MSR 575W" Lumens="8500" ColourTemperature="7200"/>
-   <Dimensions Height="356" Width="481" Depth="652" Weight="31"/>
-   <Lens DegreesMin="18" DegreesMax="35" Name="Other"/>
-   <Focus Type="Head" TiltMax="265" PanMax="270"/>
-   <Technical PowerConsumption="700" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Cyan</Channel>
@@ -196,4 +141,11 @@
   <Channel Number="13">Pan/tilt speed</Channel>
   <Channel Number="14">Effect speed</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="MSR 575W" Lumens="8500" ColourTemperature="7200"/>
+   <Dimensions Height="356" Width="481" Depth="652" Weight="31"/>
+   <Lens DegreesMin="18" DegreesMax="35" Name="Other"/>
+   <Focus Type="Head" TiltMax="265" PanMax="270"/>
+   <Technical PowerConsumption="700" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

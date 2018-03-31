@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -26,10 +26,7 @@
   <Capability Min="230" Max="249">Movement 12</Capability>
   <Capability Min="250" Max="255">Sound active</Capability>
  </Channel>
- <Channel Name="Pan &amp; Tilt Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Fast - slow</Capability>
- </Channel>
+ <Channel Name="Pan &amp; Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Color Macro">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="9">Blackout</Capability>
@@ -50,14 +47,8 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Fast - slow</Capability>
  </Channel>
- <Channel Name="Mirror 1 Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Mirror 1 Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
+ <Channel Name="Mirror 1 Pan" Preset="PositionPan"/>
+ <Channel Name="Mirror 1 Tilt" Preset="PositionTilt"/>
  <Channel Name="Color Macros LED 1">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7">No Function</Capability>
@@ -94,46 +85,16 @@
   <Capability Min="240" Max="247" Color="#0078c8">Dark Blue</Capability>
   <Capability Min="248" Max="255" Color="#ffffff">White</Capability>
  </Channel>
- <Channel Name="Mirror 2 Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Mirror 2 Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Mirror 3 Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Mirror 3 Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Mirror 4 Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Mirror 4 Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Mirror 5 Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Mirror 5 Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Mirror 6 Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Mirror 6 Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
+ <Channel Name="Mirror 2 Pan" Preset="PositionPan"/>
+ <Channel Name="Mirror 2 Tilt" Preset="PositionTilt"/>
+ <Channel Name="Mirror 3 Pan" Preset="PositionPan"/>
+ <Channel Name="Mirror 3 Tilt" Preset="PositionTilt"/>
+ <Channel Name="Mirror 4 Pan" Preset="PositionPan"/>
+ <Channel Name="Mirror 4 Tilt" Preset="PositionTilt"/>
+ <Channel Name="Mirror 5 Pan" Preset="PositionPan"/>
+ <Channel Name="Mirror 5 Tilt" Preset="PositionTilt"/>
+ <Channel Name="Mirror 6 Pan" Preset="PositionPan"/>
+ <Channel Name="Mirror 6 Tilt" Preset="PositionTilt"/>
  <Channel Name="Color Macros LED 2">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7">No Function</Capability>
@@ -315,26 +276,12 @@
   <Capability Min="248" Max="255" Color="#ffffff">White</Capability>
  </Channel>
  <Mode Name="4 Channel Mode">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="12.7" Width="577" Height="670" Depth="263"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Mirror" PanMax="120" TiltMax="60"/>
-   <Technical PowerConsumption="155" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan &amp; Tilt Movement</Channel>
   <Channel Number="1">Pan &amp; Tilt Speed</Channel>
   <Channel Number="2">Color Macro</Channel>
   <Channel Number="3">Color Macro Speed</Channel>
  </Mode>
  <Mode Name="18 Channel Mode">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="12.7" Width="577" Height="670" Depth="263"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Mirror" PanMax="120" TiltMax="60"/>
-   <Technical PowerConsumption="155" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Mirror 1 Pan</Channel>
   <Channel Number="1">Mirror 1 Tilt</Channel>
   <Channel Number="2">Color Macros LED 1</Channel>
@@ -385,13 +332,6 @@
   </Head>
  </Mode>
  <Mode Name="22 Channel Mode">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="12.7" Width="577" Height="670" Depth="263"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Mirror" PanMax="120" TiltMax="60"/>
-   <Technical PowerConsumption="155" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Mirror 1 Pan</Channel>
   <Channel Number="1">Mirror 1 Tilt</Channel>
   <Channel Number="2">Color Macros LED 1</Channel>
@@ -445,4 +385,11 @@
    <Channel>17</Channel>
   </Head>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="12.7" Width="577" Height="670" Depth="263"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Mirror" PanMax="120" TiltMax="60"/>
+   <Technical PowerConsumption="155" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

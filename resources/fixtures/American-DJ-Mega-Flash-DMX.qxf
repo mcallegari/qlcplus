@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,23 +9,17 @@
  <Manufacturer>American DJ</Manufacturer>
  <Model>Mega Flash DMX</Model>
  <Type>Strobe</Type>
- <Channel Name="Strobe Speed">
-  <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="255">Slow -&gt; Fast</Capability>
- </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Low -&gt; High</Capability>
- </Channel>
+ <Channel Name="Strobe Speed" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Mode Name="DMX">
-  <Physical>
+  <Channel Number="0">Strobe Speed</Channel>
+  <Channel Number="1">Dimmer</Channel>
+ </Mode>
+<Physical>
    <Bulb Type="ZB-800" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="2.2" Width="394" Height="216" Depth="102"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="800" DmxConnector="5-pin"/>
   </Physical>
-  <Channel Number="0">Strobe Speed</Channel>
-  <Channel Number="1">Dimmer</Channel>
- </Mode>
 </FixtureDefinition>

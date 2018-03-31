@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -44,38 +44,12 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Speed</Capability>
  </Channel>
- <Channel Name="Master Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Master Dimming</Capability>
- </Channel>
- <Channel Name="Red Dimming">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red Dimming</Capability>
- </Channel>
- <Channel Name="Green Dimming">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green Dimming</Capability>
- </Channel>
- <Channel Name="Blue Dimming">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue Dimming</Capability>
- </Channel>
- <Channel Name="White Dimming">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White Dimming</Capability>
- </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red Dimming" Preset="IntensityRed"/>
+ <Channel Name="Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="White Dimming" Preset="IntensityWhite"/>
  <Mode Name="8-Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="3.62" Width="203" Height="203" Depth="89"/>
-   <Lens Name="PC" DegreesMin="35" DegreesMax="35"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="120" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Macro</Channel>
   <Channel Number="1">Colors</Channel>
   <Channel Number="2">Speed</Channel>
@@ -85,4 +59,11 @@
   <Channel Number="6">Blue Dimming</Channel>
   <Channel Number="7">White Dimming</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="3.62" Width="203" Height="203" Depth="89"/>
+   <Lens Name="PC" DegreesMin="35" DegreesMax="35"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="120" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

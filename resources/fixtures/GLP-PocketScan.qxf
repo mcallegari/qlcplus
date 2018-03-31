@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,14 +9,8 @@
  <Manufacturer>GLP</Manufacturer>
  <Model>PocketScan</Model>
  <Type>Scanner</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Left to right</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Up to down</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Colors">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7">Open</Capability>
@@ -78,13 +72,6 @@
   <Capability Min="128" Max="191">Laser ON</Capability>
  </Channel>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb Type="EFP 100W" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="4" Width="155" Height="135" Depth="295"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Mirror" PanMax="170" TiltMax="110"/>
-   <Technical PowerConsumption="150" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Colors</Channel>
@@ -93,4 +80,11 @@
   <Channel Number="5">Speed</Channel>
   <Channel Number="6">Laser</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="EFP 100W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4" Width="155" Height="135" Depth="295"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Mirror" PanMax="170" TiltMax="110"/>
+   <Technical PowerConsumption="150" DmxConnector="5-pin"/>
+  </Physical>
 </FixtureDefinition>

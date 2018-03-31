@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,21 +9,9 @@
  <Manufacturer>Clay Paky</Manufacturer>
  <Model>Alpha Beam 1500</Model>
  <Type>Moving Head</Type>
- <Channel Name="Cyan">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">Cyan intensity (0 - 100%)</Capability>
- </Channel>
- <Channel Name="Magenta">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">Magenta intensity (0 - 100%)</Capability>
- </Channel>
- <Channel Name="Yellow">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">Yellow intensity (0 - 100%)</Capability>
- </Channel>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
  <Channel Name="Colour Wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="9" Color="#ffffff">White</Capability>
@@ -54,14 +42,8 @@
   <Capability Min="239" Max="251">Random Fast Strobe</Capability>
   <Capability Min="252" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer (0 - 100%)</Capability>
- </Channel>
- <Channel Name="Dimmer Fine">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer fine (0 - 100%)</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer Fine" Preset="IntensityDimmerFine"/>
  <Channel Name="Iris">
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="127">Min -&gt; Max Aperture</Capability>
@@ -157,26 +139,11 @@
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="255">Frost Excluded - Inserted</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Distant -&gt; Near</Capability>
- </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan 0 - 540°</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan Fine</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt 0 - 252°</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt Fine</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusFarNear"/>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Function">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="12">Unused</Capability>
@@ -217,13 +184,6 @@
   <Capability Min="0" Max="255">See Time Table</Capability>
  </Channel>
  <Mode Name="Standard">
-  <Physical>
-   <Bulb Type="Osram Lok-it 1500W" Lumens="135000" ColourTemperature="6000"/>
-   <Dimensions Weight="40" Width="488" Height="846" Depth="480"/>
-   <Lens Name="Other" DegreesMin="4" DegreesMax="4"/>
-   <Focus Type="Head" PanMax="540" TiltMax="252"/>
-   <Technical PowerConsumption="1500" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Cyan</Channel>
   <Channel Number="1">Magenta</Channel>
   <Channel Number="2">Yellow</Channel>
@@ -276,13 +236,6 @@
   </Head>
  </Mode>
  <Mode Name="Vector">
-  <Physical>
-   <Bulb Type="Osram Lok-it 1500W" Lumens="135000" ColourTemperature="6000"/>
-   <Dimensions Weight="40" Width="488" Height="846" Depth="480"/>
-   <Lens Name="Other" DegreesMin="4" DegreesMax="4"/>
-   <Focus Type="Head" PanMax="540" TiltMax="252"/>
-   <Technical PowerConsumption="1500" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Cyan</Channel>
   <Channel Number="1">Magenta</Channel>
   <Channel Number="2">Yellow</Channel>
@@ -342,4 +295,11 @@
    <Channel>20</Channel>
   </Head>
  </Mode>
+<Physical>
+   <Bulb Type="Osram Lok-it 1500W" Lumens="135000" ColourTemperature="6000"/>
+   <Dimensions Weight="40" Width="488" Height="846" Depth="480"/>
+   <Lens Name="Other" DegreesMin="4" DegreesMax="4"/>
+   <Focus Type="Head" PanMax="540" TiltMax="252"/>
+   <Technical PowerConsumption="1500" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
 </FixtureDefinition>

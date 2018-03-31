@@ -3,66 +3,42 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.11.2 GIT</Version>
   <Author>root</Author>
  </Creator>
  <Manufacturer>Pro-Lights</Manufacturer>
  <Model>ArcLed-7314HD</Model>
  <Type>Color Changer</Type>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red 0-100% </Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">GREEN 0-100%</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">BLUE 0-100%</Capability>
- </Channel>
- <Channel Name="Master Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
- <Channel Name="Hue">
-  <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="255">HUE 0-100%</Capability>
- </Channel>
- <Channel Name="Saturation">
-  <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="255">Saturation 0-100%</Capability>
- </Channel>
- <Channel Name="Value">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Value 0-100%</Capability>
- </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Hue" Preset="IntensityHue"/>
+ <Channel Name="Saturation" Preset="IntensitySaturation"/>
+ <Channel Name="Value" Preset="IntensityValue"/>
  <Channel Name="Color Macro + White Balance">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="10">No function</Capability>
-  <Capability Min="11" Max="30" Color="#ff0000" Color2="#ffff00">Red 100% / Green Up / Blue 0%</Capability>
-  <Capability Min="31" Max="50" Color="#ffff00" Color2="#00ff00">Red Down / Green 100% / Blue 0%</Capability>
-  <Capability Min="51" Max="70" Color="#00ff00" Color2="#00ffff">Red 0% / Green 100% / Blue Up</Capability>
-  <Capability Min="71" Max="90" Color="#00ffff" Color2="#0000ff">Red 0% / Green Down / Blue 100%</Capability>
-  <Capability Min="91" Max="110" Color="#0000ff" Color2="#ff00ff">Red Up / Green 0% / Blue 100%</Capability>
-  <Capability Min="111" Max="130" Color="#ff00ff" Color2="#ff0000">Red 100% / Green 0% / Blue Down</Capability>
-  <Capability Min="131" Max="150" Color="#ff0000" Color2="#ffffff">Red 100% / Green Up / Blue Up</Capability>
-  <Capability Min="151" Max="170" Color="#ffffff" Color2="#0000ff">Red Down / Green Down / Blue 100%</Capability>
-  <Capability Min="171" Max="200" Color="#ffffff">All LEDs 100%</Capability>
-  <Capability Min="201" Max="205" Color="#ffc076">White 1: 3200K</Capability>
-  <Capability Min="206" Max="210" Color="#ffc61e">White 2: 3400K</Capability>
-  <Capability Min="211" Max="215" Color="#ffd9ab">White 3: 4200K</Capability>
-  <Capability Min="216" Max="220" Color="#ffe5c8">White 4: 4900K</Capability>
-  <Capability Min="221" Max="225" Color="#ffefe1">White 5: 5600K</Capability>
-  <Capability Min="226" Max="230" Color="#fff3ea">White 6: 5900K</Capability>
-  <Capability Min="231" Max="235" Color="#fff9fb">White 7: 6500K</Capability>
-  <Capability Min="236" Max="240" Color="#f3f3ff">White 8: 7200K</Capability>
-  <Capability Min="241" Max="245" Color="#e5e9ff">White 9: 8000K</Capability>
-  <Capability Min="246" Max="250" Color="#dfe5ff">White 10: 8500K</Capability>
-  <Capability Min="251" Max="255" Color="#cfdaff">White 11: 10000K</Capability>
+  <Capability Min="11" Max="30" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffff00">Red 100% / Green Up / Blue 0%</Capability>
+  <Capability Min="31" Max="50" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ff00">Red Down / Green 100% / Blue 0%</Capability>
+  <Capability Min="51" Max="70" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#00ffff">Red 0% / Green 100% / Blue Up</Capability>
+  <Capability Min="71" Max="90" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#0000ff">Red 0% / Green Down / Blue 100%</Capability>
+  <Capability Min="91" Max="110" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ff00ff">Red Up / Green 0% / Blue 100%</Capability>
+  <Capability Min="111" Max="130" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ff0000">Red 100% / Green 0% / Blue Down</Capability>
+  <Capability Min="131" Max="150" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red 100% / Green Up / Blue Up</Capability>
+  <Capability Min="151" Max="170" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#0000ff">Red Down / Green Down / Blue 100%</Capability>
+  <Capability Min="171" Max="200" Preset="ColorMacro" Res1="#ffffff">All LEDs 100%</Capability>
+  <Capability Min="201" Max="205" Preset="ColorMacro" Res1="#ffc076">White 1: 3200K</Capability>
+  <Capability Min="206" Max="210" Preset="ColorMacro" Res1="#ffc61e">White 2: 3400K</Capability>
+  <Capability Min="211" Max="215" Preset="ColorMacro" Res1="#ffd9ab">White 3: 4200K</Capability>
+  <Capability Min="216" Max="220" Preset="ColorMacro" Res1="#ffe5c8">White 4: 4900K</Capability>
+  <Capability Min="221" Max="225" Preset="ColorMacro" Res1="#ffefe1">White 5: 5600K</Capability>
+  <Capability Min="226" Max="230" Preset="ColorMacro" Res1="#fff3ea">White 6: 5900K</Capability>
+  <Capability Min="231" Max="235" Preset="ColorMacro" Res1="#fff9fb">White 7: 6500K</Capability>
+  <Capability Min="236" Max="240" Preset="ColorMacro" Res1="#f3f3ff">White 8: 7200K</Capability>
+  <Capability Min="241" Max="245" Preset="ColorMacro" Res1="#e5e9ff">White 9: 8000K</Capability>
+  <Capability Min="246" Max="250" Preset="ColorMacro" Res1="#dfe5ff">White 10: 8500K</Capability>
+  <Capability Min="251" Max="255" Preset="ColorMacro" Res1="#cfdaff">White 11: 10000K</Capability>
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
@@ -107,70 +83,27 @@
   <Capability Min="130" Max="189">DIM3</Capability>
   <Capability Min="190" Max="255">DIM4</Capability>
  </Channel>
- <Channel Name="Master Dimmer Fine">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">Master dimmer fine</Capability>
- </Channel>
- <Channel Name="Red Fine">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red fine 0 to 100%</Capability>
- </Channel>
- <Channel Name="Green Fine">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green fine 0 to 100%</Capability>
- </Channel>
- <Channel Name="Blue Fine">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue fine 0 to 100%</Capability>
- </Channel>
+ <Channel Name="Master Dimmer Fine" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Red Fine" Preset="IntensityRedFine"/>
+ <Channel Name="Green Fine" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue Fine" Preset="IntensityBlueFine"/>
  <Mode Name="ARC.1">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="4" Width="246" Height="202" Depth="294"/>
-   <Lens Name="Other" DegreesMin="17" DegreesMax="64"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
  </Mode>
  <Mode Name="AR1.d">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="4" Width="246" Height="202" Depth="294"/>
-   <Lens Name="Other" DegreesMin="17" DegreesMax="64"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
   <Channel Number="3">Blue</Channel>
  </Mode>
  <Mode Name="HSV">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="4" Width="246" Height="202" Depth="294"/>
-   <Lens Name="Other" DegreesMin="17" DegreesMax="64"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Hue</Channel>
   <Channel Number="1">Saturation</Channel>
   <Channel Number="2">Value</Channel>
  </Mode>
  <Mode Name="AR1.S">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="4" Width="246" Height="202" Depth="294"/>
-   <Lens Name="Other" DegreesMin="17" DegreesMax="64"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
@@ -178,13 +111,6 @@
   <Channel Number="4">Strobe</Channel>
  </Mode>
  <Mode Name="TOUR">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="4" Width="246" Height="202" Depth="294"/>
-   <Lens Name="Other" DegreesMin="17" DegreesMax="64"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
@@ -196,13 +122,6 @@
   <Channel Number="8">Dimmer speed</Channel>
  </Mode>
  <Mode Name="TR16">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="4" Width="246" Height="202" Depth="294"/>
-   <Lens Name="Other" DegreesMin="17" DegreesMax="64"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Master Dimmer Fine</Channel>
   <Channel Number="2">Red</Channel>
@@ -217,4 +136,11 @@
   <Channel Number="11">Auto Speed</Channel>
   <Channel Number="12">Dimmer speed</Channel>
  </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4" Width="246" Height="202" Depth="294"/>
+  <Lens Name="Other" DegreesMin="17" DegreesMax="64"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

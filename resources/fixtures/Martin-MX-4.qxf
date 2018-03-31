@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -85,14 +85,8 @@
   <Capability Min="228" Max="239">Dot 2</Capability>
   <Capability Min="240" Max="255">Random, stand-alone</Capability>
  </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Pan/tilt speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="2">Tracking mode</Capability>
@@ -103,13 +97,6 @@
   <Capability Min="0" Max="255">Fast to slow</Capability>
  </Channel>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb ColourTemperature="0" Lumens="1030" Type="CDM 150W"/>
-   <Dimensions Width="269" Height="537" Weight="9" Depth="263"/>
-   <Lens DegreesMax="16" Name="Other" DegreesMin="16"/>
-   <Focus TiltMax="77" PanMax="230" Type="Mirror"/>
-   <Technical PowerConsumption="200" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer, strobe, reset</Channel>
   <Channel Number="1">Color wheel</Channel>
   <Channel Number="2">Gobo Wheel</Channel>
@@ -118,4 +105,11 @@
   <Channel Number="5">Pan/tilt speed</Channel>
   <Channel Number="6">Color/gobo speed</Channel>
  </Mode>
+<Physical>
+   <Bulb ColourTemperature="0" Lumens="1030" Type="CDM 150W"/>
+   <Dimensions Width="269" Height="537" Weight="9" Depth="263"/>
+   <Lens DegreesMax="16" Name="Other" DegreesMin="16"/>
+   <Focus TiltMax="77" PanMax="230" Type="Mirror"/>
+   <Technical PowerConsumption="200" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

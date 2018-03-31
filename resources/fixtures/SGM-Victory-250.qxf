@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,10 +9,7 @@
  <Manufacturer>SGM</Manufacturer>
  <Model>Victory 250</Model>
  <Type>Scanner</Type>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer intensity</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="9" Color="#ffffff">White</Capability>
@@ -76,36 +73,17 @@
   <Capability Min="225" Max="237">Open, slow gobo change</Capability>
   <Capability Min="238" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="49">Off</Capability>
   <Capability Min="50" Max="234">Lamp hysteresis</Capability>
   <Capability Min="235" Max="255">Reset</Capability>
  </Channel>
- <Channel Name="Pan fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine</Capability>
- </Channel>
- <Channel Name="Tilt fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine</Capability>
- </Channel>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
  <Mode Name="Standard">
-  <Physical>
-   <Bulb Type="ELC 250W" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="14" Width="180" Height="650" Depth="350"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Mirror" PanMax="90" TiltMax="180"/>
-   <Technical PowerConsumption="300" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Colour</Channel>
   <Channel Number="2">Gobo</Channel>
@@ -116,4 +94,11 @@
   <Channel Number="7">Pan fine</Channel>
   <Channel Number="8">Tilt fine</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="ELC 250W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="14" Width="180" Height="650" Depth="350"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Mirror" PanMax="90" TiltMax="180"/>
+   <Technical PowerConsumption="300" DmxConnector="5-pin"/>
+  </Physical>
 </FixtureDefinition>

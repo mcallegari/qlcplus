@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -102,13 +102,6 @@
   <Capability Min="251" Max="255">Audio Trigger</Capability>
  </Channel>
  <Mode Name="Standard">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Height="187" Width="302" Depth="382" Weight="1.8"/>
-   <Lens DegreesMin="16" DegreesMax="96" Name="Other"/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
-   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Cluster Control 1</Channel>
   <Channel Number="1">Cluster Control 2</Channel>
   <Channel Number="2">Cluster Control 3</Channel>
@@ -126,4 +119,11 @@
    <Channel>2</Channel>
   </Head>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Height="187" Width="302" Depth="382" Weight="1.8"/>
+   <Lens DegreesMin="16" DegreesMax="96" Name="Other"/>
+   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
+   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

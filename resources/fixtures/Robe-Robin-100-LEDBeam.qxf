@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>Robe</Manufacturer>
  <Model>Robin 100 LEDBeam</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Min to Max</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Min to Max</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Min to Max</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Min to Max</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Pan/Tilt speed, Pan/Tilt time">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="0">Max. speed (tracking mode)</Capability>
@@ -49,166 +37,38 @@
   <Capability Min="200" Max="209">Total reset </Capability>
   <Capability Min="210" Max="255">Reserved</Capability>
  </Channel>
- <Channel Name="Red - all zones">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Red fine - all zones">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Green - all zones">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Green fine - all zones">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Blue - all zones">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Blue fine - all zones">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="White - all zones">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="White fine - all zones">
-  <Group Byte="1">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Red - zone 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Red fine - zone 1">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Green - zone 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Green fine - zone 1">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Blue - zone 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Blue fine - zone 1">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="White - zone 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="White fine - zone 1">
-  <Group Byte="1">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Red - zone 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Red fine - zone 2">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Green - zone 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Green fine - zone 2">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Blue - zone 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Blue fine - zone 2">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="White - zone 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="White fine - zone 2">
-  <Group Byte="1">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Red - zone 3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Red fine - zone 3">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Green - zone 3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Green fine - zone 3">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Blue - zone 3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Blue fine - zone 3">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="White - zone 3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="White fine - zone 3">
-  <Group Byte="1">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
+ <Channel Name="Red - all zones" Preset="IntensityRed"/>
+ <Channel Name="Red fine - all zones" Preset="IntensityRedFine"/>
+ <Channel Name="Green - all zones" Preset="IntensityGreen"/>
+ <Channel Name="Green fine - all zones" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue - all zones" Preset="IntensityBlue"/>
+ <Channel Name="Blue fine - all zones" Preset="IntensityBlueFine"/>
+ <Channel Name="White - all zones" Preset="IntensityWhite"/>
+ <Channel Name="White fine - all zones" Preset="IntensityWhiteFine"/>
+ <Channel Name="Red - zone 1" Preset="IntensityRed"/>
+ <Channel Name="Red fine - zone 1" Preset="IntensityRedFine"/>
+ <Channel Name="Green - zone 1" Preset="IntensityGreen"/>
+ <Channel Name="Green fine - zone 1" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue - zone 1" Preset="IntensityBlue"/>
+ <Channel Name="Blue fine - zone 1" Preset="IntensityBlueFine"/>
+ <Channel Name="White - zone 1" Preset="IntensityWhite"/>
+ <Channel Name="White fine - zone 1" Preset="IntensityWhiteFine"/>
+ <Channel Name="Red - zone 2" Preset="IntensityRed"/>
+ <Channel Name="Red fine - zone 2" Preset="IntensityRedFine"/>
+ <Channel Name="Green - zone 2" Preset="IntensityGreen"/>
+ <Channel Name="Green fine - zone 2" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue - zone 2" Preset="IntensityBlue"/>
+ <Channel Name="Blue fine - zone 2" Preset="IntensityBlueFine"/>
+ <Channel Name="White - zone 2" Preset="IntensityWhite"/>
+ <Channel Name="White fine - zone 2" Preset="IntensityWhiteFine"/>
+ <Channel Name="Red - zone 3" Preset="IntensityRed"/>
+ <Channel Name="Red fine - zone 3" Preset="IntensityRedFine"/>
+ <Channel Name="Green - zone 3" Preset="IntensityGreen"/>
+ <Channel Name="Green fine - zone 3" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue - zone 3" Preset="IntensityBlue"/>
+ <Channel Name="Blue fine - zone 3" Preset="IntensityBlueFine"/>
+ <Channel Name="White - zone 3" Preset="IntensityWhite"/>
+ <Channel Name="White fine - zone 3" Preset="IntensityWhiteFine"/>
  <Channel Name="CTC">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="0">No function</Capability>
@@ -247,12 +107,8 @@
   <Capability Min="254" Max="254">Zone effect 5</Capability>
   <Capability Min="255" Max="255">Zone effect 6</Capability>
  </Channel>
- <Channel Name="No function 1">
-  <Group Byte="0">Nothing</Group>
- </Channel>
- <Channel Name="No function 2">
-  <Group Byte="0">Nothing</Group>
- </Channel>
+ <Channel Name="No function 1" Preset="NoFunction"/>
+ <Channel Name="No function 2" Preset="NoFunction"/>
  <Channel Name="Shutter/Strobe 1">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="31">Shutter closed</Capability>
@@ -270,166 +126,41 @@ random strobe)</Capability>
   <Capability Min="192" Max="223">Random strobe effect from slow --&gt; fast (All zones together)</Capability>
   <Capability Min="224" Max="255">Shutter open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255"> 0% to 100%</Capability>
- </Channel>
- <Channel Name="Dimmer Fine">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255"> 0% to 100%</Capability>
- </Channel>
- <Channel Name="Cyan - all zones">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Cyan fine - all zones">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Magenta - all zones">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Magenta fine - all zones">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Yellow - all zones">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Yellow fine - all zones">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="No function - all zones">
-  <Group Byte="0">Nothing</Group>
- </Channel>
- <Channel Name="No function bis - all zones">
-  <Group Byte="0">Nothing</Group>
- </Channel>
- <Channel Name="Cyan - zone 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Cyan fine - zone 1">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Magenta - zone 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Magenta fine - zone 1">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Yellow - zone 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Yellow fine - zone 1">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="No function - zone 1">
-  <Group Byte="0">Nothing</Group>
- </Channel>
- <Channel Name="No function bis - zone 1">
-  <Group Byte="0">Nothing</Group>
- </Channel>
- <Channel Name="Cyan - zone 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Cyan fine - zone 2">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Magenta - zone 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Magenta fine - zone 2">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Yellow - zone 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Yellow fine - zone 2">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="No function - zone 2">
-  <Group Byte="0">Nothing</Group>
- </Channel>
- <Channel Name="No function bis - zone 2">
-  <Group Byte="0">Nothing</Group>
- </Channel>
- <Channel Name="Cyan - zone 3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Cyan fine - zone 3">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Magenta - zone 3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Magenta fine - zone 3">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Yellow - zone 3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Yellow fine - zone 3">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="No function - zone 3">
-  <Group Byte="0">Nothing</Group>
- </Channel>
- <Channel Name="No function bis - zone 3">
-  <Group Byte="0">Nothing</Group>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer Fine" Preset="IntensityDimmerFine"/>
+ <Channel Name="Cyan - all zones" Preset="IntensityCyan"/>
+ <Channel Name="Cyan fine - all zones" Preset="IntensityCyanFine"/>
+ <Channel Name="Magenta - all zones" Preset="IntensityMagenta"/>
+ <Channel Name="Magenta fine - all zones" Preset="IntensityMagentaFine"/>
+ <Channel Name="Yellow - all zones" Preset="IntensityYellow"/>
+ <Channel Name="Yellow fine - all zones" Preset="IntensityYellowFine"/>
+ <Channel Name="No function - all zones" Preset="NoFunction"/>
+ <Channel Name="No function bis - all zones" Preset="NoFunction"/>
+ <Channel Name="Cyan - zone 1" Preset="IntensityCyan"/>
+ <Channel Name="Cyan fine - zone 1" Preset="IntensityCyanFine"/>
+ <Channel Name="Magenta - zone 1" Preset="IntensityMagenta"/>
+ <Channel Name="Magenta fine - zone 1" Preset="IntensityMagentaFine"/>
+ <Channel Name="Yellow - zone 1" Preset="IntensityYellow"/>
+ <Channel Name="Yellow fine - zone 1" Preset="IntensityYellowFine"/>
+ <Channel Name="No function - zone 1" Preset="NoFunction"/>
+ <Channel Name="No function bis - zone 1" Preset="NoFunction"/>
+ <Channel Name="Cyan - zone 2" Preset="IntensityCyan"/>
+ <Channel Name="Cyan fine - zone 2" Preset="IntensityCyanFine"/>
+ <Channel Name="Magenta - zone 2" Preset="IntensityMagenta"/>
+ <Channel Name="Magenta fine - zone 2" Preset="IntensityMagentaFine"/>
+ <Channel Name="Yellow - zone 2" Preset="IntensityYellow"/>
+ <Channel Name="Yellow fine - zone 2" Preset="IntensityYellowFine"/>
+ <Channel Name="No function - zone 2" Preset="NoFunction"/>
+ <Channel Name="No function bis - zone 2" Preset="NoFunction"/>
+ <Channel Name="Cyan - zone 3" Preset="IntensityCyan"/>
+ <Channel Name="Cyan fine - zone 3" Preset="IntensityCyanFine"/>
+ <Channel Name="Magenta - zone 3" Preset="IntensityMagenta"/>
+ <Channel Name="Magenta fine - zone 3" Preset="IntensityMagentaFine"/>
+ <Channel Name="Yellow - zone 3" Preset="IntensityYellow"/>
+ <Channel Name="Yellow fine - zone 3" Preset="IntensityYellowFine"/>
+ <Channel Name="No function - zone 3" Preset="NoFunction"/>
+ <Channel Name="No function bis - zone 3" Preset="NoFunction"/>
  <Mode Name="Mode 1 - RGBW">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Depth="149" Height="314" Weight="4.5" Width="233"/>
-   <Lens DegreesMin="7" DegreesMax="40" Name="Other"/>
-   <Focus TiltMax="300" PanMax="450" Type="Head"/>
-   <Technical PowerConsumption="200" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -497,13 +228,6 @@ random strobe)</Capability>
   </Head>
  </Mode>
  <Mode Name="Mode 2 - RGBW">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Depth="149" Height="314" Weight="4.5" Width="233"/>
-   <Lens DegreesMin="7" DegreesMax="40" Name="Other"/>
-   <Focus TiltMax="300" PanMax="450" Type="Head"/>
-   <Technical PowerConsumption="200" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -525,13 +249,6 @@ random strobe)</Capability>
   <Channel Number="18">Dimmer Fine</Channel>
  </Mode>
  <Mode Name="Mode 3 - RGBW">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Depth="149" Height="314" Weight="4.5" Width="233"/>
-   <Lens DegreesMin="7" DegreesMax="40" Name="Other"/>
-   <Focus TiltMax="300" PanMax="450" Type="Head"/>
-   <Technical PowerConsumption="200" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -548,13 +265,6 @@ random strobe)</Capability>
   <Channel Number="13">Dimmer</Channel>
  </Mode>
  <Mode Name="Mode 4">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Depth="149" Height="314" Weight="4.5" Width="233"/>
-   <Lens DegreesMin="7" DegreesMax="40" Name="Other"/>
-   <Focus TiltMax="300" PanMax="450" Type="Head"/>
-   <Technical PowerConsumption="200" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -566,13 +276,6 @@ random strobe)</Capability>
   <Channel Number="8">Dimmer</Channel>
  </Mode>
  <Mode Name="Mode 5 - RGBW">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Depth="149" Height="314" Weight="4.5" Width="233"/>
-   <Lens DegreesMin="7" DegreesMax="40" Name="Other"/>
-   <Focus TiltMax="300" PanMax="450" Type="Head"/>
-   <Technical PowerConsumption="200" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -640,13 +343,6 @@ random strobe)</Capability>
   </Head>
  </Mode>
  <Mode Name="Mode 6 - RGBW">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Depth="149" Height="314" Weight="4.5" Width="233"/>
-   <Lens DegreesMin="7" DegreesMax="40" Name="Other"/>
-   <Focus TiltMax="300" PanMax="450" Type="Head"/>
-   <Technical PowerConsumption="200" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -716,13 +412,6 @@ random strobe)</Capability>
   </Head>
  </Mode>
  <Mode Name="Mode 1 - CMY">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Depth="149" Height="314" Weight="4.5" Width="233"/>
-   <Lens DegreesMin="7" DegreesMax="40" Name="Other"/>
-   <Focus TiltMax="300" PanMax="450" Type="Head"/>
-   <Technical PowerConsumption="200" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -790,13 +479,6 @@ random strobe)</Capability>
   </Head>
  </Mode>
  <Mode Name="Mode 2 - CMY">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Depth="149" Height="314" Weight="4.5" Width="233"/>
-   <Lens DegreesMin="7" DegreesMax="40" Name="Other"/>
-   <Focus TiltMax="300" PanMax="450" Type="Head"/>
-   <Technical PowerConsumption="200" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -818,13 +500,6 @@ random strobe)</Capability>
   <Channel Number="18">Dimmer Fine</Channel>
  </Mode>
  <Mode Name="Mode 3 - CMY">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Depth="149" Height="314" Weight="4.5" Width="233"/>
-   <Lens DegreesMin="7" DegreesMax="40" Name="Other"/>
-   <Focus TiltMax="300" PanMax="450" Type="Head"/>
-   <Technical PowerConsumption="200" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -841,13 +516,6 @@ random strobe)</Capability>
   <Channel Number="13">Dimmer</Channel>
  </Mode>
  <Mode Name="Mode 5 - CMY">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Depth="149" Height="314" Weight="4.5" Width="233"/>
-   <Lens DegreesMin="7" DegreesMax="40" Name="Other"/>
-   <Focus TiltMax="300" PanMax="450" Type="Head"/>
-   <Technical PowerConsumption="200" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -915,13 +583,6 @@ random strobe)</Capability>
   </Head>
  </Mode>
  <Mode Name="Mode 6 - CMY">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Depth="149" Height="314" Weight="4.5" Width="233"/>
-   <Lens DegreesMin="7" DegreesMax="40" Name="Other"/>
-   <Focus TiltMax="300" PanMax="450" Type="Head"/>
-   <Technical PowerConsumption="200" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -990,4 +651,11 @@ random strobe)</Capability>
    <Channel>23</Channel>
   </Head>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Depth="149" Height="314" Weight="4.5" Width="233"/>
+   <Lens DegreesMin="7" DegreesMax="40" Name="Other"/>
+   <Focus TiltMax="300" PanMax="450" Type="Head"/>
+   <Technical PowerConsumption="200" DmxConnector="5-pin"/>
+  </Physical>
 </FixtureDefinition>

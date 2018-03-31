@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,14 +9,8 @@
  <Manufacturer>Stairville</Manufacturer>
  <Model>SC-X50 MKII</Model>
  <Type>Scanner</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan (0° to 180°)</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt (0° to 60°)</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="6" Color="#ffffff">White</Capability>
@@ -47,10 +41,7 @@
   <Capability Min="8" Max="215">Strobe effect, increasing speed</Capability>
   <Capability Min="216" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer (0 to 100%)</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
   <Capability Res="Others/open.png" Min="0" Max="7">Open</Capability>
@@ -86,10 +77,7 @@
   <Capability Min="128" Max="251">Negative rotation, increasing speed</Capability>
   <Capability Min="252" Max="255">Static prism</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Focus</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Special functions">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="7">Reserved</Capability>
@@ -131,13 +119,6 @@
   <Capability Min="248" Max="255">Sound control 8</Capability>
  </Channel>
  <Mode Name="11 channels">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="186" Height="140" Weight="6" Depth="456"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="180" Type="Mirror" TiltMax="60"/>
-   <Technical PowerConsumption="135" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Colour</Channel>
@@ -151,13 +132,6 @@
   <Channel Number="10">Built-in programmes</Channel>
  </Mode>
  <Mode Name="8 channels">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="186" Height="140" Weight="6" Depth="456"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="180" Type="Mirror" TiltMax="60"/>
-   <Technical PowerConsumption="135" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Colour</Channel>
@@ -167,4 +141,11 @@
   <Channel Number="6">Prism</Channel>
   <Channel Number="7">Focus</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="186" Height="140" Weight="6" Depth="456"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="180" Type="Mirror" TiltMax="60"/>
+   <Technical PowerConsumption="135" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

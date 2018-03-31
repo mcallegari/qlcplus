@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -62,37 +62,27 @@
   <Capability Min="0" Max="1">No Strobe</Capability>
   <Capability Min="2" Max="255">Slow to fast</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Colour Change Speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Slow to fast</Capability>
  </Channel>
  <Mode Name="2 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="6.1" Width="360" Height="225" Depth="300"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="145"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Mode Selection</Channel>
   <Channel Number="1">Mode Options</Channel>
  </Mode>
  <Mode Name="5 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="6.1" Width="360" Height="225" Depth="300"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="145"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Colour Selection</Channel>
   <Channel Number="1">Mirror Rotation</Channel>
   <Channel Number="2">Stroboscope</Channel>
   <Channel Number="3">Dimmer</Channel>
   <Channel Number="4">Colour Change Speed</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="6.1" Width="360" Height="225" Depth="300"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="145"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

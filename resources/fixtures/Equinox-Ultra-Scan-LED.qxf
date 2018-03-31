@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,14 +9,8 @@
  <Manufacturer>Equinox</Manufacturer>
  <Model>Ultra Scan LED</Model>
  <Type>Scanner</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan 0 - 180°</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt 0 - 90°</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="13" Color="#ffffff">White</Capability>
@@ -67,10 +61,7 @@
   <Capability Min="138" Max="201">Strobe Random (Slow to Fast)</Capability>
   <Capability Min="202" Max="255">Full On</Capability>
  </Channel>
- <Channel Name="Master Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Master dimmer 0 - 100%</Capability>
- </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Macros">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="59">No function</Capability>
@@ -90,13 +81,6 @@
   <Capability Min="0" Max="255">Fast to Slow</Capability>
  </Channel>
  <Mode Name="Default">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="4.3" Width="204" Height="465" Depth="150"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="11"/>
-   <Focus Type="Mirror" PanMax="180" TiltMax="90"/>
-   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Colour</Channel>
@@ -106,4 +90,11 @@
   <Channel Number="6">Macros</Channel>
   <Channel Number="7">Macro Speed</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4.3" Width="204" Height="465" Depth="150"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="11"/>
+   <Focus Type="Mirror" PanMax="180" TiltMax="90"/>
+   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

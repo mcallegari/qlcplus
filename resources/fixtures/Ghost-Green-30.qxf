@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -56,16 +56,16 @@
   <Capability Min="0" Max="255">Up/Down turning</Capability>
  </Channel>
  <Mode Name="4 Channel">
-  <Physical>
+  <Channel Number="0">Mode</Channel>
+  <Channel Number="1">Pattern</Channel>
+  <Channel Number="2">Pattern Left/Right turning</Channel>
+  <Channel Number="3">Pattern Up/down turning</Channel>
+ </Mode>
+<Physical>
    <Bulb ColourTemperature="0" Type="" Lumens="0"/>
    <Dimensions Height="85" Width="260" Weight="3" Depth="330"/>
    <Lens DegreesMin="30" DegreesMax="30" Name="Other"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="30" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Mode</Channel>
-  <Channel Number="1">Pattern</Channel>
-  <Channel Number="2">Pattern Left/Right turning</Channel>
-  <Channel Number="3">Pattern Up/down turning</Channel>
- </Mode>
 </FixtureDefinition>

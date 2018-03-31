@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -26,37 +26,23 @@
   <Capability Min="0" Max="255">Channel 4</Capability>
  </Channel>
  <Mode Name="4 Channels">
-  <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="260" Height="210" Weight="2.6" Depth="53"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Ch1</Channel>
   <Channel Number="1">Ch2</Channel>
   <Channel Number="2">Ch3</Channel>
   <Channel Number="3">Ch4</Channel>
  </Mode>
  <Mode Name="2 Channels">
-  <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="260" Height="210" Weight="2.6" Depth="53"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Ch1</Channel>
   <Channel Number="1">Ch2</Channel>
  </Mode>
  <Mode Name="1 Channel">
-  <Physical>
+  <Channel Number="0">Ch1</Channel>
+ </Mode>
+<Physical>
    <Bulb Lumens="0" Type="" ColourTemperature="0"/>
    <Dimensions Width="260" Height="210" Weight="2.6" Depth="53"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="0" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Ch1</Channel>
- </Mode>
 </FixtureDefinition>

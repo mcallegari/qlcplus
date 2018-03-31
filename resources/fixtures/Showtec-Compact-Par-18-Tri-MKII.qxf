@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,15 +9,8 @@
  <Manufacturer>Showtec</Manufacturer>
  <Model>Compact Par 18 Tri MKII</Model>
  <Type>Color Changer</Type>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0 to 100%</Capability>
- </Channel>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red Intensity (0 to 100%)</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="RGB Macro">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Color="#ff0000" Max="8">Macro 1</Capability>
@@ -58,16 +51,8 @@
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="255">Audio sensitivity from less sensitive to highly sensitive</Capability>
  </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green Intensity (0 to 100%)</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue Intensity (0 to 100%)</Capability>
- </Channel>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="9">No Function</Capability>
@@ -88,13 +73,6 @@
   <Capability Min="250" Max="255">Sound-controlled</Capability>
  </Channel>
  <Mode Name="6 Channels">
-  <Physical>
-   <Bulb Lumens="9600" ColourTemperature="0" Type="LED"/>
-   <Dimensions Width="250" Depth="96" Weight="2.84" Height="290"/>
-   <Lens DegreesMax="28" DegreesMin="28" Name="Other"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
-   <Technical PowerConsumption="60" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">RGB Macro</Channel>
@@ -106,38 +84,24 @@
   <Channel Number="8">Color Programs</Channel>
  </Mode>
  <Mode Name="4 Channels">
-  <Physical>
-   <Bulb Lumens="9600" ColourTemperature="0" Type="LED"/>
-   <Dimensions Width="250" Depth="96" Weight="2.84" Height="290"/>
-   <Lens DegreesMax="28" DegreesMin="28" Name="Other"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
-   <Technical PowerConsumption="60" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
   <Channel Number="3">Blue</Channel>
  </Mode>
  <Mode Name="3 Channels">
-  <Physical>
-   <Bulb Lumens="9600" ColourTemperature="0" Type="LED"/>
-   <Dimensions Width="250" Depth="96" Weight="2.84" Height="290"/>
-   <Lens DegreesMax="28" DegreesMin="28" Name="Other"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
-   <Technical PowerConsumption="60" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
  </Mode>
  <Mode Name="1 Channel">
-  <Physical>
+  <Channel Number="0">RGB Macro</Channel>
+ </Mode>
+<Physical>
    <Bulb Lumens="9600" ColourTemperature="0" Type="LED"/>
    <Dimensions Width="250" Depth="96" Weight="2.84" Height="290"/>
    <Lens DegreesMax="28" DegreesMin="28" Name="Other"/>
    <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
    <Technical PowerConsumption="60" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">RGB Macro</Channel>
- </Mode>
 </FixtureDefinition>

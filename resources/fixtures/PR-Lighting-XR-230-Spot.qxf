@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -24,10 +24,7 @@
   <Capability Min="0" Max="3">Closed</Capability>
   <Capability Min="4" Max="255">From dark to bright</Capability>
  </Channel>
- <Channel Name="Dimmer Fine">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer in 16 bit precision</Capability>
- </Channel>
+ <Channel Name="Dimmer Fine" Preset="IntensityDimmerFine"/>
  <Channel Name="CYM Macro">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="16" Color="#ffffff">White</Capability>
@@ -39,36 +36,12 @@
   <Capability Min="111" Max="128" Color="#ff00ff">Magenta</Capability>
   <Capability Min="129" Max="255">CYM mixing from slow to fast</Capability>
  </Channel>
- <Channel Name="Cyan">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">Cyan from light to deep</Capability>
- </Channel>
- <Channel Name="Cyan Fine">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">Cyan in 16 bit precision</Capability>
- </Channel>
- <Channel Name="Yellow">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">Yellow from light to deep</Capability>
- </Channel>
- <Channel Name="Yellow Fine">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">Yellow in 16 bit precision</Capability>
- </Channel>
- <Channel Name="Magenta">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">Magenta from light to deep</Capability>
- </Channel>
- <Channel Name="Magenta Fine">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">Magenta in 16 bit precision</Capability>
- </Channel>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Cyan Fine" Preset="IntensityCyanFine"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
+ <Channel Name="Yellow Fine" Preset="IntensityYellowFine"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Magenta Fine" Preset="IntensityMagentaFine"/>
  <Channel Name="Color wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="8" Color="#ffffff">White</Capability>
@@ -89,14 +62,8 @@
   <Capability Min="129" Max="191">Forward rotation from slow to fast</Capability>
   <Capability Min="192" Max="255">Reverse rotation from slow to fast</Capability>
  </Channel>
- <Channel Name="Iris">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">From max to min</Capability>
- </Channel>
- <Channel Name="Iris Fine">
-  <Group Byte="1">Beam</Group>
-  <Capability Min="0" Max="255">Iris in 16 bit precision</Capability>
- </Channel>
+ <Channel Name="Iris" Preset="BeamIris"/>
+ <Channel Name="Iris Fine" Preset="BeamIrisFine"/>
  <Channel Name="Iris Macro">
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="10">White</Capability>
@@ -199,42 +166,21 @@
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="255">Frost</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Linear focusing</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Focus Fine">
   <Group Byte="1">Beam</Group>
   <Capability Min="0" Max="255">Focusing in 16 bit precision</Capability>
  </Channel>
- <Channel Name="Zoom">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Linear zooming from big to small</Capability>
- </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomBigSmall"/>
  <Channel Name="Zoom Fine">
   <Group Byte="1">Beam</Group>
   <Capability Min="0" Max="255">Zooming in 16 bit precision</Capability>
  </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan (0°~540°)</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan in 16 bit precision</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt (0°~270°)</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt in 16 bit precision</Capability>
- </Channel>
- <Channel Name="Pan &amp; Tilt Speeds">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Pan &amp; tilt speed from fast to slow</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan &amp; Tilt Speeds" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Control">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="47">Reserved</Capability>
@@ -247,13 +193,6 @@
   <Capability Min="224" Max="255">Full power</Capability>
  </Channel>
  <Mode Name="Short Mode">
-  <Physical>
-   <Bulb Type="HRI 230W" Lumens="6111" ColourTemperature="8000"/>
-   <Dimensions Weight="22" Width="418" Height="620" Depth="425"/>
-   <Lens Name="Other" DegreesMin="3.8" DegreesMax="42"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="350" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Strobe</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">CYM Macro</Channel>
@@ -276,13 +215,6 @@
   <Channel Number="19">Control</Channel>
  </Mode>
  <Mode Name="Standard Mode">
-  <Physical>
-   <Bulb Type="HRI 230W" Lumens="6111" ColourTemperature="8000"/>
-   <Dimensions Weight="22" Width="418" Height="620" Depth="425"/>
-   <Lens Name="Other" DegreesMin="3.8" DegreesMax="42"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="350" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Strobe</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Dimmer Fine</Channel>
@@ -310,13 +242,6 @@
   <Channel Number="24">Control</Channel>
  </Mode>
  <Mode Name="Extended Mode">
-  <Physical>
-   <Bulb Type="HRI 230W" Lumens="6111" ColourTemperature="8000"/>
-   <Dimensions Weight="22" Width="418" Height="620" Depth="425"/>
-   <Lens Name="Other" DegreesMin="3.8" DegreesMax="42"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="350" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Strobe</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Dimmer Fine</Channel>
@@ -349,4 +274,11 @@
   <Channel Number="29">Pan &amp; Tilt Speeds</Channel>
   <Channel Number="30">Control</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="HRI 230W" Lumens="6111" ColourTemperature="8000"/>
+   <Dimensions Weight="22" Width="418" Height="620" Depth="425"/>
+   <Lens Name="Other" DegreesMin="3.8" DegreesMax="42"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="350" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -80,13 +80,6 @@
   <Capability Min="240" Max="255">268 - 278 Secs.</Capability>
  </Channel>
  <Mode Name="Fog Storm 1200HD">
-  <Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="220" Height="160" Weight="5.4" Depth="300"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="1200" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Duration</Channel>
   <Channel Number="1">Interval</Channel>
  </Mode>
@@ -101,4 +94,11 @@
   <Channel Number="0">Duration</Channel>
   <Channel Number="1">Interval</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
+   <Dimensions Width="220" Height="160" Weight="5.4" Depth="300"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="1200" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

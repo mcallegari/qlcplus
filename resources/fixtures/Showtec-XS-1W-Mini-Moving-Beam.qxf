@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,18 +9,9 @@
  <Manufacturer>Showtec</Manufacturer>
  <Model>XS-1W Mini Moving Beam</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Horizontal Movement</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Vertical Movement</Capability>
- </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0 - 100% dimmer</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Shutter/Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="7">Shutter closed</Capability>
@@ -44,18 +35,9 @@
   <Capability Min="210" Max="249">No Function</Capability>
   <Capability Min="250" Max="255">Sound-controlled</Capability>
  </Channel>
- <Channel Name="Pan fine 16 bit">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Horizontal Movement Fine</Capability>
- </Channel>
- <Channel Name="Tilt fine 16 bit">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Vertical Movement Fine</Capability>
- </Channel>
- <Channel Name="Pan/Tilt Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">From Max Speed (0) to Min Speed (255)</Capability>
- </Channel>
+ <Channel Name="Pan fine 16 bit" Preset="PositionPanFine"/>
+ <Channel Name="Tilt fine 16 bit" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Pan/Tilt Macro">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="15">Not used</Capability>
@@ -72,18 +54,8 @@
   <Capability Min="216" Max="235">Pan/Tilt Macro 11</Capability>
   <Capability Min="236" Max="255">Pan/Tilt Macro 12</Capability>
  </Channel>
- <Channel Name="Pan/Tilt Macro Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">From fast to slow</Capability>
- </Channel>
+ <Channel Name="Pan/Tilt Macro Speed" Preset="SpeedPanTiltFastSlow"/>
  <Mode Name="5 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="7000"/>
-   <Dimensions Weight="2" Width="125" Height="236" Depth="125"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="3"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="25" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Dimmer</Channel>
@@ -91,13 +63,6 @@
   <Channel Number="4">Channel Functions</Channel>
  </Mode>
  <Mode Name="10 channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="7000"/>
-   <Dimensions Weight="2" Width="125" Height="236" Depth="125"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="3"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="25" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan fine 16 bit</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -109,4 +74,11 @@
   <Channel Number="8">Dimmer</Channel>
   <Channel Number="9">Shutter/Strobe</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="7000"/>
+   <Dimensions Weight="2" Width="125" Height="236" Depth="125"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="3"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="25" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

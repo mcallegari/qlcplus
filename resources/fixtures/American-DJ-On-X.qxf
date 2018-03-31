@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -22,34 +22,12 @@
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="255">Slow - fast/Least sensitive - most sensitive</Capability>
  </Channel>
- <Channel Name="Head 1 Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Left - right movement</Capability>
- </Channel>
- <Channel Name="Head 2 Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Left - right movement</Capability>
- </Channel>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
- <Channel Name="White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
+ <Channel Name="Head 1 Tilt" Preset="PositionTilt"/>
+ <Channel Name="Head 2 Tilt" Preset="PositionTilt"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="7">Blackout</Capability>
@@ -63,10 +41,7 @@
   <Capability Min="240" Max="247">Sound active</Capability>
   <Capability Min="248" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Master Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Special Functions">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="69">Nothing</Capability>
@@ -86,65 +61,19 @@
   <Capability Min="81" Max="100">Theatre</Capability>
   <Capability Min="101" Max="255">Default dimmer setting</Capability>
  </Channel>
- <Channel Name="Red LED 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
- <Channel Name="Red LED 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
- <Channel Name="Green LED 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
- <Channel Name="Green LED 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
- <Channel Name="Blue LED 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
- <Channel Name="Blue LED 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
- <Channel Name="White LED 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
- <Channel Name="White LED 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
+ <Channel Name="Red LED 1" Preset="IntensityRed"/>
+ <Channel Name="Red LED 2" Preset="IntensityRed"/>
+ <Channel Name="Green LED 1" Preset="IntensityGreen"/>
+ <Channel Name="Green LED 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue LED 1" Preset="IntensityBlue"/>
+ <Channel Name="Blue LED 2" Preset="IntensityBlue"/>
+ <Channel Name="White LED 1" Preset="IntensityWhite"/>
+ <Channel Name="White LED 2" Preset="IntensityWhite"/>
  <Mode Name="2 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="185" ColourTemperature="0"/>
-   <Dimensions Weight="2.5" Width="151" Height="147" Depth="283"/>
-   <Lens Name="Other" DegreesMin="4" DegreesMax="4"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="270"/>
-   <Technical PowerConsumption="46" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Shows</Channel>
   <Channel Number="1">Show Speed/Sound Sensitivity</Channel>
  </Mode>
  <Mode Name="9 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="185" ColourTemperature="0"/>
-   <Dimensions Weight="2.5" Width="151" Height="147" Depth="283"/>
-   <Lens Name="Other" DegreesMin="4" DegreesMax="4"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="270"/>
-   <Technical PowerConsumption="46" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Head 1 Tilt</Channel>
   <Channel Number="1">Head 2 Tilt</Channel>
   <Channel Number="2">Red</Channel>
@@ -156,13 +85,6 @@
   <Channel Number="8">Special Functions</Channel>
  </Mode>
  <Mode Name="11 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="185" ColourTemperature="0"/>
-   <Dimensions Weight="2.5" Width="151" Height="147" Depth="283"/>
-   <Lens Name="Other" DegreesMin="4" DegreesMax="4"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="270"/>
-   <Technical PowerConsumption="46" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Head 1 Tilt</Channel>
   <Channel Number="1">Head 2 Tilt</Channel>
   <Channel Number="2">Red</Channel>
@@ -176,13 +98,6 @@
   <Channel Number="10">Special Functions</Channel>
  </Mode>
  <Mode Name="12 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="185" ColourTemperature="0"/>
-   <Dimensions Weight="2.5" Width="151" Height="147" Depth="283"/>
-   <Lens Name="Other" DegreesMin="4" DegreesMax="4"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="270"/>
-   <Technical PowerConsumption="46" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Head 1 Tilt</Channel>
   <Channel Number="1">Head 2 Tilt</Channel>
   <Channel Number="2">Red</Channel>
@@ -197,13 +112,6 @@
   <Channel Number="11">Special Functions</Channel>
  </Mode>
  <Mode Name="16 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="185" ColourTemperature="0"/>
-   <Dimensions Weight="2.5" Width="151" Height="147" Depth="283"/>
-   <Lens Name="Other" DegreesMin="4" DegreesMax="4"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="270"/>
-   <Technical PowerConsumption="46" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Head 1 Tilt</Channel>
   <Channel Number="1">Head 2 Tilt</Channel>
   <Channel Number="2">Red LED 1</Channel>
@@ -233,4 +141,11 @@
    <Channel>9</Channel>
   </Head>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="185" ColourTemperature="0"/>
+   <Dimensions Weight="2.5" Width="151" Height="147" Depth="283"/>
+   <Lens Name="Other" DegreesMin="4" DegreesMax="4"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="270"/>
+   <Technical PowerConsumption="46" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

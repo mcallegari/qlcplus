@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,18 +9,9 @@
  <Manufacturer>Cameo</Manufacturer>
  <Model>LED Moving Head 60W CLMHR60W</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan motion 360° / 540°</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt motion 270°</Capability>
- </Channel>
- <Channel Name="Pan/Tilt Motion">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Speed of the pan and tilt motion from fast to slow</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan/Tilt Motion" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Colour Wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="13" Color="#ffffff">White</Capability>
@@ -69,14 +60,8 @@
   <Capability Min="138" Max="201">Stroboscope effect 2 (speed slow - fast)</Capability>
   <Capability Min="202" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0 - 100%</Capability>
- </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Focus</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Prism">
   <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="3">Open</Capability>
@@ -101,22 +86,9 @@
   <Capability Min="221" Max="237">Show 1</Capability>
   <Capability Min="238" Max="255">Show 2</Capability>
  </Channel>
- <Channel Name="Pan Fine Control">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt Fine Control">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine control</Capability>
- </Channel>
+ <Channel Name="Pan Fine Control" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Fine Control" Preset="PositionTiltFine"/>
  <Mode Name="8-Ch">
-  <Physical>
-   <Bulb Type="LED" Lumens="1456" ColourTemperature="0"/>
-   <Dimensions Height="275" Depth="320" Weight="7" Width="230"/>
-   <Lens Name="Other" DegreesMin="11" DegreesMax="11"/>
-   <Focus Type="Fixed" TiltMax="270" PanMax="540"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="100"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Colour Wheel</Channel>
@@ -127,13 +99,6 @@
   <Channel Number="7">Prism</Channel>
  </Mode>
  <Mode Name="13-Ch">
-  <Physical>
-   <Bulb Type="LED" Lumens="1456" ColourTemperature="0"/>
-   <Dimensions Height="275" Depth="320" Weight="7" Width="230"/>
-   <Lens Name="Other" DegreesMin="11" DegreesMax="11"/>
-   <Focus Type="Fixed" TiltMax="270" PanMax="540"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="100"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan/Tilt Motion</Channel>
@@ -148,4 +113,11 @@
   <Channel Number="11">Pan Fine Control</Channel>
   <Channel Number="12">Tilt Fine Control</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="1456" ColourTemperature="0"/>
+   <Dimensions Height="275" Depth="320" Weight="7" Width="230"/>
+   <Lens Name="Other" DegreesMin="11" DegreesMax="11"/>
+   <Focus Type="Fixed" TiltMax="270" PanMax="540"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="100"/>
+  </Physical>
 </FixtureDefinition>

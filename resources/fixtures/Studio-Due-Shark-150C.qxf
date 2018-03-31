@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -44,22 +44,10 @@
   <Capability Min="0" Max="10">Open</Capability>
   <Capability Min="11" Max="255">Flash (1Hz to 10Hz)</Capability>
  </Channel>
- <Channel Name="Pan Coarse">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan (0 to 540°)</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan Fine</Capability>
- </Channel>
- <Channel Name="Tilt Coarse">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt (0 to 270°)</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt Fine</Capability>
- </Channel>
+ <Channel Name="Pan Coarse" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Coarse" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Dimmer">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="3">Closed</Capability>
@@ -67,10 +55,7 @@
   <Capability Min="224" Max="254">Electronic Lamp</Capability>
   <Capability Min="255" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Focus</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Rotation Gobos">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="3">Static</Capability>
@@ -87,13 +72,6 @@
   <Capability Min="251" Max="255">Normal</Capability>
  </Channel>
  <Mode Name="8bit">
-  <Physical>
-   <Bulb ColourTemperature="6900" Type="HTI 150W" Lumens="0"/>
-   <Dimensions Width="350" Height="420" Depth="315" Weight="10"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus PanMax="540" TiltMax="270" Type="Fixed"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="230"/>
-  </Physical>
   <Channel Number="0">Motors Speed</Channel>
   <Channel Number="1">Colours</Channel>
   <Channel Number="2">Gobos</Channel>
@@ -105,13 +83,6 @@
   <Channel Number="8">Rotation Gobos</Channel>
  </Mode>
  <Mode Name="16bit">
-  <Physical>
-   <Bulb ColourTemperature="6900" Type="HTI 150W" Lumens="0"/>
-   <Dimensions Width="350" Height="420" Depth="315" Weight="10"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus PanMax="540" TiltMax="270" Type="Fixed"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="230"/>
-  </Physical>
   <Channel Number="0">Motors Speed</Channel>
   <Channel Number="1">Colours</Channel>
   <Channel Number="2">Gobos</Channel>
@@ -125,13 +96,6 @@
   <Channel Number="10">Rotation Gobos</Channel>
  </Mode>
  <Mode Name="8bit+remote">
-  <Physical>
-   <Bulb ColourTemperature="6900" Type="HTI 150W" Lumens="0"/>
-   <Dimensions Width="350" Height="420" Depth="315" Weight="10"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus PanMax="540" TiltMax="270" Type="Fixed"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="230"/>
-  </Physical>
   <Channel Number="0">Motors Speed</Channel>
   <Channel Number="1">Colours</Channel>
   <Channel Number="2">Gobos</Channel>
@@ -144,13 +108,6 @@
   <Channel Number="9">Remote Reset</Channel>
  </Mode>
  <Mode Name="16bit+remote">
-  <Physical>
-   <Bulb ColourTemperature="6900" Type="HTI 150W" Lumens="0"/>
-   <Dimensions Width="350" Height="420" Depth="315" Weight="10"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus PanMax="540" TiltMax="270" Type="Fixed"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="230"/>
-  </Physical>
   <Channel Number="0">Motors Speed</Channel>
   <Channel Number="1">Colours</Channel>
   <Channel Number="2">Gobos</Channel>
@@ -164,4 +121,11 @@
   <Channel Number="10">Rotation Gobos</Channel>
   <Channel Number="11">Remote Reset</Channel>
  </Mode>
+<Physical>
+   <Bulb ColourTemperature="6900" Type="HTI 150W" Lumens="0"/>
+   <Dimensions Width="350" Height="420" Depth="315" Weight="10"/>
+   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
+   <Focus PanMax="540" TiltMax="270" Type="Fixed"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="230"/>
+  </Physical>
 </FixtureDefinition>

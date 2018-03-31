@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,14 +9,8 @@
  <Manufacturer>JB-Lighting</Manufacturer>
  <Model>Varyscan 3 Special</Model>
  <Type>Scanner</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Gobo &amp; effect">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="3">Gobo 1 no effect</Capability>
@@ -136,22 +130,9 @@
   <Capability Min="112" Max="127">Prism swing</Capability>
   <Capability Min="128" Max="255">Flood filter</Capability>
  </Channel>
- <Channel Name="No function 6">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">No function</Capability>
- </Channel>
- <Channel Name="No function 7">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">No function</Capability>
- </Channel>
+ <Channel Name="No function 6" Preset="NoFunction"/>
+ <Channel Name="No function 7" Preset="NoFunction"/>
  <Mode Name="Simple">
-  <Physical>
-   <Bulb Lumens="0" Type="MSD 250W" ColourTemperature="0"/>
-   <Dimensions Width="244" Height="500" Weight="12" Depth="172"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="170" Type="Mirror" TiltMax="110"/>
-   <Technical PowerConsumption="740" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Gobo &amp; effect</Channel>
@@ -159,13 +140,6 @@
   <Channel Number="4">Dimmer/Shutter</Channel>
  </Mode>
  <Mode Name="Advanced">
-  <Physical>
-   <Bulb Lumens="0" Type="MSD 250W" ColourTemperature="0"/>
-   <Dimensions Width="244" Height="500" Weight="12" Depth="172"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="170" Type="Mirror" TiltMax="110"/>
-   <Technical PowerConsumption="740" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Gobo</Channel>
@@ -175,4 +149,11 @@
   <Channel Number="6">No function 7</Channel>
   <Channel Number="7">Effect</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="MSD 250W" ColourTemperature="0"/>
+   <Dimensions Width="244" Height="500" Weight="12" Depth="172"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="170" Type="Mirror" TiltMax="110"/>
+   <Technical PowerConsumption="740" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

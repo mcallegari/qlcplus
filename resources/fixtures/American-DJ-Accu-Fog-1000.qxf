@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,14 +9,8 @@
  <Manufacturer>American DJ</Manufacturer>
  <Model>Accu Fog 1000</Model>
  <Type>Smoke</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Speed of Pan/Tilt Movement">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="225">Fast to slow</Capability>
@@ -81,13 +75,6 @@
   <Capability Min="255" Max="255">Smoke continuously</Capability>
  </Channel>
  <Mode Name="5 Channel DMX Traits">
-  <Physical>
-   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="13" Width="442" Height="345" Depth="295"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Head" PanMax="360" TiltMax="265"/>
-   <Technical PowerConsumption="1000" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Speed of Pan/Tilt Movement</Channel>
@@ -95,13 +82,6 @@
   <Channel Number="4">Auto program - 5 Channel</Channel>
  </Mode>
  <Mode Name="7 Channel DMX Traits">
-  <Physical>
-   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="13" Width="442" Height="345" Depth="295"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Head" PanMax="360" TiltMax="265"/>
-   <Technical PowerConsumption="1000" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Speed of Pan/Tilt Movement</Channel>
@@ -110,4 +90,11 @@
   <Channel Number="5">Pump Interval (Pause) Time</Channel>
   <Channel Number="6">Fog Duration Time</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="13" Width="442" Height="345" Depth="295"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="360" TiltMax="265"/>
+   <Technical PowerConsumption="1000" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

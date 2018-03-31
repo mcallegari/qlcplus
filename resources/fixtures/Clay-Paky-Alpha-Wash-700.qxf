@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,25 +9,10 @@
  <Manufacturer>Clay Paky</Manufacturer>
  <Model>Alpha Wash 700</Model>
  <Type>Moving Head</Type>
- <Channel Name="Cyan">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">Colour inserted (0%) - colour excluded (100%)</Capability>
- </Channel>
- <Channel Name="Magenta">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">Colour inserted (0%) - colour excluded (100%)</Capability>
- </Channel>
- <Channel Name="Yellow">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">Colour inserted (0%) - colour excluded (100%)</Capability>
- </Channel>
- <Channel Name="CTO">
-  <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="255">Filter excluded (0%) - filter inserted (100%)</Capability>
- </Channel>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
+ <Channel Name="CTO" Preset="ColorCTOMixer"/>
  <Channel Name="Colour wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7" Color="#ffffff">White</Capability>
@@ -61,14 +46,8 @@
   <Capability Min="239" Max="251">Random fast strobe</Capability>
   <Capability Min="252" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0 - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer fine">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">0 - 100%</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer fine" Preset="IntensityDimmerFine"/>
  <Channel Name="Beam shaper insertion">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="84">White</Capability>
@@ -82,26 +61,11 @@
   <Capability Min="191" Max="192">Stop</Capability>
   <Capability Min="193" Max="255">Slow rotation (3 rph) - fast rotation (120 rpm)</Capability>
  </Channel>
- <Channel Name="Zoom">
-  <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="255">Narrow beam (0%) - wide beam (100%)</Capability>
- </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">0 - 100%</Capability>
- </Channel>
- <Channel Name="Pan fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">0 - 100%</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">0 - 100%</Capability>
- </Channel>
- <Channel Name="Tilt fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">0 - 100%</Capability>
- </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
  <Channel Name="Function">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="12">Unused range</Capability>
@@ -143,29 +107,10 @@
   <Capability Min="1" Max="254">0.2s - 310s</Capability>
   <Capability Min="255" Max="255">Follow cue data</Capability>
  </Channel>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Colour excluded (0%) - colour inserted (100%)</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Colour excluded (0%) - colour inserted (100%)</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Colour excluded (0%) - colour inserted (100%)</Capability>
- </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
  <Mode Name="Standard - CMY">
-  <Physical>
-   <Bulb Lumens="50000" Type="MSR 700W" ColourTemperature="7200"/>
-   <Dimensions Width="385" Height="575" Weight="20.6" Depth="405"/>
-   <Lens DegreesMax="0" Name="Fresnel" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="250"/>
-   <Technical PowerConsumption="1050" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Cyan</Channel>
   <Channel Number="1">Magenta</Channel>
   <Channel Number="2">Yellow</Channel>
@@ -216,13 +161,6 @@
   <Channel Number="20">Beam time</Channel>
  </Mode>
  <Mode Name="Standard - RGB">
-  <Physical>
-   <Bulb Lumens="50000" Type="MSR 700W" ColourTemperature="7200"/>
-   <Dimensions Width="385" Height="575" Weight="20.6" Depth="405"/>
-   <Lens DegreesMax="0" Name="Fresnel" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="250"/>
-   <Technical PowerConsumption="1050" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
@@ -272,4 +210,11 @@
   <Channel Number="19">Colour time</Channel>
   <Channel Number="20">Beam time</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="50000" Type="MSR 700W" ColourTemperature="7200"/>
+   <Dimensions Width="385" Height="575" Weight="20.6" Depth="405"/>
+   <Lens DegreesMax="0" Name="Fresnel" DegreesMin="0"/>
+   <Focus PanMax="540" Type="Fixed" TiltMax="250"/>
+   <Technical PowerConsumption="1050" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
 </FixtureDefinition>

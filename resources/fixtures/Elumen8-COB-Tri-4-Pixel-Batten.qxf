@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,25 +9,10 @@
  <Manufacturer>Elumen8</Manufacturer>
  <Model>COB Tri 4 Pixel Batten</Model>
  <Type>Color Changer</Type>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="Master Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Sound Active/Strobe">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="0">No function</Capability>
@@ -35,66 +20,18 @@
   <Capability Min="6" Max="10">No function</Capability>
   <Capability Min="11" Max="255">Strobe (slow-fast)</Capability>
  </Channel>
- <Channel Name="R1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="G1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="B1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="R2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="R3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="R4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="G2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="G3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="G4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="B2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="B3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="B4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
+ <Channel Name="R1" Preset="IntensityRed"/>
+ <Channel Name="G1" Preset="IntensityGreen"/>
+ <Channel Name="B1" Preset="IntensityBlue"/>
+ <Channel Name="R2" Preset="IntensityRed"/>
+ <Channel Name="R3" Preset="IntensityRed"/>
+ <Channel Name="R4" Preset="IntensityRed"/>
+ <Channel Name="G2" Preset="IntensityGreen"/>
+ <Channel Name="G3" Preset="IntensityGreen"/>
+ <Channel Name="G4" Preset="IntensityGreen"/>
+ <Channel Name="B2" Preset="IntensityBlue"/>
+ <Channel Name="B3" Preset="IntensityBlue"/>
+ <Channel Name="B4" Preset="IntensityBlue"/>
  <Channel Name="Colours/Macros/Programs/Sound Active">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="15">No function</Capability>
@@ -141,10 +78,7 @@
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="255">Master dimmer (0-100%)/Speed (slow-fast)/Sensitivity (low-high)</Capability>
  </Channel>
- <Channel Name="Flash">
-  <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="255">Slow-fast</Capability>
- </Channel>
+ <Channel Name="Flash" Preset="ShutterStrobeSlowFast"/>
  <Channel Name="Red 1/Colour Select">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="15">Red 1 (0-100%)</Capability>
@@ -220,25 +154,11 @@
   <Capability Min="16" Max="255">No function</Capability>
  </Channel>
  <Mode Name="3 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="6362" ColourTemperature="0"/>
-   <Dimensions Weight="4" Width="440" Height="2200" Depth="150"/>
-   <Lens Name="Other" DegreesMin="60" DegreesMax="60"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="160" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
  </Mode>
  <Mode Name="5 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="6362" ColourTemperature="0"/>
-   <Dimensions Weight="4" Width="440" Height="2200" Depth="150"/>
-   <Lens Name="Other" DegreesMin="60" DegreesMax="60"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="160" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
@@ -246,13 +166,6 @@
   <Channel Number="4">Sound Active/Strobe</Channel>
  </Mode>
  <Mode Name="12 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="6362" ColourTemperature="0"/>
-   <Dimensions Weight="4" Width="440" Height="2200" Depth="150"/>
-   <Lens Name="Other" DegreesMin="60" DegreesMax="60"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="160" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">R1</Channel>
   <Channel Number="1">G1</Channel>
   <Channel Number="2">B1</Channel>
@@ -287,26 +200,12 @@
   </Head>
  </Mode>
  <Mode Name="4 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="6362" ColourTemperature="0"/>
-   <Dimensions Weight="4" Width="440" Height="2200" Depth="150"/>
-   <Lens Name="Other" DegreesMin="60" DegreesMax="60"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="160" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Colours/Macros/Programs/Sound Active</Channel>
   <Channel Number="1">Speed/Sensitivity</Channel>
   <Channel Number="2">Master Dimmer</Channel>
   <Channel Number="3">Strobe</Channel>
  </Mode>
  <Mode Name="15 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="6362" ColourTemperature="0"/>
-   <Dimensions Weight="4" Width="440" Height="2200" Depth="150"/>
-   <Lens Name="Other" DegreesMin="60" DegreesMax="60"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="160" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Colours/Macros/Programs/Sound Active</Channel>
   <Channel Number="1">Master Dimmer/Speed/Sensitivity</Channel>
   <Channel Number="2">Flash</Channel>
@@ -343,4 +242,11 @@
    <Channel>12</Channel>
   </Head>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="6362" ColourTemperature="0"/>
+   <Dimensions Weight="4" Width="440" Height="2200" Depth="150"/>
+   <Lens Name="Other" DegreesMin="60" DegreesMax="60"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="160" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
 </FixtureDefinition>

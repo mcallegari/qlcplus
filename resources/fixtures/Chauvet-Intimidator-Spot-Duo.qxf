@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,42 +9,15 @@
  <Manufacturer>Chauvet</Manufacturer>
  <Model>Intimidator Spot Duo</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan 1">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan 0-360, Head 1</Capability>
- </Channel>
- <Channel Name="Fine Pan 1">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Fine Pan 1, Head 1</Capability>
- </Channel>
- <Channel Name="Tilt 1">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt 0-270, Head 1</Capability>
- </Channel>
- <Channel Name="Fine Tilt 1">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Fine Tilt 1, Head 1</Capability>
- </Channel>
- <Channel Name="Pan 2">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan 0-360, Head 2</Capability>
- </Channel>
- <Channel Name="Fine Pan 2">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Fine Pan 2, Head 2</Capability>
- </Channel>
- <Channel Name="Tilt 2">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt 0-270, Head 2</Capability>
- </Channel>
- <Channel Name="Fine Tilt 2">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Fine Tilt 2, Head 2</Capability>
- </Channel>
- <Channel Name="Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Pan/Tilt Speed (fast to slow)</Capability>
- </Channel>
+ <Channel Name="Pan 1" Preset="PositionPan"/>
+ <Channel Name="Fine Pan 1" Preset="PositionPanFine"/>
+ <Channel Name="Tilt 1" Preset="PositionTilt"/>
+ <Channel Name="Fine Tilt 1" Preset="PositionTiltFine"/>
+ <Channel Name="Pan 2" Preset="PositionPan"/>
+ <Channel Name="Fine Pan 2" Preset="PositionPanFine"/>
+ <Channel Name="Tilt 2" Preset="PositionTilt"/>
+ <Channel Name="Fine Tilt 2" Preset="PositionTiltFine"/>
+ <Channel Name="Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Color Wheel 1">
   <Group Byte="0">Colour</Group>
   <Capability Color="#ffffff" Min="0" Max="15">White</Capability>
@@ -121,14 +94,8 @@
   <Capability Min="128" Max="191">Rainbow with increase speed</Capability>
   <Capability Min="192" Max="255">Reverse rainbow with increase speed</Capability>
  </Channel>
- <Channel Name="Dimmer 1">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Head 1 Dimmer 1-100</Capability>
- </Channel>
- <Channel Name="Dimmer 2">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Head 2 Dimmer 1-100</Capability>
- </Channel>
+ <Channel Name="Dimmer 1" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 2" Preset="IntensityDimmer"/>
  <Channel Name="Shutter 1">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="3">Light off</Capability>
@@ -204,14 +171,8 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Fast to slow, Movement Macro</Capability>
  </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan 0-360, both heads</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt 0-270, both heads</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Color Wheel">
   <Group Byte="0">Colour</Group>
   <Capability Color="#ffffff" Min="0" Max="15">White</Capability>
@@ -260,13 +221,6 @@
   <Capability Min="216" Max="255">Light on</Capability>
  </Channel>
  <Mode Name="20 Channels mode">
-  <Physical>
-   <Bulb Type="LED" Lumens="10900" ColourTemperature="0"/>
-   <Dimensions Width="187" Height="365" Depth="540" Weight="8.4"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus TiltMax="270" Type="Fixed" PanMax="360"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="98"/>
-  </Physical>
   <Channel Number="0">Pan 1</Channel>
   <Channel Number="1">Fine Pan 1</Channel>
   <Channel Number="2">Tilt 1</Channel>
@@ -309,13 +263,6 @@
   </Head>
  </Mode>
  <Mode Name="10 Channels mode">
-  <Physical>
-   <Bulb Type="LED" Lumens="10900" ColourTemperature="0"/>
-   <Dimensions Width="187" Height="365" Depth="540" Weight="8.4"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus TiltMax="270" Type="Fixed" PanMax="360"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="98"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Color Wheel</Channel>
@@ -327,4 +274,11 @@
   <Channel Number="8">Movement Macros</Channel>
   <Channel Number="9">Movement Macro Speed</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="10900" ColourTemperature="0"/>
+   <Dimensions Width="187" Height="365" Depth="540" Weight="8.4"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus TiltMax="270" Type="Fixed" PanMax="360"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="98"/>
+  </Physical>
 </FixtureDefinition>

@@ -3,75 +3,31 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.11.2 GIT</Version>
   <Author>Julien Poilvilain</Author>
  </Creator>
  <Manufacturer>Showtec</Manufacturer>
  <Model>Sunstrip Active</Model>
  <Type>Dimmer</Type>
- <Channel Name="01">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
- <Channel Name="02">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
- <Channel Name="03">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
- <Channel Name="04">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
- <Channel Name="05">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
- <Channel Name="06">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
- <Channel Name="07">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
- <Channel Name="08">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
- <Channel Name="09">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
- <Channel Name="10">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
+ <Channel Name="Channel 1" Preset="IntensityDimmer"/>
+ <Channel Name="Channel 2" Preset="IntensityDimmer"/>
+ <Channel Name="Channel 3" Preset="IntensityDimmer"/>
+ <Channel Name="Channel 4" Preset="IntensityDimmer"/>
+ <Channel Name="Channel 5" Preset="IntensityDimmer"/>
+ <Channel Name="Channel 6" Preset="IntensityDimmer"/>
+ <Channel Name="Channel 7" Preset="IntensityDimmer"/>
+ <Channel Name="Channel 8" Preset="IntensityDimmer"/>
+ <Channel Name="Channel 9" Preset="IntensityDimmer"/>
+ <Channel Name="Channel 10" Preset="IntensityDimmer"/>
  <Mode Name="1 Channel Mode">
-  <Physical>
-   <Bulb Lumens="0" Type="240V/75W GU10" ColourTemperature="0"/>
-   <Dimensions Width="1000" Depth="80" Weight="5.3" Height="130"/>
-   <Lens DegreesMin="0" Name="Other" DegreesMax="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="750" DmxConnector="3-pin"/>
-  </Physical>
-  <Channel Number="0">01</Channel>
+  <Channel Number="0">Channel 1</Channel>
   <Head>
    <Channel>0</Channel>
   </Head>
  </Mode>
  <Mode Name="2 Channels Mode">
-  <Physical>
-   <Bulb Lumens="0" Type="240V/75W GU10" ColourTemperature="0"/>
-   <Dimensions Width="1000" Depth="80" Weight="5.3" Height="130"/>
-   <Lens DegreesMin="0" Name="Other" DegreesMax="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="750" DmxConnector="3-pin"/>
-  </Physical>
-  <Channel Number="0">01</Channel>
-  <Channel Number="1">02</Channel>
+  <Channel Number="0">Channel 1</Channel>
+  <Channel Number="1">Channel 2</Channel>
   <Head>
    <Channel>0</Channel>
   </Head>
@@ -80,18 +36,11 @@
   </Head>
  </Mode>
  <Mode Name="5 Channels Mode">
-  <Physical>
-   <Bulb Lumens="0" Type="240V/75W GU10" ColourTemperature="0"/>
-   <Dimensions Width="1000" Depth="80" Weight="5.3" Height="130"/>
-   <Lens DegreesMin="0" Name="Other" DegreesMax="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="750" DmxConnector="3-pin"/>
-  </Physical>
-  <Channel Number="0">01</Channel>
-  <Channel Number="1">02</Channel>
-  <Channel Number="2">03</Channel>
-  <Channel Number="3">04</Channel>
-  <Channel Number="4">05</Channel>
+  <Channel Number="0">Channel 1</Channel>
+  <Channel Number="1">Channel 2</Channel>
+  <Channel Number="2">Channel 3</Channel>
+  <Channel Number="3">Channel 4</Channel>
+  <Channel Number="4">Channel 5</Channel>
   <Head>
    <Channel>0</Channel>
   </Head>
@@ -109,23 +58,16 @@
   </Head>
  </Mode>
  <Mode Name="10 Channels Mode">
-  <Physical>
-   <Bulb Lumens="0" Type="240V/75W GU10" ColourTemperature="0"/>
-   <Dimensions Width="1000" Depth="80" Weight="5.3" Height="130"/>
-   <Lens DegreesMin="0" Name="Other" DegreesMax="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="750" DmxConnector="3-pin"/>
-  </Physical>
-  <Channel Number="0">01</Channel>
-  <Channel Number="1">02</Channel>
-  <Channel Number="2">03</Channel>
-  <Channel Number="3">04</Channel>
-  <Channel Number="4">05</Channel>
-  <Channel Number="5">06</Channel>
-  <Channel Number="6">07</Channel>
-  <Channel Number="7">08</Channel>
-  <Channel Number="8">09</Channel>
-  <Channel Number="9">10</Channel>
+  <Channel Number="0">Channel 1</Channel>
+  <Channel Number="1">Channel 2</Channel>
+  <Channel Number="2">Channel 3</Channel>
+  <Channel Number="3">Channel 4</Channel>
+  <Channel Number="4">Channel 5</Channel>
+  <Channel Number="5">Channel 6</Channel>
+  <Channel Number="6">Channel 7</Channel>
+  <Channel Number="7">Channel 8</Channel>
+  <Channel Number="8">Channel 9</Channel>
+  <Channel Number="9">Channel 10</Channel>
   <Head>
    <Channel>0</Channel>
   </Head>
@@ -157,4 +99,11 @@
    <Channel>9</Channel>
   </Head>
  </Mode>
+ <Physical>
+  <Bulb Type="240V/75W GU10" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5.3" Width="1000" Height="130" Depth="80"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="750" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

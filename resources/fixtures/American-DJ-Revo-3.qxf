@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -20,10 +20,7 @@
   <Capability Min="0" Max="9">Blackout (Pattern only)</Capability>
   <Capability Min="10" Max="255">Speed</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Intensity</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Pattern/Chase">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="9">Blackout</Capability>
@@ -83,29 +80,22 @@
   <Capability Min="250" Max="255">All colors</Capability>
  </Channel>
  <Mode Name="Standard">
-  <Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Height="334" Weight="4.04" Width="306" Depth="312"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Fresnel"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="50"/>
-  </Physical>
   <Channel Number="0">Mode</Channel>
   <Channel Number="1">Pattern/Chase</Channel>
   <Channel Number="2">Speed</Channel>
   <Channel Number="3">Dimmer</Channel>
  </Mode>
  <Mode Name="Pattern">
-  <Physical>
+  <Channel Number="0">Mode</Channel>
+  <Channel Number="1">Pattern</Channel>
+  <Channel Number="2">Speed</Channel>
+  <Channel Number="3">Dimmer</Channel>
+ </Mode>
+<Physical>
    <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
    <Dimensions Height="334" Weight="4.04" Width="306" Depth="312"/>
    <Lens DegreesMin="0" DegreesMax="0" Name="Fresnel"/>
    <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
    <Technical DmxConnector="3-pin" PowerConsumption="50"/>
   </Physical>
-  <Channel Number="0">Mode</Channel>
-  <Channel Number="1">Pattern</Channel>
-  <Channel Number="2">Speed</Channel>
-  <Channel Number="3">Dimmer</Channel>
- </Mode>
 </FixtureDefinition>

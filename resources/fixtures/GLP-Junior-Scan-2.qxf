@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,14 +9,8 @@
  <Manufacturer>GLP</Manufacturer>
  <Model>Junior-Scan 2</Model>
  <Type>Scanner</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="15">Shutter closed</Capability>
@@ -132,13 +126,6 @@
   <Capability Min="255" Max="255">Music gobo chaser fast</Capability>
  </Channel>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb Type="HSD 150W" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="7.5" Width="310" Height="540" Depth="220"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="230" TiltMax="110"/>
-   <Technical PowerConsumption="250" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Color</Channel>
@@ -149,4 +136,11 @@
   <Channel Number="7">Laser</Channel>
   <Channel Number="8">Special</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="HSD 150W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="7.5" Width="310" Height="540" Depth="220"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="230" TiltMax="110"/>
+   <Technical PowerConsumption="250" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

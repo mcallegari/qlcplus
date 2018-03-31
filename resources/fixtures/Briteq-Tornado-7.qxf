@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -15,14 +15,8 @@
   <Capability Min="1" Max="129">Pulse from slow to fast</Capability>
   <Capability Min="130" Max="255">Strobe from slow to fast</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Linear from dark to light</Capability>
- </Channel>
- <Channel Name="16 Bit Dimmer">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">16 bit precision</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="16 Bit Dimmer" Preset="IntensityDimmerFine"/>
  <Channel Name="Color Temperature">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="0">No</Capability>
@@ -45,154 +39,47 @@
   <Capability Min="192" Max="223" Color="#ffffff">Red + green + blue</Capability>
   <Capability Min="224" Max="255" Res="Others/rainbow.png">Rainbow effects (speed from slow to fast)</Capability>
  </Channel>
- <Channel Name="Red 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Linear adjustment in zone 1</Capability>
- </Channel>
- <Channel Name="Green 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Linear adjustment in zone 1</Capability>
- </Channel>
- <Channel Name="Blue 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Linear adjustment in zone 1</Capability>
- </Channel>
- <Channel Name="White 1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">Linear adjustment in zone 1</Capability>
- </Channel>
- <Channel Name="Zone Master 1">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Master for zone 1</Capability>
- </Channel>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Master for red</Capability>
- </Channel>
- <Channel Name="Red 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Linear adjustment in zone 2</Capability>
- </Channel>
- <Channel Name="Green 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Linear adjustment in zone 2</Capability>
- </Channel>
- <Channel Name="Blue 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Linear adjustment in zone 2</Capability>
- </Channel>
- <Channel Name="White 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">Linear adjustment in zone 2</Capability>
- </Channel>
- <Channel Name="Zone Master 2">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Master for zone 2</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Master for green</Capability>
- </Channel>
- <Channel Name="Red 3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Linear adjustment in zone 3</Capability>
- </Channel>
- <Channel Name="Green 3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Linear adjustment in zone 3</Capability>
- </Channel>
- <Channel Name="Blue 3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Linear adjustment in zone 3</Capability>
- </Channel>
- <Channel Name="White 3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">Linear adjustment in zone 3</Capability>
- </Channel>
- <Channel Name="Zone Master 3">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Master for zone 3</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Master for blue</Capability>
- </Channel>
- <Channel Name="Red 4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Linear adjustment in zone 4</Capability>
- </Channel>
- <Channel Name="Green 4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Linear adjustment in zone 4</Capability>
- </Channel>
- <Channel Name="Blue 4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Linear adjustment in zone 4</Capability>
- </Channel>
- <Channel Name="White 4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">Linear adjustment in zone 4</Capability>
- </Channel>
- <Channel Name="Zone Master 4">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Master for zone 4</Capability>
- </Channel>
- <Channel Name="White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">Master for white</Capability>
- </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">0~360° or 0~720°</Capability>
- </Channel>
- <Channel Name="Pan 16 Bit">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">16 bit precision</Capability>
- </Channel>
+ <Channel Name="Red 1" Preset="IntensityRed"/>
+ <Channel Name="Green 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1" Preset="IntensityBlue"/>
+ <Channel Name="White 1" Preset="IntensityWhite"/>
+ <Channel Name="Zone Master 1" Preset="IntensityDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="White 2" Preset="IntensityWhite"/>
+ <Channel Name="Zone Master 2" Preset="IntensityDimmer"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="White 3" Preset="IntensityWhite"/>
+ <Channel Name="Zone Master 3" Preset="IntensityDimmer"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Red 4" Preset="IntensityRed"/>
+ <Channel Name="Green 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue 4" Preset="IntensityBlue"/>
+ <Channel Name="White 4" Preset="IntensityWhite"/>
+ <Channel Name="Zone Master 4" Preset="IntensityDimmer"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan 16 Bit" Preset="PositionPanFine"/>
  <Channel Name="Pan Rotation">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="127">Stop</Capability>
   <Capability Min="128" Max="191">Speed counterclockwise from slow to fast</Capability>
   <Capability Min="192" Max="255">Speed clockwise from slow to fast</Capability>
  </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">0~270°</Capability>
- </Channel>
- <Channel Name="Tilt 16 Bit">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">16 bit precision</Capability>
- </Channel>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt 16 Bit" Preset="PositionTiltFine"/>
  <Channel Name="Tilt Rotation">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="127">Stop</Capability>
   <Capability Min="128" Max="191">Speed counterclockwise from slow to fast</Capability>
   <Capability Min="192" Max="255">Speed clockwise from slow to fast</Capability>
  </Channel>
- <Channel Name="Pan/Tilt Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Fast to slow</Capability>
- </Channel>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Control Function">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="7">DMX mode</Capability>
@@ -207,13 +94,6 @@
   <Capability Min="248" Max="255">Reset</Capability>
  </Channel>
  <Mode Name="Standard">
-  <Physical>
-   <Bulb Type="LED" Lumens="5029" ColourTemperature="0"/>
-   <Dimensions Weight="4.36" Width="224" Height="296" Depth="224"/>
-   <Lens Name="Other" DegreesMin="12" DegreesMax="12"/>
-   <Focus Type="Head" PanMax="720" TiltMax="270"/>
-   <Technical PowerConsumption="170" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Strobe</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Color Temperature</Channel>
@@ -233,13 +113,6 @@
   <Channel Number="16">Control Function</Channel>
  </Mode>
  <Mode Name="Extended">
-  <Physical>
-   <Bulb Type="LED" Lumens="5029" ColourTemperature="0"/>
-   <Dimensions Weight="4.36" Width="224" Height="296" Depth="224"/>
-   <Lens Name="Other" DegreesMin="12" DegreesMax="12"/>
-   <Focus Type="Head" PanMax="720" TiltMax="270"/>
-   <Technical PowerConsumption="170" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Strobe</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">16 Bit Dimmer</Channel>
@@ -303,4 +176,11 @@
    <Channel>25</Channel>
   </Head>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="5029" ColourTemperature="0"/>
+   <Dimensions Weight="4.36" Width="224" Height="296" Depth="224"/>
+   <Lens Name="Other" DegreesMin="12" DegreesMax="12"/>
+   <Focus Type="Head" PanMax="720" TiltMax="270"/>
+   <Technical PowerConsumption="170" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

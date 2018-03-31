@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -16,24 +16,18 @@
   <Capability Min="140" Max="243">Strobe Slow &lt; Fast</Capability>
   <Capability Min="244" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Min &lt; MAx</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Min &lt; Max</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Mode Name="Standard">
-  <Physical>
+  <Channel Number="0">Dimmer/ Strobe</Channel>
+  <Channel Number="1">Pan</Channel>
+  <Channel Number="2">Tilt</Channel>
+ </Mode>
+<Physical>
    <Bulb Lumens="0" Type="EFR 100W" ColourTemperature="0"/>
    <Dimensions Width="230" Height="230" Weight="5.8" Depth="325"/>
    <Lens DegreesMax="2.5" Name="" DegreesMin="2.5"/>
    <Focus PanMax="360" Type="Head" TiltMax="227"/>
    <Technical PowerConsumption="150" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Dimmer/ Strobe</Channel>
-  <Channel Number="1">Pan</Channel>
-  <Channel Number="2">Tilt</Channel>
- </Mode>
 </FixtureDefinition>

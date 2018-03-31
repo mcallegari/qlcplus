@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,10 +9,7 @@
  <Manufacturer>Pro-Lights</Manufacturer>
  <Model>XP575 Wash</Model>
  <Type>Moving Head</Type>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="0">Closed</Capability>
@@ -39,21 +36,9 @@
   <Capability Min="188" Max="195">Stop</Capability>
   <Capability Min="196" Max="255" Res="Others/rainbow.png">Backward Rotate Slow-Fast</Capability>
  </Channel>
- <Channel Name="Cyan">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">Cyan</Capability>
- </Channel>
- <Channel Name="Magenta">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">Magenta</Capability>
- </Channel>
- <Channel Name="Yellow">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">Yellow</Capability>
- </Channel>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
  <Channel Name="Colour Macro">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7">Macro Off</Capability>
@@ -96,18 +81,9 @@
   <Capability Min="128" Max="143">Flat-Wide Beam At 0</Capability>
   <Capability Min="144" Max="255">Flat-Wide Beam At 90</Capability>
  </Channel>
- <Channel Name="Zoom">
-  <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="255">Zoom</Capability>
- </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Controls">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="255">Control</Capability>
@@ -121,13 +97,6 @@
   <Capability Min="208" Max="255">No Function</Capability>
  </Channel>
  <Mode Name="XP575 Wash">
-  <Physical>
-   <Bulb Type="HTI 575W" Lumens="0" ColourTemperature="5600"/>
-   <Dimensions Weight="28.5" Width="405" Height="550" Depth="395"/>
-   <Lens Name="Fresnel" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Head" PanMax="570" TiltMax="270"/>
-   <Technical PowerConsumption="800" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Shutter</Channel>
   <Channel Number="2">Colour</Channel>
@@ -142,4 +111,11 @@
   <Channel Number="11">Controls</Channel>
   <Channel Number="12">LampSwitch</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="HTI 575W" Lumens="0" ColourTemperature="5600"/>
+   <Dimensions Weight="28.5" Width="405" Height="550" Depth="395"/>
+   <Lens Name="Fresnel" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="570" TiltMax="270"/>
+   <Technical PowerConsumption="800" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

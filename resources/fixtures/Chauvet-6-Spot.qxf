@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -93,13 +93,6 @@
   <Capability Min="221" Max="255" Color="#ffffff">White</Capability>
  </Channel>
  <Mode Name="Standard">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="4.6" Width="902" Height="165" Depth="56"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="55" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pod 1</Channel>
   <Channel Number="1">Pod 2</Channel>
   <Channel Number="2">Pod 3</Channel>
@@ -127,4 +120,11 @@
    <Channel>5</Channel>
   </Head>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4.6" Width="902" Height="165" Depth="56"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="55" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

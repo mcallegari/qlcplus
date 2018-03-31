@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,14 +9,8 @@
  <Manufacturer>Showtec</Manufacturer>
  <Model>Infinity XPLO-15 LED Strobe</Model>
  <Type>Strobe</Type>
- <Channel Name="Strobe">
-  <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="255">Strobe flash frequency, from slow to fast</Capability>
- </Channel>
- <Channel Name="Dimmer intensity">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment, from dark to brightest 0-100%</Capability>
- </Channel>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Dimmer intensity" Preset="IntensityDimmer"/>
  <Channel Name="Strobe duration">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Strobe flash duration, from short to long</Capability>
@@ -39,10 +33,7 @@
   <Capability Min="215" Max="235">Chase 1 - from left to right, from slow to fast</Capability>
   <Capability Min="236" Max="255">Chase 2 - from right to left, from slow to fast</Capability>
  </Channel>
- <Channel Name="16-bit dimmer intensity">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment, from dark to brightest 0-100%</Capability>
- </Channel>
+ <Channel Name="16-bit dimmer intensity" Preset="IntensityDimmerFine"/>
  <Channel Name="Dimming curves">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="4">Default</Capability>
@@ -53,145 +44,69 @@
   <Capability Min="45" Max="49">PL-Curve dimming curve</Capability>
   <Capability Min="50" Max="255">Not functional</Capability>
  </Channel>
- <Channel Name="Zone 1 - Dimmer intensity">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment, from dark to brightest 0-100%</Capability>
- </Channel>
+ <Channel Name="Zone 1 - Dimmer intensity" Preset="IntensityDimmer"/>
  <Channel Name="Zone 1 - Strobe duration">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Strobe flash duration, from short to long</Capability>
  </Channel>
- <Channel Name="Zone 1 - Strobe">
-  <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="255">Strobe flash frequency, from low to high frequency</Capability>
- </Channel>
- <Channel Name="Zone 2 - Dimmer intensity">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment, from dark to brightest 0-100%</Capability>
- </Channel>
+ <Channel Name="Zone 1 - Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Zone 2 - Dimmer intensity" Preset="IntensityDimmer"/>
  <Channel Name="Zone 2 - Strobe duration">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Strobe flash duration, from short to long</Capability>
  </Channel>
- <Channel Name="Zone 2 - Strobe">
-  <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="255">Strobe flash frequency, from low to high frequency</Capability>
- </Channel>
- <Channel Name="Zone 3 - Dimmer intensity">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment, from dark to brightest 0-100%</Capability>
- </Channel>
+ <Channel Name="Zone 2 - Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Zone 3 - Dimmer intensity" Preset="IntensityDimmer"/>
  <Channel Name="Zone 3 - Strobe duration">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Strobe flash duration, from short to long</Capability>
  </Channel>
- <Channel Name="Zone 3 - Strobe">
-  <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="255">Strobe flash frequency, from low to high frequency</Capability>
- </Channel>
- <Channel Name="Zone 4 - Dimmer intensity">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment, from dark to brightest 0-100%</Capability>
- </Channel>
+ <Channel Name="Zone 3 - Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Zone 4 - Dimmer intensity" Preset="IntensityDimmer"/>
  <Channel Name="Zone 4 - Strobe duration">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Strobe flash duration, from short to long</Capability>
  </Channel>
- <Channel Name="Zone 4 - Strobe">
-  <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="255">Strobe flash frequency, from slow to fast</Capability>
- </Channel>
- <Channel Name="Zone 5 - Dimmer intensity">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment, from dark to brightest 0-100%</Capability>
- </Channel>
+ <Channel Name="Zone 4 - Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Zone 5 - Dimmer intensity" Preset="IntensityDimmer"/>
  <Channel Name="Zone 5 - Strobe duration">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Strobe flash duration, from short to long</Capability>
  </Channel>
- <Channel Name="Zone 5 - Strobe">
-  <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="255">Strobe flash frequency, from slow to fast</Capability>
- </Channel>
- <Channel Name="Zone 6 - Dimmer intensity">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment, from dark to brightest 0-100%</Capability>
- </Channel>
+ <Channel Name="Zone 5 - Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Zone 6 - Dimmer intensity" Preset="IntensityDimmer"/>
  <Channel Name="Zone 6 - Strobe duration">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Strobe flash duration, from short to long</Capability>
  </Channel>
- <Channel Name="Zone 6 - Strobe">
-  <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="255">Strobe flash frequency, from slow to fast</Capability>
- </Channel>
- <Channel Name="Zone 7 - Dimmer intensity">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment, from dark to brightest 0-100%</Capability>
- </Channel>
+ <Channel Name="Zone 6 - Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Zone 7 - Dimmer intensity" Preset="IntensityDimmer"/>
  <Channel Name="Zone 7 - Strobe duration">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Strobe flash duration, from short to long</Capability>
  </Channel>
- <Channel Name="Zone 7 - Strobe">
-  <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="255">Strobe flash frequency, from slow to fast</Capability>
- </Channel>
- <Channel Name="Zone 8 - Dimmer intensity">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual adjustment, from dark to brightest 0-100%</Capability>
- </Channel>
+ <Channel Name="Zone 7 - Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Zone 8 - Dimmer intensity" Preset="IntensityDimmer"/>
  <Channel Name="Zone 8 - Strobe duration">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Strobe flash duration, from short to long</Capability>
  </Channel>
- <Channel Name="Zone 8 - Strobe">
-  <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="255">Strobe flash frequency, from slow to fast</Capability>
- </Channel>
+ <Channel Name="Zone 8 - Strobe" Preset="ShutterStrobeSlowFast"/>
  <Mode Name="1 channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="28000" ColourTemperature="6500"/>
-   <Dimensions Weight="5.4" Width="319" Height="130" Depth="255"/>
-   <Lens Name="Other" DegreesMin="115" DegreesMax="115"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="132" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Strobe</Channel>
  </Mode>
  <Mode Name="3 channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="28000" ColourTemperature="6500"/>
-   <Dimensions Weight="5.4" Width="319" Height="130" Depth="255"/>
-   <Lens Name="Other" DegreesMin="115" DegreesMax="115"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="132" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer intensity</Channel>
   <Channel Number="1">Strobe duration</Channel>
   <Channel Number="2">Strobe</Channel>
  </Mode>
  <Mode Name="4 channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="28000" ColourTemperature="6500"/>
-   <Dimensions Weight="5.4" Width="319" Height="130" Depth="255"/>
-   <Lens Name="Other" DegreesMin="115" DegreesMax="115"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="132" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer intensity</Channel>
   <Channel Number="1">Strobe duration</Channel>
   <Channel Number="2">Strobe</Channel>
   <Channel Number="3">Effects</Channel>
  </Mode>
  <Mode Name="6 channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="28000" ColourTemperature="6500"/>
-   <Dimensions Weight="5.4" Width="319" Height="130" Depth="255"/>
-   <Lens Name="Other" DegreesMin="115" DegreesMax="115"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="132" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer intensity</Channel>
   <Channel Number="1">16-bit dimmer intensity</Channel>
   <Channel Number="2">Effects</Channel>
@@ -200,13 +115,6 @@
   <Channel Number="5">Strobe</Channel>
  </Mode>
  <Mode Name="28 channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="28000" ColourTemperature="6500"/>
-   <Dimensions Weight="5.4" Width="319" Height="130" Depth="255"/>
-   <Lens Name="Other" DegreesMin="115" DegreesMax="115"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="132" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer intensity</Channel>
   <Channel Number="1">16-bit dimmer intensity</Channel>
   <Channel Number="2">Effects</Channel>
@@ -236,4 +144,11 @@
   <Channel Number="26">Zone 8 - Strobe duration</Channel>
   <Channel Number="27">Zone 8 - Strobe</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="28000" ColourTemperature="6500"/>
+   <Dimensions Weight="5.4" Width="319" Height="130" Depth="255"/>
+   <Lens Name="Other" DegreesMin="115" DegreesMax="115"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="132" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

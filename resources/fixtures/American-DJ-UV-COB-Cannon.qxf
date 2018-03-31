@@ -3,21 +3,14 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>5.0.0 GIT</Version>
+  <Version>4.11.2 GIT</Version>
   <Author>Frédéric Combe</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
  <Model>UV COB Cannon</Model>
  <Type>Color Changer</Type>
- <Channel Name="Dimming">
-  <Group Byte="0">Intensity</Group>
-  <Colour>UV</Colour>
-  <Capability Min="0" Max="255">Dimming (0 - 100%)</Capability>
- </Channel>
- <Channel Name="Strobing">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Strobing (Slow to Fast)</Capability>
- </Channel>
+ <Channel Name="Dimming" Preset="IntensityUV"/>
+ <Channel Name="Strobing" Preset="ShutterStrobeSlowFast"/>
  <Channel Name="Dimmer Curves">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="20">Standard</Capability>
@@ -28,36 +21,22 @@
   <Capability Min="101" Max="255">Delay Mode Control</Capability>
  </Channel>
  <Mode Name="1 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="4.98" Width="320" Height="200" Depth="278"/>
-   <Lens Name="Other" DegreesMin="33" DegreesMax="33"/>
-   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
-   <Technical PowerConsumption="120" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimming</Channel>
  </Mode>
  <Mode Name="2 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="4.98" Width="320" Height="200" Depth="278"/>
-   <Lens Name="Other" DegreesMin="33" DegreesMax="33"/>
-   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
-   <Technical PowerConsumption="120" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimming</Channel>
   <Channel Number="1">Strobing</Channel>
  </Mode>
  <Mode Name="3 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="4.98" Width="320" Height="200" Depth="278"/>
-   <Lens Name="Other" DegreesMin="33" DegreesMax="33"/>
-   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
-   <Technical PowerConsumption="120" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimming</Channel>
   <Channel Number="1">Strobing</Channel>
   <Channel Number="2">Dimmer Curves</Channel>
  </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4.98" Width="320" Height="200" Depth="278"/>
+  <Lens Name="Other" DegreesMin="33" DegreesMax="33"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="120" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

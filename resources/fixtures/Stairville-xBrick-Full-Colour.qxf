@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,82 +9,24 @@
  <Manufacturer>Stairville</Manufacturer>
  <Model>xBrick Full-Colour</Model>
  <Type>Color Changer</Type>
- <Channel Name="Red1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red Level</Capability>
- </Channel>
- <Channel Name="Red2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red Level</Capability>
- </Channel>
- <Channel Name="Red3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red Level</Capability>
- </Channel>
- <Channel Name="Red4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red Level</Capability>
- </Channel>
- <Channel Name="Green1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green Level</Capability>
- </Channel>
- <Channel Name="Green2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green Level</Capability>
- </Channel>
- <Channel Name="Green3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green Level</Capability>
- </Channel>
- <Channel Name="Green4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green Level</Capability>
- </Channel>
- <Channel Name="Blue1">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue Level</Capability>
- </Channel>
- <Channel Name="Blue2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue Level</Capability>
- </Channel>
- <Channel Name="Blue3">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue Level</Capability>
- </Channel>
- <Channel Name="Blue4">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue Level</Capability>
- </Channel>
- <Channel Name="Master Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Master Dimmer</Capability>
- </Channel>
+ <Channel Name="Red1" Preset="IntensityRed"/>
+ <Channel Name="Red2" Preset="IntensityRed"/>
+ <Channel Name="Red3" Preset="IntensityRed"/>
+ <Channel Name="Red4" Preset="IntensityRed"/>
+ <Channel Name="Green1" Preset="IntensityGreen"/>
+ <Channel Name="Green2" Preset="IntensityGreen"/>
+ <Channel Name="Green3" Preset="IntensityGreen"/>
+ <Channel Name="Green4" Preset="IntensityGreen"/>
+ <Channel Name="Blue1" Preset="IntensityBlue"/>
+ <Channel Name="Blue2" Preset="IntensityBlue"/>
+ <Channel Name="Blue3" Preset="IntensityBlue"/>
+ <Channel Name="Blue4" Preset="IntensityBlue"/>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobe Speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Strobe Speed</Capability>
  </Channel>
  <Mode Name="5 channel">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="310" Height="175" Weight="3" Depth="72"/>
-   <Lens DegreesMax="30" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="60" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red1</Channel>
   <Channel Number="1">Green1</Channel>
   <Channel Number="2">Blue1</Channel>
@@ -92,13 +34,6 @@
   <Channel Number="4">Strobe Speed</Channel>
  </Mode>
  <Mode Name="13 channel">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="310" Height="175" Weight="3" Depth="72"/>
-   <Lens DegreesMax="30" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="60" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red1</Channel>
   <Channel Number="1">Green1</Channel>
   <Channel Number="2">Blue1</Channel>
@@ -113,4 +48,11 @@
   <Channel Number="11">Blue4</Channel>
   <Channel Number="12">Master Dimmer</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="310" Height="175" Weight="3" Depth="72"/>
+   <Lens DegreesMax="30" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="60" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

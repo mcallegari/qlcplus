@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -55,15 +55,15 @@
   <Capability Min="5" Max="255">Strobe function from slow to fast</Capability>
  </Channel>
  <Mode Name="Mode1">
-  <Physical>
+  <Channel Number="0">Colour</Channel>
+  <Channel Number="1">Colour 2</Channel>
+  <Channel Number="2">Strobo</Channel>
+ </Mode>
+<Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
    <Dimensions Width="300" Height="300" Weight="3.06" Depth="300"/>
    <Lens DegreesMax="110" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="40" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Colour</Channel>
-  <Channel Number="1">Colour 2</Channel>
-  <Channel Number="2">Strobo</Channel>
- </Mode>
 </FixtureDefinition>

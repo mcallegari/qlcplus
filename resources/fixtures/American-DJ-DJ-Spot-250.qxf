@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,14 +9,8 @@
  <Manufacturer>American DJ</Manufacturer>
  <Model>DJ Spot 250</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan (0 to 540°)</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt (0 to 265°)</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
   <Capability Color="#ffffff" Min="0" Max="24">White</Capability>
@@ -53,18 +47,8 @@
   <Capability Min="136" Max="195">Gobo and Color Strobe - Fast -&gt; slow</Capability>
   <Capability Min="196" Max="255">Gobo Shake - Fast -&gt; slow</Capability>
  </Channel>
- <Channel Name="Pan and tilt speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Pan and tilt speed</Capability>
- </Channel>
+ <Channel Name="Pan and tilt speed" Preset="SpeedPanTiltFastSlow"/>
  <Mode Name="Normal">
-  <Physical>
-   <Bulb Type="LL-EHJ 24v/250w" ColourTemperature="6500" Lumens="2500"/>
-   <Dimensions Width="356" Height="495" Depth="343" Weight="18"/>
-   <Lens DegreesMin="15" DegreesMax="15" Name="Other"/>
-   <Focus Type="Head" TiltMax="265" PanMax="540"/>
-   <Technical PowerConsumption="250" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Color</Channel>
@@ -72,4 +56,11 @@
   <Channel Number="4">Special Functions</Channel>
   <Channel Number="5">Pan and tilt speed</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LL-EHJ 24v/250w" ColourTemperature="6500" Lumens="2500"/>
+   <Dimensions Width="356" Height="495" Depth="343" Weight="18"/>
+   <Lens DegreesMin="15" DegreesMax="15" Name="Other"/>
+   <Focus Type="Head" TiltMax="265" PanMax="540"/>
+   <Technical PowerConsumption="250" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

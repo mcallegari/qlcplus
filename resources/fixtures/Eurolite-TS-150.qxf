@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,14 +9,8 @@
  <Manufacturer>Eurolite</Manufacturer>
  <Model>TS-150</Model>
  <Type>Scanner</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="17">White</Capability>
@@ -61,17 +55,17 @@
   <Capability Min="251" Max="255">Shutter open</Capability>
  </Channel>
  <Mode Name="Normal">
-  <Physical>
-   <Bulb Lumens="18000" Type="HTI 150W" ColourTemperature="4500"/>
-   <Dimensions Width="285" Height="555" Weight="8" Depth="270"/>
-   <Lens DegreesMax="18" Name="Other" DegreesMin="18"/>
-   <Focus PanMax="180" Type="Mirror" TiltMax="90"/>
-   <Technical PowerConsumption="320" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Colour</Channel>
   <Channel Number="3">Gobo</Channel>
   <Channel Number="4">Shutter, strobe</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="18000" Type="HTI 150W" ColourTemperature="4500"/>
+   <Dimensions Width="285" Height="555" Weight="8" Depth="270"/>
+   <Lens DegreesMax="18" Name="Other" DegreesMin="18"/>
+   <Focus PanMax="180" Type="Mirror" TiltMax="90"/>
+   <Technical PowerConsumption="320" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

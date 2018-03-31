@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,49 +9,19 @@
  <Manufacturer>Vari-Lite</Manufacturer>
  <Model>VL3000 Wash</Model>
  <Type>Moving Head</Type>
- <Channel Name="Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Intensity</Capability>
- </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan Fine</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt Fine</Capability>
- </Channel>
+ <Channel Name="Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Edge">
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="255">Edge</Capability>
  </Channel>
- <Channel Name="CTO Mixer">
-  <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="255" Color="#ffffff">CTO Mixer (open to diffuse)</Capability>
- </Channel>
- <Channel Name="Blue Mixer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue Mixer (open to full saturation)</Capability>
- </Channel>
- <Channel Name="Amber Mixer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Amber</Colour>
-  <Capability Min="0" Max="255">Amber Mixer (open to full saturation)</Capability>
- </Channel>
- <Channel Name="Magenta Mixer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">Magenta Mixer (open to full saturation)</Capability>
- </Channel>
+ <Channel Name="CTO Mixer" Preset="ColorCTOMixer"/>
+ <Channel Name="Blue Mixer" Preset="IntensityBlue"/>
+ <Channel Name="Amber Mixer" Preset="IntensityAmber"/>
+ <Channel Name="Magenta Mixer" Preset="IntensityMagenta"/>
  <Channel Name="Color Wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="14" Color="#ffffff">Open</Capability>
@@ -501,13 +471,6 @@
   <Capability Min="138" Max="142">Recalibration Dimmer/Strobe</Capability>
  </Channel>
  <Mode Name="Standard">
-  <Physical>
-   <Bulb ColourTemperature="6000" Lumens="35000" Type="HMI 1200W"/>
-   <Dimensions Depth="368" Weight="34" Width="457" Height="802"/>
-   <Lens Name="Other" DegreesMin="7.5" DegreesMax="30.5"/>
-   <Focus PanMax="540" TiltMax="270" Type="Head"/>
-   <Technical PowerConsumption="1500" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Intensity</Channel>
   <Channel Number="1">Pan</Channel>
   <Channel Number="2">Pan Fine</Channel>
@@ -525,4 +488,11 @@
   <Channel Number="14">Beam Time</Channel>
   <Channel Number="15">Control</Channel>
  </Mode>
+<Physical>
+   <Bulb ColourTemperature="6000" Lumens="35000" Type="HMI 1200W"/>
+   <Dimensions Depth="368" Weight="34" Width="457" Height="802"/>
+   <Lens Name="Other" DegreesMin="7.5" DegreesMax="30.5"/>
+   <Focus PanMax="540" TiltMax="270" Type="Head"/>
+   <Technical PowerConsumption="1500" DmxConnector="5-pin"/>
+  </Physical>
 </FixtureDefinition>

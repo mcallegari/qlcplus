@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,53 +9,17 @@
  <Manufacturer>Vari-Lite</Manufacturer>
  <Model>VL3000 Spot</Model>
  <Type>Moving Head</Type>
- <Channel Name="Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Intensity</Capability>
- </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan Fine</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt Fine</Capability>
- </Channel>
- <Channel Name="Edge">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Focus</Capability>
- </Channel>
- <Channel Name="Zoom">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Zoom (small to big)</Capability>
- </Channel>
- <Channel Name="CTO Mixer">
-  <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="255" Color="#ffffff">CTO Mixer (open to diffused)</Capability>
- </Channel>
- <Channel Name="Cyan Mixer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">Blue mixer (open to full saturation)</Capability>
- </Channel>
- <Channel Name="Yellow Mixer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">Amber mixer (open to full saturation)</Capability>
- </Channel>
- <Channel Name="Magenta Mixer">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">Magenta mixer (open to full saturation)</Capability>
- </Channel>
+ <Channel Name="Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Edge" Preset="BeamFocusNearFar"/>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="CTO Mixer" Preset="ColorCTOMixer"/>
+ <Channel Name="Cyan Mixer" Preset="IntensityCyan"/>
+ <Channel Name="Yellow Mixer" Preset="IntensityYellow"/>
+ <Channel Name="Magenta Mixer" Preset="IntensityMagenta"/>
  <Channel Name="Color Wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="14" Color="#ffffff">Open</Capability>
@@ -93,14 +57,8 @@
   <Capability Min="217" Max="236">Scroll CCW</Capability>
   <Capability Min="237" Max="255">Scroll CW</Capability>
  </Channel>
- <Channel Name="Gobo 1 Index/Rotation">
-  <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="255">Index</Capability>
- </Channel>
- <Channel Name="Gobo 1 Fine Index/Rotation">
-  <Group Byte="1">Gobo</Group>
-  <Capability Min="0" Max="255">Index Fine</Capability>
- </Channel>
+ <Channel Name="Gobo 1 Index/Rotation" Preset="GoboIndex"/>
+ <Channel Name="Gobo 1 Fine Index/Rotation" Preset="GoboIndexFine"/>
  <Channel Name="Gobo Wheel 2">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="7" Res="Others/open.png">Open</Capability>
@@ -118,14 +76,8 @@
   <Capability Min="217" Max="236">Scroll CCW</Capability>
   <Capability Min="237" Max="255">Scroll CW</Capability>
  </Channel>
- <Channel Name="Gobo 2 Index/Rotation">
-  <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="255">Index</Capability>
- </Channel>
- <Channel Name="Gobo 2 Fine Index/Rotation">
-  <Group Byte="1">Gobo</Group>
-  <Capability Min="0" Max="255">Index Fine</Capability>
- </Channel>
+ <Channel Name="Gobo 2 Index/Rotation" Preset="GoboIndex"/>
+ <Channel Name="Gobo 2 Fine Index/Rotation" Preset="GoboIndexFine"/>
  <Channel Name="Gobo Wheel 3">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="10" Res="Others/open.png">Open</Capability>
@@ -141,18 +93,9 @@
   <Capability Min="217" Max="236">Scroll CCW</Capability>
   <Capability Min="237" Max="255">Scroll CW</Capability>
  </Channel>
- <Channel Name="Gobo 3 Index/Rotation">
-  <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="255">Index</Capability>
- </Channel>
- <Channel Name="Gobo 3 Fine Index/Rotation">
-  <Group Byte="1">Gobo</Group>
-  <Capability Min="0" Max="255">Index Fine</Capability>
- </Channel>
- <Channel Name="Beam Iris">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Iris (small to open)</Capability>
- </Channel>
+ <Channel Name="Gobo 3 Index/Rotation" Preset="GoboIndex"/>
+ <Channel Name="Gobo 3 Fine Index/Rotation" Preset="GoboIndexFine"/>
+ <Channel Name="Beam Iris" Preset="BeamIris"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="2">Open</Capability>
@@ -719,13 +662,6 @@
   <Capability Min="138" Max="142">Recalibration Dimmer/Strobe</Capability>
  </Channel>
  <Mode Name="Standard">
-  <Physical>
-   <Bulb Type="HTI 1200W" Lumens="24000" ColourTemperature="6000"/>
-   <Dimensions Weight="41" Width="457" Height="802" Depth="368"/>
-   <Lens Name="Other" DegreesMin="10" DegreesMax="60"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="1500" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Intensity</Channel>
   <Channel Number="1">Pan</Channel>
   <Channel Number="2">Pan Fine</Channel>
@@ -755,4 +691,11 @@
   <Channel Number="26">Gobo Time</Channel>
   <Channel Number="27">Control</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="HTI 1200W" Lumens="24000" ColourTemperature="6000"/>
+   <Dimensions Weight="41" Width="457" Height="802" Depth="368"/>
+   <Lens Name="Other" DegreesMin="10" DegreesMax="60"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="1500" DmxConnector="5-pin"/>
+  </Physical>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,26 +9,11 @@
  <Manufacturer>Chauvet</Manufacturer>
  <Model>Intimidator Spot 355Z IRC</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan coarse">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan coarse 0–540°</Capability>
- </Channel>
- <Channel Name="Tilt coarse">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt coarse 0–270°</Capability>
- </Channel>
- <Channel Name="Pan fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine</Capability>
- </Channel>
- <Channel Name="Tilt fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine</Capability>
- </Channel>
- <Channel Name="Pan/Tilt Speed (fast to slow)">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Pan Tilt Speed</Capability>
- </Channel>
+ <Channel Name="Pan coarse" Preset="PositionPan"/>
+ <Channel Name="Tilt coarse" Preset="PositionTilt"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt Speed (fast to slow)" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="6" Color="#ffffff">White</Capability>
@@ -89,10 +74,7 @@
   <Capability Min="146" Max="215">Random open and close</Capability>
   <Capability Min="216" Max="255">Shutter Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Control Functions">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="7">No function</Capability>
@@ -139,22 +121,9 @@
   <Capability Min="131" Max="247">Reverse prism rotate, slow to fast</Capability>
   <Capability Min="248" Max="255">Prism effects</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Motorised focus, big to small</Capability>
- </Channel>
- <Channel Name="Zoom">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Zoom, big to small</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamZoomBigSmall"/>
+ <Channel Name="Zoom" Preset="BeamZoomBigSmall"/>
  <Mode Name="15 channel">
-  <Physical>
-   <Bulb Type="White LED 90W" Lumens="3369" ColourTemperature="0"/>
-   <Dimensions Weight="12.4" Width="248" Height="456" Depth="340"/>
-   <Lens Name="Zoom" DegreesMin="10" DegreesMax="18"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="283" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan coarse</Channel>
   <Channel Number="1">Pan fine</Channel>
   <Channel Number="2">Tilt coarse</Channel>
@@ -172,13 +141,6 @@
   <Channel Number="14">Zoom</Channel>
  </Mode>
  <Mode Name="9 channel">
-  <Physical>
-   <Bulb Type="White LED 90W" Lumens="3369" ColourTemperature="0"/>
-   <Dimensions Weight="12.4" Width="248" Height="456" Depth="340"/>
-   <Lens Name="Zoom" DegreesMin="10" DegreesMax="18"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="283" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan coarse</Channel>
   <Channel Number="1">Tilt coarse</Channel>
   <Channel Number="2">Color</Channel>
@@ -189,4 +151,11 @@
   <Channel Number="7">Shutter</Channel>
   <Channel Number="8">Zoom</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="White LED 90W" Lumens="3369" ColourTemperature="0"/>
+   <Dimensions Weight="12.4" Width="248" Height="456" Depth="340"/>
+   <Lens Name="Zoom" DegreesMin="10" DegreesMax="18"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="283" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

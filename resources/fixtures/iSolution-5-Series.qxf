@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,14 +9,8 @@
  <Manufacturer>iSolution</Manufacturer>
  <Model>iMove 5 Series</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Shutter / Shake">
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="7">Blackout</Capability>
@@ -60,24 +54,10 @@
   <Capability Min="118" Max="127" Color="#ff00ff">Pink</Capability>
   <Capability Min="128" Max="255">Rainbow Effect Speed</Capability>
  </Channel>
- <Channel Name="No Function">
-  <Group Byte="0">Nothing</Group>
- </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer (0 to 100%)</Capability>
- </Channel>
- <Channel Name="No Function2">
-  <Group Byte="0">Nothing</Group>
- </Channel>
+ <Channel Name="No Function" Preset="NoFunction"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="No Function2" Preset="NoFunction"/>
  <Mode Name="iMove 5S">
-  <Physical>
-   <Bulb Lumens="0" Type="ELC 24V 250W" ColourTemperature="0"/>
-   <Dimensions Width="290" Height="380" Weight="12" Depth="330"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
-   <Technical PowerConsumption="250" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Shutter / Shake</Channel>
@@ -89,13 +69,6 @@
   </Head>
  </Mode>
  <Mode Name="iMove 5W">
-  <Physical>
-   <Bulb Lumens="0" Type="ELC 24V 250W" ColourTemperature="0"/>
-   <Dimensions Width="290" Height="380" Weight="12" Depth="330"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
-   <Technical PowerConsumption="250" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Shutter / Shake</Channel>
@@ -108,4 +81,11 @@
    <Channel>1</Channel>
   </Head>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="ELC 24V 250W" ColourTemperature="0"/>
+   <Dimensions Width="290" Height="380" Weight="12" Depth="330"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
+   <Technical PowerConsumption="250" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

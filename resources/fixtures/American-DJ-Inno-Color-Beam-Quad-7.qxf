@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -18,42 +18,14 @@
   <Capability Min="188" Max="247">Show 4</Capability>
   <Capability Min="248" Max="255">Random show</Capability>
  </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan (0° to 570°)</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt (0° to 240°)</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine</Capability>
- </Channel>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red intensity (0% to 100%)</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green intensity (0% to 100%)</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue intensity (0% to 100%)</Capability>
- </Channel>
- <Channel Name="White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White intensity (0% to 100%)</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
  <Channel Name="Shutter/Strobing">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="31">Shutter closed</Capability>
@@ -65,10 +37,7 @@
   <Capability Min="192" Max="223">Random strobe (slow to fast)</Capability>
   <Capability Min="224" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Master Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer (0% to 100%)</Capability>
- </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Rainbow">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="9">No function</Capability>
@@ -102,23 +71,9 @@
   <Capability Min="240" Max="255">Sound active program</Capability>
  </Channel>
  <Mode Name="1 channel mode">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="260" Height="304" Weight="6" Depth="168"/>
-   <Lens DegreesMax="10" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="570" Type="Head" TiltMax="240"/>
-   <Technical PowerConsumption="130" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Shows</Channel>
  </Mode>
  <Mode Name="13 Channels mode">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="260" Height="304" Weight="6" Depth="168"/>
-   <Lens DegreesMax="10" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="570" Type="Head" TiltMax="240"/>
-   <Technical PowerConsumption="130" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -133,4 +88,11 @@
   <Channel Number="11">Pan/Tilt speed</Channel>
   <Channel Number="12">Open/Reset/Internal programs</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="260" Height="304" Weight="6" Depth="168"/>
+   <Lens DegreesMax="10" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="570" Type="Head" TiltMax="240"/>
+   <Technical PowerConsumption="130" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

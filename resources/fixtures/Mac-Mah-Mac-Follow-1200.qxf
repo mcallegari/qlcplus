@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -39,16 +39,16 @@
   <Capability Min="255" Max="255">Open</Capability>
  </Channel>
  <Mode Name="Default">
-  <Physical>
+  <Channel Number="0">Colour</Channel>
+  <Channel Number="1">Colour Temperature</Channel>
+  <Channel Number="2">Iris</Channel>
+  <Channel Number="3">Shutter</Channel>
+ </Mode>
+<Physical>
    <Bulb Lumens="0" Type="HMI 1200W" ColourTemperature="5500"/>
    <Dimensions Width="330" Height="500" Weight="40" Depth="1250"/>
    <Lens DegreesMax="12" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="1400" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Colour</Channel>
-  <Channel Number="1">Colour Temperature</Channel>
-  <Channel Number="2">Iris</Channel>
-  <Channel Number="3">Shutter</Channel>
- </Mode>
 </FixtureDefinition>

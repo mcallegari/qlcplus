@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -52,222 +52,56 @@
   <Group Byte="1">Speed</Group>
   <Capability Min="0" Max="255">Speed</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="0">No function</Capability>
   <Capability Min="1" Max="255">Strobo (slow to fast)</Capability>
  </Channel>
- <Channel Name="Global Red Intensity">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red</Capability>
- </Channel>
- <Channel Name="Global Green Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green</Capability>
- </Channel>
- <Channel Name="Global Blue Intensity">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue</Capability>
- </Channel>
- <Channel Name="Global White Intensity">
-  <Group Byte="1">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White</Capability>
- </Channel>
- <Channel Name="Pixel 1 Global Intensity">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">Pixel 1 global intensity</Capability>
- </Channel>
- <Channel Name="Pixel 2 Global Intensity">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">Pixel 2 global intensity</Capability>
- </Channel>
- <Channel Name="Pixel 3 Global Intensity">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">Pixel 3 global intensity</Capability>
- </Channel>
- <Channel Name="Pixel 4 Global Intensity">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">Pixel 4 global intensity</Capability>
- </Channel>
- <Channel Name="Pixel 5 Global Intensity">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">Pixel 5 global intensity</Capability>
- </Channel>
- <Channel Name="Pixel 6 Global Intensity">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">Pixel 6 global intensity</Capability>
- </Channel>
- <Channel Name="Pixel 7 Global Intensity">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">Pixel 7 global intensity</Capability>
- </Channel>
- <Channel Name="Pixel 1 Red Intensity">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Pixel 1 Red</Capability>
- </Channel>
- <Channel Name="Pixel 1 Green Intensity">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Pixel 1 Green</Capability>
- </Channel>
- <Channel Name="Pixel 1 Blue Intensity">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Pixel 1 Blue</Capability>
- </Channel>
- <Channel Name="Pixel 1 White Intensity">
-  <Group Byte="1">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">Pixel 1 White</Capability>
- </Channel>
- <Channel Name="Pixel 2 Red Intensity">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Pixel 2 Red</Capability>
- </Channel>
- <Channel Name="Pixel 2 Green Intensity">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Pixel 2 Green</Capability>
- </Channel>
- <Channel Name="Pixel 2 Blue Intensity">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Pixel 2 Blue</Capability>
- </Channel>
- <Channel Name="Pixel 2 White Intensity">
-  <Group Byte="1">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">Pixel 2 White</Capability>
- </Channel>
- <Channel Name="Pixel 3 Red Intensity">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Pixel 3 Red</Capability>
- </Channel>
- <Channel Name="Pixel 3 Green Intensity">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Pixel 3 Green</Capability>
- </Channel>
- <Channel Name="Pixel 3 Blue Intensity">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Pixel 3 Blue</Capability>
- </Channel>
- <Channel Name="Pixel 3 White Intensity">
-  <Group Byte="1">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">Pixel 3 White</Capability>
- </Channel>
- <Channel Name="Pixel 4 Red Intensity">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Pixel 4 Red</Capability>
- </Channel>
- <Channel Name="Pixel 4 Green Intensity">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Pixel 4 Green</Capability>
- </Channel>
- <Channel Name="Pixel 4 Blue Intensity">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Pixel 4 Blue</Capability>
- </Channel>
- <Channel Name="Pixel 4 White Intensity">
-  <Group Byte="1">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">Pixel 4 White</Capability>
- </Channel>
- <Channel Name="Pixel 5 Red Intensity">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Pixel 5 Red</Capability>
- </Channel>
- <Channel Name="Pixel 5 Green Intensity">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Pixel 5 Green</Capability>
- </Channel>
- <Channel Name="Pixel 5 Blue Intensity">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Pixel 5 Blue</Capability>
- </Channel>
- <Channel Name="Pixel 5 White Intensity">
-  <Group Byte="1">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">Pixel 5 White</Capability>
- </Channel>
- <Channel Name="Pixel 6 Red Intensity">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Pixel 6 Red</Capability>
- </Channel>
- <Channel Name="Pixel 6 Green Intensity">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Pixel 6 Green</Capability>
- </Channel>
- <Channel Name="Pixel 6 Blue Intensity">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Pixel 6 Blue</Capability>
- </Channel>
- <Channel Name="Pixel 6 White Intensity">
-  <Group Byte="1">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">Pixel 6 White</Capability>
- </Channel>
- <Channel Name="Pixel 7 Red Intensity">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Pixel 7 Red</Capability>
- </Channel>
- <Channel Name="Pixel 7 Green Intensity">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Pixel 7 Green</Capability>
- </Channel>
- <Channel Name="Pixel 7 Blue Intensity">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Pixel 7 Blue</Capability>
- </Channel>
- <Channel Name="Pixel 7 White Intensity">
-  <Group Byte="1">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">Pixel 7 White</Capability>
- </Channel>
+ <Channel Name="Global Red Intensity" Preset="IntensityRedFine"/>
+ <Channel Name="Global Green Intensity" Preset="IntensityGreen"/>
+ <Channel Name="Global Blue Intensity" Preset="IntensityBlueFine"/>
+ <Channel Name="Global White Intensity" Preset="IntensityWhiteFine"/>
+ <Channel Name="Pixel 1 Global Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Pixel 2 Global Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Pixel 3 Global Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Pixel 4 Global Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Pixel 5 Global Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Pixel 6 Global Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Pixel 7 Global Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Pixel 1 Red Intensity" Preset="IntensityRedFine"/>
+ <Channel Name="Pixel 1 Green Intensity" Preset="IntensityGreenFine"/>
+ <Channel Name="Pixel 1 Blue Intensity" Preset="IntensityBlueFine"/>
+ <Channel Name="Pixel 1 White Intensity" Preset="IntensityWhiteFine"/>
+ <Channel Name="Pixel 2 Red Intensity" Preset="IntensityRedFine"/>
+ <Channel Name="Pixel 2 Green Intensity" Preset="IntensityGreenFine"/>
+ <Channel Name="Pixel 2 Blue Intensity" Preset="IntensityBlueFine"/>
+ <Channel Name="Pixel 2 White Intensity" Preset="IntensityWhiteFine"/>
+ <Channel Name="Pixel 3 Red Intensity" Preset="IntensityRedFine"/>
+ <Channel Name="Pixel 3 Green Intensity" Preset="IntensityGreenFine"/>
+ <Channel Name="Pixel 3 Blue Intensity" Preset="IntensityBlueFine"/>
+ <Channel Name="Pixel 3 White Intensity" Preset="IntensityWhiteFine"/>
+ <Channel Name="Pixel 4 Red Intensity" Preset="IntensityRedFine"/>
+ <Channel Name="Pixel 4 Green Intensity" Preset="IntensityGreenFine"/>
+ <Channel Name="Pixel 4 Blue Intensity" Preset="IntensityBlueFine"/>
+ <Channel Name="Pixel 4 White Intensity" Preset="IntensityWhiteFine"/>
+ <Channel Name="Pixel 5 Red Intensity" Preset="IntensityRedFine"/>
+ <Channel Name="Pixel 5 Green Intensity" Preset="IntensityGreenFine"/>
+ <Channel Name="Pixel 5 Blue Intensity" Preset="IntensityBlueFine"/>
+ <Channel Name="Pixel 5 White Intensity" Preset="IntensityWhiteFine"/>
+ <Channel Name="Pixel 6 Red Intensity" Preset="IntensityRedFine"/>
+ <Channel Name="Pixel 6 Green Intensity" Preset="IntensityGreenFine"/>
+ <Channel Name="Pixel 6 Blue Intensity" Preset="IntensityBlueFine"/>
+ <Channel Name="Pixel 6 White Intensity" Preset="IntensityWhiteFine"/>
+ <Channel Name="Pixel 7 Red Intensity" Preset="IntensityRedFine"/>
+ <Channel Name="Pixel 7 Green Intensity" Preset="IntensityGreenFine"/>
+ <Channel Name="Pixel 7 Blue Intensity" Preset="IntensityBlueFine"/>
+ <Channel Name="Pixel 7 White Intensity" Preset="IntensityWhiteFine"/>
  <Mode Name="2-Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="1.9" Width="1090" Height="67" Depth="67"/>
-   <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="23" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Modes 2 Channel</Channel>
   <Channel Number="1">Speed</Channel>
  </Mode>
  <Mode Name="7-Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="1.9" Width="1090" Height="67" Depth="67"/>
-   <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="23" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Modes 7 Channel</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Strobe</Channel>
@@ -277,13 +111,6 @@
   <Channel Number="6">Global White Intensity</Channel>
  </Mode>
  <Mode Name="10-Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="1.9" Width="1090" Height="67" Depth="67"/>
-   <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="23" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Modes 10 Chanel</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Strobe</Channel>
@@ -296,13 +123,6 @@
   <Channel Number="9">Pixel 7 Global Intensity</Channel>
  </Mode>
  <Mode Name="31-Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="1.9" Width="1090" Height="67" Depth="67"/>
-   <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="23" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Modes 31 Channel</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Strobe</Channel>
@@ -377,4 +197,11 @@
    <Channel>30</Channel>
   </Head>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.9" Width="1090" Height="67" Depth="67"/>
+   <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="23" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

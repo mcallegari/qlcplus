@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,14 +9,8 @@
  <Manufacturer>Stairville</Manufacturer>
  <Model>JunoScan MKII</Model>
  <Type>Scanner</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan (0° to 180°)</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt (0° to 60°)</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Color-Wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="5" Color="#ffffff">White</Capability>
@@ -74,10 +68,7 @@
   <Capability Min="128" Max="191">Rainbow-Effect with positive direction of rotation, speed increasing</Capability>
   <Capability Min="192" Max="255">Rainbow-Effect with negative direction of rotation, speed increasing</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Electronic dimmer 0% ... 100%</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Settings">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="7">Not used</Capability>
@@ -117,13 +108,6 @@
   <Capability Min="248" Max="255">Soundcontrol 08</Capability>
  </Channel>
  <Mode Name="5 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Height="396" Width="140" Depth="106" Weight="4.3"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus Type="Mirror" TiltMax="90" PanMax="180"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="22"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Color-Wheel</Channel>
@@ -131,13 +115,6 @@
   <Channel Number="4">Gobo-Wheel</Channel>
  </Mode>
  <Mode Name="8 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Height="396" Width="140" Depth="106" Weight="4.3"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus Type="Mirror" TiltMax="90" PanMax="180"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="22"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Color-Wheel</Channel>
@@ -147,4 +124,11 @@
   <Channel Number="6">Settings</Channel>
   <Channel Number="7">Included Shows</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Height="396" Width="140" Depth="106" Weight="4.3"/>
+   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
+   <Focus Type="Mirror" TiltMax="90" PanMax="180"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="22"/>
+  </Physical>
 </FixtureDefinition>

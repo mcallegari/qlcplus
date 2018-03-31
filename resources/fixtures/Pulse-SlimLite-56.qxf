@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,20 +9,9 @@
  <Manufacturer>Pulse</Manufacturer>
  <Model>SlimLite 56</Model>
  <Type>Color Changer</Type>
- <Channel Name="Green Dimming">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Intensity</Capability>
- </Channel>
- <Channel Name="Blue Dimming">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Intensity</Capability>
- </Channel>
- <Channel Name="Master Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Intensity</Capability>
- </Channel>
+ <Channel Name="Green Dimming" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimming" Preset="IntensityBlue"/>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="9">No function</Capability>
@@ -150,38 +139,17 @@
   <Capability Min="251" Max="255">Ch1-ch4 delayed</Capability>
  </Channel>
  <Mode Name="1 = 3-Ch">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="1.81" Width="205" Height="205" Depth="69"/>
-   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="20" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red Dimming/Static Colour/Speed Adjust/Sound Sensitivity</Channel>
   <Channel Number="1">Green Dimming</Channel>
   <Channel Number="2">Blue Dimming</Channel>
  </Mode>
  <Mode Name="2 = 4-Ch">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="1.81" Width="205" Height="205" Depth="69"/>
-   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="20" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Red Dimming/Static Colour/Speed Adjust/Sound Sensitivity</Channel>
   <Channel Number="2">Green Dimming</Channel>
   <Channel Number="3">Blue Dimming</Channel>
  </Mode>
  <Mode Name="3 = 8-Ch">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="1.81" Width="205" Height="205" Depth="69"/>
-   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="20" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Red Dimming/Static Colour/Speed Adjust/Sound Sensitivity</Channel>
   <Channel Number="2">Green Dimming</Channel>
@@ -191,4 +159,11 @@
   <Channel Number="6">ID Address</Channel>
   <Channel Number="7">Fader Response</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.81" Width="205" Height="205" Depth="69"/>
+   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="20" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

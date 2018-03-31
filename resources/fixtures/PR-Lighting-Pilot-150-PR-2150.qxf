@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -51,30 +51,11 @@
   <Capability Min="136" Max="247">Strobe adjust from slow to fast (1-7 flashes/sec)</Capability>
   <Capability Min="248" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan movement from 0° to 370°</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt movement from 0° to 265°</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">16 Bit pan movement (High Res)</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">16 Bit tilt movement (High res)</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Mode Name="Default">
-  <Physical>
-   <Bulb Type="HTI 150W" Lumens="10000" ColourTemperature="6500"/>
-   <Dimensions Weight="12" Width="340" Height="470" Depth="380"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="370" TiltMax="265"/>
-   <Technical PowerConsumption="280" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Gobo Wheel</Channel>
   <Channel Number="1">Gobo Rotation</Channel>
   <Channel Number="2">Colour Wheel</Channel>
@@ -84,4 +65,11 @@
   <Channel Number="6">Pan Fine</Channel>
   <Channel Number="7">Tilt Fine</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="HTI 150W" Lumens="10000" ColourTemperature="6500"/>
+   <Dimensions Weight="12" Width="340" Height="470" Depth="380"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="370" TiltMax="265"/>
+   <Technical PowerConsumption="280" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

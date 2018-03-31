@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,10 +9,7 @@
  <Manufacturer>NJD</Manufacturer>
  <Model>Spectre</Model>
  <Type>Color Changer</Type>
- <Channel Name="Brightness">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Brightness (0 to 100%)</Capability>
- </Channel>
+ <Channel Name="Brightness" Preset="IntensityDimmer"/>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
   <Capability Color="#ff0000" Min="0" Max="42">Red</Capability>
@@ -58,25 +55,11 @@
   <Capability Color="#ff0000" Min="255" Max="255">Red</Capability>
  </Channel>
  <Mode Name="DMX 3-channel">
-  <Physical>
-   <Bulb Type="A1/244" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Height="250" Width="250" Depth="245" Weight="5.2"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="1500"/>
-  </Physical>
   <Channel Number="0">Brightness</Channel>
   <Channel Number="1">Colour</Channel>
   <Channel Number="2">Saturation</Channel>
  </Mode>
  <Mode Name="MX90">
-  <Physical>
-   <Bulb Type="A1/244" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Height="250" Width="250" Depth="245" Weight="5.2"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="1500"/>
-  </Physical>
   <Channel Number="0">X-position (pan) or dish rotation</Channel>
   <Channel Number="1">Y-position (tilt)</Channel>
   <Channel Number="2">Colour + Colour Scrolling</Channel>
@@ -85,4 +68,11 @@
   <Channel Number="5">Strobe/Blackout</Channel>
   <Channel Number="6">Brightness</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="A1/244" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Height="250" Width="250" Depth="245" Weight="5.2"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical DmxConnector="5-pin" PowerConsumption="1500"/>
+  </Physical>
 </FixtureDefinition>

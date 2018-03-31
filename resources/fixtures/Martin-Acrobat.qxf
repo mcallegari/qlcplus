@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -83,23 +83,9 @@
   <Capability Min="211" Max="255">Manual trigger area, crossover at 240 (94%)</Capability>
  </Channel>
  <Mode Name="1-Channel">
-  <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type="ELC 250W"/>
-   <Dimensions Width="490" Height="190" Depth="165" Weight="8"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name=""/>
-   <Focus PanMax="0" TiltMax="0" Type="Mirror"/>
-   <Technical PowerConsumption="275" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Stand-alone</Channel>
  </Mode>
  <Mode Name="6-Channel">
-  <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type="ELC 250W"/>
-   <Dimensions Width="490" Height="190" Depth="165" Weight="8"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name=""/>
-   <Focus PanMax="0" TiltMax="0" Type="Mirror"/>
-   <Technical PowerConsumption="275" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer, Strobe, Reset</Channel>
   <Channel Number="1">Parabolic Reflector</Channel>
   <Channel Number="2">Color / Gobo Wheel</Channel>
@@ -108,13 +94,6 @@
   <Channel Number="5">Mirror Swivel Speed</Channel>
  </Mode>
  <Mode Name="7-Channel">
-  <Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type="ELC 250W"/>
-   <Dimensions Width="490" Height="190" Depth="165" Weight="8"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name=""/>
-   <Focus PanMax="0" TiltMax="0" Type="Mirror"/>
-   <Technical PowerConsumption="275" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer, Strobe, Reset</Channel>
   <Channel Number="1">Parabolic Reflector</Channel>
   <Channel Number="2">Color / Gobo Wheel</Channel>
@@ -123,4 +102,11 @@
   <Channel Number="5">Mirror Swivel Speed</Channel>
   <Channel Number="6">Color / Gobo Speed</Channel>
  </Mode>
+<Physical>
+   <Bulb ColourTemperature="0" Lumens="0" Type="ELC 250W"/>
+   <Dimensions Width="490" Height="190" Depth="165" Weight="8"/>
+   <Lens DegreesMin="0" DegreesMax="0" Name=""/>
+   <Focus PanMax="0" TiltMax="0" Type="Mirror"/>
+   <Technical PowerConsumption="275" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

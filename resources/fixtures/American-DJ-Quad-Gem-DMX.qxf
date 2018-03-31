@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -30,10 +30,7 @@
   <Capability Min="0" Max="9">Blackout (Pattern only)</Capability>
   <Capability Min="10" Max="255">Speed</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Intensity</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Pattern">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="9">Blackout</Capability>
@@ -479,26 +476,12 @@
   <Capability Min="250" Max="255">Pattern/Chase 25</Capability>
  </Channel>
  <Mode Name="Standard">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="5" Width="304" Height="165" Depth="491"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Mode</Channel>
   <Channel Number="1">Pattern/Chase</Channel>
   <Channel Number="2">Speed</Channel>
   <Channel Number="3">Dimmer</Channel>
  </Mode>
  <Mode Name="Extended">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="5" Width="304" Height="165" Depth="491"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Mode</Channel>
   <Channel Number="1">Pattern/Chase Lens 1</Channel>
   <Channel Number="2">Pattern/Chase Lens 2</Channel>
@@ -508,39 +491,18 @@
   <Channel Number="6">Dimmer</Channel>
  </Mode>
  <Mode Name="Standard Pattern">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="5" Width="304" Height="165" Depth="491"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Mode</Channel>
   <Channel Number="1">Pattern</Channel>
   <Channel Number="2">Pattern Strobe</Channel>
   <Channel Number="3">Dimmer</Channel>
  </Mode>
  <Mode Name="Standard Chase">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="5" Width="304" Height="165" Depth="491"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Mode</Channel>
   <Channel Number="1">Chase</Channel>
   <Channel Number="2">Chase Speed</Channel>
   <Channel Number="3">Dimmer</Channel>
  </Mode>
  <Mode Name="Extended Pattern">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="5" Width="304" Height="165" Depth="491"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Mode Pattern</Channel>
   <Channel Number="1">Pattern Lens 1</Channel>
   <Channel Number="2">Pattern Lens 2</Channel>
@@ -550,13 +512,6 @@
   <Channel Number="6">Dimmer</Channel>
  </Mode>
  <Mode Name="Extended Chase">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="5" Width="304" Height="165" Depth="491"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Mode Chase</Channel>
   <Channel Number="1">Chase Lens 1</Channel>
   <Channel Number="2">Chase Lens 2</Channel>
@@ -565,4 +520,11 @@
   <Channel Number="5">Chase Speed</Channel>
   <Channel Number="6">Dimmer</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="5" Width="304" Height="165" Depth="491"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+  </Physical>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>SGM</Manufacturer>
  <Model>Giotto Wash 400</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Pan fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Tilt fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Color="#ffffff" Max="20">White</Capability>
@@ -52,25 +40,10 @@
   <Capability Min="245" Max="250">Rainbow speed 15</Capability>
   <Capability Min="251" Max="255">Rainbow speed 16</Capability>
  </Channel>
- <Channel Name="Cyan">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">White - cyan</Capability>
- </Channel>
- <Channel Name="Magenta">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">White - magenta</Capability>
- </Channel>
- <Channel Name="Yellow">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">White - yellow</Capability>
- </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dark - full white/open</Capability>
- </Channel>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="17">Closed</Capability>
@@ -142,13 +115,6 @@
   <Capability Min="0" Max="255">0° - 180° position</Capability>
  </Channel>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb Type="MSD 400" ColourTemperature="6000" Lumens="32000"/>
-   <Dimensions Weight="24.8" Depth="412" Height="681" Width="360"/>
-   <Lens Name="Other" DegreesMin="9" DegreesMax="24"/>
-   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="520"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -168,4 +134,11 @@
   <Channel Number="16">Beam shaper</Channel>
   <Channel Number="17">Beam shaper indexing</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="MSD 400" ColourTemperature="6000" Lumens="32000"/>
+   <Dimensions Weight="24.8" Depth="412" Height="681" Width="360"/>
+   <Lens Name="Other" DegreesMin="9" DegreesMax="24"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+   <Technical DmxConnector="5-pin" PowerConsumption="520"/>
+  </Physical>
 </FixtureDefinition>

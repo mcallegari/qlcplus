@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -52,14 +52,14 @@
   <Capability Min="150" Max="255">CCW rotation fast to slow</Capability>
  </Channel>
  <Mode Name="Normal">
-  <Physical>
+  <Channel Number="0">Gobo</Channel>
+  <Channel Number="1">Rotation</Channel>
+ </Mode>
+<Physical>
    <Bulb Lumens="5000" Type="ELC 250W" ColourTemperature="3200"/>
    <Dimensions Width="280" Height="250" Weight="8" Depth="360"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="300" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Gobo</Channel>
-  <Channel Number="1">Rotation</Channel>
- </Mode>
 </FixtureDefinition>

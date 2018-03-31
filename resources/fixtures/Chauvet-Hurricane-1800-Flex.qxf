@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -15,13 +15,13 @@
   <Capability Min="6" Max="255">Fog Output 0% -&gt; 100%</Capability>
  </Channel>
  <Mode Name="DMX Mode">
-  <Physical>
+  <Channel Number="0">Fog Output</Channel>
+ </Mode>
+<Physical>
    <Bulb Lumens="0" Type="" ColourTemperature="0"/>
    <Dimensions Width="347" Height="374" Weight="13" Depth="585"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="1364" DmxConnector="3-pin and 5-pin"/>
   </Physical>
-  <Channel Number="0">Fog Output</Channel>
- </Mode>
 </FixtureDefinition>

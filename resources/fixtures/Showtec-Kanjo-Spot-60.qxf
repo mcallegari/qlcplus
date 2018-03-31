@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,26 +9,11 @@
  <Manufacturer>Showtec</Manufacturer>
  <Model>Kanjo Spot 60</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan (0 - 540°)</Capability>
- </Channel>
- <Channel Name="Pan fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Fine adjustment for Pan</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt (0 - 230°)</Capability>
- </Channel>
- <Channel Name="Tilt fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Fine adjustment for Tilt</Capability>
- </Channel>
- <Channel Name="Pan / Tilt Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Max to min speed</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan / Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Color Wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="15" Color="#ffffff">White</Capability>
@@ -61,10 +46,7 @@
   <Capability Min="224" Max="239" Res="SGM/gobo00008.png">Gobo 6 shake slow - fast</Capability>
   <Capability Min="240" Max="255" Res="GLP/gobo00002.png">Gobo 7 shake slow - fast</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe / Shutter">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="7">Off</Capability>
@@ -79,13 +61,6 @@
   <Capability Min="96" Max="255">Sound-controlled Mode</Capability>
  </Channel>
  <Mode Name="8 Channel">
-  <Physical>
-   <Bulb Type="60W White LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="2.9" Width="167" Height="270" Depth="145"/>
-   <Lens Name="Other" DegreesMin="18" DegreesMax="18"/>
-   <Focus Type="Head" PanMax="540" TiltMax="230"/>
-   <Technical PowerConsumption="85" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan / Tilt Speed</Channel>
@@ -96,13 +71,6 @@
   <Channel Number="7">Functions</Channel>
  </Mode>
  <Mode Name="10 Channel">
-  <Physical>
-   <Bulb Type="60W White LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="2.9" Width="167" Height="270" Depth="145"/>
-   <Lens Name="Other" DegreesMin="18" DegreesMax="18"/>
-   <Focus Type="Head" PanMax="540" TiltMax="230"/>
-   <Technical PowerConsumption="85" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -114,4 +82,11 @@
   <Channel Number="8">Strobe / Shutter</Channel>
   <Channel Number="9">Functions</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="60W White LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.9" Width="167" Height="270" Depth="145"/>
+   <Lens Name="Other" DegreesMin="18" DegreesMax="18"/>
+   <Focus Type="Head" PanMax="540" TiltMax="230"/>
+   <Technical PowerConsumption="85" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

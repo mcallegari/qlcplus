@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -16,25 +16,10 @@
   <Capability Min="128" Max="191">Mid 1</Capability>
   <Capability Min="192" Max="255">Fast</Capability>
  </Channel>
- <Channel Name="Cyan">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255" Color="#1a6aff">0= White; 255=Cyan</Capability>
- </Channel>
- <Channel Name="Yellow">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255" Color="#ffec19">0= White; 255=Yellow</Capability>
- </Channel>
- <Channel Name="Magenta">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255" Color="#ff0d7a">0=White; 255=Magenta</Capability>
- </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">from Dark to Light</Capability>
- </Channel>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Macro Color">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="25">Color Mixing</Capability>
@@ -56,13 +41,6 @@
   <Capability Min="251" Max="255">Lamp Off (Delay)</Capability>
  </Channel>
  <Mode Name="7 Channels">
-  <Physical>
-   <Bulb Lumens="180000" Type="MHN/SA 1800W Philips" ColourTemperature="5600"/>
-   <Dimensions Width="780" Height="720" Weight="56" Depth="560"/>
-   <Lens DegreesMax="52" Name="Other" DegreesMin="50"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="2000" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Motor Speed</Channel>
   <Channel Number="1">Cyan</Channel>
   <Channel Number="2">Yellow</Channel>
@@ -72,13 +50,6 @@
   <Channel Number="6">Reset / Lamp Off</Channel>
  </Mode>
  <Mode Name="6 Channels">
-  <Physical>
-   <Bulb Lumens="180000" Type="MHN/SA 1800W Philips" ColourTemperature="5600"/>
-   <Dimensions Width="780" Height="720" Weight="56" Depth="560"/>
-   <Lens DegreesMax="52" Name="Other" DegreesMin="50"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="2000" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Motor Speed</Channel>
   <Channel Number="1">Cyan</Channel>
   <Channel Number="2">Yellow</Channel>
@@ -86,4 +57,11 @@
   <Channel Number="4">Dimmer</Channel>
   <Channel Number="5">Macro Color</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="180000" Type="MHN/SA 1800W Philips" ColourTemperature="5600"/>
+   <Dimensions Width="780" Height="720" Weight="56" Depth="560"/>
+   <Lens DegreesMax="52" Name="Other" DegreesMin="50"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="2000" DmxConnector="5-pin"/>
+  </Physical>
 </FixtureDefinition>

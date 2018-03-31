@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.8.3</Version>
+  <Version>4.11.2 GIT</Version>
   <Author>Thierry Rodolfo</Author>
  </Creator>
  <Manufacturer>Martin</Manufacturer>
@@ -17,29 +17,11 @@
   <Capability Min="201" Max="210">Open</Capability>
   <Capability Min="211" Max="255">Random strobe, slow → fast</Capability>
  </Channel>
- <Channel Name="Dimmer fade">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Closed → open </Capability>
- </Channel>
- <Channel Name="Dimmer fade, fine">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">Closed → open </Capability>
- </Channel>
- <Channel Name="Cyan">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">White → full cyan</Capability>
- </Channel>
- <Channel Name="Magenta">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">White → full magenta</Capability>
- </Channel>
- <Channel Name="Yellow">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">White → full yellow</Capability>
- </Channel>
+ <Channel Name="Dimmer fade" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer fade, fine" Preset="IntensityDimmerFine"/>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
  <Channel Name="CTO">
   <Group Byte="0">Intensity</Group>
   <Colour>White</Colour>
@@ -49,28 +31,28 @@
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="0">Open</Capability>
   <Capability Min="1" Max="14">Open → Slot 1</Capability>
-  <Capability Min="15" Max="15" Color="#494d9a">Slot 1</Capability>
+  <Capability Min="15" Max="15" Preset="ColorMacro" Res1="#494d9a">Slot 1</Capability>
   <Capability Min="16" Max="29">Slot 1 → Slot 2</Capability>
-  <Capability Min="30" Max="30" Color="#65bd55">Slot 2</Capability>
+  <Capability Min="30" Max="30" Preset="ColorMacro" Res1="#65bd55">Slot 2</Capability>
   <Capability Min="31" Max="44">Slot 2 → Slot 3</Capability>
-  <Capability Min="45" Max="45" Color="#ef9b57">Slot 3</Capability>
+  <Capability Min="45" Max="45" Preset="ColorMacro" Res1="#ef9b57">Slot 3</Capability>
   <Capability Min="46" Max="59">Slot 3 → Slot 4</Capability>
-  <Capability Min="60" Max="60" Color="#f9e4ee">Slot 4</Capability>
+  <Capability Min="60" Max="60" Preset="ColorMacro" Res1="#f9e4ee">Slot 4</Capability>
   <Capability Min="61" Max="74">Slot 4 → Slot 5</Capability>
-  <Capability Min="75" Max="75" Color="#d59ac4">Slot 5</Capability>
+  <Capability Min="75" Max="75" Preset="ColorMacro" Res1="#d59ac4">Slot 5</Capability>
   <Capability Min="76" Max="89">Slot 5 → Slot 6</Capability>
-  <Capability Min="90" Max="90" Color="#9f4d9d">Slot 6</Capability>
+  <Capability Min="90" Max="90" Preset="ColorMacro" Res1="#9f4d9d">Slot 6</Capability>
   <Capability Min="91" Max="104">Slot 6 → Slot 7</Capability>
-  <Capability Min="105" Max="105" Color="#d04f4e">Slot 7</Capability>
+  <Capability Min="105" Max="105" Preset="ColorMacro" Res1="#d04f4e">Slot 7</Capability>
   <Capability Min="106" Max="119">Slot 7 → Open</Capability>
   <Capability Min="120" Max="120">Open</Capability>
-  <Capability Min="121" Max="125" Color="#4f5ba8">Slot 1</Capability>
-  <Capability Min="126" Max="130" Color="#65bd55">Slot 2</Capability>
-  <Capability Min="131" Max="135" Color="#ef9b57">Slot 3</Capability>
-  <Capability Min="136" Max="140" Color="#f9e4ee">Slot 4</Capability>
-  <Capability Min="141" Max="145" Color="#d59ac4">Slot 5</Capability>
-  <Capability Min="146" Max="150" Color="#9f4d9d">Slot 6</Capability>
-  <Capability Min="151" Max="155" Color="#d04f4e">Slot 7</Capability>
+  <Capability Min="121" Max="125" Preset="ColorMacro" Res1="#4f5ba8">Slot 1</Capability>
+  <Capability Min="126" Max="130" Preset="ColorMacro" Res1="#65bd55">Slot 2</Capability>
+  <Capability Min="131" Max="135" Preset="ColorMacro" Res1="#ef9b57">Slot 3</Capability>
+  <Capability Min="136" Max="140" Preset="ColorMacro" Res1="#f9e4ee">Slot 4</Capability>
+  <Capability Min="141" Max="145" Preset="ColorMacro" Res1="#d59ac4">Slot 5</Capability>
+  <Capability Min="146" Max="150" Preset="ColorMacro" Res1="#9f4d9d">Slot 6</Capability>
+  <Capability Min="151" Max="155" Preset="ColorMacro" Res1="#d04f4e">Slot 7</Capability>
   <Capability Min="156" Max="160">Open</Capability>
   <Capability Min="161" Max="200">Continuous Rotation CW, Fast → Slow</Capability>
   <Capability Min="201" Max="203">Stop Rotate</Capability>
@@ -82,21 +64,21 @@
  <Channel Name="Gobo selection, indexing, shake, rotation">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="9">Open</Capability>
-  <Capability Min="10" Max="14" Res="Robe/gobo00022.png">Indexed Gobo 1</Capability>
-  <Capability Min="15" Max="19" Res="SGM/gobo00084.png">Indexed Gobo 2</Capability>
-  <Capability Min="20" Max="24" Res="Others/gobo00058.png">Indexed Gobo 3</Capability>
-  <Capability Min="25" Max="29" Res="Robe/gobo00016.png">Indexed Gobo 4</Capability>
-  <Capability Min="30" Max="34" Res="Robe/gobo00020.png">Indexed Gobo 5</Capability>
-  <Capability Min="35" Max="39" Res="Robe/gobo00022.png">Continuous Gobo 1</Capability>
-  <Capability Min="40" Max="44" Res="SGM/gobo00084.png">Continuous Gobo 2</Capability>
-  <Capability Min="45" Max="49" Res="Others/gobo00058.png">Continuous Gobo 3</Capability>
-  <Capability Min="50" Max="54" Res="Robe/gobo00016.png">Continuous Gobo 4</Capability>
-  <Capability Min="55" Max="59" Res="Robe/gobo00020.png">Continuous Gobo 5</Capability>
-  <Capability Min="60" Max="89" Res="Robe/gobo00022.png">Shake Gobo 1</Capability>
-  <Capability Min="90" Max="119" Res="SGM/gobo00084.png">Shake Gobo 2</Capability>
-  <Capability Min="120" Max="149" Res="Others/gobo00058.png">Shake Gobo 3</Capability>
-  <Capability Min="150" Max="179" Res="Robe/gobo00016.png">Shake Gobo 4</Capability>
-  <Capability Min="180" Max="209" Res="Robe/gobo00020.png">Shake Gobo 5</Capability>
+  <Capability Min="10" Max="14" Preset="GoboMacro" Res1="Robe/gobo00022.png">Indexed Gobo 1</Capability>
+  <Capability Min="15" Max="19" Preset="GoboMacro" Res1="SGM/gobo00084.png">Indexed Gobo 2</Capability>
+  <Capability Min="20" Max="24" Preset="GoboMacro" Res1="Others/gobo00058.png">Indexed Gobo 3</Capability>
+  <Capability Min="25" Max="29" Preset="GoboMacro" Res1="Robe/gobo00016.png">Indexed Gobo 4</Capability>
+  <Capability Min="30" Max="34" Preset="GoboMacro" Res1="Robe/gobo00020.png">Indexed Gobo 5</Capability>
+  <Capability Min="35" Max="39" Preset="GoboMacro" Res1="Robe/gobo00022.png">Continuous Gobo 1</Capability>
+  <Capability Min="40" Max="44" Preset="GoboMacro" Res1="SGM/gobo00084.png">Continuous Gobo 2</Capability>
+  <Capability Min="45" Max="49" Preset="GoboMacro" Res1="Others/gobo00058.png">Continuous Gobo 3</Capability>
+  <Capability Min="50" Max="54" Preset="GoboMacro" Res1="Robe/gobo00016.png">Continuous Gobo 4</Capability>
+  <Capability Min="55" Max="59" Preset="GoboMacro" Res1="Robe/gobo00020.png">Continuous Gobo 5</Capability>
+  <Capability Min="60" Max="89" Preset="GoboMacro" Res1="Robe/gobo00022.png">Shake Gobo 1</Capability>
+  <Capability Min="90" Max="119" Preset="GoboMacro" Res1="SGM/gobo00084.png">Shake Gobo 2</Capability>
+  <Capability Min="120" Max="149" Preset="GoboMacro" Res1="Others/gobo00058.png">Shake Gobo 3</Capability>
+  <Capability Min="150" Max="179" Preset="GoboMacro" Res1="Robe/gobo00016.png">Shake Gobo 4</Capability>
+  <Capability Min="180" Max="209" Preset="GoboMacro" Res1="Robe/gobo00020.png">Shake Gobo 5</Capability>
   <Capability Min="210" Max="232">CW gobo wheel scroll, fast → slow</Capability>
   <Capability Min="233" Max="255">CCW gobo wheel scroll, slow* → fast</Capability>
  </Channel>
@@ -177,7 +159,7 @@
   <Capability Min="0" Max="255">Out-&gt;In</Capability>
  </Channel>
  <Channel Name="Framing blade 4, angle">
-  <Group Byte="0">Nothing</Group>
+  <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="126">Angle –</Capability>
   <Capability Min="127" Max="128">Parallel</Capability>
   <Capability Min="129" Max="255">Angle +</Capability>
@@ -207,41 +189,23 @@
   <Capability Min="254" Max="255">Prism stop, indexed at 45°</Capability>
  </Channel>
  <Channel Name="Iris">
-  <Group Byte="0">Shutter</Group>
+  <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="255">Open → closed</Capability>
  </Channel>
- <Channel Name="Zoom">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Flood → spot </Capability>
- </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomBigSmall"/>
  <Channel Name="Zoom Fine">
   <Group Byte="1">Beam</Group>
   <Capability Min="0" Max="255">Flood → spot </Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Infinity → near</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusFarNear"/>
  <Channel Name="Focus Fine">
   <Group Byte="1">Beam</Group>
   <Capability Min="0" Max="255">Infinity → near</Capability>
  </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Min&lt;Max</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Min&lt;Max</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Min&lt;Max</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Min&lt;Max</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Control/Settings">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="9">No function</Capability>
@@ -296,34 +260,12 @@
   <Capability Min="245" Max="249">Reset all calibration values to factory defaults – 5 sec.</Capability>
   <Capability Min="250" Max="254">No function</Capability>
  </Channel>
- <Channel Name="Reserved for future use">
-  <Group Byte="0">Nothing</Group>
-  <Capability Min="0" Max="255">No Function</Capability>
- </Channel>
- <Channel Name="Reserved for future use 1">
-  <Group Byte="0">Nothing</Group>
-  <Capability Min="0" Max="255">No Function</Capability>
- </Channel>
- <Channel Name="Reserved for future use 2">
-  <Group Byte="0">Nothing</Group>
-  <Capability Min="0" Max="255">No Function</Capability>
- </Channel>
- <Channel Name="Reserved for future use 3">
-  <Group Byte="0">Nothing</Group>
-  <Capability Min="0" Max="255">No Function</Capability>
- </Channel>
- <Channel Name="Reserved for future use 4">
-  <Group Byte="0">Nothing</Group>
-  <Capability Min="0" Max="255">No Function</Capability>
- </Channel>
+ <Channel Name="Reserved for future use" Preset="NoFunction"/>
+ <Channel Name="Reserved for future use 1" Preset="NoFunction"/>
+ <Channel Name="Reserved for future use 2" Preset="NoFunction"/>
+ <Channel Name="Reserved for future use 3" Preset="NoFunction"/>
+ <Channel Name="Reserved for future use 4" Preset="NoFunction"/>
  <Mode Name="Extended">
-  <Physical>
-   <Bulb ColourTemperature="6000" Type="HTI 1000W" Lumens="0"/>
-   <Dimensions Height="749" Width="473" Weight="33" Depth="565"/>
-   <Lens DegreesMin="13.5" DegreesMax="59" Name="Other"/>
-   <Focus PanMax="540" Type="Head" TiltMax="268"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="1200"/>
-  </Physical>
   <Channel Number="0">Strobe/shutter</Channel>
   <Channel Number="1">Dimmer fade</Channel>
   <Channel Number="2">Dimmer fade, fine</Channel>
@@ -350,13 +292,6 @@
   <Channel Number="23">Reserved for future use 4</Channel>
  </Mode>
  <Mode Name="Basic">
-  <Physical>
-   <Bulb ColourTemperature="6000" Type="HTI 1000W" Lumens="0"/>
-   <Dimensions Height="749" Width="473" Weight="33" Depth="565"/>
-   <Lens DegreesMin="13.5" DegreesMax="59" Name="Other"/>
-   <Focus PanMax="540" Type="Head" TiltMax="268"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="1200"/>
-  </Physical>
   <Channel Number="0">Strobe/shutter</Channel>
   <Channel Number="1">Dimmer fade</Channel>
   <Channel Number="2">Cyan</Channel>
@@ -376,4 +311,11 @@
   <Channel Number="16">Tilt Fine</Channel>
   <Channel Number="17">Control/Settings</Channel>
  </Mode>
+ <Physical>
+  <Bulb Type="HTI 1000W" Lumens="0" ColourTemperature="6000"/>
+  <Dimensions Weight="33" Width="473" Height="749" Depth="565"/>
+  <Lens Name="Other" DegreesMin="13.5" DegreesMax="59"/>
+  <Focus Type="Head" PanMax="540" TiltMax="268"/>
+  <Technical PowerConsumption="1200" DmxConnector="5-pin"/>
+ </Physical>
 </FixtureDefinition>

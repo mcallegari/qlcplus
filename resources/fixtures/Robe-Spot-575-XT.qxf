@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>Robe</Manufacturer>
  <Model>Spot 575 XT</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan movement by 530°</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt movement by 280°</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Fine control of pan movement</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Fine control of tilt movement</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Speed of Pan/Tilt Movement">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="0">Max speed (tracking mode)</Capability>
@@ -160,18 +148,8 @@
   <Capability Min="192" Max="223">Random strobe effect from slow to fast</Capability>
   <Capability Min="224" Max="255">No function (open)</Capability>
  </Channel>
- <Channel Name="Dimmer Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer intensity from 0 to 100%</Capability>
- </Channel>
+ <Channel Name="Dimmer Intensity" Preset="IntensityDimmer"/>
  <Mode Name="Mode 1 (16 Channel)">
-  <Physical>
-   <Bulb Type="MSR 575W" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="36" Width="449" Height="583" Depth="467"/>
-   <Lens Name="Other" DegreesMin="15" DegreesMax="22"/>
-   <Focus Type="Head" PanMax="530" TiltMax="280"/>
-   <Technical PowerConsumption="900" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan Fine</Channel>
@@ -190,13 +168,6 @@
   <Channel Number="15">Dimmer Intensity</Channel>
  </Mode>
  <Mode Name="Mode 2 (16 Channel)">
-  <Physical>
-   <Bulb Type="MSR 575W" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="36" Width="449" Height="583" Depth="467"/>
-   <Lens Name="Other" DegreesMin="15" DegreesMax="22"/>
-   <Focus Type="Head" PanMax="530" TiltMax="280"/>
-   <Technical PowerConsumption="900" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -215,13 +186,6 @@
   <Channel Number="15">Dimmer Intensity</Channel>
  </Mode>
  <Mode Name="8-Bit (14 Channel)">
-  <Physical>
-   <Bulb Type="MSR 575W" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="36" Width="449" Height="583" Depth="467"/>
-   <Lens Name="Other" DegreesMin="15" DegreesMax="22"/>
-   <Focus Type="Head" PanMax="530" TiltMax="280"/>
-   <Technical PowerConsumption="900" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Speed of Pan/Tilt Movement</Channel>
@@ -237,4 +201,11 @@
   <Channel Number="12">Shutter, Strobe</Channel>
   <Channel Number="13">Dimmer Intensity</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="MSR 575W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="36" Width="449" Height="583" Depth="467"/>
+   <Lens Name="Other" DegreesMin="15" DegreesMax="22"/>
+   <Focus Type="Head" PanMax="530" TiltMax="280"/>
+   <Technical PowerConsumption="900" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

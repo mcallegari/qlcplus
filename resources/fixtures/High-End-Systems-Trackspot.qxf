@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,14 +9,8 @@
  <Manufacturer>High End Systems</Manufacturer>
  <Model>Trackspot</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan Positioning, 8 bit</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt Positioning, 8 bit</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Color Wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="0">Open</Capability>
@@ -99,22 +93,12 @@
   <Capability Min="230" Max="230">closed</Capability>
   <Capability Min="242" Max="255">open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">closed-open</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="MSpeed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">slowest-fastest</Capability>
  </Channel>
  <Mode Name="High Resolution Mode">
-  <Physical>
-   <Bulb Lumens="0" Type="QT 8500" ColourTemperature="0"/>
-   <Dimensions Width="650" Height="178" Weight="11" Depth="221"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="170" Type="Mirror" TiltMax="110"/>
-   <Technical PowerConsumption="350" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Color Wheel</Channel>
@@ -123,4 +107,11 @@
   <Channel Number="5">Dimmer</Channel>
   <Channel Number="6">MSpeed</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="QT 8500" ColourTemperature="0"/>
+   <Dimensions Width="650" Height="178" Weight="11" Depth="221"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="170" Type="Mirror" TiltMax="110"/>
+   <Technical PowerConsumption="350" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

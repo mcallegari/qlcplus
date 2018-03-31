@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -68,13 +68,6 @@
   <Capability Min="204" Max="255">Random speed and action</Capability>
  </Channel>
  <Mode Name="Normal">
-  <Physical>
-   <Bulb Type="EHJ 250W" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="7" Width="265" Height="303" Depth="340"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="270" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Lamp</Channel>
   <Channel Number="1">Trigger Mode</Channel>
   <Channel Number="2">Parabol speed</Channel>
@@ -83,13 +76,13 @@
   <Channel Number="5">Shake</Channel>
  </Mode>
  <Mode Name="Single">
-  <Physical>
+  <Channel Number="0">Control</Channel>
+ </Mode>
+<Physical>
    <Bulb Type="EHJ 250W" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="7" Width="265" Height="303" Depth="340"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="270" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Control</Channel>
- </Mode>
 </FixtureDefinition>

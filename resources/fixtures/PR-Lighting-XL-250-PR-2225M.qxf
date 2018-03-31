@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -16,10 +16,7 @@
   <Capability Min="21" Max="244">Strobe speed from slow to fast</Capability>
   <Capability Min="245" Max="255">Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimming from dark to light (0-100%)</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Colour Wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="20" Color="#ffffff">White</Capability>
@@ -105,22 +102,10 @@
   <Capability Min="128" Max="136">Stop rotating</Capability>
   <Capability Min="137" Max="255">Reverse rotation from slow to fast</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Linearly focusing</Capability>
- </Channel>
- <Channel Name="Zoom">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">From large to small</Capability>
- </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Rotation 540°</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Rotation 270°</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
+ <Channel Name="Zoom" Preset="BeamZoomBigSmall"/>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Control">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="48">Reserved</Capability>
@@ -132,10 +117,7 @@
   <Capability Min="201" Max="223">Reserved</Capability>
   <Capability Min="224" Max="255">Lamp on</Capability>
  </Channel>
- <Channel Name="Dimmer Fine">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer in 16-bit precision</Capability>
- </Channel>
+ <Channel Name="Dimmer Fine" Preset="IntensityDimmerFine"/>
  <Channel Name="Iris">
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="135">Iris from large to small (0-100%)</Capability>
@@ -156,30 +138,11 @@
   <Group Byte="1">Beam</Group>
   <Capability Min="0" Max="255">Zoom in 16-bit precision</Capability>
  </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Rotation in 16-bit precision</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Rotation in 16-bit precision</Capability>
- </Channel>
- <Channel Name="Pan and Tilt Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Pan &amp; tilt speed from fast to slow</Capability>
- </Channel>
- <Channel Name="Iris Fine">
-  <Group Byte="1">Beam</Group>
-  <Capability Min="0" Max="255">Iris in 16-bit precision</Capability>
- </Channel>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan and Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Iris Fine" Preset="BeamIrisFine"/>
  <Mode Name="Short Mode">
-  <Physical>
-   <Bulb Type="Various" Lumens="6441" ColourTemperature="0"/>
-   <Dimensions Weight="23" Width="363" Height="564" Depth="386"/>
-   <Lens Name="Other" DegreesMin="14" DegreesMax="22"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="410" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Strobe</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Colour Wheel</Channel>
@@ -196,13 +159,6 @@
   <Channel Number="13">Control</Channel>
  </Mode>
  <Mode Name="Standard Mode">
-  <Physical>
-   <Bulb Type="Various" Lumens="6441" ColourTemperature="0"/>
-   <Dimensions Weight="23" Width="363" Height="564" Depth="386"/>
-   <Lens Name="Other" DegreesMin="14" DegreesMax="22"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="410" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Strobe</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Colour Wheel</Channel>
@@ -223,13 +179,6 @@
   <Channel Number="17">Control</Channel>
  </Mode>
  <Mode Name="Extended Mode">
-  <Physical>
-   <Bulb Type="Various" Lumens="6441" ColourTemperature="0"/>
-   <Dimensions Weight="23" Width="363" Height="564" Depth="386"/>
-   <Lens Name="Other" DegreesMin="14" DegreesMax="22"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="410" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Strobe</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Dimmer Fine</Channel>
@@ -253,4 +202,11 @@
   <Channel Number="20">Pan and Tilt Speed</Channel>
   <Channel Number="21">Control</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="Various" Lumens="6441" ColourTemperature="0"/>
+   <Dimensions Weight="23" Width="363" Height="564" Depth="386"/>
+   <Lens Name="Other" DegreesMin="14" DegreesMax="22"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="410" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
 </FixtureDefinition>

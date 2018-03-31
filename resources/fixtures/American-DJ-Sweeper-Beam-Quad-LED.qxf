@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -30,10 +30,7 @@
   <Capability Min="233" Max="247">Show 16</Capability>
   <Capability Min="248" Max="255">Random show</Capability>
  </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt (-30° to 210°)</Capability>
- </Channel>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Tilt movement macro">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="7">No function</Capability>
@@ -75,10 +72,7 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Chase speed (slow to fast)</Capability>
  </Channel>
- <Channel Name="Master dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Master dimmer (0% to 100%)</Capability>
- </Channel>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobing">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="15">No function</Capability>
@@ -91,184 +85,42 @@
   <Capability Min="240" Max="247">Sound active strobing</Capability>
   <Capability Min="248" Max="255">No function</Capability>
  </Channel>
- <Channel Name="Red (Lens 1)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red intensity (0% to 100%)</Capability>
- </Channel>
- <Channel Name="Green (Lens 1)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green intensity (0% to 100%)</Capability>
- </Channel>
- <Channel Name="Blue (Lens 1)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue intensity (0% to 100%)</Capability>
- </Channel>
- <Channel Name="White (Lens 1)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White intensity (0% to 100%)</Capability>
- </Channel>
- <Channel Name="Red (Lens 2)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red intensity (0% to 100%)</Capability>
- </Channel>
- <Channel Name="Green (Lens 2)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green intensity (0% to 100%)</Capability>
- </Channel>
- <Channel Name="Blue (Lens 2)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue intensity (0% to 100%)</Capability>
- </Channel>
- <Channel Name="White (Lens 2)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White intensity (0% to 100%)</Capability>
- </Channel>
- <Channel Name="Red (Lens 3)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red intensity (0% to 100%)</Capability>
- </Channel>
- <Channel Name="Green (Lens 3)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green intensity (0% to 100%)</Capability>
- </Channel>
- <Channel Name="Blue (Lens 3)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue intensity (0% to 100%)</Capability>
- </Channel>
- <Channel Name="White (Lens 3)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White intensity (0% to 100%)</Capability>
- </Channel>
- <Channel Name="Red (Lens 4)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red intensity (0% to 100%)</Capability>
- </Channel>
- <Channel Name="Green (Lens 4)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green intensity (0% to 100%)</Capability>
- </Channel>
- <Channel Name="Blue (Lens 4)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue intensity (0% to 100%)</Capability>
- </Channel>
- <Channel Name="White (Lens 4)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White intensity (0% to 100%)</Capability>
- </Channel>
- <Channel Name="Red (Lens 5)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red intensity (0% to 100%)</Capability>
- </Channel>
- <Channel Name="Green (Lens 5)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green intensity (0% to 100%)</Capability>
- </Channel>
- <Channel Name="Blue (Lens 5)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue intensity (0% to 100%)</Capability>
- </Channel>
- <Channel Name="White (Lens 5)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White intensity (0% to 100%)</Capability>
- </Channel>
- <Channel Name="Red (Lens 6)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red intensity (0% to 100%)</Capability>
- </Channel>
- <Channel Name="Green (Lens 6)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green intensity (0% to 100%)</Capability>
- </Channel>
- <Channel Name="Blue (Lens 6)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue intensity (0% to 100%)</Capability>
- </Channel>
- <Channel Name="White (Lens 6)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White intensity (0% to 100%)</Capability>
- </Channel>
- <Channel Name="Red (Lens 7)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red intensity (0% to 100%)</Capability>
- </Channel>
- <Channel Name="Green (Lens 7)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green intensity (0% to 100%)</Capability>
- </Channel>
- <Channel Name="Blue (Lens 7)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue intensity (0% to 100%)</Capability>
- </Channel>
- <Channel Name="White (Lens 7)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White intensity (0% to 100%)</Capability>
- </Channel>
- <Channel Name="Red (Lens 8)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red intensity (0% to 100%)</Capability>
- </Channel>
- <Channel Name="Green (Lens 8)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green intensity (0% to 100%)</Capability>
- </Channel>
- <Channel Name="Blue (Lens 8)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue intensity (0% to 100%)</Capability>
- </Channel>
- <Channel Name="White (Lens 8)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White intensity (0% to 100%)</Capability>
- </Channel>
+ <Channel Name="Red (Lens 1)" Preset="IntensityRed"/>
+ <Channel Name="Green (Lens 1)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (Lens 1)" Preset="IntensityBlue"/>
+ <Channel Name="White (Lens 1)" Preset="IntensityWhite"/>
+ <Channel Name="Red (Lens 2)" Preset="IntensityRed"/>
+ <Channel Name="Green (Lens 2)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (Lens 2)" Preset="IntensityBlue"/>
+ <Channel Name="White (Lens 2)" Preset="IntensityWhite"/>
+ <Channel Name="Red (Lens 3)" Preset="IntensityRed"/>
+ <Channel Name="Green (Lens 3)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (Lens 3)" Preset="IntensityBlue"/>
+ <Channel Name="White (Lens 3)" Preset="IntensityWhite"/>
+ <Channel Name="Red (Lens 4)" Preset="IntensityRed"/>
+ <Channel Name="Green (Lens 4)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (Lens 4)" Preset="IntensityBlue"/>
+ <Channel Name="White (Lens 4)" Preset="IntensityWhite"/>
+ <Channel Name="Red (Lens 5)" Preset="IntensityRed"/>
+ <Channel Name="Green (Lens 5)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (Lens 5)" Preset="IntensityBlue"/>
+ <Channel Name="White (Lens 5)" Preset="IntensityWhite"/>
+ <Channel Name="Red (Lens 6)" Preset="IntensityRed"/>
+ <Channel Name="Green (Lens 6)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (Lens 6)" Preset="IntensityBlue"/>
+ <Channel Name="White (Lens 6)" Preset="IntensityWhite"/>
+ <Channel Name="Red (Lens 7)" Preset="IntensityRed"/>
+ <Channel Name="Green (Lens 7)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (Lens 7)" Preset="IntensityBlue"/>
+ <Channel Name="White (Lens 7)" Preset="IntensityWhite"/>
+ <Channel Name="Red (Lens 8)" Preset="IntensityRed"/>
+ <Channel Name="Green (Lens 8)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (Lens 8)" Preset="IntensityBlue"/>
+ <Channel Name="White (Lens 8)" Preset="IntensityWhite"/>
  <Mode Name="1 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="6.3" Width="973" Height="132" Depth="73"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="240"/>
-   <Technical PowerConsumption="81" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Show macros</Channel>
  </Mode>
  <Mode Name="6 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="6.3" Width="973" Height="132" Depth="73"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="240"/>
-   <Technical PowerConsumption="81" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Tilt</Channel>
   <Channel Number="1">Tilt movement macro</Channel>
   <Channel Number="2">Tilt movement macro speed</Channel>
@@ -277,13 +129,6 @@
   <Channel Number="5">Master dimmer</Channel>
  </Mode>
  <Mode Name="35 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="6.3" Width="973" Height="132" Depth="73"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="240"/>
-   <Technical PowerConsumption="81" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Tilt</Channel>
   <Channel Number="1">Master dimmer</Channel>
   <Channel Number="2">Strobing</Channel>
@@ -369,13 +214,6 @@
   </Head>
  </Mode>
  <Mode Name="39 Channels mode">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="6.3" Width="973" Height="132" Depth="73"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="240"/>
-   <Technical PowerConsumption="81" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Tilt</Channel>
   <Channel Number="1">Tilt movement macro</Channel>
   <Channel Number="2">Tilt movement macro speed</Channel>
@@ -464,4 +302,11 @@
    <Channel>38</Channel>
   </Head>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="6.3" Width="973" Height="132" Depth="73"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="240"/>
+   <Technical PowerConsumption="81" DmxConnector="5-pin"/>
+  </Physical>
 </FixtureDefinition>

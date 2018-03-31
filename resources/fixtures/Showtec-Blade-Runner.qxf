@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -68,26 +68,19 @@
   <Capability Min="0" Max="255">No function/Flash frequency from slow to fast</Capability>
  </Channel>
  <Mode Name="2 Channels">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="4.32" Width="550" Height="130" Depth="350"/>
-   <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="92" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Built-in Programs - 2-Channel Mode</Channel>
   <Channel Number="1">No Function/Strobe/Audio Sensitivity</Channel>
  </Mode>
  <Mode Name="3 Channels">
-  <Physical>
+  <Channel Number="0">Built-in Programs - 3-Channel Mode</Channel>
+  <Channel Number="1">No Function/LED Running Speed/Audio Sensitivity</Channel>
+  <Channel Number="2">No Function/Strobe</Channel>
+ </Mode>
+<Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="4.32" Width="550" Height="130" Depth="350"/>
    <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="92" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">Built-in Programs - 3-Channel Mode</Channel>
-  <Channel Number="1">No Function/LED Running Speed/Audio Sensitivity</Channel>
-  <Channel Number="2">No Function/Strobe</Channel>
- </Mode>
 </FixtureDefinition>

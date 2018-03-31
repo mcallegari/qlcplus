@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,30 +9,11 @@
  <Manufacturer>Briteq</Manufacturer>
  <Model>Pro Beamer Zoom</Model>
  <Type>Color Changer</Type>
- <Channel Name="Master Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Master dimmer</Capability>
- </Channel>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">red or step time when ch.8 is activated</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">green or fade time when ch.8 is activated</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">blue</Capability>
- </Channel>
- <Channel Name="White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">white</Capability>
- </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
  <Channel Name="Color Macro">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="10">no function</Capability>
@@ -99,100 +80,30 @@
   <Capability Min="130" Max="189">non linear dimmer 3</Capability>
   <Capability Min="190" Max="255">non linear dimmer 4 (slowest)</Capability>
  </Channel>
- <Channel Name="Zoom">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">zoom to wide</Capability>
- </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
  <Channel Name="Zoom Reset">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="200">no function</Capability>
   <Capability Min="201" Max="220">zoom reset</Capability>
   <Capability Min="221" Max="255">no function</Capability>
  </Channel>
- <Channel Name="Master Dimmer Fine">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">Master Dimmer Fine</Capability>
- </Channel>
- <Channel Name="Red Fine">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red Fine</Capability>
- </Channel>
- <Channel Name="Green Fine">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green Fine</Capability>
- </Channel>
- <Channel Name="Blue Fine">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue Fine</Capability>
- </Channel>
- <Channel Name="White Fine">
-  <Group Byte="1">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White Fine</Capability>
- </Channel>
- <Channel Name="Hue">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Hue (0 - 100%)</Capability>
- </Channel>
- <Channel Name="Saturation">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Saturation (0 - 100%)</Capability>
- </Channel>
- <Channel Name="Value">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Value (0 - 100%)</Capability>
- </Channel>
- <Channel Name="Red 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red2 Intensity</Capability>
- </Channel>
- <Channel Name="Red Fine 2">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red Fine 2 Intensity</Capability>
- </Channel>
- <Channel Name="Green 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green 2 Intensity</Capability>
- </Channel>
- <Channel Name="Green Fine 2">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green Fine 2 Intensity</Capability>
- </Channel>
- <Channel Name="Blue 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue 2 Intensity</Capability>
- </Channel>
- <Channel Name="Blue Fine 2">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue Fine 2 Intensity</Capability>
- </Channel>
- <Channel Name="White 2">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White 2 Intensity</Capability>
- </Channel>
- <Channel Name="White Fine 2">
-  <Group Byte="1">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White Fine 2 Intensity</Capability>
- </Channel>
+ <Channel Name="Master Dimmer Fine" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Red Fine" Preset="IntensityRedFine"/>
+ <Channel Name="Green Fine" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue Fine" Preset="IntensityBlueFine"/>
+ <Channel Name="White Fine" Preset="IntensityWhiteFine"/>
+ <Channel Name="Hue" Preset="IntensityHue"/>
+ <Channel Name="Saturation" Preset="IntensitySaturation"/>
+ <Channel Name="Value" Preset="IntensityValue"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Red Fine 2" Preset="IntensityRedFine"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Green Fine 2" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="Blue Fine 2" Preset="IntensityBlueFine"/>
+ <Channel Name="White 2" Preset="IntensityWhite"/>
+ <Channel Name="White Fine 2" Preset="IntensityWhiteFine"/>
  <Mode Name="Tour">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="4.8" Width="290" Height="190" Depth="240"/>
-   <Lens Name="Other" DegreesMin="8" DegreesMax="40"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="85" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
@@ -207,13 +118,6 @@
   <Channel Number="11">Zoom Reset</Channel>
  </Mode>
  <Mode Name="AR2.Z">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="4.8" Width="290" Height="190" Depth="240"/>
-   <Lens Name="Other" DegreesMin="8" DegreesMax="40"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="85" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
@@ -238,13 +142,6 @@
   <Channel Number="5">Strobe</Channel>
  </Mode>
  <Mode Name="TR16">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="4.8" Width="290" Height="190" Depth="240"/>
-   <Lens Name="Other" DegreesMin="8" DegreesMax="40"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="85" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Master Dimmer Fine</Channel>
   <Channel Number="2">Red</Channel>
@@ -264,51 +161,23 @@
   <Channel Number="16">Zoom Reset</Channel>
  </Mode>
  <Mode Name="ARC.1">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="4.8" Width="290" Height="190" Depth="240"/>
-   <Lens Name="Other" DegreesMin="8" DegreesMax="40"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="85" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
  </Mode>
  <Mode Name="AR1.D">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="4.8" Width="290" Height="190" Depth="240"/>
-   <Lens Name="Other" DegreesMin="8" DegreesMax="40"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="85" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
   <Channel Number="3">Blue</Channel>
  </Mode>
  <Mode Name="ARC.2">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="4.8" Width="290" Height="190" Depth="240"/>
-   <Lens Name="Other" DegreesMin="8" DegreesMax="40"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="85" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
   <Channel Number="3">White</Channel>
  </Mode>
  <Mode Name="AR2.D">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="4.8" Width="290" Height="190" Depth="240"/>
-   <Lens Name="Other" DegreesMin="8" DegreesMax="40"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="85" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
@@ -316,25 +185,11 @@
   <Channel Number="4">White</Channel>
  </Mode>
  <Mode Name="HSV">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="4.8" Width="290" Height="190" Depth="240"/>
-   <Lens Name="Other" DegreesMin="8" DegreesMax="40"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="85" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Hue</Channel>
   <Channel Number="1">Saturation</Channel>
   <Channel Number="2">Value</Channel>
  </Mode>
  <Mode Name="Full">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="4.8" Width="290" Height="190" Depth="240"/>
-   <Lens Name="Other" DegreesMin="8" DegreesMax="40"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="85" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Master Dimmer Fine</Channel>
   <Channel Number="2">Red</Channel>
@@ -361,4 +216,11 @@
   <Channel Number="23">Zoom</Channel>
   <Channel Number="24">Zoom Reset</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4.8" Width="290" Height="190" Depth="240"/>
+   <Lens Name="Other" DegreesMin="8" DegreesMax="40"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="85" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
 </FixtureDefinition>

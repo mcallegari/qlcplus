@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,26 +9,11 @@
  <Manufacturer>Showtec</Manufacturer>
  <Model>Phantom 20 LED Beam</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan 0 - 540°</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan Fine</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt 0 - 270°</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt Fine</Capability>
- </Channel>
- <Channel Name="Pan/Tilt Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Pan/Tilt Speed</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Colour wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="15" Color="#ffffff">Open / White</Capability>
@@ -51,10 +36,7 @@
   <Capability Min="146" Max="215">Random strobe effect, from slow to fast (0-10 flashes/sec.)</Capability>
   <Capability Min="216" Max="255">Shutter open</Capability>
  </Channel>
- <Channel Name="Dimmer intensity">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
+ <Channel Name="Dimmer intensity" Preset="IntensityDimmer"/>
  <Channel Name="Static Gobo-wheel + Gobo Shake">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="9">Open</Capability>
@@ -126,18 +108,8 @@
   <Capability Min="233" Max="247">Built-in Program 16</Capability>
   <Capability Min="248" Max="255">Sound-controlled Program</Capability>
  </Channel>
- <Channel Name="Speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">From fast to slow</Capability>
- </Channel>
+ <Channel Name="Speed" Preset="SpeedPanTiltFastSlow"/>
  <Mode Name="12 Channel (Advanced)">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="47" Width="205" Height="273" Depth="214"/>
-   <Lens Name="" DegreesMin="5" DegreesMax="5"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="65" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -152,13 +124,6 @@
   <Channel Number="11">Speed</Channel>
  </Mode>
  <Mode Name="8 Channel (Basic)">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="47" Width="205" Height="273" Depth="214"/>
-   <Lens Name="" DegreesMin="5" DegreesMax="5"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="65" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Colour wheel</Channel>
@@ -169,4 +134,11 @@
   <Channel Number="7">Built-In Programs + Sound-controlled Program</Channel>
   <Channel Number="8">Speed</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="47" Width="205" Height="273" Depth="214"/>
+   <Lens Name="" DegreesMin="5" DegreesMax="5"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="65" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

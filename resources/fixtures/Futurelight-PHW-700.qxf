@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,14 +9,8 @@
  <Manufacturer>Futurelight</Manufacturer>
  <Model>PHW-700</Model>
  <Type>Moving Head</Type>
- <Channel Name="Horizontal Movement (Pan)">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">0° to 630°</Capability>
- </Channel>
- <Channel Name="Vertical Movement (Tilt)">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">0° to 265°</Capability>
- </Channel>
+ <Channel Name="Horizontal Movement (Pan)" Preset="PositionPan"/>
+ <Channel Name="Vertical Movement (Tilt)" Preset="PositionTilt"/>
  <Channel Name="Pan/Tilt Speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="14">Maximum speed</Capability>
@@ -39,21 +33,9 @@
   <Capability Min="191" Max="192">No rotation</Capability>
   <Capability Min="193" Max="255" Res="Others/rainbow.png">Backward rainbow effect with increasing speed</Capability>
  </Channel>
- <Channel Name="Cyan">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Cyan</Colour>
-  <Capability Min="0" Max="255">0=white, 255=cyan</Capability>
- </Channel>
- <Channel Name="Magenta">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Magenta</Colour>
-  <Capability Min="0" Max="255">0=white, 255=magenta</Capability>
- </Channel>
- <Channel Name="Yellow">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Yellow</Colour>
-  <Capability Min="0" Max="255">0=white, 255=yellow</Capability>
- </Channel>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
  <Channel Name="CMY and Dimmer Speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Adjustment max to min</Capability>
@@ -114,10 +96,7 @@
   <Capability Min="192" Max="223">Random strobe effect with increasing speed</Capability>
   <Capability Min="224" Max="255">Shutter permanently open (no dimmer control)</Capability>
  </Channel>
- <Channel Name="Dimmer Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Gradual control from 100% to 0%</Capability>
- </Channel>
+ <Channel Name="Dimmer Intensity" Preset="IntensityDimmer"/>
  <Channel Name="Lamp switch, reset, fan speed">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="15">Normal colour change, search position via shortest distance</Capability>
@@ -137,25 +116,10 @@
   <Capability Min="224" Max="239">Lamp off</Capability>
   <Capability Min="240" Max="255">No function</Capability>
  </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">16 bit resolution</Capability>
- </Channel>
- <Channel Name="Tilt file">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">16 bit resolution</Capability>
- </Channel>
- <Channel Name="Not Occupied">
-  <Group Byte="0">Nothing</Group>
- </Channel>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt file" Preset="PositionTiltFine"/>
+ <Channel Name="Not Occupied" Preset="NoFunction"/>
  <Mode Name="Mode 1">
-  <Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="MSR 700W"/>
-   <Dimensions Depth="530" Weight="37" Width="530" Height="5700"/>
-   <Lens DegreesMax="28" Name="Other" DegreesMin="7"/>
-   <Focus PanMax="630" TiltMax="265" Type="Fixed"/>
-   <Technical PowerConsumption="1300" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Horizontal Movement (Pan)</Channel>
   <Channel Number="1">Vertical Movement (Tilt)</Channel>
   <Channel Number="2">Pan/Tilt Speed</Channel>
@@ -174,4 +138,11 @@
   <Channel Number="15">Pan Fine</Channel>
   <Channel Number="16">Tilt file</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" ColourTemperature="0" Type="MSR 700W"/>
+   <Dimensions Depth="530" Weight="37" Width="530" Height="5700"/>
+   <Lens DegreesMax="28" Name="Other" DegreesMin="7"/>
+   <Focus PanMax="630" TiltMax="265" Type="Fixed"/>
+   <Technical PowerConsumption="1300" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

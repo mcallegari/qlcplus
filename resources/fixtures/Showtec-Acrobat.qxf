@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,33 +9,13 @@
  <Manufacturer>Showtec</Manufacturer>
  <Model>Acrobat</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan #1">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan #1</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Pan #2">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan #2</Capability>
- </Channel>
- <Channel Name="Pan-fine #1">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan-fine #1</Capability>
- </Channel>
- <Channel Name="Tilt-fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt-fine</Capability>
- </Channel>
- <Channel Name="Pan-fine #2">
-  <Group Byte="1">Pan</Group>
- </Channel>
- <Channel Name="Pan / Tilt speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255">Pan / Tilt speed</Capability>
- </Channel>
+ <Channel Name="Pan #1" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan #2" Preset="PositionPan"/>
+ <Channel Name="Pan-fine #1" Preset="PositionPanFine"/>
+ <Channel Name="Tilt-fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan-fine #2" Preset="PositionPanFine"/>
+ <Channel Name="Pan / Tilt speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Colour Wheel">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7" Color="#ffffff">Open / White</Capability>
@@ -64,10 +44,7 @@
   <Capability Min="8" Max="215">Strobe, Slow - Fast ( 0-10 Flash / Sec )</Capability>
   <Capability Min="216" Max="255">Shutter Open</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer ( Black - Brightest )</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
   <Capability Res="Others/open.png" Min="0" Max="7">Open</Capability>
@@ -142,18 +119,8 @@
   <Capability Min="0" Max="7">Open</Capability>
   <Capability Min="8" Max="255">Static Prism effect</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Focus, Close - Far</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Mode Name="16 Channel">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="276" Height="429" Weight="8.24" Depth="294"/>
-   <Lens DegreesMax="14" Name="Other" DegreesMin="14"/>
-   <Focus PanMax="540" Type="Head" TiltMax="540"/>
-   <Technical PowerConsumption="145" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan #1</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan #2</Channel>
@@ -172,13 +139,6 @@
   <Channel Number="15">Focus</Channel>
  </Mode>
  <Mode Name="11 Channel">
-  <Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="276" Height="429" Weight="8.24" Depth="294"/>
-   <Lens DegreesMax="14" Name="Other" DegreesMin="14"/>
-   <Focus PanMax="540" Type="Head" TiltMax="540"/>
-   <Technical PowerConsumption="145" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan #1</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan #2</Channel>
@@ -191,4 +151,11 @@
   <Channel Number="9">Prism</Channel>
   <Channel Number="10">Focus</Channel>
  </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="276" Height="429" Weight="8.24" Depth="294"/>
+   <Lens DegreesMax="14" Name="Other" DegreesMin="14"/>
+   <Focus PanMax="540" Type="Head" TiltMax="540"/>
+   <Technical PowerConsumption="145" DmxConnector="3-pin"/>
+  </Physical>
 </FixtureDefinition>

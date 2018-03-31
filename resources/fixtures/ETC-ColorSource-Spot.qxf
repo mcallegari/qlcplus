@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,41 +9,23 @@
  <Manufacturer>ETC</Manufacturer>
  <Model>ColorSource Spot</Model>
  <Type>Dimmer</Type>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0-100%</Capability>
- </Channel>
- <Channel Name="Strobe">
-  <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="255">Strobe</Capability>
- </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
  <Mode Name="5-Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="6940" ColourTemperature="0"/>
-   <Dimensions Weight="7.7" Width="339" Height="593" Depth="672"/>
-   <Lens Name="Other" DegreesMin="5" DegreesMax="90"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="160" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Intensity</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
   <Channel Number="3">Blue</Channel>
   <Channel Number="4">Strobe</Channel>
  </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="6940" ColourTemperature="0"/>
+   <Dimensions Weight="7.7" Width="339" Height="593" Depth="672"/>
+   <Lens Name="Other" DegreesMin="5" DegreesMax="90"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="160" DmxConnector="5-pin"/>
+  </Physical>
 </FixtureDefinition>
