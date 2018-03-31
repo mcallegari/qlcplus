@@ -782,11 +782,15 @@ void FunctionManager::deleteSelectedFunctions()
         {
             Sequence *seq = qobject_cast<Sequence *>(func);
             quint32 boundSceneID = seq->boundSceneID();
+            m_doc->deleteFunction(fid);
+
             if (m_doc->getUsage(boundSceneID).count() == 0)
                 m_doc->deleteFunction(boundSceneID);
         }
-
-        m_doc->deleteFunction(fid);
+        else
+        {
+            m_doc->deleteFunction(fid);
+        }
 
         QTreeWidgetItem* parent = item->parent();
         delete item;
