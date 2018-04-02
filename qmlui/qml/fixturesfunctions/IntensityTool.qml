@@ -32,7 +32,7 @@ Rectangle
     border.width: 2
 
     property bool dmxValues: true
-    property int currentValue: 0
+    property alias currentValue: spinBox.value
 
     onCurrentValueChanged:
     {
@@ -122,6 +122,7 @@ Rectangle
             stepSize: 1.0
             background: Rectangle { color: "transparent" }
             handle: Rectangle { color: "transparent" }
+            value: currentValue
 
             onPositionChanged: currentValue = valueAt(position)
         }
@@ -140,7 +141,6 @@ Rectangle
             height: UISettings.listItemHeight
             from: 0
             to: dmxValues ? 255 : 100
-            value: currentValue
 
             onValueChanged: currentValue = value
         }
@@ -156,16 +156,11 @@ Rectangle
                 var newVal
                 dmxValues = !dmxValues
                 if (dmxValues == false)
-                {
                     newVal = (slVal / 255) * 100
-                    slider.to = 100
-                }
                 else
-                {
                     newVal = (slVal / 100) * 255
-                    slider.to = 255
-                }
-                slider.value = newVal
+
+                currentValue = newVal
             }
         }
     }
