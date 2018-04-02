@@ -21,7 +21,7 @@ qlcplus (4.11.2) stable; urgency=low
   * New fixture: Ayra Compar Kit 1 (thanks to eigenaardiger)
   * New fixture: GLP Impression X4 S (thanks to Mitsch)
   * New fixture: Chauvet Intimidator Spot 255 IRC (thanks to Ham Sadler)
-  * New fixture: Chauvet Geyser RGB (thanks to Andrew)
+  * New fixtures: Chauvet Geyser RGB, Geyser P6 (thanks to Andrew)
   * New fixture: Chauvet Rotosphere Q3 (thanks to Eric Sherlock)
   * New fixture: Showtec Compact Par 7 Q4 (thanks to Alexander)
   * New fixture: Contest Delirium (thanks to Vincent)
@@ -30,6 +30,11 @@ qlcplus (4.11.2) stable; urgency=low
   * New fixture: Chauvet MiN Spot RGBW (thanks to Jungle Jim)
   * New fixtures: Showtec Shark Wash One, American DJ Vizi Hex Wash7 (thanks to Georg Müller)
   * New fixture: Showtec Shark Beam FX One (thanks to Mats Lourenco)
+  * New fixture: Stairville novaWash Quad LED (thanks to Luke Bonett)
+  * New fixtures: Eurolite Party TCL Spot RGB, Expolite TourSpot 60, Expolite TourStick 72 RGBWA (thanks to Dirk J)
+  * New fixture: Chauvet Hemisphere 5.1, Trident, Scorpion Storm RGX (thanks to Francois Blanchette)
+  * New fixture: Briteq COB Slim 100-RGB (thanks to Thierry)
+  * New fixture: American DJ UB 12H (thanks to Jason R Johnston)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 15 Apr 2018 12:13:14 +0200
 
