@@ -819,10 +819,12 @@ void VCCueList::slotCurrentStepChanged(int stepNumber)
         if (slValue > 255)
             slValue = 255;
 
+        int upperBound = 255 - slValue;
+        int lowerBound = qFloor(upperBound - stepVal);
         //qDebug() << "Slider value:" << m_slider1->value() << "Step range:" << (255 - slValue) << (255 - slValue - stepVal);
         // if the Step slider is already in range, then do not set its value
         // this means a user interaction is going on, either with the mouse or external controller
-        if (m_slider1->value() < (255 - slValue - stepVal) || m_slider1->value() > (255 - slValue))
+        if (m_slider1->value() < lowerBound || m_slider1->value() >= upperBound)
         {
             m_slider1->blockSignals(true);
             m_slider1->setValue(255 - slValue);
@@ -1149,9 +1151,10 @@ void VCCueList::slotSlider1ValueChanged(int value)
         }
         //qDebug() << "value:" << value << "steps:" << ch->stepsCount() << "new step:" << newStep;
 
-        if (newStep == ch->currentStepIndex())
-            return; // nothing to do
-
+        if (newStep == ch->currentStepIndex()) {
+            ch->setStepIndex(newStep);
+            return;
+        }
         ch->setStepIndex(newStep);
     }
     else
