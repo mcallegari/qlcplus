@@ -87,9 +87,10 @@ bool ChaserEditor::addFunctions(QVariantList idsList, int insertIndex)
                 step.duration = 1000;
             step.hold = step.duration;
         }
-        Tardis::instance()->enqueueAction(Tardis::ChaserAddStep, m_chaser->id(), QVariant(),
-                                          Tardis::instance()->actionToByteArray(Tardis::ChaserAddStep, m_chaser->id(), insertIndex));
         m_chaser->addStep(step, insertIndex++);
+
+        Tardis::instance()->enqueueAction(Tardis::ChaserAddStep, m_chaser->id(), QVariant(),
+                                          Tardis::instance()->actionToByteArray(Tardis::ChaserAddStep, m_chaser->id(), insertIndex - 1));
     }
 
     updateStepsList(m_doc, m_chaser, m_stepsList);
