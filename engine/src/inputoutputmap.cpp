@@ -836,11 +836,10 @@ bool InputOutputMap::addProfile(QLCInputProfile* profile)
 
 bool InputOutputMap::removeProfile(const QString& name)
 {
-    QLCInputProfile* profile;
     QMutableListIterator <QLCInputProfile*> it(m_profiles);
     while (it.hasNext() == true)
     {
-        profile = it.next();
+        QLCInputProfile *profile = it.next();
         if (profile->name() == name)
         {
             it.remove();

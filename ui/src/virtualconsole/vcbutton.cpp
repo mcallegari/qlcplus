@@ -300,7 +300,7 @@ void VCButton::setIconPath(const QString& iconPath)
 void VCButton::slotChooseIcon()
 {
     /* No point coming here if there is no VC */
-    VirtualConsole* vc = VirtualConsole::instance();
+    VirtualConsole *vc = VirtualConsole::instance();
     if (vc == NULL)
         return;
 
@@ -314,10 +314,9 @@ void VCButton::slotChooseIcon()
                                         iconPath(), tr("Images (%1)").arg(formats));
     if (path.isEmpty() == false)
     {
-        VCWidget* widget;
-        foreach(widget, vc->selectedWidgets())
+        foreach(VCWidget *widget, vc->selectedWidgets())
         {
-            VCButton* button = qobject_cast<VCButton*> (widget);
+            VCButton *button = qobject_cast<VCButton*> (widget);
             if (button != NULL)
                 button->setIconPath(path);
         }

@@ -63,7 +63,6 @@ void RGBMatrixItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    float xpos = 0;
     float timeScale = 50/(float)m_timeScale;
     quint32 matrixDuration = m_matrix->totalDuration();
 
@@ -71,7 +70,9 @@ void RGBMatrixItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
 
     if (matrixDuration)
     {
+        float xpos = 0;
         int loopCount = qFloor(m_function->duration() / matrixDuration);
+
         for (int i = 0; i < loopCount; i++)
         {
             xpos += ((timeScale * (float)matrixDuration) / 1000);

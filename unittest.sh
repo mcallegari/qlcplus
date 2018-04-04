@@ -73,7 +73,7 @@ done
 if [ "$HAS_XSERVER" -eq "1" ]; then
 
 TESTDIR=ui/test
-TESTS=`find ${TESTDIR} -maxdepth 1 -mindepth 1 -type d`
+TESTS=$(find ${TESTDIR} -maxdepth 1 -mindepth 1 -type d)
 for test in ${TESTS}
 do
     # Ignore .git

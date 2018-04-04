@@ -807,9 +807,9 @@ bool VCSpeedDial::loadXML(QXmlStreamReader &root)
     if (root.attributes().hasAttribute(KXMLQLCVCSpeedDialSpeedTypes))
     {
         SpeedTypes speedTypes = SpeedTypes(root.attributes().value(KXMLQLCVCSpeedDialSpeedTypes).toString().toInt());
-        defaultFadeInMultiplier = speedTypes & FadeIn ? VCSpeedDialFunction::One : VCSpeedDialFunction::None;
-        defaultFadeOutMultiplier = speedTypes & FadeOut ? VCSpeedDialFunction::One : VCSpeedDialFunction::None;
-        defaultDurationMultiplier = speedTypes & Duration ? VCSpeedDialFunction::One : VCSpeedDialFunction::None;
+        defaultFadeInMultiplier = (speedTypes & FadeIn) ? VCSpeedDialFunction::One : VCSpeedDialFunction::None;
+        defaultFadeOutMultiplier = (speedTypes & FadeOut) ? VCSpeedDialFunction::One : VCSpeedDialFunction::None;
+        defaultDurationMultiplier = (speedTypes & Duration) ? VCSpeedDialFunction::One : VCSpeedDialFunction::None;
     }
 
     // Sorted list for new presets

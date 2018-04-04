@@ -141,13 +141,12 @@ void FixtureGroup::assignHead(const QLCPoint& pt, const GroupHead& head)
     }
     else
     {
-        bool assigned = false;
         int y = 0;
         int x = 0;
         int xmax = size().width();
         int ymax = size().height();
 
-        while (assigned == false)
+        while (1)
         {
             for (; y < ymax; y++)
             {
