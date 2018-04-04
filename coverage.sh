@@ -10,7 +10,7 @@
 # Human-readable HTML results are written under coverage/html.
 #
 
-ARCH=`uname`
+ARCH=$(uname)
 
 #############################################################################
 # Test directories to find coverage measurements from
@@ -50,7 +50,7 @@ function gather_data {
 #############################################################################
 
 # Check if lcov is installed
-if [ -z `which lcov` ]; then
+if [ -z $(which lcov) ]; then
     echo "Unable to produce coverage results; can't find lcov."
 fi
 
@@ -66,7 +66,7 @@ mkdir -p coverage/html
 # Preparation
 #############################################################################
 
-for ((i = 0; i < ${tlen}; i++))
+for ((i = 0; i < tlen; i++))
 do
     prepare ${test[i]} $i
 done
