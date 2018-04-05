@@ -120,10 +120,10 @@ bool InputPatch::set(QLCInputProfile *profile)
     m_profile = profile;
 
     if (m_profile != NULL)
-    {
         setProfilePageControls();
-        emit profileNameChanged();
-    }
+
+    emit profileNameChanged();
+
     return true;
 }
 

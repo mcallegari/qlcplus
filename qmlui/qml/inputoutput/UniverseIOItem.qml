@@ -108,6 +108,8 @@ Rectangle
                             Drag.hotSpot.y: height / 2
                             Drag.keys: [ "removePatch" ]
 
+                            onRemoveProfile: ioManager.setInputProfile(universe.id, "")
+
                             DropArea
                             {
                                 id: profDropTarget
