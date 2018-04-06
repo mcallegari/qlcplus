@@ -120,11 +120,11 @@
   <Channel Number="6">Dimmer</Channel>
   <Channel Number="7">CMY Speed</Channel>
  </Mode>
-<Physical>
+ <Physical>
    <Bulb ColourTemperature="0" Lumens="0" Type="MSD 250W"/>
    <Dimensions Depth="369" Width="428" Height="481" Weight="24.2"/>
    <Lens Name="Other" DegreesMin="16" DegreesMax="26"/>
    <Focus TiltMax="270" PanMax="540" Type="Head"/>
    <Technical DmxConnector="3-pin" PowerConsumption="390"/>
-  </Physical>
-  <Physical/></FixtureDefinition>
+ </Physical>
+</FixtureDefinition>

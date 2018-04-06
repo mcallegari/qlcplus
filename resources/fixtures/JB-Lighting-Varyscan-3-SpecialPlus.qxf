@@ -149,11 +149,11 @@
   <Channel Number="6">Gobo rotation</Channel>
   <Channel Number="7">Effect</Channel>
  </Mode>
-<Physical>
+ <Physical>
    <Bulb Lumens="0" Type="MSD 250W" ColourTemperature="0"/>
    <Dimensions Width="244" Height="500" Weight="12" Depth="172"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="170" Type="Mirror" TiltMax="110"/>
    <Technical PowerConsumption="740" DmxConnector="3-pin"/>
-  </Physical>
-  <Physical/></FixtureDefinition>
+ </Physical>
+</FixtureDefinition>
