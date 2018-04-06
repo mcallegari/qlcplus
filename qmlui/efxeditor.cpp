@@ -723,7 +723,6 @@ void EFXEditor::updateAlgorithmData()
     {
         float distance = 1000.0;
         float x = 0, y = 0;
-        int pathIdx = 0;
 
         /** Append the delta to apply on each animation step */
         if (fixture->direction() == Function::Forward)
@@ -741,6 +740,8 @@ void EFXEditor::updateAlgorithmData()
         }
         else
         {
+            int pathIdx = 0;
+
             /** With a start offset, we need to scan the algorithm points
              *  to find the index of the closest one */
             m_efx->calculatePoint(fixture->direction(), fixture->startOffset(), 0, &x, &y);

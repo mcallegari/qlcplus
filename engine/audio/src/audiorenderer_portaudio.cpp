@@ -155,7 +155,6 @@ QList<AudioDeviceInfo> AudioRendererPortAudio::getDevicesInfo()
     QList<AudioDeviceInfo> devList;
 
     int numDevices, err, i;
-    const PaDeviceInfo *deviceInfo;
 
     err = Pa_Initialize();
     if( err != paNoError )
@@ -170,7 +169,7 @@ QList<AudioDeviceInfo> AudioRendererPortAudio::getDevicesInfo()
 
     for (i = 0; i < numDevices; i++)
     {
-        deviceInfo = Pa_GetDeviceInfo( i );
+        const PaDeviceInfo *deviceInfo = Pa_GetDeviceInfo( i );
         if (deviceInfo != NULL)
         {
             AudioDeviceInfo info;

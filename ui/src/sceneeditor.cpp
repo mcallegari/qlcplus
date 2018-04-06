@@ -141,8 +141,7 @@ void SceneEditor::slotFunctionManagerActive(bool active)
 
 void SceneEditor::slotSetSceneValues(QList <SceneValue>&sceneValues)
 {
-    FixtureConsole* fc;
-    Fixture* fixture;
+    Fixture *fixture;
 
     QListIterator <SceneValue> it(sceneValues);
 
@@ -153,7 +152,7 @@ void SceneEditor::slotSetSceneValues(QList <SceneValue>&sceneValues)
         fixture = m_doc->fixture(sv.fxi);
         Q_ASSERT(fixture != NULL);
 
-        fc = fixtureConsole(fixture);
+        FixtureConsole *fc = fixtureConsole(fixture);
         if (fc != NULL)
             fc->setSceneValue(sv);
     }

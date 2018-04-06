@@ -425,7 +425,6 @@ struct hid_device_info  HID_API_EXPORT *hid_enumerate(unsigned short vendor_id, 
         unsigned short dev_pid;
         #define BUF_LEN 256
         wchar_t buf[BUF_LEN];
-        char cbuf[BUF_LEN];
 
         IOHIDDeviceRef dev = device_array[i];
 
@@ -437,9 +436,11 @@ struct hid_device_info  HID_API_EXPORT *hid_enumerate(unsigned short vendor_id, 
 
         /* Check the VID/PID against the arguments */
         if ((vendor_id == 0x0 || vendor_id == dev_vid) &&
-            (product_id == 0x0 || product_id == dev_pid)) {
+            (product_id == 0x0 || product_id == dev_pid))
+        {
             struct hid_device_info *tmp;
             size_t len;
+            char cbuf[BUF_LEN];
 
             /* VID/PID match. Create the record. */
             tmp = (struct hid_device_info *)malloc(sizeof(struct hid_device_info));

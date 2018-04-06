@@ -4,14 +4,14 @@
 # Engine tests
 #############################################################################
 
-CURRUSER=`whoami`
+CURRUSER=$(whoami)
 TESTPREFIX=""
 SLEEPCMD=""
 HAS_XSERVER="0"
 
 if [ "$CURRUSER" == "buildbot" ] || [ "$CURRUSER" == "abuild" ]; then
   if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    if [ `which xvfb-run` == "" ]; then
+    if [ $(which xvfb-run) == "" ]; then
       echo "xvfb-run not found in this system. Please install with: sudo apt-get install xvfb"
       exit
     fi
@@ -26,9 +26,9 @@ if [ "$CURRUSER" == "buildbot" ] || [ "$CURRUSER" == "abuild" ]; then
 else
 
   if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    XPID=`pidof X`
+    XPID=$(pidof X)
     if [ ! ${#XPID} -gt 0 ]; then
-      XPID=`pidof Xorg`
+      XPID=$(pidof Xorg)
     fi
     if [ ${#XPID} -gt 0 ]; then
       HAS_XSERVER="1"
@@ -42,16 +42,16 @@ else
 fi
 
 TESTDIR=engine/test
-TESTS=`find ${TESTDIR} -maxdepth 1 -mindepth 1 -type d`
+TESTS=$(find ${TESTDIR} -maxdepth 1 -mindepth 1 -type d)
 for test in ${TESTS}
 do
     # Ignore .git
-    if [ `echo ${test} | grep ".git"` ]; then
+    if [ $(echo ${test} | grep ".git") ]; then
         continue
     fi
 
     # Isolate just the test name
-    test=`echo ${test} | sed 's/engine\/test\///'`
+    test=$(echo ${test} | sed 's/engine\/test\///')
 
     $SLEEPCMD
     # Execute the test
@@ -73,16 +73,16 @@ done
 if [ "$HAS_XSERVER" -eq "1" ]; then
 
 TESTDIR=ui/test
-TESTS=`find ${TESTDIR} -maxdepth 1 -mindepth 1 -type d`
+TESTS=$(find ${TESTDIR} -maxdepth 1 -mindepth 1 -type d)
 for test in ${TESTS}
 do
     # Ignore .git
-    if [ `echo ${test} | grep ".git"` ]; then
+    if [ $(echo ${test} | grep ".git") ]; then
         continue
     fi
 
     # Isolate just the test name
-    test=`echo ${test} | sed 's/ui\/test\///'`
+    test=$(echo ${test} | sed 's/ui\/test\///')
 
     $SLEEPCMD
     # Execute the test

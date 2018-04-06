@@ -388,6 +388,7 @@ private:
     void updateColorsMap(int type, int delta);
 
     void updateCapabilityCounter(bool update, QString capName, int delta);
+    void setCapabilityCounter(QString capName, int value);
 
 private:
     /** Keep a map of references to the available preset channels and a related Fixture ID */

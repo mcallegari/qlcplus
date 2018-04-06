@@ -205,30 +205,21 @@ QVariant FixtureManager::fixtureInfo(quint32 id)
 
 void FixtureManager::slotDocLoaded()
 {
-    QQuickItem *capItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("capIntensity"));
-    if (capItem)
-        capItem->setProperty("counter", 0);
-
-    capItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("capColor"));
-    if (capItem)
-        capItem->setProperty("counter", 0);
-
-    capItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("capPosition"));
-    if (capItem)
-        capItem->setProperty("counter", 0);
-
-    capItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("capColorWheel"));
-    if (capItem)
-        capItem->setProperty("counter", 0);
-
-    capItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("capGobos"));
-    if (capItem)
-        capItem->setProperty("counter", 0);
+    setCapabilityCounter("capIntensity", 0);
+    setCapabilityCounter("capColor", 0);
+    setCapabilityCounter("capPosition", 0);
+    setCapabilityCounter("capColorWheel", 0);
+    setCapabilityCounter("capGobos", 0);
+    setCapabilityCounter("capShutter", 0);
+    setCapabilityCounter("capBeam", 0);
 
     m_colorCounters.clear();
     m_fixtureList.clear();
     m_fixtureList = m_doc->fixtures();
+
     emit fixturesCountChanged();
+    emit fixturesMapChanged();
+    emit fixtureNamesMapChanged();
 
     setSearchFilter("");
     updateGroupsTree(m_doc, m_fixtureTree, m_searchFilter);
@@ -1131,6 +1122,13 @@ void FixtureManager::updateCapabilityCounter(bool update, QString capName, int d
 
         }
     }
+}
+
+void FixtureManager::setCapabilityCounter(QString capName, int value)
+{
+    QQuickItem *capItem = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>(capName));
+    if (capItem)
+        capItem->setProperty("counter", value);
 }
 
 QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 fxID, bool enable)

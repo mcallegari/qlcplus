@@ -39,20 +39,8 @@ function initProperties()
     console.log("addr: " + address + ", ch: " + channels);
 }
 
-//Creation is split into two functions due to an asynchronous wait while
-//possible external files are loaded.
-
-function loadComponent()
-{
-    if (itemComponent != null) // component has been previously loaded
-    {
-        createItem();
-        return;
-    }
-
-    itemComponent = Qt.createComponent("FixtureDragItem.qml");
-    createItem();
-}
+// Creation is split into two functions due to an asynchronous wait while
+// possible external files are loaded.
 
 function createItem()
 {
@@ -70,6 +58,18 @@ function createItem()
         console.log("error creating component");
         console.log(itemComponent.errorString());
     }
+}
+
+function loadComponent()
+{
+    if (itemComponent != null) // component has been previously loaded
+    {
+        createItem();
+        return;
+    }
+
+    itemComponent = Qt.createComponent("FixtureDragItem.qml");
+    createItem();
 }
 
 function handleDrag(mouse)

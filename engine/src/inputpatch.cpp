@@ -120,10 +120,10 @@ bool InputPatch::set(QLCInputProfile *profile)
     m_profile = profile;
 
     if (m_profile != NULL)
-    {
         setProfilePageControls();
-        emit profileNameChanged();
-    }
+
+    emit profileNameChanged();
+
     return true;
 }
 
@@ -219,7 +219,7 @@ void InputPatch::slotValueChanged(quint32 universe, quint32 input, quint32 chann
     // such values that belong to this particular patch.
     if (input == m_pluginLine)
     {
-        if (universe == UINT_MAX || (universe != UINT_MAX && universe == m_universe))
+        if (universe == UINT_MAX || universe == m_universe)
         {
             QMutexLocker inputBufferLocker(&m_inputBufferMutex);
             InputValue val(value, key);
