@@ -56,11 +56,11 @@
   <Channel Number="2">Blue</Channel>
   <Channel Number="3">Dimmer/Strobe/Colour Changer Show (Mode 4)</Channel>
  </Mode>
-<Physical>
+ <Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
    <Dimensions Height="212" Width="212" Weight="2.5" Depth="80"/>
    <Lens DegreesMin="25" DegreesMax="25" Name="Other"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical DmxConnector="3-pin" PowerConsumption="28"/>
-  </Physical>
-  <Physical/></FixtureDefinition>
+ </Physical>
+</FixtureDefinition>

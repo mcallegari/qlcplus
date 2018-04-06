@@ -123,11 +123,11 @@
   <Channel Number="9">Zap effects</Channel>
   <Channel Number="10">Shake effects</Channel>
  </Mode>
-<Physical>
+ <Physical>
    <Bulb Type="MSR 575W" Lumens="46000" ColourTemperature="6000"/>
    <Dimensions Weight="35" Width="473" Height="598" Depth="660"/>
    <Lens Name="PC" DegreesMin="10" DegreesMax="16"/>
    <Focus Type="Mirror" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="635" DmxConnector="3-pin"/>
-  </Physical>
-  <Physical/></FixtureDefinition>
+ </Physical>
+</FixtureDefinition>

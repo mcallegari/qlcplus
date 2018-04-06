@@ -59,11 +59,11 @@
   <Channel Number="4">Tilt</Channel>
   <Channel Number="5">Intensity</Channel>
  </Mode>
-<Physical>
+ <Physical>
    <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="0"/>
    <Dimensions Weight="9" Width="270" Height="160" Depth="500"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Mirror" PanMax="175" TiltMax="80"/>
    <Technical PowerConsumption="250" DmxConnector="3-pin"/>
-  </Physical>
-  <Physical/></FixtureDefinition>
+ </Physical>
+</FixtureDefinition>

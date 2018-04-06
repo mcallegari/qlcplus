@@ -84,11 +84,11 @@
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
  </Mode>
-<Physical>
+ <Physical>
    <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
    <Dimensions Width="280" Depth="350" Weight="2.5" Height="250"/>
    <Lens DegreesMin="25" DegreesMax="25" Name="Other"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical DmxConnector="3-pin" PowerConsumption="100"/>
-  </Physical>
-  <Physical/></FixtureDefinition>
+ </Physical>
+</FixtureDefinition>

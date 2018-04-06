@@ -57,11 +57,11 @@
   <Channel Number="8">Reset</Channel>
   <Channel Number="9">Colour Effect</Channel>
  </Mode>
-<Physical>
+ <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
    <Dimensions Width="265" Height="125" Weight="3.8" Depth="192"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="40" DmxConnector="3-pin"/>
-  </Physical>
-  <Physical/></FixtureDefinition>
+ </Physical>
+</FixtureDefinition>
