@@ -73,13 +73,13 @@ elementFormDefault="qualified"
 
 <xs:complexType name="channelType">
     <xs:sequence>
-        <xs:element name="Group" type="groupType"/>
+        <xs:element name="Group" type="groupType" minOccurs="0"/>
         <xs:element name="Colour" type="colorType" minOccurs="0"/>
         <xs:element name="Capability" type="capabilityType" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
     <xs:attribute name="Name" type="xs:string" use="required"/>
-    <xs:attribute name="Default" type="xs:dmxValueType"/>
-    <xs:attribute name="Preset" type="xs:channelPresetType"/>
+    <xs:attribute name="Default" type="dmxValueType"/>
+    <xs:attribute name="Preset" type="channelPresetType"/>
 </xs:complexType>
 
 <xs:complexType name="groupType">
@@ -136,6 +136,9 @@ elementFormDefault="qualified"
     <xs:extension base="xs:string">
       <xs:attribute name="Min" type="dmxValueType" use="required"/>
       <xs:attribute name="Max" type="dmxValueType" use="required"/>
+      <xs:attribute name="Preset" type="capabilityPresetType"/>
+      <xs:attribute name="Res1" type="xs:string"/>
+      <xs:attribute name="Res2" type="xs:string"/>
       <xs:attribute name="Res" type="xs:string"/>
       <xs:attribute name="Color" type="xs:string"/>
       <xs:attribute name="Color2" type="xs:string"/>
@@ -193,9 +196,11 @@ elementFormDefault="qualified"
         <xs:enumeration value="SpeedPanTiltFastSlow"/>
         <xs:enumeration value="ColorMacro"/>
         <xs:enumeration value="ColorWheel"/>
+        <xs:enumeration value="ColorWheelFine"/>
         <xs:enumeration value="ColorCTOMixer"/>
         <xs:enumeration value="ColorCTBMixer"/>
         <xs:enumeration value="GoboWheel"/>
+        <xs:enumeration value="GoboWheelFine"/>
         <xs:enumeration value="GoboIndex"/>
         <xs:enumeration value="GoboIndexFine"/>
         <xs:enumeration value="ShutterStrobeSlowFast"/>
@@ -214,28 +219,31 @@ elementFormDefault="qualified"
 
 <xs:simpleType name="capabilityPresetType">
     <xs:restriction base="xs:string">
-        <xs:enumeration value="SlowToFast"/>
-        <xs:enumeration value="FastToSlow"/>
-        <xs:enumeration value="StrobeSlowToFast"/>
-        <xs:enumeration value="StrobeFastToSlow"/>
-        <xs:enumeration value="PulseSlowToFast"/>
-        <xs:enumeration value="PulseFastToSlow"/>
-        <xs:enumeration value="NearToFar"/>
-        <xs:enumeration value="FarToNear"/>
-        <xs:enumeration value="BigToSmall"/>
-        <xs:enumeration value="SmallToBig"/>
-        <xs:enumeration value="ShutterOpen"/>
-        <xs:enumeration value="ShutterClose"/>
-        <xs:enumeration value="StrobeFreq"/>
-        <xs:enumeration value="StrobeFreqRange"/>
-        <xs:enumeration value="PulseFreq"/>
-        <xs:enumeration value="PulseFreqRange"/>
-        <xs:enumeration value="RotationClockwise"/>
-        <xs:enumeration value="RotationCounterClockwise"/>
-        <xs:enumeration value="TiltContinuous"/>
-        <xs:enumeration value="ColorMacro"/>
-        <xs:enumeration value="ColorWheelIndex"/>
-        <xs:enumeration value="Alias
+        <xs:enumeration value="SlowToFast" />
+        <xs:enumeration value="FastToSlow" />
+        <xs:enumeration value="NearToFar" />
+        <xs:enumeration value="FarToNear" />
+        <xs:enumeration value="BigToSmall" />
+        <xs:enumeration value="SmallToBig" />
+        <xs:enumeration value="ShutterOpen" />
+        <xs:enumeration value="ShutterClose" />
+        <xs:enumeration value="StrobeSlowToFast" />
+        <xs:enumeration value="StrobeFastToSlow" />
+        <xs:enumeration value="PulseSlowToFast" />
+        <xs:enumeration value="PulseFastToSlow" />
+        <xs:enumeration value="StrobeFreq" />
+        <xs:enumeration value="StrobeFreqRange" />
+        <xs:enumeration value="PulseFreq" />
+        <xs:enumeration value="PulseFreqRange" />
+        <xs:enumeration value="RotationClockwise" />
+        <xs:enumeration value="RotationCounterClockwise" />
+        <xs:enumeration value="TiltContinuous" />
+        <xs:enumeration value="ColorMacro" />
+        <xs:enumeration value="ColorDoubleMacro" />
+        <xs:enumeration value="ColorWheelIndex" />
+        <xs:enumeration value="GoboMacro" />
+        <xs:enumeration value="GenericPicture" />
+        <xs:enumeration value="Alias" />
     </xs:restriction>
 </xs:simpleType>
 
@@ -248,9 +256,9 @@ elementFormDefault="qualified"
 
 <xs:complexType name="modeType">
     <xs:sequence>
-        <xs:element name="Physical" type="physicalType"/>
-        <xs:element name="Channel" type="modeChannelType" maxOccurs="unbounded"/>
-        <xs:element name="Head" type="headType" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="Physical" type="physicalType" minOccurs="0" />
+        <xs:element name="Channel" type="modeChannelType" maxOccurs="unbounded" />
+        <xs:element name="Head" type="headType" minOccurs="0" maxOccurs="unbounded" />
     </xs:sequence>
     <xs:attribute name="Name" type="xs:string" use="required"/>
 </xs:complexType>
