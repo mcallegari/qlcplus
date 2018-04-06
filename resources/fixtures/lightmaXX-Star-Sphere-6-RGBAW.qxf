@@ -56,11 +56,11 @@
   <Channel Number="4">Blue &amp; White</Channel>
   <Channel Number="5">Motor</Channel>
  </Mode>
-<Physical>
+ <Physical>
    <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
    <Dimensions Width="175" Height="150" Weight="1" Depth="175"/>
    <Lens DegreesMax="180" Name="Other" DegreesMin="180"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
    <Technical PowerConsumption="10" DmxConnector="3-pin"/>
-  </Physical>
-  <Physical/></FixtureDefinition>
+ </Physical>
+</FixtureDefinition>

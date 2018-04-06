@@ -69,11 +69,11 @@
   <Channel Number="3">Rotating gobo</Channel>
   <Channel Number="4">Dimmer</Channel>
  </Mode>
-<Physical>
+ <Physical>
    <Bulb Type="HSD 250W" Lumens="8600" ColourTemperature="7200"/>
    <Dimensions Weight="9.2" Width="340" Height="360" Depth="250"/>
    <Lens Name="PC" DegreesMin="17" DegreesMax="17"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="300" DmxConnector="5-pin"/>
-  </Physical>
-  <Physical/></FixtureDefinition>
+ </Physical>
+</FixtureDefinition>

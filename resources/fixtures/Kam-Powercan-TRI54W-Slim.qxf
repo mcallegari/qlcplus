@@ -96,11 +96,11 @@
   <Channel Number="1">Saturation</Channel>
   <Channel Number="2">Luminance</Channel>
  </Mode>
-<Physical>
+ <Physical>
    <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
    <Dimensions Width="220" Height="340" Depth="60" Weight="3"/>
    <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical DmxConnector="3-pin" PowerConsumption="60"/>
-  </Physical>
-  <Physical/></FixtureDefinition>
+ </Physical>
+</FixtureDefinition>

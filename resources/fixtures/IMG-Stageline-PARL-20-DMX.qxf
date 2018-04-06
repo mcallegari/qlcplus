@@ -43,11 +43,11 @@
   <Channel Number="4">Shutter</Channel>
   <Channel Number="5">Intensity</Channel>
  </Mode>
-<Physical>
+ <Physical>
    <Bulb Type="LED" Lumens="1000" ColourTemperature="0"/>
    <Dimensions Weight="2" Width="145" Height="145" Depth="190"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="15"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="56" DmxConnector="3-pin"/>
-  </Physical>
-  <Physical/></FixtureDefinition>
+ </Physical>
+</FixtureDefinition>

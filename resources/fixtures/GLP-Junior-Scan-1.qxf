@@ -136,11 +136,11 @@
   <Channel Number="7">Laser</Channel>
   <Channel Number="8">Special</Channel>
  </Mode>
-<Physical>
+ <Physical>
    <Bulb Type="ELC 250W" ColourTemperature="0" Lumens="0"/>
    <Dimensions Weight="7.5" Depth="210" Height="535" Width="305"/>
    <Lens DegreesMin="16" Name="Other" DegreesMax="16"/>
    <Focus TiltMax="110" PanMax="230" Type="Fixed"/>
    <Technical PowerConsumption="350" DmxConnector="3-pin"/>
   </Physical>
-  <Physical/></FixtureDefinition>
+</FixtureDefinition>
