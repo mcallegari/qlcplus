@@ -203,18 +203,23 @@ bool QLCFixtureDefCache::loadMap(const QDir &dir)
 
             while (doc->readNextStartElement())
             {
-                QString defFile= "";
-                QString manufacturer = "";
-                QString model = "";
-
-                if (doc->name() == "fixture")
+                if (doc->name() == "F")
                 {
-                    if (doc->attributes().hasAttribute("path"))
-                        defFile = QString(dir.absoluteFilePath(doc->attributes().value("path").toString()));
-                    if(doc->attributes().hasAttribute("mf"))
-                        manufacturer = doc->attributes().value("mf").toString();
-                    if(doc->attributes().hasAttribute("md"))
-                        model = doc->attributes().value("md").toString();
+                    QString defFile = "";
+                    QString manufacturer = "";
+                    QString model = "";
+
+                    if (doc->attributes().hasAttribute("n"))
+                    {
+                        QString filename = QString("%1%2").arg(doc->attributes().value("n").toString()).arg(KExtFixture);
+                        defFile = QString(dir.absoluteFilePath(filename));
+                    }
+
+                    if(doc->attributes().hasAttribute("m"))
+                        manufacturer = doc->attributes().value("m").toString();
+
+                    if(doc->attributes().hasAttribute("d"))
+                        model = doc->attributes().value("d").toString();
 
                     if (defFile.isEmpty() == false &&
                         manufacturer.isEmpty() == false &&

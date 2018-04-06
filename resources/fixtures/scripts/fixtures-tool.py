@@ -2,20 +2,12 @@
 
 import sys
 import os
+import argparse
 import lxml.etree as etree
 
-if len(sys.argv) == 1:
-    print "Usage " + sys.argv[0] + " [source folder] [destination folder]"
-    sys.exit()
-
-path = sys.argv[1]
-if len(sys.argv) > 2:
-    destpath = sys.argv[2]
-else:
-    destpath = ""
-print "Updating fixtures in " + path + "..."
-
 singleCapCount = 0
+
+namespace = "http://www.qlcplus.org/FixtureDefinition"
 
 def getPresetsArray():
     return [ 
@@ -74,6 +66,18 @@ def printPresets(group):
         sys.stdout.flush()
     print ""
 
+###########################################################################################
+# update_fixture
+#
+# Convert an 'old' syntax definition to the 'new' syntax, which includes:
+# - single capability channels 
+# - global physical dimension
+#
+# path: the source path with the fixtures to convert
+# filename: the relative file name
+# destpath: the destination folder where to save the converted fixture
+###########################################################################################
+
 def update_fixture(path, filename, destpath):
     absname = os.path.join(path, filename)
     parser = etree.XMLParser(ns_clean=True, recover=True)
@@ -81,9 +85,9 @@ def update_fixture(path, filename, destpath):
     root = xmlObj.getroot()
     fxSingleCapCount = 0
     
-    namespace = "http://www.qlcplus.org/FixtureDefinition"
+    global namespace
     
-    ##################################### MODE PROCESSING #################################
+    ################################## PHYSICAL PROCESSING ################################
 
     global_phy = {}
     gphy_tag = etree.Element("Physical")
@@ -235,10 +239,68 @@ def update_fixture(path, filename, destpath):
 
     return fxSingleCapCount
 
-for filename in os.listdir(path):
-    if not filename.endswith('.qxf'): continue
-    print "Processing file " + filename
+###########################################################################################
+# createFixtureMap
+#
+# Creates the Fixture definition map read by QLC+ at startup
+#
+###########################################################################################
+def createFixtureMap():
+    global namespace
 
-    singleCapCount += update_fixture(path, filename, destpath)
+    xmlFile = open("FixturesMap.xml", "w")
+    root = etree.Element("FixturesMap")
+    root.set('xmlns', 'http://www.qlcplus.org/FixturesMap')
 
-print "Scan done. Single cap found: " + str(singleCapCount)
+    for filename in sorted(os.listdir('.'), key=lambda s: s.lower()):
+        if not filename.endswith('.qxf'): continue
+
+        parser = etree.XMLParser(ns_clean=True, recover=True)
+        xmlObj = etree.parse(filename, parser=parser)
+        fxRoot = xmlObj.getroot()
+        manufacturer = fxRoot.find('{' + namespace + '}Manufacturer')
+        model = fxRoot.find('{' + namespace + '}Model')
+        fxTag = etree.SubElement(root, "F")
+        fxTag.set('n', os.path.splitext(filename)[0])
+        fxTag.set('m', manufacturer.text)
+        fxTag.set('d', model.text)
+        #print manufacturer.text + ", " + model.text
+
+    xmlFile.write(etree.tostring(root, pretty_print=True, xml_declaration=True, encoding="UTF-8", doctype="<!DOCTYPE FixturesMap>"))
+    xmlFile.close()
+
+###########################################################################################
+#
+#                                       MAIN
+#
+###########################################################################################
+    
+parser = argparse.ArgumentParser(description='Unified Fixture tool.')
+parser.add_argument('--map', help='Create the Fixture map', action="store_true")
+parser.add_argument('--convert [source] [destination]', help='Convert an "old" syntax Fixture definition', dest='convert', action="store_true")
+
+args = parser.parse_args()
+
+print args
+
+if args.map:
+    createFixtureMap()
+elif args.convert:
+    if len(sys.argv) < 3:
+        print "Usage " + sys.argv[0] + "--convert [source folder] [destination folder]"
+        sys.exit()
+
+    path = sys.argv[2]
+    if len(sys.argv) > 3:
+        destpath = sys.argv[3]
+    else:
+        destpath = ""
+    print "Converting fixtures in " + path + "..."
+
+    for filename in os.listdir(path):
+        if not filename.endswith('.qxf'): continue
+        print "Processing file " + filename
+
+        singleCapCount += update_fixture(path, filename, destpath)
+
+    print "Scan done. Single cap found: " + str(singleCapCount)
