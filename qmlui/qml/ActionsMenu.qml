@@ -98,7 +98,7 @@ Popup
         message: qsTr("Do you wish to save the current workspace first ?\nChanges will be lost if you don't save them.")
         standardButtons: Dialog.Yes | Dialog.No | Dialog.Cancel
 
-        property bool openAction: false
+        property string action: ""
 
         onClicked:
         {
@@ -114,15 +114,19 @@ Popup
             }
             else if (role === Dialog.No)
             {
-                if (openAction)
+                if (action == "#OPEN")
                     openDialog.open()
-                else
+                else if (action == "#NEW")
                     qlcplus.newWorkspace()
+                else
+                    qlcplus.loadWorkspace(action)
             }
             else if (role === Dialog.Cancel)
             {
                 console.log("Cancel clicked")
             }
+
+            action = ""
         }
     }
 
@@ -148,7 +152,7 @@ Popup
             {
                 if (qlcplus.docModified)
                 {
-                    saveFirstPopup.openAction = false
+                    saveFirstPopup.action = "#NEW"
                     saveFirstPopup.open()
                 }
                 else
@@ -168,7 +172,7 @@ Popup
             {
                 if (qlcplus.docModified)
                 {
-                    saveFirstPopup.openAction = true
+                    saveFirstPopup.action = "#OPEN"
                     saveFirstPopup.open()
                 }
                 else
@@ -199,8 +203,15 @@ Popup
                                 entryText: modelData
                                 onClicked:
                                 {
+                                    if (qlcplus.docModified)
+                                    {
+                                        saveFirstPopup.open()
+                                        saveFirstPopup.action = entryText
+                                    }
+                                    else
+                                        qlcplus.loadWorkspace(entryText)
+
                                     menuRoot.close()
-                                    qlcplus.loadWorkspace(entryText)
                                 }
                             }
                         }
