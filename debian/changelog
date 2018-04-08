@@ -4,6 +4,7 @@ qlcplus (4.11.2) stable; urgency=low
   * engine: fix intensity override not considered during fade outs
   * UI/Function Manager: fixed keyboard shortcut conflicts and document them
   * UI/Function Manager: allow to import multiple of audio/video files at once
+  * UI/Channel Groups: added expand/collapse all button helpers
   * UI/Chaser Editor: add a button to shuffle the selected Chaser steps (thanks to Felix Edelmann)
   * UI/RGBMatrix Editor: fix preview not updating on pattern change when play button is on
   * Show Manager: fix crash when adding a Sequence after deleting one
