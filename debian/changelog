@@ -7,6 +7,7 @@ qlcplus (4.11.2) stable; urgency=low
   * UI/Chaser Editor: add a button to shuffle the selected Chaser steps (thanks to Felix Edelmann)
   * UI/RGBMatrix Editor: fix preview not updating on pattern change when play button is on
   * Show Manager: fix crash when adding a Sequence after deleting one
+  * Show Manager: fix items start time indication when dragging
   * Virtual Console/Slider: fix submaster initial value not applied
   * Virtual Console/Slider: implemented 'value catching' for controllers without feedbacks (Lukas Jähn proposal)
   * Virtual Console/Slider: fix values range when switching between Slider and Knob appearance
@@ -35,6 +36,11 @@ qlcplus (4.11.2) stable; urgency=low
   * New fixture: Chauvet Hemisphere 5.1, Trident, Scorpion Storm RGX (thanks to Francois Blanchette)
   * New fixture: Briteq COB Slim 100-RGB (thanks to Thierry)
   * New fixture: American DJ UB 12H (thanks to Jason R Johnston)
+  * New fixture: American DJ Mega Hex Par (thanks to Ben C)
+  * New fixture: Cameo Q SPOT 15 RGBW (thanks to Antoine Houbron)
+  * New fixture: lightmaXX Platinum Line Flat Par COB (thanks to Leonardo)
+  * New fixture: Stairville LED Blinder 2 COB 2x65W (thanks to chritoep)
+  * New fixture: lightmaXX LED PAR 64 (thanks to Johannes Felber)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 15 Apr 2018 12:13:14 +0200
 

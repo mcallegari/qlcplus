@@ -305,7 +305,7 @@ void ShowItem::postPaint(QPainter *painter)
     {
         quint32 s_time = 0;
         if (x() > TRACK_WIDTH)
-            s_time = (double)(x() - TRACK_WIDTH) * (m_timeScale * 500) /
+            s_time = (double)(x() - TRACK_WIDTH - 2) * (m_timeScale * 500) /
                      (double)(HALF_SECOND_WIDTH);
         painter->drawText(3, TRACK_HEIGHT - 10, Function::speedToString(s_time));
     }
