@@ -136,12 +136,15 @@ public:
     int defaultMask() const;
     int accessMask() const;
 
+    Q_INVOKABLE void exit();
+
 public slots:
     void setAccessMask(int mask);
 
 protected:
     void keyPressEvent(QKeyEvent * e);
     void keyReleaseEvent(QKeyEvent * e);
+    bool event(QEvent *event) override;
 
 protected slots:
     void slotScreenChanged(QScreen *screen);

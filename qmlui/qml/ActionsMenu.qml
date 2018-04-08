@@ -32,6 +32,12 @@ Popup
 
     onClosed: submenuItem = null
 
+    function saveBeforeExit()
+    {
+        saveFirstPopup.action = "#EXIT"
+        saveFirstPopup.open()
+    }
+
     FileDialog
     {
         id: openDialog
@@ -84,6 +90,9 @@ Popup
         {
             console.log("You chose: " + fileUrl)
             qlcplus.saveWorkspace(fileUrl)
+
+            if (saveFirstPopup.action == "#EXIT")
+                qlcplus.exit()
         }
         onRejected:
         {
@@ -105,11 +114,16 @@ Popup
             if (role === Dialog.Yes)
             {
                 if (qlcplus.fileName())
+                {
                     qlcplus.saveWorkspace(qlcplus.fileName())
+                    if (action == "#EXIT")
+                        qlcplus.exit()
+                }
                 else
                 {
-                    //saveDialog.visible = true
                     saveDialog.open()
+                    if (action == "#EXIT")
+                        return
                 }
             }
             else if (role === Dialog.No)
@@ -118,6 +132,8 @@ Popup
                     openDialog.open()
                 else if (action == "#NEW")
                     qlcplus.newWorkspace()
+                else if (action == "#EXIT")
+                    qlcplus.exit()
                 else
                     qlcplus.loadWorkspace(action)
             }
