@@ -35,6 +35,7 @@ class MainView2D : public PreviewContext
     Q_OBJECT
 
     Q_PROPERTY(QSize gridSize READ gridSize NOTIFY gridSizeChanged)
+    Q_PROPERTY(QPoint gridPosition READ gridPosition WRITE setGridPosition NOTIFY gridPositionChanged)
     Q_PROPERTY(int gridUnits READ gridUnits WRITE setGridUnits NOTIFY gridUnitsChanged)
     Q_PROPERTY(qreal gridScale READ gridScale WRITE setGridScale NOTIFY gridScaleChanged)
     Q_PROPERTY(qreal cellPixels READ cellPixels WRITE setCellPixels NOTIFY cellPixelsChanged)
@@ -82,6 +83,10 @@ public:
     QSize gridSize() const;
     void setGridSize(QVector3D sz);
 
+    /** Get/Set the grid position in pixels */
+    QPoint gridPosition() const;
+    void setGridPosition(QPoint pos);
+
     /** Get/Set the grid measurement units */
     int gridUnits() const;
     void setGridUnits(int units);
@@ -106,6 +111,7 @@ protected:
 
 signals:
     void gridSizeChanged();
+    void gridPositionChanged();
     void gridUnitsChanged();
     void gridScaleChanged(qreal gridScale);
     void cellPixelsChanged(qreal cellPixels);
@@ -116,26 +122,22 @@ protected slots:
     void slotRefreshView();
 
 private:
-    /** References to the 2D view and 2D contents for items creation */
-    QQuickItem *m_contents2D;
+    /** References to the 2D grid item for positioning */
+    QQuickItem *m_gridItem;
 
     /** Reference to the Doc Monitor properties */
     MonitorProperties *m_monProps;
 
     /** Size of the grid. How many horizontal and vertical cells */
     QSize m_gridSize;
+    /** X/Y offset of the grid (in pixels) to keep it centered */
+    QPoint m_gridPosition;
 
     /** Scale of the grid */
     qreal m_gridScale;
 
     /** Size of a grid cell in pixels */
     qreal m_cellPixels;
-
-    /** X offset of the grid to keep it centered */
-    qreal m_xOffset;
-
-    /** Y offset of the grid to keep it centered */
-    qreal m_yOffset;
 
     /** Pre-cached QML component for quick item creation */
     QQmlComponent *fixtureComponent;

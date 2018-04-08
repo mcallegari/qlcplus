@@ -26,8 +26,8 @@ import "."
 Rectangle
 {
     id: fixtureItem
-    x: (gridCellSize * mmXPos) / gridUnits
-    y: (gridCellSize * mmYPos) / gridUnits
+    x: ((gridCellSize * mmXPos) / gridUnits) + gridPosition.x
+    y: ((gridCellSize * mmYPos) / gridUnits) + gridPosition.y
     z: 2
     width: (gridCellSize * mmWidth) / gridUnits
     height: (gridCellSize * mmHeight) / gridUnits
@@ -43,6 +43,7 @@ Rectangle
 
     property real gridCellSize: View2D.cellPixels
     property real gridUnits: View2D.gridUnits === MonitorProperties.Meters ? 1000.0 : 304.8
+    property point gridPosition: View2D.gridPosition
 
     property real mmXPos: 0
     property real mmYPos: 0
