@@ -26,6 +26,7 @@
 #include <QLineEdit>
 #include <QCheckBox>
 #include <QSpinBox>
+#include <QAction>
 #include <qmath.h>
 
 #include "qlcinputchannel.h"

@@ -23,6 +23,7 @@
 #include <QHeaderView>
 #include <QSettings>
 #include <QDebug>
+#include <QAction>
 
 #include "qlcfixturemode.h"
 #include "qlcinputchannel.h"

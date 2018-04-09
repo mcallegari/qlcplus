@@ -21,6 +21,7 @@
 #include <QComboBox>
 #include <QSpinBox>
 #include <QIcon>
+#include <QAction>
 
 #include "qlcchannel.h"
 #include "qlcinputprofile.h"

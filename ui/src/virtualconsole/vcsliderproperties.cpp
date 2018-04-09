@@ -28,6 +28,7 @@
 #include <QLineEdit>
 #include <QSpinBox>
 #include <QLabel>
+#include <QAction>
 
 #include "qlccapability.h"
 #include "qlcchannel.h"

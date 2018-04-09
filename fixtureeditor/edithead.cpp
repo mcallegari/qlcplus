@@ -20,6 +20,7 @@
 #include <QTreeWidgetItem>
 #include <QTreeWidget>
 #include <QDebug>
+#include <QAction>
 
 #include "qlcfixturehead.h"
 #include "qlcfixturemode.h"

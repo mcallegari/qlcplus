@@ -21,6 +21,7 @@
 #include <QString>
 #include <QDebug>
 #include <QHash>
+#include <QAction>
 
 #include "palettegenerator.h"
 #include "fixtureselection.h"

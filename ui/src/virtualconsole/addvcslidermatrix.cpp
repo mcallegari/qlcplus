@@ -19,6 +19,7 @@
 
 #include <QSettings>
 #include <QSpinBox>
+#include <QAction>
 
 #include "addvcslidermatrix.h"
 #include "vcpropertieseditor.h"
