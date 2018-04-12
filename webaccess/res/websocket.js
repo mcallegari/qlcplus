@@ -40,34 +40,18 @@ window.onload = function() {
  websocket.onmessage = function(ev) {
   //alert(ev.data);
   var msgParams = ev.data.split("|");
-  var obj = document.getElementById(msgParams[0]);
   if (msgParams[1] === "BUTTON") {
-    if (msgParams[2] === "255") {
-      obj.value = "255";
-      obj.style.border = "3px solid #00E600"; 
-    } else if (msgParams[2] === "127") {
-      obj.value = "127";
-      obj.style.border = "3px solid #FFAA00";
-    } else {
-      obj.value = "0";
-      obj.style.border = "3px solid #A0A0A0";
-    }
+    wsSetButtonState(msgParams[0], msgParams[2])
   }
   else if (msgParams[1] === "SLIDER") {
     // Slider message is <ID>|SLIDER|<SLIDER VALUE>|<DISPLAY VALUE>
-    obj.value = msgParams[2];
-    var labelObj = document.getElementById("slv" + msgParams[0]);
-    labelObj.innerHTML = msgParams[3];
+    wsSetSliderValue(msgParams[0], msgParams[2], msgParams[3]);
+  }
+  else if (msgParams[1] === "AUDIOTRIGGERS") {
+    wsSetAudioTriggersEnabled(msgParams[0], msgParams[2]);
   }
   else if (msgParams[1] === "CUE") {
-    setCueIndex(msgParams[0], msgParams[2]);
-    var playBbj = document.getElementById("play" + msgParams[0]);
-    if (msgParams[2] === "-1") {
-      playBbj.innerHTML = "<img src=\"player_play.png\" width=\"27\">";
-    }
-    else {
-      playBbj.innerHTML = "<img src=\"player_pause.png\" width=\"27\">";
-    }
+    wsSetCueIndex(msgParams[0], msgParams[2]);
   }
   else if (msgParams[1] === "FRAME") {
     setFramePage(msgParams[0], msgParams[2]);
