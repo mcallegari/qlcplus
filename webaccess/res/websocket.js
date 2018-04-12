@@ -41,7 +41,7 @@ window.onload = function() {
   //alert(ev.data);
   var msgParams = ev.data.split("|");
   if (msgParams[1] === "BUTTON") {
-    wsSetButtonState(msgParams[0], msgParams[2])
+    wsSetButtonState(msgParams[0], msgParams[2]);
   }
   else if (msgParams[1] === "SLIDER") {
     // Slider message is <ID>|SLIDER|<SLIDER VALUE>|<DISPLAY VALUE>
