@@ -79,6 +79,9 @@ public:
 public slots:
     void slotEnableButtonToggled(bool toggle);
 
+signals:
+    void captureEnabled(bool enabled);
+
 protected slots:
     void slotDisplaySpectrum(double *spectrumBands, int size, double maxMagnitude, quint32 power);
 #if QT_VERSION >= 0x050000

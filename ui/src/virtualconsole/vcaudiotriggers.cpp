@@ -195,6 +195,8 @@ void VCAudioTriggers::enableCapture(bool enable)
         m_button->setChecked(true);
         m_button->blockSignals(false);
 
+        emit captureEnabled(true);
+
         // Invalid ID: Stop every other widget
         emit functionStarting(Function::invalidId());
     }
@@ -210,6 +212,8 @@ void VCAudioTriggers::enableCapture(bool enable)
         m_button->blockSignals(true);
         m_button->setChecked(false);
         m_button->blockSignals(false);
+
+        emit captureEnabled(false);
     }
 }
 
