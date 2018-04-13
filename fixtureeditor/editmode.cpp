@@ -30,6 +30,7 @@
 #include <QPoint>
 #include <QDebug>
 #include <QSize>
+#include <QAction>
 
 #include "addchannelsdialog.h"
 #include "qlcfixturemode.h"

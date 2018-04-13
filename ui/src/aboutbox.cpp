@@ -22,6 +22,7 @@
 #include <QTimer>
 #include <QDesktopServices>
 #include <QUrl>
+#include <QAction>
 
 #include "qlcconfig.h"
 #include "aboutbox.h"
