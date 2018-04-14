@@ -1300,14 +1300,14 @@ void ShowManager::slotShowItemMoved(ShowItem *item, quint32 time, bool moved)
         quint32 sceneID = sequence->boundSceneID();
 
         Function *sf = m_doc->function(sceneID);
-        Scene *boundScene = NULL;
+
         if (sf == NULL)
         {
             sequence->setBoundSceneID(Function::invalidId());
         }
         else
         {
-            boundScene = qobject_cast<Scene*>(sf);
+            Scene *boundScene = qobject_cast<Scene*>(sf);
 
             if (boundScene != m_currentScene || m_sceneEditor == NULL)
             {
