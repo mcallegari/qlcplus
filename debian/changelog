@@ -46,10 +46,13 @@ qlcplus (4.11.2) stable; urgency=low
   * New fixture: Stairville LED Blinder 2 COB 2x65W (thanks to chritoep)
   * New fixture: lightmaXX LED PAR 64 (thanks to Johannes Felber)
   * New fixture: Cameo Thunder Wash Series (thanks to JP)
-  * New fixture: Briteq BT 575S (thanks to Andres Robles)
+  * New fixtures: Briteq BT 575S, Stairville MH-x30 LED Beam (thanks to Andres Robles)
   * New fixture: beamZ LED FlatPAR-154 (thanks to Jászberényi Szabolcs)
   * New fixtures: Eurolite THA-100F COB, Cameo Tribar 200 IR (thanks to David Morgenschweis)
   * New fixture: beamZ BT310 LED FlatPAR 12x8W 4-1 DMX IR (thanks to Mark)
+  * New fixture: Fun Generation PicoWash 40 Pixel Quad LED (thanks to Harm Aldick)
+  * New fixtures: American DJ Entourage, Elumen8 MS-700PE, Ibiza PAR LED 712IR (thanks to Tim Cullingworth)
+  * New fixtures: Martin MAC 401 Dual RGB Zoom, MAC 401 Dual CT Zoom, Stairville MH-z720 (thanks to Tim Cullingworth)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 15 Apr 2018 12:13:14 +0200
 

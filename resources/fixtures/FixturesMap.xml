@@ -28,6 +28,7 @@
   <fixture path="American-DJ-Dotz-TPar.qxf" mf="American DJ" md="Dotz TPar"/>
   <fixture path="American-DJ-Double-Phase.qxf" mf="American DJ" md="Double Phase"/>
   <fixture path="American-DJ-ECO-UV-BAR-DMX.qxf" mf="American DJ" md="ECO UV BAR DMX"/>
+  <fixture path="American-DJ-Entourage.qxf" mf="American DJ" md="Entourage"/>
   <fixture path="American-DJ-Event-Bar-LED.qxf" mf="American DJ" md="Event Bar LED"/>
   <fixture path="American-DJ-Event-Bar-Pro.qxf" mf="American DJ" md="Event Bar Pro"/>
   <fixture path="American-DJ-Event-Bar-Q4.qxf" mf="American DJ" md="Event Bar Q4"/>
@@ -393,6 +394,7 @@
   <fixture path="Eliminator-Electro-86.qxf" mf="Eliminator Lighting" md="Electro 86"/>
   <fixture path="Eliminator-Electro-MH25R.qxf" mf="Eliminator Lighting" md="Electro MH25R"/>
   <fixture path="Elumen8-COB-Tri-4-Pixel-Batten.qxf" mf="Elumen8" md="COB Tri 4 Pixel Batten"/>
+  <fixture path="Elumen8-MS-700PE.qxf" mf="Elumen8" md="MS-700PE"/>
   <fixture path="Enterius-EC-133DMX.qxf" mf="Enterius" md="EC-133DMX"/>
   <fixture path="Equinox-Gigabar.qxf" mf="Equinox" md="Gigabar"/>
   <fixture path="Equinox-Party-Par-LED-PAR-56.qxf" mf="Equinox" md="Party Par LED PAR 56"/>
@@ -475,6 +477,7 @@
   <fixture path="Expolite-TourStick-72-RGBWA.qxf" mf="Expolite" md="TourStick 72 RGBWA"/>
   <fixture path="Flash-Butrym-LED-Moving-Head-Mini-Beam-18x3W-RGB-CREE.qxf" mf="Flash-Butrym" md="LED Moving Head Mini Beam 18x3W RGB CREE"/>
   <fixture path="Fun-Generation-LED-Diamond-Dome.qxf" mf="Fun-Generation" md="LED Diamond Dome"/>
+  <fixture path="Fun-Generation-PicoWash-40-Pixel-Quad-LED.qxf" mf="Fun-Generation" md="PicoWash 40 Pixel Quad LED"/>
   <fixture path="Futurelight-AHS-150.qxf" mf="Futurelight" md="AHS-150"/>
   <fixture path="Futurelight-CF-200.qxf" mf="Futurelight" md="CF-200"/>
   <fixture path="Futurelight-CY-200.qxf" mf="Futurelight" md="CY-200"/>
@@ -549,6 +552,7 @@
   <fixture path="HQ-Power-VDPL110CC-LED-Tri-Spot.qxf" mf="HQ Power" md="VDPL110CC LED Tri Spot"/>
   <fixture path="HQ-Power-Wash-575.qxf" mf="HQ Power" md="Aeron Wash 575"/>
   <fixture path="i-Pix-BB4.qxf" mf="i-Pix" md="BB4"/>
+  <fixture path="Ibiza-PAR-LED-712IR.qxf" mf="Ibiza" md="PAR LED 712IR"/>
   <fixture path="IMG-Stageline-BEAM-40-WS-RGBW.qxf" mf="IMG Stageline" md="BEAM-40 WS/RGBW"/>
   <fixture path="IMG-Stageline-PARL-20-DMX.qxf" mf="IMG Stageline" md="PARL 20 DMX"/>
   <fixture path="IMG-Stageline-PARL-4Set.qxf" mf="IMG Stageline" md="Parl 4-SET"/>
@@ -659,6 +663,8 @@
   <fixture path="Martin-MAC-250-Wash.qxf" mf="Martin" md="MAC 250 Wash"/>
   <fixture path="Martin-MAC-301-Wash.qxf" mf="Martin" md="MAC 301 Wash"/>
   <fixture path="Martin-Mac-350-Entour.qxf" mf="Martin" md="MAC 350 Entour"/>
+  <fixture path="Martin-MAC-401-Dual-CT.qxf" mf="Martin" md="MAC 401 Dual CT Zoom"/>
+  <fixture path="Martin-MAC-401-Dual-RGB.qxf" mf="Martin" md="MAC 401 Dual RGB Zoom"/>
   <fixture path="Martin-MAC-700-Profile.qxf" mf="Martin" md="MAC 700 Profile"/>
   <fixture path="Martin-MAC-700-Wash.qxf" mf="Martin" md="MAC 700 Wash"/>
   <fixture path="Martin-MAC-Aura.qxf" mf="Martin" md="MAC Aura"/>
@@ -915,9 +921,11 @@
   <fixture path="Stairville-MH-X20.qxf" mf="Stairville" md="MH-X20"/>
   <fixture path="Stairville-MH-x200-Pro-Spot.qxf" mf="Stairville" md="MH-x200 Pro Spot"/>
   <fixture path="Stairville-MH-X25.qxf" mf="Stairville" md="MH-X25"/>
+  <fixture path="Stairville-MH-x30-LED-Beam.qxf" mf="Stairville" md="MH-x30 LED Beam"/>
   <fixture path="Stairville-MH-X50.qxf" mf="Stairville" md="MH-X50+"/>
   <fixture path="Stairville-MH-X60th-LED-Spot.qxf" mf="Stairville" md="MH-X60th LED Spot"/>
   <fixture path="Stairville-MH-z1915.qxf" mf="Stairville" md="MH-z1915 Quad LED Wash Zoom"/>
+  <fixture path="StairVille-MH-z720.qxf" mf="Stairville" md="MH-z720"/>
   <fixture path="Stairville-novaWash-Quad-LED.qxf" mf="Stairville" md="novaWash Quad LED"/>
   <fixture path="Stairville-Octagon-Theater.qxf" mf="Stairville" md="Octagon Theater"/>
   <fixture path="Stairville-PAR64-CX-3-RGBW.qxf" mf="Stairville" md="PAR 64 CX-3 RGBW"/>
