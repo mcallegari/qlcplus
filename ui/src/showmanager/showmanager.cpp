@@ -1303,6 +1303,7 @@ void ShowManager::slotShowItemMoved(ShowItem *item, quint32 time, bool moved)
 
         if (sf == NULL)
         {
+            // The bound Scene no longer exists. Invalidate the Sequence
             sequence->setBoundSceneID(Function::invalidId());
         }
         else
