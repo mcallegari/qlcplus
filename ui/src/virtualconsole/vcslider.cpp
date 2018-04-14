@@ -469,11 +469,10 @@ void VCSlider::setSliderMode(SliderMode mode)
     if (mode == Level)
     {
         /* Set the slider range */
-        uchar level = levelValue();
         if (m_slider)
         {
             m_slider->setRange(levelLowLimit(), levelHighLimit());
-            m_slider->setValue(level);
+            m_slider->setValue(levelValue());
             if (m_widgetMode == WSlider)
                 m_slider->setStyleSheet(CNG_DEFAULT_STYLE);
         }
@@ -514,11 +513,11 @@ void VCSlider::setSliderMode(SliderMode mode)
     else if (mode == Submaster)
     {
         m_monitorEnabled = false;
-        uchar level = levelValue();
+
         if (m_slider)
         {
             m_slider->setRange(0, UCHAR_MAX);
-            m_slider->setValue(level);
+            m_slider->setValue(levelValue());
             if (m_widgetMode == WSlider)
                 m_slider->setStyleSheet(submasterStyleSheet);
         }
@@ -823,6 +822,11 @@ void VCSlider::setPlaybackFunction(quint32 fid)
                 this, SLOT(slotPlaybackFunctionStopped(quint32)));
         disconnect(old, SIGNAL(attributeChanged(int, qreal)),
                 this, SLOT(slotPlaybackFunctionIntensityChanged(int, qreal)));
+        if (old->type() == Function::SceneType)
+        {
+            disconnect(old, SIGNAL(flashing(quint32,bool)),
+                       this, SLOT(slotPlaybackFunctionFlashing(quint32,bool)));
+        }
     }
 
     Function* function = m_doc->function(fid);
@@ -835,6 +839,11 @@ void VCSlider::setPlaybackFunction(quint32 fid)
                 this, SLOT(slotPlaybackFunctionStopped(quint32)));
         connect(function, SIGNAL(attributeChanged(int, qreal)),
                 this, SLOT(slotPlaybackFunctionIntensityChanged(int, qreal)));
+        if (function->type() == Function::SceneType)
+        {
+            connect(function, SIGNAL(flashing(quint32,bool)),
+                    this, SLOT(slotPlaybackFunctionFlashing(quint32,bool)));
+        }
 
         m_playbackFunction = fid;
     }
@@ -870,7 +879,7 @@ void VCSlider::notifyFunctionStarting(quint32 fid, qreal functionIntensity)
     if (mode() == Doc::Design || sliderMode() != Playback)
         return;
 
-    if (fid == m_playbackFunction)
+    if (fid == playbackFunction())
         return;
 
     if (m_slider != NULL)
@@ -902,14 +911,14 @@ void VCSlider::slotPlaybackFunctionRunning(quint32 fid)
 
 void VCSlider::slotPlaybackFunctionStopped(quint32 fid)
 {
+    if (fid != playbackFunction())
+        return;
+
     m_externalMovement = true;
-    if (fid == playbackFunction())
-    {
-        if (m_slider)
-            m_slider->setValue(0);
-        resetIntensityOverrideAttribute();
-        updateFeedback();
-    }
+    if (m_slider)
+        m_slider->setValue(0);
+    resetIntensityOverrideAttribute();
+    updateFeedback();
     m_externalMovement = false;
 }
 
@@ -923,6 +932,18 @@ void VCSlider::slotPlaybackFunctionIntensityChanged(int attrIndex, qreal fractio
     m_externalMovement = true;
     if (m_slider)
         m_slider->setValue(int(floor((qreal(m_slider->maximum()) * fraction) + 0.5)));
+    updateFeedback();
+    m_externalMovement = false;
+}
+
+void VCSlider::slotPlaybackFunctionFlashing(quint32 fid, bool flashing)
+{
+    if (fid != playbackFunction())
+        return;
+
+    m_externalMovement = true;
+    if (m_slider)
+        m_slider->setValue(flashing ? m_slider->maximum() : m_slider->minimum());
     updateFeedback();
     m_externalMovement = false;
 }
@@ -1233,7 +1254,7 @@ void VCSlider::setSliderValue(uchar value, bool scale)
 
         case Submaster:
         {
-            setLevelValue(value);
+            setLevelValue(val);
             emitSubmasterValue();
         }
         break;

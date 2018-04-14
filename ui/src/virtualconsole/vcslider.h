@@ -381,6 +381,7 @@ protected slots:
     void slotPlaybackFunctionRunning(quint32 fid);
     void slotPlaybackFunctionStopped(quint32 fid);
     void slotPlaybackFunctionIntensityChanged(int attrIndex, qreal fraction);
+    void slotPlaybackFunctionFlashing(quint32 fid, bool flashing);
 
 protected:
     quint32 m_playbackFunction;

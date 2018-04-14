@@ -9,9 +9,10 @@ qlcplus (4.11.2) stable; urgency=low
   * UI/RGBMatrix Editor: fix preview not updating on pattern change when play button is on
   * Show Manager: fix crash when adding a Sequence after deleting one
   * Show Manager: fix items start time indication when dragging
-  * Virtual Console/Slider: fix submaster initial value not applied
+  * Virtual Console/Slider: fix submaster initial value not applied and inverted mode
   * Virtual Console/Slider: implemented 'value catching' for controllers without feedbacks (Lukas Jähn proposal)
   * Virtual Console/Slider: fix values range when switching between Slider and Knob appearance
+  * Virtual Console/Slider: react on Scene flashing when in playback mode
   * Virtual Console/Knob: fix DMX values not updated when interacting with the mouse wheel
   * Virtual Console/Cue List: allow to select a step with next/previous buttons during pause
   * Virtual Console/Cue List: go to the right chaser step after a pause (thanks to Krzysztof Walo)
