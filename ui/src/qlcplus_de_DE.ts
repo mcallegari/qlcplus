@@ -2751,7 +2751,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="functionmanager.cpp" line="607"/>
         <source>(This will also DELETE: </source>
-        <translation>(Ebenfalls GELÖSCHT wird:</translation>
+        <translation>(Ebenfalls GELÖSCHT wird: </translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="619"/>
@@ -6624,7 +6624,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="211"/>
         <source>Catch up with the external controller input value</source>
-        <translation type="unfinished"></translation>
+        <translation>Dem Wert des externen Controller-Eingangs folgen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="219"/>
