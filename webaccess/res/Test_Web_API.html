@@ -452,8 +452,9 @@ Load a project:
   </td>
   <td colspan="2">
     This API is the direct way to set a Virtual Console widget value. It can be used for Buttons, Sliders and
-    Audio Triggers. The value to set depends on the widget type itself. Buttons and Audio triggers will only
-    support values 0 (= off) and 255 (= on) while Sliders will accept all the values in the 0-255 range.
+    Audio Triggers. The value to set depends on the widget type itself. Buttons will only support values 255
+    (= button is pressed) and 0 (= button is released), Audio triggers will support values 0 (= off) and 255 (= on)
+    and Sliders will accept all the values in the 0-255 range.
   </td>
  </tr>
  

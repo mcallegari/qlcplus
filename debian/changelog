@@ -16,6 +16,9 @@ qlcplus (4.11.2) stable; urgency=low
   * Virtual Console/Cue List: allow to select a step with next/previous buttons during pause
   * Virtual Console/Cue List: go to the right chaser step after a pause (thanks to Krzysztof Walo)
   * Virtual Console/Frame: fix regression preventing to send the disable feedback
+  * Web Access/VirtualConsole: possibility to use Buttons in Flash mode (Sylvain Laugié)
+  * Web Access/VirtualConsole: possibility to use circular scrolling of pages on Frames (Sylvain Laugié)
+  * Web Access/VirtualConsole: AudioTriggers state is updated in Web UI when changed from QLC+ (Sylvain Laugié)
   * plugins/udmx: added 'channels' configuration parameter (see documentation)
   * plugins/E1.31: fix crash on wrong packet length (David Garyga)
   * New fixture: DTS XR7 Spot (thanks to Nicolò Zanon)
