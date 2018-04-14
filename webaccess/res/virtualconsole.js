@@ -72,7 +72,7 @@ function sendCueCmd(id, cmd) {
 
 function checkMouseOut(id, idx) {
  var obj = document.getElementById(id + "_" + idx);
- if(idx === cueListsIndices[id]) {
+ if(idx == cueListsIndices[id]) {
    obj.style.backgroundColor="#5E7FDF";
  }
  else {

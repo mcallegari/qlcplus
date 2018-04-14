@@ -953,7 +953,7 @@ QString WebAccess::getButtonHTML(VCButton *btn)
             "left: " + QString::number(btn->x()) + "px; "
             "top: " + QString::number(btn->y()) + "px;\">\n";
     str +=  "<a class=\"vcbutton\" id=\"" + QString::number(btn->id()) + "\" "
-            "href=\"javascript:return false;\" "
+            "href=\"javascript:void(0);\" "
             "onmousedown=\"buttonPress(" + QString::number(btn->id()) + ");\" "
             "onmouseup=\"buttonRelease(" + QString::number(btn->id()) + ");\" "
             "style=\""
@@ -1045,11 +1045,7 @@ void WebAccess::slotAudioTriggersToggled(bool toggle)
 
     qDebug() << "AudioTriggers state changed " << toggle;
 
-    QString wsMessage = QString::number(triggers->id());
-    if (toggle)
-        wsMessage.append("|AUDIOTRIGGERS|255");
-    else
-        wsMessage.append("|AUDIOTRIGGERS|0");
+    QString wsMessage = QString("%1|AUDIOTRIGGERS|%2").arg(triggers->id()).arg(toggle ? 255 : 0);
 
     sendWebSocketMessage(wsMessage.toUtf8());
 }
