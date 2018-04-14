@@ -151,6 +151,7 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
             m_slider, SLOT(setValue(int)));
 
     m_externalMovement = false;
+    m_catchValues = false;
     m_lastInputValue = -1;
 
     /* Put stretchable space after the slider (to its right side) */
@@ -417,6 +418,23 @@ void VCSlider::setInvertedAppearance(bool invert)
         m_slider->setInvertedAppearance(invert);
         m_slider->setInvertedControls(invert);
     }
+}
+
+/*********************************************************************
+ * Value catching feature
+ *********************************************************************/
+
+bool VCSlider::catchValues() const
+{
+    return m_catchValues;
+}
+
+void VCSlider::setCatchValues(bool enable)
+{
+    if (enable == m_catchValues)
+        return;
+
+    m_catchValues = enable;
 }
 
 /*****************************************************************************
@@ -1431,9 +1449,10 @@ void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
     {
         if (m_slider)
         {
-            /* controllers that do not support feedbacks can catch up with the current
-             * slider value by entering a certain threshold or by 'surpassing' the current value */
-            if (m_doc->inputOutputMap()->feedbackPatch(universe) == NULL)
+            /* When 'values catching" is enabled, controllers that do not have motorized faders
+             * can catch up with the current slider value by entering a certain threshold
+             * or by 'surpassing' the current value */
+            if (catchValues())
             {
                 uchar currentValue = sliderValue();
 
@@ -1515,6 +1534,10 @@ bool VCSlider::loadXML(QXmlStreamReader &root)
         setInvertedAppearance(false);
     else
         setInvertedAppearance(true);
+
+    /* Values catching */
+    if (attrs.hasAttribute(KXMLQLCVCSliderCatchValues))
+        setCatchValues(true);
 
     /* Children */
     while (root.readNextStartElement())
@@ -1687,6 +1710,10 @@ bool VCSlider::saveXML(QXmlStreamWriter *doc)
         doc->writeAttribute(KXMLQLCVCSliderInvertedAppearance, "true");
     else
         doc->writeAttribute(KXMLQLCVCSliderInvertedAppearance, "false");
+
+    /* Values catching */
+    if (catchValues() == true)
+        doc->writeAttribute(KXMLQLCVCSliderCatchValues, "true");
 
     /* Window state */
     saveXMLWindowState(doc);

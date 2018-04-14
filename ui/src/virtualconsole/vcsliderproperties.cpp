@@ -110,15 +110,15 @@ VCSliderProperties::VCSliderProperties(VCSlider* slider, Doc* doc)
     m_sliderMode = m_slider->sliderMode();
     switch (m_sliderMode)
     {
-    default:
-    case VCSlider::Level:
-        slotModeLevelClicked();
+        default:
+        case VCSlider::Level:
+            slotModeLevelClicked();
         break;
-    case VCSlider::Playback:
-        slotModePlaybackClicked();
+        case VCSlider::Playback:
+            slotModePlaybackClicked();
         break;
-    case VCSlider::Submaster:
-        slotModeSubmasterClicked();
+        case VCSlider::Submaster:
+            slotModeSubmasterClicked();
         break;
     }
 
@@ -131,14 +131,18 @@ VCSliderProperties::VCSliderProperties(VCSlider* slider, Doc* doc)
     /* Value display style */
     switch (m_slider->valueDisplayStyle())
     {
-    default:
-    case VCSlider::ExactValue:
-        m_valueExactRadio->setChecked(true);
+        default:
+        case VCSlider::ExactValue:
+            m_valueExactRadio->setChecked(true);
         break;
-    case VCSlider::PercentageValue:
-        m_valuePercentageRadio->setChecked(true);
+        case VCSlider::PercentageValue:
+            m_valuePercentageRadio->setChecked(true);
         break;
     }
+
+    /* Values catching */
+    if (m_slider->catchValues())
+        m_catchValueCheck->setChecked(true);
 
     /********************************************************************
      * External input
@@ -832,6 +836,12 @@ void VCSliderProperties::accept()
         m_slider->setWidgetStyle(VCSlider::WKnob);
     else
         m_slider->setWidgetStyle(VCSlider::WSlider);
+
+    /* Values catching */
+    if (m_catchValueCheck->isChecked())
+        m_slider->setCatchValues(true);
+    else
+        m_slider->setCatchValues(false);
 
     /* Level page */
     bool limitDiff =
