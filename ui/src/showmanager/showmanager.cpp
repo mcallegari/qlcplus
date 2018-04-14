@@ -1300,25 +1300,31 @@ void ShowManager::slotShowItemMoved(ShowItem *item, quint32 time, bool moved)
         quint32 sceneID = sequence->boundSceneID();
 
         Function *sf = m_doc->function(sceneID);
-        Scene *newScene = NULL;
-        if (sf != NULL)
-            newScene = qobject_cast<Scene*>(sf);
-
-        if (newScene != m_currentScene || m_sceneEditor == NULL)
+        Scene *boundScene = NULL;
+        if (sf == NULL)
         {
-            m_currentScene = newScene;
-            showSceneEditor(m_currentScene);
+            sequence->setBoundSceneID(Function::invalidId());
         }
-
-        /* activate the new track */
-        m_currentTrack = m_show->getTrackFromSceneID(sceneID);
-        m_showview->activateTrack(m_currentTrack);
-        showRightEditor(f);
-
-        if (m_currentEditor != NULL)
+        else
         {
-            ChaserEditor *editor = qobject_cast<ChaserEditor*>(m_currentEditor);
-            editor->selectStepAtTime(time - item->getStartTime());
+            boundScene = qobject_cast<Scene*>(sf);
+
+            if (boundScene != m_currentScene || m_sceneEditor == NULL)
+            {
+                m_currentScene = boundScene;
+                showSceneEditor(m_currentScene);
+            }
+
+            /* activate the new track */
+            m_currentTrack = m_show->getTrackFromSceneID(sceneID);
+            m_showview->activateTrack(m_currentTrack);
+            showRightEditor(f);
+
+            if (m_currentEditor != NULL)
+            {
+                ChaserEditor *editor = qobject_cast<ChaserEditor*>(m_currentEditor);
+                editor->selectStepAtTime(time - item->getStartTime());
+            }
         }
     }
     else
