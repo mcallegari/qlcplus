@@ -6675,7 +6675,7 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="211"/>
         <source>Catch up with the external controller input value</source>
-        <translation type="unfinished"></translation>
+        <translation>Se mettre à jour avec la valeur d&apos;entrée du contrôleur externe</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="255"/>
