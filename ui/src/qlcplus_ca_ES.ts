@@ -394,7 +394,7 @@
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="142"/>
         <source> px</source>
-        <translation>px</translation>
+        <translation> px</translation>
     </message>
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="155"/>
@@ -950,8 +950,7 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     <message>
         <location filename="audioeditor.ui" line="113"/>
         <source>Audio name</source>
-        <translation>Nom del Audio
-</translation>
+        <translation>Nom del Audio</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="300"/>
@@ -1180,14 +1179,12 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     <message>
         <location filename="channelmodifiereditor.ui" line="50"/>
         <source>Modified DMX value</source>
-        <translation>Valor DMX modificat
-</translation>
+        <translation>Valor DMX modificat</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="63"/>
         <source>Original DMX value</source>
-        <translation>Valor DMX original
-</translation>
+        <translation>Valor DMX original</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="81"/>
@@ -2434,7 +2431,7 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
         <location filename="fixtureremap.cpp" line="130"/>
         <location filename="fixtureremap.cpp" line="132"/>
         <source> (remapped)</source>
-        <translation>(reassignat)</translation>
+        <translation> (reassignat)</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="225"/>
@@ -2744,7 +2741,7 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     <message>
         <location filename="functionmanager.cpp" line="607"/>
         <source>(This will also DELETE: </source>
-        <translation>(Això ESBORRARÀ també:</translation>
+        <translation>(Això ESBORRARÀ també: </translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="619"/>
@@ -4527,7 +4524,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
     <message>
         <location filename="sceneeditor.cpp" line="169"/>
         <source>Enable all channels in current fixture</source>
-        <translation>Activar tots els canals de aquest fixture </translation>
+        <translation>Activar tots els canals de aquest fixture</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="171"/>
@@ -6160,17 +6157,17 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="370"/>
         <source> Add start color knobs</source>
-        <translation>Afegir perilla de color inicial</translation>
+        <translation> Afegir perilla de color inicial</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="281"/>
         <source> Add end color knobs</source>
-        <translation>Afegir perilla de color final</translation>
+        <translation> Afegir perilla de color final</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="337"/>
         <source> Add end color reset</source>
-        <translation>Afegir restablir color final</translation>
+        <translation> Afegir restablir color final</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="348"/>
@@ -6180,7 +6177,7 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="312"/>
         <source> Add preset</source>
-        <translation>Afegir preset</translation>
+        <translation> Afegir preset</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="299"/>
@@ -6200,7 +6197,7 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="381"/>
         <source> Add end color</source>
-        <translation>Afegir un color de final</translation>
+        <translation> Afegir un color de final</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="323"/>
@@ -6590,7 +6587,7 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="211"/>
         <source>Catch up with the external controller input value</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualitzar amb el valor de l&apos;entrada del controlador extern</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="219"/>
@@ -6814,7 +6811,7 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcsoloframeproperties.cpp" line="43"/>
         <source>Mix sliders in playback mode</source>
-        <translation>Mesclar sliders en Mode Reproducció </translation>
+        <translation>Mesclar sliders en Mode Reproducció</translation>
     </message>
 </context>
 <context>
@@ -6993,7 +6990,7 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="439"/>
         <source> Add preset</source>
-        <translation>Afegir preset</translation>
+        <translation> Afegir preset</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="467"/>
