@@ -396,7 +396,7 @@
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="142"/>
         <source> px</source>
-        <translation>px</translation>
+        <translation> px</translation>
     </message>
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="155"/>
@@ -2441,7 +2441,7 @@ El archivo seleccionado ha sido movido o borrado.</translation>
         <location filename="fixtureremap.cpp" line="130"/>
         <location filename="fixtureremap.cpp" line="132"/>
         <source> (remapped)</source>
-        <translation>(reasignado)</translation>
+        <translation> (reasignado)</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="225"/>
@@ -2752,7 +2752,7 @@ El archivo seleccionado ha sido movido o borrado.</translation>
     <message>
         <location filename="functionmanager.cpp" line="607"/>
         <source>(This will also DELETE: </source>
-        <translation>(Esto ELIMINARÁ también:</translation>
+        <translation>(Esto ELIMINARÁ también: </translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="619"/>
@@ -4578,7 +4578,7 @@ Tenga en cuenta que el asistente no puede diferenciar entre una perilla y un sli
     <message>
         <location filename="sceneeditor.cpp" line="185"/>
         <source>Toggle blind mode</source>
-        <translation>Activar/Desactivar Modo Blind </translation>
+        <translation>Activar/Desactivar Modo Blind</translation>
     </message>
     <message>
         <location filename="sceneeditor.cpp" line="187"/>
@@ -5374,8 +5374,7 @@ Duración: %3
     <message>
         <location filename="universeitemwidget.cpp" line="86"/>
         <source>Input:</source>
-        <translation>Entrada:
-</translation>
+        <translation>Entrada:</translation>
     </message>
     <message>
         <location filename="universeitemwidget.cpp" line="87"/>
@@ -6671,7 +6670,7 @@ Duración: %3
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="211"/>
         <source>Catch up with the external controller input value</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualizar con el valor de entrada del controlador externo</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcsliderproperties.ui" line="255"/>
