@@ -26,7 +26,7 @@ qlcplus (4.11.2) stable; urgency=low
   * New fixture: DTS XR7 Spot (thanks to Nicolò Zanon)
   * New fixture: Ledj Slimline 12Q5 Batten (thanks to Dean Clough)
   * New fixture: Ayra Compar Kit 1 (thanks to eigenaardiger)
-  * New fixtures: GLP Impression X4 S, Eurolite LED KLS-2500 (thanks to Mitsch)
+  * New fixture: GLP Impression X4 S (thanks to Mitsch)
   * New fixture: Chauvet Intimidator Spot 255 IRC (thanks to Ham Sadler)
   * New fixtures: Chauvet Geyser RGB, Geyser P6 (thanks to Andrew)
   * New fixture: Chauvet Rotosphere Q3 (thanks to Eric Sherlock)
@@ -55,7 +55,6 @@ qlcplus (4.11.2) stable; urgency=low
   * New fixture: Fun Generation PicoWash 40 Pixel Quad LED (thanks to Harm Aldick)
   * New fixtures: American DJ Entourage, Elumen8 MS-700PE, Ibiza PAR LED 712IR (thanks to Tim Cullingworth)
   * New fixtures: Martin MAC 401 Dual RGB Zoom, MAC 401 Dual CT Zoom, Stairville MH-z720 (thanks to Tim Cullingworth)
-  * New fixture: Fun Generation SePar Quad UV (thanks to Helmet)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 15 Apr 2018 12:13:14 +0200
 

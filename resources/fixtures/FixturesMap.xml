@@ -419,7 +419,6 @@
   <fixture path="Eurolite-LED-FE-1500.qxf" mf="Eurolite" md="LED FE-1500"/>
   <fixture path="Eurolite-LED-FE-700.qxf" mf="Eurolite" md="LED FE-700"/>
   <fixture path="Eurolite-LED-Flood-Light-252-RGB-19.qxf" mf="Eurolite" md="LED Flood Light 252 RGB 19°"/>
-  <fixture path="Eurolite-LED-KLS-2500.qxf" mf="Eurolite" md="LED KLS-2500"/>
   <fixture path="Eurolite-LED-KLS-401.qxf" mf="Eurolite" md="LED KLS-401"/>
   <fixture path="Eurolite-LED-KLS-Laser-Bar-FX-Light-Set.qxf" mf="Eurolite" md="LED KLS Laser Bar FX Light Set"/>
   <fixture path="Eurolite-LED-ML-56-QCL-RGBW-RGBA-18x8W.qxf" mf="Eurolite" md="LED ML-56 QCL RGBW-RGBA 18x8W"/>
@@ -479,7 +478,6 @@
   <fixture path="Flash-Butrym-LED-Moving-Head-Mini-Beam-18x3W-RGB-CREE.qxf" mf="Flash-Butrym" md="LED Moving Head Mini Beam 18x3W RGB CREE"/>
   <fixture path="Fun-Generation-LED-Diamond-Dome.qxf" mf="Fun-Generation" md="LED Diamond Dome"/>
   <fixture path="Fun-Generation-PicoWash-40-Pixel-Quad-LED.qxf" mf="Fun-Generation" md="PicoWash 40 Pixel Quad LED"/>
-  <fixture path="Fun-Generation-SePar-Quad-UV.qxf" mf="Fun-Generation" md="SePar Quad UV"/>
   <fixture path="Futurelight-AHS-150.qxf" mf="Futurelight" md="AHS-150"/>
   <fixture path="Futurelight-CF-200.qxf" mf="Futurelight" md="CF-200"/>
   <fixture path="Futurelight-CY-200.qxf" mf="Futurelight" md="CY-200"/>
