@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -75,21 +75,9 @@
   <Capability Min="150" Max="199">3D grating</Capability>
   <Capability Min="200" Max="255">3D line grating</Capability>
  </Channel>
- <Channel Name="Red fading">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red from max to min</Capability>
- </Channel>
- <Channel Name="Green fading">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green from max to min</Capability>
- </Channel>
- <Channel Name="Blue fading">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue from max to min</Capability>
- </Channel>
+ <Channel Name="Red fading" Preset="IntensityRed"/>
+ <Channel Name="Green fading" Preset="IntensityGreen"/>
+ <Channel Name="Blue fading" Preset="IntensityBlue"/>
  <Channel Name="Z rotation">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="128">Manual indexing</Capability>
@@ -120,13 +108,6 @@
   <Capability Min="246" Max="255">Automatic positioning</Capability>
  </Channel>
  <Mode Name="16 channel">
-  <Physical>
-   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="4.7" Width="235" Height="205" Depth="165"/>
-   <Lens Name="Other" DegreesMin="1" DegreesMax="1"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Mode</Channel>
   <Channel Number="1">Patterns</Channel>
   <Channel Number="2">Grating</Channel>
@@ -144,4 +125,11 @@
   <Channel Number="14">Y wave</Channel>
   <Channel Number="15">X wave</Channel>
  </Mode>
-</FixtureDefinition>
+<Physical>
+   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4.7" Width="235" Height="205" Depth="165"/>
+   <Lens Name="Other" DegreesMin="1" DegreesMax="1"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+  </Physical>
+  </FixtureDefinition>

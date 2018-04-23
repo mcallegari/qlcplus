@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,112 +9,28 @@
  <Manufacturer>American DJ</Manufacturer>
  <Model>Vizi Hex Wash7</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan Movement 8 bit (540° or 630°)</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan Movement Fine 16 bit</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt Movement 8 bit</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt Movement Fine 16 bit</Capability>
- </Channel>
- <Channel Name="Red Center LED">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">0% - 100%</Capability>
- </Channel>
- <Channel Name="Green Center LED">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00ff00">0% - 100%</Capability>
- </Channel>
- <Channel Name="Blue Center LED">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255" Color="#0000ff">0% - 100%</Capability>
- </Channel>
- <Channel Name="White Center LED">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255" Color="#ffffff">0% - 100%</Capability>
- </Channel>
- <Channel Name="Amber Center LED">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Amber</Colour>
-  <Capability Min="0" Max="255" Color="#ff5500">0% - 100%</Capability>
- </Channel>
- <Channel Name="UV Center LED">
-  <Group Byte="0">Intensity</Group>
-  <Colour>UV</Colour>
-  <Capability Min="0" Max="255" Color="#5500ff">0% - 100%</Capability>
- </Channel>
- <Channel Name="Red Outer LED's">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">0% - 100%</Capability>
- </Channel>
- <Channel Name="Green Outer LED's">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00ff00">0% - 100%</Capability>
- </Channel>
- <Channel Name="Blue Outer LED's">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255" Color="#0000ff">0% - 100%</Capability>
- </Channel>
- <Channel Name="White Outer LED's">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255" Color="#ffffff">0% - 100%</Capability>
- </Channel>
- <Channel Name="Amber Outer LED's">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Amber</Colour>
-  <Capability Min="0" Max="255" Color="#ff5500">0% - 100%</Capability>
- </Channel>
- <Channel Name="UV Outer LED's">
-  <Group Byte="0">Intensity</Group>
-  <Colour>UV</Colour>
-  <Capability Min="0" Max="255" Color="#5500ff">0% - 100%</Capability>
- </Channel>
- <Channel Name="All Red LED">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255" Color="#ff0000">0% - 100%</Capability>
- </Channel>
- <Channel Name="All Green LED">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255" Color="#00ff00">0% - 100%</Capability>
- </Channel>
- <Channel Name="All Blue LED">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255" Color="#0000ff">0% - 100%</Capability>
- </Channel>
- <Channel Name="All White LED">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255" Color="#ffffff">0% - 100%</Capability>
- </Channel>
- <Channel Name="All Amber LED">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Amber</Colour>
-  <Capability Min="0" Max="255" Color="#ff5500">0% - 100%</Capability>
- </Channel>
- <Channel Name="All UV LED">
-  <Group Byte="0">Intensity</Group>
-  <Colour>UV</Colour>
-  <Capability Min="0" Max="255" Color="#5500ff">0% - 100%</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Red Center LED" Preset="IntensityRed"/>
+ <Channel Name="Green Center LED" Preset="IntensityGreen"/>
+ <Channel Name="Blue Center LED" Preset="IntensityBlue"/>
+ <Channel Name="White Center LED" Preset="IntensityWhite"/>
+ <Channel Name="Amber Center LED" Preset="IntensityAmber"/>
+ <Channel Name="UV Center LED" Preset="IntensityUV"/>
+ <Channel Name="Red Outer LED's" Preset="IntensityRed"/>
+ <Channel Name="Green Outer LED's" Preset="IntensityGreen"/>
+ <Channel Name="Blue Outer LED's" Preset="IntensityBlue"/>
+ <Channel Name="White Outer LED's" Preset="IntensityWhite"/>
+ <Channel Name="Amber Outer LED's" Preset="IntensityAmber"/>
+ <Channel Name="UV Outer LED's" Preset="IntensityUV"/>
+ <Channel Name="All Red LED" Preset="IntensityRed"/>
+ <Channel Name="All Green LED" Preset="IntensityGreen"/>
+ <Channel Name="All Blue LED" Preset="IntensityBlue"/>
+ <Channel Name="All White LED" Preset="IntensityWhite"/>
+ <Channel Name="All Amber LED" Preset="IntensityAmber"/>
+ <Channel Name="All UV LED" Preset="IntensityUV"/>
  <Channel Name="Color Macros">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="0" Color="#000000">Off</Capability>
@@ -194,18 +110,9 @@
   <Capability Min="192" Max="223">Random Strobe Slow - Fast</Capability>
   <Capability Min="224" Max="255">LED On</Capability>
  </Channel>
- <Channel Name="Master Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
- <Channel Name="Dimmer Fine">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Near - Far</Capability>
- </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Dimmer Fine" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Auto Programs">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="0">Off</Capability>
@@ -263,13 +170,6 @@
   <Capability Min="240" Max="255">No Function</Capability>
  </Channel>
  <Mode Name="19 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="8.5" Width="300" Height="400" Depth="200"/>
-   <Lens Name="Other" DegreesMin="7" DegreesMax="58"/>
-   <Focus Type="Head" PanMax="630" TiltMax="270"/>
-   <Technical PowerConsumption="137" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">All Red LED</Channel>
@@ -291,13 +191,6 @@
   <Channel Number="18">Internal Programs</Channel>
  </Mode>
  <Mode Name="21 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="8.5" Width="300" Height="400" Depth="200"/>
-   <Lens Name="Other" DegreesMin="7" DegreesMax="58"/>
-   <Focus Type="Head" PanMax="630" TiltMax="270"/>
-   <Technical PowerConsumption="137" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -321,13 +214,6 @@
   <Channel Number="20">Internal Programs</Channel>
  </Mode>
  <Mode Name="27 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="8.5" Width="300" Height="400" Depth="200"/>
-   <Lens Name="Other" DegreesMin="7" DegreesMax="58"/>
-   <Focus Type="Head" PanMax="630" TiltMax="270"/>
-   <Technical PowerConsumption="137" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -356,4 +242,11 @@
   <Channel Number="25">Pan / Tilt Speed</Channel>
   <Channel Number="26">Internal Programs</Channel>
  </Mode>
-</FixtureDefinition>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="8.5" Width="300" Height="400" Depth="200"/>
+   <Lens Name="Other" DegreesMin="7" DegreesMax="58"/>
+   <Focus Type="Head" PanMax="630" TiltMax="270"/>
+   <Technical PowerConsumption="137" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
+  </FixtureDefinition>

@@ -3,40 +3,21 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.2 GIT</Version>
+  <Version>4.11.3 GIT</Version>
   <Author>Alexander</Author>
  </Creator>
  <Manufacturer>Showtec</Manufacturer>
  <Model>Compact Par 7 Q4</Model>
  <Type>Color Changer</Type>
- <Channel Name="Red">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red Intensity</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green Intensity</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="1">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue Intensity</Capability>
- </Channel>
- <Channel Name="White">
-  <Group Byte="1">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White Intensity</Capability>
- </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="1">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer Value</Capability>
- </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="1">Shutter</Group>
   <Capability Min="0" Max="10">No Strobe</Capability>
-  <Capability Min="11" Max="255" Color="#ffffff">Strobe 0-20 Hz</Capability>
+  <Capability Min="11" Max="255" Preset="ColorMacro" Res1="#ffffff">Strobe 0-20 Hz</Capability>
  </Channel>
  <Channel Name="Random Strobe">
   <Group Byte="1">Shutter</Group>
@@ -109,13 +90,6 @@
   <Capability Min="51" Max="255">Gradual adjustment sensivity, from 1-100%</Capability>
  </Channel>
  <Mode Name="6 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="681" ColourTemperature="4000"/>
-   <Dimensions Weight="2.14" Width="260" Height="92" Depth="272"/>
-   <Lens Name="Other" DegreesMin="18" DegreesMax="18"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="32" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Strobe</Channel>
   <Channel Number="2">Red</Channel>
@@ -124,26 +98,12 @@
   <Channel Number="5">White</Channel>
  </Mode>
  <Mode Name="4 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="681" ColourTemperature="4000"/>
-   <Dimensions Weight="2.14" Width="260" Height="92" Depth="272"/>
-   <Lens Name="Other" DegreesMin="18" DegreesMax="18"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="32" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
   <Channel Number="3">White</Channel>
  </Mode>
  <Mode Name="11 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="681" ColourTemperature="4000"/>
-   <Dimensions Weight="2.14" Width="260" Height="92" Depth="272"/>
-   <Lens Name="Other" DegreesMin="18" DegreesMax="18"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="32" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Strobe</Channel>
   <Channel Number="2">Random Strobe</Channel>
@@ -156,4 +116,11 @@
   <Channel Number="9">Blue</Channel>
   <Channel Number="10">White</Channel>
  </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="681" ColourTemperature="4000"/>
+  <Dimensions Weight="2.14" Width="260" Height="92" Depth="272"/>
+  <Lens Name="Other" DegreesMin="18" DegreesMax="18"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="32" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

@@ -248,6 +248,7 @@ def update_fixture(path, filename, destpath):
 def createFixtureMap():
     global namespace
 
+    count = 0
     xmlFile = open("FixturesMap.xml", "w")
     root = etree.Element("FixturesMap")
     root.set('xmlns', 'http://www.qlcplus.org/FixturesMap')
@@ -265,9 +266,11 @@ def createFixtureMap():
         fxTag.set('m', manufacturer.text)
         fxTag.set('d', model.text)
         #print manufacturer.text + ", " + model.text
+        count += 1
 
     xmlFile.write(etree.tostring(root, pretty_print=True, xml_declaration=True, encoding="UTF-8", doctype="<!DOCTYPE FixturesMap>"))
     xmlFile.close()
+    print "Fixtures in map: " + str(count)
 
 ###########################################################################################
 #
@@ -276,8 +279,9 @@ def createFixtureMap():
 ###########################################################################################
     
 parser = argparse.ArgumentParser(description='Unified Fixture tool.')
-parser.add_argument('--map', help='Create the Fixture map', action="store_true")
-parser.add_argument('--convert [source] [destination]', help='Convert an "old" syntax Fixture definition', dest='convert', action="store_true")
+parser.add_argument('--map', help='Create the Fixture map', action='store_true')
+parser.add_argument('--convert [source] [destination]', help='Convert an "old" syntax Fixture definition', 
+                    nargs='*', dest='convert')
 
 args = parser.parse_args()
 

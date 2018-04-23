@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -34,10 +34,7 @@
   <Capability Min="230" Max="244">Electronic burst (fast-&gt;slow)</Capability>
   <Capability Min="245" Max="255">Shuuter open</Capability>
  </Channel>
- <Channel Name="Virtual Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Closed -&gt; open</Capability>
- </Channel>
+ <Channel Name="Virtual Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Dynamic Effect 1">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="19">No effect</Capability>
@@ -70,10 +67,7 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">No fade -&gt; max. fade</Capability>
  </Channel>
- <Channel Name="Dynamic Effect 1 Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Zero -&gt; 100%</Capability>
- </Channel>
+ <Channel Name="Dynamic Effect 1 Intensity" Preset="IntensityDimmer"/>
  <Channel Name="Dynamic Effect 2 Speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="2">Stop</Capability>
@@ -86,32 +80,17 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">No fade -&gt; max. fade</Capability>
  </Channel>
- <Channel Name="Dynamic Effect 2 Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Zero -&gt; 100%</Capability>
- </Channel>
+ <Channel Name="Dynamic Effect 2 Intensity" Preset="IntensityDimmer"/>
  <Channel Name="Zoom">
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="200">Wide -&gt; narrow</Capability>
   <Capability Min="201" Max="210">Hypermode</Capability>
   <Capability Min="211" Max="255">No function</Capability>
  </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan 0 - 630 Deg (128 = centered)</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine (least significant byte)</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt 0 - 300 Deg (128 = centered)</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine (least significant byte)</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Fixture Control">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="9">No Function</Capability>
@@ -142,70 +121,38 @@
   <Capability Min="130" Max="249">No Function, resurved for future use</Capability>
   <Capability Min="250" Max="255">Illuminate display</Capability>
  </Channel>
- <Channel Name="No Function">
-  <Group Byte="0">Nothing</Group>
- </Channel>
+ <Channel Name="No Function" Preset="NoFunction"/>
  <Channel Name="Group A CTC">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="19">No Function</Capability>
   <Capability Min="20" Max="255">CTC 10,000K - 2,000K</Capability>
  </Channel>
- <Channel Name="Group A Warm White">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Warm White 0 - 100%</Capability>
- </Channel>
- <Channel Name="Group A Cold White">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Cold White 0 - 100%</Capability>
- </Channel>
+ <Channel Name="Group A Warm White" Preset="IntensityWhite"/>
+ <Channel Name="Group A Cold White" Preset="IntensityWhite"/>
  <Channel Name="Group B CTC">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="19">No Function</Capability>
   <Capability Min="20" Max="255">CTC 10,000K - 2,000K</Capability>
  </Channel>
- <Channel Name="Group B Warm White">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Warm White 0 - 100%</Capability>
- </Channel>
- <Channel Name="No Function B">
-  <Group Byte="0">Nothing</Group>
- </Channel>
- <Channel Name="Group B Cold White">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Cold White 0 - 100%</Capability>
- </Channel>
+ <Channel Name="Group B Warm White" Preset="IntensityWhite"/>
+ <Channel Name="No Function B" Preset="NoFunction"/>
+ <Channel Name="Group B Cold White" Preset="IntensityWhite"/>
  <Channel Name="Group C CTC">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="19">No Function</Capability>
   <Capability Min="20" Max="255">CTC 10,000K - 2,000K</Capability>
  </Channel>
- <Channel Name="Group C Warm White">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Warm White 0 - 100%</Capability>
- </Channel>
- <Channel Name="No Function C">
-  <Group Byte="0">Nothing</Group>
- </Channel>
- <Channel Name="Group C Cold White">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Cold White 0 - 100%</Capability>
- </Channel>
+ <Channel Name="Group C Warm White" Preset="IntensityWhite"/>
+ <Channel Name="No Function C" Preset="NoFunction"/>
+ <Channel Name="Group C Cold White" Preset="IntensityWhite"/>
  <Channel Name="Group D CTC">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="19">No Function</Capability>
   <Capability Min="20" Max="255">CTC 10,000K - 2,000K</Capability>
  </Channel>
- <Channel Name="Group D Warm White">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Warm White 0 - 100%</Capability>
- </Channel>
- <Channel Name="No Function D">
-  <Group Byte="0">Nothing</Group>
- </Channel>
- <Channel Name="Group D Cold White">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Cold White 0 - 100%</Capability>
- </Channel>
+ <Channel Name="Group D Warm White" Preset="IntensityWhite"/>
+ <Channel Name="No Function D" Preset="NoFunction"/>
+ <Channel Name="Group D Cold White" Preset="IntensityWhite"/>
  <Channel Name="Dynamic Effect 2">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="19">No effect</Capability>
@@ -226,17 +173,8 @@
   <Capability Min="245" Max="249">Effect 37 - Reserved for future use</Capability>
   <Capability Min="250" Max="254">Effect 38 - Reserved for future use</Capability>
  </Channel>
- <Channel Name="No Function A">
-  <Group Byte="0">Nothing</Group>
- </Channel>
+ <Channel Name="No Function A" Preset="NoFunction"/>
  <Mode Name="HSVX 1">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="21" Width="505" Height="527" Depth="221"/>
-   <Lens Name="Other" DegreesMin="16" DegreesMax="50"/>
-   <Focus Type="Fixed" PanMax="630" TiltMax="300"/>
-   <Technical PowerConsumption="386" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Strobe / Vitrual Shutter</Channel>
   <Channel Number="1">Virtual Dimmer</Channel>
   <Channel Number="2">Dynamic Effect 1</Channel>
@@ -296,13 +234,6 @@
   </Head>
  </Mode>
  <Mode Name="HSVX 2V">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="21" Width="505" Height="527" Depth="221"/>
-   <Lens Name="Other" DegreesMin="16" DegreesMax="50"/>
-   <Focus Type="Fixed" PanMax="630" TiltMax="300"/>
-   <Technical PowerConsumption="386" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Strobe / Vitrual Shutter</Channel>
   <Channel Number="1">Virtual Dimmer</Channel>
   <Channel Number="2">Dynamic Effect 1</Channel>
@@ -342,13 +273,6 @@
   </Head>
  </Mode>
  <Mode Name="HSVX 2H">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="21" Width="505" Height="527" Depth="221"/>
-   <Lens Name="Other" DegreesMin="16" DegreesMax="50"/>
-   <Focus Type="Fixed" PanMax="630" TiltMax="300"/>
-   <Technical PowerConsumption="386" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Strobe / Vitrual Shutter</Channel>
   <Channel Number="1">Virtual Dimmer</Channel>
   <Channel Number="2">Dynamic Effect 1</Channel>
@@ -388,13 +312,6 @@
   </Head>
  </Mode>
  <Mode Name="HSVX All">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="21" Width="505" Height="527" Depth="221"/>
-   <Lens Name="Other" DegreesMin="16" DegreesMax="50"/>
-   <Focus Type="Fixed" PanMax="630" TiltMax="300"/>
-   <Technical PowerConsumption="386" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Strobe / Vitrual Shutter</Channel>
   <Channel Number="1">Virtual Dimmer</Channel>
   <Channel Number="2">Dynamic Effect 1</Channel>
@@ -418,13 +335,6 @@
   <Channel Number="20">Group A CTC</Channel>
  </Mode>
  <Mode Name="HSV 1">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="21" Width="505" Height="527" Depth="221"/>
-   <Lens Name="Other" DegreesMin="16" DegreesMax="50"/>
-   <Focus Type="Fixed" PanMax="630" TiltMax="300"/>
-   <Technical PowerConsumption="386" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Strobe / Vitrual Shutter</Channel>
   <Channel Number="1">Virtual Dimmer</Channel>
   <Channel Number="2">Zoom</Channel>
@@ -476,13 +386,6 @@
   </Head>
  </Mode>
  <Mode Name="HSV 2V">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="21" Width="505" Height="527" Depth="221"/>
-   <Lens Name="Other" DegreesMin="16" DegreesMax="50"/>
-   <Focus Type="Fixed" PanMax="630" TiltMax="300"/>
-   <Technical PowerConsumption="386" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Strobe / Vitrual Shutter</Channel>
   <Channel Number="1">Virtual Dimmer</Channel>
   <Channel Number="2">Zoom</Channel>
@@ -514,13 +417,6 @@
   </Head>
  </Mode>
  <Mode Name="HSV 2H">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="21" Width="505" Height="527" Depth="221"/>
-   <Lens Name="Other" DegreesMin="16" DegreesMax="50"/>
-   <Focus Type="Fixed" PanMax="630" TiltMax="300"/>
-   <Technical PowerConsumption="386" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Strobe / Vitrual Shutter</Channel>
   <Channel Number="1">Virtual Dimmer</Channel>
   <Channel Number="2">Zoom</Channel>
@@ -552,13 +448,6 @@
   </Head>
  </Mode>
  <Mode Name="HSV All">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="21" Width="505" Height="527" Depth="221"/>
-   <Lens Name="Other" DegreesMin="16" DegreesMax="50"/>
-   <Focus Type="Fixed" PanMax="630" TiltMax="300"/>
-   <Technical PowerConsumption="386" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Strobe / Vitrual Shutter</Channel>
   <Channel Number="1">Virtual Dimmer</Channel>
   <Channel Number="2">Zoom</Channel>
@@ -573,4 +462,11 @@
   <Channel Number="11">Group A Cold White</Channel>
   <Channel Number="12">Group A CTC</Channel>
  </Mode>
-</FixtureDefinition>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="21" Width="505" Height="527" Depth="221"/>
+   <Lens Name="Other" DegreesMin="16" DegreesMax="50"/>
+   <Focus Type="Fixed" PanMax="630" TiltMax="300"/>
+   <Technical PowerConsumption="386" DmxConnector="5-pin"/>
+  </Physical>
+  </FixtureDefinition>

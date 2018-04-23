@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,30 +9,12 @@
  <Manufacturer>Stairville</Manufacturer>
  <Model>MH-x30 LED Beam</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Rotation (pan) (0° to 540°)</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Fine adjustment for rotation (pan)</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Inclination (tilt) (0° to 270°)</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Fine adjustment for inclination (tilt)</Capability>
- </Channel>
- <Channel Name="Pan &amp; Tilt speed">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="255"> Speed of rotation (pan) and inclination (tilt), fast to slow</Capability>
- </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer (0 % to 100 %)</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan &amp; Tilt speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="10">Strobe effect off</Capability>
@@ -102,13 +84,6 @@
   <Capability Min="21" Max="255">Without function</Capability>
  </Channel>
  <Mode Name="10 Channel">
-  <Physical>
-   <Bulb Type="LED " Lumens="0" ColourTemperature="6000"/>
-   <Dimensions Weight="5.8" Width="260" Height="386" Depth="150"/>
-   <Lens Name="PC" DegreesMin="2.8" DegreesMax="2.8"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="68" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -121,13 +96,6 @@
   <Channel Number="9">Special settings</Channel>
  </Mode>
  <Mode Name="7 Channel">
-  <Physical>
-   <Bulb Type="LED " Lumens="0" ColourTemperature="6000"/>
-   <Dimensions Weight="5.8" Width="260" Height="386" Depth="150"/>
-   <Lens Name="PC" DegreesMin="2.8" DegreesMax="2.8"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="68" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan &amp; Tilt speed</Channel>
@@ -136,4 +104,11 @@
   <Channel Number="5">Colour wheel</Channel>
   <Channel Number="6">Gobo wheel</Channel>
  </Mode>
-</FixtureDefinition>
+<Physical>
+   <Bulb Type="LED " Lumens="0" ColourTemperature="6000"/>
+   <Dimensions Weight="5.8" Width="260" Height="386" Depth="150"/>
+   <Lens Name="PC" DegreesMin="2.8" DegreesMax="2.8"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="68" DmxConnector="5-pin"/>
+  </Physical>
+  </FixtureDefinition>

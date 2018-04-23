@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -18,10 +18,7 @@
   <Capability Min="246" Max="250">Reset</Capability>
   <Capability Min="251" Max="255">Shutter on</Capability>
  </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dark to Bright</Capability>
- </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="18" Color="#ffffff">Open / White</Capability>
@@ -53,10 +50,7 @@
   <Capability Min="128" Max="191">Clockwise Rotating, slow to fast</Capability>
   <Capability Min="192" Max="255">Counterclockwise Rotating, slow to fast</Capability>
  </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Focus</Capability>
- </Channel>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Prism + Rotating">
   <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="4">No prism</Capability>
@@ -65,35 +59,16 @@
   <Capability Min="140" Max="197">Clockwise rotating, fast to slow</Capability>
   <Capability Min="198" Max="255">Counterclockwise rotating, slow to fast</Capability>
  </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">PAN Coarse</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">PAN Fine</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt Coarse</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">TILT Fine</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Pan &amp; Tilt Speed + Vector Mode">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="251">Fast to Slow</Capability>
   <Capability Min="252" Max="255">Vector Mode</Capability>
  </Channel>
  <Mode Name="12 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="2000" ColourTemperature="6500"/>
-   <Dimensions Weight="8.5" Width="250" Height="401" Depth="325"/>
-   <Lens Name="Fresnel" DegreesMin="18" DegreesMax="18"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="60" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Iris</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Color</Channel>
@@ -107,4 +82,11 @@
   <Channel Number="10">Tilt Fine</Channel>
   <Channel Number="11">Pan &amp; Tilt Speed + Vector Mode</Channel>
  </Mode>
-</FixtureDefinition>
+<Physical>
+   <Bulb Type="LED" Lumens="2000" ColourTemperature="6500"/>
+   <Dimensions Weight="8.5" Width="250" Height="401" Depth="325"/>
+   <Lens Name="Fresnel" DegreesMin="18" DegreesMax="18"/>
+   <Focus Type="Head" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="60" DmxConnector="3-pin"/>
+  </Physical>
+  </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,10 +9,7 @@
  <Manufacturer>Cameo</Manufacturer>
  <Model>Thunder Wash 100 RGB</Model>
  <Type>Strobe</Type>
- <Channel Name="Master Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimmer</Capability>
- </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobe C">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="5">Strobe open (react to dimmer CH1)</Capability>
@@ -52,21 +49,9 @@
   <Capability Min="0" Max="5">Sound Control OFF (Mic Sensitivity)</Capability>
   <Capability Min="6" Max="255">Sound Control ON Low -&gt; High (Mic Sensitivity)</Capability>
  </Channel>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">0% to 100%</Capability>
- </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="Duration">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">Flash duration (0ms to 510ms)</Capability>
@@ -84,94 +69,38 @@
   <Capability Min="11" Max="255">Strobe slow -&gt; fast 0Hz - 30Hz</Capability>
  </Channel>
  <Mode Name="1-CH">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="1" Width="310" Height="70" Depth="70"/>
-   <Lens Name="Other" DegreesMin="75" DegreesMax="75"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="35" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Strobe A</Channel>
  </Mode>
  <Mode Name="2-CH option 1">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="1" Width="310" Height="70" Depth="70"/>
-   <Lens Name="Other" DegreesMin="75" DegreesMax="75"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="35" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Colour Macro</Channel>
  </Mode>
  <Mode Name="2-CH option 2">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="1" Width="310" Height="70" Depth="70"/>
-   <Lens Name="Other" DegreesMin="75" DegreesMax="75"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="35" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Strobe B</Channel>
  </Mode>
  <Mode Name="3-CH option 1">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="1" Width="310" Height="70" Depth="70"/>
-   <Lens Name="Other" DegreesMin="75" DegreesMax="75"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="35" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Strobe B</Channel>
   <Channel Number="2">Duration</Channel>
  </Mode>
  <Mode Name="3-CH option 2">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="1" Width="310" Height="70" Depth="70"/>
-   <Lens Name="Other" DegreesMin="75" DegreesMax="75"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="35" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Strobe B</Channel>
   <Channel Number="2">Colour Macro</Channel>
  </Mode>
  <Mode Name="3-CH option 3">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="1" Width="310" Height="70" Depth="70"/>
-   <Lens Name="Other" DegreesMin="75" DegreesMax="75"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="35" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
  </Mode>
  <Mode Name="4-CH">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="1" Width="310" Height="70" Depth="70"/>
-   <Lens Name="Other" DegreesMin="75" DegreesMax="75"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="35" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Strobe C</Channel>
   <Channel Number="2">Colour Macro</Channel>
   <Channel Number="3">Sound</Channel>
  </Mode>
  <Mode Name="6-CH">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="1" Width="310" Height="70" Depth="70"/>
-   <Lens Name="Other" DegreesMin="75" DegreesMax="75"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="35" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Master Dimmer</Channel>
   <Channel Number="1">Strobe C</Channel>
   <Channel Number="2">Red</Channel>
@@ -179,4 +108,11 @@
   <Channel Number="4">Blue</Channel>
   <Channel Number="5">Sound</Channel>
  </Mode>
-</FixtureDefinition>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1" Width="310" Height="70" Depth="70"/>
+   <Lens Name="Other" DegreesMin="75" DegreesMax="75"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="35" DmxConnector="3-pin"/>
+  </Physical>
+  </FixtureDefinition>

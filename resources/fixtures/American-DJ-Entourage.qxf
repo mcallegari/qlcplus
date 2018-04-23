@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -35,37 +35,23 @@
   <Capability Min="10" Max="255">5-250 Seconds</Capability>
  </Channel>
  <Mode Name="1 Channel">
-  <Physical>
-   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="21.3" Width="533" Height="249" Depth="387"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="1500" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Fog</Channel>
  </Mode>
  <Mode Name="2 Channel">
-  <Physical>
-   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="21.3" Width="533" Height="249" Depth="387"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="1500" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Output Volume</Channel>
   <Channel Number="1">Fan Speed</Channel>
  </Mode>
  <Mode Name="4 Channel">
-  <Physical>
-   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="21.3" Width="533" Height="249" Depth="387"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="1500" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Output Volume</Channel>
   <Channel Number="1">Fan Speed</Channel>
   <Channel Number="2">Duration</Channel>
   <Channel Number="3">Interval</Channel>
  </Mode>
-</FixtureDefinition>
+<Physical>
+   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="21.3" Width="533" Height="249" Depth="387"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="1500" DmxConnector="3-pin"/>
+  </Physical>
+  </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -39,10 +39,7 @@
   <Capability Min="230" Max="249">Program 0</Capability>
   <Capability Min="250" Max="255">Sound control</Capability>
  </Channel>
- <Channel Name="Master Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimming from 0 - 100 %</Capability>
- </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Speed (0…255) / Mic Sensitivity">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="10">Speed / Mic sens off (if ch1=[250-255])</Capability>
@@ -188,31 +185,11 @@
   <Capability Min="240" Max="247">GBAW</Capability>
   <Capability Min="248" Max="255">RGBAW</Capability>
  </Channel>
- <Channel Name="Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red 0 - 100 %</Capability>
- </Channel>
- <Channel Name="Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green 0 - 100 %</Capability>
- </Channel>
- <Channel Name="Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue 0 - 100 %</Capability>
- </Channel>
- <Channel Name="Amber">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Amber</Colour>
-  <Capability Min="0" Max="255">Amber 0 - 100 %</Capability>
- </Channel>
- <Channel Name="White">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White 0 - 100 %</Capability>
- </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
  <Channel Name="Sound Control / Strobe Control">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="0">No function</Capability>
@@ -220,122 +197,30 @@
   <Capability Min="6" Max="10">No function</Capability>
   <Capability Min="11" Max="255">Strobe slow → fast</Capability>
  </Channel>
- <Channel Name="Red (Spot 1)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red 0 - 100 %</Capability>
- </Channel>
- <Channel Name="Red (Spot 2)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red 0 - 100 %</Capability>
- </Channel>
- <Channel Name="Red (Spot 3)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red 0 - 100 %</Capability>
- </Channel>
- <Channel Name="Red (Spot 4)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red 0 - 100 %</Capability>
- </Channel>
- <Channel Name="Green (Spot 1)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green 0 - 100 %</Capability>
- </Channel>
- <Channel Name="Green (Spot 2)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green 0 - 100 %</Capability>
- </Channel>
- <Channel Name="Green (Spot 3)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green 0 - 100 %</Capability>
- </Channel>
- <Channel Name="Green (Spot 4)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green 0 - 100 %</Capability>
- </Channel>
- <Channel Name="Blue (Spot 1)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue 0 - 100 %</Capability>
- </Channel>
- <Channel Name="Blue (Spot 2)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue 0 - 100 %</Capability>
- </Channel>
- <Channel Name="Blue (Spot 3)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue 0 - 100 %</Capability>
- </Channel>
- <Channel Name="Blue (Spot 4)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue 0 - 100 %</Capability>
- </Channel>
- <Channel Name="Amber (Spot 1)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Amber</Colour>
-  <Capability Min="0" Max="255">Amber 0 - 100 %</Capability>
- </Channel>
- <Channel Name="Amber (Spot 2)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Amber</Colour>
-  <Capability Min="0" Max="255">Amber 0 - 100 %</Capability>
- </Channel>
- <Channel Name="Amber (Spot 3)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Amber</Colour>
-  <Capability Min="0" Max="255">Amber 0 - 100 %</Capability>
- </Channel>
- <Channel Name="Amber (Spot 4)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Amber</Colour>
-  <Capability Min="0" Max="255">Amber 0 - 100 %</Capability>
- </Channel>
- <Channel Name="White (Spot 1)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White 0 - 100 %</Capability>
- </Channel>
- <Channel Name="White (Spot 2)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White 0 - 100 %</Capability>
- </Channel>
- <Channel Name="White (Spot 3)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White 0 - 100 %</Capability>
- </Channel>
- <Channel Name="White (Spot 4)">
-  <Group Byte="0">Intensity</Group>
-  <Colour>White</Colour>
-  <Capability Min="0" Max="255">White 0 - 100 %</Capability>
- </Channel>
- <Channel Name="Dimmer (Spot 1)">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimming from 0 - 100 %</Capability>
- </Channel>
- <Channel Name="Dimmer (Spot 2)">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimming from 0 - 100 %</Capability>
- </Channel>
- <Channel Name="Dimmer (Spot 3)">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimming from 0 - 100 %</Capability>
- </Channel>
- <Channel Name="Dimmer (Spot 4)">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Dimming from 0 - 100 %</Capability>
- </Channel>
+ <Channel Name="Red (Spot 1)" Preset="IntensityRed"/>
+ <Channel Name="Red (Spot 2)" Preset="IntensityRed"/>
+ <Channel Name="Red (Spot 3)" Preset="IntensityRed"/>
+ <Channel Name="Red (Spot 4)" Preset="IntensityRed"/>
+ <Channel Name="Green (Spot 1)" Preset="IntensityGreen"/>
+ <Channel Name="Green (Spot 2)" Preset="IntensityGreen"/>
+ <Channel Name="Green (Spot 3)" Preset="IntensityGreen"/>
+ <Channel Name="Green (Spot 4)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (Spot 1)" Preset="IntensityBlue"/>
+ <Channel Name="Blue (Spot 2)" Preset="IntensityBlue"/>
+ <Channel Name="Blue (Spot 3)" Preset="IntensityBlue"/>
+ <Channel Name="Blue (Spot 4)" Preset="IntensityBlue"/>
+ <Channel Name="Amber (Spot 1)" Preset="IntensityAmber"/>
+ <Channel Name="Amber (Spot 2)" Preset="IntensityAmber"/>
+ <Channel Name="Amber (Spot 3)" Preset="IntensityAmber"/>
+ <Channel Name="Amber (Spot 4)" Preset="IntensityAmber"/>
+ <Channel Name="White (Spot 1)" Preset="IntensityWhite"/>
+ <Channel Name="White (Spot 2)" Preset="IntensityWhite"/>
+ <Channel Name="White (Spot 3)" Preset="IntensityWhite"/>
+ <Channel Name="White (Spot 4)" Preset="IntensityWhite"/>
+ <Channel Name="Dimmer (Spot 1)" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer (Spot 2)" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer (Spot 3)" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer (Spot 4)" Preset="IntensityDimmer"/>
  <Channel Name="Sound Control / Strobe Control (Spot 1)">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="0">No function</Capability>
@@ -375,36 +260,15 @@
   <Capability Min="0" Max="255">Green 0 - 100 % / slow → fast </Capability>
  </Channel>
  <Mode Name="2-Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="12" Width="1160" Height="320" Depth="60"/>
-   <Lens Name="Other" DegreesMin="28" DegreesMax="28"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="190" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Blackout / Automatic Mode Speed / Sound Control</Channel>
   <Channel Number="1">Strobe Control</Channel>
  </Mode>
  <Mode Name="3-Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="12" Width="1160" Height="320" Depth="60"/>
-   <Lens Name="Other" DegreesMin="28" DegreesMax="28"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="190" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Preset Programs / Sound Control</Channel>
   <Channel Number="1">Master Dimmer</Channel>
   <Channel Number="2">Speed (0…255) / Mic Sensitivity</Channel>
  </Mode>
  <Mode Name="4-Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="12" Width="1160" Height="320" Depth="60"/>
-   <Lens Name="Other" DegreesMin="28" DegreesMax="28"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="190" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Spot 1</Channel>
   <Channel Number="1">Spot 2</Channel>
   <Channel Number="2">Spot 3</Channel>
@@ -423,13 +287,6 @@
   </Head>
  </Mode>
  <Mode Name="7-Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="12" Width="1160" Height="320" Depth="60"/>
-   <Lens Name="Other" DegreesMin="28" DegreesMax="28"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="190" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
@@ -439,13 +296,6 @@
   <Channel Number="6">Sound Control / Strobe Control</Channel>
  </Mode>
  <Mode Name="20-Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="12" Width="1160" Height="320" Depth="60"/>
-   <Lens Name="Other" DegreesMin="28" DegreesMax="28"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="190" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red (Spot 1)</Channel>
   <Channel Number="1">Green (Spot 1)</Channel>
   <Channel Number="2">Blue (Spot 1)</Channel>
@@ -496,13 +346,6 @@
   </Head>
  </Mode>
  <Mode Name="23-Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="12" Width="1160" Height="320" Depth="60"/>
-   <Lens Name="Other" DegreesMin="28" DegreesMax="28"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="190" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Preset Programs / Sound Control</Channel>
   <Channel Number="1">Master Dimmer</Channel>
   <Channel Number="2">Strobe Control</Channel>
@@ -556,13 +399,6 @@
   </Head>
  </Mode>
  <Mode Name="28-Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="12" Width="1160" Height="320" Depth="60"/>
-   <Lens Name="Other" DegreesMin="28" DegreesMax="28"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="190" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Red (Spot 1)</Channel>
   <Channel Number="1">Green (Spot 1)</Channel>
   <Channel Number="2">Blue (Spot 1)</Channel>
@@ -628,4 +464,11 @@
    <Channel>27</Channel>
   </Head>
  </Mode>
-</FixtureDefinition>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="12" Width="1160" Height="320" Depth="60"/>
+   <Lens Name="Other" DegreesMin="28" DegreesMax="28"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="190" DmxConnector="3-pin"/>
+  </Physical>
+  </FixtureDefinition>

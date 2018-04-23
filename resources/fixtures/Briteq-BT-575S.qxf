@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,22 +9,10 @@
  <Manufacturer>Briteq</Manufacturer>
  <Model>BT 575S</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt</Capability>
- </Channel>
- <Channel Name="Pan &amp; Tilt speed">
-  <Group Byte="1">Speed</Group>
-  <Capability Min="0" Max="255">pan tilt speed fast to slow</Capability>
- </Channel>
- <Channel Name="Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">dimmer dark to bright</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan &amp; Tilt speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Shutter shaking">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="7">blackout</Capability>
@@ -50,10 +38,7 @@
   <Capability Min="128" Max="191" Res="Others/rainbow.png">rotating wheel color fast to slow cw</Capability>
   <Capability Min="192" Max="255" Res="Others/rainbow.png">rotating wheel color slow to fast ccw</Capability>
  </Channel>
- <Channel Name="No function">
-  <Group Byte="0">Nothing</Group>
-  <Capability Min="0" Max="255">No function</Capability>
- </Channel>
+ <Channel Name="No function" Preset="NoFunction"/>
  <Channel Name="Gobo 1">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="12">no gobo</Capability>
@@ -96,22 +81,10 @@
   <Capability Min="86" Max="170">Prism effect 1</Capability>
   <Capability Min="171" Max="255">Prism effect 2</Capability>
  </Channel>
- <Channel Name="Prism rotation">
-  <Group Byte="0">Prism</Group>
-  <Capability Min="0" Max="255">Prism rotation</Capability>
- </Channel>
- <Channel Name="Focus">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Focus (near to far)</Capability>
- </Channel>
- <Channel Name="Pan 16 bit">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">pan 16 bit</Capability>
- </Channel>
- <Channel Name="Tilt 16 bit">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">tilt 16 bit</Capability>
- </Channel>
+ <Channel Name="Prism rotation" Preset="PrismRotationSlowFast"/>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
+ <Channel Name="Pan 16 bit" Preset="PositionPanFine"/>
+ <Channel Name="Tilt 16 bit" Preset="PositionTiltFine"/>
  <Channel Name="Reset lamp on-off">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="254">normal</Capability>
@@ -184,13 +157,6 @@
   <Capability Min="128" Max="255">Dimmer (0 - 100%)</Capability>
  </Channel>
  <Mode Name="16 Channel">
-  <Physical>
-   <Bulb Type="MSD 575W" Lumens="0" ColourTemperature="6500"/>
-   <Dimensions Weight="27.7" Width="427" Height="478" Depth="39"/>
-   <Lens Name="PC" DegreesMin="14" DegreesMax="14"/>
-   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="600" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Pan &amp; Tilt speed</Channel>
@@ -209,13 +175,6 @@
   <Channel Number="15">Reset lamp on-off</Channel>
  </Mode>
  <Mode Name="8 Channel">
-  <Physical>
-   <Bulb Type="MSD 575W" Lumens="0" ColourTemperature="6500"/>
-   <Dimensions Weight="27.7" Width="427" Height="478" Depth="39"/>
-   <Lens Name="PC" DegreesMin="14" DegreesMax="14"/>
-   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="600" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Shutter shaking</Channel>
@@ -225,4 +184,11 @@
   <Channel Number="6">Prism/Prism rotation/Dimmer</Channel>
   <Channel Number="7">Focus</Channel>
  </Mode>
-</FixtureDefinition>
+<Physical>
+   <Bulb Type="MSD 575W" Lumens="0" ColourTemperature="6500"/>
+   <Dimensions Weight="27.7" Width="427" Height="478" Depth="39"/>
+   <Lens Name="PC" DegreesMin="14" DegreesMax="14"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="600" DmxConnector="3-pin"/>
+  </Physical>
+  </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -9,18 +9,9 @@
  <Manufacturer>Stairville</Manufacturer>
  <Model>LED Blinder 2 COB 2x65W</Model>
  <Type>Strobe</Type>
- <Channel Name="LED Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
- <Channel Name="LED 1 Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
- <Channel Name="LED 2 Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">0% - 100%</Capability>
- </Channel>
+ <Channel Name="LED Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="LED 1 Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="LED 2 Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="5">Open</Capability>
@@ -32,47 +23,26 @@
   <Capability Min="250" Max="255">Open</Capability>
  </Channel>
  <Mode Name="1 Channel">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="2700"/>
-   <Dimensions Weight="4.5" Width="530" Height="330" Depth="150"/>
-   <Lens Name="Other" DegreesMin="70" DegreesMax="70"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="200" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">LED Dimmer</Channel>
  </Mode>
  <Mode Name="2 Channel (2A)">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="2700"/>
-   <Dimensions Weight="4.5" Width="530" Height="330" Depth="150"/>
-   <Lens Name="Other" DegreesMin="70" DegreesMax="70"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="200" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">LED 1 Dimmer</Channel>
   <Channel Number="1">LED 2 Dimmer</Channel>
  </Mode>
  <Mode Name="2 Channel (2B)">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="2700"/>
-   <Dimensions Weight="4.5" Width="530" Height="330" Depth="150"/>
-   <Lens Name="Other" DegreesMin="70" DegreesMax="70"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="200" DmxConnector="3-pin"/>
-  </Physical>
   <Channel Number="0">LED Dimmer</Channel>
   <Channel Number="1">Strobe</Channel>
  </Mode>
  <Mode Name="3 Channel">
-  <Physical>
+  <Channel Number="0">LED 1 Dimmer</Channel>
+  <Channel Number="1">LED 2 Dimmer</Channel>
+  <Channel Number="2">Strobe</Channel>
+ </Mode>
+<Physical>
    <Bulb Type="LED" Lumens="0" ColourTemperature="2700"/>
    <Dimensions Weight="4.5" Width="530" Height="330" Depth="150"/>
    <Lens Name="Other" DegreesMin="70" DegreesMax="70"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
    <Technical PowerConsumption="200" DmxConnector="3-pin"/>
   </Physical>
-  <Channel Number="0">LED 1 Dimmer</Channel>
-  <Channel Number="1">LED 2 Dimmer</Channel>
-  <Channel Number="2">Strobe</Channel>
- </Mode>
-</FixtureDefinition>
+  </FixtureDefinition>

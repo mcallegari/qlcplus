@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -34,10 +34,7 @@
   <Capability Min="230" Max="244">Electronic burst (fast-&gt;slow)</Capability>
   <Capability Min="245" Max="255">Shuuter open</Capability>
  </Channel>
- <Channel Name="Virtual Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Closed -&gt; open</Capability>
- </Channel>
+ <Channel Name="Virtual Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Dynamic Effect 1">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="19">No effect</Capability>
@@ -92,10 +89,7 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">No fade -&gt; max. fade</Capability>
  </Channel>
- <Channel Name="Dynamic Effect 1 Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Zero -&gt; 100%</Capability>
- </Channel>
+ <Channel Name="Dynamic Effect 1 Intensity" Preset="IntensityDimmer"/>
  <Channel Name="Dynamic Effect 2">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="19">No effect</Capability>
@@ -150,32 +144,17 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">No fade -&gt; max. fade</Capability>
  </Channel>
- <Channel Name="Dynamic Effect 2 Intensity">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Zero -&gt; 100%</Capability>
- </Channel>
+ <Channel Name="Dynamic Effect 2 Intensity" Preset="IntensityDimmer"/>
  <Channel Name="Zoom">
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="200">Wide -&gt; narrow</Capability>
   <Capability Min="201" Max="210">Hypermode</Capability>
   <Capability Min="211" Max="255">No function</Capability>
  </Channel>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Pan 0 - 630 Deg (128 = centered)</Capability>
- </Channel>
- <Channel Name="Pan Fine">
-  <Group Byte="1">Pan</Group>
-  <Capability Min="0" Max="255">Pan fine (least significant byte)</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt 0 - 300 Deg (128 = centered)</Capability>
- </Channel>
- <Channel Name="Tilt Fine">
-  <Group Byte="1">Tilt</Group>
-  <Capability Min="0" Max="255">Tilt fine (least significant byte)</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Fixture Control">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="9">No Function</Capability>
@@ -252,142 +231,51 @@
   <Capability Min="245" Max="249">Random colour, slow</Capability>
   <Capability Min="250" Max="255" Color="#ffffff">Open (white)</Capability>
  </Channel>
- <Channel Name="Group A Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red 0 - 100%</Capability>
- </Channel>
- <Channel Name="Group A Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green 0 - 100%</Capability>
- </Channel>
- <Channel Name="Group A Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue 0 - 100%</Capability>
- </Channel>
+ <Channel Name="Group A Red" Preset="IntensityRed"/>
+ <Channel Name="Group A Green" Preset="IntensityGreen"/>
+ <Channel Name="Group A Blue" Preset="IntensityBlue"/>
  <Channel Name="Group A CTC">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="19">No Function</Capability>
   <Capability Min="20" Max="255">CTC 10,000K - 2,000K</Capability>
  </Channel>
- <Channel Name="Group A Hue">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Hue 0 - 100%</Capability>
- </Channel>
- <Channel Name="Group A Saturation">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Saturation 0 - 100%</Capability>
- </Channel>
- <Channel Name="Group A Value">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Value 0 - 100%</Capability>
- </Channel>
- <Channel Name="Group B Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red 0 - 100%</Capability>
- </Channel>
- <Channel Name="Group B Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green 0 - 100%</Capability>
- </Channel>
- <Channel Name="Group B Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue 0 - 100%</Capability>
- </Channel>
+ <Channel Name="Group A Hue" Preset="IntensityHue"/>
+ <Channel Name="Group A Saturation" Preset="IntensitySaturation"/>
+ <Channel Name="Group A Value" Preset="IntensityValue"/>
+ <Channel Name="Group B Red" Preset="IntensityRed"/>
+ <Channel Name="Group B Green" Preset="IntensityGreen"/>
+ <Channel Name="Group B Blue" Preset="IntensityBlue"/>
  <Channel Name="Group B CTC">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="19">No Function</Capability>
   <Capability Min="20" Max="255">CTC 10,000K - 2,000K</Capability>
  </Channel>
- <Channel Name="Group B Hue">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Hue 0 - 100%</Capability>
- </Channel>
- <Channel Name="Group B Saturation">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Saturation 0 - 100%</Capability>
- </Channel>
- <Channel Name="Group B Value">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Value 0 - 100%</Capability>
- </Channel>
- <Channel Name="Group C Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red 0 - 100%</Capability>
- </Channel>
- <Channel Name="Group C Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green 0 - 100%</Capability>
- </Channel>
- <Channel Name="Group C Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue 0 - 100%</Capability>
- </Channel>
+ <Channel Name="Group B Hue" Preset="IntensityHue"/>
+ <Channel Name="Group B Saturation" Preset="IntensitySaturation"/>
+ <Channel Name="Group B Value" Preset="IntensityValue"/>
+ <Channel Name="Group C Red" Preset="IntensityRed"/>
+ <Channel Name="Group C Green" Preset="IntensityGreen"/>
+ <Channel Name="Group C Blue" Preset="IntensityBlue"/>
  <Channel Name="Group C CTC">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="19">No Function</Capability>
   <Capability Min="20" Max="255">CTC 10,000K - 2,000K</Capability>
  </Channel>
- <Channel Name="Group C Hue">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Hue 0 - 100%</Capability>
- </Channel>
- <Channel Name="Group C Saturation">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Saturation 0 - 100%</Capability>
- </Channel>
- <Channel Name="Group C Value">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Value 0 - 100%</Capability>
- </Channel>
- <Channel Name="Group D Red">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Red</Colour>
-  <Capability Min="0" Max="255">Red 0 - 100%</Capability>
- </Channel>
- <Channel Name="Group D Green">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Green</Colour>
-  <Capability Min="0" Max="255">Green 0 - 100%</Capability>
- </Channel>
- <Channel Name="Group D Blue">
-  <Group Byte="0">Intensity</Group>
-  <Colour>Blue</Colour>
-  <Capability Min="0" Max="255">Blue 0 - 100%</Capability>
- </Channel>
+ <Channel Name="Group C Hue" Preset="IntensityHue"/>
+ <Channel Name="Group C Saturation" Preset="IntensitySaturation"/>
+ <Channel Name="Group C Value" Preset="IntensityValue"/>
+ <Channel Name="Group D Red" Preset="IntensityRed"/>
+ <Channel Name="Group D Green" Preset="IntensityGreen"/>
+ <Channel Name="Group D Blue" Preset="IntensityBlue"/>
  <Channel Name="Group D CTC">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="19">No Function</Capability>
   <Capability Min="20" Max="255">CTC 10,000K - 2,000K</Capability>
  </Channel>
- <Channel Name="Group D Hue">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Hue 0 - 100%</Capability>
- </Channel>
- <Channel Name="Group D Saturation">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Saturation 0 - 100%</Capability>
- </Channel>
- <Channel Name="Group D Value">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="255">Value 0 - 100%</Capability>
- </Channel>
+ <Channel Name="Group D Hue" Preset="IntensityHue"/>
+ <Channel Name="Group D Saturation" Preset="IntensitySaturation"/>
+ <Channel Name="Group D Value" Preset="IntensityValue"/>
  <Mode Name="RGBX 1">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="21" Width="505" Height="527" Depth="221"/>
-   <Lens Name="Other" DegreesMin="16" DegreesMax="50"/>
-   <Focus Type="Fixed" PanMax="630" TiltMax="300"/>
-   <Technical PowerConsumption="386" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Strobe / Vitrual Shutter</Channel>
   <Channel Number="1">Virtual Dimmer</Channel>
   <Channel Number="2">Dynamic Effect 1</Channel>
@@ -447,13 +335,6 @@
   </Head>
  </Mode>
  <Mode Name="HSVX 1">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="21" Width="505" Height="527" Depth="221"/>
-   <Lens Name="Other" DegreesMin="16" DegreesMax="50"/>
-   <Focus Type="Fixed" PanMax="630" TiltMax="300"/>
-   <Technical PowerConsumption="386" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Strobe / Vitrual Shutter</Channel>
   <Channel Number="1">Virtual Dimmer</Channel>
   <Channel Number="2">Dynamic Effect 1</Channel>
@@ -513,13 +394,6 @@
   </Head>
  </Mode>
  <Mode Name="RGBX 2V">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="21" Width="505" Height="527" Depth="221"/>
-   <Lens Name="Other" DegreesMin="16" DegreesMax="50"/>
-   <Focus Type="Fixed" PanMax="630" TiltMax="300"/>
-   <Technical PowerConsumption="386" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Strobe / Vitrual Shutter</Channel>
   <Channel Number="1">Virtual Dimmer</Channel>
   <Channel Number="2">Dynamic Effect 1</Channel>
@@ -559,13 +433,6 @@
   </Head>
  </Mode>
  <Mode Name="HSVX 2V">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="21" Width="505" Height="527" Depth="221"/>
-   <Lens Name="Other" DegreesMin="16" DegreesMax="50"/>
-   <Focus Type="Fixed" PanMax="630" TiltMax="300"/>
-   <Technical PowerConsumption="386" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Strobe / Vitrual Shutter</Channel>
   <Channel Number="1">Virtual Dimmer</Channel>
   <Channel Number="2">Dynamic Effect 1</Channel>
@@ -605,13 +472,6 @@
   </Head>
  </Mode>
  <Mode Name="RGBX 2H">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="21" Width="505" Height="527" Depth="221"/>
-   <Lens Name="Other" DegreesMin="16" DegreesMax="50"/>
-   <Focus Type="Fixed" PanMax="630" TiltMax="300"/>
-   <Technical PowerConsumption="386" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Strobe / Vitrual Shutter</Channel>
   <Channel Number="1">Virtual Dimmer</Channel>
   <Channel Number="2">Dynamic Effect 1</Channel>
@@ -651,13 +511,6 @@
   </Head>
  </Mode>
  <Mode Name="HSVX 2H">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="21" Width="505" Height="527" Depth="221"/>
-   <Lens Name="Other" DegreesMin="16" DegreesMax="50"/>
-   <Focus Type="Fixed" PanMax="630" TiltMax="300"/>
-   <Technical PowerConsumption="386" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Strobe / Vitrual Shutter</Channel>
   <Channel Number="1">Virtual Dimmer</Channel>
   <Channel Number="2">Dynamic Effect 1</Channel>
@@ -697,13 +550,6 @@
   </Head>
  </Mode>
  <Mode Name="RGBX All">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="21" Width="505" Height="527" Depth="221"/>
-   <Lens Name="Other" DegreesMin="16" DegreesMax="50"/>
-   <Focus Type="Fixed" PanMax="630" TiltMax="300"/>
-   <Technical PowerConsumption="386" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Strobe / Vitrual Shutter</Channel>
   <Channel Number="1">Virtual Dimmer</Channel>
   <Channel Number="2">Dynamic Effect 1</Channel>
@@ -733,13 +579,6 @@
   </Head>
  </Mode>
  <Mode Name="HSVX All">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="21" Width="505" Height="527" Depth="221"/>
-   <Lens Name="Other" DegreesMin="16" DegreesMax="50"/>
-   <Focus Type="Fixed" PanMax="630" TiltMax="300"/>
-   <Technical PowerConsumption="386" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Strobe / Vitrual Shutter</Channel>
   <Channel Number="1">Virtual Dimmer</Channel>
   <Channel Number="2">Dynamic Effect 1</Channel>
@@ -769,13 +608,6 @@
   </Head>
  </Mode>
  <Mode Name="RGB 1">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="21" Width="505" Height="527" Depth="221"/>
-   <Lens Name="Other" DegreesMin="16" DegreesMax="50"/>
-   <Focus Type="Fixed" PanMax="630" TiltMax="300"/>
-   <Technical PowerConsumption="386" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Strobe / Vitrual Shutter</Channel>
   <Channel Number="1">Virtual Dimmer</Channel>
   <Channel Number="2">Zoom</Channel>
@@ -827,13 +659,6 @@
   </Head>
  </Mode>
  <Mode Name="HSV 1">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="21" Width="505" Height="527" Depth="221"/>
-   <Lens Name="Other" DegreesMin="16" DegreesMax="50"/>
-   <Focus Type="Fixed" PanMax="630" TiltMax="300"/>
-   <Technical PowerConsumption="386" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Strobe / Vitrual Shutter</Channel>
   <Channel Number="1">Virtual Dimmer</Channel>
   <Channel Number="2">Zoom</Channel>
@@ -885,13 +710,6 @@
   </Head>
  </Mode>
  <Mode Name="RGB 2V">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="21" Width="505" Height="527" Depth="221"/>
-   <Lens Name="Other" DegreesMin="16" DegreesMax="50"/>
-   <Focus Type="Fixed" PanMax="630" TiltMax="300"/>
-   <Technical PowerConsumption="386" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Strobe / Vitrual Shutter</Channel>
   <Channel Number="1">Virtual Dimmer</Channel>
   <Channel Number="2">Zoom</Channel>
@@ -923,13 +741,6 @@
   </Head>
  </Mode>
  <Mode Name="HSV 2V">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="21" Width="505" Height="527" Depth="221"/>
-   <Lens Name="Other" DegreesMin="16" DegreesMax="50"/>
-   <Focus Type="Fixed" PanMax="630" TiltMax="300"/>
-   <Technical PowerConsumption="386" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Strobe / Vitrual Shutter</Channel>
   <Channel Number="1">Virtual Dimmer</Channel>
   <Channel Number="2">Zoom</Channel>
@@ -961,13 +772,6 @@
   </Head>
  </Mode>
  <Mode Name="RGB 2H">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="21" Width="505" Height="527" Depth="221"/>
-   <Lens Name="Other" DegreesMin="16" DegreesMax="50"/>
-   <Focus Type="Fixed" PanMax="630" TiltMax="300"/>
-   <Technical PowerConsumption="386" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Strobe / Vitrual Shutter</Channel>
   <Channel Number="1">Virtual Dimmer</Channel>
   <Channel Number="2">Zoom</Channel>
@@ -999,13 +803,6 @@
   </Head>
  </Mode>
  <Mode Name="HSV 2H">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="21" Width="505" Height="527" Depth="221"/>
-   <Lens Name="Other" DegreesMin="16" DegreesMax="50"/>
-   <Focus Type="Fixed" PanMax="630" TiltMax="300"/>
-   <Technical PowerConsumption="386" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Strobe / Vitrual Shutter</Channel>
   <Channel Number="1">Virtual Dimmer</Channel>
   <Channel Number="2">Zoom</Channel>
@@ -1037,13 +834,6 @@
   </Head>
  </Mode>
  <Mode Name="RGB All">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="21" Width="505" Height="527" Depth="221"/>
-   <Lens Name="Other" DegreesMin="16" DegreesMax="50"/>
-   <Focus Type="Fixed" PanMax="630" TiltMax="300"/>
-   <Technical PowerConsumption="386" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Strobe / Vitrual Shutter</Channel>
   <Channel Number="1">Virtual Dimmer</Channel>
   <Channel Number="2">Zoom</Channel>
@@ -1059,13 +849,6 @@
   <Channel Number="12">Group A CTC</Channel>
  </Mode>
  <Mode Name="HSV All">
-  <Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="21" Width="505" Height="527" Depth="221"/>
-   <Lens Name="Other" DegreesMin="16" DegreesMax="50"/>
-   <Focus Type="Fixed" PanMax="630" TiltMax="300"/>
-   <Technical PowerConsumption="386" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Strobe / Vitrual Shutter</Channel>
   <Channel Number="1">Virtual Dimmer</Channel>
   <Channel Number="2">Zoom</Channel>
@@ -1080,4 +863,11 @@
   <Channel Number="11">Group A Value</Channel>
   <Channel Number="12">Group A CTC</Channel>
  </Mode>
-</FixtureDefinition>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="21" Width="505" Height="527" Depth="221"/>
+   <Lens Name="Other" DegreesMin="16" DegreesMax="50"/>
+   <Focus Type="Fixed" PanMax="630" TiltMax="300"/>
+   <Technical PowerConsumption="386" DmxConnector="5-pin"/>
+  </Physical>
+  </FixtureDefinition>
