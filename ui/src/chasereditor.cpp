@@ -27,6 +27,7 @@
 #include <QSettings>
 #include <QDebug>
 #include <QUrl>
+#include <QAction>
 
 #include "qlcfixturedef.h"
 #include "qlcmacros.h"

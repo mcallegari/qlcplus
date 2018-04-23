@@ -134,6 +134,10 @@ AddChannelsGroup::AddChannelsGroup(QWidget* parent, Doc* doc, ChannelsGroup *gro
 
     connect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
             this, SLOT(slotItemChecked(QTreeWidgetItem*, int)));
+    connect(m_collapseButton, SIGNAL(clicked(bool)),
+            m_tree, SLOT(collapseAll()));
+    connect(m_expandButton, SIGNAL(clicked(bool)),
+            m_tree, SLOT(expandAll()));
 }
 
 AddChannelsGroup::~AddChannelsGroup()

@@ -49,6 +49,7 @@ class VCSliderProperties;
 #define KXMLQLCVCSliderValueDisplayStyle "ValueDisplayStyle"
 #define KXMLQLCVCSliderValueDisplayStyleExact "Exact"
 #define KXMLQLCVCSliderValueDisplayStylePercentage "Percentage"
+#define KXMLQLCVCSliderCatchValues "CatchValues"
 
 #define KXMLQLCVCSliderClickAndGoType "ClickAndGoType"
 
@@ -204,6 +205,16 @@ protected:
 public:
     bool invertedAppearance() const;
     void setInvertedAppearance(bool invert);
+
+    /*********************************************************************
+     * Value catching feature
+     *********************************************************************/
+public:
+    bool catchValues() const;
+    void setCatchValues(bool enable);
+
+protected:
+    bool m_catchValues;
 
     /*************************************************************************
      * Class LevelChannel
@@ -381,6 +392,7 @@ protected slots:
     void slotPlaybackFunctionRunning(quint32 fid);
     void slotPlaybackFunctionStopped(quint32 fid);
     void slotPlaybackFunctionIntensityChanged(int attrIndex, qreal fraction);
+    void slotPlaybackFunctionFlashing(quint32 fid, bool flashing);
 
 protected:
     quint32 m_playbackFunction;

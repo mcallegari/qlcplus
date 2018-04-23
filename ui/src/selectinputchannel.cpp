@@ -21,6 +21,7 @@
 #include <QTreeWidgetItem>
 #include <QTreeWidget>
 #include <QDebug>
+#include <QAction>
 
 #include "selectinputchannel.h"
 #include "qlcinputchannel.h"

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="ca_ES">
+<TS version="2.1" language="ca_ES">
 <context>
     <name>AboutBox</name>
     <message>
@@ -19,12 +19,12 @@
         <translation>Aquesta aplicació està llicenciada sota els termes de la llicència Apache 2.0.</translation>
     </message>
     <message>
-        <location filename="aboutbox.cpp" line="41"/>
+        <location filename="aboutbox.cpp" line="42"/>
         <source>and contributors:</source>
         <translation>i col·laboradors:</translation>
     </message>
     <message>
-        <location filename="aboutbox.cpp" line="42"/>
+        <location filename="aboutbox.cpp" line="43"/>
         <source>Website: %1</source>
         <translation>Website: %1</translation>
     </message>
@@ -57,13 +57,19 @@
         <translation>Grup</translation>
     </message>
     <message>
-        <location filename="addchannelsgroup.ui" line="85"/>
+        <location filename="addchannelsgroup.ui" line="87"/>
         <source>Apply changes to fixtures of the same type and mode</source>
         <translation>Aplicar canvis a fixtures del mateix tipus i manera</translation>
     </message>
     <message>
-        <source>Universe %1</source>
-        <translation>Univers %1</translation>
+        <location filename="addchannelsgroup.ui" line="94"/>
+        <source>Collapse all</source>
+        <translation>Col·lapsa-ho tot</translation>
+    </message>
+    <message>
+        <location filename="addchannelsgroup.ui" line="101"/>
+        <source>Expand all</source>
+        <translation>Expandeix-ho tot</translation>
     </message>
 </context>
 <context>
@@ -176,12 +182,12 @@
         <translation>Model del fixture</translation>
     </message>
     <message>
-        <location filename="addfixture.cpp" line="103"/>
+        <location filename="addfixture.cpp" line="104"/>
         <source>Fixtures found: %1</source>
         <translation>Fixtures trobats: %1</translation>
     </message>
     <message>
-        <location filename="addfixture.cpp" line="624"/>
+        <location filename="addfixture.cpp" line="625"/>
         <source>Dimmers</source>
         <translation>Dimmers</translation>
     </message>
@@ -388,7 +394,7 @@
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="142"/>
         <source> px</source>
-        <translation>px</translation>
+        <translation> px</translation>
     </message>
     <message>
         <location filename="virtualconsole/addvcbuttonmatrix.ui" line="155"/>
@@ -944,8 +950,7 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     <message>
         <location filename="audioeditor.ui" line="113"/>
         <source>Audio name</source>
-        <translation>Nom del Audio
-</translation>
+        <translation>Nom del Audio</translation>
     </message>
     <message>
         <location filename="audioeditor.ui" line="300"/>
@@ -1174,14 +1179,12 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     <message>
         <location filename="channelmodifiereditor.ui" line="50"/>
         <source>Modified DMX value</source>
-        <translation>Valor DMX modificat
-</translation>
+        <translation>Valor DMX modificat</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="63"/>
         <source>Original DMX value</source>
-        <translation>Valor DMX original
-</translation>
+        <translation>Valor DMX original</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.ui" line="81"/>
@@ -1288,10 +1291,6 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
         <source>Modifier</source>
         <translation>Modificador</translation>
     </message>
-    <message>
-        <source>Universe %1</source>
-        <translation>Univers %1</translation>
-    </message>
 </context>
 <context>
     <name>ChaserEditor</name>
@@ -1312,19 +1311,19 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="89"/>
-        <location filename="chasereditor.cpp" line="978"/>
+        <location filename="chasereditor.cpp" line="979"/>
         <source>Fade In</source>
         <translation>Fade in</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="94"/>
-        <location filename="chasereditor.cpp" line="980"/>
+        <location filename="chasereditor.cpp" line="981"/>
         <source>Hold</source>
         <translation>Manté</translation>
     </message>
     <message>
         <location filename="chasereditor.ui" line="99"/>
-        <location filename="chasereditor.cpp" line="979"/>
+        <location filename="chasereditor.cpp" line="980"/>
         <source>Fade Out</source>
         <translation>Fade Out</translation>
     </message>
@@ -1544,47 +1543,47 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
         <translation>Barreja els passos</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="74"/>
+        <location filename="chasereditor.cpp" line="75"/>
         <source>Cut</source>
         <translation>Tallar</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="79"/>
+        <location filename="chasereditor.cpp" line="80"/>
         <source>Copy</source>
         <translation>Copiar</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="84"/>
+        <location filename="chasereditor.cpp" line="85"/>
         <source>Paste</source>
         <translation>Enganxa</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="749"/>
+        <location filename="chasereditor.cpp" line="750"/>
         <source>Paste error</source>
         <translation>Error d&apos;enganxat</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="749"/>
+        <location filename="chasereditor.cpp" line="750"/>
         <source>Trying to paste on an incompatible Scene. Operation canceled.</source>
         <translation>Intentant enganxar una escena incompatible. Operació cancelada.</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="981"/>
+        <location filename="chasereditor.cpp" line="982"/>
         <source>Common Fade In</source>
         <translation>Temps de Fade In comú</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="982"/>
+        <location filename="chasereditor.cpp" line="983"/>
         <source>Common Fade Out</source>
         <translation>Temps de Fade Out comú</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="983"/>
+        <location filename="chasereditor.cpp" line="984"/>
         <source>Common Hold</source>
         <translation>Temps d&apos;espera comú</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="999"/>
+        <location filename="chasereditor.cpp" line="1000"/>
         <source>Multiple Steps</source>
         <translation>Passos múltiples</translation>
     </message>
@@ -2432,11 +2431,7 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
         <location filename="fixtureremap.cpp" line="130"/>
         <location filename="fixtureremap.cpp" line="132"/>
         <source> (remapped)</source>
-        <translation>(reassignat)</translation>
-    </message>
-    <message>
-        <source>Universe %1</source>
-        <translation>Univers %1</translation>
+        <translation> (reassignat)</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="225"/>
@@ -2502,12 +2497,12 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
         <translation>Seleccioni un fixture</translation>
     </message>
     <message>
-        <location filename="fixtureselection.cpp" line="73"/>
+        <location filename="fixtureselection.cpp" line="74"/>
         <source>No fixtures available</source>
         <translation>No hi ha fixtures disponibles</translation>
     </message>
     <message>
-        <location filename="fixtureselection.cpp" line="75"/>
+        <location filename="fixtureselection.cpp" line="76"/>
         <source>Go to the Fixture Manager and add some fixtures first.</source>
         <translation>Anar al Gestor de Fixtures i afegir algun fixture primer.</translation>
     </message>
@@ -2746,7 +2741,7 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
     <message>
         <location filename="functionmanager.cpp" line="607"/>
         <source>(This will also DELETE: </source>
-        <translation>(Això ESBORRARÀ també:</translation>
+        <translation>(Això ESBORRARÀ també: </translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="619"/>
@@ -2759,7 +2754,7 @@ L&apos;arxiu seleccionat s&apos;ha mogut o esborrat.</translation>
         <translation>Funció</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="859"/>
+        <location filename="functionmanager.cpp" line="862"/>
         <source> (Copy)</source>
         <translation> (Copiar)</translation>
     </message>
@@ -3044,32 +3039,32 @@ p, li { white-space: pre-wrap; }
         <translation>Widgets</translation>
     </message>
     <message>
-        <location filename="functionwizard.cpp" line="175"/>
+        <location filename="functionwizard.cpp" line="176"/>
         <source>%1 group</source>
         <translation>%1 grup</translation>
     </message>
     <message>
-        <location filename="functionwizard.cpp" line="192"/>
+        <location filename="functionwizard.cpp" line="193"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="functionwizard.cpp" line="192"/>
+        <location filename="functionwizard.cpp" line="193"/>
         <source>%1 has no capability supported by this wizard.</source>
         <translation>%1 no te les capacitats suportades per aquest assistent.</translation>
     </message>
     <message>
-        <location filename="functionwizard.cpp" line="466"/>
+        <location filename="functionwizard.cpp" line="467"/>
         <source>Presets solo frame</source>
         <translation>Marc de solo presets</translation>
     </message>
     <message>
-        <location filename="functionwizard.cpp" line="519"/>
+        <location filename="functionwizard.cpp" line="520"/>
         <source>Click &amp; Go RGB</source>
         <translation>RGB Click &amp; Go</translation>
     </message>
     <message>
-        <location filename="functionwizard.cpp" line="523"/>
+        <location filename="functionwizard.cpp" line="524"/>
         <source>Click &amp; Go Macro</source>
         <translation>Macro Click &amp; Go</translation>
     </message>
@@ -4466,7 +4461,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
         <translation>Imatges</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="1018"/>
+        <location filename="rgbmatrixeditor.cpp" line="1017"/>
         <source>Sequence</source>
         <translation>Seqüències</translation>
     </message>
@@ -4527,106 +4522,106 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
         <translation>Activar tots els canals de totos els fixtures</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="170"/>
+        <location filename="sceneeditor.cpp" line="169"/>
         <source>Enable all channels in current fixture</source>
-        <translation>Activar tots els canals de aquest fixture </translation>
+        <translation>Activar tots els canals de aquest fixture</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="172"/>
+        <location filename="sceneeditor.cpp" line="171"/>
         <source>Disable all channels in current fixture</source>
         <translation>Desactivar tots els canals d&apos;aquest fixture</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="174"/>
+        <location filename="sceneeditor.cpp" line="173"/>
         <source>Copy current values to clipboard</source>
         <translation>Copiar els valors actuals al porta-retalls</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="176"/>
+        <location filename="sceneeditor.cpp" line="175"/>
         <source>Paste clipboard values to current fixture</source>
         <translation>Enganxar els valors del porta-retalls al fixture actual</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="178"/>
+        <location filename="sceneeditor.cpp" line="177"/>
         <source>Copy current values to all fixtures</source>
         <translation>Copiar els valors actuals a tots els fixtures</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="180"/>
+        <location filename="sceneeditor.cpp" line="179"/>
         <source>Color tool for CMY/RGB-capable fixtures</source>
         <translation>Eina de color per fixtures amb capacitats CMY/RGB</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="182"/>
+        <location filename="sceneeditor.cpp" line="181"/>
         <source>Position tool for moving heads/scanners</source>
         <translation>Eina de posicionament per a capçals mòbils o scanners</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="184"/>
+        <location filename="sceneeditor.cpp" line="183"/>
         <source>Switch between tab view and all channels view</source>
         <translation>Canviar de la vista de pestanyes a la vista de canals</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="186"/>
+        <location filename="sceneeditor.cpp" line="185"/>
         <source>Toggle blind mode</source>
         <translatorcomment>Blind  es Cec deix Blind de moment</translatorcomment>
         <translation>Activar/Desactivar Mode Blind</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="188"/>
+        <location filename="sceneeditor.cpp" line="187"/>
         <source>Show/Hide speed dial window</source>
         <translation>Mostra/Amaga la finestra del selector de velocitat</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="190"/>
+        <location filename="sceneeditor.cpp" line="189"/>
         <source>Clone this scene and append as a new step to the selected chaser</source>
         <translation>Clonar aquesta escena i afegir-la com un nou pas al chaser seleccionat</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="192"/>
+        <location filename="sceneeditor.cpp" line="191"/>
         <source>Go to next fixture tab</source>
         <translation>Anar a la pestanya següent</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="196"/>
+        <location filename="sceneeditor.cpp" line="195"/>
         <source>Go to previous fixture tab</source>
         <translation>Anar a la pestanya anterior</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="219"/>
+        <location filename="sceneeditor.cpp" line="218"/>
         <source>None</source>
         <translation>Cap</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="231"/>
+        <location filename="sceneeditor.cpp" line="230"/>
         <source>Scene name:</source>
         <translation>Nom de la Escena:</translation>
     </message>
     <message>
+        <location filename="sceneeditor.cpp" line="905"/>
         <location filename="sceneeditor.cpp" line="906"/>
-        <location filename="sceneeditor.cpp" line="907"/>
         <source>All fixtures</source>
         <translation>Tots els fixtures</translation>
     </message>
     <message>
+        <location filename="sceneeditor.cpp" line="1215"/>
         <location filename="sceneeditor.cpp" line="1216"/>
-        <location filename="sceneeditor.cpp" line="1217"/>
         <source>Generic</source>
         <translation>Genèric</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1288"/>
+        <location filename="sceneeditor.cpp" line="1287"/>
         <source>Remove fixtures</source>
         <translation>Eliminar fixtures</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1289"/>
+        <location filename="sceneeditor.cpp" line="1288"/>
         <source>Do you want to remove the selected fixture(s)?</source>
         <translation>Vol eliminar el(s) fixture(s) seleccionats?</translation>
     </message>
     <message>
+        <location filename="sceneeditor.cpp" line="1442"/>
         <location filename="sceneeditor.cpp" line="1443"/>
-        <location filename="sceneeditor.cpp" line="1444"/>
         <source>Channels Groups</source>
         <translation>Grups de Canals</translation>
     </message>
@@ -4840,7 +4835,7 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
         <translation>Permet universos sense apedaçar</translation>
     </message>
     <message>
-        <location filename="selectinputchannel.cpp" line="209"/>
+        <location filename="selectinputchannel.cpp" line="210"/>
         <source>&lt;Double click here to enter channel number manually&gt;</source>
         <translation>&lt;Faixi doble click aquí per ingressar manualment el número del canal&gt;</translation>
     </message>
@@ -5132,12 +5127,12 @@ Durada: %3
         <translation>Intentant enganxar una escena incompatible. Operació cancelada.</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="1400"/>
+        <location filename="showmanager/showmanager.cpp" line="1406"/>
         <source>Track name setup</source>
         <translation>Ajust del nom del Show</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="1401"/>
+        <location filename="showmanager/showmanager.cpp" line="1407"/>
         <source>Track name:</source>
         <translation>Nom de la Pista:</translation>
     </message>
@@ -5423,17 +5418,17 @@ Durada: %3
         <translation>Imatges (%1)</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="580"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="579"/>
         <source>Toggle Blackout</source>
         <translation>Activar/Desactivar Blackout</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="582"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="581"/>
         <source>Stop ALL functions!</source>
         <translation>Aturar TOTES les funcions!</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="819"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="818"/>
         <source>Icon</source>
         <translation>Icona</translation>
     </message>
@@ -5501,10 +5496,6 @@ Durada: %3
         <translation>Percentatge d&apos;intensitat pre-ajustat de la funció quant s&apos;executa</translation>
     </message>
     <message>
-        <source>Attributes</source>
-        <translation>Atributs</translation>
-    </message>
-    <message>
         <location filename="virtualconsole/vcbuttonproperties.ui" line="219"/>
         <source>General</source>
         <translation>General</translation>
@@ -5540,7 +5531,7 @@ Durada: %3
         <translation>Desenllaçar la funció del botó</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.cpp" line="132"/>
+        <location filename="virtualconsole/vcbuttonproperties.cpp" line="133"/>
         <source>No function</source>
         <translation>Cap funció</translation>
     </message>
@@ -5647,13 +5638,13 @@ Durada: %3
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="226"/>
-        <location filename="virtualconsole/vccuelist.cpp" line="1001"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1003"/>
         <source>Play/Pause Cue list</source>
         <translation>Reprodueix/Pausa Cue List</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="235"/>
-        <location filename="virtualconsole/vccuelist.cpp" line="1002"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1004"/>
         <source>Stop Cue list</source>
         <translation>Atura Cue list</translation>
     </message>
@@ -5673,32 +5664,32 @@ Durada: %3
         <translation>Lliste de Cues</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="995"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="997"/>
         <source>Play/Stop Cue list</source>
         <translation>Reproduir/Aturar Llista de Cues</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="996"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="998"/>
         <source>Pause Cue list</source>
         <translation>Pausar Llista de Cues</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1435"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1441"/>
         <source>Fade In</source>
         <translation>Fade In</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1435"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1441"/>
         <source>Fade Out</source>
         <translation>Fade Out</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1435"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1441"/>
         <source>Duration</source>
         <translation>Durada</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1435"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1441"/>
         <source>Notes</source>
         <translation>Notes</translation>
     </message>
@@ -5822,39 +5813,39 @@ Durada: %3
         <translation>Pasos</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.cpp" line="65"/>
-        <location filename="virtualconsole/vccuelistproperties.cpp" line="237"/>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="67"/>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="239"/>
         <source>Play/Pause control</source>
         <translation>Reprodueix/Pausa control</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.cpp" line="74"/>
-        <location filename="virtualconsole/vccuelistproperties.cpp" line="238"/>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="76"/>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="240"/>
         <source>Stop control</source>
         <translation>Atura control</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.cpp" line="116"/>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="118"/>
         <source>Left Fader</source>
         <translation>Fader Esquerra</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.cpp" line="126"/>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="128"/>
         <source>Right Fader</source>
         <translation>Fadet Dreta</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.cpp" line="242"/>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="244"/>
         <source>Play/Stop control</source>
         <translation>Control de Reproduir/Aturar</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.cpp" line="243"/>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="245"/>
         <source>Pause control</source>
         <translation>Control de Pausa</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.cpp" line="251"/>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="253"/>
         <source>No function</source>
         <translation>Cap Funció</translation>
     </message>
@@ -6166,17 +6157,17 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="370"/>
         <source> Add start color knobs</source>
-        <translation>Afegir perilla de color inicial</translation>
+        <translation> Afegir perilla de color inicial</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="281"/>
         <source> Add end color knobs</source>
-        <translation>Afegir perilla de color final</translation>
+        <translation> Afegir perilla de color final</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="337"/>
         <source> Add end color reset</source>
-        <translation>Afegir restablir color final</translation>
+        <translation> Afegir restablir color final</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="348"/>
@@ -6186,7 +6177,7 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="312"/>
         <source> Add preset</source>
-        <translation>Afegir preset</translation>
+        <translation> Afegir preset</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="299"/>
@@ -6206,7 +6197,7 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="381"/>
         <source> Add end color</source>
-        <translation>Afegir un color de final</translation>
+        <translation> Afegir un color de final</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcmatrixproperties.ui" line="323"/>
@@ -6506,12 +6497,12 @@ Durada: %3
 <context>
     <name>VCSlider</name>
     <message>
-        <location filename="virtualconsole/vcslider.cpp" line="233"/>
+        <location filename="virtualconsole/vcslider.cpp" line="234"/>
         <source>Slider %1</source>
         <translation>Slider %1</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcslider.cpp" line="593"/>
+        <location filename="virtualconsole/vcslider.cpp" line="617"/>
         <source>Reset channels override</source>
         <translation>Restaurar l&apos;override de canals</translation>
     </message>
@@ -6529,278 +6520,283 @@ Durada: %3
         <translation>General</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="52"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="179"/>
         <source>Value display style</source>
         <translation>Estil de Visualització dels Valors</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="58"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="185"/>
         <source>Show exact DMX values</source>
         <translation>Mostrar el valor DMX exacte</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="61"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="188"/>
         <source>Actual</source>
         <translation>Actual</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="71"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="198"/>
         <source>Show value as percentage</source>
         <translation>Mostrar el valor com a percentatge</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="74"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="201"/>
         <source>Percentage</source>
         <translation>Percentatge</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="86"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="54"/>
         <source>Widget name</source>
         <translation>Nom del widget</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="93"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="61"/>
         <source>Name of the slider</source>
         <translation>Nom del slider</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="102"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="70"/>
         <source>Slider movement</source>
         <translation>Moviment del slider</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="108"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="76"/>
         <source>Normal</source>
         <translation>Normal</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="118"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="86"/>
         <source>Inverted</source>
         <translation>Invertit</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="141"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="109"/>
         <source>Widget appearance</source>
         <translation>Aparença del widget</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="147"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="115"/>
         <source>Slider</source>
         <translation>Slider</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="164"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="132"/>
         <source>Knob</source>
         <translation>Perilla</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="212"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="211"/>
+        <source>Catch up with the external controller input value</source>
+        <translation>Actualitzar amb el valor de l&apos;entrada del controlador extern</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="219"/>
         <source>Level</source>
         <translation>Nivell</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="218"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="225"/>
         <source>Value range</source>
         <translation>Rang de valors</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="224"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="231"/>
         <source>Low limit</source>
         <translation>Límit inferior</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="231"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="238"/>
         <source>Lowest DMX value that can be set with this slider</source>
         <translation>El valor DMX mínim que es pot establir amb aquest slider</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="241"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="248"/>
         <source>High limit</source>
         <translation>Límit superior</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="248"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="255"/>
         <source>Highest DMX value that can be set with this slider</source>
         <translation>El valor DMX mes alt que es pot establir amb aquest slider</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="277"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="284"/>
         <source>Set value range from the selected capability</source>
         <translation>Ajustar el rang de valors de la capacitat seleccionada</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="280"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="287"/>
         <source>From capability</source>
         <translation>A partir de les capacitats</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="306"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="313"/>
         <source>Name</source>
         <translation>Nom</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="311"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="318"/>
         <source>Type</source>
         <translation>Tipus</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="316"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="323"/>
         <source>Range</source>
         <translation>Rang</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="326"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="333"/>
         <source>Select all channels</source>
         <translation>Seleccionar tots els canals</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="329"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="336"/>
         <source>All</source>
         <translation>Tots</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="336"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="343"/>
         <source>Unselect everything</source>
         <translation>Deseleccionar tot</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="339"/>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="393"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="346"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="400"/>
         <source>None</source>
         <translation>Cap</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="346"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="353"/>
         <source>Invert selection</source>
         <translation>Invertir selecció</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="349"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="356"/>
         <source>Invert</source>
         <translation>Invertir</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="369"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="376"/>
         <source>Choose channels by channel group</source>
         <translation>Triar canals per grups de canals</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="372"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="379"/>
         <source>By group...</source>
         <translation>Per Grup...</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="434"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="441"/>
         <source>Monitor the selected channels and update the slider level</source>
         <translation>Monitoreja els canals seleccionat i actualitza el nivell del slider</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="387"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="394"/>
         <source>Click &amp;&amp; Go</source>
         <translation>Click &amp;&amp; Go</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="403"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="410"/>
         <source>Intensity</source>
         <translation>Intensitat</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="410"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="417"/>
         <source>RGB</source>
         <translation>RGB</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="417"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="424"/>
         <source>CMY</source>
         <translation>CMY</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="424"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="431"/>
         <source>Gobo/Effect/Macro</source>
         <translation>Gobo/Efecte/Macro</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="444"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="451"/>
         <source>Make the slider control the level of a set of channels</source>
         <translation>Fer que aquest Slider controli el nivell dels canals seleccionats</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="447"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="454"/>
         <source>Switch to Level Mode</source>
         <translation>Canviar a Mode Nivell</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="455"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="462"/>
         <source>Playback</source>
         <translation>Reproduir</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="461"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="468"/>
         <source>Function</source>
         <translation>Funció</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="467"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="474"/>
         <source>Function that is attached to the slider</source>
         <translation>Funció que està enllaçada a aquest slider</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="477"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="484"/>
         <source>Attach a function to the slider</source>
         <translation>Enllaçar una funció al slider</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="497"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="504"/>
         <source>Detach the current function from the slider</source>
         <translation>Desenllaçar la funció actual d&apos;aquest slider</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="533"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="540"/>
         <source>Make the slider control a function</source>
         <translation>Fer que el slider controli una funció</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="536"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="543"/>
         <source>Switch to Playback Mode</source>
         <translation>Canviar al Mode Reproducció</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="544"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="551"/>
         <source>Submaster</source>
         <translation>Submaster</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="550"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="557"/>
         <source>Slider submaster mode is active</source>
         <translation>Mode submaster del slider està actiu</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="573"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="580"/>
         <source>Make the slider act as a submaster</source>
         <translation>Fer que el slider actui com a submaster</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="576"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="583"/>
         <source>Switch to Submaster Mode</source>
         <translation>Canviar a Mode Submaster</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.cpp" line="173"/>
+        <location filename="virtualconsole/vcsliderproperties.cpp" line="178"/>
         <source>Override reset control</source>
         <translation>Control del override de canals</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.cpp" line="650"/>
+        <location filename="virtualconsole/vcsliderproperties.cpp" line="655"/>
         <source>Select channels by group</source>
         <translation>Seleccionar canals per grup</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.cpp" line="651"/>
+        <location filename="virtualconsole/vcsliderproperties.cpp" line="656"/>
         <source>Select a channel group</source>
         <translation>Seleccionar un Grup de Canals</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.cpp" line="716"/>
+        <location filename="virtualconsole/vcsliderproperties.cpp" line="721"/>
         <source>No function</source>
         <translation>Cap Funció</translation>
     </message>
@@ -6815,7 +6811,7 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcsoloframeproperties.cpp" line="43"/>
         <source>Mix sliders in playback mode</source>
-        <translation>Mesclar sliders en Mode Reproducció </translation>
+        <translation>Mesclar sliders en Mode Reproducció</translation>
     </message>
 </context>
 <context>
@@ -6994,7 +6990,7 @@ Durada: %3
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="439"/>
         <source> Add preset</source>
-        <translation>Afegir preset</translation>
+        <translation> Afegir preset</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcspeeddialproperties.ui" line="467"/>
@@ -7334,12 +7330,12 @@ Durada: %3
         <translation>Nom del preset</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="84"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="85"/>
         <source>Pan / Horizontal Axis</source>
         <translation>Pan / Eix horitzontal</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="97"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="98"/>
         <source>Tilt / Vertical Axis</source>
         <translation>Tilt / Eix vertical</translation>
     </message>
@@ -7369,45 +7365,45 @@ Durada: %3
         <translation>Invertit</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="110"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="111"/>
         <source>Width</source>
         <translation>Ample</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="118"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="119"/>
         <source>Height</source>
         <translation>Altura</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="363"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="364"/>
         <source>Remove fixtures</source>
         <translation>Treure fixtures</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="364"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="365"/>
         <source>Do you want to remove the selected fixtures?</source>
         <translation>Vol eliminar el fixture seleccionat?</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="717"/>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="766"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="718"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="767"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="718"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="719"/>
         <source>The selected Scene does not include any Pan or Tilt channel.
 Please select one with such channels.</source>
         <translation>La Escena seleccionada no incloeix cap canal de Pan o Tilt.
 Si us plau seleccionau un d&apos;aquests canals.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="767"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="768"/>
         <source>Please select at least one fixture or head to create this type of preset !</source>
         <translation>Si us plau, seleccioneu al menys un fixture o capçal per crear aquest tipus de preset !</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="774"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="775"/>
         <source>Fixture Group</source>
         <translation>Grup de Fixtures</translation>
     </message>

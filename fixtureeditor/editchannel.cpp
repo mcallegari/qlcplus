@@ -33,6 +33,7 @@
 #include <QDebug>
 #include <QPoint>
 #include <QSize>
+#include <QAction>
 
 #include "qlccapability.h"
 #include "qlcconfig.h"

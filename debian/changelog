@@ -1,25 +1,36 @@
+qlcplus (4.11.3) stable; urgency=low
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 21 Oct 2018 12:13:14 +0200
+
 qlcplus (4.11.2) stable; urgency=low
 
   * engine: fix crash caused by an invalid IO mapping
   * engine: fix intensity override not considered during fade outs
   * UI/Function Manager: fixed keyboard shortcut conflicts and document them
   * UI/Function Manager: allow to import multiple of audio/video files at once
+  * UI/Channel Groups: added expand/collapse all button helpers
   * UI/Chaser Editor: add a button to shuffle the selected Chaser steps (thanks to Felix Edelmann)
   * UI/RGBMatrix Editor: fix preview not updating on pattern change when play button is on
   * Show Manager: fix crash when adding a Sequence after deleting one
-  * Virtual Console/Slider: fix submaster initial value not applied
-  * Virtual Console/Slider: implemented 'value catching' for controllers without feedbacks (Lukas Jähn proposal)
+  * Show Manager: fix crash when editing a Sequence bound to a deleted Scene
+  * Show Manager: fix items start time indication when dragging
+  * Virtual Console/Slider: fix submaster initial value not applied and inverted mode
+  * Virtual Console/Slider: added 'value catching' option for external controller faders (Lukas Jähn proposal)
   * Virtual Console/Slider: fix values range when switching between Slider and Knob appearance
+  * Virtual Console/Slider: react on Scene flashing when in playback mode
   * Virtual Console/Knob: fix DMX values not updated when interacting with the mouse wheel
   * Virtual Console/Cue List: allow to select a step with next/previous buttons during pause
   * Virtual Console/Cue List: go to the right chaser step after a pause (thanks to Krzysztof Walo)
   * Virtual Console/Frame: fix regression preventing to send the disable feedback
+  * Web Access: added support for VC Buttons in Flash mode (Sylvain Laugié)
+  * Web Access: added support for VC Frame circular page scrolling (Sylvain Laugié)
+  * Web Access: update AudioTriggers state when changed from QLC+ (Sylvain Laugié)
   * plugins/udmx: added 'channels' configuration parameter (see documentation)
   * plugins/E1.31: fix crash on wrong packet length (David Garyga)
   * New fixture: DTS XR7 Spot (thanks to Nicolò Zanon)
   * New fixture: Ledj Slimline 12Q5 Batten (thanks to Dean Clough)
   * New fixture: Ayra Compar Kit 1 (thanks to eigenaardiger)
-  * New fixture: GLP Impression X4 S (thanks to Mitsch)
+  * New fixtures: GLP Impression X4 S, Eurolite LED KLS-2500 (thanks to Mitsch)
   * New fixture: Chauvet Intimidator Spot 255 IRC (thanks to Ham Sadler)
   * New fixtures: Chauvet Geyser RGB, Geyser P6 (thanks to Andrew)
   * New fixture: Chauvet Rotosphere Q3 (thanks to Eric Sherlock)
@@ -35,8 +46,22 @@ qlcplus (4.11.2) stable; urgency=low
   * New fixture: Chauvet Hemisphere 5.1, Trident, Scorpion Storm RGX (thanks to Francois Blanchette)
   * New fixture: Briteq COB Slim 100-RGB (thanks to Thierry)
   * New fixture: American DJ UB 12H (thanks to Jason R Johnston)
+  * New fixture: American DJ Mega Hex Par (thanks to Ben C)
+  * New fixture: Cameo Q SPOT 15 RGBW (thanks to Antoine Houbron)
+  * New fixture: lightmaXX Platinum Line Flat Par COB (thanks to Leonardo)
+  * New fixture: Stairville LED Blinder 2 COB 2x65W (thanks to chritoep)
+  * New fixture: lightmaXX LED PAR 64 (thanks to Johannes Felber)
+  * New fixture: Cameo Thunder Wash Series (thanks to JP)
+  * New fixtures: Briteq BT 575S, Stairville MH-x30 LED Beam (thanks to Andres Robles)
+  * New fixture: beamZ LED FlatPAR-154 (thanks to Jászberényi Szabolcs)
+  * New fixtures: Eurolite THA-100F COB, Cameo Tribar 200 IR (thanks to David Morgenschweis)
+  * New fixture: beamZ BT310 LED FlatPAR 12x8W 4-1 DMX IR (thanks to Mark)
+  * New fixture: Fun Generation PicoWash 40 Pixel Quad LED (thanks to Harm Aldick)
+  * New fixtures: American DJ Entourage, Elumen8 MS-700PE, Ibiza PAR LED 712IR (thanks to Tim Cullingworth)
+  * New fixtures: Martin MAC 401 Dual RGB Zoom, MAC 401 Dual CT Zoom, Stairville MH-z720 (thanks to Tim Cullingworth)
+  * New fixture: Fun Generation SePar Quad UV (thanks to Helmet)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 15 Apr 2018 12:13:14 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Thu, 19 Apr 2018 20:21:22 +0200
 
 qlcplus (4.11.1) stable; urgency=low
 

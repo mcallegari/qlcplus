@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.11.2 GIT</Version>
+  <Author>Andres Robles</Author>
+ </Creator>
+ <Manufacturer>Briteq</Manufacturer>
+ <Model>BT 575S</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Pan</Capability>
+ </Channel>
+ <Channel Name="Tilt">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Tilt</Capability>
+ </Channel>
+ <Channel Name="Pan &amp; Tilt speed">
+  <Group Byte="1">Speed</Group>
+  <Capability Min="0" Max="255">pan tilt speed fast to slow</Capability>
+ </Channel>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">dimmer dark to bright</Capability>
+ </Channel>
+ <Channel Name="Shutter shaking">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="7">blackout</Capability>
+  <Capability Min="8" Max="15">open</Capability>
+  <Capability Min="16" Max="131">slow to fast shutter</Capability>
+  <Capability Min="132" Max="185">slow to fast shaking gobo 1</Capability>
+  <Capability Min="186" Max="239">slow to fast shaking gobo 2</Capability>
+  <Capability Min="240" Max="247">music sense on</Capability>
+  <Capability Min="248" Max="255">open</Capability>
+ </Channel>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="12">white</Capability>
+  <Capability Min="13" Max="25" Color="#15d300">green</Capability>
+  <Capability Min="26" Max="38" Color="#d805d5">magenta</Capability>
+  <Capability Min="39" Max="50" Color="#00aaff">light blue</Capability>
+  <Capability Min="51" Max="63" Color="#ffff00">yellow</Capability>
+  <Capability Min="64" Max="76" Color="#ff0000">red</Capability>
+  <Capability Min="77" Max="88" Color="#000fd5">blue</Capability>
+  <Capability Min="89" Max="101" Color="#680381">UV purple</Capability>
+  <Capability Min="102" Max="114" Color="#23ff01">light green</Capability>
+  <Capability Min="115" Max="127" Color="#ee01ff">pink</Capability>
+  <Capability Min="128" Max="191" Res="Others/rainbow.png">rotating wheel color fast to slow cw</Capability>
+  <Capability Min="192" Max="255" Res="Others/rainbow.png">rotating wheel color slow to fast ccw</Capability>
+ </Channel>
+ <Channel Name="No function">
+  <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Gobo 1">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="12">no gobo</Capability>
+  <Capability Min="13" Max="25" Res="Chauvet/gobo00044.png">gobo1</Capability>
+  <Capability Min="26" Max="38" Res="Others/gobo00012.png">gobo 2</Capability>
+  <Capability Min="39" Max="50" Res="SGM/gobo00005.png">gobo 3</Capability>
+  <Capability Min="51" Max="63" Res="Chauvet/gobo00052.png">gobo 4</Capability>
+  <Capability Min="64" Max="76" Res="SGM/gobo00366.png">gobo 5</Capability>
+  <Capability Min="77" Max="88" Res="GLP/gobo00028.png">gobo 6</Capability>
+  <Capability Min="89" Max="101" Res="SGM/gobo00018.png">gobo 7</Capability>
+  <Capability Min="102" Max="114" Res="Others/gobo00016.png">gobo 8</Capability>
+  <Capability Min="115" Max="127" Res="GLP/gobo00031.png">gobo 9</Capability>
+  <Capability Min="128" Max="191">rotating wheel fast to slow cw</Capability>
+  <Capability Min="192" Max="255">rotating wheel slow to fast ccw</Capability>
+ </Channel>
+ <Channel Name="Gobo 2">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="15">no gobo</Capability>
+  <Capability Min="16" Max="31" Res="Others/gobo00013.png">gobo 1</Capability>
+  <Capability Min="32" Max="47" Res="Others/gobo00037.png">gobo 2</Capability>
+  <Capability Min="48" Max="63" Res="SGM-Color/gobo00547.png">gobo 3</Capability>
+  <Capability Min="64" Max="79" Res="Chauvet/gobo00040.png">gobo 4</Capability>
+  <Capability Min="80" Max="95" Res="SGM/gobo00089.png">gobo 5</Capability>
+  <Capability Min="96" Max="111" Res="Chauvet/gobo00036.png">gobo 6</Capability>
+  <Capability Min="112" Max="127" Res="Robe/gobo00029.png">gobo 7</Capability>
+  <Capability Min="128" Max="191">rotating wheel gobo fast to slow cw</Capability>
+  <Capability Min="192" Max="255">rotating wheel gobo slow to fast ccw</Capability>
+ </Channel>
+ <Channel Name="Gobo rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="9">Stopped</Capability>
+  <Capability Min="10" Max="120">Clockwise rotation (fast to slow)</Capability>
+  <Capability Min="121" Max="134">Stopped</Capability>
+  <Capability Min="135" Max="245">Counterclockwise rotation (slow to fast)</Capability>
+  <Capability Min="246" Max="255">Stopped</Capability>
+ </Channel>
+ <Channel Name="Prism">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="85">Prism open</Capability>
+  <Capability Min="86" Max="170">Prism effect 1</Capability>
+  <Capability Min="171" Max="255">Prism effect 2</Capability>
+ </Channel>
+ <Channel Name="Prism rotation">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="255">Prism rotation</Capability>
+ </Channel>
+ <Channel Name="Focus">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">Focus (near to far)</Capability>
+ </Channel>
+ <Channel Name="Pan 16 bit">
+  <Group Byte="1">Pan</Group>
+  <Capability Min="0" Max="255">pan 16 bit</Capability>
+ </Channel>
+ <Channel Name="Tilt 16 bit">
+  <Group Byte="1">Tilt</Group>
+  <Capability Min="0" Max="255">tilt 16 bit</Capability>
+ </Channel>
+ <Channel Name="Reset lamp on-off">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="254">normal</Capability>
+  <Capability Min="255" Max="255">reset dmx: ch8-255 and ch16-255, lamp off:ch8-239 and ch16-255.lamp on: ch8-247 and ch16-255</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="3" Res="Others/open.png">Open</Capability>
+  <Capability Min="4" Max="7" Res="Chauvet/gobo00044.png">G1</Capability>
+  <Capability Min="8" Max="11" Res="Others/gobo00012.png">G2</Capability>
+  <Capability Min="12" Max="15" Res="SGM/gobo00005.png">G3</Capability>
+  <Capability Min="16" Max="19" Res="Chauvet/gobo00052.png">G4</Capability>
+  <Capability Min="20" Max="23" Res="SGM/gobo00366.png">G5</Capability>
+  <Capability Min="24" Max="27" Res="GLP/gobo00028.png">G6</Capability>
+  <Capability Min="28" Max="31" Res="SGM/gobo00018.png">G7</Capability>
+  <Capability Min="32" Max="35" Res="Others/gobo00016.png">G8</Capability>
+  <Capability Min="36" Max="39" Res="GLP/gobo00031.png">G9</Capability>
+  <Capability Min="40" Max="43" Res="Others/gobo00013.png">G10</Capability>
+  <Capability Min="44" Max="47" Res="Others/gobo00037.png">G11</Capability>
+  <Capability Min="48" Max="51" Res="SGM-Color/gobo00547.png">G12</Capability>
+  <Capability Min="52" Max="55" Res="Chauvet/gobo00040.png">G13</Capability>
+  <Capability Min="56" Max="59" Res="SGM/gobo00089.png">G14</Capability>
+  <Capability Min="60" Max="63" Res="Chauvet/gobo00036.png">G15</Capability>
+  <Capability Min="64" Max="67" Res="Robe/gobo00029.png">G16</Capability>
+  <Capability Min="68" Max="71">G10+G1</Capability>
+  <Capability Min="72" Max="75">G10+G3</Capability>
+  <Capability Min="76" Max="79">G10+G5</Capability>
+  <Capability Min="80" Max="83">G10+G7</Capability>
+  <Capability Min="84" Max="87">G10+G9</Capability>
+  <Capability Min="88" Max="91">G13+G1</Capability>
+  <Capability Min="92" Max="95">G13+G3</Capability>
+  <Capability Min="96" Max="99">G13+G5</Capability>
+  <Capability Min="100" Max="103">G13+G7</Capability>
+  <Capability Min="104" Max="107">G13+G9</Capability>
+  <Capability Min="108" Max="111">G15+G1</Capability>
+  <Capability Min="112" Max="115">G15+G3</Capability>
+  <Capability Min="116" Max="119">G15+G5</Capability>
+  <Capability Min="120" Max="123">G15+G7</Capability>
+  <Capability Min="124" Max="127">G15+G9</Capability>
+  <Capability Min="128" Max="157">Gobo 1 rotation (fast to slow)</Capability>
+  <Capability Min="158" Max="187">Gobo 1 rotation (slow to fast)</Capability>
+  <Capability Min="188" Max="217">Gobo 2 rotation (fast to slow)</Capability>
+  <Capability Min="218" Max="247">Gobo 2 rotation (slow to fast)</Capability>
+  <Capability Min="248" Max="255">Sound control</Capability>
+ </Channel>
+ <Channel Name="Color 2">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="12">white</Capability>
+  <Capability Min="13" Max="25" Color="#15d300">green</Capability>
+  <Capability Min="26" Max="38" Color="#d805d5">magenta</Capability>
+  <Capability Min="39" Max="50" Color="#00aaff">light blue</Capability>
+  <Capability Min="51" Max="63" Color="#ffff00">yellow</Capability>
+  <Capability Min="64" Max="76" Color="#ff0000">red</Capability>
+  <Capability Min="77" Max="88" Color="#000fd5">blue</Capability>
+  <Capability Min="89" Max="101" Color="#680381">UV purple</Capability>
+  <Capability Min="102" Max="114" Color="#23ff01">light green</Capability>
+  <Capability Min="115" Max="127" Color="#ee01ff">pink</Capability>
+  <Capability Min="128" Max="187" Res="Others/rainbow.png">rotating wheel color fast to slow cw</Capability>
+  <Capability Min="188" Max="247" Res="Others/rainbow.png">rotating wheel color slow to fast ccw</Capability>
+  <Capability Min="248" Max="255">Music sense on</Capability>
+ </Channel>
+ <Channel Name="Prism/Prism rotation/Dimmer">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">Prism open</Capability>
+  <Capability Min="16" Max="31">Prism</Capability>
+  <Capability Min="32" Max="55">Prism effect 1 CW rotation (fast to slow)</Capability>
+  <Capability Min="56" Max="79">Prism effect 1 CCW rotation (slow to fast)</Capability>
+  <Capability Min="80" Max="103">Prism effect 2 CW rotation (fast to slow)</Capability>
+  <Capability Min="104" Max="127">Prism effect 2 CCW rotation (slow to fast)</Capability>
+  <Capability Min="128" Max="255">Dimmer (0 - 100%)</Capability>
+ </Channel>
+ <Mode Name="16 Channel">
+  <Physical>
+   <Bulb Type="MSD 575W" Lumens="0" ColourTemperature="6500"/>
+   <Dimensions Weight="27.7" Width="427" Height="478" Depth="39"/>
+   <Lens Name="PC" DegreesMin="14" DegreesMax="14"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="600" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan &amp; Tilt speed</Channel>
+  <Channel Number="3">Dimmer</Channel>
+  <Channel Number="4">Shutter shaking</Channel>
+  <Channel Number="5">Color</Channel>
+  <Channel Number="6">No function</Channel>
+  <Channel Number="7">Gobo 1</Channel>
+  <Channel Number="8">Gobo 2</Channel>
+  <Channel Number="9">Gobo rotation</Channel>
+  <Channel Number="10">Prism</Channel>
+  <Channel Number="11">Prism rotation</Channel>
+  <Channel Number="12">Focus</Channel>
+  <Channel Number="13">Pan 16 bit</Channel>
+  <Channel Number="14">Tilt 16 bit</Channel>
+  <Channel Number="15">Reset lamp on-off</Channel>
+ </Mode>
+ <Mode Name="8 Channel">
+  <Physical>
+   <Bulb Type="MSD 575W" Lumens="0" ColourTemperature="6500"/>
+   <Dimensions Weight="27.7" Width="427" Height="478" Depth="39"/>
+   <Lens Name="PC" DegreesMin="14" DegreesMax="14"/>
+   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+   <Technical PowerConsumption="600" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Shutter shaking</Channel>
+  <Channel Number="3">Gobo</Channel>
+  <Channel Number="4">Color 2</Channel>
+  <Channel Number="5">Gobo rotation</Channel>
+  <Channel Number="6">Prism/Prism rotation/Dimmer</Channel>
+  <Channel Number="7">Focus</Channel>
+ </Mode>
+</FixtureDefinition>

@@ -17,6 +17,8 @@
   limitations under the License.
 */
 
+#include <QAction>
+
 #include "vccuelistproperties.h"
 #include "inputselectionwidget.h"
 #include "functionselection.h"

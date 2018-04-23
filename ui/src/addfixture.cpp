@@ -30,6 +30,7 @@
 #include <QSpinBox>
 #include <QLabel>
 #include <QDebug>
+#include <QAction>
 
 #include "qlcfixturedefcache.h"
 #include "qlcfixturemode.h"

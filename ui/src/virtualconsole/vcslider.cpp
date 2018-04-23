@@ -151,6 +151,7 @@ VCSlider::VCSlider(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
             m_slider, SLOT(setValue(int)));
 
     m_externalMovement = false;
+    m_catchValues = false;
     m_lastInputValue = -1;
 
     /* Put stretchable space after the slider (to its right side) */
@@ -419,6 +420,23 @@ void VCSlider::setInvertedAppearance(bool invert)
     }
 }
 
+/*********************************************************************
+ * Value catching feature
+ *********************************************************************/
+
+bool VCSlider::catchValues() const
+{
+    return m_catchValues;
+}
+
+void VCSlider::setCatchValues(bool enable)
+{
+    if (enable == m_catchValues)
+        return;
+
+    m_catchValues = enable;
+}
+
 /*****************************************************************************
  * Slider Mode
  *****************************************************************************/
@@ -469,11 +487,10 @@ void VCSlider::setSliderMode(SliderMode mode)
     if (mode == Level)
     {
         /* Set the slider range */
-        uchar level = levelValue();
         if (m_slider)
         {
             m_slider->setRange(levelLowLimit(), levelHighLimit());
-            m_slider->setValue(level);
+            m_slider->setValue(levelValue());
             if (m_widgetMode == WSlider)
                 m_slider->setStyleSheet(CNG_DEFAULT_STYLE);
         }
@@ -514,11 +531,11 @@ void VCSlider::setSliderMode(SliderMode mode)
     else if (mode == Submaster)
     {
         m_monitorEnabled = false;
-        uchar level = levelValue();
+
         if (m_slider)
         {
             m_slider->setRange(0, UCHAR_MAX);
-            m_slider->setValue(level);
+            m_slider->setValue(levelValue());
             if (m_widgetMode == WSlider)
                 m_slider->setStyleSheet(submasterStyleSheet);
         }
@@ -823,6 +840,11 @@ void VCSlider::setPlaybackFunction(quint32 fid)
                 this, SLOT(slotPlaybackFunctionStopped(quint32)));
         disconnect(old, SIGNAL(attributeChanged(int, qreal)),
                 this, SLOT(slotPlaybackFunctionIntensityChanged(int, qreal)));
+        if (old->type() == Function::SceneType)
+        {
+            disconnect(old, SIGNAL(flashing(quint32,bool)),
+                       this, SLOT(slotPlaybackFunctionFlashing(quint32,bool)));
+        }
     }
 
     Function* function = m_doc->function(fid);
@@ -835,6 +857,11 @@ void VCSlider::setPlaybackFunction(quint32 fid)
                 this, SLOT(slotPlaybackFunctionStopped(quint32)));
         connect(function, SIGNAL(attributeChanged(int, qreal)),
                 this, SLOT(slotPlaybackFunctionIntensityChanged(int, qreal)));
+        if (function->type() == Function::SceneType)
+        {
+            connect(function, SIGNAL(flashing(quint32,bool)),
+                    this, SLOT(slotPlaybackFunctionFlashing(quint32,bool)));
+        }
 
         m_playbackFunction = fid;
     }
@@ -870,7 +897,7 @@ void VCSlider::notifyFunctionStarting(quint32 fid, qreal functionIntensity)
     if (mode() == Doc::Design || sliderMode() != Playback)
         return;
 
-    if (fid == m_playbackFunction)
+    if (fid == playbackFunction())
         return;
 
     if (m_slider != NULL)
@@ -902,14 +929,14 @@ void VCSlider::slotPlaybackFunctionRunning(quint32 fid)
 
 void VCSlider::slotPlaybackFunctionStopped(quint32 fid)
 {
+    if (fid != playbackFunction())
+        return;
+
     m_externalMovement = true;
-    if (fid == playbackFunction())
-    {
-        if (m_slider)
-            m_slider->setValue(0);
-        resetIntensityOverrideAttribute();
-        updateFeedback();
-    }
+    if (m_slider)
+        m_slider->setValue(0);
+    resetIntensityOverrideAttribute();
+    updateFeedback();
     m_externalMovement = false;
 }
 
@@ -923,6 +950,18 @@ void VCSlider::slotPlaybackFunctionIntensityChanged(int attrIndex, qreal fractio
     m_externalMovement = true;
     if (m_slider)
         m_slider->setValue(int(floor((qreal(m_slider->maximum()) * fraction) + 0.5)));
+    updateFeedback();
+    m_externalMovement = false;
+}
+
+void VCSlider::slotPlaybackFunctionFlashing(quint32 fid, bool flashing)
+{
+    if (fid != playbackFunction())
+        return;
+
+    m_externalMovement = true;
+    if (m_slider)
+        m_slider->setValue(flashing ? m_slider->maximum() : m_slider->minimum());
     updateFeedback();
     m_externalMovement = false;
 }
@@ -1233,7 +1272,7 @@ void VCSlider::setSliderValue(uchar value, bool scale)
 
         case Submaster:
         {
-            setLevelValue(value);
+            setLevelValue(val);
             emitSubmasterValue();
         }
         break;
@@ -1410,9 +1449,10 @@ void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
     {
         if (m_slider)
         {
-            /* controllers that do not support feedbacks can catch up with the current
-             * slider value by entering a certain threshold or by 'surpassing' the current value */
-            if (m_doc->inputOutputMap()->feedbackPatch(universe) == NULL)
+            /* When 'values catching" is enabled, controllers that do not have motorized faders
+             * can catch up with the current slider value by entering a certain threshold
+             * or by 'surpassing' the current value */
+            if (catchValues())
             {
                 uchar currentValue = sliderValue();
 
@@ -1494,6 +1534,10 @@ bool VCSlider::loadXML(QXmlStreamReader &root)
         setInvertedAppearance(false);
     else
         setInvertedAppearance(true);
+
+    /* Values catching */
+    if (attrs.hasAttribute(KXMLQLCVCSliderCatchValues))
+        setCatchValues(true);
 
     /* Children */
     while (root.readNextStartElement())
@@ -1666,6 +1710,10 @@ bool VCSlider::saveXML(QXmlStreamWriter *doc)
         doc->writeAttribute(KXMLQLCVCSliderInvertedAppearance, "true");
     else
         doc->writeAttribute(KXMLQLCVCSliderInvertedAppearance, "false");
+
+    /* Values catching */
+    if (catchValues() == true)
+        doc->writeAttribute(KXMLQLCVCSliderCatchValues, "true");
 
     /* Window state */
     saveXMLWindowState(doc);

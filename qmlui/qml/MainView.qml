@@ -80,6 +80,12 @@ Rectangle
         clientAccessPopup.open()
     }
 
+    function saveBeforeExit()
+    {
+        //actionsMenu.open()
+        actionsMenu.saveBeforeExit()
+    }
+
     FontLoader
     {
         source: "qrc:/RobotoCondensed-Regular.ttf"

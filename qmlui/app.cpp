@@ -205,6 +205,11 @@ int App::accessMask() const
     return m_accessMask;
 }
 
+void App::exit()
+{
+    destroy();
+}
+
 void App::setAccessMask(int mask)
 {
     if (mask == m_accessMask)
@@ -236,6 +241,19 @@ void App::keyReleaseEvent(QKeyEvent *e)
     QQuickView::keyReleaseEvent(e);
 }
 
+bool App::event(QEvent *event)
+{
+    if (event->type() == QEvent::Close)
+    {
+        if (m_doc->isModified())
+        {
+            QMetaObject::invokeMethod(rootObject(), "saveBeforeExit");
+            return false;
+        }
+    }
+    return QQuickView::event(event);
+}
+
 void App::slotScreenChanged(QScreen *screen)
 {
     m_pixelDensity = qMax(screen->physicalDotsPerInch() *  0.039370, (qreal)screen->size().height() / 220.0);
@@ -245,7 +263,11 @@ void App::slotScreenChanged(QScreen *screen)
 
 void App::slotClosing()
 {
-    delete m_contextManager;
+    if (m_contextManager)
+    {
+        delete m_contextManager;
+        m_contextManager = NULL;
+    }
 }
 
 void App::slotClientAccessRequest(QString name)

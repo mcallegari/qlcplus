@@ -587,13 +587,13 @@ void MultiTrackView::slotItemMoved(QGraphicsSceneMouseEvent *event, ShowItem *it
     {
         float step = m_header->getTimeDivisionStep();
         float gridPos = ((int)(item->x() / step) * step);
-        item->setPos(gridPos, ypos);
+        item->setPos(gridPos + 2, ypos);
         s_time = getTimeFromPosition(gridPos);
     }
     else
     {
         item->setPos(item->x(), ypos);
-        s_time = getTimeFromPosition(item->x());
+        s_time = getTimeFromPosition(item->x() - 2);
     }
 
     item->setStartTime(s_time);

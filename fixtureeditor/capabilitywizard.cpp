@@ -21,6 +21,7 @@
 #include <QTextEdit>
 #include <QSpinBox>
 #include <QDialog>
+#include <QAction>
 
 #include "capabilitywizard.h"
 #include "qlccapability.h"

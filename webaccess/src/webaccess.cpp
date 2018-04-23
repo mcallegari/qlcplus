@@ -699,7 +699,10 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
             case VCWidget::ButtonWidget:
             {
                 VCButton *button = qobject_cast<VCButton*>(widget);
-                button->pressFunction();
+                if(value)
+                    button->pressFunction();
+                else
+                    button->releaseFunction();
             }
             break;
             case VCWidget::SliderWidget:
@@ -737,12 +740,10 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
             case VCWidget::SoloFrameWidget:
             {
                 VCFrame *frame = qobject_cast<VCFrame*>(widget);
-                frame->blockSignals(true);
                 if (cmdList[1] == "NEXT_PG")
                     frame->slotNextPage();
                 else if (cmdList[1] == "PREV_PG")
                     frame->slotPreviousPage();
-                frame->blockSignals(false);
             }
             break;
             default:
@@ -952,7 +953,9 @@ QString WebAccess::getButtonHTML(VCButton *btn)
             "left: " + QString::number(btn->x()) + "px; "
             "top: " + QString::number(btn->y()) + "px;\">\n";
     str +=  "<a class=\"vcbutton\" id=\"" + QString::number(btn->id()) + "\" "
-            "href=\"javascript:buttonClick(" + QString::number(btn->id()) + ");\" "
+            "href=\"javascript:void(0);\" "
+            "onmousedown=\"buttonPress(" + QString::number(btn->id()) + ");\" "
+            "onmouseup=\"buttonRelease(" + QString::number(btn->id()) + ");\" "
             "style=\""
             "width: " + QString::number(btn->width()) + "px; "
             "height: " + QString::number(btn->height()) + "px; "
@@ -1034,6 +1037,19 @@ QString WebAccess::getLabelHTML(VCLabel *label)
     return str;
 }
 
+void WebAccess::slotAudioTriggersToggled(bool toggle)
+{
+    VCAudioTriggers *triggers = qobject_cast<VCAudioTriggers *>(sender());
+    if (triggers == NULL)
+        return;
+
+    qDebug() << "AudioTriggers state changed " << toggle;
+
+    QString wsMessage = QString("%1|AUDIOTRIGGERS|%2").arg(triggers->id()).arg(toggle ? 255 : 0);
+
+    sendWebSocketMessage(wsMessage.toUtf8());
+}
+
 QString WebAccess::getAudioTriggersHTML(VCAudioTriggers *triggers)
 {
     QString str = "<div class=\"vcaudiotriggers\" style=\"left: " + QString::number(triggers->x()) +
@@ -1054,6 +1070,9 @@ QString WebAccess::getAudioTriggersHTML(VCAudioTriggers *triggers)
             + tr("Enable") + "</a>\n";
 
     str += "</div></div>\n";
+
+    connect(triggers, SIGNAL(captureEnabled(bool)),
+            this, SLOT(slotAudioTriggersToggled(bool)));
 
     return str;
 }

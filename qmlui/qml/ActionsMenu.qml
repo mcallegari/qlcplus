@@ -32,6 +32,12 @@ Popup
 
     onClosed: submenuItem = null
 
+    function saveBeforeExit()
+    {
+        saveFirstPopup.action = "#EXIT"
+        saveFirstPopup.open()
+    }
+
     FileDialog
     {
         id: openDialog
@@ -84,6 +90,9 @@ Popup
         {
             console.log("You chose: " + fileUrl)
             qlcplus.saveWorkspace(fileUrl)
+
+            if (saveFirstPopup.action == "#EXIT")
+                qlcplus.exit()
         }
         onRejected:
         {
@@ -98,31 +107,42 @@ Popup
         message: qsTr("Do you wish to save the current workspace first ?\nChanges will be lost if you don't save them.")
         standardButtons: Dialog.Yes | Dialog.No | Dialog.Cancel
 
-        property bool openAction: false
+        property string action: ""
 
         onClicked:
         {
             if (role === Dialog.Yes)
             {
                 if (qlcplus.fileName())
+                {
                     qlcplus.saveWorkspace(qlcplus.fileName())
+                    if (action == "#EXIT")
+                        qlcplus.exit()
+                }
                 else
                 {
-                    //saveDialog.visible = true
                     saveDialog.open()
+                    if (action == "#EXIT")
+                        return
                 }
             }
             else if (role === Dialog.No)
             {
-                if (openAction)
+                if (action == "#OPEN")
                     openDialog.open()
-                else
+                else if (action == "#NEW")
                     qlcplus.newWorkspace()
+                else if (action == "#EXIT")
+                    qlcplus.exit()
+                else
+                    qlcplus.loadWorkspace(action)
             }
             else if (role === Dialog.Cancel)
             {
                 console.log("Cancel clicked")
             }
+
+            action = ""
         }
     }
 
@@ -148,7 +168,7 @@ Popup
             {
                 if (qlcplus.docModified)
                 {
-                    saveFirstPopup.openAction = false
+                    saveFirstPopup.action = "#NEW"
                     saveFirstPopup.open()
                 }
                 else
@@ -168,7 +188,7 @@ Popup
             {
                 if (qlcplus.docModified)
                 {
-                    saveFirstPopup.openAction = true
+                    saveFirstPopup.action = "#OPEN"
                     saveFirstPopup.open()
                 }
                 else
@@ -199,8 +219,15 @@ Popup
                                 entryText: modelData
                                 onClicked:
                                 {
+                                    if (qlcplus.docModified)
+                                    {
+                                        saveFirstPopup.open()
+                                        saveFirstPopup.action = entryText
+                                    }
+                                    else
+                                        qlcplus.loadWorkspace(entryText)
+
                                     menuRoot.close()
-                                    qlcplus.loadWorkspace(entryText)
                                 }
                             }
                         }

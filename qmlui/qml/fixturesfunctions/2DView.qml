@@ -87,7 +87,7 @@ Rectangle
       *     Fixture2DItem (z = 2): the Fixture 2D items
       *       MouseArea (z = 0): handles only the press event for selecting the Fixture item,
       *                          but doesn't accept it so it can be forwarded for dragging
-      *   Selection rectangle (z = 99): visible only when a shift + mouse is in place
+      * Selection rectangle (z = 99): visible only when a drag is started from an empty space
       * Popup (z = 1): point of view selection popup
       * SettingsView2D (z = 5): right side settings panel
      */
@@ -135,24 +135,10 @@ Rectangle
             if (contentHeight < height)
                 twoDContents.y = (height - contentHeight) / 2;
 
+            View2D.gridPosition = Qt.point(twoDContents.x, twoDContents.y)
+
             if (View2D.cellPixels > 0)
                 twoDContents.requestPaint();
-        }
-
-        Rectangle
-        {
-            id: selectionRect
-            visible: false
-            x: 0
-            y: 0
-            z: 99
-            width: 0
-            height: 0
-            rotation: 0
-            color: "#5F227CEB"
-            border.width: 1
-            border.color: "#103A6E"
-            transformOrigin: Item.TopLeft
         }
 
         Canvas
@@ -226,8 +212,7 @@ Rectangle
                 onPressed:
                 {
                     console.log("button: " + mouse.button + ", mods: " + mouse.modifiers)
-                    var remappedPos = this.mapToItem(twoDContents, mouse.x, mouse.y);
-                    var fixtureID = View2D.fixtureAtPos(remappedPos)
+                    var fixtureID = View2D.fixtureAtPos(Qt.point(mouse.x, mouse.y))
 
                     if (fixtureID === -1)
                     {
@@ -297,8 +282,8 @@ Rectangle
                 {
                     if (selectionRect.visible === true && selectionRect.width && selectionRect.height)
                     {
-                        var rx = selectionRect.x - twoDContents.x
-                        var ry = selectionRect.y - twoDContents.y
+                        var rx = selectionRect.x // - twoDContents.x
+                        var ry = selectionRect.y // - twoDContents.y
                         var rw = selectionRect.width
                         var rh = selectionRect.height
                         switch (selectionRect.rotation)
@@ -333,8 +318,10 @@ Rectangle
             {
                 id: contentsDragArea
                 objectName: "contentsDragArea"
-                width: twoDContents.width
-                height: twoDContents.height
+                x: -twoDContents.x
+                y: -twoDContents.y
+                width: twoDSettings.visible ? twoDView.width - twoDSettings.width : twoDView.width
+                height: twoDView.height
                 color: "transparent"
                 /*
                 // enable for debug
@@ -357,24 +344,24 @@ Rectangle
                         if (drag.active)
                         {
                             var units = View2D.gridUnits === MonitorProperties.Meters ? 1000.0 : 304.8
-                            var xDelta = contentsDragArea.x
-                            var yDelta = contentsDragArea.y
+                            var xDelta = contentsDragArea.x + twoDContents.x
+                            var yDelta = contentsDragArea.y + twoDContents.y
 
+                            // transform pixels in millimeters
                             xDelta = (xDelta * units) / View2D.cellPixels;
                             yDelta = (yDelta * units) / View2D.cellPixels;
 
                             contextManager.setFixturesOffset(xDelta, yDelta)
 
-                            contentsDragArea.x = 0
-                            contentsDragArea.y = 0
+                            contentsDragArea.x = -twoDContents.x
+                            contentsDragArea.y = -twoDContents.y
                         }
                         else
                         {
                             if (twoDContents.justSelected == false)
                             {
                                 // handle Fixture selection/deselection here
-                                var remappedPos = this.mapToItem(twoDContents, mouse.x, mouse.y);
-                                var fixtureID = View2D.fixtureAtPos(remappedPos)
+                                var fixtureID = View2D.fixtureAtPos(Qt.point(mouse.x, mouse.y))
 
                                 console.log("Fixture ID on release " + fixtureID)
                                 contextManager.setFixtureSelection(fixtureID, false)
@@ -391,6 +378,22 @@ Rectangle
             }
         } // Canvas
     } // Flickable
+
+    Rectangle
+    {
+        id: selectionRect
+        visible: false
+        x: 0
+        y: 0
+        z: 99
+        width: 0
+        height: 0
+        rotation: 0
+        color: "#5F227CEB"
+        border.width: 1
+        border.color: "#103A6E"
+        transformOrigin: Item.TopLeft
+    }
 
     CustomScrollBar
     {
