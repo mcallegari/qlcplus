@@ -2415,7 +2415,7 @@ The selected file has been moved or deleted.</source>
     <message>
         <location filename="fixtureremap.ui" line="284"/>
         <source>Destination project name</source>
-        <translationリマップ後のプロジェクトファイル名></translation>
+        <translation>リマップ後のプロジェクトファイル名</translation>
     </message>
     <message>
         <location filename="fixtureremap.ui" line="180"/>
