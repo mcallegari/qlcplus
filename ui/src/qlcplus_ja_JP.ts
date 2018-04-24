@@ -3619,7 +3619,6 @@ Please refer to the plugins documentation to troubleshoot this.</source>
 
 Note that the wizard cannot tell the difference between a knob and a slider so you will have to do the change manually.</source>
         <translation>チャンネル自動設定ウィザードです。"OK"を押した後、登録したいコントローラのチャンネルを動かすと画面のリスト上に追加されます。もう一度チャンネル自動設定ウィザードアイコンをクリックすると自動検出を終わります。
-        
         ＊このウィザードではスライダーとノブの違いを検出することができません、種類は手動で設定する必要があります。</translation>
     </message>
     <message>
@@ -6459,7 +6458,7 @@ Duration: %3
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="702"/>
         <source>Input universe for Grand Master slider.</source>
-        <translation>外部入力をグランドマスターに対応させる＜/translation>
+        <translation>外部入力をグランドマスターに対応させる</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcproperties.ui" line="712"/>
