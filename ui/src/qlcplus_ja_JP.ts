@@ -2141,7 +2141,7 @@ The selected file has been moved or deleted.</source>
     </message>
     <message>
         <location filename="fixturegroupeditor.ui" line="158"/>
-        <source>Add/replace fixtures to current line, starting from selected cell</source>
+        <source>Add/replace fixtures to current column, starting from selected cell</source>
         <translation>選択したセルか、縦方向の端にフィクスチャーを追加します。</translation>
     </message>
 </context>
