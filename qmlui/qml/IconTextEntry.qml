@@ -61,8 +61,8 @@ RowLayout
     RobotoText
     {
         Layout.fillWidth: true
+        Layout.alignment: Qt.AlignVCenter
         height: parent.height
-        anchors.verticalCenter: parent.verticalCenter
         label: tLabel
         labelColor: tLabelColor
         fontSize: tFontSize
