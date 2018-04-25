@@ -17,7 +17,7 @@
   limitations under the License.
 */
 
-import QtQuick 2.3
+import QtQuick 2.8
 import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.1
 
@@ -148,7 +148,7 @@ Rectangle
                     bgGradient: ffMenuGradient
                     ButtonGroup.group: ffMenuBarGroup
 
-                    onCheckedChanged:loadContext(checked, "qrc:/DMXView.qml", "DMX")
+                    onCheckedChanged: loadContext(checked, "qrc:/DMXView.qml", "DMX")
                     onRightClicked:
                     {
                         dmxView.visible = false
@@ -165,7 +165,7 @@ Rectangle
                     bgGradient: ffMenuGradient
                     ButtonGroup.group: ffMenuBarGroup
 
-                    onCheckedChanged:loadContext(checked, "qrc:/2DView.qml", "2D")
+                    onCheckedChanged: loadContext(checked, "qrc:/2DView.qml", "2D")
                     onRightClicked:
                     {
                         twodView.visible = false
@@ -181,7 +181,18 @@ Rectangle
                     bgGradient: ffMenuGradient
                     ButtonGroup.group: ffMenuBarGroup
 
-                    onCheckedChanged:loadContext(checked, "qrc:/3DView.qml", "3D")
+                    onCheckedChanged:
+                    {
+                        if (checked)
+                        {
+                            var glVersion = (GraphicsInfo.majorVersion * 10) + GraphicsInfo.minorVersion
+                            //console.log("OpengGL version: " + GraphicsInfo.majorVersion + "." + GraphicsInfo.minorVersion)
+                            if (glVersion >= 33)
+                                loadContext(checked, "qrc:/3DView.qml", "3D")
+                            else
+                                loadContext(checked, "qrc:/3DViewUnsupported.qml", "3D")
+                        }
+                    }
                     onRightClicked:
                     {
                         threedView.visible = false
