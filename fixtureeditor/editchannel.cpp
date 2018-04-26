@@ -92,7 +92,6 @@ void EditChannel::init()
     /* Set window title */
     setWindowTitle(tr("Edit Channel: ") + m_channel->name());
 
-    m_invalidMinMax->setStyleSheet("QLabel { color: red; }");
     m_invalidMinMax->setVisible(false);
 
     /* Set name edit */
@@ -297,6 +296,8 @@ void EditChannel::slotCapabilityCellChanged(int row, int column)
     if (cap == NULL)
         return;
 
+    bool restore = false;
+
     if (column == COL_MIN || column == COL_MAX)
     {
         bool ok = false;
@@ -304,20 +305,35 @@ void EditChannel::slotCapabilityCellChanged(int row, int column)
         if (ok == false || newValue < 0 || newValue > 255)
         {
             // restore the original value
-            item->setText(column == COL_MIN ? QString::number(cap->min()) : QString::number(cap->max()));
+            restore = true;
         }
         else
         {
             if (column == COL_MIN)
-                cap->setMin(newValue);
+            {
+                if (newValue < cap->max())
+                    cap->setMin(newValue);
+                else
+                    restore = true;
+            }
             else
-                cap->setMax(newValue);
+            {
+                if (newValue >= cap->min())
+                    cap->setMax(newValue);
+                else
+                    restore = true;
+            }
         }
     }
     else
     {
         cap->setName(item->text());
     }
+
+    if (restore)
+        item->setText(column == COL_MIN ? QString::number(cap->min()) : QString::number(cap->max()));
+
+    checkOverlapping();
 }
 
 void EditChannel::slotCapabilityCellSelected(int currentRow, int currentColumn,
@@ -715,4 +731,24 @@ void EditChannel::updateCapabilityPresetGroup(bool show)
     m_val1Spin->setVisible(showValue1);
     m_val2Label->setVisible(showValue2);
     m_val2Spin->setVisible(showValue2);
+}
+
+void EditChannel::checkOverlapping()
+{
+    char valArray[256];
+    memset(valArray, 0, 256);
+
+    m_invalidMinMax->setVisible(false);
+
+    QListIterator <QLCCapability*> it(m_channel->capabilities());
+    while (it.hasNext() == true)
+    {
+        QLCCapability *cap = it.next();
+        for (int i = cap->min(); i <= cap->max(); i++)
+        {
+            if (valArray[i])
+                m_invalidMinMax->setVisible(true);
+        }
+        memset(valArray + cap->min(), 1, (cap->max() - cap->min()) + 1);
+    }
 }

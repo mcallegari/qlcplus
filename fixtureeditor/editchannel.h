@@ -88,6 +88,7 @@ protected:
     QLCCapability *currentCapability();
     QLCCapability *getRowCapability(int row);
     void updateCapabilityPresetGroup(bool show);
+    void checkOverlapping();
 
 protected:
     QLCCapability *m_currentCapability;

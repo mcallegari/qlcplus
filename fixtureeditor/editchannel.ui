@@ -157,10 +157,7 @@
      </item>
     </layout>
    </item>
-   <item row="8" column="0" colspan="2">
-    <layout class="QHBoxLayout" name="m_capValueGroup"/>
-   </item>
-   <item row="10" column="0" colspan="2">
+   <item row="9" column="0" colspan="2">
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -190,6 +187,12 @@
         <property name="columnCount">
          <number>3</number>
         </property>
+        <attribute name="horizontalHeaderCascadingSectionResizes">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="horizontalHeaderDefaultSectionSize">
+         <number>140</number>
+        </attribute>
         <attribute name="horizontalHeaderStretchLastSection">
          <bool>true</bool>
         </attribute>
@@ -292,7 +295,7 @@
          </sizepolicy>
         </property>
         <property name="text">
-         <string>Capability overlapping detected. Please fix.</string>
+         <string>&lt;font color=&quot;red&quot;&gt;&lt;b&gt;Capability overlapping detected. Please fix.&lt;/b&gt;&lt;/font&gt;</string>
         </property>
        </widget>
       </item>
@@ -312,7 +315,7 @@
      </layout>
     </widget>
    </item>
-   <item row="9" column="0" colspan="2">
+   <item row="8" column="0" colspan="2">
     <layout class="QGridLayout" name="m_presetGrid">
      <item row="0" column="0">
       <widget class="QLabel" name="m_capPresetLabel">
