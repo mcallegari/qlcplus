@@ -44,12 +44,22 @@ class QFile;
 #define KXMLQLCCapabilityRes1 "Res1"
 #define KXMLQLCCapabilityRes2 "Res2"
 
+#define KXMLQLCCapabilityAlias "Alias"
+#define KXMLQLCCapabilityAliasMode "Mode"
+#define KXMLQLCCapabilityAliasSourceName "Channel"
+#define KXMLQLCCapabilityAliasTargetName "With"
+
 /** ****************** LEGACY ***************** */
 #define KXMLQLCCapabilityResource "Res"
 #define KXMLQLCCapabilityColor1 "Color"
 #define KXMLQLCCapabilityColor2 "Color2"
 
-
+typedef struct
+{
+    QString targetMode;     /** Name of the mode where this alias has effect */
+    QString sourceChannel;  /** Name of the channel to be replaced by targetChannel */
+    QString targetChannel;  /** Name of the channel that will replace sourceChannel */
+} AliasInfo;
 
 /**
  * QLCCapability represents one value range with a special meaning in a
@@ -108,8 +118,8 @@ public:
         StrobeRandomFastToSlow,
         PulseSlowToFast,
         PulseFastToSlow,
-        StrobeFreq, // precise frequency value in hertz specified in m_resource
-        StrobeFreqRange, // specified in m_resource as "min-max" hertz
+        StrobeFreq,             /** precise frequency value in hertz specified in m_resources */
+        StrobeFreqRange,        /** specified in m_resources as "min-max" hertz */
         PulseFreq,
         PulseFreqRange,
         RotationClockwise,
@@ -139,9 +149,11 @@ public:
         Picture
     };
 
+    /** String <-> value preset conversion helpers */
     static QString presetToString(Preset preset);
     static Preset stringToPreset(const QString &preset);
 
+    /** Get/Set the preset value for this capability */
     Preset preset() const;
     void setPreset(Preset preset);
 
@@ -157,20 +169,29 @@ protected:
      * Properties
      ********************************************************************/
 public:
+    /** Get/Set the capability range minimum value */
     uchar min() const;
     void setMin(uchar value);
 
+    /** Get/Set the capability range maximum value */
     uchar max() const;
     void setMax(uchar value);
 
+    /** Get the capability range middle value */
     uchar middle() const;
 
+    /** Get/Set the capability display name */
     QString name() const;
     void setName(const QString& name);
 
+    /** Get the resource at the provided index.
+     *  Returns an empty QVariant on failure */
     QVariant resource(int index);
+
+    /** Add or replace a resource value at the provided index */
     void setResource(int index, QVariant value);
 
+    /** Get the complete list of resources for this capability */
     QVariantList resources();
 
     /** Check, whether the given capability overlaps with this */
@@ -181,6 +202,25 @@ protected:
     uchar m_max;
     QString m_name;
     QVariantList m_resources;
+
+    /********************************************************************
+     * Aliases
+     ********************************************************************/
+public:
+    /** Get the full list of aliases defined by this capability */
+    QList<AliasInfo> aliasList();
+
+    /** Add a new alias to the aliases list */
+    void addAlias(AliasInfo alias);
+
+    /** Remove an existing alias matching the provided structure */
+    void removeAlias(AliasInfo alias);
+
+    /** Replace all the current aliases with the ones in the provided list */
+    void replaceAliases(QList<AliasInfo> list);
+
+protected:
+    QList<AliasInfo> m_aliases;
 
     /********************************************************************
      * Load & Save

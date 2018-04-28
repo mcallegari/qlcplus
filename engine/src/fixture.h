@@ -60,6 +60,12 @@ class Doc;
 #define KXMLFixtureChannelIndex "Channel"
 #define KXMLFixtureModifierName "Name"
 
+typedef struct
+{
+    bool m_hasAlias;        /** Flag to enable/disable aliases check */
+    QLCCapability *m_currCap; /** The current capability in use */
+} ChannelInfo;
+
 class Fixture : public QObject
 {
     Q_OBJECT
@@ -325,12 +331,12 @@ protected:
     QHash<quint32, ChannelModifier*> m_channelModifiers;
 
     /*********************************************************************
-     * Channel values
+     * Channel info
      *********************************************************************/
 public:
     /** Store DMX values for this fixture. If values have changed,
      * it returns true, otherwise false */
-    bool setChannelValues(QByteArray values);
+    bool setChannelValues(const QByteArray &values);
 
     /** Return the current DMX values of this fixture */
     QByteArray channelValues();
@@ -342,8 +348,11 @@ signals:
     void valuesChanged();
 
 protected:
+    /** Runtime array to store DMX values and check for changes */
     QByteArray m_values;
-    QMutex m_valuesMutex;
+    /** Runtime array to check for alias changes */
+    QVector<ChannelInfo> m_aliasInfo;
+    QMutex m_channelsInfoMutex;
 
     /*********************************************************************
      * Fixture definition

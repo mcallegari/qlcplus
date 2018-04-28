@@ -49,6 +49,8 @@ QLCCapability *QLCCapability::createCopy()
     copy->setPreset(preset());
     for (int i = 0; i < m_resources.count(); i++)
         copy->setResource(i, m_resources.at(i));
+    foreach (AliasInfo alias, m_aliases)
+        copy->addAlias(alias);
 
     return copy;
 }
@@ -66,6 +68,7 @@ QLCCapability& QLCCapability::operator=(const QLCCapability& capability)
         m_name = capability.m_name;
         m_preset = capability.m_preset;
         m_resources = capability.m_resources;
+        m_aliases = capability.m_aliases;
     }
 
     return *this;
@@ -199,6 +202,43 @@ bool QLCCapability::overlaps(const QLCCapability *cap)
         return false;
 }
 
+/********************************************************************
+ * Aliases
+ ********************************************************************/
+
+QList<AliasInfo> QLCCapability::aliasList()
+{
+    return m_aliases;
+}
+
+void QLCCapability::addAlias(AliasInfo alias)
+{
+    m_aliases.append(alias);
+}
+
+void QLCCapability::removeAlias(AliasInfo alias)
+{
+    for (int i = 0; i < m_aliases.count(); i++)
+    {
+        AliasInfo info = m_aliases.at(i);
+
+        if (alias.targetMode == info.targetMode &&
+            alias.sourceChannel == info.sourceChannel &&
+            alias.targetChannel == info.targetChannel)
+        {
+            m_aliases.takeAt(i);
+            return;
+        }
+    }
+}
+
+void QLCCapability::replaceAliases(QList<AliasInfo> list)
+{
+    m_aliases.clear();
+    foreach (AliasInfo info, list)
+        m_aliases.append(info);
+}
+
 /************************************************************************
  * Save & Load
  ************************************************************************/
@@ -260,6 +300,17 @@ bool QLCCapability::saveXML(QXmlStreamWriter *doc)
 
     /* Name */
     doc->writeCharacters(m_name);
+
+    /* Aliases */
+    foreach (AliasInfo info, m_aliases)
+    {
+        doc->writeStartElement(KXMLQLCCapabilityAlias);
+        doc->writeAttribute(KXMLQLCCapabilityAliasMode, info.targetMode);
+        doc->writeAttribute(KXMLQLCCapabilityAliasSourceName, info.sourceChannel);
+        doc->writeAttribute(KXMLQLCCapabilityAliasTargetName, info.targetChannel);
+        doc->writeEndElement();
+    }
+
     doc->writeEndElement();
 
     return true;
@@ -349,11 +400,10 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
 
     if (min <= max)
     {
-        setName(doc.readElementText());
+        doc.readNext();
+        setName(doc.text().toString().simplified());
         setMin(min);
         setMax(max);
-
-        return true;
     }
     else
     {
@@ -361,5 +411,29 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
                    << ") is greater than max(" << max << ")";
         return false;
     }
+
+    /* Subtags */
+    while (doc.readNextStartElement())
+    {
+        if (doc.name() == KXMLQLCCapabilityAlias)
+        {
+            AliasInfo alias;
+            QXmlStreamAttributes attrs = doc.attributes();
+
+            alias.targetMode = attrs.value(KXMLQLCCapabilityAliasMode).toString();
+            alias.sourceChannel = attrs.value(KXMLQLCCapabilityAliasSourceName).toString();
+            alias.targetChannel = attrs.value(KXMLQLCCapabilityAliasTargetName).toString();
+            addAlias(alias);
+
+            //qDebug() << "Alias found for mode" << alias.targetMode;
+        }
+        else
+        {
+            qWarning() << Q_FUNC_INFO << "Unknown capability tag: " << doc.name();
+        }
+        doc.skipCurrentElement();
+    }
+
+    return true;
 }
 

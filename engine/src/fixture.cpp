@@ -398,27 +398,41 @@ ChannelModifier *Fixture::channelModifier(quint32 idx)
 }
 
 /*********************************************************************
- * Channel values
+ * Channel info
  *********************************************************************/
 
-bool Fixture::setChannelValues(QByteArray values)
+bool Fixture::setChannelValues(const QByteArray &values)
 {
     const int addr = address();
-    if (addr > values.size())
+    if (addr >= values.size())
         return false;
- 
-    const int ch = qMin(values.size() - addr, (int)channels());
+
+    const int chNum = qMin(values.size() - addr, (int)channels());
     bool changed = false;
-   
-    // Most of the time there are no changes, so the lock is inside 
-    // the cycle
-    for (int i = 0; i < ch; i++)
+
+    // Most of the times there are no changes,
+    // so the lock is inside the cycle
+    for (int i = 0; i < chNum; i++)
     {
         if (m_values.at(i) != values.at(i + addr))
         {
             changed = true;
-            QMutexLocker locker(&m_valuesMutex);
+            QMutexLocker locker(&m_channelsInfoMutex);
             m_values[i] = values.at(i + addr);
+
+            // If the channel @i has aliases, check
+            // if replacements are to be done
+            if (m_aliasInfo[i].m_hasAlias)
+            {
+                QLCCapability *cap = m_fixtureMode->channel(i)->searchCapability(uchar(m_values[i]));
+                if (cap != m_aliasInfo[i].m_currCap)
+                {
+                    // capability changed. Check for channel replacements
+
+
+                    m_aliasInfo[i].m_currCap = cap;
+                }
+            }
         }
     }
 
@@ -430,13 +444,13 @@ bool Fixture::setChannelValues(QByteArray values)
 
 QByteArray Fixture::channelValues()
 {
-    QMutexLocker locker(&m_valuesMutex);
+    QMutexLocker locker(&m_channelsInfoMutex);
     return m_values;
 }
 
 uchar Fixture::channelValueAt(int idx)
 {
-    QMutexLocker locker(&m_valuesMutex);
+    QMutexLocker locker(&m_channelsInfoMutex);
     if (idx >= 0 && idx < m_values.length())
         return (uchar)m_values.at(idx);
     return 0;
@@ -451,6 +465,8 @@ void Fixture::setFixtureDefinition(QLCFixtureDef* fixtureDef,
 {
     if (fixtureDef != NULL && fixtureMode != NULL)
     {
+        int i;
+
         if (m_fixtureDef != NULL && m_fixtureDef != fixtureDef &&
             m_fixtureDef->manufacturer() == KXMLFixtureGeneric &&
             m_fixtureDef->model() == KXMLFixtureGeneric)
@@ -468,12 +484,27 @@ void Fixture::setFixtureDefinition(QLCFixtureDef* fixtureDef,
         if (fixtureMode->heads().size() == 0)
         {
             QLCFixtureHead head;
-            for (int i = 0; i < fixtureMode->channels().size(); i++)
+            for (i = 0; i < fixtureMode->channels().size(); i++)
                 head.addChannel(i);
             fixtureMode->insertHead(-1, head);
         }
         m_values.resize(fixtureMode->channels().size());
         m_values.fill(0);
+
+        m_aliasInfo.resize(fixtureMode->channels().size());
+
+        for (i = 0; i < fixtureMode->channels().size(); i++)
+        {
+            const QList <QLCCapability*> capsList = fixtureMode->channel(i)->capabilities();
+            m_aliasInfo[i].m_hasAlias = false;
+            m_aliasInfo[i].m_currCap = capsList.count() ? capsList.at(0) : NULL;
+
+            foreach (QLCCapability *cap, capsList)
+            {
+                if (cap->preset() == QLCCapability::Alias)
+                    m_aliasInfo[i].m_hasAlias = true;
+            }
+        }
 
         // Cache all head channels
         fixtureMode->cacheHeads();
