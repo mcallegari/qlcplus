@@ -121,6 +121,22 @@ protected:
     void updateModeItem(const QLCFixtureMode *mode, QTreeWidgetItem *item);
 
     /*********************************************************************
+     * Aliases
+     *********************************************************************/
+protected slots:
+    void slotAliasChanged();
+    void slotAddAliasClicked();
+    void slotRemoveAliasClicked();
+
+protected:
+    void refreshAliasList();
+    void refreshAliasModes();
+    void refreshAliasModeChannels();
+    void refreshAliasAllChannels();
+    void refreshAliasTree();
+    void checkAliasAddButton();
+
+    /*********************************************************************
      * Clipboard
      *********************************************************************/
 public slots:

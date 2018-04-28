@@ -177,6 +177,17 @@ void QLCFixtureEditor::init()
     m_modeList->setContextMenuPolicy(Qt::CustomContextMenu);
     refreshModeList();
 
+    /* Aliases page */
+    connect(m_addAliasButton, SIGNAL(clicked()), this, SLOT(slotAddAliasClicked()));
+    connect(m_removeAliasButton, SIGNAL(clicked()), this, SLOT(slotRemoveAliasClicked()));
+    refreshAliasList();
+    refreshAliasModes();
+    refreshAliasModeChannels();
+    refreshAliasAllChannels();
+    refreshAliasTree();
+
+    connect(m_aliasCapCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotAliasChanged()));
+
     /* Physical page */
     m_phyEdit = new EditPhysical(m_fixtureDef->physical(), this);
     m_phyEdit->show();
@@ -460,6 +471,8 @@ void QLCFixtureEditor::slotAddChannel()
                 m_channelList->resizeColumnToContents(CH_COL_NAME);
 
                 setModified();
+                refreshAliasList();
+                refreshAliasAllChannels();
                 ok = true;
             }
         }
@@ -536,6 +549,8 @@ void QLCFixtureEditor::slotEditChannel()
             updateChannelItem(real, item);
             m_channelList->resizeColumnToContents(CH_COL_NAME);
 
+            refreshAliasList();
+            refreshAliasAllChannels();
             setModified();
         }
     }
@@ -772,6 +787,7 @@ void QLCFixtureEditor::slotAddMode()
                 m_modeList->setCurrentItem(item);
                 m_modeList->resizeColumnToContents(MODE_COL_NAME);
 
+                refreshAliasModes();
                 setModified();
                 ok = true;
             }
@@ -794,6 +810,7 @@ void QLCFixtureEditor::slotRemoveMode()
     {
         m_fixtureDef->removeMode(mode);
         delete m_modeList->currentItem();
+        refreshAliasModes();
         setModified();
     }
 }
@@ -813,6 +830,7 @@ void QLCFixtureEditor::slotEditMode()
 
         item = m_modeList->currentItem();
         updateModeItem(mode, item);
+        refreshAliasModes();
         setModified();
     }
 }
@@ -975,6 +993,167 @@ QLCFixtureMode *QLCFixtureEditor::currentMode()
         mode = (QLCFixtureMode*) item->data(MODE_COL_NAME, PROP_PTR).toULongLong();
 
     return mode;
+}
+
+/*********************************************************************
+ * Aliases
+ *********************************************************************/
+
+void QLCFixtureEditor::refreshAliasList()
+{
+    // loop through all capabilites of all channels and create a list
+    // of those marked as 'alias'
+    m_aliasCapCombo->clear();
+
+    QListIterator <QLCChannel*> it(m_fixtureDef->channels());
+    while (it.hasNext() == true)
+    {
+        QLCChannel *channel = it.next();
+        foreach (QLCCapability *cap, channel->capabilities())
+        {
+            if (cap->preset() != QLCCapability::Alias)
+                continue;
+
+            QString capStr = QString("%1 - %2 [%3-%4]").arg(channel->name()).arg(cap->name()).arg(cap->min()).arg(cap->max());
+            m_aliasCapCombo->addItem(capStr);
+            m_aliasCapCombo->setItemData(m_aliasCapCombo->count() - 1, qVariantFromValue((void *)channel), Qt::UserRole);
+            m_aliasCapCombo->setItemData(m_aliasCapCombo->count() - 1, qVariantFromValue((void *)cap), Qt::UserRole + 1);
+        }
+    }
+    checkAliasAddButton();
+}
+
+void QLCFixtureEditor::refreshAliasModes()
+{
+    m_modesCombo->clear();
+
+    int currIndex = m_aliasCapCombo->currentIndex();
+    if (currIndex < 0)
+        return;
+
+    QLCChannel *selChannel = (QLCChannel *)m_aliasCapCombo->itemData(currIndex, Qt::UserRole).value<void *>();
+    if (selChannel == NULL)
+        return;
+
+    foreach (QLCFixtureMode *mode, m_fixtureDef->modes())
+    {
+        if (mode->channel(selChannel->name()) != NULL)
+            m_modesCombo->addItem(mode->name(), qVariantFromValue((void *)mode));
+    }
+    refreshAliasModeChannels();
+}
+
+void QLCFixtureEditor::refreshAliasModeChannels()
+{
+    m_modeChannels->clear();
+
+    int currIndex = m_modesCombo->currentIndex();
+    if (currIndex < 0)
+        return;
+
+    QLCFixtureMode *selMode = (QLCFixtureMode *)m_modesCombo->itemData(currIndex, Qt::UserRole).value<void *>();
+    if (selMode == NULL)
+        return;
+
+    foreach (QLCChannel *channel, selMode->channels())
+        m_modeChannels->addItem(channel->name());
+
+    checkAliasAddButton();
+}
+
+void QLCFixtureEditor::refreshAliasAllChannels()
+{
+    m_allChannels->clear();
+
+    QListIterator <QLCChannel*> it(m_fixtureDef->channels());
+    while (it.hasNext() == true)
+    {
+        QLCChannel *channel = it.next();
+        m_allChannels->addItem(channel->name());
+    }
+    checkAliasAddButton();
+}
+
+void QLCFixtureEditor::refreshAliasTree()
+{
+    m_aliasTree->clear();
+
+    QListIterator <QLCChannel*> it(m_fixtureDef->channels());
+    while (it.hasNext() == true)
+    {
+        QLCChannel *channel = it.next();
+        foreach (QLCCapability *cap, channel->capabilities())
+        {
+            if (cap->preset() != QLCCapability::Alias)
+                continue;
+
+            foreach (AliasInfo alias, cap->aliasList())
+            {
+                QStringList columns;
+                QString capStr = QString("%1 - %2 [%3-%4]").arg(channel->name()).arg(cap->name()).arg(cap->min()).arg(cap->max());
+                columns << capStr << alias.targetMode << alias.sourceChannel << alias.targetChannel;
+                QTreeWidgetItem *item = new QTreeWidgetItem(m_aliasTree, columns);
+                item->setData(0, Qt::UserRole, qVariantFromValue((void *)cap));
+            }
+
+        }
+    }
+}
+
+void QLCFixtureEditor::checkAliasAddButton()
+{
+    if (m_aliasCapCombo->count() && m_modesCombo->count() &&
+        m_modeChannels->count() && m_allChannels->count())
+        m_addAliasButton->setEnabled(true);
+    else
+        m_addAliasButton->setEnabled(false);
+}
+
+void QLCFixtureEditor::slotAliasChanged()
+{
+    refreshAliasModes();
+}
+
+void QLCFixtureEditor::slotAddAliasClicked()
+{
+    QStringList columns;
+    AliasInfo alias;
+    alias.targetMode = m_modesCombo->currentText();
+    alias.sourceChannel = m_modeChannels->currentText();
+    alias.targetChannel = m_allChannels->currentText();
+
+    columns << m_aliasCapCombo->currentText() << alias.targetMode
+            << alias.sourceChannel << alias.targetChannel;
+
+    // add the alias to the capability
+    QLCCapability *selCap = (QLCCapability *)m_aliasCapCombo->itemData(m_aliasCapCombo->currentIndex(),
+                                                                       Qt::UserRole + 1).value<void *>();
+    selCap->addAlias(alias);
+
+    // add a visual entry
+    QTreeWidgetItem *item = new QTreeWidgetItem(m_aliasTree, columns);
+    item->setData(0, Qt::UserRole, qVariantFromValue((void *)selCap));
+
+    setModified();
+}
+
+void QLCFixtureEditor::slotRemoveAliasClicked()
+{
+    QTreeWidgetItem *item = m_aliasTree->currentItem();
+    if (item != NULL)
+    {
+        QLCCapability *cap = (QLCCapability *)item->data(0, Qt::UserRole).value<void *>();
+        if (cap == NULL)
+            return;
+
+        AliasInfo alias;
+        alias.targetMode = item->text(1);
+        alias.sourceChannel = item->text(2);
+        alias.targetChannel = item->text(3);
+        cap->removeAlias(alias);
+        refreshAliasTree();
+    }
+    setModified();
 }
 
 /*****************************************************************************
