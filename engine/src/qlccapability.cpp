@@ -299,7 +299,10 @@ bool QLCCapability::saveXML(QXmlStreamWriter *doc)
     }
 
     /* Name */
-    doc->writeCharacters(m_name);
+    if (m_aliases.isEmpty())
+        doc->writeCharacters(m_name);
+    else
+        doc->writeCharacters(QString("%1\n   ").arg(m_name)); // to preserve indentation
 
     /* Aliases */
     foreach (AliasInfo info, m_aliases)
