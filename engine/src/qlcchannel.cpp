@@ -429,7 +429,7 @@ void QLCChannel::setPreset(QLCChannel::Preset preset)
             prname = "Prism rotation";
         break;
         case NoFunction:
-            grp = Maintenance;
+            grp = Nothing;
             prname = "No function";
         break;
         default:
@@ -640,6 +640,8 @@ QLCChannel::Group QLCChannel::stringToGroup(const QString& str)
         return Tilt;
     else if (str == KXMLQLCChannelGroupMaintenance)
         return Maintenance;
+    else if (str == KXMLQLCChannelGroupNothing)
+        return Nothing;
     else
         return NoGroup;
 }
@@ -772,6 +774,7 @@ QString QLCChannel::getIconNameFromGroup(QLCChannel::Group grp, bool svg) const
         case Maintenance: return QString("%1:/configure.%2").arg(prefix).arg(ext); break;
         case Intensity: return getIntensityColorCode(svg); break;
         case Beam: return QString("%1:/beam.%2").arg(prefix).arg(ext); break;
+        case Nothing: return QString("%1:/uncheck.%2").arg(prefix).arg(ext); break;
         default:
         break;
     }

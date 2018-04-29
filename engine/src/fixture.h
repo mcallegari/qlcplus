@@ -64,7 +64,7 @@ typedef struct
 {
     bool m_hasAlias;        /** Flag to enable/disable aliases check */
     QLCCapability *m_currCap; /** The current capability in use */
-} ChannelInfo;
+} ChannelAlias;
 
 class Fixture : public QObject
 {
@@ -344,14 +344,18 @@ public:
     /** Retrieve the DMX value of the given channel index */
     uchar channelValueAt(int idx);
 
+protected:
+    void applyAlias(QLCCapability *currCap, QLCCapability *newCap);
+
 signals:
     void valuesChanged();
+    void aliasChanged();
 
 protected:
     /** Runtime array to store DMX values and check for changes */
     QByteArray m_values;
     /** Runtime array to check for alias changes */
-    QVector<ChannelInfo> m_aliasInfo;
+    QVector<ChannelAlias> m_aliasInfo;
     QMutex m_channelsInfoMutex;
 
     /*********************************************************************

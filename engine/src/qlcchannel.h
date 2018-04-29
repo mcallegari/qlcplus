@@ -199,6 +199,7 @@ public:
         Beam,
         Effect,
         Maintenance,
+        Nothing,
         NoGroup = INT_MAX
     };
 

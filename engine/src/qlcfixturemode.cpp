@@ -175,6 +175,20 @@ bool QLCFixtureMode::removeChannel(const QLCChannel* channel)
     return false;
 }
 
+bool QLCFixtureMode::replaceChannel(QLCChannel *currChannel, QLCChannel *newChannel)
+{
+    if (currChannel == NULL || newChannel == NULL)
+        return false;
+
+    int chIndex = m_channels.indexOf(currChannel);
+    if (chIndex == -1)
+        return false;
+
+    m_channels.replace(chIndex, newChannel);
+
+    return true;
+}
+
 void QLCFixtureMode::removeAllChannels()
 {
     m_channels.clear();

@@ -428,8 +428,7 @@ bool Fixture::setChannelValues(const QByteArray &values)
                 if (cap != m_aliasInfo[i].m_currCap)
                 {
                     // capability changed. Check for channel replacements
-
-
+                    applyAlias(m_aliasInfo[i].m_currCap, cap);
                     m_aliasInfo[i].m_currCap = cap;
                 }
             }
@@ -454,6 +453,37 @@ uchar Fixture::channelValueAt(int idx)
     if (idx >= 0 && idx < m_values.length())
         return (uchar)m_values.at(idx);
     return 0;
+}
+
+void Fixture::applyAlias(QLCCapability *currCap, QLCCapability *newCap)
+{
+    // first, revert any channel replaced to the original channel set
+    foreach (AliasInfo alias, currCap->aliasList())
+    {
+        QLCFixtureMode *mode = m_fixtureDef->mode(alias.targetMode);
+        if (mode != m_fixtureMode)
+            continue;
+
+        QLCChannel *currChannel = m_fixtureMode->channel(alias.targetChannel);
+        QLCChannel *origChannel = m_fixtureDef->channel(alias.sourceChannel);
+
+        m_fixtureMode->replaceChannel(currChannel, origChannel);
+    }
+
+    // now, apply the current alias changes
+    foreach (AliasInfo alias, newCap->aliasList())
+    {
+        QLCFixtureMode *mode = m_fixtureDef->mode(alias.targetMode);
+        if (mode != m_fixtureMode)
+            continue;
+
+        QLCChannel *currChannel = m_fixtureMode->channel(alias.sourceChannel);
+        QLCChannel *newChannel = m_fixtureDef->channel(alias.targetChannel);
+
+        m_fixtureMode->replaceChannel(currChannel, newChannel);
+    }
+
+    emit aliasChanged();
 }
 
 /*****************************************************************************
