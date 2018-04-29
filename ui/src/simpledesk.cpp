@@ -36,6 +36,7 @@
 #include <QFrame>
 #include <QDebug>
 
+#include "dmxkeypad.h"
 #include "grandmasterslider.h"
 #include "simpledeskengine.h"
 #include "speeddialwidget.h"
@@ -193,10 +194,19 @@ void SimpleDesk::initView()
 
 void SimpleDesk::initTopSide()
 {
-    QWidget* topSide = new QWidget(this);
+    m_topSplitter = new QSplitter(this);
+    m_splitter->addWidget(m_topSplitter);
+
+    QWidget* topSide = new QWidget(m_topSplitter);
     QVBoxLayout* lay = new QVBoxLayout(topSide);
     lay->setContentsMargins(1, 1, 1, 1);
-    m_splitter->addWidget(topSide);
+    m_topSplitter->addWidget(topSide);
+
+    DmxKeyPad* keyPad = new DmxKeyPad(m_topSplitter);
+    m_topSplitter->addWidget(keyPad);
+
+    connect(keyPad, SIGNAL(newChanValue(uint,uchar)), this, SLOT(slotKeyPadNewChanValue(uint,uchar)));
+    connect(keyPad, SIGNAL(newValuesDone()), this, SLOT(slotUpdateUniverseSliders()));
 
     QHBoxLayout* uniLay = new QHBoxLayout;
     uniLay->setContentsMargins(1, 1, 1, 1);
@@ -882,6 +892,11 @@ void SimpleDesk::slotUniversesWritten(int idx, const QByteArray& ua)
             }
         }
     }
+}
+
+void SimpleDesk::slotKeyPadNewChanValue(uint channel, uchar value)
+{
+    m_engine->setValue(channel, value);
 }
 
 void SimpleDesk::slotUpdateUniverseSliders()

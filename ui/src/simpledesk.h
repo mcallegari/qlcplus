@@ -27,6 +27,7 @@
 #include <QList>
 #include <QHash>
 
+class DmxKeyPad;
 class GrandMasterSlider;
 class SimpleDeskEngine;
 class QXmlStreamReader;
@@ -122,8 +123,10 @@ private slots:
     void slotUniverseSliderValueChanged(quint32, quint32, uchar value);
     void slotUpdateUniverseSliders();
     void slotUniversesWritten(int idx, const QByteArray& ua);
+    void slotKeyPadNewChanValue(uint channel, uchar value);
 
 private:
+    QSplitter* m_topSplitter;
     QFrame* m_universeGroup;
     QComboBox* m_universesCombo;
     QToolButton* m_viewModeButton;
