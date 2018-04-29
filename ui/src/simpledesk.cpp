@@ -260,13 +260,13 @@ void SimpleDesk::initTopSide()
 
     m_universeGroup = new QFrame(this);
     //m_universeGroup->setTitle(tr("Universe"));
-    QHBoxLayout* grpLay = new QHBoxLayout(m_universeGroup);
+    QHBoxLayout *grpLay = new QHBoxLayout(m_universeGroup);
     //m_universeGroup->setFlat(true);
     grpLay->setContentsMargins(1, 1, 1, 1);
     grpLay->setSpacing(1);
     lay->addWidget(m_universeGroup);
 
-    QVBoxLayout* vbox = new QVBoxLayout;
+    QVBoxLayout *vbox = new QVBoxLayout;
     m_grandMasterSlider = new GrandMasterSlider(this, m_doc->inputOutputMap());
     vbox->addWidget(m_grandMasterSlider);
 
@@ -829,9 +829,10 @@ void SimpleDesk::slotAliasChanged()
             QLayoutItem *item = m_universeGroup->layout()->replaceWidget(cc, newCC);
             delete item;
 #else
-            int wIndex = m_universeGroup->layout()->indexOf(cc);
-            m_universeGroup->layout()->removeWidget(cc);
-            m_universeGroup->layout()->insertWidget(wIndex, newCC);
+            QHBoxLayout *hbox = qobject_cast<QHBoxLayout*>(m_universeGroup->layout());
+            int wIndex = hbox->indexOf(cc);
+            hbox->removeWidget(cc);
+            hbox->insertWidget(wIndex, newCC);
 #endif
             delete cc;
             m_universeSliders.replace(i, newCC);
