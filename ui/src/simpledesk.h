@@ -81,14 +81,24 @@ private:
     void initTopSide();
     void initBottomSide();
 
+protected:
+    /** @reimp */
+    void showEvent(QShowEvent* ev);
+
+    /** @reimp */
+    void hideEvent(QHideEvent* ev);
+
+    /** @reimp */
+    void resizeEvent(QResizeEvent *ev);
+
 protected slots:
     void slotDocChanged();
 
 private:
-    static SimpleDesk* s_instance;
-    SimpleDeskEngine* m_engine;
-    QSplitter* m_splitter;
-    Doc* m_doc;
+    static SimpleDesk *s_instance;
+    SimpleDeskEngine *m_engine;
+    QSplitter *m_splitter;
+    Doc *m_doc;
     bool m_docChanged;
 
     /*********************************************************************
@@ -119,21 +129,22 @@ private slots:
     void slotUniversePageChanged(int page);
     void slotUniverseResetClicked();
     void slotChannelResetClicked(quint32 fxID, quint32 channel);
+    void slotAliasChanged();
     void slotUniverseSliderValueChanged(quint32, quint32, uchar value);
     void slotUpdateUniverseSliders();
     void slotUniversesWritten(int idx, const QByteArray& ua);
 
 private:
-    QFrame* m_universeGroup;
-    QComboBox* m_universesCombo;
-    QToolButton* m_viewModeButton;
-    QToolButton* m_universePageUpButton;
-    QSpinBox* m_universePageSpin;
-    QToolButton* m_universePageDownButton;
-    QToolButton* m_universeResetButton;
-    GrandMasterSlider* m_grandMasterSlider;
-    QScrollArea* scrollArea;
-    QScrollArea* m_chGroupsArea;
+    QFrame *m_universeGroup;
+    QComboBox *m_universesCombo;
+    QToolButton *m_viewModeButton;
+    QToolButton *m_universePageUpButton;
+    QSpinBox *m_universePageSpin;
+    QToolButton *m_universePageDownButton;
+    QToolButton *m_universeResetButton;
+    GrandMasterSlider *m_grandMasterSlider;
+    QScrollArea *scrollArea;
+    QScrollArea *m_chGroupsArea;
 
     /**
      * List holding pointers to the current view sliders.
@@ -175,8 +186,8 @@ private slots:
     void slotGroupValueChanged(quint32 groupID, uchar value);
 
 private:
-    QTabWidget* m_tabs;
-    QGroupBox* m_playbackGroup;
+    QTabWidget *m_tabs;
+    QGroupBox *m_playbackGroup;
     QList <PlaybackSlider*> m_playbackSliders;
     uint m_selectedPlayback;
     uint m_playbacksPerPage;
@@ -191,7 +202,7 @@ private:
     void updateSpeedDials();
     void createSpeedDials();
 
-    CueStack* currentCueStack() const;
+    CueStack *currentCueStack() const;
     int currentCueIndex() const;
 
 private slots:
@@ -213,25 +224,15 @@ private slots:
     void slotDialDestroyed(QObject *);
     void slotCueNameEdited(const QString& name);
 
-protected:
-    /** @reimp */
-    void showEvent(QShowEvent* ev);
-
-    /** @reimp */
-    void hideEvent(QHideEvent* ev);
-
-    /** @reimp */
-    void resizeEvent(QResizeEvent *ev);
-
 private:
-    QGroupBox* m_cueStackGroup;
-    QToolButton* m_previousCueButton;
-    QToolButton* m_nextCueButton;
-    QToolButton* m_stopCueStackButton;
-    QToolButton* m_cloneCueStackButton;
-    QToolButton* m_editCueStackButton;
-    QToolButton* m_recordCueButton;
-    QTreeView* m_cueStackView;
+    QGroupBox *m_cueStackGroup;
+    QToolButton *m_previousCueButton;
+    QToolButton *m_nextCueButton;
+    QToolButton *m_stopCueStackButton;
+    QToolButton *m_cloneCueStackButton;
+    QToolButton *m_editCueStackButton;
+    QToolButton *m_recordCueButton;
+    QTreeView *m_cueStackView;
     SpeedDialWidget *m_speedDials;
     QModelIndex m_cueDeleteIconIndex;
 

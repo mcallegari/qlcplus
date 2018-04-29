@@ -163,9 +163,10 @@ void FixtureConsole::slotAliasChanged()
             ConsoleChannel* newCC = new ConsoleChannel(this, m_doc, fxi->id(), i, m_showCheckBoxes);
             newCC->setVisible(false);
             newCC->setChannelStyleSheet(m_styleSheet);
-            newCC->setVisible(true);
             if (cc->hasResetButton())
                 newCC->showResetButton(true);
+            newCC->setValue(cc->value());
+            newCC->setVisible(true);
 
             connect(newCC, SIGNAL(valueChanged(quint32,quint32,uchar)),
                     this, SIGNAL(valueChanged(quint32,quint32,uchar)));
