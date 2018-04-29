@@ -726,7 +726,7 @@ QColor SceneEditor::slotColorSelectorChanged(const QColor& color)
         {
             Fixture* fxi = m_doc->fixture(cc->fixture());
             Q_ASSERT(fxi != NULL);
-            const QLCChannel *ch = fxi->channel(cc->channel());
+            const QLCChannel *ch = fxi->channel(cc->channelIndex());
             if (ch->group() == QLCChannel::Intensity)
             {
                 if (ch->colour() == QLCChannel::Red)
@@ -806,7 +806,7 @@ void SceneEditor::slotPositionSelectorChanged(const QPointF& position)
         {
             Fixture* fxi = m_doc->fixture(cc->fixture());
             Q_ASSERT(fxi != NULL);
-            const QLCChannel *ch = fxi->channel(cc->channel());
+            const QLCChannel *ch = fxi->channel(cc->channelIndex());
             if (ch->group() == QLCChannel::Pan)
             {
                 if (ch->controlByte() == QLCChannel::MSB)
@@ -1045,7 +1045,7 @@ bool SceneEditor::isColorToolAvailable()
         {
             fxi = m_doc->fixture(cc->fixture());
             Q_ASSERT(fxi != NULL);
-            const QLCChannel *ch = fxi->channel(cc->channel());
+            const QLCChannel *ch = fxi->channel(cc->channelIndex());
             if (ch->group() == QLCChannel::Intensity)
             {
                 if (ch->colour() == QLCChannel::Red)
@@ -1107,7 +1107,7 @@ bool SceneEditor::isPositionToolAvailable()
         {
             fxi = m_doc->fixture(cc->fixture());
             Q_ASSERT(fxi != NULL);
-            const QLCChannel *ch = fxi->channel(cc->channel());
+            const QLCChannel *ch = fxi->channel(cc->channelIndex());
             if (ch->group() == QLCChannel::Pan || ch->group() == QLCChannel::Tilt)
                 return true;
         }
