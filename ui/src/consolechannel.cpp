@@ -325,6 +325,11 @@ void ConsoleChannel::showResetButton(bool show)
     }
 }
 
+bool ConsoleChannel::hasResetButton()
+{
+    return m_resetButton != NULL ? true : false;
+}
+
 void ConsoleChannel::slotResetButtonClicked()
 {
     emit resetRequest(m_fixture, m_chIndex);

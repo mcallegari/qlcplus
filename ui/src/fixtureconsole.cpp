@@ -164,6 +164,8 @@ void FixtureConsole::slotAliasChanged()
             newCC->setVisible(false);
             newCC->setChannelStyleSheet(m_styleSheet);
             newCC->setVisible(true);
+            if (cc->hasResetButton())
+                newCC->showResetButton(true);
 
             connect(newCC, SIGNAL(valueChanged(quint32,quint32,uchar)),
                     this, SIGNAL(valueChanged(quint32,quint32,uchar)));

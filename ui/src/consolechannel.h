@@ -126,6 +126,7 @@ signals:
 public:
     void setChannelStyleSheet(const QString& styleSheet);
     void showResetButton(bool show);
+    bool hasResetButton();
 
 private slots:
     void slotResetButtonClicked();
