@@ -171,8 +171,14 @@ void FixtureConsole::slotAliasChanged()
                     this, SIGNAL(valueChanged(quint32,quint32,uchar)));
             connect(newCC, SIGNAL(checked(quint32,quint32,bool)),
                     this, SIGNAL(checked(quint32,quint32,bool)));
+#if QT_VERSION >= QT_VERSION_CHECK(5, 2, 0)
             QLayoutItem *item = m_layout->replaceWidget(cc, newCC);
             delete item;
+#else
+            int wIndex = m_layout->indexOf(cc);
+            m_layout->removeWidget(cc);
+            m_layout->insertWidget(wIndex, newCC);
+#endif
             delete cc;
             m_channels.replace(i, newCC);
         }
