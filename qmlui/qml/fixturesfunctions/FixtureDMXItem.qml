@@ -40,6 +40,15 @@ Rectangle
         }
     }
 
+    function updateChannels()
+    {
+        if (fxColumn.visible == false)
+            consoleLoader.item.updateChannels()
+
+        for (var i = 0; i < channelsRpt.count; i++)
+            channelsRpt.itemAt(i).updateChannel()
+    }
+
     width: channelsRow.width
     height: fxColumn.height
     color: UISettings.bgLighter
@@ -81,6 +90,11 @@ Rectangle
                         height: chColumn.height
 
                         property string dmxValue: "0"
+
+                        function updateChannel()
+                        {
+                            fxChIcon.source = fixtureObj ? fixtureManager.channelIcon(fixtureObj.id, index) : ""
+                        }
 
                         Column
                         {

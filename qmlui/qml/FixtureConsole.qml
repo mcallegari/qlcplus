@@ -76,6 +76,12 @@ Rectangle
         externalChange = false
     }
 
+    function updateChannels()
+    {
+        for (var i = 0; i < channelsRpt.count; i++)
+            channelsRpt.itemAt(i).updateChannel()
+    }
+
     Column
     {
         id: fxColumn
@@ -149,6 +155,11 @@ Rectangle
                         property alias dmxValue: chValueSpin.value
                         property bool dmxMode: true
                         property bool isEnabled: showEnablers ? false : true
+
+                        function updateChannel()
+                        {
+                            chIcon.source = fixtureObj ? fixtureManager.channelIcon(fixtureObj.id, index) : ""
+                        }
 
                         onDmxValueChanged:
                         {
@@ -250,12 +261,10 @@ Rectangle
                                 {
                                     if (sceneConsole)
                                     {
-                                        if (sceneEditor.hasChannel(fixtureObj.id, index) === true)
-                                        {
-                                            if (showEnablers)
-                                                isEnabled = true
-                                            dmxValue = sceneEditor.channelValue(fixtureObj.id, index)
-                                        }
+                                        if (showEnablers && sceneEditor.hasChannel(fixtureObj.id, index) === true)
+                                            isEnabled = true
+
+                                        dmxValue = sceneEditor.channelValue(fixtureObj.id, index)
                                     }
                                 }
                             }

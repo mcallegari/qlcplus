@@ -1038,6 +1038,10 @@ void ContextManager::setDumpValue(quint32 fxID, quint32 channel, uchar value)
                 emit dumpChannelMaskChanged();
             }
         }
+
+        Fixture *fixture = m_doc->fixture(fxID);
+        if (fixture)
+            fixture->checkAlias(channel, value);
     }
 }
 

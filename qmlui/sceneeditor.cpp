@@ -163,6 +163,10 @@ void SceneEditor::slotSceneValueChanged(SceneValue scv)
             QMetaObject::invokeMethod(m_fxConsoleMap[fxIndex], "setChannelValue",
                     Q_ARG(QVariant, scv.channel),
                     Q_ARG(QVariant, scv.value));
+
+            Fixture *fixture = m_doc->fixture(scv.fxi);
+            if (fixture)
+                fixture->checkAlias(scv.channel, scv.value);
         }
         else
         {
@@ -172,6 +176,19 @@ void SceneEditor::slotSceneValueChanged(SceneValue scv)
 
     if (blindMode == false)
         m_source->set(scv.fxi, scv.channel, scv.value);
+}
+
+void SceneEditor::slotAliasChanged()
+{
+    if (m_sceneConsole == NULL)
+        return;
+
+    qDebug() << "Fixture alias changed";
+
+    Fixture *fxi = qobject_cast<Fixture *>(sender());
+    int fxIndex = m_fixtureIDs.indexOf(fxi->id());
+    if (m_fxConsoleMap.contains(fxIndex))
+        QMetaObject::invokeMethod(m_fxConsoleMap[fxIndex], "updateChannels");
 }
 
 void SceneEditor::unsetChannel(quint32 fxID, quint32 channel)
@@ -205,16 +222,27 @@ void SceneEditor::updateFixtureList()
     if(m_scene == NULL)
         return;
 
+    for (quint32 fxID : m_fixtureIDs)
+    {
+        Fixture *fixture = m_doc->fixture(fxID);
+        if(fixture == NULL)
+            continue;
+
+        disconnect(fixture, SIGNAL(aliasChanged()), this, SLOT(slotAliasChanged()));
+    }
+
     m_fixtureIDs.clear();
     m_fixtureList->clear();
 
-    foreach(SceneValue sv, m_scene->values())
+    for (SceneValue sv : m_scene->values())
     {
         if (m_fixtureIDs.contains(sv.fxi) == false)
         {
             Fixture *fixture = m_doc->fixture(sv.fxi);
             if(fixture == NULL)
                 continue;
+
+            connect(fixture, SIGNAL(aliasChanged()), this, SLOT(slotAliasChanged()));
 
             QVariantMap fxMap;
             fxMap.insert("fxRef", QVariant::fromValue(fixture));

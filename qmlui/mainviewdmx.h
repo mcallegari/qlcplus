@@ -73,6 +73,8 @@ protected slots:
     /** @reimp */
     void slotRefreshView();
 
+    void slotAliasChanged();
+
 private:
     /** Pre-cached QML component for quick item creation */
     QQmlComponent *fixtureComponent;

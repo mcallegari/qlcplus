@@ -70,6 +70,7 @@ public:
 
 protected slots:
     void slotSceneValueChanged(SceneValue scv);
+    void slotAliasChanged();
 
 private:
     void updateFixtureList();
