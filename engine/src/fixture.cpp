@@ -495,7 +495,7 @@ void Fixture::setFixtureDefinition(QLCFixtureDef* fixtureDef,
 {
     if (fixtureDef != NULL && fixtureMode != NULL)
     {
-        int i;
+        int i, chNum;
 
         if (m_fixtureDef != NULL && m_fixtureDef != fixtureDef &&
             m_fixtureDef->manufacturer() == KXMLFixtureGeneric &&
@@ -506,6 +506,7 @@ void Fixture::setFixtureDefinition(QLCFixtureDef* fixtureDef,
 
         m_fixtureDef = fixtureDef;
         m_fixtureMode = fixtureMode;
+        chNum = fixtureMode->channels().size();
 
         // If there are no head entries in the mode, create one that contains
         // all channels. This const_cast is a bit heretic, but it's easier this
@@ -514,14 +515,14 @@ void Fixture::setFixtureDefinition(QLCFixtureDef* fixtureDef,
         if (fixtureMode->heads().size() == 0)
         {
             QLCFixtureHead head;
-            for (i = 0; i < fixtureMode->channels().size(); i++)
+            for (i = 0; i < chNum; i++)
                 head.addChannel(i);
             fixtureMode->insertHead(-1, head);
         }
-        m_values.resize(fixtureMode->channels().size());
-        m_aliasInfo.resize(fixtureMode->channels().size());
 
-        for (i = 0; i < fixtureMode->channels().size(); i++)
+        m_aliasInfo.resize(chNum);
+
+        for (i = 0; i < chNum; i++)
         {
             QLCChannel *channel = fixtureMode->channel(i);
             const QList <QLCCapability*> capsList = channel->capabilities();

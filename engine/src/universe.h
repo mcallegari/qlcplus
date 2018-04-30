@@ -384,7 +384,7 @@ public:
     /** Set all intensity channel values to zero */
     void zeroIntensityChannels();
 
-    /** Return a list with intesity channels and their values */
+    /** Return a list with intensity channels and their values */
     QHash <int, uchar> intensityChannels();
 
     /** Set all channel relative values to zero */
