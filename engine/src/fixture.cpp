@@ -445,7 +445,7 @@ uchar Fixture::channelValueAt(int idx)
 
 void Fixture::checkAlias(int chIndex, uchar value)
 {
-    if (chIndex < 0 || chIndex >= m_aliasInfo.length() ||
+    if (chIndex < 0 || chIndex >= m_aliasInfo.count() ||
         m_aliasInfo[chIndex].m_hasAlias == false)
         return;
 
