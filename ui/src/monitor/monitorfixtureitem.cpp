@@ -178,7 +178,8 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
                        // not "off" occurences are ok, but anything better would require manual classification
                        if (cap->name().contains("close", Qt::CaseInsensitive) 
                            || cap->name().contains("blackout", Qt::CaseInsensitive)
-                           || cap->name().contains("off", Qt::CaseInsensitive))                       {
+                           || cap->name().contains("off", Qt::CaseInsensitive))
+                       {
                            values << FixtureHead::Closed;
                            containsShutter = true;
                        }

@@ -167,6 +167,7 @@ void ConsoleChannel::init()
         const QLCChannel *ch = fxi->channel(m_chIndex);
         Q_ASSERT(ch != NULL);
         setToolTip(QString("%1").arg(ch->name()));
+        setValue(ch->defaultValue(), false);
         m_channel = ch;
     }
 
