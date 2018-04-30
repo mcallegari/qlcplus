@@ -419,19 +419,7 @@ bool Fixture::setChannelValues(const QByteArray &values)
             changed = true;
             QMutexLocker locker(&m_channelsInfoMutex);
             m_values[i] = values.at(i + addr);
-
-            // If the channel @i has aliases, check
-            // if replacements are to be done
-            if (m_aliasInfo[i].m_hasAlias)
-            {
-                QLCCapability *cap = m_fixtureMode->channel(i)->searchCapability(uchar(m_values[i]));
-                if (cap != m_aliasInfo[i].m_currCap)
-                {
-                    // capability changed. Check for channel replacements
-                    applyAlias(m_aliasInfo[i].m_currCap, cap);
-                    m_aliasInfo[i].m_currCap = cap;
-                }
-            }
+            checkAlias(i, m_values[i]);
         }
     }
 
@@ -455,10 +443,20 @@ uchar Fixture::channelValueAt(int idx)
     return 0;
 }
 
-void Fixture::applyAlias(QLCCapability *currCap, QLCCapability *newCap)
+void Fixture::checkAlias(int chIndex, uchar value)
 {
+    if (chIndex < 0 || chIndex >= m_aliasInfo.length() ||
+        m_aliasInfo[chIndex].m_hasAlias == false)
+        return;
+
+    // If the channel @chIndex has aliases, check
+    // if replacements are to be done
+    QLCCapability *cap = m_fixtureMode->channel(chIndex)->searchCapability(value);
+    if (cap == m_aliasInfo[chIndex].m_currCap)
+        return;
+
     // first, revert any channel replaced to the original channel set
-    foreach (AliasInfo alias, currCap->aliasList())
+    foreach (AliasInfo alias, m_aliasInfo[chIndex].m_currCap->aliasList())
     {
         QLCFixtureMode *mode = m_fixtureDef->mode(alias.targetMode);
         if (mode != m_fixtureMode)
@@ -471,7 +469,7 @@ void Fixture::applyAlias(QLCCapability *currCap, QLCCapability *newCap)
     }
 
     // now, apply the current alias changes
-    foreach (AliasInfo alias, newCap->aliasList())
+    foreach (AliasInfo alias, cap->aliasList())
     {
         QLCFixtureMode *mode = m_fixtureDef->mode(alias.targetMode);
         if (mode != m_fixtureMode)
@@ -484,6 +482,9 @@ void Fixture::applyAlias(QLCCapability *currCap, QLCCapability *newCap)
     }
 
     emit aliasChanged();
+
+    m_aliasInfo[chIndex].m_currCap = cap;
+
 }
 
 /*****************************************************************************

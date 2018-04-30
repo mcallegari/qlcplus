@@ -344,8 +344,8 @@ public:
     /** Retrieve the DMX value of the given channel index */
     uchar channelValueAt(int idx);
 
-protected:
-    void applyAlias(QLCCapability *currCap, QLCCapability *newCap);
+    /** Check if some alias has changed on channel $chIndex for $value */
+    void checkAlias(int chIndex, uchar value);
 
 signals:
     void valuesChanged();
