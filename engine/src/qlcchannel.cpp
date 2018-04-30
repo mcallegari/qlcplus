@@ -796,7 +796,7 @@ void QLCChannel::setName(const QString &name)
     m_name = name;
 }
 
-uchar QLCChannel::defaultValue()
+uchar QLCChannel::defaultValue() const
 {
     return m_defaultValue;
 }

@@ -300,6 +300,14 @@ public:
      */
     uchar channelCapabilities(ushort channel);
 
+    /**
+     * Set the default value of a DMX channel to be considered on reset
+     *
+     * @param channel The channel absolute index in the universe
+     * @param value the default DMX value
+     */
+    void setChannelDefaultValue(ushort channel, uchar value);
+
     /** Assign a Channel Modifier to the given channel index
       * $modifier can be NULL if the channel has no modifier */
     void setChannelModifier(ushort channel, ChannelModifier *modifier);
@@ -315,6 +323,7 @@ protected:
     /** Vector of pointer to ChannelModifier classes. If not NULL, they will modify
      *  a DMX value right before HTP/LTP check and before being assigned to preGM */
     QVector<ChannelModifier*> m_modifiers;
+
     /** Modified channels with the non-modified value at 0.
      *  This is used for ranged initialization operations. */
     QScopedPointer<QByteArray> m_modifiedZeroValues;

@@ -119,7 +119,7 @@ public:
         PulseSlowToFast,
         PulseFastToSlow,
         StrobeFreq,             /** precise frequency value in hertz specified in m_resources */
-        StrobeFreqRange,        /** specified in m_resources as "min-max" hertz */
+        StrobeFreqRange,        /** specified in m_resources as 0: min, 1: max hertz */
         PulseFreq,
         PulseFreqRange,
         RotationClockwise,

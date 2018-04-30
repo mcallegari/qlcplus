@@ -254,7 +254,7 @@ public:
     void setName(const QString& name);
 
     /** Get the channel's default value */
-    uchar defaultValue();
+    uchar defaultValue() const;
 
     /** Set the channel's default value */
     void setDefaultValue(uchar value);

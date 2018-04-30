@@ -677,8 +677,6 @@ void Universe::setChannelCapability(ushort channel, QLCChannel::Group group, Cha
         m_totalChannels = channel + 1;
         m_totalChannelsChanged = true;
     }
-
-    return;
 }
 
 uchar Universe::channelCapabilities(ushort channel)
@@ -689,6 +687,25 @@ uchar Universe::channelCapabilities(ushort channel)
     return m_channelsMask->at(channel);
 }
 
+void Universe::setChannelDefaultValue(ushort channel, uchar value)
+{
+    if (channel >= (ushort)m_modifiedZeroValues.data()->count())
+        return;
+
+    (*m_modifiedZeroValues)[channel] = value;
+
+    if (channel >= m_totalChannels)
+    {
+        m_totalChannels = channel + 1;
+        m_totalChannelsChanged = true;
+    }
+
+    if (channel >= m_usedChannels)
+        m_usedChannels = channel + 1;
+
+    (*m_preGMValues)[channel] = value;
+}
+
 void Universe::setChannelModifier(ushort channel, ChannelModifier *modifier)
 {
     if (channel >= (ushort)m_modifiers.count())
@@ -696,11 +713,10 @@ void Universe::setChannelModifier(ushort channel, ChannelModifier *modifier)
 
     m_modifiers[channel] = modifier;
 
-    (*m_modifiedZeroValues)[channel] =
-        (modifier == NULL ? uchar(0) : modifier->getValue(0));
-
     if (modifier != NULL)
     {
+        (*m_modifiedZeroValues)[channel] = modifier->getValue(0);
+
         if (channel >= m_totalChannels)
         {
             m_totalChannels = channel + 1;
@@ -726,6 +742,7 @@ void Universe::updateIntensityChannelsRanges()
 {
     if (!m_intensityChannelsChanged)
         return;
+
     m_intensityChannelsChanged = false;
 
     m_intensityChannelsRanges.clear();

@@ -519,13 +519,17 @@ void Fixture::setFixtureDefinition(QLCFixtureDef* fixtureDef,
             fixtureMode->insertHead(-1, head);
         }
         m_values.resize(fixtureMode->channels().size());
-        m_values.fill(0);
-
         m_aliasInfo.resize(fixtureMode->channels().size());
 
         for (i = 0; i < fixtureMode->channels().size(); i++)
         {
-            const QList <QLCCapability*> capsList = fixtureMode->channel(i)->capabilities();
+            QLCChannel *channel = fixtureMode->channel(i);
+            const QList <QLCCapability*> capsList = channel->capabilities();
+
+            // initialize values with the channel default
+            m_values.append(channel->defaultValue());
+
+            // look for aliases
             m_aliasInfo[i].m_hasAlias = false;
             m_aliasInfo[i].m_currCap = capsList.count() ? capsList.at(0) : NULL;
 

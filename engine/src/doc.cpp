@@ -437,21 +437,26 @@ bool Doc::addFixture(Fixture* fixture, quint32 id)
 
     QList<int> forcedHTP = fixture->forcedHTPChannels();
     QList<int> forcedLTP = fixture->forcedLTPChannels();
+    quint32 fxAddress = fixture->address();
 
     for (i = 0 ; i < fixture->channels(); i++)
     {
-        const QLCChannel* channel(fixture->channel(i));
+        const QLCChannel *channel(fixture->channel(i));
+
+        // Inform Universe of any HTP/LTP forcing
         if (forcedHTP.contains(i))
-            universes.at(uni)->setChannelCapability(fixture->address() + i,
-                    channel->group(), Universe::HTP);
+            universes.at(uni)->setChannelCapability(fxAddress + i, channel->group(), Universe::HTP);
         else if (forcedLTP.contains(i))
-            universes.at(uni)->setChannelCapability(fixture->address() + i,
-                    channel->group(), Universe::LTP);
+            universes.at(uni)->setChannelCapability(fxAddress + i, channel->group(), Universe::LTP);
         else
-            universes.at(uni)->setChannelCapability(fixture->address() + i,
-                    channel->group());
+            universes.at(uni)->setChannelCapability(fxAddress + i, channel->group());
+
+        // Apply the default value BEFORE modifiers
+        universes.at(uni)->setChannelDefaultValue(fxAddress + i, channel->defaultValue());
+
+        // Apply a channel modifier, if defined
         ChannelModifier *mod = fixture->channelModifier(i);
-        universes.at(uni)->setChannelModifier(fixture->address() + i, mod);
+        universes.at(uni)->setChannelModifier(fxAddress + i, mod);
     }
     inputOutputMap()->releaseUniverses(true);
 
@@ -579,6 +584,7 @@ bool Doc::updateFixtureChannelCapabilities(quint32 id, QList<int> forcedHTP, QLi
     // get exclusive access to the universes list
     QList<Universe *> universes = inputOutputMap()->claimUniverses();
     Universe *universe = universes.at(fixture->universe());
+    quint32 fxAddress = fixture->address();
 
     // Set forced HTP channels
     fixture->setForcedHTPChannels(forcedHTP);
@@ -589,21 +595,22 @@ bool Doc::updateFixtureChannelCapabilities(quint32 id, QList<int> forcedHTP, QLi
     // Update the Fixture Universe with the current channel states
     for (quint32 i = 0 ; i < fixture->channels(); i++)
     {
-        const QLCChannel* channel(fixture->channel(i));
+        const QLCChannel *channel(fixture->channel(i));
 
+        // Inform Universe of any HTP/LTP forcing
         if (forcedHTP.contains(i))
-            universe->setChannelCapability(fixture->address() + i,
-                    channel->group(), Universe::HTP);
+            universe->setChannelCapability(fxAddress + i, channel->group(), Universe::HTP);
         else if (forcedLTP.contains(i))
-            universe->setChannelCapability(fixture->address() + i,
-                    channel->group(), Universe::LTP);
+            universe->setChannelCapability(fxAddress + i, channel->group(), Universe::LTP);
         else
-            universe->setChannelCapability(fixture->address() + i,
-                    channel->group());
+            universe->setChannelCapability(fxAddress + i, channel->group());
 
-        // set channels modifiers
+        // Apply the default value BEFORE modifiers
+        universe->setChannelDefaultValue(fxAddress + i, channel->defaultValue());
+
+        // Apply a channel modifier, if defined
         ChannelModifier *mod = fixture->channelModifier(i);
-        universe->setChannelModifier(fixture->address() + i, mod);
+        universe->setChannelModifier(fxAddress + i, mod);
     }
 
     inputOutputMap()->releaseUniverses(true);
