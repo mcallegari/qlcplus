@@ -111,11 +111,13 @@ QLCCapability::PresetType QLCCapability::presetType() const
 {
     switch (m_preset)
     {
-        case StrobeFreq:
-        case PulseFreq:
+        case StrobeFrequency:
+        case PulseInFrequency:
+        case PulseOutFrequency:
             return SingleValue;
         case StrobeFreqRange:
-        case PulseFreqRange:
+        case PulseInFreqRange:
+        case PulseOutFreqRange:
             return DoubleValue;
         case ColorMacro:
             return SingleColor;
@@ -260,41 +262,51 @@ bool QLCCapability::saveXML(QXmlStreamWriter *doc)
     if (m_preset != Custom)
         doc->writeAttribute(KXMLQLCCapabilityPreset, presetToString(m_preset));
 
-    /* First resource attribute */
-    if (resource(0).isValid())
+    /* Resource attributes */
+    for (int i = 0; i < m_resources.count(); i++)
     {
-        if (presetType() == Picture)
+        switch (presetType())
         {
-            QString modFilename = resource(0).toString();
-            QDir dir = QDir::cleanPath(QLCFile::systemDirectory(GOBODIR).path());
-
-            if (modFilename.contains(dir.path()))
+            case Picture:
             {
-                modFilename.remove(dir.path());
-                // The following line is a dirty workaround for an issue raised on Windows
-                // When building with MinGW, dir.path() is something like "C:/QLC+/Gobos"
-                // while QDir::separator() returns "\"
-                // So, to avoid any string mismatch I remove the first character
-                // no matter what it is
-                modFilename.remove(0, 1);
-            }
+                QString modFilename = resource(i).toString();
+                QDir dir = QDir::cleanPath(QLCFile::systemDirectory(GOBODIR).path());
 
-            doc->writeAttribute(KXMLQLCCapabilityRes1, modFilename);
-        }
-        else if (presetType() == SingleColor || presetType() == DoubleColor)
-        {
-            QColor col = resource(0).value<QColor>();
-            if (col.isValid())
-                doc->writeAttribute(KXMLQLCCapabilityRes1, col.name());
-        }
-    }
-    if (resource(0).isValid())
-    {
-        if (presetType() == DoubleColor)
-        {
-            QColor col = resource(1).value<QColor>();
-            if (col.isValid())
-                doc->writeAttribute(KXMLQLCCapabilityRes2, col.name());
+                if (modFilename.contains(dir.path()))
+                {
+                    modFilename.remove(dir.path());
+                    // The following line is a dirty workaround for an issue raised on Windows
+                    // When building with MinGW, dir.path() is something like "C:/QLC+/Gobos"
+                    // while QDir::separator() returns "\"
+                    // So, to avoid any string mismatch I remove the first character
+                    // no matter what it is
+                    modFilename.remove(0, 1);
+                }
+
+                doc->writeAttribute(KXMLQLCCapabilityRes1, modFilename);
+            }
+            break;
+            case SingleColor:
+            case DoubleColor:
+            {
+                QColor col = resource(i).value<QColor>();
+                if (i == 0 && col.isValid())
+                    doc->writeAttribute(KXMLQLCCapabilityRes1, col.name());
+                else if (i == 1 && col.isValid())
+                    doc->writeAttribute(KXMLQLCCapabilityRes2, col.name());
+            }
+            break;
+            case SingleValue:
+            case DoubleValue:
+            {
+                if (i == 0)
+                    doc->writeAttribute(KXMLQLCCapabilityRes1, QString::number(resource(i).toFloat()));
+                else if (i == 1)
+                    doc->writeAttribute(KXMLQLCCapabilityRes2, QString::number(resource(i).toFloat()));
+            }
+            break;
+            default:
+            break;
         }
     }
 
@@ -361,6 +373,54 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
         str = attrs.value(KXMLQLCCapabilityPreset).toString();
         setPreset(stringToPreset(str));
     }
+
+    switch(presetType())
+    {
+        case Picture:
+        {
+            QString path = attrs.value(KXMLQLCCapabilityRes1).toString();
+            if (QFileInfo(path).isRelative())
+            {
+                QDir dir = QLCFile::systemDirectory(GOBODIR);
+                path = dir.path() + QDir::separator() + path;
+            }
+            setResource(0, path);
+        }
+        break;
+        case SingleColor:
+        case DoubleColor:
+        {
+            QColor col1 = QColor(attrs.value(KXMLQLCCapabilityRes1).toString());
+            QColor col2 = QColor();
+            if (attrs.hasAttribute(KXMLQLCCapabilityRes2))
+                col2 = QColor(attrs.value(KXMLQLCCapabilityRes2).toString());
+
+            if (col1.isValid())
+            {
+                setResource(0, col1);
+                if (col2.isValid())
+                    setResource(1, col2);
+            }
+        }
+        break;
+        case SingleValue:
+        case DoubleValue:
+        {
+            float val1 = attrs.value(KXMLQLCCapabilityRes1).toFloat();
+            setResource(0, val1);
+
+            if (attrs.hasAttribute(KXMLQLCCapabilityRes2))
+            {
+                float val2 = attrs.value(KXMLQLCCapabilityRes2).toFloat();
+                setResource(1, val2);
+            }
+        }
+        break;
+        default:
+        break;
+    }
+
+    /* ************************* LEGACY ATTRIBUTES ************************* */
 
     /* Get (optional) resource name for gobo/effect/... */
     if(attrs.hasAttribute(KXMLQLCCapabilityResource))

@@ -318,6 +318,10 @@ void QLCChannel::setPreset(QLCChannel::Preset preset)
             grp = Pan;
             prname = KXMLQLCChannelGroupPan;
         break;
+        case PositionPanCounterClockwise:
+            grp = Pan;
+            prname = KXMLQLCChannelGroupPan + " counterclockwise";
+        break;
         case PositionPanFine:
             grp = Pan;
             prname = KXMLQLCChannelGroupPan + " fine";
@@ -487,6 +491,7 @@ QLCCapability *QLCChannel::addPresetCapability()
         case IntensityLightnessFine:
         case IntensityValueFine:
         case PositionPan:
+        case PositionPanCounterClockwise:
         case PositionPanFine:
         case PositionTilt:
         case PositionTiltFine:
