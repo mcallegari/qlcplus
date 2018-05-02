@@ -134,6 +134,7 @@ public:
         ColorDoubleMacro,
         ColorWheelIndex,
         GoboMacro,
+        GoboShakeMacro,
         GenericPicture,
         Alias,
         LastPreset // dummy for cycles

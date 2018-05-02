@@ -124,6 +124,7 @@ QLCCapability::PresetType QLCCapability::presetType() const
         case ColorDoubleMacro:
             return DoubleColor;
         case GoboMacro:
+        case GoboShakeMacro:
         case GenericPicture:
             return Picture;
         default: return None;
@@ -406,12 +407,12 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
         case SingleValue:
         case DoubleValue:
         {
-            float val1 = attrs.value(KXMLQLCCapabilityRes1).toFloat();
+            float val1 = attrs.value(KXMLQLCCapabilityRes1).toString().toFloat();
             setResource(0, val1);
 
             if (attrs.hasAttribute(KXMLQLCCapabilityRes2))
             {
-                float val2 = attrs.value(KXMLQLCCapabilityRes2).toFloat();
+                float val2 = attrs.value(KXMLQLCCapabilityRes2).toString().toFloat();
                 setResource(1, val2);
             }
         }
