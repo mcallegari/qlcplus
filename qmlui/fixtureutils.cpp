@@ -19,9 +19,13 @@
 
 #include "monitorproperties.h"
 #include "qlcfixturemode.h"
+#include "qlccapability.h"
 #include "fixtureutils.h"
 #include "fixture.h"
 #include "doc.h"
+
+#define MIN_STROBE_FREQ_HZ  0.5
+#define MAX_STROBE_FREQ_HZ  10.0
 
 FixtureUtils::FixtureUtils()
 {
@@ -310,4 +314,22 @@ QColor FixtureUtils::headColor(Doc *doc, Fixture *fixture, int headIndex)
     }
 
     return finalColor;
+}
+
+void FixtureUtils::shutterTimings(int capPreset, uchar value, int &highTime, int &lowTime)
+{
+    switch (capPreset)
+    {
+        case QLCCapability::StrobeSlowToFast:
+        case QLCCapability::StrobeFastToSlow:
+        case QLCCapability::PulseInSlowToFast:
+        case QLCCapability::PulseInFastToSlow:
+        {
+            float freq = qMax(((float)value * MAX_STROBE_FREQ_HZ) / 255.0, MIN_STROBE_FREQ_HZ);
+            //qDebug() << "Frequency:" << freq << "Hz";
+            highTime = qBound(50.0, 500.0 / freq, 200.0);
+            lowTime = (1000.0 / freq) - highTime;
+        }
+        break;
+    }
 }

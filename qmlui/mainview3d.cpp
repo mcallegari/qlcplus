@@ -30,6 +30,7 @@
 #include "doc.h"
 #include "tardis.h"
 #include "qlcfile.h"
+#include "qlcmacros.h"
 #include "qlcconfig.h"
 #include "mainview3d.h"
 #include "fixtureutils.h"
@@ -696,11 +697,11 @@ void MainView3D::updateFixture(Fixture *fixture)
     int tiltValue = 0;
 
     quint32 headDimmerIndex = fixture->channelNumber(QLCChannel::Intensity, QLCChannel::MSB);
-    qreal intValue = 1.0;
+    qreal intensityValue = 1.0;
     if (headDimmerIndex != QLCChannel::invalid())
-        intValue = (qreal)fixture->channelValueAt(headDimmerIndex) / 255;
+        intensityValue = (qreal)fixture->channelValueAt(headDimmerIndex) / 255;
 
-    fixtureItem->setProperty("intensity", intValue);
+    fixtureItem->setProperty("intensity", intensityValue);
 
     color = FixtureUtils::headColor(m_doc, fixture);
 
@@ -753,6 +754,59 @@ void MainView3D::updateFixture(Fixture *fixture)
             {
                 QMetaObject::invokeMethod(fixtureItem, "setFocus",
                         Q_ARG(QVariant, value));
+            }
+            break;
+            case QLCChannel::Shutter:
+            {
+                int high = 200, low = 800;
+                int capPreset = QLCCapability::ShutterOpen;
+
+                switch (ch->preset())
+                {
+                    case QLCChannel::ShutterStrobeSlowFast:
+                        if (value)
+                        {
+                            capPreset = QLCCapability::StrobeSlowToFast;
+                            FixtureUtils::shutterTimings(capPreset, value, high, low);
+                        }
+                    break;
+                    case QLCChannel::ShutterStrobeFastSlow:
+                        if (value)
+                        {
+                            capPreset = QLCCapability::StrobeFastToSlow;
+                            FixtureUtils::shutterTimings(capPreset, 255 - value, high, low);
+                        }
+                    break;
+                    default:
+                    {
+                        QLCCapability *cap = ch->searchCapability(value);
+                        capPreset = cap->preset();
+                        switch (capPreset)
+                        {
+                            case QLCCapability::StrobeSlowToFast:
+                            case QLCCapability::PulseInSlowToFast:
+                            case QLCCapability::PulseOutSlowToFast:
+                                FixtureUtils::shutterTimings(capPreset,
+                                                             SCALE(value, cap->min(), cap->max(), 1, 255),
+                                                             high, low);
+                            break;
+                            case QLCCapability::StrobeFastToSlow:
+                            case QLCCapability::PulseInFastToSlow:
+                            case QLCCapability::PulseOutFastToSlow:
+                                FixtureUtils::shutterTimings(capPreset,
+                                                             255 - SCALE(value, cap->min(), cap->max(), 1, 255),
+                                                             high, low);
+                            break;
+                            default:
+                            break;
+                        }
+                    }
+                    break;
+                }
+
+                QMetaObject::invokeMethod(fixtureItem, "setShutter",
+                        Q_ARG(QVariant, capPreset),
+                        Q_ARG(QVariant, low), Q_ARG(QVariant, high));
             }
             break;
             default:
