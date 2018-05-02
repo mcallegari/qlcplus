@@ -35,6 +35,8 @@ Item
     property string textLabel
     property int channels: 1
     property bool isSelected: false
+    property bool isCheckable: false
+    property bool isChecked: false
     property Item dragItem
 
     signal mouseEvent(int type, int iID, int iType, var qItem, int mouseMods)
