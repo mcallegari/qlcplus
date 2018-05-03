@@ -277,8 +277,8 @@ void MainView2D::updateFixture(Fixture *fixture)
         return;
 
     QQuickItem *fxItem = m_itemsMap[fixture->id()];
-    bool setColor = false;
-    bool setGobo = false;
+    bool colorSet = false;
+    bool goboSet = false;
     bool setPosition = false;
     int panDegrees = 0;
     int tiltDegrees = 0;
@@ -298,7 +298,7 @@ void MainView2D::updateFixture(Fixture *fixture)
         QMetaObject::invokeMethod(fxItem, "setHeadRGBColor",
                                   Q_ARG(QVariant, headIdx),
                                   Q_ARG(QVariant, FixtureUtils::headColor(m_doc, fixture, headIdx)));
-        setColor = true;
+        colorSet = true;
     } // for heads
 
     // now scan all the channels for "common" capabilities
@@ -307,6 +307,7 @@ void MainView2D::updateFixture(Fixture *fixture)
         const QLCChannel *ch = fixture->channel(i);
         if (ch == NULL)
             continue;
+
         uchar value = fixture->channelValueAt(i);
 
         switch (ch->group())
@@ -331,7 +332,7 @@ void MainView2D::updateFixture(Fixture *fixture)
             break;
             case QLCChannel::Colour:
             {
-                if (setColor && value == 0)
+                if (colorSet && value == 0)
                     break;
 
                 QLCCapability *cap = ch->searchCapability(value);
@@ -359,13 +360,13 @@ void MainView2D::updateFixture(Fixture *fixture)
                                                   Q_ARG(QVariant, 0),
                                                   Q_ARG(QVariant, wheelColor1));
                     }
-                    setColor = true;
+                    colorSet = true;
                 }
             }
             break;
             case QLCChannel::Gobo:
             {
-                if (setGobo)
+                if (goboSet)
                     break;
 
                 foreach(QLCCapability *cap, ch->capabilities())
@@ -383,18 +384,31 @@ void MainView2D::updateFixture(Fixture *fixture)
                             // fixture has more than one gobo wheel, the second
                             // one will be skipped if the first one has been set
                             // to a non-open gobo
-                            setGobo = true;
+                            goboSet = true;
                         }
                     }
                 }
             }
             break;
-            // ... more preset channels to be added here (Shutter ?)
+            case QLCChannel::Shutter:
+            {
+                int high = 200, low = 800;
+                int capPreset = FixtureUtils::shutterTimings(ch, value, high, low);
+
+                if (capPreset != QLCCapability::Custom)
+                {
+                    QMetaObject::invokeMethod(fxItem, "setShutter",
+                            Q_ARG(QVariant, capPreset),
+                            Q_ARG(QVariant, low), Q_ARG(QVariant, high));
+                }
+            }
+            break;
             default:
             break;
         }
     }
-    if (setPosition == true)
+
+    if (setPosition)
     {
         QMetaObject::invokeMethod(fxItem, "setPosition",
                 Q_ARG(QVariant, panDegrees),

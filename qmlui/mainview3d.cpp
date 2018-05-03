@@ -30,7 +30,6 @@
 #include "doc.h"
 #include "tardis.h"
 #include "qlcfile.h"
-#include "qlcmacros.h"
 #include "qlcconfig.h"
 #include "mainview3d.h"
 #include "fixtureutils.h"
@@ -759,50 +758,7 @@ void MainView3D::updateFixture(Fixture *fixture)
             case QLCChannel::Shutter:
             {
                 int high = 200, low = 800;
-                int capPreset = QLCCapability::ShutterOpen;
-
-                switch (ch->preset())
-                {
-                    case QLCChannel::ShutterStrobeSlowFast:
-                        if (value)
-                        {
-                            capPreset = QLCCapability::StrobeSlowToFast;
-                            FixtureUtils::shutterTimings(capPreset, value, high, low);
-                        }
-                    break;
-                    case QLCChannel::ShutterStrobeFastSlow:
-                        if (value)
-                        {
-                            capPreset = QLCCapability::StrobeFastToSlow;
-                            FixtureUtils::shutterTimings(capPreset, 255 - value, high, low);
-                        }
-                    break;
-                    default:
-                    {
-                        QLCCapability *cap = ch->searchCapability(value);
-                        capPreset = cap->preset();
-                        switch (capPreset)
-                        {
-                            case QLCCapability::StrobeSlowToFast:
-                            case QLCCapability::PulseInSlowToFast:
-                            case QLCCapability::PulseOutSlowToFast:
-                                FixtureUtils::shutterTimings(capPreset,
-                                                             SCALE(value, cap->min(), cap->max(), 1, 255),
-                                                             high, low);
-                            break;
-                            case QLCCapability::StrobeFastToSlow:
-                            case QLCCapability::PulseInFastToSlow:
-                            case QLCCapability::PulseOutFastToSlow:
-                                FixtureUtils::shutterTimings(capPreset,
-                                                             255 - SCALE(value, cap->min(), cap->max(), 1, 255),
-                                                             high, low);
-                            break;
-                            default:
-                            break;
-                        }
-                    }
-                    break;
-                }
+                int capPreset = FixtureUtils::shutterTimings(ch, value, high, low);
 
                 QMetaObject::invokeMethod(fixtureItem, "setShutter",
                         Q_ARG(QVariant, capPreset),

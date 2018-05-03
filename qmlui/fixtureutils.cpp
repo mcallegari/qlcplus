@@ -21,6 +21,7 @@
 #include "qlcfixturemode.h"
 #include "qlccapability.h"
 #include "fixtureutils.h"
+#include "qlcmacros.h"
 #include "fixture.h"
 #include "doc.h"
 
@@ -316,20 +317,74 @@ QColor FixtureUtils::headColor(Doc *doc, Fixture *fixture, int headIndex)
     return finalColor;
 }
 
-void FixtureUtils::shutterTimings(int capPreset, uchar value, int &highTime, int &lowTime)
+int FixtureUtils::shutterTimings(const QLCChannel *ch, uchar value, int &highTime, int &lowTime)
 {
+    int capPreset = QLCCapability::ShutterOpen;
+    float freq = 1.0;
+
+    switch (ch->preset())
+    {
+        case QLCChannel::ShutterStrobeSlowFast:
+            if (value)
+                capPreset = QLCCapability::StrobeSlowToFast;
+        break;
+        case QLCChannel::ShutterStrobeFastSlow:
+            if (value)
+            {
+                capPreset = QLCCapability::StrobeFastToSlow;
+                value = 255 - value;
+            }
+        break;
+        default:
+        {
+            QLCCapability *cap = ch->searchCapability(value);
+            capPreset = cap->preset();
+            switch (capPreset)
+            {
+                case QLCCapability::StrobeSlowToFast:
+                case QLCCapability::PulseInSlowToFast:
+                case QLCCapability::PulseOutSlowToFast:
+                    value = SCALE(value, cap->min(), cap->max(), 1, 255);
+                break;
+                case QLCCapability::StrobeFastToSlow:
+                case QLCCapability::PulseInFastToSlow:
+                case QLCCapability::PulseOutFastToSlow:
+                    value = 255 - SCALE(value, cap->min(), cap->max(), 1, 255);
+                break;
+                case QLCCapability::StrobeFrequency:
+                case QLCCapability::PulseInFrequency:
+                case QLCCapability::PulseOutFrequency:
+                    freq = cap->resource(0).toFloat();
+                break;
+                case QLCCapability::StrobeFreqRange:
+                case QLCCapability::PulseInFreqRange:
+                case QLCCapability::PulseOutFreqRange:
+                    freq = SCALE(value, cap->min(), cap->max(),
+                                 cap->resource(0).toFloat(), cap->resource(1).toFloat());
+                break;
+                default:
+                    // invalidate any other preset, to avoid messing up the preview
+                    capPreset = QLCCapability::Custom;
+                break;
+            }
+        }
+        break;
+    }
+
     switch (capPreset)
     {
         case QLCCapability::StrobeSlowToFast:
         case QLCCapability::StrobeFastToSlow:
         case QLCCapability::PulseInSlowToFast:
         case QLCCapability::PulseInFastToSlow:
-        {
-            float freq = qMax(((float)value * MAX_STROBE_FREQ_HZ) / 255.0, MIN_STROBE_FREQ_HZ);
-            //qDebug() << "Frequency:" << freq << "Hz";
-            highTime = qBound(50.0, 500.0 / freq, 200.0);
-            lowTime = (1000.0 / freq) - highTime;
-        }
+            freq = qMax(((float)value * MAX_STROBE_FREQ_HZ) / 255.0, MIN_STROBE_FREQ_HZ);
         break;
     }
+
+    //qDebug() << "Frequency:" << freq << "Hz";
+    highTime = qBound(50.0, 500.0 / freq, 200.0);
+    lowTime = (1000.0 / freq) - highTime;
+
+    return capPreset;
 }
+

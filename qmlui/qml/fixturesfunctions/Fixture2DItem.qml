@@ -91,7 +91,7 @@ Rectangle
     function setHeadIntensity(headIndex, intensity)
     {
         //console.log("headIdx: " + headIndex + ", int: " + intensity)
-        headsRepeater.itemAt(headIndex).headLevel = intensity
+        headsRepeater.itemAt(headIndex).intensity = intensity
     }
 
     function setHeadRGBColor(headIndex, color)
@@ -100,6 +100,13 @@ Rectangle
         headItem.isWheelColor = false
         headItem.headColor1 = color
     }
+
+    function setShutter(type, low, high)
+    {
+        for (var i = 0; i < headsRepeater.count; i++)
+            headsRepeater.itemAt(i).setShutter(type, low, high);
+    }
+
 
     function setPosition(pan, tilt)
     {
@@ -146,7 +153,8 @@ Rectangle
                 Rectangle
                 {
                     id: headDelegate
-                    property real headLevel: 0.0
+                    property real intensity: 0.0
+                    property real intensityOrigValue: intensity
                     property bool isWheelColor: false
                     property color headColor1: "black"
                     property color headColor2: "black"
@@ -159,6 +167,42 @@ Rectangle
                     border.width: 1
                     border.color: "#AAA"
 
+                    function setShutter(type, low, high)
+                    {
+                        console.log("Shutter " + low + ", " + high)
+                        shutterAnim.stop()
+                        inPhase.duration = 0
+                        highPhase.duration = 0
+                        outPhase.duration = 0
+                        lowPhase.duration = low
+
+                        switch(type)
+                        {
+                            case QLCCapability.ShutterOpen:
+                                intensity = intensityOrigValue
+                            break;
+                            case QLCCapability.ShutterClose:
+                                intensityOrigValue = intensity
+                                intensity = 0
+                            break;
+                            case QLCCapability.StrobeFastToSlow:
+                            case QLCCapability.StrobeSlowToFast:
+                                highPhase.duration = high
+                                shutterAnim.start()
+                            break;
+                            case QLCCapability.PulseInFastToSlow:
+                            case QLCCapability.PulseInSlowToFast:
+                                inPhase.duration = high
+                                shutterAnim.start()
+                            break;
+                            case QLCCapability.PulseOutSlowToFast:
+                            case QLCCapability.PulseOutFastToSlow:
+                                outPhase.duration = high
+                                shutterAnim.start()
+                            break;
+                        }
+                    }
+
                     MultiColorBox
                     {
                         x: 1
@@ -166,7 +210,7 @@ Rectangle
                         width: parent.width - 2
                         height: parent.height - 2
                         radius: parent.radius - 2
-                        opacity: headDelegate.headLevel
+                        opacity: headDelegate.intensity
                         biColor: headDelegate.isWheelColor
                         primary: headDelegate.headColor1
                         secondary: headDelegate.headColor2
@@ -177,6 +221,18 @@ Rectangle
                         anchors.fill: parent
                         sourceSize: Qt.size(parent.width, parent.height)
                         source: headDelegate.goboSource
+                    }
+
+                    // strobe/pulse effect
+                    SequentialAnimation on intensity
+                    {
+                        id: shutterAnim
+                        running: false
+                        loops: Animation.Infinite
+                        NumberAnimation { id: inPhase; from: 0; to: intensityOrigValue; duration: 0; easing.type: Easing.Linear }
+                        NumberAnimation { id: highPhase; from: intensityOrigValue; to: intensityOrigValue; duration: 200; easing.type: Easing.Linear }
+                        NumberAnimation { id: outPhase; from: intensityOrigValue; to: 0; duration: 0; easing.type: Easing.Linear }
+                        NumberAnimation { id: lowPhase; from: 0; to: 0; duration: 800; easing.type: Easing.Linear }
                     }
                 }
         }

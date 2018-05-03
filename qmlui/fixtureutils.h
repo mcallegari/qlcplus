@@ -50,7 +50,8 @@ public:
      *  This considers: RGB / CMY / WAUVLI channels, dimmers and gel color */
     static QColor headColor(Doc *doc, Fixture *fixture, int headIndex = 0);
 
-    static void shutterTimings(int capPreset, uchar value, int &highTime, int &lowTime);
+    /** Calculate the rise/fall periods for a shutter channel $ch, considering presets */
+    static int shutterTimings(const QLCChannel *ch, uchar value, int &highTime, int &lowTime);
 
 private:
     /** Perform a linear blending of $b over $a with the given $mix amount */
