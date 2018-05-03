@@ -130,16 +130,22 @@ Entity
             break;
             case QLCCapability.StrobeFastToSlow:
             case QLCCapability.StrobeSlowToFast:
+            case QLCCapability.StrobeFrequency:
+            case QLCCapability.StrobeFreqRange:
                 highPhase.duration = high
                 shutterAnim.start()
             break;
             case QLCCapability.PulseInFastToSlow:
             case QLCCapability.PulseInSlowToFast:
+            case QLCCapability.PulseInFrequency:
+            case QLCCapability.PulseInFreqRange:
                 inPhase.duration = high
                 shutterAnim.start()
             break;
             case QLCCapability.PulseOutSlowToFast:
             case QLCCapability.PulseOutFastToSlow:
+            case QLCCapability.PulseOutFrequency:
+            case QLCCapability.PulseOutFreqRange:
                 outPhase.duration = high
                 shutterAnim.start()
             break;
