@@ -170,41 +170,54 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
                    continue;
  
                bool containsShutter = false;
-               for (quint32 i = 0; i < 256; ++i)
+
+               switch (ch->preset())
                {
-                   QLCCapability *cap = ch->searchCapability(i);
-                   if (cap != NULL)
+                   case QLCChannel::ShutterStrobeFastSlow:
+                   case QLCChannel::ShutterStrobeSlowFast:
                    {
-                       // not "off" occurences are ok, but anything better would require manual classification
-                       if (cap->name().contains("close", Qt::CaseInsensitive) 
-                           || cap->name().contains("blackout", Qt::CaseInsensitive)
-                           || cap->name().contains("off", Qt::CaseInsensitive))
-                       {
-                           values << FixtureHead::Closed;
-                           containsShutter = true;
-                       }
-                       else if (cap->name().contains("strob", Qt::CaseInsensitive) 
-                           || cap->name().contains("pulse", Qt::CaseInsensitive))
-                       {
-                           values << FixtureHead::Strobe;
-                           containsShutter = true;
-                       }
-                       else
-                           values << FixtureHead::Open;
-                   }
-                   else
-                   {
+                       // handle case when the channel has only one capability 0-255 strobe:
+                       // make 0 Open to avoid blinking
                        values << FixtureHead::Open;
+                       for (i = 1; i < 255; i++)
+                           values << FixtureHead::Strobe;
+                       containsShutter = true;
                    }
+                   break;
+                   case QLCChannel::Custom:
+                   {
+                       foreach (QLCCapability *cap, ch->capabilities())
+                       {
+                           for (int i = cap->min(); i < cap->max(); i++)
+                           {
+                               switch (cap->preset())
+                               {
+                                   case QLCCapability::Custom:
+                                       values << FixtureHead::Open;
+                                   break;
+                                   case QLCCapability::ShutterOpen:
+                                       values << FixtureHead::Open;
+                                       containsShutter = true;
+                                   break;
+                                   case QLCCapability::ShutterClose:
+                                       values << FixtureHead::Closed;
+                                       containsShutter = true;
+                                   break;
+                                   default:
+                                       values << FixtureHead::Strobe;
+                                       containsShutter = true;
+                                   break;
+                               }
+                           }
+                       }
+                   }
+                   break;
+                   default:
+                   break;
                }
 
                if (containsShutter)
                {
-                   // handle case when the channel has only one capability 0-255 strobe:
-                   // make 0 Open to avoid blinking
-                   if (ch->capabilities().size() <= 1)
-                       values[0] = FixtureHead::Open;
-
                    fxiItem->m_shutterValues[shutter] = values;
                    fxiItem->m_shutterChannels << shutter;
                }
