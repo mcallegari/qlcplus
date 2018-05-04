@@ -40,6 +40,8 @@
 MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
     : PreviewContext(view, doc, "3D", parent)
     , m_monProps(doc->monitorProperties())
+    , m_fixtureComponent(NULL)
+    , m_selectionComponent(NULL)
     , m_scene3D(NULL)
     , m_sceneRootEntity(NULL)
     , m_quadMaterial(NULL)
@@ -49,14 +51,6 @@ MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
     setContextTitle(tr("3D View"));
 
     qRegisterMetaType<Qt3DCore::QEntity*>();
-
-    m_fixtureComponent = new QQmlComponent(m_view->engine(), QUrl("qrc:/Fixture3DItem.qml"));
-    if (m_fixtureComponent->isError())
-        qDebug() << m_fixtureComponent->errors();
-
-    m_selectionComponent = new QQmlComponent(m_view->engine(), QUrl("qrc:/SelectionEntity.qml"));
-    if (m_selectionComponent->isError())
-        qDebug() << m_selectionComponent->errors();
 
     // the following two lists must always have the same items number
     m_stagesList << tr("Simple ground") << tr("Simple box") << tr("Rock stage");
@@ -175,6 +169,20 @@ void MainView3D::setUniverseFilter(quint32 universeFilter)
 
 void MainView3D::initialize3DProperties()
 {
+    if (m_fixtureComponent == NULL)
+    {
+        m_fixtureComponent = new QQmlComponent(m_view->engine(), QUrl("qrc:/Fixture3DItem.qml"));
+        if (m_fixtureComponent->isError())
+            qDebug() << m_fixtureComponent->errors();
+    }
+
+    if (m_selectionComponent == NULL)
+    {
+        m_selectionComponent = new QQmlComponent(m_view->engine(), QUrl("qrc:/SelectionEntity.qml"));
+        if (m_selectionComponent->isError())
+            qDebug() << m_selectionComponent->errors();
+    }
+
     m_scene3D = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("scene3DItem"));
 
     qDebug() << Q_FUNC_INFO << m_scene3D;
