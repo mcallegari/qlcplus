@@ -582,6 +582,8 @@ void SimpleDesk::slotViewModeClicked(bool toggle)
 {
     if (toggle == true)
     {
+        QList<quint32> fxRemoveList;
+
         for (quint32 i = 0; i < m_channelsPerPage; i++)
         {
             ConsoleChannel* slider = m_universeSliders[i];
@@ -592,6 +594,12 @@ void SimpleDesk::slotViewModeClicked(bool toggle)
                        this, SLOT(slotUniverseSliderValueChanged(quint32,quint32,uchar)));
                 disconnect(slider, SIGNAL(resetRequest(quint32,quint32)),
                         this, SLOT(slotChannelResetClicked(quint32,quint32)));
+                if (fxRemoveList.contains(slider->fixture()) == false)
+                {
+                    Fixture *currFx = m_doc->fixture(slider->fixture());
+                    disconnect(currFx, SIGNAL(aliasChanged()), this, SLOT(slotAliasChanged()));
+                    fxRemoveList.append(slider->fixture());
+                }
                 delete slider;
                 m_universeSliders[i] = NULL;
             }
