@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.11.3 GIT</Version>
+  <Author>Flo Edelmann</Author>
+ </Creator>
+ <Manufacturer>Ayra</Manufacturer>
+ <Model>TDC Triple Burst</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Show">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">Blackout</Capability>
+  <Capability Min="8" Max="37">Show 1</Capability>
+  <Capability Min="38" Max="67">Show 2</Capability>
+  <Capability Min="68" Max="97">Show 3</Capability>
+  <Capability Min="98" Max="127">Show 4</Capability>
+  <Capability Min="128" Max="157">Show 5</Capability>
+  <Capability Min="158" Max="187">Show 6</Capability>
+  <Capability Min="188" Max="217">Show 7</Capability>
+  <Capability Min="218" Max="247">Show 8</Capability>
+  <Capability Min="248" Max="255">Random Show 1 - 8</Capability>
+ </Channel>
+ <Channel Name="Color chase">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">Manual control</Capability>
+  <Capability Min="8" Max="22">Color chase 1</Capability>
+  <Capability Min="23" Max="37">Color chase 2</Capability>
+  <Capability Min="38" Max="52">Color chase 3</Capability>
+  <Capability Min="53" Max="67">Color chase 4</Capability>
+  <Capability Min="68" Max="82">Color chase 5</Capability>
+  <Capability Min="83" Max="97">Color chase 6</Capability>
+  <Capability Min="98" Max="112">Color chase 7</Capability>
+  <Capability Min="113" Max="127">Color chase 8</Capability>
+  <Capability Min="128" Max="142">Color chase 9</Capability>
+  <Capability Min="143" Max="157">Color chase 10</Capability>
+  <Capability Min="158" Max="172">Color chase 11</Capability>
+  <Capability Min="173" Max="187">Color chase 12</Capability>
+  <Capability Min="188" Max="202">Color chase 13</Capability>
+  <Capability Min="203" Max="217">Color chase 14</Capability>
+  <Capability Min="218" Max="232">Color chase 15</Capability>
+  <Capability Min="233" Max="247">Color chase 16</Capability>
+  <Capability Min="248" Max="255">Stand alone show</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="7" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="8" Max="247" Preset="StrobeSlowToFast">Strobe slow - fast</Capability>
+  <Capability Min="248" Max="255">Sound strobe</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="7">Stop</Capability>
+  <Capability Min="8" Max="255">Speed slow - fast</Capability>
+ </Channel>
+ <Channel Name="Red 1" Preset="IntensityRed"/>
+ <Channel Name="Green 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1" Preset="IntensityBlue"/>
+ <Channel Name="White 1" Preset="IntensityWhite"/>
+ <Channel Name="Amber 1" Preset="IntensityAmber"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="White 2" Preset="IntensityWhite"/>
+ <Channel Name="Amber 2" Preset="IntensityAmber"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="White 3" Preset="IntensityWhite"/>
+ <Channel Name="Amber 3" Preset="IntensityAmber"/>
+ <Mode Name="1 channel">
+  <Channel Number="0">Show</Channel>
+ </Mode>
+ <Mode Name="3 channel">
+  <Channel Number="0">Color chase</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Strobe</Channel>
+ </Mode>
+ <Mode Name="9 channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Strobe</Channel>
+  <Channel Number="7">Color chase</Channel>
+  <Channel Number="8">Speed</Channel>
+ </Mode>
+ <Mode Name="15 channel">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">White 1</Channel>
+  <Channel Number="4">Amber 1</Channel>
+  <Channel Number="5">Red 2</Channel>
+  <Channel Number="6">Green 2</Channel>
+  <Channel Number="7">Blue 2</Channel>
+  <Channel Number="8">White 2</Channel>
+  <Channel Number="9">Amber 2</Channel>
+  <Channel Number="10">Red 3</Channel>
+  <Channel Number="11">Green 3</Channel>
+  <Channel Number="12">Blue 3</Channel>
+  <Channel Number="13">White 3</Channel>
+  <Channel Number="14">Amber 3</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="19 channel">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">White 1</Channel>
+  <Channel Number="4">Amber 1</Channel>
+  <Channel Number="5">Red 2</Channel>
+  <Channel Number="6">Green 2</Channel>
+  <Channel Number="7">Blue 2</Channel>
+  <Channel Number="8">White 2</Channel>
+  <Channel Number="9">Amber 2</Channel>
+  <Channel Number="10">Red 3</Channel>
+  <Channel Number="11">Green 3</Channel>
+  <Channel Number="12">Blue 3</Channel>
+  <Channel Number="13">White 3</Channel>
+  <Channel Number="14">Amber 3</Channel>
+  <Channel Number="15">Dimmer</Channel>
+  <Channel Number="16">Strobe</Channel>
+  <Channel Number="17">Color chase</Channel>
+  <Channel Number="18">Speed</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="15x 3W LED (R/G/B/W/A)" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3" Width="375" Height="260" Depth="100"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="60" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

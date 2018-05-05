@@ -1,5 +1,12 @@
 qlcplus (4.11.3) stable; urgency=low
 
+  * Fixture Editor: reworked to define more accurate information (see documentation)
+  * New fixtures: American DJ Auto Spot 150, Boom Box Fx2, Revo Sweep (thanks to Felix Edelmann)
+  * New fixtures: JB-Lighting Varyscan P7, Showtec Dominator, Showtec Sunraise LED (thanks to Felix Edelmann)
+  * New fixture: Orion Effects Lighting ORCAN2 (thanks to Felix Edelmann)
+  * New fixtures: American DJ Revo Burst, Ayra TDC Triple Burst, Chauvet GigBAR 2 (thanks to Flo Edelmann)
+  * New fixture: Venue TriStrip3Z (thanks to Flo Edelmann)
+
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 21 Oct 2018 12:13:14 +0200
 
 qlcplus (4.11.2) stable; urgency=low

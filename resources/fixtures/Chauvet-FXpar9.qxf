@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.1 GIT</Version>
+  <Version>4.11.3 GIT</Version>
   <Author>PeterK</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -16,7 +16,7 @@
  <Channel Name="Strobe zone 1">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="5">No function</Capability>
-  <Capability Min="6" Max="250">Strobe, slow to fast</Capability>
+  <Capability Min="6" Max="250" Preset="StrobeSlowToFast">Strobe, slow to fast</Capability>
   <Capability Min="251" Max="255">Sound-active strobe</Capability>
  </Channel>
  <Channel Name="Red zone 2" Preset="IntensityRed"/>
@@ -26,7 +26,7 @@
  <Channel Name="Strobe zone 2">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="5">No function</Capability>
-  <Capability Min="6" Max="250">Strobe, slow to fast</Capability>
+  <Capability Min="6" Max="250" Preset="StrobeSlowToFast">Strobe, slow to fast</Capability>
   <Capability Min="251" Max="255">Sound-active strobe</Capability>
  </Channel>
  <Channel Name="Red zone 3" Preset="IntensityRed"/>
@@ -36,7 +36,7 @@
  <Channel Name="Strobe zone 3">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="5">No function</Capability>
-  <Capability Min="6" Max="250">Strobe, slow to fast</Capability>
+  <Capability Min="6" Max="250" Preset="StrobeSlowToFast">Strobe, slow to fast</Capability>
   <Capability Min="251" Max="255">Sound-active strobe</Capability>
  </Channel>
  <Channel Name="Red zone 4" Preset="IntensityRed"/>
@@ -45,13 +45,13 @@
  <Channel Name="Strobe zone 4">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="5">No function</Capability>
-  <Capability Min="6" Max="250">Strobe, slow to fast</Capability>
+  <Capability Min="6" Max="250" Preset="StrobeSlowToFast">Strobe, slow to fast</Capability>
   <Capability Min="251" Max="255">Sound-active strobe</Capability>
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="5">No function</Capability>
-  <Capability Min="6" Max="250">Strobe, slow to fast</Capability>
+  <Capability Min="6" Max="250" Preset="StrobeSlowToFast">Strobe, slow to fast</Capability>
   <Capability Min="251" Max="255">Sound-active strobe</Capability>
  </Channel>
  <Channel Name="Red" Preset="IntensityRed"/>
@@ -62,7 +62,7 @@
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="5">No function</Capability>
   <Capability Min="6" Max="20">ON</Capability>
-  <Capability Min="21" Max="250">Strobe, slow to fast</Capability>
+  <Capability Min="21" Max="250" Preset="StrobeSlowToFast">Strobe, slow to fast</Capability>
   <Capability Min="251" Max="255">Sound-active strobe</Capability>
  </Channel>
  <Channel Name="Auto programs">
@@ -180,11 +180,11 @@
   <Channel Number="1">Program speed</Channel>
   <Channel Number="2">Quad-LED Dimmer</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="1.6" Width="275" Height="279" Depth="74"/>
-   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="77" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.6" Width="275" Height="279" Depth="74"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="77" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

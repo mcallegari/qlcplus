@@ -14,6 +14,8 @@
   <F n="American-DJ-Accu-Spot-Pro" m="American DJ" d="ACCU Spot Pro"/>
   <F n="American-DJ-Accu-UFO" m="American DJ" d="Accu UFO"/>
   <F n="American-DJ-Asteroid-1200" m="American DJ" d="Asteroid 1200"/>
+  <F n="American-DJ-Auto-Spot-150" m="American DJ" d="Auto Spot 150"/>
+  <F n="American-DJ-Boom-Box-Fx2" m="American DJ" d="Boom Box Fx2"/>
   <F n="American-DJ-Chameleon-QBar-Pro" m="American DJ" d="Chameleon QBar Pro"/>
   <F n="American-DJ-COB-Cannon-Wash-DW" m="American DJ" d="COB Cannon Wash DW"/>
   <F n="American-DJ-COB-Cannon-Wash-Pearl" m="American DJ" d="COB Cannon Wash Pearl"/>
@@ -93,6 +95,8 @@
   <F n="American-DJ-Revo-3" m="American DJ" d="Revo 3"/>
   <F n="American-DJ-Revo-4-256" m="American DJ" d="Revo 4 - 256-CH"/>
   <F n="American-DJ-Revo-4" m="American DJ" d="Revo 4"/>
+  <F n="American-DJ-Revo-Burst" m="American DJ" d="Revo Burst"/>
+  <F n="American-DJ-Revo-Sweep" m="American DJ" d="Revo Sweep"/>
   <F n="American-DJ-SP1500-MKII" m="American DJ" d="SP-1500 MKII"/>
   <F n="American-DJ-Spherion-Tri-LED" m="American DJ" d="Spherion Tri LED"/>
   <F n="American-DJ-Starball-LED-DMX" m="American DJ" d="Starball LED DMX"/>
@@ -132,6 +136,7 @@
   <F n="Ayra-ComPar20" m="Ayra" d="ComPar 20"/>
   <F n="Ayra-ERO-506" m="Ayra" d="ERO 506"/>
   <F n="Ayra-TDC-Agaricus" m="Ayra" d="TDC Agaricus"/>
+  <F n="Ayra-TDC-Triple-Burst" m="Ayra" d="TDC Triple Burst"/>
   <F n="Ayrton-Arcaline-100-RGB" m="Ayrton" d="Arcaline 100 RGB"/>
   <F n="beamZ-BAC406" m="beamZ" d="BAC406 ProPar 6x18W 6-1 Hex"/>
   <F n="beamZ-BT310-LED-FlatPAR" m="beamZ" d="BT310 LED FlatPAR 12x8W 4-1 DMX IR"/>
@@ -241,6 +246,7 @@
   <F n="Chauvet-COREpar-UV-USB" m="Chauvet" d="COREpar UV USB"/>
   <F n="Chauvet-Cubix-2.0" m="Chauvet" d="Cubix 2.0"/>
   <F n="Chauvet-Derby-X" m="Chauvet" d="Derby X"/>
+  <F n="Chauvet-DJ-GigBAR-2" m="Chauvet" d="GigBAR 2"/>
   <F n="Chauvet-DMF-10" m="Chauvet" d="DMF-10"/>
   <F n="Chauvet-DMX-Mega-Strobe-III" m="Chauvet" d="DMX Mega Strobe III"/>
   <F n="Chauvet-Double-Derby-X" m="Chauvet" d="Double Derby X"/>
@@ -579,6 +585,7 @@
   <F n="JB-Lighting-Varyscan-4-EV" m="JB-Lighting" d="Varyscan 4 EV"/>
   <F n="JB-Lighting-Varyscan-P2" m="JB-Lighting" d="Varyscan P2"/>
   <F n="JB-Lighting-Varyscan-P6" m="JB-Lighting" d="Varyscan P6"/>
+  <F n="JB-Lighting-Varyscan-P7" m="JB-Lighting" d="Varyscan P7"/>
   <F n="JB-Systems-COB-4BAR" m="JB Systems" d="COB-4BAR"/>
   <F n="JB-Systems-COB-Plano" m="JB Systems" d="COB-PLANO"/>
   <F n="JB-Systems-Dynamo-250" m="JB Systems" d="Dynamo 250"/>
@@ -720,6 +727,7 @@
   <F n="Nicols-Strob-LED-W" m="Nicols" d="Strob LED W"/>
   <F n="NJD-Spectre" m="NJD" d="Spectre"/>
   <F n="Optima-Lighting-PAR64-LED" m="Optima Lighting" d="PAR64 LED"/>
+  <F n="Orion-Effects-Lighting-ORCAN2" m="Orion Effects Lighting" d="ORCAN2"/>
   <F n="OXO-LED-Funstrip-DMX" m="OXO" d="LED Funstrip DMX"/>
   <F n="Philips-Selecon-PLProfile1-MkII" m="Philips Selecon" d="PLProfile1 MkII"/>
   <F n="PixelRANGE-PixelPar-44" m="PixelRANGE" d="PixelPar 44"/>
@@ -836,6 +844,7 @@
   <F n="Showtec-Compact-Par-18-Tri-MKII" m="Showtec" d="Compact Par 18 Tri MKII"/>
   <F n="Showtec-Compact-Par-7-Q4" m="Showtec" d="Compact Par 7 Q4"/>
   <F n="Showtec-Compact-Power-Lightset-COB" m="Showtec" d="Compact Power Lightset COB"/>
+  <F n="Showtec-Dominator" m="Showtec" d="Dominator"/>
   <F n="Showtec-Dragon-F-350" m="Showtec" d="Dragon F-350"/>
   <F n="Showtec-Dynamic-LED-v3" m="Showtec" d="Dynamic LED v3"/>
   <F n="Showtec-Event-Spot-1800-Q4" m="Showtec" d="Event Spot 1800 Q4"/>
@@ -876,6 +885,7 @@
   <F n="Showtec-Shark-Wash-One" m="Showtec" d="Shark Wash One"/>
   <F n="Showtec-Spectral-CYC650" m="Showtec" d="Spectral CYC650"/>
   <F n="Showtec-Stage-Blinder-Series" m="Showtec" d="Stage Blinder Series"/>
+  <F n="Showtec-Sunraise-LED" m="Showtec" d="Sunraise LED"/>
   <F n="Showtec-Sunstrip-Active" m="Showtec" d="Sunstrip Active"/>
   <F n="Showtec-XB-Wave" m="Showtec" d="XB-Wave"/>
   <F n="Showtec-XS-1W-Mini-Moving-Beam" m="Showtec" d="XS-1W Mini Moving Beam"/>
@@ -988,5 +998,6 @@
   <F n="Venue-Scanner-4" m="Venue" d="Scanner 4"/>
   <F n="Venue-ThinPar-38" m="Venue" d="ThinPAR 38"/>
   <F n="Venue-THINPAR-64" m="Venue" d="ThinPar 64"/>
+  <F n="Venue-TriStrip3Z" m="Venue" d="TriStrip3Z"/>
   <F n="XStatic-X-240Bar-RGB" m="XStatic" d="X-240Bar RGB"/>
 </FixturesMap>
