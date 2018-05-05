@@ -6,6 +6,7 @@ qlcplus (4.11.3) stable; urgency=low
   * New fixture: Orion Effects Lighting ORCAN2 (thanks to Felix Edelmann)
   * New fixtures: American DJ Revo Burst, Ayra TDC Triple Burst, Chauvet GigBAR 2 (thanks to Flo Edelmann)
   * New fixture: Venue TriStrip3Z (thanks to Flo Edelmann)
+  * New fixture: Stairville Crown FX PAR77 (thanks to Andres Robles)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 21 Oct 2018 12:13:14 +0200
 
