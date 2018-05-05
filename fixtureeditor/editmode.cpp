@@ -416,6 +416,10 @@ void EditMode::pasteFromClipboard(QLCPhysical clipboard)
 void EditMode::slotPhysicalModeChanged()
 {
     m_phyEdit->setEnabled(m_globalPhyCheck->isChecked() ? false : true);
+    if (m_globalPhyCheck->isChecked())
+        m_mode->resetPhysical();
+    else
+        m_mode->setPhysical(m_phyEdit->physical());
 }
 
 /*****************************************************************************
@@ -424,9 +428,6 @@ void EditMode::slotPhysicalModeChanged()
 
 void EditMode::accept()
 {
-    if (m_overridePhyCheck->isChecked())
-        m_mode->setPhysical(m_phyEdit->physical());
-
     m_mode->setName(m_modeNameEdit->text());
 
     QDialog::accept();

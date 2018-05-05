@@ -463,6 +463,24 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>m_nameEdit</tabstop>
+  <tabstop>m_presetCombo</tabstop>
+  <tabstop>m_typeCombo</tabstop>
+  <tabstop>m_defaultValSpin</tabstop>
+  <tabstop>m_msbRadio</tabstop>
+  <tabstop>m_lsbRadio</tabstop>
+  <tabstop>m_capabilityList</tabstop>
+  <tabstop>m_capPresetCombo</tabstop>
+  <tabstop>m_pictureButton</tabstop>
+  <tabstop>m_color1Button</tabstop>
+  <tabstop>m_color2Button</tabstop>
+  <tabstop>m_val1Spin</tabstop>
+  <tabstop>m_val2Spin</tabstop>
+  <tabstop>m_removeCapabilityButton</tabstop>
+  <tabstop>m_wizardButton</tabstop>
+  <tabstop>m_resourceButton</tabstop>
+ </tabstops>
  <resources>
   <include location="../ui/src/qlcui.qrc"/>
   <include location="../ui/src/qlcui.qrc"/>

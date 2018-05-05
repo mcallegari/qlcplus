@@ -186,6 +186,8 @@ void EditChannel::init()
     connect(m_val2Spin, SIGNAL(valueChanged(double)), this, SLOT(slotValue2SpinChanged(double)));
 
     updateCapabilityPresetGroup(false);
+
+    m_nameEdit->setFocus();
 }
 
 void EditChannel::setupCapabilityGroup()
@@ -220,7 +222,8 @@ void EditChannel::slotPresetActivated(int index)
     if (index == 0)
         return;
 
-    m_nameEdit->setText(m_channel->name());
+    if (m_nameEdit->text().isEmpty())
+        m_nameEdit->setText(m_channel->name());
 
     /* Select the channel's group */
     for (int i = 0; i < m_typeCombo->count(); i++)
