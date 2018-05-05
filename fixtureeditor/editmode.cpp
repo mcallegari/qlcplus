@@ -109,7 +109,8 @@ void EditMode::init()
 
     connect(m_globalPhyCheck, SIGNAL(clicked(bool)), this, SLOT(slotPhysicalModeChanged()));
     connect(m_overridePhyCheck, SIGNAL(clicked(bool)), this, SLOT(slotPhysicalModeChanged()));
-    /* Forward paste requests up to reach the main FixtureEditor clipboard */
+    /* Forward copy/paste requests up to reach the main FixtureEditor clipboard */
+    connect(m_phyEdit, SIGNAL(copyToClipboard(QLCPhysical)), this, SIGNAL(copyToClipboard(QLCPhysical)));
     connect(m_phyEdit, SIGNAL(requestPasteFromClipboard()), this, SIGNAL(requestPasteFromClipboard()));
 
     // Close shortcut

@@ -99,6 +99,7 @@ public:
     void pasteFromClipboard(QLCPhysical clipboard);
 
 signals:
+    void copyToClipboard(QLCPhysical physical);
     void requestPasteFromClipboard();
 
 private slots:

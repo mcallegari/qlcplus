@@ -751,6 +751,8 @@ void QLCFixtureEditor::slotModeListSelectionChanged(QTreeWidgetItem *item)
 void QLCFixtureEditor::slotAddMode()
 {
     EditMode em(_app, m_fixtureDef);
+    connect(&em, SIGNAL(copyToClipboard(QLCPhysical)),
+            this, SLOT(slotCopyPhysicalClipboard(QLCPhysical)));
 
     bool ok = false;
     while (ok == false)
@@ -798,6 +800,8 @@ void QLCFixtureEditor::slotAddMode()
             ok = true;
         }
     }
+    disconnect(&em, SIGNAL(copyToClipboard(QLCPhysical)),
+               this, SLOT(slotCopyPhysicalClipboard(QLCPhysical)));
 }
 
 void QLCFixtureEditor::slotRemoveMode()
@@ -824,6 +828,8 @@ void QLCFixtureEditor::slotEditMode()
         return;
 
     EditMode em(this, mode);
+    connect(&em, SIGNAL(copyToClipboard(QLCPhysical)),
+            this, SLOT(slotCopyPhysicalClipboard(QLCPhysical)));
     if (em.exec() == QDialog::Accepted)
     {
         *mode = *(em.mode());
@@ -833,6 +839,8 @@ void QLCFixtureEditor::slotEditMode()
         refreshAliasModes();
         setModified();
     }
+    disconnect(&em, SIGNAL(copyToClipboard(QLCPhysical)),
+               this, SLOT(slotCopyPhysicalClipboard(QLCPhysical)));
 }
 
 void QLCFixtureEditor::slotCloneMode()

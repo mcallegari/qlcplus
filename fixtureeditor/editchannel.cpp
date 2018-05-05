@@ -224,6 +224,8 @@ void EditChannel::slotPresetActivated(int index)
 
     if (m_nameEdit->text().isEmpty())
         m_nameEdit->setText(m_channel->name());
+    else
+        m_channel->setName(m_nameEdit->text());
 
     /* Select the channel's group */
     for (int i = 0; i < m_typeCombo->count(); i++)
