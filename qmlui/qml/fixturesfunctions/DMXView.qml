@@ -66,7 +66,8 @@ Rectangle
             Component.onDestruction: if(contextManager) contextManager.enableContext("DMX", false, flowLayout)
         }
     }
-    CustomScrollBar { flickable: fixtureDMXView }
+    CustomScrollBar { flickable: fixtureDMXView; doubleBars: true }
+    CustomScrollBar { orientation: Qt.Horizontal; flickable: fixtureDMXView }
 
     SettingsViewDMX
     {
