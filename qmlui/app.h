@@ -142,8 +142,8 @@ public slots:
     void setAccessMask(int mask);
 
 protected:
-    void keyPressEvent(QKeyEvent * e);
-    void keyReleaseEvent(QKeyEvent * e);
+    void keyPressEvent(QKeyEvent * e) override;
+    void keyReleaseEvent(QKeyEvent * e) override;
     bool event(QEvent *event) override;
 
 protected slots:
