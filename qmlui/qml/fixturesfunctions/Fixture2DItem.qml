@@ -181,10 +181,12 @@ Rectangle
                             case QLCCapability.ShutterOpen:
                                 intensity = intensityOrigValue
                             break;
+
                             case QLCCapability.ShutterClose:
                                 intensityOrigValue = intensity
                                 intensity = 0
                             break;
+
                             case QLCCapability.StrobeFastToSlow:
                             case QLCCapability.StrobeSlowToFast:
                             case QLCCapability.StrobeFrequency:
@@ -192,21 +194,37 @@ Rectangle
                                 highPhase.duration = high
                                 shutterAnim.start()
                             break;
-                            case QLCCapability.PulseInFastToSlow:
-                            case QLCCapability.PulseInSlowToFast:
-                            case QLCCapability.PulseInFrequency:
-                            case QLCCapability.PulseInFreqRange:
+
+                            case QLCCapability.PulseFastToSlow:
+                            case QLCCapability.PulseSlowToFast:
+                            case QLCCapability.PulseFrequency:
+                            case QLCCapability.PulseFreqRange:
+                                inPhase.duration = high/2
+                                outPhase.duration = high/2
+                                shutterAnim.start()
+                            break;
+
+                            case QLCCapability.RampUpFastToSlow:
+                            case QLCCapability.RampUpSlowToFast:
+                            case QLCCapability.RampUpFrequency:
+                            case QLCCapability.RampUpFreqRange:
                                 inPhase.duration = high
                                 shutterAnim.start()
                             break;
-                            case QLCCapability.PulseOutSlowToFast:
-                            case QLCCapability.PulseOutFastToSlow:
-                            case QLCCapability.PulseOutFrequency:
-                            case QLCCapability.PulseOutFreqRange:
+
+                            case QLCCapability.RampDownSlowToFast:
+                            case QLCCapability.RampDownFastToSlow:
+                            case QLCCapability.RampDownFrequency:
+                            case QLCCapability.RampDownFreqRange:
                                 outPhase.duration = high
                                 shutterAnim.start()
                             break;
                         }
+
+                        console.log("inPhase: " + inPhase.duration);
+                        console.log("highPhase: " + highPhase.duration);
+                        console.log("outPhase: " + outPhase.duration);
+                        console.log("lowPhase: " + lowPhase.duration);
                     }
 
                     MultiColorBox
@@ -236,9 +254,9 @@ Rectangle
                         running: false
                         loops: Animation.Infinite
                         NumberAnimation { id: inPhase; from: 0; to: intensityOrigValue; duration: 0; easing.type: Easing.Linear }
-                        NumberAnimation { id: highPhase; from: intensityOrigValue; to: intensityOrigValue; duration: 200; easing.type: Easing.Linear }
+                        NumberAnimation { id: highPhase; from: intensityOrigValue; to: intensityOrigValue; duration: 0; easing.type: Easing.Linear }
                         NumberAnimation { id: outPhase; from: intensityOrigValue; to: 0; duration: 0; easing.type: Easing.Linear }
-                        NumberAnimation { id: lowPhase; from: 0; to: 0; duration: 800; easing.type: Easing.Linear }
+                        NumberAnimation { id: lowPhase; from: 0; to: 0; duration: 0; easing.type: Easing.Linear }
                     }
                 }
         }

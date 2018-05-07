@@ -124,10 +124,12 @@ Entity
             case QLCCapability.ShutterOpen:
                 intensity = intensityOrigValue
             break;
+
             case QLCCapability.ShutterClose:
                 intensityOrigValue = intensity
                 intensity = 0
             break;
+
             case QLCCapability.StrobeFastToSlow:
             case QLCCapability.StrobeSlowToFast:
             case QLCCapability.StrobeFrequency:
@@ -135,17 +137,28 @@ Entity
                 highPhase.duration = high
                 shutterAnim.start()
             break;
-            case QLCCapability.PulseInFastToSlow:
-            case QLCCapability.PulseInSlowToFast:
-            case QLCCapability.PulseInFrequency:
-            case QLCCapability.PulseInFreqRange:
+
+            case QLCCapability.PulseFastToSlow:
+            case QLCCapability.PulseSlowToFast:
+            case QLCCapability.PulseFrequency:
+            case QLCCapability.PulseFreqRange:
+                inPhase.duration = high/2
+                outPhase.duration = high/2
+                shutterAnim.start()
+            break;
+
+            case QLCCapability.RampUpFastToSlow:
+            case QLCCapability.RampUpSlowToFast:
+            case QLCCapability.RampUpFrequency:
+            case QLCCapability.RampUpFreqRange:
                 inPhase.duration = high
                 shutterAnim.start()
             break;
-            case QLCCapability.PulseOutSlowToFast:
-            case QLCCapability.PulseOutFastToSlow:
-            case QLCCapability.PulseOutFrequency:
-            case QLCCapability.PulseOutFreqRange:
+
+            case QLCCapability.RampDownSlowToFast:
+            case QLCCapability.RampDownFastToSlow:
+            case QLCCapability.RampDownFrequency:
+            case QLCCapability.RampDownFreqRange:
                 outPhase.duration = high
                 shutterAnim.start()
             break;
