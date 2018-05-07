@@ -220,11 +220,6 @@ Rectangle
                                 shutterAnim.start()
                             break;
                         }
-
-                        console.log("inPhase: " + inPhase.duration);
-                        console.log("highPhase: " + highPhase.duration);
-                        console.log("outPhase: " + outPhase.duration);
-                        console.log("lowPhase: " + lowPhase.duration);
                     }
 
                     MultiColorBox
