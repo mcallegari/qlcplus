@@ -86,7 +86,7 @@ fi
 # Gather results
 #############################################################################
 
-for ((i = 0; i < ${tlen}; i++))
+for ((i = 0; i < tlen; i++))
 do
     gather_data ${test[i]} $i
 done
@@ -95,7 +95,7 @@ done
 # All combined and HTMLized
 #############################################################################
 
-for ((i = 0; i < ${tlen}; i++))
+for ((i = 0; i < tlen; i++))
 do
     mergeargs="${mergeargs} -a coverage/${i}-merge.info"
 done
