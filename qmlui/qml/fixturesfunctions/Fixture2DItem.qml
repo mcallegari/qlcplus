@@ -254,9 +254,9 @@ Rectangle
                         running: false
                         loops: Animation.Infinite
                         NumberAnimation { id: inPhase; from: 0; to: intensityOrigValue; duration: 0; easing.type: Easing.Linear }
-                        NumberAnimation { id: highPhase; from: intensityOrigValue; to: intensityOrigValue; duration: 0; easing.type: Easing.Linear }
+                        NumberAnimation { id: highPhase; from: intensityOrigValue; to: intensityOrigValue; duration: 200; easing.type: Easing.Linear }
                         NumberAnimation { id: outPhase; from: intensityOrigValue; to: 0; duration: 0; easing.type: Easing.Linear }
-                        NumberAnimation { id: lowPhase; from: 0; to: 0; duration: 0; easing.type: Easing.Linear }
+                        NumberAnimation { id: lowPhase; from: 0; to: 0; duration: 800; easing.type: Easing.Linear }
                     }
                 }
         }
