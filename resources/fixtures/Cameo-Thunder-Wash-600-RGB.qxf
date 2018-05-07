@@ -67,6 +67,7 @@
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="10" Preset="ShutterClose">Shutter closed</Capability>
   <Capability Min="11" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="30">Strobe 0…30Hz</Capability>
+ </Channel>
  <Mode Name="1-CH">
   <Channel Number="0">Strobe A</Channel>
  </Mode>
