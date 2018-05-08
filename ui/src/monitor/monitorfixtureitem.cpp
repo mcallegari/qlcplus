@@ -188,7 +188,7 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
                    {
                        foreach (QLCCapability *cap, ch->capabilities())
                        {
-                           for (int i = cap->min(); i < cap->max(); i++)
+                           for (int i = cap->min(); i <= cap->max(); i++)
                            {
                                switch (cap->preset())
                                {
