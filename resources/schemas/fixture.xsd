@@ -131,19 +131,19 @@ elementFormDefault="qualified"
     </xs:restriction>
 </xs:simpleType>
 
-<xs:complexType name="capabilityType">
-  <xs:simpleContent>
-    <xs:extension base="xs:string">
-      <xs:attribute name="Min" type="dmxValueType" use="required"/>
-      <xs:attribute name="Max" type="dmxValueType" use="required"/>
-      <xs:attribute name="Preset" type="capabilityPresetType"/>
-      <xs:attribute name="Res1" type="xs:string"/>
-      <xs:attribute name="Res2" type="xs:string"/>
-      <xs:attribute name="Res" type="xs:string"/>
-      <xs:attribute name="Color" type="xs:string"/>
-      <xs:attribute name="Color2" type="xs:string"/>
-    </xs:extension>
-  </xs:simpleContent>
+
+<xs:complexType name="capabilityType" mixed="true">
+   <xs:sequence>
+      <xs:element name="Alias" type="aliasType" minOccurs="0" maxOccurs="unbounded"/>
+   </xs:sequence>
+   <xs:attribute name="Min" type="dmxValueType" use="required"/>
+   <xs:attribute name="Max" type="dmxValueType" use="required"/>
+   <xs:attribute name="Preset" type="capabilityPresetType"/>
+   <xs:attribute name="Res1" type="xs:string"/>
+   <xs:attribute name="Res2" type="xs:string"/>
+   <xs:attribute name="Res" type="xs:string"/>
+   <xs:attribute name="Color" type="xs:string"/>
+   <xs:attribute name="Color2" type="xs:string"/>
 </xs:complexType>
 
 <xs:simpleType name="channelPresetType">
@@ -259,6 +259,12 @@ elementFormDefault="qualified"
         <xs:enumeration value="Alias" />
     </xs:restriction>
 </xs:simpleType>
+
+<xs:complexType name="aliasType">
+    <xs:attribute name="Mode" type="xs:string" use="required"/>
+    <xs:attribute name="Channel" type="xs:string" use="required"/>
+    <xs:attribute name="With" type="xs:string" use="required"/>
+</xs:complexType>
 
 <xs:simpleType name="dmxValueType">
     <xs:restriction base="xs:nonNegativeInteger">
