@@ -342,23 +342,27 @@ int FixtureUtils::shutterTimings(const QLCChannel *ch, uchar value, int &highTim
             switch (capPreset)
             {
                 case QLCCapability::StrobeSlowToFast:
-                case QLCCapability::PulseInSlowToFast:
-                case QLCCapability::PulseOutSlowToFast:
+                case QLCCapability::PulseSlowToFast:
+                case QLCCapability::RampUpSlowToFast:
+                case QLCCapability::RampDownSlowToFast:
                     value = SCALE(value, cap->min(), cap->max(), 1, 255);
                 break;
                 case QLCCapability::StrobeFastToSlow:
-                case QLCCapability::PulseInFastToSlow:
-                case QLCCapability::PulseOutFastToSlow:
+                case QLCCapability::PulseFastToSlow:
+                case QLCCapability::RampUpFastToSlow:
+                case QLCCapability::RampDownFastToSlow:
                     value = 255 - SCALE(value, cap->min(), cap->max(), 1, 255);
                 break;
                 case QLCCapability::StrobeFrequency:
-                case QLCCapability::PulseInFrequency:
-                case QLCCapability::PulseOutFrequency:
+                case QLCCapability::PulseFrequency:
+                case QLCCapability::RampUpFrequency:
+                case QLCCapability::RampDownFrequency:
                     freq = cap->resource(0).toFloat();
                 break;
                 case QLCCapability::StrobeFreqRange:
-                case QLCCapability::PulseInFreqRange:
-                case QLCCapability::PulseOutFreqRange:
+                case QLCCapability::PulseFreqRange:
+                case QLCCapability::RampUpFreqRange:
+                case QLCCapability::RampDownFreqRange:
                     freq = SCALE(value, cap->min(), cap->max(),
                                  cap->resource(0).toFloat(), cap->resource(1).toFloat());
                 break;
@@ -375,8 +379,12 @@ int FixtureUtils::shutterTimings(const QLCChannel *ch, uchar value, int &highTim
     {
         case QLCCapability::StrobeSlowToFast:
         case QLCCapability::StrobeFastToSlow:
-        case QLCCapability::PulseInSlowToFast:
-        case QLCCapability::PulseInFastToSlow:
+        case QLCCapability::PulseSlowToFast:
+        case QLCCapability::PulseFastToSlow:
+        case QLCCapability::RampUpSlowToFast:
+        case QLCCapability::RampUpFastToSlow:
+        case QLCCapability::RampDownSlowToFast:
+        case QLCCapability::RampDownFastToSlow:
             freq = qMax(((float)value * MAX_STROBE_FREQ_HZ) / 255.0, MIN_STROBE_FREQ_HZ);
         break;
     }

@@ -112,12 +112,14 @@ QLCCapability::PresetType QLCCapability::presetType() const
     switch (m_preset)
     {
         case StrobeFrequency:
-        case PulseInFrequency:
-        case PulseOutFrequency:
+        case PulseFrequency:
+        case RampUpFrequency:
+        case RampDownFrequency:
             return SingleValue;
         case StrobeFreqRange:
-        case PulseInFreqRange:
-        case PulseOutFreqRange:
+        case PulseFreqRange:
+        case RampUpFreqRange:
+        case RampDownFreqRange:
             return DoubleValue;
         case ColorMacro:
             return SingleColor;
