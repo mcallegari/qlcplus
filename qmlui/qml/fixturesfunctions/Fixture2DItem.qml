@@ -172,8 +172,10 @@ Rectangle
                         console.log("Shutter " + low + ", " + high)
                         shutterAnim.stop()
                         inPhase.duration = 0
+                        inPhase.easing.type = Easing.Linear
                         highPhase.duration = 0
                         outPhase.duration = 0
+                        outPhase.easing.type = Easing.Linear
                         lowPhase.duration = low
 
                         switch(type)
@@ -199,8 +201,10 @@ Rectangle
                             case QLCCapability.PulseSlowToFast:
                             case QLCCapability.PulseFrequency:
                             case QLCCapability.PulseFreqRange:
-                                inPhase.duration = high/2
-                                outPhase.duration = high/2
+                                inPhase.duration = high / 2
+                                outPhase.duration = high / 2
+                                inPhase.easing.type = Easing.InOutCubic
+                                outPhase.easing.type = Easing.InOutCubic
                                 shutterAnim.start()
                             break;
 

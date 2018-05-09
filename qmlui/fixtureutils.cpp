@@ -17,6 +17,8 @@
   limitations under the License.
 */
 
+#include <QDebug>
+
 #include "monitorproperties.h"
 #include "qlcfixturemode.h"
 #include "qlccapability.h"
@@ -27,6 +29,8 @@
 
 #define MIN_STROBE_FREQ_HZ  0.5
 #define MAX_STROBE_FREQ_HZ  10.0
+#define MIN_PULSE_FREQ_HZ   0.25
+#define MAX_PULSE_FREQ_HZ   5
 
 FixtureUtils::FixtureUtils()
 {
@@ -341,6 +345,9 @@ int FixtureUtils::shutterTimings(const QLCChannel *ch, uchar value, int &highTim
             capPreset = cap->preset();
             switch (capPreset)
             {
+                case QLCCapability::ShutterOpen:
+                case QLCCapability::ShutterClose:
+                break;
                 case QLCCapability::StrobeSlowToFast:
                 case QLCCapability::PulseSlowToFast:
                 case QLCCapability::RampUpSlowToFast:
@@ -379,19 +386,27 @@ int FixtureUtils::shutterTimings(const QLCChannel *ch, uchar value, int &highTim
     {
         case QLCCapability::StrobeSlowToFast:
         case QLCCapability::StrobeFastToSlow:
-        case QLCCapability::PulseSlowToFast:
-        case QLCCapability::PulseFastToSlow:
+            freq = qMax(((float)value * MAX_STROBE_FREQ_HZ) / 255.0, MIN_STROBE_FREQ_HZ);
+            highTime = qBound(50.0, 500.0 / freq, 200.0);
+            lowTime = qMax((1000.0 / freq) - highTime, 0.0);
+        break;
         case QLCCapability::RampUpSlowToFast:
         case QLCCapability::RampUpFastToSlow:
         case QLCCapability::RampDownSlowToFast:
         case QLCCapability::RampDownFastToSlow:
-            freq = qMax(((float)value * MAX_STROBE_FREQ_HZ) / 255.0, MIN_STROBE_FREQ_HZ);
+        case QLCCapability::PulseSlowToFast:
+        case QLCCapability::PulseFastToSlow:
+            freq = qMax(((float)value * MAX_PULSE_FREQ_HZ) / 255.0, MIN_PULSE_FREQ_HZ);
+            highTime = qMax(50.0, 1000.0 / freq);
+            lowTime = 0;
+        break;
+        default:
+            highTime = qBound(50.0, 500.0 / freq, 200.0);
+            lowTime = qMax((1000.0 / freq) - highTime, 0.0);
         break;
     }
 
-    //qDebug() << "Frequency:" << freq << "Hz";
-    highTime = qBound(50.0, 500.0 / freq, 200.0);
-    lowTime = (1000.0 / freq) - highTime;
+    qDebug() << "Frequency:" << freq << "Hz, high:" << highTime << ", low:" << lowTime;
 
     return capPreset;
 }
