@@ -34,6 +34,7 @@ class MainViewDMX;
 class FixtureManager;
 class FunctionManager;
 class GenericDMXSource;
+class MonitorProperties;
 class PreviewContext;
 
 class ContextManager : public QObject
@@ -106,6 +107,8 @@ private:
     QQuickView *m_view;
     /** Reference to the project workspace */
     Doc *m_doc;
+    /** Reference to the Doc Monitor properties */
+    MonitorProperties *m_monProps;
 
     /** Reference to a simple PreviewContext representing
      *  the universe grid view, since it doesn't have a dedicated class */
@@ -146,8 +149,8 @@ private:
      * Common fixture helpers
      *********************************************************************/
 public:
-    /** Select/Deselect a fixture with the provided $fxID */
-    Q_INVOKABLE void setFixtureSelection(quint32 fxID, bool enable);
+    /** Select/Deselect a fixture with the provided $itemID */
+    Q_INVOKABLE void setFixtureSelection(quint32 itemID, bool enable);
 
     /** Deselect all the currently selected fixtures */
     Q_INVOKABLE void resetFixtureSelection();
@@ -162,10 +165,10 @@ public:
     int selectedFixturesCount();
 
     /** Returns if the fixture with $fxID is currently selected */
-    Q_INVOKABLE bool isFixtureSelected(quint32 fxID);
+    Q_INVOKABLE bool isFixtureSelected(quint32 itemID);
 
-    /** Sets the position of the Fixture with the provided $fxID */
-    Q_INVOKABLE void setFixturePosition(quint32 fxID, qreal x, qreal y, qreal z);
+    /** Sets the position of the Fixture with the provided $itemID */
+    Q_INVOKABLE void setFixturePosition(quint32 itemID, qreal x, qreal y, qreal z);
 
     /** Adds an offset (in mm) to the selected Fixture positions. This is called only by the 2D view */
     Q_INVOKABLE void setFixturesOffset(qreal x, qreal y);
@@ -193,7 +196,7 @@ public:
 
 protected slots:
     void slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z = 0);
-    void slotFixtureDeleted(quint32 fxID);
+    void slotFixtureDeleted(quint32 itemID);
     void slotChannelValueChanged(quint32 fxID, quint32 channel, quint8 value);
     void slotChannelTypeValueChanged(int type, quint8 value, quint32 channel = UINT_MAX);
     void slotColorChanged(QColor col, QColor wauv);

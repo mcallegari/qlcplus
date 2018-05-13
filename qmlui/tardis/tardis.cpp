@@ -565,12 +565,8 @@ int Tardis::processAction(TardisAction &action, bool undo)
         break;
         case FixtureSetPosition:
         {
-            Fixture *fixture = m_doc->fixture(action.m_objID);
-            if (fixture)
-            {
-                QVector3D pos = value->value<QVector3D>();
-                m_contextManager->setFixturePosition(fixture->id(), pos.x(), pos.y(), pos.z());
-            }
+            QVector3D pos = value->value<QVector3D>();
+            m_contextManager->setFixturePosition(action.m_objID, pos.x(), pos.y(), pos.z());
         }
         break;
         case FixtureSetDumpValue:

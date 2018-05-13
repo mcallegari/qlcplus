@@ -110,25 +110,37 @@ public:
     Q_INVOKABLE void quadReady();
     Q_INVOKABLE void resetStage(QEntity *entity);
 
-    void createFixtureItem(quint32 fxID, QVector3D pos, bool mmCoords = true);
+    void createFixtureItems(quint32 fxID, QVector3D pos, bool mmCoords = true);
 
-    Q_INVOKABLE void initializeFixture(quint32 fxID, QEntity *fxEntity, QComponent *picker, QSceneLoader *loader);
+    void createFixtureItem(quint32 fxID, quint16 headIndex, quint16 linkedIndex, QVector3D pos, bool mmCoords = true);
 
+    Q_INVOKABLE void initializeFixture(quint32 itemID, QEntity *fxEntity, QComponent *picker, QSceneLoader *loader);
+
+    /** Update the fixture preview items when some channels have changed */
     void updateFixture(Fixture *fixture);
 
+    /** Update a single fixture item for a specific Fixture ID, head index and linked index */
+    void updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 linkedIndex);
+
+    /** Update the selection status of a list of Fixture item IDs */
     void updateFixtureSelection(QList<quint32>fixtures);
 
-    void updateFixtureSelection(quint32 fxID, bool enable);
+    /** Update the selection status of a Fixture with the provided $itemID */
+    void updateFixtureSelection(quint32 itemID, bool enable);
 
-    void updateFixturePosition(quint32 fxID, QVector3D pos);
+    /** Update the position of a Fixture with the provided $itemID */
+    void updateFixturePosition(quint32 itemID, QVector3D pos);
 
-    void updateFixtureRotation(quint32 fxID, QVector3D degrees);
+    /** Update the rotation of a Fixture with the provided $itemID */
+    void updateFixtureRotation(quint32 itemID, QVector3D degrees);
 
-    void updateFixtureScale(quint32 fxID, QVector3D origSize);
+    /** Update the scale of a Fixture with the provided $itemID */
+    void updateFixtureScale(quint32 itemID, QVector3D origSize);
 
-    void removeFixtureItem(quint32 fxID);
+    /** Remove a Fixture item with the provided $itemID from the preview */
+    void removeFixtureItem(quint32 itemID);
 
-    QVector3D lightPosition(quint32 fixtureID);
+    QVector3D lightPosition(quint32 itemID);
 
 protected:
     /** First time 3D view variables initializations */

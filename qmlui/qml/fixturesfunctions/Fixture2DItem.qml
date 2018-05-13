@@ -38,7 +38,7 @@ Rectangle
 
     //Drag.active: fxMouseArea.drag.active
 
-    property int fixtureID: fixtureManager.invalidFixture()
+    property int itemID: fixtureManager.invalidFixture()
     property string fixtureName: ""
 
     property real gridCellSize: View2D.cellPixels

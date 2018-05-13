@@ -27,6 +27,13 @@
 #include "fixture.h"
 #include "doc.h"
 
+#define FIXTURE_ID_BITS     16
+#define FIXTURE_HEAD_BITS   8
+#define FIXTURE_LINKED_BITS 8
+#define MAX_FIXTURE_NUMBER  (1 << FIXTURE_ID_BITS)
+#define MAX_HEADS_NUMBER    (1 << FIXTURE_HEAD_BITS)
+#define MAX_LINKED_NUMBER   (1 << FIXTURE_LINKED_BITS)
+
 #define MIN_STROBE_FREQ_HZ  0.5
 #define MAX_STROBE_FREQ_HZ  10.0
 #define MIN_PULSE_FREQ_HZ   0.25
@@ -35,6 +42,32 @@
 FixtureUtils::FixtureUtils()
 {
 
+}
+
+quint32 FixtureUtils::fixtureItemID(quint32 fid, quint16 headIndex, quint16 linkedIndex)
+{
+    Q_ASSERT(fid < MAX_FIXTURE_NUMBER);
+    Q_ASSERT(headIndex < MAX_HEADS_NUMBER);
+    Q_ASSERT(linkedIndex < MAX_LINKED_NUMBER);
+
+    return (fid << (FIXTURE_HEAD_BITS + FIXTURE_LINKED_BITS)) |
+            ((quint32)headIndex << FIXTURE_LINKED_BITS) |
+            (quint32)linkedIndex;
+}
+
+quint32 FixtureUtils::itemFixtureID(quint32 itemID)
+{
+    return (itemID >> (FIXTURE_HEAD_BITS + FIXTURE_LINKED_BITS));
+}
+
+quint16 FixtureUtils::itemHeadIndex(quint32 itemID)
+{
+    return ((itemID >> FIXTURE_LINKED_BITS) & ((1 << FIXTURE_HEAD_BITS) - 1));
+}
+
+quint16 FixtureUtils::itemLinkedIndex(quint32 itemID)
+{
+    return (itemID & ((1 << FIXTURE_LINKED_BITS) - 1));
 }
 
 QPointF FixtureUtils::item2DPosition(MonitorProperties *monProps, int pointOfView,
@@ -214,39 +247,46 @@ QPointF FixtureUtils::available2DPosition(Doc *doc, int pointOfView, QRectF fxRe
 
     for (Fixture *fixture : doc->fixtures())
     {
-        if (monProps->hasFixturePosition(fixture->id()) == false)
+        if (monProps->containsFixture(fixture->id()) == false)
             continue;
 
         QLCFixtureMode *fxMode = fixture->fixtureMode();
-        QPointF fxPoint = item2DPosition(monProps, pointOfView, monProps->fixturePosition(fixture->id()));
-        QSizeF fxSize = item2DDimension(fxMode, pointOfView);
-        qreal itemXPos = fxPoint.x();
-        qreal itemYPos = fxPoint.y();
-        qreal itemWidth = fxSize.width();
-        qreal itemHeight = fxSize.height();
 
-        // store the next Y row in case we need to lower down
-        if (itemYPos + itemHeight > maxYOffset )
-            maxYOffset = itemYPos + itemHeight;
-
-        QRectF itemRect(itemXPos, itemYPos, itemWidth, itemHeight);
-
-        //qDebug() << "item rect:" << itemRect << "fxRect:" << fxRect;
-
-        if (fxRect.intersects(itemRect) == true)
+        for (quint32 subID : monProps->fixtureIDList(fixture->id()))
         {
-            xPos = itemXPos + itemWidth + 50; //add an extra 50mm spacing
-            if (xPos + fxRect.width() > gridArea.width())
+            quint16 headIndex = monProps->fixtureHeadIndex(subID);
+            quint16 linkedIndex = monProps->fixtureLinkedIndex(subID);
+            QPointF fxPoint = item2DPosition(monProps, pointOfView,
+                                             monProps->fixturePosition(fixture->id(), headIndex, linkedIndex));
+            QSizeF fxSize = item2DDimension(fixture->type() == QLCFixtureDef::Dimmer ? NULL : fxMode, pointOfView);
+            qreal itemXPos = fxPoint.x();
+            qreal itemYPos = fxPoint.y();
+            qreal itemWidth = fxSize.width();
+            qreal itemHeight = fxSize.height();
+
+            // store the next Y row in case we need to lower down
+            if (itemYPos + itemHeight > maxYOffset )
+                maxYOffset = itemYPos + itemHeight;
+
+            QRectF itemRect(itemXPos, itemYPos, itemWidth, itemHeight);
+
+            //qDebug() << "item rect:" << itemRect << "fxRect:" << fxRect;
+
+            if (fxRect.intersects(itemRect) == true)
             {
-                xPos = 0;
-                yPos = maxYOffset + 50;
-                maxYOffset = 0;
+                xPos = itemXPos + itemWidth + 50; //add an extra 50mm spacing
+                if (xPos + fxRect.width() > gridArea.width())
+                {
+                    xPos = 0;
+                    yPos = maxYOffset + 50;
+                    maxYOffset = 0;
+                }
+                fxRect.setX(xPos);
+                fxRect.setY(yPos);
+                // restore width and height as setX and setY mess them
+                fxRect.setWidth(origWidth);
+                fxRect.setHeight(origHeight);
             }
-            fxRect.setX(xPos);
-            fxRect.setY(yPos);
-            // restore width and height as setX and setY mess them
-            fxRect.setWidth(origWidth);
-            fxRect.setHeight(origHeight);
         }
     }
 
@@ -269,7 +309,7 @@ QColor FixtureUtils::blendColors(QColor a, QColor b, float mix)
     return QColor(mr * 255.0, mg * 255.0, mb * 255.0);
 }
 
-QColor FixtureUtils::headColor(Doc *doc, Fixture *fixture, int headIndex)
+QColor FixtureUtils::headColor(Fixture *fixture, int headIndex)
 {
     QColor finalColor;
 
@@ -309,14 +349,6 @@ QColor FixtureUtils::headColor(Doc *doc, Fixture *fixture, int headIndex)
 
     if (indigo != QLCChannel::invalid() && fixture->channelValueAt(indigo))
         finalColor = blendColors(finalColor, QColor(0xFF4B0082), (float)fixture->channelValueAt(indigo) / 255.0);
-
-    if (finalColor.isValid() == false)
-    {
-        MonitorProperties *mProps = doc->monitorProperties();
-        finalColor = mProps->fixtureGelColor(fixture->id());
-        if (finalColor.isValid() == false)
-            finalColor = Qt::white;
-    }
 
     return finalColor;
 }

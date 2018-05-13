@@ -42,6 +42,7 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
     : QObject(parent)
     , m_view(view)
     , m_doc(doc)
+    , m_monProps(doc->monitorProperties())
     , m_fixtureManager(fxMgr)
     , m_functionManager(funcMgr)
     , m_positionPicking(false)
@@ -222,27 +223,30 @@ QString ContextManager::currentContext() const
 
 QVector3D ContextManager::environmentSize() const
 {
-    MonitorProperties *mProps = m_doc->monitorProperties();
-    return mProps->gridSize();
+    return m_monProps->gridSize();
 }
 
 void ContextManager::setEnvironmentSize(QVector3D environmentSize)
 {
-    MonitorProperties *mProps = m_doc->monitorProperties();
-    if (environmentSize == mProps->gridSize())
+    if (environmentSize == m_monProps->gridSize())
         return;
 
-    Tardis::instance()->enqueueAction(Tardis::EnvironmentSetSize, 0, mProps->gridSize(), environmentSize);
+    Tardis::instance()->enqueueAction(Tardis::EnvironmentSetSize, 0, m_monProps->gridSize(), environmentSize);
 
-    mProps->setGridSize(environmentSize);
+    m_monProps->setGridSize(environmentSize);
     if (m_2DView->isEnabled())
         m_2DView->setGridSize(environmentSize);
     if (m_3DView->isEnabled())
     {
         for(Fixture *fixture : m_doc->fixtures()) // C++11
         {
-            if (fixture != NULL)
-                m_3DView->updateFixturePosition(fixture->id(), mProps->fixturePosition(fixture->id()));
+            for (quint32 subID : m_monProps->fixtureIDList(fixture->id()))
+            {
+                quint16 headIndex = m_monProps->fixtureHeadIndex(subID);
+                quint16 linkedIndex = m_monProps->fixtureLinkedIndex(subID);
+                quint32 itemID = FixtureUtils::fixtureItemID(fixture->id(), headIndex, linkedIndex);
+                m_3DView->updateFixturePosition(itemID, m_monProps->fixturePosition(fixture->id(), headIndex, linkedIndex));
+            }
         }
     }
     emit environmentSizeChanged();
@@ -268,12 +272,14 @@ void ContextManager::setPositionPickPoint(QVector3D point)
     if (positionPicking() == false)
         return;
 
-    MonitorProperties *mProps = m_doc->monitorProperties();
+    point = QVector3D(point.x() + m_monProps->gridSize().x() / 2, 0.0, point.z() + m_monProps->gridSize().z() / 2);
 
-    point = QVector3D(point.x() + mProps->gridSize().x() / 2, 0.0, point.z() + mProps->gridSize().z() / 2);
-
-    for (quint32 fxID : m_selectedFixtures)
+    for (quint32 itemID : m_selectedFixtures)
     {
+        quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+        quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
+        quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+
         Fixture *fixture = m_doc->fixture(fxID);
         if (fixture == NULL)
             continue;
@@ -285,10 +291,10 @@ void ContextManager::setPositionPickPoint(QVector3D point)
         if (panMSB == QLCChannel::invalid() && tiltMSB == QLCChannel::invalid())
             continue;
 
-        QVector3D lightPos = m_3DView->lightPosition(fxID);
-        lightPos = QVector3D(lightPos.x() + mProps->gridSize().x() / 2,
+        QVector3D lightPos = m_3DView->lightPosition(itemID);
+        lightPos = QVector3D(lightPos.x() + m_monProps->gridSize().x() / 2,
                              lightPos.y(),
-                             lightPos.z() + mProps->gridSize().z() / 2);
+                             lightPos.z() + m_monProps->gridSize().z() / 2);
 
         qDebug() << "3D point picked:" << point << "light position:" << lightPos;
 
@@ -308,7 +314,7 @@ void ContextManager::setPositionPickPoint(QVector3D point)
                 panDeg = 270.0 + (90.0 - panDeg);
 
             // subtract the current fixture rotation
-            panDeg -= mProps->fixtureRotation(fxID).y();
+            panDeg -= m_monProps->fixtureRotation(fxID, headIndex, linkedIndex).y();
             if (panDeg < 0)
                 panDeg += 360;
 
@@ -356,8 +362,8 @@ void ContextManager::resetContexts()
 {
     m_channelsMap.clear();
     resetDumpValues();
-    for (quint32 fxID : m_selectedFixtures)
-        setFixtureSelection(fxID, false);
+    for (quint32 itemID : m_selectedFixtures)
+        setFixtureSelection(itemID, false);
 
     m_selectedFixtures.clear();
     m_editingEnabled = false;
@@ -451,31 +457,33 @@ void ContextManager::setUniverseFilter(quint32 universeFilter)
  * Common fixture helpers
  *********************************************************************/
 
-void ContextManager::setFixtureSelection(quint32 fxID, bool enable)
+void ContextManager::setFixtureSelection(quint32 itemID, bool enable)
 {
-    if (m_selectedFixtures.contains(fxID))
+    if (m_selectedFixtures.contains(itemID))
     {
         if (enable == false)
-            m_selectedFixtures.removeAll(fxID);
+            m_selectedFixtures.removeAll(itemID);
         else
             return;
     }
     else
     {
         if (enable)
-            m_selectedFixtures.append(fxID);
+            m_selectedFixtures.append(itemID);
         else
             return;
     }
 
     emit dumpValuesCountChanged();
 
+    quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+
     if (m_DMXView->isEnabled())
         m_DMXView->updateFixtureSelection(fxID, enable);
     if (m_2DView->isEnabled())
-        m_2DView->updateFixtureSelection(fxID, enable);
+        m_2DView->updateFixtureSelection(itemID, enable);
     if (m_3DView->isEnabled())
-        m_3DView->updateFixtureSelection(fxID, enable);
+        m_3DView->updateFixtureSelection(itemID, enable);
 
     QMultiHash<int, SceneValue> channels = m_fixtureManager->getFixtureCapabilities(fxID, enable);
     if(channels.keys().isEmpty())
@@ -506,8 +514,16 @@ void ContextManager::resetFixtureSelection()
 {
     for (Fixture *fixture : m_doc->fixtures()) // C++11
     {
-        if (fixture != NULL)
-            setFixtureSelection(fixture->id(), false);
+        if (fixture == NULL)
+            continue;
+
+        for (quint32 subID : m_monProps->fixtureIDList(fixture->id()))
+        {
+            quint16 headIndex = m_monProps->fixtureHeadIndex(subID);
+            quint16 linkedIndex = m_monProps->fixtureLinkedIndex(subID);
+            quint32 itemID = FixtureUtils::fixtureItemID(fixture->id(), headIndex, linkedIndex);
+            setFixtureSelection(itemID, false);
+        }
     }
 }
 
@@ -519,8 +535,16 @@ void ContextManager::toggleFixturesSelection()
 
     for (Fixture *fixture : m_doc->fixtures()) // C++11
     {
-        if (fixture != NULL)
-            setFixtureSelection(fixture->id(), selectAll);
+        if (fixture == NULL)
+            continue;
+
+        for (quint32 subID : m_monProps->fixtureIDList(fixture->id()))
+        {
+            quint16 headIndex = m_monProps->fixtureHeadIndex(subID);
+            quint16 linkedIndex = m_monProps->fixtureLinkedIndex(subID);
+            quint32 itemID = FixtureUtils::fixtureItemID(fixture->id(), headIndex, linkedIndex);
+            setFixtureSelection(itemID, selectAll);
+        }
     }
 }
 
@@ -530,8 +554,8 @@ void ContextManager::setRectangleSelection(qreal x, qreal y, qreal width, qreal 
     if (m_2DView->isEnabled())
         fxIDList = m_2DView->selectFixturesRect(QRectF(x, y, width, height));
 
-    for (quint32 fxID : fxIDList)
-        setFixtureSelection(fxID, true);
+    for (quint32 itemID : fxIDList)
+        setFixtureSelection(itemID, true);
     emit selectedFixturesChanged();
 }
 
@@ -540,36 +564,39 @@ int ContextManager::selectedFixturesCount()
     return m_selectedFixtures.count();
 }
 
-bool ContextManager::isFixtureSelected(quint32 fxID)
+bool ContextManager::isFixtureSelected(quint32 itemID)
 {
-    return m_selectedFixtures.contains(fxID) ? true : false;
+    return m_selectedFixtures.contains(itemID) ? true : false;
 }
 
-void ContextManager::setFixturePosition(quint32 fxID, qreal x, qreal y, qreal z)
+void ContextManager::setFixturePosition(quint32 itemID, qreal x, qreal y, qreal z)
 {
-    MonitorProperties *mProps = m_doc->monitorProperties();
-    QVector3D currPos = mProps->fixturePosition(fxID);
+    quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+    quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
+    quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+    QVector3D currPos = m_monProps->fixturePosition(fxID, headIndex, linkedIndex);
     QVector3D newPos(x, y, z);
 
-    Tardis::instance()->enqueueAction(Tardis::FixtureSetPosition, fxID, QVariant(currPos), QVariant(newPos));
-    mProps->setFixturePosition(fxID, newPos);
+    Tardis::instance()->enqueueAction(Tardis::FixtureSetPosition, itemID, QVariant(currPos), QVariant(newPos));
+    m_monProps->setFixturePosition(fxID, headIndex, linkedIndex, newPos);
 
     if (m_2DView->isEnabled())
-        m_2DView->updateFixturePosition(fxID, newPos);
+        m_2DView->updateFixturePosition(itemID, newPos);
     if (m_3DView->isEnabled())
-        m_3DView->updateFixturePosition(fxID, newPos);
+        m_3DView->updateFixturePosition(itemID, newPos);
 }
 
 void ContextManager::setFixturesOffset(qreal x, qreal y)
 {
-    MonitorProperties *mProps = m_doc->monitorProperties();
-
-    for (quint32 fxID : m_selectedFixtures)
+    for (quint32 itemID : m_selectedFixtures)
     {
-        QVector3D currPos = mProps->fixturePosition(fxID);
+        quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+        quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
+        quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+        QVector3D currPos = m_monProps->fixturePosition(fxID, headIndex, linkedIndex);
         QVector3D newPos;
 
-        switch (mProps->pointOfView())
+        switch (m_monProps->pointOfView())
         {
             case MonitorProperties::TopView:
                 newPos = QVector3D(currPos.x() + x, currPos.y(), currPos.z() + y);
@@ -585,12 +612,12 @@ void ContextManager::setFixturesOffset(qreal x, qreal y)
             break;
         }
 
-        Tardis::instance()->enqueueAction(Tardis::FixtureSetPosition, fxID, QVariant(currPos), QVariant(newPos));
-        mProps->setFixturePosition(fxID, newPos);
+        Tardis::instance()->enqueueAction(Tardis::FixtureSetPosition, itemID, QVariant(currPos), QVariant(newPos));
+        m_monProps->setFixturePosition(fxID, headIndex, linkedIndex, newPos);
         if (m_2DView->isEnabled())
-            m_2DView->updateFixturePosition(fxID, newPos);
+            m_2DView->updateFixturePosition(itemID, newPos);
         if (m_3DView->isEnabled())
-            m_3DView->updateFixturePosition(fxID, newPos);
+            m_3DView->updateFixturePosition(itemID, newPos);
     }
 }
 
@@ -598,8 +625,10 @@ QVector3D ContextManager::fixturesPosition() const
 {
     if (m_selectedFixtures.count() == 1)
     {
-        MonitorProperties *mProps = m_doc->monitorProperties();
-        return mProps->fixturePosition(m_selectedFixtures.first());
+        quint32 fxID = FixtureUtils::itemFixtureID(m_selectedFixtures.first());
+        quint16 headIndex = FixtureUtils::itemHeadIndex(m_selectedFixtures.first());
+        quint16 linkedIndex = FixtureUtils::itemLinkedIndex(m_selectedFixtures.first());
+        return m_monProps->fixturePosition(fxID, headIndex, linkedIndex);
     }
 
     return QVector3D(0, 0, 0);
@@ -607,24 +636,30 @@ QVector3D ContextManager::fixturesPosition() const
 
 void ContextManager::setFixturesPosition(QVector3D position)
 {
-    MonitorProperties *mProps = m_doc->monitorProperties();
-
     if (m_selectedFixtures.count() == 1)
     {
+        quint32 fxID = FixtureUtils::itemFixtureID(m_selectedFixtures.first());
+        quint16 headIndex = FixtureUtils::itemHeadIndex(m_selectedFixtures.first());
+        quint16 linkedIndex = FixtureUtils::itemLinkedIndex(m_selectedFixtures.first());
+
         // absolute position change
-        mProps->setFixturePosition(m_selectedFixtures.first(), position);
+        m_monProps->setFixturePosition(fxID, headIndex, linkedIndex, position);
         if (m_3DView->isEnabled())
             m_3DView->updateFixturePosition(m_selectedFixtures.first(), position);
     }
     else
     {
         // relative position change
-        for (quint32 fxID : m_selectedFixtures)
+        for (quint32 itemID : m_selectedFixtures)
         {
-            QVector3D newPos = mProps->fixturePosition(fxID) + position;
-            mProps->setFixturePosition(fxID, newPos);
+            quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+            quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
+            quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+
+            QVector3D newPos = m_monProps->fixturePosition(fxID, headIndex, linkedIndex) + position;
+            m_monProps->setFixturePosition(fxID, headIndex, linkedIndex, newPos);
             if (m_3DView->isEnabled())
-                m_3DView->updateFixturePosition(fxID, newPos);
+                m_3DView->updateFixturePosition(itemID, newPos);
         }
     }
 
@@ -636,19 +671,24 @@ void ContextManager::setFixturesAlignment(int alignment)
     if (m_selectedFixtures.count() == 0)
         return;
 
-    MonitorProperties *mProps = m_doc->monitorProperties();
+    quint32 firstFxID = FixtureUtils::itemFixtureID(m_selectedFixtures.first());
+    quint16 firstHeadIndex = FixtureUtils::itemHeadIndex(m_selectedFixtures.first());
+    quint16 firstLinkedIndex = FixtureUtils::itemLinkedIndex(m_selectedFixtures.first());
+    QVector3D firstPos = m_monProps->fixturePosition(firstFxID, firstHeadIndex, firstLinkedIndex);
 
-    QVector3D firstPos = mProps->fixturePosition(m_selectedFixtures.first());
-
-    for (quint32 fxID : m_selectedFixtures)
+    for (quint32 itemID : m_selectedFixtures)
     {
-        QVector3D fxPos = mProps->fixturePosition(fxID);
-        FixtureUtils::alignItem(firstPos, fxPos, mProps->pointOfView(), alignment);
-        mProps->setFixturePosition(fxID, fxPos);
+        quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+        quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
+        quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+        QVector3D fxPos = m_monProps->fixturePosition(fxID, headIndex, linkedIndex);
+
+        FixtureUtils::alignItem(firstPos, fxPos, m_monProps->pointOfView(), alignment);
+        m_monProps->setFixturePosition(fxID, headIndex, linkedIndex, fxPos);
         if (m_2DView->isEnabled())
-            m_2DView->updateFixturePosition(fxID, fxPos);
+            m_2DView->updateFixturePosition(itemID, fxPos);
         if (m_3DView->isEnabled())
-            m_3DView->updateFixturePosition(fxID, fxPos);
+            m_3DView->updateFixturePosition(itemID, fxPos);
     }
 }
 
@@ -664,18 +704,20 @@ void ContextManager::setFixturesDistribution(int direction)
     QVector<quint32> sortedIDs;
     QVector<quint32> sortedPos;
 
-    MonitorProperties *mProps = m_doc->monitorProperties();
-
     /* cycle through selected fixtures and do the following:
      * 1- calculate the total width/height
      * 2- sort the fixture IDs from the leftmost/topmost item
      * 3- detect the minimum and maximum items position
      */
-    for (quint32 fxID : m_selectedFixtures)
+    for (quint32 itemID : m_selectedFixtures)
     {
+        quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+        quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
+        quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
         Fixture *fixture = m_doc->fixture(fxID);
-        QPointF fxPos = FixtureUtils::item2DPosition(mProps, mProps->pointOfView(), mProps->fixturePosition(fxID));
-        QSizeF fxRect = FixtureUtils::item2DDimension(fixture->fixtureMode(), mProps->pointOfView());
+        QPointF fxPos = FixtureUtils::item2DPosition(m_monProps, m_monProps->pointOfView(),
+                                                     m_monProps->fixturePosition(fxID, headIndex, linkedIndex));
+        QSizeF fxRect = FixtureUtils::item2DDimension(fixture->fixtureMode(), m_monProps->pointOfView());
         qreal pos = direction == Qt::Horizontal ? fxPos.x() : fxPos.y();
         qreal size = direction == Qt::Horizontal ? fxRect.width() : fxRect.height();
         int i = 0;
@@ -691,12 +733,12 @@ void ContextManager::setFixturesDistribution(int direction)
         }
         if (sortedPos.isEmpty() || i == sortedIDs.count())
         {
-            sortedIDs.append(fxID);
+            sortedIDs.append(itemID);
             sortedPos.append(pos);
         }
         else
         {
-            sortedIDs.insert(i, fxID);
+            sortedIDs.insert(i, itemID);
             sortedPos.insert(i, pos);
         }
 
@@ -715,16 +757,19 @@ void ContextManager::setFixturesDistribution(int direction)
 
     for (int idx = 0; idx < sortedIDs.count(); idx++)
     {
-        quint32 fxID = sortedIDs[idx];
+        quint32 itemID = sortedIDs[idx];
+        quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+        quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
+        quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
         Fixture *fixture = m_doc->fixture(fxID);
-        QSizeF fxRect = FixtureUtils::item2DDimension(fixture->fixtureMode(), mProps->pointOfView());
+        QSizeF fxRect = FixtureUtils::item2DDimension(fixture->fixtureMode(), m_monProps->pointOfView());
         qreal size = direction == Qt::Horizontal ? fxRect.width() : fxRect.height();
-        QVector3D fxPos = mProps->fixturePosition(fxID);
+        QVector3D fxPos = m_monProps->fixturePosition(fxID, headIndex, linkedIndex);
 
         // the first and last fixture don't need any adjustment
         if (idx > 0 && idx < sortedIDs.count() - 1)
         {
-            switch(mProps->pointOfView())
+            switch(m_monProps->pointOfView())
             {
                 case MonitorProperties::TopView:
                     if (direction == Qt::Horizontal)
@@ -734,7 +779,7 @@ void ContextManager::setFixturesDistribution(int direction)
                 break;
                 case MonitorProperties::RightSideView:
                     if (direction == Qt::Horizontal)
-                        fxPos.setZ(mProps->gridSize().z() - newPos);
+                        fxPos.setZ(m_monProps->gridSize().z() - newPos);
                     else
                         fxPos.setY(newPos);
                 break;
@@ -752,11 +797,11 @@ void ContextManager::setFixturesDistribution(int direction)
                 break;
             }
 
-            mProps->setFixturePosition(fxID, fxPos);
+            m_monProps->setFixturePosition(fxID, headIndex, linkedIndex, fxPos);
             if (m_2DView->isEnabled())
-                m_2DView->updateFixturePosition(fxID, fxPos);
+                m_2DView->updateFixturePosition(itemID, fxPos);
             if (m_3DView->isEnabled())
-                m_3DView->updateFixturePosition(fxID, fxPos);
+                m_3DView->updateFixturePosition(itemID, fxPos);
         }
 
         newPos += size + gap;
@@ -781,9 +826,14 @@ QVector3D ContextManager::fixturesRotation() const
 {
     if (m_selectedFixtures.count() == 1)
     {
-        MonitorProperties *mProps = m_doc->monitorProperties();
-        if (mProps->hasFixturePosition(m_selectedFixtures.first()) == true)
-            return mProps->fixtureRotation(m_selectedFixtures.first());
+        if (m_monProps->containsFixture(m_selectedFixtures.first()) == true)
+        {
+            quint32 fxID = FixtureUtils::itemFixtureID(m_selectedFixtures.first());
+            quint16 headIndex = FixtureUtils::itemHeadIndex(m_selectedFixtures.first());
+            quint16 linkedIndex = FixtureUtils::itemLinkedIndex(m_selectedFixtures.first());
+
+            return m_monProps->fixtureRotation(fxID, headIndex, linkedIndex);
+        }
     }
 
     return QVector3D(0, 0, 0);
@@ -791,12 +841,14 @@ QVector3D ContextManager::fixturesRotation() const
 
 void ContextManager::setFixturesRotation(QVector3D degrees)
 {
-    MonitorProperties *mProps = m_doc->monitorProperties();
-
     if (m_selectedFixtures.count() == 1)
     {
+        quint32 fxID = FixtureUtils::itemFixtureID(m_selectedFixtures.first());
+        quint16 headIndex = FixtureUtils::itemHeadIndex(m_selectedFixtures.first());
+        quint16 linkedIndex = FixtureUtils::itemLinkedIndex(m_selectedFixtures.first());
+
         // absolute rotation change
-        mProps->setFixtureRotation(m_selectedFixtures.first(), degrees);
+        m_monProps->setFixtureRotation(fxID, headIndex, linkedIndex, degrees);
         if (m_2DView->isEnabled())
             m_2DView->updateFixtureRotation(m_selectedFixtures.first(), degrees);
         if (m_3DView->isEnabled())
@@ -805,9 +857,12 @@ void ContextManager::setFixturesRotation(QVector3D degrees)
     else
     {
         // relative rotation change
-        for (quint32 fxID : m_selectedFixtures)
+        for (quint32 itemID : m_selectedFixtures)
         {
-            QVector3D newRot = mProps->fixtureRotation(fxID) + degrees;
+            quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+            quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
+            quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+            QVector3D newRot = m_monProps->fixtureRotation(fxID, headIndex, linkedIndex) + degrees;
 
             // normalize back to a 0-359 range
             if (newRot.x() < 0) newRot.setX(newRot.x() + 360);
@@ -819,11 +874,11 @@ void ContextManager::setFixturesRotation(QVector3D degrees)
             if (newRot.z() < 0) newRot.setZ(newRot.z() + 360);
             else if (newRot.z() >= 360) newRot.setZ(newRot.z() - 360);
 
-            mProps->setFixtureRotation(fxID, newRot);
+            m_monProps->setFixtureRotation(fxID, headIndex, linkedIndex, newRot);
             if (m_2DView->isEnabled())
-                m_2DView->updateFixtureRotation(fxID, newRot);
+                m_2DView->updateFixtureRotation(itemID, newRot);
             if (m_3DView->isEnabled())
-                m_3DView->updateFixtureRotation(fxID, newRot);
+                m_3DView->updateFixtureRotation(itemID, newRot);
         }
     }
 
@@ -852,7 +907,13 @@ void ContextManager::setFixtureGroupSelection(quint32 id, bool enable, bool isUn
             if (fixture == NULL)
                 continue;
 
-            setFixtureSelection(fxID, enable);
+            for (quint32 subID : m_monProps->fixtureIDList(fxID))
+            {
+                quint16 headIndex = m_monProps->fixtureHeadIndex(subID);
+                quint16 linkedIndex = m_monProps->fixtureLinkedIndex(subID);
+                quint32 itemID = FixtureUtils::fixtureItemID(fxID, headIndex, linkedIndex);
+                setFixtureSelection(itemID, enable);
+            }
         }
     }
 }
@@ -867,24 +928,24 @@ void ContextManager::slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal
     if (m_DMXView->isEnabled())
         m_DMXView->createFixtureItem(fxID);
     if (m_2DView->isEnabled())
-        m_2DView->createFixtureItem(fxID, QVector3D(x, y, z), false);
+        m_2DView->createFixtureItems(fxID, QVector3D(x, y, z), false);
     if (m_3DView->isEnabled())
-        m_3DView->createFixtureItem(fxID, QVector3D(x, y, z), false);
+        m_3DView->createFixtureItems(fxID, QVector3D(x, y, z), false);
 }
 
-void ContextManager::slotFixtureDeleted(quint32 fxID)
+void ContextManager::slotFixtureDeleted(quint32 itemID)
 {
     if (m_doc->loadStatus() == Doc::Loading)
         return;
 
-    qDebug() << "[ContextManager] Removing fixture" << fxID;
+    qDebug() << "[ContextManager] Removing item" << itemID;
 
     if (m_DMXView->isEnabled())
-        m_DMXView->removeFixtureItem(fxID);
+        m_DMXView->removeFixtureItem(FixtureUtils::itemFixtureID(itemID));
     if (m_2DView->isEnabled())
-        m_2DView->removeFixtureItem(fxID);
+        m_2DView->removeFixtureItem(itemID);
     if (m_3DView->isEnabled())
-        m_3DView->removeFixtureItem(fxID);
+        m_3DView->removeFixtureItem(itemID);
 }
 
 void ContextManager::slotChannelValueChanged(quint32 fxID, quint32 channel, quint8 value)
@@ -1089,7 +1150,3 @@ GenericDMXSource *ContextManager::dmxSource() const
 {
     return m_source;
 }
-
-
-
-

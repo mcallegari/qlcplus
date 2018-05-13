@@ -30,7 +30,7 @@ Entity
 {
     id: fixtureEntity
 
-    property int fixtureID: fixtureManager.invalidFixture()
+    property int itemID: fixtureManager.invalidFixture()
     property alias itemSource: eSceneLoader.source
     property bool isSelected: false
 
@@ -56,7 +56,7 @@ Entity
 
     property real intensityOrigValue: intensity
 
-    onFixtureIDChanged: isSelected = contextManager.isFixtureSelected(fixtureID)
+    onItemIDChanged: isSelected = contextManager.isFixtureSelected(itemID)
 
     //onPanTransformChanged: console.log("Pan transform changed " + panTransform)
     //onTiltTransformChanged: console.log("Tilt transform changed " + tiltTransform)
@@ -204,7 +204,7 @@ Entity
         onStatusChanged:
         {
             if (status == SceneLoader.Ready)
-                View3D.initializeFixture(fixtureID, fixtureEntity, eObjectPicker, eSceneLoader)
+                View3D.initializeFixture(itemID, fixtureEntity, eObjectPicker, eSceneLoader)
         }
     }
 
@@ -223,7 +223,7 @@ Entity
         {
             console.log("3D item clicked")
             isSelected = !isSelected
-            contextManager.setFixtureSelection(fixtureID, isSelected)
+            contextManager.setFixtureSelection(itemID, isSelected)
         }
         //onPressed: lastPos = pick.worldIntersection
         //onReleased: console.log("Item release")
@@ -234,7 +234,7 @@ Entity
         {
             //console.log("Pick pos: " + pick.worldIntersection)
             //var x = pick.worldIntersection.x - lastPos
-            contextManager.setFixturePosition("3D", fixtureID,
+            contextManager.setFixturePosition("3D", itemID,
                                               pick.worldIntersection.x * 1000.0,
                                               pick.worldIntersection.y * 1000.0,
                                               pick.worldIntersection.z * 1000.0)

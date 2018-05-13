@@ -53,7 +53,10 @@ public:
 
     void resetItems();
 
-    void createFixtureItem(quint32 fxID, QVector3D pos, bool mmCoords = true);
+    void createFixtureItems(quint32 fxID, QVector3D pos, bool mmCoords = true);
+
+    void createFixtureItem(quint32 fxID, quint16 headIndex, quint16 linkedIndex,
+                           QVector3D pos, bool mmCoords = true);
 
     /** Select some Fixtures included in the provided $rect area */
     QList<quint32> selectFixturesRect(QRectF rect);
@@ -61,23 +64,26 @@ public:
     /** Return the ID of a Fixture at the given $pos or -1 if not found */
     Q_INVOKABLE int fixtureAtPos(QPointF pos);
 
-    /** Update the fixture preview when some channels have changed */
+    /** Update the fixture preview items when some channels have changed */
     void updateFixture(Fixture *fixture);
 
-    /** Update the selection status of a list of Fixture IDs */
+    /** Update a single fixture item for a specific Fixture ID, head index and linked index */
+    void updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 linkedIndex);
+
+    /** Update the selection status of a list of Fixture item IDs */
     void updateFixtureSelection(QList<quint32>fixtures);
 
-    /** Update the selection status of a Fixture with the provided $fxID */
-    void updateFixtureSelection(quint32 fxID, bool enable);
+    /** Update the selection status of a Fixture with the provided $itemID */
+    void updateFixtureSelection(quint32 itemID, bool enable);
 
-    /** Update the rotation of a Fixture with the provided $fxID */
-    void updateFixtureRotation(quint32 fxID, QVector3D degrees);
+    /** Update the rotation of a Fixture with the provided $itemID */
+    void updateFixtureRotation(quint32 itemID, QVector3D degrees);
 
-    /** Update the position of a Fixture with the provided $fxID */
-    void updateFixturePosition(quint32 fxID, QVector3D pos);
+    /** Update the position of a Fixture with the provided $itemID */
+    void updateFixturePosition(quint32 itemID, QVector3D pos);
 
-    /** Remove a Fixture item with the provided $fxID from the preview */
-    void removeFixtureItem(quint32 fxID);
+    /** Remove a Fixture item with the provided $itemID from the preview */
+    void removeFixtureItem(quint32 itemID);
 
     /** Get/Set the grid width/height */
     QSize gridSize() const;

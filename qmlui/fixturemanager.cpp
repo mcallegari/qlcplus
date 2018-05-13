@@ -31,6 +31,7 @@
 #include "qlccapability.h"
 #include "qlcfixturedef.h"
 #include "colorfilters.h"
+#include "fixtureutils.h"
 #include "qlcconfig.h"
 #include "qlcfile.h"
 #include "fixture.h"
@@ -321,15 +322,19 @@ bool FixtureManager::deleteFixtures(QVariantList IDList)
 
     for (QVariant id : IDList)
     {
-        quint32 fxID = id.toUInt();
-        Tardis::instance()->enqueueAction(Tardis::FixtureSetPosition, fxID,
-                                          QVariant(mProps->fixturePosition(fxID)), QVariant());
-        mProps->removeFixture(fxID);
-        Tardis::instance()->enqueueAction(Tardis::FixtureDelete, fxID,
+        quint32 itemID = id.toUInt();
+        quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+        quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
+        quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+
+        Tardis::instance()->enqueueAction(Tardis::FixtureSetPosition, itemID,
+                                          QVariant(mProps->fixturePosition(fxID, headIndex, linkedIndex)), QVariant());
+        mProps->removeFixture(fxID, headIndex, linkedIndex);
+        Tardis::instance()->enqueueAction(Tardis::FixtureDelete, itemID,
                                           Tardis::instance()->actionToByteArray(Tardis::FixtureDelete, fxID),
                                           QVariant());
         m_doc->deleteFixture(fxID);
-        emit fixtureDeleted(fxID);
+        emit fixtureDeleted(itemID);
     }
 
     m_fixtureList.clear();
@@ -808,9 +813,9 @@ bool FixtureManager::addRGBPanel(QString name, qreal xPos, qreal yPos)
                 rot.setZ(180);
             break;
         }
-        monProps->setFixturePosition(fxi->id(), pos);
+        monProps->setFixturePosition(fxi->id(), 0, 0, pos);
         if (displacement == Snake && i % 2)
-            monProps->setFixtureRotation(fxi->id(), rot);
+            monProps->setFixtureRotation(fxi->id(), 0, 0, rot);
         emit newFixtureCreated(fxi->id(), pos.x(), pos.y(), pos.z());
         yPos += (qreal)phyHeight;
         currRow += rowInc;

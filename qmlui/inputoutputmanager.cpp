@@ -157,19 +157,25 @@ void InputOutputManager::removeLastUniverse()
 
     for (Fixture *fixture : m_doc->fixtures())
     {
-        if (fixture->universe() == uniID)
+        if (fixture->universe() != uniID)
+            continue;
+
+        for (quint32 subID : mProps->fixtureIDList(fixture->id()))
         {
+            quint16 headIndex = mProps->fixtureHeadIndex(subID);
+            quint16 linkedIndex = mProps->fixtureLinkedIndex(subID);
+
             // delete the fixture monitor properties
             Tardis::instance()->enqueueAction(Tardis::FixtureSetPosition, fixture->id(),
-                                              QVariant(mProps->fixturePosition(fixture->id())), QVariant());
-            mProps->removeFixture(fixture->id());
-
-            // delete the fixture
-            Tardis::instance()->enqueueAction(Tardis::FixtureDelete, fixture->id(),
-                                              Tardis::instance()->actionToByteArray(Tardis::FixtureDelete, fixture->id()),
+                                              QVariant(mProps->fixturePosition(fixture->id(), headIndex, linkedIndex)),
                                               QVariant());
-            m_doc->deleteFixture(fixture->id());
         }
+        // delete the fixture
+        Tardis::instance()->enqueueAction(Tardis::FixtureDelete, fixture->id(),
+                                          Tardis::instance()->actionToByteArray(Tardis::FixtureDelete, fixture->id()),
+                                          QVariant());
+        m_doc->deleteFixture(fixture->id());
+        mProps->removeFixture(fixture->id());
     }
 
     Tardis::instance()->enqueueAction(Tardis::IORemoveUniverse, index,
