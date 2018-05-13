@@ -257,12 +257,11 @@ void Monitor::fillGraphicsView()
     {
         if (m_doc->fixture(fid) != NULL)
         {
-            QVector3D pos = m_props->fixturePosition(fid);
-            QVector3D rot = m_props->fixtureRotation(fid);
-            m_graphicsView->addFixture(fid, QPointF(pos.x(), pos.y()));
-            qDebug() << "Gel color:" << m_props->fixtureGelColor(fid);
-            m_graphicsView->setFixtureGelColor(fid, m_props->fixtureGelColor(fid));
-            m_graphicsView->setFixtureRotation(fid, rot.y());
+            PreviewItem item = m_props->fixtureItem(fid, 0, 0);
+            m_graphicsView->addFixture(fid, QPointF(item.m_position.x(), item.m_position.y()));
+            qDebug() << "Gel color:" << item.m_color;
+            m_graphicsView->setFixtureGelColor(fid, item.m_color);
+            m_graphicsView->setFixtureRotation(fid, item.m_rotation.y());
         }
     }
 }
@@ -735,7 +734,7 @@ void Monitor::slotAddFixture()
         {
             quint32 fid = it.next();
             m_graphicsView->addFixture(fid);
-            m_props->setFixturePosition(fid, QVector3D(0, 0, 0));
+            m_props->setFixturePosition(fid, 0, 0, QVector3D(0, 0, 0));
             m_doc->setModified();
         }
     }
@@ -782,7 +781,7 @@ void Monitor::slotFixtureMoved(quint32 fid, QPointF pos)
     Q_ASSERT(m_graphicsView != NULL);
 
     showFixtureItemEditor();
-    m_props->setFixturePosition(fid, QVector3D(pos.x(), pos.y(), 0));
+    m_props->setFixturePosition(fid, 0, 0, QVector3D(pos.x(), pos.y(), 0));
     m_doc->setModified();
 }
 

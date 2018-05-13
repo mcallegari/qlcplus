@@ -86,13 +86,13 @@ void MonitorFixturePropertiesEditor::slotSetPosition()
     QPointF itemPos(m_xPosSpin->value() * 1000, m_yPosSpin->value() * 1000);
     m_fxItem->setPos(m_gfxView->realPositionToPixels(itemPos.x(), itemPos.y()));
     m_fxItem->setRealPosition(itemPos);
-    m_props->setFixturePosition(m_fxItem->fixtureID(), QVector3D(itemPos.x(), itemPos.y(), 0));
+    m_props->setFixturePosition(m_fxItem->fixtureID(), 0, 0,QVector3D(itemPos.x(), itemPos.y(), 0));
 }
 
 void MonitorFixturePropertiesEditor::slotRotationChanged(int value)
 {
     m_fxItem->setRotation(value);
-    m_props->setFixtureRotation(m_fxItem->fixtureID(), QVector3D(0, value, 0));
+    m_props->setFixtureRotation(m_fxItem->fixtureID(), 0, 0, QVector3D(0, value, 0));
 }
 
 void MonitorFixturePropertiesEditor::slotGelColorClicked()
@@ -103,7 +103,7 @@ void MonitorFixturePropertiesEditor::slotGelColorClicked()
     if (newColor.isValid())
     {
         m_fxItem->setGelColor(newColor);
-        m_props->setFixtureGelColor(m_fxItem->fixtureID(), newColor);
+        m_props->setFixtureGelColor(m_fxItem->fixtureID(), 0, 0, newColor);
         QPixmap pm(28, 28);
         pm.fill(newColor);
         m_gelColorButton->setIcon(QIcon(pm));
@@ -114,6 +114,6 @@ void MonitorFixturePropertiesEditor::slotGelResetClicked()
 {
     m_gelColorButton->setIcon(QIcon());
     m_fxItem->setGelColor(QColor());
-    m_props->setFixtureGelColor(m_fxItem->fixtureID(), QColor());
+    m_props->setFixtureGelColor(m_fxItem->fixtureID(), 0, 0, QColor());
 }
 

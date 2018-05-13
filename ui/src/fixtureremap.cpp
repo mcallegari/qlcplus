@@ -897,16 +897,15 @@ void FixtureRemap::accept()
     MonitorProperties *props = m_doc->monitorProperties();
     if (props != NULL)
     {
-        QList <quint32> fxIDList = props->fixtureItemsID();
-        QHash <quint32, FixtureItemProperties> remappedFixtureItems;
+        QMap <quint32, FixturePreviewItem> remappedFixtureItems;
 
-        foreach (quint32 fxID, fxIDList)
+        foreach (quint32 fxID, props->fixtureItemsID())
         {
             for( int v = 0; v < sourceList.count(); v++)
             {
                 if (sourceList.at(v).fxi == fxID)
                 {
-                    FixtureItemProperties rmpProp = props->fixtureProperties(fxID);
+                    FixturePreviewItem rmpProp = props->fixtureProperties(fxID);
                     remappedFixtureItems[targetList.at(v).fxi] = rmpProp;
                     break;
                 }
@@ -915,7 +914,7 @@ void FixtureRemap::accept()
             props->removeFixture(fxID);
         }
 
-        QHashIterator <quint32, FixtureItemProperties> it(remappedFixtureItems);
+        QMapIterator <quint32, FixturePreviewItem> it(remappedFixtureItems);
         while (it.hasNext())
         {
             it.next();

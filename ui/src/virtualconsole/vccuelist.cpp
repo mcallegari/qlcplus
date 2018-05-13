@@ -794,10 +794,11 @@ void VCCueList::slotPreviousCue()
 
 void VCCueList::slotCurrentStepChanged(int stepNumber)
 {
-    // Chaser is being edited, channels cound may change.
+    // Chaser is being edited, channels count may change.
     // Wait for the CueList to update its steps.
     if (m_updateTimer->isActive())
         return;
+
     Q_ASSERT(stepNumber < m_tree->topLevelItemCount() && stepNumber >= 0);
     QTreeWidgetItem* item = m_tree->topLevelItem(stepNumber);
     Q_ASSERT(item != NULL);
@@ -833,7 +834,19 @@ void VCCueList::slotCurrentStepChanged(int stepNumber)
         }
     }
     else
+    {
+        /*
+        Chaser *ch = chaser();
+        if (ch != NULL)
+        {
+            int primaryValue = m_primaryLeft ? m_slider1->value() : m_slider2->value();
+
+            if (primaryValue > 0 && primaryValue < 100)
+                ch->adjustIntensity((qreal)primaryValue / 100, m_primaryIndex, Chaser::Crossfade);
+        }
+        */
         setSlidersInfo(m_primaryIndex);
+    }
     emit stepChanged(m_primaryIndex);
 }
 
