@@ -287,6 +287,58 @@ QColor MonitorProperties::fixtureGelColor(quint32 fid, quint16 head, quint16 lin
     }
 }
 
+void MonitorProperties::setFixtureResource(quint32 fid, quint16 head, quint16 linked, QString resource)
+{
+    if (head == 0 && linked == 0)
+    {
+        m_fixtureItems[fid].m_baseItem.m_resource = resource;
+    }
+    else
+    {
+        quint32 subID = fixtureSubID(head, linked);
+        m_fixtureItems[fid].m_subItems[subID].m_resource = resource;
+    }
+}
+
+QString MonitorProperties::fixtureResource(quint32 fid, quint16 head, quint16 linked) const
+{
+    if (head == 0 && linked == 0)
+    {
+        return m_fixtureItems[fid].m_baseItem.m_resource;
+    }
+    else
+    {
+        quint32 subID = fixtureSubID(head, linked);
+        return m_fixtureItems[fid].m_subItems[subID].m_resource;
+    }
+}
+
+void MonitorProperties::setFixtureFlags(quint32 fid, quint16 head, quint16 linked, quint32 flags)
+{
+    if (head == 0 && linked == 0)
+    {
+        m_fixtureItems[fid].m_baseItem.m_flags = flags;
+    }
+    else
+    {
+        quint32 subID = fixtureSubID(head, linked);
+        m_fixtureItems[fid].m_subItems[subID].m_flags = flags;
+    }
+}
+
+quint32 MonitorProperties::fixtureFlags(quint32 fid, quint16 head, quint16 linked) const
+{
+    if (head == 0 && linked == 0)
+    {
+        return m_fixtureItems[fid].m_baseItem.m_flags;
+    }
+    else
+    {
+        quint32 subID = fixtureSubID(head, linked);
+        return m_fixtureItems[fid].m_subItems[subID].m_flags;
+    }
+}
+
 PreviewItem MonitorProperties::fixtureItem(quint32 fid, quint16 head, quint16 linked) const
 {
     if (head == 0 && linked == 0)
@@ -428,11 +480,18 @@ bool MonitorProperties::loadXML(QXmlStreamReader &root, const Doc *mainDocument)
             QVector3D pos(0, 0, 0);
             QVector3D rot(0, 0, 0);
 
+            item.m_flags = 0;
+
             if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureHeadIndex))
                 headIndex = tAttrs.value(KXMLQLCMonitorFixtureHeadIndex).toString().toUInt();
 
             if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureLinkedIndex))
+            {
                 linkedIndex = tAttrs.value(KXMLQLCMonitorFixtureLinkedIndex).toString().toUInt();
+
+                if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureLinkedName))
+                    item.m_resource = tAttrs.value(KXMLQLCMonitorFixtureLinkedName).toString();
+            }
 
             if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureXPos))
                 pos.setX(tAttrs.value(KXMLQLCMonitorFixtureXPos).toString().toDouble());

@@ -44,7 +44,7 @@ typedef struct
     QVector3D m_rotation;       ///< 3D item rotation
     QString m_resource;         ///< Generic: source file, Fixture: custom name
     QColor m_color;             ///< Generic: item color, Fixture: gel color
-    quint32 m_flags = 0;        ///< Item flags as specified in the ItemsFlags enum
+    quint32 m_flags;            ///< Item flags as specified in the ItemsFlags enum
 } PreviewItem;
 
 typedef struct
@@ -160,17 +160,25 @@ public:
     /** Returns true if the provided Fixture ID, head index and linked index are in the map */
     bool containsItem(quint32 fid, quint16 head, quint16 linked);
 
-    /** Get/Set the position of a Fixture with ID $fid */
+    /** Get/Set the position of a Fixture with with the given $fid, $head and $linked index */
     void setFixturePosition(quint32 fid, quint16 head, quint16 linked, QVector3D pos);
     QVector3D fixturePosition(quint32 fid, quint16 head, quint16 linked) const;
 
-    /** Get/Set the rotation of a Fixture with ID $fid */
+    /** Get/Set the rotation of a Fixture with with the given $fid, $head and $linked index */
     void setFixtureRotation(quint32 fid, quint16 head, quint16 linked, QVector3D degrees);
     QVector3D fixtureRotation(quint32 fid, quint16 head, quint16 linked) const;
 
-    /** Get/Set the color of a gel used to render a Fixture with ID $fid */
+    /** Get/Set the color of a gel used to render a Fixture with with the given $fid, $head and $linked index */
     void setFixtureGelColor(quint32 fid, quint16 head, quint16 linked, QColor col);
     QColor fixtureGelColor(quint32 fid, quint16 head, quint16 linked) const;
+
+    /** Get/Set the flags of a Fixture with with the given $fid, $head and $linked index */
+    void setFixtureResource(quint32 fid, quint16 head, quint16 linked, QString resource);
+    QString fixtureResource(quint32 fid, quint16 head, quint16 linked) const;
+
+    /** Get/Set the flags of a Fixture with with the given $fid, $head and $linked index */
+    void setFixtureFlags(quint32 fid, quint16 head, quint16 linked, quint32 flags);
+    quint32 fixtureFlags(quint32 fid, quint16 head, quint16 linked) const;
 
     /** Get/Set all the Fixture item properties of a Fixture with ID $fid */
     inline FixturePreviewItem fixtureProperties(quint32 fid) const { return m_fixtureItems[fid]; }

@@ -735,6 +735,7 @@ void Monitor::slotAddFixture()
             quint32 fid = it.next();
             m_graphicsView->addFixture(fid);
             m_props->setFixturePosition(fid, 0, 0, QVector3D(0, 0, 0));
+            m_props->setFixtureFlags(fid, 0, 0, 0);
             m_doc->setModified();
         }
     }
