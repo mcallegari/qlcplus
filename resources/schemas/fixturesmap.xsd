@@ -35,15 +35,15 @@ elementFormDefault="qualified"
 <xs:element name="FixturesMap">
     <xs:complexType>
         <xs:sequence>
-            <xs:element name="fixture" type="fixtureType" maxOccurs="unbounded"/>
+            <xs:element name="F" type="fixtureType" maxOccurs="unbounded"/>
         </xs:sequence>
      </xs:complexType>
 </xs:element>
 
 <xs:complexType name="fixtureType">
-   <xs:attribute name="path" type="xs:string" use="required"/>
-   <xs:attribute name="mf" type="xs:string" use="required"/>
-   <xs:attribute name="md" type="xs:string" use="required"/>
+   <xs:attribute name="n" type="xs:string" use="required"/>
+   <xs:attribute name="m" type="xs:string" use="required"/>
+   <xs:attribute name="d" type="xs:string" use="required"/>
 </xs:complexType>
 
 </xs:schema>
