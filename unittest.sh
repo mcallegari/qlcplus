@@ -41,6 +41,17 @@ else
   fi
 fi
 
+# run xmllint on fixture definitions
+pushd .
+cd resources/fixtures/scripts
+VALIDATION_ERRORS=$(./check)
+popd
+echo $VALIDATION_ERRORS
+if [ "${VALIDATION_ERRORS}" ]; then
+    echo "Fixture definitions are not valid. Please fix before commit."
+    exit 1
+fi
+
 TESTDIR=engine/test
 TESTS=$(find ${TESTDIR} -maxdepth 1 -mindepth 1 -type d)
 for test in ${TESTS}

@@ -26,7 +26,7 @@
  </Mode>
 <Physical>
    <Bulb ColourTemperature="0" Lumens="0" Type=""/>
-   <Dimensions Width="0" Height="0" Weight="0" Depth="0"/>
+   <Dimensions Width="30" Height="30" Weight="10" Depth="30"/>
    <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
    <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
   </Physical>

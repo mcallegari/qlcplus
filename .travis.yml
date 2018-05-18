@@ -18,6 +18,8 @@ addons:
       - libsndfile1-dev 
       - liblo-dev
       - libfftw3-dev
+ # Needed for `xmllint`
+      - libxml2-utils
     packages: &qt5_pkg
       - *base_pkg
       - qt56-meta-minimal
