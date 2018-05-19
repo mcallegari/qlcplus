@@ -29,19 +29,20 @@
 #include "qlcfixturedef.h"
 #include "qlccapability.h"
 #include "qlcchannel.h"
+#include "qlcconfig.h"
 #include "qlcfile.h"
 #include "fixture.h"
 
 QLCFixtureDef::QLCFixtureDef()
     : m_isLoaded(false)
-    , m_defFileAbsolutePath(QString())
+    , m_relativePath(QString())
     , m_type(Dimmer)
 {
 }
 
 QLCFixtureDef::QLCFixtureDef(const QLCFixtureDef* fixtureDef)
     : m_isLoaded(false)
-    , m_defFileAbsolutePath(QString())
+    , m_relativePath(QString())
     , m_type(Dimmer)
 {
     if (fixtureDef != NULL)
@@ -91,12 +92,12 @@ QLCFixtureDef& QLCFixtureDef::operator=(const QLCFixtureDef& fixture)
 
 QString QLCFixtureDef::definitionSourceFile() const
 {
-    return m_defFileAbsolutePath;
+    return m_relativePath;
 }
 
 void QLCFixtureDef::setDefinitionSourceFile(const QString &absPath)
 {
-    m_defFileAbsolutePath = absPath;
+    m_relativePath = absPath;
     m_isLoaded = false;
 }
 
@@ -201,17 +202,19 @@ void QLCFixtureDef::checkLoaded()
         m_isLoaded = true;
         return;
     }
-    if (m_defFileAbsolutePath.isEmpty())
+    if (m_relativePath.isEmpty())
     {
         qWarning() << Q_FUNC_INFO << "Empty file path provided ! This is a trouble.";
         return;
     }
-    qDebug() << "Loading fixture definition now... " << m_defFileAbsolutePath;
-    bool error = loadXML(m_defFileAbsolutePath);
+
+    QString absPath = QString("%1%2%3").arg(QString(FIXTUREDIR)).arg(QDir::separator()).arg(m_relativePath);
+    qDebug() << "Loading fixture definition now... " << absPath;
+    bool error = loadXML(absPath);
     if (error == false)
     {
         m_isLoaded = true;
-        m_defFileAbsolutePath = QString();
+        m_relativePath = QString();
     }
 }
 

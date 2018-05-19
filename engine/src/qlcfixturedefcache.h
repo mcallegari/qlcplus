@@ -25,6 +25,7 @@
 #include <QMap>
 #include <QDir>
 
+class QXmlStreamReader;
 class QLCFixtureDef;
 
 /** @addtogroup engine Engine
@@ -113,6 +114,15 @@ public:
      * @return true, if the path could be accessed, otherwise false.
      */
     bool load(const QDir& dir);
+
+    /**
+     * Load all the fixture information found for the given manufacturer.
+     *
+     * @param doc reference to the XML loader
+     * @param manufacturer used to elapse the fixture file name relative path
+     * @return the number of fixtures found
+     */
+    int loadMapManufacturer(QXmlStreamReader *doc, QString manufacturer);
 
     /**
      * Load a map of hardcoded fixture definitions that represent
