@@ -208,6 +208,42 @@ void Fixture_Test::dimmer()
     QVERIFY(fxi.channel(QLCChannel::Intensity) == 0);
 }
 
+void Fixture_Test::rgbPanel()
+{
+    Fixture fxi(this);
+    fxi.setName("RGB Panel");
+    QLCFixtureDef *rowDef = fxi.genericRGBPanelDef(10, Fixture::RGBW);
+    QLCFixtureMode *rowMode = fxi.genericRGBPanelMode(rowDef, Fixture::RGBW, 1000, 100);
+    fxi.setFixtureDefinition(rowDef, rowMode);
+
+    QVERIFY(fxi.channels() == 40);
+
+    const QLCChannel *ch0 = fxi.channel(0);
+    const QLCChannel *ch1 = fxi.channel(1);
+    const QLCChannel *ch2 = fxi.channel(2);
+    const QLCChannel *ch3 = fxi.channel(3);
+
+    QVERIFY(ch0->group() == QLCChannel::Intensity);
+    QVERIFY(ch0->colour() == QLCChannel::Red);
+    QVERIFY(ch0->name() == "Red 1");
+    QVERIFY(ch1->group() == QLCChannel::Intensity);
+    QVERIFY(ch1->colour() == QLCChannel::Green);
+    QVERIFY(ch1->name() == "Green 1");
+    QVERIFY(ch2->group() == QLCChannel::Intensity);
+    QVERIFY(ch2->colour() == QLCChannel::Blue);
+    QVERIFY(ch2->name() == "Blue 1");
+    QVERIFY(ch3->group() == QLCChannel::Intensity);
+    QVERIFY(ch3->colour() == QLCChannel::White);
+    QVERIFY(ch3->name() == "White 1");
+
+    QVERIFY(fxi.fixtureMode()->name() == "RGBW");
+    QVERIFY(fxi.fixtureMode()->channels().count() == 40);
+    QVERIFY(fxi.fixtureMode()->physical().width() == 1000);
+    QVERIFY(fxi.fixtureMode()->physical().height() == 100);
+    QVERIFY(fxi.fixtureMode()->physical().depth() == 100);
+    QVERIFY(fxi.fixtureMode()->heads().count() == 10);
+}
+
 void Fixture_Test::fixtureDef()
 {
     Fixture fxi(this);
