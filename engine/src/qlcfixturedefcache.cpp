@@ -338,7 +338,7 @@ QDir QLCFixtureDefCache::userDefinitionDirectory()
     return QLCFile::userDirectory(QString(USERFIXTUREDIR), QString(FIXTUREDIR), filters);
 }
 
-void QLCFixtureDefCache::loadQXF(const QString& path)
+bool QLCFixtureDefCache::loadQXF(const QString& path)
 {
     QLCFixtureDef *fxi = new QLCFixtureDef();
     Q_ASSERT(fxi != NULL);
@@ -357,10 +357,12 @@ void QLCFixtureDefCache::loadQXF(const QString& path)
                    << path << "failed:" << QLCFile::errorString(error);
         delete fxi;
         fxi = NULL;
+        return false;
     }
+    return true;
 }
 
-void QLCFixtureDefCache::loadD4(const QString& path)
+bool QLCFixtureDefCache::loadD4(const QString& path)
 {
     QLCFixtureDef *fxi = new QLCFixtureDef();
     AvolitesD4Parser parser;
@@ -369,7 +371,7 @@ void QLCFixtureDefCache::loadD4(const QString& path)
         qWarning() << Q_FUNC_INFO << "Unable to load D4 fixture from" << path
                    << ":" << parser.lastError();
         delete fxi;
-        return;
+        return false;
     }
 
     /* Delete the def if it's a duplicate. */
@@ -379,4 +381,6 @@ void QLCFixtureDefCache::loadD4(const QString& path)
         delete fxi;
     }
     fxi = NULL;
+
+    return true;
 }

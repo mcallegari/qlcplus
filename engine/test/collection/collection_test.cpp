@@ -404,6 +404,7 @@ void Collection_Test::write()
 
     Scene* s2 = new Scene(doc);
     s2->setName("Scene2");
+    s2->setDuration(500);
     s2->setValue(fxi->id(), 2, UCHAR_MAX);
     s2->setValue(fxi->id(), 3, UCHAR_MAX);
     doc->addFunction(s2);
@@ -412,6 +413,8 @@ void Collection_Test::write()
     c->setName("Collection");
     c->addFunction(s1->id());
     c->addFunction(s2->id());
+
+    QVERIFY(c->totalDuration() == 500);
 
     QList<Universe*> ua;
     ua.append(new Universe(0, new GrandMaster()));

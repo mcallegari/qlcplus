@@ -90,6 +90,42 @@ void QLCCapability_Test::name()
     QVERIFY(cap.name() == "Foobar");
 }
 
+void QLCCapability_Test::alias()
+{
+    QLCCapability cap;
+    AliasInfo info1, info2;
+    info1.sourceChannel = "Channel 1";
+    info1.targetChannel = "Channel 3";
+    info1.targetMode = "12 Channel";
+
+    info2.sourceChannel = "Foo";
+    info2.targetChannel = "Bar";
+    info2.targetMode = "Mode";
+
+    cap.addAlias(info1);
+    QVERIFY(cap.aliasList().count() == 1);
+
+    cap.removeAlias(info1);
+    QVERIFY(cap.aliasList().count() == 0);
+
+    cap.addAlias(info1);
+    cap.addAlias(info2);
+    QVERIFY(cap.aliasList().count() == 2);
+
+    cap.removeAlias(info1);
+    QVERIFY(cap.aliasList().count() == 1);
+
+    info1.sourceChannel = "John";
+    info1.targetChannel = "Doe";
+    QList<AliasInfo> aliasList;
+    aliasList << info1 << info2;
+
+    cap.replaceAliases(aliasList);
+    QVERIFY(cap.aliasList().count() == 2);
+    QVERIFY(cap.aliasList().first().sourceChannel == "John");
+    QVERIFY(cap.aliasList().first().targetChannel == "Doe");
+}
+
 void QLCCapability_Test::overlaps()
 {
     QLCCapability cap1;
@@ -304,6 +340,73 @@ void QLCCapability_Test::save()
     QVERIFY(xmlReader.attributes().value("Min").toString() == "5");
     QVERIFY(xmlReader.attributes().value("Max").toString() == "87");
     QVERIFY(xmlReader.readElementText() == "Testing");
+}
+
+void QLCCapability_Test::savePreset()
+{
+    QLCCapability cap;
+    cap.setName("PresetTest");
+    cap.setMin(0);
+    cap.setMax(127);
+    cap.setPreset(QLCCapability::StrobeFreqRange);
+    cap.setResource(0, 1);
+    cap.setResource(1, 30);
+
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    QVERIFY(cap.saveXML(&xmlWriter) == true);
+
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+
+    xmlReader.readNextStartElement();
+
+    QVERIFY(xmlReader.name().toString() == "Capability");
+    QVERIFY(xmlReader.attributes().value("Min").toString() == "0");
+    QVERIFY(xmlReader.attributes().value("Max").toString() == "127");
+    QVERIFY(xmlReader.attributes().value("Preset").toString() == "StrobeFreqRange");
+    QVERIFY(xmlReader.attributes().value("Res1").toString() == "1");
+    QVERIFY(xmlReader.attributes().value("Res2").toString() == "30");
+    QVERIFY(xmlReader.readElementText() == "PresetTest");
+}
+
+void QLCCapability_Test::saveAlias()
+{
+    QLCCapability cap;
+    cap.setName("PresetTest");
+    cap.setMin(10);
+    cap.setMax(20);
+
+    AliasInfo alias;
+    alias.sourceChannel = "Channel 1";
+    alias.targetChannel = "Channel 3";
+    alias.targetMode = "12 Channel";
+    cap.addAlias(alias);
+
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    QVERIFY(cap.saveXML(&xmlWriter) == true);
+
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    QLCCapability capRead;
+    QVERIFY(capRead.loadXML(xmlReader) == true);
+
+    QVERIFY(capRead.aliasList().count() == 1);
+    QVERIFY(cap.aliasList().first().sourceChannel == "Channel 1");
+    QVERIFY(cap.aliasList().first().targetChannel == "Channel 3");
+    QVERIFY(cap.aliasList().first().targetMode == "12 Channel");
 }
 
 QTEST_APPLESS_MAIN(QLCCapability_Test)
