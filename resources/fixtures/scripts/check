@@ -1,5 +1,5 @@
 #!/bin/sh
 
-xmllint --noout --schema ../../schemas/fixture.xsd ../*.qxf 2>&1 | grep -v " validates$"
+xmllint --noout --schema ../../schemas/fixture.xsd $(find .. -name *.qxf) 2>&1 | grep -v " validates$"
 xmllint --noout --schema ../../schemas/fixturesmap.xsd ../FixturesMap.xml 2>&1 | grep -v " validates$"
 
