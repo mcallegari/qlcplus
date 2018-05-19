@@ -165,6 +165,7 @@ private:
     void loadD4(const QString& path);
 
 private:
+    QString m_mapAbsolutePath;
     QList <QLCFixtureDef*> m_defs;
 };
 

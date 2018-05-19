@@ -146,7 +146,7 @@ public:
     QString author();
 
     /** Check if the full definition has been loaded */
-    void checkLoaded();
+    void checkLoaded(QString mapPath);
 
 protected:
     bool m_isLoaded;

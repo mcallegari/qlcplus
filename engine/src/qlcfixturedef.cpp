@@ -137,7 +137,6 @@ void QLCFixtureDef::setType(const FixtureType type)
 
 QLCFixtureDef::FixtureType QLCFixtureDef::type()
 {
-    checkLoaded();
     return m_type;
 }
 
@@ -186,11 +185,10 @@ void QLCFixtureDef::setAuthor(const QString& author)
 
 QString QLCFixtureDef::author()
 {
-    checkLoaded();
     return m_author;
 }
 
-void QLCFixtureDef::checkLoaded()
+void QLCFixtureDef::checkLoaded(QString mapPath)
 {
     // Already loaded ? Nothing to do
     if (m_isLoaded == true)
@@ -208,7 +206,7 @@ void QLCFixtureDef::checkLoaded()
         return;
     }
 
-    QString absPath = QString("%1%2%3").arg(QString(FIXTUREDIR)).arg(QDir::separator()).arg(m_relativePath);
+    QString absPath = QString("%1%2%3").arg(mapPath).arg(QDir::separator()).arg(m_relativePath);
     qDebug() << "Loading fixture definition now... " << absPath;
     bool error = loadXML(absPath);
     if (error == false)

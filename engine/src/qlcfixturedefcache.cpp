@@ -56,7 +56,7 @@ QLCFixtureDef* QLCFixtureDefCache::fixtureDef(
         QLCFixtureDef* def = it.next();
         if (def->manufacturer() == manufacturer && def->model() == model)
         {
-            def->checkLoaded();
+            def->checkLoaded(m_mapAbsolutePath);
             return def;
         }
     }
@@ -222,6 +222,10 @@ bool QLCFixtureDefCache::loadMap(const QDir &dir)
 
     if (mapPath.isEmpty() == true)
         return false;
+
+    // cache the map path to be used when composing the fixture
+    // definition absolute path
+    m_mapAbsolutePath = dir.absolutePath();
 
     QXmlStreamReader *doc = QLCFile::getXMLReader(mapPath);
     if (doc == NULL || doc->device() == NULL || doc->hasError())
