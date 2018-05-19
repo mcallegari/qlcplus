@@ -36,7 +36,7 @@ void QLCFixtureDefCache_Test::init()
     dir.setFilter(QDir::Files);
     dir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
     QVERIFY(cache.load(QDir("/just/kidding/stoopid")) == false);
-    QVERIFY(cache.load(dir) == true);
+    QVERIFY(cache.loadMap(dir) == true);
 }
 
 void QLCFixtureDefCache_Test::cleanup()

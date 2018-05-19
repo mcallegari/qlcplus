@@ -113,7 +113,7 @@ void FadeChannel_Test::group()
     QDir dir(INTERNAL_FIXTUREDIR);
     dir.setFilter(QDir::Files);
     dir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
-    QVERIFY(doc.fixtureDefCache()->load(dir) == true);
+    QVERIFY(doc.fixtureDefCache()->loadMap(dir) == true);
 
     QLCFixtureDef* def = doc.fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
