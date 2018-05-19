@@ -59,21 +59,6 @@ QLCCapability::~QLCCapability()
 {
 }
 
-QLCCapability& QLCCapability::operator=(const QLCCapability& capability)
-{
-    if (this != &capability)
-    {
-        m_min = capability.m_min;
-        m_max = capability.m_max;
-        m_name = capability.m_name;
-        m_preset = capability.m_preset;
-        m_resources = capability.m_resources;
-        m_aliases = capability.m_aliases;
-    }
-
-    return *this;
-}
-
 bool QLCCapability::operator<(const QLCCapability& capability) const
 {
     if (m_min < capability.m_min)

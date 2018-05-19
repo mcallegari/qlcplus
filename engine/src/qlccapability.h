@@ -91,9 +91,6 @@ public:
     /** Destructor */
     ~QLCCapability();
 
-    /** Assignment operator */
-    QLCCapability& operator=(const QLCCapability& capability);
-
     /** Comparing operator for qSort */
     bool operator<(const QLCCapability& capability) const;
 
