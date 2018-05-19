@@ -22,7 +22,7 @@
 
   usage (from fixtures dir, replace "_" with "-"):
 
-    xmllint __noout __schema ../schemas/fixturesmap.xsd FixtureMap.xml
+    xmllint __noout __schema ../schemas/fixturesmap.xsd FixturesMap.xml
 
   xmllint is part of libxml2-utils package in ubuntu.
 -->
@@ -35,15 +35,21 @@ elementFormDefault="qualified"
 <xs:element name="FixturesMap">
     <xs:complexType>
         <xs:sequence>
-            <xs:element name="F" type="fixtureType" maxOccurs="unbounded"/>
+            <xs:element name="M" type="manufacturerType" maxOccurs="unbounded"/>
         </xs:sequence>
      </xs:complexType>
 </xs:element>
 
+<xs:complexType name="manufacturerType">
+   <xs:sequence>
+      <xs:element name="F" type="fixtureType" maxOccurs="unbounded"/>
+   </xs:sequence>
+   <xs:attribute name="n" type="xs:string" use="required"/>
+</xs:complexType>
+
 <xs:complexType name="fixtureType">
    <xs:attribute name="n" type="xs:string" use="required"/>
    <xs:attribute name="m" type="xs:string" use="required"/>
-   <xs:attribute name="d" type="xs:string" use="required"/>
 </xs:complexType>
 
 </xs:schema>
