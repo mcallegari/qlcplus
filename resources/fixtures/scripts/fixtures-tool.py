@@ -249,24 +249,34 @@ def createFixtureMap():
     global namespace
 
     count = 0
+    manufacturer = ""
     xmlFile = open("FixturesMap.xml", "w")
     root = etree.Element("FixturesMap")
     root.set('xmlns', 'http://www.qlcplus.org/FixturesMap')
 
-    for filename in sorted(os.listdir('.'), key=lambda s: s.lower()):
-        if not filename.endswith('.qxf'): continue
+    for dirname in sorted(os.listdir('.'), key=lambda s: s.lower()):
+        
+        if not os.path.isdir(dirname): continue
 
-        parser = etree.XMLParser(ns_clean=True, recover=True)
-        xmlObj = etree.parse(filename, parser=parser)
-        fxRoot = xmlObj.getroot()
-        manufacturer = fxRoot.find('{' + namespace + '}Manufacturer')
-        model = fxRoot.find('{' + namespace + '}Model')
-        fxTag = etree.SubElement(root, "F")
-        fxTag.set('n', os.path.splitext(filename)[0])
-        fxTag.set('m', manufacturer.text)
-        fxTag.set('d', model.text)
-        #print manufacturer.text + ", " + model.text
-        count += 1
+        if dirname != "scripts" and dirname != manufacturer:
+            mfTag = etree.SubElement(root, "M")
+            mfTag.set('n', dirname)
+            manufacturer = dirname
+
+        for filename in sorted(os.listdir(dirname), key=lambda s: s.lower()):
+            if not filename.endswith('.qxf'): continue
+
+            parser = etree.XMLParser(ns_clean=True, recover=True)
+            xmlObj = etree.parse(os.path.join(dirname, filename), parser=parser)
+            fxRoot = xmlObj.getroot()
+            manufacturer = fxRoot.find('{' + namespace + '}Manufacturer')
+            model = fxRoot.find('{' + namespace + '}Model')
+            fxTag = etree.SubElement(mfTag, "F")
+            fxTag.set('n', os.path.splitext(filename)[0])
+            #fxTag.set('m', manufacturer.text)
+            fxTag.set('m', model.text)
+            #print manufacturer.text + ", " + model.text
+            count += 1
 
     xmlFile.write(etree.tostring(root, pretty_print=True, xml_declaration=True, encoding="UTF-8", doctype="<!DOCTYPE FixturesMap>"))
     xmlFile.close()
