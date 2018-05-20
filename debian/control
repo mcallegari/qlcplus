@@ -16,6 +16,7 @@ Build-Depends:
  libusb-dev (>= 2:0.1.12),
  make,
  pkg-config,
+ libxml2-utils,
  shared-mime-info (>= 0.71),
 Standards-Version: 3.7.3
 Homepage: http://www.qlcplus.org/
