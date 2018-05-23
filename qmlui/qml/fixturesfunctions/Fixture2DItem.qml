@@ -277,6 +277,7 @@ Rectangle
 
         onPaint:
         {
+            var context = getContext("2d")
             if (positionLayer.visible == false)
                 return;
 

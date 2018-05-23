@@ -171,6 +171,7 @@ Rectangle
 
             onPaint:
             {
+                var context = getContext("2d")
                 context.globalAlpha = 1.0
                 context.strokeStyle = "#5F5F5F"
                 context.fillStyle = "black"
