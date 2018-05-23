@@ -114,9 +114,31 @@ private:
 public:
     enum
     {
-        GroupMatch = (1 << 0),
+        ShowCheckBoxes  = (1 << 0),
+        ShowGroups      = (1 << 1),
+        ShowChannels    = (1 << 2),
+        ShowHeads       = (1 << 3),
+        ShowFlags       = (1 << 4),
+        ShowCanFade     = (1 << 5),
+        ShowPrecedence  = (1 << 6),
+        ShowModifier    = (1 << 7)
+    };
+
+    enum PrecedenceType
+    {
+        AutoHTP = 0,
+        AutoLTP,
+        ForcedHTP,
+        ForcedLTP
+    };
+    Q_ENUM(PrecedenceType)
+
+    enum
+    {
+        GroupMatch   = (1 << 0),
         FixtureMatch = (1 << 1),
-        ChannelMatch = (1 << 2)
+        HeadMatch    = (1 << 2),
+        ChannelMatch = (1 << 3)
     };
 
     /** Returns a constant value for an invalid Fixture ID */
@@ -143,13 +165,17 @@ public:
     /** Returns the data model to display a tree of Fixture Groups/Fixtures */
     QVariant groupsTreeModel();
 
+    /** Enable/Disable the fixture/channel properties editing mode */
+    Q_INVOKABLE void enablePropertyEditing(bool enable);
+
     static void addFixtureGroupTreeNode(Doc *doc, TreeModel *treeModel, FixtureGroup *group,
-                                        QString searchFilter = QString(), bool showChannels = true,
+                                        QString searchFilter = QString(), int showFlags = ShowGroups | ShowHeads,
                                         QList<SceneValue> checkedChannels = QList<SceneValue>());
 
     /** Update the tree of groups/fixtures/channels */
     static void updateGroupsTree(Doc *doc, TreeModel *treeModel, QString searchFilter = QString(),
-                                 bool showChannels = true, QList<SceneValue> checkedChannels = QList<SceneValue>());
+                                 int showFlags = ShowGroups | ShowHeads,
+                                 QList<SceneValue> checkedChannels = QList<SceneValue>());
 
     /** Return the type as string of the Fixture with ID $fixtureID */
     Q_INVOKABLE QString fixtureIcon(quint32 fixtureID);
@@ -177,6 +203,8 @@ private:
     QList<Fixture *> m_fixtureList;
     /** Data model used by the QML UI to represent groups/fixtures/channels */
     TreeModel *m_fixtureTree;
+    /** Current flags being used for filling the tree data */
+    int m_treeShowFlags;
 
     /*********************************************************************
      * Fixture groups

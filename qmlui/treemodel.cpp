@@ -48,15 +48,17 @@ void TreeModel::clear()
     if (itemsCount == 0)
         return;
 
-    beginRemoveRows(QModelIndex(), 0, itemsCount - 1);
     for (int i = 0; i < itemsCount; i++)
     {
         TreeModelItem *item = m_items.takeLast();
+        if (item->hasChildren())
+            item->children()->clear();
+        beginRemoveRows(QModelIndex(), 0, itemsCount - 1);
         delete item;
+        endRemoveRows();
     }
     m_items.clear();
     m_itemsPathMap.clear();
-    endRemoveRows();
 }
 
 void TreeModel::setColumnNames(QStringList names)
@@ -105,8 +107,9 @@ TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path
 
     TreeModelItem *item = NULL;
 
-    if (data.count() != m_roles.count())
-        qDebug() << "Adding an item with a different number of roles" << data.count() << m_roles.count();
+    // fewer roles are allowed, while exceeding are probably a mistake
+    if (data.count() > m_roles.count())
+        qDebug() << "Item roles exceeds tree roles !" << data.count() << m_roles.count();
 
     if (m_checkable)
         flags |= Checkable;

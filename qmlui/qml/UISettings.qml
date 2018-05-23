@@ -60,4 +60,10 @@ QtObject
     property real mediumItemHeight: screenPixelDensity * 15
     property real bigItemHeight:    screenPixelDensity * 25
     property real scrollBarWidth:   screenPixelDensity * 6
+
+    // channel properties column widths
+    property real chPropsFlagsWidth: bigItemHeight
+    property real chPropsCanFadeWidth: bigItemHeight * 0.9
+    property real chPropsPrecedenceWidth: bigItemHeight * 1.2
+    property real chPropsModifierWidth: bigItemHeight
 }

@@ -18,6 +18,7 @@
 */
 
 import QtQuick 2.0
+import QtQuick.Layouts 1.0
 
 import org.qlcplus.classes 1.0
 import "."
@@ -37,6 +38,11 @@ Rectangle
     property bool isSelected: false
     property bool isCheckable: false
     property bool isChecked: false
+    property bool showFlags: false
+    property int itemFlags
+    property bool canFade: true
+    property int precedence
+    property string modifier
     property Item dragItem
 
     signal mouseEvent(int type, int iID, int iType, var qItem, int mouseMods)
@@ -49,8 +55,11 @@ Rectangle
         visible: isSelected
     }
 
-    Row
+    RowLayout
     {
+        height: UISettings.listItemHeight
+        width: chDelegate.width
+
         CustomCheckBox
         {
             id: chCheckBox
@@ -61,22 +70,110 @@ Rectangle
             onCheckedChanged: chDelegate.mouseEvent(App.Checked, chIndex, checked, chDelegate, 0)
         }
 
-        IconTextEntry
-        {
-            id: chEntry
-            height: UISettings.listItemHeight
-            width: chDelegate.width - chCheckBox.width
-            tLabel: "" + (chIndex + 1) + ": " + textLabel
-            iSrc: itemIcon
 
-            MouseArea
+
+            IconTextEntry
             {
-                anchors.fill: parent
+                height: parent.height
+                //width: parent.width
+                tLabel: "" + (chIndex + 1) + ": " + chDelegate.textLabel
+                iSrc: chDelegate.itemIcon
 
-                onPressed: chDelegate.mouseEvent(App.Pressed, chIndex, -1, chDelegate, mouse.modifiers)
-                onClicked: chDelegate.mouseEvent(App.Clicked, chIndex, -1, chDelegate, mouse.modifiers)
-                onDoubleClicked: chDelegate.mouseEvent(App.DoubleClicked, chIndex, -1, chDelegate, -1)
+                MouseArea
+                {
+                    anchors.fill: parent
+
+                    onPressed: chDelegate.mouseEvent(App.Pressed, chIndex, -1, chDelegate, mouse.modifiers)
+                    onClicked: chDelegate.mouseEvent(App.Clicked, chIndex, -1, chDelegate, mouse.modifiers)
+                    onDoubleClicked: chDelegate.mouseEvent(App.DoubleClicked, chIndex, -1, chDelegate, -1)
+                }
             }
+
+
+        // divider
+        Rectangle
+        {
+            visible: showFlags
+            width: 1
+            height: parent.height
+        }
+
+        // flags stub
+        Rectangle
+        {
+            visible: showFlags
+            width: UISettings.chPropsFlagsWidth
+            height: parent.height
+            color: "transparent"
+        }
+
+        // divider
+        Rectangle
+        {
+            visible: showFlags
+            width: 1
+            height: parent.height
+        }
+
+        // can fade
+        Rectangle
+        {
+            visible: showFlags
+            width: UISettings.chPropsCanFadeWidth
+            height: parent.height
+            color: "transparent"
+
+            CustomCheckBox
+            {
+                anchors.centerIn: parent
+                implicitHeight: UISettings.listItemHeight
+                implicitWidth: implicitHeight
+                checked: canFade
+                onToggled: { }
+            }
+        }
+
+        // divider
+        Rectangle
+        {
+            visible: showFlags
+            width: 1
+            height: parent.height
+        }
+
+        // precedence combo
+        CustomComboBox
+        {
+            implicitWidth: UISettings.chPropsPrecedenceWidth
+            height: parent.height - 2
+
+            ListModel
+            {
+                id: precModel
+                ListElement { mLabel: qsTr("Auto (HTP)"); }
+                ListElement { mLabel: qsTr("Auto (LTP)"); }
+                ListElement { mLabel: qsTr("Forced HTP"); }
+                ListElement { mLabel: qsTr("Forced LTP"); }
+            }
+            model: precModel
+            currentIndex: chDelegate.precedence
+        }
+
+        // divider
+        Rectangle
+        {
+            visible: showFlags
+            width: 1
+            height: parent.height
+        }
+
+        // modifier
+        Rectangle
+        {
+            visible: showFlags
+            width: UISettings.chPropsModifierWidth
+            height: parent.height
+            color: "transparent"
         }
     }
 

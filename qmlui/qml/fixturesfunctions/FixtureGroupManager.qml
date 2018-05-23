@@ -26,7 +26,7 @@ import "."
 Rectangle
 {
     id: fgmContainer
-    anchors.fill: parent
+    //anchors.fill: parent
     color: "transparent"
 
     /** By default, fixtureManager is the model provider, unless a
@@ -37,12 +37,12 @@ Rectangle
     ColumnLayout
     {
         anchors.fill: parent
-        spacing: 3
+        spacing: 0
 
         Rectangle
         {
             id: topBar
-            width: fgmContainer.width
+            implicitWidth: fgmContainer.width
             height: UISettings.iconSizeMedium
             z: 5
             gradient: Gradient
@@ -66,7 +66,7 @@ Rectangle
                     width: height
                     height: topBar.height - 2
                     imgSource: "qrc:/add.svg"
-                    tooltip: qsTr("Add a new group")
+                    tooltip: qsTr("Add a new fixture group")
                     onClicked: contextManager.createFixtureGroup()
                 }
                 IconButton
@@ -97,7 +97,7 @@ Rectangle
                                     fxGroupDeleteList.push(item.cRef.id)
                                 break;
                                 case App.FixtureDragItem:
-                                    fxDeleteList.push(item.cRef.id)
+                                    fxDeleteList.push(item.itemID)
                                 break;
                             }
                         }
@@ -128,6 +128,26 @@ Rectangle
                             sTextInput.forceActiveFocus()
                     }
                 }
+
+                IconButton
+                {
+                    id: propsButton
+                    width: height
+                    height: topBar.height - 2
+                    imgSource: "qrc:/edit.svg"
+                    tooltip: qsTr("Toggle fixtures and channels properties")
+                    checkable: true
+
+                    onToggled:
+                    {
+                        if (checked)
+                            leftSidePanel.width += 350
+                        else
+                            leftSidePanel.width -= 350
+                        fixtureManager.enablePropertyEditing(checked)
+                    }
+                }
+
                 IconButton
                 {
                     id: infoButton
@@ -186,6 +206,31 @@ Rectangle
                     }
                 }
             }
+        } // RowLayout
+
+        Rectangle
+        {
+            id: propertiesHeader
+            visible: propsButton.checked
+            height: UISettings.iconSizeMedium
+            implicitWidth: fgmContainer.width - (gEditScrollBar.visible ? gEditScrollBar.width : 0)
+            z: 5
+            color: UISettings.bgMain
+
+            RowLayout
+            {
+                anchors.fill: parent
+
+                RobotoText { label: qsTr("Name"); Layout.fillWidth: true; height: parent.height }
+                Rectangle { width: 1; height: parent.height }
+                RobotoText { label: qsTr("Flags"); width: UISettings.chPropsFlagsWidth; height: parent.height }
+                Rectangle { width: 1; height: parent.height }
+                RobotoText { label: qsTr("Can fade"); width: UISettings.chPropsCanFadeWidth; height: parent.height }
+                Rectangle { width: 1; height: parent.height }
+                RobotoText { label: qsTr("Behaviour"); width: UISettings.chPropsPrecedenceWidth; height: parent.height }
+                Rectangle { width: 1; height: parent.height }
+                RobotoText { label: qsTr("Modifier"); width: UISettings.chPropsModifierWidth; height: parent.height }
+            }
         }
 
         Rectangle
@@ -220,8 +265,10 @@ Rectangle
         ListView
         {
             id: groupListView
-            width: fgmContainer.width
-            height: fgmContainer.height - topBar.height - (searchBox.visible ? searchBox.height : 0)
+            implicitWidth: fgmContainer.width
+            height: fgmContainer.height - topBar.height -
+                    (searchBox.visible ? searchBox.height : 0) -
+                    (propertiesHeader.visible ? propertiesHeader.height : 0)
             z: 4
             boundsBehavior: Flickable.StopAtBounds
 
@@ -233,11 +280,12 @@ Rectangle
               {
                 Loader
                 {
-                    width: groupListView.width - (gEditScrollBar.visible ? gEditScrollBar.width : 0)
+                    //width: groupListView.width - (gEditScrollBar.visible ? gEditScrollBar.width : 0)
                     source: hasChildren ? "qrc:/TreeNodeDelegate.qml" : ""
                     onLoaded:
                     {
                         //console.log("[groupEditor] Item " + label + " has children: " + hasChildren)
+                        item.width = Qt.binding(function() { return fgmContainer.width - (gEditScrollBar.visible ? gEditScrollBar.width : 0) })
                         item.cRef = classRef
                         item.textLabel = label
                         item.isSelected = Qt.binding(function() { return isSelected })
@@ -246,12 +294,12 @@ Rectangle
                         if (hasChildren)
                         {
                             item.itemIcon = "qrc:/group.svg"
-                            //if (modelData.hasOwnProperty("type"))
                             if (type)
                                 item.itemType = type
                             item.nodePath = path
                             item.isExpanded = isExpanded
                             item.subTreeDelegate = "qrc:/FixtureNodeDelegate.qml"
+                            item.childrenDelegate = "qrc:/FixtureNodeDelegate.qml"
                             item.nodeChildren = childrenModel
                         }
                     }
@@ -339,7 +387,12 @@ Rectangle
                     }
                 } // Loader
               } // Component
-            CustomScrollBar { id: gEditScrollBar; flickable: groupListView }
+            CustomScrollBar
+            {
+                id: gEditScrollBar
+                flickable: groupListView
+                anchors.right: parent.right
+            }
 
             // Group / Fixture / Head / Channel draggable item
             GenericMultiDragItem

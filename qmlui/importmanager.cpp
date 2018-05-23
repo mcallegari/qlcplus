@@ -515,9 +515,9 @@ QVariant ImportManager::groupsTreeModel()
         treeColumns << "classRef" << "type" << "id" << "subid" << "chIdx";
         m_fixtureTree->setColumnNames(treeColumns);
         m_fixtureTree->enableSorting(false);
-        m_fixtureTree->setCheckable(true);
 
-        FixtureManager::updateGroupsTree(m_importDoc, m_fixtureTree, m_fixtureSearchFilter, false);
+        FixtureManager::updateGroupsTree(m_importDoc, m_fixtureTree, m_fixtureSearchFilter,
+                                         FixtureManager::ShowCheckBoxes | FixtureManager::ShowGroups);
 
         connect(m_fixtureTree, SIGNAL(roleChanged(TreeModelItem*,int,const QVariant&)),
                 this, SLOT(slotFixtureTreeDataChanged(TreeModelItem*,int,const QVariant&)));
@@ -599,7 +599,8 @@ void ImportManager::setFixtureSearchFilter(QString searchFilter)
     if (searchFilter.length() >= SEARCH_MIN_CHARS ||
         (currLen >= SEARCH_MIN_CHARS && searchFilter.length() < SEARCH_MIN_CHARS))
     {
-        FixtureManager::updateGroupsTree(m_importDoc, m_fixtureTree, m_fixtureSearchFilter, false);
+        FixtureManager::updateGroupsTree(m_importDoc, m_fixtureTree, m_fixtureSearchFilter,
+                                         FixtureManager::ShowCheckBoxes | FixtureManager::ShowGroups);
         checkFixtureTree(m_fixtureTree);
         emit groupsTreeModelChanged();
     }

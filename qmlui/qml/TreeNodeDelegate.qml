@@ -230,6 +230,16 @@ Column
                         if (item.hasOwnProperty('cRef'))
                             item.cRef = classRef
 
+                        if (item.hasOwnProperty('itemID'))
+                            item.itemID = id
+
+                        //console.log("Item flags: " + model.flags);
+                        if (model.flags !== undefined && item.hasOwnProperty("itemFlags"))
+                        {
+                            item.showFlags = true
+                            item.itemFlags = model.flags
+                        }
+
                         if (hasChildren)
                         {
                             item.nodePath = nodePath + "/" + path

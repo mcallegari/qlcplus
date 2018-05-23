@@ -22,6 +22,7 @@
 #include <QQmlEngine>
 
 #include "qlcfixturemode.h"
+#include "fixturemanager.h"
 #include "efxeditor.h"
 #include "listmodel.h"
 #include "tardis.h"
@@ -351,7 +352,7 @@ QVariant EFXEditor::groupsTreeModel()
         treeColumns << "classRef" << "type" << "id" << "subid" << "head";
         m_fixtureTree->setColumnNames(treeColumns);
         m_fixtureTree->enableSorting(false);
-        updateFixtureTree(m_doc, m_fixtureTree);
+        FixtureManager::updateGroupsTree(m_doc, m_fixtureTree); // TODO: search filter ?
     }
 
     return QVariant::fromValue(m_fixtureTree);
@@ -579,106 +580,6 @@ void EFXEditor::updateFixtureList()
     if (oldTiltDegrees != m_maxTiltDegrees)
         emit maxTiltDegreesChanged();
     updateAlgorithmData();
-}
-
-void EFXEditor::updateFixtureTree(Doc *doc, TreeModel *treeModel)
-{
-    if (doc == NULL || treeModel == NULL)
-        return;
-
-    treeModel->clear();
-
-    QStringList uniNames = doc->inputOutputMap()->universeNames();
-
-    // add Fixture Groups first
-    for (FixtureGroup* grp : doc->fixtureGroups()) // C++11
-    {
-        foreach(quint32 fxID, grp->fixtureList())
-        {
-            Fixture *fixture = doc->fixture(fxID);
-            if (fixture == NULL)
-                continue;
-
-            QLCFixtureMode *mode = fixture->fixtureMode();
-            if (mode == NULL)
-                continue;
-
-            QString fxPath = QString("%1%2%3").arg(grp->name()).arg(TreeModel::separator()).arg(fixture->name());
-
-            for (int i = 0; i < fixture->heads(); i++)
-            {
-                QVariantList headParams;
-                headParams.append(QVariant::fromValue(NULL)); // classRef
-                headParams.append(App::HeadDragItem); // type
-                headParams.append(fixture->id()); // id
-                headParams.append(grp->id()); // subid
-                headParams.append(i); // head
-                treeModel->addItem(QString("%1 %2").arg(tr("Head")).arg(i + 1, 3, 10, QChar('0')), headParams, fxPath);
-            }
-
-            // when all the head 'leaves' have been added, set the parent node data
-            QVariantList fxParams;
-            fxParams.append(QVariant::fromValue(fixture)); // classRef
-            fxParams.append(App::FixtureDragItem); // type
-            fxParams.append(fixture->id()); // id
-            fxParams.append(grp->id()); // subid
-            fxParams.append(0); // head
-
-            treeModel->setPathData(fxPath, fxParams);
-        }
-        // add also the fixture group data
-        QVariantList grpParams;
-        grpParams.append(QVariant::fromValue(grp)); // classRef
-        grpParams.append(App::FixtureGroupDragItem); // type
-        grpParams.append(grp->id()); // id
-        grpParams.append(0); // subid
-        grpParams.append(0); // head
-
-        treeModel->setPathData(grp->name(), grpParams);
-    }
-
-    // add the current universes as groups
-    for (Fixture *fixture : doc->fixtures()) // C++11
-    {
-        if (fixture->universe() >= (quint32)uniNames.count())
-            continue;
-
-        QString fxPath = QString("%1%2%3").arg(uniNames.at(fixture->universe())).arg(TreeModel::separator()).arg(fixture->name());
-
-        for (int i = 0; i < fixture->heads(); i++)
-        {
-            QVariantList headParams;
-            headParams.append(QVariant::fromValue(NULL)); // classRef
-            headParams.append(App::HeadDragItem); // type
-            headParams.append(fixture->id()); // id
-            headParams.append(fixture->universe()); // subid
-            headParams.append(i); // head
-            treeModel->addItem(QString("%1 %2").arg(tr("Head")).arg(i + 1, 3, 10, QChar('0')), headParams, fxPath);
-        }
-
-        // when all the head 'leaves' have been added, set the parent node data
-        QVariantList params;
-        params.append(QVariant::fromValue(fixture)); // classRef
-        params.append(App::FixtureDragItem); // type
-        params.append(fixture->id()); // id
-        params.append(fixture->universe()); // subid
-        params.append(0); // head
-
-        treeModel->setPathData(fxPath, params);
-    }
-
-    for (Universe *universe : m_doc->inputOutputMap()->universes())
-    {
-        // add also the fixture group data
-        QVariantList uniParams;
-        uniParams.append(QVariant::fromValue(universe)); // classRef
-        uniParams.append(App::UniverseDragItem); // type
-        uniParams.append(universe->id()); // id
-        uniParams.append(0); // subid
-        uniParams.append(0); // chIdx
-
-        treeModel->setPathData(universe->name(), uniParams);
-    }
 }
 
 /************************************************************************

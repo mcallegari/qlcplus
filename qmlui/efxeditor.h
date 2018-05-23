@@ -164,9 +164,6 @@ public:
 protected:
     void updateFixtureList();
 
-    /** Update the tree of groups/fixtures/channels */
-    void updateFixtureTree(Doc *doc, TreeModel *treeModel);
-
 signals:
     /** Notify the listeners that the fixture list model has changed */
     void fixtureListChanged();
