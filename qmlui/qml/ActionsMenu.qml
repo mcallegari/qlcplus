@@ -225,9 +225,10 @@ Popup
                                         saveFirstPopup.action = entryText
                                     }
                                     else
+                                    {
+                                        menuRoot.close()
                                         qlcplus.loadWorkspace(entryText)
-
-                                    menuRoot.close()
+                                    }
                                 }
                             }
                         }
