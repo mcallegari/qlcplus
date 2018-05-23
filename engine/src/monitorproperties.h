@@ -136,6 +136,9 @@ public:
         InvertedPanFlag     = (1 << 1),
         InvertedTiltFlag    = (1 << 2),
     };
+#if QT_VERSION >= 0x050500
+    Q_ENUM(ItemFlags)
+#endif
 
     /********************************************************************
      * Fixture items
