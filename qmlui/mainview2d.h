@@ -58,6 +58,9 @@ public:
     void createFixtureItem(quint32 fxID, quint16 headIndex, quint16 linkedIndex,
                            QVector3D pos, bool mmCoords = true);
 
+    /** Set/update the flags of a fixture item */
+    void setFixtureFlags(quint32 itemID, quint32 flags);
+
     /** Select some Fixtures included in the provided $rect area */
     QList<quint32> selectFixturesRect(QRectF rect);
 

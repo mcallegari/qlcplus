@@ -31,7 +31,6 @@ Rectangle
 
     color: "transparent"
 
-    property int chIndex
     property string textLabel
     property string itemIcon: ""
     property int itemType: App.ChannelDragItem
@@ -39,6 +38,8 @@ Rectangle
     property bool isCheckable: false
     property bool isChecked: false
     property bool showFlags: false
+    property int itemID
+    property int chIndex
     property int itemFlags
     property bool canFade: true
     property int precedence
@@ -70,25 +71,22 @@ Rectangle
             onCheckedChanged: chDelegate.mouseEvent(App.Checked, chIndex, checked, chDelegate, 0)
         }
 
+        IconTextEntry
+        {
+            height: parent.height
+            //width: parent.width
+            tLabel: "" + (chIndex + 1) + ": " + chDelegate.textLabel
+            iSrc: chDelegate.itemIcon
 
-
-            IconTextEntry
+            MouseArea
             {
-                height: parent.height
-                //width: parent.width
-                tLabel: "" + (chIndex + 1) + ": " + chDelegate.textLabel
-                iSrc: chDelegate.itemIcon
+                anchors.fill: parent
 
-                MouseArea
-                {
-                    anchors.fill: parent
-
-                    onPressed: chDelegate.mouseEvent(App.Pressed, chIndex, -1, chDelegate, mouse.modifiers)
-                    onClicked: chDelegate.mouseEvent(App.Clicked, chIndex, -1, chDelegate, mouse.modifiers)
-                    onDoubleClicked: chDelegate.mouseEvent(App.DoubleClicked, chIndex, -1, chDelegate, -1)
-                }
+                onPressed: chDelegate.mouseEvent(App.Pressed, chIndex, -1, chDelegate, mouse.modifiers)
+                onClicked: chDelegate.mouseEvent(App.Clicked, chIndex, -1, chDelegate, mouse.modifiers)
+                onDoubleClicked: chDelegate.mouseEvent(App.DoubleClicked, chIndex, -1, chDelegate, -1)
             }
-
+        }
 
         // divider
         Rectangle

@@ -237,7 +237,7 @@ Column
                         if (model.flags !== undefined && item.hasOwnProperty("itemFlags"))
                         {
                             item.showFlags = true
-                            item.itemFlags = model.flags
+                            item.itemFlags = Qt.binding(function() { return model.flags })
                         }
 
                         if (hasChildren)

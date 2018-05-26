@@ -24,7 +24,9 @@
 #include <QQmlComponent>
 
 #include "mainviewdmx.h"
+#include "fixtureutils.h"
 #include "qlcfixturemode.h"
+#include "monitorproperties.h"
 #include "doc.h"
 
 MainViewDMX::MainViewDMX(QQuickView *view, Doc *doc, QObject *parent)
@@ -66,9 +68,9 @@ void MainViewDMX::setUniverseFilter(quint32 universeFilter)
             continue;
 
         if (universeFilter == Universe::invalid() || fixture->universe() == universeFilter)
-            fxItem->setProperty("visible", "true");
+            fxItem->setProperty("visible", true);
         else
-            fxItem->setProperty("visible", "false");
+            fxItem->setProperty("visible", false);
     }
 }
 
@@ -98,9 +100,13 @@ void MainViewDMX::createFixtureItem(quint32 fxID)
         return;
 
     QQuickItem *newFixtureItem = qobject_cast<QQuickItem*>(fixtureComponent->create());
+    MonitorProperties *monProps = m_doc->monitorProperties();
+    quint32 itemFlags = monProps->fixtureFlags(fxID, 0, 0);
 
     newFixtureItem->setParentItem(contextItem());
     newFixtureItem->setProperty("fixtureObj", QVariant::fromValue(fixture));
+    if (itemFlags & MonitorProperties::HiddenFlag)
+        newFixtureItem->setProperty("visible", false);
 
     // and finally add the new item to the items map
     m_itemsMap[fxID] = newFixtureItem;
@@ -108,6 +114,19 @@ void MainViewDMX::createFixtureItem(quint32 fxID)
     updateFixture(fixture);
 
     connect(fixture, SIGNAL(aliasChanged()), this, SLOT(slotAliasChanged()));
+}
+
+void MainViewDMX::setFixtureFlags(quint32 itemID, quint32 flags)
+{
+    quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
+    quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
+    quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+
+    if (headIndex || linkedIndex)
+        return;
+
+    QQuickItem *fxItem = m_itemsMap.value(fixtureID, NULL);
+    fxItem->setProperty("visible", flags & MonitorProperties::HiddenFlag ? false : true);
 }
 
 void MainViewDMX::updateFixture(Fixture *fixture)

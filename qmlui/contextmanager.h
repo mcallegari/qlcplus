@@ -197,6 +197,8 @@ public:
 protected slots:
     void slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z = 0);
     void slotFixtureDeleted(quint32 itemID);
+    void slotFixtureFlagsChanged(quint32 itemID, quint32 flags);
+
     void slotChannelValueChanged(quint32 fxID, quint32 channel, quint8 value);
     void slotChannelTypeValueChanged(int type, quint8 value, quint32 channel = UINT_MAX);
     void slotColorChanged(QColor col, QColor wauv);

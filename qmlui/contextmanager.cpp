@@ -81,6 +81,8 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
 
     connect(m_fixtureManager, &FixtureManager::newFixtureCreated, this, &ContextManager::slotNewFixtureCreated);
     connect(m_fixtureManager, &FixtureManager::fixtureDeleted, this, &ContextManager::slotFixtureDeleted);
+    connect(m_fixtureManager, &FixtureManager::fixtureFlagsChanged, this, &ContextManager::slotFixtureFlagsChanged);
+
     connect(m_fixtureManager, &FixtureManager::channelValueChanged, this, &ContextManager::slotChannelValueChanged);
     connect(m_fixtureManager, SIGNAL(channelTypeValueChanged(int, quint8)),
             this, SLOT(slotChannelTypeValueChanged(int, quint8)));
@@ -946,6 +948,16 @@ void ContextManager::slotFixtureDeleted(quint32 itemID)
         m_2DView->removeFixtureItem(itemID);
     if (m_3DView->isEnabled())
         m_3DView->removeFixtureItem(itemID);
+}
+
+void ContextManager::slotFixtureFlagsChanged(quint32 itemID, quint32 flags)
+{
+    if (m_DMXView->isEnabled())
+        m_DMXView->setFixtureFlags(itemID, flags);
+    if (m_2DView->isEnabled())
+        m_2DView->setFixtureFlags(itemID, flags);
+    if (m_3DView->isEnabled())
+        m_3DView->setFixtureFlags(itemID, flags);
 }
 
 void ContextManager::slotChannelValueChanged(quint32 fxID, quint32 channel, quint8 value)

@@ -35,7 +35,7 @@ Rectangle
     property bool isSelected: false
     property bool isCheckable: false
     property bool isChecked: false
-    property int fixtureID
+    property int itemID
     property int headIndex
     property Item dragItem
 

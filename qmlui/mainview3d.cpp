@@ -162,13 +162,13 @@ void MainView3D::setUniverseFilter(quint32 universeFilter)
 
         if (universeFilter == Universe::invalid() || fixture->universe() == (quint32)universeFilter)
         {
-            meshRef->m_rootItem->setProperty("enabled", "true");
-            meshRef->m_selectionBox->setProperty("enabled", "true");
+            meshRef->m_rootItem->setProperty("enabled", true);
+            meshRef->m_selectionBox->setProperty("enabled", true);
         }
         else
         {
-            meshRef->m_rootItem->setProperty("enabled", "false");
-            meshRef->m_selectionBox->setProperty("enabled", "false");
+            meshRef->m_rootItem->setProperty("enabled", false);
+            meshRef->m_selectionBox->setProperty("enabled", false);
         }
     }
 }
@@ -322,6 +322,16 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
     newItem->setProperty("itemID", itemID);
     newItem->setProperty("itemSource", meshPath);
     newItem->setParent(m_sceneRootEntity);
+}
+
+void MainView3D::setFixtureFlags(quint32 itemID, quint32 flags)
+{
+    FixtureMesh *meshRef = m_entitiesMap.value(itemID, NULL);
+    if (meshRef == NULL)
+        return;
+
+    meshRef->m_rootItem->setProperty("enabled", flags & MonitorProperties::HiddenFlag ? false : true);
+    meshRef->m_selectionBox->setProperty("enabled", flags & MonitorProperties::HiddenFlag ? false : true);
 }
 
 Qt3DCore::QTransform *MainView3D::getTransform(QEntity *entity)
@@ -565,6 +575,7 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QComponent
     if (fixture == NULL)
         return;
 
+    quint32 itemFlags = m_monProps->fixtureFlags(fxID, headIndex, linkedIndex);
     QLCFixtureMode *fxMode = fixture->fixtureMode();
     QVector3D fxSize(0.3, 0.3, 0.3);
     int panDeg = 0;
@@ -718,6 +729,11 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QComponent
                 Q_ARG(QVariant, fixture->id()),
                 Q_ARG(QVariant, QVariant::fromValue(meshRef->m_rootTransform)));
 
+    if (itemFlags & MonitorProperties::HiddenFlag)
+    {
+        meshRef->m_rootItem->setProperty("enabled", false);
+        meshRef->m_selectionBox->setProperty("enabled", false);
+    }
     // at last, preview the fixture channels
     updateFixture(fixture);
 }

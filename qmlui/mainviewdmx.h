@@ -49,6 +49,9 @@ public:
 
     void createFixtureItem(quint32 fxID);
 
+    /** Set/update the flags of a fixture item */
+    void setFixtureFlags(quint32 itemID, quint32 flags);
+
     void updateFixture(Fixture *fixture);
 
     void updateFixtureSelection(QList<quint32>fixtures);

@@ -41,7 +41,7 @@ Column
     property bool isChecked: false
     property bool showFlags: false
     property int itemFlags: 0
-    property string nodePath    
+    property string nodePath
     property var nodeChildren
     property Item dragItem
 
@@ -67,6 +67,7 @@ Column
         color: nodeIconImg.visible ? "transparent" : UISettings.sectionHeader
         width: nodeContainer.width
         height: UISettings.listItemHeight
+        z: 1
 
         // icon background for contrast
         Rectangle
@@ -204,50 +205,76 @@ Column
             // fixture flags
             Rectangle
             {
+                id: fxFlags
                 visible: showFlags
                 width: UISettings.chPropsFlagsWidth
                 height: parent.height
                 color: "transparent"
+                z: 1
 
                 Row
                 {
                     height: parent.height
                     spacing: 2
 
-                    Text
+                    IconButton
                     {
-                        color: itemFlags & MonitorProperties.HiddenFlag ? UISettings.fgMedium : "#00FF00"
-                        font.family: "FontAwesome"
-                        font.pixelSize: parent.height - 6
-                        text: itemFlags & MonitorProperties.HiddenFlag ? FontAwesome.fa_eye_slash : FontAwesome.fa_eye
-                        MouseArea
+                        height: parent.height - 2
+                        width: height
+                        border.width: 0
+                        faSource: checked ? FontAwesome.fa_eye : FontAwesome.fa_eye_slash
+                        faColor: checked ? "#00FF00" : UISettings.fgMedium
+                        bgColor: "transparent"
+                        checkedColor: "transparent"
+                        checkable: true
+                        checked: itemFlags & MonitorProperties.HiddenFlag ? false : true
+                        onToggled:
                         {
-                            anchors.fill: parent
-                            onClicked: {}
+                            if (itemFlags & MonitorProperties.HiddenFlag)
+                                fixtureManager.setItemRoleData(itemID, -1, "flags", (itemFlags & ~MonitorProperties.HiddenFlag))
+                            else
+                                fixtureManager.setItemRoleData(itemID, -1, "flags", itemFlags | MonitorProperties.HiddenFlag)
                         }
                     }
-                    Text
+
+                    IconButton
                     {
-                        color: itemFlags & MonitorProperties.InvertedPanFlag ? "#00FF00" : UISettings.fgMedium
-                        font.family: "FontAwesome"
-                        font.pixelSize: parent.height - 6
-                        text: FontAwesome.fa_arrows_h
-                        MouseArea
+                        height: parent.height - 2
+                        width: height
+                        border.width: 0
+                        faSource: FontAwesome.fa_arrows_h
+                        faColor: checked ? "#00FF00" : UISettings.fgMedium
+                        bgColor: "transparent"
+                        checkedColor: "transparent"
+                        checkable: true
+                        checked: itemFlags & MonitorProperties.InvertedPanFlag ? true : false
+                        onToggled:
                         {
-                            anchors.fill: parent
-                            onClicked: {}
+                            if (itemFlags & MonitorProperties.InvertedPanFlag)
+                                fixtureManager.setItemRoleData(itemID, -1, "flags", (itemFlags & ~MonitorProperties.InvertedPanFlag))
+                            else
+                                fixtureManager.setItemRoleData(itemID, -1, "flags", itemFlags | MonitorProperties.InvertedPanFlag)
                         }
                     }
-                    Text
+
+
+                    IconButton
                     {
-                        color: itemFlags & MonitorProperties.InvertedTiltFlag ? "#00FF00" : UISettings.fgMedium
-                        font.family: "FontAwesome"
-                        font.pixelSize: parent.height - 6
-                        text: FontAwesome.fa_arrows_v
-                        MouseArea
+                        height: parent.height - 2
+                        width: height
+                        border.width: 0
+                        faSource: FontAwesome.fa_arrows_v
+                        faColor: checked ? "#00FF00" : UISettings.fgMedium
+                        bgColor: "transparent"
+                        checkedColor: "transparent"
+                        checkable: true
+                        checked: itemFlags & MonitorProperties.InvertedTiltFlag ? true : false
+                        onToggled:
                         {
-                            anchors.fill: parent
-                            onClicked: {}
+                            if (itemFlags & MonitorProperties.InvertedTiltFlag)
+                                fixtureManager.setItemRoleData(itemID, -1, "flags", (itemFlags & ~MonitorProperties.InvertedTiltFlag))
+                            else
+                                fixtureManager.setItemRoleData(itemID, -1, "flags", itemFlags | MonitorProperties.InvertedTiltFlag)
                         }
                     }
                 }
@@ -263,7 +290,8 @@ Column
 
         MouseArea
         {
-            anchors.fill: parent
+            width: showFlags ? fxFlags.x : parent.width
+            height: parent.height
 
             property bool dragActive: drag.active
 
@@ -313,6 +341,8 @@ Column
                         if (item.hasOwnProperty('cRef'))
                             item.cRef = classRef
 
+                        item.itemID = id
+
                         if (type == App.ChannelDragItem)
                         {
                             console.log("Channel node, fixture " + cRef + " index: " + chIdx + " label: " + label)
@@ -333,7 +363,6 @@ Column
                         else
                         {
                             console.log("Head node, fixture " + cRef + " index: " + head + " label: " + label)
-                            item.fixtureID = cRef ? cRef.id : -1
                             item.headIndex = head
                         }
                     }

@@ -28,12 +28,14 @@
 #include <QDir>
 
 #include "scenevalue.h"
-#include "treemodel.h"
 
 class Doc;
 class Fixture;
+class TreeModel;
+class TreeModelItem;
 class FixtureGroup;
 class ColorFilters;
+class MonitorProperties;
 
 class FixtureManager : public QObject
 {
@@ -99,6 +101,8 @@ private:
     QQuickView *m_view;
     /** Reference to the project workspace */
     Doc *m_doc;
+    /** Reference to the Doc Monitor properties */
+    MonitorProperties *m_monProps;
     /** A filter for m_fixturesMap to restrict data to a specific universe */
     quint32 m_universeFilter;
     /** A string to filter the displayed tree items */
@@ -168,6 +172,8 @@ public:
     /** Enable/Disable the fixture/channel properties editing mode */
     Q_INVOKABLE void enablePropertyEditing(bool enable);
 
+    Q_INVOKABLE void setItemRoleData(int itemID, int index, QString role, QVariant value);
+
     static void addFixtureGroupTreeNode(Doc *doc, TreeModel *treeModel, FixtureGroup *group,
                                         QString searchFilter = QString(), int showFlags = ShowGroups | ShowHeads,
                                         QList<SceneValue> checkedChannels = QList<SceneValue>());
@@ -193,6 +199,8 @@ signals:
 
     /** Notify the listeners that a fixture has been deleted */
     void fixtureDeleted(quint32 fxID);
+
+    void fixtureFlagsChanged(quint32 itemID, quint32 flags);
 
 private:
     /** Comparison method to sort a Fixture list by DMX address */

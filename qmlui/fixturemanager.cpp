@@ -30,8 +30,10 @@
 #include "qlcfixturemode.h"
 #include "qlccapability.h"
 #include "qlcfixturedef.h"
+#include "treemodelitem.h"
 #include "colorfilters.h"
 #include "fixtureutils.h"
+#include "treemodel.h"
 #include "qlcconfig.h"
 #include "qlcfile.h"
 #include "fixture.h"
@@ -55,6 +57,8 @@ FixtureManager::FixtureManager(QQuickView *view, Doc *doc, QObject *parent)
     , m_colorsMask(0)
 {
     Q_ASSERT(m_doc != NULL);
+
+    m_monProps = m_doc->monitorProperties();
 
     m_view->rootContext()->setContextProperty("fixtureManager", this);
     qmlRegisterUncreatableType<FixtureManager>("org.qlcplus.classes", 1, 0,  "FixtureManager", "Can't create a FixtureManager !");
@@ -319,8 +323,6 @@ bool FixtureManager::moveFixture(quint32 fixtureID, quint32 newAddress)
 
 bool FixtureManager::deleteFixtures(QVariantList IDList)
 {
-    MonitorProperties *mProps = m_doc->monitorProperties();
-
     for (QVariant id : IDList)
     {
         quint32 itemID = id.toUInt();
@@ -329,8 +331,8 @@ bool FixtureManager::deleteFixtures(QVariantList IDList)
         quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
 
         Tardis::instance()->enqueueAction(Tardis::FixtureSetPosition, itemID,
-                                          QVariant(mProps->fixturePosition(fxID, headIndex, linkedIndex)), QVariant());
-        mProps->removeFixture(fxID, headIndex, linkedIndex);
+                                          QVariant(m_monProps->fixturePosition(fxID, headIndex, linkedIndex)), QVariant());
+        m_monProps->removeFixture(fxID, headIndex, linkedIndex);
         Tardis::instance()->enqueueAction(Tardis::FixtureDelete, itemID,
                                           Tardis::instance()->actionToByteArray(Tardis::FixtureDelete, fxID),
                                           QVariant());
@@ -398,6 +400,50 @@ void FixtureManager::enablePropertyEditing(bool enable)
     emit groupsTreeModelChanged();
 }
 
+void FixtureManager::setItemRoleData(int itemID, int index, QString role, QVariant value)
+{
+    quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
+    quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
+    quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+
+    Fixture *fixture = m_doc->fixture(fixtureID);
+    if (fixture == NULL)
+        return;
+
+    qDebug() << "Set fixture data" << fixture->name() << role << value;
+
+    if (role == "flags")
+    {
+        if (index == -1)
+        {
+            m_monProps->setFixtureFlags(fixtureID, headIndex, linkedIndex, value.toUInt());
+            emit fixtureFlagsChanged(itemID, value.toUInt());
+        }
+        // else: TODO: flags per channel
+    }
+
+    // now reconstruct the item path and change the role of the tree model
+    QString path;
+    QStringList uniNames = m_doc->inputOutputMap()->universeNames();
+    int roleIndex = m_fixtureTree->roleIndex(role);
+
+    if (index == -1)
+    {
+        // change happened on a fixture node
+        path = QString("%1%2%3").arg(uniNames.at(fixture->universe()))
+                                .arg(TreeModel::separator()).arg(fixture->name());
+    }
+    else
+    {
+        // change happened on a channel node
+
+    }
+
+    qDebug() << "Path" << path << ", role index" << roleIndex;
+
+    m_fixtureTree->setItemRoleData(path, value, roleIndex);
+}
+
 bool FixtureManager::compareFixtures(Fixture *left, Fixture *right)
 {
     return *left < *right;
@@ -409,11 +455,10 @@ void FixtureManager::addFixtureGroupTreeNode(Doc *doc, TreeModel *treeModel, Fix
 {
     int matchFound = 0;
     bool expandAll = searchFilter.length() >= SEARCH_MIN_CHARS;
+    MonitorProperties *monProps = doc->monitorProperties();
 
     if (doc == NULL || treeModel == NULL || group == NULL)
         return;
-
-    MonitorProperties *monProps = doc->monitorProperties();
 
     if (searchFilter.length() < SEARCH_MIN_CHARS || group->name().toLower().contains(searchFilter))
         matchFound |= GroupMatch;
@@ -453,9 +498,9 @@ void FixtureManager::addFixtureGroupTreeNode(Doc *doc, TreeModel *treeModel, Fix
                     for (int headIdx = 0; headIdx < fixture->heads(); headIdx++)
                     {
                         QVariantList headParams;
-                        headParams.append(QVariant::fromValue(NULL)); // classRef
+                        headParams.append(QVariant::fromValue(fixture)); // classRef
                         headParams.append(App::HeadDragItem); // type
-                        headParams.append(fixture->id()); // id
+                        headParams.append(itemID); // id
                         headParams.append(fixture->universe()); // subid
                         headParams.append(headIdx); // head
                         treeModel->addItem(QString("%1 %2").arg(tr("Head")).arg(headIdx + 1, 3, 10, QChar('0')),
@@ -478,9 +523,9 @@ void FixtureManager::addFixtureGroupTreeNode(Doc *doc, TreeModel *treeModel, Fix
                         if (checkedChannels.contains(SceneValue(fixture->id(), chIdx)))
                             flags |= TreeModel::Checked;
 
-                        chParams.append(QVariant::fromValue(NULL)); // classRef
+                        chParams.append(QVariant::fromValue(fixture)); // classRef
                         chParams.append(App::ChannelDragItem); // type
-                        chParams.append(fixture->id()); // id
+                        chParams.append(itemID); // id
                         chParams.append(group->id()); // subid
                         chParams.append(chIdx); // chIdx
 
@@ -516,8 +561,8 @@ void FixtureManager::addFixtureGroupTreeNode(Doc *doc, TreeModel *treeModel, Fix
         grpParams.append(QVariant::fromValue(group)); // classRef
         grpParams.append(App::FixtureGroupDragItem); // type
         grpParams.append(group->id()); // id
-        grpParams.append(0); // subid
-        grpParams.append(0); // chIdx
+        //grpParams.append(0); // subid
+        //grpParams.append(0); // chIdx
 
         treeModel->setPathData(group->name(), grpParams);
     }
@@ -530,6 +575,7 @@ void FixtureManager::updateGroupsTree(Doc *doc, TreeModel *treeModel, QString se
         return;
 
     bool expandAll = searchFilter.length() >= SEARCH_MIN_CHARS;
+    QStringList uniNames = doc->inputOutputMap()->universeNames();
     MonitorProperties *monProps = doc->monitorProperties();
 
     treeModel->clear();
@@ -538,8 +584,6 @@ void FixtureManager::updateGroupsTree(Doc *doc, TreeModel *treeModel, QString se
         treeModel->setCheckable(true);
     else
         treeModel->setCheckable(false);
-
-    QStringList uniNames = doc->inputOutputMap()->universeNames();
 
     if (showFlags & ShowGroups)
     {
@@ -588,9 +632,9 @@ void FixtureManager::updateGroupsTree(Doc *doc, TreeModel *treeModel, QString se
                     for (int headIdx = 0; headIdx < fixture->heads(); headIdx++)
                     {
                         QVariantList headParams;
-                        headParams.append(QVariant::fromValue(NULL)); // classRef
+                        headParams.append(QVariant::fromValue(fixture)); // classRef
                         headParams.append(App::HeadDragItem); // type
-                        headParams.append(fixture->id()); // id
+                        headParams.append(itemID); // id
                         headParams.append(fixture->universe()); // subid
                         headParams.append(headIdx); // head
                         treeModel->addItem(QString("%1 %2").arg(tr("Head")).arg(headIdx + 1, 3, 10, QChar('0')),
@@ -614,9 +658,9 @@ void FixtureManager::updateGroupsTree(Doc *doc, TreeModel *treeModel, QString se
                             flags |= TreeModel::Checked;
 
                         QVariantList chParams;
-                        chParams.append(QVariant::fromValue(NULL)); // classRef
+                        chParams.append(QVariant::fromValue(fixture)); // classRef
                         chParams.append(App::ChannelDragItem); // type
-                        chParams.append(fixture->id()); // id
+                        chParams.append(itemID); // id
                         chParams.append(fixture->universe()); // subid
                         chParams.append(chIdx); // chIdx
 
@@ -818,7 +862,6 @@ bool FixtureManager::addRGBPanel(QString name, qreal xPos, qreal yPos)
 
     QLCFixtureDef *rowDef = NULL;
     QLCFixtureMode *rowMode = NULL;
-    MonitorProperties *monProps = m_doc->monitorProperties();
     int currRow = 0;
     int rowInc = 1;
     int xPosStart = 0;
@@ -921,9 +964,9 @@ bool FixtureManager::addRGBPanel(QString name, qreal xPos, qreal yPos)
 
         QVector3D pos;
         QVector3D rot;
-        float gridUnits = monProps->gridUnits() == MonitorProperties::Meters ? 1000.0 : 304.8;
+        float gridUnits = m_monProps->gridUnits() == MonitorProperties::Meters ? 1000.0 : 304.8;
 
-        switch (monProps->pointOfView())
+        switch (m_monProps->pointOfView())
         {
             case MonitorProperties::TopView:
                 pos = QVector3D(xPos, 0, yPos);
@@ -934,17 +977,17 @@ bool FixtureManager::addRGBPanel(QString name, qreal xPos, qreal yPos)
                 rot.setX(180);
             break;
             case MonitorProperties::RightSideView:
-                pos = QVector3D(0, yPos, (monProps->gridSize().z() * gridUnits) - xPos);
+                pos = QVector3D(0, yPos, (m_monProps->gridSize().z() * gridUnits) - xPos);
                 rot.setX(180);
             break;
             default:
-                pos = QVector3D(xPos, (monProps->gridSize().y() * gridUnits) - yPos, 0);
+                pos = QVector3D(xPos, (m_monProps->gridSize().y() * gridUnits) - yPos, 0);
                 rot.setZ(180);
             break;
         }
-        monProps->setFixturePosition(fxi->id(), 0, 0, pos);
+        m_monProps->setFixturePosition(fxi->id(), 0, 0, pos);
         if (displacement == Snake && i % 2)
-            monProps->setFixtureRotation(fxi->id(), 0, 0, rot);
+            m_monProps->setFixtureRotation(fxi->id(), 0, 0, rot);
         emit newFixtureCreated(fxi->id(), pos.x(), pos.y(), pos.z());
         yPos += (qreal)phyHeight;
         currRow += rowInc;
