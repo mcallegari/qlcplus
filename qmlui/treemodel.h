@@ -82,7 +82,7 @@ public:
      *  using the TreeModelItem::addChild method.
      *  Therefore, $data belongs to the leaf, if you want to add data to a top node,
      *  use the setPathData method.
-     *  $flags are used to give an item a specific initial state. See TreeFlags */
+     *  $flags are used to give an item a specific initial state. See TreeItemsFlags */
     TreeModelItem *addItem(QString label, QVariantList data, QString path = QString(), int flags = 0);
 
     /**
@@ -108,6 +108,9 @@ public:
 
     /** Set columns data on a specific item with the provided $path */
     void setPathData(QString path, QVariantList data);
+
+    /** Get the index of a role by its name. Useful before calling setItemRoleData */
+    int roleIndex(QString role);
 
     /** @reimp */
     Q_INVOKABLE int rowCount(const QModelIndex & parent = QModelIndex()) const;

@@ -100,6 +100,14 @@ void TreeModelItem::setData(QVariantList data)
     m_data = data;
 }
 
+void TreeModelItem::setRoleData(int index, QVariant value)
+{
+    if (index < 0 || index >= m_data.count())
+        return;
+
+    m_data[index] = value;
+}
+
 bool TreeModelItem::setChildrenColumns(QStringList columns)
 {
     bool childrenTreeCreated = false;

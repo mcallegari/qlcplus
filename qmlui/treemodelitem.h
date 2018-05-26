@@ -58,6 +58,9 @@ public:
     /** Set the list of user custom fields */
     void setData(QVariantList data);
 
+    /** Set the value for a specific role */
+    void setRoleData(int index, QVariant value);
+
     /** Set the children column names, if this item has children */
     bool setChildrenColumns(QStringList columns);
 
