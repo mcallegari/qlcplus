@@ -127,7 +127,7 @@ Rectangle
                 implicitHeight: UISettings.listItemHeight
                 implicitWidth: implicitHeight
                 checked: canFade
-                onToggled: { }
+                onToggled: fixtureManager.setItemRoleData(itemID, chIndex, "canFade", checked)
             }
         }
 
@@ -148,13 +148,14 @@ Rectangle
             ListModel
             {
                 id: precModel
-                ListElement { mLabel: qsTr("Auto (HTP)"); }
-                ListElement { mLabel: qsTr("Auto (LTP)"); }
-                ListElement { mLabel: qsTr("Forced HTP"); }
-                ListElement { mLabel: qsTr("Forced LTP"); }
+                ListElement { mLabel: qsTr("Auto (HTP)"); mValue: FixtureManager.AutoHTP }
+                ListElement { mLabel: qsTr("Auto (LTP)"); mValue: FixtureManager.AutoLTP }
+                ListElement { mLabel: qsTr("Forced HTP"); mValue: FixtureManager.ForcedHTP }
+                ListElement { mLabel: qsTr("Forced LTP"); mValue: FixtureManager.ForcedLTP }
             }
             model: precModel
             currentIndex: chDelegate.precedence
+            onValueChanged: fixtureManager.setItemRoleData(itemID, chIndex, "precedence", value)
         }
 
         // divider

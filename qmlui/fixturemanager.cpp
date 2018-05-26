@@ -410,6 +410,10 @@ void FixtureManager::setItemRoleData(int itemID, int index, QString role, QVaria
     if (fixture == NULL)
         return;
 
+    const QLCChannel *channel = index == -1 ? NULL : fixture->channel(index);
+    if (index >= 0 && channel == NULL)
+        return;
+
     qDebug() << "Set fixture data" << fixture->name() << role << value;
 
     if (role == "flags")
@@ -419,7 +423,40 @@ void FixtureManager::setItemRoleData(int itemID, int index, QString role, QVaria
             m_monProps->setFixtureFlags(fixtureID, headIndex, linkedIndex, value.toUInt());
             emit fixtureFlagsChanged(itemID, value.toUInt());
         }
-        // else: TODO: flags per channel
+        else
+        {
+            // TODO: flags per channel ?
+        }
+    }
+    else if (role == "canFade")
+    {
+        fixture->setChannelCanFade(index, value.toBool());
+    }
+    else if (role == "precedence")
+    {
+        QList<int> forcedHTP = fixture->forcedHTPChannels();
+        QList<int> forcedLTP = fixture->forcedLTPChannels();
+
+        int newMode = value.toInt();
+        switch (newMode)
+        {
+            case AutoHTP:
+            case AutoLTP:
+                forcedHTP.removeOne(index);
+                forcedLTP.removeOne(index);
+            break;
+            case ForcedHTP:
+                if (channel->group() != QLCChannel::Intensity)
+                    forcedHTP.append(index);
+            break;
+            case ForcedLTP:
+                if (channel->group() == QLCChannel::Intensity)
+                    forcedLTP.append(index);
+            break;
+        }
+
+        fixture->setForcedHTPChannels(forcedHTP);
+        fixture->setForcedLTPChannels(forcedLTP);
     }
 
     // now reconstruct the item path and change the role of the tree model
@@ -436,10 +473,12 @@ void FixtureManager::setItemRoleData(int itemID, int index, QString role, QVaria
     else
     {
         // change happened on a channel node
-
+        path = QString("%1%2%3%2%4").arg(uniNames.at(fixture->universe()))
+                                    .arg(TreeModel::separator()).arg(fixture->name())
+                                    .arg(channel->name());
     }
 
-    qDebug() << "Path" << path << ", role index" << roleIndex;
+    //qDebug() << "Path" << path << ", role index" << roleIndex;
 
     m_fixtureTree->setItemRoleData(path, value, roleIndex);
 }
