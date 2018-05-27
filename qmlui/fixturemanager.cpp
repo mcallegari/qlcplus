@@ -488,19 +488,145 @@ bool FixtureManager::compareFixtures(Fixture *left, Fixture *right)
     return *left < *right;
 }
 
+void FixtureManager::addFixtureNode(Doc *doc, TreeModel *treeModel, Fixture *fixture,
+                                    QString basePath, quint32 nodeSubID,
+                                    int &matchMask, QString searchFilter,
+                                    int showFlags, QList<SceneValue> checkedChannels)
+{
+    if (doc == NULL || treeModel == NULL || fixture == NULL)
+        return;
+
+    MonitorProperties *monProps = doc->monitorProperties();
+    bool expandAll = searchFilter.length() >= SEARCH_MIN_CHARS;
+
+    if (searchFilter.length() < SEARCH_MIN_CHARS || fixture->name().toLower().contains(searchFilter))
+        matchMask |= FixtureMatch;
+
+    for (quint32 subID : monProps->fixtureIDList(fixture->id()))
+    {
+        quint16 headIndex = monProps->fixtureHeadIndex(subID);
+        quint16 linkedIndex = monProps->fixtureLinkedIndex(subID);
+        quint32 itemID = FixtureUtils::fixtureItemID(fixture->id(), headIndex, linkedIndex);
+
+        // represent dimmers as a whole fixture + (channels || heads)
+        if (fixture->type() == QLCFixtureDef::Dimmer && headIndex > 0)
+            continue;
+
+        QString fxPath = QString("%1%2%3").arg(basePath).arg(TreeModel::separator()).arg(fixture->name());
+
+        if (showFlags & ShowHeads)
+        {
+            if (matchMask && fixture->heads() > 1)
+            {
+                for (int headIdx = 0; headIdx < fixture->heads(); headIdx++)
+                {
+                    quint32 iID = itemID;
+                    if (fixture->type() == QLCFixtureDef::Dimmer)
+                        iID = FixtureUtils::fixtureItemID(fixture->id(), headIdx, linkedIndex);
+
+                    QVariantList headParams;
+                    headParams.append(QVariant::fromValue(fixture)); // classRef
+                    headParams.append(App::HeadDragItem); // type
+                    headParams.append(iID); // id
+                    headParams.append(nodeSubID); // subid
+                    headParams.append(headIdx); // chIdx
+                    treeModel->addItem(QString("%1 %2").arg(tr("Head")).arg(headIdx + 1, 3, 10, QChar('0')),
+                                       headParams, fxPath);
+                }
+            }
+        }
+        else if ((showFlags & ShowChannels) && linkedIndex == 0) // do not display channels for linked fixtures
+        {
+            int chIdx = 0;
+            QList<int> forcedHTP = fixture->forcedHTPChannels();
+            QList<int> forcedLTP = fixture->forcedLTPChannels();
+
+            QLCFixtureMode *mode = fixture->fixtureMode();
+            if (mode == NULL)
+                continue;
+
+            for (QLCChannel *channel : mode->channels()) // C++11
+            {
+                if (matchMask || searchFilter.length() < SEARCH_MIN_CHARS ||
+                    channel->name().toLower().contains(searchFilter))
+                {
+                    int flags = expandAll ? TreeModel::Expanded : 0;
+                    if (checkedChannels.contains(SceneValue(fixture->id(), chIdx)))
+                        flags |= TreeModel::Checked;
+
+                    QVariantList chParams;
+                    chParams.append(QVariant::fromValue(fixture)); // classRef
+                    chParams.append(App::ChannelDragItem); // type
+                    chParams.append(itemID); // id
+                    chParams.append(nodeSubID); // subid
+                    chParams.append(chIdx); // chIdx
+
+                    if (showFlags & ShowFlags)
+                        chParams.append(0); // might be useful in the future
+
+                    if (showFlags & ShowCanFade)
+                        chParams.append(fixture->channelCanFade(chIdx)); // canFade
+
+                    if (showFlags & ShowPrecedence)
+                    {
+                        if (forcedHTP.contains(chIdx))
+                            chParams.append(ForcedHTP);
+                        else if (forcedLTP.contains(chIdx))
+                            chParams.append(ForcedLTP);
+                        else
+                        {
+                            if (channel->group() == QLCChannel::Intensity)
+                                chParams.append(AutoHTP);
+                            else
+                                chParams.append(AutoLTP);
+                        }
+                    }
+
+                    if (showFlags & ShowModifier)
+                    {
+                        // TODO
+                        chParams.append("");
+                    }
+
+                    treeModel->addItem(channel->name(), chParams, fxPath, flags);
+                    matchMask |= ChannelMatch;
+                }
+                chIdx++;
+            }
+        }
+
+        if (matchMask)
+        {
+            // when all the channel/head 'leaves' have been added, set the parent node data
+            QVariantList fxParams;
+            fxParams.append(QVariant::fromValue(fixture)); // classRef
+            fxParams.append(App::FixtureDragItem); // type
+            fxParams.append(itemID); // id
+            fxParams.append(nodeSubID); // subid
+            fxParams.append(0); // chIdx
+
+            if (showFlags & ShowFlags)
+                fxParams.append(monProps->fixtureFlags(fixture->id(), headIndex, linkedIndex));
+
+            if (showFlags & ShowChannels || fixture->heads() > 1)
+                treeModel->setPathData(fxPath, fxParams);
+            else
+                treeModel->addItem(fixture->name(), fxParams, basePath, expandAll ? TreeModel::Expanded : 0);
+        }
+    }
+}
+
 void FixtureManager::addFixtureGroupTreeNode(Doc *doc, TreeModel *treeModel, FixtureGroup *group,
                                              QString searchFilter, int showFlags,
                                              QList<SceneValue> checkedChannels)
 {
-    int matchFound = 0;
-    bool expandAll = searchFilter.length() >= SEARCH_MIN_CHARS;
-    MonitorProperties *monProps = doc->monitorProperties();
+    int matchMask = 0;
 
     if (doc == NULL || treeModel == NULL || group == NULL)
         return;
 
     if (searchFilter.length() < SEARCH_MIN_CHARS || group->name().toLower().contains(searchFilter))
-        matchFound |= GroupMatch;
+        matchMask |= GroupMatch;
 
     for (quint32 fxID : group->fixtureList())
     {
@@ -508,100 +634,21 @@ void FixtureManager::addFixtureGroupTreeNode(Doc *doc, TreeModel *treeModel, Fix
         if (fixture == NULL)
             continue;
 
-        for (quint32 subID : monProps->fixtureIDList(fixture->id()))
-        {
-            quint16 headIndex = monProps->fixtureHeadIndex(subID);
-            quint16 linkedIndex = monProps->fixtureLinkedIndex(subID);
-            quint32 itemID = FixtureUtils::fixtureItemID(fixture->id(), headIndex, linkedIndex);
+        int fxMatchMask = 0;
 
-            QLCFixtureMode *mode = fixture->fixtureMode();
-            if (mode == NULL)
-                continue;
-
-            // represent dimmers as a whole fixture + (channels || heads)
-            if (fixture->type() == QLCFixtureDef::Dimmer && headIndex > 0)
-                continue;
-
-            if (searchFilter.length() < SEARCH_MIN_CHARS || fixture->name().toLower().contains(searchFilter))
-                matchFound |= FixtureMatch;
-
-
-            QString fxPath = QString("%1%2%3").arg(group->name()).arg(TreeModel::separator()).arg(fixture->name());
-
-            if (showFlags & ShowHeads)
-            {
-                matchFound |= HeadMatch;
-
-                if (fixture->heads() > 1)
-                {
-                    for (int headIdx = 0; headIdx < fixture->heads(); headIdx++)
-                    {
-                        QVariantList headParams;
-                        headParams.append(QVariant::fromValue(fixture)); // classRef
-                        headParams.append(App::HeadDragItem); // type
-                        headParams.append(itemID); // id
-                        headParams.append(fixture->universe()); // subid
-                        headParams.append(headIdx); // head
-                        treeModel->addItem(QString("%1 %2").arg(tr("Head")).arg(headIdx + 1, 3, 10, QChar('0')),
-                                           headParams, fxPath);
-                    }
-                }
-            }
-            else if (showFlags & ShowChannels)
-            {
-                int chIdx = 0;
-                for (QLCChannel *channel : mode->channels()) // C++11
-                {
-                    if ((matchFound & GroupMatch) || (matchFound & FixtureMatch) ||
-                        searchFilter.length() < SEARCH_MIN_CHARS ||
-                        channel->name().toLower().contains(searchFilter))
-                    {
-                        QVariantList chParams;
-                        int flags = expandAll ? TreeModel::Expanded : 0;
-
-                        if (checkedChannels.contains(SceneValue(fixture->id(), chIdx)))
-                            flags |= TreeModel::Checked;
-
-                        chParams.append(QVariant::fromValue(fixture)); // classRef
-                        chParams.append(App::ChannelDragItem); // type
-                        chParams.append(itemID); // id
-                        chParams.append(group->id()); // subid
-                        chParams.append(chIdx); // chIdx
-
-                        treeModel->addItem(channel->name(), chParams, fxPath, flags);
-                        matchFound |= ChannelMatch;
-                    }
-                    chIdx++;
-                }
-            }
-
-            if (matchFound)
-            {
-                // when all the channel 'leaves' have been added, set the parent node data
-                QVariantList fxParams;
-                fxParams.append(QVariant::fromValue(fixture)); // classRef
-                fxParams.append(App::FixtureDragItem); // type
-                fxParams.append(itemID); // id
-                fxParams.append(group->id()); // subid
-                fxParams.append(0); // chIdx
-
-                if (showFlags & ShowChannels || fixture->heads() > 1)
-                    treeModel->setPathData(fxPath, fxParams);
-                else
-                    treeModel->addItem(fixture->name(), fxParams, group->name(), expandAll ? TreeModel::Expanded : 0);
-            }
-        }
+        addFixtureNode(doc, treeModel, fixture, group->name(), group->id(),
+                       fxMatchMask, searchFilter, showFlags, checkedChannels);
+        if (fxMatchMask)
+            matchMask |= FixtureMatch;
     }
 
-    if (matchFound)
+    if (matchMask)
     {
         // add also the fixture group data
         QVariantList grpParams;
         grpParams.append(QVariant::fromValue(group)); // classRef
         grpParams.append(App::FixtureGroupDragItem); // type
         grpParams.append(group->id()); // id
-        //grpParams.append(0); // subid
-        //grpParams.append(0); // chIdx
 
         treeModel->setPathData(group->name(), grpParams);
     }
@@ -613,9 +660,8 @@ void FixtureManager::updateGroupsTree(Doc *doc, TreeModel *treeModel, QString se
     if (doc == NULL || treeModel == NULL)
         return;
 
-    bool expandAll = searchFilter.length() >= SEARCH_MIN_CHARS;
     QStringList uniNames = doc->inputOutputMap()->universeNames();
-    MonitorProperties *monProps = doc->monitorProperties();
+    QList<Fixture*> fixtureList = doc->fixtures();
 
     treeModel->clear();
 
@@ -631,136 +677,20 @@ void FixtureManager::updateGroupsTree(Doc *doc, TreeModel *treeModel, QString se
             addFixtureGroupTreeNode(doc, treeModel, grp, searchFilter, showFlags, checkedChannels);
     }
 
-    QList<Fixture*> origList = doc->fixtures();
     // sort the fixture list by address and not by ID
-    std::sort(origList.begin(), origList.end(), compareFixtures);
+    std::sort(fixtureList.begin(), fixtureList.end(), compareFixtures);
 
     // add the current universes as groups
-    for (Fixture *fixture : origList) // C++11
+    for (Fixture *fixture : fixtureList) // C++11
     {
         if (fixture->universe() >= (quint32)uniNames.count())
             continue;
 
-        for (quint32 subID : monProps->fixtureIDList(fixture->id()))
-        {
-            quint16 headIndex = monProps->fixtureHeadIndex(subID);
-            quint16 linkedIndex = monProps->fixtureLinkedIndex(subID);
-            quint32 itemID = FixtureUtils::fixtureItemID(fixture->id(), headIndex, linkedIndex);
+        QString universeName = uniNames.at(fixture->universe());
+        int matchMask = 0;
 
-            // represent dimmers as a whole fixture + (channels || heads)
-            if (fixture->type() == QLCFixtureDef::Dimmer && headIndex > 0)
-                continue;
-
-            int matchFound = 0;
-            if (searchFilter.length() < SEARCH_MIN_CHARS || fixture->name().toLower().contains(searchFilter))
-                matchFound |= FixtureMatch;
-
-            QString fxPath = QString("%1%2%3")
-                            .arg(uniNames.at(fixture->universe()))
-                            .arg(TreeModel::separator()).arg(fixture->name());
-            QLCFixtureMode *mode = fixture->fixtureMode();
-            if (mode == NULL)
-                continue;
-
-            if (showFlags & ShowHeads)
-            {
-                matchFound |= HeadMatch;
-
-                if (fixture->heads() > 1)
-                {
-                    for (int headIdx = 0; headIdx < fixture->heads(); headIdx++)
-                    {
-                        quint32 iID = itemID;
-                        if (fixture->type() == QLCFixtureDef::Dimmer)
-                            iID = FixtureUtils::fixtureItemID(fixture->id(), headIdx, linkedIndex);
-
-                        QVariantList headParams;
-                        headParams.append(QVariant::fromValue(fixture)); // classRef
-                        headParams.append(App::HeadDragItem); // type
-                        headParams.append(iID); // id
-                        headParams.append(fixture->universe()); // subid
-                        headParams.append(headIdx); // chIdx
-                        treeModel->addItem(QString("%1 %2").arg(tr("Head")).arg(headIdx + 1, 3, 10, QChar('0')),
-                                           headParams, fxPath);
-                    }
-                }
-            }
-            else if ((showFlags & ShowChannels) && linkedIndex == 0) // do not display channels for linked fixtures
-            {
-                int chIdx = 0;
-                QList<int> forcedHTP = fixture->forcedHTPChannels();
-                QList<int> forcedLTP = fixture->forcedLTPChannels();
-
-                for (QLCChannel *channel : mode->channels()) // C++11
-                {
-                    if ((matchFound & FixtureMatch) || searchFilter.length() < SEARCH_MIN_CHARS ||
-                        channel->name().toLower().contains(searchFilter))
-                    {
-                        int flags = expandAll ? TreeModel::Expanded : 0;
-                        if (checkedChannels.contains(SceneValue(fixture->id(), chIdx)))
-                            flags |= TreeModel::Checked;
-
-                        QVariantList chParams;
-                        chParams.append(QVariant::fromValue(fixture)); // classRef
-                        chParams.append(App::ChannelDragItem); // type
-                        chParams.append(itemID); // id
-                        chParams.append(fixture->universe()); // subid
-                        chParams.append(chIdx); // chIdx
-
-                        if (showFlags & ShowFlags)
-                            chParams.append(0); // might be useful in the future
-
-                        if (showFlags & ShowCanFade)
-                            chParams.append(fixture->channelCanFade(chIdx)); // canFade
-
-                        if (showFlags & ShowPrecedence)
-                        {
-                            if (forcedHTP.contains(chIdx))
-                                chParams.append(ForcedHTP);
-                            else if (forcedLTP.contains(chIdx))
-                                chParams.append(ForcedLTP);
-                            else
-                            {
-                                if (channel->group() == QLCChannel::Intensity)
-                                    chParams.append(AutoHTP);
-                                else
-                                    chParams.append(AutoLTP);
-                            }
-                        }
-
-                        if (showFlags & ShowModifier)
-                        {
-                            // TODO
-                            chParams.append("");
-                        }
-
-                        treeModel->addItem(channel->name(), chParams, fxPath, flags);
-                        matchFound |= ChannelMatch;
-                    }
-                    chIdx++;
-                }
-            }
-
-            if (matchFound)
-            {
-                // when all the channel/head 'leaves' have been added, set the parent node data
-                QVariantList fxParams;
-                fxParams.append(QVariant::fromValue(fixture)); // classRef
-                fxParams.append(App::FixtureDragItem); // type
-                fxParams.append(itemID); // id
-                fxParams.append(fixture->universe()); // subid
-                fxParams.append(0); // chIdx
-
-                if (showFlags & ShowFlags)
-                    fxParams.append(monProps->fixtureFlags(fixture->id(), headIndex, linkedIndex));
-
-                if (showFlags & ShowChannels || fixture->heads() > 1)
-                    treeModel->setPathData(fxPath, fxParams);
-                else
-                    treeModel->addItem(fixture->name(), fxParams, uniNames.at(fixture->universe()),
-                                       expandAll ? TreeModel::Expanded : 0);
-            }
-        }
+        addFixtureNode(doc, treeModel, fixture, universeName, fixture->universe(),
+                       matchMask, searchFilter, showFlags, checkedChannels);
     }
 
     for (Universe *universe : doc->inputOutputMap()->universes())
@@ -770,8 +700,6 @@ void FixtureManager::updateGroupsTree(Doc *doc, TreeModel *treeModel, QString se
         uniParams.append(QVariant::fromValue(universe)); // classRef
         uniParams.append(App::UniverseDragItem); // type
         uniParams.append(universe->id()); // id
-        //uniParams.append(0); // subid
-        //uniParams.append(0); // chIdx
 
         treeModel->setPathData(universe->name(), uniParams);
     }

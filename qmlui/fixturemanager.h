@@ -174,6 +174,10 @@ public:
 
     Q_INVOKABLE void setItemRoleData(int itemID, int index, QString role, QVariant value);
 
+    static void addFixtureNode(Doc *doc, TreeModel *treeModel, Fixture *fixture, QString basePath, quint32 nodeSubID,
+                               int &matchMask, QString searchFilter = QString(), int showFlags = ShowGroups | ShowHeads,
+                               QList<SceneValue> checkedChannels = QList<SceneValue>());
+
     static void addFixtureGroupTreeNode(Doc *doc, TreeModel *treeModel, FixtureGroup *group,
                                         QString searchFilter = QString(), int showFlags = ShowGroups | ShowHeads,
                                         QList<SceneValue> checkedChannels = QList<SceneValue>());
