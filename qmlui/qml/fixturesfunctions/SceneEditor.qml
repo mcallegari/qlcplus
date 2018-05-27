@@ -44,6 +44,7 @@ Rectangle
     {
         EditorTopBar
         {
+            id: toolbar
             visible: showToolBar
             text: sceneEditor.functionName
             onTextChanged: sceneEditor.functionName = text
@@ -72,7 +73,7 @@ Rectangle
             id: sfxList
             width: seContainer.width
             height: seContainer.height - UISettings.iconSizeMedium
-            y: UISettings.iconSizeMedium
+            y: toolbar.height
             boundsBehavior: Flickable.StopAtBounds
             model: sceneEditor.fixtureList
             delegate:
@@ -81,8 +82,8 @@ Rectangle
                     cRef: model.fxRef
                     width: seContainer.width
                     isSelected: model.isSelected
-                    Component.onCompleted: contextManager.setFixtureSelection(cRef.id, -1, true)
-                    Component.onDestruction: contextManager.setFixtureSelection(cRef.id, -1, false)
+                    Component.onCompleted: contextManager.setFixtureIDSelection(cRef.id, true)
+                    Component.onDestruction: contextManager.setFixtureIDSelection(cRef.id, false)
                     onMouseEvent:
                     {
                         if (type === App.Clicked)
@@ -92,7 +93,7 @@ Rectangle
                             if (!(mouseMods & Qt.ControlModifier))
                                 contextManager.resetFixtureSelection()
 
-                            contextManager.setFixtureSelection(cRef.id, -1, true)
+                            contextManager.setFixtureIDSelection(cRef.id, true)
                             sceneEditor.setFixtureSelection(cRef.id)
                         }
                     }

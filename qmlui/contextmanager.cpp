@@ -476,6 +476,10 @@ void ContextManager::setItemSelection(quint32 itemID, bool enable)
 
 void ContextManager::setFixtureSelection(quint32 itemID, int headIndex, bool enable)
 {
+    quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
+    int linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+    int headIdx = FixtureUtils::itemHeadIndex(itemID);
+
     if (m_selectedFixtures.contains(itemID))
     {
         if (enable == false)
@@ -486,30 +490,38 @@ void ContextManager::setFixtureSelection(quint32 itemID, int headIndex, bool ena
     else
     {
         if (enable)
+        {
+            quint32 flags = m_monProps->fixtureFlags(fixtureID, headIdx, linkedIndex);
+
+            // do not even select a hidden item
+            if (flags & MonitorProperties::HiddenFlag)
+                return;
+
             m_selectedFixtures.append(itemID);
+        }
         else
             return;
     }
 
     emit dumpValuesCountChanged();
 
-    quint32 fxID = FixtureUtils::itemFixtureID(itemID);
-    int linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
-    Fixture *fixture = m_doc->fixture(fxID);
+    Fixture *fixture = m_doc->fixture(fixtureID);
 
     if (m_DMXView->isEnabled())
-        m_DMXView->updateFixtureSelection(fxID, enable);
+        m_DMXView->updateFixtureSelection(fixtureID, enable);
 
     if (headIndex == -1 && fixture->type() == QLCFixtureDef::Dimmer)
     {
-        for (quint32 subID : m_monProps->fixtureIDList(fxID))
+        for (quint32 subID : m_monProps->fixtureIDList(fixtureID))
         {
             quint16 hIndex = m_monProps->fixtureHeadIndex(subID);
             quint16 lIndex = m_monProps->fixtureLinkedIndex(subID);
+
             if (lIndex != linkedIndex)
                 continue;
 
-            quint32 id = FixtureUtils::fixtureItemID(fxID, hIndex, linkedIndex);
+            quint32 id = FixtureUtils::fixtureItemID(fixtureID, hIndex, linkedIndex);
+
             if (m_2DView->isEnabled())
                 m_2DView->updateFixtureSelection(id, enable);
             if (m_3DView->isEnabled())
@@ -545,8 +557,24 @@ void ContextManager::setFixtureSelection(quint32 itemID, int headIndex, bool ena
     emit fixturesPositionChanged();
     emit fixturesRotationChanged();
 
+    // parachute if we get out of sync
     if (m_selectedFixtures.isEmpty())
         m_fixtureManager->resetCapabilities();
+}
+
+void ContextManager::setFixtureIDSelection(quint32 fixtureID, bool enable)
+{
+    for (quint32 subID : m_monProps->fixtureIDList(fixtureID))
+    {
+        quint16 headIndex = m_monProps->fixtureHeadIndex(subID);
+        quint16 linkedIndex = m_monProps->fixtureLinkedIndex(subID);
+
+        if (headIndex != 0)
+            continue;
+
+        quint32 itemID = FixtureUtils::fixtureItemID(fixtureID, headIndex, linkedIndex);
+        setFixtureSelection(itemID, -1, enable);
+    }
 }
 
 void ContextManager::resetFixtureSelection()

@@ -155,6 +155,9 @@ public:
     /** Select/Deselect a fixture with the provided $itemID and $headIndex */
     Q_INVOKABLE void setFixtureSelection(quint32 itemID, int headIndex, bool enable);
 
+    /** Select/Deselect a fixture with the provided $fixtureID */
+    Q_INVOKABLE void setFixtureIDSelection(quint32 fixtureID, bool enable);
+
     /** Deselect all the currently selected fixtures */
     Q_INVOKABLE void resetFixtureSelection();
 
