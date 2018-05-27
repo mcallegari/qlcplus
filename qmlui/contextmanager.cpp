@@ -1063,9 +1063,10 @@ void ContextManager::slotPositionChanged(int type, int degrees)
 
 void ContextManager::slotPresetChanged(const QLCChannel *channel, quint8 value)
 {
-    for (quint32 fxID : m_selectedFixtures)
+    for (quint32 itemID : m_selectedFixtures)
     {
-        Fixture *fixture = m_doc->fixture(fxID);
+        quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
+        Fixture *fixture = m_doc->fixture(fixtureID);
         if (fixture == NULL)
             continue;
 
