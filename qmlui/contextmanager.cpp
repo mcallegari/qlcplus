@@ -569,7 +569,21 @@ void ContextManager::resetFixtureSelection()
 void ContextManager::toggleFixturesSelection()
 {
     bool selectAll = true;
-    if (m_selectedFixtures.count() == m_doc->fixtures().count())
+    int visibleCount = 0;
+
+    for (quint32 fixtureID : m_monProps->fixtureItemsID())
+    {
+        for (quint32 subID : m_monProps->fixtureIDList(fixtureID))
+        {
+            quint16 headIndex = m_monProps->fixtureHeadIndex(subID);
+            quint16 linkedIndex = m_monProps->fixtureLinkedIndex(subID);
+            int flags = m_monProps->fixtureFlags(fixtureID, headIndex, linkedIndex);
+            if (!(flags & MonitorProperties::HiddenFlag))
+                visibleCount++;
+        }
+    }
+
+    if (m_selectedFixtures.count() == visibleCount)
         selectAll = false;
 
     for (Fixture *fixture : m_doc->fixtures()) // C++11
@@ -595,6 +609,7 @@ void ContextManager::setRectangleSelection(qreal x, qreal y, qreal width, qreal 
 
     for (quint32 itemID : fxIDList)
         setFixtureSelection(itemID, -1, true);
+
     emit selectedFixturesChanged();
 }
 
@@ -849,8 +864,8 @@ void ContextManager::setFixturesDistribution(int direction)
 
 void ContextManager::updateFixturesCapabilities()
 {
-    for (quint32 id : m_selectedFixtures)
-        m_fixtureManager->getFixtureCapabilities(id, -1, true);
+    for (quint32 itemID : m_selectedFixtures)
+        m_fixtureManager->getFixtureCapabilities(itemID, -1, true);
 }
 
 void ContextManager::createFixtureGroup()
@@ -858,20 +873,20 @@ void ContextManager::createFixtureGroup()
     if (m_selectedFixtures.isEmpty())
         return;
 
-    m_fixtureManager->addFixturesToNewGroup(m_selectedFixtures);
+    m_fixtureManager->addFixturesToNewGroup(selectedFixtureIDList());
 }
 
 QVector3D ContextManager::fixturesRotation() const
 {
     if (m_selectedFixtures.count() == 1)
     {
-        if (m_monProps->containsFixture(m_selectedFixtures.first()) == true)
+        quint32 fixtureID = FixtureUtils::itemFixtureID(m_selectedFixtures.first());
+        if (m_monProps->containsFixture(fixtureID) == true)
         {
-            quint32 fxID = FixtureUtils::itemFixtureID(m_selectedFixtures.first());
             quint16 headIndex = FixtureUtils::itemHeadIndex(m_selectedFixtures.first());
             quint16 linkedIndex = FixtureUtils::itemLinkedIndex(m_selectedFixtures.first());
 
-            return m_monProps->fixtureRotation(fxID, headIndex, linkedIndex);
+            return m_monProps->fixtureRotation(fixtureID, headIndex, linkedIndex);
         }
     }
 
@@ -1156,12 +1171,27 @@ void ContextManager::setDumpValue(quint32 fxID, quint32 channel, uchar value)
     }
 }
 
+QList<quint32> ContextManager::selectedFixtureIDList() const
+{
+    QList<quint32> fxIDList;
+
+    for (quint32 itemID : m_selectedFixtures)
+    {
+        quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
+        if (fxIDList.contains(fixtureID) == false)
+            fxIDList.append(fixtureID);
+    }
+
+    return fxIDList;
+}
+
 int ContextManager::dumpValuesCount() const
 {
     int i = 0;
+    QList<quint32> fxIDList = selectedFixtureIDList();
 
     for (SceneValue sv : m_dumpValues)
-        if (m_selectedFixtures.contains(sv.fxi))
+        if (fxIDList.contains(sv.fxi))
             i++;
 
     return i;
@@ -1174,12 +1204,12 @@ int ContextManager::dumpChannelMask() const
 
 void ContextManager::dumpDmxChannels(QString name, quint32 mask)
 {
-    m_functionManager->dumpOnNewScene(m_dumpValues, m_selectedFixtures, mask, name);
+    m_functionManager->dumpOnNewScene(m_dumpValues, selectedFixtureIDList(), mask, name);
 }
 
 void ContextManager::dumpDmxChannels(quint32 sceneID, quint32 mask)
 {
-    m_functionManager->dumpOnScene(m_dumpValues, m_selectedFixtures, mask, sceneID);
+    m_functionManager->dumpOnScene(m_dumpValues, selectedFixtureIDList(), mask, sceneID);
 }
 
 void ContextManager::resetDumpValues()

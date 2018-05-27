@@ -273,6 +273,10 @@ public:
 
     GenericDMXSource *dmxSource() const;
 
+private:
+    /** Return a list only of the fixture IDs from the selected preview items */
+    QList<quint32> selectedFixtureIDList() const;
+
 signals:
     void dumpValuesCountChanged();
     void dumpChannelMaskChanged();
