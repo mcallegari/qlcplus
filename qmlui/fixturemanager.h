@@ -348,11 +348,12 @@ public:
 
     /**
      * @brief setFixtureCapabilities
-     * @param fxID the Fixture unique ID
+     * @param itemID the preview item ID
+     * @param headIndex index of the head to consider or -1 to not considering it at all
      * @param enable used to increment/decrement the UI tools counters
      * @return A multihash containg the fixture capabilities by channel type
      */
-    QMultiHash<int, SceneValue> getFixtureCapabilities(quint32 fxID, bool enable);
+    QMultiHash<int, SceneValue> getFixtureCapabilities(quint32 itemID, int headIndex, bool enable);
 
     /** Reset any previously elapsed capability */
     void resetCapabilities();

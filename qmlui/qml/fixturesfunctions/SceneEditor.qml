@@ -81,8 +81,8 @@ Rectangle
                     cRef: model.fxRef
                     width: seContainer.width
                     isSelected: model.isSelected
-                    Component.onCompleted: contextManager.setFixtureSelection(cRef.id, true)
-                    Component.onDestruction: contextManager.setFixtureSelection(cRef.id, false)
+                    Component.onCompleted: contextManager.setFixtureSelection(cRef.id, -1, true)
+                    Component.onDestruction: contextManager.setFixtureSelection(cRef.id, -1, false)
                     onMouseEvent:
                     {
                         if (type === App.Clicked)
@@ -92,7 +92,7 @@ Rectangle
                             if (!(mouseMods & Qt.ControlModifier))
                                 contextManager.resetFixtureSelection()
 
-                            contextManager.setFixtureSelection(cRef.id, true)
+                            contextManager.setFixtureSelection(cRef.id, -1, true)
                             sceneEditor.setFixtureSelection(cRef.id)
                         }
                     }

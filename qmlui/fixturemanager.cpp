@@ -670,12 +670,16 @@ void FixtureManager::updateGroupsTree(Doc *doc, TreeModel *treeModel, QString se
                 {
                     for (int headIdx = 0; headIdx < fixture->heads(); headIdx++)
                     {
+                        quint32 iID = itemID;
+                        if (fixture->type() == QLCFixtureDef::Dimmer)
+                            iID = FixtureUtils::fixtureItemID(fixture->id(), headIdx, linkedIndex);
+
                         QVariantList headParams;
                         headParams.append(QVariant::fromValue(fixture)); // classRef
                         headParams.append(App::HeadDragItem); // type
-                        headParams.append(itemID); // id
+                        headParams.append(iID); // id
                         headParams.append(fixture->universe()); // subid
-                        headParams.append(headIdx); // head
+                        headParams.append(headIdx); // chIdx
                         treeModel->addItem(QString("%1 %2").arg(tr("Head")).arg(headIdx + 1, 3, 10, QChar('0')),
                                            headParams, fxPath);
                     }
@@ -1347,7 +1351,7 @@ void FixtureManager::setCapabilityCounter(QString capName, int value)
         capItem->setProperty("counter", value);
 }
 
-QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 fxID, bool enable)
+QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 itemID, int headIndex, bool enable)
 {
     int capDelta = enable ? 1 : -1;
     bool hasDimmer = false, hasColor = false, hasPosition = false;
@@ -1356,16 +1360,31 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 fxID,
     int origColorsMask = m_colorsMask;
     QLCPhysical phy;
 
+    QList<quint32> channelIndices;
     QMultiHash<int, SceneValue> channelsMap;
+    quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
 
-    Fixture *fixture = m_doc->fixture(fxID);
+    Fixture *fixture = m_doc->fixture(fixtureID);
     if (fixture == NULL)
         return channelsMap;
+
+    // build a list of channel indices depending on
+    // if a head has to be considered or not
+    if (headIndex == -1)
+    {
+        for (quint32 i = 0; i < fixture->channels(); i++)
+            channelIndices.append(i);
+    }
+    else
+    {
+        QLCFixtureHead head = fixture->head(headIndex);
+        channelIndices = head.channels();
+    }
 
     if (fixture->fixtureMode() != NULL)
         phy = fixture->fixtureMode()->physical();
 
-    for (quint32 ch = 0; ch < fixture->channels(); ch++)
+    for (quint32 ch : channelIndices)
     {
         const QLCChannel* channel(fixture->channel(ch));
         if(channel == NULL)
@@ -1383,7 +1402,7 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 fxID,
                 {
                     case QLCChannel::NoColour:
                         hasDimmer = true;
-                        channelsMap.insert(chType, SceneValue(fxID, ch));
+                        channelsMap.insert(chType, SceneValue(fixtureID, ch));
                     break;
                     case QLCChannel::Red:
                     case QLCChannel::Green:
@@ -1398,7 +1417,7 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 fxID,
                     case QLCChannel::Indigo:
                         hasColor = true;
                         updateColorsMap(col, capDelta);
-                        channelsMap.insert(chType, SceneValue(fxID, ch));
+                        channelsMap.insert(chType, SceneValue(fixtureID, ch));
                     break;
                     default: break;
                 }
@@ -1423,7 +1442,7 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 fxID,
 
                     qDebug() << "Fixture" << fixture->name() << "Pan:" << panDeg << ", Tilt:" << tiltDeg;
                 }
-                channelsMap.insert(chType, SceneValue(fxID, ch));
+                channelsMap.insert(chType, SceneValue(fixtureID, ch));
             }
             break;
             case QLCChannel::Shutter:
@@ -1433,7 +1452,7 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 fxID,
                 {
                     if (m_presetsCache.contains(channel) == false)
                     {
-                        m_presetsCache[channel] = fxID;
+                        m_presetsCache[channel] = fixtureID;
                         emit shutterChannelsChanged();
                     }
                 }
@@ -1442,7 +1461,7 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 fxID,
                     m_presetsCache.remove(channel);
                     emit shutterChannelsChanged();
                 }
-                channelsMap.insert(chType, SceneValue(fxID, ch));
+                channelsMap.insert(chType, SceneValue(fixtureID, ch));
             }
             break;
             case QLCChannel::Colour:
@@ -1452,7 +1471,7 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 fxID,
                 {
                     if (m_presetsCache.contains(channel) == false)
                     {
-                        m_presetsCache[channel] = fxID;
+                        m_presetsCache[channel] = fixtureID;
                         emit colorWheelChannelsChanged();
                     }
                 }
@@ -1461,7 +1480,7 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 fxID,
                     m_presetsCache.remove(channel);
                     emit colorWheelChannelsChanged();
                 }
-                channelsMap.insert(chType, SceneValue(fxID, ch));
+                channelsMap.insert(chType, SceneValue(fixtureID, ch));
             }
             break;
             case QLCChannel::Gobo:
@@ -1471,7 +1490,7 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 fxID,
                 {
                     if (m_presetsCache.contains(channel) == false)
                     {
-                        m_presetsCache[channel] = fxID;
+                        m_presetsCache[channel] = fixtureID;
                         emit goboChannelsChanged();
                     }
                 }
@@ -1480,7 +1499,7 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 fxID,
                     m_presetsCache.remove(channel);
                     emit goboChannelsChanged();
                 }
-                channelsMap.insert(chType, SceneValue(fxID, ch));
+                channelsMap.insert(chType, SceneValue(fixtureID, ch));
             }
             break;
             case QLCChannel::Beam:
@@ -1497,7 +1516,7 @@ QMultiHash<int, SceneValue> FixtureManager::getFixtureCapabilities(quint32 fxID,
                     if (maxDeg > m_maxBeamDegrees)
                         m_maxBeamDegrees = maxDeg;
                 }
-                channelsMap.insert(chType, SceneValue(fxID, ch));
+                channelsMap.insert(chType, SceneValue(fixtureID, ch));
             }
             break;
             default:

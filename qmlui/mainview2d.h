@@ -65,7 +65,7 @@ public:
     QList<quint32> selectFixturesRect(QRectF rect);
 
     /** Return the ID of a Fixture at the given $pos or -1 if not found */
-    Q_INVOKABLE int fixtureAtPos(QPointF pos);
+    Q_INVOKABLE int itemIDAtPos(QPointF pos);
 
     /** Update the fixture preview items when some channels have changed */
     void updateFixture(Fixture *fixture);

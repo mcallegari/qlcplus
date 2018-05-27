@@ -153,7 +153,7 @@ Rectangle
         onTriggered:
         {
             isSelected = !isSelected
-            contextManager.setFixtureSelection(fixtureObj.id, isSelected)
+            contextManager.setFixtureSelection(fixtureObj.id, -1, isSelected)
         }
     }
 

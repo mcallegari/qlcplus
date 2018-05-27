@@ -255,7 +255,7 @@ QList<quint32> MainView2D::selectFixturesRect(QRectF rect)
     return fxList;
 }
 
-int MainView2D::fixtureAtPos(QPointF pos)
+int MainView2D::itemIDAtPos(QPointF pos)
 {
     QMap<quint32, QQuickItem *>::const_iterator i = m_itemsMap.constBegin();
     while (i != m_itemsMap.constEnd())

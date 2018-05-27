@@ -358,7 +358,11 @@ Rectangle
                                     switch (qItem.itemType)
                                     {
                                         case App.FixtureDragItem:
-                                            contextManager.setFixtureSelection(iID, true)
+                                            contextManager.setFixtureSelection(iID, -1, true)
+                                        break;
+                                        case App.HeadDragItem:
+                                            console.log("Head clicked. ItemID: " + qItem.itemID + ", head: " + iID)
+                                            contextManager.setFixtureSelection(qItem.itemID, iID, true);
                                         break;
                                         case App.UniverseDragItem:
                                             contextManager.setFixtureGroupSelection(iID, true, true)

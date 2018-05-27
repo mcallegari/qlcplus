@@ -725,9 +725,11 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QComponent
     meshRef->m_selectionBox->setProperty("center", meshRef->m_volume.m_center);
 
     if (meshRef->m_rootTransform != NULL)
+    {
         QMetaObject::invokeMethod(meshRef->m_selectionBox, "bindFixtureTransform",
                 Q_ARG(QVariant, fixture->id()),
                 Q_ARG(QVariant, QVariant::fromValue(meshRef->m_rootTransform)));
+    }
 
     if (itemFlags & MonitorProperties::HiddenFlag)
     {
@@ -765,6 +767,8 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
         return;
 
     QEntity *fixtureItem = meshItem->m_rootItem;
+    if (fixtureItem == NULL)
+        return;
 
     // in case of a dimmer pack, headIndex is actually the fixture channel
     // so treat this as a special case and go straight to the point

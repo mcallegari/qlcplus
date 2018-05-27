@@ -362,8 +362,8 @@ Column
                         }
                         else
                         {
-                            console.log("Head node, fixture " + cRef + " index: " + head + " label: " + label)
-                            item.headIndex = head
+                            console.log("Head node, fixture " + cRef + " index: " + chIdx + " label: " + label)
+                            item.headIndex = chIdx
                         }
                     }
                     Connections
@@ -400,6 +400,7 @@ Column
                                 break;
                             }
 
+                            // forward the event to the parent node
                             nodeContainer.mouseEvent(type, iID, iType, qItem, mouseMods)
                         }
                     }

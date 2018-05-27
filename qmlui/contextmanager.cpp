@@ -365,7 +365,7 @@ void ContextManager::resetContexts()
     m_channelsMap.clear();
     resetDumpValues();
     for (quint32 itemID : m_selectedFixtures)
-        setFixtureSelection(itemID, false);
+        setFixtureSelection(itemID, -1, false);
 
     m_selectedFixtures.clear();
     m_editingEnabled = false;
@@ -459,7 +459,22 @@ void ContextManager::setUniverseFilter(quint32 universeFilter)
  * Common fixture helpers
  *********************************************************************/
 
-void ContextManager::setFixtureSelection(quint32 itemID, bool enable)
+void ContextManager::setItemSelection(quint32 itemID, bool enable)
+{
+    quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+    Fixture *fixture = m_doc->fixture(fxID);
+
+    if (fixture->type() == QLCFixtureDef::Dimmer)
+    {
+        setFixtureSelection(itemID, FixtureUtils::itemHeadIndex(itemID), enable);
+    }
+    else
+    {
+        setFixtureSelection(itemID, -1, enable);
+    }
+}
+
+void ContextManager::setFixtureSelection(quint32 itemID, int headIndex, bool enable)
 {
     if (m_selectedFixtures.contains(itemID))
     {
@@ -479,15 +494,37 @@ void ContextManager::setFixtureSelection(quint32 itemID, bool enable)
     emit dumpValuesCountChanged();
 
     quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+    int linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+    Fixture *fixture = m_doc->fixture(fxID);
 
     if (m_DMXView->isEnabled())
         m_DMXView->updateFixtureSelection(fxID, enable);
-    if (m_2DView->isEnabled())
-        m_2DView->updateFixtureSelection(itemID, enable);
-    if (m_3DView->isEnabled())
-        m_3DView->updateFixtureSelection(itemID, enable);
 
-    QMultiHash<int, SceneValue> channels = m_fixtureManager->getFixtureCapabilities(fxID, enable);
+    if (headIndex == -1 && fixture->type() == QLCFixtureDef::Dimmer)
+    {
+        for (quint32 subID : m_monProps->fixtureIDList(fxID))
+        {
+            quint16 hIndex = m_monProps->fixtureHeadIndex(subID);
+            quint16 lIndex = m_monProps->fixtureLinkedIndex(subID);
+            if (lIndex != linkedIndex)
+                continue;
+
+            quint32 id = FixtureUtils::fixtureItemID(fxID, hIndex, linkedIndex);
+            if (m_2DView->isEnabled())
+                m_2DView->updateFixtureSelection(id, enable);
+            if (m_3DView->isEnabled())
+                m_3DView->updateFixtureSelection(id, enable);
+        }
+    }
+    else
+    {
+        if (m_2DView->isEnabled())
+            m_2DView->updateFixtureSelection(itemID, enable);
+        if (m_3DView->isEnabled())
+            m_3DView->updateFixtureSelection(itemID, enable);
+    }
+
+    QMultiHash<int, SceneValue> channels = m_fixtureManager->getFixtureCapabilities(itemID, headIndex, enable);
     if(channels.keys().isEmpty())
         return;
 
@@ -524,7 +561,7 @@ void ContextManager::resetFixtureSelection()
             quint16 headIndex = m_monProps->fixtureHeadIndex(subID);
             quint16 linkedIndex = m_monProps->fixtureLinkedIndex(subID);
             quint32 itemID = FixtureUtils::fixtureItemID(fixture->id(), headIndex, linkedIndex);
-            setFixtureSelection(itemID, false);
+            setFixtureSelection(itemID, -1, false);
         }
     }
 }
@@ -545,7 +582,7 @@ void ContextManager::toggleFixturesSelection()
             quint16 headIndex = m_monProps->fixtureHeadIndex(subID);
             quint16 linkedIndex = m_monProps->fixtureLinkedIndex(subID);
             quint32 itemID = FixtureUtils::fixtureItemID(fixture->id(), headIndex, linkedIndex);
-            setFixtureSelection(itemID, selectAll);
+            setFixtureSelection(itemID, -1, selectAll);
         }
     }
 }
@@ -557,7 +594,7 @@ void ContextManager::setRectangleSelection(qreal x, qreal y, qreal width, qreal 
         fxIDList = m_2DView->selectFixturesRect(QRectF(x, y, width, height));
 
     for (quint32 itemID : fxIDList)
-        setFixtureSelection(itemID, true);
+        setFixtureSelection(itemID, -1, true);
     emit selectedFixturesChanged();
 }
 
@@ -813,7 +850,7 @@ void ContextManager::setFixturesDistribution(int direction)
 void ContextManager::updateFixturesCapabilities()
 {
     for (quint32 id : m_selectedFixtures)
-        m_fixtureManager->getFixtureCapabilities(id, true);
+        m_fixtureManager->getFixtureCapabilities(id, -1, true);
 }
 
 void ContextManager::createFixtureGroup()
@@ -894,7 +931,7 @@ void ContextManager::setFixtureGroupSelection(quint32 id, bool enable, bool isUn
         for (Fixture *fixture : m_doc->fixtures())
         {
             if (fixture->universe() == id)
-                setFixtureSelection(fixture->id(), enable);
+                setFixtureSelection(fixture->id(), -1, enable);
         }
     }
     else
@@ -914,7 +951,7 @@ void ContextManager::setFixtureGroupSelection(quint32 id, bool enable, bool isUn
                 quint16 headIndex = m_monProps->fixtureHeadIndex(subID);
                 quint16 linkedIndex = m_monProps->fixtureLinkedIndex(subID);
                 quint32 itemID = FixtureUtils::fixtureItemID(fxID, headIndex, linkedIndex);
-                setFixtureSelection(itemID, enable);
+                setFixtureSelection(itemID, -1, enable);
             }
         }
     }
