@@ -1,24 +1,24 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.9.1</Version>
+  <Version>4.11.3 GIT</Version>
   <Author>Robert Box</Author>
  </Creator>
  <Manufacturer>JB Systems</Manufacturer>
  <Model>Lounge Laser DMX</Model>
- <Type>Dimmer</Type>
+ <Type>Laser</Type>
  <Channel Name="1-Channel Mode">
   <Group Byte="0">Effect</Group>
-  <Capability Color="#000000" Min="0" Max="7">Laser off (blackout)</Capability>
+  <Capability Min="0" Max="7" Preset="ColorMacro" Res1="#000000">Laser off (blackout)</Capability>
   <Capability Min="8" Max="100">ArA, automatic random play</Capability>
   <Capability Min="101" Max="170">SrA, slow random play</Capability>
   <Capability Min="171" Max="255">Sou, sound activated random play</Capability>
  </Channel>
  <Channel Name="Mode Select">
   <Group Byte="0">Effect</Group>
-  <Capability Color="#000000" Min="0" Max="51">Laser off (blackout)</Capability>
+  <Capability Min="0" Max="51" Preset="ColorMacro" Res1="#000000">Laser off (blackout)</Capability>
   <Capability Min="52" Max="102">ArA, automatic random play</Capability>
   <Capability Min="103" Max="154">SrA, slow random play</Capability>
   <Capability Min="155" Max="206">Sou, sound activated random play</Capability>
@@ -76,11 +76,11 @@
   <Channel Number="5">Dimmer LED</Channel>
   <Channel Number="6">LED Strobe</Channel>
  </Mode>
-<Physical>
-   <Bulb ColourTemperature="0" Lumens="0" Type="Laser/LED"/>
-   <Dimensions Depth="160" Width="233" Height="86" Weight="1.6"/>
-   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="15"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="Laser/LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.6" Width="233" Height="86" Depth="160"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="15" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

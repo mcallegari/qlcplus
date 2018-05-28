@@ -1,14 +1,14 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.2 GIT</Version>
+  <Version>4.11.3 GIT</Version>
   <Author>David Morgenschweis</Author>
  </Creator>
  <Manufacturer>Eurolite</Manufacturer>
  <Model>THA-100F COB</Model>
- <Type>Dimmer</Type>
+ <Type>Color Changer</Type>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
@@ -16,12 +16,11 @@
   <Capability Min="1" Max="255">Strobe-effect with increasing speed</Capability>
  </Channel>
  <Channel Name="Dimmer Curve">
-  <Group Byte="1">Nothing</Group>
-  <Capability Min="0" Max="15">Inverse square dimmer curve, response characteristics of LED </Capability>
+  <Group Byte="1">Effect</Group>
+  <Capability Min="0" Max="15">Inverse square dimmer curve, response characteristics of LED</Capability>
   <Capability Min="16" Max="45">Linear dimmer curve, response characteristics of halogen lamp</Capability>
   <Capability Min="46" Max="75">Square dimmer curve, response characteristics of halogen lamp</Capability>
-  <Capability Min="76" Max="105">Inverse square dimmer curve, response characteristics of halogen
-lamp</Capability>
+  <Capability Min="76" Max="105">Inverse square dimmer curve, response characteristics of halogen lamp</Capability>
   <Capability Min="106" Max="135">S-shaped dimmer curve, response characteristics of halogen lamp</Capability>
   <Capability Min="136" Max="165">Linear dimmer curve, response characteristics of LED</Capability>
   <Capability Min="166" Max="195">Square dimmer curve, response characteristics of LED</Capability>
@@ -36,11 +35,11 @@ lamp</Capability>
   <Channel Number="1">Strobe</Channel>
   <Channel Number="2">Dimmer Curve</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="3200"/>
-   <Dimensions Weight="5.5" Width="305" Height="370" Depth="387"/>
-   <Lens Name="Fresnel" DegreesMin="10" DegreesMax="50"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="120" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
-  </FixtureDefinition>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="3200"/>
+  <Dimensions Weight="5.5" Width="305" Height="370" Depth="387"/>
+  <Lens Name="Fresnel" DegreesMin="10" DegreesMax="50"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="120" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,14 +1,14 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.0</Version>
+  <Version>4.11.3 GIT</Version>
   <Author>Krzysztof Ratynski</Author>
  </Creator>
  <Manufacturer>Enterius</Manufacturer>
  <Model>EC-133DMX</Model>
- <Type>Dimmer</Type>
+ <Type>Color Changer</Type>
  <Channel Name="Channel 1" Preset="IntensityDimmer"/>
  <Channel Name="Channel 2" Preset="IntensityDimmer"/>
  <Channel Name="Channel 3" Preset="IntensityDimmer"/>
@@ -25,11 +25,11 @@
   <Channel Number="1">Green brightness</Channel>
   <Channel Number="2">Blue brightness</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Weight="0.1" Width="87" Depth="59" Height="35"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus PanMax="0" TiltMax="0" Type="Fixed"/>
-   <Technical DmxConnector="Other" PowerConsumption="252"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="0.1" Width="87" Height="35" Depth="59"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="252" DmxConnector="Other"/>
+ </Physical>
 </FixtureDefinition>

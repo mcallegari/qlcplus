@@ -1,14 +1,14 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.9.0 GIT</Version>
+  <Version>4.11.3 GIT</Version>
   <Author>Louis Gutenschwager</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
  <Model>LED Shadow</Model>
- <Type>Dimmer</Type>
+ <Type>Strobe</Type>
  <Channel Name="Mode">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="39">Dimmer Mode</Capability>
@@ -27,11 +27,11 @@
   <Channel Number="1">Speed</Channel>
   <Channel Number="2">Dimmer</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Width="248" Weight="2.2" Depth="165" Height="356"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
-   <Technical PowerConsumption="12" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.2" Width="248" Height="356" Depth="165"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="12" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

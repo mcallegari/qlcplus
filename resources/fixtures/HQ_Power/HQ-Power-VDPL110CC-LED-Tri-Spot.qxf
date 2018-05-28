@@ -1,14 +1,14 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.1</Version>
+  <Version>4.11.3 GIT</Version>
   <Author>Robert Box</Author>
  </Creator>
  <Manufacturer>HQ Power</Manufacturer>
  <Model>VDPL110CC LED Tri Spot</Model>
- <Type>Dimmer</Type>
+ <Type>Color Changer</Type>
  <Channel Name="Red Dimmer" Preset="IntensityRed"/>
  <Channel Name="Green Dimmer" Preset="IntensityGreen"/>
  <Channel Name="Blue Dimmer" Preset="IntensityBlue"/>
@@ -43,11 +43,11 @@
   <Channel Number="5">Mode</Channel>
   <Channel Number="6">Dimmer</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="10W LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Height="100" Weight="1" Width="100" Depth="260"/>
-   <Lens DegreesMax="0" DegreesMin="0" Name="Other"/>
-   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
-   <Technical PowerConsumption="11" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="10W LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1" Width="100" Height="100" Depth="260"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="11" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

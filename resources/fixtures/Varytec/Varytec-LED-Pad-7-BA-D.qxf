@@ -1,14 +1,14 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.11.3 GIT</Version>
   <Author>DjProWings</Author>
  </Creator>
  <Manufacturer>Varytec</Manufacturer>
  <Model>LED Pad 7 BA-D</Model>
- <Type>Dimmer</Type>
+ <Type>Color Changer</Type>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Dimmer For Red" Preset="IntensityRed"/>
  <Channel Name="Dimmer For Green" Preset="IntensityGreen"/>
@@ -17,11 +17,11 @@
  <Channel Name="Macros">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="15">No function</Capability>
-  <Capability Min="16" Max="31" Color="#ff0000" Color2="#00aa00">Scene with R - G - B - RG - G</Capability>
-  <Capability Min="32" Max="47" Color="#55ff00" Color2="#0000ff">Scene with G - GB - B - RB - R</Capability>
-  <Capability Min="48" Max="63" Color="#ff0000" Color2="#5500ff">Scene with R - B - G - RG - G</Capability>
-  <Capability Min="64" Max="79" Color="#ff0000" Color2="#55ff00">Scene with R - G - GB - RGB - G</Capability>
-  <Capability Min="80" Max="95" Color="#0000ff" Color2="#ffff00">Scene with B - BG - RGB - RG - G</Capability>
+  <Capability Min="16" Max="31" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00aa00">Scene with R - G - B - RG - G</Capability>
+  <Capability Min="32" Max="47" Preset="ColorDoubleMacro" Res1="#55ff00" Res2="#0000ff">Scene with G - GB - B - RB - R</Capability>
+  <Capability Min="48" Max="63" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#5500ff">Scene with R - B - G - RG - G</Capability>
+  <Capability Min="64" Max="79" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#55ff00">Scene with R - G - GB - RGB - G</Capability>
+  <Capability Min="80" Max="95" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffff00">Scene with B - BG - RGB - RG - G</Capability>
   <Capability Min="96" Max="111">Colour continuous strobe</Capability>
   <Capability Min="112" Max="127">Gradient</Capability>
   <Capability Min="128" Max="143">Colour swap</Capability>
@@ -41,11 +41,11 @@
   <Channel Number="4">Speed</Channel>
   <Channel Number="5">Macros</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="1015" ColourTemperature="0"/>
-   <Dimensions Weight="2.4" Width="265" Height="274" Depth="109"/>
-   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="25" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="1015" ColourTemperature="0"/>
+  <Dimensions Weight="2.4" Width="265" Height="274" Depth="109"/>
+  <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="25" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

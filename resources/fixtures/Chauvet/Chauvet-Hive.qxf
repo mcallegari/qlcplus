@@ -1,14 +1,14 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.8.4 GIT</Version>
+  <Version>4.11.3 GIT</Version>
   <Author>Vic</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
  <Model>Hive</Model>
- <Type>Dimmer</Type>
+ <Type>Flower</Type>
  <Channel Name="Pod1_R" Preset="IntensityRed"/>
  <Channel Name="Pod1_G" Preset="IntensityGreen"/>
  <Channel Name="Pod1_B" Preset="IntensityBlue"/>
@@ -115,11 +115,11 @@
   <Channel Number="1">Strobe</Channel>
   <Channel Number="2">Auto Program Speed</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Weight="4.2" Width="330" Depth="240" Height="225"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="174" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4.2" Width="330" Height="225" Depth="240"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="174" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

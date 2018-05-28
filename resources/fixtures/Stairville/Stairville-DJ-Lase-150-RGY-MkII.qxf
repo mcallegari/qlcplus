@@ -1,14 +1,14 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.9.1</Version>
+  <Version>4.11.3 GIT</Version>
   <Author>Robert Box</Author>
  </Creator>
  <Manufacturer>Stairville</Manufacturer>
  <Model>DJ Lase 150-RGY MkII</Model>
- <Type>Dimmer</Type>
+ <Type>Laser</Type>
  <Channel Name="Mode Selection">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="29">Auto, red+green+yellow</Capability>
@@ -92,11 +92,11 @@
   <Channel Number="8">X Axis Moving</Channel>
   <Channel Number="9">Y Axis Moving</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type=""/>
-   <Dimensions Height="80" Width="160" Depth="160" Weight="1.3"/>
-   <Lens DegreesMax="0" DegreesMin="0" Name="Other"/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
-   <Technical PowerConsumption="12" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.3" Width="160" Height="80" Depth="160"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="12" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

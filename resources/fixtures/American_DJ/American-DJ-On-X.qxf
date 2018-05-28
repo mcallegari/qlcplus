@@ -1,14 +1,14 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.11.3 GIT</Version>
   <Author>Robert Box</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
  <Model>On-X</Model>
- <Type>Dimmer</Type>
+ <Type>Flower</Type>
  <Channel Name="Shows">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="7">Off</Capability>
@@ -141,11 +141,11 @@
    <Channel>9</Channel>
   </Head>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="185" ColourTemperature="0"/>
-   <Dimensions Weight="2.5" Width="151" Height="147" Depth="283"/>
-   <Lens Name="Other" DegreesMin="4" DegreesMax="4"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="270"/>
-   <Technical PowerConsumption="46" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="185" ColourTemperature="0"/>
+  <Dimensions Weight="2.5" Width="151" Height="147" Depth="283"/>
+  <Lens Name="Other" DegreesMin="4" DegreesMax="4"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="270"/>
+  <Technical PowerConsumption="46" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

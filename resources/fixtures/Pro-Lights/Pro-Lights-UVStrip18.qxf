@@ -1,24 +1,24 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.9.1</Version>
+  <Version>4.11.3 GIT</Version>
   <Author>Alessandro Grechi</Author>
  </Creator>
  <Manufacturer>Pro-Lights</Manufacturer>
  <Model>UVStrip18</Model>
- <Type>Dimmer</Type>
+ <Type>Strobe</Type>
  <Channel Name="Strobe">
   <Group Byte="0">Speed</Group>
-  <Capability Max="0" Min="0">No Function</Capability>
-  <Capability Max="255" Min="1">Slow to fast</Capability>
+  <Capability Min="0" Max="0">No Function</Capability>
+  <Capability Min="1" Max="255">Slow to fast</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Sound">
   <Group Byte="0">Effect</Group>
-  <Capability Max="10" Min="0">No Function</Capability>
-  <Capability Max="255" Min="11">Sound Control</Capability>
+  <Capability Min="0" Max="10">No Function</Capability>
+  <Capability Min="11" Max="255">Sound Control</Capability>
  </Channel>
  <Mode Name="3 Ch">
   <Channel Number="0">Strobe</Channel>
@@ -30,11 +30,11 @@
    <Channel>2</Channel>
   </Head>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Weight="2.35" Height="128" Width="1065" Depth="65"/>
-   <Lens DegreesMax="126" Name="Other" DegreesMin="126"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="53"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.35" Width="1065" Height="128" Depth="65"/>
+  <Lens Name="Other" DegreesMin="126" DegreesMax="126"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="53" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>
