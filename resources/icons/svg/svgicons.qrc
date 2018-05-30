@@ -124,6 +124,7 @@
     <file alias="stop.svg">stop.svg</file>
     <file alias="stopall.svg">stopall.svg</file>
     <file alias="stretch.svg">stretch.svg</file>
+    <file alias="strobe.svg">strobe.svg</file>
     <file alias="tilt.svg">tilt.svg</file>
     <file alias="uncheck.svg">uncheck.svg</file>
     <file alias="undo.svg">undo.svg</file>
