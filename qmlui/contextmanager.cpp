@@ -974,7 +974,15 @@ void ContextManager::setFixtureGroupSelection(quint32 id, bool enable, bool isUn
         for (Fixture *fixture : m_doc->fixtures())
         {
             if (fixture->universe() == id)
-                setFixtureSelection(fixture->id(), -1, enable);
+            {
+                for (quint32 subID : m_monProps->fixtureIDList(fixture->id()))
+                {
+                    quint16 headIndex = m_monProps->fixtureHeadIndex(subID);
+                    quint16 linkedIndex = m_monProps->fixtureLinkedIndex(subID);
+                    quint32 itemID = FixtureUtils::fixtureItemID(fixture->id(), headIndex, linkedIndex);
+                    setFixtureSelection(itemID, -1, enable);
+                }
+            }
         }
     }
     else
