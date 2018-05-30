@@ -269,7 +269,12 @@ void Sequence::postLoad()
         QList <SceneValue> tmpList = step.values;
         step.values = sceneValues;
         for (int i = 0; i < tmpList.count(); i++)
-            step.values.replace(step.values.indexOf(tmpList.at(i)), tmpList.at(i));
+        {
+            int tmpIndex = step.values.indexOf(tmpList.at(i));
+            if (tmpIndex == -1)
+                continue;
+            step.values.replace(tmpIndex, tmpList.at(i));
+        }
 
         replaceStep(step, stepIndex);
         stepIndex++;
