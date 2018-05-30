@@ -107,7 +107,7 @@ VCWidgetItem
         // value text box
         Text
         {
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignHCenter
             height: UISettings.listItemHeight
             font: sliderObj ? sliderObj.font : ""
             text: sliderObj ? (sliderObj.valueDisplayStyle === VCSlider.DMXValue ?
@@ -121,7 +121,7 @@ VCWidgetItem
             id: slFader
             visible: sliderObj ? sliderObj.widgetStyle === VCSlider.WSlider : false
             enabled: visible
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignHCenter
             Layout.fillHeight: true
             width: parent.width
             rotation: sliderObj ? (sliderObj.invertedAppearance ? 180 : 0) : 0
@@ -142,7 +142,7 @@ VCWidgetItem
             id: slKnob
             visible: sliderObj ? sliderObj.widgetStyle === VCSlider.WKnob : false
             enabled: visible
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignHCenter
             Layout.fillHeight: true
             //width: parent.width
             from: sliderObj ? sliderObj.rangeLowLimit : 0
@@ -187,7 +187,7 @@ VCWidgetItem
         IconButton
         {
             visible: sliderObj ? sliderObj.monitorEnabled : false
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignHCenter
             imgSource: "qrc:/reset.svg"
             bgColor: sliderObj && sliderObj.isOverriding ? "red" : UISettings.bgLight
             onClicked: if (sliderObj) sliderObj.isOverriding = false
@@ -200,7 +200,7 @@ VCWidgetItem
             visible: cngType
             width: UISettings.iconSizeDefault * 1.2
             height: width
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignHCenter
 
             property int cngType: sliderObj ? sliderObj.clickAndGoType : VCSlider.CnGNone
             property string cngResource: sliderObj ? sliderObj.cngPresetResource : ""

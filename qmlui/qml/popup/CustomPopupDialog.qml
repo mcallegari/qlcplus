@@ -28,6 +28,7 @@ Dialog
     id: control
     x: (mainView.width - width) / 2
     y: (mainView.height - height) / 2
+    //width: mainView.width / 2
     parent: mainView
 
     modal: true
@@ -80,7 +81,7 @@ Dialog
             visible: message
             font.family: UISettings.robotoFontName
             font.pixelSize: UISettings.textSizeDefault
-            color: UISettings.fgMain
+            color:  UISettings.fgMain
             text: message
         }
 
@@ -120,7 +121,7 @@ Dialog
                 Button
                 {
                     id: buttonControl
-                    width: buttonBoxControl.count === 1 ? buttonBoxControl.availableWidth / 2 : undefined
+                    width: buttonBoxControl.count === 1 ? UISettings.bigItemHeight * 2 : undefined
 
                     hoverEnabled: true
 
