@@ -35,6 +35,8 @@ SidePanel
         // reset the currently loaded item first
         loaderSource = ""
 
+        console.log("Requested to create function type " + fType)
+
         if (fType === Function.AudioType)
         {
             var extList = functionManager.audioExtensions
@@ -196,7 +198,6 @@ SidePanel
                     onEntryClicked:
                     {
                         close()
-                        console.log("Requested to create function type " + fType)
                         createFunctionAndEditor(fType)
                     }
                     onClosed: addFunction.checked = false

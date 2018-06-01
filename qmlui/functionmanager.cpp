@@ -214,10 +214,7 @@ quint32 FunctionManager::addFunctiontoDoc(Function *func, QString name, bool sel
     {
         if (select)
         {
-            m_functionTree->setItemRoleData(QString("%1%2%3")
-                                            .arg(func->path(true))
-                                            .arg(TreeModel::separator())
-                                            .arg(func->name()), 1, TreeModel::IsSelectedRole);
+            m_functionTree->setItemRoleData(func->name(), 1, TreeModel::IsSelectedRole);
         }
 
         func->setName(QString("%1 %2").arg(name).arg(func->id()));
