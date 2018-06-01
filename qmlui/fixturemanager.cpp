@@ -67,6 +67,7 @@ FixtureManager::FixtureManager(QQuickView *view, Doc *doc, QObject *parent)
     qmlRegisterUncreatableType<ColorFilters>("org.qlcplus.classes", 1, 0, "ColorFilters", "Can't create a ColorFilters !");
 
     connect(m_doc, SIGNAL(loaded()), this, SLOT(slotDocLoaded()));
+    connect(m_doc, SIGNAL(fixtureAdded(quint32)), this, SLOT(slotFixtureAdded(quint32)));
     connect(m_doc, SIGNAL(fixtureGroupAdded(quint32)), this, SLOT(slotFixtureGroupAdded(quint32)));
 }
 
@@ -260,6 +261,9 @@ bool FixtureManager::addFixture(QString manuf, QString model, QString mode, QStr
     QLCFixtureDef *fxiDef = m_doc->fixtureDefCache()->fixtureDef(manuf, model);
     QLCFixtureMode *fxiMode = fxiDef != NULL ? fxiDef->mode(mode) : NULL;
 
+    // temporarily disconnect this signal since we want to use the given position
+    disconnect(m_doc, SIGNAL(fixtureAdded(quint32)), this, SLOT(slotFixtureAdded(quint32)));
+
     for (int i = 0; i < quantity; i++)
     {
         Fixture *fxi = new Fixture(m_doc);
@@ -291,14 +295,17 @@ bool FixtureManager::addFixture(QString manuf, QString model, QString mode, QStr
         m_doc->addFixture(fxi);
         Tardis::instance()->enqueueAction(Tardis::FixtureCreate, fxi->id(), QVariant(),
                                           Tardis::instance()->actionToByteArray(Tardis::FixtureCreate, fxi->id()));
-        emit newFixtureCreated(fxi->id(), xPos, yPos, 0);
+        slotFixtureAdded(fxi->id(), QPoint(xPos, yPos));
     }
+
+    connect(m_doc, SIGNAL(fixtureAdded(quint32)), this, SLOT(slotFixtureAdded(quint32)));
+
     m_fixtureList.clear();
     m_fixtureList = m_doc->fixtures();
     emit fixturesCountChanged();
 
-    updateGroupsTree(m_doc, m_fixtureTree, m_searchFilter);
-    emit groupsTreeModelChanged();
+    //updateGroupsTree(m_doc, m_fixtureTree, m_searchFilter);
+    //emit groupsTreeModelChanged();
     emit fixtureNamesMapChanged();
     emit fixturesMapChanged();
 
@@ -742,6 +749,32 @@ QString FixtureManager::channelIcon(quint32 fxID, quint32 chIdx)
         return QString();
 
     return channel->getIconNameFromGroup(channel->group(), true);
+}
+
+void FixtureManager::slotFixtureAdded(quint32 id, QPoint pos)
+{
+    if (m_doc->loadStatus() == Doc::Loading)
+        return;
+
+    // emit the creation signal so that ContextManager will
+    // create the MonitorProperties
+    emit newFixtureCreated(id, pos.x(), pos.y(), 0);
+
+    if (m_fixtureTree == NULL)
+    {
+        updateGroupsTree(m_doc, m_fixtureTree);
+    }
+    else
+    {
+        Fixture *fixture = m_doc->fixture(id);
+        QStringList uniNames = m_doc->inputOutputMap()->universeNames();
+        QString universeName = uniNames.at(fixture->universe());
+        int matchMask = 0;
+
+        addFixtureNode(m_doc, m_fixtureTree, fixture, universeName, -1, matchMask);
+
+        emit groupsTreeModelChanged();
+    }
 }
 
 /*********************************************************************

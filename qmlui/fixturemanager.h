@@ -212,6 +212,10 @@ signals:
 
     void propertyEditEnabledChanged();
 
+public slots:
+    /** Slot called whenever a new fixture has been created */
+    void slotFixtureAdded(quint32 id, QPoint pos = QPoint());
+
 private:
     /** Comparison method to sort a Fixture list by DMX address */
     static bool compareFixtures(Fixture *left, Fixture *right);
@@ -239,7 +243,7 @@ signals:
     void groupsTreeModelChanged();
 
 public slots:
-    /** Slot called whenever a new fixture groups has been created */
+    /** Slot called whenever a new fixture group has been created */
     void slotFixtureGroupAdded(quint32 id);
 
     /*********************************************************************

@@ -30,6 +30,7 @@
 #include "rgbscriptscache.h"
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
+#include "fixtureutils.h"
 #include "collection.h"
 #include "rgbmatrix.h"
 #include "sequence.h"
@@ -346,7 +347,7 @@ void ImportManager::importFunctionID(quint32 funcID)
             funcList = importFunction->components();
         break;
 
-        // Script are a mix: they can control Fixtures AND Functions
+        // Scripts are a mix: they can control Fixtures AND Functions
         case Function::ScriptType:
         {
             Script *script = qobject_cast<Script *>(importFunction);
@@ -553,14 +554,16 @@ void ImportManager::slotFixtureTreeDataChanged(TreeModelItem *item, int role, co
 
     if (itemType == App::FixtureDragItem)
     {
+        quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
+
         if (checked)
         {
-            if (m_fixtureIDList.contains(itemID) == false)
-                m_fixtureIDList.append(itemID);
+            if (m_fixtureIDList.contains(fixtureID) == false)
+                m_fixtureIDList.append(fixtureID);
         }
         else
         {
-            m_fixtureIDList.removeOne(itemID);
+            m_fixtureIDList.removeOne(fixtureID);
         }
     }
     else if (itemType == App::FixtureGroupDragItem)
@@ -620,7 +623,7 @@ void ImportManager::checkFixtureTree(TreeModel *tree)
         // itemData must be "classRef" << "type" << "id" << "subid" << "chIdx";
         if (itemData.count() == 5 && itemData.at(1).toInt() == App::FixtureDragItem)
         {
-            quint32 fixtureID = itemData.at(2).toUInt();
+            quint32 fixtureID = FixtureUtils::itemFixtureID(itemData.at(2).toUInt());
 
             if (m_fixtureIDList.contains(fixtureID))
                 tree->setItemRoleData(item, true, TreeModel::IsCheckedRole);

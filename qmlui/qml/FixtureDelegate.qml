@@ -50,6 +50,8 @@ Rectangle
 
     RowLayout
     {
+        anchors.fill: parent
+
         CustomCheckBox
         {
             id: chCheckBox
@@ -62,7 +64,7 @@ Rectangle
 
         IconTextEntry
         {
-            width: fxDelegate.width - (chCheckBox.visible ? chCheckBox.width : 0)
+            Layout.fillWidth: true
             height: fxDelegate.height
             tLabel: fxDelegate.textLabel
             iSrc: cRef ? cRef.iconResource(true) : ""
