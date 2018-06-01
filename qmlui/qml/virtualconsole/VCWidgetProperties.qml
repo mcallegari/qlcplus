@@ -20,7 +20,8 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.1
-import QtQuick.Controls 1.2
+import QtQuick.Controls 1.2 as QC1
+import QtQuick.Controls 2.1
 
 import org.qlcplus.classes 1.0
 import "."
@@ -91,7 +92,7 @@ Rectangle
         }
     }
 
-    SplitView
+    QC1.SplitView
     {
         anchors.fill: parent
         Loader
@@ -418,8 +419,8 @@ Rectangle
                         }
                 }
               } // end of properties column
+              ScrollBar.vertical: CustomScrollBar { id: wpBar }
             } // end of flickable
-            CustomScrollBar { id: wpBar; flickable: propsFlickable }
         } // end of Rectangle
     } // end of SplitView
 }

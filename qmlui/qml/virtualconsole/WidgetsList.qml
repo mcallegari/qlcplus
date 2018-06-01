@@ -18,6 +18,8 @@
 */
 
 import QtQuick 2.0
+import QtQuick.Controls 2.1
+
 import "."
 
 Rectangle
@@ -109,7 +111,7 @@ Rectangle
                     } // WidgetDragItem
                 } // MouseArea
             } // Item
-        CustomScrollBar { flickable: widgetListView }
+        ScrollBar.vertical: CustomScrollBar { }
     } // ListView
 }
 

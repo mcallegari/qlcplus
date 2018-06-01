@@ -18,6 +18,7 @@
 */
 
 import QtQuick 2.3
+import QtQuick.Controls 2.1
 
 import org.qlcplus.classes 1.0
 import "."
@@ -378,6 +379,9 @@ Rectangle
                 anchors.fill: parent
             }
         } // Canvas
+
+        ScrollBar.vertical: CustomScrollBar { }
+        ScrollBar.horizontal : CustomScrollBar { orientation: Qt.Horizontal }
     } // Flickable
 
     Rectangle
@@ -395,7 +399,7 @@ Rectangle
         border.color: "#103A6E"
         transformOrigin: Item.TopLeft
     }
-
+/*
     CustomScrollBar
     {
         anchors.right: parent.right
@@ -410,7 +414,7 @@ Rectangle
         flickable: twoDView
         orientation: Qt.Horizontal
     }
-
+*/
     PopupMonitor
     {
         id: monitorPOVPopup

@@ -74,7 +74,7 @@ Rectangle
         IconTextEntry
         {
             height: parent.height
-            //width: parent.width
+            Layout.fillWidth: true
             tLabel: "" + (chIndex + 1) + ": " + chDelegate.textLabel
             iSrc: chDelegate.itemIcon
 

@@ -67,10 +67,11 @@ SidePanel
             return
         }
 
-
         var newFuncID = functionManager.createFunction(fType)
         var fEditor = functionManager.getEditorResource(newFuncID)
         functionManager.setEditorFunction(newFuncID, false, false)
+
+        console.log("Editor: " + fEditor)
 
         if (fType === Function.ShowType)
         {
@@ -195,6 +196,7 @@ SidePanel
                     onEntryClicked:
                     {
                         close()
+                        console.log("Requested to create function type " + fType)
                         createFunctionAndEditor(fType)
                     }
                     onClosed: addFunction.checked = false

@@ -227,7 +227,7 @@ ComboBox
                     highlightRangeMode: ListView.ApplyRange
                     highlightMoveDuration: 0
 
-                    CustomScrollBar { flickable: popupList }
+                    ScrollBar.vertical: CustomScrollBar { }
                 }
 
             background:

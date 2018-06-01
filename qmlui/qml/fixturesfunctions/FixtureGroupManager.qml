@@ -19,6 +19,7 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
+import QtQuick.Controls 2.2
 
 import org.qlcplus.classes 1.0
 import "."
@@ -26,7 +27,7 @@ import "."
 Rectangle
 {
     id: fgmContainer
-    //anchors.fill: parent
+    anchors.fill: parent
     color: "transparent"
 
     /** By default, fixtureManager is the model provider, unless a
@@ -43,7 +44,7 @@ Rectangle
         {
             id: topBar
             implicitWidth: fgmContainer.width
-            height: UISettings.iconSizeMedium
+            implicitHeight: UISettings.iconSizeMedium
             z: 5
             gradient: Gradient
             {
@@ -212,7 +213,7 @@ Rectangle
         {
             id: propertiesHeader
             visible: propsButton.checked
-            height: UISettings.iconSizeMedium
+            implicitHeight: UISettings.iconSizeMedium
             implicitWidth: fgmContainer.width - (gEditScrollBar.visible ? gEditScrollBar.width : 0)
             z: 5
             color: UISettings.bgMain
@@ -238,7 +239,7 @@ Rectangle
             id: searchBox
             visible: searchItem.checked
             width: fgmContainer.width
-            height: UISettings.iconSizeMedium
+            implicitHeight: UISettings.iconSizeMedium
             z: 5
             color: UISettings.bgMain
             radius: 5
@@ -265,10 +266,12 @@ Rectangle
         ListView
         {
             id: groupListView
-            implicitWidth: fgmContainer.width
-            height: fgmContainer.height - topBar.height -
-                    (searchBox.visible ? searchBox.height : 0) -
-                    (propertiesHeader.visible ? propertiesHeader.height : 0)
+            //implicitWidth: fgmContainer.width
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            //height: fgmContainer.height - topBar.height -
+            //        (searchBox.visible ? searchBox.height : 0) -
+            //        (propertiesHeader.visible ? propertiesHeader.height : 0)
             z: 4
             boundsBehavior: Flickable.StopAtBounds
 
@@ -395,11 +398,9 @@ Rectangle
                     }
                 } // Loader
               } // Component
-            CustomScrollBar
-            {
+
+            ScrollBar.vertical: CustomScrollBar {
                 id: gEditScrollBar
-                flickable: groupListView
-                anchors.right: parent.right
             }
 
             // Group / Fixture / Head / Channel draggable item

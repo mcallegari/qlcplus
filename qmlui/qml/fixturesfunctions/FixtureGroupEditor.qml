@@ -281,17 +281,8 @@ Rectangle
                 }
             }
         } // GridEditor
-    } // Flickable
 
-    CustomScrollBar
-    {
-        anchors.right: parent.right
-        flickable: gridFlickable
-        doubleBars: true
-    }
-    CustomScrollBar
-    {
-        flickable: gridFlickable
-        orientation: Qt.Horizontal
-    }
+        ScrollBar.vertical: CustomScrollBar { }
+        ScrollBar.horizontal : CustomScrollBar { orientation: Qt.Horizontal }
+    } // Flickable
 }

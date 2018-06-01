@@ -18,7 +18,7 @@
 */
 
 import QtQuick 2.0
-import QtQuick.Controls 1.1
+import QtQuick.Controls 2.1
 
 import org.qlcplus.classes 1.0
 import "."
@@ -128,7 +128,7 @@ Rectangle
 
         Component.onCompleted: manufacturerList.positionViewAtIndex(manufacturerIndex, ListView.Center)
 
-        CustomScrollBar { flickable: manufacturerList }
+        ScrollBar.vertical: CustomScrollBar { }
     }
 
     Rectangle
@@ -238,7 +238,7 @@ Rectangle
                     }
                 }
             }
-            CustomScrollBar { flickable: modelsList }
+            ScrollBar.vertical: CustomScrollBar { }
         }
     }
 
@@ -305,8 +305,9 @@ Rectangle
                     }
             } // end of Repeater
         } // end of Column
+
+        ScrollBar.vertical: CustomScrollBar { }
     } // end of Flickable
-    CustomScrollBar { flickable: searchRect }
 
     FixtureProperties
     {

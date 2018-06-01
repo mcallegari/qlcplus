@@ -70,6 +70,8 @@ Rectangle
 
     Row
     {
+        anchors.fill: parent
+
         CustomCheckBox
         {
             id: chCheckBox

@@ -61,7 +61,7 @@ Popup
         {
             imgSource: "qrc:/efx.svg"
             entryText: qsTr("New EFX")
-            onClicked: entryClicked(Function.EFXType)
+            onClicked: { console.log("Clicked " + Function.EFXType); entryClicked(Function.EFXType) }
         }
         ContextMenuEntry
         {

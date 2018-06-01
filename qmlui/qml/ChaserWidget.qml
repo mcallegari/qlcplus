@@ -19,7 +19,7 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
-import QtQuick.Controls 1.2
+import QtQuick.Controls 2.1
 
 import org.qlcplus.classes 1.0
 import "TimeUtils.js" as TimeUtils
@@ -479,6 +479,6 @@ Column
                 cStepsList.dragInsertIndex = idx
             }
         }
-        CustomScrollBar { flickable: cStepsList }
+        ScrollBar.vertical: CustomScrollBar { }
     } // end of ListView
 }

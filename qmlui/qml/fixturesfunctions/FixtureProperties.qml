@@ -18,7 +18,7 @@
 */
 
 import QtQuick 2.3
-import QtQuick.Controls 1.2
+import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.1
 
 import "."
@@ -241,7 +241,7 @@ Rectangle
                         tLabel: modelData.mLabel
                         iSrc: modelData.mIcon
                     }
-                CustomScrollBar { flickable: channelList }
+                ScrollBar.vertical: CustomScrollBar { }
             }
         }
     } // end of Column

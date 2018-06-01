@@ -19,7 +19,8 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.2
-import QtQuick.Controls 1.2
+import QtQuick.Controls 1.2 as QC1
+import QtQuick.Controls 2.1
 
 import org.qlcplus.classes 1.0
 
@@ -62,7 +63,7 @@ Rectangle
         }
     }
 
-    SplitView
+    QC1.SplitView
     {
         anchors.fill: parent
 
@@ -834,8 +835,8 @@ Rectangle
                     }
 
                 } // Column
+                ScrollBar.vertical: CustomScrollBar { id: sbar }
             } // Flickable
-            CustomScrollBar { id: sbar; flickable: editorFlickable }
         } // Column
     } // SplitView
 }

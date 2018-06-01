@@ -19,6 +19,7 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
+import QtQuick.Controls 2.1
 
 import org.qlcplus.classes 1.0
 
@@ -393,6 +394,7 @@ Rectangle
 
         boundsBehavior: Flickable.StopAtBounds
         flickableDirection: Flickable.VerticalFlick
+        ScrollBar.vertical: CustomScrollBar { }
 
         contentHeight: totalTracksHeight > height ? totalTracksHeight : height
         //contentWidth: timelineHeader.contentWidth
@@ -455,8 +457,9 @@ Rectangle
             contentHeight: showContents.contentHeight
             contentWidth: timelineHeader.contentWidth
             contentX: xViewOffset
+            ScrollBar.horizontal: CustomScrollBar { orientation: Qt.Horizontal }
 
-            onContentXChanged: xViewOffset = contentX
+            onContentXChanged: xViewOffset = contentX           
 
             MouseArea
             {
@@ -590,7 +593,7 @@ Rectangle
             }
         }
     }
-
+/*
     CustomScrollBar
     {
         id: horScrollbar
@@ -600,6 +603,7 @@ Rectangle
         x: trackWidth
         flickable: timelineHeader
     }
-    CustomScrollBar { z: 5; flickable: showContents; doubleBars: true }
 
+    CustomScrollBar { z: 5; flickable: showContents; doubleBars: true }
+*/
 }

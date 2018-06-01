@@ -19,6 +19,7 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
+import QtQuick.Controls 2.1
 
 import org.qlcplus.classes 1.0
 import "."
@@ -373,7 +374,7 @@ Rectangle
                       }
                   } // Loader
               } // Component
-              CustomScrollBar { id: fMgrScrollBar; flickable: functionsListView }
+              ScrollBar.vertical: CustomScrollBar { id: fMgrScrollBar }
 
               GenericMultiDragItem
               {

@@ -20,6 +20,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.2
 import QtQuick.Dialogs 1.1
+import QtQuick.Controls 2.1
 
 import org.qlcplus.classes 1.0
 
@@ -506,8 +507,8 @@ Rectangle
                     } // GridLayout
             }
         } // Column
+        ScrollBar.vertical: CustomScrollBar { id: sbar }
     } // Flickable
-    CustomScrollBar { id: sbar; flickable: editorFlickable }
 
     /* *************************************************************
      * Here starts all the Algorithm-specific Component definitions,

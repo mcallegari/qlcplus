@@ -18,6 +18,8 @@
 */
 
 import QtQuick 2.0
+import QtQuick.Controls 2.1
+
 import "."
 
 Rectangle
@@ -97,9 +99,8 @@ Rectangle
                     }
             }
         }
+        ScrollBar.vertical: CustomScrollBar { }
     }
-
-    CustomScrollBar { flickable: mainFlickable }
 
     /* Bottom container to drag a patch and delete it */
     Rectangle

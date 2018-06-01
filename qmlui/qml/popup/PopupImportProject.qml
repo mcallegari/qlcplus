@@ -183,7 +183,7 @@ CustomPopupDialog
                         }
                     } // Loader
                   } // Component
-                CustomScrollBar { id: gEditScrollBar; flickable: groupListView }
+                ScrollBar.vertical: CustomScrollBar { id: gEditScrollBar }
             } // ListView
 
             ListView
@@ -255,7 +255,7 @@ CustomPopupDialog
                             }
                         } // Loader
                     } // Component
-                CustomScrollBar { id: fMgrScrollBar; flickable: functionsListView }
+                ScrollBar.vertical: CustomScrollBar { id: fMgrScrollBar }
             } // ListView
         }
 }

@@ -241,28 +241,28 @@ public slots:
      *********************************************************************/
 
 public:
-    enum Orientation
+    enum PanelOrientation
     {
         TopLeft,
         TopRight,
         BottomLeft,
         BottomRight
     };
-    Q_ENUM(Orientation)
+    Q_ENUM(PanelOrientation)
 
-    enum Type
+    enum PanelType
     {
         Snake,
         ZigZag
     };
-    Q_ENUM(Type)
+    Q_ENUM(PanelType)
 
-    enum Direction
+    enum PanelDirection
     {
         Horizontal,
         Vertical
     };
-    Q_ENUM(Direction)
+    Q_ENUM(PanelDirection)
 
     bool addRGBPanel(QString name, qreal xPos, qreal yPos);
 

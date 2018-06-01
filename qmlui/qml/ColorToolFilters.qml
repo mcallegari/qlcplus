@@ -191,8 +191,8 @@ Rectangle
                     }
                 }
 
-            CustomScrollBar { flickable: filtersList }
-        }
+            ScrollBar.vertical: CustomScrollBar { }
+        } // ListView
 
         Grid
         {

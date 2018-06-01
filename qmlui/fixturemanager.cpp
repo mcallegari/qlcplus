@@ -811,9 +811,9 @@ bool FixtureManager::addRGBPanel(QString name, qreal xPos, qreal yPos)
     qreal phyHeight = propItem->property("physicalHeight").toReal() / (qreal)rows;
 
     Fixture::Components components = Fixture::Components(propItem->property("components").toInt());
-    Direction direction = Direction(propItem->property("direction").toInt());
-    Orientation orientation = Orientation(propItem->property("startCorner").toInt());
-    Type displacement = Type(propItem->property("displacement").toInt());
+    PanelDirection direction = PanelDirection(propItem->property("direction").toInt());
+    PanelOrientation orientation = PanelOrientation(propItem->property("startCorner").toInt());
+    PanelType displacement = PanelType(propItem->property("displacement").toInt());
 
     FixtureGroup *grp = new FixtureGroup(m_doc);
     Q_ASSERT(grp != NULL);

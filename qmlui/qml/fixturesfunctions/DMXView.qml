@@ -18,6 +18,7 @@
 */
 
 import QtQuick 2.0
+import QtQuick.Controls 2.1
 
 import "."
 
@@ -65,9 +66,10 @@ Rectangle
             Component.onCompleted: contextManager.enableContext("DMX", true, flowLayout)
             Component.onDestruction: if(contextManager) contextManager.enableContext("DMX", false, flowLayout)
         }
+
+        ScrollBar.vertical: CustomScrollBar { }
+        ScrollBar.horizontal : CustomScrollBar { orientation: Qt.Horizontal }
     }
-    CustomScrollBar { flickable: fixtureDMXView; doubleBars: true }
-    CustomScrollBar { orientation: Qt.Horizontal; flickable: fixtureDMXView }
 
     SettingsViewDMX
     {

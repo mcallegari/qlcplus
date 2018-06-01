@@ -23,10 +23,10 @@ import QtQuick.Layouts 1.1
 import org.qlcplus.classes 1.0
 import "."
 
-RowLayout
+Rectangle
 {
     height: UISettings.iconSizeDefault
-    spacing: 4
+    color: "transparent"
 
     property string iSrc
     property string tLabel
@@ -39,33 +39,39 @@ RowLayout
 
     onFunctionTypeChanged: iSrc = functionManager.functionIcon(functionType)
 
-    Image
+    RowLayout
     {
-        visible: iSrc ? true : false
-        source: iSrc
-        height: iconSize
-        width: iconSize
-        sourceSize: Qt.size(iconSize, iconSize)
-    }
+        anchors.fill: parent
+        spacing: 4
 
-    Text
-    {
-        id: faIcon
-        visible: faSource ? true : false
-        color: faColor
-        font.family: "FontAwesome"
-        font.pixelSize: iconSize
-        text: faSource
-    }
+        Image
+        {
+            visible: iSrc ? true : false
+            source: iSrc
+            height: iconSize
+            width: iconSize
+            sourceSize: Qt.size(iconSize, iconSize)
+        }
 
-    RobotoText
-    {
-        Layout.fillWidth: true
-        Layout.alignment: Qt.AlignVCenter
-        height: parent.height
-        label: tLabel
-        labelColor: tLabelColor
-        fontSize: tFontSize
+        Text
+        {
+            id: faIcon
+            visible: faSource ? true : false
+            color: faColor
+            font.family: "FontAwesome"
+            font.pixelSize: iconSize
+            text: faSource
+        }
+
+        RobotoText
+        {
+            Layout.fillWidth: true
+            Layout.alignment: Qt.AlignVCenter
+            height: parent.height
+            label: tLabel
+            labelColor: tLabelColor
+            fontSize: tFontSize
+        }
     }
 }
 
