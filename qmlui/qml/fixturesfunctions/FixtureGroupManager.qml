@@ -132,25 +132,6 @@ Rectangle
 
                 IconButton
                 {
-                    id: propsButton
-                    width: height
-                    height: topBar.height - 2
-                    imgSource: "qrc:/edit.svg"
-                    tooltip: qsTr("Toggle fixtures and channels properties")
-                    checkable: true
-
-                    onToggled:
-                    {
-                        if (checked)
-                            leftSidePanel.width += 350
-                        else
-                            leftSidePanel.width -= 350
-                        fixtureManager.enablePropertyEditing(checked)
-                    }
-                }
-
-                IconButton
-                {
                     id: infoButton
                     z: 2
                     width: height
@@ -204,6 +185,40 @@ Rectangle
                             fixtureAndFunctions.currentViewQML = previousView
                             previousView = ""
                         }
+                    }
+                }
+
+                IconButton
+                {
+                    id: propsButton
+                    width: height
+                    height: topBar.height - 2
+                    imgSource: "qrc:/edit.svg"
+                    tooltip: qsTr("Toggle fixtures and channels properties")
+                    checkable: true
+
+                    onToggled:
+                    {
+                        if (checked)
+                            leftSidePanel.width += 350
+                        else
+                            leftSidePanel.width -= 350
+                        fixtureManager.propertyEditEnabled = checked
+                    }
+                }
+
+                IconButton
+                {
+                    id: actionsButton
+                    visible: fixtureManager.propertyEditEnabled
+                    width: height
+                    height: topBar.height - 2
+                    faSource: FontAwesome.fa_link
+                    faColor: "white"
+                    tooltip: qsTr("Add a linked fixture")
+                    onClicked:
+                    {
+
                     }
                 }
             }

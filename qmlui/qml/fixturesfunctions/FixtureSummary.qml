@@ -278,6 +278,7 @@ Rectangle
                             {
                                 Layout.column: 2
                                 Layout.row: index + 1
+                                Layout.fillWidth: true
                                 height: flickView.textHeight
                                 tLabel: modelData.mLabel
                                 tLabelColor: flickView.textColor

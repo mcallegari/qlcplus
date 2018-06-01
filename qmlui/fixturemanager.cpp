@@ -47,6 +47,7 @@ FixtureManager::FixtureManager(QQuickView *view, Doc *doc, QObject *parent)
     , m_doc(doc)
     , m_universeFilter(Universe::invalid())
     , m_searchFilter(QString())
+    , m_propertyEditEnabled(false)
     , m_fixtureTree(NULL)
     , m_treeShowFlags(ShowGroups | ShowHeads)
     , m_colorFilterIndex(0)
@@ -154,11 +155,12 @@ QVariantList FixtureManager::universeInfo(quint32 id)
     return m_universeInfo;
 }
 
-QVariant FixtureManager::fixtureInfo(quint32 id)
+QVariant FixtureManager::fixtureInfo(quint32 itemID)
 {
     QVariantMap fxMap;
 
-    Fixture *fixture = m_doc->fixture(id);
+    quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
+    Fixture *fixture = m_doc->fixture(fixtureID);
 
     if (fixture == NULL)
         return fxMap;
@@ -380,8 +382,18 @@ QVariant FixtureManager::groupsTreeModel()
     return QVariant::fromValue(m_fixtureTree);
 }
 
-void FixtureManager::enablePropertyEditing(bool enable)
+bool FixtureManager::propertyEditEnabled()
 {
+    return m_propertyEditEnabled;
+}
+
+void FixtureManager::setPropertyEditEnabled(bool enable)
+{
+    if (enable == m_propertyEditEnabled)
+        return;
+
+    m_propertyEditEnabled = enable;
+
     QStringList treeColumns;
     treeColumns << "classRef" << "type" << "id" << "subid" << "chIdx";
 
@@ -394,6 +406,8 @@ void FixtureManager::enablePropertyEditing(bool enable)
     {
         m_treeShowFlags = ShowGroups | ShowHeads;
     }
+
+    emit propertyEditEnabledChanged();
 
     m_fixtureTree->setColumnNames(treeColumns);
     updateGroupsTree(m_doc, m_fixtureTree, m_searchFilter, m_treeShowFlags);

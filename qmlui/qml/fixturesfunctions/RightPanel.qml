@@ -73,8 +73,6 @@ SidePanel
         var fEditor = functionManager.getEditorResource(newFuncID)
         functionManager.setEditorFunction(newFuncID, false, false)
 
-        console.log("Editor: " + fEditor)
-
         if (fType === Function.ShowType)
         {
             showManager.currentShowID = newFuncID

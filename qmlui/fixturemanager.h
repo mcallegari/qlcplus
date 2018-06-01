@@ -49,6 +49,7 @@ class FixtureManager : public QObject
     Q_PROPERTY(quint32 universeFilter READ universeFilter WRITE setUniverseFilter NOTIFY universeFilterChanged)
     Q_PROPERTY(QString searchFilter READ searchFilter WRITE setSearchFilter NOTIFY searchFilterChanged)
     Q_PROPERTY(quint32 itemID READ itemID WRITE setItemID NOTIFY itemIDChanged)
+    Q_PROPERTY(bool propertyEditEnabled READ propertyEditEnabled WRITE setPropertyEditEnabled NOTIFY propertyEditEnabledChanged)
 
     Q_PROPERTY(QVariantList goboChannels READ goboChannels NOTIFY goboChannelsChanged)
     Q_PROPERTY(QVariantList colorWheelChannels READ colorWheelChannels NOTIFY colorWheelChannelsChanged)
@@ -81,7 +82,7 @@ public:
 
     /** Returns a data structure with all the information of
      *  a Fixture with the specified $id */
-    Q_INVOKABLE QVariant fixtureInfo(quint32 id);
+    Q_INVOKABLE QVariant fixtureInfo(quint32 itemID);
 
 signals:
     /** Notify the listeners that the universe filter has changed */
@@ -109,6 +110,8 @@ private:
     QString m_searchFilter;
     /** A generic ID for Universe/Group/Fixture editing/info */
     quint32 m_itemID;
+    /** Flag that indicates if property editing is active */
+    bool m_propertyEditEnabled;
 
     QVariantList m_universeInfo;
 
@@ -170,7 +173,8 @@ public:
     QVariant groupsTreeModel();
 
     /** Enable/Disable the fixture/channel properties editing mode */
-    Q_INVOKABLE void enablePropertyEditing(bool enable);
+    bool propertyEditEnabled();
+    void setPropertyEditEnabled(bool enable);
 
     Q_INVOKABLE void setItemRoleData(int itemID, int index, QString role, QVariant value);
 
@@ -205,6 +209,8 @@ signals:
     void fixtureDeleted(quint32 fxID);
 
     void fixtureFlagsChanged(quint32 itemID, quint32 flags);
+
+    void propertyEditEnabledChanged();
 
 private:
     /** Comparison method to sort a Fixture list by DMX address */
