@@ -223,7 +223,7 @@ Entity
         {
             console.log("3D item clicked")
             isSelected = !isSelected
-            contextManager.setItemSelection(itemID, isSelected)
+            contextManager.setItemSelection(itemID, isSelected, pick.modifiers)
         }
         //onPressed: lastPos = pick.worldIntersection
         //onReleased: console.log("Item release")

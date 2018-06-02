@@ -216,9 +216,10 @@ Rectangle
                     console.log("button: " + mouse.button + ", mods: " + mouse.modifiers)
                     var itemID = View2D.itemIDAtPos(Qt.point(mouse.x, mouse.y))
 
+                    // pressing on nothing starts to draw the selection rectangle
                     if (itemID === -1)
                     {
-                        //console.log("Flickable shift-clicked !")
+                        //console.log("Starting selection rectangle !")
                         // initialize local variables to determine the selection orientation
                         initialXPos = mouse.x
                         initialYPos = mouse.y
@@ -235,7 +236,7 @@ Rectangle
                             twoDContents.justSelected = true
 
                         // select the Fixture in case a drag is starting on a deselected one
-                        contextManager.setItemSelection(itemID, true)
+                        contextManager.setItemSelection(itemID, true, mouse.modifiers)
 
                         // forward the event to the drag area
                         mouse.accepted = false
@@ -366,7 +367,7 @@ Rectangle
                                 var itemID = View2D.itemIDAtPos(Qt.point(mouse.x, mouse.y))
 
                                 console.log("Fixture ID on release " + itemID)
-                                contextManager.setItemSelection(itemID, false)
+                                contextManager.setItemSelection(itemID, false, mouse.modifiers)
                             }
                             twoDContents.justSelected = false
                         }

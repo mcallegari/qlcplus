@@ -316,6 +316,18 @@ SidePanel
                 z: 2
                 width: iconSize
                 height: iconSize
+                imgSource: "qrc:/multiple.svg"
+                tooltip: qsTr("Toggle multiple item selection")
+                checkable: true
+                checked: contextManager.multipleSelection
+                onToggled: contextManager.multipleSelection = checked
+            }
+
+            IconButton
+            {
+                z: 2
+                width: iconSize
+                height: iconSize
                 imgSource: "qrc:/selectall.svg"
                 tooltip: qsTr("Select/Deselect all fixtures") + " (CTRL+A)"
                 onClicked: contextManager.toggleFixturesSelection()

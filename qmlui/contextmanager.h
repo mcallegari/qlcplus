@@ -49,6 +49,7 @@ class ContextManager : public QObject
     Q_PROPERTY(QVector3D fixturesRotation READ fixturesRotation WRITE setFixturesRotation NOTIFY fixturesRotationChanged)
     Q_PROPERTY(int dumpValuesCount READ dumpValuesCount NOTIFY dumpValuesCountChanged)
     Q_PROPERTY(quint32 dumpChannelMask READ dumpChannelMask NOTIFY dumpChannelMaskChanged)
+    Q_PROPERTY(bool multipleSelection READ multipleSelection WRITE setMultipleSelection NOTIFY multipleSelectionChanged)
     Q_PROPERTY(bool positionPicking READ positionPicking WRITE setPositionPicking NOTIFY positionPickingChanged)
 
 public:
@@ -81,6 +82,10 @@ public:
     QVector3D environmentSize() const;
     void setEnvironmentSize(QVector3D environmentSize);
 
+    /** Get/Set multiple item selection mode */
+    bool multipleSelection() const;
+    void setMultipleSelection(bool multipleSelection);
+
     /** Enable/Disable a position picking process */
     bool positionPicking() const;
     void setPositionPicking(bool enable);
@@ -91,6 +96,7 @@ signals:
     void currentContextChanged();
     void environmentSizeChanged();
     void positionPickingChanged();
+    void multipleSelectionChanged();
 
 public slots:
     /** Resets the data structures and update the currently enabled views */
@@ -126,6 +132,8 @@ private:
 
     QMap <QString, PreviewContext *> m_contextsMap;
 
+    /** Flag that indicates if multiple item selection is active */
+    bool m_multipleSelection;
     /** Flag that indicates if a position picking is active */
     bool m_positionPicking;
 
@@ -150,7 +158,7 @@ private:
      *********************************************************************/
 public:
     /** Select/Deselect a preview item with the provided $itemID */
-    Q_INVOKABLE void setItemSelection(quint32 itemID, bool enable);
+    Q_INVOKABLE void setItemSelection(quint32 itemID, bool enable, int keyModifiers);
 
     /** Select/Deselect a fixture with the provided $itemID and $headIndex */
     Q_INVOKABLE void setFixtureSelection(quint32 itemID, int headIndex, bool enable);

@@ -45,6 +45,7 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
     , m_monProps(doc->monitorProperties())
     , m_fixtureManager(fxMgr)
     , m_functionManager(funcMgr)
+    , m_multipleSelection(false)
     , m_positionPicking(false)
     , m_universeFilter(Universe::invalid())
     , m_editingEnabled(false)
@@ -254,6 +255,20 @@ void ContextManager::setEnvironmentSize(QVector3D environmentSize)
     emit environmentSizeChanged();
 }
 
+bool ContextManager::multipleSelection() const
+{
+    return m_multipleSelection;
+}
+
+void ContextManager::setMultipleSelection(bool multipleSelection)
+{
+    if (m_multipleSelection == multipleSelection)
+        return;
+
+    m_multipleSelection = multipleSelection;
+    emit multipleSelectionChanged();
+}
+
 bool ContextManager::positionPicking() const
 {
     return m_positionPicking;
@@ -459,10 +474,18 @@ void ContextManager::setUniverseFilter(quint32 universeFilter)
  * Common fixture helpers
  *********************************************************************/
 
-void ContextManager::setItemSelection(quint32 itemID, bool enable)
+void ContextManager::setItemSelection(quint32 itemID, bool enable, int keyModifiers)
 {
+    qDebug() << "ItemID" << itemID << "enable" << enable << "keymods" << keyModifiers;
+    if (enable && keyModifiers == 0 && m_multipleSelection == false)
+    {
+        resetFixtureSelection();
+    }
+
     quint32 fxID = FixtureUtils::itemFixtureID(itemID);
     Fixture *fixture = m_doc->fixture(fxID);
+    if (fixture == NULL)
+        return;
 
     if (fixture->type() == QLCFixtureDef::Dimmer)
     {
@@ -632,6 +655,7 @@ void ContextManager::toggleFixturesSelection()
 void ContextManager::setRectangleSelection(qreal x, qreal y, qreal width, qreal height)
 {
     QList<quint32> fxIDList;
+
     if (m_2DView->isEnabled())
         fxIDList = m_2DView->selectFixturesRect(QRectF(x, y, width, height));
 
