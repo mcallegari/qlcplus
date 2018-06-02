@@ -56,6 +56,9 @@
 #define KXMLQLCMonitorFixtureZRotation "ZRot"
 #define KXMLQLCMonitorFixtureGelColor "GelColor"
 
+#define KXMLQLCMonitorStageItem "StageItem"
+#define KXMLQLCMonitorMeshItem "MeshItem"
+
 #define KXMLQLCMonitorFixtureHiddenFlag "Hidden"
 #define KXMLQLCMonitorFixtureInvPanFlag "InvertedPan"
 #define KXMLQLCMonitorFixtureInvTiltFlag "InvertedTilt"
@@ -81,6 +84,8 @@ void MonitorProperties::reset()
 {
     m_gridSize = QVector3D(GRID_DEFAULT_WIDTH, GRID_DEFAULT_HEIGHT, GRID_DEFAULT_DEPTH);
     m_gridUnits = Meters;
+    m_pointOfView = Undefined;
+    m_stageType = StageSimple;
     m_showLabels = false;
     m_fixtureItems.clear();
     m_commonBackgroundImage = QString();
@@ -464,6 +469,10 @@ bool MonitorProperties::loadXML(QXmlStreamReader &root, const Doc *mainDocument)
             setGridSize(QVector3D(w, h, d));
             root.skipCurrentElement();
         }
+        else if (root.name() == KXMLQLCMonitorStageItem)
+        {
+            setStageType(StageType(root.readElementText().toInt()));
+        }
         else if (root.name() == KXMLQLCMonitorFixtureItem)
         {
             // Fixture ID is mandatory. Skip the whole entry if not found.
@@ -584,6 +593,10 @@ bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) 
         doc->writeAttribute(KXMLQLCMonitorPointOfView, QString::number(pointOfView()));
 
     doc->writeEndElement();
+
+#ifdef QMLUI
+    doc->writeTextElement(KXMLQLCMonitorStageItem, QString::number(stageType()));
+#endif
 
     foreach (quint32 fid, fixtureItemsID())
     {

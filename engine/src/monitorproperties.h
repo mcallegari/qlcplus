@@ -102,7 +102,7 @@ public:
 #if QT_VERSION >= 0x050500
     Q_ENUM(PointOfView)
 #endif
-    enum StageType { StageSimple, StageBox, StageRock };
+    enum StageType { StageSimple, StageBox, StageRock, StageTheatre };
 
     /** Get/Set the size of the grid in 2D display mode */
     inline void setGridSize(QVector3D size) { m_gridSize = size; }
