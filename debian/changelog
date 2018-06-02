@@ -1,5 +1,6 @@
 qlcplus (4.11.3) stable; urgency=low
 
+  * UI/Scene Editor: fixed crash when removing a Fixture and Scene Editor is open
   * Fixture Editor: reworked to define more accurate information (see documentation)
   * New fixtures: American DJ Auto Spot 150, Boom Box Fx2, Revo Sweep (thanks to Felix Edelmann)
   * New fixtures: JB-Lighting Varyscan P7, Showtec Dominator, Showtec Sunraise LED (thanks to Felix Edelmann)
