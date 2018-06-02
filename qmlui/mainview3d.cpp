@@ -317,6 +317,12 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
         meshPath.append("par.dae");
     else if (fixture->type() == QLCFixtureDef::MovingHead)
         meshPath.append("moving_head.dae");
+    else if (fixture->type() == QLCFixtureDef::Scanner)
+        meshPath.append("scanner.dae");
+    else if (fixture->type() == QLCFixtureDef::Hazer)
+        meshPath.append("hazer.dae");
+    else if (fixture->type() == QLCFixtureDef::Smoke)
+        meshPath.append("smoke.dae");
 
     QEntity *newItem = qobject_cast<QEntity *>(m_fixtureComponent->create());
     newItem->setProperty("itemID", itemID);
