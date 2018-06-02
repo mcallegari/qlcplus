@@ -52,12 +52,12 @@ MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
 
     qRegisterMetaType<Qt3DCore::QEntity*>();
 
-    // the following two lists must always have the same items number
-    m_stagesList << tr("Simple ground") << tr("Simple box") << tr("Rock stage");
-    m_stageResourceList << "qrc:/StageSimple.qml" << "qrc:/StageBox.qml" << "qrc:/StageRock.qml";
+    // the following two lists must always have the same items number and must respect
+    // the order of StageType enum in MonitorProperties class
+    m_stagesList << tr("Simple ground") << tr("Simple box") << tr("Rock stage") << tr("Theatre stage");
+    m_stageResourceList << "qrc:/StageSimple.qml" << "qrc:/StageBox.qml" << "qrc:/StageRock.qml" << "qrc:/StageTheatre.qml";
 
     m_stageEntity = NULL;
-    m_stageIndex = 0;
 }
 
 MainView3D::~MainView3D()
@@ -228,7 +228,7 @@ void MainView3D::initialize3DProperties()
 
     if (m_stageEntity == NULL)
     {
-        QQmlComponent *stageComponent = new QQmlComponent(m_view->engine(), QUrl(m_stageResourceList.at(m_stageIndex)));
+        QQmlComponent *stageComponent = new QQmlComponent(m_view->engine(), QUrl(m_stageResourceList.at(m_monProps->stageType())));
         if (stageComponent->isError())
             qDebug() << stageComponent->errors();
 
@@ -1012,20 +1012,20 @@ QStringList MainView3D::stagesList() const
 
 int MainView3D::stageIndex() const
 {
-    return m_stageIndex;
+    return m_monProps->stageType();
 }
 
 void MainView3D::setStageIndex(int stageIndex)
 {
-    if (m_stageIndex == stageIndex)
+    if (stageIndex == m_monProps->stageType())
         return;
 
-    m_stageIndex = stageIndex;
+    m_monProps->setStageType(MonitorProperties::StageType(stageIndex));
 
     if (m_stageEntity)
         delete m_stageEntity;
 
-    QQmlComponent *stageComponent = new QQmlComponent(m_view->engine(), QUrl(m_stageResourceList.at(m_stageIndex)));
+    QQmlComponent *stageComponent = new QQmlComponent(m_view->engine(), QUrl(m_stageResourceList.at(stageIndex)));
     if (stageComponent->isError())
         qDebug() << stageComponent->errors();
 
@@ -1037,7 +1037,7 @@ void MainView3D::setStageIndex(int stageIndex)
     m_stageEntity->setProperty("sceneLayer", QVariant::fromValue(sceneDeferredLayer));
     m_stageEntity->setProperty("effect", QVariant::fromValue(sceneEffect));
 
-    emit stageIndexChanged(m_stageIndex);
+    emit stageIndexChanged(stageIndex);
 }
 
 

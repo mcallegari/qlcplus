@@ -130,7 +130,8 @@
     <file alias="StageSimple.qml">qml/fixturesfunctions/3DView/StageSimple.qml</file>
     <file alias="StageBox.qml">qml/fixturesfunctions/3DView/StageBox.qml</file>
     <file alias="StageRock.qml">qml/fixturesfunctions/3DView/StageRock.qml</file>
-    
+    <file alias="StageTheatre.qml">qml/fixturesfunctions/3DView/StageTheatre.qml</file>
+
     <file alias="SettingsView3D.qml">qml/fixturesfunctions/3DView/SettingsView3D.qml</file>
 
     <file alias="lights_es2.frag">qml/fixturesfunctions/3DView/shaders/lights_es2.frag</file>

@@ -203,7 +203,6 @@ signals:
 private:
     QStringList m_stagesList;
     QStringList m_stageResourceList;
-    int m_stageIndex;
 
     /** Reference to the selected stage Entity */
     QEntity *m_stageEntity;
