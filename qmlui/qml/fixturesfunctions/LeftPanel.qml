@@ -306,6 +306,7 @@ SidePanel
                 width: iconSize
                 height: iconSize
                 checkable: true
+                checked: contextManager.positionPicking
                 faSource: FontAwesome.fa_crosshairs
                 tooltip: qsTr("Pick a 3D point") + " (CTRL+P)"
                 onToggled: contextManager.positionPicking = checked
