@@ -32,7 +32,7 @@ Rectangle
 
     property int viewMargin: UISettings.listItemHeight * 0.5
 
-    function hasSettings() { return false; }
+    function hasSettings() { return false }
 
     Rectangle
     {
@@ -183,11 +183,13 @@ Rectangle
         height: parent.height - editToolbar.height - viewMargin
 
         boundsBehavior: Flickable.StopAtBounds
+        ScrollBar.vertical: CustomScrollBar { }
+        ScrollBar.horizontal : CustomScrollBar { orientation: Qt.Horizontal }
 
         GridEditor
         {
             id: groupGrid
-            width: parent.width
+            width: fGroupEditor.width - (viewMargin * 2)
             height: parent.height - (viewMargin * 3)
 
             onHeightChanged: gridFlickable.contentHeight = height + cellSize
@@ -281,8 +283,5 @@ Rectangle
                 }
             }
         } // GridEditor
-
-        ScrollBar.vertical: CustomScrollBar { }
-        ScrollBar.horizontal : CustomScrollBar { orientation: Qt.Horizontal }
     } // Flickable
 }
