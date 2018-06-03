@@ -88,7 +88,6 @@ void FixtureManager::setUniverseFilter(quint32 universeFilter)
 
     m_universeFilter = universeFilter;
     emit universeFilterChanged(universeFilter);
-    emit fixtureNamesMapChanged();
     emit fixturesMapChanged();
 }
 
@@ -228,7 +227,6 @@ void FixtureManager::slotDocLoaded()
 
     emit fixturesCountChanged();
     emit fixturesMapChanged();
-    emit fixtureNamesMapChanged();
 
     setSearchFilter("");
     updateGroupsTree(m_doc, m_fixtureTree, m_searchFilter);
@@ -303,10 +301,6 @@ bool FixtureManager::addFixture(QString manuf, QString model, QString mode, QStr
     m_fixtureList.clear();
     m_fixtureList = m_doc->fixtures();
     emit fixturesCountChanged();
-
-    //updateGroupsTree(m_doc, m_fixtureTree, m_searchFilter);
-    //emit groupsTreeModelChanged();
-    emit fixtureNamesMapChanged();
     emit fixturesMapChanged();
 
     return true;
@@ -325,7 +319,6 @@ bool FixtureManager::moveFixture(quint32 fixtureID, quint32 newAddress)
 
     updateGroupsTree(m_doc, m_fixtureTree, m_searchFilter);
     emit groupsTreeModelChanged();
-    emit fixtureNamesMapChanged();
     emit fixturesMapChanged();
     return true;
 }
@@ -355,7 +348,6 @@ bool FixtureManager::deleteFixtures(QVariantList IDList)
 
     updateGroupsTree(m_doc, m_fixtureTree, m_searchFilter);
     emit groupsTreeModelChanged();
-    emit fixtureNamesMapChanged();
     emit fixturesMapChanged();
 
     return true;
@@ -1017,7 +1009,6 @@ bool FixtureManager::addRGBPanel(QString name, qreal xPos, qreal yPos)
 
     updateGroupsTree(m_doc, m_fixtureTree, m_searchFilter);
     emit groupsTreeModelChanged();
-    emit fixtureNamesMapChanged();
     emit fixturesMapChanged();
 
     return true;
@@ -1049,24 +1040,6 @@ QVariantList FixtureManager::fixtureSelection(quint32 address)
 
 QVariantList FixtureManager::fixtureNamesMap()
 {
-    quint32 uniFilter = m_universeFilter == Universe::invalid() ? 0 : m_universeFilter;
-
-    m_fixtureNamesMap.clear();
-
-    for(Fixture *fx : m_doc->fixtures()) // C++11
-    {
-        if (fx == NULL)
-            continue;
-
-        if (fx->universe() != uniFilter)
-            continue;
-
-        m_fixtureNamesMap.append(fx->id());
-        m_fixtureNamesMap.append(fx->universeAddress());
-        m_fixtureNamesMap.append(fx->channels());
-        m_fixtureNamesMap.append(fx->name());
-    }
-
     return m_fixtureNamesMap;
 }
 
@@ -1086,8 +1059,13 @@ QVariantList FixtureManager::fixturesMap()
      */
 
     m_fixturesMap.clear();
+    m_fixtureNamesMap.clear();
 
-    for(Fixture *fx : m_doc->fixtures()) // C++11
+    QList<Fixture*> origList = m_doc->fixtures();
+    // sort the fixture list by address and not by ID
+    std::sort(origList.begin(), origList.end(), compareFixtures);
+
+    for (Fixture *fx : origList)
     {
         if (fx == NULL)
             continue;
@@ -1114,7 +1092,14 @@ QVariantList FixtureManager::fixturesMap()
         }
         odd = !odd;
 
+        m_fixtureNamesMap.append(fx->id());
+        m_fixtureNamesMap.append(fx->universeAddress());
+        m_fixtureNamesMap.append(fx->channels());
+        m_fixtureNamesMap.append(fx->name());
     }
+
+    emit fixtureNamesMapChanged();
+
     return m_fixturesMap;
 }
 

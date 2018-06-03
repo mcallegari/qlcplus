@@ -51,7 +51,7 @@ Flickable
     {
         id: uniGrid
         anchors.top: uniText.bottom
-        width: parent.width
+        width: parent.width - 40
         height: cellSize * gridSize.height
 
         showIndices: 512
@@ -90,11 +90,8 @@ Flickable
             for (var q = 0; q < dragEvent.source.quantity; q++)
             {
                 for (var i = 0; i < channels; i++)
-                {
                     tmp.push(uniAddress + i)
-                    // push also an invalid channel type for now...
-                    tmp.push(-1)
-                }
+
                 uniAddress += channels + dragEvent.source.gap
             }
             console.log("Selection data contains " + tmp.length + " entries")
