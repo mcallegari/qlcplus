@@ -356,8 +356,8 @@ Rectangle
 
                             contextManager.setFixturesOffset(xDelta, yDelta)
 
-                            contentsDragArea.x = -twoDContents.x
-                            contentsDragArea.y = -twoDContents.y
+                            contentsDragArea.x = Qt.binding(function() { return -twoDContents.x })
+                            contentsDragArea.y = Qt.binding(function() { return -twoDContents.y })
                         }
                         else
                         {
