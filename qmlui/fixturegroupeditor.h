@@ -105,10 +105,17 @@ public:
      *  returns a list of indices with the selected heads */
     Q_INVOKABLE QVariantList groupSelection(int x, int y, int mouseMods);
 
-    /** Returns a selection array from the provide $reference */
-    Q_INVOKABLE QVariantList dragSelection(QVariant reference, int x, int y, int mouseMods);
+    /** Returns a selection array from the provided $reference */
+    Q_INVOKABLE QVariantList fixtureSelection(QVariant reference, int x, int y, int mouseMods);
 
+    /** Returns a selection array from the provided $itemID and $headIndex */
+    Q_INVOKABLE QVariantList headSelection(int x, int y, int mouseMods);
+
+    /** Add a Fixture with the provided $reference to x,y position */
     Q_INVOKABLE void addFixture(QVariant reference, int x, int y);
+
+    /** Add a Fixture head of the provided $itemID and $headIndex to x,y position */
+    Q_INVOKABLE void addHead(quint32 itemID, int headIndex, int x, int y);
 
     /** Check if the current selection can be moved by $offset cells */
     Q_INVOKABLE bool checkSelection(int x, int y, int offset);

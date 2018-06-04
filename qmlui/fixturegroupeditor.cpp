@@ -23,6 +23,7 @@
 #include <QQmlContext>
 
 #include "fixturegroupeditor.h"
+#include "fixtureutils.h"
 #include "doc.h"
 
 FixtureGroupEditor::FixtureGroupEditor(QQuickView *view, Doc *doc, QObject *parent)
@@ -176,7 +177,7 @@ QVariantList FixtureGroupEditor::groupSelection(int x, int y, int mouseMods)
     return m_groupSelection;
 }
 
-QVariantList FixtureGroupEditor::dragSelection(QVariant reference, int x, int y, int mouseMods)
+QVariantList FixtureGroupEditor::fixtureSelection(QVariant reference, int x, int y, int mouseMods)
 {
     if (m_editGroup == NULL)
         return m_groupSelection;
@@ -197,6 +198,20 @@ QVariantList FixtureGroupEditor::dragSelection(QVariant reference, int x, int y,
     return m_groupSelection;
 }
 
+QVariantList FixtureGroupEditor::headSelection(int x, int y, int mouseMods)
+{
+    if (m_editGroup == NULL)
+        return m_groupSelection;
+
+    if (mouseMods == 0)
+        m_groupSelection.clear();
+
+    int absIndex = (y * m_editGroup->size().width()) + x;
+    m_groupSelection.append(absIndex);
+
+    return m_groupSelection;
+}
+
 void FixtureGroupEditor::addFixture(QVariant reference, int x, int y)
 {
     if (m_editGroup == NULL)
@@ -210,6 +225,17 @@ void FixtureGroupEditor::addFixture(QVariant reference, int x, int y)
         m_editGroup->assignFixture(fixture->id(), QLCPoint(x, y));
         updateGroupMap();
     }
+}
+
+void FixtureGroupEditor::addHead(quint32 itemID, int headIndex, int x, int y)
+{
+    if (m_editGroup == NULL)
+        return;
+
+    quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
+    GroupHead head(fixtureID, headIndex);
+    m_editGroup->assignHead(QLCPoint(x, y), head);
+    updateGroupMap();
 }
 
 bool FixtureGroupEditor::checkSelection(int x, int y, int offset)

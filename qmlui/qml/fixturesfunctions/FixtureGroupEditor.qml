@@ -253,14 +253,16 @@ Rectangle
                     switch(dragEvent.source.itemsList[i].itemType)
                     {
                         case App.FixtureDragItem:
-                            tmp = fixtureGroupEditor.dragSelection(dragEvent.source.itemsList[i].cRef, xPos, yPos, mods)
+                            tmp = fixtureGroupEditor.fixtureSelection(dragEvent.source.itemsList[i].cRef, xPos, yPos, mods)
                         break;
                         case App.HeadDragItem:
-                            efxEditor.addHead(dragEvent.source.itemsList[i].fixtureID, dragEvent.source.itemsList[i].headIndex)
+                            tmp = fixtureGroupEditor.headSelection(xPos, yPos, mods)
                         break;
                     }
                     mods = 1
                 }
+
+                validSelection = fixtureGroupEditor.checkSelection(xPos, yPos, 0)
                 setSelectionData(tmp)
             }
 
@@ -278,6 +280,10 @@ Rectangle
                     {
                         case App.FixtureDragItem:
                             fixtureGroupEditor.addFixture(dragEvent.source.itemsList[i].cRef, xPos, yPos)
+                        break;
+                        case App.HeadDragItem:
+                            fixtureGroupEditor.addHead(dragEvent.source.itemsList[i].itemID,
+                                                       dragEvent.source.itemsList[i].headIndex, xPos, yPos)
                         break;
                     }
                 }
