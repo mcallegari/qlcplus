@@ -214,7 +214,7 @@ signals:
 
 public slots:
     /** Slot called whenever a new fixture has been created */
-    void slotFixtureAdded(quint32 id, QPoint pos = QPoint());
+    void slotFixtureAdded(quint32 id, QVector3D pos = QVector3D(0, 0, 0));
 
 private:
     /** Comparison method to sort a Fixture list by DMX address */

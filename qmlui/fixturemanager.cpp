@@ -293,7 +293,7 @@ bool FixtureManager::addFixture(QString manuf, QString model, QString mode, QStr
         m_doc->addFixture(fxi);
         Tardis::instance()->enqueueAction(Tardis::FixtureCreate, fxi->id(), QVariant(),
                                           Tardis::instance()->actionToByteArray(Tardis::FixtureCreate, fxi->id()));
-        slotFixtureAdded(fxi->id(), QPoint(xPos, yPos));
+        slotFixtureAdded(fxi->id(), QVector3D(xPos, yPos, 0));
     }
 
     connect(m_doc, SIGNAL(fixtureAdded(quint32)), this, SLOT(slotFixtureAdded(quint32)));
@@ -743,14 +743,14 @@ QString FixtureManager::channelIcon(quint32 fxID, quint32 chIdx)
     return channel->getIconNameFromGroup(channel->group(), true);
 }
 
-void FixtureManager::slotFixtureAdded(quint32 id, QPoint pos)
+void FixtureManager::slotFixtureAdded(quint32 id, QVector3D pos)
 {
     if (m_doc->loadStatus() == Doc::Loading)
         return;
 
     // emit the creation signal so that ContextManager will
     // create the MonitorProperties
-    emit newFixtureCreated(id, pos.x(), pos.y(), 0);
+    emit newFixtureCreated(id, pos.x(), pos.y(), pos.z());
 
     if (m_fixtureTree == NULL)
     {
@@ -907,6 +907,9 @@ bool FixtureManager::addRGBPanel(QString name, qreal xPos, qreal yPos)
         }
     }
 
+    // temporarily disconnect this signal since we want to use the given position
+    disconnect(m_doc, SIGNAL(fixtureAdded(quint32)), this, SLOT(slotFixtureAdded(quint32)));
+
     for (int i = 0; i < rows; i++)
     {
         Fixture *fxi = new Fixture(m_doc);
@@ -998,17 +1001,16 @@ bool FixtureManager::addRGBPanel(QString name, qreal xPos, qreal yPos)
         m_monProps->setFixturePosition(fxi->id(), 0, 0, pos);
         if (displacement == Snake && i % 2)
             m_monProps->setFixtureRotation(fxi->id(), 0, 0, rot);
-        emit newFixtureCreated(fxi->id(), pos.x(), pos.y(), pos.z());
+        slotFixtureAdded(fxi->id(), QVector3D(pos.x(), pos.y(), pos.z()));
         yPos += (qreal)phyHeight;
         currRow += rowInc;
     }
 
+    connect(m_doc, SIGNAL(fixtureAdded(quint32)), this, SLOT(slotFixtureAdded(quint32)));
+
     m_fixtureList.clear();
     m_fixtureList = m_doc->fixtures();
     emit fixturesCountChanged();
-
-    updateGroupsTree(m_doc, m_fixtureTree, m_searchFilter);
-    emit groupsTreeModelChanged();
     emit fixturesMapChanged();
 
     return true;
