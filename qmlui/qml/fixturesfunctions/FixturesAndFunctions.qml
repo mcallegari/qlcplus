@@ -185,11 +185,7 @@ Rectangle
                     {
                         if (checked)
                         {
-                            var glVersion = (GraphicsInfo.majorVersion * 10) + GraphicsInfo.minorVersion
-                            //console.log("OpengGL version: " + GraphicsInfo.majorVersion + "." + GraphicsInfo.minorVersion)
-                            // QTBUG-68130: apparently the reported version on macOS is wrong, so let's consider
-                            // every Mac capable of rendering the 3D view
-                            if (glVersion >= 33 || Qt.platform.os === "osx")
+                            if (qlcplus.is3DSupported)
                                 loadContext(checked, "qrc:/3DView.qml", "3D")
                             else
                                 loadContext(checked, "qrc:/3DViewUnsupported.qml", "3D")

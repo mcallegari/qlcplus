@@ -56,6 +56,7 @@ class App : public QQuickView
 
     Q_PROPERTY(QString appName READ appName CONSTANT)
     Q_PROPERTY(QString appVersion READ appVersion CONSTANT)
+    Q_PROPERTY(bool is3DSupported READ is3DSupported CONSTANT)
 
 public:
     App();
@@ -136,6 +137,8 @@ public:
     int defaultMask() const;
     int accessMask() const;
 
+    bool is3DSupported() const;
+
     Q_INVOKABLE void exit();
 
 public slots:
@@ -147,6 +150,7 @@ protected:
     bool event(QEvent *event) override;
 
 protected slots:
+    void slotSceneGraphInitialized();
     void slotScreenChanged(QScreen *screen);
     void slotClosing();
     void slotClientAccessRequest(QString name);

@@ -18,6 +18,7 @@
 */
 
 #include <QApplication>
+#include <QSurfaceFormat>
 #include <QCommandLineParser>
 #include <QQmlApplicationEngine>
 
@@ -39,6 +40,12 @@ void debugMessageHandler(QtMsgType type, const QMessageLogContext &context, cons
 
 int main(int argc, char *argv[])
 {
+    QSurfaceFormat format;
+    format.setMajorVersion(3);
+    format.setMinorVersion(3);
+    format.setProfile(QSurfaceFormat::CoreProfile);
+    QSurfaceFormat::setDefaultFormat(format);
+
     QApplication app(argc, argv);
 
     QApplication::setOrganizationName("qlcplus");
