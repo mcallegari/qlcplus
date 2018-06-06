@@ -1,5 +1,6 @@
 qlcplus (4.11.3) stable; urgency=low
 
+  * engine/RGBMatrix: added support for animated GIF pictures
   * UI/Scene Editor: fixed crash when removing a Fixture and Scene Editor is open
   * Fixture Editor: reworked to define more accurate information (see documentation)
   * New fixtures: American DJ Auto Spot 150, Boom Box Fx2, Revo Sweep (thanks to Felix Edelmann)

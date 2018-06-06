@@ -37,6 +37,7 @@
 RGBImage::RGBImage(Doc * doc)
     : RGBAlgorithm(doc)
     , m_filename("")
+    , m_animatedSource(false)
     , m_animationStyle(Static)
     , m_xOffset(0)
     , m_yOffset(0)
@@ -46,6 +47,7 @@ RGBImage::RGBImage(Doc * doc)
 RGBImage::RGBImage(const RGBImage& i)
     : RGBAlgorithm( i.doc())
     , m_filename(i.filename())
+    , m_animatedSource(i.animatedSource())
     , m_animationStyle(i.animationStyle())
     , m_xOffset(i.xOffset())
     , m_yOffset(i.yOffset())
@@ -101,6 +103,11 @@ void RGBImage::setImageData(int width, int height, const QByteArray &pixelData)
     m_image = newImg;
 }
 
+bool RGBImage::animatedSource() const
+{
+    return m_animatedSource;
+}
+
 void RGBImage::reloadImage()
 {
     if (m_filename.isEmpty())
@@ -111,10 +118,20 @@ void RGBImage::reloadImage()
 
     QMutexLocker locker(&m_mutex);
 
-    if (!m_image.load(m_filename))
+    if (m_filename.endsWith(".gif"))
     {
-        qDebug() << "[RGBImage] Failed to load" << m_filename;
-        return;
+        m_animatedPlayer.setFileName(m_filename);
+        if (m_animatedPlayer.frameCount() > 1)
+            m_animatedSource = true;
+    }
+
+    if (m_animatedSource == false)
+    {
+        if (!m_image.load(m_filename))
+        {
+            qDebug() << "[RGBImage] Failed to load" << m_filename;
+            return;
+        }
     }
 }
 
@@ -139,15 +156,15 @@ QString RGBImage::animationStyleToString(RGBImage::AnimationStyle ani)
 {
     switch (ani)
     {
-    default:
-    case Static:
-        return QString("Static");
-    case Horizontal:
-        return QString("Horizontal");
-    case Vertical:
-        return QString("Vertical");
-    case Animation:
-        return QString("Animation");
+        default:
+        case Static:
+            return QString("Static");
+        case Horizontal:
+            return QString("Horizontal");
+        case Vertical:
+            return QString("Vertical");
+        case Animation:
+            return QString("Animation");
     }
 }
 
@@ -203,16 +220,16 @@ int RGBImage::rgbMapStepCount(const QSize& size)
 
     switch (animationStyle())
     {
-    default:
-    case Static:
-        return 1;
-    case Horizontal:
-        return m_image.width();
-    case Vertical:
-        return m_image.height();
-    case Animation:
-        qDebug() << m_image.width() << " " << size.width() << " " << (m_image.width() / size.width());
-        return MAX(1, m_image.width() / size.width());
+        default:
+        case Static:
+            return 1;
+        case Horizontal:
+            return m_image.width();
+        case Vertical:
+            return m_image.height();
+        case Animation:
+            qDebug() << m_image.width() << " " << size.width() << " " << (m_image.width() / size.width());
+            return MAX(1, m_image.width() / size.width());
     }
 }
 
@@ -222,7 +239,7 @@ RGBMap RGBImage::rgbMap(const QSize& size, uint rgb, int step)
 
     QMutexLocker locker(&m_mutex);
 
-    if (m_image.width() == 0 || m_image.height() == 0)
+    if (m_animatedSource == false && (m_image.width() == 0 || m_image.height() == 0))
         return RGBMap();
 
     int xOffs = xOffset();
@@ -230,18 +247,24 @@ RGBMap RGBImage::rgbMap(const QSize& size, uint rgb, int step)
 
     switch(animationStyle()) 
     {
-    default:
-    case Static:
+        default:
+        case Static:
         break;
-    case Horizontal:
-        xOffs += step;
+        case Horizontal:
+            xOffs += step;
         break;
-    case Vertical:
-        yOffs += step;
+        case Vertical:
+            yOffs += step;
         break;
-    case Animation:
-        xOffs += step * size.width();
+        case Animation:
+            xOffs += step * size.width();
         break;
+    }
+
+    if (m_animatedSource)
+    {
+        m_animatedPlayer.jumpToNextFrame();
+        m_image = m_animatedPlayer.currentImage().scaled(size);
     }
 
     RGBMap map(size.height());
