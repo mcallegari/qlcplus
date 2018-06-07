@@ -210,6 +210,10 @@ void InputChannelEditor::numberToMidi(int number, int & channel, int & message, 
     {
         message = KMidiMessageChannelAftertouch;
     } 
+    else if (number == CHANNEL_OFFSET_PITCH_WHEEL)
+    {
+        message = KMidiMessagePitchWheel;
+    } 
     else if (number == CHANNEL_OFFSET_MBC_PLAYBACK)
     {
         message = KMidiMessageMBCPlayback;
