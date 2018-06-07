@@ -110,6 +110,8 @@ bool RGBImage::animatedSource() const
 
 void RGBImage::reloadImage()
 {
+    m_animatedSource = false;
+
     if (m_filename.isEmpty())
     {
         qDebug() << "[RGBImage] Empty image!";
