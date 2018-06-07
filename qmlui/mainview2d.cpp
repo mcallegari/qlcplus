@@ -144,7 +144,7 @@ void MainView2D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
     QQuickItem *newFixtureItem = qobject_cast<QQuickItem*>(fixtureComponent->create());
     quint32 itemFlags = m_monProps->fixtureFlags(fxID, headIndex, linkedIndex);
 
-    newFixtureItem->setParentItem(contextItem());
+    newFixtureItem->setParentItem(m_gridItem);
     newFixtureItem->setProperty("itemID", itemID);
 
     if (itemFlags & MonitorProperties::HiddenFlag)
@@ -507,7 +507,7 @@ void MainView2D::selectFixture(QQuickItem *fxItem, bool enable)
     }
     else
     {
-        fxItem->setParentItem(contextItem());
+        fxItem->setParentItem(m_gridItem);
     }
 }
 

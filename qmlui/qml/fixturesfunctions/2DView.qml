@@ -118,8 +118,6 @@ Rectangle
             var w = twoDSettings.visible ? (width - twoDSettings.width) : width
             var xDiv = w / gridSize.width
             var yDiv = height / gridSize.height
-            twoDContents.x = 0
-            twoDContents.y = 0
 
             if (yDiv < xDiv)
                 View2D.cellPixels = yDiv * View2D.gridScale
@@ -128,18 +126,22 @@ Rectangle
 
             //console.log("Cell size calculated: " + View2D.cellPixels)
 
-            contentWidth = View2D.cellPixels * gridSize.width;
-            contentHeight = View2D.cellPixels * gridSize.height;
+            var gridWidth = View2D.cellPixels * gridSize.width
+            var gridHeight = View2D.cellPixels * gridSize.height
 
-            if (contentWidth < w)
-                twoDContents.x = (w - contentWidth) / 2;
-            if (contentHeight < height)
-                twoDContents.y = (height - contentHeight) / 2;
+            if (gridWidth < w)
+                twoDContents.xOffset = (w - gridWidth) / 2
+            if (gridHeight < height)
+                twoDContents.yOffset = (height - gridHeight) / 2
 
-            View2D.gridPosition = Qt.point(twoDContents.x, twoDContents.y)
+            View2D.gridPosition = Qt.point(twoDContents.xOffset, twoDContents.yOffset)
 
+            contentWidth = gridWidth + (twoDContents.xOffset * 2)
+            contentHeight = gridHeight + (twoDContents.yOffset * 2)
+
+            console.log("Grid offset x: " + twoDContents.xOffset + ", y: " + twoDContents.yOffset)
             if (View2D.cellPixels > 0)
-                twoDContents.requestPaint();
+                twoDContents.requestPaint()
         }
 
         Canvas
@@ -148,8 +150,6 @@ Rectangle
             objectName: "twoDContents"
             width: twoDView.contentWidth
             height: twoDView.contentHeight
-            x: 0
-            y: 0
             z: 0
 
             antialiasing: true
@@ -158,6 +158,8 @@ Rectangle
             property real cellSize: View2D.cellPixels
             property int gridUnits: twoDView.gridUnits
             property bool justSelected: false
+            property real xOffset: 0
+            property real yOffset: 0
 
             function showPovPopup()
             {
@@ -181,29 +183,27 @@ Rectangle
                 context.beginPath()
                 context.clearRect(0, 0, width, height)
                 context.fillRect(0, 0, width, height)
-                context.rect(0, 0, width, height)
+                context.rect(xOffset, yOffset, width - (xOffset * 2), height - (yOffset * 2))
 
                 for (var vl = 1; vl < twoDView.gridSize.width; vl++)
                 {
-                    var xPos = cellSize * vl
-                    context.moveTo(xPos, 0)
-                    context.lineTo(xPos, height)
+                    var xPos = (cellSize * vl) + xOffset
+                    context.moveTo(xPos, yOffset)
+                    context.lineTo(xPos, height - yOffset)
                 }
                 for (var hl = 1; hl < twoDView.gridSize.height; hl++)
                 {
-                    var yPos = cellSize * hl
-                    context.moveTo(0, yPos)
-                    context.lineTo(width, yPos)
+                    var yPos = (cellSize * hl) + yOffset
+                    context.moveTo(xOffset, yPos)
+                    context.lineTo(width - xOffset, yPos)
                 }
+
                 context.closePath()
                 context.stroke()
             }
 
             MouseArea
             {
-                // set the size to cover the whole twoDView
-                x: -twoDContents.x
-                y: -twoDContents.y
                 width: twoDSettings.visible ? twoDView.width - twoDSettings.width : twoDView.width
                 height: twoDView.height
                 z: 2
@@ -285,8 +285,8 @@ Rectangle
                 {
                     if (selectionRect.visible === true && selectionRect.width && selectionRect.height)
                     {
-                        var rx = selectionRect.x // - twoDContents.x
-                        var ry = selectionRect.y // - twoDContents.y
+                        var rx = selectionRect.x
+                        var ry = selectionRect.y
                         var rw = selectionRect.width
                         var rh = selectionRect.height
                         switch (selectionRect.rotation)
@@ -321,8 +321,6 @@ Rectangle
             {
                 id: contentsDragArea
                 objectName: "contentsDragArea"
-                x: -twoDContents.x
-                y: -twoDContents.y
                 width: twoDSettings.visible ? twoDView.width - twoDSettings.width : twoDView.width
                 height: twoDView.height
                 color: "transparent"
@@ -356,8 +354,8 @@ Rectangle
 
                             contextManager.setFixturesOffset(xDelta, yDelta)
 
-                            contentsDragArea.x = Qt.binding(function() { return -twoDContents.x })
-                            contentsDragArea.y = Qt.binding(function() { return -twoDContents.y })
+                            contentsDragArea.x = 0
+                            contentsDragArea.y = 0
                         }
                         else
                         {
