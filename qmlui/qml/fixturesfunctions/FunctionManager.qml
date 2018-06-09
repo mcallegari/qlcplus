@@ -287,21 +287,19 @@ Rectangle
                           item.textLabel = label
                           item.isSelected = Qt.binding(function() { return isSelected })
                           item.dragItem = fDragItem
+                          item.itemType = type
 
-                          if (hasChildren)
+                          if (type === App.FunctionDragItem)
+                          {
+                              item.cRef = classRef
+                          }
+                          else
                           {
                               console.log("Item path: " + path + ",label: " + label)
-                              item.itemType = App.FolderDragItem
                               item.nodePath = path
                               item.isExpanded = isExpanded
                               item.nodeChildren = childrenModel
                               item.dropKeys = "function"
-                          }
-                          else
-                          {
-                              item.cRef = classRef
-                              item.itemType = App.FunctionDragItem
-                              //item.functionType = funcType
                           }
                       }
                       Connections

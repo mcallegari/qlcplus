@@ -227,7 +227,7 @@ Column
                         if (item.hasOwnProperty('itemIcon'))
                             item.itemIcon = nodeContainer.itemIcon
 
-                        if (item.hasOwnProperty('cRef'))
+                        if (classRef && item.hasOwnProperty('cRef'))
                             item.cRef = classRef
 
                         if (item.hasOwnProperty('itemID'))
@@ -242,7 +242,7 @@ Column
 
                         if (hasChildren)
                         {
-                            item.nodePath = nodePath + "/" + path
+                            item.nodePath = nodePath + '`' + path
                             item.isExpanded = isExpanded
                             item.nodeChildren = childrenModel
                             if (item.hasOwnProperty('dropKeys'))

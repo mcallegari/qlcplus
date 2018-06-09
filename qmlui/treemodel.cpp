@@ -121,6 +121,11 @@ TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path
         QQmlEngine::setObjectOwnership(item, QQmlEngine::CppOwnership);
         item->setData(data);
         item->setFlags(flags);
+        if (flags & EmptyNode)
+        {
+            item->setPath(label);
+            m_itemsPathMap[label] = item;
+        }
         int addIndex = getItemInsertIndex(label);
         beginInsertRows(QModelIndex(), addIndex, addIndex);
         m_items.insert(addIndex, item);
@@ -177,6 +182,43 @@ TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path
     return item;
 }
 
+bool TreeModel::removeItem(QString path)
+{
+    if (path.isEmpty())
+        return false;
+
+    qDebug() << "Removing item with path:" << path;
+
+    QStringList pathList = path.split(TreeModel::separator());
+
+    if (pathList.count() == 1)
+    {
+        int index = 0;
+        for (index = 0; index < m_items.count(); index++)
+        {
+            if (m_items.at(index)->label() == path)
+                break;
+        }
+
+        if (index == m_items.count())
+            return false;
+
+        beginRemoveRows(QModelIndex(), index, index);
+        m_itemsPathMap.remove(path);
+        delete m_items.at(index);
+        m_items.removeAt(index);
+        endRemoveRows();
+    }
+    else
+    {
+        TreeModelItem *item = m_itemsPathMap[pathList.at(0)];
+        QString subPath = path.mid(path.indexOf(TreeModel::separator()) + 1);
+        item->children()->removeItem(subPath);
+    }
+
+    return true;
+}
+
 void TreeModel::setItemRoleData(QString path, const QVariant &value, int role)
 {
     if (path.isEmpty())
@@ -189,12 +231,14 @@ void TreeModel::setItemRoleData(QString path, const QVariant &value, int role)
     if (pathList.count() == 1)
     {
         int index = 0;
-        for (int i = 0; i < m_items.count(); i++)
+        for (index = 0; index < m_items.count(); index++)
         {
-            if (m_items.at(i)->label() == pathList.at(0))
+            if (m_items.at(index)->label() == pathList.at(0))
                 break;
-            index++;
         }
+
+        if (index == m_items.count())
+            return;
 
         QModelIndex mIndex = createIndex(index, 0, &index);
         setData(mIndex, value, role);
@@ -287,7 +331,7 @@ QVariant TreeModel::data(const QModelIndex &index, int role) const
         case ItemsCountRole:
             return m_items.count();
         case HasChildrenRole:
-            return item->hasChildren();
+            return item->hasChildren() || (item->flags() & EmptyNode);
         case ChildrenModel:
             return QVariant::fromValue(item->children());
         default:

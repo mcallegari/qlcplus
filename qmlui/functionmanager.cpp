@@ -45,6 +45,7 @@
 #include "video.h"
 #include "show.h"
 #include "efx.h"
+#include "app.h"
 
 #include "tardis.h"
 #include "doc.h"
@@ -78,7 +79,7 @@ FunctionManager::FunctionManager(QQuickView *view, Doc *doc, QObject *parent)
     m_functionTree = new TreeModel(this);
     QQmlEngine::setObjectOwnership(m_functionTree, QQmlEngine::CppOwnership);
     QStringList treeColumns;
-    treeColumns << "classRef";
+    treeColumns << "classRef" << "type";
     m_functionTree->setColumnNames(treeColumns);
     m_functionTree->enableSorting(true);
 
@@ -183,19 +184,21 @@ void FunctionManager::setSearchFilter(QString searchFilter)
 
 void FunctionManager::setFolderPath(QString oldAbsPath, QString newRelPath)
 {
-    int slashPos = oldAbsPath.lastIndexOf('/');
+    int sepPos = oldAbsPath.lastIndexOf(TreeModel::separator());
     QString newAbsPath;
 
-    if (slashPos != -1)
-        newAbsPath = oldAbsPath.mid(0, slashPos + 1) + newRelPath;
+    if (sepPos != -1)
+        newAbsPath = oldAbsPath.mid(0, sepPos + 1) + newRelPath;
     else
         newAbsPath = newRelPath;
+
+    oldAbsPath.replace(TreeModel::separator(), "/");
+    newAbsPath.replace(TreeModel::separator(), "/");
 
     qDebug() << "Folder path changed from" << oldAbsPath << "to" << newAbsPath;
 
     for (Function *f : m_doc->functions())
     {
-        qDebug() << "Function path:" << f->path();
         if (f->path(true).startsWith(oldAbsPath))
         {
             Tardis::instance()->enqueueAction(Tardis::FunctionSetPath, f->id(), f->path(true), newAbsPath);
@@ -662,17 +665,57 @@ void FunctionManager::deleteFunctions(QVariantList IDList)
 
 void FunctionManager::moveFunctions(QString newPath)
 {
+    bool wasEmptyNode = false;
+
+    qDebug() << "Moving" << m_selectedIDList.count() << "functions to" << newPath;
+
+    if (m_emptyFolderList.contains(newPath))
+    {
+        m_functionTree->removeItem(newPath);
+        m_emptyFolderList.removeAll(newPath);
+        wasEmptyNode = true;
+    }
+
+    QString newPathSlashed = newPath;
+    newPathSlashed.replace(TreeModel::separator(), "/");
+
     for (QVariant fID : m_selectedIDList)
     {
         Function *f = m_doc->function(fID.toInt());
         if (f == NULL)
             continue;
 
-        Tardis::instance()->enqueueAction(Tardis::FunctionSetPath, f->id(), f->path(true), newPath);
-        f->setPath(newPath);
+        QString fPath = f->path(true);
+        if (fPath.isEmpty())
+        {
+            m_functionTree->removeItem(f->name());
+        }
+        else
+        {
+            QString ftPath = fPath;
+            QString itemPath = QString("%1%2%3").arg(ftPath.replace("/", TreeModel::separator()))
+                                                .arg(TreeModel::separator()).arg(f->name());
+            m_functionTree->removeItem(itemPath);
+        }
+
+        Tardis::instance()->enqueueAction(Tardis::FunctionSetPath, f->id(), fPath, newPathSlashed);
+        f->setPath(newPathSlashed);
+
+        QVariantList params;
+        params.append(QVariant::fromValue(f)); // classRef
+        params.append(App::FunctionDragItem); // type
+        m_functionTree->addItem(f->name(), params, newPath);
     }
 
-    updateFunctionsTree();
+    if (wasEmptyNode)
+    {
+        QVariantList folderParams;
+        folderParams.append(QVariant()); // classRef
+        folderParams.append(App::FolderDragItem); // type
+        m_functionTree->setPathData(newPath, folderParams);
+    }
+
+    //updateFunctionsTree();
 }
 
 void FunctionManager::deleteEditorItems(QVariantList list)
@@ -722,6 +765,48 @@ void FunctionManager::renameFunctions(QVariantList IDList, QString newName, bool
     }
 
     updateFunctionsTree();
+}
+
+void FunctionManager::createFolder()
+{
+    QString fName;
+    QString basePath;
+    QString compPath;
+    int index = 1;
+
+    do
+    {
+        fName = QString("%1 %2").arg(tr("New folder")).arg(index);
+        if (m_emptyFolderList.contains(fName) == false)
+            break;
+        index++;
+    } while(1);
+
+    if (m_selectedIDList.count())
+    {
+        quint32 firstID = m_selectedIDList.first().toUInt();
+        Function *firstFunc = m_doc->function(firstID);
+        if (firstFunc)
+            basePath = firstFunc->path(true).replace("/", TreeModel::separator());
+    }
+
+    if (basePath.isEmpty())
+    {
+        m_emptyFolderList.append(fName);
+    }
+    else
+    {
+        compPath = QString("%1%2%3").arg(basePath).arg(TreeModel::separator()).arg(fName);
+        m_emptyFolderList.append(compPath);
+    }
+
+    QVariantList params;
+    params.append(QVariant()); // classRef
+    params.append(App::FolderDragItem); // type
+
+    m_functionTree->addItem(fName, params, basePath, TreeModel::EmptyNode | TreeModel::Expanded);
+
+    m_functionTree->printTree();
 }
 
 int FunctionManager::selectionCount() const
@@ -895,7 +980,8 @@ void FunctionManager::addFunctionTreeItem(Function *func)
         (m_searchFilter.length() < SEARCH_MIN_CHARS || func->name().toLower().contains(m_searchFilter)))
     {
         QVariantList params;
-        params.append(QVariant::fromValue(func));
+        params.append(QVariant::fromValue(func)); // classRef
+        params.append(App::FunctionDragItem); // type
         QString fPath = func->path(true).replace("/", TreeModel::separator());
         TreeModelItem *item = m_functionTree->addItem(func->name(), params, fPath, expandAll ? TreeModel::Expanded : 0);
         if (m_selectedIDList.contains(QVariant(func->id())))
@@ -921,6 +1007,8 @@ void FunctionManager::addFunctionTreeItem(Function *func)
 
 void FunctionManager::updateFunctionsTree()
 {
+    QStringList pathsList;
+
     m_sceneCount = m_chaserCount = m_sequenceCount = m_efxCount = 0;
     m_collectionCount = m_rgbMatrixCount = m_scriptCount = 0;
     m_showCount = m_audioCount = m_videoCount = 0;
@@ -928,8 +1016,36 @@ void FunctionManager::updateFunctionsTree()
     //m_selectedIDList.clear();
     m_functionTree->clear();
 
-    for(Function *func : m_doc->functions()) // C++11
+    for (Function *func : m_doc->functions()) // C++11
+    {
+        QString fPath = func->path(true);
+        if (pathsList.contains(fPath) == false)
+            pathsList.append(fPath);
         addFunctionTreeItem(func);
+    }
+
+    QVariantList folderParams;
+    folderParams.append(QVariant()); // classRef
+    folderParams.append(App::FolderDragItem); // type
+
+    for (QString path : pathsList)
+    {
+        QString treePath = path.replace("/", TreeModel::separator());
+        m_functionTree->setPathData(treePath, folderParams);
+    }
+
+    for (QString folderPath : m_emptyFolderList)
+    {
+        QStringList tokens = folderPath.split(TreeModel::separator());
+        QString fName = tokens.last();
+        QString basePath;
+        if (tokens.count() > 1)
+        {
+            tokens.takeLast();
+            basePath = tokens.join(TreeModel::separator());
+        }
+        m_functionTree->addItem(fName, folderParams, basePath, TreeModel::EmptyNode | TreeModel::Expanded);
+    }
 
     //m_functionTree->printTree(); // enable for debug purposes
 

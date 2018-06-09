@@ -28,6 +28,7 @@ Popup
     id: menuRoot
     padding: 0
 
+    signal requestFolder()
     signal entryClicked(int fType)
 
     background:
@@ -39,6 +40,17 @@ Popup
     Column
     {
         id: addFuncMenuEntries
+        ContextMenuEntry
+        {
+            imgSource: "qrc:/folder.svg"
+            entryText: qsTr("New folder")
+            onClicked:
+            {
+                functionManager.createFolder()
+                menuRoot.close()
+            }
+        }
+
         ContextMenuEntry
         {
             imgSource: "qrc:/scene.svg"

@@ -137,6 +137,8 @@ public:
 
     Q_INVOKABLE void renameFunctions(QVariantList IDList, QString newName, bool numbering, int startNumber, int digits);
 
+    Q_INVOKABLE void createFolder();
+
     /** Returns the number of the currently selected Functions */
     int selectionCount() const;
 
@@ -200,6 +202,11 @@ private:
     /** List of the Function IDs currently selected
      *  and previewed, if preview is enabled */
     QVariantList m_selectedIDList;
+
+    QString m_selectedFolder;
+
+    /** List of the folder paths that don't include any Function yet */
+    QStringList m_emptyFolderList;
 
     quint32 m_filter;
     QString m_searchFilter;

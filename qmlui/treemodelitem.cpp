@@ -152,7 +152,7 @@ TreeModel *TreeModelItem::children()
 
 void TreeModelItem::printItem(int tab)
 {
-    qDebug() << QString("%1%2").arg(QString(tab, QChar(0x20))).arg(label()) << m_data;
+    qDebug() << QString("%1%2").arg(QString(tab, QChar(0x20))).arg(label()) << m_path << m_data;
 }
 
 
