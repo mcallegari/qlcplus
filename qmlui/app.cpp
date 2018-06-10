@@ -382,7 +382,8 @@ void App::initDoc()
 
 void App::enableKioskMode()
 {
-
+    // enable Virtual console only
+    setAccessMask(AC_VCControl);
 }
 
 void App::createKioskCloseButton(const QRect &rect)
@@ -728,7 +729,7 @@ bool App::loadXML(QXmlStreamReader &doc, bool goToConsole, bool fromMemory)
         }
     }
 
-    if (goToConsole == true)
+    if (goToConsole == true || accessMask() == AC_VCControl)
         // Force the active window to be Virtual Console
         m_contextManager->switchToContext("VirtualConsole");
     else

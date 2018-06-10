@@ -100,6 +100,7 @@ Rectangle
     Rectangle
     {
         id: mainToolbar
+        visible: qlcplus.accessMask != App.AC_VCControl
         width: parent.width
         height: UISettings.iconSizeDefault
         z: 50
@@ -286,8 +287,8 @@ Rectangle
     {
         id: mainViewLoader
         width: parent.width
-        height: parent.height - mainToolbar.height
-        y: mainToolbar.height
+        height: parent.height - (mainToolbar.visible ? mainToolbar.height : 0)
+        y: mainToolbar.visible ? mainToolbar.height : 0
         source: "qrc:/FixturesAndFunctions.qml"
     }
 

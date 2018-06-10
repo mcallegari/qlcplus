@@ -67,6 +67,10 @@ int main(int argc, char *argv[])
                                       "filename", "");
     parser.addOption(openFileOption);
 
+    QCommandLineOption kioskOption(QStringList() << "k" << "kiosk",
+                                      "Enable kiosk mode (only Virtual Console)");
+    parser.addOption(kioskOption);
+
     parser.process(app);
 
     if (parser.isSet(debugOption))
@@ -74,6 +78,10 @@ int main(int argc, char *argv[])
 
     App qlcplusApp;
     qlcplusApp.startup();
+
+    if (parser.isSet(kioskOption))
+        qlcplusApp.enableKioskMode();
+
     qlcplusApp.show();
 
     QString filename = parser.value(openFileOption);
