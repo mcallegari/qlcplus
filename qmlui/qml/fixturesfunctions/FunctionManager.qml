@@ -296,7 +296,7 @@ Rectangle
                           else
                           {
                               console.log("Item path: " + path + ",label: " + label)
-                              item.nodePath = path
+                              item.nodePath = Qt.binding(function() { return path })
                               item.isExpanded = isExpanded
                               item.nodeChildren = childrenModel
                               item.dropKeys = "function"

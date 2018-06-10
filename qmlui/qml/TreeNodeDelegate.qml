@@ -242,7 +242,7 @@ Column
 
                         if (hasChildren)
                         {
-                            item.nodePath = nodePath + '`' + path
+                            item.nodePath = Qt.binding(function() { return nodePath + '`' + path })
                             item.isExpanded = isExpanded
                             item.nodeChildren = childrenModel
                             if (item.hasOwnProperty('dropKeys'))

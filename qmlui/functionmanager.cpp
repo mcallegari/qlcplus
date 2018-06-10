@@ -184,28 +184,50 @@ void FunctionManager::setSearchFilter(QString searchFilter)
 
 void FunctionManager::setFolderPath(QString oldAbsPath, QString newRelPath)
 {
-    int sepPos = oldAbsPath.lastIndexOf(TreeModel::separator());
+    QStringList tokens = oldAbsPath.split(TreeModel::separator());
     QString newAbsPath;
 
-    if (sepPos != -1)
-        newAbsPath = oldAbsPath.mid(0, sepPos + 1) + newRelPath;
+    if (tokens.count() > 0)
+    {
+        tokens.removeLast();
+        tokens.append(newRelPath);
+        newAbsPath = tokens.join(TreeModel::separator());
+    }
     else
+    {
         newAbsPath = newRelPath;
+    }
 
-    oldAbsPath.replace(TreeModel::separator(), "/");
-    newAbsPath.replace(TreeModel::separator(), "/");
+    tokens = newAbsPath.split(TreeModel::separator());
 
     qDebug() << "Folder path changed from" << oldAbsPath << "to" << newAbsPath;
 
-    for (Function *f : m_doc->functions())
+    // change the item label first
+    m_functionTree->setItemRoleData(oldAbsPath, tokens.last(), TreeModel::LabelRole);
+    // once label has changed, the item can now be accessed with the new path
+    m_functionTree->setItemRoleData(newAbsPath, tokens.last(), TreeModel::PathRole);
+
+    if (m_emptyFolderList.contains(oldAbsPath))
     {
-        if (f->path(true).startsWith(oldAbsPath))
+        m_emptyFolderList.removeOne(oldAbsPath);
+        m_emptyFolderList.append(newAbsPath);
+    }
+    else
+    {
+        oldAbsPath.replace(TreeModel::separator(), "/");
+        newAbsPath.replace(TreeModel::separator(), "/");
+
+        for (Function *f : m_doc->functions())
         {
-            Tardis::instance()->enqueueAction(Tardis::FunctionSetPath, f->id(), f->path(true), newAbsPath);
-            f->setPath(newAbsPath);
+            if (f->path(true).startsWith(oldAbsPath))
+            {
+                Tardis::instance()->enqueueAction(Tardis::FunctionSetPath, f->id(), f->path(true), newAbsPath);
+                f->setPath(newAbsPath);
+            }
         }
     }
-    updateFunctionsTree();
+
+    //m_functionTree->printTree();
 }
 
 quint32 FunctionManager::addFunctiontoDoc(Function *func, QString name, bool select)
