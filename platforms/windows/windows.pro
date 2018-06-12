@@ -37,7 +37,7 @@ lessThan(QT_MAJOR_VERSION, 5) {
                         $$QT_LIBS_PATH/Qt53DCore$${QT_D}.dll \
                         $$QT_LIBS_PATH/Qt53DExtras$${QT_D}.dll \
                         $$QT_LIBS_PATH/Qt53DInput$${QT_D}.dll \
-                        $$QT_LIBS_PATH/Qt53DLogi$${QT_D}c.dll \
+                        $$QT_LIBS_PATH/Qt53DLogic$${QT_D}.dll \
                         $$QT_LIBS_PATH/Qt53DAnimation$${QT_D}.dll \
                         $$QT_LIBS_PATH/Qt53DQuick$${QT_D}.dll \
                         $$QT_LIBS_PATH/Qt53DQuickExtras$${QT_D}.dll \
