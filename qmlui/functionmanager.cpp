@@ -740,6 +740,37 @@ void FunctionManager::moveFunctions(QString newPath)
     //updateFunctionsTree();
 }
 
+void FunctionManager::cloneFunctions()
+{
+    for (QVariant fidVar : m_selectedIDList)
+    {
+        Function *func = m_doc->function(fidVar.toUInt());
+        if (func == NULL)
+            continue;
+
+        Function* copy = func->createCopy(m_doc);
+        if (copy != NULL)
+        {
+            copy->setName(copy->name() + tr(" (Copy)"));
+
+            /* If the cloned Function is a Sequence,
+             * clone the bound Scene too */
+            if (func->type() == Function::SequenceType)
+            {
+                Sequence *sequence = qobject_cast<Sequence *>(copy);
+                quint32 sceneID = sequence->boundSceneID();
+                Function *scene = m_doc->function(sceneID);
+                if (scene != NULL)
+                {
+                    Function *sceneCopy = scene->createCopy(m_doc);
+                    if (sceneCopy != NULL)
+                        sequence->setBoundSceneID(sceneCopy->id());
+                }
+            }
+        }
+    }
+}
+
 void FunctionManager::deleteEditorItems(QVariantList list)
 {
     if (m_currentEditor != NULL)

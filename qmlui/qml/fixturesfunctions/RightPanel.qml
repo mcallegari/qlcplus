@@ -248,6 +248,18 @@ SidePanel
                     title: qsTr("Rename functions")
                 }
             }
+            IconButton
+            {
+                id: cloneFunction
+                z: 2
+                width: iconSize
+                height: iconSize
+                imgSource: "qrc:/edit-copy.svg"
+                tooltip: qsTr("Clone the selected functions")
+                counter: functionManager.selectionCount && !functionManager.isEditing
+                onClicked: functionManager.cloneFunctions()
+            }
+
 
             IconButton
             {

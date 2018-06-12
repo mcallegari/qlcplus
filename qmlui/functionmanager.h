@@ -129,6 +129,9 @@ public:
     /** Move the currently selected Function to the specified $newPath */
     Q_INVOKABLE void moveFunctions(QString newPath);
 
+    /** Clone the currently selected Functions */
+    Q_INVOKABLE void cloneFunctions();
+
     /** Generic method to delete a list of item IDs specified in $list.
      *  This is used from within a Function editor and items can be of any type
      *  such as Functions, Fixtures, etc. as long as they have an ID.
