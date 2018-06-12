@@ -85,6 +85,7 @@ Section
 	File qlcplus-fixtureeditor.exe
 	File *.dll
 	File /r platforms
+	File /r imageformats
 	File /r mediaservice
 	File /r audio
 	File Sample.qxw

@@ -7,62 +7,50 @@ QT_PLUGINS_PATH = $$QT_LIBS_PATH/../share/qt5/plugins
 QT_QML_PATH = $$QT_LIBS_PATH/../share/qt5/qml
 SYS_LIBS_PATH = $$(SystemDrive)/msys64/mingw32/bin
 #SYS_LIBS_PATH = D:/msys64/mingw32/bin
+QT_D=""
+debug: QT_D="d"
 
 # Qt Libraries
 qtlibs.path  = $$INSTALLROOT/$$LIBSDIR
 
 lessThan(QT_MAJOR_VERSION, 5) {
-    release:qtlibs.files = $$QT_LIBS_PATH/QtCore4.dll \
-                           $$QT_LIBS_PATH/QtGui4.dll \
-                           $$QT_LIBS_PATH/QtScript4.dll \
-                           $$QT_LIBS_PATH/QtNetwork4.dll
-
-    debug:qtlibs.files = $$QT_LIBS_PATH/QtCored4.dll \
-                         $$QT_LIBS_PATH/QtGuid4.dll \
-                         $$QT_LIBS_PATH/QtScriptd4.dll \
-                         $$QT_LIBS_PATH/QtNetwork4d.dll
+    qtlibs.files = $$QT_LIBS_PATH/QtCore4$${QT_D}.dll \
+                   $$QT_LIBS_PATH/QtGui4$${QT_D}.dll \
+                   $$QT_LIBS_PATH/QtScript4$${QT_D}.dll \
+                   $$QT_LIBS_PATH/QtNetwork4$${QT_D}.dll
 } else {
-    release:qtlibs.files = $$QT_LIBS_PATH/Qt5Core.dll \
-                           $$QT_LIBS_PATH/Qt5Script.dll \
-                           $$QT_LIBS_PATH/Qt5Network.dll \
-                           $$QT_LIBS_PATH/Qt5Gui.dll \
-                           $$QT_LIBS_PATH/Qt5Widgets.dll \
-                           $$QT_LIBS_PATH/Qt5OpenGL.dll \
-                           $$QT_LIBS_PATH/Qt5Multimedia.dll \
-                           $$QT_LIBS_PATH/Qt5MultimediaWidgets.dll
-
-    debug:qtlibs.files = $$QT_LIBS_PATH/Qt5Cored.dll \
-                         $$QT_LIBS_PATH/Qt5Scriptd.dll \
-                         $$QT_LIBS_PATH/Qt5Networkd.dll \
-                         $$QT_LIBS_PATH/Qt5Guid.dll \
-                         $$QT_LIBS_PATH/Qt5Widgetsd.dll \
-                         $$QT_LIBS_PATH/Qt5OpenGLd.dll \
-                         $$QT_LIBS_PATH/Qt5Multimediad.dll \
-                         $$QT_LIBS_PATH/Qt5MultimediaWidgetsd.dll
+    qtlibs.files = $$QT_LIBS_PATH/Qt5Core$${QT_D}.dll \
+                   $$QT_LIBS_PATH/Qt5Script$${QT_D}.dll \
+                   $$QT_LIBS_PATH/Qt5Network$${QT_D}.dll \
+                   $$QT_LIBS_PATH/Qt5Gui$${QT_D}.dll \
+                   $$QT_LIBS_PATH/Qt5Widgets$${QT_D}.dll \
+                   $$QT_LIBS_PATH/Qt5OpenGL$${QT_D}.dll \
+                   $$QT_LIBS_PATH/Qt5Multimedia$${QT_D}.dll \
+                   $$QT_LIBS_PATH/Qt5MultimediaWidgets$${QT_D}.dll
 
     qmlui: {
-        release:qtlibs.files += $$QT_LIBS_PATH/Qt5Qml.dll \
-                                $$QT_LIBS_PATH/Qt5Quick.dll \
-                                $$QT_LIBS_PATH/Qt5QuickControls2.dll \
-                                $$QT_LIBS_PATH/Qt5QuickTemplates2.dll \
-                                $$QT_LIBS_PATH/Qt5Svg.dll \
-                                $$QT_LIBS_PATH/Qt53DCore.dll \
-                                $$QT_LIBS_PATH/Qt53DExtras.dll \
-                                $$QT_LIBS_PATH/Qt53DInput.dll \
-                                $$QT_LIBS_PATH/Qt53DLogic.dll \
-                                $$QT_LIBS_PATH/Qt53DAnimation.dll \
-                                $$QT_LIBS_PATH/Qt53DQuick.dll \
-                                $$QT_LIBS_PATH/Qt53DQuickExtras.dll \
-                                $$QT_LIBS_PATH/Qt53DQuickInput.dll \
-                                $$QT_LIBS_PATH/Qt53DQuickRender.dll \
-                                $$QT_LIBS_PATH/Qt53DRender.dll \
-                                $$QT_LIBS_PATH/Qt5Concurrent.dll \
-                                $$QT_LIBS_PATH/Qt5Gamepad.dll \
-                                $$QT_LIBS_PATH/Qt5PrintSupport.dll
+        qtlibs.files += $$QT_LIBS_PATH/Qt5Qml$${QT_D}.dll \
+                        $$QT_LIBS_PATH/Qt5Quick$${QT_D}.dll \
+                        $$QT_LIBS_PATH/Qt5QuickControls2$${QT_D}.dll \
+                        $$QT_LIBS_PATH/Qt5QuickTemplates2$${QT_D}.dll \
+                        $$QT_LIBS_PATH/Qt5Svg$${QT_D}.dll \
+                        $$QT_LIBS_PATH/Qt53DCore$${QT_D}.dll \
+                        $$QT_LIBS_PATH/Qt53DExtras$${QT_D}.dll \
+                        $$QT_LIBS_PATH/Qt53DInput$${QT_D}.dll \
+                        $$QT_LIBS_PATH/Qt53DLogi$${QT_D}c.dll \
+                        $$QT_LIBS_PATH/Qt53DAnimation$${QT_D}.dll \
+                        $$QT_LIBS_PATH/Qt53DQuick$${QT_D}.dll \
+                        $$QT_LIBS_PATH/Qt53DQuickExtras$${QT_D}.dll \
+                        $$QT_LIBS_PATH/Qt53DQuickInput$${QT_D}.dll \
+                        $$QT_LIBS_PATH/Qt53DQuickRender$${QT_D}.dll \
+                        $$QT_LIBS_PATH/Qt53DRender$${QT_D}.dll \
+                        $$QT_LIBS_PATH/Qt5Concurrent$${QT_D}.dll \
+                        $$QT_LIBS_PATH/Qt5Gamepad$${QT_D}.dll \
+                        $$QT_LIBS_PATH/Qt5PrintSupport$${QT_D}.dll
         lessThan(QT_MINOR_VERSION, 10) {
-            release: qtlibs.files += $$QT_LIBS_PATH/Qt5MultimediaQuick_p.dll
+            qtlibs.files += $$QT_LIBS_PATH/Qt5MultimediaQuick_p$${QT_D}.dll
         } else {
-            release: qtlibs.files += $$QT_LIBS_PATH/Qt5MultimediaQuick.dll
+            qtlibs.files += $$QT_LIBS_PATH/Qt5MultimediaQuick$${QT_D}.dll
         }
     }
 
@@ -92,37 +80,35 @@ INSTALLS += qtlibs
 
 greaterThan(QT_MAJOR_VERSION, 4) {
     qtplatform.path = $$INSTALLROOT/$$LIBSDIR/platforms
-    debug:qtplatform.files = $$QT_PLUGINS_PATH/platforms/qwindowsd.dll
-    release:qtplatform.files = $$QT_PLUGINS_PATH/platforms/qwindows.dll
+    qtplatform.files = $$QT_PLUGINS_PATH/platforms/qwindows$${QT_D}.dll
     INSTALLS += qtplatform
 
     qtaudio.path = $$INSTALLROOT/$$LIBSDIR/audio
-    debug:qtaudio.files = $$QT_PLUGINS_PATH/audio/qtaudio_windowsd.dll
-    release:qtaudio.files = $$QT_PLUGINS_PATH/audio/qtaudio_windows.dll
+    qtaudio.files = $$QT_PLUGINS_PATH/audio/qtaudio_windows$${QT_D}.dll
     INSTALLS += qtaudio
     
     qtmedia.path = $$INSTALLROOT/$$LIBSDIR/mediaservice
-    debug:qtmedia.files = $$QT_PLUGINS_PATH/mediaservice/dsengined.dll \
-                          $$QT_PLUGINS_PATH/mediaservice/qtmedia_audioengined.dll
-    release:qtmedia.files = $$QT_PLUGINS_PATH/mediaservice/dsengine.dll \
-                            $$QT_PLUGINS_PATH/mediaservice/qtmedia_audioengine.dll
+    qtmedia.files = $$QT_PLUGINS_PATH/mediaservice/dsengine$${QT_D}.dll \
+                    $$QT_PLUGINS_PATH/mediaservice/qtmedia_audioengine$${QT_D}.dll
     INSTALLS += qtmedia
 
+    qtimageformats.path = $$INSTALLROOT/$$LIBSDIR/imageformats
+    qtimageformats.files = $$QT_PLUGINS_PATH/imageformats/qgif$${QT_D}.dll \
+                           $$QT_PLUGINS_PATH/imageformats/qsvg$${QT_D}.dll
+    INSTALLS += qtimageformats
+
     qmlui: {
-        qtimageformats.path = $$INSTALLROOT/$$LIBSDIR/imageformats
-        qtimageformats.files = $$QT_PLUGINS_PATH/imageformats/qsvg.dll
-        INSTALLS += qtimageformats
 
         qtprintsupport.path = $$INSTALLROOT/$$LIBSDIR/printsupport
-        qtprintsupport.files = $$QT_PLUGINS_PATH/printsupport/windowsprintersupport.dll
+        qtprintsupport.files = $$QT_PLUGINS_PATH/printsupport/windowsprintersupport$${QT_D}.dll
         INSTALLS += qtprintsupport
 
         geometryloaders.path = $$INSTALLROOT/$$LIBSDIR/geometryloaders
-        geometryloaders.files = $$QT_PLUGINS_PATH/geometryloaders/defaultgeometryloader.dll
+        geometryloaders.files = $$QT_PLUGINS_PATH/geometryloaders/defaultgeometryloader$${QT_D}.dll
         INSTALLS += geometryloaders
 
         sceneparsers.path = $$INSTALLROOT/$$LIBSDIR/sceneparsers
-        sceneparsers.files = $$QT_PLUGINS_PATH/sceneparsers/assimpsceneimport.dll
+        sceneparsers.files = $$QT_PLUGINS_PATH/sceneparsers/assimpsceneimport$${QT_D}.dll
         INSTALLS += sceneparsers
 
         qmldeps.path   = $$INSTALLROOT/$$LIBSDIR
