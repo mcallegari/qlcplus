@@ -204,6 +204,28 @@ Rectangle
                 }
             }
 
+            IconButton
+            {
+                id: copyBtn
+                width: parent.height - 6
+                height: width
+                imgSource: "qrc:/edit-copy.svg"
+                tooltip: qsTr("Copy the selection item in the clipboard")
+                counter: showManager.selectedItemsCount
+                onClicked: showManager.copyToClipboard()
+            }
+
+            IconButton
+            {
+                id: pasteBtn
+                width: parent.height - 6
+                height: width
+                imgSource: "qrc:/edit-paste.svg"
+                tooltip: qsTr("Paste items in the clipboard at cursor position")
+                counter: showManager.selectedItemsCount
+                onClicked: showManager.pasteFromClipboard()
+            }
+
             RobotoText
             {
                 id: timeBox

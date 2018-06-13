@@ -18,6 +18,8 @@
 */
 
 #include "showmanager.h"
+#include "sequence.h"
+#include "tardis.h"
 #include "chaser.h"
 #include "track.h"
 #include "show.h"
@@ -90,11 +92,10 @@ QString ShowManager::showName() const
 
 void ShowManager::setShowName(QString showName)
 {
-    if (m_currentShow == NULL)
+    if (m_currentShow == NULL || m_currentShow->name() == showName)
         return;
 
-    if (m_currentShow->name() == showName)
-        return;
+    Tardis::instance()->enqueueAction(Tardis::FunctionSetName, m_currentShow->id(), m_currentShow->name(), showName);
 
     m_currentShow->setName(showName);
     emit showNameChanged(showName);
@@ -260,10 +261,17 @@ void ShowManager::deleteShowItems(QVariantList data)
     if (m_currentShow == NULL)
         return;
 
-    foreach(selectedShowItem ssi, m_selectedItems)
+    foreach(SelectedShowItem ssi, m_selectedItems)
     {
         quint32 trackIndex = ssi.m_trackIndex;
         qDebug() << "Selected item has track index:" << trackIndex;
+
+        for (int i = 0; i < m_clipboard.count(); i++)
+        {
+            SelectedShowItem cItem = m_clipboard.at(i);
+            if (cItem.m_showFunc == ssi.m_showFunc)
+                m_clipboard.removeAt(i);
+        }
 
         Track *track = m_currentShow->tracks().at(trackIndex);
         track->removeShowFunction(ssi.m_showFunc, true);
@@ -275,18 +283,6 @@ void ShowManager::deleteShowItems(QVariantList data)
             delete ssi.m_item;
         }
     }
-
-    /*
-    for (int i = 0; i < data.count(); i++)
-    {
-        selectedShowItem *ssi = (selectedShowItem *)data.at(i);
-        quint32 trackIndex = ssi->m_trackIndex;
-        qDebug() << "Selected item has track index:" << trackIndex;
-
-        Track *track = m_currentShow->tracks().at(trackIndex);
-        track->removeShowFunction(sf, true);
-    }
-    */
 
     m_selectedItems.clear();
     emit selectedItemsCountChanged(0);
@@ -371,6 +367,8 @@ void ShowManager::renderView(QQuickItem *parent)
 
     if (m_currentShow == NULL)
         return;
+
+    setContextItem(parent);
 
     int trkIdx = 0;
 
@@ -479,7 +477,7 @@ void ShowManager::setItemSelection(int trackIdx, ShowFunction *sf, QQuickItem *i
 {
     if (selected == true)
     {
-        selectedShowItem selection;
+        SelectedShowItem selection;
         selection.m_trackIndex = trackIdx;
         selection.m_showFunc = sf;
         selection.m_item = item;
@@ -489,7 +487,7 @@ void ShowManager::setItemSelection(int trackIdx, ShowFunction *sf, QQuickItem *i
     {
         for (int i = 0; i < m_selectedItems.count(); i++)
         {
-            selectedShowItem si = m_selectedItems.at(i);
+            SelectedShowItem si = m_selectedItems.at(i);
             if (si.m_showFunc == sf)
             {
                 m_selectedItems.removeAt(i);
@@ -502,7 +500,7 @@ void ShowManager::setItemSelection(int trackIdx, ShowFunction *sf, QQuickItem *i
 
 void ShowManager::resetItemsSelection()
 {
-    foreach(selectedShowItem ssi, m_selectedItems)
+    foreach(SelectedShowItem ssi, m_selectedItems)
     {
         if (ssi.m_item != NULL)
             ssi.m_item->setProperty("isSelected", false);
@@ -525,7 +523,7 @@ QVariantList ShowManager::selectedItemRefs()
 QStringList ShowManager::selectedItemNames()
 {
     QStringList names;
-    foreach (selectedShowItem si, m_selectedItems)
+    foreach (SelectedShowItem si, m_selectedItems)
     {
         Function *func = m_doc->function(si.m_showFunc->functionID());
         if (func != NULL)
@@ -537,7 +535,7 @@ QStringList ShowManager::selectedItemNames()
 
 bool ShowManager::selectedItemsLocked()
 {
-    foreach (selectedShowItem si, m_selectedItems)
+    foreach (SelectedShowItem si, m_selectedItems)
     {
         if (si.m_showFunc != NULL && si.m_showFunc->isLocked())
             return true;
@@ -547,7 +545,7 @@ bool ShowManager::selectedItemsLocked()
 
 void ShowManager::setSelectedItemsLock(bool lock)
 {
-    foreach (selectedShowItem si, m_selectedItems)
+    foreach (SelectedShowItem si, m_selectedItems)
     {
         if (si.m_showFunc != NULL)
             si.m_showFunc->setLocked(lock);
@@ -639,6 +637,69 @@ QVariantList ShowManager::previewData(Function *f) const
     }
 
     return data;
+}
+
+void ShowManager::copyToClipboard()
+{
+    m_clipboard.clear();
+
+    for (SelectedShowItem item : m_selectedItems)
+        m_clipboard.append(item);
+}
+
+void ShowManager::pasteFromClipboard()
+{
+    quint32 lowerTime = UINT_MAX;
+
+    // pre-parse copied items to find the one with lowest start time
+    for (SelectedShowItem item : m_clipboard)
+    {
+        if (item.m_showFunc->startTime() < lowerTime)
+            lowerTime = item.m_showFunc->startTime();
+    }
+
+    // now clone and add Functions and ShowFunctions on the proper tracks
+    // and keeping the delta time of the original items
+    for (SelectedShowItem item : m_clipboard)
+    {
+        Track *track = m_currentShow->tracks().at(item.m_trackIndex);
+
+        if (checkOverlapping(track, item.m_showFunc, m_currentTime, item.m_showFunc->duration()))
+            continue;
+
+        Function *func = m_doc->function(item.m_showFunc->functionID());
+        if (func == NULL)
+            continue;
+
+        Function *copyFunc = func->createCopy(m_doc);
+        if (copyFunc == NULL)
+            continue;
+
+        copyFunc->setName(QString("%1 %2").arg(copyFunc->name()).arg(tr("(Copy)")));
+
+        if (copyFunc->type() == Function::SequenceType)
+        {
+            Sequence *sequence = qobject_cast<Sequence*>(copyFunc);
+            Scene *scene = qobject_cast<Scene*>(m_doc->function(sequence->boundSceneID()));
+            if (scene == NULL)
+                continue;
+
+            Scene *copyScene = static_cast<Scene*>(scene->createCopy(m_doc, true));
+            if (copyScene == NULL)
+                continue;
+
+            copyScene->setName(QString("%1 %2").arg(copyScene->name()).arg(tr("(Copy)")));
+
+            m_doc->addFunction(copyScene);
+            sequence->setBoundSceneID(copyScene->id());
+        }
+
+        m_doc->addFunction(copyFunc);
+
+        addItems(contextItem(), item.m_trackIndex,
+                 m_currentTime + item.m_showFunc->startTime() - lowerTime,
+                 QVariantList() << copyFunc->id());
+    }
 }
 
 
