@@ -6,9 +6,9 @@
 ;Defines
 !define QLCPLUS_HOME "c:\Qt\qlcplus"
 !define MUI_ICON "${QLCPLUS_HOME}\resources\icons\qlcplus.ico"
-!define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\modern-uninstall.ico"
+!define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\nsis3-uninstall.ico"
 !define MUI_HEADERIMAGE
-!define MUI_HEADERIMAGE_BITMAP "${NSISDIR}\Contrib\Graphics\Header\win.bmp"
+!define MUI_HEADERIMAGE_BITMAP "${NSISDIR}\Contrib\Graphics\Header\nsis3-vintage.bmp"
 !define MUI_HEADERIMAGE_LEFT
 !define MUI_PAGE_HEADER_TEXT "Q Light Controller Plus"
 
@@ -126,6 +126,7 @@ Section "Uninstall"
 	Delete $INSTDIR\qlcplus-fixtureeditor.exe
 	Delete $INSTDIR\*.dll
 	RMDir /r $INSTDIR\platforms
+        RMDir /r $INSTDIR\imageformats
 	RMDir /r $INSTDIR\mediaservice
 	RMDir /r $INSTDIR\audio
 	Delete $INSTDIR\Sample.qxw
