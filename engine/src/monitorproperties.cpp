@@ -172,22 +172,21 @@ void MonitorProperties::removeFixture(quint32 fid, quint16 head, quint16 linked)
     if (m_fixtureItems.contains(fid) == false)
         return;
 
-    FixturePreviewItem item = m_fixtureItems[fid];
     // if no sub items are present,
     // the fixture can be removed completely
-    if (item.m_subItems.count() == 0)
+    if (m_fixtureItems[fid].m_subItems.count() == 0)
     {
         m_fixtureItems.take(fid);
         return;
     }
 
     quint32 subID = fixtureSubID(head, linked);
-    item.m_subItems.take(subID);
+    m_fixtureItems[fid].m_subItems.remove(subID);
 }
 
-quint32 MonitorProperties::fixtureSubID(quint16 headIndex, quint16 linkedIndex) const
+quint32 MonitorProperties::fixtureSubID(quint32 headIndex, quint32 linkedIndex) const
 {
-    return (((quint32)headIndex << 16) | (quint32)linkedIndex);
+    return ((headIndex << 16) | linkedIndex);
 }
 
 quint16 MonitorProperties::fixtureHeadIndex(quint32 mapID) const

@@ -153,7 +153,7 @@ public:
 
     void removeFixture(quint32 fid, quint16 head, quint16 linked);
 
-    quint32 fixtureSubID(quint16 headIndex, quint16 linkedIndex) const;
+    quint32 fixtureSubID(quint32 headIndex, quint32 linkedIndex) const;
     quint16 fixtureHeadIndex(quint32 mapID) const;
     quint16 fixtureLinkedIndex(quint32 mapID) const;
 
