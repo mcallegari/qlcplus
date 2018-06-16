@@ -92,8 +92,11 @@ function endDrag(mouse)
     }
 
     var currContext = previewLoader.item.contextName;
+    var offset = 0;
     console.log("Current context: " + currContext);
-    var x = draggedItem.x - leftSidePanel.width;
+    if (currContext === "2D")
+        offset = View2D.gridPosition.x;
+    var x = draggedItem.x - leftSidePanel.width - offset;
     var y = draggedItem.y - previewLoader.y - viewToolbar.height;
 
     console.log("Item x: " + x + ", y: " + y);
