@@ -127,12 +127,13 @@ var testAlgo;
 
     util.getNextStep = function(width, height, rgb)
     {
+      var x, y;
       // create an empty, black pixelMap
       util.pixelMap = new Array(height);
-      for (var y = 0; y < height; y++)
+      for (y = 0; y < height; y++)
       {
         util.pixelMap[y] = new Array(width);
-        for (var x = 0; x < width; x++) {
+        for (x = 0; x < width; x++) {
           util.pixelMap[y][x] = 0;
         }
       }
@@ -155,9 +156,9 @@ var testAlgo;
           var radius2 = circles[i].step * circles[i].step;
           l = l.toFixed(0);
 
-          for (var x = 0; x <= l; x++) 
+          for (x = 0; x <= l; x++) 
           {
-            var y = Math.sqrt(radius2 - (x * x));
+            y = Math.sqrt(radius2 - (x * x));
 
             util.drawPixel(circles[i].xCenter + x, circles[i].yCenter + y, color, width, height);
             util.drawPixel(circles[i].xCenter + x, circles[i].yCenter - y, color, width, height);

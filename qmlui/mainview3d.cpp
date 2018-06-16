@@ -336,8 +336,8 @@ void MainView3D::setFixtureFlags(quint32 itemID, quint32 flags)
     if (meshRef == NULL)
         return;
 
-    meshRef->m_rootItem->setProperty("enabled", flags & MonitorProperties::HiddenFlag ? false : true);
-    meshRef->m_selectionBox->setProperty("enabled", flags & MonitorProperties::HiddenFlag ? false : true);
+    meshRef->m_rootItem->setProperty("enabled", (flags & MonitorProperties::HiddenFlag) ? false : true);
+    meshRef->m_selectionBox->setProperty("enabled", (flags & MonitorProperties::HiddenFlag) ? false : true);
 }
 
 Qt3DCore::QTransform *MainView3D::getTransform(QEntity *entity)

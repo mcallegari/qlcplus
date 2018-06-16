@@ -30,38 +30,38 @@ def getPresetsArray():
 
 def printPresets(group):
     presets = getPresetsArray()
-    min = 1
-    max = presets.index("NoFunction")
+    pMin = 1
+    pMax = presets.index("NoFunction")
 
     if group == "Intensity":
-        min = presets.index("IntensityMasterDimmer")
-        max = presets.index("IntensityValueFine")
+        pMin = presets.index("IntensityMasterDimmer")
+        pMax = presets.index("IntensityValueFine")
     elif group == "Pan":
-        min = presets.index("PositionPan")
-        max = presets.index("PositionPanFine")
+        pMin = presets.index("PositionPan")
+        pMax = presets.index("PositionPanFine")
     elif group == "Tilt":
-        min = presets.index("PositionTilt")
-        max = presets.index("PositionTiltFine")
+        pMin = presets.index("PositionTilt")
+        pMax = presets.index("PositionTiltFine")
     elif group == "Speed":
-        min = presets.index("SpeedPanSlowFast")
-        max = presets.index("SpeedPanTiltFastSlow")
+        pMin = presets.index("SpeedPanSlowFast")
+        pMax = presets.index("SpeedPanTiltFastSlow")
     elif group == "Colour":
-        min = presets.index("ColorMacro")
-        max = presets.index("ColorCTBMixer")
+        pMin = presets.index("ColorMacro")
+        pMax = presets.index("ColorCTBMixer")
     elif group == "Gobo":
-        min = presets.index("GoboWheel")
-        max = presets.index("GoboIndexFine")
+        pMin = presets.index("GoboWheel")
+        pMax = presets.index("GoboIndexFine")
     elif group == "Shutter":
-        min = presets.index("ShutterStrobeSlowFast")
-        max = presets.index("ShutterStrobeFastSlow")
+        pMin = presets.index("ShutterStrobeSlowFast")
+        pMax = presets.index("ShutterStrobeFastSlow")
     elif group == "Beam":
-        min = presets.index("BeamFocusNearFar")
-        max = presets.index("BeamZoomBigSmall")
+        pMin = presets.index("BeamFocusNearFar")
+        pMax = presets.index("BeamZoomBigSmall")
     elif group == "Prism":
-        min = presets.index("PrismRotationSlowFast")
-        max = presets.index("PrismRotationFastSlow")
+        pMin = presets.index("PrismRotationSlowFast")
+        pMax = presets.index("PrismRotationFastSlow")
 
-    for i in range(min, max + 1):
+    for i in range(pMin, pMax + 1):
         sys.stdout.write("[" + str(i) + "] " + presets[i] + " ")
         sys.stdout.flush()
     print ""

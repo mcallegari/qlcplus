@@ -100,7 +100,7 @@ var testAlgo;
 
             algo.initialized = true;
             return;
-        }
+        };
 
         // main QLC+ routine where the work is done
         algo.rgbMap = function (width, height, rgb, step) {

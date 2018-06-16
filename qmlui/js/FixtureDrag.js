@@ -95,7 +95,9 @@ function endDrag(mouse)
     var offset = 0;
     console.log("Current context: " + currContext);
     if (currContext === "2D")
+    {
         offset = View2D.gridPosition.x;
+    }
     var x = draggedItem.x - leftSidePanel.width - offset;
     var y = draggedItem.y - previewLoader.y - viewToolbar.height;
 

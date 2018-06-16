@@ -126,7 +126,7 @@ void MainViewDMX::setFixtureFlags(quint32 itemID, quint32 flags)
         return;
 
     QQuickItem *fxItem = m_itemsMap.value(fixtureID, NULL);
-    fxItem->setProperty("visible", flags & MonitorProperties::HiddenFlag ? false : true);
+    fxItem->setProperty("visible", (flags & MonitorProperties::HiddenFlag) ? false : true);
 }
 
 void MainViewDMX::updateFixture(Fixture *fixture)

@@ -25,8 +25,8 @@ var testAlgo;
     {
         var algo = new Object;
         algo.apiVersion = 2;
-        algo.name = 'Noise';
-        algo.author = 'Doug Puckett';
+        algo.name = "Noise";
+        algo.author = "Doug Puckett";
         algo.properties = [];
         algo.acceptColors = 1;
         algo.noisePercentage = "High";
@@ -96,7 +96,7 @@ var testAlgo;
                         map[y][x] = cColor;     // set pixel to color created above
                     }
                     else {
-                        map[y][x] = 0           // otherwise, clear it
+                        map[y][x] = 0;          // otherwise, clear it
                     }
                 }
             }

@@ -219,7 +219,7 @@ void MainView2D::setFixtureFlags(quint32 itemID, quint32 flags)
     if (fxItem == NULL)
         return;
 
-    fxItem->setProperty("visible", flags & MonitorProperties::HiddenFlag ? false : true);
+    fxItem->setProperty("visible", (flags & MonitorProperties::HiddenFlag) ? false : true);
 }
 
 QList<quint32> MainView2D::selectFixturesRect(QRectF rect)
