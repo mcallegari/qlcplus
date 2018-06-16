@@ -914,6 +914,72 @@ void ContextManager::setFixturesDistribution(int direction)
     }
 }
 
+void ContextManager::setLinkedFixture(quint32 itemID)
+{
+    quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
+    int headIndex = FixtureUtils::itemHeadIndex(itemID);
+    int linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+
+    if (linkedIndex)
+    {
+        // remove an existing linked fixture - itemID is the linked fixture
+
+        // 1- remove the node from Fixture Manager
+        m_fixtureManager->updateLinkedFixtureNode(itemID, false);
+
+        // 2- remove the item from previews
+        if (m_2DView->isEnabled())
+            m_2DView->removeFixtureItem(itemID);
+        if (m_3DView->isEnabled())
+            m_3DView->removeFixtureItem(itemID);
+
+        // 3- remove the item from Monitor properties
+        m_monProps->removeFixture(fixtureID, headIndex, linkedIndex);
+    }
+    else
+    {
+        // create a new linked fixture - itemID is the base fixture
+        int newIndex = 1;
+        Fixture *fixture = m_doc->fixture(fixtureID);
+        if (fixture == NULL)
+            return;
+
+        // 1- iterate through Fixture subitems to find a new linked index
+        for (quint32 subID : m_monProps->fixtureIDList(fixtureID))
+        {
+            quint16 hIdx = m_monProps->fixtureHeadIndex(subID);
+            quint16 lIdx = m_monProps->fixtureLinkedIndex(subID);
+            if (hIdx != headIndex)
+                continue;
+
+            if (lIdx >= newIndex)
+                newIndex = lIdx + 1;
+        }
+        // 2- find a position for the new item
+        QVector3D pos = m_monProps->fixturePosition(fixtureID, headIndex, linkedIndex);
+        QLCPhysical phy = fixture->fixtureMode()->physical();
+        if (m_monProps->pointOfView() == MonitorProperties::TopView)
+            pos.setZ(pos.z() + phy.depth() + 50);
+        else
+            pos.setY(pos.y() + phy.height() + 50);
+
+        // 3- add the new item to monitor properties
+        QString newName = QString("%1 (%2 %3)").arg(fixture->name()).arg(tr("linked")).arg(newIndex);
+        m_monProps->setFixturePosition(fixtureID, headIndex, newIndex, pos);
+        m_monProps->setFixtureResource(fixtureID, headIndex, newIndex, newName);
+
+        // 4- add the new item to the Fixture Manager tree
+        quint32 linkedItemID = FixtureUtils::fixtureItemID(fixtureID, headIndex, newIndex);
+        m_fixtureManager->updateLinkedFixtureNode(linkedItemID, true);
+
+        // 5- create the new item in the previews
+        if (m_2DView->isEnabled())
+            m_2DView->createFixtureItem(fixtureID, headIndex, newIndex, pos, false);
+        if (m_3DView->isEnabled())
+            m_3DView->createFixtureItem(fixtureID, headIndex, newIndex, pos, false);
+    }
+}
+
 void ContextManager::updateFixturesCapabilities()
 {
     for (quint32 itemID : m_selectedFixtures)

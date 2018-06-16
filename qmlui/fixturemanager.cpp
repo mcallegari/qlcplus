@@ -49,7 +49,7 @@ FixtureManager::FixtureManager(QQuickView *view, Doc *doc, QObject *parent)
     , m_searchFilter(QString())
     , m_propertyEditEnabled(false)
     , m_fixtureTree(NULL)
-    , m_treeShowFlags(ShowGroups | ShowHeads)
+    , m_treeShowFlags(ShowGroups | ShowLinked | ShowHeads)
     , m_colorFilterIndex(0)
     , m_maxPanDegrees(0)
     , m_maxTiltDegrees(0)
@@ -398,12 +398,12 @@ void FixtureManager::setPropertyEditEnabled(bool enable)
 
     if (enable)
     {
-        m_treeShowFlags = ShowChannels | ShowFlags | ShowCanFade | ShowPrecedence | ShowModifier;
+        m_treeShowFlags = ShowChannels | ShowLinked | ShowFlags | ShowCanFade | ShowPrecedence | ShowModifier;
         treeColumns << "flags" << "canFade" << "precedence" << "modifier";
     }
     else
     {
-        m_treeShowFlags = ShowGroups | ShowHeads;
+        m_treeShowFlags = ShowGroups | ShowLinked | ShowHeads;
     }
 
     emit propertyEditEnabledChanged();
@@ -474,20 +474,23 @@ void FixtureManager::setItemRoleData(int itemID, int index, QString role, QVaria
 
     // now reconstruct the item path and change the role of the tree model
     QString path;
+    QString fxName = fixture->name();
     QStringList uniNames = m_doc->inputOutputMap()->universeNames();
     int roleIndex = m_fixtureTree->roleIndex(role);
+    if (linkedIndex)
+        fxName = m_monProps->fixtureResource(fixtureID, headIndex, linkedIndex);
 
     if (index == -1)
     {
         // change happened on a fixture node
         path = QString("%1%2%3").arg(uniNames.at(fixture->universe()))
-                                .arg(TreeModel::separator()).arg(fixture->name());
+                                .arg(TreeModel::separator()).arg(fxName);
     }
     else
     {
         // change happened on a channel node
         path = QString("%1%2%3%2%4").arg(uniNames.at(fixture->universe()))
-                                    .arg(TreeModel::separator()).arg(fixture->name())
+                                    .arg(TreeModel::separator()).arg(fxName)
                                     .arg(channel->name());
     }
 
@@ -520,12 +523,29 @@ void FixtureManager::addFixtureNode(Doc *doc, TreeModel *treeModel, Fixture *fix
         quint16 headIndex = monProps->fixtureHeadIndex(subID);
         quint16 linkedIndex = monProps->fixtureLinkedIndex(subID);
         quint32 itemID = FixtureUtils::fixtureItemID(fixture->id(), headIndex, linkedIndex);
+        int flags = monProps->fixtureFlags(fixture->id(), headIndex, linkedIndex);
+
+        // do not show hidden fixtures if not editing
+        if (!(showFlags & ShowFlags) && (flags & MonitorProperties::HiddenFlag))
+            continue;
 
         // represent dimmers as a whole fixture + (channels || heads)
         if (fixture->type() == QLCFixtureDef::Dimmer && headIndex > 0)
             continue;
 
-        QString fxPath = QString("%1%2%3").arg(basePath).arg(TreeModel::separator()).arg(fixture->name());
+        // do not show linked fixtures if not requested
+        if (linkedIndex && !(showFlags & ShowLinked))
+            continue;
+
+        // do not display channels for linked fixtures
+        if (linkedIndex)
+            showFlags &= ~ShowChannels;
+
+        QString fxName = fixture->name();
+        if (linkedIndex)
+            fxName = monProps->fixtureResource(fixture->id(), headIndex, linkedIndex);
+
+        QString fxPath = QString("%1%2%3").arg(basePath).arg(TreeModel::separator()).arg(fxName);
 
         if (showFlags & ShowHeads)
         {
@@ -548,7 +568,7 @@ void FixtureManager::addFixtureNode(Doc *doc, TreeModel *treeModel, Fixture *fix
                 }
             }
         }
-        else if ((showFlags & ShowChannels) && linkedIndex == 0) // do not display channels for linked fixtures
+        else if (showFlags & ShowChannels)
         {
             int chIdx = 0;
             QList<int> forcedHTP = fixture->forcedHTPChannels();
@@ -624,7 +644,7 @@ void FixtureManager::addFixtureNode(Doc *doc, TreeModel *treeModel, Fixture *fix
             if (showFlags & ShowChannels || fixture->heads() > 1)
                 treeModel->setPathData(fxPath, fxParams);
             else
-                treeModel->addItem(fixture->name(), fxParams, basePath, expandAll ? TreeModel::Expanded : 0);
+                treeModel->addItem(fxName, fxParams, basePath, expandAll ? TreeModel::Expanded : 0);
         }
     }
 }
@@ -727,6 +747,48 @@ QString FixtureManager::fixtureIcon(quint32 fixtureID)
         return QString();
 
     return fixture->iconResource(true);
+}
+
+int FixtureManager::fixtureLinkedIndex(quint32 itemID)
+{
+    return FixtureUtils::itemLinkedIndex(itemID);
+}
+
+void FixtureManager::updateLinkedFixtureNode(quint32 itemID, bool add)
+{
+    quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
+    int headIndex = FixtureUtils::itemHeadIndex(itemID);
+    int linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+    MonitorProperties *monProps = m_doc->monitorProperties();
+    QStringList uniNames = m_doc->inputOutputMap()->universeNames();
+
+    Fixture *fixture = m_doc->fixture(fixtureID);
+    if (fixture == NULL)
+        return;
+
+    if (fixture->universe() >= (quint32)uniNames.count())
+        return;
+
+    QString universeName = uniNames.at(fixture->universe());
+    QString fixtureName = monProps->fixtureResource(fixtureID, headIndex, linkedIndex);
+
+    if (add)
+    {
+        QVariantList fxParams;
+        fxParams.append(QVariant::fromValue(fixture)); // classRef
+        fxParams.append(App::FixtureDragItem); // type
+        fxParams.append(itemID); // id
+        fxParams.append(fixture->universe()); // subid
+        fxParams.append(0); // chIdx
+        fxParams.append(monProps->fixtureFlags(fixture->id(), headIndex, linkedIndex));
+
+        m_fixtureTree->addItem(fixtureName, fxParams, universeName, 0);
+    }
+    else
+    {
+        QString path = QString("%1%2%3").arg(universeName).arg(TreeModel::separator()).arg(fixtureName);
+        m_fixtureTree->removeItem(path);
+    }
 }
 
 QString FixtureManager::channelIcon(quint32 fxID, quint32 chIdx)

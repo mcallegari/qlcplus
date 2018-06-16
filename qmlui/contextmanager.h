@@ -197,6 +197,9 @@ public:
     /** Distribute the currently selected Fixtures with the provided $direction */
     Q_INVOKABLE void setFixturesDistribution(int direction);
 
+    /** Add or remove a linked fixture based on the provided $itemID */
+    Q_INVOKABLE void setLinkedFixture(quint32 itemID);
+
     Q_INVOKABLE void updateFixturesCapabilities();
 
     Q_INVOKABLE void createFixtureGroup();

@@ -50,7 +50,7 @@ Column
     signal pathChanged(string oldPath, string newPath)
 
     onCRefChanged: itemIcon = cRef ? cRef.iconResource(true) : ""
-    onItemIDChanged: linkedIndex = (itemID & 0x00FF)
+    onItemIDChanged: linkedIndex = fixtureManager.fixtureLinkedIndex(itemID)
 
     function getItemAtPos(x, y)
     {

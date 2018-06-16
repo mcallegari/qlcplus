@@ -35,6 +35,46 @@ Rectangle
       * must provide a 'groupsTreeModel' method */
     property var modelProvider: null
 
+    function updateButtons(itemType, itemID)
+    {
+        // update info button
+        infoButton.enabled = itemType !== App.HeadDragItem ? true : false
+        updateInfoView()
+
+        // update linked button
+        if (fixtureManager.propertyEditEnabled === false)
+            return
+
+        linkedButton.enabled = itemType === App.FixtureDragItem ? true : false
+        var linkedIndex = fixtureManager.fixtureLinkedIndex(itemID)
+        linkedButton.faSource = linkedIndex ? FontAwesome.fa_unlink : FontAwesome.fa_link
+    }
+
+    function updateInfoView()
+    {
+        if (gfhcDragItem.itemsList.length === 0)
+            return
+
+        if (!infoButton.checked)
+            return
+
+        switch(gfhcDragItem.itemsList[0].itemType)
+        {
+            case App.UniverseDragItem:
+                fixtureManager.itemID = gfhcDragItem.itemsList[0].cRef.id
+                fixtureAndFunctions.currentViewQML = "qrc:/UniverseSummary.qml"
+            break;
+            case App.FixtureGroupDragItem:
+                fixtureGroupEditor.setEditGroup(gfhcDragItem.itemsList[0].cRef)
+                fixtureAndFunctions.currentViewQML = "qrc:/FixtureGroupEditor.qml"
+            break;
+            case App.FixtureDragItem:
+                fixtureManager.itemID = gfhcDragItem.itemsList[0].itemID
+                fixtureAndFunctions.currentViewQML = "qrc:/FixtureSummary.qml"
+            break;
+        }
+    }
+
     ColumnLayout
     {
         anchors.fill: parent
@@ -138,50 +178,21 @@ Rectangle
                     height: topBar.height - 2
                     imgSource: "qrc:/info.svg"
                     tooltip: qsTr("Inspect the selected item")
+                    enabled: false
                     checkable: true
 
                     property string previousView: ""
 
                     onToggled:
                     {
-                        if (gfhcDragItem.itemsList.length === 0)
-                            return;
-
                         if (checked)
+                        {
                             previousView = fixtureAndFunctions.currentViewQML
-
-                        switch(gfhcDragItem.itemsList[0].itemType)
-                        {
-                            case App.UniverseDragItem:
-                                if (checked)
-                                {
-                                    fixtureManager.itemID = gfhcDragItem.itemsList[0].cRef.id
-                                    fixtureAndFunctions.currentViewQML = "qrc:/UniverseSummary.qml"
-                                }
-                            break;
-                            case App.FixtureGroupDragItem:
-                                if (checked)
-                                {
-                                    fixtureGroupEditor.setEditGroup(gfhcDragItem.itemsList[0].cRef)
-                                    fixtureAndFunctions.currentViewQML = "qrc:/FixtureGroupEditor.qml"
-                                }
-                                else
-                                {
-                                    fixtureGroupEditor.setEditGroup(null)
-                                }
-
-                            break;
-                            case App.FixtureDragItem:
-                                if (checked)
-                                {
-                                    fixtureManager.itemID = gfhcDragItem.itemsList[0].cRef.id
-                                    fixtureAndFunctions.currentViewQML = "qrc:/FixtureSummary.qml"
-                                }
-                            break;
+                            updateInfoView()
                         }
-
-                        if (!checked)
+                        else
                         {
+                            fixtureGroupEditor.setEditGroup(null)
                             fixtureAndFunctions.currentViewQML = previousView
                             previousView = ""
                         }
@@ -209,17 +220,15 @@ Rectangle
 
                 IconButton
                 {
-                    id: actionsButton
+                    id: linkedButton
                     visible: fixtureManager.propertyEditEnabled
+                    enabled: false
                     width: height
                     height: topBar.height - 2
                     faSource: FontAwesome.fa_link
                     faColor: "white"
-                    tooltip: qsTr("Add a linked fixture")
-                    onClicked:
-                    {
-
-                    }
+                    tooltip: qsTr("Add/Remove a linked fixture")
+                    onClicked: contextManager.setLinkedFixture(gfhcDragItem.itemsList[0].itemID)
                 }
             }
         } // RowLayout
@@ -365,13 +374,12 @@ Rectangle
                                             model.isExpanded = item.isExpanded
                                     }
 
-                                    if (infoButton.checked)
-                                        fixtureManager.itemID = iID
-
                                     if (!(mouseMods & Qt.ControlModifier))
                                         contextManager.resetFixtureSelection()
 
                                     console.log("Item clicked. Type: " + qItem.itemType + ", id: " + iID)
+
+                                    var itemID = iID
 
                                     switch (qItem.itemType)
                                     {
@@ -380,6 +388,7 @@ Rectangle
                                         break;
                                         case App.HeadDragItem:
                                             console.log("Head clicked. ItemID: " + qItem.itemID + ", head: " + iID)
+                                            itemID = qItem.itemID
                                             contextManager.setFixtureSelection(qItem.itemID, iID, true);
                                         break;
                                         case App.UniverseDragItem:
@@ -388,7 +397,9 @@ Rectangle
                                         case App.FixtureGroupDragItem:
                                             contextManager.setFixtureGroupSelection(iID, true, false)
                                         break;
-                                    }
+                                    }                                        
+
+                                    updateButtons(qItem.itemType, itemID)
                                 break;
                                 case App.DragStarted:
                                     if (qItem == item && !model.isSelected)

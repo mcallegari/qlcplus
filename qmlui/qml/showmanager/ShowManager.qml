@@ -210,7 +210,7 @@ Rectangle
                 width: parent.height - 6
                 height: width
                 imgSource: "qrc:/edit-copy.svg"
-                tooltip: qsTr("Copy the selection item in the clipboard")
+                tooltip: qsTr("Copy the selected items in the clipboard")
                 counter: showManager.selectedItemsCount
                 onClicked: showManager.copyToClipboard()
             }
