@@ -89,9 +89,11 @@ public:
      *  Subclasses should reimplement this if interested in key events */
     virtual void handleKeyEvent(QKeyEvent *e, bool pressed);
 
+public slots:
+    virtual void slotRefreshView();
+
 protected slots:
     void slotWindowClosing();
-    virtual void slotRefreshView();
 
 signals:
     void keyPressed(QKeyEvent *e);

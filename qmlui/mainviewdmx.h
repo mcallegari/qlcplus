@@ -72,10 +72,11 @@ signals:
     void showAddressesChanged(bool showAddresses);
     void relativeAddressesChanged(bool relativeAddresses);
 
-protected slots:
+public slots:
     /** @reimp */
     void slotRefreshView();
 
+protected slots:
     void slotAliasChanged();
 
 private:

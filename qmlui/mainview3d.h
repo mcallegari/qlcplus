@@ -90,7 +90,7 @@ protected:
     /** Returns a string with the mesh location, suitable to be used by QML */
     QString meshDirectory() const;
 
-protected slots:
+public slots:
     /** @reimp */
     void slotRefreshView();
 

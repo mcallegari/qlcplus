@@ -54,6 +54,9 @@ MainView2D::~MainView2D()
 
 void MainView2D::enableContext(bool enable)
 {
+    if (enable == isEnabled())
+        return;
+
     PreviewContext::enableContext(enable);
     if (enable == true)
         slotRefreshView();
@@ -287,6 +290,8 @@ void MainView2D::slotRefreshView()
 
     if (initialize2DProperties() == false)
         return;
+
+    qDebug() << "Refresh 2D view...";
 
     if (m_monProps->pointOfView() == MonitorProperties::Undefined)
     {

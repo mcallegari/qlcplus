@@ -384,9 +384,13 @@ void ContextManager::resetContexts()
 
     m_selectedFixtures.clear();
     m_editingEnabled = false;
-    m_DMXView->enableContext(m_DMXView->isEnabled());
-    m_2DView->enableContext(m_2DView->isEnabled());
-    m_3DView->enableContext(m_3DView->isEnabled());
+
+    if (m_DMXView->isEnabled())
+        m_DMXView->slotRefreshView();
+    if (m_2DView->isEnabled())
+        m_2DView->slotRefreshView();
+    if (m_3DView->isEnabled())
+        m_3DView->slotRefreshView();
 
     /** TODO: nothing to do on the other contexts ? */
 }
@@ -1241,7 +1245,7 @@ void ContextManager::slotUniversesWritten(int idx, const QByteArray &ua)
 
 void ContextManager::slotFunctionEditingChanged(bool status)
 {
-    resetContexts();
+    resetFixtureSelection();
     m_editingEnabled = status;
 }
 

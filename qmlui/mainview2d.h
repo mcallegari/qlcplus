@@ -126,7 +126,7 @@ signals:
     void cellPixelsChanged(qreal cellPixels);
     void pointOfViewChanged(int pointOfView);
 
-protected slots:
+public slots:
     /** @reimp */
     void slotRefreshView();
 
