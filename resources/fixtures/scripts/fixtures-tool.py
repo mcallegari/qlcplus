@@ -10,18 +10,18 @@ singleCapCount = 0
 namespace = "http://www.qlcplus.org/FixtureDefinition"
 
 def getPresetsArray():
-    return [ 
-        "Custom", 
+    return [
+        "Custom",
         "IntensityMasterDimmer", "IntensityMasterDimmerFine", "IntensityDimmer", "IntensityDimmerFine",
         "IntensityRed", "IntensityRedFine", "IntensityGreen", "IntensityGreenFine", "IntensityBlue", "IntensityBlueFine",
         "IntensityCyan", "IntensityCyanFine", "IntensityMagenta", "IntensityMagentaFine", "IntensityYellow", "IntensityYellowFine",
         "IntensityAmber", "IntensityAmberFine", "IntensityWhite", "IntensityWhiteFine", "IntensityUV", "IntensityUVFine",
         "IntensityIndigo", "IntensityIndigoFine", "IntensityLime", "IntensityLimeFine", "IntensityHue", "IntensityHueFine",
-        "IntensitySaturation", "IntensitySaturationFine", "IntensityLightness", "IntensityLightnessFine", 
+        "IntensitySaturation", "IntensitySaturationFine", "IntensityLightness", "IntensityLightnessFine",
         "IntensityValue", "IntensityValueFine",
         "PositionPan", "PositionPanFine", "PositionTilt", "PositionTiltFine", "PositionXAxis", "PositionYAxis",
         "SpeedPanSlowFast", "SpeedPanFastSlow", "SpeedTiltSlowFast", "SpeedTiltFastSlow", "SpeedPanTiltSlowFast", "SpeedPanTiltFastSlow",
-        "ColorMacro", "ColorWheel", "ColorWheelFine", "ColorRGBMixer", "ColorCTOMixer", "ColorCTBMixer", 
+        "ColorMacro", "ColorWheel", "ColorWheelFine", "ColorRGBMixer", "ColorCTOMixer", "ColorCTBMixer",
         "GoboWheel", "GoboWheelFine", "GoboIndex", "GoboIndexFine",
         "ShutterStrobeSlowFast", "ShutterStrobeFastSlow",
         "BeamFocusNearFar", "BeamFocusFarNear", "BeamIris", "BeamIrisFine", "BeamZoomSmallBig", "BeamZoomBigSmall",
@@ -70,7 +70,7 @@ def printPresets(group):
 # update_fixture
 #
 # Convert an 'old' syntax definition to the 'new' syntax, which includes:
-# - single capability channels 
+# - single capability channels
 # - global physical dimension
 #
 # path: the source path with the fixtures to convert
@@ -84,28 +84,28 @@ def update_fixture(path, filename, destpath):
     xmlObj = etree.parse(absname, parser=parser)
     root = xmlObj.getroot()
     fxSingleCapCount = 0
-    
+
     global namespace
-    
+
     ################################## PHYSICAL PROCESSING ################################
 
     global_phy = {}
     gphy_tag = etree.Element("Physical")
-    
+
     for mode in root.findall('{' + namespace + '}Mode'):
         phy_dict = {}
         phy_tag = mode.find('{' + namespace + '}Physical')
-        
+
         if not phy_tag:
             # Mode already processed. Skip
             continue
-        
+
         bulb_tag = phy_tag.find('{' + namespace + '}Bulb')
         dim_tag = phy_tag.find('{' + namespace + '}Dimensions')
         lens_tag = phy_tag.find('{' + namespace + '}Lens')
         focus_tag = phy_tag.find('{' + namespace + '}Focus')
         tech_tag = phy_tag.find('{' + namespace + '}Technical')
-        
+
         phy_dict.update(phy_tag.attrib)
         phy_dict.update(bulb_tag.attrib)
         phy_dict.update(dim_tag.attrib)
@@ -121,12 +121,12 @@ def update_fixture(path, filename, destpath):
             print "Moving mode " + mode.attrib['Name'] + " to global"
         elif phy_dict == global_phy:
             mode.remove(phy_tag)
-            print "Mode " + mode.attrib['Name'] + " is identical to global"     
+            print "Mode " + mode.attrib['Name'] + " is identical to global"
 
     root.append(gphy_tag)
 
     ##################################### CHANNELS PROCESSING #################################
-    
+
     for channel in root.findall('{' + namespace + '}Channel'):
         locCapCount = 0
 
@@ -196,7 +196,7 @@ def update_fixture(path, filename, destpath):
                     preset = "IntensityLightness" + fineWord
                 elif color == "Value":
                     preset = "IntensityValue" + fineWord
-                    
+
             elif group == "Pan":
                 preset = "PositionPan" + fineWord
             elif group == "Tilt":
@@ -255,7 +255,7 @@ def createFixtureMap():
     root.set('xmlns', 'http://www.qlcplus.org/FixturesMap')
 
     for dirname in sorted(os.listdir('.'), key=lambda s: s.lower()):
-        
+
         if not os.path.isdir(dirname): continue
 
         if dirname != "scripts" and dirname != manufacturer:
@@ -287,10 +287,10 @@ def createFixtureMap():
 #                                       MAIN
 #
 ###########################################################################################
-    
+
 parser = argparse.ArgumentParser(description='Unified Fixture tool.')
 parser.add_argument('--map', help='Create the Fixture map', action='store_true')
-parser.add_argument('--convert [source] [destination]', help='Convert an "old" syntax Fixture definition', 
+parser.add_argument('--convert [source] [destination]', help='Convert an "old" syntax Fixture definition',
                     nargs='*', dest='convert')
 
 args = parser.parse_args()
