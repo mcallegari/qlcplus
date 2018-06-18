@@ -1002,8 +1002,6 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
     QMutexLocker locker(&m_levelValueMutex);
 
     uchar modLevel = m_levelValue;
-    bool mixedDMXlevels = false;
-    int monitorSliderValue = -1;
 
     int r = 0, g = 0, b = 0, c = 0, m = 0, y = 0;
 
@@ -1039,7 +1037,10 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
 
     if (m_monitorEnabled == true && m_levelValueChanged == false)
     {
+        bool mixedDMXlevels = false;
+        int monitorSliderValue = -1;
         QListIterator <LevelChannel> it(m_levelChannels);
+
         while (it.hasNext() == true)
         {
             LevelChannel lch(it.next());

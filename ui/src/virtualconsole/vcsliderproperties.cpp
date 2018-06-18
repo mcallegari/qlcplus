@@ -369,12 +369,9 @@ void VCSliderProperties::levelUpdateFixtureNode(quint32 id)
 
 QTreeWidgetItem* VCSliderProperties::levelFixtureNode(quint32 id)
 {
-    QTreeWidgetItem* item;
-    int i;
-
-    for (i = 0; i < m_levelList->topLevelItemCount(); i++)
+    for (int i = 0; i < m_levelList->topLevelItemCount(); i++)
     {
-        item = m_levelList->topLevelItem(i);
+        QTreeWidgetItem *item = m_levelList->topLevelItem(i);
         if (item->text(KColumnID).toUInt() == id)
             return item;
     }
@@ -565,14 +562,11 @@ void VCSliderProperties::slotLevelListClicked(QTreeWidgetItem* item)
 
 void VCSliderProperties::slotLevelAllClicked()
 {
-    QTreeWidgetItem* fxi_item;
-    int i;
-
     /* Set all fixture items selected, their children should get selected
        as well because the fixture items are Controller items. */
-    for (i = 0; i < m_levelList->topLevelItemCount(); i++)
+    for (int i = 0; i < m_levelList->topLevelItemCount(); i++)
     {
-        fxi_item = m_levelList->topLevelItem(i);
+        QTreeWidgetItem *fxi_item = m_levelList->topLevelItem(i);
         Q_ASSERT(fxi_item != NULL);
 
         fxi_item->setCheckState(KColumnName, Qt::Checked);
@@ -581,14 +575,11 @@ void VCSliderProperties::slotLevelAllClicked()
 
 void VCSliderProperties::slotLevelNoneClicked()
 {
-    QTreeWidgetItem* fxi_item;
-    int i;
-
     /* Set all fixture items unselected, their children should get unselected
        as well because the fixture items are Controller items. */
-    for (i = 0; i < m_levelList->topLevelItemCount(); i++)
+    for (int i = 0; i < m_levelList->topLevelItemCount(); i++)
     {
-        fxi_item = m_levelList->topLevelItem(i);
+        QTreeWidgetItem *fxi_item = m_levelList->topLevelItem(i);
         Q_ASSERT(fxi_item != NULL);
 
         fxi_item->setCheckState(KColumnName, Qt::Unchecked);
@@ -597,21 +588,16 @@ void VCSliderProperties::slotLevelNoneClicked()
 
 void VCSliderProperties::slotLevelInvertClicked()
 {
-    QTreeWidgetItem* fxi_item;
-    QTreeWidgetItem* ch_item;
-    int i;
-    int j;
-
-    /* Go thru only channel items. Fixture items get (partially) selected
+    /* Go through only channel items. Fixture items get (partially) selected
        according to their children's state */
-    for (i = 0; i < m_levelList->topLevelItemCount(); i++)
+    for (int i = 0; i < m_levelList->topLevelItemCount(); i++)
     {
-        fxi_item = m_levelList->topLevelItem(i);
+        QTreeWidgetItem *fxi_item = m_levelList->topLevelItem(i);
         Q_ASSERT(fxi_item != NULL);
 
-        for (j = 0; j < fxi_item->childCount(); j++)
+        for (int j = 0; j < fxi_item->childCount(); j++)
         {
-            ch_item = fxi_item->child(j);
+            QTreeWidgetItem *ch_item = fxi_item->child(j);
             Q_ASSERT(ch_item != NULL);
 
             if (ch_item->checkState(KColumnName) == Qt::Checked)

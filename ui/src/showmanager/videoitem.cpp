@@ -73,7 +73,6 @@ void VideoItem::calculateWidth()
 
 void VideoItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    float xpos = 0;
     float timeScale = 50/(float)m_timeScale;
     quint32 videoDuration = m_video->totalDuration();
 
@@ -81,7 +80,9 @@ void VideoItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 
     if (videoDuration > 0)
     {
+        float xpos = 0;
         int loopCount = qFloor(m_function->duration() / videoDuration);
+
         for (int i = 0; i < loopCount; i++)
         {
             xpos += ((timeScale * (float)videoDuration) / 1000);

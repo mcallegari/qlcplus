@@ -157,7 +157,6 @@ QString FTD2XXInterface::typeString()
 QList<DMXInterface *> FTD2XXInterface::interfaces(QList<DMXInterface *> discoveredList)
 {
     QList <DMXInterface*> interfacesList;
-    int id = 0;
 
     /* Find out the number of FTDI devices present */
     DWORD num = 0;
@@ -174,6 +173,8 @@ QList<DMXInterface *> FTD2XXInterface::interfaces(QList<DMXInterface *> discover
     // Get the device information list
     if (FT_GetDeviceInfoList(devInfo, &num) == FT_OK)
     {
+        int id = 0;
+
         for (DWORD i = 0; i < num; i++)
         {
             QString vendor, name, serial;
@@ -181,12 +182,12 @@ QList<DMXInterface *> FTD2XXInterface::interfaces(QList<DMXInterface *> discover
             FT_STATUS s = get_interface_info(i, vendor, name, serial, VID, PID);
             if (s != FT_OK || name.isEmpty() || serial.isEmpty())
             {
-				// Seems that some otherwise working devices don't provide
+                // Seems that some otherwise working devices don't provide
                 // FT_PROGRAM_DATA struct used by get_interface_info().
                 name = QString(devInfo[i].Description);
-				serial = QString(devInfo[i].SerialNumber);
-				vendor = QString();
-			}
+                serial = QString(devInfo[i].SerialNumber);
+                vendor = QString();
+            }
 
             qDebug() << "serial: " << serial << "name:" << name << "vendor:" << vendor;
 

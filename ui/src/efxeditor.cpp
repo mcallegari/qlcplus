@@ -434,12 +434,9 @@ const QList <EFXFixture*> EFXEditor::selectedFixtures() const
 
 void EFXEditor::updateIndices(int from, int to)
 {
-    QTreeWidgetItem* item;
-    int i;
-
-    for (i = from; i <= to; i++)
+    for (int i = from; i <= to; i++)
     {
-        item = m_tree->topLevelItem(i);
+        QTreeWidgetItem *item = m_tree->topLevelItem(i);
         Q_ASSERT(item != NULL);
 
         item->setText(KColumnNumber,

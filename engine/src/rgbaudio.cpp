@@ -29,6 +29,7 @@ RGBAudio::RGBAudio(Doc * doc)
     : RGBAlgorithm(doc)
     , m_audioInput(NULL)
     , m_bandsNumber(-1)
+    , m_maxMagnitude(0)
 {
 }
 
@@ -37,6 +38,7 @@ RGBAudio::RGBAudio(const RGBAudio& a, QObject *parent)
     , RGBAlgorithm(a.doc())
     , m_audioInput(NULL)
     , m_bandsNumber(-1)
+    , m_maxMagnitude(0)
 {
 }
 

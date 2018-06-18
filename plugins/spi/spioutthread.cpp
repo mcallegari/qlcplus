@@ -84,10 +84,9 @@ void SPIOutThread::setSpeed(int speed)
 
 void SPIOutThread::run()
 {
-    while(m_isRunning)
+    while (m_isRunning)
     {
         struct spi_ioc_transfer spi;
-        int retVal = -1;
 
         struct timespec ts_start;
         struct timespec ts_end;
@@ -108,8 +107,8 @@ void SPIOutThread::run()
             spi.bits_per_word = m_bitsPerWord;
             spi.cs_change = 0;
 
-            retVal = ioctl(m_spifd, SPI_IOC_MESSAGE(1), &spi);
-            if(retVal < 0)
+            int retVal = ioctl(m_spifd, SPI_IOC_MESSAGE(1), &spi);
+            if (retVal < 0)
                 qWarning() << "Problem transmitting SPI data: ioctl failed";
         }
 

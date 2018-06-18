@@ -622,7 +622,6 @@ void EFXEditor::updateAlgorithmData()
      *  NOTE: the data array is filled backward to display first fixtures on top */
     for (EFXFixture *fixture : m_efx->fixtures()) // C++11
     {
-        float distance = 1000.0;
         float x = 0, y = 0;
 
         /** Append the delta to apply on each animation step */
@@ -642,6 +641,7 @@ void EFXEditor::updateAlgorithmData()
         else
         {
             int pathIdx = 0;
+            float distance = 1000.0;
 
             /** With a start offset, we need to scan the algorithm points
              *  to find the index of the closest one */

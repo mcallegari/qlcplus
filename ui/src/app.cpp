@@ -115,6 +115,7 @@ App::App()
 
     , m_helpIndexAction(NULL)
     , m_helpAboutAction(NULL)
+    , m_quitAction(NULL)
     , m_fileOpenMenu(NULL)
     , m_fadeAndStopMenu(NULL)
 
@@ -362,8 +363,6 @@ bool App::nativeEvent(const QByteArray &eventType, void *message, long *result)
 
 void App::closeEvent(QCloseEvent* e)
 {
-    int result = 0;
-
     if (m_doc->mode() == Doc::Operate && m_doc->isKiosk() == false)
     {
         QMessageBox::warning(this,
@@ -390,9 +389,9 @@ void App::closeEvent(QCloseEvent* e)
     {
         if (m_doc->isKiosk() == true)
         {
-            result = QMessageBox::warning(this, tr("Close the application?"),
-                                          tr("Do you wish to close the application?"),
-                                          QMessageBox::Yes, QMessageBox::No);
+            int result = QMessageBox::warning(this, tr("Close the application?"),
+                                              tr("Do you wish to close the application?"),
+                                              QMessageBox::Yes, QMessageBox::No);
             if (result == QMessageBox::No)
             {
                 e->ignore();

@@ -32,6 +32,7 @@ VCButton::VCButton(Doc *doc, QObject *parent)
     , m_functionID(Function::invalidId())
     , m_state(Inactive)
     , m_actionType(Toggle)
+    , m_blackoutFadeOutTime(0)
     , m_startupIntensityEnabled(false)
     , m_startupIntensity(1.0)
 {

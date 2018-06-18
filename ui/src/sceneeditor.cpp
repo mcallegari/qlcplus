@@ -143,15 +143,13 @@ void SceneEditor::slotFunctionManagerActive(bool active)
 
 void SceneEditor::slotSetSceneValues(QList <SceneValue>&sceneValues)
 {
-    Fixture *fixture;
-
     QListIterator <SceneValue> it(sceneValues);
 
     while (it.hasNext() == true)
     {
         SceneValue sv(it.next());
 
-        fixture = m_doc->fixture(sv.fxi);
+        Fixture *fixture = m_doc->fixture(sv.fxi);
         Q_ASSERT(fixture != NULL);
 
         FixtureConsole *fc = fixtureConsole(fixture);

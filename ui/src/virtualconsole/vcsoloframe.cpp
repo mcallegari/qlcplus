@@ -147,13 +147,11 @@ void VCSoloFrame::setLiveEdit(bool liveEdit)
 
 bool VCSoloFrame::thisIsNearestSoloFrameParent(QWidget* widget)
 {
-    VCSoloFrame* sf;
-
     while (widget != NULL)
     {
         widget = widget->parentWidget();
 
-        sf = qobject_cast<VCSoloFrame*>(widget);
+        VCSoloFrame *sf = qobject_cast<VCSoloFrame*>(widget);
         if (sf != NULL)
         {
             return sf == this;
