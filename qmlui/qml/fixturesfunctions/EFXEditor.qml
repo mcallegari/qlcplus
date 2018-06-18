@@ -54,11 +54,11 @@ Rectangle
 
         onValueChanged:
         {
-            if (speedType == Function.FadeIn)
+            if (speedType == QLCFunction.FadeIn)
                 efxEditor.fadeInSpeed = val
-            else if (speedType == Function.Hold)
+            else if (speedType == QLCFunction.Hold)
                 efxEditor.holdSpeed = val
-            else if (speedType == Function.FadeOut)
+            else if (speedType == QLCFunction.FadeOut)
                 efxEditor.fadeOutSpeed = val
         }
     }
@@ -705,9 +705,9 @@ Rectangle
                                             anchors.fill: parent
                                             onDoubleClicked:
                                             {
-                                                timeEditTool.allowFractions = Function.ByTwoFractions
+                                                timeEditTool.allowFractions = QLCFunction.ByTwoFractions
                                                 timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
-                                                                  fiLabel.label, parent.label, Function.FadeIn)
+                                                                  fiLabel.label, parent.label, QLCFunction.FadeIn)
                                             }
                                         }
                                     }
@@ -737,9 +737,9 @@ Rectangle
                                             anchors.fill: parent
                                             onDoubleClicked:
                                             {
-                                                timeEditTool.allowFractions = Function.ByTwoFractions
+                                                timeEditTool.allowFractions = QLCFunction.ByTwoFractions
                                                 timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
-                                                                  hLabel.label, parent.label, Function.Hold)
+                                                                  hLabel.label, parent.label, QLCFunction.Hold)
                                             }
                                         }
                                     }
@@ -769,9 +769,9 @@ Rectangle
                                             anchors.fill: parent
                                             onDoubleClicked:
                                             {
-                                                timeEditTool.allowFractions = Function.ByTwoFractions
+                                                timeEditTool.allowFractions = QLCFunction.ByTwoFractions
                                                 timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
-                                                                  foLabel.label, parent.label, Function.FadeOut)
+                                                                  foLabel.label, parent.label, QLCFunction.FadeOut)
                                             }
                                         }
                                     }
@@ -798,9 +798,9 @@ Rectangle
                                     ListModel
                                     {
                                         id: runOrderModel
-                                        ListElement { mLabel: qsTr("Loop"); mIcon: "qrc:/loop.svg"; mValue: Function.Loop }
-                                        ListElement { mLabel: qsTr("Single Shot"); mIcon: "qrc:/arrow-end.svg"; mValue: Function.SingleShot }
-                                        ListElement { mLabel: qsTr("Ping Pong"); mIcon: "qrc:/pingpong.svg"; mValue: Function.PingPong }
+                                        ListElement { mLabel: qsTr("Loop"); mIcon: "qrc:/loop.svg"; mValue: QLCFunction.Loop }
+                                        ListElement { mLabel: qsTr("Single Shot"); mIcon: "qrc:/arrow-end.svg"; mValue: QLCFunction.SingleShot }
+                                        ListElement { mLabel: qsTr("Ping Pong"); mIcon: "qrc:/pingpong.svg"; mValue: QLCFunction.PingPong }
                                     }
                                     model: runOrderModel
 
@@ -818,8 +818,8 @@ Rectangle
                                     ListModel
                                     {
                                         id: directionModel
-                                        ListElement { mLabel: qsTr("Forward"); mIcon: "qrc:/forward.svg"; mValue: Function.Forward }
-                                        ListElement { mLabel: qsTr("Backward"); mIcon: "qrc:/back.svg"; mValue: Function.Backward }
+                                        ListElement { mLabel: qsTr("Forward"); mIcon: "qrc:/forward.svg"; mValue: QLCFunction.Forward }
+                                        ListElement { mLabel: qsTr("Backward"); mIcon: "qrc:/back.svg"; mValue: QLCFunction.Backward }
                                     }
                                     model: directionModel
 

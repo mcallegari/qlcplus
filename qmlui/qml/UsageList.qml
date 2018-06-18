@@ -29,7 +29,7 @@ Rectangle
     color: "transparent"
 
     property int functionID: -1
-    property Function func: null
+    property QLCFunction func: null
 
     signal requestView(int ID, string qmlSrc)
 

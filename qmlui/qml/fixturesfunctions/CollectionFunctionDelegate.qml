@@ -30,7 +30,7 @@ Rectangle
     color: "transparent"
 
     property int functionID: -1
-    property Function func
+    property QLCFunction func
     property string textLabel
     property bool isSelected: false
     property int indexInList: -1

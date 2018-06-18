@@ -30,7 +30,7 @@ Rectangle
     height: sPropsColumn.height
 
     property VCSlider widgetRef: null
-    property Function func
+    property QLCFunction func
     property int funcID: widgetRef ? widgetRef.controlledFunction : -1
     property int gridItemsHeight: UISettings.listItemHeight
 

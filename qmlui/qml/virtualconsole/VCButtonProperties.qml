@@ -30,7 +30,7 @@ Rectangle
     height: bPropsColumn.height
 
     property VCButton widgetRef: null
-    property Function func
+    property QLCFunction func
     property int funcID: widgetRef ? widgetRef.functionID : -1
     property int gridItemsHeight: UISettings.listItemHeight
 

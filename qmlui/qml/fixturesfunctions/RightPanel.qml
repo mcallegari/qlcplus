@@ -37,7 +37,7 @@ SidePanel
 
         console.log("Requested to create function type " + fType)
 
-        if (fType === Function.AudioType)
+        if (fType === QLCFunction.AudioType)
         {
             var extList = functionManager.audioExtensions
             var exts = qsTr("Audio files") + " ("
@@ -50,7 +50,7 @@ SidePanel
             openFileDialog.open()
             return
         }
-        else if (fType === Function.VideoType)
+        else if (fType === QLCFunction.VideoType)
         {
             var videoExtList = functionManager.videoExtensions
             var picExtList = functionManager.pictureExtensions
@@ -73,7 +73,7 @@ SidePanel
         var fEditor = functionManager.getEditorResource(newFuncID)
         functionManager.setEditorFunction(newFuncID, false, false)
 
-        if (fType === Function.ShowType)
+        if (fType === QLCFunction.ShowType)
         {
             showManager.currentShowID = newFuncID
             mainView.switchToContext("SHOWMGR", fEditor)

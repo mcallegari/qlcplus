@@ -48,8 +48,8 @@ GridLayout
     property int speedType
 
     /* The type of the tempo being edited. Can be Time or Beats */
-    property int tempoType: Function.Time
-    property int allowFractions: Function.NoFractions
+    property int tempoType: QLCFunction.Time
+    property int allowFractions: QLCFunction.NoFractions
     property int currentFraction: 0
 
     /* If needed, this can be the reference index of an item in a list */
@@ -67,7 +67,7 @@ GridLayout
         speedType = tType
         timeValueString = tStrValue
         timeValue = TimeUtils.qlcStringToTime(timeValueString, tempoType)
-        if (allowFractions !== Function.NoFractions)
+        if (allowFractions !== QLCFunction.NoFractions)
             currentFraction = (timeValue % 1000)
 
         if (tX >= 0)
@@ -195,7 +195,7 @@ GridLayout
 
     GenericButton
     {
-        visible: tempoType === Function.Time
+        visible: tempoType === QLCFunction.Time
         width: height
         height: UISettings.iconSizeDefault
         border.color: UISettings.bgMedium
@@ -208,7 +208,7 @@ GridLayout
 
     GenericButton
     {
-        visible: tempoType === Function.Time
+        visible: tempoType === QLCFunction.Time
         width: height * 1.2
         height: UISettings.iconSizeDefault
         border.color: UISettings.bgMedium
@@ -221,7 +221,7 @@ GridLayout
 
     GenericButton
     {
-        visible: tempoType === Function.Time
+        visible: tempoType === QLCFunction.Time
         width: height * 1.2
         height: UISettings.iconSizeDefault
         border.color: UISettings.bgMedium
@@ -234,10 +234,10 @@ GridLayout
 
     GenericButton
     {
-        visible: tempoType === Function.Beats
+        visible: tempoType === QLCFunction.Beats
         height: UISettings.iconSizeDefault
         Layout.fillWidth: true
-        Layout.columnSpan: allowFractions !== Function.NoFractions ? 2 : 4
+        Layout.columnSpan: allowFractions !== QLCFunction.NoFractions ? 2 : 4
         border.color: UISettings.bgMedium
         bgColor: buttonsBgColor
         fontSize: btnFontSize
@@ -248,18 +248,18 @@ GridLayout
 
     GenericButton
     {
-        visible: tempoType === Function.Beats && allowFractions !== Function.NoFractions
+        visible: tempoType === QLCFunction.Beats && allowFractions !== QLCFunction.NoFractions
         height: UISettings.iconSizeDefault
         Layout.fillWidth: true
         Layout.columnSpan: 2
         border.color: UISettings.bgMedium
         bgColor: buttonsBgColor
         fontSize: btnFontSize
-        label: allowFractions === Function.AllFractions ? "+1/8" : "+2x"
+        label: allowFractions === QLCFunction.AllFractions ? "+1/8" : "+2x"
         repetition: true
         onClicked:
         {
-            if (allowFractions === Function.AllFractions)
+            if (allowFractions === QLCFunction.AllFractions)
                 updateTime(timeValue + 125, "")
             else
             {
@@ -324,7 +324,7 @@ GridLayout
 
     GenericButton
     {
-        visible: tempoType === Function.Time
+        visible: tempoType === QLCFunction.Time
         width: height
         height: UISettings.iconSizeDefault
         border.color: UISettings.bgMedium
@@ -342,7 +342,7 @@ GridLayout
 
     GenericButton
     {
-        visible: tempoType === Function.Time
+        visible: tempoType === QLCFunction.Time
         width: height * 1.2
         height: UISettings.iconSizeDefault
         border.color: UISettings.bgMedium
@@ -360,7 +360,7 @@ GridLayout
 
     GenericButton
     {
-        visible: tempoType === Function.Time
+        visible: tempoType === QLCFunction.Time
         width: height * 1.2
         height: UISettings.iconSizeDefault
         border.color: UISettings.bgMedium
@@ -378,10 +378,10 @@ GridLayout
 
     GenericButton
     {
-        visible: tempoType === Function.Beats
+        visible: tempoType === QLCFunction.Beats
         height: UISettings.iconSizeDefault
         Layout.fillWidth: true
-        Layout.columnSpan: allowFractions !== Function.NoFractions ? 2 : 4
+        Layout.columnSpan: allowFractions !== QLCFunction.NoFractions ? 2 : 4
         border.color: UISettings.bgMedium
         bgColor: buttonsBgColor
         fontSize: btnFontSize
@@ -392,18 +392,18 @@ GridLayout
 
     GenericButton
     {
-        visible: tempoType === Function.Beats && allowFractions !== Function.NoFractions
+        visible: tempoType === QLCFunction.Beats && allowFractions !== QLCFunction.NoFractions
         height: UISettings.iconSizeDefault
         Layout.fillWidth: true
         Layout.columnSpan: 2
         border.color: UISettings.bgMedium
         bgColor: buttonsBgColor
         fontSize: btnFontSize
-        label: allowFractions === Function.AllFractions ? "-1/8" : "-x/2"
+        label: allowFractions === QLCFunction.AllFractions ? "-1/8" : "-x/2"
         repetition: true
         onClicked:
         {
-            if (allowFractions === Function.AllFractions)
+            if (allowFractions === QLCFunction.AllFractions)
             {
                 if (timeValue == 0)
                     return

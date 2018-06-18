@@ -178,7 +178,7 @@ Rectangle
                                 color: "transparent"
 
                                 property VCClockSchedule schedule: modelData
-                                property Function func
+                                property QLCFunction func
 
                                 GridLayout
                                 {

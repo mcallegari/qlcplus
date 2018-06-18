@@ -47,9 +47,9 @@ Rectangle
 
         onValueChanged:
         {
-            if (speedType == Function.FadeIn)
+            if (speedType == QLCFunction.FadeIn)
                 audioEditor.fadeInSpeed = val
-            else if (speedType == Function.FadeOut)
+            else if (speedType == QLCFunction.FadeOut)
                 audioEditor.fadeOutSpeed = val
         }
     }
@@ -262,7 +262,7 @@ Rectangle
             RobotoText
             {
                 anchors.fill: parent
-                label: TimeUtils.timeToQlcString(audioEditor.fadeInSpeed, Function.Time)
+                label: TimeUtils.timeToQlcString(audioEditor.fadeInSpeed, QLCFunction.Time)
 
                 MouseArea
                 {
@@ -270,7 +270,7 @@ Rectangle
                     onDoubleClicked:
                     {
                         timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
-                                          fiLabel.label, parent.label, Function.FadeIn)
+                                          fiLabel.label, parent.label, QLCFunction.FadeIn)
                     }
                 }
             }
@@ -293,7 +293,7 @@ Rectangle
             RobotoText
             {
                 anchors.fill: parent
-                label: TimeUtils.timeToQlcString(audioEditor.fadeOutSpeed, Function.Time)
+                label: TimeUtils.timeToQlcString(audioEditor.fadeOutSpeed, QLCFunction.Time)
 
                 MouseArea
                 {
@@ -301,7 +301,7 @@ Rectangle
                     onDoubleClicked:
                     {
                         timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y,
-                                          foLabel.label, parent.label, Function.FadeOut)
+                                          foLabel.label, parent.label, QLCFunction.FadeOut)
                     }
                 }
             }

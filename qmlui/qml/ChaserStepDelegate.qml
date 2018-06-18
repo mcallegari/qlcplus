@@ -31,7 +31,7 @@ Rectangle
     color: "transparent"
 
     property int functionID: -1
-    property Function func
+    property QLCFunction func
     property bool showFunctionName: true
     property string stepLabel
     property string stepFadeIn
@@ -78,10 +78,10 @@ Rectangle
 
         switch(highlightEditTime)
         {
-            case Function.FadeIn: item = fadeInText; break;
-            case Function.Hold: item = holdText; break;
-            case Function.FadeOut: item = fadeOutText; break;
-            case Function.Duration: item = durationText; break;
+            case QLCFunction.FadeIn: item = fadeInText; break;
+            case QLCFunction.Hold: item = holdText; break;
+            case QLCFunction.FadeOut: item = fadeOutText; break;
+            case QLCFunction.Duration: item = durationText; break;
         }
 
         if (item)
@@ -146,17 +146,17 @@ Rectangle
 
             var item = fieldsRow.childAt(mouse.x, mouse.y)
             if (item === funcIconName)
-                stepDelegate.doubleClicked(functionID, item, Function.Name)
+                stepDelegate.doubleClicked(functionID, item, QLCFunction.Name)
             else if (item === fadeInText)
-                stepDelegate.doubleClicked(functionID, item, Function.FadeIn)
+                stepDelegate.doubleClicked(functionID, item, QLCFunction.FadeIn)
             else if (item === holdText)
-                stepDelegate.doubleClicked(functionID, item, Function.Hold)
+                stepDelegate.doubleClicked(functionID, item, QLCFunction.Hold)
             else if (item === fadeOutText)
-                stepDelegate.doubleClicked(functionID, item, Function.FadeOut)
+                stepDelegate.doubleClicked(functionID, item, QLCFunction.FadeOut)
             else if (item === durationText)
-                stepDelegate.doubleClicked(functionID, item, Function.Duration)
+                stepDelegate.doubleClicked(functionID, item, QLCFunction.Duration)
             else if (item === noteText)
-                stepDelegate.doubleClicked(functionID, item, Function.Notes)
+                stepDelegate.doubleClicked(functionID, item, QLCFunction.Notes)
         }
     }
 

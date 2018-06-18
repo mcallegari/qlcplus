@@ -31,7 +31,7 @@ Column
     property bool isSequence: false
     property alias model: cStepsList.model
     property alias playbackIndex: cStepsList.currentIndex
-    property int tempoType: Function.Time
+    property int tempoType: QLCFunction.Time
     property bool isRunning: false
     property alias containsDrag: cwDropArea.containsDrag
     property alias selector: ceSelector
@@ -62,29 +62,29 @@ Column
         timeEditTool.tempoType = widgetRoot.tempoType
         timeEditTool.indexInList = stepIndex
 
-        if (type === Function.FadeIn)
+        if (type === QLCFunction.FadeIn)
         {
             title = "#" + (stepIndex + 1) + " " + fInCol.label
             timeValueString = stepItem.stepFadeIn
-            timeEditTool.allowFractions = Function.AllFractions
+            timeEditTool.allowFractions = QLCFunction.AllFractions
         }
-        else if (type === Function.Hold)
+        else if (type === QLCFunction.Hold)
         {
             title = "#" + (stepIndex + 1) + " " + holdCol.label
             timeValueString = stepItem.stepHold
-            timeEditTool.allowFractions = Function.NoFractions
+            timeEditTool.allowFractions = QLCFunction.NoFractions
         }
-        else if (type === Function.FadeOut)
+        else if (type === QLCFunction.FadeOut)
         {
             title = "#" + (stepIndex + 1) + " " + fOutCol.label
             timeValueString = stepItem.stepFadeOut
-            timeEditTool.allowFractions = Function.AllFractions
+            timeEditTool.allowFractions = QLCFunction.AllFractions
         }
-        else if (type === Function.Duration)
+        else if (type === QLCFunction.Duration)
         {
             title = "#" + (stepIndex + 1) + " " + durCol.label
             timeValueString = stepItem.stepDuration
-            timeEditTool.allowFractions = Function.NoFractions
+            timeEditTool.allowFractions = QLCFunction.NoFractions
         }
 
         timeEditTool.show(-1, stepItem.mapToItem(mainView, 0, 0).y, title, timeValueString, type)
@@ -108,7 +108,7 @@ Column
         onClosed: editStepIndex = -1
         onTabPressed:
         {
-            var typeArray = [ Function.FadeIn, Function.Hold, Function.FadeOut, Function.Duration ]
+            var typeArray = [ QLCFunction.FadeIn, QLCFunction.Hold, QLCFunction.FadeOut, QLCFunction.Duration ]
             var currType = editStepType + (forward ? 1 : -1)
 
             if (currType < 0)
@@ -117,14 +117,14 @@ Column
                 if (cStepsList.currentIndex > 0)
                 {
                     cStepsList.currentIndex--
-                    editStepTime(cStepsList.currentIndex, cStepsList.currentItem, Function.Duration)
+                    editStepTime(cStepsList.currentIndex, cStepsList.currentItem, QLCFunction.Duration)
                 }
             }
             else if (currType >= typeArray.length)
             {
                 // need to select the next step
                 cStepsList.currentIndex++
-                editStepTime(cStepsList.currentIndex, cStepsList.currentItem, Function.FadeIn)
+                editStepTime(cStepsList.currentIndex, cStepsList.currentItem, QLCFunction.FadeIn)
             }
             else
             {
@@ -438,9 +438,9 @@ Column
                 onDoubleClicked:
                 {
                     console.log("Double clicked: " + indexInList + ", " + type)
-                    if (type === Function.Name)
+                    if (type === QLCFunction.Name)
                         widgetRoot.requestEditor(ID)
-                    else if (type === Function.Notes)
+                    else if (type === QLCFunction.Notes)
                         noteTextEdit.show(indexInList, qItem)
                     else
                         widgetRoot.editStepTime(indexInList, this, type)

@@ -171,10 +171,10 @@ Rectangle
                         ListModel
                         {
                             id: runOrderModel
-                            ListElement { mLabel: qsTr("Loop"); mIcon: "qrc:/loop.svg"; mValue: Function.Loop }
-                            ListElement { mLabel: qsTr("Single Shot"); mIcon: "qrc:/arrow-end.svg"; mValue: Function.SingleShot }
-                            ListElement { mLabel: qsTr("Ping Pong"); mIcon: "qrc:/pingpong.svg"; mValue: Function.PingPong }
-                            ListElement { mLabel: qsTr("Random"); mIcon: "qrc:/random.svg"; mValue: Function.Random }
+                            ListElement { mLabel: qsTr("Loop"); mIcon: "qrc:/loop.svg"; mValue: QLCFunction.Loop }
+                            ListElement { mLabel: qsTr("Single Shot"); mIcon: "qrc:/arrow-end.svg"; mValue: QLCFunction.SingleShot }
+                            ListElement { mLabel: qsTr("Ping Pong"); mIcon: "qrc:/pingpong.svg"; mValue: QLCFunction.PingPong }
+                            ListElement { mLabel: qsTr("Random"); mIcon: "qrc:/random.svg"; mValue: QLCFunction.Random }
                         }
                         model: runOrderModel
 
@@ -192,8 +192,8 @@ Rectangle
                         ListModel
                         {
                             id: directionModel
-                            ListElement { mLabel: qsTr("Forward"); mIcon: "qrc:/forward.svg"; mValue: Function.Forward }
-                            ListElement { mLabel: qsTr("Backward"); mIcon: "qrc:/back.svg"; mValue: Function.Backward }
+                            ListElement { mLabel: qsTr("Forward"); mIcon: "qrc:/forward.svg"; mValue: QLCFunction.Forward }
+                            ListElement { mLabel: qsTr("Backward"); mIcon: "qrc:/back.svg"; mValue: QLCFunction.Backward }
                         }
                         model: directionModel
 
@@ -211,8 +211,8 @@ Rectangle
                         ListModel
                         {
                             id: tempoModel
-                            ListElement { mLabel: qsTr("Time"); mTextIcon: "T"; mValue: Function.Time }
-                            ListElement { mLabel: qsTr("Beats"); mTextIcon: "B"; mValue: Function.Beats }
+                            ListElement { mLabel: qsTr("Time"); mTextIcon: "T"; mValue: QLCFunction.Time }
+                            ListElement { mLabel: qsTr("Beats"); mTextIcon: "B"; mValue: QLCFunction.Beats }
                         }
                         model: tempoModel
 

@@ -107,7 +107,7 @@ QString App::appVersion() const
 void App::startup()
 {
     qmlRegisterUncreatableType<Fixture>("org.qlcplus.classes", 1, 0, "Fixture", "Can't create a Fixture !");
-    qmlRegisterUncreatableType<Function>("org.qlcplus.classes", 1, 0, "Function", "Can't create a Function !");
+    qmlRegisterUncreatableType<Function>("org.qlcplus.classes", 1, 0, "QLCFunction", "Can't create a Function !");
     qmlRegisterType<ModelSelector>("org.qlcplus.classes", 1, 0, "ModelSelector");
     qmlRegisterUncreatableType<App>("org.qlcplus.classes", 1, 0, "App", "Can't create an App !");
 

@@ -33,7 +33,7 @@ Item
     z: 2
 
     property ShowFunction sfRef: null
-    property Function funcRef: null
+    property QLCFunction funcRef: null
     property int startTime: sfRef ? sfRef.startTime : -1
     property int duration: sfRef ? sfRef.duration : -1
     property int trackIndex: -1

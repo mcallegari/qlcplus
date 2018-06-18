@@ -30,7 +30,7 @@ Rectangle
 
     color: "transparent"
 
-    property Function cRef
+    property QLCFunction cRef
     property string textLabel
     property string itemIcon: ""
     property int itemType: App.FunctionDragItem
@@ -45,7 +45,7 @@ Rectangle
             return
 
         itemIcon = functionManager.functionIcon(cRef.type)
-        if (cRef.type == Function.SceneType)
+        if (cRef.type == QLCFunction.SceneType)
             fdDropArea.keys = [ "dumpValues" ]
     }
 

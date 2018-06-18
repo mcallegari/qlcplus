@@ -30,7 +30,7 @@ Rectangle
     height: clPropsColumn.height
 
     property VCCueList widgetRef: null
-    property Function chaser
+    property QLCFunction chaser
     property int chaserID: widgetRef ? widgetRef.chaserID : -1
     property int gridItemsHeight: UISettings.listItemHeight
 
