@@ -2319,7 +2319,7 @@ Celui-ci a dû être déplacé ou effacé.</translation>
         <location filename="fixturemanager.cpp" line="981"/>
         <location filename="fixturemanager.cpp" line="1419"/>
         <source>Please enter a valid address</source>
-        <translation>Veuillez entrer une adresse valide.</translation>
+        <translation>Veuillez entrer une adresse valide</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1495"/>
