@@ -32,7 +32,7 @@
     <message>
         <location filename="webaccess.cpp" line="439"/>
         <source>Error while saving passwords file.</source>
-        <translation>Erreur lors de la sauvegarde des mots de passe.</translation>
+        <translation>Erreur lors de la sauvegarde du fichier de mots de passe.</translation>
     </message>
     <message>
         <location filename="webaccess.cpp" line="454"/>
@@ -142,7 +142,7 @@
         <location filename="webaccessconfiguration.cpp" line="244"/>
         <location filename="webaccessconfiguration.cpp" line="274"/>
         <source>Only Virtual Console</source>
-        <translation>Console Virtuelle Uniquement</translation>
+        <translation>Console virtuelle uniquement</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="249"/>
@@ -192,7 +192,7 @@
     <message>
         <location filename="webaccessconfiguration.cpp" line="294"/>
         <source>Note: if there isn&apos;t at least one user with access level &quot;Everything&quot; on the list authorization will be disabled.</source>
-        <translation type="unfinished">Note&#xa0;: s&apos;il n&apos;y a pas au moins un utilisateur avec le niveau d&apos;accès &quot;Tout&quot; dans la liste, l&apos;autorisation sera désactivée.</translation>
+        <translation>Note&#xa0;: s&apos;il n&apos;y a pas au moins un utilisateur avec le niveau d&apos;accès &quot;Tout&quot; dans la liste, l&apos;autorisation sera désactivée.</translation>
     </message>
     <message>
         <location filename="webaccessconfiguration.cpp" line="325"/>
