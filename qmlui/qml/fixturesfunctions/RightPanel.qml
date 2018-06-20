@@ -214,17 +214,21 @@ SidePanel
                 counter: selectedItemsCount && !functionManager.isEditing
                 onClicked:
                 {
-                    var selNames = functionManager.selectedFunctionsName()
+                    var selNames = functionManager.selectedItemNames()
                     //console.log(selNames)
-                    deleteItemsPopup.message = qsTr("Are you sure you want to delete the following functions ?") + "\n" + selNames
+                    deleteItemsPopup.message = qsTr("Are you sure you want to delete the following items ?") + "\n" + selNames
                     deleteItemsPopup.open()
                 }
 
                 CustomPopupDialog
                 {
                     id: deleteItemsPopup
-                    title: qsTr("Delete functions")
-                    onAccepted: functionManager.deleteFunctions(functionManager.selectedFunctionsID())
+                    title: qsTr("Delete items")
+                    onAccepted:
+                    {
+                        functionManager.deleteSelectedFolders()
+                        functionManager.deleteFunctions(functionManager.selectedFunctionsID())
+                    }
                 }
             }
             IconButton
@@ -250,7 +254,7 @@ SidePanel
                 PopupRenameItems
                 {
                     id: renameFuncPopup
-                    title: qsTr("Rename functions")
+                    title: qsTr("Rename items")
                     onAccepted:
                     {
                         functionManager.renameSelectedItems(editText, numberingEnabled, startNumber, digits)

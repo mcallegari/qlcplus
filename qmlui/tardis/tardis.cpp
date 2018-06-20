@@ -438,7 +438,7 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
         break;
         case FunctionDelete:
         {
-            m_functionManager->deleteFunctions(QVariantList( { objID } ));
+            m_functionManager->deleteFunction(objID);
         }
         break;
         case ChaserAddStep:

@@ -687,6 +687,30 @@ bool FunctionManager::isEditing() const
     return false;
 }
 
+void FunctionManager::deleteFunction(quint32 fid)
+{
+    Function *f = m_doc->function(fid);
+    if (f == NULL)
+        return;
+
+    if (f->isRunning())
+        f->stop(FunctionParent::master());
+
+    Tardis::instance()->enqueueAction(Tardis::FunctionDelete, f->id(),
+                                      Tardis::instance()->actionToByteArray(Tardis::FunctionDelete, f->id()),
+                                      QVariant());
+
+    QString fullPath = f->name();
+    QString funcPath = f->path(true);
+    if (funcPath.isEmpty() == false)
+    {
+        funcPath.replace("/", TreeModel::separator());
+        fullPath = QString("%1%2%3").arg(funcPath).arg(TreeModel::separator()).arg(f->name());
+    }
+    m_doc->deleteFunction(f->id());
+    m_functionTree->removeItem(fullPath);
+}
+
 void FunctionManager::deleteFunctions(QVariantList IDList)
 {
     for (QVariant fID : IDList)
@@ -701,15 +725,37 @@ void FunctionManager::deleteFunctions(QVariantList IDList)
         if (m_selectedIDList.contains(fID))
             m_selectedIDList.removeAll(fID);
 
-        Tardis::instance()->enqueueAction(Tardis::FunctionDelete, f->id(),
-                                          Tardis::instance()->actionToByteArray(Tardis::FunctionDelete, f->id()),
-                                          QVariant());
-        m_doc->deleteFunction(f->id());
+        deleteFunction(f->id());
     }
 
-    m_selectedIDList.clear();
-    emit selectedFunctionCountChanged(0);
-    updateFunctionsTree();
+    emit selectedFunctionCountChanged(m_selectedIDList.count());
+}
+
+void FunctionManager::deleteSelectedFolders()
+{
+    for (QString path : m_selectedFolderList)
+    {
+        if (m_emptyFolderList.contains(path))
+        {
+            m_emptyFolderList.removeAll(path);
+        }
+        else
+        {
+            for (Function *func : m_doc->functions())
+            {
+                if (func == NULL)
+                    continue;
+
+                if (func->path(true).startsWith(path))
+                    deleteFunction(func->id());
+            }
+        }
+
+        m_functionTree->removeItem(path);
+    }
+
+    m_selectedFolderList.clear();
+    emit selectedFolderCountChanged(0);
 }
 
 void FunctionManager::moveFunctions(QString newPath)

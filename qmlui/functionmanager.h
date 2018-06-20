@@ -127,8 +127,14 @@ public:
     /** Returns if the UI is editing a Function */
     bool isEditing() const;
 
+    void deleteFunction(quint32 fid);
+
     /** Delete the list of Function IDs in $IDList. This happens AFTER a popup confirmation */
     Q_INVOKABLE void deleteFunctions(QVariantList IDList);
+
+    /** Delete the currently selected folders. If a folder is not empty,
+     *  delete also all the sub items in it */
+    Q_INVOKABLE void deleteSelectedFolders();
 
     /** Move the currently selected Function to the specified $newPath */
     Q_INVOKABLE void moveFunctions(QString newPath);
