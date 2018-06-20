@@ -29,6 +29,8 @@ SidePanel
     id: rightSidePanel
     objectName: "funcRightPanel"
 
+    property int selectedItemsCount: functionManager.selectedFunctionCount + functionManager.selectedFolderCount
+
     function createFunctionAndEditor(fType)
     {
         var i
@@ -209,7 +211,7 @@ SidePanel
                 height: iconSize
                 imgSource: "qrc:/remove.svg"
                 tooltip: qsTr("Delete the selected functions")
-                counter: functionManager.selectionCount && !functionManager.isEditing
+                counter: selectedItemsCount && !functionManager.isEditing
                 onClicked:
                 {
                     var selNames = functionManager.selectedFunctionsName()
@@ -232,20 +234,27 @@ SidePanel
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/rename.svg"
-                tooltip: qsTr("Rename the selected functions")
-                counter: functionManager.selectionCount && !functionManager.isEditing
+                tooltip: qsTr("Rename the selected items")
+                counter: selectedItemsCount && !functionManager.isEditing
                 onClicked:
                 {
-                    var selNames = functionManager.selectedFunctionsName()
-                    renameFuncPopup.baseName = selNames[0]
-                    renameFuncPopup.functionIDs = functionManager.selectedFunctionsID()
+                    var selNames = functionManager.selectedItemNames()
+                    if (selNames.length === 0)
+                        return
+                    if (selNames.length > 1)
+                        renameFuncPopup.showNumbering = true
+                    renameFuncPopup.editText = selNames[0]
                     renameFuncPopup.open()
                 }
 
-                PopupRenameFunctions
+                PopupRenameItems
                 {
                     id: renameFuncPopup
                     title: qsTr("Rename functions")
+                    onAccepted:
+                    {
+                        functionManager.renameSelectedItems(editText, numberingEnabled, startNumber, digits)
+                    }
                 }
             }
             IconButton
@@ -256,7 +265,7 @@ SidePanel
                 height: iconSize
                 imgSource: "qrc:/edit-copy.svg"
                 tooltip: qsTr("Clone the selected functions")
-                counter: functionManager.selectionCount && !functionManager.isEditing
+                counter: functionManager.selectedFunctionCount && !functionManager.isEditing
                 onClicked: functionManager.cloneFunctions()
             }
 
@@ -269,7 +278,7 @@ SidePanel
                 faSource: FontAwesome.fa_sitemap
                 faColor: UISettings.fgMedium
                 tooltip: qsTr("Show function usage")
-                counter: functionManager.selectionCount
+                counter: functionManager.selectedFunctionCount
                 onClicked:
                 {
                     var idList = functionManager.selectedFunctionsID()
@@ -413,7 +422,7 @@ SidePanel
                 imgSource: "qrc:/play.svg"
                 tooltip: qsTr("Function Preview")
                 checkable: true
-                counter: functionManager.selectionCount
+                counter: functionManager.selectedFunctionCount
                 onToggled: functionManager.setPreview(checked)
             }
 

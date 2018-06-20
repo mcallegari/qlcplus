@@ -130,7 +130,7 @@ QVariantList FunctionManager::selectedFunctionsID()
     return m_selectedIDList;
 }
 
-QStringList FunctionManager::selectedFunctionsName()
+QStringList FunctionManager::selectedItemNames()
 {
     QStringList names;
 
@@ -140,6 +140,11 @@ QStringList FunctionManager::selectedFunctionsName()
         if (f == NULL)
             continue;
         names.append(f->name());
+    }
+    for (QString path : m_selectedFolderList)
+    {
+        QStringList tokens = path.split(TreeModel::separator());
+        names.append(tokens.last());
     }
 
     return names;
@@ -153,7 +158,7 @@ void FunctionManager::setFunctionFilter(quint32 filter, bool enable)
         m_filter &= ~filter;
 
     updateFunctionsTree();
-    emit selectionCountChanged(m_selectedIDList.count());
+    emit selectedFunctionCountChanged(m_selectedIDList.count());
 }
 
 int FunctionManager::functionsFilter() const
@@ -248,7 +253,7 @@ quint32 FunctionManager::addFunctiontoDoc(Function *func, QString name, bool sel
         if (select)
         {
             m_selectedIDList.append(QVariant(func->id()));
-            emit selectionCountChanged(m_selectedIDList.count());
+            emit selectedFunctionCountChanged(m_selectedIDList.count());
         }
 
         Tardis::instance()->enqueueAction(Tardis::FunctionCreate, func->id(), QVariant(),
@@ -489,6 +494,8 @@ void FunctionManager::setPreview(bool enable)
 
 void FunctionManager::selectFunctionID(quint32 fID, bool multiSelection)
 {
+    qDebug() << "Selected function:" << fID << multiSelection;
+
     if (multiSelection == false)
     {
         for (QVariant fID : m_selectedIDList)
@@ -501,6 +508,8 @@ void FunctionManager::selectFunctionID(quint32 fID, bool multiSelection)
             }
         }
         m_selectedIDList.clear();
+        m_selectedFolderList.clear();
+        emit selectedFolderCountChanged(0);
     }
 
     if (m_previewEnabled == true)
@@ -512,7 +521,25 @@ void FunctionManager::selectFunctionID(quint32 fID, bool multiSelection)
     if (fID != Function::invalidId())
         m_selectedIDList.append(QVariant(fID));
 
-    emit selectionCountChanged(m_selectedIDList.count());
+    emit selectedFunctionCountChanged(m_selectedIDList.count());
+}
+
+void FunctionManager::selectFolder(QString path, bool multiSelection)
+{
+    qDebug() << "Selected folder:" << path << multiSelection;
+
+    if (multiSelection == false && !path.isEmpty())
+    {
+        m_selectedFolderList.clear();
+        m_selectedIDList.clear();
+        emit selectedFunctionCountChanged(0);
+    }
+
+    if (path.isEmpty())
+        return;
+
+    m_selectedFolderList.append(path);
+    emit selectedFolderCountChanged(m_selectedFolderList.count());
 }
 
 QString FunctionManager::getEditorResource(int funcID)
@@ -681,7 +708,7 @@ void FunctionManager::deleteFunctions(QVariantList IDList)
     }
 
     m_selectedIDList.clear();
-    emit selectionCountChanged(0);
+    emit selectedFunctionCountChanged(0);
     updateFunctionsTree();
 }
 
@@ -777,47 +804,36 @@ void FunctionManager::deleteEditorItems(QVariantList list)
         m_currentEditor->deleteItems(list);
 }
 
-void FunctionManager::renameFunctions(QVariantList IDList, QString newName, bool numbering, int startNumber, int digits)
+void FunctionManager::renameSelectedItems(QString newName, bool numbering, int startNumber, int digits)
 {
-    if (IDList.isEmpty())
+    if (m_selectedIDList.isEmpty() && m_selectedFolderList.isEmpty())
         return;
 
-    if (IDList.count() == 1)
+    int currNumber = startNumber;
+
+    // rename folders first
+    for (QString path : m_selectedFolderList)
+        setFolderPath(path, newName);
+
+    for (QVariant id : m_selectedIDList) // C++11
     {
-        // single Function rename
-        Function *f = m_doc->function(IDList.first().toUInt());
-        if (f != NULL)
+        Function *f = m_doc->function(id.toUInt());
+        if (f == NULL)
+            continue;
+
+        if (numbering)
+        {
+            QString fName = QString("%1 %2").arg(newName.simplified()).arg(currNumber, digits, 10, QChar('0'));
+            Tardis::instance()->enqueueAction(Tardis::FunctionSetName, f->id(), f->name(), fName);
+            f->setName(fName);
+            currNumber++;
+        }
+        else
         {
             Tardis::instance()->enqueueAction(Tardis::FunctionSetName, f->id(), f->name(), newName.simplified());
             f->setName(newName.simplified());
         }
     }
-    else
-    {
-        int currNumber = startNumber;
-
-        for(QVariant id : IDList) // C++11
-        {
-            Function *f = m_doc->function(id.toUInt());
-            if (f == NULL)
-                continue;
-
-            if (numbering)
-            {
-                QString fName = QString("%1 %2").arg(newName.simplified()).arg(currNumber, digits, 10, QChar('0'));
-                Tardis::instance()->enqueueAction(Tardis::FunctionSetName, f->id(), f->name(), fName);
-                f->setName(fName);
-                currNumber++;
-            }
-            else
-            {
-                Tardis::instance()->enqueueAction(Tardis::FunctionSetName, f->id(), f->name(), newName.simplified());
-                f->setName(newName.simplified());
-            }
-        }
-    }
-
-    updateFunctionsTree();
 }
 
 void FunctionManager::createFolder()
@@ -862,9 +878,14 @@ void FunctionManager::createFolder()
     m_functionTree->printTree();
 }
 
-int FunctionManager::selectionCount() const
+int FunctionManager::selectedFunctionCount() const
 {
     return m_selectedIDList.count();
+}
+
+int FunctionManager::selectedFolderCount() const
+{
+    return m_selectedFolderList.count();
 }
 
 QStringList FunctionManager::audioExtensions() const
@@ -1066,7 +1087,6 @@ void FunctionManager::updateFunctionsTree()
     m_collectionCount = m_rgbMatrixCount = m_scriptCount = 0;
     m_showCount = m_audioCount = m_videoCount = 0;
 
-    //m_selectedIDList.clear();
     m_functionTree->clear();
 
     for (Function *func : m_doc->functions()) // C++11

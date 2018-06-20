@@ -25,9 +25,11 @@ import "."
 
 CustomPopupDialog
 {
-    property string baseName
-    property var functionIDs
-    property int count: functionIDs ? functionIDs.length : 0
+    property alias editText: newNameEdit.inputText
+    property bool showNumbering: false
+    property alias numberingEnabled: numCheckBox.checked
+    property alias startNumber: startNumSpin.value
+    property alias digits: digitsSpin.value
 
     onOpened: newNameEdit.selectAndFocus()
 
@@ -53,7 +55,6 @@ CustomPopupDialog
                 id: newNameEdit
                 Layout.fillWidth: true
                 Layout.columnSpan: 3
-                inputText: baseName
             }
 
             // Row 2
@@ -62,7 +63,7 @@ CustomPopupDialog
                 Layout.fillWidth: true
                 Layout.columnSpan: 4
                 spacing: 5
-                visible: count
+                visible: showNumbering
 
                 CustomCheckBox
                 {
@@ -77,32 +78,29 @@ CustomPopupDialog
             // Row 3
             RobotoText
             {
-                visible: count
+                visible: showNumbering
                 label: qsTr("Start number")
             }
             CustomSpinBox
             {
                 id: startNumSpin
-                visible: count
+                visible: showNumbering
                 Layout.fillWidth: true
                 value: 1
             }
 
             RobotoText
             {
-                visible: count
+                visible: showNumbering
                 label: qsTr("Digits")
             }
             CustomSpinBox
             {
                 id: digitsSpin
-                visible: count
+                visible: showNumbering
                 Layout.fillWidth: true
                 from: 1
                 to: 10
             }
         }
-
-    onAccepted: functionManager.renameFunctions(functionIDs, newNameEdit.inputText,
-                                                numCheckBox.checked, startNumSpin.value, digitsSpin.value)
 }

@@ -216,7 +216,7 @@ Column
                     source: hasChildren ? subTreeDelegate : childrenDelegate
                     onLoaded:
                     {
-                        item.textLabel = label
+                        item.textLabel = Qt.binding(function() { return label })
                         item.isSelected = Qt.binding(function() { return model.isSelected })
                         item.isCheckable = model.isCheckable
                         item.isChecked = Qt.binding(function() { return model.isChecked })

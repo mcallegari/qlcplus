@@ -47,7 +47,8 @@ class FunctionManager : public QObject
     Q_PROPERTY(QVariant functionsList READ functionsList NOTIFY functionsListChanged)
     Q_PROPERTY(int functionsFilter READ functionsFilter CONSTANT)
     Q_PROPERTY(QString searchFilter READ searchFilter WRITE setSearchFilter NOTIFY searchFilterChanged)
-    Q_PROPERTY(int selectionCount READ selectionCount NOTIFY selectionCountChanged)
+    Q_PROPERTY(int selectedFunctionCount READ selectedFunctionCount NOTIFY selectedFunctionCountChanged)
+    Q_PROPERTY(int selectedFolderCount READ selectedFolderCount NOTIFY selectedFolderCountChanged)
     Q_PROPERTY(bool isEditing READ isEditing NOTIFY isEditingChanged)
     Q_PROPERTY(int viewPosition READ viewPosition WRITE setViewPosition NOTIFY viewPositionChanged)
 
@@ -82,8 +83,8 @@ public:
     /** Get a list of the currently selected Function IDs, suitable to be used in QML */
     Q_INVOKABLE QVariantList selectedFunctionsID();
 
-    /** Get a list of the currently selected Function names, suitable to be used in QML */
-    Q_INVOKABLE QStringList selectedFunctionsName();
+    /** Get a list of the currently selected item names, suitable to be used in QML */
+    Q_INVOKABLE QStringList selectedItemNames();
 
     /** Enable/disable the display of a Function type in the functions tree */
     Q_INVOKABLE void setFunctionFilter(quint32 filter, bool enable);
@@ -112,12 +113,15 @@ public:
      *  considering $multiSelection as an append/replace action */
     Q_INVOKABLE void selectFunctionID(quint32 fID, bool multiSelection);
 
+    Q_INVOKABLE void selectFolder(QString path, bool multiSelection);
+
     /** Get the QML resource for a Function editor that can edit $funcID */
     Q_INVOKABLE QString getEditorResource(int funcID);
 
     /** Set $fID as the current Function ID being edited */
     Q_INVOKABLE void setEditorFunction(quint32 fID, bool requestUI, bool back);
 
+    /** Return a reference of the currently open Function editor */
     FunctionEditor *currentEditor() const;
 
     /** Returns if the UI is editing a Function */
@@ -138,12 +142,17 @@ public:
      *  This happens AFTER a popup confirmation */
     Q_INVOKABLE void deleteEditorItems(QVariantList list);
 
-    Q_INVOKABLE void renameFunctions(QVariantList IDList, QString newName, bool numbering, int startNumber, int digits);
+    /** Rename the currently selected items (functions and/or folders)
+     *  with the provided $newName.
+     *  If $numbering is true, then $startNumber and $digits will compose
+     *  a progress number following $newName */
+    Q_INVOKABLE void renameSelectedItems(QString newName, bool numbering, int startNumber, int digits);
 
     Q_INVOKABLE void createFolder();
 
     /** Returns the number of the currently selected Functions */
-    int selectionCount() const;
+    int selectedFunctionCount() const;
+    int selectedFolderCount() const;
 
     int sceneCount() const { return m_sceneCount; }
     int chaserCount() const { return m_chaserCount; }
@@ -182,7 +191,8 @@ signals:
     void showCountChanged();
     void audioCountChanged();
     void videoCountChanged();
-    void selectionCountChanged(int count);
+    void selectedFunctionCountChanged(int count);
+    void selectedFolderCountChanged(int count);
     void isEditingChanged(bool editing);
     void viewPositionChanged(int viewPosition);
 
@@ -206,7 +216,7 @@ private:
      *  and previewed, if preview is enabled */
     QVariantList m_selectedIDList;
 
-    QString m_selectedFolder;
+    QStringList m_selectedFolderList;
 
     /** List of the folder paths that don't include any Function yet */
     QStringList m_emptyFolderList;

@@ -284,10 +284,9 @@ Rectangle
 
                       onLoaded:
                       {
-                          item.textLabel = label
+                          item.textLabel = Qt.binding(function() { return label })
                           item.isSelected = Qt.binding(function() { return isSelected })
                           item.dragItem = fDragItem
-                          item.itemType = type
 
                           if (type === App.FunctionDragItem)
                           {
@@ -324,7 +323,10 @@ Rectangle
                                         if (model.hasChildren)
                                             model.isExpanded = item.isExpanded
                                     }
-                                    functionManager.selectFunctionID(iID, mouseMods & Qt.ControlModifier)
+                                    if (qItem.itemType === App.FunctionDragItem)
+                                        functionManager.selectFunctionID(iID, mouseMods & Qt.ControlModifier)
+                                    else
+                                        functionManager.selectFolder(qItem.nodePath, mouseMods & Qt.ControlModifier)
                                 break;
                                 case App.DoubleClicked:
                                     loadFunctionEditor(iID, iType)
