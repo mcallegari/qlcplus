@@ -539,6 +539,23 @@ bool App::loadWorkspace(const QString &fileName)
         m_contextManager->resetContexts();
         m_doc->resetModified();
         m_videoProvider = new VideoProvider(this, m_doc);
+
+        // autostart Function if set
+        if (m_doc->startupFunction() != Function::invalidId())
+        {
+            Function *func = m_doc->function(m_doc->startupFunction());
+            if (func != NULL)
+            {
+                qDebug() << Q_FUNC_INFO << "Starting startup function. (" << m_doc->startupFunction() << ")";
+                func->start(m_doc->masterTimer(), FunctionParent::master());
+            }
+            else
+            {
+                qWarning() << Q_FUNC_INFO << "Startup function does not exist, erasing. (" << m_doc->startupFunction() << ")";
+                m_doc->setStartupFunction(Function::invalidId());
+            }
+        }
+
         return true;
     }
     return false;

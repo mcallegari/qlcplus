@@ -291,6 +291,22 @@ SidePanel
                     loaderSource = "qrc:/UsageList.qml"
                 }
             }
+            IconButton
+            {
+                z: 2
+                width: iconSize
+                height: iconSize
+                imgSource: "qrc:/autostart.svg"
+                tooltip: qsTr("Set/Unset autostart function")
+                counter: functionManager.selectedFunctionCount
+                onClicked:
+                {
+                    var idList = functionManager.selectedFunctionsID()
+                    if (idList.length === 0)
+                        return
+                    functionManager.startupFunctionID = idList[0]
+                }
+            }
 
             IconButton
             {

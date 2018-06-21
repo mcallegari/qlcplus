@@ -1,5 +1,5 @@
 <RCC>
-  <qresource prefix="/">   
+  <qresource prefix="/">
     <file alias="2dview.svg">2dview.svg</file>
     <file alias="3dview.svg">3dview.svg</file>
     <file alias="add.svg">add.svg</file>
@@ -19,6 +19,7 @@
     <file alias="audio.svg">audio.svg</file>
     <file alias="audiocard.svg">audiocard.svg</file>
     <file alias="audiotriggers.svg">audiotriggers.svg</file>
+    <file alias="autostart.svg">autostart.svg</file>
     <file alias="back.svg">back.svg</file>
     <file alias="background.svg">background.svg</file>
     <file alias="beam.svg">beam.svg</file>

@@ -44,6 +44,8 @@ class FunctionManager : public QObject
 {
     Q_OBJECT
 
+    Q_PROPERTY(quint32 startupFunctionID READ startupFunctionID WRITE setStartupFunctionID NOTIFY startupFunctionIDChanged)
+
     Q_PROPERTY(QVariant functionsList READ functionsList NOTIFY functionsListChanged)
     Q_PROPERTY(int functionsFilter READ functionsFilter CONSTANT)
     Q_PROPERTY(QString searchFilter READ searchFilter WRITE setSearchFilter NOTIFY searchFilterChanged)
@@ -71,9 +73,16 @@ public:
     FunctionManager(QQuickView *view, Doc *doc, QObject *parent = 0);
     ~FunctionManager();
 
+    quint32 startupFunctionID() const;
+    void setStartupFunctionID(quint32 fid);
+
+signals:
+    void startupFunctionIDChanged();
+
     /*********************************************************************
      * Functions
      *********************************************************************/
+public:
     /** Read only property to expose the function tree to the QML UI */
     QVariant functionsList();
 
@@ -94,9 +103,6 @@ public:
     QString searchFilter() const;
     void setSearchFilter(QString searchFilter);
 
-    /** Change the path of an existing folder and all its children */
-    Q_INVOKABLE void setFolderPath(QString oldAbsPath, QString newRelPath);
-
     /** Create a new Function with the specified $type */
     Q_INVOKABLE quint32 createFunction(int type, QStringList fileList = QStringList());
 
@@ -112,8 +118,6 @@ public:
     /** Add $fID to the list of the currently selected Function IDs,
      *  considering $multiSelection as an append/replace action */
     Q_INVOKABLE void selectFunctionID(quint32 fID, bool multiSelection);
-
-    Q_INVOKABLE void selectFolder(QString path, bool multiSelection);
 
     /** Get the QML resource for a Function editor that can edit $funcID */
     Q_INVOKABLE QString getEditorResource(int funcID);
@@ -131,10 +135,6 @@ public:
 
     /** Delete the list of Function IDs in $IDList. This happens AFTER a popup confirmation */
     Q_INVOKABLE void deleteFunctions(QVariantList IDList);
-
-    /** Delete the currently selected folders. If a folder is not empty,
-     *  delete also all the sub items in it */
-    Q_INVOKABLE void deleteSelectedFolders();
 
     /** Move the currently selected Function to the specified $newPath */
     Q_INVOKABLE void moveFunctions(QString newPath);
@@ -154,11 +154,8 @@ public:
      *  a progress number following $newName */
     Q_INVOKABLE void renameSelectedItems(QString newName, bool numbering, int startNumber, int digits);
 
-    Q_INVOKABLE void createFolder();
-
     /** Returns the number of the currently selected Functions */
     int selectedFunctionCount() const;
-    int selectedFolderCount() const;
 
     int sceneCount() const { return m_sceneCount; }
     int chaserCount() const { return m_chaserCount; }
@@ -198,7 +195,6 @@ signals:
     void audioCountChanged();
     void videoCountChanged();
     void selectedFunctionCountChanged(int count);
-    void selectedFolderCountChanged(int count);
     void isEditingChanged(bool editing);
     void viewPositionChanged(int viewPosition);
 
@@ -222,11 +218,6 @@ private:
      *  and previewed, if preview is enabled */
     QVariantList m_selectedIDList;
 
-    QStringList m_selectedFolderList;
-
-    /** List of the folder paths that don't include any Function yet */
-    QStringList m_emptyFolderList;
-
     quint32 m_filter;
     QString m_searchFilter;
 
@@ -236,6 +227,36 @@ private:
 
     FunctionEditor *m_currentEditor;
     FunctionEditor *m_sceneEditor;
+
+    /*********************************************************************
+     * Folders
+     *********************************************************************/
+public:
+    /** Select a folder with the given $path */
+    Q_INVOKABLE void selectFolder(QString path, bool multiSelection);
+
+    /** Return the number of currently selected folders */
+    int selectedFolderCount() const;
+
+    /** Change the path of an existing folder and all its children */
+    Q_INVOKABLE void setFolderPath(QString oldAbsPath, QString newRelPath);
+
+    /** Create an empty folder with path starting from the currently
+     *  selected item */
+    Q_INVOKABLE void createFolder();
+
+    /** Delete the currently selected folders. If a folder is not empty,
+     *  delete also all the sub items in it */
+    Q_INVOKABLE void deleteSelectedFolders();
+
+signals:
+    void selectedFolderCountChanged(int count);
+
+private:
+    /** List of the folder paths that don't include any Function yet */
+    QStringList m_emptyFolderList;
+    /** List of the folders currently selected */
+    QStringList m_selectedFolderList;
 
     /*********************************************************************
      * DMX values (dumping and Scene editor)

@@ -100,7 +100,7 @@ Rectangle
     Rectangle
     {
         id: mainToolbar
-        visible: qlcplus.accessMask != App.AC_VCControl
+        visible: qlcplus.accessMask !== App.AC_VCControl
         width: parent.width
         height: UISettings.iconSizeDefault
         z: 50

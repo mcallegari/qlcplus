@@ -120,6 +120,16 @@ Rectangle
         }
     }
 
+    Image
+    {
+        anchors.right: parent.right
+        source: "qrc:/autostart.svg"
+        height: UISettings.listItemHeight
+        width: height
+        sourceSize: Qt.size(width, height)
+        visible: cRef && cRef.id === functionManager.startupFunctionID ? true : false
+    }
+
     Rectangle
     {
         width: parent.width

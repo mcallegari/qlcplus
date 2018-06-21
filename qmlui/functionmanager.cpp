@@ -93,6 +93,21 @@ FunctionManager::~FunctionManager()
     m_view->rootContext()->setContextProperty("functionManager", NULL);
 }
 
+quint32 FunctionManager::startupFunctionID() const
+{
+    return m_doc->startupFunction();
+}
+
+void FunctionManager::setStartupFunctionID(quint32 fid)
+{
+    if (fid == m_doc->startupFunction())
+        m_doc->setStartupFunction(Function::invalidId());
+    else
+        m_doc->setStartupFunction(fid);
+
+    emit startupFunctionIDChanged();
+}
+
 QVariant FunctionManager::functionsList()
 {
     return QVariant::fromValue(m_functionTree);
@@ -185,54 +200,6 @@ void FunctionManager::setSearchFilter(QString searchFilter)
             updateFunctionsTree();
 
     emit searchFilterChanged();
-}
-
-void FunctionManager::setFolderPath(QString oldAbsPath, QString newRelPath)
-{
-    QStringList tokens = oldAbsPath.split(TreeModel::separator());
-    QString newAbsPath;
-
-    if (tokens.count() > 0)
-    {
-        tokens.removeLast();
-        tokens.append(newRelPath);
-        newAbsPath = tokens.join(TreeModel::separator());
-    }
-    else
-    {
-        newAbsPath = newRelPath;
-    }
-
-    tokens = newAbsPath.split(TreeModel::separator());
-
-    qDebug() << "Folder path changed from" << oldAbsPath << "to" << newAbsPath;
-
-    // change the item label first
-    m_functionTree->setItemRoleData(oldAbsPath, tokens.last(), TreeModel::LabelRole);
-    // once label has changed, the item can now be accessed with the new path
-    m_functionTree->setItemRoleData(newAbsPath, tokens.last(), TreeModel::PathRole);
-
-    if (m_emptyFolderList.contains(oldAbsPath))
-    {
-        m_emptyFolderList.removeOne(oldAbsPath);
-        m_emptyFolderList.append(newAbsPath);
-    }
-    else
-    {
-        oldAbsPath.replace(TreeModel::separator(), "/");
-        newAbsPath.replace(TreeModel::separator(), "/");
-
-        for (Function *f : m_doc->functions())
-        {
-            if (f->path(true).startsWith(oldAbsPath))
-            {
-                Tardis::instance()->enqueueAction(Tardis::FunctionSetPath, f->id(), f->path(true), newAbsPath);
-                f->setPath(newAbsPath);
-            }
-        }
-    }
-
-    //m_functionTree->printTree();
 }
 
 quint32 FunctionManager::addFunctiontoDoc(Function *func, QString name, bool select)
@@ -524,24 +491,6 @@ void FunctionManager::selectFunctionID(quint32 fID, bool multiSelection)
     emit selectedFunctionCountChanged(m_selectedIDList.count());
 }
 
-void FunctionManager::selectFolder(QString path, bool multiSelection)
-{
-    qDebug() << "Selected folder:" << path << multiSelection;
-
-    if (multiSelection == false && !path.isEmpty())
-    {
-        m_selectedFolderList.clear();
-        m_selectedIDList.clear();
-        emit selectedFunctionCountChanged(0);
-    }
-
-    if (path.isEmpty())
-        return;
-
-    m_selectedFolderList.append(path);
-    emit selectedFolderCountChanged(m_selectedFolderList.count());
-}
-
 QString FunctionManager::getEditorResource(int funcID)
 {
     Function *f = m_doc->function((quint32)funcID);
@@ -731,33 +680,6 @@ void FunctionManager::deleteFunctions(QVariantList IDList)
     emit selectedFunctionCountChanged(m_selectedIDList.count());
 }
 
-void FunctionManager::deleteSelectedFolders()
-{
-    for (QString path : m_selectedFolderList)
-    {
-        if (m_emptyFolderList.contains(path))
-        {
-            m_emptyFolderList.removeAll(path);
-        }
-        else
-        {
-            for (Function *func : m_doc->functions())
-            {
-                if (func == NULL)
-                    continue;
-
-                if (func->path(true).startsWith(path))
-                    deleteFunction(func->id());
-            }
-        }
-
-        m_functionTree->removeItem(path);
-    }
-
-    m_selectedFolderList.clear();
-    emit selectedFolderCountChanged(0);
-}
-
 void FunctionManager::moveFunctions(QString newPath)
 {
     bool wasEmptyNode = false;
@@ -882,6 +804,115 @@ void FunctionManager::renameSelectedItems(QString newName, bool numbering, int s
     }
 }
 
+int FunctionManager::selectedFunctionCount() const
+{
+    return m_selectedIDList.count();
+}
+
+QStringList FunctionManager::audioExtensions() const
+{
+    return m_doc->audioPluginCache()->getSupportedFormats();
+}
+
+QStringList FunctionManager::pictureExtensions() const
+{
+    return Video::getPictureCapabilities();
+}
+
+QStringList FunctionManager::videoExtensions() const
+{
+    return Video::getVideoCapabilities();
+}
+
+void FunctionManager::setViewPosition(int viewPosition)
+{
+    if (m_viewPosition == viewPosition)
+        return;
+
+    m_viewPosition = viewPosition;
+    emit viewPositionChanged(viewPosition);
+}
+
+int FunctionManager::viewPosition() const
+{
+    return m_viewPosition;
+}
+
+/*********************************************************************
+ * Folders
+ *********************************************************************/
+
+void FunctionManager::selectFolder(QString path, bool multiSelection)
+{
+    qDebug() << "Selected folder:" << path << multiSelection;
+
+    if (multiSelection == false && !path.isEmpty())
+    {
+        m_selectedFolderList.clear();
+        m_selectedIDList.clear();
+        emit selectedFunctionCountChanged(0);
+    }
+
+    if (path.isEmpty())
+        return;
+
+    m_selectedFolderList.append(path);
+    emit selectedFolderCountChanged(m_selectedFolderList.count());
+}
+
+int FunctionManager::selectedFolderCount() const
+{
+    return m_selectedFolderList.count();
+}
+
+void FunctionManager::setFolderPath(QString oldAbsPath, QString newRelPath)
+{
+    QStringList tokens = oldAbsPath.split(TreeModel::separator());
+    QString newAbsPath;
+
+    if (tokens.count() > 0)
+    {
+        tokens.removeLast();
+        tokens.append(newRelPath);
+        newAbsPath = tokens.join(TreeModel::separator());
+    }
+    else
+    {
+        newAbsPath = newRelPath;
+    }
+
+    tokens = newAbsPath.split(TreeModel::separator());
+
+    qDebug() << "Folder path changed from" << oldAbsPath << "to" << newAbsPath;
+
+    // change the item label first
+    m_functionTree->setItemRoleData(oldAbsPath, tokens.last(), TreeModel::LabelRole);
+    // once label has changed, the item can now be accessed with the new path
+    m_functionTree->setItemRoleData(newAbsPath, tokens.last(), TreeModel::PathRole);
+
+    if (m_emptyFolderList.contains(oldAbsPath))
+    {
+        m_emptyFolderList.removeOne(oldAbsPath);
+        m_emptyFolderList.append(newAbsPath);
+    }
+    else
+    {
+        oldAbsPath.replace(TreeModel::separator(), "/");
+        newAbsPath.replace(TreeModel::separator(), "/");
+
+        for (Function *f : m_doc->functions())
+        {
+            if (f->path(true).startsWith(oldAbsPath))
+            {
+                Tardis::instance()->enqueueAction(Tardis::FunctionSetPath, f->id(), f->path(true), newAbsPath);
+                f->setPath(newAbsPath);
+            }
+        }
+    }
+
+    //m_functionTree->printTree();
+}
+
 void FunctionManager::createFolder()
 {
     QString fName;
@@ -924,43 +955,31 @@ void FunctionManager::createFolder()
     m_functionTree->printTree();
 }
 
-int FunctionManager::selectedFunctionCount() const
+void FunctionManager::deleteSelectedFolders()
 {
-    return m_selectedIDList.count();
-}
+    for (QString path : m_selectedFolderList)
+    {
+        if (m_emptyFolderList.contains(path))
+        {
+            m_emptyFolderList.removeAll(path);
+        }
+        else
+        {
+            for (Function *func : m_doc->functions())
+            {
+                if (func == NULL)
+                    continue;
 
-int FunctionManager::selectedFolderCount() const
-{
-    return m_selectedFolderList.count();
-}
+                if (func->path(true).startsWith(path))
+                    deleteFunction(func->id());
+            }
+        }
 
-QStringList FunctionManager::audioExtensions() const
-{
-    return m_doc->audioPluginCache()->getSupportedFormats();
-}
+        m_functionTree->removeItem(path);
+    }
 
-QStringList FunctionManager::pictureExtensions() const
-{
-    return Video::getPictureCapabilities();
-}
-
-QStringList FunctionManager::videoExtensions() const
-{
-    return Video::getVideoCapabilities();
-}
-
-void FunctionManager::setViewPosition(int viewPosition)
-{
-    if (m_viewPosition == viewPosition)
-        return;
-
-    m_viewPosition = viewPosition;
-    emit viewPositionChanged(viewPosition);
-}
-
-int FunctionManager::viewPosition() const
-{
-    return m_viewPosition;
+    m_selectedFolderList.clear();
+    emit selectedFolderCountChanged(0);
 }
 
 /*********************************************************************
