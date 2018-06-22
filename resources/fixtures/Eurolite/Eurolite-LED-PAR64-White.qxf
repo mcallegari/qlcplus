@@ -25,6 +25,6 @@
    <Dimensions Weight="3" Width="240" Height="340" Depth="265"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+   <Technical PowerConsumption="32" DmxConnector="5-pin"/>
   </Physical>
 </FixtureDefinition>

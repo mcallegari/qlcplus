@@ -75,6 +75,6 @@
    <Dimensions Width="40" Height="40" Weight="2" Depth="30"/>
    <Lens DegreesMax="15" Name="Other" DegreesMin="15"/>
    <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+   <Technical PowerConsumption="100" DmxConnector="5-pin"/>
   </Physical>
 </FixtureDefinition>

@@ -120,10 +120,10 @@
   <Channel Number="9">Maintenance</Channel>
  </Mode>
 <Physical>
-   <Bulb Lumens="13500" Type="Phillips Platinum 5R" ColourTemperature="8000"/>
+   <Bulb Lumens="13500" Type="Philips Platinum 5R" ColourTemperature="8000"/>
    <Dimensions Width="310" Height="448" Weight="11" Depth="335"/>
    <Lens DegreesMax="2" Name="Other" DegreesMin="2"/>
    <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
-   <Technical PowerConsumption="0" DmxConnector="3-pin"/>
+   <Technical PowerConsumption="200" DmxConnector="3-pin"/>
   </Physical>
 </FixtureDefinition>

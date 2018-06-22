@@ -65,7 +65,7 @@
    <Bulb ColourTemperature="0" Type="" Lumens="0"/>
    <Dimensions Height="85" Width="260" Weight="3" Depth="330"/>
    <Lens DegreesMin="30" DegreesMax="30" Name="Other"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Focus PanMax="90" Type="Fixed" TiltMax="90"/>
    <Technical PowerConsumption="30" DmxConnector="3-pin"/>
   </Physical>
 </FixtureDefinition>
