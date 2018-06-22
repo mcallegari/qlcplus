@@ -46,13 +46,13 @@
  <Channel Name="Gobo Wheel 1">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="7" Res="Others/open.svg">Open</Capability>
-  <Capability Min="8" Max="25" Res="ClayPaky/gobo00042.png">Alpha Rays</Capability>
+  <Capability Min="8" Max="25" Res="ClayPaky/gobo00042.svg">Alpha Rays</Capability>
   <Capability Min="26" Max="44" Res="Chauvet/gobo00011.png">Night Sky</Capability>
   <Capability Min="45" Max="63" Res="Others/gobo00055.png">Tribal Break-up</Capability>
   <Capability Min="64" Max="82" Res="SGM-Color/gobo00486.png">Color Gobo</Capability>
   <Capability Min="83" Max="99" Res="Robe/gobo00050.png">Glacier Gag</Capability>
   <Capability Min="100" Max="116">Open</Capability>
-  <Capability Min="117" Max="134" Res="ClayPaky/gobo00042.png">Alpha Rays</Capability>
+  <Capability Min="117" Max="134" Res="ClayPaky/gobo00042.svg">Alpha Rays</Capability>
   <Capability Min="135" Max="153" Res="Chauvet/gobo00011.png">Night Sky</Capability>
   <Capability Min="154" Max="172" Res="Others/gobo00055.png">Tribal Break-up</Capability>
   <Capability Min="173" Max="191" Res="SGM-Color/gobo00486.png">Color Gobo</Capability>
@@ -68,7 +68,7 @@
   <Capability Min="0" Max="13" Res="Others/open.svg">Open</Capability>
   <Capability Min="14" Max="43" Res="SGM/gobo00294.png">Palm Leaves</Capability>
   <Capability Min="44" Max="75" Res="Chauvet/gobo00003.png">Shock Break-up</Capability>
-  <Capability Min="76" Max="108" Res="ClayPaky/gobo00055.png">Triangle Break-up</Capability>
+  <Capability Min="76" Max="108" Res="ClayPaky/gobo00055.svg">Triangle Break-up</Capability>
   <Capability Min="109" Max="140" Res="SGM-Color/gobo00547.png">Ice Blocks</Capability>
   <Capability Min="141" Max="172" Res="Chauvet/gobo00011.png">Pebbles</Capability>
   <Capability Min="173" Max="202" Res="SGM/gobo00361.png">Circle of Ovals</Capability>

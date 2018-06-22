@@ -47,20 +47,20 @@
   <Capability Min="0" Max="9" Res="Others/open.svg">Open</Capability>
   <Capability Min="10" Max="14" Res="Others/gobo00008.svg">Indexed rotation Gobo 1 (Dot breakup)</Capability>
   <Capability Min="15" Max="19" Res="Others/gobo00017.svg">Indexed rotation Gobo 2 (Soft breakup)</Capability>
-  <Capability Min="20" Max="24" Res="ClayPaky/gobo00069.png">Indexed rotation Gobo 3 (Linear)</Capability>
+  <Capability Min="20" Max="24" Res="ClayPaky/gobo00069.svg">Indexed rotation Gobo 3 (Linear)</Capability>
   <Capability Min="25" Max="29" Res="Robe/gobo00065.png">Indexed rotation Gobo 4 (Water)</Capability>
-  <Capability Min="30" Max="34" Res="ClayPaky/gobo00069.png">Indexed rotation Gobo 5 (Flames)</Capability>
-  <Capability Min="35" Max="39" Res="ClayPaky/gobo00053.png">Continuous rotation Gobo 1</Capability>
+  <Capability Min="30" Max="34" Res="ClayPaky/gobo00069.svg">Indexed rotation Gobo 5 (Flames)</Capability>
+  <Capability Min="35" Max="39" Res="ClayPaky/gobo00053.svg">Continuous rotation Gobo 1</Capability>
   <Capability Min="40" Max="44" Res="GLP/gobo00008.png">Continuous rotation Gobo 2</Capability>
   <Capability Min="45" Max="49" Res="Others/gobo00050.png">Continuous rotation Gobo 3</Capability>
   <Capability Min="50" Max="54" Res="SGM/gobo00370.png">Continuous rotation Gobo 4</Capability>
   <Capability Min="55" Max="59" Res="SGM/gobo00318.png">Continuous rotation Gobo 5</Capability>
-  <Capability Min="60" Max="74" Res="ClayPaky/gobo00053.png">Indexed shake Gobo 1 (slow &gt; fast)</Capability>
+  <Capability Min="60" Max="74" Res="ClayPaky/gobo00053.svg">Indexed shake Gobo 1 (slow &gt; fast)</Capability>
   <Capability Min="75" Max="89" Res="GLP/gobo00008.png">Indexed shake Gobo 2 (slow &gt; fast)</Capability>
   <Capability Min="90" Max="104" Res="Others/gobo00050.png">Indexed shake Gobo 3 (slow &gt; fast)</Capability>
   <Capability Min="105" Max="119" Res="SGM/gobo00370.png">Indexed shake Gobo 4 (slow &gt; fast)</Capability>
   <Capability Min="120" Max="134" Res="SGM/gobo00318.png">Indexed shake Gobo 5 (slow &gt; fast)</Capability>
-  <Capability Min="135" Max="149" Res="ClayPaky/gobo00053.png">Rotating shake Gobo 1 (slow &gt; fast)</Capability>
+  <Capability Min="135" Max="149" Res="ClayPaky/gobo00053.svg">Rotating shake Gobo 1 (slow &gt; fast)</Capability>
   <Capability Min="150" Max="164" Res="GLP/gobo00008.png">Rotating shake Gobo 2 (slow &gt; fast)</Capability>
   <Capability Min="165" Max="179" Res="Others/gobo00050.png">Rotating shake Gobo 3 (slow &gt; fast)</Capability>
   <Capability Min="180" Max="194" Res="SGM/gobo00370.png">Rotating shake Gobo 4 (slow &gt; fast)</Capability>

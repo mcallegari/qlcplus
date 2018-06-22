@@ -32,7 +32,7 @@
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="51" Res="Others/open.svg">Open</Capability>
   <Capability Min="52" Max="102" Res="ClayPaky/gobo00096.png">Gobo 1</Capability>
-  <Capability Min="103" Max="153" Res="ClayPaky/gobo00054.png">Gobo 2</Capability>
+  <Capability Min="103" Max="153" Res="ClayPaky/gobo00054.svg">Gobo 2</Capability>
   <Capability Min="154" Max="204" Res="ClayPaky/gobo00097.png">Gobo 3</Capability>
   <Capability Min="205" Max="255" Res="ClayPaky/gobo00022.svg">Gobo 4</Capability>
  </Channel>

@@ -98,19 +98,19 @@ fast</Capability>
   <Capability Min="0" Max="16" Preset="GoboMacro" Res1="Others/open.svg">White</Capability>
   <Capability Min="17" Max="32" Preset="GoboMacro" Res1="SGM/gobo00324.png">Gobo 1</Capability>
   <Capability Min="33" Max="48" Preset="GoboMacro" Res1="ClayPaky/gobo00043.png">Gobo 2</Capability>
-  <Capability Min="49" Max="64" Preset="GoboMacro" Res1="ClayPaky/gobo00042.png">Gobo 3</Capability>
+  <Capability Min="49" Max="64" Preset="GoboMacro" Res1="ClayPaky/gobo00042.svg">Gobo 3</Capability>
   <Capability Min="65" Max="80" Preset="GoboMacro" Res1="ClayPaky/gobo00024.svg">Gobo 4</Capability>
   <Capability Min="81" Max="96" Preset="GoboMacro" Res1="ClayPaky/gobo00002.svg">Gobo 5</Capability>
-  <Capability Min="97" Max="112" Preset="GoboMacro" Res1="ClayPaky/gobo00069.png">Gobo 6</Capability>
+  <Capability Min="97" Max="112" Preset="GoboMacro" Res1="ClayPaky/gobo00069.svg">Gobo 6</Capability>
   <Capability Min="113" Max="127" Preset="GoboMacro" Res1="ClayPaky/gobo00088.png">Gobo 7</Capability>
   <Capability Min="128" Max="149">Rotation speed from slow to fast</Capability>
   <Capability Min="150" Max="171">Reverse rotation from slow to fast</Capability>
   <Capability Min="172" Max="183" Preset="GoboMacro" Res1="SGM/gobo00324.png">Gobo 1 Shake (slow &gt; fast)</Capability>
   <Capability Min="184" Max="195" Preset="GoboMacro" Res1="ClayPaky/gobo00043.png">Gobo 2 Shake (slow &gt; fast)</Capability>
-  <Capability Min="196" Max="207" Preset="GoboMacro" Res1="ClayPaky/gobo00042.png">Gobo 3 Shake (slow &gt; fast)</Capability>
+  <Capability Min="196" Max="207" Preset="GoboMacro" Res1="ClayPaky/gobo00042.svg">Gobo 3 Shake (slow &gt; fast)</Capability>
   <Capability Min="208" Max="219" Preset="GoboMacro" Res1="ClayPaky/gobo00024.svg">Gobo 4 Shake (slow &gt; fast)</Capability>
   <Capability Min="220" Max="231" Preset="GoboMacro" Res1="ClayPaky/gobo00002.svg">Gobo 5 Shake (slow &gt; fast)</Capability>
-  <Capability Min="232" Max="243" Preset="GoboMacro" Res1="ClayPaky/gobo00069.png">Gobo 6 Shake (slow &gt; fast)</Capability>
+  <Capability Min="232" Max="243" Preset="GoboMacro" Res1="ClayPaky/gobo00069.svg">Gobo 6 Shake (slow &gt; fast)</Capability>
   <Capability Min="244" Max="255" Preset="GoboMacro" Res1="ClayPaky/gobo00088.png">Gobo 7 Shake (slow &gt; fast)</Capability>
  </Channel>
  <Channel Name="Rotating Gobo Wheel 1">
@@ -121,7 +121,7 @@ fast</Capability>
   <Capability Min="55" Max="73" Preset="GoboMacro" Res1="SGM/gobo00361.png">Gobo 3</Capability>
   <Capability Min="74" Max="91" Preset="GoboMacro" Res1="SGM-Color/gobo00469.png">Gobo 4</Capability>
   <Capability Min="92" Max="109" Preset="GoboMacro" Res1="SGM/gobo00026.png">Gobo 5</Capability>
-  <Capability Min="110" Max="127" Preset="GoboMacro" Res1="ClayPaky/gobo00059.png">Gobo 6</Capability>
+  <Capability Min="110" Max="127" Preset="GoboMacro" Res1="ClayPaky/gobo00059.svg">Gobo 6</Capability>
   <Capability Min="128" Max="156">Rotation speed from slow to fast</Capability>
   <Capability Min="157" Max="185">Reverse rotation from slow to fast</Capability>
   <Capability Min="186" Max="196" Preset="GoboMacro" Res1="SGM/gobo00332.png">Gobo 1 Shake (slow &gt; fast)</Capability>
@@ -129,7 +129,7 @@ fast</Capability>
   <Capability Min="209" Max="220" Preset="GoboMacro" Res1="SGM/gobo00361.png">Gobo 3 Shake (slow &gt; fast)</Capability>
   <Capability Min="221" Max="232" Preset="GoboMacro" Res1="SGM-Color/gobo00469.png">Gobo 4 Shake (slow &gt; fast)</Capability>
   <Capability Min="233" Max="244" Preset="GoboMacro" Res1="SGM/gobo00026.png">Gobo 5 Shake (slow &gt; fast)</Capability>
-  <Capability Min="245" Max="255" Preset="GoboMacro" Res1="ClayPaky/gobo00059.png">Gobo 6 Shake (slow &gt; fast)</Capability>
+  <Capability Min="245" Max="255" Preset="GoboMacro" Res1="ClayPaky/gobo00059.svg">Gobo 6 Shake (slow &gt; fast)</Capability>
  </Channel>
  <Channel Name="Gobo rotation 1">
   <Group Byte="0">Gobo</Group>

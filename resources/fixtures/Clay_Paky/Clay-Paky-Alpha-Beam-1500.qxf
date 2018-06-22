@@ -62,7 +62,7 @@
   <Capability Min="32" Max="39" Res="ClayPaky/gobo00004.svg">Gobo 4</Capability>
   <Capability Min="40" Max="47" Res="ClayPaky/gobo00003.svg">Gobo 5</Capability>
   <Capability Min="48" Max="55" Res="ClayPaky/gobo00005.svg">Gobo 6</Capability>
-  <Capability Min="56" Max="63" Res="ClayPaky/gobo00001.png">Gobo 7</Capability>
+  <Capability Min="56" Max="63" Res="ClayPaky/gobo00001.svg">Gobo 7</Capability>
   <Capability Min="64" Max="71" Res="ClayPaky/gobo00002.svg">Gobo 8</Capability>
   <Capability Min="72" Max="113">Fast -&gt; Slow Rotation</Capability>
   <Capability Min="114" Max="117">Stop</Capability>

@@ -74,7 +74,7 @@
   <Capability Min="60" Max="60" Res="ClayPaky/gobo00050.png">Effect 5 Continuous Scroll</Capability>
   <Capability Min="72" Max="72" Res="ClayPaky/gobo00037.png">Effect 6 Continuous Scroll</Capability>
   <Capability Min="84" Max="84" Res="Robe/gobo00013.svg">Effect 7 Continuous Scroll</Capability>
-  <Capability Min="96" Max="96" Res="ClayPaky/gobo00069.png">Effect 8 Continuous Scroll</Capability>
+  <Capability Min="96" Max="96" Res="ClayPaky/gobo00069.svg">Effect 8 Continuous Scroll</Capability>
   <Capability Min="108" Max="108" Res="ClayPaky/gobo00044.png">Effect 9 Continuous Scroll</Capability>
   <Capability Min="120" Max="120" Res="Robe/gobo00031.svg">Effect 10 Continuous Scroll</Capability>
   <Capability Min="132" Max="132" Res="GLP/gobo00023.png">Effect 11 Continuous Scroll</Capability>
@@ -83,7 +83,7 @@
   <Capability Min="160" Max="163" Res="GLP/gobo00023.png">Effect 11 Stepped Scroll</Capability>
   <Capability Min="164" Max="167" Res="Robe/gobo00031.svg">Effect 10 Stepped Scroll</Capability>
   <Capability Min="168" Max="171" Res="ClayPaky/gobo00044.png">Effect 9 Stepped Scroll</Capability>
-  <Capability Min="172" Max="175" Res="ClayPaky/gobo00069.png">Effect 8 Stepped Scroll</Capability>
+  <Capability Min="172" Max="175" Res="ClayPaky/gobo00069.svg">Effect 8 Stepped Scroll</Capability>
   <Capability Min="176" Max="179" Res="Robe/gobo00013.svg">Effect 7 Stepped Scroll</Capability>
   <Capability Min="180" Max="183" Res="ClayPaky/gobo00037.png">Effect 6 Stepped Scroll</Capability>
   <Capability Min="184" Max="187" Res="ClayPaky/gobo00050.png">Effect 5 Stepped Scroll</Capability>

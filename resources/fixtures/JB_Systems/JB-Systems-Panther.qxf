@@ -29,7 +29,7 @@
   <Capability Min="69" Max="76">Gobo 8 / Light Blue</Capability>
   <Capability Min="77" Max="84">Gobo 9 / Pink</Capability>
   <Capability Min="85" Max="92">Gobo 10 / Magenta</Capability>
-  <Capability Min="93" Max="100" Res="ClayPaky/gobo00058.png">Gobo 11 / Orange </Capability>
+  <Capability Min="93" Max="100" Res="ClayPaky/gobo00058.svg">Gobo 11 / Orange </Capability>
   <Capability Min="101" Max="108" Res="Chauvet/gobo00001.png">Gobo 12 / Blue</Capability>
   <Capability Min="109" Max="116">Gobo 13 / White</Capability>
   <Capability Min="117" Max="124" Res="Others/gobo00005.svg">Gobo 14 / Green+Pink</Capability>

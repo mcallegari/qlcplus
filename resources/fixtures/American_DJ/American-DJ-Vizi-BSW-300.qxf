@@ -95,7 +95,7 @@
   <Capability Min="14" Max="20">Aperture 2</Capability>
   <Capability Min="21" Max="27" Res="Chauvet/gobo00020.png">Aperture 3</Capability>
   <Capability Min="28" Max="34" Res="Chauvet/gobo00026.png">Gobo 1</Capability>
-  <Capability Min="35" Max="41" Res="ClayPaky/gobo00058.png">Gobo 2</Capability>
+  <Capability Min="35" Max="41" Res="ClayPaky/gobo00058.svg">Gobo 2</Capability>
   <Capability Min="42" Max="48" Res="SGM/gobo00008.png">Gobo 3</Capability>
   <Capability Min="49" Max="55" Res="SGM/gobo00127.png">Gobo 4</Capability>
   <Capability Min="56" Max="62">Gobo 5</Capability>
