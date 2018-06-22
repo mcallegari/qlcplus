@@ -300,6 +300,7 @@
  </Channel>
  <Channel Name="Frost Fine">
   <Group Byte="1">Beam</Group>
+  <Capability Min="0" Max="255">Frost fine</Capability>
  </Channel>
  <Channel Name="Nothing" Preset="NoFunction"/>
  <Channel Name="Nothing2" Preset="NoFunction"/>
@@ -322,7 +323,7 @@
   <Channel Number="14">CMY Macros</Channel>
   <Channel Number="15">Effect Speed</Channel>
   <Channel Number="16">Animation Wheel</Channel>
-  <Channel Number="17">Animation Wheel Rot OR Index</Channel>
+  <Channel Number="17">Animation Wheel Rotation or Index</Channel>
   <Channel Number="18">Static Gobos</Channel>
   <Channel Number="19">Static Gobo Fine</Channel>
   <Channel Number="20">Rotating Gobos</Channel>
@@ -359,7 +360,7 @@
   <Channel Number="13">CMY Macros</Channel>
   <Channel Number="14">Effect Speed</Channel>
   <Channel Number="15">Animation Wheel</Channel>
-  <Channel Number="16">Animation Wheel Rot OR Index</Channel>
+  <Channel Number="16">Animation Wheel Rotation or Index</Channel>
   <Channel Number="17">Static Gobos</Channel>
   <Channel Number="18">Rotating Gobos</Channel>
   <Channel Number="19">Gobo Rotation</Channel>
@@ -388,7 +389,7 @@
   <Channel Number="12">CMY Macros</Channel>
   <Channel Number="13">Effect Speed</Channel>
   <Channel Number="14">Animation Wheel</Channel>
-  <Channel Number="15">Animation Wheel Rot OR Index</Channel>
+  <Channel Number="15">Animation Wheel Rotation or Index</Channel>
   <Channel Number="16">Static Gobos</Channel>
   <Channel Number="17">Static Gobo Fine</Channel>
   <Channel Number="18">Rotating Gobos</Channel>
@@ -423,7 +424,7 @@
   <Channel Number="11">CMY Macros</Channel>
   <Channel Number="12">Effect Speed</Channel>
   <Channel Number="13">Animation Wheel</Channel>
-  <Channel Number="14">Animation Wheel Rot OR Index</Channel>
+  <Channel Number="14">Animation Wheel Rotation or Index</Channel>
   <Channel Number="15">Static Gobos</Channel>
   <Channel Number="16">Rotating Gobos</Channel>
   <Channel Number="17">Gobo Rotation</Channel>
@@ -454,7 +455,7 @@
   <Channel Number="14">Static Gobos</Channel>
   <Channel Number="15">CMY Macros</Channel>
   <Channel Number="16">Animation Wheel</Channel>
-  <Channel Number="17">Animation Wheel Rot OR Index</Channel>
+  <Channel Number="17">Animation Wheel Rotation or Index</Channel>
   <Channel Number="18">Prism</Channel>
   <Channel Number="19">Iris</Channel>
   <Channel Number="20">Iris Fine</Channel>
@@ -482,7 +483,7 @@
   <Channel Number="9">CMY Macros</Channel>
   <Channel Number="10">Effect Speed</Channel>
   <Channel Number="11">Animation Wheel</Channel>
-  <Channel Number="12">Animation Wheel Rot OR Index</Channel>
+  <Channel Number="12">Animation Wheel Rotation or Index</Channel>
   <Channel Number="13">Static Gobos</Channel>
   <Channel Number="14">Rotating Gobos</Channel>
   <Channel Number="15">Gobo Rotation</Channel>
@@ -495,11 +496,11 @@
   <Channel Number="22">Shutter</Channel>
   <Channel Number="23">Dimmer</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="41800" Type="MSR 700W" ColourTemperature="7500"/>
-   <Dimensions Width="514" Height="597" Weight="32" Depth="499"/>
-   <Lens DegreesMax="51" Name="Other" DegreesMin="15"/>
-   <Focus PanMax="540" Type="Head" TiltMax="280"/>
-   <Technical PowerConsumption="930" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="MSR 700W" Lumens="41800" ColourTemperature="7500"/>
+  <Dimensions Weight="32" Width="514" Height="597" Depth="499"/>
+  <Lens Name="Other" DegreesMin="15" DegreesMax="51"/>
+  <Focus Type="Head" PanMax="540" TiltMax="280"/>
+  <Technical PowerConsumption="930" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
 </FixtureDefinition>
