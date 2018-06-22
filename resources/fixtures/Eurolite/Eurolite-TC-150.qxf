@@ -24,7 +24,7 @@
   <Capability Min="180" Max="197">Orange</Capability>
   <Capability Min="198" Max="215">Light yellow</Capability>
   <Capability Min="216" Max="233">Magenta</Capability>
-  <Capability Min="234" Max="251">Red/blue</Capability>
+  <Capability Min="234" Max="250">Red/blue</Capability>
   <Capability Min="251" Max="255">Yellow/green</Capability>
  </Channel>
  <Channel Name="Gobo">

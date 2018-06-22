@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.7.0</Version>
+  <Version>4.11.3 GIT</Version>
   <Author>Vassily Leushin</Author>
  </Creator>
  <Manufacturer>DTS</Manufacturer>
@@ -66,24 +66,24 @@
  </Channel>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="13" Color="#ffffff">White Open</Capability>
-  <Capability Min="14" Max="27" Color="#630002">Red</Capability>
-  <Capability Min="28" Max="41" Color="#ffdb01">Yellow 1</Capability>
-  <Capability Min="42" Max="55" Color="#35a41f">Green</Capability>
-  <Capability Min="56" Max="69" Color="#ff009c">Pink</Capability>
-  <Capability Min="70" Max="83" Color="#fdc801">Full CTO</Capability>
-  <Capability Min="84" Max="97" Color="#01cdff">Full CTB</Capability>
-  <Capability Min="98" Max="111" Color="#fd5b00">Orange</Capability>
-  <Capability Min="112" Max="125" Color="#0300d6">Dark Blue</Capability>
-  <Capability Min="126" Max="139" Color="#c51e01">Light Red</Capability>
-  <Capability Min="140" Max="153" Color="#a701ba">Purple</Capability>
-  <Capability Min="154" Max="167" Color="#eddf1d">Yellow 2</Capability>
-  <Capability Min="168" Max="181" Color="#3bc6ef">Light Blue</Capability>
-  <Capability Min="182" Max="195" Color="#00e000">Light Green</Capability>
-  <Capability Min="196" Max="209" Color="#c801c3">Magenta</Capability>
-  <Capability Min="210" Max="223" Color="#0000e3">Blue</Capability>
-  <Capability Min="224" Max="237" Color="#f7962c">Amber</Capability>
-  <Capability Min="238" Max="255" Color="#02cd02">Dark Green</Capability>
+  <Capability Min="0" Max="13" Preset="ColorMacro" Res1="#ffffff">White Open</Capability>
+  <Capability Min="14" Max="27" Preset="ColorMacro" Res1="#630002">Red</Capability>
+  <Capability Min="28" Max="41" Preset="ColorMacro" Res1="#ffdb01">Yellow 1</Capability>
+  <Capability Min="42" Max="55" Preset="ColorMacro" Res1="#35a41f">Green</Capability>
+  <Capability Min="56" Max="69" Preset="ColorMacro" Res1="#ff009c">Pink</Capability>
+  <Capability Min="70" Max="83" Preset="ColorMacro" Res1="#fdc801">Full CTO</Capability>
+  <Capability Min="84" Max="97" Preset="ColorMacro" Res1="#01cdff">Full CTB</Capability>
+  <Capability Min="98" Max="111" Preset="ColorMacro" Res1="#fd5b00">Orange</Capability>
+  <Capability Min="112" Max="125" Preset="ColorMacro" Res1="#0300d6">Dark Blue</Capability>
+  <Capability Min="126" Max="139" Preset="ColorMacro" Res1="#c51e01">Light Red</Capability>
+  <Capability Min="140" Max="153" Preset="ColorMacro" Res1="#a701ba">Purple</Capability>
+  <Capability Min="154" Max="167" Preset="ColorMacro" Res1="#eddf1d">Yellow 2</Capability>
+  <Capability Min="168" Max="181" Preset="ColorMacro" Res1="#3bc6ef">Light Blue</Capability>
+  <Capability Min="182" Max="195" Preset="ColorMacro" Res1="#00e000">Light Green</Capability>
+  <Capability Min="196" Max="209" Preset="ColorMacro" Res1="#c801c3">Magenta</Capability>
+  <Capability Min="210" Max="223" Preset="ColorMacro" Res1="#0000e3">Blue</Capability>
+  <Capability Min="224" Max="237" Preset="ColorMacro" Res1="#f7962c">Amber</Capability>
+  <Capability Min="238" Max="255" Preset="ColorMacro" Res1="#02cd02">Dark Green</Capability>
  </Channel>
  <Channel Name="Color Mode">
   <Group Byte="0">Colour</Group>
@@ -98,6 +98,7 @@
  <Channel Name="CTO" Preset="ColorCTOMixer"/>
  <Channel Name="Speed CMY">
   <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">CMY Speed</Capability>
  </Channel>
  <Channel Name="Macro CMY">
   <Group Byte="0">Colour</Group>
@@ -285,6 +286,7 @@
  <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Focus Fine">
   <Group Byte="1">Beam</Group>
+  <Capability Min="0" Max="255">Focus fine</Capability>
  </Channel>
  <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
  <Channel Name="Reset/Lamp">
@@ -358,11 +360,11 @@
   <Channel Number="22">Zoom</Channel>
   <Channel Number="23">Reset/Lamp</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="16000" Type="MSD 275W" ColourTemperature="8000"/>
-   <Dimensions Width="355" Height="600" Weight="20" Depth="395"/>
-   <Lens DegreesMax="40" Name="Other" DegreesMin="2"/>
-   <Focus PanMax="540" Type="Head" TiltMax="270"/>
-   <Technical PowerConsumption="450" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="MSD 275W" Lumens="16000" ColourTemperature="8000"/>
+  <Dimensions Weight="20" Width="355" Height="600" Depth="395"/>
+  <Lens Name="Other" DegreesMin="2" DegreesMax="40"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="450" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
 </FixtureDefinition>

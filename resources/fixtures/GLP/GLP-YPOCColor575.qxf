@@ -59,6 +59,7 @@
  <Channel Name="Special">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="15">No function</Capability>
+  <Capability Min="16" Max="31">Audio CMY chaser fast</Capability>
   <Capability Min="32" Max="63">Rotating color chaser</Capability>
   <Capability Min="64" Max="79">Color chaser C/C+1 slow to fast</Capability>
   <Capability Min="80" Max="95">Color chaser C/C+2 slow to fast</Capability>
@@ -67,7 +68,6 @@
   <Capability Min="128" Max="229">No function</Capability>
   <Capability Min="230" Max="249">Lamp OFF (when shutter closed)</Capability>
   <Capability Min="250" Max="255">Reset</Capability>
-  <Capability Min="16" Max="31">Audio CMY chaser fast</Capability>
  </Channel>
  <Channel Name="Movement">
   <Group Byte="0">Effect</Group>

@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.3.4</Version>
+  <Version>4.11.3 GIT</Version>
   <Author>bwerst</Author>
  </Creator>
  <Manufacturer>PixelRANGE</Manufacturer>
@@ -33,36 +33,72 @@
   <Capability Min="112" Max="119">Pulse strobe red/green/blue</Capability>
   <Capability Min="120" Max="127">Primary/secondary chase</Capability>
   <Capability Min="128" Max="135">Red/green/blue chase</Capability>
-  <Capability Color2="#0000ff" Min="136" Max="143" Color="#ffff00">Yellow/blue chase</Capability>
-  <Capability Res="Others/rainbow.png" Min="144" Max="151">Rainbow chase</Capability>
-  <Capability Color2="#0000ff" Min="152" Max="159" Color="#ffff00">Yellow/blue chase</Capability>
-  <Capability Color2="#0000ff" Min="160" Max="167" Color="#ff0000">Red/blue chase</Capability>
-  <Capability Color2="#ffff00" Min="168" Max="175" Color="#ff0000">Red/yellow chase</Capability>
-  <Capability Color2="#00ff00" Min="176" Max="183" Color="#ff0000">Red/green/blue chase</Capability>
-  <Capability Color2="#ff00ff" Min="184" Max="191" Color="#00ff00">Green/purple chase</Capability>
-  <Capability Color2="#00ff00" Min="192" Max="199" Color="#ff0000">Red/green/blue chase</Capability>
-  <Capability Min="200" Max="207" Color="#ff8000">Static orange</Capability>
-  <Capability Min="208" Max="215" Color="#ffff00">Static yellow</Capability>
-  <Capability Min="216" Max="223" Color="#c0c0ff">Static light blue</Capability>
-  <Capability Min="224" Max="231" Color="#c000c0">Static purple</Capability>
-  <Capability Min="232" Max="239" Color="#ff0000">Static red</Capability>
-  <Capability Min="240" Max="247" Color="#00ff00">Static green</Capability>
-  <Capability Min="248" Max="255" Color="#0000ff">Static blue</Capability>
+  <Capability Min="136" Max="143" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#0000ff">Yellow/blue chase</Capability>
+  <Capability Min="144" Max="151" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow chase</Capability>
+  <Capability Min="152" Max="159" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#0000ff">Yellow/blue chase</Capability>
+  <Capability Min="160" Max="167" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red/blue chase</Capability>
+  <Capability Min="168" Max="175" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffff00">Red/yellow chase</Capability>
+  <Capability Min="176" Max="183" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red/green/blue chase</Capability>
+  <Capability Min="184" Max="191" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff00ff">Green/purple chase</Capability>
+  <Capability Min="192" Max="199" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red/green/blue chase</Capability>
+  <Capability Min="200" Max="207" Preset="ColorMacro" Res1="#ff8000">Static orange</Capability>
+  <Capability Min="208" Max="215" Preset="ColorMacro" Res1="#ffff00">Static yellow</Capability>
+  <Capability Min="216" Max="223" Preset="ColorMacro" Res1="#c0c0ff">Static light blue</Capability>
+  <Capability Min="224" Max="231" Preset="ColorMacro" Res1="#c000c0">Static purple</Capability>
+  <Capability Min="232" Max="239" Preset="ColorMacro" Res1="#ff0000">Static red</Capability>
+  <Capability Min="240" Max="247" Preset="ColorMacro" Res1="#00ff00">Static green</Capability>
+  <Capability Min="248" Max="255" Preset="ColorMacro" Res1="#0000ff">Static blue</Capability>
  </Channel>
  <Channel Name="C 1 Speed">
   <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">C 1 Speed</Capability>
  </Channel>
  <Channel Name="C 1 Xfade">
   <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">C 1 Xfade</Capability>
  </Channel>
  <Channel Name="C 2 Effect">
   <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">Off</Capability>
+  <Capability Min="8" Max="15">Rainbow chase forward</Capability>
+  <Capability Min="16" Max="23">Rainbow chase reverse</Capability>
+  <Capability Min="24" Max="31">10/90 duty cycle strobe white</Capability>
+  <Capability Min="32" Max="39">10/90 duty cycle strobe white</Capability>
+  <Capability Min="40" Max="47">10/90 duty cycle strobe white</Capability>
+  <Capability Min="48" Max="55">50/50 duty cycle strobe white</Capability>
+  <Capability Min="56" Max="63">50/50 duty cycle strobe red</Capability>
+  <Capability Min="64" Max="71">50/50 duty cycle strobe blue</Capability>
+  <Capability Min="72" Max="79">50/50 duty cycle strobe yellow</Capability>
+  <Capability Min="80" Max="87">50/50 duty cycle strobe green</Capability>
+  <Capability Min="88" Max="95">Pulse strobe white</Capability>
+  <Capability Min="96" Max="103">Pulse strobe blue</Capability>
+  <Capability Min="104" Max="111">Pulse strobe rainbow</Capability>
+  <Capability Min="112" Max="119">Pulse strobe red/green/blue</Capability>
+  <Capability Min="120" Max="127">Primary/secondary chase</Capability>
+  <Capability Min="128" Max="135">Red/green/blue chase</Capability>
+  <Capability Min="136" Max="143" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#0000ff">Yellow/blue chase</Capability>
+  <Capability Min="144" Max="151" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow chase</Capability>
+  <Capability Min="152" Max="159" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#0000ff">Yellow/blue chase</Capability>
+  <Capability Min="160" Max="167" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red/blue chase</Capability>
+  <Capability Min="168" Max="175" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffff00">Red/yellow chase</Capability>
+  <Capability Min="176" Max="183" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red/green/blue chase</Capability>
+  <Capability Min="184" Max="191" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff00ff">Green/purple chase</Capability>
+  <Capability Min="192" Max="199" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red/green/blue chase</Capability>
+  <Capability Min="200" Max="207" Preset="ColorMacro" Res1="#ff8000">Static orange</Capability>
+  <Capability Min="208" Max="215" Preset="ColorMacro" Res1="#ffff00">Static yellow</Capability>
+  <Capability Min="216" Max="223" Preset="ColorMacro" Res1="#c0c0ff">Static light blue</Capability>
+  <Capability Min="224" Max="231" Preset="ColorMacro" Res1="#c000c0">Static purple</Capability>
+  <Capability Min="232" Max="239" Preset="ColorMacro" Res1="#ff0000">Static red</Capability>
+  <Capability Min="240" Max="247" Preset="ColorMacro" Res1="#00ff00">Static green</Capability>
+  <Capability Min="248" Max="255" Preset="ColorMacro" Res1="#0000ff">Static blue</Capability>
  </Channel>
  <Channel Name="C 2 Speed">
   <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">C 2 Speed</Capability>
  </Channel>
  <Channel Name="C 2 Xfade">
   <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">C 2 Xfade</Capability>
  </Channel>
  <Channel Name="Red (fine)" Preset="IntensityRedFine"/>
  <Channel Name="Green (fine)" Preset="IntensityGreenFine"/>
@@ -145,11 +181,11 @@
   <Channel Number="7">Amber (fine)</Channel>
   <Channel Number="8">Master Int</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="275" Height="317" Weight="6.8" Depth="181"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="127" DmxConnector="5-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="6.8" Width="275" Height="317" Depth="181"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="127" DmxConnector="5-pin"/>
+ </Physical>
 </FixtureDefinition>

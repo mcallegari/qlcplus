@@ -45,7 +45,7 @@
  <Channel Name="No function" Preset="NoFunction"/>
  <Channel Name="Effect wheel">
   <Group Byte="0">Prism</Group>
-  <Capability Min="0" Max="95">Open</Capability>
+  <Capability Min="0" Max="94">Open</Capability>
   <Capability Min="95" Max="159">Rotating prism</Capability>
   <Capability Min="160" Max="167">Macro 1</Capability>
   <Capability Min="168" Max="175">Macro 2</Capability>

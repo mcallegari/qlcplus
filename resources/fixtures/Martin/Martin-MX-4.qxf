@@ -12,15 +12,15 @@
  <Channel Name="Dimmer, strobe, reset">
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="9">Shutter closed</Capability>
-  <Capability Min="230" Max="239">Shutter closed</Capability>
-  <Capability Min="240" Max="249">Reset</Capability>
-  <Capability Min="250" Max="255">Lamp off</Capability>
   <Capability Min="10" Max="19">Lamp on</Capability>
   <Capability Min="20" Max="99">Shutter open</Capability>
   <Capability Min="100" Max="159">Strobe speed</Capability>
   <Capability Min="160" Max="179">Shutter closed</Capability>
   <Capability Min="180" Max="204">Remote stand-alone, music trigger</Capability>
   <Capability Min="205" Max="229">Remote stand-alone, auto trigger</Capability>
+  <Capability Min="230" Max="239">Shutter closed</Capability>
+  <Capability Min="240" Max="249">Reset</Capability>
+  <Capability Min="250" Max="255">Lamp off</Capability>
  </Channel>
  <Channel Name="Color wheel">
   <Group Byte="0">Colour</Group>

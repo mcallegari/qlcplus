@@ -82,7 +82,9 @@
  <Channel Name="Special">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="15">No function</Capability>
+  <Capability Min="16" Max="31">Gobo see-saw 10deg slow to fast</Capability>
   <Capability Min="32" Max="47">Gobo see-saw 20deg slow to fast</Capability>
+  <Capability Min="48" Max="63">Gobo see-saw 30deg slow to fast</Capability>
   <Capability Min="64" Max="79">Color chaser C/C+1 slow to fast</Capability>
   <Capability Min="80" Max="95">Color chaser C/C+2 slow to fast</Capability>
   <Capability Min="96" Max="111">Audio pan/tilt slow</Capability>
@@ -90,8 +92,6 @@
   <Capability Min="128" Max="229">No function</Capability>
   <Capability Min="230" Max="249">Lamp OFF (3sec when shutter closed)</Capability>
   <Capability Min="250" Max="255">Reset</Capability>
-  <Capability Min="16" Max="31">Gobo see-saw 10deg slow to fast</Capability>
-  <Capability Min="48" Max="63">Gobo see-saw 30deg slow to fast</Capability>
  </Channel>
  <Channel Name="Movement">
   <Group Byte="0">Effect</Group>

@@ -125,7 +125,6 @@
  </Channel>
  <Channel Name="Focus Time">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="255" Max="255">Follows Cue Data</Capability>
   <Capability Min="0" Max="0">Full Speed</Capability>
   <Capability Min="1" Max="1">0.2 S</Capability>
   <Capability Min="2" Max="2">0.4 S</Capability>
@@ -206,8 +205,8 @@
   <Capability Min="111" Max="113">34 S</Capability>
   <Capability Min="114" Max="115">35 S</Capability>
   <Capability Min="116" Max="118">36 S</Capability>
-  <Capability Min="121" Max="123">38 S</Capability>
   <Capability Min="119" Max="120">37 S</Capability>
+  <Capability Min="121" Max="123">38 S</Capability>
   <Capability Min="124" Max="126">39 S</Capability>
   <Capability Min="127" Max="128">40 S</Capability>
   <Capability Min="129" Max="131">41 S</Capability>
@@ -259,6 +258,7 @@
   <Capability Min="246" Max="248">290 S</Capability>
   <Capability Min="249" Max="250">300 S</Capability>
   <Capability Min="251" Max="254">310 S</Capability>
+  <Capability Min="255" Max="255">Follows Cue Data</Capability>
  </Channel>
  <Channel Name="Color Time">
   <Group Byte="0">Maintenance</Group>
@@ -399,7 +399,6 @@
  </Channel>
  <Channel Name="Beam Time">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="255" Max="255">Follows Cue Data</Capability>
   <Capability Min="0" Max="0">Full Speed</Capability>
   <Capability Min="1" Max="1">0.2 S</Capability>
   <Capability Min="2" Max="2">0.4 S</Capability>
@@ -480,8 +479,8 @@
   <Capability Min="111" Max="113">34 S</Capability>
   <Capability Min="114" Max="115">35 S</Capability>
   <Capability Min="116" Max="118">36 S</Capability>
-  <Capability Min="121" Max="123">38 S</Capability>
   <Capability Min="119" Max="120">37 S</Capability>
+  <Capability Min="121" Max="123">38 S</Capability>
   <Capability Min="124" Max="126">39 S</Capability>
   <Capability Min="127" Max="128">40 S</Capability>
   <Capability Min="129" Max="131">41 S</Capability>
@@ -533,10 +532,10 @@
   <Capability Min="246" Max="248">290 S</Capability>
   <Capability Min="249" Max="250">300 S</Capability>
   <Capability Min="251" Max="254">310 S</Capability>
+  <Capability Min="255" Max="255">Follows Cue Data</Capability>
  </Channel>
  <Channel Name="Gobo Time">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="255" Max="255">Follows Cue Data</Capability>
   <Capability Min="0" Max="0">Full Speed</Capability>
   <Capability Min="1" Max="1">0.2 S</Capability>
   <Capability Min="2" Max="2">0.4 S</Capability>
@@ -617,8 +616,8 @@
   <Capability Min="111" Max="113">34 S</Capability>
   <Capability Min="114" Max="115">35 S</Capability>
   <Capability Min="116" Max="118">36 S</Capability>
-  <Capability Min="121" Max="123">38 S</Capability>
   <Capability Min="119" Max="120">37 S</Capability>
+  <Capability Min="121" Max="123">38 S</Capability>
   <Capability Min="124" Max="126">39 S</Capability>
   <Capability Min="127" Max="128">40 S</Capability>
   <Capability Min="129" Max="131">41 S</Capability>
@@ -670,6 +669,7 @@
   <Capability Min="246" Max="248">290 S</Capability>
   <Capability Min="249" Max="250">300 S</Capability>
   <Capability Min="251" Max="254">310 S</Capability>
+  <Capability Min="255" Max="255">Follows Cue Data</Capability>
  </Channel>
  <Channel Name="Control">
   <Group Byte="0">Maintenance</Group>

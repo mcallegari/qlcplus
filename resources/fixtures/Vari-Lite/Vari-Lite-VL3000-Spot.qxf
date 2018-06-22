@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.2 GIT</Version>
+  <Version>4.11.3 GIT</Version>
   <Author>Thierry Rodolfo</Author>
  </Creator>
  <Manufacturer>Vari-Lite</Manufacturer>
@@ -22,38 +22,38 @@
  <Channel Name="Magenta Mixer" Preset="IntensityMagenta"/>
  <Channel Name="Color Wheel">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="14" Color="#ffffff">Open</Capability>
-  <Capability Min="15" Max="30" Color="#ffffff" Color2="#1d2c7f">Open/Blue</Capability>
-  <Capability Min="31" Max="47" Color="#1d2c7f">Congo Blue</Capability>
-  <Capability Min="48" Max="61" Color="#1d2c7f" Color2="#fd6500">Blue/Orange</Capability>
-  <Capability Min="62" Max="76" Color="#fd6500">Orange</Capability>
-  <Capability Min="77" Max="92" Color="#fd6500" Color2="#018637">Orange/Green</Capability>
-  <Capability Min="93" Max="108" Color="#018637">Kelly Green</Capability>
-  <Capability Min="109" Max="123" Color="#018637" Color2="#97017f">Green/Fuchsia</Capability>
-  <Capability Min="124" Max="139" Color="#97017f">Dark Fuchsia</Capability>
-  <Capability Min="140" Max="154" Color="#97017f" Color2="#ee027e">Fuchsia/Mag</Capability>
-  <Capability Min="155" Max="170" Color="#ee027e">Magenta</Capability>
-  <Capability Min="171" Max="185" Color="#ee027e" Color2="#d60000">Magenta/Red</Capability>
-  <Capability Min="186" Max="200" Color="#d60000">Deep Red</Capability>
-  <Capability Min="201" Max="216" Color="#d60000" Color2="#ffffff">Red/Open</Capability>
-  <Capability Min="217" Max="235" Res="Others/rainbow.png">Scroll CCW</Capability>
+  <Capability Min="0" Max="14" Preset="ColorMacro" Res1="#ffffff">Open</Capability>
+  <Capability Min="15" Max="30" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#1d2c7f">Open/Blue</Capability>
+  <Capability Min="31" Max="47" Preset="ColorMacro" Res1="#1d2c7f">Congo Blue</Capability>
+  <Capability Min="48" Max="61" Preset="ColorDoubleMacro" Res1="#1d2c7f" Res2="#fd6500">Blue/Orange</Capability>
+  <Capability Min="62" Max="76" Preset="ColorMacro" Res1="#fd6500">Orange</Capability>
+  <Capability Min="77" Max="92" Preset="ColorDoubleMacro" Res1="#fd6500" Res2="#018637">Orange/Green</Capability>
+  <Capability Min="93" Max="108" Preset="ColorMacro" Res1="#018637">Kelly Green</Capability>
+  <Capability Min="109" Max="123" Preset="ColorDoubleMacro" Res1="#018637" Res2="#97017f">Green/Fuchsia</Capability>
+  <Capability Min="124" Max="139" Preset="ColorMacro" Res1="#97017f">Dark Fuchsia</Capability>
+  <Capability Min="140" Max="154" Preset="ColorDoubleMacro" Res1="#97017f" Res2="#ee027e">Fuchsia/Mag</Capability>
+  <Capability Min="155" Max="170" Preset="ColorMacro" Res1="#ee027e">Magenta</Capability>
+  <Capability Min="171" Max="185" Preset="ColorDoubleMacro" Res1="#ee027e" Res2="#d60000">Magenta/Red</Capability>
+  <Capability Min="186" Max="200" Preset="ColorMacro" Res1="#d60000">Deep Red</Capability>
+  <Capability Min="201" Max="216" Preset="ColorDoubleMacro" Res1="#d60000" Res2="#ffffff">Red/Open</Capability>
+  <Capability Min="217" Max="235" Preset="GoboMacro" Res1="Others/rainbow.png">Scroll CCW</Capability>
   <Capability Min="236" Max="236">Stop</Capability>
-  <Capability Min="237" Max="255" Res="Others/rainbow.png">Scroll CW</Capability>
+  <Capability Min="237" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Scroll CW</Capability>
  </Channel>
  <Channel Name="Gobo Wheel 1">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="7" Res="Others/open.png">Open</Capability>
-  <Capability Min="8" Max="25" Res="ClayPaky/gobo00042.png">Alpha Rays</Capability>
-  <Capability Min="26" Max="44" Res="Chauvet/gobo00011.png">Night Sky</Capability>
-  <Capability Min="45" Max="63" Res="Others/gobo00055.png">Tribal Break-up</Capability>
-  <Capability Min="64" Max="82" Res="GLP/gobo00009.png">Pebbles</Capability>
-  <Capability Min="83" Max="99" Res="Robe/gobo00050.png">Glacier Gag</Capability>
-  <Capability Min="100" Max="116" Res="Others/open.png">Open</Capability>
-  <Capability Min="117" Max="134" Res="ClayPaky/gobo00042.png">Alpha Rays</Capability>
-  <Capability Min="135" Max="153" Res="Chauvet/gobo00011.png">Night Sky</Capability>
-  <Capability Min="154" Max="172" Res="Others/gobo00055.png">Tribal Break-up</Capability>
-  <Capability Min="173" Max="191" Res="GLP/gobo00009.png">Pebbles</Capability>
-  <Capability Min="192" Max="209" Res="Robe/gobo00050.png">Glacier Gag</Capability>
+  <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.png">Open</Capability>
+  <Capability Min="8" Max="25" Preset="GoboMacro" Res1="ClayPaky/gobo00042.png">Alpha Rays</Capability>
+  <Capability Min="26" Max="44" Preset="GoboMacro" Res1="Chauvet/gobo00011.png">Night Sky</Capability>
+  <Capability Min="45" Max="63" Preset="GoboMacro" Res1="Others/gobo00055.png">Tribal Break-up</Capability>
+  <Capability Min="64" Max="82" Preset="GoboMacro" Res1="GLP/gobo00009.png">Pebbles</Capability>
+  <Capability Min="83" Max="99" Preset="GoboMacro" Res1="Robe/gobo00050.png">Glacier Gag</Capability>
+  <Capability Min="100" Max="116" Preset="GoboMacro" Res1="Others/open.png">Open</Capability>
+  <Capability Min="117" Max="134" Preset="GoboMacro" Res1="ClayPaky/gobo00042.png">Alpha Rays</Capability>
+  <Capability Min="135" Max="153" Preset="GoboMacro" Res1="Chauvet/gobo00011.png">Night Sky</Capability>
+  <Capability Min="154" Max="172" Preset="GoboMacro" Res1="Others/gobo00055.png">Tribal Break-up</Capability>
+  <Capability Min="173" Max="191" Preset="GoboMacro" Res1="GLP/gobo00009.png">Pebbles</Capability>
+  <Capability Min="192" Max="209" Preset="GoboMacro" Res1="Robe/gobo00050.png">Glacier Gag</Capability>
   <Capability Min="217" Max="236">Scroll CCW</Capability>
   <Capability Min="237" Max="255">Scroll CW</Capability>
  </Channel>
@@ -61,18 +61,18 @@
  <Channel Name="Gobo 1 Fine Index/Rotation" Preset="GoboIndexFine"/>
  <Channel Name="Gobo Wheel 2">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="7" Res="Others/open.png">Open</Capability>
-  <Capability Min="8" Max="25" Res="GLP/gobo00031.png">Palm Leaves</Capability>
-  <Capability Min="26" Max="44" Res="Chauvet/gobo00003.png">Shock Break-up</Capability>
-  <Capability Min="45" Max="63" Res="SGM/gobo00021.png">Uneven Bars</Capability>
-  <Capability Min="64" Max="82" Res="Others/gobo00034.png">Ice Blocks Gag</Capability>
-  <Capability Min="83" Max="99" Res="Others/gobo00058.png">Droplets Gag</Capability>
-  <Capability Min="100" Max="116" Res="Others/open.png">Open</Capability>
-  <Capability Min="117" Max="134" Res="GLP/gobo00031.png">Palm Leaves</Capability>
-  <Capability Min="135" Max="153" Res="Chauvet/gobo00003.png">Shock Break-up</Capability>
-  <Capability Min="154" Max="172" Res="SGM/gobo00021.png">Uneven Bars</Capability>
-  <Capability Min="173" Max="191" Res="Others/gobo00034.png">Ice Blocks Gag</Capability>
-  <Capability Min="192" Max="209" Res="Others/gobo00058.png">Droplets Gag</Capability>
+  <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.png">Open</Capability>
+  <Capability Min="8" Max="25" Preset="GoboMacro" Res1="GLP/gobo00031.png">Palm Leaves</Capability>
+  <Capability Min="26" Max="44" Preset="GoboMacro" Res1="Chauvet/gobo00003.png">Shock Break-up</Capability>
+  <Capability Min="45" Max="63" Preset="GoboMacro" Res1="SGM/gobo00021.png">Uneven Bars</Capability>
+  <Capability Min="64" Max="82" Preset="GoboMacro" Res1="Others/gobo00034.png">Ice Blocks Gag</Capability>
+  <Capability Min="83" Max="99" Preset="GoboMacro" Res1="Others/gobo00058.png">Droplets Gag</Capability>
+  <Capability Min="100" Max="116" Preset="GoboMacro" Res1="Others/open.png">Open</Capability>
+  <Capability Min="117" Max="134" Preset="GoboMacro" Res1="GLP/gobo00031.png">Palm Leaves</Capability>
+  <Capability Min="135" Max="153" Preset="GoboMacro" Res1="Chauvet/gobo00003.png">Shock Break-up</Capability>
+  <Capability Min="154" Max="172" Preset="GoboMacro" Res1="SGM/gobo00021.png">Uneven Bars</Capability>
+  <Capability Min="173" Max="191" Preset="GoboMacro" Res1="Others/gobo00034.png">Ice Blocks Gag</Capability>
+  <Capability Min="192" Max="209" Preset="GoboMacro" Res1="Others/gobo00058.png">Droplets Gag</Capability>
   <Capability Min="217" Max="236">Scroll CCW</Capability>
   <Capability Min="237" Max="255">Scroll CW</Capability>
  </Channel>
@@ -80,16 +80,16 @@
  <Channel Name="Gobo 2 Fine Index/Rotation" Preset="GoboIndexFine"/>
  <Channel Name="Gobo Wheel 3">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="10" Res="Others/open.png">Open</Capability>
-  <Capability Min="11" Max="33" Res="ClayPaky/gobo00074.png">3-Side Prism</Capability>
-  <Capability Min="34" Max="54" Res="ClayPaky/gobo00081.png">Color Gobo</Capability>
-  <Capability Min="55" Max="75" Res="Chauvet/gobo00007.png">Triangle Break-up</Capability>
-  <Capability Min="76" Max="97" Res="SGM/gobo00092.png">Circle of Ovals</Capability>
-  <Capability Min="98" Max="119" Res="Others/open.png">Open</Capability>
-  <Capability Min="120" Max="141" Res="ClayPaky/gobo00074.png">3-Side Prism</Capability>
-  <Capability Min="142" Max="163" Res="ClayPaky/gobo00081.png">Color Gobo</Capability>
-  <Capability Min="164" Max="184" Res="Chauvet/gobo00007.png">Triangle Break-up</Capability>
-  <Capability Min="185" Max="206" Res="SGM/gobo00092.png">Circle of Ovals</Capability>
+  <Capability Min="0" Max="10" Preset="GoboMacro" Res1="Others/open.png">Open</Capability>
+  <Capability Min="11" Max="33" Preset="GoboMacro" Res1="ClayPaky/gobo00074.png">3-Side Prism</Capability>
+  <Capability Min="34" Max="54" Preset="GoboMacro" Res1="ClayPaky/gobo00081.png">Color Gobo</Capability>
+  <Capability Min="55" Max="75" Preset="GoboMacro" Res1="Chauvet/gobo00007.png">Triangle Break-up</Capability>
+  <Capability Min="76" Max="97" Preset="GoboMacro" Res1="SGM/gobo00092.png">Circle of Ovals</Capability>
+  <Capability Min="98" Max="119" Preset="GoboMacro" Res1="Others/open.png">Open</Capability>
+  <Capability Min="120" Max="141" Preset="GoboMacro" Res1="ClayPaky/gobo00074.png">3-Side Prism</Capability>
+  <Capability Min="142" Max="163" Preset="GoboMacro" Res1="ClayPaky/gobo00081.png">Color Gobo</Capability>
+  <Capability Min="164" Max="184" Preset="GoboMacro" Res1="Chauvet/gobo00007.png">Triangle Break-up</Capability>
+  <Capability Min="185" Max="206" Preset="GoboMacro" Res1="SGM/gobo00092.png">Circle of Ovals</Capability>
   <Capability Min="217" Max="236">Scroll CCW</Capability>
   <Capability Min="237" Max="255">Scroll CW</Capability>
  </Channel>
@@ -380,7 +380,6 @@
  </Channel>
  <Channel Name="Beam Time">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="255" Max="255">Follows Cue Data</Capability>
   <Capability Min="0" Max="0">Full Speed</Capability>
   <Capability Min="1" Max="1">0.2 S</Capability>
   <Capability Min="2" Max="2">0.4 S</Capability>
@@ -461,8 +460,8 @@
   <Capability Min="111" Max="113">34 S</Capability>
   <Capability Min="114" Max="115">35 S</Capability>
   <Capability Min="116" Max="118">36 S</Capability>
-  <Capability Min="121" Max="123">38 S</Capability>
   <Capability Min="119" Max="120">37 S</Capability>
+  <Capability Min="121" Max="123">38 S</Capability>
   <Capability Min="124" Max="126">39 S</Capability>
   <Capability Min="127" Max="128">40 S</Capability>
   <Capability Min="129" Max="131">41 S</Capability>
@@ -514,10 +513,10 @@
   <Capability Min="246" Max="248">290 S</Capability>
   <Capability Min="249" Max="250">300 S</Capability>
   <Capability Min="251" Max="254">310 S</Capability>
+  <Capability Min="255" Max="255">Follows Cue Data</Capability>
  </Channel>
  <Channel Name="Gobo Time">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="255" Max="255">Follows Cue Data</Capability>
   <Capability Min="0" Max="0">Full Speed</Capability>
   <Capability Min="1" Max="1">0.2 S</Capability>
   <Capability Min="2" Max="2">0.4 S</Capability>
@@ -598,8 +597,8 @@
   <Capability Min="111" Max="113">34 S</Capability>
   <Capability Min="114" Max="115">35 S</Capability>
   <Capability Min="116" Max="118">36 S</Capability>
-  <Capability Min="121" Max="123">38 S</Capability>
   <Capability Min="119" Max="120">37 S</Capability>
+  <Capability Min="121" Max="123">38 S</Capability>
   <Capability Min="124" Max="126">39 S</Capability>
   <Capability Min="127" Max="128">40 S</Capability>
   <Capability Min="129" Max="131">41 S</Capability>
@@ -651,6 +650,7 @@
   <Capability Min="246" Max="248">290 S</Capability>
   <Capability Min="249" Max="250">300 S</Capability>
   <Capability Min="251" Max="254">310 S</Capability>
+  <Capability Min="255" Max="255">Follows Cue Data</Capability>
  </Channel>
  <Channel Name="Control">
   <Group Byte="0">Maintenance</Group>
@@ -691,11 +691,11 @@
   <Channel Number="26">Gobo Time</Channel>
   <Channel Number="27">Control</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="HTI 1200W" Lumens="24000" ColourTemperature="6000"/>
-   <Dimensions Weight="41" Width="457" Height="802" Depth="368"/>
-   <Lens Name="Other" DegreesMin="10" DegreesMax="60"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="1500" DmxConnector="5-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="HTI 1200W" Lumens="24000" ColourTemperature="6000"/>
+  <Dimensions Weight="41" Width="457" Height="802" Depth="368"/>
+  <Lens Name="Other" DegreesMin="10" DegreesMax="60"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="1500" DmxConnector="5-pin"/>
+ </Physical>
 </FixtureDefinition>

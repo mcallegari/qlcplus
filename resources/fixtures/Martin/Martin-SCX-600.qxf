@@ -35,6 +35,7 @@
   <Capability Min="84" Max="95">Orange B09</Capability>
   <Capability Min="96" Max="107">Congo B13</Capability>
   <Capability Min="108" Max="119">Pink B16</Capability>
+  <Capability Min="120" Max="128">White (index)</Capability>
   <Capability Min="129" Max="135">Blue B04 (index)</Capability>
   <Capability Min="136" Max="142">Red B14 (index)</Capability>
   <Capability Min="143" Max="149">Yellow B02 (index)</Capability>
@@ -44,7 +45,6 @@
   <Capability Min="171" Max="177">Orange B09 (index)</Capability>
   <Capability Min="178" Max="184">Congo B13 (index)</Capability>
   <Capability Min="185" Max="191">Pink B16 (index)</Capability>
-  <Capability Min="120" Max="128">White (index)</Capability>
   <Capability Min="192" Max="215">CW rotation fast to slow</Capability>
   <Capability Min="216" Max="239">CCW rotation slow to fast</Capability>
   <Capability Min="240" Max="245">Music trigger fast</Capability>

@@ -58,7 +58,6 @@
   <Capability Min="126" Max="135">Gobo 7</Capability>
   <Capability Min="136" Max="143">Gobo 8</Capability>
   <Capability Min="144" Max="153">Gobo 9</Capability>
-  <Capability Min="214" Max="217">Open</Capability>
   <Capability Min="154" Max="161">Open/Gb 1</Capability>
   <Capability Min="162" Max="167">Gb 1/Gb 2</Capability>
   <Capability Min="168" Max="173">Gb 2/Gb 3</Capability>
@@ -68,6 +67,7 @@
   <Capability Min="192" Max="197">Gb 6/Gb 7</Capability>
   <Capability Min="198" Max="203">Gb 7/Gb 8</Capability>
   <Capability Min="204" Max="209">Gb 8/Gb 9</Capability>
+  <Capability Min="210" Max="217">Open</Capability>
   <Capability Min="218" Max="229">Scroll CW</Capability>
   <Capability Min="230" Max="231">No Scroll</Capability>
   <Capability Min="232" Max="243">Scroll CCW</Capability>
@@ -88,8 +88,8 @@
  <Channel Name="Gobo Rotation">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="127">Index</Capability>
-  <Capability Min="191" Max="192">No Spin</Capability>
   <Capability Min="128" Max="190">Spin CW</Capability>
+  <Capability Min="191" Max="192">No Spin</Capability>
   <Capability Min="193" Max="255">Spin CCW</Capability>
  </Channel>
  <Mode Name="8bit">

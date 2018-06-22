@@ -78,15 +78,15 @@
   <Capability Min="20" Max="29">Gobo 2</Capability>
   <Capability Min="30" Max="39">Gobo 3</Capability>
   <Capability Min="40" Max="49">Gobo 4</Capability>
+  <Capability Min="50" Max="59">Gobo 5</Capability>
+  <Capability Min="60" Max="69">Gobo 6</Capability>
   <Capability Min="70" Max="89">Gobo 1 shake speed</Capability>
   <Capability Min="90" Max="109">Gobo 2 shake speed</Capability>
   <Capability Min="110" Max="129">Gobo 3 shake speed</Capability>
   <Capability Min="130" Max="149">Gobo 4 shake speed</Capability>
-  <Capability Min="190" Max="255">Gobo rainbow speed</Capability>
-  <Capability Min="50" Max="59">Gobo 5</Capability>
-  <Capability Min="60" Max="69">Gobo 6</Capability>
   <Capability Min="150" Max="169">Gobo 5 shake speed</Capability>
   <Capability Min="170" Max="189">Gobo 6 shake speed</Capability>
+  <Capability Min="190" Max="255">Gobo rainbow speed</Capability>
  </Channel>
  <Channel Name="Rotating gobo 2 index, rotation">
   <Group Byte="0">Gobo</Group>

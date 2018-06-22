@@ -52,11 +52,6 @@
   <Capability Min="52" Max="55">Gobo 11</Capability>
   <Capability Min="56" Max="59">Gobo 12</Capability>
   <Capability Min="60" Max="63">Gobo 13</Capability>
-  <Capability Min="230" Max="231">No Scroll</Capability>
-  <Capability Min="218" Max="229">Scroll CW</Capability>
-  <Capability Min="232" Max="243">Scroll CCW</Capability>
-  <Capability Min="244" Max="249">Audio Sel</Capability>
-  <Capability Min="250" Max="255">Rnd Sel</Capability>
   <Capability Min="64" Max="69">Open</Capability>
   <Capability Min="70" Max="75">Gobo 1</Capability>
   <Capability Min="76" Max="81">Gobo 2</Capability>
@@ -71,7 +66,6 @@
   <Capability Min="130" Max="135">Gobo 11</Capability>
   <Capability Min="136" Max="141">Gobo 12</Capability>
   <Capability Min="142" Max="147">Gobo 13</Capability>
-  <Capability Min="214" Max="217">Open</Capability>
   <Capability Min="154" Max="157">Open/BlkO</Capability>
   <Capability Min="158" Max="161">BlkO/Gb 1</Capability>
   <Capability Min="162" Max="165">Gb 1/Gb 2</Capability>
@@ -87,6 +81,12 @@
   <Capability Min="202" Max="205">Gb11/Gb12</Capability>
   <Capability Min="206" Max="209">Gb12/Gb13</Capability>
   <Capability Min="210" Max="213">Gb13/BlkO</Capability>
+  <Capability Min="214" Max="217">Open</Capability>
+  <Capability Min="218" Max="229">Scroll CW</Capability>
+  <Capability Min="230" Max="231">No Scroll</Capability>
+  <Capability Min="232" Max="243">Scroll CCW</Capability>
+  <Capability Min="244" Max="249">Audio Sel</Capability>
+  <Capability Min="250" Max="255">Rnd Sel</Capability>
  </Channel>
  <Channel Name="No Func" Preset="NoFunction"/>
  <Channel Name="Shutter">
@@ -94,10 +94,10 @@
   <Capability Min="0" Max="5">Closed</Capability>
   <Capability Min="6" Max="95">Open</Capability>
   <Capability Min="96" Max="127">Strobe %</Capability>
+  <Capability Min="128" Max="139">Reset</Capability>
   <Capability Min="140" Max="191">Prog Time Trig</Capability>
   <Capability Min="192" Max="223">Audio Time Trig</Capability>
   <Capability Min="224" Max="255">Rnd Audio trig</Capability>
-  <Capability Min="128" Max="139">Reset</Capability>
  </Channel>
  <Mode Name="8bit">
   <Channel Number="0">Pan</Channel>

@@ -17,8 +17,8 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="0">Tracking mode</Capability>
   <Capability Min="1" Max="249">Vector mode speed</Capability>
-  <Capability Min="253" Max="255">Vector max, BO when moved or gobo/color changed</Capability>
   <Capability Min="250" Max="252">Tracking, BO when moved or gobo/color changed</Capability>
+  <Capability Min="253" Max="255">Vector max, BO when moved or gobo/color changed</Capability>
  </Channel>
  <Channel Name="Lamp On/Off, reset, fan">
   <Group Byte="0">Maintenance</Group>

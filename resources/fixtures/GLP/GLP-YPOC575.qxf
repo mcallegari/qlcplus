@@ -88,20 +88,20 @@
   <Capability Min="104" Max="111">Gobo 6 (slow)</Capability>
   <Capability Min="112" Max="119">Gobo 7 (slow)</Capability>
   <Capability Min="120" Max="127">Gobo 8 (slow)</Capability>
+  <Capability Min="128" Max="129">Gobo rotation STOP</Capability>
   <Capability Min="130" Max="191">CW rotation slow to fast</Capability>
   <Capability Min="192" Max="253">CCW rotation fast to slow</Capability>
   <Capability Min="254" Max="254">Audio chase slow</Capability>
   <Capability Min="255" Max="255">Audio chase fast</Capability>
-  <Capability Min="128" Max="129">Gobo rotation STOP</Capability>
  </Channel>
  <Channel Name="Gobo 1 rotation">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="127">Gobo position 0 to 540 deg</Capability>
+  <Capability Min="128" Max="129">Gobo rotation STOP</Capability>
   <Capability Min="130" Max="191">CW rotation slow to fast</Capability>
   <Capability Min="192" Max="253">CCW rotation fast to slow</Capability>
   <Capability Min="254" Max="254">Audio rotation slow</Capability>
   <Capability Min="255" Max="255">Audio rotation fast</Capability>
-  <Capability Min="128" Max="129">Gobo rotation STOP</Capability>
  </Channel>
  <Channel Name="Gobo 2">
   <Group Byte="0">Gobo</Group>

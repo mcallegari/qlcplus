@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.7.0 RC1</Version>
+  <Version>4.11.3 GIT</Version>
   <Author>NiKoyes</Author>
  </Creator>
  <Manufacturer>Robe</Manufacturer>
@@ -39,27 +39,27 @@
   <Capability Min="200" Max="209">Total Reset</Capability>
   <Capability Min="210" Max="229">Reserved</Capability>
   <Capability Min="230" Max="239">Lamp Off</Capability>
-  <Capability Min="240" Max="240">Disable "Silent" Mode fans</Capability>
+  <Capability Min="240" Max="240">Disable &quot;Silent&quot; Mode fans</Capability>
   <Capability Min="241" Max="255">Silent mode Fans min to max</Capability>
  </Channel>
  <Channel Name="Colour Wheel">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="0" Color="#ffffff">White</Capability>
-  <Capability Min="16" Max="16" Color="#aa0000">Deep Red</Capability>
-  <Capability Min="32" Max="32" Color="#0000ff">Deep Blue</Capability>
-  <Capability Min="48" Max="48" Color="#ff7f00">Orange</Capability>
-  <Capability Min="64" Max="64" Color="#00ff00">Green</Capability>
-  <Capability Min="80" Max="80" Color="#ff4000">Light Red</Capability>
-  <Capability Min="96" Max="96" Color="#ffc800">Amber</Capability>
-  <Capability Min="112" Max="112" Color="#7300ff">UV Filter</Capability>
-  <Capability Min="128" Max="129" Color="#ffffff">White</Capability>
-  <Capability Min="130" Max="137" Color="#aa0000">Deep Red</Capability>
-  <Capability Min="138" Max="145" Color="#0000ff">Deep Blue</Capability>
-  <Capability Min="146" Max="153" Color="#ff7f00">Orange</Capability>
-  <Capability Min="154" Max="163" Color="#00ff00">Green</Capability>
-  <Capability Min="164" Max="171" Color="#ff4000">Light Red</Capability>
-  <Capability Min="172" Max="181" Color="#ffcc00">Amber</Capability>
-  <Capability Min="182" Max="189" Color="#7f00ff">UV Filter</Capability>
+  <Capability Min="0" Max="0" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="16" Max="16" Preset="ColorMacro" Res1="#aa0000">Deep Red</Capability>
+  <Capability Min="32" Max="32" Preset="ColorMacro" Res1="#0000ff">Deep Blue</Capability>
+  <Capability Min="48" Max="48" Preset="ColorMacro" Res1="#ff7f00">Orange</Capability>
+  <Capability Min="64" Max="64" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="80" Max="80" Preset="ColorMacro" Res1="#ff4000">Light Red</Capability>
+  <Capability Min="96" Max="96" Preset="ColorMacro" Res1="#ffc800">Amber</Capability>
+  <Capability Min="112" Max="112" Preset="ColorMacro" Res1="#7300ff">UV Filter</Capability>
+  <Capability Min="128" Max="129" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="130" Max="137" Preset="ColorMacro" Res1="#aa0000">Deep Red</Capability>
+  <Capability Min="138" Max="145" Preset="ColorMacro" Res1="#0000ff">Deep Blue</Capability>
+  <Capability Min="146" Max="153" Preset="ColorMacro" Res1="#ff7f00">Orange</Capability>
+  <Capability Min="154" Max="163" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="164" Max="171" Preset="ColorMacro" Res1="#ff4000">Light Red</Capability>
+  <Capability Min="172" Max="181" Preset="ColorMacro" Res1="#ffcc00">Amber</Capability>
+  <Capability Min="182" Max="189" Preset="ColorMacro" Res1="#7f00ff">UV Filter</Capability>
   <Capability Min="190" Max="215">Fwd Rainbow &lt;&lt;&lt;</Capability>
   <Capability Min="216" Max="217">No Rotation</Capability>
   <Capability Min="218" Max="243">Bwd Rinbow &gt;&gt;&gt;</Capability>
@@ -117,24 +117,24 @@
  <Channel Name="Static Gobos">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="0">Open</Capability>
-  <Capability Res="Robe/gobo00061.png" Min="65" Max="69">Gobo 1</Capability>
-  <Capability Res="Robe/gobo00062.png" Min="70" Max="74">Gobo 2</Capability>
-  <Capability Res="Robe/gobo00063.png" Min="75" Max="79">Gobo 3</Capability>
-  <Capability Res="Robe/gobo00069.png" Min="80" Max="84">Gobo 4</Capability>
-  <Capability Res="Robe/gobo00064.png" Min="85" Max="89">Gobo 5</Capability>
-  <Capability Res="Robe/gobo00065.png" Min="90" Max="94">Gobo 6</Capability>
-  <Capability Res="Robe/gobo00066.png" Min="95" Max="99">Gobo 7</Capability>
-  <Capability Res="Robe/gobo00068.png" Min="100" Max="104">Gobo 8</Capability>
-  <Capability Res="Robe/gobo00012.png" Min="105" Max="109">Gobo 9</Capability>
-  <Capability Res="Robe/gobo00061.png" Min="110" Max="119">Shaking Gobo 1</Capability>
-  <Capability Res="Robe/gobo00062.png" Min="120" Max="129">Shaking Gobo 2</Capability>
-  <Capability Res="Robe/gobo00063.png" Min="130" Max="139">Shaking Gobo 3</Capability>
-  <Capability Res="Robe/gobo00069.png" Min="140" Max="149">Shaking Gobo 4</Capability>
-  <Capability Res="Robe/gobo00064.png" Min="150" Max="159">Shaking Gobo 5</Capability>
-  <Capability Res="Robe/gobo00065.png" Min="160" Max="169">Shaking Gobo 6</Capability>
-  <Capability Res="Robe/gobo00066.png" Min="170" Max="179">Shaking Gobo 7</Capability>
-  <Capability Res="Robe/gobo00067.png" Min="180" Max="189">Shaking Gobo 8</Capability>
-  <Capability Res="Robe/gobo00068.png" Min="190" Max="199">Shaking Gobo 9</Capability>
+  <Capability Min="65" Max="69" Preset="GoboMacro" Res1="Robe/gobo00061.png">Gobo 1</Capability>
+  <Capability Min="70" Max="74" Preset="GoboMacro" Res1="Robe/gobo00062.png">Gobo 2</Capability>
+  <Capability Min="75" Max="79" Preset="GoboMacro" Res1="Robe/gobo00063.png">Gobo 3</Capability>
+  <Capability Min="80" Max="84" Preset="GoboMacro" Res1="Robe/gobo00069.png">Gobo 4</Capability>
+  <Capability Min="85" Max="89" Preset="GoboMacro" Res1="Robe/gobo00064.png">Gobo 5</Capability>
+  <Capability Min="90" Max="94" Preset="GoboMacro" Res1="Robe/gobo00065.png">Gobo 6</Capability>
+  <Capability Min="95" Max="99" Preset="GoboMacro" Res1="Robe/gobo00066.png">Gobo 7</Capability>
+  <Capability Min="100" Max="104" Preset="GoboMacro" Res1="Robe/gobo00068.png">Gobo 8</Capability>
+  <Capability Min="105" Max="109" Preset="GoboMacro" Res1="Robe/gobo00012.png">Gobo 9</Capability>
+  <Capability Min="110" Max="119" Preset="GoboMacro" Res1="Robe/gobo00061.png">Shaking Gobo 1</Capability>
+  <Capability Min="120" Max="129" Preset="GoboMacro" Res1="Robe/gobo00062.png">Shaking Gobo 2</Capability>
+  <Capability Min="130" Max="139" Preset="GoboMacro" Res1="Robe/gobo00063.png">Shaking Gobo 3</Capability>
+  <Capability Min="140" Max="149" Preset="GoboMacro" Res1="Robe/gobo00069.png">Shaking Gobo 4</Capability>
+  <Capability Min="150" Max="159" Preset="GoboMacro" Res1="Robe/gobo00064.png">Shaking Gobo 5</Capability>
+  <Capability Min="160" Max="169" Preset="GoboMacro" Res1="Robe/gobo00065.png">Shaking Gobo 6</Capability>
+  <Capability Min="170" Max="179" Preset="GoboMacro" Res1="Robe/gobo00066.png">Shaking Gobo 7</Capability>
+  <Capability Min="180" Max="189" Preset="GoboMacro" Res1="Robe/gobo00067.png">Shaking Gobo 8</Capability>
+  <Capability Min="190" Max="199" Preset="GoboMacro" Res1="Robe/gobo00068.png">Shaking Gobo 9</Capability>
   <Capability Min="200" Max="201">Open</Capability>
   <Capability Min="202" Max="221">Fw Wheel &lt;&lt;&lt;</Capability>
   <Capability Min="222" Max="223">No Rotation</Capability>
@@ -146,34 +146,34 @@
  <Channel Name="Rotating Gobos">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="3">Open</Capability>
-  <Capability Res="Robe/gobo00054.png" Min="4" Max="7">Gobo 1</Capability>
-  <Capability Res="Robe/gobo00055.png" Min="8" Max="11">Gobo 2</Capability>
-  <Capability Res="Robe/gobo00056.png" Min="12" Max="15">Gobo 3</Capability>
-  <Capability Res="Robe/gobo00057.png" Min="16" Max="19">Gobo 4</Capability>
-  <Capability Res="Robe/gobo00058.png" Min="20" Max="23">Gobo 5</Capability>
-  <Capability Res="Robe/gobo00050.png" Min="24" Max="27">Gobo 6</Capability>
-  <Capability Res="Robe/gobo00060.png" Min="28" Max="31">Gobo 7</Capability>
-  <Capability Res="Robe/gobo00054.png" Min="32" Max="35">Gobo 1 &gt;</Capability>
-  <Capability Res="Robe/gobo00055.png" Min="36" Max="39">Gobo 2 &gt;</Capability>
-  <Capability Res="Robe/gobo00056.png" Min="40" Max="43">Gobo 3 &gt;</Capability>
-  <Capability Res="Robe/gobo00057.png" Min="44" Max="47">Gobo 4 &gt;</Capability>
-  <Capability Res="Robe/gobo00058.png" Min="48" Max="51">Gobo 5 &gt;</Capability>
-  <Capability Res="Robe/gobo00050.png" Min="52" Max="55">Gobo 6 &gt;</Capability>
-  <Capability Res="Robe/gobo00060.png" Min="56" Max="59">Gobo 7 &gt;</Capability>
-  <Capability Res="Robe/gobo00054.png" Min="60" Max="69">Shaking Gobo 1</Capability>
-  <Capability Res="Robe/gobo00055.png" Min="70" Max="79">Shaking Gobo 2</Capability>
-  <Capability Res="Robe/gobo00056.png" Min="80" Max="89">Shaking Gobo 3</Capability>
-  <Capability Res="Robe/gobo00057.png" Min="90" Max="99">Shaking Gobo 4</Capability>
-  <Capability Res="Robe/gobo00058.png" Min="100" Max="109">Shaking Gobo 5</Capability>
-  <Capability Res="Robe/gobo00050.png" Min="110" Max="119">Shaking Gobo 6</Capability>
-  <Capability Res="Robe/gobo00060.png" Min="120" Max="129">Shaking Gobo 7</Capability>
-  <Capability Res="Robe/gobo00054.png" Min="130" Max="139">Shaking Gobo 1 &gt;</Capability>
-  <Capability Res="Robe/gobo00055.png" Min="140" Max="149">Shaking Gobo 2 &gt;</Capability>
-  <Capability Res="Robe/gobo00056.png" Min="150" Max="159">Shaking Gobo 3 &gt;</Capability>
-  <Capability Res="Robe/gobo00057.png" Min="160" Max="169">Shaking Gobo 4 &gt;</Capability>
-  <Capability Res="Robe/gobo00058.png" Min="170" Max="179">Shaking Gobo 5 &gt;</Capability>
-  <Capability Res="Robe/gobo00050.png" Min="180" Max="189">Shaking Gobo 6 &gt;</Capability>
-  <Capability Res="Robe/gobo00060.png" Min="190" Max="199">Shaking Gobo 7 &gt;</Capability>
+  <Capability Min="4" Max="7" Preset="GoboMacro" Res1="Robe/gobo00054.png">Gobo 1</Capability>
+  <Capability Min="8" Max="11" Preset="GoboMacro" Res1="Robe/gobo00055.png">Gobo 2</Capability>
+  <Capability Min="12" Max="15" Preset="GoboMacro" Res1="Robe/gobo00056.png">Gobo 3</Capability>
+  <Capability Min="16" Max="19" Preset="GoboMacro" Res1="Robe/gobo00057.png">Gobo 4</Capability>
+  <Capability Min="20" Max="23" Preset="GoboMacro" Res1="Robe/gobo00058.png">Gobo 5</Capability>
+  <Capability Min="24" Max="27" Preset="GoboMacro" Res1="Robe/gobo00050.png">Gobo 6</Capability>
+  <Capability Min="28" Max="31" Preset="GoboMacro" Res1="Robe/gobo00060.png">Gobo 7</Capability>
+  <Capability Min="32" Max="35" Preset="GoboMacro" Res1="Robe/gobo00054.png">Gobo 1 &gt;</Capability>
+  <Capability Min="36" Max="39" Preset="GoboMacro" Res1="Robe/gobo00055.png">Gobo 2 &gt;</Capability>
+  <Capability Min="40" Max="43" Preset="GoboMacro" Res1="Robe/gobo00056.png">Gobo 3 &gt;</Capability>
+  <Capability Min="44" Max="47" Preset="GoboMacro" Res1="Robe/gobo00057.png">Gobo 4 &gt;</Capability>
+  <Capability Min="48" Max="51" Preset="GoboMacro" Res1="Robe/gobo00058.png">Gobo 5 &gt;</Capability>
+  <Capability Min="52" Max="55" Preset="GoboMacro" Res1="Robe/gobo00050.png">Gobo 6 &gt;</Capability>
+  <Capability Min="56" Max="59" Preset="GoboMacro" Res1="Robe/gobo00060.png">Gobo 7 &gt;</Capability>
+  <Capability Min="60" Max="69" Preset="GoboMacro" Res1="Robe/gobo00054.png">Shaking Gobo 1</Capability>
+  <Capability Min="70" Max="79" Preset="GoboMacro" Res1="Robe/gobo00055.png">Shaking Gobo 2</Capability>
+  <Capability Min="80" Max="89" Preset="GoboMacro" Res1="Robe/gobo00056.png">Shaking Gobo 3</Capability>
+  <Capability Min="90" Max="99" Preset="GoboMacro" Res1="Robe/gobo00057.png">Shaking Gobo 4</Capability>
+  <Capability Min="100" Max="109" Preset="GoboMacro" Res1="Robe/gobo00058.png">Shaking Gobo 5</Capability>
+  <Capability Min="110" Max="119" Preset="GoboMacro" Res1="Robe/gobo00050.png">Shaking Gobo 6</Capability>
+  <Capability Min="120" Max="129" Preset="GoboMacro" Res1="Robe/gobo00060.png">Shaking Gobo 7</Capability>
+  <Capability Min="130" Max="139" Preset="GoboMacro" Res1="Robe/gobo00054.png">Shaking Gobo 1 &gt;</Capability>
+  <Capability Min="140" Max="149" Preset="GoboMacro" Res1="Robe/gobo00055.png">Shaking Gobo 2 &gt;</Capability>
+  <Capability Min="150" Max="159" Preset="GoboMacro" Res1="Robe/gobo00056.png">Shaking Gobo 3 &gt;</Capability>
+  <Capability Min="160" Max="169" Preset="GoboMacro" Res1="Robe/gobo00057.png">Shaking Gobo 4 &gt;</Capability>
+  <Capability Min="170" Max="179" Preset="GoboMacro" Res1="Robe/gobo00058.png">Shaking Gobo 5 &gt;</Capability>
+  <Capability Min="180" Max="189" Preset="GoboMacro" Res1="Robe/gobo00050.png">Shaking Gobo 6 &gt;</Capability>
+  <Capability Min="190" Max="199" Preset="GoboMacro" Res1="Robe/gobo00060.png">Shaking Gobo 7 &gt;</Capability>
   <Capability Min="200" Max="201">Open</Capability>
   <Capability Min="202" Max="221">Fwd Wheel &lt;&lt;</Capability>
   <Capability Min="222" Max="223">No Rotation</Capability>
@@ -278,7 +278,7 @@
  <Channel Name="P/T Macro Speed">
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="0">No macro generation</Capability>
-  <Capability Min="1" Max="127">Macro &lt;&lt;  FWD</Capability>
+  <Capability Min="1" Max="127">Macro &lt;&lt; FWD</Capability>
   <Capability Min="128" Max="129">No macro generation</Capability>
   <Capability Min="130" Max="255">Macro &gt;&gt; BWD</Capability>
  </Channel>
@@ -294,212 +294,15 @@
   <Capability Min="128" Max="191">Indexed Angle pos</Capability>
   <Capability Min="192" Max="255">Indexed Angle Pos</Capability>
  </Channel>
- <Channel Name="Animation Wheel Rot OR Index">
+ <Channel Name="Animation Wheel Rotation or Index">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="255"/>
+  <Capability Min="0" Max="255">Animation Wheel Rotation or Index</Capability>
  </Channel>
- <Channel Name="Frost Fine">
-  <Group Byte="1">Beam</Group>
- </Channel>
- <Channel Name="Nothing" Preset="NoFunction"/>
- <Channel Name="Nothing2" Preset="NoFunction"/>
- <Channel Name="Nothing3" Preset="NoFunction"/>
- <Mode Name="Mode 1">
-  <Channel Number="0">Pan</Channel>
-  <Channel Number="1">Pan Fine</Channel>
-  <Channel Number="2">Tilt</Channel>
-  <Channel Number="3">Tilt Fine</Channel>
-  <Channel Number="4">P/T Speed - P/T Time</Channel>
-  <Channel Number="5">Control</Channel>
-  <Channel Number="6">Pan/Tilt Macro</Channel>
-  <Channel Number="7">P/T Macro Speed</Channel>
-  <Channel Number="8">Colour Wheel</Channel>
-  <Channel Number="9">Colour Wheel Fine</Channel>
-  <Channel Number="10">Cyan</Channel>
-  <Channel Number="11">Magenta</Channel>
-  <Channel Number="12">Yellow</Channel>
-  <Channel Number="13">CTO Filter</Channel>
-  <Channel Number="14">CMY Macros</Channel>
-  <Channel Number="15">Effect Speed</Channel>
-  <Channel Number="16">Animation Wheel</Channel>
-  <Channel Number="17">Animation Wheel Rot OR Index</Channel>
-  <Channel Number="18">Static Gobos</Channel>
-  <Channel Number="19">Static Gobo Fine</Channel>
-  <Channel Number="20">Rotating Gobos</Channel>
-  <Channel Number="21">Gobo Rotation</Channel>
-  <Channel Number="22">Gobo Rotation Fine</Channel>
-  <Channel Number="23">Prism</Channel>
-  <Channel Number="24">Prism Rotation</Channel>
-  <Channel Number="25">Frost</Channel>
-  <Channel Number="26">Frost Fine</Channel>
-  <Channel Number="27">Iris</Channel>
-  <Channel Number="28">Iris Fine</Channel>
-  <Channel Number="29">Zoom</Channel>
-  <Channel Number="30">Zoom Fine</Channel>
-  <Channel Number="31">Focus</Channel>
-  <Channel Number="32">Focus Fine</Channel>
-  <Channel Number="33">Shutter</Channel>
-  <Channel Number="34">Dimmer</Channel>
-  <Channel Number="35">Dimmer Fine</Channel>
- </Mode>
- <Mode Name="Mode 2">
-  <Channel Number="0">Pan</Channel>
-  <Channel Number="1">Pan Fine</Channel>
-  <Channel Number="2">Tilt</Channel>
-  <Channel Number="3">Tilt Fine</Channel>
-  <Channel Number="4">P/T Speed - P/T Time</Channel>
-  <Channel Number="5">Control</Channel>
-  <Channel Number="6">Pan/Tilt Macro</Channel>
-  <Channel Number="7">P/T Macro Speed</Channel>
-  <Channel Number="8">Colour Wheel</Channel>
-  <Channel Number="9">Cyan</Channel>
-  <Channel Number="10">Magenta</Channel>
-  <Channel Number="11">Yellow</Channel>
-  <Channel Number="12">CTO Filter</Channel>
-  <Channel Number="13">CMY Macros</Channel>
-  <Channel Number="14">Effect Speed</Channel>
-  <Channel Number="15">Animation Wheel</Channel>
-  <Channel Number="16">Animation Wheel Rot OR Index</Channel>
-  <Channel Number="17">Static Gobos</Channel>
-  <Channel Number="18">Rotating Gobos</Channel>
-  <Channel Number="19">Gobo Rotation</Channel>
-  <Channel Number="20">Prism</Channel>
-  <Channel Number="21">Prism Rotation</Channel>
-  <Channel Number="22">Frost</Channel>
-  <Channel Number="23">Iris</Channel>
-  <Channel Number="24">Zoom</Channel>
-  <Channel Number="25">Focus</Channel>
-  <Channel Number="26">Shutter</Channel>
-  <Channel Number="27">Dimmer</Channel>
- </Mode>
- <Mode Name="Mode 3">
-  <Channel Number="0">Pan</Channel>
-  <Channel Number="1">Pan Fine</Channel>
-  <Channel Number="2">Tilt</Channel>
-  <Channel Number="3">Tilt Fine</Channel>
-  <Channel Number="4">P/T Speed - P/T Time</Channel>
-  <Channel Number="5">Control</Channel>
-  <Channel Number="6">Colour Wheel</Channel>
-  <Channel Number="7">Colour Wheel Fine</Channel>
-  <Channel Number="8">Cyan</Channel>
-  <Channel Number="9">Magenta</Channel>
-  <Channel Number="10">Yellow</Channel>
-  <Channel Number="11">CTO Filter</Channel>
-  <Channel Number="12">CMY Macros</Channel>
-  <Channel Number="13">Effect Speed</Channel>
-  <Channel Number="14">Animation Wheel</Channel>
-  <Channel Number="15">Animation Wheel Rot OR Index</Channel>
-  <Channel Number="16">Static Gobos</Channel>
-  <Channel Number="17">Static Gobo Fine</Channel>
-  <Channel Number="18">Rotating Gobos</Channel>
-  <Channel Number="19">Gobo Rotation</Channel>
-  <Channel Number="20">Gobo Rotation Fine</Channel>
-  <Channel Number="21">Prism</Channel>
-  <Channel Number="22">Prism Rotation</Channel>
-  <Channel Number="23">Frost</Channel>
-  <Channel Number="24">Frost Fine</Channel>
-  <Channel Number="25">Iris</Channel>
-  <Channel Number="26">Iris Fine</Channel>
-  <Channel Number="27">Zoom</Channel>
-  <Channel Number="28">Zoom Fine</Channel>
-  <Channel Number="29">Focus</Channel>
-  <Channel Number="30">Focus Fine</Channel>
-  <Channel Number="31">Shutter</Channel>
-  <Channel Number="32">Dimmer</Channel>
-  <Channel Number="33">Dimmer Fine</Channel>
- </Mode>
- <Mode Name="Mode 4">
-  <Channel Number="0">Pan</Channel>
-  <Channel Number="1">Pan Fine</Channel>
-  <Channel Number="2">Tilt</Channel>
-  <Channel Number="3">Tilt Fine</Channel>
-  <Channel Number="4">P/T Speed - P/T Time</Channel>
-  <Channel Number="5">Control</Channel>
-  <Channel Number="6">Colour Wheel</Channel>
-  <Channel Number="7">Cyan</Channel>
-  <Channel Number="8">Magenta</Channel>
-  <Channel Number="9">Yellow</Channel>
-  <Channel Number="10">CTO Filter</Channel>
-  <Channel Number="11">CMY Macros</Channel>
-  <Channel Number="12">Effect Speed</Channel>
-  <Channel Number="13">Animation Wheel</Channel>
-  <Channel Number="14">Animation Wheel Rot OR Index</Channel>
-  <Channel Number="15">Static Gobos</Channel>
-  <Channel Number="16">Rotating Gobos</Channel>
-  <Channel Number="17">Gobo Rotation</Channel>
-  <Channel Number="18">Prism</Channel>
-  <Channel Number="19">Prism Rotation</Channel>
-  <Channel Number="20">Frost</Channel>
-  <Channel Number="21">Iris</Channel>
-  <Channel Number="22">Zoom</Channel>
-  <Channel Number="23">Focus</Channel>
-  <Channel Number="24">Shutter</Channel>
-  <Channel Number="25">Dimmer</Channel>
- </Mode>
- <Mode Name="Mode 5">
-  <Channel Number="0">Shutter</Channel>
-  <Channel Number="1">Dimmer</Channel>
-  <Channel Number="2">Dimmer Fine</Channel>
-  <Channel Number="3">Cyan</Channel>
-  <Channel Number="4">Nothing</Channel>
-  <Channel Number="5">Magenta</Channel>
-  <Channel Number="6">Nothing2</Channel>
-  <Channel Number="7">Yellow</Channel>
-  <Channel Number="8">Nothing3</Channel>
-  <Channel Number="9">Colour Wheel</Channel>
-  <Channel Number="10">Colour Wheel Fine</Channel>
-  <Channel Number="11">Rotating Gobos</Channel>
-  <Channel Number="12">Gobo Rotation</Channel>
-  <Channel Number="13">Gobo Rotation Fine</Channel>
-  <Channel Number="14">Static Gobos</Channel>
-  <Channel Number="15">CMY Macros</Channel>
-  <Channel Number="16">Animation Wheel</Channel>
-  <Channel Number="17">Animation Wheel Rot OR Index</Channel>
-  <Channel Number="18">Prism</Channel>
-  <Channel Number="19">Iris</Channel>
-  <Channel Number="20">Iris Fine</Channel>
-  <Channel Number="21">Focus</Channel>
-  <Channel Number="22">Focus Fine</Channel>
-  <Channel Number="23">Zoom</Channel>
-  <Channel Number="24">Zoom Fine</Channel>
-  <Channel Number="25">Pan</Channel>
-  <Channel Number="26">Pan Fine</Channel>
-  <Channel Number="27">Tilt</Channel>
-  <Channel Number="28">Tilt Fine</Channel>
-  <Channel Number="29">P/T Speed - P/T Time</Channel>
-  <Channel Number="30">Control</Channel>
- </Mode>
- <Mode Name="Mode 6">
-  <Channel Number="0">Pan</Channel>
-  <Channel Number="1">Tilt</Channel>
-  <Channel Number="2">P/T Speed - P/T Time</Channel>
-  <Channel Number="3">Control</Channel>
-  <Channel Number="4">Colour Wheel</Channel>
-  <Channel Number="5">Cyan</Channel>
-  <Channel Number="6">Magenta</Channel>
-  <Channel Number="7">Yellow</Channel>
-  <Channel Number="8">CTO Filter</Channel>
-  <Channel Number="9">CMY Macros</Channel>
-  <Channel Number="10">Effect Speed</Channel>
-  <Channel Number="11">Animation Wheel</Channel>
-  <Channel Number="12">Animation Wheel Rot OR Index</Channel>
-  <Channel Number="13">Static Gobos</Channel>
-  <Channel Number="14">Rotating Gobos</Channel>
-  <Channel Number="15">Gobo Rotation</Channel>
-  <Channel Number="16">Prism</Channel>
-  <Channel Number="17">Prism Rotation</Channel>
-  <Channel Number="18">Frost</Channel>
-  <Channel Number="19">Iris</Channel>
-  <Channel Number="20">Zoom</Channel>
-  <Channel Number="21">Focus</Channel>
-  <Channel Number="22">Shutter</Channel>
-  <Channel Number="23">Dimmer</Channel>
- </Mode>
-<Physical>
-   <Bulb Lumens="41800" Type="MSR 700W" ColourTemperature="7500"/>
-   <Dimensions Width="514" Height="597" Weight="32" Depth="499"/>
-   <Lens DegreesMax="51" Name="Other" DegreesMin="15"/>
-   <Focus PanMax="540" Type="Head" TiltMax="280"/>
-   <Technical PowerConsumption="930" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="0" Width="0" Height="0" Depth="0"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+ </Physical>
 </FixtureDefinition>
