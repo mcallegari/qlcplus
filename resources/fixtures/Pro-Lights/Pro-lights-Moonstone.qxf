@@ -124,8 +124,8 @@
   <Capability Min="96" Max="127" Res="SGM/gobo00026.png">Position 4</Capability>
   <Capability Min="128" Max="159" Res="SGM/gobo00033.png">Position 5</Capability>
   <Capability Min="160" Max="191" Res="Others/gobo00045.svg">Position 6</Capability>
-  <Capability Min="192" Max="223" Res="Others/gobo00072.png">Position 7</Capability>
-  <Capability Min="224" Max="255" Res="Others/gobo00006.png">Position 8</Capability>
+  <Capability Min="192" Max="223" Res="Others/gobo00072.svg">Position 7</Capability>
+  <Capability Min="224" Max="255" Res="Others/gobo00006.svg">Position 8</Capability>
  </Channel>
  <Channel Name="Rotating Gobo/Stop to Fastest Spin/Continuous Position (14/16 Channel)">
   <Group Byte="0">Gobo</Group>
@@ -135,23 +135,23 @@
   <Capability Min="18" Max="23" Res="SGM/gobo00026.png">Position 4 - indexed</Capability>
   <Capability Min="24" Max="29" Res="SGM/gobo00033.png">Position 5 - indexed</Capability>
   <Capability Min="30" Max="35" Res="Others/gobo00045.svg">Position 6 - indexed</Capability>
-  <Capability Min="36" Max="41" Res="Others/gobo00072.png">Position 7 - indexed</Capability>
-  <Capability Min="42" Max="47" Res="Others/gobo00006.png">Position 8 - indexed</Capability>
+  <Capability Min="36" Max="41" Res="Others/gobo00072.svg">Position 7 - indexed</Capability>
+  <Capability Min="42" Max="47" Res="Others/gobo00006.svg">Position 8 - indexed</Capability>
   <Capability Min="48" Max="53" Res="Others/open.svg">Position 1 (open) - indexed with backout</Capability>
   <Capability Min="54" Max="59" Res="Others/gobo00003.png">Position 2 - indexed with backout</Capability>
   <Capability Min="60" Max="65" Res="SGM-Color/gobo00373.png">Position 3 - indexed with backout</Capability>
   <Capability Min="66" Max="71" Res="SGM/gobo00026.png">Position 4 - indexed with backout</Capability>
   <Capability Min="72" Max="77" Res="SGM/gobo00033.png">Position 5 - indexed with backout</Capability>
   <Capability Min="78" Max="83" Res="Others/gobo00045.svg">Position 6 - indexed with backout</Capability>
-  <Capability Min="84" Max="89" Res="Others/gobo00072.png">Position 7 - indexed with backout</Capability>
-  <Capability Min="90" Max="97" Res="Others/gobo00006.png">Position 8 - indexed with backout</Capability>
+  <Capability Min="84" Max="89" Res="Others/gobo00072.svg">Position 7 - indexed with backout</Capability>
+  <Capability Min="90" Max="97" Res="Others/gobo00006.svg">Position 8 - indexed with backout</Capability>
   <Capability Min="98" Max="115" Res="Others/gobo00003.png">Position 2 - indexed with shake</Capability>
   <Capability Min="116" Max="133" Res="SGM-Color/gobo00373.png">Position 3 - indexed with shake</Capability>
   <Capability Min="134" Max="151" Res="SGM/gobo00026.png">Position 4 - indexed with shake</Capability>
   <Capability Min="152" Max="169" Res="SGM/gobo00033.png">Position 5 - indexed with shake</Capability>
   <Capability Min="170" Max="187" Res="Others/gobo00045.svg">Position 6 - indexed with shake</Capability>
-  <Capability Min="188" Max="205" Res="Others/gobo00072.png">Position 7 - indexed with shake</Capability>
-  <Capability Min="206" Max="223" Res="Others/gobo00006.png">Position 8 - indexed with shake</Capability>
+  <Capability Min="188" Max="205" Res="Others/gobo00072.svg">Position 7 - indexed with shake</Capability>
+  <Capability Min="206" Max="223" Res="Others/gobo00006.svg">Position 8 - indexed with shake</Capability>
   <Capability Min="224" Max="239">Forward wheel spin (stop to fastest)</Capability>
   <Capability Min="240" Max="255">Reverse wheel spin (stop to fastest)</Capability>
  </Channel>

@@ -43,13 +43,13 @@
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="12">no gobo</Capability>
   <Capability Min="13" Max="25" Res="Chauvet/gobo00044.png">gobo1</Capability>
-  <Capability Min="26" Max="38" Res="Others/gobo00012.png">gobo 2</Capability>
+  <Capability Min="26" Max="38" Res="Others/gobo00012.svg">gobo 2</Capability>
   <Capability Min="39" Max="50" Res="SGM/gobo00005.png">gobo 3</Capability>
   <Capability Min="51" Max="63" Res="Chauvet/gobo00052.png">gobo 4</Capability>
   <Capability Min="64" Max="76" Res="SGM/gobo00366.png">gobo 5</Capability>
   <Capability Min="77" Max="88" Res="GLP/gobo00028.png">gobo 6</Capability>
   <Capability Min="89" Max="101" Res="SGM/gobo00018.png">gobo 7</Capability>
-  <Capability Min="102" Max="114" Res="Others/gobo00016.png">gobo 8</Capability>
+  <Capability Min="102" Max="114" Res="Others/gobo00016.svg">gobo 8</Capability>
   <Capability Min="115" Max="127" Res="GLP/gobo00031.png">gobo 9</Capability>
   <Capability Min="128" Max="191">rotating wheel fast to slow cw</Capability>
   <Capability Min="192" Max="255">rotating wheel slow to fast ccw</Capability>
@@ -94,13 +94,13 @@
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="3" Res="Others/open.svg">Open</Capability>
   <Capability Min="4" Max="7" Res="Chauvet/gobo00044.png">G1</Capability>
-  <Capability Min="8" Max="11" Res="Others/gobo00012.png">G2</Capability>
+  <Capability Min="8" Max="11" Res="Others/gobo00012.svg">G2</Capability>
   <Capability Min="12" Max="15" Res="SGM/gobo00005.png">G3</Capability>
   <Capability Min="16" Max="19" Res="Chauvet/gobo00052.png">G4</Capability>
   <Capability Min="20" Max="23" Res="SGM/gobo00366.png">G5</Capability>
   <Capability Min="24" Max="27" Res="GLP/gobo00028.png">G6</Capability>
   <Capability Min="28" Max="31" Res="SGM/gobo00018.png">G7</Capability>
-  <Capability Min="32" Max="35" Res="Others/gobo00016.png">G8</Capability>
+  <Capability Min="32" Max="35" Res="Others/gobo00016.svg">G8</Capability>
   <Capability Min="36" Max="39" Res="GLP/gobo00031.png">G9</Capability>
   <Capability Min="40" Max="43" Res="Others/gobo00013.svg">G10</Capability>
   <Capability Min="44" Max="47" Res="Others/gobo00037.png">G11</Capability>

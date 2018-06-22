@@ -34,7 +34,7 @@
   <Capability Min="0" Max="7" Res="Others/open.svg">Open</Capability>
   <Capability Min="8" Max="15" Res="ClayPaky/gobo00008.svg">Gobo 1</Capability>
   <Capability Min="16" Max="23" Res="Others/gobo00042.png">Gobo 2</Capability>
-  <Capability Min="24" Max="31" Res="Others/gobo00018.png">Gobo 3</Capability>
+  <Capability Min="24" Max="31" Res="Others/gobo00018.svg">Gobo 3</Capability>
   <Capability Min="32" Max="39" Res="Others/gobo00027.svg">Gobo 4</Capability>
   <Capability Min="40" Max="47" Res="Others/gobo00043.png">Gobo 5</Capability>
   <Capability Min="48" Max="55" Res="Others/gobo00032.png">Gobo 6</Capability>

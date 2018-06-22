@@ -45,8 +45,8 @@
   <Capability Min="86" Max="115" Res="Robe/gobo00051.png">Scratch</Capability>
   <Capability Min="116" Max="150" Res="Robe/gobo00038.svg">Line</Capability>
   <Capability Min="151" Max="185" Res="Others/gobo00027.svg">Triangle</Capability>
-  <Capability Min="186" Max="215" Res="Others/gobo00014.png">Circle open</Capability>
-  <Capability Min="216" Max="255" Res="Others/gobo00012.png">Star open</Capability>
+  <Capability Min="186" Max="215" Res="Others/gobo00014.svg">Circle open</Capability>
+  <Capability Min="216" Max="255" Res="Others/gobo00012.svg">Star open</Capability>
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>

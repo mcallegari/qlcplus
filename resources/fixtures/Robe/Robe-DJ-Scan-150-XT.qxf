@@ -44,7 +44,7 @@
   <Capability Min="152" Max="159" Res="Robe/gobo00028.svg">Gobo 1</Capability>
   <Capability Min="160" Max="167">Gobo 2</Capability>
   <Capability Min="168" Max="175" Res="Robe/gobo00025.svg">Gobo 3</Capability>
-  <Capability Min="176" Max="183" Res="Others/gobo00011.png">Gobo 4</Capability>
+  <Capability Min="176" Max="183" Res="Others/gobo00011.svg">Gobo 4</Capability>
   <Capability Min="184" Max="191">Gobo 5</Capability>
   <Capability Min="192" Max="199">Gobo 6</Capability>
   <Capability Min="200" Max="207">Gobo 7</Capability>
