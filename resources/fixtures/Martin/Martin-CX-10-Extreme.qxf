@@ -66,32 +66,32 @@
  </Channel>
  <Channel Name="Effects">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="0" Res="Others/open.png">Open</Capability>
-  <Capability Min="12" Max="12" Res="ClayPaky/gobo00011.png">Effect 1 Continuous Scroll</Capability>
-  <Capability Min="24" Max="24" Res="ClayPaky/gobo00009.png">Effect 2 Continuous Scroll</Capability>
+  <Capability Min="0" Max="0" Res="Others/open.svg">Open</Capability>
+  <Capability Min="12" Max="12" Res="ClayPaky/gobo00011.svg">Effect 1 Continuous Scroll</Capability>
+  <Capability Min="24" Max="24" Res="ClayPaky/gobo00009.svg">Effect 2 Continuous Scroll</Capability>
   <Capability Min="36" Max="36" Res="ClayPaky/gobo00007.png">Effect 3 Continuous Scroll</Capability>
   <Capability Min="48" Max="48" Res="ClayPaky/gobo00006.png">Effect 4 Continuous Scroll</Capability>
   <Capability Min="60" Max="60" Res="ClayPaky/gobo00050.png">Effect 5 Continuous Scroll</Capability>
   <Capability Min="72" Max="72" Res="ClayPaky/gobo00037.png">Effect 6 Continuous Scroll</Capability>
-  <Capability Min="84" Max="84" Res="Robe/gobo00013.png">Effect 7 Continuous Scroll</Capability>
+  <Capability Min="84" Max="84" Res="Robe/gobo00013.svg">Effect 7 Continuous Scroll</Capability>
   <Capability Min="96" Max="96" Res="ClayPaky/gobo00069.png">Effect 8 Continuous Scroll</Capability>
   <Capability Min="108" Max="108" Res="ClayPaky/gobo00044.png">Effect 9 Continuous Scroll</Capability>
-  <Capability Min="120" Max="120" Res="Robe/gobo00031.png">Effect 10 Continuous Scroll</Capability>
+  <Capability Min="120" Max="120" Res="Robe/gobo00031.svg">Effect 10 Continuous Scroll</Capability>
   <Capability Min="132" Max="132" Res="GLP/gobo00023.png">Effect 11 Continuous Scroll</Capability>
   <Capability Min="144" Max="144" Res="SGM-Color/gobo00546.png">Effect 12 Continuous Scroll</Capability>
   <Capability Min="156" Max="159" Res="SGM-Color/gobo00546.png">Effect 12 Stepped Scroll</Capability>
   <Capability Min="160" Max="163" Res="GLP/gobo00023.png">Effect 11 Stepped Scroll</Capability>
-  <Capability Min="164" Max="167" Res="Robe/gobo00031.png">Effect 10 Stepped Scroll</Capability>
+  <Capability Min="164" Max="167" Res="Robe/gobo00031.svg">Effect 10 Stepped Scroll</Capability>
   <Capability Min="168" Max="171" Res="ClayPaky/gobo00044.png">Effect 9 Stepped Scroll</Capability>
   <Capability Min="172" Max="175" Res="ClayPaky/gobo00069.png">Effect 8 Stepped Scroll</Capability>
-  <Capability Min="176" Max="179" Res="Robe/gobo00013.png">Effect 7 Stepped Scroll</Capability>
+  <Capability Min="176" Max="179" Res="Robe/gobo00013.svg">Effect 7 Stepped Scroll</Capability>
   <Capability Min="180" Max="183" Res="ClayPaky/gobo00037.png">Effect 6 Stepped Scroll</Capability>
   <Capability Min="184" Max="187" Res="ClayPaky/gobo00050.png">Effect 5 Stepped Scroll</Capability>
   <Capability Min="188" Max="191" Res="ClayPaky/gobo00006.png">Effect 4 Stepped Scroll</Capability>
   <Capability Min="192" Max="195" Res="ClayPaky/gobo00007.png">Effect 3 Stepped Scroll</Capability>
-  <Capability Min="196" Max="199" Res="ClayPaky/gobo00009.png">Effect 2 Stepped Scroll</Capability>
-  <Capability Min="200" Max="203" Res="ClayPaky/gobo00011.png">Effect 1 Stepped Scroll</Capability>
-  <Capability Min="204" Max="207" Res="Others/open.png">Open</Capability>
+  <Capability Min="196" Max="199" Res="ClayPaky/gobo00009.svg">Effect 2 Stepped Scroll</Capability>
+  <Capability Min="200" Max="203" Res="ClayPaky/gobo00011.svg">Effect 1 Stepped Scroll</Capability>
+  <Capability Min="204" Max="207" Res="Others/open.svg">Open</Capability>
   <Capability Min="208" Max="210">Random effect Fast</Capability>
   <Capability Min="211" Max="213">Random effect Medium</Capability>
   <Capability Min="214" Max="217">Random effect Slow</Capability>

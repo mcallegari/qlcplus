@@ -33,7 +33,7 @@
  </Channel>
  <Channel Name="Color + Gobo">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Res="Others/open.png" Max="7">Open</Capability>
+  <Capability Min="0" Res="Others/open.svg" Max="7">Open</Capability>
   <Capability Min="8" Color="#ffff00" Max="14">Gobo 1 yellow</Capability>
   <Capability Min="15" Color="#ff0000" Max="21">Gobo 2 red</Capability>
   <Capability Min="22" Color="#00ff00" Max="28">Gobo 3 green</Capability>
@@ -42,7 +42,7 @@
   <Capability Min="43" Color="#800080" Max="49">Gobo 6 UV</Capability>
   <Capability Min="50" Color="#66ffff" Max="56">Gobo 7 light blue</Capability>
   <Capability Min="57" Color2="#66ffff" Color="#800080" Max="63">Gobo 8 UV &amp; light blue</Capability>
-  <Capability Min="64" Res="Others/open.png" Max="71">Open Shake</Capability>
+  <Capability Min="64" Res="Others/open.svg" Max="71">Open Shake</Capability>
   <Capability Min="72" Color="#ffff00" Max="78">Gobo 1 yellow shake</Capability>
   <Capability Min="79" Color="#ff0000" Max="85">Gobo 2 red shake</Capability>
   <Capability Min="86" Color="#00ff00" Max="92">Gobo 3 green shake</Capability>

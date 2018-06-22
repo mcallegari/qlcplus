@@ -70,7 +70,7 @@
   <Capability Max="215" Res="Others/rainbow.png" Min="208">Program 20</Capability>
   <Capability Color="#ff0000" Max="223" Min="216" Color2="#00ff00">Program 21</Capability>
   <Capability Color="#ff0000" Max="231" Min="224" Color2="#00ff00">Program 22</Capability>
-  <Capability Max="255" Res="Others/gobo00069.png" Min="232">Sound Mode</Capability>
+  <Capability Max="255" Res="Others/gobo00069.svg" Min="232">Sound Mode</Capability>
  </Channel>
  <Mode Name="2 Channel">
   <Channel Number="0">Function</Channel>

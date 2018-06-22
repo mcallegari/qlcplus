@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -52,7 +52,7 @@
  </Channel>
  <Channel Name="Gobo Wheel 1">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.png">Open</Capability>
+  <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="8" Max="14" Preset="GoboMacro" Res1="Chauvet/gobo00069.png">Gobo 1</Capability>
   <Capability Min="15" Max="21" Preset="GoboMacro" Res1="Chauvet/gobo00060.png">Gobo 2</Capability>
   <Capability Min="22" Max="28" Preset="GoboMacro" Res1="Chauvet/gobo00070.png">Gobo 3</Capability>
@@ -61,7 +61,7 @@
   <Capability Min="43" Max="49" Preset="GoboMacro" Res1="Chauvet/gobo00072.png">Gobo 6</Capability>
   <Capability Min="50" Max="56" Preset="GoboMacro" Res1="SGM-Color/gobo00380.png">Gobo 7</Capability>
   <Capability Min="57" Max="63" Preset="GoboMacro" Res1="Chauvet/gobo00073.png">Gobo 8</Capability>
-  <Capability Min="64" Max="127" Preset="GoboMacro" Res1="Others/open.png">Gobo 1-8 bounce</Capability>
+  <Capability Min="64" Max="127" Preset="GoboMacro" Res1="Others/open.svg">Gobo 1-8 bounce</Capability>
   <Capability Min="128" Max="189">Clockwise rotation, fast to slow</Capability>
   <Capability Min="190" Max="193">Stop</Capability>
   <Capability Min="194" Max="255">Counter-lockwise rotation, slow to fast</Capability>
@@ -75,7 +75,7 @@
  </Channel>
  <Channel Name="Gobo Wheel 2">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="4" Preset="GoboMacro" Res1="Others/open.png">Open</Capability>
+  <Capability Min="0" Max="4" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="5" Max="9" Preset="GoboMacro" Res1="Chauvet/gobo00074.png">Gobo 1</Capability>
   <Capability Min="10" Max="14" Preset="GoboMacro" Res1="Chauvet/gobo00075.png">Gobo 2</Capability>
   <Capability Min="15" Max="18" Preset="GoboMacro" Res1="Chauvet/gobo00067.png">Gobo 3</Capability>

@@ -26,7 +26,7 @@
  </Channel>
  <Channel Name="Rotating Gobo-Wheel">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="15" Res="Others/open.png">Open/white</Capability>
+  <Capability Min="0" Max="15" Res="Others/open.svg">Open/white</Capability>
   <Capability Min="16" Max="31">Rot. gobo 1</Capability>
   <Capability Min="32" Max="47">Rot. gobo 2</Capability>
   <Capability Min="48" Max="63">Rot. gobo 3</Capability>

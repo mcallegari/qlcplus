@@ -44,7 +44,7 @@
  </Channel>
  <Channel Name="Gobo Wheel, Gobo &amp; Function">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="9" Res="Others/open.png">Open</Capability>
+  <Capability Min="0" Max="9" Res="Others/open.svg">Open</Capability>
   <Capability Min="10" Max="14" Res="Others/gobo00008.png">Indexed rotation Gobo 1 (Dot breakup)</Capability>
   <Capability Min="15" Max="19" Res="Others/gobo00017.png">Indexed rotation Gobo 2 (Soft breakup)</Capability>
   <Capability Min="20" Max="24" Res="ClayPaky/gobo00069.png">Indexed rotation Gobo 3 (Linear)</Capability>
@@ -77,7 +77,7 @@
  <Channel Name="Gobo Wheel, Fine Position" Preset="GoboWheelFine"/>
  <Channel Name="Gobo Animation wheel position">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="9" Res="Others/open.png">No Effect</Capability>
+  <Capability Min="0" Max="9" Res="Others/open.svg">No Effect</Capability>
   <Capability Min="10" Max="19" Color="#ffffff">Vertical position – Indexing</Capability>
   <Capability Min="20" Max="29" Color="#ffffff">Horizontal position – Indexing</Capability>
   <Capability Min="30" Max="39" Color="#ffffff">Vertical position – Cont. Rotation</Capability>

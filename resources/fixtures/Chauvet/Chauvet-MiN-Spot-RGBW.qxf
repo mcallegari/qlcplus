@@ -72,12 +72,12 @@
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="12" Res="Others/open.png">Round</Capability>
+  <Capability Min="0" Max="12" Res="Others/open.svg">Round</Capability>
   <Capability Min="13" Max="25" Res="Chauvet/gobo00039.png">Lighning</Capability>
   <Capability Min="26" Max="38" Res="Robe/gobo00005.png">Ring (approx)</Capability>
-  <Capability Min="39" Max="51" Res="ClayPaky/gobo00063.png">Rose (approx)</Capability>
+  <Capability Min="39" Max="51" Res="ClayPaky/gobo00063.svg">Rose (approx)</Capability>
   <Capability Min="52" Max="64" Res="SGM/gobo00033.png">Lace</Capability>
-  <Capability Min="65" Max="77" Res="ClayPaky/gobo00003.png">Dots</Capability>
+  <Capability Min="65" Max="77" Res="ClayPaky/gobo00003.svg">Dots</Capability>
   <Capability Min="78" Max="90" Res="Chauvet/gobo00045.png">Flower (approx)</Capability>
   <Capability Min="91" Max="103" Res="Chauvet/gobo00001.png">Celtic</Capability>
   <Capability Min="104" Max="116" Res="Chauvet/gobo00008.png">Spinner (approx)</Capability>

@@ -21,7 +21,7 @@
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/open.png" Min="0" Max="11">White (open)</Capability>
+  <Capability Res="Others/open.svg" Min="0" Max="11">White (open)</Capability>
   <Capability Res="Chauvet/gobo00026.png" Min="12" Max="23">Yellow</Capability>
   <Capability Res="Others/gobo00002.png" Min="24" Max="34">Blue</Capability>
   <Capability Res="Chauvet/gobo00037.png" Min="35" Max="46">Blue+Red+Green</Capability>
@@ -30,7 +30,7 @@
   <Capability Res="Others/gobo00044.png" Min="70" Max="81">Red+Yellow+Green+Blue</Capability>
   <Capability Res="SGM/gobo00007.png" Min="82" Max="93">Magenta</Capability>
   <Capability Res="Others/gobo00042.png" Min="94" Max="104">Red</Capability>
-  <Capability Res="ClayPaky/gobo00005.png" Min="105" Max="116">Blue+Magenta</Capability>
+  <Capability Res="ClayPaky/gobo00005.svg" Min="105" Max="116">Blue+Magenta</Capability>
   <Capability Res="Chauvet/gobo00053.png" Min="117" Max="127">White (gobo)</Capability>
   <Capability Res="Others/rainbow.png" Min="128" Max="255">Gobo change speed (slow -&gt; fast)</Capability>
  </Channel>

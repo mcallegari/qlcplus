@@ -49,7 +49,7 @@
  </Channel>
  <Channel Name="Gobowheel 1 + Gobo Shake">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="31" Res="Others/open.png">Open / white</Capability>
+  <Capability Min="0" Max="31" Res="Others/open.svg">Open / white</Capability>
   <Capability Min="32" Max="57" Color="#00aaff">1 (metal)</Capability>
   <Capability Min="58" Max="73" Color="#00aaff">Shaking 1</Capability>
   <Capability Min="74" Max="94" Color="#ff7f7f">2 (metal)</Capability>
@@ -65,11 +65,11 @@
  </Channel>
  <Channel Name="Gobowheel 2 + Gobo Shake">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="31" Res="Others/open.png">Open / white</Capability>
-  <Capability Min="32" Max="47" Res="SGM/gobo00002.png">1 (glass)</Capability>
-  <Capability Min="48" Max="63" Res="SGM/gobo00002.png">Shaking 1</Capability>
-  <Capability Min="64" Max="79" Res="Others/gobo00005.png">2 (glass)</Capability>
-  <Capability Min="80" Max="95" Res="Others/gobo00005.png">Shaking 2</Capability>
+  <Capability Min="0" Max="31" Res="Others/open.svg">Open / white</Capability>
+  <Capability Min="32" Max="47" Res="SGM/gobo00002.svg">1 (glass)</Capability>
+  <Capability Min="48" Max="63" Res="SGM/gobo00002.svg">Shaking 1</Capability>
+  <Capability Min="64" Max="79" Res="Others/gobo00005.svg">2 (glass)</Capability>
+  <Capability Min="80" Max="95" Res="Others/gobo00005.svg">Shaking 2</Capability>
   <Capability Min="96" Max="111" Res="SGM-Color/gobo00395.png">3 (glass)</Capability>
   <Capability Min="112" Max="127" Res="SGM-Color/gobo00395.png">Shaking 3</Capability>
   <Capability Min="128" Max="143" Res="SGM-Color/gobo00375.png">4 (metal)</Capability>

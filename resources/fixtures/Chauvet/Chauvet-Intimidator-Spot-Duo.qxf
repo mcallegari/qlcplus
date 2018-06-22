@@ -46,9 +46,9 @@
  </Channel>
  <Channel Name="Gobo Wheel 1">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/open.png" Min="0" Max="9">Static Circle</Capability>
-  <Capability Res="ClayPaky/gobo00022.png" Min="10" Max="15">Small Circle</Capability>
-  <Capability Res="SGM/gobo00025.png" Min="16" Max="21">Spiral 1</Capability>
+  <Capability Res="Others/open.svg" Min="0" Max="9">Static Circle</Capability>
+  <Capability Res="ClayPaky/gobo00022.svg" Min="10" Max="15">Small Circle</Capability>
+  <Capability Res="SGM/gobo00025.svg" Min="16" Max="21">Spiral 1</Capability>
   <Capability Res="Chauvet/gobo00017.png" Min="22" Max="27">Spiral 2</Capability>
   <Capability Res="Chauvet/gobo00039.png" Min="28" Max="33">Lightning 1</Capability>
   <Capability Res="Chauvet/gobo00040.png" Min="34" Max="39">Triangle 1</Capability>
@@ -63,17 +63,17 @@
   <Capability Res="Chauvet/gobo00040.png" Min="88" Max="93">Gobo 5 shake, increase speed</Capability>
   <Capability Res="Chauvet/gobo00039.png" Min="94" Max="99">Gobo 4 shake, increase speed</Capability>
   <Capability Res="Chauvet/gobo00017.png" Min="100" Max="105">Gobo 3 shake, increase speed</Capability>
-  <Capability Res="SGM/gobo00025.png" Min="106" Max="111">Gobo 2 shake, increase speed</Capability>
-  <Capability Res="ClayPaky/gobo00022.png" Min="112" Max="117">Gobo 1 shake, increase speed</Capability>
-  <Capability Res="Others/open.png" Min="118" Max="127">White</Capability>
+  <Capability Res="SGM/gobo00025.svg" Min="106" Max="111">Gobo 2 shake, increase speed</Capability>
+  <Capability Res="ClayPaky/gobo00022.svg" Min="112" Max="117">Gobo 1 shake, increase speed</Capability>
+  <Capability Res="Others/open.svg" Min="118" Max="127">White</Capability>
   <Capability Min="128" Max="191">Rainbow with increase speed</Capability>
   <Capability Min="192" Max="255">Reverse rainbow with increase speed</Capability>
  </Channel>
  <Channel Name="Gobo Wheel 2">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/open.png" Min="0" Max="9">Static Circle</Capability>
-  <Capability Res="ClayPaky/gobo00022.png" Min="10" Max="15">Small Circle</Capability>
-  <Capability Res="SGM/gobo00025.png" Min="16" Max="21">Spiral 1</Capability>
+  <Capability Res="Others/open.svg" Min="0" Max="9">Static Circle</Capability>
+  <Capability Res="ClayPaky/gobo00022.svg" Min="10" Max="15">Small Circle</Capability>
+  <Capability Res="SGM/gobo00025.svg" Min="16" Max="21">Spiral 1</Capability>
   <Capability Res="Chauvet/gobo00017.png" Min="22" Max="27">Spiral 2</Capability>
   <Capability Res="Chauvet/gobo00039.png" Min="28" Max="33">Lightning 1</Capability>
   <Capability Res="Chauvet/gobo00040.png" Min="34" Max="39">Triangle 1</Capability>
@@ -88,9 +88,9 @@
   <Capability Res="Chauvet/gobo00040.png" Min="88" Max="93">Gobo 5 shake, increase speed</Capability>
   <Capability Res="Chauvet/gobo00039.png" Min="94" Max="99">Gobo 4 shake, increase speed</Capability>
   <Capability Res="Chauvet/gobo00017.png" Min="100" Max="105">Gobo 3 shake, increase speed</Capability>
-  <Capability Res="SGM/gobo00025.png" Min="106" Max="111">Gobo 2 shake, increase speed</Capability>
-  <Capability Res="ClayPaky/gobo00022.png" Min="112" Max="117">Gobo 1 shake, increase speed</Capability>
-  <Capability Res="Others/open.png" Min="118" Max="127">White</Capability>
+  <Capability Res="SGM/gobo00025.svg" Min="106" Max="111">Gobo 2 shake, increase speed</Capability>
+  <Capability Res="ClayPaky/gobo00022.svg" Min="112" Max="117">Gobo 1 shake, increase speed</Capability>
+  <Capability Res="Others/open.svg" Min="118" Max="127">White</Capability>
   <Capability Min="128" Max="191">Rainbow with increase speed</Capability>
   <Capability Min="192" Max="255">Reverse rainbow with increase speed</Capability>
  </Channel>
@@ -188,9 +188,9 @@
  </Channel>
  <Channel Name="Gobo Wheel">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/open.png" Min="0" Max="9">Static Circle</Capability>
-  <Capability Res="ClayPaky/gobo00022.png" Min="10" Max="15">Small Circle</Capability>
-  <Capability Res="SGM/gobo00025.png" Min="16" Max="21">Spiral 1</Capability>
+  <Capability Res="Others/open.svg" Min="0" Max="9">Static Circle</Capability>
+  <Capability Res="ClayPaky/gobo00022.svg" Min="10" Max="15">Small Circle</Capability>
+  <Capability Res="SGM/gobo00025.svg" Min="16" Max="21">Spiral 1</Capability>
   <Capability Res="Chauvet/gobo00017.png" Min="22" Max="27">Spiral 2</Capability>
   <Capability Res="Chauvet/gobo00039.png" Min="28" Max="33">Lightning 1</Capability>
   <Capability Res="Chauvet/gobo00040.png" Min="34" Max="39">Triangle 1</Capability>
@@ -205,9 +205,9 @@
   <Capability Res="Chauvet/gobo00040.png" Min="88" Max="93">Gobo 5 shake, increase speed</Capability>
   <Capability Res="Chauvet/gobo00039.png" Min="94" Max="99">Gobo 4 shake, increase speed</Capability>
   <Capability Res="Chauvet/gobo00017.png" Min="100" Max="105">Gobo 3 shake, increase speed</Capability>
-  <Capability Res="SGM/gobo00025.png" Min="106" Max="111">Gobo 2 shake, increase speed</Capability>
-  <Capability Res="ClayPaky/gobo00022.png" Min="112" Max="117">Gobo 1 shake, increase speed</Capability>
-  <Capability Res="Others/open.png" Min="118" Max="127">White</Capability>
+  <Capability Res="SGM/gobo00025.svg" Min="106" Max="111">Gobo 2 shake, increase speed</Capability>
+  <Capability Res="ClayPaky/gobo00022.svg" Min="112" Max="117">Gobo 1 shake, increase speed</Capability>
+  <Capability Res="Others/open.svg" Min="118" Max="127">White</Capability>
   <Capability Min="128" Max="191">Rainbow with increase speed</Capability>
   <Capability Min="192" Max="255">Reverse rainbow with increase speed</Capability>
  </Channel>

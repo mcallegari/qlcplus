@@ -64,21 +64,21 @@
  <Channel Name="Gobo selection, indexing, shake, rotation">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="9">Open</Capability>
-  <Capability Res="Robe/gobo00022.png" Min="10" Max="14">Indexed Gobo 1</Capability>
-  <Capability Res="SGM/gobo00084.png" Min="15" Max="19">Indexed Gobo 2</Capability>
+  <Capability Res="Robe/gobo00022.svg" Min="10" Max="14">Indexed Gobo 1</Capability>
+  <Capability Res="SGM/gobo00084.svg" Min="15" Max="19">Indexed Gobo 2</Capability>
   <Capability Res="Others/gobo00058.png" Min="20" Max="24">Indexed Gobo 3</Capability>
-  <Capability Res="Robe/gobo00016.png" Min="25" Max="29">Indexed Gobo 4</Capability>
-  <Capability Res="Robe/gobo00020.png" Min="30" Max="34">Indexed Gobo 5</Capability>
-  <Capability Res="Robe/gobo00022.png" Min="35" Max="39">Continuous Gobo 1</Capability>
-  <Capability Res="SGM/gobo00084.png" Min="40" Max="44">Continuous Gobo 2</Capability>
+  <Capability Res="Robe/gobo00016.svg" Min="25" Max="29">Indexed Gobo 4</Capability>
+  <Capability Res="Robe/gobo00020.svg" Min="30" Max="34">Indexed Gobo 5</Capability>
+  <Capability Res="Robe/gobo00022.svg" Min="35" Max="39">Continuous Gobo 1</Capability>
+  <Capability Res="SGM/gobo00084.svg" Min="40" Max="44">Continuous Gobo 2</Capability>
   <Capability Res="Others/gobo00058.png" Min="45" Max="49">Continuous Gobo 3</Capability>
-  <Capability Res="Robe/gobo00016.png" Min="50" Max="54">Continuous Gobo 4</Capability>
-  <Capability Res="Robe/gobo00020.png" Min="55" Max="59">Continuous Gobo 5</Capability>
-  <Capability Res="Robe/gobo00022.png" Min="60" Max="89">Shake Gobo 1</Capability>
-  <Capability Res="SGM/gobo00084.png" Min="90" Max="119">Shake Gobo 2</Capability>
+  <Capability Res="Robe/gobo00016.svg" Min="50" Max="54">Continuous Gobo 4</Capability>
+  <Capability Res="Robe/gobo00020.svg" Min="55" Max="59">Continuous Gobo 5</Capability>
+  <Capability Res="Robe/gobo00022.svg" Min="60" Max="89">Shake Gobo 1</Capability>
+  <Capability Res="SGM/gobo00084.svg" Min="90" Max="119">Shake Gobo 2</Capability>
   <Capability Res="Others/gobo00058.png" Min="120" Max="149">Shake Gobo 3</Capability>
-  <Capability Res="Robe/gobo00016.png" Min="150" Max="179">Shake Gobo 4</Capability>
-  <Capability Res="Robe/gobo00020.png" Min="180" Max="209">Shake Gobo 5</Capability>
+  <Capability Res="Robe/gobo00016.svg" Min="150" Max="179">Shake Gobo 4</Capability>
+  <Capability Res="Robe/gobo00020.svg" Min="180" Max="209">Shake Gobo 5</Capability>
   <Capability Min="210" Max="232">CW gobo wheel scroll, fast → slow</Capability>
   <Capability Min="233" Max="255">CCW gobo wheel scroll, slow* → fast</Capability>
  </Channel>

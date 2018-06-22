@@ -59,13 +59,13 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Static Gobo Change">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/open.png" Min="0" Max="3">White</Capability>
+  <Capability Res="Others/open.svg" Min="0" Max="3">White</Capability>
   <Capability Res="ClayPaky/gobo00006.png" Min="4" Max="7">Gobo 1</Capability>
   <Capability Res="ClayPaky/gobo00007.png" Min="8" Max="11">Gobo 2</Capability>
-  <Capability Res="ClayPaky/gobo00008.png" Min="12" Max="15">Gobo 3</Capability>
-  <Capability Res="ClayPaky/gobo00009.png" Min="16" Max="19">Gobo 4</Capability>
-  <Capability Res="ClayPaky/gobo00010.png" Min="20" Max="23">Gobo 5</Capability>
-  <Capability Res="ClayPaky/gobo00011.png" Min="24" Max="27">Gobo 6</Capability>
+  <Capability Res="ClayPaky/gobo00008.svg" Min="12" Max="15">Gobo 3</Capability>
+  <Capability Res="ClayPaky/gobo00009.svg" Min="16" Max="19">Gobo 4</Capability>
+  <Capability Res="ClayPaky/gobo00010.svg" Min="20" Max="23">Gobo 5</Capability>
+  <Capability Res="ClayPaky/gobo00011.svg" Min="24" Max="27">Gobo 6</Capability>
   <Capability Res="ClayPaky/gobo00091.png" Min="28" Max="31">Gobo 7</Capability>
   <Capability Res="ClayPaky/gobo00085.png" Min="32" Max="35">Gobo 8</Capability>
   <Capability Res="ClayPaky/gobo00086.png" Min="36" Max="39">Gobo 9</Capability>
@@ -81,10 +81,10 @@
   <Capability Min="114" Max="117">Open</Capability>
   <Capability Min="118" Max="159">Rotation (Slow 5rpm to fast 60rpm)</Capability>
   <Capability Res="ClayPaky/gobo00007.png" Min="160" Max="166">Gobo 1 Shake (Slow to Fast)</Capability>
-  <Capability Res="ClayPaky/gobo00008.png" Min="167" Max="172">Gobo 2 Shake (Slow to Fast)</Capability>
-  <Capability Res="ClayPaky/gobo00009.png" Min="173" Max="179">Gobo 3 Shake (Slow to Fast)</Capability>
-  <Capability Res="ClayPaky/gobo00010.png" Min="180" Max="185">Gobo 4 Shake (Slow to Fast)</Capability>
-  <Capability Res="ClayPaky/gobo00011.png" Min="186" Max="191">Gobo 5 Shake (Slow to Fast)</Capability>
+  <Capability Res="ClayPaky/gobo00008.svg" Min="167" Max="172">Gobo 2 Shake (Slow to Fast)</Capability>
+  <Capability Res="ClayPaky/gobo00009.svg" Min="173" Max="179">Gobo 3 Shake (Slow to Fast)</Capability>
+  <Capability Res="ClayPaky/gobo00010.svg" Min="180" Max="185">Gobo 4 Shake (Slow to Fast)</Capability>
+  <Capability Res="ClayPaky/gobo00011.svg" Min="186" Max="191">Gobo 5 Shake (Slow to Fast)</Capability>
   <Capability Res="ClayPaky/gobo00091.png" Min="192" Max="198">Gobo 6 Shake (Slow to Fast)</Capability>
   <Capability Res="ClayPaky/gobo00085.png" Min="199" Max="204">Gobo 7 Shake (Slow to Fast)</Capability>
   <Capability Res="ClayPaky/gobo00086.png" Min="205" Max="211">Gobo 8 Shake (Slow to Fast)</Capability>

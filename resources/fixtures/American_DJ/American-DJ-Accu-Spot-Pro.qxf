@@ -30,18 +30,18 @@
  </Channel>
  <Channel Name="Rotating Gobos">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/open.png" Min="0" Max="9">Open</Capability>
+  <Capability Res="Others/open.svg" Min="0" Max="9">Open</Capability>
   <Capability Res="Others/gobo00036.png" Min="10" Max="19">Rotating Gobo 1</Capability>
   <Capability Res="Others/gobo00001.png" Min="20" Max="29">Rotating Gobo 2</Capability>
   <Capability Res="Others/gobo00026.png" Min="30" Max="39">Rotating Gobo 3</Capability>
-  <Capability Res="Others/gobo00038.png" Min="40" Max="49">Rotating Gobo 4</Capability>
-  <Capability Res="Others/gobo00027.png" Min="50" Max="59">Rotating Gobo 5</Capability>
+  <Capability Res="Others/gobo00038.svg" Min="40" Max="49">Rotating Gobo 4</Capability>
+  <Capability Res="Others/gobo00027.svg" Min="50" Max="59">Rotating Gobo 5</Capability>
   <Capability Res="Others/gobo00034.png" Min="60" Max="69">Rotating Gobo 6</Capability>
   <Capability Res="Others/gobo00036.png" Min="70" Max="89">Gobo 1 Shake Slow - Fast</Capability>
   <Capability Res="Others/gobo00001.png" Min="90" Max="109">Gobo 2 Shake Slow - Fast</Capability>
   <Capability Res="Others/gobo00026.png" Min="110" Max="129">Gobo 3 Shake Slow - Fast</Capability>
-  <Capability Res="Others/gobo00038.png" Min="130" Max="149">Gobo 4 Shake Slow - Fast</Capability>
-  <Capability Res="Others/gobo00027.png" Min="150" Max="169">Gobo 5 Shake Slow - Fast</Capability>
+  <Capability Res="Others/gobo00038.svg" Min="130" Max="149">Gobo 4 Shake Slow - Fast</Capability>
+  <Capability Res="Others/gobo00027.svg" Min="150" Max="169">Gobo 5 Shake Slow - Fast</Capability>
   <Capability Res="Others/gobo00034.png" Min="170" Max="189">Gobo 6 Shake Slow - Fast</Capability>
   <Capability Min="190" Max="255">Rot. Gobo Scroll Slow - Fast</Capability>
  </Channel>
@@ -54,7 +54,7 @@
  </Channel>
  <Channel Name="Fixed Gobos">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/open.png" Min="0" Max="13">Open</Capability>
+  <Capability Res="Others/open.svg" Min="0" Max="13">Open</Capability>
   <Capability Res="ClayPaky/gobo00041.png" Min="14" Max="27">Gobo 1</Capability>
   <Capability Res="SGM/gobo00268.png" Min="28" Max="41">Gobo 2</Capability>
   <Capability Res="SGM/gobo00054.png" Min="42" Max="55">Gobo 3</Capability>

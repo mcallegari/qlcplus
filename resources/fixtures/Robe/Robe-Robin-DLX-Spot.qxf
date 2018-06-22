@@ -86,7 +86,7 @@
  </Channel>
  <Channel Name="Static Gobo Wheel">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="0" Res="Others/open.png">Open/hole</Capability>
+  <Capability Min="0" Max="0" Res="Others/open.svg">Open/hole</Capability>
   <Capability Min="7" Max="7">Gobo 1 - continual positioning</Capability>
   <Capability Min="13" Max="13">Gobo 2 - continual positioning</Capability>
   <Capability Min="19" Max="19">Gobo 3 - continual positioning</Capability>
@@ -96,26 +96,26 @@
   <Capability Min="45" Max="45">Gobo 7 - continual positioning</Capability>
   <Capability Min="51" Max="51">Gobo 8 - continual positioning</Capability>
   <Capability Min="58" Max="58">Gobo 9 - continual positioning</Capability>
-  <Capability Min="64" Max="64" Res="Others/open.png">Open/hole</Capability>
-  <Capability Min="65" Max="69" Res="Robe/gobo00024.png">Gobo 1 - positioning</Capability>
-  <Capability Min="70" Max="74" Res="Robe/gobo00023.png">Gobo 2 - positioning</Capability>
-  <Capability Min="75" Max="79" Res="Robe/gobo00022.png">Gobo 3 - positioning</Capability>
-  <Capability Min="80" Max="84" Res="Robe/gobo00011.png">Gobo 4 - positioning</Capability>
+  <Capability Min="64" Max="64" Res="Others/open.svg">Open/hole</Capability>
+  <Capability Min="65" Max="69" Res="Robe/gobo00024.svg">Gobo 1 - positioning</Capability>
+  <Capability Min="70" Max="74" Res="Robe/gobo00023.svg">Gobo 2 - positioning</Capability>
+  <Capability Min="75" Max="79" Res="Robe/gobo00022.svg">Gobo 3 - positioning</Capability>
+  <Capability Min="80" Max="84" Res="Robe/gobo00011.svg">Gobo 4 - positioning</Capability>
   <Capability Min="85" Max="89" Res="Robe/gobo00010.png">Gobo 5 - positioning</Capability>
-  <Capability Min="90" Max="94" Res="Robe/gobo00013.png">Gobo 6 - positioning</Capability>
-  <Capability Min="95" Max="99" Res="Robe/gobo00020.png">Gobo 7 - positioning</Capability>
-  <Capability Min="100" Max="104" Res="Robe/gobo00009.png">Gobo 8 - positioning</Capability>
-  <Capability Min="105" Max="109" Res="Robe/gobo00012.png">Gobo 9 - positioning</Capability>
-  <Capability Min="110" Max="119" Res="Robe/gobo00024.png">Shaking Gobo 1</Capability>
-  <Capability Min="120" Max="129" Res="Robe/gobo00023.png">Shaking Gobo 2</Capability>
-  <Capability Min="130" Max="139" Res="Robe/gobo00022.png">Shaking Gobo 3</Capability>
-  <Capability Min="140" Max="149" Res="Robe/gobo00011.png">Shaking Gobo 4</Capability>
+  <Capability Min="90" Max="94" Res="Robe/gobo00013.svg">Gobo 6 - positioning</Capability>
+  <Capability Min="95" Max="99" Res="Robe/gobo00020.svg">Gobo 7 - positioning</Capability>
+  <Capability Min="100" Max="104" Res="Robe/gobo00009.svg">Gobo 8 - positioning</Capability>
+  <Capability Min="105" Max="109" Res="Robe/gobo00012.svg">Gobo 9 - positioning</Capability>
+  <Capability Min="110" Max="119" Res="Robe/gobo00024.svg">Shaking Gobo 1</Capability>
+  <Capability Min="120" Max="129" Res="Robe/gobo00023.svg">Shaking Gobo 2</Capability>
+  <Capability Min="130" Max="139" Res="Robe/gobo00022.svg">Shaking Gobo 3</Capability>
+  <Capability Min="140" Max="149" Res="Robe/gobo00011.svg">Shaking Gobo 4</Capability>
   <Capability Min="150" Max="159" Res="Robe/gobo00010.png">Shaking Gobo 5</Capability>
-  <Capability Min="160" Max="169" Res="Robe/gobo00013.png">Shaking Gobo 6</Capability>
-  <Capability Min="170" Max="179" Res="Robe/gobo00020.png">Shaking Gobo 7</Capability>
-  <Capability Min="180" Max="189" Res="Robe/gobo00009.png">Shaking Gobo 8</Capability>
-  <Capability Min="190" Max="199" Res="Robe/gobo00012.png">Shaking Gobo 9</Capability>
-  <Capability Min="200" Max="201" Res="Others/open.png">Open/hole</Capability>
+  <Capability Min="160" Max="169" Res="Robe/gobo00013.svg">Shaking Gobo 6</Capability>
+  <Capability Min="170" Max="179" Res="Robe/gobo00020.svg">Shaking Gobo 7</Capability>
+  <Capability Min="180" Max="189" Res="Robe/gobo00009.svg">Shaking Gobo 8</Capability>
+  <Capability Min="190" Max="199" Res="Robe/gobo00012.svg">Shaking Gobo 9</Capability>
+  <Capability Min="200" Max="201" Res="Others/open.svg">Open/hole</Capability>
   <Capability Min="202" Max="221">Forwards gobo wheel rotation from fast to slow</Capability>
   <Capability Min="222" Max="223">No rotation</Capability>
   <Capability Min="224" Max="243">Backwards gobo wheel rotation from slow to fast</Capability>
@@ -125,36 +125,36 @@
  <Channel Name="Static Gobo Wheel - Fine" Preset="GoboWheelFine"/>
  <Channel Name="Rotating Gobo Wheel">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="3" Res="Others/open.png">Open/hole</Capability>
-  <Capability Min="4" Max="7" Res="Robe/gobo00014.png">Gobo 1 - index</Capability>
-  <Capability Min="8" Max="11" Res="Robe/gobo00015.png">Gobo 2 - index</Capability>
-  <Capability Min="12" Max="15" Res="Robe/gobo00016.png">Gobo 3 - index</Capability>
-  <Capability Min="16" Max="19" Res="Robe/gobo00017.png">Gobo 4 - index</Capability>
-  <Capability Min="20" Max="23" Res="Robe/gobo00018.png">Gobo 5 - index</Capability>
-  <Capability Min="24" Max="27" Res="Robe/gobo00019.png">Gobo 6 - index</Capability>
+  <Capability Min="0" Max="3" Res="Others/open.svg">Open/hole</Capability>
+  <Capability Min="4" Max="7" Res="Robe/gobo00014.svg">Gobo 1 - index</Capability>
+  <Capability Min="8" Max="11" Res="Robe/gobo00015.svg">Gobo 2 - index</Capability>
+  <Capability Min="12" Max="15" Res="Robe/gobo00016.svg">Gobo 3 - index</Capability>
+  <Capability Min="16" Max="19" Res="Robe/gobo00017.svg">Gobo 4 - index</Capability>
+  <Capability Min="20" Max="23" Res="Robe/gobo00018.svg">Gobo 5 - index</Capability>
+  <Capability Min="24" Max="27" Res="Robe/gobo00019.svg">Gobo 6 - index</Capability>
   <Capability Min="28" Max="31" Res="Robe/gobo00021.png">Gobo 7 - index</Capability>
-  <Capability Min="32" Max="35" Res="Robe/gobo00014.png">Gobo 1 - rotation</Capability>
-  <Capability Min="36" Max="39" Res="Robe/gobo00015.png">Gobo 2 - rotation</Capability>
-  <Capability Min="40" Max="43" Res="Robe/gobo00016.png">Gobo 3 - rotation</Capability>
-  <Capability Min="44" Max="47" Res="Robe/gobo00017.png">Gobo 4 - rotation</Capability>
-  <Capability Min="48" Max="51" Res="Robe/gobo00018.png">Gobo 5 - rotation</Capability>
-  <Capability Min="52" Max="55" Res="Robe/gobo00019.png">Gobo 6 - rotation</Capability>
+  <Capability Min="32" Max="35" Res="Robe/gobo00014.svg">Gobo 1 - rotation</Capability>
+  <Capability Min="36" Max="39" Res="Robe/gobo00015.svg">Gobo 2 - rotation</Capability>
+  <Capability Min="40" Max="43" Res="Robe/gobo00016.svg">Gobo 3 - rotation</Capability>
+  <Capability Min="44" Max="47" Res="Robe/gobo00017.svg">Gobo 4 - rotation</Capability>
+  <Capability Min="48" Max="51" Res="Robe/gobo00018.svg">Gobo 5 - rotation</Capability>
+  <Capability Min="52" Max="55" Res="Robe/gobo00019.svg">Gobo 6 - rotation</Capability>
   <Capability Min="56" Max="59" Res="Robe/gobo00021.png">Gobo 7 - rotation</Capability>
-  <Capability Min="60" Max="69" Res="Robe/gobo00014.png">Shaking Gobo 1 - index</Capability>
-  <Capability Min="70" Max="79" Res="Robe/gobo00015.png">Shaking Gobo 2 - index</Capability>
-  <Capability Min="80" Max="89" Res="Robe/gobo00016.png">Shaking Gobo 3 - index</Capability>
-  <Capability Min="90" Max="99" Res="Robe/gobo00017.png">Shaking Gobo 4 - index</Capability>
-  <Capability Min="100" Max="109" Res="Robe/gobo00018.png">Shaking Gobo 5 - index</Capability>
-  <Capability Min="110" Max="119" Res="Robe/gobo00019.png">Shaking Gobo 6 - index</Capability>
+  <Capability Min="60" Max="69" Res="Robe/gobo00014.svg">Shaking Gobo 1 - index</Capability>
+  <Capability Min="70" Max="79" Res="Robe/gobo00015.svg">Shaking Gobo 2 - index</Capability>
+  <Capability Min="80" Max="89" Res="Robe/gobo00016.svg">Shaking Gobo 3 - index</Capability>
+  <Capability Min="90" Max="99" Res="Robe/gobo00017.svg">Shaking Gobo 4 - index</Capability>
+  <Capability Min="100" Max="109" Res="Robe/gobo00018.svg">Shaking Gobo 5 - index</Capability>
+  <Capability Min="110" Max="119" Res="Robe/gobo00019.svg">Shaking Gobo 6 - index</Capability>
   <Capability Min="120" Max="129" Res="Robe/gobo00021.png">Shaking Gobo 7 - index</Capability>
-  <Capability Min="130" Max="139" Res="Robe/gobo00014.png">Shaking Gobo 1 - rotation</Capability>
-  <Capability Min="140" Max="149" Res="Robe/gobo00015.png">Shaking Gobo 2 - rotation</Capability>
-  <Capability Min="150" Max="159" Res="Robe/gobo00016.png">Shaking Gobo 3 - rotation</Capability>
-  <Capability Min="160" Max="169" Res="Robe/gobo00017.png">Shaking Gobo 4 - rotation</Capability>
-  <Capability Min="170" Max="179" Res="Robe/gobo00018.png">Shaking Gobo 5 - rotation</Capability>
-  <Capability Min="180" Max="189" Res="Robe/gobo00019.png">Shaking Gobo 6 - rotation</Capability>
+  <Capability Min="130" Max="139" Res="Robe/gobo00014.svg">Shaking Gobo 1 - rotation</Capability>
+  <Capability Min="140" Max="149" Res="Robe/gobo00015.svg">Shaking Gobo 2 - rotation</Capability>
+  <Capability Min="150" Max="159" Res="Robe/gobo00016.svg">Shaking Gobo 3 - rotation</Capability>
+  <Capability Min="160" Max="169" Res="Robe/gobo00017.svg">Shaking Gobo 4 - rotation</Capability>
+  <Capability Min="170" Max="179" Res="Robe/gobo00018.svg">Shaking Gobo 5 - rotation</Capability>
+  <Capability Min="180" Max="189" Res="Robe/gobo00019.svg">Shaking Gobo 6 - rotation</Capability>
   <Capability Min="190" Max="199" Res="Robe/gobo00021.png">Shaking Gobo 7 - rotation</Capability>
-  <Capability Min="200" Max="201" Res="Others/open.png">Open/hole</Capability>
+  <Capability Min="200" Max="201" Res="Others/open.svg">Open/hole</Capability>
   <Capability Min="202" Max="221">Forwards gobo wheel rotation from fast to slow</Capability>
   <Capability Min="222" Max="223">No rotation</Capability>
   <Capability Min="224" Max="243">Bacwards gobo wheel rotation from slow to fast</Capability>

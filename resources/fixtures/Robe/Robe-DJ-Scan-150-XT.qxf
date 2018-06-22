@@ -35,15 +35,15 @@
  <Channel Name="Shutter, Strobe, Gobos">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="5">Closed</Capability>
-  <Capability Min="6" Max="63" Res="Others/open.png">Open</Capability>
+  <Capability Min="6" Max="63" Res="Others/open.svg">Open</Capability>
   <Capability Min="64" Max="127">Strobe effect from slow to fast (max 8FPS)</Capability>
   <Capability Min="128" Max="132">Closed</Capability>
   <Capability Min="133" Max="135">Reset of the fixture</Capability>
-  <Capability Min="136" Max="143" Res="Others/open.png">Open</Capability>
+  <Capability Min="136" Max="143" Res="Others/open.svg">Open</Capability>
   <Capability Min="144" Max="151">Closed</Capability>
-  <Capability Min="152" Max="159" Res="Robe/gobo00028.png">Gobo 1</Capability>
+  <Capability Min="152" Max="159" Res="Robe/gobo00028.svg">Gobo 1</Capability>
   <Capability Min="160" Max="167">Gobo 2</Capability>
-  <Capability Min="168" Max="175" Res="Robe/gobo00025.png">Gobo 3</Capability>
+  <Capability Min="168" Max="175" Res="Robe/gobo00025.svg">Gobo 3</Capability>
   <Capability Min="176" Max="183" Res="Others/gobo00011.png">Gobo 4</Capability>
   <Capability Min="184" Max="191">Gobo 5</Capability>
   <Capability Min="192" Max="199">Gobo 6</Capability>

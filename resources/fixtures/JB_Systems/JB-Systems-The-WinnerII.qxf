@@ -19,17 +19,17 @@
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="0" Color="#000000">Blackout</Capability>
-  <Capability Min="8" Max="8" Res="Others/open.png">Open</Capability>
-  <Capability Min="16" Max="16" Res="SGM/gobo00063.png">1 - Circle</Capability>
-  <Capability Min="24" Max="24" Res="Others/gobo00062.png">2 - Square outline</Capability>
-  <Capability Min="32" Max="32" Res="Robe/gobo00025.png">3 - Circle outline</Capability>
-  <Capability Min="40" Max="40" Res="Robe/gobo00035.png">4 - Circle dotted outline</Capability>
+  <Capability Min="8" Max="8" Res="Others/open.svg">Open</Capability>
+  <Capability Min="16" Max="16" Res="SGM/gobo00063.svg">1 - Circle</Capability>
+  <Capability Min="24" Max="24" Res="Others/gobo00062.svg">2 - Square outline</Capability>
+  <Capability Min="32" Max="32" Res="Robe/gobo00025.svg">3 - Circle outline</Capability>
+  <Capability Min="40" Max="40" Res="Robe/gobo00035.svg">4 - Circle dotted outline</Capability>
   <Capability Min="48" Max="48" Res="SGM/gobo00050.png">5 - Sunrise</Capability>
   <Capability Min="56" Max="56" Res="GLP/gobo00004.png">6 - Circle zoom</Capability>
   <Capability Min="64" Max="64" Res="Chauvet/gobo00047.png">7 - Four circles</Capability>
   <Capability Min="72" Max="72" Res="SGM/gobo00249.png">8 - Hand</Capability>
   <Capability Min="80" Max="80" Res="ClayPaky/gobo00044.png">10 - Circle woods texture</Capability>
-  <Capability Min="88" Max="88" Res="SGM/gobo00002.png">11 - Circle stripes</Capability>
+  <Capability Min="88" Max="88" Res="SGM/gobo00002.svg">11 - Circle stripes</Capability>
   <Capability Min="96" Max="96" Res="Chauvet/gobo00052.png">11 - Circle tilted</Capability>
   <Capability Min="104" Max="104" Res="Chauvet/gobo00034.png">12 - Dots</Capability>
   <Capability Min="112" Max="112" Res="SGM/gobo00032.png">13 - Pinwheel</Capability>

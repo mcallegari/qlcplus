@@ -49,7 +49,7 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Gobo Wheel 1, Movable">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="9" Res="Others/open.png">Open</Capability>
+  <Capability Min="0" Max="9" Res="Others/open.svg">Open</Capability>
   <Capability Min="10" Max="19" Res="Others/gobo00044.png">Gobo 2</Capability>
   <Capability Min="20" Max="29" Res="ClayPaky/gobo00079.png">Gobo 3</Capability>
   <Capability Min="30" Max="39" Res="SGM/gobo00010.png">Gobo 4</Capability>
@@ -76,23 +76,23 @@
  </Channel>
  <Channel Name="Gobo Wheel 2, Static">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="9" Res="Others/open.png">Open</Capability>
+  <Capability Min="0" Max="9" Res="Others/open.svg">Open</Capability>
   <Capability Min="10" Max="19" Res="Chauvet/gobo00016.png">Gobo 2</Capability>
-  <Capability Min="20" Max="29" Res="Robe/gobo00033.png">Gobo 3</Capability>
-  <Capability Min="30" Max="39" Res="ClayPaky/gobo00024.png">Gobo 4</Capability>
-  <Capability Min="40" Max="49" Res="SGM/gobo00001.png">Gobo 5</Capability>
+  <Capability Min="20" Max="29" Res="Robe/gobo00033.svg">Gobo 3</Capability>
+  <Capability Min="30" Max="39" Res="ClayPaky/gobo00024.svg">Gobo 4</Capability>
+  <Capability Min="40" Max="49" Res="SGM/gobo00001.svg">Gobo 5</Capability>
   <Capability Min="50" Max="59" Res="Chauvet/gobo00052.png">Gobo 6</Capability>
   <Capability Min="60" Max="69" Res="Chauvet/gobo00050.png">Gobo 7</Capability>
-  <Capability Min="70" Max="79" Res="Others/gobo00040.png">Gobo 8</Capability>
+  <Capability Min="70" Max="79" Res="Others/gobo00040.svg">Gobo 8</Capability>
   <Capability Min="80" Max="89" Res="GLP/gobo00015.png">Gobo 9</Capability>
-  <Capability Min="90" Max="91" Res="Others/open.png">Open</Capability>
+  <Capability Min="90" Max="91" Res="Others/open.svg">Open</Capability>
   <Capability Min="92" Max="107" Res="Chauvet/gobo00016.png">Gobo 2 shake, increasing speed</Capability>
-  <Capability Min="108" Max="123" Res="Robe/gobo00033.png">Gobo 3 shake, increasing speed</Capability>
-  <Capability Min="124" Max="139" Res="ClayPaky/gobo00024.png">Gobo 4 shake, increasing speed</Capability>
-  <Capability Min="140" Max="155" Res="SGM/gobo00001.png">Gobo 5 shake, increasing speed</Capability>
+  <Capability Min="108" Max="123" Res="Robe/gobo00033.svg">Gobo 3 shake, increasing speed</Capability>
+  <Capability Min="124" Max="139" Res="ClayPaky/gobo00024.svg">Gobo 4 shake, increasing speed</Capability>
+  <Capability Min="140" Max="155" Res="SGM/gobo00001.svg">Gobo 5 shake, increasing speed</Capability>
   <Capability Min="156" Max="171" Res="Chauvet/gobo00052.png">Gobo 6 shake, increasing speed</Capability>
   <Capability Min="172" Max="187" Res="Chauvet/gobo00050.png">Gobo 7 shake, increasing speed</Capability>
-  <Capability Min="188" Max="203" Res="Others/gobo00040.png">Gobo 8 shake, increasing speed</Capability>
+  <Capability Min="188" Max="203" Res="Others/gobo00040.svg">Gobo 8 shake, increasing speed</Capability>
   <Capability Min="204" Max="219" Res="GLP/gobo00015.png">Gobo 9 shake, increasing speed</Capability>
   <Capability Min="220" Max="237">Rotation clockwise, increasing speed</Capability>
   <Capability Min="238" Max="255">Rotation counter-clockwise, increasing speed</Capability>

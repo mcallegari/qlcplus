@@ -53,12 +53,12 @@
  <Channel Name="Gobos">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="7">Open</Capability>
-  <Capability Res="ClayPaky/gobo00010.png" Min="8" Max="14">Gobo 1</Capability>
+  <Capability Res="ClayPaky/gobo00010.svg" Min="8" Max="14">Gobo 1</Capability>
   <Capability Res="ClayPaky/gobo00007.png" Min="15" Max="22">Gobo 2</Capability>
   <Capability Res="ClayPaky/gobo00016.png" Min="23" Max="29">Gobo 3</Capability>
   <Capability Res="Chauvet/gobo00010.png" Min="30" Max="37">Gobo 4</Capability>
   <Capability Res="Others/gobo00032.png" Min="38" Max="44">Gobo 5</Capability>
-  <Capability Res="Others/gobo00013.png" Min="45" Max="52">Gobo 6</Capability>
+  <Capability Res="Others/gobo00013.svg" Min="45" Max="52">Gobo 6</Capability>
   <Capability Res="ClayPaky/gobo00088.png" Min="53" Max="59">Gobo 7</Capability>
   <Capability Res="ClayPaky/gobo00012.png" Min="60" Max="67">Gobo 8</Capability>
   <Capability Res="Chauvet/gobo00010.png" Min="68" Max="74">Gobo 9</Capability>

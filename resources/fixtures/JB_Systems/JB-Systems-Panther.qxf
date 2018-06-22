@@ -18,7 +18,7 @@
  <Channel Name="Gobo / Color">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="4">Blackout</Capability>
-  <Capability Min="5" Max="12" Res="Others/open.png">Open</Capability>
+  <Capability Min="5" Max="12" Res="Others/open.svg">Open</Capability>
   <Capability Min="13" Max="20" Res="Chauvet/gobo00047.png">Gobo 1 / Multicolor</Capability>
   <Capability Min="21" Max="28" Res="Chauvet/gobo00037.png">Gobo 2 / Blue</Capability>
   <Capability Min="29" Max="36">Gobo 3 / Yellow</Capability>
@@ -32,7 +32,7 @@
   <Capability Min="93" Max="100" Res="ClayPaky/gobo00058.png">Gobo 11 / Orange </Capability>
   <Capability Min="101" Max="108" Res="Chauvet/gobo00001.png">Gobo 12 / Blue</Capability>
   <Capability Min="109" Max="116">Gobo 13 / White</Capability>
-  <Capability Min="117" Max="124" Res="Others/gobo00005.png">Gobo 14 / Green+Pink</Capability>
+  <Capability Min="117" Max="124" Res="Others/gobo00005.svg">Gobo 14 / Green+Pink</Capability>
   <Capability Min="125" Max="255">CW / CCW Slow to Fast</Capability>
  </Channel>
  <Channel Name="Reflector mirror">

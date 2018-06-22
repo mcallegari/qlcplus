@@ -11,7 +11,7 @@
  <Type>Moving Head</Type>
  <Channel Name="Colour Wheel">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="16" Res="Others/open.png">Open</Capability>
+  <Capability Min="0" Max="16" Res="Others/open.svg">Open</Capability>
   <Capability Min="17" Max="33" Color="#ff0000">Fire red</Capability>
   <Capability Min="34" Max="49" Color="#ffff00">Yellow</Capability>
   <Capability Min="50" Max="66" Color="#00ffff">Light blue</Capability>
@@ -24,7 +24,7 @@
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="19" Res="Others/open.png">Open</Capability>
+  <Capability Min="0" Max="19" Res="Others/open.svg">Open</Capability>
   <Capability Min="20" Max="41">Gobo 1</Capability>
   <Capability Min="42" Max="61">Gobo 2</Capability>
   <Capability Min="62" Max="82">Gobo 3</Capability>

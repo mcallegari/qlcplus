@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -90,7 +90,7 @@
   <Capability Min="24" Max="31" Preset="GoboMacro" Res1="ClayPaky/gobo00056.png">Gobo 3</Capability>
   <Capability Min="32" Max="39" Preset="GoboMacro" Res1="ClayPaky/gobo00055.png">Gobo 4</Capability>
   <Capability Min="40" Max="47" Preset="GoboMacro" Res1="ClayPaky/gobo00057.png">Gobo 5</Capability>
-  <Capability Min="48" Max="55" Preset="GoboMacro" Res1="ClayPaky/gobo00020.png">Gobo 6</Capability>
+  <Capability Min="48" Max="55" Preset="GoboMacro" Res1="ClayPaky/gobo00020.svg">Gobo 6</Capability>
   <Capability Min="56" Max="63" Preset="GoboMacro" Res1="ClayPaky/gobo00057.png">Gobo 7</Capability>
   <Capability Min="64" Max="71" Preset="GoboMacro" Res1="ClayPaky/gobo00052.png">Gobo 8</Capability>
   <Capability Min="72" Max="113">Fast to slow rotation</Capability>

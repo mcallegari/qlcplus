@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -81,30 +81,30 @@
  <Channel Name="Color Wheel, Fine" Preset="ColorWheelFine"/>
  <Channel Name="Gobo1">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="11" Preset="GoboMacro" Res1="Others/open.png">Open - Indexed</Capability>
+  <Capability Min="0" Max="11" Preset="GoboMacro" Res1="Others/open.svg">Open - Indexed</Capability>
   <Capability Min="12" Max="15" Preset="GoboMacro" Res1="Others/gobo00046.png">Gobo 1 (Spiral) - Indexed</Capability>
-  <Capability Min="16" Max="19" Preset="GoboMacro" Res1="Others/gobo00060.png">Gobo 2 (Radial Circles) - Indexed</Capability>
+  <Capability Min="16" Max="19" Preset="GoboMacro" Res1="Others/gobo00060.svg">Gobo 2 (Radial Circles) - Indexed</Capability>
   <Capability Min="20" Max="23" Preset="GoboMacro" Res1="SGM-Color/gobo00502.png">Gobo 3 (Fused Dicro Red/Yellow) - Indexed</Capability>
-  <Capability Min="24" Max="27" Preset="GoboMacro" Res1="Others/gobo00041.png">Gobo 4 (Milky Way)</Capability>
-  <Capability Min="28" Max="31" Preset="GoboMacro" Res1="SGM/gobo00106.png">Gobo 5 (Water) - Indexed</Capability>
-  <Capability Min="32" Max="35" Preset="GoboMacro" Res1="SGM/gobo00085.png">Gobo 6 (Flames) - Indexed</Capability>
+  <Capability Min="24" Max="27" Preset="GoboMacro" Res1="Others/gobo00041.svg">Gobo 4 (Milky Way)</Capability>
+  <Capability Min="28" Max="31" Preset="GoboMacro" Res1="SGM/gobo00106.svg">Gobo 5 (Water) - Indexed</Capability>
+  <Capability Min="32" Max="35" Preset="GoboMacro" Res1="SGM/gobo00085.svg">Gobo 6 (Flames) - Indexed</Capability>
   <Capability Min="36" Max="39" Preset="GoboMacro" Res1="Others/gobo00046.png">Gobo 1 (Spiral) - Continuous Rotation</Capability>
-  <Capability Min="40" Max="43" Preset="GoboMacro" Res1="Others/gobo00060.png">Gobo 2 (Radial Circles) - Continuous Rotation</Capability>
+  <Capability Min="40" Max="43" Preset="GoboMacro" Res1="Others/gobo00060.svg">Gobo 2 (Radial Circles) - Continuous Rotation</Capability>
   <Capability Min="44" Max="47" Preset="GoboMacro" Res1="SGM-Color/gobo00502.png">Gobo 3 (Fused Dichro Red/Yellow) - Continuous Rotation</Capability>
-  <Capability Min="48" Max="51" Preset="GoboMacro" Res1="Others/gobo00041.png">Gobo 4 (Milky Way) - Continuous Rotation</Capability>
-  <Capability Min="52" Max="55" Preset="GoboMacro" Res1="SGM/gobo00106.png">Gobo 5 (Water) - Continuous Rotation</Capability>
-  <Capability Min="56" Max="59" Preset="GoboMacro" Res1="SGM/gobo00085.png">Gobo 6 (Flames) - Continuous Rotation</Capability>
+  <Capability Min="48" Max="51" Preset="GoboMacro" Res1="Others/gobo00041.svg">Gobo 4 (Milky Way) - Continuous Rotation</Capability>
+  <Capability Min="52" Max="55" Preset="GoboMacro" Res1="SGM/gobo00106.svg">Gobo 5 (Water) - Continuous Rotation</Capability>
+  <Capability Min="56" Max="59" Preset="GoboMacro" Res1="SGM/gobo00085.svg">Gobo 6 (Flames) - Continuous Rotation</Capability>
   <Capability Min="60" Max="71" Preset="GoboMacro" Res1="Others/gobo00046.png">Gobo 1, slow -&gt; fast - Indexed Shake</Capability>
-  <Capability Min="72" Max="83" Preset="GoboMacro" Res1="Others/gobo00060.png">Gobo 2, slow -&gt; fast - Indexed Shake</Capability>
+  <Capability Min="72" Max="83" Preset="GoboMacro" Res1="Others/gobo00060.svg">Gobo 2, slow -&gt; fast - Indexed Shake</Capability>
   <Capability Min="84" Max="95" Preset="GoboMacro" Res1="SGM-Color/gobo00502.png">Gobo 3, slow -&gt; fast - Indexed Shake</Capability>
-  <Capability Min="96" Max="107" Preset="GoboMacro" Res1="Others/gobo00041.png">Gobo 4, slow -&gt; fast - Indexed Shake</Capability>
-  <Capability Min="108" Max="119" Preset="GoboMacro" Res1="SGM/gobo00106.png">Gobo 5, slow -&gt; fast - Indexed Shake</Capability>
-  <Capability Min="120" Max="131" Preset="GoboMacro" Res1="SGM/gobo00085.png">Gobo 6, slow -&gt; fast - Indexed Shake</Capability>
-  <Capability Min="132" Max="143" Preset="GoboMacro" Res1="SGM/gobo00085.png">Gobo 6, slow -&gt; fast - Cont. Rotate and Shake</Capability>
-  <Capability Min="144" Max="155" Preset="GoboMacro" Res1="SGM/gobo00106.png">Gobo 5, slow -&gt; fast - Cont. Rotate and Shake</Capability>
-  <Capability Min="156" Max="167" Preset="GoboMacro" Res1="Others/gobo00041.png">Gobo 4, slow -&gt; fast - Cont. Rotate and Shake</Capability>
+  <Capability Min="96" Max="107" Preset="GoboMacro" Res1="Others/gobo00041.svg">Gobo 4, slow -&gt; fast - Indexed Shake</Capability>
+  <Capability Min="108" Max="119" Preset="GoboMacro" Res1="SGM/gobo00106.svg">Gobo 5, slow -&gt; fast - Indexed Shake</Capability>
+  <Capability Min="120" Max="131" Preset="GoboMacro" Res1="SGM/gobo00085.svg">Gobo 6, slow -&gt; fast - Indexed Shake</Capability>
+  <Capability Min="132" Max="143" Preset="GoboMacro" Res1="SGM/gobo00085.svg">Gobo 6, slow -&gt; fast - Cont. Rotate and Shake</Capability>
+  <Capability Min="144" Max="155" Preset="GoboMacro" Res1="SGM/gobo00106.svg">Gobo 5, slow -&gt; fast - Cont. Rotate and Shake</Capability>
+  <Capability Min="156" Max="167" Preset="GoboMacro" Res1="Others/gobo00041.svg">Gobo 4, slow -&gt; fast - Cont. Rotate and Shake</Capability>
   <Capability Min="168" Max="179" Preset="GoboMacro" Res1="SGM-Color/gobo00502.png">Gobo 3, slow -&gt;fast - Cont. Rotate and Shake</Capability>
-  <Capability Min="180" Max="191" Preset="GoboMacro" Res1="Others/gobo00060.png">Gobo 2, slow -&gt; fast - Cont. Rotate and Shake</Capability>
+  <Capability Min="180" Max="191" Preset="GoboMacro" Res1="Others/gobo00060.svg">Gobo 2, slow -&gt; fast - Cont. Rotate and Shake</Capability>
   <Capability Min="192" Max="203" Preset="GoboMacro" Res1="Others/gobo00046.png">Gobo 1, slow -&gt; fast - Cont. Rotate and Shake</Capability>
   <Capability Min="204" Max="229">CW scroll, slow -&gt; fast</Capability>
   <Capability Min="230" Max="255">CCW scroll, fast-&gt; slow</Capability>
@@ -119,7 +119,7 @@
  <Channel Name="Rotating Gobo, fine indexing" Preset="GoboIndexFine"/>
  <Channel Name="Gobo2">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="0" Preset="GoboMacro" Res1="Others/open.png">Open</Capability>
+  <Capability Min="0" Max="0" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="1" Max="10">Open -&gt; slot 1</Capability>
   <Capability Min="11" Max="11">Slot 1 (Crackle)</Capability>
   <Capability Min="12" Max="21">Slot 1 -&gt; Slot 2</Capability>
@@ -127,29 +127,29 @@
   <Capability Min="23" Max="32">Slot 2 -&gt; Slot 3</Capability>
   <Capability Min="33" Max="33">Slot 3 (Tye Dye)</Capability>
   <Capability Min="34" Max="43">Slot 3 -&gt; Slot 4</Capability>
-  <Capability Min="44" Max="44" Preset="GoboMacro" Res1="Others/gobo00040.png">Slot 4 (Globo)</Capability>
+  <Capability Min="44" Max="44" Preset="GoboMacro" Res1="Others/gobo00040.svg">Slot 4 (Globo)</Capability>
   <Capability Min="45" Max="54">Slot 4 -&gt; Slot 5</Capability>
   <Capability Min="55" Max="55" Preset="GoboMacro" Res1="ClayPaky/gobo00035.png">Slot 5 (Worms)</Capability>
   <Capability Min="56" Max="65">Slot 5 -&gt; Slot 6</Capability>
-  <Capability Min="66" Max="66" Preset="GoboMacro" Res1="Others/gobo00039.png">Slot 6 (Bio)</Capability>
+  <Capability Min="66" Max="66" Preset="GoboMacro" Res1="Others/gobo00039.svg">Slot 6 (Bio)</Capability>
   <Capability Min="67" Max="76">Slot 6 -&gt; Slot 7</Capability>
   <Capability Min="77" Max="77">Slot 7 (Leaf Breakup)</Capability>
   <Capability Min="78" Max="87">Slot 7 -&gt; Slot 8</Capability>
-  <Capability Min="88" Max="88" Preset="GoboMacro" Res1="GLP/gobo00006.png">Slot 8 (&quot;Les Mis&quot; Whirl Pool)</Capability>
+  <Capability Min="88" Max="88" Preset="GoboMacro" Res1="GLP/gobo00006.png">Slot 8 ("Les Mis" Whirl Pool)</Capability>
   <Capability Min="89" Max="98">Slot 8 -&gt; Slot 9</Capability>
   <Capability Min="99" Max="99">Slot 9 (Two Tone)</Capability>
   <Capability Min="100" Max="109">Slot 9 -&gt; Open</Capability>
-  <Capability Min="110" Max="112" Preset="GoboMacro" Res1="Others/open.png">Open</Capability>
+  <Capability Min="110" Max="112" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="113" Max="121">Slot 9 (Tow Tone)</Capability>
-  <Capability Min="122" Max="130" Preset="GoboMacro" Res1="GLP/gobo00006.png">Slot 8 (&quot;Les Mis&quot; Whirl Pool)</Capability>
+  <Capability Min="122" Max="130" Preset="GoboMacro" Res1="GLP/gobo00006.png">Slot 8 ("Les Mis" Whirl Pool)</Capability>
   <Capability Min="131" Max="139">Slot 7 (Leaf Breakup)</Capability>
-  <Capability Min="140" Max="148" Preset="GoboMacro" Res1="Others/gobo00039.png">Slot 6 (Bio)</Capability>
+  <Capability Min="140" Max="148" Preset="GoboMacro" Res1="Others/gobo00039.svg">Slot 6 (Bio)</Capability>
   <Capability Min="149" Max="157" Preset="GoboMacro" Res1="ClayPaky/gobo00035.png">Slot 5 (Worms)</Capability>
-  <Capability Min="158" Max="166" Preset="GoboMacro" Res1="Others/gobo00040.png">Slot 4 (Globo)</Capability>
+  <Capability Min="158" Max="166" Preset="GoboMacro" Res1="Others/gobo00040.svg">Slot 4 (Globo)</Capability>
   <Capability Min="167" Max="175">Slot 3 (Tye Dye)</Capability>
   <Capability Min="176" Max="184" Preset="GoboMacro" Res1="SGM/gobo00012.png">Slot 2 (Triangles Small)</Capability>
   <Capability Min="185" Max="193">Slot 1 (Crackle)</Capability>
-  <Capability Min="194" Max="202" Preset="GoboMacro" Res1="Others/open.png">Open</Capability>
+  <Capability Min="194" Max="202" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="203" Max="221">CW, fast-&gt;slow</Capability>
   <Capability Min="222" Max="240">CCW, slow-&gt;fast</Capability>
   <Capability Min="241" Max="245">Random Fast</Capability>

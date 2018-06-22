@@ -26,19 +26,19 @@
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/open.png" Min="0" Max="9">Open</Capability>
-  <Capability Res="ClayPaky/gobo00010.png" Min="10" Max="19">Dot</Capability>
+  <Capability Res="Others/open.svg" Min="0" Max="9">Open</Capability>
+  <Capability Res="ClayPaky/gobo00010.svg" Min="10" Max="19">Dot</Capability>
   <Capability Res="SGM/gobo00007.png" Min="20" Max="29">Dots</Capability>
   <Capability Res="SGM-Color/gobo00389.png" Min="30" Max="39">Turbine</Capability>
-  <Capability Res="Robe/gobo00031.png" Min="40" Max="49">Lines</Capability>
-  <Capability Res="Robe/gobo00037.png" Min="50" Max="59">Triangle</Capability>
-  <Capability Res="Robe/gobo00028.png" Min="60" Max="69">Cross</Capability>
-  <Capability Res="ClayPaky/gobo00010.png" Min="70" Max="89">Dot Shake</Capability>
+  <Capability Res="Robe/gobo00031.svg" Min="40" Max="49">Lines</Capability>
+  <Capability Res="Robe/gobo00037.svg" Min="50" Max="59">Triangle</Capability>
+  <Capability Res="Robe/gobo00028.svg" Min="60" Max="69">Cross</Capability>
+  <Capability Res="ClayPaky/gobo00010.svg" Min="70" Max="89">Dot Shake</Capability>
   <Capability Res="SGM/gobo00007.png" Min="90" Max="109">Dots Shake</Capability>
   <Capability Res="SGM-Color/gobo00389.png" Min="110" Max="129">Turbine Shake</Capability>
-  <Capability Res="Robe/gobo00031.png" Min="130" Max="149">Lines Shake</Capability>
-  <Capability Res="Robe/gobo00037.png" Min="150" Max="169">Triangle Shake</Capability>
-  <Capability Res="Robe/gobo00028.png" Min="170" Max="189">Cross Shake</Capability>
+  <Capability Res="Robe/gobo00031.svg" Min="130" Max="149">Lines Shake</Capability>
+  <Capability Res="Robe/gobo00037.svg" Min="150" Max="169">Triangle Shake</Capability>
+  <Capability Res="Robe/gobo00028.svg" Min="170" Max="189">Cross Shake</Capability>
   <Capability Min="190" Max="255">Gobo rainbow</Capability>
  </Channel>
  <Channel Name="Gobo rotation">

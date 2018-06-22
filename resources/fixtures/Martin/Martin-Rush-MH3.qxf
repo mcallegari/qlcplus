@@ -118,7 +118,7 @@
  </Channel>
  <Channel Name="Gobos">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="3" Res="Others/open.png">Open</Capability>
+  <Capability Min="0" Max="3" Res="Others/open.svg">Open</Capability>
   <Capability Min="4" Max="6" Res="Chauvet/gobo00020.png">Gobo 1</Capability>
   <Capability Min="7" Max="9" Res="Chauvet/gobo00021.png">Gobo 2</Capability>
   <Capability Min="10" Max="12" Res="Chauvet/gobo00022.png">Gobo 3</Capability>
@@ -136,7 +136,7 @@
   <Capability Min="46" Max="48" Res="Chauvet/gobo00034.png">Gobo 15</Capability>
   <Capability Min="49" Max="51" Res="Chauvet/gobo00035.png">Gobo 16</Capability>
   <Capability Min="52" Max="55" Res="Chauvet/gobo00036.png">Gobo 17</Capability>
-  <Capability Min="56" Max="59" Res="Others/open.png">Open gobo shake</Capability>
+  <Capability Min="56" Max="59" Res="Others/open.svg">Open gobo shake</Capability>
   <Capability Min="60" Max="63" Res="Chauvet/gobo00020.png">Gobo Shake 1</Capability>
   <Capability Min="64" Max="67" Res="Chauvet/gobo00021.png">Gobo Shake 2</Capability>
   <Capability Min="68" Max="71" Res="Chauvet/gobo00022.png">Gobo Shake 3</Capability>

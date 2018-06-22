@@ -28,7 +28,7 @@
  </Channel>
  <Channel Name="Gobo 1">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="20" Res="Others/open.png">Open</Capability>
+  <Capability Min="0" Max="20" Res="Others/open.svg">Open</Capability>
   <Capability Min="21" Max="41" Res="SGM/gobo00003.png">Gobo1 1</Capability>
   <Capability Min="42" Max="62" Res="SGM/gobo00030.png">Gobo1 2</Capability>
   <Capability Min="63" Max="83" Res="SGM/gobo00045.png">Gobo1 3</Capability>
@@ -171,9 +171,9 @@
  </Channel>
  <Channel Name="Effect">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="27" Res="Others/open.png">White</Capability>
+  <Capability Min="0" Max="27" Res="Others/open.svg">White</Capability>
   <Capability Min="28" Max="55" Res="SGM/gobo00042.png">Tunnel</Capability>
-  <Capability Min="56" Max="83" Res="SGM/gobo00171.png">Stripped Texture</Capability>
+  <Capability Min="56" Max="83" Res="SGM/gobo00171.svg">Stripped Texture</Capability>
   <Capability Min="84" Max="111">Honeycomb Texture</Capability>
   <Capability Min="112" Max="139">Spider</Capability>
   <Capability Min="140" Max="167">Wood</Capability>

@@ -77,7 +77,7 @@
  </Channel>
  <Channel Name="Fixed Gobo Wheel">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="7" Res="Others/open.png">White</Capability>
+  <Capability Min="0" Max="7" Res="Others/open.svg">White</Capability>
   <Capability Min="8" Max="14" Res="ClayPaky/gobo00092.png">Gobo 1</Capability>
   <Capability Min="15" Max="21" Res="ClayPaky/gobo00093.png">Gobo 2</Capability>
   <Capability Min="22" Max="28" Res="Chauvet/gobo00029.png">Gobo 3</Capability>
@@ -87,8 +87,8 @@
   <Capability Min="50" Max="56" Res="ClayPaky/gobo00014.png">Gobo 7</Capability>
   <Capability Min="57" Max="63" Res="Others/gobo00048.png">Gobo 8</Capability>
   <Capability Min="64" Max="70" Res="Others/gobo00033.png">Gobo 9</Capability>
-  <Capability Min="71" Max="77" Res="Robe/gobo00025.png">Gobo 10</Capability>
-  <Capability Min="78" Max="84" Res="ClayPaky/gobo00049.png">Gobo 11</Capability>
+  <Capability Min="71" Max="77" Res="Robe/gobo00025.svg">Gobo 10</Capability>
+  <Capability Min="78" Max="84" Res="ClayPaky/gobo00049.svg">Gobo 11</Capability>
   <Capability Min="85" Max="92" Res="Chauvet/gobo00062.png">Gobo 12</Capability>
   <Capability Min="93" Max="99" Res="Chauvet/gobo00025.png">Gobo 13</Capability>
   <Capability Min="100" Max="106" Res="Chauvet/gobo00024.png">Gobo 14</Capability>
@@ -106,8 +106,8 @@
   <Capability Min="196" Max="200" Res="ClayPaky/gobo00014.png">Shake 7 from fast to slow</Capability>
   <Capability Min="201" Max="205" Res="Others/gobo00048.png">Shake 8 from fast to slow</Capability>
   <Capability Min="206" Max="210" Res="Others/gobo00033.png">Shake 9 from fast to slow</Capability>
-  <Capability Min="211" Max="215" Res="Robe/gobo00025.png">Shake 10 from fast to slow</Capability>
-  <Capability Min="216" Max="220" Res="ClayPaky/gobo00049.png">Shake 11 from fast to slow</Capability>
+  <Capability Min="211" Max="215" Res="Robe/gobo00025.svg">Shake 10 from fast to slow</Capability>
+  <Capability Min="216" Max="220" Res="ClayPaky/gobo00049.svg">Shake 11 from fast to slow</Capability>
   <Capability Min="221" Max="225" Res="Chauvet/gobo00062.png">Shake 12 from fast to slow</Capability>
   <Capability Min="226" Max="230" Res="Chauvet/gobo00025.png">Shake 13 from fast to slow</Capability>
   <Capability Min="231" Max="240" Res="Chauvet/gobo00024.png">Shake 14 from fast to slow</Capability>
@@ -117,7 +117,7 @@
  </Channel>
  <Channel Name="Rotating Gobo Wheel">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="12" Res="Others/open.png">White</Capability>
+  <Capability Min="0" Max="12" Res="Others/open.svg">White</Capability>
   <Capability Min="13" Max="25" Res="SGM/gobo00370.png">Gobo 1</Capability>
   <Capability Min="26" Max="37" Res="SGM/gobo00265.png">Gobo 2</Capability>
   <Capability Min="38" Max="50" Res="Robe/gobo00056.png">Gobo 3</Capability>
@@ -125,7 +125,7 @@
   <Capability Min="63" Max="75" Res="Robe/gobo00061.png">Gobo 5</Capability>
   <Capability Min="76" Max="88" Res="Chauvet/gobo00007.png">Gobo 6</Capability>
   <Capability Min="89" Max="101" Res="ClayPaky/gobo00025.png">Gobo 7</Capability>
-  <Capability Min="102" Max="114" Res="Robe/gobo00027.png">Gobo 8</Capability>
+  <Capability Min="102" Max="114" Res="Robe/gobo00027.svg">Gobo 8</Capability>
   <Capability Min="115" Max="127" Res="Robe/gobo00065.png">Gobo 9</Capability>
   <Capability Min="128" Max="155">Forward rotation from slow to fast</Capability>
   <Capability Min="156" Max="183">Reverse rotation from slow to fast</Capability>
@@ -136,7 +136,7 @@
   <Capability Min="216" Max="223" Res="Robe/gobo00061.png">Shake 5 from fast to slow</Capability>
   <Capability Min="224" Max="231" Res="Chauvet/gobo00007.png">Shake 6 from fast to slow</Capability>
   <Capability Min="232" Max="239" Res="ClayPaky/gobo00025.png">Shake 7 from fast to slow</Capability>
-  <Capability Min="240" Max="247" Res="Robe/gobo00027.png">Shake 8 from fast to slow</Capability>
+  <Capability Min="240" Max="247" Res="Robe/gobo00027.svg">Shake 8 from fast to slow</Capability>
   <Capability Min="248" Max="255" Res="Robe/gobo00065.png">Shake 9 from fast to slow</Capability>
  </Channel>
  <Channel Name="Gobo Rotation">

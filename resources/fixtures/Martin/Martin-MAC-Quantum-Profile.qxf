@@ -55,7 +55,7 @@
  </Channel>
  <Channel Name="Gobo selection">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="4" Res="Others/open.png">Open</Capability>
+  <Capability Min="0" Max="4" Res="Others/open.svg">Open</Capability>
   <Capability Min="5" Max="9" Res="GLP/gobo00016.png">Index Gobo 1 (Spidey)</Capability>
   <Capability Min="10" Max="14" Res="Chauvet/gobo00037.png">Index Gobo 2 (Wind My Mill)</Capability>
   <Capability Min="15" Max="19" Res="ClayPaky/gobo00033.png">Index Gobo 3 (Limbo)</Capability>
@@ -83,13 +83,13 @@
  </Channel>
  <Channel Name="Static gobo wheel gobo selection, wheel rotation, random gobo">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="0" Res="Others/open.png">Open</Capability>
+  <Capability Min="0" Max="0" Res="Others/open.svg">Open</Capability>
   <Capability Min="1" Max="14">Open → Gobo 1</Capability>
   <Capability Min="15" Max="15" Res="SGM/gobo00018.png">Gobo 1</Capability>
   <Capability Min="16" Max="29">Gobo 1 → Gobo 2</Capability>
-  <Capability Min="30" Max="30" Res="Others/gobo00045.png">Gobo 2</Capability>
+  <Capability Min="30" Max="30" Res="Others/gobo00045.svg">Gobo 2</Capability>
   <Capability Min="31" Max="44">Gobo 2 → Gobo 3</Capability>
-  <Capability Min="45" Max="45" Res="SGM/gobo00145.png">Gobo 3</Capability>
+  <Capability Min="45" Max="45" Res="SGM/gobo00145.svg">Gobo 3</Capability>
   <Capability Min="46" Max="59">Gobo 3 → Gobo 4</Capability>
   <Capability Min="60" Max="60" Res="Chauvet/gobo00009.png">Gobo 4</Capability>
   <Capability Min="61" Max="74">Gobo 4 → Gobo 5</Capability>
@@ -99,24 +99,24 @@
   <Capability Min="91" Max="104">Gobo 6 → Gobo 7</Capability>
   <Capability Min="105" Max="105" Res="Others/gobo00055.png">Gobo 7</Capability>
   <Capability Min="106" Max="119">Gobo 7 → Gobo 8</Capability>
-  <Capability Min="120" Max="120" Res="ClayPaky/gobo00019.png">Gobo 8</Capability>
+  <Capability Min="120" Max="120" Res="ClayPaky/gobo00019.svg">Gobo 8</Capability>
   <Capability Min="121" Max="134">Gobo 8 → Gobo 9</Capability>
-  <Capability Min="135" Max="135" Res="ClayPaky/gobo00064.png">Gobo 9</Capability>
+  <Capability Min="135" Max="135" Res="ClayPaky/gobo00064.svg">Gobo 9</Capability>
   <Capability Min="136" Max="149">Gobo 9 → Gobo 10</Capability>
   <Capability Min="150" Max="150" Res="GLP/gobo00002.png">Gobo 10</Capability>
   <Capability Min="151" Max="164">Gobo 10 → Open</Capability>
-  <Capability Min="165" Max="165" Res="Others/open.png">Open</Capability>
+  <Capability Min="165" Max="165" Res="Others/open.svg">Open</Capability>
   <Capability Min="166" Max="167" Res="SGM/gobo00018.png">Stepped Gobo 1</Capability>
-  <Capability Min="168" Max="169" Res="Others/gobo00045.png">Stepped Gobo 2</Capability>
-  <Capability Min="170" Max="171" Res="SGM/gobo00145.png">Stepped Gobo 3</Capability>
+  <Capability Min="168" Max="169" Res="Others/gobo00045.svg">Stepped Gobo 2</Capability>
+  <Capability Min="170" Max="171" Res="SGM/gobo00145.svg">Stepped Gobo 3</Capability>
   <Capability Min="172" Max="173" Res="Chauvet/gobo00009.png">Stepped Gobo 4</Capability>
   <Capability Min="174" Max="175" Res="ClayPaky/gobo00069.png">Stepped Gobo 5</Capability>
   <Capability Min="176" Max="177" Res="ClayPaky/gobo00041.png">Stepped Gobo 6</Capability>
   <Capability Min="178" Max="179" Res="Others/gobo00055.png">Stepped Gobo 7</Capability>
-  <Capability Min="180" Max="181" Res="ClayPaky/gobo00019.png">Stepped Gobo 8</Capability>
-  <Capability Min="182" Max="183" Res="ClayPaky/gobo00064.png">Stepped Gobo 9</Capability>
+  <Capability Min="180" Max="181" Res="ClayPaky/gobo00019.svg">Stepped Gobo 8</Capability>
+  <Capability Min="182" Max="183" Res="ClayPaky/gobo00064.svg">Stepped Gobo 9</Capability>
   <Capability Min="184" Max="185" Res="GLP/gobo00002.png">Stepped Gobo 10</Capability>
-  <Capability Min="186" Max="192" Res="Others/open.png">Open</Capability>
+  <Capability Min="186" Max="192" Res="Others/open.svg">Open</Capability>
   <Capability Min="193" Max="214">CW gobo wheel rotation, fast → slow</Capability>
   <Capability Min="215" Max="221">Gobo wheel stops at its current position</Capability>
   <Capability Min="222" Max="243">CCW gobo wheel rotation, slow → fast</Capability>

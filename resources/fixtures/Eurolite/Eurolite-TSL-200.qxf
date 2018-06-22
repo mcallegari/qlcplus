@@ -25,7 +25,7 @@
  </Channel>
  <Channel Name="Gobo-wheel, gobo shake">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/open.png" Min="0" Max="7">Open</Capability>
+  <Capability Res="Others/open.svg" Min="0" Max="7">Open</Capability>
   <Capability Min="8" Max="15">Gobo 1</Capability>
   <Capability Min="16" Max="23">Gobo 2</Capability>
   <Capability Min="24" Max="31">Gobo 3</Capability>

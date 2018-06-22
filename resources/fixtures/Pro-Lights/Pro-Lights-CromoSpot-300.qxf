@@ -35,21 +35,21 @@
  </Channel>
  <Channel Name="Gobo 1">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="10" Res="Others/open.png">No Gobo</Capability>
+  <Capability Min="0" Max="10" Res="Others/open.svg">No Gobo</Capability>
   <Capability Min="11" Max="20" Res="Chauvet/gobo00007.png">Gobo 1</Capability>
   <Capability Min="21" Max="30" Res="Chauvet/gobo00006.png">Gobo 2</Capability>
-  <Capability Min="31" Max="40" Res="Robe/gobo00011.png">Gobo 3</Capability>
-  <Capability Min="41" Max="50" Res="Robe/gobo00013.png">Gobo 4</Capability>
-  <Capability Min="51" Max="60" Res="Robe/gobo00024.png">Gobo 5</Capability>
+  <Capability Min="31" Max="40" Res="Robe/gobo00011.svg">Gobo 3</Capability>
+  <Capability Min="41" Max="50" Res="Robe/gobo00013.svg">Gobo 4</Capability>
+  <Capability Min="51" Max="60" Res="Robe/gobo00024.svg">Gobo 5</Capability>
   <Capability Min="61" Max="70" Res="Robe/gobo00010.png">Gobo 6</Capability>
   <Capability Min="71" Max="80" Res="ClayPaky/gobo00044.png">Gobo 7</Capability>
   <Capability Min="81" Max="90" Res="Chauvet/gobo00005.png">Gobo 8</Capability>
   <Capability Min="91" Max="105" Res="Chauvet/gobo00005.png">Shaking Gobo 8</Capability>
   <Capability Min="106" Max="120" Res="ClayPaky/gobo00044.png">Shaking Gobo 7</Capability>
   <Capability Min="121" Max="135" Res="Robe/gobo00010.png">Shaking Gobo 6</Capability>
-  <Capability Min="136" Max="150" Res="Robe/gobo00024.png">Shaking Gobo 5</Capability>
-  <Capability Min="151" Max="165" Res="Robe/gobo00013.png">Shaking Gobo 4</Capability>
-  <Capability Min="166" Max="180" Res="Robe/gobo00011.png">Shaking Gobo 3</Capability>
+  <Capability Min="136" Max="150" Res="Robe/gobo00024.svg">Shaking Gobo 5</Capability>
+  <Capability Min="151" Max="165" Res="Robe/gobo00013.svg">Shaking Gobo 4</Capability>
+  <Capability Min="166" Max="180" Res="Robe/gobo00011.svg">Shaking Gobo 3</Capability>
   <Capability Min="181" Max="195" Res="Chauvet/gobo00006.png">Shaking Gobo 2</Capability>
   <Capability Min="196" Max="210" Res="Chauvet/gobo00007.png">Shaking Gobo 1</Capability>
   <Capability Min="211" Max="255">Flow Effect</Capability>
@@ -106,18 +106,18 @@
  </Channel>
  <Channel Name="Gobo 2">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="10" Res="Others/open.png">No Gobo</Capability>
+  <Capability Min="0" Max="10" Res="Others/open.svg">No Gobo</Capability>
   <Capability Min="11" Max="20" Res="Chauvet/gobo00001.png">Gobo 1</Capability>
   <Capability Min="21" Max="30" Res="ClayPaky/gobo00054.png">Gobo 2</Capability>
   <Capability Min="31" Max="40" Res="Chauvet/gobo00077.png">Gobo 3</Capability>
-  <Capability Min="41" Max="50" Res="Others/gobo00027.png">Gobo 4</Capability>
+  <Capability Min="41" Max="50" Res="Others/gobo00027.svg">Gobo 4</Capability>
   <Capability Min="51" Max="60" Res="ClayPaky/gobo00092.png">Gobo 5</Capability>
   <Capability Min="61" Max="70" Res="SGM-Color/gobo00402.png">Gobo 6</Capability>
   <Capability Min="71" Max="80" Res="Chauvet/gobo00013.png">Gobo 7</Capability>
   <Capability Min="81" Max="95" Res="Chauvet/gobo00013.png">Shaking Gobo 7</Capability>
   <Capability Min="96" Max="110" Res="SGM-Color/gobo00402.png">Shaking Gobo 6</Capability>
   <Capability Min="111" Max="125" Res="ClayPaky/gobo00092.png">Shaking Gobo 5</Capability>
-  <Capability Min="126" Max="140" Res="Others/gobo00027.png">Shaking Gobo 4</Capability>
+  <Capability Min="126" Max="140" Res="Others/gobo00027.svg">Shaking Gobo 4</Capability>
   <Capability Min="141" Max="155" Res="Chauvet/gobo00077.png">Shaking Gobo 3</Capability>
   <Capability Min="156" Max="170" Res="ClayPaky/gobo00054.png">Shaking Gobo 2</Capability>
   <Capability Min="171" Max="185" Res="Chauvet/gobo00001.png">Shaking Gobo 1</Capability>

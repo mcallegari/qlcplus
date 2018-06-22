@@ -26,13 +26,13 @@
  </Channel>
  <Channel Name="Gobo 1">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/open.png" Min="0" Max="20">Open</Capability>
-  <Capability Res="SGM/gobo00001.png" Min="21" Max="41">Gobo1 1</Capability>
-  <Capability Res="SGM/gobo00002.png" Min="42" Max="62">Gobo1 2</Capability>
+  <Capability Res="Others/open.svg" Min="0" Max="20">Open</Capability>
+  <Capability Res="SGM/gobo00001.svg" Min="21" Max="41">Gobo1 1</Capability>
+  <Capability Res="SGM/gobo00002.svg" Min="42" Max="62">Gobo1 2</Capability>
   <Capability Res="SGM/gobo00360.png" Min="63" Max="83">Gobo1 3</Capability>
   <Capability Res="SGM/gobo00268.png" Min="84" Max="104">Gobo1 4</Capability>
   <Capability Res="SGM/gobo00285.png" Min="105" Max="125">Gobo1 5</Capability>
-  <Capability Res="SGM/gobo00025.png" Min="126" Max="146">Gobo1 6</Capability>
+  <Capability Res="SGM/gobo00025.svg" Min="126" Max="146">Gobo1 6</Capability>
   <Capability Res="SGM/gobo00376.png" Min="147" Max="167">Gobo1 7</Capability>
   <Capability Res="SGM-Color/gobo00373.png" Min="168" Max="189">Gobo1 8</Capability>
   <Capability Res="Others/rainbow.png" Min="190" Max="245">Rainbow speed</Capability>
@@ -163,11 +163,11 @@
  </Channel>
  <Channel Name="Gobo 2">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/open.png" Min="0" Max="20">Open</Capability>
+  <Capability Res="Others/open.svg" Min="0" Max="20">Open</Capability>
   <Capability Res="SGM-Color/gobo00551.png" Min="21" Max="41">Gobo2 1</Capability>
   <Capability Res="SGM-Color/gobo00554.png" Min="42" Max="62">Gobo2 2</Capability>
   <Capability Res="SGM-Color/gobo00556.png" Min="63" Max="83">Gobo2 3</Capability>
-  <Capability Res="SGM/gobo00025.png" Min="84" Max="104">Gobo2 4</Capability>
+  <Capability Res="SGM/gobo00025.svg" Min="84" Max="104">Gobo2 4</Capability>
   <Capability Res="SGM-Color/gobo00375.png" Min="105" Max="125">Gobo2 5</Capability>
   <Capability Res="SGM-Color/gobo00541.png" Min="126" Max="146">Gobo2 6</Capability>
   <Capability Res="SGM-Color/gobo00545.png" Min="147" Max="167">Gobo2 7</Capability>

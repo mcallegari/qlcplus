@@ -49,7 +49,7 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Rotating Gobo-wheel + Gobo Shake">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="7" Res="Others/open.png">Open/white</Capability>
+  <Capability Min="0" Max="7" Res="Others/open.svg">Open/white</Capability>
   <Capability Min="8" Max="15" Res="Chauvet/gobo00014.png">Gobo 1 (glass)</Capability>
   <Capability Min="16" Max="23" Res="SGM-Color/gobo00547.png">Gobo 2 (glass)</Capability>
   <Capability Min="24" Max="31" Res="Chauvet/gobo00001.png">Gobo 3 (metal)</Capability>
@@ -64,7 +64,7 @@
   <Capability Min="96" Max="103" Res="Chauvet/gobo00001.png">Gobo 3 shake, from slow to fast</Capability>
   <Capability Min="104" Max="111" Res="SGM-Color/gobo00547.png">Gobo 2 shake, from slow to fast</Capability>
   <Capability Min="112" Max="119" Res="Chauvet/gobo00014.png">Gobo 1 shake, from slow to fast</Capability>
-  <Capability Min="120" Max="127" Res="Others/open.png">Open/white</Capability>
+  <Capability Min="120" Max="127" Res="Others/open.svg">Open/white</Capability>
   <Capability Min="128" Max="191">Clockwise rotation effect, from slow to fast</Capability>
   <Capability Min="192" Max="255">Counterclockwise rotation effect, from slow to fast</Capability>
  </Channel>

@@ -100,23 +100,23 @@
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="4">Open - Gobo selection</Capability>
   <Capability Min="5" Max="9" Res="Chauvet/gobo00059.png">Gobo 1 - Gobo selection</Capability>
-  <Capability Min="10" Max="14" Res="Others/gobo00073.png">Gobo 2 - Gobo selection</Capability>
-  <Capability Min="15" Max="19" Res="Others/gobo00074.png">Gobo 3 - Gobo selection</Capability>
-  <Capability Min="20" Max="24" Res="Others/gobo00075.png">Gobo 4 - Gobo selection</Capability>
-  <Capability Min="25" Max="29" Res="Others/gobo00076.png">Gobo 5 - Gobo selection</Capability>
-  <Capability Min="30" Max="34" Res="Others/gobo00077.png">Gobo 6 - Gobo selection</Capability>
+  <Capability Min="10" Max="14" Res="Others/gobo00073.svg">Gobo 2 - Gobo selection</Capability>
+  <Capability Min="15" Max="19" Res="Others/gobo00074.svg">Gobo 3 - Gobo selection</Capability>
+  <Capability Min="20" Max="24" Res="Others/gobo00075.svg">Gobo 4 - Gobo selection</Capability>
+  <Capability Min="25" Max="29" Res="Others/gobo00076.svg">Gobo 5 - Gobo selection</Capability>
+  <Capability Min="30" Max="34" Res="Others/gobo00077.svg">Gobo 6 - Gobo selection</Capability>
   <Capability Min="35" Max="39" Res="Chauvet/gobo00059.png">Gobo 1 - Gobo rotation</Capability>
-  <Capability Min="40" Max="44" Res="Others/gobo00073.png">Gobo 2 - Gobo rotation</Capability>
-  <Capability Min="45" Max="49" Res="Others/gobo00074.png">Gobo 3 - Gobo rotation</Capability>
-  <Capability Min="50" Max="54" Res="Others/gobo00075.png">Gobo 4 - Gobo rotation</Capability>
-  <Capability Min="55" Max="59" Res="Others/gobo00076.png">Gobo 5 - Gobo rotation</Capability>
-  <Capability Min="60" Max="64" Res="Others/gobo00077.png">Gobo 6 - Gobo rotation</Capability>
+  <Capability Min="40" Max="44" Res="Others/gobo00073.svg">Gobo 2 - Gobo rotation</Capability>
+  <Capability Min="45" Max="49" Res="Others/gobo00074.svg">Gobo 3 - Gobo rotation</Capability>
+  <Capability Min="50" Max="54" Res="Others/gobo00075.svg">Gobo 4 - Gobo rotation</Capability>
+  <Capability Min="55" Max="59" Res="Others/gobo00076.svg">Gobo 5 - Gobo rotation</Capability>
+  <Capability Min="60" Max="64" Res="Others/gobo00077.svg">Gobo 6 - Gobo rotation</Capability>
   <Capability Min="65" Max="88" Res="Chauvet/gobo00059.png">Gobo 1 - shake</Capability>
-  <Capability Min="89" Max="112" Res="Others/gobo00073.png">Gobo 2 - shake</Capability>
-  <Capability Min="113" Max="136" Res="Others/gobo00074.png">Gobo 3 - shake</Capability>
-  <Capability Min="137" Max="160" Res="Others/gobo00075.png">Gobo 4 - shake</Capability>
-  <Capability Min="161" Max="184" Res="Others/gobo00076.png">Gobo 5 - shake</Capability>
-  <Capability Min="185" Max="208" Res="Others/gobo00077.png">Gobo 6 - shake</Capability>
+  <Capability Min="89" Max="112" Res="Others/gobo00073.svg">Gobo 2 - shake</Capability>
+  <Capability Min="113" Max="136" Res="Others/gobo00074.svg">Gobo 3 - shake</Capability>
+  <Capability Min="137" Max="160" Res="Others/gobo00075.svg">Gobo 4 - shake</Capability>
+  <Capability Min="161" Max="184" Res="Others/gobo00076.svg">Gobo 5 - shake</Capability>
+  <Capability Min="185" Max="208" Res="Others/gobo00077.svg">Gobo 6 - shake</Capability>
   <Capability Min="209" Max="209">No function</Capability>
   <Capability Min="210" Max="232">Continuous wheel rotation, clockwise, fast to slow</Capability>
   <Capability Min="233" Max="255">Continuous wheel rotation, counter-clockwise, slow to fast</Capability>
@@ -131,30 +131,30 @@
  </Channel>
  <Channel Name="Gobo Wheel 2 (static gobos)">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="0" Res="Others/open.png">Open - Continuous scrolling</Capability>
+  <Capability Min="0" Max="0" Res="Others/open.svg">Open - Continuous scrolling</Capability>
   <Capability Min="1" Max="14">Open to Gobo 1 - Continuous scrolling</Capability>
-  <Capability Min="15" Max="15" Res="Others/gobo00064.png">Gobo 1 - Continuous scrolling</Capability>
+  <Capability Min="15" Max="15" Res="Others/gobo00064.svg">Gobo 1 - Continuous scrolling</Capability>
   <Capability Min="16" Max="29">Gobo 1 to Gobo 2 - Continuous scrolling</Capability>
-  <Capability Min="30" Max="30" Res="Others/gobo00078.png"> Gobo 2 - Continuous scrolling</Capability>
+  <Capability Min="30" Max="30" Res="Others/gobo00078.svg"> Gobo 2 - Continuous scrolling</Capability>
   <Capability Min="31" Max="44">Gobo 2 to Gobo 3 - Continuous scrolling</Capability>
   <Capability Min="45" Max="45" Res="Chauvet/gobo00034.png">Gobo 3 - Continuous scrolling</Capability>
   <Capability Min="46" Max="59">Gobo 3 to Gobo 4 - Continuous scrolling</Capability>
-  <Capability Min="60" Max="60" Res="Others/gobo00079.png">Gobo 4 - Continuous scrolling</Capability>
+  <Capability Min="60" Max="60" Res="Others/gobo00079.svg">Gobo 4 - Continuous scrolling</Capability>
   <Capability Min="61" Max="74">Gobo 4 to Gobo 5 - Continuous scrolling</Capability>
-  <Capability Min="75" Max="75" Res="Others/gobo00080.png"> Gobo 5 - Continuous scrolling</Capability>
+  <Capability Min="75" Max="75" Res="Others/gobo00080.svg"> Gobo 5 - Continuous scrolling</Capability>
   <Capability Min="76" Max="89">Gobo 5 to Gobo 6 - Continuous scrolling</Capability>
-  <Capability Min="90" Max="90" Res="Others/gobo00081.png"> Gobo 6 - Continuous scrolling</Capability>
+  <Capability Min="90" Max="90" Res="Others/gobo00081.svg"> Gobo 6 - Continuous scrolling</Capability>
   <Capability Min="91" Max="104">Gobo 6 to Gobo 7  - Continuous scrolling</Capability>
-  <Capability Min="105" Max="105" Res="Others/gobo00082.png">Gobo 7</Capability>
+  <Capability Min="105" Max="105" Res="Others/gobo00082.svg">Gobo 7</Capability>
   <Capability Min="106" Max="119"> Gobo 7 to Open - Continuous scrolling</Capability>
   <Capability Min="120" Max="160">Open - Continuous scrolling</Capability>
-  <Capability Min="161" Max="163" Res="Others/gobo00064.png">Gobo 1 - Stepped scrolling</Capability>
-  <Capability Min="164" Max="166" Res="Others/gobo00078.png">Gobo 2 - Stepped scrolling</Capability>
+  <Capability Min="161" Max="163" Res="Others/gobo00064.svg">Gobo 1 - Stepped scrolling</Capability>
+  <Capability Min="164" Max="166" Res="Others/gobo00078.svg">Gobo 2 - Stepped scrolling</Capability>
   <Capability Min="167" Max="169" Res="Chauvet/gobo00034.png">Gobo 3 - Stepped scrolling</Capability>
-  <Capability Min="170" Max="172" Res="Others/gobo00079.png">Gobo 4 - Stepped scrolling</Capability>
-  <Capability Min="173" Max="175" Res="Others/gobo00080.png">Gobo 5 - Stepped scrolling</Capability>
-  <Capability Min="176" Max="178" Res="Others/gobo00081.png">Gobo 6 - Stepped scrolling</Capability>
-  <Capability Min="179" Max="181" Res="Others/gobo00082.png">Gobo 7 - Stepped scrolling</Capability>
+  <Capability Min="170" Max="172" Res="Others/gobo00079.svg">Gobo 4 - Stepped scrolling</Capability>
+  <Capability Min="173" Max="175" Res="Others/gobo00080.svg">Gobo 5 - Stepped scrolling</Capability>
+  <Capability Min="176" Max="178" Res="Others/gobo00081.svg">Gobo 6 - Stepped scrolling</Capability>
+  <Capability Min="179" Max="181" Res="Others/gobo00082.svg">Gobo 7 - Stepped scrolling</Capability>
   <Capability Min="182" Max="192">Open - Stepped scrolling</Capability>
   <Capability Min="193" Max="214">Continuous wheel rotation - Clockwise - Fast to slow</Capability>
   <Capability Min="215" Max="221">Continuous wheel rotation - Stop</Capability>

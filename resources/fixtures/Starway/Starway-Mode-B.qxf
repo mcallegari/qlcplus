@@ -51,13 +51,13 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Static Gobo Change">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/open.png" Min="0" Max="7">White</Capability>
+  <Capability Res="Others/open.svg" Min="0" Max="7">White</Capability>
   <Capability Res="ClayPaky/gobo00006.png" Min="8" Max="15">Gobo 1</Capability>
   <Capability Res="ClayPaky/gobo00007.png" Min="16" Max="23">Gobo 2</Capability>
-  <Capability Res="ClayPaky/gobo00008.png" Min="24" Max="31">Gobo 3</Capability>
-  <Capability Res="ClayPaky/gobo00009.png" Min="32" Max="39">Gobo 4</Capability>
-  <Capability Res="ClayPaky/gobo00010.png" Min="40" Max="47">Gobo 5</Capability>
-  <Capability Res="ClayPaky/gobo00011.png" Min="48" Max="55">Gobo 6</Capability>
+  <Capability Res="ClayPaky/gobo00008.svg" Min="24" Max="31">Gobo 3</Capability>
+  <Capability Res="ClayPaky/gobo00009.svg" Min="32" Max="39">Gobo 4</Capability>
+  <Capability Res="ClayPaky/gobo00010.svg" Min="40" Max="47">Gobo 5</Capability>
+  <Capability Res="ClayPaky/gobo00011.svg" Min="48" Max="55">Gobo 6</Capability>
   <Capability Res="ClayPaky/gobo00091.png" Min="56" Max="63">Gobo 7</Capability>
   <Capability Res="ClayPaky/gobo00085.png" Min="64" Max="71">Gobo 8</Capability>
   <Capability Res="ClayPaky/gobo00086.png" Min="72" Max="79">Gobo 9</Capability>

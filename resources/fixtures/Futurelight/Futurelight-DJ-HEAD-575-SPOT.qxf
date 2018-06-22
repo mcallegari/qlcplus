@@ -84,7 +84,7 @@
  </Channel>
  <Channel Name="Static Gobo-wheel, Gobo Shake">
   <Group Byte="0">Gobo</Group>
-  <Capability Max="7" Min="0" Res="Others/open.png">Open</Capability>
+  <Capability Max="7" Min="0" Res="Others/open.svg">Open</Capability>
   <Capability Max="15" Min="8">Gobo 1</Capability>
   <Capability Max="23" Min="16">Gobo 2</Capability>
   <Capability Max="31" Min="24">Gobo 3</Capability>
@@ -107,7 +107,7 @@
  </Channel>
  <Channel Name="Rotating Gobo-Wheel">
   <Group Byte="0">Gobo</Group>
-  <Capability Max="31" Min="0" Res="Others/open.png">Open</Capability>
+  <Capability Max="31" Min="0" Res="Others/open.svg">Open</Capability>
   <Capability Max="63" Min="32">Rot. gobo 1</Capability>
   <Capability Max="95" Min="64">Rot. gobo 2</Capability>
   <Capability Max="127" Min="96">Rot. gobo 3</Capability>

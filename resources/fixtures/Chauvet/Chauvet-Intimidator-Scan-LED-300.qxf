@@ -59,7 +59,7 @@
   <Capability Res="Chauvet/gobo00001.png" Min="96" Max="103">Gobo 3 shake (fast to slow)</Capability>
   <Capability Res="Chauvet/gobo00015.png" Min="104" Max="111">Gobo 2 shake (fast to slow)</Capability>
   <Capability Res="Chauvet/gobo00014.png" Min="112" Max="119">Gobo 1 shake (fast to slow)</Capability>
-  <Capability Res="Others/open.png" Min="120" Max="127">Open</Capability>
+  <Capability Res="Others/open.svg" Min="120" Max="127">Open</Capability>
   <Capability Min="128" Max="191">Gobo scroll clockwise</Capability>
   <Capability Min="192" Max="255">Gobo scroll counter-clockwise</Capability>
  </Channel>

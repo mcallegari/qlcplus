@@ -41,7 +41,7 @@
  <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Gobo selection">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="10" Res="Others/open.png">Open</Capability>
+  <Capability Min="0" Max="10" Res="Others/open.svg">Open</Capability>
   <Capability Min="11" Max="30">Rotating gobo 1</Capability>
   <Capability Min="31" Max="50">Rotating gobo 2</Capability>
   <Capability Min="51" Max="70">Rotating gobo 3</Capability>

@@ -62,22 +62,22 @@
  </Channel>
  <Channel Name="Gobo wheel 1">
   <Group Byte="0">Gobo</Group>
-  <Capability Max="9" Res="Others/open.png" Min="0">Open</Capability>
-  <Capability Max="14" Min="10" Res="Others/gobo00065.png">Indexed Gobo 1</Capability>
-  <Capability Max="19" Min="15" Res="Others/gobo00066.png">Indexed Gobo 2</Capability>
-  <Capability Max="24" Min="20" Res="Others/gobo00067.png">Indexed Gobo 3</Capability>
-  <Capability Max="29" Min="25" Res="Others/gobo00068.png">Indexed Gobo 4</Capability>
-  <Capability Max="34" Min="30" Res="Others/gobo00069.png">Indexed Gobo 5</Capability>
-  <Capability Max="39" Res="Others/gobo00065.png" Min="35">Gobo 1</Capability>
-  <Capability Max="44" Res="Others/gobo00066.png" Min="40">Gobo 2</Capability>
-  <Capability Max="49" Res="Others/gobo00067.png" Min="45">Gobo 3</Capability>
-  <Capability Max="54" Res="Others/gobo00068.png" Min="50">Gobo 4</Capability>
-  <Capability Max="59" Res="Others/gobo00069.png" Min="55">Gobo 5</Capability>
-  <Capability Max="89" Min="60" Res="Others/gobo00065.png">Gobo 1 Shake, 360° slow -&gt; 10° fast</Capability>
-  <Capability Max="119" Min="90" Res="Others/gobo00066.png">Gobo 2 Shake, 360° slow -&gt; 10° fast</Capability>
-  <Capability Max="149" Min="120" Res="Others/gobo00067.png">Gobo 3 Shake, 360° slow -&gt; 10° fast</Capability>
-  <Capability Max="179" Min="150" Res="Others/gobo00068.png">Gobo 4 Shake, 360° slow -&gt; 10° fast</Capability>
-  <Capability Max="209" Min="180" Res="Others/gobo00069.png">Gobo 5 Shake, 360° slow -&gt; 10° fast</Capability>
+  <Capability Max="9" Res="Others/open.svg" Min="0">Open</Capability>
+  <Capability Max="14" Min="10" Res="Others/gobo00065.svg">Indexed Gobo 1</Capability>
+  <Capability Max="19" Min="15" Res="Others/gobo00066.svg">Indexed Gobo 2</Capability>
+  <Capability Max="24" Min="20" Res="Others/gobo00067.svg">Indexed Gobo 3</Capability>
+  <Capability Max="29" Min="25" Res="Others/gobo00068.svg">Indexed Gobo 4</Capability>
+  <Capability Max="34" Min="30" Res="Others/gobo00069.svg">Indexed Gobo 5</Capability>
+  <Capability Max="39" Res="Others/gobo00065.svg" Min="35">Gobo 1</Capability>
+  <Capability Max="44" Res="Others/gobo00066.svg" Min="40">Gobo 2</Capability>
+  <Capability Max="49" Res="Others/gobo00067.svg" Min="45">Gobo 3</Capability>
+  <Capability Max="54" Res="Others/gobo00068.svg" Min="50">Gobo 4</Capability>
+  <Capability Max="59" Res="Others/gobo00069.svg" Min="55">Gobo 5</Capability>
+  <Capability Max="89" Min="60" Res="Others/gobo00065.svg">Gobo 1 Shake, 360° slow -&gt; 10° fast</Capability>
+  <Capability Max="119" Min="90" Res="Others/gobo00066.svg">Gobo 2 Shake, 360° slow -&gt; 10° fast</Capability>
+  <Capability Max="149" Min="120" Res="Others/gobo00067.svg">Gobo 3 Shake, 360° slow -&gt; 10° fast</Capability>
+  <Capability Max="179" Min="150" Res="Others/gobo00068.svg">Gobo 4 Shake, 360° slow -&gt; 10° fast</Capability>
+  <Capability Max="209" Min="180" Res="Others/gobo00069.svg">Gobo 5 Shake, 360° slow -&gt; 10° fast</Capability>
   <Capability Max="232" Min="210">CW gobo wheel scroll, fast -&gt; slow</Capability>
   <Capability Max="255" Min="233">CCW gobo wheel scroll, slow -&gt; fast</Capability>
  </Channel>
@@ -95,13 +95,13 @@
  </Channel>
  <Channel Name="Gobo wheel 2">
   <Group Byte="0">Gobo</Group>
-  <Capability Max="0" Res="Others/open.png" Min="0">Open</Capability>
+  <Capability Max="0" Res="Others/open.svg" Min="0">Open</Capability>
   <Capability Max="14" Min="1">Open -&gt; Gobo 1</Capability>
-  <Capability Max="15" Res="ClayPaky/gobo00064.png" Min="15">Gobo 1</Capability>
+  <Capability Max="15" Res="ClayPaky/gobo00064.svg" Min="15">Gobo 1</Capability>
   <Capability Max="29" Min="16">Gobo 1 -&gt; Gobo 2</Capability>
-  <Capability Max="30" Res="ClayPaky/gobo00066.png" Min="30">Gobo 2</Capability>
+  <Capability Max="30" Res="ClayPaky/gobo00066.svg" Min="30">Gobo 2</Capability>
   <Capability Max="44" Min="31">Gobo 2 -&gt; Gobo 3</Capability>
-  <Capability Max="45" Res="ClayPaky/gobo00019.png" Min="45">Gobo 3</Capability>
+  <Capability Max="45" Res="ClayPaky/gobo00019.svg" Min="45">Gobo 3</Capability>
   <Capability Max="59" Min="46">Gobo 3 -&gt; Gobo 4</Capability>
   <Capability Max="60" Res="Chauvet/gobo00003.png" Min="60">Gobo 4</Capability>
   <Capability Max="74" Min="61">Gobo 4 -&gt; Gobo 5</Capability>
@@ -109,16 +109,16 @@
   <Capability Max="89" Min="76">Gobo 5 -&gt; Gobo 6</Capability>
   <Capability Max="90" Res="ClayPaky/gobo00079.png" Min="90">Gobo 6</Capability>
   <Capability Max="104" Min="91">Gobo 6 -&gt; Gobo 7</Capability>
-  <Capability Max="105" Res="Others/gobo00045.png" Min="105">Gobo 7</Capability>
+  <Capability Max="105" Res="Others/gobo00045.svg" Min="105">Gobo 7</Capability>
   <Capability Max="119" Min="106">Gobo 7 -&gt; Open</Capability>
   <Capability Max="120" Min="120">Open</Capability>
-  <Capability Max="125" Res="ClayPaky/gobo00064.png" Min="121">Gobo 1 Stepped</Capability>
-  <Capability Max="130" Res="ClayPaky/gobo00066.png" Min="126">Gobo 2 Stepped</Capability>
-  <Capability Max="135" Res="ClayPaky/gobo00019.png" Min="131">Gobo 3 Stepped</Capability>
+  <Capability Max="125" Res="ClayPaky/gobo00064.svg" Min="121">Gobo 1 Stepped</Capability>
+  <Capability Max="130" Res="ClayPaky/gobo00066.svg" Min="126">Gobo 2 Stepped</Capability>
+  <Capability Max="135" Res="ClayPaky/gobo00019.svg" Min="131">Gobo 3 Stepped</Capability>
   <Capability Max="140" Res="Chauvet/gobo00003.png" Min="136">Gobo 4 Stepped</Capability>
   <Capability Max="145" Res="Chauvet/gobo00066.png" Min="141">Gobo 5 Stepped</Capability>
   <Capability Max="150" Res="ClayPaky/gobo00079.png" Min="146">Gobo 6 Stepped</Capability>
-  <Capability Max="155" Res="Others/gobo00045.png" Min="151">Gobo 7 Stepped</Capability>
+  <Capability Max="155" Res="Others/gobo00045.svg" Min="151">Gobo 7 Stepped</Capability>
   <Capability Max="160" Min="156">Open</Capability>
   <Capability Max="200" Min="161">CW gobo wheel rotation, fast -&gt; slow</Capability>
   <Capability Max="203" Min="201">Stop: gobo wheel stops at current position</Capability>

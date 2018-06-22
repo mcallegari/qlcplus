@@ -33,13 +33,13 @@
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="20" Res="Others/open.png">No gobo</Capability>
+  <Capability Min="0" Max="20" Res="Others/open.svg">No gobo</Capability>
   <Capability Min="21" Max="40" Res="SGM/gobo00125.png">Gobo 1</Capability>
   <Capability Min="41" Max="60" Res="Others/gobo00026.png">Gobo 2</Capability>
   <Capability Min="61" Max="80" Res="SGM/gobo00059.png">Gobo 3</Capability>
   <Capability Min="81" Max="100" Res="SGM/gobo00127.png">Gobo 4</Capability>
   <Capability Min="101" Max="120" Res="SGM/gobo00004.png">Gobo 5</Capability>
-  <Capability Min="121" Max="140" Res="SGM/gobo00064.png">Gobo 6</Capability>
+  <Capability Min="121" Max="140" Res="SGM/gobo00064.svg">Gobo 6</Capability>
   <Capability Min="141" Max="160" Res="SGM/gobo00027.png">Gobo 7</Capability>
   <Capability Min="161" Max="177">Rotagobo - speed 1</Capability>
   <Capability Min="178" Max="194">Rotagobo - speed 2</Capability>

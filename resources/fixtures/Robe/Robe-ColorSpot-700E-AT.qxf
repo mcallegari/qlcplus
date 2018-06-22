@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -39,7 +39,7 @@
   <Capability Min="200" Max="209">Total Reset</Capability>
   <Capability Min="210" Max="229">Reserved</Capability>
   <Capability Min="230" Max="239">Lamp Off</Capability>
-  <Capability Min="240" Max="240">Disable &quot;Silent&quot; Mode fans</Capability>
+  <Capability Min="240" Max="240">Disable "Silent" Mode fans</Capability>
   <Capability Min="241" Max="255">Silent mode Fans min to max</Capability>
  </Channel>
  <Channel Name="Colour Wheel">
@@ -125,7 +125,7 @@
   <Capability Min="90" Max="94" Preset="GoboMacro" Res1="Robe/gobo00065.png">Gobo 6</Capability>
   <Capability Min="95" Max="99" Preset="GoboMacro" Res1="Robe/gobo00066.png">Gobo 7</Capability>
   <Capability Min="100" Max="104" Preset="GoboMacro" Res1="Robe/gobo00068.png">Gobo 8</Capability>
-  <Capability Min="105" Max="109" Preset="GoboMacro" Res1="Robe/gobo00012.png">Gobo 9</Capability>
+  <Capability Min="105" Max="109" Preset="GoboMacro" Res1="Robe/gobo00012.svg">Gobo 9</Capability>
   <Capability Min="110" Max="119" Preset="GoboMacro" Res1="Robe/gobo00061.png">Shaking Gobo 1</Capability>
   <Capability Min="120" Max="129" Preset="GoboMacro" Res1="Robe/gobo00062.png">Shaking Gobo 2</Capability>
   <Capability Min="130" Max="139" Preset="GoboMacro" Res1="Robe/gobo00063.png">Shaking Gobo 3</Capability>

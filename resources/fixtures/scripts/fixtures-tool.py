@@ -245,7 +245,7 @@ def update_fixture(path, filename, destpath):
 #
 # Check the syntax of a definition and reports errors if found
 #
-# path: the source path with the fixtures to convert
+# path: the source path with the fixtures to validate
 # filename: the relative file name
 ###########################################################################################
 
@@ -259,6 +259,7 @@ def validate_fixture(path, filename):
     errNum = 0
     hasPan = False
     hasTilt = False
+    needSave = False
 
     ##################################### CHECK CREATOR #################################
 
@@ -363,6 +364,11 @@ def validate_fixture(path, filename):
             chCount += 1
             continue
 
+        # check the word 'fine' against control byte
+        if groupByte == 0 and 'fine' in chName:
+            print absname + "/" + chName + ": control byte should be set to Fine (LSB)"
+            errNum += 1
+
         ################################# CHECK CAPABILITIES ##############################
 
         rangeMin = 255
@@ -372,16 +378,11 @@ def validate_fixture(path, filename):
 
         for capability in channel.findall('{' + namespace + '}Capability'):
 
-            if not capability.text:
+            newResSyntax = False
+            capName = capability.text
+            if not capName:
                 print absname + "/" + chName + ": Capability with no description detected"
                 errNum += 1
-            else:
-                capName = capability.text.lower()
-
-                # check the word 'fine' against control byte
-                if groupByte == 0 and 'fine' in capName:
-                    print absname + "/" + chName + ": control byte should be set to Fine (LSB)"
-                    errNum += 1
 
             # check capabilities overlapping
             currMin = int(capability.attrib['Min'])
@@ -390,14 +391,46 @@ def validate_fixture(path, filename):
             #print "Min: " + str(currMin) + ", max: " + str(currMax)
 
             if currMin <= lastMax:
-                print absname + "/" + chName + ": Overlapping values detected " + str(currMin) + "/" + str(lastMax)
+                print absname + "/" + chName + "/" + capName + ": Overlapping values detected " + str(currMin) + "/" + str(lastMax)
                 errNum += 1
 
+            # disabled for now. 710 errors with this !
             #if currMin != lastMax + 1:
-            #    print absname + "/" + chName + ": Non contiguous range detected " + str(currMin) + "/" + str(lastMax)
+            #    print absname + "/" + chName + "/" + capName + ": Non contiguous range detected " + str(currMin) + "/" + str(lastMax)
             #    errNum += 1
 
             lastMax = currMax
+
+            resource = capability.attrib.get('Res', "")
+
+            # try and see if new sytax is on
+            if not resource:
+                resource = capability.attrib.get('Res1', "")
+                newResSyntax = True
+
+            if resource.startswith('/'):
+                print absname + "/" + chName + "/" + capName + ": Absolute paths not allowed in resources"
+                errNum += 1
+
+            # check the actual existence of a gobo. If possible, migrate to SVG
+            if resource and '/' in resource:
+                goboPath = os.getcwd() + "/../gobos/" + resource
+                #print "GOBO path: " + goboPath
+
+                if not os.path.isfile(goboPath):
+                    # check if a SVG version of the gobo exists
+                    resource = resource.replace('png', 'svg')
+                    goboPath = os.getcwd() + "/../gobos/" + resource
+
+                    if not os.path.isfile(goboPath):
+                        print absname + "/" + chName + "/" + capName + ": Non existing gobo file detected (" + resource + ")"
+                        errNum += 1
+                    else:
+                        needSave = True
+                        if newResSyntax:
+                            capability.set('Res1', resource)
+                        else:
+                            capability.set('Res', resource)
 
             capCount += 1
 
@@ -491,6 +524,12 @@ def validate_fixture(path, filename):
             if power == 0:
                 print absname + ": Invalid power consumption"
                 errNum += 1
+
+    if needSave:
+        print "Saving back " + filename + "..."
+        xmlFile = open(absname, "w")
+        xmlFile.write(etree.tostring(root, pretty_print=True, xml_declaration=True, encoding="UTF-8", doctype="<!DOCTYPE FixtureDefinition>"))
+        xmlFile.close()
 
     return errNum
 

@@ -39,12 +39,12 @@
  </Channel>
  <Channel Name="Gobos">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="14" Res="Others/open.png">Open</Capability>
+  <Capability Min="0" Max="14" Res="Others/open.svg">Open</Capability>
   <Capability Min="15" Max="50" Res="Chauvet/gobo00024.png">Circle small</Capability>
-  <Capability Min="51" Max="85" Res="Others/gobo00038.png">Twist</Capability>
+  <Capability Min="51" Max="85" Res="Others/gobo00038.svg">Twist</Capability>
   <Capability Min="86" Max="115" Res="Robe/gobo00051.png">Scratch</Capability>
-  <Capability Min="116" Max="150" Res="Robe/gobo00038.png">Line</Capability>
-  <Capability Min="151" Max="185" Res="Others/gobo00027.png">Triangle</Capability>
+  <Capability Min="116" Max="150" Res="Robe/gobo00038.svg">Line</Capability>
+  <Capability Min="151" Max="185" Res="Others/gobo00027.svg">Triangle</Capability>
   <Capability Min="186" Max="215" Res="Others/gobo00014.png">Circle open</Capability>
   <Capability Min="216" Max="255" Res="Others/gobo00012.png">Star open</Capability>
  </Channel>

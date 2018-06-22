@@ -39,7 +39,7 @@
  </Channel>
  <Channel Name="Fixed Gobo Wheel">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="11" Res="Others/open.png">Clear</Capability>
+  <Capability Min="0" Max="11" Res="Others/open.svg">Clear</Capability>
   <Capability Min="12" Max="23">Gobo 1 (73 bubbles)</Capability>
   <Capability Min="24" Max="34">Gobo 2 (paintball splash)</Capability>
   <Capability Min="35" Max="46">Gobo 3 (virus microscope)</Capability>

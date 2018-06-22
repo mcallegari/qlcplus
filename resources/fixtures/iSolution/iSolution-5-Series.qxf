@@ -21,19 +21,19 @@
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="SGM/gobo00062.png" Min="0" Max="8">Spot</Capability>
+  <Capability Res="SGM/gobo00062.svg" Min="0" Max="8">Spot</Capability>
   <Capability Res="SGM/gobo00004.png" Min="9" Max="17">Spot Ring</Capability>
   <Capability Res="Others/gobo00037.png" Min="18" Max="25">Taurus</Capability>
-  <Capability Res="Others/gobo00039.png" Min="26" Max="34">Bio Hazard</Capability>
-  <Capability Res="SGM/gobo00174.png" Min="35" Max="43">Web</Capability>
+  <Capability Res="Others/gobo00039.svg" Min="26" Max="34">Bio Hazard</Capability>
+  <Capability Res="SGM/gobo00174.svg" Min="35" Max="43">Web</Capability>
   <Capability Res="GLP/gobo00014.png" Min="44" Max="51">3 Comas</Capability>
   <Capability Res="ClayPaky/gobo00032.png" Min="52" Max="59">Honeycomb</Capability>
   <Capability Res="Others/gobo00030.png" Min="60" Max="68">Square</Capability>
   <Capability Res="Others/gobo00018.png" Min="69" Max="76">Radiation</Capability>
   <Capability Min="77" Max="85">Batman</Capability>
-  <Capability Res="SGM/gobo00123.png" Min="86" Max="93">Star</Capability>
+  <Capability Res="SGM/gobo00123.svg" Min="86" Max="93">Star</Capability>
   <Capability Res="Others/gobo00029.png" Min="94" Max="102">Dotted Line</Capability>
-  <Capability Res="Robe/gobo00025.png" Min="103" Max="110">Circle</Capability>
+  <Capability Res="Robe/gobo00025.svg" Min="103" Max="110">Circle</Capability>
   <Capability Res="SGM/gobo00279.png" Min="111" Max="119">Energy</Capability>
   <Capability Res="SGM/gobo00348.png" Min="120" Max="127">Cross Stamp</Capability>
   <Capability Min="128" Max="255">Gobo Change Speed</Capability>
