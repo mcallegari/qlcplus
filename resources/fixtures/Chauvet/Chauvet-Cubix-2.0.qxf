@@ -89,7 +89,7 @@
  <Channel Name="All lenses Auto Programs">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="9">No function</Capability>
-  <Capability Min="10" Max="250" Res="/home/alexandre/.qlcplus/fixtures/automatic.png">Auto Programs (slow-fast)</Capability>
+  <Capability Min="10" Max="250">Auto Programs (slow-fast)</Capability>
   <Capability Min="251" Max="255">0-30 Hz</Capability>
  </Channel>
  <Mode Name="7 channels">

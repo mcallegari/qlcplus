@@ -31,7 +31,7 @@
   <Capability Min="128" Max="159">Auto fade transition</Capability>
   <Capability Min="160" Max="191">Auto snap transition (3 colors)</Capability>
   <Capability Min="192" Max="223">Auto snap transition (7 colors)</Capability>
-  <Capability Min="224" Max="255" Res="/home/alexandre/.qlcplus/fixtures/sound-activated.png">Sound triggering</Capability>
+  <Capability Min="224" Max="255">Sound triggering</Capability>
  </Channel>
  <Channel Name="Dimmer">
   <Group Byte="0">Intensity</Group>

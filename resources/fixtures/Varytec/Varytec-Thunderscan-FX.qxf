@@ -21,7 +21,7 @@
  </Channel>
  <Channel Name="Mirror 1 Pattern">
   <Group Byte="0">Effect</Group>
-  <Capability Min="1" Max="10">No Pattern</Capability>
+  <Capability Min="0" Max="10">No Pattern</Capability>
   <Capability Min="11" Max="15" Preset="ColorMacro" Res1="#ff0004">Red</Capability>
   <Capability Min="16" Max="20" Preset="ColorMacro" Res1="#00ff1d">Green</Capability>
   <Capability Min="21" Max="25" Preset="ColorMacro" Res1="#0c6dff">Blue</Capability>
@@ -69,7 +69,7 @@
  </Channel>
  <Channel Name="Mirror 2 Pattern">
   <Group Byte="0">Effect</Group>
-  <Capability Min="1" Max="10">No Pattern</Capability>
+  <Capability Min="0" Max="10">No Pattern</Capability>
   <Capability Min="11" Max="15" Preset="ColorMacro" Res1="#ff0004">Red</Capability>
   <Capability Min="16" Max="20" Preset="ColorMacro" Res1="#00ff1d">Green</Capability>
   <Capability Min="21" Max="25" Preset="ColorMacro" Res1="#0c6dff">Blue</Capability>

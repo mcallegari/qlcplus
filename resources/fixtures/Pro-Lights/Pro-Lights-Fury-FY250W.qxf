@@ -41,18 +41,18 @@
   <Capability Min="36" Max="49" Color="#00ff00">Green</Capability>
   <Capability Min="50" Max="63" Color="#0000ff">Blue</Capability>
   <Capability Min="64" Max="77" Color="#ffffff">White</Capability>
-  <Capability Min="78" Max="91" Res="Service/gobo_n1.png">Color 1</Capability>
-  <Capability Min="92" Max="105" Res="Service/gobo_n2.png">Color 2</Capability>
-  <Capability Min="106" Max="119" Res="Service/gobo_n3.png">Color 3</Capability>
-  <Capability Min="120" Max="133" Res="Service/gobo_n4.png">Color 4</Capability>
-  <Capability Min="134" Max="147" Res="Service/gobo_n5.png">Color 5</Capability>
-  <Capability Min="148" Max="161" Res="Service/gobo_n6.png">Color 6</Capability>
-  <Capability Min="162" Max="175" Res="Service/gobo_n7.png">Color 7</Capability>
-  <Capability Min="176" Max="189" Res="Service/gobo_n8.png">Color 8</Capability>
-  <Capability Min="190" Max="203" Res="Service/gobo_n9.png">Color 9</Capability>
-  <Capability Min="204" Max="217" Res="Service/gobo_n10.png">Color 10</Capability>
-  <Capability Min="218" Max="231" Res="Service/Gobo_n11.png">Color 11</Capability>
-  <Capability Min="232" Max="255" Res="Service/color_macro.png">Color Macro</Capability>
+  <Capability Min="78" Max="91">Color 1</Capability>
+  <Capability Min="92" Max="105">Color 2</Capability>
+  <Capability Min="106" Max="119">Color 3</Capability>
+  <Capability Min="120" Max="133">Color 4</Capability>
+  <Capability Min="134" Max="147">Color 5</Capability>
+  <Capability Min="148" Max="161">Color 6</Capability>
+  <Capability Min="162" Max="175">Color 7</Capability>
+  <Capability Min="176" Max="189">Color 8</Capability>
+  <Capability Min="190" Max="203">Color 9</Capability>
+  <Capability Min="204" Max="217">Color 10</Capability>
+  <Capability Min="218" Max="231">Color 11</Capability>
+  <Capability Min="232" Max="255">Color Macro</Capability>
  </Channel>
  <Channel Name="Led Speed">
   <Group Byte="0">Speed</Group>
@@ -73,22 +73,22 @@
  <Channel Name="Effect">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="7" Res="Others/open.png">No function</Capability>
-  <Capability Min="8" Max="23" Res="Service/gobo_n1.png">Effect 1</Capability>
-  <Capability Min="24" Max="39" Res="Service/gobo_n2.png">Effect 2</Capability>
-  <Capability Min="40" Max="55" Res="Service/gobo_n3.png">Effect 3</Capability>
-  <Capability Min="56" Max="71" Res="Service/gobo_n4.png">Effect 4</Capability>
-  <Capability Min="72" Max="87" Res="Service/gobo_n5.png">Effect 5</Capability>
-  <Capability Min="88" Max="103" Res="Service/gobo_n6.png">Effect 6</Capability>
-  <Capability Min="104" Max="119" Res="Service/gobo_n7.png">Effect 7</Capability>
-  <Capability Min="120" Max="135" Res="Service/gobo_n8.png">Effect 8</Capability>
-  <Capability Min="136" Max="151" Res="Service/gobo_n1.png">Sound Control 1</Capability>
-  <Capability Min="152" Max="167" Res="Service/gobo_n2.png">Sound Control 2</Capability>
-  <Capability Min="168" Max="183" Res="Service/gobo_n3.png">Sound Control 3</Capability>
-  <Capability Min="184" Max="199" Res="Service/gobo_n4.png">Sound Control 4</Capability>
-  <Capability Min="200" Max="215" Res="Service/gobo_n5.png">Sound Control 5</Capability>
-  <Capability Min="216" Max="231" Res="Service/gobo_n6.png">Sound Control 6</Capability>
-  <Capability Min="232" Max="247" Res="Service/gobo_n7.png">Sound Control 7</Capability>
-  <Capability Min="248" Max="255" Res="Service/gobo_n8.png">Sound Control 8</Capability>
+  <Capability Min="8" Max="23">Effect 1</Capability>
+  <Capability Min="24" Max="39">Effect 2</Capability>
+  <Capability Min="40" Max="55">Effect 3</Capability>
+  <Capability Min="56" Max="71">Effect 4</Capability>
+  <Capability Min="72" Max="87">Effect 5</Capability>
+  <Capability Min="88" Max="103">Effect 6</Capability>
+  <Capability Min="104" Max="119">Effect 7</Capability>
+  <Capability Min="120" Max="135">Effect 8</Capability>
+  <Capability Min="136" Max="151">Sound Control 1</Capability>
+  <Capability Min="152" Max="167">Sound Control 2</Capability>
+  <Capability Min="168" Max="183">Sound Control 3</Capability>
+  <Capability Min="184" Max="199">Sound Control 4</Capability>
+  <Capability Min="200" Max="215">Sound Control 5</Capability>
+  <Capability Min="216" Max="231">Sound Control 6</Capability>
+  <Capability Min="232" Max="247">Sound Control 7</Capability>
+  <Capability Min="248" Max="255">Sound Control 8</Capability>
  </Channel>
  <Mode Name="Advanced">
   <Channel Number="0">Pan</Channel>

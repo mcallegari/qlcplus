@@ -30,7 +30,7 @@
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="127">Intensity 0-100%</Capability>
   <Capability Min="128" Max="199">Strobe (slow-fast)</Capability>
-  <Capability Min="200" Max="255" Res="Gobos\Gobos\Gobos\Others/rainbow.png">Colour Changer Show (slow-fast)</Capability>
+  <Capability Min="200" Max="255" Res="Others/rainbow.png">Colour Changer Show (slow-fast)</Capability>
  </Channel>
  <Mode Name="Mode 1">
   <Channel Number="0">Red</Channel>
