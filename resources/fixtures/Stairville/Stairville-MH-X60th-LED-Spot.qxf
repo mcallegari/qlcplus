@@ -65,7 +65,7 @@
  <Channel Name="Gobo Wheel">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="7" Res="Others/open.svg">Open</Capability>
-  <Capability Min="8" Max="15" Res="ClayPaky/gobo00067.png">Gobo 2</Capability>
+  <Capability Min="8" Max="15" Res="ClayPaky/gobo00067.svg">Gobo 2</Capability>
   <Capability Min="16" Max="23" Res="Chauvet/gobo00015.png">Gobo 3</Capability>
   <Capability Min="24" Max="31" Res="Chauvet/gobo00001.png">Gobo 4</Capability>
   <Capability Min="32" Max="39" Res="Chauvet/gobo00016.png">Gobo 5</Capability>
@@ -78,7 +78,7 @@
   <Capability Min="88" Max="95" Res="Chauvet/gobo00016.png">Gobo 5 shake, increasing speed</Capability>
   <Capability Min="96" Max="103" Res="Chauvet/gobo00001.png">Gobo 4 shake, increasing speed</Capability>
   <Capability Min="104" Max="111" Res="Chauvet/gobo00015.png">Gobo 3 shake, increasing speed</Capability>
-  <Capability Min="112" Max="119" Res="ClayPaky/gobo00067.png">Gobo 2 shake, increasing speed</Capability>
+  <Capability Min="112" Max="119" Res="ClayPaky/gobo00067.svg">Gobo 2 shake, increasing speed</Capability>
   <Capability Min="120" Max="127" Res="Others/open.svg">Open</Capability>
   <Capability Min="128" Max="191">Rotation of the gobo wheel counterclockwise, increasing speed</Capability>
   <Capability Min="192" Max="255">Rotation of the gobo wheel clockwise, increasing speed</Capability>

@@ -56,8 +56,8 @@
  <Channel Name="Static Gobo Change">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="7" Color="#ffffff">White</Capability>
-  <Capability Min="8" Max="15" Res="ClayPaky/gobo00006.png">Gobo 1</Capability>
-  <Capability Min="16" Max="23" Res="ClayPaky/gobo00007.png">Gobo 2</Capability>
+  <Capability Min="8" Max="15" Res="ClayPaky/gobo00006.svg">Gobo 1</Capability>
+  <Capability Min="16" Max="23" Res="ClayPaky/gobo00007.svg">Gobo 2</Capability>
   <Capability Min="24" Max="31" Res="ClayPaky/gobo00008.svg">Gobo 3</Capability>
   <Capability Min="32" Max="39" Res="ClayPaky/gobo00004.svg">Gobo 4</Capability>
   <Capability Min="40" Max="47" Res="ClayPaky/gobo00003.svg">Gobo 5</Capability>
@@ -79,12 +79,12 @@
  <Channel Name="Rotating Gobo Change">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="18">White</Capability>
-  <Capability Min="19" Max="37" Res="ClayPaky/gobo00017.png">Gobo 1</Capability>
-  <Capability Min="38" Max="55" Res="ClayPaky/gobo00016.png">Gobo 2</Capability>
-  <Capability Min="56" Max="74" Res="ClayPaky/gobo00015.png">Gobo 3</Capability>
-  <Capability Min="75" Max="92" Res="ClayPaky/gobo00014.png">Gobo 4</Capability>
-  <Capability Min="93" Max="111" Res="ClayPaky/gobo00013.png">Gobo 5</Capability>
-  <Capability Min="112" Max="129" Res="ClayPaky/gobo00012.png">Gobo 6</Capability>
+  <Capability Min="19" Max="37" Res="ClayPaky/gobo00017.svg">Gobo 1</Capability>
+  <Capability Min="38" Max="55" Res="ClayPaky/gobo00016.svg">Gobo 2</Capability>
+  <Capability Min="56" Max="74" Res="ClayPaky/gobo00015.svg">Gobo 3</Capability>
+  <Capability Min="75" Max="92" Res="ClayPaky/gobo00014.svg">Gobo 4</Capability>
+  <Capability Min="93" Max="111" Res="ClayPaky/gobo00013.svg">Gobo 5</Capability>
+  <Capability Min="112" Max="129" Res="ClayPaky/gobo00012.svg">Gobo 6</Capability>
   <Capability Min="130" Max="150">Gobo 1 Shake, Slow -&gt; Fast</Capability>
   <Capability Min="151" Max="171">Gobo 2 Shake, Slow -&gt; Fast</Capability>
   <Capability Min="172" Max="192">Gobo 3 Shake, Slow -&gt; Fast</Capability>

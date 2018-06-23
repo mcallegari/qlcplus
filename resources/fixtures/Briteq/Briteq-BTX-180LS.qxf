@@ -66,14 +66,14 @@
   <Capability Res="Chauvet/gobo00040.png" Min="24" Max="31">Gobo 3</Capability>
   <Capability Res="Chauvet/gobo00001.png" Min="32" Max="39">Gobo 4</Capability>
   <Capability Res="Others/gobo00045.svg" Min="40" Max="47">Gobo 5</Capability>
-  <Capability Res="ClayPaky/gobo00012.png" Min="48" Max="55">Gobo 6</Capability>
+  <Capability Res="ClayPaky/gobo00012.svg" Min="48" Max="55">Gobo 6</Capability>
   <Capability Res="Robe/gobo00026.svg" Min="56" Max="63">Gobo 7</Capability>
   <Capability Res="ClayPaky/gobo00059.svg" Min="64" Max="73">Gobo 1 Shake</Capability>
   <Capability Res="Others/gobo00005.svg" Min="74" Max="82">Gobo 2 Shake</Capability>
   <Capability Res="Chauvet/gobo00040.png" Min="83" Max="91">Gobo 3 Shake</Capability>
   <Capability Res="Chauvet/gobo00001.png" Min="92" Max="100">Gobo 4 Shake</Capability>
   <Capability Res="Others/gobo00045.svg" Min="101" Max="109">Gobo 5 Shake</Capability>
-  <Capability Res="ClayPaky/gobo00012.png" Min="110" Max="118">Gobo 6 Shake</Capability>
+  <Capability Res="ClayPaky/gobo00012.svg" Min="110" Max="118">Gobo 6 Shake</Capability>
   <Capability Res="Robe/gobo00026.svg" Min="119" Max="127">Gobo 7 Shake</Capability>
   <Capability Min="128" Max="189">Gobo wheel turning clockwise (fast&gt;slow)</Capability>
   <Capability Min="190" Max="193">Gobo wheel stops turning </Capability>

@@ -101,7 +101,7 @@
  <Channel Name="Rotating Gobo 1 change">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="17">No gobo</Capability>
-  <Capability Min="18" Max="35" Preset="GoboMacro" Res1="ClayPaky/gobo00067.png">Gobo 1</Capability>
+  <Capability Min="18" Max="35" Preset="GoboMacro" Res1="ClayPaky/gobo00067.svg">Gobo 1</Capability>
   <Capability Min="36" Max="53" Preset="GoboMacro" Res1="ClayPaky/gobo00059.svg">Gobo 2</Capability>
   <Capability Min="54" Max="71" Preset="GoboMacro" Res1="ClayPaky/gobo00068.png">Gobo 3</Capability>
   <Capability Min="72" Max="89" Preset="GoboMacro" Res1="ClayPaky/gobo00069.svg">Gobo 4</Capability>

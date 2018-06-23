@@ -24,7 +24,7 @@
   <Capability Res="Robe/gobo00027.svg" Min="128" Max="159">Clouds</Capability>
   <Capability Res="Others/gobo00046.png" Min="160" Max="191">Turbine</Capability>
   <Capability Res="Others/gobo00011.svg" Min="192" Max="223">Sun</Capability>
-  <Capability Res="ClayPaky/gobo00012.png" Min="224" Max="255">Bar</Capability>
+  <Capability Res="ClayPaky/gobo00012.svg" Min="224" Max="255">Bar</Capability>
  </Channel>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>

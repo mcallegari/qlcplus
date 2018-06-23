@@ -19,14 +19,14 @@
   <Capability Res="SGM/gobo00066.svg" Min="32" Max="47">Arrow</Capability>
   <Capability Res="SGM/gobo00022.png" Min="48" Max="63">Flower</Capability>
   <Capability Res="SGM-Color/gobo00403.png" Min="64" Max="79">Star Field</Capability>
-  <Capability Res="ClayPaky/gobo00012.png" Min="80" Max="96">Line</Capability>
+  <Capability Res="ClayPaky/gobo00012.svg" Min="80" Max="96">Line</Capability>
   <Capability Res="SGM/gobo00015.png" Min="97" Max="111">Piromid</Capability>
   <Capability Res="Others/gobo00046.png" Min="112" Max="127">Spiral</Capability>
   <Capability Res="Others/gobo00045.svg" Min="128" Max="143">Square</Capability>
   <Capability Res="Others/gobo00027.svg" Min="144" Max="159">Triangle</Capability>
   <Capability Res="SGM/gobo00002.svg" Min="160" Max="175">Sun</Capability>
   <Capability Res="SGM/gobo00225.svg" Min="176" Max="191">Heart</Capability>
-  <Capability Res="ClayPaky/gobo00062.png" Min="192" Max="207">Daisey</Capability>
+  <Capability Res="ClayPaky/gobo00062.svg" Min="192" Max="207">Daisey</Capability>
   <Capability Res="SGM/gobo00042.png" Min="208" Max="223">Circle</Capability>
   <Capability Min="224" Max="239">Scroll Speed</Capability>
   <Capability Min="240" Max="255">Strobe Speed</Capability>

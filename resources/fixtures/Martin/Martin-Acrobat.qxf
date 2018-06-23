@@ -44,7 +44,7 @@
   <Capability Res="Chauvet/gobo00008.png" Min="156" Max="167">Nordic</Capability>
   <Capability Res="Chauvet/gobo00048.png" Min="168" Max="179">Aim</Capability>
   <Capability Res="Chauvet/gobo00026.png" Min="180" Max="191">Pie</Capability>
-  <Capability Res="ClayPaky/gobo00091.png" Min="192" Max="203">Tie</Capability>
+  <Capability Res="ClayPaky/gobo00091.svg" Min="192" Max="203">Tie</Capability>
   <Capability Res="ClayPaky/gobo00066.svg" Min="204" Max="215">Nova</Capability>
   <Capability Res="ClayPaky/gobo00023.svg" Min="216" Max="227">Triple Beam</Capability>
   <Capability Color="#000000" Min="228" Max="239">Blackout</Capability>

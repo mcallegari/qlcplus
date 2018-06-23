@@ -44,10 +44,10 @@
   <Capability Res="ClayPaky/gobo00009.svg" Min="16" Max="23">Gobo 2</Capability>
   <Capability Res="Others/gobo00042.png" Min="24" Max="31">Gobo 3</Capability>
   <Capability Res="SGM/gobo00042.png" Min="32" Max="39">Gobo 4</Capability>
-  <Capability Res="ClayPaky/gobo00012.png" Min="40" Max="47">Gobo 5</Capability>
-  <Capability Res="ClayPaky/gobo00088.png" Min="48" Max="63">Animation Effect (static)</Capability>
-  <Capability Res="ClayPaky/gobo00088.png" Min="64" Max="79">Animation Effect (slow to fast)</Capability>
-  <Capability Res="ClayPaky/gobo00012.png" Min="80" Max="87">Gobo 5 shake, from slow to fast</Capability>
+  <Capability Res="ClayPaky/gobo00012.svg" Min="40" Max="47">Gobo 5</Capability>
+  <Capability Res="ClayPaky/gobo00088.svg" Min="48" Max="63">Animation Effect (static)</Capability>
+  <Capability Res="ClayPaky/gobo00088.svg" Min="64" Max="79">Animation Effect (slow to fast)</Capability>
+  <Capability Res="ClayPaky/gobo00012.svg" Min="80" Max="87">Gobo 5 shake, from slow to fast</Capability>
   <Capability Res="SGM/gobo00042.png" Min="88" Max="95">Gobo 4 shake, from slow to fast</Capability>
   <Capability Res="Others/gobo00042.png" Min="96" Max="103">Gobo 3 shake, from slow to fast</Capability>
   <Capability Res="ClayPaky/gobo00009.svg" Min="104" Max="111">Gobo 2 shake, from slow to fast</Capability>
