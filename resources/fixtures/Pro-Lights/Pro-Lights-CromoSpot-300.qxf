@@ -109,7 +109,7 @@
   <Capability Min="0" Max="10" Res="Others/open.svg">No Gobo</Capability>
   <Capability Min="11" Max="20" Res="Chauvet/gobo00001.png">Gobo 1</Capability>
   <Capability Min="21" Max="30" Res="ClayPaky/gobo00054.svg">Gobo 2</Capability>
-  <Capability Min="31" Max="40" Res="Chauvet/gobo00077.png">Gobo 3</Capability>
+  <Capability Min="31" Max="40" Res="Chauvet/gobo00077.svg">Gobo 3</Capability>
   <Capability Min="41" Max="50" Res="Others/gobo00027.svg">Gobo 4</Capability>
   <Capability Min="51" Max="60" Res="ClayPaky/gobo00092.svg">Gobo 5</Capability>
   <Capability Min="61" Max="70" Res="SGM-Color/gobo00402.png">Gobo 6</Capability>
@@ -118,7 +118,7 @@
   <Capability Min="96" Max="110" Res="SGM-Color/gobo00402.png">Shaking Gobo 6</Capability>
   <Capability Min="111" Max="125" Res="ClayPaky/gobo00092.svg">Shaking Gobo 5</Capability>
   <Capability Min="126" Max="140" Res="Others/gobo00027.svg">Shaking Gobo 4</Capability>
-  <Capability Min="141" Max="155" Res="Chauvet/gobo00077.png">Shaking Gobo 3</Capability>
+  <Capability Min="141" Max="155" Res="Chauvet/gobo00077.svg">Shaking Gobo 3</Capability>
   <Capability Min="156" Max="170" Res="ClayPaky/gobo00054.svg">Shaking Gobo 2</Capability>
   <Capability Min="171" Max="185" Res="Chauvet/gobo00001.png">Shaking Gobo 1</Capability>
   <Capability Min="186" Max="255">Flow Effect</Capability>

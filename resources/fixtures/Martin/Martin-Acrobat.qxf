@@ -29,7 +29,7 @@
  <Channel Name="Color / Gobo Wheel">
   <Group Byte="0">Gobo</Group>
   <Capability Res="Others/open.svg" Min="0" Max="11">Open</Capability>
-  <Capability Res="Chauvet/gobo00033.png" Min="12" Max="23">Worms</Capability>
+  <Capability Res="Chauvet/gobo00033.svg" Min="12" Max="23">Worms</Capability>
   <Capability Res="Chauvet/gobo00044.png" Min="24" Max="35">Web</Capability>
   <Capability Res="ClayPaky/gobo00072.svg" Min="36" Max="47">Petals</Capability>
   <Capability Res="ClayPaky/gobo00066.svg" Min="48" Max="59">Spokes</Capability>
@@ -43,7 +43,7 @@
   <Capability Res="ClayPaky/gobo00059.svg" Min="144" Max="155">Dot Circle</Capability>
   <Capability Res="Chauvet/gobo00008.png" Min="156" Max="167">Nordic</Capability>
   <Capability Res="Chauvet/gobo00048.png" Min="168" Max="179">Aim</Capability>
-  <Capability Res="Chauvet/gobo00026.png" Min="180" Max="191">Pie</Capability>
+  <Capability Res="Chauvet/gobo00026.svg" Min="180" Max="191">Pie</Capability>
   <Capability Res="ClayPaky/gobo00091.svg" Min="192" Max="203">Tie</Capability>
   <Capability Res="ClayPaky/gobo00066.svg" Min="204" Max="215">Nova</Capability>
   <Capability Res="ClayPaky/gobo00023.svg" Min="216" Max="227">Triple Beam</Capability>

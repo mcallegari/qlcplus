@@ -22,7 +22,7 @@
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
   <Capability Res="Others/open.svg" Min="0" Max="11">White (open)</Capability>
-  <Capability Res="Chauvet/gobo00026.png" Min="12" Max="23">Yellow</Capability>
+  <Capability Res="Chauvet/gobo00026.svg" Min="12" Max="23">Yellow</Capability>
   <Capability Res="Others/gobo00002.png" Min="24" Max="34">Blue</Capability>
   <Capability Res="Chauvet/gobo00037.png" Min="35" Max="46">Blue+Red+Green</Capability>
   <Capability Res="Chauvet/gobo00045.png" Min="47" Max="58">Green</Capability>

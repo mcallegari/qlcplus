@@ -62,7 +62,7 @@
   <Capability Min="48" Max="63" Res="SGM-Color/gobo00547.png">gobo 3</Capability>
   <Capability Min="64" Max="79" Res="Chauvet/gobo00040.png">gobo 4</Capability>
   <Capability Min="80" Max="95" Res="SGM/gobo00089.svg">gobo 5</Capability>
-  <Capability Min="96" Max="111" Res="Chauvet/gobo00036.png">gobo 6</Capability>
+  <Capability Min="96" Max="111" Res="Chauvet/gobo00036.svg">gobo 6</Capability>
   <Capability Min="112" Max="127" Res="Robe/gobo00029.svg">gobo 7</Capability>
   <Capability Min="128" Max="191">rotating wheel gobo fast to slow cw</Capability>
   <Capability Min="192" Max="255">rotating wheel gobo slow to fast ccw</Capability>
@@ -107,7 +107,7 @@
   <Capability Min="48" Max="51" Res="SGM-Color/gobo00547.png">G12</Capability>
   <Capability Min="52" Max="55" Res="Chauvet/gobo00040.png">G13</Capability>
   <Capability Min="56" Max="59" Res="SGM/gobo00089.svg">G14</Capability>
-  <Capability Min="60" Max="63" Res="Chauvet/gobo00036.png">G15</Capability>
+  <Capability Min="60" Max="63" Res="Chauvet/gobo00036.svg">G15</Capability>
   <Capability Min="64" Max="67" Res="Robe/gobo00029.svg">G16</Capability>
   <Capability Min="68" Max="71">G10+G1</Capability>
   <Capability Min="72" Max="75">G10+G3</Capability>
