@@ -19,10 +19,10 @@
   <Group Byte="0">Gobo</Group>
   <Capability Res="Others/open.svg" Min="0" Max="31">Open</Capability>
   <Capability Res="Others/gobo00027.svg" Min="32" Max="63">Triangle</Capability>
-  <Capability Res="Others/gobo00028.png" Min="64" Max="95">Holes</Capability>
+  <Capability Res="Others/gobo00028.svg" Min="64" Max="95">Holes</Capability>
   <Capability Res="Others/gobo00013.svg" Min="96" Max="127">Phone</Capability>
   <Capability Res="Robe/gobo00027.svg" Min="128" Max="159">Clouds</Capability>
-  <Capability Res="Others/gobo00046.png" Min="160" Max="191">Turbine</Capability>
+  <Capability Res="Others/gobo00046.svg" Min="160" Max="191">Turbine</Capability>
   <Capability Res="Others/gobo00011.svg" Min="192" Max="223">Sun</Capability>
   <Capability Res="ClayPaky/gobo00012.svg" Min="224" Max="255">Bar</Capability>
  </Channel>

@@ -37,7 +37,7 @@
   <Capability Res="SGM/gobo00008.png" Min="72" Max="83">Maze</Capability>
   <Capability Res="Others/gobo00018.svg" Min="84" Max="95">Crater</Capability>
   <Capability Res="Others/gobo00008.svg" Min="96" Max="107">Holes</Capability>
-  <Capability Res="Others/gobo00023.png" Min="108" Max="119">Cross</Capability>
+  <Capability Res="Others/gobo00023.svg" Min="108" Max="119">Cross</Capability>
   <Capability Res="Others/gobo00012.svg" Min="120" Max="131">Jagged Cross</Capability>
   <Capability Res="Others/gobo00009.svg" Min="132" Max="143">Atomic</Capability>
   <Capability Res="ClayPaky/gobo00059.svg" Min="144" Max="155">Dot Circle</Capability>

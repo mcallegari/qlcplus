@@ -28,11 +28,11 @@
   <Capability Res="SGM/gobo00174.svg" Min="35" Max="43">Web</Capability>
   <Capability Res="GLP/gobo00014.png" Min="44" Max="51">3 Comas</Capability>
   <Capability Res="ClayPaky/gobo00032.png" Min="52" Max="59">Honeycomb</Capability>
-  <Capability Res="Others/gobo00030.png" Min="60" Max="68">Square</Capability>
+  <Capability Res="Others/gobo00030.svg" Min="60" Max="68">Square</Capability>
   <Capability Res="Others/gobo00018.svg" Min="69" Max="76">Radiation</Capability>
   <Capability Min="77" Max="85">Batman</Capability>
   <Capability Res="SGM/gobo00123.svg" Min="86" Max="93">Star</Capability>
-  <Capability Res="Others/gobo00029.png" Min="94" Max="102">Dotted Line</Capability>
+  <Capability Res="Others/gobo00029.svg" Min="94" Max="102">Dotted Line</Capability>
   <Capability Res="Robe/gobo00025.svg" Min="103" Max="110">Circle</Capability>
   <Capability Res="SGM/gobo00279.png" Min="111" Max="119">Energy</Capability>
   <Capability Res="SGM/gobo00348.png" Min="120" Max="127">Cross Stamp</Capability>

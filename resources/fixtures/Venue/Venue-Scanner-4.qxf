@@ -21,7 +21,7 @@
   <Capability Res="SGM-Color/gobo00403.png" Min="64" Max="79">Star Field</Capability>
   <Capability Res="ClayPaky/gobo00012.svg" Min="80" Max="96">Line</Capability>
   <Capability Res="SGM/gobo00015.png" Min="97" Max="111">Piromid</Capability>
-  <Capability Res="Others/gobo00046.png" Min="112" Max="127">Spiral</Capability>
+  <Capability Res="Others/gobo00046.svg" Min="112" Max="127">Spiral</Capability>
   <Capability Res="Others/gobo00045.svg" Min="128" Max="143">Square</Capability>
   <Capability Res="Others/gobo00027.svg" Min="144" Max="159">Triangle</Capability>
   <Capability Res="SGM/gobo00002.svg" Min="160" Max="175">Sun</Capability>
