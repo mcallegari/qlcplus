@@ -33,11 +33,10 @@ Entity
 
     property bool isSelected: false
 
-    function bindFixtureTransform(fixtureID, t)
+    function bindFixtureTransform(itemID, t)
     {
-        isSelected = contextManager.isFixtureSelected(fixtureID)
+        isSelected = contextManager.isFixtureSelected(itemID)
         selectionTransform.translation = Qt.binding(function() { return center.plus(t.translation) })
-        //console.log("Bind transform " + center + ", " + t.translation)
     }
 
     Material

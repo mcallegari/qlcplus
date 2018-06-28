@@ -3,6 +3,7 @@
   mainview3d.h
 
   Copyright (c) Massimo Callegari
+  Copyright (c) Eric Arnebäck
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -25,11 +26,13 @@
 
 #include <Qt3DCore/QEntity>
 #include <Qt3DCore/QTransform>
-#include <Qt3DRender/QSceneLoader>
-#include <Qt3DRender/QMaterial>
 #include <Qt3DRender/QLayer>
 #include <Qt3DRender/QEffect>
+#include <Qt3DRender/QMaterial>
+#include <Qt3DRender/QSceneLoader>
+#include <Qt3DRender/QRenderTarget>
 #include <Qt3DRender/QGeometryRenderer>
+#include <Qt3DRender/QPaintedTextureImage>
 
 #include "previewcontext.h"
 
@@ -39,6 +42,21 @@ class MonitorProperties;
 
 using namespace Qt3DCore;
 using namespace Qt3DRender;
+
+class GoboTextureImage : public Qt3DRender::QPaintedTextureImage
+{
+public:
+    GoboTextureImage(int w, int h, QString filename);
+
+    QString source() const;
+
+    void setSource(QString filename);
+
+protected:
+    void paint(QPainter *painter);
+
+    QString m_source;
+};
 
 typedef struct
 {
@@ -62,6 +80,12 @@ typedef struct
     BoundingVolume m_volume;
     /** The selection box entity */
     QEntity *m_selectionBox;
+    /** Reference to the layers used for scattering */
+    QLayer *m_spotlightShadingLayer;
+    QLayer *m_spotlightScatteringLayer;
+    QLayer *m_outputDepthLayer;
+
+    GoboTextureImage *m_goboTexture;
 
 } FixtureMesh;
 
@@ -89,6 +113,8 @@ public:
 protected:
     /** Returns a string with the mesh location, suitable to be used by QML */
     QString meshDirectory() const;
+    /** Returns a string with the gobo location, cross platform */
+    QString goboDirectory() const;
 
 public slots:
     /** @reimp */
@@ -101,6 +127,8 @@ private:
     /** Pre-cached QML components for quick item creation */
     QQmlComponent *m_fixtureComponent;
     QQmlComponent *m_selectionComponent;
+    QQmlComponent *m_spotlightConeComponent;
+    QQmlComponent *m_fillGBufferLayer;
 
     /*********************************************************************
      * Fixtures
@@ -118,6 +146,8 @@ public:
     void setFixtureFlags(quint32 itemID, quint32 flags);
 
     Q_INVOKABLE void initializeFixture(quint32 itemID, QEntity *fxEntity, QComponent *picker, QSceneLoader *loader);
+
+    Q_INVOKABLE QString makeShader(QString str);
 
     /** Update the fixture preview items when some channels have changed */
     void updateFixture(Fixture *fixture);
@@ -173,7 +203,10 @@ private:
 
     /** Reference to the light pass entity and material for uniform updates */
     QEntity *m_quadEntity;
-    QMaterial *m_quadMaterial;
+
+    /** Reference to the render targets used for scattering */
+    QRenderTarget *m_gBuffer;
+    QRenderTarget *m_frontDepthTarget;
 
     /** Map of QLC+ fixture IDs and QML Entity items */
     QMap<quint32, FixtureMesh*> m_entitiesMap;

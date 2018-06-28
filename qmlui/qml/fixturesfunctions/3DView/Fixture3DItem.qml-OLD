@@ -3,7 +3,6 @@
   Fixture3DItem.qml
 
   Copyright (c) Massimo Callegari
-  Copyright (c) Eric Arnebäck
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -30,7 +29,6 @@ import "."
 Entity
 {
     id: fixtureEntity
-    objectName: "fixture3DItem"
 
     property int itemID: fixtureManager.invalidFixture()
     property alias itemSource: eSceneLoader.source
@@ -48,42 +46,15 @@ Entity
     property Transform panTransform
     property Transform tiltTransform
 
-    property real cutOff: focusMinDegrees / 2 // TODO: degrees or radians ? That is the question
-    property real distCutoff: 40.0
-    property real cutoffAngle: 0.2
-
-    property int raymarchSteps: 40
-
-    // spotlight cone radius
-    property real coneRadius: Math.tan(cutoffAngle) * distCutoff
-
-    readonly property Layer spotlightShadingLayer: Layer { objectName: "spotlightShadingLayer" }
-    readonly property Layer outputDepthLayer: Layer { objectName: "outputDepthLayer" }
-    readonly property Layer spotlightScatteringLayer: Layer { objectName: "spotlightScatteringLayer" }
-
     /* Light properties. These are bound to uniforms in ScreenQuadEntity */
     property int lightIndex
-    property real lightIntensity: 1.0
+    property real intensity: 0.0
     property color lightColor: Qt.rgba(0, 0, 0, 1)
-    property vector3d lightPos: Qt.vector3d(0, 0, 0)
-    property vector3d lightDir: Qt.vector3d(0, -1, 0)
+    property vector3d lightPosition: Qt.vector3d(0, 0, 0)
+    property vector3d direction: Qt.vector3d(0, -1, 0)
+    property real cutOff: focusMinDegrees / 2
 
-    property matrix4x4 lightViewMatrix:
-    {
-        return lookAt(lightPos,  lightPos.plus(getLightDir()), Qt.vector3d(1.0, 0.0, 0.0))
-    }
-
-    property matrix4x4 lightProjectionMatrix:perspective( cutoffAngle, 1.0, 0.1, 40.0 )
-
-    property matrix4x4 lightViewProjectionMatrix: lightProjectionMatrix.times(lightViewMatrix)
-
-    property matrix4x4 lightViewProjectionScaleAndOffsetMatrix: Qt.matrix4x4(
-        0.5, 0.0, 0.0, 0.5,
-        0.0, 0.5, 0.0, 0.5,
-        0.0, 0.0, 0.5, 0.5,
-        0.0, 0.0, 0.0, 1.0).times(lightViewProjectionMatrix)
-
-    property real intensityOrigValue: lightIntensity
+    property real intensityOrigValue: intensity
 
     onItemIDChanged: isSelected = contextManager.isFixtureSelected(itemID)
 
@@ -92,52 +63,6 @@ Entity
 
     //onPositionChanged: console.log("Light position changed: " + position)
     //onDirectionChanged: console.log("Light direction changed: " + direction)
-
-    function lookAt(eye, center, up)
-    {
-        // compute the basis vectors.
-        var forward = (center.minus(eye)).normalized() // forward vector.
-        var left = (forward.crossProduct(up)).normalized() // left vector.
-        var u = (left.crossProduct(forward)).normalized() // up vector.
-
-        return Qt.matrix4x4(
-            left.x, u.x, -forward.x, 0.0,
-            left.y, u.y, -forward.y, 0.0,
-            left.z, u.z, -forward.z, 0.0,
-            -left.dotProduct(eye), -u.dotProduct(eye), forward.dotProduct(eye), 1.0).transposed()
-    }
-
-    function getLightDir()
-    {
-        var lightMatrix = transform.matrix
-        if (panTransform)
-            lightMatrix = transform.matrix.times(panTransform.matrix)
-        if (tiltTransform)
-            lightMatrix = lightMatrix.times(tiltTransform.matrix)
-        lightMatrix = lightMatrix.times(Qt.vector4d(0.0, -1.0, 0.0, 0.0))
-
-        return lightMatrix.toVector3d()
-    }
-
-    function perspective(fovy, aspect, zNear, zFar)
-    {
-        var ymax = zNear * Math.tan(fovy)
-        var xmax = ymax * aspect;
-        var left = -xmax;
-        var right = +xmax;
-        var bottom = -ymax;
-        var top = +ymax;
-        var f1, f2, f3, f4;
-        f1 = 2.0 * zNear;
-        f2 = right - left;
-        f3 = top - bottom;
-        f4 = zFar - zNear;
-        return Qt.matrix4x4(
-            f1 / f2, 0.0, 0.0, 0.0,
-            0.0, f1/f3, 0.0, 0.0,
-            (right + left) / f2, (top + bottom) / f3, (-zFar - zNear) / f4, -1.0,
-            0.0, 0.0, (-zFar * f1) / f4, 0.0).transposed()
-    }
 
     function bindPanTransform(t, maxDegrees)
     {
@@ -199,12 +124,12 @@ Entity
         switch(type)
         {
             case QLCCapability.ShutterOpen:
-                lightIntensity = intensityOrigValue
+                intensity = intensityOrigValue
             break;
 
             case QLCCapability.ShutterClose:
-                intensityOrigValue = lightIntensity
-                lightIntensity = 0
+                intensityOrigValue = intensity
+                intensity = 0
             break;
 
             case QLCCapability.StrobeFastToSlow:
@@ -244,11 +169,6 @@ Entity
         }
     }
 
-    function setRaymarchSteps(value)
-    {
-        raymarchSteps = value
-    }
-
     QQ2.NumberAnimation on panRotation
     {
         id: panAnim
@@ -264,8 +184,8 @@ Entity
     }
 
     // strobe/pulse effect
-    QQ2.SequentialAnimation on lightIntensity
-    {   
+    QQ2.SequentialAnimation on intensity
+    {
         id: shutterAnim
         running: false
         loops: QQ2.Animation.Infinite
@@ -273,38 +193,8 @@ Entity
         QQ2.NumberAnimation { id: highPhase; from: intensityOrigValue; to: intensityOrigValue; duration: 200; easing.type: Easing.Linear }
         QQ2.NumberAnimation { id: outPhase; from: intensityOrigValue; to: 0; duration: 0; easing.type: Easing.Linear }
         QQ2.NumberAnimation { id: lowPhase; from: 0; to: 0; duration: 800; easing.type: Easing.Linear }
-      }
+    }
 
-     property RenderTarget shadowMap:
-        RenderTarget
-        {
-            property alias depth: depthAttachment
-
-            attachments: [
-                RenderTargetOutput
-                {
-                    attachmentPoint: RenderTargetOutput.Depth
-                    texture:
-                        Texture2D
-                        {
-                            id: depthAttachment
-                            width: 1024
-                            height: 1024
-                            format: Texture.D32F
-                            generateMipMaps: false
-                            magnificationFilter: Texture.Linear
-                            minificationFilter: Texture.Linear
-                            wrapMode
-                            {
-                                x: WrapMode.ClampToEdge
-                                y: WrapMode.ClampToEdge
-                            }
-                        }
-                }
-            ] // outputs
-        }
-
-    property Texture2D goboTexture: Texture2D { }
     property Transform transform: Transform { }
 
     SceneLoader
@@ -313,37 +203,12 @@ Entity
 
         onStatusChanged:
         {
-            if (status === SceneLoader.Ready)
+            if (status == SceneLoader.Ready)
                 View3D.initializeFixture(itemID, fixtureEntity, eObjectPicker, eSceneLoader)
         }
     }
 
     components: [ eSceneLoader, transform ]
-
-    function setupScattering(shadingLayer, scatteringLayer, depthLayer,
-                             shadingEffect, scatteringEffect, depthEffect,
-                             headEntity)
-    {
-        shadingCone.coneLayer = shadingLayer
-        shadingCone.coneEffect = shadingEffect
-        shadingCone.coneMaterial.bindFixture(fixtureEntity)
-        shadingCone.parent = headEntity
-
-        scatteringCone.coneLayer = scatteringLayer
-        scatteringCone.coneEffect = scatteringEffect
-        scatteringCone.coneMaterial.bindFixture(fixtureEntity)
-        scatteringCone.parent = headEntity
-
-        outDepthCone.coneLayer = depthLayer
-        outDepthCone.coneEffect = depthEffect
-        outDepthCone.coneMaterial.bindFixture(fixtureEntity)
-        outDepthCone.parent = headEntity
-    }
-
-    /* Cone meshes used for scattering. These get re-parented to a head mesh via setupScattering */
-    SpotlightConeEntity { id: shadingCone }
-    SpotlightConeEntity { id: scatteringCone }
-    SpotlightConeEntity { id: outDepthCone }
 
     /* This gets re-parented and activated on initializeFixture */
     ObjectPicker
@@ -373,9 +238,9 @@ Entity
                                               pick.worldIntersection.x * 1000.0,
                                               pick.worldIntersection.y * 1000.0,
                                               pick.worldIntersection.z * 1000.0)
-    }
+        }
 */
-}
+    }
 }
 
 

@@ -32,10 +32,10 @@ Rectangle
     border.width: 1
     border.color: "#222"
 
-    property vector3d envSize: contextManager.environmentSize
+    property vector3d envSize: contextManager ? contextManager.environmentSize : Qt.vector3d(0, 0, 0)
     property real ambientIntensity: View3D.ambientIntensity
 
-    property int selFixturesCount: contextManager.selectedFixturesCount
+    property int selFixturesCount: contextManager ? contextManager.selectedFixturesCount : 0
     property bool fxPropsVisible: selFixturesCount ? true : false
     property vector3d fxPosition: selFixturesCount === 1 ? contextManager.fixturesPosition : lastPosition
     property vector3d lastPosition

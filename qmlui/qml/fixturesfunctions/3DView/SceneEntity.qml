@@ -2,7 +2,7 @@
   Q Light Controller Plus
   SceneEntity.qml
 
-  Copyright (c) Massimo Callegari
+  Copyright (c) Massimo Callegari, Eric Arnebäck
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -35,6 +35,9 @@ Entity
     readonly property Layer selectionLayer: Layer { objectName: "selectionLayer" }
     readonly property GeometryRenderer selectionMesh: SelectionGeometry { }
     readonly property Effect geometryPassEffect: GeometryPassEffect { }
+    readonly property Effect spotlightShadingEffect: SpotlightShadingEffect { }
+    readonly property Effect spotlightScatteringEffect: SpotlightScatteringEffect { }
+    readonly property Effect outputFrontDepthEffect: OutputFrontDepthEffect { }
 
     // Global elements
     Camera
@@ -49,4 +52,5 @@ Entity
         upVector: Qt.vector3d(0.0, 1.0, 0.0)
         viewCenter: Qt.vector3d(0.0, 1.0, 0.0)
     }
-}
+
+            }
