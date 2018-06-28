@@ -64,26 +64,19 @@ Entity
     /* Light properties. These are bound to uniforms in ScreenQuadEntity */
     property int lightIndex
     property real lightIntensity: 1.0
+    property real intensityOrigValue: lightIntensity
     property color lightColor: Qt.rgba(0, 0, 0, 1)
     property vector3d lightPos: Qt.vector3d(0, 0, 0)
     property vector3d lightDir: Qt.vector3d(0, -1, 0)
 
-    property matrix4x4 lightViewMatrix:
-    {
-        return lookAt(lightPos,  lightPos.plus(getLightDir()), Qt.vector3d(1.0, 0.0, 0.0))
-    }
-
+    property matrix4x4 lightViewMatrix: lookAt(lightPos,  lightPos.plus(getLightDir()), Qt.vector3d(1.0, 0.0, 0.0))
     property matrix4x4 lightProjectionMatrix:perspective( cutoffAngle, 1.0, 0.1, 40.0 )
-
     property matrix4x4 lightViewProjectionMatrix: lightProjectionMatrix.times(lightViewMatrix)
-
     property matrix4x4 lightViewProjectionScaleAndOffsetMatrix: Qt.matrix4x4(
         0.5, 0.0, 0.0, 0.5,
         0.0, 0.5, 0.0, 0.5,
         0.0, 0.0, 0.5, 0.5,
         0.0, 0.0, 0.0, 1.0).times(lightViewProjectionMatrix)
-
-    property real intensityOrigValue: lightIntensity
 
     onItemIDChanged: isSelected = contextManager.isFixtureSelected(itemID)
 

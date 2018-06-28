@@ -22,6 +22,8 @@ FS_IN_ATTRIB vec2 fsUv;
 uniform sampler2D albedoTex;
 uniform sampler2D normalTex;
 
+uniform float ambient;
+
 DECLARE_FRAG_COLOR
 
 void main()
@@ -29,9 +31,9 @@ void main()
     vec3 albedo = SAMPLE_TEX2D(albedoTex, fsUv).rgb;
     
     vec3 finalColor = vec3(0.0);
-    vec3 l = normalize(vec3(1.0, 1.0, 1.0)); // just hardcode this for now :-)
+    vec3 l = normalize(vec3(1.0, 1.0, 1.0));
     vec3 n =  normalize(SAMPLE_TEX2D(normalTex, fsUv).xyz);
-    finalColor = albedo.rgb * max(0.0, dot(l, n));
+    finalColor = ambient * albedo.rgb * max(0.0, dot(l, n));
     
     MGL_FRAG_COLOR = vec4(finalColor, 1.0);
 }

@@ -26,11 +26,14 @@ TechniqueFilter
 {
     property GBuffer gBuffer
     property Layer screenQuadLayer
+    property real ambientIntensity: View3D.ambientIntensity
 
     parameters: [
         Parameter { name: "albedoTex"; value: gBuffer.color },
-        Parameter { name: "normalTex"; value: gBuffer.normal }
+        Parameter { name: "normalTex"; value: gBuffer.normal },
+        Parameter { name: "ambient"; value: ambientIntensity }
     ]     
+
     RenderStateSet
     {
         // Render FullScreen Quad
