@@ -137,7 +137,7 @@
   <Capability Min="16" Max="29">Gobo 1 to Gobo 2 - Continuous scrolling</Capability>
   <Capability Min="30" Max="30" Res="Others/gobo00078.svg"> Gobo 2 - Continuous scrolling</Capability>
   <Capability Min="31" Max="44">Gobo 2 to Gobo 3 - Continuous scrolling</Capability>
-  <Capability Min="45" Max="45" Res="Chauvet/gobo00034.png">Gobo 3 - Continuous scrolling</Capability>
+  <Capability Min="45" Max="45" Res="Chauvet/gobo00034.svg">Gobo 3 - Continuous scrolling</Capability>
   <Capability Min="46" Max="59">Gobo 3 to Gobo 4 - Continuous scrolling</Capability>
   <Capability Min="60" Max="60" Res="Others/gobo00079.svg">Gobo 4 - Continuous scrolling</Capability>
   <Capability Min="61" Max="74">Gobo 4 to Gobo 5 - Continuous scrolling</Capability>
@@ -150,7 +150,7 @@
   <Capability Min="120" Max="160">Open - Continuous scrolling</Capability>
   <Capability Min="161" Max="163" Res="Others/gobo00064.svg">Gobo 1 - Stepped scrolling</Capability>
   <Capability Min="164" Max="166" Res="Others/gobo00078.svg">Gobo 2 - Stepped scrolling</Capability>
-  <Capability Min="167" Max="169" Res="Chauvet/gobo00034.png">Gobo 3 - Stepped scrolling</Capability>
+  <Capability Min="167" Max="169" Res="Chauvet/gobo00034.svg">Gobo 3 - Stepped scrolling</Capability>
   <Capability Min="170" Max="172" Res="Others/gobo00079.svg">Gobo 4 - Stepped scrolling</Capability>
   <Capability Min="173" Max="175" Res="Others/gobo00080.svg">Gobo 5 - Stepped scrolling</Capability>
   <Capability Min="176" Max="178" Res="Others/gobo00081.svg">Gobo 6 - Stepped scrolling</Capability>

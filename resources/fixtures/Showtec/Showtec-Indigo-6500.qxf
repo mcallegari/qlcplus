@@ -56,7 +56,7 @@
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="10">Open/White</Capability>
   <Capability Res="Chauvet/gobo00008.png" Min="11" Max="20">Metal Gobo 1</Capability>
-  <Capability Res="Others/gobo00030.png" Min="21" Max="30">Metal Gobo 2</Capability>
+  <Capability Res="Others/gobo00030.svg" Min="21" Max="30">Metal Gobo 2</Capability>
   <Capability Res="Chauvet/gobo00010.png" Min="31" Max="40">Metal Gobo 3</Capability>
   <Capability Res="ClayPaky/gobo00073.png" Min="41" Max="50">Glass Gobo 4</Capability>
   <Capability Res="Others/gobo00008.svg" Min="51" Max="60">Metal Gobo 5</Capability>
@@ -65,7 +65,7 @@
   <Capability Res="Others/gobo00008.svg" Min="86" Max="100">Shake 5 Slow-&gt;Fast</Capability>
   <Capability Res="ClayPaky/gobo00073.png" Min="101" Max="115">Shake 4 Slow-&gt;Fast</Capability>
   <Capability Res="Chauvet/gobo00010.png" Min="116" Max="130">Shake 3 Slow-&gt;Fast</Capability>
-  <Capability Res="Others/gobo00030.png" Min="131" Max="145">Shake 2 Slow-&gt;Fast</Capability>
+  <Capability Res="Others/gobo00030.svg" Min="131" Max="145">Shake 2 Slow-&gt;Fast</Capability>
   <Capability Res="Chauvet/gobo00008.png" Min="146" Max="160">Shake 1 Slow-&gt;Fast</Capability>
   <Capability Min="161" Max="255">Gobo-Wheel Rotation Slow-&gt;Fast</Capability>
  </Channel>

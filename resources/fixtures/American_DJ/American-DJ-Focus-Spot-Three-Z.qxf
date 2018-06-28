@@ -34,14 +34,14 @@
   <Capability Min="16" Max="23" Res="Others/gobo00044.png">Gobo 2</Capability>
   <Capability Min="24" Max="31" Res="Others/gobo00071.svg">Gobo 3</Capability>
   <Capability Min="32" Max="39" Res="SGM/gobo00054.png">Gobo 4</Capability>
-  <Capability Min="40" Max="47" Res="Chauvet/gobo00026.png">Gobo 5</Capability>
+  <Capability Min="40" Max="47" Res="Chauvet/gobo00026.svg">Gobo 5</Capability>
   <Capability Min="48" Max="55" Res="ClayPaky/gobo00079.png">Gobo 6</Capability>
   <Capability Min="56" Max="63" Res="SGM/gobo00213.svg">Gobo 7</Capability>
   <Capability Min="64" Max="72" Res="SGM/gobo00001.svg">Gobo 1 shake</Capability>
   <Capability Min="73" Max="81" Res="Others/gobo00044.png">Gobo 2 shake</Capability>
   <Capability Min="82" Max="90" Res="Others/gobo00071.svg">Gobo 3 shake</Capability>
   <Capability Min="91" Max="99" Res="SGM/gobo00054.png">Gobo 4 shake</Capability>
-  <Capability Min="100" Max="108" Res="Chauvet/gobo00026.png">Gobo 5 shake</Capability>
+  <Capability Min="100" Max="108" Res="Chauvet/gobo00026.svg">Gobo 5 shake</Capability>
   <Capability Min="109" Max="117" Res="ClayPaky/gobo00079.png">Gobo 6 shake</Capability>
   <Capability Min="118" Max="127" Res="SGM/gobo00213.svg">Gobo 7 shake</Capability>
   <Capability Min="128" Max="189">Counter-clockwise rotation fast - slow</Capability>

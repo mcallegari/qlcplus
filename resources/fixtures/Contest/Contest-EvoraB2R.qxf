@@ -33,34 +33,34 @@
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.svg">Open gobo</Capability>
-  <Capability Min="8" Max="15" Preset="GoboMacro" Res1="Chauvet/gobo00020.png">XS dot</Capability>
-  <Capability Min="16" Max="23" Preset="GoboMacro" Res1="Chauvet/gobo00021.png">S dot</Capability>
-  <Capability Min="24" Max="31" Preset="GoboMacro" Res1="Chauvet/gobo00022.png">M dot</Capability>
+  <Capability Min="8" Max="15" Preset="GoboMacro" Res1="Chauvet/gobo00020.svg">XS dot</Capability>
+  <Capability Min="16" Max="23" Preset="GoboMacro" Res1="Chauvet/gobo00021.svg">S dot</Capability>
+  <Capability Min="24" Max="31" Preset="GoboMacro" Res1="Chauvet/gobo00022.svg">M dot</Capability>
   <Capability Min="32" Max="39">L dot</Capability>
-  <Capability Min="40" Max="47" Preset="GoboMacro" Res1="Chauvet/gobo00024.png">XL dot</Capability>
-  <Capability Min="48" Max="55" Preset="GoboMacro" Res1="Chauvet/gobo00025.png">XXL dot</Capability>
+  <Capability Min="40" Max="47" Preset="GoboMacro" Res1="Chauvet/gobo00024.svg">XL dot</Capability>
+  <Capability Min="48" Max="55" Preset="GoboMacro" Res1="Chauvet/gobo00025.svg">XXL dot</Capability>
   <Capability Min="56" Max="63" Preset="GoboMacro" Res1="Chauvet/gobo00040.png">Triangle</Capability>
-  <Capability Min="64" Max="71" Preset="GoboMacro" Res1="Others/gobo00024.png">Star</Capability>
+  <Capability Min="64" Max="71" Preset="GoboMacro" Res1="Others/gobo00024.svg">Star</Capability>
   <Capability Min="72" Max="79" Preset="GoboMacro" Res1="Robe/gobo00017.svg">Spiral</Capability>
   <Capability Min="80" Max="87" Preset="GoboMacro" Res1="Others/gobo00013.svg">Circular dots</Capability>
   <Capability Min="88" Max="95" Preset="GoboMacro" Res1="Others/gobo00068.svg">Flower</Capability>
   <Capability Min="96" Max="103" Preset="GoboMacro" Res1="Chauvet/gobo00045.png">Vent</Capability>
   <Capability Min="104" Max="111" Preset="GoboMacro" Res1="Chauvet/gobo00045.png">Vent inv.</Capability>
   <Capability Min="112" Max="119" Preset="GoboMacro" Res1="Robe/gobo00041.png">Star</Capability>
-  <Capability Min="120" Max="126" Preset="GoboMacro" Res1="Chauvet/gobo00020.png">XS dot shake</Capability>
-  <Capability Min="127" Max="133" Preset="GoboMacro" Res1="Chauvet/gobo00021.png">S dot shake</Capability>
-  <Capability Min="134" Max="140" Preset="GoboMacro" Res1="Chauvet/gobo00022.png">M dot shake</Capability>
-  <Capability Min="141" Max="147" Preset="GoboMacro" Res1="Chauvet/gobo00023.png">L dot shake</Capability>
-  <Capability Min="148" Max="154" Preset="GoboMacro" Res1="Chauvet/gobo00025.png">XL dot shake</Capability>
-  <Capability Min="155" Max="161" Preset="GoboMacro" Res1="Chauvet/gobo00025.png">XXL dot shake</Capability>
+  <Capability Min="120" Max="126" Preset="GoboMacro" Res1="Chauvet/gobo00020.svg">XS dot shake</Capability>
+  <Capability Min="127" Max="133" Preset="GoboMacro" Res1="Chauvet/gobo00021.svg">S dot shake</Capability>
+  <Capability Min="134" Max="140" Preset="GoboMacro" Res1="Chauvet/gobo00022.svg">M dot shake</Capability>
+  <Capability Min="141" Max="147" Preset="GoboMacro" Res1="Chauvet/gobo00023.svg">L dot shake</Capability>
+  <Capability Min="148" Max="154" Preset="GoboMacro" Res1="Chauvet/gobo00025.svg">XL dot shake</Capability>
+  <Capability Min="155" Max="161" Preset="GoboMacro" Res1="Chauvet/gobo00025.svg">XXL dot shake</Capability>
   <Capability Min="162" Max="168" Preset="GoboMacro" Res1="Others/gobo00027.svg">Triangle shake</Capability>
-  <Capability Min="169" Max="175" Preset="GoboMacro" Res1="Others/gobo00024.png">Star shake</Capability>
+  <Capability Min="169" Max="175" Preset="GoboMacro" Res1="Others/gobo00024.svg">Star shake</Capability>
   <Capability Min="176" Max="182" Preset="GoboMacro" Res1="Chauvet/gobo00001.png">Spiral shake</Capability>
   <Capability Min="183" Max="189" Preset="GoboMacro" Res1="Others/gobo00013.svg">Circular dots shake</Capability>
   <Capability Min="190" Max="193" Preset="GoboMacro" Res1="SGM/gobo00092.png">Flower shake</Capability>
   <Capability Min="194" Max="203" Preset="GoboMacro" Res1="SGM/gobo00093.svg">Vent shake</Capability>
   <Capability Min="204" Max="210" Preset="GoboMacro" Res1="SGM/gobo00359.png">Vent inv. shake</Capability>
-  <Capability Min="211" Max="217" Preset="GoboMacro" Res1="Others/gobo00024.png">Star shake</Capability>
+  <Capability Min="211" Max="217" Preset="GoboMacro" Res1="Others/gobo00024.svg">Star shake</Capability>
   <Capability Min="218" Max="255">Gobo scrol F&gt;S</Capability>
  </Channel>
  <Channel Name="Gobo Index" Preset="GoboIndexFine"/>

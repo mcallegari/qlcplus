@@ -76,7 +76,7 @@
  <Channel Name="Gobo Wheel 1 (Glass Gobos)">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="10" Res="Others/open.svg">Open</Capability>
-  <Capability Min="11" Max="21" Res="Chauvet/gobo00036.png">Gobo 1</Capability>
+  <Capability Min="11" Max="21" Res="Chauvet/gobo00036.svg">Gobo 1</Capability>
   <Capability Min="22" Max="32" Res="Chauvet/gobo00009.png">Gobo 2</Capability>
   <Capability Min="33" Max="43" Res="Others/gobo00055.png">Gobo 3</Capability>
   <Capability Min="44" Max="54" Res="GLP/gobo00009.png">Gobo 4</Capability>
@@ -91,15 +91,15 @@
  <Channel Name="Gobo Wheel 2">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="6" Res="Others/open.svg">Open</Capability>
-  <Capability Min="7" Max="13" Res="Chauvet/gobo00022.png">Aperture 1</Capability>
+  <Capability Min="7" Max="13" Res="Chauvet/gobo00022.svg">Aperture 1</Capability>
   <Capability Min="14" Max="20">Aperture 2</Capability>
-  <Capability Min="21" Max="27" Res="Chauvet/gobo00020.png">Aperture 3</Capability>
-  <Capability Min="28" Max="34" Res="Chauvet/gobo00026.png">Gobo 1</Capability>
+  <Capability Min="21" Max="27" Res="Chauvet/gobo00020.svg">Aperture 3</Capability>
+  <Capability Min="28" Max="34" Res="Chauvet/gobo00026.svg">Gobo 1</Capability>
   <Capability Min="35" Max="41" Res="ClayPaky/gobo00058.svg">Gobo 2</Capability>
   <Capability Min="42" Max="48" Res="SGM/gobo00008.png">Gobo 3</Capability>
   <Capability Min="49" Max="55" Res="SGM/gobo00127.png">Gobo 4</Capability>
   <Capability Min="56" Max="62">Gobo 5</Capability>
-  <Capability Min="63" Max="69" Res="Chauvet/gobo00047.png">Gobo 6</Capability>
+  <Capability Min="63" Max="69" Res="Chauvet/gobo00047.svg">Gobo 6</Capability>
   <Capability Min="70" Max="83" Res="Others/open.svg">Open</Capability>
   <Capability Min="84" Max="127">Gobo Shake</Capability>
   <Capability Min="128" Max="189">Clockwise Rotation (Fast -&gt; Slow)</Capability>
