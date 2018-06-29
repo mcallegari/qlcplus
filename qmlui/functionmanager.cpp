@@ -29,6 +29,7 @@
 #include "contextmanager.h"
 #include "treemodelitem.h"
 #include "chasereditor.h"
+#include "scripteditor.h"
 #include "sceneeditor.h"
 #include "audioeditor.h"
 #include "videoeditor.h"
@@ -581,6 +582,11 @@ void FunctionManager::setEditorFunction(quint32 fID, bool requestUI, bool back)
         case Function::RGBMatrixType:
         {
             m_currentEditor = new RGBMatrixEditor(m_view, m_doc, this);
+        }
+        break;
+        case Function::ScriptType:
+        {
+             m_currentEditor = new ScriptEditor(m_view, m_doc, this);
         }
         break;
         case Function::AudioType:

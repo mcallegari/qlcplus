@@ -115,7 +115,10 @@ void App::startup()
     setIcon(QIcon(":/qlcplus.svg"));
 
     if (QFontDatabase::addApplicationFont(":/RobotoCondensed-Regular.ttf") < 0)
-        qWarning() << "Roboto font cannot be loaded !";
+        qWarning() << "Roboto condensed cannot be loaded !";
+
+    if (QFontDatabase::addApplicationFont(":/RobotoMono-Regular.ttf") < 0)
+        qWarning() << "Roboto mono cannot be loaded !";
 
     rootContext()->setContextProperty("qlcplus", this);
 
