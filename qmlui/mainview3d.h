@@ -201,6 +201,8 @@ private:
     /** Reference to the scene root entity for items creation */
     QEntity *m_sceneRootEntity;
 
+    float m_minScale;
+
     /** Reference to the light pass entity and material for uniform updates */
     QEntity *m_quadEntity;
 

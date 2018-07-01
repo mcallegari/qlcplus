@@ -36,7 +36,7 @@ Entity
         id: uniformComp
         Parameter {}
     }
-
+     
     ConeMesh
     {
         id: spotlightConeMesh
@@ -56,13 +56,29 @@ Entity
         function bindFixture(fxItem)
         {
             spotlightConeMesh.length =  Qt.binding(function() { return fxItem.distCutoff })
-            spotlightConeTransform.translation = Qt.binding(function() { return Qt.vector3d(0, -0.5 * fxItem.distCutoff, 0) })
+            
             spotlightConeMesh.bottomRadius = Qt.binding(function() { return fxItem.coneRadius })
 
             var parameters = [].slice.apply(spotlightConeMaterial.parameters)
 
             parameters.push(uniformComp.createObject(spotlightConeMaterial,
                             { name: "raymarchSteps", value: Qt.binding(function() { return fxItem.raymarchSteps }) }))
+
+            parameters.push(uniformComp.createObject(spotlightConeMaterial,
+                            { name: "customModelMatrix", value: Qt.binding(
+                                function() { 
+                                    var m = Qt.matrix4x4();
+
+                                    m.translate(fxItem.lightPos);
+
+                                    m.rotate(fxItem.panRotation, Qt.vector3d(0, 1, 0));
+                                    m.rotate(fxItem.tiltRotation, Qt.vector3d(1, 0, 0));
+
+                                    m.translate( Qt.vector3d(0, -0.5 * fxItem.distCutoff, 0));
+
+                                    return m;
+
+                             })}))
 
             parameters.push(uniformComp.createObject(spotlightConeMaterial,
                             { name: "lightDir", value: Qt.binding(function() { return fxItem.lightDir }) }))
@@ -104,16 +120,9 @@ Entity
         }
     }
 
-    Transform
-    {
-        id: spotlightConeTransform
-        translation: Qt.vector3d(0, 0, 0)
-    }
-
     components: [
         coneLayer,
         spotlightConeMaterial,
         spotlightConeMesh,
-        spotlightConeTransform
     ]
 }

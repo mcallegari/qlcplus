@@ -474,23 +474,26 @@ void MainView3D::updateLightPosition(FixtureMesh *meshRef)
         return;
 
     QVector3D newLightPos = meshRef->m_rootTransform->translation();
+    
     if (meshRef->m_armItem)
     {
         Qt3DCore::QTransform *armTransform = getTransform(meshRef->m_armItem);
-        newLightPos += armTransform->translation();
+        newLightPos += m_minScale * armTransform->translation();
     }
+    
     if (meshRef->m_headItem)
     {
         Qt3DCore::QTransform *headTransform = getTransform(meshRef->m_headItem);
-        newLightPos += headTransform->translation();
+        newLightPos += m_minScale * headTransform->translation();
     }
+    
     meshRef->m_rootItem->setProperty("lightPos", newLightPos);
 }
 
 QVector3D MainView3D::lightPosition(quint32 itemID)
 {
     FixtureMesh *meshRef = m_entitiesMap.value(itemID, NULL);
-    if (meshRef == NULL)
+    if (meshRef == NULL)    
         return QVector3D();
 
     return meshRef->m_rootItem->property("lightPos").value<QVector3D>();
@@ -1089,6 +1092,9 @@ void MainView3D::updateFixtureScale(quint32 itemID, QVector3D origSize)
     float zScale = origSize.z() / meshSize.z();
 
     float minScale = qMin(xScale, qMin(yScale, zScale));
+
+    // save this away for later usage.
+    m_minScale = minScale;
 
     mesh->m_rootTransform->setScale3D(QVector3D(minScale, minScale, minScale));
 

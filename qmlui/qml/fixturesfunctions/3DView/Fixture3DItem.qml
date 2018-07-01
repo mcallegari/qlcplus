@@ -67,7 +67,11 @@ Entity
     property real intensityOrigValue: lightIntensity
     property color lightColor: Qt.rgba(0, 0, 0, 1)
     property vector3d lightPos: Qt.vector3d(0, 0, 0)
-    property vector3d lightDir: Qt.vector3d(0, -1, 0)
+
+
+    property vector3d lightDir: {
+        return getLightDir()
+    }
 
     property matrix4x4 lightViewMatrix: lookAt(lightPos,  lightPos.plus(getLightDir()), Qt.vector3d(1.0, 0.0, 0.0))
     property matrix4x4 lightProjectionMatrix:perspective( cutoffAngle, 1.0, 0.1, 40.0 )
@@ -109,7 +113,7 @@ Entity
             lightMatrix = lightMatrix.times(tiltTransform.matrix)
         lightMatrix = lightMatrix.times(Qt.vector4d(0.0, -1.0, 0.0, 0.0))
 
-        return lightMatrix.toVector3d()
+        return lightMatrix.toVector3d().normalized()
     }
 
     function perspective(fovy, aspect, zNear, zFar)

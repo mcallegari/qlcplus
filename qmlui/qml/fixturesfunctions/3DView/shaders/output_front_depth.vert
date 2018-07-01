@@ -21,14 +21,14 @@ VS_IN_ATTRIB vec3 vertexPosition;
 VS_IN_ATTRIB vec3 vertexNormal;
 
 uniform mat4 viewProjectionMatrix;
-uniform mat4 modelMatrix;
+uniform mat4 customModelMatrix;
 
 VS_OUT_ATTRIB vec3 fsPos;
 
 void main()
 {
-    vec4 p = modelMatrix * vec4(vertexPosition, 1.0);
+    vec4 p = customModelMatrix * vec4(vertexPosition, 1.0);
     fsPos = p.xyz;
     
-    gl_Position = viewProjectionMatrix * modelMatrix * vec4(vertexPosition, 1.0);
+    gl_Position = viewProjectionMatrix * customModelMatrix * vec4(vertexPosition, 1.0);
 }

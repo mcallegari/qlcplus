@@ -180,7 +180,7 @@ Rectangle
                     "spotlightScatteringLayer": fixtureItem.spotlightScatteringLayer,
                     "shadowTex": fixtureItem.shadowMap.depth,
                 });
-            }
+            }            
         }
 
         Entity
