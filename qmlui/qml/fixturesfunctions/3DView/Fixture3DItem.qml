@@ -48,9 +48,11 @@ Entity
     property Transform panTransform
     property Transform tiltTransform
 
-    property real cutOff: focusMinDegrees / 2 // TODO: degrees or radians ? That is the question
+   // property real cutOff: focusMinDegrees / 2 // TODO: degrees or radians ? That is the question
     property real distCutoff: 40.0
-    property real cutoffAngle: 0.2
+    property real cutoffAngle: {
+        return (focusMinDegrees / 2) * (Math.PI / 180)
+    }
 
     property int raymarchSteps: 40
 
@@ -179,7 +181,7 @@ Entity
 
     function setFocus(value)
     {
-        cutOff = ((((focusMaxDegrees - focusMinDegrees) / 255) * value) + focusMinDegrees) / 2
+        cutoffAngle = (((((focusMaxDegrees - focusMinDegrees) / 255) * value) + focusMinDegrees) / 2) * (Math.PI / 180)
     }
 
     function setShutter(type, low, high)
