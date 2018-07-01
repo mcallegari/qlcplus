@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE InputProfile>
+<InputProfile xmlns="http://www.qlcplus.org/InputProfile">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.11.2 GIT</Version>
+  <Author>Tim Cullingworth</Author>
+ </Creator>
+ <Manufacturer>Behringer</Manufacturer>
+ <Model>X-Touch Extender</Model>
+ <Type>MIDI</Type>
+ <MIDISendNoteOff>False</MIDISendNoteOff>
+ <Channel Number="70">
+  <Name>Channel 1 slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="71">
+  <Name>Channel 2 slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="72">
+  <Name>Channel 3 slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="73">
+  <Name>Channel 4 slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="74">
+  <Name>Channel 5 slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="75">
+  <Name>Channel 6 slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="76">
+  <Name>Channel 7 slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="77">
+  <Name>Channel 8 slider</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="80">
+  <Name>Channel 1 encoder</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="81">
+  <Name>Channel 2 encoder</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="82">
+  <Name>Channel 3 encoder</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="83">
+  <Name>Channel 4 encoder</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="84">
+  <Name>Channel 5 encoder</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="85">
+  <Name>Channel 6 encoder</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="86">
+  <Name>Channel 7 encoder</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="87">
+  <Name>Channel 8 encoder</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="128">
+  <Name>Channel 1 encoder push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="129">
+  <Name>Channel 2 encoder push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="130">
+  <Name>Channel 3 encoder push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="131">
+  <Name>Channel 4 encoder push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="132">
+  <Name>Channel 5 encoder push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="133">
+  <Name>Channel 6 encoder push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="134">
+  <Name>Channel 7 encoder push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="135">
+  <Name>Channel 8 encoder push</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="136">
+  <Name>Channel 1 record</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="137">
+  <Name>Channel 2 record</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="138">
+  <Name>Channel 3 record</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="139">
+  <Name>Channel 4 record</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="140">
+  <Name>Channel 5 record</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="141">
+  <Name>Channel 6 record</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="142">
+  <Name>Channel 7 record</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="143">
+  <Name>Channel 8 record</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="144">
+  <Name>Channel 1 solo</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="145">
+  <Name>Channel 2 solo</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="146">
+  <Name>Channel 3 solo</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="147">
+  <Name>Channel 4 solo</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="148">
+  <Name>Channel 5 solo</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="149">
+  <Name>Channel 6 solo</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="150">
+  <Name>Channel 7 solo</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="151">
+  <Name>Channel 8 solo</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="152">
+  <Name>Channel 1 mute</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="153">
+  <Name>Channel 2 mute</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="154">
+  <Name>Channel 3 mute</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="155">
+  <Name>Channel 4 mute</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="156">
+  <Name>Channel 5 mute</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="157">
+  <Name>Channel 6 mute</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="158">
+  <Name>Channel 7 mute</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="159">
+  <Name>Channel 8 mute</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="160">
+  <Name>Channel 1 select</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="161">
+  <Name>Channel 2 select</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="162">
+  <Name>Channel 3 select</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="163">
+  <Name>Channel 4 select</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="164">
+  <Name>Channel 5 select</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="165">
+  <Name>Channel 6 select</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="166">
+  <Name>Channel 7 select</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="167">
+  <Name>Channel 8 select</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="238">
+  <Name>Channel 1 slider touch</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="239">
+  <Name>Channel 2 slider touch</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="240">
+  <Name>Channel 3 slider touch</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="241">
+  <Name>Channel 4 slider touch</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="242">
+  <Name>Channel 5 slider touch</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="243">
+  <Name>Channel 6 slider touch</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="244">
+  <Name>Channel 7 slider touch</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="245">
+  <Name>Channel 8 slider touch</Name>
+  <Type>Button</Type>
+ </Channel>
+</InputProfile>
