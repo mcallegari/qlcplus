@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  SpotlightShadingFilter.qml
+  GammaCorrectFilter.qml
 
   Copyright (c) Eric Arnebäck
 
@@ -17,27 +17,23 @@
   limitations under the License.
 */
 
-
 import Qt3D.Core 2.0
 import Qt3D.Render 2.0
 
-import QtQuick 2.0
+import QtQuick 2.0    
 
 TechniqueFilter
 {
-    property GBuffer gBuffer
-    property Layer spotlightShadingLayer
-    property Texture2D shadowTex
+ //   property GBuffer gBuffer
+    property Layer screenQuadGammaCorrectLayer 
+
     property FrameTarget frameTarget
 
+
     parameters: [
-        Parameter { name: "albedoTex"; value: gBuffer.color },
-        Parameter { name: "normalTex"; value: gBuffer.normal },
-        Parameter { name: "depthTex"; value: gBuffer.depth },
-
-        Parameter { name: "shadowTex"; value: shadowTex }
-    ]
-
+        Parameter { name: "colorTex"; value: frameTarget.color }
+    ]       
+    
     RenderStateSet
     {
         // Render FullScreen Quad
@@ -51,15 +47,16 @@ TechniqueFilter
         ]
         LayerFilter
         {
-            layers: spotlightShadingLayer
-
-            RenderTargetSelector {
-                target: frameTarget
+            //id: screenQuadLayerFilter
+            layers: screenQuadGammaCorrectLayer   
+            ClearBuffers
+            {
+                buffers: ClearBuffers.ColorDepthBuffer
                 RenderPassFilter
                 {
-                    matchAny: FilterKey { name: "pass"; value: "spotlight_shading" }
+                    matchAny: FilterKey { name: "pass"; value: "gamma_correct" }
                 }
             }
-        }
+        }     
     }
 } // TechniqueFilter

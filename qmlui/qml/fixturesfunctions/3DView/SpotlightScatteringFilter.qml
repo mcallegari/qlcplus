@@ -30,6 +30,7 @@ TechniqueFilter
     property GBuffer gBuffer
     property real lightIntensity
     property Texture2D shadowTex
+    property FrameTarget frameTarget
 
     property Fixture3DItem fixtureItem
 
@@ -61,9 +62,12 @@ TechniqueFilter
         {
             layers: spotlightScatteringLayer
 
-            RenderPassFilter
-            {
-                matchAny: FilterKey { name: "pass"; value: "spotlight_scattering" }
+            RenderTargetSelector {
+                target: frameTarget
+                RenderPassFilter
+                {
+                    matchAny: FilterKey { name: "pass"; value: "spotlight_scattering" }
+                }
             }
         }
     }

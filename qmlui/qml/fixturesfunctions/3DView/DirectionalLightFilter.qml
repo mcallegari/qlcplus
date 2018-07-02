@@ -28,6 +28,8 @@ TechniqueFilter
     property Layer screenQuadLayer
     property real ambientIntensity: View3D.ambientIntensity
 
+    property FrameTarget frameTarget
+
     parameters: [
         Parameter { name: "albedoTex"; value: gBuffer.color },
         Parameter { name: "normalTex"; value: gBuffer.normal },
@@ -47,14 +49,20 @@ TechniqueFilter
         ]
         LayerFilter
         {
+
+
             //id: screenQuadLayerFilter
             layers: screenQuadLayer   
-            ClearBuffers
-            {
-                buffers: ClearBuffers.ColorDepthBuffer
-                RenderPassFilter
+            
+            RenderTargetSelector {
+                target: frameTarget
+                ClearBuffers
                 {
-                    matchAny: FilterKey { name: "pass"; value: "lights" }
+                    buffers: ClearBuffers.ColorDepthBuffer
+                    RenderPassFilter
+                    {
+                        matchAny: FilterKey { name: "pass"; value: "lights" }
+                    }
                 }
             }
         }     

@@ -132,11 +132,11 @@ Rectangle
             component = Qt.createComponent("DirectionalLightFilter.qml");
             if (component.status === Component.Error)
                 console.log("Error loading component:", component.errorString());
-
             mynode = component.createObject(frameGraph.myCameraSelector,
             {
                 "gBuffer": gBufferTarget,
-                "screenQuadLayer": screenQuadEntity.layer
+                "screenQuadLayer": screenQuadEntity.layer,
+                "frameTarget": frameTarget
             });
 
             for (ic = 0; ic < fixtures.length; ++ic)
@@ -150,7 +150,8 @@ Rectangle
                 {
                     "gBuffer": gBufferTarget,
                     "shadowTex": fixtureItem.shadowMap.depth,
-                    "spotlightShadingLayer": fixtureItem.spotlightShadingLayer
+                    "spotlightShadingLayer": fixtureItem.spotlightShadingLayer,
+                    "frameTarget": frameTarget
                 });
             }
 
@@ -179,8 +180,19 @@ Rectangle
                     "gBuffer": gBufferTarget,
                     "spotlightScatteringLayer": fixtureItem.spotlightScatteringLayer,
                     "shadowTex": fixtureItem.shadowMap.depth,
+                    "frameTarget": frameTarget
                 });
-            }            
+            } 
+             
+            component = Qt.createComponent("GammaCorrectFilter.qml");
+            if (component.status === Component.Error)
+                console.log("Error loading component:", component.errorString());
+            mynode = component.createObject(frameGraph.myCameraSelector,
+            {
+                "frameTarget": frameTarget,
+                "screenQuadGammaCorrectLayer": screenQuadGammaCorrectEntity.layer
+            });
+                   
         }
 
         Entity
@@ -200,10 +212,12 @@ Rectangle
                 id: sceneEntity
                 viewSize: Qt.size(scene3d.width, scene3d.height)
             }
+            ScreenQuadGammaCorrectEntity { id: screenQuadGammaCorrectEntity }
 
             ScreenQuadEntity { id: screenQuadEntity }
 
             GBuffer { id: gBufferTarget }
+            FrameTarget { id: frameTarget }
 
             DepthTarget { id: depthTarget }
 
