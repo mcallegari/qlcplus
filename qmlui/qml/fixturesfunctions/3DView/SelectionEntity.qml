@@ -43,7 +43,7 @@ Entity
     {
         id: selectionMaterial
         effect: geometryPassEffect
-        parameters: Parameter { name: "meshColor"; value: "yellow" }
+        parameters: Parameter { name: "meshColor"; value: Qt.vector4d(1.0, 1.0, 0.0, 2.0) }
     }
 
     Transform

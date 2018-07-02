@@ -28,12 +28,14 @@ DECLARE_FRAG_COLOR
 
 void main()
 {
-    vec3 albedo = SAMPLE_TEX2D(albedoTex, fsUv).rgb;
+    vec4 albedo = SAMPLE_TEX2D(albedoTex, fsUv).xyzw;
     
     vec3 finalColor = vec3(0.0);
     vec3 l = normalize(vec3(1.0, 1.0, 1.0));
     vec3 n =  normalize(SAMPLE_TEX2D(normalTex, fsUv).xyz);
-    finalColor = ambient * albedo.rgb * max(0.0, dot(l, n));
+    
+    float isGuiElement = abs(albedo.w - 2.0) < 0.0001 ? 1.0 : 0.0;
+    finalColor = isGuiElement * albedo.rgb + (1.0 - isGuiElement) * ambient * albedo.rgb * max(0.0, dot(l, n));
     
     MGL_FRAG_COLOR = vec4(finalColor, 1.0);
 }

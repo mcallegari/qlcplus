@@ -23,7 +23,7 @@ FS_IN_ATTRIB vec3 fsPos;
 FS_IN_ATTRIB vec4 fsHistCsPos;
 FS_IN_ATTRIB vec4 fsUnjitteredCsPos;
 
-uniform vec3 meshColor;
+uniform vec4 meshColor;
 
 DECLARE_GBUFFER_OUTPUT
 
@@ -35,7 +35,7 @@ vec2 outputVelocity(vec4 histCsPos, vec4 curCsPos)
 
 void main()
 {
-    MGL_FRAG_DATA0 = vec4(meshColor.xyz, 1.0);
+    MGL_FRAG_DATA0 = vec4(meshColor.xyzw);
     MGL_FRAG_DATA1 = vec4(fsNormal.xyz, 1.0);
     //MGL_FRAG_DATA2.xy = outputVelocity(fsHistCsPos, fsUnjitteredCsPos);
 }
