@@ -62,7 +62,14 @@ QIcon Script::getIcon() const
 
 quint32 Script::totalDuration()
 {
-    quint32 totalDuration = 10000;
+    quint32 totalDuration = 0;
+
+    ScriptRunner *runner = new ScriptRunner(doc(), m_data);
+    runner->collectScriptData();
+    totalDuration = runner->currentWaitTime();
+    //runner->deleteLater();
+
+    qDebug() << "Script total duration:" << totalDuration;
 
     return totalDuration;
 }
@@ -103,8 +110,15 @@ bool Script::copyFrom(const Function* function)
 
 bool Script::setData(const QString& str)
 {
+    if (str == m_data)
+        return false;
+
     m_data = str;
     syntaxErrorsLines(); // TODO remove from here
+
+    Doc* doc = qobject_cast<Doc*> (parent());
+    Q_ASSERT(doc != NULL);
+    doc->setModified();
 
     return true;
 }
@@ -112,7 +126,7 @@ bool Script::setData(const QString& str)
 bool Script::appendData(const QString &str)
 {
     //m_data.append(str + QString("\n"));
-    m_data.append(tokenizeLine(str + QString("\n")));
+    m_data.append(convertLine(str + QString("\n")));
 
     return true;
 }
@@ -136,16 +150,21 @@ QList<quint32> Script::functionList() const
 {
     QList<quint32> list;
 
-    for (int i = 0; i < m_lines.count(); i++)
+    foreach (QString line, dataLines())
     {
-        QList <QStringList> tokens = m_lines[i];
-        if (tokens.isEmpty() == true)
-            continue;
-
-        if (tokens[0].size() >= 2 && tokens[0][0] == Script::startFunctionCmd)
+        if (line.contains("startFunction") || line.contains("stopFunction"))
         {
-            list.append(tokens[0][1].toUInt());
-            list.append(i);
+            QStringList tokens = line.split("(");
+            if (tokens.isEmpty() || tokens.count() < 2)
+                continue;
+
+            QStringList params = tokens[1].split(",");
+            if (tokens.isEmpty())
+                continue;
+
+            quint32 funcID = params[0].toUInt();
+            if (list.contains(funcID) == false)
+                list.append(funcID);
         }
     }
 
@@ -156,16 +175,21 @@ QList<quint32> Script::fixtureList() const
 {
     QList<quint32> list;
 
-    for (int i = 0; i < m_lines.count(); i++)
+    foreach (QString line, dataLines())
     {
-        QList <QStringList> tokens = m_lines[i];
-        if (tokens.isEmpty() == true)
-            continue;
-
-        if (tokens[0].size() >= 2 && tokens[0][0] == Script::setFixtureCmd)
+        if (line.contains("setFixture"))
         {
-            list.append(tokens[0][1].toUInt());
-            list.append(i);
+            QStringList tokens = line.split("(");
+            if (tokens.isEmpty() || tokens.count() < 2)
+                continue;
+
+            QStringList params = tokens[1].split(",");
+            if (tokens.isEmpty())
+                continue;
+
+            quint32 fxID = params[0].toUInt();
+            if (list.contains(fxID) == false)
+                list.append(fxID);
         }
     }
 
@@ -174,8 +198,12 @@ QList<quint32> Script::fixtureList() const
 
 QList<int> Script::syntaxErrorsLines()
 {
+    QList<int> errorList;
     ScriptRunner *runner = new ScriptRunner(doc(), m_data);
-    return runner->syntaxErrorsLines();
+    errorList = runner->collectScriptData();
+    //runner->deleteLater();
+
+    return errorList;
 }
 
 /****************************************************************************
@@ -222,7 +250,7 @@ bool Script::loadXML(QXmlStreamReader &root)
         else if (root.name() == KXMLQLCScriptCommand)
         {
             if (version == 1)
-                m_data.append(tokenizeLine(QUrl::fromPercentEncoding(root.readElementText().toUtf8()) + QString("\n")));
+                m_data.append(convertLine(QUrl::fromPercentEncoding(root.readElementText().toUtf8()) + QString("\n")));
             else
                 m_data.append(QUrl::fromPercentEncoding(root.readElementText().toUtf8()) + QString("\n"));
         }
@@ -330,7 +358,7 @@ quint32 Script::getValueFromString(QString str, bool *ok)
     return qrand() % ((max + 1) - min) + min;
 }
 
-QString Script::tokenizeLine(const QString& str, bool *ok)
+QString Script::convertLine(const QString& str, bool *ok)
 {
     QStringList tokens;
     QString comment;

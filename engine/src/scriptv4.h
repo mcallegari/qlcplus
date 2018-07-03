@@ -147,13 +147,12 @@ private:
      * @param ok Tells if the line was parsed OK or not
      * @return A list of tokens parsed from the line
      */
-    static QString tokenizeLine(const QString& line, bool* ok = NULL);
+    static QString convertLine(const QString& line, bool* ok = NULL);
 
     static QString convertLegacyMethod(QString method);
 
 private:
     ScriptRunner *m_runner;
-    QList < QList<QStringList> > m_lines; //! Raw data parsed into lines of tokens
     QList <int> m_syntaxErrorLines;
 };
 

@@ -47,7 +47,9 @@ public:
 
     void stop();
 
-    QList<int> syntaxErrorsLines();
+    QList<int> collectScriptData();
+
+    int currentWaitTime();
 
     /** Get the script's GenericFader (and create it if necessary) */
     GenericFader *fader();

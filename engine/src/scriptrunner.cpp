@@ -86,7 +86,7 @@ void ScriptRunner::stop()
     m_startedFunctions.clear();
 }
 
-QList<int> ScriptRunner::syntaxErrorsLines()
+QList<int> ScriptRunner::collectScriptData()
 {
     QList<int> syntaxErrorList;
     QJSEngine *engine = new QJSEngine();
@@ -128,6 +128,11 @@ QList<int> ScriptRunner::syntaxErrorsLines()
     delete engine;
 
     return syntaxErrorList;
+}
+
+int ScriptRunner::currentWaitTime()
+{
+    return m_waitCount * MasterTimer::tick();
 }
 
 GenericFader *ScriptRunner::fader()
@@ -186,6 +191,8 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
 
 void ScriptRunner::run()
 {
+    m_waitCount = 0;
+
     m_engine = new QJSEngine();
     QJSValue objectValue = m_engine->newQObject(this);
     m_engine->globalObject().setProperty("Engine", objectValue);
@@ -369,12 +376,12 @@ bool ScriptRunner::systemCommand(QString command)
 
 bool ScriptRunner::waitTime(uint ms)
 {
+    m_waitCount += ms / MasterTimer::tick();
+
     if (m_running == false)
         return false;
 
     qDebug() << Q_FUNC_INFO;
-
-    m_waitCount = ms / MasterTimer::tick();
 
     while (m_waitCount > 0)
     {
@@ -389,12 +396,12 @@ bool ScriptRunner::waitTime(uint ms)
 
 bool ScriptRunner::waitTime(QString time)
 {
+    m_waitCount += Function::stringToSpeed(time) / MasterTimer::tick();
+
     if (m_running == false)
         return false;
 
     qDebug() << Q_FUNC_INFO;
-
-    m_waitCount = Function::stringToSpeed(time) / MasterTimer::tick();
 
     while (m_waitCount > 0)
     {
