@@ -18,7 +18,7 @@
 */
 
 #include "scripteditor.h"
-#include "script.h"
+#include "scriptwrapper.h"
 #include "doc.h"
 
 ScriptEditor::ScriptEditor(QQuickView *view, Doc *doc, QObject *parent)
@@ -41,7 +41,7 @@ QString ScriptEditor::scriptContent() const
 
 void ScriptEditor::setScriptContent(QString scriptContent)
 {
-    if (m_script == NULL || m_script->data() == scriptContent)
+    if (m_script == NULL)
         return;
 
     m_script->setData(scriptContent);

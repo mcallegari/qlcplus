@@ -35,7 +35,12 @@ Rectangle
 
     signal requestView(int ID, string qmlSrc)
 
-    onFunctionIDChanged: scriptEdit.text = scriptEditor.scriptContent
+    onFunctionIDChanged:
+    {
+        if (scriptEditor.scriptContent.length)
+            scriptEdit.text = scriptEditor.scriptContent
+        scriptEdit.forceActiveFocus()
+    }
 
     EditorTopBar
     {
@@ -49,6 +54,15 @@ Rectangle
             functionManager.setEditorFunction(prevID, false, true)
             requestView(prevID, functionManager.getEditorResource(prevID))
         }
+    }
+
+    Timer
+    {
+        id: updateTimer
+        repeat: false
+        running: false
+        interval: 500
+        onTriggered: scriptEditor.scriptContent = scriptEdit.text
     }
 
     Flickable
@@ -87,6 +101,7 @@ Rectangle
             selectByMouse: true
 
             onCursorRectangleChanged: editFlick.ensureVisible(cursorRectangle)
+            onTextChanged: updateTimer.restart()
         }
 
         ScrollBar.vertical: CustomScrollBar { }
