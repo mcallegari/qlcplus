@@ -26,7 +26,7 @@
   <Capability Res="Others/gobo00037.png" Min="18" Max="25">Taurus</Capability>
   <Capability Res="Others/gobo00039.svg" Min="26" Max="34">Bio Hazard</Capability>
   <Capability Res="SGM/gobo00174.svg" Min="35" Max="43">Web</Capability>
-  <Capability Res="GLP/gobo00014.png" Min="44" Max="51">3 Comas</Capability>
+  <Capability Res="GLP/gobo00014.svg" Min="44" Max="51">3 Comas</Capability>
   <Capability Res="ClayPaky/gobo00032.png" Min="52" Max="59">Honeycomb</Capability>
   <Capability Res="Others/gobo00030.svg" Min="60" Max="68">Square</Capability>
   <Capability Res="Others/gobo00018.svg" Min="69" Max="76">Radiation</Capability>

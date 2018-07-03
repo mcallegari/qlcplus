@@ -55,7 +55,7 @@
   <Capability Min="155" Max="161" Preset="GoboMacro" Res1="Chauvet/gobo00025.svg">XXL dot shake</Capability>
   <Capability Min="162" Max="168" Preset="GoboMacro" Res1="Others/gobo00027.svg">Triangle shake</Capability>
   <Capability Min="169" Max="175" Preset="GoboMacro" Res1="Others/gobo00024.svg">Star shake</Capability>
-  <Capability Min="176" Max="182" Preset="GoboMacro" Res1="Chauvet/gobo00001.png">Spiral shake</Capability>
+  <Capability Min="176" Max="182" Preset="GoboMacro" Res1="Chauvet/gobo00001.svg">Spiral shake</Capability>
   <Capability Min="183" Max="189" Preset="GoboMacro" Res1="Others/gobo00013.svg">Circular dots shake</Capability>
   <Capability Min="190" Max="193" Preset="GoboMacro" Res1="SGM/gobo00092.png">Flower shake</Capability>
   <Capability Min="194" Max="203" Preset="GoboMacro" Res1="SGM/gobo00093.svg">Vent shake</Capability>

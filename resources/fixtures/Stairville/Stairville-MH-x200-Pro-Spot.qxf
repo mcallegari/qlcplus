@@ -84,7 +84,7 @@
   <Capability Min="50" Max="59" Res="Chauvet/gobo00052.png">Gobo 6</Capability>
   <Capability Min="60" Max="69" Res="Chauvet/gobo00050.png">Gobo 7</Capability>
   <Capability Min="70" Max="79" Res="Others/gobo00040.svg">Gobo 8</Capability>
-  <Capability Min="80" Max="89" Res="GLP/gobo00015.png">Gobo 9</Capability>
+  <Capability Min="80" Max="89" Res="GLP/gobo00015.svg">Gobo 9</Capability>
   <Capability Min="90" Max="91" Res="Others/open.svg">Open</Capability>
   <Capability Min="92" Max="107" Res="Chauvet/gobo00016.png">Gobo 2 shake, increasing speed</Capability>
   <Capability Min="108" Max="123" Res="Robe/gobo00033.svg">Gobo 3 shake, increasing speed</Capability>
@@ -93,7 +93,7 @@
   <Capability Min="156" Max="171" Res="Chauvet/gobo00052.png">Gobo 6 shake, increasing speed</Capability>
   <Capability Min="172" Max="187" Res="Chauvet/gobo00050.png">Gobo 7 shake, increasing speed</Capability>
   <Capability Min="188" Max="203" Res="Others/gobo00040.svg">Gobo 8 shake, increasing speed</Capability>
-  <Capability Min="204" Max="219" Res="GLP/gobo00015.png">Gobo 9 shake, increasing speed</Capability>
+  <Capability Min="204" Max="219" Res="GLP/gobo00015.svg">Gobo 9 shake, increasing speed</Capability>
   <Capability Min="220" Max="237">Rotation clockwise, increasing speed</Capability>
   <Capability Min="238" Max="255">Rotation counter-clockwise, increasing speed</Capability>
  </Channel>

@@ -63,13 +63,13 @@
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="8" Max="25" Preset="GoboMacro" Res1="GLP/gobo00031.png">Palm Leaves</Capability>
-  <Capability Min="26" Max="44" Preset="GoboMacro" Res1="Chauvet/gobo00003.png">Shock Break-up</Capability>
+  <Capability Min="26" Max="44" Preset="GoboMacro" Res1="Chauvet/gobo00003.svg">Shock Break-up</Capability>
   <Capability Min="45" Max="63" Preset="GoboMacro" Res1="SGM/gobo00021.png">Uneven Bars</Capability>
   <Capability Min="64" Max="82" Preset="GoboMacro" Res1="Others/gobo00034.png">Ice Blocks Gag</Capability>
   <Capability Min="83" Max="99" Preset="GoboMacro" Res1="Others/gobo00058.png">Droplets Gag</Capability>
   <Capability Min="100" Max="116" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="117" Max="134" Preset="GoboMacro" Res1="GLP/gobo00031.png">Palm Leaves</Capability>
-  <Capability Min="135" Max="153" Preset="GoboMacro" Res1="Chauvet/gobo00003.png">Shock Break-up</Capability>
+  <Capability Min="135" Max="153" Preset="GoboMacro" Res1="Chauvet/gobo00003.svg">Shock Break-up</Capability>
   <Capability Min="154" Max="172" Preset="GoboMacro" Res1="SGM/gobo00021.png">Uneven Bars</Capability>
   <Capability Min="173" Max="191" Preset="GoboMacro" Res1="Others/gobo00034.png">Ice Blocks Gag</Capability>
   <Capability Min="192" Max="209" Preset="GoboMacro" Res1="Others/gobo00058.png">Droplets Gag</Capability>
@@ -83,12 +83,12 @@
   <Capability Min="0" Max="10" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="11" Max="33" Preset="GoboMacro" Res1="ClayPaky/gobo00074.png">3-Side Prism</Capability>
   <Capability Min="34" Max="54" Preset="GoboMacro" Res1="ClayPaky/gobo00081.png">Color Gobo</Capability>
-  <Capability Min="55" Max="75" Preset="GoboMacro" Res1="Chauvet/gobo00007.png">Triangle Break-up</Capability>
+  <Capability Min="55" Max="75" Preset="GoboMacro" Res1="Chauvet/gobo00007.svg">Triangle Break-up</Capability>
   <Capability Min="76" Max="97" Preset="GoboMacro" Res1="SGM/gobo00092.png">Circle of Ovals</Capability>
   <Capability Min="98" Max="119" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="120" Max="141" Preset="GoboMacro" Res1="ClayPaky/gobo00074.png">3-Side Prism</Capability>
   <Capability Min="142" Max="163" Preset="GoboMacro" Res1="ClayPaky/gobo00081.png">Color Gobo</Capability>
-  <Capability Min="164" Max="184" Preset="GoboMacro" Res1="Chauvet/gobo00007.png">Triangle Break-up</Capability>
+  <Capability Min="164" Max="184" Preset="GoboMacro" Res1="Chauvet/gobo00007.svg">Triangle Break-up</Capability>
   <Capability Min="185" Max="206" Preset="GoboMacro" Res1="SGM/gobo00092.png">Circle of Ovals</Capability>
   <Capability Min="217" Max="236">Scroll CCW</Capability>
   <Capability Min="237" Max="255">Scroll CW</Capability>

@@ -34,7 +34,7 @@
   <Capability Min="24" Max="31" Res="GLP/gobo00009.png">Gobo 3</Capability>
   <Capability Min="32" Max="39" Res="Robe/gobo00013.svg">Gobo 4</Capability>
   <Capability Min="40" Max="47">Gobo 5</Capability>
-  <Capability Min="48" Max="55" Res="SGM/gobo00008.png">Gobo 6</Capability>
+  <Capability Min="48" Max="55" Res="SGM/gobo00008.svg">Gobo 6</Capability>
   <Capability Min="56" Max="63" Res="GLP/gobo00002.png">Gobo 7</Capability>
   <Capability Min="64" Max="127">Gobo rotation slow - fast</Capability>
   <Capability Min="128" Max="143">No function</Capability>
@@ -43,7 +43,7 @@
   <Capability Min="176" Max="191" Res="GLP/gobo00009.png">Gobo 3 shake slow - fast</Capability>
   <Capability Min="192" Max="207" Res="Robe/gobo00013.svg">Gobo 4 shake slow - fast</Capability>
   <Capability Min="208" Max="223">Gobo 5 shake slow - fast</Capability>
-  <Capability Min="224" Max="239" Res="SGM/gobo00008.png">Gobo 6 shake slow - fast</Capability>
+  <Capability Min="224" Max="239" Res="SGM/gobo00008.svg">Gobo 6 shake slow - fast</Capability>
   <Capability Min="240" Max="255" Res="GLP/gobo00002.png">Gobo 7 shake slow - fast</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>

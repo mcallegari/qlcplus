@@ -56,20 +56,20 @@
   <Capability Res="ClayPaky/gobo00010.svg" Min="8" Max="14">Gobo 1</Capability>
   <Capability Res="ClayPaky/gobo00007.svg" Min="15" Max="22">Gobo 2</Capability>
   <Capability Res="ClayPaky/gobo00016.svg" Min="23" Max="29">Gobo 3</Capability>
-  <Capability Res="Chauvet/gobo00010.png" Min="30" Max="37">Gobo 4</Capability>
+  <Capability Res="Chauvet/gobo00010.svg" Min="30" Max="37">Gobo 4</Capability>
   <Capability Res="Others/gobo00032.svg" Min="38" Max="44">Gobo 5</Capability>
   <Capability Res="Others/gobo00013.svg" Min="45" Max="52">Gobo 6</Capability>
   <Capability Res="ClayPaky/gobo00088.svg" Min="53" Max="59">Gobo 7</Capability>
   <Capability Res="ClayPaky/gobo00012.svg" Min="60" Max="67">Gobo 8</Capability>
-  <Capability Res="Chauvet/gobo00010.png" Min="68" Max="74">Gobo 9</Capability>
+  <Capability Res="Chauvet/gobo00010.svg" Min="68" Max="74">Gobo 9</Capability>
   <Capability Res="Others/gobo00023.svg" Min="75" Max="82">Gobo 10</Capability>
-  <Capability Res="Chauvet/gobo00009.png" Min="83" Max="89">Gobo 11</Capability>
+  <Capability Res="Chauvet/gobo00009.svg" Min="83" Max="89">Gobo 11</Capability>
   <Capability Res="SGM/gobo00021.png" Min="90" Max="97">Gobo 12</Capability>
-  <Capability Res="Chauvet/gobo00001.png" Min="98" Max="104">Gobo 13</Capability>
+  <Capability Res="Chauvet/gobo00001.svg" Min="98" Max="104">Gobo 13</Capability>
   <Capability Res="Chauvet/gobo00041.png" Min="105" Max="112">Gobo 14</Capability>
   <Capability Res="Others/gobo00024.svg" Min="113" Max="119">Gobo 15</Capability>
   <Capability Res="GLP/gobo00010.png" Min="120" Max="126">Gobo 16</Capability>
-  <Capability Res="Chauvet/gobo00008.png" Min="127" Max="133">Gobo 17</Capability>
+  <Capability Res="Chauvet/gobo00008.svg" Min="127" Max="133">Gobo 17</Capability>
   <Capability Min="134" Max="194">Clockwise Gobo Wheel Rotation From FAST to SLOW</Capability>
   <Capability Min="195" Max="255">Counterclockwise Gobo Wheel Rotation From SLOW to FAST</Capability>
  </Channel>

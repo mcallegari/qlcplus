@@ -67,7 +67,7 @@
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="13" Res="Others/open.svg">Open</Capability>
   <Capability Min="14" Max="43" Res="SGM/gobo00294.png">Palm Leaves</Capability>
-  <Capability Min="44" Max="75" Res="Chauvet/gobo00003.png">Shock Break-up</Capability>
+  <Capability Min="44" Max="75" Res="Chauvet/gobo00003.svg">Shock Break-up</Capability>
   <Capability Min="76" Max="108" Res="ClayPaky/gobo00055.svg">Triangle Break-up</Capability>
   <Capability Min="109" Max="140" Res="SGM-Color/gobo00547.png">Ice Blocks</Capability>
   <Capability Min="141" Max="172" Res="Chauvet/gobo00011.png">Pebbles</Capability>
