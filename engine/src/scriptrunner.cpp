@@ -354,7 +354,7 @@ bool ScriptRunner::systemCommand(QString command)
                 multiPartArg.append(" ");
                 if (token.endsWith("'"))
                 {
-                    multiPartArg.append(token.mid(0, token.length() - 2));
+                    multiPartArg.append(token.mid(0, token.length() - 1));
                     programArgs << multiPartArg;
                     multiPartArg.clear();
                 }

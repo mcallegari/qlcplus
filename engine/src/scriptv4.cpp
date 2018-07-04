@@ -360,10 +360,10 @@ quint32 Script::getValueFromString(QString str, bool *ok)
 
 QString Script::convertLine(const QString& str, bool *ok)
 {
-    QStringList tokens;
+    QStringList values;
     QString comment;
     QString keyword;
-    int keywordsFound = 0;
+    QString command;
     QString value;
 
     if (ok != NULL)
@@ -371,6 +371,8 @@ QString Script::convertLine(const QString& str, bool *ok)
 
     if (str.simplified().startsWith("//") == true || str.simplified().isEmpty() == true)
         return str;
+
+    qDebug() << "---> " << str;
 
     // Save everything after the first comment sign
     QString line = str;
@@ -409,7 +411,8 @@ QString Script::convertLine(const QString& str, bool *ok)
             // Keyword found
             keyword = line.mid(left, right - left);
             left = right + 1;
-            keywordsFound++;
+            if (command.isEmpty())
+                command = keyword;
         }
 
         // Try to see if there is a value between quotes
@@ -421,8 +424,9 @@ QString Script::convertLine(const QString& str, bool *ok)
             int quoteright = line.indexOf("\"", quoteleft + 1);
             if (quoteright != -1)
             {
-                // Don't include the "" in the string
-                value = line.mid(quoteleft - 1, quoteright - quoteleft + 1);
+                // Include the "" in the string
+                value = line.mid(quoteleft - 1, quoteright - quoteleft + 2);
+                value.replace("\"", "'");
                 left = quoteright + 2;
             }
             else
@@ -452,7 +456,7 @@ QString Script::convertLine(const QString& str, bool *ok)
             }
         }
 
-        if (tokens.count() > 0 && knownKeywords.contains(keyword.trimmed()) == false)
+        if (values.count() > 0 && knownKeywords.contains(keyword.trimmed()) == false)
         {
             qDebug() << "Syntax error. Unknown keyword detected:" << keyword.trimmed();
             if (ok != NULL)
@@ -462,28 +466,60 @@ QString Script::convertLine(const QString& str, bool *ok)
         else
         {
             if (value.startsWith("random"))
-                value.replace("random", "Engine.random");
+            {
+                QStringList rToks = value.split(",");
+                QString min = rToks[0].mid(rToks[0].indexOf("(") + 1);
+                QString max = rToks[1].mid(0, rToks[1].indexOf(")"));
+                if (min.contains("s") || min.contains("m") || min.contains("h"))
+                {
+                    min.prepend("\"");
+                    min.append("\"");
+                }
+                if (max.contains("s") || max.contains("m") || max.contains("h"))
+                {
+                    max.prepend("\"");
+                    max.append("\"");
+                }
 
-            if (keywordsFound == 1)
-                tokens << keyword.trimmed() << value.trimmed();
-            else
-                tokens << value.trimmed();
+                value = QString("Engine.random(%1,%2)").arg(min).arg(max);
+            }
+            else if (command == waitCmd)
+            {
+                if (value.contains("s") || value.contains("m") || value.contains("h"))
+                {
+                    value.prepend("\"");
+                    value.append("\"");
+                }
+            }
+
+            values << value.trimmed();
         }
     }
 
-    line = convertLegacyMethod(tokens.first());
-    line.append("(");
-    for (int i = 1; i < tokens.count(); i++)
+    if (command == systemCmd)
     {
-        line.append(tokens.at(i));
-        if (i < tokens.count() - 1)
+        QString cmd = values.join(" ");
+        cmd.prepend("\"");
+        cmd.append("\"");
+        values.clear();
+        values << cmd;
+    }
+
+    qDebug() << "COMMAND:" << command << "Values:" << values;
+
+    line = convertLegacyMethod(command);
+    line.append("(");
+    for (int i = 0; i < values.count(); i++)
+    {
+        line.append(values.at(i));
+        if (i < values.count() - 1)
             line.append(",");
     }
 
-    line.append("); ");
-    line.append(comment);
-
-    qDebug() << "Tokens:" << tokens;
+    if (comment.isEmpty())
+        line.append(");\n");
+    else
+        line.append("); " + comment);
 
     return line;
 }
