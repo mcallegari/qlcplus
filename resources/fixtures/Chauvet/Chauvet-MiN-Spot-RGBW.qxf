@@ -79,9 +79,9 @@
   <Capability Min="52" Max="64" Res="SGM/gobo00033.png">Lace</Capability>
   <Capability Min="65" Max="77" Res="ClayPaky/gobo00003.svg">Dots</Capability>
   <Capability Min="78" Max="90" Res="Chauvet/gobo00045.png">Flower (approx)</Capability>
-  <Capability Min="91" Max="103" Res="Chauvet/gobo00001.png">Celtic</Capability>
-  <Capability Min="104" Max="116" Res="Chauvet/gobo00008.png">Spinner (approx)</Capability>
-  <Capability Min="117" Max="127" Res="Chauvet/gobo00006.png">Shards (approx)</Capability>
+  <Capability Min="91" Max="103" Res="Chauvet/gobo00001.svg">Celtic</Capability>
+  <Capability Min="104" Max="116" Res="Chauvet/gobo00008.svg">Spinner (approx)</Capability>
+  <Capability Min="117" Max="127" Res="Chauvet/gobo00006.svg">Shards (approx)</Capability>
   <Capability Min="128" Max="191">CW Gobo wheel rotate (slow-fast)</Capability>
   <Capability Min="192" Max="255">CCW Gobo wheel rotate (slow-fast)</Capability>
  </Channel>

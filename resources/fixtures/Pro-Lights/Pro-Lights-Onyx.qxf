@@ -68,7 +68,7 @@
   <Capability Min="35" Max="38" Res="Others/gobo00012.svg">Indexed gobo 7</Capability>
   <Capability Min="39" Max="42" Res="Others/gobo00027.svg">Indexed gobo 8</Capability>
   <Capability Min="43" Max="46" Res="Chauvet/gobo00036.svg">Indexed gobo 9</Capability>
-  <Capability Min="47" Max="50" Res="GLP/gobo00014.png">Indexed gobo 10</Capability>
+  <Capability Min="47" Max="50" Res="GLP/gobo00014.svg">Indexed gobo 10</Capability>
   <Capability Min="51" Max="54" Res="Chauvet/gobo00023.svg">Indexed gobo 11</Capability>
   <Capability Min="55" Max="58" Res="Others/open.svg">Indexed with backout open</Capability>
   <Capability Min="59" Max="62" Res="SGM/gobo00371.png">Indexed with backout gobo 1</Capability>
@@ -80,7 +80,7 @@
   <Capability Min="83" Max="86" Res="Others/gobo00012.svg">Indexed with backout gobo 7</Capability>
   <Capability Min="87" Max="90" Res="Others/gobo00027.svg">Indexed with backout gobo 8</Capability>
   <Capability Min="91" Max="94" Res="Chauvet/gobo00036.svg">Indexed with backout gobo 9</Capability>
-  <Capability Min="95" Max="98" Res="GLP/gobo00014.png">Indexed with backout gobo 10</Capability>
+  <Capability Min="95" Max="98" Res="GLP/gobo00014.svg">Indexed with backout gobo 10</Capability>
   <Capability Min="99" Max="102" Res="Chauvet/gobo00023.svg">Indexed with backout gobo 11</Capability>
   <Capability Min="103" Max="113" Res="SGM/gobo00371.png">Indexed with shake gobo 1</Capability>
   <Capability Min="114" Max="124" Res="Robe/gobo00044.png">Indexed with shake gobo 2</Capability>
@@ -91,7 +91,7 @@
   <Capability Min="169" Max="179" Res="Others/gobo00012.svg">Indexed with shake gobo 7</Capability>
   <Capability Min="180" Max="190" Res="Others/gobo00027.svg">Indexed with shake gobo 8</Capability>
   <Capability Min="191" Max="201" Res="Chauvet/gobo00036.svg">Indexed with shake gobo 9</Capability>
-  <Capability Min="202" Max="212" Res="GLP/gobo00014.png">Indexed with shake gobo 10</Capability>
+  <Capability Min="202" Max="212" Res="GLP/gobo00014.svg">Indexed with shake gobo 10</Capability>
   <Capability Min="213" Max="223" Res="Chauvet/gobo00023.svg">Indexed with shake gobo 11</Capability>
   <Capability Min="224" Max="239">Forward wheel spind stop to fast</Capability>
   <Capability Min="240" Max="255">Reverse wheel spin stop to fast</Capability>
@@ -192,7 +192,7 @@
   <Capability Min="154" Max="175" Res="Others/gobo00012.svg">Position 8</Capability>
   <Capability Min="176" Max="197" Res="Others/gobo00027.svg">Position 9</Capability>
   <Capability Min="198" Max="219" Res="Chauvet/gobo00036.svg">Position 10</Capability>
-  <Capability Min="220" Max="241" Res="GLP/gobo00014.png">Position 11</Capability>
+  <Capability Min="220" Max="241" Res="GLP/gobo00014.svg">Position 11</Capability>
   <Capability Min="242" Max="255" Res="Chauvet/gobo00023.svg">Position 12</Capability>
  </Channel>
  <Channel Name="Movement Function">

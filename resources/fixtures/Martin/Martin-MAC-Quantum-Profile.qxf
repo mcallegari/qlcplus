@@ -91,7 +91,7 @@
   <Capability Min="31" Max="44">Gobo 2 → Gobo 3</Capability>
   <Capability Min="45" Max="45" Res="SGM/gobo00145.svg">Gobo 3</Capability>
   <Capability Min="46" Max="59">Gobo 3 → Gobo 4</Capability>
-  <Capability Min="60" Max="60" Res="Chauvet/gobo00009.png">Gobo 4</Capability>
+  <Capability Min="60" Max="60" Res="Chauvet/gobo00009.svg">Gobo 4</Capability>
   <Capability Min="61" Max="74">Gobo 4 → Gobo 5</Capability>
   <Capability Min="75" Max="75" Res="ClayPaky/gobo00069.svg">Gobo 5</Capability>
   <Capability Min="76" Max="89">Gobo 5 → Gobo 6</Capability>
@@ -109,7 +109,7 @@
   <Capability Min="166" Max="167" Res="SGM/gobo00018.png">Stepped Gobo 1</Capability>
   <Capability Min="168" Max="169" Res="Others/gobo00045.svg">Stepped Gobo 2</Capability>
   <Capability Min="170" Max="171" Res="SGM/gobo00145.svg">Stepped Gobo 3</Capability>
-  <Capability Min="172" Max="173" Res="Chauvet/gobo00009.png">Stepped Gobo 4</Capability>
+  <Capability Min="172" Max="173" Res="Chauvet/gobo00009.svg">Stepped Gobo 4</Capability>
   <Capability Min="174" Max="175" Res="ClayPaky/gobo00069.svg">Stepped Gobo 5</Capability>
   <Capability Min="176" Max="177" Res="ClayPaky/gobo00041.png">Stepped Gobo 6</Capability>
   <Capability Min="178" Max="179" Res="Others/gobo00055.png">Stepped Gobo 7</Capability>

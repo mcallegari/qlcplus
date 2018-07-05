@@ -258,7 +258,7 @@ Column
                         target: item
                         onMouseEvent:
                         {
-                            console.log("Got tree node children mouse event")
+                            console.log("Got generic tree node mouse event")
                             switch (type)
                             {
                                 case App.Clicked:
@@ -271,9 +271,7 @@ Column
                                 break;
                                 case App.Checked:
                                     if (qItem == item)
-                                    {
                                         model.isChecked = iType
-                                    }
                                 break;
                                 case App.DragStarted:
                                     if (qItem == item && !model.isSelected)

@@ -37,14 +37,14 @@
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="13">Open</Capability>
   <Capability Min="14" Max="27" Res="ClayPaky/gobo00059.svg">Gobo 1</Capability>
-  <Capability Min="28" Max="41" Res="GLP/gobo00015.png">Gobo 2</Capability>
+  <Capability Min="28" Max="41" Res="GLP/gobo00015.svg">Gobo 2</Capability>
   <Capability Min="42" Max="55" Res="GLP/gobo00008.png">Gobo 3</Capability>
   <Capability Min="56" Max="69" Res="Others/gobo00027.svg">Gobo 4</Capability>
   <Capability Min="70" Max="83" Res="Robe/gobo00010.png">Gobo 5</Capability>
   <Capability Min="84" Max="97" Res="ClayPaky/gobo00043.png">Gobo 6</Capability>
   <Capability Min="98" Max="111" Res="ClayPaky/gobo00056.svg">Gobo 7</Capability>
   <Capability Min="112" Max="127" Res="ClayPaky/gobo00059.svg">Gobo 1 shake speed</Capability>
-  <Capability Min="128" Max="143" Res="GLP/gobo00015.png">Gobo 2 shake speed</Capability>
+  <Capability Min="128" Max="143" Res="GLP/gobo00015.svg">Gobo 2 shake speed</Capability>
   <Capability Min="144" Max="159" Res="GLP/gobo00008.png">Gobo 3 shake speed</Capability>
   <Capability Min="160" Max="175" Res="Others/gobo00027.svg">Gobo 4 shake speed</Capability>
   <Capability Min="176" Max="191" Res="Robe/gobo00024.svg">Gobo 5 shake speed</Capability>

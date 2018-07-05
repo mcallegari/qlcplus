@@ -49,6 +49,7 @@ HEADERS += \
     previewcontext.h \
     rgbmatrixeditor.h \
     sceneeditor.h \
+    scripteditor.h \
     showmanager.h \
     treemodel.h \
     treemodelitem.h \
@@ -79,6 +80,7 @@ SOURCES += main.cpp \
     previewcontext.cpp \
     rgbmatrixeditor.cpp \
     sceneeditor.cpp \
+    scripteditor.cpp \
     showmanager.cpp \
     treemodel.cpp \
     treemodelitem.cpp \

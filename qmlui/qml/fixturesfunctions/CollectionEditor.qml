@@ -51,6 +51,12 @@ Rectangle
             height: ceContainer.height
             source: ""
 
+            onLoaded:
+            {
+                if (source)
+                    item.allowEditing = false
+            }
+
             Rectangle
             {
                 width: 2
@@ -95,8 +101,8 @@ Rectangle
                     {
                         if (checked)
                         {
-                            rightSidePanel.width += 350
-                            funcMgrLoader.width = 350
+                            rightSidePanel.width += UISettings.sidePanelWidth
+                            funcMgrLoader.width = UISettings.sidePanelWidth
                             funcMgrLoader.source = "qrc:/FunctionManager.qml"
                         }
                         else
