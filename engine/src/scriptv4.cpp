@@ -196,11 +196,10 @@ QList<quint32> Script::fixtureList() const
     return list;
 }
 
-QList<int> Script::syntaxErrorsLines()
+QStringList Script::syntaxErrorsLines()
 {
-    QList<int> errorList;
     ScriptRunner *runner = new ScriptRunner(doc(), m_data);
-    errorList = runner->collectScriptData();
+    QStringList errorList = runner->collectScriptData();
     //runner->deleteLater();
 
     return errorList;

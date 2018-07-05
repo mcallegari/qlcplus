@@ -86,9 +86,9 @@ void ScriptRunner::stop()
     m_startedFunctions.clear();
 }
 
-QList<int> ScriptRunner::collectScriptData()
+QStringList ScriptRunner::collectScriptData()
 {
-    QList<int> syntaxErrorList;
+    QStringList syntaxErrorList;
     QJSEngine *engine = new QJSEngine();
     QJSValue objectValue = engine->newQObject(this);
     engine->globalObject().setProperty("Engine", objectValue);
@@ -96,12 +96,12 @@ QList<int> ScriptRunner::collectScriptData()
     QJSValue script = engine->evaluate("(function run() { " + m_content + " })");
     if (script.isError())
     {
-        syntaxErrorList << script.property("lineNumber").toInt();
-
-        QString msg("Uncaught exception at line %2. Error: %3");
-        qWarning() << msg.arg(script.property("lineNumber").toInt())
-                         .arg(script.toString());
+        QString msg = QString("Uncaught exception at line %2. %3")
+                        .arg(script.property("lineNumber").toInt())
+                        .arg(script.toString());
+        qWarning() << msg;
         //qDebug() << "Stack: " << script.property("stack").toString();
+        syntaxErrorList << msg;
     }
     else
     {
@@ -117,11 +117,11 @@ QList<int> ScriptRunner::collectScriptData()
         QJSValue ret = script.call(QJSValueList());
         if (ret.isError())
         {
-            syntaxErrorList << ret.property("lineNumber").toInt();
-
-            QString msg("Uncaught exception at line %2. Error: %3");
-            qWarning() << msg.arg(ret.property("lineNumber").toInt())
-                             .arg(ret.toString());
+            QString msg = QString("Uncaught exception at line %2. %3")
+                            .arg(ret.property("lineNumber").toInt())
+                            .arg(ret.toString());
+            qWarning() << msg;
+            syntaxErrorList << msg;
         }
     }
 

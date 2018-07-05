@@ -102,7 +102,7 @@ public:
      *  The returned list is formatted as: Fixture ID / line number */
     QList<quint32> fixtureList() const;
 
-    QList<int> syntaxErrorsLines();
+    QStringList syntaxErrorsLines();
 
 private:
     QString m_data;

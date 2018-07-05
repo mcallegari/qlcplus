@@ -47,7 +47,7 @@ public:
 
     void stop();
 
-    QList<int> collectScriptData();
+    QStringList collectScriptData();
 
     int currentWaitTime();
 
