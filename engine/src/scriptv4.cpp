@@ -114,7 +114,6 @@ bool Script::setData(const QString& str)
         return false;
 
     m_data = str;
-    syntaxErrorsLines(); // TODO remove from here
 
     Doc* doc = qobject_cast<Doc*> (parent());
     Q_ASSERT(doc != NULL);

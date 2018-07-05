@@ -113,6 +113,16 @@ Rectangle
 
                 IconButton
                 {
+                    id: addButton
+                    width: height
+                    height: UISettings.iconSizeMedium
+                    imgSource: "qrc:/add.svg"
+                    tooltip: qsTr("Add a method call at cursor position")
+                    onClicked: addMethodMenu.open()
+                }
+
+                IconButton
+                {
                     id: functionTreeButton
                     width: height
                     height: UISettings.iconSizeMedium
@@ -235,4 +245,91 @@ Rectangle
             }
         } // Column
     } // SplitView
+
+    FileDialog
+    {
+        id: selectFileDialog
+        visible: false
+        onAccepted:
+        {
+            // strip "file://" and add single quotes
+            var str = "'" + fileUrl.toString().slice(7) + "'"
+            scriptEdit.insert(scriptEdit.cursorPosition, str)
+            addMethodMenu.close()
+        }
+    }
+
+    Popup
+    {
+        id: addMethodMenu
+        x: (addButton.x + addButton.width) - width
+        y: addButton.y + addButton.height
+        padding: 0
+
+        background:
+            Rectangle
+            {
+                color: UISettings.bgStrong
+                border.color: UISettings.bgStronger
+            }
+
+        function insertMethod(str)
+        {
+            scriptEdit.insert(scriptEdit.cursorPosition, str + "\n")
+            scriptEdit.cursorPosition -= 3
+            addMethodMenu.close()
+        }
+
+        Column
+        {
+            ContextMenuEntry
+            {
+                imgSource: "qrc:/play.svg"
+                entryText: qsTr("Start function")
+                onClicked: addMethodMenu.insertMethod("Engine.startFunction();")
+            }
+            ContextMenuEntry
+            {
+                imgSource: "qrc:/stop.svg"
+                entryText: qsTr("Stop function")
+                onClicked: addMethodMenu.insertMethod("Engine.stopFunction();")
+            }
+            ContextMenuEntry
+            {
+                imgSource: "qrc:/sliders.svg"
+                entryText: qsTr("Set fixture channel")
+                onClicked: addMethodMenu.insertMethod("Engine.setFixture();")
+            }
+            ContextMenuEntry
+            {
+                imgSource: "qrc:/clock.svg"
+                entryText: qsTr("Wait time")
+                onClicked: addMethodMenu.insertMethod("Engine.waitTime();")
+            }
+            ContextMenuEntry
+            {
+                imgSource: "qrc:/random.svg"
+                entryText: qsTr("Random number")
+                onClicked: addMethodMenu.insertMethod("Engine.random();")
+            }
+            ContextMenuEntry
+            {
+                imgSource: "qrc:/blackout.svg"
+                entryText: qsTr("Blackout")
+                onClicked: addMethodMenu.insertMethod("Engine.setBlackout();")
+            }
+            ContextMenuEntry
+            {
+                imgSource: "qrc:/script.svg"
+                entryText: qsTr("System command")
+                onClicked: addMethodMenu.insertMethod("Engine.systemCommand();")
+            }
+            ContextMenuEntry
+            {
+                imgSource: "qrc:/fileopen.svg"
+                entryText: qsTr("File path")
+                onClicked: selectFileDialog.open()
+            }
+        }
+    }
 }
