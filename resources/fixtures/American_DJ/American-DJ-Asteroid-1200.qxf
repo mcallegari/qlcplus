@@ -14,18 +14,18 @@
  <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Pan Continuous Rotation">
-  <Group Byte="0">Speed</Group>
+  <Group Byte="0">Pan</Group>
   <Capability Min="0" Max="127">No Function</Capability>
-  <Capability Min="128" Max="189">Clockwise Rotation Fast-&gt;Slow</Capability>
-  <Capability Min="190" Max="193">No Function</Capability>
-  <Capability Min="194" Max="255">Counter-Clockwise Rotation Slow-&gt;Fast</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Clockwise Rotation Fast-&gt;Slow</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">No Function</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counter-Clockwise Rotation Slow-&gt;Fast</Capability>
  </Channel>
  <Channel Name="Tilt Continuous Rotation">
-  <Group Byte="0">Speed</Group>
+  <Group Byte="0">Tilt</Group>
   <Capability Min="0" Max="127">No Function</Capability>
-  <Capability Min="128" Max="189">Clockwise Rotation Fast-&gt;Slow</Capability>
-  <Capability Min="190" Max="193">No Function</Capability>
-  <Capability Min="194" Max="255">Counter-Clockwise Rotation Slow-&gt;Fast</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Clockwise Rotation Fast-&gt;Slow</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">No Function</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counter-Clockwise Rotation Slow-&gt;Fast</Capability>
  </Channel>
  <Channel Name="Red 01" Preset="IntensityRed"/>
  <Channel Name="Green 01" Preset="IntensityGreen"/>
