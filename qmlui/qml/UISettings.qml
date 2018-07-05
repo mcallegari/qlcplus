@@ -60,6 +60,7 @@ QtObject
     property real mediumItemHeight: screenPixelDensity * 15
     property real bigItemHeight:    screenPixelDensity * 25
     property real scrollBarWidth:   screenPixelDensity * 6
+    property real sidePanelWidth:   350
 
     // channel properties column widths
     property real chPropsFlagsWidth: bigItemHeight

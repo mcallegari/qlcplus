@@ -296,8 +296,8 @@ Rectangle
                           {
                               if (checked)
                               {
-                                  vcRightPanel.width += mainView.width / 3
-                                  sideLoader.width = mainView.width / 3
+                                  vcRightPanel.width += UISettings.sidePanelWidth
+                                  sideLoader.width = UISettings.sidePanelWidth
                                   sideLoader.modelProvider = widgetRef
                                   sideLoader.source = "qrc:/FixtureGroupManager.qml"
                               }
