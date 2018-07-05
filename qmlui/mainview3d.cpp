@@ -468,28 +468,6 @@ unsigned int MainView3D::getNewLightIndex()
     return newIdx;
 }
 
-void MainView3D::updateLightPosition(FixtureMesh *meshRef)
-{
-    if (meshRef == NULL)
-        return;
-
-    QVector3D newLightPos = meshRef->m_rootTransform->translation();
-    
-    if (meshRef->m_armItem)
-    {
-        Qt3DCore::QTransform *armTransform = getTransform(meshRef->m_armItem);
-        newLightPos += m_minScale * armTransform->translation();
-    }
-    
-    if (meshRef->m_headItem)
-    {
-        Qt3DCore::QTransform *headTransform = getTransform(meshRef->m_headItem);
-        newLightPos += m_minScale * headTransform->translation();
-    }
-    
-    meshRef->m_rootItem->setProperty("lightPos", newLightPos);
-}
-
 QVector3D MainView3D::lightPosition(quint32 itemID)
 {
     FixtureMesh *meshRef = m_entitiesMap.value(itemID, NULL);
@@ -721,6 +699,7 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QComponent
     FixtureMesh *meshRef = m_entitiesMap.value(itemID);
     meshRef->m_rootItem = fxEntity;
     meshRef->m_rootTransform = getTransform(meshRef->m_rootItem);
+
     meshRef->m_spotlightShadingLayer = fxEntity->property("spotlightShadingLayer").value<QLayer *>();
     meshRef->m_spotlightScatteringLayer = fxEntity->property("spotlightScatteringLayer").value<QLayer *>();
     meshRef->m_outputDepthLayer = fxEntity->property("outputDepthLayer").value<QLayer *>();
@@ -1054,10 +1033,6 @@ void MainView3D::updateFixturePosition(quint32 itemID, QVector3D pos)
 
     /* move the root mesh first */
     mesh->m_rootTransform->setTranslation(QVector3D(x, y, z));
-
-    /* recalculate the light position */
-    if (mesh->m_headItem)
-        updateLightPosition(mesh);
 }
 
 void MainView3D::updateFixtureRotation(quint32 itemID, QVector3D degrees)
@@ -1074,6 +1049,43 @@ void MainView3D::updateFixtureRotation(quint32 itemID, QVector3D degrees)
     mesh->m_rootTransform->setRotationX(degrees.x());
     mesh->m_rootTransform->setRotationY(degrees.y());
     mesh->m_rootTransform->setRotationZ(degrees.z());
+
+    // below, we extract a rotation matrix and position, which we need for properly
+    // positioning and rotating the spotlight cone.
+    if (mesh->m_headItem) {
+        QMatrix4x4 m = (mesh->m_rootTransform->matrix());
+
+        if (mesh->m_armItem)
+        {
+            QMatrix4x4 armTransform = getTransform(mesh->m_armItem)->matrix();
+            m.translate(armTransform.data()[12],armTransform.data()[13],armTransform.data()[14]);
+        }
+ 
+        if (mesh->m_headItem) {
+            QMatrix4x4 headTransform = getTransform(mesh->m_headItem)->matrix();
+            m.translate(headTransform.data()[12],headTransform.data()[13],headTransform.data()[14]);
+        }
+
+        QVector4D xb = m * QVector4D(1,0,0,0);
+        QVector4D yb = m * QVector4D(0,1,0,0);
+        QVector4D zb = m * QVector4D(0,0,1,0);
+     
+        QVector3D xa = QVector3D(xb.x(), xb.y(), xb.z()).normalized();
+        QVector3D ya = QVector3D(yb.x(), yb.y(), yb.z()).normalized();
+        QVector3D za = QVector3D(zb.x(), zb.y(), zb.z()).normalized();
+     
+        QMatrix4x4 lightMatrix = QMatrix4x4(
+            xa.x(), xa.y(), xa.z(), 0,
+            ya.x(), ya.y(), ya.z(), 0,
+            za.x(), za.y(), za.z(), 0,
+            0, 0, 0, 1
+        ).transposed();
+
+        QVector4D result = m * QVector4D(0,0,0,1); 
+
+        mesh->m_rootItem->setProperty("lightPos", QVector3D(result.x(), result.y(), result.z()) );
+        mesh->m_rootItem->setProperty("lightMatrix", lightMatrix);
+    }    
 }
 
 void MainView3D::updateFixtureScale(quint32 itemID, QVector3D origSize)
@@ -1092,9 +1104,6 @@ void MainView3D::updateFixtureScale(quint32 itemID, QVector3D origSize)
     float zScale = origSize.z() / meshSize.z();
 
     float minScale = qMin(xScale, qMin(yScale, zScale));
-
-    // save this away for later usage.
-    m_minScale = minScale;
 
     mesh->m_rootTransform->setScale3D(QVector3D(minScale, minScale, minScale));
 

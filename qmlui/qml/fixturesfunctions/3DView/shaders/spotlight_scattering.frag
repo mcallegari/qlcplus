@@ -52,6 +52,7 @@ float hash(float n)
 
 void main()
 {
+
     vec3 l = lightDir;
     vec3 rd = normalize(fsPos - eyePosition); // ray marching direction.
 
@@ -120,16 +121,20 @@ void main()
         vec2 tc = ((myq.xy) * (1.0 / r)) * 0.5 + 0.5;
 
         vec4 gSample = SAMPLE_TEX2D(goboTex, tc.xy);
+        
         float goboMask = gSample.a * gSample.r;
+        //goboMask = 1.0;
 
         float contrib =  (1.0 / (1.0  + 0.09 * dist + 0.032 * dist * dist)) * stepLength;
 
         contrib *= shadowMask;
-        contrib *= goboMask;
+       contrib *= goboMask;
 
         accum += contrib;
 
         p += rd * stepLength;
     }
     MGL_FRAG_COLOR = vec4(accum * lightIntensity * lightColor, 0.0);
+  //  MGL_FRAG_COLOR = vec4(1.0, 0.0, 0.0, 0.0);
+    
 }

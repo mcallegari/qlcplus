@@ -44,6 +44,7 @@ uniform float uLightTanCutoffAngle;
 
 void main()
 {
+
     vec3 albedo, normal, position;
     
     vec4 u =  viewProjectionMatrix * vec4(fsPos, 1.0);
@@ -72,7 +73,7 @@ void main()
     float goboMask = gSample.a * gSample.r;
 
     vec3 finalColor = shadowMask * goboMask * lightColor * lightIntensity * dot(normal, -lightDir) * albedo;
-
+    
    MGL_FRAG_COLOR = vec4(finalColor, 1.0);
    //MGL_FRAG_COLOR = vec4(1.0, 0.0, 0.0, 1.0);
     

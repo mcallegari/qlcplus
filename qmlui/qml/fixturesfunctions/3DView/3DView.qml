@@ -182,8 +182,9 @@ Rectangle
                     "shadowTex": fixtureItem.shadowMap.depth,
                     "frameTarget": frameTarget
                 });
-            } 
-             
+            }       
+          
+                    
             component = Qt.createComponent("GammaCorrectFilter.qml");
             if (component.status === Component.Error)
                 console.log("Error loading component:", component.errorString());

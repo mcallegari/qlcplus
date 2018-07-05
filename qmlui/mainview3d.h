@@ -192,7 +192,6 @@ private:
     Qt3DCore::QTransform *getTransform(QEntity *entity);
     QMaterial *getMaterial(QEntity *entity);
     unsigned int getNewLightIndex();
-    void updateLightPosition(FixtureMesh *meshRef);
 
 private:
     /** Reference to the Scene3D component */
@@ -200,8 +199,6 @@ private:
 
     /** Reference to the scene root entity for items creation */
     QEntity *m_sceneRootEntity;
-
-    float m_minScale;
 
     /** Reference to the light pass entity and material for uniform updates */
     QEntity *m_quadEntity;

@@ -59,6 +59,8 @@ Entity
     // spotlight cone radius
     property real coneRadius: Math.tan(cutoffAngle) * distCutoff
 
+    property matrix4x4 lightMatrix
+
     readonly property Layer spotlightShadingLayer: Layer { objectName: "spotlightShadingLayer" }
     readonly property Layer outputDepthLayer: Layer { objectName: "outputDepthLayer" }
     readonly property Layer spotlightScatteringLayer: Layer { objectName: "spotlightScatteringLayer" }
@@ -75,7 +77,10 @@ Entity
         return getLightDir()
     }
 
-    property matrix4x4 lightViewMatrix: lookAt(lightPos,  lightPos.plus(getLightDir()), Qt.vector3d(1.0, 0.0, 0.0))
+
+    property matrix4x4 lightViewMatrix: {
+        return lookAt(lightPos,  lightPos.plus(getLightDir()), Qt.vector3d(1.0, 0.0, 0.0))
+    }
     property matrix4x4 lightProjectionMatrix:perspective( cutoffAngle, 1.0, 0.1, 40.0 )
     property matrix4x4 lightViewProjectionMatrix: lightProjectionMatrix.times(lightViewMatrix)
     property matrix4x4 lightViewProjectionScaleAndOffsetMatrix: Qt.matrix4x4(
@@ -108,14 +113,14 @@ Entity
 
     function getLightDir()
     {
-        var lightMatrix = transform.matrix
+        var lightMatrix2 = transform.matrix
         if (panTransform)
-            lightMatrix = transform.matrix.times(panTransform.matrix)
+            lightMatrix2 = transform.matrix.times(panTransform.matrix)
         if (tiltTransform)
-            lightMatrix = lightMatrix.times(tiltTransform.matrix)
-        lightMatrix = lightMatrix.times(Qt.vector4d(0.0, -1.0, 0.0, 0.0))
-
-        return lightMatrix.toVector3d().normalized()
+            lightMatrix2 = lightMatrix2.times(tiltTransform.matrix)
+        lightMatrix2 = lightMatrix2.times(Qt.vector4d(0.0, -1.0, 0.0, 0.0))
+   
+        return (lightMatrix2.toVector3d().normalized())
     }
 
     function perspective(fovy, aspect, zNear, zFar)

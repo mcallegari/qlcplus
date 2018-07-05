@@ -67,9 +67,12 @@ Entity
             parameters.push(uniformComp.createObject(spotlightConeMaterial,
                             { name: "customModelMatrix", value: Qt.binding(
                                 function() { 
+
                                     var m = Qt.matrix4x4();
 
-                                    m.translate(fxItem.lightPos);
+                                    m.translate(fxItem.lightPos.times(+1.0));
+
+                                    m = m.times(fxItem.lightMatrix)
 
                                     m.rotate(fxItem.panRotation, Qt.vector3d(0, 1, 0));
                                     m.rotate(fxItem.tiltRotation, Qt.vector3d(1, 0, 0));
