@@ -195,6 +195,9 @@ public:
     /** Return the type as string of the Fixture with ID $fixtureID */
     Q_INVOKABLE QString fixtureIcon(quint32 fixtureID);
 
+    /** Return the Fixture ID of the provided $itemID */
+    Q_INVOKABLE int fixtureIDfromItemID(quint32 itemID);
+
     /** Return the linked index of the provided $itemID */
     Q_INVOKABLE int fixtureLinkedIndex(quint32 itemID);
 

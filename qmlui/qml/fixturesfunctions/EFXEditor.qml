@@ -188,8 +188,8 @@ Rectangle
                                         {
                                             if (checked)
                                             {
-                                                rightSidePanel.width += mainView.width / 3
-                                                fxTreeLoader.width = mainView.width / 3
+                                                rightSidePanel.width += UISettings.sidePanelWidth
+                                                fxTreeLoader.width = UISettings.sidePanelWidth
                                                 fxTreeLoader.modelProvider = efxEditor
                                                 fxTreeLoader.source = "qrc:/FixtureGroupManager.qml"
                                             }

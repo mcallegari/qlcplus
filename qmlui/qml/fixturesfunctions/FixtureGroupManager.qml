@@ -34,6 +34,9 @@ Rectangle
       * specific provider is set here. In that case, modelProvider
       * must provide a 'groupsTreeModel' method */
     property var modelProvider: null
+    property bool allowEditing: true
+
+    signal doubleClicked(int ID, int type)
 
     function updateButtons(itemType, itemID)
     {
@@ -103,6 +106,7 @@ Rectangle
                 IconButton
                 {
                     id: addGrpButton
+                    visible: allowEditing
                     z: 2
                     width: height
                     height: topBar.height - 2
@@ -113,6 +117,7 @@ Rectangle
                 IconButton
                 {
                     id: delItemButton
+                    visible: allowEditing
                     z: 2
                     width: height
                     height: topBar.height - 2
@@ -173,6 +178,7 @@ Rectangle
                 IconButton
                 {
                     id: infoButton
+                    visible: allowEditing
                     z: 2
                     width: height
                     height: topBar.height - 2
@@ -202,6 +208,7 @@ Rectangle
                 IconButton
                 {
                     id: propsButton
+                    visible: allowEditing
                     width: height
                     height: topBar.height - 2
                     imgSource: "qrc:/edit.svg"
@@ -211,9 +218,9 @@ Rectangle
                     onToggled:
                     {
                         if (checked)
-                            leftSidePanel.width += 350
+                            leftSidePanel.width += UISettings.sidePanelWidth
                         else
-                            leftSidePanel.width -= 350
+                            leftSidePanel.width -= UISettings.sidePanelWidth
                         fixtureManager.propertyEditEnabled = checked
                     }
                 }
@@ -400,6 +407,10 @@ Rectangle
                                     }                                        
 
                                     updateButtons(qItem.itemType, itemID)
+                                break;
+                                case App.DoubleClicked:
+                                    if (allowEditing == false && qItem.itemType === App.FixtureDragItem)
+                                        fgmContainer.doubleClicked(iID, qItem.itemType)
                                 break;
                                 case App.DragStarted:
                                     if (qItem == item && !model.isSelected)

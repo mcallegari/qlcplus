@@ -105,7 +105,7 @@ HEADERS += bus.h \
            rgbtext.h \
            scene.h \
            scenevalue.h \
-           script.h \
+           scriptwrapper.h \
            sequence.h \
            show.h \
            showfunction.h \
@@ -114,9 +114,9 @@ HEADERS += bus.h \
            universe.h
 
 qmlui {
-  HEADERS += rgbscriptv4.h
+  HEADERS += rgbscriptv4.h scriptrunner.h scriptv4.h
 } else {
-  HEADERS += rgbscript.h
+  HEADERS += rgbscript.h script.h
 }
 
 win32:HEADERS += mastertimer-win32.h
@@ -182,7 +182,6 @@ SOURCES += bus.cpp \
            rgbtext.cpp \
            scene.cpp \
            scenevalue.cpp \
-           script.cpp \
            sequence.cpp \
            show.cpp \
            showfunction.cpp \
@@ -191,9 +190,9 @@ SOURCES += bus.cpp \
            universe.cpp
 
 qmlui {
-  SOURCES += rgbscriptv4.cpp
+  SOURCES += rgbscriptv4.cpp scriptrunner.cpp scriptv4.cpp
 } else {
-  SOURCES += rgbscript.cpp
+  SOURCES += rgbscript.cpp script.cpp
 }
 
 win32:SOURCES += mastertimer-win32.cpp

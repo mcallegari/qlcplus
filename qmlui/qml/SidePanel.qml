@@ -31,7 +31,7 @@ Rectangle
     property int panelAlignment: Qt.AlignRight
     property bool isOpen: false
     property int collapseWidth: UISettings.iconSizeDefault * 1.25
-    property int expandedWidth: Math.min(mainView.width / 3, UISettings.bigItemHeight * 5)
+    property int expandedWidth: UISettings.sidePanelWidth
     property string loaderSource: ""
     property int iconSize: UISettings.iconSizeDefault
 

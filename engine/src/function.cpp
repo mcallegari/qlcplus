@@ -28,13 +28,13 @@
 #include "qlcmacros.h"
 #include "qlcfile.h"
 
+#include "scriptwrapper.h"
 #include "mastertimer.h"
 #include "collection.h"
 #include "rgbmatrix.h"
 #include "function.h"
 #include "sequence.h"
 #include "chaser.h"
-#include "script.h"
 #include "audio.h"
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include "video.h"
