@@ -47,3 +47,15 @@ void ScriptEditor::setScriptContent(QString scriptContent)
     m_script->setData(scriptContent);
     emit scriptContentChanged(scriptContent);
 }
+
+QString ScriptEditor::syntaxErrors()
+{
+    if (m_script == NULL)
+        return QString();
+
+    QStringList errList = m_script->syntaxErrorsLines();
+    if (errList.isEmpty())
+        return tr("No errors found.");
+
+    return errList.join("\n");
+}

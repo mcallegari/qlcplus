@@ -40,6 +40,8 @@ public:
     QString scriptContent() const;
     void setScriptContent(QString scriptContent);
 
+    Q_INVOKABLE QString syntaxErrors();
+
 signals:
     void scriptContentChanged(QString scriptContent);
 

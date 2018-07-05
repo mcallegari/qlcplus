@@ -749,6 +749,11 @@ QString FixtureManager::fixtureIcon(quint32 fixtureID)
     return fixture->iconResource(true);
 }
 
+int FixtureManager::fixtureIDfromItemID(quint32 itemID)
+{
+    return FixtureUtils::itemFixtureID(itemID);
+}
+
 int FixtureManager::fixtureLinkedIndex(quint32 itemID)
 {
     return FixtureUtils::itemLinkedIndex(itemID);
