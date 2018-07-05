@@ -631,7 +631,7 @@ QEntity *MainView3D::inspectEntity(QEntity *entity, FixtureMesh *meshRef,
     return baseItem;
 }
 
-void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QComponent *picker, QSceneLoader *loader)
+void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QSceneLoader *loader)
 {
     if (m_entitiesMap.contains(itemID) == false)
         return;
@@ -765,7 +765,8 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QComponent
                                   Q_ARG(QVariant, QVariant::fromValue(spotlightShadingEffect)),
                                   Q_ARG(QVariant, QVariant::fromValue(spotlightScatteringEffect)),
                                   Q_ARG(QVariant, QVariant::fromValue(outputFrontDepthEffect)),
-                                  Q_ARG(QVariant, QVariant::fromValue(meshRef->m_headItem)));
+                                  Q_ARG(QVariant, QVariant::fromValue(meshRef->m_headItem)),
+                                  Q_ARG(QVariant, QVariant::fromValue(m_sceneRootEntity)));
     }
 
     /* Set the fixture position */
@@ -785,10 +786,6 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QComponent
         m_monProps->setFixtureFlags(fxID, headIndex, linkedIndex, 0);
         Tardis::instance()->enqueueAction(Tardis::FixtureSetPosition, itemID, QVariant(QVector3D(0, 0, 0)), QVariant(fxPos));
     }
-
-    /* Hook the object picker to the base entity */
-    picker->setParent(meshRef->m_rootItem);
-    meshRef->m_rootItem->addComponent(picker);
 
     updateFixtureScale(itemID, fxSize);
     updateFixturePosition(itemID, fxPos);
@@ -1055,8 +1052,9 @@ void MainView3D::updateFixtureRotation(quint32 itemID, QVector3D degrees)
     updateLightMatrix(mesh);
 }
 
-void MainView3D::updateLightMatrix(FixtureMesh *mesh) {
-     // below, we extract a rotation matrix and position, which we need for properly
+void MainView3D::updateLightMatrix(FixtureMesh *mesh)
+{
+    // below, we extract a rotation matrix and position, which we need for properly
     // positioning and rotating the spotlight cone.
     if (mesh->m_headItem) {
         QMatrix4x4 m = (mesh->m_rootTransform->matrix());

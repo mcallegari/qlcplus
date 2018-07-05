@@ -318,30 +318,30 @@ Entity
         onStatusChanged:
         {
             if (status === SceneLoader.Ready)
-                View3D.initializeFixture(itemID, fixtureEntity, eObjectPicker, eSceneLoader)
+                View3D.initializeFixture(itemID, fixtureEntity, eSceneLoader)
         }
     }
 
-    components: [ eSceneLoader, transform ]
+    components: [ eSceneLoader, transform, eObjectPicker ]
 
     function setupScattering(shadingLayer, scatteringLayer, depthLayer,
                              shadingEffect, scatteringEffect, depthEffect,
-                             headEntity)
+                             headEntity, sceneEntity)
     {
         shadingCone.coneLayer = shadingLayer
         shadingCone.coneEffect = shadingEffect
         shadingCone.coneMaterial.bindFixture(fixtureEntity)
-        shadingCone.parent = headEntity
+        shadingCone.parent = sceneEntity
 
         scatteringCone.coneLayer = scatteringLayer
         scatteringCone.coneEffect = scatteringEffect
         scatteringCone.coneMaterial.bindFixture(fixtureEntity)
-        scatteringCone.parent = headEntity
+        scatteringCone.parent = sceneEntity
 
         outDepthCone.coneLayer = depthLayer
         outDepthCone.coneEffect = depthEffect
         outDepthCone.coneMaterial.bindFixture(fixtureEntity)
-        outDepthCone.parent = headEntity
+        outDepthCone.parent = sceneEntity
     }
 
     /* Cone meshes used for scattering. These get re-parented to a head mesh via setupScattering */
@@ -349,7 +349,6 @@ Entity
     SpotlightConeEntity { id: scatteringCone }
     SpotlightConeEntity { id: outDepthCone }
 
-    /* This gets re-parented and activated on initializeFixture */
     ObjectPicker
     {
         id: eObjectPicker

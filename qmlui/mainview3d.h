@@ -145,7 +145,7 @@ public:
     /** Set/update the flags of a fixture item */
     void setFixtureFlags(quint32 itemID, quint32 flags);
 
-    Q_INVOKABLE void initializeFixture(quint32 itemID, QEntity *fxEntity, QComponent *picker, QSceneLoader *loader);
+    Q_INVOKABLE void initializeFixture(quint32 itemID, QEntity *fxEntity, QSceneLoader *loader);
 
     Q_INVOKABLE QString makeShader(QString str);
 
@@ -192,10 +192,9 @@ private:
     Qt3DCore::QTransform *getTransform(QEntity *entity);
     QMaterial *getMaterial(QEntity *entity);
     unsigned int getNewLightIndex();
+    void updateLightMatrix(FixtureMesh *mesh);
 
 private:
-     void updateLightMatrix(FixtureMesh *mesh);
-
     /** Reference to the Scene3D component */
     QQuickItem *m_scene3D;
 
