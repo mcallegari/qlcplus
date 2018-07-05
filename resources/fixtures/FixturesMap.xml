@@ -144,6 +144,11 @@
   <M n="Antari">
     <F n="Antari-X-310-Pro-Fazer" m="X-310 Pro Fazer"/>
   </M>
+  <M n="AVE">
+    <F n="AVE-Cobra-Wash-200" m="Cobra Wash 200"/>
+    <F n="AVE-Quad-Pro-Flat" m="Quad Pro Flat"/>
+    <F n="AVE-StagePar-Hex18" m="StagePar Hex18"/>
+  </M>
   <M n="Ayra">
     <F n="Ayra-Compar-Kit-1" m="Compar Kit 1"/>
     <F n="Ayra-ComPar20" m="ComPar 20"/>
@@ -214,6 +219,10 @@
     <F n="Cameo-CLBARL10RGBA" m="LED Colour Bar RGBA (CLBAR10RGBA)"/>
     <F n="Cameo-CLHB400RGBW" m="CLHB400RGBW"/>
     <F n="Cameo-CLM-PAR-COB-1" m="CLM PAR COB 1"/>
+    <F n="Cameo-CLPFLATPRO-Series" m="CLPFLATPRO Series"/>
+    <F n="Cameo-CLPIXBAR200PRO" m="CLPIXBAR200PRO"/>
+    <F n="Cameo-CLPIXBAR300PRO" m="CLPIXBAR300PRO"/>
+    <F n="Cameo-CLPIXBAR400PRO" m="CLPIXBAR400PRO"/>
     <F n="Cameo-CLPIXBAR450PRO-CLPIXBAR650PRO" m="CLPIXBAR450PRO, CLPIXBAR650PRO"/>
     <F n="Cameo-Flash-Bar-150" m="Flash Bar 150"/>
     <F n="Cameo-Flat-PAR-CAN-TRI-3W" m="Flat PAR CAN TRI 3W"/>
@@ -379,6 +388,8 @@
     <F n="Clay-Paky-Atlas" m="Atlas"/>
     <F n="Clay-Paky-CP-Color-400" m="CP Color 400"/>
     <F n="Clay-Paky-Glow-Up" m="Glow Up"/>
+    <F n="Clay-Paky-Mini-Scan-150" m="Mini Scan 150"/>
+    <F n="Clay-Paky-Mini-Scan-300" m="Mini Scan 300"/>
     <F n="Clay-Paky-Mini-Scan-HPE" m="Mini Scan HPE"/>
     <F n="Clay-Paky-Mythos" m="Mythos"/>
     <F n="Clay-Paky-Pin-Scan" m="Pin Scan"/>
@@ -696,6 +707,7 @@
     <F n="JB-Systems-Dynaspot" m="Dynaspot"/>
     <F n="JB-Systems-iRock-5C" m="iRock 5C"/>
     <F n="JB-Systems-LED-Devil" m="LED Devil"/>
+    <F n="JB-Systems-LED-DJ-BAR" m="LED DJ-BAR"/>
     <F n="JB-Systems-Lounge-Laser-DMX" m="Lounge Laser DMX"/>
     <F n="JB-Systems-Panther" m="Panther"/>
     <F n="JB-Systems-Plano-Spot-7TC" m="Plano Spot 7TC"/>
@@ -980,8 +992,10 @@
     <F n="Robe-Robin-600E-Beam" m="Robin 600E Beam"/>
     <F n="Robe-Robin-600E-Spot" m="Robin 600E Spot (v1.1)"/>
     <F n="Robe-Robin-600E-Wash" m="Robin 600E Wash"/>
+    <F n="Robe-Robin-800-LEDWash" m="Robin 800 LEDWash"/>
     <F n="Robe-Robin-DLX-Spot" m="Robin DLX Spot"/>
     <F n="Robe-Robin-MiniMe" m="Robin MiniMe"/>
+    <F n="Robe-Robin-Viva-CMY" m="Robin Viva CMY"/>
     <F n="Robe-Scan-575-XT" m="Scan 575 XT"/>
     <F n="Robe-Spot-160-XT" m="Spot 160 XT"/>
     <F n="Robe-Spot-575-XT" m="Spot 575 XT"/>
@@ -1117,6 +1131,7 @@
     <F n="Stairville-LED-PAR56-MKII-RGBA" m="LED Par56 MKII RGBA"/>
     <F n="Stairville-LED-PAR56-MKII-RGBW" m="LED Par56 MKII RGBW"/>
     <F n="Stairville-LED-PAR56" m="LED PAR56"/>
+    <F n="Stairville-LED-PAR64" m="LED PAR64"/>
     <F n="Stairville-LED-Show-Bar-Tri-18x3W-RGB" m="Show Bar Tri 18x3W RGB"/>
     <F n="Stairville-LED_BAR_RGB_252" m="LED BAR 252 RGB (no. 234564)"/>
     <F n="Stairville-M-Fog-1000-DMX" m="M-Fog 1000 DMX"/>
