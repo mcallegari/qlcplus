@@ -31,7 +31,10 @@ Rectangle
     color: "transparent"
     clip: true
 
+    property bool allowEditing: true
+
     signal requestView(int ID, string qmlSrc)
+    signal doubleClicked(int ID, int type)
 
     function loadFunctionEditor(funcID, funcType)
     {
@@ -329,7 +332,10 @@ Rectangle
                                         functionManager.selectFolder(qItem.nodePath, mouseMods & Qt.ControlModifier)
                                 break;
                                 case App.DoubleClicked:
-                                    loadFunctionEditor(iID, iType)
+                                    if (allowEditing)
+                                        loadFunctionEditor(iID, iType)
+                                    else
+                                        fmContainer.doubleClicked(iID, iType)
                                 break;
                                 case App.DragStarted:
                                     if (qItem == item && !model.isSelected)

@@ -309,7 +309,11 @@ Column
                 nodeLabel.forceActiveFocus()
                 nodeContainer.mouseEvent(App.Clicked, itemID, -1, nodeContainer, mouse.modifiers)
             }
-            onDoubleClicked: isExpanded = !isExpanded
+            onDoubleClicked:
+            {
+                nodeContainer.mouseEvent(App.DoubleClicked, itemID, -1, nodeContainer, mouse.modifiers)
+                isExpanded = !isExpanded
+            }
         }
     }
 
@@ -371,7 +375,7 @@ Column
                         target: item
                         onMouseEvent:
                         {
-                            console.log("Got tree node child mouse event")
+                            console.log("Got fixture tree node child mouse event")
                             switch (type)
                             {
                                 case App.Clicked:
@@ -388,7 +392,6 @@ Column
                                         console.log("Channel " + index + " got checked")
                                         model.isChecked = iType
                                     }
-
                                 break;
                                 case App.DragStarted:
                                     if (qItem == item && !model.isSelected)
