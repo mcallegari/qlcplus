@@ -194,6 +194,8 @@ private:
     unsigned int getNewLightIndex();
 
 private:
+     void updateLightMatrix(FixtureMesh *mesh);
+
     /** Reference to the Scene3D component */
     QQuickItem *m_scene3D;
 

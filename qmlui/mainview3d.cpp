@@ -1033,6 +1033,8 @@ void MainView3D::updateFixturePosition(quint32 itemID, QVector3D pos)
 
     /* move the root mesh first */
     mesh->m_rootTransform->setTranslation(QVector3D(x, y, z));
+
+    updateLightMatrix(mesh);
 }
 
 void MainView3D::updateFixtureRotation(quint32 itemID, QVector3D degrees)
@@ -1050,7 +1052,11 @@ void MainView3D::updateFixtureRotation(quint32 itemID, QVector3D degrees)
     mesh->m_rootTransform->setRotationY(degrees.y());
     mesh->m_rootTransform->setRotationZ(degrees.z());
 
-    // below, we extract a rotation matrix and position, which we need for properly
+    updateLightMatrix(mesh);
+}
+
+void MainView3D::updateLightMatrix(FixtureMesh *mesh) {
+     // below, we extract a rotation matrix and position, which we need for properly
     // positioning and rotating the spotlight cone.
     if (mesh->m_headItem) {
         QMatrix4x4 m = (mesh->m_rootTransform->matrix());
