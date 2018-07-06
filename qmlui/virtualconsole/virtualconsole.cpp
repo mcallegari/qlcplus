@@ -382,6 +382,8 @@ void VirtualConsole::setSelectedPage(int selectedPage)
 
     m_selectedPage = selectedPage;
     emit selectedPageChanged(selectedPage);
+    if (m_editMode)
+        emit selectedWidgetChanged();
 }
 
 void VirtualConsole::setPageInteraction(bool enable)
