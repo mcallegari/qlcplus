@@ -162,16 +162,7 @@ bool VCFrame::copyFrom(const VCWidget *widget)
         if (childCopy != NULL)
         {
             addWidgetToPageMap(childCopy);
-
-            if (childCopy->type() == VCWidget::SliderWidget)
-            {
-                VCSlider *slider = (VCSlider*)childCopy;
-                // always connect a slider as it it was a submaster
-                // cause this signal is emitted only when a slider is
-                // a submaster
-                connect(slider, SIGNAL(submasterValueChanged(qreal)),
-                        this, SLOT(slotSubmasterValueChanged(qreal)));
-            }
+            checkSubmasterConnection(childCopy);
         }
     }
 
@@ -336,15 +327,7 @@ void VCFrame::addWidget(QQuickItem *parent, VCWidget *widget, QPoint pos)
                                       Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, widget->id()));
     widget->setGeometry(QRect(pos.x(), pos.y(), widget->geometry().width(), widget->geometry().height()));
     addWidgetToPageMap(widget);
-
-    if (widget->type() == VCWidget::SliderWidget)
-    {
-        VCSlider *slider = qobject_cast<VCSlider *>(widget);
-
-        // always connect a slider in case it emits a submaster signal
-        connect(slider, SIGNAL(submasterValueChanged(qreal)),
-                this, SLOT(slotSubmasterValueChanged(qreal)));
-    }
+    checkSubmasterConnection(widget);
     widget->render(m_vc->view(), parent);
 }
 
@@ -547,7 +530,11 @@ void VCFrame::setupWidget(VCWidget *widget, int page)
         widget->setupLookAndFeel(m_vc->pixelDensity(), page);
 
     addWidgetToPageMap(widget);
+    checkSubmasterConnection(widget);
+}
 
+void VCFrame::checkSubmasterConnection(VCWidget *widget)
+{
     if (widget->type() == VCWidget::SliderWidget)
     {
         VCSlider *slider = qobject_cast<VCSlider *>(widget);

@@ -143,6 +143,8 @@ public:
 protected:
     void setupWidget(VCWidget *widget, int page);
 
+    void checkSubmasterConnection(VCWidget *widget);
+
     /*********************************************************************
      * Disable state
      *********************************************************************/
