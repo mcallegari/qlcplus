@@ -218,9 +218,13 @@ VCWidgetItem
             {
                 frameObj.addFunctions(dropArea, drag.source.itemsList, pos, drag.source.modifiers)
             }
+            else if (drop.keys[0] === "pasteWidgets")
+            {
+                frameObj.addWidgetsFromClipboard(dropArea, virtualConsole.clipboardItemsList(), pos);
+            }
         }
 
-        keys: [ "vcwidget", "function" ]
+        keys: [ "vcwidget", "function", "pasteWidgets" ]
     }
 
     // disable layer

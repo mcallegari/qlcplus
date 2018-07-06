@@ -45,6 +45,9 @@ public:
     /** @reimp */
     void render(QQuickView *view, QQuickItem *parent);
     
+    /** @reimp */
+    VCWidget *createCopy(VCWidget *parent);
+
     /*********************************************************************
      * Load & Save
      *********************************************************************/

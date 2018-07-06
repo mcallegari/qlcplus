@@ -111,7 +111,12 @@ public:
     /** @reimp */
     QString propertiesResource() const;
 
-    QVariant channelsList();
+    /** @reimp */
+    VCWidget *createCopy(VCWidget *parent);
+
+protected:
+    /** @reimp */
+    bool copyFrom(const VCWidget* widget);
 
 protected:
     /** Reference to a tree model representing Groups/Fitures/Channels
@@ -263,10 +268,12 @@ public:
     void clearLevelChannels();
 
     /** Get the list of channels that this slider controls */
-    QList <SceneValue> levelChannels();
+    QList <SceneValue> levelChannels() const;
 
     /** Returns the data model to display a tree of FixtureGroups/Fixtures */
     QVariant groupsTreeModel();
+
+    QVariant channelsList();
 
     /** Get/Set a string to filter Group/Fixture/Channel names */
     QString searchFilter() const;

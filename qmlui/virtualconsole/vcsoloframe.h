@@ -41,6 +41,13 @@ public:
     /** @reimp */
     void render(QQuickView *view, QQuickItem *parent);
 
+    /** @reimp */
+    VCWidget *createCopy(VCWidget *parent);
+
+protected:
+    /** @reimp */
+    bool copyFrom(const VCWidget* widget);
+
     /*********************************************************************
      * Widget Function
      *********************************************************************/

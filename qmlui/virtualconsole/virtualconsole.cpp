@@ -129,6 +129,15 @@ void VirtualConsole::setEditMode(bool editMode)
     if (m_editMode == editMode)
         return;
 
+    if (editMode == false)
+    {
+        m_clipboardIDList.clear();
+        emit clipboardItemsCountChanged();
+
+        m_itemsMap.clear();
+        emit selectedWidgetsCountChanged();
+    }
+
     m_editMode = editMode;
     emit editModeChanged(editMode);
 }
@@ -253,6 +262,15 @@ void VirtualConsole::renderPage(QQuickItem *parent, QQuickItem *contentItem, int
     qDebug() << "[VC] renderPage. Parent:" << parent << "contents rect:" << pageRect;
 
     m_pages.at(page)->render(m_view, contentItem);
+}
+
+void VirtualConsole::enableFlicking(bool enable)
+{
+    QQuickItem *currPage = currentPageItem();
+    if (currPage == NULL)
+        return;
+
+    currPage->setProperty("interactive", enable);
 }
 
 VCPage *VirtualConsole::page(int page) const
@@ -764,6 +782,78 @@ QString VirtualConsole::widgetIcon(int type)
     }
 
     return "";
+}
+
+
+/*********************************************************************
+ * Clipboard
+ *********************************************************************/
+
+void VirtualConsole::copyToClipboard()
+{
+    m_clipboardIDList.clear();
+    for (quint32 wID : m_itemsMap.keys())
+        m_clipboardIDList.append(wID);
+
+    emit clipboardItemsCountChanged();
+}
+
+void VirtualConsole::pasteFromClipboard()
+{
+    VCFrame *frame = NULL;
+    QQuickItem *renderParent = NULL;
+    QPoint currPos(0, 0);
+
+    QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
+    while(it.hasNext())
+    {
+        it.next();
+
+        VCWidget *widget = m_widgetsMap[it.key()];
+        if (widget->type() == VCWidget::FrameWidget ||
+            widget->type() == VCWidget::SoloFrameWidget)
+        {
+            frame = qobject_cast<VCFrame*>(widget);
+            renderParent = it.value();
+            // y position below the frame header
+            currPos = QPoint(0, pixelDensity() * 7);
+            break;
+        }
+    }
+
+    // no selected frame found ? Paste on current page
+    if (frame == NULL)
+    {
+        frame = qobject_cast<VCFrame*>(m_pages.at(selectedPage()));
+        renderParent = currentPageItem();
+    }
+
+    for (QVariant wID : m_clipboardIDList)
+    {
+        VCWidget *cWidget = widget(wID.toUInt());
+        if (cWidget == NULL)
+            continue;
+
+        VCWidget *copy = cWidget->createCopy(frame);
+        frame->addWidget(renderParent, copy, currPos);
+
+        currPos.setX(currPos.x() + copy->geometry().width());
+        if (currPos.x() >= frame->geometry().width())
+        {
+            currPos.setX(0);
+            currPos.setY(currPos.y() + copy->geometry().height());
+        }
+    }
+}
+
+QVariantList VirtualConsole::clipboardItemsList()
+{
+    return m_clipboardIDList;
+}
+
+int VirtualConsole::clipboardItemsCount() const
+{
+    return m_clipboardIDList.count();
 }
 
 /*********************************************************************

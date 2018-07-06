@@ -86,6 +86,59 @@ void VCWidget::enqueueTardisAction(int code, QVariant oldVal, QVariant newVal)
     tardis->enqueueAction(code, id(), oldVal, newVal);
 }
 
+VCWidget *VCWidget::createCopy(VCWidget *parent)
+{
+    Q_UNUSED(parent)
+    return NULL;
+}
+
+bool VCWidget::copyFrom(const VCWidget* widget)
+{
+    if (widget == NULL)
+        return false;
+
+    m_backgroundImage = widget->m_backgroundImage;
+
+    m_hasCustomBackgroundColor = widget->m_hasCustomBackgroundColor;
+    if (m_hasCustomBackgroundColor == true)
+        setBackgroundColor(widget->backgroundColor());
+
+    m_hasCustomForegroundColor = widget->m_hasCustomForegroundColor;
+    if (m_hasCustomForegroundColor == true)
+        setForegroundColor(widget->foregroundColor());
+
+    m_hasCustomFont = widget->m_hasCustomFont;
+    if (m_hasCustomFont == true)
+        setFont(widget->font());
+
+    setGeometry(widget->geometry());
+    setCaption(widget->caption());
+
+    m_allowResize = widget->m_allowResize;
+
+    for (QSharedPointer<QLCInputSource> src : widget->m_inputSources)
+    {
+        QSharedPointer<QLCInputSource> dst(new QLCInputSource(src->universe(), src->channel()));
+        dst->setID(src->id());
+        dst->setRange(src->lowerValue(), src->upperValue());
+        addInputSource(dst);
+    }
+
+    QMapIterator<QKeySequence, quint32> it(m_keySequenceMap);
+    while(it.hasNext())
+    {
+        it.next();
+
+        QKeySequence seq = it.key();
+        quint32 id = it.value();
+        addKeySequence(seq, id);
+    }
+
+    m_page = widget->m_page;
+
+    return true;
+}
+
 /*****************************************************************************
  * ID
  *****************************************************************************/

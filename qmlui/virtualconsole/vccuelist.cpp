@@ -96,6 +96,36 @@ QString VCCueList::propertiesResource() const
     return QString("qrc:/VCCueListProperties.qml");
 }
 
+VCWidget *VCCueList::createCopy(VCWidget *parent)
+{
+    Q_ASSERT(parent != NULL);
+
+    VCCueList *cuelist = new VCCueList(m_doc, parent);
+    if (cuelist->copyFrom(this) == false)
+    {
+        delete cuelist;
+        cuelist = NULL;
+    }
+
+    return cuelist;
+}
+
+bool VCCueList::copyFrom(const VCWidget *widget)
+{
+    const VCCueList *cuelist = qobject_cast<const VCCueList*> (widget);
+    if (cuelist == NULL)
+        return false;
+
+    /* Function list contents */
+    setChaserID(cuelist->chaserID());
+
+    setPlaybackLayout(cuelist->playbackLayout());
+    setNextPrevBehavior(cuelist->nextPrevBehavior());
+
+    /* Common stuff */
+    return VCWidget::copyFrom(widget);
+}
+
 /*********************************************************************
  * UI settings
  *********************************************************************/
