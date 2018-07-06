@@ -46,7 +46,7 @@
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="5" Res="Others/open.svg">Open</Capability>
   <Capability Min="6" Max="11" Res="Others/gobo00079.svg">Gobo 1</Capability>
-  <Capability Min="12" Max="17" Res="Others/gobo00043.png">Gobo 2</Capability>
+  <Capability Min="12" Max="17" Res="Others/gobo00043.svg">Gobo 2</Capability>
   <Capability Min="18" Max="23" Color="#ffffff">Gobo 3</Capability>
   <Capability Min="24" Max="29" Color="#ffffff">Gobo 4</Capability>
   <Capability Min="30" Max="35" Color="#ffffff">Gobo 5</Capability>

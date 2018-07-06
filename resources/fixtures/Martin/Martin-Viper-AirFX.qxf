@@ -107,7 +107,7 @@
   <Capability Max="74" Min="61">Gobo 4 -&gt; Gobo 5</Capability>
   <Capability Max="75" Res="Chauvet/gobo00066.png" Min="75">Gobo 5</Capability>
   <Capability Max="89" Min="76">Gobo 5 -&gt; Gobo 6</Capability>
-  <Capability Max="90" Res="ClayPaky/gobo00079.png" Min="90">Gobo 6</Capability>
+  <Capability Max="90" Res="ClayPaky/gobo00079.svg" Min="90">Gobo 6</Capability>
   <Capability Max="104" Min="91">Gobo 6 -&gt; Gobo 7</Capability>
   <Capability Max="105" Res="Others/gobo00045.svg" Min="105">Gobo 7</Capability>
   <Capability Max="119" Min="106">Gobo 7 -&gt; Open</Capability>
@@ -117,7 +117,7 @@
   <Capability Max="135" Res="ClayPaky/gobo00019.svg" Min="131">Gobo 3 Stepped</Capability>
   <Capability Max="140" Res="Chauvet/gobo00003.svg" Min="136">Gobo 4 Stepped</Capability>
   <Capability Max="145" Res="Chauvet/gobo00066.png" Min="141">Gobo 5 Stepped</Capability>
-  <Capability Max="150" Res="ClayPaky/gobo00079.png" Min="146">Gobo 6 Stepped</Capability>
+  <Capability Max="150" Res="ClayPaky/gobo00079.svg" Min="146">Gobo 6 Stepped</Capability>
   <Capability Max="155" Res="Others/gobo00045.svg" Min="151">Gobo 7 Stepped</Capability>
   <Capability Max="160" Min="156">Open</Capability>
   <Capability Max="200" Min="161">CW gobo wheel rotation, fast -&gt; slow</Capability>

@@ -85,7 +85,7 @@
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="0" Res="Others/open.svg">Open</Capability>
   <Capability Min="1" Max="14">Open → Gobo 1</Capability>
-  <Capability Min="15" Max="15" Res="SGM/gobo00018.png">Gobo 1</Capability>
+  <Capability Min="15" Max="15" Res="SGM/gobo00018.svg">Gobo 1</Capability>
   <Capability Min="16" Max="29">Gobo 1 → Gobo 2</Capability>
   <Capability Min="30" Max="30" Res="Others/gobo00045.svg">Gobo 2</Capability>
   <Capability Min="31" Max="44">Gobo 2 → Gobo 3</Capability>
@@ -106,7 +106,7 @@
   <Capability Min="150" Max="150" Res="GLP/gobo00002.png">Gobo 10</Capability>
   <Capability Min="151" Max="164">Gobo 10 → Open</Capability>
   <Capability Min="165" Max="165" Res="Others/open.svg">Open</Capability>
-  <Capability Min="166" Max="167" Res="SGM/gobo00018.png">Stepped Gobo 1</Capability>
+  <Capability Min="166" Max="167" Res="SGM/gobo00018.svg">Stepped Gobo 1</Capability>
   <Capability Min="168" Max="169" Res="Others/gobo00045.svg">Stepped Gobo 2</Capability>
   <Capability Min="170" Max="171" Res="SGM/gobo00145.svg">Stepped Gobo 3</Capability>
   <Capability Min="172" Max="173" Res="Chauvet/gobo00009.svg">Stepped Gobo 4</Capability>
