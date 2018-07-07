@@ -38,6 +38,22 @@ void debugMessageHandler(QtMsgType type, const QMessageLogContext &context, cons
     }
 }
 
+/**
+ * Prints the application version
+ */
+void printVersion()
+{
+    QTextStream cout(stdout, QIODevice::WriteOnly);
+
+    cout << endl;
+    cout << APPNAME << " " << "version " << APPVERSION << endl;
+    cout << "This program is licensed under the terms of the ";
+    cout << "Apache 2.0 license." << endl;
+    cout << "Copyright (c) Heikki Junnila (hjunnila@users.sf.net)" << endl;
+    cout << "Copyright (c) Massimo Callegari (massimocallegari@yahoo.it)" << endl;
+    cout << endl;
+}
+
 int main(int argc, char *argv[])
 {
     QSurfaceFormat format;
@@ -52,6 +68,8 @@ int main(int argc, char *argv[])
     QApplication::setOrganizationDomain("org");
     QApplication::setApplicationName(APPNAME);
     QApplication::setApplicationVersion(QString(APPVERSION));
+
+    printVersion();
 
     QCommandLineParser parser;
     parser.setApplicationDescription("Q Light Controller Plus");
@@ -71,12 +89,20 @@ int main(int argc, char *argv[])
                                       "Enable kiosk mode (only Virtual Console)");
     parser.addOption(kioskOption);
 
+    QCommandLineOption localeOption(QStringList() << "l" << "locale",
+                                      "Specify a language to use.",
+                                      "locale", "");
+    parser.addOption(localeOption);
+
     parser.process(app);
 
     if (parser.isSet(debugOption))
         qInstallMessageHandler(debugMessageHandler);
 
+    QString locale = parser.value(localeOption);
+
     App qlcplusApp;
+    qlcplusApp.setLanguage(locale);
     qlcplusApp.startup();
 
     if (parser.isSet(kioskOption))

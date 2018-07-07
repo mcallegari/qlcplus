@@ -42,9 +42,9 @@ Popup
     {
         id: openDialog
         visible: false
-        title: qsTr("Open a workspace")
+        title: qsTr("Open a project")
         folder: "file://" + qlcplus.workingPath
-        nameFilters: [ qsTr("Workspace files") + " (*.qxw)", qsTr("All files") + " (*)" ]
+        nameFilters: [ qsTr("Project files") + " (*.qxw)", qsTr("All files") + " (*)" ]
 
         onAccepted:
         {
@@ -53,28 +53,20 @@ Popup
             console.log("Folder: " + folder.toString())
             qlcplus.workingPath = folder.toString()
         }
-        onRejected:
-        {
-            console.log("Canceled")
-        }
     }
 
     FileDialog
     {
         id: importDialog
         visible: false
-        title: qsTr("Import a workspace")
+        title: qsTr("Import from project")
         folder: "file://" + qlcplus.workingPath
-        nameFilters: [ qsTr("Workspace files") + " (*.qxw)", qsTr("All files") + " (*)" ]
+        nameFilters: [ qsTr("Project files") + " (*.qxw)", qsTr("All files") + " (*)" ]
 
         onAccepted:
         {
             if (qlcplus.loadImportWorkspace(fileUrl) === true)
                 importLoader.source = "qrc:/PopupImportProject.qml"
-        }
-        onRejected:
-        {
-            console.log("Canceled")
         }
     }
 
@@ -82,9 +74,9 @@ Popup
     {
         id: saveDialog
         visible: false
-        title: qsTr("Save workspace as")
+        title: qsTr("Save project as...")
         selectExisting: false
-        nameFilters: [ qsTr("Workspace files") + " (*.qxw)", qsTr("All files") + " (*)" ]
+        nameFilters: [ qsTr("Project files") + " (*.qxw)", qsTr("All files") + " (*)" ]
 
         onAccepted:
         {
@@ -94,17 +86,13 @@ Popup
             if (saveFirstPopup.action == "#EXIT")
                 qlcplus.exit()
         }
-        onRejected:
-        {
-            console.log("Canceled")
-        }
     }
 
     CustomPopupDialog
     {
         id: saveFirstPopup
         title: qsTr("Your project has changes")
-        message: qsTr("Do you wish to save the current workspace first ?\nChanges will be lost if you don't save them.")
+        message: qsTr("Do you wish to save the current project first ?\nChanges will be lost if you don't save them.")
         standardButtons: Dialog.Yes | Dialog.No | Dialog.Cancel
 
         property string action: ""
@@ -422,6 +410,92 @@ Popup
             {
                 menuRoot.close()
                 qlcplus.toggleFullscreen()
+            }
+        }
+
+        ContextMenuEntry
+        {
+            imgSource: "qrc:/global.svg"
+            entryText: qsTr("Language")
+            onEntered: submenuItem = languageMenu
+
+            onClicked:
+            {
+                if (Qt.platform.os === "android")
+                    submenuItem = languageMenu
+            }
+
+            Rectangle
+            {
+                id: languageMenu
+                x: menuRoot.width
+                y: -height + parent.height
+                width: languageColumn.width
+                height: languageColumn.height
+                color: UISettings.bgStrong
+                visible: submenuItem === languageMenu
+
+                Column
+                {
+                    id: languageColumn
+
+                    ContextMenuEntry
+                    {
+                        imgSource: "qrc:/flag_ca.svg"
+                        iconWidth: UISettings.iconSizeDefault * 1.5
+                        entryText: qsTr("Catalan")
+                        onClicked: { qlcplus.setLanguage("ca_ES"); menuRoot.close() }
+                    }
+                    ContextMenuEntry
+                    {
+                        imgSource: "qrc:/flag_nl.svg"
+                        iconWidth: UISettings.iconSizeDefault * 1.5
+                        entryText: qsTr("Dutch")
+                        onClicked: { qlcplus.setLanguage("nl_NL"); menuRoot.close() }
+                    }
+                    ContextMenuEntry
+                    {
+                        imgSource: "qrc:/flag_uk_us.svg"
+                        iconWidth: UISettings.iconSizeDefault * 1.5
+                        entryText: qsTr("English")
+                        onClicked: { qlcplus.setLanguage("en_EN"); menuRoot.close() }
+                    }
+                    ContextMenuEntry
+                    {
+                        imgSource: "qrc:/flag_fr.svg"
+                        iconWidth: UISettings.iconSizeDefault * 1.5
+                        entryText: qsTr("French")
+                        onClicked: { qlcplus.setLanguage("fr_FR"); menuRoot.close() }
+                    }
+                    ContextMenuEntry
+                    {
+                        imgSource: "qrc:/flag_de.svg"
+                        iconWidth: UISettings.iconSizeDefault * 1.5
+                        entryText: qsTr("German")
+                        onClicked: { qlcplus.setLanguage("de_DE"); menuRoot.close() }
+                    }
+                    ContextMenuEntry
+                    {
+                        imgSource: "qrc:/flag_it.svg"
+                        iconWidth: UISettings.iconSizeDefault * 1.5
+                        entryText: qsTr("Italian")
+                        onClicked: { qlcplus.setLanguage("it_IT"); menuRoot.close() }
+                    }
+                    ContextMenuEntry
+                    {
+                        imgSource: "qrc:/flag_jp.svg"
+                        iconWidth: UISettings.iconSizeDefault * 1.5
+                        entryText: qsTr("Japanese")
+                        onClicked: { qlcplus.setLanguage("ja_JP"); menuRoot.close() }
+                    }
+                    ContextMenuEntry
+                    {
+                        imgSource: "qrc:/flag_es.svg"
+                        iconWidth: UISettings.iconSizeDefault * 1.5
+                        entryText: qsTr("Spanish")
+                        onClicked: { qlcplus.setLanguage("es_ES"); menuRoot.close() }
+                    }
+                }
             }
         }
 

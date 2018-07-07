@@ -133,6 +133,19 @@ SOURCES += \
 
 RESOURCES += qmlui.qrc ../resources/icons/svg/svgicons.qrc ../resources/fonts/fonts.qrc
 
+lupdate_only {
+    SOURCES += \
+        qml/*.qml \
+        qml/fixturesfunctions/*.qml \
+        qml/inputoutput/*.qml \
+        qml/popup/*.qml \
+        qml/showmanager/*.qml \
+        qml/virtualconsole/*.qml
+}
+
+TRANSLATIONS += \
+    qlcplus_it_IT.ts
+
 macx {
     # This must be after "TARGET = " and before target installation so that
     # install_name_tool can be run before target installation
