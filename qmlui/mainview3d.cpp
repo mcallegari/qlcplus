@@ -51,6 +51,7 @@ MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
     , m_quadEntity(NULL)
     , m_gBuffer(NULL)
     , m_frontDepthTarget(NULL)
+    , m_renderQuality(HighQuality)
     , m_stageEntity(NULL)
     , m_ambientIntensity(0.8)
 {
@@ -58,6 +59,7 @@ MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
     setContextTitle(tr("3D View"));
 
     qRegisterMetaType<Qt3DCore::QEntity*>();
+    qmlRegisterUncreatableType<MainView3D>("org.qlcplus.classes", 1, 0, "MainView3D", "Can't create an MainView3D !");
 
     // the following two lists must always have the same items number and must respect
     // the order of StageType enum in MonitorProperties class
@@ -1132,6 +1134,20 @@ void MainView3D::removeFixtureItem(quint32 itemID)
 /*********************************************************************
  * Environment
  *********************************************************************/
+
+MainView3D::RenderQuality MainView3D::renderQuality() const
+{
+    return m_renderQuality;
+}
+
+void MainView3D::setRenderQuality(MainView3D::RenderQuality renderQuality)
+{
+    if (m_renderQuality == renderQuality)
+        return;
+
+    m_renderQuality = renderQuality;
+    emit renderQualityChanged(m_renderQuality);
+}
 
 float MainView3D::ambientIntensity() const
 {

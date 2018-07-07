@@ -93,6 +93,7 @@ class MainView3D : public PreviewContext
 {
     Q_OBJECT
 
+    Q_PROPERTY(RenderQuality renderQuality READ renderQuality WRITE setRenderQuality NOTIFY renderQualityChanged)
     Q_PROPERTY(QString meshDirectory READ meshDirectory CONSTANT)
     Q_PROPERTY(QStringList stagesList READ stagesList CONSTANT)
     Q_PROPERTY(int stageIndex READ stageIndex WRITE setStageIndex NOTIFY stageIndexChanged)
@@ -218,6 +219,20 @@ private:
      * Environment
      *********************************************************************/
 public:
+    enum RenderQuality
+    {
+        LowQuality = 0,
+        MediumQuality,
+        HighQuality,
+        UltraQuality
+    };
+    Q_ENUM(RenderQuality)
+
+    /** Get/Set the 3D render quality. This affects shadows and
+     *  scattering ray marching steps */
+    RenderQuality renderQuality() const;
+    void setRenderQuality(RenderQuality renderQuality);
+
     /** The list of currently supported stage types */
     QStringList stagesList() const;
 
@@ -230,10 +245,13 @@ public:
     void setAmbientIntensity(float ambientIntensity);
 
 signals:
+    void renderQualityChanged(RenderQuality renderQuality);
     void stageIndexChanged(int stageIndex);
     void ambientIntensityChanged(qreal ambientIntensity);
 
 private:
+    RenderQuality m_renderQuality;
+
     QStringList m_stagesList;
     QStringList m_stageResourceList;
 

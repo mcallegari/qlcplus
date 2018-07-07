@@ -42,8 +42,8 @@ Entity
     property real focusMaxDegrees: 30
     property real totalDuration: 4000 // in milliseconds
 
-    property bool useScattering : true
-    property bool useShadows : true
+    property bool useScattering: View3D.renderQuality === MainView3D.LowQuality ? false : true
+    property bool useShadows: View3D.renderQuality === MainView3D.LowQuality ? false : true
 
     property real panRotation: 0
     property real tiltRotation: 0
@@ -53,11 +53,17 @@ Entity
 
    // property real cutOff: focusMinDegrees / 2 // TODO: degrees or radians ? That is the question
     property real distCutoff: 40.0
-    property real cutoffAngle: {
-        return (focusMinDegrees / 2) * (Math.PI / 180)
-    }
+    property real cutoffAngle: (focusMinDegrees / 2) * (Math.PI / 180)
 
-    property int raymarchSteps: 40
+    property int raymarchSteps: {
+        switch(View3D.renderQuality)
+        {
+            case MainView3D.LowQuality: return 0
+            case MainView3D.MediumQuality: return 20
+            case MainView3D.HighQuality: return 40
+            case MainView3D.UltraQuality: return 80
+        }
+    }
 
     // spotlight cone radius
     property real coneRadius: Math.tan(cutoffAngle) * distCutoff
