@@ -58,7 +58,7 @@ CustomPopupDialog
         }
         else if (clientStatus === NetworkManager.DownloadingProject)
         {
-            statusText.label = qsTr("Downloading workspace")
+            statusText.label = qsTr("Downloading project")
             statusText.labelColor = "yellow"
             statusProgress.visible = true
         }
