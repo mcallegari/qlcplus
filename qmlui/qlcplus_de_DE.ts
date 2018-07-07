@@ -309,7 +309,7 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/fixturesfunctions/BottomPanel.qml" line="105"/>
         <source>Expand/Collapse this panel</source>
-        <translation type="unfinished"></translation>
+        <translation>Feld aus-/einklappen</translation>
     </message>
 </context>
 <context>
@@ -317,117 +317,117 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="92"/>
         <source>Add a new step</source>
-        <translation type="unfinished"></translation>
+        <translation>Neuen Schritt hinzufügen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="117"/>
         <source>Remove the selected steps</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgewählte Schritte entfernen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="123"/>
         <source>Delete steps</source>
-        <translation type="unfinished"></translation>
+        <translation>Schritte entfernen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="124"/>
         <source>Are you sure you want to remove the selected steps ?</source>
-        <translation type="unfinished"></translation>
+        <translation>Willst du alle ausgewählten Schritte entfernen?</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="157"/>
         <source>Run properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Abspieleigenschaften</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="174"/>
         <source>Loop</source>
-        <translation type="unfinished"></translation>
+        <translation>Wiederholen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="175"/>
         <source>Single Shot</source>
-        <translation type="unfinished"></translation>
+        <translation>Einmal</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="176"/>
         <source>Ping Pong</source>
-        <translation type="unfinished"></translation>
+        <translation>Hin und her</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="177"/>
         <source>Random</source>
-        <translation type="unfinished"></translation>
+        <translation>Zufällig</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="186"/>
         <source>Run Order</source>
-        <translation type="unfinished"></translation>
+        <translation>Ablauf</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="195"/>
         <source>Forward</source>
-        <translation type="unfinished"></translation>
+        <translation>Rückwärts</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="196"/>
         <source>Backward</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorwärts</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="205"/>
         <source>Direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Richtung</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="214"/>
         <source>Time</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeit</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="215"/>
         <source>Beats</source>
-        <translation type="unfinished"></translation>
+        <translation>Takt</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="224"/>
         <source>Tempo</source>
-        <translation type="unfinished"></translation>
+        <translation>Tempo</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="234"/>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="254"/>
         <source>Default</source>
-        <translation type="unfinished"></translation>
+        <translation>Standard</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="235"/>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="255"/>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="274"/>
         <source>Common</source>
-        <translation type="unfinished"></translation>
+        <translation>Gemeinsam</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="236"/>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="256"/>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="275"/>
         <source>Per Step</source>
-        <translation type="unfinished"></translation>
+        <translation>Pro Schritt</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="245"/>
         <source>Fade In</source>
-        <translation type="unfinished"></translation>
+        <translation>Einblenden</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="265"/>
         <source>Fade Out</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausblenden</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="284"/>
         <source>Duration</source>
-        <translation type="unfinished"></translation>
+        <translation>Dauer</translation>
     </message>
 </context>
 <context>
@@ -435,32 +435,32 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/ChaserWidget.qml" line="170"/>
         <source>Function</source>
-        <translation type="unfinished"></translation>
+        <translation>Funktion</translation>
     </message>
     <message>
         <location filename="qml/ChaserWidget.qml" line="209"/>
         <source>Fade In</source>
-        <translation type="unfinished"></translation>
+        <translation>Einblenden</translation>
     </message>
     <message>
         <location filename="qml/ChaserWidget.qml" line="247"/>
         <source>Hold</source>
-        <translation type="unfinished"></translation>
+        <translation>Halten</translation>
     </message>
     <message>
         <location filename="qml/ChaserWidget.qml" line="285"/>
         <source>Fade Out</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausblenden</translation>
     </message>
     <message>
         <location filename="qml/ChaserWidget.qml" line="323"/>
         <source>Duration</source>
-        <translation type="unfinished"></translation>
+        <translation>Dauer</translation>
     </message>
     <message>
         <location filename="qml/ChaserWidget.qml" line="361"/>
         <source>Note</source>
-        <translation type="unfinished"></translation>
+        <translation>Notiz</translation>
     </message>
 </context>
 <context>
