@@ -220,62 +220,62 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/fixturesfunctions/AudioEditor.qml" line="123"/>
         <source>Audio files</source>
-        <translation type="unfinished"></translation>
+        <translation>Audiodateien</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/AudioEditor.qml" line="127"/>
         <source>All files</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle Dateien</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/AudioEditor.qml" line="137"/>
         <source>Duration</source>
-        <translation type="unfinished"></translation>
+        <translation>Dauer</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/AudioEditor.qml" line="151"/>
         <source>Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanäle</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/AudioEditor.qml" line="165"/>
         <source>Sample Rate</source>
-        <translation type="unfinished"></translation>
+        <translation>Samplerate</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/AudioEditor.qml" line="179"/>
         <source>Bitrate</source>
-        <translation type="unfinished"></translation>
+        <translation>Bitrate</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/AudioEditor.qml" line="193"/>
         <source>Playback mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Abspielmodus</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/AudioEditor.qml" line="214"/>
         <source>Single shot</source>
-        <translation type="unfinished"></translation>
+        <translation>Einmal</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/AudioEditor.qml" line="228"/>
         <source>Looped</source>
-        <translation type="unfinished"></translation>
+        <translation>Wiederholen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/AudioEditor.qml" line="235"/>
         <source>Output device</source>
-        <translation type="unfinished"></translation>
+        <translation>Audiogerät</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/AudioEditor.qml" line="252"/>
         <source>Fade in</source>
-        <translation type="unfinished"></translation>
+        <translation>Einblenden</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/AudioEditor.qml" line="284"/>
         <source>Fade out</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausblenden</translation>
     </message>
 </context>
 <context>
