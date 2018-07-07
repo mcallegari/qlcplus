@@ -159,31 +159,32 @@ Rectangle
             {
                 fixtureItem = fixtures[ic]
 
-                component = Qt.createComponent("OutputFrontDepthFilter.qml");
-                if (component.status === Component.Error)
-                    console.log("Error loading component:", component.errorString());
-                mynode = component.createObject(frameGraph.myCameraSelector,
-                {
-                    "frontDepth": depthTarget,
-                    "outputDepthLayer": fixtureItem.outputDepthLayer
-                });
+                console.log("fixture use scattering: ", fixtureItem)
+                if(fixtureItem.useScattering) {
+                    component = Qt.createComponent("OutputFrontDepthFilter.qml");
+                    if (component.status === Component.Error)
+                        console.log("Error loading component:", component.errorString());
+                    mynode = component.createObject(frameGraph.myCameraSelector,
+                    {
+                        "frontDepth": depthTarget,
+                        "outputDepthLayer": fixtureItem.outputDepthLayer
+                    });
 
-                component = Qt.createComponent("SpotlightScatteringFilter.qml");
-                if (component.status === Component.Error)
-                    console.log("Error loading component:", component.errorString());
+                    component = Qt.createComponent("SpotlightScatteringFilter.qml");
+                    if (component.status === Component.Error)
+                        console.log("Error loading component:", component.errorString());
 
-                mynode = component.createObject(frameGraph.myCameraSelector,
-                {
-                    "fixtureItem": fixtureItem,
-            
-                    "frontDepth": depthTarget,
-                    "gBuffer": gBufferTarget,
-                    "spotlightScatteringLayer": fixtureItem.spotlightScatteringLayer,
-                    "shadowTex": fixtureItem.shadowMap.depth,
-                    "frameTarget": frameTarget
-                });
+                    mynode = component.createObject(frameGraph.myCameraSelector,
+                    {
+                        "fixtureItem": fixtureItem,          
+                        "frontDepth": depthTarget,
+                        "gBuffer": gBufferTarget,
+                        "spotlightScatteringLayer": fixtureItem.spotlightScatteringLayer,
+                        "shadowTex": fixtureItem.shadowMap.depth,
+                        "frameTarget": frameTarget
+                    });
+                }
             }       
-          
                     
             component = Qt.createComponent("GammaCorrectFilter.qml");
             if (component.status === Component.Error)

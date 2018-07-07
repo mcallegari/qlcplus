@@ -42,6 +42,8 @@ Entity
     property real focusMaxDegrees: 30
     property real totalDuration: 4000 // in milliseconds
 
+    property bool useScattering : true
+
     property real panRotation: 0
     property real tiltRotation: 0
 
