@@ -32,6 +32,7 @@ uniform int raymarchSteps;
 
 uniform float uLightTanCutoffAngle;
 uniform vec3 lightColor;
+uniform int useShadows;
 
 uniform sampler2D depthTex;
 uniform mat4 viewProjectionMatrix;
@@ -106,10 +107,13 @@ void main()
 
     for (i = 0; i < raymarchSteps; ++i)
     {
-        vec4 q = (lightViewProjectionScaleAndOffsetMatrix * vec4(p, 1.0));
-        float curZ = q.z / q.w;
-        float refZ = SAMPLE_TEX2D(shadowTex, (q.xy / q.w)).r;
-        float shadowMask = (curZ < refZ ? 1.0 : 0.0);
+        float shadowMask = 1.0f;
+        if(useShadows == 1) {
+            vec4 q = (lightViewProjectionScaleAndOffsetMatrix * vec4(p, 1.0));
+            float curZ = q.z / q.w;
+            float refZ = SAMPLE_TEX2D(shadowTex, (q.xy / q.w)).r;
+            shadowMask = (curZ < refZ ? 1.0 : 0.0);
+        }
 
         float dist = distance(p, lightPos);
         float cos_theta = dot(l, -rd);

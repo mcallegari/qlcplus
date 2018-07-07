@@ -31,6 +31,7 @@ TechniqueFilter
     property real lightIntensity
     property Texture2D shadowTex
     property FrameTarget frameTarget
+    property bool useShadows
 
     property Fixture3DItem fixtureItem
 
@@ -39,7 +40,8 @@ TechniqueFilter
         Parameter { name: "depthTex"; value: gBuffer.depth },
         Parameter { name: "lightColor"; value:  fixtureItem ? fixtureItem.lightColor : Qt.rgba(0, 0, 0, 1) },
         Parameter { name: "lightIntensity"; value: fixtureItem ? fixtureItem.lightIntensity : 0.0 },
-        Parameter { name: "shadowTex"; value: shadowTex }
+        Parameter { name: "shadowTex"; value: shadowTex },
+        Parameter { name: "useShadows"; value: (useShadows ? 1 : 0) }
     ]
 
     RenderStateSet

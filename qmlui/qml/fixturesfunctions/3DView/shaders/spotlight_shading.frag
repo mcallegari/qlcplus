@@ -32,6 +32,7 @@ uniform vec3 lightPos;
 uniform vec3 lightDir;
 uniform vec3 lightColor;
 uniform float lightIntensity;
+uniform int useShadows;
 
 uniform mat4 lightViewMatrix;
 uniform mat4 lightViewProjectionMatrix;
@@ -57,10 +58,13 @@ void main()
     temp.xyz = temp.xyz / temp.w;
     position = temp.xyz;
     
-    vec4 p = lightViewProjectionMatrix * vec4(position.xyz, 1.0);
-    float curZ = (p.z / p.w) * 0.5 + 0.5;
-    float refZ = SAMPLE_TEX2D(shadowTex, (p.xy) / p.w * 0.5 + vec2(0.5)).r;
-    float shadowMask = (curZ < refZ + 0.0003 ? 1.0 : 0.0);
+    float shadowMask = 1.0;
+    if(useShadows == 1) {
+        vec4 p = lightViewProjectionMatrix * vec4(position.xyz, 1.0);
+        float curZ = (p.z / p.w) * 0.5 + 0.5;
+        float refZ = SAMPLE_TEX2D(shadowTex, (p.xy) / p.w * 0.5 + vec2(0.5)).r;
+        shadowMask = (curZ < refZ + 0.0003 ? 1.0 : 0.0);
+    }
 
     vec4 q = lightViewMatrix * vec4(position.xyz, 1.0);
     float r = uLightTanCutoffAngle *  abs(q.z / q.w);

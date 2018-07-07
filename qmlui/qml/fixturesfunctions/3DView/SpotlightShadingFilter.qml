@@ -29,13 +29,15 @@ TechniqueFilter
     property Layer spotlightShadingLayer
     property Texture2D shadowTex
     property FrameTarget frameTarget
+    property bool useShadows
 
     parameters: [
         Parameter { name: "albedoTex"; value: gBuffer.color },
         Parameter { name: "normalTex"; value: gBuffer.normal },
         Parameter { name: "depthTex"; value: gBuffer.depth },
 
-        Parameter { name: "shadowTex"; value: shadowTex }
+        Parameter { name: "shadowTex"; value: shadowTex },
+        Parameter { name: "useShadows"; value: (useShadows ? 1 : 0) }
     ]
 
     RenderStateSet

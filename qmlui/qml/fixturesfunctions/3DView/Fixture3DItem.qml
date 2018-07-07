@@ -43,6 +43,7 @@ Entity
     property real totalDuration: 4000 // in milliseconds
 
     property bool useScattering : true
+    property bool useShadows : true
 
     property real panRotation: 0
     property real tiltRotation: 0

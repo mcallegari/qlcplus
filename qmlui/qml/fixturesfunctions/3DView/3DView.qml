@@ -96,18 +96,20 @@ Rectangle
             {
                 fixtureItem = fixtures[ic]
 
-                component = Qt.createComponent("RenderShadowMapFilter.qml");
-                if (component.status === Component.Error)
-                    console.log("Error loading component:", component.errorString());
+                if(fixtureItem.useShadows) {
+                    component = Qt.createComponent("RenderShadowMapFilter.qml");
+                    if (component.status === Component.Error)
+                        console.log("Error loading component:", component.errorString());
 
-                mynode = component.createObject(frameGraph.myShadowFrameGraphNode,
-                {
-                    "depthTargetSelector": fixtureItem.shadowMap,
-                    "sceneDeferredLayer": sceneEntity.deferredLayer,
-                    "lightViewMatrix": fixtureItem.lightViewMatrix,
-                    "lightProjectionMatrix": fixtureItem.lightProjectionMatrix,
-                    "fixtureItem": fixtureItem
-                });
+                    mynode = component.createObject(frameGraph.myShadowFrameGraphNode,
+                    {
+                        "depthTargetSelector": fixtureItem.shadowMap,
+                        "sceneDeferredLayer": sceneEntity.deferredLayer,
+                        "lightViewMatrix": fixtureItem.lightViewMatrix,
+                        "lightProjectionMatrix": fixtureItem.lightProjectionMatrix,
+                        "fixtureItem": fixtureItem
+                    });
+                }
             }
 
             console.log("BUILDING FRAME GRAPH")
@@ -150,6 +152,7 @@ Rectangle
                 {
                     "gBuffer": gBufferTarget,
                     "shadowTex": fixtureItem.shadowMap.depth,
+                    "useShadows": fixtureItem.useShadows,              
                     "spotlightShadingLayer": fixtureItem.spotlightShadingLayer,
                     "frameTarget": frameTarget
                 });
@@ -159,7 +162,6 @@ Rectangle
             {
                 fixtureItem = fixtures[ic]
 
-                console.log("fixture use scattering: ", fixtureItem)
                 if(fixtureItem.useScattering) {
                     component = Qt.createComponent("OutputFrontDepthFilter.qml");
                     if (component.status === Component.Error)
@@ -181,7 +183,8 @@ Rectangle
                         "gBuffer": gBufferTarget,
                         "spotlightScatteringLayer": fixtureItem.spotlightScatteringLayer,
                         "shadowTex": fixtureItem.shadowMap.depth,
-                        "frameTarget": frameTarget
+                        "frameTarget": frameTarget,
+                        "useShadows": fixtureItem.useShadows
                     });
                 }
             }       
