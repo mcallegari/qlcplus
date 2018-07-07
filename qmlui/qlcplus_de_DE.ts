@@ -291,17 +291,17 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/fixturesfunctions/BeamTool.qml" line="57"/>
         <source>Beam</source>
-        <translation type="unfinished"></translation>
+        <translation>Lichtstrahl</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/BeamTool.qml" line="128"/>
         <source>Beam degrees</source>
-        <translation type="unfinished"></translation>
+        <translation>Strahlungswinkel</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/BeamTool.qml" line="162"/>
         <source>Distance</source>
-        <translation type="unfinished"></translation>
+        <translation>Distanz</translation>
     </message>
 </context>
 <context>
