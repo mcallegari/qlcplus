@@ -161,7 +161,7 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     </message>
     <message>
         <location filename="qml/fixturesfunctions/AddFunctionMenu.qml" line="57"/>
-        <source>New Scene</source>
+        <source>New Szene</source>
         <translation>Neue Scene</translation>
     </message>
     <message>
@@ -215,7 +215,7 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/fixturesfunctions/AudioEditor.qml" line="98"/>
         <source>File name</source>
-        <translation type="unfinished"></translation>
+        <translation>Dateiname</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/AudioEditor.qml" line="123"/>
