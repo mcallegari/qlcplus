@@ -6,149 +6,150 @@
     <message>
         <location filename="qml/ActionsMenu.qml" line="45"/>
         <source>Open a project</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein Projekt öffnen</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="47"/>
         <location filename="qml/ActionsMenu.qml" line="64"/>
         <location filename="qml/ActionsMenu.qml" line="79"/>
         <source>Project files</source>
-        <translation type="unfinished"></translation>
+        <translation>Projektdateien</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="47"/>
         <location filename="qml/ActionsMenu.qml" line="64"/>
         <location filename="qml/ActionsMenu.qml" line="79"/>
         <source>All files</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle Dateien</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="62"/>
         <location filename="qml/ActionsMenu.qml" line="263"/>
         <source>Import from project</source>
-        <translation type="unfinished"></translation>
+        <translation>Aus anderem Projekt importieren</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="77"/>
         <location filename="qml/ActionsMenu.qml" line="249"/>
         <source>Save project as...</source>
-        <translation type="unfinished"></translation>
+        <translation>Projekt speichern unter …</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="94"/>
         <source>Your project has changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Dein Projekt hat ungesicherte Änderungen</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="95"/>
         <source>Do you wish to save the current project first ?
 Changes will be lost if you don&apos;t save them.</source>
-        <translation type="unfinished"></translation>
+        <translation>Willst du das aktuelle Projekt erst speichern?
+Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="154"/>
         <source>New project</source>
-        <translation type="unfinished"></translation>
+        <translation>Neues Projekt</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="174"/>
         <source>Open project</source>
-        <translation type="unfinished"></translation>
+        <translation>Projekt öffnen</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="231"/>
         <source>Save project</source>
-        <translation type="unfinished"></translation>
+        <translation>Projekt speichern</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="293"/>
         <source>Undo</source>
-        <translation type="unfinished"></translation>
+        <translation>Rückgängig</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="306"/>
         <source>Redo</source>
-        <translation type="unfinished"></translation>
+        <translation>Wiederherstellen</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="319"/>
         <source>Network</source>
-        <translation type="unfinished"></translation>
+        <translation>Netzwerk</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="344"/>
         <source>Server setup</source>
-        <translation type="unfinished"></translation>
+        <translation>Serverkonfiguration</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="362"/>
         <source>Client setup</source>
-        <translation type="unfinished"></translation>
+        <translation>Clientkonfiguration</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="383"/>
         <source>Address tool</source>
-        <translation type="unfinished"></translation>
+        <translation>Adress-Werkzeug</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="394"/>
         <source>DMX Address tool</source>
-        <translation type="unfinished"></translation>
+        <translation>DMX-Adress-Werkzeug</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="407"/>
         <source>Toggle fullscreen</source>
-        <translation type="unfinished"></translation>
+        <translation>Vollbild umschalten</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="419"/>
         <source>Language</source>
-        <translation type="unfinished"></translation>
+        <translation>Sprache</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="446"/>
         <source>Catalan</source>
-        <translation type="unfinished"></translation>
+        <translation>Katalanisch</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="453"/>
         <source>Dutch</source>
-        <translation type="unfinished"></translation>
+        <translation>Niederländisch</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="460"/>
         <source>English</source>
-        <translation type="unfinished"></translation>
+        <translation>Englisch</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="467"/>
         <source>French</source>
-        <translation type="unfinished"></translation>
+        <translation>Französisch</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="474"/>
         <source>German</source>
-        <translation type="unfinished"></translation>
+        <translation>Deutsch</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="481"/>
         <source>Italian</source>
-        <translation type="unfinished"></translation>
+        <translation>Italienisch</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="488"/>
         <source>Japanese</source>
-        <translation type="unfinished"></translation>
+        <translation>Japanisch</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="495"/>
         <source>Spanish</source>
-        <translation type="unfinished"></translation>
+        <translation>Spanisch</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="506"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>Über QLC+</translation>
     </message>
 </context>
 <context>
