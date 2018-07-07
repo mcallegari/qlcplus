@@ -491,17 +491,17 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/ColorTool.qml" line="66"/>
         <source>Basic</source>
-        <translation type="unfinished"></translation>
+        <translation>Einfach</translation>
     </message>
     <message>
         <location filename="qml/ColorTool.qml" line="82"/>
         <source>Full</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle</translation>
     </message>
     <message>
         <location filename="qml/ColorTool.qml" line="96"/>
         <source>Filters</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbfilter</translation>
     </message>
 </context>
 <context>
@@ -509,7 +509,7 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/ColorToolBasic.qml" line="192"/>
         <source>Selected color</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgewählte Farbe</translation>
     </message>
 </context>
 <context>
@@ -517,87 +517,88 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/ColorToolFilters.qml" line="127"/>
         <source>Open filters menu</source>
-        <translation type="unfinished"></translation>
+        <translation>Filter-Menü öffnen</translation>
     </message>
     <message>
         <location filename="qml/ColorToolFilters.qml" line="209"/>
         <source>Cyan</source>
-        <translation type="unfinished"></translation>
+        <translation>Cyan</translation>
     </message>
     <message>
         <location filename="qml/ColorToolFilters.qml" line="209"/>
         <source>Red</source>
-        <translation type="unfinished"></translation>
+        <translation>Rot</translation>
     </message>
     <message>
         <location filename="qml/ColorToolFilters.qml" line="229"/>
         <source>White</source>
-        <translation type="unfinished"></translation>
+        <translation>Weiß</translation>
     </message>
     <message>
         <location filename="qml/ColorToolFilters.qml" line="250"/>
         <source>Magenta</source>
-        <translation type="unfinished"></translation>
+        <translation>Magenta</translation>
     </message>
     <message>
         <location filename="qml/ColorToolFilters.qml" line="250"/>
         <source>Green</source>
-        <translation type="unfinished"></translation>
+        <translation>Grün</translation>
     </message>
     <message>
         <location filename="qml/ColorToolFilters.qml" line="270"/>
         <source>Amber</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Nicht &quot;Bernstein&quot;, da &quot;Amber&quot; auch im Deutschen die übliche LED-Bezeichnung ist.</translatorcomment>
+        <translation>Amber</translation>
     </message>
     <message>
         <location filename="qml/ColorToolFilters.qml" line="291"/>
         <source>Yellow</source>
-        <translation type="unfinished"></translation>
+        <translation>Gelb</translation>
     </message>
     <message>
         <location filename="qml/ColorToolFilters.qml" line="291"/>
         <source>Blue</source>
-        <translation type="unfinished"></translation>
+        <translation>Blau</translation>
     </message>
     <message>
         <location filename="qml/ColorToolFilters.qml" line="311"/>
         <source>UV</source>
-        <translation type="unfinished"></translation>
+        <translation>UV</translation>
     </message>
     <message>
         <location filename="qml/ColorToolFilters.qml" line="332"/>
         <source>CMY</source>
-        <translation type="unfinished"></translation>
+        <translation>CMY</translation>
     </message>
     <message>
         <location filename="qml/ColorToolFilters.qml" line="379"/>
         <source>Add a new color filters file</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue Farbfilterdatei hinzufügen</translation>
     </message>
     <message>
         <location filename="qml/ColorToolFilters.qml" line="393"/>
         <source>Rename the current color filters</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktuelle Farbfilterdatei umbenennen</translation>
     </message>
     <message>
         <location filename="qml/ColorToolFilters.qml" line="402"/>
         <source>Save the current color filters file</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktuelle Farbfilterdatei speichern</translation>
     </message>
     <message>
         <location filename="qml/ColorToolFilters.qml" line="418"/>
         <source>Add a new filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Neuen Farbfilter hinzufügen</translation>
     </message>
     <message>
         <location filename="qml/ColorToolFilters.qml" line="438"/>
         <source>Delete the selected filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgewählten Farbfilter entfernen</translation>
     </message>
     <message>
         <location filename="qml/ColorToolFilters.qml" line="455"/>
         <source>Paste the latest picked color as new filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Zuletzt gewählte Farbe als neuen Filter hinzufügen</translation>
     </message>
 </context>
 <context>
@@ -605,37 +606,38 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/ColorToolFull.qml" line="166"/>
         <source>Red</source>
-        <translation type="unfinished"></translation>
+        <translation>Rot</translation>
     </message>
     <message>
         <location filename="qml/ColorToolFull.qml" line="182"/>
         <source>Green</source>
-        <translation type="unfinished"></translation>
+        <translation>Grün</translation>
     </message>
     <message>
         <location filename="qml/ColorToolFull.qml" line="198"/>
         <source>Blue</source>
-        <translation type="unfinished"></translation>
+        <translation>Blau</translation>
     </message>
     <message>
         <location filename="qml/ColorToolFull.qml" line="237"/>
         <source>White</source>
-        <translation type="unfinished"></translation>
+        <translation>Weiß</translation>
     </message>
     <message>
         <location filename="qml/ColorToolFull.qml" line="265"/>
         <source>Amber</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Nicht &quot;Bernstein&quot;, da &quot;Amber&quot; auch im Deutschen die übliche LED-Bezeichnung ist.</translatorcomment>
+        <translation>Amber</translation>
     </message>
     <message>
         <location filename="qml/ColorToolFull.qml" line="293"/>
         <source>UV</source>
-        <translation type="unfinished"></translation>
+        <translation>UV</translation>
     </message>
     <message>
         <location filename="qml/ColorToolFull.qml" line="327"/>
         <source>Selected color</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgewählte Farbe</translation>
     </message>
 </context>
 <context>
