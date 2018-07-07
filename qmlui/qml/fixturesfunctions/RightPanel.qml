@@ -273,7 +273,6 @@ SidePanel
                 onClicked: functionManager.cloneFunctions()
             }
 
-
             IconButton
             {
                 z: 2

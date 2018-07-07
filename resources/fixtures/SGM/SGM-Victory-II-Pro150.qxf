@@ -93,7 +93,7 @@
   <Capability Min="40" Max="59" Res="Others/gobo00026.svg">Gobo 2</Capability>
   <Capability Min="60" Max="79" Res="SGM/gobo00059.png">Gobo 3</Capability>
   <Capability Min="80" Max="99" Res="SGM/gobo00127.png">Gobo 4</Capability>
-  <Capability Min="100" Max="119" Res="SGM/gobo00004.png">Gobo 5</Capability>
+  <Capability Min="100" Max="119" Res="SGM/gobo00004.svg">Gobo 5</Capability>
   <Capability Min="120" Max="139" Res="SGM/gobo00064.svg">Gobo 6</Capability>
   <Capability Min="140" Max="159" Res="SGM/gobo00027.png">Gobo 7</Capability>
   <Capability Min="160" Max="177">Rotagobo - speed 1</Capability>

@@ -26,11 +26,21 @@ import "."
 
 Rectangle
 {
+    id: propsRoot
     color: "transparent"
     height: gridContents.height
 
     property VCFrame widgetRef: null
     property int gridItemsHeight: UISettings.listItemHeight
+
+    onWidgetRefChanged:
+    {
+        if (widgetRef === null)
+            return
+
+        widthSpin.value = widgetRef.geometry.width
+        heightSpin.value = widgetRef.geometry.height
+    }
 
     GridLayout
     {
@@ -44,6 +54,46 @@ Rectangle
         RobotoText
         {
             height: gridItemsHeight
+            label: qsTr("Width")
+        }
+        CustomSpinBox
+        {
+            id: widthSpin
+            Layout.fillWidth: true
+            suffix: "px"
+            from: 1
+            to: 100000
+            onValueChanged:
+            {
+                if (widgetRef)
+                    widgetRef.geometry = Qt.rect(0, 0, value, widgetRef.geometry.height)
+            }
+        }
+
+        // row 2
+        RobotoText
+        {
+            height: gridItemsHeight
+            label: qsTr("Height")
+        }
+        CustomSpinBox
+        {
+            id: heightSpin
+            Layout.fillWidth: true
+            suffix: "px"
+            from: 1
+            to: 100000
+            onValueChanged:
+            {
+                if (widgetRef)
+                    widgetRef.geometry = Qt.rect(0, 0, widgetRef.geometry.width, value)
+            }
+        }
+
+        // row 3
+        RobotoText
+        {
+            height: gridItemsHeight
             label: qsTr("Security")
         }
 
@@ -53,10 +103,7 @@ Rectangle
             height: gridItemsHeight
             autoHeight: true
             label: qsTr("Set a PIN")
-            onClicked:
-            {
-                pinSetupPopup.open()
-            }
+            onClicked: pinSetupPopup.open()
 
             PopupPINSetup
             {
@@ -76,26 +123,32 @@ Rectangle
             }
         }
 
-        // row 2
-        GenericButton
+        // row 4
+        RowLayout
         {
+            Layout.columnSpan: 2
             Layout.fillWidth: true
-            height: gridItemsHeight
-            autoHeight: true
-            label: qsTr("Add page to the left")
-            onClicked: virtualConsole.addPage(virtualConsole.selectedPage)
+
+            GenericButton
+            {
+                Layout.fillWidth: true
+                height: gridItemsHeight
+                autoHeight: true
+                label: qsTr("Add page to the left")
+                onClicked: virtualConsole.addPage(virtualConsole.selectedPage)
+            }
+
+            GenericButton
+            {
+                Layout.fillWidth: true
+                height: gridItemsHeight
+                autoHeight: true
+                label: qsTr("Add page to the right")
+                onClicked: virtualConsole.addPage(virtualConsole.selectedPage + 1)
+            }
         }
 
-        GenericButton
-        {
-            Layout.fillWidth: true
-            height: gridItemsHeight
-            autoHeight: true
-            label: qsTr("Add page to the right")
-            onClicked: virtualConsole.addPage(virtualConsole.selectedPage + 1)
-        }
-
-        // row 3
+        // row 5
         GenericButton
         {
             Layout.columnSpan: 2

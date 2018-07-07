@@ -49,6 +49,7 @@ class VirtualConsole : public PreviewContext
     Q_PROPERTY(qreal snappingSize READ snappingSize CONSTANT)
     Q_PROPERTY(VCWidget *selectedWidget READ selectedWidget NOTIFY selectedWidgetChanged)
     Q_PROPERTY(int selectedWidgetsCount READ selectedWidgetsCount NOTIFY selectedWidgetsCountChanged)
+    Q_PROPERTY(int clipboardItemsCount READ clipboardItemsCount NOTIFY clipboardItemsCountChanged)
 
 public:
     VirtualConsole(QQuickView *view, Doc *doc, ContextManager *ctxManager, QObject *parent = 0);
@@ -103,6 +104,10 @@ protected:
      *********************************************************************/
 public:
     Q_INVOKABLE void renderPage(QQuickItem *parent, QQuickItem *contentItem, int page);
+
+    /** Enable/disable flicking on the active page.
+      * This is necessary to drag widgets */
+    Q_INVOKABLE void enableFlicking(bool enable);
 
     /** Get the Virtual Console's frame representing the given $page,
      *  where all the widgets are placed */
@@ -218,6 +223,23 @@ protected:
 
     /** Latest assigned widget ID */
     quint32 m_latestWidgetId;
+
+    /*********************************************************************
+     * Clipboard
+     *********************************************************************/
+public:
+    Q_INVOKABLE void copyToClipboard();
+    Q_INVOKABLE void pasteFromClipboard();
+
+    Q_INVOKABLE QVariantList clipboardItemsList();
+
+    int clipboardItemsCount() const;
+
+signals:
+    void clipboardItemsCountChanged();
+
+protected:
+    QVariantList m_clipboardIDList;
 
     /*********************************************************************
      * Drag & Drop

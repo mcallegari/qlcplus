@@ -97,7 +97,6 @@ class VCClock : public VCWidget
     /*********************************************************************
      * Initialization
      *********************************************************************/
-
 public:
     VCClock(Doc* doc = NULL, QObject *parent = 0);
     virtual ~VCClock();
@@ -113,6 +112,13 @@ public:
 
     /** @reimp */
     QString propertiesResource() const;
+
+    /** @reimp */
+    VCWidget *createCopy(VCWidget *parent);
+
+protected:
+    /** @reimp */
+    bool copyFrom(const VCWidget* widget);
 
 private:
     FunctionParent functionParent() const;
@@ -171,7 +177,7 @@ public:
     void setEnableSchedule(bool enableSchedule);
 
     QVariantList scheduleList();
-    QList<VCClockSchedule*> schedules();
+    QList<VCClockSchedule*> schedules() const;
 
     void addSchedule(VCClockSchedule *schedule);
     Q_INVOKABLE void addSchedules(QVariantList idsList);

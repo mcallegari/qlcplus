@@ -57,7 +57,6 @@ class VCFrame : public VCWidget
     /*********************************************************************
      * Initialization
      *********************************************************************/
-
 public:
     VCFrame(Doc* doc = NULL, VirtualConsole *vc = NULL, QObject *parent = 0);
     virtual ~VCFrame();
@@ -73,6 +72,13 @@ public:
 
     /** @reimp */
     QString propertiesResource() const;
+
+    /** @reimp */
+    VCWidget *createCopy(VCWidget *parent);
+
+protected:
+    /** @reimp */
+    bool copyFrom(const VCWidget* widget);
 
 protected:
     /** Reference to the Virtual Console, used to add new widgets */
@@ -93,6 +99,10 @@ public:
      *  $parent is used only to render the new widget */
     Q_INVOKABLE void addWidget(QQuickItem *parent, QString wType, QPoint pos);
 
+    /** Add an existing widget at position $pos to this frame.
+     *  $parent is used only to render the new widget */
+    void addWidget(QQuickItem *parent, VCWidget *widget, QPoint pos);
+
     /** Add a matrix of widgets with the specified parameters:
      *
      *  @param parent the parent item to render the matrix
@@ -104,6 +114,14 @@ public:
      */
     Q_INVOKABLE void addWidgetMatrix(QQuickItem *parent, QString matrixType, QPoint pos,
                                      QSize matrixSize, QSize widgetSize, bool soloFrame = false);
+
+    /** Add a list of widgets previously copied to the VC clipboard
+     *
+     *  @param parent the parent item to render the matrix
+     *  @param idsList a list of VC widget IDs
+     *  @param pos the matrix position within this frame
+     */
+    Q_INVOKABLE void addWidgetsFromClipboard(QQuickItem *parent, QVariantList idsList, QPoint pos);
 
     /** Add all the Functions IDs in $idsList at position $pos to this frame.
      *  $keyModifiers determines the type of widget to create:
@@ -124,6 +142,8 @@ public:
 
 protected:
     void setupWidget(VCWidget *widget, int page);
+
+    void checkSubmasterConnection(VCWidget *widget);
 
     /*********************************************************************
      * Disable state

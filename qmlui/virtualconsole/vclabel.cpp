@@ -64,6 +64,20 @@ void VCLabel::render(QQuickView *view, QQuickItem *parent)
     m_item->setProperty("labelObj", QVariant::fromValue(this));
 }
 
+VCWidget *VCLabel::createCopy(VCWidget *parent)
+{
+    Q_ASSERT(parent != NULL);
+
+    VCLabel *label = new VCLabel(m_doc, parent);
+    if (label->copyFrom(this) == false)
+    {
+        delete label;
+        label = NULL;
+    }
+
+    return label;
+}
+
 /*********************************************************************
  * Load & Save
  *********************************************************************/

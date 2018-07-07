@@ -306,7 +306,7 @@ SidePanel
                 width: iconSize
                 height: iconSize
                 checkable: true
-                checked: contextManager.positionPicking
+                checked: contextManager ? contextManager.positionPicking : false
                 faSource: FontAwesome.fa_crosshairs
                 tooltip: qsTr("Pick a 3D point") + " (CTRL+P)"
                 onToggled: contextManager.positionPicking = checked
@@ -320,7 +320,7 @@ SidePanel
                 imgSource: "qrc:/multiple.svg"
                 tooltip: qsTr("Toggle multiple item selection")
                 checkable: true
-                checked: contextManager.multipleSelection
+                checked: contextManager ? contextManager.multipleSelection : false
                 onToggled: contextManager.multipleSelection = checked
             }
 

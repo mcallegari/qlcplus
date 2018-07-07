@@ -108,6 +108,14 @@ public:
 
     void enqueueTardisAction(int code, QVariant oldVal, QVariant newVal);
 
+    /** Create a copy of this widget into the given parent and return it
+      * Pure virtual method: subclasses must reimplement this */
+    virtual VCWidget *createCopy(VCWidget *parent);
+
+protected:
+    /** Copy the contents for this widget from the given widget */
+    virtual bool copyFrom(const VCWidget* widget);
+
 protected:
     /** Reference to the project document */
     Doc* m_doc;

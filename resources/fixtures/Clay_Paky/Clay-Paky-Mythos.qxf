@@ -63,7 +63,7 @@
   <Capability Res="ClayPaky/gobo00009.svg" Min="16" Max="18">Gobo 4</Capability>
   <Capability Res="ClayPaky/gobo00010.svg" Min="19" Max="22">Gobo 5</Capability>
   <Capability Res="ClayPaky/gobo00011.svg" Min="23" Max="26">Gobo 6</Capability>
-  <Capability Res="SGM/gobo00020.png" Min="27" Max="30">Gobo 7</Capability>
+  <Capability Res="SGM/gobo00020.svg" Min="27" Max="30">Gobo 7</Capability>
   <Capability Res="ClayPaky/gobo00005.svg" Min="31" Max="34">Gobo 8</Capability>
   <Capability Res="Chauvet/gobo00003.svg" Min="35" Max="37">Gobo 9</Capability>
   <Capability Res="ClayPaky/gobo00089.svg" Min="38" Max="41">Gobo 10</Capability>
@@ -72,7 +72,7 @@
   <Capability Res="ClayPaky/gobo00019.svg" Min="50" Max="53">Gobo 13</Capability>
   <Capability Res="ClayPaky/gobo00003.svg" Min="54" Max="56">Gobo 14</Capability>
   <Capability Res="ClayPaky/gobo00004.svg" Min="57" Max="60">Gobo 15</Capability>
-  <Capability Res="ClayPaky/gobo00079.png" Min="61" Max="64">Gobo 16</Capability>
+  <Capability Res="ClayPaky/gobo00079.svg" Min="61" Max="64">Gobo 16</Capability>
   <Capability Res="ClayPaky/gobo00028.svg" Min="65" Max="68">Gobo 17</Capability>
   <Capability Res="SGM/gobo00001.svg" Min="69" Max="71">Gobo 18</Capability>
   <Capability Min="72" Max="113">Gobo rotation Fast&gt;Slow</Capability>
@@ -84,7 +84,7 @@
   <Capability Res="ClayPaky/gobo00009.svg" Min="176" Max="181">Gobo 4 Shake</Capability>
   <Capability Res="ClayPaky/gobo00010.svg" Min="182" Max="186">Gobo 5 Shake</Capability>
   <Capability Res="ClayPaky/gobo00011.svg" Min="187" Max="191">Gobo 6 Shake</Capability>
-  <Capability Res="SGM/gobo00020.png" Min="192" Max="197">Gobo 7 Shake</Capability>
+  <Capability Res="SGM/gobo00020.svg" Min="192" Max="197">Gobo 7 Shake</Capability>
   <Capability Res="ClayPaky/gobo00005.svg" Min="198" Max="202">Gobo 8 Shake</Capability>
   <Capability Res="Chauvet/gobo00003.svg" Min="203" Max="207">Gobo 9 Shake</Capability>
   <Capability Res="ClayPaky/gobo00089.svg" Min="208" Max="214">Gobo 10 Shake</Capability>
@@ -93,7 +93,7 @@
   <Capability Res="ClayPaky/gobo00019.svg" Min="224" Max="229">Gobo 13 Shake</Capability>
   <Capability Res="ClayPaky/gobo00003.svg" Min="230" Max="234">Gobo 14 Shake</Capability>
   <Capability Res="ClayPaky/gobo00004.svg" Min="235" Max="239">Gobo 15 Shake</Capability>
-  <Capability Res="ClayPaky/gobo00079.png" Min="240" Max="245">Gobo 16 Shake</Capability>
+  <Capability Res="ClayPaky/gobo00079.svg" Min="240" Max="245">Gobo 16 Shake</Capability>
   <Capability Res="ClayPaky/gobo00028.svg" Min="246" Max="250">Gobo 17 Shake</Capability>
   <Capability Res="SGM/gobo00001.svg" Min="251" Max="255">Gobo 18 Shake</Capability>
  </Channel>

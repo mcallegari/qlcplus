@@ -71,6 +71,13 @@ public:
     /** @reimp */
     QString propertiesResource() const;
 
+    /** @reimp */
+    VCWidget *createCopy(VCWidget *parent);
+
+protected:
+    /** @reimp */
+    bool copyFrom(const VCWidget* widget);
+
     /*********************************************************************
      * UI settings
      *********************************************************************/

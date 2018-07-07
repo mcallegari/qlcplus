@@ -113,6 +113,66 @@ QString VCFrame::propertiesResource() const
     return QString("qrc:/VCFrameProperties.qml");
 }
 
+VCWidget *VCFrame::createCopy(VCWidget *parent)
+{
+    Q_ASSERT(parent != NULL);
+
+    VCFrame *frame = new VCFrame(m_doc, m_vc, parent);
+    if (frame->copyFrom(this) == false)
+    {
+        delete frame;
+        frame = NULL;
+    }
+
+    return frame;
+}
+
+bool VCFrame::copyFrom(const VCWidget *widget)
+{
+    const VCFrame *frame = qobject_cast<const VCFrame*> (widget);
+    if (frame == NULL)
+        return false;
+
+    setShowHeader(frame->showHeader());
+    setShowEnable(frame->showEnable());
+
+    setMultiPageMode(frame->multiPageMode());
+    setTotalPagesNumber(frame->totalPagesNumber());
+    setPagesLoop(frame->pagesLoop());
+
+    QListIterator <VCWidget*> it(widget->findChildren<VCWidget*>());
+    while (it.hasNext() == true)
+    {
+        VCWidget *child = it.next();
+        VCWidget *childCopy = NULL;
+
+        /* findChildren() is recursive, so the list contains all
+           possible child widgets below this frame. Each frame must
+           save only its direct children to preserve hierarchy, so
+           save only such widgets that have this widget as their
+           direct parent. */
+        if (child->parent() == widget)
+        {
+            childCopy = child->createCopy(this);
+            m_vc->addWidgetToMap(childCopy);
+
+            qDebug() << "Child copy in parent:" << childCopy->caption() << ", page:" << childCopy->page();
+        }
+
+        if (childCopy != NULL)
+        {
+            addWidgetToPageMap(childCopy);
+            checkSubmasterConnection(childCopy);
+        }
+    }
+
+    if (multiPageMode())
+        setPage(frame->currentPage());
+
+    /* Copy common stuff */
+    return VCWidget::copyFrom(widget);
+}
+
 bool VCFrame::hasChildren()
 {
     return !m_pagesMap.isEmpty();
@@ -253,6 +313,24 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
     }
 }
 
+void VCFrame::addWidget(QQuickItem *parent, VCWidget *widget, QPoint pos)
+{
+    if (m_vc->snapping())
+    {
+        pos.setX(qRound((qreal)pos.x() / m_vc->snappingSize()) * m_vc->snappingSize());
+        pos.setY(qRound((qreal)pos.y() / m_vc->snappingSize()) * m_vc->snappingSize());
+    }
+
+    QQmlEngine::setObjectOwnership(widget, QQmlEngine::CppOwnership);
+    m_vc->addWidgetToMap(widget);
+    Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
+                                      Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, widget->id()));
+    widget->setGeometry(QRect(pos.x(), pos.y(), widget->geometry().width(), widget->geometry().height()));
+    addWidgetToPageMap(widget);
+    checkSubmasterConnection(widget);
+    widget->render(m_vc->view(), parent);
+}
+
 void VCFrame::addWidgetMatrix(QQuickItem *parent, QString matrixType, QPoint pos, QSize matrixSize, QSize widgetSize, bool soloFrame)
 {
     VCFrame *frame;
@@ -300,6 +378,32 @@ void VCFrame::addWidgetMatrix(QQuickItem *parent, QString matrixType, QPoint pos
     }
 
     frame->render(m_vc->view(), parent);
+}
+
+void VCFrame::addWidgetsFromClipboard(QQuickItem *parent, QVariantList idsList, QPoint pos)
+{
+    // reset all the drop targets, otherwise two overlapping
+    // frames can get the same drop event
+    m_vc->resetDropTargets(true);
+
+    QPoint currPos = pos;
+
+    for (QVariant wID : idsList)
+    {
+        VCWidget *widget = m_vc->widget(wID.toUInt());
+        if (widget == NULL)
+            continue;
+
+        VCWidget *copy = widget->createCopy(this);
+        addWidget(parent, copy, currPos);
+
+        currPos.setX(currPos.x() + copy->geometry().width());
+        if (currPos.x() >= geometry().width())
+        {
+            currPos.setX(pos.x());
+            currPos.setY(currPos.y() + copy->geometry().height());
+        }
+    }
 }
 
 void VCFrame::addFunctions(QQuickItem *parent, QVariantList idsList, QPoint pos, int keyModifiers)
@@ -426,7 +530,11 @@ void VCFrame::setupWidget(VCWidget *widget, int page)
         widget->setupLookAndFeel(m_vc->pixelDensity(), page);
 
     addWidgetToPageMap(widget);
+    checkSubmasterConnection(widget);
+}
 
+void VCFrame::checkSubmasterConnection(VCWidget *widget)
+{
     if (widget->type() == VCWidget::SliderWidget)
     {
         VCSlider *slider = qobject_cast<VCSlider *>(widget);

@@ -63,6 +63,31 @@ void VCSoloFrame::render(QQuickView *view, QQuickItem *parent)
     }
 }
 
+VCWidget *VCSoloFrame::createCopy(VCWidget *parent)
+{
+    Q_ASSERT(parent != NULL);
+
+    VCSoloFrame *frame = new VCSoloFrame(m_doc, m_vc, parent);
+    if (frame->copyFrom(this) == false)
+    {
+        delete frame;
+        frame = NULL;
+    }
+
+    return frame;
+}
+
+bool VCSoloFrame::copyFrom(const VCWidget *widget)
+{
+    const VCSoloFrame *frame = qobject_cast<const VCSoloFrame*> (widget);
+    if (frame == NULL)
+        return false;
+
+    // setSoloframeMixing(frame->soloframeMixing()); // TODO
+
+    return VCFrame::copyFrom(widget);
+}
+
 /*********************************************************************
  * Widget Function
  *********************************************************************/

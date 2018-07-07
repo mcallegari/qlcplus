@@ -81,7 +81,7 @@ Rectangle
 
             Image
             {
-                anchors.verticalCenter: parent.verticalCenter
+                Layout.alignment: Qt.AlignVCenter
                 height: patchBox.height * 0.75
                 width: height
                 source: patch ? Helpers.pluginIconFromName(patch.pluginName) : ""

@@ -125,6 +125,7 @@ Rectangle
                 if (virtualConsole.editMode)
                 {
                     isSelected = !isSelected
+                    virtualConsole.enableFlicking(false)
                     virtualConsole.setWidgetSelection(wObj.id, wRoot, isSelected, mouse.modifiers & Qt.ControlModifier)
                 }
 
@@ -160,6 +161,7 @@ Rectangle
                     drag.target = null
                     dragRemapped = false
                 }
+                virtualConsole.enableFlicking(true)
             }
         }
 

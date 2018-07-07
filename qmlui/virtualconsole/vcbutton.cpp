@@ -83,6 +83,38 @@ QString VCButton::propertiesResource() const
     return QString("qrc:/VCButtonProperties.qml");
 }
 
+VCWidget *VCButton::createCopy(VCWidget *parent)
+{
+    Q_ASSERT(parent != NULL);
+
+    VCButton *button = new VCButton(m_doc, parent);
+    if (button->copyFrom(this) == false)
+    {
+        delete button;
+        button = NULL;
+    }
+
+    return button;
+}
+
+bool VCButton::copyFrom(const VCWidget* widget)
+{
+    const VCButton *button = qobject_cast <const VCButton*> (widget);
+    if (button == NULL)
+        return false;
+
+    /* Copy button-specific stuff */
+    //setIconPath(button->iconPath()); // TODO ?
+    setFunctionID(button->functionID());
+    setStartupIntensityEnabled(button->startupIntensityEnabled());
+    setStartupIntensity(button->startupIntensity());
+    setActionType(button->actionType());
+    setState(button->state());
+
+    /* Copy common stuff */
+    return VCWidget::copyFrom(widget);
+}
+
 /*********************************************************************
  * Function attachment
  *********************************************************************/

@@ -108,6 +108,45 @@ QString VCClock::propertiesResource() const
     return QString("qrc:/VCClockProperties.qml");
 }
 
+VCWidget *VCClock::createCopy(VCWidget *parent)
+{
+    Q_ASSERT(parent != NULL);
+
+    VCClock *clock = new VCClock(m_doc, parent);
+    if (clock->copyFrom(this) == false)
+    {
+        delete clock;
+        clock = NULL;
+    }
+
+    return clock;
+}
+
+bool VCClock::copyFrom(const VCWidget *widget)
+{
+    const VCClock *clock = qobject_cast<const VCClock*> (widget);
+    if (clock == NULL)
+        return false;
+
+    /* Clock type */
+    setClockType(clock->clockType());
+    setEnableSchedule(clock->enableSchedule());
+
+    /* Copy schedules */
+    for (VCClockSchedule *sch : clock->schedules())
+    {
+        VCClockSchedule *dst = new VCClockSchedule();
+        dst->setFunctionID(sch->functionID());
+        dst->setStartTime(sch->startTime());
+        dst->setStopTime(sch->stopTime());
+        dst->setWeekFlags(sch->weekFlags());
+        addSchedule(dst);
+    }
+
+    /* Common stuff */
+    return VCWidget::copyFrom(widget);
+}
+
 FunctionParent VCClock::functionParent() const
 {
     return FunctionParent(FunctionParent::AutoVCWidget, id());
@@ -309,7 +348,7 @@ QVariantList VCClock::scheduleList()
     return list;
 }
 
-QList<VCClockSchedule *> VCClock::schedules()
+QList<VCClockSchedule *> VCClock::schedules() const
 {
     return m_scheduleList;
 }

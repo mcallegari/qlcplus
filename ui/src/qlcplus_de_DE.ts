@@ -3815,7 +3815,7 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="monitor/monitor.cpp" line="518"/>
         <source>Meters</source>
-        <translation>Messungen</translation>
+        <translation>Meter</translation>
     </message>
     <message>
         <location filename="monitor/monitor.cpp" line="519"/>

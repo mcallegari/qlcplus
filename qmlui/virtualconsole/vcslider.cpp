@@ -118,6 +118,56 @@ QString VCSlider::propertiesResource() const
     return QString("qrc:/VCSliderProperties.qml");
 }
 
+VCWidget* VCSlider::createCopy(VCWidget* parent)
+{
+    Q_ASSERT(parent != NULL);
+
+    VCSlider* slider = new VCSlider(m_doc, parent);
+    if (slider->copyFrom(this) == false)
+    {
+        delete slider;
+        slider = NULL;
+    }
+
+    return slider;
+}
+
+bool VCSlider::copyFrom(const VCWidget *widget)
+{
+    const VCSlider *slider = qobject_cast<const VCSlider*> (widget);
+    if (slider == NULL)
+        return false;
+
+    /* Copy widget style */
+    setWidgetStyle(slider->widgetStyle());
+
+    /* Copy level stuff */
+    setRangeLowLimit(slider->rangeLowLimit());
+    setRangeHighLimit(slider->rangeHighLimit());
+    for (SceneValue scv : slider->levelChannels())
+        addLevelChannel(scv.fxi, scv.channel);
+
+    /* Copy playback stuff */
+    setControlledFunction(slider->controlledFunction());
+
+    /* Copy slider appearance */
+    setValueDisplayStyle(slider->valueDisplayStyle());
+    setInvertedAppearance(slider->invertedAppearance());
+
+    /* Copy Click & Go feature */
+    setClickAndGoType(slider->clickAndGoType());
+
+    /* Copy mode & current value */
+    setSliderMode(slider->sliderMode());
+    setValue(slider->value(), false, false);
+
+    /* Copy monitor mode */
+    setMonitorEnabled(slider->monitorEnabled());
+
+    /* Copy common stuff */
+    return VCWidget::copyFrom(widget);
+}
+
 QVariant VCSlider::channelsList()
 {
     return QVariant::fromValue(m_channelsTree);
@@ -463,7 +513,7 @@ void VCSlider::clearLevelChannels()
     m_levelChannels.clear();
 }
 
-QList<SceneValue> VCSlider::levelChannels()
+QList<SceneValue> VCSlider::levelChannels() const
 {
     return m_levelChannels;
 }
