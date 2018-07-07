@@ -375,7 +375,7 @@ Rectangle
             {
                 height: UISettings.listItemHeight
                 imgSource: "qrc:/filenew.svg"
-                imgSize: UISettings.listItemHeight
+                iconHeight: UISettings.listItemHeight
                 entryText: qsTr("Add a new color filters file")
                 onClicked:
                 {
@@ -389,7 +389,7 @@ Rectangle
             {
                 height: UISettings.listItemHeight
                 imgSource: "qrc:/rename.svg"
-                imgSize: UISettings.listItemHeight
+                iconHeight: UISettings.listItemHeight
                 entryText: qsTr("Rename the current color filters")
                 enabled: cfRef && cfRef.isUser ? true : false
             }
@@ -398,7 +398,7 @@ Rectangle
             {
                 height: UISettings.listItemHeight
                 imgSource: "qrc:/filesave.svg"
-                imgSize: UISettings.listItemHeight
+                iconHeight: UISettings.listItemHeight
                 entryText: qsTr("Save the current color filters file")
                 enabled: cfRef && cfRef.isUser ? true : false
                 onClicked:
@@ -414,7 +414,7 @@ Rectangle
             {
                 height: UISettings.listItemHeight
                 imgSource: "qrc:/add.svg"
-                imgSize: UISettings.listItemHeight
+                iconHeight: UISettings.listItemHeight
                 entryText: qsTr("Add a new filter")
                 enabled: cfRef && cfRef.isUser ? true : false
                 onClicked:
@@ -434,7 +434,7 @@ Rectangle
             {
                 height: UISettings.listItemHeight
                 imgSource: "qrc:/remove.svg"
-                imgSize: UISettings.listItemHeight
+                iconHeight: UISettings.listItemHeight
                 entryText: qsTr("Delete the selected filter")
                 enabled: cfRef && cfRef.isUser ? true : false
                 onClicked:
@@ -451,7 +451,7 @@ Rectangle
             {
                 height: UISettings.listItemHeight
                 imgSource: "qrc:/edit-paste.svg"
-                imgSize: UISettings.listItemHeight
+                iconHeight: UISettings.listItemHeight
                 entryText: qsTr("Paste the latest picked color as new filter")
                 enabled: cfRef && cfRef.isUser ? true : false
                 onClicked:
