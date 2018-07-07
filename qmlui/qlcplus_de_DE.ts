@@ -468,22 +468,22 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/fixturesfunctions/CollectionEditor.qml" line="99"/>
         <source>Add a function</source>
-        <translation type="unfinished"></translation>
+        <translation>Funktion hinzufügen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/CollectionEditor.qml" line="123"/>
         <source>Remove the selected function</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgewählte Funktionen entfernen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/CollectionEditor.qml" line="129"/>
         <source>Delete functions</source>
-        <translation type="unfinished"></translation>
+        <translation>Funktionen entfernen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/CollectionEditor.qml" line="130"/>
         <source>Are you sure you want to remove the selected functions ?</source>
-        <translation type="unfinished"></translation>
+        <translation>Willst du alle ausgewählten Funktionen entfernen?</translation>
     </message>
 </context>
 <context>
