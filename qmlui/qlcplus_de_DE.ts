@@ -658,22 +658,22 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/DMXAddressTool.qml" line="56"/>
         <source>Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Adresse</translation>
     </message>
     <message>
         <location filename="qml/DMXAddressTool.qml" line="80"/>
         <source>Reverse vertically</source>
-        <translation type="unfinished"></translation>
+        <translation>Vertikal umdrehen</translation>
     </message>
     <message>
         <location filename="qml/DMXAddressTool.qml" line="93"/>
         <source>Reverse horizontally</source>
-        <translation type="unfinished"></translation>
+        <translation>Horizontal umdrehen</translation>
     </message>
     <message>
         <location filename="qml/DMXAddressTool.qml" line="101"/>
         <source>Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe</translation>
     </message>
 </context>
 <context>
