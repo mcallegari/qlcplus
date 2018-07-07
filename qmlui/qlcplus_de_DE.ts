@@ -157,57 +157,57 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/fixturesfunctions/AddFunctionMenu.qml" line="46"/>
         <source>New folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Neuer Ordner</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/AddFunctionMenu.qml" line="57"/>
         <source>New Scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue Scene</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/AddFunctionMenu.qml" line="63"/>
         <source>New Chaser</source>
-        <translation type="unfinished"></translation>
+        <translation>Neuer Chaser</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/AddFunctionMenu.qml" line="69"/>
         <source>New Sequence</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue Sequenz</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/AddFunctionMenu.qml" line="75"/>
         <source>New EFX</source>
-        <translation type="unfinished"></translation>
+        <translation>Neuer Effekt</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/AddFunctionMenu.qml" line="81"/>
         <source>New Collection</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue Sammlung</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/AddFunctionMenu.qml" line="87"/>
         <source>New RGB Matrix</source>
-        <translation type="unfinished"></translation>
+        <translation>Neuer RGB-Matrixeffekt</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/AddFunctionMenu.qml" line="93"/>
         <source>New Show</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue Show</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/AddFunctionMenu.qml" line="99"/>
         <source>New Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Neues Skript</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/AddFunctionMenu.qml" line="105"/>
         <source>New Audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Neues Audio</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/AddFunctionMenu.qml" line="111"/>
         <source>New Video</source>
-        <translation type="unfinished"></translation>
+        <translation>Neues Video</translation>
     </message>
 </context>
 <context>
