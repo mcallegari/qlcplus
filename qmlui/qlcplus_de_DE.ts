@@ -309,7 +309,7 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/fixturesfunctions/BottomPanel.qml" line="105"/>
         <source>Expand/Collapse this panel</source>
-        <translation>Feld aus-/einklappen</translation>
+        <translation>Bereich aus-/einklappen</translation>
     </message>
 </context>
 <context>
@@ -367,12 +367,12 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="195"/>
         <source>Forward</source>
-        <translation>Rückwärts</translation>
+        <translation>Vorwärts</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="196"/>
         <source>Backward</source>
-        <translation>Vorwärts</translation>
+        <translation>Rückwärts</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="205"/>
