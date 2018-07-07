@@ -681,154 +681,154 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="159"/>
         <source>Fixtures</source>
-        <translation type="unfinished"></translation>
+        <translation>Geräte</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="186"/>
         <source>Add a fixture/head</source>
-        <translation type="unfinished"></translation>
+        <translation>Gerät/Head hinzufügen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="212"/>
         <source>Remove the selected fixture head(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgewählte Geräte/Heads entfernen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="240"/>
         <source>Fixture</source>
-        <translation type="unfinished"></translation>
+        <translation>Gerät</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="255"/>
         <source>Reverse</source>
-        <translation type="unfinished"></translation>
+        <translation>Umdrehen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="270"/>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="585"/>
         <source>Start offset</source>
-        <translation type="unfinished"></translation>
+        <translation>Anfangsabstand</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="394"/>
         <source>Add a new fixture</source>
-        <translation type="unfinished"></translation>
+        <translation>Neues Gerät hinzufügen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="453"/>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="465"/>
         <source>Pattern</source>
-        <translation type="unfinished"></translation>
+        <translation>Figur</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="497"/>
         <source>Relative movement</source>
-        <translation type="unfinished"></translation>
+        <translation>Relative Bewegung</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="505"/>
         <source>Width</source>
-        <translation type="unfinished"></translation>
+        <translation>Breite</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="520"/>
         <source>Height</source>
-        <translation type="unfinished"></translation>
+        <translation>Höhe</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="536"/>
         <source>X offset</source>
-        <translation type="unfinished"></translation>
+        <translation>X-Versatz</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="553"/>
         <source>Y offset</source>
-        <translation type="unfinished"></translation>
+        <translation>Y-Versatz</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="569"/>
         <source>Rotation</source>
-        <translation type="unfinished"></translation>
+        <translation>Rotation</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="602"/>
         <source>X frequency</source>
-        <translation type="unfinished"></translation>
+        <translation>X-Frequenz</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="619"/>
         <source>Y frequency</source>
-        <translation type="unfinished"></translation>
+        <translation>Y-Frequenz</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="636"/>
         <source>X phase</source>
-        <translation type="unfinished"></translation>
+        <translation>X-Phasenschub</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="654"/>
         <source>Y phase</source>
-        <translation type="unfinished"></translation>
+        <translation>Y-Phasenschub</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="675"/>
         <source>Speed</source>
-        <translation type="unfinished"></translation>
+        <translation>Geschwindigkeit</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="688"/>
         <source>Fade in</source>
-        <translation type="unfinished"></translation>
+        <translation>Einblenden</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="721"/>
         <source>Hold</source>
-        <translation type="unfinished"></translation>
+        <translation>Halten</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="753"/>
         <source>Fade out</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausblenden</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="786"/>
         <source>Order and direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Ablauf und Richtung</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="801"/>
         <source>Loop</source>
-        <translation type="unfinished"></translation>
+        <translation>Wiederholen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="802"/>
         <source>Single Shot</source>
-        <translation type="unfinished"></translation>
+        <translation>Einmal</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="803"/>
         <source>Ping Pong</source>
-        <translation type="unfinished"></translation>
+        <translation>Hin und her</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="812"/>
         <source>Run Order</source>
-        <translation type="unfinished"></translation>
+        <translation>Ablauf</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="821"/>
         <source>Forward</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorwärts</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="822"/>
         <source>Backward</source>
-        <translation type="unfinished"></translation>
+        <translation>Rückwärts</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="831"/>
         <source>Direction</source>
-        <translation type="unfinished"></translation>
+        <translation>Richtung</translation>
     </message>
 </context>
 <context>
