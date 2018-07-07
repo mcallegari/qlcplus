@@ -707,7 +707,7 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="270"/>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="585"/>
         <source>Start offset</source>
-        <translation>Anfangsabstand</translation>
+        <translation>Startversatz</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="394"/>
@@ -763,12 +763,12 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="636"/>
         <source>X phase</source>
-        <translation>X-Phasenschub</translation>
+        <translation>X-Phase</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="654"/>
         <source>Y phase</source>
-        <translation>Y-Phasenschub</translation>
+        <translation>Y-Phase</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="675"/>
