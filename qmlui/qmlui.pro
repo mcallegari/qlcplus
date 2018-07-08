@@ -144,7 +144,8 @@ lupdate_only {
 }
 
 TRANSLATIONS += \
-    qlcplus_it_IT.ts
+    qlcplus_it_IT.ts \
+    qlcplus_fr_FR.ts
 
 macx {
     # This must be after "TARGET = " and before target installation so that
