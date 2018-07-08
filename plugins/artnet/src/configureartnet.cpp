@@ -111,14 +111,16 @@ void ConfigureArtNet::fillMappingTree()
         if (controller == NULL)
             continue;
 
-        qDebug() << "[ArtNet] controller IP" << controller->getNetworkIP() << "type:" << controller->type();
-        if ((controller->type() & ArtNetController::Input) && inputItem == NULL)
+        qDebug() << "[ArtNet] controller IP" << controller->getNetworkIP()
+            << "Input:" << controller->has(ArtNetController::Input) 
+            << "Output:" << controller->has(ArtNetController::Output); 
+        if (controller->has(ArtNetController::Input) && inputItem == NULL)
         {
             inputItem = new QTreeWidgetItem(m_uniMapTree);
             inputItem->setText(KMapColumnInterface, tr("Inputs"));
             inputItem->setExpanded(true);
         }
-        if ((controller->type() & ArtNetController::Output) && outputItem == NULL)
+        if (controller->has(ArtNetController::Output) && outputItem == NULL)
         {
             outputItem = new QTreeWidgetItem(m_uniMapTree);
             outputItem->setText(KMapColumnInterface, tr("Outputs"));

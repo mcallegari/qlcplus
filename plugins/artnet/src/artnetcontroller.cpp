@@ -62,15 +62,17 @@ ArtNetController::~ArtNetController()
     qDeleteAll(m_dmxValuesMap);
 }
 
-ArtNetController::Type ArtNetController::type()
+bool ArtNetController::has(ArtNetController::Type type) const
 {
-    int type = Unknown;
     foreach(UniverseInfo info, m_universeMap.values())
     {
-        type |= info.type;
+        if (info.has(type)) {
+            return true;
+        
+	}
     }
 
-    return Type(type);
+    return false;
 }
 
 quint32 ArtNetController::line()
@@ -143,7 +145,7 @@ void ArtNetController::removeUniverse(quint32 universe, ArtNetController::Type t
         if (m_universeMap[universe].type == Unknown)
             m_universeMap.take(universe);
 
-        if (type == Output && ((this->type() & Output) == 0))
+        if (type == Output && !has(Output))
         {
             disconnect(m_pollTimer, SIGNAL(timeout()),
                        this, SLOT(slotSendPoll()));

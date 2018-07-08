@@ -104,8 +104,8 @@ public:
     /** Return the specific information for the given universe */
     UniverseInfo *getUniverseInfo(quint32 universe);
 
-    /** Return the global type of this controller */
-    Type type();
+    /** Return whether any of the Universes has type open */
+    bool has(Type type) const;
 
     /** Return the plugin line associated to this controller */
     quint32 line();

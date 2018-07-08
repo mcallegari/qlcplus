@@ -132,7 +132,7 @@ QString ArtNetPlugin::outputInfo(quint32 output)
     str += QString("<H3>%1 %2</H3>").arg(tr("Output")).arg(outputs()[output]);
     str += QString("<P>");
     ArtNetController *ctrl = m_IOmapping.at(output).controller;
-    if (ctrl == NULL || ctrl->type() == ArtNetController::Input)
+    if (ctrl == NULL || !ctrl->has(ArtNetController::Output))
         str += tr("Status: Not open");
     else
     {
@@ -283,7 +283,7 @@ QString ArtNetPlugin::inputInfo(quint32 input)
     str += QString("<H3>%1 %2</H3>").arg(tr("Input")).arg(inputs()[input]);
     str += QString("<P>");
     ArtNetController *ctrl = m_IOmapping.at(input).controller;
-    if (ctrl == NULL || ctrl->type() == ArtNetController::Output)
+    if (ctrl == NULL || !ctrl->has(ArtNetController::Input))
         str += tr("Status: Not open");
     else
     {
