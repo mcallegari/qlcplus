@@ -1022,22 +1022,22 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="fixturemanager.cpp" line="566"/>
         <source>Head</source>
-        <translation type="unfinished"></translation>
+        <translation>Tête</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="847"/>
         <source>New group %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nouveau groupe %1</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="984"/>
         <source>%1 - Row %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 - Ligne %2</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1266"/>
         <source>New filters %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nouveaux filtres %1</translation>
     </message>
 </context>
 <context>
@@ -1050,27 +1050,27 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/FixtureProperties.qml" line="91"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureProperties.qml" line="108"/>
         <source>Universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Univers</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureProperties.qml" line="124"/>
         <source>Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Adresse</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureProperties.qml" line="137"/>
         <source>Quantity</source>
-        <translation type="unfinished"></translation>
+        <translation>Quantité</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureProperties.qml" line="152"/>
         <source>Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Canaux</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureProperties.qml" line="167"/>
@@ -1080,7 +1080,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/FixtureProperties.qml" line="184"/>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode</translation>
     </message>
 </context>
 <context>
