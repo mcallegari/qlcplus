@@ -143,7 +143,7 @@ void ArtNetController::removeUniverse(quint32 universe, ArtNetController::Type t
         else
             m_universeMap[universe].type &= ~type;
 
-        if (type == Output && ((this->type() | Output) == 0))
+        if (type == Output && ((this->type() & Output) == 0))
         {
             disconnect(m_pollTimer, SIGNAL(timeout()),
                        this, SLOT(slotSendPoll()));

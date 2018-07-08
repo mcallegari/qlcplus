@@ -66,18 +66,18 @@
  <Channel Name="Pan" Preset="PositionPan"/>
  <Channel Name="Pan 16 Bit" Preset="PositionPanFine"/>
  <Channel Name="Pan Rotation">
-  <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="127">Stop</Capability>
-  <Capability Min="128" Max="191">Speed counterclockwise from slow to fast</Capability>
-  <Capability Min="192" Max="255">Speed clockwise from slow to fast</Capability>
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="127" Preset="RotationStop">Stop</Capability>
+  <Capability Min="128" Max="191" Preset="RotationCounterClockwiseSlowToFast">Speed counterclockwise from slow to fast</Capability>
+  <Capability Min="192" Max="255" Preset="RotationClockwiseSlowToFast">Speed clockwise from slow to fast</Capability>
  </Channel>
  <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Tilt 16 Bit" Preset="PositionTiltFine"/>
  <Channel Name="Tilt Rotation">
-  <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="127">Stop</Capability>
-  <Capability Min="128" Max="191">Speed counterclockwise from slow to fast</Capability>
-  <Capability Min="192" Max="255">Speed clockwise from slow to fast</Capability>
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="127" Preset="RotationStop">Stop</Capability>
+  <Capability Min="128" Max="191" Preset="RotationCounterClockwiseSlowToFast">Speed counterclockwise from slow to fast</Capability>
+  <Capability Min="192" Max="255" Preset="RotationClockwiseSlowToFast">Speed clockwise from slow to fast</Capability>
  </Channel>
  <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Control Function">
