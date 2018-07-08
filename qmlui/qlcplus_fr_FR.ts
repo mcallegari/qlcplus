@@ -1484,7 +1484,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/KeyPad.qml" line="87"/>
         <source>Tap</source>
-        <translation type="unfinished"></translation>
+        <translation>Tap</translation>
     </message>
 </context>
 <context>
@@ -1492,22 +1492,22 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/KeyboardSequenceDelegate.qml" line="46"/>
         <source>Control</source>
-        <translation type="unfinished">Contrôle</translation>
+        <translation>Contrôle</translation>
     </message>
     <message>
         <location filename="qml/KeyboardSequenceDelegate.qml" line="71"/>
         <source>Combination</source>
-        <translation type="unfinished"></translation>
+        <translation>Combinaison</translation>
     </message>
     <message>
         <location filename="qml/KeyboardSequenceDelegate.qml" line="95"/>
         <source>Activate auto detection</source>
-        <translation type="unfinished">Activer l&apos;auto-détection</translation>
+        <translation>Activer l&apos;auto-détection</translation>
     </message>
     <message>
         <location filename="qml/KeyboardSequenceDelegate.qml" line="120"/>
         <source>Remove this keyboard combination</source>
-        <translation type="unfinished"></translation>
+        <translation>Retirer cette combinaison de touches</translation>
     </message>
 </context>
 <context>
