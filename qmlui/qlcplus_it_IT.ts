@@ -580,10 +580,6 @@ I cambiamenti verranno perduti se non salvati.</translation>
         <translation>Rinomina il file corrente di filtri colore</translation>
     </message>
     <message>
-        <source>Rename the current color filters</source>
-        <translation type="vanished">Rinomina il filtro colore corrente</translation>
-    </message>
-    <message>
         <location filename="qml/ColorToolFilters.qml" line="401"/>
         <source>Save the current color filters file</source>
         <translation>Salva il file di filtri colore corrente</translation>
@@ -1026,21 +1022,22 @@ I cambiamenti verranno perduti se non salvati.</translation>
     <name>FixtureManager</name>
     <message>
         <location filename="fixturemanager.cpp" line="566"/>
+        <location filename="fixturemanager.cpp" line="683"/>
         <source>Head</source>
         <translation>Testa</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="847"/>
+        <location filename="fixturemanager.cpp" line="884"/>
         <source>New group %1</source>
         <translation>Nuovo gruppo %1</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="984"/>
+        <location filename="fixturemanager.cpp" line="1031"/>
         <source>%1 - Row %2</source>
         <translation>%1 - Riga %2</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1266"/>
+        <location filename="fixturemanager.cpp" line="1313"/>
         <source>New filters %1</source>
         <translation>Nuovo filtro %1</translation>
     </message>
@@ -3090,7 +3087,7 @@ Livello di accesso:</translation>
     <message>
         <location filename="virtualconsole/vcclock.cpp" line="75"/>
         <source>Clock %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Orologio %1</translation>
     </message>
 </context>
 <context>
@@ -3098,7 +3095,7 @@ Livello di accesso:</translation>
     <message>
         <location filename="qml/virtualconsole/VCClockItem.qml" line="151"/>
         <source>Enable/Disable this scheduler</source>
-        <translation type="unfinished"></translation>
+        <translation>Abilita/Disabilita questa programmazione</translation>
     </message>
 </context>
 <context>
@@ -3106,89 +3103,89 @@ Livello di accesso:</translation>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="45"/>
         <source>Clock type</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipo di orologio</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="62"/>
         <source>Clock</source>
-        <translation type="unfinished"></translation>
+        <translation>Orologio</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="79"/>
         <source>Stopwatch</source>
-        <translation type="unfinished"></translation>
+        <translation>Cronometro</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="96"/>
         <source>Countdown</source>
-        <translation type="unfinished"></translation>
+        <translation>Conto alla rovescia</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="123"/>
         <source>Schedule</source>
-        <translation type="unfinished"></translation>
+        <translation>Programmazione</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="146"/>
         <source>Add a function schedule</source>
-        <translation type="unfinished"></translation>
+        <translation>Aggiungi l&apos;avvio programmato di una funzione</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="212"/>
         <source>Remove this schedule</source>
-        <translation type="unfinished"></translation>
+        <translation>Rimuovi questa programmazione</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="224"/>
         <source>Start time</source>
-        <translation type="unfinished"></translation>
+        <translation>Ora di inizio</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="237"/>
         <source>Stop time</source>
-        <translation type="unfinished"></translation>
+        <translation>Ora di termine</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="267"/>
         <source>Enable the stop time</source>
-        <translation type="unfinished"></translation>
+        <translation>Abilita l&apos;ora di termine</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="278"/>
         <source>M</source>
-        <translation type="unfinished"></translation>
+        <translation>L</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="291"/>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="317"/>
         <source>T</source>
-        <translation type="unfinished"></translation>
+        <translation>M</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="304"/>
         <source>W</source>
-        <translation type="unfinished"></translation>
+        <translation>M</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="330"/>
         <source>F</source>
-        <translation type="unfinished"></translation>
+        <translation>V</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="343"/>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="356"/>
         <source>S</source>
-        <translation type="unfinished"></translation>
+        <translation>S</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="376"/>
         <source>Repeat weekly</source>
-        <translation type="unfinished"></translation>
+        <translation>Ripeti ogni settimana</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="411"/>
         <source>Add a new schedule</source>
-        <translation type="unfinished"></translation>
+        <translation>Aggiungi una nuova programmazione</translation>
     </message>
 </context>
 <context>
@@ -3196,37 +3193,37 @@ Livello di accesso:</translation>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="45"/>
         <source>Next Cue</source>
-        <translation type="unfinished"></translation>
+        <translation>Step successivo</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="46"/>
         <source>Previous Cue</source>
-        <translation type="unfinished"></translation>
+        <translation>Step precedente</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="47"/>
         <source>Play/Stop/Pause</source>
-        <translation type="unfinished"></translation>
+        <translation>Play/Stop/Pausa</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="48"/>
         <source>Left Crossfade</source>
-        <translation type="unfinished"></translation>
+        <translation>Fader sinistro</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="49"/>
         <source>Right Crossfade</source>
-        <translation type="unfinished"></translation>
+        <translation>Fader destro</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="50"/>
         <source>Stop/Pause</source>
-        <translation type="unfinished"></translation>
+        <translation>Stop/Pausa</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="66"/>
         <source>Cue List %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista di azioni %1</translation>
     </message>
 </context>
 <context>
@@ -3234,27 +3231,27 @@ Livello di accesso:</translation>
     <message>
         <location filename="qml/virtualconsole/VCCueListItem.qml" line="114"/>
         <source>Play/Pause</source>
-        <translation type="unfinished"></translation>
+        <translation>Play/Pausa</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListItem.qml" line="123"/>
         <source>Pause</source>
-        <translation type="unfinished"></translation>
+        <translation>Pausa</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListItem.qml" line="123"/>
         <source>Stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Stop</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListItem.qml" line="132"/>
         <source>Previous cue</source>
-        <translation type="unfinished"></translation>
+        <translation>Step precedente</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListItem.qml" line="141"/>
         <source>Next cue</source>
-        <translation type="unfinished"></translation>
+        <translation>Step successivo</translation>
     </message>
 </context>
 <context>
@@ -3262,58 +3259,59 @@ Livello di accesso:</translation>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="47"/>
         <source>Attached Chaser</source>
-        <translation type="unfinished"></translation>
+        <translation>Chaser associato</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="74"/>
         <source>Detach the current chaser</source>
-        <translation type="unfinished"></translation>
+        <translation>Disassocia il chaser corrente</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="84"/>
         <source>Buttons behavior</source>
-        <translation type="unfinished"></translation>
+        <translation>Comportamento pulsanti</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="99"/>
         <source>Play/Stop layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Layout Play/Stop</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="107"/>
         <source>Play/Pause + Stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Play/Pausa + Stop</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="108"/>
         <source>Play/Stop + Pause</source>
-        <translation type="unfinished"></translation>
+        <translation>Play/Stop + Pausa</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="124"/>
         <source>Next/Previous
 (when chaser is not running)</source>
-        <translation type="unfinished"></translation>
+        <translation>Successivo/Precedente
+(quando il chaser non è in esecuzione)</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="132"/>
         <source>Run from first/last cue</source>
-        <translation type="unfinished"></translation>
+        <translation>Avvia dal primo/ultimo step</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="133"/>
         <source>Run from next/previous cue</source>
-        <translation type="unfinished"></translation>
+        <translation>Avvia dallo step successivo/precedente</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="134"/>
         <source>Select next/previous cue</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleziona lo step successivo/precedente</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="135"/>
         <source>Do nothing</source>
-        <translation type="unfinished"></translation>
+        <translation>Non fare nulla</translation>
     </message>
 </context>
 <context>
@@ -3321,27 +3319,27 @@ Livello di accesso:</translation>
     <message>
         <location filename="virtualconsole/vcframe.cpp" line="53"/>
         <source>Next Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Pagina successiva</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframe.cpp" line="54"/>
         <source>Previous Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Pagina precedente</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframe.cpp" line="55"/>
         <source>Enable</source>
-        <translation type="unfinished"></translation>
+        <translation>Abilita</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframe.cpp" line="56"/>
         <source>Collapse</source>
-        <translation type="unfinished"></translation>
+        <translation>Contrai</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframe.cpp" line="69"/>
         <source>Frame %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Frame %1</translation>
     </message>
 </context>
 <context>
@@ -3349,27 +3347,27 @@ Livello di accesso:</translation>
     <message>
         <location filename="qml/virtualconsole/VCFrameItem.qml" line="74"/>
         <source>Expand/Collapse this frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Espandi/Contrai questo frame</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCFrameItem.qml" line="115"/>
         <source>Enable/Disable this frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Abilita/Disabilita questo frame</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCFrameItem.qml" line="137"/>
         <source>Previous page</source>
-        <translation type="unfinished"></translation>
+        <translation>Pagina precedente</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCFrameItem.qml" line="156"/>
         <source>Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Pagina</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCFrameItem.qml" line="167"/>
         <source>Next page</source>
-        <translation type="unfinished"></translation>
+        <translation>Pagina successiva</translation>
     </message>
 </context>
 <context>
@@ -3377,42 +3375,42 @@ Livello di accesso:</translation>
     <message>
         <location filename="qml/virtualconsole/VCFrameProperties.qml" line="43"/>
         <source>Header</source>
-        <translation type="unfinished"></translation>
+        <translation>Intestazione</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCFrameProperties.qml" line="58"/>
         <source>Show header</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra la barra del titolo</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCFrameProperties.qml" line="74"/>
         <source>Show enable button</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra il pulsante di abilitazione</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCFrameProperties.qml" line="89"/>
         <source>Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Pagine</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCFrameProperties.qml" line="104"/>
         <source>Enable pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Abilita pagine</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCFrameProperties.qml" line="120"/>
         <source>Circular pages scrolling</source>
-        <translation type="unfinished"></translation>
+        <translation>Scorrimento circolare delle pagine</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCFrameProperties.qml" line="140"/>
         <source>Pages number</source>
-        <translation type="unfinished"></translation>
+        <translation>Numero di pagine</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCFrameProperties.qml" line="159"/>
         <source>Clone first page widgets</source>
-        <translation type="unfinished"></translation>
+        <translation>Clona il contenuto della prima pagina</translation>
     </message>
 </context>
 <context>
@@ -3420,7 +3418,7 @@ Livello di accesso:</translation>
     <message>
         <location filename="virtualconsole/vclabel.cpp" line="39"/>
         <source>Label %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Etichetta %1</translation>
     </message>
 </context>
 <context>
@@ -3428,12 +3426,12 @@ Livello di accesso:</translation>
     <message>
         <location filename="virtualconsole/vcpage.cpp" line="34"/>
         <source>Page %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Pagina %1</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcpage.cpp" line="38"/>
         <source>Virtual Console Page %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Pagina %1 Console Virtuale</translation>
     </message>
 </context>
 <context>
@@ -3441,57 +3439,57 @@ Livello di accesso:</translation>
     <message>
         <location filename="qml/virtualconsole/VCPageProperties.qml" line="57"/>
         <source>Width</source>
-        <translation type="unfinished">Larghezza</translation>
+        <translation>Larghezza</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCPageProperties.qml" line="77"/>
         <source>Height</source>
-        <translation type="unfinished">Altezza</translation>
+        <translation>Altezza</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCPageProperties.qml" line="97"/>
         <source>Security</source>
-        <translation type="unfinished"></translation>
+        <translation>Sicurezza</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCPageProperties.qml" line="105"/>
         <source>Set a PIN</source>
-        <translation type="unfinished"></translation>
+        <translation>Imposta un PIN</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCPageProperties.qml" line="121"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Errore</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCPageProperties.qml" line="122"/>
         <source>The entered PINs are either invalid or incorrect</source>
-        <translation type="unfinished"></translation>
+        <translation>I PIN inseriti sono invalidi o errati</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCPageProperties.qml" line="137"/>
         <source>Add page to the left</source>
-        <translation type="unfinished"></translation>
+        <translation>Aggiungi pagina a sinistra</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCPageProperties.qml" line="146"/>
         <source>Add page to the right</source>
-        <translation type="unfinished"></translation>
+        <translation>Aggiungi pagina a destra</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCPageProperties.qml" line="160"/>
         <source>Delete this page</source>
-        <translation type="unfinished"></translation>
+        <translation>Elimina questa pagina</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCPageProperties.qml" line="166"/>
         <source>Delete page</source>
-        <translation type="unfinished"></translation>
+        <translation>Elimina pagina</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCPageProperties.qml" line="167"/>
         <source>Are you sure you want to delete the selected page ?</source>
-        <translation type="unfinished"></translation>
+        <translation>Sei sicuro di voler eliminare la pagina selezionata ?</translation>
     </message>
 </context>
 <context>
@@ -3499,42 +3497,42 @@ Livello di accesso:</translation>
     <message>
         <location filename="qml/virtualconsole/VCRightPanel.qml" line="61"/>
         <source>Add a new widget to the console</source>
-        <translation type="unfinished"></translation>
+        <translation>Aggiungi un nuovo widget alla console</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCRightPanel.qml" line="80"/>
         <source>Enable/Disable the widgets edit mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Abilita/Disabilita la modalità di modifica dei widget</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCRightPanel.qml" line="107"/>
         <source>Function Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Manager delle funzioni</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCRightPanel.qml" line="125"/>
         <source>Remove the selected widgets</source>
-        <translation type="unfinished"></translation>
+        <translation>Rimuovi i widget selezionati</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCRightPanel.qml" line="131"/>
         <source>Are you sure you want to remove the following widgets ?</source>
-        <translation type="unfinished"></translation>
+        <translation>Sei sicuro di voler eliminare i seguenti widget ?</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCRightPanel.qml" line="138"/>
         <source>Delete functions</source>
-        <translation type="unfinished">Rimozione funzioni</translation>
+        <translation>Rimozione funzioni</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCRightPanel.qml" line="150"/>
         <source>Copy the selected widgets to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Copia i widget selezionati in memoria</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCRightPanel.qml" line="162"/>
         <source>Paste widgets from clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Incolla i widget in memoria</translation>
     </message>
 </context>
 <context>
@@ -3542,22 +3540,22 @@ Livello di accesso:</translation>
     <message>
         <location filename="virtualconsole/vcslider.cpp" line="67"/>
         <source>Slider Control</source>
-        <translation type="unfinished"></translation>
+        <translation>Controllo fader</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcslider.cpp" line="68"/>
         <source>Reset Control</source>
-        <translation type="unfinished"></translation>
+        <translation>Controllo del reset</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcslider.cpp" line="85"/>
         <source>Slider %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Slider %1</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcslider.cpp" line="87"/>
         <source>Knob %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Manopola %1</translation>
     </message>
 </context>
 <context>
@@ -3565,147 +3563,147 @@ Livello di accesso:</translation>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="47"/>
         <source>Display Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Stile di visualizzazione</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="74"/>
         <source>DMX Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Valore DMX</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="90"/>
         <source>Percentage</source>
-        <translation type="unfinished"></translation>
+        <translation>Percentuale</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="107"/>
         <source>Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Normale</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="123"/>
         <source>Inverted</source>
-        <translation type="unfinished"></translation>
+        <translation>Invertito</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="130"/>
         <source>Slider Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modalità dello slider</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="156"/>
         <source>Level</source>
-        <translation type="unfinished"></translation>
+        <translation>Livello</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="172"/>
         <source>Adjust</source>
-        <translation type="unfinished"></translation>
+        <translation>Regolazione</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="189"/>
         <source>Submaster</source>
-        <translation type="unfinished"></translation>
+        <translation>Submaster</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="205"/>
         <source>Grand Master</source>
-        <translation type="unfinished"></translation>
+        <translation>Grand master</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="213"/>
         <source>Function Control</source>
-        <translation type="unfinished"></translation>
+        <translation>Controllo funzione</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="238"/>
         <source>Detach the current function</source>
-        <translation type="unfinished"></translation>
+        <translation>Disassocia la funzione corrente</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="247"/>
         <source>Attribute</source>
-        <translation type="unfinished"></translation>
+        <translation>Attributo</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="263"/>
         <source>Level mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modalità livello</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="277"/>
         <source>Channels</source>
-        <translation type="unfinished">Canali</translation>
+        <translation>Canali</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="294"/>
         <source>Add/Remove channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Aggiungi/Rimuovi canali</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="318"/>
         <source>Click &amp; Go button</source>
-        <translation type="unfinished"></translation>
+        <translation>Pulsante Click &amp; Go</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="326"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Nessuno</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="327"/>
         <source>RGB/CMY</source>
-        <translation type="unfinished"></translation>
+        <translation>RGB/CMY</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="328"/>
         <source>Gobo/Effect/Macro</source>
-        <translation type="unfinished"></translation>
+        <translation>Gobo/Effetto/Macro</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="348"/>
         <source>Monitor channel levels</source>
-        <translation type="unfinished"></translation>
+        <translation>Monitoring livello canali</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="356"/>
         <source>Values range</source>
-        <translation type="unfinished"></translation>
+        <translation>Intervallo di valori</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="370"/>
         <source>Upper limit</source>
-        <translation type="unfinished"></translation>
+        <translation>Limite superiore</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="385"/>
         <source>Lower limit</source>
-        <translation type="unfinished"></translation>
+        <translation>Limite inferiore</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="401"/>
         <source>Grand Master mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modalità grand master</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="428"/>
         <source>Reduce values</source>
-        <translation type="unfinished"></translation>
+        <translation>Scala valori</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="445"/>
         <source>Limit values</source>
-        <translation type="unfinished"></translation>
+        <translation>Limita valori</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="462"/>
         <source>Intensity channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Canali di intensità</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="479"/>
         <source>All channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Tutti i canali</translation>
     </message>
 </context>
 <context>
@@ -3713,7 +3711,7 @@ Livello di accesso:</translation>
     <message>
         <location filename="virtualconsole/vcsoloframe.cpp" line="34"/>
         <source>Solo Frame %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Frame esclusivo %1</translation>
     </message>
 </context>
 <context>
@@ -3721,69 +3719,69 @@ Livello di accesso:</translation>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="184"/>
         <source>Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Pulsante</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="185"/>
         <source>Slider</source>
-        <translation type="unfinished"></translation>
+        <translation>Slider</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="186"/>
         <source>Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Frame</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="187"/>
         <source>Solo Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Frame esclusivo</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="188"/>
         <source>Speed Dial</source>
-        <translation type="unfinished"></translation>
+        <translation>Speed dial</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="189"/>
         <source>XY Pad</source>
-        <translation type="unfinished"></translation>
+        <translation>Pad XY</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="190"/>
         <source>Cue list</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista di azioni</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="191"/>
         <source>Label</source>
-        <translation type="unfinished"></translation>
+        <translation>Etichetta</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="192"/>
         <source>Audio Triggers</source>
-        <translation type="unfinished"></translation>
+        <translation>Trigger audio</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="193"/>
         <source>Animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Animazione</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="194"/>
         <source>Clock</source>
-        <translation type="unfinished"></translation>
+        <translation>Orologio</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="197"/>
         <location filename="virtualconsole/vcwidget.cpp" line="199"/>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Sconosciuto</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="742"/>
         <location filename="virtualconsole/vcwidget.cpp" line="743"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Nessuno</translation>
     </message>
 </context>
 <context>
@@ -3791,77 +3789,77 @@ Livello di accesso:</translation>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="134"/>
         <source>Select a widget first</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleziona almeno un widget</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="154"/>
         <source>Basic properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Proprietà di base</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="169"/>
         <source>Label</source>
-        <translation type="unfinished"></translation>
+        <translation>Etichetta</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="194"/>
         <source>Background color</source>
-        <translation type="unfinished"></translation>
+        <translation>Colore sfondo</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="217"/>
         <source>Foreground color</source>
-        <translation type="unfinished"></translation>
+        <translation>Colore primo piano</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="240"/>
         <source>Font</source>
-        <translation type="unfinished"></translation>
+        <translation>Carattere</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="275"/>
         <source>Please choose a font</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleziona un carattere</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="295"/>
         <source>Background image</source>
-        <translation type="unfinished"></translation>
+        <translation>Immagine di sfondo</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="326"/>
         <source>Select an image</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleziona una immagine</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="344"/>
         <source>Alignment</source>
-        <translation type="unfinished">Allineamento</translation>
+        <translation>Allineamento</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="359"/>
         <source>Align the selected widgets to the left</source>
-        <translation type="unfinished"></translation>
+        <translation>Allinea a sinistra i widget selezionati</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="369"/>
         <source>Align the selected widgets to the right</source>
-        <translation type="unfinished"></translation>
+        <translation>Allinea a destra i widget selezionati</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="379"/>
         <source>Align the selected widgets to the top</source>
-        <translation type="unfinished"></translation>
+        <translation>Allinea in alto i widget selezionati</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="389"/>
         <source>Align the selected widgets to the bottom</source>
-        <translation type="unfinished"></translation>
+        <translation>Allinea in basso i widget selezionati</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="410"/>
         <source>External Controls</source>
-        <translation type="unfinished"></translation>
+        <translation>Controlli esterni</translation>
     </message>
 </context>
 <context>
@@ -3869,142 +3867,142 @@ Livello di accesso:</translation>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="88"/>
         <source>File name</source>
-        <translation type="unfinished">Nome del file</translation>
+        <translation>Nome del file</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="112"/>
         <source>Video files</source>
-        <translation type="unfinished"></translation>
+        <translation>File video</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="116"/>
         <source>Picture files</source>
-        <translation type="unfinished"></translation>
+        <translation>File immagini</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="121"/>
         <source>All files</source>
-        <translation type="unfinished">Tutti i file</translation>
+        <translation>Tutti i file</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="130"/>
         <source>Set a URL</source>
-        <translation type="unfinished"></translation>
+        <translation>Imposta un URL</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="136"/>
         <source>Enter a URL</source>
-        <translation type="unfinished"></translation>
+        <translation>Immetti un URL</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="154"/>
         <source>Duration</source>
-        <translation type="unfinished">Durata</translation>
+        <translation>Durata</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="164"/>
         <source>Resolution</source>
-        <translation type="unfinished"></translation>
+        <translation>Risoluzione</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="174"/>
         <source>Video Codec</source>
-        <translation type="unfinished"></translation>
+        <translation>Codec video</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="184"/>
         <source>Audio Codec</source>
-        <translation type="unfinished"></translation>
+        <translation>Codec audio</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="194"/>
         <source>Playback mode</source>
-        <translation type="unfinished">Modalità di riproduzione</translation>
+        <translation>Modalità di riproduzione</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="213"/>
         <source>Single shot</source>
-        <translation type="unfinished">Singola riproduzione</translation>
+        <translation>Singola riproduzione</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="227"/>
         <source>Looped</source>
-        <translation type="unfinished">Ciclica</translation>
+        <translation>Ciclica</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="232"/>
         <source>Output screen</source>
-        <translation type="unfinished"></translation>
+        <translation>Schermo di uscita</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="244"/>
         <source>Output mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modalità di uscita</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="262"/>
         <source>Windowed</source>
-        <translation type="unfinished"></translation>
+        <translation>In finestra</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="276"/>
         <source>Fullscreen</source>
-        <translation type="unfinished"></translation>
+        <translation>Pieno schermo</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="281"/>
         <source>Geometry</source>
-        <translation type="unfinished"></translation>
+        <translation>Geometria</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="308"/>
         <source>Original</source>
-        <translation type="unfinished"></translation>
+        <translation>Originale</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="335"/>
         <source>Custom</source>
-        <translation type="unfinished"></translation>
+        <translation>Personalizzata</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="344"/>
         <source>Position</source>
-        <translation type="unfinished">Posizione</translation>
+        <translation>Posizione</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="380"/>
         <source>Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Dimensione</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="389"/>
         <source>W</source>
-        <translation type="unfinished"></translation>
+        <translation>L</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="399"/>
         <source>H</source>
-        <translation type="unfinished"></translation>
+        <translation>A</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="415"/>
         <source>Rotation</source>
-        <translation type="unfinished">Rotazione</translation>
+        <translation>Rotazione</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="423"/>
         <source>X</source>
-        <translation type="unfinished"></translation>
+        <translation>X</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="434"/>
         <source>Y</source>
-        <translation type="unfinished"></translation>
+        <translation>Y</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="445"/>
         <source>Z</source>
-        <translation type="unfinished"></translation>
+        <translation>Z</translation>
     </message>
 </context>
 <context>
@@ -4012,72 +4010,72 @@ Livello di accesso:</translation>
     <message>
         <location filename="qml/virtualconsole/VirtualConsole.qml" line="169"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Errore</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VirtualConsole.qml" line="170"/>
         <source>Invalid PIN entered</source>
-        <translation type="unfinished"></translation>
+        <translation>Il PIN inserito non è corretto</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VirtualConsole.qml" line="183"/>
         <source>Enable/Disable widgets snapping</source>
-        <translation type="unfinished"></translation>
+        <translation>Abilita/Disabilita l&apos;ancoraggio dei widget</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VirtualConsole.qml" line="227"/>
         <source>Widget matrix setup</source>
-        <translation type="unfinished"></translation>
+        <translation>Configurazione matrice di widget</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VirtualConsole.qml" line="239"/>
         <source>Columns</source>
-        <translation type="unfinished"></translation>
+        <translation>Colonne</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VirtualConsole.qml" line="248"/>
         <source>Rows</source>
-        <translation type="unfinished"></translation>
+        <translation>Righe</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VirtualConsole.qml" line="257"/>
         <source>Width</source>
-        <translation type="unfinished">Larghezza</translation>
+        <translation>Larghezza</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VirtualConsole.qml" line="267"/>
         <source>Height</source>
-        <translation type="unfinished">Altezza</translation>
+        <translation>Altezza</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VirtualConsole.qml" line="284"/>
         <source>Frame type</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipo di frame</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VirtualConsole.qml" line="293"/>
         <source>Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Normale</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VirtualConsole.qml" line="301"/>
         <source>Solo</source>
-        <translation type="unfinished"></translation>
+        <translation>Esclusivo</translation>
     </message>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="75"/>
         <source>Virtual Console</source>
-        <translation type="unfinished">Console Virtuale</translation>
+        <translation>Console Virtuale</translation>
     </message>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="239"/>
         <source>&lt;None&gt;</source>
-        <translation type="unfinished">&lt;Nessuno&gt;</translation>
+        <translation>&lt;Nessuno&gt;</translation>
     </message>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="1122"/>
         <source>Page %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Pagina %1</translation>
     </message>
 </context>
 <context>
@@ -4085,72 +4083,72 @@ Livello di accesso:</translation>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="34"/>
         <source>Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Frame</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="35"/>
         <source>Solo Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Frame esclusivo</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="36"/>
         <source>Button</source>
-        <translation type="unfinished"></translation>
+        <translation>Pulsante</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="37"/>
         <source>Button Matrix</source>
-        <translation type="unfinished"></translation>
+        <translation>Matrice di pulsanti</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="38"/>
         <source>Slider</source>
-        <translation type="unfinished"></translation>
+        <translation>Slider</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="39"/>
         <source>Slider Matrix</source>
-        <translation type="unfinished"></translation>
+        <translation>Matrice di slider</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="40"/>
         <source>Knob</source>
-        <translation type="unfinished"></translation>
+        <translation>Manopola</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="41"/>
         <source>Cue List</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista di azioni</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="42"/>
         <source>Speed Dial</source>
-        <translation type="unfinished"></translation>
+        <translation>Speed dial</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="43"/>
         <source>XY Pad</source>
-        <translation type="unfinished"></translation>
+        <translation>Pad XY</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="44"/>
         <source>Animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Animazione</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="45"/>
         <source>Label</source>
-        <translation type="unfinished"></translation>
+        <translation>Etichetta</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="46"/>
         <source>Audio Triggers</source>
-        <translation type="unfinished"></translation>
+        <translation>Trigger audio</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="47"/>
         <source>Clock</source>
-        <translation type="unfinished"></translation>
+        <translation>Orologio</translation>
     </message>
 </context>
 </TS>
