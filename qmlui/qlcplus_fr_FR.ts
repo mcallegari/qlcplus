@@ -1515,62 +1515,62 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/LeftPanel.qml" line="68"/>
         <source>Add Fixtures</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter des fixtures</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/LeftPanel.qml" line="87"/>
         <source>Fixture Groups</source>
-        <translation type="unfinished"></translation>
+        <translation>Groupes de fixtures</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/LeftPanel.qml" line="106"/>
         <source>Intensity</source>
-        <translation type="unfinished"></translation>
+        <translation>Intensité</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/LeftPanel.qml" line="130"/>
         <source>Shutter</source>
-        <translation type="unfinished"></translation>
+        <translation>Obturateur</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/LeftPanel.qml" line="158"/>
         <source>Position</source>
-        <translation type="unfinished"></translation>
+        <translation>Position</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/LeftPanel.qml" line="187"/>
         <source>Color</source>
-        <translation type="unfinished">Couleur</translation>
+        <translation>Couleur</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/LeftPanel.qml" line="214"/>
         <source>Color Wheel</source>
-        <translation type="unfinished"></translation>
+        <translation>Roue chromatique</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/LeftPanel.qml" line="241"/>
         <source>Gobos</source>
-        <translation type="unfinished"></translation>
+        <translation>Gobos</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/LeftPanel.qml" line="269"/>
         <source>Beam</source>
-        <translation type="unfinished">Rayon</translation>
+        <translation>Rayon</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/LeftPanel.qml" line="311"/>
         <source>Pick a 3D point</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisir un point 3D</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/LeftPanel.qml" line="321"/>
         <source>Toggle multiple item selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Basculer la sélection multiple</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/LeftPanel.qml" line="333"/>
         <source>Select/Deselect all fixtures</source>
-        <translation type="unfinished"></translation>
+        <translation>(Dé)Sélectionner toutes les fixtures</translation>
     </message>
 </context>
 <context>
