@@ -3153,29 +3153,44 @@ Livello di accesso:</translation>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="278"/>
         <source>M</source>
+        <comment>As in Monday</comment>
         <translation>L</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="291"/>
-        <location filename="qml/virtualconsole/VCClockProperties.qml" line="317"/>
         <source>T</source>
+        <comment>As in Tuesday</comment>
         <translation>M</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="304"/>
         <source>W</source>
+        <comment>As in Wednesday</comment>
         <translation>M</translation>
+    </message>
+    <message>
+        <location filename="qml/virtualconsole/VCClockProperties.qml" line="317"/>
+        <source>T</source>
+        <comment>As in Thursday</comment>
+        <translation>G</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="330"/>
         <source>F</source>
+        <comment>As in Friday</comment>
         <translation>V</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="343"/>
+        <source>S</source>
+        <comment>As in Saturday</comment>
+        <translation>S</translation>
+    </message>
+    <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="356"/>
         <source>S</source>
-        <translation>S</translation>
+        <comment>As in Sunday</comment>
+        <translation>D</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="376"/>
