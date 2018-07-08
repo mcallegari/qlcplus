@@ -30,6 +30,7 @@ class QString;
 
 class QLCFixtureMode;
 class QLCFixtureDef;
+class EditPhysical;
 class QLCChannel;
 
 /** @addtogroup fixtureeditor Fixture Editor
@@ -56,16 +57,10 @@ public:
     bool save();
     bool saveAs();
 
-    void setFileName(QString path) {
-        m_fileName = path;
-    }
-    QString fileName() const {
-        return m_fileName;
-    }
+    void setFileName(QString path);
+    QString fileName() const;
 
-    bool modified() const {
-        return m_modified;
-    }
+    bool modified() const;
     void setModified(bool modified = true);
 
 protected:
@@ -92,7 +87,7 @@ protected:
      * Channels
      *********************************************************************/
 protected slots:
-    void slotChannelListSelectionChanged(QTreeWidgetItem* item);
+    void slotChannelListSelectionChanged(QTreeWidgetItem *item);
     void slotAddChannel();
     void slotRemoveChannel();
     void slotEditChannel();
@@ -105,8 +100,7 @@ protected slots:
 protected:
     QLCChannel* currentChannel();
     void refreshChannelList();
-    void updateChannelItem(const QLCChannel* channel,
-                           QTreeWidgetItem* item);
+    void updateChannelItem(const QLCChannel *channel, QTreeWidgetItem *item);
 
     /*********************************************************************
      * Modes
@@ -124,16 +118,35 @@ protected slots:
 protected:
     QLCFixtureMode* currentMode();
     void refreshModeList();
-    void updateModeItem(const QLCFixtureMode* mode, QTreeWidgetItem* item);
+    void updateModeItem(const QLCFixtureMode *mode, QTreeWidgetItem *item);
+
+    /*********************************************************************
+     * Aliases
+     *********************************************************************/
+protected slots:
+    void slotAliasChanged();
+    void slotAddAliasClicked();
+    void slotRemoveAliasClicked();
+
+protected:
+    void refreshAliasList();
+    void refreshAliasModes();
+    void refreshAliasModeChannels();
+    void refreshAliasAllChannels();
+    void refreshAliasTree();
+    void checkAliasAddButton();
 
     /*********************************************************************
      * Clipboard
      *********************************************************************/
 public slots:
     void slotClipboardChanged();
+    void slotCopyPhysicalClipboard(QLCPhysical clipboard);
+    void slotPastePhysicalInfo();
 
 private:
-    QLCPhysical m_physicalCopy;
+    EditPhysical *m_phyEdit;
+    QLCPhysical m_physicalClipboard;
 };
 
 /** @} */

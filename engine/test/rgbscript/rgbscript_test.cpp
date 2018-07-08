@@ -21,8 +21,12 @@
 
 #define private public
 #include "rgbscript_test.h"
-#include "rgbscript.h"
 #include "rgbscriptscache.h"
+#ifdef QT_QML_LIB
+  #include "rgbscriptv4.h"
+#else
+  #include "rgbscript.h"
+#endif
 #undef private
 
 #include "doc.h"
@@ -96,19 +100,30 @@ void RGBScript_Test::script()
     QCOMPARE(s.apiVersion(), 0);
     QCOMPARE(s.author(), QString());
     QCOMPARE(s.name(), QString());
+#ifdef QT_QML_LIB
+    QVERIFY(s.m_script.isUndefined() == true);
+    QVERIFY(s.m_rgbMap.isUndefined() == true);
+    QVERIFY(s.m_rgbMapStepCount.isUndefined() == true);
+#else
     // QVERIFY(s.m_script.isValid() == false); // TODO: to be fixed !!
     QVERIFY(s.m_rgbMap.isValid() == false);
     QVERIFY(s.m_rgbMapStepCount.isValid() == false);
-
+#endif
     s = m_doc->rgbScriptsCache()->script("Stripes");
     QCOMPARE(s.fileName(), QString("stripes.js"));
     QVERIFY(s.m_contents.isEmpty() == false);
     QVERIFY(s.apiVersion() > 0);
     QCOMPARE(s.author(), QString("Massimo Callegari"));
     QCOMPARE(s.name(), QString("Stripes"));
+#ifdef QT_QML_LIB
+    QVERIFY(s.m_script.isUndefined() == false);
+    QVERIFY(s.m_rgbMap.isUndefined() == false);
+    QVERIFY(s.m_rgbMapStepCount.isUndefined() == false);
+#else
     QVERIFY(s.m_script.isValid() == true);
     QVERIFY(s.m_rgbMap.isValid() == true);
     QVERIFY(s.m_rgbMapStepCount.isValid() == true);
+#endif
 }
 
 void RGBScript_Test::evaluateException()

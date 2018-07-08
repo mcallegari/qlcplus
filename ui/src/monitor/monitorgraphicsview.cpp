@@ -17,6 +17,7 @@
   limitations under the License.
 */
 
+#include "monitorproperties.h"
 #include "monitorgraphicsview.h"
 #include "monitorfixtureitem.h"
 #include "qlcfixturemode.h"
@@ -36,6 +37,11 @@ MonitorGraphicsView::MonitorGraphicsView(Doc *doc, QWidget *parent)
     m_gridSize = QSize(5, 5);
 
     updateGrid();
+}
+
+MonitorGraphicsView::~MonitorGraphicsView()
+{
+    clearFixtures();
 }
 
 void MonitorGraphicsView::setGridSize(QSize size)
@@ -128,16 +134,9 @@ void MonitorGraphicsView::updateFixture(quint32 id)
         height = mode->physical().height();
     }
 
-    if (fxi->isDimmer())
-    {
-        width = fxi->heads() * 200;
-        height = 200;
-    }
-    else
-    {
-        if (width == 0) width = 300;
-        if (height == 0) height = 300;
-    }
+    if (width == 0) width = 300;
+    if (height == 0) height = 300;
+
 
     MonitorFixtureItem *item = m_fixtures[id];
     item->setSize(QSize((width * m_cellPixels) / m_unitValue, (height * m_cellPixels) / m_unitValue));
@@ -162,25 +161,6 @@ void MonitorGraphicsView::setBackgroundImage(QString filename)
         m_scene->addItem(m_bgItem);
     }
     updateGrid();
-}
-
-void MonitorGraphicsView::writeUniverse(int index, const QByteArray &ua)
-{
-    QHashIterator <quint32, MonitorFixtureItem*> it(m_fixtures);
-    while (it.hasNext() == true)
-    {
-        it.next();
-        quint32 fid = it.key();
-        Fixture *fxi = m_doc->fixture(fid);
-        // preliminary validity checks
-        if (fxi == NULL || fxi->universe() != (quint32)index)
-        {
-            continue;
-        }
-
-        MonitorFixtureItem *item = it.value();
-        item->updateValues(ua);
-    }
 }
 
 MonitorFixtureItem *MonitorGraphicsView::getSelectedItem()
@@ -232,9 +212,17 @@ bool MonitorGraphicsView::removeFixture(quint32 id)
 
     m_scene->removeItem(item);
     m_fixtures.take(id);
+    m_doc->monitorProperties()->removeFixture(id);
     delete item;
 
     return true;
+}
+
+void MonitorGraphicsView::clearFixtures()
+{
+    foreach(MonitorFixtureItem *item, m_fixtures.values())
+        delete item;
+    m_fixtures.clear();
 }
 
 void MonitorGraphicsView::updateGrid()

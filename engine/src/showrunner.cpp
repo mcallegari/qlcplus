@@ -75,8 +75,6 @@ ShowRunner::ShowRunner(const Doc* doc, quint32 showID, quint32 startTime)
                 continue;
 
             m_functions.append(sfunc);
-            connect(f, SIGNAL(stopped(quint32)),
-                    this, SLOT(slotFunctionStopped(quint32)));
 
             if (sfunc->startTime() + sfunc->duration() > m_totalRunTime)
                 m_totalRunTime = sfunc->startTime() + sfunc->duration();
@@ -88,7 +86,7 @@ ShowRunner::ShowRunner(const Doc* doc, quint32 showID, quint32 startTime)
 
     qSort(m_functions.begin(), m_functions.end(), compareShowFunctions);
 
-#if 0
+#if 1
     qDebug() << "Ordered list of ShowFunctions:";
     foreach (ShowFunction *sfunc, m_functions)
         qDebug() << "ID:" << sfunc->functionID() << "st:" << sfunc->startTime() << "dur:" << sfunc->duration();
@@ -104,35 +102,51 @@ ShowRunner::~ShowRunner()
 
 void ShowRunner::start()
 {
-    //stop();
     qDebug() << "ShowRunner started";
+}
+
+void ShowRunner::setPause(bool enable)
+{
+    for (int i = 0; i < m_runningQueue.count(); i++)
+    {
+        Function *f = m_runningQueue.at(i).first;
+        f->setPause(enable);
+    }
 }
 
 void ShowRunner::stop()
 {
     m_elapsedTime = 0;
     m_currentFunctionIndex = 0;
-    foreach (Function *f, m_runningQueue)
-        f->stop();
+    for (int i = 0; i < m_runningQueue.count(); i++)
+    {
+        Function *f = m_runningQueue.at(i).first;
+        f->stop(functionParent());
+    }
 
     m_runningQueue.clear();
     qDebug() << "ShowRunner stopped";
 }
 
-void ShowRunner::slotFunctionStopped(quint32 id)
+FunctionParent ShowRunner::functionParent() const
 {
-    m_runningQueueMutex.lock();
-    for (int i = 0; i < m_runningQueue.count(); i++)
-        if (m_runningQueue.at(i)->id() == id)
-            m_runningQueue.removeAt(i);
-    m_runningQueueMutex.unlock();
+    return FunctionParent(FunctionParent::Function, m_show->id());
 }
 
 void ShowRunner::write()
 {
     //qDebug() << Q_FUNC_INFO << "elapsed:" << m_elapsedTime << ", total:" << m_totalRunTime;
-    if (m_currentFunctionIndex < m_functions.count())
+
+    // Phase 1. Check all the Functions that need to be started
+    // m_functions is ordered by startup time, so when we found an entry
+    // with start time greater than m_elapsed, this phase is over
+    bool startupDone = false;
+
+    while(startupDone == false)
     {
+        if (m_currentFunctionIndex == m_functions.count())
+            break;
+
         ShowFunction *sf = m_functions.at(m_currentFunctionIndex);
         quint32 funcStartTime = sf->startTime();
         quint32 functionTimeOffset = 0;
@@ -144,48 +158,51 @@ void ShowRunner::write()
             functionTimeOffset = m_elapsedTime - funcStartTime;
             funcStartTime = m_elapsedTime;
         }
-        if (m_elapsedTime == funcStartTime)
+        if (m_elapsedTime >= funcStartTime)
         {
             foreach (Track *track, m_show->tracks())
             {
                 if (track->showFunctions().contains(sf))
                 {
-                    f->adjustAttribute(m_intensityMap[track->id()], Function::Intensity);
+                    int intOverrideId = f->requestAttributeOverride(Function::Intensity, m_intensityMap[track->id()]);
+                    //f->adjustAttribute(m_intensityMap[track->id()], Function::Intensity);
+                    sf->setIntensityOverrideId(intOverrideId);
                     break;
                 }
             }
 
-            f->start(m_doc->masterTimer(), true, functionTimeOffset);
-            m_runningQueue.append(f);
+            f->start(m_doc->masterTimer(), functionParent(), functionTimeOffset);
+            m_runningQueue.append(QPair<Function *, quint32>(f, sf->startTime() + sf->duration()));
             m_currentFunctionIndex++;
-
-            // Add the Function to a map that keeps track of the functions
-            // that need to be stopped otherwise they would play endlessly.
-            // In this case we assume that it is impossible that 2 Functions
-            // with the same ID are running at the same time !
-            if (f->type() == Function::EFX || f->type() == Function::RGBMatrix)
-                m_stopTimeMap[f->id()] = sf->startTime() + sf->duration();
         }
+        else
+            startupDone = true;
     }
 
-    // check if we need to stop some "endless" Functions
-    m_runningQueueMutex.lock();
-    foreach(Function *f, m_runningQueue)
+    // Phase 2. Check if we need to stop some running Functions
+    // It is done in reverse order for two reasons:
+    // 1- m_runningQueue is not ordered by stop time
+    // 2- to avoid messing up with indices when an entry is removed
+    for(int i = m_runningQueue.count() - 1; i >= 0; i--)
     {
-        if (f->type() == Function::EFX || f->type() == Function::RGBMatrix)
+        Function *func = m_runningQueue.at(i).first;
+        quint32 stopTime = m_runningQueue.at(i).second;
+
+        // if we passed the function stop time
+        if (m_elapsedTime >= stopTime)
         {
-            //qDebug() << "elapsed:" << m_elapsedTime << "stopTime:" << m_stopTimeMap[f->id()];
-            if (m_elapsedTime == m_stopTimeMap[f->id()])
-                f->stop();
+            // stop the function
+            func->stop(functionParent());
+            // remove it from the running queue
+            m_runningQueue.removeAt(i);
         }
     }
-    m_runningQueueMutex.unlock();
 
-    // end of the show
+    // Phase 3. Check if this is the end of the Show
     if (m_elapsedTime >= m_totalRunTime)
     {
         if (m_show != NULL)
-            m_show->stop();
+            m_show->stop(functionParent());
         emit showFinished();
         return;
     }
@@ -209,9 +226,15 @@ void ShowRunner::adjustIntensity(qreal fraction, Track *track)
     foreach (ShowFunction *sf, track->showFunctions())
     {
         Function *f = m_doc->function(sf->functionID());
+        if (f == NULL)
+            continue;
 
-        if (f != NULL && m_runningQueue.contains(f))
-            f->adjustAttribute(fraction, Function::Intensity);
+        for (int i = 0; i < m_runningQueue.count(); i++)
+        {
+            Function *rf = m_runningQueue.at(i).first;
+            if (f == rf)
+                f->adjustAttribute(fraction, sf->intensityOverrideId());
+        }
     }
 }
 

@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="ca_ES">
+<TS version="2.1" language="ca_ES">
 <context>
     <name>ConfigureHID</name>
     <message>
-        <location filename="configurehid.ui" line="14"/>
+        <location filename="configurehid.ui" line="33"/>
         <source>Configure HID Plugin</source>
         <translation>Configurar plugin HID</translation>
     </message>
     <message>
-        <location filename="configurehid.ui" line="33"/>
+        <location filename="configurehid.ui" line="52"/>
         <source>Input Line</source>
         <translation>Línia d&apos;Entrada</translation>
     </message>
     <message>
-        <location filename="configurehid.ui" line="38"/>
+        <location filename="configurehid.ui" line="57"/>
         <source>Name</source>
         <translation>Nom</translation>
     </message>
     <message>
-        <location filename="configurehid.ui" line="46"/>
+        <location filename="configurehid.ui" line="65"/>
         <source>Refresh</source>
         <translation>Actualitzar</translation>
     </message>
 </context>
 <context>
-    <name>HIDFX5Device</name>
+    <name>HIDDMXDevice</name>
     <message>
-        <location filename="hidfx5device.cpp" line="61"/>
-        <source>FX5 USB DMX Interface Error</source>
-        <translation>Error de la interfície FX5 USB DMX</translation>
+        <location filename="hiddmxdevice.cpp" line="62"/>
+        <source>HID DMX Interface Error</source>
+        <translation>HID DMX error d&apos;interfície</translation>
     </message>
     <message>
-        <location filename="hidfx5device.cpp" line="62"/>
-        <source>Unable to open the FX5 Interface. Make sure the udev rule is installed.</source>
-        <translation>No es pot obrir la interfície FX5. Assegureu-vos que la regla udev està instal·lada.</translation>
+        <location filename="hiddmxdevice.cpp" line="63"/>
+        <source>Unable to open %1. Make sure the udev rule is installed.</source>
+        <translation>No es pot obrir %1. Assegurar-vos que la regla de udev està instal·lada.</translation>
     </message>
 </context>
 <context>
     <name>HIDJsDevice</name>
     <message>
-        <location filename="hidjsdevice.cpp" line="313"/>
+        <location filename="hidjsdevice.cpp" line="88"/>
         <source>Axes: %1</source>
         <translation>Eixos: %1</translation>
     </message>
     <message>
-        <location filename="hidjsdevice.cpp" line="315"/>
+        <location filename="hidjsdevice.cpp" line="90"/>
         <source>Buttons: %1</source>
         <translation>Botons: %1</translation>
     </message>
@@ -53,9 +53,9 @@
 <context>
     <name>HIDPlugin</name>
     <message>
-        <location filename="hidplugin.cpp" line="115"/>
-        <source>This plugin provides support for HID-based joysticks and the FX5 USB DMX adapter.</source>
-        <translation>Aquest plugin proveeix suport per joysticks HID i l&apos;adaptador FX5 USB DMX.</translation>
+        <location filename="hidplugin.cpp" line="125"/>
+        <source>This plugin provides support for HID-based joysticks, gamepads and some USB DMX adapters.</source>
+        <translation>Aquest plugin proveeix support HID per joysticks, gamepads i alguns adaptadors USB DMX.</translation>
     </message>
 </context>
 </TS>

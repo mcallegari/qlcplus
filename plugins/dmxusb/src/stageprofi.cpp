@@ -22,9 +22,8 @@
 #include <QString>
 #include <QDebug>
 
-Stageprofi::Stageprofi(const QString& serial, const QString& name,
-                       const QString &vendor, quint32 outputLine, quint32 id)
-    : DMXUSBWidget(serial, name, vendor, outputLine, id)
+Stageprofi::Stageprofi(DMXInterface *interface, quint32 outputLine)
+    : DMXUSBWidget(interface, outputLine)
 {
 }
 
@@ -39,6 +38,15 @@ DMXUSBWidget::Type Stageprofi::type() const
 
 bool Stageprofi::checkReply()
 {
+    bool ok = false;
+    uchar res;
+
+    res = interface()->readByte(&ok);
+    if (ok == false || res != 0x47)
+        return false;
+
+    return true;
+/*
     for (int i = 0; i < 16; i++)
     {
         QByteArray reply = ftdi()->read(1);
@@ -54,6 +62,7 @@ bool Stageprofi::checkReply()
     qWarning() << Q_FUNC_INFO << name() << "got no reply";
 
     return false;
+*/
 }
 
 bool Stageprofi::sendChannelValue(int channel, uchar value)
@@ -61,7 +70,7 @@ bool Stageprofi::sendChannelValue(int channel, uchar value)
     QByteArray chanMsg;
     QString msg;
     chanMsg.append(msg.sprintf("C%03dL%03d", channel, value));
-    return ftdi()->write(chanMsg);
+    return interface()->write(chanMsg);
 }
 
 /****************************************************************************
@@ -82,7 +91,7 @@ bool Stageprofi::open(quint32 line, bool input)
 
     /* Check connection */
     initSequence.append("C?");
-    if (ftdi()->write(initSequence) == true)
+    if (interface()->write(initSequence) == true)
     {
         if (checkReply() == false)
         {
@@ -95,12 +104,10 @@ bool Stageprofi::open(quint32 line, bool input)
     /* set the DMX OUT channels number */
     initSequence.clear();
     initSequence.append("N511");
-    if (ftdi()->write(initSequence) == true)
+    if (interface()->write(initSequence) == true)
     {
         if (checkReply() == false)
-        {
             qWarning() << Q_FUNC_INFO << name() << "Channels initialization failed";
-        }
     }
 
     return true;
@@ -152,25 +159,35 @@ bool Stageprofi::writeUniverse(quint32 universe, quint32 output, const QByteArra
     {
         if (data[i] != m_universe[i])
         {
-            QString chData;
-            chData.sprintf("C%03dL%03d", i, uchar(data[i]));
+            QByteArray fastTrans;
+            if (i < 256)
+            {
+                fastTrans.append((char)0xE2);
+                fastTrans.append((char)i);
+            }
+            else
+            {
+                fastTrans.append((char)0xE3);
+                fastTrans.append((char)(i - 256));
+            }
+            fastTrans.append(data[i]);
 
-            m_universe[i] = data[i];
-
-            if (ftdi()->write(chData.toLatin1()) == false)
+            if (interface()->write(fastTrans) == false)
             {
                 qWarning() << Q_FUNC_INFO << name() << "will not accept DMX data";
+                interface()->purgeBuffers();
                 return false;
             }
             else
             {
-                //checkReply();
-                ftdi()->purgeBuffers();
-                return true;
+                m_universe[i] = data[i];
+                if (checkReply() == false)
+                    interface()->purgeBuffers();
             }
         }
     }
     return true;
 }
+
 
 

@@ -23,6 +23,7 @@
 #include <QDebug>
 #include <QDir>
 
+#include "monitorproperties.h"
 #include "vcaudiotriggers.h"
 #include "virtualconsole.h"
 #include "qlcfixturemode.h"
@@ -37,6 +38,7 @@
 #include "chaserstep.h"
 #include "audiobar.h"
 #include "vcslider.h"
+#include "sequence.h"
 #include "vcxypad.h"
 #include "vcframe.h"
 #include "chaser.h"
@@ -79,7 +81,19 @@ FixtureRemap::FixtureRemap(Doc *doc, QWidget *parent)
     m_targetDoc = new Doc(this);
     /* Load user fixtures first so that they override system fixtures */
     m_targetDoc->fixtureDefCache()->load(QLCFixtureDefCache::userDefinitionDirectory());
-    m_targetDoc->fixtureDefCache()->load(QLCFixtureDefCache::systemDefinitionDirectory());
+    m_targetDoc->fixtureDefCache()->loadMap(QLCFixtureDefCache::systemDefinitionDirectory());
+
+    /* Remove the default set of universes from the target Doc and re-fill it
+     * with the current Doc universe list */
+    m_targetDoc->inputOutputMap()->removeAllUniverses();
+
+    int index = 0;
+    foreach(Universe *uni, m_doc->inputOutputMap()->universes())
+    {
+        m_targetDoc->inputOutputMap()->addUniverse(uni->id());
+        m_targetDoc->inputOutputMap()->setUniverseName(index, uni->name());
+        index++;
+    }
 
     m_sourceTree->setIconSize(QSize(24, 24));
     m_sourceTree->setAllColumnsShowFocus(true);
@@ -108,7 +122,7 @@ FixtureRemap::FixtureRemap(Doc *doc, QWidget *parent)
     connect(m_targetTree, SIGNAL(collapsed(QModelIndex)),
             this, SLOT(slotUpdateConnections()));
 
-    // retrieve the original project name for QLC+ main class
+    // retrieve the original project name from the QLC+ App class
     App *mainApp = (App *)m_doc->parent();
     QString prjName = mainApp->fileName();
 
@@ -125,7 +139,7 @@ FixtureRemap::~FixtureRemap()
     delete m_targetDoc;
 }
 
-QTreeWidgetItem *FixtureRemap::getUniverseItem(quint32 universe, QTreeWidget *tree)
+QTreeWidgetItem *FixtureRemap::getUniverseItem(Doc *doc, quint32 universe, QTreeWidget *tree)
 {
     QTreeWidgetItem *topItem = NULL;
 
@@ -144,7 +158,7 @@ QTreeWidgetItem *FixtureRemap::getUniverseItem(quint32 universe, QTreeWidget *tr
     if (topItem == NULL)
     {
         topItem = new QTreeWidgetItem(tree);
-        topItem->setText(KColumnName, tr("Universe %1").arg(universe + 1));
+        topItem->setText(KColumnName, doc->inputOutputMap()->universes().at(universe)->name());
         topItem->setText(KColumnUniverse, QString::number(universe));
         topItem->setText(KColumnID, QString::number(Function::invalidId()));
         topItem->setExpanded(true);
@@ -158,12 +172,12 @@ void FixtureRemap::fillFixturesTree(Doc *doc, QTreeWidget *tree)
     foreach(Fixture *fxi, doc->fixtures())
     {
         quint32 uni = fxi->universe();
-        QTreeWidgetItem *topItem = getUniverseItem(uni, tree);
+        QTreeWidgetItem *topItem = getUniverseItem(doc, uni, tree);
 
         quint32 baseAddr = fxi->address();
         QTreeWidgetItem *fItem = new QTreeWidgetItem(topItem);
         fItem->setText(KColumnName, fxi->name());
-        fItem->setIcon(KColumnName, fxi->getIconFromType(fxi->type()));
+        fItem->setIcon(KColumnName, fxi->getIconFromType());
         fItem->setText(KColumnAddress, QString("%1 - %2").arg(baseAddr + 1).arg(baseAddr + fxi->channels()));
         fItem->setText(KColumnUniverse, QString::number(uni));
         fItem->setText(KColumnID, QString::number(fxi->id()));
@@ -231,16 +245,21 @@ void FixtureRemap::slotAddTargetFixture()
         if (fixtureDef != NULL && mode != NULL)
             fxi->setFixtureDefinition(fixtureDef, mode);
         else
-            fxi->setChannels(channels);
+        {
+            fixtureDef = fxi->genericDimmerDef(channels);
+            mode = fxi->genericDimmerMode(fixtureDef, channels);
+            fxi->setFixtureDefinition(fixtureDef, mode);
+            //fxi->setChannels(channels);
+        }
 
         m_targetDoc->addFixture(fxi);
 
-        QTreeWidgetItem *topItem = getUniverseItem(universe, m_targetTree);
+        QTreeWidgetItem *topItem = getUniverseItem(m_targetDoc, universe, m_targetTree);
 
         quint32 baseAddr = fxi->address();
         QTreeWidgetItem *fItem = new QTreeWidgetItem(topItem);
         fItem->setText(KColumnName, fxi->name());
-        fItem->setIcon(KColumnName, fxi->getIconFromType(fxi->type()));
+        fItem->setIcon(KColumnName, fxi->getIconFromType());
         fItem->setText(KColumnAddress, QString("%1 - %2").arg(baseAddr + 1).arg(baseAddr + fxi->channels()));
         fItem->setText(KColumnUniverse, QString::number(universe));
         fItem->setText(KColumnID, QString::number(fxi->id()));
@@ -341,19 +360,20 @@ void FixtureRemap::slotCloneSourceFixture()
 
     /* Set a fixture definition & mode if they were selected.
        Otherwise assign channels to a generic dimmer. */
-    if (srcFix->fixtureDef() != NULL && srcFix->fixtureMode() != NULL)
-        tgtFix->setFixtureDefinition(srcFix->fixtureDef(), srcFix->fixtureMode());
+    if (srcFix->fixtureDef()->manufacturer() == KXMLFixtureGeneric &&
+        srcFix->fixtureDef()->model() == KXMLFixtureGeneric)
+            tgtFix->setChannels(srcFix->channels());
     else
-        tgtFix->setChannels(srcFix->channels());
+        tgtFix->setFixtureDefinition(srcFix->fixtureDef(), srcFix->fixtureMode());
 
     m_targetDoc->addFixture(tgtFix);
 
     // create the tree element and add it to the target tree
-    QTreeWidgetItem *topItem = getUniverseItem(tgtFix->universe(), m_targetTree);
+    QTreeWidgetItem *topItem = getUniverseItem(m_targetDoc, tgtFix->universe(), m_targetTree);
     quint32 baseAddr = tgtFix->address();
     QTreeWidgetItem *fItem = new QTreeWidgetItem(topItem);
     fItem->setText(KColumnName, tgtFix->name());
-    fItem->setIcon(KColumnName, tgtFix->getIconFromType(tgtFix->type()));
+    fItem->setIcon(KColumnName, tgtFix->getIconFromType());
     fItem->setText(KColumnAddress, QString("%1 - %2").arg(baseAddr + 1).arg(baseAddr + tgtFix->channels()));
     fItem->setText(KColumnUniverse, QString::number(tgtFix->universe()));
     fItem->setText(KColumnID, QString::number(tgtFix->id()));
@@ -584,7 +604,7 @@ QList<SceneValue> FixtureRemap::remapSceneValues(QList<SceneValue> funcList,
     QList <SceneValue> newValuesList;
     foreach(SceneValue val, funcList)
     {
-        for( int v = 0; v < srcList.count(); v++)
+        for (int v = 0; v < srcList.count(); v++)
         {
             if (val == srcList.at(v))
             {
@@ -607,8 +627,11 @@ QList<VCWidget *> FixtureRemap::getVCChildren(VCWidget *obj)
     while (it.hasNext() == true)
     {
         VCWidget* child = it.next();
-        qDebug() << Q_FUNC_INFO << "append: " << child->caption();
-        list.append(child);
+        if (list.contains(child) == false)
+        {
+            qDebug() << Q_FUNC_INFO << "append: " << child->caption();
+            list.append(child);
+        }
         list.append(getVCChildren(child));
     }
     return list;
@@ -630,10 +653,10 @@ void FixtureRemap::accept()
         quint32 tgtFxiID = info.target->text(KColumnID).toUInt();
         quint32 tgtChIdx = info.target->text(KColumnChIdx).toUInt();
 
-        SceneValue srcVal(srcFxiID, srcChIdx);
-        SceneValue tgtVal(tgtFxiID, tgtChIdx);
-        sourceList.append(srcVal);
-        targetList.append(tgtVal);
+        sourceList.append(SceneValue(srcFxiID, srcChIdx));
+        targetList.append(SceneValue(tgtFxiID, tgtChIdx));
+
+        // qDebug() << "Remapping fx" << srcFxiID << "ch" << srcChIdx << "to fx" << tgtFxiID << "ch" << tgtChIdx;
     }
 
     /* **********************************************************************
@@ -646,11 +669,41 @@ void FixtureRemap::accept()
     /* **********************************************************************
      * 3 - replace original project fixtures
      * ********************************************************************** */
+
     m_doc->replaceFixtures(m_targetDoc->fixtures());
 
     /* **********************************************************************
-     * 4 - remap channel groups
+     * 4 - remap fixture groups and channel groups
      * ********************************************************************** */
+    foreach(FixtureGroup *group, m_doc->fixtureGroups())
+    {
+        QMap<QLCPoint, GroupHead> grpHash = group->headsMap();
+        group->reset();
+
+        QMapIterator<QLCPoint, GroupHead> it(grpHash);
+        while(it.hasNext())
+        {
+            it.next();
+
+            QLCPoint pt(it.key());
+            GroupHead head(it.value());
+
+            if (head.isValid() == false)
+                continue;
+
+            for (int i = 0; i < sourceList.count(); i++)
+            {
+                if (sourceList.at(i).fxi == head.fxi)
+                {
+                    head.fxi = targetList.at(i).fxi;
+                    group->resignHead(pt);
+                    group->assignHead(pt, head);
+                    break;
+                }
+            }
+        }
+    }
+
     foreach (ChannelsGroup *grp, m_doc->channelsGroups())
     {
         QList<SceneValue> grpChannels = grp->getChannels();
@@ -670,36 +723,37 @@ void FixtureRemap::accept()
     {
         switch (func->type())
         {
-            case Function::Scene:
+            case Function::SceneType:
             {
                 Scene *s = qobject_cast<Scene*>(func);
                 qDebug() << "Analyzing Scene #" << s->id();
                 QList <SceneValue> newList = remapSceneValues(s->values(), sourceList, targetList);
                 // this is crucial: here all the "unmapped" channels will be lost forever !
                 s->clear();
+
                 for (int i = 0; i < newList.count(); i++)
-                    s->setValue(newList.at(i));
-            }
-            break;
-            case Function::Chaser:
-            {
-                Chaser *c = qobject_cast<Chaser*>(func);
-                if (c->isSequence() == true)
                 {
-                    for (int idx = 0; idx < c->stepsCount(); idx++)
-                    {
-                        ChaserStep cs = c->stepAt(idx);
-                        QList <SceneValue> newList = remapSceneValues(cs.values, sourceList, targetList);
-                        //qDebug() << "Step" << idx << "remapped" << cs.values.count() << "to" << newList.count();
-                        // this is crucial: here all the "unmapped" channels will be lost forever !
-                        cs.values.clear();
-                        cs.values = newList;
-                        c->replaceStep(cs, idx);
-                    }
+                    s->addFixture(newList.at(i).fxi);
+                    s->setValue(newList.at(i));
                 }
             }
             break;
-            case Function::EFX:
+            case Function::SequenceType:
+            {
+                Sequence *s = qobject_cast<Sequence*>(func);
+                for (int idx = 0; idx < s->stepsCount(); idx++)
+                {
+                    ChaserStep *cs = s->stepAt(idx);
+                    QList <SceneValue> newList = remapSceneValues(cs->values, sourceList, targetList);
+                    //qDebug() << "Step" << idx << "remapped" << cs.values.count() << "to" << newList.count();
+                    // this is crucial: here all the "unmapped" channels will be lost forever !
+                    cs->values.clear();
+                    cs->values = newList;
+                    //s->replaceStep(cs, idx);
+                }
+            }
+            break;
+            case Function::EFXType:
             {
                 EFX *e = qobject_cast<EFX*>(func);
                 // make a copy of this EFX fixtures list
@@ -712,16 +766,19 @@ void FixtureRemap::accept()
                 }
                 // this is crucial: here all the "unmapped" fixtures will be lost forever !
                 e->removeAllFixtures();
+                QList<quint32>remappedFixtures;
 
                 foreach( EFXFixture *efxFix, fixListCopy)
                 {
                     quint32 fxID = efxFix->head().fxi;
                     for (int i = 0; i < sourceList.count(); i++)
                     {
-                        SceneValue val = sourceList.at(i);
-                        if (val.fxi == fxID)
+                        SceneValue srcVal = sourceList.at(i);
+                        SceneValue tgtVal = targetList.at(i);
+                        // check for fixture ID match. EFX remapping must be performed
+                        // just once for each target fixture
+                        if (srcVal.fxi == fxID && remappedFixtures.contains(tgtVal.fxi) == false)
                         {
-                            SceneValue tgtVal = targetList.at(i);
                             Fixture *docFix = m_doc->fixture(tgtVal.fxi);
                             quint32 fxCh = tgtVal.channel;
                             const QLCChannel *chan = docFix->channel(fxCh);
@@ -730,10 +787,11 @@ void FixtureRemap::accept()
                             {
                                 EFXFixture* ef = new EFXFixture(e);
                                 ef->copyFrom(efxFix);
-                                ef->setHead(GroupHead(tgtVal.fxi)); // TODO!!! head!!!
+                                ef->setHead(GroupHead(tgtVal.fxi, 0)); // TODO!!! head!!!
                                 if (e->addFixture(ef) == false)
                                     delete ef;
-                                qDebug() << "EFX remap" << val.fxi << "to" << tgtVal.fxi;
+                                qDebug() << "EFX remap" << srcVal.fxi << "to" << tgtVal.fxi;
+                                remappedFixtures.append(tgtVal.fxi);
                             }
                         }
                     }
@@ -765,16 +823,17 @@ void FixtureRemap::accept()
             VCSlider *slider = (VCSlider *)object;
             if (slider->sliderMode() == VCSlider::Level)
             {
-                QList <VCSlider::LevelChannel> slChannels = slider->levelChannels();
+                qDebug() << "Remapping slider:" << slider->caption();
                 QList <SceneValue> newChannels;
 
-                foreach (VCSlider::LevelChannel chan, slChannels)
+                foreach (VCSlider::LevelChannel chan, slider->levelChannels())
                 {
-                    for( int v = 0; v < sourceList.count(); v++)
+                    for (int v = 0; v < sourceList.count(); v++)
                     {
                         SceneValue val = sourceList.at(v);
                         if (val.fxi == chan.fixture && val.channel == chan.channel)
                         {
+                            qDebug() << "Matching channel:" << chan.fixture << chan.channel << "to target:" << targetList.at(v).fxi << targetList.at(v).channel;
                             newChannels.append(SceneValue(targetList.at(v).fxi, targetList.at(v).channel));
                         }
                     }
@@ -833,9 +892,42 @@ void FixtureRemap::accept()
     }
 
     /* **********************************************************************
-     * 7 - save the remapped project into a new file
+     * 7 - remap 2D monitor properties, if defined
+     * ********************************************************************** */
+    MonitorProperties *props = m_doc->monitorProperties();
+    if (props != NULL)
+    {
+        QMap <quint32, FixturePreviewItem> remappedFixtureItems;
+
+        foreach (quint32 fxID, props->fixtureItemsID())
+        {
+            for( int v = 0; v < sourceList.count(); v++)
+            {
+                if (sourceList.at(v).fxi == fxID)
+                {
+                    FixturePreviewItem rmpProp = props->fixtureProperties(fxID);
+                    remappedFixtureItems[targetList.at(v).fxi] = rmpProp;
+                    break;
+                }
+            }
+
+            props->removeFixture(fxID);
+        }
+
+        QMapIterator <quint32, FixturePreviewItem> it(remappedFixtureItems);
+        while (it.hasNext())
+        {
+            it.next();
+            props->setFixtureProperties(it.key(), it.value());
+        }
+    }
+
+    /* **********************************************************************
+     * 8 - save the remapped project into a new file
      * ********************************************************************** */
     App *mainApp = (App *)m_doc->parent();
+    if (m_targetProjectLabel->text().endsWith(".qxw") == false)
+        m_targetProjectLabel->setText(m_targetProjectLabel->text() + ".qxw");
     mainApp->setFileName(m_targetProjectLabel->text());
     mainApp->slotFileSave();
 

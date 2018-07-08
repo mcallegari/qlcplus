@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus - Unit tests
   rgbalgorithm_test.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,15 +18,19 @@
   limitations under the License.
 */
 
-#include <QDomDocument>
-#include <QDomElement>
 #include <QtTest>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 #define private public
 #include "rgbalgorithm_test.h"
-#include "rgbalgorithm.h"
-#include "rgbscript.h"
 #include "rgbscriptscache.h"
+#include "rgbalgorithm.h"
+#ifdef QT_QML_LIB
+  #include "rgbscriptv4.h"
+#else
+  #include "rgbscript.h"
+#endif
 #undef private
 
 #include "doc.h"
@@ -91,40 +96,90 @@ void RGBAlgorithm_Test::algorithm()
 
 void RGBAlgorithm_Test::loader()
 {
-    QDomDocument doc;
-
     // Script algo
-    QDomElement scr = doc.createElement("Algorithm");
-    scr.setAttribute("Type", "Script");
-    QDomText scrText = doc.createTextNode("Stripes");
-    scr.appendChild(scrText);
-    doc.appendChild(scr);
-    RGBAlgorithm* algo = RGBAlgorithm::loader(m_doc, scr);
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    xmlWriter.writeStartElement("Algorithm");
+    xmlWriter.writeAttribute("Type", "Script");
+    xmlWriter.writeCharacters("Stripes");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    RGBAlgorithm* algo = RGBAlgorithm::loader(m_doc, xmlReader);
     QVERIFY(algo != NULL);
     QCOMPARE(algo->type(), RGBAlgorithm::Script);
     QCOMPARE(algo->name(), QString("Stripes"));
     delete algo;
 
+    buffer.close();
+
     // Text algo
-    QDomElement txt = doc.createElement("Algorithm");
-    txt.setAttribute("Type", "Text");
-    doc.appendChild(txt);
-    algo = RGBAlgorithm::loader(m_doc, txt);
+    QBuffer buffer2;
+    buffer2.open(QIODevice::WriteOnly | QIODevice::Text);
+    xmlWriter.setDevice(&buffer2);
+
+    xmlWriter.writeStartElement("Algorithm");
+    xmlWriter.writeAttribute("Type", "Text");
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer2.close();
+
+    buffer2.open(QIODevice::ReadOnly | QIODevice::Text);
+    xmlReader.setDevice(&buffer2);
+    xmlReader.readNextStartElement();
+
+    algo = RGBAlgorithm::loader(m_doc, xmlReader);
     QVERIFY(algo != NULL);
     QCOMPARE(algo->type(), RGBAlgorithm::Text);
     QCOMPARE(algo->name(), QString("Text"));
     delete algo;
 
+    buffer2.close();
+
     // Invalid type
-    txt.setAttribute("Type", "Foo");
-    algo = RGBAlgorithm::loader(m_doc, txt);
+    QBuffer buffer3;
+    buffer3.open(QIODevice::WriteOnly | QIODevice::Text);
+    xmlWriter.setDevice(&buffer3);
+
+    xmlWriter.writeStartElement("Type", "Foo");
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer3.close();
+
+    buffer3.open(QIODevice::ReadOnly | QIODevice::Text);
+    xmlReader.setDevice(&buffer3);
+    xmlReader.readNextStartElement();
+
+    algo = RGBAlgorithm::loader(m_doc, xmlReader);
     QVERIFY(algo == NULL);
 
+    buffer3.close();
+
     // Invalid tag
-    QDomElement foo = doc.createElement("Foo");
-    foo.setAttribute("Type", "Text");
-    doc.appendChild(foo);
-    algo = RGBAlgorithm::loader(m_doc, foo);
+    QBuffer buffer4;
+    buffer4.open(QIODevice::WriteOnly | QIODevice::Text);
+    xmlWriter.setDevice(&buffer4);
+
+    xmlWriter.writeStartElement("Foo");
+    xmlWriter.writeAttribute("Type", "Text");
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer4.close();
+
+    buffer4.open(QIODevice::ReadOnly | QIODevice::Text);
+    xmlReader.setDevice(&buffer4);
+    xmlReader.readNextStartElement();
+
+    algo = RGBAlgorithm::loader(m_doc, xmlReader);
     QVERIFY(algo == NULL);
 }
 

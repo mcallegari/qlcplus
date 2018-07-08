@@ -9,33 +9,47 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 INCLUDEPATH += ../interfaces
 CONFIG      += plugin
 
+unix:!macx:INCLUDEPATH += linux
+macx:INCLUDEPATH += macx
+
 win32:LIBS += -lsetupapi -lwinmm
 macx:LIBS += -framework IOKit -framework CoreFoundation
 
 HEADERS += ../interfaces/qlcioplugin.h
+
 HEADERS += configurehid.h \
            hiddevice.h \
            hidplugin.h \
            hidjsdevice.h \
-           hidfx5device.h
+           hiddmxdevice.h
+
+unix:!macx:HEADERS += linux/hidlinuxjoystick.h
+win32:HEADERS += win32/hidwindowsjoystick.h
+macx:HEADERS += macx/hidosxjoystick.h
 
 FORMS += configurehid.ui
+
+SOURCES += ../interfaces/qlcioplugin.cpp
 
 SOURCES += configurehid.cpp \
            hiddevice.cpp \
            hidplugin.cpp \
            hidjsdevice.cpp \
-           hidfx5device.cpp
+           hiddmxdevice.cpp
 
-unix:!macx:SOURCES += linux/hidapi.cpp
-win32:SOURCES += win32/hidapi.cpp
-macx:SOURCES += macx/hidapi.cpp
+unix:!macx:SOURCES += linux/hidapi.cpp linux/hidlinuxjoystick.cpp
+win32:SOURCES += win32/hidapi.cpp win32/hidwindowsjoystick.cpp
+macx:SOURCES += macx/hidapi.cpp macx/hidosxjoystick.cpp
 
 unix:!macx {
     # Rules to make FX5 DMX devices readable & writable by normal users
-    udev.path  = /etc/udev/rules.d
+    udev.path  = $$UDEVRULESDIR
     udev.files = linux/z65-fx5-hid.rules
     INSTALLS  += udev
+
+    metainfo.path   = $$INSTALLROOT/share/appdata/
+    metainfo.files += linux/qlcplus-hid.metainfo.xml
+    INSTALLS       += metainfo
 }
 
 TRANSLATIONS += HID_fi_FI.ts
@@ -51,7 +65,7 @@ TRANSLATIONS += HID_ja_JP.ts
 
 # This must be after "TARGET = " and before target installation so that
 # install_name_tool can be run before target installation
-macx:include(../../macx/nametool.pri)
+macx:include(../../platforms/macos/nametool.pri)
 
 target.path = $$INSTALLROOT/$$PLUGINDIR
 INSTALLS   += target

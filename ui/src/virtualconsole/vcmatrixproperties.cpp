@@ -22,6 +22,7 @@
 #include <QTreeWidget>
 
 #include "vcmatrixpresetselection.h"
+#include "inputselectionwidget.h"
 #include "vcmatrixproperties.h"
 #include "selectinputchannel.h"
 #include "functionselection.h"
@@ -61,6 +62,14 @@ VCMatrixProperties::VCMatrixProperties(VCMatrix* matrix, Doc* doc)
     connect(m_chooseInputButton, SIGNAL(clicked()),
             this, SLOT(slotChooseSliderInputClicked()));
 
+    /* Visibility */
+    quint32 visibilityMask = m_matrix->visibilityMask();
+    if (visibilityMask & VCMatrix::ShowSlider) m_sliderCheck->setChecked(true);
+    if (visibilityMask & VCMatrix::ShowLabel) m_labelCheck->setChecked(true);
+    if (visibilityMask & VCMatrix::ShowStartColorButton) m_startColorButtonCheck->setChecked(true);
+    if (visibilityMask & VCMatrix::ShowEndColorButton) m_endColorButtonCheck->setChecked(true);
+    if (visibilityMask & VCMatrix::ShowPresetCombo) m_presetComboCheck->setChecked(true);
+
     /* Custom controls */
     foreach(const VCMatrixControl *control, m_matrix->customControls())
     {
@@ -94,28 +103,24 @@ VCMatrixProperties::VCMatrixProperties(VCMatrix* matrix, Doc* doc)
     connect(m_removeButton, SIGNAL(clicked()),
             this, SLOT(slotRemoveClicked()));
 
-    connect(m_adControlInputButton, SIGNAL(toggled(bool)),
-            this, SLOT(slotAutoDetectControlInputToggled(bool)));
-    connect(m_chooseControlInputButton, SIGNAL(clicked()),
-            this, SLOT(slotChooseControlInputClicked()));
+    m_presetInputWidget = new InputSelectionWidget(m_doc, this);
+    m_presetInputWidget->setCustomFeedbackVisibility(true);
+    m_presetInputWidget->setWidgetPage(m_matrix->page());
+    m_presetInputWidget->show();
+    m_presetInputLayout->addWidget(m_presetInputWidget);
 
-    connect(m_attachKey, SIGNAL(clicked()), this, SLOT(slotAttachKey()));
-    connect(m_detachKey, SIGNAL(clicked()), this, SLOT(slotDetachKey()));
-
-    quint32 visibilityMask = m_matrix->visibilityMask();
-    if (visibilityMask & VCMatrix::ShowSlider) m_sliderCheck->setChecked(true);
-    if (visibilityMask & VCMatrix::ShowLabel) m_labelCheck->setChecked(true);
-    if (visibilityMask & VCMatrix::ShowStartColorButton) m_startColorButtonCheck->setChecked(true);
-    if (visibilityMask & VCMatrix::ShowEndColorButton) m_endColorButtonCheck->setChecked(true);
-    if (visibilityMask & VCMatrix::ShowPresetCombo) m_presetComboCheck->setChecked(true);
+    connect(m_presetInputWidget, SIGNAL(inputValueChanged(quint32,quint32)),
+            this, SLOT(slotInputValueChanged(quint32,quint32)));
+    connect(m_presetInputWidget, SIGNAL(keySequenceChanged(QKeySequence)),
+            this, SLOT(slotKeySequenceChanged(QKeySequence)));
 }
 
 VCMatrixProperties::~VCMatrixProperties()
 {
     foreach (VCMatrixControl* control, m_controls)
-    {
         delete control;
-    }
+
+    delete m_presetInputWidget;
 }
 
 /*********************************************************************
@@ -126,9 +131,13 @@ void VCMatrixProperties::slotAttachFunction()
 {
     FunctionSelection fs(this, m_doc);
     fs.setMultiSelection(false);
-    fs.setFilter(Function::RGBMatrix);
-    fs.disableFilters(Function::Scene | Function::Chaser | Function::EFX | Function::Show |
-                      Function::Script | Function::Collection | Function::Audio);
+    fs.setFilter(Function::RGBMatrixType);
+    fs.disableFilters(Function::SceneType | Function::ChaserType | Function::EFXType | Function::ShowType |
+                      Function::ScriptType | Function::CollectionType | Function::AudioType
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+                      | Function::VideoType
+#endif
+                     );
     if (fs.exec() == QDialog::Accepted && fs.selection().size() > 0)
         slotSetFunction(fs.selection().first());
 }
@@ -170,9 +179,7 @@ void VCMatrixProperties::slotAutoDetectSliderInputToggled(bool checked)
 
 void VCMatrixProperties::slotSliderInputValueChanged(quint32 universe, quint32 channel)
 {
-    if (m_sliderInputSource != NULL)
-        delete m_sliderInputSource;
-    m_sliderInputSource = new QLCInputSource(universe, (m_matrix->page() << 16) | channel);
+    m_sliderInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(universe, (m_matrix->page() << 16) | channel));
     updateSliderInputSource();
 }
 
@@ -181,9 +188,7 @@ void VCMatrixProperties::slotChooseSliderInputClicked()
     SelectInputChannel sic(this, m_doc->inputOutputMap());
     if (sic.exec() == QDialog::Accepted)
     {
-        if (m_sliderInputSource != NULL)
-            delete m_sliderInputSource;
-        m_sliderInputSource = new QLCInputSource(sic.universe(), sic.channel());
+        m_sliderInputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(sic.universe(), sic.channel()));
         updateSliderInputSource();
     }
 }
@@ -202,6 +207,10 @@ void VCMatrixProperties::updateSliderInputSource()
     m_inputUniverseEdit->setText(uniName);
     m_inputChannelEdit->setText(chName);
 }
+
+/*********************************************************************
+ * Custom controls
+ *********************************************************************/
 
 void VCMatrixProperties::updateTree()
 {
@@ -291,12 +300,10 @@ VCMatrixControl *VCMatrixProperties::getSelectedControl()
                 return control;
         }
     }
+
+    Q_ASSERT(false);
     return NULL;
 }
-
-/*********************************************************************
- * Custom controls
- *********************************************************************/
 
 QList<QColor> VCMatrixProperties::rgbColorList()
 {
@@ -456,20 +463,26 @@ void VCMatrixProperties::slotRemoveClicked()
     updateTree();
 }
 
-void VCMatrixProperties::updateControlInputSource(QLCInputSource *source)
+void VCMatrixProperties::slotInputValueChanged(quint32 universe, quint32 channel)
 {
-    QString uniName;
-    QString chName;
+    Q_UNUSED(universe);
+    Q_UNUSED(channel);
 
-    if (m_doc->inputOutputMap()->inputSourceNames(source, uniName, chName) == false)
-    {
-        uniName = KInputNone;
-        chName = KInputNone;
+    VCMatrixControl *preset = getSelectedControl();
+
+    if (preset != NULL) {
+        preset->m_inputSource = m_presetInputWidget->inputSource();
     }
-
-    m_controlInputUniverseEdit->setText(uniName);
-    m_controlInputChannelEdit->setText(chName);
 }
+
+void VCMatrixProperties::slotKeySequenceChanged(QKeySequence key)
+{
+    VCMatrixControl *preset = getSelectedControl();
+
+    if (preset != NULL)
+        preset->m_keySequence = key;
+}
+
 
 void VCMatrixProperties::slotTreeSelectionChanged()
 {
@@ -477,78 +490,18 @@ void VCMatrixProperties::slotTreeSelectionChanged()
 
     if (control != NULL)
     {
-        updateControlInputSource(control->m_inputSource);
-        m_keyEdit->setText(control->m_keySequence.toString(QKeySequence::NativeText));
-    }
-}
-
-void VCMatrixProperties::slotAutoDetectControlInputToggled(bool checked)
-{
-    if (checked == true)
-    {
-        connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
-                this, SLOT(slotControlInputValueChanged(quint32,quint32)));
-    }
-    else
-    {
-        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
-                   this, SLOT(slotControlInputValueChanged(quint32,quint32)));
-    }
-}
-
-void VCMatrixProperties::slotControlInputValueChanged(quint32 universe, quint32 channel)
-{
-    VCMatrixControl *control = getSelectedControl();
-
-    if (control != NULL)
-    {
-        if (control->m_inputSource != NULL)
-            delete control->m_inputSource;
-        control->m_inputSource = new QLCInputSource(universe, (m_matrix->page() << 16) | channel);
-        updateControlInputSource(control->m_inputSource);
-    }
-}
-
-void VCMatrixProperties::slotChooseControlInputClicked()
-{
-    SelectInputChannel sic(this, m_doc->inputOutputMap());
-    if (sic.exec() == QDialog::Accepted)
-    {
-        VCMatrixControl *control = getSelectedControl();
-
-        if (control != NULL)
+        m_presetInputWidget->setInputSource(control->m_inputSource);
+        m_presetInputWidget->setKeySequence(control->m_keySequence.toString(QKeySequence::NativeText));
+        if (control->widgetType() == VCMatrixControl::Button)
         {
-            if (control->m_inputSource != NULL)
-                delete control->m_inputSource;
-            control->m_inputSource = new QLCInputSource(sic.universe(), sic.channel());
-            updateControlInputSource(control->m_inputSource);
+            m_presetInputWidget->setCustomFeedbackVisibility(true);
+            m_presetInputWidget->setKeyInputVisibility(true);
         }
-    }
-}
-
-void VCMatrixProperties::slotAttachKey()
-{
-    VCMatrixControl *control = getSelectedControl();
-
-    if (control != NULL)
-    {
-        AssignHotKey ahk(this, control->m_keySequence);
-        if (ahk.exec() == QDialog::Accepted)
+        else
         {
-            control->m_keySequence = QKeySequence(ahk.keySequence());
-            m_keyEdit->setText(control->m_keySequence.toString(QKeySequence::NativeText));
+            m_presetInputWidget->setCustomFeedbackVisibility(false);
+            m_presetInputWidget->setKeyInputVisibility(false);
         }
-    }
-}
-
-void VCMatrixProperties::slotDetachKey()
-{
-    VCMatrixControl *control = getSelectedControl();
-
-    if (control != NULL)
-    {
-        control->m_keySequence = QKeySequence();
-        m_keyEdit->setText(control->m_keySequence.toString(QKeySequence::NativeText));
     }
 }
 
@@ -564,10 +517,7 @@ void VCMatrixProperties::accept()
     /* External input */
     m_matrix->setInputSource(m_sliderInputSource);
 
-    m_matrix->resetCustomControls();
-    for (int i = 0; i < m_controls.count(); i++)
-        m_matrix->addCustomControl(*m_controls.at(i));
-
+    /* Visibility */
     quint32 visibilityMask = 0;
     if (m_sliderCheck->isChecked()) visibilityMask |= VCMatrix::ShowSlider;
     if (m_labelCheck->isChecked()) visibilityMask |= VCMatrix::ShowLabel;
@@ -575,6 +525,11 @@ void VCMatrixProperties::accept()
     if (m_endColorButtonCheck->isChecked()) visibilityMask |= VCMatrix::ShowEndColorButton;
     if (m_presetComboCheck->isChecked()) visibilityMask |= VCMatrix::ShowPresetCombo;
     m_matrix->setVisibilityMask(visibilityMask);
+
+    /* Controls */
+    m_matrix->resetCustomControls();
+    for (int i = 0; i < m_controls.count(); i++)
+        m_matrix->addCustomControl(*m_controls.at(i));
 
     /* Close dialog */
     QDialog::accept();

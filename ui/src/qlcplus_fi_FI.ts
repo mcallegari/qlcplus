@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="fi_FI">
+<TS version="2.1" language="fi_FI">
 <context>
     <name>AboutBox</name>
     <message>
-        <location filename="aboutbox.ui" line="14"/>
+        <location filename="aboutbox.ui" line="33"/>
         <source>About Q Light Controller Plus</source>
         <oldsource>About Q Light Controller</oldsource>
         <translation type="unfinished">Tietoja Q Light Controller-sovelluksesta</translation>
     </message>
     <message>
-        <location filename="aboutbox.ui" line="69"/>
+        <location filename="aboutbox.ui" line="88"/>
         <source>Contributors</source>
         <translation>Avustajat</translation>
     </message>
     <message>
-        <location filename="aboutbox.ui" line="116"/>
+        <location filename="aboutbox.ui" line="135"/>
         <source>This application is licensed under the terms of the Apache 2.0 license.</source>
         <oldsource>This application is licensed under the terms of GNU GPL version 2.</oldsource>
         <translation>Tämä sovellus on lisensoitu Apache versio 2.0:n alla.</translation>
     </message>
     <message>
-        <location filename="aboutbox.cpp" line="41"/>
+        <location filename="aboutbox.cpp" line="42"/>
         <source>and contributors:</source>
         <translation>ja avustajat:</translation>
     </message>
     <message>
-        <location filename="aboutbox.cpp" line="42"/>
+        <location filename="aboutbox.cpp" line="43"/>
         <source>Website: %1</source>
         <translation>Web-osoite: %1</translation>
     </message>
@@ -34,202 +34,162 @@
 <context>
     <name>AddChannelsGroup</name>
     <message>
-        <location filename="addchannelsgroup.ui" line="14"/>
+        <location filename="addchannelsgroup.ui" line="33"/>
         <source>Select Channels</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addchannelsgroup.ui" line="24"/>
+        <location filename="addchannelsgroup.ui" line="43"/>
         <source>Group Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addchannelsgroup.ui" line="48"/>
+        <location filename="addchannelsgroup.ui" line="67"/>
         <source>Name</source>
         <translation type="unfinished">Nimi</translation>
     </message>
     <message>
-        <location filename="addchannelsgroup.ui" line="53"/>
+        <location filename="addchannelsgroup.ui" line="72"/>
         <source>Type</source>
         <translation type="unfinished">Tyyppi</translation>
     </message>
     <message>
-        <location filename="addchannelsgroup.ui" line="58"/>
+        <location filename="addchannelsgroup.ui" line="77"/>
         <source>Group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addchannelsgroup.ui" line="66"/>
+        <location filename="addchannelsgroup.ui" line="87"/>
         <source>Apply changes to fixtures of the same type and mode</source>
         <oldsource>Apply changes to fixtures of the same type</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addchannelsgroup.ui" line="73"/>
-        <source>External Input</source>
-        <translation type="unfinished">Ulkoinen ohjaus</translation>
-    </message>
-    <message>
-        <location filename="addchannelsgroup.ui" line="79"/>
-        <source>Input channel</source>
-        <translation type="unfinished">Sisääntulon kanava</translation>
-    </message>
-    <message>
-        <location filename="addchannelsgroup.ui" line="86"/>
-        <source>The particular input channel within the input universe that sends data to this widget</source>
+        <location filename="addchannelsgroup.ui" line="94"/>
+        <source>Collapse all</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addchannelsgroup.ui" line="109"/>
-        <source>The input universe that sends data to this widget</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="addchannelsgroup.ui" line="119"/>
-        <source>Choose an external input universe and channel that this group should listen to</source>
-        <translation type="unfinished">Valitse sisääntulon universumi ja kanava, joilla tätä liukua voidaan ohjata</translation>
-    </message>
-    <message>
-        <location filename="addchannelsgroup.ui" line="122"/>
-        <source>Choose...</source>
-        <translation type="unfinished">Valitse...</translation>
-    </message>
-    <message>
-        <location filename="addchannelsgroup.ui" line="129"/>
-        <source>When toggled, you can move an external slider/knob to assign it to this group.</source>
-        <translation type="unfinished">Alaskytkettynä, voit liikuttaa ulkoista kontrollia kytkeäksesi sen tähän liukuun.</translation>
-    </message>
-    <message>
-        <location filename="addchannelsgroup.ui" line="132"/>
-        <source>Auto Detect</source>
-        <translation type="unfinished">Automaattinen tunnistus</translation>
-    </message>
-    <message>
-        <location filename="addchannelsgroup.ui" line="142"/>
-        <source>Input universe</source>
-        <translation type="unfinished">Sisääntulon universumi</translation>
-    </message>
-    <message>
-        <location filename="addchannelsgroup.cpp" line="81"/>
-        <source>Universe %1</source>
+        <location filename="addchannelsgroup.ui" line="101"/>
+        <source>Expand all</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>AddFixture</name>
     <message>
-        <location filename="addfixture.ui" line="14"/>
+        <location filename="addfixture.ui" line="33"/>
         <source>Add fixture</source>
         <translation>Lisää valaisin</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="234"/>
+        <location filename="addfixture.ui" line="253"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERROR: Address already used !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="265"/>
+        <location filename="addfixture.ui" line="284"/>
         <source>Quick search</source>
         <oldsource>Quick search:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="282"/>
+        <location filename="addfixture.ui" line="301"/>
         <source>Fixture Model</source>
         <translation>Valaisimen malli</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="78"/>
+        <location filename="addfixture.ui" line="97"/>
         <source>Fixture Properties</source>
         <translation>Valaisimen ominaisuudet</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="84"/>
+        <location filename="addfixture.ui" line="103"/>
         <source>Name</source>
         <translation>Nimi</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="97"/>
+        <location filename="addfixture.ui" line="116"/>
         <source>A friendly name for the new fixture</source>
         <translation>Tuttavallinen nimi uudelle valaisimelle</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="104"/>
+        <location filename="addfixture.ui" line="123"/>
         <source>Mode</source>
         <translation>Tila</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="117"/>
+        <location filename="addfixture.ui" line="136"/>
         <source>Selected fixture mode</source>
         <translation>Valaisimelle valittu tila</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="148"/>
+        <location filename="addfixture.ui" line="167"/>
         <source>Address</source>
         <translation>Osoite</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="163"/>
+        <location filename="addfixture.ui" line="182"/>
         <source>The starting address of the (first) added fixture</source>
         <translation>(Ensimmäisen) lisättävän valaisimen aloitusosoite</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="176"/>
+        <location filename="addfixture.ui" line="195"/>
         <source>Address Tool</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="189"/>
+        <location filename="addfixture.ui" line="208"/>
         <source>Channels</source>
         <translation>Kanavia</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="205"/>
+        <location filename="addfixture.ui" line="224"/>
         <source>Number of channels in the selected fixture</source>
         <translation>Kanavien määrä valitussa valaisimessa</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="221"/>
+        <location filename="addfixture.ui" line="240"/>
         <source>List of channels in the selected fixture mode</source>
         <translation>Valitussa tilassa käytössä olevat kanavat</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="131"/>
+        <location filename="addfixture.ui" line="150"/>
         <source>Universe</source>
         <translation>Universumi</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="20"/>
+        <location filename="addfixture.ui" line="39"/>
         <source>Multiple Fixtures</source>
         <translation>Useita valaisimia</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="26"/>
+        <location filename="addfixture.ui" line="45"/>
         <source>Quantity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="39"/>
+        <location filename="addfixture.ui" line="58"/>
         <source>Number of fixtures to add</source>
         <translation>Lisättävien valaisimien määrä</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="52"/>
+        <location filename="addfixture.ui" line="71"/>
         <source>Address gap</source>
         <translation>Osoitteiden väli</translation>
     </message>
     <message>
-        <location filename="addfixture.ui" line="65"/>
+        <location filename="addfixture.ui" line="84"/>
         <source>Number of empty channels to leave between added fixtures</source>
         <translation>Jätä valaisinten kanavien väliin näin monta tyhjää kanavaa</translation>
     </message>
     <message>
-        <location filename="addfixture.cpp" line="100"/>
+        <location filename="addfixture.cpp" line="104"/>
         <source>Fixtures found: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addfixture.cpp" line="630"/>
+        <location filename="addfixture.cpp" line="625"/>
         <source>Dimmers</source>
         <translation>Himmentimet</translation>
     </message>
@@ -237,126 +197,146 @@
 <context>
     <name>AddRGBPanel</name>
     <message>
-        <location filename="addrgbpanel.ui" line="14"/>
+        <location filename="addrgbpanel.ui" line="33"/>
         <source>Add RGB Panel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="215"/>
+        <location filename="addrgbpanel.ui" line="43"/>
         <source>Panel properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="229"/>
+        <location filename="addrgbpanel.ui" line="57"/>
         <source>Universe</source>
         <oldsource>Universe:</oldsource>
         <translation type="unfinished">Universumi</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="236"/>
+        <location filename="addrgbpanel.ui" line="64"/>
         <source>RGB Panel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="243"/>
+        <location filename="addrgbpanel.ui" line="71"/>
         <source>Name</source>
         <oldsource>Name:</oldsource>
         <translation type="unfinished">Nimi</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="253"/>
+        <location filename="addrgbpanel.ui" line="81"/>
         <source>Address</source>
         <oldsource>Address:</oldsource>
         <translation type="unfinished">Osoite</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="270"/>
+        <location filename="addrgbpanel.ui" line="98"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERROR: Address already used !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="24"/>
+        <location filename="addrgbpanel.ui" line="198"/>
         <source>Size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="38"/>
+        <location filename="addrgbpanel.ui" line="212"/>
         <source>Columns</source>
         <oldsource>Columns:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="45"/>
+        <location filename="addrgbpanel.ui" line="219"/>
         <source>Rows</source>
         <oldsource>Rows:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="52"/>
+        <location filename="addrgbpanel.ui" line="226"/>
         <source>Total pixels</source>
         <oldsource>Total pixels:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="97"/>
+        <location filename="addrgbpanel.ui" line="299"/>
+        <source>Direction</source>
+        <translation type="unfinished">Suunta</translation>
+    </message>
+    <message>
+        <location filename="addrgbpanel.ui" line="305"/>
+        <source>Horizontal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="addrgbpanel.ui" line="315"/>
+        <source>Vertical</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="addrgbpanel.ui" line="327"/>
         <source>Orientation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="103"/>
+        <location filename="addrgbpanel.ui" line="333"/>
         <source>Top-Right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="110"/>
+        <location filename="addrgbpanel.ui" line="340"/>
         <source>Top-Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="120"/>
+        <location filename="addrgbpanel.ui" line="350"/>
         <source>Bottom-Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="127"/>
+        <location filename="addrgbpanel.ui" line="357"/>
         <source>Bottom-Right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="147"/>
+        <location filename="addrgbpanel.ui" line="120"/>
         <source>Physical</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="164"/>
+        <location filename="addrgbpanel.ui" line="137"/>
         <source>Width</source>
         <oldsource>Width:</oldsource>
         <translation type="unfinished">Leveys</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="171"/>
-        <location filename="addrgbpanel.ui" line="194"/>
+        <location filename="addrgbpanel.ui" line="144"/>
+        <location filename="addrgbpanel.ui" line="167"/>
         <source>mm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="187"/>
+        <location filename="addrgbpanel.ui" line="160"/>
         <source>Height</source>
         <oldsource>Height:</oldsource>
         <translation type="unfinished">Korkeus</translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="282"/>
+        <location filename="addrgbpanel.ui" line="105"/>
+        <source>Components</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="addrgbpanel.ui" line="273"/>
         <source>Displacement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="288"/>
+        <location filename="addrgbpanel.ui" line="279"/>
         <source>Snake</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addrgbpanel.ui" line="298"/>
+        <location filename="addrgbpanel.ui" line="289"/>
         <source>Zig Zag</source>
         <translation type="unfinished"></translation>
     </message>
@@ -364,102 +344,102 @@
 <context>
     <name>AddVCButtonMatrix</name>
     <message>
-        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="14"/>
+        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="33"/>
         <source>Add Button Matrix</source>
         <translation>Lisää painikematriisi</translation>
     </message>
     <message>
-        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="34"/>
+        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="53"/>
         <source>Add functions to be attached to the buttons in the matrix</source>
         <translation>Valitse funktiot, jotka liitetään uusiin painikkeisiin automaattisesti</translation>
     </message>
     <message>
-        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="54"/>
+        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="73"/>
         <source>Remove selected functions from the list of functions to attach</source>
         <translation>Poista valitut funktiot</translation>
     </message>
     <message>
-        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="87"/>
+        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="106"/>
         <source>Dimensions</source>
         <translation>Mittasuhteet</translation>
     </message>
     <message>
-        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="93"/>
+        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="112"/>
         <source>Horizontal button count</source>
         <translation>Painikkeita vaakasuunnassa</translation>
     </message>
     <message>
-        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="100"/>
+        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="119"/>
         <source>Number of buttons per horizontal row</source>
         <translation>Nappien lukumäärä vaakariviä kohti</translation>
     </message>
     <message>
-        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="120"/>
+        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="139"/>
         <source>Created buttons&apos; size</source>
         <translation>Nappien koko</translation>
     </message>
     <message>
-        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="136"/>
+        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="155"/>
         <source>Vertical button count</source>
         <translation>Painikkeita pystysuunnassa</translation>
     </message>
     <message>
-        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="143"/>
+        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="162"/>
         <source>Number of buttons per vertical column</source>
         <translation>Nappien lukumäärä saraketta kohti</translation>
     </message>
     <message>
-        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="153"/>
+        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="172"/>
         <source>Allocation</source>
         <translation>Käyttöaste</translation>
     </message>
     <message>
-        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="160"/>
+        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="179"/>
         <source>Functions / Buttons</source>
         <translation>Funktioita / nappeja</translation>
     </message>
     <message>
-        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="173"/>
+        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="192"/>
         <source>Frame</source>
         <translation>Kehys</translation>
     </message>
     <message>
-        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="179"/>
+        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="198"/>
         <source>Place the buttons inside a normal frame</source>
         <translation>Asettele napit tavallisen kehyksen sisään</translation>
     </message>
     <message>
-        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="182"/>
+        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="201"/>
         <source>Normal</source>
         <translation>Tavallinen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="189"/>
+        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="208"/>
         <source>Place the buttons inside a frame that ensures that only one of them is pressed at a time</source>
         <translation>Asettele napit kehyksen sisään, joka varmistaa, että vain yksi napeista on painettuna kerrallaan</translation>
     </message>
     <message>
-        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="192"/>
+        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="211"/>
         <source>Solo</source>
         <translation>Solo</translation>
     </message>
     <message>
-        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="113"/>
+        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="132"/>
         <source>Button size</source>
         <translation>Painikkeiden koko</translation>
     </message>
     <message>
-        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="123"/>
+        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="142"/>
         <source> px</source>
         <translation>px</translation>
     </message>
     <message>
-        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="21"/>
+        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="40"/>
         <source>Function</source>
         <translation>Funktio</translation>
     </message>
     <message>
-        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="26"/>
+        <location filename="virtualconsole/addvcbuttonmatrix.ui" line="45"/>
         <source>Type</source>
         <translation>Tyyppi</translation>
     </message>
@@ -467,43 +447,43 @@
 <context>
     <name>AddVCSliderMatrix</name>
     <message>
-        <location filename="virtualconsole/addvcslidermatrix.ui" line="14"/>
+        <location filename="virtualconsole/addvcslidermatrix.ui" line="33"/>
         <source>Add Slider Matrix</source>
         <translation>Lisää liukumatriisi</translation>
     </message>
     <message>
-        <location filename="virtualconsole/addvcslidermatrix.ui" line="20"/>
+        <location filename="virtualconsole/addvcslidermatrix.ui" line="39"/>
         <source>Sliders</source>
         <translation>Liu&apos;ut</translation>
     </message>
     <message>
-        <location filename="virtualconsole/addvcslidermatrix.ui" line="26"/>
+        <location filename="virtualconsole/addvcslidermatrix.ui" line="45"/>
         <source>Amount</source>
         <translation>Määrä</translation>
     </message>
     <message>
-        <location filename="virtualconsole/addvcslidermatrix.ui" line="33"/>
+        <location filename="virtualconsole/addvcslidermatrix.ui" line="52"/>
         <source>Number of sliders to create</source>
         <translation>Luotavien liukujen määrä</translation>
     </message>
     <message>
-        <location filename="virtualconsole/addvcslidermatrix.ui" line="43"/>
+        <location filename="virtualconsole/addvcslidermatrix.ui" line="62"/>
         <source>Height</source>
         <translation>Korkeus</translation>
     </message>
     <message>
-        <location filename="virtualconsole/addvcslidermatrix.ui" line="50"/>
+        <location filename="virtualconsole/addvcslidermatrix.ui" line="69"/>
         <source>Vertical height of each slider</source>
         <translation>Liukujen korkeus</translation>
     </message>
     <message>
-        <location filename="virtualconsole/addvcslidermatrix.ui" line="53"/>
-        <location filename="virtualconsole/addvcslidermatrix.ui" line="76"/>
+        <location filename="virtualconsole/addvcslidermatrix.ui" line="72"/>
+        <location filename="virtualconsole/addvcslidermatrix.ui" line="95"/>
         <source>px</source>
         <translation>px</translation>
     </message>
     <message>
-        <location filename="virtualconsole/addvcslidermatrix.ui" line="69"/>
+        <location filename="virtualconsole/addvcslidermatrix.ui" line="88"/>
         <source>Width</source>
         <translation type="unfinished">Leveys</translation>
     </message>
@@ -511,28 +491,28 @@
 <context>
     <name>AddressTool</name>
     <message>
-        <location filename="addresstool.ui" line="14"/>
+        <location filename="addresstool.ui" line="33"/>
         <source>Address Tool</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addresstool.ui" line="22"/>
+        <location filename="addresstool.ui" line="41"/>
         <source>Reverse vertically</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addresstool.ui" line="35"/>
+        <location filename="addresstool.ui" line="54"/>
         <source>Colour</source>
         <oldsource>Color</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="addresstool.ui" line="51"/>
+        <location filename="addresstool.ui" line="70"/>
         <source>Address</source>
         <translation type="unfinished">Osoite</translation>
     </message>
     <message>
-        <location filename="addresstool.ui" line="98"/>
+        <location filename="addresstool.ui" line="117"/>
         <source>Reverse Horizontally</source>
         <translation type="unfinished"></translation>
     </message>
@@ -540,370 +520,375 @@
 <context>
     <name>App</name>
     <message>
-        <location filename="app.cpp" line="319"/>
+        <location filename="app.cpp" line="370"/>
         <source>Cannot exit in Operate mode</source>
         <translation>Ei voida sulkea Käyttötilassa</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="320"/>
+        <location filename="app.cpp" line="371"/>
         <source>You must switch back to Design mode to close the application.</source>
         <translation>Sinun täytyy vaihtaa takaisin Suunnittelu-tilaan sulkeaksesi sovelluksen.</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="328"/>
+        <location filename="app.cpp" line="379"/>
         <source>Close</source>
         <translation>Sulje</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="328"/>
+        <location filename="app.cpp" line="379"/>
         <source>Do you wish to save the current workspace before closing the application?</source>
         <translation>Haluatko tallentaa nykyisen työtilan ennen sovelluksen sulkemista?</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="385"/>
+        <location filename="app.cpp" line="436"/>
         <source>Starting Q Light Controller Plus</source>
         <oldsource>Starting Q Light Controller</oldsource>
         <translation type="unfinished">Käynnistetään Q Light Controller</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="453"/>
+        <location filename="app.cpp" line="520"/>
         <source> - New Workspace</source>
         <translation> - Uusi työtila</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="508"/>
+        <location filename="app.cpp" line="588"/>
         <source>Switch to Design Mode</source>
         <translation>Vaihda Suunnittelutilaan</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="509"/>
+        <location filename="app.cpp" line="589"/>
         <source>There are still running functions.
 Really stop them and switch back to Design mode?</source>
         <translation>Joitain funktioita on vielä ajossa.
 Haluatko varmasti pysäyttää ne ja vaihtaa takaisin Suunnittelutilaan?</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="544"/>
+        <location filename="app.cpp" line="624"/>
         <source>Design</source>
         <translation>Suunnittelu</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="545"/>
+        <location filename="app.cpp" line="625"/>
         <source>Switch to design mode</source>
         <translation>Vaihda Suunnittelutilaan</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="556"/>
+        <location filename="app.cpp" line="636"/>
         <source>Operate</source>
         <translation>Käyttötila</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="557"/>
-        <location filename="app.cpp" line="585"/>
+        <location filename="app.cpp" line="637"/>
+        <location filename="app.cpp" line="665"/>
         <source>Switch to operate mode</source>
         <translation>Vaihda Käyttötilaan</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="568"/>
+        <location filename="app.cpp" line="648"/>
         <source>&amp;New</source>
         <translation>&amp;Uusi</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="569"/>
+        <location filename="app.cpp" line="649"/>
         <source>CTRL+N</source>
         <comment>File|New</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="572"/>
+        <location filename="app.cpp" line="652"/>
         <source>&amp;Open</source>
         <translation>&amp;Avaa</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="573"/>
+        <location filename="app.cpp" line="653"/>
         <source>CTRL+O</source>
         <comment>File|Open</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="576"/>
+        <location filename="app.cpp" line="656"/>
         <source>&amp;Save</source>
         <translation>&amp;Tallenna</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="577"/>
+        <location filename="app.cpp" line="657"/>
         <source>CTRL+S</source>
         <comment>File|Save</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="580"/>
+        <location filename="app.cpp" line="660"/>
         <source>Save &amp;As...</source>
         <translation>Tallenna &amp;nimellä...</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="584"/>
+        <location filename="app.cpp" line="664"/>
         <source>&amp;Operate</source>
         <translation>&amp;Käyttötila</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="589"/>
+        <location filename="app.cpp" line="669"/>
         <source>&amp;Monitor</source>
         <translation>&amp;Monitorointi</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="596"/>
+        <location filename="app.cpp" line="676"/>
         <source>Toggle &amp;Blackout</source>
         <translation type="unfinished">Kytke &amp;Pimennys</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="586"/>
+        <location filename="app.cpp" line="666"/>
         <source>CTRL+F12</source>
         <comment>Control|Toggle operate/design mode</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="590"/>
+        <location filename="app.cpp" line="670"/>
         <source>CTRL+M</source>
         <comment>Control|Monitor</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="601"/>
+        <location filename="app.cpp" line="681"/>
         <source>Live edit a function</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="641"/>
+        <location filename="app.cpp" line="721"/>
         <source>Toggle Full Screen</source>
         <translation>Kytke koko näyttö</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="643"/>
+        <location filename="app.cpp" line="723"/>
         <source>CTRL+F11</source>
         <comment>Control|Toggle Full Screen</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="647"/>
+        <location filename="app.cpp" line="727"/>
         <source>&amp;Index</source>
         <translation>&amp;Hakemisto</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="648"/>
+        <location filename="app.cpp" line="728"/>
         <source>SHIFT+F1</source>
         <comment>Help|Index</comment>
         <translation></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="651"/>
+        <location filename="app.cpp" line="731"/>
         <source>&amp;About QLC+</source>
         <oldsource>&amp;About QLC</oldsource>
         <translation type="unfinished">Ti&amp;etoja QLC:stä</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="247"/>
+        <location filename="app.cpp" line="279"/>
         <source>Fixtures</source>
         <translation type="unfinished">Valaisimet</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="249"/>
+        <location filename="app.cpp" line="281"/>
         <source>Functions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="251"/>
+        <location filename="app.cpp" line="283"/>
         <source>Shows</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="253"/>
+        <location filename="app.cpp" line="285"/>
         <source>Virtual Console</source>
         <translation type="unfinished">Virtuaalikonsoli</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="255"/>
+        <location filename="app.cpp" line="287"/>
         <source>Simple Desk</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="257"/>
+        <location filename="app.cpp" line="289"/>
         <source>Inputs/Outputs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="342"/>
+        <location filename="app.cpp" line="393"/>
         <source>Close the application?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="343"/>
+        <location filename="app.cpp" line="394"/>
         <source>Do you wish to close the application?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="489"/>
+        <location filename="app.cpp" line="571"/>
         <source>Exit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="593"/>
+        <location filename="app.cpp" line="673"/>
         <source>Address Tool</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="605"/>
+        <location filename="app.cpp" line="685"/>
         <source>Toggle Virtual Console Live edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="610"/>
+        <location filename="app.cpp" line="690"/>
         <source>Dump DMX values to a function</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="611"/>
+        <location filename="app.cpp" line="691"/>
         <source>CTRL+D</source>
         <comment>Control|Dump DMX</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="614"/>
+        <location filename="app.cpp" line="694"/>
         <source>Stop ALL functions!</source>
         <translation type="unfinished">Pysäytä KAIKKI funktiot!</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="619"/>
+        <location filename="app.cpp" line="699"/>
         <source>Fade 1 second and stop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="624"/>
+        <location filename="app.cpp" line="704"/>
         <source>Fade 5 seconds and stop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="629"/>
+        <location filename="app.cpp" line="709"/>
         <source>Fade 10 second and stop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="634"/>
+        <location filename="app.cpp" line="714"/>
         <source>Fade 30 second and stop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="657"/>
+        <location filename="app.cpp" line="736"/>
+        <source>Quit QLC+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="app.cpp" line="744"/>
         <source>Workspace</source>
         <translation>Työtila</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="713"/>
+        <location filename="app.cpp" line="802"/>
         <source>Unable to read from file</source>
         <translation>Tiedostoa ei voida lukea</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="716"/>
+        <location filename="app.cpp" line="805"/>
         <source>Unable to write to file</source>
         <translation>Tiedostoon ei voida kirjoittaa</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="719"/>
+        <location filename="app.cpp" line="808"/>
         <source>A fatal error occurred</source>
         <translation>Peruuttamaton virhe on tapahtunut</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="722"/>
+        <location filename="app.cpp" line="811"/>
         <source>Unable to access resource</source>
         <translation>Resurssiin ei voida käsitellä</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="725"/>
+        <location filename="app.cpp" line="814"/>
         <source>Unable to open file for reading or writing</source>
         <translation>Tiedostoa ei voida avata lukemista tai kirjoittamista varten</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="728"/>
+        <location filename="app.cpp" line="817"/>
         <source>Operation was aborted</source>
         <translation>Toiminto peruutettiin</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="731"/>
+        <location filename="app.cpp" line="820"/>
         <source>Operation timed out</source>
         <translation>Toiminto aikakatkaistiin</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="735"/>
+        <location filename="app.cpp" line="824"/>
         <source>An unspecified error has occurred. Nice.</source>
         <translation>Määrittelemätön virhe on tapahtunut. Siistiä.</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="739"/>
+        <location filename="app.cpp" line="828"/>
         <source>File error</source>
         <translation>Tiedostovirhe</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="833"/>
-        <location filename="app.cpp" line="849"/>
-        <location filename="app.cpp" line="1124"/>
+        <location filename="app.cpp" line="922"/>
+        <location filename="app.cpp" line="938"/>
+        <location filename="app.cpp" line="1254"/>
         <source>Do you wish to save the current workspace?
 Changes will be lost if you don&apos;t save them.</source>
         <translation>Haluatko tallentaa nykyisen työtilan?
 Menetät muutokset jos et tallenna niitä.</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="835"/>
+        <location filename="app.cpp" line="924"/>
         <source>New Workspace</source>
         <translation>Uusi työtila</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="851"/>
-        <location filename="app.cpp" line="859"/>
-        <location filename="app.cpp" line="1126"/>
+        <location filename="app.cpp" line="940"/>
+        <location filename="app.cpp" line="948"/>
+        <location filename="app.cpp" line="1256"/>
         <source>Open Workspace</source>
         <translation>Avaa työtila</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="867"/>
-        <location filename="app.cpp" line="944"/>
+        <location filename="app.cpp" line="956"/>
+        <location filename="app.cpp" line="1039"/>
         <source>Workspaces (*%1)</source>
         <translation>Työtilat (*%1)</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="869"/>
-        <location filename="app.cpp" line="946"/>
+        <location filename="app.cpp" line="958"/>
+        <location filename="app.cpp" line="1041"/>
         <source>All Files (*.*)</source>
         <translation>Kaikki tiedostot (*.*)</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="871"/>
-        <location filename="app.cpp" line="948"/>
+        <location filename="app.cpp" line="960"/>
+        <location filename="app.cpp" line="1043"/>
         <source>All Files (*)</source>
         <translation>Kaikki tiedostot (*)</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="938"/>
+        <location filename="app.cpp" line="1033"/>
         <source>Save Workspace As</source>
         <translation>Tallenna työtila nimellä</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="1117"/>
+        <location filename="app.cpp" line="1247"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="1118"/>
+        <location filename="app.cpp" line="1248"/>
         <source>File not found !
 The selected file has been moved or deleted.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="1267"/>
+        <location filename="app.cpp" line="1424"/>
         <source>Warning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="app.cpp" line="1268"/>
+        <location filename="app.cpp" line="1425"/>
         <source>Some errors occurred while loading the project:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -911,17 +896,17 @@ The selected file has been moved or deleted.</source>
 <context>
     <name>AssignHotKey</name>
     <message>
-        <location filename="assignhotkey.ui" line="14"/>
+        <location filename="assignhotkey.ui" line="33"/>
         <source>Assign a key combination to button</source>
         <translation>Aseta napille näppäinyhdistelmä</translation>
     </message>
     <message>
-        <location filename="assignhotkey.ui" line="23"/>
+        <location filename="assignhotkey.ui" line="42"/>
         <source>Key combination</source>
         <translation>Näppäinyhdistelmä</translation>
     </message>
     <message>
-        <location filename="assignhotkey.ui" line="43"/>
+        <location filename="assignhotkey.ui" line="62"/>
         <source>Close automatically on key press</source>
         <translation>Sulje automaattisesti näppäintä painettaessa</translation>
     </message>
@@ -939,93 +924,113 @@ The selected file has been moved or deleted.</source>
 <context>
     <name>AudioEditor</name>
     <message>
-        <location filename="audioeditor.ui" line="14"/>
+        <location filename="audioeditor.ui" line="33"/>
         <source>Audio editor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="136"/>
+        <location filename="audioeditor.ui" line="41"/>
+        <source>Playback mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="audioeditor.ui" line="47"/>
+        <source>Single shot</source>
+        <translation type="unfinished">Kertalaukaus</translation>
+    </message>
+    <message>
+        <location filename="audioeditor.ui" line="57"/>
+        <source>Loop</source>
+        <translation type="unfinished">Silmukka</translation>
+    </message>
+    <message>
+        <location filename="audioeditor.ui" line="209"/>
         <source>Bitrate</source>
         <oldsource>Bitrate:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="122"/>
+        <location filename="audioeditor.ui" line="226"/>
+        <source>Play the audio file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="audioeditor.ui" line="300"/>
         <source>Duration</source>
         <oldsource>Duration:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="78"/>
+        <location filename="audioeditor.ui" line="279"/>
         <source>File name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="115"/>
+        <location filename="audioeditor.ui" line="113"/>
         <source>Audio name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="143"/>
+        <location filename="audioeditor.ui" line="293"/>
         <source>Sample rate</source>
         <oldsource>Sample rate:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="213"/>
+        <location filename="audioeditor.ui" line="173"/>
         <source>Name of the function being edited</source>
         <translation type="unfinished">Muokattavan funktion nimi</translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="230"/>
-        <source>Preview</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="audioeditor.ui" line="267"/>
+        <location filename="audioeditor.ui" line="127"/>
         <source>Audio device</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="129"/>
+        <location filename="audioeditor.ui" line="74"/>
         <source>Channels</source>
         <oldsource>Channels:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="64"/>
+        <location filename="audioeditor.ui" line="246"/>
+        <source>Show/Hide speed dial window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="audioeditor.ui" line="314"/>
         <source>Fade in</source>
         <oldsource>Fade in:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="audioeditor.ui" line="71"/>
+        <location filename="audioeditor.ui" line="134"/>
         <source>Fade out</source>
         <oldsource>Fade out:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="audioeditor.cpp" line="106"/>
+        <location filename="audioeditor.cpp" line="84"/>
         <source>Default device</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="audioeditor.cpp" line="153"/>
+        <location filename="audioeditor.cpp" line="140"/>
         <source>Open Audio File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="audioeditor.cpp" line="161"/>
+        <location filename="audioeditor.cpp" line="148"/>
         <source>Audio Files (%1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="audioeditor.cpp" line="163"/>
+        <location filename="audioeditor.cpp" line="150"/>
         <source>All Files (*.*)</source>
         <translation type="unfinished">Kaikki tiedostot (*.*)</translation>
     </message>
     <message>
-        <location filename="audioeditor.cpp" line="165"/>
+        <location filename="audioeditor.cpp" line="152"/>
         <source>All Files (*)</source>
         <translation type="unfinished">Kaikki tiedostot (*)</translation>
     </message>
@@ -1033,23 +1038,23 @@ The selected file has been moved or deleted.</source>
 <context>
     <name>AudioItem</name>
     <message>
-        <location filename="showmanager/audioitem.cpp" line="54"/>
-        <location filename="showmanager/audioitem.cpp" line="357"/>
+        <location filename="showmanager/audioitem.cpp" line="55"/>
+        <location filename="showmanager/audioitem.cpp" line="196"/>
         <source>Preview Left Channel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/audioitem.cpp" line="58"/>
+        <location filename="showmanager/audioitem.cpp" line="59"/>
         <source>Preview Right Channel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/audioitem.cpp" line="62"/>
+        <location filename="showmanager/audioitem.cpp" line="63"/>
         <source>Preview Stereo Channels</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/audioitem.cpp" line="353"/>
+        <location filename="showmanager/audioitem.cpp" line="192"/>
         <source>Preview Mono</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1057,182 +1062,112 @@ The selected file has been moved or deleted.</source>
 <context>
     <name>AudioTriggersConfiguration</name>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="14"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="33"/>
         <source>Audio Triggers Configuration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="97"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="116"/>
         <source>Number of spectrum bars:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="40"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="59"/>
         <source>Name</source>
         <translation type="unfinished">Nimi</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="24"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="43"/>
         <source>Triggers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="32"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="51"/>
         <source>Widget name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="45"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="64"/>
         <source>Type</source>
         <translation type="unfinished">Tyyppi</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="50"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="69"/>
         <source>Assign</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="55"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="74"/>
         <source>Info</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="60"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="79"/>
         <source>Disable threshold</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="65"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="84"/>
         <source>Enable threshold</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="70"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="89"/>
         <source>Divisor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="113"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="132"/>
         <source>Input</source>
         <translation type="unfinished">Sisääntulo</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="119"/>
-        <source>External Input</source>
-        <translation type="unfinished">Ulkoinen ohjaus</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="125"/>
-        <source>Input Universe</source>
-        <translation type="unfinished">Sisääntulon universumi</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="132"/>
-        <source>Input Channel</source>
-        <translation type="unfinished">Sisääntulokanava</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="139"/>
-        <source>When toggled, you can click an external button to assign it to this widget.</source>
-        <oldsource>When toggled, you can click an external button to assign it to this virtual console button.</oldsource>
-        <translation type="unfinished">Alaskytkettynä voit painaa ulkoista kontrollinappia kytkeäksesi sen tähän virtuaalinappiin.</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="142"/>
-        <source>Auto Detect</source>
-        <translation type="unfinished">Automaattinen tunnistus</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="158"/>
-        <source>The particular input channel within the input universe that sends data to this widget</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="168"/>
-        <source>The input universe that sends data to this widget</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="184"/>
-        <source>Choose an external input universe &amp; channel that this widget should listen to.</source>
-        <oldsource>Choose an external input universe &amp; channel that this button should listen to.</oldsource>
-        <translation type="unfinished">Valitse ulkoinen sisääntulouniversumi ja -kanava, jota tämä nappi kuuntelee.</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="187"/>
-        <source>Choose...</source>
-        <translation type="unfinished">Valitse...</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="210"/>
-        <source>Key combination</source>
-        <translation type="unfinished">Näppäinyhdistelmä</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="225"/>
-        <source>Keyboard combination that toggles this widget</source>
-        <oldsource>Keyboard combination that toggles this button</oldsource>
-        <translation type="unfinished">Näppäinyhdistelmä, joka kytkee tämän napin päälle/pois</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="235"/>
-        <source>Set a key combination for this widget</source>
-        <oldsource>Set a key combination for this button</oldsource>
-        <translation type="unfinished">Aseta näppäinyhdistelmä tälle napille</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.ui" line="255"/>
-        <source>Remove the widget&apos;s keyboard shortcut key</source>
-        <oldsource>Remove the button&apos;s keyboard shortcut key</oldsource>
-        <translation type="unfinished">Poista näppäinyhdistelmä tästä napista</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="125"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="115"/>
         <source>None</source>
         <translation type="unfinished">Ei mitään</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="126"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="116"/>
         <source>DMX</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="127"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="117"/>
         <source>Function</source>
         <translation type="unfinished">Funktio</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="128"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="118"/>
         <source>VC Widget</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="141"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="131"/>
         <source>%1 channels</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="173"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="147"/>
         <source>No function</source>
         <translation type="unfinished">Ei funktiota</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="191"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="165"/>
         <source>No widget</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="197"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="171"/>
         <source>Not assigned</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="251"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="225"/>
         <source>Volume Bar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="260"/>
+        <location filename="virtualconsole/vcaudiotriggersproperties.cpp" line="234"/>
         <source>#%1 (%2Hz - %3Hz)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1240,52 +1175,52 @@ The selected file has been moved or deleted.</source>
 <context>
     <name>ChannelModifierEditor</name>
     <message>
-        <location filename="channelmodifiereditor.ui" line="14"/>
+        <location filename="channelmodifiereditor.ui" line="33"/>
         <source>Channel Modifier Editor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="channelmodifiereditor.ui" line="31"/>
+        <location filename="channelmodifiereditor.ui" line="50"/>
         <source>Modified DMX value</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="channelmodifiereditor.ui" line="44"/>
+        <location filename="channelmodifiereditor.ui" line="63"/>
         <source>Original DMX value</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="channelmodifiereditor.ui" line="62"/>
+        <location filename="channelmodifiereditor.ui" line="81"/>
         <source>Remove the selected handler</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="channelmodifiereditor.ui" line="79"/>
+        <location filename="channelmodifiereditor.ui" line="98"/>
         <source>Overwrite the current template</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="channelmodifiereditor.ui" line="96"/>
+        <location filename="channelmodifiereditor.ui" line="115"/>
         <source>Add a new handler</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="channelmodifiereditor.ui" line="130"/>
+        <location filename="channelmodifiereditor.ui" line="149"/>
         <source>Templates</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="channelmodifiereditor.ui" line="142"/>
+        <location filename="channelmodifiereditor.ui" line="161"/>
         <source>Name</source>
         <translation type="unfinished">Nimi</translation>
     </message>
     <message>
-        <location filename="channelmodifiereditor.ui" line="149"/>
+        <location filename="channelmodifiereditor.ui" line="168"/>
         <source>New Template</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="channelmodifiereditor.ui" line="162"/>
+        <location filename="channelmodifiereditor.ui" line="181"/>
         <source>Unset Modifier</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1303,26 +1238,36 @@ The selected file has been moved or deleted.</source>
 <context>
     <name>ChannelsSelection</name>
     <message>
-        <location filename="channelsselection.ui" line="14"/>
+        <location filename="channelsselection.ui" line="33"/>
         <source>Channels selection</source>
         <oldsource>Channels Fade Configuration</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="channelsselection.ui" line="28"/>
+        <location filename="channelsselection.ui" line="47"/>
         <location filename="channelsselection.cpp" line="50"/>
         <source>Name</source>
         <translation type="unfinished">Nimi</translation>
     </message>
     <message>
-        <location filename="channelsselection.ui" line="33"/>
+        <location filename="channelsselection.ui" line="52"/>
         <location filename="channelsselection.cpp" line="50"/>
         <source>Type</source>
         <translation type="unfinished">Tyyppi</translation>
     </message>
     <message>
-        <location filename="channelsselection.ui" line="41"/>
+        <location filename="channelsselection.ui" line="62"/>
         <source>Apply changes to fixtures of the same type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="channelsselection.ui" line="69"/>
+        <source>Collapse all</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="channelsselection.ui" line="76"/>
+        <source>Expand all</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1350,299 +1295,299 @@ The selected file has been moved or deleted.</source>
         <source>Modifier</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="channelsselection.cpp" line="118"/>
-        <source>Universe %1</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>ChaserEditor</name>
     <message>
-        <location filename="chasereditor.ui" line="14"/>
+        <location filename="chasereditor.ui" line="33"/>
         <source>Chaser editor</source>
         <translation>Juoksutuksen muokkaus</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="123"/>
+        <location filename="chasereditor.ui" line="142"/>
         <source>Chaser name</source>
         <translation>Juoksutuksen nimi</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="136"/>
+        <location filename="chasereditor.ui" line="155"/>
         <source>Name of the chaser being edited</source>
         <translation>Muokattavan juoksutus-funktion nimi</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="60"/>
+        <location filename="chasereditor.ui" line="79"/>
         <source>Step</source>
         <translation>Askel</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="65"/>
+        <location filename="chasereditor.ui" line="84"/>
         <source>Function</source>
         <translation>Funktio</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="70"/>
-        <location filename="chasereditor.cpp" line="965"/>
+        <location filename="chasereditor.ui" line="89"/>
+        <location filename="chasereditor.cpp" line="979"/>
         <source>Fade In</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="80"/>
-        <location filename="chasereditor.cpp" line="966"/>
+        <location filename="chasereditor.ui" line="99"/>
+        <location filename="chasereditor.cpp" line="980"/>
         <source>Fade Out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="85"/>
+        <location filename="chasereditor.ui" line="104"/>
         <source>Duration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="722"/>
+        <location filename="chasereditor.ui" line="741"/>
         <source>Add step(s) to the current position</source>
         <translation>Lisää askel(eita) valittuun kohtaan</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="98"/>
+        <location filename="chasereditor.ui" line="117"/>
         <source>Remove the selected step</source>
         <translation>Poista valittu askel</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="739"/>
+        <location filename="chasereditor.ui" line="758"/>
         <source>Raise the selected step once</source>
         <translation>Nosta valittua askelta kerran</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="537"/>
+        <location filename="chasereditor.ui" line="556"/>
         <source>Lower the selected step once</source>
         <translation>Laske valittua askelta kerran</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="576"/>
+        <location filename="chasereditor.ui" line="595"/>
         <source>Show/Hide speed dial window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="147"/>
+        <location filename="chasereditor.ui" line="166"/>
         <source>Run Order</source>
         <translation>Ajojärjestys</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="75"/>
-        <location filename="chasereditor.cpp" line="967"/>
+        <location filename="chasereditor.ui" line="94"/>
+        <location filename="chasereditor.cpp" line="981"/>
         <source>Hold</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="90"/>
+        <location filename="chasereditor.ui" line="109"/>
         <source>Notes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="174"/>
+        <location filename="chasereditor.ui" line="193"/>
         <source>Run through over and over again</source>
         <translation>Aja läpi uudelleen ja uudelleen</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="177"/>
+        <location filename="chasereditor.ui" line="196"/>
         <source>Loop</source>
         <translation>Silmukka</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="193"/>
+        <location filename="chasereditor.ui" line="212"/>
         <source>Run through once and stop</source>
         <translation>Aja läpi kerran ja pysäytä</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="196"/>
+        <location filename="chasereditor.ui" line="215"/>
         <source>Single Shot</source>
         <translation>Kertalaukaus</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="209"/>
+        <location filename="chasereditor.ui" line="228"/>
         <source>Switch direction at both ends</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="219"/>
+        <location filename="chasereditor.ui" line="238"/>
         <source>Execute steps in random order</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="222"/>
+        <location filename="chasereditor.ui" line="241"/>
         <source>Random</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="307"/>
+        <location filename="chasereditor.ui" line="326"/>
         <source>Fade In Speed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="334"/>
+        <location filename="chasereditor.ui" line="353"/>
         <source>All steps have common fade in speed set by the chaser</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="337"/>
-        <location filename="chasereditor.ui" line="412"/>
-        <location filename="chasereditor.ui" line="490"/>
+        <location filename="chasereditor.ui" line="356"/>
+        <location filename="chasereditor.ui" line="431"/>
+        <location filename="chasereditor.ui" line="509"/>
         <source>Common</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="350"/>
+        <location filename="chasereditor.ui" line="369"/>
         <source>Each step has its own fade in speed set by the chaser</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="353"/>
-        <location filename="chasereditor.ui" line="428"/>
-        <location filename="chasereditor.ui" line="509"/>
+        <location filename="chasereditor.ui" line="372"/>
+        <location filename="chasereditor.ui" line="447"/>
+        <location filename="chasereditor.ui" line="528"/>
         <source>Per Step</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="366"/>
+        <location filename="chasereditor.ui" line="385"/>
         <source>Use each function&apos;s own fade in speed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="369"/>
-        <location filename="chasereditor.ui" line="444"/>
+        <location filename="chasereditor.ui" line="388"/>
+        <location filename="chasereditor.ui" line="463"/>
         <source>Default</source>
         <translation type="unfinished">Oletus</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="382"/>
+        <location filename="chasereditor.ui" line="401"/>
         <source>Fade Out Speed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="409"/>
+        <location filename="chasereditor.ui" line="428"/>
         <source>All steps have common fade out speed set by the chaser</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="425"/>
+        <location filename="chasereditor.ui" line="444"/>
         <source>Each step has its own fade out speed set by the chaser</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="441"/>
+        <location filename="chasereditor.ui" line="460"/>
         <source>Use each function&apos;s own fade out speed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="457"/>
+        <location filename="chasereditor.ui" line="476"/>
         <source>Step Duration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="487"/>
+        <location filename="chasereditor.ui" line="506"/>
         <source>All steps have common step duration set by the chaser</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="506"/>
+        <location filename="chasereditor.ui" line="525"/>
         <source>Each step has its own duration set by the chaser</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="603"/>
+        <location filename="chasereditor.ui" line="622"/>
         <source>See what the chaser does when it is run</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="620"/>
+        <location filename="chasereditor.ui" line="639"/>
         <source>Stop the chaser if running</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="654"/>
+        <location filename="chasereditor.ui" line="673"/>
         <source>Skip to the next step</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="637"/>
+        <location filename="chasereditor.ui" line="782"/>
+        <source>Shuffle steps</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="chasereditor.ui" line="656"/>
         <source>Skip to the previous step</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="212"/>
+        <location filename="chasereditor.ui" line="231"/>
         <source>Ping Pong</source>
         <translation>Edestakaisin</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="232"/>
+        <location filename="chasereditor.ui" line="251"/>
         <source>Direction</source>
         <translation>Suunta</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="259"/>
+        <location filename="chasereditor.ui" line="278"/>
         <source>Start from the first step</source>
         <translation>Aloita ensimmäisestä askeleesta</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="262"/>
+        <location filename="chasereditor.ui" line="281"/>
         <source>Forward</source>
         <translation>Etuperin</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="278"/>
+        <location filename="chasereditor.ui" line="297"/>
         <source>Start from the last step</source>
         <translation>Aloita viimeisestä askeleesta</translation>
     </message>
     <message>
-        <location filename="chasereditor.ui" line="281"/>
+        <location filename="chasereditor.ui" line="300"/>
         <source>Backward</source>
         <translation>Takaperin</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="73"/>
+        <location filename="chasereditor.cpp" line="75"/>
         <source>Cut</source>
         <translation>Leikkaa</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="78"/>
+        <location filename="chasereditor.cpp" line="80"/>
         <source>Copy</source>
         <translation>Kopioi</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="83"/>
+        <location filename="chasereditor.cpp" line="85"/>
         <source>Paste</source>
         <translation>Liitä</translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="705"/>
+        <location filename="chasereditor.cpp" line="750"/>
         <source>Paste error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="705"/>
-        <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
+        <location filename="chasereditor.cpp" line="750"/>
+        <source>Trying to paste on an incompatible Scene. Operation canceled.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="968"/>
+        <location filename="chasereditor.cpp" line="982"/>
         <source>Common Fade In</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="969"/>
+        <location filename="chasereditor.cpp" line="983"/>
         <source>Common Fade Out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="970"/>
+        <location filename="chasereditor.cpp" line="984"/>
         <source>Common Hold</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="chasereditor.cpp" line="986"/>
+        <location filename="chasereditor.cpp" line="1000"/>
         <source>Multiple Steps</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1650,32 +1595,47 @@ The selected file has been moved or deleted.</source>
 <context>
     <name>CollectionEditor</name>
     <message>
-        <location filename="collectioneditor.ui" line="14"/>
+        <location filename="collectioneditor.ui" line="33"/>
         <source>Collection editor</source>
         <translation>Kokoelman muokkaus</translation>
     </message>
     <message>
-        <location filename="collectioneditor.ui" line="26"/>
+        <location filename="collectioneditor.ui" line="39"/>
+        <source>Move the selected functions down</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="collectioneditor.ui" line="56"/>
+        <source>Move the selected functions up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="collectioneditor.ui" line="79"/>
         <source>Collection name</source>
         <translation>Kokoelman nimi</translation>
     </message>
     <message>
-        <location filename="collectioneditor.ui" line="33"/>
+        <location filename="collectioneditor.ui" line="86"/>
         <source>Name of the function being edited</source>
         <translation>Muokattavan funktion nimi</translation>
     </message>
     <message>
-        <location filename="collectioneditor.ui" line="53"/>
+        <location filename="collectioneditor.ui" line="146"/>
+        <source>See what the Collection does when it is run</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="collectioneditor.ui" line="188"/>
         <source>Function</source>
         <translation>Funktio</translation>
     </message>
     <message>
-        <location filename="collectioneditor.ui" line="61"/>
+        <location filename="collectioneditor.ui" line="93"/>
         <source>Add function(s) to the collection</source>
         <translation>Lisää funktioita kokoelmaan</translation>
     </message>
     <message>
-        <location filename="collectioneditor.ui" line="81"/>
+        <location filename="collectioneditor.ui" line="113"/>
         <source>Remove the selected function</source>
         <translation>Poista valitut funktiot kokoelmasta</translation>
     </message>
@@ -1683,35 +1643,40 @@ The selected file has been moved or deleted.</source>
 <context>
     <name>ConsoleChannel</name>
     <message>
-        <location filename="consolechannel.cpp" line="160"/>
+        <location filename="consolechannel.cpp" line="163"/>
         <source>Intensity</source>
         <translation type="unfinished">Intensiteetti</translation>
+    </message>
+    <message>
+        <location filename="consolechannel.cpp" line="306"/>
+        <source>Reset this channel</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>CreateFixtureGroup</name>
     <message>
-        <location filename="createfixturegroup.ui" line="14"/>
+        <location filename="createfixturegroup.ui" line="33"/>
         <source>Create Fixture Group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="createfixturegroup.ui" line="20"/>
+        <location filename="createfixturegroup.ui" line="39"/>
         <source>Group name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="createfixturegroup.ui" line="32"/>
+        <location filename="createfixturegroup.ui" line="51"/>
         <source>Initial size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="createfixturegroup.ui" line="38"/>
+        <location filename="createfixturegroup.ui" line="57"/>
         <source>Width</source>
         <translation type="unfinished">Leveys</translation>
     </message>
     <message>
-        <location filename="createfixturegroup.ui" line="52"/>
+        <location filename="createfixturegroup.ui" line="74"/>
         <source>Height</source>
         <translation type="unfinished">Korkeus</translation>
     </message>
@@ -1719,27 +1684,27 @@ The selected file has been moved or deleted.</source>
 <context>
     <name>CueStackModel</name>
     <message>
-        <location filename="cuestackmodel.cpp" line="142"/>
+        <location filename="cuestackmodel.cpp" line="144"/>
         <source>Number</source>
         <translation type="unfinished">Numero</translation>
     </message>
     <message>
-        <location filename="cuestackmodel.cpp" line="144"/>
+        <location filename="cuestackmodel.cpp" line="146"/>
         <source>Fade In</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="cuestackmodel.cpp" line="146"/>
+        <location filename="cuestackmodel.cpp" line="148"/>
         <source>Fade Out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="cuestackmodel.cpp" line="148"/>
+        <location filename="cuestackmodel.cpp" line="150"/>
         <source>Duration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="cuestackmodel.cpp" line="150"/>
+        <location filename="cuestackmodel.cpp" line="152"/>
         <source>Cue</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1747,64 +1712,69 @@ The selected file has been moved or deleted.</source>
 <context>
     <name>DmxDumpFactory</name>
     <message>
-        <location filename="dmxdumpfactory.ui" line="14"/>
+        <location filename="dmxdumpfactory.ui" line="33"/>
         <source>Dump DMX values</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.ui" line="24"/>
+        <location filename="dmxdumpfactory.ui" line="43"/>
         <source>Dump only non-zero values</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.ui" line="55"/>
+        <location filename="dmxdumpfactory.ui" line="94"/>
         <source>Dump options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.ui" line="138"/>
+        <location filename="dmxdumpfactory.ui" line="177"/>
         <source>Dump selected channels</source>
         <oldsource>Dump selected DMX values</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.ui" line="82"/>
+        <location filename="dmxdumpfactory.ui" line="121"/>
         <source>Add to:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.ui" line="65"/>
+        <location filename="dmxdumpfactory.ui" line="72"/>
+        <source>Select an existing Scene to overwrite</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="dmxdumpfactory.ui" line="104"/>
         <source>Name</source>
         <translation type="unfinished">Nimi</translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.ui" line="89"/>
+        <location filename="dmxdumpfactory.ui" line="128"/>
         <source>Chaser</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.ui" line="99"/>
+        <location filename="dmxdumpfactory.ui" line="138"/>
         <source>Button</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.ui" line="106"/>
+        <location filename="dmxdumpfactory.ui" line="145"/>
         <source>Slider</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.ui" line="43"/>
+        <location filename="dmxdumpfactory.ui" line="62"/>
         <source>Scene name:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.cpp" line="72"/>
+        <location filename="dmxdumpfactory.cpp" line="74"/>
         <source>Dump all channels (%1 Universes, %2 Fixtures, %3 Channels)</source>
         <oldsource>Dump all DMX values (%1 Universes, %2 Fixtures, %3 Channels)</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.cpp" line="75"/>
+        <location filename="dmxdumpfactory.cpp" line="77"/>
         <source>New Scene From Live %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1812,317 +1782,322 @@ The selected file has been moved or deleted.</source>
 <context>
     <name>DocBrowser</name>
     <message>
-        <location filename="docbrowser.cpp" line="104"/>
+        <location filename="docbrowser.cpp" line="105"/>
         <source>%1 - Document Browser</source>
         <translation>%1 - ohjeiden selaus</translation>
     </message>
     <message>
-        <location filename="docbrowser.cpp" line="120"/>
+        <location filename="docbrowser.cpp" line="124"/>
         <source>Backward</source>
         <translation>Takaisin</translation>
     </message>
     <message>
-        <location filename="docbrowser.cpp" line="121"/>
+        <location filename="docbrowser.cpp" line="125"/>
         <source>Forward</source>
         <translation>Eteen</translation>
     </message>
     <message>
-        <location filename="docbrowser.cpp" line="122"/>
+        <location filename="docbrowser.cpp" line="126"/>
         <source>Index</source>
         <translation>Hakemisto</translation>
     </message>
     <message>
-        <location filename="docbrowser.cpp" line="123"/>
+        <location filename="docbrowser.cpp" line="127"/>
         <source>About Qt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="docbrowser.cpp" line="151"/>
-        <source>Close</source>
-        <translation type="unfinished">Sulje</translation>
+        <location filename="docbrowser.cpp" line="128"/>
+        <source>Close this window</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>EFXEditor</name>
     <message>
-        <location filename="efxeditor.ui" line="14"/>
+        <location filename="efxeditor.ui" line="33"/>
         <source>EFX Editor</source>
         <translation>EFX muokkaus</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="27"/>
+        <location filename="efxeditor.ui" line="46"/>
         <source>General</source>
         <translation>Yleinen</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="682"/>
+        <location filename="efxeditor.ui" line="715"/>
         <source>EFX name</source>
         <translation>EFX nimi</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="689"/>
+        <location filename="efxeditor.ui" line="722"/>
         <source>The name of the function being edited</source>
         <translation>Muokattavan funktion nimi</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="163"/>
+        <location filename="efxeditor.ui" line="182"/>
         <source>Step</source>
         <translation>Askel</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="168"/>
+        <location filename="efxeditor.ui" line="187"/>
         <source>Fixture</source>
         <translation>Valaisin</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="173"/>
+        <location filename="efxeditor.ui" line="197"/>
         <source>Reverse</source>
         <translation>Käänteinen</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="82"/>
+        <location filename="efxeditor.ui" line="101"/>
         <source>Fixture order</source>
         <translation>Valaisinten järjestys</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="88"/>
+        <location filename="efxeditor.ui" line="107"/>
         <source>All fixtures move in parallel</source>
         <translation>Kaikki valaisimet liikkuvat yhtäaikaa</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="91"/>
+        <location filename="efxeditor.ui" line="110"/>
         <source>Parallel</source>
         <translation>Rinnakkain</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="101"/>
+        <location filename="efxeditor.ui" line="120"/>
         <source>The pattern propagates to each fixture in a sequential order</source>
         <translation>Kuvio leviää vähitellen kaikkiin valaisimiin järjestyksessä</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="104"/>
+        <location filename="efxeditor.ui" line="123"/>
         <source>Serial</source>
         <translation>Sarjassa</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="205"/>
+        <location filename="efxeditor.ui" line="224"/>
         <source>Movement</source>
         <translation>Liike</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="183"/>
-        <source>Intensity</source>
-        <translation>Intensiteetti</translation>
-    </message>
-    <message>
-        <location filename="efxeditor.ui" line="178"/>
-        <location filename="efxeditor.ui" line="504"/>
+        <location filename="efxeditor.ui" line="202"/>
+        <location filename="efxeditor.ui" line="303"/>
         <source>Start Offset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="111"/>
+        <location filename="efxeditor.ui" line="130"/>
         <source>Each fixture starts moving immediately with an offset</source>
         <translation>Jokainen valaisin alkaa liikkua yhtäaikaisesti, hieman toisistaan erillään</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="114"/>
+        <location filename="efxeditor.ui" line="133"/>
         <source>Asymmetric</source>
         <translation>Epäsymmetrinen</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="233"/>
+        <location filename="efxeditor.ui" line="252"/>
         <source>Pattern</source>
         <translation>Kuvio</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="245"/>
+        <location filename="efxeditor.ui" line="264"/>
         <source>Pattern for moving the mirror/head</source>
         <translation>Kuvio, jonka mukaan peiliä/sankaa liikutetaan</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="255"/>
+        <location filename="efxeditor.ui" line="274"/>
         <source>Parameters</source>
         <translation>Parametrit</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="293"/>
+        <location filename="efxeditor.ui" line="296"/>
         <source>Width</source>
         <translation>Leveys</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="300"/>
+        <location filename="efxeditor.ui" line="501"/>
         <source>Value width of the pattern</source>
         <translation>Kuvion leveys</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="313"/>
+        <location filename="efxeditor.ui" line="467"/>
         <source>Height</source>
         <translation>Korkeus</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="320"/>
+        <location filename="efxeditor.ui" line="514"/>
         <source>Value height of the pattern</source>
         <translation>Kuvion korkeus</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="333"/>
+        <location filename="efxeditor.ui" line="481"/>
         <source>X offset</source>
         <translation>X-poikkeutus</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="340"/>
+        <location filename="efxeditor.ui" line="534"/>
         <source>Pattern&apos;s center point on the X axis</source>
         <translation>Kuvion keskuspiste X-akselilla</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="353"/>
+        <location filename="efxeditor.ui" line="474"/>
         <source>Y offset</source>
         <translation>Y-poikkeutus</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="360"/>
+        <location filename="efxeditor.ui" line="488"/>
         <source>Pattern&apos;s center point on the Y axis</source>
         <translation>Kuvion keskuspiste Y-akselilla</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="373"/>
+        <location filename="efxeditor.ui" line="527"/>
         <source>Rotation</source>
         <translation>Kääntö</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="380"/>
+        <location filename="efxeditor.ui" line="323"/>
         <source>Rotation of the pattern&apos;s starting point</source>
         <translation>Kuvion aloituspisteen kääntö</translation>
     </message>
-    <message utf8="true">
-        <location filename="efxeditor.ui" line="383"/>
-        <location filename="efxeditor.ui" line="494"/>
+    <message>
+        <location filename="efxeditor.ui" line="326"/>
+        <location filename="efxeditor.ui" line="424"/>
         <source>°</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="396"/>
+        <location filename="efxeditor.ui" line="316"/>
         <source>X frequency</source>
         <translation>X-taajuus</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="406"/>
+        <location filename="efxeditor.ui" line="404"/>
         <source>Lissajous pattern&apos;s X frequency</source>
         <translation>Lissajous-kuvion X-taajuus</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="422"/>
+        <location filename="efxeditor.ui" line="394"/>
         <source>Y frequency</source>
         <translation>Y-taajuus</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="432"/>
+        <location filename="efxeditor.ui" line="378"/>
         <source>Lissajous pattern&apos;s Y frequency</source>
         <translation>Lissajous-kuvion Y-taajuus</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="448"/>
+        <location filename="efxeditor.ui" line="368"/>
         <source>X phase</source>
         <translation>X-vaihe</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="471"/>
+        <location filename="efxeditor.ui" line="339"/>
         <source>Lissajous pattern&apos;s X phase</source>
         <translation>Lissajous-kuvion X-vaihe</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="487"/>
+        <location filename="efxeditor.ui" line="437"/>
         <source>Y phase</source>
         <translation>Y-vaihe</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="636"/>
+        <location filename="efxeditor.ui" line="669"/>
         <source>Show/Hide speed dial window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="273"/>
+        <location filename="efxeditor.ui" line="454"/>
         <source>Lissajous pattern&apos;s Y phase</source>
         <translation>Lissajous-kuvion Y-vaihe</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="514"/>
+        <location filename="efxeditor.ui" line="192"/>
+        <source>Mode</source>
+        <translation type="unfinished">Tila</translation>
+    </message>
+    <message>
+        <location filename="efxeditor.ui" line="417"/>
         <source>Relative</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="524"/>
+        <location filename="efxeditor.ui" line="547"/>
+        <source>Color Background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="efxeditor.ui" line="557"/>
         <source>Direction</source>
         <translation>Suunta</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="530"/>
+        <location filename="efxeditor.ui" line="563"/>
         <source>Run the pattern forwards</source>
         <translation>Aja kuviota eteenpäin</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="533"/>
+        <location filename="efxeditor.ui" line="566"/>
         <source>Forward</source>
         <translation>Etuperin</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="543"/>
+        <location filename="efxeditor.ui" line="576"/>
         <source>Run the pattern backwards</source>
         <translation>Aja kuviota takaperin</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="546"/>
+        <location filename="efxeditor.ui" line="579"/>
         <source>Backward</source>
         <translation>Takaperin</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="572"/>
+        <location filename="efxeditor.ui" line="605"/>
         <source>Run order</source>
         <translation>Ajojärjestys</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="578"/>
+        <location filename="efxeditor.ui" line="611"/>
         <source>Run through over and over again</source>
         <translation>Aja jatkuvasti alusta loppuun</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="581"/>
+        <location filename="efxeditor.ui" line="614"/>
         <source>Loop</source>
         <translation>Silmukka</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="591"/>
+        <location filename="efxeditor.ui" line="624"/>
         <source>Run through once and stop</source>
         <translation>Aja läpi kerran ja lopeta</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="594"/>
+        <location filename="efxeditor.ui" line="627"/>
         <source>Single shot</source>
         <translation>Kertalaukaus</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="601"/>
+        <location filename="efxeditor.ui" line="634"/>
         <source>First run forwards, then backwards, again forwards, etc...</source>
         <translation>Aja ensin alusta loppuun, sitten lopusta alkuun, alusta loppuun, jne...</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="604"/>
+        <location filename="efxeditor.ui" line="637"/>
         <source>Ping pong</source>
         <translation>Edestakaisin</translation>
     </message>
     <message>
-        <location filename="efxeditor.ui" line="656"/>
+        <location filename="efxeditor.ui" line="689"/>
         <source>See what the EFX does when it is run</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="efxeditor.cpp" line="710"/>
+        <location filename="efxeditor.cpp" line="739"/>
         <source>Remove fixtures</source>
         <translation>Poista valaisimia</translation>
     </message>
     <message>
-        <location filename="efxeditor.cpp" line="711"/>
+        <location filename="efxeditor.cpp" line="740"/>
         <source>Do you want to remove the selected fixture(s)?</source>
         <translation>Haluatko poistaa valitut valaisimet?</translation>
     </message>
@@ -2130,43 +2105,43 @@ The selected file has been moved or deleted.</source>
 <context>
     <name>FixtureGroupEditor</name>
     <message>
-        <location filename="fixturegroupeditor.ui" line="14"/>
+        <location filename="fixturegroupeditor.ui" line="33"/>
         <source>Fixture Group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturegroupeditor.ui" line="158"/>
+        <location filename="fixturegroupeditor.ui" line="183"/>
         <source>Fixture group name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturegroupeditor.ui" line="39"/>
+        <location filename="fixturegroupeditor.ui" line="58"/>
         <source>Remove selected fixture/head</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturegroupeditor.ui" line="69"/>
+        <location filename="fixturegroupeditor.ui" line="88"/>
         <source>Width</source>
         <translation type="unfinished">Leveys</translation>
     </message>
     <message>
-        <location filename="fixturegroupeditor.ui" line="76"/>
-        <location filename="fixturegroupeditor.ui" line="106"/>
+        <location filename="fixturegroupeditor.ui" line="95"/>
+        <location filename="fixturegroupeditor.ui" line="128"/>
         <source>px</source>
         <translation type="unfinished">px</translation>
     </message>
     <message>
-        <location filename="fixturegroupeditor.ui" line="86"/>
+        <location filename="fixturegroupeditor.ui" line="108"/>
         <source>Height</source>
         <translation type="unfinished">Korkeus</translation>
     </message>
     <message>
-        <location filename="fixturegroupeditor.ui" line="116"/>
+        <location filename="fixturegroupeditor.ui" line="141"/>
         <source>Add/replace fixtures to current row, starting from selected cell</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturegroupeditor.ui" line="133"/>
+        <location filename="fixturegroupeditor.ui" line="158"/>
         <source>Add/replace fixtures to current column, starting from selected cell</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2174,221 +2149,230 @@ The selected file has been moved or deleted.</source>
 <context>
     <name>FixtureManager</name>
     <message>
-        <location filename="fixturemanager.cpp" line="363"/>
+        <location filename="fixturemanager.cpp" line="366"/>
         <source>Fixtures Groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="367"/>
+        <location filename="fixturemanager.cpp" line="370"/>
         <source>Channels</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="380"/>
+        <location filename="fixturemanager.cpp" line="383"/>
         <source>Channels Groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="573"/>
-        <source>All fixtures</source>
-        <translation type="unfinished"></translation>
+        <location filename="fixturemanager.cpp" line="616"/>
+        <source>&lt;H1&gt;Multiple fixtures selected&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; to remove the selected fixtures.&lt;/P&gt;</source>
+        <translation>&lt;H1&gt;Useita valaisimia valittuna&lt;/H1&gt;&lt;P&gt;Klikkaa &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; poistaaksesi valitut valaisimet.&lt;/P&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="573"/>
-        <source>This group contains all fixtures.</source>
-        <translation type="unfinished"></translation>
+        <location filename="fixturemanager.cpp" line="642"/>
+        <source>&lt;H1&gt;Multiple fixtures selected&lt;/H1&gt;&lt;P&gt;Fixture list modification is not permitted in operate mode.&lt;/P&gt;</source>
+        <translation>&lt;H1&gt;Useita valaisimia valittuna&lt;/H1&gt;&lt;P&gt;Valaisinlistan muokkaus käyttötilassa ei ole sallittua.&lt;/P&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="585"/>
-        <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Multiple fixtures selected&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; to remove the selected fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
-        <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Useita valaisimia valittuna&lt;/H1&gt;&lt;P&gt;Klikkaa &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; poistaaksesi valitut valaisimet.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
+        <location filename="fixturemanager.cpp" line="651"/>
+        <source>&lt;H1&gt;No fixtures&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add fixtures.&lt;/P&gt;</source>
+        <translation>&lt;H1&gt;Ei valaisimia&lt;/H1&gt;&lt;P&gt;Klikkaa &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; lisätäksesi valaisimia.&lt;/P&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="591"/>
-        <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Multiple fixtures selected&lt;/H1&gt;&lt;P&gt;Fixture list modification is not permitted in operate mode.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
-        <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Useita valaisimia valittuna&lt;/H1&gt;&lt;P&gt;Valaisinlistan muokkaus käyttötilassa ei ole sallittua.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
+        <location filename="fixturemanager.cpp" line="657"/>
+        <source>&lt;H1&gt;Nothing selected&lt;/H1&gt;&lt;P&gt;Select a fixture from the list or click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add fixtures.&lt;/P&gt;</source>
+        <translation>&lt;H1&gt;Ei valintaa&lt;/H1&gt;&lt;P&gt;Valitse valaisin listasta tai klikkaa &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; lisätäksesi valaisimia.&lt;/P&gt;</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="600"/>
-        <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;No fixtures&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
-        <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Ei valaisimia&lt;/H1&gt;&lt;P&gt;Klikkaa &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; lisätäksesi valaisimia.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
-    </message>
-    <message>
-        <location filename="fixturemanager.cpp" line="606"/>
-        <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nothing selected&lt;/H1&gt;&lt;P&gt;Select a fixture from the list or click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add fixtures.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
-        <translation>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Ei valintaa&lt;/H1&gt;&lt;P&gt;Valitse valaisin listasta tai klikkaa &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; lisätäksesi valaisimia.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</translation>
-    </message>
-    <message>
-        <location filename="fixturemanager.cpp" line="658"/>
+        <location filename="fixturemanager.cpp" line="710"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Multiple groups selected&lt;/H1&gt;&lt;P&gt;Click &lt;IMG SRC=&quot;:/edit_remove.png&quot;&gt; to remove the selected groups.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="666"/>
+        <location filename="fixturemanager.cpp" line="718"/>
         <source>&lt;HTML&gt;&lt;BODY&gt;&lt;H1&gt;Nothing selected&lt;/H1&gt;&lt;P&gt;Select a channel group from the list or click &lt;IMG SRC=&quot;:/edit_add.png&quot;&gt; to add a new channels group.&lt;/P&gt;&lt;/BODY&gt;&lt;/HTML&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="691"/>
+        <location filename="fixturemanager.cpp" line="743"/>
         <source>Add group...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="697"/>
-        <location filename="fixturemanager.cpp" line="805"/>
+        <location filename="fixturemanager.cpp" line="749"/>
+        <location filename="fixturemanager.cpp" line="855"/>
         <source>Add fixture...</source>
         <translation>Lisää valaisin...</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="810"/>
+        <location filename="fixturemanager.cpp" line="860"/>
         <source>Add RGB panel...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="815"/>
+        <location filename="fixturemanager.cpp" line="865"/>
         <source>Delete items</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="820"/>
+        <location filename="fixturemanager.cpp" line="870"/>
         <source>Properties...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="825"/>
+        <location filename="fixturemanager.cpp" line="875"/>
         <source>Channels Fade Configuration...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="831"/>
+        <location filename="fixturemanager.cpp" line="881"/>
         <source>Add fixture to group...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="834"/>
+        <location filename="fixturemanager.cpp" line="884"/>
         <source>Remove fixture from group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="838"/>
+        <location filename="fixturemanager.cpp" line="888"/>
         <source>New Group...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="841"/>
+        <location filename="fixturemanager.cpp" line="891"/>
         <source>Move group up...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="847"/>
+        <location filename="fixturemanager.cpp" line="897"/>
         <source>Move group down...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="853"/>
+        <location filename="fixturemanager.cpp" line="903"/>
         <source>Import fixtures...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="858"/>
+        <location filename="fixturemanager.cpp" line="908"/>
         <source>Export fixtures...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="864"/>
+        <location filename="fixturemanager.cpp" line="914"/>
         <source>Remap fixtures...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1078"/>
+        <location filename="fixturemanager.cpp" line="1172"/>
         <source>%1 - Row %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1141"/>
+        <location filename="fixturemanager.cpp" line="1244"/>
         <source>Do you want to delete the selected items?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1196"/>
+        <location filename="fixturemanager.cpp" line="1299"/>
         <source>Delete Channels Group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1299"/>
+        <location filename="fixturemanager.cpp" line="980"/>
+        <location filename="fixturemanager.cpp" line="1418"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1300"/>
+        <location filename="fixturemanager.cpp" line="592"/>
+        <source>This group contains all fixtures of</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="596"/>
+        <location filename="fixturemanager.cpp" line="637"/>
+        <source>Total estimated weight</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="597"/>
+        <location filename="fixturemanager.cpp" line="638"/>
+        <source>Maximum estimated power consumption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="fixturemanager.cpp" line="981"/>
+        <location filename="fixturemanager.cpp" line="1419"/>
         <source>Please enter a valid address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1376"/>
+        <location filename="fixturemanager.cpp" line="1495"/>
         <source>Ungroup fixtures?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1377"/>
+        <location filename="fixturemanager.cpp" line="1496"/>
         <source>Do you want to ungroup the selected fixtures?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1492"/>
+        <location filename="fixturemanager.cpp" line="1611"/>
         <source>Import Fixtures List</source>
         <oldsource>Import Fixture Definition</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1497"/>
+        <location filename="fixturemanager.cpp" line="1616"/>
         <source>Export Fixtures List As</source>
         <oldsource>Export Fixture Definition As</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1503"/>
+        <location filename="fixturemanager.cpp" line="1622"/>
         <source>Fixtures List (*%1)</source>
         <oldsource>Fixture Definitions (*%1)</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1505"/>
+        <location filename="fixturemanager.cpp" line="1624"/>
         <source>All Files (*.*)</source>
         <translation type="unfinished">Kaikki tiedostot (*.*)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1507"/>
+        <location filename="fixturemanager.cpp" line="1626"/>
         <source>All Files (*)</source>
         <translation type="unfinished">Kaikki tiedostot (*)</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="897"/>
+        <location filename="fixturemanager.cpp" line="947"/>
         <source>Fixture manager</source>
         <translation>Valaisinten hallinta</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="965"/>
+        <location filename="fixturemanager.cpp" line="1023"/>
         <source>Generic Dimmer</source>
         <translation>Yleinen himmennin</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1140"/>
+        <location filename="fixturemanager.cpp" line="1243"/>
         <source>Delete Fixtures</source>
         <translation>Poista valaisimia</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1197"/>
+        <location filename="fixturemanager.cpp" line="1300"/>
         <source>Do you want to delete the selected groups?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1262"/>
+        <location filename="fixturemanager.cpp" line="1360"/>
         <source>Change fixture properties</source>
         <translation>Muokkaa valaisimen ominaisuuksia</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="367"/>
+        <location filename="fixturemanager.cpp" line="370"/>
         <source>Name</source>
         <translation>Nimi</translation>
     </message>
@@ -2396,124 +2380,119 @@ The selected file has been moved or deleted.</source>
 <context>
     <name>FixtureRemap</name>
     <message>
-        <location filename="fixtureremap.ui" line="14"/>
+        <location filename="fixtureremap.ui" line="33"/>
         <source>Fixtures Remap</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixtureremap.ui" line="28"/>
+        <location filename="fixtureremap.ui" line="47"/>
         <source>Add target fixture...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixtureremap.ui" line="45"/>
+        <location filename="fixtureremap.ui" line="64"/>
         <source>Remove target fixture...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixtureremap.ui" line="69"/>
+        <location filename="fixtureremap.ui" line="88"/>
         <source>Clone and auto-remap the selected source fixture</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixtureremap.ui" line="93"/>
+        <location filename="fixtureremap.ui" line="112"/>
         <source>Connect selections...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixtureremap.ui" line="110"/>
+        <location filename="fixtureremap.ui" line="129"/>
         <source>Disconnect selections...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixtureremap.ui" line="265"/>
+        <location filename="fixtureremap.ui" line="284"/>
         <source>Destination project name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixtureremap.ui" line="161"/>
+        <location filename="fixtureremap.ui" line="180"/>
         <source>Remapped Fixtures</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixtureremap.ui" line="166"/>
-        <location filename="fixtureremap.ui" line="198"/>
+        <location filename="fixtureremap.ui" line="185"/>
+        <location filename="fixtureremap.ui" line="217"/>
         <source>Address</source>
         <translation type="unfinished">Osoite</translation>
     </message>
     <message>
-        <location filename="fixtureremap.ui" line="193"/>
+        <location filename="fixtureremap.ui" line="212"/>
         <source>Source Fixtures</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixtureremap.ui" line="253"/>
+        <location filename="fixtureremap.ui" line="272"/>
         <source>Remap fixture names</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="116"/>
-        <location filename="fixtureremap.cpp" line="118"/>
+        <location filename="fixtureremap.cpp" line="130"/>
+        <location filename="fixtureremap.cpp" line="132"/>
         <source> (remapped)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="147"/>
-        <source>Universe %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="fixtureremap.cpp" line="211"/>
+        <location filename="fixtureremap.cpp" line="225"/>
         <source>Generic Dimmer</source>
         <translation type="unfinished">Yleinen himmennin</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="277"/>
+        <location filename="fixtureremap.cpp" line="296"/>
         <source>Delete Fixtures</source>
         <translation type="unfinished">Poista valaisimia</translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="278"/>
+        <location filename="fixtureremap.cpp" line="297"/>
         <source>Do you want to delete the selected items?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="326"/>
+        <location filename="fixtureremap.cpp" line="345"/>
         <source>Invalid operation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="327"/>
+        <location filename="fixtureremap.cpp" line="346"/>
         <source>You are trying to clone a fixture on an address already in use. Please fix the target list first.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="388"/>
-        <location filename="fixtureremap.cpp" line="404"/>
-        <location filename="fixtureremap.cpp" line="427"/>
-        <location filename="fixtureremap.cpp" line="517"/>
+        <location filename="fixtureremap.cpp" line="408"/>
+        <location filename="fixtureremap.cpp" line="424"/>
+        <location filename="fixtureremap.cpp" line="447"/>
+        <location filename="fixtureremap.cpp" line="537"/>
         <source>Invalid selection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="389"/>
-        <location filename="fixtureremap.cpp" line="405"/>
-        <location filename="fixtureremap.cpp" line="518"/>
+        <location filename="fixtureremap.cpp" line="409"/>
+        <location filename="fixtureremap.cpp" line="425"/>
+        <location filename="fixtureremap.cpp" line="538"/>
         <source>Please select a source and a target fixture or channel to perform this operation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="428"/>
+        <location filename="fixtureremap.cpp" line="448"/>
         <source>To perform a fixture remap, please select fixtures on both lists.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="642"/>
+        <location filename="fixtureremap.cpp" line="665"/>
         <source>This might take a while...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixtureremap.cpp" line="642"/>
+        <location filename="fixtureremap.cpp" line="665"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2521,17 +2500,17 @@ The selected file has been moved or deleted.</source>
 <context>
     <name>FixtureSelection</name>
     <message>
-        <location filename="fixtureselection.ui" line="14"/>
+        <location filename="fixtureselection.ui" line="33"/>
         <source>Select fixture</source>
         <translation>Valitse valaisin</translation>
     </message>
     <message>
-        <location filename="fixtureselection.cpp" line="73"/>
+        <location filename="fixtureselection.cpp" line="74"/>
         <source>No fixtures available</source>
         <translation>Ei valaisimia saatavilla</translation>
     </message>
     <message>
-        <location filename="fixtureselection.cpp" line="75"/>
+        <location filename="fixtureselection.cpp" line="76"/>
         <source>Go to the Fixture Manager and add some fixtures first.</source>
         <translation>Mene Laitehallintaan luodaksesi ensin valaisimia.</translation>
     </message>
@@ -2539,48 +2518,48 @@ The selected file has been moved or deleted.</source>
 <context>
     <name>FixtureTreeWidget</name>
     <message>
-        <location filename="fixturetreewidget.cpp" line="65"/>
+        <location filename="fixturetreewidget.cpp" line="66"/>
         <source>Name</source>
         <translation type="unfinished">Nimi</translation>
     </message>
     <message>
-        <location filename="fixturetreewidget.cpp" line="70"/>
+        <location filename="fixturetreewidget.cpp" line="71"/>
         <source>Universe</source>
         <translation type="unfinished">Universumi</translation>
     </message>
     <message>
-        <location filename="fixturetreewidget.cpp" line="75"/>
+        <location filename="fixturetreewidget.cpp" line="76"/>
         <source>Address</source>
         <translation type="unfinished">Osoite</translation>
     </message>
     <message>
-        <location filename="fixturetreewidget.cpp" line="80"/>
+        <location filename="fixturetreewidget.cpp" line="81"/>
         <source>Type</source>
         <translation type="unfinished">Tyyppi</translation>
     </message>
     <message>
-        <location filename="fixturetreewidget.cpp" line="85"/>
+        <location filename="fixturetreewidget.cpp" line="86"/>
         <source>Heads</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="fixturetreewidget.cpp" line="90"/>
+        <location filename="fixturetreewidget.cpp" line="91"/>
         <source>Manufacturer</source>
         <translation type="unfinished">Valmistaja</translation>
     </message>
     <message>
-        <location filename="fixturetreewidget.cpp" line="95"/>
+        <location filename="fixturetreewidget.cpp" line="96"/>
         <source>Model</source>
         <translation type="unfinished">Malli</translation>
     </message>
     <message>
-        <location filename="fixturetreewidget.cpp" line="203"/>
-        <location filename="fixturetreewidget.cpp" line="211"/>
+        <location filename="fixturetreewidget.cpp" line="214"/>
+        <location filename="fixturetreewidget.cpp" line="222"/>
         <source>Generic</source>
         <translation type="unfinished">Yleinen</translation>
     </message>
     <message>
-        <location filename="fixturetreewidget.cpp" line="223"/>
+        <location filename="fixturetreewidget.cpp" line="234"/>
         <source>Head</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2588,7 +2567,7 @@ The selected file has been moved or deleted.</source>
 <context>
     <name>FunctionLiveEditDialog</name>
     <message>
-        <location filename="functionliveeditdialog.cpp" line="45"/>
+        <location filename="functionliveeditdialog.cpp" line="46"/>
         <source>Function Live Edit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2596,195 +2575,195 @@ The selected file has been moved or deleted.</source>
 <context>
     <name>FunctionManager</name>
     <message>
-        <location filename="functionmanager.cpp" line="238"/>
+        <location filename="functionmanager.cpp" line="206"/>
         <source>New &amp;scene</source>
         <translation>Uusi &amp;tilanne</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="244"/>
+        <location filename="functionmanager.cpp" line="212"/>
         <source>New c&amp;haser</source>
         <translation>Uusi &amp;juoksutus</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="250"/>
+        <location filename="functionmanager.cpp" line="218"/>
         <source>New se&amp;quence</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="257"/>
+        <location filename="functionmanager.cpp" line="230"/>
         <source>New c&amp;ollection</source>
         <translation>Uusi &amp;kokoelma</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="263"/>
+        <location filename="functionmanager.cpp" line="224"/>
         <source>New E&amp;FX</source>
         <translation>Uusi &amp;EFX</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="269"/>
+        <location filename="functionmanager.cpp" line="236"/>
         <source>New &amp;RGB Matrix</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="275"/>
+        <location filename="functionmanager.cpp" line="242"/>
         <source>New scrip&amp;t</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="366"/>
+        <location filename="functionmanager.cpp" line="333"/>
         <source>New Scene</source>
         <translation type="unfinished">Uusi tilanne</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="379"/>
+        <location filename="functionmanager.cpp" line="346"/>
         <source>New Chaser</source>
         <translation type="unfinished">Uusi juoksutus</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="402"/>
+        <location filename="functionmanager.cpp" line="369"/>
         <source>New Sequence</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="312"/>
+        <location filename="functionmanager.cpp" line="279"/>
         <source>&amp;Clone</source>
         <translation>K&amp;loonaa</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="281"/>
+        <location filename="functionmanager.cpp" line="248"/>
         <source>New au&amp;dio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="288"/>
+        <location filename="functionmanager.cpp" line="255"/>
         <source>New vid&amp;eo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="294"/>
+        <location filename="functionmanager.cpp" line="261"/>
         <source>New fo&amp;lder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="300"/>
+        <location filename="functionmanager.cpp" line="267"/>
         <source>Select Startup Function</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="305"/>
+        <location filename="functionmanager.cpp" line="272"/>
         <source>Function &amp;Wizard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="318"/>
+        <location filename="functionmanager.cpp" line="285"/>
         <source>&amp;Delete</source>
         <translation>&amp;Poista</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="324"/>
+        <location filename="functionmanager.cpp" line="291"/>
         <source>Select &amp;all</source>
         <translation>Valitse k&amp;aikki</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="415"/>
+        <location filename="functionmanager.cpp" line="383"/>
         <source>New Collection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="428"/>
+        <location filename="functionmanager.cpp" line="396"/>
         <source>New EFX</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="441"/>
+        <location filename="functionmanager.cpp" line="409"/>
         <source>New RGB Matrix</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="454"/>
+        <location filename="functionmanager.cpp" line="422"/>
         <source>New Script</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="466"/>
+        <location filename="functionmanager.cpp" line="432"/>
         <source>Open Audio File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="474"/>
+        <location filename="functionmanager.cpp" line="441"/>
         <source>Audio Files (%1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="476"/>
-        <location filename="functionmanager.cpp" line="529"/>
+        <location filename="functionmanager.cpp" line="443"/>
+        <location filename="functionmanager.cpp" line="497"/>
         <source>All Files (*.*)</source>
         <translation type="unfinished">Kaikki tiedostot (*.*)</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="478"/>
-        <location filename="functionmanager.cpp" line="531"/>
+        <location filename="functionmanager.cpp" line="445"/>
+        <location filename="functionmanager.cpp" line="499"/>
         <source>All Files (*)</source>
         <translation type="unfinished">Kaikki tiedostot (*)</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="500"/>
+        <location filename="functionmanager.cpp" line="465"/>
         <source>Unsupported audio file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="500"/>
+        <location filename="functionmanager.cpp" line="465"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="519"/>
+        <location filename="functionmanager.cpp" line="486"/>
         <source>Open Video File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="527"/>
+        <location filename="functionmanager.cpp" line="495"/>
         <source>Video Files (%1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="553"/>
+        <location filename="functionmanager.cpp" line="519"/>
         <source>Unsupported video file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="553"/>
+        <location filename="functionmanager.cpp" line="519"/>
         <source>This video file cannot be played with QLC+. Sorry.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="614"/>
+        <location filename="functionmanager.cpp" line="593"/>
         <source>Do you want to DELETE folder:</source>
         <oldsource>Do you want to DELETE foler:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="616"/>
+        <location filename="functionmanager.cpp" line="595"/>
         <source>Do you want to DELETE functions:</source>
         <translation>Haluatko POISTAA funktiot:</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="628"/>
+        <location filename="functionmanager.cpp" line="607"/>
         <source>(This will also DELETE: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="640"/>
+        <location filename="functionmanager.cpp" line="619"/>
         <source>Delete Functions</source>
         <translation>Poista funktioita</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="746"/>
+        <location filename="functionmanager.cpp" line="725"/>
         <source>Function</source>
         <translation>Funktio</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="875"/>
+        <location filename="functionmanager.cpp" line="862"/>
         <source> (Copy)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2792,114 +2771,119 @@ The selected file has been moved or deleted.</source>
 <context>
     <name>FunctionSelection</name>
     <message>
-        <location filename="functionselection.ui" line="14"/>
+        <location filename="functionselection.ui" line="33"/>
         <source>Select Function</source>
         <translation>Valitse funktio</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="22"/>
+        <location filename="functionselection.ui" line="41"/>
         <source>All functions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="32"/>
+        <location filename="functionselection.ui" line="51"/>
         <source>Running functions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="74"/>
+        <location filename="functionselection.ui" line="93"/>
         <source>Filter</source>
         <translation>Suodatus</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="80"/>
+        <location filename="functionselection.ui" line="122"/>
+        <source>EFX</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="functionselection.ui" line="129"/>
         <source>Display collections in the list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="90"/>
+        <location filename="functionselection.ui" line="139"/>
         <source>Display scripts in the list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="93"/>
+        <location filename="functionselection.ui" line="142"/>
         <source>Scripts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="100"/>
+        <location filename="functionselection.ui" line="180"/>
+        <source>Sequences</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="functionselection.ui" line="99"/>
         <source>Display chasers in the list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="110"/>
+        <location filename="functionselection.ui" line="170"/>
         <source>Display RGB Matrices in the list</source>
         <oldsource>Display RGB Matrixes in the list</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="113"/>
+        <location filename="functionselection.ui" line="173"/>
         <source>RGB matrices</source>
         <oldsource>RGB matrixes</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="120"/>
+        <location filename="functionselection.ui" line="119"/>
         <source>Display EFX&apos;s in the list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="130"/>
+        <location filename="functionselection.ui" line="109"/>
         <source>Display scenes in the list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="133"/>
+        <location filename="functionselection.ui" line="112"/>
         <source>Scenes</source>
         <translation>Tilanteet</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="140"/>
+        <location filename="functionselection.ui" line="163"/>
         <source>Shows</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="147"/>
+        <location filename="functionselection.ui" line="149"/>
         <source>Audio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="154"/>
+        <location filename="functionselection.ui" line="156"/>
         <source>Video</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="103"/>
+        <location filename="functionselection.ui" line="102"/>
         <source>Chasers</source>
         <translation>Juoksutukset</translation>
     </message>
     <message>
-        <location filename="functionselection.ui" line="123"/>
-        <source>EFX&apos;s</source>
-        <translation>EFX:t</translation>
-    </message>
-    <message>
-        <location filename="functionselection.ui" line="83"/>
+        <location filename="functionselection.ui" line="132"/>
         <source>Collections</source>
         <translation>Kokoelmat</translation>
     </message>
     <message>
-        <location filename="functionselection.cpp" line="77"/>
+        <location filename="functionselection.cpp" line="78"/>
         <source>Functions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionselection.cpp" line="299"/>
+        <location filename="functionselection.cpp" line="315"/>
         <source>&lt;No function&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionselection.cpp" line="307"/>
+        <location filename="functionselection.cpp" line="324"/>
         <source>&lt;Create a new track&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2907,32 +2891,32 @@ The selected file has been moved or deleted.</source>
 <context>
     <name>FunctionWizard</name>
     <message>
-        <location filename="functionwizard.ui" line="14"/>
+        <location filename="functionwizard.ui" line="33"/>
         <source>Function Wizard</source>
         <translation>Funktiovelho</translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="38"/>
+        <location filename="functionwizard.ui" line="57"/>
         <source>Next</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="52"/>
+        <location filename="functionwizard.ui" line="71"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="66"/>
+        <location filename="functionwizard.ui" line="85"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="86"/>
+        <location filename="functionwizard.ui" line="105"/>
         <source>Introduction</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="95"/>
+        <location filename="functionwizard.ui" line="114"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -2949,12 +2933,12 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="188"/>
+        <location filename="functionwizard.ui" line="207"/>
         <source>Fixtures that will be included in automatic function creation</source>
         <translation>Valaisimet, jotka otetaan mukaan automaattiseen funktioiden luontiin</translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="235"/>
+        <location filename="functionwizard.ui" line="254"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -2963,27 +2947,27 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="247"/>
+        <location filename="functionwizard.ui" line="266"/>
         <source>Functions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="254"/>
+        <location filename="functionwizard.ui" line="273"/>
         <source>Results</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="263"/>
+        <location filename="functionwizard.ui" line="282"/>
         <source>Available</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="268"/>
+        <location filename="functionwizard.ui" line="287"/>
         <source>Odd/Even</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="288"/>
+        <location filename="functionwizard.ui" line="307"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -2992,12 +2976,12 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="300"/>
+        <location filename="functionwizard.ui" line="319"/>
         <source>Virtual Console</source>
         <translation type="unfinished">Virtuaalikonsoli</translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="318"/>
+        <location filename="functionwizard.ui" line="337"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -3006,68 +2990,68 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="330"/>
+        <location filename="functionwizard.ui" line="349"/>
         <source>Widgets</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="129"/>
-        <location filename="functionwizard.ui" line="204"/>
+        <location filename="functionwizard.ui" line="148"/>
+        <location filename="functionwizard.ui" line="223"/>
         <source>Fixtures</source>
         <translation>Valaisimet</translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="209"/>
+        <location filename="functionwizard.ui" line="228"/>
         <source>Supported capabilities</source>
         <translation>Tuetut kyvyt</translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="168"/>
+        <location filename="functionwizard.ui" line="187"/>
         <source>Select fixtures that will be included in the automatically created functions</source>
         <translation>Valitse valaisimet, jotka otetaan mukaan automaattiseen funktioiden luontiin</translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="171"/>
+        <location filename="functionwizard.ui" line="190"/>
         <source>Add</source>
         <translation>Lisää</translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="135"/>
+        <location filename="functionwizard.ui" line="154"/>
         <source>Don&apos;t include selected fixtures in the created functions</source>
         <translation>Älä sisällytä valittuja valaisimia luotaviin funktioihin</translation>
     </message>
     <message>
-        <location filename="functionwizard.ui" line="138"/>
+        <location filename="functionwizard.ui" line="157"/>
         <source>Remove</source>
         <translation>Poista</translation>
     </message>
     <message>
-        <location filename="functionwizard.cpp" line="175"/>
+        <location filename="functionwizard.cpp" line="176"/>
         <source>%1 group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionwizard.cpp" line="192"/>
+        <location filename="functionwizard.cpp" line="193"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionwizard.cpp" line="192"/>
+        <location filename="functionwizard.cpp" line="193"/>
         <source>%1 has no capability supported by this wizard.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionwizard.cpp" line="466"/>
+        <location filename="functionwizard.cpp" line="467"/>
         <source>Presets solo frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionwizard.cpp" line="519"/>
+        <location filename="functionwizard.cpp" line="520"/>
         <source>Click &amp; Go RGB</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="functionwizard.cpp" line="523"/>
+        <location filename="functionwizard.cpp" line="524"/>
         <source>Click &amp; Go Macro</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3075,27 +3059,27 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>GrandMasterSlider</name>
     <message>
-        <location filename="grandmasterslider.cpp" line="88"/>
+        <location filename="grandmasterslider.cpp" line="90"/>
         <source>GM</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="grandmasterslider.cpp" line="142"/>
+        <location filename="grandmasterslider.cpp" line="145"/>
         <source>Grand Master &lt;B&gt;limits&lt;/B&gt; the maximum value of</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="grandmasterslider.cpp" line="145"/>
+        <location filename="grandmasterslider.cpp" line="148"/>
         <source>Grand Master &lt;B&gt;reduces&lt;/B&gt; the current value of</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="grandmasterslider.cpp" line="154"/>
+        <location filename="grandmasterslider.cpp" line="157"/>
         <source>intensity channels</source>
         <translation>intensiteettikanaville</translation>
     </message>
     <message>
-        <location filename="grandmasterslider.cpp" line="157"/>
+        <location filename="grandmasterslider.cpp" line="160"/>
         <source>all channels</source>
         <translation>kaikille kanaville</translation>
     </message>
@@ -3103,92 +3087,92 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>InputChannelEditor</name>
     <message>
-        <location filename="inputchanneleditor.ui" line="14"/>
+        <location filename="inputchanneleditor.ui" line="33"/>
         <source>Input Channel Editor</source>
         <translation>Sisääntulokanavan muokkaus</translation>
     </message>
     <message>
-        <location filename="inputchanneleditor.ui" line="20"/>
+        <location filename="inputchanneleditor.ui" line="39"/>
         <source>Input Channel</source>
         <translation>Sisääntulokanava</translation>
     </message>
     <message>
-        <location filename="inputchanneleditor.ui" line="36"/>
+        <location filename="inputchanneleditor.ui" line="55"/>
         <source>Number</source>
         <translation>Numero</translation>
     </message>
     <message>
-        <location filename="inputchanneleditor.ui" line="69"/>
+        <location filename="inputchanneleditor.ui" line="88"/>
         <source>Midi</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputchanneleditor.ui" line="75"/>
+        <location filename="inputchanneleditor.ui" line="94"/>
         <source>Channel</source>
         <translation type="unfinished">Kanava</translation>
     </message>
     <message>
-        <location filename="inputchanneleditor.ui" line="92"/>
+        <location filename="inputchanneleditor.ui" line="111"/>
         <source>Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputchanneleditor.ui" line="102"/>
+        <location filename="inputchanneleditor.ui" line="121"/>
         <source>Parameter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputchanneleditor.ui" line="110"/>
+        <location filename="inputchanneleditor.ui" line="129"/>
         <source>Control Change</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputchanneleditor.ui" line="115"/>
+        <location filename="inputchanneleditor.ui" line="134"/>
         <source>Note On/Off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputchanneleditor.ui" line="120"/>
+        <location filename="inputchanneleditor.ui" line="139"/>
         <source>Note Aftertouch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputchanneleditor.ui" line="125"/>
+        <location filename="inputchanneleditor.ui" line="144"/>
         <source>Program Change</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputchanneleditor.ui" line="130"/>
+        <location filename="inputchanneleditor.ui" line="149"/>
         <source>Channel Aftertouch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputchanneleditor.ui" line="135"/>
+        <location filename="inputchanneleditor.ui" line="154"/>
         <source>Pitch Wheel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputchanneleditor.ui" line="140"/>
+        <location filename="inputchanneleditor.ui" line="159"/>
         <source>Beat Clock: Start/Stop/Continue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputchanneleditor.ui" line="145"/>
+        <location filename="inputchanneleditor.ui" line="164"/>
         <source>Beat Clock: Beat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputchanneleditor.ui" line="166"/>
+        <location filename="inputchanneleditor.ui" line="185"/>
         <source>Note</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputchanneleditor.ui" line="29"/>
+        <location filename="inputchanneleditor.ui" line="48"/>
         <source>Name</source>
         <translation>Nimi</translation>
     </message>
     <message>
-        <location filename="inputchanneleditor.ui" line="56"/>
+        <location filename="inputchanneleditor.ui" line="75"/>
         <source>Type</source>
         <translation>Tyyppi</translation>
     </message>
@@ -3217,24 +3201,24 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputoutputmanager.cpp" line="230"/>
-        <location filename="inputoutputmanager.cpp" line="397"/>
+        <location filename="inputoutputmanager.cpp" line="229"/>
+        <location filename="inputoutputmanager.cpp" line="403"/>
         <source>Universe %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputoutputmanager.cpp" line="355"/>
-        <location filename="inputoutputmanager.cpp" line="374"/>
+        <location filename="inputoutputmanager.cpp" line="361"/>
+        <location filename="inputoutputmanager.cpp" line="380"/>
         <source>Delete Universe</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputoutputmanager.cpp" line="356"/>
+        <location filename="inputoutputmanager.cpp" line="362"/>
         <source>The universe you are trying to delete is patched. Are you sure you want to delete it ?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputoutputmanager.cpp" line="375"/>
+        <location filename="inputoutputmanager.cpp" line="381"/>
         <source>There are some fixtures using the universe you are trying to delete. Are you sure you want to delete it ?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3242,156 +3226,186 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>InputOutputPatchEditor</name>
     <message>
-        <location filename="inputoutputpatcheditor.ui" line="14"/>
+        <location filename="inputoutputpatcheditor.ui" line="33"/>
         <source>Input/Output patch editor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.ui" line="36"/>
+        <location filename="inputoutputpatcheditor.ui" line="55"/>
         <source>Mapping</source>
         <translation type="unfinished">Ohjaus</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.ui" line="61"/>
+        <location filename="inputoutputpatcheditor.ui" line="80"/>
         <source>Plugin</source>
         <translation type="unfinished">Liitännäinen</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.ui" line="66"/>
-        <location filename="inputoutputpatcheditor.ui" line="236"/>
+        <location filename="inputoutputpatcheditor.ui" line="85"/>
+        <location filename="inputoutputpatcheditor.ui" line="281"/>
         <source>Device</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.ui" line="71"/>
-        <location filename="inputoutputpatcheditor.ui" line="241"/>
+        <location filename="inputoutputpatcheditor.ui" line="90"/>
+        <location filename="inputoutputpatcheditor.ui" line="286"/>
         <source>Input</source>
         <translation type="unfinished">Sisääntulo</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.ui" line="79"/>
-        <location filename="inputoutputpatcheditor.ui" line="246"/>
+        <location filename="inputoutputpatcheditor.ui" line="98"/>
+        <location filename="inputoutputpatcheditor.ui" line="291"/>
         <source>Output</source>
         <translation type="unfinished">Ulostulo</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.ui" line="87"/>
+        <location filename="inputoutputpatcheditor.ui" line="106"/>
         <source>Feedback</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.ui" line="123"/>
-        <location filename="inputoutputpatcheditor.ui" line="212"/>
+        <location filename="inputoutputpatcheditor.ui" line="124"/>
+        <source>Configure the selected plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.ui" line="144"/>
+        <source>Enable/Disable USB hotplugging (requires restart)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.ui" line="168"/>
+        <location filename="inputoutputpatcheditor.ui" line="257"/>
         <source>Profile</source>
         <translation type="unfinished">Profiili</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.ui" line="129"/>
+        <location filename="inputoutputpatcheditor.ui" line="174"/>
         <source>Create a new input profile</source>
         <translation type="unfinished">Luo uusi profiili</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.ui" line="149"/>
+        <location filename="inputoutputpatcheditor.ui" line="194"/>
         <source>Delete the selected input profile</source>
         <translation type="unfinished">Poista valittu profiili</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.ui" line="169"/>
+        <location filename="inputoutputpatcheditor.ui" line="214"/>
         <source>Edit the selected input profile</source>
         <translation type="unfinished">Muokkaa valittua profiilia</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.ui" line="217"/>
+        <location filename="inputoutputpatcheditor.ui" line="262"/>
         <source>Type</source>
         <translation type="unfinished">Tyyppi</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.ui" line="226"/>
+        <location filename="inputoutputpatcheditor.ui" line="271"/>
         <source>Audio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="400"/>
-        <location filename="inputoutputpatcheditor.cpp" line="419"/>
-        <location filename="inputoutputpatcheditor.cpp" line="528"/>
+        <location filename="inputoutputpatcheditor.ui" line="299"/>
+        <source>Configuration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.ui" line="305"/>
+        <source>Sample Rate (Hz)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.ui" line="312"/>
+        <source>Channels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.ui" line="319"/>
+        <source>Level Monitor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputoutputpatcheditor.cpp" line="435"/>
+        <location filename="inputoutputpatcheditor.cpp" line="454"/>
+        <location filename="inputoutputpatcheditor.cpp" line="560"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="401"/>
-        <location filename="inputoutputpatcheditor.cpp" line="420"/>
+        <location filename="inputoutputpatcheditor.cpp" line="436"/>
+        <location filename="inputoutputpatcheditor.cpp" line="455"/>
         <source>Output line already assigned</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="529"/>
+        <location filename="inputoutputpatcheditor.cpp" line="561"/>
         <source>An error occurred while trying to open the selected device line.
 This can be caused either by a wrong system configuration or an unsupported input/output mode.
 Please refer to the plugins documentation to troubleshoot this.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="670"/>
-        <location filename="inputoutputpatcheditor.cpp" line="804"/>
+        <location filename="inputoutputpatcheditor.cpp" line="702"/>
+        <location filename="inputoutputpatcheditor.cpp" line="836"/>
         <source>Existing Input Profile</source>
         <translation type="unfinished">Olemassaoleva sisääntuloprofiili</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="671"/>
-        <location filename="inputoutputpatcheditor.cpp" line="805"/>
+        <location filename="inputoutputpatcheditor.cpp" line="703"/>
+        <location filename="inputoutputpatcheditor.cpp" line="837"/>
         <source>An input profile at %1 already exists. Do you wish to overwrite it?</source>
         <translation type="unfinished">Sisääntuloprofiili %1 on jo olemassa. Haluatko ylikirjoittaa sen?</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="680"/>
-        <location filename="inputoutputpatcheditor.cpp" line="814"/>
+        <location filename="inputoutputpatcheditor.cpp" line="712"/>
+        <location filename="inputoutputpatcheditor.cpp" line="846"/>
         <source>Save Input Profile</source>
         <translation type="unfinished">Tallenna sisääntuloprofiili</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="681"/>
-        <location filename="inputoutputpatcheditor.cpp" line="815"/>
+        <location filename="inputoutputpatcheditor.cpp" line="713"/>
+        <location filename="inputoutputpatcheditor.cpp" line="847"/>
         <source>Input Profiles (*.qxi)</source>
         <translation type="unfinished">Sisääntuloprofiilit (*.qxi)</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="694"/>
-        <location filename="inputoutputpatcheditor.cpp" line="831"/>
+        <location filename="inputoutputpatcheditor.cpp" line="726"/>
+        <location filename="inputoutputpatcheditor.cpp" line="863"/>
         <source>Saving failed</source>
         <translation type="unfinished">Tallennus epäonnistui</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="695"/>
+        <location filename="inputoutputpatcheditor.cpp" line="727"/>
         <source>Unable to save the profile to %1</source>
         <translation type="unfinished">Profiilia ei voida tallentaa tiedostoon %1</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="732"/>
+        <location filename="inputoutputpatcheditor.cpp" line="764"/>
         <source>Delete profile</source>
         <translation type="unfinished">Poista profiili</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="733"/>
+        <location filename="inputoutputpatcheditor.cpp" line="765"/>
         <source>Do you wish to permanently delete profile &quot;%1&quot;?</source>
         <translation type="unfinished">Haluat poistaa profiilin %1 pysyvästi?</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="761"/>
+        <location filename="inputoutputpatcheditor.cpp" line="793"/>
         <source>File deletion failed</source>
         <translation type="unfinished">Tiedoston poisto epäonnistui</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="762"/>
+        <location filename="inputoutputpatcheditor.cpp" line="794"/>
         <source>Unable to delete file %1</source>
         <translation type="unfinished">Tiedostoa %1 ei voida poistaa</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="832"/>
+        <location filename="inputoutputpatcheditor.cpp" line="864"/>
         <source>Unable to save %1 to %2</source>
         <translation type="unfinished">Profiilia %1 ei voida tallentaa tiedostoon %2</translation>
     </message>
     <message>
-        <location filename="inputoutputpatcheditor.cpp" line="864"/>
+        <location filename="inputoutputpatcheditor.cpp" line="884"/>
         <source>Default device</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3399,151 +3413,181 @@ Please refer to the plugins documentation to troubleshoot this.</source>
 <context>
     <name>InputProfileEditor</name>
     <message>
-        <location filename="inputprofileeditor.ui" line="14"/>
+        <location filename="inputprofileeditor.ui" line="33"/>
         <source>Input Profile Editor</source>
         <translation>Sisääntulon profiilin muokkaus</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="28"/>
+        <location filename="inputprofileeditor.ui" line="47"/>
         <source>General</source>
         <translation>Yleinen</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="64"/>
+        <location filename="inputprofileeditor.ui" line="53"/>
         <source>Manufacturer</source>
         <translation>Valmistaja</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="34"/>
+        <location filename="inputprofileeditor.ui" line="77"/>
         <source>The name of the company that made the device</source>
         <translation>Laitteen valmistaneen yrityksen nimi</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="71"/>
+        <location filename="inputprofileeditor.ui" line="60"/>
         <source>Model</source>
         <translation>Malli</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="44"/>
+        <location filename="inputprofileeditor.ui" line="87"/>
         <source>The device&apos;s model name</source>
         <translation>Laitteen mallin nimi</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="90"/>
+        <location filename="inputprofileeditor.ui" line="124"/>
         <source>Channels</source>
         <translation>Kanavat</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="115"/>
+        <location filename="inputprofileeditor.ui" line="297"/>
         <source>Channel</source>
         <translation>Kanava</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="120"/>
+        <location filename="inputprofileeditor.ui" line="302"/>
         <source>Name</source>
         <translation>Nimi</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="78"/>
-        <location filename="inputprofileeditor.ui" line="125"/>
+        <location filename="inputprofileeditor.ui" line="67"/>
+        <location filename="inputprofileeditor.ui" line="307"/>
         <source>Type</source>
         <translation>Tyyppi</translation>
     </message>
     <message>
+        <location filename="inputprofileeditor.ui" line="94"/>
+        <source>MIDI Global Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputprofileeditor.ui" line="100"/>
+        <source>When MIDI notes are used, send a Note Off when value is 0</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="inputprofileeditor.ui" line="130"/>
-        <location filename="inputprofileeditor.ui" line="241"/>
+        <location filename="inputprofileeditor.ui" line="312"/>
         <source>Behaviour</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="253"/>
+        <location filename="inputprofileeditor.ui" line="136"/>
         <source>Movement</source>
         <translation type="unfinished">Liike</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="267"/>
+        <location filename="inputprofileeditor.ui" line="150"/>
         <source>Absolute</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="272"/>
+        <location filename="inputprofileeditor.ui" line="155"/>
         <source>Relative</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="280"/>
+        <location filename="inputprofileeditor.ui" line="189"/>
+        <source>Generate an extra Press/Release when toggled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputprofileeditor.ui" line="347"/>
+        <source>Custom feedback</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputprofileeditor.ui" line="359"/>
+        <source>Upper value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputprofileeditor.ui" line="379"/>
+        <source>Lower value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputprofileeditor.ui" line="163"/>
         <source>Sensitivity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="138"/>
+        <location filename="inputprofileeditor.ui" line="327"/>
         <source>Add a new channel description</source>
         <translation>Lisää uusi kanavakuvaus</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="158"/>
+        <location filename="inputprofileeditor.ui" line="212"/>
         <source>Remove the selected channels</source>
         <translation>Poista valitut kanavat</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="178"/>
+        <location filename="inputprofileeditor.ui" line="255"/>
         <source>Edit the selected channel</source>
         <translation>Muokkaa valittua kanavaa</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.ui" line="198"/>
+        <location filename="inputprofileeditor.ui" line="232"/>
         <source>Automatically add channels to the list when you wiggle the device&apos;s controls</source>
         <translation>Lisää kanavia listaan automaattisesti kun laitteen toimintoja käytetään</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="97"/>
+        <location filename="inputprofileeditor.cpp" line="107"/>
         <source>File not writable</source>
         <translation>Tiedoston ei voida kirjoittaa</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="98"/>
+        <location filename="inputprofileeditor.cpp" line="108"/>
         <source>You do not have permission to write to the file %1. You might not be able to save your modifications to the profile.</source>
         <translation>Sinulla ei ole oikeuksia kirjoittaa tiedostoon %1. Et ehkä voi tallettaa muutoksiasi valittuun profiiliin.</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="197"/>
+        <location filename="inputprofileeditor.cpp" line="261"/>
         <source>Missing information</source>
         <translation>Puutteelliset tiedot</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="198"/>
+        <location filename="inputprofileeditor.cpp" line="262"/>
         <source>Manufacturer and/or model name is missing.</source>
         <translation>Valmistaja ja/tai mallinimike puuttuu.</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="228"/>
-        <location filename="inputprofileeditor.cpp" line="324"/>
+        <location filename="inputprofileeditor.cpp" line="311"/>
+        <location filename="inputprofileeditor.cpp" line="410"/>
         <source>Channel already exists</source>
         <translation>Kanava on jo olemassa</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="229"/>
-        <location filename="inputprofileeditor.cpp" line="325"/>
+        <location filename="inputprofileeditor.cpp" line="312"/>
+        <location filename="inputprofileeditor.cpp" line="411"/>
         <source>Channel %1 already exists</source>
         <translation>Kanava %1 on jo olemassa</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="251"/>
+        <location filename="inputprofileeditor.cpp" line="333"/>
         <source>Delete channels</source>
         <translation>Poista kanavia</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="252"/>
+        <location filename="inputprofileeditor.cpp" line="334"/>
         <source>Delete all %1 selected channels?</source>
         <translation>Poistetaanko kaikki %1 valittua kanavaa?</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="365"/>
+        <location filename="inputprofileeditor.cpp" line="451"/>
         <source>Channel wizard activated</source>
         <translation>Kanavavelho on aktiivisena</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="366"/>
+        <location filename="inputprofileeditor.cpp" line="452"/>
         <source>You have enabled the input channel wizard. After clicking OK, wiggle your mapped input profile&apos;s controls. They should appear into the list. Click the wizard button again to stop channel auto-detection.
 
 Note that the wizard cannot tell the difference between a knob and a slider so you will have to do the change manually.</source>
@@ -3552,122 +3596,222 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
 Huomaa, että velho ei osaa erottaa pyöritettävää nuppia ja liukua toisistaan, joten sinun täytyy tehdä vastaavat muutokset käsin.</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="493"/>
+        <location filename="inputprofileeditor.cpp" line="600"/>
         <source>Button %1</source>
         <translation>Nappi %1</translation>
     </message>
     <message>
-        <location filename="inputprofileeditor.cpp" line="533"/>
+        <location filename="inputprofileeditor.cpp" line="640"/>
         <source>Slider %1</source>
         <translation>Liuku %1</translation>
     </message>
 </context>
 <context>
+    <name>InputSelectionWidget</name>
+    <message>
+        <location filename="inputselectionwidget.ui" line="60"/>
+        <source>Key combination</source>
+        <translation type="unfinished">Näppäinyhdistelmä</translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="78"/>
+        <source>Reset the keyboard shortcut key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="98"/>
+        <source>Set a key combination for this widget</source>
+        <translation type="unfinished">Aseta näppäinyhdistelmä tälle napille</translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="118"/>
+        <source>Keyboard combination that toggles this widget</source>
+        <translation type="unfinished">Näppäinyhdistelmä, joka kytkee tämän napin päälle/pois</translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="137"/>
+        <source>External Input</source>
+        <translation type="unfinished">Ulkoinen ohjaus</translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="263"/>
+        <source>When toggled, you can click an external button to assign it to this widget.</source>
+        <translation type="unfinished">Alaskytkettynä voit painaa ulkoista kontrollinappia kytkeäksesi sen tähän virtuaalinappiin.</translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="266"/>
+        <source>Auto Detect</source>
+        <translation type="unfinished">Automaattinen tunnistus</translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="155"/>
+        <source>Input Universe</source>
+        <translation type="unfinished">Sisääntulon universumi</translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="231"/>
+        <source>Input Channel</source>
+        <translation type="unfinished">Sisääntulokanava</translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="162"/>
+        <source>The input universe that sends data to this widget</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="240"/>
+        <source>Custom Feedback</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="221"/>
+        <source>The particular input channel within the input universe that sends data to this widget</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="288"/>
+        <source>Choose an external input universe &amp; channel that this widget should listen to.</source>
+        <translation type="unfinished">Valitse ulkoinen sisääntulouniversumi ja -kanava, jota tämä nappi kuuntelee.</translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="291"/>
+        <source>Choose...</source>
+        <translation type="unfinished">Valitse...</translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="172"/>
+        <source>Custom feedback</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="184"/>
+        <source>Lower value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="inputselectionwidget.ui" line="211"/>
+        <source>Upper value</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Monitor</name>
     <message>
-        <location filename="monitor/monitor.cpp" line="277"/>
+        <location filename="monitor/monitor.cpp" line="337"/>
         <source>Fixture Monitor</source>
         <translation>Valaisinten monitorointi</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="314"/>
+        <location filename="monitor/monitor.cpp" line="377"/>
         <source>2D View</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="321"/>
+        <location filename="monitor/monitor.cpp" line="384"/>
         <source>Font</source>
         <translation>Kirjasin</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="330"/>
+        <location filename="monitor/monitor.cpp" line="393"/>
         <source>DMX Channels</source>
         <translation>DMX-kanavat</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="331"/>
+        <location filename="monitor/monitor.cpp" line="394"/>
         <source>Show absolute DMX channel numbers</source>
         <translation>Näytä absoluuttiset DMX-kanavien numerot</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="341"/>
+        <location filename="monitor/monitor.cpp" line="404"/>
         <source>Relative Channels</source>
         <translation>Suhteelliset kanavat</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="342"/>
+        <location filename="monitor/monitor.cpp" line="405"/>
         <source>Show channel numbers relative to fixture</source>
         <translation>Näytä kanavanumerot suhteessa valaisimeen</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="358"/>
+        <location filename="monitor/monitor.cpp" line="421"/>
         <source>DMX Values</source>
         <translation>DMX-arvot</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="359"/>
+        <location filename="monitor/monitor.cpp" line="422"/>
         <source>Show DMX values 0-255</source>
         <translation>Näytä DMX-arvot 0-255</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="370"/>
+        <location filename="monitor/monitor.cpp" line="433"/>
         <source>Percent Values</source>
         <translation>Prosenttiarvot</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="371"/>
+        <location filename="monitor/monitor.cpp" line="434"/>
         <source>Show percentage values 0-100%</source>
         <translation>Näytä prosentuaaliset arvot 0-100%</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="384"/>
+        <location filename="monitor/monitor.cpp" line="447"/>
         <source>Universe</source>
         <oldsource>Universe:</oldsource>
         <translation type="unfinished">Universumi</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="389"/>
+        <location filename="monitor/monitor.cpp" line="452"/>
         <source>All universes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="411"/>
+        <location filename="monitor/monitor.cpp" line="468"/>
+        <location filename="monitor/monitor.cpp" line="549"/>
+        <source>Close</source>
+        <translation type="unfinished">Sulje</translation>
+    </message>
+    <message>
+        <location filename="monitor/monitor.cpp" line="469"/>
+        <location filename="monitor/monitor.cpp" line="550"/>
+        <source>Close this window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="monitor/monitor.cpp" line="488"/>
         <source>DMX View</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="417"/>
+        <location filename="monitor/monitor.cpp" line="494"/>
         <source>Size</source>
         <oldsource>Size:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="441"/>
+        <location filename="monitor/monitor.cpp" line="518"/>
         <source>Meters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="442"/>
+        <location filename="monitor/monitor.cpp" line="519"/>
         <source>Feet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="451"/>
+        <location filename="monitor/monitor.cpp" line="528"/>
         <source>Add fixture</source>
         <translation type="unfinished">Lisää valaisin</translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="453"/>
+        <location filename="monitor/monitor.cpp" line="530"/>
         <source>Remove fixture</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="458"/>
+        <location filename="monitor/monitor.cpp" line="535"/>
         <source>Set a background picture</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="monitor/monitor.cpp" line="461"/>
+        <location filename="monitor/monitor.cpp" line="538"/>
         <source>Show/hide labels</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3675,32 +3819,32 @@ Huomaa, että velho ei osaa erottaa pyöritettävää nuppia ja liukua toisistaa
 <context>
     <name>MonitorBackgroundSelection</name>
     <message>
-        <location filename="monitor/monitorbackgroundselection.ui" line="14"/>
+        <location filename="monitor/monitorbackgroundselection.ui" line="33"/>
         <source>Background Picture Selection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="monitor/monitorbackgroundselection.ui" line="24"/>
+        <location filename="monitor/monitorbackgroundselection.ui" line="43"/>
         <source>No background</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="monitor/monitorbackgroundselection.ui" line="33"/>
+        <location filename="monitor/monitorbackgroundselection.ui" line="52"/>
         <source>Common background</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="monitor/monitorbackgroundselection.ui" line="69"/>
+        <location filename="monitor/monitorbackgroundselection.ui" line="88"/>
         <source>Custom background list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="monitor/monitorbackgroundselection.ui" line="79"/>
+        <location filename="monitor/monitorbackgroundselection.ui" line="98"/>
         <source>Function</source>
         <translation type="unfinished">Funktio</translation>
     </message>
     <message>
-        <location filename="monitor/monitorbackgroundselection.ui" line="84"/>
+        <location filename="monitor/monitorbackgroundselection.ui" line="103"/>
         <source>Background</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3720,51 +3864,51 @@ Huomaa, että velho ei osaa erottaa pyöritettävää nuppia ja liukua toisistaa
 <context>
     <name>MonitorFixturePropertiesEditor</name>
     <message>
-        <location filename="monitor/monitorfixturepropertieseditor.ui" line="14"/>
+        <location filename="monitor/monitorfixturepropertieseditor.ui" line="33"/>
         <source>Monitor Fixture Properties Editor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="monitor/monitorfixturepropertieseditor.ui" line="30"/>
+        <location filename="monitor/monitorfixturepropertieseditor.ui" line="49"/>
         <source>Gel color</source>
         <oldsource>Gel color:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="monitor/monitorfixturepropertieseditor.ui" line="37"/>
+        <location filename="monitor/monitorfixturepropertieseditor.ui" line="56"/>
         <source>Position and rotation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="monitor/monitorfixturepropertieseditor.ui" line="53"/>
+        <location filename="monitor/monitorfixturepropertieseditor.ui" line="72"/>
         <source>Vertical</source>
         <oldsource>Vertical:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="monitor/monitorfixturepropertieseditor.ui" line="60"/>
+        <location filename="monitor/monitorfixturepropertieseditor.ui" line="79"/>
         <source>Horizontal</source>
         <oldsource>Horizontal:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="monitor/monitorfixturepropertieseditor.ui" line="77"/>
+        <location filename="monitor/monitorfixturepropertieseditor.ui" line="96"/>
         <source>Rotation</source>
         <oldsource>Rotation:</oldsource>
         <translation type="unfinished">Kääntö</translation>
     </message>
     <message>
-        <location filename="monitor/monitorfixturepropertieseditor.ui" line="99"/>
+        <location filename="monitor/monitorfixturepropertieseditor.ui" line="118"/>
         <source>Set the color of the gel installed on the fixture</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="monitor/monitorfixturepropertieseditor.ui" line="112"/>
+        <location filename="monitor/monitorfixturepropertieseditor.ui" line="131"/>
         <source>Reset the current color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="monitor/monitorfixturepropertieseditor.ui" line="152"/>
+        <location filename="monitor/monitorfixturepropertieseditor.ui" line="171"/>
         <source>Fixture name:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3801,211 +3945,211 @@ Huomaa, että velho ei osaa erottaa pyöritettävää nuppia ja liukua toisistaa
 <context>
     <name>PaletteGenerator</name>
     <message>
-        <location filename="palettegenerator.cpp" line="100"/>
+        <location filename="palettegenerator.cpp" line="99"/>
         <source>Primary colours</source>
         <oldsource>Primary colors</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="101"/>
+        <location filename="palettegenerator.cpp" line="100"/>
         <source>16 Colours</source>
         <oldsource>16 Colors</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="102"/>
+        <location filename="palettegenerator.cpp" line="101"/>
         <source>Shutter macros</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="103"/>
+        <location filename="palettegenerator.cpp" line="102"/>
         <source>Gobo macros</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="104"/>
+        <location filename="palettegenerator.cpp" line="103"/>
         <source>Colour macros</source>
         <oldsource>Color macros</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="105"/>
+        <location filename="palettegenerator.cpp" line="104"/>
         <source>Animations</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="108"/>
+        <location filename="palettegenerator.cpp" line="107"/>
         <source>Unknown</source>
         <translation type="unfinished">Tuntematon</translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="257"/>
+        <location filename="palettegenerator.cpp" line="255"/>
         <source>%1 - %2 (Even)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="258"/>
+        <location filename="palettegenerator.cpp" line="256"/>
         <source>%1 - %2 (Odd)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="282"/>
+        <location filename="palettegenerator.cpp" line="280"/>
         <source>Black</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="282"/>
+        <location filename="palettegenerator.cpp" line="280"/>
         <source>Dark Blue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="282"/>
+        <location filename="palettegenerator.cpp" line="280"/>
         <source>Blue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="282"/>
+        <location filename="palettegenerator.cpp" line="280"/>
         <source>Dark Green</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="283"/>
+        <location filename="palettegenerator.cpp" line="281"/>
         <source>Dark Cyan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="283"/>
+        <location filename="palettegenerator.cpp" line="281"/>
         <source>Green</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="283"/>
+        <location filename="palettegenerator.cpp" line="281"/>
         <source>Cyan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="283"/>
+        <location filename="palettegenerator.cpp" line="281"/>
         <source>Dark Red</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="284"/>
+        <location filename="palettegenerator.cpp" line="282"/>
         <source>Dark Magenta</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="284"/>
+        <location filename="palettegenerator.cpp" line="282"/>
         <source>Dark Yellow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="284"/>
+        <location filename="palettegenerator.cpp" line="282"/>
         <source>Dark Gray</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="284"/>
+        <location filename="palettegenerator.cpp" line="282"/>
         <source>Light Gray</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="285"/>
+        <location filename="palettegenerator.cpp" line="283"/>
         <source>Red</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="285"/>
+        <location filename="palettegenerator.cpp" line="283"/>
         <source>Magenta</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="285"/>
+        <location filename="palettegenerator.cpp" line="283"/>
         <source>Yellow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="285"/>
+        <location filename="palettegenerator.cpp" line="283"/>
         <source>White</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="337"/>
+        <location filename="palettegenerator.cpp" line="360"/>
         <source>%1 %2 - %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="341"/>
+        <location filename="palettegenerator.cpp" line="364"/>
         <source>%1 %2 - %3 (Even)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="342"/>
+        <location filename="palettegenerator.cpp" line="365"/>
         <source>%1 %2 - %3 (Odd)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="404"/>
+        <location filename="palettegenerator.cpp" line="427"/>
         <source> - Even</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="405"/>
+        <location filename="palettegenerator.cpp" line="428"/>
         <source> - Odd</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="422"/>
+        <location filename="palettegenerator.cpp" line="443"/>
         <source> - RGB Group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="428"/>
+        <location filename="palettegenerator.cpp" line="449"/>
         <source>Animation %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="447"/>
+        <location filename="palettegenerator.cpp" line="468"/>
         <source>%1 chaser - %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="519"/>
+        <location filename="palettegenerator.cpp" line="540"/>
         <source>Red scene</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="520"/>
+        <location filename="palettegenerator.cpp" line="541"/>
         <source>Green scene</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="521"/>
+        <location filename="palettegenerator.cpp" line="542"/>
         <source>Blue scene</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="522"/>
+        <location filename="palettegenerator.cpp" line="543"/>
         <source>Cyan scene</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="523"/>
+        <location filename="palettegenerator.cpp" line="544"/>
         <source>Magenta scene</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="524"/>
+        <location filename="palettegenerator.cpp" line="545"/>
         <source>Yellow scene</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="525"/>
+        <location filename="palettegenerator.cpp" line="546"/>
         <source>White scene</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="palettegenerator.cpp" line="532"/>
-        <location filename="palettegenerator.cpp" line="534"/>
+        <location filename="palettegenerator.cpp" line="553"/>
+        <location filename="palettegenerator.cpp" line="555"/>
         <source>Scene</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4026,7 +4170,7 @@ Huomaa, että velho ei osaa erottaa pyöritettävää nuppia ja liukua toisistaa
 <context>
     <name>PositionTool</name>
     <message>
-        <location filename="positiontool.ui" line="14"/>
+        <location filename="positiontool.ui" line="33"/>
         <source>PositonTool</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4034,385 +4178,434 @@ Huomaa, että velho ei osaa erottaa pyöritettävää nuppia ja liukua toisistaa
 <context>
     <name>QObject</name>
     <message>
-        <location filename="app.cpp" line="70"/>
+        <location filename="app.cpp" line="85"/>
         <source>Operate</source>
         <translation>Käyttötila</translation>
     </message>
     <message>
-        <location filename="app.cpp" line="71"/>
+        <location filename="app.cpp" line="86"/>
         <source>Design</source>
         <translation>Suunnittelu</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadfixture.cpp" line="233"/>
-        <location filename="virtualconsole/vcxypadfixture.cpp" line="268"/>
+        <location filename="virtualconsole/vcxypadfixture.cpp" line="270"/>
+        <location filename="virtualconsole/vcxypadfixture.cpp" line="346"/>
         <source>Reversed</source>
         <translation>Käänteinen</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcframepageshortcut.cpp" line="49"/>
+        <source>Page: %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>RGBMatrixEditor</name>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="14"/>
+        <location filename="rgbmatrixeditor.ui" line="33"/>
         <source>RGB Matrix Editor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="364"/>
+        <location filename="rgbmatrixeditor.ui" line="508"/>
         <source>RGB matrix name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="377"/>
+        <location filename="rgbmatrixeditor.ui" line="521"/>
         <source>The name of this RGB matrix function</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="408"/>
+        <location filename="rgbmatrixeditor.ui" line="552"/>
         <source>Save this matrix to a sequence</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="428"/>
+        <location filename="rgbmatrixeditor.ui" line="572"/>
         <source>Toggle between circle and square preview</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="474"/>
+        <location filename="rgbmatrixeditor.ui" line="618"/>
         <source>Fixture group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="487"/>
+        <location filename="rgbmatrixeditor.ui" line="631"/>
         <source>The fixture group to use as the pixel matrix</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="28"/>
+        <location filename="rgbmatrixeditor.ui" line="56"/>
         <source>Pattern</source>
         <translation type="unfinished">Kuvio</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="74"/>
+        <location filename="rgbmatrixeditor.ui" line="98"/>
         <source>The RGB matrix pattern</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="96"/>
+        <location filename="rgbmatrixeditor.ui" line="173"/>
         <source>Animated Text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="108"/>
+        <location filename="rgbmatrixeditor.ui" line="194"/>
         <source>Text to display</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="115"/>
+        <location filename="rgbmatrixeditor.ui" line="201"/>
         <source>Choose the font</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="50"/>
-        <source>Reset end colour</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="rgbmatrixeditor.ui" line="84"/>
+        <location filename="rgbmatrixeditor.ui" line="152"/>
         <source>Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="135"/>
+        <location filename="rgbmatrixeditor.ui" line="221"/>
         <source>Animation style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="145"/>
+        <location filename="rgbmatrixeditor.ui" line="231"/>
         <source>Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="184"/>
+        <location filename="rgbmatrixeditor.ui" line="279"/>
         <source>Offset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="190"/>
+        <location filename="rgbmatrixeditor.ui" line="291"/>
         <source>X</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="197"/>
+        <location filename="rgbmatrixeditor.ui" line="298"/>
         <source>Shift the pattern X pixels horizontally</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="210"/>
+        <location filename="rgbmatrixeditor.ui" line="311"/>
         <source>Y</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="217"/>
+        <location filename="rgbmatrixeditor.ui" line="318"/>
         <source>Shift the pattern Y pixels vertically</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="314"/>
+        <location filename="rgbmatrixeditor.ui" line="376"/>
+        <source>Dimmer control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="373"/>
+        <source>Set the dimmer channel of fixtures to 100%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="71"/>
+        <source>Matrix end color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="87"/>
+        <source>Reset the end color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="105"/>
+        <source>Matrix start color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="118"/>
+        <source>Blend mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="126"/>
+        <source>Default (HTP)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="131"/>
+        <source>Mask</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="136"/>
+        <source>Additive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="141"/>
+        <source>Subtractive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="361"/>
+        <source>Other Controls</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.ui" line="452"/>
         <source>Run Order</source>
         <translation type="unfinished">Ajojärjestys</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="320"/>
+        <location filename="rgbmatrixeditor.ui" line="464"/>
         <source>Run through over and over again</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="323"/>
+        <location filename="rgbmatrixeditor.ui" line="467"/>
         <source>Loop</source>
         <translation type="unfinished">Silmukka</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="333"/>
+        <location filename="rgbmatrixeditor.ui" line="477"/>
         <source>Run through once and stop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="336"/>
+        <location filename="rgbmatrixeditor.ui" line="480"/>
         <source>Single Shot</source>
         <translation type="unfinished">Kertalaukaus</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="343"/>
+        <location filename="rgbmatrixeditor.ui" line="487"/>
         <source>First run forwards, then backwards, again forwards, etc.</source>
         <translation type="unfinished">Aja ensin alusta loppuun, sitten lopusta alkuun, taas alusta loppuun, jne.</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="346"/>
+        <location filename="rgbmatrixeditor.ui" line="490"/>
         <source>Ping Pong</source>
         <translation type="unfinished">Edestakaisin</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="260"/>
+        <location filename="rgbmatrixeditor.ui" line="392"/>
         <source>Direction</source>
         <translation type="unfinished">Suunta</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="61"/>
-        <source>Matrix start colour</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="rgbmatrixeditor.ui" line="34"/>
-        <source>Matrix end colour</source>
-        <oldsource>Matrix end color</oldsource>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="rgbmatrixeditor.ui" line="266"/>
+        <location filename="rgbmatrixeditor.ui" line="404"/>
         <source>Start from the first step</source>
         <translation type="unfinished">Aloita ensimmäisestä askeleesta</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="269"/>
+        <location filename="rgbmatrixeditor.ui" line="407"/>
         <source>Forward</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="279"/>
+        <location filename="rgbmatrixeditor.ui" line="417"/>
         <source>Start from the last step</source>
         <translation type="unfinished">Aloita viimeisestä askeleesta</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="282"/>
+        <location filename="rgbmatrixeditor.ui" line="420"/>
         <source>Backward</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="388"/>
+        <location filename="rgbmatrixeditor.ui" line="532"/>
         <source>Show/Hide speed dial window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="448"/>
+        <location filename="rgbmatrixeditor.ui" line="592"/>
         <source>See what the RGB Matrix does when it is run</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="263"/>
+        <location filename="rgbmatrixeditor.cpp" line="273"/>
         <source>None</source>
         <translation type="unfinished">Ei mitään</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="477"/>
+        <location filename="rgbmatrixeditor.cpp" line="489"/>
         <source>No fixture group to control</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="783"/>
+        <location filename="rgbmatrixeditor.cpp" line="768"/>
         <source>Select image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="785"/>
+        <location filename="rgbmatrixeditor.cpp" line="770"/>
         <source>Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="rgbmatrixeditor.cpp" line="1017"/>
+        <source>Sequence</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>SceneEditor</name>
     <message>
-        <location filename="sceneeditor.ui" line="20"/>
+        <location filename="sceneeditor.ui" line="39"/>
         <source>Scene editor</source>
         <translation>Tilanteen muokkaus</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="45"/>
-        <location filename="sceneeditor.ui" line="48"/>
+        <location filename="sceneeditor.ui" line="64"/>
+        <location filename="sceneeditor.ui" line="67"/>
         <source>General</source>
         <translation>Yleinen</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="101"/>
+        <location filename="sceneeditor.ui" line="120"/>
         <source>Enable all channel groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="67"/>
+        <location filename="sceneeditor.ui" line="86"/>
         <source>Disable all channel groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="190"/>
+        <location filename="sceneeditor.ui" line="209"/>
         <source>Channel groups used in this scene</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="143"/>
+        <location filename="sceneeditor.ui" line="162"/>
         <source>Fixtures used in this scene</source>
         <oldsource>Name of this scene</oldsource>
         <translation type="unfinished">Tämän tilanteen nimi</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="84"/>
+        <location filename="sceneeditor.ui" line="103"/>
         <source>Add a new fixture to this scene</source>
         <translation>Lisää tilanteeseen uusi valaisin</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="151"/>
+        <location filename="sceneeditor.ui" line="170"/>
         <source>Remove the selected fixture(s) from this scene</source>
         <translation>Poista valitut valaisimet tilanteesta</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="222"/>
+        <location filename="sceneeditor.ui" line="241"/>
         <source>Enable all fixtures&apos; channels</source>
         <translation>Käytä kaikkien valaisinten kanavia</translation>
     </message>
     <message>
-        <location filename="sceneeditor.ui" line="205"/>
+        <location filename="sceneeditor.ui" line="224"/>
         <source>Disable all fixtures&apos; channels</source>
         <translation>Kytke pois kaikkien valaisinten kanavat</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="156"/>
+        <location filename="sceneeditor.cpp" line="169"/>
         <source>Enable all channels in current fixture</source>
         <translation>Käytä kaikkia valitun valaisimen kanavia</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="158"/>
+        <location filename="sceneeditor.cpp" line="171"/>
         <source>Disable all channels in current fixture</source>
         <translation>Poista käytöstä valitun valaisimen kaikki kanavat</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="160"/>
+        <location filename="sceneeditor.cpp" line="173"/>
         <source>Copy current values to clipboard</source>
         <translation>Kopio nykyiset arvot leikepöydälle</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="162"/>
+        <location filename="sceneeditor.cpp" line="175"/>
         <source>Paste clipboard values to current fixture</source>
         <translation>Liitä leikepöydälle tallennetut arvot nykyiselle valaisimelle</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="164"/>
+        <location filename="sceneeditor.cpp" line="177"/>
         <source>Copy current values to all fixtures</source>
         <translation>Kopioi nykyisen valaisimen arvot kaikkiin valittuihin valaisimiin</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="166"/>
+        <location filename="sceneeditor.cpp" line="179"/>
         <source>Color tool for CMY/RGB-capable fixtures</source>
         <translation>Värityökalu CMY/RGB-toiminnolla varustettuja valaisimia varten</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="168"/>
+        <location filename="sceneeditor.cpp" line="181"/>
         <source>Position tool for moving heads/scanners</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="170"/>
+        <location filename="sceneeditor.cpp" line="183"/>
         <source>Switch between tab view and all channels view</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="172"/>
+        <location filename="sceneeditor.cpp" line="185"/>
         <source>Toggle blind mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="174"/>
+        <location filename="sceneeditor.cpp" line="187"/>
         <source>Show/Hide speed dial window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="176"/>
+        <location filename="sceneeditor.cpp" line="189"/>
         <source>Clone this scene and append as a new step to the selected chaser</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="178"/>
+        <location filename="sceneeditor.cpp" line="191"/>
         <source>Go to next fixture tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="182"/>
+        <location filename="sceneeditor.cpp" line="195"/>
         <source>Go to previous fixture tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="204"/>
+        <location filename="sceneeditor.cpp" line="218"/>
         <source>None</source>
         <translation type="unfinished">Ei mitään</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="216"/>
+        <location filename="sceneeditor.cpp" line="230"/>
         <source>Scene name:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="877"/>
-        <location filename="sceneeditor.cpp" line="878"/>
+        <location filename="sceneeditor.cpp" line="905"/>
+        <location filename="sceneeditor.cpp" line="906"/>
         <source>All fixtures</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1394"/>
-        <location filename="sceneeditor.cpp" line="1395"/>
+        <location filename="sceneeditor.cpp" line="1442"/>
+        <location filename="sceneeditor.cpp" line="1443"/>
         <source>Channels Groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1173"/>
-        <location filename="sceneeditor.cpp" line="1174"/>
+        <location filename="sceneeditor.cpp" line="1215"/>
+        <location filename="sceneeditor.cpp" line="1216"/>
         <source>Generic</source>
         <translation>Yleinen</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1242"/>
+        <location filename="sceneeditor.cpp" line="1287"/>
         <source>Remove fixtures</source>
         <translation>Poista valaisimia</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1243"/>
+        <location filename="sceneeditor.cpp" line="1288"/>
         <source>Do you want to remove the selected fixture(s)?</source>
         <translation>Haluatko poistaa valitut valaisimet?</translation>
     </message>
@@ -4420,162 +4613,172 @@ Huomaa, että velho ei osaa erottaa pyöritettävää nuppia ja liukua toisistaa
 <context>
     <name>ScriptEditor</name>
     <message>
-        <location filename="scripteditor.ui" line="14"/>
+        <location filename="scripteditor.ui" line="33"/>
         <source>Script editor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scripteditor.ui" line="156"/>
+        <location filename="scripteditor.ui" line="175"/>
         <source>Test the execution of this script</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scripteditor.ui" line="176"/>
+        <location filename="scripteditor.ui" line="195"/>
         <source>Script name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scripteditor.ui" line="36"/>
+        <location filename="scripteditor.ui" line="55"/>
         <source>Add new command to cursor position</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scripteditor.ui" line="66"/>
+        <location filename="scripteditor.ui" line="85"/>
         <source>Cut selected text to clipboard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scripteditor.ui" line="83"/>
+        <location filename="scripteditor.ui" line="102"/>
         <source>Copy selected text to clipboard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scripteditor.ui" line="100"/>
+        <location filename="scripteditor.ui" line="119"/>
         <source>Paste text from clipboard at cursor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scripteditor.ui" line="124"/>
+        <location filename="scripteditor.ui" line="143"/>
         <source>Undo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scripteditor.ui" line="195"/>
+        <location filename="scripteditor.ui" line="214"/>
         <source>Check the syntax of this script</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="86"/>
+        <location filename="scripteditor.cpp" line="89"/>
         <source>Start Function</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="90"/>
+        <location filename="scripteditor.cpp" line="93"/>
         <source>Stop Function</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="94"/>
+        <location filename="scripteditor.cpp" line="97"/>
+        <source>Blackout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="scripteditor.cpp" line="101"/>
         <source>Wait</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="98"/>
+        <location filename="scripteditor.cpp" line="105"/>
         <source>Wait Key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="102"/>
+        <location filename="scripteditor.cpp" line="109"/>
         <source>Set HTP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="106"/>
+        <location filename="scripteditor.cpp" line="113"/>
         <source>Set LTP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="110"/>
+        <location filename="scripteditor.cpp" line="117"/>
         <source>Set Fixture</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="114"/>
+        <location filename="scripteditor.cpp" line="121"/>
         <source>System Command</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="118"/>
+        <location filename="scripteditor.cpp" line="125"/>
         <source>Comment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="122"/>
+        <location filename="scripteditor.cpp" line="129"/>
         <source>Random Number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="126"/>
+        <location filename="scripteditor.cpp" line="133"/>
         <source>File Path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="152"/>
+        <location filename="scripteditor.cpp" line="160"/>
         <source>Open Executable File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="157"/>
+        <location filename="scripteditor.cpp" line="165"/>
         <source>All Files (*.*)</source>
         <translation type="unfinished">Kaikki tiedostot (*.*)</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="159"/>
+        <location filename="scripteditor.cpp" line="167"/>
         <source>All Files (*)</source>
         <translation type="unfinished">Kaikki tiedostot (*)</translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="252"/>
+        <location filename="scripteditor.cpp" line="270"/>
+        <source>Blackout state</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="scripteditor.cpp" line="297"/>
         <source>Enter the desired time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="336"/>
+        <location filename="scripteditor.cpp" line="381"/>
         <source>Invalid executable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="336"/>
+        <location filename="scripteditor.cpp" line="381"/>
         <source>Please select an executable file !</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="342"/>
+        <location filename="scripteditor.cpp" line="387"/>
         <source>Enter the program arguments (leave empty if not required)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="378"/>
+        <location filename="scripteditor.cpp" line="423"/>
         <source>Enter the range for the randomization</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="385"/>
+        <location filename="scripteditor.cpp" line="430"/>
         <source>Minimum value</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="386"/>
+        <location filename="scripteditor.cpp" line="431"/>
         <source>Maximum value</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="426"/>
+        <location filename="scripteditor.cpp" line="471"/>
         <source>No syntax errors found in the script</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="433"/>
+        <location filename="scripteditor.cpp" line="478"/>
         <source>Syntax error at line %1:
 %2
 
@@ -4583,12 +4786,12 @@ Huomaa, että velho ei osaa erottaa pyöritettävää nuppia ja liukua toisistaa
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="436"/>
+        <location filename="scripteditor.cpp" line="481"/>
         <source>Script check results</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="scripteditor.cpp" line="362"/>
+        <location filename="scripteditor.cpp" line="407"/>
         <source>Add Comment</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4596,17 +4799,22 @@ Huomaa, että velho ei osaa erottaa pyöritettävää nuppia ja liukua toisistaa
 <context>
     <name>SelectInputChannel</name>
     <message>
-        <location filename="selectinputchannel.ui" line="14"/>
+        <location filename="selectinputchannel.ui" line="33"/>
         <source>Select input channel</source>
         <translation>Valitse sisääntulokanava</translation>
     </message>
     <message>
-        <location filename="selectinputchannel.ui" line="24"/>
+        <location filename="selectinputchannel.ui" line="43"/>
         <source>Name</source>
         <translation>Nimi</translation>
     </message>
     <message>
-        <location filename="selectinputchannel.cpp" line="169"/>
+        <location filename="selectinputchannel.ui" line="51"/>
+        <source>Allow unpatched universes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="selectinputchannel.cpp" line="210"/>
         <source>&lt;Double click here to enter channel number manually&gt;</source>
         <translation>&lt;Kaksoisnapauta tähän kirjoittaaksesi kanavanumeron käsin&gt;</translation>
     </message>
@@ -4614,47 +4822,47 @@ Huomaa, että velho ei osaa erottaa pyöritettävää nuppia ja liukua toisistaa
 <context>
     <name>ShowEditor</name>
     <message>
-        <location filename="showmanager/showeditor.ui" line="14"/>
+        <location filename="showmanager/showeditor.ui" line="33"/>
         <source>Show editor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showeditor.ui" line="26"/>
+        <location filename="showmanager/showeditor.ui" line="45"/>
         <source>Show name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showeditor.ui" line="33"/>
+        <location filename="showmanager/showeditor.ui" line="52"/>
         <source>Name of the function being edited</source>
         <translation type="unfinished">Muokattavan funktion nimi</translation>
     </message>
     <message>
-        <location filename="showmanager/showeditor.ui" line="53"/>
+        <location filename="showmanager/showeditor.ui" line="72"/>
         <source>Function</source>
         <translation type="unfinished">Funktio</translation>
     </message>
     <message>
-        <location filename="showmanager/showeditor.ui" line="58"/>
+        <location filename="showmanager/showeditor.ui" line="77"/>
         <source>Steps</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showeditor.ui" line="66"/>
+        <location filename="showmanager/showeditor.ui" line="85"/>
         <source>Start Time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showeditor.ui" line="74"/>
+        <location filename="showmanager/showeditor.ui" line="93"/>
         <source>Duration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showeditor.ui" line="85"/>
+        <location filename="showmanager/showeditor.ui" line="104"/>
         <source>Add function(s) to the collection</source>
         <translation type="unfinished">Lisää funktioita kokoelmaan</translation>
     </message>
     <message>
-        <location filename="showmanager/showeditor.ui" line="105"/>
+        <location filename="showmanager/showeditor.ui" line="124"/>
         <source>Remove the selected function</source>
         <translation type="unfinished">Poista valitut funktiot kokoelmasta</translation>
     </message>
@@ -4696,211 +4904,211 @@ Duration: %3
 <context>
     <name>ShowManager</name>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="196"/>
+        <location filename="showmanager/showmanager.cpp" line="198"/>
         <source>New s&amp;how</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="208"/>
+        <location filename="showmanager/showmanager.cpp" line="210"/>
         <source>New s&amp;equence</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="214"/>
+        <location filename="showmanager/showmanager.cpp" line="216"/>
         <source>New &amp;audio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="221"/>
+        <location filename="showmanager/showmanager.cpp" line="223"/>
         <source>New vi&amp;deo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="228"/>
+        <location filename="showmanager/showmanager.cpp" line="230"/>
         <source>&amp;Copy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="235"/>
+        <location filename="showmanager/showmanager.cpp" line="237"/>
         <source>&amp;Paste</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="242"/>
+        <location filename="showmanager/showmanager.cpp" line="244"/>
         <source>&amp;Delete</source>
         <translation type="unfinished">&amp;Poista</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="249"/>
+        <location filename="showmanager/showmanager.cpp" line="251"/>
         <source>Change Co&amp;lor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="270"/>
+        <location filename="showmanager/showmanager.cpp" line="272"/>
         <source>Snap to &amp;Grid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="277"/>
+        <location filename="showmanager/showmanager.cpp" line="279"/>
         <source>St&amp;op</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="283"/>
+        <location filename="showmanager/showmanager.cpp" line="285"/>
         <source>&amp;Play</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="344"/>
+        <location filename="showmanager/showmanager.cpp" line="346"/>
         <source>Time division:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="349"/>
+        <location filename="showmanager/showmanager.cpp" line="351"/>
         <source>Time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="556"/>
+        <location filename="showmanager/showmanager.cpp" line="567"/>
         <source>New Show</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="557"/>
+        <location filename="showmanager/showmanager.cpp" line="568"/>
         <source>Show name setup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="558"/>
+        <location filename="showmanager/showmanager.cpp" line="569"/>
         <source>Show name:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="202"/>
+        <location filename="showmanager/showmanager.cpp" line="204"/>
         <source>Add a &amp;track or an existing function</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="256"/>
+        <location filename="showmanager/showmanager.cpp" line="258"/>
         <source>Lock item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="263"/>
+        <location filename="showmanager/showmanager.cpp" line="265"/>
         <source>Item start time and duration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="676"/>
-        <location filename="showmanager/showmanager.cpp" line="802"/>
+        <location filename="showmanager/showmanager.cpp" line="693"/>
+        <location filename="showmanager/showmanager.cpp" line="811"/>
         <source> (Copy)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="762"/>
+        <location filename="showmanager/showmanager.cpp" line="764"/>
         <source>Track %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="787"/>
-        <location filename="showmanager/showmanager.cpp" line="881"/>
+        <location filename="showmanager/showmanager.cpp" line="793"/>
+        <location filename="showmanager/showmanager.cpp" line="883"/>
         <source>New Sequence</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="860"/>
-        <location filename="showmanager/showmanager.cpp" line="936"/>
-        <location filename="showmanager/showmanager.cpp" line="995"/>
+        <location filename="showmanager/showmanager.cpp" line="861"/>
+        <location filename="showmanager/showmanager.cpp" line="938"/>
+        <location filename="showmanager/showmanager.cpp" line="997"/>
         <source>Overlapping error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="860"/>
-        <location filename="showmanager/showmanager.cpp" line="936"/>
-        <location filename="showmanager/showmanager.cpp" line="995"/>
-        <source>Overlapping not allowed. Operation cancelled.</source>
+        <location filename="showmanager/showmanager.cpp" line="861"/>
+        <location filename="showmanager/showmanager.cpp" line="938"/>
+        <location filename="showmanager/showmanager.cpp" line="997"/>
+        <source>Overlapping not allowed. Operation canceled.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="869"/>
+        <location filename="showmanager/showmanager.cpp" line="871"/>
         <source>Scene for %1 - Track %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="894"/>
+        <location filename="showmanager/showmanager.cpp" line="896"/>
         <source>Open Audio File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="903"/>
+        <location filename="showmanager/showmanager.cpp" line="905"/>
         <source>Audio Files (%1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="905"/>
-        <location filename="showmanager/showmanager.cpp" line="964"/>
+        <location filename="showmanager/showmanager.cpp" line="907"/>
+        <location filename="showmanager/showmanager.cpp" line="966"/>
         <source>All Files (*.*)</source>
         <translation type="unfinished">Kaikki tiedostot (*.*)</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="907"/>
-        <location filename="showmanager/showmanager.cpp" line="966"/>
+        <location filename="showmanager/showmanager.cpp" line="909"/>
+        <location filename="showmanager/showmanager.cpp" line="968"/>
         <source>All Files (*)</source>
         <translation type="unfinished">Kaikki tiedostot (*)</translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="929"/>
+        <location filename="showmanager/showmanager.cpp" line="931"/>
         <source>Unsupported audio file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="929"/>
+        <location filename="showmanager/showmanager.cpp" line="931"/>
         <source>This audio file cannot be played with QLC+. Sorry.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="953"/>
+        <location filename="showmanager/showmanager.cpp" line="955"/>
         <source>Open Video File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="962"/>
+        <location filename="showmanager/showmanager.cpp" line="964"/>
         <source>Video Files (%1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="988"/>
+        <location filename="showmanager/showmanager.cpp" line="990"/>
         <source>Unsupported video file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="988"/>
+        <location filename="showmanager/showmanager.cpp" line="990"/>
         <source>This video file cannot be played with QLC+. Sorry.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="1039"/>
-        <location filename="showmanager/showmanager.cpp" line="1061"/>
+        <location filename="showmanager/showmanager.cpp" line="1033"/>
+        <location filename="showmanager/showmanager.cpp" line="1087"/>
         <source>Paste error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="1039"/>
-        <source>Overlapping paste not allowed. Operation cancelled.</source>
+        <location filename="showmanager/showmanager.cpp" line="1033"/>
+        <source>Overlapping paste not allowed. Operation canceled.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="1061"/>
-        <source>Trying to paste on an incompatible Scene. Operation cancelled.</source>
+        <location filename="showmanager/showmanager.cpp" line="1087"/>
+        <source>Trying to paste on an incompatible Scene. Operation canceled.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="1350"/>
+        <location filename="showmanager/showmanager.cpp" line="1406"/>
         <source>Track name setup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/showmanager.cpp" line="1351"/>
+        <location filename="showmanager/showmanager.cpp" line="1407"/>
         <source>Track name:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4908,118 +5116,118 @@ Duration: %3
 <context>
     <name>SimpleDesk</name>
     <message>
-        <location filename="simpledesk.cpp" line="245"/>
+        <location filename="simpledesk.cpp" line="247"/>
         <source>Universe</source>
         <translation type="unfinished">Universumi</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="232"/>
+        <location filename="simpledesk.cpp" line="234"/>
         <source>Next page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="224"/>
+        <location filename="simpledesk.cpp" line="226"/>
         <source>Current page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="216"/>
+        <location filename="simpledesk.cpp" line="218"/>
         <source>Previous page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="207"/>
+        <location filename="simpledesk.cpp" line="209"/>
         <source>View mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="240"/>
+        <location filename="simpledesk.cpp" line="242"/>
         <source>Reset universe</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="284"/>
+        <location filename="simpledesk.cpp" line="287"/>
         <source>Playback</source>
         <translation type="unfinished">Toisto</translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="281"/>
-        <location filename="simpledesk.cpp" line="291"/>
+        <location filename="simpledesk.cpp" line="284"/>
+        <location filename="simpledesk.cpp" line="294"/>
         <source>Cue Stack</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="301"/>
+        <location filename="simpledesk.cpp" line="304"/>
         <source>Previous cue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="307"/>
+        <location filename="simpledesk.cpp" line="310"/>
         <source>Stop cue stack</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="313"/>
+        <location filename="simpledesk.cpp" line="316"/>
         <source>Next cue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="321"/>
+        <location filename="simpledesk.cpp" line="324"/>
         <source>Clone cue stack</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="327"/>
+        <location filename="simpledesk.cpp" line="330"/>
         <source>Edit cue stack</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="334"/>
+        <location filename="simpledesk.cpp" line="337"/>
         <source>Record cue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="531"/>
+        <location filename="simpledesk.cpp" line="558"/>
         <source>Channel groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="873"/>
+        <location filename="simpledesk.cpp" line="961"/>
         <source>Cue Stack - Playback %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1055"/>
+        <location filename="simpledesk.cpp" line="1149"/>
         <source>No selection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1078"/>
+        <location filename="simpledesk.cpp" line="1172"/>
         <source>Cue name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1085"/>
+        <location filename="simpledesk.cpp" line="1179"/>
         <source>Multiple Cues</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1182"/>
+        <location filename="simpledesk.cpp" line="1276"/>
         <source>Delete cue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1236"/>
+        <location filename="simpledesk.cpp" line="1330"/>
         <source>Clone Cue Stack</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1236"/>
+        <location filename="simpledesk.cpp" line="1330"/>
         <source>Clone To Playback#</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="simpledesk.cpp" line="1302"/>
+        <location filename="simpledesk.cpp" line="1396"/>
         <source>Cue %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5027,32 +5235,32 @@ Duration: %3
 <context>
     <name>SpeedDial</name>
     <message>
-        <location filename="speeddial.cpp" line="136"/>
+        <location filename="speeddial.cpp" line="144"/>
         <source>Hours</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="145"/>
+        <location filename="speeddial.cpp" line="153"/>
         <source>Minutes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="154"/>
+        <location filename="speeddial.cpp" line="162"/>
         <source>Seconds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="163"/>
+        <location filename="speeddial.cpp" line="171"/>
         <source>Milliseconds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="169"/>
+        <location filename="speeddial.cpp" line="177"/>
         <source>Infinite</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="speeddial.cpp" line="123"/>
+        <location filename="speeddial.cpp" line="129"/>
         <source>Tap</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5158,57 +5366,44 @@ Duration: %3
     </message>
 </context>
 <context>
-    <name>VCAudioTriggers</name>
-    <message>
-        <location filename="virtualconsole/vcaudiotriggers.cpp" line="189"/>
-        <source>Audio open error</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcaudiotriggers.cpp" line="190"/>
-        <source>An error occurred while initializing the selected audio device. Please review your audio input settings.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>VCButton</name>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="89"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="93"/>
         <source>Choose...</source>
         <translation>Valitse...</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="93"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="97"/>
         <source>None</source>
         <translation>Ei mitään</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="131"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="135"/>
         <source>Button %1</source>
         <translation type="unfinished">Nappi %1</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="306"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="313"/>
         <source>Select button icon</source>
         <translation>Valitse ikoni</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="307"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="314"/>
         <source>Images (%1)</source>
         <translation>Kuvatiedostot (%1)</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="553"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="579"/>
         <source>Toggle Blackout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="555"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="581"/>
         <source>Stop ALL functions!</source>
         <translation type="unfinished">Pysäytä KAIKKI funktiot!</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbutton.cpp" line="785"/>
+        <location filename="virtualconsole/vcbutton.cpp" line="818"/>
         <source>Icon</source>
         <translation>Ikoni</translation>
     </message>
@@ -5216,172 +5411,102 @@ Duration: %3
 <context>
     <name>VCButtonProperties</name>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="14"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="33"/>
         <source>Button properties</source>
         <translation>Napin asetukset</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="362"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="219"/>
         <source>General</source>
         <translation>Yleinen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="368"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="225"/>
         <source>Button label</source>
         <translation>Napin teksti</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="375"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="232"/>
         <source>Text to display on the button</source>
         <translation>Teksti, joka näytetään napissa</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="382"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="239"/>
         <source>Function</source>
         <translation>Funktio</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="389"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="246"/>
         <source>The function that this button controls</source>
         <translation>Funktio, jota tämä nappi ohjaa</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="399"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="256"/>
         <source>Attach a function to this button</source>
         <translation>Liitä funktio tähän nappiin</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="419"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="276"/>
         <source>Detach the button&apos;s function attachment</source>
         <translation>Poista funktio tästä napista</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="126"/>
-        <source>Key combination</source>
-        <translation>Näppäinyhdistelmä</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="184"/>
-        <source>Keyboard combination that toggles this button</source>
-        <translation>Näppäinyhdistelmä, joka kytkee tämän napin päälle/pois</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="164"/>
-        <source>Set a key combination for this button</source>
-        <translation>Aseta näppäinyhdistelmä tälle napille</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="144"/>
-        <source>Remove the button&apos;s keyboard shortcut key</source>
-        <translation>Poista näppäinyhdistelmä tästä napista</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="284"/>
-        <source>External Input</source>
-        <translation>Ulkoinen ohjaus</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="323"/>
-        <source>Input Universe</source>
-        <translation>Sisääntulon universumi</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="313"/>
-        <source>The input universe that sends data to this widget</source>
-        <translation>Sisääntulon universumi, joka lähettää komentoja tälle napille</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="290"/>
-        <source>Input Channel</source>
-        <translation>Sisääntulokanava</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="330"/>
-        <source>The particular input channel within the input universe that sends data to this widget</source>
-        <translation>Sisääntulon universumissa oleva kanava, joka lähettää komentoja tälle napille</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="303"/>
-        <source>Choose an external input universe &amp; channel that this button should listen to.</source>
-        <translation>Valitse ulkoinen sisääntulouniversumi ja -kanava, jota tämä nappi kuuntelee.</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="59"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="68"/>
         <source>Toggle Blackout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="74"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="83"/>
         <source>Stop All Functions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="81"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="90"/>
         <source>Fade time:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="197"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="145"/>
         <source>Adjust function intensity when it is running</source>
         <translation>Aseta funktion ajonaikainen intensiteetti</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="200"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="148"/>
         <source>Adjust Function Intensity</source>
         <translation>Aseta funktion intensiteettiä</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="215"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="163"/>
         <source>Function&apos;s adjusted intensity percentage when run</source>
         <translation>Funktion ajonaikainen intensiteetti prosentteina</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="265"/>
-        <source>Attributes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="306"/>
-        <source>Choose...</source>
-        <translation>Valitse...</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="340"/>
-        <source>When toggled, you can click an external button to assign it to this virtual console button.</source>
-        <translation>Alaskytkettynä voit painaa ulkoista kontrollinappia kytkeäksesi sen tähän virtuaalinappiin.</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="343"/>
-        <source>Auto Detect</source>
-        <translation>Automaattinen tunnistus</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="30"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="39"/>
         <source>On button press...</source>
         <translation>Kun nappia painetaan...</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="36"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="45"/>
         <source>Toggle the assigned function on/off with this button</source>
         <translation>Kytke nappiin liitetty funktio vuorottain päälle/pois</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="39"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="48"/>
         <source>Toggle function on/off</source>
         <translation>Kytke funktio vuorottain päälle/pois</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="49"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="58"/>
         <source>Flash the assigned function with this button</source>
         <translation>Väläytä liitettyä funktiota painamalla nappi alas</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.ui" line="52"/>
+        <location filename="virtualconsole/vcbuttonproperties.ui" line="61"/>
         <source>Flash function (only for scenes)</source>
         <translation>Väläytä funktiota (käytössä vain tilanteille)</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcbuttonproperties.cpp" line="139"/>
+        <location filename="virtualconsole/vcbuttonproperties.cpp" line="133"/>
         <source>No function</source>
         <translation>Ei funktiota</translation>
     </message>
@@ -5389,110 +5514,157 @@ Duration: %3
 <context>
     <name>VCClockProperties</name>
     <message>
-        <location filename="virtualconsole/vcclockproperties.ui" line="14"/>
+        <location filename="virtualconsole/vcclockproperties.ui" line="33"/>
         <source>Clock properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcclockproperties.ui" line="24"/>
+        <location filename="virtualconsole/vcclockproperties.ui" line="47"/>
+        <source>General</source>
+        <translation type="unfinished">Yleinen</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcclockproperties.ui" line="53"/>
         <source>Clock type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcclockproperties.ui" line="30"/>
+        <location filename="virtualconsole/vcclockproperties.ui" line="59"/>
         <source>Stopwatch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcclockproperties.ui" line="37"/>
+        <location filename="virtualconsole/vcclockproperties.ui" line="66"/>
         <source>h</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcclockproperties.ui" line="47"/>
+        <location filename="virtualconsole/vcclockproperties.ui" line="76"/>
         <source>Countdown</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcclockproperties.ui" line="54"/>
+        <location filename="virtualconsole/vcclockproperties.ui" line="83"/>
         <source>m</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcclockproperties.ui" line="64"/>
+        <location filename="virtualconsole/vcclockproperties.ui" line="93"/>
         <source>s</source>
         <translation type="unfinished">sek</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcclockproperties.ui" line="80"/>
+        <location filename="virtualconsole/vcclockproperties.ui" line="109"/>
         <source>Clock</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcclockproperties.ui" line="93"/>
+        <location filename="virtualconsole/vcclockproperties.ui" line="122"/>
         <source>Schedule</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcclockproperties.ui" line="159"/>
+        <location filename="virtualconsole/vcclockproperties.ui" line="188"/>
         <source>Function</source>
         <translation type="unfinished">Funktio</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcclockproperties.ui" line="164"/>
+        <location filename="virtualconsole/vcclockproperties.ui" line="193"/>
         <source>Time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcclockproperties.ui" line="205"/>
+        <source>Input</source>
+        <translation type="unfinished">Sisääntulo</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcclockproperties.ui" line="214"/>
+        <source>No input control available for Clock type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcclockproperties.cpp" line="39"/>
+        <source>Play/Pause control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcclockproperties.cpp" line="48"/>
+        <source>Reset control</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>VCCueList</name>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="100"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="109"/>
+        <source>Blend</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelist.cpp" line="114"/>
         <source>Link</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="193"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="216"/>
         <source>Show/Hide crossfade sliders</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="203"/>
-        <source>Play/Stop Cue list</source>
+        <location filename="virtualconsole/vccuelist.cpp" line="226"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1003"/>
+        <source>Play/Pause Cue list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="212"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="235"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1004"/>
+        <source>Stop Cue list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelist.cpp" line="244"/>
         <source>Go to previous step in the list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="221"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="253"/>
         <source>Go to next step in the list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="229"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="262"/>
         <source>Cue list</source>
         <translation>Cue lista</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="981"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="997"/>
+        <source>Play/Stop Cue list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelist.cpp" line="998"/>
+        <source>Pause Cue list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelist.cpp" line="1441"/>
         <source>Fade In</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="981"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1441"/>
         <source>Fade Out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="981"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1441"/>
         <source>Duration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="981"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1441"/>
         <source>Notes</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5500,233 +5672,156 @@ Duration: %3
 <context>
     <name>VCCueListProperties</name>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="14"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="33"/>
         <source>Cue list properties</source>
         <translation>Cue-listan asetukset</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="20"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="39"/>
         <source>Cue list name</source>
         <translation>Cue-listan nimi</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="37"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="56"/>
         <source>The name of the cue list widget</source>
         <translation>Muokattavan cue-lista-komponentin nimi</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="51"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="70"/>
         <source>Cue List</source>
         <oldsource>Cues</oldsource>
         <translation type="unfinished">Cue</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="57"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="120"/>
         <source>Chaser</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="64"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="76"/>
         <source>The chaser function to use as cue list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="74"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="86"/>
         <source>Choose the chaser function to use as the steps for the cue list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="91"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="103"/>
         <source>Detach current chaser from the cue list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="122"/>
-        <source>Playback</source>
-        <translation type="unfinished">Toisto</translation>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="127"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="134"/>
+        <source>Behavior of the Next/Previous buttons when the chaser is not active</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="271"/>
-        <source>Next Cue</source>
-        <translation>Seuraava cue</translation>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="141"/>
+        <source>Run chaser from first/last step (default)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="196"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="345"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="494"/>
-        <source>Key Combination</source>
-        <translation>Näppäinyhdistelmä</translation>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="146"/>
+        <source>Run chaser from next/previous step</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="136"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="285"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="434"/>
-        <source>External Input</source>
-        <translation>Ulkoinen ohjaus</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="142"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="291"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="440"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="581"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="641"/>
-        <source>Input universe</source>
-        <translation>Sisääntulon universumi</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="298"/>
-        <source>Input universe for skipping to the next cue</source>
-        <translation>Sisääntulouniversumi seuraavaan cueen hyppäämistä varten</translation>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="151"/>
+        <source>Select next/previous step</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="156"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="305"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="454"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="595"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="655"/>
-        <source>Input channel</source>
-        <translation>Sisääntulon kanava</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="312"/>
-        <source>Input channel for skipping to the next cue</source>
-        <translation>Sisääntulokanava seuraavaan cueen hyppäämistä varten</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="319"/>
-        <source>When toggled, you can click an external button to assign it as the control that skips to the next cue.</source>
-        <translation>Alaskytkettynä voit painaa ulkoista kontrollinappia kytkeäksesi sen seuraavaan cueen hyppäämistä varten.</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="173"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="322"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="471"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="612"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="672"/>
-        <source>Auto Detect</source>
-        <translation>Automaattinen tunnistus</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="332"/>
-        <source>Choose an input universe/channel for skipping to the next cue</source>
-        <translation>Valitse sisääntulouniversumi/kanava seuraavaan cueen hyppäämistä varten</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="186"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="335"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="484"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="625"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="685"/>
-        <source>Choose...</source>
-        <translation>Valitse...</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="420"/>
-        <source>Previous Cue</source>
-        <translation>Edellinen cue</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="540"/>
-        <source>The key combination used to step to the previous cue</source>
-        <translation>Näppäinyhdistelmä, jolla voidaan siirtyä edelliseen cueen</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="523"/>
-        <source>Bind a key combination to skip to the previous cue</source>
-        <translation>Aseta näppäinyhdistelmä, jolla voidaan siirtyä edelliseen cueen</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="447"/>
-        <source>Input universe for skipping to the previous cue</source>
-        <translation>Sisääntulouniversumi edelliseen cueen hyppäämistä varten</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="461"/>
-        <source>Input channel for skipping to the previous cue</source>
-        <translation>Sisääntulokanava edelliseen cueen hyppäämistä varten</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="468"/>
-        <source>When toggled, you can click an external button to assign it as the control that skips to the previous cue.</source>
-        <translation>Alaskytkettynä voit painaa ulkoista kontrollinappia kytkeäksesi sen edelliseen cueen hyppäämistä varten.</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="481"/>
-        <source>Choose an input universe/channel for skipping to the previous cue</source>
-        <translation>Valitse sisääntulouniversumi/kanava edelliseen cueen hyppäämistä varten</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="242"/>
-        <source>The key combination used to stop the cue list</source>
+        <source>Do nothing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="225"/>
-        <source>Bind a key combination to stop the cue list</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="149"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="588"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="648"/>
-        <source>Input universe for stopping the cue list</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="163"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="602"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="662"/>
-        <source>Input channel for stopping the cue list</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="170"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="609"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="669"/>
-        <source>When toggled, you can click an external button to assign it as the control that stops the cue list</source>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="177"/>
+        <source>Playback buttons layout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="183"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="622"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="682"/>
-        <source>Choose an input universe/channel for stopping the cue list</source>
+        <source>Play/Pause + Stop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="569"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="193"/>
+        <source>Play/Stop + Pause</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="204"/>
+        <source>Playback</source>
+        <translation type="unfinished">Toisto</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="230"/>
+        <source>Next Cue</source>
+        <translation>Seuraava cue</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="276"/>
+        <source>Side Faders</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="253"/>
+        <source>Previous Cue</source>
+        <translation>Edellinen cue</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="282"/>
+        <source>Behaviour</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="294"/>
         <source>Crossfade</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="575"/>
-        <source>Left Slider</source>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="304"/>
+        <source>Steps</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="635"/>
-        <source>Right Slider</source>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="67"/>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="239"/>
+        <source>Play/Pause control</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="391"/>
-        <source>The key combination used to step to the next cue</source>
-        <translation>Näppäinyhdistelmä, jolla voidaan siirtyä seuraavaan cueen</translation>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="76"/>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="240"/>
+        <source>Stop control</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="357"/>
-        <source>Bind a key combination to skip to the next cue</source>
-        <translation>Aseta näppäinyhdistelmä, jolla voidaan siirtyä seuraavaan cueen</translation>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="118"/>
+        <source>Left Fader</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="208"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="374"/>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="506"/>
-        <source>Clear the key binding</source>
-        <translation>Poista näppäinyhdistelmä</translation>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="128"/>
+        <source>Right Fader</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.cpp" line="223"/>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="244"/>
+        <source>Play/Stop control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="245"/>
+        <source>Pause control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="253"/>
         <source>No function</source>
         <translation type="unfinished">Ei funktiota</translation>
     </message>
@@ -5734,13 +5829,7 @@ Duration: %3
 <context>
     <name>VCFrame</name>
     <message>
-        <location filename="virtualconsole/vcframe.cpp" line="350"/>
-        <location filename="virtualconsole/vcframe.cpp" line="448"/>
-        <source>Page: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcframe.cpp" line="1196"/>
+        <location filename="virtualconsole/vcframe.cpp" line="1447"/>
         <source>Add</source>
         <translation>Lisää</translation>
     </message>
@@ -5748,206 +5837,105 @@ Duration: %3
 <context>
     <name>VCFrameProperties</name>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="14"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="33"/>
         <source>Frame Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="22"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="41"/>
         <source>Frame name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="38"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="57"/>
         <source>General</source>
         <translation type="unfinished">Yleinen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="44"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="63"/>
         <source>Appearance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="56"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="75"/>
         <source>Accept child widgets</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="69"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="88"/>
         <source>Allow resizing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="82"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="101"/>
         <source>Show header</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="95"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="114"/>
         <source>Show enable button</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="107"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="210"/>
+        <source>Page Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcframeproperties.cpp" line="63"/>
         <source>External Input - Enable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="160"/>
-        <source>When toggled, you can move an external control to assign it to this frame.</source>
+        <location filename="virtualconsole/vcframeproperties.cpp" line="76"/>
+        <source>External Input - Previous Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="192"/>
-        <source>The key combination used to enable/disable the frame</source>
+        <location filename="virtualconsole/vcframeproperties.cpp" line="89"/>
+        <source>External Input - Next Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="202"/>
-        <source>Bind a key combination to enable/disable the frame</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="261"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="141"/>
         <source>Pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="267"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="147"/>
         <source>Enable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="276"/>
+        <location filename="virtualconsole/vcframeproperties.ui" line="180"/>
         <source>Clone first page widgets</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="289"/>
-        <source>External Input - Next page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="113"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="295"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="403"/>
-        <source>Input universe</source>
-        <translation type="unfinished">Sisääntulon universumi</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="120"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="302"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="410"/>
-        <source>The input universe that sends data to this widget</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="130"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="312"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="420"/>
-        <source>Input channel</source>
-        <translation type="unfinished">Sisääntulon kanava</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="137"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="319"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="427"/>
-        <source>The particular input channel within the input universe that sends data to this widget</source>
+        <location filename="virtualconsole/vcframeproperties.ui" line="156"/>
+        <source>Pages circular scrolling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframeproperties.ui" line="173"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="329"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="380"/>
-        <source>Choose an external input universe &amp; channel that this widget should listen to</source>
-        <translation type="unfinished">Valitse sisääntulon universumi ja kanava, joilla tätä liukua voidaan ohjata</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="176"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="332"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="383"/>
-        <source>Choose...</source>
-        <translation type="unfinished">Valitse...</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="339"/>
-        <source>When toggled, you can move an external slider/knob to assign it to this widget.</source>
-        <oldsource>When toggled, you can move an external slider/knob to assign it to this virtual console slider.</oldsource>
-        <translation type="unfinished">Alaskytkettynä, voit liikuttaa ulkoista kontrollia kytkeäksesi sen tähän liukuun.</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="163"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="342"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="440"/>
-        <source>Auto Detect</source>
-        <translation type="unfinished">Automaattinen tunnistus</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="374"/>
-        <source>External Input - Previous page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="437"/>
-        <source>When toggled, you can move an external slider/knob to assign it to this frame.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="453"/>
         <source>Number of pages:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="186"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="460"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="519"/>
-        <source>Key Combination</source>
-        <translation type="unfinished">Näppäinyhdistelmä</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="466"/>
-        <source>Bind a key combination to skip to the next frame page</source>
-        <oldsource>Bind a key combination to skip to the next cue</oldsource>
-        <translation type="unfinished">Aseta näppäinyhdistelmä, jolla voidaan siirtyä seuraavaan cueen</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="222"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="486"/>
-        <location filename="virtualconsole/vcframeproperties.ui" line="545"/>
-        <source>Clear the key binding</source>
-        <translation type="unfinished">Poista näppäinyhdistelmä</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="506"/>
-        <source>The key combination used to go to the next frame page</source>
-        <oldsource>The key combination used to step to the next cue</oldsource>
-        <translation type="unfinished">Näppäinyhdistelmä, jolla voidaan siirtyä seuraavaan cueen</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="525"/>
-        <source>Bind a key combination to skip to the previous frame page</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcframeproperties.ui" line="565"/>
-        <source>The key combination used to go to the previous frame page</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>VCLabel</name>
     <message>
-        <location filename="virtualconsole/vclabel.cpp" line="43"/>
+        <location filename="virtualconsole/vclabel.cpp" line="46"/>
         <source>Label</source>
         <translation>Etiketti</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vclabel.cpp" line="76"/>
+        <location filename="virtualconsole/vclabel.cpp" line="79"/>
         <source>Rename Label</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vclabel.cpp" line="76"/>
+        <location filename="virtualconsole/vclabel.cpp" line="79"/>
         <source>Caption:</source>
         <translation type="unfinished">Teksti:</translation>
     </message>
@@ -5955,42 +5943,42 @@ Duration: %3
 <context>
     <name>VCMatrix</name>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="168"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="173"/>
         <source>Animation %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="577"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="635"/>
         <source>End Color Reset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="615"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="674"/>
         <source>Start color Red component</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="617"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="676"/>
         <source>Start color Green component</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="619"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="678"/>
         <source>Start color Blue component</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="631"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="690"/>
         <source>End color Red component</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="633"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="692"/>
         <source>End color Green component</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="635"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="694"/>
         <source>End color Blue component</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5998,17 +5986,17 @@ Duration: %3
 <context>
     <name>VCMatrixPresetSelection</name>
     <message>
-        <location filename="virtualconsole/vcmatrixpresetselection.ui" line="14"/>
+        <location filename="virtualconsole/vcmatrixpresetselection.ui" line="33"/>
         <source>Select an animation preset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixpresetselection.ui" line="32"/>
+        <location filename="virtualconsole/vcmatrixpresetselection.ui" line="51"/>
         <source>Pattern</source>
         <translation type="unfinished">Kuvio</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixpresetselection.ui" line="50"/>
+        <location filename="virtualconsole/vcmatrixpresetselection.ui" line="69"/>
         <source>Properties</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6016,277 +6004,225 @@ Duration: %3
 <context>
     <name>VCMatrixProperties</name>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="14"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="33"/>
         <source>Animation widget properties</source>
         <oldsource>RGB Matrix properties</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="38"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="57"/>
         <source>General</source>
         <translation type="unfinished">Yleinen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="46"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="65"/>
         <source>The function that this widget controls</source>
         <oldsource>The function that this matrix controls</oldsource>
         <translation type="unfinished">Funktio, jota tämä nappi ohjaa</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="56"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="75"/>
         <source>Widget name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="63"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="82"/>
         <source>RGB Matrix Function</source>
         <oldsource>Matrix Function</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="70"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="89"/>
         <source>Detach the matrix function attachment</source>
         <oldsource>Detach the button&apos;s function attachment</oldsource>
         <translation type="unfinished">Poista funktio tästä napista</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="90"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="109"/>
         <source>Attach a function to this widget</source>
         <oldsource>Attach a function to this button</oldsource>
         <translation type="unfinished">Liitä funktio tähän nappiin</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="110"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="129"/>
         <source>Text to display on the widget</source>
         <oldsource>Text to display on the button</oldsource>
         <translation type="unfinished">Teksti, joka näytetään napissa</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="117"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="136"/>
         <source>Apply color and preset changes immediately</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="124"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="143"/>
         <source>Show Label</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="131"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="150"/>
         <source>Show Slider</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="138"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="157"/>
         <source>Show Start Color Button</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="145"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="164"/>
         <source>Show End Color Button</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="152"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="171"/>
         <source>Show Preset Combo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="161"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="180"/>
         <source>Slider External Input</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="167"/>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="351"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="186"/>
         <source>Input universe</source>
         <translation type="unfinished">Sisääntulon universumi</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="174"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="193"/>
         <source>The input universe that sends data to this widget</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="184"/>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="344"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="203"/>
         <source>Input channel</source>
         <translation type="unfinished">Sisääntulon kanava</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="191"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="210"/>
         <source>The particular input channel within the input universe that sends data to this widget</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="214"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="233"/>
         <source>Choose an external input universe &amp; channel that this widget should listen to</source>
         <translation type="unfinished">Valitse sisääntulon universumi ja kanava, joilla tätä liukua voidaan ohjata</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="217"/>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="314"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="236"/>
         <source>Choose...</source>
         <translation type="unfinished">Valitse...</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="224"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="243"/>
         <source>When toggled, you can move an external slider/knob to assign it to the animation widget slider.</source>
         <oldsource>When toggled, you can move an external slider/knob to assign it to this virtual console slider.</oldsource>
         <translation type="unfinished">Alaskytkettynä, voit liikuttaa ulkoista kontrollia kytkeäksesi sen tähän liukuun.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="227"/>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="324"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="246"/>
         <source>Auto Detect</source>
         <translation type="unfinished">Automaattinen tunnistus</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="254"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="273"/>
         <source>Custom Controls</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="372"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="370"/>
         <source> Add start color knobs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="394"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="281"/>
         <source> Add end color knobs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="405"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="337"/>
         <source> Add end color reset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="438"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="348"/>
         <source> Remove</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="416"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="312"/>
         <source> Add preset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="263"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="299"/>
         <source>Type</source>
         <translation type="unfinished">Tyyppi</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="268"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="304"/>
         <source>Value</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="361"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="359"/>
         <source> Add start color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="383"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="381"/>
         <source> Add end color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="455"/>
-        <source>Key combination</source>
-        <translation type="unfinished">Näppäinyhdistelmä</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="470"/>
-        <source>Remove the control&apos;s keyboard shortcut key</source>
-        <oldsource>Remove the button&apos;s keyboard shortcut key</oldsource>
-        <translation type="unfinished">Poista näppäinyhdistelmä tästä napista</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="490"/>
-        <source>Set a key combination for this control</source>
-        <oldsource>Set a key combination for this button</oldsource>
-        <translation type="unfinished">Aseta näppäinyhdistelmä tälle napille</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="510"/>
-        <source>Keyboard combination that toggles this control</source>
-        <oldsource>Keyboard combination that toggles this button</oldsource>
-        <translation type="unfinished">Näppäinyhdistelmä, joka kytkee tämän napin päälle/pois</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="282"/>
-        <source>External Input</source>
-        <translation type="unfinished">Ulkoinen ohjaus</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="301"/>
-        <source>The particular input channel within the input universe that sends data to this control</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="311"/>
-        <source>Choose an external input universe &amp; channel that this control should listen to</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="321"/>
-        <source>When toggled, you can move an external button to assign it to this control</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="334"/>
-        <source>The input universe that sends data to this control</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcmatrixproperties.ui" line="427"/>
+        <location filename="virtualconsole/vcmatrixproperties.ui" line="323"/>
         <source> Add text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="143"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="152"/>
         <source>No function</source>
         <translation type="unfinished">Ei funktiota</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="219"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="228"/>
         <source>Start Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="225"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="234"/>
         <source>Start Color Knob</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="231"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="240"/>
         <source>End Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="237"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="246"/>
         <source>End Color Knob</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="243"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="252"/>
         <source>End Color Reset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="248"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="257"/>
         <source>Animation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="270"/>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="404"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="279"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="411"/>
         <source>Text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrixproperties.cpp" line="403"/>
+        <location filename="virtualconsole/vcmatrixproperties.cpp" line="410"/>
         <source>Enter a text</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6294,857 +6230,877 @@ Duration: %3
 <context>
     <name>VCPropertiesEditor</name>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="14"/>
+        <location filename="virtualconsole/vcproperties.ui" line="33"/>
         <source>Virtual Console Settings</source>
         <oldsource>Virtual Console properties</oldsource>
         <translation type="unfinished">Virtuaalikonsolin asetukset</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="43"/>
-        <location filename="virtualconsole/vcproperties.ui" line="69"/>
+        <location filename="virtualconsole/vcproperties.ui" line="62"/>
+        <location filename="virtualconsole/vcproperties.ui" line="88"/>
         <source>Widget grid layout X resolution</source>
         <translation>Komponenttien vaakaresoluutio ruudukossa</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="765"/>
+        <location filename="virtualconsole/vcproperties.ui" line="761"/>
         <source>Choose...</source>
         <translation>Valitse...</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="24"/>
+        <location filename="virtualconsole/vcproperties.ui" line="43"/>
         <source>General</source>
         <translation type="unfinished">Yleinen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="30"/>
+        <location filename="virtualconsole/vcproperties.ui" line="49"/>
         <source>Virtual Console Size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="36"/>
+        <location filename="virtualconsole/vcproperties.ui" line="55"/>
         <source>Width</source>
         <translation type="unfinished">Leveys</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="62"/>
+        <location filename="virtualconsole/vcproperties.ui" line="81"/>
         <source>Height</source>
         <translation type="unfinished">Korkeus</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="104"/>
-        <source>Tap Modifier</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcproperties.ui" line="110"/>
-        <source>Key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcproperties.ui" line="117"/>
-        <source>The keyboard key that turns button clicks to taps</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcproperties.ui" line="128"/>
+        <location filename="virtualconsole/vcproperties.ui" line="124"/>
         <source>Widgets</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="140"/>
+        <location filename="virtualconsole/vcproperties.ui" line="136"/>
         <source>Widgets default properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="516"/>
+        <location filename="virtualconsole/vcproperties.ui" line="512"/>
         <source>Button size</source>
         <oldsource>Button size:</oldsource>
         <translation type="unfinished">Painikkeiden koko</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="247"/>
+        <location filename="virtualconsole/vcproperties.ui" line="243"/>
         <source>Solo frame size</source>
         <oldsource>Solo frame size:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="226"/>
+        <location filename="virtualconsole/vcproperties.ui" line="222"/>
         <source>Slider size</source>
         <oldsource>Slider size:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="549"/>
+        <location filename="virtualconsole/vcproperties.ui" line="545"/>
         <source>Speed dial size</source>
         <oldsource>Speed dial size:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="162"/>
+        <location filename="virtualconsole/vcproperties.ui" line="158"/>
         <source>XY Pad size</source>
         <oldsource>XY Pad size:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="523"/>
+        <location filename="virtualconsole/vcproperties.ui" line="519"/>
         <source>Cue List size</source>
         <oldsource>Cue List size:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="332"/>
+        <location filename="virtualconsole/vcproperties.ui" line="328"/>
         <source>Frame size</source>
         <oldsource>Frame size:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="169"/>
+        <location filename="virtualconsole/vcproperties.ui" line="165"/>
         <source>Speed dial value</source>
         <oldsource>Speed dial value:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="572"/>
+        <location filename="virtualconsole/vcproperties.ui" line="568"/>
         <source>Button status style</source>
         <oldsource>Button status style:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="506"/>
+        <location filename="virtualconsole/vcproperties.ui" line="502"/>
         <source>LED</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="254"/>
+        <location filename="virtualconsole/vcproperties.ui" line="250"/>
         <source>Border</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="233"/>
+        <location filename="virtualconsole/vcproperties.ui" line="229"/>
         <source>Audio triggers size</source>
         <oldsource>Audio triggers size:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="365"/>
-        <location filename="virtualconsole/vcproperties.ui" line="451"/>
-        <location filename="virtualconsole/vcproperties.ui" line="589"/>
-        <location filename="virtualconsole/vcproperties.ui" line="612"/>
+        <location filename="virtualconsole/vcproperties.ui" line="361"/>
+        <location filename="virtualconsole/vcproperties.ui" line="447"/>
+        <location filename="virtualconsole/vcproperties.ui" line="585"/>
+        <location filename="virtualconsole/vcproperties.ui" line="608"/>
         <source>px</source>
         <translation type="unfinished">px</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="579"/>
+        <location filename="virtualconsole/vcproperties.ui" line="575"/>
         <source>Animation size</source>
         <oldsource>RGB Matrix size</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="629"/>
+        <location filename="virtualconsole/vcproperties.ui" line="625"/>
         <source>Grand Master</source>
         <translation>Grand Master</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="635"/>
+        <location filename="virtualconsole/vcproperties.ui" line="631"/>
         <source>Channels</source>
         <translation>Kanavat</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="641"/>
+        <location filename="virtualconsole/vcproperties.ui" line="637"/>
         <source>Apply Grand Master only to Intensity channels.</source>
         <translation>Käytä Grand Masteria vain intensiteettikanaville.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="644"/>
+        <location filename="virtualconsole/vcproperties.ui" line="640"/>
         <source>Intensity</source>
         <translation>Intensiteetti</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="651"/>
+        <location filename="virtualconsole/vcproperties.ui" line="647"/>
         <source>Apply Grand Master to all channels.</source>
         <translation>Käytä Grand Masteria kaikille kanaville.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="654"/>
+        <location filename="virtualconsole/vcproperties.ui" line="650"/>
         <source>All channels</source>
         <translation>Kaikki</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="664"/>
+        <location filename="virtualconsole/vcproperties.ui" line="660"/>
         <source>Values</source>
         <translation>Arvot</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="670"/>
+        <location filename="virtualconsole/vcproperties.ui" line="666"/>
         <source>Make Grand Master reduce levels by a percentage.</source>
         <translation>Grand Master vähentää kanavien arvoja prosentuaalisesti.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="673"/>
+        <location filename="virtualconsole/vcproperties.ui" line="669"/>
         <source>Reduce</source>
         <translation>Vähennä</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="680"/>
+        <location filename="virtualconsole/vcproperties.ui" line="676"/>
         <source>Make Grand Master limit the maximum channel values.</source>
         <translation>Grand Master rajoittaa kanavien maksimiarvoja.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="683"/>
+        <location filename="virtualconsole/vcproperties.ui" line="679"/>
         <source>Limit</source>
         <translation>Rajoita</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="693"/>
+        <location filename="virtualconsole/vcproperties.ui" line="689"/>
         <source>External Input</source>
         <translation>Ulkoinen ohjaus</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="699"/>
+        <location filename="virtualconsole/vcproperties.ui" line="695"/>
         <source>Input Universe</source>
         <translation>Sisääntulon universumi</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="706"/>
+        <location filename="virtualconsole/vcproperties.ui" line="702"/>
         <source>Input universe for Grand Master slider.</source>
         <translation>Grand Masterin sisääntulouniversumi.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="716"/>
+        <location filename="virtualconsole/vcproperties.ui" line="712"/>
         <source>Input Channel</source>
         <translation>Sisääntulokanava</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="723"/>
+        <location filename="virtualconsole/vcproperties.ui" line="719"/>
         <source>Input channel for Grand Master slider.</source>
         <translation>Grand Masterin sisääntulokanava.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="746"/>
+        <location filename="virtualconsole/vcproperties.ui" line="742"/>
         <source>When toggled, you can move an external slider/knob to assign it to the Grand Master slider.</source>
         <translation>Alaskytkettynä voit liikuttaa ulkoista kontrollia kytkeäksesi sen Grand Masteriin.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="749"/>
+        <location filename="virtualconsole/vcproperties.ui" line="745"/>
         <source>Auto Detect</source>
         <translation>Automaattinen tunnistus</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="762"/>
+        <location filename="virtualconsole/vcproperties.ui" line="758"/>
         <source>Choose an external input universe &amp; channel that the Grand Master slider should listen to.</source>
         <translation>Valitse ulkoinen sisääntulouniversumi ja -kanava, jota Grand Masterin tulee totella.</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="788"/>
+        <location filename="virtualconsole/vcproperties.ui" line="784"/>
         <source>Slider movement</source>
         <translation type="unfinished">Liu&apos;un liike</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="794"/>
+        <location filename="virtualconsole/vcproperties.ui" line="790"/>
         <source>Normal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcproperties.ui" line="801"/>
+        <location filename="virtualconsole/vcproperties.ui" line="797"/>
         <source>Inverted</source>
         <translation type="unfinished">Käänteinen</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcpropertieseditor.cpp" line="460"/>
-        <source>%1: Unknown</source>
-        <translation>%1: Tuntematon</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcpropertieseditor.cpp" line="476"/>
-        <source>Unknown</source>
-        <translation>Tuntematon</translation>
     </message>
 </context>
 <context>
     <name>VCSlider</name>
     <message>
-        <location filename="virtualconsole/vcslider.cpp" line="210"/>
+        <location filename="virtualconsole/vcslider.cpp" line="234"/>
         <source>Slider %1</source>
         <translation type="unfinished">Liuku %1</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcslider.cpp" line="617"/>
+        <source>Reset channels override</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>VCSliderProperties</name>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="14"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="33"/>
         <source>Slider properties</source>
         <translation>Liu&apos;un asetukset</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="27"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="46"/>
         <source>General</source>
         <translation>Yleinen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="74"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="61"/>
         <source>Name of the slider</source>
         <translation>Liukukomponentin nimi</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="33"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="179"/>
         <source>Value display style</source>
         <translation>Arvon näyttötapa</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="39"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="185"/>
         <source>Show exact DMX values</source>
         <translation>Näytä tarkat DMX tai aika-arvot</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="52"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="198"/>
         <source>Show value as percentage</source>
         <translation>Näytä arvo prosentteina</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="55"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="201"/>
         <source>Percentage</source>
         <translation>Prosentti</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="83"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="70"/>
         <source>Slider movement</source>
         <translation>Liu&apos;un liike</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="89"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="76"/>
         <source>Normal</source>
         <translation>Normaali</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="99"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="86"/>
         <source>Inverted</source>
         <translation>Käänteinen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="109"/>
-        <source>External Input</source>
-        <translation>Ulkoinen ohjaus</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="115"/>
-        <source>Input universe</source>
-        <translation>Sisääntulon universumi</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="122"/>
-        <source>The input universe that sends data to this widget</source>
-        <translation>Sisääntulon universumi, josta ohjataan tätä liukua</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="132"/>
-        <source>Input channel</source>
-        <translation>Sisääntulon kanava</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="139"/>
-        <source>The particular input channel within the input universe that sends data to this widget</source>
-        <translation>Sisääntulon universumin kanava, joka ohjaa tätä liukua</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="162"/>
-        <source>Choose an external input universe &amp; channel that this widget should listen to</source>
-        <oldsource>Choose the external input universe &amp; channel that this widget should listen to</oldsource>
-        <translation>Valitse sisääntulon universumi ja kanava, joilla tätä liukua voidaan ohjata</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="165"/>
-        <source>Choose...</source>
-        <translation>Valitse...</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="172"/>
-        <source>When toggled, you can move an external slider/knob to assign it to this virtual console slider.</source>
-        <translation>Alaskytkettynä, voit liikuttaa ulkoista kontrollia kytkeäksesi sen tähän liukuun.</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="175"/>
-        <source>Auto Detect</source>
-        <translation>Automaattinen tunnistus</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="251"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="225"/>
         <source>Value range</source>
         <translation>Arvoalue</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="257"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="231"/>
         <source>Low limit</source>
         <translation>Alaraja</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="274"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="248"/>
         <source>High limit</source>
         <translation>Yläraja</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="245"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="219"/>
         <source>Level</source>
         <translation>Taso</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="264"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="238"/>
         <source>Lowest DMX value that can be set with this slider</source>
         <translation>Alin DMX-arvo, joka tällä liu&apos;ulla voidaan asettaa</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="437"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="410"/>
         <source>Intensity</source>
         <translation type="unfinished">Intensiteetti</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="458"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="431"/>
         <source>Gobo/Effect/Macro</source>
         <oldsource>Gobo/Effect</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="492"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="462"/>
         <source>Playback</source>
         <translation>Toisto</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="498"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="468"/>
         <source>Function</source>
         <translation>Funktio</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="504"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="474"/>
         <source>Function that is attached to the slider</source>
         <translation>Liukuun liitetty funktio</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="514"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="484"/>
         <source>Attach a function to the slider</source>
         <translation>Liitä funktio liukuun</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="534"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="504"/>
         <source>Detach the current function from the slider</source>
         <translation>Poista funktio liu&apos;usta</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="570"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="540"/>
         <source>Make the slider control a function</source>
         <translation>Aseta liuku ohjaamaan funktiota</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="573"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="543"/>
         <source>Switch to Playback Mode</source>
         <translation>Vaihda toisto-tilaan</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="42"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="188"/>
         <source>Actual</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="67"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="54"/>
         <source>Widget name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="201"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="109"/>
         <source>Widget appearance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="207"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="115"/>
         <source>Slider</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="224"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="132"/>
         <source>Knob</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="281"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="211"/>
+        <source>Catch up with the external controller input value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="255"/>
         <source>Highest DMX value that can be set with this slider</source>
         <translation>Ylin mahdollinen DMX-arvo, joka liu&apos;ulla voidaan asettaa</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="310"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="284"/>
         <source>Set value range from the selected capability</source>
         <translation>Ota arvot valitusta valaisimen esiasetuksesta</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="313"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="287"/>
         <source>From capability</source>
         <translation>Ota esiasetuksesta</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="333"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="313"/>
         <source>Name</source>
         <translation>Nimi</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="338"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="318"/>
         <source>Type</source>
         <translation>Tyyppi</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="343"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="323"/>
         <source>Range</source>
         <translation>Arvoalue</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="353"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="333"/>
         <source>Select all channels</source>
         <translation>Valitse kaikki kanavat</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="356"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="336"/>
         <source>All</source>
         <translation>Kaikki</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="363"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="343"/>
         <source>Unselect everything</source>
         <translation>Poista kaikki valinnat</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="366"/>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="427"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="346"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="400"/>
         <source>None</source>
         <translation>Ei mitään</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="373"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="353"/>
         <source>Invert selection</source>
         <translation>Käännä valinnat</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="376"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="356"/>
         <source>Invert</source>
         <translation>Käänteinen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="396"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="376"/>
         <source>Choose channels by channel group</source>
         <translation>Valitse kanavat ryhmän mukaan</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="399"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="379"/>
         <source>By group...</source>
         <translation>Ryhmän mukaan...</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="408"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="441"/>
         <source>Monitor the selected channels and update the slider level</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="421"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="394"/>
         <source>Click &amp;&amp; Go</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="444"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="417"/>
         <source>RGB</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="451"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="424"/>
         <source>CMY</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="481"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="451"/>
         <source>Make the slider control the level of a set of channels</source>
         <translation>Aseta liuku ohjaamaan tiettyjen kanavien tasoa</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="484"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="454"/>
         <source>Switch to Level Mode</source>
         <translation>Vaihda taso-tilaan</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="581"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="551"/>
         <source>Submaster</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="587"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="557"/>
         <source>Slider submaster mode is active</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="610"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="580"/>
         <source>Make the slider act as a submaster</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.ui" line="613"/>
+        <location filename="virtualconsole/vcsliderproperties.ui" line="583"/>
         <source>Switch to Submaster Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.cpp" line="684"/>
+        <location filename="virtualconsole/vcsliderproperties.cpp" line="178"/>
+        <source>Override reset control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcsliderproperties.cpp" line="655"/>
         <source>Select channels by group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.cpp" line="685"/>
+        <location filename="virtualconsole/vcsliderproperties.cpp" line="656"/>
         <source>Select a channel group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcsliderproperties.cpp" line="741"/>
+        <location filename="virtualconsole/vcsliderproperties.cpp" line="721"/>
         <source>No function</source>
         <translation>Ei funktiota</translation>
     </message>
 </context>
 <context>
+    <name>VCSoloFrameProperties</name>
+    <message>
+        <location filename="virtualconsole/vcsoloframeproperties.cpp" line="40"/>
+        <source>Solo Frame properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcsoloframeproperties.cpp" line="43"/>
+        <source>Mix sliders in playback mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>VCSpeedDial</name>
     <message>
-        <location filename="virtualconsole/vcspeeddial.cpp" line="58"/>
+        <location filename="virtualconsole/vcspeeddial.cpp" line="81"/>
         <source>Duration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddial.cpp" line="100"/>
+        <source>Divide the current time by 2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddial.cpp" line="123"/>
+        <source>Multiply the current time by 2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddial.cpp" line="131"/>
+        <source>Reset the current factor to 1x</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddial.cpp" line="144"/>
+        <source>Apply</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddial.cpp" line="145"/>
+        <source>Send the current value to the function now</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>VCSpeedDialProperties</name>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="14"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="33"/>
         <source>Speed Dial Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="24"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="43"/>
         <source>Speed Dial Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="31"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="50"/>
         <source>Title of the dial</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="42"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="61"/>
         <source>Functions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="79"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="101"/>
+        <source>Copy the factors of the selected function</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="121"/>
+        <source>Paste copied factors to all selected functions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="182"/>
         <source>Function</source>
         <translation type="unfinished">Funktio</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="84"/>
-        <source>Fade In *</source>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="187"/>
+        <source>Fade In factor</source>
+        <oldsource>Fade In *</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="87"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="190"/>
         <source>Multiplier applied before time is sent as Fade In Time to the function.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="92"/>
-        <source>Fade Out *</source>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="195"/>
+        <source>Fade Out factor</source>
+        <oldsource>Fade Out *</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="95"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="198"/>
         <source>Multiplier applied before time is sent as Fade Out Time to the function.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="100"/>
-        <source>Duration * (+tap)</source>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="203"/>
+        <source>Duration factor (+tap)</source>
+        <oldsource>Duration * (+tap)</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="103"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="206"/>
         <source>Multiplier applied before time is sent as Duration to the function.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="111"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="67"/>
         <source>Add functions to be controlled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="128"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="84"/>
         <source>Remove selected functions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="159"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="215"/>
         <source>Input</source>
         <translation type="unfinished">Sisääntulo</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="165"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="221"/>
         <source>Absolute Value</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="171"/>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="258"/>
-        <source>Input Universe</source>
-        <translation type="unfinished">Sisääntulon universumi</translation>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="429"/>
+        <source>Preset Name</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="185"/>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="268"/>
-        <source>Input Channel</source>
-        <translation type="unfinished">Sisääntulokanava</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="199"/>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="278"/>
-        <source>Auto Detect</source>
-        <translation type="unfinished">Automaattinen tunnistus</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="209"/>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="288"/>
-        <source>Choose...</source>
-        <translation type="unfinished">Valitse...</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="216"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="233"/>
         <source>Range</source>
         <translation type="unfinished">Arvoalue</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="223"/>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="230"/>
-        <source>s</source>
-        <translation type="unfinished">sek</translation>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="246"/>
+        <source>ms precision</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="246"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="259"/>
         <source>Tap</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="252"/>
-        <source>External Input</source>
-        <translation type="unfinished">Ulkoinen ohjaus</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="298"/>
-        <source>Key combination</source>
-        <translation type="unfinished">Näppäinyhdistelmä</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="304"/>
-        <source>Keyboard combination to control the dial tap</source>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="372"/>
+        <source>Multiplier</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="314"/>
-        <source>Set a key combination for this dial</source>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="378"/>
+        <source>Reset multiplier factor when the dial value changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="334"/>
-        <source>Remove the dial&apos;s keyboard shortcut key</source>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="408"/>
+        <source>Presets</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="374"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="267"/>
+        <source>Apply</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="454"/>
+        <source>Name</source>
+        <translation type="unfinished">Nimi</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="459"/>
+        <source>Value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="439"/>
+        <source> Add preset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="467"/>
+        <source> Remove</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="416"/>
+        <source>Preset name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="289"/>
         <source>Appearance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="382"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="295"/>
         <source>Show plus and minus buttons</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="389"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="344"/>
+        <source>Show multiplier and divisor buttons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="302"/>
         <source>Show the central dial</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="396"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="309"/>
         <source>Show the tap button</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="403"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="351"/>
+        <source>Show the apply button</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="316"/>
         <source>Show the hours field</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="410"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="323"/>
         <source>Show the minutes field</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="417"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="330"/>
         <source>Show the seconds field</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="424"/>
+        <location filename="virtualconsole/vcspeeddialproperties.ui" line="337"/>
         <source>Show the milliseconds field</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcspeeddialproperties.ui" line="431"/>
-        <source>Show the infinite option</source>
+        <location filename="virtualconsole/vcspeeddialproperties.cpp" line="115"/>
+        <source>Multiply by 2 Input</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.cpp" line="124"/>
+        <source>Divide by 2 Input</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcspeeddialproperties.cpp" line="133"/>
+        <source>Factor Reset Input</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>VCWidget</name>
     <message>
-        <location filename="virtualconsole/vcwidget.cpp" line="145"/>
+        <location filename="virtualconsole/vcwidget.cpp" line="144"/>
         <source>Button</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcwidget.cpp" line="146"/>
+        <location filename="virtualconsole/vcwidget.cpp" line="145"/>
         <source>Slider</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcwidget.cpp" line="147"/>
+        <location filename="virtualconsole/vcwidget.cpp" line="146"/>
         <source>XYPad</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcwidget.cpp" line="148"/>
+        <location filename="virtualconsole/vcwidget.cpp" line="147"/>
         <source>Frame</source>
         <translation type="unfinished">Kehys</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcwidget.cpp" line="149"/>
+        <location filename="virtualconsole/vcwidget.cpp" line="148"/>
         <source>Solo frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcwidget.cpp" line="150"/>
+        <location filename="virtualconsole/vcwidget.cpp" line="149"/>
         <source>Speed dial</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcwidget.cpp" line="151"/>
+        <location filename="virtualconsole/vcwidget.cpp" line="150"/>
         <source>Cue list</source>
         <translation type="unfinished">Cue lista</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcwidget.cpp" line="152"/>
+        <location filename="virtualconsole/vcwidget.cpp" line="151"/>
         <source>Label</source>
         <translation type="unfinished">Etiketti</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcwidget.cpp" line="153"/>
+        <location filename="virtualconsole/vcwidget.cpp" line="152"/>
         <source>Audio Triggers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcwidget.cpp" line="154"/>
+        <location filename="virtualconsole/vcwidget.cpp" line="153"/>
         <source>Animation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcwidget.cpp" line="154"/>
+        <source>Clock</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7154,7 +7110,7 @@ Duration: %3
         <translation type="unfinished">Tuntematon</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcwidget.cpp" line="511"/>
+        <location filename="virtualconsole/vcwidget.cpp" line="513"/>
         <source>This widget has no properties</source>
         <translation>Tällä komponentilla ei ole ominaisuuksia</translation>
     </message>
@@ -7162,17 +7118,17 @@ Duration: %3
 <context>
     <name>VCWidgetSelection</name>
     <message>
-        <location filename="virtualconsole/vcwidgetselection.ui" line="14"/>
+        <location filename="virtualconsole/vcwidgetselection.ui" line="33"/>
         <source>Virtual Console widget selection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcwidgetselection.ui" line="23"/>
+        <location filename="virtualconsole/vcwidgetselection.ui" line="42"/>
         <source>Name</source>
         <translation type="unfinished">Nimi</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcwidgetselection.ui" line="28"/>
+        <location filename="virtualconsole/vcwidgetselection.ui" line="47"/>
         <source>Type</source>
         <translation type="unfinished">Tyyppi</translation>
     </message>
@@ -7180,7 +7136,7 @@ Duration: %3
 <context>
     <name>VCXYPadArea</name>
     <message>
-        <location filename="virtualconsole/vcxypadarea.cpp" line="258"/>
+        <location filename="virtualconsole/vcxypadarea.cpp" line="302"/>
         <source>Shift: fine, Ctrl:10x</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7188,43 +7144,43 @@ Duration: %3
 <context>
     <name>VCXYPadFixtureEditor</name>
     <message>
-        <location filename="virtualconsole/vcxypadfixtureeditor.ui" line="13"/>
+        <location filename="virtualconsole/vcxypadfixtureeditor.ui" line="33"/>
         <source>XY Pad Fixture</source>
         <translation>XY-pinnan valaisin</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadfixtureeditor.ui" line="19"/>
+        <location filename="virtualconsole/vcxypadfixtureeditor.ui" line="39"/>
         <source>Horizontal X-Axis</source>
         <translation>Vaakasuuntainen X-akseli</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadfixtureeditor.ui" line="25"/>
-        <location filename="virtualconsole/vcxypadfixtureeditor.ui" line="81"/>
+        <location filename="virtualconsole/vcxypadfixtureeditor.ui" line="45"/>
+        <location filename="virtualconsole/vcxypadfixtureeditor.ui" line="101"/>
         <source>Minimum</source>
         <translation>Minimi</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadfixtureeditor.ui" line="32"/>
-        <location filename="virtualconsole/vcxypadfixtureeditor.ui" line="49"/>
-        <location filename="virtualconsole/vcxypadfixtureeditor.ui" line="88"/>
-        <location filename="virtualconsole/vcxypadfixtureeditor.ui" line="105"/>
+        <location filename="virtualconsole/vcxypadfixtureeditor.ui" line="52"/>
+        <location filename="virtualconsole/vcxypadfixtureeditor.ui" line="69"/>
+        <location filename="virtualconsole/vcxypadfixtureeditor.ui" line="108"/>
+        <location filename="virtualconsole/vcxypadfixtureeditor.ui" line="125"/>
         <source>%</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadfixtureeditor.ui" line="42"/>
-        <location filename="virtualconsole/vcxypadfixtureeditor.ui" line="98"/>
+        <location filename="virtualconsole/vcxypadfixtureeditor.ui" line="62"/>
+        <location filename="virtualconsole/vcxypadfixtureeditor.ui" line="118"/>
         <source>Maximum</source>
         <translation>Maksimi</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadfixtureeditor.ui" line="65"/>
-        <location filename="virtualconsole/vcxypadfixtureeditor.ui" line="121"/>
+        <location filename="virtualconsole/vcxypadfixtureeditor.ui" line="85"/>
+        <location filename="virtualconsole/vcxypadfixtureeditor.ui" line="141"/>
         <source>Reverse</source>
         <translation>Käänteinen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadfixtureeditor.ui" line="75"/>
+        <location filename="virtualconsole/vcxypadfixtureeditor.ui" line="95"/>
         <source>Vertical Y-Axis</source>
         <translation>Pystysuuntainen Y-akseli</translation>
     </message>
@@ -7232,231 +7188,324 @@ Duration: %3
 <context>
     <name>VCXYPadProperties</name>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="14"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="33"/>
         <source>XY Pad Properties</source>
         <translation>XY-pinnan ominaisuudet</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="301"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="53"/>
+        <source>General</source>
+        <translation type="unfinished">Yleinen</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="102"/>
         <source>XY Pad Name</source>
         <translation>XY-pinnan nimi</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="308"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="109"/>
         <source>The name of this XY Pad</source>
         <translation>Muokattavan XY-pinnan nimi</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="24"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="143"/>
         <source>Fixtures</source>
         <translation type="unfinished">Valaisimet</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="30"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="149"/>
         <source>List of fixtures that are controlled by this pad</source>
         <translation>Lista valaisimista, joita voidaan ohjata tällä pinnalla</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="55"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="174"/>
         <source>Fixture</source>
         <translation>Valaisin</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="60"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="179"/>
         <source>X-Axis</source>
         <translation>X-akseli</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="65"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="184"/>
         <source>Y-Axis</source>
         <translation>Y-akseli</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="73"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="192"/>
         <source>Add fixture(s) to the pad</source>
         <translation>Lisää valaisimia tälle pinnalle</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="93"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="212"/>
         <source>Remove selected fixture(s) from the pad</source>
         <translation>Poista valitut valaisimet tältä pinnalta</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="113"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="232"/>
         <source>Edit the selected fixture&apos;s axis</source>
         <translation>Muokkaa valitun valaisimen akseleita</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="147"/>
-        <source>Input</source>
-        <translation type="unfinished">Sisääntulo</translation>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="252"/>
+        <source>Range Display Mode</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="153"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="258"/>
+        <source>Degrees</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="268"/>
+        <source>Percentage</source>
+        <translation type="unfinished">Prosentti</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="278"/>
+        <source>DMX</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="302"/>
+        <source>Presets</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="323"/>
+        <source>Name</source>
+        <translation type="unfinished">Nimi</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="333"/>
+        <source>Add position</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="344"/>
+        <source>Add EFX</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="355"/>
+        <source>Add Scene</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="366"/>
+        <source>Add Fixture Group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="377"/>
+        <source>Remove</source>
+        <translation type="unfinished">Poista</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="388"/>
+        <source>Move Up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="399"/>
+        <source>Move Down</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="418"/>
+        <source>Preset name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="85"/>
         <source>Pan / Horizontal Axis</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="159"/>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="226"/>
-        <source>Input universe</source>
-        <translation type="unfinished">Sisääntulon universumi</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="173"/>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="240"/>
-        <source>Input channel</source>
-        <translation type="unfinished">Sisääntulon kanava</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="200"/>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="267"/>
-        <source>Auto Detect</source>
-        <translation type="unfinished">Automaattinen tunnistus</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="210"/>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="277"/>
-        <source>Choose...</source>
-        <translation type="unfinished">Valitse...</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="220"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="98"/>
         <source>Tilt / Vertical Axis</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="315"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="116"/>
         <source>Y-Axis slider movement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="321"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="122"/>
         <source>Normal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.ui" line="331"/>
+        <location filename="virtualconsole/vcxypadproperties.ui" line="132"/>
         <source>Inverted</source>
         <translation type="unfinished">Käänteinen</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="227"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="111"/>
+        <source>Width</source>
+        <translation type="unfinished">Leveys</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="119"/>
+        <source>Height</source>
+        <translation type="unfinished">Korkeus</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="364"/>
         <source>Remove fixtures</source>
         <translation>Poista valaisimia</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcxypadproperties.cpp" line="228"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="365"/>
         <source>Do you want to remove the selected fixtures?</source>
         <translation>Haluatko poistaa valitut valaisimet?</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="718"/>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="767"/>
+        <source>Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="719"/>
+        <source>The selected Scene does not include any Pan or Tilt channel.
+Please select one with such channels.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="768"/>
+        <source>Please select at least one fixture or head to create this type of preset !</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vcxypadproperties.cpp" line="775"/>
+        <source>Fixture Group</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>VideoEditor</name>
     <message>
-        <location filename="videoeditor.ui" line="14"/>
+        <location filename="videoeditor.ui" line="33"/>
         <source>Video Editor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="79"/>
+        <location filename="videoeditor.ui" line="54"/>
         <source>Video name</source>
         <oldsource>Video name:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="248"/>
+        <location filename="videoeditor.ui" line="162"/>
+        <source>Play the video and see how it looks like</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="videoeditor.ui" line="189"/>
         <source>File name</source>
         <oldsource>File name:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="86"/>
+        <location filename="videoeditor.ui" line="196"/>
         <source>Duration</source>
         <oldsource>Duration:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="93"/>
+        <location filename="videoeditor.ui" line="203"/>
         <source>Resolution</source>
         <oldsource>Resolution:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="100"/>
+        <location filename="videoeditor.ui" line="217"/>
         <source>Audio codec</source>
         <oldsource>Audio codec:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="107"/>
+        <location filename="videoeditor.ui" line="210"/>
         <source>Video codec</source>
         <oldsource>Video codec:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="170"/>
+        <location filename="videoeditor.ui" line="103"/>
         <source>Set an arbitrary URL for this Video</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="255"/>
+        <location filename="videoeditor.ui" line="133"/>
         <source>Name of the function being edited</source>
         <translation type="unfinished">Muokattavan funktion nimi</translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="114"/>
-        <source>Preview</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="videoeditor.ui" line="121"/>
+        <location filename="videoeditor.ui" line="231"/>
         <source>Output Screen</source>
         <oldsource>Output Screen:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="222"/>
+        <location filename="videoeditor.ui" line="238"/>
         <source>Video output</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="228"/>
+        <location filename="videoeditor.ui" line="244"/>
         <source>Windowed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="videoeditor.ui" line="238"/>
+        <location filename="videoeditor.ui" line="254"/>
         <source>Fullscreen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="videoeditor.cpp" line="120"/>
+        <location filename="videoeditor.ui" line="264"/>
+        <source>Playback mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="videoeditor.ui" line="270"/>
+        <source>Single shot</source>
+        <translation type="unfinished">Kertalaukaus</translation>
+    </message>
+    <message>
+        <location filename="videoeditor.ui" line="280"/>
+        <source>Loop</source>
+        <translation type="unfinished">Silmukka</translation>
+    </message>
+    <message>
+        <location filename="videoeditor.cpp" line="122"/>
         <source>Open Video File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="videoeditor.cpp" line="128"/>
+        <location filename="videoeditor.cpp" line="130"/>
         <source>Video Files (%1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="videoeditor.cpp" line="130"/>
+        <location filename="videoeditor.cpp" line="132"/>
         <source>All Files (*.*)</source>
         <translation type="unfinished">Kaikki tiedostot (*.*)</translation>
     </message>
     <message>
-        <location filename="videoeditor.cpp" line="132"/>
+        <location filename="videoeditor.cpp" line="134"/>
         <source>All Files (*)</source>
         <translation type="unfinished">Kaikki tiedostot (*)</translation>
     </message>
     <message>
-        <location filename="videoeditor.cpp" line="161"/>
+        <location filename="videoeditor.cpp" line="162"/>
         <source>Video source URL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="videoeditor.cpp" line="162"/>
+        <location filename="videoeditor.cpp" line="163"/>
         <source>Enter a URL:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7464,12 +7513,12 @@ Duration: %3
 <context>
     <name>VideoItem</name>
     <message>
-        <location filename="showmanager/videoitem.cpp" line="50"/>
+        <location filename="showmanager/videoitem.cpp" line="51"/>
         <source>Fullscreen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="showmanager/videoitem.cpp" line="166"/>
+        <location filename="showmanager/videoitem.cpp" line="187"/>
         <source>Screen %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7477,229 +7526,229 @@ Duration: %3
 <context>
     <name>VirtualConsole</name>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="370"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="372"/>
         <source>Cut</source>
         <translation>Leikkaa</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="373"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="375"/>
         <source>Copy</source>
         <translation>Kopioi</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="376"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="378"/>
         <source>Paste</source>
         <translation>Liitä</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="380"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="382"/>
         <source>Delete</source>
         <translation>Poista</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="406"/>
-        <location filename="virtualconsole/virtualconsole.cpp" line="420"/>
-        <location filename="virtualconsole/virtualconsole.cpp" line="433"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="408"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="422"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="435"/>
         <source>Default</source>
         <translation>Oletus</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="430"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="432"/>
         <source>Font</source>
         <translation type="unfinished">Kirjasin</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="443"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="445"/>
         <source>Sunken</source>
         <translation>Upotettu</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="446"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="448"/>
         <source>Raised</source>
         <translation>Nostettu</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="449"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="451"/>
         <source>None</source>
         <translation>Ei mitään</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="477"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="479"/>
         <source>&amp;Add</source>
         <translation>&amp;Lisää</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="498"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="500"/>
         <source>&amp;Edit</source>
         <translation>&amp;Muokkaa</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="302"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="304"/>
         <source>New Button</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="308"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="310"/>
         <source>New Slider</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="314"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="316"/>
         <source>New Knob</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="317"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="319"/>
         <source>New Speed Dial</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="320"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="322"/>
         <source>New XY pad</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="323"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="325"/>
         <source>New Cue list</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="326"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="328"/>
         <source>New Frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="329"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="331"/>
         <source>New Solo frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="332"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="334"/>
         <source>New Label</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="335"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="337"/>
         <source>New Audio Triggers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="338"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="340"/>
         <source>New Clock</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="363"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="365"/>
         <source>Virtual Console Settings</source>
         <translation type="unfinished">Virtuaalikonsolin asetukset</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="383"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="385"/>
         <source>Widget Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="386"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="388"/>
         <source>Rename Widget</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="400"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="402"/>
         <source>Background Color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="403"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="405"/>
         <source>Background Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="417"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="419"/>
         <source>Font Colour</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="460"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="462"/>
         <source>Bring to front</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="463"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="465"/>
         <source>Send to back</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="510"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="512"/>
         <source>&amp;Background</source>
         <translation>T&amp;austa</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="518"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="520"/>
         <source>&amp;Foreground</source>
         <translation>E&amp;dusta</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="525"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="527"/>
         <source>F&amp;ont</source>
         <translation>&amp;Kirjasin</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="532"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="534"/>
         <source>F&amp;rame</source>
         <translation>K&amp;ehys</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="540"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="542"/>
         <source>Stacking &amp;order</source>
         <translation>Pinoamis&amp;järjestys</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1242"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1271"/>
         <source>Images</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="305"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="307"/>
         <source>New Button Matrix</source>
         <translation type="unfinished">Uusi nappimatriisi</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="311"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="313"/>
         <source>New Slider Matrix</source>
         <translation type="unfinished">Uusi liukumatriisi</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="341"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="343"/>
         <source>New Animation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="859"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="893"/>
         <source>Knob %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1126"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1162"/>
         <source>Do you wish to delete the selected widgets?</source>
         <translation>Haluatko poistaa valitut komponentit?</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1127"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1163"/>
         <source>Delete widgets</source>
         <translation>Poista komponentit</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1187"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1216"/>
         <source>Rename widgets</source>
         <translation>Nimeä komponentit</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1187"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1216"/>
         <source>Caption:</source>
         <translation>Teksti:</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1240"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1269"/>
         <source>Select background image</source>
         <translation>Valitse taustakuva</translation>
     </message>

@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   virtualconsole.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,6 +18,8 @@
   limitations under the License.
 */
 
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QDesktopWidget>
 #include <QApplication>
 #include <QInputDialog>
@@ -28,6 +31,7 @@
 #include <QFileDialog>
 #include <QFontDialog>
 #include <QScrollArea>
+#include <QSettings>
 #include <QKeyEvent>
 #include <QMenuBar>
 #include <QToolBar>
@@ -35,7 +39,6 @@
 #include <QDebug>
 #include <QMenu>
 #include <QList>
-#include <QtXml>
 
 #include "vcpropertieseditor.h"
 #include "addvcbuttonmatrix.h"
@@ -132,7 +135,6 @@ VirtualConsole::VirtualConsole(QWidget* parent, Doc* doc)
     , m_scrollArea(NULL)
     , m_contents(NULL)
 
-    , m_tapModifierDown(false)
     , m_liveEdit(false)
 {
     Q_ASSERT(s_instance == NULL);
@@ -702,17 +704,51 @@ VCWidget* VirtualConsole::closestParent() const
     return NULL;
 }
 
-void VirtualConsole::checkWidgetPage(VCWidget *widget, VCWidget *parent)
+void VirtualConsole::connectWidgetToParent(VCWidget *widget, VCWidget *parent)
 {
     if (parent->type() == VCWidget::FrameWidget
             || parent->type() == VCWidget::SoloFrameWidget)
     {
-        VCFrame *frame = (VCFrame *)parent;
-        widget->setPage(frame->currentPage());
-        frame->addWidgetToPageMap(widget);
+        VCFrame *frame = qobject_cast<VCFrame *>(parent);
+        if (frame != NULL)
+        {
+            widget->setPage(frame->currentPage());
+            frame->addWidgetToPageMap(widget);
+        }
     }
     else
         widget->setPage(0);
+
+    if (widget->type() == VCWidget::SliderWidget)
+    {
+        VCSlider *slider = qobject_cast<VCSlider *>(widget);
+        if (slider != NULL)
+        {
+            connect(slider, SIGNAL(submasterValueChanged(qreal)),
+                    parent, SLOT(slotSubmasterValueChanged(qreal)));
+        }
+    }
+}
+
+void VirtualConsole::disconnectWidgetFromParent(VCWidget *widget, VCWidget *parent)
+{
+    if (parent->type() == VCWidget::FrameWidget
+            || parent->type() == VCWidget::SoloFrameWidget)
+    {
+        VCFrame *frame = qobject_cast<VCFrame *>(parent);
+        if (frame != NULL)
+            frame->removeWidgetFromPageMap(widget);
+    }
+
+    if (widget->type() == VCWidget::SliderWidget)
+    {
+        VCSlider *slider = qobject_cast<VCSlider *>(widget);
+        if (slider != NULL)
+        {
+            disconnect(slider, SIGNAL(submasterValueChanged(qreal)),
+                       parent, SLOT(slotSubmasterValueChanged(qreal)));
+        }
+    }
 }
 
 void VirtualConsole::slotAddButton()
@@ -748,7 +784,7 @@ void VirtualConsole::slotAddButtonMatrix()
     Q_ASSERT(frame != NULL);
     addWidgetInMap(frame);
     frame->setHeaderVisible(false);
-    checkWidgetPage(frame, parent);
+    connectWidgetToParent(frame, parent);
 
     // Resize the parent frame to fit the buttons nicely and toggle resizing off
     frame->resize(QSize((h * sz) + 20, (v * sz) + 20));
@@ -761,6 +797,7 @@ void VirtualConsole::slotAddButtonMatrix()
             VCButton* button = new VCButton(frame, m_doc);
             Q_ASSERT(button != NULL);
             addWidgetInMap(button);
+            connectWidgetToParent(button, frame);
             button->move(QPoint(10 + (x * sz), 10 + (y * sz)));
             button->resize(QSize(sz, sz));
             button->show();
@@ -797,8 +834,6 @@ void VirtualConsole::slotAddSlider()
     VCSlider* slider = new VCSlider(parent, m_doc);
     setupWidget(slider, parent);
     m_doc->setModified();
-    connect(slider, SIGNAL(submasterValueChanged(qreal)),
-            parent, SLOT(slotSubmasterValueChanged(qreal)));
 }
 
 void VirtualConsole::slotAddSliderMatrix()
@@ -819,7 +854,7 @@ void VirtualConsole::slotAddSliderMatrix()
     Q_ASSERT(frame != NULL);
     addWidgetInMap(frame);
     frame->setHeaderVisible(false);
-    checkWidgetPage(frame, parent);
+    connectWidgetToParent(frame, parent);
 
     // Resize the parent frame to fit the sliders nicely
     frame->resize(QSize((count * width) + 20, height + 20));
@@ -830,11 +865,10 @@ void VirtualConsole::slotAddSliderMatrix()
         VCSlider* slider = new VCSlider(frame, m_doc);
         Q_ASSERT(slider != NULL);
         addWidgetInMap(slider);
+        connectWidgetToParent(slider, frame);
         slider->move(QPoint(10 + (width * i), 10));
         slider->resize(QSize(width, height));
         slider->show();
-        connect(slider, SIGNAL(submasterValueChanged(qreal)),
-                frame, SLOT(slotSubmasterValueChanged(qreal)));
     }
 
     // Show the frame after adding buttons to prevent flickering
@@ -857,8 +891,6 @@ void VirtualConsole::slotAddKnob()
     knob->resize(QSize(60, 90));
     knob->setWidgetStyle(VCSlider::WKnob);
     knob->setCaption(tr("Knob %1").arg(knob->id()));
-    connect(knob, SIGNAL(submasterValueChanged(qreal)),
-            parent, SLOT(slotSubmasterValueChanged(qreal)));
     m_doc->setModified();
 }
 
@@ -1079,13 +1111,17 @@ void VirtualConsole::slotEditPaste()
             if (widget == parent)
                 continue;
 
+            VCWidget* prevParent = qobject_cast<VCWidget*> (widget->parentWidget());
+            if (prevParent != NULL)
+                disconnectWidgetFromParent(widget, prevParent);
+
             /* Get widget's relative pos to the bounding rect */
             QPoint p(widget->x() - bounds.x() + cp.x(),
                      widget->y() - bounds.y() + cp.y());
 
             /* Reparent and move to the correct place */
             widget->setParent(parent);
-            checkWidgetPage(widget, parent);
+            connectWidgetToParent(widget, parent);
             widget->move(p);
             widget->show();
         }
@@ -1112,7 +1148,7 @@ void VirtualConsole::slotEditPaste()
             VCWidget* copy = widget->createCopy(parent);
             Q_ASSERT(copy != NULL);
             addWidgetInMap(copy);
-            checkWidgetPage(copy, parent);
+            connectWidgetToParent(copy, parent);
             copy->move(p);
             copy->show();
         }
@@ -1142,14 +1178,7 @@ void VirtualConsole::slotEditDelete()
             widget->deleteLater();
 
             if (parent != NULL)
-            {
-                if (parent->type() == VCWidget::FrameWidget ||
-                        parent->type() == VCWidget::SoloFrameWidget)
-                {
-                    VCFrame *frame = (VCFrame *)parent;
-                    frame->removeWidgetFromPageMap(widget);
-                }
-            }
+                disconnectWidgetFromParent(widget, parent);
 
             /* Remove the widget from clipboard as well so that
                deleted widgets won't be pasted anymore anywhere */
@@ -1497,7 +1526,6 @@ void VirtualConsole::resetContents()
     updateActions();
 
     /* Reset all properties but size */
-    m_properties.setTapModifier(Qt::ControlModifier);
     m_properties.setGrandMasterChannelMode(GrandMaster::Intensity);
     m_properties.setGrandMasterValueMode(GrandMaster::Reduce);
     m_properties.setGrandMasterInputSource(InputOutputMap::invalidUniverse(), QLCChannel::invalid());
@@ -1508,7 +1536,6 @@ void VirtualConsole::addWidgetInMap(VCWidget* widget)
     // Valid ID ?
     if (widget->id() != VCWidget::invalidId())
     {
-
         // Maybe we don't know this widget yet
         if (!m_widgetsMap.contains(widget->id()))
         {
@@ -1540,7 +1567,7 @@ void VirtualConsole::setupWidget(VCWidget *widget, VCWidget *parent)
     Q_ASSERT(parent != NULL);
 
     addWidgetInMap(widget);
-    checkWidgetPage(widget, parent);
+    connectWidgetToParent(widget, parent);
     widget->show();
     widget->move(parent->lastClickPoint());
     clearWidgetSelection();
@@ -1571,11 +1598,6 @@ void VirtualConsole::initContents()
  * Key press handler
  *****************************************************************************/
 
-bool VirtualConsole::isTapModifierDown() const
-{
-    return m_tapModifierDown;
-}
-
 void VirtualConsole::keyPressEvent(QKeyEvent* event)
 {
     if (event->isAutoRepeat() == true)
@@ -1583,9 +1605,6 @@ void VirtualConsole::keyPressEvent(QKeyEvent* event)
         event->ignore();
         return;
     }
-
-    if ((event->modifiers() & Qt::ControlModifier) != 0)
-        m_tapModifierDown = true;
 
     QKeySequence seq(event->key() | (event->modifiers() & ~Qt::ControlModifier));
     emit keyPressed(seq);
@@ -1600,9 +1619,6 @@ void VirtualConsole::keyReleaseEvent(QKeyEvent* event)
         event->ignore();
         return;
     }
-
-    if ((event->modifiers() & Qt::ControlModifier) == 0)
-        m_tapModifierDown = false;
 
     QKeySequence seq(event->key() | event->modifiers());
     emit keyReleased(seq);
@@ -1790,60 +1806,58 @@ void VirtualConsole::slotModeChanged(Doc::Mode mode)
  * Load & Save
  *****************************************************************************/
 
-bool VirtualConsole::loadXML(const QDomElement& root)
+bool VirtualConsole::loadXML(QXmlStreamReader &root)
 {
-    if (root.tagName() != KXMLQLCVirtualConsole)
+    if (root.name() != KXMLQLCVirtualConsole)
     {
         qWarning() << Q_FUNC_INFO << "Virtual Console node not found";
         return false;
     }
 
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLQLCVCProperties)
+        //qDebug() << "VC tag:" << root.name();
+        if (root.name() == KXMLQLCVCProperties)
         {
             /* Properties */
-            m_properties.loadXML(tag);
+            m_properties.loadXML(root);
             QSize size(m_properties.size());
             contents()->resize(size);
             contents()->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
         }
-        else if (tag.tagName() == KXMLQLCVCFrame)
+        else if (root.name() == KXMLQLCVCFrame)
         {
             /* Contents */
             Q_ASSERT(m_contents != NULL);
-            m_contents->loadXML(&tag);
+            m_contents->loadXML(root);
         }
         else
         {
             qWarning() << Q_FUNC_INFO << "Unknown Virtual Console tag"
-                       << tag.tagName();
+                       << root.name().toString();
+            root.skipCurrentElement();
         }
-
-        /* Next node */
-        node = node.nextSibling();
     }
 
     return true;
 }
 
-bool VirtualConsole::saveXML(QDomDocument* doc, QDomElement* wksp_root)
+bool VirtualConsole::saveXML(QXmlStreamWriter *doc)
 {
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(wksp_root != NULL);
 
     /* Virtual Console entry */
-    QDomElement vc_root = doc->createElement(KXMLQLCVirtualConsole);
-    wksp_root->appendChild(vc_root);
+    doc->writeStartElement(KXMLQLCVirtualConsole);
 
     /* Contents */
     Q_ASSERT(m_contents != NULL);
-    m_contents->saveXML(doc, &vc_root);
+    m_contents->saveXML(doc);
 
     /* Properties */
-    m_properties.saveXML(doc, &vc_root);
+    m_properties.saveXML(doc);
+
+    /* End the <VirtualConsole> tag */
+    doc->writeEndElement();
 
     return true;
 }
@@ -1901,25 +1915,4 @@ void VirtualConsole::postLoad()
     m_contents->setFocus();
 
     emit loaded();
-}
-
-
-bool VirtualConsole::checkStartupFunction(quint32 fid)
-{
-    QList<VCWidget *> widgetsList = getChildren(m_contents);
-
-    foreach (VCWidget *widget, widgetsList)
-    {
-        if (widget->type() == VCWidget::CueListWidget)
-        {
-            VCCueList *cuelist = (VCCueList *)widget;
-            if (cuelist->chaserID() == fid)
-            {
-                cuelist->slotPlayback();
-                return true;
-            }
-        }
-    }
-
-    return false;
 }

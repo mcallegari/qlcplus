@@ -70,6 +70,10 @@ ChannelsSelection::ChannelsSelection(Doc *doc, QWidget *parent, ChannelSelection
             this, SLOT(slotItemExpanded()));
     connect(m_channelsTree, SIGNAL(collapsed(QModelIndex)),
             this, SLOT(slotItemExpanded()));
+    connect(m_collapseButton, SIGNAL(clicked(bool)),
+            m_channelsTree, SLOT(collapseAll()));
+    connect(m_expandButton, SIGNAL(clicked(bool)),
+            m_channelsTree, SLOT(expandAll()));
 }
 
 ChannelsSelection::~ChannelsSelection()
@@ -95,7 +99,6 @@ void ChannelsSelection::updateFixturesTree()
     m_channelsTree->clear();
     m_channelsTree->setIconSize(QSize(24, 24));
     m_channelsTree->setAllColumnsShowFocus(true);
-    InputOutputMap *ioMap = m_doc->inputOutputMap();
 
     foreach(Fixture *fxi, m_doc->fixtures())
     {
@@ -115,15 +118,18 @@ void ChannelsSelection::updateFixturesTree()
         if (topItem == NULL)
         {
             topItem = new QTreeWidgetItem(m_channelsTree);
-            topItem->setText(KColumnName, tr("Universe %1").arg(uni + 1));
+            topItem->setText(KColumnName, m_doc->inputOutputMap()->universes().at(uni)->name());
             topItem->setText(KColumnID, QString::number(uni));
             topItem->setExpanded(true);
         }
 
         QTreeWidgetItem *fItem = new QTreeWidgetItem(topItem);
         fItem->setText(KColumnName, fxi->name());
-        fItem->setIcon(KColumnName, fxi->getIconFromType(fxi->type()));
+        fItem->setIcon(KColumnName, fxi->getIconFromType());
         fItem->setText(KColumnID, QString::number(fxi->id()));
+
+        QList<int> forcedHTP = fxi->forcedHTPChannels();
+        QList<int> forcedLTP = fxi->forcedLTPChannels();
 
         for (quint32 c = 0; c < fxi->channels(); c++)
         {
@@ -151,24 +157,20 @@ void ChannelsSelection::updateFixturesTree()
                 combo->addItem("LTP", false);
                 combo->setProperty("treeItem", qVariantFromValue((void *)item));
                 m_channelsTree->setItemWidget(item, KColumnBehaviour, combo);
-                quint32 absChannelIdx = fxi->address() + c;
-                QList<Universe *> universes = ioMap->claimUniverses();
-                if (fxi->universe() < (quint32)universes.count())
-                {
-                    int caps = universes.at(fxi->universe())->channelCapabilities(absChannelIdx);
-                    if (caps & Universe::LTP)
-                    {
-                        combo->setCurrentIndex(1);
-                        // set the other behaviour as true
-                        combo->setItemData(0, true, Qt::UserRole);
-                    }
-                    else
-                    {
-                        combo->setCurrentIndex(0);
-                        // set the other behaviour as true
-                        combo->setItemData(1, true, Qt::UserRole);
-                    }
-                }
+
+                int bIdx = 1;
+
+                if (forcedHTP.contains(c))
+                    bIdx = 0;
+                else if (forcedLTP.contains(c))
+                    bIdx = 1;
+                else if (channel->group() == QLCChannel::Intensity)
+                    bIdx = 0;
+
+                combo->setCurrentIndex(bIdx);
+                // set the other behaviour as true
+                combo->setItemData(bIdx == 0 ? 1 : 0, true, Qt::UserRole);
+
                 QPushButton *button = new QPushButton();
                 ChannelModifier *mod = fxi->channelModifier(c);
                 if (mod == NULL)
@@ -177,7 +179,7 @@ void ChannelsSelection::updateFixturesTree()
                     button->setText(mod->name());
                 button->setProperty("treeItem", qVariantFromValue((void *)item));
                 m_channelsTree->setItemWidget(item, KColumnModifier, button);
-                ioMap->releaseUniverses(false);
+
                 connect(combo, SIGNAL(currentIndexChanged(int)),
                         this, SLOT(slotComboChanged(int)));
                 connect(button, SIGNAL(clicked()),
@@ -195,9 +197,7 @@ void ChannelsSelection::updateFixturesTree()
             item->setText(KColumnChIdx, QString::number(c));
         }
     }
-    m_channelsTree->resizeColumnToContents(KColumnName);
-    m_channelsTree->resizeColumnToContents(KColumnType);
-    m_channelsTree->resizeColumnToContents(KColumnSelection);
+    m_channelsTree->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
 QList<QTreeWidgetItem *> ChannelsSelection::getSameChannels(QTreeWidgetItem *item)
@@ -264,11 +264,7 @@ void ChannelsSelection::slotItemChecked(QTreeWidgetItem *item, int col)
 
 void ChannelsSelection::slotItemExpanded()
 {
-    m_channelsTree->resizeColumnToContents(KColumnName);
-    m_channelsTree->resizeColumnToContents(KColumnType);
-    m_channelsTree->resizeColumnToContents(KColumnSelection);
-    if (m_mode == ConfigurationMode)
-        m_channelsTree->resizeColumnToContents(KColumnBehaviour);
+    m_channelsTree->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
 void ChannelsSelection::slotComboChanged(int idx)
@@ -351,6 +347,8 @@ void ChannelsSelection::accept()
                 for (int c = 0; c < fixItem->childCount(); c++)
                 {
                     QTreeWidgetItem *chanItem = fixItem->child(c);
+                    const QLCChannel* channel = fxi->channel(c);
+
                     if (m_mode == ConfigurationMode)
                     {
                         if (chanItem->checkState(KColumnSelection) == Qt::Unchecked)
@@ -359,12 +357,16 @@ void ChannelsSelection::accept()
                         QComboBox *combo = (QComboBox *)m_channelsTree->itemWidget(chanItem, KColumnBehaviour);
                         if (combo != NULL)
                         {
-                            int selIdx = combo->currentIndex();
-                            if (combo->itemData(selIdx).toBool() == true)
+                            if (combo->currentIndex() == 0) // HTP
                             {
-                                if (selIdx == 0)
+                                // do not force a channel that is already HTP by nature
+                                if (channel->group() != QLCChannel::Intensity)
                                     forcedHTPList.append(c);
-                                else
+                            }
+                            else // LTP
+                            {
+                                // do not force a channel that is already LTP by nature
+                                if (channel->group() == QLCChannel::Intensity)
                                     forcedLTPList.append(c);
                             }
                         }

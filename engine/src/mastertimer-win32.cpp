@@ -1,8 +1,9 @@
 ﻿/*
-  Q Light Controller
+  Q Light Controller Plus
   mastertimer-win32.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -21,15 +22,12 @@
 #define _WIN32_WINNT 0x05000000
 #define _WIN32_WINDOWS 0x05000000
 #define WINVER 0x05000000
-#include <Windows.h>
+
 #include <QDebug>
 
 #include "mastertimer-win32.h"
 #include "mastertimer.h"
 #include "qlcmacros.h"
-
-// Target timer resolution in milliseconds
-#define TARGET_RESOLUTION_MS 1
 
 /****************************************************************************
  * Timer callback

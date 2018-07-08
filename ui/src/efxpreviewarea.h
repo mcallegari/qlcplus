@@ -50,14 +50,17 @@ public:
      *
      * @param points The point array
      */
-    void setPoints(const QVector<QPoint>& points);
+    void setPolygon(const QPolygonF &polygon);
+
+    /** Returns the number of polygons elapsed when calculating the EFX path */
+    int polygonsCount() const;
 
     /**
      * Set an an array of X-Y points that can be used for drawing individual fixture positions
      *
      * @param fixturePoints The array of point arrays (one array for each fixture)
      */
-    void setFixturePoints(const QVector<QVector<QPoint> >& fixturePoints);
+    void setFixturePolygons(const QVector<QPolygonF> &fixturePoints);
 
     /**
      * Tell the preview area to draw the points.
@@ -67,7 +70,15 @@ public:
     void draw(int timerInterval = 20);
 
     /** Scale the points in the given polygon of size [0, 255] to the given target size */
-    static QPolygon scale(const QPolygon& poly, const QSize& target);
+    static QPolygonF scale(const QPolygonF& poly, const QSize& target);
+
+    /** Restart animation. */
+    void restart();
+
+    /** Enable/disable a color map background */
+    void showGradientBackground(bool enable);
+
+    void setBackgroundAlpha(int alpha);
 
 protected:
     /** @reimp */
@@ -82,17 +93,23 @@ private slots:
 
 private:
     /** Points that are drawn in the preview area */
-    QPolygon m_points;
-    QPolygon m_original;
+    QPolygonF m_scaled;
+    QPolygonF m_original;
 
-    QVector <QPolygon> m_fixturePoints;
-    QVector <QPolygon> m_originalFixturePoints;
+    QVector <QPolygonF> m_fixturePoints;
+    QVector <QPolygonF> m_originalFixturePoints;
 
     /** Animation timer */
     QTimer m_timer;
 
     /** Animation position */
     int m_iter;
+
+    /** Flag to enable/disable a color map background */
+    bool m_gradientBg;
+
+    /** The background color alpha */
+    int m_bgAlpha;
 };
 
 /** @} */

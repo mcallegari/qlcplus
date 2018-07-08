@@ -1,9 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE InputProfile>
-<InputProfile>
+<InputProfile xmlns="http://www.qlcplus.org/InputProfile">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.1.0</Version>
-  <Author>Massimo Callegari</Author>
+  <Version>4.10.2 GIT</Version>
+  <Author>dragon</Author>
  </Creator>
  <Manufacturer>Touch OSC</Manufacturer>
  <Model>Mix 16</Model>
@@ -11,6 +12,7 @@
  <Channel Number="944">
   <Name>/1/toggle3</Name>
   <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
  </Channel>
  <Channel Number="1601">
   <Name>/4/multifader1/4</Name>
@@ -23,6 +25,7 @@
  <Channel Number="4665">
   <Name>/1/toggle2</Name>
   <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
  </Channel>
  <Channel Number="6088">
   <Name>/4/multifader1/5</Name>
@@ -35,6 +38,7 @@
  <Channel Number="8354">
   <Name>/1/toggle1</Name>
   <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
  </Channel>
  <Channel Number="9033">
   <Name>/4/multifader2/8</Name>
@@ -47,6 +51,7 @@
  <Channel Number="9881">
   <Name>/3/toggle8</Name>
   <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
  </Channel>
  <Channel Number="10346">
   <Name>/2/fader7</Name>
@@ -95,6 +100,7 @@
  <Channel Number="27492">
   <Name>/2/toggle8</Name>
   <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
  </Channel>
  <Channel Number="28238">
   <Name>/2/fader3</Name>
@@ -119,6 +125,7 @@
  <Channel Number="33306">
   <Name>/2/toggle6</Name>
   <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
  </Channel>
  <Channel Number="33310">
   <Name>/1/push2</Name>
@@ -127,6 +134,7 @@
  <Channel Number="35267">
   <Name>/3/toggle2</Name>
   <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
  </Channel>
  <Channel Number="35326">
   <Name>/4/multifader1/16</Name>
@@ -151,6 +159,7 @@
  <Channel Number="37779">
   <Name>/2/toggle7</Name>
   <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
  </Channel>
  <Channel Number="37783">
   <Name>/1/push3</Name>
@@ -159,6 +168,7 @@
  <Channel Number="38986">
   <Name>/3/toggle3</Name>
   <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
  </Channel>
  <Channel Number="39031">
   <Name>/4/multifader1/17</Name>
@@ -179,6 +189,7 @@
  <Channel Number="41224">
   <Name>/2/toggle4</Name>
   <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
  </Channel>
  <Channel Number="42313">
   <Name>/4/multifader2/24</Name>
@@ -203,6 +214,7 @@
  <Channel Number="45185">
   <Name>/2/toggle5</Name>
   <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
  </Channel>
  <Channel Number="45189">
   <Name>/1/push1</Name>
@@ -215,6 +227,7 @@
  <Channel Number="47960">
   <Name>/3/toggle1</Name>
   <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
  </Channel>
  <Channel Number="47973">
   <Name>/4/multifader1/15</Name>
@@ -235,6 +248,7 @@
  <Channel Number="50238">
   <Name>/2/toggle2</Name>
   <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
  </Channel>
  <Channel Number="50848">
   <Name>/4/multifader1/20</Name>
@@ -267,6 +281,7 @@
  <Channel Number="53223">
   <Name>/3/toggle6</Name>
   <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
  </Channel>
  <Channel Number="53405">
   <Name>/2/fader8</Name>
@@ -279,6 +294,7 @@
  <Channel Number="54711">
   <Name>/2/toggle3</Name>
   <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
  </Channel>
  <Channel Number="55081">
   <Name>/4/multifader1/21</Name>
@@ -307,6 +323,7 @@
  <Channel Number="56942">
   <Name>/3/toggle7</Name>
   <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
  </Channel>
  <Channel Number="58221">
   <Name>/4/multifader2/20</Name>
@@ -339,6 +356,11 @@
  <Channel Number="60661">
   <Name>/3/toggle4</Name>
   <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
+ </Channel>
+ <Channel Number="60671">
+  <Name>/1/xy_1</Name>
+  <Type>Slider</Type>
  </Channel>
  <Channel Number="61425">
   <Name>/3/fader3</Name>
@@ -363,6 +385,7 @@
  <Channel Number="63141">
   <Name>/2/toggle1</Name>
   <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
  </Channel>
  <Channel Number="63660">
   <Name>/4/multifader2/5</Name>
@@ -376,9 +399,14 @@
   <Name>/4/multifader1/11</Name>
   <Type>Slider</Type>
  </Channel>
+ <Channel Number="64886">
+  <Name>/1/xy_0</Name>
+  <Type>Slider</Type>
+ </Channel>
  <Channel Number="64892">
   <Name>/3/toggle5</Name>
   <Type>Button</Type>
+  <ExtraPress>True</ExtraPress>
  </Channel>
  <Channel Number="65144">
   <Name>/3/fader2</Name>

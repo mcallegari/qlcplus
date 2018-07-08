@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   qlcfile.h
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -23,13 +24,19 @@
 #include <QFile>
 #include <QDir>
 
+class QXmlStreamReader;
+class QXmlStreamWriter;
+#ifdef QT_XML_LIB
 class QDomDocument;
 class QDomElement;
+#endif
 class QString;
 
 /** @addtogroup engine Engine
  * @{
  */
+
+#define KXMLQLCplusNamespace "http://www.qlcplus.org/"
 
 // File extensions
 #define KExtFixture          ".qxf"  // 'Q'LC+ 'X'ml 'F'ixture
@@ -37,6 +44,11 @@ class QString;
 #define KExtWorkspace        ".qxw"  // 'Q'LC+ 'X'ml 'W'orkspace
 #define KExtInputProfile     ".qxi"  // 'Q'LC+ 'X'ml 'I'nput profile
 #define KExtModifierTemplate ".qxmt" // 'Q'LC+ 'X'ml 'M'odifier 'T'emplate
+
+#ifdef QMLUI
+#define KExtColorFilters     ".qxcf" // 'Q'LC+ 'X'ml 'C'olor 'F'ilters
+#endif
+
 #if defined(WIN32) || defined(Q_OS_WIN)
 #   define KExtPlugin    ".dll" // Dynamic-Link Library
 #elif defined(__APPLE__) || defined(Q_OS_MAC)
@@ -59,23 +71,28 @@ class QLCFile
 {
 public:
     /**
-     * Read an XML file to a QDomDocument structure
+     * Request a QXmlStreamReader for an XML file
      *
      * @param path Path to the file to read
-     * @return QDomDocument (null doc if not successful)
-     *
-     * @return An error code (QFile::NoError if successful)
+     * @return QXmlStreamReader (unitialized if not successful)
      */
-    static QDomDocument readXML(const QString& path);
+    static QXmlStreamReader *getXMLReader(const QString& path);
 
     /**
-     * Get a common XML file header as a QDomDocument
+     * Release an existing instance of an XML reader, by closing
+     * the device file, and freeing the resources
+     */
+    static void releaseXMLReader(QXmlStreamReader *reader);
+
+    /**
+     * Write a common XML header on the given document
      *
+     * @param xml The instance of a XML writer
      * @param content The content type (Settings, Workspace)
      * @param author The file's author (overridden by current user name if empty)
-     * @return A new QDomDocument containing the header
+     * @return true on success, false on failure
      */
-    static QDomDocument getXMLHeader(const QString& content, const QString& author = QString());
+    static bool writeXMLHeader(QXmlStreamWriter *xml, const QString& content, const QString& author = QString());
 
     /**
      * Get a string that gives a textual description for the given file
@@ -96,9 +113,14 @@ public:
     static QString currentUserName();
 
     /**
-     * Return if the current platform is a Raspberry Pi
+     * Method called just once to set the m_hasWindowManager flag
      */
-    static bool isRaspberry();
+    static void setHasWindowManager(bool enable);
+
+    /**
+     * Return if the current platform provides a window manager
+     */
+    static bool hasWindowManager();
 
     /**
      * @brief systemDirectory returns a system dependant QDir based
@@ -107,7 +129,7 @@ public:
      * @param extension
      * @return
      */
-    static QDir systemDirectory(QString path, QString extension);
+    static QDir systemDirectory(QString path, QString extension = QString() );
 
     /**
      * @brief systemDirectory returns a system dependant QDir based
@@ -117,6 +139,14 @@ public:
      * @return
      */
     static QDir userDirectory(QString path, QString fallBackPath, QStringList extensions);
+
+    /**
+     * @brief getQtVersion get the runtime Qt version as number. E.g. 50602
+     */
+    static quint32 getQtRuntimeVersion();
+
+private:
+    static bool m_hasWindowManager;
 };
 
 /** @} */

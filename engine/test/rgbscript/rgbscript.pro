@@ -4,7 +4,12 @@ TEMPLATE = app
 LANGUAGE = C++
 TARGET   = rgbscript_test
 
-QT      += testlib xml script
+QT      += testlib
+qmlui {
+  QT += qml
+} else {
+  QT += script
+}
 CONFIG  -= app_bundle
 
 DEPENDPATH   += ../../src

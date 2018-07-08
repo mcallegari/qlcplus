@@ -27,30 +27,34 @@
 GenericDMXSource::GenericDMXSource(Doc* doc)
     : m_doc(doc)
     , m_outputEnabled(false)
+    , m_clearRequest(false)
 {
     Q_ASSERT(m_doc != NULL);
-    m_doc->masterTimer()->registerDMXSource(this, "Generic");
+    m_doc->masterTimer()->registerDMXSource(this);
 }
 
 GenericDMXSource::~GenericDMXSource()
 {
-    m_mutex.lock();
     m_doc->masterTimer()->unregisterDMXSource(this);
-    m_mutex.unlock();
 }
 
 void GenericDMXSource::set(quint32 fxi, quint32 ch, uchar value)
 {
-    m_mutex.lock();
+    QMutexLocker locker(&m_mutex);
     m_values[QPair<quint32,quint32>(fxi, ch)] = value;
-    m_mutex.unlock();
 }
 
 void GenericDMXSource::unset(quint32 fxi, quint32 ch)
 {
-    m_mutex.lock();
+    QMutexLocker locker(&m_mutex);
     m_values.remove(QPair<quint32,quint32>(fxi, ch));
-    m_mutex.unlock();
+}
+
+void GenericDMXSource::unsetAll()
+{
+    QMutexLocker locker(&m_mutex);
+    // will be processed at the next writeDMX
+    m_clearRequest = true;
 }
 
 void GenericDMXSource::setOutputEnabled(bool enable)
@@ -63,19 +67,38 @@ bool GenericDMXSource::isOutputEnabled() const
     return m_outputEnabled;
 }
 
+quint32 GenericDMXSource::channelsCount() const
+{
+    return m_values.count();
+}
+
+QList<SceneValue> GenericDMXSource::channels()
+{
+    QList<SceneValue> chList;
+    QMutableMapIterator <QPair<quint32,quint32>,uchar> it(m_values);
+    while (it.hasNext() == true)
+    {
+        it.next();
+        SceneValue sv;
+        sv.fxi = it.key().first;
+        sv.channel = it.key().second;
+        sv.value = it.value();
+        chList.append(sv);
+    }
+    return chList;
+}
+
 void GenericDMXSource::writeDMX(MasterTimer* timer, QList<Universe *> ua)
 {
     Q_UNUSED(timer);
 
-    m_mutex.lock();
+    QMutexLocker locker(&m_mutex);
     QMutableMapIterator <QPair<quint32,quint32>,uchar> it(m_values);
     while (it.hasNext() == true && m_outputEnabled == true)
     {
         it.next();
 
-        FadeChannel fc;
-        fc.setFixture(m_doc, it.key().first);
-        fc.setChannel(it.key().second);
+        FadeChannel fc(m_doc, it.key().first, it.key().second);
 
         QLCChannel::Group grp = fc.group(m_doc);
         quint32 address = fc.address();
@@ -86,5 +109,9 @@ void GenericDMXSource::writeDMX(MasterTimer* timer, QList<Universe *> ua)
         if (grp != QLCChannel::Intensity)
             it.remove();
     }
-    m_mutex.unlock();
+    if (m_clearRequest)
+    {
+        m_clearRequest = false;
+        m_values.clear();
+    }
 }

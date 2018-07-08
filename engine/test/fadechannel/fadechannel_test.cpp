@@ -25,6 +25,7 @@
 #include "qlcchannel.h"
 #include "qlcmacros.h"
 #include "qlcfile.h"
+#include "universe.h"
 
 #define private public
 #include "fadechannel.h"
@@ -41,7 +42,7 @@ void FadeChannel_Test::address()
     doc.addFixture(fxi);
 
     FadeChannel fc;
-    fc.setChannel(2);
+    fc.setChannel(&doc, 2);
     QCOMPARE(fc.address(), quint32(2));
 
     fc.setFixture(&doc, fxi->id());
@@ -51,23 +52,42 @@ void FadeChannel_Test::address()
     QCOMPARE(fc.address(), quint32(2));
 }
 
+void FadeChannel_Test::addressInUniverse()
+{
+    Doc doc(this);
+    Fixture* fxi = new Fixture(&doc);
+    fxi->setAddress(UNIVERSE_SIZE);
+    fxi->setChannels(5);
+    doc.addFixture(fxi);
+
+    FadeChannel fc;
+    fc.setChannel(&doc, 2);
+    QCOMPARE(fc.addressInUniverse(), quint32(2));
+
+    fc.setFixture(&doc, fxi->id());
+    QCOMPARE(fc.addressInUniverse(), quint32(2));
+
+    fc.setFixture(&doc, 12345);
+    QCOMPARE(fc.addressInUniverse(), quint32(2));
+}
+
 void FadeChannel_Test::comparison()
 {
     Doc doc(this);
 
     FadeChannel ch1;
     ch1.setFixture(&doc, 0);
-    ch1.setChannel(0);
+    ch1.setChannel(&doc, 0);
 
     FadeChannel ch2;
     ch2.setFixture(&doc, 1);
-    ch2.setChannel(0);
+    ch2.setChannel(&doc, 0);
     QVERIFY((ch1 == ch2) == false);
 
     ch1.setFixture(&doc, 1);
     QVERIFY((ch1 == ch2) == true);
 
-    ch1.setChannel(1);
+    ch1.setChannel(&doc, 1);
     QVERIFY((ch1 == ch2) == false);
 }
 
@@ -78,7 +98,7 @@ void FadeChannel_Test::group()
     FadeChannel fc;
 
     // Only a channel given, no fixture at the address -> intensity
-    fc.setChannel(2);
+    fc.setChannel(&doc, 2);
     QCOMPARE(fc.group(&doc), QLCChannel::Intensity);
 
     Fixture* fxi = new Fixture(&doc);
@@ -93,7 +113,7 @@ void FadeChannel_Test::group()
     QDir dir(INTERNAL_FIXTUREDIR);
     dir.setFilter(QDir::Files);
     dir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
-    QVERIFY(doc.fixtureDefCache()->load(dir) == true);
+    QVERIFY(doc.fixtureDefCache()->loadMap(dir) == true);
 
     QLCFixtureDef* def = doc.fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
@@ -108,18 +128,18 @@ void FadeChannel_Test::group()
 
     // Fixture and channel given, but channel is beyond fixture's channels -> intensity
     fc.setFixture(&doc, fxi->id());
-    fc.setChannel(50);
+    fc.setChannel(&doc, 50);
     QCOMPARE(fc.group(&doc), QLCChannel::Intensity);
 
     // Only a channel given, no fixture given but a fixture occupies the address.
     // Check that reverse address -> fixture lookup works.
     fc.setFixture(&doc, Fixture::invalidId());
-    fc.setChannel(2);
+    fc.setChannel(&doc, 2);
     QCOMPARE(fc.group(&doc), QLCChannel::Colour);
 
     // Fixture and channel given, but fixture doesn't exist -> intensity
     fc.setFixture(&doc, 12345);
-    fc.setChannel(2);
+    fc.setChannel(&doc, 2);
     QCOMPARE(fc.group(&doc), QLCChannel::Intensity);
 }
 

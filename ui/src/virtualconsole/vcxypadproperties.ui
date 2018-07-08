@@ -1,24 +1,143 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
+ <author>Massimo Callegari</author>
+ <comment>
+  Q Light Controller Plus
+  vcxypadproperties.ui
+
+  Copyright (c) 2015 Massimo Callegari
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0.txt
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+ </comment>
  <class>VCXYPadProperties</class>
  <widget class="QDialog" name="VCXYPadProperties">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>421</width>
-    <height>456</height>
+    <width>546</width>
+    <height>472</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>XY Pad Properties</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
-   <item row="2" column="0" colspan="2">
+   <item row="2" column="0">
+    <widget class="QDialogButtonBox" name="m_buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
     <widget class="QTabWidget" name="m_tab">
      <property name="currentIndex">
       <number>0</number>
      </property>
+     <widget class="QWidget" name="general">
+      <attribute name="title">
+       <string>General</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_5">
+       <item row="2" column="0" colspan="2">
+        <widget class="QFrame" name="frame">
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <layout class="QHBoxLayout" name="m_extInputLayout"/>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="m_sizeInputLayout"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="3" column="0" colspan="2">
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="m_nameLabel">
+         <property name="text">
+          <string>XY Pad Name</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="m_nameEdit">
+         <property name="toolTip">
+          <string>The name of this XY Pad</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" colspan="2">
+        <widget class="QGroupBox" name="groupBox_3">
+         <property name="title">
+          <string>Y-Axis slider movement</string>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QRadioButton" name="m_YNormalRadio">
+            <property name="text">
+             <string>Normal</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="m_YInvertedRadio">
+            <property name="text">
+             <string>Inverted</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
      <widget class="QWidget" name="fixtures">
       <attribute name="title">
        <string>Fixtures</string>
@@ -127,6 +246,42 @@
          </property>
         </widget>
        </item>
+       <item row="4" column="0">
+        <widget class="QGroupBox" name="groupBox">
+         <property name="title">
+          <string>Range Display Mode</string>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <widget class="QRadioButton" name="m_degreesRadio">
+            <property name="text">
+             <string>Degrees</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="m_percentageRadio">
+            <property name="text">
+             <string>Percentage</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="m_dmxRadio">
+            <property name="text">
+             <string>DMX</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
        <item row="3" column="1">
         <spacer name="verticalSpacer">
          <property name="orientation">
@@ -142,197 +297,173 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="input">
+     <widget class="QWidget" name="presets">
       <attribute name="title">
-       <string>Input</string>
+       <string>Presets</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <item>
-        <widget class="QGroupBox" name="groupBox">
-         <property name="title">
-          <string>Pan / Horizontal Axis</string>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_3">
-          <item row="0" column="0">
-           <widget class="QLabel" name="m_panUniverseLabel">
+      <layout class="QGridLayout" name="gridLayout_4">
+       <item row="0" column="0">
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="QTreeWidget" name="m_presetsTree">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="rootIsDecorated">
+            <bool>false</bool>
+           </property>
+           <property name="itemsExpandable">
+            <bool>false</bool>
+           </property>
+           <column>
             <property name="text">
-             <string>Input universe</string>
+             <string>Name</string>
             </property>
-           </widget>
-          </item>
-          <item row="0" column="1" colspan="3">
-           <widget class="QLineEdit" name="m_panUniverseEdit">
-            <property name="readOnly">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="m_panChannelLabel">
-            <property name="text">
-             <string>Input channel</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1" colspan="3">
-           <widget class="QLineEdit" name="m_panChannelEdit">
-            <property name="readOnly">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0" colspan="2">
-           <spacer name="horizontalSpacer">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>170</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="2" column="2">
-           <widget class="QPushButton" name="m_panAutoDetectButton">
-            <property name="text">
-             <string>Auto Detect</string>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="3">
-           <widget class="QPushButton" name="m_panChooseButton">
-            <property name="text">
-             <string>Choose...</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
+           </column>
+          </widget>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="m_presetLayout">
+           <item>
+            <widget class="QPushButton" name="m_addPositionButton">
+             <property name="text">
+              <string>Add position</string>
+             </property>
+             <property name="icon">
+              <iconset resource="../qlcui.qrc">
+               <normaloff>:/xypad.png</normaloff>:/xypad.png</iconset>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="m_addEfxButton">
+             <property name="text">
+              <string>Add EFX</string>
+             </property>
+             <property name="icon">
+              <iconset resource="../qlcui.qrc">
+               <normaloff>:/efx.png</normaloff>:/efx.png</iconset>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="m_addSceneButton">
+             <property name="text">
+              <string>Add Scene</string>
+             </property>
+             <property name="icon">
+              <iconset resource="../qlcui.qrc">
+               <normaloff>:/scene.png</normaloff>:/scene.png</iconset>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="m_addFxGroupButton">
+             <property name="text">
+              <string>Add Fixture Group</string>
+             </property>
+             <property name="icon">
+              <iconset resource="../qlcui.qrc">
+               <normaloff>:/group.png</normaloff>:/group.png</iconset>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="m_removePresetButton">
+             <property name="text">
+              <string>Remove</string>
+             </property>
+             <property name="icon">
+              <iconset resource="../qlcui.qrc">
+               <normaloff>:/edit_remove.png</normaloff>:/edit_remove.png</iconset>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="m_moveUpPresetButton">
+             <property name="text">
+              <string>Move Up</string>
+             </property>
+             <property name="icon">
+              <iconset resource="../qlcui.qrc">
+               <normaloff>:/up.png</normaloff>:/up.png</iconset>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="m_moveDownPresetButton">
+             <property name="text">
+              <string>Move Down</string>
+             </property>
+             <property name="icon">
+              <iconset resource="../qlcui.qrc">
+               <normaloff>:/down.png</normaloff>:/down.png</iconset>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_2">
+             <item>
+              <widget class="QLabel" name="label">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>Preset name</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="m_presetNameEdit">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+        </layout>
        </item>
-       <item>
-        <widget class="QGroupBox" name="groupBox_2">
-         <property name="title">
-          <string>Tilt / Vertical Axis</string>
+       <item row="1" column="0">
+        <widget class="QFrame" name="frame_3">
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
          </property>
-         <layout class="QGridLayout" name="gridLayout_4">
-          <item row="0" column="0">
-           <widget class="QLabel" name="m_tiltUniverseLabel">
-            <property name="text">
-             <string>Input universe</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1" colspan="3">
-           <widget class="QLineEdit" name="m_tiltUniverseEdit">
-            <property name="readOnly">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="m_tiltChannelLabel">
-            <property name="text">
-             <string>Input channel</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1" colspan="3">
-           <widget class="QLineEdit" name="m_tiltChannelEdit">
-            <property name="readOnly">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0" colspan="2">
-           <spacer name="horizontalSpacer_2">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>158</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="2" column="2">
-           <widget class="QPushButton" name="m_tiltAutoDetectButton">
-            <property name="text">
-             <string>Auto Detect</string>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="3">
-           <widget class="QPushButton" name="m_tiltChooseButton">
-            <property name="text">
-             <string>Choose...</string>
-            </property>
-           </widget>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <layout class="QVBoxLayout" name="m_presetInputLayout"/>
           </item>
          </layout>
         </widget>
        </item>
       </layout>
      </widget>
-    </widget>
-   </item>
-   <item row="3" column="0" colspan="2">
-    <widget class="QDialogButtonBox" name="m_buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="0">
-    <widget class="QLabel" name="m_nameLabel">
-     <property name="text">
-      <string>XY Pad Name</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="1">
-    <widget class="QLineEdit" name="m_nameEdit">
-     <property name="toolTip">
-      <string>The name of this XY Pad</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="0" colspan="2">
-    <widget class="QGroupBox" name="groupBox_3">
-     <property name="title">
-      <string>Y-Axis slider movement</string>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QRadioButton" name="m_YNormalRadio">
-        <property name="text">
-         <string>Normal</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QRadioButton" name="m_YInvertedRadio">
-        <property name="text">
-         <string>Inverted</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
     </widget>
    </item>
   </layout>
@@ -451,70 +582,6 @@
     <hint type="destinationlabel">
      <x>4</x>
      <y>73</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>m_panChooseButton</sender>
-   <signal>clicked()</signal>
-   <receiver>VCXYPadProperties</receiver>
-   <slot>slotPanChooseClicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>358</x>
-     <y>189</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>3</x>
-     <y>106</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>m_tiltChooseButton</sender>
-   <signal>clicked()</signal>
-   <receiver>VCXYPadProperties</receiver>
-   <slot>slotTiltChooseClicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>363</x>
-     <y>327</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>2</x>
-     <y>256</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>m_panAutoDetectButton</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>VCXYPadProperties</receiver>
-   <slot>slotPanAutoDetectToggled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>260</x>
-     <y>184</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1</x>
-     <y>142</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>m_tiltAutoDetectButton</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>VCXYPadProperties</receiver>
-   <slot>slotTiltAutoDetectToggled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>243</x>
-     <y>322</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>-1</x>
-     <y>295</y>
     </hint>
    </hints>
   </connection>

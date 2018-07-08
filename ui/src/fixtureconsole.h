@@ -26,8 +26,6 @@
 #include "consolechannel.h"
 #include "scene.h"
 
-class QDomDocument;
-class QDomElement;
 class MasterTimer;
 class QHBoxLayout;
 class OutputMap;
@@ -59,6 +57,14 @@ public:
     FixtureConsole(QWidget* parent, Doc* doc, GroupType type = GroupNone, bool showCheck = true);
     ~FixtureConsole();
 
+    void enableResetButton(bool enable);
+
+signals:
+    void resetRequest(quint32 fxID, quint32 channel);
+
+protected:
+    void showEvent(QShowEvent* ev);
+
 private:
     Doc* m_doc;
     GroupType m_groupType;
@@ -74,6 +80,9 @@ public:
 
     /** Get the fixture that this console is controlling */
     quint32 fixture() const;
+
+protected slots:
+    void slotAliasChanged();
 
 protected:
     quint32 m_fixture;
@@ -124,7 +133,7 @@ signals:
 
 private:
     /** Get a console channel instance for the given relative channel */
-    ConsoleChannel* channel(quint32 ch) const;
+    ConsoleChannel *channel(quint32 ch) const;
 
 private:
     QList<ConsoleChannel*> m_channels;

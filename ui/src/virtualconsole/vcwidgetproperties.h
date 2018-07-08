@@ -20,7 +20,8 @@
 #ifndef VCWIDGETPROPERTIES_H
 #define VCWIDGETPROPERTIES_H
 
-#include <QtXml>
+class QXmlStreamReader;
+class QXmlStreamWriter;
 
 class QWidget;
 
@@ -63,10 +64,10 @@ public:
      ************************************************************************/
 public:
     /** Load properties from an XML tag */
-    virtual bool loadXML(const QDomElement& root);
+    virtual bool loadXML(QXmlStreamReader &root);
 
     /** Save stored properties to the given XML document */
-    virtual bool saveXML(QDomDocument* doc, QDomElement* root);
+    virtual bool saveXML(QXmlStreamWriter *doc);
 
 protected:
     QFlags <Qt::WindowState> m_state;

@@ -28,6 +28,7 @@
 
 #include "qlcmacros.h"
 
+#include "efxpreviewarea.h"
 #include "vcxypadarea.h"
 #include "vcframe.h"
 
@@ -46,11 +47,13 @@ VCXYPadArea::VCXYPadArea(QWidget* parent)
     , m_rangeDmxRect()
     , m_rangeWindowRect()
     , m_degreesRange()
+    , m_previewArea(NULL)
 {
     setFrameStyle(KVCFrameStyleSunken);
     setWindowTitle("XY Pad");
     setMode(Doc::Design);
     setFocusPolicy(Qt::ClickFocus);
+    new QVBoxLayout(this);
 }
 
 VCXYPadArea::~VCXYPadArea()
@@ -73,52 +76,52 @@ void VCXYPadArea::setMode(Doc::Mode mode)
 
 QPointF VCXYPadArea::position(bool resetChanged) const
 {
-    m_mutex.lock();
+    QMutexLocker locker(&m_mutex);
     QPointF pos(m_dmxPos);
     if (resetChanged)
         m_changed = false;
-    m_mutex.unlock();
     return pos;
 }
 
 void VCXYPadArea::setPosition(const QPointF& point)
 {
-    m_mutex.lock();
-    if (m_dmxPos != point)
     {
-        m_dmxPos = point;
+        QMutexLocker locker(&m_mutex);
 
-        if (m_dmxPos.x() > MAX_DMX_VALUE)
-            m_dmxPos.setX(MAX_DMX_VALUE);
-        if (m_dmxPos.y() > MAX_DMX_VALUE)
-            m_dmxPos.setY(MAX_DMX_VALUE);
+        if (m_dmxPos != point)
+        {
+            m_dmxPos = point;
 
-        m_changed = true;
+            if (m_dmxPos.x() > MAX_DMX_VALUE)
+                m_dmxPos.setX(MAX_DMX_VALUE);
+            if (m_dmxPos.y() > MAX_DMX_VALUE)
+                m_dmxPos.setY(MAX_DMX_VALUE);
+
+            m_changed = true;
+        }
     }
-    m_mutex.unlock();
 
     emit positionChanged(point);
 }
 
 void VCXYPadArea::nudgePosition(qreal dx, qreal dy)
 {
-    m_mutex.lock();
-    m_dmxPos.setX(CLAMP(m_dmxPos.x() + dx, qreal(0), MAX_DMX_VALUE));
-    m_dmxPos.setY(CLAMP(m_dmxPos.y() + dy, qreal(0), MAX_DMX_VALUE));
+    {
+        QMutexLocker locker(&m_mutex);
 
-    m_changed = true;
+        m_dmxPos.setX(CLAMP(m_dmxPos.x() + dx, qreal(0), MAX_DMX_VALUE));
+        m_dmxPos.setY(CLAMP(m_dmxPos.y() + dy, qreal(0), MAX_DMX_VALUE));
 
-    m_mutex.unlock();
+        m_changed = true;
+    }
 
     emit positionChanged(m_dmxPos);
 }
 
 bool VCXYPadArea::hasPositionChanged()
 {
-    m_mutex.lock();
-    bool changed = m_changed;
-    m_mutex.unlock();
-    return changed;
+    QMutexLocker locker(&m_mutex);
+    return m_changed;
 }
 
 void VCXYPadArea::slotFixturePositions(const QVariantList positions)
@@ -225,13 +228,52 @@ void VCXYPadArea::setDegreesRange(QRectF range)
     update();
 }
 
+/*************************************************************************
+ * EFX Preview
+ *************************************************************************/
+
+void VCXYPadArea::enableEFXPreview(bool enable)
+{
+    if (enable)
+    {
+        if (m_previewArea == NULL)
+        {
+            m_previewArea = new EFXPreviewArea(this);
+            m_previewArea->setBackgroundAlpha(0);
+            layout()->setMargin(0);
+            layout()->addWidget(m_previewArea);
+        }
+    }
+    else
+    {
+        if (m_previewArea)
+        {
+            m_previewArea->deleteLater();
+            m_previewArea = NULL;
+        }
+    }
+}
+
+void VCXYPadArea::setEFXPolygons(const QPolygonF &pattern, const QVector<QPolygonF> fixtures)
+{
+    if (m_previewArea == NULL)
+        enableEFXPreview(true);
+
+    m_previewArea->setPolygon(pattern);
+    m_previewArea->setFixturePolygons(fixtures);
+}
+
+void VCXYPadArea::setEFXInterval(uint duration)
+{
+    m_previewArea->draw(duration / m_previewArea->polygonsCount());
+}
+
 /*****************************************************************************
  * Event handlers
  *****************************************************************************/
 
 void VCXYPadArea::paintEvent(QPaintEvent* e)
 {
-
     if (m_rangeWindowRect.isValid() && (m_mode == Doc::Operate))
         checkDmxRange();
 
@@ -241,21 +283,24 @@ void VCXYPadArea::paintEvent(QPaintEvent* e)
     QPainter p(this);
     QPen pen;
 
-    QString title = QString("%1%2%3\n%4\n")
-        .arg(windowTitle())
-        .arg(windowTitle().isEmpty() ? "" : "\n")
-        .arg(positionString())
-        .arg(angleString());
+    if (m_previewArea == NULL)
+    {
+        QString title = QString("%1%2%3\n%4\n")
+            .arg(windowTitle())
+            .arg(windowTitle().isEmpty() ? "" : "\n")
+            .arg(positionString())
+            .arg(angleString());
 
-    /* Draw name (offset just a bit to avoid frame) */
-    p.drawText(1, 1, width() - 2, height() - 2,
-               Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap, title);
+        /* Draw name (offset just a bit to avoid frame) */
+        p.drawText(1, 1, width() - 2, height() - 2,
+                   Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap, title);
 
-    QFont font = p.font();
-    font.setPointSize(font.pointSize() - 2);
-    p.setFont(font);
-    p.drawText(1, 1, width() - 2, height() - 2,
-               Qt::AlignRight | Qt::AlignBottom | Qt::TextWordWrap, tr("Shift: fine, Ctrl:10x"));
+        QFont font = p.font();
+        font.setPointSize(font.pointSize() - 2);
+        p.setFont(font);
+        p.drawText(1, 1, width() - 2, height() - 2,
+                   Qt::AlignRight | Qt::AlignBottom | Qt::TextWordWrap, tr("Shift: fine, Ctrl:10x"));
+    }
     /* Draw crosshairs to indicate the center position */
     pen.setStyle(Qt::DotLine);
     pen.setColor(palette().color(QPalette::WindowText));
@@ -276,21 +321,24 @@ void VCXYPadArea::paintEvent(QPaintEvent* e)
 
     updateWindowPos();
     
-    foreach(QVariant pos, m_fixturePositions)
+    if (m_previewArea == NULL)
     {
-        QPointF pt = pos.toPointF();
-        pt.setX(SCALE(pt.x(), qreal(0), qreal(256), qreal(0), qreal(width())));
-        pt.setY(SCALE(pt.y(), qreal(0), qreal(256), qreal(0), qreal(height())));
+        foreach(QVariant pos, m_fixturePositions)
+        {
+            QPointF pt = pos.toPointF();
+            pt.setX(SCALE(pt.x(), qreal(0), qreal(256), qreal(0), qreal(width())));
+            pt.setY(SCALE(pt.y(), qreal(0), qreal(256), qreal(0), qreal(height())));
 
-        p.drawPixmap(pt.x() - (m_fixturePixmap.width() / 2),
-                 pt.y() - (m_fixturePixmap.height() / 2),
-                 m_fixturePixmap);
+            p.drawPixmap(pt.x() - (m_fixturePixmap.width() / 2),
+                     pt.y() - (m_fixturePixmap.height() / 2),
+                     m_fixturePixmap);
+        }
+
+        /* Draw the current point pixmap */
+        p.drawPixmap(m_windowPos.x() - (m_activePixmap.width() / 2),
+                     m_windowPos.y() - (m_activePixmap.height() / 2),
+                     m_activePixmap);
     }
-
-    /* Draw the current point pixmap */
-    p.drawPixmap(m_windowPos.x() - (m_activePixmap.width() / 2),
-                 m_windowPos.y() - (m_activePixmap.height() / 2),
-                 m_activePixmap);
 }
 
 void VCXYPadArea::resizeEvent(QResizeEvent *e)

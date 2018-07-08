@@ -22,6 +22,7 @@
 
 #include <QDialog>
 #include "ui_addrgbpanel.h"
+#include "fixture.h"
 
 class QLCFixtureDef;
 class QLCFixtureMode;
@@ -50,6 +51,12 @@ public:
         ZigZag
     };
 
+    enum Direction {
+    	Undefined,
+		Horizontal,
+		Vertical
+    };
+
     QString name();
     int universeIndex();
     int address();
@@ -59,6 +66,8 @@ public:
     quint32 physicalHeight();
     Orientation orientation();
     Type type();
+    Direction direction();
+    Fixture::Components components();
 
 private:
     /** Check if an address is available for contiguous channels.

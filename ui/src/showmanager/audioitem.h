@@ -67,19 +67,15 @@ protected:
 protected slots:
     void slotAudioChanged(quint32);
 
-    void slotAudioPreviewLeft(bool active);
-    void slotAudioPreviewRight(bool active);
-    void slotAudioPreviewStereo(bool active);
+    void slotAudioPreviewLeft();
+    void slotAudioPreviewRight();
+    void slotAudioPreviewStereo();
 
 private:
     /** Calculate sequence width for paint() and boundingRect() */
     void calculateWidth();
-    /** Retrieve a sample value from an audio buffer, given the sample size */
-    qint32 getSample(unsigned char *data, quint32 *idx, int sampleSize);
-    /** Routine that decode the whole and create the waveform QPixmap */
-    void createWaveform(bool left, bool right);
 
-private:
+public:
     /** Reference to the actual Audio Function */
     Audio *m_audio;
 
@@ -90,6 +86,19 @@ private:
 
     /** Pixmap holding the waveform (if enabled) */
     QPixmap *m_preview;
+};
+
+class PreviewThread : public QThread
+{
+public:
+    void setAudioItem(AudioItem *item);
+
+private:
+    /** Retrieve a sample value from an audio buffer, given the sample size */
+    qint32 getSample(unsigned char *data, quint32 idx, int sampleSize);
+    void run();
+
+    AudioItem *m_item;
 };
 
 /** @} */

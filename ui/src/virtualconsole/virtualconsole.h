@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   virtualconsole.h
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -28,12 +29,12 @@
 #include "vcproperties.h"
 #include "doc.h"
 
+class QXmlStreamReader;
+class QXmlStreamWriter;
 class VirtualConsole;
-class QDomDocument;
 class QActionGroup;
 class QVBoxLayout;
 class QScrollArea;
-class QDomElement;
 class VCDockArea;
 class QKeyEvent;
 class QToolBar;
@@ -65,7 +66,7 @@ public:
     Doc *getDoc();
 
 protected:
-    /** Create a new channels group ID */
+    /** Create a new widget ID */
     quint32 newWidgetId();
 
 protected:
@@ -73,7 +74,7 @@ protected:
     Doc* m_doc;
 
 private:
-    /** Latest assigned fixture group ID */
+    /** Latest assigned widget ID */
     quint32 m_latestWidgetId;
 
     /*********************************************************************
@@ -216,9 +217,16 @@ private:
     /**
      * If a newly created widget belongs to a multipage frame,
      * then assign the current frame page to the widget and
-     * inform the frame of the new addition
+     * inform the frame of the new addition.
+     * This shall be called every time a widget is added in a frame.
      */
-    void checkWidgetPage(VCWidget *widget, VCWidget *parent);
+    void connectWidgetToParent(VCWidget *widget, VCWidget *parent);
+
+    /**
+     * If a widget is moved away from a frame (because of
+     * a deletion or a cut/paste), this shall be called.
+     */
+    void disconnectWidgetFromParent(VCWidget *widget, VCWidget *parent);
 
 public slots:
     void slotAddButton();
@@ -335,9 +343,6 @@ protected:
     /*********************************************************************
      * Key press handler
      *********************************************************************/
-public:
-    /** Check if the tap modifier is currently pressed */
-    bool isTapModifierDown() const;
 
 protected:
     /** Handler for keyboard key presse events */
@@ -353,26 +358,12 @@ signals:
     /** Signal telling that the keySequence was released */
     void keyReleased(const QKeySequence& keySequence);
 
-private:
-    bool m_tapModifierDown;
-
     /*********************************************************************
      * Main application mode
      *********************************************************************/
-public:
-    /**
-     * Check if the startup function is associated to a Virtual Console
-     * widget. In particular, Chasers associated to Cue Lists will run
-     * with a CueListRunner instead of a ChaserRunner.
-     *
-     * @param fid The ID of the startup function
-     * @return true in case Virtual Console started the function
-     *         false in case Doc has to start it
-     */
-    bool checkStartupFunction(quint32 fid);
-
 private:
     bool m_liveEdit;
+
 public:
     /** Toggle Virtual Console live editting */
     void toggleLiveEdit();
@@ -392,10 +383,10 @@ public slots:
      *********************************************************************/
 public:
     /** Load properties and contents from an XML tree */
-    bool loadXML(const QDomElement& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** Save properties and contents to an XML document */
-    bool saveXML(QDomDocument* doc, QDomElement* wksp_root);
+    bool saveXML(QXmlStreamWriter *doc);
 
     /** Do post-load cleanup & checks */
     void postLoad();

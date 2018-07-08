@@ -34,6 +34,7 @@ private slots:
 
     void initial();
     void params();
+    void paramsDegrees();
     void fromVariantBelowZero();
     void fromVariantAboveOne();
     void fromVariantWithinRange();
@@ -61,6 +62,10 @@ private slots:
     void write8bitReverse();
     void write16bitNoReverse();
     void write16bitReverse();
+    void writeRange();
+    void writeRange_data();
+    void readRange();
+    void readRange_data();
 
     void cleanupTestCase();
 

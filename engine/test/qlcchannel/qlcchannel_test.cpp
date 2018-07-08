@@ -1,8 +1,9 @@
 /*
-  Q Light Controller - Unit tests
+  Q Light Controller Plus - Unit tests
   qlcchannel_test.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -18,7 +19,8 @@
 */
 
 #include <QtTest>
-#include <QtXml>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 #include "qlcchannel_test.h"
 #include "qlccapability.h"
@@ -69,6 +71,15 @@ void QLCChannel_Test::group()
     delete channel;
 }
 
+void QLCChannel_Test::defaultValue()
+{
+    QLCChannel* channel = new QLCChannel();
+    QVERIFY(channel->defaultValue() == 0);
+
+    channel->setDefaultValue(137);
+    QVERIFY(channel->defaultValue() == 137);
+}
+
 void QLCChannel_Test::controlByte()
 {
     QCOMPARE(int(QLCChannel::MSB), 0);
@@ -87,8 +98,8 @@ void QLCChannel_Test::colourList()
 {
     QStringList list(QLCChannel::colourList());
 
-    QVERIFY(list.size() == 10);
-    QVERIFY(list.contains(QLCChannel::colourToString(QLCChannel::NoColour)));
+    QCOMPARE(list.size(), 11);
+    //QVERIFY(list.contains(QLCChannel::colourToString(QLCChannel::NoColour)));
     QVERIFY(list.contains(QLCChannel::colourToString(QLCChannel::Red)));
     QVERIFY(list.contains(QLCChannel::colourToString(QLCChannel::Green)));
     QVERIFY(list.contains(QLCChannel::colourToString(QLCChannel::Blue)));
@@ -98,6 +109,8 @@ void QLCChannel_Test::colourList()
     QVERIFY(list.contains(QLCChannel::colourToString(QLCChannel::Amber)));
     QVERIFY(list.contains(QLCChannel::colourToString(QLCChannel::White)));
     QVERIFY(list.contains(QLCChannel::colourToString(QLCChannel::UV)));
+    QVERIFY(list.contains(QLCChannel::colourToString(QLCChannel::Lime)));
+    QVERIFY(list.contains(QLCChannel::colourToString(QLCChannel::Indigo)));
 }
 
 void QLCChannel_Test::colour()
@@ -112,6 +125,8 @@ void QLCChannel_Test::colour()
     QCOMPARE(int(QLCChannel::Amber), 0xFF7E00);
     QCOMPARE(int(QLCChannel::White), 0xFFFFFF);
     QCOMPARE(int(QLCChannel::UV), 0x9400D3);
+    QCOMPARE(int(QLCChannel::Lime), 0xADFF2F);
+    QCOMPARE(int(QLCChannel::Indigo), 0x4B0082);
 
     QLCChannel* channel = new QLCChannel();
     QCOMPARE(channel->colour(), QLCChannel::NoColour);
@@ -142,6 +157,12 @@ void QLCChannel_Test::colour()
 
     channel->setColour(QLCChannel::UV);
     QCOMPARE(channel->colour(), QLCChannel::UV);
+
+    channel->setColour(QLCChannel::Lime);
+    QCOMPARE(channel->colour(), QLCChannel::Lime);
+
+    channel->setColour(QLCChannel::Indigo);
+    QCOMPARE(channel->colour(), QLCChannel::Indigo);
 
     channel->setColour(QLCChannel::NoColour);
     QCOMPARE(channel->colour(), QLCChannel::NoColour);
@@ -384,7 +405,7 @@ void QLCChannel_Test::copy()
     QVERIFY(channel->addCapability(cap8) == true);
 
     /* Create a copy of the original channel */
-    QLCChannel* copy = new QLCChannel(channel);
+    QLCChannel* copy = channel->createCopy();
 
     QVERIFY(copy->name() == "Foobar");
     QVERIFY(copy->group() == QLCChannel::Tilt);
@@ -438,64 +459,64 @@ void QLCChannel_Test::copy()
 
 void QLCChannel_Test::load()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Channel");
-    root.setAttribute("Name", "Channel1");
-    doc.appendChild(root);
+    xmlWriter.writeStartElement("Channel");
+    xmlWriter.writeAttribute("Name", "Channel1");
 
-    QDomElement group = doc.createElement("Group");
-    root.appendChild(group);
-    group.setAttribute("Byte", 1);
-    QDomText groupName = doc.createTextNode("Tilt");
-    group.appendChild(groupName);
+    xmlWriter.writeStartElement("Group");
+    xmlWriter.writeAttribute("Byte", "1");
+    xmlWriter.writeCharacters("Tilt");
+    xmlWriter.writeEndElement();
 
-    QDomElement colour = doc.createElement("Colour");
-    QDomText colourText = doc.createTextNode(QLCChannel::colourToString(QLCChannel::Cyan));
-    colour.appendChild(colourText);
-    root.appendChild(colour);
+    xmlWriter.writeTextElement("Colour", QLCChannel::colourToString(QLCChannel::Cyan));
 
-    QDomElement cap1 = doc.createElement("Capability");
-    root.appendChild(cap1);
-    cap1.setAttribute("Min", 0);
-    cap1.setAttribute("Max", 10);
-    QDomText cap1name = doc.createTextNode("Cap1");
-    cap1.appendChild(cap1name);
+    xmlWriter.writeStartElement("Capability");
+    xmlWriter.writeAttribute("Min", "0");
+    xmlWriter.writeAttribute("Max", "10");
+    xmlWriter.writeCharacters("Cap1");
+    xmlWriter.writeEndElement();
 
     /* Overlaps with cap1, shouldn't appear in the channel */
-    QDomElement cap2 = doc.createElement("Capability");
-    root.appendChild(cap2);
-    cap2.setAttribute("Min", 5);
-    cap2.setAttribute("Max", 15);
-    QDomText cap2name = doc.createTextNode("Cap2");
-    cap2.appendChild(cap2name);
+    xmlWriter.writeStartElement("Capability");
+    xmlWriter.writeAttribute("Min", "5");
+    xmlWriter.writeAttribute("Max", "15");
+    xmlWriter.writeCharacters("Cap2");
+    xmlWriter.writeEndElement();
 
-    QDomElement cap3 = doc.createElement("Capability");
-    root.appendChild(cap3);
-    cap3.setAttribute("Min", 11);
-    cap3.setAttribute("Max", 20);
-    QDomText cap3name = doc.createTextNode("Cap3");
-    cap3.appendChild(cap3name);
+    xmlWriter.writeStartElement("Capability");
+    xmlWriter.writeAttribute("Min", "11");
+    xmlWriter.writeAttribute("Max", "20");
+    xmlWriter.writeCharacters("Cap3");
+    xmlWriter.writeEndElement();
 
     /* Invalid capability tag, shouldn't appear in the channel, since it
        is not recognized by the channel. */
-    QDomElement cap4 = doc.createElement("apability");
-    root.appendChild(cap4);
-    cap4.setAttribute("Min", 21);
-    cap4.setAttribute("Max", 30);
-    QDomText cap4name = doc.createTextNode("Cap4");
-    cap4.appendChild(cap4name);
+    xmlWriter.writeStartElement("apability");
+    xmlWriter.writeAttribute("Min", "21");
+    xmlWriter.writeAttribute("Max", "30");
+    xmlWriter.writeCharacters("Cap4");
+    xmlWriter.writeEndElement();
 
     /* Missing minimum value, shouldn't appear in the channel, because
        loadXML() fails. */
-    QDomElement cap5 = doc.createElement("Capability");
-    root.appendChild(cap5);
-    cap5.setAttribute("Max", 30);
-    QDomText cap5name = doc.createTextNode("Cap5");
-    cap5.appendChild(cap5name);
+    xmlWriter.writeStartElement("Capability");
+    xmlWriter.writeAttribute("Max", "30");
+    xmlWriter.writeCharacters("Cap5");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     QLCChannel ch;
-    QVERIFY(ch.loadXML(root) == true);
+    QVERIFY(ch.loadXML(xmlReader) == true);
     qDebug() << int(ch.colour());
     QVERIFY(ch.name() == "Channel1");
     QVERIFY(ch.group() == QLCChannel::Tilt);
@@ -508,42 +529,47 @@ void QLCChannel_Test::load()
 
 void QLCChannel_Test::loadWrongRoot()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Chanel");
-    root.setAttribute("Name", "Channel1");
-    doc.appendChild(root);
+    xmlWriter.writeStartElement("Chanel");
+    xmlWriter.writeAttribute("Name", "Channel1");
 
-    QDomElement group = doc.createElement("Group");
-    root.appendChild(group);
-    group.setAttribute("Byte", 1);
-    QDomText groupName = doc.createTextNode("Tilt");
-    group.appendChild(groupName);
+    xmlWriter.writeStartElement("Group");
+    xmlWriter.writeAttribute("Byte", "1");
+    xmlWriter.writeCharacters("Tilt");
+    xmlWriter.writeEndElement();
 
-    QDomElement cap1 = doc.createElement("Capability");
-    root.appendChild(cap1);
-    cap1.setAttribute("Min", 0);
-    cap1.setAttribute("Max", 10);
-    QDomText cap1name = doc.createTextNode("Cap1");
-    cap1.appendChild(cap1name);
+    xmlWriter.writeStartElement("Capability");
+    xmlWriter.writeAttribute("Min", "0");
+    xmlWriter.writeAttribute("Max", "10");
+    xmlWriter.writeCharacters("Cap1");
+    xmlWriter.writeEndElement();
 
     /* Overlaps with cap1, shouldn't appear in the channel */
-    QDomElement cap2 = doc.createElement("Capability");
-    root.appendChild(cap2);
-    cap2.setAttribute("Min", 5);
-    cap2.setAttribute("Max", 15);
-    QDomText cap2name = doc.createTextNode("Cap2");
-    cap2.appendChild(cap2name);
+    xmlWriter.writeStartElement("Capability");
+    xmlWriter.writeAttribute("Min", "5");
+    xmlWriter.writeAttribute("Max", "15");
+    xmlWriter.writeCharacters("Cap2");
+    xmlWriter.writeEndElement();
 
-    QDomElement cap3 = doc.createElement("Capability");
-    root.appendChild(cap3);
-    cap3.setAttribute("Min", 11);
-    cap3.setAttribute("Max", 20);
-    QDomText cap3name = doc.createTextNode("Cap3");
-    cap3.appendChild(cap3name);
+    xmlWriter.writeStartElement("Capability");
+    xmlWriter.writeAttribute("Min", "11");
+    xmlWriter.writeAttribute("Max", "20");
+    xmlWriter.writeCharacters("Cap3");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     QLCChannel ch;
-    QVERIFY(ch.loadXML(root) == false);
+    QVERIFY(ch.loadXML(xmlReader) == false);
     QVERIFY(ch.name().isEmpty());
     QVERIFY(ch.group() == QLCChannel::Intensity);
     QVERIFY(ch.controlByte() == QLCChannel::MSB);
@@ -570,46 +596,53 @@ void QLCChannel_Test::save()
     QLCCapability* cap4 = new QLCCapability(30, 39, "Four");
     QVERIFY(channel->addCapability(cap4) == true);
 
-    QDomDocument doc;
-    QDomElement root = doc.createElement("TestRoot");
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QVERIFY(channel->saveXML(&doc, &root) == true);
-    QVERIFY(root.firstChild().toElement().tagName() == "Channel");
-    QVERIFY(root.firstChild().toElement().attribute("Name") == "Foobar");
+    QVERIFY(channel->saveXML(&xmlWriter) == true);
+
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+
+    xmlReader.readNextStartElement();
+    QVERIFY(xmlReader.name().toString() == "Channel");
+    QVERIFY(xmlReader.attributes().value("Name").toString() == "Foobar");
 
     bool group = false;
     bool capOne = false, capTwo = false, capThree = false, capFour = false;
 
-    QDomNode node = root.firstChild().firstChild();
-    while (node.isNull() == false)
+    while (xmlReader.readNextStartElement())
     {
-        QDomElement e = node.toElement();
-        if (e.tagName() == "Group")
+        if (xmlReader.name() == "Group")
         {
             group = true;
-            QVERIFY(e.attribute("Byte") == "1");
-            QVERIFY(e.text() == "Shutter");
+            QVERIFY(xmlReader.attributes().value("Byte").toString() == "1");
+            QVERIFY(xmlReader.readElementText() == "Shutter");
         }
-        else if (e.tagName() == "Capability")
+        else if (xmlReader.name() == "Capability")
         {
-            if (e.text() == "One" && capOne == false)
+            QString capName = xmlReader.readElementText();
+            if (capName == "One" && capOne == false)
                 capOne = true;
-            else if (e.text() == "Two" && capTwo == false)
+            else if (capName == "Two" && capTwo == false)
                 capTwo = true;
-            else if (e.text() == "Three" && capThree == false)
+            else if (capName == "Three" && capThree == false)
                 capThree = true;
-            else if (e.text() == "Four" && capFour == false)
+            else if (capName == "Four" && capFour == false)
                 capFour = true;
             else
                 QFAIL("Same capability saved multiple times");
         }
         else
         {
-            QFAIL(QString("Unexpected tag: %1").arg(e.tagName())
+            QFAIL(QString("Unexpected tag: %1").arg(xmlReader.name().toString())
                   .toLatin1());
+            xmlReader.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     QVERIFY(group == true);

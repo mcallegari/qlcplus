@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>5.0.0 GIT</Version>
+  <Author>Frédéric Combe</Author>
+ </Creator>
+ <Manufacturer>Dune Lighting</Manufacturer>
+ <Model>Fireworks PRO II (LAS-160/FW)</Model>
+ <Type>Laser</Type>
+ <Channel Name="Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Laser Black out</Capability>
+  <Capability Min="10" Max="60">ARA, Automatic Aleatory</Capability>
+  <Capability Min="61" Max="110">ASR, Effect Slow Moving</Capability>
+  <Capability Min="111" Max="160">SRA, Musical Aleatory</Capability>
+  <Capability Min="161" Max="255">DMX Mode (other channel active)</Capability>
+ </Channel>
+ <Channel Name="Effects">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="25">Effect 1</Capability>
+  <Capability Min="26" Max="50">Effect 2</Capability>
+  <Capability Min="51" Max="75">Effect 3</Capability>
+  <Capability Min="76" Max="100">Effect 4</Capability>
+  <Capability Min="101" Max="125">Effect 5</Capability>
+  <Capability Min="126" Max="150">Effect 6</Capability>
+  <Capability Min="151" Max="175">Effect 7</Capability>
+  <Capability Min="176" Max="200">Effect 8</Capability>
+  <Capability Min="201" Max="225">Effect 9</Capability>
+  <Capability Min="226" Max="255">Effect 10</Capability>
+ </Channel>
+ <Channel Name="Vibration">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Slow to fast</Capability>
+ </Channel>
+ <Channel Name="Multiple Effects">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">OFF</Capability>
+  <Capability Min="128" Max="255">ON</Capability>
+ </Channel>
+ <Channel Name="Vibration 2">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Slow to Fast</Capability>
+ </Channel>
+ <Channel Name="Timer">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Short to Long</Capability>
+ </Channel>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="36" Color="#000000">Laser Black Out</Capability>
+  <Capability Min="37" Max="72" Color="#ff0000">Red</Capability>
+  <Capability Min="73" Max="108" Color="#00ff00">Green</Capability>
+  <Capability Min="109" Max="144" Color="#ff0000" Color2="#00ff00">Alternately Strobe Red and Green</Capability>
+  <Capability Min="145" Max="180" Color="#ff0000" Color2="#00ff00">Red on, Strobe Green</Capability>
+  <Capability Min="181" Max="216" Color="#ff0000" Color2="#00ff00">Green On, Strobe Red</Capability>
+  <Capability Min="217" Max="255" Color="#ff0000" Color2="#00ff00">Strobe Red and Green</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Strobe OFF</Capability>
+  <Capability Min="10" Max="255">Slow to Fast</Capability>
+ </Channel>
+ <Mode Name="8 channel">
+  <Channel Number="0">Mode</Channel>
+  <Channel Number="1">Effects</Channel>
+  <Channel Number="2">Vibration</Channel>
+  <Channel Number="3">Multiple Effects</Channel>
+  <Channel Number="4">Vibration 2</Channel>
+  <Channel Number="5">Timer</Channel>
+  <Channel Number="6">Color</Channel>
+  <Channel Number="7">Strobe</Channel>
+ </Mode>
+<Physical>
+   <Bulb ColourTemperature="0" Lumens="0" Type="LED"/>
+   <Dimensions Depth="202" Weight="3" Width="256" Height="102"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus PanMax="120" Type="Mirror" TiltMax="120"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="20"/>
+  </Physical>
+</FixtureDefinition>

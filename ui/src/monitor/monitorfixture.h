@@ -73,11 +73,9 @@ protected:
     /********************************************************************
      * Values
      ********************************************************************/
-public:
-    void updateValues(int index, const QByteArray& universes);
-
 public slots:
     void slotValueStyleChanged(MonitorProperties::ValueStyle style);
+    void slotValuesChanged();
 
 protected:
     QList <QLabel*> m_valueLabels;

@@ -23,10 +23,13 @@
 #include <QDialog>
 
 #include "ui_vcxypadproperties.h"
-#include "qlcinputsource.h"
 #include "vcxypadfixture.h"
+#include "dmxsource.h"
 
-class InputMap;
+class InputSelectionWidget;
+class VCXYPadPreset;
+class VCXYPadArea;
+class MasterTimer;
 class VCXYPad;
 class Doc;
 
@@ -34,7 +37,7 @@ class Doc;
  * @{
  */
 
-class VCXYPadProperties : public QDialog, public Ui_VCXYPadProperties
+class VCXYPadProperties : public QDialog, public Ui_VCXYPadProperties, public DMXSource
 {
     Q_OBJECT
     Q_DISABLE_COPY(VCXYPadProperties)
@@ -49,12 +52,17 @@ public:
 private:
     VCXYPad* m_xypad;
     Doc* m_doc;
+    InputSelectionWidget *m_panInputWidget;
+    InputSelectionWidget *m_tiltInputWidget;
+    InputSelectionWidget *m_widthInputWidget;
+    InputSelectionWidget *m_heightInputWidget;
 
     /********************************************************************
      * Fixtures page
      ********************************************************************/
 private:
-    void fillTree();
+    void fillFixturesTree();
+    void updateFixturesTree(VCXYPadFixture::DisplayMode mode = VCXYPadFixture::Degrees);
     QList <VCXYPadFixture> selectedFixtures() const;
     QTreeWidgetItem* fixtureItem(const VCXYPadFixture& fxi);
 
@@ -67,25 +75,59 @@ private slots:
     void slotEditClicked();
     void slotSelectionChanged(QTreeWidgetItem* item);
 
+    void slotPercentageRadioChecked();
+    void slotDegreesRadioChecked();
+    void slotDMXRadioChecked();
+
     /********************************************************************
-     * Fixtures page
+     * External controls
      ********************************************************************/
 private slots:
     void slotPanAutoDetectToggled(bool toggled);
-    void slotPanChooseClicked();
     void slotPanInputValueChanged(quint32 uni, quint32 ch);
-
     void slotTiltAutoDetectToggled(bool toggled);
-    void slotTiltChooseClicked();
     void slotTiltInputValueChanged(quint32 uni, quint32 ch);
 
-private:
-    void updatePanInputSource();
-    void updateTiltInputSource();
+    /********************************************************************
+     * Presets
+     ********************************************************************/
+public:
+    /** @reimp */
+    void writeDMX(MasterTimer* timer, QList<Universe*> universes);
 
 private:
-    QLCInputSource *m_panInputSource;
-    QLCInputSource *m_tiltInputSource;
+    void updatePresetsTree();
+    void selectItemOnPresetsTree(quint8 presetId);
+    void updateTreeItem(VCXYPadPreset const& preset);
+    VCXYPadPreset *getSelectedPreset();
+    void removePreset(quint8 id);
+
+    //move preset up and swap id with previous preset. Return new preset id.
+    quint8 moveUpPreset(quint8 id);
+
+    //move preset down and swap id with the next preset. Return new preset id.
+    quint8 moveDownPreset(quint8 id);
+
+protected slots:
+    void slotAddPositionClicked();
+    void slotAddEFXClicked();
+    void slotAddSceneClicked();
+    void slotAddFixtureGroupClicked();
+    void slotRemovePresetClicked();
+    void slotMoveUpPresetClicked();
+    void slotMoveDownPresetClicked();
+    void slotPresetNameEdited(QString const& newName);
+    void slotPresetSelectionChanged();
+    void slotXYPadPositionChanged(const QPointF& pt);
+    void slotInputValueChanged(quint32 universe, quint32 channel);
+    void slotKeySequenceChanged(QKeySequence key);
+
+private:
+    VCXYPadArea* m_xyArea;
+    InputSelectionWidget *m_presetInputWidget;
+
+    quint8 m_lastAssignedID;
+    QList<VCXYPadPreset*> m_presetList;
 
     /********************************************************************
      * OK/Cancel

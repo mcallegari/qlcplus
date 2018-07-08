@@ -25,6 +25,8 @@
 #ifndef E131PACKETIZER_H
 #define E131PACKETIZER_H
 
+#define E131_PRIORITY_DEFAULT 100
+
 class E131Packetizer
 {
     /*********************************************************************
@@ -40,7 +42,7 @@ public:
      *********************************************************************/
 
     /** Prepare an E1.31 DMX packet */
-    void setupE131Dmx(QByteArray& data, const int& universe, const QByteArray &values);
+    void setupE131Dmx(QByteArray& data, const int& universe, const int& priority, const QByteArray &values);
 
     /*********************************************************************
      * Receiver functions

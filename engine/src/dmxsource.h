@@ -35,6 +35,14 @@ class Universe;
 class DMXSource
 {
 public:
+    enum SourcePriority
+    {
+        Auto = 0,
+        Override,
+        SimpleDesk
+    };
+
+    DMXSource() { m_priority = Auto; }
     virtual ~DMXSource() {}
 
     /**
@@ -44,6 +52,11 @@ public:
      * @param universes Universe buffer to write to
      */
     virtual void writeDMX(MasterTimer* timer, QList<Universe*> universes) = 0;
+
+    int priority() const { return m_priority; }
+
+protected:
+    int m_priority;
 };
 
 /** @} */

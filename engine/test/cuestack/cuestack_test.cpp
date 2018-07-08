@@ -1,8 +1,9 @@
 /*
-  Q Light Controller - Unit test
+  Q Light Controller Plus - Unit test
   cuestack_test.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -18,7 +19,8 @@
 */
 
 #include <QtTest>
-#include <QtXml>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 #include "cuestack_test.h"
 
@@ -46,7 +48,7 @@ void CueStack_Test::initTestCase()
     QDir dir(INTERNAL_FIXTUREDIR);
     dir.setFilter(QDir::Files);
     dir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
-    QVERIFY(m_doc->fixtureDefCache()->load(dir) == true);
+    QVERIFY(m_doc->fixtureDefCache()->loadMap(dir) == true);
 }
 
 void CueStack_Test::cleanupTestCase()
@@ -408,50 +410,99 @@ void CueStack_Test::removeCues()
     QCOMPARE(cs.cues().size(), 0);
 }
 
-void CueStack_Test::load()
+void CueStack_Test::loadEmpty()
 {
-    QDomDocument doc;
-    QDomElement root = doc.createElement("CueStack");
-    doc.appendChild(root);
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    xmlWriter.writeStartElement("CueStack");
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    QCOMPARE(CueStack::loadXMLID(xmlReader), UINT_MAX);
+    CueStack cs(m_doc);
+    QCOMPARE(cs.loadXML(xmlReader), true);
+    QCOMPARE(cs.cues().size(), 0);
+}
+
+void CueStack_Test::loadID()
+{
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    xmlWriter.writeStartElement("CueStack");
+    xmlWriter.writeAttribute("ID", "15");
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     CueStack cs(m_doc);
-    QCOMPARE(CueStack::loadXMLID(root), UINT_MAX);
-    root.setAttribute("ID", 15);
-    QCOMPARE(CueStack::loadXMLID(root), uint(15));
-    QCOMPARE(cs.loadXML(root), true);
+    QCOMPARE(CueStack::loadXMLID(xmlReader), uint(15));
+    QCOMPARE(cs.loadXML(xmlReader), true);
     QCOMPARE(cs.cues().size(), 0);
 
-    QDomElement speed = doc.createElement("Speed");
-    speed.setAttribute("FadeIn", 100);
-    speed.setAttribute("FadeOut", 200);
-    speed.setAttribute("Duration", 300);
-    root.appendChild(speed);
+}
 
-    QDomElement cue = doc.createElement("Cue");
-    cue.setAttribute("Name", "First");
-    root.appendChild(cue);
+void CueStack_Test::loadComplete()
+{
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    cue = doc.createElement("Cue");
-    cue.setAttribute("Name", "Second");
-    root.appendChild(cue);
+    xmlWriter.writeStartElement("CueStack");
+    xmlWriter.writeAttribute("ID", "15");
 
-    cue = doc.createElement("Cue");
-    cue.setAttribute("Name", "Third");
-    root.appendChild(cue);
+    xmlWriter.writeStartElement("Speed");
+    xmlWriter.writeAttribute("FadeIn", "100");
+    xmlWriter.writeAttribute("FadeOut", "200");
+    xmlWriter.writeAttribute("Duration", "300");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeStartElement("Cue");
+    xmlWriter.writeAttribute("Name", "First");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeStartElement("Cue");
+    xmlWriter.writeAttribute("Name", "Second");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeStartElement("Cue");
+    xmlWriter.writeAttribute("Name", "Third");
+    xmlWriter.writeEndElement();
 
     // Extra garbage
-    QDomElement foo = doc.createElement("Foo");
-    root.appendChild(foo);
+    xmlWriter.writeStartElement("Foo");
+    xmlWriter.writeEndElement();
 
-    QCOMPARE(CueStack::loadXMLID(root), uint(15));
-    QCOMPARE(cs.loadXML(root), true);
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    CueStack cs(m_doc);
+    QCOMPARE(CueStack::loadXMLID(xmlReader), uint(15));
+    QCOMPARE(cs.loadXML(xmlReader), true);
+
     QCOMPARE(cs.cues().size(), 3);
     QCOMPARE(cs.cues().at(0).name(), QString("First"));
     QCOMPARE(cs.cues().at(1).name(), QString("Second"));
     QCOMPARE(cs.cues().at(2).name(), QString("Third"));
-
-    QCOMPARE(CueStack::loadXMLID(foo), UINT_MAX);
-    QCOMPARE(cs.loadXML(foo), false);
 }
 
 void CueStack_Test::save()
@@ -464,37 +515,47 @@ void CueStack_Test::save()
     cs.setFadeOutSpeed(300);
     cs.setDuration(400);
 
-    QDomDocument doc;
-    QDomElement root = doc.createElement("Foo");
-    doc.appendChild(root);
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+    xmlWriter.writeStartElement("Foo");
 
-    QCOMPARE(cs.saveXML(&doc, &root, 42), true);
-    QCOMPARE(root.firstChild().toElement().tagName(), QString("CueStack"));
+    QCOMPARE(cs.saveXML(&xmlWriter, 42), true);
+
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+
+    xmlReader.readNextStartElement();
+    QCOMPARE(xmlReader.name().toString(), QString("Foo"));
+    xmlReader.readNextStartElement();
+    QCOMPARE(xmlReader.name().toString(), QString("CueStack"));
 
     int cue = 0, speed = 0;
 
-    QDomNode node = root.firstChild().firstChild();
-    while (node.isNull() == false)
+    while (xmlReader.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == "Speed")
+        if (xmlReader.name() == "Speed")
         {
             speed++;
-            QCOMPARE(tag.attribute("FadeIn"), QString("200"));
-            QCOMPARE(tag.attribute("FadeOut"), QString("300"));
-            QCOMPARE(tag.attribute("Duration"), QString("400"));
+            QCOMPARE(xmlReader.attributes().value("FadeIn").toString(), QString("200"));
+            QCOMPARE(xmlReader.attributes().value("FadeOut").toString(), QString("300"));
+            QCOMPARE(xmlReader.attributes().value("Duration").toString(), QString("400"));
+            xmlReader.skipCurrentElement();
         }
-        else if (tag.tagName() == "Cue")
+        else if (xmlReader.name() == "Cue")
         {
             // The contents of a Cue tag are tested in Cue tests
             cue++;
+            xmlReader.skipCurrentElement();
         }
         else
         {
-            QFAIL(QString("Unexpected tag: %1").arg(tag.tagName()).toUtf8().constData());
+            QFAIL(QString("Unexpected tag: %1").arg(xmlReader.name().toString()).toUtf8().constData());
+            xmlReader.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     QCOMPARE(cue, 3);
@@ -634,7 +695,7 @@ void CueStack_Test::insertStartValue()
     cs.preRun();
 
     FadeChannel fc;
-    fc.setChannel(0);
+    fc.setChannel(m_doc, 0);
     fc.setStart(0);
     fc.setTarget(255);
     fc.setCurrent(127);
@@ -668,6 +729,7 @@ void CueStack_Test::insertStartValue()
     m_doc->addFixture(fxi);
 
     // LTP channel (Pan) in universes
+    fc.setChannel(m_doc, 0);
     ua[0]->write(0, 192);
     cs.insertStartValue(fc, ua);
     QCOMPARE(fc.start(), uchar(192));
@@ -734,97 +796,97 @@ void CueStack_Test::switchCue()
     QCOMPARE(cs.m_fader->channels().size(), 5);
 
     FadeChannel fc;
-    fc.setChannel(0);
+    fc.setChannel(m_doc, 0);
     QCOMPARE(cs.m_fader->channels()[fc].start(), uchar(0));
     QCOMPARE(cs.m_fader->channels()[fc].current(), uchar(0));
     QCOMPARE(cs.m_fader->channels()[fc].target(), uchar(255));
     QCOMPARE(cs.m_fader->channels()[fc].channel(), uint(0));
     QCOMPARE(cs.m_fader->channels()[fc].fadeTime(), uint(20));
 
-    fc.setChannel(1);
+    fc.setChannel(m_doc, 1);
     QCOMPARE(cs.m_fader->channels()[fc].start(), uchar(0));
     QCOMPARE(cs.m_fader->channels()[fc].current(), uchar(0));
     QCOMPARE(cs.m_fader->channels()[fc].target(), uchar(255));
     QCOMPARE(cs.m_fader->channels()[fc].channel(), uint(1));
     QCOMPARE(cs.m_fader->channels()[fc].fadeTime(), uint(20));
 
-    fc.setChannel(10);
+    fc.setChannel(m_doc, 10);
     QCOMPARE(cs.m_fader->channels()[fc].start(), uchar(0));
     QCOMPARE(cs.m_fader->channels()[fc].current(), uchar(0));
     QCOMPARE(cs.m_fader->channels()[fc].target(), uchar(255));
     QCOMPARE(cs.m_fader->channels()[fc].channel(), uint(10));
     QCOMPARE(cs.m_fader->channels()[fc].fadeTime(), uint(20));
 
-    fc.setChannel(11);
+    fc.setChannel(m_doc, 11);
     QCOMPARE(cs.m_fader->channels()[fc].start(), uchar(0));
     QCOMPARE(cs.m_fader->channels()[fc].current(), uchar(0));
     QCOMPARE(cs.m_fader->channels()[fc].target(), uchar(255));
     QCOMPARE(cs.m_fader->channels()[fc].channel(), uint(11));
     QCOMPARE(cs.m_fader->channels()[fc].fadeTime(), uint(20));
 
-    fc.setChannel(500);
+    fc.setChannel(m_doc, 500);
     QCOMPARE(cs.m_fader->channels()[fc].start(), uchar(0));
     QCOMPARE(cs.m_fader->channels()[fc].current(), uchar(0));
     QCOMPARE(cs.m_fader->channels()[fc].target(), uchar(255));
     QCOMPARE(cs.m_fader->channels()[fc].channel(), uint(500));
     QCOMPARE(cs.m_fader->channels()[fc].fadeTime(), uint(20));
 
-    fc.setChannel(3);
+    fc.setChannel(m_doc, 3);
     QCOMPARE(cs.m_fader->channels()[fc].channel(), QLCChannel::invalid());
-    fc.setChannel(4);
+    fc.setChannel(m_doc, 4);
     QCOMPARE(cs.m_fader->channels()[fc].channel(), QLCChannel::invalid());
 
-    fc.setChannel(0);
+    fc.setChannel(m_doc, 0);
     cs.m_fader->m_channels[fc].setCurrent(127);
-    fc.setChannel(1);
+    fc.setChannel(m_doc, 1);
     cs.m_fader->m_channels[fc].setCurrent(127);
-    fc.setChannel(10);
+    fc.setChannel(m_doc, 10);
     cs.m_fader->m_channels[fc].setCurrent(127);
-    fc.setChannel(11);
+    fc.setChannel(m_doc, 11);
     cs.m_fader->m_channels[fc].setCurrent(127);
-    fc.setChannel(500);
+    fc.setChannel(m_doc, 500);
     cs.m_fader->m_channels[fc].setCurrent(127);
 
     // Switch to cue two
     cs.switchCue(0, 1, ua);
     QCOMPARE(cs.m_fader->channels().size(), 7);
 
-    fc.setChannel(0);
+    fc.setChannel(m_doc, 0);
     QCOMPARE(cs.m_fader->channels()[fc].start(), uchar(127));
     QCOMPARE(cs.m_fader->channels()[fc].current(), uchar(127));
     QCOMPARE(cs.m_fader->channels()[fc].target(), uchar(0));
     QCOMPARE(cs.m_fader->channels()[fc].channel(), uint(0));
     QCOMPARE(cs.m_fader->channels()[fc].fadeTime(), uint(40));
 
-    fc.setChannel(1);
+    fc.setChannel(m_doc, 1);
     QCOMPARE(cs.m_fader->channels()[fc].start(), uchar(127));
     QCOMPARE(cs.m_fader->channels()[fc].current(), uchar(127));
     QCOMPARE(cs.m_fader->channels()[fc].target(), uchar(0));
     QCOMPARE(cs.m_fader->channels()[fc].channel(), uint(1));
     QCOMPARE(cs.m_fader->channels()[fc].fadeTime(), uint(40));
 
-    fc.setChannel(11); // LTP channel also in the next cue
+    fc.setChannel(m_doc, 11); // LTP channel also in the next cue
     QCOMPARE(cs.m_fader->channels()[fc].start(), uchar(127));
     QCOMPARE(cs.m_fader->channels()[fc].current(), uchar(127));
     QCOMPARE(cs.m_fader->channels()[fc].target(), uchar(255));
     QCOMPARE(cs.m_fader->channels()[fc].channel(), uint(11));
     QCOMPARE(cs.m_fader->channels()[fc].fadeTime(), uint(60));
 
-    fc.setChannel(500);
+    fc.setChannel(m_doc, 500);
     QCOMPARE(cs.m_fader->channels()[fc].start(), uchar(127));
     QCOMPARE(cs.m_fader->channels()[fc].current(), uchar(127));
     QCOMPARE(cs.m_fader->channels()[fc].target(), uchar(255));
     QCOMPARE(cs.m_fader->channels()[fc].channel(), uint(500));
     QCOMPARE(cs.m_fader->channels()[fc].fadeTime(), uint(60));
 
-    fc.setChannel(3);
+    fc.setChannel(m_doc, 3);
     QCOMPARE(cs.m_fader->channels()[fc].start(), uchar(0));
     QCOMPARE(cs.m_fader->channels()[fc].current(), uchar(0));
     QCOMPARE(cs.m_fader->channels()[fc].target(), uchar(255));
     QCOMPARE(cs.m_fader->channels()[fc].channel(), uint(3));
     QCOMPARE(cs.m_fader->channels()[fc].fadeTime(), uint(60));
 
-    fc.setChannel(4);
+    fc.setChannel(m_doc, 4);
     QCOMPARE(cs.m_fader->channels()[fc].start(), uchar(0));
     QCOMPARE(cs.m_fader->channels()[fc].current(), uchar(0));
     QCOMPARE(cs.m_fader->channels()[fc].target(), uchar(255));
@@ -900,11 +962,11 @@ void CueStack_Test::postRun()
     // Only HTP channels go to MasterTimer's GenericFader
     QCOMPARE(mt.m_fader->channels().size(), 3);
     FadeChannel fc;
-    fc.setChannel(0);
+    fc.setChannel(m_doc, 0);
     QCOMPARE(mt.m_fader->channels().contains(fc), true);
-    fc.setChannel(1);
+    fc.setChannel(m_doc, 1);
     QCOMPARE(mt.m_fader->channels().contains(fc), true);
-    fc.setChannel(500);
+    fc.setChannel(m_doc, 500);
     QCOMPARE(mt.m_fader->channels().contains(fc), true);
 }
 
@@ -945,7 +1007,7 @@ void CueStack_Test::write()
     QCOMPARE(cs.currentIndex(), 0);
     QCOMPARE(cs.m_fader->channels().size(), 1);
     FadeChannel fc;
-    fc.setChannel(0);
+    fc.setChannel(m_doc, 0);
     QCOMPARE(cs.m_fader->channels()[fc].channel(), uint(0));
     QCOMPARE(cs.m_fader->channels()[fc].target(), uchar(255));
 
@@ -954,10 +1016,10 @@ void CueStack_Test::write()
     cs.write(ua);
     QCOMPARE(cs.currentIndex(), 1);
 
-    fc.setChannel(0);
+    fc.setChannel(m_doc, 0);
     QCOMPARE(cs.m_fader->channels()[fc].channel(), uint(0));
     QCOMPARE(cs.m_fader->channels()[fc].target(), uchar(0));
-    fc.setChannel(1);
+    fc.setChannel(m_doc, 1);
     QCOMPARE(cs.m_fader->channels()[fc].channel(), uint(1));
     QCOMPARE(cs.m_fader->channels()[fc].target(), uchar(255));
 

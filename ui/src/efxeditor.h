@@ -73,6 +73,8 @@ private:
         otherwise it is restarted as a normal EFX. */
     void continueRunning(bool running);
 
+    FunctionParent functionParent() const;
+
     EfxUiState * efxUiState();
 
 private slots:
@@ -80,6 +82,7 @@ private slots:
     void slotRestartTest();
     void slotModeChanged(Doc::Mode mode);
     void slotTabChanged(int tab);
+    void slotSetColorBackground(bool checked);
 
 private:
     EFXPreviewArea* m_previewArea;
@@ -95,6 +98,7 @@ private:
     const QList <EFXFixture*> selectedFixtures() const;
     void updateIndices(int from, int to);
     void addFixtureItem(EFXFixture* ef);
+    void updateModeColumn(QTreeWidgetItem* item, EFXFixture* ef);
     void updateIntensityColumn(QTreeWidgetItem* item, EFXFixture* ef);
     void updateStartOffsetColumn(QTreeWidgetItem* item, EFXFixture* ef);
     void removeFixtureItem(EFXFixture* ef);
@@ -105,7 +109,7 @@ private slots:
     void slotNameEdited(const QString &text);
     void slotSpeedDialToggle(bool state);
     void slotFixtureItemChanged(QTreeWidgetItem* item, int column);
-    void slotFixtureIntensityChanged(int intensity);
+    void slotFixtureModeChanged(int index);
     void slotFixtureStartOffsetChanged(int intensity);
     void slotAddFixtureClicked();
     void slotRemoveFixtureClicked();

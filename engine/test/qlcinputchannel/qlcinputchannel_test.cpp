@@ -1,8 +1,9 @@
 /*
-  Q Light Controller - Unit tests
+  Q Light Controller Plus - Unit tests
   qlcinputchannel_test.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -18,7 +19,8 @@
 */
 
 #include <QtTest>
-#include <QtXml>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 #include "qlcinputchannel_test.h"
 #include "qlcinputchannel.h"
@@ -26,10 +28,11 @@
 void QLCInputChannel_Test::types()
 {
     QStringList list(QLCInputChannel::types());
-    QVERIFY(list.size() == 6);
+    QVERIFY(list.size() == 7);
     QVERIFY(list.contains(KXMLQLCInputChannelButton));
     QVERIFY(list.contains(KXMLQLCInputChannelSlider));
     QVERIFY(list.contains(KXMLQLCInputChannelKnob));
+    QVERIFY(list.contains(KXMLQLCInputChannelEncoder));
     QVERIFY(list.contains(KXMLQLCInputChannelPageUp));
     QVERIFY(list.contains(KXMLQLCInputChannelPageDown));
     QVERIFY(list.contains(KXMLQLCInputChannelPageSet));
@@ -49,6 +52,9 @@ void QLCInputChannel_Test::type()
     ch.setType(QLCInputChannel::Knob);
     QVERIFY(ch.type() == QLCInputChannel::Knob);
 
+    ch.setType(QLCInputChannel::Encoder);
+    QVERIFY(ch.type() == QLCInputChannel::Encoder);
+
     ch.setType(QLCInputChannel::NextPage);
     QVERIFY(ch.type() == QLCInputChannel::NextPage);
 
@@ -65,6 +71,8 @@ void QLCInputChannel_Test::typeToString()
              QString(KXMLQLCInputChannelButton));
     QCOMPARE(QLCInputChannel::typeToString(QLCInputChannel::Knob),
              QString(KXMLQLCInputChannelKnob));
+    QCOMPARE(QLCInputChannel::typeToString(QLCInputChannel::Encoder),
+             QString(KXMLQLCInputChannelEncoder));
     QCOMPARE(QLCInputChannel::typeToString(QLCInputChannel::Slider),
              QString(KXMLQLCInputChannelSlider));
     QCOMPARE(QLCInputChannel::typeToString(QLCInputChannel::NextPage),
@@ -85,6 +93,8 @@ void QLCInputChannel_Test::stringToType()
              QLCInputChannel::Slider);
     QCOMPARE(QLCInputChannel::stringToType(QString(KXMLQLCInputChannelKnob)),
              QLCInputChannel::Knob);
+    QCOMPARE(QLCInputChannel::stringToType(QString(KXMLQLCInputChannelEncoder)),
+             QLCInputChannel::Encoder);
     QCOMPARE(QLCInputChannel::stringToType(QString(KXMLQLCInputChannelPageUp)),
              QLCInputChannel::NextPage);
     QCOMPARE(QLCInputChannel::stringToType(QString(KXMLQLCInputChannelPageDown)),
@@ -120,51 +130,46 @@ void QLCInputChannel_Test::copy()
 
 void QLCInputChannel_Test::load()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Channel");
-    doc.appendChild(root);
+    xmlWriter.writeStartElement("Channel");
+    xmlWriter.writeTextElement("Name", "Foobar");
+    xmlWriter.writeTextElement("Type", "Slider");
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
 
-    QDomElement name = doc.createElement("Name");
-    QDomText nameText = doc.createTextNode("Foobar");
-    name.appendChild(nameText);
-    root.appendChild(name);
-
-    QDomElement type = doc.createElement("Type");
-    QDomText typeText = doc.createTextNode("Slider");
-    type.appendChild(typeText);
-    root.appendChild(type);
-
-    QDomElement foo = doc.createElement("Foobar");
-    QDomText fooText = doc.createTextNode("Xyzzy");
-    foo.appendChild(fooText);
-    root.appendChild(foo);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     QLCInputChannel ch;
-    ch.loadXML(root);
+    ch.loadXML(xmlReader);
     QVERIFY(ch.name() == "Foobar");
     QVERIFY(ch.type() == QLCInputChannel::Slider);
 }
 
 void QLCInputChannel_Test::loadWrongType()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Channel");
-    doc.appendChild(root);
+    xmlWriter.writeStartElement("Channel");
+    xmlWriter.writeTextElement("Name", "Foobar");
+    xmlWriter.writeTextElement("Type", "Xyzzy");
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
 
-    QDomElement name = doc.createElement("Name");
-    QDomText nameText = doc.createTextNode("Foobar");
-    name.appendChild(nameText);
-    root.appendChild(name);
-
-    QDomElement type = doc.createElement("Type");
-    QDomText typeText = doc.createTextNode("Xyzzy");
-    type.appendChild(typeText);
-    root.appendChild(type);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     QLCInputChannel ch;
-    ch.loadXML(root);
+    ch.loadXML(xmlReader);
     QVERIFY(ch.name() == "Foobar");
     QVERIFY(ch.type() == QLCInputChannel::NoType);
 }
@@ -175,24 +180,30 @@ void QLCInputChannel_Test::save()
     ch.setName("Foobar Name");
     ch.setType(QLCInputChannel::Knob);
 
-    QDomDocument doc;
-    QDomElement root = doc.createElement("fakerootnode");
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QVERIFY(ch.saveXML(&doc, &root, 12) == true);
+    QVERIFY(ch.saveXML(&xmlWriter, 12) == true);
 
-    QDomNode node = root.firstChild();
-    QCOMPARE(node.toElement().tagName(), QString(KXMLQLCInputChannel));
-    node = node.firstChild();
-    while (node.isNull() == false)
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+
+    xmlReader.readNextStartElement();
+
+    QCOMPARE(xmlReader.name().toString(), QString(KXMLQLCInputChannel));
+
+    while (xmlReader.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLQLCInputChannelName)
-            QCOMPARE(tag.text(), QString("Foobar Name"));
-        else if (tag.tagName() == KXMLQLCInputChannelType)
-            QCOMPARE(tag.text(), QString(KXMLQLCInputChannelKnob));
+        if (xmlReader.name() == KXMLQLCInputChannelName)
+            QCOMPARE(xmlReader.readElementText(), QString("Foobar Name"));
+        else if (xmlReader.name() == KXMLQLCInputChannelType)
+            QCOMPARE(xmlReader.readElementText(), QString(KXMLQLCInputChannelKnob));
         else
             QFAIL("Unexpected crap in the XML!");
-        node = node.nextSibling();
     }
 }
 

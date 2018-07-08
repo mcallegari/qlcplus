@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   qlcfixturedef.h
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -24,6 +25,7 @@
 #include <QList>
 #include <QFile>
 
+#include "qlcphysical.h"
 
 /** @addtogroup engine Engine
  * @{
@@ -44,11 +46,10 @@
 #define KXMLQLCFixtureUniverse "Universe"
 #define KXMLQLCFixtureAddress "Address"
 
-class QDomDocument;
-class QDomElement;
-class QLCChannel;
+class QXmlStreamReader;
 class QLCFixtureMode;
 class QLCFixtureDef;
+class QLCChannel;
 
 /**
  * QLCFixtureDef represents exactly one fixture, identified by its manufacturer
@@ -88,6 +89,22 @@ public:
      * Fixture information
      *********************************************************************/
 public:
+    enum FixtureType
+    {
+        ColorChanger,
+        Dimmer,
+        Effect,
+        Fan,
+        Flower,
+        Hazer,
+        Laser,
+        MovingHead,
+        Scanner,
+        Smoke,
+        Strobe,
+        LEDBar,
+        Other
+    };
 
     /** Get the temporary definition file absolute path */
     QString definitionSourceFile() const;
@@ -110,11 +127,17 @@ public:
     /** Get the fixture's model string */
     QString model() const;
 
-    /** Set the fixture's type string */
-    void setType(const QString& type);
+    /** Set the fixture's type */
+    void setType(const FixtureType type);
 
-    /** Get the fixture's type string */
-    QString type();
+    /** Get the fixture's type */
+    FixtureType type();
+
+    /** Convert a fixture type to string */
+    static QString typeToString(FixtureType type);
+
+    /** Convert string into a fixture type */
+    static FixtureType stringToType(const QString &type);
 
     /** Set the definition's author */
     void setAuthor(const QString& author);
@@ -122,15 +145,15 @@ public:
     /** Get the definition's author */
     QString author();
 
-private:
-    void checkLoaded();
+    /** Check if the full definition has been loaded */
+    void checkLoaded(QString mapPath);
 
 protected:
     bool m_isLoaded;
-    QString m_defFileAbsolutePath;
+    QString m_relativePath;
     QString m_manufacturer;
     QString m_model;
-    QString m_type;
+    FixtureType m_type;
     QString m_author;
 
     /*********************************************************************
@@ -180,6 +203,18 @@ protected:
     /** Modes (i.e. ordered collections of channels) */
     QList <QLCFixtureMode*> m_modes;
 
+
+    /*********************************************************************
+     * Physical
+     *********************************************************************/
+public:
+    /** Get/Set the global physical information */
+    QLCPhysical physical() const;
+    void setPhysical(const QLCPhysical& physical);
+
+protected:
+    QLCPhysical m_physical;
+
     /*********************************************************************
      * Load & Save
      *********************************************************************/
@@ -192,10 +227,10 @@ public:
 
 protected:
     /** Load fixture contents from an XML document */
-    bool loadXML(const QDomDocument& doc);
+    bool loadXML(QXmlStreamReader &doc);
 
     /** Load <Creator> information */
-    bool loadCreator(const QDomElement& creator);
+    bool loadCreator(QXmlStreamReader &doc);
 };
 
 /** @} */

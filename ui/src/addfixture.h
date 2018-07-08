@@ -131,7 +131,7 @@ protected:
      * @param numChannels Number of channels in the address space
      * @return The address or QLCChannel::invalid() if not found
      */
-    static quint32 findAddress(quint32 numChannels, QList <Fixture*> fixtures,
+    static quint32 findAddress(quint32 numChannels, QList<Fixture*> const& fixtures,
                                quint32 maxUniverses);
 
     /**
@@ -141,10 +141,12 @@ protected:
      *
      * @param universe The universe to search from
      * @param numChannels Number of free channels required
+     * @param fixtures Current fixtures
+     * @param currentFixture ID of current fixture, that will be ignored
      * @return An address or QLCChannel::invalid() if address space not available
      */
     static quint32 findAddress(quint32 universe, quint32 numChannels,
-                               QList <Fixture*> fixtures);
+                               QList<Fixture*> const& fixtures, quint32 currentFixture = Fixture::invalidId());
 
     /** Update the maximum amount of fixtures for the universe */
     void updateMaximumAmount();
@@ -193,6 +195,9 @@ protected slots:
 
     /** Callback for button to open the Address Tool */
     void slotDiptoolButtonClicked();
+
+protected:
+    void checkOverlapping();
 };
 
 /** @} */

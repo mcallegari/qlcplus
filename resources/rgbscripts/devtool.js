@@ -1,12 +1,33 @@
+/*
+  Q Light Controller Plus
+  devtool.js
+  
+  Copyright (c) Heikki Junnila
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0.txt
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*/
+
 function init()
 {
     var w = document.getElementById("width");
     var h = document.getElementById("height");
 
-    if (!w.value)
+    if (!w.value) {
         w.value = 15;
-    if (!h.value)
+    }
+    if (!h.value) {
         h.value = 15;
+    }
 
     updateProperties();
     updateStepCount();
@@ -39,12 +60,15 @@ function updateProperties()
     var name = document.getElementById("name");
     var author = document.getElementById("author");
 
-    if (apiVersion)
+    if (apiVersion) {
         apiVersion.value = testAlgo.apiVersion;
-    if (name)
+    }
+    if (name) {
         name.value = testAlgo.name;
-    if (author)
-        author.value = testAlgo.author;    
+    }
+    if (author) {
+        author.value = testAlgo.author;
+    }
 }
 
 function nextStep()
@@ -58,10 +82,11 @@ function nextStep()
         var current = parseInt(currentStep.value);
 
         var next;
-        if ((current + 1) < steps)
+        if ((current + 1) < steps) {
             next = current + 1;
-        else
+        } else {
             next = 0;
+        }
 
         currentStep.value = next;
         writeCurrentStep();
@@ -83,11 +108,11 @@ function previousStep()
         var current = parseInt(currentStep.value);
 
         var next;
-        if (current > 0)
+        if (current > 0) {
             next = current - 1;
-        else
+        } else {
             next = steps - 1;
-
+        }
         currentStep.value = next;
         writeCurrentStep();
     }
@@ -111,7 +136,7 @@ function writeCurrentStep()
     if (bicolor.checked)
     {
         var stepCountMinusOne = parseInt(stepCount.value) - 1;
-        stepCountMinusOne = stepCountMinusOne == 0 ? 1 : stepCountMinusOne;
+        stepCountMinusOne = stepCountMinusOne === 0 ? 1 : stepCountMinusOne;
         var currentR = ((stepCountMinusOne - parseInt(currentStep.value)) / stepCountMinusOne) * 255;
         var currentG = 0;
         var currentB = (parseInt(currentStep.value) / stepCountMinusOne) * 255;
@@ -125,9 +150,9 @@ function writeCurrentStep()
         var height = parseInt(h.value);
         var step = parseInt(currentStep.value);
 
-        for (var i = map.rows.length - 1; i >= 0; i--)
+        for (var i = map.rows.length - 1; i >= 0; i--) {
             map.deleteRow(i);
-
+        }
         var rgb = testAlgo.rgbMap(width, height, currentRgb, step);
 
         for (var y = 0; y < height; y++)
@@ -137,9 +162,10 @@ function writeCurrentStep()
             for (var x = 0; x < width; x++)
             {
                 var cell = row.insertCell(x);
-		var rgbStr = rgb[y][x].toString(16);
-		while (rgbStr.length != 6)
-		  rgbStr = "0" + rgbStr;
+                var rgbStr = rgb[y][x].toString(16);
+                while (rgbStr.length !== 6) {
+                    rgbStr = "0" + rgbStr;
+                }
                 cell.style.backgroundColor = rgbStr;
                 cell.style.height = 20;
                 cell.style.width = 20;

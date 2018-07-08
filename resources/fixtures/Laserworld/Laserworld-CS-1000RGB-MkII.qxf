@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.11.1 GIT</Version>
+  <Author>Piotr Nowik</Author>
+ </Creator>
+ <Manufacturer>Laserworld</Manufacturer>
+ <Model>CS-1000RGB Mk II</Model>
+ <Type>Laser</Type>
+ <Channel Name="Mode">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="49">Laser off</Capability>
+  <Capability Min="50" Max="99">Music mode</Capability>
+  <Capability Min="100" Max="149">Automatic mode</Capability>
+  <Capability Min="150" Max="255">Patterns/DMX</Capability>
+ </Channel>
+ <Channel Name="Patterns">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">128 patterns (change every even value)</Capability>
+ </Channel>
+ <Channel Name="Circular Movement">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="127">Indexing</Capability>
+  <Capability Min="128" Max="191">CW slow to fast</Capability>
+  <Capability Min="192" Max="255">CCW slow to fast</Capability>
+ </Channel>
+ <Channel Name="Y Rotation">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="127">Indexing</Capability>
+  <Capability Min="128" Max="191">Morphing slow to fast</Capability>
+  <Capability Min="192" Max="255">Rotating slow to fast</Capability>
+ </Channel>
+ <Channel Name="X Rotation">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="127">Indexing</Capability>
+  <Capability Min="128" Max="191">Morphing slow to fast</Capability>
+  <Capability Min="192" Max="255">Rotating slow to fast</Capability>
+ </Channel>
+ <Channel Name="Horizontal movement">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="0">No movement</Capability>
+  <Capability Min="1" Max="127">Manual from left to right</Capability>
+  <Capability Min="128" Max="191">CW slow to fast</Capability>
+  <Capability Min="192" Max="255">CCW slow to fast</Capability>
+ </Channel>
+ <Channel Name="Vertical movement">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="0">No movement</Capability>
+  <Capability Min="1" Max="127">Manual from up to down</Capability>
+  <Capability Min="128" Max="191">CW slow to fast</Capability>
+  <Capability Min="192" Max="255">CCW slow to fast</Capability>
+ </Channel>
+ <Channel Name="Zoom">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="63">Max size to min size</Capability>
+  <Capability Min="64" Max="127">Auto zooming max-min slow to fast</Capability>
+  <Capability Min="128" Max="191">Auto zooming min-max slow to fast</Capability>
+  <Capability Min="192" Max="255">Continuosly min-max-min slow to fast</Capability>
+ </Channel>
+ <Channel Name="Pattern Buildup (drawing)">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">Off, original pattern</Capability>
+  <Capability Min="1" Max="127">Auto drawing slow to fast</Capability>
+  <Capability Min="128" Max="255">Auto drawing (incl. "de-drawing") slow to fast</Capability>
+ </Channel>
+ <Channel Name="Dot Effect with Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255">From original pattern to max dots with strobe</Capability>
+ </Channel>
+ <Channel Name="Color Seletion">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="24">Pattern color</Capability>
+  <Capability Min="25" Max="49" Color="#ffffff">White</Capability>
+  <Capability Min="50" Max="74" Color="#ff0000">Red</Capability>
+  <Capability Min="75" Max="99" Color="#00ff00">Green</Capability>
+  <Capability Min="100" Max="124" Color="#ffff00">Yellow</Capability>
+  <Capability Min="125" Max="149" Color="#00ffff">Cyan</Capability>
+  <Capability Min="150" Max="174" Color="#0000ff">Blue</Capability>
+  <Capability Min="175" Max="199" Color="#ff00ff">Magenta</Capability>
+  <Capability Min="200" Max="255" Color="#ffffff">RGB fade</Capability>
+ </Channel>
+ <Mode Name="11 channel">
+  <Channel Number="0">Mode</Channel>
+  <Channel Number="1">Patterns</Channel>
+  <Channel Number="2">Circular Movement</Channel>
+  <Channel Number="3">Y Rotation</Channel>
+  <Channel Number="4">X Rotation</Channel>
+  <Channel Number="5">Horizontal movement</Channel>
+  <Channel Number="6">Vertical movement</Channel>
+  <Channel Number="7">Zoom</Channel>
+  <Channel Number="8">Pattern Buildup (drawing)</Channel>
+  <Channel Number="9">Dot Effect with Strobe</Channel>
+  <Channel Number="10">Color Seletion</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="RGB Laser" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="7" Width="330" Height="170" Depth="310"/>
+   <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
+   <Focus Type="Mirror" PanMax="40" TiltMax="40"/>
+   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

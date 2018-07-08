@@ -35,6 +35,19 @@ SPIConfiguration::SPIConfiguration(SPIPlugin* plugin, QWidget* parent)
 
     /* Setup UI controls */
     setupUi(this);
+
+    QSettings settings;
+    QVariant value = settings.value("SPIPlugin/frequency");
+    if (value.isValid() == true)
+    {
+        int speed = value.toUInt();
+        switch(speed)
+        {
+            case 2000000: m_freqCombo->setCurrentIndex(1); break;
+            case 4000000: m_freqCombo->setCurrentIndex(2); break;
+            case 8000000: m_freqCombo->setCurrentIndex(3); break;
+        }
+    }
 }
 
 SPIConfiguration::~SPIConfiguration()

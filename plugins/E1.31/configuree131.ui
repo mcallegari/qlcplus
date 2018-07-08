@@ -1,13 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
+ <author>Massimo Callegari</author>
+ <comment>
+  Q Light Controller Plus
+  configuree131.ui
+
+  Copyright (c) 2015 Massimo Callegari
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0.txt
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+ </comment>
  <class>ConfigureE131</class>
  <widget class="QDialog" name="ConfigureE131">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>402</width>
-    <height>296</height>
+    <width>657</width>
+    <height>315</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,11 +40,11 @@
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
-       <string>Network Mapping</string>
+       <string>Universes Configuration</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QTreeWidget" name="m_outputTree">
+        <widget class="QTreeWidget" name="m_uniMapTree">
          <property name="alternatingRowColors">
           <bool>true</bool>
          </property>
@@ -34,12 +53,42 @@
          </property>
          <column>
           <property name="text">
-           <string>Network</string>
+           <string>Interface</string>
           </property>
          </column>
          <column>
           <property name="text">
            <string>Universe</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Multicast</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>IP Address</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Port</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>E1.31 Universe</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Transmission Mode</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Priority</string>
           </property>
          </column>
         </widget>

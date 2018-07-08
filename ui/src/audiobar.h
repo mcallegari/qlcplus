@@ -25,8 +25,8 @@
 #include "function.h"
 #include "fixture.h"
 
-class QDomDocument;
-class QDomElement;
+class QXmlStreamReader;
+class QXmlStreamWriter;
 
 /** @addtogroup ui_vc_widgets
  * @{
@@ -46,7 +46,7 @@ class AudioBar
 {
 public:
     /** Normal constructor */
-    AudioBar(int t = 0, uchar v = 0);
+    AudioBar(int t = 0, uchar v = 0, quint32 parentId = quint32(-1));
 
     /** Destructor */
     ~AudioBar() { }
@@ -79,14 +79,15 @@ public:
     void debugInfo();
 
     /** Load properties and contents from an XML tree */
-    bool loadXML(const QDomElement& root, Doc *doc);
+    bool loadXML(QXmlStreamReader &root, Doc *doc);
 
     /** Save properties and contents to an XML document */
-    bool saveXML(QDomDocument* doc, QDomElement* atf_root, QString tagName, int index);
+    bool saveXML(QXmlStreamWriter *doc, QString tagName, int index);
 
 public:
     QString m_name;
     int m_type;
+    quint32 m_parentId;
     uchar m_value;
     bool m_tapped;
 
@@ -107,6 +108,9 @@ public:
     int m_divisor;
 
     int m_skippedBeats;
+
+private:
+    FunctionParent functionParent() const;
 
 private:
 

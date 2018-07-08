@@ -26,6 +26,7 @@
 
 #include "playbackwing.h"
 
+
 /****************************************************************************
  * Playback wing specifics
  ****************************************************************************/
@@ -90,14 +91,14 @@ WING_PLAYBACK_BYTE_SLIDER + 9: Slider 10 (0-255)
 #define WING_PLAYBACK_CHANNEL_COUNT 8 * WING_PLAYBACK_BUTTON_SIZE \
 					+ WING_PLAYBACK_SLIDER_SIZE
 
-/** number of extra buttons (go,back) */
-#define WING_PLAYBACK_EXTRA_BUTTONS_COUNT 2
+/** number of extra buttons (go,back, pageup, pagedown) */
+#define WING_PLAYBACK_EXTRA_BUTTONS_COUNT 4
+#define WING_PLAYBACK_BUTTON_GO 50
+#define WING_PLAYBACK_BUTTON_BACK 51
+#define WING_PLAYBACK_BUTTON_PAGEDOWN 52
+#define WING_PLAYBACK_BUTTON_PAGEUP 53
 
-/** total number of pages */
-#define WING_PLAYBACK_PAGE_COUNT WING_PAGE_MAX + 1
 
-/** number of channels of all pages */
-#define WING_PLAYBACK_CONTROLS_COUNT (WING_PLAYBACK_CHANNEL_COUNT) * (WING_PLAYBACK_PAGE_COUNT)
 #define WING_PLAYBACK_INPUT_VERSION 1
 #define WING_PLAYBACK_INPUT_BYTE_VERSION 4
 #define WING_PLAYBACK_INPUT_BYTE_PAGE 37
@@ -110,7 +111,7 @@ PlaybackWing::PlaybackWing(QObject* parent, const QHostAddress& address,
                            const QByteArray& data)
     : Wing(parent, address, data)
 {
-    m_values = QByteArray((WING_PLAYBACK_CONTROLS_COUNT) + (WING_PLAYBACK_EXTRA_BUTTONS_COUNT), 0);
+    m_values = QByteArray((WING_PLAYBACK_CHANNEL_COUNT) + (WING_PLAYBACK_EXTRA_BUTTONS_COUNT), 0);
 
     /* Playback wing keys seem to be in a somewhat weird order */
     m_channelMap[0] = 7 + WING_PLAYBACK_SLIDER_SIZE;
@@ -160,6 +161,8 @@ PlaybackWing::PlaybackWing(QObject* parent, const QHostAddress& address,
     m_channelMap[38] = 33 + WING_PLAYBACK_SLIDER_SIZE;
     m_channelMap[39] = 32 + WING_PLAYBACK_SLIDER_SIZE;
 
+    m_needSync = true;
+
     /* Take initial values from the first received datagram packet.
        The plugin hasn't yet connected to valueChanged() signal, so this
        won't cause any input events. */
@@ -208,7 +211,7 @@ void PlaybackWing::parseData(const QByteArray& data)
         /* Each byte has 8 button values as binary bits */
         for (int bit = 7; bit >= 0; bit--)
         {
-            char value;
+            uchar value;
 
             /* Calculate the key number, which is 10-49, since
                sliders are mapped to 0-9. */
@@ -226,18 +229,45 @@ void PlaybackWing::parseData(const QByteArray& data)
         }
     }
 
-    size = WING_PLAYBACK_BYTE_SLIDER + WING_PLAYBACK_SLIDER_SIZE;
+    //size = WING_PLAYBACK_BYTE_SLIDER + WING_PLAYBACK_SLIDER_SIZE;
 
     /* Read the state of each slider. Each value takes all 8 bits. */
     for (int slider = 0; slider < WING_PLAYBACK_SLIDER_SIZE; slider++)
     {
-        char value = data[WING_PLAYBACK_BYTE_SLIDER + slider];
-        /* get page offset for channel*/
-        quint32 offset = (WING_PLAYBACK_CHANNEL_COUNT) * page();
+        if (m_needSync)
+        {
+            // store value diffs to sync qlcplus widgets and wing slider
+            if (!m_feedbackDiffs.contains(page()))
+                m_feedbackDiffs.insert(page(), QVector<int>(WING_PLAYBACK_SLIDER_SIZE, 0));
 
-        /* Slider channels start from zero */
-        setCacheValue(slider+offset, value);
+            m_feedbackDiffs[page()][slider] = quint8(m_feedbackValues[page()][slider]) - quint8(cacheValue(slider));
+        }
+
+        int diff = 0;
+        if (m_feedbackDiffs.contains(page()))
+            diff = m_feedbackDiffs[page()][slider];
+
+        char value = data[WING_PLAYBACK_BYTE_SLIDER + slider];
+
+        if (m_feedbackValues.contains(page()) && diff != 0)
+        {
+            //check sync status
+            int curdiff = quint8(m_feedbackValues[page()][slider]) - quint8(data[WING_PLAYBACK_BYTE_SLIDER + slider]);
+
+            // send input after crossing widget values ( sign of diff is changing)
+            if (curdiff == 0 || (curdiff > 0 && diff < 0)  || (curdiff < 0 && diff > 0))
+            {
+                setCacheValue(slider, value);
+                if (m_feedbackDiffs.contains(page()))
+                    m_feedbackDiffs[page()][slider] = 0;
+            }
+        }
+        else
+        {
+            setCacheValue(slider, value);
+        }
     }
+    m_needSync = false;
 }
 
 void PlaybackWing::applyExtraButtons(const QByteArray& data)
@@ -246,49 +276,48 @@ void PlaybackWing::applyExtraButtons(const QByteArray& data)
     if (data.size() < WING_PLAYBACK_PACKET_SIZE )
         return;
 
+    // WING_PLAYBACK_BIT_PAGEUP
     if (!(data[WING_PLAYBACK_BYTE_EXTRA_BUTTONS] & WING_PLAYBACK_BIT_PAGEUP))
     {
         nextPage();
         sendPageData();
-
-        /* Read the state of each slider. Each value takes all 8 bits. */
-        for (int slider = 0; slider < WING_PLAYBACK_SLIDER_SIZE; slider++)
-        {
-            char value = data[WING_PLAYBACK_BYTE_SLIDER + slider];
-
-            /* get page offset for channel*/
-            quint32 offset = (WING_PLAYBACK_CHANNEL_COUNT) * page();
-
-            /* Slider channels start from zero */
-//            setCacheValue(slider+offset, value);
-            emit valueChanged(slider+offset, value);
-
-        }
+        setCacheValue(WING_PLAYBACK_BUTTON_PAGEUP, UCHAR_MAX);
     }
-    else if (!(data[WING_PLAYBACK_BYTE_EXTRA_BUTTONS] & WING_PLAYBACK_BIT_PAGEDOWN))
+    else
+    {
+        setCacheValue(WING_PLAYBACK_BUTTON_PAGEUP, 0);
+    }
+
+    // WING_PLAYBACK_BIT_PAGEDOWN
+    if (!(data[WING_PLAYBACK_BYTE_EXTRA_BUTTONS] & WING_PLAYBACK_BIT_PAGEDOWN))
     {
         previousPage();
         sendPageData();
-        /* Read the state of each slider. Each value takes all 8 bits. */
-        for (int slider = 0; slider < WING_PLAYBACK_SLIDER_SIZE; slider++)
-        {
-            char value = data[WING_PLAYBACK_BYTE_SLIDER + slider];
-
-            /* get page offset for channel*/
-            quint32 offset = (WING_PLAYBACK_CHANNEL_COUNT) * page();
-
-            /* Slider channels start from zero */
-//            setCacheValue(slider+offset, value);
-            emit valueChanged(slider+offset, value);
-        }
+        setCacheValue(WING_PLAYBACK_BUTTON_PAGEDOWN, UCHAR_MAX);
     }
-    else if (!(data[WING_PLAYBACK_BYTE_EXTRA_BUTTONS] & WING_PLAYBACK_BIT_BACK))
+    else
     {
-        /** @todo */
+        setCacheValue(WING_PLAYBACK_BUTTON_PAGEDOWN, 0);
     }
-    else if (!(data[WING_PLAYBACK_BYTE_EXTRA_BUTTONS] & WING_PLAYBACK_BIT_GO))
+
+    // WING_PLAYBACK_BIT_PAGEGO
+    if (!(data[WING_PLAYBACK_BYTE_EXTRA_BUTTONS] & WING_PLAYBACK_BIT_GO))
     {
-        /** @todo */
+        setCacheValue(WING_PLAYBACK_BUTTON_GO, UCHAR_MAX);
+    }
+    else
+    {
+        setCacheValue(WING_PLAYBACK_BUTTON_GO, 0);
+    }
+
+    // WING_PLAYBACK_BIT_PAGEBACK
+    if (!(data[WING_PLAYBACK_BYTE_EXTRA_BUTTONS] & WING_PLAYBACK_BIT_BACK))
+    {
+        setCacheValue(WING_PLAYBACK_BUTTON_BACK, UCHAR_MAX);
+    }
+    else
+    {
+        setCacheValue(WING_PLAYBACK_BUTTON_BACK, 0);
     }
 }
 
@@ -297,13 +326,36 @@ void PlaybackWing::sendPageData()
     QByteArray sendData(42, char(0));
     sendData.replace(0, sizeof(WING_HEADER_INPUT), WING_HEADER_INPUT);
     sendData[WING_PLAYBACK_INPUT_BYTE_VERSION] = WING_PLAYBACK_INPUT_VERSION;
-    sendData[WING_PLAYBACK_INPUT_BYTE_PAGE] = toBCD(page());
+    sendData[WING_PLAYBACK_INPUT_BYTE_PAGE] = page() + 1;
 
     QUdpSocket sock(this);
     sock.writeDatagram(sendData, address(), Wing::UDPPort);
 }
 
-quint32 PlaybackWing::pageSize() const
+void PlaybackWing::feedBack(quint32 channel, uchar value)
 {
-    return WING_PLAYBACK_CHANNEL_COUNT;
+    quint16 pageChan = channel & 0xFF;
+    quint16 pageNum = channel >> 16;
+
+    // create new byte array for page, to store values, if it not exists
+    if (!m_feedbackValues.contains(pageNum))
+        m_feedbackValues.insert(pageNum, QByteArray(WING_PLAYBACK_SLIDER_SIZE, 0));
+
+    if (pageChan < WING_PLAYBACK_SLIDER_SIZE)
+    {
+        // store widget values for later use
+        m_feedbackValues[pageNum][pageChan] = value;
+
+        // check sync
+        if (value != cacheValue(pageChan))
+            m_needSync = true;
+    }
+
+    //set page
+    if (pageChan == WING_PLAYBACK_BUTTON_PAGEDOWN || pageChan == WING_PLAYBACK_BUTTON_PAGEUP)
+    {
+        m_needSync = true;
+        m_page = value;
+        sendPageData();
+    }
 }

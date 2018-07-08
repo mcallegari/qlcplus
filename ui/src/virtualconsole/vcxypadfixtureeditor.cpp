@@ -30,24 +30,48 @@
  * Initialization
  *****************************************************************************/
 
-VCXYPadFixtureEditor::VCXYPadFixtureEditor(QWidget* parent,
-        QList <VCXYPadFixture> fixtures) : QDialog(parent)
+VCXYPadFixtureEditor::VCXYPadFixtureEditor(QWidget* parent, QList <VCXYPadFixture> fixtures)
+    : QDialog(parent)
 {
     setupUi(this);
 
     m_fixtures = fixtures;
+    m_maxXVal = 100, m_maxYVal = 100;
+    QString units = "%";
 
     /* Take initial values from the first fixture */
     if (fixtures.count() > 0)
     {
         VCXYPadFixture fxi = fixtures.first();
 
-        m_xMin->setValue(int(floor((fxi.xMin() * qreal(100)) + qreal(0.5))));
-        m_xMax->setValue(int(floor((fxi.xMax() * qreal(100)) + qreal(0.5))));
+        if (fxi.displayMode() == VCXYPadFixture::DMX)
+        {
+            m_maxXVal = m_maxYVal = 255;
+            units = "";
+        }
+        else if (fxi.displayMode() == VCXYPadFixture::Degrees)
+        {
+            m_maxXVal = fxi.degreesRange().width();
+            m_maxYVal = fxi.degreesRange().height();
+            units = "°";
+        }
+
+        m_xMax->setMaximum(m_maxXVal);
+        m_xMin->setMaximum(m_maxXVal);
+        m_yMax->setMaximum(m_maxYVal);
+        m_yMin->setMaximum(m_maxYVal);
+
+        m_xMin->setSuffix(units);
+        m_xMax->setSuffix(units);
+        m_yMin->setSuffix(units);
+        m_yMax->setSuffix(units);
+
+        m_xMin->setValue(int(floor((fxi.xMin() * qreal(m_maxXVal)) + qreal(0.5))));
+        m_xMax->setValue(int(floor((fxi.xMax() * qreal(m_maxXVal)) + qreal(0.5))));
         m_xReverse->setChecked(fxi.xReverse());
 
-        m_yMin->setValue(int(floor((fxi.yMin() * qreal(100)) + qreal(0.5))));
-        m_yMax->setValue(int(floor((fxi.yMax() * qreal(100)) + qreal(0.5))));
+        m_yMin->setValue(int(floor((fxi.yMin() * qreal(m_maxYVal)) + qreal(0.5))));
+        m_yMax->setValue(int(floor((fxi.yMax() * qreal(m_maxYVal)) + qreal(0.5))));
         m_yReverse->setChecked(fxi.yReverse());
     }
 }
@@ -88,9 +112,9 @@ void VCXYPadFixtureEditor::accept()
     {
         VCXYPadFixture fxi(it.next());
 
-        fxi.setX(qreal(m_xMin->value()) / qreal(100), qreal(m_xMax->value()) / qreal(100),
+        fxi.setX(qreal(m_xMin->value()) / qreal(m_maxXVal), qreal(m_xMax->value()) / qreal(m_maxXVal),
                  m_xReverse->isChecked());
-        fxi.setY(qreal(m_yMin->value()) / qreal(100), qreal(m_yMax->value()) / qreal(100),
+        fxi.setY(qreal(m_yMin->value()) / qreal(m_maxYVal), qreal(m_yMax->value()) / qreal(m_maxYVal),
                  m_yReverse->isChecked());
 
         it.setValue(fxi);

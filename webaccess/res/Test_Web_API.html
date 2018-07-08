@@ -13,7 +13,7 @@ var wshost = "http://127.0.0.1:9999";
 // helper function to send QLC+ API commands
 function requestAPI(cmd) 
 {
-  if (isConnected == true)
+  if (isConnected === true)
     websocket.send("QLC+API|" + cmd);
   else
     alert("You must connect to QLC+ WebSocket first !");
@@ -27,7 +27,7 @@ function requestAPIWithParam(cmd, paramObjName)
   var obj = document.getElementById(paramObjName);
   if (obj)
   {
-    if (isConnected == true)
+    if (isConnected === true)
       websocket.send("QLC+API|" + cmd + "|" + obj.value);
     else
       alert("You must connect to QLC+ WebSocket first !");
@@ -41,7 +41,7 @@ function requestChannelsRange(cmd, uniObjName, addressObjName, rangeObjName)
   var rangeObj = document.getElementById(rangeObjName);
   if (uniObj && addrObj && rangeObj)
   {
-    if (isConnected == true)
+    if (isConnected === true)
       websocket.send("QLC+API|" + cmd + "|" + uniObj.value + "|" + addrObj.value + "|" + rangeObj.value);
     else
       alert("You must connect to QLC+ WebSocket first !");
@@ -54,7 +54,7 @@ function setSimpleDeskChannel(addressObjName, channelValueObjName)
   var valObj = document.getElementById(channelValueObjName);
   if (addrObj && valObj)
   {
-    if (isConnected == true)
+    if (isConnected === true)
       websocket.send("CH|" + addrObj.value + "|" + valObj.value);
     else
       alert("You must connect to QLC+ WebSocket first !");
@@ -67,7 +67,7 @@ function vcWidgetSetValue(wIDObjName, wValueObjName)
   var valObj = document.getElementById(wValueObjName);
   if (wObj && valObj)
   {
-    if (isConnected == true)
+    if (isConnected === true)
       websocket.send(wObj.value + "|" + valObj.value);
     else
       alert("You must connect to QLC+ WebSocket first !");
@@ -81,9 +81,9 @@ function vcCueListControl(clIDObjName, clOpObjName, clStepObjName)
   var stepObj = document.getElementById(clStepObjName);
   if (clObj && opObj)
   {
-    if (isConnected == true)
+    if (isConnected === true)
     {
-      if (opObj.value == "STEP")
+      if (opObj.value === "STEP")
         websocket.send(clObj.value + "|" + opObj.value + "|" + stepObj.value);
       else
         websocket.send(clObj.value + "|" + opObj.value);
@@ -100,7 +100,7 @@ function vcFrameControl(frIDObjName, frOperation)
 
   if (frObj && opObj)
   {
-    if (isConnected == true)
+    if (isConnected === true)
     {
         websocket.send(frObj.value + "|" + opObj.value);
     }
@@ -140,14 +140,14 @@ function connectToWebSocket(host) {
 
     var msgParams = ev.data.split('|');
     
-    if (msgParams[0] == "QLC+API")
+    if (msgParams[0] === "QLC+API")
     {
-      if (msgParams[1] == "getFunctionsNumber")
+      if (msgParams[1] === "getFunctionsNumber")
 	document.getElementById('getFunctionsNumberBox').innerHTML = msgParams[2];
       
       // Arguments is an array formatted as follows: 
       // Function ID|Function name|Function ID|Function name|...
-      else if (msgParams[1] == "getFunctionsList")
+      else if (msgParams[1] === "getFunctionsList")
       {
 	var tableCode = "<table class='apiTable'><tr><th>ID</th><th>Name</th></tr>";
 	for (i = 2; i < msgParams.length; i+=2)
@@ -158,18 +158,18 @@ function connectToWebSocket(host) {
 	document.getElementById('getFunctionsListBox').innerHTML = tableCode;
       }
 
-      else if (msgParams[1] == "getFunctionType")
+      else if (msgParams[1] === "getFunctionType")
 	document.getElementById('getFunctionTypeBox').innerHTML = msgParams[2];
 
-      else if (msgParams[1] == "getFunctionStatus")
+      else if (msgParams[1] === "getFunctionStatus")
 	document.getElementById('getFunctionStatusBox').innerHTML = msgParams[2];
 
-      else if (msgParams[1] == "getWidgetsNumber")
+      else if (msgParams[1] === "getWidgetsNumber")
 	document.getElementById('getWidgetsNumberBox').innerHTML = msgParams[2];
       
       // Arguments is an array formatted as follows: 
       // Widget ID|Widget name|Widget ID|Widget name|...
-      else if (msgParams[1] == "getWidgetsList")
+      else if (msgParams[1] === "getWidgetsList")
       {
 	var tableCode = "<table class='apiTable'><tr><th>ID</th><th>Name</th></tr>";
 	for (i = 2; i < msgParams.length; i+=2)
@@ -180,18 +180,18 @@ function connectToWebSocket(host) {
 	document.getElementById('getWidgetsListBox').innerHTML = tableCode;
       }
       
-      else if (msgParams[1] == "getWidgetType")
+      else if (msgParams[1] === "getWidgetType")
 	document.getElementById('getWidgetTypeBox').innerHTML = msgParams[2];
 	
-      else if (msgParams[1] == "getWidgetStatus")
+      else if (msgParams[1] === "getWidgetStatus")
       {
 	var status = msgParams[2];
-	if (msgParams[2] == "PLAY")
+	if (msgParams[2] === "PLAY")
 	  status = msgParams[2] + "(Step: " + msgParams[3] + ")";
 	document.getElementById('getWidgetStatusBox').innerHTML = status;
       }
       
-      else if (msgParams[1] == "getChannelsValues")
+      else if (msgParams[1] === "getChannelsValues")
       {
 	var tableCode = "<table class='apiTable'><tr><th>Index</th><th>Value</th><th>Type</th></tr>";
 	for (i = 2; i < msgParams.length; i+=3)
@@ -452,8 +452,9 @@ Load a project:
   </td>
   <td colspan="2">
     This API is the direct way to set a Virtual Console widget value. It can be used for Buttons, Sliders and
-    Audio Triggers. The value to set depends on the widget type itself. Buttons and Audio triggers will only
-    support values 0 (= off) and 255 (= on) while Sliders will accept all the values in the 0-255 range.
+    Audio Triggers. The value to set depends on the widget type itself. Buttons will only support values 255
+    (= button is pressed) and 0 (= button is released), Audio triggers will support values 0 (= off) and 255 (= on)
+    and Sliders will accept all the values in the 0-255 range.
   </td>
  </tr>
  

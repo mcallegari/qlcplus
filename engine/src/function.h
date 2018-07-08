@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   function.h
 
   Copyright (C) 2004 Heikki Junnila
+                     Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -26,14 +27,16 @@
 #include <QMutex>
 #include <QList>
 #include <QIcon>
+#include <QMap>
 
-class QDomDocument;
-class QDomElement;
+#include "universe.h"
+#include "functionparent.h"
+
+class QXmlStreamReader;
 
 class GenericFader;
 class MasterTimer;
 class Function;
-class Universe;
 class Doc;
 
 class FunctionUiState;
@@ -48,6 +51,8 @@ class FunctionUiState;
 #define KXMLQLCFunctionType "Type"
 #define KXMLQLCFunctionData "Data"
 #define KXMLQLCFunctionPath "Path"
+#define KXMLQLCFunctionHidden "Hidden"
+#define KXMLQLCFunctionBlendMode "BlendMode"
 
 #define KXMLQLCFunctionValue "Value"
 #define KXMLQLCFunctionValueType "Type"
@@ -69,14 +74,30 @@ class FunctionUiState;
 
 typedef struct
 {
-    QString name;
-    qreal value;
+    QString m_name;
+    qreal m_value;
+    qreal m_min;
+    qreal m_max;
+    int m_flags;
+    bool m_isOverridden;
+    qreal m_overrideValue;
 } Attribute;
+
+typedef struct
+{
+    int m_attrIndex;
+    qreal m_value;
+} AttributeOverride;
 
 class Function : public QObject
 {
     Q_OBJECT
     Q_DISABLE_COPY(Function)
+
+    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
+    Q_PROPERTY(quint32 id READ id CONSTANT)
+    Q_PROPERTY(Type type READ type CONSTANT)
+    Q_PROPERTY(quint32 totalDuration READ totalDuration WRITE setTotalDuration NOTIFY totalDurationChanged)
 
 public:
     /**
@@ -85,32 +106,45 @@ public:
      */
     enum Type
     {
-        Undefined  = 0,
-        Scene      = 1 << 0,
-        Chaser     = 1 << 1,
-        EFX        = 1 << 2,
-        Collection = 1 << 3,
-        Script     = 1 << 4,
-        RGBMatrix  = 1 << 5,
-        Show       = 1 << 6,
-        Audio      = 1 << 7
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-        , Video    = 1 << 8
+        Undefined      = 0,
+        SceneType      = 1 << 0,
+        ChaserType     = 1 << 1,
+        EFXType        = 1 << 2,
+        CollectionType = 1 << 3,
+        ScriptType     = 1 << 4,
+        RGBMatrixType  = 1 << 5,
+        ShowType       = 1 << 6,
+        SequenceType   = 1 << 7,
+        AudioType      = 1 << 8
+#if QT_VERSION >= 0x050000
+        , VideoType    = 1 << 9
 #endif
     };
+#if QT_VERSION >= 0x050500
+    Q_ENUM(Type)
+#endif
 
     /**
      * Common attributes
      */
     enum Attr
     {
-        Intensity = 0,
+        Intensity = 0
     };
+
+public:
+    enum PropType { Name = 0, FadeIn, Hold, FadeOut, Duration, Notes };
+#if QT_VERSION >= 0x050500
+    Q_ENUM(PropType)
+#endif
 
     /*********************************************************************
      * Initialization
      *********************************************************************/
 public:
+    /** Create a new function instance with the given QObject parent. */
+    Function(QObject* parent = 0);
+
     /**
      * Create a new function
      *
@@ -131,9 +165,6 @@ signals:
     /** Signal telling that the contents of this function have changed */
     void changed(quint32 fid);
 
-    /** Signal telling that the name of this function have changed */
-    void nameChanged(quint32 fid);
-
     /*********************************************************************
      * Copying
      *********************************************************************/
@@ -146,7 +177,7 @@ public:
      * @param addToDoc enable/disable addition of the function copy to Doc
      * @return The newly-created function or NULL in case of an error
      */
-    virtual Function* createCopy(Doc* doc, bool addToDoc = true) = 0;
+    virtual Function* createCopy(Doc* doc, bool addToDoc = true);
 
     /**
      * Copy this function's contents from the given function. Finally emits
@@ -198,6 +229,10 @@ public:
      */
     QString name() const;
 
+signals:
+    /** Signal telling that the name of this function have changed */
+    void nameChanged(quint32 fid);
+
 private:
     QString m_name;
 
@@ -229,14 +264,11 @@ public:
      */
     static Type stringToType(const QString& str);
 
-    /**
-     * Convert a type to an icon
-     *
-     * @param type The type to convert
-     */
-    static QIcon typeToIcon(Function::Type type);
+    /** Virtual method to retrieve a QIcon based on a Function type.
+      * Subclasses should reimplement this */
+    virtual QIcon getIcon() const;
 
-private:
+protected:
     Type m_type;
 
     /*********************************************************************
@@ -253,17 +285,33 @@ private:
     QString m_path;
 
     /*********************************************************************
+     * Visibility
+     *********************************************************************/
+public:
+    /** Set the function visibility status. Hidden Functions will not be displayed in the UI */
+    void setVisible(bool visible);
+
+    /** Retrieve the current visibility status */
+    bool isVisible() const;
+
+private:
+    bool m_visible;
+
+    /*********************************************************************
      * Common XML
      *********************************************************************/
 protected:
     /** Save function's common attributes in $doc, under $root */
-    bool saveXMLCommon(QDomElement* root) const;
+    bool saveXMLCommon(QXmlStreamWriter *doc) const;
 
     /*********************************************************************
      * Running order
      *********************************************************************/
 public:
-    enum RunOrder { Loop, SingleShot, PingPong, Random };
+    enum RunOrder { Loop = 0, SingleShot, PingPong, Random };
+#if QT_VERSION >= 0x050500
+    Q_ENUM(RunOrder)
+#endif
 
 public:
     /**
@@ -293,11 +341,11 @@ public:
     static Function::RunOrder stringToRunOrder(const QString& str);
 
 protected:
-    /** Save function's running order in $doc, under $root */
-    bool saveXMLRunOrder(QDomDocument* doc, QDomElement* root) const;
+    /** Save function's running order in $doc */
+    bool saveXMLRunOrder(QXmlStreamWriter *doc) const;
 
     /** Load function's direction from $root */
-    bool loadXMLRunOrder(const QDomElement& root);
+    bool loadXMLRunOrder(QXmlStreamReader &root);
 
 private:
     RunOrder m_runOrder;
@@ -306,7 +354,10 @@ private:
      * Direction
      *********************************************************************/
 public:
-    enum Direction { Forward, Backward };
+    enum Direction { Forward = 0, Backward };
+#if QT_VERSION >= 0x050500
+    Q_ENUM(Direction)
+#endif
 
 public:
     /**
@@ -336,14 +387,79 @@ public:
     static Function::Direction stringToDirection(const QString& str);
 
 protected:
-    /** Save function's direction in $doc, under $root */
-    bool saveXMLDirection(QDomDocument* doc, QDomElement* root) const;
+    /** Save function's direction in $doc */
+    bool saveXMLDirection(QXmlStreamWriter *doc) const;
 
     /** Load function's direction from $root */
-    bool loadXMLDirection(const QDomElement& root);
+    bool loadXMLDirection(QXmlStreamReader &root);
 
 private:
     Direction m_direction;
+
+    /*********************************************************************
+     * Tempo type
+     *********************************************************************/
+public:
+    enum TempoType { Original = -1, Time = 0, Beats = 1 };
+    enum FractionsType { NoFractions = 0, ByTwoFractions, AllFractions };
+#if QT_VERSION >= 0x050500
+    Q_ENUM(TempoType)
+    Q_ENUM(FractionsType)
+#endif
+
+public:
+    /**
+     * Set the speed type of this function.
+     * When switching from a type to another, the current fade in, hold, fade out
+     * and duration times will be converted to the new type.
+     *
+     * @param type the speed type
+     */
+    void setTempoType(const Function::TempoType& type);
+
+    /**
+     * Get the Function current speed type
+     */
+    Function::TempoType tempoType() const;
+
+    /**
+     * Convert a tempo type to a string
+     *
+     * @param type Tempo type to convert
+     */
+    static QString tempoTypeToString(const Function::TempoType& type);
+
+    /**
+     * Convert a string to a tempo type
+     *
+     * @param str The string to convert
+     */
+    static Function::TempoType stringToTempoType(const QString& str);
+
+    /** Convert a time value in milliseconds to a beat value */
+    static uint timeToBeats(uint time, int beatDuration);
+
+    /** Convert a beat value to a time value in milliseconds */
+    static uint beatsToTime(uint beats, int beatDuration);
+
+    /** Get the override speed type (done by a Chaser) */
+    TempoType overrideTempoType() const;
+
+    /** Set the override speed type (done by a Chaser) */
+    void setOverrideTempoType(TempoType type);
+
+protected slots:
+    /**
+     * This slot is connected to the Master Timer and it is invoked
+     * when this Function is in 'Beats' tempo type and the BPM
+     * number changed. Subclasses should reimplement this.
+     */
+    virtual void slotBPMChanged(int bpmNumber);
+
+private:
+    TempoType m_tempoType;
+    TempoType m_overrideTempoType;
+    bool m_beatResyncNeeded;
 
     /*********************************************************************
      * Speed
@@ -366,6 +482,16 @@ public:
 
     /** Get the duration in milliseconds */
     uint duration() const;
+
+    /** Get the total duration in milliseconds.
+     *  This differs from duration as it considers
+     *  the steps or the specific Function parameters */
+    virtual quint32 totalDuration();
+
+    /** Set the total duration in milliseconds.
+     *  This method should be reimplemented only
+     *  by Functions supporting the stretch functionality */
+    virtual void setTotalDuration(quint32 msec);
 
     /** Set the override fade in speed (done by chaser in Common speed mode) */
     void setOverrideFadeInSpeed(uint ms);
@@ -397,12 +523,20 @@ public:
     /** returns value in msec of a string created by speedToString */
     static uint stringToSpeed(QString speed);
 
+    /** Safe speed operations */
+    static uint speedNormalize(uint speed);
+    static uint speedAdd(uint left, uint right);
+    static uint speedSubtract(uint left, uint right);
+
+signals:
+    void totalDurationChanged();
+
 protected:
     /** Load the contents of a speed node */
-    bool loadXMLSpeed(const QDomElement& speedRoot);
+    bool loadXMLSpeed(QXmlStreamReader &speedRoot);
 
-    /** Save function's speed values under the given $root element in $doc */
-    bool saveXMLSpeed(QDomDocument* doc, QDomElement* root) const;
+    /** Save function's speed values in $doc */
+    bool saveXMLSpeed(QXmlStreamWriter *doc) const;
 
 private:
     uint m_fadeInSpeed;
@@ -417,14 +551,18 @@ private:
      * UI State
      *********************************************************************/
 public:
-    FunctionUiState * uiState();
-    const FunctionUiState * uiState() const;
+    /** Get/Set a generic UI property specific to this Function */
+    QVariant uiStateValue(QString property);
+    void setUiStateValue(QString property, QVariant value);
+
+    /** Get the whole UI state map */
+    QMap<QString, QVariant> uiStateMap() const;
 
 private:
-    virtual FunctionUiState * createUiState();
-
-private:
-    FunctionUiState * m_uiState;
+    /** A generic map to temporary store key/value
+     *  pairs that the UI can use to remember how an editor
+     *  was configured. Note: this is not saved into XML */
+    QMap<QString, QVariant> m_uiState;
 
     /*********************************************************************
      * Fixtures
@@ -441,9 +579,8 @@ public:
      * Save this function to an XML document
      *
      * @param doc The XML document to save to
-     * @param wksp_root A QLC workspace XML root node to save under
      */
-    virtual bool saveXML(QDomDocument* doc, QDomElement* wksp_root) = 0;
+    virtual bool saveXML(QXmlStreamWriter *doc);
 
     /**
      * Read this function's contents from an XML document
@@ -451,7 +588,7 @@ public:
      * @param doc An XML document to load from
      * @param root An XML root element of a function
      */
-    virtual bool loadXML(const QDomElement& root) = 0;
+    virtual bool loadXML(QXmlStreamReader &root);
 
     /**
      * Load a new function from an XML tag and add it to the given doc
@@ -461,7 +598,7 @@ public:
      * @param doc The QLC document object, that owns all functions
      * @return true if successful, otherwise false
      */
-    static bool loader(const QDomElement& root, Doc* doc);
+    static bool loader(QXmlStreamReader &root, Doc* doc);
 
     /**
      * Called for each Function-based object after everything has been loaded.
@@ -469,6 +606,18 @@ public:
      * implementation does nothing.
      */
     virtual void postLoad();
+
+    /**
+     * Check if a Function ID is included/controlled by this Function.
+     * Subclasses should reimplement this.
+     */
+    virtual bool contains(quint32 functionId);
+
+    /**
+     * Return a list of components such as Functions/Fixtures with unique IDs.
+     * Subclasses should reimplement this.
+     */
+    virtual QList<quint32> components();
 
     /*********************************************************************
      * Flash
@@ -527,7 +676,7 @@ public:
      * @param timer The MasterTimer that is running the function
      * @param universes The DMX universe buffer to write values into
      */
-    virtual void write(MasterTimer* timer, QList<Universe*> universes) = 0;
+    virtual void write(MasterTimer* timer, QList<Universe*> universes);
 
     /**
      * Called by MasterTimer when the function is stopped. No more write()
@@ -573,6 +722,8 @@ public:
      */
     quint32 elapsed() const;
 
+    quint32 elapsedBeats() const;
+
 protected:
     /** Reset elapsed timer ticks to zero */
     void resetElapsed();
@@ -580,8 +731,16 @@ protected:
     /** Increment the elapsed timer ticks by one */
     void incrementElapsed();
 
+    /** Increment the elapsed beats by one */
+    void incrementElapsedBeats();
+
+    void roundElapsed(quint32 roundTime);
+
 private:
+    /* The elapsed time in ms when tempoType is Time */
     quint32 m_elapsed;
+    /* The elapsed beats when tempoType is Beats */
+    quint32 m_elapsedBeats;
 
     /*********************************************************************
      * Start & Stop
@@ -595,20 +754,23 @@ public:
      * @param overrideFadeIn Override the function's default fade in speed
      * @param overrideFadeOut Override the function's default fade out speed
      * @param overrideDuration Override the function's default duration
+     * @param overrideTempoType Override the tempo type of the function
      */
-    void start(MasterTimer* timer, bool child = false, quint32 startTime = 0,
+    void start(MasterTimer* timer, FunctionParent parent, quint32 startTime = 0,
                uint overrideFadeIn = defaultSpeed(),
                uint overrideFadeOut = defaultSpeed(),
-               uint overrideDuration = defaultSpeed());
+               uint overrideDuration = defaultSpeed(),
+               TempoType overrideTempoType = Original);
 
-	/**
-     * Check, whether the function was started by another function i.e.
-     * as the other function's child.
-     *
-	 * @return true If the function was started by another function.
-     *              Otherwise false.
-	 */
-    bool startedAsChild() const;
+    /**
+     * Pause a running Function. Subclasses should check the paused state
+     * immediately in the write call and, in case, return, to avoid performing
+     * any action and moreover to increment the elapsed time.
+     * This is declared as virtual for those subclasses where the actual
+     * Function progress is handled in a separate thread, like multimedia
+     * functions, or where the Function handles a few children Functions.
+     */
+    virtual void setPause(bool enable);
 
     /**
      * Mark the function to be stopped ASAP. MasterTimer will stop running
@@ -616,7 +778,7 @@ public:
      * There is no way to cancel it, but the function can be started again
      * normally.
      */
-    void stop();
+    void stop(FunctionParent parent);
 
     /**
      * Check, whether the function should be stopped ASAP. Functions can use this
@@ -643,26 +805,73 @@ public:
      */
     bool isRunning() const;
 
+    /**
+     * Check if the function is currently in a paused state. This is invoked
+     * by subclasses to understand if they have to do something during the
+     * write call
+     */
+    bool isPaused() const;
+
+    bool startedAsChild() const;
+
 private:
-    /** Stop flag, private to keep functions from modifying it. */
+    /** Running state flags. The rules are:
+     *  - m_stop resets also m_paused
+     *  - m_paused and m_running can be both true
+     *  - if m_paused is true, a start(...) call will just reset it to false
+     *  These are private to prevent Functions from modifying them. */
     bool m_stop;
     bool m_running;
+    bool m_paused;
+
+    QList<FunctionParent> m_sources;
+    QMutex m_sourcesMutex;
 
     QMutex m_stopMutex;
     QWaitCondition m_functionStopped;
 
     /*************************************************************************
-     * Intensity
+     * Attributes
      *************************************************************************/
 public:
+    enum OverrideFlags
+    {
+        Multiply = (1 << 0), /** The original attribute value should be multiplied by the overridden values */
+        LastWins = (1 << 1), /** The original attribute value is overridden by the last requested override value */
+        Single   = (1 << 2)  /** Only one attribute override ID will be allowed */
+    };
+
+    static int invalidAttributeId();
+
     /**
      * Register a new attribute for this function.
      * If the attribute already exists, it will be overwritten.
      *
      * @param name The attribute name
+     * @param min The attribute minimum value
+     * @param max The attribute maximum value
      * @param value The attribute initial value
      */
-    int registerAttribute(QString name, qreal value = 1.0);
+    int registerAttribute(QString name, int flags = Multiply, qreal min = 0.0, qreal max = 1.0, qreal value = 1.0);
+
+    /**
+     * Request a new attribute override ID. A Function will always return a new ID,
+     * that the caller can use in the adjustAttribute method.
+     *
+     * @param attributeIndex the attribute index that will be overridden by the caller
+     * @param value an initial override value
+     *
+     * @return an override ID to be used to adjust the overridden value,
+     *         or -1 if the specified $attributeIndex is not valid
+     */
+    int requestAttributeOverride(int attributeIndex, qreal value = 1.0);
+
+    /**
+     * Release an attribute override no longer needed
+     *
+     * @param attributeId and ID previously acquired with requestAttributeOverride
+     */
+    void releaseAttributeOverride(int attributeId);
 
     /**
      * Unregister a previously created attribute for this function.
@@ -673,7 +882,7 @@ public:
     bool unregisterAttribute(QString name);
 
     /**
-     * Rename an existing atribute
+     * Rename an existing attribute
      *
      * @param idx the attribute index
      * @param newName the new name for the attribute
@@ -682,14 +891,25 @@ public:
     bool renameAttribute(int idx, QString newName);
 
     /**
-     * Adjust the intensity of the function by a fraction.
+     * Adjust an attribute value with the given new $value.
+     * If $attributeId is within the registered attributes range,
+     * the oiginal attribute value will be changed.
+     * Warning: only Function editors or the Function itself should do this !
+     * Otherwise, if $attributeId is >= OVERRIDE_ATTRIBUTE_START_ID
+     * it means the caller wants to control a value override.
+     * This operation will then recalculate the final override value
+     * according to the original attribute flags
      *
-     * @param fraction Intensity as a fraction (0.0 - 1.0)
+     * @param value the new attribute value
+     * @param attributeId the ID of the attribute to control
+     *
+     * @return the original attribute index or -1 on error
      */
-    virtual void adjustAttribute(qreal fraction, int attributeIndex);
+    virtual int adjustAttribute(qreal value, int attributeId);
 
     /**
-     * Reset intensity to the default value (1.0).
+     * Reset the overridden attributes, while keeping
+     * the original attribute values unchanged
      */
     void resetAttributes();
 
@@ -710,20 +930,52 @@ public:
     int getAttributeIndex(QString name) const;
 
     /**
-     * Get the function's attributes
+     * Get a list of the registered function's attributes
      *
      * @return a list of Attributes
      */
-    QList <Attribute> attributes();
+    QList <Attribute> attributes() const;
+
+protected:
+    /**
+     * Mark an attribute with the given $attributeIndex as overridden, and
+     * calculates the final override value according to the registered attribute flags
+     *
+     * @param attributeIndex the attribute index
+     */
+    void calculateOverrideValue(int attributeIndex);
 
 signals:
-    /** Informs that an attribute of the function has changed */
+    /** Notify the listeners that an attribute has changed */
     void attributeChanged(int index, qreal fraction);
 
 private:
-    bool m_startedAsChild;
-    //qreal m_intensity;
+    /** A list of the registered attributes */
     QList <Attribute> m_attributes;
+
+    /** A map of the overridden attributes */
+    QMap <int, AttributeOverride> m_overrideMap;
+
+    int m_lastOverrideAttributeId;
+
+    /*************************************************************************
+     * Blend mode
+     *************************************************************************/
+public:
+    /**
+     * Set a specific blend mode to be used by this Function
+     * For now this is used only by RGBMatrix but it's been
+     * placed here for generic usage
+     */
+    virtual void setBlendMode(Universe::BlendMode mode);
+
+    /**
+     * Return the blend mode set on this Function
+     */
+    virtual Universe::BlendMode blendMode() const;
+
+private:
+    Universe::BlendMode m_blendMode;
 };
 
 /** @} */

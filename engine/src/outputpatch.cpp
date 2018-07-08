@@ -24,9 +24,6 @@
 #   include <unistd.h>
 #endif
 
-#include <QObject>
-#include <QtXml>
-
 #include "qlcioplugin.h"
 #include "outputpatch.h"
 
@@ -36,18 +33,30 @@
  * Initialization
  *****************************************************************************/
 
-OutputPatch::OutputPatch(QObject* parent) : QObject(parent)
+OutputPatch::OutputPatch(QObject* parent)
+    : QObject(parent)
+    , m_plugin(NULL)
+    , m_pluginLine(QLCIOPlugin::invalidLine())
+    , m_universe(UINT_MAX)
+    , m_paused(false)
+    , m_blackout(false)
 {
-    Q_ASSERT(parent != NULL);
+}
 
-    m_plugin = NULL;
-    m_output = QLCIOPlugin::invalidLine();
+OutputPatch::OutputPatch(quint32 universe, QObject* parent)
+    : QObject(parent)
+    , m_plugin(NULL)
+    , m_pluginLine(QLCIOPlugin::invalidLine())
+    , m_universe(universe)
+    , m_paused(false)
+    , m_blackout(false)
+{
 }
 
 OutputPatch::~OutputPatch()
 {
     if (m_plugin != NULL)
-        m_plugin->closeOutput(m_output);
+        m_plugin->closeOutput(m_pluginLine, m_universe);
 }
 
 /****************************************************************************
@@ -56,28 +65,42 @@ OutputPatch::~OutputPatch()
 
 bool OutputPatch::set(QLCIOPlugin* plugin, quint32 output)
 {
-    if (m_plugin != NULL && m_output != QLCIOPlugin::invalidLine())
-        m_plugin->closeOutput(m_output);
+    if (m_plugin != NULL && m_pluginLine != QLCIOPlugin::invalidLine())
+        m_plugin->closeOutput(m_pluginLine, m_universe);
 
     m_plugin = plugin;
-    m_output = output;
+    m_pluginLine = output;
 
-    if (m_plugin != NULL && m_output != QLCIOPlugin::invalidLine())
-        return m_plugin->openOutput(m_output);
+    if (m_plugin != NULL)
+    {
+        emit pluginNameChanged();
+        if (m_pluginLine != QLCIOPlugin::invalidLine())
+            emit outputNameChanged();
+    }
+
+    if (m_plugin != NULL && m_pluginLine != QLCIOPlugin::invalidLine())
+        return m_plugin->openOutput(m_pluginLine, m_universe);
+
     return false;
 }
 
 bool OutputPatch::reconnect()
 {
-    if (m_plugin != NULL && m_output != QLCIOPlugin::invalidLine())
+    if (m_plugin != NULL && m_pluginLine != QLCIOPlugin::invalidLine())
     {
-        m_plugin->closeOutput(m_output);
+        m_plugin->closeOutput(m_pluginLine, m_universe);
 #if defined(WIN32) || defined(Q_OS_WIN)
         Sleep(GRACE_MS);
 #else
         usleep(GRACE_MS * 1000);
 #endif
-        return m_plugin->openOutput(m_output);
+        bool ret = m_plugin->openOutput(m_pluginLine, m_universe);
+        if (ret == true)
+        {
+            foreach(QString par, m_parametersCache.keys())
+                m_plugin->setParameter(m_universe, m_pluginLine, QLCIOPlugin::Output, par, m_parametersCache[par]);
+        }
+        return ret;
     }
     return false;
 }
@@ -97,10 +120,10 @@ QLCIOPlugin* OutputPatch::plugin() const
 
 QString OutputPatch::outputName() const
 {
-    if (m_plugin != NULL && m_output != QLCIOPlugin::invalidLine() &&
-        m_output < quint32(m_plugin->outputs().size()))
+    if (m_plugin != NULL && m_pluginLine != QLCIOPlugin::invalidLine() &&
+        m_pluginLine < quint32(m_plugin->outputs().size()))
     {
-        return m_plugin->outputs()[m_output];
+        return m_plugin->outputs()[m_pluginLine];
     }
     else
     {
@@ -110,30 +133,79 @@ QString OutputPatch::outputName() const
 
 quint32 OutputPatch::output() const
 {
-    if (m_plugin != NULL && m_output < quint32(m_plugin->outputs().size()))
-        return m_output;
-    else
-        return QLCIOPlugin::invalidLine();
+    return m_pluginLine;
 }
 
 bool OutputPatch::isPatched() const
 {
-    return output() != QLCIOPlugin::invalidLine();
+    return output() != QLCIOPlugin::invalidLine() && m_plugin != NULL;
 }
 
-void OutputPatch::setPluginProperty(QString prop, QVariant value)
+void OutputPatch::setPluginParameter(QString prop, QVariant value)
+{
+    m_parametersCache[prop] = value;
+    if (m_plugin != NULL)
+        m_plugin->setParameter(m_universe, m_pluginLine, QLCIOPlugin::Output, prop, value);
+}
+
+QMap<QString, QVariant> OutputPatch::getPluginParameters()
 {
     if (m_plugin != NULL)
-        m_plugin->setParameter(prop.toLatin1().data(), value);
+        return m_plugin->getParameters(m_universe, m_pluginLine, QLCIOPlugin::Output);
+
+    return QMap<QString, QVariant>();
 }
 
 /*****************************************************************************
  * Value dump
  *****************************************************************************/
+bool OutputPatch::paused() const
+{
+    return m_paused;
+}
+
+void OutputPatch::setPaused(bool paused)
+{
+    if (m_paused == paused)
+        return;
+
+    m_paused = paused;
+
+    if (m_pauseBuffer.length())
+        m_pauseBuffer.clear();
+
+    emit pausedChanged(m_paused);
+}
+
+bool OutputPatch::blackout() const
+{
+    return m_blackout;
+}
+
+void OutputPatch::setBlackout(bool blackout)
+{
+    if (m_blackout == blackout)
+        return;
+
+    m_blackout = blackout;
+    emit blackoutChanged(m_blackout);
+}
 
 void OutputPatch::dump(quint32 universe, const QByteArray& data)
 {
     /* Don't do anything if there is no plugin and/or output line. */
-    if (m_plugin != NULL && m_output != QLCIOPlugin::invalidLine())
-        m_plugin->writeUniverse(universe, m_output, data);
+    if (m_plugin != NULL && m_pluginLine != QLCIOPlugin::invalidLine())
+    {
+        if (m_paused)
+        {
+            if (m_pauseBuffer.isNull())
+                m_pauseBuffer.append(data);
+
+            m_plugin->writeUniverse(universe, m_pluginLine, m_pauseBuffer);
+        }
+        else
+        {
+            m_plugin->writeUniverse(universe, m_pluginLine, data);
+        }
+    }
 }

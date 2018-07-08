@@ -58,7 +58,7 @@ private:
     Doc *m_doc;
     MonitorProperties *m_props;
     QString m_commonBackgroundImage;
-    QHash <quint32, QString> m_customBackgroundImages;
+    QMap <quint32, QString> m_customBackgroundImages;
     QString m_lastUsedPath;
 };
 

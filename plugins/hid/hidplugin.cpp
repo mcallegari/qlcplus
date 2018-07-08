@@ -24,10 +24,18 @@
 #include <QDir>
 
 #include "configurehid.h"
-#include "hidfx5device.h"
+#include "hiddmxdevice.h"
 #include "hidjsdevice.h"
 #include "hidapi.h"
 #include "hidplugin.h"
+
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX)
+  #include "hidlinuxjoystick.h"
+#elif defined(WIN32) || defined (Q_OS_WIN)
+  #include "win32/hidwindowsjoystick.h"
+#elif defined (__APPLE__) || defined(Q_OS_MACX)
+  #include "hidosxjoystick.h"
+#endif
 
 /*****************************************************************************
  * HID Initialization
@@ -58,13 +66,14 @@ int HIDPlugin::capabilities() const
  * Inputs
  *****************************************************************************/
 
-bool HIDPlugin::openInput(quint32 input)
+bool HIDPlugin::openInput(quint32 input, quint32 universe)
 {
     HIDDevice* dev = device(input);
     if (dev != NULL)
     {
         connect(dev, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
                 this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
+        addToMap(universe, input, Input);
         return dev->openInput();
     }
     else
@@ -72,11 +81,12 @@ bool HIDPlugin::openInput(quint32 input)
     return false;
 }
 
-void HIDPlugin::closeInput(quint32 input)
+void HIDPlugin::closeInput(quint32 input, quint32 universe)
 {
     HIDDevice* dev = device(input);
     if (dev != NULL)
     {
+        removeFromMap(input, universe, Input);
         dev->closeInput();
         disconnect(dev, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
                    this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
@@ -112,7 +122,7 @@ QString HIDPlugin::pluginInfo()
 
     str += QString("<P>");
     str += QString("<H3>%1</H3>").arg(name());
-    str += tr("This plugin provides support for HID-based joysticks and the FX5 USB DMX adapter.");
+    str += tr("This plugin provides support for HID-based joysticks, gamepads and some USB DMX adapters.");
     str += QString("</P>");
 
     return str;
@@ -140,21 +150,27 @@ QString HIDPlugin::inputInfo(quint32 input)
 /*********************************************************************
  * Outputs
  *********************************************************************/
-bool HIDPlugin::openOutput(quint32 output)
+bool HIDPlugin::openOutput(quint32 output, quint32 universe)
 {
-    HIDDevice* dev = device(output);
+    HIDDevice* dev = deviceOutput(output);
     if (dev != NULL)
+    {
+        addToMap(universe, output, Output);
         return dev->openOutput();
+    }
     else
         qDebug() << name() << "has no output number:" << output;
     return false;
 }
 
-void HIDPlugin::closeOutput(quint32 output)
+void HIDPlugin::closeOutput(quint32 output, quint32 universe)
 {
-    HIDDevice* dev = device(output);
+    HIDDevice* dev = deviceOutput(output);
     if (dev != NULL)
+    {
+        removeFromMap(output, universe, Output);
         dev->closeOutput();
+    }
     else
         qDebug() << name() << "has no output number:" << output;
 }
@@ -182,7 +198,7 @@ QString HIDPlugin::outputInfo(quint32 output)
     {
         /* A specific output line selected. Display its information if
            available. */
-        HIDDevice* dev = device(output);
+        HIDDevice* dev = deviceOutput(output);
         if (dev != NULL)
             str += dev->infoText();
     }
@@ -199,7 +215,7 @@ void HIDPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray
 
     if (output != QLCIOPlugin::invalidLine())
     {
-        HIDDevice* dev = device(output);
+        HIDDevice* dev = deviceOutput(output);
         if (dev != NULL)
             dev->outputDMX(data);
     }
@@ -229,6 +245,7 @@ void HIDPlugin::rescanDevices()
     /* Treat all devices as dead first, until we find them again. Those
        that aren't found, get destroyed at the end of this function. */
     QList <HIDDevice*> destroyList(m_devices);
+    int devCount = m_devices.count();
 
     struct hid_device_info *devs, *cur_dev;
     quint32 line = 0;
@@ -247,33 +264,36 @@ void HIDPlugin::rescanDevices()
             /** Device already exists, delete from remove list */
             destroyList.removeAll(dev);
         }
-        else if((cur_dev->vendor_id == FX5_DMX_INTERFACE_VENDOR_ID
-                && cur_dev->product_id == FX5_DMX_INTERFACE_PRODUCT_ID) ||
-                (cur_dev->vendor_id == FX5_DMX_INTERFACE_VENDOR_ID_2
-                && cur_dev->product_id == FX5_DMX_INTERFACE_PRODUCT_ID_2))
+        else if((cur_dev->vendor_id == HID_DMX_INTERFACE_VENDOR_ID
+                && cur_dev->product_id == HID_DMX_INTERFACE_PRODUCT_ID) ||
+                (cur_dev->vendor_id == HID_DMX_INTERFACE_VENDOR_ID_2
+                && cur_dev->product_id == HID_DMX_INTERFACE_PRODUCT_ID_2) ||
+                (cur_dev->vendor_id == HID_DMX_INTERFACE_VENDOR_ID_3
+                && cur_dev->product_id == HID_DMX_INTERFACE_PRODUCT_ID_3))
         {
-            /* Device is a FX5 / Digital Enlightenment USB DMX Interface, add it */
-            dev = new HIDFX5Device(this, line++,
+            /* Device is a USB DMX Interface, add it */
+            dev = new HIDDMXDevice(this, line++,
                                    QString::fromWCharArray(cur_dev->manufacturer_string) + " " +
                                    QString::fromWCharArray(cur_dev->product_string),
                                    QString(cur_dev->path));
             addDevice(dev);
         }
-#if !defined (__APPLE__) && !defined(Q_OS_MACX)
-        else
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX)
-            if (QString(cur_dev->path).contains("js"))
-#elif defined(WIN32) || defined (Q_OS_WIN)
-            if(HIDJsDevice::isJoystick(cur_dev->vendor_id, cur_dev->product_id) == true)
-#endif
+        else if (QString(cur_dev->path).contains("js"))
         {
-            dev = new HIDJsDevice(this, line++,
-                                  QString::fromWCharArray(cur_dev->manufacturer_string) + " " +
-                                  QString::fromWCharArray(cur_dev->product_string),
-                                  QString(cur_dev->path));
+            dev = new HIDLinuxJoystick(this, line++, cur_dev);
+#elif defined(WIN32) || defined (Q_OS_WIN)
+        else if(HIDWindowsJoystick::isJoystick(cur_dev->vendor_id, cur_dev->product_id) == true)
+        {
+            dev = new HIDWindowsJoystick(this, line++, cur_dev);
+#elif defined (__APPLE__) || defined(Q_OS_MACX)
+        else if(HIDOSXJoystick::isJoystick(cur_dev->usage) == true)
+        {
+            dev = new HIDOSXJoystick(this, line++, cur_dev);
+#endif
             addDevice(dev);
         }
-#endif
+
         cur_dev = cur_dev->next;
     }
 
@@ -287,7 +307,8 @@ void HIDPlugin::rescanDevices()
         delete dev;
     }
     
-    emit configurationChanged();
+    if (m_devices.count() != devCount)
+        emit configurationChanged();
 }
 
 HIDDevice* HIDPlugin::device(const QString& path)
@@ -312,6 +333,24 @@ HIDDevice* HIDPlugin::device(quint32 index)
         return NULL;
 }
 
+HIDDevice* HIDPlugin::deviceOutput(quint32 index)
+{
+    QListIterator <HIDDevice*> it(m_devices);
+    quint32 pos = 0;
+    while (it.hasNext() == true)
+    {
+        HIDDevice* dev = it.next();
+        if (dev->hasOutput())
+        {
+            if (pos == index)
+                return dev;
+            else
+                pos++;
+        }
+    }
+    return NULL;
+}
+
 void HIDPlugin::addDevice(HIDDevice* device)
 {
     Q_ASSERT(device != NULL);
@@ -332,6 +371,24 @@ void HIDPlugin::removeDevice(HIDDevice* device)
     delete device;
 
     emit configurationChanged();
+}
+
+/*****************************************************************************
+ * Hotplug
+ *****************************************************************************/
+
+void HIDPlugin::slotDeviceAdded(uint vid, uint pid)
+{
+    qDebug() << Q_FUNC_INFO << QString::number(vid, 16) << QString::number(pid, 16);
+
+    rescanDevices();
+}
+
+void HIDPlugin::slotDeviceRemoved(uint vid, uint pid)
+{
+    qDebug() << Q_FUNC_INFO << QString::number(vid, 16) << QString::number(pid, 16);
+
+    rescanDevices();
 }
 
 /*****************************************************************************

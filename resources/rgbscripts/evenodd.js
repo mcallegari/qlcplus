@@ -49,16 +49,17 @@ var testAlgo;
                 map[y] = new Array();
                 for (var x = 0; x < width; x++)
                 {
-                    if ((i % 2) == 0)
+                    if ((i % 2) === 0) {
                         map[y][x] = rgb;
-                    else
+                    } else {
                         map[y][x] = 0;
+                    }
                     i++;
                 }
             }
 
             return map;
-        }
+        };
 
         /**
          * Tells RGB Matrix how many steps this algorithm produces with size($width, $height)
@@ -71,11 +72,11 @@ var testAlgo;
         {
             // Only two steps; one for even pixels and another for odd pixels
             return 2;
-        }
+        };
 
         // Development tool access
         testAlgo = algo;
 
         return algo;
     }
-)()
+)();

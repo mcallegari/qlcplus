@@ -18,6 +18,7 @@
 */
 
 #include <QDebug>
+#include <QHeaderView>
 
 #include "fixturetreewidget.h"
 #include "qlcfixturedef.h"
@@ -171,7 +172,7 @@ void FixtureTreeWidget::updateFixtureItem(QTreeWidgetItem* item, Fixture* fixtur
         return;
 
     item->setText(KColumnName, fixture->name());
-    item->setIcon(KColumnName, fixture->getIconFromType(fixture->type()));
+    item->setIcon(KColumnName, fixture->getIconFromType());
     item->setData(KColumnName, PROP_ID, QString::number(fixture->id()));
     if (m_channelSelection)
     {
@@ -185,12 +186,22 @@ void FixtureTreeWidget::updateFixtureItem(QTreeWidgetItem* item, Fixture* fixtur
     }
 
     if (m_uniColumn > 0)
+    {
         item->setText(m_uniColumn, QString("%1").arg(fixture->universe() + 1));
+        item->setTextAlignment(m_uniColumn, Qt::AlignHCenter | Qt::AlignVCenter);
+    }
 
     if (m_addressColumn)
     {
         QString s;
-        s.sprintf("%.3d - %.3d", fixture->address() + 1, fixture->address() + fixture->channels());
+        if (fixture->channels() > 1)
+        {
+            s.sprintf("%.3d - %.3d", fixture->address() + 1, fixture->address() + fixture->channels());
+        }
+        else
+        {
+            s.sprintf("%.3d", fixture->address() + 1);
+        }
         item->setText(m_addressColumn, s);
     }
 
@@ -220,7 +231,7 @@ void FixtureTreeWidget::updateFixtureItem(QTreeWidgetItem* item, Fixture* fixtur
         for (int i = 0; i < fixture->heads(); i++)
         {
             QTreeWidgetItem* headItem = new QTreeWidgetItem(item);
-            headItem->setText(KColumnName, QString("%1 %2").arg(tr("Head")).arg(i + 1));
+            headItem->setText(KColumnName, QString("%1 %2").arg(tr("Head")).arg(i + 1, 3, 10, QChar('0')));
             headItem->setData(KColumnName, PROP_HEAD, i);
             if (m_disabledHeads.contains(GroupHead(fixture->id(), i)) == true)
             {
@@ -255,8 +266,9 @@ void FixtureTreeWidget::updateFixtureItem(QTreeWidgetItem* item, Fixture* fixtur
             }
 
             cItem->setFlags(cItem->flags() | Qt::ItemIsUserCheckable);
-            if (m_channelsMask.at(baseAddress + c) == 1)
-                cItem->setCheckState(KColumnName, Qt::Checked);
+            if (m_channelsMask.length() > (int)(baseAddress + c) &&
+                m_channelsMask.at(baseAddress + c) == 1)
+                    cItem->setCheckState(KColumnName, Qt::Checked);
             else
                 cItem->setCheckState(KColumnName, Qt::Unchecked);
         }
@@ -404,12 +416,7 @@ void FixtureTreeWidget::updateSelections()
 
 void FixtureTreeWidget::slotItemExpanded()
 {
-    resizeColumnToContents(KColumnName);
-    resizeColumnToContents(m_uniColumn);
-    resizeColumnToContents(m_typeColumn);
-    resizeColumnToContents(m_headsColumn);
-    resizeColumnToContents(m_manufColumn);
-    resizeColumnToContents(m_modelColumn);
+    header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
 void FixtureTreeWidget::updateTree()
@@ -470,12 +477,7 @@ void FixtureTreeWidget::updateTree()
         m_channelsCount += fixture->channels();
     }
 
-    resizeColumnToContents(KColumnName);
-    resizeColumnToContents(m_uniColumn);
-    resizeColumnToContents(m_typeColumn);
-    resizeColumnToContents(m_headsColumn);
-    resizeColumnToContents(m_manufColumn);
-    resizeColumnToContents(m_modelColumn);
+    header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
 

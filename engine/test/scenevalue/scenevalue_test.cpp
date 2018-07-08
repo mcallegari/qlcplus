@@ -1,8 +1,9 @@
 /*
-  Q Light Controller - Unit test
+  Q Light Controller Plus - Unit test
   scenevalue_test.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -18,7 +19,8 @@
 */
 
 #include <QtTest>
-#include <QtXml>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 #include "scenevalue_test.h"
 #include "scenevalue.h"
@@ -74,16 +76,25 @@ void SceneValue_Test::lessThan()
 
 void SceneValue_Test::loadSuccess()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement val = doc.createElement("Value");
-    val.setAttribute("Fixture", 5);
-    val.setAttribute("Channel", 60);
-    QDomText valText = doc.createTextNode("100");
-    val.appendChild(valText);
+    xmlWriter.writeStartElement("Value");
+    xmlWriter.writeAttribute("Fixture", "5");
+    xmlWriter.writeAttribute("Channel", "60");
+    xmlWriter.writeCharacters("100");
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     SceneValue scv;
-    QVERIFY(scv.loadXML(val) == true);
+    QVERIFY(scv.loadXML(xmlReader) == true);
     QVERIFY(scv.fxi == 5);
     QVERIFY(scv.channel == 60);
     QVERIFY(scv.value == 100);
@@ -91,63 +102,94 @@ void SceneValue_Test::loadSuccess()
 
 void SceneValue_Test::loadWrongRoot()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement val = doc.createElement("Valu");
-    val.setAttribute("Fixture", 5);
-    val.setAttribute("Channel", 60);
-    QDomText valText = doc.createTextNode("100");
-    val.appendChild(valText);
+    xmlWriter.writeStartElement("Valu");
+    xmlWriter.writeAttribute("Fixture", "5");
+    xmlWriter.writeAttribute("Channel", "60");
+    xmlWriter.writeCharacters("100");
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     SceneValue scv;
-    QVERIFY(scv.loadXML(val) == false);
+    QVERIFY(scv.loadXML(xmlReader) == false);
 }
 
 void SceneValue_Test::loadWrongFixture()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement val = doc.createElement("Value");
-    val.setAttribute("Fixture", Fixture::invalidId());
-    val.setAttribute("Channel", 60);
-    QDomText valText = doc.createTextNode("100");
-    val.appendChild(valText);
+    xmlWriter.writeStartElement("Value");
+    xmlWriter.writeAttribute("Fixture", QString::number(Fixture::invalidId()));
+    xmlWriter.writeAttribute("Channel", "60");
+    xmlWriter.writeCharacters("100");
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     SceneValue scv;
-    QVERIFY(scv.loadXML(val) == false);
+    QVERIFY(scv.loadXML(xmlReader) == false);
 }
 
 void SceneValue_Test::loadWrongValue()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement val = doc.createElement("Value");
-    val.setAttribute("Fixture", 5);
-    val.setAttribute("Channel", 60);
-    QDomText valText = doc.createTextNode("257");
-    val.appendChild(valText);
+    xmlWriter.writeStartElement("Value");
+    xmlWriter.writeAttribute("Fixture", "5");
+    xmlWriter.writeAttribute("Channel", "60");
+    xmlWriter.writeCharacters("257");
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     SceneValue scv;
-    QVERIFY(scv.loadXML(val) == true);
+    QVERIFY(scv.loadXML(xmlReader) == true);
     QVERIFY(scv.value == 1);
 }
 
 void SceneValue_Test::save()
 {
-    QDomDocument doc;
-    QDomElement root;
-    QDomElement tag;
-
-    root = doc.createElement("Test");
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
     SceneValue scv(4, 8, 16);
-    QVERIFY(scv.saveXML(&doc, &root) == true);
+    QVERIFY(scv.saveXML(&xmlWriter) == true);
 
-    tag = root.firstChild().toElement();
-    QVERIFY(tag.tagName() == "Value");
-    QVERIFY(tag.attribute("Fixture").toInt() == 4);
-    QVERIFY(tag.attribute("Channel").toInt() == 8);
-    QVERIFY(tag.text().toInt() == 16);
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    QVERIFY(xmlReader.name().toString() == "Value");
+    QVERIFY(xmlReader.attributes().value("Fixture").toString().toInt() == 4);
+    QVERIFY(xmlReader.attributes().value("Channel").toString().toInt() == 8);
+    QVERIFY(xmlReader.readElementText().toInt() == 16);
 }
 
 QTEST_APPLESS_MAIN(SceneValue_Test)

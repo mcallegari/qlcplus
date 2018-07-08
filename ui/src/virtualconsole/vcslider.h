@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   vcslider.h
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -29,8 +30,8 @@
 #include "dmxsource.h"
 #include "vcwidget.h"
 
-class QDomDocument;
-class QDomElement;
+class QXmlStreamReader;
+class QXmlStreamWriter;
 class QToolButton;
 class QHBoxLayout;
 class QLabel;
@@ -48,12 +49,12 @@ class VCSliderProperties;
 #define KXMLQLCVCSliderValueDisplayStyle "ValueDisplayStyle"
 #define KXMLQLCVCSliderValueDisplayStyleExact "Exact"
 #define KXMLQLCVCSliderValueDisplayStylePercentage "Percentage"
+#define KXMLQLCVCSliderCatchValues "CatchValues"
 
 #define KXMLQLCVCSliderClickAndGoType "ClickAndGoType"
 
 #define KXMLQLCVCSliderInvertedAppearance "InvertedAppearance"
 
-#define KXMLQLCVCSliderBus "Bus"
 #define KXMLQLCVCSliderBusLowLimit "LowLimit"
 #define KXMLQLCVCSliderBusHighLimit "HighLimit"
 
@@ -62,6 +63,7 @@ class VCSliderProperties;
 #define KXMLQLCVCSliderLevelHighLimit "HighLimit"
 #define KXMLQLCVCSliderLevelValue "Value"
 #define KXMLQLCVCSliderLevelMonitor "Monitor"
+#define KXMLQLCVCSliderOverrideReset "Reset"
 
 #define KXMLQLCVCSliderChannel "Channel"
 #define KXMLQLCVCSliderChannelFixture "Fixture"
@@ -77,6 +79,9 @@ class VCSlider : public VCWidget, public DMXSource
     friend class VCSliderProperties;
 
 public:
+    static const quint8 sliderInputSourceId;
+    static const quint8 overrideResetInputSourceId;
+
     static const QSize defaultSize;
 
     /*********************************************************************
@@ -115,6 +120,10 @@ public:
 
     /** @reimp */
     void enableWidgetUI(bool enable);
+
+protected:
+    /** @reimp */
+    void hideEvent(QHideEvent* ev);
 
     /*********************************************************************
      * Properties
@@ -197,6 +206,16 @@ public:
     bool invertedAppearance() const;
     void setInvertedAppearance(bool invert);
 
+    /*********************************************************************
+     * Value catching feature
+     *********************************************************************/
+public:
+    bool catchValues() const;
+    void setCatchValues(bool enable);
+
+protected:
+    bool m_catchValues;
+
     /*************************************************************************
      * Class LevelChannel
      *************************************************************************/
@@ -217,7 +236,7 @@ public:
         /** Sorting operator */
         bool operator<(const LevelChannel& lc) const;
         /** Save the contents of a LevelChannel instance to an XML document */
-        void saveXML(QDomDocument* doc, QDomElement* root) const;
+        void saveXML(QXmlStreamWriter *doc) const;
 
     public:
         /** The associated fixture ID */
@@ -261,27 +280,27 @@ public:
     QList <VCSlider::LevelChannel> levelChannels();
 
     /**
-     * Set low limit for levels set thru the slider
+     * Set low limit for levels set through the slider
      *
      * @param value Low limit
      */
     void setLevelLowLimit(uchar value);
 
     /**
-     * Get low limit for levels set thru the slider
+     * Get low limit for levels set through the slider
      *
      */
     uchar levelLowLimit() const;
 
     /**
-     * Set high limit for levels set thru the slider
+     * Set high limit for levels set through the slider
      *
      * @param value High limit
      */
     void setLevelHighLimit(uchar value);
 
     /**
-     * Get high limit for levels set thru the slider
+     * Get high limit for levels set through the slider
      */
     uchar levelHighLimit() const;
 
@@ -293,7 +312,7 @@ public:
     /**
      * Return the current status of the channels monitor
      */
-    bool channelsMonitorEnabled();
+    bool channelsMonitorEnabled() const;
 
 protected:
     /**
@@ -353,38 +372,45 @@ public:
     quint32 playbackFunction() const;
 
     /**
-     * Set the level of the currently selected playback function.
-     *
-     * @param level The current playback function's level.
-     */
-    void setPlaybackValue(uchar value);
-
-    /**
      * Get the level of the currently selected playback function.
      *
      * @return The current playback function level.
      */
     uchar playbackValue() const;
 
+    /**
+     * Set the level of the currently selected playback function.
+     *
+     * @param level The current playback function's level.
+     */
+    void setPlaybackValue(uchar value);
+
     /** @reimp */
-    virtual void notifyFunctionStarting(quint32 fid);
+    virtual void notifyFunctionStarting(quint32 fid, qreal intensity);
 
 protected slots:
     void slotPlaybackFunctionRunning(quint32 fid);
     void slotPlaybackFunctionStopped(quint32 fid);
     void slotPlaybackFunctionIntensityChanged(int attrIndex, qreal fraction);
+    void slotPlaybackFunctionFlashing(quint32 fid, bool flashing);
 
 protected:
     quint32 m_playbackFunction;
     uchar m_playbackValue;
-    bool m_playbackValueChanged;
+    int m_playbackChangeCounter;
     QMutex m_playbackValueMutex;
+
+private:
+    FunctionParent functionParent() const;
 
     /*********************************************************************
      * Submaster
      *********************************************************************/
-protected:
-    qreal m_submasterValue;
+public:
+    /**
+     * Send submasterValueChanged signal
+     */
+    void emitSubmasterValue();
 
 signals:
     void submasterValueChanged(qreal value);
@@ -431,7 +457,9 @@ public:
     };
 
 public:
-    void setSliderValue(uchar value, bool noScale = false);
+    void setSliderValue(uchar value, bool scale = true);
+
+    void setSliderShadowValue(int value);
 
     int sliderValue() const;
 
@@ -445,12 +473,16 @@ public:
 
     void updateFeedback();
 
+signals:
+    void requestSliderUpdate(int value);
+    void valueChanged(QString val);
+
 private slots:
     void slotSliderMoved(int value);
 
 protected:
     QHBoxLayout* m_hbox;
-    QAbstractSlider* m_slider; //!< either QClickAndGoSlider or KnobWidget
+    QAbstractSlider* m_slider; //!< either ClickAndGoSlider or KnobWidget
     bool m_externalMovement;
     SliderWidgetStyle m_widgetMode;
 
@@ -515,11 +547,37 @@ protected:
     QColor m_cngRGBvalue;
 
     /*********************************************************************
+     * Override reset button
+     *********************************************************************/
+public:
+    /** Set the keyboard key combination to reset a level override */
+    void setOverrideResetKeySequence(const QKeySequence& keySequence);
+
+    /** Get the keyboard key combination to reset a level override */
+    QKeySequence overrideResetKeySequence() const;
+
+private slots:
+    void slotResetButtonClicked();
+
+protected slots:
+    void slotKeyPressed(const QKeySequence& keySequence);
+
+protected:
+    QToolButton *m_resetButton;
+    bool m_isOverriding;
+
+private:
+    QKeySequence m_overrideResetKeySequence;
+
+    /*********************************************************************
      * External input
      *********************************************************************/
 protected slots:
     /** Called when an external input device produces input data */
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
+
+protected:
+    int m_lastInputValue;
 
     /*********************************************************************
      * Intensity
@@ -528,18 +586,15 @@ public:
     /** @reimp */
     void adjustIntensity(qreal val);
 
-signals:
-    void valueChanged(QString val);
-
     /*********************************************************************
      * Load & Save
      *********************************************************************/
 public:
-    bool loadXML(const QDomElement* root);
-    bool loadXMLLevel(const QDomElement* level_root);
-    bool loadXMLPlayback(const QDomElement* pb_root);
+    bool loadXML(QXmlStreamReader &root);
+    bool loadXMLLevel(QXmlStreamReader &level_root);
+    bool loadXMLPlayback(QXmlStreamReader &pb_root);
 
-    bool saveXML(QDomDocument* doc, QDomElement* vc_root);
+    bool saveXML(QXmlStreamWriter *doc);
 };
 
 /** @} */

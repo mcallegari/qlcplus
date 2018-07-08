@@ -20,14 +20,13 @@
 #ifndef VCBUTTONPROPERTIES_H
 #define VCBUTTONPROPERTIES_H
 
-#include <QKeySequence>
 #include <QDialog>
 
 #include "ui_vcbuttonproperties.h"
-#include "qlcinputsource.h"
 #include "vcbutton.h"
 #include "function.h"
 
+class InputSelectionWidget;
 class FunctionManager;
 class SpeedDialWidget;
 class KeyBind;
@@ -49,30 +48,20 @@ protected slots:
     void slotAttachFunction();
     void slotSetFunction(quint32 fid = Function::invalidId());
 
-    void slotAttachKey();
-    void slotDetachKey();
-
-    void slotAutoDetectInputToggled(bool checked);
-    void slotInputValueChanged(quint32 universe, quint32 channel);
-    void slotChooseInputClicked();
-
     void slotActionToggled();
 
     void slotIntensitySliderMoved(int value);
     void slotIntensityEdited(const QString& text);
 
-    void accept();
+    void slotFadeOutTextEdited();
 
-protected:
-    void updateInputSource();
+    void accept();
 
 protected:
     VCButton* m_button;
     Doc* m_doc;
-
-    QKeySequence m_keySequence;
+    InputSelectionWidget *m_inputSelWidget;
     quint32 m_function;
-    QLCInputSource *m_inputSource;
 
     /************************************************************************
      * Speed dial

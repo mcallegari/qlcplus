@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   cue.h
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -25,8 +26,8 @@
 
 #include "scenevalue.h"
 
-class QDomDocument;
-class QDomElement;
+class QXmlStreamReader;
+class QXmlStreamWriter;
 
 /** @addtogroup engine Engine
  * @{
@@ -95,12 +96,12 @@ private:
      * Load & Save
      ************************************************************************/
 public:
-    bool loadXML(const QDomElement& root);
-    bool saveXML(QDomDocument* doc, QDomElement* stack_root) const;
+    bool loadXML(QXmlStreamReader &root);
+    bool saveXML(QXmlStreamWriter *doc) const;
 
 private:
-    bool loadXMLSpeed(const QDomElement& speedRoot);
-    bool saveXMLSpeed(QDomDocument* doc, QDomElement* root) const;
+    bool loadXMLSpeed(QXmlStreamReader &speedRoot);
+    bool saveXMLSpeed(QXmlStreamWriter *doc) const;
 };
 
 /** @} */

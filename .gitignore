@@ -14,6 +14,7 @@
 
 # Qt-es
 
+.qmake.stash
 *.pro.user
 *.pro.user.*
 moc_*.cpp
@@ -24,6 +25,9 @@ Makefile.*
 ui_*
 object_*
 engine/src/qlcconfig.h
+*.swp
+*.qmlc
+moc_predefs.h
 
 # Binaries
 *.exe
@@ -32,4 +36,16 @@ main/qlcplus
 fixtureeditor/qlcplus-fixtureeditor
 launcher/qlcplus-launcher
 hotplugmonitor/test/test
+qmlui/qlcplus-qml
 *.qm
+core
+
+# coverage
+coverage/
+*.gcda
+*.gcno
+
+
+
+# Development IDEs
+.vscode/

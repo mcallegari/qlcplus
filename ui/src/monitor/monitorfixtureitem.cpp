@@ -23,15 +23,18 @@
 #include <qmath.h>
 #include <QCursor>
 #include <QDebug>
+#include <QTimer>
 
 #include "monitorfixtureitem.h"
 #include "qlcfixturehead.h"
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
+#include "qlccapability.h"
 #include "fixture.h"
 #include "doc.h"
 
 #define MOVEMENT_THICKNESS    3
+#define STROBE_PERIOD 500 // 0.5s
 
 MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
     : m_doc(doc)
@@ -65,33 +68,41 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
         QLCFixtureHead head = fxi->head(i);
         foreach (quint32 rgbComp, head.rgbChannels())
         {
-            fxiItem->m_rgb.append(rgbComp + fxi->address());
-            //qDebug() << "Add RGB comp at address:" << rgbComp + fxi->address();
+            fxiItem->m_rgb.append(rgbComp);
+            //qDebug() << "Add RGB comp at address:" << rgbComp;
         }
         foreach (quint32 cmyComp, head.cmyChannels())
         {
-            fxiItem->m_cmy.append(cmyComp + fxi->address());
-            //qDebug() << "Add CMY comp at address:" << cmyComp + fxi->address();
+            fxiItem->m_cmy.append(cmyComp);
+            //qDebug() << "Add CMY comp at address:" << cmyComp;
         }
 
-        if (head.masterIntensityChannel() != QLCChannel::invalid())
+        fxiItem->m_dimmer = head.channelNumber(QLCChannel::Intensity, QLCChannel::MSB);
+        if (fxiItem->m_dimmer != QLCChannel::invalid())
         {
-            fxiItem->m_masterDimmer = fxi->address() + head.masterIntensityChannel();
+            qDebug() << "Set dimmer to:" << fxiItem->m_dimmer;
+        }
+
+        fxiItem->m_masterDimmer = fxi->masterIntensityChannel();
+        if (fxiItem->m_masterDimmer != QLCChannel::invalid())
+        {
             qDebug() << "Set master dimmer to:" << fxiItem->m_masterDimmer;
+        }
+
+        if ((fxiItem->m_dimmer != QLCChannel::invalid()) || (fxiItem->m_masterDimmer != QLCChannel::invalid()))
+        {
             fxiItem->m_back = new QGraphicsEllipseItem(this);
             fxiItem->m_back->setPen(QPen(Qt::white, 1));
             fxiItem->m_back->setBrush(QBrush(Qt::black));
         }
         else
         {
-            fxiItem->m_masterDimmer = QLCChannel::invalid();
             fxiItem->m_back = NULL;
         }
 
-        fxiItem->m_panChannel = QLCChannel::invalid();
-        if (head.panMsbChannel() != QLCChannel::invalid())
+        fxiItem->m_panChannel = head.channelNumber(QLCChannel::Pan, QLCChannel::MSB);
+        if (fxiItem->m_panChannel != QLCChannel::invalid())
         {
-            fxiItem->m_panChannel = head.panMsbChannel() + fxi->address();
             // retrieve the PAN max degrees from the fixture mode
             fxiItem->m_panMaxDegrees = 360; // fallback. Very unprecise
             QLCFixtureMode *mode = fxi->fixtureMode();
@@ -104,10 +115,9 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
             qDebug() << "Pan channel on" << fxiItem->m_panChannel << "max degrees:" << fxiItem->m_panMaxDegrees;
         }
 
-        fxiItem->m_tiltChannel = QLCChannel::invalid();
-        if (head.tiltMsbChannel() != QLCChannel::invalid())
+        fxiItem->m_tiltChannel = head.channelNumber(QLCChannel::Tilt, QLCChannel::MSB);
+        if (fxiItem->m_tiltChannel != QLCChannel::invalid())
         {
-            fxiItem->m_tiltChannel = head.tiltMsbChannel() + fxi->address();
             // retrieve the TILT max degrees from the fixture mode
             fxiItem->m_tiltMaxDegrees = 270; // fallback. Very unprecise
             QLCFixtureMode *mode = fxi->fixtureMode();
@@ -120,14 +130,132 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
             qDebug() << "Tilt channel on" << fxiItem->m_tiltChannel << "max degrees:" << fxiItem->m_tiltMaxDegrees;
         }
 
+        QLCFixtureMode *mode = fxi->fixtureMode();
+        if (mode != NULL)
+        {
+            foreach (quint32 wheel, head.colorWheels())
+            {
+               QList<QColor> values;
+               QLCChannel *ch = mode->channel(wheel);
+               if (ch == NULL)
+                   continue;
+ 
+               bool containsColor = false;
+               for(quint32 i = 0; i < 256; ++i)
+               {
+                   QLCCapability *cap = ch->searchCapability(i);
+                   if (cap != NULL && cap->resource(0).isValid())
+                   {
+                       values << cap->resource(0).value<QColor>();
+                       containsColor = true;
+                   }
+                   else
+                   {
+                       values << QColor();
+                   }
+               }
+
+               if (containsColor)
+               {
+                   fxiItem->m_colorValues[wheel] = values;
+                   fxiItem->m_colorWheels << wheel;
+               }
+            }
+
+            foreach (quint32 shutter, head.shutterChannels())
+            {
+               QList<FixtureHead::ShutterState> values;
+               QLCChannel *ch = mode->channel(shutter);
+               if (ch == NULL)
+                   continue;
+ 
+               bool containsShutter = false;
+
+               switch (ch->preset())
+               {
+                   case QLCChannel::ShutterStrobeFastSlow:
+                   case QLCChannel::ShutterStrobeSlowFast:
+                   {
+                       // handle case when the channel has only one capability 0-255 strobe:
+                       // make 0 Open to avoid blinking
+                       values << FixtureHead::Open;
+                       for (i = 1; i < 255; i++)
+                           values << FixtureHead::Strobe;
+                       containsShutter = true;
+                   }
+                   break;
+                   case QLCChannel::Custom:
+                   {
+                       foreach (QLCCapability *cap, ch->capabilities())
+                       {
+                           for (int i = cap->min(); i <= cap->max(); i++)
+                           {
+                               switch (cap->preset())
+                               {
+                                   case QLCCapability::Custom:
+                                       values << FixtureHead::Open;
+                                   break;
+                                   case QLCCapability::ShutterOpen:
+                                       values << FixtureHead::Open;
+                                       containsShutter = true;
+                                   break;
+                                   case QLCCapability::ShutterClose:
+                                       values << FixtureHead::Closed;
+                                       containsShutter = true;
+                                   break;
+                                   default:
+                                       values << FixtureHead::Strobe;
+                                       containsShutter = true;
+                                   break;
+                               }
+                           }
+                       }
+                   }
+                   break;
+                   default:
+                   break;
+               }
+
+               if (containsShutter)
+               {
+                   fxiItem->m_shutterValues[shutter] = values;
+                   fxiItem->m_shutterChannels << shutter;
+               }
+            }
+        }
+
+        if (!fxiItem->m_shutterChannels.isEmpty())
+        {
+            fxiItem->m_strobeTimer = new QTimer(this);
+            connect(fxiItem->m_strobeTimer, SIGNAL(timeout()), this, SLOT(slotStrobeTimer()));
+        }
+        else
+        {
+            fxiItem->m_strobeTimer = 0;
+        }
+
         m_heads.append(fxiItem);
     }
+    slotUpdateValues();
+    connect(fxi, SIGNAL(valuesChanged()), this, SLOT(slotUpdateValues()));
 }
 
 MonitorFixtureItem::~MonitorFixtureItem()
 {
+    if (m_fid != Fixture::invalidId())
+    {
+        Fixture* fxi = m_doc->fixture(m_fid);
+        if (fxi != NULL)
+            disconnect(fxi, SIGNAL(valuesChanged()), this, SLOT(slotUpdateValues()));
+    }
+
     foreach(FixtureHead *head, m_heads)
     {
+        if (head->m_strobeTimer != 0)
+        {
+            disconnect(head->m_strobeTimer, SIGNAL(timeout()), this, SLOT(slotStrobeTimer()));
+            delete head->m_strobeTimer;
+        }
         delete head;
     }
     m_heads.clear();
@@ -217,90 +345,176 @@ void MonitorFixtureItem::setSize(QSize size)
     update();
 }
 
-void MonitorFixtureItem::updateValues(const QByteArray & ua)
+QColor MonitorFixtureItem::computeColor(const FixtureHead *head, const QByteArray & values)
 {
+    foreach (quint32 c, head->m_colorWheels)
+    {
+        const uchar val = static_cast<uchar>(values.at(c));
+        QColor col = head->m_colorValues[c].at(val);
+        if (col.isValid() && col != Qt::black)
+            return col;
+    }
+
+    if (head->m_rgb.count() > 0)
+    {
+        uchar r = 0, g = 0, b = 0;
+        r = values.at(head->m_rgb.at(0));
+        g = values.at(head->m_rgb.at(1));
+        b = values.at(head->m_rgb.at(2));
+        return QColor(r, g, b);
+    }
+
+    if (head->m_cmy.count() > 0)
+    {
+        uchar c = 0, m = 0, y = 0;
+        c = values.at(head->m_cmy.at(0));
+        m = values.at(head->m_cmy.at(1));
+        y = values.at(head->m_cmy.at(2));
+        return QColor::fromCmyk(c, m, y, 0);
+    }
+    
+    if (m_gelColor.isValid())
+    {
+        return m_gelColor;
+    }
+
+    return QColor(255,255,255);
+}
+uchar MonitorFixtureItem::computeAlpha(const FixtureHead *head, const QByteArray & values)
+{
+    // postpone division as late as possible to improve accuracy
+    unsigned mul = 255U;
+    unsigned div = 1U;
+
+    if (head->m_masterDimmer != UINT_MAX /*QLCChannel::invalid()*/)
+    {
+        mul *= static_cast<uchar>(values.at(head->m_masterDimmer));
+        div *= 255U;
+    }
+
+    if (head->m_dimmer != UINT_MAX /*QLCChannel::invalid()*/)
+    {
+        mul *= static_cast<uchar>(values.at(head->m_dimmer));
+        div *= 255U;
+    }
+
+    //qDebug() << mul << "/" << div << "=" << (mul /div);
+    return mul / div;
+}
+
+FixtureHead::ShutterState MonitorFixtureItem::computeShutter(const FixtureHead *head, const QByteArray & values)
+{
+    FixtureHead::ShutterState result = FixtureHead::Open;
+
+    foreach (quint32 c, head->m_shutterChannels)
+    {
+        const uchar val = static_cast<uchar>(values.at(c));
+        FixtureHead::ShutterState state = head->m_shutterValues[c].at(val);
+        if (state == FixtureHead::Closed) 
+        {
+            return state;
+        }
+        else if (state == FixtureHead::Strobe)
+        {
+            result = state;
+        }
+    }
+
+    return result;
+}
+
+void MonitorFixtureItem::slotUpdateValues()
+{
+    /* Check that this MonitorFixture represents a fixture */
+    if (m_fid == Fixture::invalidId())
+        return;
+
+    /* Check that this MonitorFixture's fixture really exists */
+    Fixture* fxi = m_doc->fixture(m_fid);
+    if (fxi == NULL)
+        return;
+
+    QByteArray fxValues = fxi->channelValues();
+
     bool needUpdate = false;
 
     foreach(FixtureHead *head, m_heads)
     {
-        uchar alpha = 255;
-        if (head->m_masterDimmer != UINT_MAX /*QLCChannel::invalid()*/)
+        head->m_color = computeColor(head, fxValues);
+        head->m_dimmerValue = computeAlpha(head, fxValues);
+        head->m_shutterState = computeShutter(head, fxValues);
+ 
+        QColor col = head->m_color;
+        col.setAlpha(head->m_dimmerValue);
+
+        if (head->m_dimmerValue > 0)
         {
-            if (head->m_masterDimmer < (quint32)ua.size())
+            if (head->m_shutterState == FixtureHead::Closed)
             {
-                alpha = ua.at(head->m_masterDimmer);
+                col.setAlpha(0);
             }
-            else
+
+            if (head->m_shutterState == FixtureHead::Strobe)
             {
-                alpha = 0; // incomplete universe is sent
+                if (head->m_strobeTimer != 0 && !head->m_strobeTimer->isActive())
+                {
+                    head->m_strobePhase = 0;
+                    head->m_strobeTimer->start(STROBE_PERIOD);
+                }
+                else if (head->m_strobePhase != 0)
+                {
+                    col.setAlpha(0);
+                }
             }
+            else if (head->m_strobeTimer != 0)
+            {
+                head->m_strobeTimer->stop();
+            }
+        }
+        else if (head->m_strobeTimer != 0)
+        {
+            head->m_strobeTimer->stop();
         }
 
-        if (head->m_rgb.count() > 0)
-        {
-            uchar r = 0, g = 0, b = 0;
-            if (head->m_rgb.at(0) < (quint32)ua.count())
-                r = ua.at(head->m_rgb.at(0));
-            if (head->m_rgb.at(1) < (quint32)ua.count())
-                g = ua.at(head->m_rgb.at(1));
-            if (head->m_rgb.at(2) < (quint32)ua.count())
-                b = ua.at(head->m_rgb.at(2));
-            head->m_item->setBrush(QBrush(QColor(r, g, b, alpha)));
-        }
-        else if (head->m_cmy.count() > 0)
-        {
-            uchar c = 0, m = 0, y = 0;
-            if (head->m_cmy.at(0) < (quint32)ua.count())
-                c = ua.at(head->m_cmy.at(0));
-            if (head->m_cmy.at(1) < (quint32)ua.count())
-                m = ua.at(head->m_cmy.at(1));
-            if (head->m_cmy.at(2) < (quint32)ua.count())
-                y = ua.at(head->m_cmy.at(2));
-            QColor col = QColor::fromCmyk(c, m, y, 0);
-            col.setAlpha(alpha);
-            head->m_item->setBrush(QBrush(col));
-        }
-        else if (m_gelColor.isValid())
-        {
-            QColor col = m_gelColor;
-            col.setAlpha(alpha);
-            head->m_item->setBrush(QBrush(col));
-        }
-        else
-        {
-            head->m_item->setBrush(QBrush(QColor(255, 255, 255, alpha)));
-        }
+        head->m_item->setBrush(QBrush(col));
 
         if (head->m_panChannel != UINT_MAX /*QLCChannel::invalid()*/)
         {
-            if (head->m_panChannel < (quint32)ua.size())
-            {
-                computePanPosition(head, ua.at(head->m_panChannel));
-            }
-            else
-            {
-                computePanPosition(head, 0);
-            }
-
+            computePanPosition(head, fxValues.at(head->m_panChannel));
             needUpdate = true;
         }
 
         if (head->m_tiltChannel != UINT_MAX /*QLCChannel::invalid()*/)
         {
-            if (head->m_tiltChannel < (quint32)ua.size())
-            {
-                computeTiltPosition(head, ua.at(head->m_tiltChannel));
-            }
-            else
-            {
-                computeTiltPosition(head, 0);
-            }
-       
+            computeTiltPosition(head, fxValues.at(head->m_tiltChannel));
             needUpdate = true;
         }
     }
     if (needUpdate)
         update();
+}
+
+void MonitorFixtureItem::slotStrobeTimer()
+{
+    QTimer* timer = qobject_cast<QTimer*>(sender());
+    foreach (FixtureHead *head, m_heads)
+    {
+        if (head->m_strobeTimer != timer)
+            continue;
+       
+        if (head->m_dimmerValue == 0 || head->m_shutterState != FixtureHead::Strobe)
+            return;
+
+        head->m_strobePhase = (head->m_strobePhase + 1) % 2;
+        
+        QColor col = head->m_color;
+        col.setAlpha(head->m_dimmerValue);
+        if (head->m_strobePhase != 0)
+            col.setAlpha(0);
+        head->m_item->setBrush(QBrush(col));
+        update();
+        return;
+    }
 }
 
 void MonitorFixtureItem::showLabel(bool visible)

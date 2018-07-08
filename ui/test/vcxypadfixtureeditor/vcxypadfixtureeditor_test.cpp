@@ -18,7 +18,6 @@
 */
 
 #include <QtTest>
-#include <QtXml>
 
 #define private public
 #define protected public
@@ -41,7 +40,7 @@ void VCXYPadFixtureEditor_Test::initTestCase()
     QDir dir(INTERNAL_FIXTUREDIR);
     dir.setFilter(QDir::Files);
     dir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
-    QVERIFY(m_doc->fixtureDefCache()->load(dir) == true);
+    QVERIFY(m_doc->fixtureDefCache()->loadMap(dir) == true);
 
     QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
@@ -69,6 +68,7 @@ void VCXYPadFixtureEditor_Test::initial()
     QList <VCXYPadFixture> list;
 
     VCXYPadFixture fxi(m_doc);
+    fxi.setDisplayMode(VCXYPadFixture::Percentage);
 
     fxi.setHead(GroupHead(0, 0));
     fxi.setX(0.1, 0.2, false);
@@ -130,6 +130,7 @@ void VCXYPadFixtureEditor_Test::accept()
     QList <VCXYPadFixture> list;
 
     VCXYPadFixture fxi(m_doc);
+    fxi.setDisplayMode(VCXYPadFixture::Percentage);
 
     fxi.setHead(GroupHead(0, 0));
     fxi.setX(0, 1, false);

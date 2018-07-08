@@ -26,7 +26,7 @@
 #include <QDir>
 
 #include "qlcconfig.h"
-
+#include "qlcfile.h"
 #include "app.h"
 
 /* Use this namespace for command-line arguments so that we don't pollute
@@ -128,12 +128,7 @@ void loadTranslation(const QString& locale, QApplication& app)
         lc = FXEDArgs::locale;
     QString file(QString("qlcplus_%1").arg(lc));
 
-#if defined(__APPLE__) || defined(Q_OS_MAC)
-    QString path(QString("%1/../%2").arg(QApplication::applicationDirPath())
-                 .arg(TRANSLATIONDIR));
-#else
-    QString path(TRANSLATIONDIR);
-#endif
+    QString path = QLCFile::systemDirectory(TRANSLATIONDIR).path();
     QTranslator* translator = new QTranslator(&app);
     if (translator->load(file, path) == true)
     {

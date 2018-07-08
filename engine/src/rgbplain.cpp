@@ -17,15 +17,15 @@
   limitations under the License.
 */
 
-#include <QDomDocument>
-#include <QDomElement>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QDebug>
 
 #include "rgbplain.h"
 #include "audiocapture.h"
 #include "doc.h"
 
-RGBPlain::RGBPlain(const Doc * doc)
+RGBPlain::RGBPlain(Doc * doc)
     : RGBAlgorithm(doc)
 {
 }
@@ -99,31 +99,32 @@ int RGBPlain::acceptColors() const
     return 1; // only start color is accepted
 }
 
-bool RGBPlain::loadXML(const QDomElement& root)
+bool RGBPlain::loadXML(QXmlStreamReader &root)
 {
-    if (root.tagName() != KXMLQLCRGBAlgorithm)
+    if (root.name() != KXMLQLCRGBAlgorithm)
     {
         qWarning() << Q_FUNC_INFO << "RGB Algorithm node not found";
         return false;
     }
 
-    if (root.attribute(KXMLQLCRGBAlgorithmType) != KXMLQLCRGBPlain)
+    if (root.attributes().value(KXMLQLCRGBAlgorithmType).toString() != KXMLQLCRGBPlain)
     {
         qWarning() << Q_FUNC_INFO << "RGB Algorithm is not Plain";
         return false;
     }
 
+    root.skipCurrentElement();
+
     return true;
 }
 
-bool RGBPlain::saveXML(QDomDocument* doc, QDomElement* mtx_root) const
+bool RGBPlain::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(mtx_root != NULL);
 
-    QDomElement root = doc->createElement(KXMLQLCRGBAlgorithm);
-    root.setAttribute(KXMLQLCRGBAlgorithmType, KXMLQLCRGBPlain);
-    mtx_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCRGBAlgorithm);
+    doc->writeAttribute(KXMLQLCRGBAlgorithmType, KXMLQLCRGBPlain);
+    doc->writeEndElement();
 
     return true;
 }

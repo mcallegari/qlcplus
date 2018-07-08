@@ -50,8 +50,7 @@ PeperoniDevice::PeperoniDevice(Peperoni* parent, struct usb_device* device, quin
 
 PeperoniDevice::~PeperoniDevice()
 {
-    close(m_baseLine, InputMode);
-    close(m_baseLine, OutputMode);
+    closeAll();
 }
 
 /****************************************************************************
@@ -65,25 +64,27 @@ bool PeperoniDevice::isPeperoniDevice(const struct usb_device* device)
         return false;
 
     /* If it's not manufactured by them, we're not interested in it */
-    if (device->descriptor.idVendor != PEPERONI_VID)
+    if (!isPeperoniDevice(device->descriptor.idVendor, device->descriptor.idProduct))
         return false;
 
-    if (device->descriptor.idProduct == PEPERONI_PID_RODIN1 ||
-        device->descriptor.idProduct == PEPERONI_PID_RODIN2 ||
-        device->descriptor.idProduct == PEPERONI_PID_RODINT ||
-        device->descriptor.idProduct == PEPERONI_PID_XSWITCH ||
-        device->descriptor.idProduct == PEPERONI_PID_USBDMX21)
-    {
-        /* We need one interface */
-        if (device->config->bNumInterfaces < 1)
-            return false;
-
-        return true;
-    }
-    else
-    {
+    /* We need one interface */
+    if (device->config->bNumInterfaces < 1)
         return false;
-    }
+
+    return true;
+}
+
+bool PeperoniDevice::isPeperoniDevice(int vid, int pid)
+{
+    if (vid != PEPERONI_VID)
+        return false;
+    if (pid == PEPERONI_PID_RODIN1 ||
+        pid == PEPERONI_PID_RODIN2 ||
+        pid == PEPERONI_PID_RODINT ||
+        pid == PEPERONI_PID_XSWITCH ||
+        pid == PEPERONI_PID_USBDMX21)
+            return true;
+    return false;
 }
 
 int PeperoniDevice::outputsNumber(const struct usb_device *device)
@@ -315,6 +316,14 @@ void PeperoniDevice::close(quint32 line, OperatingMode mode)
     }
 
     m_handle = NULL;
+}
+
+void PeperoniDevice::closeAll()
+{
+    qDebug() << "[Peperoni] close input...";
+    close(m_baseLine, InputMode);
+    qDebug() << "[Peperoni] close output...";
+    close(m_baseLine, OutputMode);
 }
 
 const struct usb_device* PeperoniDevice::device() const

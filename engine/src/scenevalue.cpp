@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   scenevalue.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,8 +18,8 @@
   limitations under the License.
 */
 
-#include <QDomDocument>
-#include <QDomElement>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QDebug>
 
 #include "scenevalue.h"
@@ -76,38 +77,40 @@ bool SceneValue::operator==(const SceneValue& scv) const
         return false;
 }
 
-bool SceneValue::loadXML(const QDomElement& tag)
+bool SceneValue::loadXML(QXmlStreamReader &tag)
 {
-    if (tag.tagName() != KXMLQLCSceneValue)
+    if (tag.name() != KXMLQLCSceneValue)
     {
-        qWarning() << Q_FUNC_INFO << "Scene node not found";
+        qWarning() << Q_FUNC_INFO << "Scene Value node not found";
         return false;
     }
 
-    fxi = tag.attribute(KXMLQLCSceneValueFixture).toUInt();
-    channel = tag.attribute(KXMLQLCSceneValueChannel).toUInt();
-    value = uchar(tag.text().toUInt());
+    QXmlStreamAttributes attrs = tag.attributes();
+    fxi = attrs.value(KXMLQLCSceneValueFixture).toString().toUInt();
+    channel = attrs.value(KXMLQLCSceneValueChannel).toString().toUInt();
+    value = uchar(tag.readElementText().toUInt());
 
     return isValid();
 }
 
-bool SceneValue::saveXML(QDomDocument* doc, QDomElement* scene_root) const
+bool SceneValue::saveXML(QXmlStreamWriter *doc) const
 {
-    QDomElement tag;
-    QDomText text;
-
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(scene_root != NULL);
 
     /* Value tag and its attributes */
-    tag = doc->createElement(KXMLQLCSceneValue);
-    tag.setAttribute(KXMLQLCSceneValueFixture, fxi);
-    tag.setAttribute(KXMLQLCSceneValueChannel, channel);
-    scene_root->appendChild(tag);
+    doc->writeStartElement(KXMLQLCSceneValue);
+    doc->writeAttribute(KXMLQLCSceneValueFixture, QString::number(fxi));
+    doc->writeAttribute(KXMLQLCSceneValueChannel, QString::number(channel));
 
     /* The actual value as node text */
-    text = doc->createTextNode(QString("%1").arg(value));
-    tag.appendChild(text);
+    doc->writeCharacters(QString("%1").arg(value));
+    doc->writeEndElement();
 
     return true;
+}
+
+QDebug operator<<(QDebug debug, const SceneValue &sv)
+{
+    debug.nospace() << "SceneValue(" << sv.fxi << ", " << sv.channel << ", " << sv.value << ")";
+    return debug;
 }

@@ -1,8 +1,9 @@
 /*
-  Q Light Controller - Unit test
+  Q Light Controller Plus - Unit test
   fixturegroup_test.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -18,7 +19,8 @@
 */
 
 #include <QtTest>
-#include <QtXml>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 #include "fixturegroup_test.h"
 #include "qlcfixturehead.h"
@@ -37,7 +39,8 @@ void FixtureGroup_Test::initTestCase()
     QDir dir(INTERNAL_FIXTUREDIR);
     dir.setFilter(QDir::Files);
     dir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
-    QVERIFY(m_doc->fixtureDefCache()->load(dir) == true);
+    QVERIFY(m_doc->fixtureDefCache()->loadMap(dir) == true);
+    m_currentAddr = 0;
 }
 
 void FixtureGroup_Test::cleanupTestCase()
@@ -128,37 +131,40 @@ void FixtureGroup_Test::size()
 
 void FixtureGroup_Test::assignFixtureNoSize()
 {
-    QLCPoint pt;
     FixtureGroup grp(m_doc);
     QCOMPARE(grp.headList().size(), 0);
 
     Fixture* fxi = new Fixture(m_doc);
     fxi->setChannels(2);
+    fxi->setAddress(m_currentAddr);
+    m_currentAddr += fxi->channels();
     m_doc->addFixture(fxi);
 
     grp.assignFixture(fxi->id());
     QCOMPARE(grp.headList().size(), 2);
     QCOMPARE(grp.size(), QSize(1, 1));
-    QVERIFY(grp.headHash()[QLCPoint(0, 0)] == GroupHead(0, 0));
-    QVERIFY(grp.headHash()[QLCPoint(0, 1)] == GroupHead(0, 1));
+    QVERIFY(grp.headsMap()[QLCPoint(0, 0)] == GroupHead(0, 0));
+    QVERIFY(grp.headsMap()[QLCPoint(0, 1)] == GroupHead(0, 1));
 
     // Same fixture can't be at two places
     grp.assignFixture(0, QLCPoint(100, 100));
     QCOMPARE(grp.headList().size(), 2);
     QCOMPARE(grp.size(), QSize(1, 1));
-    QVERIFY(grp.headHash()[QLCPoint(0, 0)] == GroupHead(0, 0));
-    QVERIFY(grp.headHash()[QLCPoint(0, 1)] == GroupHead(0, 1));
+    QVERIFY(grp.headsMap()[QLCPoint(0, 0)] == GroupHead(0, 0));
+    QVERIFY(grp.headsMap()[QLCPoint(0, 1)] == GroupHead(0, 1));
 
     fxi = new Fixture(m_doc);
     fxi->setChannels(1);
+    fxi->setAddress(m_currentAddr);
+    m_currentAddr += fxi->channels();
     m_doc->addFixture(fxi);
 
     grp.assignFixture(fxi->id());
     QCOMPARE(grp.headList().size(), 3);
     QCOMPARE(grp.size(), QSize(1, 1));
-    QVERIFY(grp.headHash()[QLCPoint(0, 0)] == GroupHead(0, 0));
-    QVERIFY(grp.headHash()[QLCPoint(0, 1)] == GroupHead(0, 1));
-    QVERIFY(grp.headHash()[QLCPoint(0, 2)] == GroupHead(1, 0));
+    QVERIFY(grp.headsMap()[QLCPoint(0, 0)] == GroupHead(0, 0));
+    QVERIFY(grp.headsMap()[QLCPoint(0, 1)] == GroupHead(0, 1));
+    QVERIFY(grp.headsMap()[QLCPoint(0, 2)] == GroupHead(1, 0));
 
     QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
@@ -167,15 +173,17 @@ void FixtureGroup_Test::assignFixtureNoSize()
 
     fxi = new Fixture(m_doc);
     fxi->setFixtureDefinition(def, mode);
+    fxi->setAddress(m_currentAddr);
+    m_currentAddr += fxi->channels();
     m_doc->addFixture(fxi);
 
     grp.assignFixture(fxi->id());
     QCOMPARE(grp.headList().size(), 4);
     QCOMPARE(grp.size(), QSize(1, 1));
-    QVERIFY(grp.headHash()[QLCPoint(0, 0)] == GroupHead(0, 0));
-    QVERIFY(grp.headHash()[QLCPoint(0, 1)] == GroupHead(0, 1));
-    QVERIFY(grp.headHash()[QLCPoint(0, 2)] == GroupHead(1, 0));
-    QVERIFY(grp.headHash()[QLCPoint(0, 3)] == GroupHead(2, 0));
+    QVERIFY(grp.headsMap()[QLCPoint(0, 0)] == GroupHead(0, 0));
+    QVERIFY(grp.headsMap()[QLCPoint(0, 1)] == GroupHead(0, 1));
+    QVERIFY(grp.headsMap()[QLCPoint(0, 2)] == GroupHead(1, 0));
+    QVERIFY(grp.headsMap()[QLCPoint(0, 3)] == GroupHead(2, 0));
 
     def = m_doc->fixtureDefCache()->fixtureDef("i-Pix", "BB4");
     QVERIFY(def != NULL);
@@ -185,20 +193,22 @@ void FixtureGroup_Test::assignFixtureNoSize()
 
     fxi = new Fixture(m_doc);
     fxi->setFixtureDefinition(def, mode);
+    fxi->setAddress(m_currentAddr);
+    m_currentAddr += fxi->channels();
     m_doc->addFixture(fxi);
 
     grp.assignFixture(fxi->id());
     QCOMPARE(grp.headList().size(), 8);
     QCOMPARE(grp.size(), QSize(1, 1));
-    QVERIFY(grp.headHash()[QLCPoint(0, 0)] == GroupHead(0, 0));
-    QVERIFY(grp.headHash()[QLCPoint(0, 1)] == GroupHead(0, 1));
-    QVERIFY(grp.headHash()[QLCPoint(0, 2)] == GroupHead(1, 0));
-    QVERIFY(grp.headHash()[QLCPoint(0, 3)] == GroupHead(2, 0));
+    QVERIFY(grp.headsMap()[QLCPoint(0, 0)] == GroupHead(0, 0));
+    QVERIFY(grp.headsMap()[QLCPoint(0, 1)] == GroupHead(0, 1));
+    QVERIFY(grp.headsMap()[QLCPoint(0, 2)] == GroupHead(1, 0));
+    QVERIFY(grp.headsMap()[QLCPoint(0, 3)] == GroupHead(2, 0));
     // BB4 heads
-    QVERIFY(grp.headHash()[QLCPoint(0, 4)] == GroupHead(3, 0));
-    QVERIFY(grp.headHash()[QLCPoint(0, 5)] == GroupHead(3, 1));
-    QVERIFY(grp.headHash()[QLCPoint(0, 6)] == GroupHead(3, 2));
-    QVERIFY(grp.headHash()[QLCPoint(0, 7)] == GroupHead(3, 3));
+    QVERIFY(grp.headsMap()[QLCPoint(0, 4)] == GroupHead(3, 0));
+    QVERIFY(grp.headsMap()[QLCPoint(0, 5)] == GroupHead(3, 1));
+    QVERIFY(grp.headsMap()[QLCPoint(0, 6)] == GroupHead(3, 2));
+    QVERIFY(grp.headsMap()[QLCPoint(0, 7)] == GroupHead(3, 3));
 }
 
 void FixtureGroup_Test::assignFixture4x2()
@@ -217,6 +227,8 @@ void FixtureGroup_Test::assignFixture4x2()
 
         Fixture* fxi = new Fixture(m_doc);
         fxi->setFixtureDefinition(def, mode);
+        fxi->setAddress(m_currentAddr);
+        m_currentAddr += fxi->channels();
         m_doc->addFixture(fxi);
     }
 
@@ -374,9 +386,46 @@ void FixtureGroup_Test::assignFixture4x2()
     // Going waaay beyond size should be possible
     pt = QLCPoint(1024, 2048);
     grp.assignFixture(10, pt);
-    QVERIFY(grp.headHash().contains(pt) == true);
+    QVERIFY(grp.headsMap().contains(pt) == true);
     QCOMPARE(grp.head(pt), GroupHead(10, 0));
     QCOMPARE(grp.size(), QSize(4, 2));
+}
+
+void FixtureGroup_Test::assignFixtureAtPoint()
+{
+    FixtureGroup grp(m_doc);
+    grp.setSize(QSize(4, 2));
+    QCOMPARE(grp.headList().size(), 0);
+
+    for (int i = 0; i < 2; i++)
+    {
+        QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("American DJ", "Dotz Bar 1.4");
+        QVERIFY(def != NULL);
+        QLCFixtureMode* mode = def->modes().last();
+        QVERIFY(mode != NULL);
+
+        Fixture* fxi = new Fixture(m_doc);
+        fxi->setFixtureDefinition(def, mode);
+        fxi->setAddress(m_currentAddr);
+        m_currentAddr += fxi->channels();
+        m_doc->addFixture(fxi);
+    }
+
+    grp.assignFixture(0, QLCPoint(0, 0));
+    grp.assignFixture(1, QLCPoint(0, 1));
+
+    QCOMPARE(grp.headList().size(), 8);
+    QCOMPARE(grp.size(), QSize(4, 2));
+
+    QVERIFY(grp.head(QLCPoint(0, 0)) == GroupHead(0, 0));
+    QVERIFY(grp.head(QLCPoint(1, 0)) == GroupHead(0, 1));
+    QVERIFY(grp.head(QLCPoint(2, 0)) == GroupHead(0, 2));
+    QVERIFY(grp.head(QLCPoint(3, 0)) == GroupHead(0, 3));
+
+    QVERIFY(grp.head(QLCPoint(0, 1)) == GroupHead(1, 0));
+    QVERIFY(grp.head(QLCPoint(1, 1)) == GroupHead(1, 1));
+    QVERIFY(grp.head(QLCPoint(2, 1)) == GroupHead(1, 2));
+    QVERIFY(grp.head(QLCPoint(3, 1)) == GroupHead(1, 3));
 }
 
 void FixtureGroup_Test::resignFixture()
@@ -387,6 +436,8 @@ void FixtureGroup_Test::resignFixture()
     {
         Fixture* fxi = new Fixture(m_doc);
         fxi->setChannels(1);
+        fxi->setAddress(m_currentAddr);
+        m_currentAddr += fxi->channels();
         m_doc->addFixture(fxi);
         grp.assignFixture(fxi->id());
     }
@@ -396,23 +447,25 @@ void FixtureGroup_Test::resignFixture()
     grp.resignFixture(13);
     QCOMPARE(grp.headList().size(), 15);
     QVERIFY(grp.headList().contains(13) == false);
-    QVERIFY(grp.headHash().contains(QLCPoint(1, 3)) == false);
+    QVERIFY(grp.headsMap().contains(QLCPoint(1, 3)) == false);
 
     // Remove a nonexistent fixture
     grp.resignFixture(42);
     QCOMPARE(grp.headList().size(), 15);
     QVERIFY(grp.headList().contains(42) == false);
-    QVERIFY(grp.headHash().contains(QLCPoint(1, 3)) == false);
+    QVERIFY(grp.headsMap().contains(QLCPoint(1, 3)) == false);
 
     // Test that the gap is again filled
     Fixture* fxi = new Fixture(m_doc);
     fxi->setChannels(1);
+    fxi->setAddress(m_currentAddr);
+    m_currentAddr += fxi->channels();
     m_doc->addFixture(fxi, 42);
     grp.assignFixture(42);
     QCOMPARE(grp.headList().size(), 16);
     QVERIFY(grp.headList().contains(GroupHead(42, 0)) == true);
-    QVERIFY(grp.headHash().contains(QLCPoint(1, 3)) == true);
-    QCOMPARE(grp.headHash()[QLCPoint(1, 3)], GroupHead(42, 0));
+    QVERIFY(grp.headsMap().contains(QLCPoint(1, 3)) == true);
+    QCOMPARE(grp.headsMap()[QLCPoint(1, 3)], GroupHead(42, 0));
 }
 
 void FixtureGroup_Test::resignHead()
@@ -421,6 +474,8 @@ void FixtureGroup_Test::resignHead()
     grp.setSize(QSize(4, 4));
     Fixture* fxi = new Fixture(m_doc);
     fxi->setChannels(16);
+    fxi->setAddress(m_currentAddr);
+    m_currentAddr += fxi->channels();
     m_doc->addFixture(fxi);
 
     for (quint32 id = 0; id < 16; id++)
@@ -430,18 +485,18 @@ void FixtureGroup_Test::resignHead()
     QSignalSpy spy(&grp, SIGNAL(changed(quint32)));
     QCOMPARE(grp.resignHead(QLCPoint(0, 0)), true);
     QCOMPARE(grp.headList().size(), 15);
-    QCOMPARE(grp.headHash().contains(QLCPoint(0, 0)), false);
+    QCOMPARE(grp.headsMap().contains(QLCPoint(0, 0)), false);
     QCOMPARE(spy.size(), 1);
 
     QCOMPARE(grp.resignHead(QLCPoint(0, 0)), false);
     QCOMPARE(grp.headList().size(), 15);
-    QCOMPARE(grp.headHash().contains(QLCPoint(0, 0)), false);
+    QCOMPARE(grp.headsMap().contains(QLCPoint(0, 0)), false);
     QCOMPARE(spy.size(), 1);
 
     QCOMPARE(grp.resignHead(QLCPoint(15, 0)), false);
     QCOMPARE(grp.headList().size(), 15);
-    QCOMPARE(grp.headHash().contains(QLCPoint(15, 0)), false);
-    QCOMPARE(grp.headHash().contains(QLCPoint(0, 0)), false);
+    QCOMPARE(grp.headsMap().contains(QLCPoint(15, 0)), false);
+    QCOMPARE(grp.headsMap().contains(QLCPoint(0, 0)), false);
     QCOMPARE(spy.size(), 1);
 
     // Assign the head back to 0, 0
@@ -473,6 +528,8 @@ void FixtureGroup_Test::fixtureRemoved()
     {
         Fixture* fxi = new Fixture(m_doc);
         fxi->setChannels(1);
+        fxi->setAddress(m_currentAddr);
+        m_currentAddr += fxi->channels();
         m_doc->addFixture(fxi);
         grp.assignFixture(fxi->id());
     }
@@ -481,10 +538,12 @@ void FixtureGroup_Test::fixtureRemoved()
     // FixtureGroup should listen to Doc's fixtureRemoved() signal
     m_doc->deleteFixture(10);
     QCOMPARE(grp.headList().size(), 15);
-    QVERIFY(grp.headHash().contains(QLCPoint(2, 2)) == false);
+    QVERIFY(grp.headsMap().contains(QLCPoint(2, 2)) == false);
 
     Fixture* fxi = new Fixture(m_doc);
     fxi->setChannels(5);
+    fxi->setAddress(m_currentAddr);
+    m_currentAddr += fxi->channels();
     m_doc->addFixture(fxi, 69);
     QCOMPARE(fxi->id(), quint32(69));
 
@@ -501,6 +560,8 @@ void FixtureGroup_Test::swap()
     {
         Fixture* fxi = new Fixture(m_doc);
         fxi->setChannels(1);
+        fxi->setAddress(m_currentAddr);
+        m_currentAddr += fxi->channels();
         m_doc->addFixture(fxi);
         grp.assignFixture(fxi->id());
     }
@@ -508,30 +569,30 @@ void FixtureGroup_Test::swap()
 
     QLCPoint pt1(0, 0);
     QLCPoint pt2(2, 1);
-    QVERIFY(grp.headHash().contains(pt1) == true);
-    QVERIFY(grp.headHash().contains(pt2) == true);
-    QCOMPARE(grp.headHash()[pt1], GroupHead(0, 0));
-    QCOMPARE(grp.headHash()[pt2], GroupHead(6, 0));
+    QVERIFY(grp.headsMap().contains(pt1) == true);
+    QVERIFY(grp.headsMap().contains(pt2) == true);
+    QCOMPARE(grp.headsMap()[pt1], GroupHead(0, 0));
+    QCOMPARE(grp.headsMap()[pt2], GroupHead(6, 0));
 
     // Switch places with two fixtures
     grp.swap(pt1, pt2);
-    QVERIFY(grp.headHash().contains(pt1) == true);
-    QVERIFY(grp.headHash().contains(pt2) == true);
-    QCOMPARE(grp.headHash()[pt1], GroupHead(6, 0));
-    QCOMPARE(grp.headHash()[pt2], GroupHead(0, 0));
+    QVERIFY(grp.headsMap().contains(pt1) == true);
+    QVERIFY(grp.headsMap().contains(pt2) == true);
+    QCOMPARE(grp.headsMap()[pt1], GroupHead(6, 0));
+    QCOMPARE(grp.headsMap()[pt2], GroupHead(0, 0));
 
     // Switch places with a fixture and an empty point
     pt2 = QLCPoint(500, 500);
     grp.swap(pt1, pt2);
-    QVERIFY(grp.headHash().contains(pt1) == false);
-    QVERIFY(grp.headHash().contains(pt2) == true);
-    QCOMPARE(grp.headHash()[pt2], GroupHead(6, 0));
+    QVERIFY(grp.headsMap().contains(pt1) == false);
+    QVERIFY(grp.headsMap().contains(pt2) == true);
+    QCOMPARE(grp.headsMap()[pt2], GroupHead(6, 0));
 
     // ...and back again
     grp.swap(pt1, pt2);
-    QVERIFY(grp.headHash().contains(pt1) == true);
-    QVERIFY(grp.headHash().contains(pt2) == false);
-    QCOMPARE(grp.headHash()[pt1], GroupHead(6, 0));
+    QVERIFY(grp.headsMap().contains(pt1) == true);
+    QVERIFY(grp.headsMap().contains(pt2) == false);
+    QCOMPARE(grp.headsMap()[pt1], GroupHead(6, 0));
 }
 
 void FixtureGroup_Test::copy()
@@ -544,6 +605,8 @@ void FixtureGroup_Test::copy()
     {
         Fixture* fxi = new Fixture(m_doc);
         fxi->setChannels(1);
+        fxi->setAddress(m_currentAddr);
+        m_currentAddr += fxi->channels();
         m_doc->addFixture(fxi);
         grp1.assignFixture(fxi->id());
     }
@@ -561,56 +624,164 @@ void FixtureGroup_Test::copy()
 
 void FixtureGroup_Test::loadWrongID()
 {
-    QDomDocument doc;
-    QDomElement root = doc.createElement("FixtureGroup");
-    root.setAttribute("ID", "Pertti");
-    doc.appendChild(root);
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    xmlWriter.writeStartElement("FixtureGroup");
+    xmlWriter.writeAttribute("ID", "Pertti");
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     FixtureGroup grp(m_doc);
-    QVERIFY(grp.loadXML(root) == false);
+    QVERIFY(grp.loadXML(xmlReader) == false);
 }
 
 void FixtureGroup_Test::loadWrongHeadAttributes()
 {
-    QDomDocument doc;
-    QDomElement root = doc.createElement("FixtureGroup");
-    root.setAttribute("ID", "12345");
-    doc.appendChild(root);
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement head = doc.createElement("Head");
-    head.setAttribute("X", "Seppo");
-    head.setAttribute("Y", "0");
-    head.setAttribute("Fixture", "42");
-    QDomText headText = doc.createTextNode("0");
-    head.appendChild(headText);
-    root.appendChild(head);
+    xmlWriter.writeStartElement("FixtureGroup");
+    xmlWriter.writeAttribute("ID", "12345");
+
+    xmlWriter.writeStartElement("Head");
+    xmlWriter.writeAttribute("X", "Seppo");
+    xmlWriter.writeAttribute("Y", "0");
+    xmlWriter.writeAttribute("Fixture", "42");
+    xmlWriter.writeCharacters("0");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     FixtureGroup grp(m_doc);
-    QVERIFY(grp.loadXML(root) == true);
-    QCOMPARE(grp.headHash().size(), 0);
+    QVERIFY(grp.loadXML(xmlReader) == true);
+    QCOMPARE(grp.headsMap().size(), 0);
 
-    head.setAttribute("X", "0");
-    head.setAttribute("Y", "Pertti");
+    // reset the data buffer
+    buffer.setData(QByteArray());
+    buffer.close();
 
-    QVERIFY(grp.loadXML(root) == true);
-    QCOMPARE(grp.headHash().size(), 0);
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    xmlWriter.setDevice(&buffer);
 
-    head.setAttribute("Y", "0");
-    head.setAttribute("Fixture", "Jorma");
+    xmlWriter.writeStartElement("FixtureGroup");
+    xmlWriter.writeAttribute("ID", "12345");
 
-    QVERIFY(grp.loadXML(root) == true);
-    QCOMPARE(grp.headHash().size(), 0);
+    xmlWriter.writeStartElement("Head");
+    xmlWriter.writeAttribute("X", "0");
+    xmlWriter.writeAttribute("Y", "Pertti");
+    xmlWriter.writeAttribute("Fixture", "42");
+    xmlWriter.writeCharacters("0");
+    xmlWriter.writeEndElement();
 
-    head.setAttribute("Fixture", "42");
-    headText.setData("Esko");
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
 
-    QVERIFY(grp.loadXML(root) == true);
-    QCOMPARE(grp.headHash().size(), 0);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    xmlReader.setDevice(&buffer);
+    xmlReader.readNextStartElement();
 
-    headText.setData("0");
+    QVERIFY(grp.loadXML(xmlReader) == true);
+    QCOMPARE(grp.headsMap().size(), 0);
 
-    QVERIFY(grp.loadXML(root) == true);
-    QCOMPARE(grp.headHash().size(), 1);
+    // reset the data buffer
+    buffer.setData(QByteArray());
+    buffer.close();
+
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    xmlWriter.setDevice(&buffer);
+
+    xmlWriter.writeStartElement("FixtureGroup");
+    xmlWriter.writeAttribute("ID", "12345");
+
+    xmlWriter.writeStartElement("Head");
+    xmlWriter.writeAttribute("X", "0");
+    xmlWriter.writeAttribute("Y", "0");
+    xmlWriter.writeAttribute("Fixture", "Jorma");
+    xmlWriter.writeCharacters("0");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    xmlReader.setDevice(&buffer);
+    xmlReader.readNextStartElement();
+
+    QVERIFY(grp.loadXML(xmlReader) == true);
+    QCOMPARE(grp.headsMap().size(), 0);
+
+    // reset the data buffer
+    buffer.setData(QByteArray());
+    buffer.close();
+
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    xmlWriter.setDevice(&buffer);
+
+    xmlWriter.writeStartElement("FixtureGroup");
+    xmlWriter.writeAttribute("ID", "12345");
+
+    xmlWriter.writeStartElement("Head");
+    xmlWriter.writeAttribute("X", "0");
+    xmlWriter.writeAttribute("Y", "0");
+    xmlWriter.writeAttribute("Fixture", "42");
+    xmlWriter.writeCharacters("Esko");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    xmlReader.setDevice(&buffer);
+    xmlReader.readNextStartElement();
+
+    QVERIFY(grp.loadXML(xmlReader) == true);
+    QCOMPARE(grp.headsMap().size(), 0);
+
+    // reset the data buffer
+    buffer.setData(QByteArray());
+    buffer.close();
+
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    xmlWriter.setDevice(&buffer);
+
+    xmlWriter.writeStartElement("FixtureGroup");
+    xmlWriter.writeAttribute("ID", "12345");
+
+    xmlWriter.writeStartElement("Head");
+    xmlWriter.writeAttribute("X", "0");
+    xmlWriter.writeAttribute("Y", "0");
+    xmlWriter.writeAttribute("Fixture", "42");
+    xmlWriter.writeCharacters("0");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    xmlReader.setDevice(&buffer);
+    xmlReader.readNextStartElement();
+
+    QVERIFY(grp.loadXML(xmlReader) == true);
+    QCOMPARE(grp.headsMap().size(), 1);
 }
 
 void FixtureGroup_Test::load()
@@ -623,29 +794,42 @@ void FixtureGroup_Test::load()
     {
         Fixture* fxi = new Fixture(m_doc);
         fxi->setChannels(1);
+        fxi->setAddress(m_currentAddr);
+        m_currentAddr += fxi->channels();
         m_doc->addFixture(fxi);
         grp.assignFixture(fxi->id());
     }
 
-    QDomDocument doc;
-    QDomElement root = doc.createElement("Foo");
-    QVERIFY(grp.saveXML(&doc, &root) == true);
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    xmlWriter.writeStartElement("Foo");
+
+    QVERIFY(grp.saveXML(&xmlWriter) == true);
 
     // Extra garbage
-    QDomElement bar = doc.createElement("Bar");
-    root.firstChild().appendChild(bar);
+    xmlWriter.writeStartElement("Bar");
+    xmlWriter.writeEndDocument();
 
-    QVERIFY(FixtureGroup::loader(root, m_doc) == false);
+    xmlWriter.setDevice(NULL);
+    buffer.close();
 
-    QDomElement tag = root.firstChild().toElement();
-    QVERIFY(FixtureGroup::loader(tag, m_doc) == true);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+
+    QVERIFY(FixtureGroup::loader(xmlReader, m_doc) == false);
+
+    xmlReader.readNextStartElement();
+    xmlReader.readNextStartElement();
+    QVERIFY(FixtureGroup::loader(xmlReader, m_doc) == true);
     QCOMPARE(m_doc->fixtureGroups().size(), 1);
     FixtureGroup* grp2 = m_doc->fixtureGroup(99);
     QVERIFY(grp2 != NULL);
     QCOMPARE(grp2->size(), QSize(4, 5));
     QCOMPARE(grp2->name(), QString("Pertti Pasanen"));
     QCOMPARE(grp2->id(), quint32(99));
-    QCOMPARE(grp2->headHash(), grp.headHash());
+    QCOMPARE(grp2->headsMap(), grp.headsMap());
 }
 
 void FixtureGroup_Test::save()
@@ -658,49 +842,63 @@ void FixtureGroup_Test::save()
     {
         Fixture* fxi = new Fixture(m_doc);
         fxi->setChannels(1);
+        fxi->setAddress(m_currentAddr);
+        m_currentAddr += fxi->channels();
         m_doc->addFixture(fxi);
         grp.assignFixture(fxi->id());
     }
 
-    QDomDocument doc;
-    QDomElement root = doc.createElement("Foo");
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QVERIFY(grp.saveXML(&doc, &root) == true);
-    QDomElement tag = root.firstChild().toElement();
-    QCOMPARE(tag.tagName(), QString("FixtureGroup"));
-    QCOMPARE(tag.attribute("ID"), QString("99"));
+    xmlWriter.writeStartElement("Foo");
+
+    QVERIFY(grp.saveXML(&xmlWriter) == true);
+
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+
+    xmlReader.readNextStartElement();
+    QVERIFY(xmlReader.name().toString() == "Foo");
+
+    xmlReader.readNextStartElement();
+    QVERIFY(xmlReader.name().toString() == "FixtureGroup");
+    QCOMPARE(xmlReader.attributes().value("ID").toString(), QString("99"));
 
     int size = 0, name = 0, fixture = 0;
 
-    QDomNode node = tag.firstChild();
-    while (node.isNull() == false)
+    while (xmlReader.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == "Size")
+        if (xmlReader.name() == "Size")
         {
-            QCOMPARE(tag.attribute("X").toInt(), 4);
-            QCOMPARE(tag.attribute("Y").toInt(), 5);
+            QCOMPARE(xmlReader.attributes().value("X").toString().toInt(), 4);
+            QCOMPARE(xmlReader.attributes().value("Y").toString().toInt(), 5);
             size++;
+            xmlReader.skipCurrentElement();
         }
-        else if (tag.tagName() == "Name")
+        else if (xmlReader.name() == "Name")
         {
-            QCOMPARE(tag.text(), QString("Pertti Pasanen"));
+            QCOMPARE(xmlReader.readElementText(), QString("Pertti Pasanen"));
             name++;
         }
-        else if (tag.tagName() == "Head")
+        else if (xmlReader.name() == "Head")
         {
-            quint32 id = tag.attribute("Fixture").toUInt();
-            int head = tag.text().toInt();
-            QLCPoint pt(tag.attribute("X").toInt(), tag.attribute("Y").toInt());
+            quint32 id = xmlReader.attributes().value("Fixture").toString().toUInt();
+            QLCPoint pt(xmlReader.attributes().value("X").toString().toInt(),
+                        xmlReader.attributes().value("Y").toString().toInt());
+            int head = xmlReader.readElementText().toInt();
             QCOMPARE(grp.head(pt), GroupHead(id, head));
             fixture++;
         }
         else
         {
-            QFAIL(QString("Unexpected tag in FixtureGroup: %1").arg(tag.tagName()).toUtf8().constData());
+            QFAIL(QString("Unexpected tag in FixtureGroup: %1")
+                  .arg(xmlReader.name().toString()).toUtf8().constData());
         }
-
-        node = node.nextSibling();
     }
 
     QCOMPARE(size, 1);

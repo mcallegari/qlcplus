@@ -1,9 +1,10 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   avolitesd4parser.h
 
   Copyright (C) Rui Barreiros
                 Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -21,16 +22,15 @@
 #ifndef AVOLITESD4PARSER_H
 #define AVOLITESD4PARSER_H
 
-#include <QDomDocument>
 #include <QString>
 #include <QList>
 #include <QMap>
 
 #include "qlcchannel.h"
+#include "qlcfixturedef.h"
 
+class QXmlStreamReader;
 class QLCFixtureMode;
-class QLCFixtureDef;
-class QDomElement;
 
 /** @addtogroup engine Engine
  * @{
@@ -46,21 +46,15 @@ public:
     ~AvolitesD4Parser();
 
     /**
-     * Load a D4 file from the given path
+     * Load a D4 file from the given path and fill a QLC Fixture Definition,
+     * given in $fixtureDef.
      *
      * @param path The file path to load from
+     * @param fixtureDef The fixture definition object to fill, must not be NULL.
+     *
      * @return true if successful, otherwise false (see lastError() for a possible cause)
      */
-    bool loadXML(const QString& path);
-
-    /**
-     * After loading a file with loadXML(), convert the loaded D4 file
-     * into a QLC Fixture Definition, given in $fixtureDef.
-     *
-     * @param fixtureDef The fixture definition object to fill, must not be NULL.
-     * @return true if successful, otherwise false (see lastError() for possible cause)
-     */
-    bool fillFixtureDef(QLCFixtureDef *fixtureDef);
+    bool loadXML(const QString& path, QLCFixtureDef *fixtureDef);
 
     /**
      * Get the last error encountered while loading/parsing a file.
@@ -70,13 +64,8 @@ public:
     QString lastError() const;
 
 private:
-    QString fixtureName() const;
-    QString fixtureShortName() const;
-    QString fixtureCompany() const;
-    QString copyright() const;
-
-    QLCChannel::Group getGroupFromXML(const QDomElement& elem);
-    QLCChannel::PrimaryColour getColourFromXML(const QDomElement& elem);
+    QLCChannel::Group getGroup(QString ID, QString name, QString group);
+    QLCChannel::PrimaryColour getColour(QString ID, QString name, QString group);
 
 private:
     enum Attributes
@@ -95,32 +84,36 @@ private:
 
 private:
     /** Check if the given XML element contains an avolites function */
-    bool isFunction(const QDomElement& elem) const;
+    //bool isFunction(const QDomElement& elem) const;
 
     /** Check if the given XML element contains a 16bit function */
-    bool is16Bit(const QDomElement& elem) const;
+    bool is16Bit(QString dmx) const;
+
+    QLCCapability *getCapability(QString dmx, QString name, bool isFine = false);
 
     /** Parse all channels from $elem into $fixtureDef */
-    bool parseChannels(const QDomElement& elem, QLCFixtureDef* fixtureDef);
+    bool parseChannel(QXmlStreamReader *doc, QLCFixtureDef* fixtureDef);
 
     /** Parse the capabilities from one channel contained in $elem into $chan (must exist) */
-    bool parseCapabilities(const QDomElement& elem, QLCChannel* chan, bool isFine = false);
+    bool parseAttribute(QXmlStreamReader *doc, QLCFixtureDef *fixtureDef);
 
-    /** Parse all modes contained under $elem into $fixtureDef */
-    bool parseModes(const QDomElement& elem, QLCFixtureDef* fixtureDef);
+    /** Parse a mode contained under $elem into $fixtureDef */
+    bool parseMode(QXmlStreamReader *doc, QLCFixtureDef* fixtureDef);
 
     /** Parse the fixture's/mode's physical properties from $elem into $mode */
-    void parsePhysical(const QDomElement& elem, QLCFixtureMode* mode);
+    void parsePhysical(QXmlStreamReader *doc, QLCFixtureMode* mode);
+
+    /** Parse a mode Include tag */
+    void parseInclude(QXmlStreamReader *doc, QLCFixtureMode* mode);
 
     /** Convert string $attr into an Attributes enum */
     Attributes stringToAttributeEnum(const QString& attr);
 
     /** Attempt to guess the fixture type from the channels/capabilities in $def */
-    QString guessType(QLCFixtureDef *def) const;
+    QLCFixtureDef::FixtureType guessType(QLCFixtureDef *def) const;
 
 private:
     QString m_lastError;
-    QDomDocument m_documentRoot;
     ChannelsMap m_channels;
 
     static StringToEnumMap s_attributesMap;

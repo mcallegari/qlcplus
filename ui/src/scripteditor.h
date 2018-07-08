@@ -22,6 +22,7 @@
 
 #include <QWidget>
 #include "ui_scripteditor.h"
+#include "function.h"
 
 class QTextDocument;
 class MasterTimer;
@@ -68,6 +69,7 @@ private slots:
 
     void slotAddStartFunction();
     void slotAddStopFunction();
+    void slotAddBlackout();
     void slotAddWait();
     void slotAddWaitKey();
     void slotAddSetHtp();
@@ -80,8 +82,12 @@ private slots:
     void slotCheckSyntax();
 
 private:
+    FunctionParent functionParent() const;
+
+private:
     QAction* m_addStartFunctionAction;
     QAction* m_addStopFunctionAction;
+    QAction* m_addBlackoutAction;
     QAction* m_addWaitAction;
     QAction* m_addWaitKeyAction;
     QAction* m_addSetHtpAction;

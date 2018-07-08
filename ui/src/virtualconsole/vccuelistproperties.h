@@ -25,13 +25,9 @@
 #include <QList>
 
 #include "ui_vccuelistproperties.h"
-#include "qlcinputsource.h"
 
-class MasterTimer;
+class InputSelectionWidget;
 class VCCueList;
-class OutputMap;
-class InputMap;
-class Function;
 class Doc;
 
 /** @addtogroup ui_vc_props
@@ -53,10 +49,19 @@ public:
 public slots:
     void accept();
     void slotTabChanged();
+    void slotCF1AutoDetectionToggled(bool checked);
+    void slotCF2AutoDetectionToggled(bool checked);
 
 protected:
     VCCueList* m_cueList;
     Doc* m_doc;
+    InputSelectionWidget *m_playInputWidget;
+    InputSelectionWidget *m_stopInputWidget;
+    InputSelectionWidget *m_nextInputWidget;
+    InputSelectionWidget *m_prevInputWidget;
+
+    InputSelectionWidget *m_crossfade1InputWidget;
+    InputSelectionWidget *m_crossfade2InputWidget;
 
     /************************************************************************
      * Cues
@@ -64,79 +69,11 @@ protected:
 protected slots:
     void slotChaserAttachClicked();
     void slotChaserDetachClicked();
+    void slotPlaybackLayoutChanged();
 
 private:
     void updateChaserName();
     quint32 m_chaserId;
-
-    /************************************************************************
-     * Next Cue
-     ************************************************************************/
-protected slots:
-    void slotNextAttachClicked();
-    void slotNextDetachClicked();
-    void slotNextChooseInputClicked();
-    void slotNextAutoDetectInputToggled(bool checked);
-    void slotNextInputValueChanged(quint32 uni, quint32 ch);
-
-protected:
-    void updateNextInputSource();
-
-protected:
-    QKeySequence m_nextKeySequence;
-    QLCInputSource *m_nextInputSource;
-
-    /************************************************************************
-     * Previous Cue
-     ************************************************************************/
-protected slots:
-    void slotPreviousAttachClicked();
-    void slotPreviousDetachClicked();
-    void slotPreviousChooseInputClicked();
-    void slotPreviousAutoDetectInputToggled(bool checked);
-    void slotPreviousInputValueChanged(quint32 uni, quint32 ch);
-
-protected:
-    void updatePreviousInputSource();
-
-protected:
-    QKeySequence m_previousKeySequence;
-    QLCInputSource *m_previousInputSource;
-
-    /************************************************************************
-     * Cue List Playback
-     ************************************************************************/
-protected slots:
-    void slotPlaybackAttachClicked();
-    void slotPlaybackDetachClicked();
-    void slotPlaybackChooseInputClicked();
-    void slotPlaybackAutoDetectInputToggled(bool checked);
-    void slotPlaybackInputValueChanged(quint32 uni, quint32 ch);
-
-protected:
-    void updatePlaybackInputSource();
-
-protected:
-    QKeySequence m_playbackKeySequence;
-    QLCInputSource *m_playbackInputSource;
-
-    /************************************************************************
-     * Crossfade Cue List
-     ************************************************************************/
-protected slots:
-    void slotCF1ChooseInputClicked();
-    void slotCF1AutoDetectInputToggled(bool checked);
-    void slotCF1InputValueChanged(quint32 uni, quint32 ch);
-    void slotCF2ChooseInputClicked();
-    void slotCF2AutoDetectInputToggled(bool checked);
-    void slotCF2InputValueChanged(quint32 uni, quint32 ch);
-
-protected:
-    void updateCrossfadeInputSource();
-
-protected:
-    QLCInputSource *m_cf1InputSource;
-    QLCInputSource *m_cf2InputSource;
 };
 
 /** @} */

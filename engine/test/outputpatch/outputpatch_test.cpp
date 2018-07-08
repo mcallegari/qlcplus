@@ -18,7 +18,6 @@
 */
 
 #include <QtTest>
-#include <QtXml>
 
 #define private public
 #include "iopluginstub.h"
@@ -55,7 +54,7 @@ void OutputPatch_Test::defaults()
 {
     OutputPatch op(this);
     QVERIFY(op.m_plugin == NULL);
-    QVERIFY(op.m_output == QLCIOPlugin::invalidLine());
+    QVERIFY(op.m_pluginLine == QLCIOPlugin::invalidLine());
     QVERIFY(op.pluginName() == KOutputNone);
     QVERIFY(op.outputName() == KOutputNone);
 }
@@ -68,10 +67,10 @@ void OutputPatch_Test::patch()
                                 (m_doc->ioPluginCache()->plugins().at(0));
     QVERIFY(stub != NULL);
 
-    OutputPatch* op = new OutputPatch(this);
+    OutputPatch* op = new OutputPatch(0, this);
     op->set(stub, 0);
     QVERIFY(op->m_plugin == stub);
-    QVERIFY(op->m_output == 0);
+    QVERIFY(op->m_pluginLine == 0);
     QVERIFY(op->pluginName() == stub->name());
     QVERIFY(op->outputName() == stub->outputs()[0]);
     QVERIFY(stub->m_openOutputs.size() == 1);
@@ -79,7 +78,7 @@ void OutputPatch_Test::patch()
 
     op->set(stub, 3);
     QVERIFY(op->m_plugin == stub);
-    QVERIFY(op->m_output == 3);
+    QVERIFY(op->m_pluginLine == 3);
     QVERIFY(op->pluginName() == stub->name());
     QVERIFY(op->outputName() == stub->outputs()[3]);
     QVERIFY(stub->m_openOutputs.size() == 1);
@@ -87,7 +86,7 @@ void OutputPatch_Test::patch()
 
     op->reconnect();
     QVERIFY(op->m_plugin == stub);
-    QVERIFY(op->m_output == 3);
+    QVERIFY(op->m_pluginLine == 3);
     QVERIFY(op->pluginName() == stub->name());
     QVERIFY(op->outputName() == stub->outputs()[3]);
     QVERIFY(stub->m_openOutputs.size() == 1);
@@ -104,7 +103,7 @@ void OutputPatch_Test::dump()
     uni[169] = 50;
     uni[511] = 25;
 
-    OutputPatch* op = new OutputPatch(this);
+    OutputPatch* op = new OutputPatch(0, this);
 
     IOPluginStub* stub = static_cast<IOPluginStub*>
                                 (m_doc->ioPluginCache()->plugins().at(0));
@@ -119,6 +118,28 @@ void OutputPatch_Test::dump()
     QVERIFY(stub->m_universe[0] == (char) 100);
     QVERIFY(stub->m_universe[169] == (char) 50);
     QVERIFY(stub->m_universe[511] == (char) 25);
+
+    /* Test the pause state */
+    op->setPaused(true);
+    op->dump(0, uni);
+    QVERIFY(stub->m_universe[0] == (char) 100);
+    QVERIFY(stub->m_universe[169] == (char) 50);
+    QVERIFY(stub->m_universe[511] == (char) 25);
+
+    uni[0] = 1;
+    uni[169] = 2;
+    uni[511] = 3;
+
+    op->dump(0, uni);
+    QVERIFY(stub->m_universe[0] == (char) 100);
+    QVERIFY(stub->m_universe[169] == (char) 50);
+    QVERIFY(stub->m_universe[511] == (char) 25);
+
+    op->setPaused(false);
+    op->dump(0, uni);
+    QVERIFY(stub->m_universe[0] == (char) 1);
+    QVERIFY(stub->m_universe[169] == (char) 2);
+    QVERIFY(stub->m_universe[511] == (char) 3);
 
     delete op;
 }

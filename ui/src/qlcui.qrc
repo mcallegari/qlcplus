@@ -1,7 +1,7 @@
-﻿<RCC>
-    <qresource>
+<RCC>
+    <qresource prefix="/">
         <file alias="add_dump.png">../../resources/icons/png/add_dump.png</file>
-	<file alias="animation.png">../../resources/icons/png/animation.png</file>
+        <file alias="animation.png">../../resources/icons/png/animation.png</file>
         <file alias="attach.png">../../resources/icons/png/attach.png</file>
         <file alias="audio.png">../../resources/icons/png/audio.png</file>
         <file alias="audioinput.png">../../resources/icons/png/audioinput.png</file>
@@ -23,6 +23,7 @@
         <file alias="configure.png">../../resources/icons/png/configure.png</file>
         <file alias="cuelist.png">../../resources/icons/png/cuelist.png</file>
         <file alias="current.png">../../resources/icons/png/current.png</file>
+        <file alias="delete.png">../../resources/icons/png/delete.png</file>
         <file alias="design.png">../../resources/icons/png/design.png</file>
         <file alias="detach.png">../../resources/icons/png/detach.png</file>
         <file alias="dimmer.png">../../resources/icons/png/dimmer.png</file>
@@ -92,11 +93,13 @@
         <file alias="pan.png">../../resources/icons/png/pan.png</file>
         <file alias="panic.png">../../resources/icons/png/panic.png</file>
         <file alias="player_play.png">../../resources/icons/png/player_play.png</file>
+        <file alias="player_pause.png">../../resources/icons/png/player_pause.png</file>
         <file alias="player_stop.png">../../resources/icons/png/player_stop.png</file>
         <file alias="prism.png">../../resources/icons/png/prism.png</file>
         <file alias="qlcplus.png">../../resources/icons/png/qlcplus.png</file>
         <file alias="qt.png">../../resources/icons/png/qt.png</file>
         <file alias="rainbow.png">../../resources/icons/png/rainbow.png</file>
+        <file alias="random.png">../../resources/icons/png/random.png</file>
         <file alias="record.png">../../resources/icons/png/record.png</file>
         <file alias="remap.png">../../resources/icons/png/remap.png</file>
         <file alias="rgbmatrix.png">../../resources/icons/png/rgbmatrix.png</file>
@@ -121,7 +124,7 @@
         <file alias="uncheck.png">../../resources/icons/png/uncheck.png</file>
         <file alias="undo.png">../../resources/icons/png/undo.png</file>
         <file alias="ungroup.png">../../resources/icons/png/ungroup.png</file>
-	<file alias="unlock.png">../../resources/icons/png/unlock.png</file>
+        <file alias="unlock.png">../../resources/icons/png/unlock.png</file>
         <file alias="up.png">../../resources/icons/png/up.png</file>
         <file alias="video.png">../../resources/icons/png/video.png</file>
         <file alias="virtualconsole.png">../../resources/icons/png/virtualconsole.png</file>

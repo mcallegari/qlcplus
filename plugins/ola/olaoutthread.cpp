@@ -104,10 +104,16 @@ void OlaOutThread::run()
  */
 int OlaOutThread::write_dmx(unsigned int universe, const QByteArray& data)
 {
-    m_data.universe = universe;
-    memcpy(m_data.data, data.data(), data.size());
     if (m_pipe)
+    {
+        Q_ASSERT(data.size() <= (int)sizeof(m_data.data));
+
+        m_data.universe = universe;
+        memset(m_data.data, 0, sizeof(m_data.data));
+        memcpy(m_data.data, data.data(), data.size());
+
         m_pipe->Send((uint8_t*) &m_data, sizeof(m_data));
+    }
     return 0;
 }
 

@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   simpledesk.h
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -28,12 +29,12 @@
 
 class GrandMasterSlider;
 class SimpleDeskEngine;
+class QXmlStreamReader;
+class QXmlStreamWriter;
 class SpeedDialWidget;
 class PlaybackSlider;
 class ConsoleChannel;
 class FixtureConsole;
-class QDomDocument;
-class QDomElement;
 class QToolButton;
 class SimpleDesk;
 class QTabWidget;
@@ -80,14 +81,24 @@ private:
     void initTopSide();
     void initBottomSide();
 
+protected:
+    /** @reimp */
+    void showEvent(QShowEvent* ev);
+
+    /** @reimp */
+    void hideEvent(QHideEvent* ev);
+
+    /** @reimp */
+    void resizeEvent(QResizeEvent *ev);
+
 protected slots:
     void slotDocChanged();
 
 private:
-    static SimpleDesk* s_instance;
-    SimpleDeskEngine* m_engine;
-    QSplitter* m_splitter;
-    Doc* m_doc;
+    static SimpleDesk *s_instance;
+    SimpleDeskEngine *m_engine;
+    QSplitter *m_splitter;
+    Doc *m_doc;
     bool m_docChanged;
 
     /*********************************************************************
@@ -99,6 +110,7 @@ public:
     int getCurrentPage();
     uchar getAbsoluteChannelValue(uint address);
     void setAbsoluteChannelValue(uint address, uchar value);
+    void resetChannel(quint32 address);
     void resetUniverse();
 
 private:
@@ -116,21 +128,23 @@ private slots:
     void slotUniversePageDownClicked();
     void slotUniversePageChanged(int page);
     void slotUniverseResetClicked();
+    void slotChannelResetClicked(quint32 fxID, quint32 channel);
+    void slotAliasChanged();
     void slotUniverseSliderValueChanged(quint32, quint32, uchar value);
     void slotUpdateUniverseSliders();
     void slotUniversesWritten(int idx, const QByteArray& ua);
 
 private:
-    QGroupBox* m_universeGroup;
-    QComboBox* m_universesCombo;
-    QToolButton* m_viewModeButton;
-    QToolButton* m_universePageUpButton;
-    QSpinBox* m_universePageSpin;
-    QToolButton* m_universePageDownButton;
-    QToolButton* m_universeResetButton;
-    GrandMasterSlider* m_grandMasterSlider;
-    QScrollArea* scrollArea;
-    QScrollArea* m_chGroupsArea;
+    QFrame *m_universeGroup;
+    QComboBox *m_universesCombo;
+    QToolButton *m_viewModeButton;
+    QToolButton *m_universePageUpButton;
+    QSpinBox *m_universePageSpin;
+    QToolButton *m_universePageDownButton;
+    QToolButton *m_universeResetButton;
+    GrandMasterSlider *m_grandMasterSlider;
+    QScrollArea *scrollArea;
+    QScrollArea *m_chGroupsArea;
 
     /**
      * List holding pointers to the current view sliders.
@@ -172,8 +186,8 @@ private slots:
     void slotGroupValueChanged(quint32 groupID, uchar value);
 
 private:
-    QTabWidget* m_tabs;
-    QGroupBox* m_playbackGroup;
+    QTabWidget *m_tabs;
+    QGroupBox *m_playbackGroup;
     QList <PlaybackSlider*> m_playbackSliders;
     uint m_selectedPlayback;
     uint m_playbacksPerPage;
@@ -188,7 +202,7 @@ private:
     void updateSpeedDials();
     void createSpeedDials();
 
-    CueStack* currentCueStack() const;
+    CueStack *currentCueStack() const;
     int currentCueIndex() const;
 
 private slots:
@@ -210,22 +224,15 @@ private slots:
     void slotDialDestroyed(QObject *);
     void slotCueNameEdited(const QString& name);
 
-protected:
-    /** @reimp */
-    void showEvent(QShowEvent* ev);
-
-    /** @reimp */
-    void hideEvent(QHideEvent* ev);
-
 private:
-    QGroupBox* m_cueStackGroup;
-    QToolButton* m_previousCueButton;
-    QToolButton* m_nextCueButton;
-    QToolButton* m_stopCueStackButton;
-    QToolButton* m_cloneCueStackButton;
-    QToolButton* m_editCueStackButton;
-    QToolButton* m_recordCueButton;
-    QTreeView* m_cueStackView;
+    QGroupBox *m_cueStackGroup;
+    QToolButton *m_previousCueButton;
+    QToolButton *m_nextCueButton;
+    QToolButton *m_stopCueStackButton;
+    QToolButton *m_cloneCueStackButton;
+    QToolButton *m_editCueStackButton;
+    QToolButton *m_recordCueButton;
+    QTreeView *m_cueStackView;
     SpeedDialWidget *m_speedDials;
     QModelIndex m_cueDeleteIconIndex;
 
@@ -233,8 +240,8 @@ private:
      * Load & Save
      *********************************************************************/
 public:
-    bool loadXML(const QDomElement& root);
-    bool saveXML(QDomDocument* doc, QDomElement* wksp_root) const;
+    bool loadXML(QXmlStreamReader &root);
+    bool saveXML(QXmlStreamWriter *doc) const;
 };
 
 /** @} */

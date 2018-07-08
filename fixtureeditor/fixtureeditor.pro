@@ -5,7 +5,7 @@ LANGUAGE = C++
 TARGET   = qlcplus-fixtureeditor
 
 CONFIG += qt
-QT     += xml script
+QT     += script
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 INCLUDEPATH += ../plugins/interfaces
@@ -28,20 +28,20 @@ HEADERS += ../ui/src/aboutbox.h \
            addchannelsdialog.h \
            app.h \
            capabilitywizard.h \
-           editcapability.h \
            editchannel.h \
            edithead.h \
            editmode.h \
+           editphysical.h \
            fixtureeditor.h \
            util.h
 
 FORMS += ../ui/src/aboutbox.ui \
          addchannelsdialog.ui \
          capabilitywizard.ui \
-         editcapability.ui \
          editchannel.ui \
          edithead.ui \
          editmode.ui \
+         editphysical.ui \
          fixtureeditor.ui
 
 SOURCES += ../ui/src/aboutbox.cpp \
@@ -50,10 +50,10 @@ SOURCES += ../ui/src/aboutbox.cpp \
            addchannelsdialog.cpp \
            app.cpp \
            capabilitywizard.cpp \
-           editcapability.cpp \
            editchannel.cpp \
            edithead.cpp \
            editmode.cpp \
+           editphysical.cpp \
            fixtureeditor.cpp \
            main.cpp
 
@@ -71,7 +71,7 @@ TRANSLATIONS += fixtureeditor_ja_JP.ts
 macx {
     # This must be after "TARGET = " and before target installation so that
     # install_name_tool can be run before target installation
-    include(../macx/nametool.pri)
+    include(../platforms/macos/nametool.pri)
 }
 
 # Installation

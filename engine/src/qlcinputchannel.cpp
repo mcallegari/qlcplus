@@ -17,8 +17,10 @@
   limitations under the License.
 */
 
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QString>
-#include <QtXml>
+#include <QDebug>
 #include <QIcon>
 
 #include "qlcinputchannel.h"
@@ -29,10 +31,13 @@
  ****************************************************************************/
 
 QLCInputChannel::QLCInputChannel()
+    : m_type(Button)
+    , m_movementType(Absolute)
+    , m_movementSensitivity(20)
+    , m_sendExtraPress(false)
+    , m_lower(0)
+    , m_upper(UCHAR_MAX)
 {
-    m_type = Button;
-    m_movementType = Absolute;
-    m_movementSensitivity = 20;
 }
 
 QLCInputChannel::QLCInputChannel(const QLCInputChannel& channel)
@@ -41,6 +46,9 @@ QLCInputChannel::QLCInputChannel(const QLCInputChannel& channel)
     m_type = channel.m_type;
     m_movementType = channel.m_movementType;
     m_movementSensitivity = channel.m_movementSensitivity;
+    m_sendExtraPress = channel.m_sendExtraPress;
+    m_lower = channel.m_lower;
+    m_upper = channel.m_upper;
 }
 
 QLCInputChannel::~QLCInputChannel()
@@ -54,6 +62,10 @@ QLCInputChannel::~QLCInputChannel()
 void QLCInputChannel::setType(Type type)
 {
     m_type = type;
+    if (type == Encoder)
+        m_movementSensitivity = 1;
+    else
+        m_movementSensitivity = 20;
 }
 
 QLCInputChannel::Type QLCInputChannel::type() const
@@ -63,33 +75,25 @@ QLCInputChannel::Type QLCInputChannel::type() const
 
 QString QLCInputChannel::typeToString(Type type)
 {
-    QString str;
-
     switch (type)
     {
-    case Button:
-        str = QString(KXMLQLCInputChannelButton);
-        break;
-    case Knob:
-        str = QString(KXMLQLCInputChannelKnob);
-        break;
-    case Slider:
-        str = QString(KXMLQLCInputChannelSlider);
-        break;
-    case NextPage:
-        str = QString(KXMLQLCInputChannelPageUp);
-        break;
-    case PrevPage:
-        str = QString(KXMLQLCInputChannelPageDown);
-        break;
-    case PageSet:
-        str = QString(KXMLQLCInputChannelPageSet);
-        break;
-    default:
-        str = QString(KXMLQLCInputChannelNone);
+        case Button:
+            return KXMLQLCInputChannelButton;
+        case Knob:
+            return KXMLQLCInputChannelKnob;
+        case Encoder:
+            return KXMLQLCInputChannelEncoder;
+        case Slider:
+            return KXMLQLCInputChannelSlider;
+        case NextPage:
+            return KXMLQLCInputChannelPageUp;
+        case PrevPage:
+            return KXMLQLCInputChannelPageDown;
+        case PageSet:
+            return KXMLQLCInputChannelPageSet;
+        default:
+            return KXMLQLCInputChannelNone;
     }
-
-    return str;
 }
 
 QLCInputChannel::Type QLCInputChannel::stringToType(const QString& type)
@@ -98,6 +102,8 @@ QLCInputChannel::Type QLCInputChannel::stringToType(const QString& type)
         return Button;
     else if (type == KXMLQLCInputChannelKnob)
         return Knob;
+    else if (type == KXMLQLCInputChannelEncoder)
+        return Encoder;
     else if (type == KXMLQLCInputChannelSlider)
         return Slider;
     else if (type == KXMLQLCInputChannelPageUp)
@@ -115,6 +121,7 @@ QStringList QLCInputChannel::types()
     QStringList list;
     list << KXMLQLCInputChannelSlider;
     list << KXMLQLCInputChannelKnob;
+    list << KXMLQLCInputChannelEncoder;
     list << KXMLQLCInputChannelButton;
     list << KXMLQLCInputChannelPageUp;
     list << KXMLQLCInputChannelPageDown;
@@ -126,20 +133,14 @@ QIcon QLCInputChannel::typeToIcon(Type type)
 {
     switch (type)
     {
-    case Button:
-        return QIcon(":/button.png");
-    case Knob:
-        return QIcon(":/knob.png");
-    case Slider:
-        return QIcon(":/slider.png");
-    case PrevPage:
-        return QIcon(":/forward.png");
-    case NextPage:
-        return QIcon(":/back.png");
-    case PageSet:
-       return QIcon(":/star.png");
-    default:
-       return QIcon();
+        case Button: return QIcon(":/button.png");
+        case Knob: return QIcon(":/knob.png");
+        case Encoder: return QIcon(":/knob.png");
+        case Slider: return QIcon(":/slider.png");
+        case PrevPage: return QIcon(":/forward.png");
+        case NextPage: return QIcon(":/back.png");
+        case PageSet: return QIcon(":/star.png");
+        default: return QIcon();
     }
 }
 
@@ -168,7 +169,7 @@ QString QLCInputChannel::name() const
 }
 
 /*********************************************************************
- * Slider movement behaviour specific methods
+ * Slider/Knob movement behaviour specific methods
  *********************************************************************/
 
 QLCInputChannel::MovementType QLCInputChannel::movementType() const
@@ -191,90 +192,131 @@ void QLCInputChannel::setMovementSensitivity(int value)
     m_movementSensitivity = value;
 }
 
+/*********************************************************************
+ * Button behaviour specific methods
+ *********************************************************************/
+
+void QLCInputChannel::setSendExtraPress(bool enable)
+{
+    m_sendExtraPress = enable;
+}
+
+bool QLCInputChannel::sendExtraPress() const
+{
+    return m_sendExtraPress;
+}
+
+void QLCInputChannel::setRange(uchar lower, uchar upper)
+{
+    m_lower = lower;
+    m_upper = upper;
+}
+
+uchar QLCInputChannel::lowerValue() const
+{
+    return m_lower;
+}
+
+uchar QLCInputChannel::upperValue() const
+{
+    return m_upper;
+}
+
 /****************************************************************************
  * Load & Save
  ****************************************************************************/
 
-bool QLCInputChannel::loadXML(const QDomElement& root)
+bool QLCInputChannel::loadXML(QXmlStreamReader &root)
 {
-    /* Verify that the tag contains an input channel */
-    if (root.tagName() != KXMLQLCInputChannel)
+    if (root.isStartElement() == false || root.name() != KXMLQLCInputChannel)
     {
         qWarning() << Q_FUNC_INFO << "Channel node not found";
         return false;
     }
 
-    /* Go thru all sub tags */
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLQLCInputChannelName)
+        if (root.name() == KXMLQLCInputChannelName)
         {
-            setName(tag.text());
+            setName(root.readElementText());
         }
-        else if (tag.tagName() == KXMLQLCInputChannelType)
+        else if (root.name() == KXMLQLCInputChannelType)
         {
-            setType(stringToType(tag.text()));
+            setType(stringToType(root.readElementText()));
         }
-        else if (tag.tagName() == KXMLQLCInputChannelMovement)
+        else if (root.name() == KXMLQLCInputChannelExtraPress)
         {
-            if (tag.hasAttribute(KXMLQLCInputChannelSensitivity))
-                setMovementSensitivity(tag.attribute(KXMLQLCInputChannelSensitivity).toInt());
-            if (tag.text() == KXMLQLCInputChannelRelative)
+            root.readElementText();
+            setSendExtraPress(true);
+        }
+        else if (root.name() == KXMLQLCInputChannelMovement)
+        {
+            if (root.attributes().hasAttribute(KXMLQLCInputChannelSensitivity))
+                setMovementSensitivity(root.attributes().value(KXMLQLCInputChannelSensitivity).toString().toInt());
+
+            if (root.readElementText() == KXMLQLCInputChannelRelative)
                 setMovementType(Relative);
+        }
+        else if (root.name() == KXMLQLCInputChannelFeedbacks)
+        {
+            uchar min = 0, max = UCHAR_MAX;
+
+            if (root.attributes().hasAttribute(KXMLQLCInputChannelLowerValue))
+                min = uchar(root.attributes().value(KXMLQLCInputChannelLowerValue).toString().toUInt());
+            if (root.attributes().hasAttribute(KXMLQLCInputChannelUpperValue))
+                max = uchar(root.attributes().value(KXMLQLCInputChannelUpperValue).toString().toUInt());
+
+            setRange(min, max);
+            root.skipCurrentElement();
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown input channel tag" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unknown input channel tag" << root.name();
+            root.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     return true;
 }
 
-bool QLCInputChannel::saveXML(QDomDocument* doc, QDomElement* root,
-                              quint32 channelNumber) const
+bool QLCInputChannel::saveXML(QXmlStreamWriter *doc, quint32 channelNumber) const
 {
-    QDomElement subtag;
-    QDomElement tag;
-    QDomText text;
-    QString str;
+    if (doc == NULL || doc->device() == NULL)
+        return false;
 
-    Q_ASSERT(doc != NULL);
-    Q_ASSERT(root != NULL);
+    doc->writeStartElement(KXMLQLCInputChannel);
+    doc->writeAttribute(KXMLQLCInputChannelNumber,
+                        QString("%1").arg(channelNumber));
 
-    /* The channel tag */
-    tag = doc->createElement(KXMLQLCInputChannel);
-    root->appendChild(tag);
-
-    /* Channel number attribute */
-    tag.setAttribute(KXMLQLCInputChannelNumber,
-                     QString("%1").arg(channelNumber));
-
-    /* Name */
-    subtag = doc->createElement(KXMLQLCInputChannelName);
-    tag.appendChild(subtag);
-    text = doc->createTextNode(m_name);
-    subtag.appendChild(text);
-
-    /* Type */
-    subtag = doc->createElement(KXMLQLCInputChannelType);
-    tag.appendChild(subtag);
-    text = doc->createTextNode(typeToString(m_type));
-    subtag.appendChild(text);
+    doc->writeTextElement(KXMLQLCInputChannelName, m_name);
+    doc->writeTextElement(KXMLQLCInputChannelType, typeToString(m_type));
+    if (sendExtraPress() == true)
+        doc->writeTextElement(KXMLQLCInputChannelExtraPress, "True");
 
     /* Save only slider's relative movement */
-    if (type() == Slider && movementType() == Relative)
+    if ((type() == Slider || type() == Knob) && movementType() == Relative)
     {
-        subtag = doc->createElement(KXMLQLCInputChannelMovement);
-        subtag.setAttribute(KXMLQLCInputChannelSensitivity, movementSensitivity());
-        tag.appendChild(subtag);
-        text = doc->createTextNode(KXMLQLCInputChannelRelative);
-        subtag.appendChild(text);
+        doc->writeStartElement(KXMLQLCInputChannelMovement);
+        doc->writeAttribute(KXMLQLCInputChannelSensitivity, QString::number(movementSensitivity()));
+        doc->writeCharacters(KXMLQLCInputChannelRelative);
+        doc->writeEndElement();
+    }
+    else if (type() == Encoder)
+    {
+        doc->writeStartElement(KXMLQLCInputChannelMovement);
+        doc->writeAttribute(KXMLQLCInputChannelSensitivity, QString::number(movementSensitivity()));
+        doc->writeEndElement();
+    }
+    else if (type() == Button && (lowerValue() != 0 || upperValue() != UCHAR_MAX))
+    {
+        doc->writeStartElement(KXMLQLCInputChannelFeedbacks);
+        if (lowerValue() != 0)
+            doc->writeAttribute(KXMLQLCInputChannelLowerValue, QString::number(lowerValue()));
+        if (upperValue() != UCHAR_MAX)
+            doc->writeAttribute(KXMLQLCInputChannelUpperValue, QString::number(upperValue()));
+        doc->writeEndElement();
     }
 
+    doc->writeEndElement();
     return true;
 }

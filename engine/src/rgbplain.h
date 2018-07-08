@@ -35,7 +35,7 @@ class RGBPlain : public QObject, public RGBAlgorithm
     Q_OBJECT
 
 public:
-    RGBPlain(const Doc * doc);
+    RGBPlain(Doc * doc);
     RGBPlain(const RGBPlain& t, QObject *parent = 0);
     ~RGBPlain();
 
@@ -75,10 +75,10 @@ public:
      ************************************************************************/
 public:
     /** @reimp */
-    bool loadXML(const QDomElement& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** @reimp */
-    bool saveXML(QDomDocument* doc, QDomElement* mtx_root) const;
+    bool saveXML(QXmlStreamWriter *doc) const;
 };
 
 /** @} */

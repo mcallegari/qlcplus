@@ -24,16 +24,13 @@
 
 #include "dmxusbwidget.h"
 
-class QLCFTDI;
-
 class NanoDMX : public DMXUSBWidget
 {
     /************************************************************************
      * Initialization
      ************************************************************************/
 public:
-    NanoDMX(const QString& serial, const QString& name, const QString& vendor,
-            void *usb_ref, quint32 id = 0);
+    NanoDMX(DMXInterface *interface, quint32 outputLine);
     virtual ~NanoDMX();
 
     /** @reimp */
@@ -67,12 +64,7 @@ private:
     /** File handle for /dev/ttyACMx */
     QFile m_file;
 
-#ifdef LIBFTDI1
-    libusb_device *m_device;
-#else
-    struct usb_device *m_device;
-#endif
-
+    /** local copy of the universe last data sent */
     QByteArray m_universe;
 };
 

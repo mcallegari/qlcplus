@@ -1,14 +1,28 @@
 /*
- * USBDMX_DYNAMIC.H - include file for run-time dynamic loading of
- * the USBDMX.DLL. This demo can handle the situation where the dll
- * is not present.
- *
- * This file is provided as is to allow an easy start with the
- * usbdmx driver and dll.
- *
- * In case of trouble please contact driver@lighting-solutions.de or
- * call +49/40/600877-51.
- */
+  usbdmx-dynamic.h - include file for run-time dynamic loading of
+  the USBDMX.DLL. This demo can handle the situation where the dll
+  is not present.
+
+  This file is provided as is to allow an easy start with the
+  usbdmx driver and dll.
+  
+  Copyright (c) Lighting Solutions, Dr. Jan Menzel
+
+  In case of trouble please contact driver@lighting-solutions.de or
+  call +49/40/600877-51.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0.txt
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*/
 
 #ifndef _USBDMX_DYNAMIC_H
 #define _USBDMX_DYNAMIC_H

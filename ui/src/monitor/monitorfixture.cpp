@@ -54,6 +54,13 @@ MonitorFixture::MonitorFixture(QWidget* parent, Doc* doc)
 
 MonitorFixture::~MonitorFixture()
 {
+    if (m_fixture != Fixture::invalidId())
+    {
+        Fixture* fxi = m_doc->fixture(m_fixture);
+        if (fxi != NULL)
+            disconnect(fxi, SIGNAL(valuesChanged()), this, SLOT(slotValuesChanged()));
+    }
+
     if (m_fixtureLabel != NULL)
         delete m_fixtureLabel;
 
@@ -127,6 +134,8 @@ void MonitorFixture::setFixture(quint32 fxi_id)
         lay->addWidget(m_fixtureLabel, 0, 0, 1, fxi->channels(),
                        Qt::AlignLeft);
 
+        QByteArray fxValues = fxi->channelValues();
+
         /* Create channel numbers and value labels */
         for (quint32 i = 0; i < fxi->channels(); i++)
         {
@@ -155,10 +164,13 @@ void MonitorFixture::setFixture(quint32 fxi_id)
             m_channelLabels.append(label);
 
             /* Create a label for value */
-            label = new QLabel(this);
+            QString str;
+            str.sprintf("%.3d", uchar(fxValues.at(i)));
+            label = new QLabel(str, this);
             lay->addWidget(label, 3, i, Qt::AlignHCenter);
             m_valueLabels.append(label);
         }
+        connect(fxi, SIGNAL(valuesChanged()), this, SLOT(slotValuesChanged()));
     }
 }
 
@@ -196,56 +208,11 @@ void MonitorFixture::slotChannelStyleChanged(MonitorProperties::ChannelStyle sty
  * Values
  ****************************************************************************/
 
-void MonitorFixture::updateValues(int index, const QByteArray& ua)
-{
-    QLabel* label;
-    uchar value;
-    Fixture* fxi;
-    QString str;
-    int i = 0;
-
-    /* Check that this MonitorFixture represents a fixture */
-    if (m_fixture == Fixture::invalidId())
-        return;
-
-    /* Check that this MonitorFixture's fixture really exists */
-    fxi = m_doc->fixture(m_fixture);
-    if (fxi == NULL)
-        return;
-
-    if (fxi->universe() != (quint32)index)
-        return;
-
-    QListIterator <QLabel*> it(m_valueLabels);
-    while (it.hasNext() == true)
-    {
-        label = it.next();
-        Q_ASSERT(label != NULL);
-
-        int address = fxi->address() + i;
-        if (address < ua.size())
-            value = uchar(ua.at(address));
-        else 
-            value = 0;
-
-        i++;
-
-        /* Set the label's text to reflect the changed value */
-        if (m_valueStyle == MonitorProperties::DMXValues)
-        {
-            label->setText(str.sprintf("%.3d", value));
-        }
-        else
-        {
-            label->setText(str.sprintf("%.3d", int(ceil(SCALE(qreal(value),
-                                                              qreal(0), qreal(UCHAR_MAX),
-                                                              qreal(0), qreal(100))))));
-        }
-    }
-}
-
 void MonitorFixture::slotValueStyleChanged(MonitorProperties::ValueStyle style)
 {
+    if (m_valueStyle == style)
+        return;
+
     m_valueStyle = style;
 
     QListIterator <QLabel*> it(m_valueLabels);
@@ -274,5 +241,41 @@ void MonitorFixture::slotValueStyleChanged(MonitorProperties::ValueStyle style)
         }
 
         label->setText(str.sprintf("%.3d", value));
+    }
+}
+
+void MonitorFixture::slotValuesChanged()
+{
+    /* Check that this MonitorFixture represents a fixture */
+    if (m_fixture == Fixture::invalidId())
+        return;
+
+    /* Check that this MonitorFixture's fixture really exists */
+    Fixture* fxi = m_doc->fixture(m_fixture);
+    if (fxi == NULL)
+        return;
+
+    QByteArray fxValues = fxi->channelValues();
+    int i = 0;
+
+    QListIterator <QLabel*> it(m_valueLabels);
+    while (it.hasNext() == true)
+    {
+        QLabel* label = it.next();
+        Q_ASSERT(label != NULL);
+        QString str;
+
+        /* Set the label's text to reflect the changed value */
+        if (m_valueStyle == MonitorProperties::DMXValues)
+        {
+            label->setText(str.sprintf("%.3d", uchar(fxValues.at(i))));
+        }
+        else
+        {
+            label->setText(str.sprintf("%.3d", int(ceil(SCALE(qreal(uchar(fxValues.at(i))),
+                                                              qreal(0), qreal(UCHAR_MAX),
+                                                              qreal(0), qreal(100))))));
+        }
+        i++;
     }
 }

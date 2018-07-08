@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
+  <Author>samuelb</Author>
+ </Creator>
+ <Manufacturer>Showtec</Manufacturer>
+ <Model>Power Spot 9 Q6 Tour V1</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="UV" Preset="IntensityUV"/>
+ <Channel Name="Program Modes">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="20">Static color mode/Program 1</Capability>
+  <Capability Min="21" Max="41">Program 2</Capability>
+  <Capability Min="42" Max="62">Program 3</Capability>
+  <Capability Min="63" Max="83">Program 4</Capability>
+  <Capability Min="84" Max="104">Program 5</Capability>
+  <Capability Min="105" Max="125">Program 6</Capability>
+  <Capability Min="126" Max="146">Program 7</Capability>
+  <Capability Min="147" Max="167">Program 8</Capability>
+  <Capability Min="168" Max="188">Program 9</Capability>
+  <Capability Min="189" Max="209">Program 10</Capability>
+  <Capability Min="210" Max="230">Program 11</Capability>
+  <Capability Min="231" Max="251">Program 12</Capability>
+  <Capability Min="252" Max="255">Sound-controlled mode</Capability>
+ </Channel>
+ <Channel Name="Static Colors/Program Speed/Sound Sensitivity">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0" Color="#000000">Black/Slow to fast/Less sensitive to highly sensitive</Capability>
+  <Capability Min="1" Max="16" Color="#ff0000">Red/Slow to fast/Less sensitive to highly sensitive</Capability>
+  <Capability Min="17" Max="33" Color="#00ff00">Green/Slow to fast/Less sensitive to highly sensitive</Capability>
+  <Capability Min="34" Max="50" Color="#0000ff">Blue/Slow to fast/Less sensitive to highly sensitive</Capability>
+  <Capability Min="51" Max="67" Color="#ffffff">White/Slow to fast/Less sensitive to highly sensitive</Capability>
+  <Capability Min="68" Max="84" Color="#ffc000">Amber/Slow to fast/Less sensitive to highly sensitive</Capability>
+  <Capability Min="85" Max="101" Color="#55007f">UV/Slow to fast/Less sensitive to highly sensitive</Capability>
+  <Capability Min="102" Max="118" Color="#ff7f00">Orange/Slow to fast/Less sensitive to highly sensitive</Capability>
+  <Capability Min="119" Max="135" Color="#ffff00">Yellow/Slow to fast/Less sensitive to highly sensitive</Capability>
+  <Capability Min="136" Max="152" Color="#ff00ff">Violet/Slow to fast/Less sensitive to highly sensitive</Capability>
+  <Capability Min="153" Max="169" Color="#ffc0cb">Pink/Slow to fast/Less sensitive to highly sensitive</Capability>
+  <Capability Min="170" Max="186" Color="#00ffff">Cyan/Slow to fast/Less sensitive to highly sensitive</Capability>
+  <Capability Min="187" Max="203" Color="#ff7f7f">Light Red/Slow to fast/Less sensitive to highly sensitive</Capability>
+  <Capability Min="204" Max="220" Color="#7fff7f">Light green/Slow to fast/Less sensitive to highly sensitive</Capability>
+  <Capability Min="221" Max="237" Color="#7f7fff">Light blue/Slow to fast/Less sensitive to highly sensitive</Capability>
+  <Capability Min="238" Max="254" Color="#fff5f5">Warm white/Slow to fast/Less sensitive to highly sensitive</Capability>
+  <Capability Min="255" Max="255" Color="#f5f5ff">Cold White/Slow to fast/Less sensitive to highly sensitive</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="255">Frequency, from slow to fast</Capability>
+ </Channel>
+ <Mode Name="6-Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">UV</Channel>
+ </Mode>
+ <Mode Name="8-Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Amber</Channel>
+  <Channel Number="6">UV</Channel>
+  <Channel Number="7">Strobe</Channel>
+ </Mode>
+ <Mode Name="10-Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Amber</Channel>
+  <Channel Number="6">UV</Channel>
+  <Channel Number="7">Program Modes</Channel>
+  <Channel Number="8">Static Colors/Program Speed/Sound Sensitivity</Channel>
+  <Channel Number="9">Strobe</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="9x6-in-1 12W LED RGBWA-UV" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2.84" Width="264" Height="294" Depth="113"/>
+   <Lens Name="Other" DegreesMin="18" DegreesMax="18"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="64" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
+</FixtureDefinition>

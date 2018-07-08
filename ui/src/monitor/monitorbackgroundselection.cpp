@@ -101,7 +101,7 @@ void MonitorBackgroundSelection::accept()
 void MonitorBackgroundSelection::updateCustomTree()
 {
     m_customTree->clear();
-    QHashIterator <quint32, QString> it(m_customBackgroundImages);
+    QMapIterator <quint32, QString> it(m_customBackgroundImages);
     while (it.hasNext() == true)
     {
         it.next();
@@ -111,7 +111,7 @@ void MonitorBackgroundSelection::updateCustomTree()
         if (f != NULL)
         {
             QTreeWidgetItem *item = new QTreeWidgetItem(m_customTree);
-            item->setIcon(KColumnName, Function::typeToIcon(f->type()));
+            item->setIcon(KColumnName, f->getIcon());
             item->setText(KColumnName, f->name());
             item->setData(KColumnName, Qt::UserRole, fid);
             item->setText(KColumnImage, it.value());

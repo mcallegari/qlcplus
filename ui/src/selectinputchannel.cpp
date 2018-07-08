@@ -17,9 +17,11 @@
   limitations under the License.
 */
 
+#include <QSettings>
 #include <QTreeWidgetItem>
 #include <QTreeWidget>
 #include <QDebug>
+#include <QAction>
 
 #include "selectinputchannel.h"
 #include "qlcinputchannel.h"
@@ -32,6 +34,9 @@
 #define KColumnName     0
 #define KColumnUniverse 1
 #define KColumnChannel  2
+
+#define SETTINGS_GEOMETRY "selectinputchannel/geometry"
+#define SETTINGS_ALLOWUNPATCHED "selectinputchannel/allowunpatched"
 
 /****************************************************************************
  * Initialization
@@ -48,16 +53,45 @@ SelectInputChannel::SelectInputChannel(QWidget* parent, InputOutputMap *ioMap)
 
     setupUi(this);
 
+    loadSettings();
+
     QAction* action = new QAction(this);
     action->setShortcut(QKeySequence(QKeySequence::Close));
     connect(action, SIGNAL(triggered(bool)), this, SLOT(reject()));
     addAction(action);
 
+    connect(m_allowUnpatchedCb, SIGNAL(clicked()), this, SLOT(slotUnpatchedClicked()));
+
     fillTree();
+
+    /* Listen to item changed signals so that we can catch user's
+       manual input for <...> nodes. Connect AFTER filling the tree
+       so all the initial item->setText()'s won't get caught here. */
+    connect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
+            this, SLOT(slotItemChanged(QTreeWidgetItem*,int)));
 }
 
 SelectInputChannel::~SelectInputChannel()
 {
+    saveSettings();
+}
+
+void SelectInputChannel::saveSettings()
+{
+    QSettings settings;
+    settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
+    settings.setValue(SETTINGS_ALLOWUNPATCHED, m_allowUnpatchedCb->isChecked());
+}
+
+void SelectInputChannel::loadSettings()
+{
+    QSettings settings;
+    QVariant geometry = settings.value(SETTINGS_GEOMETRY);
+    if (geometry.isValid())
+        restoreGeometry(geometry.toByteArray());
+    QVariant allowUnpatched = settings.value(SETTINGS_ALLOWUNPATCHED);
+    if (allowUnpatched.isValid())
+        m_allowUnpatchedCb->setChecked(allowUnpatched.toBool());
 }
 
 void SelectInputChannel::accept()
@@ -73,6 +107,15 @@ void SelectInputChannel::accept()
     }
 
     QDialog::accept();
+}
+
+void SelectInputChannel::slotUnpatchedClicked()
+{
+    disconnect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
+            this, SLOT(slotItemChanged(QTreeWidgetItem*,int)));
+    fillTree();
+    connect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
+            this, SLOT(slotItemChanged(QTreeWidgetItem*,int)));
 }
 
 /****************************************************************************
@@ -102,6 +145,9 @@ void SelectInputChannel::fillTree()
     quint32 uni;
     InputPatch* patch;
 
+    // Clear tree
+    while (m_tree->takeTopLevelItem(0));
+
     /* Add an option to select no input at all */
     chItem = new QTreeWidgetItem(m_tree);
     chItem->setText(KColumnName, KInputNone);
@@ -110,23 +156,24 @@ void SelectInputChannel::fillTree()
     chItem->setText(KColumnChannel, QString("%1")
                     .arg(QLCChannel::invalid()));
 
-    for (uni = 0; uni < m_ioMap->universes(); uni++)
+    for (uni = 0; uni < m_ioMap->universesCount(); uni++)
     {
         /* Get the patch associated to the current universe */
         patch = m_ioMap->inputPatch(uni);
-        if (patch == NULL)
+        if (patch == NULL && !m_allowUnpatchedCb->isChecked())
             continue;
 
         /* Make an item for each universe */
         uniItem = new QTreeWidgetItem(m_tree);
         updateUniverseItem(uniItem, uni, patch);
 
-        if (patch->plugin() != NULL && patch->input() != QLCIOPlugin::invalidLine())
-        {
-            /* Add a manual option to each patched universe */
-            chItem = new QTreeWidgetItem(uniItem);
-            updateChannelItem(chItem, uni, NULL, NULL);
-        }
+        /* Add a manual option to each patched universe */
+        chItem = new QTreeWidgetItem(uniItem);
+        updateChannelItem(chItem, uni, NULL, NULL);
+
+        /* Don't try to find a profile on an non-patched universe */
+        if (patch == NULL)
+            continue;
 
         /* Add known channels from profile (if any) */
         profile = patch->profile();
@@ -145,12 +192,6 @@ void SelectInputChannel::fillTree()
             }
         }
     }
-
-    /* Listen to item changed signals so that we can catch user's
-       manual input for <...> nodes. Connect AFTER filling the tree
-       so all the initial item->setText()'s won't get caught here. */
-    connect(m_tree, SIGNAL(itemChanged(QTreeWidgetItem*,int)),
-            this, SLOT(slotItemChanged(QTreeWidgetItem*,int)));
 }
 
 void SelectInputChannel::updateChannelItem(QTreeWidgetItem* item,
@@ -191,15 +232,10 @@ void SelectInputChannel::updateUniverseItem(QTreeWidgetItem* item,
 
     Q_ASSERT(item != NULL);
 
-    if (patch == NULL || patch->profile() == NULL)
+    if (patch == NULL)
     {
-        /* The current universe doesn't have a profile assigned to it */
+        /* The current universe doesn't have an input assigned to it */
         name = QString("%1: %2").arg(universe + 1).arg(KInputNone);
-        if (patch == NULL || patch->input() == QLCIOPlugin::invalidLine())
-	{
-            item->setFlags(item->flags() & ~Qt::ItemIsSelectable);
-            item->setFlags(item->flags() & ~Qt::ItemIsEnabled);
-        }
     }
     else
     {

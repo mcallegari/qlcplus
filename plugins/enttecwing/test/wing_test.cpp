@@ -17,7 +17,7 @@
   limitations under the License.
 */
 
-#include <QtTest>
+#include <QTest>
 
 #define protected public
 #include "wing.h"
@@ -149,7 +149,7 @@ void Wing_Test::page()
     WingStub es(this, addr, ba);
 
     uchar i;
-    for (i = 0; i < 99; i++)
+    for (i = 0; i < 98; i++)
     {
         QCOMPARE(es.page(), i);
         es.nextPage();
@@ -159,16 +159,16 @@ void Wing_Test::page()
     QCOMPARE(es.page(), uchar(0));
 
     es.previousPage();
-    QCOMPARE(es.page(), uchar(99));
+    QCOMPARE(es.page(), uchar(98));
 
-    for (i = 99; i > 0; i--)
+    for (i = 98; i > 0; i--)
     {
         QCOMPARE(es.page(), i);
         es.previousPage();
     }
 
     es.previousPage();
-    QCOMPARE(es.page(), uchar(99));
+    QCOMPARE(es.page(), uchar(98));
 }
 
 void Wing_Test::bcd()

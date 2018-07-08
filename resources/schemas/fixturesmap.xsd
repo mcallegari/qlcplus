@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!-- 
+  Q Light Controller Plus
+  fixturesmap.xsd
+  
+  Copyright (C) Jano Svitok
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0.txt
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+
+  XML Schema for Fixtures Map
+
+  usage (from fixtures dir, replace "_" with "-"):
+
+    xmllint __noout __schema ../schemas/fixturesmap.xsd FixturesMap.xml
+
+  xmllint is part of libxml2-utils package in ubuntu.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+targetNamespace="http://www.qlcplus.org/FixturesMap"
+xmlns="http://www.qlcplus.org/FixturesMap"
+elementFormDefault="qualified"
+>
+
+<xs:element name="FixturesMap">
+    <xs:complexType>
+        <xs:sequence>
+            <xs:element name="M" type="manufacturerType" maxOccurs="unbounded"/>
+        </xs:sequence>
+     </xs:complexType>
+</xs:element>
+
+<xs:complexType name="manufacturerType">
+   <xs:sequence>
+      <xs:element name="F" type="fixtureType" maxOccurs="unbounded"/>
+   </xs:sequence>
+   <xs:attribute name="n" type="xs:string" use="required"/>
+</xs:complexType>
+
+<xs:complexType name="fixtureType">
+   <xs:attribute name="n" type="xs:string" use="required"/>
+   <xs:attribute name="m" type="xs:string" use="required"/>
+</xs:complexType>
+
+</xs:schema>

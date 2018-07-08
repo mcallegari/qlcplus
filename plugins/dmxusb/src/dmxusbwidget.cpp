@@ -20,11 +20,21 @@
 
 #include <QStringList>
 #include <QDebug>
-#include "dmxusbwidget.h"
 
-DMXUSBWidget::DMXUSBWidget(const QString& serial, const QString& name, const QString& vendor,
-                           quint32 outputLine, quint32 id)
+#include "dmxusbwidget.h"
+#include "enttecdmxusbpro.h"
+#include "enttecdmxusbopen.h"
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX) || defined(Q_OS_OSX)
+  #include "nanodmx.h"
+  #include "euroliteusbdmxpro.h"
+#endif
+#include "stageprofi.h"
+#include "vinceusbdmx512.h"
+
+DMXUSBWidget::DMXUSBWidget(DMXInterface *interface, quint32 outputLine)
 {
+    Q_ASSERT(interface != NULL);
+
     m_outputBaseLine = outputLine;
     m_inputBaseLine = 0;
 
@@ -34,17 +44,200 @@ DMXUSBWidget::DMXUSBWidget(const QString& serial, const QString& name, const QSt
     setOutputsNumber(1);
     setInputsNumber(0);
 
-    m_ftdi = new QLCFTDI(serial, name, vendor, id);
+    m_interface = interface;
 }
 
 DMXUSBWidget::~DMXUSBWidget()
 {
-    delete m_ftdi;
+    delete m_interface;
 }
 
-QLCFTDI* DMXUSBWidget::ftdi() const
+DMXInterface *DMXUSBWidget::interface() const
 {
-    return m_ftdi;
+    return m_interface;
+}
+
+QString DMXUSBWidget::interfaceTypeString() const
+{
+    if (m_interface == NULL)
+        return QString();
+
+    return m_interface->typeString();
+}
+
+QList<DMXUSBWidget *> DMXUSBWidget::widgets()
+{
+    QList<DMXUSBWidget *> widgetList;
+    QList<DMXInterface *> interfacesList;
+    quint32 input_id = 0;
+    quint32 output_id = 0;
+
+#if defined(FTD2XX)
+    interfacesList.append(FTD2XXInterface::interfaces(interfacesList));
+#endif
+#if defined(QTSERIAL)
+    interfacesList.append(QtSerialInterface::interfaces(interfacesList));
+#endif
+#if defined(LIBFTDI) || defined(LIBFTDI1)
+    interfacesList.append(LibFTDIInterface::interfaces(interfacesList));
+#endif
+
+    QMap <QString,QVariant> types(DMXInterface::typeMap());
+
+    foreach (DMXInterface *iface, interfacesList)
+    {
+        if (types.contains(iface->serial()) == true)
+        {
+            // Force a widget with a specific serial to either type
+            DMXUSBWidget::Type type = (DMXUSBWidget::Type) types[iface->serial()].toInt();
+            switch (type)
+            {
+                case DMXUSBWidget::OpenTX:
+                    widgetList << new EnttecDMXUSBOpen(iface, output_id++);
+                break;
+                case DMXUSBWidget::ProMk2:
+                {
+                    EnttecDMXUSBPro *promkii = new EnttecDMXUSBPro(iface, output_id, input_id);
+                    promkii->setOutputsNumber(2);
+                    promkii->setMidiPortsNumber(1, 1);
+                    output_id += 3;
+                    input_id += 2;
+                    widgetList << promkii;
+                }
+                break;
+                case DMXUSBWidget::UltraPro:
+                {
+                    EnttecDMXUSBPro *ultra = new EnttecDMXUSBPro(iface, output_id, input_id++);
+                    ultra->setOutputsNumber(2);
+                    ultra->setDMXKingMode();
+                    output_id += 2;
+                    widgetList << ultra;
+                }
+                break;
+                case DMXUSBWidget::DMX4ALL:
+                    widgetList << new Stageprofi(iface, output_id++);
+                break;
+                case DMXUSBWidget::VinceTX:
+                    widgetList << new VinceUSBDMX512(iface, output_id++);
+                break;
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX) || defined(Q_OS_OSX)
+                case DMXUSBWidget::Eurolite:
+                    widgetList << new EuroliteUSBDMXPro(iface, output_id++);
+                break;
+#endif
+                default:
+                case DMXUSBWidget::ProRXTX:
+                    widgetList << new EnttecDMXUSBPro(iface, output_id++, input_id++);
+                break;
+            }
+        }
+        else if (iface->name().toUpper().contains("PRO MK2") == true)
+        {
+            EnttecDMXUSBPro *promkii = new EnttecDMXUSBPro(iface, output_id, input_id);
+            promkii->setOutputsNumber(2);
+            promkii->setMidiPortsNumber(1, 1);
+            output_id += 3;
+            input_id += 2;
+            widgetList << promkii;
+        }
+        else if (iface->name().toUpper().contains("DMX USB PRO"))
+        {
+            /** Check if the device responds to label 77 and 78, so it might be a DMXking adapter */
+            int ESTAID = 0;
+            int DEVID = 0;
+            QString manName = iface->readLabel(DMXKING_USB_DEVICE_MANUFACTURER, &ESTAID);
+            qDebug() << "--------> Device Manufacturer: " << manName;
+            QString devName = iface->readLabel(DMXKING_USB_DEVICE_NAME, &DEVID);
+            qDebug() << "--------> Device Name: " << devName;
+            qDebug() << "--------> ESTA Code: " << QString::number(ESTAID, 16) << ", Device ID: " << QString::number(DEVID, 16);
+            if (ESTAID == DMXKING_ESTA_ID)
+            {
+                if (DEVID == ULTRADMX_PRO_DEV_ID)
+                {
+                    EnttecDMXUSBPro *ultra = new EnttecDMXUSBPro(iface, output_id, input_id++);
+                    ultra->setOutputsNumber(2);
+                    ultra->setDMXKingMode();
+                    ultra->setRealName(devName);
+                    output_id += 2;
+                    widgetList << ultra;
+                }
+                else
+                {
+                    EnttecDMXUSBPro *pro = new EnttecDMXUSBPro(iface, output_id++);
+                    pro->setInputsNumber(0);
+                    pro->setRealName(devName);
+                    widgetList << pro;
+                }
+            }
+            else
+            {
+                /* This is probably a Enttec DMX USB Pro widget */
+                EnttecDMXUSBPro *pro = new EnttecDMXUSBPro(iface, output_id++, input_id++);
+                pro->setRealName(devName);
+                widgetList << pro;
+            }
+        }
+        else if (iface->name().toUpper().contains("USB-DMX512 CONVERTER") == true)
+        {
+            widgetList << new VinceUSBDMX512(iface, output_id++);
+        }
+        else if (iface->vendorID() == DMXInterface::FTDIVID &&
+                 iface->productID() == DMXInterface::DMX4ALLPID)
+        {
+            widgetList << new Stageprofi(iface, output_id++);
+        }
+#if defined(Q_WS_X11) || defined(Q_OS_LINUX) || defined(Q_OS_OSX)
+        else if (iface->vendorID() == DMXInterface::ATMELVID &&
+                 iface->productID() == DMXInterface::NANODMXPID)
+        {
+            widgetList << new NanoDMX(iface, output_id++);
+        }
+        else if (iface->vendorID() == DMXInterface::MICROCHIPVID &&
+                 iface->productID() == DMXInterface::EUROLITEPID)
+        {
+            widgetList << new EuroliteUSBDMXPro(iface, output_id++);
+        }
+#endif
+        else
+        {
+            /* This is probably an Open DMX USB widget */
+            widgetList << new EnttecDMXUSBOpen(iface, output_id++);
+        }
+    }
+
+    return widgetList;
+}
+
+bool DMXUSBWidget::forceInterfaceDriver(DMXInterface::Type type)
+{
+    DMXInterface *forcedIface = NULL;
+
+    qDebug() << "[DMXUSBWidget] forcing widget" << m_interface->name() << "to type:" << type;
+
+#if defined(FTD2XX)
+    if (type == DMXInterface::FTD2xx)
+        forcedIface = new FTD2XXInterface(m_interface->serial(), m_interface->name(), m_interface->vendor(),
+                                          m_interface->vendorID(), m_interface->productID(), m_interface->id());
+#endif
+#if defined(QTSERIAL)
+    if (type == DMXInterface::QtSerial)
+        forcedIface = new QtSerialInterface(m_interface->serial(), m_interface->name(), m_interface->vendor(),
+                                          m_interface->vendorID(), m_interface->productID(), m_interface->id());
+#endif
+#if defined(LIBFTDI) || defined(LIBFTDI1)
+    if (type == DMXInterface::libFTDI)
+        forcedIface = new LibFTDIInterface(m_interface->serial(), m_interface->name(), m_interface->vendor(),
+                                          m_interface->vendorID(), m_interface->productID(), m_interface->id());
+#endif
+
+    if (forcedIface != NULL)
+    {
+        delete m_interface;
+        m_interface = forcedIface;
+        return true;
+    }
+
+    return false;
 }
 
 /****************************************************************************
@@ -65,7 +258,7 @@ bool DMXUSBWidget::open(quint32 line, bool input)
     }
     else
     {
-        qWarning() << "Line" << line << "doesn't belong to any mapped inputs nor to outputs !";
+        qWarning() << "[DMXUSBWidget] Line" << line << "doesn't belong to any mapped inputs nor to outputs !";
         return false;
     }
 
@@ -76,31 +269,31 @@ bool DMXUSBWidget::open(quint32 line, bool input)
 
     if (this->type() == DMXUSBWidget::DMX4ALL)
     {
-        if (m_ftdi->openByPID(QLCFTDI::DMX4ALLPID) == false)
+        if (m_interface->openByPID(DMXInterface::DMX4ALLPID) == false)
             return close();
     }
     else
     {
-        if (m_ftdi->open() == false)
+        if (m_interface->open() == false)
             return close(line);
     }
 
-    if (m_ftdi->reset() == false)
+    if (m_interface->reset() == false)
         return close(line);
 
-    if (m_ftdi->setBaudRate() == false)
+    if (m_interface->setLineProperties() == false)
         return close(line);
 
-    if (m_ftdi->setLineProperties() == false)
+    if (m_interface->setFlowControl() == false)
         return close(line);
 
-    if (m_ftdi->setFlowControl() == false)
+    if (m_interface->setBaudRate() == false)
         return close(line);
 
-    if (m_ftdi->purgeBuffers() == false)
+    if (m_interface->purgeBuffers() == false)
         return close(line);
 
-    qDebug() << Q_FUNC_INFO << "FTDI correctly opened and configured";
+    qDebug() << Q_FUNC_INFO << "Interface correctly opened and configured";
 
     return true;
 }
@@ -128,8 +321,8 @@ bool DMXUSBWidget::close(quint32 line, bool input)
     if (m_inputOpenMask == 0 && m_outputOpenMask == 0)
     {
         qDebug() << Q_FUNC_INFO << "All inputs/outputs have been closed. Close FTDI too.";
-        if (m_ftdi->isOpen())
-            return m_ftdi->close();
+        if (m_interface->isOpen())
+            return m_interface->close();
         else
             return true;
     }
@@ -139,7 +332,7 @@ bool DMXUSBWidget::close(quint32 line, bool input)
 
 bool DMXUSBWidget::isOpen()
 {
-    return m_ftdi->isOpen();
+    return m_interface->isOpen();
 }
 
 /********************************************************************
@@ -199,12 +392,12 @@ QStringList DMXUSBWidget::inputNames()
 
 QString DMXUSBWidget::name() const
 {
-    return m_ftdi->name();
+    return m_interface->name();
 }
 
 QString DMXUSBWidget::serial() const
 {
-    return m_ftdi->serial();
+    return m_interface->serial();
 }
 
 QString DMXUSBWidget::uniqueName(ushort line, bool input) const
@@ -226,7 +419,7 @@ QString DMXUSBWidget::realName() const
 
 QString DMXUSBWidget::vendor() const
 {
-    return m_ftdi->vendor();
+    return m_interface->vendor();
 }
 
 /****************************************************************************

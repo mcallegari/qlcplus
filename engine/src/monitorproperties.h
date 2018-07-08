@@ -20,14 +20,15 @@
 #ifndef MONITORPROPERTIES_H
 #define MONITORPROPERTIES_H
 
-#include <QPointF>
+#include <QObject>
+#include <QVector3D>
 #include <QColor>
 #include <QFont>
 #include <QSize>
-#include <QHash>
+#include <QMap>
 
-class QDomDocument;
-class QDomElement;
+class QXmlStreamReader;
+class QXmlStreamWriter;
 
 class Doc;
 
@@ -39,64 +40,48 @@ class Doc;
 
 typedef struct
 {
-    QPointF m_position;
-    ushort m_rotation;
-    QColor m_gelColor;
-} FixtureItemProperties;
+    QVector3D m_position;       ///< 3D item position
+    QVector3D m_rotation;       ///< 3D item rotation
+    QString m_resource;         ///< Generic: source file, Fixture: custom name
+    QColor m_color;             ///< Generic: item color, Fixture: gel color
+    quint32 m_flags;            ///< Item flags as specified in the ItemsFlags enum
+} PreviewItem;
 
-class MonitorProperties
+typedef struct
 {
+    PreviewItem m_baseItem;                 ///< Base fixture item properties
+    QMap<quint32, PreviewItem> m_subItems;  ///< Map of the heads/linked fixtures
+} FixturePreviewItem;
+
+class MonitorProperties : public QObject
+{
+    Q_OBJECT
+
 public:
     MonitorProperties();
+    ~MonitorProperties() {}
 
     enum DisplayMode { DMX, Graphics };
     enum ChannelStyle { DMXChannels, RelativeChannels };
     enum ValueStyle { DMXValues, PercentageValues };
-    enum GridUnits { Meters, Feet };
 
-    void setFont(QFont font) { m_font = font; }
-    QFont font() const { return m_font; }
+    /** Get/Set the font used by the Monitor dialog UI */
+    inline void setFont(QFont font) { m_font = font; }
+    inline QFont font() const { return m_font; }
 
-    void setDisplayMode(DisplayMode mode) { m_displayMode = mode; }
-    DisplayMode displayMode() const { return m_displayMode; }
+    /** Get/Set how to display the monitor */
+    inline void setDisplayMode(DisplayMode mode) { m_displayMode = mode; }
+    inline DisplayMode displayMode() const { return m_displayMode; }
 
-    void setChannelStyle(ChannelStyle style) { m_channelStyle = style; }
-    ChannelStyle channelStyle() const { return m_channelStyle; }
+    /** Get/Set how to show DMX channel indices in DMX display mode */
+    inline void setChannelStyle(ChannelStyle style) { m_channelStyle = style; }
+    inline ChannelStyle channelStyle() const { return m_channelStyle; }
 
-    void setValueStyle(ValueStyle style) { m_valueStyle = style; }
-    ValueStyle valueStyle() const { return m_valueStyle; }
+    /** Get/Set how to show DMX channel values in DMX display mode */
+    inline void setValueStyle(ValueStyle style) { m_valueStyle = style; }
+    inline ValueStyle valueStyle() const { return m_valueStyle; }
 
-    void setGridSize(QSize size) { m_gridSize = size; }
-    QSize gridSize() const { return m_gridSize; }
-
-    void setGridUnits(GridUnits units) { m_gridUnits = units; }
-    GridUnits gridUnits() const { return m_gridUnits; }
-
-    void removeFixture(quint32 fid);
-
-    void setFixturePosition(quint32 fid, QPointF pos);
-    QPointF fixturePosition(quint32 fid) const { return m_fixtureItems[fid].m_position; }
-
-    void setFixtureRotation(quint32 fid, ushort degrees);
-    ushort fixtureRotation(quint32 fid) const { return m_fixtureItems[fid].m_rotation; }
-
-    void setFixtureGelColor(quint32 fid, QColor col);
-    QColor fixtureGelColor(quint32 fid) const { return m_fixtureItems[fid].m_gelColor; }
-
-    void setLabelsVisible(bool visible) { m_showLabels = visible; }
-    bool labelsVisible() const { return m_showLabels; }
-
-    void setCommonBackgroundImage(QString filename) { m_commonBackgroundImage = filename; }
-    QString commonBackgroundImage() const { return m_commonBackgroundImage; }
-
-    void setCustomBackgroundItem(quint32 fid, QString path) { m_customBackgroundImages[fid] = path; }
-    void setCustomBackgroundList(QHash<quint32, QString>list) { m_customBackgroundImages = list; }
-    void resetCustomBackgroundList() { m_customBackgroundImages.clear(); }
-    QHash<quint32, QString> customBackgroundList() const { return m_customBackgroundImages; }
-    QString customBackground(quint32 id);
-
-    QList <quint32> fixtureItemsID() const { return m_fixtureItems.keys(); }
-
+    /** Reset all the Monitor properties */
     void reset();
 
 private:
@@ -104,12 +89,144 @@ private:
     DisplayMode m_displayMode;
     ChannelStyle m_channelStyle;
     ValueStyle m_valueStyle;
-    QSize m_gridSize;
+
+    /********************************************************************
+     * Environment
+     ********************************************************************/
+public:
+    enum GridUnits { Meters, Feet };
+#if QT_VERSION >= 0x050500
+    Q_ENUM(GridUnits)
+#endif
+    enum PointOfView { Undefined, TopView, FrontView, RightSideView, LeftSideView };
+#if QT_VERSION >= 0x050500
+    Q_ENUM(PointOfView)
+#endif
+    enum StageType { StageSimple, StageBox, StageRock, StageTheatre };
+
+    /** Get/Set the size of the grid in 2D display mode */
+    inline void setGridSize(QVector3D size) { m_gridSize = size; }
+    inline QVector3D gridSize() const { return m_gridSize; }
+
+    /** Get/Set the grid measurement units to use in 2D display mode */
+    inline void setGridUnits(GridUnits units) { m_gridUnits = units; }
+    inline GridUnits gridUnits() const { return m_gridUnits; }
+
+    /** Get/Set the point of view to render the 2D preview */
+    void setPointOfView(PointOfView pov);
+    inline PointOfView pointOfView() const { return m_pointOfView; }
+
+    /** Get/Set the type of stage to render in the 3D preview */
+    inline void setStageType(StageType type) { m_stageType = type; }
+    inline StageType stageType() const { return m_stageType; }
+
+private:
+    QVector3D m_gridSize;
     GridUnits m_gridUnits;
+    PointOfView m_pointOfView;
+    StageType m_stageType;
+
+    /********************************************************************
+     * Items flags
+     ********************************************************************/
+public:
+    enum ItemFlags
+    {
+        HiddenFlag          = (1 << 0),
+        InvertedPanFlag     = (1 << 1),
+        InvertedTiltFlag    = (1 << 2),
+    };
+#if QT_VERSION >= 0x050500
+    Q_ENUM(ItemFlags)
+#endif
+
+    /********************************************************************
+     * Fixture items
+     ********************************************************************/
+public:
+    /** Get/Set the Fixture labels visibility status */
+    inline void setLabelsVisible(bool visible) { m_showLabels = visible; }
+    inline bool labelsVisible() const { return m_showLabels; }
+
+    /** Remove a Fixture entry from the Monitor map */
+    void removeFixture(quint32 fid);
+
+    void removeFixture(quint32 fid, quint16 head, quint16 linked);
+
+    quint32 fixtureSubID(quint32 headIndex, quint32 linkedIndex) const;
+    quint16 fixtureHeadIndex(quint32 mapID) const;
+    quint16 fixtureLinkedIndex(quint32 mapID) const;
+
+    /** Returns true if the Fixture with ID $fid is present in the monitor map */
+    inline bool containsFixture(quint32 fid) { return m_fixtureItems.contains(fid); }
+
+    /** Returns true if the provided Fixture ID, head index and linked index are in the map */
+    bool containsItem(quint32 fid, quint16 head, quint16 linked);
+
+    /** Get/Set the position of a Fixture with with the given $fid, $head and $linked index */
+    void setFixturePosition(quint32 fid, quint16 head, quint16 linked, QVector3D pos);
+    QVector3D fixturePosition(quint32 fid, quint16 head, quint16 linked) const;
+
+    /** Get/Set the rotation of a Fixture with with the given $fid, $head and $linked index */
+    void setFixtureRotation(quint32 fid, quint16 head, quint16 linked, QVector3D degrees);
+    QVector3D fixtureRotation(quint32 fid, quint16 head, quint16 linked) const;
+
+    /** Get/Set the color of a gel used to render a Fixture with with the given $fid, $head and $linked index */
+    void setFixtureGelColor(quint32 fid, quint16 head, quint16 linked, QColor col);
+    QColor fixtureGelColor(quint32 fid, quint16 head, quint16 linked) const;
+
+    /** Get/Set the flags of a Fixture with with the given $fid, $head and $linked index */
+    void setFixtureResource(quint32 fid, quint16 head, quint16 linked, QString resource);
+    QString fixtureResource(quint32 fid, quint16 head, quint16 linked) const;
+
+    /** Get/Set the flags of a Fixture with with the given $fid, $head and $linked index */
+    void setFixtureFlags(quint32 fid, quint16 head, quint16 linked, quint32 flags);
+    quint32 fixtureFlags(quint32 fid, quint16 head, quint16 linked) const;
+
+    /** Get/Set all the Fixture item properties of a Fixture with ID $fid */
+    inline FixturePreviewItem fixtureProperties(quint32 fid) const { return m_fixtureItems[fid]; }
+    inline void setFixtureProperties(quint32 fid, FixturePreviewItem props) { m_fixtureItems[fid] = props; }
+
+    /** Get/Set a single Fixture item property with the given $fid, $head and $linked index */
+    PreviewItem fixtureItem(quint32 fid, quint16 head, quint16 linked) const;
+    void setFixtureItem(quint32 fid, quint16 head, quint16 linked, PreviewItem props);
+
+    /** Get a list of Fixture IDs currently set in the Monitor */
+    QList <quint32> fixtureItemsID() const { return m_fixtureItems.keys(); }
+
+    /** Return a list of the base ID and sub IDs for a fixture with the given $fid */
+    QList<quint32> fixtureIDList(quint32 fid) const;
+
+private:
     bool m_showLabels;
+    QMap <quint32, FixturePreviewItem> m_fixtureItems;
+
+    /********************************************************************
+     * 2D view background
+     ********************************************************************/
+public:
+    /** Get/Set a background image to be displayed in 2D mode */
+    inline void setCommonBackgroundImage(QString filename) { m_commonBackgroundImage = filename; }
+    inline QString commonBackgroundImage() const { return m_commonBackgroundImage; }
+
+    /** Set a picture found at $path to be displayed when $fid is started */
+    void setCustomBackgroundItem(quint32 fid, QString path) { m_customBackgroundImages[fid] = path; }
+
+    /** Helper method to set a whole list of custom pictures mapped by Function IDs */
+    void setCustomBackgroundList(QMap<quint32, QString>list) { m_customBackgroundImages = list; }
+
+    /** Reset any previously set background pictures list */
+    void resetCustomBackgroundList() { m_customBackgroundImages.clear(); }
+
+    /** Returns the map of custom background pictures organized as Function ID/Picture path */
+    QMap<quint32, QString> customBackgroundList() const { return m_customBackgroundImages; }
+
+    /** Returns the path of a custom picture set for a Function with $id */
+    QString customBackground(quint32 fid);
+
+private:
     QString m_commonBackgroundImage;
-    QHash <quint32, QString> m_customBackgroundImages;
-    QHash <quint32, FixtureItemProperties> m_fixtureItems;
+    QMap <quint32, QString> m_customBackgroundImages;
 
     /*********************************************************************
      * Load & Save
@@ -121,7 +238,7 @@ public:
      * @param root An XML subtree containing the Monitor properties
      * @return true if the properties were loaded successfully, otherwise false
      */
-    bool loadXML(const QDomElement& root, const Doc* mainDocument);
+    bool loadXML(QXmlStreamReader &root, const Doc* mainDocument);
 
     /**
      * Save the Monitor properties into an XML document, under the given
@@ -130,7 +247,7 @@ public:
      * @param doc The master XML document to save to.
      * @param wksp_root The workspace root element
      */
-    bool saveXML(QDomDocument* doc, QDomElement* wksp_root, const Doc * mainDocument) const;
+    bool saveXML(QXmlStreamWriter *doc, const Doc * mainDocument) const;
 };
 
 /** @} */

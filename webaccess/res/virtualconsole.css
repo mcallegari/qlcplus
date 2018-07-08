@@ -40,7 +40,7 @@ form {
  margin: 2px 2px 0 0;
  padding: 1px;
  height: 27px;
- width: 30%;
+ width: 22%;
  text-align: center;
 }
 
@@ -78,6 +78,8 @@ table.hovertable td {
 .vcframe {
  position: absolute;
  border-radius: 4px;
+ margin: 0 0 0 0;
+ overflow: hidden;
 }
 
 .vcframeHeader {
@@ -88,10 +90,16 @@ table.hovertable td {
  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #666666), color-stop(1, #000000));
  background: -webkit-linear-gradient(top, #666666 0%, #000000 100%);
  border-radius: 3px;
- margin: 2px;
+ margin: 2px 2px 0 36px;
  padding: 0 0 0 3px;
  height: 32px;
- font:normal 20px/1.2em sans-serif;
+}
+
+.vcFrameText {
+ display: table-cell;
+ height: 32px;
+ vertical-align: middle;
+ font:normal 18px/1.0em sans-serif;
 }
 
 .vcframeButton {
@@ -100,7 +108,7 @@ table.hovertable td {
  background: #E0DFDF;
  border-radius: 3px;
  border: 1px solid #000;
- margin: 2px 2px 0 0;
+ margin: 2px 0 0 2px;
  padding: 1px;
  height: 28px;
  width: 28px;
@@ -110,15 +118,14 @@ table.hovertable td {
 
 .vcframePageLabel {
  display: inline-block;
- vertical-align: top;
  background: #000000;
  border-radius: 3px;
- margin: 2px 2px 0 0;
+ margin: 2px 0 0 0;
  height: 32px;
  width: 100px;
  text-align: center;
  color: #ff0000;
- font:normal 20px/1.2em sans-serif;
+ font-family: arial, verdana, sans-serif;
 }
 
 .vcframePage {
@@ -130,11 +137,6 @@ table.hovertable td {
  height: 100%;
 }
 
-.vcsoloframe {
- position: absolute;
- border-radius: 4px;
-}
-
 .vcsoloframeHeader {
  background: linear-gradient(to bottom, #BC0A0A 0%, #370303 100%);
  background: -ms-linear-gradient(top, #BC0A0A 0%, #370303 100%);
@@ -143,10 +145,9 @@ table.hovertable td {
  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #BC0A0A), color-stop(1, #370303));
  background: -webkit-linear-gradient(top, #BC0A0A 0%, #370303 100%);
  border-radius: 3px;
- margin: 2px;
+ margin: 2px 2px 0 36px;
  padding: 0 0 0 3px;
  height: 32px;
- font:normal 20px/1.2em sans-serif;
 }
 
 .vclabel-wrapper { position: absolute; }
@@ -233,4 +234,5 @@ input[type="range"]::-webkit-slider-thumb {
  border: 1px solid #777777;
  border-radius: 3px;
  font-family: arial, verdana, sans-serif;
+ font-size: 18px/1.0em;
 }

@@ -1,0 +1,43 @@
+singleton UISettings 1.0 UISettings.qml
+singleton FontAwesome 1.0 FontAwesomeVariables.qml
+
+ChaserStepDelegate 0.1 ChaserStepDelegate.qml
+ChaserWidget 0.1 ChaserWidget.qml
+ColorTool 0.1 ColorTool.qml
+ColorToolBasic 0.1 ColorToolBasic.qml
+ColorToolFull 0.1 ColorToolFull.qml
+ContextMenuEntry 0.1 ContextMenuEntry.qml
+CustomCheckBox 0.1 CustomCheckBox.qml
+CustomComboBox 0.1 CustomComboBox.qml
+CustomPopupDialog 0.1 CustomPopupDialog.qml
+CustomScrollBar 0.1 CustomScrollBar.qml
+CustomSlider 0.1 CustomSlider.qml
+CustomSpinBox 0.1 CustomSpinBox.qml
+CustomTextEdit 0.1 CustomTextEdit.qml
+DayTimeTool 0.1 DayTimeTool.qml
+DMXAddressTool 0.1 DMXAddressTool.qml
+DMXAddressWidget 0.1 DMXAddressWidget.qml
+DMXPercentageButton 0.1 DMXPercentageButton.qml
+EditableTextBox 0.1 EditableTextBox.qml
+ExternalControls.qml 0.1 ExternalControls.qml
+ExternalControlDelegate.qml 0.1 ExternalControlDelegate.qml
+FixtureConsole 0.1 FixtureConsole.qml
+FixtureDelegate 0.1 FixtureDelegate.qml
+FunctionDelegate 0.1 FunctionDelegate.qml
+GenericButton 0.1 GenericButton.qml
+GenericMultiDragItem 0.1 GenericMultiDragItem.qml
+IconButton 0.1 IconButton.qml
+IconPopupButton 0.1 IconPopupButton.qml
+IconTextEntry 0.1 IconTextEntry.qml
+KeyboardSequenceDelegate.qml 0.1 KeyboardSequenceDelegate.qml
+MenuBarEntry 0.1 MenuBarEntry.qml
+MultiColorBox 0.1 MultiColorBox.qml
+QLCPlusFader 0.1 QLCPlusFader.qml
+QLCPlusKnob 0.1 QLCPlusKnob.qml
+RobotoText 0.1 RobotoText.qml
+SectionBox 0.1 SectionBox.qml
+SidePanel 0.1 SidePanel.qml
+TimeEditTool 0.1 TimeEditTool.qml
+TreeNodeDelegate 0.1 TreeNodeDelegate.qml
+WindowLoader 0.1 WindowLoader.qml
+ZoomItem 0.1 ZoomItem.qml

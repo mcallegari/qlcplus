@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" version="1">
+  <defs>
+    <linearGradient id="f">
+      <stop offset="0" stop-color="#d3d3d1"/>
+      <stop offset="1" stop-color="#6e706c"/>
+    </linearGradient>
+    <linearGradient id="e">
+      <stop offset="0" stop-color="#9e6898"/>
+      <stop offset="1" stop-color="#dcc8da"/>
+    </linearGradient>
+    <linearGradient id="a">
+      <stop offset="0" stop-color="#f9a2a2"/>
+      <stop offset="1" stop-color="#ef2929"/>
+    </linearGradient>
+    <linearGradient id="b">
+      <stop offset="0" stop-color="#5a8fc7"/>
+      <stop offset="1" stop-color="#bfd4ea"/>
+    </linearGradient>
+    <linearGradient id="c">
+      <stop offset="0" stop-color="#7bdb1e"/>
+      <stop offset="1" stop-color="#bbef89"/>
+    </linearGradient>
+    <linearGradient id="d">
+      <stop offset="0" stop-color="#fee440"/>
+      <stop offset="1" stop-color="#fda221"/>
+    </linearGradient>
+    <linearGradient xlink:href="#a" id="g" gradientUnits="userSpaceOnUse" gradientTransform="translate(-20 -6)" x1="23" y1="19" x2="27" y2="23"/>
+    <linearGradient xlink:href="#a" id="h" gradientUnits="userSpaceOnUse" gradientTransform="translate(-20 -6)" x1="23" y1="19" x2="27" y2="23"/>
+    <linearGradient xlink:href="#c" id="j" gradientUnits="userSpaceOnUse" gradientTransform="translate(0 4)" x1="7" y1="23" x2="3" y2="19"/>
+    <linearGradient xlink:href="#c" id="k" gradientUnits="userSpaceOnUse" gradientTransform="translate(0 4)" x1="7" y1="23" x2="3" y2="19"/>
+    <linearGradient xlink:href="#d" id="l" gradientUnits="userSpaceOnUse" gradientTransform="translate(10 -1)" x1="13" y1="4" x2="17" y2="8"/>
+    <linearGradient xlink:href="#a" id="m" gradientUnits="userSpaceOnUse" gradientTransform="translate(-20 -6)" x1="23" y1="19" x2="27" y2="23"/>
+    <linearGradient xlink:href="#d" id="n" gradientUnits="userSpaceOnUse" gradientTransform="translate(10 -1)" x1="13" y1="4" x2="17" y2="8"/>
+    <linearGradient xlink:href="#d" id="o" gradientUnits="userSpaceOnUse" gradientTransform="translate(10 -1)" x1="13" y1="4" x2="17" y2="8"/>
+    <linearGradient xlink:href="#b" id="i" gradientUnits="userSpaceOnUse" gradientTransform="translate(-10 4)" x1="17" y1="23" x2="13" y2="19"/>
+  </defs>
+  <path d="M11 1h8v8h-8V1z" fill="#a40000"/>
+  <path d="M2 12h6v6H2v-6z" fill="url(#g)" transform="translate(10 -10)"/>
+  <path d="M21 11h8v8h-8v-8z" fill="#a40000"/>
+  <path d="M2 12h6v6H2v-6z" fill="url(#h)" transform="translate(20)"/>
+  <path d="M1 21h8v8H1v-8z" fill="#204a87"/>
+  <path d="M2 22h6v6H2v-6z" fill="url(#i)"/>
+  <path d="M1 11h8v8H1v-8z" fill="#4e9a06"/>
+  <path d="M2 22h6v6H2v-6z" fill="url(#j)" transform="translate(0 -10)"/>
+  <path d="M11 21h8v8h-8v-8z" fill="#4e9a06"/>
+  <path d="M2 22h6v6H2v-6z" fill="url(#k)" transform="translate(10)"/>
+  <g>
+    <path d="M11 11h8v8h-8v-8z" fill="#ce5c00"/>
+    <path d="M22 2h6v6h-6V2z" fill="url(#l)" transform="translate(-10 10)"/>
+  </g>
+  <g>
+    <path d="M21 1h8v8h-8V1z" fill="#a40000"/>
+    <path d="M2 12h6v6H2v-6z" fill="url(#m)" transform="translate(20 -10)"/>
+  </g>
+  <g>
+    <path d="M21 21h8v8h-8v-8z" fill="#ce5c00"/>
+    <path d="M22 2h6v6h-6V2z" fill="url(#n)" transform="translate(0 20)"/>
+  </g>
+  <g>
+    <path d="M1 1h8v8H1V1z" fill="#ce5c00"/>
+    <path d="M22 2h6v6h-6V2z" fill="url(#o)" transform="translate(-20)"/>
+  </g>
+</svg>

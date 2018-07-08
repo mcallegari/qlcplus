@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - DMX Dump</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1><img src="qrc:/add_dump.png" width=32> DMX Dump</H1>
+
+<P>
+The DMX Dump functionality allows you to save the current DMX values that are being sent to the output universes
+at a particular moment. Basically it takes a "snapshot" of DMX channels and saves them for a later use.<br>
+DMX Dump can save values to a new <A HREF="file:concept.html#Scene">Scene</A> or overwite the values of an existing 
+Scene. The "dumped" Scene can also be added to an existing 
+<A HREF="file:concept.html#Chaser">Chaser</A>, Virtual Console <A HREF="file:vcbutton.html">button</A> 
+or <A HREF="file:vcslider.html">slider</A><br><br>
+
+Please note that:
+<ul>
+ <li>Selected Channels/Chasers will be remembered when re-opening this window</li>
+ <li>The DMX values saved are taken before the Grand Master</li>
+</ul>
+When opening the DMX Dump window, the following options will appear:
+</P>
+
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD><b>Scene name</b></TD>
+  <TD>
+   Defines the name of the Scene that will be created. If no name is specified, a default 
+   name like "New Scene From Live" and a numeric identification will be set, allowing fast use of this functionality.
+  </TD>
+ </TR>
+ <TR>
+  <TD><img src="qrc:/scene.png" ALIGN="absmiddle"> <B>Select an existing Scene</B></TD>
+  <TD>By clicking on this button, a Function selection window will be displayed, allowing
+      to select an existing Scene to be overwritten with the current DMX values.<br><br>
+      <B>Note:</B> Overwriting a Scene doesn't ask for confirmation and can be a potentially 
+      dangerous operation if you select the wrong Scene by mistake. So be careful when using this functionality.<br>
+      <br>
+      When a Scene is selected, the DMX Dump window will automatically set two things for you:
+      <UL>
+       <LI>The "Dump selected channels" option will be checked</LI>
+       <LI>The Fixtures tree will be updated, and only the channels enabled in the Scene channels 
+         will be selected. If you need to overwrite different channels, just select/unselect 
+         them manually before confirming the operation
+       </LI>
+      </UL>
+ </TR>
+ <TR>
+  <TD><B>Dump all channels</B></TD>
+  <TD>
+   If this option is selected, QLC+ will dump all the channels of all the universes and all the fixtures.
+   To inform the user about what this option will do, a report in the form of (Universes, Fixtures, Channels) 
+   will be displayed.
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Dump selected channels</B></TD>
+  <TD>
+   If this option is selected, the panel below will be activated, allowing you to choose exactly which channels
+   that you want to be saved into a Scene. They are organized in a tree by Universes and Fixtures.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Add to</B>
+  </TD>
+  <TD>
+   This section offers you immediate use of your scene in an existing Virtual Console widget.<br>
+   Options are:
+   <UL>
+    <LI><B>Chaser</B>: The list contains all the chasers present when DMX Dump window is opened. Each Chaser
+     has a checkbox that, if checked, will tell QLC+ to add the newly created Scene to the selected chasers.<br>
+     This feature is very useful when using <A HREF="file:vccuelist.html">Cue Lists</A> in the 
+     <A HREF="file:virtualconsole.html">Virtual Console</A> panel, because the newly created Scene will appear
+     in the Cue List for immediate use during a live performance.
+    </LI>
+    <br>
+    <LI><B>Button</B>: The list contains all the buttons currently present in your Virtual Console space.<br>
+     When selected, the buttons will be set to activate/deactivate the Scene just captured. You will see the button
+     label chaning to "Scene from live ..." and a progress number to identify it.<br>
+     <b>Note:</b> Any previous function associated to the selected buttons will be overwritten !
+    </LI>
+    <br>
+    <LI><B>Slider</B>: The list contains all the sliders currently present in your Virtual Console space.<br>
+     As with buttons, all the selected sliders will be set to control the Scene just captured.<br>
+     <b>Note 1:</b> A slider must be in <B>playback mode</B> to work as an intensity controller for a Scene.<br>
+     <b>Note 2:</b> Any previous function associated with the selected sliders will be overwritten !
+    </LI>
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Dump only non-zero values</B></TD>
+  <TD>
+   This option will tell QLC+ to save only the channels with values that are <b>not</b> equal to zero.<br>
+   If you know what you're doing, this could save project space and avoid channels conflicts with other
+   Virtual Console widgets.
+  </TD>
+ </TR>
+</TABLE>
+
+</P>
+
+</BODY>
+</HTML>

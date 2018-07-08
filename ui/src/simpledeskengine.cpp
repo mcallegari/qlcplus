@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   simpledeskengine.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,11 +18,11 @@
   limitations under the License.
 */
 
-#include <QDomDocument>
-#include <QDomElement>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
+#include <QMutexLocker>
 #include <QVariant>
 #include <QDebug>
-#include <QMutexLocker>
 
 #include "simpledeskengine.h"
 #include "mastertimer.h"
@@ -41,7 +42,8 @@ SimpleDeskEngine::SimpleDeskEngine(Doc* doc)
 {
     qDebug() << Q_FUNC_INFO;
     Q_ASSERT(doc != NULL);
-    doc->masterTimer()->registerDMXSource(this, "SimpleDesk");
+    m_priority = DMXSource::SimpleDesk;
+    doc->masterTimer()->registerDMXSource(this);
 }
 
 SimpleDeskEngine::~SimpleDeskEngine()
@@ -81,7 +83,7 @@ void SimpleDeskEngine::clearContents()
 
 void SimpleDeskEngine::setValue(uint channel, uchar value)
 {
-    qDebug() << Q_FUNC_INFO << "channel:" << channel << ", value:" << value;
+    //qDebug() << Q_FUNC_INFO << "channel:" << channel << ", value:" << value;
 
     QMutexLocker locker(&m_mutex);
     m_values[channel] = value;
@@ -120,27 +122,50 @@ void SimpleDeskEngine::resetUniverse(int universe)
 {
     qDebug() << Q_FUNC_INFO;
 
-    QMutexLocker locker(&m_mutex);
-    QHashIterator <uint,uchar> it(m_values);
     QList<Universe*> universes = doc()->inputOutputMap()->claimUniverses();
-    Universe *resUni = NULL;
-    if (universe < universes.count())
-        resUni = universes.at(universe);
-
-    while (it.hasNext() == true)
     {
-        it.next();
-        int uni = it.key() >> 9;
-        if (uni == universe)
+        QMutexLocker locker(&m_mutex);
+        QHashIterator <uint,uchar> it(m_values);
+        Universe *resUni = NULL;
+        if (universe < universes.count())
+            resUni = universes.at(universe);
+
+        while (it.hasNext() == true)
         {
-            if (resUni != NULL)
+            it.next();
+            int uni = it.key() >> 9;
+            if (uni == universe)
             {
-                quint32 chan = it.key() & 0x01FF;
-                resUni->reset(chan, 1);
+                if (resUni != NULL)
+                {
+                    quint32 chan = it.key() & 0x01FF;
+                    resUni->reset(chan, 1);
+                }
+                m_values.remove(it.key());
             }
-            m_values.remove(it.key());
         }
     }
+    doc()->inputOutputMap()->releaseUniverses(true);
+}
+
+void SimpleDeskEngine::resetChannel(uint channel)
+{
+    QList<Universe*> universes = doc()->inputOutputMap()->claimUniverses();
+
+    {
+        QMutexLocker locker(&m_mutex);
+        if (m_values.contains(channel))
+        {
+            m_values.remove(channel);
+
+            int uni = channel >> 9;
+            if (uni < universes.count())
+            {
+                universes[uni]->reset(channel & 0x01FF, 1);
+            }
+        }
+    }
+
     doc()->inputOutputMap()->releaseUniverses(true);
 }
 
@@ -150,6 +175,8 @@ void SimpleDeskEngine::resetUniverse(int universe)
 
 CueStack* SimpleDeskEngine::cueStack(uint stack)
 {
+    QMutexLocker locker(&m_mutex);
+
     if (m_cueStacks.contains(stack) == false)
     {
         m_cueStacks[stack] = createCueStack();
@@ -208,26 +235,23 @@ void SimpleDeskEngine::slotCueStackStopped()
  * Save & Load
  ************************************************************************/
 
-bool SimpleDeskEngine::loadXML(const QDomElement& root)
+bool SimpleDeskEngine::loadXML(QXmlStreamReader &root)
 {
-    qDebug() << Q_FUNC_INFO;
-    if (root.tagName() != KXMLQLCSimpleDeskEngine)
+    if (root.name() != KXMLQLCSimpleDeskEngine)
     {
         qWarning() << Q_FUNC_INFO << "Simple Desk Engine node not found";
         return false;
     }
 
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLQLCCueStack)
+        if (root.name() == KXMLQLCCueStack)
         {
-            uint id = CueStack::loadXMLID(tag);
+            uint id = CueStack::loadXMLID(root);
             if (id != UINT_MAX)
             {
                 CueStack* cs = cueStack(id);
-                cs->loadXML(tag);
+                cs->loadXML(root);
             }
             else
             {
@@ -236,23 +260,22 @@ bool SimpleDeskEngine::loadXML(const QDomElement& root)
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unrecognized Simple Desk Engine tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unrecognized Simple Desk Engine tag:" << root.name();
+            root.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     return true;
 }
 
-bool SimpleDeskEngine::saveXML(QDomDocument* doc, QDomElement* wksp_root) const
+bool SimpleDeskEngine::saveXML(QXmlStreamWriter *doc) const
 {
     qDebug() << Q_FUNC_INFO;
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(wksp_root != NULL);
 
-    QDomElement root = doc->createElement(KXMLQLCSimpleDeskEngine);
-    wksp_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCSimpleDeskEngine);
+
+    QMutexLocker locker(&m_mutex);
 
     QHashIterator <uint,CueStack*> it(m_cueStacks);
     while (it.hasNext() == true)
@@ -262,8 +285,11 @@ bool SimpleDeskEngine::saveXML(QDomDocument* doc, QDomElement* wksp_root) const
         // Save CueStack only if it contains something
         const CueStack* cs = it.value();
         if (cs->cues().size() > 0)
-            cs->saveXML(doc, &root, it.key());
+            cs->saveXML(doc, it.key());
     }
+
+    /* End the <Engine> tag */
+    doc->writeEndElement();
 
     return true;
 }
@@ -290,16 +316,16 @@ void SimpleDeskEngine::writeDMX(MasterTimer* timer, QList<Universe *> ua)
         if (cueStack == NULL)
             continue;
 
-        if (cueStack->isRunning() == true)
+        if (cueStack->isRunning())
         {
-            if (cueStack->isStarted() == false)
+            if (!cueStack->isStarted())
                 cueStack->preRun();
 
             cueStack->write(ua);
         }
         else
         {
-            if (cueStack->isStarted() == true)
+            if (cueStack->isStarted())
                 cueStack->postRun(timer);
         }
     }

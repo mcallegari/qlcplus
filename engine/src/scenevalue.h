@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   scenevalue.h
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -21,11 +22,11 @@
 #define SCENEVALUE_H
 
 #include <QtGlobal>
+#include <QMetaType>
 
 #include "fixture.h"
 
-class QDomDocument;
-class QDomElement;
+class QXmlStreamReader;
 
 /** @addtogroup engine_functions Functions
  * @{
@@ -64,8 +65,14 @@ public:
     /** Copy constructor */
     SceneValue(const SceneValue& scv);
 
-    /** Destructor */
-    virtual ~SceneValue();
+    /** NON-virtual Destructor 
+     *
+     *  No class derives from this one and we need to keep the memory footprint
+     *  as low as possible.
+     *
+     *  TODO C++11: mark this as final
+     */
+    ~SceneValue();
 
     /** A SceneValue is not valid if .fxi == Fixture::invalidId() */
     bool isValid() const;
@@ -77,10 +84,10 @@ public:
     bool operator== (const SceneValue& scv) const;
 
     /** Load this SceneValue's contents from an XML tag */
-    bool loadXML(const QDomElement& tag);
+    bool loadXML(QXmlStreamReader &tag);
 
     /** Save this SceneValue to an XML document */
-    bool saveXML(QDomDocument* doc, QDomElement* scene_root) const;
+    bool saveXML(QXmlStreamWriter *doc) const;
 
 public:
     /** Fixture ID */
@@ -88,6 +95,10 @@ public:
     quint32 channel;
     uchar value;
 };
+
+Q_DECLARE_METATYPE(SceneValue)
+
+QDebug operator<<(QDebug debug, const SceneValue &sv);
 
 /** @} */
 

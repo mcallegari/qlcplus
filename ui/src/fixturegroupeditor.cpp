@@ -100,7 +100,7 @@ void FixtureGroupEditor::updateTable()
     m_table->setRowCount(m_grp->size().height());
     m_table->setColumnCount(m_grp->size().width());
 
-    QHashIterator <QLCPoint,GroupHead> it(m_grp->headHash());
+    QMapIterator <QLCPoint,GroupHead> it(m_grp->headsMap());
     while (it.hasNext() == true)
     {
         it.next();
@@ -112,7 +112,7 @@ void FixtureGroupEditor::updateTable()
         if (fxi == NULL)
             continue;
 
-        QIcon icon = fxi->getIconFromType(fxi->type());
+        QIcon icon = fxi->getIconFromType();
         QString str = QString("%1 H:%2\nA:%3 U:%4").arg(fxi->name())
                                                .arg(head.head + 1)
                                                .arg(fxi->address() + 1)
@@ -204,7 +204,7 @@ void FixtureGroupEditor::slotCellChanged(int row, int column)
         return;
     }
 
-    QHash <QLCPoint,GroupHead> hash = m_grp->headHash();
+    QMap <QLCPoint,GroupHead> hash = m_grp->headsMap();
     QLCPoint from(m_column, m_row);
     QLCPoint to(column, row);
     GroupHead fromHead;

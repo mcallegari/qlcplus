@@ -191,15 +191,15 @@ protected slots:
     void slotStepSelectionChanged(int index);
 
     /*********************************************************************
-     * DOC events
+     * Doc events
      *********************************************************************/
-private:
-    void temporaryDocFixup();
-
 protected slots:
     void slotDocClearing();
     void slotDocLoaded();
     void slotFunctionRemoved(quint32 id);
+
+private:
+    FunctionParent functionParent() const;
 };
 
 /** @} */

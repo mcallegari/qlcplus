@@ -1,0 +1,25 @@
+<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48" id="svg11300" version="1">
+  <defs id="defs3">
+    <linearGradient id="linearGradient1913">
+      <stop offset="0" id="stop1915" style="stop-color:#73d216;stop-opacity:1"/>
+      <stop offset="1" id="stop1917" style="stop-color:#8ae234;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="linearGradient5891">
+      <stop offset="0" id="stop5893" style="stop-color:#ffffff;stop-opacity:1"/>
+      <stop offset="1" id="stop5895" style="stop-color:#ffffff;stop-opacity:0"/>
+    </linearGradient>
+    <linearGradient id="linearGradient5132">
+      <stop offset="0" id="stop5134" style="stop-color:white;stop-opacity:1"/>
+      <stop offset="1" id="stop5136" style="stop-color:white;stop-opacity:0"/>
+    </linearGradient>
+    <linearGradient xlink:href="#linearGradient5132" id="linearGradient5138" x1="21.55" y1="29.21" x2="18.07" y2="55.69" gradientUnits="userSpaceOnUse"/>
+    <linearGradient xlink:href="#linearGradient5891" id="linearGradient5897" x1="15.46" y1="8.73" x2="25.56" y2="13.53" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-1.4306351,0,0,1.4301566,50.645952,2.3547655)"/>
+    <linearGradient xlink:href="#linearGradient1913" id="linearGradient1919" x1="13.19" y1="35.94" x2="17.94" y2="38.88" gradientUnits="userSpaceOnUse"/>
+  </defs>
+  <metadata id="metadata4"/>
+  <g id="layer1">
+    <path d="M17.42 41.89C0.28 32.44 9.94 12.41 26.42 12.57L26.42 4.5 42.5 18.56 26.42 33.3C26.42 33.3 26.42 24.57 26.42 24.57 16.19 24.16 11.68 31.84 20.65 37.94 23.22 39.68 21.44 44.11 17.42 41.89z" id="path1432" style="fill-opacity:1;fill:url(#linearGradient1919);stroke-width:1;stroke:#4e9a06"/>
+    <path d="M27.44 6.69L27.44 12.56C27.43 13.11 26.99 13.55 26.44 13.56 18.61 13.49 12.46 18.24 10.28 24 8.11 29.76 9.7 36.49 17.94 41.03 18.79 41.5 19.4 41.55 19.81 41.47 20.22 41.39 20.48 41.17 20.66 40.88 21.01 40.28 20.96 39.37 20.09 38.78 17.74 37.18 16.18 35.43 15.41 33.63 14.63 31.82 14.67 29.95 15.44 28.38 16.98 25.22 21.09 23.34 26.47 23.56 27.01 23.59 27.43 24.03 27.44 24.56 27.44 24.56 27.44 28.5 27.44 31L41 18.56 27.44 6.69z" id="path4247" style="fill:none;opacity:0.62;stroke-width:1;stroke:url(#linearGradient5138)"/>
+    <path d="M41.66 18.61C23.11 15.48 12.77 20.75 8.87 29.04 8.71 16.4 21.83 12.72 26.95 13.11L26.94 5.6 41.66 18.61z" id="path4920" style="fill:url(#linearGradient5897);opacity:0.45"/>
+  </g>
+</svg>

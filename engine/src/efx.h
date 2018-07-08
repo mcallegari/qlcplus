@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   efx.h
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -27,8 +28,7 @@
 #include "efxfixture.h"
 #include "function.h"
 
-class QDomDocument;
-class QDomElement;
+class QXmlStreamReader;
 class GenericFader;
 class QString;
 class Fixture;
@@ -78,48 +78,46 @@ class EFX : public Function
 
     friend class EFXFixture;
 
-    enum EFXAttr
-    {
-        Intensity = Function::Intensity,
-        Height,
-        Width,
-        Rotation,
-        XOffset,
-        YOffset
-    };
-
     /*********************************************************************
      * Initialization
      *********************************************************************/
 public:
+    enum EFXAttr
+    {
+        Intensity = Function::Intensity,
+        Width,
+        Height,
+        Rotation,
+        XOffset,
+        YOffset,
+        StartOffset
+    };
+
     EFX(Doc* doc);
     ~EFX();
+
+    /** @reimp */
+    QIcon getIcon() const;
 
     /*********************************************************************
      * Copying
      *********************************************************************/
 public:
-    /** @reimpl */
+    /** @reimp */
     Function* createCopy(Doc* doc, bool addToDoc = true);
 
     /** Copy the contents for this function from another function */
     bool copyFrom(const Function* function);
 
-    /** Set the duration in milliseconds */
-    virtual void setDuration(uint ms);
-
-    /*********************************************************************
-     * UI State
-     *********************************************************************/
-private:
-    virtual FunctionUiState * createUiState();
-
     /*********************************************************************
      * Contents
      *********************************************************************/
 public:
-    /** Get the EFX total duration in milliseconds */
-    quint32 totalDuration();
+    /** Set the duration in milliseconds */
+    virtual void setDuration(uint ms);
+
+signals:
+    void durationChanged(uint ms);
 
     /*********************************************************************
      * Algorithm
@@ -155,13 +153,13 @@ public:
 
     /**
      * Get a preview of the current algorithm. Puts 128 points to the
-     * given polygon, 255px wide and 255px high at maximum, that represent
+     * given polygon, 255px wide and 255px high at maximum, that represents
      * roughly the path of the pattern on a flat surface directly in front
      * of a moving (head/mirror) fixture.
      *
      * @param polygon The polygon to fill with preview points
      */
-    void preview(QVector <QPoint>& polygon) const;
+    void preview(QPolygonF &polygon) const;
 
     /**
      * Get a preview of path for all contained fixtures. For format of the polygons,
@@ -169,23 +167,23 @@ public:
      *
      * @param polygons Array of polygons, one for each contained fixture.
      */
-    void previewFixtures(QVector <QVector <QPoint> >& polygons) const;
-
-private:
-
-    void preview(QVector <QPoint>& polygon, Function::Direction direction, int startOffset) const;
+    void previewFixtures(QVector<QPolygonF> &polygons) const;
 
     /**
      * Calculate a single point with the currently selected algorithm,
      * based on the value of iterator (which is basically a step number).
      *
      * @param direction Forward or Backward (input)
-     * @param startOffset 
+     * @param startOffset
      * @param iterator Step number (input)
      * @param x Used to store the calculated X coordinate (output)
      * @param y Used to store the calculated Y coordinate (output)
      */
-    void calculatePoint(Function::Direction direction, int startOffset, qreal iterator, qreal* x, qreal* y) const;
+    void calculatePoint(Function::Direction direction, int startOffset, float iterator, float* x, float* y) const;
+
+private:
+
+    void preview(QPolygonF &polygon, Function::Direction direction, int startOffset) const;
  
     /**
      * Rotate a point of the pattern by rot degrees and scale the point
@@ -199,7 +197,7 @@ private:
      * @param yOff Y offset of the pattern
      * @param rotation Degrees to rotate
      */
-    void rotateAndScale(qreal *x, qreal *y) const;
+    void rotateAndScale(float *x, float *y) const;
 
     /**
      * Calculate a single point with the currently selected algorithm,
@@ -209,7 +207,7 @@ private:
      * @param x Used to store the calculated X coordinate (output)
      * @param y Used to store the calculated Y coordinate (output)
      */
-    void calculatePoint(qreal iterator, qreal* x, qreal* y) const;
+    void calculatePoint(float iterator, float* x, float* y) const;
 
     /**
      * Recalculate iterator depending on direction
@@ -217,7 +215,7 @@ private:
      * @param direction Forward or Backward
      * @param iterator Step number (input)
      */
-    qreal calculateDirection(Function::Direction direction, qreal iterator) const;
+    float calculateDirection(Function::Direction direction, float iterator) const;
 
 private:
     /** Current algorithm used by the EFX */
@@ -241,12 +239,6 @@ public:
      */
     int width() const;
 
-private:
-    /**
-     * Pattern width, see setWidth()
-     */
-    qreal m_width;
-
     /*********************************************************************
      * Height
      *********************************************************************/
@@ -264,12 +256,6 @@ public:
      * @return Pattern height (0-255)
      */
     int height() const;
-
-private:
-    /**
-     * Pattern height, see setHeight()
-     */
-    qreal m_height;
 
     /*********************************************************************
      * Rotation
@@ -304,12 +290,12 @@ private:
     /**
      * cached cos(m_rotation) to speed up computation
      */
-    qreal m_cosR;
+    double m_cosR;
 
     /**
      * cached sin(m_rotation) to speed up computation
      */
-    qreal m_sinR;
+    double m_sinR;
 
     /*********************************************************************
      * Start Offset
@@ -330,14 +316,7 @@ public:
     int startOffset() const;
 
 private:
-
-    qreal convertOffset(int offset) const;
-
-private:
-    /**
-     * Pattern start offset, see setStartOffset()
-     */
-    int m_startOffset;
+    float convertOffset(int offset) const;
 
     /*********************************************************************
      * IsRelative
@@ -395,17 +374,6 @@ public:
      */
     int yOffset() const;
 
-private:
-    /**
-     * Pattern X offset, see setXOffset()
-     */
-    qreal m_xOffset;
-
-    /**
-     * Pattern Y offset, see setXOffset()
-     */
-    qreal m_yOffset;
-
     /*********************************************************************
      * Frequency
      *********************************************************************/
@@ -447,12 +415,12 @@ private:
     /**
      * Lissajous pattern X frequency, see setXFrequency()
      */
-    qreal m_xFrequency;
+    float m_xFrequency;
 
     /**
      * Lissajous pattern Y frequency, see setYFrequency()
      */
-    qreal m_yFrequency;
+    float m_yFrequency;
 
     /*********************************************************************
      * Phase
@@ -495,42 +463,51 @@ private:
     /**
      * Lissajous pattern X phase, see setXPhase()
      */
-    qreal m_xPhase;
+    float m_xPhase;
 
     /**
      * Lissajous pattern Y phase, see setYPhase()
      */
-    qreal m_yPhase;
+    float m_yPhase;
 
     /*********************************************************************
      * Fixtures
      *********************************************************************/
 public:
     /** Add a new fixture to this EFX */
-    bool addFixture(EFXFixture* ef);
+    bool addFixture(EFXFixture *ef);
 
     /** Remove the designated fixture from this EFX but don't delete it */
-    bool removeFixture(EFXFixture* ef);
+    bool removeFixture(EFXFixture *ef);
+
+    bool removeFixture(quint32 fxi, int head);
 
     /** Remove all the fixtures from this EFX but don't delete them */
     void removeAllFixtures();
 
     /** Raise a fixture in the serial order to an earlier position */
-    bool raiseFixture(EFXFixture* ef);
+    bool raiseFixture(EFXFixture *ef);
 
     /** Lower a fixture in the serial order to a later position */
-    bool lowerFixture(EFXFixture* ef);
+    bool lowerFixture(EFXFixture *ef);
 
     /** Get a list of fixtures taking part in this EFX */
-    const QList <EFXFixture*> fixtures() const;
+    const QList <EFXFixture *> fixtures() const;
+
+    /** Get an EFXFixture reference from Fixture $id and &headIndex
+     *  Returns NULL on failure */
+    EFXFixture *fixture(quint32 id, int headIndex);
+
+    /** @reimp */
+    QList<quint32> components();
 
 public slots:
     /** Slot that captures Doc::fixtureRemoved signals */
     void slotFixtureRemoved(quint32 fxi_id);
 
 private:
-    QList <EFXFixture*> m_fixtures;
-    GenericFader* m_fader;
+    QList <EFXFixture *> m_fixtures;
+    GenericFader *m_fader;
 
     /*********************************************************************
      * Fixture propagation mode
@@ -562,13 +539,13 @@ private:
      * Load & Save
      *********************************************************************/
 public:
-    bool saveXML(QDomDocument* doc, QDomElement* wksp_root);
-    bool loadXML(const QDomElement& root);
+    bool saveXML(QXmlStreamWriter *doc);
+    bool loadXML(QXmlStreamReader &root);
     void postLoad();
 
 private:
     /** Load an axis' contents from an XML document*/
-    bool loadXMLAxis(const QDomElement& root);
+    bool loadXMLAxis(QXmlStreamReader &root);
 
     /*********************************************************************
      * Speed
@@ -581,13 +558,13 @@ private:
      * Running
      *********************************************************************/
 public:
-    /** @reimpl */
+    /** @reimp */
     void preRun(MasterTimer* timer);
 
-    /** @reimpl */
+    /** @reimp */
     void write(MasterTimer* timer, QList<Universe *> universes);
 
-    /** @reimpl */
+    /** @reimp */
     void postRun(MasterTimer* timer, QList<Universe*> universes);
 
     /*********************************************************************
@@ -595,7 +572,14 @@ public:
      *********************************************************************/
 public:
     /** @reimp */
-    void adjustAttribute(qreal fraction, int attributeIndex = 0);
+    int adjustAttribute(qreal fraction, int attributeId = 0);
+
+    /*************************************************************************
+     * Blend mode
+     *************************************************************************/
+public:
+    /** @reimp */
+    void setBlendMode(Universe::BlendMode mode);
 };
 
 /** @} */

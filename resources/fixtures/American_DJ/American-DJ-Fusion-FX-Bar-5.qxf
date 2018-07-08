@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.6.1</Version>
+  <Author>C.E.</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Fusion FX Bar 5</Model>
+ <Type>Effect</Type>
+ <Channel Name="White Dimmer / Strobe">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="7">Off</Capability>
+  <Capability Min="8" Max="190" Color="#ffffff">Master Dimmer</Capability>
+  <Capability Min="191" Max="200">Sound Active</Capability>
+  <Capability Min="201" Max="247" Color="#ffffff">Strobing: Slow-Fast</Capability>
+  <Capability Min="248" Max="255" Color="#ffffff">Full On</Capability>
+ </Channel>
+ <Channel Name="Moon Flower Dimmer / Strobe">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="7">Off</Capability>
+  <Capability Min="8" Max="190">Master Dimmer</Capability>
+  <Capability Min="191" Max="200">Sound Active</Capability>
+  <Capability Min="201" Max="247">Strobing: Slow-Fast</Capability>
+  <Capability Min="248" Max="255">Full On</Capability>
+ </Channel>
+ <Channel Name="Moon Flower Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="18" Color="#ff0000">Red</Capability>
+  <Capability Color2="#008000" Min="19" Max="37" Color="#ff0000">Red &amp; Green</Capability>
+  <Capability Min="38" Max="56" Color="#008040">Green</Capability>
+  <Capability Color2="#0000ff" Min="57" Max="75" Color="#008040">Green &amp; Blue</Capability>
+  <Capability Min="76" Max="94" Color="#0000ff">Blue</Capability>
+  <Capability Color2="#0000ff" Min="95" Max="113" Color="#ff0000">Red &amp; Blue</Capability>
+  <Capability Min="114" Max="127" Color="#ffffff">Red, Green &amp; Blue</Capability>
+  <Capability Color2="#008040" Min="128" Max="159" Color="#ff0000">Red - Green</Capability>
+  <Capability Color2="#0000ff" Min="160" Max="191" Color="#008040">Green - Blue</Capability>
+  <Capability Color2="#0000ff" Min="192" Max="223" Color="#ff0000">Red - Blue</Capability>
+  <Capability Min="224" Max="255" Color="#ffffff">Red - Green - Blue</Capability>
+ </Channel>
+ <Channel Name="Moon Flower Rotation">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="9">No Rotation</Capability>
+  <Capability Min="10" Max="120">Clockwise Rotation: Fast - Slow</Capability>
+  <Capability Min="121" Max="134">No Rotation</Capability>
+  <Capability Min="135" Max="245">Counter Clockwise Rotation: Slow - Fast</Capability>
+  <Capability Min="246" Max="255">No Rotation</Capability>
+ </Channel>
+ <Channel Name="Red Laser">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="127">Laser Off</Capability>
+  <Capability Min="128" Max="255" Color="#ff000b">Laser On</Capability>
+ </Channel>
+ <Channel Name="Green Laser">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="127">Laser Off</Capability>
+  <Capability Min="128" Max="255" Color="#00ff00">Laser On</Capability>
+ </Channel>
+ <Channel Name="Laser Rotation">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="9">No Rotation</Capability>
+  <Capability Min="10" Max="120">Clockwise Rotation: Fast - Slow</Capability>
+  <Capability Min="121" Max="134">No Rotation</Capability>
+  <Capability Min="135" Max="245">Counter-Clockwise Rotation: Slow-Fast</Capability>
+  <Capability Min="246" Max="255">No Rotation</Capability>
+ </Channel>
+ <Mode Name="Normal">
+  <Channel Number="0">White Dimmer / Strobe</Channel>
+  <Channel Number="1">Moon Flower Dimmer / Strobe</Channel>
+  <Channel Number="2">Moon Flower Color</Channel>
+  <Channel Number="3">Moon Flower Rotation</Channel>
+  <Channel Number="4">Red Laser</Channel>
+  <Channel Number="5">Green Laser</Channel>
+  <Channel Number="6">Laser Rotation</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="542" Height="178" Weight="4.7" Depth="143"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="32" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

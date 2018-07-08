@@ -2,7 +2,9 @@
   Q Light Controller Plus
   vclabel.cpp
 
-  Copyright (c) Heikki Junnila, Stefan Krumm
+  Copyright (c) Heikki Junnila
+                Stefan Krumm
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,6 +19,8 @@
   limitations under the License.
 */
 
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QInputDialog>
 #include <QPaintEvent>
 #include <QLineEdit>
@@ -25,7 +29,6 @@
 #include <QDebug>
 #include <QStyle>
 #include <QSize>
-#include <QtXml>
 
 #include "qlcfile.h"
 
@@ -83,11 +86,9 @@ void VCLabel::editProperties()
  * Load & Save
  *****************************************************************************/
 
-bool VCLabel::loadXML(const QDomElement* root)
+bool VCLabel::loadXML(QXmlStreamReader &root)
 {
-    Q_ASSERT(root != NULL);
-
-    if (root->tagName() != KXMLQLCVCLabel)
+    if (root.name() != KXMLQLCVCLabel)
     {
         qWarning() << Q_FUNC_INFO << "Label node not found";
         return false;
@@ -97,50 +98,46 @@ bool VCLabel::loadXML(const QDomElement* root)
     loadXMLCommon(root);
 
     /* Children */
-    QDomNode node = root->firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLQLCWindowState)
+        if (root.name() == KXMLQLCWindowState)
         {
             int x = 0, y = 0, w = 0, h = 0;
             bool visible = false;
-            loadXMLWindowState(&tag, &x, &y, &w, &h, &visible);
+            loadXMLWindowState(root, &x, &y, &w, &h, &visible);
             setGeometry(x, y, w, h);
         }
-        else if (tag.tagName() == KXMLQLCVCWidgetAppearance)
+        else if (root.name() == KXMLQLCVCWidgetAppearance)
         {
-            loadXMLAppearance(&tag);
+            loadXMLAppearance(root);
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown label tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unknown label tag:" << root.name().toString();
+            root.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     return true;
 }
 
-bool VCLabel::saveXML(QDomDocument* doc, QDomElement* vc_root)
+bool VCLabel::saveXML(QXmlStreamWriter *doc)
 {
-    QDomElement root;
-
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(vc_root != NULL);
 
     /* VC Label entry */
-    root = doc->createElement(KXMLQLCVCLabel);
-    vc_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCVCLabel);
 
-    saveXMLCommon(doc, &root);
+    saveXMLCommon(doc);
 
     /* Window state */
-    saveXMLWindowState(doc, &root);
+    saveXMLWindowState(doc);
 
     /* Appearance */
-    saveXMLAppearance(doc, &root);
+    saveXMLAppearance(doc);
+
+    /* End the <Label> tag */
+    doc->writeEndElement();
 
     return true;
 }

@@ -21,6 +21,7 @@
 #include <QTreeWidget>
 #include <QHeaderView>
 #include <QLabel>
+#include <QAction>
 
 #include "qlcfixturedef.h"
 

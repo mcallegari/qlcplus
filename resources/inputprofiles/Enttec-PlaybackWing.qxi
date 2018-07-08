@@ -1,13 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE InputProfile>
-<InputProfile>
+<InputProfile xmlns="http://www.qlcplus.org/InputProfile">
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>3.0.6</Version>
-  <Author>hjunnila</Author>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.8.5 GIT</Version>
+  <Author>Thomas Achtner</Author>
  </Creator>
  <Manufacturer>Enttec</Manufacturer>
  <Model>Playback Wing</Model>
- <Type>Enntec</Type>
+ <Type>Enttec</Type>
  <Channel Number="0">
   <Name>Slider 1</Name>
   <Type>Slider</Type>
@@ -208,5 +209,20 @@
   <Name>Button 10</Name>
   <Type>Button</Type>
  </Channel>
+ <Channel Number="50">
+  <Name>Go</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="51">
+  <Name>Back</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="52">
+  <Name>Page Down</Name>
+  <Type>Previous Page</Type>
+ </Channel>
+ <Channel Number="53">
+  <Name>Page Up</Name>
+  <Type>Next Page</Type>
+ </Channel>
 </InputProfile>
-

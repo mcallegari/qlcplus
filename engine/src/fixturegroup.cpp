@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   fixturegroup.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,10 +18,8 @@
   limitations under the License.
 */
 
-#include <QDomDocument>
-#include <QDomElement>
-#include <QDomNode>
-#include <QDomText>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QDebug>
 
 #include "fixturegroup.h"
@@ -57,7 +56,7 @@ void FixtureGroup::copyFrom(const FixtureGroup* grp)
     // Don't copy ID
     m_name = grp->name();
     m_size = grp->size();
-    m_heads = grp->headHash();
+    m_heads = grp->headsMap();
 }
 
 Doc* FixtureGroup::doc() const
@@ -107,8 +106,25 @@ void FixtureGroup::assignFixture(quint32 id, const QLCPoint& pt)
 {
     Fixture* fxi = doc()->fixture(id);
     Q_ASSERT(fxi != NULL);
+    QLCPoint tmp = pt;
+
     for (int i = 0; i < fxi->heads(); i++)
-        assignHead(pt, GroupHead(fxi->id(), i));
+    {
+        if (pt.isNull())
+        {
+            assignHead(pt, GroupHead(fxi->id(), i));
+        }
+        else
+        {
+            assignHead(tmp, GroupHead(fxi->id(), i));
+            tmp.setX(tmp.x() + 1);
+            if (tmp.x() >= size().width())
+            {
+                tmp.setX(0);
+                tmp.setY(tmp.y() + 1);
+            }
+        }
+    }
 }
 
 void FixtureGroup::assignHead(const QLCPoint& pt, const GroupHead& head)
@@ -125,13 +141,12 @@ void FixtureGroup::assignHead(const QLCPoint& pt, const GroupHead& head)
     }
     else
     {
-        bool assigned = false;
         int y = 0;
         int x = 0;
         int xmax = size().width();
         int ymax = size().height();
 
-        while (assigned == false)
+        while (1)
         {
             for (; y < ymax; y++)
             {
@@ -141,13 +156,10 @@ void FixtureGroup::assignHead(const QLCPoint& pt, const GroupHead& head)
                     if (m_heads.contains(tmp) == false)
                     {
                         m_heads[tmp] = head;
-                        assigned = true;
-                        break;
+                        emit changed(this->id());
+                        return;
                     }
                 }
-
-                if (assigned == true)
-                    break;
             }
 
             ymax++;
@@ -200,6 +212,12 @@ void FixtureGroup::swap(const QLCPoint& a, const QLCPoint& b)
     emit changed(this->id());
 }
 
+void FixtureGroup::reset()
+{
+    m_heads.clear();
+    emit changed(this->id());
+}
+
 GroupHead FixtureGroup::head(const QLCPoint& pt) const
 {
     return m_heads.value(pt);
@@ -210,7 +228,7 @@ QList <GroupHead> FixtureGroup::headList() const
     return m_heads.values();
 }
 
-QHash <QLCPoint,GroupHead> FixtureGroup::headHash() const
+QMap<QLCPoint, GroupHead> FixtureGroup::headsMap() const
 {
     return m_heads;
 }
@@ -251,14 +269,14 @@ QSize FixtureGroup::size() const
  * Load & Save
  ****************************************************************************/
 
-bool FixtureGroup::loader(const QDomElement& root, Doc* doc)
+bool FixtureGroup::loader(QXmlStreamReader &xmlDoc, Doc* doc)
 {
     bool result = false;
 
     FixtureGroup* grp = new FixtureGroup(doc);
     Q_ASSERT(grp != NULL);
 
-    if (grp->loadXML(root) == true)
+    if (grp->loadXML(xmlDoc) == true)
     {
         doc->addFixtureGroup(grp, grp->id());
         result = true;
@@ -273,104 +291,96 @@ bool FixtureGroup::loader(const QDomElement& root, Doc* doc)
     return result;
 }
 
-bool FixtureGroup::loadXML(const QDomElement& root)
+bool FixtureGroup::loadXML(QXmlStreamReader &xmlDoc)
 {
-    if (root.tagName() != KXMLQLCFixtureGroup)
+    if (xmlDoc.name() != KXMLQLCFixtureGroup)
     {
         qWarning() << Q_FUNC_INFO << "Fixture group node not found";
         return false;
     }
 
     bool ok = false;
-    quint32 id = root.attribute(KXMLQLCFixtureGroupID).toUInt(&ok);
+    quint32 id = xmlDoc.attributes().value(KXMLQLCFixtureGroupID).toString().toUInt(&ok);
     if (ok == false)
     {
-        qWarning() << "Invalid FixtureGroup ID:" << root.attribute(KXMLQLCFixtureGroupID);
+        qWarning() << "Invalid FixtureGroup ID:" << xmlDoc.attributes().value(KXMLQLCFixtureGroupID).toString();
         return false;
     }
 
     // Assign the ID to myself
     m_id = id;
 
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (xmlDoc.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLQLCFixtureGroupHead)
+        QXmlStreamAttributes attrs = xmlDoc.attributes();
+        if (xmlDoc.name() == KXMLQLCFixtureGroupHead)
         {
             bool xok = false, yok = false, idok = false, headok = false;
-            int x = tag.attribute("X").toInt(&xok);
-            int y = tag.attribute("Y").toInt(&yok);
-            quint32 id = tag.attribute("Fixture").toUInt(&idok);
-            int head = tag.text().toInt(&headok);
+            int x = attrs.value("X").toString().toInt(&xok);
+            int y = attrs.value("Y").toString().toInt(&yok);
+            quint32 id = attrs.value("Fixture").toString().toUInt(&idok);
+            int head = xmlDoc.readElementText().toInt(&headok);
 
             // Don't use assignFixture() here because it assigns complete fixtures at once
             if (xok == true && yok == true && idok == true && headok == true)
                 m_heads[QLCPoint(x, y)] = GroupHead(id, head);
         }
-        else if (tag.tagName() == KXMLQLCFixtureGroupSize)
+        else if (xmlDoc.name() == KXMLQLCFixtureGroupSize)
         {
             bool xok = false, yok = false;
-            int x = tag.attribute("X").toInt(&xok);
-            int y = tag.attribute("Y").toInt(&yok);
+            int x = attrs.value("X").toString().toInt(&xok);
+            int y = attrs.value("Y").toString().toInt(&yok);
 
             if (xok == true && yok == true)
                 m_size = QSize(x, y);
+            xmlDoc.skipCurrentElement();
         }
-        else if (tag.tagName() == KXMLQLCFixtureGroupName)
+        else if (xmlDoc.name() == KXMLQLCFixtureGroupName)
         {
-            m_name = tag.text();
+            m_name = xmlDoc.readElementText();
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown fixture group tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unknown fixture group tag:" << xmlDoc.name();
+            xmlDoc.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     return true;
 }
 
-bool FixtureGroup::saveXML(QDomDocument* doc, QDomElement* wksp_root)
+bool FixtureGroup::saveXML(QXmlStreamWriter *doc)
 {
-    QDomElement root;
-    QDomElement tag;
-    QDomText text;
-    QString str;
-
     Q_ASSERT(doc != NULL);
 
     /* Fixture Group entry */
-    root = doc->createElement(KXMLQLCFixtureGroup);
-    root.setAttribute(KXMLQLCFixtureGroupID, this->id());
-    wksp_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCFixtureGroup);
+    doc->writeAttribute(KXMLQLCFixtureGroupID, QString::number(this->id()));
 
     /* Name */
-    tag = doc->createElement(KXMLQLCFixtureGroupName);
-    text = doc->createTextNode(name());
-    tag.appendChild(text);
-    root.appendChild(tag);
+    doc->writeTextElement(KXMLQLCFixtureGroupName, name());
 
     /* Matrix size */
-    tag = doc->createElement(KXMLQLCFixtureGroupSize);
-    tag.setAttribute("X", size().width());
-    tag.setAttribute("Y", size().height());
-    root.appendChild(tag);
+    doc->writeStartElement(KXMLQLCFixtureGroupSize);
+    doc->writeAttribute("X", QString::number(size().width()));
+    doc->writeAttribute("Y", QString::number(size().height()));
+    doc->writeEndElement();
 
     /* Fixture heads */
-    QHashIterator <QLCPoint,GroupHead> it(m_heads);
-    while (it.hasNext() == true)
+    QList<QLCPoint> pointsList = m_heads.keys();
+
+    foreach(QLCPoint pt, pointsList)
     {
-        it.next();
-        tag = doc->createElement(KXMLQLCFixtureGroupHead);
-        tag.setAttribute("X", it.key().x());
-        tag.setAttribute("Y", it.key().y());
-        tag.setAttribute("Fixture", it.value().fxi);
-        text = doc->createTextNode(QString::number(it.value().head));
-        tag.appendChild(text);
-        root.appendChild(tag);
+        GroupHead head = m_heads[pt];
+        doc->writeStartElement(KXMLQLCFixtureGroupHead);
+        doc->writeAttribute("X", QString::number(pt.x()));
+        doc->writeAttribute("Y", QString::number(pt.y()));
+        doc->writeAttribute("Fixture", QString::number(head.fxi));
+        doc->writeCharacters(QString::number(head.head));
+        doc->writeEndElement();
     }
+
+    doc->writeEndElement();
 
     return true;
 }

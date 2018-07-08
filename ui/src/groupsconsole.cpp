@@ -26,6 +26,7 @@
 #include <QList>
 
 #include "consolechannel.h"
+#include "clickandgoslider.h"
 #include "groupsconsole.h"
 #include "fixture.h"
 #include "apputil.h"
@@ -69,6 +70,7 @@ void GroupsConsole::init()
             ConsoleChannel* cc = new ConsoleChannel(this, m_doc, scv.fxi, scv.channel, false);
             cc->setLabel(grp->name());
             cc->setChannelsGroup(id);
+            cc->setChannelStyleSheet(CNG_DEFAULT_STYLE);
             if (idx < m_levels.count())
                 cc->setValue(m_levels.at(idx));
             layout()->addWidget(cc);

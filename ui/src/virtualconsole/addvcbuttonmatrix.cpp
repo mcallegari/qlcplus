@@ -19,6 +19,7 @@
 
 #include <QSettings>
 #include <QDebug>
+#include <QAction>
 
 #include "addvcbuttonmatrix.h"
 #include "functionselection.h"

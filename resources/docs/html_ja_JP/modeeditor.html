@@ -1,0 +1,214 @@
+﻿<html dir="ltr">
+<head>
+<title>Q Light Controller Plus - モードエディター</title>
+<script src="utility.js" type="text/javascript"></script>
+<link href="style.css" rel="stylesheet" type="text/css"></link>
+  <meta charset="utf-8">
+</head>
+<BODY onLoad="replaceqrc()">
+
+<h1>モードエディタ</h1>
+<p>
+　モードエディタでは、フィクスチャーに搭載されている<a href="concept.html#FixtureMode">モード</a>に合わせて実際のヘッダーアドレスからの<b>チャンネル番号</b>を割り当てていきます。(チャンネルと機能についてはフィクスチャーの説明書を参照してください。)モードエディタは、"チャンネル", "Heads", "機種情報"の３つのタブで構成されています。
+</p>
+
+<h3>チャンネルタブ</h3>
+
+<p>
+　"チャンネルタブ"で定義したチャンネルを実際のフィクスチャ上で動作するものを選択し、順番に並べることで仕込み時のフィクスチャー登録の時にモード名を選択するだけでチャンネルに割り当てられた機能を読み込むことができます。
+</p>
+
+<table border="1" class="qlcTable">
+ <tr>
+  <td>
+   <b>名前</b>
+  </td>
+  <td>
+　モード名を設定できます。(重複する名前は設定できません。)
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>チャンネル一覧</b>
+  </td>
+  <td>
+　編集中のモードに登録されているチャンネルを順番に表示しています。
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <img src="qrc:/edit_add.png">
+  </td>
+  <td>
+　編集中のモードにチャンネルを追加で登録します。
+　ここで<b>チャンネル</b>を登録するためには、事前にチャンネルからチャンネルを定義しておく必要があります。詳しくは<a href="fixtureeditor.html">フィクスチャーエディター</a>をご覧ください。<br>
+　このボタンをクリックすると、２つ並んでリストが表示されます。<ul>
+    <li>左のリストは、編集中のモードに登録されていないチャンネルを一覧で表示しています。　新規のモードを編集中の場合は、全てのチャンネルがこちら側のリストに表示されています。</li>
+    <li>右側のリストには、編集中のモードに既に登録されているチャンネルが表示されています。
+　新規のモードを編集中の場合はこちらのリストにはまだ何も表示されていないはずです。<br>
+　ここでは実際のフィクスチャーのチャンネルの順番になるように左のリストを編集してください。
+
+   </li></ul>
+　モードにチャンネルを設定するには、左側のチャンネル一覧からモードで使うチャンネルを順番になるようにドラッグ&amp;ドロップして設定していきます。<br>
+　設定後、OKボタンをクリックして保存してください。
+  </td>
+ </tr>
+ <tr>
+  <td>
+    <IMG SRC="qrc:/edit_remove.png"/>
+  </td>
+  <td>
+　選択したチャンネルを編集中のモードから削除します。ここでチャンネルを削除しても、編集中のモードから削除されるだけであり、チャンネルリストから再び設定することが可能です。
+  </td>
+ </tr>
+ <tr>
+  <td>
+    <IMG SRC="qrc:/up.png"/>
+  </td>
+  <td>
+　選択したチャンネルを上へ移動する。
+  </td>
+ </tr>
+ <tr>
+  <td>
+    <IMG SRC="qrc:/down.png"/>
+  </td>
+  <td>
+　選択したチャンネルを下へ移動する。
+  </td>
+ </tr>
+</table>
+
+<h3>Heads タブ</h3>
+
+<p>
+　Headsタブでは、１つのフィクスチャーに複数の<a href="concept.html#Head">ヘッド</a>がある形状の製品を登録したい場合は、<a href="concept.html#FixtureGroup">ヘッドごとの</a>設定をすることができます。※一般的な１フィクスチャーに１ヘッドの製品の場合は、Headsタブを編集する必要はありません。
+</p>
+
+<p>
+　各ヘッドに名前はないので、サブフィクスチャーとしてQLC+では認識されています。その代わり、識別するために連番が振られています。(例)Head 1,Head 2, Head 3...
+QLC+で順番に登録するときに、実際のフィクスチャーでも端から順番に登録していかないと、あとで訳分からなくなるのがオチです。順番に登録しましょう。
+</p>
+
+<table border="1" class="qlcTable">
+ <tr>
+  <td>
+   <b>Head list</b>
+  </td>
+  <td>
+　登録したヘッドが一覧で表示されます。
+  </td>
+ </tr>
+ <tr>
+  <td>
+    <IMG SRC="qrc:/edit_add.png"/>
+  </td>
+  <td>
+　<a href="headeditor.html">ヘッドエディター</a>が起動してヘッドを追加できます。
+  </td>
+ </tr>
+ <tr>
+  <td>
+    <IMG SRC="qrc:/edit_remove.png"/>
+  </td>
+  <td>
+　選択したヘッドを削除します。
+  </td>
+ </tr>
+ <tr>
+  <td>
+    <IMG SRC="qrc:/edit.png"/>
+  </td>
+  <td>
+　選択したヘッドを<a href="headeditor.html">ヘッドエディタ</a>で編集します。
+  </td>
+ </tr>
+ <tr>
+  <td>
+    <IMG SRC="qrc:/up.png"/>
+  </td>
+  <td>
+　選択したヘッドを上へ移動します。リストの順番と実際のフィクスチャーのヘッドの並びが一致するようにしておかないと後々訳分からなくなります。
+  </td>
+ </tr>
+ <tr>
+  <td>
+    <IMG SRC="qrc:/down.png"/>
+  </td>
+  <td>
+　選択したヘッドを下へ移動します。リストの順番と実際のフィクスチャーのヘッドの並びが一致するようにしておかないと後々訳分からなくなります。
+  </td>
+ </tr>
+</table>
+
+<h3>機種情報 タブ</h3>
+
+<p>
+　 フィクスチャーによってはムービングなどで可動域が変化する場合があります。そこで可動域を含めフィクスチャーの物理情報をモードごとに定義することができます。
+</p>
+
+<table border="1" class="qlcTable">
+ <tr>
+  <td>
+   <b>電球</b>
+  </td>
+  <td>
+   <ul>
+    <li>タイプ: 電球の消費電力等の種類を定義できます。</li>
+    <li>ルーメン: 電球の光量を定義できます。</li>
+    <li>色温度(K): 電球の色温度を<a href="http://en.wikipedia.org/wiki/Kelvin">ケルビン</a>で定義できます。</li>
+   </ul>
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>レンズ</b>
+  </td>
+  <td>
+   <ul>
+    <li>名前: レンズの種類を定義できます。※直接名前を入力するほか、PC(凸レンズ)、Fresnel(フレネルレンズ)から選択することができます。</li>
+    <li>最小照射角度: 最小<a href="http://en.wikipedia.org/wiki/Degree_(angle)">ビーム角</a>を定義できます。</li>
+    <li>最小照射角度: 最小<a href="http://en.wikipedia.org/wiki/Degree_(angle)">ビーム角</a>を定義できます。</li>
+   </ul>
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>電気関係</b>
+  </td>
+  <td>
+   <ul>
+    <li>消費電力: 消費電力をW(ワット)で定義できます。</li>
+    <li>DMXコネクタ: DMXコネクタの形状を設定できます。</li>
+   </ul>
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>形状</b>
+  </td>
+  <td>
+   <ul>
+    <li>重さ: 重さを<a href="http://en.wikipedia.org/wiki/Kilogram">Kg</a>で定義できます。</li>
+    <li>幅: フィクスチャーの横幅の大きさを<a href="http://en.wikipedia.org/wiki/Millimeter">ミリメートル</a>で定義できます</li>
+    <li>高さ: フィクスチャーの高さの大きさを<a href="http://en.wikipedia.org/wiki/Millimeter">ミリメートル</a>で定義できます</li>
+    <li>奥行き: フィクスチャーの奥行きの大きさを<a href="http://en.wikipedia.org/wiki/Millimeter">ミリメートル</a>で定義できます</li>
+   </ul>
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>フォーカス</b>
+  </td>
+  <td>
+   <ul>
+    <li>タイプ: フォーカスを調整するタイプを定義できます。調整できないフィクスチャーの場合はFixedを定義してください。</li>
+    <li>最大パン角度: ヘッドのパンの可動域の<a href="http://en.wikipedia.org/wiki/Degree_(angle)">角度</a>を定義できます。</li>
+    <li>最大パン角度: ヘッドのパンの可動域の<a href="http://en.wikipedia.org/wiki/Degree_(angle)">角度</a>を定義できます。</li>
+   </ul>
+  </td>
+ </tr>
+</table>
+
+</BODY>
+</html>

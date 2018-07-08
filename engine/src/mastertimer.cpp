@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   mastertimer.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -19,6 +20,7 @@
 
 #include <QDebug>
 #include <QSettings>
+#include <QElapsedTimer>
 #include <QMutexLocker>
 
 #if defined(WIN32) || defined(Q_OS_WIN)
@@ -39,10 +41,17 @@
 #include "doc.h"
 
 #define MASTERTIMER_FREQUENCY "mastertimer/frequency"
+#define LATE_TO_BEAT_THRESHOLD 25
 
 /** The timer tick frequency in Hertz */
 uint MasterTimer::s_frequency = 50;
 uint MasterTimer::s_tick = 20;
+
+//#define DEBUG_MASTERTIMER
+
+#ifdef DEBUG_MASTERTIMER
+quint64 ticksCount = 0;
+#endif
 
 /*****************************************************************************
  * Initialization
@@ -50,10 +59,16 @@ uint MasterTimer::s_tick = 20;
 
 MasterTimer::MasterTimer(Doc* doc)
     : QObject(doc)
-    , m_stopAllFunctions(false)
-    , m_simpleDeskRegistered(false)
-    , m_fader(new GenericFader(doc))
     , d_ptr(new MasterTimerPrivate(this))
+    , m_stopAllFunctions(false)
+    , m_dmxSourceListMutex(QMutex::Recursive)
+    , m_fader(new GenericFader(doc))
+    , m_beatSourceType(None)
+    , m_currentBPM(120)
+    , m_beatTimeDuration(500)
+    , m_beatRequested(false)
+    , m_beatTimer(new QElapsedTimer())
+    , m_lastBeatOffset(0)
 {
     Q_ASSERT(doc != NULL);
     Q_ASSERT(d_ptr != NULL);
@@ -73,6 +88,8 @@ MasterTimer::~MasterTimer()
 
     delete d_ptr;
     d_ptr = NULL;
+
+    delete m_beatTimer;
 }
 
 void MasterTimer::start()
@@ -93,9 +110,45 @@ void MasterTimer::timerTick()
     Doc* doc = qobject_cast<Doc*> (parent());
     Q_ASSERT(doc != NULL);
 
+#ifdef DEBUG_MASTERTIMER
+    qDebug() << "[MasterTimer] *********** tick:" << ticksCount++ << "**********";
+#endif
+
+    switch (m_beatSourceType)
+    {
+        case Internal:
+        {
+            int elapsedTime = qRound((double)m_beatTimer->nsecsElapsed() / 1000000) + m_lastBeatOffset;
+            //qDebug() << "Elapsed beat:" << elapsedTime;
+            if (elapsedTime >= m_beatTimeDuration)
+            {
+                // it's time to fire a beat
+                m_beatRequested = true;
+
+                // restart the time for the next beat, starting at a delta
+                // milliseconds, otherwise it will generate an unpleasant drift
+                //qDebug() << "Elapsed:" << elapsedTime << ", delta:" << elapsedTime - m_beatTimeDuration;
+                m_lastBeatOffset = elapsedTime - m_beatTimeDuration;
+                m_beatTimer->restart();
+
+                // inform the listening classes that a beat is happening
+                emit beat();
+            }
+        }
+        break;
+        case External:
+        break;
+
+        case None:
+        default:
+            m_beatRequested = false;
+        break;
+    }
+
     QList<Universe *> universes = doc->inputOutputMap()->claimUniverses();
     for (int i = 0 ; i < universes.count(); i++)
     {
+        universes[i]->flushInput();
         universes[i]->zeroIntensityChannels();
         universes[i]->zeroRelativeValues();
     }
@@ -106,6 +159,8 @@ void MasterTimer::timerTick()
 
     doc->inputOutputMap()->releaseUniverses();
     doc->inputOutputMap()->dumpUniverses();
+
+    m_beatRequested = false;
 }
 
 uint MasterTimer::frequency()
@@ -150,8 +205,7 @@ void MasterTimer::stopAllFunctions()
     // the scope of this piece of code !!
     {
         /* Remove all generic fader's channels */
-        QMutexLocker functionLocker(&m_functionListMutex);
-        QMutexLocker dmxLocker(&m_dmxSourceListMutex);
+        QMutexLocker faderLocker(&m_faderMutex);
         fader()->removeAll();
     }
 
@@ -182,9 +236,7 @@ void MasterTimer::fadeAndStopAll(int timeout)
                 uint ch = it.key() - fxi->universeAddress();
                 if (fxi->channelCanFade(ch))
                 {
-                    FadeChannel fc;
-                    fc.setFixture(doc, fxi->id());
-                    fc.setChannel(ch);
+                    FadeChannel fc(doc, fxi->id(), ch);
                     fc.setStart(it.value());
                     fc.setTarget(0);
                     fc.setFadeTime(timeout);
@@ -200,6 +252,7 @@ void MasterTimer::fadeAndStopAll(int timeout)
 
     // Instruct mastertimer to do a fade out of all
     // the intensity channels that can fade
+    QMutexLocker faderLocker(&m_faderMutex);
     foreach(FadeChannel fade, fcList)
         fader()->add(fade);
 }
@@ -213,96 +266,116 @@ void MasterTimer::timerTickFunctions(QList<Universe *> universes)
 {
     // List of m_functionList indices that should be removed at the end of this
     // function. The functions at the indices have been stopped.
-    QList <int> removeList;
+    QList<int> removeList;
 
-    /* Lock before accessing the running functions list. */
-    m_functionListMutex.lock();
-    for (int i = 0; i < m_functionList.size(); i++)
+    bool functionListHasChanged = false;
+    bool stoppedAFunction = true;
+    bool firstIteration = true;
+
+    while (stoppedAFunction)
     {
-        Function* function = m_functionList.at(i);
+        stoppedAFunction = false;
+        removeList.clear();
 
-        /* No need to access function list on this round anymore */
-        m_functionListMutex.unlock();
-
-        if (function != NULL)
+        for (int i = 0; i < m_functionList.size(); i++)
         {
-            /* Run the function unless it's supposed to be stopped */
-            if (function->stopped() == false && m_stopAllFunctions == false)
+            Function* function = m_functionList.at(i);
+
+            if (function != NULL)
             {
-                function->write(this, universes);
-            }
-            else
-            {
-                /* Function should be stopped instead */
-                m_functionListMutex.lock();
-                function->postRun(this, universes);
-                //qDebug() << "[MasterTimer] Add function (ID: " << function->id() << ") to remove list ";
-                removeList << i; // Don't remove the item from the list just yet.
-                m_functionListMutex.unlock();
-                emit functionListChanged();
+                /* Run the function unless it's supposed to be stopped */
+                if (function->stopped() == false && m_stopAllFunctions == false)
+                {
+                    if (firstIteration)
+                        function->write(this, universes);
+                }
+                else
+                {
+                    // Clear function's parentList
+                    if (m_stopAllFunctions)
+                        function->stop(FunctionParent::master());
+                    /* Function should be stopped instead */
+                    function->postRun(this, universes);
+                    //qDebug() << "[MasterTimer] Add function (ID: " << function->id() << ") to remove list ";
+                    removeList << i; // Don't remove the item from the list just yet.
+                    functionListHasChanged = true;
+                    stoppedAFunction = true;
+                }
             }
         }
 
-        /* Lock function list for the next round. */
-        m_functionListMutex.lock();
+        // Remove functions that need to be removed AFTER all functions have been run
+        // for this round. This is done separately to prevent a case when a function
+        // is first removed and then another is added (chaser, for example), keeping the
+        // list's size the same, thus preventing the last added function from being run
+        // on this round. The indices in removeList are automatically sorted because the
+        // list is iterated with an int above from 0 to size, so iterating the removeList
+        // backwards here will always remove the correct indices.
+        QListIterator <int> it(removeList);
+        it.toBack();
+        while (it.hasPrevious() == true)
+            m_functionList.removeAt(it.previous());
+
+        firstIteration = false;
     }
 
-    // Remove functions that need to be removed AFTER all functions have been run
-    // for this round. This is done separately to prevent a case when a function
-    // is first removed and then another is added (chaser, for example), keeping the
-    // list's size the same, thus preventing the last added function from being run
-    // on this round. The indices in removeList are automatically sorted because the
-    // list is iterated with an int above from 0 to size, so iterating the removeList
-    // backwards here will always remove the correct indices.
-    QListIterator <int> it(removeList);
-    it.toBack();
-    while (it.hasPrevious() == true)
-        m_functionList.removeAt(it.previous());
-
-    foreach (Function* f, m_startQueue)
     {
-        //qDebug() << "[MasterTimer] Processing ID: " << f->id();
-        if (m_functionList.contains(f) == false)
+        QMutexLocker locker(&m_functionListMutex);
+        while (m_startQueue.size() > 0)
         {
-            m_functionList.append(f);
-            m_functionListMutex.unlock();
-            //qDebug() << "[MasterTimer] Starting up ID: " << f->id();
-            f->preRun(this);
-            f->write(this, universes);
-            emit functionListChanged();
-            emit functionStarted(f->id());
-            m_functionListMutex.lock();
+            QList<Function*> startQueue(m_startQueue);
+            m_startQueue.clear();
+            locker.unlock();
+
+            foreach (Function* f, startQueue)
+            {
+                if (m_functionList.contains(f))
+                {
+                    f->postRun(this, universes);
+                }
+                else
+                {
+                    m_functionList.append(f);
+                    functionListHasChanged = true;
+                }
+                f->preRun(this);
+                f->write(this, universes);
+                emit functionStarted(f->id());
+            }
+
+            locker.relock();
         }
-        m_startQueue.removeOne(f);
     }
 
-    /* No more functions. Get out and wait for next timer event. */
-    m_functionListMutex.unlock();
+    if (functionListHasChanged)
+        emit functionListChanged();
 }
 
 /****************************************************************************
  * DMX Sources
  ****************************************************************************/
 
-void MasterTimer::registerDMXSource(DMXSource* source, QString name)
+void MasterTimer::registerDMXSource(DMXSource* source)
 {
     Q_ASSERT(source != NULL);
 
     QMutexLocker lock(&m_dmxSourceListMutex);
     if (m_dmxSourceList.contains(source) == false)
     {
-        if (name == "SimpleDesk")
+        int insertPos = 0;
+
+        for (int i = m_dmxSourceList.count() - 1; i >= 0; i--)
         {
-            m_dmxSourceList.append(source);
-            m_simpleDeskRegistered = true;
+            DMXSource *src = m_dmxSourceList.at(i);
+            if (src->priority() <= source->priority())
+            {
+                insertPos = i + 1;
+                break;
+            }
         }
-        else
-        {
-            if (m_simpleDeskRegistered == true)
-                m_dmxSourceList.insert(m_dmxSourceList.count() - 1, source);
-            else
-                m_dmxSourceList.append(source);
-        }
+
+        m_dmxSourceList.insert(insertPos, source);
+        qDebug() << "DMX source with priority" <<  source->priority() << "registered at pos" << insertPos;
     }
 }
 
@@ -314,27 +387,47 @@ void MasterTimer::unregisterDMXSource(DMXSource* source)
     m_dmxSourceList.removeAll(source);
 }
 
+void MasterTimer::requestNewPriority(DMXSource *source)
+{
+    Q_ASSERT(source != NULL);
+    QMutexLocker lock(&m_dmxSourceListMutex);
+    if (m_dmxSourceList.contains(source) == true)
+    {
+       int pos = m_dmxSourceList.indexOf(source);
+       int newPos = 0;
+
+       for (int i = m_dmxSourceList.count() - 1; i >= 0; i--)
+       {
+           DMXSource *src = m_dmxSourceList.at(i);
+           if (src->priority() <= source->priority())
+           {
+               newPos = i;
+               break;
+           }
+       }
+
+       m_dmxSourceList.move(pos, newPos);
+       qDebug() << "DMX source moved from" << pos << "to" << m_dmxSourceList.indexOf(source) << ". Count:" << m_dmxSourceList.count();
+    }
+
+}
+
 void MasterTimer::timerTickDMXSources(QList<Universe *> universes)
 {
     /* Lock before accessing the DMX sources list. */
-    m_dmxSourceListMutex.lock();
-    for (int i = 0; i < m_dmxSourceList.size(); i++)
+    QMutexLocker lock(&m_dmxSourceListMutex);
+
+    foreach (DMXSource* source, m_dmxSourceList)
     {
-        DMXSource* source = m_dmxSourceList.at(i);
         Q_ASSERT(source != NULL);
 
-        /* No need to access the list on this round anymore. */
-        m_dmxSourceListMutex.unlock();
+#ifdef DEBUG_MASTERTIMER
+        qDebug() << "[MasterTimer] ticking DMX source" << i;
+#endif
 
         /* Get DMX data from the source */
         source->writeDMX(this, universes);
-
-        /* Lock for the next round. */
-        m_dmxSourceListMutex.lock();
     }
-
-    /* No more sources. Get out and wait for next timer event. */
-    m_dmxSourceListMutex.unlock();
 }
 
 /****************************************************************************
@@ -346,10 +439,123 @@ GenericFader* MasterTimer::fader() const
     return m_fader;
 }
 
+void MasterTimer::faderAdd(const FadeChannel& ch)
+{
+    QMutexLocker faderLocker(&m_faderMutex);
+
+    fader()->add(ch);
+}
+
+void MasterTimer::faderForceAdd(const FadeChannel& ch)
+{
+    QMutexLocker faderLocker(&m_faderMutex);
+
+    fader()->forceAdd(ch);
+}
+
+QHash<FadeChannel,FadeChannel> MasterTimer::faderChannels() const
+{
+    QMutexLocker faderLocker(const_cast<QMutex*>(&m_faderMutex));
+
+    return fader()->channels();
+}
+
+QHash<FadeChannel,FadeChannel> const& MasterTimer::faderChannelsRef() const
+{
+    return fader()->channels();
+}
+
+QMutex* MasterTimer::faderMutex() const
+{
+    return const_cast<QMutex*>(&m_faderMutex);
+}
+
 void MasterTimer::timerTickFader(QList<Universe *> universes)
 {
-    QMutexLocker functionLocker(&m_functionListMutex);
-    QMutexLocker dmxLocker(&m_dmxSourceListMutex);
+    QMutexLocker faderLocker(&m_faderMutex);
 
-    fader()->write(universes);
+#ifdef DEBUG_MASTERTIMER
+        qDebug() << "[MasterTimer] ticking fader (channels:" << fader()->channels().count() << ")";
+#endif
+
+        fader()->write(universes);
+}
+
+/*************************************************************************
+ * Beats generation
+ *************************************************************************/
+
+void MasterTimer::setBeatSourceType(MasterTimer::BeatsSourceType type)
+{
+    if (type == m_beatSourceType)
+        return;
+
+    // alright, this causes a time drift of maximum 1ms per beat
+    // but at the moment I am not looking for a better solution
+    m_beatTimeDuration = 60000 / m_currentBPM;
+    m_beatTimer->restart();
+
+    m_beatSourceType = type;
+}
+
+MasterTimer::BeatsSourceType MasterTimer::beatSourceType() const
+{
+    return m_beatSourceType;
+}
+
+void MasterTimer::requestBpmNumber(int bpm)
+{
+    if (bpm == m_currentBPM)
+        return;
+
+    m_currentBPM = bpm;
+    m_beatTimeDuration = 60000 / m_currentBPM;
+    m_beatTimer->restart();
+
+    emit bpmNumberChanged(bpm);
+}
+
+int MasterTimer::bpmNumber() const
+{
+    return m_currentBPM;
+}
+
+int MasterTimer::beatTimeDuration() const
+{
+    return m_beatTimeDuration;
+}
+
+int MasterTimer::timeToNextBeat() const
+{
+    return m_beatTimeDuration - m_beatTimer->elapsed();
+}
+
+int MasterTimer::nextBeatTimeOffset() const
+{
+    // get the time offset to the next beat
+    int toNext = timeToNextBeat();
+    // get the percentage of beat time passed
+    int beatPercentage = (100 * toNext) / m_beatTimeDuration;
+
+    // if a Function has been started within the first LATE_TO_BEAT_THRESHOLD %
+    // of a beat, then it means it is "late" but there's
+    // no need to wait a whole beat
+    if (beatPercentage <= LATE_TO_BEAT_THRESHOLD)
+        return toNext;
+
+    // otherwise we're running early, so we should wait the
+    // whole remaining time
+    return -toNext;
+}
+
+bool MasterTimer::isBeat() const
+{
+    return m_beatRequested;
+}
+
+void MasterTimer::requestBeat()
+{
+    // forceful request of a beat, processed at
+    // the next timerTick call
+    m_beatRequested = true;
 }

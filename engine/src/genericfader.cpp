@@ -22,11 +22,11 @@
 
 #include "genericfader.h"
 #include "fadechannel.h"
-#include "universe.h"
 #include "doc.h"
 
 GenericFader::GenericFader(Doc* doc)
     : m_intensity(1)
+    , m_blendMode(Universe::NormalBlend)
     , m_doc(doc)
 {
     Q_ASSERT(doc != NULL);
@@ -71,40 +71,54 @@ const QHash <FadeChannel,FadeChannel>& GenericFader::channels() const
     return m_channels;
 }
 
-void GenericFader::write(QList<Universe*> ua)
+void GenericFader::write(QList<Universe*> ua, bool paused)
 {
     QMutableHashIterator <FadeChannel,FadeChannel> it(m_channels);
     while (it.hasNext() == true)
     {
         FadeChannel& fc(it.next().value());
         QLCChannel::Group grp = fc.group(m_doc);
-        quint32 addr = fc.address();
+        quint32 addr = fc.addressInUniverse();
         quint32 universe = fc.universe();
         bool canFade = fc.canFade(m_doc);
+        uchar value;
 
         // Calculate the next step
-        uchar value = fc.nextStep(MasterTimer::tick());
+        if (paused)
+            value = fc.current();
+        else
+            value = fc.nextStep(MasterTimer::tick());
 
         // Apply intensity to HTP channels
         if (grp == QLCChannel::Intensity && canFade == true)
             value = fc.current(intensity());
 
         if (universe != Universe::invalid())
-            ua[universe]->write(addr, value);
+        {
+            //qDebug() << "[GenericFader] >>> uni:" << universe << ", address:" << addr << ", value:" << value;
+            ua[universe]->writeBlended(addr, value, m_blendMode);
+        }
 
-        if (grp == QLCChannel::Intensity)
+        if (grp == QLCChannel::Intensity && m_blendMode == Universe::NormalBlend)
         {
             // Remove all HTP channels that reach their target _zero_ value.
             // They have no effect either way so removing them saves CPU a bit.
             if (fc.current() == 0 && fc.target() == 0)
-                remove(fc);
+            {
+                it.remove();
+                continue;
+            }
         }
+/*
         else
         {
             // Remove all LTP channels after their time is up
             if (fc.elapsed() >= fc.fadeTime())
-                remove(fc);
+                it.remove();
         }
+*/
+        if (fc.isFlashing())
+            it.remove();
     }
 }
 
@@ -116,4 +130,9 @@ void GenericFader::adjustIntensity(qreal fraction)
 qreal GenericFader::intensity() const
 {
     return m_intensity;
+}
+
+void GenericFader::setBlendMode(Universe::BlendMode mode)
+{
+    m_blendMode = mode;
 }

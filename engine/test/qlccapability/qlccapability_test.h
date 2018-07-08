@@ -38,6 +38,7 @@ private slots:
 
     void middle();
     void name();
+    void alias();
     void overlaps();
     void copy();
 
@@ -47,6 +48,8 @@ private slots:
     void loadNoMax();
     void loadMinGreaterThanMax();
     void save();
+    void savePreset();
+    void saveAlias();
 };
 
 #endif

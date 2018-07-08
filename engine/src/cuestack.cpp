@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   cuestack.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,8 +18,8 @@
   limitations under the License.
 */
 
-#include <QDomDocument>
-#include <QDomElement>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <qmath.h>
 #include <QDebug>
 #include <QHash>
@@ -50,13 +51,13 @@ CueStack::CueStack(Doc* doc)
     , m_previous(false)
     , m_next(false)
 {
-    qDebug() << Q_FUNC_INFO << (void*) this;
+    //qDebug() << Q_FUNC_INFO << (void*) this;
     Q_ASSERT(doc != NULL);
 }
 
 CueStack::~CueStack()
 {
-    qDebug() << Q_FUNC_INFO << (void*) this;
+    //qDebug() << Q_FUNC_INFO << (void*) this;
     Q_ASSERT(isStarted() == false);
     Q_ASSERT(isFlashing() == false);
     m_cues.clear(); // Crashes without this, WTF?!
@@ -151,10 +152,12 @@ void CueStack::appendCue(const Cue& cue)
 {
     qDebug() << Q_FUNC_INFO;
 
-    m_mutex.lock();
-    m_cues.append(cue);
-    int index = m_cues.size() - 1;
-    m_mutex.unlock();
+    int index = 0;
+    {
+        QMutexLocker locker(&m_mutex);
+        m_cues.append(cue);
+        index = m_cues.size() - 1;
+    }
 
     emit added(index);
 }
@@ -163,41 +166,50 @@ void CueStack::insertCue(int index, const Cue& cue)
 {
     qDebug() << Q_FUNC_INFO;
 
-    m_mutex.lock();
-    if (index >= 0 && index < m_cues.size())
-    {
-        m_cues.insert(index, cue);
-        emit added(index);
+    bool cueAdded = false;
 
-        if (m_currentIndex >= index)
+    {
+        QMutexLocker locker(&m_mutex);
+
+        if (index >= 0 && index < m_cues.size())
         {
-            m_currentIndex++;
-            emit currentCueChanged(m_currentIndex);
-        }
+            m_cues.insert(index, cue);
+            cueAdded = true;
+            emit added(index);
 
-        m_mutex.unlock();
+            if (m_currentIndex >= index)
+            {
+                m_currentIndex++;
+                emit currentCueChanged(m_currentIndex);
+            }
+        }
     }
-    else
-    {
-        m_mutex.unlock();
+
+    if (!cueAdded)    
         appendCue(cue);
-    }
 }
 
 void CueStack::replaceCue(int index, const Cue& cue)
 {
     qDebug() << Q_FUNC_INFO;
 
-    m_mutex.lock();
-    if (index >= 0 && index < m_cues.size())
+    bool cueChanged = false;
     {
-        m_cues[index] = cue;
-        m_mutex.unlock();
+        QMutexLocker locker(&m_mutex);
+
+        if (index >= 0 && index < m_cues.size())
+        {
+           m_cues[index] = cue;
+           cueChanged = true;
+        }
+    }
+
+    if (cueChanged)
+    {
         emit changed(index);
     }
     else
     {
-        m_mutex.unlock();
         appendCue(cue);
     }
 }
@@ -206,7 +218,7 @@ void CueStack::removeCue(int index)
 {
     qDebug() << Q_FUNC_INFO;
 
-    m_mutex.lock();
+    QMutexLocker locker(&m_mutex);
     if (index >= 0 && index < m_cues.size())
     {
         m_cues.removeAt(index);
@@ -218,7 +230,6 @@ void CueStack::removeCue(int index)
             emit currentCueChanged(m_currentIndex);
         }
     }
-    m_mutex.unlock();
 }
 
 void CueStack::removeCues(const QList <int>& indexes)
@@ -230,9 +241,11 @@ void CueStack::removeCues(const QList <int>& indexes)
     QList <int> indexList = indexes;
     qSort(indexList.begin(), indexList.end());
 
-    m_mutex.lock();
     QListIterator <int> it(indexList);
     it.toBack();
+
+    QMutexLocker locker(&m_mutex);
+
     while (it.hasPrevious() == true)
     {
         int index(it.previous());
@@ -248,7 +261,6 @@ void CueStack::removeCues(const QList <int>& indexes)
             }
         }
     }
-    m_mutex.unlock();
 }
 
 QList <Cue> CueStack::cues() const
@@ -260,9 +272,8 @@ void CueStack::setCurrentIndex(int index)
 {
     qDebug() << Q_FUNC_INFO;
 
-    m_mutex.lock();
+    QMutexLocker locker(&m_mutex);
     m_currentIndex = CLAMP(index, -1, m_cues.size() - 1);
-    m_mutex.unlock();
 }
 
 int CueStack::currentIndex() const
@@ -290,79 +301,80 @@ void CueStack::nextCue()
  * Save & Load
  ****************************************************************************/
 
-uint CueStack::loadXMLID(const QDomElement& root)
+uint CueStack::loadXMLID(QXmlStreamReader &root)
 {
     qDebug() << Q_FUNC_INFO;
 
-    if (root.tagName() != KXMLQLCCueStack)
+    if (root.name() != KXMLQLCCueStack)
     {
         qWarning() << Q_FUNC_INFO << "CueStack node not found";
         return UINT_MAX;
     }
 
-    if (root.attribute(KXMLQLCCueStackID).isEmpty() == false)
-        return root.attribute(KXMLQLCCueStackID).toUInt();
+    QXmlStreamAttributes attrs = root.attributes();
+
+    if (attrs.hasAttribute(KXMLQLCCueStackID) == true)
+        return attrs.value(KXMLQLCCueStackID).toString().toUInt();
     else
         return UINT_MAX;
 }
 
-bool CueStack::loadXML(const QDomElement& root)
+bool CueStack::loadXML(QXmlStreamReader &root)
 {
     qDebug() << Q_FUNC_INFO;
 
     m_cues.clear();
 
-    if (root.tagName() != KXMLQLCCueStack)
+    if (root.name() != KXMLQLCCueStack)
     {
         qWarning() << Q_FUNC_INFO << "CueStack node not found";
         return false;
     }
 
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLQLCCue)
+        if (root.name() == KXMLQLCCue)
         {
             Cue cue;
-            if (cue.loadXML(tag) == true)
+            if (cue.loadXML(root) == true)
                 appendCue(cue);
         }
-        else if (tag.tagName() == KXMLQLCCueStackSpeed)
+        else if (root.name() == KXMLQLCCueStackSpeed)
         {
-            setFadeInSpeed(tag.attribute(KXMLQLCCueStackSpeedFadeIn).toUInt());
-            setFadeOutSpeed(tag.attribute(KXMLQLCCueStackSpeedFadeOut).toUInt());
-            setDuration(tag.attribute(KXMLQLCCueStackSpeedDuration).toUInt());
+            setFadeInSpeed(root.attributes().value(KXMLQLCCueStackSpeedFadeIn).toString().toUInt());
+            setFadeOutSpeed(root.attributes().value(KXMLQLCCueStackSpeedFadeOut).toString().toUInt());
+            setDuration(root.attributes().value(KXMLQLCCueStackSpeedDuration).toString().toUInt());
+            root.skipCurrentElement();
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unrecognized CueStack tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unrecognized CueStack tag:" << root.name();
+            root.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     return true;
 }
 
-bool CueStack::saveXML(QDomDocument* doc, QDomElement* wksp_root, uint id) const
+bool CueStack::saveXML(QXmlStreamWriter *doc, uint id) const
 {
     qDebug() << Q_FUNC_INFO;
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(wksp_root != NULL);
 
-    QDomElement root = doc->createElement(KXMLQLCCueStack);
-    root.setAttribute(KXMLQLCCueStackID, id);
-    wksp_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCCueStack);
+    doc->writeAttribute(KXMLQLCCueStackID, QString::number(id));
 
-    QDomElement speed = doc->createElement(KXMLQLCCueStackSpeed);
-    speed.setAttribute(KXMLQLCCueStackSpeedFadeIn, fadeInSpeed());
-    speed.setAttribute(KXMLQLCCueStackSpeedFadeOut, fadeOutSpeed());
-    speed.setAttribute(KXMLQLCCueStackSpeedDuration, duration());
-    root.appendChild(speed);
+    doc->writeStartElement(KXMLQLCCueStackSpeed);
+    doc->writeAttribute(KXMLQLCCueStackSpeedFadeIn, QString::number(fadeInSpeed()));
+    doc->writeAttribute(KXMLQLCCueStackSpeedFadeOut, QString::number(fadeOutSpeed()));
+    doc->writeAttribute(KXMLQLCCueStackSpeedDuration, QString::number(duration()));
+    doc->writeEndElement();
 
     foreach (Cue cue, cues())
-        cue.saveXML(doc, &root);
+        cue.saveXML(doc);
+
+    /* End the <CueStack> tag */
+    doc->writeEndElement();
 
     return true;
 }
@@ -411,7 +423,7 @@ void CueStack::setFlashing(bool enable)
     {
         m_flashing = enable;
         if (m_flashing == true)
-            doc()->masterTimer()->registerDMXSource(this, "CueStack");
+            doc()->masterTimer()->registerDMXSource(this);
         else
             doc()->masterTimer()->unregisterDMXSource(this);
     }
@@ -432,7 +444,7 @@ void CueStack::writeDMX(MasterTimer* timer, QList<Universe*> ua)
         {
             it.next();
             FadeChannel fc;
-            fc.setChannel(it.key());
+            fc.setChannel(doc(), it.key());
             fc.setTarget(it.value());
             int uni = qFloor(fc.channel() / 512);
             if (uni < ua.size())
@@ -522,11 +534,12 @@ void CueStack::postRun(MasterTimer* timer)
         if (fc.group(doc()) == QLCChannel::Intensity)
         {
             fc.setStart(fc.current(intensity()));
+            fc.setCurrent(fc.current(intensity()));
             fc.setTarget(0);
             fc.setElapsed(0);
             fc.setReady(false);
             fc.setFadeTime(fadeOutSpeed());
-            timer->fader()->add(fc);
+            timer->faderAdd(fc);
         }
     }
 
@@ -545,11 +558,11 @@ int CueStack::previous()
     if (m_cues.size() == 0)
         return -1;
 
-    m_mutex.lock();
+    QMutexLocker locker(&m_mutex);
+
     m_currentIndex--;
     if (m_currentIndex < 0)
         m_currentIndex = m_cues.size() - 1;
-    m_mutex.unlock();
 
     return m_currentIndex;
 }
@@ -561,11 +574,10 @@ int CueStack::next()
     if (m_cues.size() == 0)
         return -1;
 
-    m_mutex.lock();
+    QMutexLocker locker(&m_mutex);
     m_currentIndex++;
     if (m_currentIndex >= m_cues.size())
         m_currentIndex = 0;
-    m_mutex.unlock();
 
     return m_currentIndex;
 }
@@ -576,12 +588,15 @@ void CueStack::switchCue(int from, int to, const QList<Universe *> ua)
 
     Cue newCue;
     Cue oldCue;
-    m_mutex.lock();
-    if (to >= 0 && to < m_cues.size())
-        newCue = m_cues[to];
-    if (from >= 0 && from < m_cues.size())
-        oldCue = m_cues[from];
-    m_mutex.unlock();
+
+    {
+        QMutexLocker locker(&m_mutex);
+
+        if (to >= 0 && to < m_cues.size())
+            newCue = m_cues[to];
+        if (from >= 0 && from < m_cues.size())
+            oldCue = m_cues[from];
+    }
 
     // Fade out the HTP channels of the previous cue
     QHashIterator <uint,uchar> oldit(oldCue.values());
@@ -589,9 +604,7 @@ void CueStack::switchCue(int from, int to, const QList<Universe *> ua)
     {
         oldit.next();
 
-        FadeChannel fc;
-        fc.setFixture(doc(), Fixture::invalidId());
-        fc.setChannel(oldit.key());
+        FadeChannel fc(doc(), Fixture::invalidId(), oldit.key());
 
         if (fc.group(doc()) == QLCChannel::Intensity)
         {
@@ -609,10 +622,7 @@ void CueStack::switchCue(int from, int to, const QList<Universe *> ua)
     while (newit.hasNext() == true)
     {
         newit.next();
-        FadeChannel fc;
-
-        fc.setFixture(doc(), Fixture::invalidId());
-        fc.setChannel(newit.key());
+        FadeChannel fc(doc(), Fixture::invalidId(), newit.key());
         fc.setTarget(newit.value());
         fc.setElapsed(0);
         fc.setReady(false);

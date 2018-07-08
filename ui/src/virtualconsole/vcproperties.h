@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   vcproperties.h
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -22,9 +23,9 @@
 
 #include "grandmaster.h"
 
+class QXmlStreamReader;
+class QXmlStreamWriter;
 class VirtualConsole;
-class QDomDocument;
-class QDomElement;
 class MasterTimer;
 class VCFrame;
 class QWidget;
@@ -40,9 +41,6 @@ class Doc;
 #define KXMLQLCVCPropertiesSize "Size"
 #define KXMLQLCVCPropertiesSizeWidth "Width"
 #define KXMLQLCVCPropertiesSizeHeight "Height"
-
-#define KXMLQLCVCPropertiesKeyboard "Keyboard"
-#define KXMLQLCVCPropertiesKeyboardTapModifier "TapModifier"
 
 #define KXMLQLCVCPropertiesGrandMaster "GrandMaster"
 #define KXMLQLCVCPropertiesGrandMasterVisible "Visible"
@@ -78,19 +76,6 @@ public:
 private:
     QSize m_size;
 
-    /*********************************************************************
-     * Keyboard
-     *********************************************************************/
-public:
-    /** Set the tap modifier key */
-    void setTapModifier(Qt::KeyboardModifier mod);
-
-    /** Get the tap modifier key */
-    Qt::KeyboardModifier tapModifier() const;
-
-private:
-    Qt::KeyboardModifier m_tapModifier;
-
     /*************************************************************************
      * Grand Master
      *************************************************************************/
@@ -120,14 +105,14 @@ private:
      *************************************************************************/
 public:
     /** Load VirtualConsole properties from the given XML tag */
-    bool loadXML(const QDomElement& vc_root);
+    bool loadXML(QXmlStreamReader &vc_root);
 
     /** Save VirtualConsole properties to the given XML document */
-    bool saveXML(QDomDocument* doc, QDomElement* wksp_root) const;
+    bool saveXML(QXmlStreamWriter *doc) const;
 
 private:
     /** Load the properties of a default slider */
-    static bool loadXMLInput(const QDomElement& tag, quint32* universe, quint32* channel);
+    static bool loadXMLInput(QXmlStreamReader &root, quint32* universe, quint32* channel);
 };
 
 /** @} */

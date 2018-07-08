@@ -1,8 +1,9 @@
 /*
-  Q Light Controller - Unit test
+  Q Light Controller Plus - Unit test
   doc_test.h
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -21,7 +22,8 @@
 #define DOC_TEST_H
 
 #include <QObject>
-#include <QtXml>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 class Doc;
 class Doc_Test : public QObject
@@ -42,28 +44,35 @@ private slots:
     void createFixtureId();
     void addFixture();
     void deleteFixture();
+    void replaceFixtures();
     void fixture();
     void totalPowerConsumption();
 
     void addFixtureGroup();
     void removeFixtureGroup();
 
+    void channelGroups();
+
+    void monitorProperties();
+
     void addFunction();
     void deleteFunction();
     void function();
+    void usage();
 
     void load();
     void loadWrongRoot();
     void save();
 
 private:
-    QDomElement createFixtureNode(QDomDocument& doc, quint32 id);
-    QDomElement createFixtureGroupNode(QDomDocument& doc, quint32 id);
-    QDomElement createCollectionNode(QDomDocument& doc, quint32 id);
-    QDomElement createBusNode(QDomDocument& doc, quint32 id, quint32 value);
+    void createFixtureNode(QXmlStreamWriter &doc, quint32 id, quint32 address, quint32 channels);
+    void createFixtureGroupNode(QXmlStreamWriter &doc, quint32 id);
+    void createCollectionNode(QXmlStreamWriter &doc, quint32 id);
+    void createBusNode(QXmlStreamWriter &doc, quint32 id, quint32 value);
 
 private:
     Doc* m_doc;
+    int m_currentAddr;
 };
 
 #endif

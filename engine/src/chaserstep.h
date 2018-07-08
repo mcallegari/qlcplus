@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   chaserstep.h
 
   Copyright (C) 2004 Heikki Junnila
+                2015 Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -24,8 +25,7 @@
 #include "scenevalue.h"
 #include "function.h"
 
-class QDomDocument;
-class QDomElement;
+class QXmlStreamReader;
 
 /** @addtogroup engine_functions Functions
  * @{
@@ -55,6 +55,10 @@ public:
     /** Return the actual function pointer for $fid from $doc */
     Function* resolveFunction(const Doc* doc) const;
 
+    int setValue(SceneValue value, int index = -1, bool *created = NULL);
+
+    int unSetValue(SceneValue value, int index = -1);
+
     /************************************************************************
      * QVariant operations
      ***********************************************************************/
@@ -70,11 +74,12 @@ public:
      * Load & Save
      ***********************************************************************/
 public:
-    /** Load ChaserStep contents from $root and return step index in $stepNumber */
-    bool loadXML(const QDomElement& root, int& stepNumber);
+    /** Load ChaserStep contents from $root and return step index in $stepNumber.
+      * $doc is used to check fixture existance. If NULL the check is skipped */
+    bool loadXML(QXmlStreamReader &root, int& stepNumber, Doc *doc);
 
-    /** Save ChaserStep contents to $doc, under $root with $stepNumber */
-    bool saveXML(QDomDocument* doc, QDomElement* root, int stepNumber, bool isSequence) const;
+    /** Save ChaserStep contents to $doc, with $stepNumber */
+    bool saveXML(QXmlStreamWriter *doc, int stepNumber, bool isSequence) const;
 
 public:
     quint32 fid;                 //! The function ID

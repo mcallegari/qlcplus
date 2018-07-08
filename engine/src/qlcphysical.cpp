@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   qlcphysical.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,8 +18,10 @@
   limitations under the License.
 */
 
+#include <QXmlStreamReader>
+#include <QRegExp>
 #include <QString>
-#include <QtXml>
+#include <QDebug>
 
 #include "qlcphysical.h"
 
@@ -165,22 +168,22 @@ QString QLCPhysical::lensName() const
     return m_lensName;
 }
 
-void QLCPhysical::setLensDegreesMin(qreal degrees)
+void QLCPhysical::setLensDegreesMin(double degrees)
 {
     m_lensDegreesMin = degrees;
 }
 
-qreal QLCPhysical::lensDegreesMin() const
+double QLCPhysical::lensDegreesMin() const
 {
     return m_lensDegreesMin;
 }
 
-void QLCPhysical::setLensDegreesMax(qreal degrees)
+void QLCPhysical::setLensDegreesMax(double degrees)
 {
     m_lensDegreesMax = degrees;
 }
 
-qreal QLCPhysical::lensDegreesMax() const
+double QLCPhysical::lensDegreesMax() const
 {
     return m_lensDegreesMax;
 }
@@ -253,108 +256,101 @@ QString QLCPhysical::dmxConnector() const
  * Load & Save
  ****************************************************************************/
 
-bool QLCPhysical::loadXML(const QDomElement& root)
+bool QLCPhysical::loadXML(QXmlStreamReader &doc)
 {
-    if (root.tagName() != KXMLQLCPhysical)
+    if (doc.name() != KXMLQLCPhysical)
     {
         qWarning() << Q_FUNC_INFO << "Physical node not found";
         return false;
     }
 
     /* Subtags */
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (doc.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLQLCPhysicalBulb)
+        QXmlStreamAttributes attrs = doc.attributes();
+        if (doc.name() == KXMLQLCPhysicalBulb)
         {
-            m_bulbType = tag.attribute(KXMLQLCPhysicalBulbType);
-            m_bulbLumens = tag.attribute(KXMLQLCPhysicalBulbLumens).toInt();
-            m_bulbColourTemperature = tag.attribute(KXMLQLCPhysicalBulbColourTemperature).toInt();
+            m_bulbType = attrs.value(KXMLQLCPhysicalBulbType).toString();
+            m_bulbLumens = attrs.value(KXMLQLCPhysicalBulbLumens).toString().toInt();
+            m_bulbColourTemperature = attrs.value(KXMLQLCPhysicalBulbColourTemperature).toString().toInt();
         }
-        else if (tag.tagName() == KXMLQLCPhysicalDimensions)
+        else if (doc.name() == KXMLQLCPhysicalDimensions)
         {
-            m_weight = tag.attribute(KXMLQLCPhysicalDimensionsWeight).toDouble();
-            m_width = tag.attribute(KXMLQLCPhysicalDimensionsWidth).toInt();
-            m_height = tag.attribute(KXMLQLCPhysicalDimensionsHeight).toInt();
-            m_depth = tag.attribute(KXMLQLCPhysicalDimensionsDepth).toInt();
+            m_weight = QLocale::c().toDouble(attrs.value(KXMLQLCPhysicalDimensionsWeight).toString());
+            m_width = attrs.value(KXMLQLCPhysicalDimensionsWidth).toString().toInt();
+            m_height = attrs.value(KXMLQLCPhysicalDimensionsHeight).toString().toInt();
+            m_depth = attrs.value(KXMLQLCPhysicalDimensionsDepth).toString().toInt();
         }
-        else if (tag.tagName() == KXMLQLCPhysicalLens)
+        else if (doc.name() == KXMLQLCPhysicalLens)
         {
-            m_lensName = tag.attribute(KXMLQLCPhysicalLensName);
-            m_lensDegreesMin = tag.attribute(KXMLQLCPhysicalLensDegreesMin).toDouble();
-            m_lensDegreesMax = tag.attribute(KXMLQLCPhysicalLensDegreesMax).toDouble();
+            m_lensName = attrs.value(KXMLQLCPhysicalLensName).toString();
+            m_lensDegreesMin = QLocale::c().toDouble(attrs.value(KXMLQLCPhysicalLensDegreesMin).toString());
+            m_lensDegreesMax = QLocale::c().toDouble(attrs.value(KXMLQLCPhysicalLensDegreesMax).toString());
         }
-        else if (tag.tagName() == KXMLQLCPhysicalFocus)
+        else if (doc.name() == KXMLQLCPhysicalFocus)
         {
-            m_focusType = tag.attribute(KXMLQLCPhysicalFocusType);
-            m_focusPanMax = tag.attribute(KXMLQLCPhysicalFocusPanMax).toInt();
-            m_focusTiltMax = tag.attribute(KXMLQLCPhysicalFocusTiltMax).toInt();
+            m_focusType = attrs.value(KXMLQLCPhysicalFocusType).toString();
+            m_focusPanMax = attrs.value(KXMLQLCPhysicalFocusPanMax).toString().toInt();
+            m_focusTiltMax = attrs.value(KXMLQLCPhysicalFocusTiltMax).toString().toInt();
         }
-        else if (tag.tagName() == KXMLQLCPhysicalTechnical)
+        else if (doc.name() == KXMLQLCPhysicalTechnical)
         {
-            m_powerConsumption = tag.attribute(KXMLQLCPhysicalTechnicalPowerConsumption).toInt();
-            m_dmxConnector = tag.attribute(KXMLQLCPhysicalTechnicalDmxConnector);
+            m_powerConsumption = attrs.value(KXMLQLCPhysicalTechnicalPowerConsumption).toString().toInt();
+            m_dmxConnector = attrs.value(KXMLQLCPhysicalTechnicalDmxConnector).toString();
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown Physical tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unknown Physical tag:" << doc.name();
         }
-
-        node = node.nextSibling();
+        doc.skipCurrentElement();
     }
 
     return true;
 }
 
-bool QLCPhysical::saveXML(QDomDocument* doc, QDomElement* root)
+bool QLCPhysical::saveXML(QXmlStreamWriter *doc)
 {
-    QDomElement tag;
-    QDomElement subtag;
-    QDomText text;
-    QString str;
-
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(root != NULL);
 
     /* Physical entry */
-    tag = doc->createElement(KXMLQLCPhysical);
-    root->appendChild(tag);
+    doc->writeStartElement(KXMLQLCPhysical);
 
     /* Bulb */
-    subtag = doc->createElement(KXMLQLCPhysicalBulb);
-    subtag.setAttribute(KXMLQLCPhysicalBulbType, m_bulbType);
-    subtag.setAttribute(KXMLQLCPhysicalBulbLumens, m_bulbLumens);
-    subtag.setAttribute(KXMLQLCPhysicalBulbColourTemperature, m_bulbColourTemperature);
-    tag.appendChild(subtag);
+    doc->writeStartElement(KXMLQLCPhysicalBulb);
+    doc->writeAttribute(KXMLQLCPhysicalBulbType, m_bulbType);
+    doc->writeAttribute(KXMLQLCPhysicalBulbLumens, QString::number(m_bulbLumens));
+    doc->writeAttribute(KXMLQLCPhysicalBulbColourTemperature, QString::number(m_bulbColourTemperature));
+    doc->writeEndElement();
 
     /* Dimensions */
-    subtag = doc->createElement(KXMLQLCPhysicalDimensions);
-    subtag.setAttribute(KXMLQLCPhysicalDimensionsWeight, QString::number(m_weight));
-    subtag.setAttribute(KXMLQLCPhysicalDimensionsWidth, m_width);
-    subtag.setAttribute(KXMLQLCPhysicalDimensionsHeight, m_height);
-    subtag.setAttribute(KXMLQLCPhysicalDimensionsDepth, m_depth);
-    tag.appendChild(subtag);
+    doc->writeStartElement(KXMLQLCPhysicalDimensions);
+    doc->writeAttribute(KXMLQLCPhysicalDimensionsWeight, QLocale::c().toString(m_weight));
+    doc->writeAttribute(KXMLQLCPhysicalDimensionsWidth, QString::number(m_width));
+    doc->writeAttribute(KXMLQLCPhysicalDimensionsHeight, QString::number(m_height));
+    doc->writeAttribute(KXMLQLCPhysicalDimensionsDepth, QString::number(m_depth));
+    doc->writeEndElement();
 
     /* Lens */
-    subtag = doc->createElement(KXMLQLCPhysicalLens);
-    subtag.setAttribute(KXMLQLCPhysicalLensName, m_lensName);
-    subtag.setAttribute(KXMLQLCPhysicalLensDegreesMin, QString::number(m_lensDegreesMin));
-    subtag.setAttribute(KXMLQLCPhysicalLensDegreesMax, QString::number(m_lensDegreesMax));
-    tag.appendChild(subtag);
+    doc->writeStartElement(KXMLQLCPhysicalLens);
+    doc->writeAttribute(KXMLQLCPhysicalLensName, m_lensName);
+    doc->writeAttribute(KXMLQLCPhysicalLensDegreesMin, QLocale::c().toString(m_lensDegreesMin));
+    doc->writeAttribute(KXMLQLCPhysicalLensDegreesMax, QLocale::c().toString(m_lensDegreesMax));
+    doc->writeEndElement();
 
     /* Focus */
-    subtag = doc->createElement(KXMLQLCPhysicalFocus);
-    subtag.setAttribute(KXMLQLCPhysicalFocusType, m_focusType);
-    subtag.setAttribute(KXMLQLCPhysicalFocusPanMax, m_focusPanMax);
-    subtag.setAttribute(KXMLQLCPhysicalFocusTiltMax, m_focusTiltMax);
-    tag.appendChild(subtag);
+    doc->writeStartElement(KXMLQLCPhysicalFocus);
+    doc->writeAttribute(KXMLQLCPhysicalFocusType, m_focusType);
+    doc->writeAttribute(KXMLQLCPhysicalFocusPanMax, QString::number(m_focusPanMax));
+    doc->writeAttribute(KXMLQLCPhysicalFocusTiltMax, QString::number(m_focusTiltMax));
+    doc->writeEndElement();
 
     /* Technical */
-    subtag = doc->createElement(KXMLQLCPhysicalTechnical);
-    subtag.setAttribute(KXMLQLCPhysicalTechnicalPowerConsumption, m_powerConsumption);
-    subtag.setAttribute(KXMLQLCPhysicalTechnicalDmxConnector, m_dmxConnector);
-    tag.appendChild(subtag);
+    doc->writeStartElement(KXMLQLCPhysicalTechnical);
+    doc->writeAttribute(KXMLQLCPhysicalTechnicalPowerConsumption, QString::number(m_powerConsumption));
+    doc->writeAttribute(KXMLQLCPhysicalTechnicalDmxConnector, m_dmxConnector);
+    doc->writeEndElement();
+
+    doc->writeEndElement();
 
     return true;
 }

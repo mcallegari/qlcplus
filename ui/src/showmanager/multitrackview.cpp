@@ -155,7 +155,7 @@ void MultiTrackView::resetView()
         m_scene->removeItem(m_items.at(i));
     m_items.clear();
 
-    m_cursor->setPos(150, 0);
+    rewindCursor();
     this->horizontalScrollBar()->setSliderPosition(0);
     this->verticalScrollBar()->setSliderPosition(0);
     m_scene->update();
@@ -385,11 +385,13 @@ void MultiTrackView::moveCursor(quint32 timePos)
 {
     int newPos = getPositionFromTime(timePos);
     m_cursor->setPos(newPos, 0);
+    m_cursor->setTime(timePos);
 }
 
 void MultiTrackView::rewindCursor()
 {
     m_cursor->setPos(TRACK_WIDTH, 0);
+    m_cursor->setTime(0);
 }
 
 void MultiTrackView::activateTrack(Track *track)
@@ -477,6 +479,9 @@ void MultiTrackView::mouseReleaseEvent(QMouseEvent * e)
 {
     if (getSelectedItem() == NULL)
     {
+        // Don't handle positions at the left of QLC+ window
+        if (mapToScene(e->pos()).x() < 0)
+            return;
         quint32 xpos = mapToScene(e->pos()).x();
         if (xpos > TRACK_WIDTH)
         {
@@ -493,7 +498,7 @@ void MultiTrackView::mouseReleaseEvent(QMouseEvent * e)
 
 void MultiTrackView::slotHeaderClicked(QGraphicsSceneMouseEvent *event)
 {
-    m_cursor->setPos(TRACK_WIDTH +  event->pos().toPoint().x(), 0);
+    m_cursor->setPos(TRACK_WIDTH + event->pos().toPoint().x(), 0);
     m_cursor->setTime(getTimeFromCursor());
     qDebug() << Q_FUNC_INFO << "Cursor moved to time:" << m_cursor->getTime();
     emit timeChanged(m_cursor->getTime());
@@ -582,13 +587,13 @@ void MultiTrackView::slotItemMoved(QGraphicsSceneMouseEvent *event, ShowItem *it
     {
         float step = m_header->getTimeDivisionStep();
         float gridPos = ((int)(item->x() / step) * step);
-        item->setPos(gridPos, ypos);
+        item->setPos(gridPos + 2, ypos);
         s_time = getTimeFromPosition(gridPos);
     }
     else
     {
         item->setPos(item->x(), ypos);
-        s_time = getTimeFromPosition(item->x());
+        s_time = getTimeFromPosition(item->x() - 2);
     }
 
     item->setStartTime(s_time);

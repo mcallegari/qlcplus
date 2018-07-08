@@ -24,6 +24,8 @@
 #include <QMutex>
 #include <QMap>
 
+#include <function.h>
+
 class ShowFunction;
 class Function;
 class Track;
@@ -45,6 +47,9 @@ public:
     /** Start the runner */
     void start();
 
+    /** If running, pauses the runner and all the current running functions. */
+    void setPause(bool enable);
+
     /** Stop the runner */
     void stop();
 
@@ -65,17 +70,14 @@ private:
     /** Total time the runner has to run */
     quint32 m_totalRunTime;
 
-    /** List of running Functions and its mutex */
-    QList <Function *> m_runningQueue;
-    QMutex m_runningQueueMutex;
+    /** List of the currently running Functions and their stop time */
+    QList < QPair<Function *, quint32> > m_runningQueue;
 
-    QMap <quint32, quint32> m_stopTimeMap;
-
-    /** Current step being played */
+    /** Index of the item in m_functions to be considered for playback */
     int m_currentFunctionIndex;
 
-private slots:
-    void slotFunctionStopped(quint32);
+private:
+    FunctionParent functionParent() const;
 
 signals:
     void timeChanged(quint32 time);

@@ -1,13 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
+ <author>Massimo Callegari</author>
+ <comment>
+  Q Light Controller Plus
+  vcspeeddialproperties.ui
+
+  Copyright (c) 2015 Massimo Callegari
+
+  Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0.txt
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+ </comment>
  <class>VCSpeedDialProperties</class>
  <widget class="QDialog" name="VCSpeedDialProperties">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>522</width>
-    <height>455</height>
+    <width>551</width>
+    <height>612</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -42,7 +61,91 @@
        <string>Functions</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="0" rowspan="3" colspan="2">
+       <item row="0" column="2">
+        <widget class="QToolButton" name="m_addButton">
+         <property name="toolTip">
+          <string>Add functions to be controlled</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../qlcui.qrc">
+           <normaloff>:/edit_add.png</normaloff>:/edit_add.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QToolButton" name="m_removeButton">
+         <property name="toolTip">
+          <string>Remove selected functions</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../qlcui.qrc">
+           <normaloff>:/edit_remove.png</normaloff>:/edit_remove.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <widget class="QToolButton" name="m_copyFactorsButton">
+         <property name="toolTip">
+          <string>Copy the factors of the selected function</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../qlcui.qrc">
+           <normaloff>:/editcopy.png</normaloff>:/editcopy.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="2">
+        <widget class="QToolButton" name="m_pasteFactorsButton">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="toolTip">
+          <string>Paste copied factors to all selected functions</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../qlcui.qrc">
+           <normaloff>:/editpaste.png</normaloff>:/editpaste.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="2">
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>18</width>
+           <height>198</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="0" rowspan="5" colspan="2">
         <widget class="QTreeWidget" name="m_tree">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -81,7 +184,7 @@
          </column>
          <column>
           <property name="text">
-           <string>Fade In *</string>
+           <string>Fade In factor</string>
           </property>
           <property name="toolTip">
            <string>Multiplier applied before time is sent as Fade In Time to the function.</string>
@@ -89,7 +192,7 @@
          </column>
          <column>
           <property name="text">
-           <string>Fade Out *</string>
+           <string>Fade Out factor</string>
           </property>
           <property name="toolTip">
            <string>Multiplier applied before time is sent as Fade Out Time to the function.</string>
@@ -97,60 +200,13 @@
          </column>
          <column>
           <property name="text">
-           <string>Duration * (+tap)</string>
+           <string>Duration factor (+tap)</string>
           </property>
           <property name="toolTip">
            <string>Multiplier applied before time is sent as Duration to the function.</string>
           </property>
          </column>
         </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QToolButton" name="m_addButton">
-         <property name="toolTip">
-          <string>Add functions to be controlled</string>
-         </property>
-         <property name="icon">
-          <iconset resource="../qlcui.qrc">
-           <normaloff>:/edit_add.png</normaloff>:/edit_add.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>32</width>
-           <height>32</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2">
-        <widget class="QToolButton" name="m_removeButton">
-         <property name="toolTip">
-          <string>Remove selected functions</string>
-         </property>
-         <property name="icon">
-          <iconset resource="../qlcui.qrc">
-           <normaloff>:/edit_remove.png</normaloff>:/edit_remove.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>32</width>
-           <height>32</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="2">
-        <spacer name="verticalSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>18</width>
-           <height>198</height>
-          </size>
-         </property>
-        </spacer>
        </item>
       </layout>
      </widget>
@@ -165,51 +221,12 @@
           <string>Absolute Value</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_4">
-          <item row="1" column="0">
-           <widget class="QLabel" name="m_absoluteInputUniverseLabel">
-            <property name="text">
-             <string>Input Universe</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1" colspan="2">
-           <widget class="QLineEdit" name="m_absoluteInputUniverseEdit">
-            <property name="readOnly">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="m_absoluteInputChannelLabel">
-            <property name="text">
-             <string>Input Channel</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1" colspan="2">
-           <widget class="QLineEdit" name="m_absoluteInputChannelEdit">
-            <property name="readOnly">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="1">
-           <widget class="QPushButton" name="m_autoDetectAbsoluteInputButton">
-            <property name="text">
-             <string>Auto Detect</string>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="2">
-           <widget class="QPushButton" name="m_chooseAbsoluteInputButton">
-            <property name="text">
-             <string>Choose...</string>
-            </property>
-           </widget>
-          </item>
+          <property name="topMargin">
+           <number>4</number>
+          </property>
+          <property name="bottomMargin">
+           <number>4</number>
+          </property>
           <item row="0" column="0">
            <widget class="QLabel" name="m_absoluteRangeLabel">
             <property name="text">
@@ -218,24 +235,20 @@
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QSpinBox" name="m_absoluteMinSpin">
-            <property name="suffix">
-             <string>s</string>
+           <widget class="QSpinBox" name="m_absoluteMinSpin"/>
+          </item>
+          <item row="0" column="2">
+           <widget class="QSpinBox" name="m_absoluteMaxSpin"/>
+          </item>
+          <item row="0" column="3">
+           <widget class="QCheckBox" name="m_absolutePrecisionCb">
+            <property name="text">
+             <string>ms precision</string>
             </property>
            </widget>
           </item>
-          <item row="0" column="2">
-           <widget class="QSpinBox" name="m_absoluteMaxSpin">
-            <property name="suffix">
-             <string>s</string>
-            </property>
-            <property name="maximum">
-             <number>300</number>
-            </property>
-            <property name="value">
-             <number>10</number>
-            </property>
-           </widget>
+          <item row="1" column="0" colspan="3">
+           <layout class="QHBoxLayout" name="m_absoluteInputLayout"/>
           </item>
          </layout>
         </widget>
@@ -245,113 +258,15 @@
          <property name="title">
           <string>Tap</string>
          </property>
-         <layout class="QGridLayout" name="gridLayout_5">
-          <item row="0" column="0">
-           <widget class="QGroupBox" name="groupBox">
-            <property name="title">
-             <string>External Input</string>
-            </property>
-            <layout class="QGridLayout" name="gridLayout_3">
-             <item row="0" column="0">
-              <widget class="QLabel" name="m_tapInputUniverseLabel">
-               <property name="text">
-                <string>Input Universe</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1" colspan="2">
-              <widget class="QLineEdit" name="m_tapInputUniverseEdit"/>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="m_tapInputChannelLabel">
-               <property name="text">
-                <string>Input Channel</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1" colspan="2">
-              <widget class="QLineEdit" name="m_tapInputChannelEdit"/>
-             </item>
-             <item row="2" column="1">
-              <widget class="QPushButton" name="m_autoDetectTapInputButton">
-               <property name="text">
-                <string>Auto Detect</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="2">
-              <widget class="QPushButton" name="m_chooseTapInputButton">
-               <property name="text">
-                <string>Choose...</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QGroupBox" name="groupBox_4">
-            <property name="title">
-             <string>Key combination</string>
-            </property>
-            <layout class="QGridLayout" name="gridLayout_6">
-             <item row="0" column="0" colspan="2">
-              <widget class="QLineEdit" name="m_keyEdit">
-               <property name="toolTip">
-                <string>Keyboard combination to control the dial tap</string>
-               </property>
-               <property name="readOnly">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QToolButton" name="m_attachKey">
-               <property name="toolTip">
-                <string>Set a key combination for this dial</string>
-               </property>
-               <property name="text">
-                <string notr="true">...</string>
-               </property>
-               <property name="icon">
-                <iconset resource="../qlcui.qrc">
-                 <normaloff>:/key_bindings.png</normaloff>:/key_bindings.png</iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>32</width>
-                 <height>32</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
-              <widget class="QToolButton" name="m_detachKey">
-               <property name="toolTip">
-                <string>Remove the dial's keyboard shortcut key</string>
-               </property>
-               <property name="text">
-                <string notr="true">...</string>
-               </property>
-               <property name="icon">
-                <iconset resource="../qlcui.qrc">
-                 <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>32</width>
-                 <height>32</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-         </layout>
+         <layout class="QHBoxLayout" name="m_tapInputLayout"/>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox_4">
+         <property name="title">
+          <string>Apply</string>
+         </property>
+         <layout class="QHBoxLayout" name="m_applyInputLayout"/>
         </widget>
        </item>
        <item>
@@ -369,81 +284,193 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab">
+     <widget class="QWidget" name="Appearance">
       <attribute name="title">
        <string>Appearance</string>
       </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QCheckBox" name="m_pmCheck">
+         <property name="text">
+          <string>Show plus and minus buttons</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="m_dialCheck">
+         <property name="text">
+          <string>Show the central dial</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="m_tapCheck">
+         <property name="text">
+          <string>Show the tap button</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="m_hoursCheck">
+         <property name="text">
+          <string>Show the hours field</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="m_minCheck">
+         <property name="text">
+          <string>Show the minutes field</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="m_secCheck">
+         <property name="text">
+          <string>Show the seconds field</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="m_msCheck">
+         <property name="text">
+          <string>Show the milliseconds field</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="m_mdCheck">
+         <property name="text">
+          <string>Show multiplier and divisor buttons</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="m_applyCheck">
+         <property name="text">
+          <string>Show the apply button</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>256</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="MultDiv">
+      <attribute name="title">
+       <string>Multiplier</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_4">
+       <item>
+        <widget class="QCheckBox" name="m_resetFactorOnDialChangeCb">
+         <property name="text">
+          <string>Reset multiplier factor when the dial value changes</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="m_multInputLayout"/>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="m_divInputLayout"/>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="m_multDivResetInputLayout"/>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_4">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_2">
+      <attribute name="title">
+       <string>Presets</string>
+      </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout">
-         <item>
-          <widget class="QCheckBox" name="m_pmCheck">
-           <property name="text">
-            <string>Show plus and minus buttons</string>
+        <layout class="QGridLayout" name="gridLayout_10">
+         <item row="2" column="2">
+          <widget class="QLineEdit" name="m_presetNameEdit">
+           <property name="toolTip">
+            <string>Preset name</string>
            </property>
           </widget>
          </item>
-         <item>
-          <widget class="QCheckBox" name="m_dialCheck">
+         <item row="2" column="1">
+          <widget class="QLabel" name="label_2">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="text">
-            <string>Show the central dial</string>
+            <string>Preset Name</string>
            </property>
           </widget>
          </item>
-         <item>
-          <widget class="QCheckBox" name="m_tapCheck">
+         <item row="9" column="0" colspan="3">
+          <layout class="QVBoxLayout" name="m_presetInputLayout"/>
+         </item>
+         <item row="0" column="1" colspan="2">
+          <widget class="QPushButton" name="m_addPresetButton">
            <property name="text">
-            <string>Show the tap button</string>
+            <string> Add preset</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../qlcui.qrc">
+             <normaloff>:/edit_add.png</normaloff>:/edit_add.png</iconset>
            </property>
           </widget>
          </item>
-         <item>
-          <widget class="QCheckBox" name="m_hoursCheck">
-           <property name="text">
-            <string>Show the hours field</string>
-           </property>
+         <item row="3" column="1" colspan="2">
+          <widget class="SpeedDial" name="m_speedDialWidget" native="true"/>
+         </item>
+         <item row="0" column="0" rowspan="9">
+          <widget class="QTreeWidget" name="m_presetsTree">
+           <column>
+            <property name="text">
+             <string>Name</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Value</string>
+            </property>
+           </column>
           </widget>
          </item>
-         <item>
-          <widget class="QCheckBox" name="m_minCheck">
+         <item row="1" column="1" colspan="2">
+          <widget class="QPushButton" name="m_removePresetButton">
            <property name="text">
-            <string>Show the minutes field</string>
+            <string> Remove</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../qlcui.qrc">
+             <normaloff>:/edit_remove.png</normaloff>:/edit_remove.png</iconset>
            </property>
           </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="m_secCheck">
-           <property name="text">
-            <string>Show the seconds field</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="m_msCheck">
-           <property name="text">
-            <string>Show the milliseconds field</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="m_infiniteCheck">
-           <property name="text">
-            <string>Show the infinite option</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="verticalSpacer_3">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>40</height>
-            </size>
-           </property>
-          </spacer>
          </item>
         </layout>
        </item>
@@ -463,6 +490,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>SpeedDial</class>
+   <extends>QWidget</extends>
+   <header>speeddial.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../qlcui.qrc"/>
   <include location="../qlcui.qrc"/>
@@ -533,66 +567,34 @@
    </hints>
   </connection>
   <connection>
-   <sender>m_chooseAbsoluteInputButton</sender>
+   <sender>m_copyFactorsButton</sender>
    <signal>clicked()</signal>
    <receiver>VCSpeedDialProperties</receiver>
-   <slot>slotChooseAbsoluteInputSourceClicked()</slot>
+   <slot>slotCopyFactorsClicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>345</x>
-     <y>215</y>
+     <x>376</x>
+     <y>213</y>
     </hint>
     <hint type="destinationlabel">
-     <x>394</x>
-     <y>215</y>
+     <x>396</x>
+     <y>223</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>m_chooseTapInputButton</sender>
+   <sender>m_pasteFactorsButton</sender>
    <signal>clicked()</signal>
    <receiver>VCSpeedDialProperties</receiver>
-   <slot>slotChooseTapInputSourceClicked()</slot>
+   <slot>slotPasteFactorsClicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>327</x>
-     <y>354</y>
+     <x>376</x>
+     <y>260</y>
     </hint>
     <hint type="destinationlabel">
-     <x>394</x>
-     <y>352</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>m_autoDetectAbsoluteInputButton</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>VCSpeedDialProperties</receiver>
-   <slot>slotAutoDetectAbsoluteInputSourceToggled()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>200</x>
-     <y>220</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>3</x>
-     <y>209</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>m_autoDetectTapInputButton</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>VCSpeedDialProperties</receiver>
-   <slot>slotAutoDetectTapInputSourceClicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>195</x>
-     <y>355</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>3</x>
-     <y>349</y>
+     <x>396</x>
+     <y>283</y>
     </hint>
    </hints>
   </connection>
@@ -600,9 +602,5 @@
  <slots>
   <slot>slotAddClicked()</slot>
   <slot>slotRemoveClicked()</slot>
-  <slot>slotChooseAbsoluteInputSourceClicked()</slot>
-  <slot>slotChooseTapInputSourceClicked()</slot>
-  <slot>slotAutoDetectAbsoluteInputSourceToggled()</slot>
-  <slot>slotAutoDetectTapInputSourceClicked()</slot>
  </slots>
 </ui>

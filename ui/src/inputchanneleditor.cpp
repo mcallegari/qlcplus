@@ -21,24 +21,26 @@
 #include <QComboBox>
 #include <QSpinBox>
 #include <QIcon>
+#include <QAction>
 
 #include "qlcchannel.h"
 #include "qlcinputprofile.h"
 #include "qlcinputchannel.h"
 #include "inputchanneleditor.h"
 
-#define KMidiMessageCC 0
-#define KMidiMessageNoteOnOff 1
-#define KMidiMessageNoteAftertouch 2
-#define KMidiMessagePC 3
-#define KMidiMessageChannelAftertouch 4
-#define KMidiMessagePitchWheel 5
-#define KMidiMessageMBCPlayback 6
-#define KMidiMessageMBCBeat 7
+#define KMidiMessageCC                  0
+#define KMidiMessageNoteOnOff           1
+#define KMidiMessageNoteAftertouch      2
+#define KMidiMessagePC                  3
+#define KMidiMessageChannelAftertouch   4
+#define KMidiMessagePitchWheel          5
+#define KMidiMessageMBCPlayback         6
+#define KMidiMessageMBCBeat             7
+#define KMidiMessageMBCStop             8
 
 #define KMidiChannelOffset 4096
 
-#include "../../plugins/midi/common/midiprotocol.h"
+#include "../../plugins/midi/src/common/midiprotocol.h"
 
 /****************************************************************************
  * Initialization
@@ -159,7 +161,7 @@ void InputChannelEditor::slotNumberChanged(int number)
 
     m_midiChannelSpin->setValue(midiChannel);
     m_midiMessageCombo->setCurrentIndex(midiMessage);
-    if (midiParam > 0)
+    if (midiParam >= 0)
         m_midiParamSpin->setValue(midiParam);
 
     enableMidiParam(midiMessage, midiParam);
@@ -183,40 +185,46 @@ void InputChannelEditor::numberToMidi(int number, int & channel, int & message, 
 {
     channel = number / KMidiChannelOffset + 1;
     number = number % KMidiChannelOffset;
+    param = -1;
     if (number <= CHANNEL_OFFSET_CONTROL_CHANGE_MAX)
     {
         message = KMidiMessageCC;
-        param = number - CHANNEL_OFFSET_CONTROL_CHANGE + 1;
+        param = number - CHANNEL_OFFSET_CONTROL_CHANGE;
     } 
     else if (number <= CHANNEL_OFFSET_NOTE_MAX)
     {
         message = KMidiMessageNoteOnOff;
-        param = number - CHANNEL_OFFSET_NOTE + 1;
+        param = number - CHANNEL_OFFSET_NOTE;
     } 
     else if (number <= CHANNEL_OFFSET_NOTE_AFTERTOUCH_MAX)
     {
         message = KMidiMessageNoteAftertouch;
-        param = number - CHANNEL_OFFSET_NOTE_AFTERTOUCH + 1;
+        param = number - CHANNEL_OFFSET_NOTE_AFTERTOUCH;
     } 
     else if (number <= CHANNEL_OFFSET_PROGRAM_CHANGE_MAX)
     {
         message = KMidiMessagePC;
-        param = number - CHANNEL_OFFSET_PROGRAM_CHANGE + 1;
+        param = number - CHANNEL_OFFSET_PROGRAM_CHANGE;
     } 
     else if (number == CHANNEL_OFFSET_CHANNEL_AFTERTOUCH)
     {
         message = KMidiMessageChannelAftertouch;
-        param = 0;
+    } 
+    else if (number == CHANNEL_OFFSET_PITCH_WHEEL)
+    {
+        message = KMidiMessagePitchWheel;
     } 
     else if (number == CHANNEL_OFFSET_MBC_PLAYBACK)
     {
         message = KMidiMessageMBCPlayback;
-        param = 0;
-    } 
+    }
+    else if (number == CHANNEL_OFFSET_MBC_STOP)
+    {
+        message = KMidiMessageMBCStop;
+    }
     else // if (number == CHANNEL_OFFSET_MBC_BEAT)
     {
         message = KMidiMessageMBCBeat;
-        param = 0;
     } 
 }
 
@@ -225,13 +233,13 @@ int InputChannelEditor::midiToNumber(int channel, int message, int param)
     switch (message)
     {
     case KMidiMessageCC:
-        return (channel - 1) * KMidiChannelOffset + CHANNEL_OFFSET_CONTROL_CHANGE + (param - 1);
+        return (channel - 1) * KMidiChannelOffset + CHANNEL_OFFSET_CONTROL_CHANGE + (param);
     case KMidiMessageNoteOnOff:
-        return (channel - 1) * KMidiChannelOffset + CHANNEL_OFFSET_NOTE + (param - 1);
+        return (channel - 1) * KMidiChannelOffset + CHANNEL_OFFSET_NOTE + (param);
     case KMidiMessageNoteAftertouch:
-        return (channel - 1) * KMidiChannelOffset + CHANNEL_OFFSET_NOTE_AFTERTOUCH + (param - 1);
+        return (channel - 1) * KMidiChannelOffset + CHANNEL_OFFSET_NOTE_AFTERTOUCH + (param);
     case KMidiMessagePC:
-        return (channel - 1) * KMidiChannelOffset + CHANNEL_OFFSET_PROGRAM_CHANGE + (param - 1);
+        return (channel - 1) * KMidiChannelOffset + CHANNEL_OFFSET_PROGRAM_CHANGE + (param);
     case KMidiMessageChannelAftertouch:
         return (channel - 1) * KMidiChannelOffset + CHANNEL_OFFSET_CHANNEL_AFTERTOUCH;
     case KMidiMessagePitchWheel:
@@ -240,6 +248,8 @@ int InputChannelEditor::midiToNumber(int channel, int message, int param)
         return (channel - 1) * KMidiChannelOffset + CHANNEL_OFFSET_MBC_PLAYBACK;
     case KMidiMessageMBCBeat:
         return (channel - 1) * KMidiChannelOffset + CHANNEL_OFFSET_MBC_BEAT;
+    case KMidiMessageMBCStop:
+        return (channel - 1) * KMidiChannelOffset + CHANNEL_OFFSET_MBC_STOP;
     default:
         return 0;
     }
@@ -285,6 +295,7 @@ void InputChannelEditor::enableMidiParam(int midiMessage, int midiParam)
     case KMidiMessagePitchWheel:
     case KMidiMessageMBCPlayback:
     case KMidiMessageMBCBeat:
+    case KMidiMessageMBCStop:
         m_midiParamLabel->setEnabled(false);
         m_midiParamSpin->setEnabled(false);
 
@@ -297,8 +308,8 @@ void InputChannelEditor::enableMidiParam(int midiMessage, int midiParam)
 
 QString InputChannelEditor::noteToString(int note)
 {
-    int octave = (note - 1) / 12 - 1;
-    int pitch = (note - 1) % 12;
+    int octave = note / 12 - 1;
+    int pitch = note % 12;
 
     switch(pitch)
     {

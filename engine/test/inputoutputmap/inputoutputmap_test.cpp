@@ -24,6 +24,7 @@
 #include "inputoutputmap_test.h"
 #include "inputoutputmap.h"
 #include "qlcinputsource.h"
+#include "grandmaster.h"
 #include "outputpatch.h"
 #include "inputpatch.h"
 #include "qlcconfig.h"
@@ -60,7 +61,7 @@ void InputOutputMap_Test::cleanupTestCase()
 void InputOutputMap_Test::initial()
 {
     InputOutputMap im(m_doc, 4);
-    QVERIFY(im.universes() == 4);
+    QVERIFY(im.universesCount() == 4);
     QVERIFY(im.m_universeArray.count() == 4);
     QVERIFY(im.universeNames().count() == 4);
     QVERIFY(im.m_profiles.size() == 0);
@@ -86,6 +87,9 @@ void InputOutputMap_Test::pluginInputs()
 
     QVERIFY(im.pluginInputs(stub->name()).size() == 4);
     QVERIFY(im.pluginInputs(stub->name()) == stub->inputs());
+    QVERIFY(im.inputPluginNames().count() == 1);
+    QVERIFY(im.inputPluginNames().at(0) == stub->name());
+    QVERIFY(im.pluginSupportsFeedback(stub->name()) == false);
 }
 
 void InputOutputMap_Test::pluginOutputs()
@@ -144,6 +148,9 @@ void InputOutputMap_Test::inputPluginStatus()
     QVERIFY(im.inputPluginStatus(stub->name(), 0) == stub->inputInfo(0));
     QVERIFY(im.inputPluginStatus(stub->name(), 1) == stub->inputInfo(1));
     QVERIFY(im.inputPluginStatus(stub->name(), 2) == stub->inputInfo(2));
+
+    QVERIFY(im.pluginDescription("Foo") == "");
+    QVERIFY(im.pluginDescription(stub->name()) == stub->pluginInfo());
 }
 
 void InputOutputMap_Test::outputPluginStatus()
@@ -170,7 +177,7 @@ void InputOutputMap_Test::universeNames()
 {
     InputOutputMap iom(m_doc, 4);
 
-    QCOMPARE(quint32(iom.universeNames().size()), iom.universes());
+    QCOMPARE(quint32(iom.universeNames().size()), iom.universesCount());
     QVERIFY(iom.universeNames().at(0).contains("Universe"));
     QVERIFY(iom.universeNames().at(1).contains("Universe"));
     QVERIFY(iom.universeNames().at(2).contains("Universe"));
@@ -181,37 +188,79 @@ void InputOutputMap_Test::universeNames()
     QVERIFY(stub != NULL);
 
     iom.setOutputPatch(0, stub->name(), 3);
-    QCOMPARE(quint32(iom.universeNames().size()), iom.universes());
+    QCOMPARE(quint32(iom.universeNames().size()), iom.universesCount());
     QCOMPARE(iom.universeNames().at(0), QString("Universe 1"));
     QCOMPARE(iom.universeNames().at(1), QString("Universe 2"));
     QCOMPARE(iom.universeNames().at(2), QString("Universe 3"));
     QCOMPARE(iom.universeNames().at(3), QString("Universe 4"));
 
     iom.setOutputPatch(3, stub->name(), 2);
-    QCOMPARE(quint32(iom.universeNames().size()), iom.universes());
+    QCOMPARE(quint32(iom.universeNames().size()), iom.universesCount());
     QCOMPARE(iom.universeNames().at(0), QString("Universe 1"));
     QCOMPARE(iom.universeNames().at(1), QString("Universe 2"));
     QCOMPARE(iom.universeNames().at(2), QString("Universe 3"));
     QCOMPARE(iom.universeNames().at(3), QString("Universe 4"));
+
+    iom.setUniverseName(1, "Name Changed");
+    iom.setUniverseName(42, "This is not the Universe you're looking for");
+
+    QCOMPARE(iom.getUniverseNameByIndex(1), QString("Name Changed"));
+    QCOMPARE(iom.getUniverseNameByIndex(2), QString("Universe 3"));
+    QCOMPARE(iom.getUniverseNameByIndex(42), QString());
+    QCOMPARE(iom.getUniverseNameByID(3), QString("Universe 4"));
 }
 
 void InputOutputMap_Test::addUniverse()
 {
     InputOutputMap im(m_doc, 4);
-    QVERIFY(im.universes() == 4);
-    im.addUniverse();
-    QVERIFY(im.universes() == 5);
+    QVERIFY(im.universesCount() == 4);
+    QVERIFY(im.addUniverse() == true);
+    QVERIFY(im.universesCount() == 5);
+    QVERIFY(im.getUniverseID(4) == 4);
+    QVERIFY(im.getUniverseID(42) == Universe::invalid());
+
+    /* try to add an existing universe */
+    QVERIFY(im.addUniverse(3) == false);
+    QVERIFY(im.universesCount() == 5);
+
+    /* add a universe with high id and check that
+     * there's no gaps */
+    QVERIFY(im.addUniverse(8) == true);
+    QVERIFY(im.universesCount() == 9);
 }
 
 void InputOutputMap_Test::removeUniverse()
 {
     InputOutputMap im(m_doc, 4);
-    QVERIFY(im.universes() == 4);
-    im.removeUniverse(1);
-    QVERIFY(im.universes() == 3);
+    QVERIFY(im.universesCount() == 4);
+
+    // Creating a gap in the universe list is forbidden
+    QVERIFY(im.removeUniverse(1) == false);
+    QVERIFY(im.universesCount() == 4);
+
+    // Removing the last universe is OK
+    QVERIFY(im.removeUniverse(3) == true);
+    QVERIFY(im.universesCount() == 3);
+
     QVERIFY(im.removeUniverse(7) == false);
     im.removeAllUniverses();
-    QVERIFY(im.universes() == 0);
+    QVERIFY(im.universesCount() == 0);
+}
+
+void InputOutputMap_Test::universe()
+{
+    InputOutputMap im(m_doc, 4);
+    QVERIFY(im.universes().count() == 4);
+
+    im.setUniversePassthrough(1, true);
+    QVERIFY(im.getUniversePassthrough(1) == true);
+    im.setUniversePassthrough(42, true);
+    QVERIFY(im.getUniversePassthrough(42) == false);
+
+    im.setUniverseMonitor(2, true);
+    QVERIFY(im.getUniverseMonitor(2) == true);
+    im.setUniverseMonitor(42, true);
+    QVERIFY(im.getUniverseMonitor(42) == false);
 }
 
 void InputOutputMap_Test::profiles()
@@ -260,6 +309,8 @@ void InputOutputMap_Test::setInputPatch()
     QVERIFY(im.inputMapping(stub->name(), 1) == InputOutputMap::invalidUniverse());
     QVERIFY(im.inputMapping(stub->name(), 2) == InputOutputMap::invalidUniverse());
     QVERIFY(im.inputMapping(stub->name(), 3) == InputOutputMap::invalidUniverse());
+    QVERIFY(im.isUniversePatched(0) == false);
+    QVERIFY(im.isUniversePatched(42) == false);
 
     QVERIFY(im.setInputPatch(0, "Foobar", 0, prof->name()) == true);
     QVERIFY(im.inputPatch(0) == NULL);
@@ -279,6 +330,7 @@ void InputOutputMap_Test::setInputPatch()
     QVERIFY(im.inputPatch(0)->input() == 0);
     QVERIFY(im.inputPatch(0)->profile() == NULL);
     QVERIFY(im.inputMapping(stub->name(), 0) == 0);
+    QVERIFY(im.isUniversePatched(0) == true);
 
     QVERIFY(im.inputPatch(1) == NULL);
     QVERIFY(im.inputMapping(stub->name(), 1) == InputOutputMap::invalidUniverse());
@@ -307,7 +359,7 @@ void InputOutputMap_Test::setInputPatch()
     QVERIFY(im.inputMapping(stub->name(), 3) == 2);
 
     // Universe out of bounds
-    QVERIFY(im.setInputPatch(im.universes(), stub->name(), 0) == false);
+    QVERIFY(im.setInputPatch(im.universesCount(), stub->name(), 0) == false);
 }
 
 
@@ -352,6 +404,44 @@ void InputOutputMap_Test::setOutputPatch()
     QVERIFY(iom.setOutputPatch(0, stub->name(), 3) == true);
     QVERIFY(iom.outputPatch(0)->plugin() == stub);
     QVERIFY(iom.outputPatch(0)->output() == 3);
+
+    QVERIFY(iom.outputMapping("Foo", 42) == QLCIOPlugin::invalidLine());
+    QVERIFY(iom.outputMapping(stub->name(), 0) == 3);
+
+    QVERIFY(iom.feedbackPatch(42) == NULL);
+    QVERIFY(iom.feedbackPatch(0) == NULL);
+}
+
+void InputOutputMap_Test::setMultipleOutputPatches()
+{
+    InputOutputMap iom(m_doc, 4);
+
+    IOPluginStub* stub = static_cast<IOPluginStub*>
+                                (m_doc->ioPluginCache()->plugins().at(0));
+    QVERIFY(stub != NULL);
+
+    // add an output patch
+    QVERIFY(iom.setOutputPatch(1, stub->name(), 0, false, 0) == true);
+    QVERIFY(iom.outputPatchesCount(1) == 1);
+    QVERIFY(iom.outputPatch(1, 0)->plugin() == stub);
+    QVERIFY(iom.outputPatch(1, 0)->output() == 0);
+
+    // add another output patch
+    QVERIFY(iom.setOutputPatch(1, stub->name(), 0, false, 1) == true);
+    QVERIFY(iom.outputPatchesCount(1) == 2);
+    QVERIFY(iom.outputPatch(1, 1)->plugin() == stub);
+    QVERIFY(iom.outputPatch(1, 1)->output() == 0);
+
+    // remove the first output patch
+    QVERIFY(iom.setOutputPatch(1, stub->name(), QLCIOPlugin::invalidLine(), false, 0) == true);
+    QVERIFY(iom.outputPatchesCount(1) == 1);
+    QVERIFY(iom.outputPatch(1, 0)->plugin() == stub);
+    QVERIFY(iom.outputPatch(1, 0)->output() == 0);
+    QVERIFY(iom.outputPatch(1, 1) == NULL);
+
+    // remove the first output patch again
+    QVERIFY(iom.setOutputPatch(1, stub->name(), QLCIOPlugin::invalidLine(), false, 0) == true);
+    QVERIFY(iom.outputPatchesCount(1) == 0);
 }
 
 void InputOutputMap_Test::slotValueChanged()
@@ -368,6 +458,8 @@ void InputOutputMap_Test::slotValueChanged()
 
     QSignalSpy spy(&im, SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString&)));
     stub->emitValueChanged(UINT_MAX, 0, 15, UCHAR_MAX);
+    QVERIFY(spy.size() == 0);
+    im.flushInputs();
     QVERIFY(spy.size() == 1);
     QVERIFY(spy.at(0).at(0) == 0);
     QVERIFY(spy.at(0).at(1) == 15);
@@ -376,6 +468,8 @@ void InputOutputMap_Test::slotValueChanged()
     /* Invalid mapping for this plugin -> no signal */
     stub->emitValueChanged(UINT_MAX, 3, 15, UCHAR_MAX);
     QVERIFY(spy.size() == 1);
+    im.flushInputs();
+    QVERIFY(spy.size() == 1);
     QVERIFY(spy.at(0).at(0) == 0);
     QVERIFY(spy.at(0).at(1) == 15);
     QVERIFY(spy.at(0).at(2) == UCHAR_MAX);
@@ -383,11 +477,15 @@ void InputOutputMap_Test::slotValueChanged()
     /* Invalid mapping for this plugin -> no signal */
     stub->emitValueChanged(UINT_MAX, 1, 15, UCHAR_MAX);
     QVERIFY(spy.size() == 1);
+    im.flushInputs();
+    QVERIFY(spy.size() == 1);
     QVERIFY(spy.at(0).at(0) == 0);
     QVERIFY(spy.at(0).at(1) == 15);
     QVERIFY(spy.at(0).at(2) == UCHAR_MAX);
 
     stub->emitValueChanged(UINT_MAX, 0, 5, 127);
+    QVERIFY(spy.size() == 1);
+    im.flushInputs();
     QVERIFY(spy.size() == 2);
     QVERIFY(spy.at(0).at(0) == 0);
     QVERIFY(spy.at(0).at(1) == 15);
@@ -395,6 +493,34 @@ void InputOutputMap_Test::slotValueChanged()
     QVERIFY(spy.at(1).at(0) == 0);
     QVERIFY(spy.at(1).at(1) == 5);
     QVERIFY(spy.at(1).at(2) == 127);
+
+    stub->emitValueChanged(UINT_MAX, 0, 2, 0);
+    QVERIFY(spy.size() == 2);
+    stub->emitValueChanged(UINT_MAX, 0, 2, UCHAR_MAX);
+    QVERIFY(spy.size() == 3);
+    QVERIFY(spy.at(0).at(0) == 0);
+    QVERIFY(spy.at(0).at(1) == 15);
+    QVERIFY(spy.at(0).at(2) == UCHAR_MAX);
+    QVERIFY(spy.at(1).at(0) == 0);
+    QVERIFY(spy.at(1).at(1) == 5);
+    QVERIFY(spy.at(1).at(2) == 127);
+    QVERIFY(spy.at(2).at(0) == 0);
+    QVERIFY(spy.at(2).at(1) == 2);
+    QVERIFY(spy.at(2).at(2) == 0);
+    im.flushInputs();
+    QVERIFY(spy.size() == 4);
+    QVERIFY(spy.at(0).at(0) == 0);
+    QVERIFY(spy.at(0).at(1) == 15);
+    QVERIFY(spy.at(0).at(2) == UCHAR_MAX);
+    QVERIFY(spy.at(1).at(0) == 0);
+    QVERIFY(spy.at(1).at(1) == 5);
+    QVERIFY(spy.at(1).at(2) == 127);
+    QVERIFY(spy.at(2).at(0) == 0);
+    QVERIFY(spy.at(2).at(1) == 2);
+    QVERIFY(spy.at(2).at(2) == 0);
+    QVERIFY(spy.at(3).at(0) == 0);
+    QVERIFY(spy.at(3).at(1) == 2);
+    QVERIFY(spy.at(3).at(2) == UCHAR_MAX);
 }
 
 void InputOutputMap_Test::slotConfigurationChanged()
@@ -453,8 +579,14 @@ void InputOutputMap_Test::inputSourceNames()
     dir.setNameFilters(QStringList() << QString("*%1").arg(KExtInputProfile));
     im.loadProfiles(dir);
 
+    // Allow unpatched universe
     QString uni, ch;
-    QVERIFY(im.inputSourceNames(new QLCInputSource(0, 0), uni, ch) == false);
+    QVERIFY(im.inputSourceNames(new QLCInputSource(0, 0), uni, ch) == true);
+    QCOMPARE(uni, QString("%1 -UNPATCHED-").arg(1));
+    QCOMPARE(ch, QString("%1: ?").arg(1));
+
+    // Don't allow unexisting universe
+    QVERIFY(im.inputSourceNames(new QLCInputSource(100, 0), uni, ch) == false);
 
     QVERIFY(im.setInputPatch(0, stub->name(), 0, QString("Generic MIDI")) == true);
     QVERIFY(im.inputSourceNames(new QLCInputSource(0, 0), uni, ch) == true);
@@ -488,10 +620,13 @@ void InputOutputMap_Test::profileDirectories()
     QVERIFY(dir.absolutePath().contains(INPUTPROFILEDIR));
 
     dir = InputOutputMap::userProfileDirectory();
+#ifndef SKIP_TEST
     QVERIFY(dir.exists() == true);
+#endif
     QVERIFY(dir.filter() & QDir::Files);
     QVERIFY(dir.nameFilters().contains(QString("*%1").arg(KExtInputProfile)));
     QVERIFY(dir.absolutePath().contains(USERINPUTPROFILEDIR));
+
 }
 
 void InputOutputMap_Test::claimReleaseDumpReset()
@@ -611,6 +746,24 @@ void InputOutputMap_Test::blackout()
 
     for (int i = 0; i < 2048; i++)
         QVERIFY(stub->m_universe[i] == (char) 0);
+}
+
+void InputOutputMap_Test::grandMaster()
+{
+    InputOutputMap iom(m_doc, 4);
+
+    QVERIFY(iom.grandMasterChannelMode() == GrandMaster::Intensity);
+    QVERIFY(iom.grandMasterValueMode() == GrandMaster::Reduce);
+    QVERIFY(iom.grandMasterValue() == 255);
+
+    iom.setGrandMasterValue(100);
+    QVERIFY(iom.grandMasterValue() == 100);
+
+    iom.setGrandMasterChannelMode(GrandMaster::AllChannels);
+    QVERIFY(iom.grandMasterChannelMode() == GrandMaster::AllChannels);
+
+    iom.setGrandMasterValueMode(GrandMaster::Limit);
+    QVERIFY(iom.grandMasterValueMode() == GrandMaster::Limit);
 }
 
 QTEST_APPLESS_MAIN(InputOutputMap_Test)

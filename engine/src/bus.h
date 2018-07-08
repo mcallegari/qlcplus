@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   bus.h
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -24,7 +25,7 @@
 #include <QString>
 #include <QHash>
 
-class QDomElement;
+class QXmlStreamReader;
 class BusEntry;
 
 /** @addtogroup engine Engine
@@ -216,7 +217,7 @@ signals:
      ********************************************************************/
 public:
     /** Load all buses from an XML document */
-    bool loadXML(const QDomElement& root);
+    bool loadXML(QXmlStreamReader &doc);
 };
 
 /** @} */

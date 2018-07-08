@@ -19,13 +19,16 @@
 
 #include <QCoreApplication>
 #include <QPluginLoader>
+#include <QSettings>
 #include <QDebug>
 
 #if defined(WIN32) || defined(Q_OS_WIN)
 #   include <windows.h>
 #endif
 
-#include "hotplugmonitor.h"
+#if !defined(Q_OS_ANDROID) && !defined(Q_OS_IOS)
+#   include "hotplugmonitor.h"
+#endif
 #include "ioplugincache.h"
 #include "qlcioplugin.h"
 #include "qlcconfig.h"
@@ -34,12 +37,10 @@
 IOPluginCache::IOPluginCache(QObject* parent)
     : QObject(parent)
 {
-    qDebug() << Q_FUNC_INFO;
 }
 
 IOPluginCache::~IOPluginCache()
 {
-    qDebug() << Q_FUNC_INFO;
     while (m_plugins.isEmpty() == false)
         delete m_plugins.takeFirst();
 }
@@ -52,13 +53,21 @@ void IOPluginCache::load(const QDir& dir)
     if (dir.exists() == false || dir.isReadable() == false)
         return;
 
-    /* Loop thru all files in the directory */
+    QSettings settings;
+    QVariant hotplug = settings.value(SETTINGS_HOTPLUG);
+
+    /* Loop through all files in the directory */
     QStringListIterator it(dir.entryList());
     while (it.hasNext() == true)
     {
         /* Attempt to load a plugin from the path */
         QString fileName(it.next());
         QString path = dir.absoluteFilePath(fileName);
+#if defined Q_OS_ANDROID
+        if (fileName.toLower().contains("qt") || fileName.toLower().startsWith("libplugins") ||
+            fileName.toLower().contains("qlcplus"))
+                continue;
+#endif
         QPluginLoader loader(path, this);
         QLCIOPlugin* ptr = qobject_cast<QLCIOPlugin*> (loader.instance());
         if (ptr != NULL)
@@ -73,7 +82,10 @@ void IOPluginCache::load(const QDir& dir)
                 m_plugins << ptr;
                 connect(ptr, SIGNAL(configurationChanged()),
                         this, SLOT(slotConfigurationChanged()));
-                HotPlugMonitor::connectListener(ptr);
+#if !defined(Q_OS_ANDROID) && !defined(Q_OS_IOS)
+                if (hotplug.isValid() && hotplug.toBool() == true)
+                    HotPlugMonitor::connectListener(ptr);
+#endif
                 // QLCi18n::loadTranslation(p->name().replace(" ", "_"));
             }
             else
@@ -122,17 +134,6 @@ void IOPluginCache::slotConfigurationChanged()
 
 QDir IOPluginCache::systemPluginDirectory()
 {
-    QDir dir;
-#if defined(__APPLE__) || defined(Q_OS_MAC)
-    dir.setPath(QString("%1/../%2").arg(QCoreApplication::applicationDirPath())
-                                   .arg(PLUGINDIR));
-#else
-    dir.setPath(PLUGINDIR);
-#endif
-
-    dir.setFilter(QDir::Files);
-    dir.setNameFilters(QStringList() << QString("*%1").arg(KExtPlugin));
-
-    return dir;
+    return QLCFile::systemDirectory(PLUGINDIR, KExtPlugin);
 }
 

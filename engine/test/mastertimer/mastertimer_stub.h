@@ -37,11 +37,11 @@ public:
     MasterTimerStub(Doc* doc, QList<Universe *> universes);
     ~MasterTimerStub();
 
-    void startFunction(Function* function);
+    virtual void startFunction(Function* function);
     void stopFunction(Function* function);
     QList <Function*> m_functionList;
 
-    void registerDMXSource(DMXSource* source, QString name);
+    void registerDMXSource(DMXSource* source);
     void unregisterDMXSource(DMXSource* source);
     QList <DMXSource*> m_dmxSourceList;
 

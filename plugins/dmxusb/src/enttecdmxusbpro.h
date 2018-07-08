@@ -20,10 +20,6 @@
 #ifndef ENTTECDMXUSBPRO_H
 #define ENTTECDMXUSBPRO_H
 
-#if defined(WIN32) || defined(Q_OS_WIN)
-#   include <windows.h>
-#endif
-
 #include <QByteArray>
 #include <QThread>
 
@@ -62,8 +58,8 @@ class EnttecDMXUSBPro : public QThread, public DMXUSBWidget
      * Initialization
      ************************************************************************/
 public:
-    EnttecDMXUSBPro(const QString& serial, const QString& name, const QString& vendor,
-                    quint32 outputLine, quint32 inputLine = 0, quint32 id = 0);
+    EnttecDMXUSBPro(DMXInterface *interface,
+                    quint32 outputLine, quint32 inputLine = 0);
 
     virtual ~EnttecDMXUSBPro();
 
@@ -91,6 +87,9 @@ private:
 public:
     /** @reimp */
     virtual bool open(quint32 line, bool input = false);
+
+     /** @reimp */
+     virtual bool close(quint32 line = 0, bool input = false);
 
     /************************************************************************
      * Name & Serial

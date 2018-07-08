@@ -1,16 +1,23 @@
 @ECHO OFF
 SETLOCAL EnableDelayedExpansion
 
+REM ArtNet test
+pushd .
+cd plugins\artnet\src
+..\test\artnet_test.exe
+IF NOT %ERRORLEVEL%==0 exit /B %ERRORLEVEL%
+popd
+
 REM Enttec wing test
 pushd .
-cd plugins\ewinginput\src
+cd plugins\enttecwing\src
 ..\test\ewing_test.exe
 IF NOT %ERRORLEVEL%==0 exit /B %ERRORLEVEL%
 popd
 
 REM Velleman test
 pushd .
-cd plugins\vellemanout\src
+cd plugins\velleman\src
 SET OLDPATH=%PATH%
 PATH=%PATH%;C:\k8062d
 REM Surprise, surprise, windows doesn't know how to handle mock objects *sigh*

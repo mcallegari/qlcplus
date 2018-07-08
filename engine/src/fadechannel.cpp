@@ -31,10 +31,12 @@ FadeChannel::FadeChannel()
     , m_universe(Universe::invalid())
     , m_channel(QLCChannel::invalid())
     , m_address(QLCChannel::invalid())
+    , m_group(QLCChannel::NoGroup)
     , m_start(0)
     , m_target(0)
     , m_current(0)
     , m_ready(false)
+    , m_flashing(false)
     , m_fadeTime(0)
     , m_elapsed(0)
 {
@@ -45,22 +47,27 @@ FadeChannel::FadeChannel(const FadeChannel& ch)
     , m_universe(ch.m_universe)
     , m_channel(ch.m_channel)
     , m_address(ch.m_address)
+    , m_group(ch.m_group)
     , m_start(ch.m_start)
     , m_target(ch.m_target)
     , m_current(ch.m_current)
     , m_ready(ch.m_ready)
+    , m_flashing(ch.m_flashing)
     , m_fadeTime(ch.m_fadeTime)
     , m_elapsed(ch.m_elapsed)
 {
+    //qDebug() << Q_FUNC_INFO;
 }
 
 FadeChannel::FadeChannel(const Doc *doc, quint32 fxi, quint32 channel)
     : m_fixture(fxi)
     , m_channel(channel)
+    , m_group(QLCChannel::NoGroup)
     , m_start(0)
     , m_target(0)
     , m_current(0)
     , m_ready(false)
+    , m_flashing(false)
     , m_fadeTime(0)
     , m_elapsed(0)
 {
@@ -75,6 +82,10 @@ FadeChannel::FadeChannel(const Doc *doc, quint32 fxi, quint32 channel)
         m_universe = fixture->universe();
         m_address = fixture->address();
     }
+    // cache the channel group just once,
+    // since we (hopefully) won't change the
+    // channel properties during the FadeChannel lifetime
+    m_group = group(doc);
 }
 
 FadeChannel::~FadeChannel()
@@ -110,13 +121,17 @@ quint32 FadeChannel::fixture() const
 quint32 FadeChannel::universe()
 {
     if (m_universe == Universe::invalid())
-        return (address() >> 9);
+        return address() / UNIVERSE_SIZE;
     return m_universe;
 }
 
-void FadeChannel::setChannel(quint32 num)
+void FadeChannel::setChannel(const Doc *doc, quint32 num)
 {
     m_channel = num;
+    // on channel change, invalidate the current
+    // cached group and retrieve the correct one
+    m_group = QLCChannel::NoGroup;
+    m_group = group(doc);
 }
 
 quint32 FadeChannel::channel() const
@@ -132,8 +147,18 @@ quint32 FadeChannel::address() const
     return (m_address + channel());
 }
 
+quint32 FadeChannel::addressInUniverse() const
+{
+    return address() % UNIVERSE_SIZE;
+}
+
 QLCChannel::Group FadeChannel::group(const Doc* doc) const
 {
+    // if the channel group has been cached, then return it
+    // right away, instead of doing a complex lookup every time
+    if (m_group != QLCChannel::NoGroup)
+        return m_group;
+
     uint chnum = QLCChannel::invalid();
     Fixture* fxi = NULL;
 
@@ -161,6 +186,12 @@ QLCChannel::Group FadeChannel::group(const Doc* doc) const
 
         // channel() is already a relative channel number
         chnum = channel();
+        // this is a filthy workaround to trick
+        // the write() method
+        if (fxi->forcedLTPChannels().contains(chnum))
+            return QLCChannel::Effect;
+        if (fxi->forcedHTPChannels().contains(chnum))
+            return QLCChannel::Intensity;
     }
 
     const QLCChannel* ch = fxi->channel(chnum);
@@ -213,6 +244,16 @@ void FadeChannel::setReady(bool rdy)
 bool FadeChannel::isReady() const
 {
     return m_ready;
+}
+
+void FadeChannel::setFlashing(bool flashing)
+{
+    m_flashing = flashing;
+}
+
+bool FadeChannel::isFlashing() const
+{
+    return m_flashing;
 }
 
 bool FadeChannel::canFade(const Doc* doc) const

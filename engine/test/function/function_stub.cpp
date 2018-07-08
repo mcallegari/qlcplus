@@ -54,15 +54,14 @@ Function* Function_Stub::createCopy(Doc* doc, bool addToDoc)
     return copy;
 }
 
-bool Function_Stub::saveXML(QDomDocument* doc, QDomElement* wksp_root)
+bool Function_Stub::saveXML(QXmlStreamWriter *doc)
 {
     Q_UNUSED(doc);
-    Q_UNUSED(wksp_root);
 
     return false;
 }
 
-bool Function_Stub::loadXML(const QDomElement& root)
+bool Function_Stub::loadXML(QXmlStreamReader &root)
 {
     Q_UNUSED(root);
     return false;

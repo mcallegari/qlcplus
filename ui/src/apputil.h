@@ -51,6 +51,14 @@ namespace AppUtil
      * sliders as well as buttons that don't obey background color setting.
      */
     QStyle* saneStyle();
+
+    /*********************************************************************
+     * Digits
+     *********************************************************************/
+    /**
+     * Helper: get the number of digits in an unsigned int (base 10)
+     */
+    unsigned int digits(unsigned int num);
 };
 
 /*****************************************************************************

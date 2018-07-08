@@ -21,6 +21,7 @@
 #include <QTextEdit>
 #include <QSpinBox>
 #include <QDialog>
+#include <QAction>
 
 #include "capabilitywizard.h"
 #include "qlccapability.h"
@@ -72,7 +73,7 @@ void CapabilityWizard::slotCreateCapabilities()
 
     /* Destroy existing capabilities */
     foreach (QLCCapability* cap, m_caps)
-    delete cap;
+        delete cap;
     m_caps.clear();
 
     /* Create new capabilities */

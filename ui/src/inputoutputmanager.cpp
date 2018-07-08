@@ -190,11 +190,11 @@ void InputOutputManager::updateList()
 {
     m_list->blockSignals(true);
     m_list->clear();
-    for (quint32 uni = 0; uni < m_ioMap->universes(); uni++)
+    for (quint32 uni = 0; uni < m_ioMap->universesCount(); uni++)
         updateItem(new QListWidgetItem(m_list), uni);
     m_list->blockSignals(false);
 
-    if (m_ioMap->universes() == 0)
+    if (m_ioMap->universesCount() == 0)
     {
         if (m_editor != NULL)
         {
@@ -208,7 +208,6 @@ void InputOutputManager::updateList()
     }
     else
     {
-        m_deleteUniverseAction->setEnabled(true);
         m_list->setCurrentItem(m_list->item(0));
         m_uniNameEdit->setEnabled(true);
         m_uniNameEdit->setText(m_ioMap->getUniverseNameByIndex(0));
@@ -289,7 +288,7 @@ void InputOutputManager::slotCurrentItemChanged()
     QListWidgetItem* item = m_list->currentItem();
     if (item == NULL)
     {
-        if (m_ioMap->universes() == 0)
+        if (m_ioMap->universesCount() == 0)
             return;
 
         m_list->setCurrentItem(m_list->item(0));
@@ -301,6 +300,11 @@ void InputOutputManager::slotCurrentItemChanged()
     quint32 universe = item->data(Qt::UserRole).toInt();
     if (m_editorUniverse == universe)
         return;
+
+    if ((universe + 1) != m_ioMap->universesCount())
+        m_deleteUniverseAction->setEnabled(false);
+    else
+        m_deleteUniverseAction->setEnabled(true);
 
     if (m_editor != NULL)
     {
@@ -346,6 +350,8 @@ void InputOutputManager::slotAddUniverse()
 void InputOutputManager::slotDeleteUniverse()
 {
     int uniIdx = m_list->currentRow();
+
+    Q_ASSERT((uniIdx + 1) == (int)(m_ioMap->universesCount()));
 
     // Check if the universe is patched
     if (m_ioMap->isUniversePatched(uniIdx) == true)

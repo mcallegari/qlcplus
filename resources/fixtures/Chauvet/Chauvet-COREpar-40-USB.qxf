@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
+  <Author>Robert Box</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>COREpar 40 USB</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Color Macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15">No function</Capability>
+  <Capability Min="16" Max="255">Color macros</Capability>
+ </Channel>
+ <Channel Name="Strobe/Speed/Sound Sensivity">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No function/Slow to fast/Off</Capability>
+  <Capability Min="11" Max="15">No function/Slow to fast/Control the sound sensitivity level</Capability>
+  <Capability Min="16" Max="255">Slow to fast/Slow to fast/Control the sound sensitivity level</Capability>
+ </Channel>
+ <Channel Name="Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="31">No function</Capability>
+  <Capability Min="32" Max="63">Pulse effect 0-100%</Capability>
+  <Capability Min="64" Max="95">Pulse effect 100%-0</Capability>
+  <Capability Min="96" Max="127">Pulse effect 100%-0-100%</Capability>
+  <Capability Min="128" Max="159">Auto fade transition</Capability>
+  <Capability Min="160" Max="191">Auto snap transition (7 colors)</Capability>
+  <Capability Min="192" Max="223">Auto snap transition (18 colors)</Capability>
+  <Capability Min="224" Max="255">Sound-active mode</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="51">Default set from menu</Capability>
+  <Capability Min="52" Max="101">Mode off</Capability>
+  <Capability Min="102" Max="152">Mode 1 (fast speed)</Capability>
+  <Capability Min="153" Max="203">Mode 2 (medium speed)</Capability>
+  <Capability Min="204" Max="255">Mode 3 (slow speed)</Capability>
+ </Channel>
+ <Mode Name="8-Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Color Macros</Channel>
+  <Channel Number="4">Strobe/Speed/Sound Sensivity</Channel>
+  <Channel Number="5">Programs</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Dimmer Speed</Channel>
+ </Mode>
+ <Mode Name="3-Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="649" ColourTemperature="0"/>
+   <Dimensions Weight="1.6" Width="189" Height="242" Depth="132"/>
+   <Lens Name="Other" DegreesMin="20" DegreesMax="40"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="47" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

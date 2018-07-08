@@ -1,24 +1,15 @@
-/*******************************************************
- HIDAPI - Multi-Platform library for
- communication with HID devices.
+/*
+  HIDAPI - Multi-Platform library for
+  communication with HID devices.
 
- Alan Ott
- Signal 11 Software
+  Copyright (c) 2010 Alan Ott - Signal 11 Software
 
- 2010-07-03
+  2010-07-03
 
- Copyright 2010, All Rights Reserved.
-
- At the discretion of the user of this library,
- this software may be licensed under the terms of the
- GNU General Public License v3, a BSD-Style license, or the
- original HIDAPI license as outlined in the LICENSE.txt,
- LICENSE-gpl3.txt, LICENSE-bsd.txt, and LICENSE-orig.txt
- files located at the root of the source distribution.
- These files may also be found in the public source
- code repository located at:
-        http://github.com/signal11/hidapi .
-********************************************************/
+  This software may be used by anyone for any reason so
+  long as the copyright notice in the source files
+  remains intact.
+*/
 
 /* See Apple Technical Note TN2187 for details on IOHidManager. */
 
@@ -434,7 +425,6 @@ struct hid_device_info  HID_API_EXPORT *hid_enumerate(unsigned short vendor_id, 
         unsigned short dev_pid;
         #define BUF_LEN 256
         wchar_t buf[BUF_LEN];
-        char cbuf[BUF_LEN];
 
         IOHIDDeviceRef dev = device_array[i];
 
@@ -446,9 +436,11 @@ struct hid_device_info  HID_API_EXPORT *hid_enumerate(unsigned short vendor_id, 
 
         /* Check the VID/PID against the arguments */
         if ((vendor_id == 0x0 || vendor_id == dev_vid) &&
-            (product_id == 0x0 || product_id == dev_pid)) {
+            (product_id == 0x0 || product_id == dev_pid))
+        {
             struct hid_device_info *tmp;
             size_t len;
+            char cbuf[BUF_LEN];
 
             /* VID/PID match. Create the record. */
             tmp = (struct hid_device_info *)malloc(sizeof(struct hid_device_info));

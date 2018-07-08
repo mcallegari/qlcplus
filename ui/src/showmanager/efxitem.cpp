@@ -38,7 +38,7 @@ EFXItem::EFXItem(EFX *efx, ShowFunction *func)
     if (func->color().isValid())
         setColor(func->color());
     else
-        setColor(ShowFunction::defaultColor(Function::EFX));
+        setColor(ShowFunction::defaultColor(Function::EFXType));
 
     calculateWidth();
     connect(m_efx, SIGNAL(changed(quint32)), this, SLOT(slotEFXChanged(quint32)));
@@ -70,7 +70,7 @@ void EFXItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
 
     ShowItem::paint(painter, option, widget);
 
-    int loopCount = qFloor(m_function->duration() / efxDuration);
+    int loopCount = (efxDuration == 0) ? 0 : qFloor(m_function->duration() / efxDuration);
     for (int i = 0; i < loopCount; i++)
     {
         xpos += ((timeScale * (float)efxDuration) / 1000);

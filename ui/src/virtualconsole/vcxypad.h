@@ -1,8 +1,10 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   vcxypad.h
 
-  Copyright (c) Stefan Krumm, Heikki Junnila
+  Copyright (c) Stefan Krumm
+                Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -27,20 +29,23 @@
 #include <QList>
 
 #include "vcxypadfixture.h"
+#include "vcxypadpreset.h"
 #include "dmxsource.h"
 #include "vcwidget.h"
 
+class QXmlStreamReader;
+class QXmlStreamWriter;
 class ctkRangeSlider;
-class QDomDocument;
-class QDomElement;
 class QPaintEvent;
 class QMouseEvent;
 class MasterTimer;
 class VCXYPadArea;
 class QHBoxLayout;
 class QVBoxLayout;
+class FlowLayout;
 class QByteArray;
 class QSlider;
+class EFX;
 class Doc;
 
 /** @addtogroup ui_vc_widgets
@@ -50,6 +55,8 @@ class Doc;
 #define KXMLQLCVCXYPad "XYPad"
 #define KXMLQLCVCXYPadPan "Pan"
 #define KXMLQLCVCXYPadTilt "Tilt"
+#define KXMLQLCVCXYPadWidth "Width"
+#define KXMLQLCVCXYPadHeight "Height"
 #define KXMLQLCVCXYPadPosition "Position"
 #define KXMLQLCVCXYPadRangeWindow "Window"
 #define KXMLQLCVCXYPadRangeHorizMin "hMin"
@@ -62,6 +69,15 @@ class Doc;
 
 #define KXMLQLCVCXYPadInvertedAppearance "InvertedAppearance"
 
+typedef struct
+{
+    quint32 m_universe;
+    quint32 m_fixture;
+    quint32 m_channel; // universe channel address
+    QLCChannel::Group m_group;
+    QLCChannel::ControlByte m_subType;
+} SceneChannel;
+
 class VCXYPad : public VCWidget, public DMXSource
 {
     Q_OBJECT
@@ -70,6 +86,8 @@ class VCXYPad : public VCWidget, public DMXSource
 public:
     static const quint8 panInputSourceId;
     static const quint8 tiltInputSourceId;
+    static const quint8 widthInputSourceId;
+    static const quint8 heightInputSourceId;
 
     /*************************************************************************
      * Initialization
@@ -82,15 +100,17 @@ public:
     void enableWidgetUI(bool enable);
 
 private:
-    QHBoxLayout* m_hbox;
-    QVBoxLayout* m_lvbox; // left vertical box
-    QVBoxLayout* m_cvbox; // center vertical box
-    QVBoxLayout* m_rvbox; // right vertical box
-    QSlider* m_vSlider;
-    QSlider* m_hSlider;
-    ctkRangeSlider *m_vRangeSlider;
-    ctkRangeSlider *m_hRangeSlider;
+    QVBoxLayout* m_mainVbox;  // main vertical layout
+    QHBoxLayout* m_padBox; // box containing sliders and XYPad
+    QVBoxLayout* m_lvbox; // left vertical box (vertical ctkSlider)
+    QVBoxLayout* m_cvbox; // center vertical box (horizontal ctkSlider + XYPad + horizontal slider)
+    QVBoxLayout* m_rvbox; // right vertical box (vertical slider)
+    QSlider* m_vSlider; // tilt slider
+    QSlider* m_hSlider; // pan slider
+    ctkRangeSlider *m_vRangeSlider; // range window height control
+    ctkRangeSlider *m_hRangeSlider; // range window width control
     VCXYPadArea* m_area;
+    FlowLayout *m_presetsLayout;
 
     /*************************************************************************
      * Clipboard
@@ -163,6 +183,9 @@ public:
     /** @reimp */
     void writeDMX(MasterTimer* timer, QList<Universe*> universes);
 
+protected:
+    void writeXYFixtures(MasterTimer* timer, QList<Universe*> universes);
+
 public slots:
     void slotPositionChanged(const QPointF& pt);
     void slotSliderValueChanged();
@@ -177,6 +200,37 @@ private:
     bool m_inputValueChanged;
 
     /*********************************************************************
+     * Presets
+     *********************************************************************/
+public:
+    void addPreset(VCXYPadPreset const& preset);
+    void resetPresets();
+    QList<VCXYPadPreset *> presets() const;
+
+protected:
+    void writeScenePositions(MasterTimer* timer, QList<Universe*> universes);
+
+protected slots:
+    void slotPresetClicked(bool checked);
+    void slotEFXDurationChanged(uint duration);
+
+private:
+    FunctionParent functionParent() const;
+
+protected:
+    QHash<QWidget *, VCXYPadPreset *> m_presets;
+    /** Reference to an EFX Function when an EFX Preset is pressed */
+    EFX *m_efx;
+    /** Attribute override IDs for a running EFX preset */
+    int m_efxStartXOverrideId;
+    int m_efxStartYOverrideId;
+    int m_efxWidthOverrideId;
+    int m_efxHeightOverrideId;
+
+    Scene *m_scene;
+    QList<SceneChannel> m_sceneChannels;
+
+    /*********************************************************************
      * External input
      *********************************************************************/
 public:
@@ -185,6 +239,7 @@ public:
 protected slots:
     /** Called when an external input device produces input data */
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
+    void slotKeyPressed(const QKeySequence& keySequence);
 
     /*************************************************************************
      * QLC+ mode
@@ -198,10 +253,10 @@ protected slots:
      *************************************************************************/
 public:
     /** @reimp */
-    bool loadXML(const QDomElement* root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** @reimp */
-    bool saveXML(QDomDocument* doc, QDomElement* root);
+    bool saveXML(QXmlStreamWriter *doc);
 };
 
 /** @} */

@@ -26,6 +26,7 @@
 #include "dmxusbwidget.h"
 #include "enttecdmxusbpro.h"
 #include "enttecdmxusbopen.h"
+#include "euroliteusbdmxpro.h"
 #include "dmxusb.h"
 
 /****************************************************************************
@@ -56,13 +57,14 @@ int DMXUSB::capabilities() const
 
 bool DMXUSB::rescanWidgets()
 {
+    int linesCount = m_inputs.count() + m_outputs.count();
     m_inputs.clear();
     m_outputs.clear();
 
     while(m_widgets.isEmpty() == false)
         delete m_widgets.takeFirst();
 
-    m_widgets = QLCFTDI::widgets();
+    m_widgets = DMXUSBWidget::widgets();
 
     foreach (DMXUSBWidget* widget, m_widgets)
     {
@@ -72,6 +74,9 @@ bool DMXUSB::rescanWidgets()
         for (int i = 0; i < widget->inputsNumber(); i++)
             m_inputs.append(widget);
     }
+
+    if (m_inputs.count() + m_outputs.count() != linesCount)
+        emit configurationChanged();
 
     return true;
 }
@@ -85,17 +90,23 @@ QList <DMXUSBWidget*> DMXUSB::widgets() const
  * Outputs
  ****************************************************************************/
 
-bool DMXUSB::openOutput(quint32 output)
+bool DMXUSB::openOutput(quint32 output, quint32 universe)
 {
     if (output < quint32(m_outputs.size()))
+    {
+        addToMap(universe, output, Output);
         return m_outputs.at(output)->open(output, false);
+    }
     return false;
 }
 
-void DMXUSB::closeOutput(quint32 output)
+void DMXUSB::closeOutput(quint32 output, quint32 universe)
 {
     if (output < quint32(m_outputs.size()))
+    {
+        removeFromMap(output, universe, Output);
         m_outputs.at(output)->close(output, false);
+    }
 }
 
 QStringList DMXUSB::outputs()
@@ -155,6 +166,8 @@ QString DMXUSB::outputInfo(quint32 output)
         str += QString("<H3>%1</H3>").arg(outputs()[output]);
         str += QString("<P>");
         str += tr("Device is operating correctly.");
+        str += QString("<BR>");
+        str += tr("Driver in use: %1").arg(m_outputs[output]->interfaceTypeString());
         str += QString("</P>");
         QString add = m_outputs[output]->additionalInfo();
         if (add.isEmpty() == false)
@@ -181,8 +194,9 @@ void DMXUSB::writeUniverse(quint32 universe, quint32 output, const QByteArray &d
  * Inputs
  ****************************************************************************/
 
-bool DMXUSB::openInput(quint32 input)
+bool DMXUSB::openInput(quint32 input, quint32 universe)
 {
+    Q_UNUSED(universe)
     if (input < quint32(m_inputs.size()))
     {
         DMXUSBWidget *widget = m_inputs.at(input);
@@ -194,16 +208,18 @@ bool DMXUSB::openInput(quint32 input)
             connect(pro, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
                     this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
         }
+        addToMap(universe, input, Input);
         return widget->open(input, true);
     }
     return false;
 }
 
-void DMXUSB::closeInput(quint32 input)
+void DMXUSB::closeInput(quint32 input, quint32 universe)
 {
     if (input < quint32(m_inputs.size()))
     {
         DMXUSBWidget *widget = m_inputs.at(input);
+        removeFromMap(input, universe, Input);
         widget->close(input, true);
         if (widget->type() == DMXUSBWidget::ProRXTX ||
             widget->type() == DMXUSBWidget::ProMk2 ||
@@ -282,6 +298,34 @@ void DMXUSB::configure()
 bool DMXUSB::canConfigure()
 {
     return true;
+}
+
+/*****************************************************************************
+ * Hotplug
+ *****************************************************************************/
+
+void DMXUSB::slotDeviceAdded(uint vid, uint pid)
+{
+    qDebug() << Q_FUNC_INFO << QString::number(vid, 16) << QString::number(pid, 16);
+    if (!DMXInterface::validInterface(vid, pid))
+    {
+        qDebug() << Q_FUNC_INFO << "Invalid DMX USB device, nothing to do";
+        return;
+    }
+
+    rescanWidgets();
+}
+
+void DMXUSB::slotDeviceRemoved(uint vid, uint pid)
+{
+    qDebug() << Q_FUNC_INFO << QString::number(vid, 16) << QString::number(pid, 16);
+    if (!DMXInterface::validInterface(vid, pid))
+    {
+        qDebug() << Q_FUNC_INFO << "Invalid DMX USB device, nothing to do";
+        return;
+    }
+
+    rescanWidgets();
 }
 
 /****************************************************************************

@@ -1,5 +1,5 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   vcspeeddialfunction.cpp
 
   Copyright (C) 2014 David Garyga
@@ -17,9 +17,8 @@
   limitations under the License.
 */
 
-#include <QDomDocument>
-#include <QDomElement>
-#include <QDomText>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QDebug>
 
 #include "vcspeeddialfunction.h"
@@ -29,7 +28,8 @@
 #define KXMLQLCSequenceSceneValues "Values"
 #define KXMLQLCStepNote "Note"
 
-VCSpeedDialFunction::VCSpeedDialFunction(quint32 aFid, SpeedMultiplier aFadeIn, SpeedMultiplier aFadeOut, SpeedMultiplier aDuration)
+VCSpeedDialFunction::VCSpeedDialFunction(quint32 aFid, SpeedMultiplier aFadeIn,
+                                         SpeedMultiplier aFadeOut, SpeedMultiplier aDuration)
     : functionId(aFid)
     , fadeInMultiplier(aFadeIn)
     , fadeOutMultiplier(aFadeOut)
@@ -37,55 +37,58 @@ VCSpeedDialFunction::VCSpeedDialFunction(quint32 aFid, SpeedMultiplier aFadeIn, 
 {
 }
 
-bool VCSpeedDialFunction::loadXML(const QDomElement& root, SpeedMultiplier aFadeIn, SpeedMultiplier aFadeOut, SpeedMultiplier aDuration)
+bool VCSpeedDialFunction::loadXML(QXmlStreamReader &root, SpeedMultiplier aFadeIn,
+                                  SpeedMultiplier aFadeOut, SpeedMultiplier aDuration)
 {
-    if (root.tagName() != KXMLQLCFunction)
+    if (root.name() != KXMLQLCFunction)
     {
         qWarning() << Q_FUNC_INFO << "Function node not found";
         return false;
     }
 
-    if (root.text().isEmpty() == true)
+    QXmlStreamAttributes attrs = root.attributes();
+    QString text = root.readElementText();
+    if (text.isEmpty())
     {
         qWarning() << Q_FUNC_INFO << "Function ID not found";
         return false;
     }
-    functionId = root.text().toUInt();
+    functionId = text.toUInt();
 
     // For each multiplier: If not present in XML, use default value.
-    if (root.hasAttribute(KXMLQLCFunctionSpeedFadeIn) == true)
-        fadeInMultiplier = static_cast<SpeedMultiplier>(root.attribute(KXMLQLCFunctionSpeedFadeIn).toUInt());
+    if (attrs.hasAttribute(KXMLQLCFunctionSpeedFadeIn) == true)
+        fadeInMultiplier = static_cast<SpeedMultiplier>(attrs.value(KXMLQLCFunctionSpeedFadeIn).toString().toUInt());
     else
         fadeInMultiplier = aFadeIn;
-    if (root.hasAttribute(KXMLQLCFunctionSpeedFadeOut) == true)
-        fadeOutMultiplier = static_cast<SpeedMultiplier>(root.attribute(KXMLQLCFunctionSpeedFadeOut).toUInt());
+    if (attrs.hasAttribute(KXMLQLCFunctionSpeedFadeOut) == true)
+        fadeOutMultiplier = static_cast<SpeedMultiplier>(attrs.value(KXMLQLCFunctionSpeedFadeOut).toString().toUInt());
     else
         fadeOutMultiplier = aFadeOut;
-    if (root.hasAttribute(KXMLQLCFunctionSpeedDuration) == true)
-        durationMultiplier = static_cast<SpeedMultiplier>(root.attribute(KXMLQLCFunctionSpeedDuration).toUInt());
+    if (attrs.hasAttribute(KXMLQLCFunctionSpeedDuration) == true)
+        durationMultiplier = static_cast<SpeedMultiplier>(attrs.value(KXMLQLCFunctionSpeedDuration).toString().toUInt());
     else
         durationMultiplier = aDuration;
 
     return true;
 }
 
-bool VCSpeedDialFunction::saveXML(QDomDocument* doc, QDomElement* root) const
+bool VCSpeedDialFunction::saveXML(QXmlStreamWriter *doc) const
 {
-    QDomElement tag;
-    QDomText text;
+    Q_ASSERT(doc != NULL);
 
     /* Function tag */
-    tag = doc->createElement(KXMLQLCFunction);
-    root->appendChild(tag);
+    doc->writeStartElement(KXMLQLCFunction);
 
     /* Multipliers */
-    tag.setAttribute(KXMLQLCFunctionSpeedFadeIn, fadeInMultiplier);
-    tag.setAttribute(KXMLQLCFunctionSpeedFadeOut, fadeOutMultiplier);
-    tag.setAttribute(KXMLQLCFunctionSpeedDuration, durationMultiplier);
+    doc->writeAttribute(KXMLQLCFunctionSpeedFadeIn, QString::number(fadeInMultiplier));
+    doc->writeAttribute(KXMLQLCFunctionSpeedFadeOut, QString::number(fadeOutMultiplier));
+    doc->writeAttribute(KXMLQLCFunctionSpeedDuration,QString::number( durationMultiplier));
 
     /* Function ID */
-    text = doc->createTextNode(QString::number(functionId));
-    tag.appendChild(text);
+    doc->writeCharacters(QString::number(functionId));
+
+    /* Close the <Function> tag */
+    doc->writeEndElement();
 
     return true;
 }

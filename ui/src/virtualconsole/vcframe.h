@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   vcframe.h
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -23,7 +24,12 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QToolButton>
+#include <QComboBox>
+#include <QWidget>
 #include <QLabel>
+#include <QList>
+#include <QHash>
+
 
 #include "vcwidget.h"
 
@@ -43,9 +49,12 @@
 #define KXMLQLCVCFrameMultipage   "Multipage"
 #define KXMLQLCVCFramePagesNumber "PagesNum"
 #define KXMLQLCVCFrameCurrentPage "CurrentPage"
-#define KXMLQLCVCFrameKey         "Key"
 #define KXMLQLCVCFrameNext        "Next"
 #define KXMLQLCVCFramePrevious    "Previous"
+#define KXMLQLCVCFramePagesLoop   "PagesLoop"
+
+class VCFrameProperties;
+class VCFramePageShortcut;
 
 class VCFrame : public VCWidget
 {
@@ -60,6 +69,7 @@ public:
     static const quint8 nextPageInputSourceId;
     static const quint8 previousPageInputSourceId;
     static const quint8 enableInputSourceId;
+    static const quint8 shortcutsBaseInputSourceId;
 
     /*********************************************************************
      * Initialization
@@ -108,6 +118,8 @@ public:
 
     bool isCollapsed() const;
 
+    QSize originalSize() const;
+
 protected slots:
     void slotCollapseButtonToggled(bool toggle);
 
@@ -140,10 +152,19 @@ public:
     void setMultipageMode(bool enable);
     virtual bool multipageMode() const;
 
+    QList<VCFramePageShortcut *> shortcuts() const;
+    void addShortcut();
+    void setShortcuts(QList<VCFramePageShortcut *> shortcuts);
+    void resetShortcuts();
+    void updatePageCombo();
+
     void setTotalPagesNumber(int num);
     int totalPagesNumber();
 
     virtual int currentPage();
+
+    void setPagesLoop(bool pagesLoop);
+    bool pagesLoop() const;
 
     virtual void addWidgetToPageMap(VCWidget *widget);
     virtual void removeWidgetFromPageMap(VCWidget *widget);
@@ -161,7 +182,9 @@ protected:
     ushort m_currentPage;
     ushort m_totalPagesNumber;
     QToolButton *m_nextPageBtn, *m_prevPageBtn;
-    QLabel *m_pageLabel;
+    QComboBox *m_pageCombo;
+    bool m_pagesLoop;
+    QList<VCFramePageShortcut*> m_pageShortcuts;
 
     /** Here's where the magic takes place. This holds a map
      *  of pages/widgets to be shown/hidden when page is changed */
@@ -179,6 +202,9 @@ protected slots:
      *********************************************************************/
 protected slots:
     void slotSubmasterValueChanged(qreal value);
+
+public:
+    void updateSubmasterValue();
 
     /*********************************************************************
      * Intensity
@@ -210,7 +236,8 @@ public:
     QKeySequence previousPageKeySequence() const;
 
 protected slots:
-    void slotFrameKeyPressed(const QKeySequence& keySequence);
+    /** @reimp */
+    void slotKeyPressed(const QKeySequence& keySequence);
 
 private:
     QKeySequence m_enableKeySequence;
@@ -221,9 +248,11 @@ private:
      * External Input
      *************************************************************************/
 public:
+    /** @reimp */
     void updateFeedback();
 
 protected slots:
+    /** @reimp */
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
 
     /*********************************************************************
@@ -242,17 +271,19 @@ protected:
      *********************************************************************/
 protected:
     QList<VCWidget *> getChildren(VCWidget *obj);
+    void applyProperties(VCFrameProperties const& prop);
 
 public:
     /** @reimp */
-    void editProperties();
+    virtual void editProperties();
 
     /*********************************************************************
      * Load & Save
      *********************************************************************/
 public:
-    bool loadXML(const QDomElement* root);
-    bool saveXML(QDomDocument* doc, QDomElement* vc_root);
+    bool loadXML(QXmlStreamReader &root);
+
+    bool saveXML(QXmlStreamWriter *doc);
 
     /**
      * @reimp

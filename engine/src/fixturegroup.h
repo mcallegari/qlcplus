@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   fixturegroup.h
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -23,14 +24,13 @@
 #include <QObject>
 #include <QList>
 #include <QSize>
-#include <QHash>
+#include <QMap>
 
 #include "grouphead.h"
 #include "qlcpoint.h"
 #include "fixture.h"
 
-class QDomDocument;
-class QDomElement;
+class QXmlStreamReader;
 class Doc;
 
 /** @addtogroup engine Engine
@@ -42,6 +42,8 @@ class Doc;
 class FixtureGroup : public QObject
 {
     Q_OBJECT
+
+    Q_PROPERTY(quint32 id READ id CONSTANT)
 
     /************************************************************************
      * Initialization
@@ -138,6 +140,9 @@ public:
      */
     void swap(const QLCPoint& a, const QLCPoint& b);
 
+    /** Reset the whole group but preserve its size */
+    void reset();
+
     /**
      * Get a fixture head by its position in the group. If nothing has been assigned
      * at the given point, returns an invalid GroupHead.
@@ -151,9 +156,9 @@ public:
     QList <GroupHead> headList() const;
 
     /** Get the fixture head hash */
-    QHash <QLCPoint,GroupHead> headHash() const;
+    QMap <QLCPoint,GroupHead> headsMap() const;
 
-    /** Get a list of fixtures assigned to the group */
+    /** Get a list of fixture IDs assigned to the group */
     QList <quint32> fixtureList() const;
 
 private slots:
@@ -161,7 +166,7 @@ private slots:
     void slotFixtureRemoved(quint32 id);
 
 private:
-    QHash <QLCPoint,GroupHead> m_heads;
+    QMap <QLCPoint,GroupHead> m_heads;
 
     /************************************************************************
      * Size
@@ -180,9 +185,9 @@ private:
      * Load & Save
      ************************************************************************/
 public:
-    static bool loader(const QDomElement& root, Doc* doc);
-    bool loadXML(const QDomElement& root);
-    bool saveXML(QDomDocument* doc, QDomElement* wksp_root);
+    static bool loader(QXmlStreamReader &xmlDoc, Doc* doc);
+    bool loadXML(QXmlStreamReader &xmlDoc);
+    bool saveXML(QXmlStreamWriter *doc);
 };
 
 /** @} */

@@ -1,0 +1,271 @@
+﻿<html dir="ltr">
+<head>
+<title>Q Light Controller Plus - コマンドラインオプション</title>
+<script src="utility.js" type="text/javascript"></script>
+<link href="style.css" rel="stylesheet" type="text/css"></link>
+  <meta charset="utf-8">
+</head>
+<BODY onLoad="replaceqrc()">
+
+<h1>コマンドラインの起動オプション</h1>
+
+<p>
+QLC+はコマンドラインからの起動時にオプションを付与することで、様々な機能を有効化することができます。<br>
+お使いのコンピュータのシステムによってはコマンドラインから起動することが難しい場合があります。
+<ul>
+ <li>
+  <b>Linux</b> ターミナル(端末)を開き qlcplus と入力し、それに続けて以下のオプション追記して下さい。 </li>
+ <li>
+  <b>Windows</b> QLC+の実行ファイルを右クリックしショートカットを作成する必要があります。(デフォルトの設定ではQLC+は C:\QLC+ にインストールされています)
+  作成したショートカットを右クリックし、プロパティを開きます。リンク先の項目に C:\QLC+\qlcplus.exe のようなものが表示されていると思います。そこにオプションを追記して下さい。オプションを追記し終わったら OK をクリックし有効化して下さい。<br>
+  <br>
+  (例) 言語設定をチェコ語にする<br>
+  <img src="file:../images/locale.png">
+ </li>
+ <li><b>OSX</b> macをお使いの場合は.appパッケージにバンドルされているため、少し手順が複雑です。ターミナルを起動し
+ cd /Applications/QLC+.app/Contents/MacOS
+と入力しEnter<br><br>そしてqlcpuls と入力し、続けてオプションを追記します。</li>
+</ul>
+<br>
+</p>
+
+<table border="0">
+ <tr>
+  <td style="background-color:#eeeeee">
+   <h2>-c or --closebutton</h2>
+   <p>
+    <b>機能</b> バーチャルコンソールにQLC+の終了ボタンを追加します。この機能は後述する、キオスクモードも同時に有効化した際、ウィンドウマネージャーなしにフルスクリーンにした際に機能します。
+   </p>
+
+   <p>
+    <b>パラメータ</b> x,y,w,h
+バーチャルコンソール上に表示するボタンの座標位置と大きさをカンマ区切りで各数値の間にはスペーズを開けずに追記します。   </p>
+
+   <p>
+    <b>例:</b><br>
+    ボタンを(x400, y500)に、大きさは(w70, h50)で作成する<br>
+    qlcplus -c 400,500,70,50<br>
+    qlcplus --closebutton 400,500,70,50<br>
+   </p>
+  </td>
+ </tr>
+
+ <tr>
+  <td style="background-color:#ffffff">
+   <h2>-d or --debug</h2>
+   <p>
+    <b>機能</b>デバッグモードを有効化し、パラメータで出力レベルを設定します。※ バージョン4.8.0以前のバイナリーにはDEBUG (0) は含まれていませんのでご注意ください。
+   </p>
+
+   <p>
+    <b>パラメータ:</b> レベルを設定します。(<a href="http://developer.qt.nokia.com/doc/qt-4.8/qtglobal.html#QtMsgType-enum">QtMsgType</a>)
+※翻訳元の英語版マニュアルではリンク切れしていました。詳細はQtのマニュアルをご覧ください。</p>
+
+   <p>
+    <b>例:</b><br>
+    デバッグモードを有効化し、レベル０を指定します。<br>
+    qlcplus -d<br>
+    qlcplus --debug<br>
+    <br>
+    デバッグモードを有効化し、レベル３を指定します。<br>
+    qlcplus -d 3<br>
+   </p>
+  </td>
+ </tr>
+
+ <tr>
+  <td style="background-color:#eeeeee">
+   <h2>-f or --fullscreen</h2>
+   <p>
+    <b>機能:</b>フルスクリーンモードで起動します。
+   </p>
+
+   <p>
+    <b>パラメータ:</b> 'normal' もしくは 'resize' を指定できます。
+   </p>
+
+   <p>
+    <b>例:</b><br>
+    ウィンドウマネージャーを用いて画面いっぱいに表示します。<br>
+    qlcplus -f<br>
+    qlcplus --fullscreen<br>
+    qlcplus -f normal<br>
+    qlcplus --fullscreen normal<br>
+    <br>    ウィンドウマネージャーを用いずに画面いっぱいに表示します。(ウィンドウマネージャーのないX11などの環境で便利な機能です)<br>
+    qlcplus -f resize<br>
+    qlcplus --fullscreen resize<br>
+   </p>
+  </td>
+ </tr>
+
+ <tr>
+  <td style="background-color:#ffffff">
+   <h2>-g or --log</h2>
+   <p>
+    <b>機能:</b>デバッグログを$HOMEディレクトリに出力します。
+   </p>
+
+   <p>
+    <b>パラメータ:</b> このオプションにはパラメータはありません。
+   </p>
+
+   <p>
+    <b>例:</b><br>
+    デバッグモードを有効化する。<br>
+    qlcplus -d 0 -g<br>
+    qlcplus --debug 0 --log<br>
+   </p>
+  </td>
+ </tr>
+
+ <tr>
+  <td style="background-color:#eeeeee">
+   <h2>-h or --help</h2>
+   <p>
+    <b>機能:</b> ターミナル(端末)上にヘルプを表示します。(Linux, OSXでのみ有効な機能です)
+   </p>
+
+   <p>
+    <b>パラメータ:</b>このオプションにはパラメータはありません。
+   </p>
+
+   <p>
+    <b>例:</b><br>    コマンドラインからヘルプを表示します。<br>
+    qlcplus -h<br>
+    qlcplus --help<br>
+   </p>
+  </td>
+ </tr>
+
+ <tr>
+  <td style="background-color:#ffffff">
+   <h2>-k or --kiosk</h2>
+   <p>
+    <b>機能:</b> キオスクモードで起動します。(<a href="./virtualconsole.html">バーチャルコンソール</a>のみが表示され、<a href="./concept.html#Modes">本番モード</a>で固定されます。</p>
+
+   <p>
+    <b>パラメータ:</b>このオプションにはパラメータはありません。</p>
+
+   <p>
+    <b>例:</b><br>    キオスクモードで起動します。<br>
+    qlcplus -k<br>
+    qlcplus --kiosk<br>
+   </p>
+  </td>
+ </tr>
+
+ <tr>
+  <td style="background-color:#eeeeee">
+   <h2>-l or --locale</h2>
+   <p>
+    <b>機能:</b>表示する言語の設定をします。
+   </p>
+
+   <p>
+    <b>パラメータ:</b> 表示したい言語を指定します。(以下の言語をサポートしています。: ca_ES, cz_CZ, de_DE, en_GB, es_ES, fi_FI, fr_FR, it_IT, ja_JP, nl_NL, pt_BR)
+   </p>
+
+   <p>
+    <b>例:</b><br>    フィンランド語を表示する<br>
+    qlcplus -l fi_FI<br>
+    qlcplus --locale fi_FI<br>
+   </p>
+  </td>
+ </tr>
+
+ <tr>
+  <td style="background-color:#ffffff">
+   <h2>-n or --nogui</h2>
+   <p>
+    <b>機能:</b> GUIを表示せずに起動します。(raspberry pi用のQLC+でのみ有効な機能です)
+   </p>
+
+   <p>
+    <b>パラメータ:</b>このオプションにはパラメータはありません。</p>
+
+   <p>
+    <b>例:</b><br>    GUIなしで起動します。<br>
+    qlcplus -n<br>
+    qlcplus --nogui<br>
+   </p>
+  </td>
+ </tr>
+
+ <tr>
+  <td style="background-color:#eeeeee">
+   <h2>-o or --open</h2>
+   <p>
+    <b>機能:</b>プロジェクトファイルを開きます。
+   </p>
+
+   <p>
+    <b>パラメータ:</b> プロジェクトファイルのパスを指定します。</p>
+
+   <p>
+    <b>例:</b><br>
+    mydesk.qxwを開きます。<br>
+    qlcplus -o mydesk.qxw<br>
+    qlcplus --open mydesk.qxw<br>
+   </p>
+  </td>
+ </tr>
+
+ <tr>
+  <td style="background-color:#ffffff">
+   <h2>-p or --operate</h2>
+   <p>
+    <b>機能:</b><a href="./concept.html#Modes">本番</a>モードで起動します。
+   </p>
+
+   <p>
+    <b>パラメータ:</b>このオプションにはパラメータはありません。</p>
+
+   <p>
+    <b>例:</b><br>
+    本番モードで起動します。<br>
+    qlcplus -p<br>
+    qlcplus --operate<br>
+   </p>
+  </td>
+ </tr>
+
+ <tr>
+  <td style="background-color:#eeeeee">
+   <h2>-v or --version</h2>
+   <p>
+    <b>機能:</b> QLC+のバージョンを表示します。
+
+</p>
+
+   <p>
+    <b>パラメータ:</b>このオプションにはパラメータはありません。</p>
+
+   <p>
+    <b>例:</b><br>
+    qlcplus -v<br>
+    qlcplus --version<br>
+   </p>
+  </td>
+ </tr>
+
+ <tr>
+  <td style="background-color:#eeeeee">
+   <h2>-w or --web</h2>
+   <p>
+    <b>機能:</b> QLC+をwebでリモートコントロールが出来るようにします。(動作ポートは9999です)
+</p>
+
+   <p>
+    <b>パラメータ:</b>このオプションにはパラメータはありません。</p>
+
+   <p>
+    <b>例:</b><br>
+    qlcplus -w<br>
+    qlcplus --web<br>
+   </p>
+  </td>
+ </tr>
+</table>
+
+</BODY>
+</html>

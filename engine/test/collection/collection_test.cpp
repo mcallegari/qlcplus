@@ -1,8 +1,9 @@
 /*
-  Q Light Controller - Unit test
+  Q Light Controller Plus - Unit test
   collection_test.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -18,7 +19,8 @@
 */
 
 #include <QtTest>
-#include <QtXml>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 #define protected public
 #include "mastertimer_stub.h"
@@ -55,7 +57,7 @@ void Collection_Test::cleanup()
 void Collection_Test::initial()
 {
     Collection c(m_doc);
-    QVERIFY(c.type() == Function::Collection);
+    QVERIFY(c.type() == Function::CollectionType);
     QVERIFY(c.name() == "New Collection");
     QVERIFY(c.functions().size() == 0);
     QVERIFY(c.id() == Function::invalidId());
@@ -143,28 +145,27 @@ void Collection_Test::functionRemoval()
 
 void Collection_Test::loadSuccess()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Function");
-    root.setAttribute("Type", "Collection");
+    xmlWriter.writeStartElement("Function");
+    xmlWriter.writeAttribute("Type", "Collection");
 
-    QDomElement s1 = doc.createElement("Step");
-    QDomText s1Text = doc.createTextNode("50");
-    s1.appendChild(s1Text);
-    root.appendChild(s1);
+    xmlWriter.writeTextElement("Step", "50");
+    xmlWriter.writeTextElement("Step", "12");
+    xmlWriter.writeTextElement("Step", "87");
 
-    QDomElement s2 = doc.createElement("Step");
-    QDomText s2Text = doc.createTextNode("12");
-    s2.appendChild(s2Text);
-    root.appendChild(s2);
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
 
-    QDomElement s3 = doc.createElement("Step");
-    QDomText s3Text = doc.createTextNode("87");
-    s3.appendChild(s3Text);
-    root.appendChild(s3);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     Collection c(m_doc);
-    QVERIFY(c.loadXML(root) == true);
+    QVERIFY(c.loadXML(xmlReader) == true);
     QVERIFY(c.functions().size() == 3);
     QVERIFY(c.functions().contains(50) == true);
     QVERIFY(c.functions().contains(12) == true);
@@ -173,97 +174,101 @@ void Collection_Test::loadSuccess()
 
 void Collection_Test::loadWrongType()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Function");
-    root.setAttribute("Type", "Chaser");
+    xmlWriter.writeStartElement("Function");
+    xmlWriter.writeAttribute("Type", "Chaser");
 
-    QDomElement s1 = doc.createElement("Step");
-    QDomText s1Text = doc.createTextNode("50");
-    s1.appendChild(s1Text);
-    root.appendChild(s1);
+    xmlWriter.writeTextElement("Step", "50");
+    xmlWriter.writeTextElement("Step", "12");
+    xmlWriter.writeTextElement("Step", "87");
 
-    QDomElement s2 = doc.createElement("Step");
-    QDomText s2Text = doc.createTextNode("12");
-    s2.appendChild(s2Text);
-    root.appendChild(s2);
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
 
-    QDomElement s3 = doc.createElement("Step");
-    QDomText s3Text = doc.createTextNode("87");
-    s3.appendChild(s3Text);
-    root.appendChild(s3);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     Collection c(m_doc);
-    QVERIFY(c.loadXML(root) == false);
+    QVERIFY(c.loadXML(xmlReader) == false);
 }
 
 void Collection_Test::loadWrongRoot()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Collection");
-    root.setAttribute("Type", "Collection");
+    xmlWriter.writeStartElement("Collection");
+    xmlWriter.writeAttribute("Type", "Collection");
 
-    QDomElement s1 = doc.createElement("Step");
-    QDomText s1Text = doc.createTextNode("50");
-    s1.appendChild(s1Text);
-    root.appendChild(s1);
+    xmlWriter.writeTextElement("Step", "50");
+    xmlWriter.writeTextElement("Step", "12");
+    xmlWriter.writeTextElement("Step", "87");
 
-    QDomElement s2 = doc.createElement("Step");
-    QDomText s2Text = doc.createTextNode("12");
-    s2.appendChild(s2Text);
-    root.appendChild(s2);
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
 
-    QDomElement s3 = doc.createElement("Step");
-    QDomText s3Text = doc.createTextNode("87");
-    s3.appendChild(s3Text);
-    root.appendChild(s3);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     Collection c(m_doc);
-    QVERIFY(c.loadXML(root) == false);
+    QVERIFY(c.loadXML(xmlReader) == false);
 }
 
 void Collection_Test::loadWrongMemberTag()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Function");
-    root.setAttribute("Type", "Collection");
+    xmlWriter.writeStartElement("Function");
+    xmlWriter.writeAttribute("Type", "Collection");
 
-    QDomElement s1 = doc.createElement("Foo");
-    QDomText s1Text = doc.createTextNode("50");
-    s1.appendChild(s1Text);
-    root.appendChild(s1);
+    xmlWriter.writeTextElement("Foo", "50");
+    xmlWriter.writeTextElement("Step", "12");
+    xmlWriter.writeTextElement("Bar", "87");
 
-    QDomElement s2 = doc.createElement("Step");
-    QDomText s2Text = doc.createTextNode("12");
-    s2.appendChild(s2Text);
-    root.appendChild(s2);
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
 
-    QDomElement s3 = doc.createElement("Bar");
-    QDomText s3Text = doc.createTextNode("87");
-    s3.appendChild(s3Text);
-    root.appendChild(s3);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     Collection c(m_doc);
-    QVERIFY(c.loadXML(root) == true);
+    QVERIFY(c.loadXML(xmlReader) == true);
     QCOMPARE(c.functions().size(), 1);
 }
 
 void Collection_Test::loadPostLoad()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Function");
-    root.setAttribute("Type", "Collection");
+    xmlWriter.writeStartElement("Function");
+    xmlWriter.writeAttribute("Type", "Collection");
 
-    QDomElement s2 = doc.createElement("Step");
-    QDomText s2Text = doc.createTextNode("12");
-    s2.appendChild(s2Text);
-    root.appendChild(s2);
+    xmlWriter.writeTextElement("Step", "12");
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     Collection c(m_doc);
-    QVERIFY(c.loadXML(root) == true);
+    QVERIFY(c.loadXML(xmlReader) == true);
     QCOMPARE(c.functions().size(), 1);
     c.postLoad();
     QCOMPARE(c.functions().size(), 0);
@@ -277,30 +282,37 @@ void Collection_Test::save()
     c.addFunction(0);
     c.addFunction(2);
 
-    QDomDocument doc;
-    QDomElement root = doc.createElement("TestRoot");
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QVERIFY(c.saveXML(&doc, &root) == true);
-    QVERIFY(root.firstChild().toElement().tagName() == "Function");
-    QVERIFY(root.firstChild().toElement().attribute("Type") == "Collection");
+    QVERIFY(c.saveXML(&xmlWriter) == true);
 
-    QDomNode node = root.firstChild().firstChild();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    QVERIFY(xmlReader.name().toString() == "Function");
+    QVERIFY(xmlReader.attributes().value("Type").toString() == "Collection");
+
     int fids = 0;
-    while (node.isNull() == false)
+
+    while (xmlReader.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == "Step")
+        if (xmlReader.name() == "Step")
         {
-            quint32 fid = tag.text().toUInt();
+            quint32 fid = xmlReader.readElementText().toUInt();
             QVERIFY(fid == 0 || fid == 1 || fid == 2 || fid == 3);
             fids++;
         }
         else
         {
             QFAIL("Unhandled XML tag.");
+            xmlReader.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     QVERIFY(fids == 4);
@@ -392,6 +404,7 @@ void Collection_Test::write()
 
     Scene* s2 = new Scene(doc);
     s2->setName("Scene2");
+    s2->setDuration(500);
     s2->setValue(fxi->id(), 2, UCHAR_MAX);
     s2->setValue(fxi->id(), 3, UCHAR_MAX);
     doc->addFunction(s2);
@@ -401,6 +414,8 @@ void Collection_Test::write()
     c->addFunction(s1->id());
     c->addFunction(s2->id());
 
+    QVERIFY(c->totalDuration() == 500);
+
     QList<Universe*> ua;
     ua.append(new Universe(0, new GrandMaster()));
     MasterTimerStub* mts = new MasterTimerStub(m_doc, ua);
@@ -408,7 +423,7 @@ void Collection_Test::write()
     /* Collection starts all of its members immediately when it is started
        itself. */
     QVERIFY(c->stopped() == true);
-    c->start(mts);
+    c->start(mts, FunctionParent::master());
     QVERIFY(c->stopped() == false);
 
     c->write(mts, ua);
@@ -449,7 +464,7 @@ void Collection_Test::write()
     c->write(mts, ua);
     QVERIFY(s2->stopped() == true);
     QVERIFY(c->stopped() == true);
-    mts->stopFunction(c);
+    c->stop(FunctionParent::master());
 
     delete mts;
     delete doc;
@@ -487,14 +502,15 @@ void Collection_Test::stopNotOwnChildren()
     ua.append(new Universe(0, new GrandMaster()));
     MasterTimerStub* mts = new MasterTimerStub(m_doc, ua);
 
-    QVERIFY(c->stopped() == true);
-    c->start(mts);
-    QVERIFY(c->stopped() == false);
-
-    c->preRun(mts);
     QVERIFY(c->m_runningChildren.isEmpty() == true);
 
+    QVERIFY(c->stopped() == true);
+    c->start(mts, FunctionParent::master());
+    QVERIFY(c->stopped() == false);
+
     c->write(mts, ua);
+    QVERIFY(c->m_runningChildren.isEmpty() == false);
+
     QVERIFY(s1->stopped() == false);
     QVERIFY(s2->stopped() == false);
 
@@ -503,17 +519,16 @@ void Collection_Test::stopNotOwnChildren()
     QVERIFY(c->m_runningChildren.contains(s2->id()) == true);
 
     // Manually stop and re-start s1
-    s1->stop();
-    s1->write(mts, ua);
-    s1->postRun(mts, ua);
-    s1->start(mts);
+    c->write(mts, ua);
+    mts->stopFunction(s1);
+    s1->start(mts, FunctionParent::master());
     QVERIFY(s1->stopped() == false);
 
     // Collection should no longer be controlling s1
     QVERIFY(c->m_runningChildren.contains(s1->id()) == false);
     QVERIFY(c->m_runningChildren.contains(s2->id()) == true);
 
-    c->stop();
+    c->stop(FunctionParent::master());
     c->write(mts, ua);
     c->postRun(mts, ua);
 

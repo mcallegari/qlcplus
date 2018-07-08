@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.9.0 GIT</Version>
+  <Author>Allan Rhynas</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>LED PAR 64 Alu</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="63">RGB Control</Capability>
+  <Capability Min="64" Max="127">7 Colour Fades</Capability>
+  <Capability Min="128" Max="191">7 Colour Changes</Capability>
+  <Capability Min="192" Max="255">3 Colour Changes</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="10">Speed</Capability>
+  <Capability Min="11" Max="100">high to low</Capability>
+  <Capability Min="101" Max="150">Speed</Capability>
+  <Capability Min="151" Max="255">Speed control by the device, via music or controller</Capability>
+ </Channel>
+ <Mode Name="Default">
+  <Channel Number="0">Mode</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Speed</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Depth="290" Weight="2.12" Height="260" Width="260"/>
+   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="16" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

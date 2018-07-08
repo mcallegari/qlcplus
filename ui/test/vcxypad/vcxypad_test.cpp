@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus - Test Unit
   vcxypad_test.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -19,7 +20,8 @@
 
 #include <QFrame>
 #include <QtTest>
-#include <QtXml>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 #define protected public
 #define private public
@@ -48,7 +50,7 @@ void VCXYPad_Test::initTestCase()
     QDir dir(INTERNAL_FIXTUREDIR);
     dir.setFilter(QDir::Files);
     dir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
-    QVERIFY(m_doc->fixtureDefCache()->load(dir) == true);
+    QVERIFY(m_doc->fixtureDefCache()->loadMap(dir) == true);
 }
 
 void VCXYPad_Test::init()
@@ -166,75 +168,82 @@ void VCXYPad_Test::loadXML()
 {
     QWidget w;
 
-    QDomDocument xmldoc;
-    QDomElement root = xmldoc.createElement("XYPad");
-    xmldoc.appendChild(root);
+    QBuffer buffer;
+    buffer.open(QIODevice::ReadWrite | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement pos = xmldoc.createElement("Position");
-    pos.setAttribute("X", "10");
-    pos.setAttribute("Y", "20");
-    root.appendChild(pos);
+    xmlWriter.writeStartElement("XYPad");
 
-    QDomElement fxi = xmldoc.createElement("Fixture");
-    fxi.setAttribute("ID", "69");
-    fxi.setAttribute("Head", "96");
-    root.appendChild(fxi);
+    xmlWriter.writeStartElement("Position");
+    xmlWriter.writeAttribute("X", "10");
+    xmlWriter.writeAttribute("Y", "20");
+    xmlWriter.writeEndElement();
 
-    QDomElement x = xmldoc.createElement("Axis");
-    x.setAttribute("ID", "X");
-    x.setAttribute("LowLimit", "0.1");
-    x.setAttribute("HighLimit", "0.5");
-    x.setAttribute("Reverse", "True");
-    fxi.appendChild(x);
+    xmlWriter.writeStartElement("Fixture");
+    xmlWriter.writeAttribute("ID", "69");
+    xmlWriter.writeAttribute("Head", "96");
 
-    QDomElement y = xmldoc.createElement("Axis");
-    y.setAttribute("ID", "Y");
-    y.setAttribute("LowLimit", "0.2");
-    y.setAttribute("HighLimit", "0.6");
-    y.setAttribute("Reverse", "True");
-    fxi.appendChild(y);
+    xmlWriter.writeStartElement("Axis");
+    xmlWriter.writeAttribute("ID", "X");
+    xmlWriter.writeAttribute("LowLimit", "0.1");
+    xmlWriter.writeAttribute("HighLimit", "0.5");
+    xmlWriter.writeAttribute("Reverse", "True");
+    xmlWriter.writeEndElement();
 
-    QDomElement fxi2 = xmldoc.createElement("Fixture");
-    fxi2.setAttribute("ID", "50");
-    fxi2.setAttribute("Head", "55");
-    root.appendChild(fxi2);
+    xmlWriter.writeStartElement("Axis");
+    xmlWriter.writeAttribute("ID", "Y");
+    xmlWriter.writeAttribute("LowLimit", "0.2");
+    xmlWriter.writeAttribute("HighLimit", "0.6");
+    xmlWriter.writeAttribute("Reverse", "True");
+    xmlWriter.writeEndElement();
+    xmlWriter.writeEndElement();
 
-    QDomElement x2 = xmldoc.createElement("Axis");
-    x2.setAttribute("ID", "X");
-    x2.setAttribute("LowLimit", "0.0");
-    x2.setAttribute("HighLimit", "1.0");
-    x2.setAttribute("Reverse", "False");
-    fxi2.appendChild(x2);
+    xmlWriter.writeStartElement("Fixture");
+    xmlWriter.writeAttribute("ID", "50");
+    xmlWriter.writeAttribute("Head", "55");
 
-    QDomElement y2 = xmldoc.createElement("Axis");
-    y2.setAttribute("ID", "Y");
-    y2.setAttribute("LowLimit", "0.0");
-    y2.setAttribute("HighLimit", "1.0");
-    y2.setAttribute("Reverse", "False");
-    fxi2.appendChild(y2);
+    xmlWriter.writeStartElement("Axis");
+    xmlWriter.writeAttribute("ID", "X");
+    xmlWriter.writeAttribute("LowLimit", "0.0");
+    xmlWriter.writeAttribute("HighLimit", "1.0");
+    xmlWriter.writeAttribute("Reverse", "False");
+    xmlWriter.writeEndElement();
 
-    QDomElement wstate = xmldoc.createElement("WindowState");
-    wstate.setAttribute("Width", "42");
-    wstate.setAttribute("Height", "69");
-    wstate.setAttribute("X", "3");
-    wstate.setAttribute("Y", "4");
-    wstate.setAttribute("Visible", "True");
-    root.appendChild(wstate);
+    xmlWriter.writeStartElement("Axis");
+    xmlWriter.writeAttribute("ID", "Y");
+    xmlWriter.writeAttribute("LowLimit", "0.0");
+    xmlWriter.writeAttribute("HighLimit", "1.0");
+    xmlWriter.writeAttribute("Reverse", "False");
+    xmlWriter.writeEndElement();
+    xmlWriter.writeEndElement();
 
-    QDomElement appearance = xmldoc.createElement("Appearance");
+    xmlWriter.writeStartElement("WindowState");
+    xmlWriter.writeAttribute("Width", "42");
+    xmlWriter.writeAttribute("Height", "69");
+    xmlWriter.writeAttribute("X", "3");
+    xmlWriter.writeAttribute("Y", "4");
+    xmlWriter.writeAttribute("Visible", "True");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeStartElement("Appearance");
     QFont f(w.font());
     f.setPointSize(f.pointSize() + 3);
-    QDomElement font = xmldoc.createElement("Font");
-    QDomText fontText = xmldoc.createTextNode(f.toString());
-    font.appendChild(fontText);
-    appearance.appendChild(font);
-    root.appendChild(appearance);
+    xmlWriter.writeTextElement("Font", f.toString());
+    xmlWriter.writeEndElement();
+    xmlWriter.writeEndElement();
 
-    QDomElement foobar = xmldoc.createElement("Foobar");
-    root.appendChild(foobar);
+    xmlWriter.writeStartElement("Foobar");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+
+    buffer.seek(0);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     VCXYPad pad(&w, m_doc);
-    QVERIFY(pad.loadXML(&root) == true);
+    QVERIFY(pad.loadXML(xmlReader) == true);
     QCOMPARE(pad.m_fixtures.size(), 2);
     QCOMPARE(pad.pos(), QPoint(3, 4));
     QCOMPARE(pad.size(), QSize(42, 69));
@@ -246,8 +255,35 @@ void VCXYPad_Test::loadXML()
     fixture.setHead(GroupHead(50, 55));
     QVERIFY(pad.m_fixtures.contains(fixture) == true);
 
-    root.setTagName("YXPad");
-    QVERIFY(pad.loadXML(&root) == false);
+    // now add Pan and Tilt tags and check that:
+    // - an empty input is OK
+    // - positions affect the pad area
+    buffer.close();
+    QByteArray bData = buffer.data();
+    bData.replace("</XYPad>", "<Pan Position=\"23\" /><Tilt Position=\"35\" /></XYPad>");
+    buffer.setData(bData);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    buffer.seek(0);
+    xmlReader.setDevice(&buffer);
+    xmlReader.readNextStartElement();
+
+    VCXYPad pad2(&w, m_doc);
+    QVERIFY(pad2.loadXML(xmlReader) == true);
+    QCOMPARE(pad.m_fixtures.size(), 2);
+    QCOMPARE(pad.pos(), QPoint(3, 4));
+    QCOMPARE(pad.size(), QSize(42, 69));
+    QCOMPARE(pad2.m_area->position(), QPointF(23, 35));
+
+    buffer.close();
+    bData = buffer.data();
+    bData.replace("<XYPad", "<YXPad");
+    buffer.setData(bData);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    buffer.seek(0);
+    xmlReader.setDevice(&buffer);
+    xmlReader.readNextStartElement();
+
+    QVERIFY(pad.loadXML(xmlReader) == false);
 }
 
 void VCXYPad_Test::saveXML()
@@ -261,8 +297,10 @@ void VCXYPad_Test::saveXML()
     pad.resize(QSize(150, 200));
     pad.move(QPoint(10, 20));
     pad.m_area->setPosition(QPointF(23, 45));
-    pad.setInputSource(new QLCInputSource(0, 1), VCXYPad::panInputSourceId);
-    pad.setInputSource(new QLCInputSource(2, 3), VCXYPad::tiltInputSourceId);
+    pad.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(0, 1)), VCXYPad::panInputSourceId);
+    pad.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(2, 3)), VCXYPad::tiltInputSourceId);
+    pad.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(1, 10)), VCXYPad::widthInputSourceId);
+    pad.setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(3, 8)), VCXYPad::heightInputSourceId);
     QCOMPARE(pad.m_area->position(), QPointF(23, 45));
     QCOMPARE(pad.m_area->position(), QPointF(23, 45));
 
@@ -274,67 +312,105 @@ void VCXYPad_Test::saveXML()
     fixture2.setHead(GroupHead(22, 0));
     pad.appendFixture(fixture2);
 
-    QDomDocument xmldoc;
-    QDomElement root = xmldoc.createElement("Root");
-    xmldoc.appendChild(root);
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    int fixture = 0, position = 0, wstate = 0, appearance = 0, pan = 0, tilt = 0;
+    int fixture = 0, position = 0, wstate = 0, appearance = 0;
+    int pan = 0, tilt = 0, width = 0, height = 0;
 
-    QVERIFY(pad.saveXML(&xmldoc, &root) == true);
-    QDomNode node = root.firstChild();
-    QCOMPARE(node.toElement().tagName(), QString("XYPad"));
-    QCOMPARE(node.toElement().attribute("Caption"), QString("MyPad"));
-    node = node.firstChild();
-    while (node.isNull() == false)
+    QVERIFY(pad.saveXML(&xmlWriter) == true);
+
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    QCOMPARE(xmlReader.name().toString(), QString("XYPad"));
+    QCOMPARE(xmlReader.attributes().value("Caption").toString(), QString("MyPad"));
+
+    while (xmlReader.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == "Fixture")
+        if (xmlReader.name() == "Fixture")
         {
             fixture++;
-            QVERIFY(tag.attribute("ID") == QString("11") ||
-                    tag.attribute("ID") == QString("22"));
-            QVERIFY(tag.attribute("Head") == QString("0"));
-            QCOMPARE(tag.childNodes().count(), 2);
+            QVERIFY(xmlReader.attributes().value("ID") == QString("11") ||
+                    xmlReader.attributes().value("ID") == QString("22"));
+            QVERIFY(xmlReader.attributes().value("Head") == QString("0"));
+            xmlReader.skipCurrentElement();
         }
-        else if (tag.tagName() == "Position")
+        else if (xmlReader.name() == "Position")
         {
             position++;
             QFAIL("Legacy tag found in saved XML!");
+            xmlReader.skipCurrentElement();
         }
-        else if (tag.tagName() == "Pan")
+        else if (xmlReader.name() == "Pan")
         {
             pan++;
-            QCOMPARE(tag.attribute("Position"), QString("23"));
-            QCOMPARE(tag.firstChild().toElement().attribute("Universe"), QString("0"));
-            QCOMPARE(tag.firstChild().toElement().attribute("Channel"), QString("1"));
+            QCOMPARE(xmlReader.attributes().value("Position").toString(), QString("23"));
+            xmlReader.readNextStartElement();
+            QCOMPARE(xmlReader.name().toString(), QString("Input"));
+            QCOMPARE(xmlReader.attributes().value("Universe").toString(), QString("0"));
+            QCOMPARE(xmlReader.attributes().value("Channel").toString(), QString("1"));
+            xmlReader.skipCurrentElement();
+            xmlReader.skipCurrentElement();
         }
-        else if (tag.tagName() == "Tilt")
+        else if (xmlReader.name() == "Tilt")
         {
             tilt++;
-            QCOMPARE(tag.attribute("Position"), QString("45"));
-            QCOMPARE(tag.firstChild().toElement().attribute("Universe"), QString("2"));
-            QCOMPARE(tag.firstChild().toElement().attribute("Channel"), QString("3"));
+            QCOMPARE(xmlReader.attributes().value("Position").toString(), QString("45"));
+            xmlReader.readNextStartElement();
+            QCOMPARE(xmlReader.name().toString(), QString("Input"));
+            QCOMPARE(xmlReader.attributes().value("Universe").toString(), QString("2"));
+            QCOMPARE(xmlReader.attributes().value("Channel").toString(), QString("3"));
+            xmlReader.skipCurrentElement();
+            xmlReader.skipCurrentElement();
         }
-        else if (tag.tagName() == "WindowState")
+        else if (xmlReader.name() == "Width")
+        {
+            width++;
+            xmlReader.readNextStartElement();
+            QCOMPARE(xmlReader.name().toString(), QString("Input"));
+            QCOMPARE(xmlReader.attributes().value("Universe").toString(), QString("1"));
+            QCOMPARE(xmlReader.attributes().value("Channel").toString(), QString("10"));
+            xmlReader.skipCurrentElement();
+            xmlReader.skipCurrentElement();
+        }
+        else if (xmlReader.name() == "Height")
+        {
+            height++;
+            xmlReader.readNextStartElement();
+            QCOMPARE(xmlReader.name().toString(), QString("Input"));
+            QCOMPARE(xmlReader.attributes().value("Universe").toString(), QString("3"));
+            QCOMPARE(xmlReader.attributes().value("Channel").toString(), QString("8"));
+            xmlReader.skipCurrentElement();
+            xmlReader.skipCurrentElement();
+        }
+        else if (xmlReader.name() == "WindowState")
         {
             wstate++;
+            xmlReader.skipCurrentElement();
         }
-        else if (tag.tagName() == "Appearance")
+        else if (xmlReader.name() == "Appearance")
         {
             appearance++;
+            xmlReader.skipCurrentElement();
         }
         else
         {
-            QFAIL(QString("Unexpected tag: %1").arg(tag.tagName()).toUtf8().constData());
+            QFAIL(QString("Unexpected tag: %1").arg(xmlReader.name().toString()).toUtf8().constData());
         }
-
-        node = node.nextSibling();
     }
 
     QCOMPARE(fixture, 2);
     QCOMPARE(position, 0);
     QCOMPARE(pan, 1);
     QCOMPARE(tilt, 1);
+    QCOMPARE(width, 1);
+    QCOMPARE(height, 1);
     QCOMPARE(wstate, 1);
     QCOMPARE(appearance, 1);
 }
@@ -352,38 +428,39 @@ void VCXYPad_Test::modeChange()
     fxi->setFixtureDefinition(def, mode);
     m_doc->addFixture(fxi);
 
-    VCXYPad pad(&w, m_doc);
-    pad.show();
+    VCXYPad* pad = new VCXYPad(&w, m_doc);
+    pad->show();
     w.show();
-    pad.resize(QSize(200, 200));
+    pad->resize(QSize(200, 200));
 
     VCXYPadFixture xy(m_doc);
     xy.setHead(GroupHead(fxi->id(), 0));
-    pad.appendFixture(xy);
-    QCOMPARE(pad.fixtures().size(), 1);
-    QCOMPARE(pad.fixtures()[0].m_xMSB, QLCChannel::invalid());
-    QCOMPARE(pad.fixtures()[0].m_xLSB, QLCChannel::invalid());
+    pad->appendFixture(xy);
+    QCOMPARE(pad->fixtures().size(), 1);
+    QCOMPARE(pad->fixtures()[0].m_xMSB, QLCChannel::invalid());
+    QCOMPARE(pad->fixtures()[0].m_xLSB, QLCChannel::invalid());
 
     m_doc->setMode(Doc::Operate);
-    QVERIFY(pad.fixtures()[0].m_xMSB != QLCChannel::invalid());
-    QVERIFY(pad.fixtures()[0].m_yMSB != QLCChannel::invalid());
+    QVERIFY(pad->fixtures()[0].m_xMSB != QLCChannel::invalid());
+    QVERIFY(pad->fixtures()[0].m_yMSB != QLCChannel::invalid());
     QCOMPARE(m_doc->masterTimer()->m_dmxSourceList.size(), 1);
-    QCOMPARE(m_doc->masterTimer()->m_dmxSourceList[0], &pad);
+    QCOMPARE(m_doc->masterTimer()->m_dmxSourceList[0], pad);
 /*
     // FIXME !!
-    pad.m_area->setPosition(QPoint(pad.m_area->width(), pad.m_area->height()));
-    pad.writeDMX(m_doc->masterTimer(), &ua);
+    pad->m_area->setPosition(QPoint(pad->m_area->width(), pad->m_area->height()));
+    pad->writeDMX(m_doc->masterTimer(), &ua);
     QCOMPARE(ua.preGMValues()[0], char(255));
     QCOMPARE(ua.preGMValues()[1], char(255));
 
-    pad.m_area->setPosition(QPoint(pad.m_area->width() / 2, pad.m_area->height() / 4));
-    pad.writeDMX(m_doc->masterTimer(), &ua);
+    pad->m_area->setPosition(QPoint(pad->m_area->width() / 2, pad->m_area->height() / 4));
+    pad->writeDMX(m_doc->masterTimer(), &ua);
     QCOMPARE(ua.preGMValues()[0], char(128));
     QCOMPARE(ua.preGMValues()[1], char(64));
 */
     m_doc->setMode(Doc::Design);
-    QCOMPARE(pad.fixtures()[0].m_xMSB, QLCChannel::invalid());
-    QCOMPARE(pad.fixtures()[0].m_yMSB, QLCChannel::invalid());
+    QCOMPARE(pad->fixtures()[0].m_xMSB, QLCChannel::invalid());
+    QCOMPARE(pad->fixtures()[0].m_yMSB, QLCChannel::invalid());
+    delete pad;
     QCOMPARE(m_doc->masterTimer()->m_dmxSourceList.size(), 0);
 }
 

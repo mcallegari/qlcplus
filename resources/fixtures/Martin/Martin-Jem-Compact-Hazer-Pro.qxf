@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.6 GIT</Version>
+  <Author>Sam Brooks</Author>
+ </Creator>
+ <Manufacturer>Martin</Manufacturer>
+ <Model>Jem Compact Hazer Pro</Model>
+ <Type>Smoke</Type>
+ <Channel Name="Haze Output Level">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="19">Idle Range</Capability>
+  <Capability Min="20" Max="29">Haze 5%</Capability>
+  <Capability Min="30" Max="39">Haze 10%</Capability>
+  <Capability Min="40" Max="49">Haze 15%</Capability>
+  <Capability Min="50" Max="59">Haze 20%</Capability>
+  <Capability Min="60" Max="69">Haze 25%</Capability>
+  <Capability Min="70" Max="79">Haze 30%</Capability>
+  <Capability Min="80" Max="89">Haze 35%</Capability>
+  <Capability Min="90" Max="99">Haze 40%</Capability>
+  <Capability Min="100" Max="109">Haze 45%</Capability>
+  <Capability Min="110" Max="119">Haze 50%</Capability>
+  <Capability Min="120" Max="129">Haze 55%</Capability>
+  <Capability Min="130" Max="139">Haze 60%</Capability>
+  <Capability Min="140" Max="149">Haze 65%</Capability>
+  <Capability Min="150" Max="159">Haze 70%</Capability>
+  <Capability Min="160" Max="169">Haze 75%</Capability>
+  <Capability Min="170" Max="179">Haze 80%</Capability>
+  <Capability Min="180" Max="189">Haze 85%</Capability>
+  <Capability Min="190" Max="199">Haze 90%</Capability>
+  <Capability Min="200" Max="209">Haze 95%</Capability>
+  <Capability Min="210" Max="255">Fan 100%</Capability>
+ </Channel>
+ <Channel Name="Fan output level (fan will always run if haze is active)">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="19">Idle Range</Capability>
+  <Capability Min="20" Max="29">Fan 5%</Capability>
+  <Capability Min="30" Max="39">Fan 10%</Capability>
+  <Capability Min="40" Max="49">Fan 15%</Capability>
+  <Capability Min="50" Max="59">Fan 20%</Capability>
+  <Capability Min="60" Max="69">Fan 25%</Capability>
+  <Capability Min="70" Max="79">Fan 30%</Capability>
+  <Capability Min="80" Max="89">Fan 35%</Capability>
+  <Capability Min="90" Max="99">Fan 40%</Capability>
+  <Capability Min="100" Max="109">Fan 45%</Capability>
+  <Capability Min="110" Max="119">Fan 50%</Capability>
+  <Capability Min="120" Max="129">Fan 55%</Capability>
+  <Capability Min="130" Max="139">Fan 60%</Capability>
+  <Capability Min="140" Max="149">Fan 65%</Capability>
+  <Capability Min="150" Max="159">Fan 70%</Capability>
+  <Capability Min="160" Max="169">Fan 75%</Capability>
+  <Capability Min="170" Max="179">Fan 80%</Capability>
+  <Capability Min="180" Max="189">Fan 85%</Capability>
+  <Capability Min="190" Max="199">Fan 90%</Capability>
+  <Capability Min="200" Max="209">Fan 95%</Capability>
+  <Capability Min="210" Max="255">Fan 100%</Capability>
+ </Channel>
+ <Channel Name="Special Functions">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="50">Idle Range</Capability>
+  <Capability Min="51" Max="100">Prime</Capability>
+  <Capability Min="101" Max="150">Auto Fan mode</Capability>
+  <Capability Min="151" Max="200">Hater off &amp; shutdown</Capability>
+  <Capability Min="201" Max="255">Heater on (normal operation)</Capability>
+ </Channel>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Haze Output Level</Channel>
+  <Channel Number="1">Fan output level (fan will always run if haze is active)</Channel>
+  <Channel Number="2">Special Functions</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="8.5" Width="224" Height="278" Depth="532"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="900" DmxConnector="5-pin"/>
+  </Physical>
+</FixtureDefinition>

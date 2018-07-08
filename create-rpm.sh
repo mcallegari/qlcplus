@@ -12,8 +12,7 @@ if [ ! -d rpm ]; then
 	exit 1;
 fi
 
-VERSION=`head -1 debian/changelog | sed 's/.*(\(.*\)).*/\1/'`
-SOURCES=qlcplus
+VERSION=$(head -1 debian/changelog | sed 's/.*(\(.*\)).*/\1/')
 RPMBUILD=~/rpmbuild
 
 # Prepare RPM build directory hierarchy
@@ -25,7 +24,7 @@ if [ ! -f $RPMBUILD ]; then
 fi
 
 # Copy the RPM spec file so that rpmbuild finds it
-cp -f rpm/qlcplus.spec $RPMBUILD/SPECS
+cp -f platforms/linux/qlcplus.spec $RPMBUILD/SPECS
 
 # Prepare a source tarball and move it under $RPMBUILD/SOURCES
 echo "Packing sources into qlcplus-$VERSION.tar.gz..."

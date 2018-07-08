@@ -20,8 +20,8 @@
 #include "channelmodifier.h"
 #include "qlcfile.h"
 
-#include <QDomText>
-#include <QTextStream>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QDebug>
 
 ChannelModifier::ChannelModifier()
@@ -109,39 +109,27 @@ QFile::FileError ChannelModifier::saveXML(const QString &fileName)
     if (file.open(QIODevice::WriteOnly) == false)
         return file.error();
 
-    QDomDocument doc(QLCFile::getXMLHeader(KXMLQLCChannelModifierDocument));
-    Q_ASSERT(doc.isNull() == false);
+    QXmlStreamWriter doc(&file);
+    doc.setAutoFormatting(true);
+    doc.setAutoFormattingIndent(1);
+    doc.setCodec("UTF-8");
+    QLCFile::writeXMLHeader(&doc, KXMLQLCChannelModifierDocument);
 
-    /* Create a text stream for the file */
-    QTextStream stream(&file);
-    stream.setAutoDetectUnicode(true);
-    stream.setCodec("UTF-8");
-
-    // create the document root node
-    QDomElement root = doc.documentElement();
-
-    QDomElement tag;
-    QDomText text;
-
-    /* Name */
-    tag = doc.createElement(KXMLQLCChannelModName);
-    root.appendChild(tag);
-    text = doc.createTextNode(m_name);
-    tag.appendChild(text);
+    doc.writeTextElement(KXMLQLCChannelModName, m_name);
 
     qDebug() << "Got map with" << m_map.count() << "handlers";
     for(int i = 0; i < m_map.count(); i++)
     {
         QPair<uchar, uchar> mapElement = m_map.at(i);
-        tag = doc.createElement(KXMLQLCChannelModHandler);
-        tag.setAttribute(KXMLQLCChannelModOriginalDMX, mapElement.first);
-        tag.setAttribute(KXMLQLCChannelModModifiedDMX, mapElement.second);
-        root.appendChild(tag);
+        doc.writeStartElement(KXMLQLCChannelModHandler);
+        doc.writeAttribute(KXMLQLCChannelModOriginalDMX, QString::number(mapElement.first));
+        doc.writeAttribute(KXMLQLCChannelModModifiedDMX, QString::number(mapElement.second));
+        doc.writeEndElement();
     }
 
-    /* Write the document into the stream */
-    stream << doc.toString();
+    /* End the document and close all the open elements */
     error = QFile::NoError;
+    doc.writeEndDocument();
     file.close();
 
     return error;
@@ -154,39 +142,60 @@ QFile::FileError ChannelModifier::loadXML(const QString &fileName, Type type)
     if (fileName.isEmpty() == true)
         return QFile::OpenError;
 
-    QDomDocument doc = QLCFile::readXML(fileName);
-    if (doc.isNull() == true)
+    QXmlStreamReader *doc = QLCFile::getXMLReader(fileName);
+    if (doc == NULL || doc->device() == NULL || doc->hasError())
     {
         qWarning() << Q_FUNC_INFO << "Unable to read from" << fileName;
         return QFile::ReadError;
     }
 
+    while (!doc->atEnd())
+    {
+        if (doc->readNext() == QXmlStreamReader::DTD)
+            break;
+    }
+    if (doc->hasError())
+    {
+        QLCFile::releaseXMLReader(doc);
+        return QFile::ResourceError;
+    }
+
     QList< QPair<uchar, uchar> > modMap;
 
-    if (doc.doctype().name() == KXMLQLCChannelModifierDocument)
+    if (doc->dtdName() == KXMLQLCChannelModifierDocument)
     {
-        QDomElement root = doc.documentElement();
-        if (root.tagName() == KXMLQLCChannelModifierDocument)
+        if (doc->readNextStartElement() == false)
+            return QFile::ResourceError;
+
+        if (doc->name() == KXMLQLCChannelModifierDocument)
         {
-            QDomNode node = root.firstChild();
-            while (node.isNull() == false)
+            while (doc->readNextStartElement())
             {
-                QDomElement tag = node.toElement();
-                if (tag.tagName() == KXMLQLCChannelModName)
+                if (doc->name() == KXMLQLCChannelModName)
                 {
-                    setName(tag.text());
+                    setName(doc->readElementText());
                 }
-                else if(tag.tagName() == KXMLQLCChannelModHandler)
+                else if(doc->name() == KXMLQLCChannelModHandler)
                 {
                     QPair <uchar, uchar> dmxPair(0, 0);
-                    if (tag.hasAttribute(KXMLQLCChannelModOriginalDMX))
-                        dmxPair.first = tag.attribute(KXMLQLCChannelModOriginalDMX).toUInt();
-                    if (tag.hasAttribute(KXMLQLCChannelModModifiedDMX))
-                        dmxPair.second = tag.attribute(KXMLQLCChannelModModifiedDMX).toUInt();
+                    QXmlStreamAttributes attrs = doc->attributes();
+                    if (attrs.hasAttribute(KXMLQLCChannelModOriginalDMX))
+                        dmxPair.first = attrs.value(KXMLQLCChannelModOriginalDMX).toString().toUInt();
+                    if (attrs.hasAttribute(KXMLQLCChannelModModifiedDMX))
+                        dmxPair.second = attrs.value(KXMLQLCChannelModModifiedDMX).toString().toUInt();
                     modMap.append(dmxPair);
+                    doc->skipCurrentElement();
                 }
-
-                node = node.nextSibling();
+                else if (doc->name() == KXMLQLCCreator)
+                {
+                    /* Ignore creator information */
+                    doc->skipCurrentElement();
+                }
+                else
+                {
+                    qWarning() << Q_FUNC_INFO << "Unknown ChannelModifier tag:" << doc->name();
+                    doc->skipCurrentElement();
+                }
             }
         }
     }
@@ -195,6 +204,8 @@ QFile::FileError ChannelModifier::loadXML(const QString &fileName, Type type)
         setType(type);
         setModifierMap(modMap);
     }
+
+    QLCFile::releaseXMLReader(doc);
 
     return error;
 }

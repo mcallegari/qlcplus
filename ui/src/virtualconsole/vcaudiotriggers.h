@@ -33,6 +33,8 @@
 #include "dmxsource.h"
 #include "vcwidget.h"
 
+class QXmlStreamReader;
+class QXmlStreamWriter;
 class AudioCapture;
 class AudioBar;
 
@@ -61,7 +63,7 @@ public:
     void enableWidgetUI(bool enable);
 
     /** @reimp */
-    virtual void notifyFunctionStarting(quint32 fid);
+    virtual void notifyFunctionStarting(quint32 fid, qreal intensity);
 
     /*********************************************************************
      * GUI
@@ -69,8 +71,16 @@ public:
 public:
     void enableCapture(bool enable);
 
+    /** Method to toggle the enable button at a UI level.
+     *  In this way we let Qt to handle the toggle signal and
+     *  start the audio capture in the correct thread */
+    void toggleEnableButton(bool toggle);
+
 public slots:
     void slotEnableButtonToggled(bool toggle);
+
+signals:
+    void captureEnabled(bool enabled);
 
 protected slots:
     void slotDisplaySpectrum(double *spectrumBands, int size, double maxMagnitude, quint32 power);
@@ -178,7 +188,7 @@ public:
      * @param btn_root A VCButton XML root node containing button properties
      * @return true if successful; otherwise false
      */
-    bool loadXML(const QDomElement* root);
+    bool loadXML(QXmlStreamReader &root);
 
     /**
      * Save a VCButton's properties to an XML document node
@@ -186,7 +196,7 @@ public:
      * @param doc The master XML document to save to
      * @param frame_root The button's VCFrame XML parent node to save to
      */
-    bool saveXML(QDomDocument* doc, QDomElement* vc_root);
+    bool saveXML(QXmlStreamWriter *doc);
 };
 
 /** @} */

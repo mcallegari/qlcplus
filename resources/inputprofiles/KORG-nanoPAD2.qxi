@@ -1,5 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE InputProfile>
-<InputProfile>
+<InputProfile xmlns="http://www.qlcplus.org/InputProfile">
 <Creator>
 <Name>Q Light Controller Plus</Name>
 <Version>4.8.1</Version>

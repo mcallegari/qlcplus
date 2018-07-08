@@ -15,7 +15,7 @@ win32:QMAKE_LFLAGS += -shared
 
 # This must be after "TARGET = " and before target installation so that
 # install_name_tool can be run before target installation
-macx:include(../../macx/nametool.pri)
+macx:include(../../platforms/macos/nametool.pri)
 
 target.path = $$INSTALLROOT/$$PLUGINDIR
 INSTALLS   += target
@@ -39,7 +39,14 @@ HEADERS += e131packetizer.h \
 
 FORMS += configuree131.ui
 
+SOURCES += ../interfaces/qlcioplugin.cpp
 SOURCES += e131packetizer.cpp \
            e131controller.cpp \
            e131plugin.cpp \
            configuree131.cpp
+
+unix:!macx {
+   metainfo.path   = $$INSTALLROOT/share/appdata/
+   metainfo.files += qlcplus-e131.metainfo.xml
+   INSTALLS       += metainfo 
+}

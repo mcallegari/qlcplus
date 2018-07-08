@@ -1,6 +1,6 @@
 /*
-  Q Light Controller
-  fadechannel.h
+  Q Light Controller Plus
+  track.h
 
   Copyright (c) Massimo Callegari
 
@@ -24,11 +24,9 @@
 #include <QHash>
 
 #include "showfunction.h"
-#include "chaser.h"
 #include "scene.h"
 
-class QDomDocument;
-class QDomElement;
+class QXmlStreamReader;
 
 /** @addtogroup engine_functions Functions
  * @{
@@ -39,6 +37,8 @@ class QDomElement;
 class Track : public QObject
 {
     Q_OBJECT
+
+    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
 
     /************************************************************************
      * Initialization
@@ -70,6 +70,11 @@ public:
 private:
     quint32 m_id;
 
+public:
+    void setShowId(quint32 id);
+private:
+    quint32 m_showId;
+
     /************************************************************************
      * Name
      ************************************************************************/
@@ -79,6 +84,9 @@ public:
 
     /** Get the name of this track */
     QString name() const;
+
+signals:
+    void nameChanged();
 
 private:
     QString m_name;
@@ -126,7 +134,7 @@ public:
     ShowFunction *createShowFunction(quint32 id);
 
     /** remove a function ID association from this track */
-    bool removeShowFunction(ShowFunction *function);
+    bool removeShowFunction(ShowFunction *function, bool performDelete = true);
 
     /** add a ShowFunction element to this track */
     bool addShowFunction(ShowFunction *func);
@@ -141,9 +149,16 @@ private:
      * Load & Save
      *********************************************************************/
 public:
-    bool saveXML(QDomDocument* doc, QDomElement* wksp_root);
+    bool saveXML(QXmlStreamWriter *doc);
 
-    bool loadXML(const QDomElement& root);
+    bool loadXML(QXmlStreamReader &root);
+
+    bool postLoad(Doc *doc);
+
+public:
+    bool contains(Doc *doc, quint32 functionId);
+
+    QList<quint32> components();
 
 };
 

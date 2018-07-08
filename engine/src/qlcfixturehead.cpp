@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   qlcfixturehead.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,8 +18,7 @@
   limitations under the License.
 */
 
-#include <QDomDocument>
-#include <QDomElement>
+#include <QXmlStreamReader>
 #include <QDebug>
 
 #include "qlcfixturehead.h"
@@ -27,24 +27,15 @@
 
 QLCFixtureHead::QLCFixtureHead()
     : m_channelsCached(false)
-    , m_panMsbChannel(QLCChannel::invalid())
-    , m_tiltMsbChannel(QLCChannel::invalid())
-    , m_panLsbChannel(QLCChannel::invalid())
-    , m_tiltLsbChannel(QLCChannel::invalid())
-    , m_masterIntensityChannel(QLCChannel::invalid())
 {
 }
 
 QLCFixtureHead::QLCFixtureHead(const QLCFixtureHead& head)
     : m_channels(head.m_channels)
     , m_channelsCached(head.m_channelsCached)
-    , m_panMsbChannel(head.m_panMsbChannel)
-    , m_tiltMsbChannel(head.m_tiltMsbChannel)
-    , m_panLsbChannel(head.m_panLsbChannel)
-    , m_tiltLsbChannel(head.m_tiltLsbChannel)
-    , m_masterIntensityChannel(head.m_masterIntensityChannel)
-    , m_rgbChannels(head.m_rgbChannels)
-    , m_cmyChannels(head.m_cmyChannels)
+    , m_channelsMap(head.m_channelsMap)
+    , m_colorWheels(head.m_colorWheels)
+    , m_shutterChannels(head.m_shutterChannels)
 {
 }
 
@@ -59,15 +50,15 @@ QLCFixtureHead::~QLCFixtureHead()
 void QLCFixtureHead::addChannel(quint32 channel)
 {
     if (m_channels.contains(channel) == false)
-        m_channels.insert(channel);
+        m_channels.append(channel);
 }
 
 void QLCFixtureHead::removeChannel(quint32 channel)
 {
-    m_channels.remove(channel);
+    m_channels.removeAll(channel);
 }
 
-QSet <quint32> QLCFixtureHead::channels() const
+QList<quint32> QLCFixtureHead::channels() const
 {
     return m_channels;
 }
@@ -76,39 +67,80 @@ QSet <quint32> QLCFixtureHead::channels() const
  * Cached channels
  ****************************************************************************/
 
-quint32 QLCFixtureHead::panMsbChannel() const
+quint32 QLCFixtureHead::channelNumber(int type, int controlByte) const
 {
-    return m_panMsbChannel;
-}
+    quint32 val = m_channelsMap.value(type, 0xFFFFFFFF);
 
-quint32 QLCFixtureHead::tiltMsbChannel() const
-{
-    return m_tiltMsbChannel;
-}
+    if (val == 0xFFFFFFFF)
+        return QLCChannel::invalid();
 
-quint32 QLCFixtureHead::panLsbChannel() const
-{
-    return m_panLsbChannel;
-}
+    if (controlByte == QLCChannel::MSB)
+        val = val >> 16;
+    else
+        val &= 0x0000FFFF;
 
-quint32 QLCFixtureHead::tiltLsbChannel() const
-{
-    return m_tiltLsbChannel;
-}
+    if (val == 0x0000FFFF)
+        return QLCChannel::invalid();
 
-quint32 QLCFixtureHead::masterIntensityChannel() const
-{
-    return m_masterIntensityChannel;
+    return val;
 }
 
 QVector <quint32> QLCFixtureHead::rgbChannels() const
 {
-    return m_rgbChannels;
+    QVector <quint32> vector;
+    quint32 r = channelNumber(QLCChannel::Red, QLCChannel::MSB);
+    quint32 g = channelNumber(QLCChannel::Green, QLCChannel::MSB);
+    quint32 b = channelNumber(QLCChannel::Blue, QLCChannel::MSB);
+
+    if (r != QLCChannel::invalid() && g != QLCChannel::invalid() && b != QLCChannel::invalid())
+        vector << r << g << b;
+
+    return vector;
 }
 
 QVector <quint32> QLCFixtureHead::cmyChannels() const
 {
-    return m_cmyChannels;
+    QVector <quint32> vector;
+    quint32 c = channelNumber(QLCChannel::Cyan, QLCChannel::MSB);
+    quint32 m = channelNumber(QLCChannel::Magenta, QLCChannel::MSB);
+    quint32 y = channelNumber(QLCChannel::Yellow, QLCChannel::MSB);
+
+    if (c != QLCChannel::invalid() && m != QLCChannel::invalid() && y != QLCChannel::invalid())
+        vector << c << m << y;
+
+    return vector;
+}
+
+QVector <quint32> QLCFixtureHead::colorWheels() const
+{
+    return m_colorWheels;
+}
+
+QVector <quint32> QLCFixtureHead::shutterChannels() const
+{
+    return m_shutterChannels;
+}
+
+void QLCFixtureHead::setMapIndex(int chType, int controlByte, quint32 index)
+{
+    if (index == QLCChannel::invalid())
+        return;
+
+    quint32 val = m_channelsMap.value(chType, 0xFFFFFFFF);
+
+    if (controlByte == QLCChannel::MSB)
+    {
+        val &= 0x0000FFFF;
+        val |= ((index << 16) & 0xFFFF0000);
+    }
+    else if (controlByte == QLCChannel::LSB)
+    {
+        val &= 0xFFFF0000;
+        val |= index;
+    }
+    m_channelsMap[chType] = val;
+
+    //qDebug() << this << "chtype:" << chType << "control" << controlByte << "index" << index << "val" << QString::number(val, 16);
 }
 
 void QLCFixtureHead::cacheChannels(const QLCFixtureMode* mode)
@@ -119,19 +151,12 @@ void QLCFixtureHead::cacheChannels(const QLCFixtureMode* mode)
     if (m_channelsCached == true)
         return;
 
-    quint32 r, g, b, c, m, y;
-    r = g = b = c = m = y = QLCChannel::invalid();
-    m_panMsbChannel = QLCChannel::invalid();
-    m_tiltMsbChannel = QLCChannel::invalid();
-    m_panLsbChannel = QLCChannel::invalid();
-    m_tiltLsbChannel = QLCChannel::invalid();
-    m_masterIntensityChannel = QLCChannel::invalid();
+    m_colorWheels.clear();
+    m_shutterChannels.clear();
+    m_channelsMap.clear();
 
-    QSetIterator <quint32> it(m_channels);
-    while (it.hasNext() == true)
+    foreach(quint32 i, m_channels)
     {
-        quint32 i(it.next());
-
         if ((int)i >= mode->channels().size())
         {
             qDebug() << "Head contains undefined channel" << i;
@@ -143,78 +168,46 @@ void QLCFixtureHead::cacheChannels(const QLCFixtureMode* mode)
 
         if (ch->group() == QLCChannel::Pan)
         {
-            if (ch->controlByte() == QLCChannel::MSB &&
-                m_panMsbChannel > i)
-            {
-                m_panMsbChannel = i;
-            }
-            else if (ch->controlByte() == QLCChannel::LSB &&
-                     m_panLsbChannel == QLCChannel::invalid())
-            {
-                m_panLsbChannel = i;
-            }
+            setMapIndex(QLCChannel::Pan, ch->controlByte(), i);
         }
         else if (ch->group() == QLCChannel::Tilt)
         {
-            if (ch->controlByte() == QLCChannel::MSB &&
-                m_tiltMsbChannel > i)
+            setMapIndex(QLCChannel::Tilt, ch->controlByte(), i);
+        }
+        else if (ch->group() == QLCChannel::Intensity)
+        {
+            if (ch->colour() == QLCChannel::NoColour)
             {
-                m_tiltMsbChannel = i;
+                 setMapIndex(QLCChannel::Intensity, ch->controlByte(), i);
             }
-            else if (ch->controlByte() == QLCChannel::LSB &&
-                     m_tiltLsbChannel > i)
+            else // all the other colors
             {
-                m_tiltLsbChannel = i;
+                setMapIndex(ch->colour(), ch->controlByte(), i);
             }
         }
-        else if (ch->group() == QLCChannel::Intensity &&
-                 ch->colour() == QLCChannel::NoColour &&
-                 m_masterIntensityChannel > i)
+        else if (ch->group() == QLCChannel::Colour && ch->controlByte() == QLCChannel::MSB)
         {
-            m_masterIntensityChannel = i;
+            m_colorWheels << i;
         }
-        else if (ch->group() == QLCChannel::Intensity &&
-                 ch->colour() == QLCChannel::Red &&
-                 r > i)
+        else if (ch->group() == QLCChannel::Shutter && ch->controlByte() == QLCChannel::MSB)
         {
-            r = i;
-        }
-        else if (ch->group() == QLCChannel::Intensity &&
-                 ch->colour() == QLCChannel::Green &&
-                 g > i)
-        {
-            g = i;
-        }
-        else if (ch->group() == QLCChannel::Intensity &&
-                 ch->colour() == QLCChannel::Blue &&
-                 b > i)
-        {
-            b = i;
-        }
-        else if (ch->group() == QLCChannel::Intensity &&
-                 ch->colour() == QLCChannel::Cyan &&
-                 c > i)
-        {
-            c = i;
-        }
-        else if (ch->group() == QLCChannel::Intensity &&
-                 ch->colour() == QLCChannel::Magenta &&
-                 m > i)
-        {
-            m = i;
-        }
-        else if (ch->group() == QLCChannel::Intensity &&
-                 ch->colour() == QLCChannel::Yellow &&
-                 y > i)
-        {
-            y = i;
+            m_shutterChannels << i;
         }
     }
 
-    if (r != QLCChannel::invalid() && g != QLCChannel::invalid() && b != QLCChannel::invalid())
-        m_rgbChannels << r << g << b;
-    if (c != QLCChannel::invalid() && m != QLCChannel::invalid() && y != QLCChannel::invalid())
-        m_cmyChannels << c << m << y;
+    // if this head doesn't include any Pan/Tilt channel
+    // try to retrieve them from the fixture Mode
+    if (channelNumber(QLCChannel::Pan, QLCChannel::MSB) == QLCChannel::invalid())
+        setMapIndex(QLCChannel::Pan, QLCChannel::MSB, mode->channelNumber(QLCChannel::Pan, QLCChannel::MSB));
+    if (channelNumber(QLCChannel::Pan, QLCChannel::LSB) == QLCChannel::invalid())
+        setMapIndex(QLCChannel::Pan, QLCChannel::LSB, mode->channelNumber(QLCChannel::Pan, QLCChannel::LSB));
+    if (channelNumber(QLCChannel::Tilt, QLCChannel::MSB) == QLCChannel::invalid())
+        setMapIndex(QLCChannel::Tilt, QLCChannel::MSB, mode->channelNumber(QLCChannel::Tilt, QLCChannel::MSB));
+    if (channelNumber(QLCChannel::Tilt, QLCChannel::LSB) == QLCChannel::invalid())
+        setMapIndex(QLCChannel::Tilt, QLCChannel::LSB, mode->channelNumber(QLCChannel::Tilt, QLCChannel::LSB));
+
+    qSort(m_colorWheels);
+    qSort(m_shutterChannels);
 
     // Allow only one caching round per head
     m_channelsCached = true;
@@ -224,56 +217,40 @@ void QLCFixtureHead::cacheChannels(const QLCFixtureMode* mode)
  * Load & Save
  ****************************************************************************/
 
-bool QLCFixtureHead::loadXML(const QDomElement& root)
+bool QLCFixtureHead::loadXML(QXmlStreamReader &doc)
 {
-    if (root.tagName() != KXMLQLCFixtureHead)
+    if (doc.name() != KXMLQLCFixtureHead)
     {
         qWarning() << Q_FUNC_INFO << "Fixture Head node not found!";
         return false;
     }
 
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (doc.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLQLCFixtureHeadChannel)
-            addChannel(tag.text().toUInt());
+        if (doc.name() == KXMLQLCFixtureHeadChannel)
+            addChannel(doc.readElementText().toUInt());
         else
-            qWarning() << Q_FUNC_INFO << "Unknown Head tag:" << tag.tagName();
-        node = node.nextSibling();
+        {
+            qWarning() << Q_FUNC_INFO << "Unknown Head tag:" << doc.name();
+            doc.skipCurrentElement();
+        }
     }
 
     return true;
 }
 
-bool QLCFixtureHead::saveXML(QDomDocument* doc, QDomElement* mode_root) const
+bool QLCFixtureHead::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(mode_root != NULL);
 
-    QDomElement root = doc->createElement(KXMLQLCFixtureHead);
-    mode_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCFixtureHead);
 
-    QSetIterator <quint32> it(m_channels);
-    while (it.hasNext() == true)
-    {
-        QDomElement tag = doc->createElement(KXMLQLCFixtureHeadChannel);
-        QDomText text = doc->createTextNode(QString::number(it.next()));
-        tag.appendChild(text);
-        root.appendChild(tag);
-    }
+    foreach(quint32 index, m_channels)
+        doc->writeTextElement(KXMLQLCFixtureHeadChannel, QString::number(index));
+
+    doc->writeEndElement();
 
     return true;
 }
 
-/****************************************************************************
- * QLCDimmerHead
- ****************************************************************************/
-
-QLCDimmerHead::QLCDimmerHead(int head)
-    : QLCFixtureHead()
-{
-    m_masterIntensityChannel = head;
-    m_channelsCached = true;
-}
 

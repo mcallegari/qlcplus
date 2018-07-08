@@ -55,19 +55,15 @@ public:
     /** @reimp */
     QString pluginInfo();
 
-    /** @reimp */
-    void setParameter(QString name, QVariant &value)
-    { Q_UNUSED(name); Q_UNUSED(value); }
-
     /*********************************************************************
      * Outputs
      *********************************************************************/
 public:
     /** @reimp */
-    bool openOutput(quint32 output);
+    bool openOutput(quint32 output, quint32 universe);
 
     /** @reimp */
-    void closeOutput(quint32 output);
+    void closeOutput(quint32 output, quint32 universe);
 
     /** @reimp */
     QStringList outputs();
@@ -88,26 +84,6 @@ private:
 private:
     /** List of available devices */
     QList <UDMXDevice*> m_devices;
-
-    /*************************************************************************
-     * Inputs
-     *************************************************************************/
-public:
-    /** @reimp */
-    bool openInput(quint32 input) { Q_UNUSED(input); return false; }
-
-    /** @reimp */
-    void closeInput(quint32 input) { Q_UNUSED(input); }
-
-    /** @reimp */
-    QStringList inputs() { return QStringList(); }
-
-    /** @reimp */
-    QString inputInfo(quint32 input) { Q_UNUSED(input); return QString(); }
-
-    /** @reimp */
-    void sendFeedBack(quint32 input, quint32 channel, uchar value, const QString& key)
-        { Q_UNUSED(input); Q_UNUSED(channel); Q_UNUSED(value); Q_UNUSED(key); }
 
     /*********************************************************************
      * Configuration

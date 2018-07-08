@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.6.1</Version>
+  <Author>Jan-Hendrik Nolte</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>maTrixx SC-100</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pattern/Chase">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9" Color="#000000">Blackout</Capability>
+  <Capability Res="Others/rainbow.png" Min="10" Max="19">Pattern 01 (red, green, blue, white)</Capability>
+  <Capability Min="20" Max="29" Color="#ff0000">Pattern 02 (red)</Capability>
+  <Capability Min="30" Max="39" Color="#00ff00">Pattern 03 (green)</Capability>
+  <Capability Min="40" Max="49" Color="#0000ff">Pattern 04 (blue)</Capability>
+  <Capability Min="50" Max="59" Color="#ffffff">Pattern 05 (white)</Capability>
+  <Capability Color2="#0000ff" Min="60" Max="69" Color="#ff0000">Pattern 06 (red, blue)</Capability>
+  <Capability Color2="#0000ff" Min="70" Max="79" Color="#ff0000">Pattern 07 (red, blue)</Capability>
+  <Capability Color2="#ffffff" Min="80" Max="89" Color="#ff0000">Pattern 08 (red, white)</Capability>
+  <Capability Color2="#ffffff" Min="90" Max="99" Color="#ff0000">Pattern 09 (red, white)</Capability>
+  <Capability Res="Others/rainbow.png" Min="100" Max="109">Pattern 10 (red, blue, white)</Capability>
+  <Capability Res="Others/rainbow.png" Min="110" Max="119">Pattern 11 (red, blue, white)</Capability>
+  <Capability Res="Others/rainbow.png" Min="120" Max="129">Pattern 12 (red, green, blue, white)</Capability>
+  <Capability Res="Others/rainbow.png" Min="130" Max="139">Pattern 13 (red, green, blue, white)</Capability>
+  <Capability Color2="#00ff00" Min="140" Max="149" Color="#ff0000">Pattern 14 (red, green)</Capability>
+  <Capability Color2="#0000ff" Min="150" Max="159" Color="#00ff00">Pattern 15 (green, blue)</Capability>
+  <Capability Res="Others/rainbow.png" Min="160" Max="169">Chase 01 (red, green, blue, white)</Capability>
+  <Capability Res="Others/rainbow.png" Min="170" Max="179">Chase 02 (red, green, blue, white)</Capability>
+  <Capability Res="Others/rainbow.png" Min="180" Max="189">Chase 03 (red, blue, white)</Capability>
+  <Capability Color2="#00ff00" Min="190" Max="199" Color="#ff0000">Chase 04 (red, green)</Capability>
+  <Capability Res="Others/rainbow.png" Min="200" Max="209">Chase 05 (red, blue, white)</Capability>
+  <Capability Res="Others/rainbow.png" Min="210" Max="219">Chase 06 (red, green, blue, white)</Capability>
+  <Capability Res="Others/rainbow.png" Min="220" Max="229">Chase 07 (red, green, blue, white)</Capability>
+  <Capability Res="Others/rainbow.png" Min="230" Max="239">Chase 08 (red, green, blue, white)</Capability>
+  <Capability Res="Others/rainbow.png" Min="240" Max="249">Chase 09 (red, green, blue, white)</Capability>
+  <Capability Res="Others/rainbow.png" Min="250" Max="255">Chase 10 (red, green, blue, white)</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="9">No Strobe</Capability>
+  <Capability Min="10" Max="249">Slow Strobe - Fast Strobe</Capability>
+  <Capability Min="250" Max="255">Stand-Alone</Capability>
+ </Channel>
+ <Mode Name="4-Channel Mode">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pattern/Chase</Channel>
+  <Channel Number="3">Strobe</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="420" Height="140" Weight="3" Depth="171"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="180" Type="Fixed" TiltMax="45"/>
+   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

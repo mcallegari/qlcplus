@@ -21,6 +21,7 @@
 #define VIDEOEDITOR_H
 
 #include "ui_videoeditor.h"
+#include "function.h"
 
 class Video;
 class Doc;
@@ -49,10 +50,15 @@ private slots:
     void slotScreenIndexChanged(int idx);
     void slotWindowedCheckClicked();
     void slotFullscreenCheckClicked();
+    void slotSingleShotCheckClicked();
+    void slotLoopCheckClicked();
     void slotPreviewToggled(bool state);
     void slotPreviewStopped(quint32 id);
     void slotDurationChanged(qint64 duration);
     void slotMetaDataChanged(QString key, QVariant data);
+
+private:
+    FunctionParent functionParent() const;
 };
 
 /** @} */

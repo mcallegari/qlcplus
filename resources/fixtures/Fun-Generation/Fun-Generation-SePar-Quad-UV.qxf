@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.11.2 GIT</Version>
+  <Author>helmet</Author>
+ </Creator>
+ <Manufacturer>Fun-Generation</Manufacturer>
+ <Model>SePar Quad UV</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="UV" Preset="IntensityUV"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Color / Program">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="4">Blackout</Capability>
+  <Capability Min="5" Max="9" Color="#ff0000">Red</Capability>
+  <Capability Min="10" Max="14" Color="#ffff00">Yellow</Capability>
+  <Capability Min="15" Max="19" Color="#ffbf00">Fawn</Capability>
+  <Capability Min="20" Max="24" Color="#00ff00">Green</Capability>
+  <Capability Min="25" Max="29" Color="#00ffff">Cyan</Capability>
+  <Capability Min="30" Max="34" Color="#0000ff">Blue</Capability>
+  <Capability Min="35" Max="39" Color="#800080">Purple</Capability>
+  <Capability Min="40" Max="44" Color="#ff55ff">Pink</Capability>
+  <Capability Min="45" Max="49" Color="#ff7e00">Amber</Capability>
+  <Capability Min="50" Max="54" Color="#ff4a4a">Light red</Capability>
+  <Capability Min="55" Max="59" Color="#49ff40">Light green</Capability>
+  <Capability Min="60" Max="64" Color="#4750ff">Light blue</Capability>
+  <Capability Min="65" Max="69" Color="#ffffff">Cold white</Capability>
+  <Capability Min="70" Max="74" Color="#fffae6">Warm white</Capability>
+  <Capability Min="75" Max="79" Color="#00007f">UV</Capability>
+  <Capability Min="80" Max="89">Automatic Show 2</Capability>
+  <Capability Min="90" Max="99">Automatic Show 3</Capability>
+  <Capability Min="100" Max="109">Automatic Show 4</Capability>
+  <Capability Min="110" Max="119">Automatic Show 5</Capability>
+  <Capability Min="120" Max="129">Automatic Show 6</Capability>
+  <Capability Min="130" Max="139">Automatic Show 7</Capability>
+  <Capability Min="140" Max="149">Automatic Show 8</Capability>
+  <Capability Min="150" Max="159">Automatic Show 9</Capability>
+  <Capability Min="160" Max="169">Automatic Show 10</Capability>
+  <Capability Min="170" Max="179">Automatic Show 11</Capability>
+  <Capability Min="180" Max="189">Automatic Show 12</Capability>
+  <Capability Min="190" Max="255">Music-controlled automatic show, sensitivity setting with last channel</Capability>
+ </Channel>
+ <Channel Name="Speed / Microphone">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Speed automatic show / microphone sensitivity</Capability>
+ </Channel>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Color / Program</Channel>
+  <Channel Number="1">Speed / Microphone</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">UV</Channel>
+ </Mode>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">UV</Channel>
+  <Channel Number="4">Dimmer</Channel>
+  <Channel Number="5">Strobe</Channel>
+ </Mode>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">UV</Channel>
+  <Channel Number="4">Dimmer</Channel>
+  <Channel Number="5">Strobe</Channel>
+  <Channel Number="6">Color / Program</Channel>
+  <Channel Number="7">Speed / Microphone</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="1.1" Width="228" Height="227" Depth="112"/>
+   <Lens Name="Other" DegreesMin="20" DegreesMax="20"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="25" DmxConnector="3-pin"/>
+  </Physical>
+  </FixtureDefinition>

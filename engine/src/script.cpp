@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   script.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,10 +18,11 @@
   limitations under the License.
 */
 
-#include <QDomDocument>
-#include <QDomElement>
-#include <QDomText>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
+#if !defined(Q_OS_IOS)
 #include <QProcess>
+#endif
 #include <QDebug>
 #include <QUrl>
 
@@ -36,6 +38,7 @@
 
 const QString Script::startFunctionCmd = QString("startfunction");
 const QString Script::stopFunctionCmd = QString("stopfunction");
+const QString Script::blackoutCmd = QString("blackout");
 
 const QString Script::waitCmd = QString("wait");
 const QString Script::waitKeyCmd = QString("waitkey");
@@ -46,11 +49,16 @@ const QString Script::systemCmd = QString("systemcommand");
 const QString Script::labelCmd = QString("label");
 const QString Script::jumpCmd = QString("jump");
 
+const QString Script::blackoutOn = QString("on");
+const QString Script::blackoutOff = QString("off");
+
+const QStringList knownKeywords(QStringList() << "ch" << "val" << "arg");
+
 /****************************************************************************
  * Initialization
  ****************************************************************************/
 
-Script::Script(Doc* doc) : Function(doc, Function::Script)
+Script::Script(Doc* doc) : Function(doc, Function::ScriptType)
     , m_currentCommand(0)
     , m_waitCount(0)
     , m_fader(NULL)
@@ -63,6 +71,33 @@ Script::~Script()
     if (m_fader != NULL)
         delete m_fader;
     m_fader = NULL;
+}
+
+QIcon Script::getIcon() const
+{
+    return QIcon(":/script.png");
+}
+
+quint32 Script::totalDuration()
+{
+    quint32 totalDuration = 0;
+
+    for (int i = 0; i < m_lines.count(); i++)
+    {
+        QList <QStringList> tokens = m_lines[i];
+        if (tokens.isEmpty() || tokens[0].size() < 2)
+            continue;
+
+        if (tokens[0][0] == Script::waitCmd)
+        {
+            bool ok = false;
+            quint32 waitTime = getValueFromString(tokens[0][1], &ok);
+            if (ok == true)
+                totalDuration += waitTime;
+        }
+    }
+
+    return totalDuration;
 }
 
 Function* Script::createCopy(Doc* doc, bool addToDoc)
@@ -153,7 +188,52 @@ QString Script::data() const
 
 QStringList Script::dataLines() const
 {
-    return m_data.split(QRegExp("(\r\n|\n\r|\r|\n)"), QString::KeepEmptyParts);
+    QStringList result = m_data.split(QRegExp("(\r\n|\n\r|\r|\n)"), QString::KeepEmptyParts);
+
+    while (result.count() && result.last().isEmpty())
+        result.takeLast();
+
+    return result;
+}
+
+QList<quint32> Script::functionList() const
+{
+    QList<quint32> list;
+
+    for (int i = 0; i < m_lines.count(); i++)
+    {
+        QList <QStringList> tokens = m_lines[i];
+        if (tokens.isEmpty() == true)
+            continue;
+
+        if (tokens[0].size() >= 2 && tokens[0][0] == Script::startFunctionCmd)
+        {
+            list.append(tokens[0][1].toUInt());
+            list.append(i);
+        }
+    }
+
+    return list;
+}
+
+QList<quint32> Script::fixtureList() const
+{
+    QList<quint32> list;
+
+    for (int i = 0; i < m_lines.count(); i++)
+    {
+        QList <QStringList> tokens = m_lines[i];
+        if (tokens.isEmpty() == true)
+            continue;
+
+        if (tokens[0].size() >= 2 && tokens[0][0] == Script::setFixtureCmd)
+        {
+            list.append(tokens[0][1].toUInt());
+            list.append(i);
+        }
+    }
+
+    return list;
 }
 
 QList<int> Script::syntaxErrorsLines()
@@ -165,89 +245,78 @@ QList<int> Script::syntaxErrorsLines()
  * Load & Save
  ****************************************************************************/
 
-bool Script::loadXML(const QDomElement& root)
+bool Script::loadXML(QXmlStreamReader &root)
 {
-    if (root.tagName() != KXMLQLCFunction)
+    if (root.name() != KXMLQLCFunction)
     {
         qWarning() << Q_FUNC_INFO << "Function node not found";
         return false;
     }
 
-    if (root.attribute(KXMLQLCFunctionType) != typeToString(Function::Script))
+    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::ScriptType))
     {
-        qWarning() << Q_FUNC_INFO << root.attribute(KXMLQLCFunctionType)
+        qWarning() << Q_FUNC_INFO << root.attributes().value(KXMLQLCFunctionType).toString()
                    << "is not a script";
         return false;
     }
 
     /* Load script contents */
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-
-        if (tag.tagName() == KXMLQLCFunctionSpeed)
+        if (root.name() == KXMLQLCFunctionSpeed)
         {
-            loadXMLSpeed(tag);
+            loadXMLSpeed(root);
         }
-        else if (tag.tagName() == KXMLQLCFunctionDirection)
+        else if (root.name() == KXMLQLCFunctionDirection)
         {
-            loadXMLDirection(tag);
+            loadXMLDirection(root);
         }
-        else if (tag.tagName() == KXMLQLCFunctionRunOrder)
+        else if (root.name() == KXMLQLCFunctionRunOrder)
         {
-            loadXMLRunOrder(tag);
+            loadXMLRunOrder(root);
         }
-        else if (tag.tagName() == KXMLQLCScriptCommand)
+        else if (root.name() == KXMLQLCScriptCommand)
         {
-            appendData(QUrl::fromPercentEncoding(tag.text().toUtf8()));
+            appendData(QUrl::fromPercentEncoding(root.readElementText().toUtf8()));
             //appendData(tag.text().toUtf8());
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown script tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unknown script tag:" << root.name();
+            root.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     return true;
 }
 
-bool Script::saveXML(QDomDocument* doc, QDomElement* wksp_root)
+bool Script::saveXML(QXmlStreamWriter *doc)
 {
-    QDomElement root;
-    QDomElement tag;
-    QDomText text;
-
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(wksp_root != NULL);
 
     /* Function tag */
-    root = doc->createElement(KXMLQLCFunction);
-    wksp_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCFunction);
 
     /* Common attributes */
-    saveXMLCommon(&root);
+    saveXMLCommon(doc);
 
     /* Speed */
-    saveXMLSpeed(doc, &root);
+    saveXMLSpeed(doc);
 
     /* Direction */
-    saveXMLDirection(doc, &root);
+    saveXMLDirection(doc);
 
     /* Run order */
-    saveXMLRunOrder(doc, &root);
+    saveXMLRunOrder(doc);
 
     /* Contents */
     foreach(QString cmd, dataLines())
     {
-        tag = doc->createElement(KXMLQLCScriptCommand);
-        root.appendChild(tag);
-        text = doc->createTextNode(QUrl::toPercentEncoding(cmd));
-        //text = doc->createTextNode(cmd.toUtf8());
-        tag.appendChild(text);
+        doc->writeTextElement(KXMLQLCScriptCommand, QUrl::toPercentEncoding(cmd));
     }
+
+    /* End the <Function> tag */
+    doc->writeEndElement();
 
     return true;
 }
@@ -268,6 +337,9 @@ void Script::preRun(MasterTimer* timer)
 
 void Script::write(MasterTimer* timer, QList<Universe *> universes)
 {
+    if (isPaused())
+        return;
+
     incrementElapsed();
 
     if (stopped() == false)
@@ -285,7 +357,7 @@ void Script::write(MasterTimer* timer, QList<Universe *> universes)
 
             // In case wait() is the last command, don't stop the script prematurely
             if (m_currentCommand >= m_lines.size() && m_waitCount == 0)
-                stop();
+                stop(FunctionParent::master());
         }
 
         // Handle GenericFader tasks (setltp/sethtp/setfixture)
@@ -298,7 +370,7 @@ void Script::postRun(MasterTimer* timer, QList<Universe *> universes)
 {
     // Stop all functions started by this script
     foreach (Function* function, m_startedFunctions)
-        function->stop();
+        function->stop(FunctionParent::master());
     m_startedFunctions.clear();
 
     // Stops keeping HTP channels up
@@ -328,10 +400,8 @@ quint32 Script::getValueFromString(QString str, bool *ok)
 {
     if (str.startsWith("random") == false)
     {
-        if (str.contains("."))
-            return Function::stringToSpeed(str);
-        else
-            return str.toUInt(ok);
+        *ok = true;
+        return Function::stringToSpeed(str);
     }
 
     QString strippedStr = str.remove("random(");
@@ -340,16 +410,8 @@ quint32 Script::getValueFromString(QString str, bool *ok)
         return -1;
 
     QStringList valList = strippedStr.split(",");
-    int min = 0;
-    if (valList.at(0).contains("."))
-        min = Function::stringToSpeed(valList.at(0));
-    else
-        min = valList.at(0).toInt();
-    int max = 0;
-    if (valList.at(1).contains("."))
-        max = Function::stringToSpeed(valList.at(1));
-    else
-        max = valList.at(1).toInt();
+    int min = Function::stringToSpeed(valList.at(0));
+    int max = Function::stringToSpeed(valList.at(1));
 
     *ok = true;
     return qrand() % ((max + 1) - min) + min;
@@ -380,6 +442,11 @@ bool Script::executeCommand(int index, MasterTimer* timer, QList<Universe *> uni
     else if (tokens[0][0] == Script::stopFunctionCmd)
     {
         error = handleStopFunction(tokens);
+    }
+    else if (tokens[0][0] == Script::blackoutCmd)
+    {
+        error = handleBlackout(tokens);
+        continueLoop = false;
     }
     else if (tokens[0][0] == Script::waitCmd)
     {
@@ -450,10 +517,7 @@ QString Script::handleStartFunction(const QList<QStringList>& tokens, MasterTime
     Function* function = doc->function(id);
     if (function != NULL)
     {
-        if (function->stopped() == true)
-            function->start(timer, true);
-        else
-            qWarning() << "Function (" << function->name() << ") is already running.";
+        function->start(timer, FunctionParent::master());
 
         m_startedFunctions << function;
         return QString();
@@ -482,10 +546,7 @@ QString Script::handleStopFunction(const QList <QStringList>& tokens)
     Function* function = doc->function(id);
     if (function != NULL)
     {
-        if (function->stopped() == false)
-            function->stop();
-        else
-            qWarning() << "Function (" << function->name() << ") is not running.";
+        function->stop(FunctionParent::master());
 
         m_startedFunctions.removeAll(function);
         return QString();
@@ -494,6 +555,36 @@ QString Script::handleStopFunction(const QList <QStringList>& tokens)
     {
         return QString("No such function (ID %1)").arg(id);
     }
+}
+
+QString Script::handleBlackout(const QList <QStringList>& tokens)
+{
+    qDebug() << Q_FUNC_INFO;
+
+    if (tokens.size() > 1)
+        return QString("Too many arguments");
+
+    InputOutputMap::BlackoutRequest request = InputOutputMap::BlackoutRequestNone;
+
+    if (tokens[0][1] == blackoutOn)
+    {
+        request = InputOutputMap::BlackoutRequestOn;
+    }
+    else if (tokens[0][1] == blackoutOff)
+    {
+        request = InputOutputMap::BlackoutRequestOff;
+    }
+    else
+    {
+        return QString("Invalid argument: %1").arg(tokens[0][1]);
+    }
+
+    Doc* doc = qobject_cast<Doc*> (parent());
+    Q_ASSERT(doc != NULL);
+
+    doc->inputOutputMap()->requestBlackout(request);
+
+    return QString();
 }
 
 QString Script::handleWait(const QList<QStringList>& tokens)
@@ -578,9 +669,7 @@ QString Script::handleSetFixture(const QList<QStringList>& tokens, QList<Univers
                 GenericFader* gf = fader();
                 Q_ASSERT(gf != NULL);
 
-                FadeChannel fc;
-                fc.setFixture(doc, fxi->id());
-                fc.setChannel(ch);
+                FadeChannel fc(doc, fxi->id(), ch);
                 fc.setTarget(value);
                 fc.setFadeTime(time);
 
@@ -622,10 +711,10 @@ QString Script::handleSystemCommand(const QList<QStringList> &tokens)
     QStringList programArgs;
     for (int i = 1; i < tokens.size(); i++)
         programArgs << tokens[i][1];
-
+#if !defined(Q_OS_IOS)
     QProcess *newProcess = new QProcess();
     newProcess->start(programName, programArgs);
-
+#endif
     return QString();
 }
 
@@ -663,8 +752,6 @@ QString Script::handleJump(const QList<QStringList>& tokens)
 QList <QStringList> Script::tokenizeLine(const QString& str, bool* ok)
 {
     QList<QStringList> tokens;
-    int left = 0;
-    int right = 0;
     QString keyword;
     QString value;
 
@@ -679,15 +766,26 @@ QList <QStringList> Script::tokenizeLine(const QString& str, bool* ok)
     {
         // Truncate everything after the first comment sign
         QString line = str;
-        left = line.indexOf("//");
-        if (left != -1)
-            line.truncate(left);
+        int left = 0;
+
+        while (left != -1)
+        {
+            left = line.indexOf("//", left);
+            if (left != -1)
+            {
+                // if we stumbled into a URL like http:// or ftp://
+                // then it's not a comment !
+                if (line.at(left - 1) != ':')
+                    line.truncate(left);
+                left += 2;
+            }
+        }
 
         left = 0;
         while (left < line.length())
         {
             // Find the next colon to get the keyword
-            right = line.indexOf(":", left);
+            int right = line.indexOf(":", left);
             if (right == -1)
             {
                 qDebug() << "Syntax error:" << line.mid(left);
@@ -742,10 +840,19 @@ QList <QStringList> Script::tokenizeLine(const QString& str, bool* ok)
                 }
             }
 
-            tokens << (QStringList() << keyword.trimmed() << value.trimmed());
-            qDebug() << "Tokens:" << tokens;
+            if (tokens.count() > 0 && knownKeywords.contains(keyword.trimmed()) == false)
+            {
+                qDebug() << "Syntax error. Unknown keyword detected:" << keyword.trimmed();
+                if (ok != NULL)
+                    *ok = false;
+                break;
+            }
+            else
+                tokens << (QStringList() << keyword.trimmed() << value.trimmed());
         }
     }
+
+    qDebug() << "Tokens:" << tokens;
 
     return tokens;
 }

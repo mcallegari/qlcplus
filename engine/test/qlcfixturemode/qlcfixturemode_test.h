@@ -43,11 +43,13 @@ private slots:
     void channelNumber();
     void heads();
     void copy();
+    void intensityChannels();
 
     void load();
     void loadWrongRoot();
     void loadNoName();
     void save();
+    void savePhysicalOverride();
 
     void cleanupTestCase();
 

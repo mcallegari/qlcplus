@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-#include <QDomDocument>
-#include <QDomElement>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QDebug>
 
 #include "qlcfixturemode.h"
@@ -39,10 +39,11 @@ ChannelsGroup::ChannelsGroup(Doc* doc)
     : QObject(doc)
     , m_id(ChannelsGroup::invalidId())
     , m_masterValue(0)
-    , m_input(NULL)
 {
     setName(tr("New Group"));
     m_doc = doc;
+
+    init();
 }
 
 ChannelsGroup::ChannelsGroup(Doc* doc, const ChannelsGroup* chg)
@@ -54,15 +55,36 @@ ChannelsGroup::ChannelsGroup(Doc* doc, const ChannelsGroup* chg)
     , m_channels(chg->getChannels())
     , m_input(chg->inputSource())
 {
-
+    init();
 }
 
 ChannelsGroup::~ChannelsGroup()
 {
-    m_channels.clear();
-    if (m_input != NULL && m_input->isValid() == true)
-        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
-                   this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));
+}
+
+void ChannelsGroup::init()
+{
+    connect(m_doc, SIGNAL(fixtureRemoved(quint32)),
+            this, SLOT(slotFixtureRemoved(quint32)));
+}
+
+void ChannelsGroup::slotFixtureRemoved(quint32 fixtureId)
+{
+    bool hasChanged = false;
+
+    QMutableListIterator<SceneValue> channelsIt(m_channels);
+    while (channelsIt.hasNext())
+    {
+        SceneValue scv(channelsIt.next());
+        if (scv.fxi == fixtureId)
+        {
+            channelsIt.remove();
+            hasChanged = true;
+        }
+    }
+
+    if (hasChanged)
+        emit changed(this->id());
 }
 
 /****************************************************************************
@@ -174,16 +196,21 @@ QString ChannelsGroup::status(Doc *doc) const
 /*********************************************************************
  * External input
  *********************************************************************/
-void ChannelsGroup::setInputSource(QLCInputSource *source)
+void ChannelsGroup::setInputSource(QSharedPointer<QLCInputSource> const& source)
 {
+    if (!m_input.isNull() && m_input->isValid())
+        disconnect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+                this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));
+
     m_input = source;
+
     // Connect when the first valid input source is set
-    if (source != NULL && source->isValid() == true)
+    if (!source.isNull() && source->isValid())
         connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                 this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));
 }
 
-QLCInputSource *ChannelsGroup::inputSource() const
+QSharedPointer<QLCInputSource> const& ChannelsGroup::inputSource() const
 {
     return m_input;
 }
@@ -209,14 +236,14 @@ void ChannelsGroup::slotInputValueChanged(quint32 universe, quint32 channel, uch
 /*****************************************************************************
  * Load & Save
  *****************************************************************************/
-bool ChannelsGroup::loader(const QDomElement& root, Doc* doc)
+bool ChannelsGroup::loader(QXmlStreamReader &xmlDoc, Doc* doc)
 {
     bool result = false;
 
     ChannelsGroup* grp = new ChannelsGroup(doc);
     Q_ASSERT(grp != NULL);
 
-    if (grp->loadXML(root) == true)
+    if (grp->loadXML(xmlDoc) == true)
     {
         doc->addChannelsGroup(grp, grp->id());
         result = true;
@@ -231,14 +258,11 @@ bool ChannelsGroup::loader(const QDomElement& root, Doc* doc)
     return result;
 }
 
-bool ChannelsGroup::saveXML(QDomDocument* doc, QDomElement* wksp_root)
+bool ChannelsGroup::saveXML(QXmlStreamWriter *doc)
 {
-    QDomElement tag;
-    QDomText text;
-    QString str;
-
     Q_ASSERT(doc != NULL);
 
+    QString str;
     foreach(SceneValue value, this->getChannels())
     {
         if (str.isEmpty() == false)
@@ -247,67 +271,80 @@ bool ChannelsGroup::saveXML(QDomDocument* doc, QDomElement* wksp_root)
     }
 
     /* Channels Group entry */
-    tag = doc->createElement(KXMLQLCChannelsGroup);
-    tag.setAttribute(KXMLQLCChannelsGroupID, this->id());
-    tag.setAttribute(KXMLQLCChannelsGroupName, this->name());
-    tag.setAttribute(KXMLQLCChannelsGroupValue, this->m_masterValue);
-    if (m_input != NULL && m_input->isValid() == true)
+    doc->writeStartElement(KXMLQLCChannelsGroup);
+    doc->writeAttribute(KXMLQLCChannelsGroupID, QString::number(this->id()));
+    doc->writeAttribute(KXMLQLCChannelsGroupName, this->name());
+    doc->writeAttribute(KXMLQLCChannelsGroupValue, QString::number(m_masterValue));
+
+    if (!m_input.isNull() && m_input->isValid())
     {
-        tag.setAttribute(KXMLQLCChannelsGroupInputUniverse,QString("%1").arg(m_input->universe()));
-        tag.setAttribute(KXMLQLCChannelsGroupInputChannel, QString("%1").arg(m_input->channel()));
+        doc->writeAttribute(KXMLQLCChannelsGroupInputUniverse,QString("%1").arg(m_input->universe()));
+        doc->writeAttribute(KXMLQLCChannelsGroupInputChannel, QString("%1").arg(m_input->channel()));
     }
     if (str.isEmpty() == false)
-    {
-        text = doc->createTextNode(str);
-        tag.appendChild(text);
-    }
+        doc->writeCharacters(str);
 
-    wksp_root->appendChild(tag);
+    doc->writeEndElement();
 
     return true;
 }
 
-bool ChannelsGroup::loadXML(const QDomElement& root)
+bool ChannelsGroup::loadXML(QXmlStreamReader &xmlDoc)
 {
-    if (root.tagName() != KXMLQLCChannelsGroup)
+    if (xmlDoc.name() != KXMLQLCChannelsGroup)
     {
         qWarning() << Q_FUNC_INFO << "Channels group node not found";
         return false;
     }
 
+    QXmlStreamAttributes attrs = xmlDoc.attributes();
+
     bool ok = false;
-    quint32 id = root.attribute(KXMLQLCChannelsGroupID).toUInt(&ok);
+    quint32 id = attrs.value(KXMLQLCChannelsGroupID).toString().toUInt(&ok);
     if (ok == false)
     {
-        qWarning() << "Invalid ChannelsGroup ID:" << root.attribute(KXMLQLCChannelsGroupID);
+        qWarning() << "Invalid ChannelsGroup ID:" << attrs.value(KXMLQLCChannelsGroupID).toString();
         return false;
     }
 
     // Assign the ID to myself
     m_id = id;
 
-    if (root.hasAttribute(KXMLQLCChannelsGroupName) == true)
-        m_name = root.attribute(KXMLQLCChannelsGroupName);
-    if (root.hasAttribute(KXMLQLCChannelsGroupValue) == true)
-        m_masterValue = uchar(root.attribute(KXMLQLCChannelsGroupValue).toInt());
+    if (attrs.hasAttribute(KXMLQLCChannelsGroupName) == true)
+        m_name = attrs.value(KXMLQLCChannelsGroupName).toString();
+    if (attrs.hasAttribute(KXMLQLCChannelsGroupValue) == true)
+        m_masterValue = uchar(attrs.value(KXMLQLCChannelsGroupValue).toString().toInt());
 
-    QString chansValues = root.text();
+    QString chansValues = xmlDoc.readElementText();
     if (chansValues.isEmpty() == false)
     {
         QStringList varray = chansValues.split(",");
         for (int i = 0; i < varray.count(); i+=2)
         {
-            m_channels.append(SceneValue(QString(varray.at(i)).toUInt(),
-                                         QString(varray.at(i + 1)).toUInt(), 0));
+            SceneValue scv(QString(varray.at(i)).toUInt(),
+                           QString(varray.at(i + 1)).toUInt(), 0);
+            Fixture* fxi = m_doc->fixture(scv.fxi);
+            if (fxi == NULL)
+            {
+                qWarning() << Q_FUNC_INFO << "Fixture not present:" << scv.fxi;
+                continue;
+            }
+            const QLCChannel* ch = fxi->channel(scv.channel);
+            if (ch == NULL)
+            {
+                qWarning() << Q_FUNC_INFO << "Fixture" << scv.fxi << "does not have channel" << scv.channel;
+                continue;
+            }
+            m_channels.append(scv);
         }
     }
 
-    if (root.hasAttribute(KXMLQLCChannelsGroupInputUniverse) == true &&
-        root.hasAttribute(KXMLQLCChannelsGroupInputChannel) == true)
+    if (attrs.hasAttribute(KXMLQLCChannelsGroupInputUniverse) == true &&
+        attrs.hasAttribute(KXMLQLCChannelsGroupInputChannel) == true)
     {
-        quint32 uni = root.attribute(KXMLQLCChannelsGroupInputUniverse).toInt();
-        quint32 ch = root.attribute(KXMLQLCChannelsGroupInputChannel).toInt();
-        setInputSource(new QLCInputSource(uni, ch));
+        quint32 uni = attrs.value(KXMLQLCChannelsGroupInputUniverse).toString().toInt();
+        quint32 ch = attrs.value(KXMLQLCChannelsGroupInputChannel).toString().toInt();
+        setInputSource(QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch)));
     }
 
     return true;

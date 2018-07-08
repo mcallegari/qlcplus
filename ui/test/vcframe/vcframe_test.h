@@ -1,5 +1,5 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus - Test Unit
   vcframe_test.h
 
   Copyright (C) Heikki Junnila

@@ -21,7 +21,6 @@
 #include <sys/time.h>
 
 #include "universe_test.h"
-#include "testmacros.h"
 
 #define protected public
 #include "universe.h"
@@ -48,6 +47,7 @@ void Universe_Test::initial()
     QCOMPARE(m_uni->usedChannels(), ushort(0));
     QCOMPARE(m_uni->totalChannels(), ushort(0));
     QCOMPARE(m_uni->hasChanged(), false);
+    QCOMPARE(m_uni->passthrough(), false);
     QVERIFY(m_uni->inputPatch() == NULL);
     QVERIFY(m_uni->outputPatch() == NULL);
     QVERIFY(m_uni->feedbackPatch() == NULL);
@@ -83,6 +83,56 @@ void Universe_Test::channelCapabilities()
     QVERIFY(m_uni->channelCapabilities(3) == Universe::HTP);
     QVERIFY(m_uni->channelCapabilities(4) == (Universe::Intensity|Universe::HTP));
     QCOMPARE(m_uni->totalChannels(), ushort(5));
+}
+
+void Universe_Test::blendModes()
+{
+    QVERIFY(Universe::blendModeToString(Universe::NormalBlend) == "Normal");
+    QVERIFY(Universe::blendModeToString(Universe::MaskBlend) == "Mask");
+    QVERIFY(Universe::blendModeToString(Universe::AdditiveBlend) == "Additive");
+    QVERIFY(Universe::blendModeToString(Universe::SubtractiveBlend) == "Subtractive");
+
+    QVERIFY(Universe::stringToBlendMode("Foo") == Universe::NormalBlend);
+    QVERIFY(Universe::stringToBlendMode("Normal") == Universe::NormalBlend);
+    QVERIFY(Universe::stringToBlendMode("Mask") == Universe::MaskBlend);
+    QVERIFY(Universe::stringToBlendMode("Additive") == Universe::AdditiveBlend);
+    QVERIFY(Universe::stringToBlendMode("Subtractive") == Universe::SubtractiveBlend);
+
+    m_uni->setChannelCapability(0, QLCChannel::Intensity);
+    m_uni->setChannelCapability(4, QLCChannel::Intensity);
+    m_uni->setChannelCapability(9, QLCChannel::Intensity);
+    m_uni->setChannelCapability(11, QLCChannel::Intensity);
+
+    QVERIFY(m_uni->write(0, 255) == true);
+    QVERIFY(m_uni->write(4, 128) == true);
+    QVERIFY(m_uni->write(9, 100) == true);
+    QCOMPARE(quint8(m_uni->postGMValues()->at(0)), quint8(255));
+    QCOMPARE(quint8(m_uni->postGMValues()->at(4)), quint8(128));
+    QCOMPARE(quint8(m_uni->postGMValues()->at(9)), quint8(100));
+    QCOMPARE(quint8(m_uni->postGMValues()->at(11)), quint8(0));
+
+    /* check masking on 0 remains 0 */
+    QVERIFY(m_uni->writeBlended(11, 128, Universe::MaskBlend) == true);
+    QCOMPARE(quint8(m_uni->postGMValues()->at(11)), quint8(0));
+
+    /* check 180 masked on 128 gets halved */
+    QVERIFY(m_uni->writeBlended(4, 180, Universe::MaskBlend) == true);
+    QCOMPARE(quint8(m_uni->postGMValues()->at(4)), quint8(90));
+
+    /* chek adding 50 to 100 is actually 150 */
+    QVERIFY(m_uni->writeBlended(9, 50, Universe::AdditiveBlend) == true);
+    QCOMPARE(quint8(m_uni->postGMValues()->at(9)), quint8(150));
+
+    /* chek subtracting 55 to 255 is actually 200 */
+    QVERIFY(m_uni->writeBlended(0, 55, Universe::SubtractiveBlend) == true);
+    QCOMPARE(quint8(m_uni->postGMValues()->at(0)), quint8(200));
+
+    QVERIFY(m_uni->writeBlended(0, 255, Universe::SubtractiveBlend) == true);
+    QCOMPARE(quint8(m_uni->postGMValues()->at(0)), quint8(0));
+
+    /* check an unknown blend mode */
+    QVERIFY(m_uni->writeBlended(9, 255, Universe::BlendMode(42)) == true);
+    QCOMPARE(quint8(m_uni->postGMValues()->at(9)), quint8(150));
 }
 
 void Universe_Test::grandMasterIntensityReduce()
@@ -252,28 +302,34 @@ void Universe_Test::write()
     m_uni->setChannelCapability(0, QLCChannel::Intensity);
     m_uni->setChannelCapability(4, QLCChannel::Intensity);
     m_uni->setChannelCapability(9, QLCChannel::Intensity);
+    m_uni->setChannelCapability(UNIVERSE_SIZE - 1, QLCChannel::Intensity);
 
-    QVERIFY(m_uni->write(1000, 255) == false);
+    QVERIFY(m_uni->write(UNIVERSE_SIZE - 1, 255) == true);
+    QCOMPARE(quint8(m_uni->postGMValues()->at(UNIVERSE_SIZE - 1)), quint8(255));
     QCOMPARE(quint8(m_uni->postGMValues()->at(9)), quint8(0));
     QCOMPARE(quint8(m_uni->postGMValues()->at(4)), quint8(0));
     QCOMPARE(quint8(m_uni->postGMValues()->at(0)), quint8(0));
 
     QVERIFY(m_uni->write(9, 255) == true);
+    QCOMPARE(quint8(m_uni->postGMValues()->at(UNIVERSE_SIZE - 1)), quint8(255));
     QCOMPARE(quint8(m_uni->postGMValues()->at(9)), quint8(255));
     QCOMPARE(quint8(m_uni->postGMValues()->at(4)), quint8(0));
     QCOMPARE(quint8(m_uni->postGMValues()->at(0)), quint8(0));
 
     QVERIFY(m_uni->write(0, 255) == true);
+    QCOMPARE(quint8(m_uni->postGMValues()->at(UNIVERSE_SIZE - 1)), quint8(255));
     QCOMPARE(quint8(m_uni->postGMValues()->at(9)), quint8(255));
     QCOMPARE(quint8(m_uni->postGMValues()->at(4)), quint8(0));
     QCOMPARE(quint8(m_uni->postGMValues()->at(0)), quint8(255));
 
     m_gm->setValue(127);
+    QCOMPARE(quint8(m_uni->postGMValues()->at(UNIVERSE_SIZE - 1)), quint8(127));
     QCOMPARE(quint8(m_uni->postGMValues()->at(9)), quint8(127));
     QCOMPARE(quint8(m_uni->postGMValues()->at(4)), quint8(0));
     QCOMPARE(quint8(m_uni->postGMValues()->at(0)), quint8(127));
 
     QVERIFY(m_uni->write(4, 200) == true);
+    QCOMPARE(quint8(m_uni->postGMValues()->at(UNIVERSE_SIZE - 1)), quint8(127));
     QCOMPARE(quint8(m_uni->postGMValues()->at(9)), quint8(127));
     QCOMPARE(quint8(m_uni->postGMValues()->at(4)), quint8(100));
     QCOMPARE(quint8(m_uni->postGMValues()->at(0)), quint8(127));
@@ -281,15 +337,6 @@ void Universe_Test::write()
 
 void Universe_Test::writeRelative()
 {
-    // past the end of the array
-    QVERIFY(m_uni->writeRelative(1000, 255) == false);
-    QCOMPARE(m_uni-> m_relativeValues[9], short(0));
-    QCOMPARE(m_uni->m_relativeValues[4], short(0));
-    QCOMPARE(m_uni->m_relativeValues[0], short(0));
-    QCOMPARE(quint8(m_uni->postGMValues()->at(9)), quint8(0));
-    QCOMPARE(quint8(m_uni->postGMValues()->at(4)), quint8(0));
-    QCOMPARE(quint8(m_uni->postGMValues()->at(0)), quint8(0));
-
     // 127 == 0
     QVERIFY(m_uni->writeRelative(9, 127) == true);
     QCOMPARE(m_uni->m_relativeValues[9], short(0));
@@ -371,6 +418,176 @@ void Universe_Test::reset()
         QCOMPARE((int)m_uni->postGMValues()->at(i), 0);
 }
 
+void Universe_Test::loadEmpty()
+{
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    xmlWriter.writeStartElement("Universe");
+    xmlWriter.writeAttribute("Name", "Universe 123");
+    //xmlWriter.writeAttribute("ID", "1");
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    QVERIFY(m_uni->loadXML(xmlReader, 0, 0) == true);
+    QCOMPARE(m_uni->name(), QString("Universe 123"));
+    //QCOMPARE(m_uni->id(), 1U);
+    QCOMPARE(m_uni->passthrough(), false);
+}
+
+void Universe_Test::loadPassthroughTrue()
+{
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    xmlWriter.writeStartElement("Universe");
+    xmlWriter.writeAttribute("Name", "Universe 123");
+    //xmlWriter.writeAttribute("ID", "1");
+    xmlWriter.writeAttribute("Passthrough", "True");
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    QVERIFY(m_uni->loadXML(xmlReader, 0, 0) == true);
+    QCOMPARE(m_uni->name(), QString("Universe 123"));
+    //QCOMPARE(m_uni->id(), 1U);
+    QCOMPARE(m_uni->passthrough(), true);
+}
+
+void Universe_Test::loadPassthrough1()
+{
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    xmlWriter.writeStartElement("Universe");
+    xmlWriter.writeAttribute("Name", "Universe 123");
+    //xmlWriter.writeAttribute("ID", "1");
+    xmlWriter.writeAttribute("Passthrough", "1");
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    QVERIFY(m_uni->loadXML(xmlReader, 0, 0) == true);
+    QCOMPARE(m_uni->name(), QString("Universe 123"));
+    //QCOMPARE(m_uni->id(), 1U);
+    QCOMPARE(m_uni->passthrough(), true);
+}
+
+void Universe_Test::loadWrong()
+{
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    xmlWriter.writeStartElement("U");
+    xmlWriter.writeAttribute("Name", "Universe 123");
+    //xmlWriter.writeAttribute("ID", "1");
+    xmlWriter.writeAttribute("Passthrough", "1");
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    QVERIFY(m_uni->loadXML(xmlReader, 0, 0) == false);
+}
+
+void Universe_Test::loadPassthroughFalse()
+{
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    xmlWriter.writeStartElement("Universe");
+    xmlWriter.writeAttribute("Name", "Universe 123");
+    //xmlWriter.writeAttribute("ID", "1");
+    xmlWriter.writeAttribute("Passthrough", "False");
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    QVERIFY(m_uni->loadXML(xmlReader, 0, 0) == true);
+    QCOMPARE(m_uni->name(), QString("Universe 123"));
+    //QCOMPARE(m_uni->id(), 1U);
+    QCOMPARE(m_uni->passthrough(), false);
+}
+
+void Universe_Test::saveEmpty()
+{
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    m_uni->setName("Universe 123");
+    m_uni->setID(1);
+
+    QVERIFY(m_uni->saveXML(&xmlWriter) == true);
+
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    QCOMPARE(xmlReader.name().toString(), QString("Universe"));
+    QCOMPARE(xmlReader.attributes().value("Name").toString(), QString("Universe 123"));
+    QCOMPARE(xmlReader.attributes().value("ID").toString(), QString("1"));
+    QCOMPARE(xmlReader.attributes().hasAttribute("Passthrough"), false);
+}
+
+void Universe_Test::savePasthroughTrue()
+{
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    m_uni->setName("Universe 123");
+    m_uni->setID(1);
+    m_uni->setPassthrough(true);
+
+    QVERIFY(m_uni->saveXML(&xmlWriter) == true);
+
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    QCOMPARE(xmlReader.name().toString(), QString("Universe"));
+    QCOMPARE(xmlReader.attributes().value("Name").toString(), QString("Universe 123"));
+    QCOMPARE(xmlReader.attributes().value("ID").toString(), QString("1"));
+    QCOMPARE(xmlReader.attributes().value("Passthrough").toString(), QString("True"));
+}
+
 void Universe_Test::setGMValueEfficiency()
 {
     int i;
@@ -406,12 +623,6 @@ void Universe_Test::writeEfficiency()
     for (i = 0; i < 512; i++)
         m_uni->setChannelCapability(i, QLCChannel::Intensity);
 
-    /* This applies 50%(127) Grand Master to ALL channels in all universes.
-       I'm not really sure what kinds of figures to expect here, since this
-       is just one part in the overall processor load. Typically I get ~0.15ms
-       on an Intel Core 2 E6550@2.33GHz, which looks plausible to me:
-       DMX frame interval is 1/44Hz =~ 23ms. Applying GM to ALL channels takes
-       less than 1ms so there's a full 22ms to spare after GM. */
     QBENCHMARK
     {
         for (i = 0; i < 512; i++)
@@ -420,6 +631,87 @@ void Universe_Test::writeEfficiency()
 
     for (i = 0; i < 512; i++)
         QCOMPARE(int(m_uni->postGMValues()->at(i)), int(100));
+}
+
+void Universe_Test::hasChangedEfficiency()
+{
+    for (int i = 0; i < 512; i++)
+    {
+        m_uni->write(i, 200);
+        QCOMPARE(m_uni->hasChanged(), true);
+    }
+
+    QBENCHMARK
+    {
+        for (int i = 0; i < 512; i++)
+        {
+            m_uni->write(i, 200);
+            m_uni->hasChanged();
+        }
+    }
+}
+
+void Universe_Test::hasNotChangedEfficiency()
+{
+    m_uni->write(UNIVERSE_SIZE - 1, 200);
+    m_uni->hasChanged();
+    QCOMPARE(m_uni->hasChanged(), false);
+
+    QBENCHMARK
+    {
+        for (int i = 0; i < 512; i++)
+        {
+            m_uni->hasChanged();
+        }
+    }
+}
+
+void Universe_Test::zeroIntensityChannelsEfficiency()
+{
+    m_gm->setValue(255);
+    int i;
+
+    for (i = 0; i < 512; i++)
+        m_uni->setChannelCapability(i, QLCChannel::Intensity);
+
+    for (i = 0; i < 512; i++)
+        m_uni->write(i, 200);
+
+    QBENCHMARK
+    {
+        m_uni->zeroIntensityChannels();
+    }
+
+    for (i = 0; i < 512; i++)
+        QCOMPARE(int(m_uni->postGMValues()->at(i)), int(0));
+}
+
+void Universe_Test::zeroIntensityChannelsEfficiency2()
+{
+    int i;
+
+    for (i = 0; i < 512; i++)
+    {
+        if (i % 2)
+            m_uni->setChannelCapability(i, QLCChannel::Intensity);
+        else
+            m_uni->setChannelCapability(i, QLCChannel::Shutter);
+
+        m_uni->write(i, 200);
+    }
+
+    QBENCHMARK
+    {
+        m_uni->zeroIntensityChannels();
+    }
+
+    for (i = 0; i < 512; i++)
+    {
+        if (i % 2)
+            QCOMPARE(int(m_uni->postGMValues()->at(i)), int(0));
+        else
+            QCOMPARE(quint8(m_uni->postGMValues()->at(i)), quint8(200));
+    }
 }
 
 QTEST_APPLESS_MAIN(Universe_Test)

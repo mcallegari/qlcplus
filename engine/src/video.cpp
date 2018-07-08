@@ -17,9 +17,9 @@
   limitations under the License.
 */
 
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QMediaPlayer>
-#include <QDomDocument>
-#include <QDomElement>
 #include <QDebug>
 #include <QFile>
 
@@ -27,29 +27,39 @@
 #include "doc.h"
 
 #define KXMLQLCVideoSource "Source"
-#define KXMLQLCVideoStartTime "StartTime"
-#define KXMLQLCVideoColor "Color"
-#define KXMLQLCVideoLocked "Locked"
 #define KXMLQLCVideoScreen "Screen"
 #define KXMLQLCVideoFullscreen "Fullscreen"
+#define KXMLQLCVideoGeometry "Geometry"
+#define KXMLQLCVideoRotation "Rotation"
+
+const QStringList Video::m_defaultVideoCaps =
+        QStringList() << "*.avi" << "*.wmv" << "*.mkv" << "*.mp4" << "*.mov" << "*.mpg" << "*.mpeg" << "*.flv" << "*.webm";
+const QStringList Video::m_defaultPictureCaps =
+        QStringList() << "*.png" << "*.bmp" << "*.jpg" << "*.jpeg" << "*.gif";
 
 /*****************************************************************************
  * Initialization
  *****************************************************************************/
 
 Video::Video(Doc* doc)
-  : Function(doc, Function::Video)
+  : Function(doc, Function::VideoType)
   , m_doc(doc)
-  , m_startTime(UINT_MAX)
-  , m_color(147, 140, 20)
-  , m_locked(false)
   , m_sourceUrl("")
+  , m_isPicture(false)
   , m_videoDuration(0)
   , m_resolution(QSize(0,0))
+  , m_customGeometry(QRect())
+  , m_rotation(QVector3D(0, 0, 0))
   , m_screen(0)
   , m_fullscreen(false)
 {
     setName(tr("New Video"));
+    setRunOrder(Video::SingleShot);
+
+    registerAttribute(tr("X Rotation"), Function::LastWins, -360.0, 360.0, 0.0);
+    registerAttribute(tr("Y Rotation"), Function::LastWins, -360.0, 360.0, 0.0);
+    registerAttribute(tr("Z Rotation"), Function::LastWins, -360.0, 360.0, 0.0);
+
 
     // Listen to member Function removals
     connect(doc, SIGNAL(functionRemoved(quint32)),
@@ -58,6 +68,11 @@ Video::Video(Doc* doc)
 
 Video::~Video()
 {
+}
+
+QIcon Video::getIcon() const
+{
+    return QIcon(":/video.png");
 }
 
 /*****************************************************************************
@@ -91,20 +106,23 @@ bool Video::copyFrom(const Function* function)
 
     setSourceUrl(vid->m_sourceUrl);
     m_videoDuration = vid->m_videoDuration;
-    m_color = vid->m_color;
 
     return Function::copyFrom(function);
 }
 
-QStringList Video::getCapabilities()
+QStringList Video::getVideoCapabilities()
 {
     QStringList caps;
     QStringList mimeTypes = QMediaPlayer::supportedMimeTypes();
-    qDebug() << "Supported video types:" << caps;
+
     if (mimeTypes.isEmpty())
-        caps << "*.avi" << "*.wmv" << "*.mkv" << "*.mp4" << "*.mpg" << "*.mpeg" << "*.flv";
+    {
+        return m_defaultVideoCaps;
+    }
     else
     {
+        qDebug() << "Supported video types:" << mimeTypes;
+
         foreach(QString mime, mimeTypes)
         {
             if (mime.startsWith("video/"))
@@ -117,6 +135,7 @@ QStringList Video::getCapabilities()
                 else if (mime.endsWith("/mpeg")) caps << "*.mpeg";
                 else if (mime.endsWith("/mpg")) caps << "*.mpg";
                 else if (mime.endsWith("/quicktime")) caps << "*.mov";
+                else if (mime.endsWith("/webm")) caps << "*.webm";
                 else if (mime.endsWith("matroska")) caps << "*.mkv";
             }
         }
@@ -124,28 +143,31 @@ QStringList Video::getCapabilities()
     return caps;
 }
 
+QStringList Video::getPictureCapabilities()
+{
+    return m_defaultPictureCaps;
+}
+
 /*********************************************************************
  * Properties
  *********************************************************************/
-void Video::setStartTime(quint32 time)
+void Video::setTotalDuration(quint32 duration)
 {
-    m_startTime = time;
-}
+    if (m_videoDuration == (qint64)duration)
+        return;
 
-quint32 Video::getStartTime() const
-{
-    return m_startTime;
-}
-
-void Video::setTotalDuration(qint64 duration)
-{
-    m_videoDuration = duration;
+    m_videoDuration = (qint64)duration;
     emit totalTimeChanged(m_videoDuration);
 }
 
-qint64 Video::totalDuration()
+quint32 Video::totalDuration()
 {
-    return m_videoDuration;
+    return (quint32)m_videoDuration;
+}
+
+QSize Video::resolution()
+{
+    return m_resolution;
 }
 
 void Video::setResolution(QSize size)
@@ -154,9 +176,32 @@ void Video::setResolution(QSize size)
     emit metaDataChanged("Resolution", QVariant(m_resolution));
 }
 
-QSize Video::resolution()
+QRect Video::customGeometry()
 {
-    return m_resolution;
+    return m_customGeometry;
+}
+
+void Video::setCustomGeometry(QRect rect)
+{
+    if (rect == m_customGeometry)
+        return;
+
+    m_customGeometry = rect;
+    emit customGeometryChanged(rect);
+}
+
+QVector3D Video::rotation() const
+{
+    return m_rotation;
+}
+
+void Video::setRotation(QVector3D rotation)
+{
+    if (m_rotation == rotation)
+        return;
+
+    m_rotation = rotation;
+    emit rotationChanged(m_rotation);
 }
 
 void Video::setAudioCodec(QString codec)
@@ -181,30 +226,15 @@ QString Video::videoCodec()
     return m_videoCodec;
 }
 
-void Video::setColor(QColor color)
-{
-    m_color = color;
-}
-
-QColor Video::getColor()
-{
-    return m_color;
-}
-
-void Video::setLocked(bool locked)
-{
-    m_locked = locked;
-}
-
-bool Video::isLocked()
-{
-    return m_locked;
-}
-
 bool Video::setSourceUrl(QString filename)
 {
     m_sourceUrl = filename;
     qDebug() << Q_FUNC_INFO << "Source name set:" << m_sourceUrl;
+
+    QString fileExt = "*" + filename.mid(filename.lastIndexOf('.'));
+
+    if (m_defaultPictureCaps.contains(fileExt))
+        m_isPicture = true;
 
     if (m_sourceUrl.contains("://"))
     {
@@ -224,6 +254,11 @@ bool Video::setSourceUrl(QString filename)
     return true;
 }
 
+bool Video::isPicture() const
+{
+    return m_isPicture;
+}
+
 QString Video::sourceUrl()
 {
     return m_sourceUrl;
@@ -232,6 +267,7 @@ QString Video::sourceUrl()
 void Video::setScreen(int index)
 {
     m_screen = index;
+    emit changed(id());
 }
 
 int Video::screen()
@@ -241,7 +277,16 @@ int Video::screen()
 
 void Video::setFullscreen(bool enable)
 {
+    if (m_fullscreen == enable)
+        return;
+
     m_fullscreen = enable;
+    emit changed(id());
+}
+
+qreal Video::intensity()
+{
+    return getAttributeValue(Intensity);
 }
 
 bool Video::fullscreen()
@@ -249,14 +294,43 @@ bool Video::fullscreen()
     return m_fullscreen;
 }
 
-void Video::adjustAttribute(qreal fraction, int attributeIndex)
+int Video::adjustAttribute(qreal fraction, int attributeId)
 {
-    if (attributeIndex == Function::Intensity)
+    int attrIndex = Function::adjustAttribute(fraction, attributeId);
+
+    switch (attrIndex)
     {
-        int b = -100 - (int)((qreal)-100.0 * fraction);
-        emit requestBrightnessAdjust(b);
+        case Intensity:
+        {
+            int b = -100 - (int)((qreal)-100.0 * getAttributeValue(Intensity));
+            emit requestBrightnessAdjust(b);
+            emit intensityChanged();
+        }
+        break;
+        case XRotation:
+        {
+            QVector3D rot = rotation();
+            rot.setX(getAttributeValue(XRotation));
+            setRotation(rot);
+        }
+        break;
+        case YRotation:
+        {
+            QVector3D rot = rotation();
+            rot.setY(getAttributeValue(YRotation));
+            setRotation(rot);
+        }
+        break;
+        case ZRotation:
+        {
+            QVector3D rot = rotation();
+            rot.setZ(getAttributeValue(ZRotation));
+            setRotation(rot);
+        }
+        break;
     }
-    Function::adjustAttribute(fraction, attributeIndex);
+
+    return attrIndex;
 }
 
 void Video::slotFunctionRemoved(quint32 fid)
@@ -268,88 +342,137 @@ void Video::slotFunctionRemoved(quint32 fid)
  * Save & Load
  *********************************************************************/
 
-bool Video::saveXML(QDomDocument* doc, QDomElement* wksp_root)
+bool Video::saveXML(QXmlStreamWriter *doc)
 {
-    QDomElement root;
-    QDomText text;
-
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(wksp_root != NULL);
 
     /* Function tag */
-    root = doc->createElement(KXMLQLCFunction);
-    wksp_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCFunction);
 
     /* Common attributes */
-    saveXMLCommon(&root);
+    saveXMLCommon(doc);
 
     /* Speed */
-    saveXMLSpeed(doc, &root);
+    saveXMLSpeed(doc);
 
-    QDomElement source = doc->createElement(KXMLQLCVideoSource);
+    /* Playback mode */
+    saveXMLRunOrder(doc);
+
+    doc->writeStartElement(KXMLQLCVideoSource);
     if (m_screen > 0)
-        source.setAttribute(KXMLQLCVideoScreen, m_screen);
+        doc->writeAttribute(KXMLQLCVideoScreen, QString::number(m_screen));
     if (m_fullscreen == true)
-        source.setAttribute(KXMLQLCVideoFullscreen, true);
-
+        doc->writeAttribute(KXMLQLCVideoFullscreen, "1");
+#ifdef QMLUI
+    if (m_customGeometry.isNull() == false)
+    {
+        QString rect = QString("%1,%2,%3,%4")
+                .arg(m_customGeometry.x()).arg(m_customGeometry.y())
+                .arg(m_customGeometry.width()).arg(m_customGeometry.height());
+        doc->writeAttribute(KXMLQLCVideoGeometry, rect);
+    }
+    if (m_rotation.isNull() == false)
+    {
+        QString rot = QString("%1,%2,%3").arg(m_rotation.x()).arg(m_rotation.y()).arg(m_rotation.z());
+        doc->writeAttribute(KXMLQLCVideoRotation, rot);
+    }
+#endif
     if (m_sourceUrl.contains("://"))
-        text = doc->createTextNode(m_sourceUrl);
+        doc->writeCharacters(m_sourceUrl);
     else
-        text = doc->createTextNode(m_doc->normalizeComponentPath(m_sourceUrl));
+        doc->writeCharacters(m_doc->normalizeComponentPath(m_sourceUrl));
 
-    source.appendChild(text);
-    root.appendChild(source);
+    doc->writeEndElement();
+
+    /* End the <Function> tag */
+    doc->writeEndElement();
 
     return true;
 }
 
-bool Video::loadXML(const QDomElement& root)
+bool Video::loadXML(QXmlStreamReader &root)
 {
-    if (root.tagName() != KXMLQLCFunction)
+    if (root.name() != KXMLQLCFunction)
     {
         qWarning() << Q_FUNC_INFO << "Function node not found";
         return false;
     }
 
-    if (root.attribute(KXMLQLCFunctionType) != typeToString(Function::Video))
+    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::VideoType))
     {
-        qWarning() << Q_FUNC_INFO << root.attribute(KXMLQLCFunctionType)
+        qWarning() << Q_FUNC_INFO << root.attributes().value(KXMLQLCFunctionType).toString()
                    << "is not Video";
         return false;
     }
 
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    QString fname = name();
+
+    while (root.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLQLCVideoSource)
+        if (root.name() == KXMLQLCVideoSource)
         {
-            if (tag.hasAttribute(KXMLQLCVideoStartTime))
-                setStartTime(tag.attribute(KXMLQLCVideoStartTime).toUInt());
-            if (tag.hasAttribute(KXMLQLCVideoColor))
-                setColor(QColor(tag.attribute(KXMLQLCVideoColor)));
-            if (tag.hasAttribute(KXMLQLCVideoLocked))
-                setLocked(true);
-            if (tag.hasAttribute(KXMLQLCVideoScreen))
-                setScreen(tag.attribute(KXMLQLCVideoScreen).toInt());
-            if (tag.hasAttribute(KXMLQLCVideoFullscreen))
+            QXmlStreamAttributes attrs = root.attributes();
+            if (attrs.hasAttribute(KXMLQLCVideoScreen))
+                setScreen(attrs.value(KXMLQLCVideoScreen).toString().toInt());
+
+            if (attrs.hasAttribute(KXMLQLCVideoFullscreen))
             {
-                if (tag.attribute(KXMLQLCVideoFullscreen) == "1")
+                if (attrs.value(KXMLQLCVideoFullscreen).toString() == "1")
                     setFullscreen(true);
                 else
                     setFullscreen(false);
             }
-            if (tag.text().contains("://") == true)
-                setSourceUrl(tag.text());
+#ifdef QMLUI
+            if (attrs.hasAttribute(KXMLQLCVideoGeometry))
+            {
+                QStringList slist = attrs.value(KXMLQLCVideoGeometry).toString().split(",");
+                if (slist.count() == 4)
+                {
+                    QRect r;
+                    r.setX(slist.at(0).toInt());
+                    r.setY(slist.at(1).toInt());
+                    r.setWidth(slist.at(2).toInt());
+                    r.setHeight(slist.at(3).toInt());
+
+                    setCustomGeometry(r);
+                }
+            }
+            if (attrs.hasAttribute(KXMLQLCVideoRotation))
+            {
+                QStringList slist = attrs.value(KXMLQLCVideoRotation).toString().split(",");
+                if (slist.count() == 3)
+                {
+                    QVector3D v;
+                    v.setX(slist.at(0).toInt());
+                    v.setY(slist.at(1).toInt());
+                    v.setZ(slist.at(2).toInt());
+                    setRotation(v);
+                }
+            }
+#endif
+
+            QString path = root.readElementText();
+            if (path.contains("://") == true)
+                setSourceUrl(path);
             else
-                setSourceUrl(m_doc->denormalizeComponentPath(tag.text()));
+                setSourceUrl(m_doc->denormalizeComponentPath(path));
         }
-        else if (tag.tagName() == KXMLQLCFunctionSpeed)
+        else if (root.name() == KXMLQLCFunctionSpeed)
         {
-            loadXMLSpeed(tag);
+            loadXMLSpeed(root);
         }
-        node = node.nextSibling();
+        else if (root.name() == KXMLQLCFunctionRunOrder)
+        {
+            loadXMLRunOrder(root);
+        }
+        else
+        {
+            qWarning() << Q_FUNC_INFO << "Unknown Video tag:" << root.name();
+            root.skipCurrentElement();
+        }
     }
+
+    setName(fname);
 
     return true;
 }
@@ -367,19 +490,21 @@ void Video::preRun(MasterTimer* timer)
     Function::preRun(timer);
 }
 
+void Video::setPause(bool enable)
+{
+    if (isRunning())
+    {
+        emit requestPause(enable);
+        Function::setPause(enable);
+    }
+}
+
 void Video::write(MasterTimer* timer, QList<Universe *> universes)
 {
     Q_UNUSED(timer)
     Q_UNUSED(universes)
 
     incrementElapsed();
-/*
-    if (fadeOutSpeed() != 0)
-    {
-        if (getDuration() - elapsed() <= fadeOutSpeed())
-            m_audio_out->setFadeOut(fadeOutSpeed());
-    }
-*/
 }
 
 void Video::postRun(MasterTimer* timer, QList<Universe*> universes)

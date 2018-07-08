@@ -1,5 +1,5 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   vcclock.cpp
 
   Copyright (c) Massimo Callegari
@@ -17,10 +17,11 @@
   limitations under the License.
 */
 
-#include <QtXml>
-#include <QtGui>
-#include <QStyle>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QDateTime>
+#include <QStyle>
+#include <QtGui>
 
 #include "qlcfile.h"
 
@@ -28,6 +29,8 @@
 #include "virtualconsole.h"
 #include "vcclock.h"
 #include "doc.h"
+
+#define HYSTERESIS 3 // Hysteresis for pause/reset external input
 
 #define KXMLQLCVCClockType "Type"
 #define KXMLQLCVCClockHours "Hours"
@@ -37,6 +40,12 @@
 #define KXMLQLCVCClockSchedule "Schedule"
 #define KXMLQLCVCClockScheduleFunc "Function"
 #define KXMLQLCVCClockScheduleTime "Time"
+
+#define KXMLQLCVCClockPlay "PlayPause"
+#define KXMLQLCVCClockReset "Reset"
+
+const quint8 VCClock::playInputSourceId = 0;
+const quint8 VCClock::resetInputSourceId = 1;
 
 VCClock::VCClock(QWidget* parent, Doc* doc)
     : VCWidget(parent, doc)
@@ -52,7 +61,7 @@ VCClock::VCClock(QWidget* parent, Doc* doc)
     /* Set the class name "VCClock" as the object name as well */
     setObjectName(VCClock::staticMetaObject.className());
 
-    setType(VCWidget::LabelWidget);
+    setType(VCWidget::ClockWidget);
     setCaption("");
     resize(QSize(150, 50));
     QFont font = qApp->font();
@@ -100,10 +109,11 @@ void VCClock::slotModeChanged(Doc::Mode mode)
 void VCClock::setClockType(VCClock::ClockType type)
 {
     m_clocktype = type;
+    updateFeedback();
     update();
 }
 
-VCClock::ClockType VCClock::clockType()
+VCClock::ClockType VCClock::clockType() const
 {
     return m_clocktype;
 }
@@ -154,6 +164,11 @@ QList<VCClockSchedule> VCClock::schedules()
     return m_scheduleList;
 }
 
+FunctionParent VCClock::functionParent() const
+{
+    return FunctionParent(FunctionParent::AutoVCWidget, id());
+}
+
 void VCClock::setCountdown(int h, int m, int s)
 {
     m_hh = h;
@@ -161,16 +176,6 @@ void VCClock::setCountdown(int h, int m, int s)
     m_ss = s;
     m_targetTime = (m_hh * 3600) + (m_mm * 60) + m_ss;
     m_currentTime = m_targetTime;
-}
-
-void VCClock::resetTime()
-{
-    if (m_clocktype == Stopwatch)
-        m_currentTime = 0;
-    else if (m_clocktype == Countdown)
-        m_currentTime = m_targetTime;
-
-    update();
 }
 
 void VCClock::slotUpdateTime()
@@ -199,7 +204,7 @@ void VCClock::slotUpdateTime()
                         Function *func = m_doc->function(fid);
                         if (func != NULL)
                         {
-                            func->start(m_doc->masterTimer());
+                            func->start(m_doc->masterTimer(), functionParent());
                             qDebug() << "VC Clock starting function:" << func->name();
                         }
                         m_scheduleIndex++;
@@ -210,7 +215,134 @@ void VCClock::slotUpdateTime()
             }
         }
     }
+    updateFeedback();
     update();
+}
+
+void VCClock::slotResetTimer()
+{
+    if (clockType() == Stopwatch)
+        m_currentTime = 0;
+    else if (clockType() == Countdown)
+        m_currentTime = m_targetTime;
+
+    updateFeedback();
+    update();
+}
+
+void VCClock::slotPlayPauseTimer()
+{
+    if (clockType() == Stopwatch || clockType() == Countdown)
+        m_isPaused = !m_isPaused;
+
+    updateFeedback();
+    update();
+}
+
+/*****************************************************************************
+ * Key Sequences
+ *****************************************************************************/
+
+void VCClock::setPlayKeySequence(const QKeySequence& keySequence)
+{
+    m_playKeySequence = QKeySequence(keySequence);
+}
+
+QKeySequence VCClock::playKeySequence() const
+{
+    return m_playKeySequence;
+}
+
+void VCClock::setResetKeySequence(const QKeySequence& keySequence)
+{
+    m_resetKeySequence = QKeySequence(keySequence);
+}
+
+QKeySequence VCClock::resetKeySequence() const
+{
+    return m_resetKeySequence;
+}
+
+void VCClock::slotKeyPressed(const QKeySequence& keySequence)
+{
+    if (acceptsInput() == false)
+        return;
+
+    if (m_playKeySequence == keySequence)
+        slotPlayPauseTimer();
+    else if (m_resetKeySequence == keySequence)
+        slotResetTimer();
+}
+
+void VCClock::updateFeedback()
+{
+    if (clockType() == Stopwatch)
+    {
+        sendFeedback(!m_isPaused ? UCHAR_MAX : 0, playInputSourceId);
+        sendFeedback(m_currentTime == 0 ? UCHAR_MAX : 0, resetInputSourceId);
+    }
+    else if (clockType() == Countdown)
+    {
+        sendFeedback(!m_isPaused ? UCHAR_MAX : 0, playInputSourceId);
+        sendFeedback(m_currentTime == m_targetTime ? UCHAR_MAX : 0, resetInputSourceId);
+    }
+    else
+    {
+        sendFeedback(0, playInputSourceId);
+        sendFeedback(0, resetInputSourceId);
+    }
+}
+
+/*****************************************************************************
+ * External Input
+ *****************************************************************************/
+
+void VCClock::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
+{
+    /* Don't let input data through in design mode or if disabled */
+    if (acceptsInput() == false)
+        return;
+
+    quint32 pagedCh = (page() << 16) | channel;
+
+    if (checkInputSource(universe, pagedCh, value, sender(), playInputSourceId))
+    {
+        // Use hysteresis for values, in case the timer is being controlled
+        // by a slider. The value has to go to zero before the next non-zero
+        // value is accepted as input. And the non-zero values have to visit
+        // above $HYSTERESIS before a zero is accepted again.
+        if (m_playLatestValue == 0 && value > 0)
+        {
+            slotPlayPauseTimer();
+            m_playLatestValue = value;
+        }
+        else if (m_playLatestValue > HYSTERESIS && value == 0)
+        {
+            m_playLatestValue = 0;
+        }
+
+        if (value > HYSTERESIS)
+            m_playLatestValue = value;
+    }
+    else if (checkInputSource(universe, pagedCh, value, sender(), resetInputSourceId))
+    {
+        // Use hysteresis for values, in case the timer is being controlled
+        // by a slider. The value has to go to zero before the next non-zero
+        // value is accepted as input. And the non-zero values have to visit
+        // above $HYSTERESIS before a zero is accepted again.
+        if (m_resetLatestValue == 0 && value > 0)
+        {
+            slotResetTimer();
+            m_resetLatestValue = value;
+        }
+        else if (m_resetLatestValue > HYSTERESIS && value == 0)
+        {
+            m_resetLatestValue = 0;
+        }
+
+        if (value > HYSTERESIS)
+            m_resetLatestValue = value;
+    }
 }
 
 /*****************************************************************************
@@ -231,6 +363,25 @@ VCWidget* VCClock::createCopy(VCWidget* parent)
     return clock;
 }
 
+bool VCClock::copyFrom(const VCWidget* widget)
+{
+    const VCClock* clock = qobject_cast<const VCClock*> (widget);
+    if (clock == NULL)
+        return false;
+
+    // TODO: copy schedules
+
+    /* Clock type */
+    setClockType(clock->clockType());
+
+    /* Key sequence */
+    setPlayKeySequence(clock->playKeySequence());
+    setResetKeySequence(clock->resetKeySequence());
+
+    /* Common stuff */
+    return VCWidget::copyFrom(widget);
+}
+
 /*****************************************************************************
  * Properties
  *****************************************************************************/
@@ -248,28 +399,28 @@ void VCClock::editProperties()
  * Load & Save
  *****************************************************************************/
 
-bool VCClock::loadXML(const QDomElement* root)
+bool VCClock::loadXML(QXmlStreamReader &root)
 {
-    Q_ASSERT(root != NULL);
-
-    if (root->tagName() != KXMLQLCVCClock)
+    if (root.name() != KXMLQLCVCClock)
     {
         qWarning() << Q_FUNC_INFO << "Clock node not found";
         return false;
     }
 
-    if (root->hasAttribute(KXMLQLCVCClockType))
+    QXmlStreamAttributes attrs = root.attributes();
+
+    if (attrs.hasAttribute(KXMLQLCVCClockType))
     {
-        setClockType(stringToType(root->attribute(KXMLQLCVCClockType)));
+        setClockType(stringToType(attrs.value(KXMLQLCVCClockType).toString()));
         if (clockType() == Countdown)
         {
             int h = 0, m = 0, s = 0;
-            if (root->hasAttribute(KXMLQLCVCClockHours))
-                h = root->attribute(KXMLQLCVCClockHours).toInt();
-            if (root->hasAttribute(KXMLQLCVCClockMinutes))
-                m = root->attribute(KXMLQLCVCClockMinutes).toInt();
-            if (root->hasAttribute(KXMLQLCVCClockSeconds))
-                s = root->attribute(KXMLQLCVCClockSeconds).toInt();
+            if (attrs.hasAttribute(KXMLQLCVCClockHours))
+                h = attrs.value(KXMLQLCVCClockHours).toString().toInt();
+            if (attrs.hasAttribute(KXMLQLCVCClockMinutes))
+                m = attrs.value(KXMLQLCVCClockMinutes).toString().toInt();
+            if (attrs.hasAttribute(KXMLQLCVCClockSeconds))
+                s = attrs.value(KXMLQLCVCClockSeconds).toString().toInt();
             setCountdown(h, m ,s);
         }
     }
@@ -278,69 +429,93 @@ bool VCClock::loadXML(const QDomElement* root)
     loadXMLCommon(root);
 
     /* Children */
-    QDomNode node = root->firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLQLCWindowState)
+        if (root.name() == KXMLQLCWindowState)
         {
             int x = 0, y = 0, w = 0, h = 0;
             bool visible = false;
-            loadXMLWindowState(&tag, &x, &y, &w, &h, &visible);
+            loadXMLWindowState(root, &x, &y, &w, &h, &visible);
             setGeometry(x, y, w, h);
         }
-        else if (tag.tagName() == KXMLQLCVCWidgetAppearance)
+        else if (root.name() == KXMLQLCVCWidgetAppearance)
         {
-            loadXMLAppearance(&tag);
+            loadXMLAppearance(root);
         }
-        else if (tag.tagName() == KXMLQLCVCClockSchedule)
+        else if (root.name() == KXMLQLCVCClockSchedule)
         {
             VCClockSchedule sch;
-            if (sch.loadXML(&tag) == true)
+            if (sch.loadXML(root) == true)
                 addSchedule(sch);
+        }
+        else if (root.name() == KXMLQLCVCClockPlay)
+        {
+            QString str = loadXMLSources(root, playInputSourceId);
+            if (str.isEmpty() == false)
+                m_playKeySequence = stripKeySequence(QKeySequence(str));
+        }else if (root.name() == KXMLQLCVCClockReset)
+        {
+            QString str = loadXMLSources(root, resetInputSourceId);
+            if (str.isEmpty() == false)
+                m_resetKeySequence = stripKeySequence(QKeySequence(str));
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown clock tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unknown clock tag:" << root.name().toString();
+            root.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     return true;
 }
 
-bool VCClock::saveXML(QDomDocument* doc, QDomElement* vc_root)
+bool VCClock::saveXML(QXmlStreamWriter *doc)
 {
-    QDomElement root;
-
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(vc_root != NULL);
 
     /* VC Clock entry */
-    root = doc->createElement(KXMLQLCVCClock);
-    vc_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCVCClock);
 
     /* Type */
     ClockType type = clockType();
-    root.setAttribute(KXMLQLCVCClockType, typeToString(type));
+    doc->writeAttribute(KXMLQLCVCClockType, typeToString(type));
     if (type == Countdown)
     {
-        root.setAttribute(KXMLQLCVCClockHours, getHours());
-        root.setAttribute(KXMLQLCVCClockMinutes, getMinutes());
-        root.setAttribute(KXMLQLCVCClockSeconds, getSeconds());
+        doc->writeAttribute(KXMLQLCVCClockHours, QString::number(getHours()));
+        doc->writeAttribute(KXMLQLCVCClockMinutes, QString::number(getMinutes()));
+        doc->writeAttribute(KXMLQLCVCClockSeconds, QString::number(getSeconds()));
     }
 
-    saveXMLCommon(doc, &root);
+    saveXMLCommon(doc);
 
     /* Window state */
-    saveXMLWindowState(doc, &root);
+    saveXMLWindowState(doc);
 
     /* Appearance */
-    saveXMLAppearance(doc, &root);
+    saveXMLAppearance(doc);
 
     foreach(VCClockSchedule sch, schedules())
-        sch.saveXML(doc, &root);
+        sch.saveXML(doc);
+
+    if (type != Clock)
+    {
+        /* Play/Pause */
+        doc->writeStartElement(KXMLQLCVCClockPlay);
+        if (m_playKeySequence.toString().isEmpty() == false)
+            doc->writeTextElement(KXMLQLCVCWidgetKey, m_playKeySequence.toString());
+        saveXMLInput(doc, inputSource(playInputSourceId));
+        doc->writeEndElement();
+
+        /* Reset */
+        doc->writeStartElement(KXMLQLCVCClockReset);
+        if (m_resetKeySequence.toString().isEmpty() == false)
+            doc->writeTextElement(KXMLQLCVCWidgetKey, m_resetKeySequence.toString());
+        saveXMLInput(doc, inputSource(resetInputSourceId));
+        doc->writeEndElement();
+    }
+
+    /* End the <Clock> tag */
+    doc->writeEndElement();
 
     return true;
 }
@@ -388,18 +563,11 @@ void VCClock::mousePressEvent(QMouseEvent *e)
 
     if (e->button() == Qt::RightButton)
     {
-        if (clockType() == Stopwatch)
-            m_currentTime = 0;
-        else if (clockType() == Countdown)
-            m_currentTime = m_targetTime;
-        update();
+        slotResetTimer();
     }
     else if (e->button() == Qt::LeftButton)
     {
-        if (clockType() == Stopwatch || clockType() == Countdown)
-            m_isPaused = !m_isPaused;
-
-        update();
+        slotPlayPauseTimer();
     }
     VCWidget::mousePressEvent(e);
 }
@@ -415,42 +583,42 @@ bool VCClockSchedule::operator <(const VCClockSchedule &sch) const
     return true;
 }
 
-bool VCClockSchedule::loadXML(const QDomElement *root)
+bool VCClockSchedule::loadXML(QXmlStreamReader &root)
 {
-    Q_ASSERT(root != NULL);
-
-    if (root->tagName() != KXMLQLCVCClockSchedule)
+    if (root.name() != KXMLQLCVCClockSchedule)
     {
         qWarning() << Q_FUNC_INFO << "Clock Schedule node not found";
         return false;
     }
 
-    if (root->hasAttribute(KXMLQLCVCClockScheduleFunc))
+    QXmlStreamAttributes attrs = root.attributes();
+
+    if (attrs.hasAttribute(KXMLQLCVCClockScheduleFunc))
     {
-        setFunction(root->attribute(KXMLQLCVCClockScheduleFunc).toUInt());
-        if (root->hasAttribute(KXMLQLCVCClockScheduleTime))
+        setFunction(attrs.value(KXMLQLCVCClockScheduleFunc).toString().toUInt());
+        if (attrs.hasAttribute(KXMLQLCVCClockScheduleTime))
         {
             QDateTime dt;
-            dt.setTime(QTime::fromString(root->attribute(KXMLQLCVCClockScheduleTime), "HH:mm:ss"));
+            dt.setTime(QTime::fromString(attrs.value(KXMLQLCVCClockScheduleTime).toString(), "HH:mm:ss"));
             setTime(dt);
         }
     }
+    root.skipCurrentElement();
 
     return true;
 }
 
-bool VCClockSchedule::saveXML(QDomDocument *doc, QDomElement *root)
+bool VCClockSchedule::saveXML(QXmlStreamWriter *doc)
 {
-    QDomElement tag;
-
     /* Schedule tag */
-    tag = doc->createElement(KXMLQLCVCClockSchedule);
-    root->appendChild(tag);
+    doc->writeStartElement(KXMLQLCVCClockSchedule);
 
     /* Schedule function */
-    tag.setAttribute(KXMLQLCVCClockScheduleFunc, function());
+    doc->writeAttribute(KXMLQLCVCClockScheduleFunc, QString::number(function()));
     /* Schedule time */
-    tag.setAttribute(KXMLQLCVCClockScheduleTime, time().time().toString());
+    doc->writeAttribute(KXMLQLCVCClockScheduleTime, time().time().toString());
+
+    doc->writeEndElement();
 
     return true;
 }

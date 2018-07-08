@@ -25,12 +25,14 @@
 #include <QComboBox>
 #include <QCheckBox>
 #include <QLineEdit>
+#include <QCheckBox>
 #include <QSpinBox>
 #include <QPainter>
 #include <QLabel>
 #include <QDebug>
 #include <QPen>
 
+#include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
 #include "qlcchannel.h"
 
@@ -42,17 +44,17 @@
 #include "apputil.h"
 #include "doc.h"
 
-#include "efxuistate.h"
-
 #define SETTINGS_GEOMETRY "efxeditor/geometry"
 
 #define KColumnNumber  0
 #define KColumnName    1
-#define KColumnReverse 2
-#define KColumnStartOffset 3
-#define KColumnIntensity 4
+#define KColumnMode    2
+#define KColumnReverse 3
+#define KColumnStartOffset 4
 
 #define PROPERTY_FIXTURE "fixture"
+#define UI_STATE_TAB_INDEX "tabIndex"
+#define UI_STATE_SHOW_DIAL "showDial"
 
 #define KTabGeneral 0
 #define KTabMovement 1
@@ -80,24 +82,27 @@ EFXEditor::EFXEditor(QWidget* parent, EFX* efx, Doc* doc)
     initGeneralPage();
     initMovementPage();
 
-    // Start new (==empty) scenes from the first tab and ones with something in them
-    // on the first fixture page.
-    if (m_tab->count() == 0)
-        slotTabChanged(KTabGeneral);
+    QVariant tabIndex = efx->uiStateValue(UI_STATE_TAB_INDEX);
+    if (tabIndex.isNull())
+        m_tab->setCurrentIndex(0);
     else
-        m_tab->setCurrentIndex(efxUiState()->currentTab());
+        m_tab->setCurrentIndex(tabIndex.toInt());
 
     /* Tab widget */
     connect(m_tab, SIGNAL(currentChanged(int)),
             this, SLOT(slotTabChanged(int)));
 
-    // Used for intensity changes
+    // Used for UI parameter changes
     m_testTimer.setSingleShot(true);
     m_testTimer.setInterval(500);
     connect(&m_testTimer, SIGNAL(timeout()), this, SLOT(slotRestartTest()));
     connect(m_doc, SIGNAL(modeChanged(Doc::Mode)), this, SLOT(slotModeChanged(Doc::Mode)));
 
     updateSpeedDials();
+
+    QVariant showDial = efx->uiStateValue(UI_STATE_SHOW_DIAL);
+    if (showDial.isNull() == false && showDial.toBool() == true)
+        m_speedDial->setChecked(true);
 
     // Set focus to the editor
     m_nameEdit->setFocus();
@@ -240,6 +245,9 @@ void EFXEditor::initMovementPage()
     connect(m_yPhaseSpin, SIGNAL(valueChanged(int)),
             this, SLOT(slotYPhaseSpinChanged(int)));
 
+    connect(m_colorCheck, SIGNAL(toggled(bool)),
+            this, SLOT(slotSetColorBackground(bool)));
+
     QString algo(EFX::algorithmToString(m_efx->algorithm()));
     /* Select the EFX's algorithm from the algorithm combo */
     for (int i = 0; i < m_algorithmCombo->count(); i++)
@@ -301,7 +309,12 @@ void EFXEditor::initMovementPage()
 void EFXEditor::slotTestClicked()
 {
     if (m_testButton->isChecked() == true)
-        m_efx->start(m_doc->masterTimer());
+    {
+        m_efx->start(m_doc->masterTimer(), functionParent());
+
+        //Restart animation so preview it is in sync with real test
+        m_previewArea->restart();
+    }
     else
         m_efx->stopAndWait();
 }
@@ -320,8 +333,7 @@ void EFXEditor::slotModeChanged(Doc::Mode mode)
 {
     if (mode == Doc::Operate)
     {
-        if (m_efx->stopped() == false)
-            m_efx->stopAndWait();
+        m_efx->stopAndWait();
         m_testButton->setChecked(false);
         m_testButton->setEnabled(false);
     }
@@ -333,7 +345,16 @@ void EFXEditor::slotModeChanged(Doc::Mode mode)
 
 void EFXEditor::slotTabChanged(int tab)
 {
-    efxUiState()->setCurrentTab(tab);
+    m_efx->setUiStateValue(UI_STATE_TAB_INDEX, tab);
+
+    //When preview animation is opened restart animation but avoid restart if test is running.
+    if(tab == 1 && (m_testButton->isChecked () == false))
+        m_previewArea->restart ();
+}
+
+void EFXEditor::slotSetColorBackground(bool checked)
+{
+    m_previewArea->showGradientBackground(checked);
 }
 
 bool EFXEditor::interruptRunning()
@@ -355,15 +376,15 @@ void EFXEditor::continueRunning(bool running)
     if (running == true)
     {
         if (m_doc->mode() == Doc::Operate)
-            m_efx->start(m_doc->masterTimer());
+            m_efx->start(m_doc->masterTimer(), functionParent());
         else
             m_testButton->click();
     }
 }
 
-EfxUiState * EFXEditor::efxUiState()
+FunctionParent EFXEditor::functionParent() const
 {
-    return qobject_cast<EfxUiState*>(m_efx->uiState());
+    return FunctionParent::master();
 }
 
 /*****************************************************************************
@@ -376,11 +397,7 @@ void EFXEditor::updateFixtureTree()
     QListIterator <EFXFixture*> it(m_efx->fixtures());
     while (it.hasNext() == true)
         addFixtureItem(it.next());
-    m_tree->resizeColumnToContents(KColumnNumber);
-    m_tree->resizeColumnToContents(KColumnName);
-    m_tree->resizeColumnToContents(KColumnReverse);
-    m_tree->resizeColumnToContents(KColumnStartOffset);
-    m_tree->resizeColumnToContents(KColumnIntensity);
+    m_tree->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
 QTreeWidgetItem* EFXEditor::fixtureItem(EFXFixture* ef)
@@ -417,12 +434,9 @@ const QList <EFXFixture*> EFXEditor::selectedFixtures() const
 
 void EFXEditor::updateIndices(int from, int to)
 {
-    QTreeWidgetItem* item;
-    int i;
-
-    for (i = from; i <= to; i++)
+    for (int i = from; i <= to; i++)
     {
-        item = m_tree->topLevelItem(i);
+        QTreeWidgetItem *item = m_tree->topLevelItem(i);
         Q_ASSERT(item != NULL);
 
         item->setText(KColumnNumber,
@@ -459,7 +473,7 @@ void EFXEditor::addFixtureItem(EFXFixture* ef)
     else
         item->setCheckState(KColumnReverse, Qt::Unchecked);
 
-    updateIntensityColumn(item, ef);
+    updateModeColumn(item, ef);
     updateStartOffsetColumn(item, ef);
 
     updateIndices(m_tree->indexOfTopLevelItem(item),
@@ -467,30 +481,26 @@ void EFXEditor::addFixtureItem(EFXFixture* ef)
 
     /* Select newly-added fixtures so that they can be moved quickly */
     m_tree->setCurrentItem(item);
-    redrawPreview();
-
-    m_tree->resizeColumnToContents(KColumnNumber);
-    m_tree->resizeColumnToContents(KColumnName);
-    m_tree->resizeColumnToContents(KColumnReverse);
-    m_tree->resizeColumnToContents(KColumnStartOffset);
-    m_tree->resizeColumnToContents(KColumnIntensity);
 }
 
-void EFXEditor::updateIntensityColumn(QTreeWidgetItem* item, EFXFixture* ef)
+void EFXEditor::updateModeColumn(QTreeWidgetItem* item, EFXFixture* ef)
 {
     Q_ASSERT(item != NULL);
     Q_ASSERT(ef != NULL);
 
-    if (m_tree->itemWidget(item, KColumnIntensity) == NULL)
+    if (m_tree->itemWidget(item, KColumnMode) == NULL)
     {
-        QSpinBox* spin = new QSpinBox(m_tree);
-        spin->setAutoFillBackground(true);
-        spin->setRange(0, 255);
-        spin->setValue(ef->fadeIntensity());
-        m_tree->setItemWidget(item, KColumnIntensity, spin);
-        spin->setProperty(PROPERTY_FIXTURE, (qulonglong) ef);
-        connect(spin, SIGNAL(valueChanged(int)),
-                this, SLOT(slotFixtureIntensityChanged(int)));
+        QComboBox* combo = new QComboBox(m_tree);
+        combo->setAutoFillBackground(true);
+        combo->addItems(ef->modeList());
+        combo->setProperty(PROPERTY_FIXTURE, (qulonglong) ef);
+        m_tree->setItemWidget(item, KColumnMode, combo);
+
+        const int index = combo->findText(ef->modeToString(ef->mode()));
+        combo->setCurrentIndex(index);
+
+        connect(combo, SIGNAL(currentIndexChanged(int)),
+                this, SLOT(slotFixtureModeChanged(int)));
     }
 }
 
@@ -524,17 +534,12 @@ void EFXEditor::removeFixtureItem(EFXFixture* ef)
     Q_ASSERT(item != NULL);
 
     from = m_tree->indexOfTopLevelItem(item);
-    delete m_tree->itemWidget(item, KColumnIntensity);
     delete item;
 
     updateIndices(from, m_tree->topLevelItemCount() - 1);
     redrawPreview();
 
-    m_tree->resizeColumnToContents(KColumnNumber);
-    m_tree->resizeColumnToContents(KColumnName);
-    m_tree->resizeColumnToContents(KColumnReverse);
-    m_tree->resizeColumnToContents(KColumnStartOffset);
-    m_tree->resizeColumnToContents(KColumnIntensity);
+    m_tree->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
 void EFXEditor::slotDialDestroyed(QObject *)
@@ -551,7 +556,6 @@ void EFXEditor::createSpeedDials()
         connect(m_speedDials, SIGNAL(fadeInChanged(int)), this, SLOT(slotFadeInChanged(int)));
         connect(m_speedDials, SIGNAL(fadeOutChanged(int)), this, SLOT(slotFadeOutChanged(int)));
         connect(m_speedDials, SIGNAL(holdChanged(int)), this, SLOT(slotHoldChanged(int)));
-        connect(m_speedDials, SIGNAL(holdTapped()), this, SLOT(slotDurationTapped()));
         connect(m_speedDials, SIGNAL(destroyed(QObject*)), this, SLOT(slotDialDestroyed(QObject*)));
     }
 
@@ -583,16 +587,18 @@ void EFXEditor::slotNameEdited(const QString &text)
 
 void EFXEditor::slotSpeedDialToggle(bool state)
 {
-    efxUiState()->setShowSpeedDial(state);
-
     if (state == true)
+    {
         updateSpeedDials();
+    }
     else
     {
         if (m_speedDials != NULL)
             m_speedDials->deleteLater();
         m_speedDials = NULL;
     }
+
+    m_efx->setUiStateValue(UI_STATE_SHOW_DIAL, state);
 }
 
 void EFXEditor::slotFixtureItemChanged(QTreeWidgetItem* item, int column)
@@ -608,19 +614,21 @@ void EFXEditor::slotFixtureItemChanged(QTreeWidgetItem* item, int column)
         else
             ef->setDirection(Function::Forward);
 
-	redrawPreview();
+        redrawPreview();
     }
 }
 
-void EFXEditor::slotFixtureIntensityChanged(int intensity)
+void EFXEditor::slotFixtureModeChanged(int index)
 {
-    QSpinBox* spin = qobject_cast<QSpinBox*>(QObject::sender());
-    Q_ASSERT(spin != NULL);
-    EFXFixture* ef = (EFXFixture*) spin->property(PROPERTY_FIXTURE).toULongLong();
-    Q_ASSERT(ef != NULL);
-    ef->setFadeIntensity(uchar(intensity));
+    QComboBox* combo = qobject_cast<QComboBox*>(QObject::sender());
+    Q_ASSERT(combo != NULL);
 
-    // Restart the test after the latest intensity change, delayed
+    EFXFixture* ef = (EFXFixture*) combo->property(PROPERTY_FIXTURE).toULongLong();
+    Q_ASSERT(ef != NULL);
+
+    ef->setMode ( ef->stringToMode (combo->itemText(index)) );
+
+    // Restart the test after the latest mode change, delayed
     m_testTimer.start();
 }
 
@@ -632,16 +640,22 @@ void EFXEditor::slotFixtureStartOffsetChanged(int startOffset)
     Q_ASSERT(ef != NULL);
     ef->setStartOffset(startOffset);
 
-    // Restart the test after the latest intensity change, delayed
+    redrawPreview();
+
+    // Restart the test after the latest offset change, delayed
     m_testTimer.start();
 }
 
 void EFXEditor::slotAddFixtureClicked()
 {
+    /* The following code is the original QLC+ code (EFX with only Pan-Tilt).
+     * Now, with modes, the same fixture could be duplicated. */
+
     /* Put all fixtures already present into a list of fixtures that
        will be disabled in the fixture selection dialog */
     QList <GroupHead> disabled;
     QTreeWidgetItemIterator twit(m_tree);
+    /*
     while (*twit != NULL)
     {
         EFXFixture* ef = reinterpret_cast <EFXFixture*>
@@ -651,31 +665,41 @@ void EFXEditor::slotAddFixtureClicked()
         disabled.append(ef->head());
         twit++;
     }
+    */
 
-    /* Disable all fixtures that don't have pan OR tilt channels */
+    /* Disable all fixtures that don't have pan OR tilt, dimmer or RGB channels */
+    /*
     QListIterator <Fixture*> fxit(m_doc->fixtures());
     while (fxit.hasNext() == true)
     {
         Fixture* fixture(fxit.next());
         Q_ASSERT(fixture != NULL);
 
-        // If a channel with pan group exists, don't disable this fixture
-        if (fixture->channel(QLCChannel::Pan) != QLCChannel::invalid())
+        // If a channel with pan or tilt group exists, don't disable this fixture
+        if (fixture->channel(QLCChannel::Pan) == QLCChannel::invalid() &&
+            fixture->channel(QLCChannel::Tilt) == QLCChannel::invalid())
         {
-            continue;
+            // Disable all fixtures without pan or tilt channels
+            disabled << fixture->id();
         }
-
-        // If a channel with tilt group exists, don't disable this fixture
-        if (fixture->channel(QLCChannel::Tilt) != QLCChannel::invalid())
+        else
         {
-            continue;
+            QVector <QLCFixtureHead> const& heads = fixture->fixtureMode()->heads();
+            for (int i = 0; i < heads.size(); ++i)
+            {
+                if (heads[i].panMsbChannel() == QLCChannel::invalid() &&
+                    heads[i].tiltMsbChannel() == QLCChannel::invalid() &&
+                    heads[i].panLsbChannel() == QLCChannel::invalid() &&
+                    heads[i].tiltLsbChannel() == QLCChannel::invalid())
+                {
+                    // Disable heads without pan or tilt channels
+                    disabled << GroupHead(fixture->id(), i);
+                }
+            }
         }
-
-        // Disable all fixtures without pan or tilt channels
-        disabled << fixture->id();
     }
+    */
 
-    /* Get a list of new fixtures to add to the scene */
     FixtureSelection fs(this, m_doc);
     fs.setMultiSelection(true);
     fs.setSelectionMode(FixtureSelection::Heads);
@@ -696,6 +720,8 @@ void EFXEditor::slotAddFixtureClicked()
             else
                 delete ef;
         }
+
+        m_tree->header()->resizeSections(QHeaderView::ResizeToContents);
 
         redrawPreview();
 
@@ -727,7 +753,7 @@ void EFXEditor::slotRemoveFixtureClicked()
                 delete ef;
         }
 
-	redrawPreview();
+        redrawPreview();
 
         // Continue if appropriate
         continueRunning(running);
@@ -755,12 +781,13 @@ void EFXEditor::slotRaiseFixtureClicked()
             item = m_tree->takeTopLevelItem(index);
 
             m_tree->insertTopLevelItem(index - 1, item);
-            m_tree->setCurrentItem(item);
-            updateIntensityColumn(item, ef);
-            updateStartOffsetColumn(item, ef);
 
+            updateModeColumn(item, ef);
+            updateStartOffsetColumn(item, ef);
             updateIndices(index - 1, index);
-	    redrawPreview();
+            m_tree->setCurrentItem(item);
+
+            redrawPreview();
         }
     }
 
@@ -788,12 +815,13 @@ void EFXEditor::slotLowerFixtureClicked()
         {
             item = m_tree->takeTopLevelItem(index);
             m_tree->insertTopLevelItem(index + 1, item);
-            m_tree->setCurrentItem(item);
-            updateIntensityColumn(item, ef);
-            updateStartOffsetColumn(item, ef);
 
+            updateModeColumn(item, ef);
+            updateStartOffsetColumn(item, ef);
             updateIndices(index, index + 1);
-	    redrawPreview();
+            m_tree->setCurrentItem(item);
+
+            redrawPreview();
         }
     }
 
@@ -1026,14 +1054,15 @@ void EFXEditor::redrawPreview()
     if (m_previewArea == NULL)
         return;
 
-    QVector <QPoint> points;
-    m_efx->preview(points);
+    QPolygonF polygon;
+    m_efx->preview(polygon);
 
-    QVector <QVector <QPoint> > fixturePoints;
+    QVector <QPolygonF> fixturePoints;
     m_efx->previewFixtures(fixturePoints);
  
-    m_previewArea->setPoints(points);
-    m_previewArea->setFixturePoints(fixturePoints);
+    m_previewArea->setPolygon(polygon);
+    m_previewArea->setFixturePolygons(fixturePoints);
 
-    m_previewArea->draw(m_efx->duration() / points.size());
+    m_previewArea->draw(m_efx->duration() / polygon.size());
 }
+

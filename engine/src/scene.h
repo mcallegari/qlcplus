@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   scene.h
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -30,14 +31,16 @@
 #include "function.h"
 #include "fixture.h"
 
-class QDomDocument;
-class QDomElement;
+class QXmlStreamReader;
 
 /** @addtogroup engine_functions Functions
  * @{
  */
 
 #define KXMLQLCFixtureValues "FixtureVal"
+#define KXMLQLCSceneChannelGroupsValues "ChannelGroupsVal"
+
+// Legacy: these do not contain ChannelGroups values
 #define KXMLQLCSceneChannelGroups "ChannelGroups"
 
 /**
@@ -71,29 +74,26 @@ public:
      */
     ~Scene();
 
+    /** @reimp */
+    QIcon getIcon() const;
+
     void setChildrenFlag(bool flag);
+
+    /** @reimp */
+    quint32 totalDuration();
 
 private:
     quint32 m_legacyFadeBus;
-
-    /** flag that says if a scene is used by some Chaser in sequence mode */
-    bool m_hasChildren;
 
     /*********************************************************************
      * Copying
      *********************************************************************/
 public:
-    /** @reimpl */
+    /** @reimp */
     Function* createCopy(Doc* doc, bool addToDoc = true);
 
-    /** @reimpl */
+    /** @reimp */
     bool copyFrom(const Function* function);
-
-    /*********************************************************************
-     * UI State
-     *********************************************************************/
-private:
-    virtual FunctionUiState * createUiState();
 
     /*********************************************************************
      * Values
@@ -129,6 +129,9 @@ public:
      */
     QList <SceneValue> values() const;
 
+    /** @reimp */
+    QList<quint32> components();
+
     /**
      * Try to retrieve a RGB/CMY color if the Scene has RGB/CMY channels set.
      * A fixture ID can be specified to retrieve a single fixture color.
@@ -140,6 +143,9 @@ public:
      * Clear all values
      */
     void clear();
+
+signals:
+    void valueChanged(SceneValue scv);
 
 protected:
     QMap <SceneValue, uchar> m_values;
@@ -184,43 +190,54 @@ protected:
 public slots:
     void slotFixtureRemoved(quint32 fxi_id);
 
+public:
+    void addFixture(quint32 fixtureId);
+    bool removeFixture(quint32 fixtureId);
+    QList<quint32> fixtures() const;
+
+private:
+    QList<quint32> m_fixtures;
+
     /*********************************************************************
      * Load & Save
      *********************************************************************/
 public:
-    /** @reimpl */
-    bool saveXML(QDomDocument* doc, QDomElement* wksp_root);
+    /** @reimp */
+    bool saveXML(QXmlStreamWriter *doc);
 
-    /** @reimpl */
-    bool loadXML(const QDomElement& root);
+    /** @reimp */
+    bool loadXML(QXmlStreamReader &root);
 
-    /** @reimpl */
+    /** @reimp */
     void postLoad();
+
+private:
+    static bool saveXMLFixtureValues(QXmlStreamWriter* doc, quint32 fixtureID, QStringList const& values);
 
     /*********************************************************************
      * Flash
      *********************************************************************/
 public:
-    /** @reimpl */
+    /** @reimp */
     void flash(MasterTimer* timer);
 
-    /** @reimpl */
+    /** @reimp */
     void unFlash(MasterTimer* timer);
 
-    /** @reimpl from DMXSource */
+    /** @reimp from DMXSource */
     void writeDMX(MasterTimer* timer, QList<Universe*> ua);
 
     /*********************************************************************
      * Running
      *********************************************************************/
 public:
-    /** @reimpl */
+    /** @reimp */
     void preRun(MasterTimer* timer);
 
-    /** @reimpl */
+    /** @reimp */
     void write(MasterTimer* timer, QList<Universe*> ua);
 
-    /** @reimpl */
+    /** @reimp */
     void postRun(MasterTimer* timer, QList<Universe*> ua);
 
 private:
@@ -234,8 +251,15 @@ private:
      * Attributes
      *********************************************************************/
 public:
-    /** @reimpl */
-    void adjustAttribute(qreal fraction, int attributeIndex);
+    /** @reimp */
+    int adjustAttribute(qreal fraction, int attributeId);
+
+    /*************************************************************************
+     * Blend mode
+     *************************************************************************/
+public:
+    /** @reimp */
+    void setBlendMode(Universe::BlendMode mode);
 };
 
 /** @} */

@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+	<mime-type type="application/x-qlc-workspace">
+		<sub-class-of type="application/xml"/>
+		<magic priority="80">
+			<match type="string" offset="0:100" value="&lt;!DOCTYPE Workspace&gt;"/>
+		</magic>
+		<glob pattern="*.qxw"/>
+		<comment xml:lang="cz">QLC+ pracoviště</comment>
+		<comment xml:lang="de">QLC+ Arbeitsbereich</comment>
+		<comment xml:lang="en">QLC+ workspace</comment>
+		<comment xml:lang="fr">Espace de travail QLC+</comment>
+		<comment xml:lang="fi">QLC+ työtila</comment>
+		<comment xml:lang="it">Spazio di lavoro QLC+</comment>
+		<comment xml:lang="nl">QLC+ werkruimte</comment>
+		<comment xml:lang="es">Espacio de trabajo QLC+</comment>
+		<comment xml:lang="ca">Espai de treball QLC+</comment>
+	</mime-type>
+	<mime-type type="application/x-qlc-fixture">
+		<sub-class-of type="application/xml"/>
+		<magic priority="80">
+			<match type="string" offset="0:100" value="&lt;!DOCTYPE FixtureDefinition&gt;"/>
+		</magic>
+		<glob pattern="*.qxf"/>
+		<comment xml:lang="cz">QLC+ definice zařízení</comment>
+		<comment xml:lang="de">QLC+ Gerätedefinition</comment>
+		<comment xml:lang="en">QLC+ fixture definition</comment>
+		<comment xml:lang="fr">Définition d'appareil QLC+</comment>
+		<comment xml:lang="fi">QLC+ valaisinmääritys</comment>
+		<comment xml:lang="it">Definizione di Fixture QLC+</comment>
+		<comment xml:lang="nl">QLC+ armatuur definitie</comment>
+		<comment xml:lang="es">Definición de fixture QLC+</comment>
+		<comment xml:lang="ca">Definició de fixture QLC+</comment>
+	</mime-type>
+	<mime-type type="application/x-qlc-inputprofile">
+		<sub-class-of type="application/xml"/>
+		<magic priority="80">
+			<match type="string" offset="0:100" value="&lt;!DOCTYPE InputProfile&gt;"/>
+		</magic>
+		<glob pattern="*.qxi"/>
+		<comment xml:lang="cz">QLC+ vstupní profil</comment>
+		<comment xml:lang="de">QLC+ Eingangsprofil</comment>
+		<comment xml:lang="en">QLC+ input profile</comment>
+		<comment xml:lang="fr">Profil d'entrée QLC+</comment>
+		<comment xml:lang="fi">QLC+ syöttölaiteprofiili</comment>
+		<comment xml:lang="it">Profilo di input QLC+</comment>
+		<comment xml:lang="nl">QLC+ invoerprofiel</comment>
+		<comment xml:lang="es">Perfil de Entrada QLC+</comment>
+		<comment xml:lang="ca">Perfil d'Entrada QLC+</comment>
+	</mime-type>
+	<mime-type type="application/x-qlc-miditemplate">
+		<sub-class-of type="application/xml"/>
+		<magic priority="80">
+			<match type="string" offset="0:100" value="&lt;!DOCTYPE MidiTemplate&gt;"/>
+		</magic>
+		<glob pattern="*.qxm"/>
+		<comment xml:lang="cz">QLC+ MIDI šablona</comment>
+		<comment xml:lang="de">QLC+ MIDI-Vorlage</comment>
+		<comment xml:lang="en">QLC+ MIDI template</comment>
+		<comment xml:lang="fr">Modèle MIDI QLC+</comment>
+		<comment xml:lang="es">Plantilla MIDI QLC+</comment>
+		<comment xml:lang="ca">Plantilla MIDI QLC+</comment>
+	</mime-type>
+	<mime-type type="application/x-qlc-channelmodifier">
+		<sub-class-of type="application/xml"/>
+		<magic priority="80">
+			<match type="string" offset="0:100" value="&lt;!DOCTYPE ChannelModifier&gt;"/>
+		</magic>
+		<glob pattern="*.qxmt"/>
+		<comment xml:lang="cz">QLC+ šablona modifikátoru kanálu</comment>
+		<comment xml:lang="de">QLC+ Kanalmodifizierer-Vorlage</comment>
+		<comment xml:lang="en">QLC+ channel modifier template</comment>
+		<comment xml:lang="fr">Modèle de modificateur de canal QLC+</comment>
+		<comment xml:lang="es">Plantilla de Modificadores de Canal QLC+</comment>
+		<comment xml:lang="ca">Plantilla de Modificadors de Canal QLC+</comment>
+	</mime-type>
+</mime-info>

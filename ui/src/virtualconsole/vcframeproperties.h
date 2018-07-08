@@ -21,9 +21,11 @@
 #define VCFRAMEPROPERTIES_H
 
 #include <QDialog>
+#include <QComboBox>
 #include "ui_vcframeproperties.h"
-#include "qlcinputsource.h"
+#include "vcframepageshortcut.h"
 
+class InputSelectionWidget;
 class VCFrame;
 class Doc;
 
@@ -46,64 +48,25 @@ public:
     QString frameName() const;
     bool multipageEnabled() const;
     bool cloneWidgets() const;
+    bool pagesLoop() const;
 
 protected slots:
     void slotMultipageChecked(bool enable);
+    void slotPageComboChanged(int index);
+    void slotTotalPagesNumberChanged(int number);
+    void slotPageNameEditingFinished();
+
+    void slotInputValueChanged(quint32 universe, quint32 channel);
+    void slotKeySequenceChanged(QKeySequence key);
 
 protected:
     VCFrame *m_frame;
     Doc* m_doc;
-
-    /************************************************************************
-     * Enable control
-     ************************************************************************/
-protected slots:
-    void slotEnableAttachClicked();
-    void slotEnableDetachClicked();
-    void slotEnableChooseInputClicked();
-    void slotEnableAutoDetectInputToggled(bool checked);
-    void slotEnableInputValueChanged(quint32 uni, quint32 ch);
-
-protected:
-    void updateEnableInputSource();
-
-protected:
-    QKeySequence m_enableKeySequence;
-    QLCInputSource *m_enableInputSource;
-
-    /************************************************************************
-     * Next page
-     ************************************************************************/
-protected slots:
-    void slotNextAttachClicked();
-    void slotNextDetachClicked();
-    void slotNextChooseInputClicked();
-    void slotNextAutoDetectInputToggled(bool checked);
-    void slotNextInputValueChanged(quint32 uni, quint32 ch);
-
-protected:
-    void updateNextInputSource();
-
-protected:
-    QKeySequence m_nextKeySequence;
-    QLCInputSource *m_nextInputSource;
-
-    /************************************************************************
-     * Previous page
-     ************************************************************************/
-protected slots:
-    void slotPreviousAttachClicked();
-    void slotPreviousDetachClicked();
-    void slotPreviousChooseInputClicked();
-    void slotPreviousAutoDetectInputToggled(bool checked);
-    void slotPreviousInputValueChanged(quint32 uni, quint32 ch);
-
-protected:
-    void updatePreviousInputSource();
-
-protected:
-    QKeySequence m_previousKeySequence;
-    QLCInputSource *m_previousInputSource;
+    InputSelectionWidget *m_inputEnableWidget;
+    InputSelectionWidget *m_inputNextPageWidget;
+    InputSelectionWidget *m_inputPrevPageWidget;
+    QList<VCFramePageShortcut*> m_shortcuts;
+    InputSelectionWidget *m_shortcutInputWidget;
 
 public slots:
     void accept();

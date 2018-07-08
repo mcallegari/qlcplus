@@ -1,8 +1,9 @@
 /*
-  Q Light Controller - Unit test
+  Q Light Controller Plus - Unit test
   fixture_test.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -18,7 +19,8 @@
 */
 
 #include <QtTest>
-#include <QtXml>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 #include "qlcfixturedefcache.h"
 #include "qlcfixturemode.h"
@@ -40,7 +42,7 @@ void Fixture_Test::initTestCase()
     QDir dir(INTERNAL_FIXTUREDIR);
     dir.setFilter(QDir::Files);
     dir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
-    QVERIFY(m_doc->fixtureDefCache()->load(dir) == true);
+    QVERIFY(m_doc->fixtureDefCache()->loadMap(dir) == true);
 }
 
 void Fixture_Test::cleanupTestCase()
@@ -155,7 +157,9 @@ void Fixture_Test::lessThan()
 void Fixture_Test::type()
 {
     Fixture fxi(this);
-    QCOMPARE(fxi.type(), QString(KXMLFixtureDimmer));
+    QCOMPARE(fxi.typeString(), QString(KXMLFixtureDimmer));
+    QCOMPARE(fxi.type(), QLCFixtureDef::Dimmer);
+    QCOMPARE(fxi.iconResource(), QString(":/dimmer.png"));
 
     QLCFixtureDef* fixtureDef;
     fixtureDef = m_doc->fixtureDefCache()->fixtureDef("Martin", "MAC250+");
@@ -166,7 +170,9 @@ void Fixture_Test::type()
     QVERIFY(fixtureMode != NULL);
 
     fxi.setFixtureDefinition(fixtureDef, fixtureMode);
-    QCOMPARE(fxi.type(), fixtureDef->type());
+    QCOMPARE(fxi.typeString(), fixtureDef->typeToString(fixtureDef->type()));
+    QCOMPARE(fxi.type(), QLCFixtureDef::MovingHead);
+    QCOMPARE(fxi.iconResource(), QString(":/movinghead.png"));
 }
 
 void Fixture_Test::dimmer()
@@ -184,10 +190,10 @@ void Fixture_Test::dimmer()
     QVERIFY(fxi.channels() == 5);
     QVERIFY(fxi.channel(0) != NULL);
     const QLCChannel* ch = fxi.channel(0);
-    QVERIFY(fxi.channel(1) == ch);
-    QVERIFY(fxi.channel(2) == ch);
-    QVERIFY(fxi.channel(3) == ch);
-    QVERIFY(fxi.channel(4) == ch);
+    QVERIFY(fxi.channel(1) != fxi.channel(0));
+    QVERIFY(fxi.channel(2) != fxi.channel(1));
+    QVERIFY(fxi.channel(3) != fxi.channel(2));
+    QVERIFY(fxi.channel(4) != fxi.channel(3));
     QVERIFY(fxi.channel(5) == NULL);
     QVERIFY(fxi.channel(42) == NULL);
     QVERIFY(fxi.channel(QLCChannel::invalid()) == NULL);
@@ -199,7 +205,43 @@ void Fixture_Test::dimmer()
 
     /* Although the dimmer fixture HAS a channel with this name, it is
        not returned, because all channels have the same name. */
-    QVERIFY(fxi.channel(QLCChannel::Intensity) == QLCChannel::invalid());
+    QVERIFY(fxi.channel(QLCChannel::Intensity) == 0);
+}
+
+void Fixture_Test::rgbPanel()
+{
+    Fixture fxi(this);
+    fxi.setName("RGB Panel");
+    QLCFixtureDef *rowDef = fxi.genericRGBPanelDef(10, Fixture::RGBW);
+    QLCFixtureMode *rowMode = fxi.genericRGBPanelMode(rowDef, Fixture::RGBW, 1000, 100);
+    fxi.setFixtureDefinition(rowDef, rowMode);
+
+    QVERIFY(fxi.channels() == 40);
+
+    const QLCChannel *ch0 = fxi.channel(0);
+    const QLCChannel *ch1 = fxi.channel(1);
+    const QLCChannel *ch2 = fxi.channel(2);
+    const QLCChannel *ch3 = fxi.channel(3);
+
+    QVERIFY(ch0->group() == QLCChannel::Intensity);
+    QVERIFY(ch0->colour() == QLCChannel::Red);
+    QVERIFY(ch0->name() == "Red 1");
+    QVERIFY(ch1->group() == QLCChannel::Intensity);
+    QVERIFY(ch1->colour() == QLCChannel::Green);
+    QVERIFY(ch1->name() == "Green 1");
+    QVERIFY(ch2->group() == QLCChannel::Intensity);
+    QVERIFY(ch2->colour() == QLCChannel::Blue);
+    QVERIFY(ch2->name() == "Blue 1");
+    QVERIFY(ch3->group() == QLCChannel::Intensity);
+    QVERIFY(ch3->colour() == QLCChannel::White);
+    QVERIFY(ch3->name() == "White 1");
+
+    QVERIFY(fxi.fixtureMode()->name() == "RGBW");
+    QVERIFY(fxi.fixtureMode()->channels().count() == 40);
+    QVERIFY(fxi.fixtureMode()->physical().width() == 1000);
+    QVERIFY(fxi.fixtureMode()->physical().height() == 100);
+    QVERIFY(fxi.fixtureMode()->physical().depth() == 100);
+    QVERIFY(fxi.fixtureMode()->heads().count() == 10);
 }
 
 void Fixture_Test::fixtureDef()
@@ -210,10 +252,10 @@ void Fixture_Test::fixtureDef()
     QVERIFY(fxi.fixtureMode() == NULL);
     QVERIFY(fxi.channels() == 0);
     QVERIFY(fxi.channel(0) == NULL);
-    QCOMPARE(fxi.panMsbChannel(), QLCChannel::invalid());
-    QCOMPARE(fxi.tiltMsbChannel(), QLCChannel::invalid());
-    QCOMPARE(fxi.panLsbChannel(), QLCChannel::invalid());
-    QCOMPARE(fxi.tiltLsbChannel(), QLCChannel::invalid());
+    QCOMPARE(fxi.channelNumber(QLCChannel::Pan, QLCChannel::MSB), QLCChannel::invalid());
+    QCOMPARE(fxi.channelNumber(QLCChannel::Tilt, QLCChannel::MSB), QLCChannel::invalid());
+    QCOMPARE(fxi.channelNumber(QLCChannel::Pan, QLCChannel::LSB), QLCChannel::invalid());
+    QCOMPARE(fxi.channelNumber(QLCChannel::Tilt, QLCChannel::LSB), QLCChannel::invalid());
     QCOMPARE(fxi.masterIntensityChannel(), QLCChannel::invalid());
 
     QLCFixtureDef* fixtureDef;
@@ -246,10 +288,10 @@ void Fixture_Test::fixtureDef()
     const QLCChannel* ch = fxi.channel(fxi.channel(QLCChannel::Pan));
     QVERIFY(ch != NULL);
 
-    QCOMPARE(fxi.panMsbChannel(), quint32(7));
-    QCOMPARE(fxi.tiltMsbChannel(), quint32(9));
-    QCOMPARE(fxi.panLsbChannel(), quint32(8));
-    QCOMPARE(fxi.tiltLsbChannel(), quint32(10));
+    QCOMPARE(fxi.channelNumber(QLCChannel::Pan, QLCChannel::MSB), quint32(7));
+    QCOMPARE(fxi.channelNumber(QLCChannel::Tilt, QLCChannel::MSB), quint32(9));
+    QCOMPARE(fxi.channelNumber(QLCChannel::Pan, QLCChannel::LSB), quint32(8));
+    QCOMPARE(fxi.channelNumber(QLCChannel::Tilt, QLCChannel::LSB), quint32(10));
     QCOMPARE(fxi.masterIntensityChannel(), quint32(1));
     QCOMPARE(fxi.rgbChannels(), QVector <quint32> ());
     QCOMPARE(fxi.cmyChannels(), QVector <quint32> () << 2 << 3 << 4);
@@ -279,65 +321,100 @@ void Fixture_Test::channels()
     QCOMPARE(chs, fxi.channels(QLCChannel::Colour, QLCChannel::Blue));
 }
 
-void Fixture_Test::loadWrongRoot()
+void Fixture_Test::degrees()
 {
-    QDomDocument doc;
     Fixture fxi(this);
 
-    QDomElement root = doc.createElement("Function");
-    doc.appendChild(root);
-    QVERIFY(fxi.loadXML(root, m_doc, m_doc->fixtureDefCache()) == false);
+    QLCFixtureDef* fixtureDef;
+    fixtureDef = m_doc->fixtureDefCache()->fixtureDef("Martin", "MAC250+");
+    QVERIFY(fixtureDef != NULL);
+
+    QLCFixtureMode* fixtureMode;
+    fixtureMode = fixtureDef->modes().at(0);
+    QVERIFY(fixtureMode != NULL);
+
+    fxi.setFixtureDefinition(fixtureDef, fixtureMode);
+
+    QCOMPARE(fxi.degreesRange(0).width(), 540.0);
+    QCOMPARE(fxi.degreesRange(0).height(), 270.0);
+}
+
+void Fixture_Test::heads()
+{
+    Fixture fxi(this);
+
+    QLCFixtureDef* fixtureDef;
+    fixtureDef = m_doc->fixtureDefCache()->fixtureDef("Equinox", "Photon");
+    QVERIFY(fixtureDef != NULL);
+
+    QLCFixtureMode* fixtureMode;
+    fixtureMode = fixtureDef->modes().last();
+    QVERIFY(fixtureMode != NULL);
+
+    fxi.setFixtureDefinition(fixtureDef, fixtureMode);
+
+    QCOMPARE(fxi.heads(), 6);
+
+    QLCFixtureHead head = fxi.head(0);
+    QCOMPARE(head.channels().count(), 4);
+    head = fxi.head(1);
+    QCOMPARE(head.channels().count(), 4);
+    head = fxi.head(2);
+    QCOMPARE(head.channels().count(), 4);
+    head = fxi.head(3);
+    QCOMPARE(head.channels().count(), 4);
+    head = fxi.head(4);
+    QCOMPARE(head.channels().count(), 4);
+    head = fxi.head(5);
+    QCOMPARE(head.channels().count(), 4);
+}
+
+void Fixture_Test::loadWrongRoot()
+{
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    xmlWriter.writeStartElement("Function");
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    Fixture fxi(this);
+    QVERIFY(fxi.loadXML(xmlReader, m_doc, m_doc->fixtureDefCache()) == false);
 }
 
 void Fixture_Test::loadFixtureDef()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Fixture");
-    doc.appendChild(root);
+    xmlWriter.writeStartElement("Fixture");
 
-    QDomElement chs = doc.createElement("Channels");
-    QDomText chsText = doc.createTextNode("9");
-    chs.appendChild(chsText);
-    root.appendChild(chs);
+    xmlWriter.writeTextElement("Channels", "9");
+    xmlWriter.writeTextElement("Name", "Foobar");
+    xmlWriter.writeTextElement("Universe", "0");
+    xmlWriter.writeTextElement("Model", "MAC250+");
+    xmlWriter.writeTextElement("Mode", "Mode 1");
+    xmlWriter.writeTextElement("Manufacturer", "Martin");
+    xmlWriter.writeTextElement("ID", "42");
+    xmlWriter.writeTextElement("Address", "21");
 
-    QDomElement name = doc.createElement("Name");
-    QDomText nameText = doc.createTextNode("Foobar");
-    name.appendChild(nameText);
-    root.appendChild(name);
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
 
-    QDomElement uni = doc.createElement("Universe");
-    QDomText uniText = doc.createTextNode("0");
-    uni.appendChild(uniText);
-    root.appendChild(uni);
-
-    QDomElement model = doc.createElement("Model");
-    QDomText modelText = doc.createTextNode("MAC250+");
-    model.appendChild(modelText);
-    root.appendChild(model);
-
-    QDomElement mode = doc.createElement("Mode");
-    QDomText modeText = doc.createTextNode("Mode 1");
-    mode.appendChild(modeText);
-    root.appendChild(mode);
-
-    QDomElement type = doc.createElement("Manufacturer");
-    QDomText typeText = doc.createTextNode("Martin");
-    type.appendChild(typeText);
-    root.appendChild(type);
-
-    QDomElement id = doc.createElement("ID");
-    QDomText idText = doc.createTextNode("42");
-    id.appendChild(idText);
-    root.appendChild(id);
-
-    QDomElement addr = doc.createElement("Address");
-    QDomText addrText = doc.createTextNode("21");
-    addr.appendChild(addrText);
-    root.appendChild(addr);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     Fixture fxi(this);
-    QVERIFY(fxi.loadXML(root, m_doc, m_doc->fixtureDefCache()) == true);
+    QVERIFY(fxi.loadXML(xmlReader, m_doc, m_doc->fixtureDefCache()) == true);
     QVERIFY(fxi.name() == "Foobar");
     QVERIFY(fxi.channels() == 9);
     QVERIFY(fxi.address() == 21);
@@ -348,53 +425,31 @@ void Fixture_Test::loadFixtureDef()
 
 void Fixture_Test::loadFixtureDefWrongChannels()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Fixture");
-    doc.appendChild(root);
+    xmlWriter.writeStartElement("Fixture");
 
-    QDomElement chs = doc.createElement("Channels");
-    QDomText chsText = doc.createTextNode("15");
-    chs.appendChild(chsText);
-    root.appendChild(chs);
+    xmlWriter.writeTextElement("Channels", "15");
+    xmlWriter.writeTextElement("Name", "Foobar");
+    xmlWriter.writeTextElement("Universe", "0");
+    xmlWriter.writeTextElement("Model", "MAC250+");
+    xmlWriter.writeTextElement("Mode", "Mode 1");
+    xmlWriter.writeTextElement("Manufacturer", "Martin");
+    xmlWriter.writeTextElement("ID", "42");
+    xmlWriter.writeTextElement("Address", "21");
 
-    QDomElement name = doc.createElement("Name");
-    QDomText nameText = doc.createTextNode("Foobar");
-    name.appendChild(nameText);
-    root.appendChild(name);
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
 
-    QDomElement mode = doc.createElement("Mode");
-    QDomText modeText = doc.createTextNode("Mode 1");
-    mode.appendChild(modeText);
-    root.appendChild(mode);
-
-    QDomElement uni = doc.createElement("Universe");
-    QDomText uniText = doc.createTextNode("0");
-    uni.appendChild(uniText);
-    root.appendChild(uni);
-
-    QDomElement model = doc.createElement("Model");
-    QDomText modelText = doc.createTextNode("MAC250+");
-    model.appendChild(modelText);
-    root.appendChild(model);
-
-    QDomElement type = doc.createElement("Manufacturer");
-    QDomText typeText = doc.createTextNode("Martin");
-    type.appendChild(typeText);
-    root.appendChild(type);
-
-    QDomElement id = doc.createElement("ID");
-    QDomText idText = doc.createTextNode("42");
-    id.appendChild(idText);
-    root.appendChild(id);
-
-    QDomElement addr = doc.createElement("Address");
-    QDomText addrText = doc.createTextNode("21");
-    addr.appendChild(addrText);
-    root.appendChild(addr);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     Fixture fxi(this);
-    QVERIFY(fxi.loadXML(root, m_doc, m_doc->fixtureDefCache()) == true);
+    QVERIFY(fxi.loadXML(xmlReader, m_doc, m_doc->fixtureDefCache()) == true);
     QVERIFY(fxi.name() == "Foobar");
     QVERIFY(fxi.channels() == 9);
     QVERIFY(fxi.address() == 21);
@@ -405,110 +460,66 @@ void Fixture_Test::loadFixtureDefWrongChannels()
 
 void Fixture_Test::loadDimmer()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Fixture");
-    doc.appendChild(root);
+    xmlWriter.writeStartElement("Fixture");
 
-    QDomElement chs = doc.createElement("Channels");
-    QDomText chsText = doc.createTextNode("18");
-    chs.appendChild(chsText);
-    root.appendChild(chs);
+    xmlWriter.writeTextElement("Channels", "18");
+    xmlWriter.writeTextElement("Name", "Foobar");
+    xmlWriter.writeTextElement("Universe", "3");
+    xmlWriter.writeTextElement("Model", "Foobar");
+    xmlWriter.writeTextElement("Mode", "Foobar");
+    xmlWriter.writeTextElement("Manufacturer", "Foobar");
+    xmlWriter.writeTextElement("ID", "42");
+    xmlWriter.writeTextElement("Address", "21");
 
-    QDomElement name = doc.createElement("Name");
-    QDomText nameText = doc.createTextNode("Foobar");
-    name.appendChild(nameText);
-    root.appendChild(name);
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
 
-    QDomElement uni = doc.createElement("Universe");
-    QDomText uniText = doc.createTextNode("3");
-    uni.appendChild(uniText);
-    root.appendChild(uni);
-
-    QDomElement model = doc.createElement("Model");
-    QDomText modelText = doc.createTextNode("Foobar");
-    model.appendChild(modelText);
-    root.appendChild(model);
-
-    QDomElement mode = doc.createElement("Mode");
-    QDomText modeText = doc.createTextNode("Foobar");
-    mode.appendChild(modeText);
-    root.appendChild(mode);
-
-    QDomElement type = doc.createElement("Manufacturer");
-    QDomText typeText = doc.createTextNode("Foobar");
-    type.appendChild(typeText);
-    root.appendChild(type);
-
-    QDomElement id = doc.createElement("ID");
-    QDomText idText = doc.createTextNode("42");
-    id.appendChild(idText);
-    root.appendChild(id);
-
-    QDomElement addr = doc.createElement("Address");
-    QDomText addrText = doc.createTextNode("21");
-    addr.appendChild(addrText);
-    root.appendChild(addr);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     Fixture fxi(this);
-    QVERIFY(fxi.loadXML(root, m_doc, m_doc->fixtureDefCache()) == true);
+    QVERIFY(fxi.loadXML(xmlReader, m_doc, m_doc->fixtureDefCache()) == true);
     QVERIFY(fxi.name() == "Foobar");
     QVERIFY(fxi.channels() == 18);
     QVERIFY(fxi.address() == 21);
     QVERIFY(fxi.universe() == 3);
-    QVERIFY(fxi.fixtureDef() == NULL);
-    QVERIFY(fxi.fixtureMode() == NULL);
+    QVERIFY(fxi.fixtureDef() != NULL);
+    QVERIFY(fxi.fixtureMode() != NULL);
 }
 
 void Fixture_Test::loadWrongAddress()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Fixture");
-    doc.appendChild(root);
+    xmlWriter.writeStartElement("Fixture");
 
-    QDomElement chs = doc.createElement("Channels");
-    QDomText chsText = doc.createTextNode("18");
-    chs.appendChild(chsText);
-    root.appendChild(chs);
+    xmlWriter.writeTextElement("Channels", "18");
+    xmlWriter.writeTextElement("Name", "Foobar");
+    xmlWriter.writeTextElement("Universe", "0");
+    xmlWriter.writeTextElement("Model", "Foobar");
+    xmlWriter.writeTextElement("Mode", "Foobar");
+    xmlWriter.writeTextElement("Manufacturer", "Foobar");
+    xmlWriter.writeTextElement("ID", "42");
+    xmlWriter.writeTextElement("Address", "512");
 
-    QDomElement name = doc.createElement("Name");
-    QDomText nameText = doc.createTextNode("Foobar");
-    name.appendChild(nameText);
-    root.appendChild(name);
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
 
-    QDomElement uni = doc.createElement("Universe");
-    QDomText uniText = doc.createTextNode("0");
-    uni.appendChild(uniText);
-    root.appendChild(uni);
-
-    QDomElement model = doc.createElement("Model");
-    QDomText modelText = doc.createTextNode("Foobar");
-    model.appendChild(modelText);
-    root.appendChild(model);
-
-    QDomElement mode = doc.createElement("Mode");
-    QDomText modeText = doc.createTextNode("Foobar");
-    mode.appendChild(modeText);
-    root.appendChild(mode);
-
-    QDomElement type = doc.createElement("Manufacturer");
-    QDomText typeText = doc.createTextNode("Foobar");
-    type.appendChild(typeText);
-    root.appendChild(type);
-
-    QDomElement id = doc.createElement("ID");
-    QDomText idText = doc.createTextNode("42");
-    id.appendChild(idText);
-    root.appendChild(id);
-
-    QDomElement addr = doc.createElement("Address");
-    QDomText addrText = doc.createTextNode("512");
-    addr.appendChild(addrText);
-    root.appendChild(addr);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     Fixture fxi(this);
-    QVERIFY(fxi.loadXML(root, m_doc, m_doc->fixtureDefCache()) == true);
+    QVERIFY(fxi.loadXML(xmlReader, m_doc, m_doc->fixtureDefCache()) == true);
     QVERIFY(fxi.name() == "Foobar");
     QVERIFY(fxi.channels() == 18);
     QVERIFY(fxi.address() == 0);
@@ -517,53 +528,31 @@ void Fixture_Test::loadWrongAddress()
 
 void Fixture_Test::loadWrongUniverse()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Fixture");
-    doc.appendChild(root);
+    xmlWriter.writeStartElement("Fixture");
 
-    QDomElement chs = doc.createElement("Channels");
-    QDomText chsText = doc.createTextNode("18");
-    chs.appendChild(chsText);
-    root.appendChild(chs);
+    xmlWriter.writeTextElement("Channels", "18");
+    xmlWriter.writeTextElement("Name", "Foobar");
+    xmlWriter.writeTextElement("Universe", "4");
+    xmlWriter.writeTextElement("Model", "Foobar");
+    xmlWriter.writeTextElement("Mode", "Foobar");
+    xmlWriter.writeTextElement("Manufacturer", "Foobar");
+    xmlWriter.writeTextElement("ID", "42");
+    xmlWriter.writeTextElement("Address", "25");
 
-    QDomElement name = doc.createElement("Name");
-    QDomText nameText = doc.createTextNode("Foobar");
-    name.appendChild(nameText);
-    root.appendChild(name);
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
 
-    QDomElement uni = doc.createElement("Universe");
-    QDomText uniText = doc.createTextNode("4");
-    uni.appendChild(uniText);
-    root.appendChild(uni);
-
-    QDomElement model = doc.createElement("Model");
-    QDomText modelText = doc.createTextNode("Foobar");
-    model.appendChild(modelText);
-    root.appendChild(model);
-
-    QDomElement mode = doc.createElement("Mode");
-    QDomText modeText = doc.createTextNode("Foobar");
-    mode.appendChild(modeText);
-    root.appendChild(mode);
-
-    QDomElement type = doc.createElement("Manufacturer");
-    QDomText typeText = doc.createTextNode("Foobar");
-    type.appendChild(typeText);
-    root.appendChild(type);
-
-    QDomElement id = doc.createElement("ID");
-    QDomText idText = doc.createTextNode("42");
-    id.appendChild(idText);
-    root.appendChild(id);
-
-    QDomElement addr = doc.createElement("Address");
-    QDomText addrText = doc.createTextNode("25");
-    addr.appendChild(addrText);
-    root.appendChild(addr);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     Fixture fxi(this);
-    QVERIFY(fxi.loadXML(root, m_doc, m_doc->fixtureDefCache()) == true);
+    QVERIFY(fxi.loadXML(xmlReader, m_doc, m_doc->fixtureDefCache()) == true);
     QVERIFY(fxi.name() == "Foobar");
     QVERIFY(fxi.channels() == 18);
     QVERIFY(fxi.address() == 25);
@@ -572,106 +561,62 @@ void Fixture_Test::loadWrongUniverse()
 
 void Fixture_Test::loadWrongID()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Fixture");
-    doc.appendChild(root);
+    xmlWriter.writeStartElement("Fixture");
 
-    QDomElement chs = doc.createElement("Channels");
-    QDomText chsText = doc.createTextNode("9");
-    chs.appendChild(chsText);
-    root.appendChild(chs);
+    xmlWriter.writeTextElement("Channels", "9");
+    xmlWriter.writeTextElement("Name", "Foobar");
+    xmlWriter.writeTextElement("Universe", "0");
+    xmlWriter.writeTextElement("Model", "MAC250+");
+    xmlWriter.writeTextElement("Mode", "Mode 1");
+    xmlWriter.writeTextElement("Manufacturer", "Martin");
+    xmlWriter.writeTextElement("ID", QString::number(Fixture::invalidId()));
+    xmlWriter.writeTextElement("Address", "21");
 
-    QDomElement name = doc.createElement("Name");
-    QDomText nameText = doc.createTextNode("Foobar");
-    name.appendChild(nameText);
-    root.appendChild(name);
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
 
-    QDomElement uni = doc.createElement("Universe");
-    QDomText uniText = doc.createTextNode("0");
-    uni.appendChild(uniText);
-    root.appendChild(uni);
-
-    QDomElement model = doc.createElement("Model");
-    QDomText modelText = doc.createTextNode("MAC250+");
-    model.appendChild(modelText);
-    root.appendChild(model);
-
-    QDomElement mode = doc.createElement("Mode");
-    QDomText modeText = doc.createTextNode("Mode 1");
-    mode.appendChild(modeText);
-    root.appendChild(mode);
-
-    QDomElement type = doc.createElement("Manufacturer");
-    QDomText typeText = doc.createTextNode("Martin");
-    type.appendChild(typeText);
-    root.appendChild(type);
-
-    QDomElement id = doc.createElement("ID");
-    QDomText idText = doc.createTextNode(QString::number(Fixture::invalidId()));
-    id.appendChild(idText);
-    root.appendChild(id);
-
-    QDomElement addr = doc.createElement("Address");
-    QDomText addrText = doc.createTextNode("21");
-    addr.appendChild(addrText);
-    root.appendChild(addr);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     Fixture fxi(this);
-    QVERIFY(fxi.loadXML(root, m_doc, m_doc->fixtureDefCache()) == false);
+    QVERIFY(fxi.loadXML(xmlReader, m_doc, m_doc->fixtureDefCache()) == false);
 }
 
 void Fixture_Test::loader()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Fixture");
-    doc.appendChild(root);
+    xmlWriter.writeStartElement("Fixture");
 
-    QDomElement chs = doc.createElement("Channels");
-    QDomText chsText = doc.createTextNode("18");
-    chs.appendChild(chsText);
-    root.appendChild(chs);
+    xmlWriter.writeTextElement("Channels", "18");
+    xmlWriter.writeTextElement("Name", "Foobar");
+    xmlWriter.writeTextElement("Universe", "3");
+    xmlWriter.writeTextElement("Model", "Foobar");
+    xmlWriter.writeTextElement("Mode", "Foobar");
+    xmlWriter.writeTextElement("Manufacturer", "Foobar");
+    xmlWriter.writeTextElement("ID", "42");
+    xmlWriter.writeTextElement("Address", "21");
 
-    QDomElement name = doc.createElement("Name");
-    QDomText nameText = doc.createTextNode("Foobar");
-    name.appendChild(nameText);
-    root.appendChild(name);
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
 
-    QDomElement uni = doc.createElement("Universe");
-    QDomText uniText = doc.createTextNode("3");
-    uni.appendChild(uniText);
-    root.appendChild(uni);
-
-    QDomElement model = doc.createElement("Model");
-    QDomText modelText = doc.createTextNode("Foobar");
-    model.appendChild(modelText);
-    root.appendChild(model);
-
-    QDomElement mode = doc.createElement("Mode");
-    QDomText modeText = doc.createTextNode("Foobar");
-    mode.appendChild(modeText);
-    root.appendChild(mode);
-
-    QDomElement type = doc.createElement("Manufacturer");
-    QDomText typeText = doc.createTextNode("Foobar");
-    type.appendChild(typeText);
-    root.appendChild(type);
-
-    QDomElement id = doc.createElement("ID");
-    QDomText idText = doc.createTextNode("42");
-    id.appendChild(idText);
-    root.appendChild(id);
-
-    QDomElement addr = doc.createElement("Address");
-    QDomText addrText = doc.createTextNode("21");
-    addr.appendChild(addrText);
-    root.appendChild(addr);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     QVERIFY(m_doc != NULL);
     QVERIFY(m_doc->fixtures().size() == 0);
 
-    QVERIFY(Fixture::loader(root, m_doc) == true);
+    QVERIFY(Fixture::loader(xmlReader, m_doc) == true);
     QVERIFY(m_doc->fixtures().size() == 1);
     QVERIFY(m_doc->fixture(0) == NULL); // No ID auto-assignment
 
@@ -681,8 +626,8 @@ void Fixture_Test::loader()
     QVERIFY(fxi->channels() == 18);
     QVERIFY(fxi->address() == 21);
     QVERIFY(fxi->universe() == 3);
-    QVERIFY(fxi->fixtureDef() == NULL);
-    QVERIFY(fxi->fixtureMode() == NULL);
+    QVERIFY(fxi->fixtureDef() != NULL);
+    QVERIFY(fxi->fixtureMode() != NULL);
 }
 
 void Fixture_Test::save()
@@ -702,68 +647,76 @@ void Fixture_Test::save()
     fxi.setAddress(438);
     fxi.setFixtureDefinition(fixtureDef, fixtureMode);
 
-    QDomDocument doc;
-    QDomElement root = doc.createElement("TestRoot");
-    QVERIFY(fxi.saveXML(&doc, &root) == true);
-    QDomNode node = root.firstChild();
-    QVERIFY(node.toElement().tagName() == "Fixture");
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    xmlWriter.writeStartElement("TestRoot");
+
+    QVERIFY(fxi.saveXML(&xmlWriter) == true);
+
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+    QVERIFY(xmlReader.name().toString() == "TestRoot");
+    xmlReader.readNextStartElement();
+    QVERIFY(xmlReader.name().toString() == "Fixture");
 
     bool manufacturer = false, model = false, mode = false, name = false,
                                        channels = false, universe = false, address = false, id = false;
 
-    node = node.firstChild();
-    while (node.isNull() == false)
+    while (xmlReader.readNextStartElement())
     {
-        QDomElement e = node.toElement();
-
-        if (e.tagName() == "Manufacturer")
+        if (xmlReader.name() == "Manufacturer")
         {
-            QVERIFY(e.text() == "Martin");
+            QVERIFY(xmlReader.readElementText() == "Martin");
             manufacturer = true;
         }
-        else if (e.tagName() == "Model")
+        else if (xmlReader.name() == "Model")
         {
-            QVERIFY(e.text() == "MAC250+");
+            QVERIFY(xmlReader.readElementText() == "MAC250+");
             model = true;
         }
-        else if (e.tagName() == "Mode")
+        else if (xmlReader.name() == "Mode")
         {
-            QVERIFY(e.text() == fixtureMode->name());
+            QVERIFY(xmlReader.readElementText() == fixtureMode->name());
             mode = true;
         }
-        else if (e.tagName() == "ID")
+        else if (xmlReader.name() == "ID")
         {
-            QVERIFY(e.text() == "1337");
+            QVERIFY(xmlReader.readElementText() == "1337");
             id = true;
         }
-        else if (e.tagName() == "Name")
+        else if (xmlReader.name() == "Name")
         {
-            QVERIFY(e.text() == "Test Fixture");
+            QVERIFY(xmlReader.readElementText() == "Test Fixture");
             name = true;
         }
-        else if (e.tagName() == "Universe")
+        else if (xmlReader.name() == "Universe")
         {
-            QVERIFY(e.text() == "2");
+            QVERIFY(xmlReader.readElementText() == "2");
             universe = true;
         }
-        else if (e.tagName() == "Address")
+        else if (xmlReader.name() == "Address")
         {
-            QVERIFY(e.text() == "438");
+            QVERIFY(xmlReader.readElementText() == "438");
             address = true;
         }
-        else if (e.tagName() == "Channels")
+        else if (xmlReader.name() == "Channels")
         {
-            QVERIFY(e.text().toInt()
+            QVERIFY(xmlReader.readElementText().toInt()
                     == fixtureMode->channels().count());
             channels = true;
         }
         else
         {
-            QFAIL(QString("Unexpected tag: %1").arg(e.tagName())
+            QFAIL(QString("Unexpected tag: %1").arg(xmlReader.name().toString())
                   .toLatin1());
+            xmlReader.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     QVERIFY(manufacturer == true);

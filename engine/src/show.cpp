@@ -1,5 +1,5 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   show.cpp
 
   Copyright (c) Massimo Callegari
@@ -17,11 +17,12 @@
   limitations under the License.
 */
 
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QString>
 #include <QDebug>
 #include <QFile>
 #include <QList>
-#include <QtXml>
 
 #include "qlcfile.h"
 #include "qlcmacros.h"
@@ -40,7 +41,7 @@
  * Initialization
  *****************************************************************************/
 
-Show::Show(Doc* doc) : Function(doc, Function::Show)
+Show::Show(Doc* doc) : Function(doc, Function::ShowType)
   , m_timeDivType(QString("Time"))
   , m_timeDivBPM(120)
   , m_latestTrackId(0)
@@ -56,6 +57,27 @@ Show::Show(Doc* doc) : Function(doc, Function::Show)
 Show::~Show()
 {
     m_tracks.clear();
+}
+
+QIcon Show::getIcon() const
+{
+    return QIcon(":/show.png");
+}
+
+quint32 Show::totalDuration()
+{
+    quint32 totalDuration = 0;
+
+    foreach(Track *track, tracks())
+    {
+        foreach(ShowFunction *sf, track->showFunctions())
+        {
+            if (sf->startTime() + sf->duration() > totalDuration)
+                totalDuration = sf->startTime() + sf->duration();
+        }
+    }
+
+    return totalDuration;
 }
 
 /*****************************************************************************
@@ -153,6 +175,7 @@ bool Show::addTrack(Track *track, quint32 id)
         id = createTrackId();
 
      track->setId(id);
+     track->setShowId(this->id());
      m_tracks[id] = track;
 
      registerAttribute(track->name());
@@ -258,63 +281,65 @@ quint32 Show::createTrackId()
  * Load & Save
  *****************************************************************************/
 
-bool Show::saveXML(QDomDocument* doc, QDomElement* wksp_root)
+bool Show::saveXML(QXmlStreamWriter *doc)
 {
-    QDomElement root;
-
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(wksp_root != NULL);
 
     /* Function tag */
-    root = doc->createElement(KXMLQLCFunction);
-    wksp_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCFunction);
 
     /* Common attributes */
-    saveXMLCommon(&root);
+    saveXMLCommon(doc);
 
-    QDomElement td = doc->createElement(KXMLQLCShowTimeDivision);
-    td.setAttribute(KXMLQLCShowTimeType, m_timeDivType);
-    td.setAttribute(KXMLQLCShowTimeBPM, m_timeDivBPM);
-    root.appendChild(td);
+    doc->writeStartElement(KXMLQLCShowTimeDivision);
+    doc->writeAttribute(KXMLQLCShowTimeType, m_timeDivType);
+    doc->writeAttribute(KXMLQLCShowTimeBPM, QString::number(m_timeDivBPM));
+    doc->writeEndElement();
 
     foreach(Track *track, m_tracks)
-        track->saveXML(doc, &root);
+        track->saveXML(doc);
+
+    /* End the <Function> tag */
+    doc->writeEndElement();
 
     return true;
 }
 
-bool Show::loadXML(const QDomElement& root)
+bool Show::loadXML(QXmlStreamReader &root)
 {
-    if (root.tagName() != KXMLQLCFunction)
+    if (root.name() != KXMLQLCFunction)
     {
         qWarning() << Q_FUNC_INFO << "Function node not found";
         return false;
     }
 
-    if (root.attribute(KXMLQLCFunctionType) != typeToString(Function::Show))
+    if (root.attributes().value(KXMLQLCFunctionType).toString() != typeToString(Function::ShowType))
     {
-        qWarning() << Q_FUNC_INFO << root.attribute(KXMLQLCFunctionType)
+        qWarning() << Q_FUNC_INFO << root.attributes().value(KXMLQLCFunctionType).toString()
                    << "is not a show";
         return false;
     }
 
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLQLCShowTimeDivision)
+        if (root.name() == KXMLQLCShowTimeDivision)
         {
-            QString type = tag.attribute(KXMLQLCShowTimeType);
-            int bpm = (tag.attribute(KXMLQLCShowTimeBPM)).toInt();
+            QString type = root.attributes().value(KXMLQLCShowTimeType).toString();
+            int bpm = root.attributes().value(KXMLQLCShowTimeBPM).toString().toInt();
             setTimeDivision(type, bpm);
+            root.skipCurrentElement();
         }
-        else if (tag.tagName() == KXMLQLCTrack)
+        else if (root.name() == KXMLQLCTrack)
         {
             Track *trk = new Track();
-            if (trk->loadXML(tag) == true)
+            if (trk->loadXML(root) == true)
                 addTrack(trk, trk->id());
         }
-        node = node.nextSibling();
+        else
+        {
+            qWarning() << Q_FUNC_INFO << "Unknown Show tag:" << root.name();
+            root.skipCurrentElement();
+        }
     }
 
     return true;
@@ -322,7 +347,38 @@ bool Show::loadXML(const QDomElement& root)
 
 void Show::postLoad()
 {
+    foreach (Track* track, m_tracks)
+    {
+        if (track->postLoad(doc()))
+            doc()->setModified();
+    }
+}
 
+bool Show::contains(quint32 functionId)
+{
+    Doc *doc = this->doc();
+    Q_ASSERT(doc != NULL);
+
+    if (functionId == id())
+        return true;
+
+    foreach (Track* track, m_tracks)
+    {
+        if (track->contains(doc, functionId))
+            return true;
+    }
+
+    return false;
+}
+
+QList<quint32> Show::components()
+{
+    QList<quint32> ids;
+
+    foreach (Track* track, m_tracks)
+        ids.append(track->components());
+
+    return ids;
 }
 
 /*****************************************************************************
@@ -349,10 +405,21 @@ void Show::preRun(MasterTimer* timer)
     m_runner->start();
 }
 
+void Show::setPause(bool enable)
+{
+    if (m_runner != NULL)
+        m_runner->setPause(enable);
+    Function::setPause(enable);
+}
+
 void Show::write(MasterTimer* timer, QList<Universe *> universes)
 {
     Q_UNUSED(universes);
     Q_UNUSED(timer);
+
+    if (isPaused())
+        return;
+
     m_runner->write();
 }
 
@@ -376,20 +443,22 @@ void Show::slotChildStopped(quint32 fid)
  * Attributes
  *****************************************************************************/
 
-void Show::adjustAttribute(qreal fraction, int attributeIndex)
+int Show::adjustAttribute(qreal fraction, int attributeId)
 {
-    Function::adjustAttribute(fraction, attributeIndex);
+    int attrIndex = Function::adjustAttribute(fraction, attributeId);
 
     if (m_runner != NULL)
     {
         QList<Track*> trkList = m_tracks.values();
         if (trkList.isEmpty() == false &&
-            attributeIndex >= 0 && attributeIndex < trkList.count())
+            attrIndex >= 0 && attrIndex < trkList.count())
         {
-            Track *track = trkList.at(attributeIndex);
+            Track *track = trkList.at(attrIndex);
             if (track != NULL)
-                m_runner->adjustIntensity(fraction, track);
+                m_runner->adjustIntensity(getAttributeValue(attrIndex), track);
         }
     }
+
+    return attrIndex;
 }
 

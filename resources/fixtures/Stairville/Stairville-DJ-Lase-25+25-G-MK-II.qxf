@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.11.3 GIT</Version>
+  <Author>galaris</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>DJ Lase 25+25-G MK-II</Model>
+ <Type>Laser</Type>
+ <Channel Name="Operating Mode Selection">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="63">Laser off</Capability>
+  <Capability Min="64" Max="127">Automatic show in random order</Capability>
+  <Capability Min="128" Max="191">Sound controlled automatic show in random order</Capability>
+  <Capability Min="192" Max="255">Operating mode 'DMX'</Capability>
+ </Channel>
+ <Channel Name="Pattern selection">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="7">Circle</Capability>
+  <Capability Min="8" Max="15">Circle (dashed)</Capability>
+  <Capability Min="16" Max="23">Triangle</Capability>
+  <Capability Min="24" Max="31">Square</Capability>
+  <Capability Min="32" Max="39">Square (dashed)</Capability>
+  <Capability Min="40" Max="47">Square (in square)</Capability>
+  <Capability Min="48" Max="55">Cross (thick)</Capability>
+  <Capability Min="56" Max="63">Star</Capability>
+  <Capability Min="64" Max="71">L</Capability>
+  <Capability Min="72" Max="79">Bow tie</Capability>
+  <Capability Min="80" Max="87">Spiral</Capability>
+  <Capability Min="88" Max="95">ƆC</Capability>
+  <Capability Min="96" Max="103">Spiral (displaced)</Capability>
+  <Capability Min="104" Max="111">Spiral (partial)</Capability>
+  <Capability Min="112" Max="119">Triangle (x2)</Capability>
+  <Capability Min="120" Max="127">Line (big - ZigZag)</Capability>
+  <Capability Min="128" Max="135">V</Capability>
+  <Capability Min="136" Max="143">W (M)</Capability>
+  <Capability Min="144" Max="151">Lines</Capability>
+  <Capability Min="152" Max="159">Line (small)</Capability>
+  <Capability Min="160" Max="167">Line (small - dashed)</Capability>
+  <Capability Min="168" Max="175">Line (big)</Capability>
+  <Capability Min="176" Max="183">Line (big - two)</Capability>
+  <Capability Min="184" Max="191">Cross (thin)</Capability>
+  <Capability Min="192" Max="199">Line (small - two - displaced)</Capability>
+  <Capability Min="200" Max="207">Line (small - four - displaced)</Capability>
+  <Capability Min="208" Max="215">Square (small - two - displaced)</Capability>
+  <Capability Min="216" Max="223">Square (small - four)</Capability>
+  <Capability Min="224" Max="231">Circle (small)</Capability>
+  <Capability Min="232" Max="239">Line (big - dashed)</Capability>
+  <Capability Min="240" Max="247">Circle (half - dashed)</Capability>
+  <Capability Min="248" Max="255">Line (small - a lot)</Capability>
+ </Channel>
+ <Channel Name="Zoom">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="127">Fixed zoom</Capability>
+  <Capability Min="128" Max="169">Zoom-in effect, increasing speed</Capability>
+  <Capability Min="170" Max="209">Zoom-out effect, increasing speed</Capability>
+  <Capability Min="210" Max="255">Alternating zoom effect, increasing speed</Capability>
+ </Channel>
+ <Channel Name="Rotation around the Y-axis (rolling)">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Fixed position of Y-axis (0…359°)</Capability>
+  <Capability Min="128" Max="191">Rotation effect clockwise, increasing speed</Capability>
+  <Capability Min="192" Max="255">Rotation effect anti-clockwise, increasing speed</Capability>
+ </Channel>
+ <Channel Name="Rotation around the X-axis (rolling)">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Fixed position of X-axis (0…359°)</Capability>
+  <Capability Min="128" Max="191">Rotation effect clockwise, increasing speed</Capability>
+  <Capability Min="192" Max="255">Rotation effect anti-clockwise, increasing speed</Capability>
+ </Channel>
+ <Channel Name="Rotation around the Z-axis (rolling)">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Fixed position of Z-axis (0…359°)</Capability>
+  <Capability Min="128" Max="191">Rotation effect anti-clockwise, increasing speed</Capability>
+  <Capability Min="192" Max="255">Rotation effect clockwise, increasing speed</Capability>
+ </Channel>
+ <Channel Name="X-axis movement">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="127">Fixed positions on X-axis</Capability>
+  <Capability Min="128" Max="191">Movement effect clockwise, increasing speed</Capability>
+  <Capability Min="192" Max="255">Movement effect anti-clockwise, increasing speed</Capability>
+ </Channel>
+ <Channel Name="Y-axis movement">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="127">Fixed positions on Y-axis</Capability>
+  <Capability Min="128" Max="191">Movement effect clockwise, increasing speed</Capability>
+  <Capability Min="192" Max="255">Movement effect anti-clockwise, increasing speed</Capability>
+ </Channel>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Operating Mode Selection</Channel>
+  <Channel Number="1">Pattern selection</Channel>
+  <Channel Number="2">Zoom</Channel>
+  <Channel Number="3">Rotation around the Y-axis (rolling)</Channel>
+  <Channel Number="4">Rotation around the X-axis (rolling)</Channel>
+  <Channel Number="5">Rotation around the Z-axis (rolling)</Channel>
+  <Channel Number="6">X-axis movement</Channel>
+  <Channel Number="7">Y-axis movement</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="Laser" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.5" Width="195" Height="85" Depth="145"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="90"/>
+  <Focus Type="Head" PanMax="90" TiltMax="90"/>
+  <Technical PowerConsumption="12" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

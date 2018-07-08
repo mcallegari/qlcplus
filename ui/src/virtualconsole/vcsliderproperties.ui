@@ -1,13 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
+ <author>Massimo Callegari</author>
+ <comment>
+  Q Light Controller Plus
+  vcsliderproperties.ui
+
+  Copyright (c) 2015 Massimo Callegari
+
+  Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0.txt
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+ </comment>
  <class>VCSliderProperties</class>
  <widget class="QDialog" name="VCSliderProperties">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>511</width>
-    <height>455</height>
+    <width>549</width>
+    <height>594</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,38 +46,6 @@
        <string>General</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="3" column="0">
-        <widget class="QGroupBox" name="m_valueGroup">
-         <property name="title">
-          <string>Value display style</string>
-         </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
-          <item>
-           <widget class="QRadioButton" name="m_valueExactRadio">
-            <property name="toolTip">
-             <string>Show exact DMX values</string>
-            </property>
-            <property name="text">
-             <string>Actual</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QRadioButton" name="m_valuePercentageRadio">
-            <property name="toolTip">
-             <string>Show value as percentage</string>
-            </property>
-            <property name="text">
-             <string>Percentage</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
        <item row="0" column="0" colspan="2">
         <layout class="QHBoxLayout">
          <item>
@@ -103,86 +90,7 @@
          </layout>
         </widget>
        </item>
-       <item row="4" column="0" colspan="2">
-        <widget class="QGroupBox" name="m_externalInputGroup">
-         <property name="title">
-          <string>External Input</string>
-         </property>
-         <layout class="QGridLayout" name="gridLayout">
-          <item row="0" column="0">
-           <widget class="QLabel" name="m_inputUniverseLabel">
-            <property name="text">
-             <string>Input universe</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1" colspan="2">
-           <widget class="QLineEdit" name="m_inputUniverseEdit">
-            <property name="toolTip">
-             <string>The input universe that sends data to this widget</string>
-            </property>
-            <property name="readOnly">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="m_inputChannelLabel">
-            <property name="text">
-             <string>Input channel</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1" colspan="2">
-           <widget class="QLineEdit" name="m_inputChannelEdit">
-            <property name="toolTip">
-             <string>The particular input channel within the input universe that sends data to this widget</string>
-            </property>
-            <property name="readOnly">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <spacer name="horizontalSpacer">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>298</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="2" column="2">
-           <widget class="QPushButton" name="m_chooseInputButton">
-            <property name="toolTip">
-             <string>Choose an external input universe &amp; channel that this widget should listen to</string>
-            </property>
-            <property name="text">
-             <string>Choose...</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QPushButton" name="m_autoDetectInputButton">
-            <property name="toolTip">
-             <string>When toggled, you can move an external slider/knob to assign it to this virtual console slider.</string>
-            </property>
-            <property name="text">
-             <string>Auto Detect</string>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="5" column="0" colspan="2">
+       <item row="6" column="0" colspan="2">
         <spacer>
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -236,6 +144,72 @@
            </widget>
           </item>
          </layout>
+        </widget>
+       </item>
+       <item row="5" column="0" colspan="2">
+        <widget class="QFrame" name="frame">
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_14">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <layout class="QVBoxLayout" name="m_extControlLayout"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QGroupBox" name="m_valueGroup">
+         <property name="title">
+          <string>Value display style</string>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QRadioButton" name="m_valueExactRadio">
+            <property name="toolTip">
+             <string>Show exact DMX values</string>
+            </property>
+            <property name="text">
+             <string>Actual</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="m_valuePercentageRadio">
+            <property name="toolTip">
+             <string>Show value as percentage</string>
+            </property>
+            <property name="text">
+             <string>Percentage</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="4" column="0" colspan="2">
+        <widget class="QCheckBox" name="m_catchValueCheck">
+         <property name="text">
+          <string>Catch up with the external controller input value</string>
+         </property>
         </widget>
        </item>
       </layout>
@@ -319,6 +293,12 @@
        </item>
        <item>
         <widget class="QTreeWidget" name="m_levelList">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="alternatingRowColors">
           <bool>true</bool>
          </property>
@@ -403,13 +383,6 @@
         </layout>
        </item>
        <item>
-        <widget class="QCheckBox" name="m_monitorValuesCheck">
-         <property name="text">
-          <string>Monitor the selected channels and update the slider level</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QGroupBox" name="m_clickngoGroup">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
@@ -463,17 +436,14 @@
         </widget>
        </item>
        <item>
-        <spacer name="m_levelSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
+        <widget class="QCheckBox" name="m_monitorValuesCheck">
+         <property name="text">
+          <string>Monitor the selected channels and update the slider level</string>
          </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>0</height>
-          </size>
-         </property>
-        </spacer>
+        </widget>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="m_monitorResetControl"/>
        </item>
        <item>
         <widget class="QPushButton" name="m_switchToLevelModeButton">

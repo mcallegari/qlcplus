@@ -34,6 +34,7 @@ class QLCInputSource: public QThread
 public:
     static quint32 invalidUniverse;
     static quint32 invalidChannel;
+    static quint32 invalidID;
 
 public:
     QLCInputSource(QThread * parent = 0);
@@ -42,18 +43,45 @@ public:
 
     bool isValid() const;
 
+    /** Get/set the input source universe */
     void setUniverse(quint32 uni);
     quint32 universe() const;
 
+    /** Get/set the input source channel */
     void setChannel(quint32 ch);
     quint32 channel() const;
 
+    /** Set the input source page by masking it to the
+     *  existing input channel */
     void setPage(ushort pgNum);
+
+    /** Return the input source page retrieve from a masked channel */
     ushort page() const;
 
+    /** Get/set the input source target ID */
+    void setID(quint32 id);
+    quint32 id() const;
+
 private:
+    /** The universe from which this input source comes from */
     quint32 m_universe;
+
+    /** The channel from which this input source comes from */
     quint32 m_channel;
+
+    /** The target ID of this input source */
+    quint32 m_id;
+
+    /*********************************************************************
+     * Custom feedback
+     *********************************************************************/
+public:
+    void setRange(uchar lower, uchar upper);
+    uchar lowerValue() const;
+    uchar upperValue() const;
+
+protected:
+    uchar m_lower, m_upper;
 
     /*********************************************************************
      * Working mode
@@ -62,16 +90,20 @@ public:
     /** Movement behaviour */
     enum WorkingMode {
         Absolute = 0,
-        Relative = 1
+        Relative = 1,
+        Encoder = 2
     };
 
     WorkingMode workingMode() const;
     void setWorkingMode(WorkingMode mode);
 
-    bool isRelative();
+    bool needsUpdate();
 
     int sensitivity() const;
     void setSensitivity(int value);
+
+    bool sendExtraPressRelease() const;
+    void setSendExtraPressRelease(bool enable);
 
     void updateInputValue(uchar value);
     void updateOuputValue(uchar value);
@@ -87,6 +119,10 @@ protected:
     /** When in relative mode, this defines the sensitivity
      *  of synthetic emitted values against the external input value */
     int m_sensitivity;
+
+    /** When enabled, this flag will emit an extra synthetic signal
+     *  to simulate a press or release event */
+    bool m_emitExtraPressRelease;
 
     /** The input value received from an external controller */
     uchar m_inputValue;

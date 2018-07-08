@@ -48,12 +48,13 @@ QString WebAccessSimpleDesk::getHTML(Doc *doc, SimpleDesk *sd)
 
     QString bodyHTML = "<div class=\"controlBar\">\n"
                        "<a class=\"button button-blue\" href=\"/\"><span>" + tr("Back") + "</span></a>\n"
+                       "<a class=\"button button-blue\" href=\"/keypad.html\"><span>DMX Keypad</span></a>\n"
                        "<div class=\"swInfo\">" + QString(APPNAME) + " " + QString(APPVERSION) + "</div>"
                        "</div>\n";
 
     bodyHTML += "<div style=\"margin: 20px; font: bold 27px/1.2em 'Trebuchet MS',Arial, Helvetica; color: #fff;\">\n";
     bodyHTML += tr("Page") + "  <a class=\"sdButton\" href=\"javascript:previousPage();\">\n"
-                "<img src=\"back.png\" alt=\""+tr("Previous page")+"\" width=\"27\" ></a>\n";
+                "<img src=\"back.png\" title=\""+tr("Previous page")+"\" width=\"27\" ></a>\n";
 
     bodyHTML += "<div style=\"display: inline-block;\">";
     bodyHTML += "<div id=\"pageDiv\" style=\"vertical-align: middle; text-align: center; color: #000;"
@@ -61,10 +62,10 @@ QString WebAccessSimpleDesk::getHTML(Doc *doc, SimpleDesk *sd)
                 QString::number(page) +  "</div></div>\n";
 
     bodyHTML += "<a class=\"sdButton\" href=\"javascript:nextPage();\">\n"
-                "<img src=\"forward.png\" alt=\""+tr("Next page")+"\"  width=\"27\"></a>\n";
+                "<img src=\"forward.png\" title=\""+tr("Next page")+"\"  width=\"27\"></a>\n";
 
     bodyHTML += "<a class=\"sdButton\" href=\"javascript:resetUniverse();\">\n"
-                "<img src=\"fileclose.png\" alt=\""+tr("Reset universe")+"\" width=\"27\"></a>\n";
+                "<img src=\"fileclose.png\" title=\""+tr("Reset universe")+"\" width=\"27\"></a>\n";
 
     bodyHTML += "<div style=\"display: inline-block; margin-left: 50px;\">" + tr("Universe") + "</div>\n"
                 "<div class=\"styled-select\" style=\"display: inline-block;\">\n"

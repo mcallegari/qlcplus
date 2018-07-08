@@ -29,8 +29,6 @@
 class MonitorGraphicsView;
 class MonitorFixture;
 class MonitorLayout;
-class QDomDocument;
-class QDomElement;
 class QScrollArea;
 class QComboBox;
 class QSplitter;
@@ -64,15 +62,31 @@ public:
     /** Normal public destructor */
     ~Monitor();
 
+    /** Refresh fixtures & show current view */
+    void updateView();
+protected:
     /** Initialize the monitor view */
     void initView();
 
     /** Initialize the monitor view in DMX mode */
     void initDMXView();
 
+    /** Initialize settings & fill fixtures */
+    void fillDMXView();
+
+    /** show */
+    void showDMXView();
+
     /** Initialize the monitor view in 2D graphics mode */
     void initGraphicsView();
 
+    /** Initialize settings & fill fixtures */
+    void fillGraphicsView();
+
+    /** show */
+    void showGraphicsView();
+
+    void showCurrentView();
 protected:
     void saveSettings();
 
@@ -138,15 +152,12 @@ protected slots:
     /** Slot called when a universe combo item is selected */
     void slotUniverseSelected(int index);
 
-    /** Slot for getting the latest values from InputOutputMap */
-    void slotUniversesWritten(int index, const QByteArray& ua);
-
 signals:
     void channelStyleChanged(MonitorProperties::ChannelStyle style);
     void valueStyleChanged(MonitorProperties::ValueStyle style);
 
 protected:
-    QToolBar* m_toolBar;
+    QToolBar* m_DMXToolBar;
     QScrollArea* m_scrollArea;
     QWidget* m_monitorWidget;
     MonitorLayout* m_monitorLayout;
@@ -193,9 +204,10 @@ protected slots:
     void slotFixtureMoved(quint32 fid, QPointF pos);
 
     /** Slot called when the graphics view is clicked */
-    void slotViewCliked();
+    void slotViewClicked();
 
 protected:
+    QToolBar* m_graphicsToolBar;
     QSplitter* m_splitter;
     MonitorGraphicsView* m_graphicsView;
     QWidget *m_fixtureItemEditor;

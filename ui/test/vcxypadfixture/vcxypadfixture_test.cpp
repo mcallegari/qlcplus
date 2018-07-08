@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus - Unit test
   vcxypadfixture_test.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -18,7 +19,8 @@
 */
 
 #include <QtTest>
-#include <QtXml>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 #define private public
 #include "vcxypadfixture.h"
@@ -39,7 +41,7 @@ void VCXYPadFixture_Test::initTestCase()
     QDir dir(INTERNAL_FIXTUREDIR);
     dir.setFilter(QDir::Files);
     dir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
-    QVERIFY(m_doc->fixtureDefCache()->load(dir) == true);
+    QVERIFY(m_doc->fixtureDefCache()->loadMap(dir) == true);
 }
 
 void VCXYPadFixture_Test::init()
@@ -74,25 +76,66 @@ void VCXYPadFixture_Test::initial()
 void VCXYPadFixture_Test::params()
 {
     VCXYPadFixture fxi(m_doc);
-    fxi.setX(0.2, 0.3, false);
+    fxi.setX(0.2, 0.35, false);
+    fxi.setDisplayMode(VCXYPadFixture::Percentage);
     QCOMPARE(fxi.xMin(), 0.2);
-    QCOMPARE(fxi.xMax(), 0.3);
+    QCOMPARE(fxi.xMax(), 0.35);
     QCOMPARE(fxi.xReverse(), false);
-    QCOMPARE(fxi.xBrief(), QString("%1 - %2%").arg(100 * 0.2).arg(100 * 0.3));
+    QCOMPARE(fxi.xBrief(), QString("%1% - %2%").arg(100 * 0.2).arg(100 * 0.35));
 
-    fxi.setX(0.2, 0.3, true);
+    fxi.setDisplayMode(VCXYPadFixture::DMX);
+    QCOMPARE(fxi.xBrief(), QString("%1 - %2").arg(qRound(255 * 0.2)).arg(qRound(255 * 0.35)));
+
+    fxi.setX(0.2, 0.35, true);
+    fxi.setDisplayMode(VCXYPadFixture::Percentage);
     QCOMPARE(fxi.xReverse(), true);
-    QCOMPARE(fxi.xBrief(), QString("%1: %2 - %3%").arg(tr("Reversed")).arg(100 * 0.3).arg(100 * 0.2));
+    QCOMPARE(fxi.xBrief(), QString("%1: %2% - %3%").arg(tr("Reversed")).arg(100 * 0.35).arg(100 * 0.2));
+
+    fxi.setDisplayMode(VCXYPadFixture::DMX);
+    QCOMPARE(fxi.xBrief(), QString("%1: %2 - %3").arg(tr("Reversed")).arg(qRound(255 * 0.35)).arg(qRound(255 * 0.2)));
 
     fxi.setY(0.1, 0.8, false);
+    fxi.setDisplayMode(VCXYPadFixture::Percentage);
     QCOMPARE(fxi.yMin(), 0.1);
     QCOMPARE(fxi.yMax(), 0.8);
     QCOMPARE(fxi.yReverse(), false);
-    QCOMPARE(fxi.yBrief(), QString("%1 - %2%").arg(100 * 0.1).arg(100 * 0.8));
+    QCOMPARE(fxi.yBrief(), QString("%1% - %2%").arg(100 * 0.1).arg(100 * 0.8));
+
+    fxi.setDisplayMode(VCXYPadFixture::DMX);
+    QCOMPARE(fxi.yBrief(), QString("%1 - %2").arg(qRound(255 * 0.1)).arg(qRound(255 * 0.8)));
 
     fxi.setY(0.1, 0.8, true);
+    fxi.setDisplayMode(VCXYPadFixture::Percentage);
     QCOMPARE(fxi.yReverse(), true);
-    QCOMPARE(fxi.yBrief(), QString("%1: %2 - %3%").arg(tr("Reversed")).arg(100 * 0.8).arg(100 * 0.1));
+    QCOMPARE(fxi.yBrief(), QString("%1: %2% - %3%").arg(tr("Reversed")).arg(100 * 0.8).arg(100 * 0.1));
+
+    fxi.setDisplayMode(VCXYPadFixture::DMX);
+    QCOMPARE(fxi.yBrief(), QString("%1: %2 - %3").arg(tr("Reversed")).arg(qRound(255 * 0.8)).arg(qRound(255 * 0.1)));
+}
+
+void VCXYPadFixture_Test::paramsDegrees()
+{
+    Fixture* fxi = new Fixture(m_doc);
+    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+    QVERIFY(def != NULL);
+    QLCFixtureMode* mode = def->modes().first();
+    QVERIFY(mode != NULL);
+    fxi->setFixtureDefinition(def, mode);
+    m_doc->addFixture(fxi);
+
+    VCXYPadFixture xy(m_doc);
+    xy.setHead(GroupHead(fxi->id(), 0));
+    xy.setX(0, 1, false);
+    xy.setY(0, 1, false);
+
+    QCOMPARE(xy.xBrief(), QString("%1° - %2°").arg(0).arg(180));
+    QCOMPARE(xy.yBrief(), QString("%1° - %2°").arg(0).arg(75));
+
+    xy.setX(0.5, 1, false);
+    xy.setY(0.2, 1, false);
+
+    QCOMPARE(xy.xBrief(), QString("%1° - %2°").arg(90).arg(180));
+    QCOMPARE(xy.yBrief(), QString("%1° - %2°").arg(15).arg(75));
 }
 
 void VCXYPadFixture_Test::fromVariantBelowZero()
@@ -106,6 +149,8 @@ void VCXYPadFixture_Test::fromVariantBelowZero()
     list << QString("-0.3");
     list << QString("-0.4");
     list << QString("0");
+    list << QString("1");
+    list << QString("1");
 
     VCXYPadFixture fxi(m_doc, list);
     QCOMPARE(fxi.m_head.fxi, quint32(12));
@@ -136,6 +181,8 @@ void VCXYPadFixture_Test::fromVariantAboveOne()
     list << QString("1.3");
     list << QString("1.4");
     list << QString("3");
+    list << QString("1");
+    list << QString("1");
 
     VCXYPadFixture fxi(m_doc, list);
     QCOMPARE(fxi.m_head.fxi, quint32(12));
@@ -165,6 +212,8 @@ void VCXYPadFixture_Test::fromVariantWithinRange()
     list << QString("1");
     list << QString("0.5");
     list << QString("0.6");
+    list << QString("1");
+    list << QString("1");
     list << QString("1");
 
     VCXYPadFixture fxi(m_doc, list);
@@ -244,7 +293,7 @@ void VCXYPadFixture_Test::toVariant()
     QVariant var(fxi);
     QVERIFY(var.canConvert<QStringList>() == true);
     QStringList list = var.toStringList();
-    QCOMPARE(list.size(), 8);
+    QCOMPARE(list.size(), 10);
     QCOMPARE(list.takeFirst(), QString("3000"));
     QCOMPARE(list.takeFirst(), QString("178"));
     QCOMPARE(list.takeFirst(), QString("0.1"));
@@ -253,6 +302,8 @@ void VCXYPadFixture_Test::toVariant()
     QCOMPARE(list.takeFirst(), QString("0.3"));
     QCOMPARE(list.takeFirst(), QString("0.4"));
     QCOMPARE(list.takeFirst(), QString("0"));
+    QCOMPARE(list.takeFirst(), QString("1"));
+    QCOMPARE(list.takeFirst(), QString("1"));
 }
 
 void VCXYPadFixture_Test::copy()
@@ -310,54 +361,71 @@ void VCXYPadFixture_Test::name()
 
 void VCXYPadFixture_Test::loadXMLWrongRoot()
 {
-    QDomDocument doc;
-    QDomElement root = doc.createElement("Fixteru");
-    root.setAttribute("ID", "69");
-    root.setAttribute("Head", "0");
-    doc.appendChild(root);
+    QBuffer buffer;
+    buffer.open(QIODevice::ReadWrite | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    xmlWriter.writeStartElement("Fixteru");
+    xmlWriter.writeAttribute("ID", "69");
+    xmlWriter.writeAttribute("Head", "0");
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+
+    buffer.seek(0);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     VCXYPadFixture fxi(m_doc);
-    QVERIFY(fxi.loadXML(root) == false);
+    QVERIFY(fxi.loadXML(xmlReader) == false);
 }
 
 void VCXYPadFixture_Test::loadXMLHappy()
 {
-    QDomDocument doc;
-    QDomElement root = doc.createElement("Fixture");
-    root.setAttribute("ID", "69");
-    root.setAttribute("Head", "0");
-    doc.appendChild(root);
+    QBuffer buffer;
+    buffer.open(QIODevice::ReadWrite | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement x = doc.createElement("Axis");
-    x.setAttribute("ID", "X");
-    x.setAttribute("LowLimit", "0.1");
-    x.setAttribute("HighLimit", "0.5");
-    x.setAttribute("Reverse", "True");
-    root.appendChild(x);
+    xmlWriter.writeStartElement("Fixture");
+    xmlWriter.writeAttribute("ID", "69");
+    xmlWriter.writeAttribute("Head", "0");
 
-    QDomElement y = doc.createElement("Axis");
-    y.setAttribute("ID", "Y");
-    y.setAttribute("LowLimit", "0.2");
-    y.setAttribute("HighLimit", "0.6");
-    y.setAttribute("Reverse", "True");
-    root.appendChild(y);
+    xmlWriter.writeStartElement("Axis");
+    xmlWriter.writeAttribute("ID", "X");
+    xmlWriter.writeAttribute("LowLimit", "0.1");
+    xmlWriter.writeAttribute("HighLimit", "0.5");
+    xmlWriter.writeAttribute("Reverse", "True");
+    xmlWriter.writeEndElement();
 
-    QDomElement z = doc.createElement("Axis"); // Foo axis
-    z.setAttribute("ID", "Z");
-    z.setAttribute("LowLimit", "0.2");
-    z.setAttribute("HighLimit", "0.6");
-    z.setAttribute("Reverse", "True");
-    root.appendChild(z);
+    xmlWriter.writeStartElement("Axis");
+    xmlWriter.writeAttribute("ID", "Y");
+    xmlWriter.writeAttribute("LowLimit", "0.2");
+    xmlWriter.writeAttribute("HighLimit", "0.6");
+    xmlWriter.writeAttribute("Reverse", "True");
+    xmlWriter.writeEndElement();
 
-    QDomElement foo = doc.createElement("Foo");
-    foo.setAttribute("ID", "Z");
-    foo.setAttribute("LowLimit", "0.2");
-    foo.setAttribute("HighLimit", "0.6");
-    foo.setAttribute("Reverse", "True");
-    root.appendChild(foo);
+    xmlWriter.writeStartElement("Axis"); // Foo axis
+    xmlWriter.writeAttribute("ID", "Z");
+    xmlWriter.writeAttribute("LowLimit", "0.2");
+    xmlWriter.writeAttribute("HighLimit", "0.6");
+    xmlWriter.writeAttribute("Reverse", "True");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeStartElement("Foo");
+    xmlWriter.writeAttribute("ID", "Z");
+    xmlWriter.writeAttribute("LowLimit", "0.2");
+    xmlWriter.writeAttribute("HighLimit", "0.6");
+    xmlWriter.writeAttribute("Reverse", "True");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+
+    buffer.seek(0);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     VCXYPadFixture fxi(m_doc);
-    QVERIFY(fxi.loadXML(root) == true);
+    QVERIFY(fxi.loadXML(xmlReader) == true);
     QCOMPARE(fxi.head().fxi, quint32(69));
     QCOMPARE(fxi.head().head, 0);
 
@@ -372,42 +440,51 @@ void VCXYPadFixture_Test::loadXMLHappy()
 
 void VCXYPadFixture_Test::loadXMLSad()
 {
-    QDomDocument doc;
-    QDomElement root = doc.createElement("Fixture");
-    root.setAttribute("ID", "69");
-    root.setAttribute("Head", "0");
-    doc.appendChild(root);
+    QBuffer buffer;
+    buffer.open(QIODevice::ReadWrite | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement x = doc.createElement("Axis");
-    x.setAttribute("ID", "X");
-    x.setAttribute("LowLimit", "0.1");
-    x.setAttribute("HighLimit", "0.5");
-    x.setAttribute("Reverse", "False");
-    root.appendChild(x);
+    xmlWriter.writeStartElement("Fixture");
+    xmlWriter.writeAttribute("ID", "69");
+    xmlWriter.writeAttribute("Head", "0");
 
-    QDomElement y = doc.createElement("Axis");
-    y.setAttribute("ID", "Y");
-    y.setAttribute("LowLimit", "0.2");
-    y.setAttribute("HighLimit", "0.6");
-    y.setAttribute("Reverse", "False");
-    root.appendChild(y);
+    xmlWriter.writeStartElement("Axis");
+    xmlWriter.writeAttribute("ID", "X");
+    xmlWriter.writeAttribute("LowLimit", "0.1");
+    xmlWriter.writeAttribute("HighLimit", "0.5");
+    xmlWriter.writeAttribute("Reverse", "False");
+    xmlWriter.writeEndElement();
 
-    QDomElement z = doc.createElement("Axis"); // Foo axis
-    z.setAttribute("ID", "Z");
-    z.setAttribute("LowLimit", "0.2");
-    z.setAttribute("HighLimit", "0.6");
-    z.setAttribute("Reverse", "False");
-    root.appendChild(z);
+    xmlWriter.writeStartElement("Axis");
+    xmlWriter.writeAttribute("ID", "Y");
+    xmlWriter.writeAttribute("LowLimit", "0.2");
+    xmlWriter.writeAttribute("HighLimit", "0.6");
+    xmlWriter.writeAttribute("Reverse", "False");
+    xmlWriter.writeEndElement();
 
-    QDomElement foo = doc.createElement("Foo");
-    foo.setAttribute("ID", "Z");
-    foo.setAttribute("LowLimit", "0.2");
-    foo.setAttribute("HighLimit", "0.6");
-    foo.setAttribute("Reverse", "False");
-    root.appendChild(foo);
+    xmlWriter.writeStartElement("Axis"); // Foo axis
+    xmlWriter.writeAttribute("ID", "Z");
+    xmlWriter.writeAttribute("LowLimit", "0.2");
+    xmlWriter.writeAttribute("HighLimit", "0.6");
+    xmlWriter.writeAttribute("Reverse", "False");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeStartElement("Foo");
+    xmlWriter.writeAttribute("ID", "Z");
+    xmlWriter.writeAttribute("LowLimit", "0.2");
+    xmlWriter.writeAttribute("HighLimit", "0.6");
+    xmlWriter.writeAttribute("Reverse", "False");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+
+    buffer.seek(0);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     VCXYPadFixture fxi(m_doc);
-    QVERIFY(fxi.loadXML(root) == true);
+    QVERIFY(fxi.loadXML(xmlReader) == true);
     QCOMPARE(fxi.head().fxi, quint32(69));
     QCOMPARE(fxi.head().head, 0);
 
@@ -427,27 +504,34 @@ void VCXYPadFixture_Test::saveXMLHappy()
     fxi.setX(0.1, 0.2, true);
     fxi.setY(0.3, 0.4, true);
 
-    QDomDocument doc;
-    QDomElement root = doc.createElement("TestRoot");
-    doc.appendChild(root);
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QVERIFY(fxi.saveXML(&doc, &root) == true);
-    QDomNode node = root.firstChild();
-    QCOMPARE(node.toElement().tagName(), QString("Fixture"));
-    QCOMPARE(node.toElement().attribute("ID"), QString("54"));
-    QCOMPARE(node.toElement().attribute("Head"), QString("32"));
+    QVERIFY(fxi.saveXML(&xmlWriter) == true);
+
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    QCOMPARE(xmlReader.name().toString(), QString("Fixture"));
+    QCOMPARE(xmlReader.attributes().value("ID").toString(), QString("54"));
+    QCOMPARE(xmlReader.attributes().value("Head").toString(), QString("32"));
 
     bool x = false, y = false;
-    node = node.firstChild();
-    while (node.isNull() == false)
+
+    while (xmlReader.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == "Axis")
+        if (xmlReader.name() == "Axis")
         {
-            QString id = tag.attribute("ID");
-            QString low = tag.attribute("LowLimit");
-            QString high = tag.attribute("HighLimit");
-            QString rev = tag.attribute("Reverse");
+            QXmlStreamAttributes attrs = xmlReader.attributes();
+            QString id = attrs.value("ID").toString();
+            QString low = attrs.value("LowLimit").toString();
+            QString high = attrs.value("HighLimit").toString();
+            QString rev = attrs.value("Reverse").toString();
             if (id == "X")
             {
                 x = true;
@@ -466,13 +550,12 @@ void VCXYPadFixture_Test::saveXMLHappy()
             {
                 QFAIL(QString("Unexpected axis: %1").arg(id).toUtf8().constData());
             }
+            xmlReader.skipCurrentElement();
         }
         else
         {
-            qDebug() << doc.toString();
-            QFAIL(QString("Unexpected tag: %1").arg(tag.tagName()).toUtf8().constData());
+            QFAIL(QString("Unexpected tag: %1").arg(xmlReader.name().toString()).toUtf8().constData());
         }
-        node = node.nextSibling();
     }
 
     QVERIFY(x == true);
@@ -486,27 +569,35 @@ void VCXYPadFixture_Test::saveXMLSad()
     fxi.setX(0.1, 0.2, false);
     fxi.setY(0.3, 0.4, false);
 
-    QDomDocument doc;
-    QDomElement root = doc.createElement("TestRoot");
-    doc.appendChild(root);
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QVERIFY(fxi.saveXML(&doc, &root) == true);
-    QDomNode node = root.firstChild();
-    QCOMPARE(node.toElement().tagName(), QString("Fixture"));
-    QCOMPARE(node.toElement().attribute("ID"), QString("54"));
-    QCOMPARE(node.toElement().attribute("Head"), QString("32"));
+    QVERIFY(fxi.saveXML(&xmlWriter) == true);
+
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    QCOMPARE(xmlReader.name().toString(), QString("Fixture"));
+    QCOMPARE(xmlReader.attributes().value("ID").toString(), QString("54"));
+    QCOMPARE(xmlReader.attributes().value("Head").toString(), QString("32"));
 
     bool x = false, y = false;
-    node = node.firstChild();
-    while (node.isNull() == false)
+
+    while (xmlReader.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == "Axis")
+        if (xmlReader.name() == "Axis")
         {
-            QString id = tag.attribute("ID");
-            QString low = tag.attribute("LowLimit");
-            QString high = tag.attribute("HighLimit");
-            QString rev = tag.attribute("Reverse");
+            QXmlStreamAttributes attrs = xmlReader.attributes();
+            QString id = attrs.value("ID").toString();
+            QString low = attrs.value("LowLimit").toString();
+            QString high = attrs.value("HighLimit").toString();
+            QString rev = attrs.value("Reverse").toString();
+
             if (id == "X")
             {
                 x = true;
@@ -525,13 +616,12 @@ void VCXYPadFixture_Test::saveXMLSad()
             {
                 QFAIL(QString("Unexpected axis: %1").arg(id).toUtf8().constData());
             }
+            xmlReader.skipCurrentElement();
         }
         else
         {
-            qDebug() << doc.toString();
-            QFAIL(QString("Unexpected tag: %1").arg(tag.tagName()).toUtf8().constData());
+            QFAIL(QString("Unexpected tag: %1").arg(xmlReader.name().toString()).toUtf8().constData());
         }
-        node = node.nextSibling();
     }
 
     QVERIFY(x == true);
@@ -764,6 +854,7 @@ void VCXYPadFixture_Test::write16bitReverse()
     QList<Universe*> ua;
     ua.append(new Universe(0, new GrandMaster()));
 
+#ifdef Q_PROCESSOR_X86_64
     for (qreal i = 0; i <= 1.01; i += (qreal(1) / qreal(USHRT_MAX)))
     {
         xy.writeDMX(i, 1.0 - i, ua);
@@ -774,8 +865,8 @@ void VCXYPadFixture_Test::write16bitReverse()
         xmul = ((xy.xMax() - xy.xMin()) * xmul) + xy.xMin();
         ymul = ((xy.yMax() - xy.yMin()) * ymul) + xy.yMin();
 
-        xmul = xy.xMax() - xmul;
-        ymul = xy.yMax() - ymul;
+        xmul = 1 - xmul;
+        ymul = 1 - ymul;
 
         ushort x = floor((qreal(USHRT_MAX) * xmul) + 0.5);
         ushort y = floor((qreal(USHRT_MAX) * ymul) + 0.5);
@@ -785,6 +876,144 @@ void VCXYPadFixture_Test::write16bitReverse()
         QCOMPARE(ua[0]->preGMValues()[2], char(y >> 8));
         QCOMPARE(ua[0]->preGMValues()[3], char(y & 0xFF));
     }
+#endif
+}
+
+void VCXYPadFixture_Test::writeRange()
+{
+    QFETCH(qreal, rangeMin);
+    QFETCH(qreal, rangeMax);
+    QFETCH(bool, reverse);
+    QFETCH(int, valueAt0);
+    QFETCH(int, valueAt1);
+
+    // For testing pourpose we will test only on the X axis
+    // keeping the Y axis at its full range
+    Fixture* fxi = new Fixture(m_doc);
+
+    // Select fixture
+    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("American DJ", "Inno Pocket Spot");
+    QVERIFY(def != NULL);
+    QLCFixtureMode* mode = def->modes().at(1);
+    QVERIFY(mode != NULL);
+
+    fxi->setFixtureDefinition(def, mode);
+
+    QList<Universe*> ua;
+    ua.append(new Universe(0, new GrandMaster()));
+
+    m_doc->addFixture(fxi);
+    VCXYPadFixture xy(m_doc);
+    xy.setHead(GroupHead(fxi->id(), 0));
+    xy.setX(rangeMin, rangeMax, reverse);
+    xy.setY(0, 1, false);
+    xy.arm();
+
+    // Handle on the left
+    qreal xmul = 0.0;
+    qreal ymul = 0.0;
+
+    xy.writeDMX(xmul, ymul, ua);
+    QCOMPARE((int)ua[0]->preGMValue(0), valueAt0);
+
+    // handle on the right
+    xmul = 1;
+    xy.writeDMX(xmul, ymul, ua);
+    QCOMPARE((int)ua[0]->preGMValue(0), valueAt1);
+}
+
+void VCXYPadFixture_Test::writeRange_data()
+{
+    QTest::addColumn<qreal>("rangeMin");
+    QTest::addColumn<qreal>("rangeMax");
+    QTest::addColumn<bool>("reverse");
+    QTest::addColumn<int>("valueAt0");
+    QTest::addColumn<int>("valueAt1");
+
+    // normal
+    QTest::newRow("0-100% / DMX: 0-255") << 0.0 << 1.0 << false << 0 << 255;
+    QTest::newRow("40-60% / DMX: 102-153") << 0.4 << 0.6 << false << 102 << 153;
+    QTest::newRow("0-20% / DMX: 0-51 ") << 0.0 << 0.2 << false << 0 << 51;
+    QTest::newRow("80-100% / DMX: 204-255") << 0.8 << 1.0 << false << 204 << 255;
+
+    // reversed
+    QTest::newRow("0-100% / DMX: 0-255 reversed") << 0.0 << 1.0 << true << 255 << 0;
+    QTest::newRow("40-60% / DMX: 102-153 reversed") << 0.4 << 0.6 << true << 153 << 102;
+    QTest::newRow("0-20% / DMX: 0-51 reversed") << 0.0 << 0.2 << true << 51 << 0;
+    QTest::newRow("80-100% / DMX: 204-255 reversed") << 0.8 << 1.0 << true << 255 << 204;
+}
+
+void VCXYPadFixture_Test::readRange()
+{
+    QFETCH(qreal, rangeMin);
+    QFETCH(qreal, rangeMax);
+    QFETCH(bool, reverse);
+    QFETCH(int, valueAt0);
+    QFETCH(int, valueAt1);
+
+    // For testing pourpose we will test only on the X axis
+    // keeping the Y axis at its full range
+    Fixture* fxi = new Fixture(m_doc);
+
+    // Select fixture
+    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("American DJ", "Inno Pocket Spot");
+    QVERIFY(def != NULL);
+    QLCFixtureMode* mode = def->modes().at(1);
+    QVERIFY(mode != NULL);
+
+    fxi->setFixtureDefinition(def, mode);
+
+    QList<Universe*> ua;
+    ua.append(new Universe(0, new GrandMaster()));
+
+    m_doc->addFixture(fxi);
+    VCXYPadFixture xy(m_doc);
+    xy.setHead(GroupHead(fxi->id(), 0));
+    xy.setX(rangeMin, rangeMax, reverse);
+    xy.setY(0.0, 1.0, false);
+    xy.arm();
+
+    qreal const rangeWidth = rangeMax - rangeMin;
+    qreal const rangeStep = 1.0/rangeWidth;
+
+    // Handle on the left
+    qreal xmul = 0.0;
+    qreal ymul = 0.0;
+
+    ua[0]->write(0, valueAt0);
+    xy.readDMX(ua, xmul, ymul);
+    // the value was scaled to interval rangeMax-rangeMin,
+    // so the resolution is less than 1/that range
+    // here the value should be near zero
+    QVERIFY(xmul < rangeStep);
+
+    // handle on the right
+    ua[0]->write(0, valueAt1);
+    xy.readDMX(ua, xmul, ymul);
+    // again, the resolution depends on the range.
+    // here the value should be near one
+    QVERIFY(xmul > (rangeWidth - rangeStep));
+}
+
+void VCXYPadFixture_Test::readRange_data()
+{
+    QTest::addColumn<qreal>("rangeMin");
+    QTest::addColumn<qreal>("rangeMax");
+    QTest::addColumn<bool>("reverse");
+    QTest::addColumn<int>("valueAt0");
+    QTest::addColumn<int>("valueAt1");
+
+    // normal
+    QTest::newRow("0-100% / DMX: 0-255") << 0.0 << 1.0 << false << 0 << 255;
+    QTest::newRow("40-60% / DMX: 102-153") << 0.4 << 0.6 << false << 102 << 153;
+    QTest::newRow("0-20% / DMX: 0-51 ") << 0.0 << 0.2 << false << 0 << 51;
+    QTest::newRow("80-100% / DMX: 204-255") << 0.8 << 1.0 << false << 204 << 255;
+
+    // reversed
+    QTest::newRow("0-100% / DMX: 0-255 reversed") << 0.0 << 1.0 << true << 255 << 0;
+    QTest::newRow("40-60% / DMX: 102-153 reversed") << 0.4 << 0.6 << true << 153 << 102;
+    QTest::newRow("0-20% / DMX: 0-51 reversed") << 0.0 << 0.2 << true << 51 << 0;
+    QTest::newRow("80-100% / DMX: 204-255 reversed") << 0.8 << 1.0 << true << 255 << 204;
 }
 
 void VCXYPadFixture_Test::cleanupTestCase()

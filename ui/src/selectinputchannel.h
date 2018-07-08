@@ -46,8 +46,13 @@ public:
     SelectInputChannel(QWidget* parent, InputOutputMap* ioMap);
     ~SelectInputChannel();
 
+protected:
+    void saveSettings();
+    void loadSettings();
+
 protected slots:
     void accept();
+    void slotUnpatchedClicked();
 
 private:
     InputOutputMap* m_ioMap;

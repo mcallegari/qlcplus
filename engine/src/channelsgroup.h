@@ -25,8 +25,7 @@
 #include "qlcinputsource.h"
 #include "scenevalue.h"
 
-class QDomDocument;
-class QDomElement;
+class QXmlStreamReader;
 class Doc;
 
 /** @addtogroup engine Engine
@@ -55,19 +54,24 @@ public:
 protected:
     Doc * m_doc;
 
+    void init();
+
 signals:
     /** Emitted whenever a channels group's properties are changed */
     void changed(quint32 id);
+
+public slots:
+    void slotFixtureRemoved(quint32 fixtureId);
 
     /*********************************************************************
      * Load & Save
      *********************************************************************/
 public:
-    static bool loader(const QDomElement& root, Doc* doc);
+    static bool loader(QXmlStreamReader &xmlDoc, Doc* doc);
 
-    bool saveXML(QDomDocument* doc, QDomElement* wksp_root);
+    bool saveXML(QXmlStreamWriter *doc);
 
-    bool loadXML(const QDomElement& root);
+    bool loadXML(QXmlStreamReader &xmlDoc);
 
     /************************************************************************
      * ID
@@ -127,14 +131,14 @@ public:
      *
      * @param source The input source to set
      */
-    void setInputSource(QLCInputSource *source);
+    void setInputSource(QSharedPointer<QLCInputSource> const& source);
 
     /**
      * Get an assigned external input source
      *
      * @param id The id of the source to get
      */
-    QLCInputSource *inputSource() const;
+    QSharedPointer<QLCInputSource> const& inputSource() const;
 
 protected slots:
     /**
@@ -155,7 +159,7 @@ private:
     uchar m_masterValue;
     QList <SceneValue> m_channels;
 
-    QLCInputSource *m_input;
+    QSharedPointer<QLCInputSource> m_input;
 };
 
 /** @} */

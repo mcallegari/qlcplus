@@ -24,23 +24,12 @@
 #include <QDebug>
 #include <QUrl>
 
+#include "audioplugincache.h"
 #include "speeddialwidget.h"
 #include "audiodecoder.h"
 #include "audioeditor.h"
 #include "audio.h"
 #include "doc.h"
-
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
- #if defined( __APPLE__) || defined(Q_OS_MAC)
-  #include "audiorenderer_portaudio.h"
- #elif defined(WIN32) || defined(Q_OS_WIN)
-  #include "audiorenderer_waveout.h"
- #else
-  #include "audiorenderer_alsa.h"
- #endif
-#else
- #include "audiorenderer_qt.h"
-#endif
 
 AudioEditor::AudioEditor(QWidget* parent, Audio *audio, Doc* doc)
     : QWidget(parent)
@@ -87,18 +76,7 @@ AudioEditor::AudioEditor(QWidget* parent, Audio *audio, Doc* doc)
         m_bitrateLabel->setText(QString("%1 kb/s").arg(adec->bitrate()));
     }
 
-    QList<AudioDeviceInfo> devList;
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
- #if defined( __APPLE__) || defined(Q_OS_MAC)
-    devList = AudioRendererPortAudio::getDevicesInfo();
- #elif defined(WIN32) || defined(Q_OS_WIN)
-    devList = AudioRendererWaveOut::getDevicesInfo();
- #else
-    devList = AudioRendererAlsa::getDevicesInfo();
- #endif
-#else
-    devList = AudioRendererQt::getDevicesInfo();
-#endif
+    QList<AudioDeviceInfo> devList = m_doc->audioPluginCache()->audioDevicesList();
     QSettings settings;
     QString outputName;
     int i = 0, selIdx = 0;
@@ -128,14 +106,23 @@ AudioEditor::AudioEditor(QWidget* parent, Audio *audio, Doc* doc)
     connect(m_audioDevCombo, SIGNAL(currentIndexChanged(int)),
             this, SLOT(slotAudioDeviceChanged(int)));
 
+    if(m_audio->runOrder() == Audio::Loop)
+        m_loopCheck->setChecked(true);
+    else
+        m_singleCheck->setChecked(true);
+
+    connect(m_loopCheck, SIGNAL(clicked()),
+            this, SLOT(slotLoopCheckClicked()));
+    connect(m_singleCheck, SIGNAL(clicked()),
+            this, SLOT(slotSingleShotCheckClicked()));
+
     // Set focus to the editor
     m_nameEdit->setFocus();
 }
 
 AudioEditor::~AudioEditor()
 {
-    if (m_audio->isRunning())
-       m_audio->stop();
+    m_audio->stop(functionParent());
 }
 
 void AudioEditor::slotNameEdited(const QString& text)
@@ -154,7 +141,7 @@ void AudioEditor::slotSourceFileClicked()
     dialog.setAcceptMode(QFileDialog::AcceptOpen);
 
     /* Append file filters to the dialog */
-    QStringList extList = Audio::getCapabilities();
+    QStringList extList = m_doc->audioPluginCache()->getSupportedFormats();
 
     QStringList filters;
     qDebug() << Q_FUNC_INFO << "Extensions: " << extList.join(" ");
@@ -201,14 +188,9 @@ void AudioEditor::slotFadeInEdited()
 {
     uint newValue;
     QString text = m_fadeInEdit->text();
-    if (text.contains(".") || text.contains("s") ||
-        text.contains("m") || text.contains("h"))
-            newValue = Function::stringToSpeed(text);
-    else
-    {
-        newValue = (text.toDouble() * 1000);
-        m_fadeInEdit->setText(Function::speedToString(newValue));
-    }
+
+    newValue = Function::stringToSpeed(text);
+    m_fadeInEdit->setText(Function::speedToString(newValue));
 
     m_audio->setFadeInSpeed(newValue);
     m_doc->setModified();
@@ -218,14 +200,9 @@ void AudioEditor::slotFadeOutEdited()
 {
     uint newValue;
     QString text = m_fadeOutEdit->text();
-    if (text.contains(".") || text.contains("s") ||
-        text.contains("m") || text.contains("h"))
-            newValue = Function::stringToSpeed(text);
-    else
-    {
-        newValue = (text.toDouble() * 1000);
-        m_fadeOutEdit->setText(Function::speedToString(newValue));
-    }
+
+    newValue = Function::stringToSpeed(text);
+    m_fadeOutEdit->setText(Function::speedToString(newValue));
 
     m_audio->setFadeOutSpeed(newValue);
     m_doc->setModified();
@@ -245,18 +222,33 @@ void AudioEditor::slotPreviewToggled(bool state)
 {
     if (state == true)
     {
-        m_audio->start(m_doc->masterTimer());
+        m_audio->start(m_doc->masterTimer(), functionParent());
         connect(m_audio, SIGNAL(stopped(quint32)),
                 this, SLOT(slotPreviewStopped(quint32)));
     }
     else
-        m_audio->stop();
+        m_audio->stop(functionParent());
 }
 
 void AudioEditor::slotPreviewStopped(quint32 id)
 {
     if (id == m_audio->id())
         m_previewButton->setChecked(false);
+}
+
+void AudioEditor::slotSingleShotCheckClicked()
+{
+    m_audio->setRunOrder(Audio::SingleShot);
+}
+
+void AudioEditor::slotLoopCheckClicked()
+{
+    m_audio->setRunOrder(Audio::Loop);
+}
+
+FunctionParent AudioEditor::functionParent() const
+{
+    return FunctionParent::master();
 }
 
 /************************************************************************

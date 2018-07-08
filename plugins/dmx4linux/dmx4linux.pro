@@ -21,6 +21,12 @@ TRANSLATIONS += DMX4Linux_pt_BR.ts
 TRANSLATIONS += DMX4Linux_ca_ES.ts
 TRANSLATIONS += DMX4Linux_ja_JP.ts
 
-HEADERS += dmx4linux.h
-SOURCES += dmx4linux.cpp
 HEADERS += ../interfaces/qlcioplugin.h
+HEADERS += dmx4linux.h
+
+SOURCES += ../interfaces/qlcioplugin.cpp
+SOURCES += dmx4linux.cpp
+
+metainfo.path   = $$INSTALLROOT/share/appdata/ 
+metainfo.files += qlcplus-dmx4linux.metainfo.xml
+INSTALLS       += metainfo

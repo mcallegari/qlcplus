@@ -1,8 +1,9 @@
 /*
-  Q Light Controller - Unit test
+  Q Light Controller Plus - Unit test
   chaser_test.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -18,7 +19,8 @@
 */
 
 #include <QtTest>
-#include <QtXml>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 #define protected public
 #define private public
@@ -66,7 +68,7 @@ void Chaser_Test::cleanup()
 void Chaser_Test::initial()
 {
     Chaser c(m_doc);
-    QVERIFY(c.type() == Function::Chaser);
+    QVERIFY(c.type() == Function::ChaserType);
     QVERIFY(c.name() == "New Chaser");
     QVERIFY(c.steps().size() == 0);
     QVERIFY(c.direction() == Chaser::Forward);
@@ -181,26 +183,35 @@ void Chaser_Test::steps()
     QVERIFY(c.steps().size() == 2);
     QVERIFY(c.steps().at(0) == ChaserStep(2));
     QVERIFY(c.steps().at(1) == ChaserStep(1));
+
+    /* Move an invalid step will fail */
+    QVERIFY(c.moveStep(5, 1) == false);
+
+    QVERIFY(c.moveStep(1, 0) == true);
+    QVERIFY(c.steps().size() == 2);
+    QVERIFY(c.steps().at(0) == ChaserStep(1));
+    QVERIFY(c.steps().at(1) == ChaserStep(2));
 }
 
-void Chaser_Test::clear()
+void Chaser_Test::stepAt()
 {
     Chaser c(m_doc);
-    c.setID(50);
-    QCOMPARE(c.steps().size(), 0);
+    c.setID(42);
+    QVERIFY(c.addStep(ChaserStep(0, 1000, 5000, 0)) == true);
+    QVERIFY(c.stepsCount() == 1);
 
-    c.addStep(ChaserStep(0));
-    c.addStep(ChaserStep(1));
-    c.addStep(ChaserStep(2));
-    c.addStep(ChaserStep(470));
-    QCOMPARE(c.steps().size(), 4);
+    QVERIFY(c.stepAt(10) == NULL);
+    ChaserStep *cs = c.stepAt(0);
+    QVERIFY(cs != NULL);
 
-    QSignalSpy spy(&c, SIGNAL(changed(quint32)));
-    c.clear();
-    QCOMPARE(c.steps().size(), 0);
-    QCOMPARE(spy.size(), 1);
-    QCOMPARE(spy.at(0).size(), 1);
-    QCOMPARE(spy.at(0).at(0).toUInt(), quint32(50));
+    QVERIFY(cs->fadeIn == 1000);
+    QVERIFY(cs->hold == 5000);
+
+    cs->fadeIn = 500;
+    cs->hold = 8000;
+
+    QVERIFY(cs->fadeIn == 500);
+    QVERIFY(cs->hold == 8000);
 }
 
 void Chaser_Test::functionRemoval()
@@ -376,56 +387,54 @@ void Chaser_Test::speedModes()
 
 void Chaser_Test::loadSuccessLegacy()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Function");
-    root.setAttribute("Type", "Chaser");
+    xmlWriter.writeStartElement("Function");
+    xmlWriter.writeAttribute("Type", "Chaser");
 
-    QDomElement bus = doc.createElement("Bus");
-    bus.setAttribute("Role", "Hold");
-    QDomText busText = doc.createTextNode("16");
-    bus.appendChild(busText);
-    root.appendChild(bus);
+    xmlWriter.writeStartElement("Bus");
+    xmlWriter.writeAttribute("Role", "Hold");
+    xmlWriter.writeCharacters("16");
+    xmlWriter.writeEndElement();
 
-    QDomElement dir = doc.createElement("Direction");
-    QDomText dirText = doc.createTextNode("Backward");
-    dir.appendChild(dirText);
-    root.appendChild(dir);
+    xmlWriter.writeTextElement("Direction", "Backward");
+    xmlWriter.writeTextElement("RunOrder", "SingleShot");
 
-    QDomElement run = doc.createElement("RunOrder");
-    QDomText runText = doc.createTextNode("SingleShot");
-    run.appendChild(runText);
-    root.appendChild(run);
+    xmlWriter.writeStartElement("Step");
+    xmlWriter.writeAttribute("Number", "1");
+    xmlWriter.writeCharacters("50");
+    xmlWriter.writeEndElement();
 
-    QDomElement s1 = doc.createElement("Step");
-    s1.setAttribute("Number", 1);
-    QDomText s1Text = doc.createTextNode("50");
-    s1.appendChild(s1Text);
-    root.appendChild(s1);
+    xmlWriter.writeStartElement("Step");
+    xmlWriter.writeAttribute("Number", "2");
+    xmlWriter.writeCharacters("12");
+    xmlWriter.writeEndElement();
 
-    QDomElement s2 = doc.createElement("Step");
-    s2.setAttribute("Number", 2);
-    QDomText s2Text = doc.createTextNode("12");
-    s2.appendChild(s2Text);
-    root.appendChild(s2);
-
-    QDomElement s3 = doc.createElement("Step");
-    s3.setAttribute("Number", 0);
-    QDomText s3Text = doc.createTextNode("87");
-    s3.appendChild(s3Text);
-    root.appendChild(s3);
+    xmlWriter.writeStartElement("Step");
+    xmlWriter.writeAttribute("Number", "0");
+    xmlWriter.writeCharacters("87");
+    xmlWriter.writeEndElement();
 
     // Unknown tag
-    QDomElement foo = doc.createElement("Foo");
-    foo.setAttribute("Number", 3);
-    QDomText fooText = doc.createTextNode("1");
-    foo.appendChild(fooText);
-    root.appendChild(foo);
+    xmlWriter.writeStartElement("Foo");
+    xmlWriter.writeAttribute("Number", "3");
+    xmlWriter.writeCharacters("1");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     Bus::instance()->setValue(16, MasterTimer::frequency());
 
     Chaser c(m_doc);
-    QVERIFY(c.loadXML(root) == true);
+    QVERIFY(c.loadXML(xmlReader) == true);
     QVERIFY(c.direction() == Chaser::Backward);
     QVERIFY(c.runOrder() == Chaser::SingleShot);
     QCOMPARE(c.steps().size(), 3);
@@ -440,70 +449,69 @@ void Chaser_Test::loadSuccessLegacy()
 
 void Chaser_Test::loadSuccess()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Function");
-    root.setAttribute("Type", "Chaser");
+    xmlWriter.writeStartElement("Function");
+    xmlWriter.writeAttribute("Type", "Chaser");
 
-    QDomElement speed = doc.createElement("Speed");
-    speed.setAttribute("FadeIn", "42");
-    speed.setAttribute("FadeOut", "69");
-    speed.setAttribute("Duration", "1337");
-    root.appendChild(speed);
+    xmlWriter.writeStartElement("Speed");
+    xmlWriter.writeAttribute("FadeIn", "42");
+    xmlWriter.writeAttribute("FadeOut", "69");
+    xmlWriter.writeAttribute("Duration", "1337");
+    xmlWriter.writeEndElement();
 
-    QDomElement dir = doc.createElement("Direction");
-    QDomText dirText = doc.createTextNode("Backward");
-    dir.appendChild(dirText);
-    root.appendChild(dir);
+    xmlWriter.writeTextElement("Direction", "Backward");
+    xmlWriter.writeTextElement("RunOrder", "SingleShot");
 
-    QDomElement run = doc.createElement("RunOrder");
-    QDomText runText = doc.createTextNode("SingleShot");
-    run.appendChild(runText);
-    root.appendChild(run);
+    xmlWriter.writeStartElement("Step");
+    xmlWriter.writeAttribute("Number", "1");
+    xmlWriter.writeAttribute("FadeIn", "600");
+    xmlWriter.writeAttribute("FadeOut", "700");
+    xmlWriter.writeAttribute("Duration", "800");
+    xmlWriter.writeCharacters("50");
+    xmlWriter.writeEndElement();
 
-    QDomElement s1 = doc.createElement("Step");
-    s1.setAttribute("Number", 1);
-    s1.setAttribute("FadeIn", 600);
-    s1.setAttribute("FadeOut", 700);
-    s1.setAttribute("Duration", 800);
-    QDomText s1Text = doc.createTextNode("50");
-    s1.appendChild(s1Text);
-    root.appendChild(s1);
+    xmlWriter.writeStartElement("Step");
+    xmlWriter.writeAttribute("Number", "2");
+    xmlWriter.writeAttribute("FadeIn", "1600");
+    xmlWriter.writeAttribute("FadeOut", "1700");
+    xmlWriter.writeAttribute("Duration", "1800");
+    xmlWriter.writeCharacters("12");
+    xmlWriter.writeEndElement();
 
-    QDomElement s2 = doc.createElement("Step");
-    s2.setAttribute("Number", 2);
-    s2.setAttribute("FadeIn", 1600);
-    s2.setAttribute("FadeOut", 1700);
-    s2.setAttribute("Duration", 1800);
-    QDomText s2Text = doc.createTextNode("12");
-    s2.appendChild(s2Text);
-    root.appendChild(s2);
-
-    QDomElement s3 = doc.createElement("Step");
-    s3.setAttribute("Number", 0);
+    xmlWriter.writeStartElement("Step");
+    xmlWriter.writeAttribute("Number", "0");
     // Let's leave these out from this step just for test's sake
     //s3.setAttribute("FadeIn", 2600);
     //s3.setAttribute("FadeOut", 2700);
     //s3.setAttribute("Duration", 2800);
-    QDomText s3Text = doc.createTextNode("87");
-    s3.appendChild(s3Text);
-    root.appendChild(s3);
+    xmlWriter.writeCharacters("87");
+    xmlWriter.writeEndElement();
 
-    QDomElement spd = doc.createElement("SpeedModes");
-    spd.setAttribute("FadeIn", "Common");
-    spd.setAttribute("FadeOut", "Default");
-    spd.setAttribute("Duration", "PerStep");
-    root.appendChild(spd);
+    xmlWriter.writeStartElement("SpeedModes");
+    xmlWriter.writeAttribute("FadeIn", "Common");
+    xmlWriter.writeAttribute("FadeOut", "Default");
+    xmlWriter.writeAttribute("Duration", "PerStep");
+    xmlWriter.writeEndElement();
 
     // Unknown tag
-    QDomElement foo = doc.createElement("Foo");
-    foo.setAttribute("Number", 3);
-    QDomText fooText = doc.createTextNode("1");
-    foo.appendChild(fooText);
-    root.appendChild(foo);
+    xmlWriter.writeStartElement("Foo");
+    xmlWriter.writeAttribute("Number", "3");
+    xmlWriter.writeCharacters("1");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     Chaser c(m_doc);
-    QVERIFY(c.loadXML(root) == true);
+    QVERIFY(c.loadXML(xmlReader) == true);
     QVERIFY(c.fadeInSpeed() == 42);
     QVERIFY(c.fadeOutSpeed() == 69);
     QVERIFY(c.duration() == 1337);
@@ -532,92 +540,90 @@ void Chaser_Test::loadSuccess()
 
 void Chaser_Test::loadWrongType()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Function");
-    root.setAttribute("Type", "Scene");
+    xmlWriter.writeStartElement("Function");
+    xmlWriter.writeAttribute("Type", "Scene");
 
-    QDomElement bus = doc.createElement("Bus");
-    bus.setAttribute("Role", "Hold");
-    QDomText busText = doc.createTextNode("16");
-    bus.appendChild(busText);
-    root.appendChild(bus);
+    xmlWriter.writeStartElement("Bus");
+    xmlWriter.writeAttribute("Role", "Hold");
+    xmlWriter.writeCharacters("16");
+    xmlWriter.writeEndElement();
 
-    QDomElement dir = doc.createElement("Direction");
-    QDomText dirText = doc.createTextNode("Backward");
-    dir.appendChild(dirText);
-    root.appendChild(dir);
+    xmlWriter.writeTextElement("Direction", "Backward");
+    xmlWriter.writeTextElement("RunOrder", "SingleShot");
 
-    QDomElement run = doc.createElement("RunOrder");
-    QDomText runText = doc.createTextNode("SingleShot");
-    run.appendChild(runText);
-    root.appendChild(run);
+    xmlWriter.writeStartElement("Step");
+    xmlWriter.writeAttribute("Number", "1");
+    xmlWriter.writeCharacters("50");
+    xmlWriter.writeEndElement();
 
-    QDomElement s1 = doc.createElement("Step");
-    s1.setAttribute("Number", 1);
-    QDomText s1Text = doc.createTextNode("50");
-    s1.appendChild(s1Text);
-    root.appendChild(s1);
+    xmlWriter.writeStartElement("Step");
+    xmlWriter.writeAttribute("Number", "2");
+    xmlWriter.writeCharacters("12");
+    xmlWriter.writeEndElement();
 
-    QDomElement s2 = doc.createElement("Step");
-    s2.setAttribute("Number", 2);
-    QDomText s2Text = doc.createTextNode("12");
-    s2.appendChild(s2Text);
-    root.appendChild(s2);
+    xmlWriter.writeStartElement("Step");
+    xmlWriter.writeAttribute("Number", "0");
+    xmlWriter.writeCharacters("87");
+    xmlWriter.writeEndElement();
 
-    QDomElement s3 = doc.createElement("Step");
-    s3.setAttribute("Number", 0);
-    QDomText s3Text = doc.createTextNode("87");
-    s3.appendChild(s3Text);
-    root.appendChild(s3);
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     Chaser c(m_doc);
-    QVERIFY(c.loadXML(root) == false);
+    QVERIFY(c.loadXML(xmlReader) == false);
 }
 
 void Chaser_Test::loadWrongRoot()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Chaser");
-    root.setAttribute("Type", "Chaser");
+    xmlWriter.writeStartElement("Chaser");
+    xmlWriter.writeAttribute("Type", "Chaser");
 
-    QDomElement bus = doc.createElement("Bus");
-    bus.setAttribute("Role", "Hold");
-    QDomText busText = doc.createTextNode("16");
-    bus.appendChild(busText);
-    root.appendChild(bus);
+    xmlWriter.writeStartElement("Bus");
+    xmlWriter.writeAttribute("Role", "Hold");
+    xmlWriter.writeCharacters("16");
+    xmlWriter.writeEndElement();
 
-    QDomElement dir = doc.createElement("Direction");
-    QDomText dirText = doc.createTextNode("Backward");
-    dir.appendChild(dirText);
-    root.appendChild(dir);
+    xmlWriter.writeTextElement("Direction", "Backward");
+    xmlWriter.writeTextElement("RunOrder", "SingleShot");
 
-    QDomElement run = doc.createElement("RunOrder");
-    QDomText runText = doc.createTextNode("SingleShot");
-    run.appendChild(runText);
-    root.appendChild(run);
+    xmlWriter.writeStartElement("Step");
+    xmlWriter.writeAttribute("Number", "1");
+    xmlWriter.writeCharacters("50");
+    xmlWriter.writeEndElement();
 
-    QDomElement s1 = doc.createElement("Step");
-    s1.setAttribute("Number", 1);
-    QDomText s1Text = doc.createTextNode("50");
-    s1.appendChild(s1Text);
-    root.appendChild(s1);
+    xmlWriter.writeStartElement("Step");
+    xmlWriter.writeAttribute("Number", "2");
+    xmlWriter.writeCharacters("12");
+    xmlWriter.writeEndElement();
 
-    QDomElement s2 = doc.createElement("Step");
-    s2.setAttribute("Number", 2);
-    QDomText s2Text = doc.createTextNode("12");
-    s2.appendChild(s2Text);
-    root.appendChild(s2);
+    xmlWriter.writeStartElement("Step");
+    xmlWriter.writeAttribute("Number", "0");
+    xmlWriter.writeCharacters("87");
+    xmlWriter.writeEndElement();
 
-    QDomElement s3 = doc.createElement("Step");
-    s3.setAttribute("Number", 0);
-    QDomText s3Text = doc.createTextNode("87");
-    s3.appendChild(s3Text);
-    root.appendChild(s3);
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     Chaser c(m_doc);
-    QVERIFY(c.loadXML(root) == false);
+    QVERIFY(c.loadXML(xmlReader) == false);
 }
 
 void Chaser_Test::postLoad()
@@ -646,91 +652,83 @@ void Chaser_Test::postLoad()
     EFX* ef2 = new EFX(m_doc);
     m_doc->addFunction(ef2);
 
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Function");
-    root.setAttribute("Type", "Chaser");
+    xmlWriter.writeStartElement("Function");
+    xmlWriter.writeAttribute("Type", "Chaser");
 
-    QDomElement bus = doc.createElement("Bus");
-    bus.setAttribute("Role", "Hold");
-    QDomText busText = doc.createTextNode("16");
-    bus.appendChild(busText);
-    root.appendChild(bus);
+    xmlWriter.writeStartElement("Bus");
+    xmlWriter.writeAttribute("Role", "Hold");
+    xmlWriter.writeCharacters("16");
+    xmlWriter.writeEndElement();
 
-    QDomElement dir = doc.createElement("Direction");
-    QDomText dirText = doc.createTextNode("Backward");
-    dir.appendChild(dirText);
-    root.appendChild(dir);
+    xmlWriter.writeTextElement("Direction", "Backward");
+    xmlWriter.writeTextElement("RunOrder", "SingleShot");
 
-    QDomElement run = doc.createElement("RunOrder");
-    QDomText runText = doc.createTextNode("SingleShot");
-    run.appendChild(runText);
-    root.appendChild(run);
+    xmlWriter.writeStartElement("Step");
+    xmlWriter.writeAttribute("Number", "0");
+    xmlWriter.writeCharacters(QString::number(sc1->id()));
+    xmlWriter.writeEndElement();
 
-    QDomElement step0 = doc.createElement("Step");
-    step0.setAttribute("Number", 0);
-    QDomText step0Text = doc.createTextNode(QString::number(sc1->id()));
-    step0.appendChild(step0Text);
-    root.appendChild(step0);
+    xmlWriter.writeStartElement("Step");
+    xmlWriter.writeAttribute("Number", "1");
+    xmlWriter.writeCharacters(QString::number(sc2->id()));
+    xmlWriter.writeEndElement();
 
-    QDomElement step1 = doc.createElement("Step");
-    step1.setAttribute("Number", 1);
-    QDomText step1Text = doc.createTextNode(QString::number(sc2->id()));
-    step1.appendChild(step1Text);
-    root.appendChild(step1);
+    xmlWriter.writeStartElement("Step");
+    xmlWriter.writeAttribute("Number", "2");
+    xmlWriter.writeCharacters(QString::number(ch1->id()));
+    xmlWriter.writeEndElement();
 
-    QDomElement step2 = doc.createElement("Step");
-    step2.setAttribute("Number", 2);
-    QDomText step2Text = doc.createTextNode(QString::number(ch1->id()));
-    step2.appendChild(step2Text);
-    root.appendChild(step2);
+    xmlWriter.writeStartElement("Step");
+    xmlWriter.writeAttribute("Number", "3");
+    xmlWriter.writeCharacters(QString::number(ch2->id()));
+    xmlWriter.writeEndElement();
 
-    QDomElement step3 = doc.createElement("Step");
-    step3.setAttribute("Number", 3);
-    QDomText step3Text = doc.createTextNode(QString::number(ch2->id()));
-    step3.appendChild(step3Text);
-    root.appendChild(step3);
+    xmlWriter.writeStartElement("Step");
+    xmlWriter.writeAttribute("Number", "4");
+    xmlWriter.writeCharacters(QString::number(co1->id()));
+    xmlWriter.writeEndElement();
 
-    QDomElement step4 = doc.createElement("Step");
-    step4.setAttribute("Number", 4);
-    QDomText step4Text = doc.createTextNode(QString::number(co1->id()));
-    step4.appendChild(step4Text);
-    root.appendChild(step4);
+    xmlWriter.writeStartElement("Step");
+    xmlWriter.writeAttribute("Number", "5");
+    xmlWriter.writeCharacters(QString::number(co2->id()));
+    xmlWriter.writeEndElement();
 
-    QDomElement step5 = doc.createElement("Step");
-    step5.setAttribute("Number", 5);
-    QDomText step5Text = doc.createTextNode(QString::number(co2->id()));
-    step5.appendChild(step5Text);
-    root.appendChild(step5);
+    xmlWriter.writeStartElement("Step");
+    xmlWriter.writeAttribute("Number", "6");
+    xmlWriter.writeCharacters(QString::number(ef1->id()));
+    xmlWriter.writeEndElement();
 
-    QDomElement step6 = doc.createElement("Step");
-    step6.setAttribute("Number", 6);
-    QDomText step6Text = doc.createTextNode(QString::number(ef1->id()));
-    step6.appendChild(step6Text);
-    root.appendChild(step6);
-
-    QDomElement step7 = doc.createElement("Step");
-    step7.setAttribute("Number", 7);
-    QDomText step7Text = doc.createTextNode(QString::number(ef2->id()));
-    step7.appendChild(step7Text);
-    root.appendChild(step7);
+    xmlWriter.writeStartElement("Step");
+    xmlWriter.writeAttribute("Number", "7");
+    xmlWriter.writeCharacters(QString::number(ef2->id()));
+    xmlWriter.writeEndElement();
 
     // Nonexistent function
-    QDomElement step8 = doc.createElement("Step");
-    step8.setAttribute("Number", 8);
-    QDomText step8Text = doc.createTextNode(QString::number(INT_MAX - 1));
-    step8.appendChild(step8Text);
-    root.appendChild(step8);
+    xmlWriter.writeStartElement("Step");
+    xmlWriter.writeAttribute("Number", "8");
+    xmlWriter.writeCharacters(QString::number(INT_MAX - 1));
+    xmlWriter.writeEndElement();
 
     // Unknown tag
-    QDomElement foo = doc.createElement("Foo");
-    foo.setAttribute("Number", 3);
-    QDomText fooText = doc.createTextNode("1");
-    foo.appendChild(fooText);
-    root.appendChild(foo);
+    xmlWriter.writeStartElement("Foo");
+    xmlWriter.writeAttribute("Number", "3");
+    xmlWriter.writeCharacters("1");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     Chaser c(m_doc);
-    QCOMPARE(c.loadXML(root), true);
+    QCOMPARE(c.loadXML(xmlReader), true);
     QCOMPARE(c.direction(), Chaser::Backward);
     QCOMPARE(c.runOrder(), Chaser::SingleShot);
     QCOMPARE(c.steps().size(), 9);
@@ -763,56 +761,64 @@ void Chaser_Test::save()
     c.setFadeOutMode(Chaser::PerStep);
     c.setDurationMode(Chaser::Common);
 
-    QDomDocument doc;
-    QDomElement root = doc.createElement("TestRoot");
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QVERIFY(c.saveXML(&doc, &root) == true);
-    QVERIFY(root.firstChild().toElement().tagName() == "Function");
-    QVERIFY(root.firstChild().toElement().attribute("Type") == "Chaser");
+    QVERIFY(c.saveXML(&xmlWriter) == true);
+
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    QVERIFY(xmlReader.name().toString() == "Function");
+    QVERIFY(xmlReader.attributes().value("Type").toString() == "Chaser");
 
     int run = 0, dir = 0, speed = 0, fids = 0, speedmodes = 0;
 
-    QDomNode node = root.firstChild().firstChild();
-    while (node.isNull() == false)
+    while (xmlReader.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == "Bus")
+        if (xmlReader.name() == "Bus")
         {
             QFAIL("Chaser must not write a Bus tag anymore!");
         }
-        else if (tag.tagName() == "Direction")
+        else if (xmlReader.name() == "Direction")
         {
-            QVERIFY(tag.text() == "Backward");
+            QVERIFY(xmlReader.readElementText() == "Backward");
             dir++;
         }
-        else if (tag.tagName() == "RunOrder")
+        else if (xmlReader.name() == "RunOrder")
         {
-            QVERIFY(tag.text() == "SingleShot");
+            QVERIFY(xmlReader.readElementText() == "SingleShot");
             run++;
         }
-        else if (tag.tagName() == "Step")
+        else if (xmlReader.name() == "Step")
         {
-            quint32 fid = tag.text().toUInt();
+            quint32 fid = xmlReader.readElementText().toUInt();
             QVERIFY(fid == 0 || fid == 1 || fid == 2 || fid == 3);
             fids++;
         }
-        else if (tag.tagName() == "Speed")
+        else if (xmlReader.name() == "Speed")
         {
             speed++;
+            xmlReader.skipCurrentElement();
         }
-        else if (tag.tagName() == "SpeedModes")
+        else if (xmlReader.name() == "SpeedModes")
         {
-            QCOMPARE(tag.attribute("FadeIn"), QString("Default"));
-            QCOMPARE(tag.attribute("FadeOut"), QString("PerStep"));
-            QCOMPARE(tag.attribute("Duration"), QString("Common"));
+            QCOMPARE(xmlReader.attributes().value("FadeIn").toString(), QString("Default"));
+            QCOMPARE(xmlReader.attributes().value("FadeOut").toString(), QString("PerStep"));
+            QCOMPARE(xmlReader.attributes().value("Duration").toString(), QString("Common"));
             speedmodes++;
+            xmlReader.skipCurrentElement();
         }
         else
         {
             QFAIL("Unhandled XML tag.");
+            xmlReader.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     QCOMPARE(speed, 1);
@@ -898,7 +904,7 @@ void Chaser_Test::write()
 
     QVERIFY(c->isRunning() == false);
     QVERIFY(c->stopped() == true);
-    c->start(&timer);
+    c->start(&timer, FunctionParent::master());
 
     timer.timerTick();
     for (uint i = MasterTimer::tick(); i < c->duration(); i += MasterTimer::tick())
@@ -959,6 +965,58 @@ void Chaser_Test::adjustIntensity()
 
     // Mustn't crash after postRun
     c->adjustAttribute(1.0, Function::Intensity);
+}
+
+void Chaser_Test::quickChaser()
+{
+    Fixture* fxi = new Fixture(m_doc);
+    fxi->setAddress(0);
+    fxi->setUniverse(0);
+    fxi->setChannels(1);
+    m_doc->addFixture(fxi);
+
+    Chaser* c = new Chaser(m_doc);
+    // A really quick chaser
+    c->setDuration(0);
+    m_doc->addFunction(c);
+
+    Scene* s1 = new Scene(m_doc);
+    s1->setValue(fxi->id(), 0, 255);
+    m_doc->addFunction(s1);
+    c->addStep(s1->id());
+
+    Scene* s2 = new Scene(m_doc);
+    s2->setValue(fxi->id(), 0, 127);
+    m_doc->addFunction(s2);
+    c->addStep(s2->id());
+
+    MasterTimer timer(m_doc);
+
+    QVERIFY(c->isRunning() == false);
+    QVERIFY(c->stopped() == true);
+    c->start(&timer, FunctionParent::master());
+
+    timer.timerTick();
+    for (uint i = 0; i < 12; ++i)
+    {
+        timer.timerTick();
+        QVERIFY(c->isRunning() == true);
+        QVERIFY(c->stopped() == false);
+        // always one function running while the other is not
+        QVERIFY(s1->isRunning() == true || s2->isRunning() == true);
+        QVERIFY(s1->stopped() == true || s2->stopped() == true);
+    }
+
+    c->stop(FunctionParent::master());
+
+    timer.timerTick();
+
+    QVERIFY(c->isRunning() == false);
+    QVERIFY(c->stopped() == true);
+    QVERIFY(s1->isRunning() == false);
+    QVERIFY(s1->stopped() == true);
+    QVERIFY(s2->isRunning() == false);
+    QVERIFY(s2->stopped() == true);
 }
 
 QTEST_MAIN(Chaser_Test)

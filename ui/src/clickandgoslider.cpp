@@ -19,15 +19,31 @@
 
 #include "clickandgoslider.h"
 #include <QStyleOptionSlider>
+#include <QPainter>
 #include <QStyle>
 
 ClickAndGoSlider::ClickAndGoSlider(QWidget *parent) : QSlider(parent)
 {
+    m_shadowLevel = -1;
 }
 
-void ClickAndGoSlider::mousePressEvent ( QMouseEvent * event )
+void ClickAndGoSlider::setSliderStyleSheet(const QString &styleSheet)
 {
-    if (event->modifiers() == Qt::ControlModifier)
+    if(isVisible())
+        QSlider::setStyleSheet(styleSheet);
+    else
+        m_styleSheet = styleSheet;
+}
+
+void ClickAndGoSlider::setShadowLevel(int level)
+{
+    m_shadowLevel = level;
+    update();
+}
+
+void ClickAndGoSlider::mousePressEvent(QMouseEvent *e)
+{
+    if (e->modifiers() == Qt::ControlModifier)
     {
         emit controlClicked();
         return;
@@ -37,21 +53,65 @@ void ClickAndGoSlider::mousePressEvent ( QMouseEvent * event )
     initStyleOption(&opt);
     QRect sr = style()->subControlRect(QStyle::CC_Slider, &opt, QStyle::SC_SliderHandle, this);
 
-    if (event->button() == Qt::LeftButton && // react only to left button press
-        sr.contains(event->pos()) == false) // check if the click is not over the slider's handle
+    if (e->button() == Qt::LeftButton && // react only to left button press
+        sr.contains(e->pos()) == false) // check if the click is not over the slider's handle
     {
         int newVal = 0;
         if (orientation() == Qt::Vertical)
-            newVal = minimum() + ((maximum() - minimum()) * (height() - event->y())) / height();
+            newVal = minimum() + ((maximum() - minimum()) * (height() - e->y())) / height();
         else
-            newVal = minimum() + ((maximum() - minimum()) * event->x()) / width();
+            newVal = minimum() + ((maximum() - minimum()) * e->x()) / width();
 
+        setSliderDown(true);
         if (invertedAppearance() == true)
             setValue( maximum() - newVal );
         else
             setValue(newVal);
+        setSliderDown(false);
 
-        event->accept();
+        e->accept();
     }
-    QSlider::mousePressEvent(event);
+    QSlider::mousePressEvent(e);
+}
+
+void ClickAndGoSlider::wheelEvent(QWheelEvent *e)
+{
+    setSliderDown(true);
+    QSlider::wheelEvent(e);
+    setSliderDown(false);
+}
+
+void ClickAndGoSlider::keyPressEvent(QKeyEvent *e)
+{
+    if (e->key() == Qt::Key_Up || e->key() == Qt::Key_Down)
+        setSliderDown(true);
+    QSlider::keyPressEvent(e);
+    if (e->key() == Qt::Key_Up || e->key() == Qt::Key_Down)
+        setSliderDown(false);
+}
+
+void ClickAndGoSlider::paintEvent(QPaintEvent *e)
+{
+    if (m_shadowLevel >= 0)
+    {
+        QPainter p(this);
+        int levHeight = ((float)height() / 255.0) * m_shadowLevel;
+        p.drawRect(width() - 6, 0, width(), height());
+        p.fillRect(width() - 5, 0, width() - 1, height(), QColor(Qt::darkGray));
+        if (invertedAppearance())
+            p.fillRect(width() - 5, 0, width() - 1, levHeight, QColor(Qt::green));
+        else
+            p.fillRect(width() - 5, height() - levHeight, width() - 1, height(), QColor(Qt::green));
+    }
+
+    QSlider::paintEvent(e);
+}
+
+void ClickAndGoSlider::showEvent(QShowEvent *)
+{
+    if (m_styleSheet.isEmpty() == false)
+    {
+        setSliderStyleSheet(m_styleSheet);
+        m_styleSheet = "";
+    }
 }

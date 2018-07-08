@@ -55,13 +55,23 @@ class ClickAndGoSlider : public QSlider
 {
     Q_OBJECT
 public:
-    ClickAndGoSlider ( QWidget * parent = 0 );
+    ClickAndGoSlider(QWidget *parent = 0);
+    void setSliderStyleSheet(const QString& styleSheet);
+    void setShadowLevel(int level);
 
 protected:
-    void mousePressEvent ( QMouseEvent * event );
+    void mousePressEvent(QMouseEvent *e);
+    void wheelEvent(QWheelEvent *e);
+    void keyPressEvent(QKeyEvent *e);
+    void paintEvent(QPaintEvent *e);
+    void showEvent(QShowEvent *e);
 
 signals:
     void controlClicked();
+
+private:
+    QString m_styleSheet;
+    float m_shadowLevel;
 };
 
 /** @} */

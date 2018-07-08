@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - Collection Editor</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>Collection Editor</H1>
+<P>
+The collection editor, as its name suggests, is used to edit
+<IMG SRC="qrc:/collection.png" align="absmiddle"> <A HREF="file:concept.html#Collection">Collection</A> functions.<br>
+Collections are very helpful in a workflow where you create QLC+ functions dedicated to specific areas of 
+your show. For example, you can create a number of Scenes to control only colors, some other Scenes to
+control only positions and so on. Then you can create a number of Chasers and EFX for automations.<br>
+When you have created all the basic elements of your show, you can then use Collections to build a sort of
+"shortcut" to compound scenes. For example a color Scene + a position Scene.
+</P>
+
+<P>
+<B>Note:</B> Collections don't have speed setting; each function you include
+in a collection follows its own speed settings.
+</P>
+
+<P>
+<B>Important</B>: The order of the Functions in a Collection is fundamental when dealing
+with HTP/LTP usage or relative values. QLC+ will internally start the Functions of a Collection from the
+first to the last, so if they use the same channels, just keep this in mind because
+you might run into undesired effects.<BR>
+For example a Scene setting Pan/Tilt channels + a EFX in relative mode must have a precise order: the Scene in the first
+position and the EFX in the second position.
+</P>
+
+<H3>Controls</H3>
+
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD>
+   <B>Collection name</B>
+  </TD>
+  <TD>
+   Change the name of the collection.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/edit_add.png">
+  </TD>
+  <TD>
+   Add an existing <A HREF="file:concept.html#Functions">Function</A> to the
+   collection, using the <A HREF="file:selectfunction.html">Select Function</A>
+   dialog. The order of the functions has no significance.
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <IMG SRC="qrc:/edit_remove.png">
+  </TD>
+  <TD>
+   Remove the selected functions from the collection.
+  </TD>
+ </TR>
+</TABLE>
+
+</BODY>
+</HTML>

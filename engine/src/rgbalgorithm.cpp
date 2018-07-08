@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   rgbalgorithm.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,21 +18,26 @@
   limitations under the License.
 */
 
-#include <QDomDocument>
-#include <QDomElement>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QStringList>
 #include <QDebug>
 
+#include "rgbscriptscache.h"
 #include "rgbalgorithm.h"
 #include "rgbaudio.h"
 #include "rgbimage.h"
 #include "rgbplain.h"
-#include "rgbscript.h"
-#include "rgbscriptscache.h"
 #include "rgbtext.h"
 #include "doc.h"
 
-RGBAlgorithm::RGBAlgorithm(const Doc * doc)
+#ifdef QT_QML_LIB
+  #include "rgbscriptv4.h"
+#else
+  #include "rgbscript.h"
+#endif
+
+RGBAlgorithm::RGBAlgorithm(Doc * doc)
     : m_doc(doc)
     , m_startColor(QColor())
     , m_endColor(QColor())
@@ -48,7 +54,7 @@ void RGBAlgorithm::setColors(QColor start, QColor end)
  * Available algorithms
  ****************************************************************************/
 
-QStringList RGBAlgorithm::algorithms(const Doc * doc)
+QStringList RGBAlgorithm::algorithms(Doc * doc)
 {
     QStringList list;
     RGBPlain plain(doc);
@@ -63,7 +69,7 @@ QStringList RGBAlgorithm::algorithms(const Doc * doc)
     return list;
 }
 
-RGBAlgorithm* RGBAlgorithm::algorithm(const Doc * doc, const QString& name)
+RGBAlgorithm* RGBAlgorithm::algorithm(Doc * doc, const QString& name)
 {
     RGBText text(doc);
     RGBImage image(doc);
@@ -85,17 +91,17 @@ RGBAlgorithm* RGBAlgorithm::algorithm(const Doc * doc, const QString& name)
  * Load & Save
  ****************************************************************************/
 
-RGBAlgorithm* RGBAlgorithm::loader(const Doc * doc, const QDomElement& root)
+RGBAlgorithm* RGBAlgorithm::loader(Doc * doc, QXmlStreamReader &root)
 {
     RGBAlgorithm* algo = NULL;
 
-    if (root.tagName() != KXMLQLCRGBAlgorithm)
+    if (root.name() != KXMLQLCRGBAlgorithm)
     {
         qWarning() << Q_FUNC_INFO << "RGB Algorithm node not found";
         return NULL;
     }
 
-    QString type = root.attribute(KXMLQLCRGBAlgorithmType);
+    QString type = root.attributes().value(KXMLQLCRGBAlgorithmType).toString();
     if (type == KXMLQLCRGBImage)
     {
         RGBImage image(doc);
@@ -116,7 +122,7 @@ RGBAlgorithm* RGBAlgorithm::loader(const Doc * doc, const QDomElement& root)
     }
     else if (type == KXMLQLCRGBScript)
     {
-        RGBScript const& scr = doc->rgbScriptsCache()->script(root.text());
+        RGBScript const& scr = doc->rgbScriptsCache()->script(root.readElementText());
         if (scr.apiVersion() > 0 && scr.name().isEmpty() == false)
             algo = scr.clone();
     }

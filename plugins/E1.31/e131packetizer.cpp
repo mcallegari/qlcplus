@@ -93,8 +93,8 @@ E131Packetizer::E131Packetizer()
     for (int i = 0; i < 64 - sourceName.length(); i++)
         m_commonHeader.append((char)0x00);
 
-    // Data priority if multiple sources (default to 100)
-    m_commonHeader.append((char)0x64);
+    // Data priority if multiple sources (default to 100) (byte 108)
+    m_commonHeader.append((char)E131_PRIORITY_DEFAULT);
 
     // reserved
     m_commonHeader.append('\0');
@@ -141,11 +141,15 @@ E131Packetizer::E131Packetizer()
     m_sequence[3] = 1;
 }
 
+E131Packetizer::~E131Packetizer()
+{
+}
+
 /*********************************************************************
  * Sender functions
  *********************************************************************/
 
-void E131Packetizer::setupE131Dmx(QByteArray& data, const int &universe, const QByteArray &values)
+void E131Packetizer::setupE131Dmx(QByteArray& data, const int &universe, const int &priority, const QByteArray &values)
 {
     data.clear();
     data.append(m_commonHeader);
@@ -156,7 +160,6 @@ void E131Packetizer::setupE131Dmx(QByteArray& data, const int &universe, const Q
     int e131LayerSize = data.count() - 38;
     int dmpLayerSize = data.count() - 115;
     int valCountPlusOne = values.count() + 1;
-    int uniPlusOne = universe + 1;
 
     data[16] = 0x70 | (char)(rootLayerSize >> 8);
     data[17] = (char)(rootLayerSize & 0x00FF);
@@ -164,10 +167,12 @@ void E131Packetizer::setupE131Dmx(QByteArray& data, const int &universe, const Q
     data[38] = 0x70 | (char)(e131LayerSize >> 8);
     data[39] = (char)(e131LayerSize & 0x00FF);
 
+    data[108] = (char) priority;
+
     data[111] = m_sequence[universe];
 
-    data[113] = (char)(uniPlusOne >> 8);
-    data[114] = (char)(uniPlusOne & 0x00FF);
+    data[113] = (char)(universe >> 8);
+    data[114] = (char)(universe & 0x00FF);
 
     data[115] = 0x70 | (char)(dmpLayerSize >> 8);
     data[116] = (char)(dmpLayerSize & 0x00FF);
@@ -206,17 +211,16 @@ bool E131Packetizer::fillDMXdata(QByteArray& data, QByteArray &dmx, quint32 &uni
 {
     if (data.isNull())
         return false;
-    dmx.clear();
 
-    universe = (data[113] << 8) + data[114] - 1;
+    universe = (data[113] << 8) + data[114];
 
     unsigned int msb = (data[123] & 0xff);
     unsigned int lsb = (data[124] & 0xff);
     int length = (msb << 8) | lsb;
 
     qDebug() << "[E1.31 fillDMXdata] length: " << length - 1;
-    for (int i = 126; i < 126 + length - 1; i++)
-        dmx.append(data.at(i));
+
+    dmx.clear();
+    dmx.append(data.mid(126, length - 1));
     return true;
 }
-

@@ -5,6 +5,7 @@ SUBDIRS += addfixture
 SUBDIRS += efxpreviewarea
 SUBDIRS += functionselection
 SUBDIRS += monitorfixture
+SUBDIRS += monitorfixtureitem
 SUBDIRS += palettegenerator
 SUBDIRS += vcbutton
 SUBDIRS += vccuelist

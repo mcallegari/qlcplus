@@ -38,8 +38,11 @@ private slots:
     void lessThan();
     void type();
     void dimmer();
+    void rgbPanel();
     void fixtureDef();
     void channels();
+    void degrees();
+    void heads();
     void loadWrongRoot();
     void loadFixtureDef();
     void loadFixtureDefWrongChannels();

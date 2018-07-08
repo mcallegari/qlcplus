@@ -18,8 +18,10 @@
 */
 
 #include <QRadioButton>
+#include <QSettings>
 #include <QCheckBox>
 #include <QSpinBox>
+#include <QAction>
 
 #include "qlcinputprofile.h"
 #include "qlcinputchannel.h"
@@ -56,7 +58,6 @@ VCPropertiesEditor::VCPropertiesEditor(QWidget* parent, const VCProperties& prop
     /* General page */
     m_sizeXSpin->setValue(properties.size().width());
     m_sizeYSpin->setValue(properties.size().height());
-    fillTapModifierCombo();
 
     /* Widgets page */
     QSettings settings;
@@ -300,31 +301,6 @@ QSize VCPropertiesEditor::rgbMatrixSize()
  * Layout page
  *****************************************************************************/
 
-void VCPropertiesEditor::fillTapModifierCombo()
-{
-    QList <int> mods;
-    mods << Qt::ShiftModifier;
-    mods << Qt::ControlModifier;
-    mods << Qt::AltModifier;
-    mods << Qt::MetaModifier;
-
-    foreach (int mod, mods)
-    {
-        QKeySequence seq(mod);
-        QString str(seq.toString(QKeySequence::NativeText));
-#if defined(__APPLE__) || defined(Q_OS_MAC)
-        m_tapModifierCombo->addItem(str, mod);
-#else
-        m_tapModifierCombo->addItem(str.remove(QRegExp("\\W")).trimmed(), mod);
-#endif
-        if (mod == int(m_properties.tapModifier()))
-            m_tapModifierCombo->setCurrentIndex(m_tapModifierCombo->count() - 1);
-    }
-
-    connect(m_tapModifierCombo, SIGNAL(activated(int)),
-            this, SLOT(slotTapModifierActivated(int)));
-}
-
 void VCPropertiesEditor::slotSizeXChanged(int value)
 {
     QSize sz(m_properties.size());
@@ -337,11 +313,6 @@ void VCPropertiesEditor::slotSizeYChanged(int value)
     QSize sz(m_properties.size());
     sz.setHeight(value);
     m_properties.setSize(sz);
-}
-
-void VCPropertiesEditor::slotTapModifierActivated(int index)
-{
-    m_properties.setTapModifier(Qt::KeyboardModifier(m_tapModifierCombo->itemData(index).toInt()));
 }
 
 void VCPropertiesEditor::slotSpeedDialConfirmed()
@@ -416,9 +387,12 @@ void VCPropertiesEditor::updateGrandMasterInputSource()
     QString uniName;
     QString chName;
 
-    if (inputSourceNames(m_properties.grandMasterInputUniverse(),
-                         m_properties.grandMasterInputChannel(),
-                         uniName, chName) == true)
+    if (m_ioMap->inputSourceNames(
+                QSharedPointer<QLCInputSource>(
+                    new QLCInputSource(
+                        m_properties.grandMasterInputUniverse(),
+                        m_properties.grandMasterInputChannel())),
+                uniName, chName) == true)
     {
         /* Display the gathered information */
         m_gmInputUniverseEdit->setText(uniName);
@@ -429,55 +403,4 @@ void VCPropertiesEditor::updateGrandMasterInputSource()
         m_gmInputUniverseEdit->setText(KInputNone);
         m_gmInputChannelEdit->setText(KInputNone);
     }
-}
-
-/*****************************************************************************
- * Input Source helper
- *****************************************************************************/
-
-bool VCPropertiesEditor::inputSourceNames(quint32 universe, quint32 channel,
-                                          QString& uniName, QString& chName) const
-{
-    if (universe == InputOutputMap::invalidUniverse() || channel == QLCChannel::invalid())
-    {
-        /* Nothing selected for input universe and/or channel */
-        return false;
-    }
-
-    InputPatch* patch = m_ioMap->inputPatch(universe);
-    if (patch == NULL || patch->plugin() == NULL)
-    {
-        /* There is no patch for the given universe */
-        return false;
-    }
-
-    QLCInputProfile* profile = patch->profile();
-    if (profile == NULL)
-    {
-        /* There is no profile. Display plugin name and channel number.
-           Boring. */
-        uniName = patch->plugin()->name();
-        chName = tr("%1: Unknown").arg(channel + 1);
-    }
-    else
-    {
-        QLCInputChannel* ich;
-        QString name;
-
-        /* Display profile name for universe */
-        uniName = QString("%1: %2").arg(universe + 1).arg(profile->name());
-
-        /* User can input the channel number by hand, so put something
-           rational to the channel name in those cases as well. */
-        ich = profile->channel(channel);
-        if (ich != NULL)
-            name = ich->name();
-        else
-            name = tr("Unknown");
-
-        /* Display channel name */
-        chName = QString("%1: %2").arg(channel + 1).arg(name);
-    }
-
-    return true;
 }

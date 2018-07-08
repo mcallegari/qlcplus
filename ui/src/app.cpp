@@ -1,9 +1,10 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   app.cpp
 
   Copyright (c) Heikki Junnila,
                 Christopher Staite
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -25,7 +26,6 @@
 #else
 #include <QtWidgets>
 #endif
-#include <QtXml>
 
 #if defined(WIN32) || defined(Q_OS_WIN)
   #include <windows.h>
@@ -50,14 +50,29 @@
 #include "app.h"
 #include "doc.h"
 
-#include "rgbscriptscache.h"
 #include "qlcfixturedefcache.h"
+#include "audioplugincache.h"
+#include "rgbscriptscache.h"
 #include "qlcfixturedef.h"
 #include "qlcconfig.h"
 #include "qlcfile.h"
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
  #include "videoprovider.h"
+#endif
+#if defined(WIN32) || defined(Q_OS_WIN)
+#   include "hotplugmonitor.h"
+#endif
+
+#if defined(__APPLE__) || defined(Q_OS_MAC)
+extern void qt_set_sequence_auto_mnemonic(bool b);
+#endif
+
+//#define DEBUG_SPEED
+
+#ifdef DEBUG_SPEED
+ #include <QTime>
+ QTime speedTime;
 #endif
 
 #define SETTINGS_GEOMETRY "workspace/geometry"
@@ -79,6 +94,7 @@ App::App()
     : QMainWindow()
     , m_tab(NULL)
     , m_overscan(false)
+    , m_noGui(false)
     , m_progressDialog(NULL)
     , m_doc(NULL)
 
@@ -99,6 +115,7 @@ App::App()
 
     , m_helpIndexAction(NULL)
     , m_helpAboutAction(NULL)
+    , m_quitAction(NULL)
     , m_fileOpenMenu(NULL)
     , m_fadeAndStopMenu(NULL)
 
@@ -119,7 +136,7 @@ App::~App()
     QSettings settings;
 
     // Don't save kiosk-mode window geometry because that will screw things up
-    if (m_doc->isKiosk() == false)
+    if (m_doc->isKiosk() == false && QLCFile::hasWindowManager())
         settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
     else
         settings.setValue(SETTINGS_GEOMETRY, QVariant());
@@ -182,6 +199,11 @@ void App::enableOverscan()
     m_overscan = true;
 }
 
+void App::disableGUI()
+{
+    m_noGui = true;
+}
+
 void App::init()
 {
     QSettings settings;
@@ -191,6 +213,10 @@ void App::init()
     m_tab = new QTabWidget(this);
     m_tab->setTabPosition(QTabWidget::South);
     setCentralWidget(m_tab);
+
+#if defined(__APPLE__) || defined(Q_OS_MAC)
+    qt_set_sequence_auto_mnemonic(true);
+#endif
 
     QVariant var = settings.value(SETTINGS_GEOMETRY);
     if (var.isValid() == true)
@@ -205,19 +231,26 @@ void App::init()
             resize(size);
         else
         {
-            if (QLCFile::isRaspberry())
+            if (QLCFile::hasWindowManager() == false)
             {
                 QRect geometry = qApp->desktop()->availableGeometry();
-                int w = geometry.width();
-                int h = geometry.height();
-                if (m_overscan == true)
+                if (m_noGui == true)
                 {
-                    // if we're on a Raspberry Pi, introduce a 5% margin
-                    w = (float)geometry.width() * 0.95;
-                    h = (float)geometry.height() * 0.95;
+                    setGeometry(geometry.width(), geometry.height(), 1, 1);
                 }
-                setGeometry((geometry.width() - w) / 2, (geometry.height() - h) / 2,
-                            w, h);
+                else
+                {
+                    int w = geometry.width();
+                    int h = geometry.height();
+                    if (m_overscan == true)
+                    {
+                        // if overscan is requested, introduce a 5% margin
+                        w = (float)geometry.width() * 0.95;
+                        h = (float)geometry.height() * 0.95;
+                    }
+                    setGeometry((geometry.width() - w) / 2, (geometry.height() - h) / 2,
+                                w, h);
+                }
             }
             else
                 resize(800, 600);
@@ -256,8 +289,17 @@ void App::init()
     w = new InputOutputManager(m_tab, m_doc);
     m_tab->addTab(w, QIcon(":/input_output.png"), tr("Inputs/Outputs"));
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 6, 0)
+    /* Detach the tab's widget onto a new window on doubleClick */
+    connect(m_tab, SIGNAL(tabBarDoubleClicked(int)), this, SLOT(slotDetachContext(int)));
+#endif
+
     // Listen to blackout changes and toggle m_controlBlackoutAction
     connect(m_doc->inputOutputMap(), SIGNAL(blackoutChanged(bool)), this, SLOT(slotBlackoutChanged(bool)));
+
+    // Listen to DMX value changes and update each Fixture values array
+    connect(m_doc->inputOutputMap(), SIGNAL(universesWritten(int, const QByteArray&)),
+            this, SLOT(slotUniversesWritten(int, const QByteArray&)));
 
     // Enable/Disable panic button
     connect(m_doc->masterTimer(), SIGNAL(functionListChanged()), this, SLOT(slotRunningFunctionsChanged()));
@@ -275,6 +317,7 @@ void App::init()
     ssDir = QString("%1/%2").arg(QString::fromUtf16(reinterpret_cast<ushort*> (home)))
                             .arg(USERQLCPLUSDIR);
     free(home);
+    HotPlugMonitor::setWinId(winId());
 #else
     /* User's input profile directory on *NIX systems */
     ssDir = QString("%1/%2").arg(getenv("HOME")).arg(USERQLCPLUSDIR);
@@ -309,10 +352,17 @@ void App::setActiveWindow(const QString& name)
     }
 }
 
+#if defined(WIN32) || defined(Q_OS_WIN)
+bool App::nativeEvent(const QByteArray &eventType, void *message, long *result)
+{
+    Q_UNUSED(eventType)
+    //qDebug() << Q_FUNC_INFO << eventType;
+    return HotPlugMonitor::parseWinEvent(message, result);
+}
+#endif
+
 void App::closeEvent(QCloseEvent* e)
 {
-    int result = 0;
-
     if (m_doc->mode() == Doc::Operate && m_doc->isKiosk() == false)
     {
         QMessageBox::warning(this,
@@ -339,9 +389,9 @@ void App::closeEvent(QCloseEvent* e)
     {
         if (m_doc->isKiosk() == true)
         {
-            result = QMessageBox::warning(this, tr("Close the application?"),
-                                          tr("Do you wish to close the application?"),
-                                          QMessageBox::Yes, QMessageBox::No);
+            int result = QMessageBox::warning(this, tr("Close the application?"),
+                                              tr("Do you wish to close the application?"),
+                                              QMessageBox::Yes, QMessageBox::No);
             if (result == QMessageBox::No)
             {
                 e->ignore();
@@ -393,13 +443,17 @@ void App::slotSetProgressText(const QString& text)
 
 void App::clearDocument()
 {
+    m_doc->masterTimer()->stop();
     VirtualConsole::instance()->resetContents();
     m_doc->clearContents();
+    if (Monitor::instance() != NULL)
+        Monitor::instance()->updateView();
     SimpleDesk::instance()->clearContents();
     ShowManager::instance()->clearContents();
     m_doc->inputOutputMap()->resetUniverses();
     setFileName(QString());
     m_doc->resetModified();
+    m_doc->masterTimer()->start();
 }
 
 Doc *App::doc()
@@ -414,7 +468,9 @@ void App::initDoc()
 
     connect(m_doc, SIGNAL(modified(bool)), this, SLOT(slotDocModified(bool)));
     connect(m_doc, SIGNAL(modeChanged(Doc::Mode)), this, SLOT(slotModeChanged(Doc::Mode)));
-
+#ifdef DEBUG_SPEED
+    speedTime.start();
+#endif
     /* Load user fixtures first so that they override system fixtures */
     m_doc->fixtureDefCache()->load(QLCFixtureDefCache::userDefinitionDirectory());
     m_doc->fixtureDefCache()->loadMap(QLCFixtureDefCache::systemDefinitionDirectory());
@@ -432,6 +488,12 @@ void App::initDoc()
             this, SLOT(slotSetProgressText(const QString&)));
     m_doc->ioPluginCache()->load(IOPluginCache::systemPluginDirectory());
 
+    /* Load audio decoder plugins
+     * This doesn't use a AudioPluginCache::systemPluginDirectory() cause
+     * otherwise the qlcconfig.h creation should have been moved into the
+     * audio folder, which doesn't make much sense */
+    m_doc->audioPluginCache()->load(QLCFile::systemDirectory(AUDIOPLUGINDIR, KExtPlugin));
+
     /* Restore outputmap settings */
     Q_ASSERT(m_doc->inputOutputMap() != NULL);
 
@@ -439,6 +501,10 @@ void App::initDoc()
     m_doc->inputOutputMap()->loadProfiles(InputOutputMap::userProfileDirectory());
     m_doc->inputOutputMap()->loadProfiles(InputOutputMap::systemProfileDirectory());
     m_doc->inputOutputMap()->loadDefaults();
+
+#ifdef DEBUG_SPEED
+    qDebug() << "[App] Doc initialization took" << speedTime.elapsed() << "ms";
+#endif
 
     m_doc->masterTimer()->start();
 }
@@ -458,6 +524,17 @@ void App::slotDocModified(bool state)
         setWindowTitle(caption);
 }
 
+void App::slotUniversesWritten(int idx, const QByteArray &ua)
+{
+    foreach(Fixture *fixture, m_doc->fixtures())
+    {
+        if (fixture->universe() != (quint32)idx)
+            continue;
+
+        fixture->setChannelValues(ua);
+    }
+}
+
 /*****************************************************************************
  * Main application Mode
  *****************************************************************************/
@@ -467,8 +544,6 @@ void App::enableKioskMode()
     // Turn on operate mode
     m_doc->setKiosk(true);
     m_doc->setMode(Doc::Operate);
-    if (VirtualConsole::instance()->checkStartupFunction(m_doc->startupFunction()) == false)
-        m_doc->checkStartupFunction();
 
     // No need for these
     m_tab->removeTab(m_tab->indexOf(FixtureManager::instance()));
@@ -476,6 +551,12 @@ void App::enableKioskMode()
     m_tab->removeTab(m_tab->indexOf(ShowManager::instance()));
     m_tab->removeTab(m_tab->indexOf(SimpleDesk::instance()));
     m_tab->removeTab(m_tab->indexOf(InputOutputManager::instance()));
+
+    // Hide the tab bar to save some pixels
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    // tabBar() in QT4 is protected.
+    m_tab->tabBar()->hide();
+#endif
 
     // No need for the toolbar
     delete m_toolbar;
@@ -495,8 +576,6 @@ void App::createKioskCloseButton(const QRect& rect)
 void App::slotModeOperate()
 {
     m_doc->setMode(Doc::Operate);
-    if (VirtualConsole::instance()->checkStartupFunction(m_doc->startupFunction()) == false)
-        m_doc->checkStartupFunction();
 }
 
 void App::slotModeDesign()
@@ -650,6 +729,13 @@ void App::initActions()
 
     m_helpAboutAction = new QAction(QIcon(":/qlcplus.png"), tr("&About QLC+"), this);
     connect(m_helpAboutAction, SIGNAL(triggered(bool)), this, SLOT(slotHelpAbout()));
+
+    if (QLCFile::hasWindowManager() == false)
+    {
+        m_quitAction = new QAction(QIcon(":/exit.png"), tr("Quit QLC+"), this);
+        m_quitAction->setShortcut(QKeySequence("CTRL+ALT+Backspace"));
+        connect(m_quitAction, SIGNAL(triggered(bool)), this, SLOT(close()));
+    }
 }
 
 void App::initToolBar()
@@ -671,6 +757,8 @@ void App::initToolBar()
     m_toolbar->addAction(m_controlFullScreenAction);
     m_toolbar->addAction(m_helpIndexAction);
     m_toolbar->addAction(m_helpAboutAction);
+    if (QLCFile::hasWindowManager() == false)
+        m_toolbar->addAction(m_quitAction);
 
     /* Create an empty widget between help items to flush them to the right */
     QWidget* widget = new QWidget(this);
@@ -892,14 +980,18 @@ QFile::FileError App::slotFileOpen()
     /* Clear existing document data */
     clearDocument();
 
-    /* Set the workspace path before loading the new XML. In this way local files
-       can be loaded even if the workspace file has been moved */
-    m_doc->setWorkspacePath(QFileInfo(fn).absolutePath());
+#ifdef DEBUG_SPEED
+    speedTime.restart();
+#endif
 
     /* Load the file */
     QFile::FileError error = loadXML(fn);
     if (handleFileError(error) == true)
         m_doc->resetModified();
+
+#ifdef DEBUG_SPEED
+    qDebug() << "[App] Project loaded in" << speedTime.elapsed() << "ms.";
+#endif
 
     /* Update these in any case, since they are at least emptied now as
        a result of calling clearDocument() a few lines ago. */
@@ -909,6 +1001,8 @@ QFile::FileError App::slotFileOpen()
         FixtureManager::instance()->updateView();
     if (InputOutputManager::instance() != NULL)
         InputOutputManager::instance()->updateList();
+    if (Monitor::instance() != NULL)
+        Monitor::instance()->updateView();
 
     updateFileOpenMenu(fn);
 
@@ -1036,8 +1130,8 @@ void App::slotFunctionLiveEdit()
 {
     FunctionSelection fs(this, m_doc);
     fs.setMultiSelection(false);
-    fs.setFilter(Function::Scene | Function::Chaser | Function::EFX | Function::RGBMatrix);
-    fs.disableFilters(Function::Show | Function::Script | Function::Collection | Function::Audio);
+    fs.setFilter(Function::SceneType | Function::ChaserType | Function::SequenceType | Function::EFXType | Function::RGBMatrixType);
+    fs.disableFilters(Function::ShowType | Function::ScriptType | Function::CollectionType | Function::AudioType);
 
     if (fs.exec() == QDialog::Accepted)
     {
@@ -1052,6 +1146,41 @@ void App::slotFunctionLiveEdit()
 void App::slotLiveEditVirtualConsole()
 {
     VirtualConsole::instance()->toggleLiveEdit();
+}
+
+void App::slotDetachContext(int index)
+{
+    /* Get the widget that has been double-clicked */
+    QWidget *context = m_tab->widget(index);
+    context->setProperty("tabIndex", index);
+    context->setProperty("tabIcon", QVariant::fromValue(m_tab->tabIcon(index)));
+    context->setProperty("tabLabel", m_tab->tabText(index));
+
+    qDebug() << "Detaching context" << context;
+
+    DetachedContext *detachedWindow = new DetachedContext();
+    detachedWindow->setCentralWidget(context);
+    detachedWindow->resize(800, 600);
+    detachedWindow->show();
+    context->show();
+
+    connect(detachedWindow, SIGNAL(closing()),
+            this, SLOT(slotReattachContext()));
+}
+
+void App::slotReattachContext()
+{
+    DetachedContext *window = qobject_cast<DetachedContext *>(sender());
+
+    QWidget *context = window->centralWidget();
+    int tabIndex = context->property("tabIndex").toInt();
+    QIcon tabIcon = context->property("tabIcon").value<QIcon>();
+    QString tabLabel = context->property("tabLabel").toString();
+
+    qDebug() << "Reattaching context" << tabIndex << tabLabel << context;
+
+    context->setParent(m_tab);
+    m_tab->insertTab(tabIndex, context, tabIcon, tabLabel);
 }
 
 void App::slotControlFullScreen()
@@ -1136,14 +1265,18 @@ void App::slotRecentFileClicked(QAction *recent)
     /* Clear existing document data */
     clearDocument();
 
-    /* Set the workspace path before loading the new XML. In this way local files
-       can be loaded even if the workspace file has been moved */
-    m_doc->setWorkspacePath(QFileInfo(recentAbsPath).absolutePath());
+#ifdef DEBUG_SPEED
+    speedTime.restart();
+#endif
 
     /* Load the file */
     QFile::FileError error = loadXML(recentAbsPath);
     if (handleFileError(error) == true)
         m_doc->resetModified();
+
+#ifdef DEBUG_SPEED
+    qDebug() << "[App] Project loaded in" << speedTime.elapsed() << "ms.";
+#endif
 
     /* Update these in any case, since they are at least emptied now as
        a result of calling clearDocument() a few lines ago. */
@@ -1153,7 +1286,8 @@ void App::slotRecentFileClicked(QAction *recent)
         FixtureManager::instance()->updateView();
     if (InputOutputManager::instance() != NULL)
         InputOutputManager::instance()->updateList();
-
+    if (Monitor::instance() != NULL)
+        Monitor::instance()->updateView();
 }
 
 /*****************************************************************************
@@ -1174,81 +1308,103 @@ QFile::FileError App::loadXML(const QString& fileName)
 {
     QFile::FileError retval = QFile::NoError;
 
-    QDomDocument doc(QLCFile::readXML(fileName));
-    if (doc.isNull() == false)
+    if (fileName.isEmpty() == true)
+        return QFile::OpenError;
+
+    QXmlStreamReader *doc = QLCFile::getXMLReader(fileName);
+    if (doc == NULL || doc->device() == NULL || doc->hasError())
     {
-        if (doc.doctype().name() == KXMLQLCWorkspace)
-        {
-            if (loadXML(doc) == false)
-            {
-                retval = QFile::ReadError;
-            }
-            else
-            {
-                setFileName(fileName);
-                m_doc->resetModified();
-                retval = QFile::NoError;
-            }
-        }
-        else
+        qWarning() << Q_FUNC_INFO << "Unable to read from" << fileName;
+        return QFile::ReadError;
+    }
+
+    while (!doc->atEnd())
+    {
+        if (doc->readNext() == QXmlStreamReader::DTD)
+            break;
+    }
+    if (doc->hasError())
+    {
+        QLCFile::releaseXMLReader(doc);
+        return QFile::ResourceError;
+    }
+
+    /* Set the workspace path before loading the new XML. In this way local files
+       can be loaded even if the workspace file has been moved */
+    m_doc->setWorkspacePath(QFileInfo(fileName).absolutePath());
+
+    if (doc->dtdName() == KXMLQLCWorkspace)
+    {
+        if (loadXML(*doc) == false)
         {
             retval = QFile::ReadError;
         }
+        else
+        {
+            setFileName(fileName);
+            m_doc->resetModified();
+            retval = QFile::NoError;
+        }
     }
+    else
+    {
+        retval = QFile::ReadError;
+        qWarning() << Q_FUNC_INFO << fileName
+                   << "is not a workspace file";
+    }
+
+    QLCFile::releaseXMLReader(doc);
 
     return retval;
 }
 
-bool App::loadXML(const QDomDocument& doc, bool goToConsole, bool fromMemory)
+bool App::loadXML(QXmlStreamReader& doc, bool goToConsole, bool fromMemory)
 {
-    Q_ASSERT(m_doc != NULL);
+    if (doc.readNextStartElement() == false)
+        return false;
 
-    QDomElement root = doc.documentElement();
-    if (root.tagName() != KXMLQLCWorkspace)
+    if (doc.name() != KXMLQLCWorkspace)
     {
         qWarning() << Q_FUNC_INFO << "Workspace node not found";
         return false;
     }
 
-    QString activeWindowName = root.attribute(KXMLQLCWorkspaceWindow);
+    QString activeWindowName = doc.attributes().value(KXMLQLCWorkspaceWindow).toString();
 
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (doc.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-
-        if (tag.tagName() == KXMLQLCEngine)
+        if (doc.name() == KXMLQLCEngine)
         {
-            m_doc->loadXML(tag);
+            m_doc->loadXML(doc);
         }
-        else if (tag.tagName() == KXMLQLCVirtualConsole)
+        else if (doc.name() == KXMLQLCVirtualConsole)
         {
-            VirtualConsole::instance()->loadXML(tag);
+            VirtualConsole::instance()->loadXML(doc);
         }
-        else if (tag.tagName() == KXMLQLCSimpleDesk)
+        else if (doc.name() == KXMLQLCSimpleDesk)
         {
-            SimpleDesk::instance()->loadXML(tag);
+            SimpleDesk::instance()->loadXML(doc);
         }
-        else if (tag.tagName() == KXMLFixture)
+        else if (doc.name() == KXMLFixture)
         {
             /* Legacy support code, nowadays in Doc */
-            Fixture::loader(tag, m_doc);
+            Fixture::loader(doc, m_doc);
         }
-        else if (tag.tagName() == KXMLQLCFunction)
+        else if (doc.name() == KXMLQLCFunction)
         {
             /* Legacy support code, nowadays in Doc */
-            Function::loader(tag, m_doc);
+            Function::loader(doc, m_doc);
         }
-        else if (tag.tagName() == KXMLQLCCreator)
+        else if (doc.name() == KXMLQLCCreator)
         {
             /* Ignore creator information */
+            doc.skipCurrentElement();
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown Workspace tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unknown Workspace tag:" << doc.name();
+            doc.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     if (goToConsole == true)
@@ -1265,8 +1421,12 @@ bool App::loadXML(const QDomDocument& doc, bool goToConsole, bool fromMemory)
         fromMemory == false)
     {
         QMessageBox msg(QMessageBox::Warning, tr("Warning"),
-                        tr("Some errors occurred while loading the project:") + "\n\n" + m_doc->errorLog(),
+                        tr("Some errors occurred while loading the project:") + "<br><br>" + m_doc->errorLog(),
                         QMessageBox::Ok);
+        msg.setTextFormat(Qt::RichText);
+        QSpacerItem* horizontalSpacer = new QSpacerItem(800, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        QGridLayout* layout = (QGridLayout*)msg.layout();
+        layout->addItem(horizontalSpacer, layout->rowCount(), 0, 1, layout->columnCount());
         msg.exec();
     }
 
@@ -1275,57 +1435,67 @@ bool App::loadXML(const QDomDocument& doc, bool goToConsole, bool fromMemory)
 
 QFile::FileError App::saveXML(const QString& fileName)
 {
-    QFile::FileError retval;
-
-    QFile file(fileName);
+    QString tempFileName(fileName);
+    tempFileName += ".temp";
+    QFile file(tempFileName);
     if (file.open(QIODevice::WriteOnly) == false)
         return file.error();
 
-    QDomDocument doc(QLCFile::getXMLHeader(KXMLQLCWorkspace));
-    if (doc.isNull() == false)
+    QXmlStreamWriter doc(&file);
+    doc.setAutoFormatting(true);
+    doc.setAutoFormattingIndent(1);
+    doc.setCodec("UTF-8");
+
+    doc.writeStartDocument();
+    doc.writeDTD(QString("<!DOCTYPE %1>").arg(KXMLQLCWorkspace));
+
+    doc.writeStartElement(KXMLQLCWorkspace);
+    doc.writeAttribute("xmlns", QString("%1%2").arg(KXMLQLCplusNamespace).arg(KXMLQLCWorkspace));
+    /* Currently active window */
+    QWidget* widget = m_tab->currentWidget();
+    if (widget != NULL)
+        doc.writeAttribute(KXMLQLCWorkspaceWindow, QString(widget->metaObject()->className()));
+
+    doc.writeStartElement(KXMLQLCCreator);
+    doc.writeTextElement(KXMLQLCCreatorName, APPNAME);
+    doc.writeTextElement(KXMLQLCCreatorVersion, APPVERSION);
+    doc.writeTextElement(KXMLQLCCreatorAuthor, QLCFile::currentUserName());
+    doc.writeEndElement(); // close KXMLQLCCreator
+
+    /* Write engine components to the XML document */
+    m_doc->saveXML(&doc);
+
+    /* Write virtual console to the XML document */
+    VirtualConsole::instance()->saveXML(&doc);
+
+    /* Write Simple Desk to the XML document */
+    SimpleDesk::instance()->saveXML(&doc);
+
+    doc.writeEndElement(); // close KXMLQLCWorkspace
+
+    /* End the document and close all the open elements */
+    doc.writeEndDocument();
+    file.close();
+
+    // Save to actual requested file name
+    QFile currFile(fileName);
+    if (currFile.exists() && !currFile.remove())
     {
-        QDomElement root;
-        QDomElement tag;
-        QDomText text;
-
-        /* Create a text stream for the file */
-        QTextStream stream(&file);
-        stream.setAutoDetectUnicode(true);
-        stream.setCodec("UTF-8");
-
-        /* THE MASTER XML ROOT NODE */
-        root = doc.documentElement();
-
-        /* Currently active window */
-        QWidget* widget = m_tab->currentWidget();
-        if (widget != NULL)
-            root.setAttribute(KXMLQLCWorkspaceWindow, widget->metaObject()->className());
-
-        /* Write engine components to the XML document */
-        m_doc->saveXML(&doc, &root);
-
-        /* Write virtual console to the XML document */
-        VirtualConsole::instance()->saveXML(&doc, &root);
-
-        /* Write Simple Desk to the XML document */
-        SimpleDesk::instance()->saveXML(&doc, &root);
-
-        /* Write the XML document to the stream (=file) */
-        stream << doc.toString() << "\n";
-
-        /* Set the file name for the current Doc instance and
-           set it also in an unmodified state. */
-        setFileName(fileName);
-        m_doc->resetModified();
-
-        retval = QFile::NoError;
+        qWarning() << "Could not erase" << fileName;
+        return currFile.error();
     }
-    else
+    if (!file.rename(fileName))
     {
-        retval = QFile::ReadError;
+        qWarning() << "Could not rename" << tempFileName << "to" << fileName;
+        return file.error();
     }
 
-    return retval;
+    /* Set the file name for the current Doc instance and
+       set it also in an unmodified state. */
+    setFileName(fileName);
+    m_doc->resetModified();
+
+    return QFile::NoError;
 }
 
 void App::slotLoadDocFromMemory(QString xmlData)
@@ -1336,9 +1506,34 @@ void App::slotLoadDocFromMemory(QString xmlData)
     /* Clear existing document data */
     clearDocument();
 
-    QDomDocument doc;
-    doc.setContent(xmlData);
-    loadXML(doc, true, true);
+    QBuffer databuf;
+    databuf.setData(xmlData.simplified().toUtf8());
+    databuf.open(QIODevice::ReadOnly | QIODevice::Text);
+
+    //qDebug() << "Buffer data:" << databuf.data();
+    QXmlStreamReader doc(&databuf);
+
+    if (doc.hasError())
+    {
+        qWarning() << Q_FUNC_INFO << "Unable to read from XML in memory";
+        return;
+    }
+
+    while (!doc.atEnd())
+    {
+        if (doc.readNext() == QXmlStreamReader::DTD)
+            break;
+    }
+    if (doc.hasError())
+    {
+        qDebug() << "XML has errors:" << doc.errorString();
+        return;
+    }
+
+    if (doc.dtdName() == KXMLQLCWorkspace)
+        loadXML(doc, true, true);
+    else
+        qDebug() << "XML doesn't have a Workspace tag";
 }
 
 void App::slotSaveAutostart(QString fileName)

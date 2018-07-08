@@ -1,13 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
+ <author>Massimo Callegari</author>
+ <comment>
+  Q Light Controller Plus
+  fixtureeditor.ui
+
+  Copyright (c) 2015 Massimo Callegari
+
+  Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0.txt
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+ </comment>
  <class>FixtureEditor</class>
  <widget class="QWidget" name="FixtureEditor">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>491</width>
-    <height>481</height>
+    <width>600</width>
+    <height>500</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -564,6 +583,161 @@
           </size>
          </property>
         </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>Aliases</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_5">
+       <item row="0" column="0">
+        <layout class="QGridLayout" name="m_aliasGroup">
+         <item row="1" column="3">
+          <widget class="QComboBox" name="m_modeChannels">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="m_aliasModeLabel">
+           <property name="text">
+            <string>In mode</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QComboBox" name="m_modesCombo">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="6">
+          <widget class="QToolButton" name="m_addAliasButton">
+           <property name="toolTip">
+            <string>Add a new alias</string>
+           </property>
+           <property name="text">
+            <string notr="true"/>
+           </property>
+           <property name="icon">
+            <iconset resource="../ui/src/qlcui.qrc">
+             <normaloff>:/edit_add.png</normaloff>:/edit_add.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>32</width>
+             <height>32</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="4">
+          <widget class="QLabel" name="m_aliasOverrideLabel">
+           <property name="text">
+            <string>with</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2">
+          <widget class="QLabel" name="m_aliasReplaceLabel">
+           <property name="text">
+            <string>replace</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0" colspan="8">
+          <widget class="QTreeWidget" name="m_aliasTree">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <attribute name="headerDefaultSectionSize">
+            <number>115</number>
+           </attribute>
+           <column>
+            <property name="text">
+             <string>Alias</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Mode</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Base channel</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Override channel</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+         <item row="1" column="5">
+          <widget class="QComboBox" name="m_allChannels">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="7">
+          <widget class="QToolButton" name="m_removeAliasButton">
+           <property name="toolTip">
+            <string>Remove the currently selected alias</string>
+           </property>
+           <property name="text">
+            <string notr="true"/>
+           </property>
+           <property name="icon">
+            <iconset resource="../ui/src/qlcui.qrc">
+             <normaloff>:/edit_remove.png</normaloff>:/edit_remove.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>32</width>
+             <height>32</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Alias</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1" colspan="7">
+          <widget class="QComboBox" name="m_aliasCapCombo"/>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="Physical">
+      <attribute name="title">
+       <string>Physical</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <layout class="QVBoxLayout" name="physicalLayout"/>
        </item>
       </layout>
      </widget>

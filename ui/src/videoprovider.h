@@ -42,6 +42,7 @@ protected slots:
     void slotStatusChanged(QMediaPlayer::MediaStatus status);
     void slotMetaDataChanged(QString key, QVariant data);
     void slotPlaybackVideo();
+    void slotSetPause(bool enable);
     void slotStopVideo();
     void slotBrightnessAdjust(int value);
 
@@ -55,6 +56,9 @@ protected:
     QMediaPlayer *m_videoPlayer;
     /** Qt widget that actually displays the video */
     QVideoWidget *m_videoWidget;
+
+private:
+    FunctionParent functionParent() const;
 };
 
 class VideoProvider: public QObject

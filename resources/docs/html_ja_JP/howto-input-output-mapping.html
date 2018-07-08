@@ -1,0 +1,148 @@
+<html dir="ltr">
+<head>
+<title>Q Light Controller Plus Plus Documentation
+Q Light Controller Plus オーディオの入出力</title>
+<script src="utility.js" type="text/javascript"></script>
+<link href="style.css" rel="stylesheet" type="text/css"></link>
+  <meta charset="utf-8">
+</head>
+<BODY onLoad="replaceqrc()">
+
+
+<h1>Input/Output Mapping Howto</h1>
+
+<p>This howto document tells you how to patch plugins and their input/output lines
+(physical input/output devices) to QLC+'s universes.</p>
+
+<p>
+By default QLC+ provides 4 universes but you can add/remove them as needed.<br>
+The input/output mapping is saved in the currently loaded project. 
+This allows you to port your project on another computer/OS without the need to
+reconfigure it every time.<br>
+If no project is loaded, QLC+ will keep the I/O mapping as a "fallback" configuration. 
+</p>
+
+<h2 id="input-output-manager">Input/Output Manager</h2>
+
+<p>
+画面下部の「入力/出力設定」をクリックしてInput / Output Managerを表示します。<br>
+The screen is composed in this way:<br>
+<ul>
+ <li>On the left hand side there is the list of internal universes that QLC+ can manage</li>
+ <li>On the right hand side there is the list of devices and their mapped inputs, outputs and feedback lines that QLC+ has detected</li>
+ <li>On the bottom right hand side there is a panel displaying brief information on the currently selected device</li>
+</ul>
+
+Every device has a checkbox whenever an input, output or feedback line is available.<br>
+Each QLC+ universe can map a single input, a single output and a single feedback line<br>
+</p>
+
+<p>
+Some plugins might require configuration before they can be used' so you might
+not be able to see all inputs/outputs at first. The configuration button
+is place next to the information panel and it is enabled if the plugin 
+allows any manual setting.<br>
+The button icon is: <img src="javascript:void(0);" width="32">
+</p>
+
+<h2 ="">Adding/Removing universes</h2>
+
+<p>
+QLC+ supports any number of universes, depending on the CPU limit of the device controlling them.<br>
+On the left hand side of the Input/Output Manager there is a toolbar where you can add/remove, name
+and configure universes.
+</p>
+
+<table border="1" class="qlcTable">
+ <tr>
+  <td><img src="javascript:void(0);"></td>
+  <td>Add a new universe. The universe will have a name like "Universe X",
+      where X is a progressive number assigned by QLC+ (and also the Universe ID).
+  </td>
+ </tr>
+ <tr>
+  <td><img src="javascript:void(0);"></td>
+  <td>Remove the currently selected universe.<br>
+      <b>Please be careful with this operation as it can compromise your project and cannot be reverted.</b><br>
+      When deleting a universe, if it is currently patched or some fixtures are mapped
+      on it, a popup message will appear asking for confirmation if the operation should
+      be completed or abandoned.
+  </td>
+ </tr>
+ <tr>
+  <td><b>Universe name</b></td>
+  <td>An arbitrary string that you can set to quickly identify the meaning of a Universe</td>
+ </tr>
+ <tr>
+  <td><b>Passthrough</b></td>
+  <td>下記を参照してください。</td>
+ </tr>
+</table>
+
+<h2 id="patching">パッチ</h2>
+
+<p>
+To patch a plugin's input/output line to the selected universe, you need to place
+a checkmark on that particular plugin's input/output line. You can have only one
+line assigned to a universe at a time, so when you check another line, the
+checkmark will <u>move</u> from its previous position to the one you just checked.<br>
+If you don't see any line on a plugin, it means you don't have any device that QLC+
+understands and you're left with the one and only (non-selectable) choice: <u>None</u>.
+</p>
+
+<p>
+When an input/output line is checked, the corresponding universe information on the left hand side of the screen
+will change and will display the new configuration set.<br>
+The plugin information on the bottom right hand side of the screen will change as well and will give 
+you the new status of the plugin line.
+</p>
+
+<h2 id="passthrough">Universe Passthrough</h2>
+
+<p>
+When passthrough is enabled, universe just forwards what it receives in its input line to its output line.
+This is useful for several things:
+<ul>
+<li><b>Protocol converter</b>: when you want to use QLC+ to act as a
+    "protocol" converter. For example you can use this feature to
+    transparently map an ArtNet network to a DMX USB adapter or even MIDI.
+</li>
+<li><b>Monitor external data</b>: patch fixtures and watch the data in DMX 
+    monitor
+</li>
+<li><b>Merge data from external controller</b>: Have external lighting desk 
+    control some of the channels independently (for example conventionals) 
+    and QLC+ control intelligent lights on the same universe.</li>
+<li><b>Raspberry Pi</b>: forward data from QLC+ on PC while programming scenes;
+    when the workspace is transferred, Raspberry becomes main controller; the
+    devices are always connected to RPi</li>
+</ul>
+
+<p>Passthrough data is not affected by QLC+ grandmaster or channel modifiers.
+   It is merged in HTP fashion with QLC+ output if there are any fixtures
+   patched at that channel (Note: it does not use LTP/HTP channel settings).
+   Blackout affects passthrough data.
+</p>
+
+<h2 id="input-and-feedback">Input and Feedbacks</h2>
+
+<p>
+When a plugin input line is checked, it gets enabled right away, so you can perform a basic test
+to double check if your hardware is working properly with QLC+.<br>
+Just move a fader/knob on your external device, and if everything works fine, you will see a 
+<img src="javascript:void(0);" width="32"> icon appearing beside the corresponding universe
+on the left side of the screen.
+</p>
+
+<p>
+If your input device supports a return channel, QLC+ can send a visual/mechanical feedback 
+to it. Devices such as Behringer BCF2000 support this feature.<br>
+At the moment feedbacks are supported only through MIDI, OSC and loopback.
+</p>
+
+<p>
+To learn how to setup your external input device for the best use with QLC+, please
+continue your reading with the <a href="javascript:void(0);">howto for input profiles</a>.
+</p>
+</BODY>
+</html>

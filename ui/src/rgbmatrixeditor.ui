@@ -1,12 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
+ <author>Massimo Callegari</author>
+ <comment>
+  Q Light Controller Plus
+  rgbmatrixeditor.ui
+
+  Copyright (c) 2015 Massimo Callegari
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0.txt
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+ </comment>
  <class>RGBMatrixEditor</class>
  <widget class="QWidget" name="RGBMatrixEditor">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>488</width>
+    <width>549</width>
     <height>610</height>
    </rect>
   </property>
@@ -14,6 +33,15 @@
    <string>RGB Matrix Editor</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <property name="topMargin">
+    <number>4</number>
+   </property>
+   <property name="bottomMargin">
+    <number>4</number>
+   </property>
+   <property name="spacing">
+    <number>5</number>
+   </property>
    <item row="2" column="3" rowspan="2">
     <layout class="QVBoxLayout" name="verticalLayout_5">
      <item>
@@ -28,26 +56,35 @@
         <string>Pattern</string>
        </property>
        <layout class="QGridLayout" name="gridLayout_4">
-        <item row="2" column="0">
+        <property name="topMargin">
+         <number>4</number>
+        </property>
+        <property name="bottomMargin">
+         <number>4</number>
+        </property>
+        <property name="verticalSpacing">
+         <number>4</number>
+        </property>
+        <item row="3" column="1">
          <widget class="QPushButton" name="m_endColorButton">
           <property name="toolTip">
-           <string>Matrix end colour</string>
+           <string>Matrix end color</string>
           </property>
           <property name="text">
            <string/>
           </property>
           <property name="iconSize">
            <size>
-            <width>100</width>
+            <width>50</width>
             <height>26</height>
            </size>
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
+        <item row="3" column="2">
          <widget class="QToolButton" name="m_resetEndColorButton">
           <property name="toolTip">
-           <string>Reset end colour</string>
+           <string>Reset the end color</string>
           </property>
           <property name="icon">
            <iconset resource="qlcui.qrc">
@@ -55,24 +92,55 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="0" colspan="2">
+        <item row="0" column="0" colspan="3">
+         <widget class="QComboBox" name="m_patternCombo">
+          <property name="toolTip">
+           <string>The RGB matrix pattern</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
          <widget class="QPushButton" name="m_startColorButton">
           <property name="toolTip">
-           <string>Matrix start colour</string>
+           <string>Matrix start color</string>
           </property>
           <property name="iconSize">
            <size>
-            <width>100</width>
+            <width>50</width>
             <height>26</height>
            </size>
           </property>
          </widget>
         </item>
-        <item row="0" column="0" colspan="2">
-         <widget class="QComboBox" name="m_patternCombo">
-          <property name="toolTip">
-           <string>The RGB matrix pattern</string>
+        <item row="2" column="0">
+         <widget class="QLabel" name="m_blendModeLabel">
+          <property name="text">
+           <string>Blend mode</string>
           </property>
+         </widget>
+        </item>
+        <item row="2" column="1" colspan="2">
+         <widget class="QComboBox" name="m_blendModeCombo">
+          <item>
+           <property name="text">
+            <string>Default (HTP)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Mask</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Additive</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Subtractive</string>
+           </property>
+          </item>
          </widget>
         </item>
        </layout>
@@ -84,6 +152,15 @@
         <string>Properties</string>
        </property>
        <layout class="QGridLayout" name="gridLayout_5">
+        <property name="topMargin">
+         <number>4</number>
+        </property>
+        <property name="bottomMargin">
+         <number>4</number>
+        </property>
+        <property name="verticalSpacing">
+         <number>4</number>
+        </property>
         <item row="0" column="0">
          <layout class="QGridLayout" name="m_propertiesLayout"/>
         </item>
@@ -96,6 +173,15 @@
         <string>Animated Text</string>
        </property>
        <layout class="QGridLayout" name="gridLayout_3">
+        <property name="topMargin">
+         <number>4</number>
+        </property>
+        <property name="bottomMargin">
+         <number>4</number>
+        </property>
+        <property name="verticalSpacing">
+         <number>4</number>
+        </property>
         <item row="0" column="0">
          <widget class="QLineEdit" name="m_textEdit">
           <property name="sizePolicy">
@@ -145,6 +231,15 @@
         <string>Image</string>
        </property>
        <layout class="QGridLayout" name="gridLayout_2">
+        <property name="topMargin">
+         <number>4</number>
+        </property>
+        <property name="bottomMargin">
+         <number>4</number>
+        </property>
+        <property name="verticalSpacing">
+         <number>4</number>
+        </property>
         <item row="0" column="0">
          <widget class="QLineEdit" name="m_imageEdit">
           <property name="sizePolicy">
@@ -184,6 +279,12 @@
         <string>Offset</string>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout">
+        <property name="topMargin">
+         <number>4</number>
+        </property>
+        <property name="bottomMargin">
+         <number>4</number>
+        </property>
         <item>
          <widget class="QLabel" name="m_xOffsetLabel">
           <property name="text">
@@ -248,6 +349,37 @@
    <item row="2" column="0" colspan="3">
     <widget class="QGraphicsView" name="m_preview"/>
    </item>
+   <item row="3" column="3">
+    <widget class="QGroupBox" name="m_intensityGroup">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="title">
+      <string>Other Controls</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_4">
+      <property name="topMargin">
+       <number>4</number>
+      </property>
+      <property name="bottomMargin">
+       <number>4</number>
+      </property>
+      <item>
+       <widget class="QCheckBox" name="m_dimmerControlCb">
+        <property name="toolTip">
+         <string>Set the dimmer channel of fixtures to 100%</string>
+        </property>
+        <property name="text">
+         <string>Dimmer control</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
    <item row="3" column="2">
     <widget class="QGroupBox" name="m_directionGroup">
      <property name="sizePolicy">
@@ -260,6 +392,12 @@
       <string>Direction</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
+      <property name="topMargin">
+       <number>4</number>
+      </property>
+      <property name="bottomMargin">
+       <number>4</number>
+      </property>
       <item>
        <widget class="QRadioButton" name="m_forward">
         <property name="toolTip">
@@ -314,6 +452,12 @@
       <string>Run Order</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
+      <property name="topMargin">
+       <number>4</number>
+      </property>
+      <property name="bottomMargin">
+       <number>4</number>
+      </property>
       <item>
        <widget class="QRadioButton" name="m_loop">
         <property name="toolTip">

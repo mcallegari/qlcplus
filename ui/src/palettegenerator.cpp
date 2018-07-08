@@ -4,19 +4,17 @@
 
   Copyright (C) Massimo Callegari
 
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  Version 2 as published by the Free Software Foundation.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details. The license is
-  in the file "COPYING".
+      http://www.apache.org/licenses/LICENSE-2.0.txt
 
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 */
 
 #include <QString>
@@ -24,13 +22,14 @@
 
 #include "qlccapability.h"
 #include "qlcfixturedef.h"
+#include "qlcfixturehead.h"
 #include "qlcchannel.h"
 
 #include "palettegenerator.h"
+#include "rgbscriptscache.h"
 #include "fixturegroup.h"
 #include "chaserstep.h"
 #include "rgbmatrix.h"
-#include "rgbscriptscache.h"
 #include "fixture.h"
 #include "chaser.h"
 #include "scene.h"
@@ -220,7 +219,7 @@ void PaletteGenerator::addToDoc()
     }
 }
 
-void PaletteGenerator::createColorScene(QHash<quint32, quint32> chMap, QString name, PaletteSubType subType)
+void PaletteGenerator::createColorScene(QList<SceneValue> chMap, QString name, PaletteSubType subType)
 {
     if (chMap.size() == 0)
         return;
@@ -236,17 +235,16 @@ void PaletteGenerator::createColorScene(QHash<quint32, quint32> chMap, QString n
         oddScene = new Scene(m_doc);
     }
 
-    QHashIterator <quint32, quint32> it(chMap);
-    while (it.hasNext() == true)
+    foreach(SceneValue scv, chMap)
     {
-        it.next();
-        scene->setValue(it.key(), it.value(), 255);
+
+        scene->setValue(scv.fxi, scv.channel, 255);
         if (subType == OddEven)
         {
             if (even)
-                evenScene->setValue(it.key(), it.value(), 255);
+                evenScene->setValue(scv.fxi, scv.channel, 255);
             else
-                oddScene->setValue(it.key(), it.value(), 255);
+                oddScene->setValue(scv.fxi, scv.channel, 255);
             even = !even;
         }
     }
@@ -261,9 +259,9 @@ void PaletteGenerator::createColorScene(QHash<quint32, quint32> chMap, QString n
     }
 }
 
-void PaletteGenerator::createRGBCMYScene(QHash<quint32, quint32> rcMap,
-                                         QHash<quint32, quint32> gmMap,
-                                         QHash<quint32, quint32> byMap,
+void PaletteGenerator::createRGBCMYScene(QList<SceneValue> rcMap,
+                                         QList<SceneValue> gmMap,
+                                         QList<SceneValue> byMap,
                                          QString name, bool rgb,
                                          PaletteGenerator::PaletteSubType subType)
 {
@@ -307,27 +305,52 @@ void PaletteGenerator::createRGBCMYScene(QHash<quint32, quint32> rcMap,
             oddScene = new Scene(m_doc);
         }
 
-        QHashIterator <quint32, quint32> it(rcMap);
-        while (it.hasNext() == true)
+        foreach(SceneValue scv, rcMap)
         {
-            it.next();
-            scene->setValue(it.key(), it.value(), rc);
-            scene->setValue(it.key(), gmMap[it.key()], gm);
-            scene->setValue(it.key(), byMap[it.key()], by);
+            Fixture *fxi = m_doc->fixture(scv.fxi);
+            int gmCh = -1, byCh = -1;
+
+            for (int i = 0; i < fxi->heads(); i++)
+            {
+                QLCFixtureHead head = fxi->head(i);
+                if(head.channels().contains(scv.channel))
+                {
+                    if (head.rgbChannels().count() == 3)
+                    {
+                        gmCh = head.rgbChannels().at(1);
+                        byCh = head.rgbChannels().at(2);
+                    }
+                    else if (head.cmyChannels().count() == 3)
+                    {
+                        gmCh = head.cmyChannels().at(1);
+                        byCh = head.cmyChannels().at(2);
+                    }
+                    break;
+                }
+            }
+
+            // if no green/magenta or no blue/yellow channels
+            // are found, there's no chance to set a full RGB/CMY color
+            if (gmCh == -1 || byCh == -1)
+                continue;
+
+            scene->setValue(scv.fxi, scv.channel, rc);
+            scene->setValue(scv.fxi, gmCh, gm);
+            scene->setValue(scv.fxi, byCh, by);
 
             if (subType == OddEven)
             {
                 if (even)
                 {
-                    evenScene->setValue(it.key(), it.value(), rc);
-                    evenScene->setValue(it.key(), gmMap[it.key()], gm);
-                    evenScene->setValue(it.key(), byMap[it.key()], by);
+                    evenScene->setValue(scv.fxi, scv.channel, rc);
+                    evenScene->setValue(scv.fxi, gmCh, gm);
+                    evenScene->setValue(scv.fxi, byCh, by);
                 }
                 else
                 {
-                    oddScene->setValue(it.key(), it.value(), rc);
-                    oddScene->setValue(it.key(), gmMap[it.key()], gm);
-                    oddScene->setValue(it.key(), byMap[it.key()], by);
+                    oddScene->setValue(scv.fxi, scv.channel, rc);
+                    oddScene->setValue(scv.fxi, gmCh, gm);
+                    oddScene->setValue(scv.fxi, byCh, by);
                 }
                 even = !even;
             }
@@ -409,16 +432,14 @@ void PaletteGenerator::createCapabilityScene(QHash<quint32, quint32> chMap,
     }
 }
 
-void PaletteGenerator::createRGBMatrices(QHash<quint32, quint32> rgbMap)
+void PaletteGenerator::createRGBMatrices(QList<SceneValue> rgbMap)
 {
     m_fixtureGroup = new FixtureGroup(m_doc);
     m_fixtureGroup->setSize(QSize(rgbMap.size(), 1));
 
-    QHashIterator <quint32, quint32> it(rgbMap);
-    while (it.hasNext() == true)
+    foreach(SceneValue scv, rgbMap)
     {
-        it.next();
-        m_fixtureGroup->assignFixture(it.key());
+        m_fixtureGroup->assignFixture(scv.fxi);
         m_fixtureGroup->setName(m_model + tr(" - RGB Group"));
     }
     QStringList algoList = m_doc->rgbScriptsCache()->names();
@@ -461,13 +482,13 @@ void PaletteGenerator::createFunctions(PaletteGenerator::PaletteType type,
     // in m_fixtures depending on type and subtype
     QHash<quint32, quint32> m_panList;
     QHash<quint32, quint32> m_tiltList;
-    QHash<quint32, quint32> m_redList;
-    QHash<quint32, quint32> m_greenList;
-    QHash<quint32, quint32> m_blueList;
-    QHash<quint32, quint32> m_cyanList;
-    QHash<quint32, quint32> m_magentaList;
-    QHash<quint32, quint32> m_yellowList;
-    QHash<quint32, quint32> m_whiteList;
+    QList<SceneValue> m_redList;
+    QList<SceneValue> m_greenList;
+    QList<SceneValue> m_blueList;
+    QList<SceneValue> m_cyanList;
+    QList<SceneValue> m_magentaList;
+    QList<SceneValue> m_yellowList;
+    QList<SceneValue> m_whiteList;
     QHash<quint32, quint32> m_goboList;
     QHash<quint32, quint32> m_shutterList;
     QHash<quint32, quint32> m_colorMacroList;
@@ -495,13 +516,13 @@ void PaletteGenerator::createFunctions(PaletteGenerator::PaletteType type,
                     QLCChannel::PrimaryColour col = channel->colour();
                     switch (col)
                     {
-                        case QLCChannel::Red: m_redList[fxID] = ch; break;
-                        case QLCChannel::Green: m_greenList[fxID] = ch; break;
-                        case QLCChannel::Blue: m_blueList[fxID] = ch; break;
-                        case QLCChannel::Cyan: m_cyanList[fxID] = ch; break;
-                        case QLCChannel::Magenta: m_magentaList[fxID] = ch; break;
-                        case QLCChannel::Yellow: m_yellowList[fxID] = ch; break;
-                        case QLCChannel::White: m_whiteList[fxID] = ch; break;
+                        case QLCChannel::Red: m_redList.append(SceneValue(fxID, ch)); break;
+                        case QLCChannel::Green: m_greenList.append(SceneValue(fxID, ch)); break;
+                        case QLCChannel::Blue: m_blueList.append(SceneValue(fxID, ch)); break;
+                        case QLCChannel::Cyan: m_cyanList.append(SceneValue(fxID, ch)); break;
+                        case QLCChannel::Magenta: m_magentaList.append(SceneValue(fxID, ch)); break;
+                        case QLCChannel::Yellow: m_yellowList.append(SceneValue(fxID, ch)); break;
+                        case QLCChannel::White: m_whiteList.append(SceneValue(fxID, ch)); break;
                         default: break;
                     }
                 }

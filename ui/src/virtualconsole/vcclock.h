@@ -1,5 +1,5 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   vcclock.h
 
   Copyright (c) Massimo Callegari
@@ -20,10 +20,13 @@
 #ifndef VCCLOCK_H
 #define VCCLOCK_H
 
+#include <QDateTime>
+#include <QKeySequence>
+
 #include "vcwidget.h"
 
-class QDomDocument;
-class QDomElement;
+class QXmlStreamReader;
+class QXmlStreamWriter;
 class QPaintEvent;
 class InputMap;
 class Doc;
@@ -48,8 +51,8 @@ public:
     bool operator<(const VCClockSchedule& sch) const;
 
     /** Load & Save */
-    bool loadXML(const QDomElement* root);
-    bool saveXML(QDomDocument* doc, QDomElement* root);
+    bool loadXML(QXmlStreamReader &root);
+    bool saveXML(QXmlStreamWriter *doc);
 
 private:
     quint32 m_id;
@@ -86,7 +89,7 @@ public:
     };
 
     void setClockType(ClockType type);
-    ClockType clockType();
+    ClockType clockType() const;
 
     QString typeToString(ClockType type);
     ClockType stringToType(QString str);
@@ -106,6 +109,9 @@ private:
     QList<VCClockSchedule>m_scheduleList;
     int m_scheduleIndex;
 
+private:
+    FunctionParent functionParent() const;
+
     /*********************************************************************
      * Time
      *********************************************************************/
@@ -113,13 +119,14 @@ private:
 public:
     void setCountdown(int h, int m, int s);
     long currentTime() { return m_currentTime; }
-    void resetTime();
     int getHours() { return m_hh; }
     int getMinutes() { return m_mm; }
     int getSeconds() { return m_ss; }
 
 protected slots:
     void slotUpdateTime();
+    void slotPlayPauseTimer();
+    void slotResetTimer();
 
 private:
     int m_hh, m_mm, m_ss;
@@ -127,11 +134,52 @@ private:
     quint32 m_currentTime;
     bool m_isPaused;
 
+public:
+    static const quint8 playInputSourceId;
+    static const quint8 resetInputSourceId;
+
+    /*************************************************************************
+     * Key sequences
+     *************************************************************************/
+public:
+    /** Set the keyboard key combination for playing/pausing the timer */
+    void setPlayKeySequence(const QKeySequence& keySequence);
+
+    /** Get the keyboard key combination for playing/pausing the timer */
+    QKeySequence playKeySequence() const;
+
+    /** Set the keyboard key combination for resetting the timer */
+    void setResetKeySequence(const QKeySequence& keySequence);
+
+    /** Get the keyboard key combination for resetting the timer */
+    QKeySequence resetKeySequence() const;
+
+private:
+    QKeySequence m_playKeySequence;
+    QKeySequence m_resetKeySequence;
+
+protected slots:
+    void slotKeyPressed(const QKeySequence& keySequence);
+
+    /*************************************************************************
+     * External Input
+     *************************************************************************/
+public:
+    void updateFeedback();
+
+protected slots:
+    void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
+
+private:
+    quint32 m_playLatestValue;
+    quint32 m_resetLatestValue;
+
     /*********************************************************************
      * Clipboard
      *********************************************************************/
 public:
     VCWidget* createCopy(VCWidget* parent);
+    bool copyFrom(const VCWidget *widget);
 
     /*********************************************************************
      * Properties
@@ -139,18 +187,12 @@ public:
 public:
     void editProperties();
 
-    /*****************************************************************************
-     * External input
-     *****************************************************************************/
-    /** @reimp */
-    void updateFeedback() { }
-
     /*********************************************************************
      * Load & Save
      *********************************************************************/
 public:
-    bool loadXML(const QDomElement* root);
-    bool saveXML(QDomDocument* doc, QDomElement* vc_root);
+    bool loadXML(QXmlStreamReader &root);
+    bool saveXML(QXmlStreamWriter *doc);
 
     /*********************************************************************
      * Painting

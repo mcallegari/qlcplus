@@ -41,9 +41,11 @@ private slots:
     void universeNames();
     void addUniverse();
     void removeUniverse();
+    void universe();
     void profiles();
     void setInputPatch();
     void setOutputPatch();
+    void setMultipleOutputPatches();
     void slotValueChanged();
     void slotConfigurationChanged();
     void loadInputProfiles();
@@ -51,6 +53,7 @@ private slots:
     void profileDirectories();
     void claimReleaseDumpReset();
     void blackout();
+    void grandMaster();
 
 private:
     Doc* m_doc;

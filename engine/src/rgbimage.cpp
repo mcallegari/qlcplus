@@ -4,6 +4,7 @@
 
   Copyright (c) Heikki Junnila
   Copyright (c) Jano Svitok
+  Copyright (c) Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -18,8 +19,8 @@
   limitations under the License.
 */
 
-#include <QDomDocument>
-#include <QDomElement>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QPainter>
 #include <QDebug>
 
@@ -33,9 +34,10 @@
 #define KXMLQLCRGBImageOffsetX        "X"
 #define KXMLQLCRGBImageOffsetY        "Y"
 
-RGBImage::RGBImage(const Doc * doc)
+RGBImage::RGBImage(Doc * doc)
     : RGBAlgorithm(doc)
     , m_filename("")
+    , m_animatedSource(false)
     , m_animationStyle(Static)
     , m_xOffset(0)
     , m_yOffset(0)
@@ -45,6 +47,7 @@ RGBImage::RGBImage(const Doc * doc)
 RGBImage::RGBImage(const RGBImage& i)
     : RGBAlgorithm( i.doc())
     , m_filename(i.filename())
+    , m_animatedSource(i.animatedSource())
     , m_animationStyle(i.animationStyle())
     , m_xOffset(i.xOffset())
     , m_yOffset(i.yOffset())
@@ -77,18 +80,60 @@ QString RGBImage::filename() const
     return m_filename;
 }
 
+void RGBImage::setImageData(int width, int height, const QByteArray &pixelData)
+{
+    QMutexLocker locker(&m_mutex);
+
+    qDebug() << "[RGBImage] setting image data:" << width << height << pixelData.length();
+    QImage newImg(width, height, QImage::Format_RGB888);
+    newImg.fill(Qt::black);
+
+    int i = 0;
+    for (int y = 0; y < height; y++)
+    {
+        for (int x = 0; x < width; x++)
+        {
+            if (i + 3 > pixelData.length())
+                break;
+            QRgb pixel = qRgb((uchar)pixelData.at(i), (uchar)pixelData.at(i + 1), (uchar)pixelData.at(i + 2));
+            newImg.setPixel(x, y, pixel);
+            i+=3;
+        }
+    }
+    m_image = newImg;
+}
+
+bool RGBImage::animatedSource() const
+{
+    return m_animatedSource;
+}
+
 void RGBImage::reloadImage()
 {
+    m_animatedSource = false;
+
     if (m_filename.isEmpty())
     {
-        qDebug() << "Empty image!";
+        qDebug() << "[RGBImage] Empty image!";
         return;
     }
 
-    if (!m_image.load(m_filename))
+    QMutexLocker locker(&m_mutex);
+
+    if (m_filename.endsWith(".gif"))
     {
-        qDebug() << "[RGBImage] Failed to load" << m_filename;
-        return;
+        m_animatedPlayer.setFileName(m_filename);
+        if (m_animatedPlayer.frameCount() > 1)
+            m_animatedSource = true;
+    }
+
+    if (m_animatedSource == false)
+    {
+        if (!m_image.load(m_filename))
+        {
+            qDebug() << "[RGBImage] Failed to load" << m_filename;
+            return;
+        }
     }
 }
 
@@ -113,15 +158,15 @@ QString RGBImage::animationStyleToString(RGBImage::AnimationStyle ani)
 {
     switch (ani)
     {
-    default:
-    case Static:
-        return QString("Static");
-    case Horizontal:
-        return QString("Horizontal");
-    case Vertical:
-        return QString("Vertical");
-    case Animation:
-        return QString("Animation");
+        default:
+        case Static:
+            return QString("Static");
+        case Horizontal:
+            return QString("Horizontal");
+        case Vertical:
+            return QString("Vertical");
+        case Animation:
+            return QString("Animation");
     }
 }
 
@@ -173,18 +218,20 @@ int RGBImage::yOffset() const
 
 int RGBImage::rgbMapStepCount(const QSize& size)
 {
+    QMutexLocker locker(&m_mutex);
+
     switch (animationStyle())
     {
-    default:
-    case Static:
-        return 1;
-    case Horizontal:
-        return m_image.width();
-    case Vertical:
-        return m_image.height();
-    case Animation:
-        qDebug() << m_image.width() << " " << size.width() << " " << (m_image.width() / size.width());
-        return MAX(1, m_image.width() / size.width());
+        default:
+        case Static:
+            return 1;
+        case Horizontal:
+            return m_image.width();
+        case Vertical:
+            return m_image.height();
+        case Animation:
+            qDebug() << m_image.width() << " " << size.width() << " " << (m_image.width() / size.width());
+            return MAX(1, m_image.width() / size.width());
     }
 }
 
@@ -192,7 +239,9 @@ RGBMap RGBImage::rgbMap(const QSize& size, uint rgb, int step)
 {
     Q_UNUSED(rgb);
 
-    if (m_image.width() == 0 || m_image.height() == 0)
+    QMutexLocker locker(&m_mutex);
+
+    if (m_animatedSource == false && (m_image.width() == 0 || m_image.height() == 0))
         return RGBMap();
 
     int xOffs = xOffset();
@@ -200,18 +249,24 @@ RGBMap RGBImage::rgbMap(const QSize& size, uint rgb, int step)
 
     switch(animationStyle()) 
     {
-    default:
-    case Static:
+        default:
+        case Static:
         break;
-    case Horizontal:
-        xOffs += step;
+        case Horizontal:
+            xOffs += step;
         break;
-    case Vertical:
-        yOffs += step;
+        case Vertical:
+            yOffs += step;
         break;
-    case Animation:
-        xOffs += step * size.width();
+        case Animation:
+            xOffs += step * size.width();
         break;
+    }
+
+    if (m_animatedSource)
+    {
+        m_animatedPlayer.jumpToNextFrame();
+        m_image = m_animatedPlayer.currentImage().scaled(size);
     }
 
     RGBMap map(size.height());
@@ -257,39 +312,38 @@ int RGBImage::acceptColors() const
     return 0;
 }
 
-bool RGBImage::loadXML(const QDomElement& root)
+bool RGBImage::loadXML(QXmlStreamReader &root)
 {
-    if (root.tagName() != KXMLQLCRGBAlgorithm)
+    if (root.name() != KXMLQLCRGBAlgorithm)
     {
         qWarning() << Q_FUNC_INFO << "RGB Algorithm node not found";
         return false;
     }
 
-    if (root.attribute(KXMLQLCRGBAlgorithmType) != KXMLQLCRGBImage)
+    if (root.attributes().value(KXMLQLCRGBAlgorithmType).toString() != KXMLQLCRGBImage)
     {
         qWarning() << Q_FUNC_INFO << "RGB Algorithm is not Image";
         return false;
     }
 
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLQLCRGBImageFilename)
+        if (root.name() == KXMLQLCRGBImageFilename)
         {
-            setFilename(doc()->denormalizeComponentPath(tag.text()));
+            setFilename(doc()->denormalizeComponentPath(root.readElementText()));
         }
-        else if (tag.tagName() == KXMLQLCRGBImageAnimationStyle)
+        else if (root.name() == KXMLQLCRGBImageAnimationStyle)
         {
-            setAnimationStyle(stringToAnimationStyle(tag.text()));
+            setAnimationStyle(stringToAnimationStyle(root.readElementText()));
         }
-        else if (tag.tagName() == KXMLQLCRGBImageOffset)
+        else if (root.name() == KXMLQLCRGBImageOffset)
         {
             QString str;
             int value;
             bool ok;
+            QXmlStreamAttributes attrs = root.attributes();
 
-            str = tag.attribute(KXMLQLCRGBImageOffsetX);
+            str = attrs.value(KXMLQLCRGBImageOffsetX).toString();
             ok = false;
             value = str.toInt(&ok);
             if (ok == true)
@@ -297,49 +351,43 @@ bool RGBImage::loadXML(const QDomElement& root)
             else
                 qWarning() << Q_FUNC_INFO << "Invalid X offset:" << str;
 
-            str = tag.attribute(KXMLQLCRGBImageOffsetY);
+            str = attrs.value(KXMLQLCRGBImageOffsetY).toString();
             ok = false;
             value = str.toInt(&ok);
             if (ok == true)
                 setYOffset(value);
             else
                 qWarning() << Q_FUNC_INFO << "Invalid Y offset:" << str;
+            root.skipCurrentElement();
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown RGBImage tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unknown RGBImage tag:" << root.name();
+            root.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     return true;
 }
 
-bool RGBImage::saveXML(QDomDocument* doc, QDomElement* mtx_root) const
+bool RGBImage::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(mtx_root != NULL);
 
-    QDomElement root = doc->createElement(KXMLQLCRGBAlgorithm);
-    root.setAttribute(KXMLQLCRGBAlgorithmType, KXMLQLCRGBImage);
-    mtx_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCRGBAlgorithm);
+    doc->writeAttribute(KXMLQLCRGBAlgorithmType, KXMLQLCRGBImage);
 
-    QDomElement filename = doc->createElement(KXMLQLCRGBImageFilename);
-    QDomText filenameText =
-       doc->createTextNode(this->doc()->normalizeComponentPath(m_filename));
-    filename.appendChild(filenameText);
-    root.appendChild(filename);
+    doc->writeTextElement(KXMLQLCRGBImageFilename, this->doc()->normalizeComponentPath(m_filename));
 
-    QDomElement ani = doc->createElement(KXMLQLCRGBImageAnimationStyle);
-    QDomText aniText = doc->createTextNode(animationStyleToString(animationStyle()));
-    ani.appendChild(aniText);
-    root.appendChild(ani);
+    doc->writeTextElement(KXMLQLCRGBImageAnimationStyle, animationStyleToString(animationStyle()));
 
-    QDomElement offset = doc->createElement(KXMLQLCRGBImageOffset);
-    offset.setAttribute(KXMLQLCRGBImageOffsetX, xOffset());
-    offset.setAttribute(KXMLQLCRGBImageOffsetY, yOffset());
-    root.appendChild(offset);
+    doc->writeStartElement(KXMLQLCRGBImageOffset);
+    doc->writeAttribute(KXMLQLCRGBImageOffsetX, QString::number(xOffset()));
+    doc->writeAttribute(KXMLQLCRGBImageOffsetY, QString::number(yOffset()));
+    doc->writeEndElement();
+
+    /* End the <Algorithm> tag */
+    doc->writeEndElement();
 
     return true;
 }

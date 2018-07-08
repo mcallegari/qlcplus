@@ -53,7 +53,7 @@ QString EnttecWing::name()
 
 int EnttecWing::capabilities() const
 {
-    return QLCIOPlugin::Input;
+    return QLCIOPlugin::Output | QLCIOPlugin::Input | QLCIOPlugin::Feedback;
 }
 
 bool EnttecWing::reBindSocket()
@@ -75,18 +75,33 @@ bool EnttecWing::reBindSocket()
 }
 
 /*****************************************************************************
+ * Outputs
+ *****************************************************************************/
+
+QStringList EnttecWing::outputs()
+{
+    QStringList list;
+    QListIterator <Wing*> it(m_devices);
+    while (it.hasNext() == true)
+        list << it.next()->name();
+    return list;
+}
+
+/*****************************************************************************
  * Inputs
  *****************************************************************************/
 
-bool EnttecWing::openInput(quint32 input)
+bool EnttecWing::openInput(quint32 input, quint32 universe)
 {
     Q_UNUSED(input);
+    Q_UNUSED(universe)
     return reBindSocket();
 }
 
-void EnttecWing::closeInput(quint32 input)
+void EnttecWing::closeInput(quint32 input, quint32 universe)
 {
-    Q_UNUSED(input);
+    Q_UNUSED(input)
+    Q_UNUSED(universe)
 }
 
 QStringList EnttecWing::inputs()
@@ -153,8 +168,11 @@ QString EnttecWing::inputInfo(quint32 input)
     return str;
 }
 
-void EnttecWing::sendFeedBack(quint32 input, quint32 channel, uchar value, const QString &)
+void EnttecWing::sendFeedBack(quint32 universe, quint32 input,
+                              quint32 channel, uchar value, const QString &)
 {
+    Q_UNUSED(universe)
+
     Wing* wing = device(input);
     if (wing != NULL)
         wing->feedBack(channel, value);
@@ -241,8 +259,6 @@ void EnttecWing::addDevice(Wing* device)
     connect(device, SIGNAL(valueChanged(quint32,uchar)),
             this, SLOT(slotValueChanged(quint32,uchar)));
 
-    connect(device, SIGNAL(pageChanged(quint32,quint32)),
-            this, SLOT(slotPageChanged(quint32,quint32)));
     m_devices.append(device);
 
     /* To maintain some persistency with the indices of multiple devices
@@ -296,12 +312,6 @@ void EnttecWing::slotValueChanged(quint32 channel, uchar value)
 {
     Wing* wing = qobject_cast<Wing*> (QObject::sender());
     emit valueChanged(UINT_MAX, m_devices.indexOf(wing), channel, value);
-}
-
-void EnttecWing::slotPageChanged(quint32 pagesize, quint32 page)
-{
-    Wing* wing = qobject_cast<Wing*> (QObject::sender());
-    emit pageChanged(m_devices.indexOf(wing), pagesize, page);
 }
 
 /*****************************************************************************

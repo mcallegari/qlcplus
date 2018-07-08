@@ -17,7 +17,9 @@
   limitations under the License.
 */
 
-#include <QtXml>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
+#include <QDebug>
 
 #include "audiobar.h"
 #include "vcbutton.h"
@@ -26,8 +28,9 @@
 #include "vccuelist.h"
 #include "virtualconsole.h"
 
-AudioBar::AudioBar(int t, uchar v)
+AudioBar::AudioBar(int t, uchar v, quint32 parentId)
 {
+    m_parentId = parentId;
     m_type = t;
     m_value = v;
     m_tapped = false;
@@ -45,6 +48,7 @@ AudioBar::AudioBar(int t, uchar v)
 AudioBar *AudioBar::createCopy()
 {
     AudioBar *copy = new AudioBar();
+    copy->m_parentId = m_parentId;
     copy->m_type = m_type;
     copy->m_value = m_value;
     copy->m_name = m_name;
@@ -53,6 +57,7 @@ AudioBar *AudioBar::createCopy()
     copy->m_absDmxChannels = m_absDmxChannels;
     copy->m_function = m_function;
     copy->m_widget = m_widget;
+    copy->m_widgetID = m_widgetID;
     copy->m_minThreshold = m_minThreshold;
     copy->m_maxThreshold = m_maxThreshold;
     copy->m_divisor = m_divisor;
@@ -138,7 +143,7 @@ void AudioBar::attachWidget(quint32 wID)
     m_tapped = false;
 }
 
-VCWidget * AudioBar::widget()
+VCWidget *AudioBar::widget()
 {
     if (m_widget == NULL)
         m_widget = VirtualConsole::instance()->widget(m_widgetID);
@@ -150,10 +155,14 @@ void AudioBar::checkFunctionThresholds(Doc *doc)
 {
     if (m_function == NULL)
         return;
-    if (m_value >= m_maxThreshold && m_function->isRunning() == false)
-        m_function->start(doc->masterTimer());
-    else if (m_value < m_minThreshold && m_function->isRunning() == true)
-        m_function->stop();
+    if (m_value >= m_maxThreshold)
+    {
+        m_function->start(doc->masterTimer(), functionParent());
+    }
+    else if (m_value < m_minThreshold)
+    {
+        m_function->stop(functionParent());
+    }
 }
 
 void AudioBar::checkWidgetFunctionality()
@@ -167,10 +176,17 @@ void AudioBar::checkWidgetFunctionality()
     if (m_widget->type() == VCWidget::ButtonWidget)
     {
         VCButton *btn = (VCButton *)m_widget;
-        if (m_value >= m_maxThreshold && btn->isOn() == false)
-            btn->setOn(true);
-        else if (m_value < m_minThreshold && btn->isOn() == true)
-            btn->setOn(false);
+        if (m_value >= m_maxThreshold && btn->state() == VCButton::Inactive)
+        {
+            btn->pressFunction();
+            //btn->setState(true);
+        }
+        else if (m_value < m_minThreshold && btn->state() != VCButton::Inactive)
+        {
+            btn->pressFunction();
+            btn->releaseFunction(); // finish flashing
+            //btn->setState(false);
+        }
     }
     else if (m_widget->type() == VCWidget::SliderWidget)
     {
@@ -184,7 +200,7 @@ void AudioBar::checkWidgetFunctionality()
         {
             if (m_skippedBeats == 0)
                speedDial->tap();
-            
+
             m_tapped = true;
             m_skippedBeats = (m_skippedBeats + 1) % m_divisor;
         }
@@ -216,27 +232,49 @@ void AudioBar::debugInfo()
 
 }
 
-bool AudioBar::loadXML(const QDomElement &root, Doc *doc)
+bool AudioBar::loadXML(QXmlStreamReader &root, Doc *doc)
 {
-    if (root.hasAttribute(KXMLQLCAudioBarName))
-        m_name = root.attribute(KXMLQLCAudioBarName);
+    QXmlStreamAttributes attrs = root.attributes();
 
-    if (root.hasAttribute(KXMLQLCAudioBarType))
+    if (attrs.hasAttribute(KXMLQLCAudioBarName))
+        m_name = attrs.value(KXMLQLCAudioBarName).toString();
+
+    if (attrs.hasAttribute(KXMLQLCAudioBarType))
     {
-        m_type = root.attribute(KXMLQLCAudioBarType).toInt();
-        m_minThreshold = root.attribute(KXMLQLCAudioBarMinThreshold).toInt();
-        m_maxThreshold = root.attribute(KXMLQLCAudioBarMaxThreshold).toInt();
-        m_divisor = root.attribute(KXMLQLCAudioBarDivisor).toInt();
+        m_type = attrs.value(KXMLQLCAudioBarType).toString().toInt();
+        m_minThreshold = attrs.value(KXMLQLCAudioBarMinThreshold).toString().toInt();
+        m_maxThreshold = attrs.value(KXMLQLCAudioBarMaxThreshold).toString().toInt();
+        m_divisor = attrs.value(KXMLQLCAudioBarDivisor).toString().toInt();
 
-        if (m_type == AudioBar::DMXBar)
+        switch(m_type)
         {
-            QDomNode node = root.firstChild();
-            if (node.isNull() == false)
+            case AudioBar::FunctionBar:
             {
-                QDomElement tag = node.toElement();
-                if (tag.tagName() == KXMLQLCAudioBarDMXChannels)
+                if (attrs.hasAttribute(KXMLQLCAudioBarFunction))
                 {
-                    QString dmxValues = tag.text();
+                    quint32 fid = attrs.value(KXMLQLCAudioBarFunction).toString().toUInt();
+                    Function *func = doc->function(fid);
+                    if (func != NULL)
+                        m_function = func;
+                }
+            }
+            break;
+            case AudioBar::VCWidgetBar:
+            {
+                if (attrs.hasAttribute(KXMLQLCAudioBarWidget))
+                {
+                    quint32 wid = attrs.value(KXMLQLCAudioBarWidget).toString().toUInt();
+                    m_widgetID = wid;
+                }
+            }
+            break;
+            case AudioBar::DMXBar:
+            {
+                root.readNextStartElement();
+
+                if (root.name() == KXMLQLCAudioBarDMXChannels)
+                {
+                    QString dmxValues = root.readElementText();
                     if (dmxValues.isEmpty() == false)
                     {
                         QList<SceneValue> channels;
@@ -250,28 +288,31 @@ bool AudioBar::loadXML(const QDomElement &root, Doc *doc)
                     }
                 }
             }
+            break;
         }
     }
+
+    root.skipCurrentElement();
+
     return true;
 }
 
-bool AudioBar::saveXML(QDomDocument *doc, QDomElement *atf_root, QString tagName, int index)
+bool AudioBar::saveXML(QXmlStreamWriter *doc, QString tagName, int index)
 {
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(atf_root != NULL);
 
     qDebug() << Q_FUNC_INFO;
 
-    QDomElement ab_tag = doc->createElement(tagName);
-    ab_tag.setAttribute(KXMLQLCAudioBarName, m_name);
-    ab_tag.setAttribute(KXMLQLCAudioBarType, m_type);
-    ab_tag.setAttribute(KXMLQLCAudioBarMinThreshold, m_minThreshold);
-    ab_tag.setAttribute(KXMLQLCAudioBarMaxThreshold, m_maxThreshold);
-    ab_tag.setAttribute(KXMLQLCAudioBarDivisor, m_divisor);
-    ab_tag.setAttribute(KXMLQLCAudioBarIndex, index);
+    doc->writeStartElement(tagName);
+    doc->writeAttribute(KXMLQLCAudioBarName, m_name);
+    doc->writeAttribute(KXMLQLCAudioBarType, QString::number(m_type));
+    doc->writeAttribute(KXMLQLCAudioBarMinThreshold, QString::number(m_minThreshold));
+    doc->writeAttribute(KXMLQLCAudioBarMaxThreshold, QString::number(m_maxThreshold));
+    doc->writeAttribute(KXMLQLCAudioBarDivisor, QString::number(m_divisor));
+    doc->writeAttribute(KXMLQLCAudioBarIndex, QString::number(index));
+
     if (m_type == AudioBar::DMXBar && m_dmxChannels.count() > 0)
     {
-        QDomElement dmx_tag = doc->createElement(KXMLQLCAudioBarDMXChannels);
         QString chans;
         foreach (SceneValue scv, m_dmxChannels)
         {
@@ -281,21 +322,28 @@ bool AudioBar::saveXML(QDomDocument *doc, QDomElement *atf_root, QString tagName
         }
         if (chans.isEmpty() == false)
         {
-            QDomText text = doc->createTextNode(chans);
-            dmx_tag.appendChild(text);
+            doc->writeTextElement(KXMLQLCAudioBarDMXChannels, chans);
         }
-
-        ab_tag.appendChild(dmx_tag);
     }
     else if (m_type == AudioBar::FunctionBar && m_function != NULL)
     {
-        ab_tag.setAttribute(KXMLQLCAudioBarFunction, m_function->id());
+        doc->writeAttribute(KXMLQLCAudioBarFunction, QString::number(m_function->id()));
     }
-    else if (m_type == AudioBar::VCWidgetBar && m_widget != NULL)
+    else if (m_type == AudioBar::VCWidgetBar && m_widgetID != VCWidget::invalidId())
     {
-        ab_tag.setAttribute(KXMLQLCAudioBarWidget, m_widget->id());
+        doc->writeAttribute(KXMLQLCAudioBarWidget, QString::number(m_widgetID));
     }
-    atf_root->appendChild(ab_tag);
+
+    /* End <tagName> tag */
+    doc->writeEndElement();
 
     return true;
+}
+
+FunctionParent AudioBar::functionParent() const
+{
+    if (m_parentId != quint32(-1))
+        return FunctionParent(FunctionParent::AutoVCWidget, m_parentId);
+    else
+        return FunctionParent::master();
 }

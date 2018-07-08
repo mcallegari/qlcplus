@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.3.0</Version>
+  <Author>Heiko Fanieng</Author>
+ </Creator>
+ <Manufacturer>Showtec</Manufacturer>
+ <Model>MultiDim MK III DMX</Model>
+ <Type>Dimmer</Type>
+ <Channel Name="Channel 1" Preset="IntensityDimmer"/>
+ <Channel Name="Channel 2" Preset="IntensityDimmer"/>
+ <Channel Name="Channel 3" Preset="IntensityDimmer"/>
+ <Channel Name="Channel 4" Preset="IntensityDimmer"/>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Channel 1</Channel>
+  <Channel Number="1">Channel 2</Channel>
+  <Channel Number="2">Channel 3</Channel>
+  <Channel Number="3">Channel 4</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
+   <Dimensions Width="212" Height="71" Weight="2.4" Depth="188"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="1000" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

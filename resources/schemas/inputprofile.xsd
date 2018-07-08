@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<!-- 
+  Q Light Controller Plus
+  inputprofile.xsd
+  
+  Copyright (C) Jano Svitok
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0.txt
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+
+  XML Schema for Input profiles
+
+  usage (from fixtures dir, replace "_" with "-"):
+
+    xmllint __noout __schema ../schemas/inputprofile.xsd *.qxi
+
+  xmllint is part of libxml2-utils package in ubuntu.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+targetNamespace="http://www.qlcplus.org/InputProfile"
+xmlns="http://www.qlcplus.org/InputProfile"
+elementFormDefault="qualified"
+>
+
+<xs:element name="InputProfile">
+    <xs:complexType>
+        <xs:sequence>
+            <xs:element name="Creator" type="creatorType"/>
+            <xs:element name="Manufacturer" type="xs:string"/>
+            <xs:element name="Model" type="xs:string"/>
+            <xs:element name="Type" type="profileTypeEnum"/>
+            <xs:element name="MIDISendNoteOff" type="qlcBool" minOccurs="0"/>
+            <xs:element name="Channel" type="channelType" maxOccurs="unbounded"/>
+        </xs:sequence>
+     </xs:complexType>
+</xs:element>
+
+<xs:complexType name="creatorType">
+    <xs:sequence>
+        <xs:element name="Name" type="xs:string"/>
+        <xs:element name="Version" type="xs:string"/>
+        <xs:element name="Author" type="xs:string"/>
+    </xs:sequence>
+</xs:complexType>
+
+<xs:simpleType name="profileTypeEnum">
+    <xs:restriction base="xs:string">
+        <xs:enumeration value="MIDI"/>
+        <xs:enumeration value="OSC"/>
+        <xs:enumeration value="HID"/>
+        <xs:enumeration value="DMX"/>
+        <xs:enumeration value="Enttec"/>
+    </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="qlcBool">
+    <xs:restriction base="xs:string">
+        <xs:enumeration value="False"/>
+        <xs:enumeration value="True"/>
+    </xs:restriction>
+</xs:simpleType>
+
+<xs:complexType name="channelType">
+    <xs:sequence>
+        <xs:element name="Name" type="xs:string"/>
+        <xs:element name="Type" type="channelTypeEnum"/>
+        <xs:element name="ExtraPress" type="qlcBool" minOccurs="0"/>
+        <xs:element name="Movement" type="movementType" minOccurs="0"/>
+        <xs:element name="Feedbacks" type="feedbackType" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="Number" type="xs:integer" use="required"/>
+</xs:complexType>
+
+<xs:simpleType name="channelTypeEnum">
+    <xs:restriction base="xs:string">
+        <xs:enumeration value="Slider"/>
+        <xs:enumeration value="Knob"/>
+        <xs:enumeration value="Encoder"/>
+        <xs:enumeration value="Button"/>
+        <xs:enumeration value="Next Page"/>
+        <xs:enumeration value="Previous Page"/>
+        <xs:enumeration value="Page Set"/>
+    </xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="movementTypeEnum">
+    <xs:restriction base="xs:string">
+        <xs:enumeration value=""/>
+        <xs:enumeration value="Relative"/>
+    </xs:restriction>
+</xs:simpleType>
+
+<xs:complexType name="movementType">
+    <xs:simpleContent>
+        <xs:extension base="movementTypeEnum">
+            <xs:attribute name="Sensitivity" type="xs:integer" use="required"/>
+        </xs:extension>
+    </xs:simpleContent>
+</xs:complexType>
+
+
+<xs:complexType name="feedbackType">
+    <xs:attribute name="LowerValue" type="xs:unsignedByte"/>
+    <xs:attribute name="UpperValue" type="xs:unsignedByte"/>
+</xs:complexType>
+
+</xs:schema>

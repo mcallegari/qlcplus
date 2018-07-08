@@ -21,6 +21,7 @@
 #include <QApplication>
 #include <QPainter>
 #include <QMenu>
+#include <qmath.h>
 
 #include "videoitem.h"
 #include "trackitem.h"
@@ -36,7 +37,7 @@ VideoItem::VideoItem(Video *vid, ShowFunction *func)
     if (func->color().isValid())
         setColor(func->color());
     else
-        setColor(ShowFunction::defaultColor(Function::Video));
+        setColor(ShowFunction::defaultColor(Function::VideoType));
 
     if (func->duration() == 0)
         func->setDuration(m_video->totalDuration());
@@ -58,7 +59,7 @@ VideoItem::VideoItem(Video *vid, ShowFunction *func)
 void VideoItem::calculateWidth()
 {
     int newWidth = 0;
-    qint64 video_duration = m_video->totalDuration();
+    qint64 video_duration = m_function->duration();
 
     if (video_duration != 0)
         newWidth = ((50/(float)getTimeScale()) * (float)video_duration) / 1000;
@@ -73,8 +74,23 @@ void VideoItem::calculateWidth()
 void VideoItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     float timeScale = 50/(float)m_timeScale;
+    quint32 videoDuration = m_video->totalDuration();
 
     ShowItem::paint(painter, option, widget);
+
+    if (videoDuration > 0)
+    {
+        float xpos = 0;
+        int loopCount = qFloor(m_function->duration() / videoDuration);
+
+        for (int i = 0; i < loopCount; i++)
+        {
+            xpos += ((timeScale * (float)videoDuration) / 1000);
+            // draw loop vertical delimiter
+            painter->setPen(QPen(Qt::white, 1));
+            painter->drawLine(xpos, 1, xpos, TRACK_HEIGHT - 5);
+        }
+    }
 
     if (m_video->fadeInSpeed() != 0)
     {
@@ -103,7 +119,11 @@ void VideoItem::setDuration(quint32 msec, bool stretch)
 {
     Q_UNUSED(msec)
     Q_UNUSED(stretch)
-    // nothing to do
+    if (m_function)
+        m_function->setDuration(msec);
+    prepareGeometryChange();
+    calculateWidth();
+    updateTooltip();
 }
 
 QString VideoItem::functionName()
@@ -121,17 +141,19 @@ Video *VideoItem::getVideo()
 void VideoItem::slotVideoChanged(quint32)
 {
     prepareGeometryChange();
-    calculateWidth();
     if (m_function)
         m_function->setDuration(m_video->totalDuration());
+    calculateWidth();
+    updateTooltip();
 }
 
 void VideoItem::slotVideoDurationChanged(qint64)
 {
     prepareGeometryChange();
-    calculateWidth();
-    if (m_function)
+    if (m_function && m_function->duration() == 0)
         m_function->setDuration(m_video->totalDuration());
+    calculateWidth();
+    updateTooltip();
 }
 
 void VideoItem::slotScreenChanged()

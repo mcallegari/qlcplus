@@ -30,13 +30,18 @@
 
 quint32 QLCInputSource::invalidUniverse = UINT_MAX;
 quint32 QLCInputSource::invalidChannel = UINT_MAX;
+quint32 QLCInputSource::invalidID = UINT_MAX;
 
 QLCInputSource::QLCInputSource(QThread *parent)
     : QThread(parent)
     , m_universe(invalidUniverse)
     , m_channel(invalidChannel)
+    , m_id(invalidID)
+    , m_lower(0)
+    , m_upper(255)
     , m_workingMode(Absolute)
     , m_sensitivity(20)
+    , m_emitExtraPressRelease(false)
     , m_inputValue(0)
     , m_outputValue(0)
     , m_running(false)
@@ -47,8 +52,11 @@ QLCInputSource::QLCInputSource(quint32 universe, quint32 channel, QThread *paren
     : QThread(parent)
     , m_universe(universe)
     , m_channel(channel)
+    , m_lower(0)
+    , m_upper(255)
     , m_workingMode(Absolute)
     , m_sensitivity(20)
+    , m_emitExtraPressRelease(false)
     , m_inputValue(0)
     , m_outputValue(0)
     , m_running(false)
@@ -103,6 +111,32 @@ ushort QLCInputSource::page() const
     return (ushort)(m_channel >> 16);
 }
 
+void QLCInputSource::setID(quint32 id)
+{
+    m_id = id;
+}
+
+quint32 QLCInputSource::id() const
+{
+    return m_id;
+}
+
+void QLCInputSource::setRange(uchar lower, uchar upper)
+{
+    m_lower = lower;
+    m_upper = upper;
+}
+
+uchar QLCInputSource::lowerValue() const
+{
+    return m_lower;
+}
+
+uchar QLCInputSource::upperValue() const
+{
+    return m_upper;
+}
+
 /*********************************************************************
  * Working mode
  *********************************************************************/
@@ -122,18 +156,21 @@ void QLCInputSource::setWorkingMode(QLCInputSource::WorkingMode mode)
         m_running = true;
         start();
     }
-    else if (m_workingMode == Absolute && m_running == true)
+    else if ((m_workingMode == Absolute || m_workingMode == Encoder) && m_running == true)
     {
         m_running = false;
+        if (m_workingMode == Encoder)
+            m_sensitivity = 1;
         wait();
         qDebug() << Q_FUNC_INFO << "Thread stopped for universe" << m_universe << "channel" << m_channel;
     }
 }
 
-bool QLCInputSource::isRelative()
+bool QLCInputSource::needsUpdate()
 {
-    if (m_workingMode == Relative)
-        return true;
+    if (m_workingMode == Relative || m_workingMode == Encoder ||
+        m_emitExtraPressRelease == true)
+            return true;
 
     return false;
 }
@@ -148,10 +185,37 @@ void QLCInputSource::setSensitivity(int value)
     m_sensitivity = value;
 }
 
+bool QLCInputSource::sendExtraPressRelease() const
+{
+    return m_emitExtraPressRelease;
+}
+
+void QLCInputSource::setSendExtraPressRelease(bool enable)
+{
+    m_emitExtraPressRelease = enable;
+}
+
 void QLCInputSource::updateInputValue(uchar value)
 {
     QMutexLocker locker(&m_mutex);
-    m_inputValue = value;
+    if (m_workingMode == Encoder)
+    {
+        if (value < m_inputValue)
+            m_sensitivity = -qAbs(m_sensitivity);
+        else if (value > m_inputValue)
+            m_sensitivity = qAbs(m_sensitivity);
+        m_inputValue = CLAMP(m_inputValue + (char)m_sensitivity, 0, UCHAR_MAX);
+        locker.unlock();
+        emit inputValueChanged(m_universe, m_channel, m_inputValue);
+    }
+    else if (m_emitExtraPressRelease == true)
+    {
+        locker.unlock();
+        emit inputValueChanged(m_universe, m_channel, m_upper);
+        emit inputValueChanged(m_universe, m_channel, m_lower);
+    }
+    else
+        m_inputValue = value;
 }
 
 void QLCInputSource::updateOuputValue(uchar value)
@@ -171,11 +235,7 @@ void QLCInputSource::run()
 
     while (m_running == true)
     {
-#if defined(WIN32) || defined (Q_OS_WIN)
-        Sleep(50);
-#else
-        usleep(50000);
-#endif
+        msleep(50);
 
         QMutexLocker locker(&m_mutex);
 
@@ -193,7 +253,7 @@ void QLCInputSource::run()
                 dValue = CLAMP(dValue, 0, 255);
 
                 uchar newDmxValue = uchar(dValue);
-                //qDebug() << "double value:" << dValue << "uchar val:" << newDmxValue;
+                qDebug() << "double value:" << dValue << "uchar val:" << newDmxValue;
                 if (newDmxValue != m_outputValue)
                     emit inputValueChanged(m_universe, m_channel, newDmxValue);
 

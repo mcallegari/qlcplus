@@ -1,89 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="de_DE">
+<TS version="2.1" language="de_DE">
 <context>
     <name>ConfigureOSC</name>
     <message>
-        <location filename="configureosc.ui" line="14"/>
-        <source>Configure OSC Plugin</source>
+        <location filename="configureosc.ui" line="33"/>
+        <source>OSC Plugin Configuration</source>
+        <oldsource>Configure OSC Plugin</oldsource>
         <translation>OSC Plugin konfigurieren</translation>
     </message>
     <message>
-        <location filename="configureosc.ui" line="20"/>
-        <location filename="configureosc.ui" line="84"/>
-        <location filename="configureosc.ui" line="155"/>
-        <location filename="configureosc.ui" line="162"/>
-        <source>Output address:</source>
-        <translation>Ausgangsadresse:</translation>
+        <location filename="configureosc.ui" line="47"/>
+        <source>Universes Configuration</source>
+        <translation>Universen konfigurieren</translation>
     </message>
     <message>
-        <location filename="configureosc.ui" line="37"/>
         <location filename="configureosc.ui" line="60"/>
-        <location filename="configureosc.ui" line="108"/>
-        <location filename="configureosc.ui" line="135"/>
-        <source>Input port:</source>
-        <oldsource>Port:</oldsource>
-        <translation>Eingangsport:</translation>
+        <source>Interface</source>
+        <translation>Interface</translation>
+    </message>
+    <message>
+        <location filename="configureosc.ui" line="65"/>
+        <source>Universe</source>
+        <translation>Universum</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="70"/>
-        <source>OSC Network 2</source>
-        <translation>OSC-Netzwerk 2</translation>
+        <source>Input Port</source>
+        <translation>Eingangsport</translation>
     </message>
     <message>
-        <location filename="configureosc.ui" line="101"/>
-        <source>OSC Network 1</source>
-        <translation>OSC-Netzwerk 1</translation>
+        <location filename="configureosc.ui" line="75"/>
+        <source>Output Address</source>
+        <translation>Ausgangsadresse</translation>
     </message>
     <message>
-        <location filename="configureosc.ui" line="186"/>
-        <source>OSC Network 3</source>
-        <translation>OSC-Netzwerk 3</translation>
+        <location filename="configureosc.ui" line="80"/>
+        <source>Output Port</source>
+        <translation>Ausgangsport</translation>
     </message>
     <message>
-        <location filename="configureosc.ui" line="193"/>
-        <source>OSC Network 4</source>
-        <translation>OSC-Netzwerk 4</translation>
+        <location filename="configureosc.cpp" line="80"/>
+        <source>Inputs</source>
+        <translation>Eingänge</translation>
+    </message>
+    <message>
+        <location filename="configureosc.cpp" line="86"/>
+        <source>Outputs</source>
+        <translation>Ausgänge</translation>
+    </message>
+    <message>
+        <location filename="configureosc.cpp" line="168"/>
+        <source>Invalid IP</source>
+        <translation>Ungültige IP</translation>
+    </message>
+    <message>
+        <location filename="configureosc.cpp" line="168"/>
+        <source>%1 is not a valid IP.
+Please fix it before confirming.</source>
+        <translation>%1 ist keine gültige IP.
+Bitte vor Bestätigung korrigieren.</translation>
     </message>
 </context>
 <context>
     <name>OSCPlugin</name>
     <message>
-        <location filename="oscplugin.cpp" line="102"/>
+        <location filename="oscplugin.cpp" line="85"/>
         <source>This plugin provides input for devices supporting the OSC transmission protocol.</source>
         <translation>Dieses Plugin bietet Eingabunterstützung für Geräte mit dem OSC-Protokoll.</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="188"/>
-        <location filename="oscplugin.cpp" line="288"/>
-        <source>OSC Network</source>
-        <translation>OSC-Netzwerk</translation>
+        <location filename="oscplugin.cpp" line="136"/>
+        <location filename="oscplugin.cpp" line="270"/>
+        <source>Status: Not open</source>
+        <translation>Status: Nicht geöffnet</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="199"/>
+        <location filename="oscplugin.cpp" line="139"/>
+        <location filename="oscplugin.cpp" line="273"/>
+        <source>Status: Open</source>
+        <translation>Status: Geöffnet</translation>
+    </message>
+    <message>
+        <location filename="oscplugin.cpp" line="141"/>
+        <source>Packets sent: </source>
+        <translation>Pakete gesendet: </translation>
+    </message>
+    <message>
+        <location filename="oscplugin.cpp" line="275"/>
+        <source>Packets received: </source>
+        <translation>Pakete empfangen: </translation>
+    </message>
+    <message>
+        <location filename="oscplugin.cpp" line="132"/>
         <source>Output</source>
         <translation>Ausgang</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="202"/>
-        <location filename="oscplugin.cpp" line="302"/>
-        <source>Status: Not ready</source>
-        <oldsource>Status: Not open</oldsource>
-        <translation>Nicht geöffnet</translation>
-    </message>
-    <message>
-        <location filename="oscplugin.cpp" line="205"/>
-        <source>Address: </source>
-        <translation>Adresse:</translation>
-    </message>
-    <message>
-        <location filename="oscplugin.cpp" line="208"/>
-        <location filename="oscplugin.cpp" line="305"/>
-        <source>Status: Ready</source>
-        <translation>Status: Bereit</translation>
-    </message>
-    <message>
-        <location filename="oscplugin.cpp" line="299"/>
+        <location filename="oscplugin.cpp" line="266"/>
         <source>Input</source>
         <translation>Eingang</translation>
     </message>

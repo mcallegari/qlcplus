@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   qlcphysical.h
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -22,8 +23,8 @@
 
 #include <QString>
 
-class QDomElement;
-class QDomDocument;
+class QXmlStreamReader;
+class QXmlStreamWriter;
 
 /** @addtogroup engine Engine
  * @{
@@ -101,11 +102,11 @@ public:
     void setLensName(const QString& name);
     QString lensName() const;
 
-    void setLensDegreesMin(qreal degrees);
-    qreal lensDegreesMin() const;
+    void setLensDegreesMin(double degrees);
+    double lensDegreesMin() const;
 
-    void setLensDegreesMax(qreal degrees);
-    qreal lensDegreesMax() const;
+    void setLensDegreesMax(double degrees);
+    double lensDegreesMax() const;
 
     void setFocusType(const QString& type);
     QString focusType() const;
@@ -133,8 +134,8 @@ protected:
     int m_depth;
 
     QString m_lensName;
-    qreal m_lensDegreesMin;
-    qreal m_lensDegreesMax;
+    double m_lensDegreesMin;
+    double m_lensDegreesMax;
 
     QString m_focusType;
     int m_focusPanMax;
@@ -147,11 +148,11 @@ protected:
      * Load & Save
      ************************************************************************/
 public:
-    /** Load physical values from the given QDomElement */
-    bool loadXML(const QDomElement& root);
+    /** Load physical values from the given QXmlStreamReader */
+    bool loadXML(QXmlStreamReader &doc);
 
     /** Save physical values to the given XML tag in the given document */
-    bool saveXML(QDomDocument* doc, QDomElement* root);
+    bool saveXML(QXmlStreamWriter *doc);
 };
 
 /** @} */

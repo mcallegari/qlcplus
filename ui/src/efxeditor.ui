@@ -1,12 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
+ <author>Massimo Callegari</author>
+ <comment>
+  Q Light Controller Plus
+  efxeditor.ui
+
+  Copyright (c) 2015 Massimo Callegari
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0.txt
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+ </comment>
  <class>EFXEditor</class>
  <widget class="QWidget" name="EFXEditor">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>480</width>
+    <width>487</width>
     <height>577</height>
    </rect>
   </property>
@@ -170,17 +189,17 @@
          </column>
          <column>
           <property name="text">
+           <string>Mode</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
            <string>Reverse</string>
           </property>
          </column>
          <column>
           <property name="text">
            <string>Start Offset</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Intensity</string>
           </property>
          </column>
         </widget>
@@ -264,24 +283,8 @@
           <property name="verticalSpacing">
            <number>4</number>
           </property>
-          <item row="12" column="1">
-           <widget class="QSpinBox" name="m_yPhaseSpin">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="toolTip">
-             <string>Lissajous pattern's Y phase</string>
-            </property>
-            <property name="maximum">
-             <number>360</number>
-            </property>
-            <property name="value">
-             <number>90</number>
-            </property>
-           </widget>
-          </item>
-          <item row="7" column="0" colspan="2">
-           <widget class="Line" name="line_2">
+          <item row="15" column="0" colspan="2">
+           <widget class="Line" name="line_3">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -294,83 +297,23 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="1">
-           <widget class="QSpinBox" name="m_widthSpin">
-            <property name="toolTip">
-             <string>Value width of the pattern</string>
-            </property>
-            <property name="maximum">
-             <number>127</number>
-            </property>
-            <property name="value">
-             <number>127</number>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="m_heightLabel">
+          <item row="5" column="0">
+           <widget class="QLabel" name="m_startOffsetLabel">
             <property name="text">
-             <string>Height</string>
+             <string>Start Offset</string>
+            </property>
+            <property name="textFormat">
+             <enum>Qt::AutoText</enum>
             </property>
            </widget>
           </item>
-          <item row="1" column="1">
-           <widget class="QSpinBox" name="m_heightSpin">
-            <property name="toolTip">
-             <string>Value height of the pattern</string>
+          <item row="9" column="0">
+           <widget class="QLabel" name="m_xFrequencyLabel">
+            <property name="enabled">
+             <bool>false</bool>
             </property>
-            <property name="maximum">
-             <number>127</number>
-            </property>
-            <property name="value">
-             <number>127</number>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="m_xOffsetLabel">
             <property name="text">
-             <string>X offset</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QSpinBox" name="m_xOffsetSpin">
-            <property name="toolTip">
-             <string>Pattern's center point on the X axis</string>
-            </property>
-            <property name="maximum">
-             <number>255</number>
-            </property>
-            <property name="value">
-             <number>127</number>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="m_yOffsetLabel">
-            <property name="text">
-             <string>Y offset</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <widget class="QSpinBox" name="m_yOffsetSpin">
-            <property name="toolTip">
-             <string>Pattern's center point on the Y axis</string>
-            </property>
-            <property name="maximum">
-             <number>255</number>
-            </property>
-            <property name="value">
-             <number>127</number>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="0">
-           <widget class="QLabel" name="m_rotationLabel">
-            <property name="text">
-             <string>Rotation</string>
+             <string>X frequency</string>
             </property>
            </widget>
           </item>
@@ -387,39 +330,42 @@
             </property>
            </widget>
           </item>
-          <item row="9" column="0">
-           <widget class="QLabel" name="m_xFrequencyLabel">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="text">
-             <string>X frequency</string>
-            </property>
-           </widget>
-          </item>
-          <item row="9" column="1">
-           <widget class="QSpinBox" name="m_xFrequencySpin">
+          <item row="11" column="1">
+           <widget class="QSpinBox" name="m_xPhaseSpin">
             <property name="enabled">
              <bool>false</bool>
             </property>
             <property name="toolTip">
-             <string>Lissajous pattern's X frequency</string>
+             <string>Lissajous pattern's X phase</string>
             </property>
             <property name="maximum">
-             <number>32</number>
+             <number>360</number>
             </property>
             <property name="value">
-             <number>2</number>
+             <number>90</number>
             </property>
            </widget>
           </item>
-          <item row="10" column="0">
-           <widget class="QLabel" name="m_yFrequencyLabel">
+          <item row="17" column="0" colspan="2">
+           <spacer name="verticalSpacer_4">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="11" column="0">
+           <widget class="QLabel" name="m_xPhaseLabel">
             <property name="enabled">
              <bool>false</bool>
             </property>
             <property name="text">
-             <string>Y frequency</string>
+             <string>X phase</string>
             </property>
            </widget>
           </item>
@@ -439,52 +385,36 @@
             </property>
            </widget>
           </item>
-          <item row="11" column="0">
-           <widget class="QLabel" name="m_xPhaseLabel">
+          <item row="10" column="0">
+           <widget class="QLabel" name="m_yFrequencyLabel">
             <property name="enabled">
              <bool>false</bool>
             </property>
             <property name="text">
-             <string>X phase</string>
+             <string>Y frequency</string>
             </property>
            </widget>
           </item>
-          <item row="13" column="0" colspan="2">
-           <spacer name="verticalSpacer_4">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="11" column="1">
-           <widget class="QSpinBox" name="m_xPhaseSpin">
+          <item row="9" column="1">
+           <widget class="QSpinBox" name="m_xFrequencySpin">
             <property name="enabled">
              <bool>false</bool>
             </property>
             <property name="toolTip">
-             <string>Lissajous pattern's X phase</string>
+             <string>Lissajous pattern's X frequency</string>
             </property>
             <property name="maximum">
-             <number>360</number>
+             <number>32</number>
             </property>
             <property name="value">
-             <number>90</number>
+             <number>2</number>
             </property>
            </widget>
           </item>
-          <item row="12" column="0">
-           <widget class="QLabel" name="m_yPhaseLabel">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
+          <item row="6" column="0">
+           <widget class="QCheckBox" name="m_isRelativeCheckbox">
             <property name="text">
-             <string>Y phase</string>
+             <string>Relative</string>
             </property>
            </widget>
           </item>
@@ -498,20 +428,123 @@
             </property>
            </widget>
           </item>
-          <item row="5" column="0">
-           <widget class="QLabel" name="m_startOffsetLabel">
-            <property name="text">
-             <string>Start Offset</string>
+          <item row="12" column="0">
+           <widget class="QLabel" name="m_yPhaseLabel">
+            <property name="enabled">
+             <bool>false</bool>
             </property>
-            <property name="textFormat">
-             <enum>Qt::AutoText</enum>
+            <property name="text">
+             <string>Y phase</string>
             </property>
            </widget>
           </item>
-          <item row="6" column="0">
-           <widget class="QCheckBox" name="m_isRelativeCheckbox">
+          <item row="7" column="0" colspan="2">
+           <widget class="Line" name="line_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="12" column="1">
+           <widget class="QSpinBox" name="m_yPhaseSpin">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="toolTip">
+             <string>Lissajous pattern's Y phase</string>
+            </property>
+            <property name="maximum">
+             <number>360</number>
+            </property>
+            <property name="value">
+             <number>90</number>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="m_heightLabel">
             <property name="text">
-             <string>Relative</string>
+             <string>Height</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="m_yOffsetLabel">
+            <property name="text">
+             <string>Y offset</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="m_xOffsetLabel">
+            <property name="text">
+             <string>X offset</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QSpinBox" name="m_yOffsetSpin">
+            <property name="toolTip">
+             <string>Pattern's center point on the Y axis</string>
+            </property>
+            <property name="maximum">
+             <number>255</number>
+            </property>
+            <property name="value">
+             <number>127</number>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QSpinBox" name="m_widthSpin">
+            <property name="toolTip">
+             <string>Value width of the pattern</string>
+            </property>
+            <property name="maximum">
+             <number>127</number>
+            </property>
+            <property name="value">
+             <number>127</number>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QSpinBox" name="m_heightSpin">
+            <property name="toolTip">
+             <string>Value height of the pattern</string>
+            </property>
+            <property name="maximum">
+             <number>127</number>
+            </property>
+            <property name="value">
+             <number>127</number>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="m_rotationLabel">
+            <property name="text">
+             <string>Rotation</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QSpinBox" name="m_xOffsetSpin">
+            <property name="toolTip">
+             <string>Pattern's center point on the X axis</string>
+            </property>
+            <property name="maximum">
+             <number>255</number>
+            </property>
+            <property name="value">
+             <number>127</number>
+            </property>
+           </widget>
+          </item>
+          <item row="16" column="0" colspan="2">
+           <widget class="QCheckBox" name="m_colorCheck">
+            <property name="text">
+             <string>Color Background</string>
             </property>
            </widget>
           </item>

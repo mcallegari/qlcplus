@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   vcsoloframe.cpp
 
   Copyright (c) Anders Thomsen
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -20,6 +21,7 @@
 #include <QStyleOptionFrameV2>
 #include <QMetaObject>
 #include <QMessageBox>
+#include <QSettings>
 #include <QPainter>
 #include <QAction>
 #include <QStyle>
@@ -28,17 +30,19 @@
 #include <QSize>
 #include <QMenu>
 #include <QList>
-#include <QtXml>
 
 #include "vcpropertieseditor.h"
 #include "virtualconsole.h"
 #include "vcsoloframe.h"
+#include "vcsoloframeproperties.h"
 #include "vcbutton.h"
 #include "function.h"
 #include "qlcfile.h"
 #include "doc.h"
 
-VCSoloFrame::VCSoloFrame(QWidget* parent, Doc* doc, bool canCollapse) : VCFrame(parent, doc, canCollapse)
+VCSoloFrame::VCSoloFrame(QWidget* parent, Doc* doc, bool canCollapse)
+    : VCFrame(parent, doc, canCollapse)
+    , m_soloframeMixing(false)
 {
     /* Set the class name "VCSoloFrame" as the object name as well */
     setObjectName(VCSoloFrame::staticMetaObject.className());
@@ -60,7 +64,9 @@ VCSoloFrame::VCSoloFrame(QWidget* parent, Doc* doc, bool canCollapse) : VCFrame(
     if (var.isValid() == true)
         resize(var.toSize());
     else
-        resize(VCFrame::defaultSize);
+        resize(defaultSize);
+    m_width = this->width();
+    m_height = this->height();
 }
 
 VCSoloFrame::~VCSoloFrame()
@@ -85,6 +91,17 @@ VCWidget* VCSoloFrame::createCopy(VCWidget* parent)
     return frame;
 }
 
+bool VCSoloFrame::copyFrom(const VCWidget* widget)
+{
+    const VCSoloFrame* frame = qobject_cast<const VCSoloFrame*> (widget);
+    if (frame == NULL)
+        return false;
+
+    setSoloframeMixing(frame->soloframeMixing());
+
+    return VCFrame::copyFrom(widget);
+}
+
 /*****************************************************************************
 * Solo behaviour
 *****************************************************************************/
@@ -98,11 +115,15 @@ void VCSoloFrame::updateChildrenConnection(bool doConnect)
         if (widget != NULL && thisIsNearestSoloFrameParent(widget))
         {
             if (doConnect)
-                connect(widget, SIGNAL(functionStarting(quint32)),
-                        this, SLOT(slotWidgetFunctionStarting(quint32)));
+            {
+                connect(widget, SIGNAL(functionStarting(quint32, qreal)),
+                        this, SLOT(slotWidgetFunctionStarting(quint32, qreal)));
+            }
             else
-                disconnect(widget, SIGNAL(functionStarting(quint32)),
-                        this, SLOT(slotWidgetFunctionStarting(quint32)));
+            {
+                disconnect(widget, SIGNAL(functionStarting(quint32, qreal)),
+                        this, SLOT(slotWidgetFunctionStarting(quint32, qreal)));
+            }
         }
     }
 }
@@ -126,13 +147,11 @@ void VCSoloFrame::setLiveEdit(bool liveEdit)
 
 bool VCSoloFrame::thisIsNearestSoloFrameParent(QWidget* widget)
 {
-    VCSoloFrame* sf;
-
     while (widget != NULL)
     {
         widget = widget->parentWidget();
 
-        sf = qobject_cast<VCSoloFrame*>(widget);
+        VCSoloFrame *sf = qobject_cast<VCSoloFrame*>(widget);
         if (sf != NULL)
         {
             return sf == this;
@@ -142,7 +161,7 @@ bool VCSoloFrame::thisIsNearestSoloFrameParent(QWidget* widget)
     return false;
 }
 
-void VCSoloFrame::slotWidgetFunctionStarting(quint32 fid)
+void VCSoloFrame::slotWidgetFunctionStarting(quint32 fid, qreal intensity)
 {
     VCWidget* senderWidget = qobject_cast<VCWidget*>(sender());
 
@@ -156,9 +175,32 @@ void VCSoloFrame::slotWidgetFunctionStarting(quint32 fid)
         {
             VCWidget* widget = it.next();
             if (widget != NULL && widget != senderWidget)
-                widget->notifyFunctionStarting(fid);
+                widget->notifyFunctionStarting(fid, soloframeMixing() ? intensity : 1.0);
         }
     }
+}
+
+/*****************************************************************************
+ * Properties
+ *****************************************************************************/
+
+void VCSoloFrame::editProperties()
+{
+    VCSoloFrameProperties prop(NULL, this, m_doc);
+    if (prop.exec() == QDialog::Accepted)
+    {
+        applyProperties(prop);
+    }
+};
+
+bool VCSoloFrame::soloframeMixing() const
+{
+    return m_soloframeMixing;
+}
+
+void VCSoloFrame::setSoloframeMixing(bool soloframeMixing)
+{
+    m_soloframeMixing = soloframeMixing;
 }
 
 /*****************************************************************************

@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   vcspeeddial.h
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -24,10 +25,15 @@
 
 #include "vcwidget.h"
 
-class QDomDocument;
-class QDomElement;
-class SpeedDial;
 class VCSpeedDialFunction;
+class VCSpeedDialPreset;
+class QXmlStreamReader;
+class QXmlStreamWriter;
+class QPushButton;
+class QToolButton;
+class FlowLayout;
+class SpeedDial;
+class QLabel;
 
 /** @addtogroup ui_vc_props
  * @{
@@ -39,8 +45,22 @@ class VCSpeedDialFunction;
 #define KXMLQLCVCSpeedDialAbsoluteValueMin "Minimum"
 #define KXMLQLCVCSpeedDialAbsoluteValueMax "Maximum"
 #define KXMLQLCVCSpeedDialTap "Tap"
+#define KXMLQLCVCSpeedDialMult "Mult"
+#define KXMLQLCVCSpeedDialDiv "Div"
+#define KXMLQLCVCSpeedDialMultDivReset "MultDivReset"
+#define KXMLQLCVCSpeedDialApply "Apply"
 #define KXMLQLCVCSpeedDialTapKey "Key"
+#define KXMLQLCVCSpeedDialMultKey "MultKey"
+#define KXMLQLCVCSpeedDialDivKey "DivKey"
+#define KXMLQLCVCSpeedDialMultDivResetKey "MultDivResetKey"
+#define KXMLQLCVCSpeedDialApplyKey "ApplyKey"
+#define KXMLQLCVCSpeedDialResetFactorOnDialChange "ResetFactorOnDialChange"
 #define KXMLQLCVCSpeedDialVisibilityMask "Visibility"
+#define KXMLQLCVCSpeedDialTime "Time"
+
+// Legacy: infinite checkbox
+#define KXMLQLCVCSpeedDialInfinite "Infinite"
+#define KXMLQLCVCSpeedDialInfiniteKey "InfiniteKey"
 
 class VCSpeedDial : public VCWidget
 {
@@ -48,8 +68,20 @@ class VCSpeedDial : public VCWidget
     Q_DISABLE_COPY(VCSpeedDial)
 
 public:
+    // 0xffff mask is used by SpeedDial.
+    // VCSpeedDial uses the 0xffff0000 mask.
+    enum Visibility
+    {
+        MultDiv    = 0x10000 << 0,
+        Apply      = 0x10000 << 1,
+    };
+
     static const quint8 absoluteInputSourceId;
     static const quint8 tapInputSourceId;
+    static const quint8 multInputSourceId;
+    static const quint8 divInputSourceId;
+    static const quint8 multDivResetInputSourceId;
+    static const quint8 applyInputSourceId;
     static const QSize defaultSize;
 
     /************************************************************************
@@ -116,7 +148,7 @@ public:
     /**
      * Set the list of functions that are controlled by the dial.
      */
-    void setFunctions(const QList <VCSpeedDialFunction> functions);
+    void setFunctions(const QList <VCSpeedDialFunction> & functions);
 
     /**
      * Get the list of functions that are controlled by the dial.
@@ -129,14 +161,40 @@ public:
 
 private slots:
     /** Catch dial value changes and patch them to controlled functions */
-    void slotDialValueChanged(int ms);
+    void slotDialValueChanged();
 
     /** Catch dial tap button clicks and patch them to controlled functions */
     void slotDialTapped();
 
+    /** Catch dial tap timeouts to send feedback */
+    void slotTapTimeout();
+
 private:
     QList <VCSpeedDialFunction> m_functions;
     SpeedDial* m_dial;
+    QToolButton* m_multButton;
+    QLabel* m_multDivLabel;
+    QToolButton* m_divButton;
+    QToolButton* m_multDivResetButton;
+    QLabel* m_multDivResultLabel;
+    QPushButton* m_applyButton;
+    FlowLayout* m_presetsLayout;
+
+protected slots:
+    void slotMult();
+    void slotDiv();
+    void slotMultDivReset();
+    void slotMultDivChanged();
+    void slotFactoredValueChanged();
+
+private:
+    qint32 m_currentFactor;
+    qint32 m_factoredValue;
+    bool m_resetFactorOnDialChange;
+
+public:
+    void setResetFactorOnDialChange(bool value);
+    bool resetFactorOnDialChange() const;
 
     /*********************************************************************
      * External input
@@ -150,17 +208,29 @@ protected slots:
     void slotInputValueChanged(quint32 universe, quint32 channel, uchar value);
 
     /*********************************************************************
-     * Tap key sequence handler
+     * Tap & presets key sequence handler
      *********************************************************************/
 public:
-    void setKeySequence(const QKeySequence& keySequence);
-    QKeySequence keySequence() const;
+    void setTapKeySequence(const QKeySequence& keySequence);
+    QKeySequence tapKeySequence() const;
+    void setMultKeySequence(const QKeySequence& keySequence);
+    QKeySequence multKeySequence() const;
+    void setDivKeySequence(const QKeySequence& keySequence);
+    QKeySequence divKeySequence() const;
+    void setMultDivResetKeySequence(const QKeySequence& keySequence);
+    QKeySequence multDivResetKeySequence() const;
+    void setApplyKeySequence(const QKeySequence& keySequence);
+    QKeySequence applyKeySequence() const;
 
 protected slots:
     void slotKeyPressed(const QKeySequence& keySequence);
 
 protected:
     QKeySequence m_tapKeySequence;
+    QKeySequence m_multKeySequence;
+    QKeySequence m_divKeySequence;
+    QKeySequence m_multDivResetKeySequence;
+    QKeySequence m_applyKeySequence;
 
     /************************************************************************
      * Absolute value range
@@ -171,32 +241,55 @@ public:
     uint absoluteValueMax() const;
 
 private:
-    uint m_absoluteValueMin;
-    uint m_absoluteValueMax;
+    quint32 m_absoluteValueMin;
+    quint32 m_absoluteValueMax;
 
     /*************************************************************************
      * Elements visibility
      *************************************************************************/
 public:
     /** Return the widget's elements visibility bitmask */
-    ushort visibilityMask();
+    quint32 visibilityMask() const;
 
     /** Set the visibility of the widget's elements
       * according to the provided bitmask */
-    void setVisibilityMask(ushort mask);
+    void setVisibilityMask(quint32 mask);
 
 private:
-    ushort m_visibilityMask;
+    quint32 m_visibilityMask;
+
+    /*********************************************************************
+     * Presets
+     *********************************************************************/
+public:
+    void addPreset(VCSpeedDialPreset const& preset);
+    void resetPresets();
+    QList<VCSpeedDialPreset *> presets() const;
+
+protected slots:
+    void slotPresetClicked();
+
+protected:
+    QHash<QWidget*, VCSpeedDialPreset*> m_presets;
+
+private slots:
+    void slotUpdate();
+
+private:
+    /** timer for updating the preset buttons */
+    QTimer* m_updateTimer;
 
     /*************************************************************************
      * Load & Save
      *************************************************************************/
 public:
     /** @reimp */
-    bool loadXML(const QDomElement* root);
+    bool loadXML(QXmlStreamReader &root);
+
+    bool loadXMLInfiniteLegacy(QXmlStreamReader &root, QSharedPointer<VCSpeedDialPreset> preset);
 
     /** @reimp */
-    bool saveXML(QDomDocument* doc, QDomElement* vc_root);
+    bool saveXML(QXmlStreamWriter *doc);
 
     /** @reimp */
     void postLoad();

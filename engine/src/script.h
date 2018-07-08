@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   script.h
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -44,6 +45,7 @@ class Script : public Function
 public:
     static const QString startFunctionCmd;
     static const QString stopFunctionCmd;
+    static const QString blackoutCmd;
 
     static const QString waitCmd;
     static const QString waitKeyCmd;
@@ -54,6 +56,9 @@ public:
     static const QString labelCmd;
     static const QString jumpCmd;
 
+    static const QString blackoutOn;
+    static const QString blackoutOff;
+
     /************************************************************************
      * Initialization
      ************************************************************************/
@@ -61,14 +66,20 @@ public:
     Script(Doc* doc);
     virtual ~Script();
 
+    /** @reimp */
+    QIcon getIcon() const;
+
+    /** @reimp */
+    quint32 totalDuration();
+
     /************************************************************************
      * Copying
      ************************************************************************/
 public:
-    /** @reimpl */
+    /** @reimp */
     Function* createCopy(Doc* doc, bool addToDoc = true);
 
-    /** @reimpl */
+    /** @reimp */
     bool copyFrom(const Function* function);
 
     /************************************************************************
@@ -87,6 +98,14 @@ public:
     /** Get the script data lines as a list of  strings */
     QStringList dataLines() const;
 
+    /** Convenience method to retrieve Functions used by this Script.
+     *  The returned list is formatted as: Function ID / line number */
+    QList<quint32> functionList() const;
+
+    /** Convenience method to retrieve Fixtures used by this Script.
+     *  The returned list is formatted as: Fixture ID / line number */
+    QList<quint32> fixtureList() const;
+
     QList<int> syntaxErrorsLines();
 
 private:
@@ -96,23 +115,23 @@ private:
      * Load & Save
      ************************************************************************/
 public:
-    /** @reimpl */
-    bool loadXML(const QDomElement& root);
+    /** @reimp */
+    bool loadXML(QXmlStreamReader &root);
 
-    /** @reimpl */
-    bool saveXML(QDomDocument* doc, QDomElement* root);
+    /** @reimp */
+    bool saveXML(QXmlStreamWriter *doc);
 
     /************************************************************************
      * Running
      ************************************************************************/
 public:
-    /** @reimpl */
+    /** @reimp */
     void preRun(MasterTimer* timer);
 
-    /** @reimpl */
+    /** @reimp */
     void write(MasterTimer* timer, QList<Universe*> universes);
 
-    /** @reimpl */
+    /** @reimp */
     void postRun(MasterTimer* timer, QList<Universe*> universes);
 
 private:
@@ -141,7 +160,7 @@ private:
      *
      * @return the randomized value requested
      */
-    quint32 getValueFromString(QString str, bool *ok);
+    static quint32 getValueFromString(QString str, bool *ok);
 
     /**
      * Handle "startfunction" command.
@@ -159,6 +178,14 @@ private:
      * @return An empty string if successful. Otherwise an error string.
      */
     QString handleStopFunction(const QList<QStringList>& tokens);
+
+    /**
+     * Handle "blackout" command.
+     *
+     * @param tokens A list of keyword:value pairs
+     * @return An empty string if successful. Otherwise an error string.
+     */
+    QString handleBlackout(const QList<QStringList>& tokens);
 
     /**
      * Handle "wait" command.
@@ -225,7 +252,7 @@ private:
 private:
     int m_currentCommand;        //! Current command line being handled
     quint32 m_waitCount;         //! Timer ticks to wait before executing the next line
-    QList <QList<QStringList> > m_lines; //! Raw data parsed into lines of tokens
+    QList < QList<QStringList> > m_lines; //! Raw data parsed into lines of tokens
     QMap <QString,int> m_labels; //! Labels and their line numbers
     QList <Function*> m_startedFunctions; //! Functions started by this script
     QList <int> m_syntaxErrorLines;

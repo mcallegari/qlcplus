@@ -38,7 +38,8 @@ SUBDIRS += rgbscript
 SUBDIRS += rgbtext
 SUBDIRS += scene
 SUBDIRS += scenevalue
-SUBDIRS += script
+!qmlui: SUBDIRS += script
+SUBDIRS += sequence
 SUBDIRS += universe
 
 # Stubs

@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   vcwidget.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -18,6 +19,8 @@
 */
 
 #include <QStyleOptionFrame>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QApplication>
 #include <QInputDialog>
 #include <QColorDialog>
@@ -37,7 +40,6 @@
 #include <QSize>
 #include <QMenu>
 #include <QList>
-#include <QtXml>
 #include <cmath>
 
 #include "qlcinputsource.h"
@@ -60,6 +62,7 @@ VCWidget::VCWidget(QWidget* parent, Doc* doc)
     , m_page(0)
     , m_allowChildren(false)
     , m_allowResize(true)
+    , m_intensityOverrideId(Function::invalidAttributeId())
     , m_intensity(1.0)
     , m_liveEdit(VirtualConsole::instance()->liveEdit())
 {
@@ -74,6 +77,7 @@ VCWidget::VCWidget(QWidget* parent, Doc* doc)
     m_type = UnknownWidget;
     m_hasCustomBackgroundColor = false;
     m_hasCustomForegroundColor = false;
+    m_backgroundImage = QString();
     m_hasCustomFont = false;
     m_frameStyle = KVCFrameStyleNone;
 
@@ -86,20 +90,15 @@ VCWidget::VCWidget(QWidget* parent, Doc* doc)
     connect(m_doc, SIGNAL(modeChanged(Doc::Mode)),
             this, SLOT(slotModeChanged(Doc::Mode)));
 
-    /* Listen to parent's (only VCWidget-kind) key signals */
-    if (parent->inherits(metaObject()->className()) == true)
-    {
-        connect(parent, SIGNAL(keyPressed(const QKeySequence&)),
-                this, SLOT(slotKeyPressed(const QKeySequence&)));
-        connect(parent,	SIGNAL(keyReleased(const QKeySequence&)),
-                this, SLOT(slotKeyReleased(const QKeySequence&)));
-    }
+    /* Listen to the virtual console key signals */
+    connect(VirtualConsole::instance(), SIGNAL(keyPressed(const QKeySequence&)),
+            this, SLOT(slotKeyPressed(const QKeySequence&)));
+    connect(VirtualConsole::instance(), SIGNAL(keyReleased(const QKeySequence&)),
+            this, SLOT(slotKeyReleased(const QKeySequence&)));
 }
 
 VCWidget::~VCWidget()
 {
-    qDeleteAll(m_inputs);
-    m_inputs.clear();
 }
 
 /*****************************************************************************
@@ -152,6 +151,7 @@ QString VCWidget::typeToString(int type)
         case LabelWidget: return QString(tr("Label"));
         case AudioTriggersWidget: return QString(tr("Audio Triggers"));
         case AnimationWidget: return QString(tr("Animation"));
+        case ClockWidget: return QString(tr("Clock"));
         case UnknownWidget:
         default:
              return QString(tr("Unknown"));
@@ -173,6 +173,7 @@ QIcon VCWidget::typeToIcon(int type)
         case LabelWidget: return QIcon(":/label.png");
         case AudioTriggersWidget: return QIcon(":/audioinput.png");
         case AnimationWidget: return QIcon(":/rgbmatrix.png");
+        case ClockWidget: return QIcon(":/clock.png");
         case UnknownWidget:
         default:
              return QIcon(":/virtualconsole.png");
@@ -249,12 +250,13 @@ bool VCWidget::copyFrom(const VCWidget* widget)
     m_allowChildren = widget->m_allowChildren;
     m_allowResize = widget->m_allowResize;
 
-    QHashIterator <quint8, QLCInputSource*> it(widget->m_inputs);
+    QHashIterator <quint8, QSharedPointer<QLCInputSource> > it(widget->m_inputs);
     while (it.hasNext() == true)
     {
         it.next();
         quint8 id = it.key();
-        QLCInputSource *src = new QLCInputSource(it.value()->universe(), it.value()->channel());
+        QSharedPointer<QLCInputSource> src(new QLCInputSource(it.value()->universe(), it.value()->channel()));
+        src->setRange(it.value()->lowerValue(), it.value()->upperValue());
         setInputSource(src, id);
     }
 
@@ -515,6 +517,24 @@ void VCWidget::editProperties()
  * Intensity
  *********************************************************************/
 
+void VCWidget::adjustFunctionIntensity(Function *f, qreal value)
+{
+    if (f == NULL)
+        return;
+
+    //qDebug() << "adjustFunctionIntensity" << caption() << "value" << value;
+
+    if (m_intensityOverrideId == Function::invalidAttributeId())
+        m_intensityOverrideId = f->requestAttributeOverride(Function::Intensity, value);
+    else
+        f->adjustAttribute(value, m_intensityOverrideId);
+}
+
+void VCWidget::resetIntensityOverrideAttribute()
+{
+    m_intensityOverrideId = Function::invalidAttributeId();
+}
+
 void VCWidget::adjustIntensity(qreal val)
 {
     m_intensity = val;
@@ -525,6 +545,14 @@ qreal VCWidget::intensity()
     return m_intensity;
 }
 
+bool VCWidget::acceptsInput()
+{
+    if (mode() == Doc::Design || isEnabled() == false || isDisabled())
+        return false;
+
+    return true;
+}
+
 /*****************************************************************************
  * External input
  *****************************************************************************/
@@ -532,20 +560,17 @@ qreal VCWidget::intensity()
 bool VCWidget::checkInputSource(quint32 universe, quint32 channel,
                                 uchar value, QObject *sender, quint32 id)
 {
-    if (m_inputs.contains(id) == false)
-        return false;
-
-    QLCInputSource *src = m_inputs[id];
-    if (src == NULL)
+    QSharedPointer<QLCInputSource> const& src = m_inputs.value(id);
+    if (src.isNull())
         return false;
 
     if (src->isValid() && src->universe() == universe && src->channel() == channel)
     {
         // if the event has been fired by an external controller
         // and this channel is set to relative mode, inform the input source
-        // and don't allow the event to pass through as a synthetic event
+        // and don't allow the event to pass through. A synthetic event
         // will be generated by the input source itself
-        if (src != sender && src->isRelative())
+        if (src != sender && src->needsUpdate())
         {
             src->updateInputValue(value);
             return false;
@@ -556,10 +581,10 @@ bool VCWidget::checkInputSource(quint32 universe, quint32 channel,
     return false;
 }
 
-void VCWidget::setInputSource(QLCInputSource* source, quint8 id)
+void VCWidget::setInputSource(QSharedPointer<QLCInputSource> const& source, quint8 id)
 {
     // Connect when the first valid input source is set
-    if (m_inputs.isEmpty() == true && source != NULL && source->isValid() == true)
+    if (m_inputs.isEmpty() == true && !source.isNull() && source->isValid() == true)
     {
         connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                 this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));
@@ -567,33 +592,60 @@ void VCWidget::setInputSource(QLCInputSource* source, quint8 id)
                 this, SLOT(slotInputProfileChanged(quint32,QString)));
     }
 
-    // Assign or clear
-    if (source != NULL && source->isValid() == true)
+    // Clear previous source
+    if (m_inputs.contains(id))
     {
-        m_inputs[id] = source;
+        disconnect(m_inputs.value(id).data(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+                this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));
+        m_inputs.remove(id);
+    }
+
+    // Assign
+    if (!source.isNull() && source->isValid() == true)
+    {
+        m_inputs.insert(id, source);
         // now check if the source is defined in the associated universe
-        // profile and if it is in relative mode
+        // profile and if it has specific settings
         InputPatch *ip = m_doc->inputOutputMap()->inputPatch(source->universe());
         if (ip != NULL)
         {
             if (ip->profile() != NULL)
             {
-                QLCInputChannel *ich = ip->profile()->channel(source->channel());
+                // Do not care about the page since input profiles don't do either
+                QLCInputChannel *ich = ip->profile()->channel(source->channel() & 0xFFFF);
                 if (ich != NULL)
                 {
                     if (ich->movementType() == QLCInputChannel::Relative)
                     {
                         source->setWorkingMode(QLCInputSource::Relative);
                         source->setSensitivity(ich->movementSensitivity());
-                        connect(source, SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+                        connect(source.data(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                                 this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));
+                    }
+                    else if (ich->type() == QLCInputChannel::Encoder)
+                    {
+                        source->setWorkingMode(QLCInputSource::Encoder);
+                        source->setSensitivity(ich->movementSensitivity());
+                        connect(source.data(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+                                this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));
+                    }
+                    else if (ich->type() == QLCInputChannel::Button)
+                    {
+                        if (ich->sendExtraPress() == true)
+                        {
+                            source->setSendExtraPressRelease(true);
+                            connect(source.data(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
+                                    this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));
+                        }
+
+                        // user custom feedbacks have precedence over input profile custom feedbacks
+                        source->setRange((source->lowerValue() != 0) ? source->lowerValue() : ich->lowerValue(),
+                                         (source->upperValue() != UCHAR_MAX) ? source->upperValue() : ich->upperValue());
                     }
                 }
             }
         }
     }
-    else
-        m_inputs.remove(id);
 
     // Disconnect when there are no more input sources present
     if (m_inputs.isEmpty() == true)
@@ -605,19 +657,16 @@ void VCWidget::setInputSource(QLCInputSource* source, quint8 id)
     }
 }
 
-QLCInputSource *VCWidget::inputSource(quint8 id) const
+QSharedPointer<QLCInputSource> VCWidget::inputSource(quint8 id) const
 {
-    if (m_inputs.contains(id) == false)
-        return NULL;
-    else
-        return m_inputs[id];
+    return m_inputs.value(id);
 }
 
 void VCWidget::remapInputSources(int pgNum)
 {
     foreach(quint8 s, m_inputs.keys())
     {
-        QLCInputSource *src = m_inputs[s];
+        QSharedPointer<QLCInputSource> src(m_inputs.value(s));
         src->setPage(pgNum);
         setInputSource(src, s);
     }
@@ -626,31 +675,38 @@ void VCWidget::remapInputSources(int pgNum)
 void VCWidget::sendFeedback(int value, quint8 id)
 {
     /* Send input feedback */
-    QLCInputSource *src = inputSource(id);
-    if (src != NULL && src->isValid() == true)
+    QSharedPointer<QLCInputSource> src = inputSource(id);
+    sendFeedback(value, src);
+}
+
+void VCWidget::sendFeedback(int value, QSharedPointer<QLCInputSource> src)
+{
+    if (src.isNull() || src->isValid() == false)
+        return;
+
+    // if in relative mode, send a "feedback" to this
+    // input source so it can continue to emit values
+    // from the right position
+    if (src->needsUpdate())
+        src->updateOuputValue(value);
+
+    if (acceptsInput() == false)
+        return;
+
+    QString chName = QString();
+
+    InputPatch* pat = m_doc->inputOutputMap()->inputPatch(src->universe());
+    if (pat != NULL)
     {
-        // if in relative mode, send a "feedback" to this
-        // input source so it can continue to emit values
-        // from the right position
-        if (src->isRelative())
-            src->updateOuputValue(value);
-
-        QString chName = QString();
-
-        InputPatch* pat = m_doc->inputOutputMap()->inputPatch(src->universe());
-        if (pat != NULL)
+        QLCInputProfile* profile = pat->profile();
+        if (profile != NULL)
         {
-            QLCInputProfile* profile = pat->profile();
-            if (profile != NULL)
-            {
-                QLCInputChannel* ich = profile->channel(src->channel());
-                if (ich != NULL)
-                    chName = ich->name();
-            }
+            QLCInputChannel* ich = profile->channel(src->channel());
+            if (ich != NULL)
+                chName = ich->name();
         }
-
-        m_doc->inputOutputMap()->sendFeedBack(src->universe(), src->channel(), value, chName);
     }
+    m_doc->inputOutputMap()->sendFeedBack(src->universe(), src->channel(), value, chName);
 }
 
 void VCWidget::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
@@ -666,9 +722,9 @@ void VCWidget::slotInputProfileChanged(quint32 universe, const QString &profileN
 
     QLCInputProfile *profile = m_doc->inputOutputMap()->profile(profileName);
 
-    foreach(QLCInputSource *source, m_inputs.values())
+    foreach(QSharedPointer<QLCInputSource> const& source, m_inputs.values())
     {
-        if (source != NULL && source->universe() == universe)
+        if (!source.isNull() && source->universe() == universe)
         {
             // if the profile has been unset, reset all the valid
             // input sources to work in absolute mode
@@ -733,270 +789,303 @@ void VCWidget::postLoad()
     /* NOP */
 }
 
-bool VCWidget::loadXMLCommon(const QDomElement *root)
+bool VCWidget::loadXMLCommon(QXmlStreamReader &root)
 {
-    Q_ASSERT(root != NULL);
+    if (root.device() == NULL || root.hasError())
+        return false;
+
+    QXmlStreamAttributes attrs = root.attributes();
 
     /* ID */
-    if (root->hasAttribute(KXMLQLCVCWidgetID))
-        setID(root->attribute(KXMLQLCVCWidgetID).toUInt());
+    if (attrs.hasAttribute(KXMLQLCVCWidgetID))
+        setID(attrs.value(KXMLQLCVCWidgetID).toString().toUInt());
 
     /* Caption */
-    if (root->hasAttribute(KXMLQLCVCCaption))
-        setCaption(root->attribute(KXMLQLCVCCaption));
+    if (attrs.hasAttribute(KXMLQLCVCCaption))
+        setCaption(attrs.value(KXMLQLCVCCaption).toString());
 
     /* Page */
-    if (root->hasAttribute(KXMLQLCVCWidgetPage))
-        setPage(root->attribute(KXMLQLCVCWidgetPage).toInt());
+    if (attrs.hasAttribute(KXMLQLCVCWidgetPage))
+        setPage(attrs.value(KXMLQLCVCWidgetPage).toString().toInt());
 
     return true;
 }
 
-bool VCWidget::loadXMLAppearance(const QDomElement* root)
+bool VCWidget::loadXMLAppearance(QXmlStreamReader &root)
 {
-    QDomNode node;
-    QDomElement tag;
-    QString str;
+    if (root.device() == NULL || root.hasError())
+        return false;
 
-    Q_ASSERT(root != NULL);
-
-    if (root->tagName() != KXMLQLCVCWidgetAppearance)
+    if (root.name() != KXMLQLCVCWidgetAppearance)
     {
         qWarning() << Q_FUNC_INFO << "Appearance node not found!";
         return false;
     }
 
     /* Children */
-    node = root->firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        tag = node.toElement();
-        if (tag.tagName() == KXMLQLCVCFrameStyle)
+        if (root.name() == KXMLQLCVCFrameStyle)
         {
-            setFrameStyle(stringToFrameStyle(tag.text()));
+            setFrameStyle(stringToFrameStyle(root.readElementText()));
         }
-        else if (tag.tagName() == KXMLQLCVCWidgetForegroundColor)
+        else if (root.name() == KXMLQLCVCWidgetForegroundColor)
         {
-            if (tag.text() != KXMLQLCVCWidgetColorDefault)
-                setForegroundColor(QColor(tag.text().toUInt()));
+            QString str = root.readElementText();
+            if (str != KXMLQLCVCWidgetColorDefault)
+                setForegroundColor(QColor(str.toUInt()));
             else if (hasCustomForegroundColor() == true)
                 resetForegroundColor();
         }
-        else if (tag.tagName() == KXMLQLCVCWidgetBackgroundColor)
+        else if (root.name() == KXMLQLCVCWidgetBackgroundColor)
         {
-            if (tag.text() != KXMLQLCVCWidgetColorDefault)
-                setBackgroundColor(QColor(tag.text().toUInt()));
+            QString str = root.readElementText();
+            if (str != KXMLQLCVCWidgetColorDefault)
+                setBackgroundColor(QColor(str.toUInt()));
         }
-        else if (tag.tagName() == KXMLQLCVCWidgetBackgroundImage)
+        else if (root.name() == KXMLQLCVCWidgetBackgroundImage)
         {
-            if (tag.text() != KXMLQLCVCWidgetBackgroundImageNone)
-                setBackgroundImage(m_doc->denormalizeComponentPath(tag.text()));
+            QString str = root.readElementText();
+            if (str != KXMLQLCVCWidgetBackgroundImageNone)
+                setBackgroundImage(m_doc->denormalizeComponentPath(str));
         }
-        else if (tag.tagName() == KXMLQLCVCWidgetFont)
+        else if (root.name() == KXMLQLCVCWidgetFont)
         {
-            if (tag.text() != KXMLQLCVCWidgetFontDefault)
+            QString str = root.readElementText();
+            if (str != KXMLQLCVCWidgetFontDefault)
             {
                 QFont font;
-                font.fromString(tag.text());
+                font.fromString(str);
                 setFont(font);
             }
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown appearance tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unknown appearance tag:" << root.name();
+            root.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     return true;
 }
 
-bool VCWidget::loadXMLInput(const QDomElement* root)
+QSharedPointer<QLCInputSource> VCWidget::getXMLInput(QXmlStreamReader &root)
 {
-    Q_ASSERT(root != NULL);
+    QXmlStreamAttributes attrs = root.attributes();
 
-    quint32 uni = 0;
-    quint32 ch = 0;
-    if (loadXMLInput(*root, &uni, &ch) == true)
-    {
-        setInputSource(new QLCInputSource(uni, ch));
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    quint32 uni = attrs.value(KXMLQLCVCWidgetInputUniverse).toString().toUInt();
+    quint32 ch = attrs.value(KXMLQLCVCWidgetInputChannel).toString().toUInt();
+    uchar min = 0, max = UCHAR_MAX;
+
+    QSharedPointer<QLCInputSource>newSrc = QSharedPointer<QLCInputSource>(new QLCInputSource(uni, ch));
+    if (attrs.hasAttribute(KXMLQLCVCWidgetInputLowerValue))
+        min = uchar(attrs.value(KXMLQLCVCWidgetInputLowerValue).toString().toUInt());
+    if (attrs.hasAttribute(KXMLQLCVCWidgetInputUpperValue))
+        max = uchar(attrs.value(KXMLQLCVCWidgetInputUpperValue).toString().toUInt());
+
+    newSrc->setRange(min, max);
+
+    return newSrc;
 }
 
-bool VCWidget::loadXMLInput(const QDomElement& root, quint32* uni, quint32* ch) const
+bool VCWidget::loadXMLInput(QXmlStreamReader &root, const quint8 &id)
 {
-    if (root.tagName() != KXMLQLCVCWidgetInput)
+    if (root.device() == NULL || root.hasError())
+        return false;
+
+    if (root.name() != KXMLQLCVCWidgetInput)
+        return false;
+
+    QSharedPointer<QLCInputSource>newSrc = getXMLInput(root);
+
+    setInputSource(newSrc, id);
+
+    root.skipCurrentElement();
+
+    return true;
+}
+
+QString VCWidget::loadXMLSources(QXmlStreamReader &root, quint8 sourceID)
+{
+    QString keyText;
+    while (root.readNextStartElement())
+    {
+        if (root.name() == KXMLQLCVCWidgetInput)
+        {
+            loadXMLInput(root, sourceID);
+        }
+        else if (root.name() == KXMLQLCVCWidgetKey)
+        {
+            keyText = root.readElementText();
+        }
+        else
+        {
+            qWarning() << Q_FUNC_INFO << "Unknown source tag" << root.name().toString();
+            root.skipCurrentElement();
+        }
+    }
+    return keyText;
+}
+
+bool VCWidget::loadXMLInput(QXmlStreamReader &root, quint32* uni, quint32* ch) const
+{
+    if (root.name() != KXMLQLCVCWidgetInput)
     {
         qWarning() << Q_FUNC_INFO << "Input node not found!";
         return false;
     }
     else
     {
-        *uni = root.attribute(KXMLQLCVCWidgetInputUniverse).toUInt();
-        *ch = root.attribute(KXMLQLCVCWidgetInputChannel).toUInt();
+        QXmlStreamAttributes attrs = root.attributes();
+        *uni = attrs.value(KXMLQLCVCWidgetInputUniverse).toString().toUInt();
+        *ch = attrs.value(KXMLQLCVCWidgetInputChannel).toString().toUInt();
+        root.skipCurrentElement();
     }
 
     return true;
 }
 
-bool VCWidget::saveXMLCommon(QDomDocument *doc, QDomElement *widget_root)
+bool VCWidget::saveXMLCommon(QXmlStreamWriter *doc)
 {
-    Q_UNUSED(doc)
-    Q_ASSERT(widget_root != NULL);
+    Q_ASSERT(doc != NULL);
 
     /* Caption */
-    widget_root->setAttribute(KXMLQLCVCCaption, caption());
+    doc->writeAttribute(KXMLQLCVCCaption, caption());
 
     /* ID */
     if (id() != VCWidget::invalidId())
-        widget_root->setAttribute(KXMLQLCVCWidgetID, id());
+        doc->writeAttribute(KXMLQLCVCWidgetID, QString::number(id()));
 
     /* Page */
     if (page() != 0)
-        widget_root->setAttribute(KXMLQLCVCWidgetPage, page());
+        doc->writeAttribute(KXMLQLCVCWidgetPage, QString::number(page()));
 
     return true;
 }
 
-bool VCWidget::saveXMLAppearance(QDomDocument* doc, QDomElement* frame_root)
+bool VCWidget::saveXMLAppearance(QXmlStreamWriter *doc)
 {
-    QDomElement root;
-    QDomElement tag;
-    QDomText text;
+    Q_ASSERT(doc != NULL);
+
     QString str;
 
-    Q_ASSERT(doc != NULL);
-    Q_ASSERT(frame_root != NULL);
-
-    /* VC Label entry */
-    root = doc->createElement(KXMLQLCVCWidgetAppearance);
-    frame_root->appendChild(root);
+    /* VC appearance entry */
+    doc->writeStartElement(KXMLQLCVCWidgetAppearance);
 
     /* Frame style */
-    tag = doc->createElement(KXMLQLCVCFrameStyle);
-    root.appendChild(tag);
-    text = doc->createTextNode(frameStyleToString(frameStyle()));
-    tag.appendChild(text);
+    doc->writeTextElement(KXMLQLCVCFrameStyle, frameStyleToString(frameStyle()));
 
     /* Foreground color */
-    tag = doc->createElement(KXMLQLCVCWidgetForegroundColor);
-    root.appendChild(tag);
     if (hasCustomForegroundColor() == true)
         str.setNum(foregroundColor().rgb());
     else
         str = KXMLQLCVCWidgetColorDefault;
-    text = doc->createTextNode(str);
-    tag.appendChild(text);
+    doc->writeTextElement(KXMLQLCVCWidgetForegroundColor, str);
 
     /* Background color */
-    tag = doc->createElement(KXMLQLCVCWidgetBackgroundColor);
-    root.appendChild(tag);
     if (hasCustomBackgroundColor() == true)
         str.setNum(backgroundColor().rgb());
     else
         str = KXMLQLCVCWidgetColorDefault;
-    text = doc->createTextNode(str);
-    tag.appendChild(text);
+    doc->writeTextElement(KXMLQLCVCWidgetBackgroundColor, str);
 
     /* Background image */
-    tag = doc->createElement(KXMLQLCVCWidgetBackgroundImage);
-    root.appendChild(tag);
     if (backgroundImage().isEmpty() == false)
         str = m_doc->normalizeComponentPath(m_backgroundImage);
     else
         str = KXMLQLCVCWidgetBackgroundImageNone;
-    text = doc->createTextNode(str);
-    tag.appendChild(text);
+    doc->writeTextElement(KXMLQLCVCWidgetBackgroundImage, str);
 
     /* Font */
-    tag = doc->createElement(KXMLQLCVCWidgetFont);
-    root.appendChild(tag);
     if (hasCustomFont() == true)
         str = font().toString();
     else
         str = KXMLQLCVCWidgetFontDefault;
-    text = doc->createTextNode(str);
-    tag.appendChild(text);
+    doc->writeTextElement(KXMLQLCVCWidgetFont, str);
+
+    /* End the <Appearance> tag */
+    doc->writeEndElement();
 
     return true;
 }
 
-bool VCWidget::saveXMLInput(QDomDocument* doc, QDomElement* root)
+bool VCWidget::saveXMLInput(QXmlStreamWriter *doc)
 {
-    return saveXMLInput(doc, root, inputSource());
+    return saveXMLInput(doc, inputSource());
 }
 
-bool VCWidget::saveXMLInput(QDomDocument* doc, QDomElement* root,
-                            const QLCInputSource *src) const
+bool VCWidget::saveXMLInput(QXmlStreamWriter *doc,
+                            const QLCInputSource *src)
 {
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(root != NULL);
 
     if (src == NULL)
         return false;
 
     if (src->isValid() == true)
     {
-        QDomElement tag = doc->createElement(KXMLQLCVCWidgetInput);
-        tag.setAttribute(KXMLQLCVCWidgetInputUniverse, QString("%1").arg(src->universe()));
-        tag.setAttribute(KXMLQLCVCWidgetInputChannel, QString("%1").arg(src->channel()));
-        root->appendChild(tag);
+        doc->writeStartElement(KXMLQLCVCWidgetInput);
+        doc->writeAttribute(KXMLQLCVCWidgetInputUniverse, QString("%1").arg(src->universe()));
+        doc->writeAttribute(KXMLQLCVCWidgetInputChannel, QString("%1").arg(src->channel()));
+        if (src->lowerValue() != 0)
+            doc->writeAttribute(KXMLQLCVCWidgetInputLowerValue, QString::number(src->lowerValue()));
+        if (src->upperValue() != UCHAR_MAX)
+            doc->writeAttribute(KXMLQLCVCWidgetInputUpperValue, QString::number(src->upperValue()));
+        doc->writeEndElement();
     }
 
     return true;
 }
 
-bool VCWidget::saveXMLWindowState(QDomDocument* doc, QDomElement* root)
+bool VCWidget::saveXMLInput(QXmlStreamWriter *doc,
+                      QSharedPointer<QLCInputSource> const& src)
 {
-    QDomElement tag;
-    QDomText text;
-    QString str;
+    return saveXMLInput(doc, src.data());
+}
 
-    if (doc == NULL || root == NULL)
-        return false;
+bool VCWidget::saveXMLWindowState(QXmlStreamWriter *doc)
+{
+    Q_ASSERT(doc != NULL);
 
     /* Window state tag */
-    tag = doc->createElement(KXMLQLCWindowState);
-    root->appendChild(tag);
+    doc->writeStartElement(KXMLQLCWindowState);
 
     /* Visible status */
     if (isVisible() == true)
-        tag.setAttribute(KXMLQLCWindowStateVisible, KXMLQLCTrue);
+        doc->writeAttribute(KXMLQLCWindowStateVisible, KXMLQLCTrue);
     else
-        tag.setAttribute(KXMLQLCWindowStateVisible, KXMLQLCFalse);
+        doc->writeAttribute(KXMLQLCWindowStateVisible, KXMLQLCFalse);
 
-    tag.setAttribute(KXMLQLCWindowStateX, QString::number(x()));
-    tag.setAttribute(KXMLQLCWindowStateY, QString::number(y()));
-    tag.setAttribute(KXMLQLCWindowStateWidth, QString::number(width()));
-    tag.setAttribute(KXMLQLCWindowStateHeight, QString::number(height()));
+    doc->writeAttribute(KXMLQLCWindowStateX, QString::number(x()));
+    doc->writeAttribute(KXMLQLCWindowStateY, QString::number(y()));
+    doc->writeAttribute(KXMLQLCWindowStateWidth, QString::number(width()));
+    doc->writeAttribute(KXMLQLCWindowStateHeight, QString::number(height()));
+
+    doc->writeEndElement();
 
     return true;
 }
 
-bool VCWidget::loadXMLWindowState(const QDomElement* tag, int* x, int* y,
+bool VCWidget::loadXMLWindowState(QXmlStreamReader &tag, int* x, int* y,
                                   int* w, int* h, bool* visible)
 {
-    if (tag == NULL || x == NULL || y == NULL || w == NULL || h == NULL ||
+    if (tag.device() == NULL || x == NULL || y == NULL || w == NULL || h == NULL ||
             visible == NULL)
         return false;
 
-    if (tag->tagName() == KXMLQLCWindowState)
+    if (tag.name() == KXMLQLCWindowState)
     {
-        *x = tag->attribute(KXMLQLCWindowStateX).toInt();
-        *y = tag->attribute(KXMLQLCWindowStateY).toInt();
-        *w = tag->attribute(KXMLQLCWindowStateWidth).toInt();
-        *h = tag->attribute(KXMLQLCWindowStateHeight).toInt();
+        QXmlStreamAttributes attrs = tag.attributes();
+        *x = attrs.value(KXMLQLCWindowStateX).toString().toInt();
+        *y = attrs.value(KXMLQLCWindowStateY).toString().toInt();
+        *w = attrs.value(KXMLQLCWindowStateWidth).toString().toInt();
+        *h = attrs.value(KXMLQLCWindowStateHeight).toString().toInt();
 
-        if (tag->attribute(KXMLQLCWindowStateVisible) == KXMLQLCTrue)
+        if (attrs.value(KXMLQLCWindowStateVisible).toString() == KXMLQLCTrue)
             *visible = true;
         else
             *visible = false;
+        tag.skipCurrentElement();
 
         return true;
     }

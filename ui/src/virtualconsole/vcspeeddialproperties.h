@@ -21,11 +21,15 @@
 #define VCSPEEDDIALPROPERTIES_H
 
 #include <QDialog>
+
 #include "ui_vcspeeddialproperties.h"
 #include "qlcinputsource.h"
+#include "vcspeeddialfunction.h"
 
+class InputSelectionWidget;
 class VCSpeedDial;
-class VCSpeedDialFunction;
+class VCSpeedDialPreset;
+class SpeedDialWidget;
 class Doc;
 
 /** @addtogroup ui_vc_props
@@ -35,9 +39,10 @@ class Doc;
 class VCSpeedDialProperties : public QDialog, public Ui_VCSpeedDialProperties
 {
     Q_OBJECT
+    Q_DISABLE_COPY(VCSpeedDialProperties)
 
 public:
-    VCSpeedDialProperties(VCSpeedDial* dial, Doc* doc);
+    explicit VCSpeedDialProperties(VCSpeedDial* dial, Doc* doc);
     ~VCSpeedDialProperties();
 
 public slots:
@@ -54,6 +59,8 @@ private:
 private slots:
     void slotAddClicked();
     void slotRemoveClicked();
+    void slotCopyFactorsClicked();
+    void slotPasteFactorsClicked();
 
 private:
     /** Generate a QList of functions currently in the tree widget */
@@ -62,28 +69,48 @@ private:
     /** Create a tree item for the given function $id */
     void createFunctionItem(const VCSpeedDialFunction &speeddialfunction);
 
+    /** Reference to the tree item used for copy & paste */
+    QTreeWidgetItem *m_copyItem;
+
     /************************************************************************
      * Input page
      ************************************************************************/
-private:
-    void updateInputSources();
-
 private slots:
-    void slotAutoDetectAbsoluteInputSourceToggled(bool checked);
-    void slotChooseAbsoluteInputSourceClicked();
-    void slotAbsoluteInputValueChanged(quint32 universe, quint32 channel);
-
-    void slotAutoDetectTapInputSourceToggled(bool checked);
-    void slotChooseTapInputSourceClicked();
-    void slotTapInputValueChanged(quint32 universe, quint32 channel);
-
-    void slotAttachKey();
-    void slotDetachKey();
+    void slotAbsolutePrecisionCbChecked(bool checked);
 
 private:
-    QLCInputSource *m_absoluteInputSource;
-    QLCInputSource *m_tapInputSource;
-    QKeySequence m_tapKeySequence;
+    InputSelectionWidget *m_absoluteInputWidget;
+    InputSelectionWidget *m_tapInputWidget;
+    InputSelectionWidget *m_applyInputWidget;
+
+    InputSelectionWidget *m_multInputWidget;
+    InputSelectionWidget *m_divInputWidget;
+    InputSelectionWidget *m_multDivResetInputWidget;
+
+    /*********************************************************************
+     * Presets
+     *********************************************************************/
+private:
+    void updateTree();
+    void updateTreeItem(VCSpeedDialPreset const& preset);
+    VCSpeedDialPreset* getSelectedPreset();
+    void addPreset(VCSpeedDialPreset* control);
+    void removePreset(quint8 id);
+
+protected slots:
+    void slotTreeSelectionChanged();
+    void slotAddPresetClicked();
+    void slotRemovePresetClicked();
+    void slotPresetNameEdited(QString const& newName);
+    void slotSpeedDialWidgetValueChanged(int ms);
+
+    void slotInputValueChanged(quint32 universe, quint32 channel);
+    void slotKeySequenceChanged(QKeySequence key);
+
+protected:
+    quint8 m_lastAssignedID;
+    QList<VCSpeedDialPreset*> m_presets;
+    InputSelectionWidget *m_presetInputWidget;
 };
 
 /** @} */

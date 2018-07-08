@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
+  <Author>Piotr Nowik</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Stinger</Model>
+ <Type>Flower</Type>
+ <Channel Name="Auto Run/Sound Active">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9" Color="#000000">Blackout</Capability>
+  <Capability Min="10" Max="39" Res="Others/rainbow.png">Six colors LED auto run</Capability>
+  <Capability Min="40" Max="69" Color="#ffffff">White LEDs auto run</Capability>
+  <Capability Min="70" Max="99">Laser auto run</Capability>
+  <Capability Min="100" Max="129" Res="Others/rainbow.png">Auto run mixing</Capability>
+  <Capability Min="130" Max="159" Res="Others/rainbow.png">Six colors &amp; strobing</Capability>
+  <Capability Min="160" Max="189">Laser &amp; strobing</Capability>
+  <Capability Min="190" Max="219">LEDs, laser &amp; strobing</Capability>
+  <Capability Min="220" Max="255">DMX mode</Capability>
+ </Channel>
+ <Channel Name="Flower">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9" Color="#000000">Blackout</Capability>
+  <Capability Min="10" Max="198">Color macros</Capability>
+  <Capability Min="199" Max="225">Color chase 1</Capability>
+  <Capability Min="226" Max="255">Color chase 2</Capability>
+ </Channel>
+ <Channel Name="Auto Run Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Slow - fast</Capability>
+ </Channel>
+ <Channel Name="LED Strobe">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">No strobe</Capability>
+  <Capability Min="10" Max="244">Slow - fast</Capability>
+  <Capability Min="245" Max="255">Sound active strobing</Capability>
+ </Channel>
+ <Channel Name="White LEDs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9" Color="#000000">Blackout</Capability>
+  <Capability Min="10" Max="135" Color="#ffffff">White output position</Capability>
+  <Capability Min="136" Max="255" Color="#ffffff">White output chase</Capability>
+ </Channel>
+ <Channel Name="White LED Strobe">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127" Color="#ffffff">Chase slow - fast (no strobe)</Capability>
+  <Capability Min="128" Max="255" Color="#ffffff">Chase slow - fast (strobing)</Capability>
+ </Channel>
+ <Channel Name="Lasers">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9" Color="#000000">Blackout</Capability>
+  <Capability Min="10" Max="49" Color="#ff0000">Red laser</Capability>
+  <Capability Min="50" Max="89" Color="#00ff00">Green laser</Capability>
+  <Capability Min="90" Max="129" Color="#ff0000" Color2="#00ff00">Red &amp; green lasers</Capability>
+  <Capability Min="130" Max="169" Color="#ff0000" Color2="#00ff00">Red &amp; green lasers flicker</Capability>
+  <Capability Min="170" Max="209" Color="#00ff00" Color2="#ff0000">Green &amp; red lasers flicker</Capability>
+  <Capability Min="210" Max="249" Color="#ff0000" Color2="#00ff00">Red &amp; green lasers flicker sync</Capability>
+  <Capability Min="250" Max="255" Color="#ff0000" Color2="#00ff00">Red &amp; green lasers alternate flicker</Capability>
+ </Channel>
+ <Channel Name="Laser Strobe Control">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">No strobe</Capability>
+  <Capability Min="10" Max="244">Strobing slow - fast</Capability>
+  <Capability Min="245" Max="255">Sound active strobing</Capability>
+ </Channel>
+ <Channel Name="LED Rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="8">No rotation</Capability>
+  <Capability Min="9" Max="127">Clockwise rotation slow - fast</Capability>
+  <Capability Min="128" Max="255">Counter-clockwise rotation slow - fast</Capability>
+ </Channel>
+ <Channel Name="Laser rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Laser patterns</Capability>
+  <Capability Min="128" Max="255">Pattern chase slow - fast</Capability>
+ </Channel>
+ <Mode Name="10 channels">
+  <Channel Number="0">Auto Run/Sound Active</Channel>
+  <Channel Number="1">Flower</Channel>
+  <Channel Number="2">Auto Run Speed</Channel>
+  <Channel Number="3">LED Strobe</Channel>
+  <Channel Number="4">White LEDs</Channel>
+  <Channel Number="5">White LED Strobe</Channel>
+  <Channel Number="6">Lasers</Channel>
+  <Channel Number="7">Laser Strobe Control</Channel>
+  <Channel Number="8">LED Rotation</Channel>
+  <Channel Number="9">Laser rotation</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="5" Width="229" Height="248" Depth="305"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="70" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

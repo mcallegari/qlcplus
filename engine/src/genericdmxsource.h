@@ -51,11 +51,20 @@ public:
     /** Unset the value of a fixture channel */
     void unset(quint32 fxi, quint32 ch);
 
+    /** Unset all the previously set channels/values */
+    void unsetAll();
+
     /** Enable/disable output */
     void setOutputEnabled(bool enable);
 
     /** Check, whether output is enabled */
     bool isOutputEnabled() const;
+
+    /** Returns how many channels this source is handling */
+    quint32 channelsCount() const;
+
+    /** Return the currently set values as a list of SceneValue */
+    QList<SceneValue> channels();
 
     /** @reimp */
     void writeDMX(MasterTimer* timer, QList<Universe*> ua);
@@ -65,6 +74,7 @@ private:
     QMutex m_mutex;
     QMap <QPair<quint32,quint32>,uchar> m_values;
     bool m_outputEnabled;
+    bool m_clearRequest;
 };
 
 /** @} */

@@ -29,8 +29,6 @@
 
 class VirtualConsole;
 class InputOutputMap;
-class QDomDocument;
-class QDomElement;
 class VCFrame;
 
 /** @addtogroup ui_vc_props
@@ -83,13 +81,9 @@ private:
     /*************************************************************************
      * Layout page
      *************************************************************************/
-private:
-    void fillTapModifierCombo();
-
 private slots:
     void slotSizeXChanged(int value);
     void slotSizeYChanged(int value);
-    void slotTapModifierActivated(int index);
 
     /*************************************************************************
      * Widgets page
@@ -110,13 +104,6 @@ private slots:
 
 private:
     void updateGrandMasterInputSource();
-
-    /*************************************************************************
-     * Input Source helper
-     *************************************************************************/
-private:
-    bool inputSourceNames(quint32 universe, quint32 channel,
-                          QString& uniName, QString& chName) const;
 };
 
 /** @} */

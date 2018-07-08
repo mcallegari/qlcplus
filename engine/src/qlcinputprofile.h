@@ -21,14 +21,14 @@
 #define QLCINPUTPROFILE_H
 
 #include <QStringList>
+#include <QVariant>
 #include <QString>
 #include <QHash>
 #include <QMap>
 
 class QLCInputChannel;
 class QLCInputProfile;
-class QDomDocument;
-class QDomElement;
+class QXmlStreamReader;
 
 /** @addtogroup engine Engine
  * @{
@@ -38,6 +38,7 @@ class QDomElement;
 #define KXMLQLCInputProfileManufacturer "Manufacturer"
 #define KXMLQLCInputProfileModel "Model"
 #define KXMLQLCInputProfileType "Type"
+#define KXMLQLCInputProfileMidiSendNoteOff "MIDISendNoteOff"
 
 class QLCInputProfile
 {
@@ -98,6 +99,24 @@ protected:
     QString m_model;
     QString m_path;
     Type m_type;
+
+    /********************************************************************
+     * Plugin-specific global settings
+     ********************************************************************/
+public:
+    /** Instruct the MIDI plugin not to send Note Off on
+     *  a value equal to 0. Instead, send a Note On with 0 velocity */
+    void setMidiSendNoteOff(bool enable);
+
+    /** Retrieve the MIDI Note Off flag */
+    bool midiSendNoteOff() const;
+
+    QMap<QString, QVariant> globalSettings() const;
+
+protected:
+    bool m_midiSendNoteOff;
+
+    QMap<QString, QVariant> m_globalSettingsMap;
 
     /********************************************************************
      * Channels
@@ -174,7 +193,7 @@ public:
     bool saveXML(const QString& fileName);
 
     /** Load an input profile from the given document */
-    bool loadXML(const QDomDocument& doc);
+    bool loadXML(QXmlStreamReader &doc);
 };
 
 /** @} */

@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  e131node.h
+  e131controller.h
 
   Copyright (c) Massimo Callegari
 
@@ -17,15 +17,43 @@
   limitations under the License.
 */
 
-#ifndef E131NODE_H
-#define E131NODE_H
+#ifndef E131CONTROLLER_H
+#define E131CONTROLLER_H
+
+#if defined(ANDROID)
+#include <QNetworkInterface>
+#include <QScopedPointer>
+#include <QSharedPointer>
+#include <QHostAddress>
+#include <QUdpSocket>
+#else
+#include <QtNetwork>
+#endif
+#include <QMutex>
+#include <QTimer>
 
 #include "e131packetizer.h"
 
-#include <QtNetwork>
-#include <QObject>
-
 #define E131_DEFAULT_PORT     5568
+
+typedef struct
+{
+    bool inputMulticast;
+    QHostAddress inputMcastAddress;
+    quint16 inputUcastPort;
+    quint16 inputUniverse;
+    QSharedPointer<QUdpSocket> inputSocket;
+
+    bool outputMulticast;
+    QHostAddress outputMcastAddress;
+    QHostAddress outputUcastAddress;
+    quint16 outputUcastPort;
+    quint16 outputUniverse;
+    int outputTransmissionMode;
+    int outputPriority;
+
+    int type;
+} UniverseInfo;
 
 class E131Controller : public QObject
 {
@@ -37,8 +65,11 @@ class E131Controller : public QObject
 public:
     enum Type { Unknown = 0x0, Input = 0x01, Output = 0x02 };
 
-    E131Controller(QString ipaddr, QString macAddress,
-                   Type type, quint32 line, QObject *parent = 0);
+    enum TransmissionMode { Full, Partial };
+
+    explicit E131Controller(QNetworkInterface const& interface,
+                            QNetworkAddressEntry const& address,
+                            quint32 line, QObject *parent = 0);
 
     ~E131Controller();
 
@@ -48,11 +79,66 @@ public:
     /** Return the controller IP address */
     QString getNetworkIP();
 
-    /** Set the controller type */
-    void setType(Type type);
+    /** Add a universe to the map of this controller */
+    void addUniverse(quint32 universe, Type type);
 
-    /** Get the type of this controller */
+    /** Remove a universe from the map of this controller */
+    void removeUniverse(quint32 universe, Type type);
+
+    /** Set input as multicast for the givin QLC+ universe */
+    void setInputMulticast(quint32 universe, bool multicast);
+
+    /** Set input as multicast for the givin QLC+ universe */
+    void setInputMCastAddress(quint32 universe, QString address);
+
+    /** Set a specific port for the given QLC+ universe */
+    void setInputUCastPort(quint32 universe, quint16 port);
+
+    /** Set a specific E1.31 input universe for the given QLC+ universe */
+    void setInputUniverse(quint32 universe, quint32 e131Uni);
+
+    /** Set output as multicast for the given QLC+ universe */
+    void setOutputMulticast(quint32 universe, bool multicast);
+
+    /** Set a specific multicast IP address for the given QLC+ universe */
+    void setOutputMCastAddress(quint32 universe, QString address);
+
+    /** Set a specific unicast IP address for the given QLC+ universe */
+    void setOutputUCastAddress(quint32 universe, QString address);
+
+    /** Set a specific port for the given QLC+ universe */
+    void setOutputUCastPort(quint32 universe, quint16 port);
+
+    /** Set a specific E1.31 output universe for the given QLC+ universe */
+    void setOutputUniverse(quint32 universe, quint32 e131Uni);
+
+    /** Set a specific E1.31 output priority for the given QLC+ universe */
+    void setOutputPriority(quint32 universe, quint32 e131Priority);
+
+    /** Set the transmission mode of the ArtNet DMX packets over the network.
+     *  It can be 'Full', which transmits always 512 channels, or
+     *  'Partial', which transmits only the channels actually used in a
+     *  universe */
+    void setOutputTransmissionMode(quint32 universe, TransmissionMode mode);
+
+    /** Converts a TransmissionMode value into a human readable string */
+    static QString transmissionModeToString(TransmissionMode mode);
+
+    /** Converts a human readable string into a TransmissionMode value */
+    static TransmissionMode stringToTransmissionMode(const QString& mode);
+
+    /** Return the list of the universes handled by
+     *  this controller */
+    QList<quint32> universesList();
+
+    /** Return the specific information for the given universe */
+    UniverseInfo *getUniverseInfo(quint32 universe);
+
+    /** Return the global type of this controller */
     Type type();
+
+    /** Return the plugin line associated to this controller */
+    quint32 line();
 
     /** Get the number of packets sent by this controller */
     quint64 getPacketSentNumber();
@@ -60,48 +146,38 @@ public:
     /** Get the number of packets received by this controller */
     quint64 getPacketReceivedNumber();
 
-    /** Increase or decrease the reference count of the given type */
-    void changeReferenceCount(Type type, int amount);
-
-    /** Retrieve the reference count of the given type */
-    int referenceCount(Type type);
+private:
+    QSharedPointer<QUdpSocket> getInputSocket(bool multicast, QHostAddress const& address, quint16 port);
 
 private:
+    /** The network interface associated to this controller */
+    QNetworkInterface m_interface;
     /** The controller IP address as QHostAddress */
     QHostAddress m_ipAddr;
-
-    /** The controller multicast addresses map as QHostAddress */
-    /** This is where all E131 packets are sent to */
-    QHash<quint32, QHostAddress> m_multicastAddr;
-
-    /** The controller interface MAC address. Used only for ArtPollReply */
-    QString m_MACAddress;
 
     quint64 m_packetSent;
     quint64 m_packetReceived;
 
-    /** Type of this controller */
-    /** A controller can be only output or only input */
-    Type m_type;
-
     /** QLC+ line to be used when emitting a signal */
     quint32 m_line;
 
-    /** The UDP socket used to send/receive E131 packets */
-    QUdpSocket *m_UdpSocket;
+    /** The UDP socket used to send E131 packets */
+    QSharedPointer<QUdpSocket> m_UdpSocket;
 
     /** Helper class used to create or parse E131 packets */
-    E131Packetizer *m_packetizer;
+    QScopedPointer<E131Packetizer> m_packetizer;
 
     /** Keeps the current dmx values to send only the ones that changed */
-    /** It holds values for a whole 4 universes address (512 * 4) */
-    QByteArray m_dmxValues;
+    /** It holds values for all the handled universes */
+    QMap<quint32, QByteArray*> m_dmxValuesMap;
 
-    /** Count the number of input universes using this controller */
-    int m_inputRefCount;
+    /** Map of the QLC+ universes transmitted/received by this
+     *  controller, with the related, specific parameters */
+    QMap<quint32, UniverseInfo> m_universeMap;
 
-    /** Count the number of output universes using this controller */
-    int m_outputRefCount;
+    /** Mutex to handle the change of output IP address or in general
+     *  variables that could be used to transmit/receive data */
+    QMutex m_dataMutex;
 
 private slots:
     /** Async event raised when new packets have been received */

@@ -22,8 +22,10 @@
 #include <QLocale>
 #include <QString>
 #include <QDebug>
+#include <QDir>
 
 #include "qlcconfig.h"
+#include "qlcfile.h"
 #include "qlci18n.h"
 
 QString QLCi18n::s_defaultLocale = QString();
@@ -31,15 +33,8 @@ QString QLCi18n::s_translationFilePath = QString();
 
 void QLCi18n::init()
 {
-#if defined(__APPLE__) || defined(Q_OS_MAC)
     // Set the default translation file path before parsing args
-    QLCi18n::setTranslationFilePath(QString("%1/../%2")
-                                    .arg(QCoreApplication::applicationDirPath())
-                                    .arg(TRANSLATIONDIR));
-#else
-    // Set the default translation file path before parsing args
-    QLCi18n::setTranslationFilePath(TRANSLATIONDIR);
-#endif
+    QLCi18n::setTranslationFilePath(QLCFile::systemDirectory(TRANSLATIONDIR).absolutePath());
 }
 
 void QLCi18n::setDefaultLocale(const QString& locale)

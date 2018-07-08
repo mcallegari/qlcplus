@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.9.2 GIT</Version>
+  <Author>Robert Box</Author>
+ </Creator>
+ <Manufacturer>Lightronics</Manufacturer>
+ <Model>FXLD618C2I</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Warm White Level" Preset="IntensityWhite"/>
+ <Channel Name="Cool White Level" Preset="IntensityWhite"/>
+ <Channel Name="Strobe Control" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Color Temperature">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Color="#ffbb78" Max="255" Color2="#e4eaff">Color temperature</Capability>
+ </Channel>
+ <Mode Name="1 Channel (P)">
+  <Channel Number="0">Master Dimmer</Channel>
+ </Mode>
+ <Mode Name="2 Channel (A)">
+  <Channel Number="0">Warm White Level</Channel>
+  <Channel Number="1">Cool White Level</Channel>
+ </Mode>
+ <Mode Name="3 Channel (F)">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Warm White Level</Channel>
+  <Channel Number="2">Cool White Level</Channel>
+ </Mode>
+ <Mode Name="4 Channel (D)">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Strobe Control</Channel>
+  <Channel Number="2">Warm White Level</Channel>
+  <Channel Number="3">Cool White Level</Channel>
+ </Mode>
+ <Mode Name="5 Channel (H)">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Strobe Control</Channel>
+  <Channel Number="2">Warm White Level</Channel>
+  <Channel Number="3">Cool White Level</Channel>
+  <Channel Number="4">Color Temperature</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Weight="4.5" Depth="251" Width="251" Height="231"/>
+   <Lens DegreesMax="25" Name="Other" DegreesMin="25"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="120" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

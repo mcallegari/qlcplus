@@ -23,10 +23,10 @@
 #include <QVBoxLayout>
 #include <QToolButton>
 #include <QSpinBox>
+#include <QDebug>
 #include <QLabel>
 #include <QMenu>
 #include <QList>
-#include <QtXml>
 
 #include "qlcchannel.h"
 #include "qlccapability.h"
@@ -45,13 +45,15 @@ ConsoleChannel::ConsoleChannel(QWidget* parent, Doc* doc, quint32 fixture, quint
     : QGroupBox(parent)
     , m_doc(doc)
     , m_fixture(fixture)
-    , m_channel(channel)
+    , m_chIndex(channel)
     , m_group(Fixture::invalidId())
     , m_presetButton(NULL)
     , m_cngWidget(NULL)
     , m_spin(NULL)
     , m_slider(NULL)
     , m_label(NULL)
+    , m_resetButton(NULL)
+    , m_showResetButton(false)
     , m_menu(NULL)
     , m_selected(false)
 {
@@ -120,7 +122,8 @@ void ConsoleChannel::init()
 
     m_slider->setMinimumWidth(25);
     m_slider->setMaximumWidth(40);
-    m_slider->setStyleSheet(
+    m_slider->setVisible(false);
+    m_slider->setSliderStyleSheet(
         "QSlider::groove:vertical { background: transparent; width: 32px; } "
 
         "QSlider::handle:vertical { "
@@ -150,25 +153,37 @@ void ConsoleChannel::init()
     m_label->setMaximumWidth(80);
     layout()->addWidget(m_label);
     m_label->setAlignment(Qt::AlignCenter);
-    m_label->setText(QString::number(m_channel + 1));
+    m_label->setText(QString::number(m_chIndex + 1));
     m_label->setFocusPolicy(Qt::NoFocus);
     m_label->setWordWrap(true);
 
     /* Set tooltip */
-    if (fxi == NULL || fxi->isDimmer() == true)
+    if (fxi == NULL)
     {
         setToolTip(tr("Intensity"));
     }
     else
     {
-        const QLCChannel* ch = fxi->channel(m_channel);
+        const QLCChannel *ch = fxi->channel(m_chIndex);
         Q_ASSERT(ch != NULL);
         setToolTip(QString("%1").arg(ch->name()));
+        setValue(ch->defaultValue(), false);
+        m_channel = ch;
     }
 
     connect(m_spin, SIGNAL(valueChanged(int)), this, SLOT(slotSpinChanged(int)));
     connect(m_slider, SIGNAL(valueChanged(int)), this, SLOT(slotSliderChanged(int)));
     connect(this, SIGNAL(toggled(bool)), this, SLOT(slotChecked(bool)));
+}
+
+void ConsoleChannel::showEvent(QShowEvent *)
+{
+    if (m_styleSheet.isEmpty() == false)
+    {
+        setChannelStyleSheet(m_styleSheet);
+        m_slider->setVisible(true);
+        m_styleSheet = "";
+    }
 }
 
 /*****************************************************************************
@@ -180,7 +195,12 @@ quint32 ConsoleChannel::fixture() const
     return m_fixture;
 }
 
-quint32 ConsoleChannel::channel() const
+quint32 ConsoleChannel::channelIndex() const
+{
+    return m_chIndex;
+}
+
+const QLCChannel *ConsoleChannel::channel()
 {
     return m_channel;
 }
@@ -244,7 +264,7 @@ void ConsoleChannel::slotSpinChanged(int value)
         m_slider->setValue(value);
 
     if (m_group == Fixture::invalidId())
-        emit valueChanged(m_fixture, m_channel, value);
+        emit valueChanged(m_fixture, m_chIndex, value);
     else
         emit groupValueChanged(m_group, value);
 }
@@ -256,11 +276,64 @@ void ConsoleChannel::slotSliderChanged(int value)
 }
 void ConsoleChannel::slotChecked(bool state)
 {
-    emit checked(m_fixture, m_channel, state);
+    emit checked(m_fixture, m_chIndex, state);
 
     // Emit the current value also when turning the channel back on
     if (state == true)
-        emit valueChanged(m_fixture, m_channel, m_slider->value());
+        emit valueChanged(m_fixture, m_chIndex, m_slider->value());
+}
+
+/*************************************************************************
+ * Look & Feel
+ *************************************************************************/
+
+void ConsoleChannel::setChannelStyleSheet(const QString &styleSheet)
+{
+    if(isVisible())
+        QGroupBox::setStyleSheet(styleSheet);
+    else
+        m_styleSheet = styleSheet;
+}
+
+void ConsoleChannel::showResetButton(bool show)
+{
+    if (show == true)
+    {
+        if (m_resetButton == NULL)
+        {
+            m_resetButton = new QToolButton(this);
+            m_resetButton->setStyle(AppUtil::saneStyle());
+            layout()->addWidget(m_resetButton);
+            layout()->setAlignment(m_resetButton, Qt::AlignHCenter);
+            m_resetButton->setIconSize(QSize(32, 32));
+            m_resetButton->setMinimumSize(QSize(32, 32));
+            m_resetButton->setMaximumSize(QSize(32, 32));
+            m_resetButton->setFocusPolicy(Qt::NoFocus);
+            m_resetButton->setIcon(QIcon(":/fileclose.png"));
+            m_resetButton->setToolTip(tr("Reset this channel"));
+        }
+        connect(m_resetButton, SIGNAL(clicked(bool)),
+                this, SLOT(slotResetButtonClicked()));
+    }
+    else
+    {
+        if (m_resetButton != NULL)
+        {
+            layout()->removeWidget(m_resetButton);
+            delete m_resetButton;
+            m_resetButton = NULL;
+        }
+    }
+}
+
+bool ConsoleChannel::hasResetButton()
+{
+    return m_resetButton != NULL ? true : false;
+}
+
+void ConsoleChannel::slotResetButtonClicked()
+{
+    emit resetRequest(m_fixture, m_chIndex);
 }
 
 /*****************************************************************************
@@ -272,7 +345,7 @@ void ConsoleChannel::initMenu()
     Fixture* fxi = m_doc->fixture(fixture());
     Q_ASSERT(fxi != NULL);
 
-    const QLCChannel* ch = fxi->channel(m_channel);
+    const QLCChannel* ch = fxi->channel(m_chIndex);
     Q_ASSERT(ch != NULL);
 
     // Get rid of a possible previous menu
@@ -332,8 +405,7 @@ void ConsoleChannel::initMenu()
         m_menu->addSeparator();
 
         // Initialize the preset menu only for intelligent fixtures
-        if (fxi->isDimmer() == false)
-            initCapabilityMenu(ch);
+        initCapabilityMenu(ch);
     }
 }
 
@@ -399,6 +471,18 @@ void ConsoleChannel::setIntensityButton(const QLCChannel* channel)
         m_presetButton->setText("UV"); // Don't localize
         m_cngWidget = new ClickAndGoWidget();
         m_cngWidget->setType(ClickAndGoWidget::UV);
+    }
+    else if (channel->colour() == QLCChannel::Lime)
+    {
+        m_presetButton->setText("L");
+        m_cngWidget = new ClickAndGoWidget();
+        m_cngWidget->setType(ClickAndGoWidget::Lime);
+    }
+    else if (channel->colour() == QLCChannel::Indigo)
+    {
+        m_presetButton->setText("I");
+        m_cngWidget = new ClickAndGoWidget();
+        m_cngWidget->setType(ClickAndGoWidget::Indigo);
     }
     else
     {
@@ -583,7 +667,7 @@ void ConsoleChannel::slotControlClicked()
     qDebug() << "CONTROL modifier + click";
     if (m_selected == false)
     {
-        m_originalStyle = this->styleSheet();
+        m_originalStyle = styleSheet();
         int topMargin = isCheckable()?16:1;
 
         QString common = "QGroupBox::title {top:-15px; left: 12px; subcontrol-origin: border; background-color: transparent; } "
@@ -593,12 +677,12 @@ void ConsoleChannel::slotControlClicked()
         QString ssSelected = QString("QGroupBox { background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D9D730, stop: 1 #AFAD27); "
                                  "border: 1px solid gray; border-radius: 4px; margin-top: %1px; margin-right: 1px; } " +
                                  (isCheckable()?common:"")).arg(topMargin);
-        setStyleSheet(ssSelected);
+        setChannelStyleSheet(ssSelected);
         m_selected = true;
     }
     else
     {
-        this->setStyleSheet(m_originalStyle);
+        setChannelStyleSheet(m_originalStyle);
         m_selected = false;
     }
 }

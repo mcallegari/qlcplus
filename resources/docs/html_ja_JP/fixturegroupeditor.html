@@ -1,0 +1,95 @@
+<html dir="ltr">
+<head>
+<title>Q Light Controller Plus - フィクスチャーエディター</title>
+<script src="utility.js" type="text/javascript"></script>
+<link href="style.css" rel="stylesheet" type="text/css"></link>
+  <meta charset="utf-8">
+</head>
+<BODY onLoad="replaceqrc()">
+
+
+<h1>フィクスチャーグループエディター</h1>
+<p>
+機器タブの<a href="./fixturemanager.html">フィクスチャーマネージャー</a>、<a href="./concept.html#FixtureGroup">フィクスチャーグループ</a>を作成するときに使用します。このエディターでは、ピクセルマッピングなどに<a href="./concept.html#Fixtures">フィクスチャー</a>を使用するため、実際に<a href="concept.html#Head">フィクスチャー</a>を仕込んだ時の位置関係を設定します。
+</p>
+
+<h3>設定項目</h3>
+
+<p>
+まず、フィクスチャー名を設定してください。また、配置するためのグリッドの行、列数を設定してください、グリットの設定はあとで変更できるので多めに設定しておくことをお勧めします。グリットに表示されたフィクスチャーはドラッグ&amp;ドロップで位置を調整することができます。
+</p>
+
+<table border="1" class="qlcTable">
+ <tr>
+  <td>
+   <b>フィクスチャーグループ名</b>
+  </td>
+  <td>
+　フィクスチャーグループ名を設定できます。
+  </td>
+ </tr>
+ <tr>
+  <td>
+    <IMG SRC="qrc:/forward.png"/>
+  </td>
+  <td>
+　選択している行にフィクスチャーを追加します。
+  </td>
+ </tr>
+ <tr>
+  <td>
+    <IMG SRC="qrc:/down.png"/>
+  </td>
+  <td>
+　選択している列にフィクスチャーを追加します。
+  </td>
+ </tr>
+ <tr>
+  <td>
+    <IMG SRC="qrc:/edit_remove.png"/>
+  </td>
+  <td>
+　選択したフィクスチャーをグループから削除します。
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>フィクスチャーグリッド</b>
+  </td>
+  <td>
+   <p>
+　画面右に編集中のフィクスチャーグループの内容がグリッド表示されます。グリッドの行、列の数を変更したり、フィクスチャーの位置をドラッグ&amp;ドロップで変更することができます。
+   </p>
+   <p>
+　"RGBパネルの追加"からフィクスチャーグループを作成した場合は、フィクスチャーエディターで、フィクスチャーの並びを調整することができます。
+   </p>
+   <p>
+　グリット内のフィクスチャーには以下の情報が表示されています。<ul>
+     <li>フィクスチャー名がアイコンとともに表示されます</li>
+     <li><b>H:</b> HEAD番号(フィクスチャーグループ内での通し番号)</li>
+     <li><b>A:</b> フィクスチャーのDMXのヘッダーアドレス</li>
+     <li><b>U:</b> フィクスチャーが属しているuniverse番号</li>
+    </ul>
+   </p>
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>幅</b>
+  </td>
+  <td>
+　グリッドの幅を調整します。
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>高さ</b>
+  </td>
+  <td>
+　グリッドの高さを調整します。
+  </td>
+ </tr>
+</table>
+
+</BODY>
+</html>

@@ -24,6 +24,7 @@
 #include <QString>
 
 class Doc;
+class WebAccessAuth;
 
 class WebAccessConfiguration : public QObject
 {
@@ -31,9 +32,10 @@ public:
     WebAccessConfiguration();
 
     static QString getIOConfigHTML(Doc *doc);
-    static QString getAudioConfigHTML();
+    static QString getAudioConfigHTML(Doc *doc);
     static QString getUserFixturesConfigHTML();
-    static QString getHTML(Doc *doc);
+    static QString getPasswordsConfigHTML(WebAccessAuth *auth);
+    static QString getHTML(Doc *doc, WebAccessAuth *auth);
 };
 
 #endif // WEBACCESSCONFIGURATION_H

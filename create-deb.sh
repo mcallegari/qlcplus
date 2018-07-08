@@ -1,10 +1,7 @@
 #!/bin/bash
 #
-# This script creates Q Light Controller debian packages and strips subversion
+# This script creates Q Light Controller Plus debian packages and strips GIT
 # folders from the source package.
-
-# Compile translations
-./translate.sh
 
 # Build package
 dpkg-buildpackage -rfakeroot -I.git

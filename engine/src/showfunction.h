@@ -24,8 +24,7 @@
 
 #include "function.h"
 
-class QDomDocument;
-class QDomElement;
+class QXmlStreamReader;
 
 /** @addtogroup engine_functions Functions
  * @{
@@ -33,30 +32,55 @@ class QDomElement;
 
 #define KXMLShowFunction "ShowFunction"
 
-class ShowFunction
+class ShowFunction: public QObject
 {
-public:
-    ShowFunction();
+    Q_OBJECT
+    Q_DISABLE_COPY(ShowFunction)
 
+    Q_PROPERTY(int functionID READ functionID WRITE setFunctionID NOTIFY functionIDChanged)
+    Q_PROPERTY(int startTime READ startTime WRITE setStartTime NOTIFY startTimeChanged)
+    Q_PROPERTY(int duration READ duration WRITE setDuration NOTIFY durationChanged)
+    Q_PROPERTY(QColor color READ color WRITE setColor NOTIFY colorChanged)
+    Q_PROPERTY(bool locked READ isLocked WRITE setLocked NOTIFY lockedChanged)
+
+public:
+    ShowFunction(QObject *parent = 0);
+    virtual ~ShowFunction() {}
+
+    /** Get/Set the Function ID this class represents */
     void setFunctionID(quint32 id);
     quint32 functionID() const;
 
+    /** Get/Set the Function start time over a Show timeline */
     void setStartTime(quint32 time);
     quint32 startTime() const;
 
+    /** Get/Set this item duration, not necessarily corresponding
+     *  to the original Function duration */
     void setDuration(quint32 duration);
     quint32 duration() const;
 
+    /** Get/Set the color of the item when rendered in the Show Manager */
     void setColor(QColor color);
     QColor color() const;
 
     static QColor defaultColor(Function::Type type);
 
-    /** Set the lock state of this ShowFunction */
+    /** Get/Set the lock state of this ShowFunction */
     void setLocked(bool locked);
-
-    /** Get the lock state of this ShowFunction */
     bool isLocked() const;
+
+    /** Get/Set the intensity attribute override ID to
+     *  control a Function intensity */
+    int intensityOverrideId() const;
+    void setIntensityOverrideId(int id);
+
+signals:
+    void functionIDChanged();
+    void startTimeChanged();
+    void durationChanged();
+    void colorChanged();
+    void lockedChanged();
 
 private:
     /** ID of the QLC+ Function this class represents */
@@ -75,15 +99,18 @@ private:
     /** Flag to indicate if this function is locked in the Show Manager timeline */
     bool m_locked;
 
+    /** Intensity attribute override ID */
+    int m_intensityOverrideId;
+
     /************************************************************************
      * Load & Save
      ***********************************************************************/
 public:
     /** Load ShowFunction contents from $root */
-    bool loadXML(const QDomElement& root);
+    bool loadXML(QXmlStreamReader &root);
 
-    /** Save ShowFunction contents to $doc, under $root */
-    bool saveXML(QDomDocument* doc, QDomElement* root) const;
+    /** Save ShowFunction contents to $doc */
+    bool saveXML(QXmlStreamWriter *doc) const;
 };
 
 /** @} */

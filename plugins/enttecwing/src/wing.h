@@ -37,7 +37,7 @@
 #define WING_HEADER_OUTPUT "WODD"
 #define WING_HEADER_INPUT  "WIDD"
 #define WING_PAGE_MIN      0
-#define WING_PAGE_MAX      99
+#define WING_PAGE_MAX      98
 
 /****************************************************************************
  * Status data common to all wings
@@ -170,11 +170,10 @@ protected:
 public:
     void nextPage();
     void previousPage();
-
     uchar page() const;
-    virtual quint32 pageSize() const;
 
-private:
+protected:
+    //TODO: add a method, which is reimpl for playbackwing and "empty" for the rest
     uchar m_page;
 
     /********************************************************************
@@ -234,16 +233,9 @@ signals:
      */
     void valueChanged(quint32 channel, uchar value);
 
-    /**
-     * page changes are signalled with this signal.
-     *
-     * @param pagesize The number of channels per page
-     * @param page The current page index
-     */
-    void pageChanged(quint32 pagesize, quint32 page);
-
 protected:
     QByteArray m_values;
+
 };
 
 #endif

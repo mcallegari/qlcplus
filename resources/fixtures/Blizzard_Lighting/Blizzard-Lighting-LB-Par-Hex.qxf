@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
+  <Author>Robert Box</Author>
+ </Creator>
+ <Manufacturer>Blizzard Lighting</Manufacturer>
+ <Model>LB-Par Hex</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Red Intensity" Preset="IntensityRed"/>
+ <Channel Name="Green Intensity" Preset="IntensityGreen"/>
+ <Channel Name="Blue Intensity" Preset="IntensityBlue"/>
+ <Channel Name="Amber Intensity" Preset="IntensityAmber"/>
+ <Channel Name="White Intensity" Preset="IntensityWhite"/>
+ <Channel Name="UV Intensity" Preset="IntensityUV"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Programs, Auto and Sound Active">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Dimmer speed</Capability>
+  <Capability Min="10" Max="19">Program 1 (R/G/B jump)</Capability>
+  <Capability Min="20" Max="29">Program 2 (R/G/B fade-in/out)</Capability>
+  <Capability Min="30" Max="39">Program 3 (R/G/B fade)</Capability>
+  <Capability Min="40" Max="49">Program 4 (R/G/B/A/W/UV jump)</Capability>
+  <Capability Min="50" Max="59">Program 5 (R/G/B/A/W/UV fade-in/out)</Capability>
+  <Capability Min="60" Max="69">Program 6 (R/G/B/A/W/UV fade)</Capability>
+  <Capability Min="70" Max="79">Program 7 (7-color jump)</Capability>
+  <Capability Min="80" Max="89">Program 8 (7-color fade-in/out)</Capability>
+  <Capability Min="90" Max="99">Program 9 (7-color fade)</Capability>
+  <Capability Min="100" Max="109">Program 10 (multicolor jump)</Capability>
+  <Capability Min="110" Max="119">Program 11 (multicolor fade-in/out)</Capability>
+  <Capability Min="120" Max="129">Program 12 (multicolor fade)</Capability>
+  <Capability Min="130" Max="139">Auto mode (loop all programs)</Capability>
+  <Capability Min="140" Max="255">Sound active mode</Capability>
+ </Channel>
+ <Channel Name="Auto Program Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Fade speed (slow &lt;--&gt; fast)</Capability>
+ </Channel>
+ <Channel Name="32-Bit Dimmer">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="5">As set in the control menu display</Capability>
+  <Capability Min="6" Max="55">Mode 0 = 8-bit, 256 dimming steps</Capability>
+  <Capability Min="56" Max="105">Mode 1 = 32-bit, 0-25% intensity range</Capability>
+  <Capability Min="106" Max="155">Mode 2 = 32-bit, 0-50% intensity range</Capability>
+  <Capability Min="156" Max="205">Mode 3 = 32-bit, 0-75% intensity range</Capability>
+  <Capability Min="206" Max="255">Mode 4 = 32-bit, full intensity dimming</Capability>
+ </Channel>
+ <Mode Name="6-Channel">
+  <Channel Number="0">Red Intensity</Channel>
+  <Channel Number="1">Green Intensity</Channel>
+  <Channel Number="2">Blue Intensity</Channel>
+  <Channel Number="3">Amber Intensity</Channel>
+  <Channel Number="4">White Intensity</Channel>
+  <Channel Number="5">UV Intensity</Channel>
+ </Mode>
+ <Mode Name="11-Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red Intensity</Channel>
+  <Channel Number="2">Green Intensity</Channel>
+  <Channel Number="3">Blue Intensity</Channel>
+  <Channel Number="4">Amber Intensity</Channel>
+  <Channel Number="5">White Intensity</Channel>
+  <Channel Number="6">UV Intensity</Channel>
+  <Channel Number="7">Strobe</Channel>
+  <Channel Number="8">Programs, Auto and Sound Active</Channel>
+  <Channel Number="9">Auto Program Speed</Channel>
+  <Channel Number="10">32-Bit Dimmer</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="1235" ColourTemperature="0"/>
+   <Dimensions Weight="2.3" Width="215" Height="215" Depth="116"/>
+   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="42" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

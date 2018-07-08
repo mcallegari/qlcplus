@@ -1,0 +1,220 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - MIDI Plugin</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>MIDI input/output plugin</H1>
+
+<H1 id="introduction">Introduction</H1>
+<P>
+This plugin gives input/output support for the <a href="http://en.wikipedia.org/wiki/MIDI">MIDI protocol</a>
+and gives the user freedom to control typical parameters like channels, Notes, Program Change and Control Change.<br>
+
+The MIDI plugin can be quite powerful used in combination with MIDI devices such as keyboards, MIDI controllers 
+(like Behringer BCF2000 or KORG nanoKONTROL) or a software audio sequencer like Cubase or Ardour 3.<br>
+The usage can vary from fader-to-fader control (the BCF2000 case) to sequence triggering for synchronized
+shows (metronome controlled gigs using an audio sequencer)
+</P>
+
+<H1 id="configuration">Configuration</H1>
+
+<P>
+When you click on the configuration button <IMG SRC="qrc:/configure.png" ALIGN="absmiddle"> a window will appear, 
+showing all the MIDI input and output lines detected.<br>
+Each line has three options that can be changed depending on your needs:
+<ul>
+ <li><b id="midi-channel">MIDI Channel</b>: This is the channel where QLC+ will receive or send data through the MIDI system. MIDI channels can go
+     from 1 to 16. The special "1-16" channel will tell QLC+ to receive or send data on any MIDI channel.
+ </li>
+ <li><b>Mode</b>: This is the MIDI mode that QLC+ will use to send data through the MIDI system. 
+     This parameter can assume three possible values:
+     <ul>
+      <li><b>Note velocity</b>: in this mode, QLC+ will send data using MIDI notes velocity. MIDI notes can go from 21 (A0) to 108 (C8) and 
+          each note can have a velocity going from 0 to 127, which will be doubled inside QLC+ to match the DMX range (0-255).
+      </li>
+      <li><b>Control Change</b>: this is one of the MIDI protocol messages (like Program Change) frequently used by MIDI controllers.
+      Each device should list the supported CC messages in its user manual, so please consult it before using this mode. The CC range can go
+      from 0 to 127 and can have values from 0 to 127, which will be doubled inside QLC+ to match the DMX range (0-255).
+      </li>
+      <li><b>Program Change</b>: this is one of the MIDI protocol messages (like Control Change) frequently used by MIDI controllers.
+      Each device should list the supported PC messages in its user manual, so please consult it before using this mode. The PC range can go
+      from 0 to 127 and can have values from 0 to 127, which will be doubled inside QLC+ to match the DMX range (0-255).
+      </li>
+     </ul>
+ </li>
+ <li><b>Initialization message</b>: This is a list of presets (templates) containing the intialization message 
+        that QLC+ will send when opening a MIDI device before using it. A detailed explanation of this functionality
+        is written below.
+ </li>
+</ul>
+</P>
+
+<H1 id="feedbacks">Feedbacks</H1>
+<P>
+The MIDI plugin is one of the QLC+ plugins supporting feedbacks. When QLC+ detects a MIDI device with an output line, it will
+enable the feedback check box in the <A HREF="file:howto-input-output-mapping.html">Input/Output panel</A>. Please note that output
+and feedback are exclusive, so they cannot both be used at the same time.<br>
+If your MIDI device supports a return channel, QLC+ can send a visual/mechanical feedback to it. 
+Devices such as the Behringer BCF2000 support this feature.
+This is very useful during live shows to have immediate knowledge of the current state of faders mapped in QLC+.<br><br>
+
+A small trick that can be achieved with QLC+ is to use feedback as a generic MIDI output line to trigger external controllers/sequencers.<br>
+Let's look at some examples:
+<ul>
+ <li>Input: <b>OSC</b> ---> Output: <b>DMX USB</b> --> Feedback: <b>MIDI</b></li>
+ <li>Input: <b>Enttec Wing</b> --> Output: <b>ArtNet</b> --> Feedback: <b>MIDI</b></li>
+</ul>
+</P>
+
+<H1 id="korg-nanopad">KORG nanoPAD X Axis</H1>
+<P>
+For unknown reasons, the nanoPAD factory defaults don't map the X Axis of the pad area.
+To have it fully working with QLC+, please download the KORG utility (Windows and OSX only) from 
+<A HREF="http://www.korg.com/SupportPage.aspx?productid=415">here</A> and set the X Axis to CC2 (Control Change #2).
+</P>
+
+<H1 id="akai-feedbacks">AKAI APC LED Feedbacks</H1>
+<P>
+When using one of the Akai APC family controller, there is one feature that could come very handy: LED color feedbacks.<br>
+The default behaviour with Virtual Console buttons is: value = 0: LED off, value = 255: LED green<br>
+This can be customized when selecting an input channel, by pressing the "Custom feedback" button.<br>
+A new area is displayed, showing the possibility to enter a lower and an upper value. This is basically translated in which
+values QLC+ should send for buttons on/off states.<br>
+Since the MIDI protocol works in a range of 0-127 values, and QLC+ works in the DMX range of 0-255, the following table points you
+directly to the values you should enter to obtain the desired color of an APC LED. Basically they are taken from APC manuals and
+doubled.
+<table>
+<tr><th>Value</th><th>LED color</th></tr>
+<tr><td>0</td><td>Off</td></tr>
+<tr><td>2</td><td>Green</td></tr>
+<tr><td>4</td><td>Green Blinking</td></tr>
+<tr><td>6</td><td>Red</td></tr>
+<tr><td>8</td><td>Red Blinking</td></tr>
+<tr><td>10</td><td>Yellow</td></tr>
+<tr><td>12</td><td>Yellow Blinking</td></tr>
+<tr><td>14-255</td><td>Green</td></tr>
+</table>
+It's interesting to notice that you don't necessarily need to keep 0 as lower value. For example with lower = 6 and upper = 2
+the result will be: Function Off -> red LED, Function On -> green LED.
+</P>
+
+<H1 id="midi-beat-clock">MIDI beat clock</H1>
+<P>
+Starting from version 4.5.0, QLC+ supports the <A HREF="http://en.wikipedia.org/wiki/MIDI_beat_clock">MIDI beat clock</A><br>
+Not to be confused with the <A HREF="http://en.wikipedia.org/wiki/MIDI_timecode">MIDI timecode</A>, the MIDI beat clock is 
+a useful signal to sync BPM-based devices such as a drum machine with your lights controlled by QLC+.<BR>
+Two special MIDI channels have been mapped in QLC+ to control your <A HREF="file:virtualconsole.html">Virtual Console</A> widgets
+with a beat clock.<BR>
+Here's a brief explanation of the special channels:
+<UL>
+ <LI><B>Channel 530</B>: A signal is sent on this channel when a beat clock starts or stops.</LI>
+ <LI><B>Channel 531</B>: This signal is sent every BPM. QLC+ doesn't take any notice of measures (e.g. 3/4, 4/4, 7/8), so when setting up your MIDI clock you need
+      to consider how QLC+ will handle it.</LI>
+</UL>
+<BR>
+<B>Hint</B>: If your controller is set to work at high BPM (e.g. 180-200), you might find difficult to catch the start signal.
+One trick for doing this is to catch the stop signal. Example:<br>
+<OL>
+ <LI>Enable the QLC+ Virtual Console widget auto-detection</LI>
+ <LI>Hit play on your device generating the MIDI beat clock. QLC+ will detect channel 530 and will switch very quickly to 531</LI>
+ <LI>Stop the playback on your MIDI beat clock device. QLC+ will detect channel 530 again.</LI>
+ <LI>Disable the QLC+ Virtual Console widget auto-detection</LI>
+</OL>
+In a similar way you can catch the beat signal as well. Just disable the auto-detection process before stopping the playback on your
+beat controller (invert steps 3 and 4).
+</P>
+
+<H1 id="midi-template">MIDI initialization message</H1>
+<P>
+There might be cases where your MIDI device needs some commands to turn into a specific operating mode<br>
+The MIDI protocol can handle this through SysEx. These are particular messages to instruct a MIDI device how to behave.<br>
+QLC+ can use a XML template to achieve this that can be selected in the MIDI configuration panel.<br>
+Here's an example of how a template looks like:<br>
+<PRE>
+&lt;!DOCTYPE MidiTemplate&gt;
+&lt;MidiTemplate&gt;
+ &lt;Creator&gt;
+  &lt;Author&gt;Your name&lt;/Author&gt;
+ &lt;/Creator&gt;
+ &lt;Description&gt;A brief description of that the template does.&lt;/Description&gt;
+ &lt;Name&gt;Template name to be displayed by QLC+&lt;/Name&gt;
+ &lt;InitMessage&gt;F0 47 00 7B 60 00 04 41 09 00 05 F7&lt;/InitMessage&gt;
+&lt;/MidiTemplate&gt;
+</PRE>
+
+You can create the ones you need and place them in your MidiTemplates folder.<br>
+You are welcome to submit them in the QLC+ forum.
+</P>
+
+<H1 id="channelsmap">QLC+ Channels map</H1>
+
+<P>To handle a mix of various MIDI messages (Notes, PC, CC, etc..), QLC+ remaps them into a sequential order.<br>
+Following, the channel numbers to be used in the <a href="file:howto-input-profiles.html">Input Profile editor</a>:
+</P>
+
+<table>
+<tr>
+<th>Channel</th><th>MIDI message</th>
+</tr>
+<tr>
+<td>1</td><td>Control Change 1</td>
+<tr>
+<td>...</td><td>...</td>
+</tr>
+<tr>
+<td>128</td><td>Control Change 128</td>
+</tr>
+<tr>
+<td>129</td><td>NOTE ON/NOTE OFF 1</td>
+</tr>
+<tr>
+<td>...</td><td>...</td>
+</tr>
+<tr>
+<td>256</td><td>NOTE ON/NOTE OFF 128</td>
+</tr>
+<tr>
+<td>257</td><td>NOTE AFTERTOUCH 1</td>
+</tr>
+<tr>
+<td>...</td><td>...</td>
+</tr>
+<tr>
+<td>384</td><td>NOTE AFTERTOUCH 128</td>
+</tr>
+<tr>
+<td>385</td><td>Program Change 1</td>
+</tr>
+<tr>
+<td>...</td><td>...</td>
+</tr>
+<tr>
+<td>512</td><td>Program Change 128</td>
+</tr>
+<tr>
+<td>513</td><td>Channel Aftertouch</td>
+</tr>
+<tr>
+<td>514</td><td>Pitch Wheel</td>
+</tr>
+
+<tr>
+<td>530</td><td>MIDI Beat Clock: Start/Continue</td>
+</tr>
+<tr>
+<td>531</td><td>MIDI Beat Clock: Beat</td>
+</tr>
+<tr>
+<td>532</td><td>MIDI Beat Clock: Stop</td>
+</tr>
+
+</table>
+
+<p>In OMNI mode, add 4096 * Channel number</p>
+
+</BODY>
+</HTML>

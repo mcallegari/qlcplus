@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus - Test Unit
   vcframe_test.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,10 +18,11 @@
   limitations under the License.
 */
 
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QFrame>
 #include <QtTest>
 #include <QMenu>
-#include <QtXml>
 #include <QSet>
 
 #define protected public
@@ -88,54 +90,56 @@ void VCFrame_Test::loadXML()
 {
     QWidget w;
 
-    QDomDocument xmldoc;
-    QDomElement root = xmldoc.createElement("Frame");
-    xmldoc.appendChild(root);
+    QBuffer buffer;
+    buffer.open(QIODevice::ReadWrite | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement wstate = xmldoc.createElement("WindowState");
-    wstate.setAttribute("Width", "42");
-    wstate.setAttribute("Height", "69");
-    wstate.setAttribute("X", "3");
-    wstate.setAttribute("Y", "4");
-    wstate.setAttribute("Visible", "True");
-    root.appendChild(wstate);
+    xmlWriter.writeStartElement("Frame");
 
-    QDomElement allowChildren = xmldoc.createElement("AllowChildren");
-    QDomText allowChildrenText = xmldoc.createTextNode("False");
-    allowChildren.appendChild(allowChildrenText);
-    root.appendChild(allowChildren);
+    xmlWriter.writeStartElement("WindowState");
+    xmlWriter.writeAttribute("Width", "42");
+    xmlWriter.writeAttribute("Height", "69");
+    xmlWriter.writeAttribute("X", "3");
+    xmlWriter.writeAttribute("Y", "4");
+    xmlWriter.writeAttribute("Visible", "True");
+    xmlWriter.writeEndElement();
 
-    QDomElement allowResize = xmldoc.createElement("AllowResize");
-    QDomText allowResizeText = xmldoc.createTextNode("False");
-    allowResize.appendChild(allowResizeText);
-    root.appendChild(allowResize);
+    xmlWriter.writeTextElement("AllowChildren", "False");
+    xmlWriter.writeTextElement("AllowResize", "False");
 
-    QDomElement frame = xmldoc.createElement("Frame");
-    root.appendChild(frame);
+    xmlWriter.writeStartElement("Frame");
+    xmlWriter.writeEndElement();
 
-    QDomElement label = xmldoc.createElement("Label");
-    root.appendChild(label);
+    xmlWriter.writeStartElement("Label");
+    xmlWriter.writeEndElement();
 
-    QDomElement button = xmldoc.createElement("Button");
-    root.appendChild(button);
+    xmlWriter.writeStartElement("Button");
+    xmlWriter.writeEndElement();
 
-    QDomElement xypad = xmldoc.createElement("XYPad");
-    root.appendChild(xypad);
+    xmlWriter.writeStartElement("XYPad");
+    xmlWriter.writeEndElement();
 
-    QDomElement slider = xmldoc.createElement("Slider");
-    root.appendChild(slider);
+    xmlWriter.writeStartElement("Slider");
+    xmlWriter.writeEndElement();
 
-    QDomElement soloframe = xmldoc.createElement("SoloFrame");
-    root.appendChild(soloframe);
+    xmlWriter.writeStartElement("SoloFrame");
+    xmlWriter.writeEndElement();
 
-    QDomElement cuelist = xmldoc.createElement("CueList");
-    root.appendChild(cuelist);
+    xmlWriter.writeStartElement("CueList");
+    xmlWriter.writeEndElement();
 
-    QDomElement foobar = xmldoc.createElement("Foobar");
-    root.appendChild(foobar);
+    xmlWriter.writeStartElement("Foobar");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+
+    buffer.seek(0);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     VCFrame parent(&w, m_doc);
-    QVERIFY(parent.loadXML(&root) == true);
+    QVERIFY(parent.loadXML(xmlReader) == true);
     parent.postLoad();
     QCOMPARE(parent.geometry().width(), 42);
     QCOMPARE(parent.geometry().height(), 69);
@@ -156,8 +160,16 @@ void VCFrame_Test::loadXML()
     QVERIFY(childSet.contains("VCSoloFrame"));
     QVERIFY(childSet.contains("VCCueList"));
 
-    root.setTagName("Farme");
-    QVERIFY(parent.loadXML(&root) == false);
+    buffer.close();
+    QByteArray bData = buffer.data();
+    bData.replace("<Frame", "<Farme");
+    buffer.setData(bData);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    buffer.seek(0);
+    xmlReader.setDevice(&buffer);
+    xmlReader.readNextStartElement();
+
+    QVERIFY(parent.loadXML(xmlReader) == false);
 }
 
 void VCFrame_Test::saveXML()
@@ -173,182 +185,199 @@ void VCFrame_Test::saveXML()
     child.setAllowChildren(false);
     child.setAllowResize(false);
 
-    QDomDocument xmldoc;
-    QDomElement root = xmldoc.createElement("TestRoot");
-    xmldoc.appendChild(root);
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QVERIFY(parent.saveXML(&xmldoc, &root) == true);
+    QVERIFY(parent.saveXML(&xmlWriter) == true);
 
-    QDomNode node = root.firstChild();
-    QVERIFY(node.nextSibling().isNull() == true);
-    QCOMPARE(node.toElement().tagName(), QString("Frame"));
-    QVERIFY(node.firstChild().isNull() == false);
+    xmlWriter.setDevice(NULL);
+    buffer.close();
 
-    QDomNode subFrame;
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+
+    QVERIFY(xmlReader.readNextStartElement() == true);
+    QCOMPARE(xmlReader.name().toString(), QString("Frame"));
+
     int appearance = 0, windowstate = 0, frame = 0, allowChildren = 0, allowResize = 0;
     int collapsed = 0, showheader = 0, disabled = 0, enableInput = 0, showEnableButton = 0;
 
+    //qDebug() << "Buffer:" << buffer.data();
     // Parent
-    node = node.firstChild();
-    while (node.isNull() == false)
+    while (xmlReader.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == QString("Appearance"))
+        if (xmlReader.name() == QString("Appearance"))
         {
             appearance++;
+            xmlReader.skipCurrentElement();
         }
-        else if (tag.tagName() == QString("WindowState"))
+        else if (xmlReader.name() == QString("WindowState"))
         {
             windowstate++;
+            xmlReader.skipCurrentElement();
         }
-        else if (tag.tagName() == QString("Frame"))
+        else if (xmlReader.name() == QString("Frame"))
         {
             frame++;
-            QVERIFY(subFrame.isNull() == true);
-            subFrame = node;
+
+            QCOMPARE(appearance, 1);
+            QCOMPARE(windowstate, 0);
+            QCOMPARE(collapsed, 0);
+            QCOMPARE(frame, 1);
+
+            // Child
+            while (xmlReader.readNextStartElement())
+            {
+                if (xmlReader.name() == QString("Appearance"))
+                {
+                    appearance++;
+                    xmlReader.skipCurrentElement();
+                }
+                else if (xmlReader.name() == QString("WindowState"))
+                {
+                    windowstate++;
+                    xmlReader.skipCurrentElement();
+                }
+                else if (xmlReader.name() == QString("AllowChildren"))
+                {
+                    allowChildren++;
+                    QCOMPARE(xmlReader.readElementText(), QString("False"));
+                }
+                else if (xmlReader.name() == QString("AllowResize"))
+                {
+                    allowResize++;
+                    QCOMPARE(xmlReader.readElementText(), QString("False"));
+                }
+                else if (xmlReader.name() == QString("Collapsed"))
+                {
+                    collapsed++;
+                    QCOMPARE(xmlReader.readElementText(), QString("False"));
+                }
+                else if (xmlReader.name() == QString("ShowHeader"))
+                {
+                    showheader++;
+                    QCOMPARE(xmlReader.readElementText(), QString("True"));
+                }
+                else if (xmlReader.name() == QString("ShowEnableButton"))
+                {
+                    showEnableButton++;
+                    xmlReader.skipCurrentElement();
+                }
+                else if (xmlReader.name() == QString("Disabled"))
+                {
+                    disabled++;
+                    QCOMPARE(xmlReader.readElementText(), QString("False"));
+                }
+                else if (xmlReader.name() == QString("Enable"))
+                {
+                    enableInput++;
+                    xmlReader.skipCurrentElement();
+                }
+                else if (xmlReader.name() == QString("Frame"))
+                {
+                    frame++;
+
+                    QCOMPARE(appearance, 2);
+                    QCOMPARE(windowstate, 1);
+                    QCOMPARE(allowChildren, 1);
+                    QCOMPARE(allowResize, 1);
+                    QCOMPARE(collapsed, 1);
+                    QCOMPARE(showheader, 1);
+                    QCOMPARE(disabled, 1);
+                    QCOMPARE(frame, 2);
+
+                    // Grandchild
+                    while (xmlReader.readNextStartElement())
+                    {
+                        if (xmlReader.name() == QString("Appearance"))
+                        {
+                            appearance++;
+                            xmlReader.skipCurrentElement();
+                        }
+                        else if (xmlReader.name() == QString("WindowState"))
+                        {
+                            windowstate++;
+                            xmlReader.skipCurrentElement();
+                        }
+                        else if (xmlReader.name() == QString("AllowChildren"))
+                        {
+                            allowChildren++;
+                            QCOMPARE(xmlReader.readElementText(), QString("True"));
+                        }
+                        else if (xmlReader.name() == QString("AllowResize"))
+                        {
+                            allowResize++;
+                            QCOMPARE(xmlReader.readElementText(), QString("True"));
+                        }
+                        else if (xmlReader.name() == QString("Collapsed"))
+                        {
+                            collapsed++;
+                            QCOMPARE(xmlReader.readElementText(), QString("False"));
+                        }
+                        else if (xmlReader.name() == QString("ShowHeader"))
+                        {
+                            showheader++;
+                            QCOMPARE(xmlReader.readElementText(), QString("True"));
+                        }
+                        else if (xmlReader.name() == QString("Disabled"))
+                        {
+                            disabled++;
+                            QCOMPARE(xmlReader.readElementText(), QString("False"));
+                        }
+                        else if (xmlReader.name() == QString("Enable"))
+                        {
+                            enableInput++;
+                            xmlReader.skipCurrentElement();
+                        }
+                        else if (xmlReader.name() == QString("ShowEnableButton"))
+                        {
+                            showEnableButton++;
+                            xmlReader.skipCurrentElement();
+                        }
+                        else
+                        {
+                            QFAIL(QString("Unexpected tag: %1").arg(xmlReader.name().toString()).toUtf8().constData());
+                        }
+                    }
+                }
+            }
         }
-        else if (tag.tagName() == QString("Collapsed"))
+        else if (xmlReader.name() == QString("Collapsed"))
         {
             collapsed++;
+            xmlReader.skipCurrentElement();
         }
-        else if (tag.tagName() == QString("ShowHeader"))
-        {
-            showheader++;
-        }
-        else
-        {
-            QFAIL(QString("Unexpected tag: %1").arg(tag.tagName()).toUtf8().constData());
-        }
-        node = node.nextSibling();
-    }
-
-    QCOMPARE(appearance, 1);
-    QCOMPARE(windowstate, 0);
-    QCOMPARE(collapsed, 0);
-    QCOMPARE(frame, 1);
-    QVERIFY(subFrame.isNull() == false);
-
-    // Child
-    node = subFrame.firstChild();
-    subFrame = QDomNode(); // Don't use .clear() since that would clear the whole tree
-    while (node.isNull() == false)
-    {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == QString("Appearance"))
-        {
-            appearance++;
-        }
-        else if (tag.tagName() == QString("WindowState"))
-        {
-            windowstate++;
-        }
-        else if (tag.tagName() == QString("AllowChildren"))
-        {
-            allowChildren++;
-            QCOMPARE(tag.text(), QString("False"));
-        }
-        else if (tag.tagName() == QString("AllowResize"))
-        {
-            allowResize++;
-            QCOMPARE(tag.text(), QString("False"));
-        }
-        else if (tag.tagName() == QString("Collapsed"))
-        {
-            collapsed++;
-            QCOMPARE(tag.text(), QString("False"));
-        }
-        else if (tag.tagName() == QString("ShowHeader"))
-        {
-            showheader++;
-            QCOMPARE(tag.text(), QString("True"));
-        }
-        else if (tag.tagName() == QString("Disabled"))
+        else if (xmlReader.name() == QString("Disabled"))
         {
             disabled++;
-            QCOMPARE(tag.text(), QString("False"));
+            QCOMPARE(xmlReader.readElementText(), QString("False"));
         }
-        else if (tag.tagName() == QString("Frame"))
-        {
-            frame++;
-            QVERIFY(subFrame.isNull() == true);
-            subFrame = node;
-        }
-        node = node.nextSibling();
-    }
-
-    QCOMPARE(appearance, 2);
-    QCOMPARE(windowstate, 1);
-    QCOMPARE(allowChildren, 1);
-    QCOMPARE(allowResize, 1);
-    QCOMPARE(collapsed, 1);
-    QCOMPARE(showheader, 1);
-    QCOMPARE(disabled, 1);
-    QCOMPARE(frame, 2);
-    QVERIFY(subFrame.isNull() == false);
-
-    // Grandchild
-    node = subFrame.firstChild();
-    subFrame = QDomNode(); // Don't use .clear() since that would clear the whole tree
-    while (node.isNull() == false)
-    {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == QString("Appearance"))
-        {
-            appearance++;
-        }
-        else if (tag.tagName() == QString("WindowState"))
-        {
-            windowstate++;
-        }
-        else if (tag.tagName() == QString("AllowChildren"))
-        {
-            allowChildren++;
-            QCOMPARE(tag.text(), QString("True"));
-        }
-        else if (tag.tagName() == QString("AllowResize"))
-        {
-            allowResize++;
-            QCOMPARE(tag.text(), QString("True"));
-        }
-        else if (tag.tagName() == QString("Collapsed"))
-        {
-            collapsed++;
-            QCOMPARE(tag.text(), QString("False"));
-        }
-        else if (tag.tagName() == QString("ShowHeader"))
-        {
-            showheader++;
-            QCOMPARE(tag.text(), QString("True"));
-        }
-        else if (tag.tagName() == QString("Disabled"))
-        {
-            disabled++;
-            QCOMPARE(tag.text(), QString("False"));
-        }
-        else if (tag.tagName() == QString("Enable"))
+        else if (xmlReader.name() == QString("Enable"))
         {
             enableInput++;
+            xmlReader.skipCurrentElement();
         }
-        else if (tag.tagName() == QString("ShowEnableButton"))
+        else if (xmlReader.name() == QString("ShowHeader"))
         {
-            showEnableButton++;
+            showheader++;
+            xmlReader.skipCurrentElement();
         }
         else
         {
-            QFAIL(QString("Unexpected tag: %1").arg(tag.tagName()).toUtf8().constData());
+            QFAIL(QString("Unexpected tag: %1").arg(xmlReader.name().toString()).toUtf8().constData());
         }
-        node = node.nextSibling();
     }
+
 
     QCOMPARE(appearance, 3);
     QCOMPARE(windowstate, 2);
     QCOMPARE(collapsed, 2);
     QCOMPARE(showheader, 2);
     QCOMPARE(disabled, 2);
-    QCOMPARE(enableInput, 1);
-    QCOMPARE(showEnableButton, 1);
+    QCOMPARE(enableInput, 0);
+    QCOMPARE(showEnableButton, 2);
     QCOMPARE(frame, 2);
-    QVERIFY(subFrame.isNull() == true);
 }
 
 void VCFrame_Test::customMenu()

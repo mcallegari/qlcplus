@@ -17,18 +17,24 @@
   limitations under the License.
 */
 
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QWidgetAction>
 #include <QComboBox>
+#include <QSettings>
 #include <QLayout>
+#include <QDebug>
+#include <QTimer>
 #include <QLabel>
 #include <QMenu>
-#include <QtXml>
+#include <math.h>
 
 #include "vcmatrixproperties.h"
 #include "vcpropertieseditor.h"
 #include "clickandgoslider.h"
 #include "clickandgowidget.h"
 #include "knobwidget.h"
+#include "qlcmacros.h"
 #include "rgbalgorithm.h"
 #include "flowlayout.h"
 #include "rgbmatrix.h"
@@ -48,11 +54,12 @@ const QSize VCMatrix::defaultSize(QSize(160, 120));
 
 VCMatrix::VCMatrix(QWidget *parent, Doc *doc)
     : VCWidget(parent, doc)
+    , m_sliderExternalMovement(false)
     , m_matrixID(Function::invalidId())
     , m_instantApply(true)
     , m_visibilityMask(VCMatrix::defaultVisibilityMask())
 {
-    /* Set the class name "VCLabel" as the object name as well */
+    /* Set the class name "VCMatrix" as the object name as well */
     setObjectName(VCMatrix::staticMetaObject.className());
     setFrameStyle(KVCFrameStyleSunken);
 
@@ -61,7 +68,7 @@ VCMatrix::VCMatrix(QWidget *parent, Doc *doc)
     //hBox->setSpacing(5);
 
     m_slider = new ClickAndGoSlider();
-    m_slider->setStyleSheet(CNG_DEFAULT_STYLE);
+    m_slider->setSliderStyleSheet(CNG_DEFAULT_STYLE);
     m_slider->setFixedWidth(32);
     m_slider->setRange(0, 255);
     m_slider->setPageStep(1);
@@ -71,7 +78,7 @@ VCMatrix::VCMatrix(QWidget *parent, Doc *doc)
     connect(m_slider, SIGNAL(valueChanged(int)),
             this, SLOT(slotSliderMoved(int)));
 
-    QVBoxLayout *vbox = new QVBoxLayout(this);
+    QVBoxLayout *vbox = new QVBoxLayout();
 
     m_startColorButton = new QToolButton(this);
     m_startColorButton->setFixedSize(48, 48);
@@ -110,7 +117,7 @@ VCMatrix::VCMatrix(QWidget *parent, Doc *doc)
     m_label->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
     vbox->addWidget(m_label);
 
-    QHBoxLayout *btnHbox = new QHBoxLayout(this);
+    QHBoxLayout *btnHbox = new QHBoxLayout();
 
     btnHbox->addWidget(m_startColorButton);
     btnHbox->addWidget(m_endColorButton);
@@ -154,8 +161,6 @@ VCMatrix::~VCMatrix()
 {
     foreach(VCMatrixControl* control, m_controls)
     {
-        if (control->m_inputSource != NULL)
-            setInputSource(NULL, control->m_id);
         delete control;
     }
 }
@@ -238,18 +243,29 @@ void VCMatrix::slotSliderMoved(int value)
     if (function == NULL || mode() == Doc::Design)
         return;
 
+    if (m_sliderExternalMovement)
+        return;
+
     if (value == 0)
     {
+        // Make sure we ignore the fade out time
+        adjustFunctionIntensity(function, 0);
         if (function->stopped() == false)
-            function->stop();
+        {
+            function->stop(functionParent());
+            resetIntensityOverrideAttribute();
+        }
     }
     else
     {
         qreal pIntensity = qreal(value) / qreal(UCHAR_MAX);
-        function->adjustAttribute(pIntensity * intensity(), Function::Intensity);
-
+        emit functionStarting(m_matrixID, pIntensity);
+        adjustFunctionIntensity(function, pIntensity * intensity());
         if (function->stopped() == true)
-            function->start(m_doc->masterTimer());
+        {
+            // TODO once #758 is fixed: function started by a fader -> override fade in time
+            function->start(m_doc->masterTimer(), functionParent());
+        }
     }
 }
 
@@ -266,7 +282,7 @@ void VCMatrix::slotStartColorChanged(QRgb color)
 
     matrix->setStartColor(col);
     if (instantChanges() == true)
-        matrix->calculateColorDelta();
+        matrix->updateColorDelta();
 }
 
 void VCMatrix::slotEndColorChanged(QRgb color)
@@ -282,7 +298,7 @@ void VCMatrix::slotEndColorChanged(QRgb color)
 
     matrix->setEndColor(col);
     if (instantChanges() == true)
-        matrix->calculateColorDelta();
+        matrix->updateColorDelta();
 }
 
 void VCMatrix::slotAnimationChanged(QString name)
@@ -294,7 +310,7 @@ void VCMatrix::slotAnimationChanged(QString name)
     RGBAlgorithm* algo = RGBAlgorithm::algorithm(m_doc, name);
     matrix->setAlgorithm(algo);
     if (instantChanges() == true)
-        matrix->calculateColorDelta();
+        matrix->updateColorDelta();
 }
 
 void VCMatrix::setVisibilityMask(quint32 mask)
@@ -353,7 +369,7 @@ void VCMatrix::setFunction(quint32 id)
     if (old != NULL)
     {
         disconnect(old, SIGNAL(stopped(quint32)),
-                this, SLOT(slotFunctionStopped(quint32)));
+                this, SLOT(slotFunctionStopped()));
         disconnect(old, SIGNAL(attributeChanged(int,qreal)),
                 this, SLOT(slotFunctionAttributeChanged(int, qreal)));
         disconnect(old, SIGNAL(changed(quint32)),
@@ -383,10 +399,42 @@ quint32 VCMatrix::function() const
     return m_matrixID;
 }
 
+void VCMatrix::notifyFunctionStarting(quint32 fid, qreal functionIntensity)
+{
+    if (mode() == Doc::Design)
+        return;
+
+    if (fid == m_matrixID)
+        return;
+
+    int value = SCALE(1.0 - functionIntensity,
+            0, 1.0,
+            m_slider->minimum(), m_slider->maximum());
+    if (m_slider->value() > value)
+    {
+        m_sliderExternalMovement = true;
+        m_slider->setValue(value);
+        m_sliderExternalMovement = false;
+
+        Function* function = m_doc->function(m_matrixID);
+        if (function != NULL)
+        {
+            qreal pIntensity = qreal(value) / qreal(UCHAR_MAX);
+            adjustFunctionIntensity(function, pIntensity * intensity());
+            if (value == 0 && !function->stopped())
+            {
+                function->stop(functionParent());
+                resetIntensityOverrideAttribute();
+            }
+        }
+    }
+}
+
 void VCMatrix::slotFunctionStopped()
 {
     m_slider->blockSignals(true);
     m_slider->setValue(0);
+    resetIntensityOverrideAttribute();
     m_slider->blockSignals(false);
 }
 
@@ -527,6 +575,13 @@ void VCMatrix::slotUpdate()
             button->setDown(on);
         }
     }
+
+    updateFeedback();
+}
+
+FunctionParent VCMatrix::functionParent() const
+{
+    return FunctionParent(FunctionParent::ManualVCWidget, id());
 }
 
 /*********************************************************************
@@ -557,6 +612,7 @@ void VCMatrix::addCustomControl(VCMatrixControl const& control)
         controlWidget = controlButton;
         controlButton->setStyleSheet(controlBtnSS.arg(control.m_color.name()));
         controlButton->setFixedWidth(36);
+        controlButton->setFocusPolicy(Qt::TabFocus);
         controlButton->setText("S");
     }
     else if (control.m_type == VCMatrixControl::EndColor)
@@ -565,6 +621,7 @@ void VCMatrix::addCustomControl(VCMatrixControl const& control)
         controlWidget = controlButton;
         controlButton->setStyleSheet(controlBtnSS.arg(control.m_color.name()));
         controlButton->setFixedWidth(36);
+        controlButton->setFocusPolicy(Qt::TabFocus);
         controlButton->setText("E");
     }
     else if (control.m_type == VCMatrixControl::ResetEndColor)
@@ -574,6 +631,7 @@ void VCMatrix::addCustomControl(VCMatrixControl const& control)
         controlButton->setStyleSheet(controlBtnSS.arg("#BBBBBB"));
         controlButton->setMinimumWidth(36);
         controlButton->setMaximumWidth(80);
+        controlButton->setFocusPolicy(Qt::TabFocus);
         QString btnLabel = tr("End Color Reset");
         controlButton->setToolTip(btnLabel);
         controlButton->setText(fontMetrics().elidedText(btnLabel, Qt::ElideRight, 72));
@@ -586,6 +644,7 @@ void VCMatrix::addCustomControl(VCMatrixControl const& control)
         controlButton->setStyleSheet(controlBtnSS.arg("#BBBBBB"));
         controlButton->setMinimumWidth(36);
         controlButton->setMaximumWidth(80);
+        controlButton->setFocusPolicy(Qt::TabFocus);
         QString btnLabel = control.m_resource;
         if (!control.m_properties.isEmpty())
         {
@@ -656,7 +715,10 @@ void VCMatrix::addCustomControl(VCMatrixControl const& control)
     m_controls[controlWidget] = new VCMatrixControl(control);
     m_controlsLayout->addWidget(controlWidget);
 
-    setInputSource(m_controls[controlWidget]->m_inputSource, m_controls[controlWidget]->m_id);
+    if (m_controls[controlWidget]->m_inputSource != NULL)
+    {
+        setInputSource(m_controls[controlWidget]->m_inputSource, m_controls[controlWidget]->m_id);
+    }
 
     slotFunctionChanged(); // Start update timer
 }
@@ -666,9 +728,14 @@ void VCMatrix::resetCustomControls()
     for (QHash<QWidget *, VCMatrixControl *>::iterator it = m_controls.begin();
             it != m_controls.end(); ++it)
     {
-        m_controlsLayout->removeWidget(it.key());
-        delete it.key();
-        delete it.value();
+        QWidget* widget = it.key();
+        m_controlsLayout->removeWidget(widget);
+        delete widget;
+
+        VCMatrixControl* control = it.value();
+        if (!control->m_inputSource.isNull())
+            setInputSource(QSharedPointer<QLCInputSource>(), control->m_id);
+        delete control;
     }
     m_controls.clear();
 }
@@ -694,21 +761,21 @@ void VCMatrix::slotCustomControlClicked()
         {
             matrix->setStartColor(control->m_color);
             if (instantChanges() == true)
-                matrix->calculateColorDelta();
+                matrix->updateColorDelta();
             btn->setDown(true);
         }
         else if (control->m_type == VCMatrixControl::EndColor)
         {
             matrix->setEndColor(control->m_color);
             if (instantChanges() == true)
-                matrix->calculateColorDelta();
+                matrix->updateColorDelta();
             btn->setDown(true);
         }
         else if (control->m_type == VCMatrixControl::ResetEndColor)
         {
             matrix->setEndColor(QColor());
             if (instantChanges() == true)
-                matrix->calculateColorDelta();
+                matrix->updateColorDelta();
         }
         else if (control->m_type == VCMatrixControl::Animation)
         {
@@ -721,11 +788,12 @@ void VCMatrix::slotCustomControlClicked()
                 {
                     it.next();
                     script->setProperty(it.key(), it.value());
+                    matrix->setProperty(it.key(), it.value());
                 }
             }
             matrix->setAlgorithm(algo);
             if (instantChanges() == true)
-                matrix->calculateColorDelta();
+                matrix->updateColorDelta();
             btn->setDown(true);
         }
         else if (control->m_type == VCMatrixControl::Text)
@@ -735,7 +803,7 @@ void VCMatrix::slotCustomControlClicked()
             text->setText(control->m_resource);
             matrix->setAlgorithm(algo);
             if (instantChanges() == true)
-                matrix->calculateColorDelta();
+                matrix->updateColorDelta();
             btn->setDown(true);
         }
     }
@@ -759,7 +827,7 @@ void VCMatrix::slotCustomControlValueChanged()
 
             matrix->setStartColor(color);
             if (instantChanges() == true)
-                matrix->calculateColorDelta();
+                matrix->updateColorDelta();
         }
         else if (control->m_type == VCMatrixControl::EndColorKnob)
         {
@@ -769,7 +837,7 @@ void VCMatrix::slotCustomControlValueChanged()
 
             matrix->setEndColor(color);
             if (instantChanges() == true)
-                matrix->calculateColorDelta();
+                matrix->updateColorDelta();
         }
         else
         {
@@ -795,7 +863,7 @@ void VCMatrix::slotModeChanged(Doc::Mode mode)
 
 void VCMatrix::slotKeyPressed(const QKeySequence &keySequence)
 {
-    if (isEnabled() == false)
+    if (acceptsInput() == false)
         return;
 
     for (QHash<QWidget *, VCMatrixControl *>::iterator it = m_controls.begin();
@@ -824,12 +892,15 @@ void VCMatrix::updateFeedback()
             if (control->widgetType() == VCMatrixControl::Knob)
             {
                 KnobWidget* knob = reinterpret_cast<KnobWidget*>(it.key());
-                sendFeedback(knob->value(), control->m_id);
+                sendFeedback(knob->value(), control->m_inputSource);
             }
             else // if (control->widgetType() == VCMatrixControl::Button)
             {
                 QPushButton* button = reinterpret_cast<QPushButton*>(it.key());
-                sendFeedback(button->isDown() ? 0xff : 0);
+                sendFeedback(button->isDown() ?
+                                 control->m_inputSource->upperValue() :
+                                 control->m_inputSource->lowerValue(),
+                                 control->m_inputSource);
             }
         }
     }
@@ -837,8 +908,8 @@ void VCMatrix::updateFeedback()
 
 void VCMatrix::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)
 {
-    /* Don't let input data thru in design mode */
-    if (mode() == Doc::Design || isEnabled() == false)
+    /* Don't let input data through in design mode or if disabled */
+    if (acceptsInput() == false)
         return;
 
     quint32 pagedCh = (page() << 16) | channel;
@@ -846,6 +917,7 @@ void VCMatrix::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
     if (checkInputSource(universe, pagedCh, value, sender()))
     {
         m_slider->setValue((int) value);
+        return;
     }
 
     for (QHash<QWidget *, VCMatrixControl *>::iterator it = m_controls.begin();
@@ -870,15 +942,11 @@ void VCMatrix::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
     }
 }
 
-bool VCMatrix::loadXML(const QDomElement *root)
+bool VCMatrix::loadXML(QXmlStreamReader &root)
 {
-    QDomNode node;
-    QDomElement tag;
     QString str;
 
-    Q_ASSERT(root != NULL);
-
-    if (root->tagName() != KXMLQLCVCMatrix)
+    if (root.name() != KXMLQLCVCMatrix)
     {
         qWarning() << Q_FUNC_INFO << "Matrix node not found";
         return false;
@@ -887,54 +955,51 @@ bool VCMatrix::loadXML(const QDomElement *root)
     /* Widget commons */
     loadXMLCommon(root);
 
-    /* Children */
-    node = root->firstChild();
     // Sorted list for new controls
     QList<VCMatrixControl> newControls;
-    while (node.isNull() == false)
+
+    /* Children */
+    while (root.readNextStartElement())
     {
-        tag = node.toElement();
-        if (tag.tagName() == KXMLQLCWindowState)
+        if (root.name() == KXMLQLCWindowState)
         {
             bool visible = false;
-            int x = 0;
-            int y = 0;
-            int w = 0;
-            int h = 0;
-            loadXMLWindowState(&tag, &x, &y, &w, &h, &visible);
+            int x = 0, y = 0, w = 0, h = 0;
+            loadXMLWindowState(root, &x, &y, &w, &h, &visible);
             setGeometry(x, y, w, h);
         }
-        else if (tag.tagName() == KXMLQLCVCWidgetAppearance)
+        else if (root.name() == KXMLQLCVCWidgetAppearance)
         {
-            loadXMLAppearance(&tag);
+            loadXMLAppearance(root);
         }
-        else if (tag.tagName() == KXMLQLCVCMatrixFunction)
+        else if (root.name() == KXMLQLCVCMatrixFunction)
         {
-            str = tag.attribute(KXMLQLCVCMatrixFunctionID);
+            QXmlStreamAttributes attrs = root.attributes();
+            str = attrs.value(KXMLQLCVCMatrixFunctionID).toString();
             setFunction(str.toUInt());
-            if (tag.hasAttribute(KXMLQLCVCMatrixInstantApply))
+            if (attrs.hasAttribute(KXMLQLCVCMatrixInstantApply))
                 setInstantChanges(true);
+            root.skipCurrentElement();
         }
-        else if (tag.tagName() == KXMLQLCVCWidgetInput)
+        else if (root.name() == KXMLQLCVCWidgetInput)
         {
-            loadXMLInput(&tag);
+            loadXMLInput(root);
         }
-        else if(tag.tagName() == KXMLQLCVCMatrixControl)
+        else if(root.name() == KXMLQLCVCMatrixControl)
         {
             VCMatrixControl control(0xff);
-            if (control.loadXML(tag))
+            if (control.loadXML(root))
                 newControls.insert(qLowerBound(newControls.begin(), newControls.end(), control), control);
         }
-        else if (tag.tagName() == KXMLQLCVCMatrixVisibilityMask)
+        else if (root.name() == KXMLQLCVCMatrixVisibilityMask)
         {
-            setVisibilityMask(tag.text().toUInt());
+            setVisibilityMask(root.readElementText().toUInt());
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown VCMatrix tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unknown VCMatrix tag:" << root.name().toString();
+            root.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     foreach (VCMatrixControl const& control, newControls)
@@ -943,52 +1008,41 @@ bool VCMatrix::loadXML(const QDomElement *root)
     return true;
 }
 
-bool VCMatrix::saveXML(QDomDocument *doc, QDomElement *vc_root)
+bool VCMatrix::saveXML(QXmlStreamWriter *doc)
 {
-    QDomElement root;
-    QDomElement tag;
-    //QDomText text;
-    QString str;
-
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(vc_root != NULL);
 
     /* VC button entry */
-    root = doc->createElement(KXMLQLCVCMatrix);
-    vc_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCVCMatrix);
 
-    saveXMLCommon(doc, &root);
+    saveXMLCommon(doc);
 
     /* Window state */
-    saveXMLWindowState(doc, &root);
+    saveXMLWindowState(doc);
 
     /* Appearance */
-    saveXMLAppearance(doc, &root);
+    saveXMLAppearance(doc);
 
     /* Function */
-    tag = doc->createElement(KXMLQLCVCMatrixFunction);
-    root.appendChild(tag);
-    str.setNum(function());
-    tag.setAttribute(KXMLQLCVCMatrixFunctionID, str);
+    doc->writeStartElement(KXMLQLCVCMatrixFunction);
+    doc->writeAttribute(KXMLQLCVCMatrixFunctionID, QString::number(function()));
 
     if (instantChanges() == true)
-        tag.setAttribute(KXMLQLCVCMatrixInstantApply, "true");
+        doc->writeAttribute(KXMLQLCVCMatrixInstantApply, "true");
+    doc->writeEndElement();
 
     /* Default controls visibility  */
     if (m_visibilityMask != VCMatrix::defaultVisibilityMask())
-    {
-        QDomElement tag = doc->createElement(KXMLQLCVCMatrixVisibilityMask);
-        root.appendChild(tag);
-        QDomText text = doc->createTextNode(QString::number(m_visibilityMask));
-        tag.appendChild(text);
-    }
+        doc->writeTextElement(KXMLQLCVCMatrixVisibilityMask, QString::number(m_visibilityMask));
 
     /* Slider External input */
-    saveXMLInput(doc, &root);
+    saveXMLInput(doc);
 
     foreach(VCMatrixControl *control, customControls())
-        control->saveXML(doc, &root);
+        control->saveXML(doc);
+
+    /* End the <Matrix> tag */
+    doc->writeEndElement();
 
     return true;
 }
-

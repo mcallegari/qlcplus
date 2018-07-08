@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" height="48" width="48">
+  <defs>
+    <linearGradient id="c" y2="38.44" gradientUnits="userSpaceOnUse" x2="26.91" gradientTransform="matrix(.88235 0 0 1 1.647 0)" y1="39.22" x1="22.16">
+      <stop offset="0"/>
+      <stop stop-opacity="0" offset="1"/>
+    </linearGradient>
+    <linearGradient id="b" y2="103.93" gradientUnits="userSpaceOnUse" x2="13.96" gradientTransform="matrix(1.2067 0 0 .9991 -.134 1.02)" y1="18.5" x1="10.13">
+      <stop stop-color="#babdb6" offset="0"/>
+      <stop stop-color="#555753" offset="1"/>
+    </linearGradient>
+    <linearGradient id="a">
+      <stop offset="0"/>
+      <stop stop-opacity="0" offset="1"/>
+    </linearGradient>
+  </defs>
+  <rect x="5.3" y="2.52" width="37.41" height="42.96" ry="2.52" rx="3.14" fill="#eeeeec" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" stroke="url(#b)"/>
+  <path d="M9.52 13.01c-1.31 0-2.38.89-2.38 1.97v4.06c0 1.08 1.07 1.97 2.38 1.97h27.79c1.31 0 2.38-.89 2.38-1.97v-4.06c0-1.08-1.07-1.97-2.38-1.97H9.52z" opacity=".07"/>
+  <rect x="7.71" y="12.51" width="32.58" height="6.99" ry="1.48" rx="1.88" fill="#729fcf" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" stroke="#3465a4"/>
+  <rect x="6.57" y="3.57" width="34.86" height="40.86" ry="1.45" rx="1.82" fill="none" stroke-linecap="round" stroke-width="1.21" stroke="#fff"/>
+  <rect x="16.76" y="38.99" width="20.51" height="2" ry=".81" rx=".93" opacity=".4"/>
+  <rect x="16.76" y="7.02" width="20.51" height="2" ry=".62" rx=".71" opacity=".4"/>
+  <rect x="16.76" y="15.01" width="20.51" height="2" ry=".56" rx=".64" opacity=".4"/>
+  <rect x="16.76" y="23" width="20.51" height="2" ry=".75" rx=".91" opacity=".4"/>
+  <path d="M9.54 13.51c-.36 0-.59.18-.59.47v4.06c0 .29.23.47.59.47h28.95c.36 0 .59-.18.59-.47v-4.06c0-.29-.23-.47-.59-.47H9.54z" fill="none" opacity=".4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1" stroke="#fff"/>
+  <rect x="10.12" y="38.49" width="3.62" height="3" ry=".86" rx="1.04" fill="#888a85" opacity=".3" stroke-linecap="round" stroke-width="1.1" stroke="#2e3436"/>
+  <rect x="10.12" y="22.5" width="3.62" height="3" ry=".86" rx="1.04" fill="#888a85" opacity=".3" stroke-linecap="round" stroke-width="1.1" stroke="#2e3436"/>
+  <rect x="10.12" y="14.51" width="3.62" height="3" ry=".86" rx="1.04" fill="#888a85" opacity=".3" stroke-linecap="round" stroke-width="1.1" stroke="#2e3436"/>
+  <rect x="10.12" y="6.52" width="3.62" height="3" ry=".86" rx="1.04" fill="#888a85" opacity=".3" stroke-linecap="round" stroke-width="1.1" stroke="#2e3436"/>
+  <g transform="matrix(1.2067 0 0 .9991 -.134 -6.972)">
+    <rect x="8.5" y="37.5" width="3" height="3" ry=".86" rx=".86" fill="#888a85" opacity=".3" stroke-linecap="round" stroke="#2e3436"/>
+    <rect x="14" y="38" width="15" height="2" ry=".81" rx=".68" fill="url(#c)" opacity=".4"/>
+  </g>
+</svg>

@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   cue.cpp
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,8 +18,8 @@
   limitations under the License.
 */
 
-#include <QDomDocument>
-#include <QDomElement>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QDebug>
 
 #include "cue.h"
@@ -133,91 +134,87 @@ uint Cue::duration() const
  * Load & Save
  ****************************************************************************/
 
-bool Cue::loadXML(const QDomElement& root)
+bool Cue::loadXML(QXmlStreamReader &root)
 {
     qDebug() << Q_FUNC_INFO;
 
-    if (root.tagName() != KXMLQLCCue)
+    if (root.name() != KXMLQLCCue)
     {
         qWarning() << Q_FUNC_INFO << "Cue node not found";
         return false;
     }
 
-    setName(root.attribute(KXMLQLCCueName));
+    setName(root.attributes().value(KXMLQLCCueName).toString());
 
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-        if (tag.tagName() == KXMLQLCCueValue)
+        if (root.name() == KXMLQLCCueValue)
         {
-            QString ch = tag.attribute(KXMLQLCCueValueChannel);
-            QString val = tag.text();
+            QString ch = root.attributes().value(KXMLQLCCueValueChannel).toString();
+            QString val = root.readElementText();
             if (ch.isEmpty() == false && val.isEmpty() == false)
                 setValue(ch.toUInt(), uchar(val.toUInt()));
         }
-        else if (tag.tagName() == KXMLQLCCueSpeed)
+        else if (root.name() == KXMLQLCCueSpeed)
         {
-            loadXMLSpeed(tag);
+            loadXMLSpeed(root);
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unrecognized Cue tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unrecognized Cue tag:" << root.name();
+            root.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     return true;
 }
 
-bool Cue::saveXML(QDomDocument* doc, QDomElement* stack_root) const
+bool Cue::saveXML(QXmlStreamWriter *doc) const
 {
     qDebug() << Q_FUNC_INFO;
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(stack_root != NULL);
 
-    QDomElement root = doc->createElement(KXMLQLCCue);
-    root.setAttribute(KXMLQLCCueName, name());
-    stack_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCCue);
+    doc->writeAttribute(KXMLQLCCueName, name());
 
     QHashIterator <uint,uchar> it(values());
     while (it.hasNext() == true)
     {
         it.next();
-        QDomElement e = doc->createElement(KXMLQLCCueValue);
-        e.setAttribute(KXMLQLCCueValueChannel, it.key());
-        QDomText t = doc->createTextNode(QString::number(it.value()));
-        e.appendChild(t);
-        root.appendChild(e);
+        doc->writeStartElement(KXMLQLCCueValue);
+        doc->writeAttribute(KXMLQLCCueValueChannel, QString::number(it.key()));
+        doc->writeCharacters(QString::number(it.value()));
+        doc->writeEndElement();
     }
 
-    saveXMLSpeed(doc, &root);
+    saveXMLSpeed(doc);
+
+    /* End the <Cue> tag */
+    doc->writeEndElement();
 
     return true;
 }
 
-bool Cue::loadXMLSpeed(const QDomElement& speedRoot)
+bool Cue::loadXMLSpeed(QXmlStreamReader &speedRoot)
 {
-    if (speedRoot.tagName() != KXMLQLCCueSpeed)
+    if (speedRoot.name() != KXMLQLCCueSpeed)
         return false;
 
-    m_fadeInSpeed = speedRoot.attribute(KXMLQLCCueSpeedFadeIn).toUInt();
-    m_fadeOutSpeed = speedRoot.attribute(KXMLQLCCueSpeedFadeOut).toUInt();
-    m_duration = speedRoot.attribute(KXMLQLCCueSpeedDuration).toUInt();
+    m_fadeInSpeed = speedRoot.attributes().value(KXMLQLCCueSpeedFadeIn).toString().toUInt();
+    m_fadeOutSpeed = speedRoot.attributes().value(KXMLQLCCueSpeedFadeOut).toString().toUInt();
+    m_duration = speedRoot.attributes().value(KXMLQLCCueSpeedDuration).toString().toUInt();
+    speedRoot.skipCurrentElement();
 
     return true;
 }
 
-bool Cue::saveXMLSpeed(QDomDocument* doc, QDomElement* root) const
+bool Cue::saveXMLSpeed(QXmlStreamWriter *doc) const
 {
-    QDomElement tag;
-
-    tag = doc->createElement(KXMLQLCCueSpeed);
-    tag.setAttribute(KXMLQLCCueSpeedFadeIn, QString::number(fadeInSpeed()));
-    tag.setAttribute(KXMLQLCCueSpeedFadeOut, QString::number(fadeOutSpeed()));
-    tag.setAttribute(KXMLQLCCueSpeedDuration, QString::number(duration()));
-    root->appendChild(tag);
+    doc->writeStartElement(KXMLQLCCueSpeed);
+    doc->writeAttribute(KXMLQLCCueSpeedFadeIn, QString::number(fadeInSpeed()));
+    doc->writeAttribute(KXMLQLCCueSpeedFadeOut, QString::number(fadeOutSpeed()));
+    doc->writeAttribute(KXMLQLCCueSpeedDuration, QString::number(duration()));
+    doc->writeEndElement();
 
     return true;
 }

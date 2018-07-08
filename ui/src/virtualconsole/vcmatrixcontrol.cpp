@@ -17,17 +17,18 @@
   limitations under the License.
 */
 
-#include <QtGlobal>
-#include <QtXml>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
+#include <QDebug>
 
 #include "vcmatrixcontrol.h"
+#include "vcwidget.h"
 
 VCMatrixControl::VCMatrixControl(quint8 id)
     : m_id(id)
 {
     m_color = QColor();
     m_resource = QString();
-    m_inputSource = NULL;
 }
 
 VCMatrixControl::VCMatrixControl(VCMatrixControl const& vcmc)
@@ -38,16 +39,16 @@ VCMatrixControl::VCMatrixControl(VCMatrixControl const& vcmc)
     , m_properties(vcmc.m_properties)
     , m_keySequence(vcmc.m_keySequence)
 {
-    if (vcmc.m_inputSource == NULL)
-        m_inputSource = NULL;
-    else
-        m_inputSource = new QLCInputSource(vcmc.m_inputSource->universe(),
-                                           vcmc.m_inputSource->channel());
+    if (vcmc.m_inputSource != NULL)
+    {
+        m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(vcmc.m_inputSource->universe(),
+                                               vcmc.m_inputSource->channel()));
+        m_inputSource->setRange(vcmc.m_inputSource->lowerValue(), vcmc.m_inputSource->upperValue());
+    }
 }
 
 VCMatrixControl::~VCMatrixControl()
 {
-    delete m_inputSource;
 }
 
 quint8 VCMatrixControl::rgbToValue(QRgb color) const
@@ -139,103 +140,81 @@ bool VCMatrixControl::compare(VCMatrixControl const* left, VCMatrixControl const
     return *left < *right;
 }
 
-bool VCMatrixControl::loadXML(const QDomElement &root)
+bool VCMatrixControl::loadXML(QXmlStreamReader &root)
 {
-    QDomNode node;
-    QDomElement tag;
-
-    if (root.tagName() != KXMLQLCVCMatrixControl)
+    if (root.name() != KXMLQLCVCMatrixControl)
     {
         qWarning() << Q_FUNC_INFO << "Matrix control node not found";
         return false;
     }
 
-    if (root.hasAttribute(KXMLQLCVCMatrixControlID) == false)
+    if (root.attributes().hasAttribute(KXMLQLCVCMatrixControlID) == false)
     {
         qWarning() << Q_FUNC_INFO << "Matrix control ID not found";
         return false;
     }
 
-    m_id = root.attribute(KXMLQLCVCMatrixControlID).toUInt();
+    m_id = root.attributes().value(KXMLQLCVCMatrixControlID).toString().toUInt();
 
     /* Children */
-    node = root.firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        tag = node.toElement();
-        if (tag.tagName() == KXMLQLCVCMatrixControlType)
+        if (root.name() == KXMLQLCVCMatrixControlType)
         {
-            m_type = stringToType(tag.text());
+            m_type = stringToType(root.readElementText());
         }
-        else if (tag.tagName() == KXMLQLCVCMatrixControlColor)
+        else if (root.name() == KXMLQLCVCMatrixControlColor)
         {
-            m_color = QColor(tag.text());
+            m_color = QColor(root.readElementText());
         }
-        else if (tag.tagName() == KXMLQLCVCMatrixControlResource)
+        else if (root.name() == KXMLQLCVCMatrixControlResource)
         {
-            m_resource = tag.text();
+            m_resource = root.readElementText();
         }
-        else if (tag.tagName() == KXMLQLCVCMatrixControlProperty)
+        else if (root.name() == KXMLQLCVCMatrixControlProperty)
         {
-            if (tag.hasAttribute(KXMLQLCVCMatrixControlPropertyName))
+            if (root.attributes().hasAttribute(KXMLQLCVCMatrixControlPropertyName))
             {
-                QString pName = tag.attribute(KXMLQLCVCMatrixControlPropertyName);
-                QString pValue = tag.text();
+                QString pName = root.attributes().value(KXMLQLCVCMatrixControlPropertyName).toString();
+                QString pValue = root.readElementText();
                 m_properties[pName] = pValue;
             }
         }
-        else if (tag.tagName() == KXMLQLCVCMatrixControlInput)
+        else if (root.name() == KXMLQLCVCWidgetInput)
         {
-            if (tag.hasAttribute(KXMLQLCVCMatrixControlInputUniverse) &&
-                tag.hasAttribute(KXMLQLCVCMatrixControlInputChannel))
-            {
-                quint32 uni = tag.attribute(KXMLQLCVCMatrixControlInputUniverse).toUInt();
-                quint32 ch = tag.attribute(KXMLQLCVCMatrixControlInputChannel).toUInt();
-                m_inputSource = new QLCInputSource(uni, ch);
-            }
+            m_inputSource = VCWidget::getXMLInput(root);
+            root.skipCurrentElement();
+        }
+        else if (root.name() == KXMLQLCVCWidgetKey)
+        {
+            m_keySequence = VCWidget::stripKeySequence(QKeySequence(root.readElementText()));
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown VCMatrixControl tag:" << tag.tagName();
+            qWarning() << Q_FUNC_INFO << "Unknown VCMatrixControl tag:" << root.name().toString();
+            root.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
     return true;
 }
 
-bool VCMatrixControl::saveXML(QDomDocument *doc, QDomElement *mtx_root)
+bool VCMatrixControl::saveXML(QXmlStreamWriter *doc)
 {
-    QDomElement root;
-    QDomElement tag;
-    QDomText text;
-
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(mtx_root != NULL);
 
-    root = doc->createElement(KXMLQLCVCMatrixControl);
-    root.setAttribute(KXMLQLCVCMatrixControlID, m_id);
-    mtx_root->appendChild(root);
+    doc->writeStartElement(KXMLQLCVCMatrixControl);
+    doc->writeAttribute(KXMLQLCVCMatrixControlID, QString::number(m_id));
 
-    tag = doc->createElement(KXMLQLCVCMatrixControlType);
-    root.appendChild(tag);
-    text = doc->createTextNode(typeToString(m_type));
-    tag.appendChild(text);
+    doc->writeTextElement(KXMLQLCVCMatrixControlType, typeToString(m_type));
 
     if (m_type == StartColor || m_type == EndColor || m_type == StartColorKnob || m_type == EndColorKnob)
     {
-        tag = doc->createElement(KXMLQLCVCMatrixControlColor);
-        root.appendChild(tag);
-        text = doc->createTextNode(m_color.name());
-        tag.appendChild(text);
+        doc->writeTextElement(KXMLQLCVCMatrixControlColor, m_color.name());
     }
     else
     {
-        tag = doc->createElement(KXMLQLCVCMatrixControlResource);
-        root.appendChild(tag);
-        text = doc->createTextNode(m_resource);
-        tag.appendChild(text);
+        doc->writeTextElement(KXMLQLCVCMatrixControlResource, m_resource);
     }
 
     if (!m_properties.isEmpty())
@@ -244,31 +223,23 @@ bool VCMatrixControl::saveXML(QDomDocument *doc, QDomElement *mtx_root)
         while(it.hasNext())
         {
             it.next();
-            tag = doc->createElement(KXMLQLCVCMatrixControlProperty);
-            tag.setAttribute(KXMLQLCVCMatrixControlPropertyName, it.key());
-            root.appendChild(tag);
-            text = doc->createTextNode(it.value());
-            tag.appendChild(text);
+            doc->writeStartElement(KXMLQLCVCMatrixControlProperty);
+            doc->writeAttribute(KXMLQLCVCMatrixControlPropertyName, it.key());
+            doc->writeCharacters(it.value());
+            doc->writeEndElement();
         }
     }
 
     /* External input source */
-    if (m_inputSource != NULL && m_inputSource->isValid())
-    {
-        tag = doc->createElement(KXMLQLCVCMatrixControlInput);
-        tag.setAttribute(KXMLQLCVCMatrixControlInputUniverse, QString("%1").arg(m_inputSource->universe()));
-        tag.setAttribute(KXMLQLCVCMatrixControlInputChannel, QString("%1").arg(m_inputSource->channel()));
-        root.appendChild(tag);
-    }
+    if (!m_inputSource.isNull() && m_inputSource->isValid())
+        VCWidget::saveXMLInput(doc, m_inputSource);
 
     /* Key sequence */
     if (m_keySequence.isEmpty() == false)
-    {
-        tag = doc->createElement(KXMLQLCVCMatrixControlKey);
-        root.appendChild(tag);
-        text = doc->createTextNode(m_keySequence.toString());
-        tag.appendChild(text);
-    }
+        doc->writeTextElement(KXMLQLCVCWidgetKey, m_keySequence.toString());
+
+    /* End the <Control> tag */
+    doc->writeEndElement();
 
     return true;
 }

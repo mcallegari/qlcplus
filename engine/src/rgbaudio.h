@@ -38,14 +38,15 @@ class RGBAudio : public QObject, public RGBAlgorithm
     Q_OBJECT
 
 public:
-    RGBAudio(const Doc * doc);
+    RGBAudio(Doc * doc);
     RGBAudio(const RGBAudio& t, QObject *parent = 0);
     ~RGBAudio();
 
     /** @reimp */
     RGBAlgorithm* clone() const;
 
-    void setAudioCapture(AudioCapture *cap);
+private:
+    void setAudioCapture(AudioCapture* cap);
 
 protected slots:
     void slotAudioBarsChanged(double *spectrumBands, int size, double maxMagnitude, quint32 power);
@@ -73,6 +74,9 @@ public:
     RGBMap rgbMap(const QSize& size, uint rgb, int step);
 
     /** @reimp */
+    virtual void postRun();
+
+    /** @reimp */
     QString name() const;
 
     /** @reimp */
@@ -95,10 +99,10 @@ public:
      ************************************************************************/
 public:
     /** @reimp */
-    bool loadXML(const QDomElement& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** @reimp */
-    bool saveXML(QDomDocument* doc, QDomElement* mtx_root) const;
+    bool saveXML(QXmlStreamWriter *doc) const;
 };
 
 /** @} */

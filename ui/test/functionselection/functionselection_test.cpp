@@ -99,8 +99,8 @@ void FunctionSelection_Test::constFilter()
 
     {
         FunctionSelection fs2(&w, m_doc);
-        fs2.setFilter(Function::Scene | Function::Chaser, true);
-        QCOMPARE(fs2.m_filter, Function::Scene | Function::Chaser );
+        fs2.setFilter(Function::SceneType | Function::ChaserType, true);
+        QCOMPARE(fs2.m_filter, Function::SceneType | Function::ChaserType );
     }
 
     {

@@ -27,6 +27,7 @@ class QPushButton;
 class QToolButton;
 class QFocusEvent;
 class QCheckBox;
+class QLabel;
 class QTimer;
 class QDial;
 class QTime;
@@ -67,7 +68,6 @@ class SpeedDial : public QGroupBox
     Q_DISABLE_COPY(SpeedDial)
 
 public:
-
     enum Visibility
     {
         None         = 0,
@@ -78,7 +78,7 @@ public:
         Minutes      = 1 << 4,
         Seconds      = 1 << 5,
         Milliseconds = 1 << 6,
-        Infinite     = 1 << 7
+        Infinite     = 1 << 7,
     };
 
     SpeedDial(QWidget* parent);
@@ -98,16 +98,22 @@ public:
     /** Produce a tap programmatically */
     void tap();
 
+    void toggleInfinite();
+
     void stopTimers(bool stopTime = true, bool stopTapTimer = true);
+
+    bool isTapTick();
 
 signals:
     void valueChanged(int ms);
     void tapped();
+    void tapTimeout();
 
     /*************************************************************************
      * Private
      *************************************************************************/
 private:
+    void updateTapTimer();
     void setSpinValues(int ms);
     int spinValues() const;
 
@@ -144,26 +150,27 @@ private:
     bool m_preventSignals;
     int m_value;
 
+    bool m_tapTick;
     QTime* m_tapTime;
     QTimer* m_tapTickTimer;
-    bool m_tapTick;
+    QTimer* m_tapTickElapseTimer;
 
     /*************************************************************************
      * Elements visibility
      *************************************************************************/
 public:
     /** Return the widget's elements default visibility bitmask */
-    static ushort defaultVisibilityMask();
+    static quint16 defaultVisibilityMask();
 
     /** Return the widget's elements visibility bitmask */
-    ushort visibilityMask();
+    quint16 visibilityMask();
 
     /** Set the visibility of the widget's elements
       * according to the provided bitmask */
-    void setVisibilityMask(ushort mask);
+    void setVisibilityMask(quint16 mask);
 
 private:
-    ushort m_visibilityMask;
+    quint16 m_visibilityMask;
 };
 
 /** @} */

@@ -1,8 +1,9 @@
 /*
-  Q Light Controller - Unit tests
+  Q Light Controller Plus - Unit tests
   qlcfixturemode_test.cpp
 
   Copyright (C) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -18,7 +19,8 @@
 */
 
 #include <QtTest>
-#include <QtXml>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 #define protected public
 #define private public
@@ -407,62 +409,108 @@ void QLCFixtureMode_Test::copy()
     delete anotherDef;
 }
 
+void QLCFixtureMode_Test::intensityChannels()
+{
+    QLCFixtureDef def;
+
+    QLCChannel * masterCh = new QLCChannel();
+    masterCh->setGroup(QLCChannel::Intensity);
+    masterCh->setControlByte(QLCChannel::MSB);
+    masterCh->setColour(QLCChannel::NoColour);
+    def.addChannel(masterCh);
+
+    QLCChannel * h1Ch = new QLCChannel();
+    h1Ch->setGroup(QLCChannel::Intensity);
+    h1Ch->setControlByte(QLCChannel::MSB);
+    h1Ch->setColour(QLCChannel::NoColour);
+    def.addChannel(h1Ch);
+
+    QLCChannel * h2Ch = new QLCChannel();
+    h2Ch->setGroup(QLCChannel::Intensity);
+    h2Ch->setControlByte(QLCChannel::MSB);
+    h2Ch->setColour(QLCChannel::NoColour);
+    def.addChannel(h2Ch);
+
+    QLCFixtureMode mode(&def);
+    mode.insertChannel(masterCh, 0);
+    mode.insertChannel(h1Ch, 1);
+    mode.insertChannel(h2Ch, 2);
+
+    QLCFixtureHead h1;
+    h1.addChannel(1);
+    mode.insertHead(0, h1);
+
+    QLCFixtureHead h2;
+    h2.addChannel(2);
+    mode.insertHead(1, h2);
+
+    mode.cacheHeads();
+
+    QCOMPARE(mode.masterIntensityChannel(), 0U);
+    QCOMPARE(mode.heads()[0].channelNumber(QLCChannel::Intensity, QLCChannel::MSB), 1U);
+    QCOMPARE(mode.heads()[1].channelNumber(QLCChannel::Intensity, QLCChannel::MSB), 2U);
+}
+
 void QLCFixtureMode_Test::load()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("Mode");
-    root.setAttribute("Name", "Mode1");
-    doc.appendChild(root);
+    xmlWriter.writeStartElement("Mode");
+    xmlWriter.writeAttribute("Name", "Mode1");
 
-    QDomElement ch1 = doc.createElement("Channel");
-    ch1.setAttribute("Number", 0);
-    QDomText ch1Text = doc.createTextNode("Channel 1");
-    ch1.appendChild(ch1Text);
-    root.appendChild(ch1);
+    xmlWriter.writeStartElement("Channel");
+    xmlWriter.writeAttribute("Number", "0");
+    xmlWriter.writeCharacters("Channel 1");
+    xmlWriter.writeEndElement();
 
     /* Shouldn't appear in the mode since Channel 1 is already added */
-    QDomElement ch2 = doc.createElement("Channel");
-    ch2.setAttribute("Number", 1);
-    QDomText ch2Text = doc.createTextNode("Channel 1");
-    ch2.appendChild(ch2Text);
-    root.appendChild(ch2);
+    xmlWriter.writeStartElement("Channel");
+    xmlWriter.writeAttribute("Number", "1");
+    xmlWriter.writeCharacters("Channel 1");
+    xmlWriter.writeEndElement();
 
-    QDomElement ch3 = doc.createElement("Channel");
-    ch3.setAttribute("Number", 1);
-    QDomText ch3Text = doc.createTextNode("Channel 3");
-    ch3.appendChild(ch3Text);
-    root.appendChild(ch3);
+    xmlWriter.writeStartElement("Channel");
+    xmlWriter.writeAttribute("Number", "1");
+    xmlWriter.writeCharacters("Channel 3");
+    xmlWriter.writeEndElement();
 
     /* Head1 */
-    QDomElement head1 = doc.createElement("Head");
-    root.appendChild(head1);
+    xmlWriter.writeEmptyElement("Head");
 
     /* Head2 */
-    QDomElement head2 = doc.createElement("Head");
-    root.appendChild(head2);
+    xmlWriter.writeEmptyElement("Head");
 
     /* Physical */
-    QDomElement phys = doc.createElement("Physical");
-    root.appendChild(phys);
+    xmlWriter.writeStartElement("Physical");
 
     /* Bulb */
-    QDomElement bulb = doc.createElement("Bulb");
-    bulb.setAttribute("Type", "LED");
-    bulb.setAttribute("Lumens", 18000);
-    bulb.setAttribute("ColourTemperature", 6500);
-    phys.appendChild(bulb);
+    xmlWriter.writeStartElement("Bulb");
+    xmlWriter.writeAttribute("Type", "LED");
+    xmlWriter.writeAttribute("Lumens", "18000");
+    xmlWriter.writeAttribute("ColourTemperature", "6500");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeEndElement();
 
     /* Unrecognized tag on top level */
-    QDomElement foo = doc.createElement("Foo");
-    root.appendChild(foo);
+    xmlWriter.writeEmptyElement("Foo");
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
 
     QLCFixtureMode mode(m_fixtureDef);
     QVERIFY(mode.physical().bulbType() != "LED");
     QVERIFY(mode.physical().bulbLumens() != 18000);
     QVERIFY(mode.physical().bulbColourTemperature() != 6500);
 
-    QVERIFY(mode.loadXML(root) == true);
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
+
+    QVERIFY(mode.loadXML(xmlReader) == true);
     QVERIFY(mode.physical().bulbType() == "LED");
     QVERIFY(mode.physical().bulbLumens() == 18000);
     QVERIFY(mode.physical().bulbColourTemperature() == 6500);
@@ -476,65 +524,76 @@ void QLCFixtureMode_Test::load()
 
 void QLCFixtureMode_Test::loadWrongRoot()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    QDomElement root = doc.createElement("ode");
-    root.setAttribute("Name", "Mode1");
-    doc.appendChild(root);
+    xmlWriter.writeStartElement("ode");
+    xmlWriter.writeAttribute("Name", "Mode1");
 
-    QDomElement ch1 = doc.createElement("Channel");
-    ch1.setAttribute("Number", 0);
-    QDomText ch1Text = doc.createTextNode("Channel 1");
-    ch1.appendChild(ch1Text);
-    root.appendChild(ch1);
+    xmlWriter.writeStartElement("Channel");
+    xmlWriter.writeAttribute("Number", "0");
+    xmlWriter.writeCharacters("Channel 1");
+    xmlWriter.writeEndElement();
 
     /* Shouldn't appear in the mode since Channel 1 is already added */
-    QDomElement ch2 = doc.createElement("Channel");
-    ch2.setAttribute("Number", 1);
-    QDomText ch2Text = doc.createTextNode("Channel 1");
-    ch2.appendChild(ch2Text);
-    root.appendChild(ch2);
+    xmlWriter.writeStartElement("Channel");
+    xmlWriter.writeAttribute("Number", "1");
+    xmlWriter.writeCharacters("Channel 1");
+    xmlWriter.writeEndElement();
 
-    QDomElement ch3 = doc.createElement("Channel");
-    ch3.setAttribute("Number", 1);
-    QDomText ch3Text = doc.createTextNode("Channel 3");
-    ch3.appendChild(ch3Text);
-    root.appendChild(ch3);
+    xmlWriter.writeStartElement("Channel");
+    xmlWriter.writeAttribute("Number", "1");
+    xmlWriter.writeCharacters("Channel 3");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     QLCFixtureMode mode(m_fixtureDef);
-    QVERIFY(mode.loadXML(root) == false);
+    QVERIFY(mode.loadXML(xmlReader) == false);
     QVERIFY(mode.channels().size() == 0);
 }
 
 void QLCFixtureMode_Test::loadNoName()
 {
-    QDomDocument doc;
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
-    /* Loading should fail because mode has no name */
-    QDomElement root = doc.createElement("Mode");
-    doc.appendChild(root);
+    xmlWriter.writeStartElement("Mode");
 
-    QDomElement ch1 = doc.createElement("Channel");
-    ch1.setAttribute("Number", 0);
-    QDomText ch1Text = doc.createTextNode("Channel 1");
-    ch1.appendChild(ch1Text);
-    root.appendChild(ch1);
+    xmlWriter.writeStartElement("Channel");
+    xmlWriter.writeAttribute("Number", "0");
+    xmlWriter.writeCharacters("Channel 1");
+    xmlWriter.writeEndElement();
 
     /* Shouldn't appear in the mode since Channel 1 is already added */
-    QDomElement ch2 = doc.createElement("Channel");
-    ch2.setAttribute("Number", 1);
-    QDomText ch2Text = doc.createTextNode("Channel 1");
-    ch2.appendChild(ch2Text);
-    root.appendChild(ch2);
+    xmlWriter.writeStartElement("Channel");
+    xmlWriter.writeAttribute("Number", "1");
+    xmlWriter.writeCharacters("Channel 1");
+    xmlWriter.writeEndElement();
 
-    QDomElement ch3 = doc.createElement("Channel");
-    ch3.setAttribute("Number", 1);
-    QDomText ch3Text = doc.createTextNode("Channel 3");
-    ch3.appendChild(ch3Text);
-    root.appendChild(ch3);
+    xmlWriter.writeStartElement("Channel");
+    xmlWriter.writeAttribute("Number", "1");
+    xmlWriter.writeCharacters("Channel 3");
+    xmlWriter.writeEndElement();
+
+    xmlWriter.writeEndDocument();
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+    xmlReader.readNextStartElement();
 
     QLCFixtureMode mode(m_fixtureDef);
-    QVERIFY(mode.loadXML(root) == false);
+    QVERIFY(mode.loadXML(xmlReader) == false);
     QVERIFY(mode.channels().size() == 0);
 }
 
@@ -556,47 +615,101 @@ void QLCFixtureMode_Test::save()
     mode.insertHead(-1, head);
     mode.insertHead(-1, head);
 
-    QDomDocument doc;
-    QDomElement root = doc.createElement("TestRoot");
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
 
     bool physical = false;
     int heads = 0;
     QMap <int,QString> channels;
 
-    QVERIFY(mode.saveXML(&doc, &root) == true);
-    QDomNode node = root.firstChild();
-    QCOMPARE(node.toElement().tagName(), QString(KXMLQLCFixtureMode));
-    QCOMPARE(node.toElement().attribute(KXMLQLCFixtureModeName), name);
-    node = node.firstChild();
-    while (node.isNull() == false)
+    QVERIFY(mode.saveXML(&xmlWriter) == true);
+
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+
+    xmlReader.readNextStartElement();
+
+    QCOMPARE(xmlReader.name().toString(), QString(KXMLQLCFixtureMode));
+    QCOMPARE(xmlReader.attributes().value(KXMLQLCFixtureModeName).toString(), name);
+
+    while (xmlReader.readNextStartElement())
     {
-        QDomElement elem = node.toElement();
-        if (elem.tagName() == KXMLQLCPhysical)
+        if (xmlReader.name() == KXMLQLCChannel)
         {
-            // Only check that physical node is there. Its contents are
-            // tested by another test case (QLCPhysical_Test)
-            physical = true;
+            int num = xmlReader.attributes().value(KXMLQLCFixtureModeChannelNumber).toString().toInt();
+            channels[num] = xmlReader.readElementText();
         }
-        else if (elem.tagName() == KXMLQLCChannel)
-        {
-            int num = elem.attribute(KXMLQLCFixtureModeChannelNumber).toInt();
-            channels[num] = elem.text();
-        }
-        else if (elem.tagName() == KXMLQLCFixtureHead)
+        else if (xmlReader.name() == KXMLQLCFixtureHead)
         {
             heads++;
+            xmlReader.skipCurrentElement();
         }
-
-        node = node.nextSibling();
     }
 
-    QVERIFY(physical == true);
+    QVERIFY(physical == false);
     QCOMPARE(channels.size(), 4);
     QCOMPARE(channels[0], m_ch1->name());
     QCOMPARE(channels[1], m_ch4->name());
     QCOMPARE(channels[2], m_ch2->name());
     QCOMPARE(channels[3], m_ch3->name());
     QCOMPARE(heads, 3);
+}
+
+void QLCFixtureMode_Test::savePhysicalOverride()
+{
+    QVERIFY(m_fixtureDef != NULL);
+    QCOMPARE(m_fixtureDef->channels().size(), 4);
+
+    QString name("Foobar");
+    QLCFixtureMode mode(m_fixtureDef);
+    mode.setName(name);
+
+    QVERIFY(mode.useGlobalPhysical() == true);
+
+    QLCPhysical phy;
+    phy.setWeight(10);
+    phy.setWidth(11);
+    phy.setHeight(12);
+    phy.setDepth(13);
+
+    mode.setPhysical(phy);
+
+    QVERIFY(mode.useGlobalPhysical() == false);
+
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly | QIODevice::Text);
+    QXmlStreamWriter xmlWriter(&buffer);
+
+    QVERIFY(mode.saveXML(&xmlWriter) == true);
+
+    xmlWriter.setDevice(NULL);
+    buffer.close();
+
+    buffer.open(QIODevice::ReadOnly | QIODevice::Text);
+    QXmlStreamReader xmlReader(&buffer);
+
+    xmlReader.readNextStartElement();
+
+    QCOMPARE(xmlReader.name().toString(), QString(KXMLQLCFixtureMode));
+
+    bool physical = false;
+
+    while (xmlReader.readNextStartElement())
+    {
+        if (xmlReader.name() == KXMLQLCPhysical)
+        {
+            // Only check that physical node is there. Its contents are
+            // tested by another test case (QLCPhysical_Test)
+            physical = true;
+            xmlReader.skipCurrentElement();
+        }
+    }
+
+    QVERIFY(physical == true);
 }
 
 void QLCFixtureMode_Test::cleanupTestCase()

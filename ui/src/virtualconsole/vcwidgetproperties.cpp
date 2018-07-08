@@ -17,8 +17,10 @@
   limitations under the License.
 */
 
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 #include <QWidget>
-#include <QtXml>
+#include <QDebug>
 
 #include "vcwidgetproperties.h"
 
@@ -87,89 +89,60 @@ void VCWidgetProperties::store(QWidget* widget)
     m_height = widget->height();
 }
 
-bool VCWidgetProperties::loadXML(const QDomElement& root)
+bool VCWidgetProperties::loadXML(QXmlStreamReader &root)
 {
-    if (root.tagName() != KXMLQLCWidgetProperties)
+    if (root.name() != KXMLQLCWidgetProperties)
     {
         qWarning() << Q_FUNC_INFO << "Widget Properties node not found";
         return false;
     }
 
-    QDomNode node = root.firstChild();
-    while (node.isNull() == false)
+    while (root.readNextStartElement())
     {
-        QDomElement tag = node.toElement();
-
-        if (tag.tagName() == KXMLQLCWidgetX)
-            m_x = tag.text().toInt();
-        else if (tag.tagName() == KXMLQLCWidgetY)
-            m_y = tag.text().toInt();
-        else if (tag.tagName() == KXMLQLCWidgetWidth)
-            m_width = tag.text().toInt();
-        else if (tag.tagName() == KXMLQLCWidgetHeight)
-            m_height = tag.text().toInt();
-        else if (tag.tagName() == KXMLQLCWidgetState)
-            m_state = Qt::WindowState(tag.text().toInt());
-        else if (tag.tagName() == KXMLQLCWidgetVisible)
-            m_visible = bool(tag.text().toInt());
+        if (root.name() == KXMLQLCWidgetX)
+            m_x = root.readElementText().toInt();
+        else if (root.name() == KXMLQLCWidgetY)
+            m_y = root.readElementText().toInt();
+        else if (root.name() == KXMLQLCWidgetWidth)
+            m_width = root.readElementText().toInt();
+        else if (root.name() == KXMLQLCWidgetHeight)
+            m_height = root.readElementText().toInt();
+        else if (root.name() == KXMLQLCWidgetState)
+            m_state = Qt::WindowState(root.readElementText().toInt());
+        else if (root.name() == KXMLQLCWidgetVisible)
+            m_visible = bool(root.readElementText().toInt());
         else
-            qWarning() << Q_FUNC_INFO << "Unknown widget tag:" << tag.tagName();
-
-        node = node.nextSibling();
+        {
+            qWarning() << Q_FUNC_INFO << "Unknown widget tag:" << root.name().toString();
+            root.skipCurrentElement();
+        }
     }
 
     return true;
 }
 
-bool VCWidgetProperties::saveXML(QDomDocument* doc, QDomElement* root)
+bool VCWidgetProperties::saveXML(QXmlStreamWriter *doc)
 {
-    QDomElement prop_root;
-    QDomElement tag;
-    QDomText text;
-    QString str;
-
     Q_ASSERT(doc != NULL);
-    Q_ASSERT(root != NULL);
 
     /* Widget Properties entry */
-    prop_root = doc->createElement(KXMLQLCWidgetProperties);
-    root->appendChild(prop_root);
+    doc->writeStartElement(KXMLQLCWidgetProperties);
 
     /* X */
-    tag = doc->createElement(KXMLQLCWidgetX);
-    prop_root.appendChild(tag);
-    text = doc->createTextNode(QString("%1").arg(m_x));
-    tag.appendChild(text);
-
+    doc->writeTextElement(KXMLQLCWidgetX, QString::number(m_x));
     /* Y */
-    tag = doc->createElement(KXMLQLCWidgetY);
-    prop_root.appendChild(tag);
-    text = doc->createTextNode(QString("%1").arg(m_y));
-    tag.appendChild(text);
-
+    doc->writeTextElement(KXMLQLCWidgetY, QString::number(m_y));
     /* W */
-    tag = doc->createElement(KXMLQLCWidgetWidth);
-    prop_root.appendChild(tag);
-    text = doc->createTextNode(QString("%1").arg(m_width));
-    tag.appendChild(text);
-
+    doc->writeTextElement(KXMLQLCWidgetWidth, QString::number(m_width));
     /* H */
-    tag = doc->createElement(KXMLQLCWidgetHeight);
-    prop_root.appendChild(tag);
-    text = doc->createTextNode(QString("%1").arg(m_height));
-    tag.appendChild(text);
-
+    doc->writeTextElement(KXMLQLCWidgetHeight, QString::number(m_height));
     /* Window state */
-    tag = doc->createElement(KXMLQLCWidgetState);
-    prop_root.appendChild(tag);
-    text = doc->createTextNode(QString("%1").arg(m_state));
-    tag.appendChild(text);
-
+    doc->writeTextElement(KXMLQLCWidgetState, QString::number(m_state));
     /* Visible state */
-    tag = doc->createElement(KXMLQLCWidgetVisible);
-    prop_root.appendChild(tag);
-    text = doc->createTextNode(QString("%1").arg(m_visible));
-    tag.appendChild(text);
+    doc->writeTextElement(KXMLQLCWidgetVisible, QString::number(m_visible));
+
+    /* End the <WidgetProperties> tag */
+    doc->writeEndElement();
 
     return true;
 }

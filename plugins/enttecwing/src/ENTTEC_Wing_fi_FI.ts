@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="fi_FI">
+<TS version="2.1" language="fi_FI">
 <context>
     <name>EnttecWing</name>
     <message>
-        <location filename="enttecwing.cpp" line="113"/>
+        <location filename="enttecwing.cpp" line="128"/>
         <source>This plugin provides input support for Enttec Playback and Enttec Shortcut Wings.</source>
         <translation type="unfinished">Tämä liitännäinen tuottaa sisääntulotuen Enttec Playback ja Enttec Shortcut Wing-tuotteille.</translation>
     </message>
     <message>
-        <location filename="enttecwing.cpp" line="130"/>
+        <location filename="enttecwing.cpp" line="145"/>
         <source>Unable to bind to UDP port %1:</source>
         <translation type="unfinished">UDP-porttiin %1: ei voida kytkeytyä:</translation>
     </message>
     <message>
-        <location filename="enttecwing.cpp" line="137"/>
+        <location filename="enttecwing.cpp" line="152"/>
         <source>Listening to UDP port %1.</source>
         <translation type="unfinished">Kuunnellaan UDP-porttia %1.</translation>
     </message>
@@ -22,7 +22,7 @@
 <context>
     <name>PlaybackWing</name>
     <message>
-        <location filename="playbackwing.cpp" line="181"/>
+        <location filename="playbackwing.cpp" line="184"/>
         <source>at</source>
         <translation type="unfinished">osoitteessa</translation>
     </message>

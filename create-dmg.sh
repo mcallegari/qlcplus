@@ -1,28 +1,23 @@
 #!/bin/bash
-VERSION=`head -1 debian/changelog | sed 's/.*(\(.*\)).*/\1/'`
-
-#if [ -e "/var/db/receipts/com.apple.pkg.Rosetta.plist" ]; then
-#    echo Rosetta installed. OK to continue.
-#else
-#    echo You need to install Rosetta from your Snow Leopard Install DVD!
-#    exit 1
-#fi
+#VERSION=$(head -1 debian/changelog | sed 's/.*(\(.*\)).*/\1/')
+VERSION=$(grep -m 1 APPVERSION variables.pri | cut -d '=' -f 2 | sed -e 's/^[[:space:]]*//' | tr ' ' _ | tr -d '\r\n')
 
 # Compile translations
 ./translate.sh
 
 # Build
 if [ -n "$QTDIR" ]; then
-    $QTDIR/bin/qmake
+    $QTDIR/bin/qmake $1
     make distclean
-    $QTDIR/bin/qmake
+    $QTDIR/bin/qmake $1
 else
     qmake -spec macx-g++
     make distclean
     qmake -spec macx-g++
 fi
 
-make
+make -j4
+
 if [ ! $? -eq 0 ]; then
     echo Compiler error. Aborting package creation.
     exit $?
@@ -36,11 +31,12 @@ if [ ! $? -eq 0 ]; then
 fi
 
 # Create Apple Disk iMaGe from ~/QLC+.app/
-cd dmg
+OUTDIR=$PWD
+cd platforms/macos/dmg
 ./create-dmg --volname "Q Light Controller Plus $VERSION" \
 	     --background background.png \
 	     --window-size 300 225 \
 	     --icon-size 128 --icon "qlcplus" 150 16 \
-	     QLC+_$VERSION.dmg \
+             $OUTDIR/QLC+_$VERSION.dmg \
 	     ~/QLC+.app
-cd ..
+cd -

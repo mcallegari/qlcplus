@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   vcbutton.h
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -25,9 +26,10 @@
 #include <QIcon>
 
 #include "vcwidget.h"
+#include "function.h"
 
-class QDomDocument;
-class QDomElement;
+class QXmlStreamReader;
+class QXmlStreamWriter;
 class QMouseEvent;
 class QPaintEvent;
 class VCButton;
@@ -103,8 +105,11 @@ public:
      * Background image
      *********************************************************************/
 public:
-    /* Don't allow background image setting for buttons */
+    /** Set the button's background image */
     void setBackgroundImage(const QString& path);
+
+protected:
+    QPixmap m_bgPixmap;
 
     /*********************************************************************
      * Background color
@@ -136,21 +141,19 @@ public:
      * Button icon
      *********************************************************************/
 public:
-
     /** Get the button icon's path
         @return absolute path
      */
     QString iconPath() const;
 
-    /** Set the icon's path 
-     */
+    /** Set the icon's path */
     void setIconPath(const QString& iconPath);
 
 private:
 
     /** Reload icon file from disk */
     void updateIcon();
-    
+
 public slots:
     void slotChooseIcon();
     void slotResetIcon();
@@ -184,26 +187,40 @@ public:
     quint32 function() const;
 
     /** @reimp */
-    virtual void notifyFunctionStarting(quint32 fid);
+    void adjustFunctionIntensity(Function *f, qreal value);
+
+    /** @reimp */
+    virtual void notifyFunctionStarting(quint32 fid, qreal intensity);
 
 protected slots:
     /** Invalidates the button's function if the function is destroyed */
     void slotFunctionRemoved(quint32 fid);
 
 protected:
-    /** The function that this button is controlling */
+    /** ID of the Function that this button is controlling */
     quint32 m_function;
 
     /*********************************************************************
      * Button state
      *********************************************************************/
 public:
-    void setOn(bool on);
-    bool isOn() const;
-    void updateOnState();
+    enum ButtonState
+    {
+        Inactive,
+        Monitoring,
+        Active
+    };
+
+    void setState(ButtonState state);
+    ButtonState state() const;
+    void updateState();
+
+signals:
+    /** Signal emitted when the button has actually changed the graphic state */
+    void stateChanged(int state);
 
 protected:
-    bool m_on;
+    ButtonState m_state;
     bool m_ledStyle;
 
     /*********************************************************************
@@ -303,6 +320,9 @@ public:
     /** Blink the button for $ms milliseconds */
     void blink(int ms);
 
+private:
+    FunctionParent functionParent() const;
+
 protected slots:
     /** Handler for function running signal */
     void slotFunctionRunning(quint32 fid);
@@ -322,10 +342,6 @@ protected slots:
 protected:
     /** Check if the button's parent is a VCSoloFrame */
     bool isChildOfSoloFrame() const;
-
-signals:
-    /** Signal emitted when the button has actually changed the graphic state */
-    void pressedState(bool on);
 
     /*********************************************************************
     * Custom menu
@@ -352,7 +368,7 @@ public:
      * @param btn_root A VCButton XML root node containing button properties
      * @return true if successful; otherwise false
      */
-    bool loadXML(const QDomElement* btn_root);
+    bool loadXML(QXmlStreamReader &root);
 
     /**
      * Save a VCButton's properties to an XML document node
@@ -360,7 +376,7 @@ public:
      * @param doc The master XML document to save to
      * @param frame_root The button's VCFrame XML parent node to save to
      */
-    bool saveXML(QDomDocument* doc, QDomElement* frame_root);
+    bool saveXML(QXmlStreamWriter *doc);
 
     /*********************************************************************
      * Event Handlers

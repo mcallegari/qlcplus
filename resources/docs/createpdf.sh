@@ -1,12 +1,14 @@
 #
 # QLC+ documentation PDF creation through wkhtmltopdf utility downloaded from:
 #
-# https://code.google.com/p/wkhtmltopdf/downloads/detail?name=wkhtmltopdf-0.11.0_rc1-static-i386.tar.bz2
+# http://download.gna.org/wkhtmltopdf/0.12/0.12.3/wkhtmltox-0.12.3_linux-generic-amd64.tar.xz
 #
 # and copied in /usr/bin
 #
 
-wkhtmltopdf-amd64 --footer-center "Page [page]" --image-quality 100 \
+cd $1
+
+wkhtmltopdf --footer-center "Page [page]" --image-quality 100 \
   pdf_cover.html \
   index_pdf.html \
   concept.html \
@@ -33,6 +35,8 @@ wkhtmltopdf-amd64 --footer-center "Page [page]" --image-quality 100 \
   rgbmatrixeditor.html \
   rgbscriptapi.html \
   scripteditor.html \
+  audioeditor.html \
+  videoeditor.html \
   functionwizard.html \
   selectfunction.html \
   selectfixture.html \
@@ -55,6 +59,8 @@ wkhtmltopdf-amd64 --footer-center "Page [page]" --image-quality 100 \
   simpledesk.html \
   howto-input-output-mapping.html \
   howto-input-profiles.html \
+  audio-input-output.html \
+  supported-input-devices.html \
   artnetplugin.html \
   dmxusbplugin.html \
   e131plugin.html \
@@ -77,10 +83,13 @@ wkhtmltopdf-amd64 --footer-center "Page [page]" --image-quality 100 \
   tutorial-multipage.html \
   tutorial-soundcontrol.html \
   tutorial-bcf-lc2412.html \
-  tutorial-mixxx.html \
   commandlineparameters.html \
   kioskmode.html \
   webinterface.html \
+  disable_apple_ftdi_driver.html \
   parameterstuning.html \
   guicustomstyles.html \
   QLC+.pdf
+
+cd -
+mv $1/QLC+.pdf QLC+_manual_$1.pdf

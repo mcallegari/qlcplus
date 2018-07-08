@@ -66,7 +66,7 @@ PlaybackSlider::PlaybackSlider(QWidget* parent)
     //m_slider->setTickInterval(16);
     //m_slider->setTickPosition(QSlider::TicksBothSides);
     m_slider->setFixedWidth(32);
-    m_slider->setStyleSheet(CNG_DEFAULT_STYLE);
+    m_slider->setSliderStyleSheet(CNG_DEFAULT_STYLE);
     layout()->addWidget(m_slider);
     layout()->setAlignment(m_slider, Qt::AlignHCenter);
     connect(m_slider, SIGNAL(valueChanged(int)), this, SLOT(slotSliderChanged(int)));

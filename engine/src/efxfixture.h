@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   efxfixture.h
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -20,6 +21,7 @@
 #ifndef EFXFIXTURE_H
 #define EFXFIXTURE_H
 
+#include <QImage>
 #include "function.h"
 #include "grouphead.h"
 
@@ -29,6 +31,7 @@ class EFXFixture;
 class Scene;
 class EFX;
 class Doc;
+class QImage;
 
 /** @addtogroup engine_functions Functions
  * @{
@@ -37,13 +40,26 @@ class Doc;
 #define KXMLQLCEFXFixture "Fixture"
 #define KXMLQLCEFXFixtureID "ID"
 #define KXMLQLCEFXFixtureHead "Head"
+#define KXMLQLCEFXFixtureMode "Mode"
 #define KXMLQLCEFXFixtureDirection "Direction"
 #define KXMLQLCEFXFixtureStartOffset "StartOffset"
 #define KXMLQLCEFXFixtureIntensity "Intensity"
 
+#define KXMLQLCEFXFixtureModePanTilt "Position"
+#define KXMLQLCEFXFixtureModeDimmer "Dimmer"
+#define KXMLQLCEFXFixtureModeRGB "RGB"
+
 class EFXFixture
 {
     friend class EFX;
+
+public:
+    enum Mode
+    {
+        PanTilt,
+        Dimmer,
+        RGB
+    };
 
     /*************************************************************************
      * Initialization
@@ -84,17 +100,11 @@ public:
     /** Get this fixture's start offset */
     int startOffset() const;
 
-    /**
-     * Set a value to fade the fixture's intensity channel(s) to
-     * during start().
-     */
-    void setFadeIntensity(uchar value);
+    /** Set the parameter(s) that this efx will animate (ie. dimmer, RGB, ...) */
+    void setMode(Mode mode);
 
-    /**
-     * Get the value to fade the fixture's intensity channel(s) to
-     * during start().
-     */
-    uchar fadeIntensity() const;
+    /** Get the parameter(s) that this efx will animate (ie. dimmer, RGB, ...) */
+    Mode mode() const;
 
     /**
      * Check that this object has a fixture ID and at least LSB channel
@@ -103,19 +113,29 @@ public:
     bool isValid() const;
 
     void durationChanged();
+
+public:
+    /** Get the supported mode for this fixture in a string list */
+    QStringList modeList();
+
+    /** Convert a mode to a string */
+    static QString modeToString(Mode algo);
+
+    /** Convert a string to an mode type */
+    static Mode stringToMode(const QString& str);
  
 private:
     GroupHead m_head;
     Function::Direction m_direction;
     int m_startOffset;
-    uchar m_fadeIntensity;
+    Mode m_mode;
 
     /*************************************************************************
      * Load & Save
      *************************************************************************/
 public:
-    bool loadXML(const QDomElement& root);
-    bool saveXML(QDomDocument* doc, QDomElement* efx_root) const;
+    bool loadXML(QXmlStreamReader &root);
+    bool saveXML(QXmlStreamWriter *doc) const;
 
     /*************************************************************************
      * Run-time properties
@@ -154,14 +174,11 @@ private:
     /** Indicates, whether start() has been called for this fixture */
     bool m_started;
 
-    /** Elapsed milliseconds since last reset() or durationChanged() */
+    /** Elapsed milliseconds since last reset() */
     uint m_elapsed;
 
-    /** 0..M_PI*2, the position is stored when speed changes, to make the transition smooth */
-    qreal m_startAngle;
-
     /** 0..M_PI*2, current position, recomputed on each timer tick; depends on elapsed() and parent->duration() */
-    qreal m_currentAngle;
+    float m_currentAngle;
 
     /*************************************************************************
      * Running
@@ -171,7 +188,9 @@ private:
     void nextStep(MasterTimer* timer, QList<Universe *> universes);
 
     /** Write this EFXFixture's channel data to universes */
-    void setPoint(QList<Universe *> universes, qreal pan, qreal tilt);
+    void setPointPanTilt(QList<Universe *> universes, float pan, float tilt);
+    void setPointDimmer(QList<Universe *> universes, float dimmer);
+    void setPointRGB (QList<Universe *> universes, float x, float y);
 
     /* Run the start scene if necessary */
     void start(MasterTimer* timer, QList<Universe *> universes);
@@ -179,26 +198,10 @@ private:
     /* Run the stop scene if necessary */
     void stop(MasterTimer* timer, QList<Universe *> universes);
 
-    /*************************************************************************
-     * Intensity adjustment
-     *************************************************************************/
-public:
-    /**
-     * Adjust the intensity of the fixture by a fraction.
-     *
-     * @param fraction Intensity fraction 0.0 - 1.0
-     */
-    void adjustIntensity(qreal fraction);
-
-    /**
-     * Get the adjusted intensity percentage
-     *
-     * @return Intensity 0.0 - 1.0
-     */
-    qreal intensity() const;
-
 private:
-    qreal m_intensity;
+    static QImage m_rgbGradient;
+
+    void setFadeChannel(quint32 nChannel, uchar val);
 };
 
 /** @} */

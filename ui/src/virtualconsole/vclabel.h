@@ -2,7 +2,9 @@
   Q Light Controller Plus
   vclabel.h
 
-  Copyright (c) Heikki Junnila, Stefan Krumm
+  Copyright (c) Heikki Junnila
+                Stefan Krumm
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -22,8 +24,8 @@
 
 #include "vcwidget.h"
 
-class QDomDocument;
-class QDomElement;
+class QXmlStreamReader;
+class QXmlStreamWriter;
 class QPaintEvent;
 class Doc;
 
@@ -67,8 +69,8 @@ public:
      * Load & Save
      *********************************************************************/
 public:
-    bool loadXML(const QDomElement* root);
-    bool saveXML(QDomDocument* doc, QDomElement* vc_root);
+    bool loadXML(QXmlStreamReader &root);
+    bool saveXML(QXmlStreamWriter *doc);
 
     /*********************************************************************
      * Painting

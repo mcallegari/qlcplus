@@ -1,8 +1,9 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   collection.h
 
   Copyright (c) Heikki Junnila
+                Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -26,11 +27,17 @@
 
 #include "function.h"
 
-class QDomDocument;
+class QXmlStreamReader;
 
 /** @addtogroup engine_functions Functions
  * @{
  */
+
+typedef struct
+{
+    quint32 m_id;
+    int m_intensityId;
+} ChildFunction;
 
 class Collection : public Function
 {
@@ -44,11 +51,17 @@ public:
     Collection(Doc* doc);
     virtual ~Collection();
 
+    /** @reimp */
+    QIcon getIcon() const;
+
+    /** @reimp */
+    quint32 totalDuration();
+
     /*********************************************************************
      * Copying
      *********************************************************************/
 public:
-    /** @reimpl */
+    /** @reimp */
     Function* createCopy(Doc* doc, bool addToDoc = true);
 
     /** Copy the contents for this function from another function */
@@ -65,7 +78,7 @@ public:
      * @param fid The function to add
      * @return true if successful, otherwise false
      */
-    bool addFunction(quint32 fid);
+    bool addFunction(quint32 fid, int insertIndex = -1);
 
     /**
      * Remove a function from this collection. If the function is not a
@@ -81,13 +94,21 @@ public:
      */
     QList <quint32> functions() const;
 
+signals:
+    void functionsChanged();
+
 public slots:
     /** Catches Doc::functionRemoved() so that destroyed members can be
         removed immediately. */
     void slotFunctionRemoved(quint32 function);
 
 protected:
+    /** The list of Function IDs added to this Collection */
     QList <quint32> m_functions;
+    /** A list of intesity attribute override IDs populated when this Collection is
+     *  started and cleaned when it's stopped */
+    QList <int> m_intensityOverrideIds;
+
     mutable QMutex m_functionListMutex;
 
     /*********************************************************************
@@ -95,20 +116,33 @@ protected:
      *********************************************************************/
 public:
     /** Save function's contents to an XML document */
-    bool saveXML(QDomDocument* doc, QDomElement* wksp_root);
+    bool saveXML(QXmlStreamWriter *doc);
 
     /** Load function's contents from an XML document */
-    bool loadXML(const QDomElement& root);
+    bool loadXML(QXmlStreamReader &root);
 
     /** @reimp */
     void postLoad();
 
+public:
+    /** @reimp */
+    bool contains(quint32 functionId);
+
+    /** @reimp */
+    QList<quint32> components();
+
     /*********************************************************************
      * Running
      *********************************************************************/
+private:
+    FunctionParent functionParent() const;
+
 public:
     /** @reimpl */
     void preRun(MasterTimer* timer);
+
+    /** @reimpl */
+    void setPause(bool enable);
 
     /** @reimpl */
     void write(MasterTimer* timer, QList<Universe *> universes);
@@ -120,9 +154,27 @@ protected slots:
     /** Called whenever one of this function's child functions stops */
     void slotChildStopped(quint32 fid);
 
+    /** Called whenever one of this function's child functions stops */
+    void slotChildStarted(quint32 fid);
+
 protected:
     /** Number of currently running children */
     QSet <quint32> m_runningChildren;
+    unsigned int m_tick;
+
+    /*************************************************************************
+     * Intensity
+     *************************************************************************/
+public:
+    /** @reimp */
+    int adjustAttribute(qreal fraction, int attributeId);
+
+    /*************************************************************************
+     * Blend mode
+     *************************************************************************/
+public:
+    /** @reimp */
+    void setBlendMode(Universe::BlendMode mode);
 };
 
 /** @} */
