@@ -104,7 +104,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/ActionsMenu.qml" line="419"/>
         <source>Language</source>
-        <translation type="unfinished">Langue (Language)</translation>
+        <translation>Langue (Language)</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="446"/>
@@ -192,7 +192,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/AddFunctionMenu.qml" line="93"/>
         <source>New Show</source>
-        <translation type="unfinished">Nouveau spectacle</translation>
+        <translation>Nouveau spectacle</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/AddFunctionMenu.qml" line="99"/>
@@ -202,12 +202,12 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/AddFunctionMenu.qml" line="105"/>
         <source>New Audio</source>
-        <translation type="unfinished">Nouvelle piste audio</translation>
+        <translation>Nouvelle piste audio</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/AddFunctionMenu.qml" line="111"/>
         <source>New Video</source>
-        <translation type="unfinished">Nouvelle piste vidéo</translation>
+        <translation>Nouvelle piste vidéo</translation>
     </message>
 </context>
 <context>
@@ -260,7 +260,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/AudioEditor.qml" line="228"/>
         <source>Looped</source>
-        <translation type="unfinished">Boucle</translation>
+        <translation>Boucle</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/AudioEditor.qml" line="235"/>
@@ -1726,7 +1726,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/popup/PopupDMXDump.qml" line="134"/>
         <source>Intensity</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Intensité</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupDMXDump.qml" line="152"/>
@@ -2098,7 +2098,7 @@ Access level:</source>
     <message>
         <location filename="qml/fixturesfunctions/PositionTool.qml" line="79"/>
         <source>Position</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Position</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/PositionTool.qml" line="99"/>
@@ -2737,12 +2737,12 @@ Access level:</source>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="190"/>
         <source>Intensity</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Intensité</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="215"/>
         <source>Position</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Position</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="277"/>
@@ -2896,7 +2896,7 @@ Access level:</source>
     <message>
         <location filename="qml/TimeEditTool.qml" line="171"/>
         <source>Tap</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tap</translation>
     </message>
 </context>
 <context>
@@ -3961,7 +3961,7 @@ Access level:</source>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="344"/>
         <source>Position</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Position</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="380"/>
@@ -4064,7 +4064,7 @@ Access level:</source>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="239"/>
         <source>&lt;None&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;None&gt;</translation>
     </message>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="1122"/>
