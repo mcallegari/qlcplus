@@ -36,16 +36,7 @@
 
 #define ARTNET_PORT      6454
 
-typedef struct
-{
-    ushort inputUniverse;
-
-    QHostAddress outputAddress;
-    ushort outputUniverse;
-    int outputTransmissionMode;
-
-    int type;
-} UniverseInfo;
+struct UniverseInfo;
 
 class ArtNetController : public QObject
 {
@@ -189,6 +180,21 @@ protected slots:
 
 signals:
     void valueChanged(quint32 universe, quint32 input, quint32 channel, uchar value);
+};
+
+struct UniverseInfo
+{
+    ushort inputUniverse;
+
+    QHostAddress outputAddress;
+    ushort outputUniverse;
+    int outputTransmissionMode;
+
+    int type;
+
+    bool has(ArtNetController::Type) const;
+    void add(ArtNetController::Type);
+    void remove(ArtNetController::Type);
 };
 
 #endif

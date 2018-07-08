@@ -128,7 +128,7 @@ void ConfigureArtNet::fillMappingTree()
         {
             UniverseInfo *info = controller->getUniverseInfo(universe);
 
-            if (info->type & ArtNetController::Input)
+            if (info->has(ArtNetController::Input))
             {
                 QTreeWidgetItem *item = new QTreeWidgetItem(inputItem);
                 item->setData(KMapColumnInterface, PROP_UNIVERSE, universe);
@@ -144,7 +144,7 @@ void ConfigureArtNet::fillMappingTree()
                 spin->setValue(info->inputUniverse);
                 m_uniMapTree->setItemWidget(item, KMapColumnArtNetUni, spin);
             }
-            if (info->type & ArtNetController::Output)
+            if (info->has(ArtNetController::Output))
             {
                 QTreeWidgetItem *item = new QTreeWidgetItem(outputItem);
                 item->setData(KMapColumnInterface, PROP_UNIVERSE, universe);

@@ -108,7 +108,7 @@ void ArtNetController::addUniverse(quint32 universe, ArtNetController::Type type
     qDebug() << "[ArtNet] addUniverse - universe" << universe << ", type" << type;
     if (m_universeMap.contains(universe))
     {
-        m_universeMap[universe].type |= (int)type;
+        m_universeMap[universe].add(type);
     }
     else
     {
@@ -138,10 +138,10 @@ void ArtNetController::removeUniverse(quint32 universe, ArtNetController::Type t
 {
     if (m_universeMap.contains(universe))
     {
-        if (m_universeMap[universe].type == type)
+        m_universeMap[universe].remove(type);
+
+        if (m_universeMap[universe].type == Unknown)
             m_universeMap.take(universe);
-        else
-            m_universeMap[universe].type &= ~type;
 
         if (type == Output && ((this->type() & Output) == 0))
         {
@@ -349,7 +349,7 @@ bool ArtNetController::handleArtNetDmx(QByteArray const& datagram, QHostAddress 
         quint32 universe = it.key();
         UniverseInfo const& info = it.value();
 
-        if ((info.type & Input) && info.inputUniverse == artnetUniverse)
+        if ((info.has(Input)) && info.inputUniverse == artnetUniverse)
         {
             QByteArray *dmxValues;
             if (m_dmxValuesMap.contains(universe) == false)
@@ -439,3 +439,19 @@ void ArtNetController::slotSendPoll()
         m_packetSent++;
 #endif
 }
+
+bool UniverseInfo::has(ArtNetController::Type type) const
+{
+    return (this->type & type) == type;
+}
+
+void UniverseInfo::add(ArtNetController::Type type)
+{
+    this->type |= type;
+}
+
+void UniverseInfo::remove(ArtNetController::Type type)
+{
+    this->type &= ~type;
+}
+
