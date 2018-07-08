@@ -104,7 +104,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/ActionsMenu.qml" line="419"/>
         <source>Language</source>
-        <translation>Langue (Language)</translation>
+        <translation>Langue</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="446"/>
@@ -114,12 +114,12 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/ActionsMenu.qml" line="453"/>
         <source>Dutch</source>
-        <translation type="unfinished">Dutch</translation>
+        <translation>Néérlandais</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="460"/>
         <source>English</source>
-        <translation>English</translation>
+        <translation>Anglais</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="467"/>
@@ -129,22 +129,22 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/ActionsMenu.qml" line="474"/>
         <source>German</source>
-        <translation type="unfinished">German</translation>
+        <translation>Allemand</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="481"/>
         <source>Italian</source>
-        <translation type="unfinished">Italian</translation>
+        <translation>Italien</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="488"/>
         <source>Japanese</source>
-        <translation type="unfinished">Japanese</translation>
+        <translation>Japonais</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="495"/>
         <source>Spanish</source>
-        <translation>Español</translation>
+        <translation>Espagnol</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="506"/>
