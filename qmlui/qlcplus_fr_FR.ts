@@ -352,7 +352,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="176"/>
         <source>Ping Pong</source>
-        <translation type="unfinished">Ping Pong</translation>
+        <translation>Ping Pong</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="177"/>
@@ -811,17 +811,17 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="812"/>
         <source>Run Order</source>
-        <translation type="unfinished">Ordre d&apos;exécution</translation>
+        <translation>Ordre d&apos;exécution</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="821"/>
         <source>Forward</source>
-        <translation type="unfinished">Avant</translation>
+        <translation>Avant</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="822"/>
         <source>Backward</source>
-        <translation type="unfinished">Arrière</translation>
+        <translation>Arrière</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="831"/>
@@ -936,17 +936,17 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupEditor.qml" line="131"/>
         <source>Rotate 90° clockwise</source>
-        <translation type="unfinished">Tourner de 90° (horaire)</translation>
+        <translation>Tourner de 90° (horaire)</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupEditor.qml" line="140"/>
         <source>Rotate 180° clockwise</source>
-        <translation type="unfinished">Tourner de 180° (horaire)</translation>
+        <translation>Tourner de 180° (horaire)</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupEditor.qml" line="149"/>
         <source>Rotate 270° clockwise</source>
-        <translation type="unfinished">Tourner de 180° (horaire)</translation>
+        <translation>Tourner de 180° (horaire)</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupEditor.qml" line="158"/>
@@ -994,7 +994,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="256"/>
         <source>Name</source>
-        <translation type="unfinished">Nom</translation>
+        <translation>Nom</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="258"/>
@@ -1249,7 +1249,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/FixturesAndFunctions.qml" line="233"/>
         <source>Show/hide the view settings</source>
-        <translation type="unfinished">Montrer/Cacher les paramètres de vue</translation>
+        <translation>Montrer/Cacher les paramètres de vue</translation>
     </message>
 </context>
 <context>
@@ -1257,7 +1257,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/FunctionManager.qml" line="100"/>
         <source>Scenes</source>
-        <translation type="unfinished"></translation>
+        <translation>Scènes</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FunctionManager.qml" line="112"/>
@@ -1267,42 +1267,42 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/FunctionManager.qml" line="124"/>
         <source>Sequences</source>
-        <translation type="unfinished"></translation>
+        <translation>Séquences</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FunctionManager.qml" line="136"/>
         <source>EFX</source>
-        <translation type="unfinished"></translation>
+        <translation>EFX</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FunctionManager.qml" line="148"/>
         <source>Collections</source>
-        <translation type="unfinished"></translation>
+        <translation>Collections</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FunctionManager.qml" line="160"/>
         <source>RGB Matrices</source>
-        <translation type="unfinished"></translation>
+        <translation>Matrices RVB</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FunctionManager.qml" line="172"/>
         <source>Shows</source>
-        <translation type="unfinished"></translation>
+        <translation>Spectacles</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FunctionManager.qml" line="184"/>
         <source>Scripts</source>
-        <translation type="unfinished"></translation>
+        <translation>Scripts</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FunctionManager.qml" line="196"/>
         <source>Audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FunctionManager.qml" line="208"/>
         <source>Videos</source>
-        <translation type="unfinished"></translation>
+        <translation>Vidéos</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FunctionManager.qml" line="225"/>
@@ -1312,67 +1312,67 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="functionmanager.cpp" line="137"/>
         <source>&lt;None&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;None&gt;</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="248"/>
         <source>New Scene</source>
-        <translation type="unfinished">Nouvelle scène</translation>
+        <translation>Nouvelle scène</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="256"/>
         <source>New Chaser</source>
-        <translation type="unfinished">Nouveau chaser</translation>
+        <translation>Nouveau chaser</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="278"/>
         <source>New Sequence</source>
-        <translation type="unfinished">Nouvelle séquence</translation>
+        <translation>Nouvelle séquence</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="291"/>
         <source>New EFX</source>
-        <translation type="unfinished">Nouvel EFX</translation>
+        <translation>Nouvel EFX</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="299"/>
         <source>New Collection</source>
-        <translation type="unfinished">Nouvelle collection</translation>
+        <translation>Nouvelle collection</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="314"/>
         <source>New RGB Matrix</source>
-        <translation type="unfinished">Nouvelle matrice RGB</translation>
+        <translation>Nouvelle matrice RGB</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="322"/>
         <source>New Script</source>
-        <translation type="unfinished">Nouveau script</translation>
+        <translation>Nouveau script</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="330"/>
         <source>New Show</source>
-        <translation type="unfinished">Nouveau spectacle</translation>
+        <translation>Nouveau spectacle</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="337"/>
         <source>New Audio</source>
-        <translation type="unfinished">Nouvelle piste audio</translation>
+        <translation>Nouvelle piste audio</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="369"/>
         <source>New Video</source>
-        <translation type="unfinished">Nouvelle piste vidéo</translation>
+        <translation>Nouvelle piste vidéo</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="755"/>
         <source> (Copy)</source>
-        <translation type="unfinished"></translation>
+        <translation> (Copie)</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="931"/>
         <source>New folder</source>
-        <translation type="unfinished">Nouveau dossier</translation>
+        <translation>Nouveau dossier</translation>
     </message>
 </context>
 <context>
