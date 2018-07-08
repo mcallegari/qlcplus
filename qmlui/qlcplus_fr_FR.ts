@@ -1234,22 +1234,22 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/FixturesAndFunctions.qml" line="146"/>
         <source>DMX View</source>
-        <translation type="unfinished"></translation>
+        <translation>Vue DMX</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixturesAndFunctions.qml" line="162"/>
         <source>2D View</source>
-        <translation type="unfinished"></translation>
+        <translation>Vue 2D</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixturesAndFunctions.qml" line="179"/>
         <source>3D View</source>
-        <translation type="unfinished"></translation>
+        <translation>Vue 3D</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixturesAndFunctions.qml" line="233"/>
         <source>Show/hide the view settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Montrer/Cacher les paramètres de vue</translation>
     </message>
 </context>
 <context>
