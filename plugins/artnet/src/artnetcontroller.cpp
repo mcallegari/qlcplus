@@ -124,35 +124,44 @@ void ArtNetController::addUniverse(quint32 universe, ArtNetController::Type type
     }
 
     // send Polls if we open an Output
-    if (type == Output && m_pollTimer == NULL)
-    {
-        slotSendPoll();
+    if (type == Output)
+        startPollTimer();
+}
 
-        m_pollTimer = new QTimer(this);
-        m_pollTimer->setInterval(5000);
-        connect(m_pollTimer, SIGNAL(timeout()),
-                this, SLOT(slotSendPoll()));
-        m_pollTimer->start();
-    }
+void ArtNetController::startPollTimer()
+{
+    if (m_pollTimer != NULL)
+        return;
+
+    slotSendPoll();
+
+    m_pollTimer = new QTimer(this);
+    m_pollTimer->setInterval(5000);
+    connect(m_pollTimer, SIGNAL(timeout()),
+            this, SLOT(slotSendPoll()));
+    m_pollTimer->start();
 }
 
 void ArtNetController::removeUniverse(quint32 universe, ArtNetController::Type type)
 {
-    if (m_universeMap.contains(universe))
-    {
-        m_universeMap[universe].remove(type);
+    if (!m_universeMap.contains(universe))
+        return;
 
-        if (m_universeMap[universe].type == Unknown)
-            m_universeMap.take(universe);
+    m_universeMap[universe].remove(type);
 
-        if (type == Output && !has(Output))
-        {
-            disconnect(m_pollTimer, SIGNAL(timeout()),
-                       this, SLOT(slotSendPoll()));
-            delete m_pollTimer;
-            m_pollTimer = NULL;
-        }
-    }
+    if (m_universeMap[universe].type == Unknown)
+        m_universeMap.take(universe);
+
+    if (type == Output && !has(Output))
+        stopPollTimer();
+}
+
+void ArtNetController::stopPollTimer()
+{
+    disconnect(m_pollTimer, SIGNAL(timeout()),
+            this, SLOT(slotSendPoll()));
+    delete m_pollTimer;
+    m_pollTimer = NULL;
 }
 
 bool ArtNetController::setInputUniverse(quint32 universe, quint32 artnetUni)

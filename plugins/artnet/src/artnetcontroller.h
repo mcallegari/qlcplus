@@ -165,6 +165,9 @@ private:
     QTimer* m_pollTimer;
 
 private:
+    void startPollTimer();
+    void stopPollTimer();
+
     bool handleArtNetPollReply(QByteArray const& datagram, QHostAddress const& senderAddress);
     bool handleArtNetPoll(QByteArray const& datagram, QHostAddress const& senderAddress);
     bool handleArtNetDmx(QByteArray const& datagram, QHostAddress const& senderAddress);
