@@ -56,8 +56,8 @@ class FixtureManager : public QObject
     Q_PROPERTY(QVariantList shutterChannels READ shutterChannels NOTIFY shutterChannelsChanged)
     Q_PROPERTY(int colorsMask READ colorsMask NOTIFY colorsMaskChanged)
 
-    Q_PROPERTY(QStringList colorFiltersList READ colorFiltersList NOTIFY colorFiltersListChanged)
-    Q_PROPERTY(int colorFilterIndex READ colorFilterIndex WRITE setColorFilterIndex NOTIFY colorFilterIndexChanged)
+    Q_PROPERTY(QStringList colorFiltersFileList READ colorFiltersFileList NOTIFY colorFiltersFileListChanged)
+    Q_PROPERTY(int colorFilterFileIndex READ colorFilterFileIndex WRITE setColorFilterFileIndex NOTIFY colorFilterFileIndexChanged)
     Q_PROPERTY(ColorFilters *selectedFilters READ selectedFilters NOTIFY selectedFiltersChanged)
 
 public:
@@ -318,14 +318,14 @@ private:
      *********************************************************************/
 public:
     /** Returns a list of the currently installed color filters XMLs */
-    QStringList colorFiltersList();
+    QStringList colorFiltersFileList();
 
     /** Create a new empty color filters file in the user folder */
-    Q_INVOKABLE void createColorFilters();
+    Q_INVOKABLE void addColorFiltersFile();
 
-    /** Get/Set the currently selected color filter index */
-    int colorFilterIndex() const;
-    void setColorFilterIndex(int colorFilterIndex);
+    /** Get/Set the currently selected color filter file index */
+    int colorFilterFileIndex() const;
+    void setColorFilterFileIndex(int index);
 
     /** Return a refererence to the currently selected color filters */
     ColorFilters *selectedFilters();
@@ -345,13 +345,13 @@ protected:
     void resetColorFilters();
 
 signals:
-    void colorFiltersListChanged();
-    void colorFilterIndexChanged(int colorFilterIndex);
+    void colorFiltersFileListChanged();
+    void colorFilterFileIndexChanged(int index);
     void selectedFiltersChanged();
 
 private:
     QList<ColorFilters *> m_colorFilters;
-    int m_colorFilterIndex;
+    int m_colorFiltersFileIndex;
 
     /*********************************************************************
      * Channel capabilities
