@@ -1436,12 +1436,12 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="inputoutputmanager.cpp" line="46"/>
         <source>Input/Output Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Manager d&apos;Entrée/Sortie</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="91"/>
         <source>All universes</source>
-        <translation type="unfinished"></translation>
+        <translation>Tous les univers</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="222"/>
@@ -1450,17 +1450,17 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
         <location filename="inputoutputmanager.cpp" line="316"/>
         <location filename="inputoutputmanager.cpp" line="635"/>
         <source>Default device</source>
-        <translation type="unfinished"></translation>
+        <translation>Périphérique par défaut</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="593"/>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Désactivé</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="602"/>
         <source>Internal generator</source>
-        <translation type="unfinished"></translation>
+        <translation>Générateur interne</translation>
     </message>
 </context>
 <context>
