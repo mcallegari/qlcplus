@@ -1468,7 +1468,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/inputoutput/InputPatchItem.qml" line="59"/>
         <source>Remove this input profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Retirer ce profil d&apos;entrée</translation>
     </message>
 </context>
 <context>
@@ -1476,7 +1476,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/IntensityTool.qml" line="62"/>
         <source>Intensity</source>
-        <translation type="unfinished"></translation>
+        <translation>Intensité</translation>
     </message>
 </context>
 <context>
