@@ -107,12 +107,11 @@ Rectangle
             {
                 z: 2
                 Layout.fillWidth: true
-                model: fixtureManager.colorFiltersList
-                currentIndex: fixtureManager.colorFilterIndex
+                model: fixtureManager.colorFiltersFileList
+                currentIndex: fixtureManager.colorFilterFileIndex
                 onCurrentIndexChanged:
                 {
-
-                    fixtureManager.colorFilterIndex = currentIndex
+                    fixtureManager.colorFilterFileIndex = currentIndex
                     rootBox.currentFilterIndex = 0
                 }
             }
@@ -379,7 +378,7 @@ Rectangle
                 entryText: qsTr("Add a new color filters file")
                 onClicked:
                 {
-                    fixtureManager.createColorFilters()
+                    fixtureManager.addColorFiltersFile()
                     rootBox.currentFilterIndex = -1
                     actionsMenu.close()
                 }
@@ -390,7 +389,7 @@ Rectangle
                 height: UISettings.listItemHeight
                 imgSource: "qrc:/rename.svg"
                 iconHeight: UISettings.listItemHeight
-                entryText: qsTr("Rename the current color filters")
+                entryText: qsTr("Rename the current color filters file")
                 enabled: cfRef && cfRef.isUser ? true : false
             }
 

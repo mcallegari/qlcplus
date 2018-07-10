@@ -144,6 +144,7 @@ lupdate_only {
 }
 
 TRANSLATIONS += \
+    qlcplus_ca_ES.ts \
     qlcplus_de_DE.ts \
     qlcplus_it_IT.ts
 

@@ -14,8 +14,8 @@
  <Channel Name="Tilt Continuous Rotation">
   <Group Byte="0">Tilt</Group>
   <Capability Min="0" Max="55">No Function</Capability>
-  <Capability Min="56" Max="127">Clockwise Rotation</Capability>
-  <Capability Min="128" Max="199">Counter-Clockwise Rotation</Capability>
+  <Capability Min="56" Max="127" Preset="RotationClockwise">Clockwise Rotation</Capability>
+  <Capability Min="128" Max="199" Preset="RotationCounterClockwise">Counter-Clockwise Rotation</Capability>
   <Capability Min="200" Max="255">No Function</Capability>
  </Channel>
  <Channel Name="Tilt Continuous Rotation Speed" Preset="SpeedTiltSlowFast"/>

@@ -17,16 +17,16 @@
  <Channel Name="Pan Continuous Rotation">
   <Group Byte="0">Pan</Group>
   <Capability Min="0" Max="127">No function</Capability>
-  <Capability Min="128" Max="189">Forward pan rotation, slow (128) to fast (189) </Capability>
-  <Capability Min="190" Max="193"> Stop</Capability>
-  <Capability Min="194" Max="255">Backward pan rotation, slow (194) to fast (255) </Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseSlowToFast">Forward pan rotation, slow (128) to fast (189) </Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Stop</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Backward pan rotation, slow (194) to fast (255) </Capability>
  </Channel>
  <Channel Name="Tilt Continuous Rotation">
   <Group Byte="0">Tilt</Group>
   <Capability Min="0" Max="127">No function</Capability>
-  <Capability Min="128" Max="189">Forward tilt rotation, slow (128) to fast (189) </Capability>
-  <Capability Min="190" Max="193"> Stop</Capability>
-  <Capability Min="194" Max="255">Backward tilt rotation, slow (194) to fast (255) </Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseSlowToFast">Forward tilt rotation, slow (128) to fast (189) </Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Stop</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Backward tilt rotation, slow (194) to fast (255) </Capability>
  </Channel>
  <Channel Name="Master Dimmer">
   <Group Byte="0">Intensity</Group>
