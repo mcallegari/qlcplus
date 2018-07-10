@@ -1616,7 +1616,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="mainview2d.cpp" line="43"/>
         <source>2D View</source>
-        <translation type="unfinished">Vue 2D</translation>
+        <translation>Vue 2D</translation>
     </message>
 </context>
 <context>
@@ -1624,27 +1624,27 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="mainview3d.cpp" line="51"/>
         <source>3D View</source>
-        <translation type="unfinished">Vue 3D</translation>
+        <translation>Vue 3D</translation>
     </message>
     <message>
         <location filename="mainview3d.cpp" line="57"/>
         <source>Simple ground</source>
-        <translation type="unfinished"></translation>
+        <translation>Sol simple</translation>
     </message>
     <message>
         <location filename="mainview3d.cpp" line="57"/>
         <source>Simple box</source>
-        <translation type="unfinished"></translation>
+        <translation>Boîte simple</translation>
     </message>
     <message>
         <location filename="mainview3d.cpp" line="57"/>
         <source>Rock stage</source>
-        <translation type="unfinished"></translation>
+        <translation>Scène de rock</translation>
     </message>
     <message>
         <location filename="mainview3d.cpp" line="57"/>
         <source>Theatre stage</source>
-        <translation type="unfinished"></translation>
+        <translation>Scène de théâtre</translation>
     </message>
 </context>
 <context>
