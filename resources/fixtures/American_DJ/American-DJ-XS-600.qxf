@@ -15,24 +15,24 @@
  <Channel Name="Pan Continuous Rotation">
   <Group Byte="0">Pan</Group>
   <Capability Min="0" Max="55">No function</Capability>
-  <Capability Min="56" Max="127">Clockwise rotation</Capability>
-  <Capability Min="128" Max="199">Counter-clockwise rotation</Capability>
+  <Capability Min="56" Max="127" Preset="RotationClockwise">Clockwise rotation</Capability>
+  <Capability Min="128" Max="199" Preset="RotationCounterClockwise">Counter-clockwise rotation</Capability>
   <Capability Min="200" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Pan Continuous Rotation Speed" Preset="SpeedPanSlowFast"/>
  <Channel Name="Tilt 1 Continuous Rotation">
   <Group Byte="0">Tilt</Group>
   <Capability Min="0" Max="55">No function</Capability>
-  <Capability Min="56" Max="127">Clockwise rotation</Capability>
-  <Capability Min="128" Max="199">Counter-clockwise rotation</Capability>
+  <Capability Min="56" Max="127" Preset="RotationClockwise">Clockwise rotation</Capability>
+  <Capability Min="128" Max="199" Preset="RotationCounterClockwise">Counter-clockwise rotation</Capability>
   <Capability Min="200" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Tilt 1 Continuous Rotation Speed" Preset="SpeedTiltSlowFast"/>
  <Channel Name="Tilt 2 Continuous Rotation">
   <Group Byte="0">Tilt</Group>
   <Capability Min="0" Max="55">No function</Capability>
-  <Capability Min="56" Max="127">Clockwise rotation</Capability>
-  <Capability Min="128" Max="199">Counter-clockwise rotation</Capability>
+  <Capability Min="56" Max="127" Preset="RotationClockwise">Clockwise rotation</Capability>
+  <Capability Min="128" Max="199" Preset="RotationCounterClockwise">Counter-clockwise rotation</Capability>
   <Capability Min="200" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Tilt 2 Continuous Rotation Speed" Preset="SpeedTiltSlowFast"/>

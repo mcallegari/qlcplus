@@ -13,12 +13,10 @@
  <Channel Name="Pan 16-bit" Preset="PositionPanFine"/>
  <Channel Name="Pan Speed" Preset="SpeedPanFastSlow"/>
  <Channel Name="Continuous Pan Rotating">
-  <Group Byte="0">Effect</Group>
+  <Group Byte="0">Pan</Group>
   <Capability Max="0" Min="0">No function</Capability>
-  <Capability Max="127" Min="1">Continuous counter-clockwise pan rotating with
-increasing speed</Capability>
-  <Capability Max="255" Min="128">Continuous clockwise pan rotating with decreasing
-speed</Capability>
+  <Capability Max="127" Min="1" Preset="RotationCounterClockwiseSlowToFast">Continuous counter-clockwise pan rotating with increasing speed</Capability>
+  <Capability Max="255" Min="128" Preset="RotationClockwiseFastToSlow">Continuous clockwise pan rotating with decreasing speed</Capability>
  </Channel>
  <Channel Name="Head 1 Tilt" Preset="PositionTilt"/>
  <Channel Name="Head 2 Tilt" Preset="PositionTilt"/>

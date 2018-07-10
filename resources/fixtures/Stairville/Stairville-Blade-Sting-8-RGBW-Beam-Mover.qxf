@@ -22,8 +22,8 @@
  <Channel Name="Pan/Tilt Rotation">
   <Group Byte="0">Pan</Group>
   <Capability Min="0" Max="129" Color="#ff0000">No Function</Capability>
-  <Capability Min="130" Max="192">Clockwise rotation movement, speed increasing</Capability>
-  <Capability Min="193" Max="255">Counter-clockwise rotation movement, speed increasing</Capability>
+  <Capability Min="130" Max="192" Preset="RotationClockwiseSlowToFast">Clockwise rotation movement, speed increasing</Capability>
+  <Capability Min="193" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counter-clockwise rotation movement, speed increasing</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Intensity red LED1" Preset="IntensityRed"/>
