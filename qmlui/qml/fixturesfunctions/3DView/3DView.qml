@@ -187,7 +187,7 @@ Rectangle
                         "useShadows": fixtureItem.useShadows
                     });
                 }
-            }       
+            }  
                     
             component = Qt.createComponent("GammaCorrectFilter.qml");
             if (component.status === Component.Error)

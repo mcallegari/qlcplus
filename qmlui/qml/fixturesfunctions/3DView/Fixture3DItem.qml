@@ -36,11 +36,16 @@ Entity
     property alias itemSource: eSceneLoader.source
     property bool isSelected: false
 
+    property int meshType: MainView3D.DefaultMeshType
+
     property real panMaxDegrees: 360
     property real tiltMaxDegrees: 270
     property real focusMinDegrees: 15
     property real focusMaxDegrees: 30
     property real totalDuration: 4000 // in milliseconds
+
+    // scale that was applied to the fixture, when loading it. READ-ONLY.
+    property real scale: 1.0
 
     property bool useScattering: View3D.renderQuality === MainView3D.LowQuality ? false : true
     property bool useShadows: View3D.renderQuality === MainView3D.LowQuality ? false : true
@@ -55,7 +60,8 @@ Entity
     property real distCutoff: 40.0
     property real cutoffAngle: (focusMinDegrees / 2) * (Math.PI / 180)
 
-    property int raymarchSteps: {
+    property int raymarchSteps: 
+    {
         switch(View3D.renderQuality)
         {
             case MainView3D.LowQuality: return 0
@@ -66,7 +72,30 @@ Entity
     }
 
     // spotlight cone radius
-    property real coneRadius: Math.tan(cutoffAngle) * distCutoff
+    property real coneBottomRadius: 
+    {
+        return  distCutoff * Math.tan(cutoffAngle) + coneTopRadius
+    }
+
+    property real coneTopRadius: 
+    {
+        var diameter = 0.24023 // hardcode value for now.
+        return diameter * 0.5 * scale * 0.7
+    }
+
+    property real headLength: 
+    {
+        if(meshType === MainView3D.ParMeshType) 
+        {
+            return 0.389005 * scale
+        } else if(meshType === MainView3D.MovingHeadMeshType) 
+        {
+            return 0.63663 * scale
+        } else 
+        {
+            console.log("UNSUPPORTED MESH TYPE " + meshType)
+        }
+    }
 
     property matrix4x4 lightMatrix
 
@@ -81,16 +110,44 @@ Entity
     property color lightColor: Qt.rgba(0, 0, 0, 1)
     property vector3d lightPos: Qt.vector3d(0, 0, 0)
 
-
-    property vector3d lightDir: {
+    property vector3d lightDir:
+    {
         return getLightDir()
     }
 
+    property matrix4x4 lightViewMatrix: 
+    {        
+        var headPoint = lightPos
 
-    property matrix4x4 lightViewMatrix: {
-        return lookAt(lightPos,  lightPos.plus(getLightDir()), Qt.vector3d(1.0, 0.0, 0.0))
+        return lookAt(headPoint,  headPoint.plus(getLightDir()), Qt.vector3d(1.0, 0.0, 0.0))
     }
-    property matrix4x4 lightProjectionMatrix:perspective( cutoffAngle, 1.0, 0.1, 40.0 )
+    property matrix4x4 lightProjectionMatrix:
+    {
+        var d = distCutoff / ( coneBottomRadius / coneTopRadius - 1.0)
+        return perspective( cutoffAngle, 1.0, d, d + distCutoff )
+    }
+
+    function perspective(fovy, aspect, zNear, zFar)
+    {
+        var ymax = zNear * Math.tan(fovy)
+        var xmax = ymax * aspect;
+        var left = -xmax;
+        var right = +xmax;
+        var bottom = -ymax;
+        var top = +ymax;
+        var f1, f2, f3, f4;
+        f1 = 2.0 * zNear;
+        f2 = right - left;
+        f3 = top - bottom;
+        f4 = zFar - zNear;
+        return Qt.matrix4x4(
+            f1 / f2, 0.0, 0.0, 0.0,
+            0.0, f1/f3, 0.0, 0.0,
+            (right + left) / f2, (top + bottom) / f3, (-zFar - zNear) / f4, -1.0,
+            0.0, 0.0, (-zFar * f1) / f4, 0.0).transposed()
+    }
+
+
     property matrix4x4 lightViewProjectionMatrix: lightProjectionMatrix.times(lightViewMatrix)
     property matrix4x4 lightViewProjectionScaleAndOffsetMatrix: Qt.matrix4x4(
         0.5, 0.0, 0.0, 0.5,
@@ -132,26 +189,6 @@ Entity
         return (lightMatrix2.toVector3d().normalized())
     }
 
-    function perspective(fovy, aspect, zNear, zFar)
-    {
-        var ymax = zNear * Math.tan(fovy)
-        var xmax = ymax * aspect;
-        var left = -xmax;
-        var right = +xmax;
-        var bottom = -ymax;
-        var top = +ymax;
-        var f1, f2, f3, f4;
-        f1 = 2.0 * zNear;
-        f2 = right - left;
-        f3 = top - bottom;
-        f4 = zFar - zNear;
-        return Qt.matrix4x4(
-            f1 / f2, 0.0, 0.0, 0.0,
-            0.0, f1/f3, 0.0, 0.0,
-            (right + left) / f2, (top + bottom) / f3, (-zFar - zNear) / f4, -1.0,
-            0.0, 0.0, (-zFar * f1) / f4, 0.0).transposed()
-    }
-
     function bindPanTransform(t, maxDegrees)
     {
         console.log("Binding pan ----")
@@ -171,7 +208,6 @@ Entity
 
     function setPosition(pan, tilt)
     {
-        //console.log("[3Ditem] set position " + pan + ", " + tilt)
         if (panMaxDegrees)
         {
             panAnim.stop()

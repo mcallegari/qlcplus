@@ -387,24 +387,40 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
     mesh->m_selectionBox = NULL;
     mesh->m_goboTexture = new GoboTextureImage(512, 512, openGobo);
 
-    if (fixture->type() == QLCFixtureDef::ColorChanger ||
-        fixture->type() == QLCFixtureDef::Dimmer)
-        meshPath.append("par.dae");
-    else if (fixture->type() == QLCFixtureDef::MovingHead)
-        meshPath.append("moving_head.dae");
-    else if (fixture->type() == QLCFixtureDef::Scanner)
-        meshPath.append("scanner.dae");
-    else if (fixture->type() == QLCFixtureDef::Hazer)
-        meshPath.append("hazer.dae");
-    else if (fixture->type() == QLCFixtureDef::Smoke)
-        meshPath.append("smoke.dae");
-
     QEntity *newItem = qobject_cast<QEntity *>(m_fixtureComponent->create());
     newItem->setParent(m_sceneRootEntity);
 
+    if (fixture->type() == QLCFixtureDef::ColorChanger ||
+        fixture->type() == QLCFixtureDef::Dimmer)
+    {
+        meshPath.append("par.dae");
+        newItem->setProperty("meshType", FixtureMeshType::ParMeshType);
+    } 
+    else if (fixture->type() == QLCFixtureDef::MovingHead) 
+    {
+        meshPath.append("moving_head.dae");
+        newItem->setProperty("meshType", FixtureMeshType::MovingHeadMeshType);
+    }
+     else if (fixture->type() == QLCFixtureDef::Scanner) 
+    {
+        meshPath.append("scanner.dae");
+        newItem->setProperty("meshType", FixtureMeshType::DefaultMeshType);
+    } 
+    else if (fixture->type() == QLCFixtureDef::Hazer) 
+    {
+        meshPath.append("hazer.dae");
+        newItem->setProperty("meshType", FixtureMeshType::DefaultMeshType);
+    } 
+    else if (fixture->type() == QLCFixtureDef::Smoke) 
+    {
+        meshPath.append("smoke.dae");
+        newItem->setProperty("meshType", FixtureMeshType::DefaultMeshType);
+    }
+
+
     newItem->setProperty("itemID", itemID);
     newItem->setProperty("itemSource", meshPath);
-
+ 
     // at last, add the new fixture to the items map
     m_entitiesMap[itemID] = mesh;
 }
@@ -1116,6 +1132,8 @@ void MainView3D::updateFixtureScale(quint32 itemID, QVector3D origSize)
     // warning: after this, the original mesh size is lost forever
     mesh->m_volume.m_extents *= minScale;
     mesh->m_volume.m_center *= minScale;
+
+    mesh->m_rootItem->setProperty("scale", minScale);
 }
 
 void MainView3D::removeFixtureItem(quint32 itemID)

@@ -34,11 +34,18 @@ uniform vec3 lightColor;
 uniform float lightIntensity;
 uniform int useShadows;
 
+uniform float coneTopRadius;
+uniform float coneBottomRadius;
+uniform float coneDistCutoff;
+
 uniform mat4 lightViewMatrix;
 uniform mat4 lightViewProjectionMatrix;
+uniform mat4 lightProjectionMatrix;
 
 uniform sampler2D goboTex;
 uniform sampler2D shadowTex;
+
+uniform float headLength;
 
 uniform float uLightCosCutoffAngle;
 uniform float uLightTanCutoffAngle;
@@ -60,25 +67,30 @@ void main()
     
     float shadowMask = 1.0;
     if(useShadows == 1) {
-        vec4 p = lightViewProjectionMatrix * vec4(position.xyz, 1.0);
+        vec4 p = lightProjectionMatrix * lightViewMatrix * vec4(position.xyz, 1.0);
         float curZ = (p.z / p.w) * 0.5 + 0.5;
         float refZ = SAMPLE_TEX2D(shadowTex, (p.xy) / p.w * 0.5 + vec2(0.5)).r;
         shadowMask = (curZ < refZ + 0.0003 ? 1.0 : 0.0);
     }
 
-    vec4 q = lightViewMatrix * vec4(position.xyz, 1.0);
-    float r = uLightTanCutoffAngle *  abs(q.z / q.w);
-    // in order to get correct results, we must scale the size of the gobo, as the distance from the light position increases.
-    // we scale by (1.0 / r).
 
-    // -q.xy correctly orients the gobo! but why? examine!
-    vec2 tc = ((-q.xy / q.w) * (1.0 / r)) * 0.5 + 0.5;
+    vec4 q = lightViewMatrix * vec4(position.xyz, 1.0);
+    float r = coneTopRadius + (coneBottomRadius - coneTopRadius) * ((abs(q.z)-0.5*headLength) / coneDistCutoff);
+    vec2 tc = ((-q.xy) * (1.0 / r)) * 0.5 + 0.5;
+
     vec4 gSample = SAMPLE_TEX2D(goboTex, tc.xy);
     float goboMask = gSample.a * gSample.r;
 
+    //goboMask = 1.0;
+    // disable this for now, since its a bit broken.
+  //  how we will debug this:
+  //  the z values should be in certain interval. check that they are.
+  //  same for xy values.
+    shadowMask = 1.0;
+    
     vec3 finalColor = shadowMask * goboMask * lightColor * lightIntensity * dot(normal, -lightDir) * albedo;
     
    MGL_FRAG_COLOR = vec4(finalColor, 1.0);
-   //MGL_FRAG_COLOR = vec4(1.0, 0.0, 0.0, 1.0);
-    
+  // MGL_FRAG_COLOR = vec4(1.0, 0.0, 0.0, 1.0);
+
 }

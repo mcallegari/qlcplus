@@ -226,6 +226,14 @@ public:
         HighQuality,
         UltraQuality
     };
+
+    enum FixtureMeshType
+    {
+        ParMeshType = 0,
+        MovingHeadMeshType,
+        DefaultMeshType
+    };
+
     Q_ENUM(RenderQuality)
 
     /** Get/Set the 3D render quality. This affects shadows and

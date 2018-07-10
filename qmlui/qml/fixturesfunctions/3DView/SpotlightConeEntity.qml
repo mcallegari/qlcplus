@@ -42,6 +42,7 @@ Entity
         id: spotlightConeMesh
         length: 1.0
         bottomRadius: 9.9
+        topRadius: 4.9      
     }
 
     Material
@@ -56,8 +57,10 @@ Entity
         function bindFixture(fxItem)
         {
             spotlightConeMesh.length =  Qt.binding(function() { return fxItem.distCutoff })
+
+            spotlightConeMesh.topRadius = Qt.binding(function() { return fxItem.coneTopRadius })
             
-            spotlightConeMesh.bottomRadius = Qt.binding(function() { return fxItem.coneRadius })
+            spotlightConeMesh.bottomRadius = Qt.binding(function() { return fxItem.coneBottomRadius })
 
             var parameters = [].slice.apply(spotlightConeMaterial.parameters)
 
@@ -77,11 +80,23 @@ Entity
                                     m.rotate(fxItem.panRotation, Qt.vector3d(0, 1, 0));
                                     m.rotate(fxItem.tiltRotation, Qt.vector3d(1, 0, 0));
 
-                                    m.translate( Qt.vector3d(0, -0.5 * fxItem.distCutoff, 0));
+                                    m.translate( Qt.vector3d(0, -0.5 * fxItem.distCutoff - 0.5 * fxItem.headLength, 0));
 
                                     return m;
 
                              })}))
+
+            parameters.push(uniformComp.createObject(spotlightConeMaterial,
+                            { name: "coneTopRadius", value: Qt.binding(function() { return fxItem.coneTopRadius }) }))
+
+            parameters.push(uniformComp.createObject(spotlightConeMaterial,
+                            { name: "headLength", value: Qt.binding(function() { return fxItem.headLength }) }))
+
+            parameters.push(uniformComp.createObject(spotlightConeMaterial,
+                            { name: "coneBottomRadius", value: Qt.binding(function() { return fxItem.coneBottomRadius }) }))
+
+            parameters.push(uniformComp.createObject(spotlightConeMaterial,
+                            { name: "coneDistCutoff", value: Qt.binding(function() { return fxItem.distCutoff }) }))
 
             parameters.push(uniformComp.createObject(spotlightConeMaterial,
                             { name: "lightDir", value: Qt.binding(function() { return fxItem.lightDir }) }))

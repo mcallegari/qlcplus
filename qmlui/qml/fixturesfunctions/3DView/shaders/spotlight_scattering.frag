@@ -34,6 +34,10 @@ uniform float uLightTanCutoffAngle;
 uniform vec3 lightColor;
 uniform int useShadows;
 
+uniform float coneTopRadius;
+uniform float coneBottomRadius;
+uniform float coneDistCutoff;
+
 uniform sampler2D depthTex;
 uniform mat4 viewProjectionMatrix;
 uniform mat4 inverseViewProjectionMatrix;
@@ -43,6 +47,8 @@ uniform sampler2D shadowTex;
 uniform mat4 lightViewProjectionScaleAndOffsetMatrix;
 
 uniform mat4 lightViewMatrix;
+
+uniform float headLength;
 
 uniform sampler2D frontDepthTex;
 
@@ -120,25 +126,23 @@ void main()
         float pm = pmFactor * ((1.0 + cos_theta * cos_theta) / (pow(1.0 + g * g - 2.0 * g * cos_theta, 3.0 / 2.0)));
         vec3 pf = p * 0.5;
 
-        vec4 myq = lightViewMatrix * vec4(p, 1.0);
-        float r = uLightTanCutoffAngle *  (myq.z);
-        vec2 tc = ((myq.xy) * (1.0 / r)) * 0.5 + 0.5;
+        vec4 myq = lightViewMatrix * vec4(p.xyz, 1.0);
+        float r = coneTopRadius + (coneBottomRadius - coneTopRadius) * ((abs(myq.z)-0.5*headLength) / coneDistCutoff);
+        vec2 tc = ((-myq.xy) * (1.0 / r)) * 0.5 + 0.5;
 
         vec4 gSample = SAMPLE_TEX2D(goboTex, tc.xy);
         
         float goboMask = gSample.a * gSample.r;
-        //goboMask = 1.0;
 
         float contrib =  (1.0 / (1.0  + 0.09 * dist + 0.032 * dist * dist)) * stepLength;
 
         contrib *= shadowMask;
-       contrib *= goboMask;
+        contrib *= goboMask;
 
         accum += contrib;
 
         p += rd * stepLength;
     }
     MGL_FRAG_COLOR = vec4(accum * lightIntensity * lightColor, 0.0);
-  //  MGL_FRAG_COLOR = vec4(1.0, 0.0, 0.0, 0.0);
-    
+    //MGL_FRAG_COLOR = vec4(1.0, 0.0, 0.0, 0.0);
 }
