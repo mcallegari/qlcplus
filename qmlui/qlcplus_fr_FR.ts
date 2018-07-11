@@ -2777,7 +2777,7 @@ Niveau d&apos;accès&#xa0;:</translation>
         <location filename="qml/showmanager/ShowItem.qml" line="274"/>
         <location filename="qml/showmanager/ShowItem.qml" line="311"/>
         <source>Position: </source>
-        <translation>Position&#xa0;:</translation>
+        <translation>Position&#xa0;: </translation>
     </message>
     <message>
         <location filename="qml/showmanager/ShowItem.qml" line="275"/>
