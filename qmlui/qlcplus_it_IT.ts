@@ -1022,22 +1022,21 @@ I cambiamenti verranno perduti se non salvati.</translation>
     <name>FixtureManager</name>
     <message>
         <location filename="fixturemanager.cpp" line="566"/>
-        <location filename="fixturemanager.cpp" line="683"/>
         <source>Head</source>
         <translation>Testa</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="884"/>
+        <location filename="fixturemanager.cpp" line="847"/>
         <source>New group %1</source>
         <translation>Nuovo gruppo %1</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1031"/>
+        <location filename="fixturemanager.cpp" line="984"/>
         <source>%1 - Row %2</source>
         <translation>%1 - Riga %2</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1313"/>
+        <location filename="fixturemanager.cpp" line="1266"/>
         <source>New filters %1</source>
         <translation>Nuovo filtro %1</translation>
     </message>
