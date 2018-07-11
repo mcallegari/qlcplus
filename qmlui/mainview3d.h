@@ -226,6 +226,7 @@ public:
         HighQuality,
         UltraQuality
     };
+    Q_ENUM(RenderQuality)
 
     enum FixtureMeshType
     {
@@ -233,8 +234,7 @@ public:
         MovingHeadMeshType,
         DefaultMeshType
     };
-
-    Q_ENUM(RenderQuality)
+    Q_ENUM(FixtureMeshType)
 
     /** Get/Set the 3D render quality. This affects shadows and
      *  scattering ray marching steps */

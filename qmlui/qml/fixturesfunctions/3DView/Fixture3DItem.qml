@@ -36,16 +36,13 @@ Entity
     property alias itemSource: eSceneLoader.source
     property bool isSelected: false
 
-    property int meshType: 100
+    property int meshType: MainView3D.DefaultMeshType
 
     property real panMaxDegrees: 360
     property real tiltMaxDegrees: 270
     property real focusMinDegrees: 15
     property real focusMaxDegrees: 30
     property real totalDuration: 4000 // in milliseconds
-
-    // scale that was applied to the fixture, when loading it. READ-ONLY.
-    property real scale: 1.0
 
     property bool useScattering: View3D.renderQuality === MainView3D.LowQuality ? false : true
     property bool useShadows: View3D.renderQuality === MainView3D.LowQuality ? false : true
@@ -56,7 +53,6 @@ Entity
     property Transform panTransform
     property Transform tiltTransform
 
-   // property real cutOff: focusMinDegrees / 2 // TODO: degrees or radians ? That is the question
     property real distCutoff: 40.0
     property real cutoffAngle: (focusMinDegrees / 2) * (Math.PI / 180)
 
@@ -80,21 +76,18 @@ Entity
     property real coneTopRadius: 
     {
         var diameter = 0.24023 // hardcode value for now.
-        return diameter * 0.5 * scale * 0.7
+        return diameter * 0.5 * transform.scale3D.x * 0.7
     }
 
     property real headLength: 
     {
-        if(meshType === 0) 
+        switch(meshType)
         {
-            return 0.389005 * scale
-        } else if(meshType === 1) 
-        {
-            return 0.63663 * scale
-        } else 
-        {
-            console.log("UNSUPPORTED MESH TYPE " + meshType)
+            case MainView3D.ParMeshType: return 0.389005 * transform.scale3D.x
+            case MainView3D.MovingHeadMeshType: return 0.63663 * transform.scale3D.x
         }
+        console.log("UNSUPPORTED MESH TYPE " + meshType)
+        return 0.5 * transform.scale3D.x
     }
 
     property matrix4x4 lightMatrix
@@ -155,7 +148,6 @@ Entity
             (right + left) / f2, (top + bottom) / f3, (-zFar - zNear) / f4, -1.0,
             0.0, 0.0, (-zFar * f1) / f4, 0.0).transposed()
     }
-
 
     property matrix4x4 lightViewProjectionMatrix: lightProjectionMatrix.times(lightViewMatrix)
     property matrix4x4 lightViewProjectionScaleAndOffsetMatrix: Qt.matrix4x4(
@@ -245,7 +237,7 @@ Entity
 
     function setShutter(type, low, high)
     {
-        console.log("Shutter " + low + ", " + high)
+        //console.log("Shutter " + low + ", " + high)
         shutterAnim.stop()
         inPhase.duration = 0
         inPhase.easing.type = Easing.Linear

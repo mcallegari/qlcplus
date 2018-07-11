@@ -1131,8 +1131,6 @@ void MainView3D::updateFixtureScale(quint32 itemID, QVector3D origSize)
     // warning: after this, the original mesh size is lost forever
     mesh->m_volume.m_extents *= minScale;
     mesh->m_volume.m_center *= minScale;
-
-    mesh->m_rootItem->setProperty("scale", minScale);
 }
 
 void MainView3D::removeFixtureItem(quint32 itemID)
