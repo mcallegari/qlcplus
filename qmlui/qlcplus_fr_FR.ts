@@ -240,22 +240,22 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/AudioEditor.qml" line="165"/>
         <source>Sample Rate</source>
-        <translation type="unfinished"></translation>
+        <translation>Échantillonnage</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/AudioEditor.qml" line="179"/>
         <source>Bitrate</source>
-        <translation type="unfinished"></translation>
+        <translation>Débit</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/AudioEditor.qml" line="193"/>
         <source>Playback mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode de lecture</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/AudioEditor.qml" line="214"/>
         <source>Single shot</source>
-        <translation type="unfinished"></translation>
+        <translation>Unique</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/AudioEditor.qml" line="228"/>
@@ -322,7 +322,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="117"/>
         <source>Remove the selected steps</source>
-        <translation>Retirer les étapes sélectionnées</translation>
+        <translation>Supprimer les étapes sélectionnées</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="123"/>
@@ -332,7 +332,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="124"/>
         <source>Are you sure you want to remove the selected steps ?</source>
-        <translation>Êtes vous sûr de retirer les étapes sélectionnées&#xa0;?</translation>
+        <translation>Êtes vous sûr de supprimer les étapes sélectionnées&#xa0;?</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="157"/>
@@ -347,7 +347,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="175"/>
         <source>Single Shot</source>
-        <translation type="unfinished"></translation>
+        <translation>Unique</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="176"/>
@@ -387,7 +387,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="215"/>
         <source>Beats</source>
-        <translation type="unfinished"></translation>
+        <translation>Battements</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="224"/>
@@ -445,7 +445,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/ChaserWidget.qml" line="247"/>
         <source>Hold</source>
-        <translation type="unfinished"></translation>
+        <translation>Maintien</translation>
     </message>
     <message>
         <location filename="qml/ChaserWidget.qml" line="285"/>
@@ -483,7 +483,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/CollectionEditor.qml" line="130"/>
         <source>Are you sure you want to remove the selected functions ?</source>
-        <translation>Êtes vous sûr de retirer les fonctions sélectionnées&#xa0;?</translation>
+        <translation>Êtes vous sûr de supprimer les fonctions sélectionnées&#xa0;?</translation>
     </message>
 </context>
 <context>
@@ -689,7 +689,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="212"/>
         <source>Remove the selected fixture head(s)</source>
-        <translation>Retirer la/les tête(s) sélectionnée(s)</translation>
+        <translation>Supprimer la/les tête(s) sélectionnée(s)</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="240"/>
@@ -716,7 +716,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="453"/>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="465"/>
         <source>Pattern</source>
-        <translation type="unfinished"></translation>
+        <translation>Motif</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="497"/>
@@ -781,7 +781,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="721"/>
         <source>Hold</source>
-        <translation type="unfinished"></translation>
+        <translation>Maintien</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="753"/>
@@ -801,7 +801,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="802"/>
         <source>Single Shot</source>
-        <translation type="unfinished"></translation>
+        <translation>Unique</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="803"/>
@@ -862,7 +862,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/ExternalControlDelegate.qml" line="148"/>
         <source>Remove this input source</source>
-        <translation>Retirer cette source d&apos;entrée</translation>
+        <translation>Supprimer cette source d&apos;entrée</translation>
     </message>
     <message>
         <location filename="qml/ExternalControlDelegate.qml" line="159"/>
@@ -969,12 +969,12 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="125"/>
         <source>Remove the selected items</source>
-        <translation>Retirer les éléments sélectionnés</translation>
+        <translation>Supprimer les éléments sélectionnés</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="169"/>
         <source>Set a Group/Fixture/Channel search filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Définir un filtre de recherche de groupe/appareil/canaux</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="186"/>
@@ -984,12 +984,12 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="215"/>
         <source>Toggle fixtures and channels properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Basculer les propriétés d&apos;appareils et canaux</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="237"/>
         <source>Add/Remove a linked fixture</source>
-        <translation>Ajouter/Retirer une fixtire liée</translation>
+        <translation>Ajouter/Supprimer une fixtire liée</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="256"/>
@@ -1004,7 +1004,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="260"/>
         <source>Can fade</source>
-        <translation type="unfinished"></translation>
+        <translation>Graduable</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="262"/>
@@ -1075,7 +1075,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/FixtureProperties.qml" line="167"/>
         <source>Gap</source>
-        <translation type="unfinished"></translation>
+        <translation>Saut</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureProperties.qml" line="184"/>
@@ -1144,7 +1144,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="294"/>
         <source>Physical</source>
-        <translation type="unfinished"></translation>
+        <translation>Données physiques</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="307"/>
@@ -1191,12 +1191,12 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="428"/>
         <source>Pan degrees</source>
-        <translation type="unfinished"></translation>
+        <translation>Degrés de pan</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="443"/>
         <source>Tilt degrees</source>
-        <translation type="unfinished"></translation>
+        <translation>Degrés de tilt</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="459"/>
@@ -1221,7 +1221,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="548"/>
         <source>Beam range</source>
-        <translation type="unfinished"></translation>
+        <translation>Intervalle de rayon</translation>
     </message>
 </context>
 <context>
@@ -1262,7 +1262,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/FunctionManager.qml" line="112"/>
         <source>Chasers</source>
-        <translation type="unfinished"></translation>
+        <translation>Chasers</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FunctionManager.qml" line="124"/>
@@ -1307,7 +1307,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/FunctionManager.qml" line="225"/>
         <source>Set a Function search filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Définir un filtre de recherche de fonction</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="137"/>
@@ -1413,7 +1413,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/inputoutput/IORightPanel.qml" line="107"/>
         <source>Enable/Disable blackout on all the output patches</source>
-        <translation type="unfinished"></translation>
+        <translation>Activer/Désactiver le blackout sur tous les patchs de sortie</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/IORightPanel.qml" line="119"/>
@@ -1468,7 +1468,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/inputoutput/InputPatchItem.qml" line="59"/>
         <source>Remove this input profile</source>
-        <translation>Retirer ce profil d&apos;entrée</translation>
+        <translation>Supprimer ce profil d&apos;entrée</translation>
     </message>
 </context>
 <context>
@@ -1507,7 +1507,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/KeyboardSequenceDelegate.qml" line="120"/>
         <source>Remove this keyboard combination</source>
-        <translation>Retirer cette combinaison de touches</translation>
+        <translation>Supprimer cette combinaison de touches</translation>
     </message>
 </context>
 <context>
@@ -1660,12 +1660,12 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/inputoutput/OutputPatchItem.qml" line="66"/>
         <source>Play/Pause this output patch</source>
-        <translation type="unfinished"></translation>
+        <translation>Lecture/Pause de ce patch de sortie</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/OutputPatchItem.qml" line="77"/>
         <source>Enable/Disable a blackout on this output patch</source>
-        <translation type="unfinished"></translation>
+        <translation>Activer/Désactiver le blackout sur ce patch de sortie</translation>
     </message>
 </context>
 <context>
@@ -1746,12 +1746,12 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/popup/PopupDMXDump.qml" line="208"/>
         <source>Pan</source>
-        <translation type="unfinished"></translation>
+        <translation>Pan</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupDMXDump.qml" line="226"/>
         <source>Tilt</source>
-        <translation type="unfinished"></translation>
+        <translation>Tilt</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupDMXDump.qml" line="245"/>
@@ -2092,7 +2092,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/popup/PopupRenameItems.qml" line="95"/>
         <source>Digits</source>
-        <translation type="unfinished"></translation>
+        <translation>Chiffres</translation>
     </message>
 </context>
 <context>
@@ -2130,12 +2130,12 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="147"/>
         <source>Pattern</source>
-        <translation type="unfinished"></translation>
+        <translation>Motif</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="183"/>
         <source>Blend mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode de mélange</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="199"/>
@@ -2180,7 +2180,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="370"/>
         <source>Steps hold</source>
-        <translation type="unfinished"></translation>
+        <translation>Maintien d&apos;étape</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="402"/>
@@ -2200,7 +2200,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="442"/>
         <source>Beats</source>
-        <translation type="unfinished"></translation>
+        <translation>Battements</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="458"/>
@@ -2215,7 +2215,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="474"/>
         <source>Single Shot</source>
-        <translation type="unfinished"></translation>
+        <translation>Unique</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="475"/>
@@ -2345,7 +2345,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/fixturesfunctions/RGBPanelProperties.qml" line="199"/>
         <source>Physical</source>
-        <translation type="unfinished"></translation>
+        <translation>Données physiques</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBPanelProperties.qml" line="234"/>
@@ -2459,7 +2459,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="257"/>
         <source>Rename items</source>
-        <translation>Renommes les éléments</translation>
+        <translation>Renommer les éléments</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="271"/>
@@ -2469,17 +2469,17 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="283"/>
         <source>Show function usage</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher l&apos;usage de la fonction</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="299"/>
         <source>Set/Unset autostart function</source>
-        <translation type="unfinished"></translation>
+        <translation>Activer/Désactiver le démarrage automatique de la fonction</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="317"/>
         <source>Dump on a new Scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Capturer dans une nouvelle scène</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="442"/>
@@ -2489,7 +2489,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="462"/>
         <source>Reset dump channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Réinitialiser les canaux de capture</translation>
     </message>
 </context>
 <context>
@@ -2505,7 +2505,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/fixturesfunctions/ScriptEditor.qml" line="120"/>
         <source>Add a method call at cursor position</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter un appel de méthode à la position du curseur</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ScriptEditor.qml" line="131"/>
@@ -2540,7 +2540,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/fixturesfunctions/ScriptEditor.qml" line="300"/>
         <source>Set fixture channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Définir le canal de l&apos;appareil</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ScriptEditor.qml" line="306"/>
@@ -2583,7 +2583,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/fixturesfunctions/SequenceEditor.qml" line="68"/>
         <source>Remove the selected steps</source>
-        <translation>Retirer les étapes sélectionnées</translation>
+        <translation>Supprimer les étapes sélectionnées</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SequenceEditor.qml" line="68"/>
@@ -2812,12 +2812,12 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="164"/>
         <source>Snap to grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Grille magnétique</translation>
     </message>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="176"/>
         <source>Stretch the original function</source>
-        <translation type="unfinished"></translation>
+        <translation>Étendre la fonction d&apos;origine</translation>
     </message>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="189"/>
@@ -2849,12 +2849,12 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="248"/>
         <source>Play or resume</source>
-        <translation type="unfinished"></translation>
+        <translation>Lecture</translation>
     </message>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="264"/>
         <source>Stop or rewind</source>
-        <translation type="unfinished"></translation>
+        <translation>Stop ou rembobiner</translation>
     </message>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="316"/>
@@ -2907,12 +2907,12 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/showmanager/TrackDelegate.qml" line="66"/>
         <source>Solo this track</source>
-        <translation type="unfinished"></translation>
+        <translation>Piste solo</translation>
     </message>
     <message>
         <location filename="qml/showmanager/TrackDelegate.qml" line="94"/>
         <source>Mute this track</source>
-        <translation type="unfinished"></translation>
+        <translation>Piste muette</translation>
     </message>
 </context>
 <context>
@@ -2920,12 +2920,12 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/inputoutput/UniverseIOItem.qml" line="255"/>
         <source>Passthrough</source>
-        <translation type="unfinished"></translation>
+        <translation>Traversé</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/UniverseIOItem.qml" line="272"/>
         <source>Enable/Disable feedbacks</source>
-        <translation type="unfinished"></translation>
+        <translation>Activer/désactiver le retour d&apos;info</translation>
     </message>
 </context>
 <context>
@@ -3016,12 +3016,12 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/UsageList.qml" line="85"/>
         <source>Used by function list</source>
-        <translation type="unfinished"></translation>
+        <translation>Liste des fonctions utilisées</translation>
     </message>
     <message>
         <location filename="qml/UsageList.qml" line="121"/>
         <source>Used by widget list</source>
-        <translation type="unfinished"></translation>
+        <translation>Liste des widgets utilisés</translation>
     </message>
 </context>
 <context>
@@ -3057,17 +3057,17 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/virtualconsole/VCButtonProperties.qml" line="105"/>
         <source>Toggle Function on/off</source>
-        <translation type="unfinished"></translation>
+        <translation>Activer/Désactiver la fonction</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCButtonProperties.qml" line="122"/>
         <source>Flash Function (only for Scenes)</source>
-        <translation type="unfinished"></translation>
+        <translation>Flasher la fonction (scènes uniquement)</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCButtonProperties.qml" line="139"/>
         <source>Toggle Blackout</source>
-        <translation type="unfinished"></translation>
+        <translation>Blackout</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCButtonProperties.qml" line="156"/>
@@ -3093,7 +3093,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/virtualconsole/VCClockItem.qml" line="151"/>
         <source>Enable/Disable this scheduler</source>
-        <translation type="unfinished"></translation>
+        <translation>Activer/désactiver ce planificateur</translation>
     </message>
 </context>
 <context>
@@ -3213,27 +3213,27 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="45"/>
         <source>Next Cue</source>
-        <translation type="unfinished"></translation>
+        <translation>Cue suivante</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="46"/>
         <source>Previous Cue</source>
-        <translation type="unfinished"></translation>
+        <translation>Cue précédente</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="47"/>
         <source>Play/Stop/Pause</source>
-        <translation type="unfinished"></translation>
+        <translation>Lecture/Stop/Pause</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="48"/>
         <source>Left Crossfade</source>
-        <translation type="unfinished"></translation>
+        <translation>Crossfader gauche</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="49"/>
         <source>Right Crossfade</source>
-        <translation type="unfinished"></translation>
+        <translation>Crossfader droit</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="50"/>
@@ -3243,7 +3243,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="66"/>
         <source>Cue List %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Séquenceur %1</translation>
     </message>
 </context>
 <context>
@@ -3251,7 +3251,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/virtualconsole/VCCueListItem.qml" line="114"/>
         <source>Play/Pause</source>
-        <translation type="unfinished"></translation>
+        <translation>Lecture/Pause</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListItem.qml" line="123"/>
@@ -3266,12 +3266,12 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/virtualconsole/VCCueListItem.qml" line="132"/>
         <source>Previous cue</source>
-        <translation type="unfinished"></translation>
+        <translation>Cue précédente</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListItem.qml" line="141"/>
         <source>Next cue</source>
-        <translation type="unfinished"></translation>
+        <translation>Cue suivante</translation>
     </message>
 </context>
 <context>
@@ -3279,12 +3279,12 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="47"/>
         <source>Attached Chaser</source>
-        <translation type="unfinished"></translation>
+        <translation>Chaser lié</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="74"/>
         <source>Detach the current chaser</source>
-        <translation type="unfinished"></translation>
+        <translation>Délier le chaser actuel</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="84"/>
@@ -3294,39 +3294,39 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="99"/>
         <source>Play/Stop layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Disposition Lecture/Arrêt</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="107"/>
         <source>Play/Pause + Stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Lecture/Pause + Arrêt</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="108"/>
         <source>Play/Stop + Pause</source>
-        <translation type="unfinished"></translation>
+        <translation>Lecture/Arrêt + Pause</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="124"/>
         <source>Next/Previous
 (when chaser is not running)</source>
-        <translation type="unfinished">Précédent/Suivant
-(when chaser is not running)</translation>
+        <translation>Précédent/Suivant
+(quand le chaser n&apos;est pas en cours d&apos;exécution)</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="132"/>
         <source>Run from first/last cue</source>
-        <translation type="unfinished"></translation>
+        <translation>Lancer depuis la première/dernière cue</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="133"/>
         <source>Run from next/previous cue</source>
-        <translation type="unfinished"></translation>
+        <translation>Lancer depuis la cue précédente/suivante</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="134"/>
         <source>Select next/previous cue</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélectionner la cue suivante/précédente</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="135"/>
@@ -3354,12 +3354,12 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="virtualconsole/vcframe.cpp" line="56"/>
         <source>Collapse</source>
-        <translation type="unfinished"></translation>
+        <translation>Plier</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframe.cpp" line="69"/>
         <source>Frame %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Cadre %1</translation>
     </message>
 </context>
 <context>
@@ -3367,12 +3367,12 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/virtualconsole/VCFrameItem.qml" line="74"/>
         <source>Expand/Collapse this frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Étendre/Plier ce cadre</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCFrameItem.qml" line="115"/>
         <source>Enable/Disable this frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Activer/désactiver ce cadre</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCFrameItem.qml" line="137"/>
@@ -3420,7 +3420,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/virtualconsole/VCFrameProperties.qml" line="120"/>
         <source>Circular pages scrolling</source>
-        <translation type="unfinished"></translation>
+        <translation>Navigation circulaire des pages</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCFrameProperties.qml" line="140"/>
@@ -3474,7 +3474,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/virtualconsole/VCPageProperties.qml" line="105"/>
         <source>Set a PIN</source>
-        <translation type="unfinished"></translation>
+        <translation>Définir un PIN</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCPageProperties.qml" line="121"/>
@@ -3560,22 +3560,22 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="virtualconsole/vcslider.cpp" line="67"/>
         <source>Slider Control</source>
-        <translation type="unfinished"></translation>
+        <translation>Contrôle du fader</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcslider.cpp" line="68"/>
         <source>Reset Control</source>
-        <translation type="unfinished"></translation>
+        <translation>Réinitialiser les contrôles</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcslider.cpp" line="85"/>
         <source>Slider %1</source>
-        <translation>Bouton coulissant %1</translation>
+        <translation>Fader %1</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcslider.cpp" line="87"/>
         <source>Knob %1</source>
-        <translation>Bouton rotatif %1</translation>
+        <translation>Potard %1</translation>
     </message>
 </context>
 <context>
@@ -3608,7 +3608,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="130"/>
         <source>Slider Mode</source>
-        <translation>Mode coulissant</translation>
+        <translation>Mode fader</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="156"/>
@@ -3623,17 +3623,17 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="189"/>
         <source>Submaster</source>
-        <translation type="unfinished"></translation>
+        <translation>Submaster</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="205"/>
         <source>Grand Master</source>
-        <translation type="unfinished"></translation>
+        <translation>Grand master</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="213"/>
         <source>Function Control</source>
-        <translation type="unfinished"></translation>
+        <translation>Contrôle de fonction</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="238"/>
@@ -3658,12 +3658,12 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="294"/>
         <source>Add/Remove channels</source>
-        <translation>Ajouter/Retirer des canaux</translation>
+        <translation>Ajouter/Supprimer des canaux</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="318"/>
         <source>Click &amp; Go button</source>
-        <translation type="unfinished"></translation>
+        <translation>Bouton d&apos;accès rapide</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="326"/>
@@ -3683,12 +3683,12 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="348"/>
         <source>Monitor channel levels</source>
-        <translation type="unfinished"></translation>
+        <translation>Surveiller les niveaux des canaux</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="356"/>
         <source>Values range</source>
-        <translation type="unfinished"></translation>
+        <translation>Gamme de valeurs</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="370"/>
@@ -3703,7 +3703,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="401"/>
         <source>Grand Master mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode Grand master</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="428"/>
@@ -3731,7 +3731,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="virtualconsole/vcsoloframe.cpp" line="34"/>
         <source>Solo Frame %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Cadre de solos %1</translation>
     </message>
 </context>
 <context>
@@ -3744,22 +3744,22 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="185"/>
         <source>Slider</source>
-        <translation>Bouton coulissant</translation>
+        <translation>Fader</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="186"/>
         <source>Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Cadre</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="187"/>
         <source>Solo Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Cadre de solos</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="188"/>
         <source>Speed Dial</source>
-        <translation type="unfinished"></translation>
+        <translation>Contrôleur de vitesse</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="189"/>
@@ -3769,7 +3769,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="190"/>
         <source>Cue list</source>
-        <translation type="unfinished"></translation>
+        <translation>Séquenceur</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="191"/>
@@ -3779,7 +3779,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="192"/>
         <source>Audio Triggers</source>
-        <translation type="unfinished"></translation>
+        <translation>Déclencheur audio</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="193"/>
@@ -3907,7 +3907,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="130"/>
         <source>Set a URL</source>
-        <translation type="unfinished"></translation>
+        <translation>Définir une URL</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="136"/>
@@ -3937,12 +3937,12 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="194"/>
         <source>Playback mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode de lecture</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="213"/>
         <source>Single shot</source>
-        <translation type="unfinished"></translation>
+        <translation>Unique</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="227"/>
@@ -4042,12 +4042,12 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/virtualconsole/VirtualConsole.qml" line="183"/>
         <source>Enable/Disable widgets snapping</source>
-        <translation type="unfinished"></translation>
+        <translation>Activer/Désactiver le magnétisme des widgets</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VirtualConsole.qml" line="227"/>
         <source>Widget matrix setup</source>
-        <translation type="unfinished"></translation>
+        <translation>Propriétés de la matrice de widgets</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VirtualConsole.qml" line="239"/>
@@ -4072,7 +4072,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/virtualconsole/VirtualConsole.qml" line="284"/>
         <source>Frame type</source>
-        <translation type="unfinished"></translation>
+        <translation>Type de cadre</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VirtualConsole.qml" line="293"/>
@@ -4082,7 +4082,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/virtualconsole/VirtualConsole.qml" line="301"/>
         <source>Solo</source>
-        <translation type="unfinished"></translation>
+        <translation>Solo</translation>
     </message>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="75"/>
@@ -4105,12 +4105,12 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="34"/>
         <source>Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Cadre</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="35"/>
         <source>Solo Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Cadre de solos</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="36"/>
@@ -4125,27 +4125,27 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="38"/>
         <source>Slider</source>
-        <translation>Bouton coulissant</translation>
+        <translation>Fader</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="39"/>
         <source>Slider Matrix</source>
-        <translation>Matrice de boutons coulissants</translation>
+        <translation>Matrice de faders</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="40"/>
         <source>Knob</source>
-        <translation>Bouton rotatif</translation>
+        <translation>Potard</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="41"/>
         <source>Cue List</source>
-        <translation type="unfinished"></translation>
+        <translation>Séquenceur</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="42"/>
         <source>Speed Dial</source>
-        <translation type="unfinished"></translation>
+        <translation>Contrôleur de vitesse</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="43"/>
@@ -4165,7 +4165,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="46"/>
         <source>Audio Triggers</source>
-        <translation type="unfinished"></translation>
+        <translation>Déclencheur audio</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="47"/>
