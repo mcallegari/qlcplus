@@ -515,87 +515,91 @@ Es perdran els canvis si no els guarda.</translation>
 <context>
     <name>ColorToolFilters</name>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="127"/>
+        <location filename="qml/ColorToolFilters.qml" line="126"/>
         <source>Open filters menu</source>
         <translation>Obrir el menú de filtres</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="209"/>
+        <location filename="qml/ColorToolFilters.qml" line="208"/>
         <source>Cyan</source>
         <translation>Cian</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="209"/>
+        <location filename="qml/ColorToolFilters.qml" line="208"/>
         <source>Red</source>
         <translation>Vermell</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="229"/>
+        <location filename="qml/ColorToolFilters.qml" line="228"/>
         <source>White</source>
         <translation>Blanc</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="250"/>
+        <location filename="qml/ColorToolFilters.qml" line="249"/>
         <source>Magenta</source>
         <translation>Magenta</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="250"/>
+        <location filename="qml/ColorToolFilters.qml" line="249"/>
         <source>Green</source>
         <translation>Verd</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="270"/>
+        <location filename="qml/ColorToolFilters.qml" line="269"/>
         <source>Amber</source>
         <translation>Àmbar</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="291"/>
+        <location filename="qml/ColorToolFilters.qml" line="290"/>
         <source>Yellow</source>
         <translation>Groc</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="291"/>
+        <location filename="qml/ColorToolFilters.qml" line="290"/>
         <source>Blue</source>
         <translation>Blau</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="311"/>
+        <location filename="qml/ColorToolFilters.qml" line="310"/>
         <source>UV</source>
         <translation>UV</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="332"/>
+        <location filename="qml/ColorToolFilters.qml" line="331"/>
         <source>CMY</source>
         <translation>CMY</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="379"/>
+        <location filename="qml/ColorToolFilters.qml" line="378"/>
         <source>Add a new color filters file</source>
         <translation>Afegir un nou fitxer de filtres de color</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="393"/>
-        <source>Rename the current color filters</source>
-        <translation>Canviar el nom del filtres de color actuals</translation>
+        <location filename="qml/ColorToolFilters.qml" line="392"/>
+        <source>Rename the current color filters file</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="402"/>
+        <source>Rename the current color filters</source>
+        <translation type="vanished">Canviar el nom del filtres de color actuals</translation>
+    </message>
+    <message>
+        <location filename="qml/ColorToolFilters.qml" line="401"/>
         <source>Save the current color filters file</source>
         <translation>Desar el fitxer de filtres actual</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="418"/>
+        <location filename="qml/ColorToolFilters.qml" line="417"/>
         <source>Add a new filter</source>
         <translation>Afegir un nou filtre</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="438"/>
+        <location filename="qml/ColorToolFilters.qml" line="437"/>
         <source>Delete the selected filter</source>
         <translation>Eliminar el filtre seleccionat</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="455"/>
+        <location filename="qml/ColorToolFilters.qml" line="454"/>
         <source>Paste the latest picked color as new filter</source>
         <translation>Enganxar el darrer color seleccionat com a nou filtre</translation>
     </message>
@@ -1035,7 +1039,7 @@ Es perdran els canvis si no els guarda.</translation>
         <translation>%1 .Columna %2</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1265"/>
+        <location filename="fixturemanager.cpp" line="1266"/>
         <source>New filters %1</source>
         <translation>Nous filtres %1</translation>
     </message>
@@ -3151,29 +3155,64 @@ Nivell d&apos;accés:</translation>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="278"/>
         <source>M</source>
-        <translation>M</translation>
+        <comment>As in Monday</comment>
+        <translation type="unfinished">M</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="291"/>
-        <location filename="qml/virtualconsole/VCClockProperties.qml" line="317"/>
         <source>T</source>
-        <translation>T</translation>
+        <comment>As in Tuesday</comment>
+        <translation type="unfinished">T</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="304"/>
         <source>W</source>
-        <translation>W</translation>
+        <comment>As in Wednesday</comment>
+        <translation type="unfinished">W</translation>
+    </message>
+    <message>
+        <location filename="qml/virtualconsole/VCClockProperties.qml" line="317"/>
+        <source>T</source>
+        <comment>As in Thursday</comment>
+        <translation type="unfinished">T</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="330"/>
         <source>F</source>
-        <translation>F</translation>
+        <comment>As in Friday</comment>
+        <translation type="unfinished">F</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="343"/>
+        <source>S</source>
+        <comment>As in Saturday</comment>
+        <translation type="unfinished">S</translation>
+    </message>
+    <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="356"/>
         <source>S</source>
-        <translation>S</translation>
+        <comment>As in Sunday</comment>
+        <translation type="unfinished">S</translation>
+    </message>
+    <message>
+        <source>M</source>
+        <translation type="vanished">M</translation>
+    </message>
+    <message>
+        <source>T</source>
+        <translation type="vanished">T</translation>
+    </message>
+    <message>
+        <source>W</source>
+        <translation type="vanished">W</translation>
+    </message>
+    <message>
+        <source>F</source>
+        <translation type="vanished">F</translation>
+    </message>
+    <message>
+        <source>S</source>
+        <translation type="vanished">S</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="376"/>
