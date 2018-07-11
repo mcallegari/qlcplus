@@ -25,6 +25,7 @@ import Qt3D.Render 2.0
 import Qt3D.Extras 2.0
 
 import org.qlcplus.classes 1.0
+import "Math3DView.js" as Math3D
 import "."
 
 Entity
@@ -36,16 +37,14 @@ Entity
     property alias itemSource: eSceneLoader.source
     property bool isSelected: false
 
+    onItemIDChanged: isSelected = contextManager.isFixtureSelected(itemID)
+
     property int meshType: MainView3D.DefaultMeshType
 
+    /* **************** Pan/Tilt properties **************** */
     property real panMaxDegrees: 360
     property real tiltMaxDegrees: 270
-    property real focusMinDegrees: 15
-    property real focusMaxDegrees: 30
     property real totalDuration: 4000 // in milliseconds
-
-    property bool useScattering: View3D.renderQuality === MainView3D.LowQuality ? false : true
-    property bool useShadows: View3D.renderQuality === MainView3D.LowQuality ? false : true
 
     property real panRotation: 0
     property real tiltRotation: 0
@@ -53,9 +52,15 @@ Entity
     property Transform panTransform
     property Transform tiltTransform
 
+    /* **************** Focus properties **************** */
+    property real focusMinDegrees: 15
+    property real focusMaxDegrees: 30
     property real distCutoff: 40.0
     property real cutoffAngle: (focusMinDegrees / 2) * (Math.PI / 180)
 
+    /* **************** Rendering quality properties **************** */
+    property bool useScattering: View3D.renderQuality === MainView3D.LowQuality ? false : true
+    property bool useShadows: View3D.renderQuality === MainView3D.LowQuality ? false : true
     property int raymarchSteps: 
     {
         switch(View3D.renderQuality)
@@ -67,17 +72,13 @@ Entity
         }
     }
 
-    // spotlight cone radius
-    property real coneBottomRadius: 
-    {
-        return  distCutoff * Math.tan(cutoffAngle) + coneTopRadius
-    }
+    /* **************** Spotlight cone properties **************** */
+    readonly property Layer spotlightShadingLayer: Layer { objectName: "spotlightShadingLayer" }
+    readonly property Layer outputDepthLayer: Layer { objectName: "outputDepthLayer" }
+    readonly property Layer spotlightScatteringLayer: Layer { objectName: "spotlightScatteringLayer" }
 
-    property real coneTopRadius: 
-    {
-        var diameter = 0.24023 // hardcode value for now.
-        return diameter * 0.5 * transform.scale3D.x * 0.7
-    }
+    property real coneBottomRadius: distCutoff * Math.tan(cutoffAngle) + coneTopRadius
+    property real coneTopRadius: (0.24023 / 2) * transform.scale3D.x * 0.7 // (diameter / 2) * scale * magic number
 
     property real headLength: 
     {
@@ -90,105 +91,31 @@ Entity
         return 0.5 * transform.scale3D.x
     }
 
-    property matrix4x4 lightMatrix
+    /* ********************* Light properties ********************* */
+    /* ****** These are bound to uniforms in ScreenQuadEntity ***** */
 
-    readonly property Layer spotlightShadingLayer: Layer { objectName: "spotlightShadingLayer" }
-    readonly property Layer outputDepthLayer: Layer { objectName: "outputDepthLayer" }
-    readonly property Layer spotlightScatteringLayer: Layer { objectName: "spotlightScatteringLayer" }
-
-    /* Light properties. These are bound to uniforms in ScreenQuadEntity */
     property int lightIndex
     property real lightIntensity: 1.0
     property real intensityOrigValue: lightIntensity
     property color lightColor: Qt.rgba(0, 0, 0, 1)
     property vector3d lightPos: Qt.vector3d(0, 0, 0)
+    property vector3d lightDir: Math3D.getLightDirection(transform, panTransform, tiltTransform)
 
-    property vector3d lightDir:
-    {
-        return getLightDir()
-    }
-
-    property matrix4x4 lightViewMatrix: 
-    {        
-        var headPoint = lightPos
-
-        return lookAt(headPoint,  headPoint.plus(getLightDir()), Qt.vector3d(1.0, 0.0, 0.0))
-    }
+    /* ********************** Light matrices ********************** */
+    property matrix4x4 lightMatrix
+    property matrix4x4 lightViewMatrix:
+        Math3D.lookAt(lightPos, lightPos.plus(lightDir), Qt.vector3d(1.0, 0.0, 0.0))
     property matrix4x4 lightProjectionMatrix:
-    {
-        var d = distCutoff / ( coneBottomRadius / coneTopRadius - 1.0)
-
-        var trans = -d + 0.5 * headLength
-
-        var m = perspective( cutoffAngle, 1.0,  d, d + distCutoff ).times(Qt.matrix4x4(
-            1.0, 0.0, 0.0, 0.0,
-            0.0, 1.0, 0.0, 0.0,
-            0.0, 0.0, 1.0, trans,
-            0.0, 0.0, 0.0, 1.0))
-
-        return m        
-    }
-
-    function perspective(fovy, aspect, zNear, zFar)
-    {
-        var ymax = zNear * Math.tan(fovy)
-        var xmax = ymax * aspect;
-        var left = -xmax;
-        var right = +xmax;
-        var bottom = -ymax;
-        var top = +ymax;
-        var f1, f2, f3, f4;
-        f1 = 2.0 * zNear;
-        f2 = right - left;
-        f3 = top - bottom;
-        f4 = zFar - zNear;
-        return Qt.matrix4x4(
-            f1 / f2, 0.0, 0.0, 0.0,
-            0.0, f1/f3, 0.0, 0.0,
-            (right + left) / f2, (top + bottom) / f3, (-zFar - zNear) / f4, -1.0,
-            0.0, 0.0, (-zFar * f1) / f4, 0.0).transposed()
-    }
-
+        Math3D.getLightProjectionMatrix(distCutoff, coneBottomRadius, coneTopRadius, headLength, cutoffAngle)
     property matrix4x4 lightViewProjectionMatrix: lightProjectionMatrix.times(lightViewMatrix)
-    property matrix4x4 lightViewProjectionScaleAndOffsetMatrix: Qt.matrix4x4(
-        0.5, 0.0, 0.0, 0.5,
-        0.0, 0.5, 0.0, 0.5,
-        0.0, 0.0, 0.5, 0.5,
-        0.0, 0.0, 0.0, 1.0).times(lightViewProjectionMatrix)
-
-    onItemIDChanged: isSelected = contextManager.isFixtureSelected(itemID)
+    property matrix4x4 lightViewProjectionScaleAndOffsetMatrix:
+        Math3D.getLightViewProjectionScaleOffsetMatrix(lightViewProjectionMatrix)
 
     //onPanTransformChanged: console.log("Pan transform changed " + panTransform)
     //onTiltTransformChanged: console.log("Tilt transform changed " + tiltTransform)
 
     //onPositionChanged: console.log("Light position changed: " + position)
     //onDirectionChanged: console.log("Light direction changed: " + direction)
-
-    function lookAt(eye, center, up)
-    {
-        // compute the basis vectors.
-        var forward = (center.minus(eye)).normalized() // forward vector.
-        var left = (forward.crossProduct(up)).normalized() // left vector.
-        var u = (left.crossProduct(forward)).normalized() // up vector.
-
-        return Qt.matrix4x4(
-            left.x, u.x, -forward.x, 0.0,
-            left.y, u.y, -forward.y, 0.0,
-            left.z, u.z, -forward.z, 0.0,
-            -left.dotProduct(eye), -u.dotProduct(eye), forward.dotProduct(eye), 1.0).transposed()
-    }
-
-    function getLightDir()
-    {
-        var lightMatrix2 = transform.matrix
-        if (panTransform)
-            lightMatrix2 = transform.matrix.times(panTransform.matrix)
-        if (tiltTransform)
-            lightMatrix2 = lightMatrix2.times(tiltTransform.matrix)
-        lightMatrix2 = lightMatrix2.times(Qt.vector4d(0.0, -1.0, 0.0, 0.0))
-   
-        return (lightMatrix2.toVector3d().normalized())
-    }
 
     function bindPanTransform(t, maxDegrees)
     {
@@ -294,9 +221,24 @@ Entity
         }
     }
 
-    function setRaymarchSteps(value)
+    function setupScattering(shadingLayer, scatteringLayer, depthLayer,
+                             shadingEffect, scatteringEffect, depthEffect,
+                             headEntity, sceneEntity)
     {
-        raymarchSteps = value
+        shadingCone.coneLayer = shadingLayer
+        shadingCone.coneEffect = shadingEffect
+        shadingCone.coneMaterial.bindFixture(fixtureEntity)
+        shadingCone.parent = sceneEntity
+
+        scatteringCone.coneLayer = scatteringLayer
+        scatteringCone.coneEffect = scatteringEffect
+        scatteringCone.coneMaterial.bindFixture(fixtureEntity)
+        scatteringCone.parent = sceneEntity
+
+        outDepthCone.coneLayer = depthLayer
+        outDepthCone.coneEffect = depthEffect
+        outDepthCone.coneMaterial.bindFixture(fixtureEntity)
+        outDepthCone.parent = sceneEntity
     }
 
     QQ2.NumberAnimation on panRotation
@@ -323,9 +265,9 @@ Entity
         QQ2.NumberAnimation { id: highPhase; from: intensityOrigValue; to: intensityOrigValue; duration: 200; easing.type: Easing.Linear }
         QQ2.NumberAnimation { id: outPhase; from: intensityOrigValue; to: 0; duration: 0; easing.type: Easing.Linear }
         QQ2.NumberAnimation { id: lowPhase; from: 0; to: 0; duration: 800; easing.type: Easing.Linear }
-      }
+    }
 
-     property RenderTarget shadowMap:
+    property RenderTarget shadowMap:
         RenderTarget
         {
             property alias depth: depthAttachment
@@ -357,6 +299,11 @@ Entity
     property Texture2D goboTexture: Texture2D { }
     property Transform transform: Transform { }
 
+    /* Cone meshes used for scattering. These get re-parented to a head mesh via setupScattering */
+    SpotlightConeEntity { id: shadingCone }
+    SpotlightConeEntity { id: scatteringCone }
+    SpotlightConeEntity { id: outDepthCone }
+
     SceneLoader
     {
         id: eSceneLoader
@@ -367,33 +314,6 @@ Entity
                 View3D.initializeFixture(itemID, fixtureEntity, eSceneLoader)
         }
     }
-
-    components: [ eSceneLoader, transform, eObjectPicker ]
-
-    function setupScattering(shadingLayer, scatteringLayer, depthLayer,
-                             shadingEffect, scatteringEffect, depthEffect,
-                             headEntity, sceneEntity)
-    {
-        shadingCone.coneLayer = shadingLayer
-        shadingCone.coneEffect = shadingEffect
-        shadingCone.coneMaterial.bindFixture(fixtureEntity)
-        shadingCone.parent = sceneEntity
-
-        scatteringCone.coneLayer = scatteringLayer
-        scatteringCone.coneEffect = scatteringEffect
-        scatteringCone.coneMaterial.bindFixture(fixtureEntity)
-        scatteringCone.parent = sceneEntity
-
-        outDepthCone.coneLayer = depthLayer
-        outDepthCone.coneEffect = depthEffect
-        outDepthCone.coneMaterial.bindFixture(fixtureEntity)
-        outDepthCone.parent = sceneEntity
-    }
-
-    /* Cone meshes used for scattering. These get re-parented to a head mesh via setupScattering */
-    SpotlightConeEntity { id: shadingCone }
-    SpotlightConeEntity { id: scatteringCone }
-    SpotlightConeEntity { id: outDepthCone }
 
     ObjectPicker
     {
@@ -422,9 +342,11 @@ Entity
                                               pick.worldIntersection.x * 1000.0,
                                               pick.worldIntersection.y * 1000.0,
                                               pick.worldIntersection.z * 1000.0)
-    }
+        }
 */
-}
+    }
+
+    components: [ eSceneLoader, transform, eObjectPicker ]
 }
 
 
