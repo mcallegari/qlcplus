@@ -415,8 +415,7 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
     {
         meshPath.append("smoke.dae");
         newItem->setProperty("meshType", FixtureMeshType::DefaultMeshType);
-    }
-
+    } 
 
     newItem->setProperty("itemID", itemID);
     newItem->setProperty("itemSource", meshPath);

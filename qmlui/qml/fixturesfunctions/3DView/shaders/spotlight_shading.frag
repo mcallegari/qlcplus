@@ -86,7 +86,8 @@ void main()
   //  how we will debug this:
   //  the z values should be in certain interval. check that they are.
   //  same for xy values.
-    shadowMask = 1.0;
+    //shadowMask = 1.0;
+    
     
     vec3 finalColor = shadowMask * goboMask * lightColor * lightIntensity * dot(normal, -lightDir) * albedo;
     

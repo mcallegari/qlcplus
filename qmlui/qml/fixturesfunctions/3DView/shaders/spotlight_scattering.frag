@@ -120,7 +120,7 @@ void main()
             float refZ = SAMPLE_TEX2D(shadowTex, (q.xy / q.w)).r;
             shadowMask = (curZ < refZ ? 1.0 : 0.0);
         }
-
+        
         float dist = distance(p, lightPos);
         float cos_theta = dot(l, -rd);
         float pm = pmFactor * ((1.0 + cos_theta * cos_theta) / (pow(1.0 + g * g - 2.0 * g * cos_theta, 3.0 / 2.0)));

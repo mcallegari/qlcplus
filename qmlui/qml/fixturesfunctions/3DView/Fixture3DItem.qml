@@ -36,7 +36,7 @@ Entity
     property alias itemSource: eSceneLoader.source
     property bool isSelected: false
 
-    property int meshType: MainView3D.DefaultMeshType
+    property int meshType: 100
 
     property real panMaxDegrees: 360
     property real tiltMaxDegrees: 270
@@ -85,10 +85,10 @@ Entity
 
     property real headLength: 
     {
-        if(meshType === MainView3D.ParMeshType) 
+        if(meshType === 0) 
         {
             return 0.389005 * scale
-        } else if(meshType === MainView3D.MovingHeadMeshType) 
+        } else if(meshType === 1) 
         {
             return 0.63663 * scale
         } else 
@@ -124,7 +124,16 @@ Entity
     property matrix4x4 lightProjectionMatrix:
     {
         var d = distCutoff / ( coneBottomRadius / coneTopRadius - 1.0)
-        return perspective( cutoffAngle, 1.0, d, d + distCutoff )
+
+        var trans = -d + 0.5 * headLength
+
+        var m = perspective( cutoffAngle, 1.0,  d, d + distCutoff ).times(Qt.matrix4x4(
+            1.0, 0.0, 0.0, 0.0,
+            0.0, 1.0, 0.0, 0.0,
+            0.0, 0.0, 1.0, trans,
+            0.0, 0.0, 0.0, 1.0))
+
+        return m        
     }
 
     function perspective(fovy, aspect, zNear, zFar)
