@@ -147,6 +147,7 @@ TRANSLATIONS += \
     qlcplus_ca_ES.ts \
     qlcplus_de_DE.ts \
     qlcplus_es_ES.ts \
+    qlcplus_fr_FR.ts \
     qlcplus_it_IT.ts
 
 macx {
