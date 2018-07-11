@@ -50,7 +50,7 @@ FixtureManager::FixtureManager(QQuickView *view, Doc *doc, QObject *parent)
     , m_propertyEditEnabled(false)
     , m_fixtureTree(NULL)
     , m_treeShowFlags(ShowGroups | ShowLinked | ShowHeads)
-    , m_colorFilterIndex(0)
+    , m_colorFiltersFileIndex(0)
     , m_maxPanDegrees(0)
     , m_maxTiltDegrees(0)
     , m_minBeamDegrees(15.0)
@@ -1235,7 +1235,7 @@ void FixtureManager::resetColorFilters()
     }
 }
 
-QStringList FixtureManager::colorFiltersList()
+QStringList FixtureManager::colorFiltersFileList()
 {
     QStringList list;
 
@@ -1243,6 +1243,7 @@ QStringList FixtureManager::colorFiltersList()
     {
         loadColorFilters(systemColorFiltersDirectory(), false);
         loadColorFilters(userColorFiltersDirectory(), true);
+        emit selectedFiltersChanged();
     }
 
     for (ColorFilters *filters : m_colorFilters)
@@ -1251,7 +1252,7 @@ QStringList FixtureManager::colorFiltersList()
     return list;
 }
 
-void FixtureManager::createColorFilters()
+void FixtureManager::addColorFiltersFile()
 {
     int newID = 1;
 
@@ -1276,31 +1277,31 @@ void FixtureManager::createColorFilters()
 
     m_colorFilters.append(newFilter);
 
-    emit colorFiltersListChanged();
-    setColorFilterIndex(m_colorFilters.count() - 1);
+    emit colorFiltersFileListChanged();
+    setColorFilterFileIndex(m_colorFilters.count() - 1);
 }
 
-int FixtureManager::colorFilterIndex() const
+int FixtureManager::colorFilterFileIndex() const
 {
-    return m_colorFilterIndex;
+    return m_colorFiltersFileIndex;
 }
 
-void FixtureManager::setColorFilterIndex(int colorFilterIndex)
+void FixtureManager::setColorFilterFileIndex(int index)
 {
-    if (m_colorFilterIndex == colorFilterIndex)
+    if (m_colorFiltersFileIndex == index)
         return;
 
-    m_colorFilterIndex = colorFilterIndex;
-    emit colorFilterIndexChanged(m_colorFilterIndex);
+    m_colorFiltersFileIndex = index;
+    emit colorFilterFileIndexChanged(m_colorFiltersFileIndex);
     emit selectedFiltersChanged();
 }
 
 ColorFilters *FixtureManager::selectedFilters()
 {
-    if (m_colorFilterIndex < 0 || m_colorFilterIndex >= m_colorFilters.count())
+    if (m_colorFiltersFileIndex < 0 || m_colorFiltersFileIndex >= m_colorFilters.count())
         return NULL;
 
-    return m_colorFilters.at(m_colorFilterIndex);
+    return m_colorFilters.at(m_colorFiltersFileIndex);
 }
 
 /*********************************************************************

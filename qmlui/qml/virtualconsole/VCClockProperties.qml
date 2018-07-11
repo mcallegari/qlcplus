@@ -275,7 +275,7 @@ Rectangle
                                         Layout.columnSpan: 2
                                         spacing: 1
 
-                                        RobotoText { height: UISettings.listItemHeight; label: qsTr("M") }
+                                        RobotoText { height: UISettings.listItemHeight; label: qsTr("M", "As in Monday") }
                                         CustomCheckBox
                                         {
                                             implicitWidth: UISettings.iconSizeMedium
@@ -288,7 +288,7 @@ Rectangle
                                             }
                                         }
 
-                                        RobotoText { height: UISettings.listItemHeight; label: qsTr("T") }
+                                        RobotoText { height: UISettings.listItemHeight; label: qsTr("T", "As in Tuesday") }
                                         CustomCheckBox
                                         {
                                             implicitWidth: UISettings.iconSizeMedium
@@ -301,7 +301,7 @@ Rectangle
                                             }
                                         }
 
-                                        RobotoText { height: UISettings.listItemHeight; label: qsTr("W") }
+                                        RobotoText { height: UISettings.listItemHeight; label: qsTr("W", "As in Wednesday") }
                                         CustomCheckBox
                                         {
                                             implicitWidth: UISettings.iconSizeMedium
@@ -314,7 +314,7 @@ Rectangle
                                             }
                                         }
 
-                                        RobotoText { height: UISettings.listItemHeight; label: qsTr("T") }
+                                        RobotoText { height: UISettings.listItemHeight; label: qsTr("T", "As in Thursday") }
                                         CustomCheckBox
                                         {
                                             implicitWidth: UISettings.iconSizeMedium
@@ -327,7 +327,7 @@ Rectangle
                                             }
                                         }
 
-                                        RobotoText { height: UISettings.listItemHeight; label: qsTr("F") }
+                                        RobotoText { height: UISettings.listItemHeight; label: qsTr("F", "As in Friday") }
                                         CustomCheckBox
                                         {
                                             implicitWidth: UISettings.iconSizeMedium
@@ -340,7 +340,7 @@ Rectangle
                                             }
                                         }
 
-                                        RobotoText { height: UISettings.listItemHeight; label: qsTr("S") }
+                                        RobotoText { height: UISettings.listItemHeight; label: qsTr("S", "As in Saturday") }
                                         CustomCheckBox
                                         {
                                             implicitWidth: UISettings.iconSizeMedium
@@ -353,7 +353,7 @@ Rectangle
                                             }
                                         }
 
-                                        RobotoText { height: UISettings.listItemHeight; label: qsTr("S") }
+                                        RobotoText { height: UISettings.listItemHeight; label: qsTr("S", "As in Sunday") }
                                         CustomCheckBox
                                         {
                                             implicitWidth: UISettings.iconSizeMedium

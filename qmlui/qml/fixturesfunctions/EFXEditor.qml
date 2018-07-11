@@ -183,7 +183,7 @@ Rectangle
                                         height: parent.height
                                         imgSource: "qrc:/add.svg"
                                         checkable: true
-                                        tooltip: qsTr("Add a fixture head")
+                                        tooltip: qsTr("Add a fixture/head")
                                         onCheckedChanged:
                                         {
                                             if (checked)

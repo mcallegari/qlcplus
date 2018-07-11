@@ -233,10 +233,12 @@ Rectangle
                     else
                     {
                         if (contextManager.isFixtureSelected(itemID) === false)
+                        {
                             twoDContents.justSelected = true
 
-                        // select the Fixture in case a drag is starting on a deselected one
-                        contextManager.setItemSelection(itemID, true, mouse.modifiers)
+                            // select the Fixture in case a drag is starting on a deselected one
+                            contextManager.setItemSelection(itemID, true, mouse.modifiers)
+                        }
 
                         // forward the event to the drag area
                         mouse.accepted = false

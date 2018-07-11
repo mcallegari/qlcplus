@@ -107,12 +107,11 @@ Rectangle
             {
                 z: 2
                 Layout.fillWidth: true
-                model: fixtureManager.colorFiltersList
-                currentIndex: fixtureManager.colorFilterIndex
+                model: fixtureManager.colorFiltersFileList
+                currentIndex: fixtureManager.colorFilterFileIndex
                 onCurrentIndexChanged:
                 {
-
-                    fixtureManager.colorFilterIndex = currentIndex
+                    fixtureManager.colorFilterFileIndex = currentIndex
                     rootBox.currentFilterIndex = 0
                 }
             }
@@ -375,11 +374,11 @@ Rectangle
             {
                 height: UISettings.listItemHeight
                 imgSource: "qrc:/filenew.svg"
-                imgSize: UISettings.listItemHeight
+                iconHeight: UISettings.listItemHeight
                 entryText: qsTr("Add a new color filters file")
                 onClicked:
                 {
-                    fixtureManager.createColorFilters()
+                    fixtureManager.addColorFiltersFile()
                     rootBox.currentFilterIndex = -1
                     actionsMenu.close()
                 }
@@ -389,8 +388,8 @@ Rectangle
             {
                 height: UISettings.listItemHeight
                 imgSource: "qrc:/rename.svg"
-                imgSize: UISettings.listItemHeight
-                entryText: qsTr("Rename the current color filters")
+                iconHeight: UISettings.listItemHeight
+                entryText: qsTr("Rename the current color filters file")
                 enabled: cfRef && cfRef.isUser ? true : false
             }
 
@@ -398,7 +397,7 @@ Rectangle
             {
                 height: UISettings.listItemHeight
                 imgSource: "qrc:/filesave.svg"
-                imgSize: UISettings.listItemHeight
+                iconHeight: UISettings.listItemHeight
                 entryText: qsTr("Save the current color filters file")
                 enabled: cfRef && cfRef.isUser ? true : false
                 onClicked:
@@ -414,7 +413,7 @@ Rectangle
             {
                 height: UISettings.listItemHeight
                 imgSource: "qrc:/add.svg"
-                imgSize: UISettings.listItemHeight
+                iconHeight: UISettings.listItemHeight
                 entryText: qsTr("Add a new filter")
                 enabled: cfRef && cfRef.isUser ? true : false
                 onClicked:
@@ -434,7 +433,7 @@ Rectangle
             {
                 height: UISettings.listItemHeight
                 imgSource: "qrc:/remove.svg"
-                imgSize: UISettings.listItemHeight
+                iconHeight: UISettings.listItemHeight
                 entryText: qsTr("Delete the selected filter")
                 enabled: cfRef && cfRef.isUser ? true : false
                 onClicked:
@@ -451,7 +450,7 @@ Rectangle
             {
                 height: UISettings.listItemHeight
                 imgSource: "qrc:/edit-paste.svg"
-                imgSize: UISettings.listItemHeight
+                iconHeight: UISettings.listItemHeight
                 entryText: qsTr("Paste the latest picked color as new filter")
                 enabled: cfRef && cfRef.isUser ? true : false
                 onClicked:

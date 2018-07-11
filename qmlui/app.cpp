@@ -64,6 +64,7 @@
 
 App::App()
     : QQuickView()
+    , m_translator(NULL)
     , m_fixtureBrowser(NULL)
     , m_fixtureManager(NULL)
     , m_contextManager(NULL)
@@ -188,6 +189,27 @@ void App::toggleFullscreen()
         wstate = windowState();
         showFullScreen();
     }
+}
+
+void App::setLanguage(QString locale)
+{
+    if (m_translator != NULL)
+    {
+        QCoreApplication::removeTranslator(m_translator);
+        delete m_translator;
+    }
+
+    QString translationPath = QLCFile::systemDirectory(TRANSLATIONDIR).absolutePath();
+
+    if (locale.isEmpty() == true)
+        locale = QLocale::system().name();
+
+    QString file(QString("%1_%2").arg("qlcplus").arg(locale));
+    m_translator = new QTranslator(QCoreApplication::instance());
+    if (m_translator->load(file, translationPath) == true)
+        QCoreApplication::installTranslator(m_translator);
+
+    engine()->retranslate();
 }
 
 void App::show()
@@ -699,8 +721,7 @@ QFileDevice::FileError App::loadXML(const QString &fileName)
     else
     {
         retval = QFile::ReadError;
-        qWarning() << Q_FUNC_INFO << fileName
-                   << "is not a workspace file";
+        qWarning() << Q_FUNC_INFO << fileName << "is not a workspace file";
     }
 
     QLCFile::releaseXMLReader(doc);

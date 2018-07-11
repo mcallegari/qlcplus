@@ -125,6 +125,8 @@ public:
     /** Toggle between windowed and fullscreeen mode */
     Q_INVOKABLE void toggleFullscreen();
 
+    Q_INVOKABLE void setLanguage(QString locale);
+
     void enableKioskMode();
     void createKioskCloseButton(const QRect& rect);
 
@@ -165,6 +167,8 @@ private:
 
     /** Bitmask to enable/disable UI functionalities */
     int m_accessMask;
+
+    QTranslator *m_translator;
 
     FixtureBrowser *m_fixtureBrowser;
     FixtureManager *m_fixtureManager;

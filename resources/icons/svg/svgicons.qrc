@@ -59,6 +59,14 @@
     <file alias="filesave.svg">filesave.svg</file>
     <file alias="filesaveas.svg">filesaveas.svg</file>
     <file alias="fixture.svg">fixture.svg</file>
+    <file alias="flag_ca.svg">flag_ca.svg</file>
+    <file alias="flag_de.svg">flag_de.svg</file>
+    <file alias="flag_es.svg">flag_es.svg</file>
+    <file alias="flag_fr.svg">flag_fr.svg</file>
+    <file alias="flag_it.svg">flag_it.svg</file>
+    <file alias="flag_jp.svg">flag_jp.svg</file>
+    <file alias="flag_nl.svg">flag_nl.svg</file>
+    <file alias="flag_uk_us.svg">flag_uk_us.svg</file>
     <file alias="flash.svg">flash.svg</file>
     <file alias="flower.svg">flower.svg</file>
     <file alias="folder.svg">folder.svg</file>
