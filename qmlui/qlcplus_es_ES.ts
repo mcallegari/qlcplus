@@ -3152,43 +3152,43 @@ Nivel de acceso:</translation>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="278"/>
         <source>M</source>
         <comment>As in Monday</comment>
-        <translation type="unfinished"></translation>
+        <translation>L</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="291"/>
         <source>T</source>
         <comment>As in Tuesday</comment>
-        <translation type="unfinished"></translation>
+        <translation>M</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="304"/>
         <source>W</source>
         <comment>As in Wednesday</comment>
-        <translation type="unfinished"></translation>
+        <translation>M</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="317"/>
         <source>T</source>
         <comment>As in Thursday</comment>
-        <translation type="unfinished"></translation>
+        <translation>J</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="330"/>
         <source>F</source>
         <comment>As in Friday</comment>
-        <translation type="unfinished"></translation>
+        <translation>V</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="343"/>
         <source>S</source>
         <comment>As in Saturday</comment>
-        <translation type="unfinished"></translation>
+        <translation>S</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="356"/>
         <source>S</source>
         <comment>As in Sunday</comment>
-        <translation type="unfinished"></translation>
+        <translation>D</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="376"/>
