@@ -30,7 +30,7 @@
  <Channel Name="Gobo Wheel">
   <Group Byte="0">Gobo</Group>
   <Capability Res="Others/open.svg" Min="0" Max="10">No Gobo</Capability>
-  <Capability Res="SGM-Color/gobo00375.png" Min="11" Max="20">Gobo 1</Capability>
+  <Capability Res="SGM-Color/gobo00375.svg" Min="11" Max="20">Gobo 1</Capability>
   <Capability Res="GLP/gobo00009.png" Min="21" Max="30">Gobo 2</Capability>
   <Capability Res="GLP/gobo00002.png" Min="31" Max="40">Gobo 3</Capability>
   <Capability Res="GLP/gobo00014.svg" Min="41" Max="50">Gobo 4</Capability>
@@ -43,7 +43,7 @@
   <Capability Res="GLP/gobo00014.svg" Min="126" Max="140">Shaking Gobo 4</Capability>
   <Capability Res="GLP/gobo00002.png" Min="141" Max="155">Shaking Gobo 3</Capability>
   <Capability Res="GLP/gobo00009.png" Min="156" Max="170">Shaking Gobo 2</Capability>
-  <Capability Res="SGM-Color/gobo00375.png" Min="171" Max="185">Shaking Gobo 1</Capability>
+  <Capability Res="SGM-Color/gobo00375.svg" Min="171" Max="185">Shaking Gobo 1</Capability>
   <Capability Min="186" Max="255">Flow Effect</Capability>
  </Channel>
  <Channel Name="Gobo Wheel &#10;Rotation">
