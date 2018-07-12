@@ -559,7 +559,7 @@ void VCSlider::setSearchFilter(QString searchFilter)
         (currLen >= SEARCH_MIN_CHARS && searchFilter.length() < SEARCH_MIN_CHARS))
     {
         FixtureManager::updateGroupsTree(m_doc, m_fixtureTree, m_searchFilter,
-                                         FixtureManager::ShowGroups | FixtureManager::ShowChannels,
+                                         FixtureManager::ShowCheckBoxes | FixtureManager::ShowGroups | FixtureManager::ShowChannels,
                                          m_levelChannels);
         emit groupsTreeModelChanged();
     }
