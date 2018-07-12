@@ -87,9 +87,8 @@ void main()
   //  the z values should be in certain interval. check that they are.
   //  same for xy values.
     //shadowMask = 1.0;
-    
-    
-    vec3 finalColor = shadowMask * goboMask * lightColor * lightIntensity * dot(normal, -lightDir) * albedo;
+        
+    vec3 finalColor = shadowMask * goboMask * lightColor * lightIntensity * max(0, dot(normal, -lightDir)) * albedo;
     
    MGL_FRAG_COLOR = vec4(finalColor, 1.0);
   // MGL_FRAG_COLOR = vec4(1.0, 0.0, 0.0, 1.0);
