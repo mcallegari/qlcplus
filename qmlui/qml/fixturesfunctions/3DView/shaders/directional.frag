@@ -31,7 +31,7 @@ void main()
     vec4 albedo = SAMPLE_TEX2D(albedoTex, fsUv).xyzw;
     
     vec3 finalColor = vec3(0.0);
-    vec3 l = normalize(vec3(1.0, 1.0, 1.0));
+    vec3 l = normalize(vec3(1.05, 1.3, 0.9));
     vec3 n =  normalize(SAMPLE_TEX2D(normalTex, fsUv).xyz);
     
     float isGuiElement = abs(albedo.w - 2.0) < 0.0001 ? 1.0 : 0.0;
