@@ -836,7 +836,7 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/fixturesfunctions/EditorTopBar.qml" line="44"/>
         <source>Go back to the Function Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Zurück zur Funktionsverwaltung</translation>
     </message>
 </context>
 <context>
@@ -844,42 +844,42 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/ExternalControlDelegate.qml" line="53"/>
         <source>Control</source>
-        <translation type="unfinished"></translation>
+        <translation>Verhalten</translation>
     </message>
     <message>
         <location filename="qml/ExternalControlDelegate.qml" line="74"/>
         <source>Universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Universum</translation>
     </message>
     <message>
         <location filename="qml/ExternalControlDelegate.qml" line="99"/>
         <source>Activate auto detection</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatische Erkennung</translation>
     </message>
     <message>
         <location filename="qml/ExternalControlDelegate.qml" line="125"/>
         <source>Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanal</translation>
     </message>
     <message>
         <location filename="qml/ExternalControlDelegate.qml" line="148"/>
         <source>Remove this input source</source>
-        <translation type="unfinished"></translation>
+        <translation>Externen Eingang entfernen</translation>
     </message>
     <message>
         <location filename="qml/ExternalControlDelegate.qml" line="159"/>
         <source>Custom feedbacks</source>
-        <translation type="unfinished"></translation>
+        <translation>Eigene Rückmeldungen</translation>
     </message>
     <message>
         <location filename="qml/ExternalControlDelegate.qml" line="171"/>
         <source>Lower</source>
-        <translation type="unfinished"></translation>
+        <translation>Unterer Wert</translation>
     </message>
     <message>
         <location filename="qml/ExternalControlDelegate.qml" line="181"/>
         <source>Upper</source>
-        <translation type="unfinished"></translation>
+        <translation>Oberer Wert</translation>
     </message>
 </context>
 <context>
@@ -887,12 +887,12 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/ExternalControls.qml" line="60"/>
         <source>Add an external controller input</source>
-        <translation type="unfinished"></translation>
+        <translation>Externen Eingang hinzufügen</translation>
     </message>
     <message>
         <location filename="qml/ExternalControls.qml" line="81"/>
         <source>Add a keyboard combination</source>
-        <translation type="unfinished"></translation>
+        <translation>Tastenkombination hinzufügen</translation>
     </message>
 </context>
 <context>
@@ -900,22 +900,22 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/fixturesfunctions/FixtureChannelDelegate.qml" line="151"/>
         <source>Auto (HTP)</source>
-        <translation type="unfinished"></translation>
+        <translation>Auto (HTP)</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureChannelDelegate.qml" line="152"/>
         <source>Auto (LTP)</source>
-        <translation type="unfinished"></translation>
+        <translation>Auto (LTP)</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureChannelDelegate.qml" line="153"/>
         <source>Forced HTP</source>
-        <translation type="unfinished"></translation>
+        <translation>HTP erzwingen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureChannelDelegate.qml" line="154"/>
         <source>Forced LTP</source>
-        <translation type="unfinished"></translation>
+        <translation>LTP erzwingen</translation>
     </message>
 </context>
 <context>
@@ -923,42 +923,42 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupEditor.qml" line="71"/>
         <source>Group size</source>
-        <translation type="unfinished"></translation>
+        <translation>Gruppengröße</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupEditor.qml" line="101"/>
         <source>Transform the selected items</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgewählte Elemente transformieren</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupEditor.qml" line="108"/>
         <source>Reset the entire group</source>
-        <translation type="unfinished"></translation>
+        <translation>Gesamte Gruppe zurücksetzen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupEditor.qml" line="131"/>
         <source>Rotate 90° clockwise</source>
-        <translation type="unfinished"></translation>
+        <translation>Um 90° drehen (im UZS)</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupEditor.qml" line="140"/>
         <source>Rotate 180° clockwise</source>
-        <translation type="unfinished"></translation>
+        <translation>Um 180° drehen (im UZS)</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupEditor.qml" line="149"/>
         <source>Rotate 270° clockwise</source>
-        <translation type="unfinished"></translation>
+        <translation>Um 270° drehen (im UZS)</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupEditor.qml" line="158"/>
         <source>Flip horizontally</source>
-        <translation type="unfinished"></translation>
+        <translation>Horizontal spiegeln</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupEditor.qml" line="167"/>
         <source>Flip vertically</source>
-        <translation type="unfinished"></translation>
+        <translation>Vertikal spiegeln</translation>
     </message>
 </context>
 <context>
@@ -966,57 +966,57 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="114"/>
         <source>Add a new fixture group</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue Gerätegruppe hinzufügen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="125"/>
         <source>Remove the selected items</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgewählte Elemente entfernen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="169"/>
         <source>Set a Group/Fixture/Channel search filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Gruppen-/Gerät-/Kanal-Suchfilter setzen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="186"/>
         <source>Inspect the selected item</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgewähltes Element untersuchen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="215"/>
         <source>Toggle fixtures and channels properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Geräte- und Kanaleigenschaften umschalten</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="237"/>
         <source>Add/Remove a linked fixture</source>
-        <translation type="unfinished"></translation>
+        <translation>Verknüftes Gerät hinzufügen/entfernen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="256"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Name</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="258"/>
         <source>Flags</source>
-        <translation type="unfinished"></translation>
+        <translation>Markierungen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="260"/>
         <source>Can fade</source>
-        <translation type="unfinished"></translation>
+        <translation>Kann faden</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="262"/>
         <source>Behaviour</source>
-        <translation type="unfinished"></translation>
+        <translation>Verhalten</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="264"/>
         <source>Modifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Modifikator</translation>
     </message>
 </context>
 <context>
@@ -1024,22 +1024,22 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="fixturemanager.cpp" line="566"/>
         <source>Head</source>
-        <translation type="unfinished"></translation>
+        <translation>Head</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="847"/>
         <source>New group %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue Gruppe %1</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="984"/>
         <source>%1 - Row %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 – Reihe %2</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1265"/>
         <source>New filters %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue Filter %1</translation>
     </message>
 </context>
 <context>
@@ -1047,42 +1047,42 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/fixturesfunctions/FixtureProperties.qml" line="71"/>
         <source>Fixture properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Geräteeigenschaften</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureProperties.qml" line="91"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Name</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureProperties.qml" line="108"/>
         <source>Universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Universum</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureProperties.qml" line="124"/>
         <source>Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Adresse</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureProperties.qml" line="137"/>
         <source>Quantity</source>
-        <translation type="unfinished"></translation>
+        <translation>Anzahl</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureProperties.qml" line="152"/>
         <source>Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanäle</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureProperties.qml" line="167"/>
         <source>Gap</source>
-        <translation type="unfinished"></translation>
+        <translation>Adressabstand</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureProperties.qml" line="184"/>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modus</translation>
     </message>
 </context>
 <context>
@@ -1090,140 +1090,140 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="56"/>
         <source>Print the fixture summary</source>
-        <translation type="unfinished"></translation>
+        <translation>Geräteinformationen drucken</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="109"/>
         <source>Manufacturer</source>
-        <translation type="unfinished"></translation>
+        <translation>Hersteller</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="133"/>
         <source>Model</source>
-        <translation type="unfinished"></translation>
+        <translation>Modell</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="147"/>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modus</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="161"/>
         <source>Universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Universum</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="175"/>
         <source>Address range</source>
-        <translation type="unfinished"></translation>
+        <translation>Adressbelegung</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="189"/>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="218"/>
         <source>Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanalanzahl</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="203"/>
         <source>Author</source>
-        <translation type="unfinished"></translation>
+        <translation>Autor</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="230"/>
         <source>Number</source>
-        <translation type="unfinished"></translation>
+        <translation>Nummer</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="237"/>
         <source>DMX address</source>
-        <translation type="unfinished"></translation>
+        <translation>DMX-Adresse</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="245"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Name</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="294"/>
         <source>Physical</source>
-        <translation type="unfinished"></translation>
+        <translation>Physische Daten</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="307"/>
         <source>Width</source>
-        <translation type="unfinished"></translation>
+        <translation>Breite</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="323"/>
         <source>Height</source>
-        <translation type="unfinished"></translation>
+        <translation>Höhe</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="338"/>
         <source>Depth</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiefe</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="353"/>
         <source>Weight</source>
-        <translation type="unfinished"></translation>
+        <translation>Gewicht</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="368"/>
         <source>Power consumption</source>
-        <translation type="unfinished"></translation>
+        <translation>Leistungsaufnahme</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="383"/>
         <source>DMX connector</source>
-        <translation type="unfinished"></translation>
+        <translation>DMX-Anschluss</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="399"/>
         <source>Focus</source>
-        <translation type="unfinished"></translation>
+        <translation>Fokus</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="412"/>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="472"/>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="532"/>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Typ</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="428"/>
         <source>Pan degrees</source>
-        <translation type="unfinished"></translation>
+        <translation>Pan-Winkel</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="443"/>
         <source>Tilt degrees</source>
-        <translation type="unfinished"></translation>
+        <translation>Tilt-Winkel</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="459"/>
         <source>Bulb</source>
-        <translation type="unfinished"></translation>
+        <translation>Lampe</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="488"/>
         <source>Luminous flux</source>
-        <translation type="unfinished"></translation>
+        <translation>Lichtstrom</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="503"/>
         <source>Color temperature</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbtemperatur</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="519"/>
         <source>Lens</source>
-        <translation type="unfinished"></translation>
+        <translation>Linse</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="548"/>
         <source>Beam range</source>
-        <translation type="unfinished"></translation>
+        <translation>Strahlungswinkel</translation>
     </message>
 </context>
 <context>
@@ -1231,27 +1231,27 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/fixturesfunctions/FixturesAndFunctions.qml" line="130"/>
         <source>Universe View</source>
-        <translation type="unfinished"></translation>
+        <translation>Universum</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixturesAndFunctions.qml" line="146"/>
         <source>DMX View</source>
-        <translation type="unfinished"></translation>
+        <translation>DMX-Ansicht</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixturesAndFunctions.qml" line="162"/>
         <source>2D View</source>
-        <translation type="unfinished"></translation>
+        <translation>2D-Ansicht</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixturesAndFunctions.qml" line="179"/>
         <source>3D View</source>
-        <translation type="unfinished"></translation>
+        <translation>3D-Ansicht</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixturesAndFunctions.qml" line="233"/>
         <source>Show/hide the view settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Anzeigeeinstellungen zeigen/verbergen</translation>
     </message>
 </context>
 <context>
@@ -1259,122 +1259,122 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/fixturesfunctions/FunctionManager.qml" line="100"/>
         <source>Scenes</source>
-        <translation type="unfinished"></translation>
+        <translation>Szenen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FunctionManager.qml" line="112"/>
         <source>Chasers</source>
-        <translation type="unfinished"></translation>
+        <translation>Chaser</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FunctionManager.qml" line="124"/>
         <source>Sequences</source>
-        <translation type="unfinished"></translation>
+        <translation>Sequenzen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FunctionManager.qml" line="136"/>
         <source>EFX</source>
-        <translation type="unfinished"></translation>
+        <translation>Effekte</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FunctionManager.qml" line="148"/>
         <source>Collections</source>
-        <translation type="unfinished"></translation>
+        <translation>Sammlungen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FunctionManager.qml" line="160"/>
         <source>RGB Matrices</source>
-        <translation type="unfinished"></translation>
+        <translation>RGB-Matrixeffekte</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FunctionManager.qml" line="172"/>
         <source>Shows</source>
-        <translation type="unfinished"></translation>
+        <translation>Shows</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FunctionManager.qml" line="184"/>
         <source>Scripts</source>
-        <translation type="unfinished"></translation>
+        <translation>Skripte</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FunctionManager.qml" line="196"/>
         <source>Audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Audios</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FunctionManager.qml" line="208"/>
         <source>Videos</source>
-        <translation type="unfinished"></translation>
+        <translation>Videos</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FunctionManager.qml" line="225"/>
         <source>Set a Function search filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Funktion suchen</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="137"/>
         <source>&lt;None&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;Keine&gt;</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="248"/>
         <source>New Scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue Szene</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="256"/>
         <source>New Chaser</source>
-        <translation type="unfinished"></translation>
+        <translation>Neuer Chaser</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="278"/>
         <source>New Sequence</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue Sequenz</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="291"/>
         <source>New EFX</source>
-        <translation type="unfinished"></translation>
+        <translation>Neuer Effekt</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="299"/>
         <source>New Collection</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue Sammlung</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="314"/>
         <source>New RGB Matrix</source>
-        <translation type="unfinished"></translation>
+        <translation>Neuer RGB-Matrixeffekt</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="322"/>
         <source>New Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Neues Skript</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="330"/>
         <source>New Show</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue Show</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="337"/>
         <source>New Audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Neues Audio</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="369"/>
         <source>New Video</source>
-        <translation type="unfinished"></translation>
+        <translation>Neues Video</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="755"/>
         <source> (Copy)</source>
-        <translation type="unfinished"></translation>
+        <translation> (Kopie)</translation>
     </message>
     <message>
         <location filename="functionmanager.cpp" line="931"/>
         <source>New folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Neuer Ordner</translation>
     </message>
 </context>
 <context>
@@ -1382,22 +1382,22 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/inputoutput/IOLeftPanel.qml" line="80"/>
         <source>Show the audio input sources</source>
-        <translation type="unfinished"></translation>
+        <translation>Audioeingangsquellen zeigen</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/IOLeftPanel.qml" line="99"/>
         <source>Show the universe input sources</source>
-        <translation type="unfinished"></translation>
+        <translation>Universumseingangsquellen zeigen</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/IOLeftPanel.qml" line="118"/>
         <source>Show the universe input profiles</source>
-        <translation type="unfinished"></translation>
+        <translation>Universumseingangsprofile zeigen</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/IOLeftPanel.qml" line="143"/>
         <source>Open the plugin configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Plugin-Konfiguration öffnen</translation>
     </message>
 </context>
 <context>
@@ -1405,32 +1405,32 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/inputoutput/IORightPanel.qml" line="72"/>
         <source>Show the audio output sources</source>
-        <translation type="unfinished"></translation>
+        <translation>Audioausgangsquellen zeigen</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/IORightPanel.qml" line="90"/>
         <source>Show the universe output sources</source>
-        <translation type="unfinished"></translation>
+        <translation>Universumsausgangsquellen zeigen</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/IORightPanel.qml" line="107"/>
         <source>Enable/Disable blackout on all the output patches</source>
-        <translation type="unfinished"></translation>
+        <translation>Blackout in alle Ausgangsprofilen ein-/ausschalten</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/IORightPanel.qml" line="119"/>
         <source>Open the plugin configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Pluginkonfiguration öffnen</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/IORightPanel.qml" line="137"/>
         <source>Add a new universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Neues Universum hinzufügen</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/IORightPanel.qml" line="148"/>
         <source>Remove the selected universe</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgewähltes Universum entfernen</translation>
     </message>
 </context>
 <context>
@@ -1438,12 +1438,12 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="inputoutputmanager.cpp" line="46"/>
         <source>Input/Output Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Eingänge/Ausgänge</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="91"/>
         <source>All universes</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle Universen</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="222"/>
@@ -1452,17 +1452,17 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
         <location filename="inputoutputmanager.cpp" line="316"/>
         <location filename="inputoutputmanager.cpp" line="635"/>
         <source>Default device</source>
-        <translation type="unfinished"></translation>
+        <translation>Standardgerät</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="593"/>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Deaktiviert</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="602"/>
         <source>Internal generator</source>
-        <translation type="unfinished"></translation>
+        <translation>Interner Taktgenerator</translation>
     </message>
 </context>
 <context>
@@ -1470,7 +1470,7 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/inputoutput/InputPatchItem.qml" line="59"/>
         <source>Remove this input profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Eingangsprofil entfernen</translation>
     </message>
 </context>
 <context>
@@ -1478,7 +1478,7 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/fixturesfunctions/IntensityTool.qml" line="62"/>
         <source>Intensity</source>
-        <translation type="unfinished"></translation>
+        <translation>Intensität</translation>
     </message>
 </context>
 <context>
@@ -1486,7 +1486,7 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/KeyPad.qml" line="87"/>
         <source>Tap</source>
-        <translation type="unfinished"></translation>
+        <translation>Tap</translation>
     </message>
 </context>
 <context>
@@ -1494,22 +1494,22 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/KeyboardSequenceDelegate.qml" line="46"/>
         <source>Control</source>
-        <translation type="unfinished"></translation>
+        <translation>Verhalten</translation>
     </message>
     <message>
         <location filename="qml/KeyboardSequenceDelegate.qml" line="71"/>
         <source>Combination</source>
-        <translation type="unfinished"></translation>
+        <translation>Kombination</translation>
     </message>
     <message>
         <location filename="qml/KeyboardSequenceDelegate.qml" line="95"/>
         <source>Activate auto detection</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatische Erkennung</translation>
     </message>
     <message>
         <location filename="qml/KeyboardSequenceDelegate.qml" line="120"/>
         <source>Remove this keyboard combination</source>
-        <translation type="unfinished"></translation>
+        <translation>Tastenkombination entfernen</translation>
     </message>
 </context>
 <context>
@@ -1517,62 +1517,62 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/fixturesfunctions/LeftPanel.qml" line="68"/>
         <source>Add Fixtures</source>
-        <translation type="unfinished"></translation>
+        <translation>Geräte hinzufügen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/LeftPanel.qml" line="87"/>
         <source>Fixture Groups</source>
-        <translation type="unfinished"></translation>
+        <translation>Gerätegruppen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/LeftPanel.qml" line="106"/>
         <source>Intensity</source>
-        <translation type="unfinished"></translation>
+        <translation>Intensität</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/LeftPanel.qml" line="130"/>
         <source>Shutter</source>
-        <translation type="unfinished"></translation>
+        <translation>Shutter</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/LeftPanel.qml" line="158"/>
         <source>Position</source>
-        <translation type="unfinished"></translation>
+        <translation>Position</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/LeftPanel.qml" line="187"/>
         <source>Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/LeftPanel.qml" line="214"/>
         <source>Color Wheel</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbrad</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/LeftPanel.qml" line="241"/>
         <source>Gobos</source>
-        <translation type="unfinished"></translation>
+        <translation>Gobos</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/LeftPanel.qml" line="269"/>
         <source>Beam</source>
-        <translation type="unfinished"></translation>
+        <translation>Lichtstrahl</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/LeftPanel.qml" line="311"/>
         <source>Pick a 3D point</source>
-        <translation type="unfinished"></translation>
+        <translation>3D-Punkt auswählen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/LeftPanel.qml" line="321"/>
         <source>Toggle multiple item selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Mehrfachauswahl umschalten</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/LeftPanel.qml" line="333"/>
         <source>Select/Deselect all fixtures</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle Geräte an-/abwählen</translation>
     </message>
 </context>
 <context>
@@ -1580,37 +1580,37 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/MainView.qml" line="127"/>
         <source>Actions</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktionen</translation>
     </message>
     <message>
         <location filename="qml/MainView.qml" line="147"/>
         <source>Fixtures &amp; Functions</source>
-        <translation type="unfinished"></translation>
+        <translation>Geräte &amp; Funktionen</translation>
     </message>
     <message>
         <location filename="qml/MainView.qml" line="161"/>
         <source>Virtual Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Virtuelle Konsole</translation>
     </message>
     <message>
         <location filename="qml/MainView.qml" line="179"/>
         <source>Simple Desk</source>
-        <translation type="unfinished"></translation>
+        <translation>Einfaches Mischpult</translation>
     </message>
     <message>
         <location filename="qml/MainView.qml" line="197"/>
         <source>Show Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Shows</translation>
     </message>
     <message>
         <location filename="qml/MainView.qml" line="215"/>
         <source>Input/Output</source>
-        <translation type="unfinished"></translation>
+        <translation>Eingänge/Ausgänge</translation>
     </message>
     <message>
         <location filename="qml/MainView.qml" line="237"/>
         <source>Off</source>
-        <translation type="unfinished"></translation>
+        <translation>Aus</translation>
     </message>
 </context>
 <context>
@@ -1618,7 +1618,7 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="mainview2d.cpp" line="43"/>
         <source>2D View</source>
-        <translation type="unfinished"></translation>
+        <translation>2D-Ansicht</translation>
     </message>
 </context>
 <context>
@@ -1626,27 +1626,27 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="mainview3d.cpp" line="51"/>
         <source>3D View</source>
-        <translation type="unfinished"></translation>
+        <translation>3D-Ansicht</translation>
     </message>
     <message>
         <location filename="mainview3d.cpp" line="57"/>
         <source>Simple ground</source>
-        <translation type="unfinished"></translation>
+        <translation>Einfacher Boden</translation>
     </message>
     <message>
         <location filename="mainview3d.cpp" line="57"/>
         <source>Simple box</source>
-        <translation type="unfinished"></translation>
+        <translation>Einfache Box</translation>
     </message>
     <message>
         <location filename="mainview3d.cpp" line="57"/>
         <source>Rock stage</source>
-        <translation type="unfinished"></translation>
+        <translation>Rockkonzertbühne</translation>
     </message>
     <message>
         <location filename="mainview3d.cpp" line="57"/>
         <source>Theatre stage</source>
-        <translation type="unfinished"></translation>
+        <translation>Theaterbühne</translation>
     </message>
 </context>
 <context>
@@ -1654,7 +1654,7 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="mainviewdmx.cpp" line="38"/>
         <source>DMX View</source>
-        <translation type="unfinished"></translation>
+        <translation>DMX-Ansicht</translation>
     </message>
 </context>
 <context>
@@ -1662,12 +1662,12 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/inputoutput/OutputPatchItem.qml" line="66"/>
         <source>Play/Pause this output patch</source>
-        <translation type="unfinished"></translation>
+        <translation>Diese Ausgangszuweisung starten/pausieren</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/OutputPatchItem.qml" line="77"/>
         <source>Enable/Disable a blackout on this output patch</source>
-        <translation type="unfinished"></translation>
+        <translation>Blackout für diese Ausgangszuweisung umschalten</translation>
     </message>
 </context>
 <context>
@@ -1675,27 +1675,27 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/popup/PopupAbout.qml" line="31"/>
         <source>Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Information</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupAbout.qml" line="54"/>
         <source>and contributors</source>
-        <translation type="unfinished"></translation>
+        <translation>und Mitwirkende</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupAbout.qml" line="55"/>
         <source>Website</source>
-        <translation type="unfinished"></translation>
+        <translation>Webseite</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupAbout.qml" line="56"/>
         <source>This application is licensed under the terms of the</source>
-        <translation type="unfinished"></translation>
+        <translation>Diese Anwendung ist lizensiert unter den Bedingungen der</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupAbout.qml" line="58"/>
         <source>Apache 2.0 license</source>
-        <translation type="unfinished"></translation>
+        <translation>Apache-2.0-Lizenz</translation>
     </message>
 </context>
 <context>
@@ -1703,87 +1703,87 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/popup/PopupDMXDump.qml" line="30"/>
         <source>Enter a name for the scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Namen für die Szene eingeben</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupDMXDump.qml" line="87"/>
         <source>Scene name</source>
-        <translation type="unfinished"></translation>
+        <translation>Szenenname</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupDMXDump.qml" line="94"/>
         <source>New Scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue Szene</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupDMXDump.qml" line="108"/>
         <source>Don&apos;t ask again</source>
-        <translation type="unfinished"></translation>
+        <translation>Nicht erneut fragen</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupDMXDump.qml" line="114"/>
         <source>Available channel types</source>
-        <translation type="unfinished"></translation>
+        <translation>Verfügbare Kanaltypen</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupDMXDump.qml" line="134"/>
         <source>Intensity</source>
-        <translation type="unfinished"></translation>
+        <translation>Intensität</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupDMXDump.qml" line="152"/>
         <source>RGB/CMY/WAUV</source>
-        <translation type="unfinished"></translation>
+        <translation>RGB/CMY/WAUV</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupDMXDump.qml" line="171"/>
         <source>Color macros</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbmakros</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupDMXDump.qml" line="189"/>
         <source>Gobo</source>
-        <translation type="unfinished"></translation>
+        <translation>Gobo</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupDMXDump.qml" line="208"/>
         <source>Pan</source>
-        <translation type="unfinished"></translation>
+        <translation>Pan</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupDMXDump.qml" line="226"/>
         <source>Tilt</source>
-        <translation type="unfinished"></translation>
+        <translation>Tilt</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupDMXDump.qml" line="245"/>
         <source>Speed</source>
-        <translation type="unfinished"></translation>
+        <translation>Tempo</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupDMXDump.qml" line="263"/>
         <source>Shutter/Strobe</source>
-        <translation type="unfinished"></translation>
+        <translation>Shutter/Strobo</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupDMXDump.qml" line="282"/>
         <source>Prism</source>
-        <translation type="unfinished"></translation>
+        <translation>Prisma</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupDMXDump.qml" line="300"/>
         <source>Beam</source>
-        <translation type="unfinished"></translation>
+        <translation>Lichtstrahl</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupDMXDump.qml" line="319"/>
         <source>Effect</source>
-        <translation type="unfinished"></translation>
+        <translation>Effekt</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupDMXDump.qml" line="337"/>
         <source>Maintenance</source>
-        <translation type="unfinished"></translation>
+        <translation>Wartung</translation>
     </message>
 </context>
 <context>
@@ -1799,17 +1799,17 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/popup/PopupImportProject.qml" line="31"/>
         <source>Import from project</source>
-        <translation type="unfinished"></translation>
+        <translation>Aus Projekt importieren</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupImportProject.qml" line="58"/>
         <source>Fixtures</source>
-        <translation type="unfinished"></translation>
+        <translation>Geräte</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupImportProject.qml" line="62"/>
         <source>Functions</source>
-        <translation type="unfinished"></translation>
+        <translation>Funktionen</translation>
     </message>
 </context>
 <context>
@@ -1817,32 +1817,32 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/popup/PopupMonitor.qml" line="31"/>
         <source>2D Point of view selection</source>
-        <translation type="unfinished"></translation>
+        <translation>2D-Blickpunkt auswählen</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupMonitor.qml" line="49"/>
         <source>Please select the initial point of view for your 2D preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Wähle bitte den ursprünglichen Blickpunkt für deine 2D-Vorschau</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupMonitor.qml" line="65"/>
         <source>Top view</source>
-        <translation type="unfinished"></translation>
+        <translation>Von Oben</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupMonitor.qml" line="82"/>
         <source>Front view</source>
-        <translation type="unfinished"></translation>
+        <translation>Von unten</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupMonitor.qml" line="98"/>
         <source>Right side view</source>
-        <translation type="unfinished"></translation>
+        <translation>Von rechts</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupMonitor.qml" line="114"/>
         <source>Left side view</source>
-        <translation type="unfinished"></translation>
+        <translation>Von links</translation>
     </message>
 </context>
 <context>
