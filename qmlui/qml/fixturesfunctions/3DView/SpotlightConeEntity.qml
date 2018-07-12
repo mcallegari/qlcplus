@@ -43,6 +43,8 @@ Entity
         length: 1.0
         bottomRadius: 9.9
         topRadius: 4.9      
+        rings: 2
+        slices: 60
     }
 
     Material
