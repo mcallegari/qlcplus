@@ -134,7 +134,7 @@ Contributors
 * Nathan Durnan (RGB scripts, new features)
 * Giorgio Rebecchi (new features)
 * Heiko Fanieng, Jannis Achstetter (German translation)
-* NiKoyes, Jérôme Lebleu, Olivier Humbert (French translation)
+* NiKoyes, Jérôme Lebleu, Olivier Humbert, Nils Van Zuijlen (French translation)
 * Raymond Van Laake (Dutch translation)
 * Luis García Tornel (Spanish translation)
 * Jan Lachman (Czech translation)
