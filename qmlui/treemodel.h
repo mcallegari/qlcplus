@@ -87,6 +87,8 @@ public:
      *  $flags are used to give an item a specific initial state. See TreeItemsFlags */
     TreeModelItem *addItem(QString label, QVariantList data, QString path = QString(), int flags = 0);
 
+    TreeModelItem *itemAtPath(QString path);
+
     /** Remove an item with the given $path from the tree */
     bool removeItem(QString path);
 
