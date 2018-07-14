@@ -47,9 +47,6 @@ uniform sampler2D shadowTex;
 
 uniform float headLength;
 
-uniform float uLightCosCutoffAngle;
-uniform float uLightTanCutoffAngle;
-
 void main()
 {
 
