@@ -25,6 +25,9 @@
 
 #include "virtualconsole.h"
 #include "contextmanager.h"
+#include "qlcinputchannel.h"
+#include "inputpatch.h"
+#include "treemodel.h"
 #include "vccuelist.h"
 #include "vcwidget.h"
 #include "vcbutton.h"
@@ -68,6 +71,7 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc,
     , m_autoDetectionSource(NULL)
     , m_autoDetectionKey(QKeySequence())
     , m_autoDetectionKeyId(UINT_MAX)
+    , m_inputChannelsTree(NULL)
 {
     Q_ASSERT(doc != NULL);
 
@@ -84,6 +88,7 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc,
     }
 
     qmlRegisterUncreatableType<GrandMaster>("org.qlcplus.classes", 1, 0, "GrandMaster", "Can't create a GrandMaster !");
+    qmlRegisterUncreatableType<QLCInputChannel>("org.qlcplus.classes", 1, 0, "QLCInputChannel", "Can't create a QLCInputChannel !");
 
     qmlRegisterType<VCWidget>("org.qlcplus.classes", 1, 0, "VCWidget");
     qmlRegisterType<VCFrame>("org.qlcplus.classes", 1, 0, "VCFrame");
@@ -914,6 +919,15 @@ bool VirtualConsole::createAndDetectInputSource(VCWidget *widget)
     return true;
 }
 
+void VirtualConsole::createAndAddInputSource(VCWidget *widget, quint32 universe, quint32 channel)
+{
+    QSharedPointer<QLCInputSource> source = QSharedPointer<QLCInputSource>(new QLCInputSource());
+    source->setID(0); // this is a blind guess, but every widget should have a 0 control ID
+    source->setUniverse(universe);
+    source->setChannel(channel);
+    widget->addInputSource(source);
+}
+
 bool VirtualConsole::createAndDetectInputKey(VCWidget *widget)
 {
     /** Do not allow multiple detections at once ! */
@@ -1059,6 +1073,87 @@ void VirtualConsole::handleKeyEvent(QKeyEvent *e, bool pressed)
         /** At last, disable the autodetection process */
         disableAutoDetection();
     }
+}
+
+QVariant VirtualConsole::inputChannelsModel()
+{
+    if (m_inputChannelsTree == NULL)
+    {
+        m_inputChannelsTree = new TreeModel(this);
+        QQmlEngine::setObjectOwnership(m_inputChannelsTree, QQmlEngine::CppOwnership);
+        QStringList treeColumns;
+        treeColumns << "classRef" << "type" << "id";
+        m_inputChannelsTree->setColumnNames(treeColumns);
+        m_inputChannelsTree->enableSorting(false);
+    }
+    else
+    {
+        m_inputChannelsTree->clear();
+    }
+
+    for (Universe *universe : m_doc->inputOutputMap()->universes())
+    {
+        /* Get the patch associated to the current universe */
+        InputPatch *patch = universe->inputPatch();
+        if (patch == NULL)
+            continue;
+
+        QLCInputProfile *profile = patch->profile();
+        if (profile == NULL)
+            continue;
+
+        QString nodePath = QString("%1: %2").arg(universe->name()).arg(profile->name());
+
+        QMapIterator <quint32, QLCInputChannel*> it(profile->channels());
+        while (it.hasNext() == true)
+        {
+            QLCInputChannel *channel = it.next().value();
+            int itemID = (universe->id() << 16) | it.key();
+
+            QVariantList chParams;
+            chParams.append(QVariant::fromValue(channel)); // classRef
+            chParams.append(App::ChannelDragItem); // type
+            chParams.append(itemID); // id
+            m_inputChannelsTree->addItem(QString("%1: %2").arg(it.key() + 1).arg(channel->name()), chParams, nodePath);
+        }
+
+        // add also the Universe node data
+        QVariantList uniParams;
+        uniParams.append(QVariant()); // classRef
+        uniParams.append(App::UniverseDragItem); // type
+        uniParams.append(universe->id()); // id
+
+        m_inputChannelsTree->setPathData(nodePath, uniParams);
+    }
+
+    return QVariant::fromValue(m_inputChannelsTree);
+}
+
+QVariantList VirtualConsole::universeListModel()
+{
+    QVariantList list;
+
+    for (Universe *universe : m_doc->inputOutputMap()->universes())
+    {
+        QString name = universe->name();
+
+        /* Get the patch associated to the current universe */
+        InputPatch *patch = universe->inputPatch();
+        if (patch != NULL)
+        {
+            QLCInputProfile *profile = patch->profile();
+            if (profile != NULL)
+                name = QString("%1: %2").arg(universe->name()).arg(profile->name());
+        }
+
+        QVariantMap uniMap;
+        uniMap.insert("mIcon", "");
+        uniMap.insert("mLabel", name);
+        uniMap.insert("mValue", universe->id());
+        list.append(uniMap);
+    }
+
+    return list;
 }
 
 void VirtualConsole::slotInputValueChanged(quint32 universe, quint32 channel, uchar value)

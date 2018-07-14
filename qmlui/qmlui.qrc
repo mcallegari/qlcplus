@@ -34,6 +34,7 @@
     <file alias="IconButton.qml">qml/IconButton.qml</file>
     <file alias="IconPopupButton.qml">qml/IconPopupButton.qml</file>
     <file alias="IconTextEntry.qml">qml/IconTextEntry.qml</file>
+    <file alias="InputChannelDelegate.qml">qml/InputChannelDelegate.qml</file>
     <file alias="KeyboardSequenceDelegate.qml">qml/KeyboardSequenceDelegate.qml</file>
     <file alias="KeyPad.qml">qml/KeyPad.qml</file>
     <file alias="MainView.qml">qml/MainView.qml</file>
@@ -65,6 +66,7 @@
     <file alias="PopupNetworkClient.qml">qml/popup/PopupNetworkClient.qml</file>
     <file alias="PopupNetworkConnect.qml">qml/popup/PopupNetworkConnect.qml</file>
     <file alias="PopupNetworkServer.qml">qml/popup/PopupNetworkServer.qml</file>
+    <file alias="PopupManualInputSource.qml">qml/popup/PopupManualInputSource.qml</file>
 
     <!-- Fixtures and Functions -->
     <file alias="FixturesAndFunctions.qml">qml/fixturesfunctions/FixturesAndFunctions.qml</file>

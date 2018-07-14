@@ -147,7 +147,7 @@ fast</Capability>
  <Channel Name="Rotating Gobo Wheel 2">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="18" Preset="GoboMacro" Res1="Others/open.svg">White</Capability>
-  <Capability Min="19" Max="36" Preset="GoboMacro" Res1="SGM-Color/gobo00375.png">Gobo 1</Capability>
+  <Capability Min="19" Max="36" Preset="GoboMacro" Res1="SGM-Color/gobo00375.svg">Gobo 1</Capability>
   <Capability Min="37" Max="54" Preset="GoboMacro" Res1="Others/gobo00039.svg">Gobo 2</Capability>
   <Capability Min="55" Max="73" Preset="GoboMacro" Res1="SGM/gobo00286.png">Gobo 3</Capability>
   <Capability Min="74" Max="91" Preset="GoboMacro" Res1="SGM-Color/gobo00545.png">Gobo 4</Capability>
@@ -155,7 +155,7 @@ fast</Capability>
   <Capability Min="110" Max="127" Preset="GoboMacro" Res1="SGM-Color/gobo00556.png">Gobo 6</Capability>
   <Capability Min="128" Max="156">Rotation speed from slow to fast</Capability>
   <Capability Min="157" Max="185">Reverse rotation from slow to fast</Capability>
-  <Capability Min="186" Max="196" Preset="GoboMacro" Res1="SGM-Color/gobo00375.png">Gobo 1 Shake (slow &gt; fast)</Capability>
+  <Capability Min="186" Max="196" Preset="GoboMacro" Res1="SGM-Color/gobo00375.svg">Gobo 1 Shake (slow &gt; fast)</Capability>
   <Capability Min="197" Max="208" Preset="GoboMacro" Res1="Others/gobo00039.svg">Gobo 2 Shake (slow &gt; fast)</Capability>
   <Capability Min="209" Max="220" Preset="GoboMacro" Res1="SGM/gobo00286.png">Gobo 3 Shake (slow &gt; fast)</Capability>
   <Capability Min="221" Max="232" Preset="GoboMacro" Res1="SGM-Color/gobo00545.png">Gobo 4 Shake (slow &gt; fast)</Capability>

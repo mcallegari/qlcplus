@@ -25,7 +25,7 @@
   <Capability Res="Chauvet/gobo00026.svg" Min="12" Max="23">Yellow</Capability>
   <Capability Res="Others/gobo00002.png" Min="24" Max="34">Blue</Capability>
   <Capability Res="Chauvet/gobo00037.png" Min="35" Max="46">Blue+Red+Green</Capability>
-  <Capability Res="Chauvet/gobo00045.png" Min="47" Max="58">Green</Capability>
+  <Capability Res="Chauvet/gobo00045.svg" Min="47" Max="58">Green</Capability>
   <Capability Res="Chauvet/gobo00018.png" Min="59" Max="69">Pink</Capability>
   <Capability Res="Others/gobo00044.svg" Min="70" Max="81">Red+Yellow+Green+Blue</Capability>
   <Capability Res="SGM/gobo00007.png" Min="82" Max="93">Magenta</Capability>

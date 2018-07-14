@@ -120,24 +120,24 @@
   <Capability Min="0" Max="12" Res="Others/open.svg">White</Capability>
   <Capability Min="13" Max="25" Res="SGM/gobo00370.png">Gobo 1</Capability>
   <Capability Min="26" Max="37" Res="SGM/gobo00265.png">Gobo 2</Capability>
-  <Capability Min="38" Max="50" Res="Robe/gobo00056.png">Gobo 3</Capability>
+  <Capability Min="38" Max="50" Res="Robe/gobo00056.svg">Gobo 3</Capability>
   <Capability Min="51" Max="62" Res="Chauvet/gobo00068.png">Gobo 4</Capability>
-  <Capability Min="63" Max="75" Res="Robe/gobo00061.png">Gobo 5</Capability>
+  <Capability Min="63" Max="75" Res="Robe/gobo00061.svg">Gobo 5</Capability>
   <Capability Min="76" Max="88" Res="Chauvet/gobo00007.svg">Gobo 6</Capability>
   <Capability Min="89" Max="101" Res="ClayPaky/gobo00025.svg">Gobo 7</Capability>
   <Capability Min="102" Max="114" Res="Robe/gobo00027.svg">Gobo 8</Capability>
-  <Capability Min="115" Max="127" Res="Robe/gobo00065.png">Gobo 9</Capability>
+  <Capability Min="115" Max="127" Res="Robe/gobo00065.svg">Gobo 9</Capability>
   <Capability Min="128" Max="155">Forward rotation from slow to fast</Capability>
   <Capability Min="156" Max="183">Reverse rotation from slow to fast</Capability>
   <Capability Min="184" Max="191" Res="SGM/gobo00370.png">Shake 1 from fast to slow</Capability>
   <Capability Min="192" Max="199" Res="SGM/gobo00265.png">Shake 2 from fast to slow</Capability>
-  <Capability Min="200" Max="207" Res="Robe/gobo00056.png">Shake 3 from fast to slow</Capability>
+  <Capability Min="200" Max="207" Res="Robe/gobo00056.svg">Shake 3 from fast to slow</Capability>
   <Capability Min="208" Max="215" Res="Chauvet/gobo00068.png">Shake 4 from fast to slow</Capability>
-  <Capability Min="216" Max="223" Res="Robe/gobo00061.png">Shake 5 from fast to slow</Capability>
+  <Capability Min="216" Max="223" Res="Robe/gobo00061.svg">Shake 5 from fast to slow</Capability>
   <Capability Min="224" Max="231" Res="Chauvet/gobo00007.svg">Shake 6 from fast to slow</Capability>
   <Capability Min="232" Max="239" Res="ClayPaky/gobo00025.svg">Shake 7 from fast to slow</Capability>
   <Capability Min="240" Max="247" Res="Robe/gobo00027.svg">Shake 8 from fast to slow</Capability>
-  <Capability Min="248" Max="255" Res="Robe/gobo00065.png">Shake 9 from fast to slow</Capability>
+  <Capability Min="248" Max="255" Res="Robe/gobo00065.svg">Shake 9 from fast to slow</Capability>
  </Channel>
  <Channel Name="Gobo Rotation">
   <Group Byte="0">Gobo</Group>

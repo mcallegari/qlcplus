@@ -29,14 +29,14 @@
  <Channel Name="Gobo1">
   <Group Byte="0">Gobo</Group>
   <Capability Res="Others/open.svg" Min="0" Max="9">open</Capability>
-  <Capability Res="SGM/gobo00030.png" Min="10" Max="19">Gobo 1</Capability>
+  <Capability Res="SGM/gobo00030.svg" Min="10" Max="19">Gobo 1</Capability>
   <Capability Min="20" Max="29">Gobo 2</Capability>
   <Capability Res="ClayPaky/gobo00022.svg" Min="30" Max="39">Gobo 3</Capability>
   <Capability Res="Others/gobo00027.svg" Min="40" Max="49">Gobo 4</Capability>
   <Capability Res="Others/gobo00038.svg" Min="50" Max="59">Gobo 5</Capability>
   <Capability Res="Robe/gobo00047.png" Min="60" Max="69">Gobo 6</Capability>
   <Capability Min="70" Max="79">Gobo 7</Capability>
-  <Capability Res="SGM/gobo00030.png" Min="80" Max="99">shaking Gobo 1</Capability>
+  <Capability Res="SGM/gobo00030.svg" Min="80" Max="99">shaking Gobo 1</Capability>
   <Capability Min="100" Max="119">shaking Gobo 2</Capability>
   <Capability Res="ClayPaky/gobo00022.svg" Min="120" Max="139">shaking Gobo 3</Capability>
   <Capability Res="Others/gobo00027.svg" Min="140" Max="159">shaking Gobo 4</Capability>

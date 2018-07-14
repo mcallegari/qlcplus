@@ -53,10 +53,10 @@
  <Channel Name="Gobo Wheel 1">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="20" Res="Others/open.svg">Open</Capability>
-  <Capability Min="21" Max="41" Res="Robe/gobo00067.png">Gobo 1 - position 1</Capability>
+  <Capability Min="21" Max="41" Res="Robe/gobo00067.svg">Gobo 1 - position 1</Capability>
   <Capability Min="42" Max="62" Res="SGM/gobo00133.svg">Gobo 1 - position 2</Capability>
   <Capability Min="63" Max="83" Res="SGM/gobo00257.png">Gobo 1 - position 3</Capability>
-  <Capability Min="84" Max="104" Res="Robe/gobo00064.png">Gobo 1 - position 4</Capability>
+  <Capability Min="84" Max="104" Res="Robe/gobo00064.svg">Gobo 1 - position 4</Capability>
   <Capability Min="105" Max="127" Res="ClayPaky/gobo00081.png">Gobo 1 - position 5</Capability>
   <Capability Min="128" Max="191">Continuous rotation CW</Capability>
   <Capability Min="192" Max="192">No rotation</Capability>

@@ -78,7 +78,7 @@ QLCInputProfile& QLCInputProfile::operator=(const QLCInputProfile& profile)
         while (it.hasNext() == true)
         {
             it.next();
-            insertChannel(it.key(), new QLCInputChannel(*it.value()));
+            insertChannel(it.key(), it.value()->createCopy());
         }
     }
 

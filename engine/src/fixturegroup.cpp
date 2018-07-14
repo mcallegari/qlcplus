@@ -89,7 +89,11 @@ quint32 FixtureGroup::invalidId()
 
 void FixtureGroup::setName(const QString& name)
 {
+    if (m_name == name)
+        return;
+
     m_name = name;
+    emit nameChanged();
     emit changed(this->id());
 }
 
@@ -102,21 +106,25 @@ QString FixtureGroup::name() const
  * Fixtures
  ****************************************************************************/
 
-void FixtureGroup::assignFixture(quint32 id, const QLCPoint& pt)
+bool FixtureGroup::assignFixture(quint32 id, const QLCPoint& pt)
 {
     Fixture* fxi = doc()->fixture(id);
     Q_ASSERT(fxi != NULL);
     QLCPoint tmp = pt;
+    int headAddedcount = 0;
 
     for (int i = 0; i < fxi->heads(); i++)
     {
         if (pt.isNull())
         {
-            assignHead(pt, GroupHead(fxi->id(), i));
+            if (assignHead(pt, GroupHead(fxi->id(), i)) == true)
+                headAddedcount++;
         }
         else
         {
-            assignHead(tmp, GroupHead(fxi->id(), i));
+            if (assignHead(tmp, GroupHead(fxi->id(), i)) == true)
+                headAddedcount++;
+
             tmp.setX(tmp.x() + 1);
             if (tmp.x() >= size().width())
             {
@@ -125,12 +133,14 @@ void FixtureGroup::assignFixture(quint32 id, const QLCPoint& pt)
             }
         }
     }
+
+    return headAddedcount ? true : false;
 }
 
-void FixtureGroup::assignHead(const QLCPoint& pt, const GroupHead& head)
+bool FixtureGroup::assignHead(const QLCPoint& pt, const GroupHead& head)
 {
     if (m_heads.values().contains(head) == true)
-        return;
+        return false;
 
     if (size().isValid() == false)
         setSize(QSize(1, 1));
@@ -157,7 +167,7 @@ void FixtureGroup::assignHead(const QLCPoint& pt, const GroupHead& head)
                     {
                         m_heads[tmp] = head;
                         emit changed(this->id());
-                        return;
+                        return true;
                     }
                 }
             }
@@ -167,6 +177,7 @@ void FixtureGroup::assignHead(const QLCPoint& pt, const GroupHead& head)
     }
 
     emit changed(this->id());
+    return true;
 }
 
 void FixtureGroup::resignFixture(quint32 id)

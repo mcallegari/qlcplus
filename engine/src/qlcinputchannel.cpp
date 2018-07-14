@@ -40,15 +40,17 @@ QLCInputChannel::QLCInputChannel()
 {
 }
 
-QLCInputChannel::QLCInputChannel(const QLCInputChannel& channel)
+QLCInputChannel *QLCInputChannel::createCopy()
 {
-    m_name = channel.m_name;
-    m_type = channel.m_type;
-    m_movementType = channel.m_movementType;
-    m_movementSensitivity = channel.m_movementSensitivity;
-    m_sendExtraPress = channel.m_sendExtraPress;
-    m_lower = channel.m_lower;
-    m_upper = channel.m_upper;
+    QLCInputChannel *copy = new QLCInputChannel();
+    copy->setName(this->name());
+    copy->setType(this->type());
+    copy->setMovementType(this->movementType());
+    copy->setMovementSensitivity(this->movementSensitivity());
+    copy->setSendExtraPress(this->sendExtraPress());
+    copy->setRange(this->lowerValue(), this->upperValue());
+
+    return copy;
 }
 
 QLCInputChannel::~QLCInputChannel()

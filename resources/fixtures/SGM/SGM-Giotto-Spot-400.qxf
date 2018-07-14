@@ -29,19 +29,19 @@
  <Channel Name="Gobo 1">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="20" Res="Others/open.svg">Open</Capability>
-  <Capability Min="21" Max="41" Res="SGM/gobo00003.png">Gobo1 1</Capability>
-  <Capability Min="42" Max="62" Res="SGM/gobo00030.png">Gobo1 2</Capability>
-  <Capability Min="63" Max="83" Res="SGM/gobo00045.png">Gobo1 3</Capability>
-  <Capability Min="84" Max="104" Res="SGM/gobo00009.png">Gobo1 4</Capability>
-  <Capability Min="105" Max="125" Res="SGM-Color/gobo00375.png">Gobo1 5</Capability>
+  <Capability Min="21" Max="41" Res="SGM/gobo00003.svg">Gobo1 1</Capability>
+  <Capability Min="42" Max="62" Res="SGM/gobo00030.svg">Gobo1 2</Capability>
+  <Capability Min="63" Max="83" Res="SGM/gobo00045.svg">Gobo1 3</Capability>
+  <Capability Min="84" Max="104" Res="SGM/gobo00009.svg">Gobo1 4</Capability>
+  <Capability Min="105" Max="125" Res="SGM-Color/gobo00375.svg">Gobo1 5</Capability>
   <Capability Min="126" Max="146" Res="SGM-Color/gobo00386.png">Gobo1 6</Capability>
   <Capability Min="147" Max="167" Res="SGM-Color/gobo00390.png">Gobo1 7</Capability>
   <Capability Min="168" Max="189" Res="SGM/gobo00347.png">Gobo1 8</Capability>
-  <Capability Min="190" Max="196" Res="SGM/gobo00003.png">Scrolling Speed 1</Capability>
-  <Capability Min="197" Max="203" Res="SGM/gobo00030.png">Scrolling Speed 2</Capability>
-  <Capability Min="204" Max="210" Res="SGM/gobo00045.png">Scrolling Speed 3</Capability>
-  <Capability Min="211" Max="217" Res="SGM/gobo00009.png">Scrolling Speed 4</Capability>
-  <Capability Min="218" Max="224" Res="SGM-Color/gobo00375.png">Scrolling Speed 5</Capability>
+  <Capability Min="190" Max="196" Res="SGM/gobo00003.svg">Scrolling Speed 1</Capability>
+  <Capability Min="197" Max="203" Res="SGM/gobo00030.svg">Scrolling Speed 2</Capability>
+  <Capability Min="204" Max="210" Res="SGM/gobo00045.svg">Scrolling Speed 3</Capability>
+  <Capability Min="211" Max="217" Res="SGM/gobo00009.svg">Scrolling Speed 4</Capability>
+  <Capability Min="218" Max="224" Res="SGM-Color/gobo00375.svg">Scrolling Speed 5</Capability>
   <Capability Min="225" Max="231" Res="SGM-Color/gobo00386.png">Scrolling Speed 6</Capability>
   <Capability Min="232" Max="238" Res="SGM-Color/gobo00390.png">Scrolling Speed 7</Capability>
   <Capability Min="239" Max="245" Res="SGM/gobo00347.png">Scrolling Speed 8</Capability>
@@ -172,7 +172,7 @@
  <Channel Name="Effect">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="27" Res="Others/open.svg">White</Capability>
-  <Capability Min="28" Max="55" Res="SGM/gobo00042.png">Tunnel</Capability>
+  <Capability Min="28" Max="55" Res="SGM/gobo00042.svg">Tunnel</Capability>
   <Capability Min="56" Max="83" Res="SGM/gobo00171.svg">Stripped Texture</Capability>
   <Capability Min="84" Max="111">Honeycomb Texture</Capability>
   <Capability Min="112" Max="139">Spider</Capability>
