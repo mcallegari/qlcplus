@@ -130,6 +130,9 @@
     <file alias="LightPassEffect.qml">qml/fixturesfunctions/3DView/LightPassEffect.qml</file>
     <file alias="GeometryPassEffect.qml">qml/fixturesfunctions/3DView/GeometryPassEffect.qml</file>
     <file alias="GammaCorrectEffect.qml">qml/fixturesfunctions/3DView/GammaCorrectEffect.qml</file>
+    <file alias="BlitEffect.qml">qml/fixturesfunctions/3DView/BlitEffect.qml</file>
+    
+    <file alias="FXAAEffect.qml">qml/fixturesfunctions/3DView/FXAAEffect.qml</file>
 
     <file alias="OutputFrontDepthEffect.qml">qml/fixturesfunctions/3DView/OutputFrontDepthEffect.qml</file>
     <file alias="FillGBufferFilter.qml">qml/fixturesfunctions/3DView/FillGBufferFilter.qml</file>
@@ -141,10 +144,14 @@
     <file alias="RenderShadowMapFilter.qml">qml/fixturesfunctions/3DView/RenderShadowMapFilter.qml</file>
 
     <file alias="GammaCorrectFilter.qml">qml/fixturesfunctions/3DView/GammaCorrectFilter.qml</file>
+    <file alias="BlitFilter.qml">qml/fixturesfunctions/3DView/BlitFilter.qml</file>
+    <file alias="FXAAFilter.qml">qml/fixturesfunctions/3DView/FXAAFilter.qml</file>
 
     <file alias="SceneEntity.qml">qml/fixturesfunctions/3DView/SceneEntity.qml</file>
     <file alias="ScreenQuadEntity.qml">qml/fixturesfunctions/3DView/ScreenQuadEntity.qml</file>
     <file alias="ScreenQuadGammaCorrectEntity.qml">qml/fixturesfunctions/3DView/ScreenQuadGammaCorrectEntity.qml</file>
+    <file alias="ScreenQuadBlitEntity.qml">qml/fixturesfunctions/3DView/ScreenQuadBlitEntity.qml</file>
+    <file alias="ScreenQuadFXAAEntity.qml">qml/fixturesfunctions/3DView/ScreenQuadFXAAEntity.qml</file>
 
     <file alias="SelectionEntity.qml">qml/fixturesfunctions/3DView/SelectionEntity.qml</file>
     <file alias="SelectionGeometry.qml">qml/fixturesfunctions/3DView/SelectionGeometry.qml</file>
@@ -157,8 +164,12 @@
     <file alias="SettingsView3D.qml">qml/fixturesfunctions/3DView/SettingsView3D.qml</file>
 
 
+
     <file alias="directional.frag">qml/fixturesfunctions/3DView/shaders/directional.frag</file>
     <file alias="gamma_correct.frag">qml/fixturesfunctions/3DView/shaders/gamma_correct.frag</file>
+    <file alias="blit.frag">qml/fixturesfunctions/3DView/shaders/blit.frag</file>
+    <file alias="fxaa.frag">qml/fixturesfunctions/3DView/shaders/fxaa.frag</file>
+
 
     <file alias="fullscreen.vert">qml/fixturesfunctions/3DView/shaders/fullscreen.vert</file>
 

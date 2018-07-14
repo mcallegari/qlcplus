@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  geo.frag
+  blit.frag
 
   Copyright (c) Eric Arnebäck
 
@@ -18,15 +18,14 @@
 */
 
 
-FS_IN_ATTRIB vec3 fsNormal;
-FS_IN_ATTRIB vec3 fsPos;
+FS_IN_ATTRIB vec2 fsUv;
 
-uniform vec4 meshColor;
+uniform sampler2D colorTex;
 
-DECLARE_GBUFFER_OUTPUT
+DECLARE_FRAG_COLOR
 
 void main()
 {
-    MGL_FRAG_DATA0 = vec4(meshColor.xyzw);
-    MGL_FRAG_DATA1 = vec4(fsNormal.xyz, 1.0);
+    vec3 finalColor = 1.0 * SAMPLE_TEX2D(colorTex, fsUv).rgb;
+    MGL_FRAG_COLOR = vec4(finalColor, 1.0);
 }

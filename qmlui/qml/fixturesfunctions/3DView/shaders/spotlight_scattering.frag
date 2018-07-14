@@ -99,7 +99,7 @@ void main()
 
     vec3 p = begP;
 
-    // add initial noise add beginning of ray. nosie is removed by TAA kater.
+    // add initial noise add beginning of ray. nosie is removed by anti-aliasing later.
     vec2 j = gl_FragCoord.xy * 10.2;
     p += rd * stepLength * hash(j.x+j.y * 47.0) * 0.3;
 

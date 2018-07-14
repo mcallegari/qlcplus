@@ -59,6 +59,7 @@ Rectangle
         z: 1
         anchors.fill: parent
         aspects: ["input", "logic"]
+        
 
         function updateSceneGraph(create)
         {
@@ -115,10 +116,13 @@ Rectangle
             console.log("BUILDING FRAME GRAPH")
 
             component = Qt.createComponent("FillGBufferFilter.qml");
+            if (component.status === Component.Error)
+                console.log("Error loading component:", component.errorString());
+            
             mynode = component.createObject(frameGraph.myCameraSelector,
             {
                 "gBuffer": gBufferTarget,
-                "sceneDeferredLayer": sceneEntity.deferredLayer
+                "sceneDeferredLayer": sceneEntity.deferredLayer,
             });
 
             component = Qt.createComponent("RenderSelectionBoxesFilter.qml");
@@ -128,7 +132,7 @@ Rectangle
             mynode = component.createObject(frameGraph.myCameraSelector,
             {
                 "gBuffer": gBufferTarget,
-                "layer": sceneEntity.selectionLayer
+                "layer": sceneEntity.selectionLayer,
             });
 
             component = Qt.createComponent("DirectionalLightFilter.qml");
@@ -188,16 +192,36 @@ Rectangle
                     });
                 }
             }  
-                    
+
             component = Qt.createComponent("GammaCorrectFilter.qml");
             if (component.status === Component.Error)
                 console.log("Error loading component:", component.errorString());
             mynode = component.createObject(frameGraph.myCameraSelector,
             {
-                "frameTarget": frameTarget,
+                "hdrTexture": frameTarget.color,
+                "outRenderTarget": hdr0RenderTarget,                
                 "screenQuadGammaCorrectLayer": screenQuadGammaCorrectEntity.layer
             });
-                   
+            
+            component = Qt.createComponent("FXAAFilter.qml");
+            if (component.status === Component.Error)
+                console.log("Error loading component:", component.errorString());
+            mynode = component.createObject(frameGraph.myCameraSelector,
+            {
+                "inTexture": hdr0ColorTexture,
+                "outRenderTarget": hdr1RenderTarget,                
+                "screenQuadFXAALayer": screenQuadFXAAEntity.layer
+            });
+
+            component = Qt.createComponent("BlitFilter.qml");
+            if (component.status === Component.Error)
+                console.log("Error loading component:", component.errorString());
+            mynode = component.createObject(frameGraph.myCameraSelector,
+            {
+                "inTexture": hdr1ColorTexture,
+                "screenQuadBlitLayer": screenQuadBlitEntity.layer
+            });
+
         }
 
         Entity
@@ -218,11 +242,70 @@ Rectangle
                 viewSize: Qt.size(scene3d.width, scene3d.height)
             }
             ScreenQuadGammaCorrectEntity { id: screenQuadGammaCorrectEntity }
+            ScreenQuadFXAAEntity { id: screenQuadFXAAEntity }
+            ScreenQuadBlitEntity { id: screenQuadBlitEntity }
 
             ScreenQuadEntity { id: screenQuadEntity }
 
             GBuffer { id: gBufferTarget }
+
             FrameTarget { id: frameTarget }
+
+            RenderTarget
+            {
+                id: hdr0RenderTarget
+                attachments: [
+                    RenderTargetOutput
+                    {
+                        objectName: "color"
+                        attachmentPoint: RenderTargetOutput.Color0
+                        texture:
+                            Texture2D
+                            {
+                                id: hdr0ColorTexture
+                                width: 1024
+                                height: 1024
+                                format: Texture.RGBA32F
+                                generateMipMaps: false
+                                magnificationFilter: Texture.Linear
+                                minificationFilter: Texture.Linear
+                                wrapMode
+                                {   
+                                    x: WrapMode.ClampToEdge
+                                    y: WrapMode.ClampToEdge
+                                }
+                            }
+                    }
+                ] // outputs
+            }            
+
+            RenderTarget
+            {
+                id: hdr1RenderTarget
+                attachments: [
+                    RenderTargetOutput
+                    {
+                        objectName: "color"
+                        attachmentPoint: RenderTargetOutput.Color0
+                        texture:
+                            Texture2D
+                            {
+                                id: hdr1ColorTexture
+                                width: 1024
+                                height: 1024
+                                format: Texture.RGBA32F
+                                generateMipMaps: false
+                                magnificationFilter: Texture.Linear
+                                minificationFilter: Texture.Linear
+                                wrapMode
+                                {   
+                                    x: WrapMode.ClampToEdge
+                                    y: WrapMode.ClampToEdge
+                                }
+                            }
+                    }
+                ] // outputs
+            }   
 
             DepthTarget { id: depthTarget }
 

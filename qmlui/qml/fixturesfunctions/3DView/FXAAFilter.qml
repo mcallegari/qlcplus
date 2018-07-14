@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  GammaCorrectFilter.qml
+  FXAAFilter.qml
 
   Copyright (c) Eric Arnebäck
 
@@ -24,16 +24,17 @@ import QtQuick 2.0
 
 TechniqueFilter
 {
- //   property GBuffer gBuffer
-    property Layer screenQuadGammaCorrectLayer 
+    property Layer screenQuadFXAALayer 
 
-    property Texture2D hdrTexture
-    property RenderTarget outRenderTarget
+    property Texture2D inTexture
 
     parameters: [
-        Parameter { name: "hdrTex"; value: hdrTexture }
+        Parameter { name: "colorTex"; value: inTexture }  
     ]       
-    
+
+    property RenderTarget outRenderTarget 
+
+
     RenderStateSet
     {
         // Render FullScreen Quad
@@ -47,8 +48,8 @@ TechniqueFilter
         ]
         LayerFilter
         {
-            layers: screenQuadGammaCorrectLayer   
-                
+            layers: screenQuadFXAALayer   
+
             RenderTargetSelector {
                 target:  outRenderTarget
 
@@ -57,12 +58,11 @@ TechniqueFilter
                     buffers: ClearBuffers.ColorDepthBuffer
                     RenderPassFilter
                     {
-                        matchAny: FilterKey { name: "pass"; value: "gamma_correct" }
+                        matchAny: FilterKey { name: "pass"; value: "fxaa" }
                     }
                 }
 
             }
-
         }     
     }
 } // TechniqueFilter
