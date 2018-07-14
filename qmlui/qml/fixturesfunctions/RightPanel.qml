@@ -415,6 +415,7 @@ SidePanel
                 PopupDMXDump
                 {
                     id: dmxDumpDialog
+                    implicitWidth: Math.min(UISettings.bigItemHeight * 4, mainView.width / 3)
 
                     property int sceneID: -1
 
