@@ -65,6 +65,15 @@ ComboBox
         }
     }
 
+    Rectangle
+    {
+        anchors.fill: parent
+        z: 3
+        color: "black"
+        opacity: 0.6
+        visible: !parent.enabled
+    }
+
     delegate:
         ItemDelegate
         {
