@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  FixtureDelegate.qml
+  InputChannelDelegate.qml
 
   Copyright (c) Massimo Callegari
 
@@ -25,21 +25,41 @@ import "."
 
 Rectangle
 {
-    id: fxDelegate
+    id: chDelegate
     width: 100
     height: UISettings.listItemHeight
 
     color: "transparent"
 
-    property Fixture cRef
+    property QLCInputChannel cRef
     property string textLabel: cRef ? cRef.name : ""
-    property int itemType: App.FixtureDragItem
+    property int itemType: App.ChannelDragItem
+    property int itemID
     property bool isSelected: false
     property bool isCheckable: false
     property bool isChecked: false
     property Item dragItem
 
     signal mouseEvent(int type, int iID, int iType, var qItem, int mouseMods)
+
+    function typeToIcon()
+    {
+        if (!cRef)
+            return ""
+
+        switch (cRef.type)
+        {
+            case QLCInputChannel.Slider: return "qrc:/slider.svg"
+            case QLCInputChannel.Button: return "qrc:/button.svg"
+            case QLCInputChannel.Knob:
+            case QLCInputChannel.Encoder:
+                return "qrc:/knob.svg"
+            case QLCInputChannel.NextPage: return "qrc:/forward.svg"
+            case QLCInputChannel.PrevPage: return "qrc:/back.svg"
+            case QLCInputChannel.PageSet: return "qrc:/star.svg"
+            default: return ""
+        }
+    }
 
     Rectangle
     {
@@ -53,30 +73,20 @@ Rectangle
     {
         anchors.fill: parent
 
-        CustomCheckBox
-        {
-            id: chCheckBox
-            visible: isCheckable
-            implicitWidth: UISettings.listItemHeight
-            implicitHeight: implicitWidth
-            checked: isChecked
-            onCheckedChanged: fxDelegate.mouseEvent(App.Checked, cRef.id, checked, fxDelegate, 0)
-        }
-
         IconTextEntry
         {
             Layout.fillWidth: true
-            height: fxDelegate.height
-            tLabel: fxDelegate.textLabel
-            iSrc: cRef ? cRef.iconResource(true) : ""
+            height: chDelegate.height
+            tLabel: chDelegate.textLabel
+            iSrc: cRef ? typeToIcon() : ""
 
             MouseArea
             {
                 anchors.fill: parent
                 hoverEnabled: true
 
-                onClicked: fxDelegate.mouseEvent(App.Clicked, cRef.id, cRef.type, fxDelegate, mouse.modifiers)
-                onDoubleClicked: fxDelegate.mouseEvent(App.DoubleClicked, cRef.id, cRef.type, fxDelegate, -1)
+                onClicked: chDelegate.mouseEvent(App.Clicked, cRef.id, cRef.type, chDelegate, mouse.modifiers)
+                onDoubleClicked: chDelegate.mouseEvent(App.DoubleClicked, cRef.id, cRef.type, chDelegate, -1)
             }
         }
     }
@@ -89,3 +99,4 @@ Rectangle
         color: "#666"
     }
 }
+

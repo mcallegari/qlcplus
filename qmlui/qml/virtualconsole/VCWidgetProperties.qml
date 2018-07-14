@@ -147,10 +147,50 @@ Rectangle
                 width: parent.width - (wpBar.visible ? wpBar.width : 0)
                 spacing: 5
 
+                Rectangle
+                {
+                    id: selectToolBar
+                    width: parent.width
+                    height: UISettings.listItemHeight
+                    z: 10
+                    gradient:
+                        Gradient
+                        {
+                            id: cBarGradient
+                            GradientStop { position: 0; color: UISettings.toolbarStartSub }
+                            GradientStop { position: 1; color: UISettings.toolbarEnd }
+                        }
+
+                    MenuBarEntry
+                    {
+                        id: settingsView
+                        width: parent.width / 2
+                        entryText: qsTr("Settings")
+                        checked: true
+                        autoExclusive: true
+                        checkedColor: UISettings.toolbarSelectionSub
+                        bgGradient: cBarGradient
+                        mFontSize: UISettings.textSizeDefault
+                    }
+
+                    MenuBarEntry
+                    {
+                        id: controlsView
+                        width: parent.width / 2
+                        anchors.left: settingsView.right
+                        entryText: qsTr("External controls")
+                        autoExclusive: true
+                        checkedColor: UISettings.toolbarSelectionSub
+                        bgGradient: cBarGradient
+                        mFontSize: UISettings.textSizeDefault
+                    }
+                }
+
                 SectionBox
                 {
+                    id: commonProps
                     width: parent.width
-                    visible: wObj ? true : false
+                    visible: settingsView.checked ? true : false
                     sectionLabel: qsTr("Basic properties")
 
                     sectionContents:
@@ -397,7 +437,7 @@ Rectangle
                 {
                     id: wPropsLoader
                     width: parent.width
-                    visible: wObj ? true : false
+                    visible: settingsView.checked ? true : false
                     //source: wObj && virtualConsole.selectedWidgetsCount < 2 ? wObj.propertiesResource : ""
 
                     onLoaded: item.widgetRef = wObj
@@ -406,15 +446,14 @@ Rectangle
                 SectionBox
                 {
                     width: parent.width
-                    visible: wObj ? true : false
+                    visible: controlsView.checked ? true : false
                     sectionLabel: qsTr("External Controls")
-                    isExpanded: false
+                    //isExpanded: false
 
                     sectionContents:
                         ExternalControls
                         {
                             width: parent.width
-
                             objRef: wObj
                         }
                 }
