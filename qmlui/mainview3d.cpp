@@ -53,7 +53,7 @@ MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
     , m_frontDepthTarget(NULL)
     , m_renderQuality(HighQuality)
     , m_stageEntity(NULL)
-    , m_ambientIntensity(0.8)
+    , m_ambientIntensity(0.6)
 {
     setContextResource("qrc:/3DView.qml");
     setContextTitle(tr("3D View"));

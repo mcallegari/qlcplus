@@ -37,6 +37,7 @@ Entity
     {
         isSelected = contextManager.isFixtureSelected(itemID)
         selectionTransform.translation = Qt.binding(function() { return center.plus(t.translation) })
+        selectionTransform.rotation = Qt.binding(function() { return t.rotation })
     }
 
     Material

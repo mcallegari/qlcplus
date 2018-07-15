@@ -104,31 +104,7 @@ Entity
     /* ********************** Light matrices ********************** */
     property matrix4x4 lightMatrix
     property matrix4x4 lightViewMatrix: 
-    {
-        var m = Qt.matrix4x4();
-        m = m.times(lightMatrix)
-        m.rotate(panRotation, Qt.vector3d(0, 1, 0));
-        m.rotate(tiltRotation, Qt.vector3d(1, 0, 0));
-
-        // extract the axes of our view matrix.
-        var xb = (m.times(Qt.vector4d(1.0, 0.0, 0.0, 0.0))).toVector3d()  
-        var yb = (m.times(Qt.vector4d(0.0, 1.0, 0.0, 0.0))).toVector3d()
-        var zb = (m.times(Qt.vector4d(0.0, 0.0, 1.0, 0.0))).toVector3d()
-        var left = zb
-        var u = xb
-        var forward = yb
-
-        var eye = lightPos
-
-        var vm =  Qt.matrix4x4(
-            left.x, u.x, forward.x, 0.0,
-            left.y, u.y, forward.y, 0.0,
-            left.z, u.z, forward.z, 0.0,
-            -left.dotProduct(eye), -u.dotProduct(eye), -forward.dotProduct(eye), 1.0).transposed()
-
-        return vm
-    }
-    
+        Math3D.getLightViewMatrix(lightMatrix, panRotation, tiltRotation, lightPos)
     property matrix4x4 lightProjectionMatrix:
         Math3D.getLightProjectionMatrix(distCutoff, coneBottomRadius, coneTopRadius, headLength, cutoffAngle)
     property matrix4x4 lightViewProjectionMatrix: lightProjectionMatrix.times(lightViewMatrix)
@@ -249,9 +225,8 @@ Entity
                              shadingEffect, scatteringEffect, depthEffect,
                              headEntity, sceneEntity)
     {
-        if(sceneEntity.coneMesh.length !== distCutoff) {
+        if (sceneEntity.coneMesh.length !== distCutoff)
             sceneEntity.coneMesh.length = distCutoff
-        }
 
         shadingCone.coneLayer = shadingLayer
         shadingCone.coneEffect = shadingEffect
@@ -270,7 +245,6 @@ Entity
         outDepthCone.coneMaterial.bindFixture(fixtureEntity)
         outDepthCone.parent = sceneEntity
         outDepthCone.spotlightConeMesh = sceneEntity.coneMesh
-
     }
 
     QQ2.NumberAnimation on panRotation

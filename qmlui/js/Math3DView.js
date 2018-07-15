@@ -37,6 +37,32 @@ function perspective(fovy, aspect, zNear, zFar)
         0.0, 0.0, (-zFar * f1) / f4, 0.0).transposed()
 }
 
+function getLightViewMatrix(lightMatrix, panRotation, tiltRotation, lightPos)
+{
+    var m = Qt.matrix4x4();
+    m = m.times(lightMatrix)
+    m.rotate(panRotation, Qt.vector3d(0, 1, 0));
+    m.rotate(tiltRotation, Qt.vector3d(1, 0, 0));
+
+    // extract the axes of our view matrix.
+    var xb = (m.times(Qt.vector4d(1.0, 0.0, 0.0, 0.0))).toVector3d()
+    var yb = (m.times(Qt.vector4d(0.0, 1.0, 0.0, 0.0))).toVector3d()
+    var zb = (m.times(Qt.vector4d(0.0, 0.0, 1.0, 0.0))).toVector3d()
+    var left = zb
+    var u = xb
+    var forward = yb
+
+    var eye = lightPos
+
+    var vm =  Qt.matrix4x4(
+        left.x, u.x, forward.x, 0.0,
+        left.y, u.y, forward.y, 0.0,
+        left.z, u.z, forward.z, 0.0,
+        -left.dotProduct(eye), -u.dotProduct(eye), -forward.dotProduct(eye), 1.0).transposed()
+
+    return vm
+}
+
 function getLightProjectionMatrix(distCutoff, coneBottomRadius, coneTopRadius, headLength, cutoffAngle)
 {
     var d = distCutoff / (coneBottomRadius / coneTopRadius - 1.0)
