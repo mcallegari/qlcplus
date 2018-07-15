@@ -39,6 +39,18 @@ Entity
     readonly property Effect spotlightScatteringEffect: SpotlightScatteringEffect { }
     readonly property Effect outputFrontDepthEffect: OutputFrontDepthEffect { }
 
+    property ConeMesh coneMesh:
+        ConeMesh
+        {
+            length: 1.0
+        
+            bottomRadius: 1.0
+            topRadius: 1.0      
+        
+            rings: 2
+            slices: 60
+        }
+
     // Global elements
     Camera
     {

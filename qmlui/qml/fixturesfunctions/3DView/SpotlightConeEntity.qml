@@ -36,16 +36,8 @@ Entity
         id: uniformComp
         Parameter {}
     }
-     
-    ConeMesh
-    {
-        id: spotlightConeMesh
-        length: 1.0
-        bottomRadius: 9.9
-        topRadius: 4.9      
-        rings: 2
-        slices: 60
-    }
+
+    property ConeMesh spotlightConeMesh: null
 
     Material
     {
@@ -58,12 +50,6 @@ Entity
 
         function bindFixture(fxItem)
         {
-            spotlightConeMesh.length =  Qt.binding(function() { return fxItem.distCutoff })
-
-            spotlightConeMesh.topRadius = Qt.binding(function() { return fxItem.coneTopRadius })
-            
-            spotlightConeMesh.bottomRadius = Qt.binding(function() { return fxItem.coneBottomRadius })
-
             var parameters = [].slice.apply(spotlightConeMaterial.parameters)
 
             parameters.push(uniformComp.createObject(spotlightConeMaterial,

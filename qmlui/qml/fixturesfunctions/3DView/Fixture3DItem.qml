@@ -249,20 +249,28 @@ Entity
                              shadingEffect, scatteringEffect, depthEffect,
                              headEntity, sceneEntity)
     {
+        if(sceneEntity.coneMesh.length !== distCutoff) {
+            sceneEntity.coneMesh.length = distCutoff
+        }
+
         shadingCone.coneLayer = shadingLayer
         shadingCone.coneEffect = shadingEffect
         shadingCone.coneMaterial.bindFixture(fixtureEntity)
         shadingCone.parent = sceneEntity
+        shadingCone.spotlightConeMesh = sceneEntity.coneMesh
 
         scatteringCone.coneLayer = scatteringLayer
         scatteringCone.coneEffect = scatteringEffect
         scatteringCone.coneMaterial.bindFixture(fixtureEntity)
         scatteringCone.parent = sceneEntity
+        scatteringCone.spotlightConeMesh = sceneEntity.coneMesh
 
         outDepthCone.coneLayer = depthLayer
         outDepthCone.coneEffect = depthEffect
         outDepthCone.coneMaterial.bindFixture(fixtureEntity)
         outDepthCone.parent = sceneEntity
+        outDepthCone.spotlightConeMesh = sceneEntity.coneMesh
+
     }
 
     QQ2.NumberAnimation on panRotation

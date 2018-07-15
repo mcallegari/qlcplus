@@ -24,8 +24,16 @@ VS_OUT_ATTRIB vec3 fsPos;
 uniform mat4 viewProjectionMatrix;
 uniform mat4 customModelMatrix;
 
+uniform float coneTopRadius;
+uniform float coneBottomRadius;
+
 void main()
 {
-    fsPos = (customModelMatrix * vec4(vertexPosition, 1.0)).xyz;
-    gl_Position = viewProjectionMatrix * customModelMatrix * vec4(vertexPosition, 1.0);
+    // the mesh is cylinder. We modulate the bottom and top radiuses in the vertex shader.
+    vec3 p = (vertexPosition.y > 0.0) ? 
+                vertexPosition * vec3(coneTopRadius, 1.0, coneTopRadius): 
+                vertexPosition * vec3(coneBottomRadius, 1.0, coneBottomRadius);
+
+    fsPos = (customModelMatrix * vec4(p, 1.0)).xyz;
+    gl_Position = viewProjectionMatrix * customModelMatrix * vec4(p, 1.0);
 }
