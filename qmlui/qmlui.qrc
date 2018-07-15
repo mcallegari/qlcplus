@@ -176,16 +176,15 @@
     <file alias="fullscreen.vert">qml/fixturesfunctions/3DView/shaders/fullscreen.vert</file>
 
     <file alias="spotlight_shading.frag">qml/fixturesfunctions/3DView/shaders/spotlight_shading.frag</file>
-    <file alias="spotlight_shading.vert">qml/fixturesfunctions/3DView/shaders/spotlight_shading.vert</file>
 
     <file alias="geo.frag">qml/fixturesfunctions/3DView/shaders/geo.frag</file>
     <file alias="geo.vert">qml/fixturesfunctions/3DView/shaders/geo.vert</file>
 
     <file alias="spotlight_scattering.frag">qml/fixturesfunctions/3DView/shaders/spotlight_scattering.frag</file>
-    <file alias="spotlight_scattering.vert">qml/fixturesfunctions/3DView/shaders/spotlight_scattering.vert</file>
+
+    <file alias="spotlight.vert">qml/fixturesfunctions/3DView/shaders/spotlight.vert</file>
 
     <file alias="output_front_depth.frag">qml/fixturesfunctions/3DView/shaders/output_front_depth.frag</file>
-    <file alias="output_front_depth.vert">qml/fixturesfunctions/3DView/shaders/output_front_depth.vert</file>
 
     <file alias="output_depth.frag">qml/fixturesfunctions/3DView/shaders/output_depth.frag</file>
     <file alias="output_depth.vert">qml/fixturesfunctions/3DView/shaders/output_depth.vert</file>

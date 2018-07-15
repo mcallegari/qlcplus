@@ -36,7 +36,7 @@ Effect
                     shaderProgram:
                         ShaderProgram
                         {
-                            vertexShaderCode: View3D.makeShader(loadSource("qrc:/output_front_depth.vert"))
+                            vertexShaderCode: View3D.makeShader(loadSource("qrc:/spotlight.vert"))
                             fragmentShaderCode: View3D.makeShader(loadSource("qrc:/output_front_depth.frag"))
                         }
                 }

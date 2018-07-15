@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  spotlight_scattering.vert
+  spotlight.vert
 
   Copyright (c) Eric Arnebäck
 

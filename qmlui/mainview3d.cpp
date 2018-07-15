@@ -814,6 +814,7 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QSceneLoad
                 Q_ARG(QVariant, itemID),
                 Q_ARG(QVariant, QVariant::fromValue(meshRef->m_rootTransform)));
     }
+    
 
     if (itemFlags & MonitorProperties::HiddenFlag)
     {
