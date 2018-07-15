@@ -105,7 +105,11 @@ CustomPopupDialog
                 Layout.alignment: Qt.AlignRight
                 autoExclusive: false
             }
-            RobotoText { label: qsTr("Don't ask again") }
+            RobotoText
+            {
+                Layout.columnSpan: 3
+                label: qsTr("Don't ask again")
+            }
 
             // row 3
             RobotoText
