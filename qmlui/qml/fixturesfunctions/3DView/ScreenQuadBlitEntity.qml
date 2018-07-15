@@ -1,8 +1,8 @@
 /*
   Q Light Controller Plus
-  ScreenQuadEntity.qml
+  ScreenQuadBlitEntity.qml
 
-  Copyright (c) Massimo Callegari, Eric Arnebäck
+  Copyright (c) Eric Arnebäck
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -25,8 +25,6 @@ import Qt3D.Extras 2.0
 
 Entity
 {
-    objectName: "quadEntity"
-
     readonly property Layer layer: screenQuadLayer
 
     Entity
@@ -49,8 +47,7 @@ Entity
 
             Material
             {
-                Component.onCompleted: View3D.quadReady()
-                effect: LightPassEffect { }
+                effect: BlitEffect { }
             }
             
         ]

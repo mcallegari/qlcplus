@@ -20,6 +20,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 
+import org.qlcplus.classes 1.0
 import "."
 
 Rectangle
@@ -32,10 +33,10 @@ Rectangle
     border.width: 1
     border.color: "#222"
 
-    property vector3d envSize: contextManager.environmentSize
+    property vector3d envSize: contextManager ? contextManager.environmentSize : Qt.vector3d(0, 0, 0)
     property real ambientIntensity: View3D.ambientIntensity
 
-    property int selFixturesCount: contextManager.selectedFixturesCount
+    property int selFixturesCount: contextManager ? contextManager.selectedFixturesCount : 0
     property bool fxPropsVisible: selFixturesCount ? true : false
     property vector3d fxPosition: selFixturesCount === 1 ? contextManager.fixturesPosition : lastPosition
     property vector3d lastPosition
@@ -182,12 +183,33 @@ Rectangle
             {
                 x: 5
                 anchors.verticalCenter: parent.verticalCenter
-                label: qsTr("Ambient light")
+                label: qsTr("Rendering")
             }
         }
 
         // row 7
-        RobotoText { label: qsTr("Intensity") }
+        RobotoText { label: qsTr("Quality") }
+        CustomComboBox
+        {
+            Layout.fillWidth: true
+            height: UISettings.listItemHeight
+
+            ListModel
+            {
+                id: qualityModel
+                ListElement { mLabel: qsTr("Low"); mValue: MainView3D.LowQuality }
+                ListElement { mLabel: qsTr("Medium"); mValue: MainView3D.MediumQuality }
+                ListElement { mLabel: qsTr("High"); mValue: MainView3D.HighQuality }
+                ListElement { mLabel: qsTr("Ultra"); mValue: MainView3D.UltraQuality }
+            }
+
+            model: qualityModel
+            currentIndex: View3D.renderQuality
+            onCurrentIndexChanged: View3D.renderQuality = currentIndex
+        }
+
+        // row 8
+        RobotoText { label: qsTr("Ambient light") }
         CustomSpinBox
         {
             Layout.fillWidth: true
@@ -199,7 +221,20 @@ Rectangle
             onValueChanged: View3D.ambientIntensity = value / 100
         }
 
-        // row 8
+        // row 9
+        RobotoText { label: qsTr("Smoke amount") }
+        CustomSpinBox
+        {
+            Layout.fillWidth: true
+            height: UISettings.listItemHeight
+            from: 0
+            to: 100
+            suffix: "%"
+            //value: smokeAmount * 100
+            //onValueChanged: View3D.smokeAmount = value / 100
+        }
+
+        // row 10
         Rectangle
         {
             visible: fxPropsVisible

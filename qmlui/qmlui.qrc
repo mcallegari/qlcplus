@@ -119,17 +119,45 @@
     <!-- 3D View -->
     <file alias="3DView.qml">qml/fixturesfunctions/3DView/3DView.qml</file>
     <file alias="3DViewUnsupported.qml">qml/fixturesfunctions/3DView/3DViewUnsupported.qml</file>
+
     <file alias="DeferredRenderer.qml">qml/fixturesfunctions/3DView/DeferredRenderer.qml</file>
-    <file alias="GeometryPassEffect.qml">qml/fixturesfunctions/3DView/GeometryPassEffect.qml</file>
-    <file alias="LightPassEffect.qml">qml/fixturesfunctions/3DView/LightPassEffect.qml</file>
     <file alias="Fixture3DItem.qml">qml/fixturesfunctions/3DView/Fixture3DItem.qml</file>
+    <file alias="DepthTarget.qml">qml/fixturesfunctions/3DView/DepthTarget.qml</file>
     <file alias="GBuffer.qml">qml/fixturesfunctions/3DView/GBuffer.qml</file>
-    <file alias="GBufferDebugger.qml">qml/fixturesfunctions/3DView/GBufferDebugger.qml</file>
-    <file alias="ForwardTarget.qml">qml/fixturesfunctions/3DView/ForwardTarget.qml</file>
+    <file alias="FrameTarget.qml">qml/fixturesfunctions/3DView/FrameTarget.qml</file>
+
+    <file alias="SpotlightConeEntity.qml">qml/fixturesfunctions/3DView/SpotlightConeEntity.qml</file>
+    <file alias="SpotlightShadingEffect.qml">qml/fixturesfunctions/3DView/SpotlightShadingEffect.qml</file>
+    <file alias="SpotlightScatteringEffect.qml">qml/fixturesfunctions/3DView/SpotlightScatteringEffect.qml</file>
+    <file alias="LightPassEffect.qml">qml/fixturesfunctions/3DView/LightPassEffect.qml</file>
+    <file alias="GeometryPassEffect.qml">qml/fixturesfunctions/3DView/GeometryPassEffect.qml</file>
+    <file alias="GammaCorrectEffect.qml">qml/fixturesfunctions/3DView/GammaCorrectEffect.qml</file>
+    <file alias="BlitEffect.qml">qml/fixturesfunctions/3DView/BlitEffect.qml</file>
+    
+    <file alias="FXAAEffect.qml">qml/fixturesfunctions/3DView/FXAAEffect.qml</file>
+
+    <file alias="OutputFrontDepthEffect.qml">qml/fixturesfunctions/3DView/OutputFrontDepthEffect.qml</file>
+    <file alias="FillGBufferFilter.qml">qml/fixturesfunctions/3DView/FillGBufferFilter.qml</file>
+    <file alias="DirectionalLightFilter.qml">qml/fixturesfunctions/3DView/DirectionalLightFilter.qml</file>
+    <file alias="SpotlightScatteringFilter.qml">qml/fixturesfunctions/3DView/SpotlightScatteringFilter.qml</file>
+    <file alias="SpotlightShadingFilter.qml">qml/fixturesfunctions/3DView/SpotlightShadingFilter.qml</file>
+    <file alias="RenderSelectionBoxesFilter.qml">qml/fixturesfunctions/3DView/RenderSelectionBoxesFilter.qml</file>
+    <file alias="OutputFrontDepthFilter.qml">qml/fixturesfunctions/3DView/OutputFrontDepthFilter.qml</file>
+    <file alias="RenderShadowMapFilter.qml">qml/fixturesfunctions/3DView/RenderShadowMapFilter.qml</file>
+
+    <file alias="GammaCorrectFilter.qml">qml/fixturesfunctions/3DView/GammaCorrectFilter.qml</file>
+    <file alias="BlitFilter.qml">qml/fixturesfunctions/3DView/BlitFilter.qml</file>
+    <file alias="FXAAFilter.qml">qml/fixturesfunctions/3DView/FXAAFilter.qml</file>
+
     <file alias="SceneEntity.qml">qml/fixturesfunctions/3DView/SceneEntity.qml</file>
     <file alias="ScreenQuadEntity.qml">qml/fixturesfunctions/3DView/ScreenQuadEntity.qml</file>
-    <file alias="SelectionGeometry.qml">qml/fixturesfunctions/3DView/SelectionGeometry.qml</file>
+    <file alias="ScreenQuadGammaCorrectEntity.qml">qml/fixturesfunctions/3DView/ScreenQuadGammaCorrectEntity.qml</file>
+    <file alias="ScreenQuadBlitEntity.qml">qml/fixturesfunctions/3DView/ScreenQuadBlitEntity.qml</file>
+    <file alias="ScreenQuadFXAAEntity.qml">qml/fixturesfunctions/3DView/ScreenQuadFXAAEntity.qml</file>
+
     <file alias="SelectionEntity.qml">qml/fixturesfunctions/3DView/SelectionEntity.qml</file>
+    <file alias="SelectionGeometry.qml">qml/fixturesfunctions/3DView/SelectionGeometry.qml</file>
+
     <file alias="StageSimple.qml">qml/fixturesfunctions/3DView/StageSimple.qml</file>
     <file alias="StageBox.qml">qml/fixturesfunctions/3DView/StageBox.qml</file>
     <file alias="StageRock.qml">qml/fixturesfunctions/3DView/StageRock.qml</file>
@@ -137,10 +165,29 @@
 
     <file alias="SettingsView3D.qml">qml/fixturesfunctions/3DView/SettingsView3D.qml</file>
 
-    <file alias="lights_es2.frag">qml/fixturesfunctions/3DView/shaders/lights_es2.frag</file>
-    <file alias="lights_es2.vert">qml/fixturesfunctions/3DView/shaders/lights_es2.vert</file>
-    <file alias="lights_gl3.frag">qml/fixturesfunctions/3DView/shaders/lights_gl3.frag</file>
-    <file alias="lights_gl3.vert">qml/fixturesfunctions/3DView/shaders/lights_gl3.vert</file>
+
+
+    <file alias="directional.frag">qml/fixturesfunctions/3DView/shaders/directional.frag</file>
+    <file alias="gamma_correct.frag">qml/fixturesfunctions/3DView/shaders/gamma_correct.frag</file>
+    <file alias="blit.frag">qml/fixturesfunctions/3DView/shaders/blit.frag</file>
+    <file alias="fxaa.frag">qml/fixturesfunctions/3DView/shaders/fxaa.frag</file>
+
+
+    <file alias="fullscreen.vert">qml/fixturesfunctions/3DView/shaders/fullscreen.vert</file>
+
+    <file alias="spotlight_shading.frag">qml/fixturesfunctions/3DView/shaders/spotlight_shading.frag</file>
+
+    <file alias="geo.frag">qml/fixturesfunctions/3DView/shaders/geo.frag</file>
+    <file alias="geo.vert">qml/fixturesfunctions/3DView/shaders/geo.vert</file>
+
+    <file alias="spotlight_scattering.frag">qml/fixturesfunctions/3DView/shaders/spotlight_scattering.frag</file>
+
+    <file alias="spotlight.vert">qml/fixturesfunctions/3DView/shaders/spotlight.vert</file>
+
+    <file alias="output_front_depth.frag">qml/fixturesfunctions/3DView/shaders/output_front_depth.frag</file>
+
+    <file alias="output_depth.frag">qml/fixturesfunctions/3DView/shaders/output_depth.frag</file>
+    <file alias="output_depth.vert">qml/fixturesfunctions/3DView/shaders/output_depth.vert</file>
 
     <!-- Input Output Manager -->
     <file alias="InputOutputManager.qml">qml/inputoutput/InputOutputManager.qml</file>
@@ -188,6 +235,7 @@
     <file alias="CanvasDrawFunctions.js">js/CanvasDrawFunctions.js</file>
     <file alias="FixtureDrag.js">js/FixtureDrag.js</file>
     <file alias="GenericHelpers.js">js/GenericHelpers.js</file>
+    <file alias="Math3DView.js">js/Math3DView.js</file>
     <file alias="TimeUtils.js">js/TimeUtils.js</file>
 
   </qresource>

@@ -1,8 +1,8 @@
 /*
   Q Light Controller Plus
-  LightPassEffect.qml
+  SpotlightScatteringEffect.qml
 
-  Copyright (c) Massimo Callegari, Eric Arnebäck
+  Copyright (c) Eric Arnebäck
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -30,15 +30,14 @@ Effect
             graphicsApiFilter { api: GraphicsApiFilter.OpenGL; profile: GraphicsApiFilter.CoreProfile; majorVersion: 3; minorVersion: 1 }
             renderPasses:
             [
-                // Lights pass
                 RenderPass
                 {
-                    filterKeys: FilterKey { name : "pass"; value : "lights" }
+                    filterKeys: FilterKey { name : "pass"; value : "spotlight_scattering" }
                     shaderProgram:
                         ShaderProgram
                         {
-                            vertexShaderCode: View3D.makeShader(loadSource("qrc:/fullscreen.vert"))
-                            fragmentShaderCode: View3D.makeShader(loadSource("qrc:/directional.frag"))
+                            vertexShaderCode: View3D.makeShader(loadSource("qrc:/spotlight.vert"))
+                            fragmentShaderCode: View3D.makeShader(loadSource("qrc:/spotlight_scattering.frag"))
                         }
                 }
             ]
