@@ -273,41 +273,29 @@ QString MainView3D::makeShader(QString str) {
 #define GL3
 
 #ifdef GL3
-
-#define DECLARE_GBUFFER_OUTPUT out vec4 fragData0; out vec4 fragData1; out vec4 fragData2;
+#define DECLARE_GBUFFER_OUTPUT out vec4 [3] gOutput;
 #define DECLARE_FRAG_COLOR out vec4 fragColor;
-
 #define VS_IN_ATTRIB in
 #define VS_OUT_ATTRIB out
 #define FS_IN_ATTRIB in
-
 #define MGL_FRAG_COLOR fragColor
-
-#define MGL_FRAG_DATA0 fragData0
-#define MGL_FRAG_DATA1 fragData1
-#define MGL_FRAG_DATA2 fragData2
-
+#define MGL_FRAG_DATA0 gOutput[0]
+#define MGL_FRAG_DATA1 gOutput[1]
+#define MGL_FRAG_DATA2 gOutput[2]
 #define SAMPLE_TEX3D texture
 #define SAMPLE_TEX2D texture
-
 #else
-
 #define DECLARE_GBUFFER_OUTPUT
 #define DECLARE_FRAG_COLOR
-
 #define VS_IN_ATTRIB attribute
 #define VS_OUT_ATTRIB varying
 #define FS_IN_ATTRIB varying
-
 #define MGL_FRAG_COLOR gl_FragColor
-
 #define MGL_FRAG_DATA0 gl_FragData[0]
 #define MGL_FRAG_DATA1 gl_FragData[1]
 #define MGL_FRAG_DATA2 gl_FragData[2]
-
 #define SAMPLE_TEX3D texture3D
 #define SAMPLE_TEX2D texture2D
-
 #endif
 
 )";
