@@ -26,7 +26,7 @@ Entity
 {
     id: stage
 
-    property vector3d size: contextManager.environmentSize
+    property vector3d size: contextManager ? contextManager.environmentSize : Qt.vector3d(5, 3, 5)
     property Layer sceneLayer
     property Effect effect
 

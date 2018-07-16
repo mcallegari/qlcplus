@@ -3,6 +3,7 @@
   mainview3d.cpp
 
   Copyright (c) Massimo Callegari
+  Copyright (c) Eric Arnebäck
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -18,6 +19,8 @@
 */
 
 #include <QDebug>
+#include <QTexture>
+#include <QPainter>
 #include <QQuickItem>
 #include <QQmlContext>
 #include <QQmlComponent>
@@ -26,6 +29,7 @@
 #include <Qt3DRender/QGeometry>
 #include <Qt3DRender/QAttribute>
 #include <Qt3DRender/QBuffer>
+#include <Qt3DRender/QParameter>
 
 #include "doc.h"
 #include "tardis.h"
@@ -44,20 +48,23 @@ MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
     , m_selectionComponent(NULL)
     , m_scene3D(NULL)
     , m_sceneRootEntity(NULL)
-    , m_quadMaterial(NULL)
-    , m_ambientIntensity(0.8)
+    , m_quadEntity(NULL)
+    , m_gBuffer(NULL)
+    , m_frontDepthTarget(NULL)
+    , m_renderQuality(HighQuality)
+    , m_stageEntity(NULL)
+    , m_ambientIntensity(0.6)
 {
     setContextResource("qrc:/3DView.qml");
     setContextTitle(tr("3D View"));
 
     qRegisterMetaType<Qt3DCore::QEntity*>();
+    qmlRegisterUncreatableType<MainView3D>("org.qlcplus.classes", 1, 0, "MainView3D", "Can't create an MainView3D !");
 
     // the following two lists must always have the same items number and must respect
     // the order of StageType enum in MonitorProperties class
     m_stagesList << tr("Simple ground") << tr("Simple box") << tr("Rock stage") << tr("Theatre stage");
     m_stageResourceList << "qrc:/StageSimple.qml" << "qrc:/StageBox.qml" << "qrc:/StageRock.qml" << "qrc:/StageTheatre.qml";
-
-    m_stageEntity = NULL;
 }
 
 MainView3D::~MainView3D()
@@ -76,7 +83,6 @@ void MainView3D::enableContext(bool enable)
         m_scene3D = NULL;
         m_sceneRootEntity = NULL;
         m_quadEntity = NULL;
-        m_quadMaterial = NULL;
 
         if (m_stageEntity)
         {
@@ -119,6 +125,9 @@ void MainView3D::slotRefreshView()
 void MainView3D::resetItems()
 {
     qDebug() << "Resetting 3D items...";
+
+    QMetaObject::invokeMethod(m_scene3D, "updateSceneGraph", Q_ARG(QVariant, false));
+
     QMapIterator<quint32, FixtureMesh*> it(m_entitiesMap);
     while(it.hasNext())
     {
@@ -128,7 +137,8 @@ void MainView3D::resetItems()
         //    delete e->m_headItem;
         //if (e->m_armItem)
         //    delete e->m_armItem;
-        delete e->m_rootItem;
+        delete e->m_goboTexture;
+        // delete e->m_rootItem; // TODO: with this -> segfault
         delete e->m_selectionBox;
     }
 
@@ -143,6 +153,12 @@ QString MainView3D::meshDirectory() const
     QDir dir = QDir::cleanPath(QLCFile::systemDirectory(MESHESDIR).path());
     //qDebug() << "Absolute mesh path: " << dir.absolutePath();
     return QString("file:///") + dir.absolutePath() + QDir::separator();
+}
+
+QString MainView3D::goboDirectory() const
+{
+    QDir dir = QDir::cleanPath(QLCFile::systemDirectory(GOBODIR).path());
+    return dir.absolutePath();
 }
 
 void MainView3D::setUniverseFilter(quint32 universeFilter)
@@ -217,14 +233,21 @@ void MainView3D::initialize3DProperties()
         return;
     }
 
-    m_quadMaterial = m_quadEntity->findChild<QMaterial *>("lightPassMaterial");
-    if (m_quadMaterial == NULL)
+    m_gBuffer = m_scene3D->findChild<QRenderTarget *>("gBuffer");
+    if (m_gBuffer == NULL)
     {
-        qDebug() << "lightPassMaterial not found !";
+        qDebug() << "gBuffer not found !";
         return;
     }
 
-    qDebug() << m_sceneRootEntity << m_quadEntity << m_quadMaterial;
+    m_frontDepthTarget = m_scene3D->findChild<QRenderTarget *>("depthTarget");
+    if (m_frontDepthTarget == NULL)
+    {
+        qDebug() << "frontDepth not found !";
+        return;
+    }
+
+    qDebug() << m_sceneRootEntity << m_quadEntity << m_gBuffer << m_frontDepthTarget;
 
     if (m_stageEntity == NULL)
     {
@@ -240,6 +263,44 @@ void MainView3D::initialize3DProperties()
         m_stageEntity->setProperty("sceneLayer", QVariant::fromValue(sceneDeferredLayer));
         m_stageEntity->setProperty("effect", QVariant::fromValue(sceneEffect));
     }
+
+    QMetaObject::invokeMethod(m_scene3D, "updateSceneGraph", Q_ARG(QVariant, true));
+}
+
+QString MainView3D::makeShader(QString str) {
+
+   QString prefix = R"(#version 150
+#define GL3
+
+#ifdef GL3
+#define DECLARE_GBUFFER_OUTPUT out vec4 [3] gOutput;
+#define DECLARE_FRAG_COLOR out vec4 fragColor;
+#define VS_IN_ATTRIB in
+#define VS_OUT_ATTRIB out
+#define FS_IN_ATTRIB in
+#define MGL_FRAG_COLOR fragColor
+#define MGL_FRAG_DATA0 gOutput[0]
+#define MGL_FRAG_DATA1 gOutput[1]
+#define MGL_FRAG_DATA2 gOutput[2]
+#define SAMPLE_TEX3D texture
+#define SAMPLE_TEX2D texture
+#else
+#define DECLARE_GBUFFER_OUTPUT
+#define DECLARE_FRAG_COLOR
+#define VS_IN_ATTRIB attribute
+#define VS_OUT_ATTRIB varying
+#define FS_IN_ATTRIB varying
+#define MGL_FRAG_COLOR gl_FragColor
+#define MGL_FRAG_DATA0 gl_FragData[0]
+#define MGL_FRAG_DATA1 gl_FragData[1]
+#define MGL_FRAG_DATA2 gl_FragData[2]
+#define SAMPLE_TEX3D texture3D
+#define SAMPLE_TEX2D texture2D
+#endif
+
+)";
+
+    return prefix + str;
 }
 
 void MainView3D::sceneReady()
@@ -301,7 +362,10 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
     if (fixture == NULL)
         return;
 
+    QString meshPath = meshDirectory() + "fixtures" + QDir::separator();
+    QString openGobo = goboDirectory() + QDir::separator() + "Others/open.svg";
     quint32 itemID = FixtureUtils::fixtureItemID(fxID, headIndex, linkedIndex);
+
     FixtureMesh *mesh = new FixtureMesh;
     mesh->m_rootItem = NULL;
     mesh->m_rootTransform = NULL;
@@ -309,25 +373,43 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
     mesh->m_headItem = NULL;
     mesh->m_lightIndex = getNewLightIndex();
     mesh->m_selectionBox = NULL;
-    m_entitiesMap[itemID] = mesh;
-
-    QString meshPath = meshDirectory() + "fixtures" + QDir::separator();
-    if (fixture->type() == QLCFixtureDef::ColorChanger ||
-        fixture->type() == QLCFixtureDef::Dimmer)
-        meshPath.append("par.dae");
-    else if (fixture->type() == QLCFixtureDef::MovingHead)
-        meshPath.append("moving_head.dae");
-    else if (fixture->type() == QLCFixtureDef::Scanner)
-        meshPath.append("scanner.dae");
-    else if (fixture->type() == QLCFixtureDef::Hazer)
-        meshPath.append("hazer.dae");
-    else if (fixture->type() == QLCFixtureDef::Smoke)
-        meshPath.append("smoke.dae");
+    mesh->m_goboTexture = new GoboTextureImage(512, 512, openGobo);
 
     QEntity *newItem = qobject_cast<QEntity *>(m_fixtureComponent->create());
+    newItem->setParent(m_sceneRootEntity);
+
+    if (fixture->type() == QLCFixtureDef::ColorChanger ||
+        fixture->type() == QLCFixtureDef::Dimmer)
+    {
+        meshPath.append("par.dae");
+        newItem->setProperty("meshType", FixtureMeshType::ParMeshType);
+    } 
+    else if (fixture->type() == QLCFixtureDef::MovingHead) 
+    {
+        meshPath.append("moving_head.dae");
+        newItem->setProperty("meshType", FixtureMeshType::MovingHeadMeshType);
+    }
+     else if (fixture->type() == QLCFixtureDef::Scanner) 
+    {
+        meshPath.append("scanner.dae");
+        newItem->setProperty("meshType", FixtureMeshType::DefaultMeshType);
+    } 
+    else if (fixture->type() == QLCFixtureDef::Hazer) 
+    {
+        meshPath.append("hazer.dae");
+        newItem->setProperty("meshType", FixtureMeshType::DefaultMeshType);
+    } 
+    else if (fixture->type() == QLCFixtureDef::Smoke) 
+    {
+        meshPath.append("smoke.dae");
+        newItem->setProperty("meshType", FixtureMeshType::DefaultMeshType);
+    } 
+
     newItem->setProperty("itemID", itemID);
     newItem->setProperty("itemSource", meshPath);
-    newItem->setParent(m_sceneRootEntity);
+ 
+    // at last, add the new fixture to the items map
+    m_entitiesMap[itemID] = mesh;
 }
 
 void MainView3D::setFixtureFlags(quint32 itemID, quint32 flags)
@@ -391,32 +473,13 @@ unsigned int MainView3D::getNewLightIndex()
     return newIdx;
 }
 
-void MainView3D::updateLightPosition(FixtureMesh *meshRef)
-{
-    if (meshRef == NULL)
-        return;
-
-    QVector3D newLightPos = meshRef->m_rootTransform->translation();
-    if (meshRef->m_armItem)
-    {
-        Qt3DCore::QTransform *armTransform = getTransform(meshRef->m_armItem);
-        newLightPos += armTransform->translation();
-    }
-    if (meshRef->m_headItem)
-    {
-        Qt3DCore::QTransform *headTransform = getTransform(meshRef->m_headItem);
-        newLightPos += headTransform->translation();
-    }
-    meshRef->m_rootItem->setProperty("lightPosition", newLightPos);
-}
-
 QVector3D MainView3D::lightPosition(quint32 itemID)
 {
     FixtureMesh *meshRef = m_entitiesMap.value(itemID, NULL);
-    if (meshRef == NULL)
+    if (meshRef == NULL)    
         return QVector3D();
 
-    return meshRef->m_rootItem->property("lightPosition").value<QVector3D>();
+    return meshRef->m_rootItem->property("lightPos").value<QVector3D>();
 }
 
 void MainView3D::getMeshCorners(QGeometryRenderer *mesh,
@@ -535,8 +598,13 @@ QEntity *MainView3D::inspectEntity(QEntity *entity, FixtureMesh *meshRef,
         if (geom == NULL)
             geom = qobject_cast<QGeometryRenderer *>(component);
 
-        if (material)
+        if (material) {
             material->setEffect(effect);
+
+            // workaround for DAE loader, acquiring a material from the previous mesh. WTF.
+            const QString parameterName = QStringLiteral("meshColor");
+            material->addParameter(new QParameter(parameterName, QVector3D(0.64f, 0.64f, 0.64f)));
+        }
 
         if (transform)
             translation += transform->translation();
@@ -568,7 +636,7 @@ QEntity *MainView3D::inspectEntity(QEntity *entity, FixtureMesh *meshRef,
     return baseItem;
 }
 
-void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QComponent *picker, QSceneLoader *loader)
+void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QSceneLoader *loader)
 {
     if (m_entitiesMap.contains(itemID) == false)
         return;
@@ -626,11 +694,24 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QComponent
 
     QLayer *sceneDeferredLayer = m_sceneRootEntity->property("deferredLayer").value<QLayer *>();
     QEffect *sceneEffect = m_sceneRootEntity->property("geometryPassEffect").value<QEffect *>();
+    QEffect *spotlightShadingEffect = m_sceneRootEntity->property("spotlightShadingEffect").value<QEffect *>();
+    QEffect *spotlightScatteringEffect = m_sceneRootEntity->property("spotlightScatteringEffect").value<QEffect *>();
+    QEffect *outputFrontDepthEffect = m_sceneRootEntity->property("outputFrontDepthEffect").value<QEffect *>();
+
+    qDebug() << sceneDeferredLayer << sceneEffect << spotlightShadingEffect << spotlightScatteringEffect << outputFrontDepthEffect;
 
     QVector3D translation;
     FixtureMesh *meshRef = m_entitiesMap.value(itemID);
     meshRef->m_rootItem = fxEntity;
     meshRef->m_rootTransform = getTransform(meshRef->m_rootItem);
+
+    meshRef->m_spotlightShadingLayer = fxEntity->property("spotlightShadingLayer").value<QLayer *>();
+    meshRef->m_spotlightScatteringLayer = fxEntity->property("spotlightScatteringLayer").value<QLayer *>();
+    meshRef->m_outputDepthLayer = fxEntity->property("outputDepthLayer").value<QLayer *>();
+
+    QTexture2D *tex = fxEntity->property("goboTexture").value<QTexture2D *>();
+    //tex->setFormat(Qt3DRender::QAbstractTexture::RGBA8U);
+    tex->addTextureImage(meshRef->m_goboTexture); 
 
     // If this model has been already loaded, re-use the cached bounding volume
     if (m_boundingVolumesMap.contains(loader->source()))
@@ -663,6 +744,7 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QComponent
     if (meshRef->m_headItem)
     {
         qDebug() << "Fixture" << fxID << "has a head entity";
+
         Qt3DCore::QTransform *transform = getTransform(meshRef->m_headItem);
 
         if (baseItem != NULL)
@@ -678,17 +760,18 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QComponent
             }
         }
 
-        if (m_quadEntity)
-        {
-            QMetaObject::invokeMethod(m_quadMaterial, "addLight",
-                    Q_ARG(QVariant, QVariant::fromValue(meshRef->m_rootItem)),
-                    Q_ARG(QVariant, meshRef->m_lightIndex + 1),
-                    Q_ARG(QVariant, QVariant::fromValue(meshRef->m_rootTransform)));
-        }
-
-
         meshRef->m_rootItem->setProperty("focusMinDegrees", focusMin);
         meshRef->m_rootItem->setProperty("focusMaxDegrees", focusMax);
+
+        QMetaObject::invokeMethod(meshRef->m_rootItem, "setupScattering",
+                                  Q_ARG(QVariant, QVariant::fromValue(meshRef->m_spotlightShadingLayer)),
+                                  Q_ARG(QVariant, QVariant::fromValue(meshRef->m_spotlightScatteringLayer)),
+                                  Q_ARG(QVariant, QVariant::fromValue(meshRef->m_outputDepthLayer)),
+                                  Q_ARG(QVariant, QVariant::fromValue(spotlightShadingEffect)),
+                                  Q_ARG(QVariant, QVariant::fromValue(spotlightScatteringEffect)),
+                                  Q_ARG(QVariant, QVariant::fromValue(outputFrontDepthEffect)),
+                                  Q_ARG(QVariant, QVariant::fromValue(meshRef->m_headItem)),
+                                  Q_ARG(QVariant, QVariant::fromValue(m_sceneRootEntity)));
     }
 
     /* Set the fixture position */
@@ -709,10 +792,6 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QComponent
         Tardis::instance()->enqueueAction(Tardis::FixtureSetPosition, itemID, QVariant(QVector3D(0, 0, 0)), QVariant(fxPos));
     }
 
-    /* Hook the object picker to the base entity */
-    picker->setParent(meshRef->m_rootItem);
-    meshRef->m_rootItem->addComponent(picker);
-
     updateFixtureScale(itemID, fxSize);
     updateFixturePosition(itemID, fxPos);
     updateFixtureRotation(itemID, m_monProps->fixtureRotation(fxID, headIndex, linkedIndex));
@@ -726,22 +805,25 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QComponent
     meshRef->m_selectionBox->setProperty("selectionLayer", QVariant::fromValue(selectionLayer));
     meshRef->m_selectionBox->setProperty("geometryPassEffect", QVariant::fromValue(sceneEffect));
     meshRef->m_selectionBox->setProperty("selectionMesh", QVariant::fromValue(selectionMesh));
-
     meshRef->m_selectionBox->setProperty("extents", meshRef->m_volume.m_extents);
     meshRef->m_selectionBox->setProperty("center", meshRef->m_volume.m_center);
 
     if (meshRef->m_rootTransform != NULL)
     {
         QMetaObject::invokeMethod(meshRef->m_selectionBox, "bindFixtureTransform",
-                Q_ARG(QVariant, fixture->id()),
+                Q_ARG(QVariant, itemID),
                 Q_ARG(QVariant, QVariant::fromValue(meshRef->m_rootTransform)));
     }
+    
 
     if (itemFlags & MonitorProperties::HiddenFlag)
     {
         meshRef->m_rootItem->setProperty("enabled", false);
         meshRef->m_selectionBox->setProperty("enabled", false);
     }
+
+    QMetaObject::invokeMethod(m_scene3D, "updateSceneGraph", Q_ARG(QVariant, true));
+
     // at last, preview the fixture channels
     updateFixture(fixture);
 }
@@ -766,6 +848,7 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
     QColor color;
 
     bool setPosition = false;
+    bool goboSet = false;
     int panValue = 0;
     int tiltValue = 0;
 
@@ -781,7 +864,7 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
     if (fixture->type() == QLCFixtureDef::Dimmer)
     {
         qreal value = (qreal)fixture->channelValueAt(headIndex) / 255.0;
-        fixtureItem->setProperty("intensity", value);
+        fixtureItem->setProperty("lightIntensity", value);
 
         QColor gelColor = m_monProps->fixtureGelColor(fixture->id(), headIndex, linkedIndex);
         if (gelColor.isValid() == false)
@@ -797,7 +880,7 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
     if (headDimmerIndex != QLCChannel::invalid())
         intensityValue = (qreal)fixture->channelValueAt(headDimmerIndex) / 255;
 
-    fixtureItem->setProperty("intensity", intensityValue);
+    fixtureItem->setProperty("lightIntensity", intensityValue);
 
     color = FixtureUtils::headColor(fixture);
 
@@ -850,6 +933,31 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
             {
                 QMetaObject::invokeMethod(fixtureItem, "setFocus",
                         Q_ARG(QVariant, value));
+            }
+            break;
+            case QLCChannel::Gobo:
+            {
+                if (goboSet)
+                    break;
+
+                foreach(QLCCapability *cap, ch->capabilities())
+                {
+                    if (value >= cap->min() && value <= cap->max())
+                    {
+                        QString resName = cap->resource(0).toString();
+
+                        if(resName.isEmpty() == false && resName.endsWith("open.svg") == false)
+                        {
+                            if (meshItem->m_goboTexture)
+                                meshItem->m_goboTexture->setSource(resName);
+                            // here we don't look for any other gobos, so if a
+                            // fixture has more than one gobo wheel, the second
+                            // one will be skipped if the first one has been set
+                            // to a non-open gobo
+                            goboSet = true;
+                        }
+                    }
+                }
             }
             break;
             case QLCChannel::Shutter:
@@ -929,9 +1037,7 @@ void MainView3D::updateFixturePosition(quint32 itemID, QVector3D pos)
     /* move the root mesh first */
     mesh->m_rootTransform->setTranslation(QVector3D(x, y, z));
 
-    /* recalculate the light position */
-    if (mesh->m_headItem)
-        updateLightPosition(mesh);
+    updateLightMatrix(mesh);
 }
 
 void MainView3D::updateFixtureRotation(quint32 itemID, QVector3D degrees)
@@ -948,6 +1054,48 @@ void MainView3D::updateFixtureRotation(quint32 itemID, QVector3D degrees)
     mesh->m_rootTransform->setRotationX(degrees.x());
     mesh->m_rootTransform->setRotationY(degrees.y());
     mesh->m_rootTransform->setRotationZ(degrees.z());
+
+    updateLightMatrix(mesh);
+}
+
+void MainView3D::updateLightMatrix(FixtureMesh *mesh)
+{
+    // below, we extract a rotation matrix and position, which we need for properly
+    // positioning and rotating the spotlight cone.
+    if (mesh->m_headItem) {
+        QMatrix4x4 m = (mesh->m_rootTransform->matrix());
+
+        if (mesh->m_armItem)
+        {
+            QMatrix4x4 armTransform = getTransform(mesh->m_armItem)->matrix();
+            m.translate(armTransform.data()[12],armTransform.data()[13],armTransform.data()[14]);
+        }
+ 
+        if (mesh->m_headItem) {
+            QMatrix4x4 headTransform = getTransform(mesh->m_headItem)->matrix();
+            m.translate(headTransform.data()[12],headTransform.data()[13],headTransform.data()[14]);
+        }
+
+        QVector4D xb = m * QVector4D(1,0,0,0);
+        QVector4D yb = m * QVector4D(0,1,0,0);
+        QVector4D zb = m * QVector4D(0,0,1,0);
+     
+        QVector3D xa = QVector3D(xb.x(), xb.y(), xb.z()).normalized();
+        QVector3D ya = QVector3D(yb.x(), yb.y(), yb.z()).normalized();
+        QVector3D za = QVector3D(zb.x(), zb.y(), zb.z()).normalized();
+     
+        QMatrix4x4 lightMatrix = QMatrix4x4(
+            xa.x(), xa.y(), xa.z(), 0,
+            ya.x(), ya.y(), ya.z(), 0,
+            za.x(), za.y(), za.z(), 0,
+            0, 0, 0, 1
+        ).transposed();
+
+        QVector4D result = m * QVector4D(0,0,0,1); 
+
+        mesh->m_rootItem->setProperty("lightPos", QVector3D(result.x(), result.y(), result.z()) );
+        mesh->m_rootItem->setProperty("lightMatrix", lightMatrix);
+    }    
 }
 
 void MainView3D::updateFixtureScale(quint32 itemID, QVector3D origSize)
@@ -990,6 +1138,20 @@ void MainView3D::removeFixtureItem(quint32 itemID)
 /*********************************************************************
  * Environment
  *********************************************************************/
+
+MainView3D::RenderQuality MainView3D::renderQuality() const
+{
+    return m_renderQuality;
+}
+
+void MainView3D::setRenderQuality(MainView3D::RenderQuality renderQuality)
+{
+    if (m_renderQuality == renderQuality)
+        return;
+
+    m_renderQuality = renderQuality;
+    emit renderQualityChanged(m_renderQuality);
+}
 
 float MainView3D::ambientIntensity() const
 {
@@ -1040,4 +1202,38 @@ void MainView3D::setStageIndex(int stageIndex)
     emit stageIndexChanged(stageIndex);
 }
 
+/** *********************************************************************************
+ *                          GOBO TEXTURE CLASS METHODS
+ *  ********************************************************************************* */
 
+GoboTextureImage::GoboTextureImage(int w, int h, QString filename)
+{
+    setSize(QSize(w, h));
+    setSource(filename);
+}
+
+QString GoboTextureImage::source() const
+{
+    return m_source;
+}
+
+void GoboTextureImage::setSource(QString filename)
+{
+    if (filename == m_source)
+        return;
+
+    m_source = filename;
+    update();
+}
+
+void GoboTextureImage::paint(QPainter *painter)
+{  
+    int w = painter->device()->width();
+    int h = painter->device()->height();
+
+    QIcon goboFile(m_source);
+    painter->fillRect(0, 0, w, h, Qt::black);
+    painter->setBrush(QBrush(Qt::white));
+    painter->drawEllipse(2, 2, w - 4, h - 4);
+    painter->drawPixmap(1, 1, w - 2, h - 2, goboFile.pixmap(QSize(w - 2, h - 2)));
+}

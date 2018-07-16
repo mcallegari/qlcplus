@@ -33,18 +33,18 @@ Entity
 
     property bool isSelected: false
 
-    function bindFixtureTransform(fixtureID, t)
+    function bindFixtureTransform(itemID, t)
     {
-        isSelected = contextManager.isFixtureSelected(fixtureID)
+        isSelected = contextManager.isFixtureSelected(itemID)
         selectionTransform.translation = Qt.binding(function() { return center.plus(t.translation) })
-        //console.log("Bind transform " + center + ", " + t.translation)
+        selectionTransform.rotation = Qt.binding(function() { return t.rotation })
     }
 
     Material
     {
         id: selectionMaterial
         effect: geometryPassEffect
-        parameters: Parameter { name: "meshColor"; value: "yellow" }
+        parameters: Parameter { name: "meshColor"; value: Qt.vector4d(1.0, 1.0, 0.0, 2.0) }
     }
 
     Transform

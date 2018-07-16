@@ -182,6 +182,31 @@ TreeModelItem *TreeModel::addItem(QString label, QVariantList data, QString path
     return item;
 }
 
+TreeModelItem *TreeModel::itemAtPath(QString path)
+{
+    if (path.isEmpty())
+        return NULL;
+
+    QStringList pathList = path.split(TreeModel::separator());
+
+    if (pathList.count() == 1)
+    {
+        int index = 0;
+        for (index = 0; index < m_items.count(); index++)
+        {
+            if (m_items.at(index)->label() == path)
+                return m_items.at(index);
+        }
+
+        if (index == m_items.count())
+            return NULL;
+    }
+
+    TreeModelItem *item = m_itemsPathMap[pathList.at(0)];
+    QString subPath = path.mid(path.indexOf(TreeModel::separator()) + 1);
+    return item->children()->itemAtPath(subPath);
+}
+
 bool TreeModel::removeItem(QString path)
 {
     if (path.isEmpty())

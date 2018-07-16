@@ -30,7 +30,7 @@
   <Group Byte="0">Gobo</Group>
   <Capability Res="Others/open.svg" Min="0" Max="11">Open</Capability>
   <Capability Res="Chauvet/gobo00033.svg" Min="12" Max="23">Worms</Capability>
-  <Capability Res="Chauvet/gobo00044.png" Min="24" Max="35">Web</Capability>
+  <Capability Res="Chauvet/gobo00044.svg" Min="24" Max="35">Web</Capability>
   <Capability Res="ClayPaky/gobo00072.svg" Min="36" Max="47">Petals</Capability>
   <Capability Res="ClayPaky/gobo00066.svg" Min="48" Max="59">Spokes</Capability>
   <Capability Res="SGM/gobo00001.svg" Min="60" Max="71">Cone</Capability>

@@ -438,7 +438,7 @@ int FixtureUtils::shutterTimings(const QLCChannel *ch, uchar value, int &highTim
         break;
     }
 
-    qDebug() << "Frequency:" << freq << "Hz, high:" << highTime << ", low:" << lowTime;
+    //qDebug() << "Frequency:" << freq << "Hz, high:" << highTime << ", low:" << lowTime;
 
     return capPreset;
 }

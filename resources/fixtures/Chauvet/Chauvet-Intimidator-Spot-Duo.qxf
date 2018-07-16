@@ -50,18 +50,18 @@
   <Capability Res="ClayPaky/gobo00022.svg" Min="10" Max="15">Small Circle</Capability>
   <Capability Res="SGM/gobo00025.svg" Min="16" Max="21">Spiral 1</Capability>
   <Capability Res="Chauvet/gobo00017.png" Min="22" Max="27">Spiral 2</Capability>
-  <Capability Res="Chauvet/gobo00039.png" Min="28" Max="33">Lightning 1</Capability>
-  <Capability Res="Chauvet/gobo00040.png" Min="34" Max="39">Triangle 1</Capability>
-  <Capability Res="Chauvet/gobo00041.png" Min="40" Max="45">Arrow 1</Capability>
-  <Capability Res="Chauvet/gobo00042.png" Min="46" Max="51">Wave 1</Capability>
-  <Capability Res="Chauvet/gobo00043.png" Min="52" Max="57">Fan Wave 1</Capability>
-  <Capability Res="Chauvet/gobo00044.png" Min="58" Max="63">Snowflake</Capability>
-  <Capability Res="Chauvet/gobo00044.png" Min="64" Max="69">Gobo 9 shake, increase speed</Capability>
-  <Capability Res="Chauvet/gobo00043.png" Min="70" Max="75">Gobo 8 shake, increase speed</Capability>
-  <Capability Res="Chauvet/gobo00042.png" Min="76" Max="81">Gobo 7 shake, increase speed</Capability>
-  <Capability Res="Chauvet/gobo00041.png" Min="82" Max="87">Gobo 6 shake, increase speed</Capability>
-  <Capability Res="Chauvet/gobo00040.png" Min="88" Max="93">Gobo 5 shake, increase speed</Capability>
-  <Capability Res="Chauvet/gobo00039.png" Min="94" Max="99">Gobo 4 shake, increase speed</Capability>
+  <Capability Res="Chauvet/gobo00039.svg" Min="28" Max="33">Lightning 1</Capability>
+  <Capability Res="Chauvet/gobo00040.svg" Min="34" Max="39">Triangle 1</Capability>
+  <Capability Res="Chauvet/gobo00041.svg" Min="40" Max="45">Arrow 1</Capability>
+  <Capability Res="Chauvet/gobo00042.svg" Min="46" Max="51">Wave 1</Capability>
+  <Capability Res="Chauvet/gobo00043.svg" Min="52" Max="57">Fan Wave 1</Capability>
+  <Capability Res="Chauvet/gobo00044.svg" Min="58" Max="63">Snowflake</Capability>
+  <Capability Res="Chauvet/gobo00044.svg" Min="64" Max="69">Gobo 9 shake, increase speed</Capability>
+  <Capability Res="Chauvet/gobo00043.svg" Min="70" Max="75">Gobo 8 shake, increase speed</Capability>
+  <Capability Res="Chauvet/gobo00042.svg" Min="76" Max="81">Gobo 7 shake, increase speed</Capability>
+  <Capability Res="Chauvet/gobo00041.svg" Min="82" Max="87">Gobo 6 shake, increase speed</Capability>
+  <Capability Res="Chauvet/gobo00040.svg" Min="88" Max="93">Gobo 5 shake, increase speed</Capability>
+  <Capability Res="Chauvet/gobo00039.svg" Min="94" Max="99">Gobo 4 shake, increase speed</Capability>
   <Capability Res="Chauvet/gobo00017.png" Min="100" Max="105">Gobo 3 shake, increase speed</Capability>
   <Capability Res="SGM/gobo00025.svg" Min="106" Max="111">Gobo 2 shake, increase speed</Capability>
   <Capability Res="ClayPaky/gobo00022.svg" Min="112" Max="117">Gobo 1 shake, increase speed</Capability>
@@ -75,18 +75,18 @@
   <Capability Res="ClayPaky/gobo00022.svg" Min="10" Max="15">Small Circle</Capability>
   <Capability Res="SGM/gobo00025.svg" Min="16" Max="21">Spiral 1</Capability>
   <Capability Res="Chauvet/gobo00017.png" Min="22" Max="27">Spiral 2</Capability>
-  <Capability Res="Chauvet/gobo00039.png" Min="28" Max="33">Lightning 1</Capability>
-  <Capability Res="Chauvet/gobo00040.png" Min="34" Max="39">Triangle 1</Capability>
-  <Capability Res="Chauvet/gobo00041.png" Min="40" Max="45">Arrow 1</Capability>
-  <Capability Res="Chauvet/gobo00042.png" Min="46" Max="51">Wave 1</Capability>
-  <Capability Res="Chauvet/gobo00043.png" Min="52" Max="57">Fan Wave 1</Capability>
-  <Capability Res="Chauvet/gobo00044.png" Min="58" Max="63">Snowflake</Capability>
-  <Capability Res="Chauvet/gobo00044.png" Min="64" Max="69">Gobo 9 shake, increase speed</Capability>
-  <Capability Res="Chauvet/gobo00043.png" Min="70" Max="75">Gobo 8 shake, increase speed</Capability>
-  <Capability Res="Chauvet/gobo00042.png" Min="76" Max="81">Gobo 7 shake, increase speed</Capability>
-  <Capability Res="Chauvet/gobo00041.png" Min="82" Max="87">Gobo 6 shake, increase speed</Capability>
-  <Capability Res="Chauvet/gobo00040.png" Min="88" Max="93">Gobo 5 shake, increase speed</Capability>
-  <Capability Res="Chauvet/gobo00039.png" Min="94" Max="99">Gobo 4 shake, increase speed</Capability>
+  <Capability Res="Chauvet/gobo00039.svg" Min="28" Max="33">Lightning 1</Capability>
+  <Capability Res="Chauvet/gobo00040.svg" Min="34" Max="39">Triangle 1</Capability>
+  <Capability Res="Chauvet/gobo00041.svg" Min="40" Max="45">Arrow 1</Capability>
+  <Capability Res="Chauvet/gobo00042.svg" Min="46" Max="51">Wave 1</Capability>
+  <Capability Res="Chauvet/gobo00043.svg" Min="52" Max="57">Fan Wave 1</Capability>
+  <Capability Res="Chauvet/gobo00044.svg" Min="58" Max="63">Snowflake</Capability>
+  <Capability Res="Chauvet/gobo00044.svg" Min="64" Max="69">Gobo 9 shake, increase speed</Capability>
+  <Capability Res="Chauvet/gobo00043.svg" Min="70" Max="75">Gobo 8 shake, increase speed</Capability>
+  <Capability Res="Chauvet/gobo00042.svg" Min="76" Max="81">Gobo 7 shake, increase speed</Capability>
+  <Capability Res="Chauvet/gobo00041.svg" Min="82" Max="87">Gobo 6 shake, increase speed</Capability>
+  <Capability Res="Chauvet/gobo00040.svg" Min="88" Max="93">Gobo 5 shake, increase speed</Capability>
+  <Capability Res="Chauvet/gobo00039.svg" Min="94" Max="99">Gobo 4 shake, increase speed</Capability>
   <Capability Res="Chauvet/gobo00017.png" Min="100" Max="105">Gobo 3 shake, increase speed</Capability>
   <Capability Res="SGM/gobo00025.svg" Min="106" Max="111">Gobo 2 shake, increase speed</Capability>
   <Capability Res="ClayPaky/gobo00022.svg" Min="112" Max="117">Gobo 1 shake, increase speed</Capability>
@@ -192,18 +192,18 @@
   <Capability Res="ClayPaky/gobo00022.svg" Min="10" Max="15">Small Circle</Capability>
   <Capability Res="SGM/gobo00025.svg" Min="16" Max="21">Spiral 1</Capability>
   <Capability Res="Chauvet/gobo00017.png" Min="22" Max="27">Spiral 2</Capability>
-  <Capability Res="Chauvet/gobo00039.png" Min="28" Max="33">Lightning 1</Capability>
-  <Capability Res="Chauvet/gobo00040.png" Min="34" Max="39">Triangle 1</Capability>
-  <Capability Res="Chauvet/gobo00041.png" Min="40" Max="45">Arrow 1</Capability>
-  <Capability Res="Chauvet/gobo00042.png" Min="46" Max="51">Wave 1</Capability>
-  <Capability Res="Chauvet/gobo00043.png" Min="52" Max="57">Fan Wave 1</Capability>
-  <Capability Res="Chauvet/gobo00044.png" Min="58" Max="63">Snowflake</Capability>
-  <Capability Res="Chauvet/gobo00044.png" Min="64" Max="69">Gobo 9 shake, increase speed</Capability>
-  <Capability Res="Chauvet/gobo00043.png" Min="70" Max="75">Gobo 8 shake, increase speed</Capability>
-  <Capability Res="Chauvet/gobo00042.png" Min="76" Max="81">Gobo 7 shake, increase speed</Capability>
-  <Capability Res="Chauvet/gobo00041.png" Min="82" Max="87">Gobo 6 shake, increase speed</Capability>
-  <Capability Res="Chauvet/gobo00040.png" Min="88" Max="93">Gobo 5 shake, increase speed</Capability>
-  <Capability Res="Chauvet/gobo00039.png" Min="94" Max="99">Gobo 4 shake, increase speed</Capability>
+  <Capability Res="Chauvet/gobo00039.svg" Min="28" Max="33">Lightning 1</Capability>
+  <Capability Res="Chauvet/gobo00040.svg" Min="34" Max="39">Triangle 1</Capability>
+  <Capability Res="Chauvet/gobo00041.svg" Min="40" Max="45">Arrow 1</Capability>
+  <Capability Res="Chauvet/gobo00042.svg" Min="46" Max="51">Wave 1</Capability>
+  <Capability Res="Chauvet/gobo00043.svg" Min="52" Max="57">Fan Wave 1</Capability>
+  <Capability Res="Chauvet/gobo00044.svg" Min="58" Max="63">Snowflake</Capability>
+  <Capability Res="Chauvet/gobo00044.svg" Min="64" Max="69">Gobo 9 shake, increase speed</Capability>
+  <Capability Res="Chauvet/gobo00043.svg" Min="70" Max="75">Gobo 8 shake, increase speed</Capability>
+  <Capability Res="Chauvet/gobo00042.svg" Min="76" Max="81">Gobo 7 shake, increase speed</Capability>
+  <Capability Res="Chauvet/gobo00041.svg" Min="82" Max="87">Gobo 6 shake, increase speed</Capability>
+  <Capability Res="Chauvet/gobo00040.svg" Min="88" Max="93">Gobo 5 shake, increase speed</Capability>
+  <Capability Res="Chauvet/gobo00039.svg" Min="94" Max="99">Gobo 4 shake, increase speed</Capability>
   <Capability Res="Chauvet/gobo00017.png" Min="100" Max="105">Gobo 3 shake, increase speed</Capability>
   <Capability Res="SGM/gobo00025.svg" Min="106" Max="111">Gobo 2 shake, increase speed</Capability>
   <Capability Res="ClayPaky/gobo00022.svg" Min="112" Max="117">Gobo 1 shake, increase speed</Capability>

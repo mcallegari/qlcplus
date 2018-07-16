@@ -168,7 +168,7 @@
   <Capability Res="SGM-Color/gobo00554.png" Min="42" Max="62">Gobo2 2</Capability>
   <Capability Res="SGM-Color/gobo00556.png" Min="63" Max="83">Gobo2 3</Capability>
   <Capability Res="SGM/gobo00025.svg" Min="84" Max="104">Gobo2 4</Capability>
-  <Capability Res="SGM-Color/gobo00375.png" Min="105" Max="125">Gobo2 5</Capability>
+  <Capability Res="SGM-Color/gobo00375.svg" Min="105" Max="125">Gobo2 5</Capability>
   <Capability Res="SGM-Color/gobo00541.png" Min="126" Max="146">Gobo2 6</Capability>
   <Capability Res="SGM-Color/gobo00545.png" Min="147" Max="167">Gobo2 7</Capability>
   <Capability Res="SGM-Color/gobo00401.png" Min="168" Max="189">Gobo2 8</Capability>

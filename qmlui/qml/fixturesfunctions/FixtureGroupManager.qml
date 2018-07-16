@@ -321,7 +321,7 @@ Rectangle
                         //console.log("[groupEditor] Item " + label + " has children: " + hasChildren)
                         item.width = Qt.binding(function() { return fgmContainer.width - (gEditScrollBar.visible ? gEditScrollBar.width : 0) })
                         item.cRef = classRef
-                        item.textLabel = label
+                        item.textLabel = Qt.binding(function() { return label })
                         item.isSelected = Qt.binding(function() { return isSelected })
                         item.dragItem = gfhcDragItem
 

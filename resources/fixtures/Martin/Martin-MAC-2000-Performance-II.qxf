@@ -48,7 +48,7 @@
   <Capability Min="10" Max="14" Res="Others/gobo00008.svg">Indexed rotation Gobo 1 (Dot breakup)</Capability>
   <Capability Min="15" Max="19" Res="Others/gobo00017.svg">Indexed rotation Gobo 2 (Soft breakup)</Capability>
   <Capability Min="20" Max="24" Res="ClayPaky/gobo00069.svg">Indexed rotation Gobo 3 (Linear)</Capability>
-  <Capability Min="25" Max="29" Res="Robe/gobo00065.png">Indexed rotation Gobo 4 (Water)</Capability>
+  <Capability Min="25" Max="29" Res="Robe/gobo00065.svg">Indexed rotation Gobo 4 (Water)</Capability>
   <Capability Min="30" Max="34" Res="ClayPaky/gobo00069.svg">Indexed rotation Gobo 5 (Flames)</Capability>
   <Capability Min="35" Max="39" Res="ClayPaky/gobo00053.svg">Continuous rotation Gobo 1</Capability>
   <Capability Min="40" Max="44" Res="GLP/gobo00008.png">Continuous rotation Gobo 2</Capability>
