@@ -303,6 +303,7 @@ bool Script::saveXML(QXmlStreamWriter *doc)
 void Script::preRun(MasterTimer* timer)
 {
     m_runner = new ScriptRunner(doc(), m_data);
+    connect(m_runner, SIGNAL(finished()), this, SLOT(slotRunnerFinished()));
     m_runner->execute();
 
     Function::preRun(timer);
@@ -330,9 +331,13 @@ void Script::postRun(MasterTimer* timer, QList<Universe *> universes)
         m_runner->exit();
     }
 
-    m_runner = NULL;
-
     Function::postRun(timer, universes);
+}
+
+void Script::slotRunnerFinished()
+{
+    delete m_runner;
+    m_runner = NULL;
 }
 
 quint32 Script::getValueFromString(QString str, bool *ok)
