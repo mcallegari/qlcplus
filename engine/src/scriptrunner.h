@@ -60,8 +60,18 @@ public:
      * JS exported methods
      ************************************************************************/
 public slots:
+
     /**
-     * Handle "setFixture" command.
+     * Handle "getChannelValue" command
+     *
+     * @param universe The universe of the channel
+     * @param channel The channel index starting from 0
+     * @return the channel DMX value
+     */
+    int getChannelValue(int universe, int channel);
+
+    /**
+     * Handle "setFixture" command
      *
      * @param fxID The Fixture ID
      * @param channel The fixture channel to control
@@ -72,23 +82,60 @@ public slots:
     bool setFixture(quint32 fxID, quint32 channel, uchar value, uint time = 0);
 
     /**
-     * Handle "stopFunction" command.
+     * Handle "startFunction" command
      *
-     * @param fID The Function ID
+     * @param fID The Function ID to start
      * @return true if successful. False on error.
      */
     bool startFunction(quint32 fID);
 
     /**
-     * Handle "stopFunction" command.
+     * Handle "stopFunction" command
      *
-     * @param fID The Function ID
+     * @param fID The Function ID to stop
      * @return true if successful. False on error.
      */
     bool stopFunction(quint32 fID);
 
     /**
-     * Handle "systemCommand" command.
+     * Handle "isFunctionRunning" command
+     *
+     * @param fID The Function ID to be checked
+     * @return true if function is running, otherwise false
+     */
+    bool isFunctionRunning(quint32 fID);
+
+    /**
+     * Handle "getFunctionAttribute" command
+     *
+     * @param fID Function ID
+     * @param attributeIndex Index of the requested attribute
+     * @return the requested attribute value or 0
+     */
+    float getFunctionAttribute(quint32 fID, int attributeIndex);
+
+    /**
+     * Handle "setFunctionAttribute" command (int version)
+     *
+     * @param fID The Function ID to be set
+     * @param attributeIndex Index of the attribute to be set
+     * @param value Value of the attribute
+     * @return true if successful. False on error.
+     */
+    bool setFunctionAttribute(quint32 fID, int attributeIndex, float value);
+
+    /**
+     * Handle "setFunctionAttribute" command (string version)
+     *
+     * @param fID The Function ID to be set
+     * @param attributeName Name of the attribute to be set
+     * @param value Value of the attribute
+     * @return true if successful. False on error.
+     */
+    bool setFunctionAttribute(quint32 fID, QString attributeName, float value);
+
+    /**
+     * Handle "systemCommand" command
      *
      * @param command The command to execute
      * @return true if successful. False on error.
@@ -96,7 +143,7 @@ public slots:
     bool systemCommand(QString command);
 
     /**
-     * Handle "waitTime" command.
+     * Handle "waitTime" command (int version)
      *
      * @param ms The time in milliseconds to wait
      * @return true if successful. False on error.
@@ -104,7 +151,7 @@ public slots:
     bool waitTime(uint ms);
 
     /**
-     * Handle "waitTime" command.
+     * Handle "waitTime" command (string version)
      *
      * @param time The time as string (e.g. 2s.140) to wait
      * @return true if successful. False on error.
@@ -112,7 +159,7 @@ public slots:
     bool waitTime(QString time);
 
     /**
-     * Handle "setBlackout" command.
+     * Handle "setBlackout" command
      *
      * @param enable If true, requests blackout, otherwise release blackout
      * @return true if successful. False on error.
@@ -120,7 +167,7 @@ public slots:
     bool setBlackout(bool enable);
 
     /**
-     * Handle "random" command.
+     * Handle "random" command (string version)
      *
      * @param minTime Minimum time, expressed as QLC+ styled string
      * @param maxTime Maximum time, expressed as QLC+ styled string
@@ -128,6 +175,13 @@ public slots:
      */
     int random(QString minTime, QString maxTime);
 
+    /**
+     * Handle "random" command (int version)
+     *
+     * @param minTime Minimum time in milliseconds
+     * @param maxTime Maximum time in milliseconds
+     * @return true if successful. False on error.
+     */
     int random(int minTime, int maxTime);
 
 protected:
