@@ -33,6 +33,7 @@ Rectangle
 
     property Fixture cRef
     property string textLabel: cRef ? cRef.name : ""
+    property int itemType: App.FixtureDragItem
     property bool isSelected: false
     property bool isCheckable: false
     property bool isChecked: false

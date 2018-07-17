@@ -376,6 +376,11 @@ SidePanel
                             dumpDragItem.x = 0
                             dumpDragItem.y = 0
                         }
+                        else
+                        {
+                            dumpDragItem.parent = mainView
+                        }
+
                         dumpDragItem.Drag.active = dragActive
                     }
                 }
@@ -383,6 +388,7 @@ SidePanel
                 Item
                 {
                     id: dumpDragItem
+                    z: 99
                     visible: dumpDragArea.drag.active
 
                     Drag.source: dumpDragItem
@@ -415,6 +421,7 @@ SidePanel
                 PopupDMXDump
                 {
                     id: dmxDumpDialog
+                    implicitWidth: Math.min(UISettings.bigItemHeight * 4, mainView.width / 3)
 
                     property int sceneID: -1
 

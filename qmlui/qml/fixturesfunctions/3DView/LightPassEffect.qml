@@ -2,7 +2,7 @@
   Q Light Controller Plus
   LightPassEffect.qml
 
-  Copyright (c) Massimo Callegari
+  Copyright (c) Massimo Callegari, Eric Arnebäck
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -34,85 +34,12 @@ Effect
                 RenderPass
                 {
                     filterKeys: FilterKey { name : "pass"; value : "lights" }
-                    shaderProgram: ShaderProgram {
-                        vertexShaderCode: loadSource("qrc:/lights_gl3.vert")
-                        fragmentShaderCode: loadSource("qrc:/lights_gl3.frag")
-                    }
-                },
-                // Forward pass
-                RenderPass
-                {
-                    filterKeys : FilterKey { name : "pass"; value : "forward" }
-                    shaderProgram : ShaderProgram {
-                        vertexShaderCode:
-                            "#version 140
-
-                            in vec4 vertexPosition;
-                            uniform mat4 modelMatrix;
-
-                            void main()
-                            {
-                                gl_Position = modelMatrix * vertexPosition;
-                            }"
-                        fragmentShaderCode:
-                            "#version 140
-
-                            uniform sampler2D color;
-                            uniform vec2 winSize;
-
-                            out vec4 fragColor;
-
-                            void main()
-                            {
-                                vec2 texCoord = gl_FragCoord.xy / winSize;
-                                fragColor = texture(color, texCoord);
-                            }"
-                    }
-                }
-            ]
-        },
-        // OpenGL 2.0 with FBO extension
-        Technique
-        {
-            graphicsApiFilter { api: GraphicsApiFilter.OpenGL; profile: GraphicsApiFilter.NoProfile; majorVersion: 2; minorVersion: 0 }
-            renderPasses:
-            [
-                // Lights pass
-                RenderPass
-                {
-                    filterKeys: FilterKey { name: "pass"; value: "lights" }
-                    shaderProgram: ShaderProgram {
-                        vertexShaderCode: loadSource("qrc:/lights_es2.vert")
-                        fragmentShaderCode: loadSource("qrc:/lights_es2.frag")
-                    }
-                },
-                // Forward pass
-                RenderPass
-                {
-                    filterKeys : FilterKey { name : "pass"; value : "forward" }
-                    shaderProgram : ShaderProgram {
-                        vertexShaderCode:
-                            "#version 110
-
-                            attribute vec4 vertexPosition;
-                            uniform mat4 modelMatrix;
-
-                            void main()
-                            {
-                                gl_Position = modelMatrix * vertexPosition;
-                            }"
-                        fragmentShaderCode:
-                            "#version 110
-
-                            uniform sampler2D color;
-                            uniform vec2 winSize;
-
-                            void main()
-                            {
-                                vec2 texCoord = gl_FragCoord.xy / winSize;
-                                gl_FragColor = texture2D(color, texCoord);
-                            }"
-                    }
+                    shaderProgram:
+                        ShaderProgram
+                        {
+                            vertexShaderCode: View3D.makeShader(loadSource("qrc:/fullscreen.vert"))
+                            fragmentShaderCode: View3D.makeShader(loadSource("qrc:/directional.frag"))
+                        }
                 }
             ]
         }

@@ -22,6 +22,7 @@ import QtQuick.Layouts 1.1
 import QtQuick.Controls 2.1
 
 import org.qlcplus.classes 1.0
+import "TimeUtils.js" as TimeUtils
 import "."
 
 Rectangle
@@ -39,6 +40,27 @@ Rectangle
     {
         id: seSelector
         onItemsCountChanged: console.log("Scene Editor selected items changed !")
+    }
+
+    TimeEditTool
+    {
+        id: timeEditTool
+
+        parent: mainView
+        z: 99
+        x: rightSidePanel.x - width
+        visible: false
+        tempoType: sceneEditor.tempoType
+
+        onValueChanged:
+        {
+            if (speedType == QLCFunction.FadeIn)
+                sceneEditor.fadeInSpeed = val
+            else if (speedType == QLCFunction.Hold)
+                sceneEditor.holdSpeed = val
+            else if (speedType == QLCFunction.FadeOut)
+                sceneEditor.fadeOutSpeed = val
+        }
     }
 
     Column
@@ -73,10 +95,10 @@ Rectangle
         {
             id: sfxList
             width: seContainer.width
-            height: seContainer.height - UISettings.iconSizeMedium
+            height: seContainer.height - UISettings.iconSizeMedium - speedSection.height
             y: toolbar.height
             boundsBehavior: Flickable.StopAtBounds
-            model: sceneEditor.fixtureList
+            model: sceneEditor ? sceneEditor.fixtureList : null
             delegate:
                 FixtureDelegate
                 {
@@ -84,7 +106,7 @@ Rectangle
                     width: seContainer.width
                     isSelected: model.isSelected
                     Component.onCompleted: contextManager.setFixtureIDSelection(cRef.id, true)
-                    Component.onDestruction: contextManager.setFixtureIDSelection(cRef.id, false)
+                    Component.onDestruction: if (contextManager) contextManager.setFixtureIDSelection(cRef.id, false)
                     onMouseEvent:
                     {
                         if (type === App.Clicked)
@@ -100,6 +122,86 @@ Rectangle
                     }
                 }
             ScrollBar.vertical: CustomScrollBar { }
+        }
+
+        SectionBox
+        {
+            id: speedSection
+            width: parent.width
+            isExpanded: false
+            sectionLabel: qsTr("Speed")
+            sectionContents:
+                GridLayout
+                {
+                    width: parent.width
+                    columns: 2
+                    columnSpacing: 5
+                    rowSpacing: 4
+
+                    // Row 1
+                    RobotoText
+                    {
+                        id: fiLabel
+                        label: qsTr("Fade in")
+                        height: UISettings.listItemHeight
+                    }
+
+                    Rectangle
+                    {
+                        Layout.fillWidth: true
+                        height: UISettings.listItemHeight
+                        color: UISettings.bgMedium
+
+                        RobotoText
+                        {
+                            anchors.fill: parent
+                            label: TimeUtils.timeToQlcString(sceneEditor.fadeInSpeed, sceneEditor.tempoType)
+
+                            MouseArea
+                            {
+                                anchors.fill: parent
+                                onDoubleClicked:
+                                {
+                                    timeEditTool.allowFractions = QLCFunction.ByTwoFractions
+                                    timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y - timeEditTool.height,
+                                                      fiLabel.label, parent.label, QLCFunction.FadeIn)
+                                }
+                            }
+                        }
+                    }
+
+                    // Row 2
+                    RobotoText
+                    {
+                        id: foLabel
+                        height: UISettings.listItemHeight
+                        label: qsTr("Fade out")
+                    }
+
+                    Rectangle
+                    {
+                        Layout.fillWidth: true
+                        height: UISettings.listItemHeight
+                        color: UISettings.bgMedium
+
+                        RobotoText
+                        {
+                            anchors.fill: parent
+                            label: TimeUtils.timeToQlcString(sceneEditor.fadeOutSpeed, sceneEditor.tempoType)
+
+                            MouseArea
+                            {
+                                anchors.fill: parent
+                                onDoubleClicked:
+                                {
+                                    timeEditTool.allowFractions = QLCFunction.ByTwoFractions
+                                    timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y - timeEditTool.height,
+                                                      foLabel.label, parent.label, QLCFunction.FadeOut)
+                                }
+                            }
+                        }
+                    }
+                } // GridLayout
         }
     }
 }

@@ -710,7 +710,7 @@ void VCWidget::deleteInputSurce(quint32 id, quint32 universe, quint32 channel)
         if (source->id() == id && source->universe() == universe && source->channel() == channel)
         {
             m_inputSources.takeAt(i);
-            delete source.data();
+            source.clear();
 
             emit inputSourcesListChanged();
             break;

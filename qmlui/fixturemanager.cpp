@@ -654,6 +654,7 @@ void FixtureManager::addFixtureGroupTreeNode(Doc *doc, TreeModel *treeModel, Fix
                                              QList<SceneValue> checkedChannels)
 {
     int matchMask = 0;
+    QList<quint32> fixtureIDList;
 
     if (doc == NULL || treeModel == NULL || group == NULL)
         return;
@@ -661,18 +662,58 @@ void FixtureManager::addFixtureGroupTreeNode(Doc *doc, TreeModel *treeModel, Fix
     if (searchFilter.length() < SEARCH_MIN_CHARS || group->name().toLower().contains(searchFilter))
         matchMask |= GroupMatch;
 
-    for (quint32 fxID : group->fixtureList())
+    if (showFlags & ShowChannels)
     {
-        Fixture *fixture = doc->fixture(fxID);
-        if (fixture == NULL)
-            continue;
+        for (quint32 fxID : group->fixtureList())
+        {
+            Fixture *fixture = doc->fixture(fxID);
+            if (fixture == NULL)
+                continue;
 
-        int fxMatchMask = 0;
+            int fxMatchMask = 0;
 
-        addFixtureNode(doc, treeModel, fixture, group->name(), group->id(),
-                       fxMatchMask, searchFilter, showFlags, checkedChannels);
-        if (fxMatchMask)
-            matchMask |= FixtureMatch;
+            addFixtureNode(doc, treeModel, fixture, group->name(), group->id(),
+                           fxMatchMask, searchFilter, showFlags, checkedChannels);
+            if (fxMatchMask)
+                matchMask |= FixtureMatch;
+        }
+    }
+    else if (showFlags & ShowHeads)
+    {
+        for (GroupHead head : group->headList())
+        {
+            Fixture *fixture = doc->fixture(head.fxi);
+            if (fixture == NULL)
+                continue;
+
+            if (searchFilter.length() >= SEARCH_MIN_CHARS && fixture->name().toLower().contains(searchFilter) == false)
+                continue;
+
+            QString fxPath = QString("%1%2%3").arg(group->name()).arg(TreeModel::separator()).arg(fixture->name());
+            quint32 itemID = FixtureUtils::fixtureItemID(fixture->id(), head.head, 0);
+
+            QVariantList headParams;
+            headParams.append(QVariant::fromValue(fixture)); // classRef
+            headParams.append(App::HeadDragItem); // type
+            headParams.append(itemID); // id
+            headParams.append(group->id()); // subid
+            headParams.append(head.head); // chIdx
+            treeModel->addItem(QString("%1 %2").arg(tr("Head")).arg(head.head + 1, 3, 10, QChar('0')),
+                               headParams, fxPath);
+
+            if (fixtureIDList.contains(head.fxi) == false)
+            {
+                QVariantList fxParams;
+                fxParams.append(QVariant::fromValue(fixture)); // classRef
+                fxParams.append(App::FixtureDragItem); // type
+                fxParams.append(itemID); // id
+                fxParams.append(group->id()); // subid
+                fxParams.append(0); // chIdx
+
+                treeModel->setPathData(fxPath, fxParams);
+                fixtureIDList.append(head.fxi);
+            }
+        }
     }
 
     if (matchMask)
@@ -870,6 +911,57 @@ void FixtureManager::addFixturesToNewGroup(QList<quint32> fxList)
                                       Tardis::instance()->actionToByteArray(Tardis::FixtureGroupCreate, group->id()));
 
     addFixtureGroupTreeNode(m_doc, m_fixtureTree, group, m_searchFilter);
+}
+
+void FixtureManager::updateFixtureGroup(quint32 groupID, quint32 itemID, int headIdx)
+{
+    FixtureGroup *group = m_doc->fixtureGroup(groupID);
+    if (group == NULL)
+        return;
+
+    quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
+    Fixture *fixture = m_doc->fixture(fixtureID);
+    if (fixture == NULL)
+        return;
+
+    QList<int> headsList;
+    if (headIdx != -1)
+    {
+        headsList << headIdx;
+    }
+    else
+    {
+        for (int i = 0; i < fixture->heads(); i++)
+            headsList << i;
+    }
+
+    QString fxPath = QString("%1%2%3").arg(group->name()).arg(TreeModel::separator()).arg(fixture->name());
+    TreeModelItem *fxItem = m_fixtureTree->itemAtPath(fxPath);
+
+    if (fxItem == NULL)
+    {
+        QVariantList fxParams;
+        fxParams.append(QVariant::fromValue(fixture)); // classRef
+        fxParams.append(App::FixtureDragItem); // type
+        fxParams.append(itemID); // id
+        fxParams.append(group->id()); // subid
+        fxParams.append(0); // chIdx
+
+        fxItem = m_fixtureTree->addItem(fixture->name(), fxParams, group->name(), TreeModel::EmptyNode);
+    }
+
+    for (int hIdx : headsList)
+    {
+        QVariantList headParams;
+        headParams.append(QVariant::fromValue(fixture)); // classRef
+        headParams.append(App::HeadDragItem); // type
+        headParams.append(itemID); // id
+        headParams.append(group->id()); // subid
+        headParams.append(hIdx); // chIdx
+        m_fixtureTree->addItem(QString("%1 %2").arg(tr("Head")).arg(hIdx + 1, 3, 10, QChar('0')), headParams, fxPath);
+    }
+
+    //m_fixtureTree->printTree(); // enable for debug purposes
 }
 
 bool FixtureManager::deleteFixtureGroups(QVariantList IDList)

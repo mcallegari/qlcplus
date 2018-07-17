@@ -13,7 +13,7 @@ QLC+ on GitHub: https://github.com/mcallegari/qlcplus
 DEVELOPERS AT WORK
 ------------------
 
-If you're compiling QLC+ from sources and you regularly do "git pull" 
+If you're compiling QLC+ from sources and you regularly do "git pull"
 to get the latest sources, you probably end up seeing some
 compiler warnings and errors from time to time. Since the whole source package
 is under development, you might even encounter unresolved symbols etc. that
@@ -116,7 +116,14 @@ https://github.com/mcallegari/qlcplus
 Contributors
 ------------
 
-### QLC+:
+### QLC+ 5:
+
+* Eric Arnebäck (3D preview features)
+* Santiago Benejam Torres (Catalan translation)
+* Luis García Tornel (Spanish translation)
+* Nils Van Zuijlen (French translation)
+
+### QLC+ 4:
 
 * Jano Svitok (bugfix, new features and improvements)
 * David Garyga (bugfix, new features and improvements)

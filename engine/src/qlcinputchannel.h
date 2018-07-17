@@ -51,8 +51,13 @@ class QString;
 #define KXMLQLCInputChannelLowerValue "LowerValue"
 #define KXMLQLCInputChannelUpperValue "UpperValue"
 
-class QLCInputChannel
+class QLCInputChannel : public QObject
 {
+    Q_OBJECT
+    Q_DISABLE_COPY(QLCInputChannel)
+
+    Q_PROPERTY(Type type READ type CONSTANT)
+
     /********************************************************************
      * Initialization
      ********************************************************************/
@@ -61,7 +66,8 @@ public:
     QLCInputChannel();
 
     /** Copy constructor */
-    QLCInputChannel(const QLCInputChannel& channel);
+    //QLCInputChannel(const QLCInputChannel& channel);
+    QLCInputChannel *createCopy();
 
     /** Destructor */
     virtual ~QLCInputChannel();
@@ -81,6 +87,9 @@ public:
         PageSet,
         NoType
     };
+#if QT_VERSION >= 0x050500
+    Q_ENUM(Type)
+#endif
 
     /** Set the type of this channel (see enum Type) */
     void setType(Type type);

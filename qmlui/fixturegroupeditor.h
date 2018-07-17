@@ -32,6 +32,7 @@ class FixtureGroupEditor : public QObject
     Q_OBJECT
 
     Q_PROPERTY(QVariant groupsListModel READ groupsListModel NOTIFY groupsListModelChanged)
+    Q_PROPERTY(quint32 groupID READ groupID CONSTANT)
     Q_PROPERTY(QString groupName READ groupName WRITE setGroupName NOTIFY groupNameChanged)
     Q_PROPERTY(QSize groupSize READ groupSize WRITE setGroupSize NOTIFY groupSizeChanged)
     Q_PROPERTY(QVariantList groupMap READ groupMap NOTIFY groupMapChanged)
@@ -81,6 +82,8 @@ public:
     /** Set the reference of a FixtureGroup for editing */
     Q_INVOKABLE void setEditGroup(QVariant reference);
 
+    quint32 groupID() const;
+
     /** Get/Set the name of the Fixture Group currently being edited */
     QString groupName() const;
     void setGroupName(QString name);
@@ -112,10 +115,10 @@ public:
     Q_INVOKABLE QVariantList headSelection(int x, int y, int mouseMods);
 
     /** Add a Fixture with the provided $reference to x,y position */
-    Q_INVOKABLE void addFixture(QVariant reference, int x, int y);
+    Q_INVOKABLE bool addFixture(QVariant reference, int x, int y);
 
     /** Add a Fixture head of the provided $itemID and $headIndex to x,y position */
-    Q_INVOKABLE void addHead(quint32 itemID, int headIndex, int x, int y);
+    Q_INVOKABLE bool addHead(quint32 itemID, int headIndex, int x, int y);
 
     /** Check if the current selection can be moved by $offset cells */
     Q_INVOKABLE bool checkSelection(int x, int y, int offset);

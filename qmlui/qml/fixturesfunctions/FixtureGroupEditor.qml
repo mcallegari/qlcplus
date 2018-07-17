@@ -276,14 +276,18 @@ Rectangle
                 console.log("Drag dropped at " + xPos + ", " + yPos)
                 for (var i = 0; i < dragEvent.source.itemsList.length; i++)
                 {
+                    var itemID = dragEvent.source.itemsList[i].itemID
+
                     switch(dragEvent.source.itemsList[i].itemType)
                     {
                         case App.FixtureDragItem:
-                            fixtureGroupEditor.addFixture(dragEvent.source.itemsList[i].cRef, xPos, yPos)
+                            if (fixtureGroupEditor.addFixture(dragEvent.source.itemsList[i].cRef, xPos, yPos) === true)
+                                fixtureManager.updateFixtureGroup(fixtureGroupEditor.groupID, itemID, -1)
                         break;
                         case App.HeadDragItem:
-                            fixtureGroupEditor.addHead(dragEvent.source.itemsList[i].itemID,
-                                                       dragEvent.source.itemsList[i].headIndex, xPos, yPos)
+                            if (fixtureGroupEditor.addHead(itemID, dragEvent.source.itemsList[i].headIndex, xPos, yPos) === true)
+                                fixtureManager.updateFixtureGroup(fixtureGroupEditor.groupID, itemID,
+                                                                  dragEvent.source.itemsList[i].headIndex)
                         break;
                     }
                 }

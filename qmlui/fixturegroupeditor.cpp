@@ -90,6 +90,11 @@ void FixtureGroupEditor::setEditGroup(QVariant reference)
     updateGroupMap();
 }
 
+quint32 FixtureGroupEditor::groupID() const
+{
+    return m_editGroup == NULL ? FixtureGroup::invalidId() : m_editGroup->id();
+}
+
 QString FixtureGroupEditor::groupName() const
 {
     return m_editGroup == NULL ? "" : m_editGroup->name();
@@ -212,30 +217,40 @@ QVariantList FixtureGroupEditor::headSelection(int x, int y, int mouseMods)
     return m_groupSelection;
 }
 
-void FixtureGroupEditor::addFixture(QVariant reference, int x, int y)
+bool FixtureGroupEditor::addFixture(QVariant reference, int x, int y)
 {
     if (m_editGroup == NULL)
-        return;
+        return false;
 
     qDebug() << Q_FUNC_INFO << reference << x << y;
 
     if (reference.canConvert<Fixture *>())
     {
         Fixture *fixture = reference.value<Fixture *>();
-        m_editGroup->assignFixture(fixture->id(), QLCPoint(x, y));
-        updateGroupMap();
+        if (m_editGroup->assignFixture(fixture->id(), QLCPoint(x, y)) == true)
+        {
+            updateGroupMap();
+            return true;
+        }
     }
+
+    return false;
 }
 
-void FixtureGroupEditor::addHead(quint32 itemID, int headIndex, int x, int y)
+bool FixtureGroupEditor::addHead(quint32 itemID, int headIndex, int x, int y)
 {
     if (m_editGroup == NULL)
-        return;
+        return false;
 
     quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
     GroupHead head(fixtureID, headIndex);
-    m_editGroup->assignHead(QLCPoint(x, y), head);
-    updateGroupMap();
+    if (m_editGroup->assignHead(QLCPoint(x, y), head) == true)
+    {
+        updateGroupMap();
+        return true;
+    }
+
+    return false;
 }
 
 bool FixtureGroupEditor::checkSelection(int x, int y, int offset)

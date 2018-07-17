@@ -230,6 +230,24 @@ void ScriptRunner::run()
  * JS exported methods
  ************************************************************************/
 
+int ScriptRunner::getChannelValue(int universe, int channel)
+{
+    if (m_running == false)
+        return false;
+
+    QList<Universe*> uniList = m_doc->inputOutputMap()->claimUniverses();
+    uchar dmxValue = 0;
+
+    if (universe >= 0 && universe < uniList.count())
+    {
+        Universe *uni = uniList.at(universe);
+        dmxValue = uni->preGMValue(channel);
+    }
+    m_doc->inputOutputMap()->releaseUniverses(false);
+
+    return dmxValue;
+}
+
 bool ScriptRunner::setFixture(quint32 fxID, quint32 channel, uchar value, uint time)
 {
     if (m_running == false)
@@ -317,6 +335,71 @@ bool ScriptRunner::stopFunction(quint32 fID)
     pair.second = false;
 
     m_functionQueue.enqueue(pair);
+
+    return true;
+}
+
+bool ScriptRunner::isFunctionRunning(quint32 fID)
+{
+    if (m_running == false)
+        return false;
+
+    Function *function = m_doc->function(fID);
+    if (function == NULL)
+    {
+        qWarning() << QString("No such function (ID %1)").arg(fID);
+        return false;
+    }
+
+    return function->isRunning();
+}
+
+float ScriptRunner::getFunctionAttribute(quint32 fID, int attributeIndex)
+{
+    if (m_running == false)
+        return false;
+
+    Function *function = m_doc->function(fID);
+    if (function == NULL)
+    {
+        qWarning() << QString("No such function (ID %1)").arg(fID);
+        return 0;
+    }
+
+    return function->getAttributeValue(attributeIndex);
+}
+
+bool ScriptRunner::setFunctionAttribute(quint32 fID, int attributeIndex, float value)
+{
+    if (m_running == false)
+        return false;
+
+    Function *function = m_doc->function(fID);
+    if (function == NULL)
+    {
+        qWarning() << QString("No such function (ID %1)").arg(fID);
+        return false;
+    }
+
+    function->adjustAttribute(value, attributeIndex);
+
+    return true;
+}
+
+bool ScriptRunner::setFunctionAttribute(quint32 fID, QString attributeName, float value)
+{
+    if (m_running == false)
+        return false;
+
+    Function *function = m_doc->function(fID);
+    if (function == NULL)
+    {
+        qWarning() << QString("No such function (ID %1)").arg(fID);
+        return false;
+    }
+
+    int attrIndex = function->getAttributeIndex(attributeName);
+    function->adjustAttribute(value, attrIndex);
 
     return true;
 }

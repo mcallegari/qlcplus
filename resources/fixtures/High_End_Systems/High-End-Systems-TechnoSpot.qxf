@@ -108,7 +108,7 @@
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="15" Res="Others/open.svg">Open</Capability>
   <Capability Min="16" Max="47" Res="Others/gobo00051.svg">1 - red chicklet</Capability>
-  <Capability Min="48" Max="79" Res="Robe/gobo00055.png">2 - animated litho</Capability>
+  <Capability Min="48" Max="79" Res="Robe/gobo00055.svg">2 - animated litho</Capability>
   <Capability Min="80" Max="111" Res="SGM-Color/gobo00562.png">3 - fusion fire, clear</Capability>
   <Capability Min="112" Max="143" Res="SGM/gobo00032.png">4 - valiant</Capability>
   <Capability Min="144" Max="175" Res="SGM-Color/gobo00395.png">5 - Gatlin gun, indigo</Capability>

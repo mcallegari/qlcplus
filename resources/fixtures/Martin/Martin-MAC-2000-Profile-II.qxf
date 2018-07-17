@@ -52,7 +52,7 @@
   <Capability Min="101" Max="120">Position 5 &gt; Position 6</Capability>
   <Capability Min="121" Max="140">Position 6 &gt; Position 7</Capability>
   <Capability Min="141" Max="160">Position 7 &gt; Open</Capability>
-  <Capability Res="Robe/gobo00062.png" Min="161" Max="163">Position 7 (Dots)</Capability>
+  <Capability Res="Robe/gobo00062.svg" Min="161" Max="163">Position 7 (Dots)</Capability>
   <Capability Res="SGM/gobo00267.png" Min="164" Max="167">Position 6 (Highways)</Capability>
   <Capability Res="SGM/gobo00044.png" Min="168" Max="171">Position 5 (Triple Cone)</Capability>
   <Capability Color="#3800b8" Min="172" Max="175">Position 4 (UV)</Capability>

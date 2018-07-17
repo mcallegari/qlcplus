@@ -245,6 +245,8 @@ public:
     /** Add a list of fixture IDs to a new fixture group */
     void addFixturesToNewGroup(QList<quint32>fxList);
 
+    Q_INVOKABLE void updateFixtureGroup(quint32 groupID, quint32 itemID, int headIdx);
+
     /** Delete some existing Fixture Groups with IDs provided by $IDList */
     Q_INVOKABLE bool deleteFixtureGroups(QVariantList IDList);
 

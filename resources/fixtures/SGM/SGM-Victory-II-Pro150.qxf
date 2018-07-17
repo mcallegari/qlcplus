@@ -91,11 +91,11 @@
   <Capability Min="0" Max="19" Res="Others/open.svg">Open</Capability>
   <Capability Min="20" Max="39" Res="SGM/gobo00125.png">Gobo 1</Capability>
   <Capability Min="40" Max="59" Res="Others/gobo00026.svg">Gobo 2</Capability>
-  <Capability Min="60" Max="79" Res="SGM/gobo00059.png">Gobo 3</Capability>
+  <Capability Min="60" Max="79" Res="SGM/gobo00059.svg">Gobo 3</Capability>
   <Capability Min="80" Max="99" Res="SGM/gobo00127.png">Gobo 4</Capability>
   <Capability Min="100" Max="119" Res="SGM/gobo00004.svg">Gobo 5</Capability>
   <Capability Min="120" Max="139" Res="SGM/gobo00064.svg">Gobo 6</Capability>
-  <Capability Min="140" Max="159" Res="SGM/gobo00027.png">Gobo 7</Capability>
+  <Capability Min="140" Max="159" Res="SGM/gobo00027.svg">Gobo 7</Capability>
   <Capability Min="160" Max="177">Rotagobo - speed 1</Capability>
   <Capability Min="178" Max="194">Rotagobo - speed 2</Capability>
   <Capability Min="195" Max="212">Rotagobo - speed 3</Capability>

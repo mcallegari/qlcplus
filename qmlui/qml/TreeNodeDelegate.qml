@@ -106,7 +106,7 @@ Column
                 width: nodeBgRect.width - x - 1
                 height: UISettings.listItemHeight
                 readOnly: true
-                text: textLabel
+                text: cRef ? cRef.name : textLabel
                 verticalAlignment: TextInput.AlignVCenter
                 color: UISettings.fgMain
                 font.family: UISettings.robotoFontName

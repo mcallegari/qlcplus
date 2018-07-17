@@ -31,6 +31,7 @@ class QXmlStreamReader;
 class QXmlStreamWriter;
 class QLCInputSource;
 class ContextManager;
+class TreeModel;
 class VCWidget;
 class VCFrame;
 class VCPage;
@@ -270,6 +271,10 @@ public:
      *  $widget and fills it later once the first input signal is received */
     Q_INVOKABLE bool createAndDetectInputSource(VCWidget *widget);
 
+    /** Create a new input source for the given $universe and $channel and
+     *  add it to $widget. This is used for manual input source selection */
+    Q_INVOKABLE void createAndAddInputSource(VCWidget *widget, quint32 universe, quint32 channel);
+
     /** Enable the autodetection process for a key sequence.
      *  This method creates an empty QKeySequence in the specified
      *  $widget and updates it later once the first key press is received */
@@ -299,6 +304,9 @@ public:
     /** @reimp */
     void handleKeyEvent(QKeyEvent *e, bool pressed);
 
+    Q_INVOKABLE QVariant inputChannelsModel();
+    Q_INVOKABLE QVariantList universeListModel();
+
 protected slots:
     /**
      * Slot that receives external input data from the InputOutputMap class.
@@ -321,6 +329,9 @@ protected:
     QSharedPointer<QLCInputSource> m_autoDetectionSource;
     QKeySequence m_autoDetectionKey;
     quint32 m_autoDetectionKeyId;
+
+    /** Data model used by the QML UI to represent groups/input channels */
+    TreeModel *m_inputChannelsTree;
 
     /*********************************************************************
      * Load & Save

@@ -3,6 +3,7 @@
   mainview3d.h
 
   Copyright (c) Massimo Callegari
+  Copyright (c) Eric Arnebäck
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -25,11 +26,13 @@
 
 #include <Qt3DCore/QEntity>
 #include <Qt3DCore/QTransform>
-#include <Qt3DRender/QSceneLoader>
-#include <Qt3DRender/QMaterial>
 #include <Qt3DRender/QLayer>
 #include <Qt3DRender/QEffect>
+#include <Qt3DRender/QMaterial>
+#include <Qt3DRender/QSceneLoader>
+#include <Qt3DRender/QRenderTarget>
 #include <Qt3DRender/QGeometryRenderer>
+#include <Qt3DRender/QPaintedTextureImage>
 
 #include "previewcontext.h"
 
@@ -39,6 +42,21 @@ class MonitorProperties;
 
 using namespace Qt3DCore;
 using namespace Qt3DRender;
+
+class GoboTextureImage : public Qt3DRender::QPaintedTextureImage
+{
+public:
+    GoboTextureImage(int w, int h, QString filename);
+
+    QString source() const;
+
+    void setSource(QString filename);
+
+protected:
+    void paint(QPainter *painter);
+
+    QString m_source;
+};
 
 typedef struct
 {
@@ -62,6 +80,12 @@ typedef struct
     BoundingVolume m_volume;
     /** The selection box entity */
     QEntity *m_selectionBox;
+    /** Reference to the layers used for scattering */
+    QLayer *m_spotlightShadingLayer;
+    QLayer *m_spotlightScatteringLayer;
+    QLayer *m_outputDepthLayer;
+
+    GoboTextureImage *m_goboTexture;
 
 } FixtureMesh;
 
@@ -69,10 +93,12 @@ class MainView3D : public PreviewContext
 {
     Q_OBJECT
 
+    Q_PROPERTY(RenderQuality renderQuality READ renderQuality WRITE setRenderQuality NOTIFY renderQualityChanged)
     Q_PROPERTY(QString meshDirectory READ meshDirectory CONSTANT)
     Q_PROPERTY(QStringList stagesList READ stagesList CONSTANT)
     Q_PROPERTY(int stageIndex READ stageIndex WRITE setStageIndex NOTIFY stageIndexChanged)
     Q_PROPERTY(float ambientIntensity READ ambientIntensity WRITE setAmbientIntensity NOTIFY ambientIntensityChanged)
+    Q_PROPERTY(float smokeAmount READ smokeAmount WRITE setSmokeAmount NOTIFY smokeAmountChanged)
 
 public:
     explicit MainView3D(QQuickView *view, Doc *doc, QObject *parent = 0);
@@ -89,6 +115,8 @@ public:
 protected:
     /** Returns a string with the mesh location, suitable to be used by QML */
     QString meshDirectory() const;
+    /** Returns a string with the gobo location, cross platform */
+    QString goboDirectory() const;
 
 public slots:
     /** @reimp */
@@ -101,6 +129,8 @@ private:
     /** Pre-cached QML components for quick item creation */
     QQmlComponent *m_fixtureComponent;
     QQmlComponent *m_selectionComponent;
+    QQmlComponent *m_spotlightConeComponent;
+    QQmlComponent *m_fillGBufferLayer;
 
     /*********************************************************************
      * Fixtures
@@ -117,7 +147,9 @@ public:
     /** Set/update the flags of a fixture item */
     void setFixtureFlags(quint32 itemID, quint32 flags);
 
-    Q_INVOKABLE void initializeFixture(quint32 itemID, QEntity *fxEntity, QComponent *picker, QSceneLoader *loader);
+    Q_INVOKABLE void initializeFixture(quint32 itemID, QEntity *fxEntity, QSceneLoader *loader);
+
+    Q_INVOKABLE QString makeShader(QString str);
 
     /** Update the fixture preview items when some channels have changed */
     void updateFixture(Fixture *fixture);
@@ -162,7 +194,7 @@ private:
     Qt3DCore::QTransform *getTransform(QEntity *entity);
     QMaterial *getMaterial(QEntity *entity);
     unsigned int getNewLightIndex();
-    void updateLightPosition(FixtureMesh *meshRef);
+    void updateLightMatrix(FixtureMesh *mesh);
 
 private:
     /** Reference to the Scene3D component */
@@ -173,7 +205,10 @@ private:
 
     /** Reference to the light pass entity and material for uniform updates */
     QEntity *m_quadEntity;
-    QMaterial *m_quadMaterial;
+
+    /** Reference to the render targets used for scattering */
+    QRenderTarget *m_gBuffer;
+    QRenderTarget *m_frontDepthTarget;
 
     /** Map of QLC+ fixture IDs and QML Entity items */
     QMap<quint32, FixtureMesh*> m_entitiesMap;
@@ -185,6 +220,28 @@ private:
      * Environment
      *********************************************************************/
 public:
+    enum RenderQuality
+    {
+        LowQuality = 0,
+        MediumQuality,
+        HighQuality,
+        UltraQuality
+    };
+    Q_ENUM(RenderQuality)
+
+    enum FixtureMeshType
+    {
+        ParMeshType = 0,
+        MovingHeadMeshType,
+        DefaultMeshType
+    };
+    Q_ENUM(FixtureMeshType)
+
+    /** Get/Set the 3D render quality. This affects shadows and
+     *  scattering ray marching steps */
+    RenderQuality renderQuality() const;
+    void setRenderQuality(RenderQuality renderQuality);
+
     /** The list of currently supported stage types */
     QStringList stagesList() const;
 
@@ -196,11 +253,18 @@ public:
     float ambientIntensity() const;
     void setAmbientIntensity(float ambientIntensity);
 
+    float smokeAmount() const;
+    void setSmokeAmount(float smokeAmount);
+
 signals:
+    void renderQualityChanged(RenderQuality renderQuality);
     void stageIndexChanged(int stageIndex);
     void ambientIntensityChanged(qreal ambientIntensity);
+    void smokeAmountChanged(float smokeAmount);
 
 private:
+    RenderQuality m_renderQuality;
+
     QStringList m_stagesList;
     QStringList m_stageResourceList;
 
@@ -209,6 +273,9 @@ private:
 
     /** Ambient light amount (0.0 - 1.0) */
     float m_ambientIntensity;
+
+    /** Smoke amount (0.0 - 1.0) */
+    float m_smokeAmount;
 };
 
 #endif // MAINVIEW3D_H

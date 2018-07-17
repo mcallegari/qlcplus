@@ -59,12 +59,174 @@ Rectangle
         z: 1
         anchors.fill: parent
         aspects: ["input", "logic"]
+        
+
+        function updateSceneGraph(create)
+        {
+            var ic
+            var component
+            var mynode
+            var fixtures = []
+            var fixtureItem
+
+            for (ic = 0; ic < frameGraph.myShadowFrameGraphNode.childNodes.length; ++ic)
+            {
+                if (frameGraph.myShadowFrameGraphNode.childNodes[ic] !== null)
+                    frameGraph.myShadowFrameGraphNode.childNodes[ic].destroy()
+            }
+
+            for (ic = 0; ic < frameGraph.myCameraSelector.childNodes.length; ++ic)
+            {
+                if (frameGraph.myCameraSelector.childNodes[ic] !== null)
+                    frameGraph.myCameraSelector.childNodes[ic].destroy()
+            }
+
+            for (ic = 0; ic < sceneEntity.childNodes.length; ++ic)
+            {
+                if (sceneEntity.childNodes[ic] === null)
+                    continue
+
+                if (sceneEntity.childNodes[ic].objectName === "fixture3DItem")
+                    fixtures.push(sceneEntity.childNodes[ic])
+            }
+
+            if (create === false)
+                return
+
+            for (ic = 0; ic < fixtures.length; ++ic)
+            {
+                fixtureItem = fixtures[ic]
+
+                if(fixtureItem.useShadows) {
+                    component = Qt.createComponent("RenderShadowMapFilter.qml");
+                    if (component.status === Component.Error)
+                        console.log("Error loading component:", component.errorString());
+
+                    mynode = component.createObject(frameGraph.myShadowFrameGraphNode,
+                    {
+                        "depthTargetSelector": fixtureItem.shadowMap,
+                        "sceneDeferredLayer": sceneEntity.deferredLayer,
+                        "lightViewMatrix": fixtureItem.lightViewMatrix,
+                        "lightProjectionMatrix": fixtureItem.lightProjectionMatrix,
+                        "fixtureItem": fixtureItem
+                    });
+                }
+            }
+
+            console.log("BUILDING FRAME GRAPH")
+
+            component = Qt.createComponent("FillGBufferFilter.qml");
+            if (component.status === Component.Error)
+                console.log("Error loading component:", component.errorString());
+            
+            mynode = component.createObject(frameGraph.myCameraSelector,
+            {
+                "gBuffer": gBufferTarget,
+                "sceneDeferredLayer": sceneEntity.deferredLayer,
+            });
+
+            component = Qt.createComponent("RenderSelectionBoxesFilter.qml");
+            if (component.status === Component.Error)
+                console.log("Error loading component:", component.errorString());
+
+            mynode = component.createObject(frameGraph.myCameraSelector,
+            {
+                "gBuffer": gBufferTarget,
+                "layer": sceneEntity.selectionLayer,
+            });
+
+            component = Qt.createComponent("DirectionalLightFilter.qml");
+            if (component.status === Component.Error)
+                console.log("Error loading component:", component.errorString());
+            mynode = component.createObject(frameGraph.myCameraSelector,
+            {
+                "gBuffer": gBufferTarget,
+                "screenQuadLayer": screenQuadEntity.layer,
+                "frameTarget": frameTarget
+            });
+
+            for (ic = 0; ic < fixtures.length; ++ic)
+            {
+                fixtureItem = fixtures[ic]
+
+                component = Qt.createComponent("SpotlightShadingFilter.qml");
+                if (component.status === Component.Error)
+                console.log("Error loading component:", component.errorString());
+                mynode = component.createObject(frameGraph.myCameraSelector,
+                {
+                    "gBuffer": gBufferTarget,
+                    "shadowTex": fixtureItem.shadowMap.depth,
+                    "useShadows": fixtureItem.useShadows,              
+                    "spotlightShadingLayer": fixtureItem.spotlightShadingLayer,
+                    "frameTarget": frameTarget
+                });
+            }
+
+            for (ic = 0; ic < fixtures.length; ++ic)
+            {
+                fixtureItem = fixtures[ic]
+
+                if(fixtureItem.useScattering) {
+                    component = Qt.createComponent("OutputFrontDepthFilter.qml");
+                    if (component.status === Component.Error)
+                        console.log("Error loading component:", component.errorString());
+                    mynode = component.createObject(frameGraph.myCameraSelector,
+                    {
+                        "frontDepth": depthTarget,
+                        "outputDepthLayer": fixtureItem.outputDepthLayer
+                    });
+
+                    component = Qt.createComponent("SpotlightScatteringFilter.qml");
+                    if (component.status === Component.Error)
+                        console.log("Error loading component:", component.errorString());
+
+                    mynode = component.createObject(frameGraph.myCameraSelector,
+                    {
+                        "fixtureItem": fixtureItem,          
+                        "frontDepth": depthTarget,
+                        "gBuffer": gBufferTarget,
+                        "spotlightScatteringLayer": fixtureItem.spotlightScatteringLayer,
+                        "shadowTex": fixtureItem.shadowMap.depth,
+                        "frameTarget": frameTarget,
+                        "useShadows": fixtureItem.useShadows
+                    });
+                }
+            }  
+
+            component = Qt.createComponent("GammaCorrectFilter.qml");
+            if (component.status === Component.Error)
+                console.log("Error loading component:", component.errorString());
+            mynode = component.createObject(frameGraph.myCameraSelector,
+            {
+                "hdrTexture": frameTarget.color,
+                "outRenderTarget": hdr0RenderTarget,                
+                "screenQuadGammaCorrectLayer": screenQuadGammaCorrectEntity.layer
+            });
+            
+            component = Qt.createComponent("FXAAFilter.qml");
+            if (component.status === Component.Error)
+                console.log("Error loading component:", component.errorString());
+            mynode = component.createObject(frameGraph.myCameraSelector,
+            {
+                "inTexture": hdr0ColorTexture,
+                "outRenderTarget": hdr1RenderTarget,                
+                "screenQuadFXAALayer": screenQuadFXAAEntity.layer
+            });
+
+            component = Qt.createComponent("BlitFilter.qml");
+            if (component.status === Component.Error)
+                console.log("Error loading component:", component.errorString());
+            mynode = component.createObject(frameGraph.myCameraSelector,
+            {
+                "inTexture": hdr1ColorTexture,
+                "screenQuadBlitLayer": screenQuadBlitEntity.layer
+            });
+
+        }
 
         Entity
         {
             Component.onCompleted: contextManager.enableContext("3D", true, scene3d)
-
-            //FirstPersonCameraController { camera: sceneEntity.camera }
 
             OrbitCameraController
             {
@@ -79,32 +241,79 @@ Rectangle
                 id: sceneEntity
                 viewSize: Qt.size(scene3d.width, scene3d.height)
             }
+            ScreenQuadGammaCorrectEntity { id: screenQuadGammaCorrectEntity }
+            ScreenQuadFXAAEntity { id: screenQuadFXAAEntity }
+            ScreenQuadBlitEntity { id: screenQuadBlitEntity }
 
             ScreenQuadEntity { id: screenQuadEntity }
 
             GBuffer { id: gBufferTarget }
 
-            ForwardTarget
-            {
-                id: forwardTarget
-                depthAttachment: gBufferTarget.depth
-            }
+            FrameTarget { id: frameTarget }
 
-            //GBufferDebugger { id: debugEntity }
+            RenderTarget
+            {
+                id: hdr0RenderTarget
+                attachments: [
+                    RenderTargetOutput
+                    {
+                        objectName: "color"
+                        attachmentPoint: RenderTargetOutput.Color0
+                        texture:
+                            Texture2D
+                            {
+                                id: hdr0ColorTexture
+                                width: 1024
+                                height: 1024
+                                format: Texture.RGBA32F
+                                generateMipMaps: false
+                                magnificationFilter: Texture.Linear
+                                minificationFilter: Texture.Linear
+                                wrapMode
+                                {   
+                                    x: WrapMode.ClampToEdge
+                                    y: WrapMode.ClampToEdge
+                                }
+                            }
+                    }
+                ] // outputs
+            }            
+
+            RenderTarget
+            {
+                id: hdr1RenderTarget
+                attachments: [
+                    RenderTargetOutput
+                    {
+                        objectName: "color"
+                        attachmentPoint: RenderTargetOutput.Color0
+                        texture:
+                            Texture2D
+                            {
+                                id: hdr1ColorTexture
+                                width: 1024
+                                height: 1024
+                                format: Texture.RGBA32F
+                                generateMipMaps: false
+                                magnificationFilter: Texture.Linear
+                                minificationFilter: Texture.Linear
+                                wrapMode
+                                {   
+                                    x: WrapMode.ClampToEdge
+                                    y: WrapMode.ClampToEdge
+                                }
+                            }
+                    }
+                ] // outputs
+            }   
+
+            DepthTarget { id: depthTarget }
 
             components : [
                 DeferredRenderer
                 {
                     id: frameGraph
                     camera : sceneEntity.camera
-                    gBuffer: gBufferTarget
-                    forward: forwardTarget
-                    sceneDeferredLayer: sceneEntity.deferredLayer
-                    sceneSelectionLayer: sceneEntity.selectionLayer
-                    screenQuadLayer: screenQuadEntity.layer
-                    windowWidth: scene3d.width
-                    windowHeight: scene3d.height
-                    //debugLayer: debugEntity.layer
                 },
                 InputSettings {}
             ]
