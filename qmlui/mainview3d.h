@@ -98,6 +98,7 @@ class MainView3D : public PreviewContext
     Q_PROPERTY(QStringList stagesList READ stagesList CONSTANT)
     Q_PROPERTY(int stageIndex READ stageIndex WRITE setStageIndex NOTIFY stageIndexChanged)
     Q_PROPERTY(float ambientIntensity READ ambientIntensity WRITE setAmbientIntensity NOTIFY ambientIntensityChanged)
+    Q_PROPERTY(float smokeAmount READ smokeAmount WRITE setSmokeAmount NOTIFY smokeAmountChanged)
 
 public:
     explicit MainView3D(QQuickView *view, Doc *doc, QObject *parent = 0);
@@ -252,10 +253,14 @@ public:
     float ambientIntensity() const;
     void setAmbientIntensity(float ambientIntensity);
 
+    float smokeAmount() const;
+    void setSmokeAmount(float smokeAmount);
+
 signals:
     void renderQualityChanged(RenderQuality renderQuality);
     void stageIndexChanged(int stageIndex);
     void ambientIntensityChanged(qreal ambientIntensity);
+    void smokeAmountChanged(float smokeAmount);
 
 private:
     RenderQuality m_renderQuality;
@@ -268,6 +273,9 @@ private:
 
     /** Ambient light amount (0.0 - 1.0) */
     float m_ambientIntensity;
+
+    /** Smoke amount (0.0 - 1.0) */
+    float m_smokeAmount;
 };
 
 #endif // MAINVIEW3D_H

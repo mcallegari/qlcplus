@@ -34,7 +34,6 @@ Rectangle
     border.color: "#222"
 
     property vector3d envSize: contextManager ? contextManager.environmentSize : Qt.vector3d(0, 0, 0)
-    property real ambientIntensity: View3D.ambientIntensity
 
     property int selFixturesCount: contextManager ? contextManager.selectedFixturesCount : 0
     property bool fxPropsVisible: selFixturesCount ? true : false
@@ -42,6 +41,15 @@ Rectangle
     property vector3d lastPosition
     property vector3d fxRotation: selFixturesCount === 1 ? contextManager.fixturesRotation : lastRotation
     property vector3d lastRotation
+
+    onVisibleChanged:
+    {
+        if (visible == true)
+        {
+            ambIntSpin.value = View3D.ambientIntensity * 100
+            smokeSpin.value = View3D.smokeAmount * 100
+        }
+    }
 
     onSelFixturesCountChanged:
     {
@@ -212,12 +220,12 @@ Rectangle
         RobotoText { label: qsTr("Ambient light") }
         CustomSpinBox
         {
+            id: ambIntSpin
             Layout.fillWidth: true
             height: UISettings.listItemHeight
             from: 0
             to: 100
             suffix: "%"
-            value: ambientIntensity * 100
             onValueChanged: View3D.ambientIntensity = value / 100
         }
 
@@ -225,13 +233,13 @@ Rectangle
         RobotoText { label: qsTr("Smoke amount") }
         CustomSpinBox
         {
+            id: smokeSpin
             Layout.fillWidth: true
             height: UISettings.listItemHeight
             from: 0
             to: 100
             suffix: "%"
-            //value: smokeAmount * 100
-            //onValueChanged: View3D.smokeAmount = value / 100
+            onValueChanged: View3D.smokeAmount = value / 100
         }
 
         // row 10

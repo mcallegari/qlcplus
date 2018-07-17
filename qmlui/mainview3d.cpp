@@ -54,6 +54,7 @@ MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
     , m_renderQuality(HighQuality)
     , m_stageEntity(NULL)
     , m_ambientIntensity(0.6)
+    , m_smokeAmount(0.8)
 {
     setContextResource("qrc:/3DView.qml");
     setContextTitle(tr("3D View"));
@@ -1153,20 +1154,6 @@ void MainView3D::setRenderQuality(MainView3D::RenderQuality renderQuality)
     emit renderQualityChanged(m_renderQuality);
 }
 
-float MainView3D::ambientIntensity() const
-{
-    return m_ambientIntensity;
-}
-
-void MainView3D::setAmbientIntensity(float ambientIntensity)
-{
-    if (m_ambientIntensity == ambientIntensity)
-        return;
-
-    m_ambientIntensity = ambientIntensity;
-    emit ambientIntensityChanged(m_ambientIntensity);
-}
-
 QStringList MainView3D::stagesList() const
 {
     return m_stagesList;
@@ -1200,6 +1187,34 @@ void MainView3D::setStageIndex(int stageIndex)
     m_stageEntity->setProperty("effect", QVariant::fromValue(sceneEffect));
 
     emit stageIndexChanged(stageIndex);
+}
+
+float MainView3D::ambientIntensity() const
+{
+    return m_ambientIntensity;
+}
+
+void MainView3D::setAmbientIntensity(float ambientIntensity)
+{
+    if (m_ambientIntensity == ambientIntensity)
+        return;
+
+    m_ambientIntensity = ambientIntensity;
+    emit ambientIntensityChanged(m_ambientIntensity);
+}
+
+float MainView3D::smokeAmount() const
+{
+    return m_smokeAmount;
+}
+
+void MainView3D::setSmokeAmount(float smokeAmount)
+{
+    if (m_smokeAmount == smokeAmount)
+        return;
+
+    m_smokeAmount = smokeAmount;
+    emit smokeAmountChanged(m_smokeAmount);
 }
 
 /** *********************************************************************************
