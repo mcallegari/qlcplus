@@ -42,6 +42,7 @@ typedef struct
 {
     QVector3D m_position;       ///< 3D item position
     QVector3D m_rotation;       ///< 3D item rotation
+    QVector3D m_scale;          ///< 3D item scale
     QString m_resource;         ///< Generic: source file, Fixture: custom name
     QColor m_color;             ///< Generic: item color, Fixture: gel color
     quint32 m_flags;            ///< Item flags as specified in the ItemsFlags enum
@@ -200,6 +201,30 @@ public:
 private:
     bool m_showLabels;
     QMap <quint32, FixturePreviewItem> m_fixtureItems;
+
+    /********************************************************************
+     * Generic items
+     ********************************************************************/
+public:
+    /** Returns true if the item with ID $itemID is present in the monitor map */
+    inline bool containsItem(quint32 itemID) { return m_genericItems.contains(itemID); }
+
+    QList<quint32> genericItemsID();
+
+    QString itemResource(quint32 itemID);
+    void setItemResource(quint32 itemID, QString resource);
+
+    QVector3D itemPosition(quint32 itemID);
+    void setItemPosition(quint32 itemID, QVector3D pos);
+
+    QVector3D itemRotation(quint32 itemID);
+    void setItemRotation(quint32 itemID, QVector3D rot);
+
+    QVector3D itemScale(quint32 itemID);
+    void setItemScale(quint32 itemID, QVector3D scale);
+
+private:
+    QMap <quint32, PreviewItem> m_genericItems;
 
     /********************************************************************
      * 2D view background
