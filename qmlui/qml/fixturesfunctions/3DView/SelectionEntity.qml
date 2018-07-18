@@ -30,10 +30,11 @@ Entity
 
     property vector3d extents: Qt.vector3d(0.5, 0.5, 0.5)
     property vector3d center: Qt.vector3d(0, 0, 0)
+    property vector4d color: Qt.vector4d(1.0, 1.0, 0.0, 2.0)
 
     property bool isSelected: false
 
-    function bindFixtureTransform(itemID, t)
+    function bindItemTransform(itemID, t)
     {
         isSelected = contextManager.isFixtureSelected(itemID)
         selectionTransform.translation = Qt.binding(function() { return center.plus(t.translation) })
@@ -44,7 +45,7 @@ Entity
     {
         id: selectionMaterial
         effect: geometryPassEffect
-        parameters: Parameter { name: "meshColor"; value: Qt.vector4d(1.0, 1.0, 0.0, 2.0) }
+        parameters: Parameter { name: "meshColor"; value: color }
     }
 
     Transform

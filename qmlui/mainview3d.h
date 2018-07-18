@@ -86,8 +86,7 @@ typedef struct
     QLayer *m_outputDepthLayer;
 
     GoboTextureImage *m_goboTexture;
-
-} FixtureMesh;
+} SceneItem;
 
 class MainView3D : public PreviewContext
 {
@@ -99,6 +98,11 @@ class MainView3D : public PreviewContext
     Q_PROPERTY(int stageIndex READ stageIndex WRITE setStageIndex NOTIFY stageIndexChanged)
     Q_PROPERTY(float ambientIntensity READ ambientIntensity WRITE setAmbientIntensity NOTIFY ambientIntensityChanged)
     Q_PROPERTY(float smokeAmount READ smokeAmount WRITE setSmokeAmount NOTIFY smokeAmountChanged)
+
+    Q_PROPERTY(int genericSelectedCount READ genericSelectedCount NOTIFY genericSelectedCountChanged)
+    Q_PROPERTY(QVector3D genericItemsPosition READ genericItemsPosition WRITE setGenericItemsPosition NOTIFY genericItemsPositionChanged)
+    Q_PROPERTY(QVector3D genericItemsRotation READ genericItemsRotation WRITE setGenericItemsRotation NOTIFY genericItemsRotationChanged)
+    Q_PROPERTY(QVector3D genericItemsScale READ genericItemsScale WRITE setGenericItemsScale NOTIFY genericItemsScaleChanged)
 
 public:
     explicit MainView3D(QQuickView *view, Doc *doc, QObject *parent = 0);
@@ -128,6 +132,7 @@ private:
 
     /** Pre-cached QML components for quick item creation */
     QQmlComponent *m_fixtureComponent;
+    QQmlComponent *m_genericComponent;
     QQmlComponent *m_selectionComponent;
     QQmlComponent *m_spotlightConeComponent;
     QQmlComponent *m_fillGBufferLayer;
@@ -175,6 +180,7 @@ public:
     /** Remove a Fixture item with the provided $itemID from the preview */
     void removeFixtureItem(quint32 itemID);
 
+    /** Get the Fixture light 3D position for the provided $itemID */
     QVector3D lightPosition(quint32 itemID);
 
 protected:
@@ -183,10 +189,10 @@ protected:
 
     /** Bounding box volume calculation methods */
     void getMeshCorners(QGeometryRenderer *mesh, QVector3D &minCorner, QVector3D &maxCorner);
-    void addVolumes(FixtureMesh *meshRef, QVector3D minCorner, QVector3D maxCorner);
+    void addVolumes(SceneItem *meshRef, QVector3D minCorner, QVector3D maxCorner);
 
     /** Recursive method to get/set all the information of a scene */
-    QEntity *inspectEntity(QEntity *entity, FixtureMesh *meshRef,
+    QEntity *inspectEntity(QEntity *entity, SceneItem *meshRef,
                            QLayer *layer, QEffect *effect,
                            bool calculateVolume, QVector3D translation);
 
@@ -194,7 +200,7 @@ private:
     Qt3DCore::QTransform *getTransform(QEntity *entity);
     QMaterial *getMaterial(QEntity *entity);
     unsigned int getNewLightIndex();
-    void updateLightMatrix(FixtureMesh *mesh);
+    void updateLightMatrix(SceneItem *mesh);
 
 private:
     /** Reference to the Scene3D component */
@@ -211,10 +217,49 @@ private:
     QRenderTarget *m_frontDepthTarget;
 
     /** Map of QLC+ fixture IDs and QML Entity items */
-    QMap<quint32, FixtureMesh*> m_entitiesMap;
+    QMap<quint32, SceneItem*> m_entitiesMap;
 
     /** Cache of the loaded models against bounding volumes */
     QMap<QUrl, BoundingVolume> m_boundingVolumesMap;
+
+    /*********************************************************************
+     * Generic items
+     *********************************************************************/
+public:
+    Q_INVOKABLE void createGenericItem(QString filename);
+
+    Q_INVOKABLE void initializeItem(int itemID, QEntity *fxEntity, QSceneLoader *loader);
+
+    Q_INVOKABLE void setItemSelection(int itemID, bool enable, int keyModifiers);
+
+    int genericSelectedCount() const;
+
+    void updateGenericItemPosition(quint32 itemID, QVector3D pos);
+    QVector3D genericItemsPosition();
+    void setGenericItemsPosition(QVector3D pos);
+
+    void updateGenericItemRotation(quint32 itemID, QVector3D rot);
+    QVector3D genericItemsRotation();
+    void setGenericItemsRotation(QVector3D rot);
+
+    void updateGenericItemScale(quint32 itemID, QVector3D scale);
+    QVector3D genericItemsScale();
+    void setGenericItemsScale(QVector3D scale);
+
+signals:
+    void genericSelectedCountChanged();
+    void genericItemsPositionChanged();
+    void genericItemsRotationChanged();
+    void genericItemsScaleChanged();
+
+private:
+    /** Counter used to give unique IDs to generic items */
+    int m_latestGenericID;
+
+    QList<int> m_genericSelectedItems;
+
+    /** Map of the generic items in the scene */
+    QMap<int, SceneItem*> m_genericMap;
 
     /*********************************************************************
      * Environment
@@ -255,6 +300,9 @@ public:
 
     float smokeAmount() const;
     void setSmokeAmount(float smokeAmount);
+
+protected:
+    void createStage();
 
 signals:
     void renderQualityChanged(RenderQuality renderQuality);
