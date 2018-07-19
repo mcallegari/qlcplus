@@ -93,6 +93,7 @@ void MonitorProperties::reset()
     m_stageType = StageSimple;
     m_showLabels = false;
     m_fixtureItems.clear();
+    m_genericItems.clear();
     m_commonBackgroundImage = QString();
 }
 
