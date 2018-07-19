@@ -226,7 +226,7 @@ private:
      * Generic items
      *********************************************************************/
 public:
-    Q_INVOKABLE void createGenericItem(QString filename);
+    Q_INVOKABLE void createGenericItem(QString filename, int itemID);
 
     Q_INVOKABLE void initializeItem(int itemID, QEntity *fxEntity, QSceneLoader *loader);
 

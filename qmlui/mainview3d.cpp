@@ -126,7 +126,7 @@ void MainView3D::slotRefreshView()
     for (quint32 itemID : m_monProps->genericItemsID())
     {
         QString path = m_monProps->itemResource(itemID);
-        createGenericItem(path);
+        createGenericItem(path, itemID);
     }
 }
 
@@ -154,6 +154,16 @@ void MainView3D::resetItems()
     //for (auto it = m_entitiesMap.begin(); it != end; ++it)
     //    delete it.value();
     m_entitiesMap.clear();
+
+    QMapIterator<int, SceneItem*> it2(m_genericMap);
+    while(it2.hasNext())
+    {
+        it2.next();
+        SceneItem *e = it2.value();
+        delete e->m_rootItem;
+    }
+    m_genericMap.clear();
+    m_latestGenericID = 0;
 }
 
 QString MainView3D::meshDirectory() const
@@ -1139,7 +1149,7 @@ void MainView3D::removeFixtureItem(quint32 itemID)
  * Generic items
  *********************************************************************/
 
-void MainView3D::createGenericItem(QString filename)
+void MainView3D::createGenericItem(QString filename, int itemID)
 {
     if (isEnabled() == false)
         return;
@@ -1159,8 +1169,15 @@ void MainView3D::createGenericItem(QString filename)
     if (m_quadEntity == NULL)
         initialize3DProperties();
 
-    m_monProps->setItemResource(m_latestGenericID, filename);
-    m_monProps->setItemScale(m_latestGenericID, QVector3D(1.0, 1.0, 1.0));
+    if (itemID == -1)
+    {
+        m_monProps->setItemResource(m_latestGenericID, filename);
+        m_monProps->setItemScale(m_latestGenericID, QVector3D(1.0, 1.0, 1.0));
+    }
+    else
+    {
+        m_latestGenericID = itemID;
+    }
 
     SceneItem *mesh = new SceneItem;
     mesh->m_rootItem = NULL;
