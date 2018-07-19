@@ -442,6 +442,16 @@ void MonitorProperties::setItemScale(quint32 itemID, QVector3D scale)
     m_genericItems[itemID].m_scale = scale;
 }
 
+quint32 MonitorProperties::itemFlags(quint32 itemID)
+{
+    return m_genericItems[itemID].m_flags;
+}
+
+void MonitorProperties::setItemFlags(quint32 itemID, quint32 flags)
+{
+    m_genericItems[itemID].m_flags = flags;
+}
+
 /********************************************************************
  * 2D view background
  ********************************************************************/
