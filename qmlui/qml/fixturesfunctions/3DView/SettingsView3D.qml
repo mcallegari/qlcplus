@@ -65,71 +65,30 @@ Rectangle
         currentRotation = rot
         isUpdating = false
     }
+
     onSelGenericCountChanged:
     {
         isUpdating = true
         var pos = View3D.genericItemsPosition
         var rot = View3D.genericItemsRotation
-        var scale = View3D.genericItemsScale
+        var scl = View3D.genericItemsScale
         if (selFixturesCount + selGenericCount > 1)
         {
             lastPosition = Qt.vector3d(0, 0, 0)
             lastRotation = Qt.vector3d(0, 0, 0)
-            lastScale = Qt.vector3d(1.0, 1.0, 1.0)
+            lastScale = Qt.vector3d(100.0, 100.0, 100.0)
             pos = lastPosition
             rot = lastRotation
-            scale = lastScale
+            scl = lastScale
         }
 
         currentPosition = pos
         currentRotation = rot
-        currentScale = scale
+        currentScale = scl
         isUpdating = false
     }
 
-    function updatePosition(x, y, z)
-    {
-        if (!visible || isUpdating)
-            return;
-
-        if (selFixturesCount == 1 && selGenericCount == 0)
-        {
-            contextManager.fixturesPosition = Qt.vector3d(x, y, z)
-        }
-        else if (selFixturesCount == 0 && selGenericCount == 1)
-        {
-            View3D.genericItemsPosition = Qt.vector3d(x, y, z)
-        }
-        else
-        {
-            var newPos = Qt.vector3d(x - lastPosition.x, y - lastPosition.y, z - lastPosition.z)
-            contextManager.fixturesPosition = newPos
-            View3D.genericItemsPosition = newPos
-            lastPosition = Qt.vector3d(x, y, z)
-        }
-    }
-
-    function updateRotation(x, y, z)
-    {
-        if (!visible || isUpdating)
-            return;
-
-        if (selFixturesCount == 1 && selGenericCount == 0)
-        {
-            contextManager.fixturesRotation = Qt.vector3d(x, y, z)
-        }
-        else if (selFixturesCount == 0 && selGenericCount == 1)
-        {
-            View3D.genericItemsRotation = Qt.vector3d(x, y, z)
-        }
-        else
-        {
-            var newRot = Qt.vector3d(x - lastRotation.x, y - lastRotation.y, z - lastRotation.z)
-            contextManager.fixturesRotation = newRot
-            View3D.genericItemsRotation = newRot
-            lastRotation = Qt.vector3d(x, y, z)
-        }
-    }
+    onCurrentScaleChanged: console.log("Current scale " + currentScale)
 
     Flickable
     {
@@ -303,6 +262,28 @@ Rectangle
                         columnSpacing: 5
                         rowSpacing: 0
 
+                        function updatePosition(x, y, z)
+                        {
+                            if (isUpdating)
+                                return;
+
+                            if (selFixturesCount == 1 && selGenericCount == 0)
+                            {
+                                contextManager.fixturesPosition = Qt.vector3d(x, y, z)
+                            }
+                            else if (selFixturesCount == 0 && selGenericCount == 1)
+                            {
+                                View3D.genericItemsPosition = Qt.vector3d(x, y, z)
+                            }
+                            else
+                            {
+                                var newPos = Qt.vector3d(x - lastPosition.x, y - lastPosition.y, z - lastPosition.z)
+                                contextManager.fixturesPosition = newPos
+                                View3D.genericItemsPosition = newPos
+                                lastPosition = Qt.vector3d(x, y, z)
+                            }
+                        }
+
                         // row 1
                         RobotoText { width: UISettings.bigItemHeight; textHAlign: Qt.AlignRight; label: "X" }
                         CustomSpinBox
@@ -310,7 +291,7 @@ Rectangle
                             id: xPosSpin
                             height: UISettings.listItemHeight
                             Layout.fillWidth: true
-                            from: -10000
+                            from: -100000
                             to: 100000
                             stepSize: 10
                             suffix: "mm"
@@ -325,7 +306,7 @@ Rectangle
                             id: yPosSpin
                             height: UISettings.listItemHeight
                             Layout.fillWidth: true
-                            from: -10000
+                            from: -100000
                             to: 100000
                             stepSize: 10
                             suffix: "mm"
@@ -340,7 +321,7 @@ Rectangle
                             id: zPosSpin
                             height: UISettings.listItemHeight
                             Layout.fillWidth: true
-                            from: -10000
+                            from: -100000
                             to: 100000
                             stepSize: 10
                             suffix: "mm"
@@ -363,6 +344,28 @@ Rectangle
                         columns: 2
                         columnSpacing: 5
                         rowSpacing: 0
+
+                        function updateRotation(x, y, z)
+                        {
+                            if (isUpdating)
+                                return;
+
+                            if (selFixturesCount == 1 && selGenericCount == 0)
+                            {
+                                contextManager.fixturesRotation = Qt.vector3d(x, y, z)
+                            }
+                            else if (selFixturesCount == 0 && selGenericCount == 1)
+                            {
+                                View3D.genericItemsRotation = Qt.vector3d(x, y, z)
+                            }
+                            else
+                            {
+                                var newRot = Qt.vector3d(x - lastRotation.x, y - lastRotation.y, z - lastRotation.z)
+                                contextManager.fixturesRotation = newRot
+                                View3D.genericItemsRotation = newRot
+                                lastRotation = Qt.vector3d(x, y, z)
+                            }
+                        }
 
                         // row 1
                         RobotoText { width: UISettings.bigItemHeight; textHAlign: Qt.AlignRight; label: "X" }
@@ -407,6 +410,132 @@ Rectangle
                         }
                     } // GridLayout
             } // SectionBox - Rotation
+
+            SectionBox
+            {
+                width: parent.width
+                isExpanded: false
+                visible: selGenericCount ? true : false
+                sectionLabel: qsTr("Scale")
+                sectionContents:
+                    GridLayout
+                    {
+                        width: parent.width
+                        columns: 3
+                        columnSpacing: 5
+                        rowSpacing: 0
+
+                        function updateScale(x, y, z)
+                        {
+                            if (isUpdating)
+                                return;
+
+                            if (selGenericCount == 1)
+                            {
+                                View3D.genericItemsScale = Qt.vector3d(x, y, z)
+                            }
+                            else
+                            {
+                                var newScale = Qt.vector3d(x - lastScale.x, y - lastScale.y, z - lastScale.z)
+                                View3D.genericItemsScale = newScale
+                                lastScale = Qt.vector3d(x, y, z)
+                            }
+                            if (scaleLocked.checked)
+                                currentScale = Qt.vector3d(x, x, x)
+                        }
+
+                        // row 1
+                        RobotoText { width: UISettings.bigItemHeight; textHAlign: Qt.AlignRight; label: "X" }
+                        CustomSpinBox
+                        {
+                            id: xScaleSpin
+                            height: UISettings.listItemHeight
+                            Layout.fillWidth: true
+                            from: 1
+                            to: 1000
+                            suffix: "%"
+                            value: currentScale.x
+                            onValueChanged:
+                            {
+                                if (scaleLocked.checked)
+                                    updateScale(value, value, value)
+                                else
+                                    updateScale(value, yScaleSpin.value, zScaleSpin.value)
+                            }
+                        }
+
+                        Rectangle
+                        {
+                            Layout.rowSpan: 3
+                            Layout.fillHeight: true
+                            color: "transparent"
+                            width: UISettings.iconSizeMedium
+                            clip: true
+
+                            Rectangle
+                            {
+                                color: "transparent"
+                                x: -width / 2
+                                y: UISettings.listItemHeight / 2
+                                width: parent.width
+                                height: parent.height - UISettings.listItemHeight
+                                border.width: 1
+                                border.color: "white"
+                            }
+
+                            IconButton
+                            {
+                                id: scaleLocked
+                                anchors.centerIn: parent
+                                width: UISettings.iconSizeMedium
+                                height: width
+                                imgSource: "qrc:/lock.svg"
+                                checkable: true
+                                checked: true
+                            }
+                        }
+
+                        // row 2
+                        RobotoText { width: UISettings.bigItemHeight; textHAlign: Qt.AlignRight; label: "Y" }
+                        CustomSpinBox
+                        {
+                            id: yScaleSpin
+                            height: UISettings.listItemHeight
+                            Layout.fillWidth: true
+                            from: 1
+                            to: 1000
+                            suffix: "%"
+                            value: currentScale.y
+                            onValueChanged:
+                            {
+                                if (scaleLocked.checked)
+                                    updateScale(value, value, value)
+                                else
+                                    updateScale(xScaleSpin.value, value, zScaleSpin.value)
+                            }
+                        }
+
+                        // row 3
+                        RobotoText { width: UISettings.bigItemHeight; textHAlign: Qt.AlignRight; label: "Z" }
+                        CustomSpinBox
+                        {
+                            id: zScaleSpin
+                            height: UISettings.listItemHeight
+                            Layout.fillWidth: true
+                            from: 1
+                            to: 1000
+                            suffix: "%"
+                            value: currentScale.z
+                            onValueChanged:
+                            {
+                                if (scaleLocked.checked)
+                                    updateScale(value, value, value)
+                                else
+                                    updateScale(xScaleSpin.value, yScaleSpin.value, value)
+                            }
+                        }
+                    } // GridLayout
+            } // SectionBox - Scale
 
             SectionBox
             {

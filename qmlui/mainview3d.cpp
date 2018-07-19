@@ -1293,6 +1293,7 @@ void MainView3D::setItemSelection(int itemID, bool enable, int keyModifiers)
             }
         }
         m_genericSelectedItems.clear();
+        emit genericSelectedCountChanged();
     }
 
     SceneItem *meshRef = m_genericMap.value(itemID, NULL);
@@ -1428,14 +1429,19 @@ void MainView3D::updateGenericItemScale(quint32 itemID, QVector3D scale)
         return;
 
     item->m_rootTransform->setScale3D(scale);
+    if (item->m_selectionBox)
+        item->m_selectionBox->setProperty("modScale", scale);
 }
 
 QVector3D MainView3D::genericItemsScale()
 {
     if (m_genericSelectedItems.count() == 1)
-        return m_monProps->itemScale(m_genericSelectedItems.first());
+    {
+        QVector3D scale = m_monProps->itemScale(m_genericSelectedItems.first());
+        return QVector3D(scale.x() * 100.0, scale.y() * 100.0, scale.z() * 100.0);
+    }
 
-    return QVector3D(1.0, 1.0, 1.0);
+    return QVector3D(100.0, 100.0, 100.0);
 }
 
 void MainView3D::setGenericItemsScale(QVector3D scale)
@@ -1443,15 +1449,16 @@ void MainView3D::setGenericItemsScale(QVector3D scale)
     if (m_genericSelectedItems.isEmpty())
         return;
 
+    QVector3D normScale(scale.x() / 100.0, scale.y() / 100.0, scale.z() / 100.0);
     if (m_genericSelectedItems.count() == 1)
     {
-        updateGenericItemScale(m_genericSelectedItems.first(), scale);
+        updateGenericItemScale(m_genericSelectedItems.first(), normScale);
     }
     else
     {
         for (int itemID : m_genericSelectedItems)
         {
-            QVector3D newScale = m_monProps->itemScale(itemID) + scale;
+            QVector3D newScale = m_monProps->itemScale(itemID) + normScale;
             updateGenericItemScale(itemID, newScale);
         }
     }
