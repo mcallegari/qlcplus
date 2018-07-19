@@ -234,6 +234,8 @@ public:
 
     int genericSelectedCount() const;
 
+    Q_INVOKABLE void removeSelectedGenericItems();
+
     void updateGenericItemPosition(quint32 itemID, QVector3D pos);
     QVector3D genericItemsPosition();
     void setGenericItemsPosition(QVector3D pos);

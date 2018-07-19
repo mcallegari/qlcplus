@@ -1316,6 +1316,22 @@ int MainView3D::genericSelectedCount() const
     return m_genericSelectedItems.count();
 }
 
+void MainView3D::removeSelectedGenericItems()
+{
+    for (int id : m_genericSelectedItems)
+    {
+        SceneItem *meshRef = m_genericMap.take(id);
+        if (meshRef)
+        {
+            delete meshRef->m_rootItem;
+            delete meshRef->m_selectionBox;
+        }
+        m_monProps->removeItem(id);
+    }
+    m_genericSelectedItems.clear();
+    emit genericSelectedCountChanged();
+}
+
 void MainView3D::updateGenericItemPosition(quint32 itemID, QVector3D pos)
 {
     if (isEnabled() == false)

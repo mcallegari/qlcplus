@@ -576,18 +576,7 @@ Rectangle
                             width: height
                             imgSource: "qrc:/remove.svg"
                             tooltip: qsTr("Remove the selected items")
-                        }
-                        IconButton
-                        {
-                            visible: selGenericCount
-                            height: UISettings.iconSizeMedium
-                            width: height
-                            faSource: checked ? FontAwesome.fa_eye : FontAwesome.fa_eye_slash
-                            faColor: checked ? "#00FF00" : UISettings.fgMedium
-                            bgColor: "transparent"
-                            checkedColor: "transparent"
-                            checkable: true
-                            onClicked: { }
+                            onClicked: View3D.removeSelectedGenericItems()
                         }
                     }
             }
