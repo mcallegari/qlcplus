@@ -219,7 +219,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="qml/fixturesfunctions/AudioEditor.qml" line="123"/>
         <source>Audio files</source>
-        <translation>オーディオファイル</translation>
+        <translation>音声ファイル</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/AudioEditor.qml" line="127"/>
@@ -426,7 +426,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="284"/>
         <source>Duration</source>
-        <translation>再生時間</translation>
+        <translation>ウェイトタイム</translation>
     </message>
 </context>
 <context>
@@ -444,7 +444,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="qml/ChaserWidget.qml" line="247"/>
         <source>Hold</source>
-        <translation>ステップ再生時間</translation>
+        <translation>ウェイトタイム</translation>
     </message>
     <message>
         <location filename="qml/ChaserWidget.qml" line="285"/>
@@ -454,7 +454,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="qml/ChaserWidget.qml" line="323"/>
         <source>Duration</source>
-        <translation>再生時間</translation>
+        <translation>ウェイトタイム</translation>
     </message>
     <message>
         <location filename="qml/ChaserWidget.qml" line="361"/>
@@ -561,7 +561,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="qml/ColorToolFilters.qml" line="310"/>
         <source>UV</source>
-        <translation></translation>
+        <translation>UV</translation>
     </message>
     <message>
         <location filename="qml/ColorToolFilters.qml" line="331"/>
@@ -780,7 +780,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="721"/>
         <source>Hold</source>
-        <translation>再生時間</translation>
+        <translation>ウェイトタイム</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="753"/>
@@ -1143,7 +1143,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="294"/>
         <source>Physical</source>
-        <translation type="unfinished"></translation>
+        <translation>灯具情報</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="307"/>
@@ -1796,7 +1796,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="qml/popup/PopupImportProject.qml" line="31"/>
         <source>Import from project</source>
-        <translation>プロジェクトのインポート</translation>
+        <translation>別プロジェクトからのインポート</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupImportProject.qml" line="58"/>
@@ -1857,7 +1857,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="qml/popup/PopupNetworkClient.qml" line="61"/>
         <source>Downloading project</source>
-        <translation>プロジェクトを転送中です</translation>
+        <translation>プロジェクトデータを転送中です</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupNetworkClient.qml" line="67"/>
@@ -2000,7 +2000,7 @@ Access level:</source>
     <message>
         <location filename="qml/popup/PopupNetworkServer.qml" line="105"/>
         <source>Server status</source>
-        <translation>Status</translation>
+        <translation>Server Status</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupNetworkServer.qml" line="112"/>
@@ -2142,7 +2142,7 @@ Access level:</source>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="200"/>
         <source>Mask</source>
-        <translation>マスク</translation>
+        <translation>マスクモード</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="201"/>
@@ -2177,7 +2177,7 @@ Access level:</source>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="370"/>
         <source>Steps hold</source>
-        <translation>ステップ再生時間</translation>
+        <translation>ウェイトタイム</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="402"/>
@@ -2441,7 +2441,7 @@ Access level:</source>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="219"/>
         <source>Are you sure you want to delete the following items ?</source>
-        <translation>削除してもいいですか？</translation>
+        <translation>選択したアイテムを削除しますか？</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="226"/>
@@ -2835,12 +2835,12 @@ Access level:</source>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="213"/>
         <source>Copy the selected items in the clipboard</source>
-        <translation></translation>
+        <translation>選択したアイテムをクリップボートにコピーします</translation>
     </message>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="224"/>
         <source>Paste items in the clipboard at cursor position</source>
-        <translation>カーソル位置にペースとします</translation>
+        <translation>カーソル位置にペーストします</translation>
     </message>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="248"/>
@@ -3403,7 +3403,7 @@ Access level:</source>
     <message>
         <location filename="qml/virtualconsole/VCFrameProperties.qml" line="104"/>
         <source>Enable pages</source>
-        <translation>ページを使う</translation>
+        <translation>ページを有効化</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCFrameProperties.qml" line="120"/>
@@ -3497,7 +3497,7 @@ Access level:</source>
     <message>
         <location filename="qml/virtualconsole/VCPageProperties.qml" line="167"/>
         <source>Are you sure you want to delete the selected page ?</source>
-        <translation>削除しますか？</translation>
+        <translation>選択したページを削除しますか？</translation>
     </message>
 </context>
 <context>
@@ -3525,7 +3525,7 @@ Access level:</source>
     <message>
         <location filename="qml/virtualconsole/VCRightPanel.qml" line="131"/>
         <source>Are you sure you want to remove the following widgets ?</source>
-        <translation>削除しますか？</translation>
+        <translation>選択したウィジェットを削除しますか？</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCRightPanel.qml" line="138"/>
