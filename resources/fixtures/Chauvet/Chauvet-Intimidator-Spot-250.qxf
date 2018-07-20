@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.11.3 GIT</Version>
   <Author>Henning Borgen</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -16,61 +16,61 @@
  <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="7" Color="#ffffff">White</Capability>
-  <Capability Min="8" Max="15" Color="#0094dc">Light Blue</Capability>
-  <Capability Min="16" Max="23" Color="#d8281b">Red</Capability>
-  <Capability Min="24" Max="31" Color="#ee9ca2">Peachblow</Capability>
-  <Capability Min="32" Max="39" Color="#009140">Green</Capability>
-  <Capability Min="40" Max="47" Color="#ffff00">Yellow</Capability>
-  <Capability Min="48" Max="55" Color="#ba697c">Pink</Capability>
-  <Capability Min="56" Max="63" Color="#2d1972">UV</Capability>
-  <Capability Min="64" Max="66" Color="#ffffff">White</Capability>
-  <Capability Min="67" Max="78" Color="#ffffff" Color2="#0093e0">White+Light Blue</Capability>
-  <Capability Min="79" Max="92" Color="#0094dc" Color2="#d8281b">Light Blue+Red</Capability>
-  <Capability Min="93" Max="107" Color="#d8281b" Color2="#ee9ca2">Red+Peachblow</Capability>
-  <Capability Min="108" Max="120" Color="#ee9ca2" Color2="#009140">Peachblow+Green</Capability>
-  <Capability Min="121" Max="136" Color="#009140" Color2="#fff605">Green+Yellow</Capability>
-  <Capability Min="137" Max="152" Color="#fff605" Color2="#ba697c">Yellow+Pink</Capability>
-  <Capability Min="153" Max="170" Color="#ba697c" Color2="#2d1972">Pink+UV</Capability>
-  <Capability Min="171" Max="212" Res="Others/rainbow.png">Rotate Clockwise With Speed Increase</Capability>
-  <Capability Min="213" Max="255" Res="Others/rainbow.png">Rotate CounterClockwise With Speed Increase</Capability>
+  <Capability Min="0" Max="7" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="8" Max="15" Preset="ColorMacro" Res1="#0094dc">Light Blue</Capability>
+  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#d8281b">Red</Capability>
+  <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#ee9ca2">Peachblow</Capability>
+  <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#009140">Green</Capability>
+  <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#ba697c">Pink</Capability>
+  <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#2d1972">UV</Capability>
+  <Capability Min="64" Max="66" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="67" Max="78" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#0093e0">White+Light Blue</Capability>
+  <Capability Min="79" Max="92" Preset="ColorDoubleMacro" Res1="#0094dc" Res2="#d8281b">Light Blue+Red</Capability>
+  <Capability Min="93" Max="107" Preset="ColorDoubleMacro" Res1="#d8281b" Res2="#ee9ca2">Red+Peachblow</Capability>
+  <Capability Min="108" Max="120" Preset="ColorDoubleMacro" Res1="#ee9ca2" Res2="#009140">Peachblow+Green</Capability>
+  <Capability Min="121" Max="136" Preset="ColorDoubleMacro" Res1="#009140" Res2="#fff605">Green+Yellow</Capability>
+  <Capability Min="137" Max="152" Preset="ColorDoubleMacro" Res1="#fff605" Res2="#ba697c">Yellow+Pink</Capability>
+  <Capability Min="153" Max="170" Preset="ColorDoubleMacro" Res1="#ba697c" Res2="#2d1972">Pink+UV</Capability>
+  <Capability Min="171" Max="212" Preset="GoboMacro" Res1="Others/rainbow.png">Rotate Clockwise With Speed Increase</Capability>
+  <Capability Min="213" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Rotate CounterClockwise With Speed Increase</Capability>
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="9" Res="Others/open.svg">Open</Capability>
-  <Capability Min="10" Max="19" Res="Chauvet/gobo00042.svg">Gobo 1</Capability>
-  <Capability Min="20" Max="29" Res="ClayPaky/gobo00018.svg">Gobo 2</Capability>
-  <Capability Min="30" Max="39" Res="SGM/gobo00042.svg">Gobo 3</Capability>
-  <Capability Min="40" Max="49" Res="Others/gobo00027.svg">Gobo 4</Capability>
-  <Capability Min="50" Max="59" Res="Chauvet/gobo00001.svg">Gobo 5</Capability>
-  <Capability Min="60" Max="69" Res="Others/gobo00034.png">Gobo 6 (Glass)</Capability>
-  <Capability Min="70" Max="79" Res="Others/gobo00063.png">Gobo 7 (Glass)</Capability>
-  <Capability Min="80" Max="99" Res="Chauvet/gobo00042.svg">Gobo 1 Shake, Fast to Slow</Capability>
-  <Capability Min="100" Max="119" Res="ClayPaky/gobo00018.svg">Gobo 2 Shake, Fast to Slow</Capability>
-  <Capability Min="120" Max="139" Res="SGM/gobo00042.svg">Gobo 3 Shake, Fast to Slow</Capability>
-  <Capability Min="140" Max="159" Res="Others/gobo00027.svg">Gobo 4 Shake, Fast to Slow</Capability>
-  <Capability Min="160" Max="179" Res="Chauvet/gobo00001.svg">Gobo 5 Shake, Fast to Slow</Capability>
-  <Capability Min="180" Max="199" Res="Others/gobo00034.png">Gobo 6 (Glass) Shake, Fast to Slow  </Capability>
-  <Capability Min="200" Max="219" Res="Others/gobo00063.png">Gobo 7 (Glass) Shake, Fast to Slow</Capability>
+  <Capability Min="0" Max="9" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="10" Max="19" Preset="GoboMacro" Res1="Chauvet/gobo00042.svg">Gobo 1</Capability>
+  <Capability Min="20" Max="29" Preset="GoboMacro" Res1="ClayPaky/gobo00018.svg">Gobo 2</Capability>
+  <Capability Min="30" Max="39" Preset="GoboMacro" Res1="SGM/gobo00042.svg">Gobo 3</Capability>
+  <Capability Min="40" Max="49" Preset="GoboMacro" Res1="Others/gobo00027.svg">Gobo 4</Capability>
+  <Capability Min="50" Max="59" Preset="GoboMacro" Res1="Chauvet/gobo00001.svg">Gobo 5</Capability>
+  <Capability Min="60" Max="69" Preset="GoboMacro" Res1="Others/gobo00034.png">Gobo 6 (Glass)</Capability>
+  <Capability Min="70" Max="79" Preset="GoboMacro" Res1="Others/gobo00063.png">Gobo 7 (Glass)</Capability>
+  <Capability Min="80" Max="99" Preset="GoboMacro" Res1="Chauvet/gobo00042.svg">Gobo 1 Shake, Fast to Slow</Capability>
+  <Capability Min="100" Max="119" Preset="GoboMacro" Res1="ClayPaky/gobo00018.svg">Gobo 2 Shake, Fast to Slow</Capability>
+  <Capability Min="120" Max="139" Preset="GoboMacro" Res1="SGM/gobo00042.svg">Gobo 3 Shake, Fast to Slow</Capability>
+  <Capability Min="140" Max="159" Preset="GoboMacro" Res1="Others/gobo00027.svg">Gobo 4 Shake, Fast to Slow</Capability>
+  <Capability Min="160" Max="179" Preset="GoboMacro" Res1="Chauvet/gobo00001.svg">Gobo 5 Shake, Fast to Slow</Capability>
+  <Capability Min="180" Max="199" Preset="GoboMacro" Res1="Others/gobo00034.png">Gobo 6 (Glass) Shake, Fast to Slow</Capability>
+  <Capability Min="200" Max="219" Preset="GoboMacro" Res1="Others/gobo00063.png">Gobo 7 (Glass) Shake, Fast to Slow</Capability>
   <Capability Min="220" Max="255">Gobo Scroll: Bidirectional rotation</Capability>
  </Channel>
  <Channel Name="Gobo Rotation">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="10">Stop</Capability>
+  <Capability Min="0" Max="10" Preset="RotationStop">Stop</Capability>
   <Capability Min="11" Max="127">Fixed Gobo Indexing</Capability>
-  <Capability Min="128" Max="191">Rotate Counter-Clockwise (fast-slow) </Capability>
-  <Capability Min="192" Max="255">Rotate Clockwise (Slow-Fast)</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseFastToSlow">Rotate Counter-Clockwise (fast-slow)</Capability>
+  <Capability Min="192" Max="255" Preset="RotationClockwiseSlowToFast">Rotate Clockwise (Slow-Fast)</Capability>
  </Channel>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="7">Shutter Closed</Capability>
-  <Capability Min="8" Max="22">Open</Capability>
-  <Capability Min="23" Max="85">Strobe (Slow-Fast)</Capability>
-  <Capability Min="86" Max="100">Open</Capability>
-  <Capability Min="101" Max="165">Pulse (Slow-Fast)</Capability>
-  <Capability Min="166" Max="180">Open</Capability>
-  <Capability Min="181" Max="246">Random (Slow-Fast)</Capability>
-  <Capability Min="247" Max="255">Open</Capability>
+  <Capability Min="0" Max="7" Preset="ShutterClose">Shutter Closed</Capability>
+  <Capability Min="8" Max="22" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="23" Max="85" Preset="StrobeSlowToFast">Strobe (Slow-Fast)</Capability>
+  <Capability Min="86" Max="100" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="101" Max="165" Preset="PulseSlowToFast">Pulse (Slow-Fast)</Capability>
+  <Capability Min="166" Max="180" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="181" Max="246" Preset="StrobeRandomSlowToFast">Random (Slow-Fast)</Capability>
+  <Capability Min="247" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Mode Function">
@@ -162,11 +162,11 @@
   <Channel Number="8">Prism</Channel>
   <Channel Number="9">Focus</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="MSD 250W" Lumens="18000" ColourTemperature="8000"/>
-   <Dimensions Weight="26.6" Width="337" Height="517" Depth="414"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="22"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="350" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="MSD 250W" Lumens="18000" ColourTemperature="8000"/>
+  <Dimensions Weight="26.6" Width="337" Height="517" Depth="414"/>
+  <Lens Name="Other" DegreesMin="22" DegreesMax="22"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="350" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
 </FixtureDefinition>

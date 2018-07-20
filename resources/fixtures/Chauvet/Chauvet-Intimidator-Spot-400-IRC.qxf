@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.7.5 GIT</Version>
+  <Version>4.11.3 GIT</Version>
   <Author>Robert Scheffler</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -16,61 +16,61 @@
  <Channel Name="Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="7" Color="#ffffff">White</Capability>
-  <Capability Min="8" Max="15" Color="#0000ff">Dark blue</Capability>
-  <Capability Min="16" Max="23" Color="#ffff00">Yellow</Capability>
-  <Capability Min="24" Max="31" Color="#ff557f">Pink</Capability>
-  <Capability Min="32" Max="39" Color="#00ff00">Green</Capability>
-  <Capability Min="40" Max="47" Color="#ff0000">Red</Capability>
-  <Capability Min="48" Max="55" Color="#00ffff">Light blue</Capability>
-  <Capability Min="56" Max="63" Color="#ff5500">Orange red</Capability>
-  <Capability Color2="#0000ff" Min="64" Max="71" Color="#ffffff">White + dark blue</Capability>
-  <Capability Color2="#ffff00" Min="72" Max="79" Color="#0000ff">Dark blue + yellow</Capability>
-  <Capability Color2="#ff557f" Min="80" Max="87" Color="#ffff00">Yellow + pink</Capability>
-  <Capability Color2="#00ff00" Min="88" Max="95" Color="#ff557f">Pink + green</Capability>
-  <Capability Color2="#ff0000" Min="96" Max="103" Color="#00ff00">Green + red</Capability>
-  <Capability Color2="#00ffff" Min="104" Max="111" Color="#ff0000">Red + light blue</Capability>
-  <Capability Color2="#ff5500" Min="112" Max="119" Color="#00ffff">Light blue + Orange red</Capability>
-  <Capability Color2="#ffffff" Min="120" Max="127" Color="#ff5500">Orange red + white</Capability>
-  <Capability Min="128" Max="191" Color="#ffffff">Rainbow effect with increasing speed</Capability>
-  <Capability Min="192" Max="255" Color="#ffffff">Reverse rainbow effect with increasing speed</Capability>
+  <Capability Min="0" Max="7" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="8" Max="15" Preset="ColorMacro" Res1="#0000ff">Dark blue</Capability>
+  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#ff557f">Pink</Capability>
+  <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="40" Max="47" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="48" Max="55" Preset="ColorMacro" Res1="#00ffff">Light blue</Capability>
+  <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#ff5500">Orange red</Capability>
+  <Capability Min="64" Max="71" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#0000ff">White + dark blue</Capability>
+  <Capability Min="72" Max="79" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffff00">Dark blue + yellow</Capability>
+  <Capability Min="80" Max="87" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ff557f">Yellow + pink</Capability>
+  <Capability Min="88" Max="95" Preset="ColorDoubleMacro" Res1="#ff557f" Res2="#00ff00">Pink + green</Capability>
+  <Capability Min="96" Max="103" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff0000">Green + red</Capability>
+  <Capability Min="104" Max="111" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ffff">Red + light blue</Capability>
+  <Capability Min="112" Max="119" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#ff5500">Light blue + Orange red</Capability>
+  <Capability Min="120" Max="127" Preset="ColorDoubleMacro" Res1="#ff5500" Res2="#ffffff">Orange red + white</Capability>
+  <Capability Min="128" Max="191" Preset="ColorMacro" Res1="#ffffff">Rainbow effect with increasing speed</Capability>
+  <Capability Min="192" Max="255" Preset="ColorMacro" Res1="#ffffff">Reverse rainbow effect with increasing speed</Capability>
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
-  <Capability Res="Others/open.svg" Min="0" Max="7">Open</Capability>
-  <Capability Res="Robe/gobo00030.svg" Min="8" Max="15">Gobo 1</Capability>
-  <Capability Res="SGM/gobo00018.svg" Min="16" Max="23">Gobo 2</Capability>
-  <Capability Res="SGM/gobo00010.png" Min="24" Max="31">Gobo 3</Capability>
-  <Capability Res="Chauvet/gobo00037.png" Min="32" Max="39">Gobo 4</Capability>
-  <Capability Res="SGM/gobo00025.svg" Min="40" Max="47">Gobo 5</Capability>
-  <Capability Res="Chauvet/gobo00038.svg" Min="48" Max="55">Gobo 6</Capability>
-  <Capability Res="ClayPaky/gobo00067.svg" Min="56" Max="63">Gobo 7</Capability>
-  <Capability Res="ClayPaky/gobo00067.svg" Min="64" Max="71">Gobo 7 shake, from slow to fast</Capability>
-  <Capability Res="Chauvet/gobo00038.svg" Min="72" Max="79">Gobo 6 shake, from slow to fast</Capability>
-  <Capability Res="SGM/gobo00025.svg" Min="80" Max="87">Gobo 5 shake, from slow to fast</Capability>
-  <Capability Res="Chauvet/gobo00037.png" Min="88" Max="95">Gobo 4 shake, from slow to fast</Capability>
-  <Capability Res="SGM/gobo00010.png" Min="96" Max="103">Gobo 3 shake, from slow to fast</Capability>
-  <Capability Res="SGM/gobo00018.svg" Min="104" Max="111">Gobo 2 shake, from slow to fast</Capability>
-  <Capability Res="Robe/gobo00030.svg" Min="112" Max="119">Gobo 1 shake, from slow to fast</Capability>
-  <Capability Res="Others/open.svg" Min="120" Max="127">Open</Capability>
-  <Capability Res="Others/open.svg" Min="128" Max="191">Cycle effect with increasing speed</Capability>
-  <Capability Res="Others/open.svg" Min="192" Max="255">Reverse cycle effect with increasing speed</Capability>
+  <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="8" Max="15" Preset="GoboMacro" Res1="Robe/gobo00030.svg">Gobo 1</Capability>
+  <Capability Min="16" Max="23" Preset="GoboMacro" Res1="SGM/gobo00018.svg">Gobo 2</Capability>
+  <Capability Min="24" Max="31" Preset="GoboMacro" Res1="SGM/gobo00010.png">Gobo 3</Capability>
+  <Capability Min="32" Max="39" Preset="GoboMacro" Res1="Chauvet/gobo00037.png">Gobo 4</Capability>
+  <Capability Min="40" Max="47" Preset="GoboMacro" Res1="SGM/gobo00025.svg">Gobo 5</Capability>
+  <Capability Min="48" Max="55" Preset="GoboMacro" Res1="Chauvet/gobo00038.svg">Gobo 6</Capability>
+  <Capability Min="56" Max="63" Preset="GoboMacro" Res1="ClayPaky/gobo00067.svg">Gobo 7</Capability>
+  <Capability Min="64" Max="71" Preset="GoboMacro" Res1="ClayPaky/gobo00067.svg">Gobo 7 shake, from slow to fast</Capability>
+  <Capability Min="72" Max="79" Preset="GoboMacro" Res1="Chauvet/gobo00038.svg">Gobo 6 shake, from slow to fast</Capability>
+  <Capability Min="80" Max="87" Preset="GoboMacro" Res1="SGM/gobo00025.svg">Gobo 5 shake, from slow to fast</Capability>
+  <Capability Min="88" Max="95" Preset="GoboMacro" Res1="Chauvet/gobo00037.png">Gobo 4 shake, from slow to fast</Capability>
+  <Capability Min="96" Max="103" Preset="GoboMacro" Res1="SGM/gobo00010.png">Gobo 3 shake, from slow to fast</Capability>
+  <Capability Min="104" Max="111" Preset="GoboMacro" Res1="SGM/gobo00018.svg">Gobo 2 shake, from slow to fast</Capability>
+  <Capability Min="112" Max="119" Preset="GoboMacro" Res1="Robe/gobo00030.svg">Gobo 1 shake, from slow to fast</Capability>
+  <Capability Min="120" Max="127" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="128" Max="191" Preset="GoboMacro" Res1="Others/open.svg">Cycle effect with increasing speed</Capability>
+  <Capability Min="192" Max="255" Preset="GoboMacro" Res1="Others/open.svg">Reverse cycle effect with increasing speed</Capability>
  </Channel>
  <Channel Name="Gobo Rotation">
-  <Group Byte="0">Speed</Group>
+  <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="63">Indexing</Capability>
-  <Capability Min="64" Max="147">Rotation with increasing speed</Capability>
-  <Capability Min="148" Max="231">Reverse rotation with increasing speed</Capability>
+  <Capability Min="64" Max="147" Preset="RotationClockwiseSlowToFast">Rotation with increasing speed</Capability>
+  <Capability Min="148" Max="231" Preset="RotationCounterClockwiseSlowToFast">Reverse rotation with increasing speed</Capability>
   <Capability Min="232" Max="255">Boomerang with increasing speed</Capability>
  </Channel>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="3">Closed</Capability>
-  <Capability Min="4" Max="7">Open</Capability>
-  <Capability Min="8" Max="76">Strobe effect with increasing speed</Capability>
-  <Capability Min="77" Max="145">Pulse strobe with increasing speed</Capability>
-  <Capability Min="146" Max="215">Random shutter with increasing speed</Capability>
-  <Capability Min="216" Max="255">Open</Capability>
+  <Capability Min="0" Max="3" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="4" Max="7" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="8" Max="76" Preset="StrobeSlowToFast">Strobe effect with increasing speed</Capability>
+  <Capability Min="77" Max="145" Preset="PulseSlowToFast">Pulse strobe with increasing speed</Capability>
+  <Capability Min="146" Max="215" Preset="StrobeRandomSlowToFast">Random shutter with increasing speed</Capability>
+  <Capability Min="216" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Control Functions">
@@ -147,11 +147,11 @@
   <Channel Number="6">Focus</Channel>
   <Channel Number="7">Shutter</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" Type="LED 140W" ColourTemperature="0"/>
-   <Dimensions Width="340" Height="470" Weight="14.4" Depth="248"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="540" Type="Head" TiltMax="270"/>
-   <Technical PowerConsumption="244" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED 140W" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="14.4" Width="340" Height="470" Depth="248"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="244" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>
