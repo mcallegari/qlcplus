@@ -122,6 +122,7 @@
 
     <file alias="DeferredRenderer.qml">qml/fixturesfunctions/3DView/DeferredRenderer.qml</file>
     <file alias="Fixture3DItem.qml">qml/fixturesfunctions/3DView/Fixture3DItem.qml</file>
+    <file alias="Generic3DItem.qml">qml/fixturesfunctions/3DView/Generic3DItem.qml</file>
     <file alias="DepthTarget.qml">qml/fixturesfunctions/3DView/DepthTarget.qml</file>
     <file alias="GBuffer.qml">qml/fixturesfunctions/3DView/GBuffer.qml</file>
     <file alias="FrameTarget.qml">qml/fixturesfunctions/3DView/FrameTarget.qml</file>
@@ -133,7 +134,7 @@
     <file alias="GeometryPassEffect.qml">qml/fixturesfunctions/3DView/GeometryPassEffect.qml</file>
     <file alias="GammaCorrectEffect.qml">qml/fixturesfunctions/3DView/GammaCorrectEffect.qml</file>
     <file alias="BlitEffect.qml">qml/fixturesfunctions/3DView/BlitEffect.qml</file>
-    
+
     <file alias="FXAAEffect.qml">qml/fixturesfunctions/3DView/FXAAEffect.qml</file>
 
     <file alias="OutputFrontDepthEffect.qml">qml/fixturesfunctions/3DView/OutputFrontDepthEffect.qml</file>
@@ -165,27 +166,17 @@
 
     <file alias="SettingsView3D.qml">qml/fixturesfunctions/3DView/SettingsView3D.qml</file>
 
-
-
     <file alias="directional.frag">qml/fixturesfunctions/3DView/shaders/directional.frag</file>
     <file alias="gamma_correct.frag">qml/fixturesfunctions/3DView/shaders/gamma_correct.frag</file>
     <file alias="blit.frag">qml/fixturesfunctions/3DView/shaders/blit.frag</file>
     <file alias="fxaa.frag">qml/fixturesfunctions/3DView/shaders/fxaa.frag</file>
-
-
     <file alias="fullscreen.vert">qml/fixturesfunctions/3DView/shaders/fullscreen.vert</file>
-
     <file alias="spotlight_shading.frag">qml/fixturesfunctions/3DView/shaders/spotlight_shading.frag</file>
-
     <file alias="geo.frag">qml/fixturesfunctions/3DView/shaders/geo.frag</file>
     <file alias="geo.vert">qml/fixturesfunctions/3DView/shaders/geo.vert</file>
-
     <file alias="spotlight_scattering.frag">qml/fixturesfunctions/3DView/shaders/spotlight_scattering.frag</file>
-
     <file alias="spotlight.vert">qml/fixturesfunctions/3DView/shaders/spotlight.vert</file>
-
     <file alias="output_front_depth.frag">qml/fixturesfunctions/3DView/shaders/output_front_depth.frag</file>
-
     <file alias="output_depth.frag">qml/fixturesfunctions/3DView/shaders/output_depth.frag</file>
     <file alias="output_depth.vert">qml/fixturesfunctions/3DView/shaders/output_depth.vert</file>
 

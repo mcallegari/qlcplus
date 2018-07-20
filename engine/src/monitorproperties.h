@@ -42,6 +42,7 @@ typedef struct
 {
     QVector3D m_position;       ///< 3D item position
     QVector3D m_rotation;       ///< 3D item rotation
+    QVector3D m_scale;          ///< 3D item scale
     QString m_resource;         ///< Generic: source file, Fixture: custom name
     QColor m_color;             ///< Generic: item color, Fixture: gel color
     quint32 m_flags;            ///< Item flags as specified in the ItemsFlags enum
@@ -200,6 +201,42 @@ public:
 private:
     bool m_showLabels;
     QMap <quint32, FixturePreviewItem> m_fixtureItems;
+
+    /********************************************************************
+     * Generic items
+     ********************************************************************/
+public:
+    /** Returns true if the item with ID $itemID is present in the monitor map */
+    inline bool containsItem(quint32 itemID) { return m_genericItems.contains(itemID); }
+
+    /** Remove an existing item from the generic items map */
+    inline void removeItem(quint32 itemID) { m_genericItems.take(itemID); }
+
+    /** Returns a list of all the generic item IDs */
+    QList<quint32> genericItemsID();
+
+    /** Get/Set the resource string for an item with ID $itemID */
+    QString itemResource(quint32 itemID);
+    void setItemResource(quint32 itemID, QString resource);
+
+    /** Get/Set the 3D position of an item with ID $itemID */
+    QVector3D itemPosition(quint32 itemID);
+    void setItemPosition(quint32 itemID, QVector3D pos);
+
+    /** Get/Set the 3D rotation of an item with ID $itemID */
+    QVector3D itemRotation(quint32 itemID);
+    void setItemRotation(quint32 itemID, QVector3D rot);
+
+    /** Get/Set the 3D scale of an item with ID $itemID */
+    QVector3D itemScale(quint32 itemID);
+    void setItemScale(quint32 itemID, QVector3D scale);
+
+    /** Get/Set the flags of an item with ID $itemID */
+    quint32 itemFlags(quint32 itemID);
+    void setItemFlags(quint32 itemID, quint32 flags);
+
+private:
+    QMap <quint32, PreviewItem> m_genericItems;
 
     /********************************************************************
      * 2D view background

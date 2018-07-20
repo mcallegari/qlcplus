@@ -97,7 +97,7 @@ Rectangle
             value: envSize.x
             onValueChanged:
             {
-                if (settingsRoot.visible)
+                if (settingsRoot.visible && contextManager)
                     contextManager.environmentSize = Qt.vector3d(value, envSize.y, envSize.z)
             }
         }
@@ -114,7 +114,7 @@ Rectangle
             value: envSize.y
             onValueChanged:
             {
-                if (settingsRoot.visible)
+                if (settingsRoot.visible && contextManager)
                     contextManager.environmentSize = Qt.vector3d(envSize.x, value, envSize.z)
             }
         }
@@ -131,7 +131,7 @@ Rectangle
             value: envSize.z
             onValueChanged:
             {
-                if (settingsRoot.visible)
+                if (settingsRoot.visible && contextManager)
                     contextManager.environmentSize = Qt.vector3d(envSize.x, envSize.y, value)
             }
         }
@@ -153,7 +153,7 @@ Rectangle
             currentIndex: View2D.gridUnits
             onCurrentIndexChanged:
             {
-                if (settingsRoot.visible)
+                if (settingsRoot.visible && View2D)
                     View2D.gridUnits = currentIndex
             }
         }
@@ -177,7 +177,7 @@ Rectangle
             currentIndex: View2D.pointOfView - 1
             onCurrentIndexChanged:
             {
-                if (settingsRoot.visible)
+                if (settingsRoot.visible && View2D)
                     View2D.pointOfView = currentIndex + 1
             }
         }

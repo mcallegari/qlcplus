@@ -36,28 +36,33 @@
 #define KXMLQLCMonitorGridDepth "Depth"
 #define KXMLQLCMonitorGridUnits "Units"
 #define KXMLQLCMonitorPointOfView "POV"
+#define KXMLQLCMonitorItemID "ID"
 #define KXMLQLCMonitorShowLabels "ShowLabels"
-#define KXMLQLCMonitorCommonBackground "Background"
 
+#define KXMLQLCMonitorCommonBackground "Background"
 #define KXMLQLCMonitorCustomBgItem "BackgroundItem"
-#define KXMLQLCMonitorCustomBgFuncID "ID"
 
 #define KXMLQLCMonitorFixtureItem "FxItem"
-#define KXMLQLCMonitorFixtureID "ID"
+#define KXMLQLCMonitorStageItem "StageItem"
+#define KXMLQLCMonitorMeshItem "MeshItem"
+#define KXMLQLCMonitorItemRes "Res"
+
+#define KXMLQLCMonitorItemXPosition "XPos"
+#define KXMLQLCMonitorItemYPosition "YPos"
+#define KXMLQLCMonitorItemZPosition "ZPos"
+#define KXMLQLCMonitorItemXRotation "XRot"
+#define KXMLQLCMonitorItemYRotation "YRot"
+#define KXMLQLCMonitorItemZRotation "ZRot"
+#define KXMLQLCMonitorFixtureRotation "Rotation" // LEGACY
+#define KXMLQLCMonitorItemXScale "XScale"
+#define KXMLQLCMonitorItemYScale "YScale"
+#define KXMLQLCMonitorItemZScale "ZScale"
+
 #define KXMLQLCMonitorFixtureHeadIndex "Head"
 #define KXMLQLCMonitorFixtureLinkedIndex "Linked"
 #define KXMLQLCMonitorFixtureLinkedName "Name"
-#define KXMLQLCMonitorFixtureXPos "XPos"
-#define KXMLQLCMonitorFixtureYPos "YPos"
-#define KXMLQLCMonitorFixtureZPos "ZPos"
-#define KXMLQLCMonitorFixtureRotation "Rotation"
-#define KXMLQLCMonitorFixtureXRotation "XRot"
-#define KXMLQLCMonitorFixtureYRotation "YRot"
-#define KXMLQLCMonitorFixtureZRotation "ZRot"
-#define KXMLQLCMonitorFixtureGelColor "GelColor"
 
-#define KXMLQLCMonitorStageItem "StageItem"
-#define KXMLQLCMonitorMeshItem "MeshItem"
+#define KXMLQLCMonitorFixtureGelColor "GelColor"
 
 #define KXMLQLCMonitorFixtureHiddenFlag "Hidden"
 #define KXMLQLCMonitorFixtureInvPanFlag "InvertedPan"
@@ -88,6 +93,7 @@ void MonitorProperties::reset()
     m_stageType = StageSimple;
     m_showLabels = false;
     m_fixtureItems.clear();
+    m_genericItems.clear();
     m_commonBackgroundImage = QString();
 }
 
@@ -385,6 +391,68 @@ QList<quint32> MonitorProperties::fixtureIDList(quint32 fid) const
 }
 
 /********************************************************************
+ * Generic items
+ ********************************************************************/
+
+QList<quint32> MonitorProperties::genericItemsID()
+{
+    return m_genericItems.keys();
+}
+
+QString MonitorProperties::itemResource(quint32 itemID)
+{
+    return m_genericItems[itemID].m_resource;
+}
+
+void MonitorProperties::setItemResource(quint32 itemID, QString resource)
+{
+    m_genericItems[itemID].m_resource = resource;
+}
+
+QVector3D MonitorProperties::itemPosition(quint32 itemID)
+{
+    return m_genericItems[itemID].m_position;
+}
+
+void MonitorProperties::setItemPosition(quint32 itemID, QVector3D pos)
+{
+    m_genericItems[itemID].m_position = pos;
+}
+
+QVector3D MonitorProperties::itemRotation(quint32 itemID)
+{
+    return m_genericItems[itemID].m_rotation;
+}
+
+void MonitorProperties::setItemRotation(quint32 itemID, QVector3D rot)
+{
+    m_genericItems[itemID].m_rotation = rot;
+}
+
+QVector3D MonitorProperties::itemScale(quint32 itemID)
+{
+    if (m_genericItems[itemID].m_scale.isNull())
+        return QVector3D(1.0, 1.0, 1.0);
+
+    return m_genericItems[itemID].m_scale;
+}
+
+void MonitorProperties::setItemScale(quint32 itemID, QVector3D scale)
+{
+    m_genericItems[itemID].m_scale = scale;
+}
+
+quint32 MonitorProperties::itemFlags(quint32 itemID)
+{
+    return m_genericItems[itemID].m_flags;
+}
+
+void MonitorProperties::setItemFlags(quint32 itemID, quint32 flags)
+{
+    m_genericItems[itemID].m_flags = flags;
+}
+
+/********************************************************************
  * 2D view background
  ********************************************************************/
 
@@ -439,9 +507,9 @@ bool MonitorProperties::loadXML(QXmlStreamReader &root, const Doc *mainDocument)
             setCommonBackgroundImage(mainDocument->denormalizeComponentPath(root.readElementText()));
         else if (root.name() == KXMLQLCMonitorCustomBgItem)
         {
-            if (tAttrs.hasAttribute(KXMLQLCMonitorCustomBgFuncID))
+            if (tAttrs.hasAttribute(KXMLQLCMonitorItemID))
             {
-                quint32 fid = tAttrs.value(KXMLQLCMonitorCustomBgFuncID).toString().toUInt();
+                quint32 fid = tAttrs.value(KXMLQLCMonitorItemID).toString().toUInt();
                 setCustomBackgroundItem(fid, mainDocument->denormalizeComponentPath(root.readElementText()));
             }
         }
@@ -475,14 +543,14 @@ bool MonitorProperties::loadXML(QXmlStreamReader &root, const Doc *mainDocument)
         else if (root.name() == KXMLQLCMonitorFixtureItem)
         {
             // Fixture ID is mandatory. Skip the whole entry if not found.
-            if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureID) == false)
+            if (tAttrs.hasAttribute(KXMLQLCMonitorItemID) == false)
             {
                 root.skipCurrentElement();
                 continue;
             }
 
             PreviewItem item;
-            quint32 fid = tAttrs.value(KXMLQLCMonitorFixtureID).toString().toUInt();
+            quint32 fid = tAttrs.value(KXMLQLCMonitorItemID).toString().toUInt();
             quint16 headIndex = 0;
             quint16 linkedIndex = 0;
             QVector3D pos(0, 0, 0);
@@ -501,12 +569,12 @@ bool MonitorProperties::loadXML(QXmlStreamReader &root, const Doc *mainDocument)
                     item.m_resource = tAttrs.value(KXMLQLCMonitorFixtureLinkedName).toString();
             }
 
-            if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureXPos))
-                pos.setX(tAttrs.value(KXMLQLCMonitorFixtureXPos).toString().toDouble());
-            if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureYPos))
-                pos.setY(tAttrs.value(KXMLQLCMonitorFixtureYPos).toString().toDouble());
-            if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureZPos))
-                pos.setZ(tAttrs.value(KXMLQLCMonitorFixtureZPos).toString().toDouble());
+            if (tAttrs.hasAttribute(KXMLQLCMonitorItemXPosition))
+                pos.setX(tAttrs.value(KXMLQLCMonitorItemXPosition).toString().toDouble());
+            if (tAttrs.hasAttribute(KXMLQLCMonitorItemYPosition))
+                pos.setY(tAttrs.value(KXMLQLCMonitorItemYPosition).toString().toDouble());
+            if (tAttrs.hasAttribute(KXMLQLCMonitorItemZPosition))
+                pos.setZ(tAttrs.value(KXMLQLCMonitorItemZPosition).toString().toDouble());
             item.m_position = pos;
 
             if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureRotation)) // check legacy first
@@ -515,12 +583,12 @@ bool MonitorProperties::loadXML(QXmlStreamReader &root, const Doc *mainDocument)
             }
             else
             {
-                if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureXRotation))
-                    rot.setX(tAttrs.value(KXMLQLCMonitorFixtureXRotation).toString().toDouble());
-                if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureYRotation))
-                    rot.setY(tAttrs.value(KXMLQLCMonitorFixtureYRotation).toString().toDouble());
-                if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureZRotation))
-                    rot.setZ(tAttrs.value(KXMLQLCMonitorFixtureZRotation).toString().toDouble());
+                if (tAttrs.hasAttribute(KXMLQLCMonitorItemXRotation))
+                    rot.setX(tAttrs.value(KXMLQLCMonitorItemXRotation).toString().toDouble());
+                if (tAttrs.hasAttribute(KXMLQLCMonitorItemYRotation))
+                    rot.setY(tAttrs.value(KXMLQLCMonitorItemYRotation).toString().toDouble());
+                if (tAttrs.hasAttribute(KXMLQLCMonitorItemZRotation))
+                    rot.setZ(tAttrs.value(KXMLQLCMonitorItemZRotation).toString().toDouble());
             }
             item.m_rotation = rot;
 
@@ -537,6 +605,56 @@ bool MonitorProperties::loadXML(QXmlStreamReader &root, const Doc *mainDocument)
             setFixtureItem(fid, headIndex, linkedIndex, item);
             root.skipCurrentElement();
 
+        }
+        else if (root.name() == KXMLQLCMonitorMeshItem)
+        {
+            // Item ID is mandatory. Skip the whole entry if not found.
+            if (tAttrs.hasAttribute(KXMLQLCMonitorItemID) == false)
+            {
+                root.skipCurrentElement();
+                continue;
+            }
+
+            PreviewItem item;
+            quint32 itemID = tAttrs.value(KXMLQLCMonitorItemID).toString().toUInt();
+            QVector3D pos(0, 0, 0);
+            QVector3D rot(0, 0, 0);
+            QVector3D scale(1.0, 1.0, 1.0);
+
+            item.m_flags = 0;
+
+            if (tAttrs.hasAttribute(KXMLQLCMonitorItemXPosition))
+                pos.setX(tAttrs.value(KXMLQLCMonitorItemXPosition).toString().toDouble());
+            if (tAttrs.hasAttribute(KXMLQLCMonitorItemYPosition))
+                pos.setY(tAttrs.value(KXMLQLCMonitorItemYPosition).toString().toDouble());
+            if (tAttrs.hasAttribute(KXMLQLCMonitorItemZPosition))
+                pos.setZ(tAttrs.value(KXMLQLCMonitorItemZPosition).toString().toDouble());
+            item.m_position = pos;
+
+            if (tAttrs.hasAttribute(KXMLQLCMonitorItemXRotation))
+                rot.setX(tAttrs.value(KXMLQLCMonitorItemXRotation).toString().toDouble());
+            if (tAttrs.hasAttribute(KXMLQLCMonitorItemYRotation))
+                rot.setY(tAttrs.value(KXMLQLCMonitorItemYRotation).toString().toDouble());
+            if (tAttrs.hasAttribute(KXMLQLCMonitorItemZRotation))
+                rot.setZ(tAttrs.value(KXMLQLCMonitorItemZRotation).toString().toDouble());
+            item.m_rotation = rot;
+
+            if (tAttrs.hasAttribute(KXMLQLCMonitorItemXScale))
+                scale.setX(tAttrs.value(KXMLQLCMonitorItemXScale).toString().toDouble());
+            if (tAttrs.hasAttribute(KXMLQLCMonitorItemYScale))
+                scale.setY(tAttrs.value(KXMLQLCMonitorItemYScale).toString().toDouble());
+            if (tAttrs.hasAttribute(KXMLQLCMonitorItemZScale))
+                scale.setZ(tAttrs.value(KXMLQLCMonitorItemZScale).toString().toDouble());
+            item.m_scale = scale;
+
+            if (tAttrs.hasAttribute(KXMLQLCMonitorFixtureHiddenFlag))
+                item.m_flags |= HiddenFlag;
+
+            if (tAttrs.hasAttribute(KXMLQLCMonitorItemRes))
+                item.m_resource = tAttrs.value(KXMLQLCMonitorItemRes).toString();
+
+            m_genericItems[itemID] = item;
+            root.skipCurrentElement();
         }
         else
         {
@@ -577,7 +695,7 @@ bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) 
             it.next();
             doc->writeStartElement(KXMLQLCMonitorCustomBgItem);
             quint32 fid = it.key();
-            doc->writeAttribute(KXMLQLCMonitorCustomBgFuncID, QString::number(fid));
+            doc->writeAttribute(KXMLQLCMonitorItemID, QString::number(fid));
             doc->writeCharacters(mainDocument->normalizeComponentPath(it.value()));
             doc->writeEndElement();
         }
@@ -606,7 +724,7 @@ bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) 
             PreviewItem item = fixtureItem(fid, headIndex, linkedIndex);
 
             doc->writeStartElement(KXMLQLCMonitorFixtureItem);
-            doc->writeAttribute(KXMLQLCMonitorFixtureID, QString::number(fid));
+            doc->writeAttribute(KXMLQLCMonitorItemID, QString::number(fid));
 
             if (headIndex)
                 doc->writeAttribute(KXMLQLCMonitorFixtureHeadIndex, QString::number(headIndex));
@@ -618,6 +736,7 @@ bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) 
                     doc->writeAttribute(KXMLQLCMonitorFixtureLinkedName, item.m_resource);
             }
 
+            // write flags, if present
             if (item.m_flags & HiddenFlag)
                 doc->writeAttribute(KXMLQLCMonitorFixtureHiddenFlag, KXMLQLCTrue);
             if (item.m_flags & InvertedPanFlag)
@@ -625,25 +744,70 @@ bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) 
             if (item.m_flags & InvertedTiltFlag)
                 doc->writeAttribute(KXMLQLCMonitorFixtureInvTiltFlag, KXMLQLCTrue);
 
-            doc->writeAttribute(KXMLQLCMonitorFixtureXPos, QString::number(item.m_position.x()));
-            doc->writeAttribute(KXMLQLCMonitorFixtureYPos, QString::number(item.m_position.y()));
+            // always write position
+            doc->writeAttribute(KXMLQLCMonitorItemXPosition, QString::number(item.m_position.x()));
+            doc->writeAttribute(KXMLQLCMonitorItemYPosition, QString::number(item.m_position.y()));
 
 #ifdef QMLUI
-            doc->writeAttribute(KXMLQLCMonitorFixtureZPos, QString::number(item.m_position.z()));
+            doc->writeAttribute(KXMLQLCMonitorItemZPosition, QString::number(item.m_position.z()));
+
+            // write rotation, if set
             if (item.m_rotation.x() != 0)
-                doc->writeAttribute(KXMLQLCMonitorFixtureXRotation, QString::number(item.m_rotation.x()));
+                doc->writeAttribute(KXMLQLCMonitorItemXRotation, QString::number(item.m_rotation.x()));
             if (item.m_rotation.y() != 0)
-                doc->writeAttribute(KXMLQLCMonitorFixtureYRotation, QString::number(item.m_rotation.y()));
+                doc->writeAttribute(KXMLQLCMonitorItemYRotation, QString::number(item.m_rotation.y()));
             if (item.m_rotation.z() != 0)
-                doc->writeAttribute(KXMLQLCMonitorFixtureZRotation, QString::number(item.m_rotation.z()));
+                doc->writeAttribute(KXMLQLCMonitorItemZRotation, QString::number(item.m_rotation.z()));
 #else
             if (item.m_rotation != QVector3D(0, 0, 0))
                 doc->writeAttribute(KXMLQLCMonitorFixtureRotation, QString::number(item.m_rotation.y()));
 #endif
             if (item.m_color.isValid())
                 doc->writeAttribute(KXMLQLCMonitorFixtureGelColor, item.m_color.name());
+
             doc->writeEndElement();
         }
+    }
+
+    QMapIterator<quint32, PreviewItem> it(m_genericItems);
+    while(it.hasNext())
+    {
+        it.next();
+        quint32 itemID = it.key();
+        PreviewItem item = it.value();
+
+        doc->writeStartElement(KXMLQLCMonitorMeshItem);
+        doc->writeAttribute(KXMLQLCMonitorItemID, QString::number(itemID));
+
+        // write flags, if present
+        if (item.m_flags & HiddenFlag)
+            doc->writeAttribute(KXMLQLCMonitorFixtureHiddenFlag, KXMLQLCTrue);
+
+        // always write position
+        doc->writeAttribute(KXMLQLCMonitorItemXPosition, QString::number(item.m_position.x()));
+        doc->writeAttribute(KXMLQLCMonitorItemYPosition, QString::number(item.m_position.y()));
+        doc->writeAttribute(KXMLQLCMonitorItemZPosition, QString::number(item.m_position.z()));
+
+        // write rotation, if set
+        if (item.m_rotation.x() != 0)
+            doc->writeAttribute(KXMLQLCMonitorItemXRotation, QString::number(item.m_rotation.x()));
+        if (item.m_rotation.y() != 0)
+            doc->writeAttribute(KXMLQLCMonitorItemYRotation, QString::number(item.m_rotation.y()));
+        if (item.m_rotation.z() != 0)
+            doc->writeAttribute(KXMLQLCMonitorItemZRotation, QString::number(item.m_rotation.z()));
+
+        // write scale, if set
+        if (item.m_scale.x() != 1.0)
+            doc->writeAttribute(KXMLQLCMonitorItemXScale, QString::number(item.m_scale.x()));
+        if (item.m_scale.y() != 1.0)
+            doc->writeAttribute(KXMLQLCMonitorItemYScale, QString::number(item.m_scale.y()));
+        if (item.m_scale.z() != 1.0)
+            doc->writeAttribute(KXMLQLCMonitorItemZScale, QString::number(item.m_scale.z()));
+
+        if (item.m_resource.isEmpty() == false)
+            doc->writeAttribute(KXMLQLCMonitorItemRes, item.m_resource);
+
+        doc->writeEndElement();
     }
 
     doc->writeEndElement();
