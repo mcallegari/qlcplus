@@ -289,7 +289,7 @@ void ContextManager::setPositionPickPoint(QVector3D point)
     if (positionPicking() == false)
         return;
 
-    point = QVector3D(point.x() + m_monProps->gridSize().x() / 2, 0.0, point.z() + m_monProps->gridSize().z() / 2);
+    point = QVector3D(point.x() + m_monProps->gridSize().x() / 2, point.y(), point.z() + m_monProps->gridSize().z() / 2);
 
     for (quint32 itemID : m_selectedFixtures)
     {

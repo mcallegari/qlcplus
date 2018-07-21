@@ -60,6 +60,7 @@ Entity
             console.log("3D item clicked")
             isSelected = !isSelected
             View3D.setItemSelection(itemID, isSelected, pick.modifiers)
+            contextManager.setPositionPickPoint(pick.worldIntersection)
         }
     }
 

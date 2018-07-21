@@ -1172,8 +1172,11 @@ void MainView3D::createGenericItem(QString filename, int itemID)
 
     if (itemID == -1)
     {
-        m_monProps->setItemResource(m_latestGenericID, filename);
+        QVector3D envSize = m_monProps->gridSize();
+        QVector3D newPos((envSize.x() / 2) * 1000.0, 1000.0, (envSize.z() / 2) * 1000.0);
+        m_monProps->setItemPosition(m_latestGenericID, newPos);
         m_monProps->setItemScale(m_latestGenericID, QVector3D(1.0, 1.0, 1.0));
+        m_monProps->setItemResource(m_latestGenericID, filename);
     }
     else
     {
@@ -1239,19 +1242,9 @@ void MainView3D::initializeItem(int itemID, QEntity *itemEntity, QSceneLoader *l
     if (calculateVolume)
         m_boundingVolumesMap[loader->source()] = meshRef->m_volume;
 
-    if (m_monProps->containsItem(itemID))
-    {
-        updateGenericItemScale(itemID, m_monProps->itemScale(itemID));
-        updateGenericItemPosition(itemID, m_monProps->itemPosition(itemID));
-        updateGenericItemRotation(itemID, m_monProps->itemRotation(itemID));
-    }
-    else
-    {
-        QVector3D envSize = m_monProps->gridSize();
-        QVector3D newPos((envSize.x() / 2) * 1000.0, 1000.0, (envSize.z() / 2) * 1000.0);
-        m_monProps->setItemPosition(itemID, newPos);
-        updateGenericItemPosition(itemID, newPos);
-    }
+    updateGenericItemScale(itemID, m_monProps->itemScale(itemID));
+    updateGenericItemPosition(itemID, m_monProps->itemPosition(itemID));
+    updateGenericItemRotation(itemID, m_monProps->itemRotation(itemID));
 
     QLayer *selectionLayer = m_sceneRootEntity->property("selectionLayer").value<QLayer *>();
     QGeometryRenderer *selectionMesh = m_sceneRootEntity->property("selectionMesh").value<QGeometryRenderer *>();
