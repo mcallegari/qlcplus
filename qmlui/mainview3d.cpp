@@ -836,10 +836,11 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QSceneLoad
     QMetaObject::invokeMethod(m_scene3D, "updateSceneGraph", Q_ARG(QVariant, true));
 
     // at last, preview the fixture channels
-    updateFixture(fixture);
+    QByteArray values;
+    updateFixture(fixture, values);
 }
 
-void MainView3D::updateFixture(Fixture *fixture)
+void MainView3D::updateFixture(Fixture *fixture, QByteArray &previous)
 {
     if (m_enabled == false || fixture == NULL)
         return;
@@ -848,11 +849,11 @@ void MainView3D::updateFixture(Fixture *fixture)
     {
         quint16 headIndex = m_monProps->fixtureHeadIndex(subID);
         quint16 linkedIndex = m_monProps->fixtureLinkedIndex(subID);
-        updateFixtureItem(fixture, headIndex, linkedIndex);
+        updateFixtureItem(fixture, headIndex, linkedIndex, previous);
     }
 }
 
-void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 linkedIndex)
+void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 linkedIndex, QByteArray &previous)
 {
     quint32 itemID = FixtureUtils::fixtureItemID(fixture->id(), headIndex, linkedIndex);
     SceneItem *meshItem = m_entitiesMap.value(itemID, NULL);
@@ -942,22 +943,30 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
             break;
             case QLCChannel::Beam:
             {
+                if (previous.count() && value == previous.at(i))
+                    break;
+
                 QMetaObject::invokeMethod(fixtureItem, "setFocus",
                         Q_ARG(QVariant, value));
             }
             break;
             case QLCChannel::Gobo:
             {
-                if (goboSet)
+                if (goboSet || (previous.count() && value == previous.at(i)))
                     break;
 
-                foreach(QLCCapability *cap, ch->capabilities())
+                QLCCapability *cap = ch->searchCapability(value);
+
+                if (cap == NULL)
+                    break;
+
+                switch (cap->preset())
                 {
-                    if (value >= cap->min() && value <= cap->max())
+                    case QLCCapability::GoboMacro:
                     {
                         QString resName = cap->resource(0).toString();
 
-                        if(resName.isEmpty() == false && resName.endsWith("open.svg") == false)
+                        if (resName.isEmpty() == false && resName.endsWith("open.svg") == false)
                         {
                             if (meshItem->m_goboTexture)
                                 meshItem->m_goboTexture->setSource(resName);
@@ -968,11 +977,25 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                             goboSet = true;
                         }
                     }
+                    break;
+                    case QLCCapability::RotationClockwise: // TODO
+                    case QLCCapability::RotationClockwiseFastToSlow:
+                    case QLCCapability::RotationClockwiseSlowToFast:
+                    case QLCCapability::RotationStop:
+                    case QLCCapability::RotationCounterClockwise:
+                    case QLCCapability::RotationCounterClockwiseSlowToFast:
+                    case QLCCapability::RotationCounterClockwiseFastToSlow:
+                    break;
+                    default:
+                    break;
                 }
             }
             break;
             case QLCChannel::Shutter:
             {
+                if (previous.count() && value == previous.at(i))
+                    break;
+
                 int high = 200, low = 800;
                 int capPreset = FixtureUtils::shutterTimings(ch, value, high, low);
 

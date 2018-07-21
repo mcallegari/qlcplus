@@ -58,20 +58,13 @@ Entity
             parameters.push(uniformComp.createObject(spotlightConeMaterial,
                             { name: "customModelMatrix", value: Qt.binding(
                                 function() { 
-
                                     var m = Qt.matrix4x4();
-
                                     m.translate(fxItem.lightPos.times(+1.0));
-
                                     m = m.times(fxItem.lightMatrix)
-
                                     m.rotate(fxItem.panRotation, Qt.vector3d(0, 1, 0));
                                     m.rotate(fxItem.tiltRotation, Qt.vector3d(1, 0, 0));
-
                                     m.translate( Qt.vector3d(0, -0.5 * fxItem.distCutoff - 0.5 * fxItem.headLength, 0));
-
                                     return m;
-
                              })}))
 
             parameters.push(uniformComp.createObject(spotlightConeMaterial,
@@ -113,7 +106,7 @@ Entity
                             { name: "lightColor", value: Qt.binding(function() { return fxItem.lightColor }) }))
 
             parameters.push(uniformComp.createObject(spotlightConeMaterial,
-                         { name: "goboTex", value: Qt.binding(function() { return fxItem.goboTexture }) }))
+                            { name: "goboTex", value: Qt.binding(function() { return fxItem.goboTexture }) }))
                          
             // dump the uniform list (uncomment for debug purposes)
             // parameters.forEach(function (p) { console.log(p.name, '=', p.value); })

@@ -95,7 +95,7 @@ Entity
     /* ****** These are bound to uniforms in ScreenQuadEntity ***** */
 
     property int lightIndex
-    property real lightIntensity: 1.0
+    property real lightIntensity: 0
     property real intensityOrigValue: lightIntensity
     property color lightColor: Qt.rgba(0, 0, 0, 1)
     property vector3d lightPos: Qt.vector3d(0, 0, 0)
@@ -302,8 +302,23 @@ Entity
             ] // outputs
         }
 
+    /* **************** Gobo properties **************** */
     property Texture2D goboTexture: Texture2D { }
-    property Transform transform: Transform { }
+    property real goboRotation: 0
+    property real goboRotDuration: 2000
+
+/*
+    QQ2.NumberAnimation on goboRotation
+    {
+        id: goboAnim
+        running: true
+        duration: goboRotDuration
+        easing.type: Easing.Linear
+        from: 0
+        to: 360
+        loops: QQ2.Animation.Infinite
+    }
+*/
 
     /* Cone meshes used for scattering. These get re-parented to a head mesh via setupScattering */
     SpotlightConeEntity { id: shadingCone }
@@ -320,6 +335,9 @@ Entity
                 View3D.initializeFixture(itemID, fixtureEntity, eSceneLoader)
         }
     }
+
+    /* Main transform of the whole fixture item */
+    property Transform transform: Transform { }
 
     ObjectPicker
     {

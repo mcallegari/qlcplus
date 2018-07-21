@@ -1248,14 +1248,17 @@ void ContextManager::slotUniversesWritten(int idx, const QByteArray &ua)
         if (fixture->universe() != (quint32)idx)
             continue;
 
+        QByteArray prevValues;
+        prevValues.append(fixture->channelValues());
+
         if (fixture->setChannelValues(ua) == true)
         {
             if (m_DMXView->isEnabled())
                 m_DMXView->updateFixture(fixture);
             if (m_2DView->isEnabled())
-                m_2DView->updateFixture(fixture);
+                m_2DView->updateFixture(fixture, prevValues);
             if (m_3DView->isEnabled())
-                m_3DView->updateFixture(fixture);
+                m_3DView->updateFixture(fixture, prevValues);
         }
     }
 }
