@@ -769,9 +769,10 @@ bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) 
             doc->writeEndElement();
         }
     }
-
+#ifdef QMLUI
     QDir dir = QDir::cleanPath(QLCFile::systemDirectory(MESHESDIR).path());
     QString meshDirAbsPath = dir.absolutePath() + QDir::separator();
+#endif
 
     QMapIterator<quint32, PreviewItem> it(m_genericItems);
     while(it.hasNext())
@@ -809,14 +810,16 @@ bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) 
             doc->writeAttribute(KXMLQLCMonitorItemZScale, QString::number(item.m_scale.z()));
 
         if (item.m_resource.isEmpty() == false)
-        {
+        {            
             // perform normalization depending on the mesh location (mesh folder, project path, absolute path)
+#ifdef QMLUI
             if (item.m_resource.startsWith(meshDirAbsPath))
             {
                 item.m_resource.remove(meshDirAbsPath);
                 doc->writeAttribute(KXMLQLCMonitorItemRes, item.m_resource);
             }
             else
+#endif
             {
                 doc->writeAttribute(KXMLQLCMonitorItemRes, mainDocument->normalizeComponentPath(item.m_resource));
             }
