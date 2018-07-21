@@ -805,7 +805,7 @@ bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) 
             doc->writeAttribute(KXMLQLCMonitorItemZScale, QString::number(item.m_scale.z()));
 
         if (item.m_resource.isEmpty() == false)
-            doc->writeAttribute(KXMLQLCMonitorItemRes, item.m_resource);
+            doc->writeAttribute(KXMLQLCMonitorItemRes, mainDocument->normalizeComponentPath(item.m_resource));
 
         doc->writeEndElement();
     }
