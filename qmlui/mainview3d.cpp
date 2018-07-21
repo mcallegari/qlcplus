@@ -906,7 +906,8 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
     if (headDimmerIndex != QLCChannel::invalid())
         intensityValue = (qreal)fixture->channelValueAt(headDimmerIndex) / 255;
 
-    fixtureItem->setProperty("lightIntensity", intensityValue);
+    if (previous.isEmpty() || fixture->channelValueAt(headDimmerIndex) != previous.at(headDimmerIndex))
+        fixtureItem->setProperty("lightIntensity", intensityValue);
 
     color = FixtureUtils::headColor(fixture);
 
@@ -927,7 +928,9 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                     panValue += (value << 8);
                 else
                     panValue += (value);
-                setPosition = true;
+
+                if (previous.isEmpty() || value != previous.at(i))
+                    setPosition = true;
             }
             break;
             case QLCChannel::Tilt:
@@ -936,7 +939,9 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                     tiltValue += (value << 8);
                 else
                     tiltValue += (value);
-                setPosition = true;
+
+                if (previous.isEmpty() || value != previous.at(i))
+                    setPosition = true;
             }
             break;
             case QLCChannel::Colour:
