@@ -30,6 +30,7 @@
 #include <Qt3DRender/QAttribute>
 #include <Qt3DRender/QBuffer>
 #include <Qt3DRender/QParameter>
+#include <Qt3DExtras/QPhongMaterial>
 
 #include "doc.h"
 #include "tardis.h"
@@ -605,10 +606,11 @@ QEntity *MainView3D::inspectEntity(QEntity *entity, SceneItem *meshRef,
 
     for (QComponent *component : entity->components()) // C++11
     {
-        //qDebug() << component->metaObject()->className();
+        //qDebug() << "Class name:" << component->metaObject()->className();
 
         QMaterial *material = qobject_cast<QMaterial *>(component);
         Qt3DCore::QTransform *transform = qobject_cast<Qt3DCore::QTransform *>(component);
+
         if (geom == NULL)
             geom = qobject_cast<QGeometryRenderer *>(component);
 
@@ -616,8 +618,20 @@ QEntity *MainView3D::inspectEntity(QEntity *entity, SceneItem *meshRef,
         {
             material->setEffect(effect);
 
-            // workaround for DAE loader, acquiring a material from the previous mesh. WTF.
-            //material->addParameter(new QParameter("meshColor", QVector3D(0.64f, 0.64f, 0.64f)));
+            //for (QParameter *par : material->parameters())
+            //    qDebug() << "Material parameter:" << par->name() << par->value();
+
+            Qt3DExtras::QPhongMaterial *pMaterial = qobject_cast<Qt3DExtras::QPhongMaterial *>(component);
+
+            if (pMaterial)
+            {
+                material->addParameter(new QParameter("meshColor", pMaterial->diffuse()));
+            }
+            else
+            {
+                // workaround for DAE loader, acquiring a material from the previous mesh. WTF.
+                material->addParameter(new QParameter("meshColor", QVector3D(0.64f, 0.64f, 0.64f)));
+            }
         }
 
         if (transform)

@@ -549,7 +549,7 @@ Rectangle
                     visible: false
                     title: qsTr("Select a mesh file")
                     folder: View3D.meshDirectory
-                    nameFilters: [ qsTr("3D files") + " (*.obj *.dae *.3ds)", qsTr("All files") + " (*)" ]
+                    nameFilters: [ qsTr("3D files") + " (*.obj *.dae *.3ds *.py *.stl *.blend)", qsTr("All files") + " (*)" ]
 
                     onAccepted: View3D.createGenericItem(fileUrl, -1)
                 }
