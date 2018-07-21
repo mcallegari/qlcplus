@@ -1326,10 +1326,6 @@ void MainView3D::initializeItem(int itemID, QEntity *itemEntity, QSceneLoader *l
     if (calculateVolume)
         m_boundingVolumesMap[loader->source()] = meshRef->m_volume;
 
-    updateGenericItemScale(itemID, m_monProps->itemScale(itemID));
-    updateGenericItemPosition(itemID, m_monProps->itemPosition(itemID));
-    updateGenericItemRotation(itemID, m_monProps->itemRotation(itemID));
-
     QLayer *selectionLayer = m_sceneRootEntity->property("selectionLayer").value<QLayer *>();
     QGeometryRenderer *selectionMesh = m_sceneRootEntity->property("selectionMesh").value<QGeometryRenderer *>();
 
@@ -1342,6 +1338,10 @@ void MainView3D::initializeItem(int itemID, QEntity *itemEntity, QSceneLoader *l
     meshRef->m_selectionBox->setProperty("extents", meshRef->m_volume.m_extents);
     meshRef->m_selectionBox->setProperty("center", meshRef->m_volume.m_center);
     meshRef->m_selectionBox->setProperty("color", QVector4D(0, 1, 0, 2.0));
+
+    updateGenericItemScale(itemID, m_monProps->itemScale(itemID));
+    updateGenericItemPosition(itemID, m_monProps->itemPosition(itemID));
+    updateGenericItemRotation(itemID, m_monProps->itemRotation(itemID));
 
     if (meshRef->m_rootTransform != NULL)
     {
