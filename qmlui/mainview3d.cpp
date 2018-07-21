@@ -944,6 +944,18 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                     setPosition = true;
             }
             break;
+            case QLCChannel::Speed:
+            {
+                if (previous.count() && value == previous.at(i))
+                    break;
+
+                int panSpeed, tiltSpeed;
+                FixtureUtils::positionTimings(ch, value, panSpeed, tiltSpeed);
+                QMetaObject::invokeMethod(fixtureItem, "setPositionSpeed",
+                                          Q_ARG(QVariant, panSpeed),
+                                          Q_ARG(QVariant, tiltSpeed));
+            }
+            break;
             case QLCChannel::Colour:
             {
                 if (value == 0)
@@ -966,7 +978,7 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                     break;
 
                 QMetaObject::invokeMethod(fixtureItem, "setFocus",
-                        Q_ARG(QVariant, value));
+                                          Q_ARG(QVariant, value));
             }
             break;
             case QLCChannel::Gobo:

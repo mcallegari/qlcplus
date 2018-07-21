@@ -39,6 +39,9 @@
 #define MIN_PULSE_FREQ_HZ   0.25
 #define MAX_PULSE_FREQ_HZ   5
 
+#define MIN_POSITION_SPEED  4000 // ms
+#define MAX_POSITION_SPEED  20000 // ms
+
 FixtureUtils::FixtureUtils()
 {
 
@@ -351,6 +354,36 @@ QColor FixtureUtils::headColor(Fixture *fixture, int headIndex)
         finalColor = blendColors(finalColor, QColor(0xFF4B0082), (float)fixture->channelValueAt(indigo) / 255.0);
 
     return finalColor;
+}
+
+void FixtureUtils::positionTimings(const QLCChannel *ch, uchar value, int &panDuration, int &tiltDuration)
+{
+    panDuration = -1;
+    tiltDuration = -1;
+
+    switch (ch->preset())
+    {
+        case QLCChannel::SpeedPanTiltFastSlow:
+            panDuration = tiltDuration = SCALE(value, 0, 255, MIN_POSITION_SPEED, MAX_POSITION_SPEED);
+        break;
+        case QLCChannel::SpeedPanTiltSlowFast:
+            panDuration = tiltDuration = SCALE(255 - value, 0, 255, MIN_POSITION_SPEED, MAX_POSITION_SPEED);
+        break;
+        case QLCChannel::SpeedPanFastSlow:
+            panDuration = SCALE(value, 0, 255, MIN_POSITION_SPEED, MAX_POSITION_SPEED);
+        break;
+        case QLCChannel::SpeedPanSlowFast:
+            panDuration = SCALE(255 - value, 0, 255, MIN_POSITION_SPEED, MAX_POSITION_SPEED);
+        break;
+        case QLCChannel::SpeedTiltFastSlow:
+            tiltDuration = SCALE(value, 0, 255, MIN_POSITION_SPEED, MAX_POSITION_SPEED);
+        break;
+        case QLCChannel::SpeedTiltSlowFast:
+            tiltDuration = SCALE(255 - value, 0, 255, MIN_POSITION_SPEED, MAX_POSITION_SPEED);
+        break;
+        default:
+        break;
+    }
 }
 
 int FixtureUtils::shutterTimings(const QLCChannel *ch, uchar value, int &highTime, int &lowTime)

@@ -44,7 +44,8 @@ Entity
     /* **************** Pan/Tilt properties **************** */
     property real panMaxDegrees: 360
     property real tiltMaxDegrees: 270
-    property real totalDuration: 4000 // in milliseconds
+    property real panSpeed: 4000 // in milliseconds
+    property real tiltSpeed: 4000 // in milliseconds
 
     property real panRotation: 0
     property real tiltRotation: 0
@@ -141,7 +142,7 @@ Entity
             panAnim.stop()
             panAnim.from = panRotation
             panAnim.to = (panMaxDegrees / 0xFFFF) * pan
-            panAnim.duration = Math.max((totalDuration / panMaxDegrees) * Math.abs(panAnim.to - panAnim.from), 300)
+            panAnim.duration = Math.max((panSpeed / panMaxDegrees) * Math.abs(panAnim.to - panAnim.from), 300)
             panAnim.start()
         }
 
@@ -152,9 +153,17 @@ Entity
             var degTo = parseInt(((tiltMaxDegrees / 0xFFFF) * tilt) - (tiltMaxDegrees / 2))
             //console.log("Tilt to " + degTo + ", max: " + tiltMaxDegrees)
             tiltAnim.to = -degTo
-            tiltAnim.duration = Math.max((totalDuration / tiltMaxDegrees) * Math.abs(tiltAnim.to - tiltAnim.from), 300)
+            tiltAnim.duration = Math.max((tiltSpeed / tiltMaxDegrees) * Math.abs(tiltAnim.to - tiltAnim.from), 300)
             tiltAnim.start()
         }
+    }
+
+    function setPositionSpeed(panDuration, tiltDuration)
+    {
+        if (panDuration !== -1)
+            panSpeed = panDuration
+        if (tiltDuration !== -1)
+            tiltSpeed = tiltDuration
     }
 
     function setFocus(value)
