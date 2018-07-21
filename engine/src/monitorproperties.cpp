@@ -23,6 +23,7 @@
 #include <QFont>
 
 #include "monitorproperties.h"
+#include "qlcconfig.h"
 #include "qlcfile.h"
 #include "doc.h"
 
@@ -769,6 +770,9 @@ bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) 
         }
     }
 
+    QDir dir = QDir::cleanPath(QLCFile::systemDirectory(MESHESDIR).path());
+    QString meshDirAbsPath = dir.absolutePath() + QDir::separator();
+
     QMapIterator<quint32, PreviewItem> it(m_genericItems);
     while(it.hasNext())
     {
@@ -805,7 +809,18 @@ bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) 
             doc->writeAttribute(KXMLQLCMonitorItemZScale, QString::number(item.m_scale.z()));
 
         if (item.m_resource.isEmpty() == false)
-            doc->writeAttribute(KXMLQLCMonitorItemRes, mainDocument->normalizeComponentPath(item.m_resource));
+        {
+            // perform normalization depending on the mesh location (mesh folder, project path, absolute path)
+            if (item.m_resource.startsWith(meshDirAbsPath))
+            {
+                item.m_resource.remove(meshDirAbsPath);
+                doc->writeAttribute(KXMLQLCMonitorItemRes, item.m_resource);
+            }
+            else
+            {
+                doc->writeAttribute(KXMLQLCMonitorItemRes, mainDocument->normalizeComponentPath(item.m_resource));
+            }
+        }
 
         doc->writeEndElement();
     }

@@ -172,7 +172,7 @@ QString MainView3D::meshDirectory() const
 {
     QDir dir = QDir::cleanPath(QLCFile::systemDirectory(MESHESDIR).path());
     //qDebug() << "Absolute mesh path: " << dir.absolutePath();
-    return QString("file:///") + dir.absolutePath() + QDir::separator();
+    return QString("file://") + dir.absolutePath() + QDir::separator();
 }
 
 QString MainView3D::goboDirectory() const
@@ -1211,29 +1211,59 @@ void MainView3D::createGenericItem(QString filename, int itemID)
 
     qDebug() << "File URL is:" << filename;
 
-    if (filename.startsWith("file:"))
-        filename = QUrl(filename).toLocalFile();
-
-    QFileInfo fInfo(filename);
-    if (fInfo.exists() == false)
-    {
-        qWarning() << "File doesn't exist:" << filename;
-        return;
-    }
-
     if (m_quadEntity == NULL)
         initialize3DProperties();
 
     if (itemID == -1)
     {
+        QString resFile = QString(filename);
+        if (resFile.startsWith(meshDirectory()))
+            resFile = QUrl(filename).toLocalFile();
+        else
+            resFile.remove("file://");
         QVector3D envSize = m_monProps->gridSize();
         QVector3D newPos((envSize.x() / 2) * 1000.0, 1000.0, (envSize.z() / 2) * 1000.0);
         m_monProps->setItemPosition(m_latestGenericID, newPos);
         m_monProps->setItemScale(m_latestGenericID, QVector3D(1.0, 1.0, 1.0));
-        m_monProps->setItemResource(m_latestGenericID, filename);
+        m_monProps->setItemResource(m_latestGenericID, resFile);
     }
     else
     {
+        // check file existence
+        // 1- absolute path first
+        QFileInfo fInfo(filename);
+        if (fInfo.exists() == false)
+        {
+            // 2 - mesh directory relative path
+            QString meshFile = meshDirectory() + filename;
+            meshFile.remove("file://");
+            fInfo.setFile(meshFile);
+            if (fInfo.exists() == false)
+            {
+                // 3 - project workspace relative path
+                QString pFile = m_doc->denormalizeComponentPath(filename);
+                fInfo.setFile(pFile);
+                // 4 - give up
+                if (fInfo.exists() == false)
+                {
+                    qWarning() << "File doesn't exist:" << filename;
+                    return;
+                }
+                else
+                {
+                    filename = "file://" + m_doc->getWorkspacePath() + QDir::separator() + filename;
+                }
+            }
+            else
+            {
+                filename = meshDirectory() + filename;
+            }
+        }
+        else
+        {
+            filename = "file://" + filename;
+        }
+
         m_latestGenericID = itemID;
     }
 
@@ -1246,7 +1276,7 @@ void MainView3D::createGenericItem(QString filename, int itemID)
     newItem->setParent(m_sceneRootEntity);
 
     newItem->setProperty("itemID", m_latestGenericID);
-    newItem->setProperty("itemSource", "file://" + filename);
+    newItem->setProperty("itemSource", filename);
 
     // at last, add the new item to the generic map
     m_genericMap[m_latestGenericID] = mesh;
