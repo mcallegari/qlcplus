@@ -997,16 +997,17 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                     {
                         QString resName = cap->resource(0).toString();
 
-                        if (resName.isEmpty() == false && resName.endsWith("open.svg") == false)
-                        {
-                            if (meshItem->m_goboTexture)
-                                meshItem->m_goboTexture->setSource(resName);
-                            // here we don't look for any other gobos, so if a
-                            // fixture has more than one gobo wheel, the second
-                            // one will be skipped if the first one has been set
-                            // to a non-open gobo
-                            goboSet = true;
-                        }
+                        if (resName.isEmpty())
+                            break;
+
+                        if (meshItem->m_goboTexture)
+                            meshItem->m_goboTexture->setSource(resName);
+
+                        // here we don't look for any other gobos, so if a
+                        // fixture has more than one gobo wheel, the second
+                        // one will be skipped if the first one has been set
+                        // to a non-open gobo
+                        goboSet = true;
                     }
                     break;
                     case QLCCapability::RotationClockwise: // TODO
