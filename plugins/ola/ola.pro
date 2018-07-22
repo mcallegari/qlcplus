@@ -24,7 +24,7 @@ macx: {
 }
 
 unix:!macx {
-   metainfo.path   = $$INSTALLROOT/share/appdata/
+   metainfo.path   = $$METAINFODIR
    metainfo.files += qlcplus-ola.metainfo.xml
    INSTALLS       += metainfo
 }

@@ -256,6 +256,9 @@ ios:USERCOLORFILTERSDIR        = $$USERDATADIR/ColorFilters
 # udev rules
 unix:!macx:UDEVRULESDIR = /etc/udev/rules.d
 
+# AppStream metadata
+unix:!macx:METAINFODIR = $$INSTALLROOT/share/appdata
+
 # man
 unix:!macx:MANDIR = share/man/man1/
 

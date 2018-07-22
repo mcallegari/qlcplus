@@ -27,6 +27,6 @@ HEADERS += dmx4linux.h
 SOURCES += ../interfaces/qlcioplugin.cpp
 SOURCES += dmx4linux.cpp
 
-metainfo.path   = $$INSTALLROOT/share/appdata/
+metainfo.path   = $$METAINFODIR
 metainfo.files += qlcplus-dmx4linux.metainfo.xml
 INSTALLS       += metainfo

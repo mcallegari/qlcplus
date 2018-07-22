@@ -125,7 +125,7 @@ unix:!macx {
     udev.files = z65-dmxusb.rules
     INSTALLS  += udev
 
-    metainfo.path   = $$INSTALLROOT/share/appdata/
+    metainfo.path   = $$METAINFODIR
     metainfo.files += qlcplus-dmxusb.metainfo.xml
     INSTALLS       += metainfo
 }
