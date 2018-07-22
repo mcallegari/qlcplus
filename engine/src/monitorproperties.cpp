@@ -812,14 +812,20 @@ bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) 
         if (item.m_resource.isEmpty() == false)
         {            
             // perform normalization depending on the mesh location (mesh folder, project path, absolute path)
+            QFileInfo res(item.m_resource);
+
+            if (res.isRelative())
+            {
+                doc->writeAttribute(KXMLQLCMonitorItemRes, item.m_resource);
+            }
 #ifdef QMLUI
-            if (item.m_resource.startsWith(meshDirAbsPath))
+            else if (item.m_resource.startsWith(meshDirAbsPath))
             {
                 item.m_resource.remove(meshDirAbsPath);
                 doc->writeAttribute(KXMLQLCMonitorItemRes, item.m_resource);
             }
-            else
 #endif
+            else
             {
                 doc->writeAttribute(KXMLQLCMonitorItemRes, mainDocument->normalizeComponentPath(item.m_resource));
             }
