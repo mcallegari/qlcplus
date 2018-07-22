@@ -137,9 +137,10 @@ bool ChaserEditor::addStep(int insertIndex)
 
     qDebug() << "Values added: " << step.values.count();
 
+    m_chaser->addStep(step, insertIndex++);
+
     Tardis::instance()->enqueueAction(Tardis::ChaserAddStep, m_chaser->id(), QVariant(),
                                       Tardis::instance()->actionToByteArray(Tardis::ChaserAddStep, m_chaser->id(), insertIndex));
-    m_chaser->addStep(step, insertIndex);
 
     updateStepsList(m_doc, m_chaser, m_stepsList);
     emit stepsListChanged();
