@@ -679,12 +679,12 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="159"/>
         <source>Fixtures</source>
-        <translation>Fixtures</translation>
+        <translation>Appareils</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="186"/>
         <source>Add a fixture/head</source>
-        <translation>Ajouter une fixture/tête</translation>
+        <translation>Ajouter un appareil/tête</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="212"/>
@@ -694,7 +694,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="240"/>
         <source>Fixture</source>
-        <translation>Fixture</translation>
+        <translation>Appareil</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="255"/>
@@ -710,7 +710,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="394"/>
         <source>Add a new fixture</source>
-        <translation>Ajouter une nouvelle fixture</translation>
+        <translation>Ajouter un nouvel appareil</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/EFXEditor.qml" line="453"/>
@@ -969,7 +969,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="114"/>
         <source>Add a new fixture group</source>
-        <translation>Ajouter un nouveau groupe de fixtures</translation>
+        <translation>Ajouter un nouveau groupe d&apos;appareils</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="125"/>
@@ -979,7 +979,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="169"/>
         <source>Set a Group/Fixture/Channel search filter</source>
-        <translation>Définir un filtre de recherche de groupe/fixture/canaux</translation>
+        <translation>Définir un filtre de recherche de groupe/appareil/canaux</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="186"/>
@@ -989,12 +989,12 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="215"/>
         <source>Toggle fixtures and channels properties</source>
-        <translation>Basculer les propriétés d&apos;appareils et canaux</translation>
+        <translation>Basculer les propriétés des appareils et des canaux</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="237"/>
         <source>Add/Remove a linked fixture</source>
-        <translation>Ajouter/supprimer une fixture liée</translation>
+        <translation>Ajouter/supprimer un appareil lié</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="256"/>
@@ -1052,7 +1052,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/FixtureProperties.qml" line="71"/>
         <source>Fixture properties</source>
-        <translation>Propriétés de la fixture</translation>
+        <translation>Propriétés de l&apos;appareil</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureProperties.qml" line="91"/>
@@ -1095,7 +1095,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="56"/>
         <source>Print the fixture summary</source>
-        <translation>Afficher la description de la fixture</translation>
+        <translation>Afficher la description de l&apos;appareil</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureSummary.qml" line="109"/>
@@ -1522,12 +1522,12 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/LeftPanel.qml" line="68"/>
         <source>Add Fixtures</source>
-        <translation>Ajouter des fixtures</translation>
+        <translation>Ajouter des appareils</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/LeftPanel.qml" line="87"/>
         <source>Fixture Groups</source>
-        <translation>Groupes de fixtures</translation>
+        <translation>Groupes d&apos;appareils</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/LeftPanel.qml" line="106"/>
@@ -1577,7 +1577,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/LeftPanel.qml" line="333"/>
         <source>Select/Deselect all fixtures</source>
-        <translation>Sélectionner/désélectionner toutes les fixtures</translation>
+        <translation>Sélectionner/désélectionner tous les appareils</translation>
     </message>
 </context>
 <context>
@@ -1590,7 +1590,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/MainView.qml" line="147"/>
         <source>Fixtures &amp; Functions</source>
-        <translation>Fixtures &amp; fonctions</translation>
+        <translation>Appareils &amp; fonctions</translation>
     </message>
     <message>
         <location filename="qml/MainView.qml" line="161"/>
@@ -1809,7 +1809,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/popup/PopupImportProject.qml" line="58"/>
         <source>Fixtures</source>
-        <translation>Fixtures</translation>
+        <translation>Appareils</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupImportProject.qml" line="62"/>
@@ -1965,7 +1965,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/popup/PopupNetworkConnect.qml" line="66"/>
         <source>Fixture/Group editing</source>
-        <translation>Édition du groupe/fixture</translation>
+        <translation>Édition du groupe/appareil</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupNetworkConnect.qml" line="82"/>
@@ -2160,7 +2160,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="112"/>
         <source>Fixture Group</source>
-        <translation>Groupe de fixtures</translation>
+        <translation>Groupe d&apos;appareils</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="147"/>
@@ -2532,7 +2532,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/fixturesfunctions/SceneEditor.qml" line="89"/>
         <source>Remove the selected fixtures</source>
-        <translation>Supprimer les fixtures sélectionnées</translation>
+        <translation>Supprimer les appareils sélectionnés</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SceneEditor.qml" line="132"/>
@@ -2565,7 +2565,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/fixturesfunctions/ScriptEditor.qml" line="160"/>
         <source>Show/hide fixture tree</source>
-        <translation>Afficher/masquer l&apos;arbre de fixtures</translation>
+        <translation>Afficher/masquer l&apos;arbre d&apos;appareils</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ScriptEditor.qml" line="188"/>
@@ -2590,7 +2590,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/fixturesfunctions/ScriptEditor.qml" line="300"/>
         <source>Set fixture channel</source>
-        <translation>Définir le canal de la fixture</translation>
+        <translation>Définir le canal de l&apos;appareil</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ScriptEditor.qml" line="306"/>
@@ -2638,7 +2638,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/fixturesfunctions/SequenceEditor.qml" line="68"/>
         <source>Remove the selected fixtures</source>
-        <translation>Supprimer les fixtures sélectionnées</translation>
+        <translation>Supprimer les appareils sélectionnés</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SequenceEditor.qml" line="93"/>
@@ -2648,7 +2648,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/fixturesfunctions/SequenceEditor.qml" line="106"/>
         <source>Fixtures</source>
-        <translation>Fixtures</translation>
+        <translation>Appareils</translation>
     </message>
 </context>
 <context>
@@ -2716,7 +2716,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="198"/>
         <source>Selected fixtures</source>
-        <translation>Fixtures sélectionnées</translation>
+        <translation>Appareils sélectionnés</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="203"/>
