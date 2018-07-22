@@ -890,7 +890,7 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
     if (fixture->type() == QLCFixtureDef::Dimmer)
     {
         qreal value = (qreal)fixture->channelValueAt(headIndex) / 255.0;
-        fixtureItem->setProperty("lightIntensity", value);
+        fixtureItem->setProperty("dimmerValue", value);
 
         QColor gelColor = m_monProps->fixtureGelColor(fixture->id(), headIndex, linkedIndex);
         if (gelColor.isValid() == false)
@@ -907,7 +907,7 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
         intensityValue = (qreal)fixture->channelValueAt(headDimmerIndex) / 255;
 
     if (previous.isEmpty() || fixture->channelValueAt(headDimmerIndex) != previous.at(headDimmerIndex))
-        fixtureItem->setProperty("lightIntensity", intensityValue);
+        fixtureItem->setProperty("dimmerValue", intensityValue);
 
     color = FixtureUtils::headColor(fixture);
 
@@ -958,9 +958,6 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
             break;
             case QLCChannel::Colour:
             {
-                if (value == 0)
-                    break;
-
                 QLCCapability *cap = ch->searchCapability(value);
 
                 if (cap == NULL ||

@@ -96,8 +96,9 @@ Entity
     /* ****** These are bound to uniforms in ScreenQuadEntity ***** */
 
     property int lightIndex
-    property real lightIntensity: 0
-    property real intensityOrigValue: lightIntensity
+    property real lightIntensity: dimmerValue * shutterValue
+    property real dimmerValue: 0
+    property real shutterValue: 1.0
     property color lightColor: Qt.rgba(0, 0, 0, 1)
     property vector3d lightPos: Qt.vector3d(0, 0, 0)
     property vector3d lightDir: Math3D.getLightDirection(transform, panTransform, tiltTransform)
@@ -185,12 +186,11 @@ Entity
         switch(type)
         {
             case QLCCapability.ShutterOpen:
-                lightIntensity = intensityOrigValue
+                shutterValue = 1.0
             break;
 
             case QLCCapability.ShutterClose:
-                intensityOrigValue = lightIntensity
-                lightIntensity = 0
+                shutterValue = 0
             break;
 
             case QLCCapability.StrobeFastToSlow:
@@ -271,14 +271,14 @@ Entity
     }
 
     // strobe/pulse effect
-    QQ2.SequentialAnimation on lightIntensity
+    QQ2.SequentialAnimation on shutterValue
     {   
         id: shutterAnim
         running: false
         loops: QQ2.Animation.Infinite
-        QQ2.NumberAnimation { id: inPhase; from: 0; to: intensityOrigValue; duration: 0; easing.type: Easing.Linear }
-        QQ2.NumberAnimation { id: highPhase; from: intensityOrigValue; to: intensityOrigValue; duration: 200; easing.type: Easing.Linear }
-        QQ2.NumberAnimation { id: outPhase; from: intensityOrigValue; to: 0; duration: 0; easing.type: Easing.Linear }
+        QQ2.NumberAnimation { id: inPhase; from: 0; to: 1.0; duration: 0; easing.type: Easing.Linear }
+        QQ2.NumberAnimation { id: highPhase; from: 1.0; to: 1.0; duration: 200; easing.type: Easing.Linear }
+        QQ2.NumberAnimation { id: outPhase; from: 1.0; to: 0; duration: 0; easing.type: Easing.Linear }
         QQ2.NumberAnimation { id: lowPhase; from: 0; to: 0; duration: 800; easing.type: Easing.Linear }
     }
 

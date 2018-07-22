@@ -407,6 +407,9 @@ int FixtureUtils::shutterTimings(const QLCChannel *ch, uchar value, int &highTim
         default:
         {
             QLCCapability *cap = ch->searchCapability(value);
+            if (cap == NULL)
+                break;
+
             capPreset = cap->preset();
             switch (capPreset)
             {
