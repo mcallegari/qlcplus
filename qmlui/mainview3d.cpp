@@ -172,7 +172,7 @@ QString MainView3D::meshDirectory() const
 {
     QDir dir = QDir::cleanPath(QLCFile::systemDirectory(MESHESDIR).path());
     //qDebug() << "Absolute mesh path: " << dir.absolutePath();
-    return QString("file://") + dir.absolutePath() + QDir::separator();
+    return QString("file:///") + dir.absolutePath() + QDir::separator();
 }
 
 QString MainView3D::goboDirectory() const
@@ -1219,7 +1219,7 @@ void MainView3D::createGenericItem(QString filename, int itemID)
         if (resFile.startsWith(meshDirectory()))
             resFile = QUrl(filename).toLocalFile();
         else
-            resFile.remove("file://");
+            resFile.remove("file:///");
         QVector3D envSize = m_monProps->gridSize();
         QVector3D newPos((envSize.x() / 2) * 1000.0, 1000.0, (envSize.z() / 2) * 1000.0);
         m_monProps->setItemPosition(m_latestGenericID, newPos);
@@ -1235,7 +1235,7 @@ void MainView3D::createGenericItem(QString filename, int itemID)
         {
             // 2 - mesh directory relative path
             QString meshFile = meshDirectory() + filename;
-            meshFile.remove("file://");
+            meshFile.remove("file:///");
             fInfo.setFile(meshFile);
             if (fInfo.exists() == false)
             {
@@ -1250,7 +1250,7 @@ void MainView3D::createGenericItem(QString filename, int itemID)
                 }
                 else
                 {
-                    filename = "file://" + m_doc->getWorkspacePath() + QDir::separator() + filename;
+                    filename = "file:///" + m_doc->getWorkspacePath() + QDir::separator() + filename;
                 }
             }
             else
@@ -1260,7 +1260,7 @@ void MainView3D::createGenericItem(QString filename, int itemID)
         }
         else
         {
-            filename = "file://" + filename;
+            filename = "file:///" + filename;
         }
 
         m_latestGenericID = itemID;
