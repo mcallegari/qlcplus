@@ -107,7 +107,10 @@ Entity
 
             parameters.push(uniformComp.createObject(spotlightConeMaterial,
                             { name: "goboTex", value: Qt.binding(function() { return fxItem.goboTexture }) }))
-                         
+
+            parameters.push(uniformComp.createObject(spotlightConeMaterial,
+                            { name: "smokeAmount", value: Qt.binding(function() { return View3D.smokeAmount }) }))
+
             // dump the uniform list (uncomment for debug purposes)
             // parameters.forEach(function (p) { console.log(p.name, '=', p.value); })
 
