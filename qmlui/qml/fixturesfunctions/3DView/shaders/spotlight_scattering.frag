@@ -40,6 +40,8 @@ uniform float coneTopRadius;
 uniform float coneBottomRadius;
 uniform float coneDistCutoff;
 
+uniform float smokeAmount;
+
 uniform sampler2D depthTex;
 uniform mat4 viewProjectionMatrix;
 uniform mat4 inverseViewProjectionMatrix;
@@ -145,6 +147,6 @@ void main()
 
         p += rd * stepLength;
     }
-    MGL_FRAG_COLOR = vec4(accum * lightIntensity * lightColor, 0.0);
+    MGL_FRAG_COLOR = vec4(accum * lightIntensity * smokeAmount * lightColor, 0.0);
     //MGL_FRAG_COLOR = vec4(1.0, 0.0, 0.0, 0.0);
 }
