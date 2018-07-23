@@ -109,7 +109,14 @@ Entity
                             { name: "goboTex", value: Qt.binding(function() { return fxItem.goboTexture }) }))
 
             parameters.push(uniformComp.createObject(spotlightConeMaterial,
-                            { name: "smokeAmount", value: Qt.binding(function() { return View3D.smokeAmount }) }))
+                            { name: "goboRotation", value: Qt.binding(
+                                function() {
+                                    var theta = fxItem.goboRotation
+                                    return  Qt.vector4d(Math.cos(theta), -Math.sin(theta), Math.sin(theta), Math.cos(theta));
+                                })}))
+
+            parameters.push(uniformComp.createObject(spotlightConeMaterial,
+                            { name: "smokeAmount", value: Qt.binding(function() { return View3D.smokeAmount }) }))  
 
             // dump the uniform list (uncomment for debug purposes)
             // parameters.forEach(function (p) { console.log(p.name, '=', p.value); })

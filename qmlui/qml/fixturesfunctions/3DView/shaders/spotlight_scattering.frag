@@ -34,6 +34,8 @@ uniform float uLightTanCutoffAngle;
 uniform vec3 lightColor;
 uniform int useShadows;
 
+uniform vec4 goboRotation;
+
 uniform float coneTopRadius;
 uniform float coneBottomRadius;
 uniform float coneDistCutoff;
@@ -130,7 +132,7 @@ void main()
 
         vec4 myq = lightViewMatrix * vec4(p.xyz, 1.0);
         float r = coneTopRadius + (coneBottomRadius - coneTopRadius) * ((abs(myq.z)-0.5*headLength) / coneDistCutoff);
-        vec2 tc = ((-myq.xy) * (1.0 / r)) * 0.5 + 0.5;
+        vec2 tc = mat2x2(goboRotation.x, goboRotation.y, goboRotation.z, goboRotation.w)*(((-myq.xy) * (1.0 / r))) * 0.5 + 0.5;
 
         vec4 gSample = SAMPLE_TEX2D(goboTex, tc.xy);
         
