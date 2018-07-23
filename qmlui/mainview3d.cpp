@@ -980,7 +980,7 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
             break;
             case QLCChannel::Gobo:
             {
-                if (goboSet || (previous.count() && value == previous.at(i)))
+                if (previous.count() && value == previous.at(i))
                     break;
 
                 QLCCapability *cap = ch->searchCapability(value);
@@ -994,7 +994,7 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                     {
                         QString resName = cap->resource(0).toString();
 
-                        if (resName.isEmpty())
+                        if (goboSet || resName.isEmpty())
                             break;
 
                         if (meshItem->m_goboTexture)
@@ -1007,15 +1007,16 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                         goboSet = true;
                     }
                     break;
-                    case QLCCapability::RotationClockwise: // TODO
-                    case QLCCapability::RotationClockwiseFastToSlow:
-                    case QLCCapability::RotationClockwiseSlowToFast:
-                    case QLCCapability::RotationStop:
-                    case QLCCapability::RotationCounterClockwise:
-                    case QLCCapability::RotationCounterClockwiseSlowToFast:
-                    case QLCCapability::RotationCounterClockwiseFastToSlow:
-                    break;
                     default:
+                    {
+                        int speed;
+                        bool clockwise = FixtureUtils::goboTiming(cap, value, speed);
+                        if (speed == -1)
+                            break;
+
+                        QMetaObject::invokeMethod(fixtureItem, "setGoboSpeed",
+                                Q_ARG(QVariant, clockwise), Q_ARG(QVariant, speed));
+                    }
                     break;
                 }
             }

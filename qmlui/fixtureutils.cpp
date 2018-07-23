@@ -42,6 +42,9 @@
 #define MIN_POSITION_SPEED  4000 // ms
 #define MAX_POSITION_SPEED  20000 // ms
 
+#define MIN_GOBO_SPEED      3000 // ms
+#define MAX_GOBO_SPEED      10000 // ms
+
 FixtureUtils::FixtureUtils()
 {
 
@@ -384,6 +387,48 @@ void FixtureUtils::positionTimings(const QLCChannel *ch, uchar value, int &panDu
         default:
         break;
     }
+}
+
+bool FixtureUtils::goboTiming(const QLCCapability *cap, uchar value, int &speed)
+{
+    speed = MIN_GOBO_SPEED;
+    bool clockwise = true;
+
+    value = SCALE(value, cap->min(), cap->max(), 1, 255);
+
+    switch (cap->preset())
+    {
+        case QLCCapability::RotationClockwise:
+            speed = MIN_GOBO_SPEED + ((MAX_GOBO_SPEED - MIN_GOBO_SPEED) / 2);
+        break;
+        case QLCCapability::RotationClockwiseFastToSlow:
+            speed = SCALE(value, 0, 255, MIN_GOBO_SPEED, MAX_GOBO_SPEED);
+        break;
+        case QLCCapability::RotationClockwiseSlowToFast:
+            speed = SCALE(255 - value, 0, 255, MIN_GOBO_SPEED, MAX_GOBO_SPEED);
+        break;
+        case QLCCapability::RotationStop:
+            speed = 0;
+        break;
+        case QLCCapability::RotationCounterClockwise:
+            speed = MIN_GOBO_SPEED + ((MAX_GOBO_SPEED - MIN_GOBO_SPEED) / 2);
+            clockwise = false;
+        break;
+        case QLCCapability::RotationCounterClockwiseFastToSlow:
+            speed = SCALE(value, 0, 255, MIN_GOBO_SPEED, MAX_GOBO_SPEED);
+            clockwise = false;
+        break;
+        case QLCCapability::RotationCounterClockwiseSlowToFast:
+            speed = SCALE(255 - value, 0, 255, MIN_GOBO_SPEED, MAX_GOBO_SPEED);
+            clockwise = false;
+        break;
+        default:
+            // not a handled/valid capability. Invalidate speed
+            speed = -1;
+        break;
+    }
+
+    return clockwise;
 }
 
 int FixtureUtils::shutterTimings(const QLCChannel *ch, uchar value, int &highTime, int &lowTime)

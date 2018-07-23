@@ -27,6 +27,7 @@
 class Doc;
 class Fixture;
 class QLCChannel;
+class QLCCapability;
 class QLCFixtureMode;
 class MonitorProperties;
 
@@ -62,6 +63,9 @@ public:
 
     /** Calculate the pan/tilt speed depending on the $ch preset */
     static void positionTimings(const QLCChannel *ch, uchar value, int &panDuration, int &tiltDuration);
+
+    /** Calculate the gobo wheel speed depending on $cap preset */
+    static bool goboTiming(const QLCCapability *cap, uchar value, int &speed);
 
     /** Calculate the rise/fall periods for a shutter channel $ch, considering presets */
     static int shutterTimings(const QLCChannel *ch, uchar value, int &highTime, int &lowTime);

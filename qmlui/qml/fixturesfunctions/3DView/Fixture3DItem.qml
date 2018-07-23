@@ -314,20 +314,30 @@ Entity
     /* **************** Gobo properties **************** */
     property Texture2D goboTexture: Texture2D { }
     property real goboRotation: 0
-    property real goboRotDuration: 2000
 
-/*
+    function setGoboSpeed(cw, speed)
+    {
+        //console.log("Gobo clockwise: " + (cw ? "yes" : "no") + " speed: " + speed)
+        goboAnim.stop()
+        goboAnim.from = cw ? 0 : 359
+        goboAnim.to = cw ? 359 : 0
+        if (speed !== 0)
+        {
+            goboAnim.duration = speed
+            goboAnim.restart()
+        }
+    }
+
     QQ2.NumberAnimation on goboRotation
     {
         id: goboAnim
-        running: true
-        duration: goboRotDuration
+        running: false
+        duration: 0
         easing.type: Easing.Linear
         from: 0
         to: 360
         loops: QQ2.Animation.Infinite
     }
-*/
 
     /* Cone meshes used for scattering. These get re-parented to a head mesh via setupScattering */
     SpotlightConeEntity { id: shadingCone }
