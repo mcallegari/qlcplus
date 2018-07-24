@@ -636,7 +636,6 @@ QEntity *MainView3D::inspectEntity(QEntity *entity, SceneItem *meshRef,
                 material->addParameter(new QParameter("shininess", 1.0));
             }
         }
-        
 
         if (transform)
             translation += transform->translation();
