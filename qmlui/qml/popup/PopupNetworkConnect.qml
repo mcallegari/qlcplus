@@ -46,7 +46,7 @@ CustomPopupDialog
                 //wrapText: true
                 height: UISettings.listItemHeight * 3
                 label: qsTr("A client with name <") + clientName +
-                       qsTr(">\nhas request to access this session.\nAccess level:")
+                       qsTr(">\nis requesting access to this session.\nAccess level:")
             }
 
             // row 2
