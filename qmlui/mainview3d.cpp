@@ -627,7 +627,7 @@ QEntity *MainView3D::inspectEntity(QEntity *entity, SceneItem *meshRef,
             {             
                 material->addParameter(new QParameter("diffuse", pMaterial->diffuse()));
                 material->addParameter(new QParameter("specular", pMaterial->specular()));
-                material->addParameter(new QParameter("shininess", pMaterial->shininess() ? pMaterial->shininess() : 1.0));     
+                material->addParameter(new QParameter("shininess", pMaterial->shininess() ? pMaterial->shininess() : 1.0));
             }
             else
             {
