@@ -32,7 +32,7 @@ Entity
 
     property Layer sceneLayer
     property Effect effect
-    
+
     // if the model changes, this has to be changed accordingly
     property real trussHalfSize: 0.15
 
