@@ -1957,8 +1957,11 @@ I cambiamenti verranno perduti se non salvati.</translation>
     <message>
         <location filename="qml/popup/PopupNetworkConnect.qml" line="49"/>
         <source>&gt;
-has request to access this session.
+is requesting access to this session.
 Access level:</source>
+        <oldsource>&gt;
+has request to access this session.
+Access level:</oldsource>
         <translation>&gt;
 ha richiesto di accedere a questa sessione.
 Livello di accesso:</translation>
@@ -2894,16 +2897,16 @@ Livello di accesso:</translation>
 <context>
     <name>ShowItem</name>
     <message>
-        <location filename="qml/showmanager/ShowItem.qml" line="223"/>
-        <location filename="qml/showmanager/ShowItem.qml" line="274"/>
-        <location filename="qml/showmanager/ShowItem.qml" line="311"/>
+        <location filename="qml/showmanager/ShowItem.qml" line="220"/>
+        <location filename="qml/showmanager/ShowItem.qml" line="271"/>
+        <location filename="qml/showmanager/ShowItem.qml" line="308"/>
         <source>Position: </source>
         <translation>Posizione: </translation>
     </message>
     <message>
-        <location filename="qml/showmanager/ShowItem.qml" line="275"/>
-        <location filename="qml/showmanager/ShowItem.qml" line="312"/>
-        <location filename="qml/showmanager/ShowItem.qml" line="383"/>
+        <location filename="qml/showmanager/ShowItem.qml" line="272"/>
+        <location filename="qml/showmanager/ShowItem.qml" line="309"/>
+        <location filename="qml/showmanager/ShowItem.qml" line="380"/>
         <source>Duration: </source>
         <translation>Durata: </translation>
     </message>
@@ -3009,8 +3012,8 @@ Livello di accesso:</translation>
         <translation>Traccia %1</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="678"/>
-        <location filename="showmanager.cpp" line="691"/>
+        <location filename="showmanager.cpp" line="680"/>
+        <location filename="showmanager.cpp" line="693"/>
         <source>(Copy)</source>
         <translation>(Copia)</translation>
     </message>

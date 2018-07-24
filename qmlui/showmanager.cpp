@@ -338,6 +338,8 @@ bool ShowManager::checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int n
         dstTrack->addShowFunction(sf);
     }
 
+    m_doc->setModified();
+
     return true;
 }
 

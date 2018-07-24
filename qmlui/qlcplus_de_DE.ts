@@ -161,8 +161,9 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     </message>
     <message>
         <location filename="qml/fixturesfunctions/AddFunctionMenu.qml" line="57"/>
-        <source>New Szene</source>
-        <translation>Neue Scene</translation>
+        <source>New Scene</source>
+        <oldsource>New Szene</oldsource>
+        <translation>Neue Szene</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/AddFunctionMenu.qml" line="63"/>
@@ -515,88 +516,88 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
 <context>
     <name>ColorToolFilters</name>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="127"/>
+        <location filename="qml/ColorToolFilters.qml" line="126"/>
         <source>Open filters menu</source>
         <translation>Filter-Menü öffnen</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="209"/>
+        <location filename="qml/ColorToolFilters.qml" line="208"/>
         <source>Cyan</source>
         <translation>Cyan</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="209"/>
+        <location filename="qml/ColorToolFilters.qml" line="208"/>
         <source>Red</source>
         <translation>Rot</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="229"/>
+        <location filename="qml/ColorToolFilters.qml" line="228"/>
         <source>White</source>
         <translation>Weiß</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="250"/>
+        <location filename="qml/ColorToolFilters.qml" line="249"/>
         <source>Magenta</source>
         <translation>Magenta</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="250"/>
+        <location filename="qml/ColorToolFilters.qml" line="249"/>
         <source>Green</source>
         <translation>Grün</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="270"/>
+        <location filename="qml/ColorToolFilters.qml" line="269"/>
         <source>Amber</source>
         <translatorcomment>Nicht &quot;Bernstein&quot;, da &quot;Amber&quot; auch im Deutschen die übliche LED-Bezeichnung ist.</translatorcomment>
         <translation>Amber</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="291"/>
+        <location filename="qml/ColorToolFilters.qml" line="290"/>
         <source>Yellow</source>
         <translation>Gelb</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="291"/>
+        <location filename="qml/ColorToolFilters.qml" line="290"/>
         <source>Blue</source>
         <translation>Blau</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="311"/>
+        <location filename="qml/ColorToolFilters.qml" line="310"/>
         <source>UV</source>
         <translation>UV</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="332"/>
+        <location filename="qml/ColorToolFilters.qml" line="331"/>
         <source>CMY</source>
         <translation>CMY</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="379"/>
+        <location filename="qml/ColorToolFilters.qml" line="378"/>
         <source>Add a new color filters file</source>
         <translation>Neue Farbfilterdatei hinzufügen</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="393"/>
-        <source>Rename the current color filters</source>
-        <translation>Aktuelle Farbfilterdatei umbenennen</translation>
+        <location filename="qml/ColorToolFilters.qml" line="392"/>
+        <source>Rename the current color filters file</source>
+        <translation></translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="402"/>
+        <location filename="qml/ColorToolFilters.qml" line="401"/>
         <source>Save the current color filters file</source>
         <translation>Aktuelle Farbfilterdatei speichern</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="418"/>
+        <location filename="qml/ColorToolFilters.qml" line="417"/>
         <source>Add a new filter</source>
         <translation>Neuen Farbfilter hinzufügen</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="438"/>
+        <location filename="qml/ColorToolFilters.qml" line="437"/>
         <source>Delete the selected filter</source>
         <translation>Ausgewählten Farbfilter entfernen</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="455"/>
+        <location filename="qml/ColorToolFilters.qml" line="454"/>
         <source>Paste the latest picked color as new filter</source>
         <translation>Zuletzt gewählte Farbe als neuen Filter hinzufügen</translation>
     </message>
@@ -648,7 +649,7 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
         <translation>Universe Gitteransicht</translation>
     </message>
     <message>
-        <location filename="contextmanager.cpp" line="971"/>
+        <location filename="contextmanager.cpp" line="988"/>
         <source>linked</source>
         <translation>verknüpft</translation>
     </message>
@@ -894,6 +895,11 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
         <source>Add a keyboard combination</source>
         <translation>Tastenkombination hinzufügen</translation>
     </message>
+    <message>
+        <location filename="qml/ExternalControls.qml" line="103"/>
+        <source>Manually select an input source</source>
+        <translation></translation>
+    </message>
 </context>
 <context>
     <name>FixtureChannelDelegate</name>
@@ -1023,21 +1029,23 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <name>FixtureManager</name>
     <message>
         <location filename="fixturemanager.cpp" line="566"/>
+        <location filename="fixturemanager.cpp" line="701"/>
+        <location filename="fixturemanager.cpp" line="961"/>
         <source>Head</source>
         <translation>Head</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="847"/>
+        <location filename="fixturemanager.cpp" line="888"/>
         <source>New group %1</source>
         <translation>Neue Gruppe %1</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="984"/>
+        <location filename="fixturemanager.cpp" line="1076"/>
         <source>%1 - Row %2</source>
         <translation>%1 – Reihe %2</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1265"/>
+        <location filename="fixturemanager.cpp" line="1358"/>
         <source>New filters %1</source>
         <translation>Neue Filter %1</translation>
     </message>
@@ -1624,27 +1632,27 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
 <context>
     <name>MainView3D</name>
     <message>
-        <location filename="mainview3d.cpp" line="51"/>
+        <location filename="mainview3d.cpp" line="63"/>
         <source>3D View</source>
         <translation>3D-Ansicht</translation>
     </message>
     <message>
-        <location filename="mainview3d.cpp" line="57"/>
+        <location filename="mainview3d.cpp" line="70"/>
         <source>Simple ground</source>
         <translation>Einfacher Boden</translation>
     </message>
     <message>
-        <location filename="mainview3d.cpp" line="57"/>
+        <location filename="mainview3d.cpp" line="70"/>
         <source>Simple box</source>
         <translation>Einfache Box</translation>
     </message>
     <message>
-        <location filename="mainview3d.cpp" line="57"/>
+        <location filename="mainview3d.cpp" line="70"/>
         <source>Rock stage</source>
         <translation>Rockkonzertbühne</translation>
     </message>
     <message>
-        <location filename="mainview3d.cpp" line="57"/>
+        <location filename="mainview3d.cpp" line="70"/>
         <source>Theatre stage</source>
         <translation>Theaterbühne</translation>
     </message>
@@ -1716,72 +1724,72 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
         <translation>Neue Szene</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupDMXDump.qml" line="108"/>
+        <location filename="qml/popup/PopupDMXDump.qml" line="111"/>
         <source>Don&apos;t ask again</source>
         <translation>Nicht erneut fragen</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupDMXDump.qml" line="114"/>
+        <location filename="qml/popup/PopupDMXDump.qml" line="118"/>
         <source>Available channel types</source>
         <translation>Verfügbare Kanaltypen</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupDMXDump.qml" line="134"/>
+        <location filename="qml/popup/PopupDMXDump.qml" line="138"/>
         <source>Intensity</source>
         <translation>Intensität</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupDMXDump.qml" line="152"/>
+        <location filename="qml/popup/PopupDMXDump.qml" line="156"/>
         <source>RGB/CMY/WAUV</source>
         <translation>RGB/CMY/WAUV</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupDMXDump.qml" line="171"/>
+        <location filename="qml/popup/PopupDMXDump.qml" line="175"/>
         <source>Color macros</source>
         <translation>Farbmakros</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupDMXDump.qml" line="189"/>
+        <location filename="qml/popup/PopupDMXDump.qml" line="193"/>
         <source>Gobo</source>
         <translation>Gobo</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupDMXDump.qml" line="208"/>
+        <location filename="qml/popup/PopupDMXDump.qml" line="212"/>
         <source>Pan</source>
         <translation>Pan</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupDMXDump.qml" line="226"/>
+        <location filename="qml/popup/PopupDMXDump.qml" line="230"/>
         <source>Tilt</source>
         <translation>Tilt</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupDMXDump.qml" line="245"/>
+        <location filename="qml/popup/PopupDMXDump.qml" line="249"/>
         <source>Speed</source>
         <translation>Tempo</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupDMXDump.qml" line="263"/>
+        <location filename="qml/popup/PopupDMXDump.qml" line="267"/>
         <source>Shutter/Strobe</source>
         <translation>Shutter/Strobo</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupDMXDump.qml" line="282"/>
+        <location filename="qml/popup/PopupDMXDump.qml" line="286"/>
         <source>Prism</source>
         <translation>Prisma</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupDMXDump.qml" line="300"/>
+        <location filename="qml/popup/PopupDMXDump.qml" line="304"/>
         <source>Beam</source>
         <translation>Lichtstrahl</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupDMXDump.qml" line="319"/>
+        <location filename="qml/popup/PopupDMXDump.qml" line="323"/>
         <source>Effect</source>
         <translation>Effekt</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupDMXDump.qml" line="337"/>
+        <location filename="qml/popup/PopupDMXDump.qml" line="341"/>
         <source>Maintenance</source>
         <translation>Wartung</translation>
     </message>
@@ -1810,6 +1818,34 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
         <location filename="qml/popup/PopupImportProject.qml" line="62"/>
         <source>Functions</source>
         <translation>Funktionen</translation>
+    </message>
+</context>
+<context>
+    <name>PopupManualInputSource</name>
+    <message>
+        <location filename="qml/popup/PopupManualInputSource.qml" line="31"/>
+        <source>Manual input source selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/popup/PopupManualInputSource.qml" line="85"/>
+        <source>Input profiles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/popup/PopupManualInputSource.qml" line="186"/>
+        <source>Manual selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/popup/PopupManualInputSource.qml" line="194"/>
+        <source>Universe</source>
+        <translation type="unfinished">Universum</translation>
+    </message>
+    <message>
+        <location filename="qml/popup/PopupManualInputSource.qml" line="209"/>
+        <source>Channel</source>
+        <translation type="unfinished">Kanal</translation>
     </message>
 </context>
 <context>
@@ -1923,9 +1959,12 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/popup/PopupNetworkConnect.qml" line="49"/>
         <source>&gt;
-has request to access this session.
+is requesting access to this session.
 Access level:</source>
-        <translation>&gt;
+        <oldsource>&gt;
+has request to access this session.
+Access level:</oldsource>
+        <translation type="unfinished">&gt;
 hat Zugriff auf dieses Sitzung angefragt.
 Zugriffsstufe:</translation>
     </message>
@@ -2486,12 +2525,12 @@ Zugriffsstufe:</translation>
         <translation>In eine neue Szene speichern</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/RightPanel.qml" line="442"/>
+        <location filename="qml/fixturesfunctions/RightPanel.qml" line="449"/>
         <source>Function Preview</source>
         <translation>Funktions-Voransicht</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/RightPanel.qml" line="462"/>
+        <location filename="qml/fixturesfunctions/RightPanel.qml" line="469"/>
         <source>Reset dump channels</source>
         <translation>Zu speichernde Kanäle zurücksetzen</translation>
     </message>
@@ -2499,9 +2538,24 @@ Zugriffsstufe:</translation>
 <context>
     <name>SceneEditor</name>
     <message>
-        <location filename="qml/fixturesfunctions/SceneEditor.qml" line="67"/>
+        <location filename="qml/fixturesfunctions/SceneEditor.qml" line="89"/>
         <source>Remove the selected fixtures</source>
         <translation>Ausgewählte Geräte entfernen</translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/SceneEditor.qml" line="132"/>
+        <source>Speed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/SceneEditor.qml" line="145"/>
+        <source>Fade in</source>
+        <translation type="unfinished">Einblenden</translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/SceneEditor.qml" line="178"/>
+        <source>Fade out</source>
+        <translation type="unfinished">Ausblenden</translation>
     </message>
 </context>
 <context>
@@ -2711,47 +2765,117 @@ Zugriffsstufe:</translation>
 <context>
     <name>SettingsView3D</name>
     <message>
-        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="106"/>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="110"/>
         <source>Environment</source>
         <translation>Umgebung</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="111"/>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="120"/>
         <source>Type</source>
         <translation>Typ</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="123"/>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="132"/>
         <source>Width</source>
         <translation>Breite</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="140"/>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="149"/>
         <source>Height</source>
         <translation>Höhe</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="157"/>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="166"/>
         <source>Depth</source>
         <translation>Tiefe</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="185"/>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="188"/>
+        <source>Rendering</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="204"/>
+        <source>Quality</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="213"/>
+        <source>Low</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="214"/>
+        <source>Medium</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="215"/>
+        <source>High</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="216"/>
+        <source>Ultra</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="225"/>
         <source>Ambient light</source>
         <translation>Umgebungslicht</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="190"/>
-        <source>Intensity</source>
-        <translation>Intensität</translation>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="238"/>
+        <source>Smoke amount</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="215"/>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="419"/>
+        <source>Scale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="544"/>
+        <source>Custom items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="550"/>
+        <source>Select a mesh file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="552"/>
+        <source>3D files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="552"/>
+        <source>All files</source>
+        <translation type="unfinished">Alle Dateien</translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="563"/>
+        <source>Actions</source>
+        <translation type="unfinished">Aktionen</translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="569"/>
+        <source>Add a new item to the scene</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="578"/>
+        <source>Remove the selected items</source>
+        <translation type="unfinished">Ausgewählte Elemente entfernen</translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="256"/>
         <source>Position</source>
         <translation>Position</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="277"/>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="339"/>
         <source>Rotation</source>
         <translation>Rotation</translation>
     </message>
@@ -2777,16 +2901,16 @@ Zugriffsstufe:</translation>
 <context>
     <name>ShowItem</name>
     <message>
-        <location filename="qml/showmanager/ShowItem.qml" line="223"/>
-        <location filename="qml/showmanager/ShowItem.qml" line="274"/>
-        <location filename="qml/showmanager/ShowItem.qml" line="311"/>
+        <location filename="qml/showmanager/ShowItem.qml" line="220"/>
+        <location filename="qml/showmanager/ShowItem.qml" line="271"/>
+        <location filename="qml/showmanager/ShowItem.qml" line="308"/>
         <source>Position: </source>
         <translation>Position: </translation>
     </message>
     <message>
-        <location filename="qml/showmanager/ShowItem.qml" line="275"/>
-        <location filename="qml/showmanager/ShowItem.qml" line="312"/>
-        <location filename="qml/showmanager/ShowItem.qml" line="383"/>
+        <location filename="qml/showmanager/ShowItem.qml" line="272"/>
+        <location filename="qml/showmanager/ShowItem.qml" line="309"/>
+        <location filename="qml/showmanager/ShowItem.qml" line="380"/>
         <source>Duration: </source>
         <translation>Dauer: </translation>
     </message>
@@ -2892,8 +3016,8 @@ Zugriffsstufe:</translation>
         <translation>Spur %1</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="678"/>
-        <location filename="showmanager.cpp" line="691"/>
+        <location filename="showmanager.cpp" line="680"/>
+        <location filename="showmanager.cpp" line="693"/>
         <source>(Copy)</source>
         <translation>(Kopie)</translation>
     </message>
@@ -3158,29 +3282,44 @@ Zugriffsstufe:</translation>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="278"/>
         <source>M</source>
-        <translation>Mo</translation>
+        <comment>As in Monday</comment>
+        <translation type="unfinished">Mo</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="291"/>
-        <location filename="qml/virtualconsole/VCClockProperties.qml" line="317"/>
         <source>T</source>
-        <translation>Di</translation>
+        <comment>As in Tuesday</comment>
+        <translation type="unfinished">Di</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="304"/>
         <source>W</source>
-        <translation>Mi</translation>
+        <comment>As in Wednesday</comment>
+        <translation type="unfinished">B</translation>
+    </message>
+    <message>
+        <location filename="qml/virtualconsole/VCClockProperties.qml" line="317"/>
+        <source>T</source>
+        <comment>As in Thursday</comment>
+        <translation type="unfinished">Di</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="330"/>
         <source>F</source>
-        <translation>Fr</translation>
+        <comment>As in Friday</comment>
+        <translation type="unfinished">Fr</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="343"/>
+        <source>S</source>
+        <comment>As in Saturday</comment>
+        <translation type="unfinished">Sa</translation>
+    </message>
+    <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="356"/>
         <source>S</source>
-        <translation>Sa</translation>
+        <comment>As in Sunday</comment>
+        <translation type="unfinished">Sa</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="376"/>
@@ -3797,72 +3936,82 @@ Zugriffsstufe:</translation>
         <translation>Zuerst ein Element auswählen</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="154"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="168"/>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="181"/>
+        <source>External controls</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="194"/>
         <source>Basic properties</source>
         <translation>Grundlegende Eigenschaften</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="169"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="209"/>
         <source>Label</source>
         <translation>Beschriftung</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="194"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="234"/>
         <source>Background color</source>
         <translation>Hintergrundfarbe</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="217"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="257"/>
         <source>Foreground color</source>
         <translation>Vordergrundfarbe</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="240"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="280"/>
         <source>Font</source>
         <translation>Schriftart</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="275"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="315"/>
         <source>Please choose a font</source>
         <translation>Bitte eine Schriftart wählen</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="295"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="335"/>
         <source>Background image</source>
         <translation>Hintergrundsbild</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="326"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="366"/>
         <source>Select an image</source>
         <translation>Ein Bild auswählen</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="344"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="384"/>
         <source>Alignment</source>
         <translation>Ausrichtung</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="359"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="399"/>
         <source>Align the selected widgets to the left</source>
         <translation>Ausgewählte Elemente links ausrichten</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="369"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="409"/>
         <source>Align the selected widgets to the right</source>
         <translation>Ausgewählte Elemente rechts ausrichten</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="379"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="419"/>
         <source>Align the selected widgets to the top</source>
         <translation>Ausgewählte Elemente oben ausrichten</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="389"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="429"/>
         <source>Align the selected widgets to the bottom</source>
         <translation>Ausgewählte Elemente unten ausrichten</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="410"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="450"/>
         <source>External Controls</source>
         <translation>Externe Steuerungen</translation>
     </message>
@@ -4068,17 +4217,17 @@ Zugriffsstufe:</translation>
         <translation>Solo</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="75"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="79"/>
         <source>Virtual Console</source>
         <translation>Virtuelle Konsole</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="239"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="244"/>
         <source>&lt;None&gt;</source>
         <translation>&lt;Keine&gt;</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1122"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1217"/>
         <source>Page %1</source>
         <translation>Seite %1</translation>
     </message>
