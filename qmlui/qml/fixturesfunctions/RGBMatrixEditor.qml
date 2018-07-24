@@ -861,7 +861,8 @@ Rectangle
 
         RobotoText
         {
-            height: UISettings.listItemHeight
+            implicitHeight: UISettings.listItemHeight
+            implicitWidth: width
             property string propName
 
             label: propName
