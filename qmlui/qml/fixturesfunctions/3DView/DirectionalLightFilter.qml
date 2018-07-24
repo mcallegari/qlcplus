@@ -33,6 +33,9 @@ TechniqueFilter
     parameters: [
         Parameter { name: "albedoTex"; value: gBuffer.color },
         Parameter { name: "normalTex"; value: gBuffer.normal },
+        Parameter { name: "specularTex"; value: gBuffer.specular },
+        Parameter { name: "depthTex"; value: gBuffer.depth },
+
         Parameter { name: "ambient"; value: ambientIntensity }
     ]     
 
