@@ -32,7 +32,7 @@ Entity
 
     property Layer sceneLayer
     property Effect effect
-
+    
     // if the model changes, this has to be changed accordingly
     property real trussHalfSize: 0.15
 
@@ -40,7 +40,12 @@ Entity
         Material
         {
             effect: stage.effect
-            parameters: Parameter { name: "diffuse"; value: "lightgray" }
+
+            parameters: [
+                Parameter { name: "diffuse"; value: "lightgray" },
+                Parameter { name: "specular"; value: "black" },
+                Parameter { name: "shininess"; value: 1.0 }
+            ]
         }
 
     onSizeChanged:
