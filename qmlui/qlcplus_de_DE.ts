@@ -2123,7 +2123,7 @@ Zugriffsstufe:</translation>
     <message>
         <location filename="qml/popup/PopupRenameItems.qml" line="74"/>
         <source>Enable numbering</source>
-        <translation>Numerierung aktivieren</translation>
+        <translation>Nummerierung aktivieren</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupRenameItems.qml" line="82"/>
