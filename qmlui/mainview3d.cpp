@@ -624,15 +624,19 @@ QEntity *MainView3D::inspectEntity(QEntity *entity, SceneItem *meshRef,
             Qt3DExtras::QPhongMaterial *pMaterial = qobject_cast<Qt3DExtras::QPhongMaterial *>(component);
 
             if (pMaterial)
-            {
-                material->addParameter(new QParameter("meshColor", pMaterial->diffuse()));
+            {             
+                material->addParameter(new QParameter("diffuse", pMaterial->diffuse()));
+                material->addParameter(new QParameter("specular", pMaterial->specular()));
+                material->addParameter(new QParameter("shininess", pMaterial->shininess()));
             }
             else
             {
-                // workaround for DAE loader, acquiring a material from the previous mesh. WTF.
-                material->addParameter(new QParameter("meshColor", QVector3D(0.64f, 0.64f, 0.64f)));
+                material->addParameter(new QParameter("diffuse", QVector3D(0.64f, 0.64f, 0.64f)));
+                material->addParameter(new QParameter("specular", QVector3D(0.64f, 0.64f, 0.64f)));
+                material->addParameter(new QParameter("shininess", 1.0));
             }
         }
+        
 
         if (transform)
             translation += transform->translation();

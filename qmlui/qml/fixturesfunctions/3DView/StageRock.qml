@@ -40,7 +40,7 @@ Entity
         Material
         {
             effect: stage.effect
-            parameters: Parameter { name: "meshColor"; value: "lightgray" }
+            parameters: Parameter { name: "diffuse"; value: "lightgray" }
         }
 
     onSizeChanged:

@@ -44,9 +44,13 @@ Entity
         id: spotlightConeMaterial
 
         effect: coneEffect
+
         parameters: [
-            Parameter { name: "meshColor"; value: "blue" }
+            Parameter { name: "diffuse"; value: "blue" },
+            Parameter { name: "specular"; value: "black" },
+            Parameter { name: "shininess"; value: 1.0 }
         ]
+
 
         function bindFixture(fxItem)
         {
