@@ -289,7 +289,7 @@ bool ScriptRunner::setFixture(quint32 fxID, quint32 channel, uchar value, uint t
     if (gf->channels().contains(fc) == true)
         fc.setStart(gf->channels()[fc].current());
     //else
-    //    fc.setStart(universes[uni]->preGMValue(address)); // TODO ?
+    //    fc.setStart(universes[uni]->preGMValue(address)); // TODO?
     fc.setCurrent(fc.start());
 
     gf->add(fc);

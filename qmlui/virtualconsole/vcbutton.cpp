@@ -104,7 +104,7 @@ bool VCButton::copyFrom(const VCWidget* widget)
         return false;
 
     /* Copy button-specific stuff */
-    //setIconPath(button->iconPath()); // TODO ?
+    //setIconPath(button->iconPath()); // TODO?
     setFunctionID(button->functionID());
     setStartupIntensityEnabled(button->startupIntensityEnabled());
     setStartupIntensity(button->startupIntensity());

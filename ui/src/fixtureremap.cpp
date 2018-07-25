@@ -154,7 +154,7 @@ QTreeWidgetItem *FixtureRemap::getUniverseItem(Doc *doc, quint32 universe, QTree
         }
     }
 
-    // Haven't found this universe node ? Create it.
+    // Haven't found this universe node? Create it.
     if (topItem == NULL)
     {
         topItem = new QTreeWidgetItem(tree);
@@ -327,13 +327,13 @@ void FixtureRemap::slotRemoveTargetFixture()
 void FixtureRemap::slotCloneSourceFixture()
 {
     if (m_sourceTree->selectedItems().count() == 0)
-        return; // popup here ??
+        return; // popup here??
 
     QTreeWidgetItem *sItem = m_sourceTree->selectedItems().first();
     quint32 fxID = sItem->text(KColumnID).toUInt();
     Fixture *srcFix = m_doc->fixture(fxID);
     if (srcFix == NULL)
-        return; // popup here ?
+        return; // popup here?
 
     quint32 srcAddr = srcFix->universeAddress();
     for (quint32 i = srcAddr; i < srcAddr + srcFix->channels(); i++)

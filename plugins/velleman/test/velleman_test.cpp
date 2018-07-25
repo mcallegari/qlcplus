@@ -94,7 +94,7 @@ void Velleman_Test::outputInfo()
     Velleman vo;
     vo.init();
 
-// is this seriously needed ??
+// is this seriously needed??
 /*
     QString info;
     info = vo.outputInfo(42);

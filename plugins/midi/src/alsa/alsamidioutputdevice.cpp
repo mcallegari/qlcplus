@@ -227,7 +227,7 @@ void AlsaMidiOutputDevice::writeFeedback(uchar cmd, uchar data1, uchar data2)
         break;
 
     default:
-        // What to do here ??
+        // What to do here??
         invalidCmd = true;
         break;
     }

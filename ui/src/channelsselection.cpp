@@ -114,7 +114,7 @@ void ChannelsSelection::updateFixturesTree()
                 break;
             }
         }
-        // Haven't found this universe node ? Create it.
+        // Haven't found this universe node? Create it.
         if (topItem == NULL)
         {
             topItem = new QTreeWidgetItem(m_channelsTree);

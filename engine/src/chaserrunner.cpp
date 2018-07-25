@@ -449,7 +449,7 @@ void ChaserRunner::adjustIntensity(qreal fraction, int requestedStepIndex, int f
     if (fraction == qreal(0.0))
         return;
 
-    // not found ? It means we need to start a new step and crossfade kicks in !
+    // not found? It means we need to start a new step and crossfade kicks in !
     startNewStep(stepIndex, m_doc->masterTimer(), fraction, fadeControl);
 }
 
