@@ -122,6 +122,8 @@ Entity
             parameters.push(uniformComp.createObject(spotlightConeMaterial,
                             { name: "smokeAmount", value: Qt.binding(function() { return View3D.smokeAmount }) }))  
 
+            spotlightConeEntity.enabled = Qt.binding(function() { return fxItem.lightIntensity ? true : false }) 
+
             // dump the uniform list (uncomment for debug purposes)
             // parameters.forEach(function (p) { console.log(p.name, '=', p.value); })
 
