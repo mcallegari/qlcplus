@@ -49,7 +49,7 @@ CameraSelector
                     ]
 
                     id: geometryPass
-                    matchAny: FilterKey { name: "pass"; value: "shadows" }
+                    matchAny: FilterKey { name: "pass"; value: { return fixtureItem.lightIntensity ? "shadows" : "invalid" } }
                 }
             }
         }
