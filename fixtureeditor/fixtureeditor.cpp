@@ -128,7 +128,7 @@ void QLCFixtureEditor::init()
     if (m_authorEdit->text().length() > 0)
     {
         // Temporarily allow editing author name since most definitions contain wrong name:
-        // m_authorEdit->setEnabled(false); 
+        // m_authorEdit->setEnabled(false);
     }
     else
     {
