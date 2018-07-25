@@ -350,7 +350,7 @@ void FixtureTreeWidget::updateSelections()
 
         qDebug() << "uni ID:" << uniIDVar;
 
-        // Case 1: is there a valid fixture ID ?
+        // Case 1: is there a valid fixture ID?
         if (fxIDVar.isValid())
         {
             quint32 fxi = fxIDVar.toUInt();
@@ -375,7 +375,7 @@ void FixtureTreeWidget::updateSelections()
                 }
             }
         }
-        // Case 2: is there a valid group ID ?
+        // Case 2: is there a valid group ID?
         else if (grpIDVar.isValid())
         {
             // in this case cycle through the children and get each
@@ -388,7 +388,7 @@ void FixtureTreeWidget::updateSelections()
                     m_selectedFixtures << chFxIDVar.toUInt();
             }
         }
-        // Case 3: is there a valid head index ?
+        // Case 3: is there a valid head index?
         else if (headVar.isValid())
         {
             Q_ASSERT(item->parent() != NULL);
@@ -397,7 +397,7 @@ void FixtureTreeWidget::updateSelections()
             if (m_selectedHeads.contains(gh) == false)
                 m_selectedHeads << gh;
         }
-        // Case 4: is there a valid universe index ?
+        // Case 4: is there a valid universe index?
         else if (uniIDVar.isValid())
         {
             qDebug() << "Valid universe....";
@@ -455,7 +455,7 @@ void FixtureTreeWidget::updateTree()
                 }
             }
         }
-        // Haven't found this universe node ? Create it.
+        // Haven't found this universe node? Create it.
         if (topItem == NULL)
         {
             topItem = new QTreeWidgetItem(this);

@@ -658,7 +658,7 @@ void ShowManager::slotAddItem()
         else
         {
             Function *selectedFunc = m_doc->function(selectedID);
-            if (selectedFunc == NULL) // maybe a popup here ?
+            if (selectedFunc == NULL) // maybe a popup here?
                 return;
 
             /** 2) an existing scene */
@@ -775,7 +775,7 @@ void ShowManager::slotAddItem()
         if (selectedID != Function::invalidId())
         {
             Function *selectedFunc = m_doc->function(selectedID);
-            if (selectedFunc == NULL) // maybe a popup here ?
+            if (selectedFunc == NULL) // maybe a popup here?
                 return;
 
             /** 2) create a 10 seconds Sequence on the current track */

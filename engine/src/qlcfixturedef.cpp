@@ -190,7 +190,7 @@ QString QLCFixtureDef::author()
 
 void QLCFixtureDef::checkLoaded(QString mapPath)
 {
-    // Already loaded ? Nothing to do
+    // Already loaded? Nothing to do
     if (m_isLoaded == true)
         return;
 

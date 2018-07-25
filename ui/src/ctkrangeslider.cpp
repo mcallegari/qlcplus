@@ -71,7 +71,7 @@ public:
   int m_MaximumPosition;
   int m_MinimumPosition;
 
-  /// Controls selected ?
+  /// Controls selected?
   QStyle::SubControl m_MinimumSliderSelected;
   QStyle::SubControl m_MaximumSliderSelected;
 

@@ -352,7 +352,7 @@ QVariant EFXEditor::groupsTreeModel()
         treeColumns << "classRef" << "type" << "id" << "subid" << "head";
         m_fixtureTree->setColumnNames(treeColumns);
         m_fixtureTree->enableSorting(false);
-        FixtureManager::updateGroupsTree(m_doc, m_fixtureTree); // TODO: search filter ?
+        FixtureManager::updateGroupsTree(m_doc, m_fixtureTree); // TODO: search filter?
     }
 
     return QVariant::fromValue(m_fixtureTree);

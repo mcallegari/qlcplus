@@ -1533,7 +1533,7 @@ void VirtualConsole::resetContents()
 
 void VirtualConsole::addWidgetInMap(VCWidget* widget)
 {
-    // Valid ID ?
+    // Valid ID?
     if (widget->id() != VCWidget::invalidId())
     {
         // Maybe we don't know this widget yet

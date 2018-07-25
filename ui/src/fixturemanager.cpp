@@ -1258,13 +1258,13 @@ void FixtureManager::removeFixture()
         QTreeWidgetItem* item(it.next());
         Q_ASSERT(item != NULL);
 
-        // Is the item a fixture ?
+        // Is the item a fixture?
         QVariant var = item->data(KColumnName, PROP_ID);
         if (var.isValid() == true)
             fixturesToDelete << var.toUInt();
         else
         {
-            // Is the item a fixture group ?
+            // Is the item a fixture group?
             var = item->data(KColumnName, PROP_GROUP);
             if (var.isValid() == true)
                 groupsToDelete << var.toUInt();

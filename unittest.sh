@@ -34,7 +34,7 @@ else
       HAS_XSERVER="1"
     fi
 
-    # no X server ? Let's look for xvfb. This is how Travis is setup
+    # no X server? Let's look for xvfb. This is how Travis is setup
     if [ -n "$TRAVIS" ]; then
         HAS_XSERVER="1"
     fi
