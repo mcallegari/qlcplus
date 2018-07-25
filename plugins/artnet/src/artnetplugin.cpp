@@ -215,7 +215,7 @@ void ArtNetPlugin::writeUniverse(quint32 universe, quint32 output, const QByteAr
 
 /*************************************************************************
   * Inputs
-  *************************************************************************/  
+  *************************************************************************/
 QStringList ArtNetPlugin::inputs()
 {
     QStringList list;

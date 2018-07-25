@@ -138,7 +138,7 @@ void Universe::setPassthrough(bool enable)
         // we would have to synchronize with other threads
 
         // When enabling passthrough, make sure the array is allocated BEFORE m_passthrough is set to
-        // true. That way we only have to check for m_passthrough, and do not need to check 
+        // true. That way we only have to check for m_passthrough, and do not need to check
         // m_passthroughValues.isNull()
         m_passthroughValues.reset(new QByteArray(UNIVERSE_SIZE, char(0)));
     }
@@ -223,7 +223,7 @@ void Universe::reset(int address, int range)
 {
     if (address >= UNIVERSE_SIZE)
         return;
-    if (address + range > UNIVERSE_SIZE) 
+    if (address + range > UNIVERSE_SIZE)
        range = UNIVERSE_SIZE - address;
 
     memset(m_preGMValues->data() + address, 0, range * sizeof(*m_preGMValues->data()));
@@ -241,7 +241,7 @@ void Universe::zeroIntensityChannels()
     {
         short channel = channels[i] >> 16;
         short size = channels[i] & 0xffff;
-        
+
         reset(channel, size);
     }
 }
@@ -318,7 +318,7 @@ uchar Universe::preGMValue(int address) const
 {
     if (address >= m_preGMValues->size())
         return 0U;
- 
+
     return static_cast<uchar>(m_preGMValues->at(address));
 }
 

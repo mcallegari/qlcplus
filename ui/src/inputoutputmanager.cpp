@@ -70,7 +70,7 @@ InputOutputManager::InputOutputManager(QWidget* parent, Doc* doc)
     s_instance = this;
 
     Q_ASSERT(doc != NULL);
-    
+
     m_ioMap = doc->inputOutputMap();
 
     /* Create a new layout for this widget */

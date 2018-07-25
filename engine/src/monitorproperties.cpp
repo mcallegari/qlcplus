@@ -810,7 +810,7 @@ bool MonitorProperties::saveXML(QXmlStreamWriter *doc, const Doc *mainDocument) 
             doc->writeAttribute(KXMLQLCMonitorItemZScale, QString::number(item.m_scale.z()));
 
         if (item.m_resource.isEmpty() == false)
-        {            
+        {
             // perform normalization depending on the mesh location (mesh folder, project path, absolute path)
             QFileInfo res(item.m_resource);
 

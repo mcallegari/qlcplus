@@ -11,7 +11,7 @@ var isConnected = false;
 var wshost = "http://127.0.0.1:9999";
 
 // helper function to send QLC+ API commands
-function requestAPI(cmd) 
+function requestAPI(cmd)
 {
   if (isConnected === true)
     websocket.send("QLC+API|" + cmd);
@@ -22,7 +22,7 @@ function requestAPI(cmd)
 // helper function to send a QLC+ API with one parameter.
 // The specified parameter is not a value, but a CSS object
 // from which a value is retrieved (usually a <input> box)
-function requestAPIWithParam(cmd, paramObjName) 
+function requestAPIWithParam(cmd, paramObjName)
 {
   var obj = document.getElementById(paramObjName);
   if (obj)
@@ -34,7 +34,7 @@ function requestAPIWithParam(cmd, paramObjName)
   }
 }
 
-function requestChannelsRange(cmd, uniObjName, addressObjName, rangeObjName) 
+function requestChannelsRange(cmd, uniObjName, addressObjName, rangeObjName)
 {
   var uniObj = document.getElementById(uniObjName);
   var addrObj = document.getElementById(addressObjName);
@@ -128,7 +128,7 @@ function connectToWebSocket(host) {
   websocket.onerror = function(ev) {
     alert("QLC+ connection error!");
   };
- 
+
   // WebSocket message handler. This is where async events
   // will be shown or processed as needed
   websocket.onmessage = function(ev) {
@@ -139,13 +139,13 @@ function connectToWebSocket(host) {
     // Arguments vary depending on the API called
 
     var msgParams = ev.data.split('|');
-    
+
     if (msgParams[0] === "QLC+API")
     {
       if (msgParams[1] === "getFunctionsNumber")
 	document.getElementById('getFunctionsNumberBox').innerHTML = msgParams[2];
-      
-      // Arguments is an array formatted as follows: 
+
+      // Arguments is an array formatted as follows:
       // Function ID|Function name|Function ID|Function name|...
       else if (msgParams[1] === "getFunctionsList")
       {
@@ -166,8 +166,8 @@ function connectToWebSocket(host) {
 
       else if (msgParams[1] === "getWidgetsNumber")
 	document.getElementById('getWidgetsNumberBox').innerHTML = msgParams[2];
-      
-      // Arguments is an array formatted as follows: 
+
+      // Arguments is an array formatted as follows:
       // Widget ID|Widget name|Widget ID|Widget name|...
       else if (msgParams[1] === "getWidgetsList")
       {
@@ -179,10 +179,10 @@ function connectToWebSocket(host) {
 	tableCode += "</table>";
 	document.getElementById('getWidgetsListBox').innerHTML = tableCode;
       }
-      
+
       else if (msgParams[1] === "getWidgetType")
 	document.getElementById('getWidgetTypeBox').innerHTML = msgParams[2];
-	
+
       else if (msgParams[1] === "getWidgetStatus")
       {
 	var status = msgParams[2];
@@ -190,7 +190,7 @@ function connectToWebSocket(host) {
 	  status = msgParams[2] + "(Step: " + msgParams[3] + ")";
 	document.getElementById('getWidgetStatusBox').innerHTML = status;
       }
-      
+
       else if (msgParams[1] === "getChannelsValues")
       {
 	var tableCode = "<table class='apiTable'><tr><th>Index</th><th>Value</th><th>Type</th></tr>";
@@ -214,7 +214,7 @@ function loadProject () {
 
 <style type="text/css">
 
-body { 
+body {
   background-color: #45484d;
   color: white;
   font:normal 18px/1.2em sans-serif;
@@ -228,12 +228,12 @@ iframe {
   width: 100%;
 
   -moz-border-radius: 12px;
-  -webkit-border-radius: 12px; 
-  border-radius: 12px; 
+  -webkit-border-radius: 12px;
+  border-radius: 12px;
 
-  -moz-box-shadow: 4px 4px 14px #000; 
-  -webkit-box-shadow: 4px 4px 14px #000; 
-  box-shadow: 4px 4px 14px #000; 
+  -moz-box-shadow: 4px 4px 14px #000;
+  -webkit-box-shadow: 4px 4px 14px #000;
+  box-shadow: 4px 4px 14px #000;
 }
 
 #prjBox {
@@ -255,7 +255,7 @@ iframe {
 }
 
 .apiTable tr {
-  font-size: 14px; 
+  font-size: 14px;
   border: solid 1px white;
 }
 
@@ -266,7 +266,7 @@ iframe {
 }
 
 .apiButton {
-  display: table-cell; 
+  display: table-cell;
   vertical-align: middle;
   text-align: center;
   color: black;
@@ -278,8 +278,8 @@ iframe {
   background: -moz-linear-gradient(-90deg, #81a8cb, #4477a1);
 
   -moz-border-radius: 6px;
-  -webkit-border-radius: 6px; 
-  border-radius: 6px; 
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
 }
 
 .apiButton:hover {
@@ -296,7 +296,7 @@ iframe {
   width: 150px;
   height: 30px;
   background-color: #aaaaaa;
-  border-radius: 6px; 
+  border-radius: 6px;
 }
 
 </style>
@@ -309,7 +309,7 @@ iframe {
 <div id="prjBox"><iframe name="projectFrame" src="" id="projectFrame"></iframe></div>
 
 <!-- ############## Websocket connection code ####################### -->
-QLC+ IP: 
+QLC+ IP:
 <input type="text" id="qlcplusIP" value="127.0.0.1:9999"/>
 <input type="button" value="Connect" onclick="javascript:connectToWebSocket(document.getElementById('qlcplusIP').value);">
 <div id="connStatus" style="display: inline-block;"><font color=red>Not connected</font></div>
@@ -331,7 +331,7 @@ Load a project:
   <th width=30%><b>Description</b></th>
   <th width=40%><b>Result</b></th>
  </tr>
- 
+
 <!-- ############## Channels API tests ####################### -->
 
  <tr>
@@ -350,7 +350,7 @@ Load a project:
  </tr>
 
 <!-- ############## Functions API tests ####################### -->
- 
+
  <tr>
   <td colspan="3" align="center"><b>Function APIs</b></td>
  </tr>
@@ -380,7 +380,7 @@ Load a project:
   <td>Retrieve the status of a function with the given ID. Possible values are "Running", "Stopped" and "Undefined"</td>
   <td><div id="getFunctionStatusBox" class="resultBox"></div></td>
   </tr>
-  
+
 <!-- ############## Widgets API tests ####################### -->
 
  <tr>
@@ -412,7 +412,7 @@ Load a project:
   <td>Retrieve the status of a Virtual Console Widget with the given ID</td>
   <td><div id="getWidgetStatusBox" class="resultBox"></div></td>
  </tr>
- 
+
 <!-- ############## High rate API tests ####################### -->
 
  <tr>
@@ -457,7 +457,7 @@ Load a project:
     and Sliders will accept all the values in the 0-255 range.
   </td>
  </tr>
- 
+
  <tr>
   <td>
    <div class="apiButton" onclick="javascript:vcCueListControl('clWidgetID', 'clOperation', 'clStep');">Cue list control</div>
@@ -484,7 +484,7 @@ Load a project:
    Operation:<input id="frOperation" type="text" value="NEXT_PG">
   </td>
   <td colspan="2">
-    This API demonstrates how to change page of a Virtual Console Frame widget in multipage mode. 
+    This API demonstrates how to change page of a Virtual Console Frame widget in multipage mode.
     The parameters to be used are:<br>
     <b>Frame ID</b>: The Frame widget ID as retrieved with the 'getWidgetsList' API<br>
     <b>Operation</b>: The Frame operation to perform. Accepted values are 'NEXT_PG' and 'PREV_PG'.

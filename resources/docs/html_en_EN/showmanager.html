@@ -17,8 +17,8 @@ completely graphical way.<br>
 The graphic interface shows a multitrack view, typical of audio sequencers or video editing softwares,
 and with it users are allowed to place QLC+ <A HREF="file:concept.html#Functions">Functions</A> at the desired
 place and time in the view.<br>
-Show Manager gives a lot of flexibility during a <A HREF="file:concept.html#Show">Show</a> creation thanks 
-to its visual-oriented approach. Once understood the basic elements, it is very easy to create, move or edit 
+Show Manager gives a lot of flexibility during a <A HREF="file:concept.html#Show">Show</a> creation thanks
+to its visual-oriented approach. Once understood the basic elements, it is very easy to create, move or edit
 the existing functions and improve a Show by adding new tracks to it.<br>
 <br>
 Typical use cases of Shows are those gigs where a band plays songs following a metronome and the light show has
@@ -32,9 +32,9 @@ of the difference between a Chaser and a Sequence.<br>
 
 <H2>Sequences vs Chasers</H2>
 <P>
-Even if the <A HREF="file:concept.html#Sequence">Sequence</a> and the 
+Even if the <A HREF="file:concept.html#Sequence">Sequence</a> and the
 <A HREF="file:concept.html#Chaser">Chaser</a> functions have some common ground, they're not the same thing.<br>
-If not done yet, you are invited to read once again their definitions in the 
+If not done yet, you are invited to read once again their definitions in the
 <A HREF="file:concept.html">Basic Concepts &amp; Glossary</a> page of this documentation.<br>
 The main differences are:
 <ul>
@@ -43,14 +43,14 @@ The main differences are:
         In other words, a Chaser is an independent function, while a Sequence can exist only
         on top of a Scene.<br>
         The reason for this is, as mentioned before, the visual approach of the Show Manager.
-        If a track of a Show is the graphical representation of a Scene, then it's more intuitive 
+        If a track of a Show is the graphical representation of a Scene, then it's more intuitive
         to think that each Sequence created on that track is a function controlling the values of that Scene.
  </li>
  <li><b>Order</b>: Chasers can be reproduced in any order (Forward, Backward, Ping-Pong, Random) while
         in the Show Manager, Sequences are always reproduced from the beginning to the end (Forward).
         Again, this is related to the visual aspect of the Show Manager, where the playback
         has a natural time forward direction.<br>
-        On the other hand, Sequences created with the Function Manager can have the 
+        On the other hand, Sequences created with the Function Manager can have the
         same order properties of Chasers.
  </li>
  <li><b>Editing</b>: The editing approach between Sequences and Chaser is different too.<br>
@@ -99,7 +99,7 @@ The main differences are:
   <TD>Create a new track or add existing functions to the Show. When clicking on this button
   a window is displayed, allowing you to perform the following operations:
   <ul>
-   <li>Create a new track: This creates a new empty track that will serve as a container 
+   <li>Create a new track: This creates a new empty track that will serve as a container
        for Sequences and Audio functions.
    </li>
    <li>Import an existing Scene. This will create a new track and a 10 seconds Sequence
@@ -111,16 +111,16 @@ The main differences are:
        If no compatible track is found, a new track will be created and bound to the
        Sequence's bound Scene.
    </li>
-   <li>Import an existing <A HREF="file:concept.html#Chaser">Chaser</A>: add a Chaser function at the cursor 
+   <li>Import an existing <A HREF="file:concept.html#Chaser">Chaser</A>: add a Chaser function at the cursor
        position on the selected track. If no track is available, it will create a new one.
    </li>
-   <li>Import an existing <A HREF="file:concept.html#Audio">Audio</A>: add an Audio function at the cursor 
+   <li>Import an existing <A HREF="file:concept.html#Audio">Audio</A>: add an Audio function at the cursor
        position on the selected track. If no track is available, it will create a new one.
    </li>
-   <li>Import an existing <A HREF="file:concept.html#EFX">EFX</A>: add an EFX function at the cursor 
+   <li>Import an existing <A HREF="file:concept.html#EFX">EFX</A>: add an EFX function at the cursor
        position on the selected track. If no track is available, it will create a new one.
    </li>
-   <li>Import an existing <A HREF="file:concept.html#RGBMatrix">RGB Matrix</A>: add a RGB Matrix function at the cursor 
+   <li>Import an existing <A HREF="file:concept.html#RGBMatrix">RGB Matrix</A>: add a RGB Matrix function at the cursor
        position on the selected track. If no track is available, it will create a new one.
    </li>
   </ul>
@@ -154,12 +154,12 @@ The main differences are:
  <TR>
   <TD><IMG SRC="qrc:/editpaste.png"/></TD>
   <TD>CTRL+V</TD>
-  <TD>Paste QLC+ clipboard content at the cursor position. When performing this 
+  <TD>Paste QLC+ clipboard content at the cursor position. When performing this
   operation two checks are performed:
     <UL>
-     <LI>Overlapping: checks if the item you're going to paste overlaps with an 
+     <LI>Overlapping: checks if the item you're going to paste overlaps with an
      existing item in the selected track</LI>
-     <LI>Validity: If you're pasting a Sequence, QLC+ will verify that the 
+     <LI>Validity: If you're pasting a Sequence, QLC+ will verify that the
      Sequence contents are compatible with the currently selected track</LI>
   </TD>
  </TR>
@@ -168,7 +168,7 @@ The main differences are:
   <TD>Del</TD>
   <TD>Delete the currently selected item. This can be a sequence, an audio item or a track.
   Note that deleting a track will delete also all its sequences/audio children.<br>
-  <B>Note: Show Manager will only perform a "visual removal" of functions. To permanently 
+  <B>Note: Show Manager will only perform a "visual removal" of functions. To permanently
   delete them, please use the <A HREF="file:functionmanager.html">Function Manager</A></B></TD>
  </TR>
  <TR></TR>
@@ -234,8 +234,8 @@ The main differences are:
   to set for you Show. This ranges from 20 to 240.<br>
   This can be quite useful when dealing with electronic music or BPM synchronized shows</TD>
  </TR>
- 
- 
+
+
 </TABLE>
 
 <H2>Just 4 steps</H2>
@@ -256,9 +256,9 @@ When done, a new track will be created. All the sequences created on this track
 will act only on the associated Scene, not affecting any of the other tracks.<br>
 A newly created track will be set automatically as active. An active track has a green light on the left hand side.<br>
 A Track can be set to <IMG SRC="file:../images/track-mute.png" ALIGN="absmiddle"> mute and
-<IMG SRC="file:../images/track-solo.png" ALIGN="absmiddle"> solo states. The mute state will exclude the track from the playback, 
+<IMG SRC="file:../images/track-solo.png" ALIGN="absmiddle"> solo states. The mute state will exclude the track from the playback,
 while the solo state will mute all the other tracks of the Show.<br>
-When right clicking on a track, it is possible to move it up <IMG SRC="qrc:/up.png" ALIGN="absmiddle"> or 
+When right clicking on a track, it is possible to move it up <IMG SRC="qrc:/up.png" ALIGN="absmiddle"> or
 down <IMG SRC="qrc:/down.png" ALIGN="absmiddle"> for logical ordering.<br>
 Once selected, a track will display its <A HREF="file:sceneeditor.html">Scene Editor</A> on the bottom of the screen.
 
@@ -272,7 +272,7 @@ QLC+ Functions and add them to the Show timeline.<br>
 A new item will be placed at the cursor position, but it is always possible to move it to the desired time
 just by dragging it along the timeline.<br>
 An item cannot be moved to another track, since it is bound to the track where it has originally been created.<br>
-An item can be copied <IMG SRC="qrc:/editcopy.png" ALIGN="absmiddle">, pasted <IMG SRC="qrc:/editpaste.png" ALIGN="absmiddle"> or 
+An item can be copied <IMG SRC="qrc:/editcopy.png" ALIGN="absmiddle">, pasted <IMG SRC="qrc:/editpaste.png" ALIGN="absmiddle"> or
 deleted <IMG SRC="qrc:/editdelete.png" ALIGN="absmiddle"> with the toolbar icons. The pasted item will be placed at the current cursor position.<br>
 The item background color can be changed with the toolbar icon <IMG SRC="qrc:/color.png" ALIGN="absmiddle">. The assigned color will be saved
 in your project file.<br>
