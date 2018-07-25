@@ -537,7 +537,7 @@
     <message>
         <location filename="app.cpp" line="379"/>
         <source>Do you wish to save the current workspace before closing the application?</source>
-        <translation>Voulez-vous enregistrer le projet en cours avant de quitter l&apos;application ?</translation>
+        <translation>Voulez-vous enregistrer le projet en cours avant de quitter l&apos;application&#xa0;?</translation>
     </message>
     <message>
         <location filename="app.cpp" line="436"/>
@@ -560,7 +560,7 @@
         <source>There are still running functions.
 Really stop them and switch back to Design mode?</source>
         <translation>Des fonctions sont encore en cours d&apos;exécution.
-Voulez-vous vraiment les arrêter et basculer vers le mode Création ?</translation>
+Voulez-vous vraiment les arrêter et basculer vers le mode Création&#xa0;?</translation>
     </message>
     <message>
         <location filename="app.cpp" line="624"/>
@@ -714,12 +714,12 @@ Voulez-vous vraiment les arrêter et basculer vers le mode Création ?</translat
     <message>
         <location filename="app.cpp" line="393"/>
         <source>Close the application?</source>
-        <translation>Quitter QLCPlus ?</translation>
+        <translation>Quitter QLCPlus&#xa0;?</translation>
     </message>
     <message>
         <location filename="app.cpp" line="394"/>
         <source>Do you wish to close the application?</source>
-        <translation>Voulez-vous quitter l&apos;application ?</translation>
+        <translation>Voulez-vous quitter l&apos;application&#xa0;?</translation>
     </message>
     <message>
         <location filename="app.cpp" line="571"/>
@@ -835,7 +835,7 @@ Voulez-vous vraiment les arrêter et basculer vers le mode Création ?</translat
         <source>Do you wish to save the current workspace?
 Changes will be lost if you don&apos;t save them.</source>
         <translatorcomment>Tiens tiens...perspicace!</translatorcomment>
-        <translation>Voulez-vous enregistrer le projet actuel ?
+        <translation>Voulez-vous enregistrer le projet actuel&#xa0;?
 Les changements seront perdus si vous ne les sauvegardez pas.</translation>
     </message>
     <message>
@@ -2107,7 +2107,7 @@ Celui-ci a dû être déplacé ou effacé.</translation>
     <message>
         <location filename="efxeditor.cpp" line="740"/>
         <source>Do you want to remove the selected fixture(s)?</source>
-        <translation>Voulez-vous enlever le(s) appareil(s) sélectionné(s) ?</translation>
+        <translation>Voulez-vous enlever le(s) appareil(s) sélectionné(s)&#xa0;?</translation>
     </message>
 </context>
 <context>
@@ -2285,7 +2285,7 @@ Celui-ci a dû être déplacé ou effacé.</translation>
     <message>
         <location filename="fixturemanager.cpp" line="1244"/>
         <source>Do you want to delete the selected items?</source>
-        <translation>Voulez-vous supprimer les éléments sélectionnés ?</translation>
+        <translation>Voulez-vous supprimer les éléments sélectionnés&#xa0;?</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1299"/>
@@ -2324,12 +2324,12 @@ Celui-ci a dû être déplacé ou effacé.</translation>
     <message>
         <location filename="fixturemanager.cpp" line="1495"/>
         <source>Ungroup fixtures?</source>
-        <translation>Dégrouper les appareils ?</translation>
+        <translation>Dégrouper les appareils&#xa0;?</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1496"/>
         <source>Do you want to ungroup the selected fixtures?</source>
-        <translation>Voulez-vous dégrouper les appareils sélectionnés ?</translation>
+        <translation>Voulez-vous dégrouper les appareils sélectionnés&#xa0;?</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1611"/>
@@ -2377,7 +2377,7 @@ Celui-ci a dû être déplacé ou effacé.</translation>
     <message>
         <location filename="fixturemanager.cpp" line="1300"/>
         <source>Do you want to delete the selected groups?</source>
-        <translation>Voulez-vous supprimer les groupes sélectionnés ?</translation>
+        <translation>Voulez-vous supprimer les groupes sélectionnés&#xa0;?</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1360"/>
@@ -2462,7 +2462,7 @@ Celui-ci a dû être déplacé ou effacé.</translation>
     <message>
         <location filename="fixtureremap.cpp" line="297"/>
         <source>Do you want to delete the selected items?</source>
-        <translation>Voulez-vous supprimer l&apos;élément cible sélectionné ?</translation>
+        <translation>Voulez-vous supprimer l&apos;élément cible sélectionné&#xa0;?</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="345"/>
@@ -3247,12 +3247,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputoutputmanager.cpp" line="362"/>
         <source>The universe you are trying to delete is patched. Are you sure you want to delete it?</source>
-        <translation>Cet univers est actuellement patché. Êtes-vous sûr(e) de vouloir le supprimer ?</translation>
+        <translation>Cet univers est actuellement patché. Êtes-vous sûr(e) de vouloir le supprimer&#xa0;?</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="381"/>
         <source>There are some fixtures using the universe you are trying to delete. Are you sure you want to delete it?</source>
-        <translation>Des appareils utilisent actuellement cet univers. Êtes-vous sûr(e) de vouloir le supprimer ?</translation>
+        <translation>Des appareils utilisent actuellement cet univers. Êtes-vous sûr(e) de vouloir le supprimer&#xa0;?</translation>
     </message>
 </context>
 <context>
@@ -3388,7 +3388,7 @@ Veuillez vous référer à la documentation du plugin.</translation>
         <location filename="inputoutputpatcheditor.cpp" line="703"/>
         <location filename="inputoutputpatcheditor.cpp" line="837"/>
         <source>An input profile at %1 already exists. Do you wish to overwrite it?</source>
-        <translation>Un profil d&apos;entrée existe déjà en &apos;%1&apos;. Voulez-vous l&apos;écraser ?</translation>
+        <translation>Un profil d&apos;entrée existe déjà en &apos;%1&apos;. Voulez-vous l&apos;écraser&#xa0;?</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="712"/>
@@ -3421,7 +3421,7 @@ Veuillez vous référer à la documentation du plugin.</translation>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="765"/>
         <source>Do you wish to permanently delete profile &quot;%1&quot;?</source>
-        <translation>Voulez-vous supprimer définitivement le profil &quot;%1&quot; ?</translation>
+        <translation>Voulez-vous supprimer définitivement le profil &quot;%1&quot;&#xa0;?</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="793"/>
@@ -3613,7 +3613,7 @@ Veuillez vous référer à la documentation du plugin.</translation>
     <message>
         <location filename="inputprofileeditor.cpp" line="334"/>
         <source>Delete all %1 selected channels?</source>
-        <translation>Supprimer les %1 canaux sélectionnés ?</translation>
+        <translation>Supprimer les %1 canaux sélectionnés&#xa0;?</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="451"/>
@@ -4641,7 +4641,7 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
     <message>
         <location filename="sceneeditor.cpp" line="1288"/>
         <source>Do you want to remove the selected fixture(s)?</source>
-        <translation>Voulez-vous enlever le(s) appareil(s) sélectionné(s) ?</translation>
+        <translation>Voulez-vous enlever le(s) appareil(s) sélectionné(s)&#xa0;?</translation>
     </message>
 </context>
 <context>
@@ -7400,7 +7400,7 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="365"/>
         <source>Do you want to remove the selected fixtures?</source>
-        <translation>Voulez-vous enlever le(s) appareils(s) sélectionné(s) ?</translation>
+        <translation>Voulez-vous enlever le(s) appareils(s) sélectionné(s)&#xa0;?</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="718"/>
@@ -7771,7 +7771,7 @@ Veuillez en choisir une qui affecte un des deux.</translation>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="1162"/>
         <source>Do you wish to delete the selected widgets?</source>
-        <translation>Voulez-vous supprimer les widgets sélectionnés ?</translation>
+        <translation>Voulez-vous supprimer les widgets sélectionnés&#xa0;?</translation>
     </message>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="1163"/>
