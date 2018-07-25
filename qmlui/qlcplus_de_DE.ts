@@ -1825,27 +1825,27 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/popup/PopupManualInputSource.qml" line="31"/>
         <source>Manual input source selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Manuelle Auswahl der Eingangsquelle</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupManualInputSource.qml" line="85"/>
         <source>Input profiles</source>
-        <translation type="unfinished"></translation>
+        <translation>Eingabeprofile</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupManualInputSource.qml" line="186"/>
         <source>Manual selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Manuelle Auswahl</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupManualInputSource.qml" line="194"/>
         <source>Universe</source>
-        <translation type="unfinished">Universum</translation>
+        <translation>Universum</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupManualInputSource.qml" line="209"/>
         <source>Channel</source>
-        <translation type="unfinished">Kanal</translation>
+        <translation>Kanal</translation>
     </message>
 </context>
 <context>
@@ -1964,8 +1964,8 @@ Access level:</source>
         <oldsource>&gt;
 has request to access this session.
 Access level:</oldsource>
-        <translation type="unfinished">&gt;
-hat Zugriff auf dieses Sitzung angefragt.
+        <translation>&gt;
+fragt Zugriff auf diese Sitzung an.
 Zugriffsstufe:</translation>
     </message>
     <message>
@@ -2123,7 +2123,7 @@ Zugriffsstufe:</translation>
     <message>
         <location filename="qml/popup/PopupRenameItems.qml" line="74"/>
         <source>Enable numbering</source>
-        <translation>Numerierung aktivieren</translation>
+        <translation>Nummerierung aktivieren</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupRenameItems.qml" line="82"/>
@@ -2545,17 +2545,17 @@ Zugriffsstufe:</translation>
     <message>
         <location filename="qml/fixturesfunctions/SceneEditor.qml" line="132"/>
         <source>Speed</source>
-        <translation type="unfinished"></translation>
+        <translation>Geschwindigkeit</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SceneEditor.qml" line="145"/>
         <source>Fade in</source>
-        <translation type="unfinished">Einblenden</translation>
+        <translation>Einblenden</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SceneEditor.qml" line="178"/>
         <source>Fade out</source>
-        <translation type="unfinished">Ausblenden</translation>
+        <translation>Ausblenden</translation>
     </message>
 </context>
 <context>
@@ -2792,32 +2792,32 @@ Zugriffsstufe:</translation>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="188"/>
         <source>Rendering</source>
-        <translation type="unfinished"></translation>
+        <translation>Rendering</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="204"/>
         <source>Quality</source>
-        <translation type="unfinished"></translation>
+        <translation>Qualität</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="213"/>
         <source>Low</source>
-        <translation type="unfinished"></translation>
+        <translation>Niedrig</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="214"/>
         <source>Medium</source>
-        <translation type="unfinished"></translation>
+        <translation>Mittel</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="215"/>
         <source>High</source>
-        <translation type="unfinished"></translation>
+        <translation>Hoch</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="216"/>
         <source>Ultra</source>
-        <translation type="unfinished"></translation>
+        <translation>Ultra</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="225"/>
@@ -2827,47 +2827,48 @@ Zugriffsstufe:</translation>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="238"/>
         <source>Smoke amount</source>
-        <translation type="unfinished"></translation>
+        <translation>Rauchdichte</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="419"/>
         <source>Scale</source>
-        <translation type="unfinished"></translation>
+        <translation>Skalierung</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="544"/>
         <source>Custom items</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Better: &quot;Eigene&quot;?</translatorcomment>
+        <translation>Angepasste Elemente</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="550"/>
         <source>Select a mesh file</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine Mesh-Datei auswählen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="552"/>
         <source>3D files</source>
-        <translation type="unfinished"></translation>
+        <translation>3D-Dateien</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="552"/>
         <source>All files</source>
-        <translation type="unfinished">Alle Dateien</translation>
+        <translation>Alle Dateien</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="563"/>
         <source>Actions</source>
-        <translation type="unfinished">Aktionen</translation>
+        <translation>Aktionen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="569"/>
         <source>Add a new item to the scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein neues Element zur Szene hinzufügen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="578"/>
         <source>Remove the selected items</source>
-        <translation type="unfinished">Ausgewählte Elemente entfernen</translation>
+        <translation>Ausgewählte Elemente entfernen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="256"/>
@@ -3283,43 +3284,43 @@ Zugriffsstufe:</translation>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="278"/>
         <source>M</source>
         <comment>As in Monday</comment>
-        <translation type="unfinished">Mo</translation>
+        <translation>Mo</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="291"/>
         <source>T</source>
         <comment>As in Tuesday</comment>
-        <translation type="unfinished">Di</translation>
+        <translation>Di</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="304"/>
         <source>W</source>
         <comment>As in Wednesday</comment>
-        <translation type="unfinished">B</translation>
+        <translation>Mi</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="317"/>
         <source>T</source>
         <comment>As in Thursday</comment>
-        <translation type="unfinished">Di</translation>
+        <translation>Do</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="330"/>
         <source>F</source>
         <comment>As in Friday</comment>
-        <translation type="unfinished">Fr</translation>
+        <translation>Fr</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="343"/>
         <source>S</source>
         <comment>As in Saturday</comment>
-        <translation type="unfinished">Sa</translation>
+        <translation>Sa</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="356"/>
         <source>S</source>
         <comment>As in Sunday</comment>
-        <translation type="unfinished">Sa</translation>
+        <translation>So</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="376"/>
@@ -3938,12 +3939,12 @@ Zugriffsstufe:</translation>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="168"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Einstellungen</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="181"/>
         <source>External controls</source>
-        <translation type="unfinished"></translation>
+        <translation>Externe Steuerungen</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="194"/>
