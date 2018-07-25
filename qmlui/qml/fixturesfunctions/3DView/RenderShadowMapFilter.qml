@@ -24,6 +24,7 @@ import QtQuick 2.0
 
 CameraSelector
 {
+    id: cs
     property alias sceneDeferredLayer: sceneDeferredLayerFilter.layers
     property alias depthTargetSelector: targetSelector.target
     property Fixture3DItem fixtureItem
@@ -35,6 +36,7 @@ CameraSelector
         RenderTargetSelector
         {
             id: targetSelector
+            target: cs.fixtureItem ? cs.fixtureItem.shadowMap : null
 
             ClearBuffers
             {
@@ -42,14 +44,14 @@ CameraSelector
 
                 RenderPassFilter
                 {
-                    parameters: [
-                        Parameter { name: "lightViewMatrix"; value: fixtureItem ? fixtureItem.lightViewMatrix : null },
-                        Parameter { name: "lightProjectionMatrix"; value: fixtureItem ? fixtureItem.lightProjectionMatrix : null },
-                        Parameter { name: "lightViewProjectionMatrix"; value: fixtureItem ? fixtureItem.lightViewProjectionMatrix : null }
-                    ]
-
                     id: geometryPass
                     matchAny: FilterKey { name: "pass"; value: { return fixtureItem.lightIntensity ? "shadows" : "invalid" } }
+
+                    parameters: [
+                        Parameter { name: "lightViewMatrix"; value: cs.fixtureItem ? cs.fixtureItem.lightViewMatrix : Qt.matrix4x4() },
+                        Parameter { name: "lightProjectionMatrix"; value: cs.fixtureItem ? cs.fixtureItem.lightProjectionMatrix : Qt.matrix4x4() },
+                        Parameter { name: "lightViewProjectionMatrix"; value: cs.fixtureItem ? cs.fixtureItem.lightViewProjectionMatrix : Qt.matrix4x4() }
+                    ]
                 }
             }
         }

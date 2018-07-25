@@ -32,9 +32,9 @@ TechniqueFilter
     property bool useShadows
 
     parameters: [
-        Parameter { name: "albedoTex"; value: gBuffer.color },
-        Parameter { name: "normalTex"; value: gBuffer.normal },
-        Parameter { name: "depthTex"; value: gBuffer.depth },
+        Parameter { name: "albedoTex"; value: gBuffer ? gBuffer.color : null },
+        Parameter { name: "normalTex"; value: gBuffer ? gBuffer.normal : null },
+        Parameter { name: "depthTex"; value: gBuffer ? gBuffer.depth : null },
         Parameter { name: "shadowTex"; value: shadowTex },
         Parameter { name: "useShadows"; value: (useShadows ? 1 : 0) }
     ]

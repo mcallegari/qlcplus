@@ -104,10 +104,7 @@ Rectangle
 
                     mynode = component.createObject(frameGraph.myShadowFrameGraphNode,
                     {
-                        "depthTargetSelector": fixtureItem.shadowMap,
                         "sceneDeferredLayer": sceneEntity.deferredLayer,
-                        "lightViewMatrix": fixtureItem.lightViewMatrix,
-                        "lightProjectionMatrix": fixtureItem.lightProjectionMatrix,
                         "fixtureItem": fixtureItem
                     });
                 }

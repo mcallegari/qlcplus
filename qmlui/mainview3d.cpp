@@ -391,6 +391,11 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
     mesh->m_goboTexture = new GoboTextureImage(512, 512, openGobo);
 
     QEntity *newItem = qobject_cast<QEntity *>(m_fixtureComponent->create());
+    if (newItem == NULL)
+    {
+        qDebug() << "Fixture 3D item creation failed !!";
+        return;
+    }
     newItem->setParent(m_sceneRootEntity);
 
     if (fixture->type() == QLCFixtureDef::ColorChanger ||

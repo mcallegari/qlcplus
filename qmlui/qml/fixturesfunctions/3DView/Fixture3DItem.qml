@@ -239,19 +239,19 @@ Entity
 
         shadingCone.coneLayer = shadingLayer
         shadingCone.coneEffect = shadingEffect
-        shadingCone.coneMaterial.bindFixture(fixtureEntity)
+        shadingCone.coneMaterial.fxItem = fixtureEntity
         shadingCone.parent = sceneEntity
         shadingCone.spotlightConeMesh = sceneEntity.coneMesh
 
         scatteringCone.coneLayer = scatteringLayer
         scatteringCone.coneEffect = scatteringEffect
-        scatteringCone.coneMaterial.bindFixture(fixtureEntity)
+        scatteringCone.coneMaterial.fxItem = fixtureEntity
         scatteringCone.parent = sceneEntity
         scatteringCone.spotlightConeMesh = sceneEntity.coneMesh
 
         outDepthCone.coneLayer = depthLayer
         outDepthCone.coneEffect = depthEffect
-        outDepthCone.coneMaterial.bindFixture(fixtureEntity)
+        outDepthCone.coneMaterial.fxItem = fixtureEntity
         outDepthCone.parent = sceneEntity
         outDepthCone.spotlightConeMesh = sceneEntity.coneMesh
     }
