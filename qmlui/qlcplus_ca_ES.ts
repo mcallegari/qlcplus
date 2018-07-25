@@ -577,7 +577,7 @@ Es perdran els canvis si no els guarda.</translation>
     <message>
         <location filename="qml/ColorToolFilters.qml" line="392"/>
         <source>Rename the current color filters file</source>
-        <translation type="unfinished"></translation>
+        <translation>Reanomena el fitxer de filtres actual</translation>
     </message>
     <message>
         <location filename="qml/ColorToolFilters.qml" line="401"/>
@@ -895,7 +895,7 @@ Es perdran els canvis si no els guarda.</translation>
     <message>
         <location filename="qml/ExternalControls.qml" line="103"/>
         <source>Manually select an input source</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccionar manualment una font d&apos;entrada</translation>
     </message>
 </context>
 <context>
@@ -1822,27 +1822,27 @@ Es perdran els canvis si no els guarda.</translation>
     <message>
         <location filename="qml/popup/PopupManualInputSource.qml" line="31"/>
         <source>Manual input source selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecció manual de una font d&apos;entrada</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupManualInputSource.qml" line="85"/>
         <source>Input profiles</source>
-        <translation type="unfinished"></translation>
+        <translation>Perfils d&apos;entrada</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupManualInputSource.qml" line="186"/>
         <source>Manual selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecció manual</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupManualInputSource.qml" line="194"/>
         <source>Universe</source>
-        <translation type="unfinished">Univers</translation>
+        <translation>Univers</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupManualInputSource.qml" line="209"/>
         <source>Channel</source>
-        <translation type="unfinished">Canal</translation>
+        <translation>Canal</translation>
     </message>
 </context>
 <context>
@@ -1961,7 +1961,7 @@ Access level:</source>
         <oldsource>&gt;
 has request to access this session.
 Access level:</oldsource>
-        <translation type="unfinished">&gt;
+        <translation>&gt;
 ha demanat accedir a aquesta sessió.
 Nivell d&apos;accés:</translation>
     </message>
@@ -2540,17 +2540,17 @@ Nivell d&apos;accés:</translation>
     <message>
         <location filename="qml/fixturesfunctions/SceneEditor.qml" line="132"/>
         <source>Speed</source>
-        <translation type="unfinished">Velocitat</translation>
+        <translation>Velocitat</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SceneEditor.qml" line="145"/>
         <source>Fade in</source>
-        <translation type="unfinished"></translation>
+        <translation>Fade in</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SceneEditor.qml" line="178"/>
         <source>Fade out</source>
-        <translation type="unfinished"></translation>
+        <translation>Fade out</translation>
     </message>
 </context>
 <context>
@@ -2787,32 +2787,32 @@ Nivell d&apos;accés:</translation>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="188"/>
         <source>Rendering</source>
-        <translation type="unfinished"></translation>
+        <translation>Renderizat</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="204"/>
         <source>Quality</source>
-        <translation type="unfinished"></translation>
+        <translation>Qualitat</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="213"/>
         <source>Low</source>
-        <translation type="unfinished"></translation>
+        <translation>Baixa</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="214"/>
         <source>Medium</source>
-        <translation type="unfinished"></translation>
+        <translation>Mitja</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="215"/>
         <source>High</source>
-        <translation type="unfinished"></translation>
+        <translation>Alta</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="216"/>
         <source>Ultra</source>
-        <translation type="unfinished"></translation>
+        <translation>Ultra</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="225"/>
@@ -2822,47 +2822,47 @@ Nivell d&apos;accés:</translation>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="238"/>
         <source>Smoke amount</source>
-        <translation type="unfinished"></translation>
+        <translation>Quantitat de fum</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="419"/>
         <source>Scale</source>
-        <translation type="unfinished"></translation>
+        <translation>Escala</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="544"/>
         <source>Custom items</source>
-        <translation type="unfinished"></translation>
+        <translation>Elements personalitzats</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="550"/>
         <source>Select a mesh file</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecionar un fitxer mesh</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="552"/>
         <source>3D files</source>
-        <translation type="unfinished"></translation>
+        <translation>Fitxers 3D</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="552"/>
         <source>All files</source>
-        <translation type="unfinished"></translation>
+        <translation>Tots els fitxers</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="563"/>
         <source>Actions</source>
-        <translation type="unfinished">Accions</translation>
+        <translation>Accions</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="569"/>
         <source>Add a new item to the scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Afegir un element nou a l&apos;escena</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="578"/>
         <source>Remove the selected items</source>
-        <translation type="unfinished">Elimina els elements seleccionats</translation>
+        <translation>Elimina els elements seleccionats</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="256"/>
@@ -3275,43 +3275,43 @@ Nivell d&apos;accés:</translation>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="278"/>
         <source>M</source>
         <comment>As in Monday</comment>
-        <translation type="unfinished">M</translation>
+        <translation>Di</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="291"/>
         <source>T</source>
         <comment>As in Tuesday</comment>
-        <translation type="unfinished">T</translation>
+        <translation>Dt</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="304"/>
         <source>W</source>
         <comment>As in Wednesday</comment>
-        <translation type="unfinished">W</translation>
+        <translation>Dc</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="317"/>
         <source>T</source>
         <comment>As in Thursday</comment>
-        <translation type="unfinished">T</translation>
+        <translation>Dj</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="330"/>
         <source>F</source>
         <comment>As in Friday</comment>
-        <translation type="unfinished">F</translation>
+        <translation>Dv</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="343"/>
         <source>S</source>
         <comment>As in Saturday</comment>
-        <translation type="unfinished">S</translation>
+        <translation>Ds</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="356"/>
         <source>S</source>
         <comment>As in Sunday</comment>
-        <translation type="unfinished">S</translation>
+        <translation>Dg</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="376"/>
@@ -3930,12 +3930,12 @@ Nivell d&apos;accés:</translation>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="168"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajustos</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="181"/>
         <source>External controls</source>
-        <translation type="unfinished"></translation>
+        <translation>Controls externs</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="194"/>
