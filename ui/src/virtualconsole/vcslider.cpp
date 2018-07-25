@@ -1106,7 +1106,7 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
             quint32 dmx_ch = fxi->address() + lch.channel;
             int uni = fxi->universe();
 
-            // Dirty channel group check: is the channel HTP or LTP ?
+            // Dirty channel group check: is the channel HTP or LTP?
             QLCChannel::Group group = qlcch->group();
             if (fxi->forcedLTPChannels().contains(lch.channel))
                 group = QLCChannel::Effect;

@@ -127,7 +127,7 @@ Rectangle
                     {
                         id: deleteItemsPopup
                         title: qsTr("Delete functions")
-                        message: qsTr("Are you sure you want to remove the selected functions ?")
+                        message: qsTr("Are you sure you want to remove the selected functions?")
                         onAccepted: functionManager.deleteEditorItems(ceSelector.itemsList())
                     }
                 }

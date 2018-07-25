@@ -409,7 +409,7 @@ void ContextManager::resetContexts()
     if (m_3DView->isEnabled())
         m_3DView->slotRefreshView();
 
-    /** TODO: nothing to do on the other contexts ? */
+    /** TODO: nothing to do on the other contexts? */
 }
 
 void ContextManager::handleKeyPress(QKeyEvent *e)

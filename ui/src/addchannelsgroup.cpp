@@ -73,7 +73,7 @@ AddChannelsGroup::AddChannelsGroup(QWidget* parent, Doc* doc, ChannelsGroup *gro
                 break;
             }
         }
-        // Haven't found this universe node ? Create it.
+        // Haven't found this universe node? Create it.
         if (topItem == NULL)
         {
             topItem = new QTreeWidgetItem(m_tree);

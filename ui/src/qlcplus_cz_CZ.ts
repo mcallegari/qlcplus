@@ -567,17 +567,17 @@
     <message>
         <location filename="app.cpp" line="379"/>
         <source>Do you wish to save the current workspace before closing the application?</source>
-        <translation>Přejete si uložit rozdělanou práci před ukončením aplikace ?</translation>
+        <translation>Přejete si uložit rozdělanou práci před ukončením aplikace?</translation>
     </message>
     <message>
         <location filename="app.cpp" line="393"/>
         <source>Close the application?</source>
-        <translation>Zavřít aplikaci ?</translation>
+        <translation>Zavřít aplikaci?</translation>
     </message>
     <message>
         <location filename="app.cpp" line="394"/>
         <source>Do you wish to close the application?</source>
-        <translation>Opravdu si přejete uzavřít aplikaci ?</translation>
+        <translation>Opravdu si přejete uzavřít aplikaci?</translation>
     </message>
     <message>
         <location filename="app.cpp" line="436"/>
@@ -3232,12 +3232,12 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="362"/>
-        <source>The universe you are trying to delete is patched. Are you sure you want to delete it ?</source>
+        <source>The universe you are trying to delete is patched. Are you sure you want to delete it?</source>
         <translation>Vetvev, kterou se snažíte smazat je propojená. Opravdu si ji přejete smazat ?</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="381"/>
-        <source>There are some fixtures using the universe you are trying to delete. Are you sure you want to delete it ?</source>
+        <source>There are some fixtures using the universe you are trying to delete. Are you sure you want to delete it?</source>
         <translation>Některá zařízení používají větev, kterou se pokoušíte smazat. Opravdu ji chcete smazat ?</translation>
     </message>
 </context>

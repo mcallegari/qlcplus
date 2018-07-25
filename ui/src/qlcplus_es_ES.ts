@@ -3241,12 +3241,12 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="362"/>
-        <source>The universe you are trying to delete is patched. Are you sure you want to delete it ?</source>
+        <source>The universe you are trying to delete is patched. Are you sure you want to delete it?</source>
         <translation>El universo que está tratando de borrar está patcheado. ¿Está seguro de querer borrarlo?</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="381"/>
-        <source>There are some fixtures using the universe you are trying to delete. Are you sure you want to delete it ?</source>
+        <source>There are some fixtures using the universe you are trying to delete. Are you sure you want to delete it?</source>
         <translation>Algunos fixtures están usando el universo que está tratando de borrar. ¿Está seguro de querer borrarlo?</translation>
     </message>
 </context>

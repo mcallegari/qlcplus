@@ -438,7 +438,7 @@ void FixtureManager::setItemRoleData(int itemID, int index, QString role, QVaria
         }
         else
         {
-            // TODO: flags per channel ?
+            // TODO: flags per channel?
         }
     }
     else if (role == "canFade")
