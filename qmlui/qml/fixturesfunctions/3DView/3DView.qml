@@ -59,7 +59,6 @@ Rectangle
         z: 1
         anchors.fill: parent
         aspects: ["input", "logic"]
-        
 
         function updateSceneGraph(create)
         {
@@ -148,7 +147,8 @@ Rectangle
 
                 component = Qt.createComponent("SpotlightShadingFilter.qml");
                 if (component.status === Component.Error)
-                console.log("Error loading component:", component.errorString());
+                    console.log("Error loading component:", component.errorString());
+
                 mynode = component.createObject(frameGraph.myCameraSelector,
                 {
                     "gBuffer": gBufferTarget,
@@ -163,10 +163,12 @@ Rectangle
             {
                 fixtureItem = fixtures[ic]
 
-                if(fixtureItem.useScattering) {
+                if (fixtureItem.useScattering)
+                {
                     component = Qt.createComponent("OutputFrontDepthFilter.qml");
                     if (component.status === Component.Error)
                         console.log("Error loading component:", component.errorString());
+
                     mynode = component.createObject(frameGraph.myCameraSelector,
                     {
                         "frontDepth": depthTarget,
@@ -179,7 +181,7 @@ Rectangle
 
                     mynode = component.createObject(frameGraph.myCameraSelector,
                     {
-                        "fixtureItem": fixtureItem,          
+                        "fixtureItem": fixtureItem,
                         "frontDepth": depthTarget,
                         "gBuffer": gBufferTarget,
                         "spotlightScatteringLayer": fixtureItem.spotlightScatteringLayer,
@@ -193,6 +195,7 @@ Rectangle
             component = Qt.createComponent("GammaCorrectFilter.qml");
             if (component.status === Component.Error)
                 console.log("Error loading component:", component.errorString());
+
             mynode = component.createObject(frameGraph.myCameraSelector,
             {
                 "hdrTexture": frameTarget.color,
@@ -203,6 +206,7 @@ Rectangle
             component = Qt.createComponent("FXAAFilter.qml");
             if (component.status === Component.Error)
                 console.log("Error loading component:", component.errorString());
+
             mynode = component.createObject(frameGraph.myCameraSelector,
             {
                 "inTexture": hdr0ColorTexture,
@@ -213,12 +217,12 @@ Rectangle
             component = Qt.createComponent("BlitFilter.qml");
             if (component.status === Component.Error)
                 console.log("Error loading component:", component.errorString());
+
             mynode = component.createObject(frameGraph.myCameraSelector,
             {
                 "inTexture": hdr1ColorTexture,
                 "screenQuadBlitLayer": screenQuadBlitEntity.layer
             });
-
         }
 
         Entity

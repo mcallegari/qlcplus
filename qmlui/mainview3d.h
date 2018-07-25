@@ -136,6 +136,7 @@ private:
     QQmlComponent *m_selectionComponent;
     QQmlComponent *m_spotlightConeComponent;
     QQmlComponent *m_fillGBufferLayer;
+    int m_createItemCount;
 
     /*********************************************************************
      * Fixtures

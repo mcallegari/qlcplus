@@ -48,6 +48,9 @@ MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
     , m_fixtureComponent(NULL)
     , m_genericComponent(NULL)
     , m_selectionComponent(NULL)
+    , m_spotlightConeComponent(NULL)
+    , m_fillGBufferLayer(NULL)
+    , m_createItemCount(0)
     , m_scene3D(NULL)
     , m_sceneRootEntity(NULL)
     , m_quadEntity(NULL)
@@ -166,6 +169,7 @@ void MainView3D::resetItems()
     }
     m_genericMap.clear();
     m_latestGenericID = 0;
+    m_createItemCount = 0;
 }
 
 QString MainView3D::meshDirectory() const
@@ -430,6 +434,8 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
  
     // at last, add the new fixture to the items map
     m_entitiesMap[itemID] = mesh;
+
+    m_createItemCount++;
 }
 
 void MainView3D::setFixtureFlags(quint32 itemID, quint32 flags)
@@ -855,7 +861,11 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QSceneLoad
         meshRef->m_selectionBox->setProperty("enabled", false);
     }
 
-    QMetaObject::invokeMethod(m_scene3D, "updateSceneGraph", Q_ARG(QVariant, true));
+    m_createItemCount--;
+
+    // Update the Scene Graph only when the last fixture has been added to the Scene
+    if (m_createItemCount == 0)
+        QMetaObject::invokeMethod(m_scene3D, "updateSceneGraph", Q_ARG(QVariant, true));
 
     // at last, preview the fixture channels
     QByteArray values;
