@@ -2951,7 +2951,7 @@ Nivel de acceso:</translation>
         <location filename="qml/showmanager/ShowManager.qml" line="195"/>
         <source>Are you sure you want to remove the following items?
 (Note that the original functions will not be deleted)</source>
-        <translation>¿Está seguro que quiere eliminar los elementos siguientes ?
+        <translation>¿Está seguro que quiere eliminar los elementos siguientes?
 (Las funciones originales NO se eliminarán)</translation>
     </message>
     <message>
@@ -3625,7 +3625,7 @@ Nivel de acceso:</translation>
     <message>
         <location filename="qml/virtualconsole/VCPageProperties.qml" line="167"/>
         <source>Are you sure you want to delete the selected page?</source>
-        <translation>¿Está seguro que quiere eliminar la página seleccionada ?</translation>
+        <translation>¿Está seguro que quiere eliminar la página seleccionada?</translation>
     </message>
 </context>
 <context>
