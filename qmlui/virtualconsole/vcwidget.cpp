@@ -634,7 +634,7 @@ int VCWidget::controlIndex(quint8 id)
         if (m_externalControlList.at(i).id == id)
             return i;
 
-    qDebug() << "ERROR: id" << id << "not registered in controls list !";
+    qDebug() << "ERROR: id" << id << "not registered in controls list!";
 
     return 0;
 }
@@ -873,7 +873,7 @@ void VCWidget::deleteKeySequence(const QKeySequence &keySequence)
 void VCWidget::updateKeySequence(QKeySequence oldSequence, QKeySequence newSequence, const quint32 id)
 {
     if (m_keySequenceMap.contains(oldSequence) == false)
-        qDebug() << "Old key sequence not found !";
+        qDebug() << "Old key sequence not found!";
 
     m_keySequenceMap.remove(oldSequence);
     m_keySequenceMap[newSequence] = id;

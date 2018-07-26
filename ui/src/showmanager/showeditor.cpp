@@ -103,7 +103,7 @@ void ShowEditor::updateFunctionList()
 
     if (m_show == NULL)
     {
-        qDebug() << Q_FUNC_INFO << "Invalid show !";
+        qDebug() << Q_FUNC_INFO << "Invalid show!";
         return;
     }
 

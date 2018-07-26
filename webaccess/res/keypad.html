@@ -96,7 +96,7 @@ window.onload = function()
     isConnected = true;
   };
   websocket.onclose = function(ev) {
-    alert("QLC+ connection lost !");
+    alert("QLC+ connection lost!");
   };
   websocket.onerror = function(ev) {
     alert("QLC+ connection error!");
@@ -129,7 +129,7 @@ function composeCommand(cmd)
   }
   else
   {
-    alert("You must connect to QLC+ WebSocket first !");
+    alert("You must connect to QLC+ WebSocket first!");
   }
 }
 
@@ -142,7 +142,7 @@ function reqChannelsRange(univ, chan, range)
   }
   else
   {
-    alert("You must connect to QLC+ WebSocket first !");
+    alert("You must connect to QLC+ WebSocket first!");
   }
 }
 
@@ -155,7 +155,7 @@ function resetUniverse()
   }
   else
   {
-    alert("You must connect to QLC+ WebSocket first !");
+    alert("You must connect to QLC+ WebSocket first!");
   }
 }
 
@@ -168,7 +168,7 @@ function resetCh(chNum)
   }
   else
   {
-    alert("You must connect to QLC+ WebSocket first !");
+    alert("You must connect to QLC+ WebSocket first!");
   }
 }
 // Modified set Channel Function
@@ -181,7 +181,7 @@ function setChannel(c, v)
   }
   else
   {
-    alert("You must connect to QLC+ WebSocket first !");
+    alert("You must connect to QLC+ WebSocket first!");
   }
 }
 

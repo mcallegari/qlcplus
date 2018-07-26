@@ -219,7 +219,7 @@ Rectangle
                     // pressing on nothing starts to draw the selection rectangle
                     if (itemID === -1)
                     {
-                        //console.log("Starting selection rectangle !")
+                        //console.log("Starting selection rectangle!")
                         // initialize local variables to determine the selection orientation
                         initialXPos = mouse.x
                         initialYPos = mouse.y

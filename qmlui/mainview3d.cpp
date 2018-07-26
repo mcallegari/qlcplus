@@ -66,7 +66,7 @@ MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
     setContextTitle(tr("3D View"));
 
     qRegisterMetaType<Qt3DCore::QEntity*>();
-    qmlRegisterUncreatableType<MainView3D>("org.qlcplus.classes", 1, 0, "MainView3D", "Can't create an MainView3D !");
+    qmlRegisterUncreatableType<MainView3D>("org.qlcplus.classes", 1, 0, "MainView3D", "Can't create an MainView3D!");
 
     // the following two lists must always have the same items number and must respect
     // the order of StageType enum in MonitorProperties class
@@ -246,35 +246,35 @@ void MainView3D::initialize3DProperties()
 
     if (m_scene3D == NULL)
     {
-        qDebug() << "Scene3DItem not found !";
+        qDebug() << "Scene3DItem not found!";
         return;
     }
 
     m_sceneRootEntity = m_scene3D->findChild<QEntity *>("sceneRootEntity");
     if (m_sceneRootEntity == NULL)
     {
-        qDebug() << "sceneRootEntity not found !";
+        qDebug() << "sceneRootEntity not found!";
         return;
     }
 
     m_quadEntity = m_scene3D->findChild<QEntity *>("quadEntity");
     if (m_quadEntity == NULL)
     {
-        qDebug() << "quadEntity not found !";
+        qDebug() << "quadEntity not found!";
         return;
     }
 
     m_gBuffer = m_scene3D->findChild<QRenderTarget *>("gBuffer");
     if (m_gBuffer == NULL)
     {
-        qDebug() << "gBuffer not found !";
+        qDebug() << "gBuffer not found!";
         return;
     }
 
     m_frontDepthTarget = m_scene3D->findChild<QRenderTarget *>("depthTarget");
     if (m_frontDepthTarget == NULL)
     {
-        qDebug() << "frontDepth not found !";
+        qDebug() << "frontDepth not found!";
         return;
     }
 
