@@ -128,7 +128,7 @@ SidePanel
                 {
                     var selNames = virtualConsole.selectedWidgetNames()
                     //console.log(selNames)
-                    deleteWidgetsPopup.message = qsTr("Are you sure you want to remove the following widgets ?") + "\n" + selNames
+                    deleteWidgetsPopup.message = qsTr("Are you sure you want to remove the following widgets?") + "\n" + selNames
                     deleteWidgetsPopup.open()
                 }
 

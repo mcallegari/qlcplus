@@ -246,6 +246,16 @@ Rectangle
                             suffix: "%"
                             onValueChanged: View3D.smokeAmount = value / 100
                         }
+
+                        // row 4
+                        RobotoText { label: qsTr("Show FPS") }
+                        CustomCheckBox
+                        {
+                            implicitHeight: UISettings.listItemHeight
+                            implicitWidth: implicitHeight
+                            onToggled: View3D.frameCountEnabled = checked
+                        }
+
                     } // GridLayout
             } // SectionBox - Rendering
 

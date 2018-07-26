@@ -34,7 +34,7 @@ FixtureGroupEditor::FixtureGroupEditor(QQuickView *view, Doc *doc, QObject *pare
     Q_ASSERT(m_doc != NULL);
 
     m_view->rootContext()->setContextProperty("fixtureGroupEditor", this);
-    qmlRegisterUncreatableType<FixtureGroupEditor>("org.qlcplus.classes", 1, 0,  "FixtureGroupEditor", "Can't create a FixtureGroupEditor !");
+    qmlRegisterUncreatableType<FixtureGroupEditor>("org.qlcplus.classes", 1, 0,  "FixtureGroupEditor", "Can't create a FixtureGroupEditor!");
 
     connect(m_doc, SIGNAL(loaded()), this, SLOT(slotDocLoaded()));
 }

@@ -916,7 +916,7 @@
         <source>Do you want to save changes to fixture
 &quot;%1&quot;
 before closing?</source>
-        <translation>Wil je voor het sluiten de wijzigingen opslaan van fixture %1 ?</translation>
+        <translation>Wil je voor het sluiten de wijzigingen opslaan van fixture %1?</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="229"/>
@@ -985,13 +985,13 @@ Unable to save fixture.</source>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="467"/>
-        <source>Are you sure you wish to remove channel: %1 ?</source>
-        <translation>Kanaal verwijderen: %1 ?</translation>
+        <source>Are you sure you wish to remove channel: %1?</source>
+        <translation>Kanaal verwijderen: %1?</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="783"/>
-        <source>Are you sure you wish to remove mode: %1 ?</source>
-        <translation>Verwijder mode %1 ?</translation>
+        <source>Are you sure you wish to remove mode: %1?</source>
+        <translation>Verwijder mode %1?</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="628"/>

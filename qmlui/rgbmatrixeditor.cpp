@@ -567,7 +567,7 @@ void RGBMatrixEditor::slotPreviewTimeout()
                 m_previewData[ptIdx] = QVariant(QColor(map[pt.y()][pt.x()]));
         }
 
-        //qDebug() << "Preview data changed !";
+        //qDebug() << "Preview data changed!";
         emit previewDataChanged(m_previewData);
     }
 }

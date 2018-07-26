@@ -217,11 +217,11 @@ void AudioRendererPortAudio::reset()
     PaError err;
     err = Pa_StopStream( m_paStream );
     if( err != paNoError )
-        qDebug() << "PortAudio Error: Stop stream failed !";
+        qDebug() << "PortAudio Error: Stop stream failed!";
 
     err = Pa_CloseStream( m_paStream );
     if( err != paNoError )
-        qDebug() << "PortAudio Error: Close stream failed !";
+        qDebug() << "PortAudio Error: Close stream failed!";
     m_buffer.clear();
     m_paStream = NULL;
 }

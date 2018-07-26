@@ -216,7 +216,7 @@ SidePanel
                 {
                     var selNames = functionManager.selectedItemNames()
                     //console.log(selNames)
-                    deleteItemsPopup.message = qsTr("Are you sure you want to delete the following items ?") + "\n" + selNames
+                    deleteItemsPopup.message = qsTr("Are you sure you want to delete the following items?") + "\n" + selNames
                     deleteItemsPopup.open()
                 }
 

@@ -218,7 +218,7 @@ def update_fixture(path, filename, destpath):
                 select = raw_input("Replacement preset code (0 = keep) (enter = " + preset + "): ")
                 if select == "":
                     if preset == "":
-                        print "Select an option !"
+                        print "Select an option!"
                     else:
                         break
                 else:
@@ -441,7 +441,7 @@ def validate_fixture(path, filename):
         chCount += 1
 
     if chCount == 0:
-        print absname + ": Invalid fixture. No channels found !"
+        print absname + ": Invalid fixture. No channels found!"
         errNum += 1
 
     ###################################### CHECK MODES ###################################
@@ -488,7 +488,7 @@ def validate_fixture(path, filename):
         modeCount += 1
 
     if modeCount == 0:
-        print absname + ": Invalid fixture. No modes found !"
+        print absname + ": Invalid fixture. No modes found!"
         errNum += 1
 
     ################################ CHECK GLOBAL PHYSICAL ################################

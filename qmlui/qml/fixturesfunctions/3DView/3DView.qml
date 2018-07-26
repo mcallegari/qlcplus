@@ -321,6 +321,24 @@ Rectangle
         } // Entity
     } // scene3d
 
+    Rectangle
+    {
+        visible: View3D.frameCountEnabled
+        z: 4
+        opacity: 0.6
+        color: UISettings.bgMain
+        width: height
+        height: UISettings.bigItemHeight
+
+        Column
+        {
+            RobotoText { height: UISettings.bigItemHeight / 4; label: "FPS: " + View3D.FPS }
+            RobotoText { height: UISettings.bigItemHeight / 4; label: "Min: " + View3D.minFPS }
+            RobotoText { height: UISettings.bigItemHeight / 4; label: "Max: " + View3D.maxFPS }
+            RobotoText { height: UISettings.bigItemHeight / 4; label: "Avg: " + View3D.avgFPS }
+        }
+    }
+
     SettingsView3D
     {
         id: threeDSettings

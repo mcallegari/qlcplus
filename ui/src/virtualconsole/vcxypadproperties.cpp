@@ -765,7 +765,7 @@ void VCXYPadProperties::slotAddFixtureGroupClicked()
         if (selectedGH.isEmpty())
         {
             QMessageBox::critical(this, tr("Error"),
-                                  tr("Please select at least one fixture or head to create this type of preset !"),
+                                  tr("Please select at least one fixture or head to create this type of preset!"),
                                   QMessageBox::Close);
             return;
         }

@@ -30,7 +30,7 @@ window.onload = function() {
  };
 
  websocket.onclose = function(ev) {
-  alert("QLC+ connection lost !");
+  alert("QLC+ connection lost!");
  };
 
  websocket.onerror = function(ev) {
