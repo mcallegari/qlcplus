@@ -835,7 +835,7 @@
 before closing?</source>
         <translation>Voulez vous enregistrer les modifications de l&apos;appareil
 &quot;%1&quot;
-avant de quitter ?</translation>
+avant de quitter&#xa0;?</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="229"/>
@@ -892,7 +892,7 @@ Impossible d&apos;enregistrer l&apos;appareil.</translation>
         <location filename="fixtureeditor.cpp" line="424"/>
         <location filename="fixtureeditor.cpp" line="509"/>
         <source>A channel by the name &quot;%1&quot; already exists!</source>
-        <translation>Un canal avec le nom &quot;%1&quot; existe déjà !</translation>
+        <translation>Un canal avec le nom &quot;%1&quot; existe déjà&#x0a;!</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="431"/>
@@ -904,17 +904,17 @@ Impossible d&apos;enregistrer l&apos;appareil.</translation>
         <location filename="fixtureeditor.cpp" line="432"/>
         <location filename="fixtureeditor.cpp" line="516"/>
         <source>You must give the channel a descriptive name!</source>
-        <translation>Veuillez donner un nom au canal !</translation>
+        <translation>Veuillez donner un nom au canal&#x0a;!</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="467"/>
         <source>Are you sure you wish to remove channel: %1?</source>
-        <translation>Êtes-vous sûr(e) de vouloir supprimer le canal &quot;%1&quot; ?</translation>
+        <translation>Êtes-vous sûr(e) de vouloir supprimer le canal &quot;%1&quot;&#xa0;?</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="783"/>
         <source>Are you sure you wish to remove mode: %1?</source>
-        <translation>Êtes-vous sûr(e) de vouloir supprimer le mode &quot;%1&quot; ?</translation>
+        <translation>Êtes-vous sûr(e) de vouloir supprimer le mode &quot;%1&quot;&#xa0;?</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="628"/>
