@@ -356,7 +356,7 @@ void FixtureGroupEditor::transformSelection(int transformation)
         pointsList.append(QPoint(xPos, yPos));
         headsList.append(m_editGroup->head(QLCPoint(xPos, yPos)));
 
-        // WARNING: point of no return!
+        // WARNING: point of no return !
         m_editGroup->resignHead(QLCPoint(xPos, yPos));
     }
 
