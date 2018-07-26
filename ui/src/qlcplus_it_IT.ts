@@ -85,7 +85,7 @@
     <message>
         <location filename="addfixture.ui" line="253"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERROR: Address already used!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERRORE: Indirizzo già in uso !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERRORE: Indirizzo già in uso!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="284"/>
@@ -232,7 +232,7 @@
     <message>
         <location filename="addrgbpanel.ui" line="98"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERROR: Address already used!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERRORE: Indirizzo già in uso !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERRORE: Indirizzo già in uso!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="198"/>
@@ -880,7 +880,7 @@ Tutti i cambiamenti andranno persi senza salvataggio..</translation>
         <location filename="app.cpp" line="1248"/>
         <source>File not found!
 The selected file has been moved or deleted.</source>
-        <translation>File non trovato !
+        <translation>File non trovato!
 Il file selezionato è stato spostato o eliminato.</translation>
     </message>
     <message>
@@ -1233,7 +1233,7 @@ Il file selezionato è stato spostato o eliminato.</translation>
     <message>
         <location filename="channelmodifiereditor.cpp" line="184"/>
         <source>You are trying to overwrite a system template! Please choose another name and the template will be saved in your channel modifier&apos;s user folder.</source>
-        <translation>Stai cercando di sovrascrivere un template di sistema ! Per favore scegli un altro nome e il template verrà salvato nella cartella utente dei modificatori di canali.</translation>
+        <translation>Stai cercando di sovrascrivere un template di sistema! Per favore scegli un altro nome e il template verrà salvato nella cartella utente dei modificatori di canali.</translation>
     </message>
 </context>
 <context>
@@ -2279,7 +2279,7 @@ Il file selezionato è stato spostato o eliminato.</translation>
     <message>
         <location filename="fixturemanager.cpp" line="1244"/>
         <source>Do you want to delete the selected items?</source>
-        <translation>Vuoi eliminare gli elementi selezionati ?</translation>
+        <translation>Vuoi eliminare gli elementi selezionati?</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1299"/>
@@ -2323,7 +2323,7 @@ Il file selezionato è stato spostato o eliminato.</translation>
     <message>
         <location filename="fixturemanager.cpp" line="1496"/>
         <source>Do you want to ungroup the selected fixtures?</source>
-        <translation>Vuoi separare le fixture selezionate ?</translation>
+        <translation>Vuoi separare le fixture selezionate?</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1611"/>
@@ -2456,7 +2456,7 @@ Il file selezionato è stato spostato o eliminato.</translation>
     <message>
         <location filename="fixtureremap.cpp" line="297"/>
         <source>Do you want to delete the selected items?</source>
-        <translation>Vuoi eliminare gli elementi selezionati ?</translation>
+        <translation>Vuoi eliminare gli elementi selezionati?</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="345"/>
@@ -2936,7 +2936,7 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Benvenuto nel wizard di QLC+ !&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Benvenuto nel wizard di QLC+!&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Questa è una procedura guidata che ti consentirà di cominciare ad usare QLC+ in pochi minuti.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Fondamentalmente consiste in tre semplici passaggi:&lt;/p&gt;
@@ -2995,7 +2995,7 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Basandomi sulle fixture che hai aggiunto, posso creare le funzioni elencate a sinistra. Devi solo selezionare quelle che ti servono e verificare i risultati a destra !&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Basandomi sulle fixture che hai aggiunto, posso creare le funzioni elencate a sinistra. Devi solo selezionare quelle che ti servono e verificare i risultati a destra!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="319"/>
@@ -3241,12 +3241,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputoutputmanager.cpp" line="362"/>
         <source>The universe you are trying to delete is patched. Are you sure you want to delete it?</source>
-        <translation>L&apos;universo che stai per eliminare è connesso. Sei sicuro di volerlo eliminare ?</translation>
+        <translation>L&apos;universo che stai per eliminare è connesso. Sei sicuro di volerlo eliminare?</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="381"/>
         <source>There are some fixtures using the universe you are trying to delete. Are you sure you want to delete it?</source>
-        <translation>Ci sono delle fixture che usano l&apos;universo che vuoi eliminare. Sei sicuro di volerlo eliminare ?</translation>
+        <translation>Ci sono delle fixture che usano l&apos;universo che vuoi eliminare. Sei sicuro di volerlo eliminare?</translation>
     </message>
 </context>
 <context>
@@ -4778,7 +4778,7 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
     <message>
         <location filename="scripteditor.cpp" line="381"/>
         <source>Please select an executable file!</source>
-        <translation>Devi selezionare un file eseguibile !</translation>
+        <translation>Devi selezionare un file eseguibile!</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="387"/>
@@ -7412,7 +7412,7 @@ Selezionarne una con i suddetti canali.</translation>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="768"/>
         <source>Please select at least one fixture or head to create this type of preset!</source>
-        <translation>Selezionare almeno una fixture o una testa per creare questo tipo di preset !</translation>
+        <translation>Selezionare almeno una fixture o una testa per creare questo tipo di preset!</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="775"/>
