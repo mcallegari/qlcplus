@@ -463,7 +463,7 @@ bool WebAccessNetwork::writeNetworkFile()
                 dhcpcdCacheWritten = true;
             }
             else
-                qDebug() << "[writeNetworkFile] ERROR. No dhcpcd cache found !";
+                qDebug() << "[writeNetworkFile] ERROR. No dhcpcd cache found!";
 
             dhcpcdFile.write((QString("interface %1\n").arg(iface.name)).toLatin1());
             dhcpcdFile.write((QString("static ip_address=%1/%2\n").arg(iface.address).arg(stringToNetmask(iface.netmask))).toLatin1());

@@ -409,7 +409,7 @@ bool EnttecDMXUSBPro::writeUniverse(quint32 universe, quint32 output, const QByt
 {
     if (isOpen() == false)
     {
-        qDebug() << "[DMXUSB] writeUniverse: device is not open !";
+        qDebug() << "[DMXUSB] writeUniverse: device is not open!";
         return false;
     }
 

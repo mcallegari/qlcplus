@@ -1638,7 +1638,7 @@ void ShowManager::updateMultiTrackView()
     m_show = qobject_cast<Show *>(m_doc->function(showID));
     if (m_show == NULL)
     {
-        qDebug() << Q_FUNC_INFO << "Invalid show !";
+        qDebug() << Q_FUNC_INFO << "Invalid show!";
         return;
     }
 

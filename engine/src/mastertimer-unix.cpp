@@ -149,7 +149,7 @@ void MasterTimerPrivate::run()
          * to process all the running Functions :'( */
         if (compareTime(finish, current) <= 0)
         {
-            qDebug() << Q_FUNC_INFO << "MasterTimer is running late !";
+            qDebug() << Q_FUNC_INFO << "MasterTimer is running late!";
             /* No need to sleep. Immediately process the next tick */
             mt->timerTick();
             /* Now the finish time needs to be recalibrated */

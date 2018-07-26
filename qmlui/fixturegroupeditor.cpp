@@ -34,7 +34,7 @@ FixtureGroupEditor::FixtureGroupEditor(QQuickView *view, Doc *doc, QObject *pare
     Q_ASSERT(m_doc != NULL);
 
     m_view->rootContext()->setContextProperty("fixtureGroupEditor", this);
-    qmlRegisterUncreatableType<FixtureGroupEditor>("org.qlcplus.classes", 1, 0,  "FixtureGroupEditor", "Can't create a FixtureGroupEditor !");
+    qmlRegisterUncreatableType<FixtureGroupEditor>("org.qlcplus.classes", 1, 0,  "FixtureGroupEditor", "Can't create a FixtureGroupEditor!");
 
     connect(m_doc, SIGNAL(loaded()), this, SLOT(slotDocLoaded()));
 }
@@ -356,7 +356,7 @@ void FixtureGroupEditor::transformSelection(int transformation)
         pointsList.append(QPoint(xPos, yPos));
         headsList.append(m_editGroup->head(QLCPoint(xPos, yPos)));
 
-        // WARNING: point of no return !
+        // WARNING: point of no return!
         m_editGroup->resignHead(QLCPoint(xPos, yPos));
     }
 

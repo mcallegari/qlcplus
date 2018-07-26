@@ -258,7 +258,7 @@ bool DMXUSBWidget::open(quint32 line, bool input)
     }
     else
     {
-        qWarning() << "[DMXUSBWidget] Line" << line << "doesn't belong to any mapped inputs nor to outputs !";
+        qWarning() << "[DMXUSBWidget] Line" << line << "doesn't belong to any mapped inputs nor to outputs!";
         return false;
     }
 
@@ -312,7 +312,7 @@ bool DMXUSBWidget::close(quint32 line, bool input)
     }
     else
     {
-        qWarning() << "Line" << line << "doesn't belong to any mapped inputs nor to outputs !";
+        qWarning() << "Line" << line << "doesn't belong to any mapped inputs nor to outputs!";
         return false;
     }
 

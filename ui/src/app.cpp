@@ -1244,7 +1244,7 @@ void App::slotRecentFileClicked(QAction *recent)
     if (testFile.exists() == false)
     {
         QMessageBox::critical(this, tr("Error"),
-                              tr("File not found !\nThe selected file has been moved or deleted."),
+                              tr("File not found!\nThe selected file has been moved or deleted."),
                               QMessageBox::Close);
         return;
     }

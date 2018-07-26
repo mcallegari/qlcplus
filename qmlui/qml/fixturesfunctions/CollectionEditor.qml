@@ -37,7 +37,7 @@ Rectangle
     ModelSelector
     {
         id: ceSelector
-        //onItemsCountChanged: console.log("Collection Editor selected items changed !")
+        //onItemsCountChanged: console.log("Collection Editor selected items changed!")
     }
 
     SplitView

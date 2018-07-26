@@ -853,7 +853,7 @@ bool Universe::writeBlended(int channel, uchar value, Universe::BlendMode blend)
         }
         break;
         default:
-            qDebug() << "[Universe] Blend mode not handled. Implement me !" << blend;
+            qDebug() << "[Universe] Blend mode not handled. Implement me!" << blend;
         break;
     }
 

@@ -377,7 +377,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
                 settings.setValue(SETTINGS_AUDIO_OUTPUT_DEVICE, cmdList[2]);
         }
         else
-            qDebug() << "[webaccess] Command" << cmdList[1] << "not supported !";
+            qDebug() << "[webaccess] Command" << cmdList[1] << "not supported!";
 
         return;
     }
@@ -432,8 +432,8 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
             m_auth->setUserLevel(username, (WebAccessUserLevel)level);
         }
         else
-            qDebug() << "[webaccess] Command" << cmdList[1] << "not supported !";
-        
+            qDebug() << "[webaccess] Command" << cmdList[1] << "not supported!";
+
         if(! m_auth->savePasswordsFile())
         {
             QString wsMessage = QString("ALERT|" + tr("Error while saving passwords file."));
@@ -456,7 +456,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
                 return;
             }
             else
-                qDebug() << "[webaccess] Error writing network configuration file !";
+                qDebug() << "[webaccess] Error writing network configuration file!";
 
             return;
         }
