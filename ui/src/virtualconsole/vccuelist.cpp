@@ -1018,7 +1018,7 @@ void VCCueList::setPlaybackLayout(VCCueList::PlaybackLayout layout)
     }
     else
     {
-        qWarning() << "Playback layout" << layout << "doesn't exist !";
+        qWarning() << "Playback layout" << layout << "doesn't exist!";
         layout = PlayPauseStop;
     }
 
@@ -1201,7 +1201,7 @@ void VCCueList::slotSlider2ValueChanged(int value)
 {
     if (slidersMode() == Steps)
     {
-        qWarning() << "[VCCueList] ERROR ! Slider2 value change should never happen !";
+        qWarning() << "[VCCueList] ERROR ! Slider2 value change should never happen!";
         return;
     }
 

@@ -16,7 +16,7 @@ function requestAPI(cmd)
   if (isConnected === true)
     websocket.send("QLC+API|" + cmd);
   else
-    alert("You must connect to QLC+ WebSocket first !");
+    alert("You must connect to QLC+ WebSocket first!");
 }
 
 // helper function to send a QLC+ API with one parameter.
@@ -30,7 +30,7 @@ function requestAPIWithParam(cmd, paramObjName)
     if (isConnected === true)
       websocket.send("QLC+API|" + cmd + "|" + obj.value);
     else
-      alert("You must connect to QLC+ WebSocket first !");
+      alert("You must connect to QLC+ WebSocket first!");
   }
 }
 
@@ -44,7 +44,7 @@ function requestChannelsRange(cmd, uniObjName, addressObjName, rangeObjName)
     if (isConnected === true)
       websocket.send("QLC+API|" + cmd + "|" + uniObj.value + "|" + addrObj.value + "|" + rangeObj.value);
     else
-      alert("You must connect to QLC+ WebSocket first !");
+      alert("You must connect to QLC+ WebSocket first!");
   }
 }
 
@@ -57,7 +57,7 @@ function setSimpleDeskChannel(addressObjName, channelValueObjName)
     if (isConnected === true)
       websocket.send("CH|" + addrObj.value + "|" + valObj.value);
     else
-      alert("You must connect to QLC+ WebSocket first !");
+      alert("You must connect to QLC+ WebSocket first!");
   }
 }
 
@@ -70,7 +70,7 @@ function vcWidgetSetValue(wIDObjName, wValueObjName)
     if (isConnected === true)
       websocket.send(wObj.value + "|" + valObj.value);
     else
-      alert("You must connect to QLC+ WebSocket first !");
+      alert("You must connect to QLC+ WebSocket first!");
   }
 }
 
@@ -89,7 +89,7 @@ function vcCueListControl(clIDObjName, clOpObjName, clStepObjName)
         websocket.send(clObj.value + "|" + opObj.value);
     }
     else
-      alert("You must connect to QLC+ WebSocket first !");
+      alert("You must connect to QLC+ WebSocket first!");
   }
 }
 
@@ -105,7 +105,7 @@ function vcFrameControl(frIDObjName, frOperation)
         websocket.send(frObj.value + "|" + opObj.value);
     }
     else
-      alert("You must connect to QLC+ WebSocket first !");
+      alert("You must connect to QLC+ WebSocket first!");
   }
 }
 
@@ -122,7 +122,7 @@ function connectToWebSocket(host) {
   };
 
   websocket.onclose = function(ev) {
-    alert("QLC+ connection lost !");
+    alert("QLC+ connection lost!");
   };
 
   websocket.onerror = function(ev) {

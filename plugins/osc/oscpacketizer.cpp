@@ -216,7 +216,7 @@ QList<QPair<QString, QByteArray> > OSCPacketizer::parsePacket(QByteArray const& 
         {
             if (data.size() < 20 || data.startsWith("#bundle") == false)
             {
-                qWarning() << "[OSC] Found an unsupported message type !" << data;
+                qWarning() << "[OSC] Found an unsupported message type!" << data;
                 return messages;
             }
             // 8 bytes for '#bundle\0' and 8 bytes for a timestamp that we don't handle

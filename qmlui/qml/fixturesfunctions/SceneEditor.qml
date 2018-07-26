@@ -39,7 +39,7 @@ Rectangle
     ModelSelector
     {
         id: seSelector
-        onItemsCountChanged: console.log("Scene Editor selected items changed !")
+        onItemsCountChanged: console.log("Scene Editor selected items changed!")
     }
 
     TimeEditTool

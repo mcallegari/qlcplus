@@ -550,7 +550,7 @@ Rectangle
                     {
                         var args = []
                         actionManager.requestActionPopup(ActionManager.None,
-                                                         qsTr("Cannot drag a Show into itself !"),
+                                                         qsTr("Cannot drag a Show into itself!"),
                                                          ActionManager.OK, args)
                     }
 */

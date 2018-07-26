@@ -93,7 +93,7 @@ Column
     ModelSelector
     {
         id: ceSelector
-        onItemsCountChanged: console.log("Chaser Editor selected items changed !")
+        onItemsCountChanged: console.log("Chaser Editor selected items changed!")
     }
 
     TimeEditTool

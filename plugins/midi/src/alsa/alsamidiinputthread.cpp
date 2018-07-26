@@ -217,7 +217,7 @@ void AlsaMidiInputThread::readEvent()
         uchar data1 = 0;
         uchar data2 = 0;
 
-        //qDebug() << "ALSA MIDI event received !" << ev->type;
+        //qDebug() << "ALSA MIDI event received!" << ev->type;
 
         if (snd_seq_ev_is_control_type(ev))
         {
