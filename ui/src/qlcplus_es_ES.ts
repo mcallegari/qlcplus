@@ -1233,7 +1233,7 @@ El archivo seleccionado ha sido movido o borrado.</translation>
     <message>
         <location filename="channelmodifiereditor.cpp" line="184"/>
         <source>You are trying to overwrite a system template! Please choose another name and the template will be saved in your channel modifier&apos;s user folder.</source>
-        <translation>Está intentando sobreescribir una plantilla del sistema ! Por favor escoja otro nombre y la plantilla se guardará en el directorio de modificadores de canal del usuario.</translation>
+        <translation>¡Está intentando sobreescribir una plantilla del sistema! Por favor escoja otro nombre y la plantilla se guardará en el directorio de modificadores de canal del usuario.</translation>
     </message>
 </context>
 <context>
@@ -2936,7 +2936,7 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;¡Bienvenido al Asistente de QLC+ !&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;¡Bienvenido al Asistente de QLC+!&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Esta es una quía que le permitirá empezar a usar QLC+ en unos pocos minutos.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Básicamente consiste en tres simples pasos:&lt;/p&gt;
@@ -7413,7 +7413,7 @@ Por favor elija una que tenga esos canales.</translation>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="768"/>
         <source>Please select at least one fixture or head to create this type of preset!</source>
-        <translation>Por favor, seleccionar al menos un fixture o cabeza para crear este tipo de preset !</translation>
+        <translation>Por favor, ¡seleccionar al menos un fixture o cabeza para crear este tipo de preset!</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="775"/>
