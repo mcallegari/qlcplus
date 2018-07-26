@@ -167,7 +167,7 @@ Entity
             tiltSpeed = tiltDuration
     }
 
-    function setFocus(value)
+    function setZoom(value)
     {
         cutoffAngle = (((((focusMaxDegrees - focusMinDegrees) / 255) * value) + focusMinDegrees) / 2) * (Math.PI / 180)
     }

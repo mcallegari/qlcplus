@@ -989,12 +989,14 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
     }
 
     quint32 headDimmerIndex = fixture->channelNumber(QLCChannel::Intensity, QLCChannel::MSB);
+    if (headDimmerIndex == QLCChannel::invalid())
+        headDimmerIndex = fixture->masterIntensityChannel();
+
     qreal intensityValue = 1.0;
     if (headDimmerIndex != QLCChannel::invalid())
         intensityValue = (qreal)fixture->channelValueAt(headDimmerIndex) / 255;
 
-    if (previous.isEmpty() || fixture->channelValueAt(headDimmerIndex) != previous.at(headDimmerIndex))
-        fixtureItem->setProperty("dimmerValue", intensityValue);
+    fixtureItem->setProperty("dimmerValue", intensityValue);
 
     color = FixtureUtils::headColor(fixture);
 
@@ -1066,8 +1068,17 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                 if (previous.count() && value == previous.at(i))
                     break;
 
-                QMetaObject::invokeMethod(fixtureItem, "setFocus",
-                                          Q_ARG(QVariant, value));
+                switch (ch->preset())
+                {
+                    case QLCChannel::BeamZoomSmallBig:
+                        QMetaObject::invokeMethod(fixtureItem, "setZoom", Q_ARG(QVariant, value));
+                    break;
+                    case QLCChannel::BeamZoomBigSmall:
+                        QMetaObject::invokeMethod(fixtureItem, "setZoom", Q_ARG(QVariant, 255 - value));
+                    break;
+                    default:
+                    break;
+                }
             }
             break;
             case QLCChannel::Gobo:
