@@ -776,7 +776,7 @@ void ChaserEditor::slotPasteClicked()
         ChaserStep step(it.next());
         if (step.resolveFunction(m_doc) == NULL) // Function has been removed
         {
-            qWarning() << Q_FUNC_INFO << "Trying to paste an invalid function (removed function ?)";
+            qWarning() << Q_FUNC_INFO << "Trying to paste an invalid function (removed function?)";
             continue;
         }
         updateItem(item, step);
