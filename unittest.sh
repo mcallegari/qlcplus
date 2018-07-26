@@ -20,7 +20,7 @@ if [ "$CURRUSER" == "buildbot" ] || [ "$CURRUSER" == "abuild" ]; then
     # if we're running as build slave, set a sleep time to start/stop xvfb between tests
     SLEEPCMD="sleep 1"
   elif [[ "$OSTYPE" == "darwin"* ]]; then
-    echo "We're on OSX. Any prefix needed ?"
+    echo "We're on OSX. Any prefix needed?"
   fi
 
 else
