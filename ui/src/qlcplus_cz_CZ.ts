@@ -567,17 +567,17 @@
     <message>
         <location filename="app.cpp" line="379"/>
         <source>Do you wish to save the current workspace before closing the application?</source>
-        <translation>Přejete si uložit rozdělanou práci před ukončením aplikace ?</translation>
+        <translation>Přejete si uložit rozdělanou práci před ukončením aplikace?</translation>
     </message>
     <message>
         <location filename="app.cpp" line="393"/>
         <source>Close the application?</source>
-        <translation>Zavřít aplikaci ?</translation>
+        <translation>Zavřít aplikaci?</translation>
     </message>
     <message>
         <location filename="app.cpp" line="394"/>
         <source>Do you wish to close the application?</source>
-        <translation>Opravdu si přejete uzavřít aplikaci ?</translation>
+        <translation>Opravdu si přejete uzavřít aplikaci?</translation>
     </message>
     <message>
         <location filename="app.cpp" line="436"/>
@@ -2928,7 +2928,7 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Vítejte v průvodci QLC+ !&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Vítejte v průvodci QLC+!&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Toto je řízený proces, který vám umožní začít používat QLC + během několika minut.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;V zásadě je rozložen do tří jednoduchých kroků:&lt;/p&gt;
@@ -3233,12 +3233,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="inputoutputmanager.cpp" line="362"/>
         <source>The universe you are trying to delete is patched. Are you sure you want to delete it?</source>
-        <translation>Vetvev, kterou se snažíte smazat je propojená. Opravdu si ji přejete smazat ?</translation>
+        <translation>Vetvev, kterou se snažíte smazat je propojená. Opravdu si ji přejete smazat?</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="381"/>
         <source>There are some fixtures using the universe you are trying to delete. Are you sure you want to delete it?</source>
-        <translation>Některá zařízení používají větev, kterou se pokoušíte smazat. Opravdu ji chcete smazat ?</translation>
+        <translation>Některá zařízení používají větev, kterou se pokoušíte smazat. Opravdu ji chcete smazat?</translation>
     </message>
 </context>
 <context>
@@ -3360,7 +3360,7 @@ p, li { white-space: pre-wrap; }
         <source>An error occurred while trying to open the selected device line.
 This can be caused either by a wrong system configuration or an unsupported input/output mode.
 Please refer to the plugins documentation to troubleshoot this.</source>
-        <translation>Nastala chyba při pokusu o otevření zvoleného zařízení. 
+        <translation>Nastala chyba při pokusu o otevření zvoleného zařízení.
 To může být způsobeno nesprávnou konfigurací systému nebo nepodporovaným režimem vstupu/výstupu.
 Použijte nápovědu k pluginu (zásuvnému modulu) pro vyřešení tohoto problému.</translation>
     </message>
@@ -3374,7 +3374,7 @@ Použijte nápovědu k pluginu (zásuvnému modulu) pro vyřešení tohoto probl
         <location filename="inputoutputpatcheditor.cpp" line="703"/>
         <location filename="inputoutputpatcheditor.cpp" line="837"/>
         <source>An input profile at %1 already exists. Do you wish to overwrite it?</source>
-        <translation>Profil vstupu na %1 již existuje. Opravdu si přejete jej přepsat a nahradit ?</translation>
+        <translation>Profil vstupu na %1 již existuje. Opravdu si přejete jej přepsat a nahradit?</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="712"/>
@@ -3599,7 +3599,7 @@ Použijte nápovědu k pluginu (zásuvnému modulu) pro vyřešení tohoto probl
     <message>
         <location filename="inputprofileeditor.cpp" line="334"/>
         <source>Delete all %1 selected channels?</source>
-        <translation>Smazat všechny %1 zvolené kanály ?</translation>
+        <translation>Smazat všechny %1 zvolené kanály?</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="451"/>
@@ -7747,7 +7747,7 @@ Vyberte prosím některý z těchto kanálů.</translation>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="1162"/>
         <source>Do you wish to delete the selected widgets?</source>
-        <translation>Přejete si smazat zvolený prvek/ovladač ?</translation>
+        <translation>Přejete si smazat zvolený prvek/ovladač?</translation>
     </message>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="1163"/>
