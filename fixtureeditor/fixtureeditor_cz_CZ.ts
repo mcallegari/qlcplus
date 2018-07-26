@@ -910,7 +910,7 @@
         <source>Do you want to save changes to fixture
 &quot;%1&quot;
 before closing?</source>
-        <translation>Přejete si uložit změny v zařízení 
+        <translation>Přejete si uložit změny v zařízení
 &quot;%1&quot;
 před uzavřením?</translation>
     </message>
@@ -985,12 +985,12 @@ Nelze uložit zařízení.</translation>
     <message>
         <location filename="fixtureeditor.cpp" line="467"/>
         <source>Are you sure you wish to remove channel: %1?</source>
-        <translation>Opravdu chcete odebrat kanál: %1 ?</translation>
+        <translation>Opravdu chcete odebrat kanál: %1?</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="783"/>
         <source>Are you sure you wish to remove mode: %1?</source>
-        <translation>Opravdu chcete odebrat režim: %1 ?</translation>
+        <translation>Opravdu chcete odebrat režim: %1?</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="628"/>

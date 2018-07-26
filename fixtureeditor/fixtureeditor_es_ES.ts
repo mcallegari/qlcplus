@@ -889,12 +889,12 @@ No se puede guardar el fixture.</translation>
     <message>
         <location filename="fixtureeditor.cpp" line="467"/>
         <source>Are you sure you wish to remove channel: %1?</source>
-        <translation>¿Está seguro que quiere quitar el canal: %1 ?</translation>
+        <translation>¿Está seguro que quiere quitar el canal: %1?</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="783"/>
         <source>Are you sure you wish to remove mode: %1?</source>
-        <translation>¿Está seguro que quiere quitar el modo: %1 ?</translation>
+        <translation>¿Está seguro que quiere quitar el modo: %1?</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="628"/>
