@@ -23,9 +23,11 @@
 
 #include <QObject>
 #include <QQuickView>
+#include <QElapsedTimer>
 
 #include <Qt3DCore/QEntity>
 #include <Qt3DCore/QTransform>
+#include <Qt3DLogic/QFrameAction>
 #include <Qt3DRender/QLayer>
 #include <Qt3DRender/QEffect>
 #include <Qt3DRender/QMaterial>
@@ -42,6 +44,7 @@ class MonitorProperties;
 
 using namespace Qt3DCore;
 using namespace Qt3DRender;
+using namespace Qt3DLogic;
 
 class GoboTextureImage : public Qt3DRender::QPaintedTextureImage
 {
@@ -99,6 +102,12 @@ class MainView3D : public PreviewContext
     Q_PROPERTY(float ambientIntensity READ ambientIntensity WRITE setAmbientIntensity NOTIFY ambientIntensityChanged)
     Q_PROPERTY(float smokeAmount READ smokeAmount WRITE setSmokeAmount NOTIFY smokeAmountChanged)
 
+    Q_PROPERTY(bool frameCountEnabled READ frameCountEnabled WRITE setFrameCountEnabled NOTIFY frameCountEnabledChanged)
+    Q_PROPERTY(int FPS READ FPS NOTIFY FPSChanged)
+    Q_PROPERTY(int minFPS READ minFPS NOTIFY minFPSChanged)
+    Q_PROPERTY(int maxFPS READ maxFPS NOTIFY maxFPSChanged)
+    Q_PROPERTY(float avgFPS READ avgFPS NOTIFY avgFPSChanged)
+
     Q_PROPERTY(int genericSelectedCount READ genericSelectedCount NOTIFY genericSelectedCountChanged)
     Q_PROPERTY(QVector3D genericItemsPosition READ genericItemsPosition WRITE setGenericItemsPosition NOTIFY genericItemsPositionChanged)
     Q_PROPERTY(QVector3D genericItemsRotation READ genericItemsRotation WRITE setGenericItemsRotation NOTIFY genericItemsRotationChanged)
@@ -137,6 +146,37 @@ private:
     QQmlComponent *m_spotlightConeComponent;
     QQmlComponent *m_fillGBufferLayer;
     int m_createItemCount;
+
+    /*********************************************************************
+     * Frame counter
+     *********************************************************************/
+public:
+    /** Enable/Disable a frame count signal */
+    bool frameCountEnabled() const;
+    void setFrameCountEnabled(bool enable);
+
+    int FPS() const { return m_frameCount; }
+    int minFPS() const { return m_minFrameCount; }
+    int maxFPS() const { return m_maxFrameCount; }
+    float avgFPS() const { return m_avgFrameCount; }
+
+protected slots:
+    void slotFrameProcessed();
+
+signals:
+    void frameCountEnabledChanged();
+    void FPSChanged(int fps);
+    void minFPSChanged(int fps);
+    void maxFPSChanged(int fps);
+    void avgFPSChanged(float fps);
+
+private:
+    QElapsedTimer m_fpsElapsed;
+    QFrameAction *m_frameAction;
+    int m_frameCount;
+    int m_minFrameCount;
+    int m_maxFrameCount;
+    int m_avgFrameCount;
 
     /*********************************************************************
      * Fixtures

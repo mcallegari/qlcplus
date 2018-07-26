@@ -51,6 +51,11 @@ MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
     , m_spotlightConeComponent(NULL)
     , m_fillGBufferLayer(NULL)
     , m_createItemCount(0)
+    , m_frameAction(NULL)
+    , m_frameCount(0)
+    , m_minFrameCount(0)
+    , m_maxFrameCount(0)
+    , m_avgFrameCount(1.0)
     , m_scene3D(NULL)
     , m_sceneRootEntity(NULL)
     , m_quadEntity(NULL)
@@ -170,6 +175,12 @@ void MainView3D::resetItems()
     m_genericMap.clear();
     m_latestGenericID = 0;
     m_createItemCount = 0;
+
+    m_frameCount = 0;
+    m_minFrameCount = 0;
+    m_maxFrameCount = 0;
+    m_avgFrameCount = 1.0;
+    setFrameCountEnabled(false);
 }
 
 QString MainView3D::meshDirectory() const
@@ -210,6 +221,61 @@ void MainView3D::setUniverseFilter(quint32 universeFilter)
             meshRef->m_rootItem->setProperty("enabled", false);
             meshRef->m_selectionBox->setProperty("enabled", false);
         }
+    }
+}
+
+/*********************************************************************
+ * Frame counter
+ *********************************************************************/
+
+bool MainView3D::frameCountEnabled() const
+{
+    return m_frameAction != NULL ? true : false;
+}
+
+void MainView3D::setFrameCountEnabled(bool enable)
+{
+    if (enable)
+    {
+        m_frameAction = new QFrameAction();
+        connect(m_frameAction, &QFrameAction::triggered, this, &MainView3D::slotFrameProcessed);
+        if (m_sceneRootEntity)
+            m_sceneRootEntity->addComponent(m_frameAction);
+        m_fpsElapsed.start();
+    }
+    else
+    {
+        if (m_frameAction)
+        {
+            disconnect(m_frameAction, &QFrameAction::triggered, this, &MainView3D::slotFrameProcessed);
+            delete m_frameAction;
+            m_frameAction = NULL;
+        }
+    }
+    emit frameCountEnabledChanged();
+}
+
+void MainView3D::slotFrameProcessed()
+{
+    m_frameCount++;
+    if (m_fpsElapsed.elapsed() >= 1000)
+    {
+        emit FPSChanged(m_frameCount);
+        if (m_minFrameCount == 0 || m_frameCount < m_minFrameCount)
+        {
+            m_minFrameCount = m_frameCount;
+            emit minFPSChanged(m_minFrameCount);
+        }
+        if (m_frameCount > m_maxFrameCount)
+        {
+            m_maxFrameCount = m_frameCount;
+            emit maxFPSChanged(m_maxFrameCount);
+        }
+        m_avgFrameCount = 0.9 * m_avgFrameCount + 0.1 * m_frameCount;
+        emit avgFPSChanged(m_avgFrameCount);
+
+        m_frameCount = 0;
+        m_fpsElapsed.restart();
     }
 }
 
@@ -277,6 +343,9 @@ void MainView3D::initialize3DProperties()
         qDebug() << "frontDepth not found!";
         return;
     }
+
+    if (m_frameAction)
+        m_sceneRootEntity->addComponent(m_frameAction);
 
     qDebug() << m_sceneRootEntity << m_quadEntity << m_gBuffer << m_frontDepthTarget;
 
