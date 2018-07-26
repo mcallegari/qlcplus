@@ -908,12 +908,12 @@ Impossible d&apos;enregistrer l&apos;appareil.</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="467"/>
-        <source>Are you sure you wish to remove channel: %1 ?</source>
+        <source>Are you sure you wish to remove channel: %1?</source>
         <translation>Êtes-vous sûr(e) de vouloir supprimer le canal &quot;%1&quot; ?</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="783"/>
-        <source>Are you sure you wish to remove mode: %1 ?</source>
+        <source>Are you sure you wish to remove mode: %1?</source>
         <translation>Êtes-vous sûr(e) de vouloir supprimer le mode &quot;%1&quot; ?</translation>
     </message>
     <message>

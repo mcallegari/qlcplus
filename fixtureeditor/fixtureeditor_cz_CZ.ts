@@ -984,12 +984,12 @@ Nelze uložit zařízení.</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="467"/>
-        <source>Are you sure you wish to remove channel: %1 ?</source>
+        <source>Are you sure you wish to remove channel: %1?</source>
         <translation>Opravdu chcete odebrat kanál: %1 ?</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="783"/>
-        <source>Are you sure you wish to remove mode: %1 ?</source>
+        <source>Are you sure you wish to remove mode: %1?</source>
         <translation>Opravdu chcete odebrat režim: %1 ?</translation>
     </message>
     <message>
