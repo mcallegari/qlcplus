@@ -603,7 +603,7 @@ void NetworkManager::slotProcessTCPPackets()
                     QByteArray decrPayload = paramsList.at(0).toByteArray();
                     if (QString::fromUtf8(decrPayload) == QString::number(defaultKey, 16))
                     {
-                        qDebug() << "Key matches !";
+                        qDebug() << "Key matches!";
                         success = true;
                     }
                 }
@@ -722,7 +722,7 @@ void NetworkManager::slotHostDisconnected()
 {
     QTcpSocket *socket = (QTcpSocket *)sender();
     QHostAddress senderAddress = socket->peerAddress();
-    qDebug() << "Host with address" << senderAddress.toString() << "disconnected !";
+    qDebug() << "Host with address" << senderAddress.toString() << "disconnected!";
 
     if (m_hostsMap.contains(senderAddress) == true)
     {

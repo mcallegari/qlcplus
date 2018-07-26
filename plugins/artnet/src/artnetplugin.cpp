@@ -215,7 +215,7 @@ void ArtNetPlugin::writeUniverse(quint32 universe, quint32 output, const QByteAr
 
 /*************************************************************************
   * Inputs
-  *************************************************************************/  
+  *************************************************************************/
 QStringList ArtNetPlugin::inputs()
 {
     QStringList list;
@@ -375,7 +375,7 @@ QList<ArtNetIO> ArtNetPlugin::getIOMapping()
 
 QSharedPointer<QUdpSocket> ArtNetPlugin::getUdpSocket()
 {
-    // Is the socket already present ?
+    // Is the socket already present?
     QSharedPointer<QUdpSocket> udpSocket(m_udpSocket);
     if (udpSocket)
         return udpSocket;

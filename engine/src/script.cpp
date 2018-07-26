@@ -774,7 +774,7 @@ QList <QStringList> Script::tokenizeLine(const QString& str, bool* ok)
             if (left != -1)
             {
                 // if we stumbled into a URL like http:// or ftp://
-                // then it's not a comment !
+                // then it's not a comment!
                 if (line.at(left - 1) != ':')
                     line.truncate(left);
                 left += 2;

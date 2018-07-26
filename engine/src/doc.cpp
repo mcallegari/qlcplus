@@ -96,7 +96,7 @@ Doc::~Doc()
 
     if (isKiosk() == false)
     {
-        // TODO: is this still needed ??
+        // TODO: is this still needed??
         //m_ioMap->saveDefaults();
     }
     delete m_ioMap;

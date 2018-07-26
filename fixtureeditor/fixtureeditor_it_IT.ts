@@ -967,7 +967,7 @@ Impossibile Salvare.</translation>
         <location filename="fixtureeditor.cpp" line="424"/>
         <location filename="fixtureeditor.cpp" line="509"/>
         <source>A channel by the name &quot;%1&quot; already exists!</source>
-        <translation>il canale &quot;%1&quot; già esiste !</translation>
+        <translation>il canale &quot;%1&quot; già esiste!</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="431"/>
@@ -983,13 +983,13 @@ Impossibile Salvare.</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="467"/>
-        <source>Are you sure you wish to remove channel: %1 ?</source>
-        <translation>Sei sicuro di vuoler rimuovere il canale: %1 ?</translation>
+        <source>Are you sure you wish to remove channel: %1?</source>
+        <translation>Sei sicuro di vuoler rimuovere il canale: %1?</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="783"/>
-        <source>Are you sure you wish to remove mode: %1 ?</source>
-        <translation>Sei sicuro di voler rimuovere la modalità: %1 ?</translation>
+        <source>Are you sure you wish to remove mode: %1?</source>
+        <translation>Sei sicuro di voler rimuovere la modalità: %1?</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="628"/>

@@ -56,11 +56,11 @@ int AudioRendererPortAudio::dataCallback ( const void *, void *outputBuffer,
     unsigned long requestedData = frameCount * PAobj->m_frameSize * PAobj->m_channels;
 
     QMutexLocker locker(&PAobj->m_paMutex);
-    // user stop requested ? Prevent this callback to be called again
+    // user stop requested? Prevent this callback to be called again
     if (PAobj->m_userStop == true)
         return paAbort;
 
-    // not enough data ? Wait for another writeAudio to add more
+    // not enough data? Wait for another writeAudio to add more
     if (requestedData > (unsigned long)PAobj->m_buffer.size())
     {
         Pa_Sleep(10);
@@ -217,11 +217,11 @@ void AudioRendererPortAudio::reset()
     PaError err;
     err = Pa_StopStream( m_paStream );
     if( err != paNoError )
-        qDebug() << "PortAudio Error: Stop stream failed !";
+        qDebug() << "PortAudio Error: Stop stream failed!";
 
     err = Pa_CloseStream( m_paStream );
     if( err != paNoError )
-        qDebug() << "PortAudio Error: Close stream failed !";
+        qDebug() << "PortAudio Error: Close stream failed!";
     m_buffer.clear();
     m_paStream = NULL;
 }

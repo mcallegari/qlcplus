@@ -84,8 +84,8 @@
     </message>
     <message>
         <location filename="addfixture.ui" line="253"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERROR: Address already used !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERREUR: Cette addresse est déjà utilisée !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERROR: Address already used!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERREUR: Cette addresse est déjà utilisée&#xa0;!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="addfixture.ui" line="284"/>
@@ -231,8 +231,8 @@
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="98"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERROR: Address already used !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERREUR: Cette addresse est déjà utilisée !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERROR: Address already used!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;ERREUR: Cette addresse est déjà utilisée&#xa0;!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="addrgbpanel.ui" line="198"/>
@@ -537,7 +537,7 @@
     <message>
         <location filename="app.cpp" line="379"/>
         <source>Do you wish to save the current workspace before closing the application?</source>
-        <translation>Voulez-vous enregistrer le projet en cours avant de quitter l&apos;application ?</translation>
+        <translation>Voulez-vous enregistrer le projet en cours avant de quitter l&apos;application&#xa0;?</translation>
     </message>
     <message>
         <location filename="app.cpp" line="436"/>
@@ -560,7 +560,7 @@
         <source>There are still running functions.
 Really stop them and switch back to Design mode?</source>
         <translation>Des fonctions sont encore en cours d&apos;exécution.
-Voulez-vous vraiment les arrêter et basculer vers le mode Création ?</translation>
+Voulez-vous vraiment les arrêter et basculer vers le mode Création&#xa0;?</translation>
     </message>
     <message>
         <location filename="app.cpp" line="624"/>
@@ -714,12 +714,12 @@ Voulez-vous vraiment les arrêter et basculer vers le mode Création ?</translat
     <message>
         <location filename="app.cpp" line="393"/>
         <source>Close the application?</source>
-        <translation>Quitter QLCPlus ?</translation>
+        <translation>Quitter QLCPlus&#xa0;?</translation>
     </message>
     <message>
         <location filename="app.cpp" line="394"/>
         <source>Do you wish to close the application?</source>
-        <translation>Voulez-vous quitter l&apos;application ?</translation>
+        <translation>Voulez-vous quitter l&apos;application&#xa0;?</translation>
     </message>
     <message>
         <location filename="app.cpp" line="571"/>
@@ -750,7 +750,7 @@ Voulez-vous vraiment les arrêter et basculer vers le mode Création ?</translat
     <message>
         <location filename="app.cpp" line="694"/>
         <source>Stop ALL functions!</source>
-        <translation>Arrêter TOUTES les fonctions !</translation>
+        <translation>Arrêter TOUTES les fonctions&#xa0;!</translation>
     </message>
     <message>
         <location filename="app.cpp" line="699"/>
@@ -835,7 +835,7 @@ Voulez-vous vraiment les arrêter et basculer vers le mode Création ?</translat
         <source>Do you wish to save the current workspace?
 Changes will be lost if you don&apos;t save them.</source>
         <translatorcomment>Tiens tiens...perspicace!</translatorcomment>
-        <translation>Voulez-vous enregistrer le projet actuel ?
+        <translation>Voulez-vous enregistrer le projet actuel&#xa0;?
 Les changements seront perdus si vous ne les sauvegardez pas.</translation>
     </message>
     <message>
@@ -880,9 +880,9 @@ Les changements seront perdus si vous ne les sauvegardez pas.</translation>
     </message>
     <message>
         <location filename="app.cpp" line="1248"/>
-        <source>File not found !
+        <source>File not found!
 The selected file has been moved or deleted.</source>
-        <translation>Fichier introuvable !
+        <translation>Fichier introuvable&#xa0;
 Celui-ci a dû être déplacé ou effacé.</translation>
     </message>
     <message>
@@ -1236,8 +1236,8 @@ Celui-ci a dû être déplacé ou effacé.</translation>
     </message>
     <message>
         <location filename="channelmodifiereditor.cpp" line="184"/>
-        <source>You are trying to overwrite a system template ! Please choose another name and the template will be saved in your channel modifier&apos;s user folder.</source>
-        <translation>Vous tentez d&apos;écraser un modèle système ! Merci de choisir un nom différent et le modèle sera enregistré dans votre dossier personnel.</translation>
+        <source>You are trying to overwrite a system template! Please choose another name and the template will be saved in your channel modifier&apos;s user folder.</source>
+        <translation>Vous tentez d&apos;écraser un modèle système&#xa0;! Merci de choisir un nom différent et le modèle sera enregistré dans votre dossier personnel.</translation>
     </message>
 </context>
 <context>
@@ -2107,7 +2107,7 @@ Celui-ci a dû être déplacé ou effacé.</translation>
     <message>
         <location filename="efxeditor.cpp" line="740"/>
         <source>Do you want to remove the selected fixture(s)?</source>
-        <translation>Voulez-vous enlever le(s) appareil(s) sélectionné(s) ?</translation>
+        <translation>Voulez-vous enlever le(s) appareil(s) sélectionné(s)&#xa0;?</translation>
     </message>
 </context>
 <context>
@@ -2285,7 +2285,7 @@ Celui-ci a dû être déplacé ou effacé.</translation>
     <message>
         <location filename="fixturemanager.cpp" line="1244"/>
         <source>Do you want to delete the selected items?</source>
-        <translation>Voulez-vous supprimer les éléments sélectionnés ?</translation>
+        <translation>Voulez-vous supprimer les éléments sélectionnés&#xa0;?</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1299"/>
@@ -2324,12 +2324,12 @@ Celui-ci a dû être déplacé ou effacé.</translation>
     <message>
         <location filename="fixturemanager.cpp" line="1495"/>
         <source>Ungroup fixtures?</source>
-        <translation>Dégrouper les appareils ?</translation>
+        <translation>Dégrouper les appareils&#xa0;?</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1496"/>
         <source>Do you want to ungroup the selected fixtures?</source>
-        <translation>Voulez-vous dégrouper les appareils sélectionnés ?</translation>
+        <translation>Voulez-vous dégrouper les appareils sélectionnés&#xa0;?</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1611"/>
@@ -2377,7 +2377,7 @@ Celui-ci a dû être déplacé ou effacé.</translation>
     <message>
         <location filename="fixturemanager.cpp" line="1300"/>
         <source>Do you want to delete the selected groups?</source>
-        <translation>Voulez-vous supprimer les groupes sélectionnés ?</translation>
+        <translation>Voulez-vous supprimer les groupes sélectionnés&#xa0;?</translation>
     </message>
     <message>
         <location filename="fixturemanager.cpp" line="1360"/>
@@ -2462,7 +2462,7 @@ Celui-ci a dû être déplacé ou effacé.</translation>
     <message>
         <location filename="fixtureremap.cpp" line="297"/>
         <source>Do you want to delete the selected items?</source>
-        <translation>Voulez-vous supprimer l&apos;élément cible sélectionné ?</translation>
+        <translation>Voulez-vous supprimer l&apos;élément cible sélectionné&#xa0;?</translation>
     </message>
     <message>
         <location filename="fixtureremap.cpp" line="345"/>
@@ -2929,7 +2929,7 @@ Celui-ci a dû être déplacé ou effacé.</translation>
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Welcome to the QLC+ wizard !&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Welcome to the QLC+ wizard!&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;This is a guided procedure that will allow you to start using QLC+ in a few minutes.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;It basically consists in three simple steps:&lt;/p&gt;
@@ -2942,7 +2942,7 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Bienvenue dans l&apos;assistant QLC+ !&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Bienvenue dans l&apos;assistant QLC+&#xa0;!&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Cette procédure guidée va vous permettre de commencer à utiliser QLC+ en quelques minutes.&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Elle est composée de 3 étapes :&lt;/p&gt;
@@ -2996,12 +2996,12 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Based on the fixtures you added, I can create the functions listed on the left. Just select what you need and see the results on the right !&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Based on the fixtures you added, I can create the functions listed on the left. Just select what you need and see the results on the right!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Avec ces appareils, je peux créer les fonctions listées à gauche. Choisissez celles que vous désirez, elles apparaîtront à droite !&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/wizard.png&quot; width=&quot;24&quot; /&gt; Avec ces appareils, je peux créer les fonctions listées à gauche. Choisissez celles que vous désirez, elles apparaîtront à droite&#xa0;!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="functionwizard.ui" line="319"/>
@@ -3246,13 +3246,13 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="362"/>
-        <source>The universe you are trying to delete is patched. Are you sure you want to delete it ?</source>
-        <translation>Cet univers est actuellement patché. Êtes-vous sûr(e) de vouloir le supprimer ?</translation>
+        <source>The universe you are trying to delete is patched. Are you sure you want to delete it?</source>
+        <translation>Cet univers est actuellement patché. Êtes-vous sûr(e) de vouloir le supprimer&#xa0;?</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="381"/>
-        <source>There are some fixtures using the universe you are trying to delete. Are you sure you want to delete it ?</source>
-        <translation>Des appareils utilisent actuellement cet univers. Êtes-vous sûr(e) de vouloir le supprimer ?</translation>
+        <source>There are some fixtures using the universe you are trying to delete. Are you sure you want to delete it?</source>
+        <translation>Des appareils utilisent actuellement cet univers. Êtes-vous sûr(e) de vouloir le supprimer&#xa0;?</translation>
     </message>
 </context>
 <context>
@@ -3388,7 +3388,7 @@ Veuillez vous référer à la documentation du plugin.</translation>
         <location filename="inputoutputpatcheditor.cpp" line="703"/>
         <location filename="inputoutputpatcheditor.cpp" line="837"/>
         <source>An input profile at %1 already exists. Do you wish to overwrite it?</source>
-        <translation>Un profil d&apos;entrée existe déjà en &apos;%1&apos;. Voulez-vous l&apos;écraser ?</translation>
+        <translation>Un profil d&apos;entrée existe déjà en &apos;%1&apos;. Voulez-vous l&apos;écraser&#xa0;?</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="712"/>
@@ -3421,7 +3421,7 @@ Veuillez vous référer à la documentation du plugin.</translation>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="765"/>
         <source>Do you wish to permanently delete profile &quot;%1&quot;?</source>
-        <translation>Voulez-vous supprimer définitivement le profil &quot;%1&quot; ?</translation>
+        <translation>Voulez-vous supprimer définitivement le profil &quot;%1&quot;&#xa0;?</translation>
     </message>
     <message>
         <location filename="inputoutputpatcheditor.cpp" line="793"/>
@@ -3613,7 +3613,7 @@ Veuillez vous référer à la documentation du plugin.</translation>
     <message>
         <location filename="inputprofileeditor.cpp" line="334"/>
         <source>Delete all %1 selected channels?</source>
-        <translation>Supprimer les %1 canaux sélectionnés ?</translation>
+        <translation>Supprimer les %1 canaux sélectionnés&#xa0;?</translation>
     </message>
     <message>
         <location filename="inputprofileeditor.cpp" line="451"/>
@@ -4641,7 +4641,7 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
     <message>
         <location filename="sceneeditor.cpp" line="1288"/>
         <source>Do you want to remove the selected fixture(s)?</source>
-        <translation>Voulez-vous enlever le(s) appareil(s) sélectionné(s) ?</translation>
+        <translation>Voulez-vous enlever le(s) appareil(s) sélectionné(s)&#xa0;?</translation>
     </message>
 </context>
 <context>
@@ -4783,8 +4783,8 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
     </message>
     <message>
         <location filename="scripteditor.cpp" line="381"/>
-        <source>Please select an executable file !</source>
-        <translation>Veuillez sélectioner un fichier exécutable !</translation>
+        <source>Please select an executable file!</source>
+        <translation>Veuillez sélectioner un fichier exécutable&#xa0;!</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="387"/>
@@ -5440,7 +5440,7 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcbutton.cpp" line="581"/>
         <source>Stop ALL functions!</source>
-        <translation>Arrêter TOUTES les fonctions !</translation>
+        <translation>Arrêter TOUTES les fonctions&#xa0;!</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcbutton.cpp" line="818"/>
@@ -7400,7 +7400,7 @@ Durée : %3
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="365"/>
         <source>Do you want to remove the selected fixtures?</source>
-        <translation>Voulez-vous enlever le(s) appareils(s) sélectionné(s) ?</translation>
+        <translation>Voulez-vous enlever le(s) appareils(s) sélectionné(s)&#xa0;?</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="718"/>
@@ -7417,8 +7417,8 @@ Veuillez en choisir une qui affecte un des deux.</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="768"/>
-        <source>Please select at least one fixture or head to create this type of preset !</source>
-        <translation>Veuillez sélectionner au moins un appareil ou une tête pour créer ce type de préréglage !</translation>
+        <source>Please select at least one fixture or head to create this type of preset!</source>
+        <translation>Veuillez sélectionner au moins un appareil ou une tête pour créer ce type de préréglage&#xa0;!</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcxypadproperties.cpp" line="775"/>
@@ -7771,7 +7771,7 @@ Veuillez en choisir une qui affecte un des deux.</translation>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="1162"/>
         <source>Do you wish to delete the selected widgets?</source>
-        <translation>Voulez-vous supprimer les widgets sélectionnés ?</translation>
+        <translation>Voulez-vous supprimer les widgets sélectionnés&#xa0;?</translation>
     </message>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="1163"/>

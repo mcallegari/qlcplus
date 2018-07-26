@@ -886,12 +886,12 @@ Unable to save fixture.</source>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="467"/>
-        <source>Are you sure you wish to remove channel: %1 ?</source>
+        <source>Are you sure you wish to remove channel: %1?</source>
         <translation>チャンネル %1 を削除しますか？</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="783"/>
-        <source>Are you sure you wish to remove mode: %1 ?</source>
+        <source>Are you sure you wish to remove mode: %1?</source>
         <translation>以下のモードを削除しますか: %1 ？</translation>
     </message>
     <message>

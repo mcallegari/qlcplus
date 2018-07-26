@@ -63,7 +63,7 @@ QHttpConnection::QHttpConnection(QTcpSocket *socket, QObject *parent)
     connect(socket, SIGNAL(disconnected()), this, SLOT(socketDisconnected()));
     connect(socket, SIGNAL(bytesWritten(qint64)), this, SLOT(updateWriteCount(qint64)));
 
-    qDebug() << "HTTP connection created !";
+    qDebug() << "HTTP connection created!";
 }
 
 QHttpConnection::~QHttpConnection()
@@ -80,7 +80,7 @@ QHttpConnection::~QHttpConnection()
     if (m_isWebSocket == true)
         Q_EMIT webSocketConnectionClose(this);
 
-    qDebug() << "HTTP connection destroyed !";
+    qDebug() << "HTTP connection destroyed!";
 }
 
 void QHttpConnection::socketDisconnected()
@@ -430,7 +430,7 @@ void QHttpConnection::webSocketRead(QByteArray data)
         }
         else if (dataLen == 127)
         {
-            // TODO: 64bit length...really ?
+            // TODO: 64bit length...really?
             dataPos+=8;
         }
 

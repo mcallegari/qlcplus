@@ -62,7 +62,7 @@ static void MidiInProc(const MIDIPacketList* pktList, void* readProcRefCon,
                 if (packet->length > (i + 1) && !MIDI_IS_CMD(packet->data[i + 1]))
                     data2 = packet->data[++i];
                 else
-                    // no data2 ? Could be a Program Change, so act like Linux
+                    // no data2? Could be a Program Change, so act like Linux
                     // and give it a value
                     data2 = 127;
             }

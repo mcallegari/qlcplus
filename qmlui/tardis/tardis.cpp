@@ -374,7 +374,7 @@ QByteArray Tardis::actionToByteArray(int code, quint32 objID, QVariant data)
         }
         break;
         default:
-            qWarning() << "Buffered action" << code << "not implemented !";
+            qWarning() << "Buffered action" << code << "not implemented!";
         break;
     }
 
@@ -385,7 +385,7 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
 {
     if (value.type() != QVariant::ByteArray)
     {
-        qWarning("Action 0x%02X is not buffered !", action);
+        qWarning("Action 0x%02X is not buffered!", action);
         return false;
     }
 
@@ -1094,7 +1094,7 @@ int Tardis::processAction(TardisAction &action, bool undo)
         break;
 
         default:
-            qWarning() << "Action" << action.m_action << "not implemented !";
+            qWarning() << "Action" << action.m_action << "not implemented!";
         break;
     }
 

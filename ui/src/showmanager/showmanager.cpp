@@ -149,7 +149,7 @@ ShowManager::ShowManager(QWidget* parent, Doc* doc)
     container->setLayout(new QVBoxLayout);
     container->layout()->setContentsMargins(0, 0, 0, 0);
     m_splitter->widget(1)->hide();
-    
+
     connect(m_doc, SIGNAL(clearing()), this, SLOT(slotDocClearing()));
     connect(m_doc, SIGNAL(functionRemoved(quint32)), this, SLOT(slotFunctionRemoved(quint32)));
     connect(m_doc, SIGNAL(loaded()), this, SLOT(slotDocLoaded()));
@@ -658,7 +658,7 @@ void ShowManager::slotAddItem()
         else
         {
             Function *selectedFunc = m_doc->function(selectedID);
-            if (selectedFunc == NULL) // maybe a popup here ?
+            if (selectedFunc == NULL) // maybe a popup here?
                 return;
 
             /** 2) an existing scene */
@@ -775,7 +775,7 @@ void ShowManager::slotAddItem()
         if (selectedID != Function::invalidId())
         {
             Function *selectedFunc = m_doc->function(selectedID);
-            if (selectedFunc == NULL) // maybe a popup here ?
+            if (selectedFunc == NULL) // maybe a popup here?
                 return;
 
             /** 2) create a 10 seconds Sequence on the current track */
@@ -1638,7 +1638,7 @@ void ShowManager::updateMultiTrackView()
     m_show = qobject_cast<Show *>(m_doc->function(showID));
     if (m_show == NULL)
     {
-        qDebug() << Q_FUNC_INFO << "Invalid show !";
+        qDebug() << Q_FUNC_INFO << "Invalid show!";
         return;
     }
 

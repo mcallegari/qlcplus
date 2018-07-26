@@ -56,7 +56,7 @@ void ChannelModifierGraphicsView::setHandlerDMXValue(uchar pos, uchar value)
 
 void ChannelModifierGraphicsView::addNewHandler()
 {
-    // always give the fact that there are at least two handlers !
+    // always give the fact that there are at least two handlers!
     HandlerItem *prevHandler = getSelectedHandler();
     if (prevHandler == NULL)
         prevHandler = m_handlers.at(0);

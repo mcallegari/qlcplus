@@ -192,7 +192,7 @@ Rectangle
                 {
                     var selNames = showManager.selectedItemNames()
                     //console.log(selNames)
-                    deleteItemsPopup.message = qsTr("Are you sure you want to remove the following items ?\n(Note that the original functions will not be deleted)") + "\n" + selNames,
+                    deleteItemsPopup.message = qsTr("Are you sure you want to remove the following items?\n(Note that the original functions will not be deleted)") + "\n" + selNames,
                     deleteItemsPopup.open()
                 }
 
@@ -481,7 +481,7 @@ Rectangle
             contentX: xViewOffset
             ScrollBar.horizontal: CustomScrollBar { orientation: Qt.Horizontal }
 
-            onContentXChanged: xViewOffset = contentX           
+            onContentXChanged: xViewOffset = contentX
 
             MouseArea
             {
@@ -550,7 +550,7 @@ Rectangle
                     {
                         var args = []
                         actionManager.requestActionPopup(ActionManager.None,
-                                                         qsTr("Cannot drag a Show into itself !"),
+                                                         qsTr("Cannot drag a Show into itself!"),
                                                          ActionManager.OK, args)
                     }
 */

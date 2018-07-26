@@ -171,7 +171,7 @@ void VCPage::inputValueChanged(quint32 universe, quint32 channel, uchar value)
      *  check also if the page matches and finally inform the VC widget
      *  about the event, including the source ID
      */
-    for(QPair<QSharedPointer<QLCInputSource>, VCWidget *> match : m_inputSourcesMap.values(key)) // C++11...yay !
+    for(QPair<QSharedPointer<QLCInputSource>, VCWidget *> match : m_inputSourcesMap.values(key)) // C++11...yay!
     {
         if (match.second->isDisabled() == false &&
             match.second->isEditing() == false &&
@@ -255,7 +255,7 @@ void VCPage::handleKeyEvent(QKeyEvent *e, bool pressed)
 {
     QKeySequence seq(e->key() | e->modifiers());
 
-    for(QPair<quint32, VCWidget *> match : m_keySequencesMap.values(seq)) // C++11...yay !
+    for(QPair<quint32, VCWidget *> match : m_keySequencesMap.values(seq)) // C++11...yay!
     {
         if (match.second->isDisabled() == false &&
             match.second->isEditing() == false)

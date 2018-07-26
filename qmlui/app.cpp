@@ -107,19 +107,19 @@ QString App::appVersion() const
 
 void App::startup()
 {
-    qmlRegisterUncreatableType<Fixture>("org.qlcplus.classes", 1, 0, "Fixture", "Can't create a Fixture !");
-    qmlRegisterUncreatableType<Function>("org.qlcplus.classes", 1, 0, "QLCFunction", "Can't create a Function !");
+    qmlRegisterUncreatableType<Fixture>("org.qlcplus.classes", 1, 0, "Fixture", "Can't create a Fixture!");
+    qmlRegisterUncreatableType<Function>("org.qlcplus.classes", 1, 0, "QLCFunction", "Can't create a Function!");
     qmlRegisterType<ModelSelector>("org.qlcplus.classes", 1, 0, "ModelSelector");
-    qmlRegisterUncreatableType<App>("org.qlcplus.classes", 1, 0, "App", "Can't create an App !");
+    qmlRegisterUncreatableType<App>("org.qlcplus.classes", 1, 0, "App", "Can't create an App!");
 
     setTitle(APPNAME);
     setIcon(QIcon(":/qlcplus.svg"));
 
     if (QFontDatabase::addApplicationFont(":/RobotoCondensed-Regular.ttf") < 0)
-        qWarning() << "Roboto condensed cannot be loaded !";
+        qWarning() << "Roboto condensed cannot be loaded!";
 
     if (QFontDatabase::addApplicationFont(":/RobotoMono-Regular.ttf") < 0)
-        qWarning() << "Roboto mono cannot be loaded !";
+        qWarning() << "Roboto mono cannot be loaded!";
 
     rootContext()->setContextProperty("qlcplus", this);
 
@@ -161,14 +161,14 @@ void App::startup()
     m_contextManager->registerContext(m_ioManager);
 
     // register an uncreatable type just to use the enums in QML
-    qmlRegisterUncreatableType<ContextManager>("org.qlcplus.classes", 1, 0, "ContextManager", "Can't create a ContextManager !");
-    qmlRegisterUncreatableType<ShowManager>("org.qlcplus.classes", 1, 0, "ShowManager", "Can't create a ShowManager !");
-    qmlRegisterUncreatableType<NetworkManager>("org.qlcplus.classes", 1, 0, "NetworkManager", "Can't create a NetworkManager !");
+    qmlRegisterUncreatableType<ContextManager>("org.qlcplus.classes", 1, 0, "ContextManager", "Can't create a ContextManager!");
+    qmlRegisterUncreatableType<ShowManager>("org.qlcplus.classes", 1, 0, "ShowManager", "Can't create a ShowManager!");
+    qmlRegisterUncreatableType<NetworkManager>("org.qlcplus.classes", 1, 0, "NetworkManager", "Can't create a NetworkManager!");
 
     // Start up in non-modified state
     m_doc->resetModified();
 
-    // and here we go !
+    // and here we go!
     setSource(QUrl("qrc:/MainView.qml"));
 }
 

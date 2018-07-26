@@ -145,7 +145,7 @@ void InputOutputManager::removeLastUniverse()
     // Check if the universe is patched
     if (m_ioMap->isUniversePatched(index) == true)
     {
-        // Show popup ?
+        // Show popup?
     }
 
     // Check if there are fixtures using this universe

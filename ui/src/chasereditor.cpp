@@ -249,7 +249,7 @@ ChaserEditor::~ChaserEditor()
         m_speedDials->deleteLater();
     m_speedDials = NULL;
 
-    // double check that the Chaser still exists !
+    // double check that the Chaser still exists!
     if (m_liveMode == false &&
         m_doc->functions().contains(m_chaser) == true)
         m_chaser->stopAndWait();
@@ -531,7 +531,7 @@ void ChaserEditor::slotShuffleClicked()
 
     QList <QTreeWidgetItem*> selectedItems(m_tree->selectedItems());
     int indicesToShuffle[selectedCount];
-    
+
     // save the selected scenes and their indices into a sorted array
     QListIterator <QTreeWidgetItem*> it(selectedItems);
     for (i = 0; i < selectedCount; i++)
@@ -776,7 +776,7 @@ void ChaserEditor::slotPasteClicked()
         ChaserStep step(it.next());
         if (step.resolveFunction(m_doc) == NULL) // Function has been removed
         {
-            qWarning() << Q_FUNC_INFO << "Trying to paste an invalid function (removed function ?)";
+            qWarning() << Q_FUNC_INFO << "Trying to paste an invalid function (removed function?)";
             continue;
         }
         updateItem(item, step);

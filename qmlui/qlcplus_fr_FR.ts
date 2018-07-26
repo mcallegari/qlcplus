@@ -41,7 +41,7 @@
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="95"/>
-        <source>Do you wish to save the current project first ?
+        <source>Do you wish to save the current project first?
 Changes will be lost if you don&apos;t save them.</source>
         <translation>Souhaitez vous enregistrer le projet actuel&#xa0;?
 Les modifications seront perdues si vous ne les enregistrez pas.</translation>
@@ -331,7 +331,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="124"/>
-        <source>Are you sure you want to remove the selected steps ?</source>
+        <source>Are you sure you want to remove the selected steps?</source>
         <translation>Êtes vous sûr de supprimer les étapes sélectionnées&#xa0;?</translation>
     </message>
     <message>
@@ -482,7 +482,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/CollectionEditor.qml" line="130"/>
-        <source>Are you sure you want to remove the selected functions ?</source>
+        <source>Are you sure you want to remove the selected functions?</source>
         <translation>Êtes vous sûr de supprimer les fonctions sélectionnées&#xa0;?</translation>
     </message>
 </context>
@@ -2481,7 +2481,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="219"/>
-        <source>Are you sure you want to delete the following items ?</source>
+        <source>Are you sure you want to delete the following items?</source>
         <translation>Êtes vous sûr de supprimer les éléments suivants&#xa0;?</translation>
     </message>
     <message>
@@ -2949,7 +2949,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     </message>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="195"/>
-        <source>Are you sure you want to remove the following items ?
+        <source>Are you sure you want to remove the following items?
 (Note that the original functions will not be deleted)</source>
         <translation>Êtes vous sûr de supprimer les éléments suivants&#xa0;?
 (Les fonctions originales ne seront pas supprimées)</translation>
@@ -3631,7 +3631,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCPageProperties.qml" line="167"/>
-        <source>Are you sure you want to delete the selected page ?</source>
+        <source>Are you sure you want to delete the selected page?</source>
         <translation>Êtes vous sûrs de supprimer la page sélectionnée&#xa0;?</translation>
     </message>
 </context>
@@ -3659,7 +3659,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCRightPanel.qml" line="131"/>
-        <source>Are you sure you want to remove the following widgets ?</source>
+        <source>Are you sure you want to remove the following widgets?</source>
         <translation>Êtes vous sûr de supprimer les widgets suivants&#xa0;?</translation>
     </message>
     <message>

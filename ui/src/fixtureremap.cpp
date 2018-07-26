@@ -154,7 +154,7 @@ QTreeWidgetItem *FixtureRemap::getUniverseItem(Doc *doc, quint32 universe, QTree
         }
     }
 
-    // Haven't found this universe node ? Create it.
+    // Haven't found this universe node? Create it.
     if (topItem == NULL)
     {
         topItem = new QTreeWidgetItem(tree);
@@ -327,13 +327,13 @@ void FixtureRemap::slotRemoveTargetFixture()
 void FixtureRemap::slotCloneSourceFixture()
 {
     if (m_sourceTree->selectedItems().count() == 0)
-        return; // popup here ??
+        return; // popup here??
 
     QTreeWidgetItem *sItem = m_sourceTree->selectedItems().first();
     quint32 fxID = sItem->text(KColumnID).toUInt();
     Fixture *srcFix = m_doc->fixture(fxID);
     if (srcFix == NULL)
-        return; // popup here ?
+        return; // popup here?
 
     quint32 srcAddr = srcFix->universeAddress();
     for (quint32 i = srcAddr; i < srcAddr + srcFix->channels(); i++)
@@ -707,7 +707,7 @@ void FixtureRemap::accept()
     foreach (ChannelsGroup *grp, m_doc->channelsGroups())
     {
         QList<SceneValue> grpChannels = grp->getChannels();
-        // this is crucial: here all the "unmapped" channels will be lost forever !
+        // this is crucial: here all the "unmapped" channels will be lost forever!
         grp->resetChannels();
         QList <SceneValue> newList = remapSceneValues(grpChannels, sourceList, targetList);
         foreach (SceneValue val, newList)
@@ -728,7 +728,7 @@ void FixtureRemap::accept()
                 Scene *s = qobject_cast<Scene*>(func);
                 qDebug() << "Analyzing Scene #" << s->id();
                 QList <SceneValue> newList = remapSceneValues(s->values(), sourceList, targetList);
-                // this is crucial: here all the "unmapped" channels will be lost forever !
+                // this is crucial: here all the "unmapped" channels will be lost forever!
                 s->clear();
 
                 for (int i = 0; i < newList.count(); i++)
@@ -746,7 +746,7 @@ void FixtureRemap::accept()
                     ChaserStep *cs = s->stepAt(idx);
                     QList <SceneValue> newList = remapSceneValues(cs->values, sourceList, targetList);
                     //qDebug() << "Step" << idx << "remapped" << cs.values.count() << "to" << newList.count();
-                    // this is crucial: here all the "unmapped" channels will be lost forever !
+                    // this is crucial: here all the "unmapped" channels will be lost forever!
                     cs->values.clear();
                     cs->values = newList;
                     //s->replaceStep(cs, idx);
@@ -764,7 +764,7 @@ void FixtureRemap::accept()
                     ef->copyFrom(efxFix);
                     fixListCopy.append(ef);
                 }
-                // this is crucial: here all the "unmapped" fixtures will be lost forever !
+                // this is crucial: here all the "unmapped" fixtures will be lost forever!
                 e->removeAllFixtures();
                 QList<quint32>remappedFixtures;
 
@@ -838,7 +838,7 @@ void FixtureRemap::accept()
                         }
                     }
                 }
-                // this is crucial: here all the "unmapped" channels will be lost forever !
+                // this is crucial: here all the "unmapped" channels will be lost forever!
                 slider->clearLevelChannels();
                 foreach (SceneValue rmpChan, newChannels)
                     slider->addLevelChannel(rmpChan.fxi, rmpChan.channel);
@@ -852,7 +852,7 @@ void FixtureRemap::accept()
                 if (bar->m_type == AudioBar::DMXBar)
                 {
                     QList <SceneValue> newList = remapSceneValues(bar->m_dmxChannels, sourceList, targetList);
-                    // this is crucial: here all the "unmapped" channels will be lost forever !
+                    // this is crucial: here all the "unmapped" channels will be lost forever!
                     bar->attachDmxChannels(m_doc, newList);
                 }
             }
@@ -884,7 +884,7 @@ void FixtureRemap::accept()
                     }
                 }
             }
-            // this is crucial: here all the "unmapped" fixtures will be lost forever !
+            // this is crucial: here all the "unmapped" fixtures will be lost forever!
             xypad->clearFixtures();
             foreach (VCXYPadFixture fix, copyFixtures)
                 xypad->appendFixture(fix);

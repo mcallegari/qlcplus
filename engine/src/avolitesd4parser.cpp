@@ -180,7 +180,7 @@ bool AvolitesD4Parser::loadXML(const QString& path, QLCFixtureDef* fixtureDef)
         else if (doc->name() == KD4TagPalettes)
         {
             // TODO TODO TODO
-            // Maybe also import preset palettes and macros ?!?!?!?!
+            // Maybe also import preset palettes and macros?!?!?!?!
             /**
                 Can't be done for now, as qxf files don't have any information on preset palettes or macros
                 for fixtures, they are automatically generated on the main application maybe in future... **/
@@ -344,7 +344,7 @@ bool AvolitesD4Parser::is16Bit(QString dmx) const
     if (dmxValues.value(0).toInt() > 256)
         return true;
 
-    // Is there aright side ? (there should always be something in the right side of the ~,
+    // Is there aright side? (there should always be something in the right side of the ~,
     // or avolites desks won't parse the file, anyway, there should be a check, ir some smart
     // dude will complain this crashes with his D4 file)
 

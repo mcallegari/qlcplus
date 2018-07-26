@@ -95,13 +95,13 @@ void ArtNetPacketizer::setupArtNetPollReply(QByteArray &data, QHostAddress ipAdd
     for (i = 0; i < 64; i++)
         data.append((char)0x00); // Node report
     data.append((char)0x00);     // NumPort MSB
-    // FIXME: this should reflect the actual state of QLC+ output ports !
+    // FIXME: this should reflect the actual state of QLC+ output ports!
     data.append((char)0x01);     // NumPort LSB
     data.append((char)0x80);     // Port 1 type: can output DMX512 data
     data.append((char)0x80);     // Port 2 type: can output DMX512 data
     data.append((char)0x80);     // Port 3 type: can output DMX512 data
     data.append((char)0x80);     // Port 4 type: can output DMX512 data
-    // FIXME: this should reflect the actual state of QLC+ output ports !
+    // FIXME: this should reflect the actual state of QLC+ output ports!
     for (i = 0; i < 12; i++)
         data.append((char)0x00); // Set GoodInput[4], GoodOutput[4] and SwIn[4] all to unknown state
     data.append((char)0x00);     // SwOut0 - output 0

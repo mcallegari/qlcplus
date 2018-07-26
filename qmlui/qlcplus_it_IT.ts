@@ -41,9 +41,9 @@
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="95"/>
-        <source>Do you wish to save the current project first ?
+        <source>Do you wish to save the current project first?
 Changes will be lost if you don&apos;t save them.</source>
-        <translation>Vuoi salvare il progetto corrente ?
+        <translation>Vuoi salvare il progetto corrente?
 I cambiamenti verranno perduti se non salvati.</translation>
     </message>
     <message>
@@ -331,8 +331,8 @@ I cambiamenti verranno perduti se non salvati.</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="124"/>
-        <source>Are you sure you want to remove the selected steps ?</source>
-        <translation>Sei sicuro di voler rimuovere gli step selezionati ?</translation>
+        <source>Are you sure you want to remove the selected steps?</source>
+        <translation>Sei sicuro di voler rimuovere gli step selezionati?</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="157"/>
@@ -482,8 +482,8 @@ I cambiamenti verranno perduti se non salvati.</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/CollectionEditor.qml" line="130"/>
-        <source>Are you sure you want to remove the selected functions ?</source>
-        <translation>Sei sicuro di voler rimuovere le funzioni selezionate ?</translation>
+        <source>Are you sure you want to remove the selected functions?</source>
+        <translation>Sei sicuro di voler rimuovere le funzioni selezionate?</translation>
     </message>
 </context>
 <context>
@@ -2482,8 +2482,8 @@ Livello di accesso:</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="219"/>
-        <source>Are you sure you want to delete the following items ?</source>
-        <translation>Sei sicuro di voler eliminare gli elementi seguenti ?</translation>
+        <source>Are you sure you want to delete the following items?</source>
+        <translation>Sei sicuro di voler eliminare gli elementi seguenti?</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="226"/>
@@ -2950,9 +2950,9 @@ Livello di accesso:</translation>
     </message>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="195"/>
-        <source>Are you sure you want to remove the following items ?
+        <source>Are you sure you want to remove the following items?
 (Note that the original functions will not be deleted)</source>
-        <translation>Sei sicuro di voler eliminare gli elementi seguenti ?
+        <translation>Sei sicuro di voler eliminare gli elementi seguenti?
 (Le funzioni originali non verranno eliminate)</translation>
     </message>
     <message>
@@ -3625,8 +3625,8 @@ Livello di accesso:</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCPageProperties.qml" line="167"/>
-        <source>Are you sure you want to delete the selected page ?</source>
-        <translation>Sei sicuro di voler eliminare la pagina selezionata ?</translation>
+        <source>Are you sure you want to delete the selected page?</source>
+        <translation>Sei sicuro di voler eliminare la pagina selezionata?</translation>
     </message>
 </context>
 <context>
@@ -3653,8 +3653,8 @@ Livello di accesso:</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCRightPanel.qml" line="131"/>
-        <source>Are you sure you want to remove the following widgets ?</source>
-        <translation>Sei sicuro di voler eliminare i seguenti widget ?</translation>
+        <source>Are you sure you want to remove the following widgets?</source>
+        <translation>Sei sicuro di voler eliminare i seguenti widget?</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCRightPanel.qml" line="138"/>
