@@ -3145,12 +3145,12 @@ Zugriffsstufe:</translation>
     <message>
         <location filename="qml/UsageList.qml" line="85"/>
         <source>Used by function list</source>
-        <translation>In Funktion verwendet</translation>
+        <translation>In Funktionen verwendet</translation>
     </message>
     <message>
         <location filename="qml/UsageList.qml" line="121"/>
         <source>Used by widget list</source>
-        <translation>In Widget verwendet</translation>
+        <translation>In Widgets verwendet</translation>
     </message>
 </context>
 <context>
