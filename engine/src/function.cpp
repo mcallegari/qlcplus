@@ -1321,7 +1321,7 @@ int Function::adjustAttribute(qreal value, int attributeId)
         if (attributeId >= m_attributes.count() || m_attributes[attributeId].m_value == value)
             return -1;
 
-        // Adjust the original value of an attribute. Only Function editors should do this !
+        // Adjust the original value of an attribute. Only Function editors should do this!
         m_attributes[attributeId].m_value = CLAMP(value, m_attributes[attributeId].m_min, m_attributes[attributeId].m_max);
         attrIndex = attributeId;
     }

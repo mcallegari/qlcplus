@@ -168,7 +168,7 @@ void App::startup()
     // Start up in non-modified state
     m_doc->resetModified();
 
-    // and here we go !
+    // and here we go!
     setSource(QUrl("qrc:/MainView.qml"));
 }
 

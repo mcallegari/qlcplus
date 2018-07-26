@@ -394,7 +394,7 @@ def validate_fixture(path, filename):
                 print absname + "/" + chName + "/" + capName + ": Overlapping values detected " + str(currMin) + "/" + str(lastMax)
                 errNum += 1
 
-            # disabled for now. 710 errors with this !
+            # disabled for now. 710 errors with this!
             #if currMin != lastMax + 1:
             #    print absname + "/" + chName + "/" + capName + ": Non contiguous range detected " + str(currMin) + "/" + str(lastMax)
             #    errNum += 1

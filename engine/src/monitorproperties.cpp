@@ -478,7 +478,7 @@ bool MonitorProperties::loadXML(QXmlStreamReader &root, const Doc *mainDocument)
 
     if (attrs.hasAttribute(KXMLQLCMonitorDisplay) == false)
     {
-        qWarning() << Q_FUNC_INFO << "Cannot determine Monitor display mode !";
+        qWarning() << Q_FUNC_INFO << "Cannot determine Monitor display mode!";
         return false;
     }
 

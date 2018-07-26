@@ -894,7 +894,7 @@ public:
      * Adjust an attribute value with the given new $value.
      * If $attributeId is within the registered attributes range,
      * the oiginal attribute value will be changed.
-     * Warning: only Function editors or the Function itself should do this !
+     * Warning: only Function editors or the Function itself should do this!
      * Otherwise, if $attributeId is >= OVERRIDE_ATTRIBUTE_START_ID
      * it means the caller wants to control a value override.
      * This operation will then recalculate the final override value

@@ -249,7 +249,7 @@ ChaserEditor::~ChaserEditor()
         m_speedDials->deleteLater();
     m_speedDials = NULL;
 
-    // double check that the Chaser still exists !
+    // double check that the Chaser still exists!
     if (m_liveMode == false &&
         m_doc->functions().contains(m_chaser) == true)
         m_chaser->stopAndWait();

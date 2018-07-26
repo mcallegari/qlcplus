@@ -326,7 +326,7 @@ void PlaybackWing_Test::faders_data()
 
 void PlaybackWing_Test::faders()
 {
-    // TODO: who did the page changes need to fix this !
+    // TODO: who did the page changes need to fix this!
     QFETCH(QByteArray, ba);
     //QFETCH(int, channel);
     //QFETCH(int, value);

@@ -449,7 +449,7 @@ void ChaserRunner::adjustIntensity(qreal fraction, int requestedStepIndex, int f
     if (fraction == qreal(0.0))
         return;
 
-    // not found? It means we need to start a new step and crossfade kicks in !
+    // not found? It means we need to start a new step and crossfade kicks in!
     startNewStep(stepIndex, m_doc->masterTimer(), fraction, fadeControl);
 }
 
@@ -528,7 +528,7 @@ void ChaserRunner::startNewStep(int index, MasterTimer* timer, qreal intensity,
     // might momentarily jump too high.
     newStep->m_intensityOverrideId = newStep->m_function->requestAttributeOverride(Function::Intensity, intensity);
     //newStep->m_function->adjustAttribute(intensity, newStep->m_intensityOverrideId);
-    // Start the fire up !
+    // Start the fire up!
     newStep->m_function->start(timer, functionParent(), 0, newStep->m_fadeIn, newStep->m_fadeOut,
                                newStep->m_function->defaultSpeed(), m_chaser->tempoType());
     m_runnerSteps.append(newStep);

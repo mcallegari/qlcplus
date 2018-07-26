@@ -179,7 +179,7 @@ void ChannelModifierEditor::slotSaveClicked()
     ChannelModifier *modifier = m_doc->modifiersCache()->modifier(m_templateNameEdit->text());
     if (modifier != NULL && modifier->type() == ChannelModifier::SystemTemplate)
     {
-        // cannot overwrite a system template !
+        // cannot overwrite a system template!
         QMessageBox::critical(this, tr("Error"),
                               tr("You are trying to overwrite a system template! Please choose another name "
                                  "and the template will be saved in your channel modifier's user folder."),
