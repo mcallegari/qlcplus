@@ -349,7 +349,6 @@ void QLCChannel::setPreset(QLCChannel::Preset preset)
             grp = Speed;
             prname = "Pan speed";
         break;
-
         case SpeedTiltSlowFast:
         case SpeedTiltFastSlow:
             grp = Speed;
@@ -408,24 +407,35 @@ void QLCChannel::setPreset(QLCChannel::Preset preset)
             grp = Shutter;
             prname = "Strobe";
         break;
+        case ShutterIrisMinToMax:
+        case ShutterIrisMaxToMin:
+            grp = Shutter;
+            prname = "Iris";
+        break;
+        case ShutterIrisFine:
+            grp = Shutter;
+            prname = "Iris fine";
+            cb = LSB;
+        break;
         case BeamFocusNearFar:
         case BeamFocusFarNear:
             grp = Beam;
-            prname = KXMLQLCChannelGroupBeam;
+            prname = "Focus";
         break;
-        case BeamIris:
+        case BeamFocusFine:
             grp = Beam;
-            prname = "Iris";
-        break;
-        case BeamIrisFine:
-            grp = Beam;
-            prname = "Iris";
+            prname = "Focus fine";
             cb = LSB;
         break;
         case BeamZoomSmallBig:
         case BeamZoomBigSmall:
             grp = Beam;
             prname = "Zoom";
+        break;
+        case BeamZoomFine:
+            grp = Beam;
+            prname = "Zoom fine";
+            cb = LSB;
         break;
         case PrismRotationFastSlow:
         case PrismRotationSlowFast:
@@ -503,28 +513,28 @@ QLCCapability *QLCChannel::addPresetCapability()
         case ColorCTBMixer:
         case GoboWheelFine:
         case GoboIndexFine:
-        case BeamIris:
-        case BeamIrisFine:
+        case ShutterIrisFine:
+        case BeamZoomFine:
         case NoFunction:
             cap->setName(name());
         break;
         case SpeedPanSlowFast:
-            cap->setName("Pan (Slow to fast)"); // TODO: replace with a preset
+            cap->setName("Pan (Slow to fast)");
         break;
         case SpeedPanFastSlow:
-            cap->setName("Pan (Fast to slow)"); // TODO: replace with a preset
+            cap->setName("Pan (Fast to slow)");
         break;
         case SpeedTiltSlowFast:
-            cap->setName("Tilt (Slow to fast)"); // TODO: replace with a preset
+            cap->setName("Tilt (Slow to fast)");
         break;
         case SpeedTiltFastSlow:
-            cap->setName("Tilt (Fast to slow)"); // TODO: replace with a preset
+            cap->setName("Tilt (Fast to slow)");
         break;
         case SpeedPanTiltSlowFast:
-            cap->setName("Pan and tilt (Slow to fast)"); // TODO: replace with a preset
+            cap->setName("Pan and tilt (Slow to fast)");
         break;
         case SpeedPanTiltFastSlow:
-            cap->setName("Pan and tilt (Fast to slow)"); // TODO: replace with a preset
+            cap->setName("Pan and tilt (Fast to slow)");
         break;
         case ColorMacro:
         case ColorWheel:
@@ -533,28 +543,34 @@ QLCCapability *QLCChannel::addPresetCapability()
             cap->setName(name() + " presets");
         break;
         case ShutterStrobeSlowFast:
-            cap->setName("Strobe (Slow to fast)"); // TODO: replace with a preset
+            cap->setName("Strobe (Slow to fast)");
         break;
         case ShutterStrobeFastSlow:
-            cap->setName("Strobe (Fast to slow)"); // TODO: replace with a preset
+            cap->setName("Strobe (Fast to slow)");
+        break;
+        case ShutterIrisMinToMax:
+            cap->setName("Iris (Minimum to maximum)");
+        break;
+        case ShutterIrisMaxToMin:
+            cap->setName("Iris (Maximum to minimum)");
         break;
         case BeamFocusNearFar:
-            cap->setName("Beam (Near to far)"); // TODO: replace with a preset
+            cap->setName("Beam (Near to far)");
         break;
         case BeamFocusFarNear:
-            cap->setName("Beam (Far to near)"); // TODO: replace with a preset
+            cap->setName("Beam (Far to near)");
         break;
         case BeamZoomSmallBig:
-            cap->setName("Zoom (Small to big)"); // TODO: replace with a preset
+            cap->setName("Zoom (Small to big)");
         break;
         case BeamZoomBigSmall:
-            cap->setName("Zoom (Big to small)"); // TODO: replace with a preset
+            cap->setName("Zoom (Big to small)");
         break;
         case PrismRotationSlowFast:
-            cap->setName("Prism rotation (Slow to fast)"); // TODO: replace with a preset
+            cap->setName("Prism rotation (Slow to fast)");
         break;
         case PrismRotationFastSlow:
-            cap->setName("Prism rotation (Fast to slow)"); // TODO: replace with a preset
+            cap->setName("Prism rotation (Fast to slow)");
         break;
         default:
         break;

@@ -394,13 +394,13 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
         case SingleValue:
         case DoubleValue:
         {
-            float val1 = attrs.value(KXMLQLCCapabilityRes1).toString().toFloat();
-            setResource(0, val1);
+            float value = attrs.value(KXMLQLCCapabilityRes1).toString().toFloat();
+            setResource(0, value);
 
             if (attrs.hasAttribute(KXMLQLCCapabilityRes2))
             {
-                float val2 = attrs.value(KXMLQLCCapabilityRes2).toString().toFloat();
-                setResource(1, val2);
+                value = attrs.value(KXMLQLCCapabilityRes2).toString().toFloat();
+                setResource(1, value);
             }
         }
         break;
