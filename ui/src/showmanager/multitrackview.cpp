@@ -40,7 +40,7 @@ MultiTrackView::MultiTrackView(QWidget *parent) :
     m_scene->setSceneRect(0, 0, VIEW_DEFAULT_WIDTH, VIEW_DEFAULT_HEIGHT);
     setSceneRect(0, 0, VIEW_DEFAULT_WIDTH, VIEW_DEFAULT_HEIGHT);
     setScene(m_scene);
-	
+
     m_timeSlider = new QSlider(Qt::Horizontal);
     m_timeSlider->setRange(1, 15);
     m_timeSlider->setValue(3);

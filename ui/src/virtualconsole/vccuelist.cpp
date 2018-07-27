@@ -115,7 +115,7 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     grid->addWidget(m_linkCheck, 1, 0, 1, 2, Qt::AlignVCenter | Qt::AlignLeft);
 
     QFontMetrics m_fm = QFontMetrics(this->font());
-    
+
     m_sl1TopLabel = new QLabel("100%");
     m_sl1TopLabel->setAlignment(Qt::AlignHCenter);
     m_sl1TopLabel->setFixedWidth(m_fm.width("100%"));

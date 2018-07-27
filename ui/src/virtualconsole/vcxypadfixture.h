@@ -109,7 +109,7 @@ public:
 
 private:
 
-    /** Precompute m_*Offset and m_*Range to speed up actual writing 
+    /** Precompute m_*Offset and m_*Range to speed up actual writing
      *
      *  Another goal is to simplify formulas in writeDMX and readDMX
      */
@@ -192,7 +192,7 @@ public:
 
     /** Write the value using x & y multipliers for the actual range
      *
-     *  \param xmul <0.0;1.0> - pan value scaled to range set by setX 
+     *  \param xmul <0.0;1.0> - pan value scaled to range set by setX
      *      (0.0 => min, 1.0 => max, or vice versa if the range is reversed)
      *
      *  \param ymul <0.0;1.0> - tilt value scaled to range set by setY
@@ -201,7 +201,7 @@ public:
      */
     void writeDMX(qreal xmul, qreal ymul, QList<Universe*> universes);
 
-    /** Read position from the current universe 
+    /** Read position from the current universe
      *  \param universes universes from which the position is read
      *  \param xmul <0.0;1.0> - pan value in the range set by setX
      *      (min => 0.0, max => 1.0, or vice versa if the range is reversed)

@@ -51,7 +51,7 @@ signals:
     void currentPositionChanged(const QPointF & position);
 
 public slots:
-    void slotPositionChanged(const QPointF & position);    
+    void slotPositionChanged(const QPointF & position);
 
 private:
     VCXYPadArea *m_area;
