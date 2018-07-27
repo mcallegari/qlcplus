@@ -323,12 +323,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="editchannel.ui" line="397"/>
+        <location filename="editchannel.ui" line="401"/>
         <source>Value 2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="editchannel.ui" line="422"/>
+        <location filename="editchannel.ui" line="430"/>
         <source>Preview</source>
         <translation type="unfinished"></translation>
     </message>
@@ -359,19 +359,19 @@
     </message>
     <message>
         <location filename="editchannel.ui" line="90"/>
-        <location filename="editchannel.cpp" line="573"/>
+        <location filename="editchannel.cpp" line="574"/>
         <source>Minimum value</source>
         <translation>Min</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="95"/>
-        <location filename="editchannel.cpp" line="573"/>
+        <location filename="editchannel.cpp" line="574"/>
         <source>Maximum value</source>
         <translation>Max</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="100"/>
-        <location filename="editchannel.cpp" line="573"/>
+        <location filename="editchannel.cpp" line="574"/>
         <source>Description</source>
         <translation>機能名・説明</translation>
     </message>
@@ -406,12 +406,12 @@
         <translation type="unfinished">ゴボ画像</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="618"/>
+        <location filename="editchannel.cpp" line="619"/>
         <source>Missing resources</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="619"/>
+        <location filename="editchannel.cpp" line="620"/>
         <source>Some gobos are missing:
 
 </source>
@@ -542,125 +542,130 @@
 <context>
     <name>EditPhysical</name>
     <message>
-        <location filename="editphysical.ui" line="39"/>
+        <location filename="editphysical.ui" line="234"/>
         <source>Bulb</source>
         <translation>電球</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="45"/>
-        <location filename="editphysical.ui" line="562"/>
+        <location filename="editphysical.ui" line="240"/>
+        <location filename="editphysical.ui" line="593"/>
         <source>Type</source>
         <translation>タイプ</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="277"/>
+        <location filename="editphysical.ui" line="472"/>
         <source>Lumens</source>
         <translation>ルーメン</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="297"/>
+        <location filename="editphysical.ui" line="492"/>
         <source>Colour Temp (K)</source>
         <translation>色温度 (K)</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="392"/>
+        <location filename="editphysical.ui" line="39"/>
         <source>Dimensions</source>
         <translation>形状</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="398"/>
+        <location filename="editphysical.ui" line="45"/>
         <source>Weight</source>
         <translation>重さ</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="405"/>
+        <location filename="editphysical.ui" line="52"/>
         <source>kg</source>
         <translation>Kg</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="415"/>
+        <location filename="editphysical.ui" line="62"/>
         <source>Width</source>
         <translation>幅</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="425"/>
-        <location filename="editphysical.ui" line="445"/>
-        <location filename="editphysical.ui" line="465"/>
+        <location filename="editphysical.ui" line="72"/>
+        <location filename="editphysical.ui" line="92"/>
+        <location filename="editphysical.ui" line="112"/>
         <source>mm</source>
         <translation>mm</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="435"/>
+        <location filename="editphysical.ui" line="82"/>
         <source>Height</source>
         <translation>高さ</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="455"/>
+        <location filename="editphysical.ui" line="102"/>
         <source>Depth</source>
         <translation>奥行き</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="478"/>
+        <location filename="editphysical.ui" line="587"/>
+        <source>Head(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="editphysical.ui" line="664"/>
         <source>Lens</source>
         <translation>レンズ</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="484"/>
+        <location filename="editphysical.ui" line="670"/>
         <source>Name</source>
         <translation>名前</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="513"/>
+        <location filename="editphysical.ui" line="699"/>
         <source>Min Degrees</source>
         <translation>最小照射角度</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="520"/>
+        <location filename="editphysical.ui" line="706"/>
         <source>Max Degrees</source>
         <translation>最大照射角度</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="556"/>
-        <source>Focus</source>
-        <translation>フォーカス</translation>
+        <location filename="editphysical.ui" line="739"/>
+        <source>Prism faces</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="596"/>
+        <location filename="editphysical.ui" line="627"/>
         <source>Pan Max Degrees</source>
         <translation>最大パン角度</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="613"/>
+        <location filename="editphysical.ui" line="644"/>
         <source>Tilt Max Degrees</source>
         <translation>最大チルト角度</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="633"/>
+        <location filename="editphysical.ui" line="125"/>
         <source>Electrical</source>
         <translation>電気関係</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="639"/>
+        <location filename="editphysical.ui" line="131"/>
         <source>Power Consumption</source>
         <translation>消費電力</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="649"/>
+        <location filename="editphysical.ui" line="141"/>
         <source>W</source>
         <translation>W</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="659"/>
+        <location filename="editphysical.ui" line="151"/>
         <source>DMX Connector</source>
         <translation>DMXコネクタ</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="706"/>
+        <location filename="editphysical.ui" line="198"/>
         <source>Copy physical information to clipboard</source>
         <translation>機種情報をコピー</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="723"/>
+        <location filename="editphysical.ui" line="215"/>
         <source>Paste physical information from clipboard</source>
         <translation>機種情報を貼り付け</translation>
     </message>

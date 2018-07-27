@@ -322,12 +322,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="editchannel.ui" line="397"/>
+        <location filename="editchannel.ui" line="401"/>
         <source>Value 2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="editchannel.ui" line="422"/>
+        <location filename="editchannel.ui" line="430"/>
         <source>Preview</source>
         <translation type="unfinished"></translation>
     </message>
@@ -358,19 +358,19 @@
     </message>
     <message>
         <location filename="editchannel.ui" line="90"/>
-        <location filename="editchannel.cpp" line="573"/>
+        <location filename="editchannel.cpp" line="574"/>
         <source>Minimum value</source>
         <translation>Valor Mínim</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="95"/>
-        <location filename="editchannel.cpp" line="573"/>
+        <location filename="editchannel.cpp" line="574"/>
         <source>Maximum value</source>
         <translation>Valor Màxim</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="100"/>
-        <location filename="editchannel.cpp" line="573"/>
+        <location filename="editchannel.cpp" line="574"/>
         <source>Description</source>
         <translation>Descripció</translation>
     </message>
@@ -405,12 +405,12 @@
         <translation>Imatges de gobo</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="618"/>
+        <location filename="editchannel.cpp" line="619"/>
         <source>Missing resources</source>
         <translation>Recursos que falten</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="619"/>
+        <location filename="editchannel.cpp" line="620"/>
         <source>Some gobos are missing:
 
 </source>
@@ -541,125 +541,130 @@
 <context>
     <name>EditPhysical</name>
     <message>
-        <location filename="editphysical.ui" line="39"/>
+        <location filename="editphysical.ui" line="234"/>
         <source>Bulb</source>
         <translation>Bombeta</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="45"/>
-        <location filename="editphysical.ui" line="562"/>
+        <location filename="editphysical.ui" line="240"/>
+        <location filename="editphysical.ui" line="593"/>
         <source>Type</source>
         <translation>Tipus</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="277"/>
+        <location filename="editphysical.ui" line="472"/>
         <source>Lumens</source>
         <translation>Lúmens</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="297"/>
+        <location filename="editphysical.ui" line="492"/>
         <source>Colour Temp (K)</source>
         <translation>Temperatura de Color (K)</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="392"/>
+        <location filename="editphysical.ui" line="39"/>
         <source>Dimensions</source>
         <translation>Dimensions</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="398"/>
+        <location filename="editphysical.ui" line="45"/>
         <source>Weight</source>
         <translation>Pes</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="405"/>
+        <location filename="editphysical.ui" line="52"/>
         <source>kg</source>
         <translation>kg</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="415"/>
+        <location filename="editphysical.ui" line="62"/>
         <source>Width</source>
         <translation>Ample</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="425"/>
-        <location filename="editphysical.ui" line="445"/>
-        <location filename="editphysical.ui" line="465"/>
+        <location filename="editphysical.ui" line="72"/>
+        <location filename="editphysical.ui" line="92"/>
+        <location filename="editphysical.ui" line="112"/>
         <source>mm</source>
         <translation>mm</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="435"/>
+        <location filename="editphysical.ui" line="82"/>
         <source>Height</source>
         <translation>Alçada</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="455"/>
+        <location filename="editphysical.ui" line="102"/>
         <source>Depth</source>
         <translation>Fondaria</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="478"/>
+        <location filename="editphysical.ui" line="587"/>
+        <source>Head(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="editphysical.ui" line="664"/>
         <source>Lens</source>
         <translation>Lents</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="484"/>
+        <location filename="editphysical.ui" line="670"/>
         <source>Name</source>
         <translation>Nom</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="513"/>
+        <location filename="editphysical.ui" line="699"/>
         <source>Min Degrees</source>
         <translation>Graus Mínims</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="520"/>
+        <location filename="editphysical.ui" line="706"/>
         <source>Max Degrees</source>
         <translation>Graus Màxims</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="556"/>
-        <source>Focus</source>
-        <translation>Focus</translation>
+        <location filename="editphysical.ui" line="739"/>
+        <source>Prism faces</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="596"/>
+        <location filename="editphysical.ui" line="627"/>
         <source>Pan Max Degrees</source>
         <translation>Graus Max de Pan</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="613"/>
+        <location filename="editphysical.ui" line="644"/>
         <source>Tilt Max Degrees</source>
         <translation>Graus Max de Tilt</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="633"/>
+        <location filename="editphysical.ui" line="125"/>
         <source>Electrical</source>
         <translation>Elèctric</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="639"/>
+        <location filename="editphysical.ui" line="131"/>
         <source>Power Consumption</source>
         <translation>Consum elèctric</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="649"/>
+        <location filename="editphysical.ui" line="141"/>
         <source>W</source>
         <translation>W</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="659"/>
+        <location filename="editphysical.ui" line="151"/>
         <source>DMX Connector</source>
         <translation>Connector DMX</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="706"/>
+        <location filename="editphysical.ui" line="198"/>
         <source>Copy physical information to clipboard</source>
         <translation>Copiar informació física al porta-retalls</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="723"/>
+        <location filename="editphysical.ui" line="215"/>
         <source>Paste physical information from clipboard</source>
         <translation>Enganxar informació física del porta-retalls</translation>
     </message>
