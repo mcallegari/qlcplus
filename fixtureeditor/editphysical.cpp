@@ -41,6 +41,7 @@ EditPhysical::EditPhysical(QLCPhysical physical, QWidget *parent)
     m_lensNameCombo->setEditText(m_physical.lensName());
     m_lensDegreesMinSpin->setValue(m_physical.lensDegreesMin());
     m_lensDegreesMaxSpin->setValue(m_physical.lensDegreesMax());
+    m_prismFacesSpin->setValue(m_physical.prismFaces());
 
     m_focusTypeCombo->setEditText(m_physical.focusType());
     m_panMaxSpin->setValue(m_physical.focusPanMax());
@@ -72,6 +73,7 @@ QLCPhysical EditPhysical::physical()
     m_physical.setLensName(m_lensNameCombo->currentText());
     m_physical.setLensDegreesMin(m_lensDegreesMinSpin->value());
     m_physical.setLensDegreesMax(m_lensDegreesMaxSpin->value());
+    m_physical.setPrismFaces(m_prismFacesSpin->value());
     m_physical.setFocusType(m_focusTypeCombo->currentText());
     m_physical.setFocusPanMax(m_panMaxSpin->value());
     m_physical.setFocusTiltMax(m_tiltMaxSpin->value());
@@ -94,19 +96,19 @@ void EditPhysical::slotPasteFromClipboard()
 void EditPhysical::pasteFromClipboard(QLCPhysical clipboard)
 {
     m_bulbLumensSpin->setValue(clipboard.bulbLumens());
+    m_bulbTypeCombo->setEditText(clipboard.bulbType());
+    m_bulbTempCombo->setEditText(QString::number(clipboard.bulbColourTemperature()));
     m_weightSpin->setValue(clipboard.weight());
     m_widthSpin->setValue(clipboard.width());
     m_heightSpin->setValue(clipboard.height());
     m_depthSpin->setValue(clipboard.depth());
+    m_lensNameCombo->setEditText(clipboard.lensName());
     m_lensDegreesMinSpin->setValue(clipboard.lensDegreesMin());
     m_lensDegreesMaxSpin->setValue(clipboard.lensDegreesMax());
+    m_prismFacesSpin->setValue(clipboard.prismFaces());
+    m_focusTypeCombo->setEditText(clipboard.focusType());
     m_panMaxSpin->setValue(clipboard.focusPanMax());
     m_tiltMaxSpin->setValue(clipboard.focusTiltMax());
     m_powerConsumptionSpin->setValue(clipboard.powerConsumption());
-
-    m_bulbTypeCombo->setEditText(clipboard.bulbType());
-    m_bulbTempCombo->setEditText(QString::number(clipboard.bulbColourTemperature()));
-    m_lensNameCombo->setEditText(clipboard.lensName());
-    m_focusTypeCombo->setEditText(clipboard.focusType());
     m_dmxConnectorCombo->setEditText(clipboard.dmxConnector());
 }
