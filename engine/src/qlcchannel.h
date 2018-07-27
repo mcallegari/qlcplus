@@ -149,6 +149,7 @@ public:
         ColorWheelFine,
         ColorRGBMixer,
         ColorCTOMixer,
+        ColorCTCMixer,
         ColorCTBMixer,
         GoboWheel,
         GoboWheelFine,

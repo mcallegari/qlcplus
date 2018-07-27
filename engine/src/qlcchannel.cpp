@@ -380,6 +380,10 @@ void QLCChannel::setPreset(QLCChannel::Preset preset)
             grp = Colour;
             prname = "CTO mixer";
         break;
+        case ColorCTCMixer:
+            grp = Colour;
+            prname = "CTC mixer";
+        break;
         case ColorCTBMixer:
             grp = Colour;
             prname = "CTB mixer";
@@ -510,6 +514,7 @@ QLCCapability *QLCChannel::addPresetCapability()
         case ColorWheelFine:
         case ColorRGBMixer:
         case ColorCTOMixer:
+        case ColorCTCMixer:
         case ColorCTBMixer:
         case GoboWheelFine:
         case GoboIndexFine:

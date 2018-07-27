@@ -22,7 +22,7 @@ def getPresetsArray():
         "IntensityValue", "IntensityValueFine",
         "PositionPan", "PositionPanFine", "PositionTilt", "PositionTiltFine", "PositionXAxis", "PositionYAxis",
         "SpeedPanSlowFast", "SpeedPanFastSlow", "SpeedTiltSlowFast", "SpeedTiltFastSlow", "SpeedPanTiltSlowFast", "SpeedPanTiltFastSlow",
-        "ColorMacro", "ColorWheel", "ColorWheelFine", "ColorRGBMixer", "ColorCTOMixer", "ColorCTBMixer",
+        "ColorMacro", "ColorWheel", "ColorWheelFine", "ColorRGBMixer", "ColorCTOMixer", "ColorCTCMixer", "ColorCTBMixer",
         "GoboWheel", "GoboWheelFine", "GoboIndex", "GoboIndexFine",
         "ShutterStrobeSlowFast", "ShutterStrobeFastSlow", "ShutterIrisMinToMax", "ShutterIrisMaxToMin", "ShutterIrisFine"
         "BeamFocusNearFar", "BeamFocusFarNear", "BeamZoomSmallBig", "BeamZoomBigSmall", "BeamZoomFine",
