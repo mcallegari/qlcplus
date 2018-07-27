@@ -46,10 +46,10 @@ bool WebAccessAuth::loadPasswordsFile(const QString& filePath)
         m_passwordsFile = filePath;
 
     QFile file(m_passwordsFile);
-    
+
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
         return false;
-    
+
     QTextStream stream(&file);
     QString line;
 
@@ -59,7 +59,7 @@ bool WebAccessAuth::loadPasswordsFile(const QString& filePath)
     while (!(line = stream.readLine()).isNull())
     {
         QStringList parts = line.split(':');
-        
+
         if (parts.size() < 2)
         {
             qDebug() << "Skipping invalid line '" << line << "'";
@@ -73,8 +73,8 @@ bool WebAccessAuth::loadPasswordsFile(const QString& filePath)
         QString salt = (parts.size() >= 5) ? (parts[4]) : ("");
 
         WebAccessUser user(
-            username, 
-            passwordHash, 
+            username,
+            passwordHash,
             (WebAccessUserLevel)userLevel,
             hashType,
             salt
@@ -91,20 +91,20 @@ bool WebAccessAuth::savePasswordsFile() const
 {
     if (m_passwordsFile.isEmpty())
         return false;
-    
+
     QFile file(m_passwordsFile);
-    
+
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
         return false;
-    
+
     QTextStream stream(&file);
-    
+
     foreach (QString username, m_passwords.keys())
     {
         WebAccessUser user = m_passwords.value(username);
-        stream 
-            << user.username << ':' 
-            << user.passwordHash << ':' 
+        stream
+            << user.username << ':'
+            << user.passwordHash << ':'
             << (int)user.level << ':'
             << user.hashType << ':'
             << user.passwordSalt << endl;
@@ -118,7 +118,7 @@ WebAccessUser WebAccessAuth::authenticateRequest(const QHttpRequest* req, QHttpR
     // Disable authentication when no administrative accounts are proviced
     if (!this->hasAtLeastOneAdmin())
         return WebAccessUser(NOT_PROVIDED_LEVEL);
-    
+
     QString header = QString("Basic realm=\"") + m_realm + QString("\"");
     res->setHeader("WWW-Authenticate", header);
 
@@ -129,7 +129,7 @@ WebAccessUser WebAccessAuth::authenticateRequest(const QHttpRequest* req, QHttpR
 
     QString authentication = QString(QByteArray::fromBase64(auth.right(auth.size() - 6).toUtf8()));
     int colonIndex = authentication.indexOf(':');
-    
+
     // Disallow empty passwords
     if (colonIndex == -1)
         return WebAccessUser();
@@ -148,8 +148,8 @@ void WebAccessAuth::addUser(const QString& username, const QString& password, We
 {
     QString salt = this->generateSalt();
     WebAccessUser user(
-        username, 
-        this->hashPassword(DEFAULT_PASSWORD_HASH_TYPE, password, salt), 
+        username,
+        this->hashPassword(DEFAULT_PASSWORD_HASH_TYPE, password, salt),
         level,
         DEFAULT_PASSWORD_HASH_TYPE,
         salt
@@ -162,7 +162,7 @@ bool WebAccessAuth::setUserLevel(const QString& username, WebAccessUserLevel lev
     QMap<QString, WebAccessUser>::iterator userIt = m_passwords.find(username);
     if (userIt == m_passwords.end())
         return false;
-    
+
     (*userIt).level = level;
     m_passwords.insert(username, *userIt);
     return true;
