@@ -1,7 +1,7 @@
 /*
   Q Light Controller Plus
   balls.js
-  
+
   Copyright (c) Tim Cullingworth
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -43,17 +43,17 @@ var testAlgo;
     algo.properties.push("name:presetCollision|type:list|display:Self Collision|values:No,Yes|write:setCollision|read:getCollision");
     var util = new Object;
     algo.initialized = false;
-        
+
     algo.setSize = function(_size)
     {
       algo.presetSize = _size;
     };
-    
+
     algo.getSize = function()
     {
       return algo.presetSize;
     };
-    
+
     algo.setNumber = function(_step)
     {
       algo.presetNumber = _step;
@@ -70,19 +70,19 @@ var testAlgo;
       if (_random === "Yes") { algo.presetRandom = 0; }
       else if (_random === "No") { algo.presetRandom = 1; }
     };
-    
+
     algo.getRandom = function()
     {
       if (algo.presetRandom === 0) { return "Yes"; }
       else if (algo.presetRandom === 1) { return "No"; }
     };
- 
+
     algo.setCollision = function(_colision)
     {
       if (_colision === "Yes") { algo.presetCollision = 0; }
       else if (_colision === "No") { algo.presetCollision = 1; }
     };
-    
+
     algo.getCollision = function()
     {
       if (algo.presetCollision === 0) { return "Yes"; }
@@ -103,7 +103,7 @@ var testAlgo;
         var yDirection = (Math.random() * 2) - 1; // and random directions
         var xDirection = (Math.random() * 2) - 1;
         algo.direction[i] = [yDirection, xDirection];
-        do 
+        do
         {
           var ballR = Math.round(Math.random() * 255);  // Chose random
           var ballG = Math.round(Math.random() * 255);  // colour for
@@ -202,7 +202,7 @@ var testAlgo;
         // edge collision detection
         if (yx[0] <= 0 && step[0] < 0) { step[0] *= -1; } // top edge and moving up
         else if (yx[0] >= height-1 && step[0] > 0) { step[0] *= -1; } // bottom edge and moving down
-            
+
         if (yx[1] <= 0 && step[1] < 0) { step[1] *= -1; } // left edge and moving left
         else if (yx[1] >= width-1 && step[1] > 0) { step[1] *= -1; } // right edge and moving right
 

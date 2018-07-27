@@ -111,14 +111,14 @@ void WebAccess::slotHandleRequest(QHttpRequest *req, QHttpResponse *resp)
     if(m_auth)
     {
         user = m_auth->authenticateRequest(req, resp);
-    
+
         if(user.level < LOGGED_IN_LEVEL)
         {
             m_auth->sendUnauthorizedResponse(resp);
             return;
         }
     }
-    
+
     QString reqUrl = req->url().toString();
     QString content;
 
@@ -295,7 +295,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
 {
     if (conn == NULL)
         return;
-    
+
     WebAccessUser* user = static_cast<WebAccessUser*>(conn->userData);
 
     qDebug() << "[websocketDataHandler]" << data;
@@ -318,7 +318,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
     {
         if(m_auth && user && user->level < SUPER_ADMIN_LEVEL)
             return;
-        
+
         if (cmdList.count() < 3)
             return;
 
@@ -377,7 +377,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
                 settings.setValue(SETTINGS_AUDIO_OUTPUT_DEVICE, cmdList[2]);
         }
         else
-            qDebug() << "[webaccess] Command" << cmdList[1] << "not supported !";
+            qDebug() << "[webaccess] Command" << cmdList[1] << "not supported!";
 
         return;
     }
@@ -385,7 +385,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
     {
         if(user && user->level < SUPER_ADMIN_LEVEL)
             return;
-        
+
         if (cmdList.at(1) == "ADD_USER")
         {
             QString username = cmdList.at(2);
@@ -432,8 +432,8 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
             m_auth->setUserLevel(username, (WebAccessUserLevel)level);
         }
         else
-            qDebug() << "[webaccess] Command" << cmdList[1] << "not supported !";
-        
+            qDebug() << "[webaccess] Command" << cmdList[1] << "not supported!";
+
         if(! m_auth->savePasswordsFile())
         {
             QString wsMessage = QString("ALERT|" + tr("Error while saving passwords file."));
@@ -446,7 +446,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
     {
         if(m_auth && user && user->level < SUPER_ADMIN_LEVEL)
             return;
-        
+
         if (cmdList.at(1) == "NETWORK")
         {
             if (m_netConfig->updateNetworkFile(cmdList) == true)
@@ -456,7 +456,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
                 return;
             }
             else
-                qDebug() << "[webaccess] Error writing network configuration file !";
+                qDebug() << "[webaccess] Error writing network configuration file!";
 
             return;
         }
@@ -490,7 +490,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
     {
         if(m_auth && user && user->level < VC_ONLY_LEVEL)
             return;
-        
+
         if (cmdList.count() < 2)
             return;
 
@@ -620,7 +620,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
         {
             if(m_auth && user && user->level < SIMPLE_DESK_AND_VC_LEVEL)
                 return;
-            
+
             if (cmdList.count() < 4)
                 return;
 
@@ -667,7 +667,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
     {
         if(m_auth && user && user->level < SIMPLE_DESK_AND_VC_LEVEL)
             return;
-        
+
         if (cmdList.count() < 3)
             return;
 
@@ -685,7 +685,7 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
 
     if(m_auth && user && user->level < VC_ONLY_LEVEL)
         return;
-    
+
     quint32 widgetID = cmdList[0].toUInt();
     VCWidget *widget = m_vc->widget(widgetID);
     uchar value = 0;

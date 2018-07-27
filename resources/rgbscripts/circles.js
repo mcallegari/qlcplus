@@ -40,27 +40,27 @@ var testAlgo;
     util.pixelMap = new Array();
     util.initialized = false;
     util.circlesMaxSize = 0;
-    
+
     var circles = new Array();
-    
+
     function Circle(x, y, step)
     {
       this.xCenter = x;
       this.yCenter = y;
       this.step = step;
     }
-    
+
     algo.setAmount = function(_amount)
     {
       algo.circlesAmount = _amount;
       util.initialized = false;
     };
-    
+
     algo.getAmount = function()
     {
       return algo.circlesAmount;
     };
-    
+
     algo.setFade = function(_fade)
     {
       if (_fade === "Fade In") { algo.fadeMode = 1; }
@@ -88,13 +88,13 @@ var testAlgo;
 
       util.initialized = true;
     };
-    
+
     util.getColor = function(step, rgb)
     {
-      if (algo.fadeMode === 0) 
+      if (algo.fadeMode === 0)
       {
         return rgb;
-      } 
+      }
       else
       {
         var r = (rgb >> 16) & 0x00FF;
@@ -156,7 +156,7 @@ var testAlgo;
           var radius2 = circles[i].step * circles[i].step;
           l = l.toFixed(0);
 
-          for (x = 0; x <= l; x++) 
+          for (x = 0; x <= l; x++)
           {
             y = Math.sqrt(radius2 - (x * x));
 

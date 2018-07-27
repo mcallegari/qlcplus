@@ -1,7 +1,7 @@
 /*
   Q Light Controller Plus
   simpledesk.js
-  
+
   Copyright (c) Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,7 +32,7 @@ window.onload = function() {
     getPage(1, 1);
    };
    websocket.onclose = function(ev) {
-    alert("QLC+ connection lost !");
+    alert("QLC+ connection lost!");
    };
    websocket.onerror = function(ev) {
     alert("QLC+ connection error!");

@@ -59,7 +59,6 @@ Rectangle
         z: 1
         anchors.fill: parent
         aspects: ["input", "logic"]
-        
 
         function updateSceneGraph(create)
         {
@@ -104,10 +103,7 @@ Rectangle
 
                     mynode = component.createObject(frameGraph.myShadowFrameGraphNode,
                     {
-                        "depthTargetSelector": fixtureItem.shadowMap,
                         "sceneDeferredLayer": sceneEntity.deferredLayer,
-                        "lightViewMatrix": fixtureItem.lightViewMatrix,
-                        "lightProjectionMatrix": fixtureItem.lightProjectionMatrix,
                         "fixtureItem": fixtureItem
                     });
                 }
@@ -118,7 +114,7 @@ Rectangle
             component = Qt.createComponent("FillGBufferFilter.qml");
             if (component.status === Component.Error)
                 console.log("Error loading component:", component.errorString());
-            
+
             mynode = component.createObject(frameGraph.myCameraSelector,
             {
                 "gBuffer": gBufferTarget,
@@ -151,12 +147,13 @@ Rectangle
 
                 component = Qt.createComponent("SpotlightShadingFilter.qml");
                 if (component.status === Component.Error)
-                console.log("Error loading component:", component.errorString());
+                    console.log("Error loading component:", component.errorString());
+
                 mynode = component.createObject(frameGraph.myCameraSelector,
                 {
                     "gBuffer": gBufferTarget,
                     "shadowTex": fixtureItem.shadowMap.depth,
-                    "useShadows": fixtureItem.useShadows,              
+                    "useShadows": fixtureItem.useShadows,
                     "spotlightShadingLayer": fixtureItem.spotlightShadingLayer,
                     "frameTarget": frameTarget
                 });
@@ -166,10 +163,12 @@ Rectangle
             {
                 fixtureItem = fixtures[ic]
 
-                if(fixtureItem.useScattering) {
+                if (fixtureItem.useScattering)
+                {
                     component = Qt.createComponent("OutputFrontDepthFilter.qml");
                     if (component.status === Component.Error)
                         console.log("Error loading component:", component.errorString());
+
                     mynode = component.createObject(frameGraph.myCameraSelector,
                     {
                         "frontDepth": depthTarget,
@@ -182,7 +181,7 @@ Rectangle
 
                     mynode = component.createObject(frameGraph.myCameraSelector,
                     {
-                        "fixtureItem": fixtureItem,          
+                        "fixtureItem": fixtureItem,
                         "frontDepth": depthTarget,
                         "gBuffer": gBufferTarget,
                         "spotlightScatteringLayer": fixtureItem.spotlightScatteringLayer,
@@ -191,37 +190,39 @@ Rectangle
                         "useShadows": fixtureItem.useShadows
                     });
                 }
-            }  
+            }
 
             component = Qt.createComponent("GammaCorrectFilter.qml");
             if (component.status === Component.Error)
                 console.log("Error loading component:", component.errorString());
+
             mynode = component.createObject(frameGraph.myCameraSelector,
             {
                 "hdrTexture": frameTarget.color,
-                "outRenderTarget": hdr0RenderTarget,                
+                "outRenderTarget": hdr0RenderTarget,
                 "screenQuadGammaCorrectLayer": screenQuadGammaCorrectEntity.layer
             });
-            
+
             component = Qt.createComponent("FXAAFilter.qml");
             if (component.status === Component.Error)
                 console.log("Error loading component:", component.errorString());
+
             mynode = component.createObject(frameGraph.myCameraSelector,
             {
                 "inTexture": hdr0ColorTexture,
-                "outRenderTarget": hdr1RenderTarget,                
+                "outRenderTarget": hdr1RenderTarget,
                 "screenQuadFXAALayer": screenQuadFXAAEntity.layer
             });
 
             component = Qt.createComponent("BlitFilter.qml");
             if (component.status === Component.Error)
                 console.log("Error loading component:", component.errorString());
+
             mynode = component.createObject(frameGraph.myCameraSelector,
             {
                 "inTexture": hdr1ColorTexture,
                 "screenQuadBlitLayer": screenQuadBlitEntity.layer
             });
-
         }
 
         Entity
@@ -270,14 +271,14 @@ Rectangle
                                 magnificationFilter: Texture.Linear
                                 minificationFilter: Texture.Linear
                                 wrapMode
-                                {   
+                                {
                                     x: WrapMode.ClampToEdge
                                     y: WrapMode.ClampToEdge
                                 }
                             }
                     }
                 ] // outputs
-            }            
+            }
 
             RenderTarget
             {
@@ -298,14 +299,14 @@ Rectangle
                                 magnificationFilter: Texture.Linear
                                 minificationFilter: Texture.Linear
                                 wrapMode
-                                {   
+                                {
                                     x: WrapMode.ClampToEdge
                                     y: WrapMode.ClampToEdge
                                 }
                             }
                     }
                 ] // outputs
-            }   
+            }
 
             DepthTarget { id: depthTarget }
 
@@ -319,6 +320,24 @@ Rectangle
             ]
         } // Entity
     } // scene3d
+
+    Rectangle
+    {
+        visible: View3D.frameCountEnabled
+        z: 4
+        opacity: 0.6
+        color: UISettings.bgMain
+        width: height
+        height: UISettings.bigItemHeight
+
+        Column
+        {
+            RobotoText { height: UISettings.bigItemHeight / 4; label: "FPS: " + View3D.FPS }
+            RobotoText { height: UISettings.bigItemHeight / 4; label: "Min: " + View3D.minFPS }
+            RobotoText { height: UISettings.bigItemHeight / 4; label: "Max: " + View3D.maxFPS }
+            RobotoText { height: UISettings.bigItemHeight / 4; label: "Avg: " + View3D.avgFPS }
+        }
+    }
 
     SettingsView3D
     {

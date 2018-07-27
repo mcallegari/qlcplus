@@ -24,6 +24,8 @@ RenderTarget
 {
     property alias color: colorAttachment
     property alias normal: normalAttachment
+    property alias specular: specularAttachment
+
     property alias depth: depthAttachment
 
     objectName: "gBuffer"
@@ -74,6 +76,31 @@ RenderTarget
                     }
                 }
         },
+
+        RenderTargetOutput
+        {
+            objectName: "specular"
+            attachmentPoint: RenderTargetOutput.Color2
+            texture:
+                Texture2D
+                {
+                    id: specularAttachment
+                    width: 1024
+                    height: 1024
+                    // We use RGBA32F here instead of a more fitting format because
+                    // OpenGL vendors might not support other formats
+                    format: Texture.RGBA32F
+                    generateMipMaps: false
+                    magnificationFilter: Texture.Linear
+                    minificationFilter: Texture.Linear
+                    wrapMode
+                    {
+                        x: WrapMode.ClampToEdge
+                        y: WrapMode.ClampToEdge
+                    }
+                }
+        },
+
         RenderTargetOutput
         {
             objectName: "depth"

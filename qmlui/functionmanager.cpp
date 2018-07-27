@@ -1046,7 +1046,6 @@ void FunctionManager::dumpOnNewScene(QList<SceneValue> dumpValues, QList<quint32
     if (m_doc->addFunction(newScene) == true)
     {
         setPreview(false);
-        updateFunctionsTree();
         Tardis::instance()->enqueueAction(Tardis::FunctionCreate, newScene->id(), QVariant(),
                                           Tardis::instance()->actionToByteArray(Tardis::FunctionCreate, newScene->id()));
     }

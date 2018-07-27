@@ -184,7 +184,7 @@ public:
 private:
 
     void preview(QPolygonF &polygon, Function::Direction direction, int startOffset) const;
- 
+
     /**
      * Rotate a point of the pattern by rot degrees and scale the point
      * within w/h and xOff/yOff.

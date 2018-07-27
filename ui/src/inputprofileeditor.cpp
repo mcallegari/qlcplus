@@ -132,7 +132,7 @@ InputProfileEditor::InputProfileEditor(QWidget* parent, QLCInputProfile* profile
     /* Profile manufacturer & model */
     m_manufacturerEdit->setText(m_profile->manufacturer());
     m_modelEdit->setText(m_profile->model());
-  
+
     m_behaviourBox->hide();
     m_feedbackGroup->hide();
     /* Fill up the tree with profile's channels */

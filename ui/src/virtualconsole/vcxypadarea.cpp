@@ -186,7 +186,7 @@ QString VCXYPadArea::angleString() const
             .arg(pos.x() * 100 / MAX_DMX_VALUE, 7, 'f', 3, '0')
             .arg(pos.y() * 100 / MAX_DMX_VALUE, 7, 'f', 3, '0');
     }
-    
+
 }
 
 /*************************************************************************
@@ -320,7 +320,7 @@ void VCXYPadArea::paintEvent(QPaintEvent* e)
     }
 
     updateWindowPos();
-    
+
     if (m_previewArea == NULL)
     {
         foreach(QVariant pos, m_fixturePositions)
@@ -404,7 +404,7 @@ void VCXYPadArea::keyPressEvent(QKeyEvent *e)
             step *= 10;
         if (e->modifiers().testFlag(Qt::ShiftModifier))
             step /= 256;
-        
+
         if (e->key() == Qt::Key_Left)
         {
             nudgePosition(-step , 0);

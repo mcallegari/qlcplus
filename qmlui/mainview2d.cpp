@@ -227,7 +227,7 @@ void MainView2D::setFixtureFlags(quint32 itemID, quint32 flags)
 }
 
 QList<quint32> MainView2D::selectFixturesRect(QRectF rect)
-{   
+{
     QList<quint32>fxList;
 
     if (rect.width() == 0 || rect.height() == 0)
@@ -368,6 +368,9 @@ void MainView2D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
     for (int headIdx = 0; headIdx < fixture->heads(); headIdx++)
     {
         quint32 headDimmerIndex = fixture->channelNumber(QLCChannel::Intensity, QLCChannel::MSB, headIdx);
+        if (headDimmerIndex == QLCChannel::invalid())
+            headDimmerIndex = fixture->masterIntensityChannel();
+
         //qDebug() << "Head" << headIdx << "dimmer channel:" << mdIndex;
         qreal intValue = 1.0;
         if (headDimmerIndex != QLCChannel::invalid())

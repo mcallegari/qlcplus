@@ -20,19 +20,19 @@
 import Qt3D.Core 2.0
 import Qt3D.Render 2.0
 
-import QtQuick 2.0    
+import QtQuick 2.0
 
 TechniqueFilter
 {
-    property Layer screenQuadFXAALayer 
+    property Layer screenQuadFXAALayer
 
     property Texture2D inTexture
 
     parameters: [
-        Parameter { name: "colorTex"; value: inTexture }  
-    ]       
+        Parameter { name: "colorTex"; value: inTexture }
+    ]
 
-    property RenderTarget outRenderTarget 
+    property RenderTarget outRenderTarget
 
 
     RenderStateSet
@@ -48,7 +48,7 @@ TechniqueFilter
         ]
         LayerFilter
         {
-            layers: screenQuadFXAALayer   
+            layers: screenQuadFXAALayer
 
             RenderTargetSelector {
                 target:  outRenderTarget
@@ -63,6 +63,6 @@ TechniqueFilter
                 }
 
             }
-        }     
+        }
     }
 } // TechniqueFilter

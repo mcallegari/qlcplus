@@ -62,7 +62,7 @@ Entity
     /* **************** Rendering quality properties **************** */
     property bool useScattering: View3D.renderQuality === MainView3D.LowQuality ? false : true
     property bool useShadows: View3D.renderQuality === MainView3D.LowQuality ? false : true
-    property int raymarchSteps: 
+    property int raymarchSteps:
     {
         switch(View3D.renderQuality)
         {
@@ -81,7 +81,7 @@ Entity
     property real coneBottomRadius: distCutoff * Math.tan(cutoffAngle) + coneTopRadius
     property real coneTopRadius: (0.24023 / 2) * transform.scale3D.x * 0.7 // (diameter / 2) * scale * magic number
 
-    property real headLength: 
+    property real headLength:
     {
         switch(meshType)
         {
@@ -105,7 +105,7 @@ Entity
 
     /* ********************** Light matrices ********************** */
     property matrix4x4 lightMatrix
-    property matrix4x4 lightViewMatrix: 
+    property matrix4x4 lightViewMatrix:
         Math3D.getLightViewMatrix(lightMatrix, panRotation, tiltRotation, lightPos)
     property matrix4x4 lightProjectionMatrix:
         Math3D.getLightProjectionMatrix(distCutoff, coneBottomRadius, coneTopRadius, headLength, cutoffAngle)
@@ -167,7 +167,7 @@ Entity
             tiltSpeed = tiltDuration
     }
 
-    function setFocus(value)
+    function setZoom(value)
     {
         cutoffAngle = (((((focusMaxDegrees - focusMinDegrees) / 255) * value) + focusMinDegrees) / 2) * (Math.PI / 180)
     }
@@ -239,19 +239,19 @@ Entity
 
         shadingCone.coneLayer = shadingLayer
         shadingCone.coneEffect = shadingEffect
-        shadingCone.coneMaterial.bindFixture(fixtureEntity)
+        shadingCone.coneMaterial.fxItem = fixtureEntity
         shadingCone.parent = sceneEntity
         shadingCone.spotlightConeMesh = sceneEntity.coneMesh
 
         scatteringCone.coneLayer = scatteringLayer
         scatteringCone.coneEffect = scatteringEffect
-        scatteringCone.coneMaterial.bindFixture(fixtureEntity)
+        scatteringCone.coneMaterial.fxItem = fixtureEntity
         scatteringCone.parent = sceneEntity
         scatteringCone.spotlightConeMesh = sceneEntity.coneMesh
 
         outDepthCone.coneLayer = depthLayer
         outDepthCone.coneEffect = depthEffect
-        outDepthCone.coneMaterial.bindFixture(fixtureEntity)
+        outDepthCone.coneMaterial.fxItem = fixtureEntity
         outDepthCone.parent = sceneEntity
         outDepthCone.spotlightConeMesh = sceneEntity.coneMesh
     }
@@ -272,7 +272,7 @@ Entity
 
     // strobe/pulse effect
     QQ2.SequentialAnimation on shutterValue
-    {   
+    {
         id: shutterAnim
         running: false
         loops: QQ2.Animation.Infinite
@@ -314,20 +314,30 @@ Entity
     /* **************** Gobo properties **************** */
     property Texture2D goboTexture: Texture2D { }
     property real goboRotation: 0
-    property real goboRotDuration: 2000
 
-/*
+    function setGoboSpeed(cw, speed)
+    {
+        //console.log("Gobo clockwise: " + (cw ? "yes" : "no") + " speed: " + speed)
+        goboAnim.stop()
+        goboAnim.from = cw ? 0 : 359
+        goboAnim.to = cw ? 359 : 0
+        if (speed !== 0)
+        {
+            goboAnim.duration = speed
+            goboAnim.restart()
+        }
+    }
+
     QQ2.NumberAnimation on goboRotation
     {
         id: goboAnim
-        running: true
-        duration: goboRotDuration
+        running: false
+        duration: 0
         easing.type: Easing.Linear
         from: 0
         to: 360
         loops: QQ2.Animation.Infinite
     }
-*/
 
     /* Cone meshes used for scattering. These get re-parented to a head mesh via setupScattering */
     SpotlightConeEntity { id: shadingCone }

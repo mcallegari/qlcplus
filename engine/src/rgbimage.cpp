@@ -247,7 +247,7 @@ RGBMap RGBImage::rgbMap(const QSize& size, uint rgb, int step)
     int xOffs = xOffset();
     int yOffs = yOffset();
 
-    switch(animationStyle()) 
+    switch(animationStyle())
     {
         default:
         case Static:

@@ -766,7 +766,7 @@ void VCFrame::slotFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensi
     Q_UNUSED(fIntensity)
 
     if (xmlTagName() == KXMLQLCVCFrame)
-        qDebug() << "[VCFrame] ERROR ! This should never happen !";
+        qDebug() << "[VCFrame] ERROR ! This should never happen!";
 }
 
 /*********************************************************************

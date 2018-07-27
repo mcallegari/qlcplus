@@ -92,7 +92,7 @@ Popup
     {
         id: saveFirstPopup
         title: qsTr("Your project has changes")
-        message: qsTr("Do you wish to save the current project first ?\nChanges will be lost if you don't save them.")
+        message: qsTr("Do you wish to save the current project first?\nChanges will be lost if you don't save them.")
         standardButtons: Dialog.Yes | Dialog.No | Dialog.Cancel
 
         property string action: ""

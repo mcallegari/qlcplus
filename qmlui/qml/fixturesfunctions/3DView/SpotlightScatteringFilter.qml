@@ -29,15 +29,15 @@ TechniqueFilter
     property DepthTarget frontDepth
     property GBuffer gBuffer
     property real lightIntensity
-    property Texture2D shadowTex
+    property Texture2D shadowTex: null
     property FrameTarget frameTarget
-    property bool useShadows
+    property bool useShadows: true
 
     property Fixture3DItem fixtureItem
 
     parameters: [
-        Parameter { name: "frontDepthTex"; value: frontDepth.position },
-        Parameter { name: "depthTex"; value: gBuffer.depth },
+        Parameter { name: "frontDepthTex"; value: frontDepth ? frontDepth.position : null },
+        Parameter { name: "depthTex"; value: gBuffer ? gBuffer.depth : null },
         Parameter { name: "lightColor"; value:  fixtureItem ? fixtureItem.lightColor : Qt.rgba(0, 0, 0, 1) },
         Parameter { name: "lightIntensity"; value: fixtureItem ? fixtureItem.lightIntensity : 0.0 },
         Parameter { name: "shadowTex"; value: shadowTex },

@@ -34,6 +34,8 @@ uniform vec3 lightColor;
 uniform float lightIntensity;
 uniform int useShadows;
 
+uniform vec4 goboRotation;
+
 uniform float coneTopRadius;
 uniform float coneBottomRadius;
 uniform float coneDistCutoff;
@@ -61,19 +63,18 @@ void main()
     vec4 temp = inverseViewProjectionMatrix * vec4(u.x / u.w, u.y / u.w, -1.0 + 2.0 * z, 1.0);
     temp.xyz = temp.xyz / temp.w;
     position = temp.xyz;
-    
+  
     float shadowMask = 1.0;
     if(useShadows == 1) {
         vec4 p = lightProjectionMatrix * lightViewMatrix * vec4(position.xyz, 1.0);
         float curZ = (p.z / p.w) * 0.5 + 0.5;
-        float refZ = SAMPLE_TEX2D(shadowTex, (p.xy) / p.w * 0.5 + vec2(0.5)).r;
+        float refZ = SAMPLE_TEX2D(shadowTex, ((p.xy) / p.w) * 0.5 + vec2(0.5)).r;
         shadowMask = (curZ < refZ + 0.0003 ? 1.0 : 0.0);
     }
 
-
     vec4 q = lightViewMatrix * vec4(position.xyz, 1.0);
     float r = coneTopRadius + (coneBottomRadius - coneTopRadius) * ((abs(q.z)-0.5*headLength) / coneDistCutoff);
-    vec2 tc = ((-q.xy) * (1.0 / r)) * 0.5 + 0.5;
+    vec2 tc = (mat2x2(goboRotation.x, goboRotation.y, goboRotation.z, goboRotation.w)*((-q.xy) * (1.0 / r))) * 0.5 + 0.5;
 
     vec4 gSample = SAMPLE_TEX2D(goboTex, tc.xy);
     float goboMask = gSample.a * gSample.r;

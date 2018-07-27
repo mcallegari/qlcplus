@@ -139,7 +139,7 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
                QLCChannel *ch = mode->channel(wheel);
                if (ch == NULL)
                    continue;
- 
+
                bool containsColor = false;
                for(quint32 i = 0; i < 256; ++i)
                {
@@ -168,7 +168,7 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
                QLCChannel *ch = mode->channel(shutter);
                if (ch == NULL)
                    continue;
- 
+
                bool containsShutter = false;
 
                switch (ch->preset())
@@ -301,7 +301,7 @@ void MonitorFixtureItem::setSize(QSize size)
     double cellWidth = headsWidth / columns;
     double cellHeight = headsHeight / rows;
     double headDiam = (cellWidth < cellHeight) ? cellWidth : cellHeight;
-    
+
     int ypos = (cellHeight - headDiam) / 2;
     for (int i = 0; i < rows; i++)
     {
@@ -323,7 +323,7 @@ void MonitorFixtureItem::setSize(QSize size)
                 {
                     head->setRect(head->rect().adjusted(MOVEMENT_THICKNESS + 1, MOVEMENT_THICKNESS + 1, -MOVEMENT_THICKNESS - 1, -MOVEMENT_THICKNESS - 1));
                 }
- 
+
                 head->setZValue(2);
                 QGraphicsEllipseItem *back = m_heads.at(index)->m_back;
                 if (back != NULL)
@@ -372,7 +372,7 @@ QColor MonitorFixtureItem::computeColor(const FixtureHead *head, const QByteArra
         y = values.at(head->m_cmy.at(2));
         return QColor::fromCmyk(c, m, y, 0);
     }
-    
+
     if (m_gelColor.isValid())
     {
         return m_gelColor;
@@ -410,7 +410,7 @@ FixtureHead::ShutterState MonitorFixtureItem::computeShutter(const FixtureHead *
     {
         const uchar val = static_cast<uchar>(values.at(c));
         FixtureHead::ShutterState state = head->m_shutterValues[c].at(val);
-        if (state == FixtureHead::Closed) 
+        if (state == FixtureHead::Closed)
         {
             return state;
         }
@@ -443,7 +443,7 @@ void MonitorFixtureItem::slotUpdateValues()
         head->m_color = computeColor(head, fxValues);
         head->m_dimmerValue = computeAlpha(head, fxValues);
         head->m_shutterState = computeShutter(head, fxValues);
- 
+
         QColor col = head->m_color;
         col.setAlpha(head->m_dimmerValue);
 
@@ -501,12 +501,12 @@ void MonitorFixtureItem::slotStrobeTimer()
     {
         if (head->m_strobeTimer != timer)
             continue;
-       
+
         if (head->m_dimmerValue == 0 || head->m_shutterState != FixtureHead::Strobe)
             return;
 
         head->m_strobePhase = (head->m_strobePhase + 1) % 2;
-        
+
         QColor col = head->m_color;
         col.setAlpha(head->m_dimmerValue);
         if (head->m_strobePhase != 0)
@@ -553,7 +553,7 @@ void MonitorFixtureItem::paint(QPainter *painter, const QStyleOptionGraphicsItem
         if (head->m_tiltChannel != UINT_MAX /*QLCChannel::invalid()*/)
         {
             rect.adjust(-MOVEMENT_THICKNESS, -MOVEMENT_THICKNESS, MOVEMENT_THICKNESS, MOVEMENT_THICKNESS);
-            
+
             painter->setPen(QPen(defColor, MOVEMENT_THICKNESS));
             painter->drawArc(rect, 270 * 16 - head->m_tiltMaxDegrees * 16 / 2 - 8, 16);
             painter->drawArc(rect, 270 * 16 + head->m_tiltMaxDegrees * 16 / 2 - 8, 16);

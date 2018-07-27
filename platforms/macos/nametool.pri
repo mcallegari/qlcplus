@@ -1,6 +1,6 @@
 #
 # Including this file into a subproject .pro file will run install_name_tool
-# for the subproject's $$TARGET to replace references to some libraries 
+# for the subproject's $$TARGET to replace references to some libraries
 # with paths within the application bundle.
 
 # Libraries

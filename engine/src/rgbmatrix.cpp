@@ -706,7 +706,7 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
             // They are the master dimmer (affects whole fixture)
             // and per-head dimmer.
             //
-            // If there are no RGB or CMY channels, the least important* dimmer channel 
+            // If there are no RGB or CMY channels, the least important* dimmer channel
             // is used to create grayscale image.
             //
             // The rest of the dimmer channels are set to full if dimmer control is
@@ -716,7 +716,7 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
             // Note: If there is only one head, and only one dimmer channel,
             // make it a master dimmer in fixture definition.
             //
-            // *least important - per head dimmer if present, 
+            // *least important - per head dimmer if present,
             // otherwise per fixture dimmer if present
             QVector <quint32> dim;
             if (masterDim != QLCChannel::invalid())

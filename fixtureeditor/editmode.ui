@@ -246,7 +246,7 @@
           <string>Edit the channels that belong to the selected head</string>
          </property>
          <property name="text">
-          <string>...</string>
+          <string notr="true"/>
          </property>
          <property name="icon">
           <iconset resource="../ui/src/qlcui.qrc">

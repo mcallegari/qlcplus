@@ -5,7 +5,7 @@
 
   This file is provided as is to allow an easy start with the
   usbdmx driver and dll.
-  
+
   Copyright (c) Lighting Solutions, Dr. Jan Menzel
 
   In case of trouble please contact driver@lighting-solutions.de or

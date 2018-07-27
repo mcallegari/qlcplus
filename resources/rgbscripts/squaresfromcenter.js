@@ -1,7 +1,7 @@
 /*
   Q Light Controller Plus
   squaresfromcenter.js
-  
+
   Copyright (c) David Garyga
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,7 +31,7 @@ var testAlgo;
         algo.properties = new Array();
         algo.fillSquares = 0;
         algo.properties.push("name:fillSquares|type:list|display:Fill squares|values:No,Yes|write:setFill|read:getFill");
-        
+
         algo.setFill = function(_fill)
         {
             if (_fill === "Yes") { algo.fillSquares = 1; }

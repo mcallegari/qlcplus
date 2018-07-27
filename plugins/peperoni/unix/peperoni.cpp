@@ -115,7 +115,7 @@ QString Peperoni::outputInfo(quint32 output)
         str += m_devices[output]->outputInfoText(output);
     }
     else
-        qDebug() << "Peperoni invalid output !" << output << m_devices.size();
+        qDebug() << "Peperoni invalid output!" << output << m_devices.size();
 
     str += QString("</BODY>");
     str += QString("</HTML>");
@@ -133,7 +133,7 @@ void Peperoni::writeUniverse(quint32 universe, quint32 output, const QByteArray 
     if (m_devices[output] != NULL)
         m_devices[output]->outputDMX(output, data);
     else
-        qDebug() << "Peperoni invalid output !" << output << m_devices.size();
+        qDebug() << "Peperoni invalid output!" << output << m_devices.size();
 }
 
 /*************************************************************************
@@ -193,7 +193,7 @@ QString Peperoni::inputInfo(quint32 input)
         str += m_devices[input]->inputInfoText(input);
     }
     else
-        qDebug() << "Peperoni invalid input !" << input << m_devices.size();
+        qDebug() << "Peperoni invalid input!" << input << m_devices.size();
 
     str += QString("</BODY>");
     str += QString("</HTML>");

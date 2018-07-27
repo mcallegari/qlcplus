@@ -58,7 +58,7 @@
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="10" Preset="RotationStop">Stop</Capability>
   <Capability Min="11" Max="127">Fixed Gobo Indexing</Capability>
-  <Capability Min="128" Max="191" Preset="RotationClockwiseFastToSlow">Rotate Counter-Clockwise (fast-slow)</Capability>
+  <Capability Min="128" Max="191" Preset="RotationCounterClockwiseFastToSlow">Rotate Counter-Clockwise (fast-slow)</Capability>
   <Capability Min="192" Max="255" Preset="RotationClockwiseSlowToFast">Rotate Clockwise (Slow-Fast)</Capability>
  </Channel>
  <Channel Name="Shutter">

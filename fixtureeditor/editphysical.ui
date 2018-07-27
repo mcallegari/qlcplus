@@ -30,7 +30,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string notr="true">Edit physical</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_14">
    <item row="0" column="0">

@@ -404,7 +404,7 @@ Rectangle
                                         case App.FixtureGroupDragItem:
                                             contextManager.setFixtureGroupSelection(iID, true, false)
                                         break;
-                                    }                                        
+                                    }
 
                                     updateButtons(qItem.itemType, itemID)
                                 break;

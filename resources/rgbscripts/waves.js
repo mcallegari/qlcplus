@@ -1,7 +1,7 @@
 /*
   Q Light Controller Plus
   waves.js
-  
+
   Copyright (c) Nathan Durnan
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -42,7 +42,7 @@ function()
       algo.taillength = _tail;
       util.initialize();
     };
-    
+
     algo.getTail = function()
     {
       return algo.taillength;
@@ -90,13 +90,13 @@ function()
 
     var util = new Object;
     util.initialized = false;
-    
+
     util.initialize = function()
     {
       // fixed size fade array
       util.fadeSteps = 100;
       var _step = (1 / util.fadeSteps);
-      
+
       util.fadeObject = new Array(util.fadeSteps);
       util.fadeObject[0] = 1;
       for (var f = 1; f < util.fadeSteps; f++)

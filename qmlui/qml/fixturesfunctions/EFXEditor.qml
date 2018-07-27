@@ -39,7 +39,7 @@ Rectangle
     ModelSelector
     {
         id: eeSelector
-        onItemsCountChanged: console.log("EFX Editor selected items changed !")
+        onItemsCountChanged: console.log("EFX Editor selected items changed!")
     }
 
     TimeEditTool

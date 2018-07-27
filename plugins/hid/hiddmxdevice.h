@@ -71,7 +71,7 @@ public:
 
     /** @reimp */
     void closeInput();
-    
+
     /** @reimp */
     bool openOutput();
 
@@ -108,7 +108,7 @@ private:
 public:
     /** @reimp */
     void outputDMX(const QByteArray &data, bool forceWrite = false);
-    
+
      /*********************************************************************
      * FX5 - specific functions and device handle
      *********************************************************************/

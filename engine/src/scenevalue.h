@@ -65,7 +65,7 @@ public:
     /** Copy constructor */
     SceneValue(const SceneValue& scv);
 
-    /** NON-virtual Destructor 
+    /** NON-virtual Destructor
      *
      *  No class derives from this one and we need to keep the memory footprint
      *  as low as possible.

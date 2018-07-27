@@ -190,30 +190,30 @@ void InputChannelEditor::numberToMidi(int number, int & channel, int & message, 
     {
         message = KMidiMessageCC;
         param = number - CHANNEL_OFFSET_CONTROL_CHANGE;
-    } 
+    }
     else if (number <= CHANNEL_OFFSET_NOTE_MAX)
     {
         message = KMidiMessageNoteOnOff;
         param = number - CHANNEL_OFFSET_NOTE;
-    } 
+    }
     else if (number <= CHANNEL_OFFSET_NOTE_AFTERTOUCH_MAX)
     {
         message = KMidiMessageNoteAftertouch;
         param = number - CHANNEL_OFFSET_NOTE_AFTERTOUCH;
-    } 
+    }
     else if (number <= CHANNEL_OFFSET_PROGRAM_CHANGE_MAX)
     {
         message = KMidiMessagePC;
         param = number - CHANNEL_OFFSET_PROGRAM_CHANGE;
-    } 
+    }
     else if (number == CHANNEL_OFFSET_CHANNEL_AFTERTOUCH)
     {
         message = KMidiMessageChannelAftertouch;
-    } 
+    }
     else if (number == CHANNEL_OFFSET_PITCH_WHEEL)
     {
         message = KMidiMessagePitchWheel;
-    } 
+    }
     else if (number == CHANNEL_OFFSET_MBC_PLAYBACK)
     {
         message = KMidiMessageMBCPlayback;
@@ -225,7 +225,7 @@ void InputChannelEditor::numberToMidi(int number, int & channel, int & message, 
     else // if (number == CHANNEL_OFFSET_MBC_BEAT)
     {
         message = KMidiMessageMBCBeat;
-    } 
+    }
 }
 
 int InputChannelEditor::midiToNumber(int channel, int message, int param)

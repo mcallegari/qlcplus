@@ -123,7 +123,7 @@ public:
 
     /** Convert a string to an mode type */
     static Mode stringToMode(const QString& str);
- 
+
 private:
     GroupHead m_head;
     Function::Direction m_direction;

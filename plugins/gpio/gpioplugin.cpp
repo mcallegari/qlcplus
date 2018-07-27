@@ -396,13 +396,13 @@ void GPIOPlugin::setParameter(quint32 universe, quint32 line, Capability type,
     QStringList param = name.split("-");
     if (param.count() < 2)
     {
-        qDebug() << "[GPIO] invalid parameter name !" << name;
+        qDebug() << "[GPIO] invalid parameter name!" << name;
         return;
     }
     int gpioNumber = param.at(1).toInt();
     if (gpioNumber < 0 || gpioNumber >= m_gpioList.count())
     {
-        qDebug() << "[GPIO] invalid PIN number !" << gpioNumber;
+        qDebug() << "[GPIO] invalid PIN number!" << gpioNumber;
         return;
     }
 

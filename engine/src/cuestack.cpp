@@ -185,7 +185,7 @@ void CueStack::insertCue(int index, const Cue& cue)
         }
     }
 
-    if (!cueAdded)    
+    if (!cueAdded)
         appendCue(cue);
 }
 

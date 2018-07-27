@@ -37,7 +37,7 @@ SOURCES += audio.cpp \
            audioparameters.cpp \
            audiocapture.cpp \
            audioplugincache.cpp
-           
+
 lessThan(QT_MAJOR_VERSION, 5) {
   unix:!macx:SOURCES += audiorenderer_alsa.cpp audiocapture_alsa.cpp
   win32:SOURCES += audiorenderer_waveout.cpp audiocapture_wavein.cpp
