@@ -110,7 +110,7 @@
   <Capability Min="190" Max="193">Stop</Capability>
   <Capability Min="194" Max="255">CCW Slow - Fast</Capability>
  </Channel>
- <Channel Name="Iris" Preset="BeamIris"/>
+ <Channel Name="Iris" Preset="ShutterIrisMaxToMin"/>
  <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Function">
   <Group Byte="0">Maintenance</Group>

@@ -193,7 +193,7 @@
   <Capability Min="250" Max="252">Random closing pulse, fast</Capability>
   <Capability Min="253" Max="255">Random closing pulse, slow</Capability>
  </Channel>
- <Channel Name="Iris, fine (LSB)" Preset="BeamIrisFine"/>
+ <Channel Name="Iris, fine (LSB)" Preset="ShutterIrisFine"/>
  <Channel Name="Focus (MSB)" Preset="BeamFocusFarNear"/>
  <Channel Name="Focus, fine (LSB)">
   <Group Byte="1">Beam</Group>

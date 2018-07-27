@@ -131,7 +131,7 @@
   <Group Byte="0">Beam</Group>
   <Capability Max="255" Min="0">Open -&gt; full wash effect</Capability>
  </Channel>
- <Channel Name="Iris" Preset="BeamIris"/>
+ <Channel Name="Iris" Preset="ShutterIrisMaxToMin"/>
  <Channel Name="Zoom" Preset="BeamZoomBigSmall"/>
  <Channel Name="Zoom fine">
   <Group Byte="1">Beam</Group>

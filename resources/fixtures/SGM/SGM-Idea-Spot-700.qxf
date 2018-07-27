@@ -214,7 +214,7 @@
   <Capability Min="0" Max="255">Zoom adjustment Fine</Capability>
  </Channel>
  <Channel Name="Fine Dimmer intensity" Preset="IntensityDimmerFine"/>
- <Channel Name="Iris Fine" Preset="BeamIris"/>
+ <Channel Name="Iris Fine" Preset="ShutterIrisMaxToMin"/>
  <Channel Name="Animation wheel">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="7">open</Capability>

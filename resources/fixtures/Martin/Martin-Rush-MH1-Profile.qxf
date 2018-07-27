@@ -124,7 +124,7 @@
   <Capability Min="190" Max="193">Stop</Capability>
   <Capability Min="194" Max="255">Counter-clockwise rotation, slow-fast</Capability>
  </Channel>
- <Channel Name="Iris" Preset="BeamIris"/>
+ <Channel Name="Iris" Preset="ShutterIrisMaxToMin"/>
  <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Control">
   <Group Byte="0">Maintenance</Group>

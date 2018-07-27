@@ -13,7 +13,7 @@
  <Channel Name="Pan fine" Preset="PositionPanFine"/>
  <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
- <Channel Name="Iris" Preset="BeamIris"/>
+ <Channel Name="Iris" Preset="ShutterIrisMaxToMin"/>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="27" Color="#ffffff">White</Capability>

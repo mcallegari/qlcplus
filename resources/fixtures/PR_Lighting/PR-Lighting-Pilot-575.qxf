@@ -32,7 +32,7 @@
   <Capability Max="255" Min="245">Open</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
- <Channel Name="Iris" Preset="BeamIris"/>
+ <Channel Name="Iris" Preset="ShutterIrisMaxToMin"/>
  <Channel Name="Fixed Gobos">
   <Group Byte="0">Gobo</Group>
   <Capability Max="20" Min="0">Clear</Capability>
