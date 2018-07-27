@@ -20,7 +20,7 @@
 #ifndef RGBMATRIXEDITOR_H
 #define RGBMATRIXEDITOR_H
 
-#include "functioneditor.h" 
+#include "functioneditor.h"
 
 class Doc;
 class RGBMatrix;
@@ -51,7 +51,7 @@ class RGBMatrixEditor : public FunctionEditor
 
     Q_PROPERTY(int animationStyle READ animationStyle WRITE setAnimationStyle NOTIFY animationStyleChanged)
     Q_PROPERTY(QSize algoOffset READ algoOffset WRITE setAlgoOffset NOTIFY algoOffsetChanged)
-    
+
 public:
     RGBMatrixEditor(QQuickView *view, Doc *doc, QObject *parent = 0);
     ~RGBMatrixEditor();
@@ -63,7 +63,7 @@ public:
     void setFixtureGroup(int fixtureGroup);
 
 signals:
-    void fixtureGroupChanged(int fixtureGroup);  
+    void fixtureGroupChanged(int fixtureGroup);
 
 private:
     /** Reference of the RGBMatrix currently being edited */

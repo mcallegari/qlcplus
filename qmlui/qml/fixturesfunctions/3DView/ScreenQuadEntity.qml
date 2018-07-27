@@ -52,7 +52,7 @@ Entity
                 Component.onCompleted: View3D.quadReady()
                 effect: LightPassEffect { }
             }
-            
+
         ]
     }
 }

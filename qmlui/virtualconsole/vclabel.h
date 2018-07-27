@@ -27,7 +27,7 @@
 class VCLabel : public VCWidget
 {
     Q_OBJECT
-    
+
     /*********************************************************************
      * Initialization
      *********************************************************************/
@@ -44,7 +44,7 @@ public:
 
     /** @reimp */
     void render(QQuickView *view, QQuickItem *parent);
-    
+
     /** @reimp */
     VCWidget *createCopy(VCWidget *parent);
 

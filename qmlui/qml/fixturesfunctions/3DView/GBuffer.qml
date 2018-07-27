@@ -25,7 +25,7 @@ RenderTarget
     property alias color: colorAttachment
     property alias normal: normalAttachment
     property alias specular: specularAttachment
-    
+
     property alias depth: depthAttachment
 
     objectName: "gBuffer"

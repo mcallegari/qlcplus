@@ -227,7 +227,7 @@ void MainView2D::setFixtureFlags(quint32 itemID, quint32 flags)
 }
 
 QList<quint32> MainView2D::selectFixturesRect(QRectF rect)
-{   
+{
     QList<quint32>fxList;
 
     if (rect.width() == 0 || rect.height() == 0)

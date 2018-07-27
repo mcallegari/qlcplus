@@ -43,10 +43,10 @@ Entity
         ConeMesh
         {
             length: 1.0
-        
+
             bottomRadius: 1.0
-            topRadius: 1.0      
-        
+            topRadius: 1.0
+
             rings: 2
             slices: 60
         }
