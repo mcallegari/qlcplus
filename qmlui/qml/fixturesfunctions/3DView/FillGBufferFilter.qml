@@ -24,16 +24,16 @@ import Qt3D.Render 2.0
 import QtQuick 2.0
 
 LayerFilter
-{                       
+{
     property alias sceneDeferredLayer: sceneDeferredLayerFilter.layers
-                                              
+
     property alias gBuffer : gBufferTargetSelector.target
 
     id: sceneDeferredLayerFilter
 
     RenderTargetSelector
     {
-        id: gBufferTargetSelector    
+        id: gBufferTargetSelector
 
         ClearBuffers
         {

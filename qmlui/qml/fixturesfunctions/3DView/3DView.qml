@@ -114,7 +114,7 @@ Rectangle
             component = Qt.createComponent("FillGBufferFilter.qml");
             if (component.status === Component.Error)
                 console.log("Error loading component:", component.errorString());
-            
+
             mynode = component.createObject(frameGraph.myCameraSelector,
             {
                 "gBuffer": gBufferTarget,
@@ -153,7 +153,7 @@ Rectangle
                 {
                     "gBuffer": gBufferTarget,
                     "shadowTex": fixtureItem.shadowMap.depth,
-                    "useShadows": fixtureItem.useShadows,              
+                    "useShadows": fixtureItem.useShadows,
                     "spotlightShadingLayer": fixtureItem.spotlightShadingLayer,
                     "frameTarget": frameTarget
                 });
@@ -190,7 +190,7 @@ Rectangle
                         "useShadows": fixtureItem.useShadows
                     });
                 }
-            }  
+            }
 
             component = Qt.createComponent("GammaCorrectFilter.qml");
             if (component.status === Component.Error)
@@ -199,10 +199,10 @@ Rectangle
             mynode = component.createObject(frameGraph.myCameraSelector,
             {
                 "hdrTexture": frameTarget.color,
-                "outRenderTarget": hdr0RenderTarget,                
+                "outRenderTarget": hdr0RenderTarget,
                 "screenQuadGammaCorrectLayer": screenQuadGammaCorrectEntity.layer
             });
-            
+
             component = Qt.createComponent("FXAAFilter.qml");
             if (component.status === Component.Error)
                 console.log("Error loading component:", component.errorString());
@@ -210,7 +210,7 @@ Rectangle
             mynode = component.createObject(frameGraph.myCameraSelector,
             {
                 "inTexture": hdr0ColorTexture,
-                "outRenderTarget": hdr1RenderTarget,                
+                "outRenderTarget": hdr1RenderTarget,
                 "screenQuadFXAALayer": screenQuadFXAAEntity.layer
             });
 
@@ -271,14 +271,14 @@ Rectangle
                                 magnificationFilter: Texture.Linear
                                 minificationFilter: Texture.Linear
                                 wrapMode
-                                {   
+                                {
                                     x: WrapMode.ClampToEdge
                                     y: WrapMode.ClampToEdge
                                 }
                             }
                     }
                 ] // outputs
-            }            
+            }
 
             RenderTarget
             {
@@ -299,14 +299,14 @@ Rectangle
                                 magnificationFilter: Texture.Linear
                                 minificationFilter: Texture.Linear
                                 wrapMode
-                                {   
+                                {
                                     x: WrapMode.ClampToEdge
                                     y: WrapMode.ClampToEdge
                                 }
                             }
                     }
                 ] // outputs
-            }   
+            }
 
             DepthTarget { id: depthTarget }
 

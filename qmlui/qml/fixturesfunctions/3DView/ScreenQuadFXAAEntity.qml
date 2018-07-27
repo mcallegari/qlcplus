@@ -49,7 +49,7 @@ Entity
             {
                 effect: FXAAEffect { }
             }
-            
+
         ]
     }
 }

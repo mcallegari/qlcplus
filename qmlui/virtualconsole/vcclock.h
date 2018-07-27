@@ -93,7 +93,7 @@ class VCClock : public VCWidget
     Q_PROPERTY(int  currentTime READ currentTime NOTIFY currentTimeChanged)
     Q_PROPERTY(int  targetTime READ targetTime WRITE setTargetTime NOTIFY targetTimeChanged)
     Q_PROPERTY(QVariantList scheduleList READ scheduleList NOTIFY scheduleListChanged)
-    
+
     /*********************************************************************
      * Initialization
      *********************************************************************/
@@ -141,7 +141,7 @@ signals:
 
 private:
     ClockType m_clocktype;
-    
+
     /*********************************************************************
      * Time
      *********************************************************************/
