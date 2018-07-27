@@ -310,7 +310,7 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/fixturesfunctions/BottomPanel.qml" line="105"/>
         <source>Expand/Collapse this panel</source>
-        <translation>Bereich aus-/einklappen</translation>
+        <translation>Panel aus-/einklappen</translation>
     </message>
 </context>
 <context>
@@ -579,7 +579,7 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/ColorToolFilters.qml" line="392"/>
         <source>Rename the current color filters file</source>
-        <translation></translation>
+        <translation>Aktuelle Farbfilterdatei umbenennen</translation>
     </message>
     <message>
         <location filename="qml/ColorToolFilters.qml" line="401"/>
@@ -646,7 +646,7 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="contextmanager.cpp" line="66"/>
         <source>Universe Grid View</source>
-        <translation>Universe Gitteransicht</translation>
+        <translation>Universum-Gitteransicht</translation>
     </message>
     <message>
         <location filename="contextmanager.cpp" line="988"/>
@@ -865,7 +865,7 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/ExternalControlDelegate.qml" line="148"/>
         <source>Remove this input source</source>
-        <translation>Externen Eingang entfernen</translation>
+        <translation>Eingangsquelle entfernen</translation>
     </message>
     <message>
         <location filename="qml/ExternalControlDelegate.qml" line="159"/>
@@ -888,7 +888,7 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/ExternalControls.qml" line="60"/>
         <source>Add an external controller input</source>
-        <translation>Externen Eingang hinzufügen</translation>
+        <translation>Externen Steuereingang hinzufügen</translation>
     </message>
     <message>
         <location filename="qml/ExternalControls.qml" line="81"/>
@@ -898,7 +898,7 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/ExternalControls.qml" line="103"/>
         <source>Manually select an input source</source>
-        <translation></translation>
+        <translation>Eingabequelle manuell auswählen</translation>
     </message>
 </context>
 <context>
@@ -944,17 +944,17 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupEditor.qml" line="131"/>
         <source>Rotate 90° clockwise</source>
-        <translation>Um 90° drehen (im UZS)</translation>
+        <translation>Um 90° nach rechts drehen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupEditor.qml" line="140"/>
         <source>Rotate 180° clockwise</source>
-        <translation>Um 180° drehen (im UZS)</translation>
+        <translation>Um 180° drehen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupEditor.qml" line="149"/>
         <source>Rotate 270° clockwise</source>
-        <translation>Um 270° drehen (im UZS)</translation>
+        <translation>Um 90° nach links drehen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupEditor.qml" line="158"/>
@@ -1012,7 +1012,7 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="260"/>
         <source>Can fade</source>
-        <translation>Kann faden</translation>
+        <translation>Kann überblenden</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="262"/>
@@ -1423,7 +1423,7 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/inputoutput/IORightPanel.qml" line="107"/>
         <source>Enable/Disable blackout on all the output patches</source>
-        <translation>Blackout in alle Ausgangsprofilen ein-/ausschalten</translation>
+        <translation>Blackout in allen Ausgangszuweisungen ein-/ausschalten</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/IORightPanel.qml" line="119"/>
@@ -1863,7 +1863,7 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/popup/PopupMonitor.qml" line="65"/>
         <source>Top view</source>
-        <translation>Von Oben</translation>
+        <translation>Von oben</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupMonitor.qml" line="82"/>
@@ -2146,7 +2146,7 @@ Zugriffsstufe:</translation>
     <message>
         <location filename="qml/fixturesfunctions/PositionTool.qml" line="99"/>
         <source>Rotate 90° clockwise</source>
-        <translation>Um 90° drehen (im UZS)</translation>
+        <translation>Um 90° nach rechts drehen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/PositionTool.qml" line="219"/>
@@ -2310,7 +2310,7 @@ Zugriffsstufe:</translation>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="606"/>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="751"/>
         <source>Horizontal</source>
-        <translation>Horizonzal</translation>
+        <translation>Horizontal</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="607"/>
@@ -2398,22 +2398,22 @@ Zugriffsstufe:</translation>
     <message>
         <location filename="qml/fixturesfunctions/RGBPanelProperties.qml" line="248"/>
         <source>Top-Left</source>
-        <translation>Oben-Links</translation>
+        <translation>Oben links</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBPanelProperties.qml" line="249"/>
         <source>Top-Right</source>
-        <translation>Oben-Rechts</translation>
+        <translation>Oben rechts</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBPanelProperties.qml" line="250"/>
         <source>Bottom-Left</source>
-        <translation>Unten-Links</translation>
+        <translation>Unten links</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBPanelProperties.qml" line="251"/>
         <source>Bottom-Right</source>
-        <translation>Unten-Rechts</translation>
+        <translation>Unten rechts</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBPanelProperties.qml" line="259"/>
@@ -2438,7 +2438,7 @@ Zugriffsstufe:</translation>
     <message>
         <location filename="qml/fixturesfunctions/RGBPanelProperties.qml" line="292"/>
         <source>Horizontal</source>
-        <translation>Horizonzal</translation>
+        <translation>Horizontal</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBPanelProperties.qml" line="293"/>
@@ -2472,7 +2472,7 @@ Zugriffsstufe:</translation>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="167"/>
         <source>Function Manager</source>
-        <translation>Funktionen</translation>
+        <translation>Funktionsverwaltung</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="189"/>
@@ -2512,7 +2512,7 @@ Zugriffsstufe:</translation>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="283"/>
         <source>Show function usage</source>
-        <translation>Benutzung der Funktion anzeigen</translation>
+        <translation>Verwendung der Funktion anzeigen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="299"/>
@@ -2527,7 +2527,7 @@ Zugriffsstufe:</translation>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="449"/>
         <source>Function Preview</source>
-        <translation>Funktions-Voransicht</translation>
+        <translation>Funktionsvorschau</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="469"/>
@@ -2563,7 +2563,7 @@ Zugriffsstufe:</translation>
     <message>
         <location filename="qml/fixturesfunctions/ScriptEditor.qml" line="120"/>
         <source>Add a method call at cursor position</source>
-        <translation>Einen Methodenaufruf an Cursorposition einfügen</translation>
+        <translation>Methodenaufruf an Cursorposition einfügen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ScriptEditor.qml" line="131"/>
@@ -2704,7 +2704,7 @@ Zugriffsstufe:</translation>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="168"/>
         <source>Top view</source>
-        <translation>Von Oben</translation>
+        <translation>Von oben</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="169"/>
@@ -2837,8 +2837,7 @@ Zugriffsstufe:</translation>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="544"/>
         <source>Custom items</source>
-        <translatorcomment>Better: &quot;Eigene&quot;?</translatorcomment>
-        <translation>Angepasste Elemente</translation>
+        <translation>Eigene Elemente</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="550"/>
@@ -2891,7 +2890,7 @@ Zugriffsstufe:</translation>
     <message>
         <location filename="qml/fixturesfunctions/SettingsViewDMX.qml" line="63"/>
         <source>Show addresses</source>
-        <translation>Adresses anzeigen</translation>
+        <translation>Adressen anzeigen</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SettingsViewDMX.qml" line="73"/>
@@ -2978,12 +2977,12 @@ Zugriffsstufe:</translation>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="248"/>
         <source>Play or resume</source>
-        <translation>Abspielen oder Fortsetzen</translation>
+        <translation>Abspielen oder fortsetzen</translation>
     </message>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="264"/>
         <source>Stop or rewind</source>
-        <translation>Anhalten oder Zurückspulen</translation>
+        <translation>Anhalten oder zurückspulen</translation>
     </message>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="316"/>
@@ -3054,7 +3053,7 @@ Zugriffsstufe:</translation>
     <message>
         <location filename="qml/inputoutput/UniverseIOItem.qml" line="272"/>
         <source>Enable/Disable feedbacks</source>
-        <translation>Rückmeldungen Aktivieren/Deaktivieren</translation>
+        <translation>Rückmeldungen aktivieren/deaktivieren</translation>
     </message>
 </context>
 <context>
@@ -3082,7 +3081,7 @@ Zugriffsstufe:</translation>
         <location filename="qml/fixturesfunctions/UniverseSummary.qml" line="124"/>
         <source>Consumption</source>
         <translatorcomment>Genauer: &quot;Verbrauch&quot;, aber in diesem Kontext besser</translatorcomment>
-        <translation>Leistung</translation>
+        <translation>Leistungsaufnahme</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/UniverseSummary.qml" line="80"/>
@@ -3118,7 +3117,7 @@ Zugriffsstufe:</translation>
     <message>
         <location filename="qml/fixturesfunctions/UniverseSummary.qml" line="278"/>
         <source>DMX channels used:</source>
-        <translation>Benutzte DMX-Kanäle:</translation>
+        <translation>Belegte DMX-Kanäle:</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/UniverseSummary.qml" line="292"/>
@@ -3141,19 +3140,17 @@ Zugriffsstufe:</translation>
     <message>
         <location filename="qml/UsageList.qml" line="71"/>
         <source>Usage of</source>
-        <translation>Benutzung von</translation>
+        <translation>Verwendung von</translation>
     </message>
     <message>
         <location filename="qml/UsageList.qml" line="85"/>
         <source>Used by function list</source>
-        <translatorcomment>&quot;Auflistung der &quot; might be removed, depends on context</translatorcomment>
-        <translation>Auflistung der Benutzung nach Funktionen</translation>
+        <translation>In Funktionen verwendet</translation>
     </message>
     <message>
         <location filename="qml/UsageList.qml" line="121"/>
         <source>Used by widget list</source>
-        <translatorcomment>&quot;Auflistung der &quot; might be removed, depends on context</translatorcomment>
-        <translation>Auflistung der Benutzung nach Geräten</translation>
+        <translation>In Widgets verwendet</translation>
     </message>
 </context>
 <context>
@@ -3209,7 +3206,7 @@ Zugriffsstufe:</translation>
     <message>
         <location filename="qml/virtualconsole/VCButtonProperties.qml" line="174"/>
         <source>Adjust Function intensity</source>
-        <translation>Funktions-Intensität setzen</translation>
+        <translation>Funktionsintensität setzen</translation>
     </message>
 </context>
 <context>
@@ -3520,12 +3517,12 @@ Zugriffsstufe:</translation>
     <message>
         <location filename="qml/virtualconsole/VCFrameProperties.qml" line="43"/>
         <source>Header</source>
-        <translation>Kopf</translation>
+        <translation>Titelleiste</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCFrameProperties.qml" line="58"/>
         <source>Show header</source>
-        <translation>Kopf anzeigen</translation>
+        <translation>Titelleiste anzeigen</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCFrameProperties.qml" line="74"/>
@@ -3555,7 +3552,7 @@ Zugriffsstufe:</translation>
     <message>
         <location filename="qml/virtualconsole/VCFrameProperties.qml" line="159"/>
         <source>Clone first page widgets</source>
-        <translation>Elemente der ersten Seite Klonen</translation>
+        <translation>Widgets der ersten Seite klonen</translation>
     </message>
 </context>
 <context>
@@ -3642,27 +3639,27 @@ Zugriffsstufe:</translation>
     <message>
         <location filename="qml/virtualconsole/VCRightPanel.qml" line="61"/>
         <source>Add a new widget to the console</source>
-        <translation>Ein neues Element zur Konsole hinzufügen</translation>
+        <translation>Ein neues Widget zur Konsole hinzufügen</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCRightPanel.qml" line="80"/>
         <source>Enable/Disable the widgets edit mode</source>
-        <translation>Den Bearbeitungsmodus aktivieren/deaktivieren</translation>
+        <translation>Widget-Bearbeitungsmodus aktivieren/deaktivieren</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCRightPanel.qml" line="107"/>
         <source>Function Manager</source>
-        <translation>Funktionen</translation>
+        <translation>Funktionsverwaltung</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCRightPanel.qml" line="125"/>
         <source>Remove the selected widgets</source>
-        <translation>Ausgewählte Elemente entfernen</translation>
+        <translation>Ausgewählte Widgets entfernen</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCRightPanel.qml" line="131"/>
         <source>Are you sure you want to remove the following widgets?</source>
-        <translation>Willst du die folgenden Elemente löschen?</translation>
+        <translation>Willst du die folgenden Widgets löschen?</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCRightPanel.qml" line="138"/>
@@ -3672,12 +3669,12 @@ Zugriffsstufe:</translation>
     <message>
         <location filename="qml/virtualconsole/VCRightPanel.qml" line="150"/>
         <source>Copy the selected widgets to clipboard</source>
-        <translation>Ausgewählte Elemente in die Zwischenablage kopieren</translation>
+        <translation>Ausgewählte Widgets in die Zwischenablage kopieren</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCRightPanel.qml" line="162"/>
         <source>Paste widgets from clipboard</source>
-        <translation>Elemente aus der Zwischenablage einfügen</translation>
+        <translation>Widgets aus der Zwischenablage einfügen</translation>
     </message>
 </context>
 <context>
@@ -3879,7 +3876,7 @@ Zugriffsstufe:</translation>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="187"/>
         <source>Solo Frame</source>
-        <translation>Solo Rahmen</translation>
+        <translation>Solo-Rahmen</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="188"/>
@@ -3904,7 +3901,7 @@ Zugriffsstufe:</translation>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="192"/>
         <source>Audio Triggers</source>
-        <translation>Audio Trigger</translation>
+        <translation>Audio-Trigger</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="193"/>
@@ -3934,7 +3931,7 @@ Zugriffsstufe:</translation>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="134"/>
         <source>Select a widget first</source>
-        <translation>Zuerst ein Element auswählen</translation>
+        <translation>Wähle zuerst ein Widget aus</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="168"/>
@@ -4062,12 +4059,12 @@ Zugriffsstufe:</translation>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="174"/>
         <source>Video Codec</source>
-        <translation>Videokodec</translation>
+        <translation>Videocodec</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="184"/>
         <source>Audio Codec</source>
-        <translation>Audiokodec</translation>
+        <translation>Audiocodec</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="194"/>
@@ -4157,7 +4154,7 @@ Zugriffsstufe:</translation>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="445"/>
         <source>Z</source>
-        <translation>UV</translation>
+        <translation>Z</translation>
     </message>
 </context>
 <context>
@@ -4243,7 +4240,7 @@ Zugriffsstufe:</translation>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="35"/>
         <source>Solo Frame</source>
-        <translation>Solo Rahmen</translation>
+        <translation>Solo-Rahmen</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="36"/>
