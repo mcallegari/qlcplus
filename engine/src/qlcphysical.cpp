@@ -30,25 +30,22 @@
  ****************************************************************************/
 
 QLCPhysical::QLCPhysical()
+    : m_bulbLumens(0)
+    , m_bulbColourTemperature(0)
+    , m_weight(0)
+    , m_width(0)
+    , m_height(0)
+    , m_depth(0)
+    , m_lensDegreesMin(0)
+    , m_lensDegreesMax(0)
+    , m_prismFaces(0)
+    , m_focusPanMax(0)
+    , m_focusTiltMax(0)
+    , m_powerConsumption(0)
+
 {
-    /* Initialize only integer values since QStrings are null by default */
-    m_bulbLumens = 0;
-    m_bulbColourTemperature = 0;
-
-    m_weight = 0;
-    m_width = 0;
-    m_height = 0;
-    m_depth = 0;
-
     m_lensName = "Other";
-    m_lensDegreesMin = 0;
-    m_lensDegreesMax = 0;
-
     m_focusType = "Fixed";
-    m_focusPanMax = 0;
-    m_focusTiltMax = 0;
-
-    m_powerConsumption = 0;
     m_dmxConnector = "5-pin";
 }
 
@@ -72,6 +69,7 @@ QLCPhysical& QLCPhysical::operator=(const QLCPhysical& physical)
         m_lensName = physical.lensName();
         m_lensDegreesMin = physical.lensDegreesMin();
         m_lensDegreesMax = physical.lensDegreesMax();
+        m_prismFaces = physical.prismFaces();
 
         m_focusType = physical.focusType();
         m_focusPanMax = physical.focusPanMax();
@@ -188,6 +186,16 @@ double QLCPhysical::lensDegreesMax() const
     return m_lensDegreesMax;
 }
 
+void QLCPhysical::setPrismFaces(int faces)
+{
+    m_prismFaces = faces;
+}
+
+int QLCPhysical::prismFaces() const
+{
+    return m_prismFaces;
+}
+
 void QLCPhysical::setFocusType(const QString& type)
 {
     m_focusType = type;
@@ -286,6 +294,8 @@ bool QLCPhysical::loadXML(QXmlStreamReader &doc)
             m_lensName = attrs.value(KXMLQLCPhysicalLensName).toString();
             m_lensDegreesMin = QLocale::c().toDouble(attrs.value(KXMLQLCPhysicalLensDegreesMin).toString());
             m_lensDegreesMax = QLocale::c().toDouble(attrs.value(KXMLQLCPhysicalLensDegreesMax).toString());
+            if (attrs.hasAttribute(KXMLQLCPhysicalPrismFaces))
+                m_prismFaces = attrs.value(KXMLQLCPhysicalPrismFaces).toString().toInt();
         }
         else if (doc.name() == KXMLQLCPhysicalFocus)
         {
@@ -335,6 +345,8 @@ bool QLCPhysical::saveXML(QXmlStreamWriter *doc)
     doc->writeAttribute(KXMLQLCPhysicalLensName, m_lensName);
     doc->writeAttribute(KXMLQLCPhysicalLensDegreesMin, QLocale::c().toString(m_lensDegreesMin));
     doc->writeAttribute(KXMLQLCPhysicalLensDegreesMax, QLocale::c().toString(m_lensDegreesMax));
+    if (m_prismFaces)
+        doc->writeAttribute(KXMLQLCPhysicalPrismFaces, QString::number(m_prismFaces));
     doc->writeEndElement();
 
     /* Focus */

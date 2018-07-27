@@ -47,6 +47,7 @@ class QXmlStreamWriter;
 #define KXMLQLCPhysicalLensName "Name"
 #define KXMLQLCPhysicalLensDegreesMin "DegreesMin"
 #define KXMLQLCPhysicalLensDegreesMax "DegreesMax"
+#define KXMLQLCPhysicalPrismFaces "PrismFaces"
 
 #define KXMLQLCPhysicalFocus "Focus"
 #define KXMLQLCPhysicalFocusType "Type"
@@ -108,6 +109,9 @@ public:
     void setLensDegreesMax(double degrees);
     double lensDegreesMax() const;
 
+    void setPrismFaces(int faces);
+    int prismFaces() const;
+
     void setFocusType(const QString& type);
     QString focusType() const;
 
@@ -136,6 +140,7 @@ protected:
     QString m_lensName;
     double m_lensDegreesMin;
     double m_lensDegreesMax;
+    int m_prismFaces;
 
     QString m_focusType;
     int m_focusPanMax;
