@@ -71,8 +71,8 @@
  </Channel>
  <Channel Name="LED Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="6" Preset="ShutterOpen">Close</Capability>
-  <Capability Min="7" Max="254" Preset="StrobeFreqRange" Res1="30" Res2="30">Strobe 30-0Hz</Capability>
+  <Capability Min="0" Max="6" Preset="ShutterClose">Close</Capability>
+  <Capability Min="7" Max="254" Preset="StrobeFreqRange" Res1="30" Res2="0">Strobe 30-0Hz</Capability>
   <Capability Min="255" Max="255">Sound activated strobe</Capability>
  </Channel>
  <Channel Name="LED Programs">
@@ -102,8 +102,8 @@
  </Channel>
  <Channel Name="Laser Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="4">Blackout</Capability>
-  <Capability Min="5" Max="254" Preset="StrobeFreqRange" Res1="3" Res2="30">Strobe 0-30Hz</Capability>
+  <Capability Min="0" Max="4" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="5" Max="254" Preset="StrobeFreqRange" Res1="0" Res2="30">Strobe 0-30Hz</Capability>
   <Capability Min="255" Max="255">Sound activated strobe</Capability>
  </Channel>
  <Channel Name="Rotating Derby">

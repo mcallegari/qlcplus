@@ -45,7 +45,7 @@
  <Channel Name="Derby 1 Strobe Rate">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
-  <Capability Min="10" Max="239" Preset="StrobeFreqRange" Res1="3" Res2="30">Strobe, 0-30 Hz</Capability>
+  <Capability Min="10" Max="239" Preset="StrobeFreqRange" Res1="0" Res2="30">Strobe, 0-30 Hz</Capability>
   <Capability Min="240" Max="255">Strobe to sound</Capability>
  </Channel>
  <Channel Name="Derby 1 Rotation">
@@ -71,7 +71,7 @@
  <Channel Name="Derby 2 Strobe Rate">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
-  <Capability Min="10" Max="239" Preset="StrobeFreqRange" Res1="3" Res2="30">Strobe, 0-30 Hz</Capability>
+  <Capability Min="10" Max="239" Preset="StrobeFreqRange" Res1="0" Res2="30">Strobe, 0-30 Hz</Capability>
   <Capability Min="240" Max="255">Strobe to sound</Capability>
  </Channel>
  <Channel Name="Derby 2 Rotation">

@@ -11,7 +11,7 @@
  <Type>Strobe</Type>
  <Channel Name="Flash Frequency">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="255" Preset="StrobeFreqRange" Res1="2" Res2="20">Flash frequency (0-20Hz)</Capability>
+  <Capability Min="0" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="20">Flash frequency (0-20Hz)</Capability>
  </Channel>
  <Channel Name="Brightness">
   <Group Byte="0">Intensity</Group>
