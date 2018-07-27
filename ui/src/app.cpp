@@ -843,10 +843,10 @@ bool App::saveModifiedDoc(const QString & title, const QString & message)
     if (result == QMessageBox::Yes)
     {
         slotFileSave();
-        // we check whether m_doc is not modified anymore, rather than 
+        // we check whether m_doc is not modified anymore, rather than
         // result of slotFileSave() since the latter returns NoError
         // in cases like when the user pressed cancel in the save dialog
-        if (m_doc->isModified() == false) 
+        if (m_doc->isModified() == false)
         {
             return true;
         }

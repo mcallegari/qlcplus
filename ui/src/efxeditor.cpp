@@ -1059,7 +1059,7 @@ void EFXEditor::redrawPreview()
 
     QVector <QPolygonF> fixturePoints;
     m_efx->previewFixtures(fixturePoints);
- 
+
     m_previewArea->setPolygon(polygon);
     m_previewArea->setFixturePolygons(fixturePoints);
 

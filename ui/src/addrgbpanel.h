@@ -32,7 +32,7 @@ class AddRGBPanel : public QDialog, public Ui_AddRGBPanel
 {
     Q_OBJECT
     Q_DISABLE_COPY(AddRGBPanel)
-    
+
 public:
     AddRGBPanel(QWidget *parent, const Doc* doc);
     ~AddRGBPanel();
