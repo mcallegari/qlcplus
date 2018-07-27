@@ -24,8 +24,8 @@ def getPresetsArray():
         "SpeedPanSlowFast", "SpeedPanFastSlow", "SpeedTiltSlowFast", "SpeedTiltFastSlow", "SpeedPanTiltSlowFast", "SpeedPanTiltFastSlow",
         "ColorMacro", "ColorWheel", "ColorWheelFine", "ColorRGBMixer", "ColorCTOMixer", "ColorCTBMixer",
         "GoboWheel", "GoboWheelFine", "GoboIndex", "GoboIndexFine",
-        "ShutterStrobeSlowFast", "ShutterStrobeFastSlow",
-        "BeamFocusNearFar", "BeamFocusFarNear", "BeamIris", "BeamIrisFine", "BeamZoomSmallBig", "BeamZoomBigSmall",
+        "ShutterStrobeSlowFast", "ShutterStrobeFastSlow", "ShutterIrisMinToMax", "ShutterIrisMaxToMin", "ShutterIrisFine"
+        "BeamFocusNearFar", "BeamFocusFarNear", "BeamZoomSmallBig", "BeamZoomBigSmall", "BeamZoomFine",
         "PrismRotationSlowFast", "PrismRotationFastSlow",
         "NoFunction" ]
 
@@ -54,10 +54,10 @@ def printPresets(group):
         pMax = presets.index("GoboIndexFine")
     elif group == "Shutter":
         pMin = presets.index("ShutterStrobeSlowFast")
-        pMax = presets.index("ShutterStrobeFastSlow")
+        pMax = presets.index("ShutterIrisFine")
     elif group == "Beam":
         pMin = presets.index("BeamFocusNearFar")
-        pMax = presets.index("BeamZoomBigSmall")
+        pMax = presets.index("BeamZoomFine")
     elif group == "Prism":
         pMin = presets.index("PrismRotationSlowFast")
         pMax = presets.index("PrismRotationFastSlow")

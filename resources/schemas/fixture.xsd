@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<!-- 
+<!--
   Q Light Controller Plus
   fixture.xsd
-  
+
   Copyright (C) Jano Svitok
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -206,12 +206,14 @@ elementFormDefault="qualified"
         <xs:enumeration value="GoboIndexFine"/>
         <xs:enumeration value="ShutterStrobeSlowFast"/>
         <xs:enumeration value="ShutterStrobeFastSlow"/>
+        <xs:enumeration value="ShutterIrisMinToMax"/>
+        <xs:enumeration value="ShutterIrisMaxToMin"/>
+        <xs:enumeration value="ShutterIrisFine"/>
         <xs:enumeration value="BeamFocusNearFar"/>
         <xs:enumeration value="BeamFocusFarNear"/>
-        <xs:enumeration value="BeamIris"/>
-        <xs:enumeration value="BeamIrisFine"/>
         <xs:enumeration value="BeamZoomSmallBig"/>
         <xs:enumeration value="BeamZoomBigSmall"/>
+        <xs:enumeration value="BeamZoomFine"/>
         <xs:enumeration value="PrismRotationSlowFast"/>
         <xs:enumeration value="PrismRotationFastSlow"/>
         <xs:enumeration value="NoFunction"/>
@@ -226,6 +228,8 @@ elementFormDefault="qualified"
         <xs:enumeration value="FarToNear" />
         <xs:enumeration value="BigToSmall" />
         <xs:enumeration value="SmallToBig" />
+        <xs:enumeration value="EffectOn" />
+        <xs:enumeration value="EffectOff" />
         <xs:enumeration value="ShutterOpen" />
         <xs:enumeration value="ShutterClose" />
         <xs:enumeration value="StrobeSlowToFast" />
@@ -247,10 +251,11 @@ elementFormDefault="qualified"
         <xs:enumeration value="RampUpFreqRange" />
         <xs:enumeration value="RampDownFrequency" />
         <xs:enumeration value="RampDownFreqRange" />
+        <xs:enumeration value="RotationStop" />
+        <xs:enumeration value="RotationIndexed" />
         <xs:enumeration value="RotationClockwise" />
         <xs:enumeration value="RotationClockwiseSlowToFast" />
         <xs:enumeration value="RotationClockwiseFastToSlow" />
-        <xs:enumeration value="RotationStop" />
         <xs:enumeration value="RotationCounterClockwise" />
         <xs:enumeration value="RotationCounterClockwiseSlowToFast" />
         <xs:enumeration value="RotationCounterClockwiseFastToSlow" />
@@ -319,6 +324,7 @@ elementFormDefault="qualified"
     <xs:attribute name="Name" type="xs:string" use="required"/>
     <xs:attribute name="DegreesMin" type="xs:decimal" use="required"/>
     <xs:attribute name="DegreesMax" type="xs:decimal" use="required"/>
+    <xs:attribute name="PrismFaces" type="xs:positiveInteger"/>
 </xs:complexType>
 
 <xs:complexType name="focusType">
