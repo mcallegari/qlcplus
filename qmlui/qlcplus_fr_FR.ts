@@ -332,7 +332,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="124"/>
         <source>Are you sure you want to remove the selected steps?</source>
-        <translation>Êtes vous sûr de supprimer les étapes sélectionnées&#xa0;?</translation>
+        <translation>Êtes-vous sûr de vouloir supprimer les étapes sélectionnées&#xa0;?</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="157"/>
