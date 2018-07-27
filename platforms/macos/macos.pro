@@ -106,7 +106,7 @@ INSTALLS += LIBSNDFILE LIBSNDFILE_ID
 INSTALLS += $$systemLibTarget(LIBFFTW, libfftw3.3.dylib, fftw3) $$libraryTargetID(LIBFFTW, libfftw3.3.dylib)
 
 INSTALLS += $$qt5LibTarget(LIBQTCORE, QtCore) $$qt5LibTargetID(LIBQTCORE, QtCore)
-INSTALLS += $$qt5LibTarget(LIBQTGUI, QtGui) 
+INSTALLS += $$qt5LibTarget(LIBQTGUI, QtGui)
 QTMENU.files += $$(QTDIR)/lib/$$LIBQTGUI_DIR/Resources/*
 QTMENU.path = $$INSTALLROOT/$$DATADIR
 INSTALLS += QTMENU
@@ -244,7 +244,7 @@ qmlui: {
     include(printsupport-nametool.pri)
     include(geometryloaders-nametool.pri)
     include(sceneparsers-nametool.pri)
-    
+
     INSTALLS += imageformats
     INSTALLS += printsupport
     INSTALLS += geometryloaders

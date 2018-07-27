@@ -90,7 +90,7 @@
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Color Wheel</Channel>
   <Channel Number="3">Gobo Wheel</Channel>
-  <Channel Number="4">Gobo Wheel 
+  <Channel Number="4">Gobo Wheel
 Rotation</Channel>
   <Channel Number="5">Prism</Channel>
   <Channel Number="6">Dimmer</Channel>
@@ -105,7 +105,7 @@ Rotation</Channel>
   <Channel Number="4">Pan/Tilt Speed </Channel>
   <Channel Number="5">Color Wheel</Channel>
   <Channel Number="6">Gobo Wheel</Channel>
-  <Channel Number="7">Gobo Wheel 
+  <Channel Number="7">Gobo Wheel
 Rotation</Channel>
   <Channel Number="8">Prism</Channel>
   <Channel Number="9">Dimmer</Channel>

@@ -22,11 +22,11 @@
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="10">No function </Capability>
   <Capability Min="11" Max="60">Static colours (colour selection CH 7) </Capability>
-  <Capability Min="61" Max="110">Colour change 1 - 
+  <Capability Min="61" Max="110">Colour change 1 -
 fading, 7 colours (speed CH 7) </Capability>
-  <Capability Min="111" Max="160">Colour change 2 - 
+  <Capability Min="111" Max="160">Colour change 2 -
 fading, 7 colours (speed CH 7) </Capability>
-  <Capability Min="161" Max="210">Colour change 3 - 
+  <Capability Min="161" Max="210">Colour change 3 -
 switching, 7 colours (speed CH 7) </Capability>
   <Capability Min="211" Max="255">Sound controlled mode</Capability>
  </Channel>

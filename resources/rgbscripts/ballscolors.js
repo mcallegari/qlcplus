@@ -56,7 +56,7 @@ var testAlgo;
       ["Hot Pink"     , 0xFF003F],	// 29
       ["Deep Pink"    , 0x7F001F],	// 30
       ["Black"        , 0x000000]);	// 31
-    
+
     colorPalette.makeSubArray = function (_index) {
       var _array = new Array();
       for (var i = 0; i < colorPalette.collection.length; i++) {

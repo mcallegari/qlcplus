@@ -81,7 +81,7 @@ var testAlgo;
                 var tb = Math.floor(Math.random() * 255);   // random blue level
                 return (tr << 16) + (tg << 8) + tb;         // returned combined color
             }
-            else { 
+            else {
                 return zColor;  // If not multicolor, return chosen color
             }
         }
@@ -93,7 +93,7 @@ var testAlgo;
                 stars[i] = {
                     x: getNewNumberRange(-10, 10),
                     y: getNewNumberRange(-10,10),
-                    z: depth, 
+                    z: depth,
                     c: getNewColor(algo.multiColor, algo.presetColor)
                 };
             }
@@ -134,7 +134,7 @@ var testAlgo;
 
                 // if star is off screen (depth is zero or less) then create a new star near the center of the display
                 if (stars[i].z <= 0) {
-                    stars[i].x = getNewNumberRange(-10,10);  
+                    stars[i].x = getNewNumberRange(-10,10);
                     stars[i].y = getNewNumberRange(-10,10);
                     stars[i].z = depth;
                     stars[i].c = getNewColor(algo.multiColor,rgb);
@@ -142,7 +142,7 @@ var testAlgo;
 
                 // calculate the stars next position
                 var k = 200 / stars[i].z;               // how far away the star is
-              
+
                 var px = stars[i].x * k + halfWidth;    // x position of star
                 var py = stars[i].y * k + halfHeight;   // y position of star
 
