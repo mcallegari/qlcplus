@@ -12,11 +12,11 @@
 <H1>Introduction</H1>
 
 <P>
-QLC+ supports the <a href="http://en.wikipedia.org/wiki/Art-Net">ArtNet protocol</a> through an input/output plugin 
+QLC+ supports the <a href="http://en.wikipedia.org/wiki/Art-Net">ArtNet protocol</a> through an input/output plugin
 that receives and transmits packets on the network.<br>
 No extra requirements are needed, since QLC+ has a native implementation of the ArtNet protocol
 that works on Linux, Windows and OSX systems.<br>
-The ArtNet plugin can send and receive packets from multiple network cards, virtual addresses, 
+The ArtNet plugin can send and receive packets from multiple network cards, virtual addresses,
 the loopback device (127.0.0.1) and multiple universes per network interface.<br>
 By default, ArtNet packets are transmitted as UDP, using the default port 6454 and the broadcast address of
 the selected inteface (e.g. 192.168.0.255). When using the loopback device packets are always transmitted
@@ -32,7 +32,7 @@ QLC+ Universe 8 --> ArtNet Universe 7<br>
 <br>
 This choice is due to some facts:<br>
 1- The first valid ArtNet universe is 0 and not 1<br>
-2- The first universe accepted by commercial ArtNet-DMX devices like eDMX and ODE is 0, so 
+2- The first universe accepted by commercial ArtNet-DMX devices like eDMX and ODE is 0, so
 to have QLC+ to work out of the box, the first ArtNet universe must be 0.<br>
 <br>
 If the above settings don't meet the requirements of your network, please read the following chapter.

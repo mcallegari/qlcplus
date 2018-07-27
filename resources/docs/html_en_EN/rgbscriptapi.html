@@ -77,7 +77,7 @@ to declare the following properties for the returned script object:
 </P>
 <UL>
  <LI><B>apiVersion:</B> The API version that the script follows. Currently, the accepted values are '1' or '2'.<br>
- apiVersion 1 allows simple scripting and easier coding, while apiVersion 2 offers advanced features <a href="#apiv2">described below</a>.<br> 
+ apiVersion 1 allows simple scripting and easier coding, while apiVersion 2 offers advanced features <a href="#apiv2">described below</a>.<br>
  Any other value will cause the script to be treated as invalid.</LI>
  <LI><B>name:</B> The name of your script. This name appears in the pattern selection box in the <A HREF="file:rgbmatrixeditor.html">RGB Matrix Editor</A></LI>
  <LI><B>author:</B> The name of the person who has written the script. <B>You.</B></LI>
@@ -85,7 +85,7 @@ to declare the following properties for the returned script object:
  'acceptColors = 0' means no colors are accepted/needed. It means that the script will autonomously generate the colors
  information for the matrix pixels.<br>
  'acceptColors = 1' means only the start color is needed by the script.<br>
- 'acceptColors = 2' means both start and end colors will be accepted by the script.<br> 
+ 'acceptColors = 2' means both start and end colors will be accepted by the script.<br>
  If 'acceptColors' is not provided, QLC+ will default to value '2'.
  </LI>
 </UL>
@@ -273,7 +273,7 @@ Following a table of the accepted attributes and the meaning of their values.<br
   <LI><b>string</b>: a string that QLC+ can exchange with the script</LI>
  </UL>
  The type attribute implicitely defines also how the QLC+ RGB Matrix editor will display the property.
- For example a 'list' is displayed like a drop down box, a 'range' and an 'integer' are displayed as a spin box, 
+ For example a 'list' is displayed like a drop down box, a 'range' and an 'integer' are displayed as a spin box,
  a 'string' is displayed as an editable text box.
  </TD>
 </TR>
@@ -285,7 +285,7 @@ Following a table of the accepted attributes and the meaning of their values.<br
 </TR>
 <TR>
  <TD><b>values</b></TD>
- <TD>This attribute can be applied only when type is 'list' or 'range'. It defines the possible values that the 
+ <TD>This attribute can be applied only when type is 'list' or 'range'. It defines the possible values that the
  property can assume. A 'list' type will look like 'one,two,three' while a 'range' type will look like '2,10'.<br>
  Values must be separated by a comma ',' character. A 'range' type cannot have more than two values.
 </TR>

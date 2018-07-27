@@ -47,7 +47,7 @@ if !options[:destination].empty?
         text.gsub!(%r{ onLoad="replaceqrc\(\)"}, "")
         text.gsub!(%r{<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>\r?\n}i, "")
 
-        # add nice header    
+        # add nice header
         if !filename.include? "index.html"
         text.gsub!(%r{<BODY>}i, "<BODY>\n<H1 style=\"background-color: lightgreen;padding:3pt\"><img src=\"../icons/qlcplus.png\" width=32 align=\"absmiddle\" /> Q Light Controller Plus - User Documentation</H1>\n<a href=\"index.html\">Index page</a>")
         else
