@@ -1,7 +1,7 @@
 /*
   Q Light Controller Plus
   simpledesk.js
-  
+
   Copyright (c) Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
