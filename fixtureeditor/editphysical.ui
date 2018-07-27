@@ -26,7 +26,7 @@
     <x>0</x>
     <y>0</y>
     <width>661</width>
-    <height>539</height>
+    <height>540</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -748,6 +748,26 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>m_bulbTypeCombo</tabstop>
+  <tabstop>m_bulbLumensSpin</tabstop>
+  <tabstop>m_bulbTempCombo</tabstop>
+  <tabstop>m_weightSpin</tabstop>
+  <tabstop>m_widthSpin</tabstop>
+  <tabstop>m_heightSpin</tabstop>
+  <tabstop>m_depthSpin</tabstop>
+  <tabstop>m_lensNameCombo</tabstop>
+  <tabstop>m_lensDegreesMinSpin</tabstop>
+  <tabstop>m_lensDegreesMaxSpin</tabstop>
+  <tabstop>m_prismFacesSpin</tabstop>
+  <tabstop>m_focusTypeCombo</tabstop>
+  <tabstop>m_panMaxSpin</tabstop>
+  <tabstop>m_tiltMaxSpin</tabstop>
+  <tabstop>m_powerConsumptionSpin</tabstop>
+  <tabstop>m_dmxConnectorCombo</tabstop>
+  <tabstop>copyClipboardButton</tabstop>
+  <tabstop>pasteClipboardButton</tabstop>
+ </tabstops>
  <resources>
   <include location="../ui/src/qlcui.qrc"/>
   <include location="../ui/src/qlcui.qrc"/>
