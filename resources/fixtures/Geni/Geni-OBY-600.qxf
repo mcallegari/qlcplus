@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.4.2</Version>
+  <Version>4.11.3 GIT</Version>
   <Author>Goran</Author>
  </Creator>
  <Manufacturer>Geni</Manufacturer>
@@ -12,26 +12,26 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="0">Closed</Capability>
-  <Capability Min="1" Max="7">Open</Capability>
-  <Capability Min="8" Max="63">Shutter from slow to fast</Capability>
-  <Capability Min="64" Max="71">Open</Capability>
-  <Capability Min="72" Max="127">Fade out fast to slow</Capability>
-  <Capability Min="128" Max="135">Open</Capability>
-  <Capability Min="136" Max="191">Fade in slow to fast</Capability>
-  <Capability Min="192" Max="199">Open</Capability>
-  <Capability Min="200" Max="253">Random shutter slow to fast</Capability>
-  <Capability Min="254" Max="255">Open</Capability>
+  <Capability Min="0" Max="0" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="1" Max="7" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="8" Max="63" Preset="StrobeSlowToFast">Shutter from slow to fast</Capability>
+  <Capability Min="64" Max="71" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="72" Max="127" Preset="RampDownFastToSlow">Fade out fast to slow</Capability>
+  <Capability Min="128" Max="135" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="136" Max="191" Preset="RampUpSlowToFast">Fade in slow to fast</Capability>
+  <Capability Min="192" Max="199" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="200" Max="253" Preset="StrobeRandomSlowToFast">Random shutter slow to fast</Capability>
+  <Capability Min="254" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Colour wheel">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="0" Color="#ffffff">White</Capability>
-  <Capability Min="18" Max="35" Color="#ff0000">Red</Capability>
-  <Capability Min="36" Max="51" Color="#0000ff">Blue</Capability>
-  <Capability Min="52" Max="71" Color="#00ff00">Green</Capability>
-  <Capability Min="72" Max="89" Color="#5500ff">Purple</Capability>
-  <Capability Min="90" Max="107" Color="#aaaaff">CTB</Capability>
-  <Capability Min="108" Max="127" Color="#ffdf8e">CTO</Capability>
+  <Capability Min="0" Max="0" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="18" Max="35" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="36" Max="51" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="52" Max="71" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="72" Max="89" Preset="ColorMacro" Res1="#5500ff">Purple</Capability>
+  <Capability Min="90" Max="107" Preset="ColorMacro" Res1="#aaaaff">CTB</Capability>
+  <Capability Min="108" Max="127" Preset="ColorMacro" Res1="#ffdf8e">CTO</Capability>
   <Capability Min="128" Max="187">Forward rotate from fast to slow</Capability>
   <Capability Min="188" Max="195">Stop</Capability>
   <Capability Min="196" Max="255">Reverse rotate from slow to fast</Capability>
@@ -80,10 +80,7 @@
   <Capability Min="128" Max="143">Flat and wide beam effect at 0°</Capability>
   <Capability Min="144" Max="255">Flat and wide beam effect 90° adjustment</Capability>
  </Channel>
- <Channel Name="Zoom">
-  <Group Byte="0">Beam</Group>
-  <Capability Min="0" Max="255">Zoom 10° ~ 30°</Capability>
- </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
  <Channel Name="Pan coarse" Preset="PositionPan"/>
  <Channel Name="Tilt coarse" Preset="PositionTilt"/>
  <Channel Name="Pan fine" Preset="PositionPanFine"/>
@@ -121,11 +118,11 @@
   <Channel Number="13">Control</Channel>
   <Channel Number="14">Lamp</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" Type="HMI 575W" ColourTemperature="6000"/>
-   <Dimensions Width="400" Height="564" Weight="27.5" Depth="416"/>
-   <Lens DegreesMax="30" Name="Other" DegreesMin="10"/>
-   <Focus PanMax="570" Type="Head" TiltMax="270"/>
-   <Technical PowerConsumption="800" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="HMI 575W" Lumens="0" ColourTemperature="6000"/>
+  <Dimensions Weight="27.5" Width="400" Height="564" Depth="416"/>
+  <Lens Name="Other" DegreesMin="10" DegreesMax="30"/>
+  <Focus Type="Head" PanMax="570" TiltMax="270"/>
+  <Technical PowerConsumption="800" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -39,7 +39,7 @@
   <Capability Min="200" Max="209">Total Reset</Capability>
   <Capability Min="210" Max="229">Reserved</Capability>
   <Capability Min="230" Max="239">Lamp Off</Capability>
-  <Capability Min="240" Max="240">Disable "Silent" Mode fans</Capability>
+  <Capability Min="240" Max="240">Disable &quot;Silent&quot; Mode fans</Capability>
   <Capability Min="241" Max="255">Silent mode Fans min to max</Capability>
  </Channel>
  <Channel Name="Colour Wheel">
@@ -60,11 +60,11 @@
   <Capability Min="164" Max="171" Preset="ColorMacro" Res1="#ff4000">Light Red</Capability>
   <Capability Min="172" Max="181" Preset="ColorMacro" Res1="#ffcc00">Amber</Capability>
   <Capability Min="182" Max="189" Preset="ColorMacro" Res1="#7f00ff">UV Filter</Capability>
-  <Capability Min="190" Max="215">Fwd Rainbow &lt;&lt;&lt;</Capability>
-  <Capability Min="216" Max="217">No Rotation</Capability>
-  <Capability Min="218" Max="243">Bwd Rinbow &gt;&gt;&gt;</Capability>
-  <Capability Min="244" Max="249">Rndm Colour Audio</Capability>
-  <Capability Min="250" Max="255">Auto Rndm selection &lt;&lt;&lt;</Capability>
+  <Capability Min="190" Max="215" Preset="RotationClockwiseFastToSlow">CW Rainbow (fast to slow)</Capability>
+  <Capability Min="216" Max="217" Preset="RotationStop">No Rotation</Capability>
+  <Capability Min="218" Max="243" Preset="RotationCounterClockwiseSlowToFast">CCW Rainbow (slow to fast)</Capability>
+  <Capability Min="244" Max="249">Random Colour Audio</Capability>
+  <Capability Min="250" Max="255">Auto random selection (fast to slow)</Capability>
  </Channel>
  <Channel Name="Colour Wheel Fine" Preset="ColorWheelFine"/>
  <Channel Name="Cyan" Preset="IntensityCyan"/>
@@ -126,20 +126,20 @@
   <Capability Min="95" Max="99" Preset="GoboMacro" Res1="Robe/gobo00066.svg">Gobo 7</Capability>
   <Capability Min="100" Max="104" Preset="GoboMacro" Res1="Robe/gobo00068.svg">Gobo 8</Capability>
   <Capability Min="105" Max="109" Preset="GoboMacro" Res1="Robe/gobo00012.svg">Gobo 9</Capability>
-  <Capability Min="110" Max="119" Preset="GoboMacro" Res1="Robe/gobo00061.svg">Shaking Gobo 1</Capability>
-  <Capability Min="120" Max="129" Preset="GoboMacro" Res1="Robe/gobo00062.svg">Shaking Gobo 2</Capability>
-  <Capability Min="130" Max="139" Preset="GoboMacro" Res1="Robe/gobo00063.svg">Shaking Gobo 3</Capability>
-  <Capability Min="140" Max="149" Preset="GoboMacro" Res1="Robe/gobo00069.png">Shaking Gobo 4</Capability>
-  <Capability Min="150" Max="159" Preset="GoboMacro" Res1="Robe/gobo00064.svg">Shaking Gobo 5</Capability>
-  <Capability Min="160" Max="169" Preset="GoboMacro" Res1="Robe/gobo00065.svg">Shaking Gobo 6</Capability>
-  <Capability Min="170" Max="179" Preset="GoboMacro" Res1="Robe/gobo00066.svg">Shaking Gobo 7</Capability>
-  <Capability Min="180" Max="189" Preset="GoboMacro" Res1="Robe/gobo00067.svg">Shaking Gobo 8</Capability>
-  <Capability Min="190" Max="199" Preset="GoboMacro" Res1="Robe/gobo00068.svg">Shaking Gobo 9</Capability>
+  <Capability Min="110" Max="119" Preset="GoboShakeMacro" Res1="Robe/gobo00061.svg">Shaking Gobo 1</Capability>
+  <Capability Min="120" Max="129" Preset="GoboShakeMacro" Res1="Robe/gobo00062.svg">Shaking Gobo 2</Capability>
+  <Capability Min="130" Max="139" Preset="GoboShakeMacro" Res1="Robe/gobo00063.svg">Shaking Gobo 3</Capability>
+  <Capability Min="140" Max="149" Preset="GoboShakeMacro" Res1="Robe/gobo00069.png">Shaking Gobo 4</Capability>
+  <Capability Min="150" Max="159" Preset="GoboShakeMacro" Res1="Robe/gobo00064.svg">Shaking Gobo 5</Capability>
+  <Capability Min="160" Max="169" Preset="GoboShakeMacro" Res1="Robe/gobo00065.svg">Shaking Gobo 6</Capability>
+  <Capability Min="170" Max="179" Preset="GoboShakeMacro" Res1="Robe/gobo00066.svg">Shaking Gobo 7</Capability>
+  <Capability Min="180" Max="189" Preset="GoboShakeMacro" Res1="Robe/gobo00067.svg">Shaking Gobo 8</Capability>
+  <Capability Min="190" Max="199" Preset="GoboShakeMacro" Res1="Robe/gobo00068.svg">Shaking Gobo 9</Capability>
   <Capability Min="200" Max="201">Open</Capability>
-  <Capability Min="202" Max="221">Fw Wheel &lt;&lt;&lt;</Capability>
-  <Capability Min="222" Max="223">No Rotation</Capability>
-  <Capability Min="224" Max="243">Bw Wheel &gt;&gt;&gt;</Capability>
-  <Capability Min="244" Max="249">Rndm Selection Audio</Capability>
+  <Capability Min="202" Max="221" Preset="RotationClockwiseFastToSlow">CW Wheel (fast to slow)</Capability>
+  <Capability Min="222" Max="223" Preset="RotationStop">No Rotation</Capability>
+  <Capability Min="224" Max="243" Preset="RotationCounterClockwiseSlowToFast">CCW Wheel (slow to fast)</Capability>
+  <Capability Min="244" Max="249">Random Selection Audio</Capability>
   <Capability Min="250" Max="255">Auto Random Gobo &lt;&lt;&lt;</Capability>
  </Channel>
  <Channel Name="Static Gobo Fine" Preset="GoboIndexFine"/>
@@ -183,10 +183,10 @@
  </Channel>
  <Channel Name="Gobo Rotation">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="0">No Rotation</Capability>
-  <Capability Min="1" Max="127">Fwd Rot &lt;&lt;</Capability>
-  <Capability Min="128" Max="129">No Rotation</Capability>
-  <Capability Min="130" Max="255">Bwd Rotation &gt;&gt;</Capability>
+  <Capability Min="0" Max="0" Preset="RotationStop">No Rotation</Capability>
+  <Capability Min="1" Max="127" Preset="RotationClockwiseFastToSlow">CW Rotation (fast to slow)</Capability>
+  <Capability Min="128" Max="129" Preset="RotationStop">No Rotation</Capability>
+  <Capability Min="130" Max="255" Preset="RotationCounterClockwiseSlowToFast">CCW Rotation (slow to fast)</Capability>
  </Channel>
  <Channel Name="Prism">
   <Group Byte="0">Prism</Group>
@@ -211,10 +211,10 @@
  </Channel>
  <Channel Name="Prism Rotation">
   <Group Byte="0">Prism</Group>
-  <Capability Min="0" Max="0">No Rotation</Capability>
-  <Capability Min="1" Max="127">Fw Rotation &lt;&lt;</Capability>
-  <Capability Min="128" Max="129">No Rotation</Capability>
-  <Capability Min="130" Max="255">Bw Rotation &gt;&gt;</Capability>
+  <Capability Min="0" Max="0" Preset="RotationStop">No Rotation</Capability>
+  <Capability Min="1" Max="127" Preset="RotationClockwiseFastToSlow">CW Rotation (fast to slow)</Capability>
+  <Capability Min="128" Max="129" Preset="RotationStop">No Rotation</Capability>
+  <Capability Min="130" Max="255" Preset="RotationCounterClockwiseSlowToFast">CCW Rotation (slow to fast)</Capability>
  </Channel>
  <Channel Name="Iris">
   <Group Byte="0">Beam</Group>
@@ -499,7 +499,7 @@
  <Physical>
   <Bulb Type="MSR 700W" Lumens="41800" ColourTemperature="7500"/>
   <Dimensions Weight="32" Width="514" Height="597" Depth="499"/>
-  <Lens Name="Other" DegreesMin="15" DegreesMax="51"/>
+  <Lens Name="Other" DegreesMin="15" DegreesMax="51" PrismFaces="3"/>
   <Focus Type="Head" PanMax="540" TiltMax="280"/>
   <Technical PowerConsumption="930" DmxConnector="3-pin and 5-pin"/>
  </Physical>
