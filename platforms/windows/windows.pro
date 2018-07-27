@@ -86,7 +86,7 @@ greaterThan(QT_MAJOR_VERSION, 4) {
     qtaudio.path = $$INSTALLROOT/$$LIBSDIR/audio
     qtaudio.files = $$QT_PLUGINS_PATH/audio/qtaudio_windows$${QT_D}.dll
     INSTALLS += qtaudio
-    
+
     qtmedia.path = $$INSTALLROOT/$$LIBSDIR/mediaservice
     qtmedia.files = $$QT_PLUGINS_PATH/mediaservice/dsengine$${QT_D}.dll \
                     $$QT_PLUGINS_PATH/mediaservice/qtmedia_audioengine$${QT_D}.dll

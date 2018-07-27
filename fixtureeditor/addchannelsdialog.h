@@ -33,13 +33,13 @@ class QLCChannel;
 class AddChannelsDialog : public QDialog, public Ui_AddChannelsDialog
 {
     Q_OBJECT
-    
+
 public:
     explicit AddChannelsDialog(QList<QLCChannel*> allList, QVector<QLCChannel*> modeList, QWidget *parent = 0);
     ~AddChannelsDialog();
 
     QList<QLCChannel*> getModeChannelsList();
-    
+
 private:
     void fillChannelsTrees(QList<QLCChannel*> allList, QVector<QLCChannel*> modeList);
 

@@ -39,27 +39,27 @@ var testAlgo;
     var util = new Object;
     util.initialized = false;
     util.squaresMaxSize = 0;
-    
+
     var squares = new Array();
-    
+
     function Square(x, y, step)
     {
       this.xCenter = x;
       this.yCenter = y;
       this.step = step;
     }
-    
+
     algo.setAmount = function(_amount)
     {
       algo.squaresAmount = _amount;
       util.initialized = false;
     };
-    
+
     algo.getAmount = function()
     {
       return algo.squaresAmount;
     };
-    
+
     algo.setFade = function(_fade)
     {
       if (_fade === "Fade In") { algo.fadeMode = 1; }
@@ -73,7 +73,7 @@ var testAlgo;
       else if (algo.fadeMode === 2) { return "Fade Out"; }
       else { return "Don't Fade"; }
     };
-    
+
     algo.setFill = function(_fill)
     {
       if (_fill === "Yes") { algo.fillSquares = 1; }
@@ -99,7 +99,7 @@ var testAlgo;
 
       util.initialized = true;
     };
-    
+
     util.getColor = function(step, rgb)
     {
       if (algo.fadeMode === 0)
@@ -111,7 +111,7 @@ var testAlgo;
         var r = (rgb >> 16) & 0x00FF;
         var g = (rgb >> 8) & 0x00FF;
         var b = rgb & 0x00FF;
-        
+
         var stepCount = Math.floor(util.squaresMaxSize / 2);
         var fadeStep = step;
         if (algo.fadeMode === 2) {
@@ -129,7 +129,7 @@ var testAlgo;
     {
       // create an empty, black map
       var map = new Array(height);
-      
+
       for (var y = 0; y < height; y++)
       {
         map[y] = new Array();
