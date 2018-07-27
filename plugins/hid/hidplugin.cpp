@@ -298,7 +298,7 @@ void HIDPlugin::rescanDevices()
     }
 
     hid_free_enumeration(devs);
-    
+
     /* Destroy those devices that were no longer found. */
     while (destroyList.isEmpty() == false)
     {
@@ -306,7 +306,7 @@ void HIDPlugin::rescanDevices()
         m_devices.removeAll(dev);
         delete dev;
     }
-    
+
     if (m_devices.count() != devCount)
         emit configurationChanged();
 }

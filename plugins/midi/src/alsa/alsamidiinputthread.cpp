@@ -251,7 +251,7 @@ void AlsaMidiInputThread::readEvent()
                 cmd = MIDI_CHANNEL_AFTERTOUCH | ev->data.control.channel;
                 data1 = ev->data.control.value;
                 break;
- 
+
             default:
                 break;
             }

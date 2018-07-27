@@ -1,8 +1,8 @@
-/* 
+/*
   LIBUSB-WIN32, Generic Windows USB Library
 
   Copyright (c) 2002-2005 Stephan Meyer <ste_meyer@web.de>
- 
+
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License
   as published by the Free Software Foundation; either version 2

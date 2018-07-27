@@ -113,15 +113,15 @@ void ReadThread::run()
             if (newVal != gpio->m_value)
             {
                 gpio->m_count++;
-                if (gpio->m_count > HYSTERESIS_THRESHOLD) 
+                if (gpio->m_count > HYSTERESIS_THRESHOLD)
                 {
                     qDebug() << "Value read: GPIO:" << gpio->m_number << "val:" <<  newVal;
                     gpio->m_value = newVal;
                     gpio->m_count = 0;
                     emit valueChanged(gpio->m_number, gpio->m_value);
                 }
-            } 
-            else 
+            }
+            else
             {
                 gpio->m_count = 0;
             }

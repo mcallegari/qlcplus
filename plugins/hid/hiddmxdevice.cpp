@@ -56,7 +56,7 @@ void HIDDMXDevice::init()
 {
     /* Device name */
     m_handle = hid_open_path(path().toUtf8().constData());
-    
+
     if (!m_handle)
     {
         QMessageBox::warning(NULL, (tr("HID DMX Interface Error")),
@@ -78,7 +78,7 @@ bool HIDDMXDevice::openInput()
 {
     m_mode |= DMX_MODE_INPUT;
     updateMode();
-    
+
     return true;
 }
 
