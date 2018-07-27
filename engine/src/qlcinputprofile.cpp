@@ -165,8 +165,8 @@ QLCInputProfile::Type QLCInputProfile::stringToType(const QString& str)
 QList<QLCInputProfile::Type> QLCInputProfile::types()
 {
     QList<Type> result;
-    result 
-        << Midi 
+    result
+        << Midi
         << Osc
         << Hid
         << Dmx

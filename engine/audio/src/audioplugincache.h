@@ -39,7 +39,7 @@ class AudioPluginCache : public QObject
 public:
     AudioPluginCache(QObject* parent);
     ~AudioPluginCache();
-    
+
     /** Load plugins from the given directory. */
     void load(const QDir& dir);
 

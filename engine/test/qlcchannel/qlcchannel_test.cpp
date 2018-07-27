@@ -133,7 +133,7 @@ void QLCChannel_Test::colour()
 
     channel->setColour(QLCChannel::Red);
     QCOMPARE(channel->colour(), QLCChannel::Red);
-    
+
     channel->setColour(QLCChannel::Green);
     QCOMPARE(channel->colour(), QLCChannel::Green);
 

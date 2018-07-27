@@ -96,7 +96,7 @@ public:
      * @return A list of zero or more channels
      */
     QVector <quint32> colorWheels() const;
-    
+
     /**
      * Get a list of shutter channels. Channels are ordered by their number
      * @return A list of zero or more channels

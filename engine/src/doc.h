@@ -90,7 +90,7 @@ public:
      */
     QString normalizeComponentPath(const QString& filePath) const;
 
-    /** If filePath is relative path, it is resolved relative to the workspace 
+    /** If filePath is relative path, it is resolved relative to the workspace
      *  directory (absolute path is returned).
      *  If filePath is absolute, it is returned unchanged (symlinks and .. are resolved).
      *

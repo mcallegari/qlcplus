@@ -325,7 +325,7 @@ void QLCFixtureDefCache::clear()
 }
 
 QDir QLCFixtureDefCache::systemDefinitionDirectory()
-{   
+{
     return QLCFile::systemDirectory(QString(FIXTUREDIR), QString(KExtFixture));
 }
 
