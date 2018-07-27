@@ -688,7 +688,7 @@ QIcon QLCChannel::getIntensityIcon() const
         pm = drawIntensity(Qt::red, "R");
     else if (m_colour == QLCChannel::Green)
         pm = drawIntensity(Qt::green, "G");
-    else if (m_colour == QLCChannel::Blue) 
+    else if (m_colour == QLCChannel::Blue)
         pm = drawIntensity(Qt::blue, "B");
     else if (m_colour == QLCChannel::Cyan)
         pm = drawIntensity(Qt::cyan, "C");

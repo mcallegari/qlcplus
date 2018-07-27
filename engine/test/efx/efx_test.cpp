@@ -1827,7 +1827,7 @@ void EFX_Test::previewLissajous()
     QCOMPARE(poly[127].toPoint(), QPoint(115,253));
 }
 
-// Due to rounding errors, reverse direction might come out 
+// Due to rounding errors, reverse direction might come out
 // +/- one point. For now it's acceptable, but should be fixed
 // some day.
 static bool CloseEnough(QPointF const & a, QPointF const & b)
