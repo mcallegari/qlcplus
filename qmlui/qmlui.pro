@@ -148,7 +148,8 @@ TRANSLATIONS += \
     qlcplus_de_DE.ts \
     qlcplus_es_ES.ts \
     qlcplus_fr_FR.ts \
-    qlcplus_it_IT.ts
+    qlcplus_it_IT.ts \
+    qlcplus_ja_JP.ts
 
 macx {
     # This must be after "TARGET = " and before target installation so that
