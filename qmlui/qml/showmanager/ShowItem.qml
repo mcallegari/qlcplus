@@ -227,13 +227,18 @@ Item
 
             if (drag.target !== null)
             {
-                console.log("Show item drag finished: " + showItemBody.x + " " + showItemBody.y);
+                console.log("Show item drag finished: " + showItemBody.x + " " + showItemBody.y)
                 drag.target = null
                 infoText = ""
 
                 var newTime = TimeUtils.posToMs(itemRoot.x + showItemBody.x, timeScale, tickSize)
                 var newTrackIdx = Math.round((itemRoot.y + showItemBody.y) / itemRoot.height)
-                if (newTime >= 0 && newTrackIdx >= 0)
+
+                // dragging to 0 might not be accurate...
+                if (newTime < 0)
+                    newTime = 0
+
+                if (newTrackIdx >= 0)
                 {
                     var res = showManager.checkAndMoveItem(sfRef, trackIndex, newTrackIdx, newTime)
 
