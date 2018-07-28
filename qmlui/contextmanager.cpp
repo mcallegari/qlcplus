@@ -793,6 +793,24 @@ void ContextManager::setFixturesPosition(QVector3D position)
     emit fixturesPositionChanged();
 }
 
+void ContextManager::setFixturesGelColor(QColor color)
+{
+    QByteArray ba;
+    for (quint32 itemID : m_selectedFixtures)
+    {
+        quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+        quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
+        quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+        Fixture *fixture = m_doc->fixture(fxID);
+
+        m_monProps->setFixtureGelColor(fxID, headIndex, linkedIndex, color);
+        if (m_2DView->isEnabled())
+            m_2DView->updateFixtureItem(fixture, headIndex, linkedIndex, ba);
+        if (m_3DView->isEnabled())
+            m_3DView->updateFixtureItem(fixture, headIndex, linkedIndex, ba);
+    }
+}
+
 void ContextManager::setFixturesAlignment(int alignment)
 {
     if (m_selectedFixtures.count() == 0)

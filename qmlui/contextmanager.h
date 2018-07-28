@@ -191,6 +191,9 @@ public:
     QVector3D fixturesPosition() const;
     void setFixturesPosition(QVector3D position);
 
+    /** Set the gelatine color for the selected fixtures */
+    Q_INVOKABLE void setFixturesGelColor(QColor color);
+
     /** Align the currently selected Fixtures with the provided $alignment */
     Q_INVOKABLE void setFixturesAlignment(int alignment);
 
