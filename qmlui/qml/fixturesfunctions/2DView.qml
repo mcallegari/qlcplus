@@ -139,7 +139,7 @@ Rectangle
             contentWidth = gridWidth + (twoDContents.xOffset * 2)
             contentHeight = gridHeight + (twoDContents.yOffset * 2)
 
-            console.log("Grid offset x: " + twoDContents.xOffset + ", y: " + twoDContents.yOffset)
+            //console.log("Grid offset x: " + twoDContents.xOffset + ", y: " + twoDContents.yOffset)
             if (View2D.cellPixels > 0)
                 twoDContents.requestPaint()
         }

@@ -190,7 +190,7 @@ Column
             {
                 visible: !showFlags
                 implicitWidth: width
-                height: UISettings.listItemHeight
+                implicitHeight: UISettings.listItemHeight
                 label: cRef ? "" + (cRef.address + 1) + "-" + (cRef.address + cRef.channels) : ""
             }
 
