@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
@@ -96,7 +96,7 @@
   <Capability Min="36" Max="42" Preset="GoboMacro" Res1="ClayPaky/gobo00058.svg">Gobo 5</Capability>
   <Capability Min="43" Max="49" Preset="GoboMacro" Res1="Others/gobo00043.svg">Gobo 6</Capability>
   <Capability Min="50" Max="56" Preset="GoboMacro" Res1="SGM/gobo00284.png">Gobo 7</Capability>
-  <Capability Min="57" Max="63" Preset="GoboMacro" Res1="SGM/gobo00360.png">Gobo 8</Capability>
+  <Capability Min="57" Max="63" Preset="GoboMacro" Res1="SGM/gobo00360.svg">Gobo 8</Capability>
   <Capability Min="64" Max="71" Preset="GoboShakeMacro" Res1="GLP/gobo00002.png">Gobo 1 Shake</Capability>
   <Capability Min="72" Max="79" Preset="GoboShakeMacro" Res1="Chauvet/gobo00011.png">Gobo 2 Shake</Capability>
   <Capability Min="80" Max="87" Preset="GoboShakeMacro" Res1="Others/gobo00025.svg">Gobo 3 Shake</Capability>
@@ -104,7 +104,7 @@
   <Capability Min="96" Max="103" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00058.svg">Gobo 5 Shake</Capability>
   <Capability Min="104" Max="111" Preset="GoboShakeMacro" Res1="Others/gobo00043.svg">Gobo 6 Shake</Capability>
   <Capability Min="112" Max="119" Preset="GoboShakeMacro" Res1="SGM/gobo00284.png">Gobo 7 Shake</Capability>
-  <Capability Min="120" Max="127" Preset="GoboShakeMacro" Res1="SGM/gobo00360.png">Gobo 8 Shake</Capability>
+  <Capability Min="120" Max="127" Preset="GoboShakeMacro" Res1="SGM/gobo00360.svg">Gobo 8 Shake</Capability>
   <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Gobo wheel turning clockwise (fast to slow)</Capability>
   <Capability Min="190" Max="193" Preset="RotationStop">Gobo wheel stops turning</Capability>
   <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Gobo wheel turning counter clockwise (slow to fast)</Capability>

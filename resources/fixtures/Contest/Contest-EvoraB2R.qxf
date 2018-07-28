@@ -59,7 +59,7 @@
   <Capability Min="183" Max="189" Preset="GoboMacro" Res1="Others/gobo00013.svg">Circular dots shake</Capability>
   <Capability Min="190" Max="193" Preset="GoboMacro" Res1="SGM/gobo00092.png">Flower shake</Capability>
   <Capability Min="194" Max="203" Preset="GoboMacro" Res1="SGM/gobo00093.svg">Vent shake</Capability>
-  <Capability Min="204" Max="210" Preset="GoboMacro" Res1="SGM/gobo00359.png">Vent inv. shake</Capability>
+  <Capability Min="204" Max="210" Preset="GoboMacro" Res1="SGM/gobo00359.svg">Vent inv. shake</Capability>
   <Capability Min="211" Max="217" Preset="GoboMacro" Res1="Others/gobo00024.svg">Star shake</Capability>
   <Capability Min="218" Max="255">Gobo scrol F&gt;S</Capability>
  </Channel>

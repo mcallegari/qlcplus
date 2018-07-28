@@ -47,7 +47,7 @@
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="4" Res="Others/open.svg">Open</Capability>
   <Capability Min="5" Max="9" Res="Others/gobo00027.svg">Gobo 1</Capability>
-  <Capability Min="10" Max="14" Res="SGM/gobo00361.png">Gobo 2</Capability>
+  <Capability Min="10" Max="14" Res="SGM/gobo00361.svg">Gobo 2</Capability>
   <Capability Min="15" Max="19" Res="SGM/gobo00093.svg">Gobo 3</Capability>
   <Capability Min="20" Max="24" Res="Chauvet/gobo00045.svg">Gobo 4</Capability>
   <Capability Min="25" Max="29" Res="Robe/gobo00024.svg">Gobo 5</Capability>
@@ -57,7 +57,7 @@
   <Capability Min="130" Max="134" Res="Others/open.svg">Open</Capability>
   <Capability Min="135" Max="220">Gobo Change, speed ascending</Capability>
   <Capability Min="221" Max="225" Res="Others/gobo00027.svg">Gobo 1 Shake, speed controll</Capability>
-  <Capability Min="226" Max="230" Res="SGM/gobo00361.png">Gobo 2 Shake, speed controll</Capability>
+  <Capability Min="226" Max="230" Res="SGM/gobo00361.svg">Gobo 2 Shake, speed controll</Capability>
   <Capability Min="231" Max="235" Res="SGM/gobo00093.svg">Gobo 3 Shake, speed controll</Capability>
   <Capability Min="236" Max="240" Res="Chauvet/gobo00045.svg">Gobo 4 Shake, speed controll</Capability>
   <Capability Min="241" Max="245" Res="Robe/gobo00024.svg">Gobo 5 Shake, speed controll</Capability>

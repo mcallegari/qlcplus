@@ -71,7 +71,7 @@
   <Capability Min="76" Max="108" Res="ClayPaky/gobo00055.svg">Triangle Break-up</Capability>
   <Capability Min="109" Max="140" Res="SGM-Color/gobo00547.png">Ice Blocks</Capability>
   <Capability Min="141" Max="172" Res="Chauvet/gobo00011.png">Pebbles</Capability>
-  <Capability Min="173" Max="202" Res="SGM/gobo00361.png">Circle of Ovals</Capability>
+  <Capability Min="173" Max="202" Res="SGM/gobo00361.svg">Circle of Ovals</Capability>
   <Capability Min="217" Max="233" Res="Others/rainbow.png">Fast to Slow / CCW</Capability>
   <Capability Min="234" Max="236">Stop</Capability>
   <Capability Min="237" Max="255" Res="Others/rainbow.png">Slow to Fast / CW</Capability>

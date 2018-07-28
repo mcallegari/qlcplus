@@ -118,7 +118,7 @@
  <Channel Name="Rotating Gobo Wheel">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="12" Res="Others/open.svg">White</Capability>
-  <Capability Min="13" Max="25" Res="SGM/gobo00370.png">Gobo 1</Capability>
+  <Capability Min="13" Max="25" Res="SGM/gobo00370.svg">Gobo 1</Capability>
   <Capability Min="26" Max="37" Res="SGM/gobo00265.png">Gobo 2</Capability>
   <Capability Min="38" Max="50" Res="Robe/gobo00056.svg">Gobo 3</Capability>
   <Capability Min="51" Max="62" Res="Chauvet/gobo00068.png">Gobo 4</Capability>
@@ -129,7 +129,7 @@
   <Capability Min="115" Max="127" Res="Robe/gobo00065.svg">Gobo 9</Capability>
   <Capability Min="128" Max="155">Forward rotation from slow to fast</Capability>
   <Capability Min="156" Max="183">Reverse rotation from slow to fast</Capability>
-  <Capability Min="184" Max="191" Res="SGM/gobo00370.png">Shake 1 from fast to slow</Capability>
+  <Capability Min="184" Max="191" Res="SGM/gobo00370.svg">Shake 1 from fast to slow</Capability>
   <Capability Min="192" Max="199" Res="SGM/gobo00265.png">Shake 2 from fast to slow</Capability>
   <Capability Min="200" Max="207" Res="Robe/gobo00056.svg">Shake 3 from fast to slow</Capability>
   <Capability Min="208" Max="215" Res="Chauvet/gobo00068.png">Shake 4 from fast to slow</Capability>

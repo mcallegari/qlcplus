@@ -59,7 +59,7 @@
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="10" Res="Others/open.svg">Indexed open</Capability>
-  <Capability Min="11" Max="14" Res="SGM/gobo00371.png">Indexed gobo 1</Capability>
+  <Capability Min="11" Max="14" Res="SGM/gobo00371.svg">Indexed gobo 1</Capability>
   <Capability Min="15" Max="18" Res="Robe/gobo00044.png">Indexed gobo 2</Capability>
   <Capability Min="19" Max="22" Res="Chauvet/gobo00026.svg">Indexed gobo 3</Capability>
   <Capability Min="23" Max="26" Res="Chauvet/gobo00027.svg">Indexed gobo 4</Capability>
@@ -71,7 +71,7 @@
   <Capability Min="47" Max="50" Res="GLP/gobo00014.svg">Indexed gobo 10</Capability>
   <Capability Min="51" Max="54" Res="Chauvet/gobo00023.svg">Indexed gobo 11</Capability>
   <Capability Min="55" Max="58" Res="Others/open.svg">Indexed with backout open</Capability>
-  <Capability Min="59" Max="62" Res="SGM/gobo00371.png">Indexed with backout gobo 1</Capability>
+  <Capability Min="59" Max="62" Res="SGM/gobo00371.svg">Indexed with backout gobo 1</Capability>
   <Capability Min="63" Max="66" Res="Robe/gobo00044.png">Indexed with backout gobo 2</Capability>
   <Capability Min="67" Max="70" Res="Chauvet/gobo00026.svg">Indexed with backout gobo 3</Capability>
   <Capability Min="71" Max="74" Res="Chauvet/gobo00027.svg">Indexed with backout gobo 4</Capability>
@@ -82,7 +82,7 @@
   <Capability Min="91" Max="94" Res="Chauvet/gobo00036.svg">Indexed with backout gobo 9</Capability>
   <Capability Min="95" Max="98" Res="GLP/gobo00014.svg">Indexed with backout gobo 10</Capability>
   <Capability Min="99" Max="102" Res="Chauvet/gobo00023.svg">Indexed with backout gobo 11</Capability>
-  <Capability Min="103" Max="113" Res="SGM/gobo00371.png">Indexed with shake gobo 1</Capability>
+  <Capability Min="103" Max="113" Res="SGM/gobo00371.svg">Indexed with shake gobo 1</Capability>
   <Capability Min="114" Max="124" Res="Robe/gobo00044.png">Indexed with shake gobo 2</Capability>
   <Capability Min="125" Max="135" Res="Chauvet/gobo00026.svg">Indexed with shake gobo 3</Capability>
   <Capability Min="136" Max="146" Res="Chauvet/gobo00027.svg">Indexed with shake gobo 4</Capability>
@@ -183,7 +183,7 @@
  <Channel Name="Gobo Wheel">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="21" Res="Others/open.svg">Position 1 (open)</Capability>
-  <Capability Min="22" Max="43" Res="SGM/gobo00371.png">Position 2</Capability>
+  <Capability Min="22" Max="43" Res="SGM/gobo00371.svg">Position 2</Capability>
   <Capability Min="44" Max="65" Res="Robe/gobo00044.png">Position 3</Capability>
   <Capability Min="66" Max="87" Res="Chauvet/gobo00026.svg">Position 4</Capability>
   <Capability Min="88" Max="109" Res="Chauvet/gobo00027.svg">Position 5</Capability>
