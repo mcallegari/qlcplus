@@ -1629,27 +1629,27 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
 <context>
     <name>MainView3D</name>
     <message>
-        <location filename="mainview3d.cpp" line="63"/>
+        <location filename="mainview3d.cpp" line="71"/>
         <source>3D View</source>
         <translation>Vue 3D</translation>
     </message>
     <message>
-        <location filename="mainview3d.cpp" line="70"/>
+        <location filename="mainview3d.cpp" line="78"/>
         <source>Simple ground</source>
         <translation>Sol simple</translation>
     </message>
     <message>
-        <location filename="mainview3d.cpp" line="70"/>
+        <location filename="mainview3d.cpp" line="78"/>
         <source>Simple box</source>
         <translation>Boîte simple</translation>
     </message>
     <message>
-        <location filename="mainview3d.cpp" line="70"/>
+        <location filename="mainview3d.cpp" line="78"/>
         <source>Rock stage</source>
         <translation>Scène de rock</translation>
     </message>
     <message>
-        <location filename="mainview3d.cpp" line="70"/>
+        <location filename="mainview3d.cpp" line="78"/>
         <source>Theatre stage</source>
         <translation>Scène de théâtre</translation>
     </message>
@@ -2825,52 +2825,57 @@ Niveau d&apos;accès&#xa0;:</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="419"/>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="251"/>
+        <source>Show FPS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="429"/>
         <source>Scale</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="544"/>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="554"/>
         <source>Custom items</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="550"/>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="560"/>
         <source>Select a mesh file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="552"/>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="562"/>
         <source>3D files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="552"/>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="562"/>
         <source>All files</source>
         <translation type="unfinished">Tous les fichiers</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="563"/>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="573"/>
         <source>Actions</source>
         <translation type="unfinished">Actions</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="569"/>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="579"/>
         <source>Add a new item to the scene</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="578"/>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="588"/>
         <source>Remove the selected items</source>
         <translation type="unfinished">Supprimer les éléments sélectionnés</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="256"/>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="266"/>
         <source>Position</source>
         <translation>Position</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="339"/>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="349"/>
         <source>Rotation</source>
         <translation>Rotation</translation>
     </message>

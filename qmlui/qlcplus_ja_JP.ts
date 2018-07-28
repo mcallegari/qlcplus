@@ -41,9 +41,11 @@
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="95"/>
-        <source>Do you wish to save the current project first ?
+        <source>Do you wish to save the current project first?
 Changes will be lost if you don&apos;t save them.</source>
-        <translation>プロジェクトに未保存の編集があります\nプロジェクトを保存しますか？</translation>
+        <oldsource>Do you wish to save the current project first ?
+Changes will be lost if you don&apos;t save them.</oldsource>
+        <translation type="unfinished">プロジェクトに未保存の編集があります\nプロジェクトを保存しますか？</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="154"/>
@@ -330,8 +332,9 @@ Changes will be lost if you don&apos;t save them.</source>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="124"/>
-        <source>Are you sure you want to remove the selected steps ?</source>
-        <translation>選択したステップを削除しますか？</translation>
+        <source>Are you sure you want to remove the selected steps?</source>
+        <oldsource>Are you sure you want to remove the selected steps ?</oldsource>
+        <translation type="unfinished">選択したステップを削除しますか？</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="157"/>
@@ -481,8 +484,9 @@ Changes will be lost if you don&apos;t save them.</source>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/CollectionEditor.qml" line="130"/>
-        <source>Are you sure you want to remove the selected functions ?</source>
-        <translation>ファンクションを削除しますか？</translation>
+        <source>Are you sure you want to remove the selected functions?</source>
+        <oldsource>Are you sure you want to remove the selected functions ?</oldsource>
+        <translation type="unfinished">ファンクションを削除しますか？</translation>
     </message>
 </context>
 <context>
@@ -645,7 +649,7 @@ Changes will be lost if you don&apos;t save them.</source>
         <translation>出力モニター</translation>
     </message>
     <message>
-        <location filename="contextmanager.cpp" line="971"/>
+        <location filename="contextmanager.cpp" line="988"/>
         <source>linked</source>
         <translation>linked</translation>
     </message>
@@ -891,6 +895,11 @@ Changes will be lost if you don&apos;t save them.</source>
         <source>Add a keyboard combination</source>
         <translation>キーボードショートカットの追加</translation>
     </message>
+    <message>
+        <location filename="qml/ExternalControls.qml" line="103"/>
+        <source>Manually select an input source</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FixtureChannelDelegate</name>
@@ -1020,21 +1029,23 @@ Changes will be lost if you don&apos;t save them.</source>
     <name>FixtureManager</name>
     <message>
         <location filename="fixturemanager.cpp" line="566"/>
+        <location filename="fixturemanager.cpp" line="701"/>
+        <location filename="fixturemanager.cpp" line="961"/>
         <source>Head</source>
         <translation>ヘッド</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="847"/>
+        <location filename="fixturemanager.cpp" line="888"/>
         <source>New group %1</source>
         <translation>新しいグループ %1</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="984"/>
+        <location filename="fixturemanager.cpp" line="1076"/>
         <source>%1 - Row %2</source>
         <translation>%1 #%2</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1266"/>
+        <location filename="fixturemanager.cpp" line="1358"/>
         <source>New filters %1</source>
         <translation>新しいカラーフィルタ %1</translation>
     </message>
@@ -1621,27 +1632,27 @@ Changes will be lost if you don&apos;t save them.</source>
 <context>
     <name>MainView3D</name>
     <message>
-        <location filename="mainview3d.cpp" line="51"/>
+        <location filename="mainview3d.cpp" line="71"/>
         <source>3D View</source>
         <translation>3D ビュー</translation>
     </message>
     <message>
-        <location filename="mainview3d.cpp" line="57"/>
+        <location filename="mainview3d.cpp" line="78"/>
         <source>Simple ground</source>
         <translation>床</translation>
     </message>
     <message>
-        <location filename="mainview3d.cpp" line="57"/>
+        <location filename="mainview3d.cpp" line="78"/>
         <source>Simple box</source>
         <translation>箱</translation>
     </message>
     <message>
-        <location filename="mainview3d.cpp" line="57"/>
+        <location filename="mainview3d.cpp" line="78"/>
         <source>Rock stage</source>
         <translation>ロックステージ</translation>
     </message>
     <message>
-        <location filename="mainview3d.cpp" line="57"/>
+        <location filename="mainview3d.cpp" line="78"/>
         <source>Theatre stage</source>
         <translation>劇場</translation>
     </message>
@@ -1713,72 +1724,72 @@ Changes will be lost if you don&apos;t save them.</source>
         <translation>新しいシーン</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupDMXDump.qml" line="108"/>
+        <location filename="qml/popup/PopupDMXDump.qml" line="111"/>
         <source>Don&apos;t ask again</source>
         <translation>次回から表示しない</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupDMXDump.qml" line="114"/>
+        <location filename="qml/popup/PopupDMXDump.qml" line="118"/>
         <source>Available channel types</source>
         <translation>有効なチャンネルタイプ</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupDMXDump.qml" line="134"/>
+        <location filename="qml/popup/PopupDMXDump.qml" line="138"/>
         <source>Intensity</source>
         <translation>光量</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupDMXDump.qml" line="152"/>
+        <location filename="qml/popup/PopupDMXDump.qml" line="156"/>
         <source>RGB/CMY/WAUV</source>
         <translation>RGB/CMY/WAUV</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupDMXDump.qml" line="171"/>
+        <location filename="qml/popup/PopupDMXDump.qml" line="175"/>
         <source>Color macros</source>
         <translation>カラーマクロ</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupDMXDump.qml" line="189"/>
+        <location filename="qml/popup/PopupDMXDump.qml" line="193"/>
         <source>Gobo</source>
         <translation>ゴボ</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupDMXDump.qml" line="208"/>
+        <location filename="qml/popup/PopupDMXDump.qml" line="212"/>
         <source>Pan</source>
         <translation>パン</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupDMXDump.qml" line="226"/>
+        <location filename="qml/popup/PopupDMXDump.qml" line="230"/>
         <source>Tilt</source>
         <translation>チルト</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupDMXDump.qml" line="245"/>
+        <location filename="qml/popup/PopupDMXDump.qml" line="249"/>
         <source>Speed</source>
         <translation>スピード</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupDMXDump.qml" line="263"/>
+        <location filename="qml/popup/PopupDMXDump.qml" line="267"/>
         <source>Shutter/Strobe</source>
         <translation>シャッター/ストロボ</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupDMXDump.qml" line="282"/>
+        <location filename="qml/popup/PopupDMXDump.qml" line="286"/>
         <source>Prism</source>
         <translation>プリズム</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupDMXDump.qml" line="300"/>
+        <location filename="qml/popup/PopupDMXDump.qml" line="304"/>
         <source>Beam</source>
         <translation>ビーム</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupDMXDump.qml" line="319"/>
+        <location filename="qml/popup/PopupDMXDump.qml" line="323"/>
         <source>Effect</source>
         <translation>エフェクト</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupDMXDump.qml" line="337"/>
+        <location filename="qml/popup/PopupDMXDump.qml" line="341"/>
         <source>Maintenance</source>
         <translation>メンテナンス</translation>
     </message>
@@ -1807,6 +1818,34 @@ Changes will be lost if you don&apos;t save them.</source>
         <location filename="qml/popup/PopupImportProject.qml" line="62"/>
         <source>Functions</source>
         <translation>ファンクション</translation>
+    </message>
+</context>
+<context>
+    <name>PopupManualInputSource</name>
+    <message>
+        <location filename="qml/popup/PopupManualInputSource.qml" line="31"/>
+        <source>Manual input source selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/popup/PopupManualInputSource.qml" line="85"/>
+        <source>Input profiles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/popup/PopupManualInputSource.qml" line="186"/>
+        <source>Manual selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/popup/PopupManualInputSource.qml" line="194"/>
+        <source>Universe</source>
+        <translation type="unfinished">ユニバース</translation>
+    </message>
+    <message>
+        <location filename="qml/popup/PopupManualInputSource.qml" line="209"/>
+        <source>Channel</source>
+        <translation type="unfinished">チャンネル</translation>
     </message>
 </context>
 <context>
@@ -1920,9 +1959,12 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="qml/popup/PopupNetworkConnect.qml" line="49"/>
         <source>&gt;
-has request to access this session.
+is requesting access to this session.
 Access level:</source>
-        <translation>&gt;クライアントに許可する動作</translation>
+        <oldsource>&gt;
+has request to access this session.
+Access level:</oldsource>
+        <translation type="unfinished">&gt;クライアントに許可する動作</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupNetworkConnect.qml" line="66"/>
@@ -2440,8 +2482,9 @@ Access level:</source>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="219"/>
-        <source>Are you sure you want to delete the following items ?</source>
-        <translation>選択したアイテムを削除しますか？</translation>
+        <source>Are you sure you want to delete the following items?</source>
+        <oldsource>Are you sure you want to delete the following items ?</oldsource>
+        <translation type="unfinished">選択したアイテムを削除しますか？</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="226"/>
@@ -2479,12 +2522,12 @@ Access level:</source>
         <translation>スナップショット</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/RightPanel.qml" line="442"/>
+        <location filename="qml/fixturesfunctions/RightPanel.qml" line="449"/>
         <source>Function Preview</source>
         <translation>プレビュー</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/RightPanel.qml" line="462"/>
+        <location filename="qml/fixturesfunctions/RightPanel.qml" line="469"/>
         <source>Reset dump channels</source>
         <translation>取り消し</translation>
     </message>
@@ -2492,9 +2535,24 @@ Access level:</source>
 <context>
     <name>SceneEditor</name>
     <message>
-        <location filename="qml/fixturesfunctions/SceneEditor.qml" line="67"/>
+        <location filename="qml/fixturesfunctions/SceneEditor.qml" line="89"/>
         <source>Remove the selected fixtures</source>
         <translation>選択したフィクスチャーを削除します</translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/SceneEditor.qml" line="132"/>
+        <source>Speed</source>
+        <translation type="unfinished">スピード</translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/SceneEditor.qml" line="145"/>
+        <source>Fade in</source>
+        <translation type="unfinished">フェードイン</translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/SceneEditor.qml" line="178"/>
+        <source>Fade out</source>
+        <translation type="unfinished">フェードアウト</translation>
     </message>
 </context>
 <context>
@@ -2704,47 +2762,122 @@ Access level:</source>
 <context>
     <name>SettingsView3D</name>
     <message>
-        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="106"/>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="110"/>
         <source>Environment</source>
         <translation>設定</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="111"/>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="120"/>
         <source>Type</source>
         <translation>ステージ</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="123"/>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="132"/>
         <source>Width</source>
         <translation>幅</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="140"/>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="149"/>
         <source>Height</source>
         <translation>高さ</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="157"/>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="166"/>
         <source>Depth</source>
         <translation>奥行き</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="185"/>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="188"/>
+        <source>Rendering</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="204"/>
+        <source>Quality</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="213"/>
+        <source>Low</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="214"/>
+        <source>Medium</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="215"/>
+        <source>High</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="216"/>
+        <source>Ultra</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="225"/>
         <source>Ambient light</source>
         <translation>会場灯</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="190"/>
-        <source>Intensity</source>
-        <translation>光量</translation>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="238"/>
+        <source>Smoke amount</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="215"/>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="251"/>
+        <source>Show FPS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="429"/>
+        <source>Scale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="554"/>
+        <source>Custom items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="560"/>
+        <source>Select a mesh file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="562"/>
+        <source>3D files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="562"/>
+        <source>All files</source>
+        <translation type="unfinished">全てのファイル</translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="573"/>
+        <source>Actions</source>
+        <translation type="unfinished">メニュー</translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="579"/>
+        <source>Add a new item to the scene</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="588"/>
+        <source>Remove the selected items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="266"/>
         <source>Position</source>
         <translation>位置</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="277"/>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="349"/>
         <source>Rotation</source>
         <translation>回転</translation>
     </message>
@@ -2770,16 +2903,16 @@ Access level:</source>
 <context>
     <name>ShowItem</name>
     <message>
-        <location filename="qml/showmanager/ShowItem.qml" line="223"/>
-        <location filename="qml/showmanager/ShowItem.qml" line="274"/>
-        <location filename="qml/showmanager/ShowItem.qml" line="311"/>
+        <location filename="qml/showmanager/ShowItem.qml" line="220"/>
+        <location filename="qml/showmanager/ShowItem.qml" line="271"/>
+        <location filename="qml/showmanager/ShowItem.qml" line="308"/>
         <source>Position: </source>
         <translation>位置:</translation>
     </message>
     <message>
-        <location filename="qml/showmanager/ShowItem.qml" line="275"/>
-        <location filename="qml/showmanager/ShowItem.qml" line="312"/>
-        <location filename="qml/showmanager/ShowItem.qml" line="383"/>
+        <location filename="qml/showmanager/ShowItem.qml" line="272"/>
+        <location filename="qml/showmanager/ShowItem.qml" line="309"/>
+        <location filename="qml/showmanager/ShowItem.qml" line="380"/>
         <source>Duration: </source>
         <translation>Time:</translation>
     </message>
@@ -2823,9 +2956,11 @@ Access level:</source>
     </message>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="195"/>
-        <source>Are you sure you want to remove the following items ?
+        <source>Are you sure you want to remove the following items?
 (Note that the original functions will not be deleted)</source>
-        <translation>削除しますか？(タイムライン上のアイテムは削除されますが、ファンクションは削除されません)</translation>
+        <oldsource>Are you sure you want to remove the following items ?
+(Note that the original functions will not be deleted)</oldsource>
+        <translation type="unfinished">削除しますか？(タイムライン上のアイテムは削除されますが、ファンクションは削除されません)</translation>
     </message>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="202"/>
@@ -2884,8 +3019,8 @@ Access level:</source>
         <translation>トラック %1</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="678"/>
-        <location filename="showmanager.cpp" line="691"/>
+        <location filename="showmanager.cpp" line="680"/>
+        <location filename="showmanager.cpp" line="693"/>
         <source>(Copy)</source>
         <translation>(コピー)</translation>
     </message>
@@ -3496,8 +3631,9 @@ Access level:</source>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCPageProperties.qml" line="167"/>
-        <source>Are you sure you want to delete the selected page ?</source>
-        <translation>選択したページを削除しますか？</translation>
+        <source>Are you sure you want to delete the selected page?</source>
+        <oldsource>Are you sure you want to delete the selected page ?</oldsource>
+        <translation type="unfinished">選択したページを削除しますか？</translation>
     </message>
 </context>
 <context>
@@ -3524,8 +3660,9 @@ Access level:</source>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCRightPanel.qml" line="131"/>
-        <source>Are you sure you want to remove the following widgets ?</source>
-        <translation>選択したウィジェットを削除しますか？</translation>
+        <source>Are you sure you want to remove the following widgets?</source>
+        <oldsource>Are you sure you want to remove the following widgets ?</oldsource>
+        <translation type="unfinished">選択したウィジェットを削除しますか？</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCRightPanel.qml" line="138"/>
@@ -3800,72 +3937,82 @@ Access level:</source>
         <translation>ウィジェットを選択してください</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="154"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="168"/>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="181"/>
+        <source>External controls</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="194"/>
         <source>Basic properties</source>
         <translation>基本設定</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="169"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="209"/>
         <source>Label</source>
         <translation>ラベル</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="194"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="234"/>
         <source>Background color</source>
         <translation>背景色</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="217"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="257"/>
         <source>Foreground color</source>
         <translation>文字色</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="240"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="280"/>
         <source>Font</source>
         <translation>ほふx</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="275"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="315"/>
         <source>Please choose a font</source>
         <translation>フォント</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="295"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="335"/>
         <source>Background image</source>
         <translation>背景画像</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="326"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="366"/>
         <source>Select an image</source>
         <translation>画像を選択</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="344"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="384"/>
         <source>Alignment</source>
         <translation>位置揃え</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="359"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="399"/>
         <source>Align the selected widgets to the left</source>
         <translation>左に揃える</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="369"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="409"/>
         <source>Align the selected widgets to the right</source>
         <translation>右に揃える</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="379"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="419"/>
         <source>Align the selected widgets to the top</source>
         <translation>上に揃える</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="389"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="429"/>
         <source>Align the selected widgets to the bottom</source>
         <translation>下に揃える</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="410"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="450"/>
         <source>External Controls</source>
         <translation>外部入力</translation>
     </message>
@@ -4071,17 +4218,17 @@ Access level:</source>
         <translation>ソロ</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="75"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="79"/>
         <source>Virtual Console</source>
         <translation>バーチャルコンソール</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="239"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="244"/>
         <source>&lt;None&gt;</source>
         <translation>&lt;なし&gt;</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1122"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1217"/>
         <source>Page %1</source>
         <translation>ページ %1</translation>
     </message>

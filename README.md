@@ -124,6 +124,7 @@ Contributors
 * Nils Van Zuijlen, Jérôme Lebleu (French translation)
 * Felix Edelmann, Florian Edelmann (fixture definitions, German translation)
 * Jannis Achstetter (German translation)
+* Dai Suetake (Japanese translation)
 
 ### QLC+ 4:
 
@@ -150,7 +151,7 @@ Contributors
 * Jan Lachman (Czech translation)
 * Nuno Almeida, Carlos Eduardo Porto de Oliveira (Portuguese translation)
 * Santiago Benejam Torres (Catalan translation)
-* Koichiro Saito (Japanese translation)
+* Koichiro Saito, Dai Suetake (Japanese translation)
 
 ### QLC:
 

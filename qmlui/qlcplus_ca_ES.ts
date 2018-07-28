@@ -1629,27 +1629,27 @@ Es perdran els canvis si no els guarda.</translation>
 <context>
     <name>MainView3D</name>
     <message>
-        <location filename="mainview3d.cpp" line="63"/>
+        <location filename="mainview3d.cpp" line="71"/>
         <source>3D View</source>
         <translation>Vista 3D</translation>
     </message>
     <message>
-        <location filename="mainview3d.cpp" line="70"/>
+        <location filename="mainview3d.cpp" line="78"/>
         <source>Simple ground</source>
         <translation>Terra simple</translation>
     </message>
     <message>
-        <location filename="mainview3d.cpp" line="70"/>
+        <location filename="mainview3d.cpp" line="78"/>
         <source>Simple box</source>
         <translation>Caixa simple</translation>
     </message>
     <message>
-        <location filename="mainview3d.cpp" line="70"/>
+        <location filename="mainview3d.cpp" line="78"/>
         <source>Rock stage</source>
         <translation>Escenari de rock</translation>
     </message>
     <message>
-        <location filename="mainview3d.cpp" line="70"/>
+        <location filename="mainview3d.cpp" line="78"/>
         <source>Theatre stage</source>
         <translation>Escenari teatral</translation>
     </message>
@@ -2825,52 +2825,57 @@ Nivell d&apos;accés:</translation>
         <translation>Quantitat de fum</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="419"/>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="251"/>
+        <source>Show FPS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="429"/>
         <source>Scale</source>
         <translation>Escala</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="544"/>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="554"/>
         <source>Custom items</source>
         <translation>Elements personalitzats</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="550"/>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="560"/>
         <source>Select a mesh file</source>
         <translation>Selecionar un fitxer mesh</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="552"/>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="562"/>
         <source>3D files</source>
         <translation>Fitxers 3D</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="552"/>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="562"/>
         <source>All files</source>
         <translation>Tots els fitxers</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="563"/>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="573"/>
         <source>Actions</source>
         <translation>Accions</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="569"/>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="579"/>
         <source>Add a new item to the scene</source>
         <translation>Afegir un element nou a l&apos;escena</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="578"/>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="588"/>
         <source>Remove the selected items</source>
         <translation>Elimina els elements seleccionats</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="256"/>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="266"/>
         <source>Position</source>
         <translation>Posició</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="339"/>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="349"/>
         <source>Rotation</source>
         <translation>Rotació</translation>
     </message>
