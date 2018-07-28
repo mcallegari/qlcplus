@@ -43,7 +43,7 @@
         <location filename="qml/ActionsMenu.qml" line="95"/>
         <source>Do you wish to save the current project first ?
 Changes will be lost if you don&apos;t save them.</source>
-        <translation>プロジェクトに未保存の編集があります\nプロジェクトを保存しませんか？</translation>
+        <translation>プロジェクトに未保存の編集があります\nプロジェクトを保存しますか？</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="154"/>
@@ -973,7 +973,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="169"/>
         <source>Set a Group/Fixture/Channel search filter</source>
-        <translation type="unfinished">Set a Group/Fixture/Channel search filter</translation>
+        <translation>Set a Group/Fixture/Channel search filter</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="186"/>
@@ -1947,7 +1947,7 @@ Access level:</source>
     <message>
         <location filename="qml/popup/PopupNetworkConnect.qml" line="130"/>
         <source>Simple Desk</source>
-        <translation type="unfinished"></translation>
+        <translation>シンプル卓</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupNetworkConnect.qml" line="146"/>
