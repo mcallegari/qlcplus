@@ -251,6 +251,10 @@ void MainView3D::setFrameCountEnabled(bool enable)
             delete m_frameAction;
             m_frameAction = NULL;
         }
+        m_frameCount = 0;
+        m_minFrameCount = 0;
+        m_maxFrameCount = 0;
+        m_avgFrameCount = 0;
     }
     emit frameCountEnabledChanged();
 }
@@ -271,7 +275,9 @@ void MainView3D::slotFrameProcessed()
             m_maxFrameCount = m_frameCount;
             emit maxFPSChanged(m_maxFrameCount);
         }
-        m_avgFrameCount = 0.9 * m_avgFrameCount + 0.1 * m_frameCount;
+
+        // this is an exponential moving average with an alpha of 0.92
+        m_avgFrameCount = 0.92 * m_avgFrameCount + 0.08 * m_frameCount;
         emit avgFPSChanged(m_avgFrameCount);
 
         m_frameCount = 0;
