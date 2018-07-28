@@ -15,24 +15,21 @@
  <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="Strobe">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="7">No strobe effect </Capability>
-  <Capability Min="8" Max="255">Strobe effect with increasing speed </Capability>
+  <Capability Min="0" Max="7">No strobe effect</Capability>
+  <Capability Min="8" Max="255">Strobe effect with increasing speed</Capability>
  </Channel>
  <Channel Name="Functions">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="10">No function </Capability>
-  <Capability Min="11" Max="60">Static colours (colour selection CH 7) </Capability>
-  <Capability Min="61" Max="110">Colour change 1 - 
-fading, 7 colours (speed CH 7) </Capability>
-  <Capability Min="111" Max="160">Colour change 2 - 
-fading, 7 colours (speed CH 7) </Capability>
-  <Capability Min="161" Max="210">Colour change 3 - 
-switching, 7 colours (speed CH 7) </Capability>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="60">Static colours (colour selection CH 7)</Capability>
+  <Capability Min="61" Max="110">Colour change 1 - fading, 7 colours (speed CH 7)</Capability>
+  <Capability Min="111" Max="160">Colour change 2 - fading, 7 colours (speed CH 7)</Capability>
+  <Capability Min="161" Max="210">Colour change 3 - switching, 7 colours (speed CH 7)</Capability>
   <Capability Min="211" Max="255">Sound controlled mode</Capability>
  </Channel>
  <Channel Name="Colours">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="255">Select static colour / increasing speed </Capability>
+  <Capability Min="0" Max="255">Select static colour / increasing speed</Capability>
  </Channel>
  <Mode Name="Normal">
   <Channel Number="0">Intensity</Channel>

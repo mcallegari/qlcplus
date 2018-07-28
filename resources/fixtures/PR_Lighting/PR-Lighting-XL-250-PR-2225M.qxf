@@ -141,7 +141,7 @@
  <Channel Name="Pan Fine" Preset="PositionPanFine"/>
  <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Pan and Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
- <Channel Name="Iris Fine" Preset="BeamIrisFine"/>
+ <Channel Name="Iris Fine" Preset="ShutterIrisFine"/>
  <Mode Name="Short Mode">
   <Channel Number="0">Strobe</Channel>
   <Channel Number="1">Dimmer</Channel>

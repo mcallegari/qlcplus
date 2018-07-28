@@ -115,7 +115,7 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     grid->addWidget(m_linkCheck, 1, 0, 1, 2, Qt::AlignVCenter | Qt::AlignLeft);
 
     QFontMetrics m_fm = QFontMetrics(this->font());
-    
+
     m_sl1TopLabel = new QLabel("100%");
     m_sl1TopLabel->setAlignment(Qt::AlignHCenter);
     m_sl1TopLabel->setFixedWidth(m_fm.width("100%"));
@@ -1018,7 +1018,7 @@ void VCCueList::setPlaybackLayout(VCCueList::PlaybackLayout layout)
     }
     else
     {
-        qWarning() << "Playback layout" << layout << "doesn't exist !";
+        qWarning() << "Playback layout" << layout << "doesn't exist!";
         layout = PlayPauseStop;
     }
 
@@ -1201,7 +1201,7 @@ void VCCueList::slotSlider2ValueChanged(int value)
 {
     if (slidersMode() == Steps)
     {
-        qWarning() << "[VCCueList] ERROR ! Slider2 value change should never happen !";
+        qWarning() << "[VCCueList] ERROR ! Slider2 value change should never happen!";
         return;
     }
 

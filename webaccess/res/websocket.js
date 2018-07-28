@@ -1,7 +1,7 @@
 /*
   Q Light Controller Plus
   websocket.js
-  
+
   Copyright (c) Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,7 +30,7 @@ window.onload = function() {
  };
 
  websocket.onclose = function(ev) {
-  alert("QLC+ connection lost !");
+  alert("QLC+ connection lost!");
  };
 
  websocket.onerror = function(ev) {

@@ -114,24 +114,25 @@ public:
         StrobeRandom,
         StrobeRandomSlowToFast,
         StrobeRandomFastToSlow,
+        StrobeFrequency,        /** precise frequency value in hertz specified in m_resources */
+        StrobeFreqRange,        /** specified in m_resources as 0: min, 1: max hertz */
         PulseSlowToFast,
         PulseFastToSlow,
+        PulseFrequency,
+        PulseFreqRange,
         RampUpSlowToFast,
         RampUpFastToSlow,
         RampDownSlowToFast,
         RampDownFastToSlow,
-        StrobeFrequency,        /** precise frequency value in hertz specified in m_resources */
-        StrobeFreqRange,        /** specified in m_resources as 0: min, 1: max hertz */
-        PulseFrequency,
-        PulseFreqRange,
         RampUpFrequency,
         RampUpFreqRange,
         RampDownFrequency,
         RampDownFreqRange,
+        RotationStop,
+        RotationIndexed,
         RotationClockwise,
         RotationClockwiseSlowToFast,
         RotationClockwiseFastToSlow,
-        RotationStop,
         RotationCounterClockwise,
         RotationCounterClockwiseSlowToFast,
         RotationCounterClockwiseFastToSlow,
@@ -141,6 +142,8 @@ public:
         GoboMacro,
         GoboShakeMacro,
         GenericPicture,
+        PrismEffectOn,
+        PrismEffectOff,
         Alias,
         LastPreset // dummy for cycles
     };
@@ -172,6 +175,9 @@ public:
      *  This is useful for the UI to understand the type
      *  of resources this capability is exposing */
     PresetType presetType() const;
+
+    /** Returns the value unit type of a preset as string */
+    QString presetUnits() const;
 
 protected:
     Preset m_preset;

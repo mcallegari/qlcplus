@@ -29,7 +29,7 @@ Item
 {
     id: itemRoot
     height: UISettings.mediumItemHeight
-    y: trackIndex >= 0 ? iTrackHeight * trackIndex : 0
+    y: trackIndex >= 0 ? parseInt(height) * trackIndex : 0
     z: 2
 
     property ShowFunction sfRef: null
@@ -42,9 +42,6 @@ Item
     property bool isSelected: false
     property color globalColor: showManager.itemsColor
     property string infoText: ""
-
-    /* this is a damn workaround cause apparently everybody in the ShowManager rounds this real value to int except for an Item. */
-    property int iTrackHeight: UISettings.mediumItemHeight
 
     onStartTimeChanged: x = TimeUtils.timeToSize(startTime, timeScale, tickSize)
     onDurationChanged: width = TimeUtils.timeToSize(duration, timeScale, tickSize)

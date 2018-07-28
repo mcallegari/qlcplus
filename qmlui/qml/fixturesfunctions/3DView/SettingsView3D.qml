@@ -246,6 +246,16 @@ Rectangle
                             suffix: "%"
                             onValueChanged: View3D.smokeAmount = value / 100
                         }
+
+                        // row 4
+                        RobotoText { label: qsTr("Show FPS") }
+                        CustomCheckBox
+                        {
+                            implicitHeight: UISettings.listItemHeight
+                            implicitWidth: implicitHeight
+                            onToggled: View3D.frameCountEnabled = checked
+                        }
+
                     } // GridLayout
             } // SectionBox - Rendering
 
@@ -549,7 +559,7 @@ Rectangle
                     visible: false
                     title: qsTr("Select a mesh file")
                     folder: View3D.meshDirectory
-                    nameFilters: [ qsTr("3D files") + " (*.obj *.dae *.3ds)", qsTr("All files") + " (*)" ]
+                    nameFilters: [ qsTr("3D files") + " (*.obj *.dae *.3ds *.py *.stl *.blend)", qsTr("All files") + " (*)" ]
 
                     onAccepted: View3D.createGenericItem(fileUrl, -1)
                 }

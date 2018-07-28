@@ -247,6 +247,7 @@ Rectangle
         id: searchRect
         clip: true
         visible: fixtureBrowser.searchFilter.length >= 3 ? true : false
+        boundsBehavior: Flickable.StopAtBounds
 
         contentHeight: searchColumn.height
 

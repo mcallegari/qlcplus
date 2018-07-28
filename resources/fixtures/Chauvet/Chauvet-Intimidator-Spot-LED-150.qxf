@@ -43,7 +43,7 @@
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="3" Preset="ShutterClose">Blackout</Capability>
   <Capability Min="4" Max="7" Preset="ShutterOpen">Open</Capability>
-  <Capability Min="8" Max="215" Preset="StrobeFreqRange" Res1="1" Res2="20">Stobe (0-20Hz)</Capability>
+  <Capability Min="8" Max="215" Preset="StrobeFreqRange" Res1="0" Res2="20">Stobe (0-20Hz)</Capability>
   <Capability Min="216" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>

@@ -189,7 +189,7 @@ void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVar
         Function *f = qobject_cast<Function*>(m_currentShow);
         if (m_doc->addFunction(f) == false)
         {
-            qDebug() << "Error in creating a new Show !";
+            qDebug() << "Error in creating a new Show!";
             m_currentShow = NULL;
             return;
         }
@@ -213,7 +213,7 @@ void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVar
     {
         if (trackIdx >= m_currentShow->tracks().count())
         {
-            qDebug() << "Track index out of bounds !" << trackIdx;
+            qDebug() << "Track index out of bounds!" << trackIdx;
             return;
         }
         selectedTrack = m_currentShow->tracks().at(trackIdx);
@@ -337,6 +337,8 @@ bool ShowManager::checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int n
         srcTrack->removeShowFunction(sf, false);
         dstTrack->addShowFunction(sf);
     }
+
+    m_doc->setModified();
 
     return true;
 }

@@ -68,10 +68,10 @@ public:
     Q_INVOKABLE int itemIDAtPos(QPointF pos);
 
     /** Update the fixture preview items when some channels have changed */
-    void updateFixture(Fixture *fixture);
+    void updateFixture(Fixture *fixture, QByteArray &previous);
 
     /** Update a single fixture item for a specific Fixture ID, head index and linked index */
-    void updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 linkedIndex);
+    void updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 linkedIndex, QByteArray &previous);
 
     /** Update the selection status of a list of Fixture item IDs */
     void updateFixtureSelection(QList<quint32>fixtures);

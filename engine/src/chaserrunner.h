@@ -125,7 +125,7 @@ public:
     int currentStepIndex() const;
 
     /**
-     * Compute next step for manual fading 
+     * Compute next step for manual fading
      */
     int computeNextStep(int currentStepIndex) const;
 

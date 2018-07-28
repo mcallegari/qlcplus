@@ -104,7 +104,7 @@ void AlsaMidiOutputDevice::writeChannel(ushort channel, uchar value)
     if (channel < ushort(m_universe.size()) && m_universe[channel] != scaled)
     {
         QByteArray tmp(m_universe);
-        
+
         for (uchar ch = 0; ch < MAX_MIDI_DMX_CHANNELS && ch < tmp.size(); ++ch)
         {
            char midi = tmp[ch];

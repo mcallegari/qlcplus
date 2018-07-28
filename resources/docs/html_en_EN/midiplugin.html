@@ -14,7 +14,7 @@
 This plugin gives input/output support for the <a href="http://en.wikipedia.org/wiki/MIDI">MIDI protocol</a>
 and gives the user freedom to control typical parameters like channels, Notes, Program Change and Control Change.<br>
 
-The MIDI plugin can be quite powerful used in combination with MIDI devices such as keyboards, MIDI controllers 
+The MIDI plugin can be quite powerful used in combination with MIDI devices such as keyboards, MIDI controllers
 (like Behringer BCF2000 or KORG nanoKONTROL) or a software audio sequencer like Cubase or Ardour 3.<br>
 The usage can vary from fader-to-fader control (the BCF2000 case) to sequence triggering for synchronized
 shows (metronome controlled gigs using an audio sequencer)
@@ -23,17 +23,17 @@ shows (metronome controlled gigs using an audio sequencer)
 <H1 id="configuration">Configuration</H1>
 
 <P>
-When you click on the configuration button <IMG SRC="qrc:/configure.png" ALIGN="absmiddle"> a window will appear, 
+When you click on the configuration button <IMG SRC="qrc:/configure.png" ALIGN="absmiddle"> a window will appear,
 showing all the MIDI input and output lines detected.<br>
 Each line has three options that can be changed depending on your needs:
 <ul>
  <li><b id="midi-channel">MIDI Channel</b>: This is the channel where QLC+ will receive or send data through the MIDI system. MIDI channels can go
      from 1 to 16. The special "1-16" channel will tell QLC+ to receive or send data on any MIDI channel.
  </li>
- <li><b>Mode</b>: This is the MIDI mode that QLC+ will use to send data through the MIDI system. 
+ <li><b>Mode</b>: This is the MIDI mode that QLC+ will use to send data through the MIDI system.
      This parameter can assume three possible values:
      <ul>
-      <li><b>Note velocity</b>: in this mode, QLC+ will send data using MIDI notes velocity. MIDI notes can go from 21 (A0) to 108 (C8) and 
+      <li><b>Note velocity</b>: in this mode, QLC+ will send data using MIDI notes velocity. MIDI notes can go from 21 (A0) to 108 (C8) and
           each note can have a velocity going from 0 to 127, which will be doubled inside QLC+ to match the DMX range (0-255).
       </li>
       <li><b>Control Change</b>: this is one of the MIDI protocol messages (like Program Change) frequently used by MIDI controllers.
@@ -46,7 +46,7 @@ Each line has three options that can be changed depending on your needs:
       </li>
      </ul>
  </li>
- <li><b>Initialization message</b>: This is a list of presets (templates) containing the intialization message 
+ <li><b>Initialization message</b>: This is a list of presets (templates) containing the intialization message
         that QLC+ will send when opening a MIDI device before using it. A detailed explanation of this functionality
         is written below.
  </li>
@@ -58,7 +58,7 @@ Each line has three options that can be changed depending on your needs:
 The MIDI plugin is one of the QLC+ plugins supporting feedbacks. When QLC+ detects a MIDI device with an output line, it will
 enable the feedback check box in the <A HREF="file:howto-input-output-mapping.html">Input/Output panel</A>. Please note that output
 and feedback are exclusive, so they cannot both be used at the same time.<br>
-If your MIDI device supports a return channel, QLC+ can send a visual/mechanical feedback to it. 
+If your MIDI device supports a return channel, QLC+ can send a visual/mechanical feedback to it.
 Devices such as the Behringer BCF2000 support this feature.
 This is very useful during live shows to have immediate knowledge of the current state of faders mapped in QLC+.<br><br>
 
@@ -73,7 +73,7 @@ Let's look at some examples:
 <H1 id="korg-nanopad">KORG nanoPAD X Axis</H1>
 <P>
 For unknown reasons, the nanoPAD factory defaults don't map the X Axis of the pad area.
-To have it fully working with QLC+, please download the KORG utility (Windows and OSX only) from 
+To have it fully working with QLC+, please download the KORG utility (Windows and OSX only) from
 <A HREF="http://www.korg.com/SupportPage.aspx?productid=415">here</A> and set the X Axis to CC2 (Control Change #2).
 </P>
 
@@ -105,7 +105,7 @@ the result will be: Function Off -> red LED, Function On -> green LED.
 <H1 id="midi-beat-clock">MIDI beat clock</H1>
 <P>
 Starting from version 4.5.0, QLC+ supports the <A HREF="http://en.wikipedia.org/wiki/MIDI_beat_clock">MIDI beat clock</A><br>
-Not to be confused with the <A HREF="http://en.wikipedia.org/wiki/MIDI_timecode">MIDI timecode</A>, the MIDI beat clock is 
+Not to be confused with the <A HREF="http://en.wikipedia.org/wiki/MIDI_timecode">MIDI timecode</A>, the MIDI beat clock is
 a useful signal to sync BPM-based devices such as a drum machine with your lights controlled by QLC+.<BR>
 Two special MIDI channels have been mapped in QLC+ to control your <A HREF="file:virtualconsole.html">Virtual Console</A> widgets
 with a beat clock.<BR>

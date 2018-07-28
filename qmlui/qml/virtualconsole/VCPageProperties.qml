@@ -164,7 +164,7 @@ Rectangle
             {
                 id: deletePagePopup
                 title: qsTr("Delete page")
-                message: qsTr("Are you sure you want to delete the selected page ?")
+                message: qsTr("Are you sure you want to delete the selected page?")
                 onAccepted: virtualConsole.deletePage(virtualConsole.selectedPage)
             }
         }

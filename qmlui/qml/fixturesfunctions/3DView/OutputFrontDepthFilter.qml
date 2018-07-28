@@ -21,8 +21,8 @@
 import Qt3D.Core 2.0
 import Qt3D.Render 2.0
 
-import QtQuick 2.0    
-                    
+import QtQuick 2.0
+
 // Lights pass technique
 TechniqueFilter
 {
@@ -43,7 +43,7 @@ TechniqueFilter
         ]
         LayerFilter
         {
-            
+
             layers: outputDepthLayer
             RenderTargetSelector
             {
@@ -51,15 +51,15 @@ TechniqueFilter
                 ClearBuffers
                 {
                     buffers: ClearBuffers.ColorBuffer
-            
+
                      RenderPassFilter
                      {
                          matchAny: FilterKey { name: "pass"; value: "output_depth" }
                      }
                 }
-            
+
             }
         }
     }
 } // TechniqueFilter
-                    
+

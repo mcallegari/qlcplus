@@ -389,7 +389,11 @@
         </widget>
        </item>
        <item>
-        <widget class="QDoubleSpinBox" name="m_val1Spin"/>
+        <widget class="QDoubleSpinBox" name="m_val1Spin">
+         <property name="maximum">
+          <double>999.990000000000009</double>
+         </property>
+        </widget>
        </item>
        <item>
         <widget class="QLabel" name="m_val2Label">
@@ -399,7 +403,11 @@
         </widget>
        </item>
        <item>
-        <widget class="QDoubleSpinBox" name="m_val2Spin"/>
+        <widget class="QDoubleSpinBox" name="m_val2Spin">
+         <property name="maximum">
+          <double>999.990000000000009</double>
+         </property>
+        </widget>
        </item>
        <item>
         <spacer name="horizontalSpacer">

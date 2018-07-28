@@ -162,7 +162,7 @@ private:
     /** List of currently registered DMX sources */
     QList <DMXSource*> m_dmxSourceList;
 
-    /** Mutex that guards access to m_dmxSourceList 
+    /** Mutex that guards access to m_dmxSourceList
      *
      * In case both m_functionListMutex and m_dmxSourceListMutex are needed,
      * always lock m_functionListMutex first!

@@ -191,7 +191,7 @@
   <Capability Min="170" Max="219">Zoom 18° with focus correction</Capability>
   <Capability Min="220" Max="255">Zoom 22° with focus correction</Capability>
  </Channel>
- <Channel Name="Iris Fine" Preset="BeamIrisFine"/>
+ <Channel Name="Iris Fine" Preset="ShutterIrisFine"/>
  <Channel Name="Iris">
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="0">Open</Capability>

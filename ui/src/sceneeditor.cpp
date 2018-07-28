@@ -624,7 +624,7 @@ void SceneEditor::slotPositionTool()
                      {
                         v += qreal(fc->value(panLsbChannel)) / qreal(256);
                      }
- 
+
                      pos.setX(v);
                  }
              }
@@ -640,7 +640,7 @@ void SceneEditor::slotPositionTool()
                      {
                         v += qreal(fc->value(tiltLsbChannel)) / qreal(256);
                      }
- 
+
                      pos.setY(v);
                  }
              }
@@ -1113,7 +1113,7 @@ bool SceneEditor::isPositionToolAvailable()
                 return true;
             if (fxi->channelNumber(QLCChannel::Tilt, QLCChannel::MSB, i) != QLCChannel::invalid())
                 return true;
-        } 
+        }
     }
 
     GroupsConsole* gc = groupConsoleTab(m_currentTab);

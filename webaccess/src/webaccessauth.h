@@ -102,7 +102,7 @@ public:
      * where:
      *   - passwordHash is SHA256 hash of user's passsword
      *   - userLevel is an integer
-     * 
+     *
      * Note: duplicate usernames will be silently skipped
      *       (the last entry in file will be used)
      */
@@ -144,7 +144,7 @@ public:
      * Removes user from password table if it exists.
      */
     void deleteUser(const QString& username);
-    
+
     QList<WebAccessUser> getUsers() const;
 
 private:

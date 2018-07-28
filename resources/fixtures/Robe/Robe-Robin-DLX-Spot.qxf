@@ -237,7 +237,7 @@
   <Capability Min="234" Max="255">Ramping from fast to slow</Capability>
  </Channel>
  <Channel Name="Rotating Gobo Indexing/Rotation Fine" Preset="GoboIndexFine"/>
- <Channel Name="Iris - Fine" Preset="BeamIrisFine"/>
+ <Channel Name="Iris - Fine" Preset="ShutterIrisFine"/>
  <Channel Name="Focus" Preset="BeamFocusFarNear"/>
  <Channel Name="Focus - Fine">
   <Group Byte="1">Beam</Group>

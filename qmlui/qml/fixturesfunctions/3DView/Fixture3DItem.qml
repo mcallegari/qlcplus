@@ -44,7 +44,8 @@ Entity
     /* **************** Pan/Tilt properties **************** */
     property real panMaxDegrees: 360
     property real tiltMaxDegrees: 270
-    property real totalDuration: 4000 // in milliseconds
+    property real panSpeed: 4000 // in milliseconds
+    property real tiltSpeed: 4000 // in milliseconds
 
     property real panRotation: 0
     property real tiltRotation: 0
@@ -61,7 +62,7 @@ Entity
     /* **************** Rendering quality properties **************** */
     property bool useScattering: View3D.renderQuality === MainView3D.LowQuality ? false : true
     property bool useShadows: View3D.renderQuality === MainView3D.LowQuality ? false : true
-    property int raymarchSteps: 
+    property int raymarchSteps:
     {
         switch(View3D.renderQuality)
         {
@@ -80,7 +81,7 @@ Entity
     property real coneBottomRadius: distCutoff * Math.tan(cutoffAngle) + coneTopRadius
     property real coneTopRadius: (0.24023 / 2) * transform.scale3D.x * 0.7 // (diameter / 2) * scale * magic number
 
-    property real headLength: 
+    property real headLength:
     {
         switch(meshType)
         {
@@ -95,15 +96,16 @@ Entity
     /* ****** These are bound to uniforms in ScreenQuadEntity ***** */
 
     property int lightIndex
-    property real lightIntensity: 1.0
-    property real intensityOrigValue: lightIntensity
+    property real lightIntensity: dimmerValue * shutterValue
+    property real dimmerValue: 0
+    property real shutterValue: 1.0
     property color lightColor: Qt.rgba(0, 0, 0, 1)
     property vector3d lightPos: Qt.vector3d(0, 0, 0)
     property vector3d lightDir: Math3D.getLightDirection(transform, panTransform, tiltTransform)
 
     /* ********************** Light matrices ********************** */
     property matrix4x4 lightMatrix
-    property matrix4x4 lightViewMatrix: 
+    property matrix4x4 lightViewMatrix:
         Math3D.getLightViewMatrix(lightMatrix, panRotation, tiltRotation, lightPos)
     property matrix4x4 lightProjectionMatrix:
         Math3D.getLightProjectionMatrix(distCutoff, coneBottomRadius, coneTopRadius, headLength, cutoffAngle)
@@ -141,7 +143,7 @@ Entity
             panAnim.stop()
             panAnim.from = panRotation
             panAnim.to = (panMaxDegrees / 0xFFFF) * pan
-            panAnim.duration = Math.max((totalDuration / panMaxDegrees) * Math.abs(panAnim.to - panAnim.from), 300)
+            panAnim.duration = Math.max((panSpeed / panMaxDegrees) * Math.abs(panAnim.to - panAnim.from), 300)
             panAnim.start()
         }
 
@@ -152,12 +154,20 @@ Entity
             var degTo = parseInt(((tiltMaxDegrees / 0xFFFF) * tilt) - (tiltMaxDegrees / 2))
             //console.log("Tilt to " + degTo + ", max: " + tiltMaxDegrees)
             tiltAnim.to = -degTo
-            tiltAnim.duration = Math.max((totalDuration / tiltMaxDegrees) * Math.abs(tiltAnim.to - tiltAnim.from), 300)
+            tiltAnim.duration = Math.max((tiltSpeed / tiltMaxDegrees) * Math.abs(tiltAnim.to - tiltAnim.from), 300)
             tiltAnim.start()
         }
     }
 
-    function setFocus(value)
+    function setPositionSpeed(panDuration, tiltDuration)
+    {
+        if (panDuration !== -1)
+            panSpeed = panDuration
+        if (tiltDuration !== -1)
+            tiltSpeed = tiltDuration
+    }
+
+    function setZoom(value)
     {
         cutoffAngle = (((((focusMaxDegrees - focusMinDegrees) / 255) * value) + focusMinDegrees) / 2) * (Math.PI / 180)
     }
@@ -176,12 +186,11 @@ Entity
         switch(type)
         {
             case QLCCapability.ShutterOpen:
-                lightIntensity = intensityOrigValue
+                shutterValue = 1.0
             break;
 
             case QLCCapability.ShutterClose:
-                intensityOrigValue = lightIntensity
-                lightIntensity = 0
+                shutterValue = 0
             break;
 
             case QLCCapability.StrobeFastToSlow:
@@ -230,19 +239,19 @@ Entity
 
         shadingCone.coneLayer = shadingLayer
         shadingCone.coneEffect = shadingEffect
-        shadingCone.coneMaterial.bindFixture(fixtureEntity)
+        shadingCone.coneMaterial.fxItem = fixtureEntity
         shadingCone.parent = sceneEntity
         shadingCone.spotlightConeMesh = sceneEntity.coneMesh
 
         scatteringCone.coneLayer = scatteringLayer
         scatteringCone.coneEffect = scatteringEffect
-        scatteringCone.coneMaterial.bindFixture(fixtureEntity)
+        scatteringCone.coneMaterial.fxItem = fixtureEntity
         scatteringCone.parent = sceneEntity
         scatteringCone.spotlightConeMesh = sceneEntity.coneMesh
 
         outDepthCone.coneLayer = depthLayer
         outDepthCone.coneEffect = depthEffect
-        outDepthCone.coneMaterial.bindFixture(fixtureEntity)
+        outDepthCone.coneMaterial.fxItem = fixtureEntity
         outDepthCone.parent = sceneEntity
         outDepthCone.spotlightConeMesh = sceneEntity.coneMesh
     }
@@ -262,14 +271,14 @@ Entity
     }
 
     // strobe/pulse effect
-    QQ2.SequentialAnimation on lightIntensity
-    {   
+    QQ2.SequentialAnimation on shutterValue
+    {
         id: shutterAnim
         running: false
         loops: QQ2.Animation.Infinite
-        QQ2.NumberAnimation { id: inPhase; from: 0; to: intensityOrigValue; duration: 0; easing.type: Easing.Linear }
-        QQ2.NumberAnimation { id: highPhase; from: intensityOrigValue; to: intensityOrigValue; duration: 200; easing.type: Easing.Linear }
-        QQ2.NumberAnimation { id: outPhase; from: intensityOrigValue; to: 0; duration: 0; easing.type: Easing.Linear }
+        QQ2.NumberAnimation { id: inPhase; from: 0; to: 1.0; duration: 0; easing.type: Easing.Linear }
+        QQ2.NumberAnimation { id: highPhase; from: 1.0; to: 1.0; duration: 200; easing.type: Easing.Linear }
+        QQ2.NumberAnimation { id: outPhase; from: 1.0; to: 0; duration: 0; easing.type: Easing.Linear }
         QQ2.NumberAnimation { id: lowPhase; from: 0; to: 0; duration: 800; easing.type: Easing.Linear }
     }
 
@@ -302,8 +311,33 @@ Entity
             ] // outputs
         }
 
+    /* **************** Gobo properties **************** */
     property Texture2D goboTexture: Texture2D { }
-    property Transform transform: Transform { }
+    property real goboRotation: 0
+
+    function setGoboSpeed(cw, speed)
+    {
+        //console.log("Gobo clockwise: " + (cw ? "yes" : "no") + " speed: " + speed)
+        goboAnim.stop()
+        goboAnim.from = cw ? 0 : 359
+        goboAnim.to = cw ? 359 : 0
+        if (speed !== 0)
+        {
+            goboAnim.duration = speed
+            goboAnim.restart()
+        }
+    }
+
+    QQ2.NumberAnimation on goboRotation
+    {
+        id: goboAnim
+        running: false
+        duration: 0
+        easing.type: Easing.Linear
+        from: 0
+        to: 360
+        loops: QQ2.Animation.Infinite
+    }
 
     /* Cone meshes used for scattering. These get re-parented to a head mesh via setupScattering */
     SpotlightConeEntity { id: shadingCone }
@@ -320,6 +354,9 @@ Entity
                 View3D.initializeFixture(itemID, fixtureEntity, eSceneLoader)
         }
     }
+
+    /* Main transform of the whole fixture item */
+    property Transform transform: Transform { }
 
     ObjectPicker
     {

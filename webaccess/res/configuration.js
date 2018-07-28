@@ -1,7 +1,7 @@
 /*
   Q Light Controller Plus
   configuration.js
-  
+
   Copyright (c) Bartosz Grabias
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -34,7 +34,7 @@ function authChangeUser(username)
   } else {
     websocket.send("QLC+AUTH|SET_USER_LEVEL|" + username + "|" + newLevelElement.value);
   }
-  
+
   newPasswordElement.value = "";
 }
 
@@ -58,7 +58,7 @@ function authAddUser(trChangeUser, trDeleteUser, trFieldsRequired, trNewPassword
   if(! username || ! passwordElement.value) {
     return alert(trFieldsRequired);
   }
-  
+
   websocket.send("QLC+AUTH|ADD_USER|" + username + "|" + passwordElement.value + "|" + level);
 
   var tableElement = document.getElementById("auth-passwords-table");
@@ -72,12 +72,12 @@ function authAddUser(trChangeUser, trDeleteUser, trFieldsRequired, trNewPassword
   var actionsCell  = row.insertCell(3);
 
   usernameCell.innerText = username;
-  
+
   var passwordInput = document.createElement("input");
   passwordInput.type = "password";
   passwordInput.id = "auth-password-" + username;
   passwordInput.placeholder = trNewPasswordPlaceholder;
-  
+
   passwordCell.appendChild(passwordInput);
 
   var levelInput = document.createElement("select");
@@ -88,7 +88,7 @@ function authAddUser(trChangeUser, trDeleteUser, trFieldsRequired, trNewPassword
     option.value = l.value;
     option.innerText = l.innerText;
     option.selected = (l.value === level);
-    
+
     levelInput.appendChild(option);
   }
 
@@ -103,7 +103,7 @@ function authAddUser(trChangeUser, trDeleteUser, trFieldsRequired, trNewPassword
   var deleteUserButton = document.createElement("button");
   deleteUserButton.onclick = function() { authDeleteUser(username); };
   deleteUserButton.innerText = trDeleteUser;
-  
+
   actionsCell.appendChild(deleteUserButton);
 
   // Reset new user form

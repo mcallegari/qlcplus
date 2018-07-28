@@ -295,7 +295,7 @@ void ClickAndGoWidget::setupPresetPicker()
         m_cellWidth = screen.width() / m_cols;
         m_width = m_cellWidth * m_cols;
     }
- 
+
     int x = 0;
     int y = 0;
     m_image = QImage(m_width, m_height, QImage::Format_RGB32);
@@ -325,8 +325,8 @@ void ClickAndGoWidget::setupPresetPicker()
         }
         else
             x += m_cellWidth;
-         
-    }  
+
+    }
 }
 
 QSize ClickAndGoWidget::sizeHint() const

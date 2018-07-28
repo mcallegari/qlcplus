@@ -27,7 +27,7 @@ An audio <A HREF="#Functions">function</A> is an object representing an audio
 file stored in a disk.<br>
 QLC+ supports the most common audio formats like Wave, MP3, M4A, Ogg and Flac. It supports
 mono or stereo channels and several sample rates like 44.1KHz, 48KHz, etc...<br>
-Audio functions can be placed in <A HREF="#Chaser">Chaser</A> or in a <A HREF="#Show">Show</A> at the desired time, 
+Audio functions can be placed in <A HREF="#Chaser">Chaser</A> or in a <A HREF="#Show">Show</A> at the desired time,
 using the <A HREF="file:showmanager.html">Show Manager</A> panel.<br>
 Like most of the QLC+ functions, Audio supports fade in and fade out times.<br>
 </P>
@@ -99,8 +99,8 @@ is copied. Only the order and direction are copied to the new one.
 
 <H3 id="ClickAndGo">Click And Go</H3>
 <P>
-Click And Go is a technology that allows the user to quickly access macros and colors 
-in a completely visual way and with just a couple of clicks. This can lead to 
+Click And Go is a technology that allows the user to quickly access macros and colors
+in a completely visual way and with just a couple of clicks. This can lead to
 more efficient live shows and more freedom to choose the desired result very easily.<br>
 So far, three types of widgets are available:
 <UL>
@@ -134,7 +134,7 @@ list of functions is copied.
 <H3 id="DMX">DMX</H3>
 
 <P>
-<a href="http://en.wikipedia.org/wiki/DMX512">DMX</a> is short for 
+<a href="http://en.wikipedia.org/wiki/DMX512">DMX</a> is short for
 <B>D</B>igital <B>M</B>ultiple<B>X</B>. It basically defines
 a whole bunch of properties, protocol, wiring etc. In the case of lighting
 software, it defines the maximum number of channels (512) per universe and the
@@ -317,7 +317,7 @@ heads simultaneously.
 <H3 id="HTP">HTP (Highest Takes Precedence)</H3>
 
 <P>
-HTP is a rule that decides what level is sent to out to a DMX universe by a channel when the channel is being controlled by more than 
+HTP is a rule that decides what level is sent to out to a DMX universe by a channel when the channel is being controlled by more than
 one <A HREF="#Functions">function</A> or Virtual Console widget. Generally, intensity channels obey the HTP rule. This includes generic intensity channels used to control <I>light intensity</I> with dimmers and also channels controlling the intensity of a color, typically in an LED fixture.
 </P>
 <P>
@@ -331,7 +331,7 @@ the same intensity channel. First, you set slider 1 to 50% and then move slider 
 as slider 2 is below 50% nothing happens, but after crossing the 50% level set by slider 1,
 the light intensity increases up to 75%. If you drag slider 2 again towards 0%, the light
 intensity decreases until it reaches the 50% set by slider 1 and stays at 50% until slider 1
-is dragged down. 
+is dragged down.
 </P>
 <P>
 A crossfade between 2 <A HREF="#Scene">Scenes</A>  will replace the HTP levels in the first scene with the HTP levels of the second.
@@ -344,7 +344,7 @@ See also <A HREF="#LTP">LTP</A>.
 <P>
 QLC+ supports a variety of plugins to send and receive data from/to the external world.<br>
 A plugin can be an interface to physical devices (such as DMX adapters or MIDI controllers) or
-to a network protocol (such as <A HREF="file:artnetplugin.html">ArtNet</A>, 
+to a network protocol (such as <A HREF="file:artnetplugin.html">ArtNet</A>,
 <A HREF="file:oscplugin.html">OSC</A> or <A HREF="file:e131plugin.html">E1.31</A>).<br>
 Plugins support input, output or feedback capabilities depending on the device or the protocol they're
 controlling.<BR>
@@ -392,14 +392,14 @@ to groups other than the <B>Intensity</B> group, such as pan, tilt, gobo, strobe
 and other <I>intelligent fixture parameters</I>
 </P>
 <P>
-The LTP rule is simple: the latest level that has been set by a function or a Virtual Console 
-widget gets sent out to the DMX universe. 
+The LTP rule is simple: the latest level that has been set by a function or a Virtual Console
+widget gets sent out to the DMX universe.
 </P>
 <P>
-During a crossfade between <A HREF="#Scene">Scenes</A>, LTP levels will often be changed. 
-This has to be handled with some care as some LTP levels need to jump immediately to a new level, 
-for example, changing from one gobo to another. LTP groups such as pan and tilt, however, might 
-need to change gradually from one level to another during a crossfade. Different timings can be 
+During a crossfade between <A HREF="#Scene">Scenes</A>, LTP levels will often be changed.
+This has to be handled with some care as some LTP levels need to jump immediately to a new level,
+for example, changing from one gobo to another. LTP groups such as pan and tilt, however, might
+need to change gradually from one level to another during a crossfade. Different timings can be
 achieved by combining scenes in a <A HREF="#Collection">Collection</A>. See also <A HREF="#HTP">HTP</A>.
 </P>
 
@@ -494,7 +494,7 @@ A video <A HREF="#Functions">function</A> is an object representing a video file
 stored in a disk or a network URL.<br>
 The supported video formats depends on your Operating System. For example Mac OSX is limited to MOV/MP4 files and
 not much more.<br>
-Video functions can be placed in <A HREF="#Chaser">Chaser</A> or in a <A HREF="#Show">Show</A> at the desired time, 
+Video functions can be placed in <A HREF="#Chaser">Chaser</A> or in a <A HREF="#Show">Show</A> at the desired time,
 using the <A HREF="file:showmanager.html">Show Manager</A> panel.<br>
 </P>
 

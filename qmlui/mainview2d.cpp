@@ -212,7 +212,8 @@ void MainView2D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
     // and finally add the new item to the items map
     m_itemsMap[itemID] = newFixtureItem;
 
-    updateFixture(fixture);
+    QByteArray values;
+    updateFixture(fixture, values);
 }
 
 void MainView2D::setFixtureFlags(quint32 itemID, quint32 flags)
@@ -226,7 +227,7 @@ void MainView2D::setFixtureFlags(quint32 itemID, quint32 flags)
 }
 
 QList<quint32> MainView2D::selectFixturesRect(QRectF rect)
-{   
+{
     QList<quint32>fxList;
 
     if (rect.width() == 0 || rect.height() == 0)
@@ -318,7 +319,7 @@ void MainView2D::slotRefreshView()
     }
 }
 
-void MainView2D::updateFixture(Fixture *fixture)
+void MainView2D::updateFixture(Fixture *fixture, QByteArray &previous)
 {
     if (m_enabled == false || fixture == NULL)
         return;
@@ -327,11 +328,11 @@ void MainView2D::updateFixture(Fixture *fixture)
     {
         quint16 headIndex = m_monProps->fixtureHeadIndex(subID);
         quint16 linkedIndex = m_monProps->fixtureLinkedIndex(subID);
-        updateFixtureItem(fixture, headIndex, linkedIndex);
+        updateFixtureItem(fixture, headIndex, linkedIndex, previous);
     }
 }
 
-void MainView2D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 linkedIndex)
+void MainView2D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 linkedIndex, QByteArray &previous)
 {
     quint32 itemID = FixtureUtils::fixtureItemID(fixture->id(), headIndex, linkedIndex);
     QQuickItem *fxItem = m_itemsMap.value(itemID, NULL);
@@ -367,6 +368,9 @@ void MainView2D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
     for (int headIdx = 0; headIdx < fixture->heads(); headIdx++)
     {
         quint32 headDimmerIndex = fixture->channelNumber(QLCChannel::Intensity, QLCChannel::MSB, headIdx);
+        if (headDimmerIndex == QLCChannel::invalid())
+            headDimmerIndex = fixture->masterIntensityChannel();
+
         //qDebug() << "Head" << headIdx << "dimmer channel:" << mdIndex;
         qreal intValue = 1.0;
         if (headDimmerIndex != QLCChannel::invalid())
@@ -447,32 +451,37 @@ void MainView2D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
             break;
             case QLCChannel::Gobo:
             {
-                if (goboSet)
+                if (goboSet || (previous.count() && value == previous.at(i)))
                     break;
 
-                foreach(QLCCapability *cap, ch->capabilities())
-                {
-                    if (value >= cap->min() && value <= cap->max())
-                    {
-                        QString resName = cap->resource(0).toString();
+                QLCCapability *cap = ch->searchCapability(value);
 
-                        if(resName.isEmpty() == false && resName.endsWith("open.svg") == false)
-                        {
-                            QMetaObject::invokeMethod(fxItem, "setGoboPicture",
-                                    Q_ARG(QVariant, 0),
-                                    Q_ARG(QVariant, resName));
-                            // here we don't look for any other gobos, so if a
-                            // fixture has more than one gobo wheel, the second
-                            // one will be skipped if the first one has been set
-                            // to a non-open gobo
-                            goboSet = true;
-                        }
+                if (cap == NULL)
+                    break;
+
+                if (cap->preset() == QLCCapability::GoboMacro)
+                {
+                    QString resName = cap->resource(0).toString();
+
+                    if (resName.isEmpty() == false && resName.endsWith("open.svg") == false)
+                    {
+                        QMetaObject::invokeMethod(fxItem, "setGoboPicture",
+                                Q_ARG(QVariant, 0),
+                                Q_ARG(QVariant, resName));
+                        // here we don't look for any other gobos, so if a
+                        // fixture has more than one gobo wheel, the second
+                        // one will be skipped if the first one has been set
+                        // to a non-open gobo
+                        goboSet = true;
                     }
                 }
             }
             break;
             case QLCChannel::Shutter:
             {
+                if (previous.count() && value == previous.at(i))
+                    break;
+
                 int high = 200, low = 800;
                 int capPreset = FixtureUtils::shutterTimings(ch, value, high, low);
 

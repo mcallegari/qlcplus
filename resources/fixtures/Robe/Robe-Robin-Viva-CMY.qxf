@@ -282,7 +282,7 @@
   <Capability Min="252" Max="253">Random pulse closing (fast)</Capability>
   <Capability Min="254" Max="255">Random pulse closing (slow)</Capability>
  </Channel>
- <Channel Name="Iris - fine" Preset="BeamIrisFine"/>
+ <Channel Name="Iris - fine" Preset="ShutterIrisFine"/>
  <Channel Name="Zoom">
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="255">Zoom from max. to min.beam angle (128=default)</Capability>

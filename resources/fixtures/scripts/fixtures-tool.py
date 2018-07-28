@@ -22,10 +22,10 @@ def getPresetsArray():
         "IntensityValue", "IntensityValueFine",
         "PositionPan", "PositionPanFine", "PositionTilt", "PositionTiltFine", "PositionXAxis", "PositionYAxis",
         "SpeedPanSlowFast", "SpeedPanFastSlow", "SpeedTiltSlowFast", "SpeedTiltFastSlow", "SpeedPanTiltSlowFast", "SpeedPanTiltFastSlow",
-        "ColorMacro", "ColorWheel", "ColorWheelFine", "ColorRGBMixer", "ColorCTOMixer", "ColorCTBMixer",
+        "ColorMacro", "ColorWheel", "ColorWheelFine", "ColorRGBMixer", "ColorCTOMixer", "ColorCTCMixer", "ColorCTBMixer",
         "GoboWheel", "GoboWheelFine", "GoboIndex", "GoboIndexFine",
-        "ShutterStrobeSlowFast", "ShutterStrobeFastSlow",
-        "BeamFocusNearFar", "BeamFocusFarNear", "BeamIris", "BeamIrisFine", "BeamZoomSmallBig", "BeamZoomBigSmall",
+        "ShutterStrobeSlowFast", "ShutterStrobeFastSlow", "ShutterIrisMinToMax", "ShutterIrisMaxToMin", "ShutterIrisFine"
+        "BeamFocusNearFar", "BeamFocusFarNear", "BeamZoomSmallBig", "BeamZoomBigSmall", "BeamZoomFine",
         "PrismRotationSlowFast", "PrismRotationFastSlow",
         "NoFunction" ]
 
@@ -54,10 +54,10 @@ def printPresets(group):
         pMax = presets.index("GoboIndexFine")
     elif group == "Shutter":
         pMin = presets.index("ShutterStrobeSlowFast")
-        pMax = presets.index("ShutterStrobeFastSlow")
+        pMax = presets.index("ShutterIrisFine")
     elif group == "Beam":
         pMin = presets.index("BeamFocusNearFar")
-        pMax = presets.index("BeamZoomBigSmall")
+        pMax = presets.index("BeamZoomFine")
     elif group == "Prism":
         pMin = presets.index("PrismRotationSlowFast")
         pMax = presets.index("PrismRotationFastSlow")
@@ -218,7 +218,7 @@ def update_fixture(path, filename, destpath):
                 select = raw_input("Replacement preset code (0 = keep) (enter = " + preset + "): ")
                 if select == "":
                     if preset == "":
-                        print "Select an option !"
+                        print "Select an option!"
                     else:
                         break
                 else:
@@ -441,7 +441,7 @@ def validate_fixture(path, filename):
         chCount += 1
 
     if chCount == 0:
-        print absname + ": Invalid fixture. No channels found !"
+        print absname + ": Invalid fixture. No channels found!"
         errNum += 1
 
     ###################################### CHECK MODES ###################################
@@ -488,7 +488,7 @@ def validate_fixture(path, filename):
         modeCount += 1
 
     if modeCount == 0:
-        print absname + ": Invalid fixture. No modes found !"
+        print absname + ": Invalid fixture. No modes found!"
         errNum += 1
 
     ################################ CHECK GLOBAL PHYSICAL ################################

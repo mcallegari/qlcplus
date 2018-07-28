@@ -95,7 +95,7 @@
  </Channel>
  <Channel Name="Gobo 3 Index/Rotation" Preset="GoboIndex"/>
  <Channel Name="Gobo 3 Fine Index/Rotation" Preset="GoboIndexFine"/>
- <Channel Name="Beam Iris" Preset="BeamIris"/>
+ <Channel Name="Beam Iris" Preset="ShutterIrisMaxToMin"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="2">Open</Capability>

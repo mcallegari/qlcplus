@@ -42,7 +42,7 @@ appimage: {
     qtdeps.path = $$INSTALLROOT/$$LIBSDIR
     qtdeps.files = $$QT_LIBS_PATH/libicu*
     INSTALLS += qtdeps
-    
+
     # Qt Libraries
     qtlibs.path  = $$INSTALLROOT/$$LIBSDIR
     qtlibs.files += $$QT_LIBS_PATH/libQt5Core.so.5 \
@@ -98,7 +98,7 @@ appimage: {
     qtaudio.files = $$QT_PLUGINS_PATH/audio/libqtaudio_alsa.so \
                     $$QT_PLUGINS_PATH/audio/libqtmedia_pulse.so
     INSTALLS += qtaudio
-    
+
     qtmedia.path = $$INSTALLROOT/$$LIBSDIR/qt5/plugins/mediaservice
     qtmedia.files = $$QT_PLUGINS_PATH/mediaservice/libgstaudiodecoder.so \
                     $$QT_PLUGINS_PATH/mediaservice/libgstmediaplayer.so
@@ -115,7 +115,7 @@ appimage: {
     sceneparsers.path = $$INSTALLROOT/$$LIBSDIR/qt5/plugins/sceneparsers
     sceneparsers.files = $$QT_PLUGINS_PATH/sceneparsers/libassimpsceneimport.so
     INSTALLS += sceneparsers
-    
+
     geometryloaders.path = $$INSTALLROOT/$$LIBSDIR/qt5/plugins/geometryloaders
     geometryloaders.files = $$QT_PLUGINS_PATH/geometryloaders/libdefaultgeometryloader.so
     INSTALLS += geometryloaders

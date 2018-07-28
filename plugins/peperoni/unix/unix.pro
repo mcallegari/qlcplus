@@ -39,6 +39,6 @@ udev.files = z65-peperoni.rules
 unix:!macx {
    metainfo.path   = $$INSTALLROOT/share/appdata/
    metainfo.files += qlcplus-peperoni.metainfo.xml
-   INSTALLS       += metainfo 
+   INSTALLS       += metainfo
 }
 

@@ -1,7 +1,7 @@
 /*
   Q Light Controller Plus
   utility.js
-  
+
   Copyright (c) Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,7 +21,7 @@
 function replaceqrc()
 {
     var imgs = document.images;
-    for (var i = 0; i < imgs.length; i++)     
+    for (var i = 0; i < imgs.length; i++)
     {
         var src = imgs[i].src;
         imgs[i].src = src.replace("qrc:", "../../icons/png");

@@ -91,7 +91,7 @@ Rectangle
     function setHeadIntensity(headIndex, intensity)
     {
         //console.log("headIdx: " + headIndex + ", int: " + intensity)
-        headsRepeater.itemAt(headIndex).intensity = intensity
+        headsRepeater.itemAt(headIndex).dimmerValue = intensity
     }
 
     function setHeadRGBColor(headIndex, color)
@@ -153,8 +153,9 @@ Rectangle
                 Rectangle
                 {
                     id: headDelegate
-                    property real intensity: 0.0
-                    property real intensityOrigValue: intensity
+                    property real intensity: dimmerValue * shutterValue
+                    property real dimmerValue: 0
+                    property real shutterValue: 1.0
                     property bool isWheelColor: false
                     property color headColor1: "black"
                     property color headColor2: "black"
@@ -169,7 +170,7 @@ Rectangle
 
                     function setShutter(type, low, high)
                     {
-                        console.log("Shutter " + low + ", " + high)
+                        //console.log("Shutter " + low + ", " + high)
                         shutterAnim.stop()
                         inPhase.duration = 0
                         inPhase.easing.type = Easing.Linear
@@ -181,12 +182,11 @@ Rectangle
                         switch(type)
                         {
                             case QLCCapability.ShutterOpen:
-                                intensity = intensityOrigValue
+                                shutterValue = 1.0
                             break;
 
                             case QLCCapability.ShutterClose:
-                                intensityOrigValue = intensity
-                                intensity = 0
+                                shutterValue = 0
                             break;
 
                             case QLCCapability.StrobeFastToSlow:
@@ -247,14 +247,14 @@ Rectangle
                     }
 
                     // strobe/pulse effect
-                    SequentialAnimation on intensity
+                    SequentialAnimation on shutterValue
                     {
                         id: shutterAnim
                         running: false
                         loops: Animation.Infinite
-                        NumberAnimation { id: inPhase; from: 0; to: intensityOrigValue; duration: 0; easing.type: Easing.Linear }
-                        NumberAnimation { id: highPhase; from: intensityOrigValue; to: intensityOrigValue; duration: 200; easing.type: Easing.Linear }
-                        NumberAnimation { id: outPhase; from: intensityOrigValue; to: 0; duration: 0; easing.type: Easing.Linear }
+                        NumberAnimation { id: inPhase; from: 0; to: 1.0; duration: 0; easing.type: Easing.Linear }
+                        NumberAnimation { id: highPhase; from: 1.0; to: 1.0; duration: 200; easing.type: Easing.Linear }
+                        NumberAnimation { id: outPhase; from: 1.0; to: 0; duration: 0; easing.type: Easing.Linear }
                         NumberAnimation { id: lowPhase; from: 0; to: 0; duration: 800; easing.type: Easing.Linear }
                     }
                 }

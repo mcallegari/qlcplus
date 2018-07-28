@@ -34,7 +34,7 @@ function compile {
     else
       FILELIST=$(find . -name $INPUT_NAME -not -path "./qmlui/*")
     fi
-    echo $FILELIST
+    #echo $FILELIST
     $LRELEASE_BIN -silent $FILELIST -qm $OUTPUT_NAME
 }
 

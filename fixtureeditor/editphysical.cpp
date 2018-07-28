@@ -94,19 +94,18 @@ void EditPhysical::slotPasteFromClipboard()
 void EditPhysical::pasteFromClipboard(QLCPhysical clipboard)
 {
     m_bulbLumensSpin->setValue(clipboard.bulbLumens());
+    m_bulbTypeCombo->setEditText(clipboard.bulbType());
+    m_bulbTempCombo->setEditText(QString::number(clipboard.bulbColourTemperature()));
     m_weightSpin->setValue(clipboard.weight());
     m_widthSpin->setValue(clipboard.width());
     m_heightSpin->setValue(clipboard.height());
     m_depthSpin->setValue(clipboard.depth());
+    m_lensNameCombo->setEditText(clipboard.lensName());
     m_lensDegreesMinSpin->setValue(clipboard.lensDegreesMin());
     m_lensDegreesMaxSpin->setValue(clipboard.lensDegreesMax());
+    m_focusTypeCombo->setEditText(clipboard.focusType());
     m_panMaxSpin->setValue(clipboard.focusPanMax());
     m_tiltMaxSpin->setValue(clipboard.focusTiltMax());
     m_powerConsumptionSpin->setValue(clipboard.powerConsumption());
-
-    m_bulbTypeCombo->setEditText(clipboard.bulbType());
-    m_bulbTempCombo->setEditText(QString::number(clipboard.bulbColourTemperature()));
-    m_lensNameCombo->setEditText(clipboard.lensName());
-    m_focusTypeCombo->setEditText(clipboard.focusType());
     m_dmxConnectorCombo->setEditText(clipboard.dmxConnector());
 }

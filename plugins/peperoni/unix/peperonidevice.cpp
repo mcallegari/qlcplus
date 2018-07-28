@@ -363,7 +363,7 @@ void PeperoniDevice::run()
             unsigned short rxslots;
             unsigned char  rxstartcode;
             unsigned int   block;
-            
+
             // read memory blocking if firmware is >= 0x0500
             if (m_firmwareVersion >= PEPERONI_FW_NEW_BULK_SUPPORT)
                 block = 1;
@@ -400,7 +400,7 @@ void PeperoniDevice::run()
                                     0,
                                     0,
                                     (char *)&rxstartcode,
-                                    sizeof(rxstartcode), 
+                                    sizeof(rxstartcode),
                                     10);
                 if (r < 0)
                     qWarning() << "PeperoniDevice" << name(m_baseLine) << "failed to read receiver startcode:" << usb_strerror();
@@ -413,7 +413,7 @@ void PeperoniDevice::run()
                                         0,
                                         0,
                                         (char *)&rxslots,
-                                        sizeof(rxslots), 
+                                        sizeof(rxslots),
                                         10);
                     if (r < 0)
                         qWarning() << "PeperoniDevice" << name(m_baseLine) << "failed to read receiver slot counter:" << usb_strerror();
@@ -424,7 +424,7 @@ void PeperoniDevice::run()
                             rxslots = m_dmxInputBuffer.size();
                             qWarning() << "PeperoniDevice" << name(m_baseLine) << "input frame too long, truncated";
                         }
-                    
+
                         //qDebug() << "[Peperoni] input frame has startcode" << rxstartcode << "and is" << rxslots << "slots long";
 
                         /* only accept DMX512 data */
@@ -526,7 +526,7 @@ void PeperoniDevice::outputDMX(quint32 line, const QByteArray& universe)
     else
     {
         char status[8];
-    
+
         //qDebug() << "New bulk pipe write. Size:" << universe.size();
 
         m_bulkBuffer.clear();
@@ -573,8 +573,8 @@ void PeperoniDevice::outputDMX(quint32 line, const QByteArray& universe)
         {
             qWarning() << "PeperoniDevice" << name(m_baseLine) << "failed 'new' bulk write:" << usb_strerror();
         }
-        else 
-        {                           
+        else
+        {
              r = usb_bulk_read(m_handle,
                                PEPERONI_BULK_IN_ENDPOINT,
                                status,
@@ -585,7 +585,7 @@ void PeperoniDevice::outputDMX(quint32 line, const QByteArray& universe)
                  qWarning() << "PeperoniDevice" << name(m_baseLine) << "failed 'new' bulk read:" << usb_strerror();
              }
         }
-             
+
         if (r < 0)
         {
             qWarning() << "Resetting bulk endpoints.";

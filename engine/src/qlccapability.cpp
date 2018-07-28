@@ -100,6 +100,7 @@ QLCCapability::PresetType QLCCapability::presetType() const
         case PulseFrequency:
         case RampUpFrequency:
         case RampDownFrequency:
+        case PrismEffectOn:
             return SingleValue;
         case StrobeFreqRange:
         case PulseFreqRange:
@@ -116,6 +117,29 @@ QLCCapability::PresetType QLCCapability::presetType() const
             return Picture;
         default: return None;
     }
+}
+
+QString QLCCapability::presetUnits() const
+{
+    switch (m_preset)
+    {
+        case StrobeFrequency:
+        case PulseFrequency:
+        case RampUpFrequency:
+        case RampDownFrequency:
+        case StrobeFreqRange:
+        case PulseFreqRange:
+        case RampUpFreqRange:
+        case RampDownFreqRange:
+            return "Hz";
+        break;
+        case PrismEffectOn:
+            return "Faces";
+        break;
+        default:
+        break;
+    }
+    return QString();
 }
 
 /************************************************************************
@@ -394,13 +418,13 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
         case SingleValue:
         case DoubleValue:
         {
-            float val1 = attrs.value(KXMLQLCCapabilityRes1).toString().toFloat();
-            setResource(0, val1);
+            float value = attrs.value(KXMLQLCCapabilityRes1).toString().toFloat();
+            setResource(0, value);
 
             if (attrs.hasAttribute(KXMLQLCCapabilityRes2))
             {
-                float val2 = attrs.value(KXMLQLCCapabilityRes2).toString().toFloat();
-                setResource(1, val2);
+                value = attrs.value(KXMLQLCCapabilityRes2).toString().toFloat();
+                setResource(1, value);
             }
         }
         break;

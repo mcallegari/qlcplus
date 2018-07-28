@@ -42,7 +42,7 @@ void MonitorFixtureItem_Test::initTestCase()
     QDir dir(INTERNAL_FIXTUREDIR);
     dir.setFilter(QDir::Files);
     dir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
-    QVERIFY(m_doc->fixtureDefCache()->loadMap(dir) == true);  
+    QVERIFY(m_doc->fixtureDefCache()->loadMap(dir) == true);
 }
 
 void MonitorFixtureItem_Test::cleanupTestCase()
@@ -258,7 +258,7 @@ void MonitorFixtureItem_Test::computeAlpha_data()
         << QLCChannel::invalid()
         << 5u
         << 12u;
- 
+
     QTest::newRow("Master dimmer and 4 heads with dimmer")
         << "American DJ"
         << "Event Bar LED"
@@ -266,7 +266,7 @@ void MonitorFixtureItem_Test::computeAlpha_data()
         << 24u
         << 4u
         << 9u;
-        
+
     QTest::newRow("Master dimmer and 3 heads with RGB")
         << "American DJ"
         << "Mega Bar LED"

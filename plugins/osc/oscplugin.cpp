@@ -199,7 +199,7 @@ void OSCPlugin::writeUniverse(quint32 universe, quint32 output, const QByteArray
 
 /*************************************************************************
   * Inputs
-  *************************************************************************/  
+  *************************************************************************/
 QStringList OSCPlugin::inputs()
 {
     QStringList list;

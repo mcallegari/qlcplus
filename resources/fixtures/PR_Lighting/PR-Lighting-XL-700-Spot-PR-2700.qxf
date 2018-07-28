@@ -85,7 +85,7 @@
   <Capability Min="136" Max="231">Macro</Capability>
   <Capability Min="232" Max="255">Minimal</Capability>
  </Channel>
- <Channel Name="Iris Fine" Preset="BeamIrisFine"/>
+ <Channel Name="Iris Fine" Preset="ShutterIrisFine"/>
  <Channel Name="Fixed Gobo Wheel">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="16">Clear</Capability>

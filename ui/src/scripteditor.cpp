@@ -378,7 +378,7 @@ void ScriptEditor::slotAddSystemCommand()
 #if !defined(WIN32) && !defined(Q_OS_WIN)
     if (fInfo.isExecutable() == false)
     {
-        QMessageBox::warning(this, tr("Invalid executable"), tr("Please select an executable file !"));
+        QMessageBox::warning(this, tr("Invalid executable"), tr("Please select an executable file!"));
         return;
     }
 #endif
