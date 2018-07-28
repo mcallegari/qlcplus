@@ -317,7 +317,7 @@ QColor FixtureUtils::blendColors(QColor a, QColor b, float mix)
 
 QColor FixtureUtils::headColor(Fixture *fixture, int headIndex)
 {
-    QColor finalColor;
+    QColor finalColor = Qt::white;
 
     QVector <quint32> rgbCh = fixture->rgbChannels(headIndex);
     if (rgbCh.size() == 3)
