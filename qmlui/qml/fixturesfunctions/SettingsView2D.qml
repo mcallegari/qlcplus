@@ -86,7 +86,7 @@ Rectangle
         }
 
         // row 2
-        RobotoText { label: qsTr("Width") }
+        RobotoText { height: UISettings.listItemHeight; label: qsTr("Width") }
         CustomSpinBox
         {
             height: UISettings.listItemHeight
@@ -103,7 +103,7 @@ Rectangle
         }
 
         // row 3
-        RobotoText { label: qsTr("Height") }
+        RobotoText { height: UISettings.listItemHeight; label: qsTr("Height") }
         CustomSpinBox
         {
             height: UISettings.listItemHeight
@@ -120,7 +120,7 @@ Rectangle
         }
 
         // row 4
-        RobotoText { label: qsTr("Depth") }
+        RobotoText { height: UISettings.listItemHeight; label: qsTr("Depth") }
         CustomSpinBox
         {
             height: UISettings.listItemHeight
@@ -137,7 +137,7 @@ Rectangle
         }
 
         // row 5
-        RobotoText { label: qsTr("Grid units") }
+        RobotoText { height: UISettings.listItemHeight; label: qsTr("Grid units") }
         CustomComboBox
         {
             ListModel
@@ -159,7 +159,7 @@ Rectangle
         }
 
         // row 6
-        RobotoText { label: qsTr("Point of view") }
+        RobotoText { height: UISettings.listItemHeight; label: qsTr("Point of view") }
         CustomComboBox
         {
             ListModel
@@ -200,7 +200,12 @@ Rectangle
         }
 
         // row 8
-        RobotoText { visible: fxPropsVisible; label: qsTr("Rotation") }
+        RobotoText
+        {
+            visible: fxPropsVisible
+            height: UISettings.listItemHeight
+            label: qsTr("Rotation")
+        }
         CustomSpinBox
         {
             id: fxRotSpin
@@ -214,7 +219,12 @@ Rectangle
             onValueChanged: updateRotation(fxRotation.x, value, fxRotation.z)
         }
 
-        RobotoText { visible: fxPropsVisible; label: qsTr("Alignment") }
+        RobotoText
+        {
+            height: UISettings.listItemHeight;
+            visible: fxPropsVisible
+            label: qsTr("Alignment")
+        }
 
         Row
         {
@@ -243,7 +253,12 @@ Rectangle
             }
         }
 
-        RobotoText { visible: fxPropsVisible; label: qsTr("Distribution") }
+        RobotoText
+        {
+            visible: fxPropsVisible
+            height: UISettings.listItemHeight;
+            label: qsTr("Distribution")
+        }
 
         Row
         {

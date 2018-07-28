@@ -114,10 +114,10 @@ Rectangle
                         width: parent.width
                         columns: 2
                         columnSpacing: 5
-                        rowSpacing: 0
+                        rowSpacing: 2
 
                         // row 1
-                        RobotoText { label: qsTr("Type") }
+                        RobotoText { height: UISettings.listItemHeight; label: qsTr("Type") }
                         CustomComboBox
                         {
                             Layout.fillWidth: true
@@ -129,7 +129,7 @@ Rectangle
                         }
 
                         // row 2
-                        RobotoText { label: qsTr("Width") }
+                        RobotoText { height: UISettings.listItemHeight; label: qsTr("Width") }
                         CustomSpinBox
                         {
                             height: UISettings.listItemHeight
@@ -146,7 +146,7 @@ Rectangle
                         }
 
                         // row 3
-                        RobotoText { label: qsTr("Height") }
+                        RobotoText { height: UISettings.listItemHeight; label: qsTr("Height") }
                         CustomSpinBox
                         {
                             height: UISettings.listItemHeight
@@ -163,7 +163,7 @@ Rectangle
                         }
 
                         // row 4
-                        RobotoText { label: qsTr("Depth") }
+                        RobotoText { height: UISettings.listItemHeight; label: qsTr("Depth") }
                         CustomSpinBox
                         {
                             height: UISettings.listItemHeight
@@ -192,7 +192,7 @@ Rectangle
                         width: parent.width
                         columns: 2
                         columnSpacing: 5
-                        rowSpacing: 0
+                        rowSpacing: 2
 
                         Component.onCompleted:
                         {
@@ -201,7 +201,7 @@ Rectangle
                         }
 
                         // row 1
-                        RobotoText { label: qsTr("Quality") }
+                        RobotoText { height: UISettings.listItemHeight; label: qsTr("Quality") }
                         CustomComboBox
                         {
                             Layout.fillWidth: true
@@ -222,7 +222,7 @@ Rectangle
                         }
 
                         // row 2
-                        RobotoText { label: qsTr("Ambient light") }
+                        RobotoText { height: UISettings.listItemHeight; label: qsTr("Ambient light") }
                         CustomSpinBox
                         {
                             id: ambIntSpin
@@ -235,7 +235,7 @@ Rectangle
                         }
 
                         // row 3
-                        RobotoText { label: qsTr("Smoke amount") }
+                        RobotoText { height: UISettings.listItemHeight; label: qsTr("Smoke amount") }
                         CustomSpinBox
                         {
                             id: smokeSpin
@@ -248,7 +248,7 @@ Rectangle
                         }
 
                         // row 4
-                        RobotoText { label: qsTr("Show FPS") }
+                        RobotoText { height: UISettings.listItemHeight; label: qsTr("Show FPS") }
                         CustomCheckBox
                         {
                             implicitHeight: UISettings.listItemHeight
@@ -270,7 +270,7 @@ Rectangle
                         width: parent.width
                         columns: 2
                         columnSpacing: 5
-                        rowSpacing: 0
+                        rowSpacing: 2
 
                         function updatePosition(x, y, z)
                         {
@@ -295,7 +295,13 @@ Rectangle
                         }
 
                         // row 1
-                        RobotoText { width: UISettings.bigItemHeight; textHAlign: Qt.AlignRight; label: "X" }
+                        RobotoText
+                        {
+                            height: UISettings.listItemHeight
+                            width: UISettings.bigItemHeight
+                            textHAlign: Qt.AlignRight
+                            label: "X"
+                        }
                         CustomSpinBox
                         {
                             id: xPosSpin
@@ -310,7 +316,13 @@ Rectangle
                         }
 
                         // row 2
-                        RobotoText { width: UISettings.bigItemHeight; textHAlign: Qt.AlignRight; label: "Y" }
+                        RobotoText
+                        {
+                            height: UISettings.listItemHeight
+                            width: UISettings.bigItemHeight
+                            textHAlign: Qt.AlignRight
+                            label: "Y"
+                        }
                         CustomSpinBox
                         {
                             id: yPosSpin
@@ -325,7 +337,13 @@ Rectangle
                         }
 
                         // row 3
-                        RobotoText { width: UISettings.bigItemHeight; textHAlign: Qt.AlignRight; label: "Z" }
+                        RobotoText
+                        {
+                            height: UISettings.listItemHeight
+                            width: UISettings.bigItemHeight
+                            textHAlign: Qt.AlignRight
+                            label: "Z"
+                        }
                         CustomSpinBox
                         {
                             id: zPosSpin
@@ -353,7 +371,7 @@ Rectangle
                         width: parent.width
                         columns: 2
                         columnSpacing: 5
-                        rowSpacing: 0
+                        rowSpacing: 2
 
                         function updateRotation(x, y, z)
                         {
@@ -378,7 +396,13 @@ Rectangle
                         }
 
                         // row 1
-                        RobotoText { width: UISettings.bigItemHeight; textHAlign: Qt.AlignRight; label: "X" }
+                        RobotoText
+                        {
+                            height: UISettings.listItemHeight
+                            width: UISettings.bigItemHeight
+                            textHAlign: Qt.AlignRight
+                            label: "X"
+                        }
                         CustomSpinBox
                         {
                             id: xRotSpin
@@ -392,7 +416,13 @@ Rectangle
                         }
 
                         // row 2
-                        RobotoText { width: UISettings.bigItemHeight; textHAlign: Qt.AlignRight; label: "Y" }
+                        RobotoText
+                        {
+                            height: UISettings.listItemHeight
+                            width: UISettings.bigItemHeight
+                            textHAlign: Qt.AlignRight
+                            label: "Y"
+                        }
                         CustomSpinBox
                         {
                             id: yRotSpin
@@ -406,7 +436,13 @@ Rectangle
                         }
 
                         // row 3
-                        RobotoText { width: UISettings.bigItemHeight; textHAlign: Qt.AlignRight; label: "Z" }
+                        RobotoText
+                        {
+                            height: UISettings.listItemHeight
+                            width: UISettings.bigItemHeight
+                            textHAlign: Qt.AlignRight
+                            label: "Z"
+                        }
                         CustomSpinBox
                         {
                             id: zRotSpin
@@ -433,7 +469,7 @@ Rectangle
                         width: parent.width
                         columns: 3
                         columnSpacing: 5
-                        rowSpacing: 0
+                        rowSpacing: 2
 
                         function updateScale(x, y, z)
                         {
@@ -455,7 +491,13 @@ Rectangle
                         }
 
                         // row 1
-                        RobotoText { width: UISettings.bigItemHeight; textHAlign: Qt.AlignRight; label: "X" }
+                        RobotoText
+                        {
+                            height: UISettings.listItemHeight
+                            width: UISettings.bigItemHeight
+                            textHAlign: Qt.AlignRight
+                            label: "X"
+                        }
                         CustomSpinBox
                         {
                             id: xScaleSpin
@@ -506,7 +548,13 @@ Rectangle
                         }
 
                         // row 2
-                        RobotoText { width: UISettings.bigItemHeight; textHAlign: Qt.AlignRight; label: "Y" }
+                        RobotoText
+                        {
+                            height: UISettings.listItemHeight
+                            width: UISettings.bigItemHeight
+                            textHAlign: Qt.AlignRight
+                            label: "Y"
+                        }
                         CustomSpinBox
                         {
                             id: yScaleSpin
@@ -526,7 +574,13 @@ Rectangle
                         }
 
                         // row 3
-                        RobotoText { width: UISettings.bigItemHeight; textHAlign: Qt.AlignRight; label: "Z" }
+                        RobotoText
+                        {
+                            height: UISettings.listItemHeight
+                            width: UISettings.bigItemHeight
+                            textHAlign: Qt.AlignRight
+                            label: "Z"
+                        }
                         CustomSpinBox
                         {
                             id: zScaleSpin
@@ -570,7 +624,7 @@ Rectangle
                         width: parent.width
                         spacing: 5
 
-                        RobotoText { label: qsTr("Actions") }
+                        RobotoText { height: UISettings.listItemHeight; label: qsTr("Actions") }
                         IconButton
                         {
                             height: UISettings.iconSizeMedium
