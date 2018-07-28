@@ -1047,11 +1047,6 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
             break;
             case QLCChannel::Colour:
             {
-                // if a fixture has both RGB/CMY and a color wheel
-                // this is where RGB wins over the wheel
-                if (color.isValid() && color.rgb() != 0xFF000000)
-                    break;
-
                 QLCCapability *cap = ch->searchCapability(value);
 
                 if (cap == NULL ||
@@ -1060,7 +1055,7 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                     break;
 
                 if (cap->resource(0).isValid())
-                    color = cap->resource(0).value<QColor>();
+                    color = FixtureUtils::applyColorFilter(color, cap->resource(0).value<QColor>());
             }
             break;
             case QLCChannel::Beam:

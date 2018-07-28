@@ -359,6 +359,14 @@ QColor FixtureUtils::headColor(Fixture *fixture, int headIndex)
     return finalColor;
 }
 
+QColor FixtureUtils::applyColorFilter(QColor source, QColor filter)
+{
+    //qDebug() << "SOURCE" << source << "FILTER" << filter;
+    return QColor(source.redF() * filter.redF() * 255.0,
+                  source.greenF() * filter.greenF() * 255.0,
+                  source.blueF() * filter.blueF() * 255.0);
+}
+
 void FixtureUtils::positionTimings(const QLCChannel *ch, uchar value, int &panDuration, int &tiltDuration)
 {
     panDuration = -1;
