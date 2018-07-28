@@ -1290,8 +1290,6 @@ QString Fixture::status() const
                 .arg(angle2.arg(physical.lensDegreesMin())
                 .arg(physical.lensDegreesMax()));
         }
-        if (physical.prismFaces())
-            info += genInfo.arg(tr("Prism faces")).arg(physical.prismFaces());
 
         // Focus
         QString frange("%1&deg;");

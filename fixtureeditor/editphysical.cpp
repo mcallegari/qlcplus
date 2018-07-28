@@ -41,7 +41,6 @@ EditPhysical::EditPhysical(QLCPhysical physical, QWidget *parent)
     m_lensNameCombo->setEditText(m_physical.lensName());
     m_lensDegreesMinSpin->setValue(m_physical.lensDegreesMin());
     m_lensDegreesMaxSpin->setValue(m_physical.lensDegreesMax());
-    m_prismFacesSpin->setValue(m_physical.prismFaces());
 
     m_focusTypeCombo->setEditText(m_physical.focusType());
     m_panMaxSpin->setValue(m_physical.focusPanMax());
@@ -73,7 +72,6 @@ QLCPhysical EditPhysical::physical()
     m_physical.setLensName(m_lensNameCombo->currentText());
     m_physical.setLensDegreesMin(m_lensDegreesMinSpin->value());
     m_physical.setLensDegreesMax(m_lensDegreesMaxSpin->value());
-    m_physical.setPrismFaces(m_prismFacesSpin->value());
     m_physical.setFocusType(m_focusTypeCombo->currentText());
     m_physical.setFocusPanMax(m_panMaxSpin->value());
     m_physical.setFocusTiltMax(m_tiltMaxSpin->value());
@@ -105,7 +103,6 @@ void EditPhysical::pasteFromClipboard(QLCPhysical clipboard)
     m_lensNameCombo->setEditText(clipboard.lensName());
     m_lensDegreesMinSpin->setValue(clipboard.lensDegreesMin());
     m_lensDegreesMaxSpin->setValue(clipboard.lensDegreesMax());
-    m_prismFacesSpin->setValue(clipboard.prismFaces());
     m_focusTypeCombo->setEditText(clipboard.focusType());
     m_panMaxSpin->setValue(clipboard.focusPanMax());
     m_tiltMaxSpin->setValue(clipboard.focusTiltMax());

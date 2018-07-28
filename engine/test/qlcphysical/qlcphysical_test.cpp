@@ -97,13 +97,6 @@ void QLCPhysical_Test::lensDegreesMax()
     QVERIFY(p.lensDegreesMax() == 40.5);
 }
 
-void QLCPhysical_Test::prismFaces()
-{
-    QVERIFY(p.prismFaces() == 0);
-    p.setPrismFaces(3);
-    QVERIFY(p.prismFaces() == 3);
-}
-
 void QLCPhysical_Test::focusType()
 {
     QVERIFY(p.focusType() == "Fixed");
@@ -150,7 +143,6 @@ void QLCPhysical_Test::copy()
     QVERIFY(c.lensName() == p.lensName());
     QVERIFY(c.lensDegreesMin() == p.lensDegreesMin());
     QVERIFY(c.lensDegreesMax() == p.lensDegreesMax());
-    QVERIFY(c.prismFaces() == p.prismFaces());
     QVERIFY(c.focusType() == p.focusType());
     QVERIFY(c.focusPanMax() == p.focusPanMax());
     QVERIFY(c.focusTiltMax() == p.focusTiltMax());
@@ -186,7 +178,6 @@ void QLCPhysical_Test::load()
     xmlWriter.writeAttribute("Name", "Fresnel");
     xmlWriter.writeAttribute("DegreesMin", "8");
     xmlWriter.writeAttribute("DegreesMax", "38");
-    xmlWriter.writeAttribute("PrismFaces", "5");
     xmlWriter.writeEndElement();
 
     /* Focus */
@@ -227,7 +218,6 @@ void QLCPhysical_Test::load()
     QVERIFY(p.lensName() == "Fresnel");
     QVERIFY(p.lensDegreesMin() == 8);
     QVERIFY(p.lensDegreesMax() == 38);
-    QVERIFY(p.prismFaces() == 5);
     QVERIFY(p.focusType() == "Head");
     QVERIFY(p.focusPanMax() == 520);
     QVERIFY(p.focusTiltMax() == 270);
@@ -332,7 +322,6 @@ void QLCPhysical_Test::save()
             QVERIFY(xmlReader.attributes().value("Name") == "Fresnel");
             QVERIFY(xmlReader.attributes().value("DegreesMin") == "8");
             QVERIFY(xmlReader.attributes().value("DegreesMax") == "38");
-            QVERIFY(xmlReader.attributes().value("PrismFaces") == "5");
         }
         else if (xmlReader.name() == "Focus")
         {

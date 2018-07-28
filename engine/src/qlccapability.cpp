@@ -100,6 +100,7 @@ QLCCapability::PresetType QLCCapability::presetType() const
         case PulseFrequency:
         case RampUpFrequency:
         case RampDownFrequency:
+        case PrismEffectOn:
             return SingleValue;
         case StrobeFreqRange:
         case PulseFreqRange:
@@ -116,6 +117,29 @@ QLCCapability::PresetType QLCCapability::presetType() const
             return Picture;
         default: return None;
     }
+}
+
+QString QLCCapability::presetUnits() const
+{
+    switch (m_preset)
+    {
+        case StrobeFrequency:
+        case PulseFrequency:
+        case RampUpFrequency:
+        case RampDownFrequency:
+        case StrobeFreqRange:
+        case PulseFreqRange:
+        case RampUpFreqRange:
+        case RampDownFreqRange:
+            return "Hz";
+        break;
+        case PrismEffectOn:
+            return "Faces";
+        break;
+        default:
+        break;
+    }
+    return QString();
 }
 
 /************************************************************************

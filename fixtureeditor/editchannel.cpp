@@ -714,11 +714,14 @@ void EditChannel::updateCapabilityPresetGroup(bool show)
             break;
             case QLCCapability::SingleValue:
                 m_val1Spin->setValue(m_currentCapability->resource(0).toFloat());
+                m_val1Spin->setSuffix(m_currentCapability->presetUnits());
                 showValue1 = true;
             break;
             case QLCCapability::DoubleValue:
                 m_val1Spin->setValue(m_currentCapability->resource(0).toFloat());
                 m_val2Spin->setValue(m_currentCapability->resource(1).toFloat());
+                m_val1Spin->setSuffix(m_currentCapability->presetUnits());
+                m_val2Spin->setSuffix(m_currentCapability->presetUnits());
                 showValue1 = true;
                 showValue2 = true;
             break;

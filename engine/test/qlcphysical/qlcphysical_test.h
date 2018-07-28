@@ -40,7 +40,6 @@ private slots:
     void lensName();
     void lensDegreesMin();
     void lensDegreesMax();
-    void prismFaces();
 
     void focusType();
     void focusPanMax();

@@ -733,16 +733,6 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="m_prismLabel">
-        <property name="text">
-         <string>Prism faces</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <widget class="QSpinBox" name="m_prismFacesSpin"/>
-      </item>
      </layout>
     </widget>
    </item>
@@ -759,7 +749,6 @@
   <tabstop>m_lensNameCombo</tabstop>
   <tabstop>m_lensDegreesMinSpin</tabstop>
   <tabstop>m_lensDegreesMaxSpin</tabstop>
-  <tabstop>m_prismFacesSpin</tabstop>
   <tabstop>m_focusTypeCombo</tabstop>
   <tabstop>m_panMaxSpin</tabstop>
   <tabstop>m_tiltMaxSpin</tabstop>

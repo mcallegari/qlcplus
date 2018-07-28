@@ -107,8 +107,6 @@ public:
         FarToNear,
         BigToSmall,
         SmallToBig,
-        EffectOn,
-        EffectOff,
         ShutterOpen,
         ShutterClose,
         StrobeSlowToFast,
@@ -144,6 +142,8 @@ public:
         GoboMacro,
         GoboShakeMacro,
         GenericPicture,
+        PrismEffectOn,
+        PrismEffectOff,
         Alias,
         LastPreset // dummy for cycles
     };
@@ -175,6 +175,9 @@ public:
      *  This is useful for the UI to understand the type
      *  of resources this capability is exposing */
     PresetType presetType() const;
+
+    /** Returns the value unit type of a preset as string */
+    QString presetUnits() const;
 
 protected:
     Preset m_preset;
