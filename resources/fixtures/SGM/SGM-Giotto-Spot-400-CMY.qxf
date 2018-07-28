@@ -72,10 +72,10 @@
  </Channel>
  <Channel Name="Prism">
   <Group Byte="0">Prism</Group>
-  <Capability Min="0" Max="63" Preset="EffectOff">No prism and no frost</Capability>
+  <Capability Min="0" Max="63" Preset="PrismEffectOff">No prism and no frost</Capability>
   <Capability Min="64" Max="127">Frost</Capability>
-  <Capability Min="128" Max="191" Preset="EffectOn">Prism</Capability>
-  <Capability Min="192" Max="255" Preset="EffectOn">Prism and Frost</Capability>
+  <Capability Min="128" Max="191" Preset="PrismEffectOn" Res1="4">Prism</Capability>
+  <Capability Min="192" Max="255" Preset="PrismEffectOn" Res1="4">Prism and Frost</Capability>
  </Channel>
  <Channel Name="Prism rotation">
   <Group Byte="0">Prism</Group>
@@ -239,7 +239,7 @@
  <Physical>
   <Bulb Type="MSR 400W" Lumens="32000" ColourTemperature="6000"/>
   <Dimensions Weight="33" Width="360" Height="743" Depth="412"/>
-  <Lens Name="Other" DegreesMin="9" DegreesMax="22" PrismFaces="4"/>
+  <Lens Name="Other" DegreesMin="9" DegreesMax="22"/>
   <Focus Type="Head" PanMax="540" TiltMax="240"/>
   <Technical PowerConsumption="570" DmxConnector="5-pin"/>
  </Physical>

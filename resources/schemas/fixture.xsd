@@ -229,8 +229,6 @@ elementFormDefault="qualified"
         <xs:enumeration value="FarToNear" />
         <xs:enumeration value="BigToSmall" />
         <xs:enumeration value="SmallToBig" />
-        <xs:enumeration value="EffectOn" />
-        <xs:enumeration value="EffectOff" />
         <xs:enumeration value="ShutterOpen" />
         <xs:enumeration value="ShutterClose" />
         <xs:enumeration value="StrobeSlowToFast" />
@@ -266,6 +264,8 @@ elementFormDefault="qualified"
         <xs:enumeration value="GoboMacro" />
         <xs:enumeration value="GoboShakeMacro" />
         <xs:enumeration value="GenericPicture" />
+        <xs:enumeration value="PrismEffectOn" />
+        <xs:enumeration value="PrismEffectOff" />
         <xs:enumeration value="Alias" />
     </xs:restriction>
 </xs:simpleType>
