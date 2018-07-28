@@ -33,7 +33,7 @@ Rectangle
 
     property string contextName: "3D"
     property alias contextItem: scene3d
-    property real cameraZ: -7.0
+    property alias cameraZ: sceneEntity.cameraZ
 
     Component.onDestruction: if(contextManager) contextManager.enableContext("3D", false, scene3d)
 
@@ -49,7 +49,7 @@ Rectangle
 
     function setZoom(amount)
     {
-        cameraZ += amount
+        cameraZ -= amount
     }
 
     Scene3D

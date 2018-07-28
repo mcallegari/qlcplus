@@ -30,6 +30,7 @@ Entity
     objectName: "sceneRootEntity"
 
     property size viewSize
+    property real cameraZ: 7.5
     readonly property Camera camera: camera
     readonly property Layer deferredLayer: Layer { objectName: "sceneDeferredLayer" }
     readonly property Layer selectionLayer: Layer { objectName: "selectionLayer" }
@@ -60,7 +61,7 @@ Entity
         aspectRatio: viewSize.width / viewSize.height
         nearPlane : 1.0
         farPlane : 1000.0
-        position: Qt.vector3d(0.0, 3.0, 7.5)
+        position: Qt.vector3d(0.0, 3.0, cameraZ)
         upVector: Qt.vector3d(0.0, 1.0, 0.0)
         viewCenter: Qt.vector3d(0.0, 1.0, 0.0)
     }
