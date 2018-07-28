@@ -27,7 +27,7 @@ import Qt3D.Extras 2.0
 Entity
 {
     id: spotlightConeEntity
-    enabled: mtl.fxItem && mtl.fxItem.lightIntensity ? true : false
+    enabled: mtl.fxItem && mtl.fxItem.enabled && mtl.fxItem.lightIntensity ? true : false
     property Effect coneEffect
     property Layer coneLayer: null
     property alias coneMaterial: mtl
