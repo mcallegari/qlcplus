@@ -274,7 +274,7 @@
     <message>
         <location filename="editchannel.ui" line="114"/>
         <source>&lt;font color=&quot;red&quot;&gt;&lt;b&gt;Capability overlapping detected. Please fix.&lt;/b&gt;&lt;/font&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;font color=&quot;red&quot;&gt;&lt;b&gt;Se ha detectado superposición de capacidade. Por favor arreglar.&lt;/b&gt;&lt;/font&gt;</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="198"/>
@@ -284,18 +284,18 @@
     <message>
         <location filename="editchannel.ui" line="240"/>
         <source>Default value</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor por defecto</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="253"/>
         <source>Type</source>
-        <translation type="unfinished">Tipo</translation>
+        <translation>Tipo</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="260"/>
         <location filename="editchannel.ui" line="303"/>
         <source>Preset</source>
-        <translation type="unfinished"></translation>
+        <translation>Preset</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="267"/>
@@ -305,32 +305,32 @@
     <message>
         <location filename="editchannel.ui" line="274"/>
         <source>Role</source>
-        <translation type="unfinished"></translation>
+        <translation>Rol</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="336"/>
         <source>Color 1</source>
-        <translation type="unfinished"></translation>
+        <translation>Color 1</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="360"/>
         <source>Color 2</source>
-        <translation type="unfinished"></translation>
+        <translation>Color 2</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="387"/>
         <source>Value 1</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor 1</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="401"/>
         <source>Value 2</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor 2</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="430"/>
         <source>Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Vista Previa</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="227"/>
@@ -533,12 +533,12 @@
     <message>
         <location filename="editmode.ui" line="330"/>
         <source>Use global settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Usar ajustes globales</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="340"/>
         <source>Override global settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Anular ajustes globales</translation>
     </message>
 </context>
 <context>
@@ -604,7 +604,7 @@
     <message>
         <location filename="editphysical.ui" line="587"/>
         <source>Head(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Cabeza(s)</translation>
     </message>
     <message>
         <location filename="editphysical.ui" line="664"/>
@@ -629,7 +629,7 @@
     <message>
         <location filename="editphysical.ui" line="739"/>
         <source>Prism faces</source>
-        <translation type="unfinished"></translation>
+        <translation>Facetas del prisma</translation>
     </message>
     <message>
         <location filename="editphysical.ui" line="627"/>
@@ -810,58 +810,58 @@
     <message>
         <location filename="fixtureeditor.ui" line="591"/>
         <source>Aliases</source>
-        <translation type="unfinished"></translation>
+        <translation>Alias</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="609"/>
         <source>In mode</source>
-        <translation type="unfinished"></translation>
+        <translation>En modo</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="626"/>
         <source>Add a new alias</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir nuevo alias</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="646"/>
         <source>with</source>
-        <translation type="unfinished"></translation>
+        <translation>con</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="653"/>
         <source>replace</source>
-        <translation type="unfinished"></translation>
+        <translation>reemplazar</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="670"/>
         <location filename="fixtureeditor.ui" line="723"/>
         <source>Alias</source>
-        <translation type="unfinished"></translation>
+        <translation>Alias</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="675"/>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="680"/>
         <source>Base channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Canal Base</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="685"/>
         <source>Override channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Override de canal</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="703"/>
         <source>Remove the currently selected alias</source>
-        <translation type="unfinished"></translation>
+        <translation>Eliminar los alias seleccionados</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="736"/>
         <source>Physical</source>
-        <translation type="unfinished">Físico</translation>
+        <translation>Físico</translation>
     </message>
 </context>
 <context>
