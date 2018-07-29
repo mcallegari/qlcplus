@@ -24,6 +24,7 @@
 #include <QQuickItem>
 #include <QQmlContext>
 #include <QQmlComponent>
+#include <QSvgRenderer>
 
 #include <Qt3DCore/QTransform>
 #include <Qt3DRender/QGeometry>
@@ -1754,6 +1755,7 @@ void MainView3D::setSmokeAmount(float smokeAmount)
 
 GoboTextureImage::GoboTextureImage(int w, int h, QString filename)
 {
+    m_renderer = new QSvgRenderer();
     setSize(QSize(w, h));
     setSource(filename);
 }
@@ -1769,6 +1771,8 @@ void GoboTextureImage::setSource(QString filename)
         return;
 
     m_source = filename;
+    if (m_renderer->load(m_source) == false)
+        qWarning() << "Failed to load SVG gobo" << m_source;
     update();
 }
 
@@ -1777,9 +1781,8 @@ void GoboTextureImage::paint(QPainter *painter)
     int w = painter->device()->width();
     int h = painter->device()->height();
 
-    QIcon goboFile(m_source);
     painter->fillRect(0, 0, w, h, Qt::black);
     painter->setBrush(QBrush(Qt::white));
     painter->drawEllipse(2, 2, w - 4, h - 4);
-    painter->drawPixmap(1, 1, w - 2, h - 2, goboFile.pixmap(QSize(w - 2, h - 2)));
+    m_renderer->render(painter, QRect(1, 1, w - 2, h - 2));
 }

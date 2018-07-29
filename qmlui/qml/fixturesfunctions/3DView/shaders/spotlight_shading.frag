@@ -55,7 +55,7 @@ void main()
     vec3 albedo, normal, position;
     
     vec4 u =  viewProjectionMatrix * vec4(fsPos, 1.0);
-    vec2 uv = (u.xy / u.w)* 0.5 + vec2(0.5);
+    vec2 uv = (u.xy / u.w) * 0.5 + vec2(0.5);
     albedo = SAMPLE_TEX2D(albedoTex, uv).rgb;
     normal = SAMPLE_TEX2D(normalTex, uv).xyz;
     float z = SAMPLE_TEX2D(depthTex, uv).r;
@@ -65,7 +65,7 @@ void main()
     position = temp.xyz;
   
     float shadowMask = 1.0;
-    if(useShadows == 1) {
+    if (useShadows == 1) {
         vec4 p = lightProjectionMatrix * lightViewMatrix * vec4(position.xyz, 1.0);
         float curZ = (p.z / p.w) * 0.5 + 0.5;
         float refZ = SAMPLE_TEX2D(shadowTex, ((p.xy) / p.w) * 0.5 + vec2(0.5)).r;
@@ -73,22 +73,14 @@ void main()
     }
 
     vec4 q = lightViewMatrix * vec4(position.xyz, 1.0);
-    float r = coneTopRadius + (coneBottomRadius - coneTopRadius) * ((abs(q.z)-0.5*headLength) / coneDistCutoff);
-    vec2 tc = (mat2x2(goboRotation.x, goboRotation.y, goboRotation.z, goboRotation.w)*((-q.xy) * (1.0 / r))) * 0.5 + 0.5;
+    float r = coneTopRadius + (coneBottomRadius - coneTopRadius) * ((abs(q.z) - 0.5 * headLength) / coneDistCutoff);
+    vec2 tc = (mat2x2(goboRotation.x, goboRotation.y, goboRotation.z, goboRotation.w) * ((-q.xy) * (1.0 / r))) * 0.5 + 0.5;
 
     vec4 gSample = SAMPLE_TEX2D(goboTex, tc.xy);
     float goboMask = gSample.a * gSample.r;
 
-    //goboMask = 1.0;
-    // disable this for now, since its a bit broken.
-  //  how we will debug this:
-  //  the z values should be in certain interval. check that they are.
-  //  same for xy values.
-    //shadowMask = 1.0;
-        
     vec3 finalColor = shadowMask * goboMask * lightColor * lightIntensity * max(0, dot(normal, -lightDir)) * albedo;
-    
-   MGL_FRAG_COLOR = vec4(finalColor, 1.0);
-  // MGL_FRAG_COLOR = vec4(1.0, 0.0, 0.0, 1.0);
 
+    MGL_FRAG_COLOR = vec4(finalColor, 1.0);
+    //MGL_FRAG_COLOR = vec4(1.0, 0.0, 0.0, 1.0);
 }
