@@ -112,7 +112,7 @@ QTMENU.path = $$INSTALLROOT/$$DATADIR
 INSTALLS += QTMENU
 INSTALLS += $$qt5LibTargetID(LIBQTGUI, QtGui)
 INSTALLS += $$qt5LibTarget(LIBQTNETWORK, QtNetwork) $$qt5LibTargetID(LIBQTNETWORK, QtNetwork)
-INSTALLS += $$qt5LibTarget(LIBQTSCRIPT, QtScript) $$qt5LibTargetID(LIBQTSCRIPT, QtScript)
+!qmlui: INSTALLS += $$qt5LibTarget(LIBQTSCRIPT, QtScript) $$qt5LibTargetID(LIBQTSCRIPT, QtScript)
 
 greaterThan(QT_MAJOR_VERSION, 4) {
   INSTALLS += $$qt5LibTarget(LIBQTWIDGETS, QtWidgets) $$qt5LibTargetID(LIBQTWIDGETS, QtWidgets)
@@ -159,8 +159,10 @@ qtnametool.commands = $$LIBQTCORE_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBQTGUI_DIR/$$LIBQTGUI_FILE
 qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBQTNETWORK_DIR/$$LIBQTNETWORK_FILE
-qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
-    $$INSTALLROOT/$$LIBSDIR/$$LIBQTSCRIPT_DIR/$$LIBQTSCRIPT_FILE
+!qmlui: {
+  qtnametool.commands += && $$LIBQTCORE_INSTALL_NAME_TOOL \
+      $$INSTALLROOT/$$LIBSDIR/$$LIBQTSCRIPT_DIR/$$LIBQTSCRIPT_FILE
+}
 
 # Libftdi depends on libusb0.1 & 1.0
 qtnametool.commands += && $$LIBUSB0_INSTALL_NAME_TOOL \
