@@ -40,6 +40,7 @@
 
 class Doc;
 class Fixture;
+class QSvgRenderer;
 class MonitorProperties;
 
 using namespace Qt3DCore;
@@ -51,13 +52,15 @@ class GoboTextureImage : public Qt3DRender::QPaintedTextureImage
 public:
     GoboTextureImage(int w, int h, QString filename);
 
+    /** Get/set the gobo source to use as texture */
     QString source() const;
-
     void setSource(QString filename);
 
 protected:
     void paint(QPainter *painter);
 
+private:
+    QSvgRenderer *m_renderer;
     QString m_source;
 };
 
