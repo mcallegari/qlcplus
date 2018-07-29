@@ -294,8 +294,6 @@ void ContextManager::setPositionPickPoint(QVector3D point)
     for (quint32 itemID : m_selectedFixtures)
     {
         quint32 fxID = FixtureUtils::itemFixtureID(itemID);
-        quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
-        quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
 
         Fixture *fixture = m_doc->fixture(fxID);
         if (fixture == NULL)
@@ -309,6 +307,8 @@ void ContextManager::setPositionPickPoint(QVector3D point)
             continue;
 
         QVector3D lightPos = m_3DView->lightPosition(itemID);
+        QMatrix4x4 lightMatrix = m_3DView->lightMatrix(itemID);
+        
         lightPos = QVector3D(lightPos.x() + m_monProps->gridSize().x() / 2,
                              lightPos.y(),
                              lightPos.z() + m_monProps->gridSize().z() / 2);
@@ -317,35 +317,38 @@ void ContextManager::setPositionPickPoint(QVector3D point)
 
         if (panMSB != QLCChannel::invalid())
         {
-            bool xLeft = point.x() < lightPos.x();
-            bool zBack = point.z() < lightPos.z();
-            qreal b = qAbs(lightPos.x() - point.x()); // Cathetus
-            qreal c = qAbs(lightPos.z() - point.z()); // Cathetus
+            QVector3D dir = (point - lightPos).normalized();
+
+            // rotate x-axis according to light matrix.
+            QVector3D xa;
+            {
+                QVector4D res = lightMatrix * QVector4D(1.0, 0.0, 0.0, 0.0);
+                xa = QVector3D(res.x(), res.y(), res.z());
+            }
+
+            // rotate z-axis according to light matrix.
+            QVector3D za;
+            {
+                QVector4D res = lightMatrix * QVector4D(0.0, 0.0, 1.0, 0.0);
+                za = QVector3D(res.x(), res.y(), res.z());
+            }
+
+            QVector3D projDirX = QVector3D::dotProduct(dir, xa) * xa; 
+            QVector3D projDirZ = QVector3D::dotProduct(dir, za) * za; 
+
+            qreal b = projDirX.length();
+            qreal c = projDirZ.length();
             qreal panDeg = qRadiansToDegrees(M_PI_2 - qAtan(c / b)); // PI/2 - angle
-
-            if (qAbs(m_monProps->fixtureRotation(fxID, headIndex, linkedIndex).x()) == 180)
-            {
-                if (xLeft && zBack)
-                    panDeg = 90.0 + (90.0 - panDeg);
-                else if(!xLeft && !zBack)
-                    panDeg = 270.0 + (90.0 - panDeg);
-                else if(!xLeft && zBack)
-                    panDeg = 180.0 + panDeg;
-            }
-            else
-            {
-                if (xLeft && !zBack)
-                    panDeg = 90.0 + (90.0 - panDeg);
-                else if(!xLeft && !zBack)
-                    panDeg = 180.0 + panDeg;
-                else if(!xLeft && zBack)
-                    panDeg = 270.0 + (90.0 - panDeg);
-            }
-
-            // subtract the current fixture Y rotation
-            panDeg -= m_monProps->fixtureRotation(fxID, headIndex, linkedIndex).y();
-            if (panDeg < 0)
-                panDeg += 360;
+    
+            bool xLeft = QVector3D::dotProduct(projDirX, xa) < 0.0 ? true : false;
+            bool zBack = QVector3D::dotProduct(projDirZ, za) < 0.0 ? true : false;
+    
+            if (xLeft && !zBack)
+                panDeg = 90.0 + (90.0 - panDeg);
+            else if (!xLeft && !zBack)
+                panDeg = 180.0 + panDeg;
+            else if(!xLeft && zBack)
+                panDeg = 270.0 + (90.0 - panDeg);
 
             qDebug() << "Fixture" << fxID << "pan degrees:" << panDeg;
 
@@ -361,18 +364,27 @@ void ContextManager::setPositionPickPoint(QVector3D point)
 
         if (tiltMSB != QLCChannel::invalid())
         {
-            //bool zBack = point.z() < lightPos.z();
-            qreal b1 = qAbs(lightPos.x() - point.x()); // Cathetus
-            qreal b2 = qAbs(lightPos.z() - point.z()); // Cathetus
-            qreal b = qSqrt(b1 * b1 + b2 * b2); // Hypotenuse
-            qreal c = qAbs(lightPos.y() - point.y()); // Cathetus
-            qreal tiltDeg = qRadiansToDegrees(M_PI_2 - qAtan(c / b)); // PI/2 - angle
+            QVector3D dir = (point - lightPos).normalized();
+            // rotate y-axis according to light matrix.
+            QVector3D ya;
+            {
+                QVector4D res = lightMatrix * QVector4D(0.0, -1.0, 0.0, 0.0);
+                ya = QVector3D(res.x(), res.y(), res.z());
+            }
+
+            qreal tiltDeg =  qRadiansToDegrees(qAcos(QVector3D::dotProduct(dir, ya)) );
+
             QLCPhysical phy = fixture->fixtureMode()->physical();
 
-            if (qAbs(m_monProps->fixtureRotation(fxID, headIndex, linkedIndex).x()) == 180)
-                tiltDeg = qMin((qreal)phy.focusTiltMax(), phy.focusTiltMax() / 2 + (180 - tiltDeg));
-            else
-                tiltDeg = phy.focusTiltMax() / 2 - tiltDeg;
+            // clamp the tilt.
+            if(tiltDeg < 0.0) {
+                tiltDeg = 0.0;
+            }
+            if(tiltDeg > phy.focusTiltMax()/2) {
+                tiltDeg = phy.focusTiltMax()/2;
+            }
+
+            tiltDeg = phy.focusTiltMax() / 2 - tiltDeg;
 
             qDebug() << "Fixture" << fxID << "tilt degrees:" << tiltDeg;
 

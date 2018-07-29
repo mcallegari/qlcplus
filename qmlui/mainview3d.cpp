@@ -583,6 +583,17 @@ QVector3D MainView3D::lightPosition(quint32 itemID)
     return meshRef->m_rootItem->property("lightPos").value<QVector3D>();
 }
 
+QMatrix4x4 MainView3D::lightMatrix(quint32 itemID)
+{
+    SceneItem *meshRef = m_entitiesMap.value(itemID, NULL);
+    if (meshRef == NULL) {
+        qDebug() << "COULD NOT FIND ";
+        return QMatrix4x4();
+    }
+
+    return meshRef->m_rootItem->property("lightMatrix").value<QMatrix4x4>();
+}
+
 void MainView3D::getMeshCorners(QGeometryRenderer *mesh,
                                 QVector3D &minCorner,
                                 QVector3D &maxCorner)
