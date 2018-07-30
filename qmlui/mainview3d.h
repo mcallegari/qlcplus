@@ -227,6 +227,9 @@ public:
     /** Get the Fixture light 3D position for the provided $itemID */
     QVector3D lightPosition(quint32 itemID);
 
+    /** Get the Fixture light matrix for the provided $itemID */
+    QMatrix4x4 lightMatrix(quint32 itemID);
+
 protected:
     /** First time 3D view variables initializations */
     void initialize3DProperties();
