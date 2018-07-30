@@ -27,19 +27,20 @@ addons:
       - qt56multimedia
       - qt56serialport
       - g++-5
+    packages: &qmlui_pkg
+      - *base_pkg
+      - qt510-meta
+      - qt510declarative
+      - qt510quickcontrols2
+      - qt5103d
+      - qt510svg
+      - qt56multimedia
+      - qt56serialport
+      - g++-5
 
 matrix:
   fast_finish: true
   include:
-    - os: linux
-      dist: trusty
-      compiler: gcc
-      env: TASK='compile' QT='qt4'
-      addons:
-        apt:
-          packages:
-           - *base_pkg
-           - libqt4-dev
     - os: linux
       dist: trusty
       compiler: gcc
@@ -51,6 +52,17 @@ matrix:
            - sourceline: 'ppa:beineri/opt-qt562-trusty'
           packages:
            - *qt5_pkg
+    - os: linux
+      dist: trusty
+      compiler: gcc
+      env: TASK='compile' QT='qt5qml'
+      addons:
+        apt:
+          sources:
+           - ubuntu-toolchain-r-test
+           - sourceline: 'ppa:beineri/opt-qt510-trusty'
+          packages:
+           - *qmlui_pkg
     - os: linux
       dist: trusty
       compiler: gcc
@@ -68,13 +80,13 @@ cache:
   apt: true
 
 before_install:
- - if [ "$QT" = "qt4" ]; then export QMAKE=qmake; fi
  - if [ "$QT" = "qt5" ]; then export QMAKE=/opt/qt56/bin/qmake; fi
+ - if [ "$QT" = "qt5qml" ]; then export QMAKE=/opt/qt510/bin/qmake; fi
  - if [ "$TASK" = "coverage" ]; then gem install coveralls-lcov; fi
 #Report the qmake version
  - $QMAKE -v
 #Remove the old g++/gcc to ensure we're using the latest ones
- - if [ "$QT" = "qt5" ] && [ "$CXX" = "g++" ]; then sudo rm /usr/bin/g++; sudo rm /usr/bin/gcc; export CXX="g++-5" CC="gcc-5"; fi
+ - if [ "$CXX" = "g++" ]; then sudo rm /usr/bin/g++; sudo rm /usr/bin/gcc; export CXX="g++-5" CC="gcc-5"; fi
 #Report the compiler version
  - $CXX --version
  # Start xvfb so UI tests don't fail
