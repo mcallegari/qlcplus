@@ -60,7 +60,7 @@ matrix:
         apt:
           sources:
            - ubuntu-toolchain-r-test
-           - sourceline: 'ppa:beineri/opt-qt510-trusty'
+           - sourceline: 'ppa:beineri/opt-qt-5.10.1-trusty'
           packages:
            - *qmlui_pkg
     - os: linux
