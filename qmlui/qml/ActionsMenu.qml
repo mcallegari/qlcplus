@@ -446,6 +446,7 @@ Popup
                         entryText: qsTr("Catalan")
                         onClicked: { qlcplus.setLanguage("ca_ES"); menuRoot.close() }
                     }
+                    /*
                     ContextMenuEntry
                     {
                         imgSource: "qrc:/flag_nl.svg"
@@ -453,6 +454,7 @@ Popup
                         entryText: qsTr("Dutch")
                         onClicked: { qlcplus.setLanguage("nl_NL"); menuRoot.close() }
                     }
+                    */
                     ContextMenuEntry
                     {
                         imgSource: "qrc:/flag_uk_us.svg"
