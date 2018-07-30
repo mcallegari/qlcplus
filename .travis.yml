@@ -26,9 +26,10 @@ addons:
       - qt56script
       - qt56multimedia
       - qt56serialport
-      - g++-5
+      - g++-7
     packages: &qmlui_pkg
       - *base_pkg
+      - libpulse-dev
       - qt510-meta-minimal
       - qt510declarative
       - qt510quickcontrols2
@@ -36,7 +37,7 @@ addons:
       - qt510svg
       - qt510multimedia
       - qt510serialport
-      - g++-5
+      - g++-7
 
 matrix:
   fast_finish: true
@@ -86,8 +87,8 @@ before_install:
 #Report the qmake version
  - $QMAKE -v
 #Remove the old g++/gcc to ensure we're using the latest ones
- - if [ "$CXX" = "g++" ]; then sudo rm /usr/bin/gcc; sudo ln -s /usr/bin/gcc-5 /usr/bin/gcc; fi
- - if [ "$CXX" = "g++" ]; then sudo rm /usr/bin/g++; sudo ln -s /usr/bin/g++-5 /usr/bin/g++; export CXX="g++-5" CC="gcc-5"; fi
+ - if [ "$CXX" = "g++" ]; then sudo rm /usr/bin/gcc; sudo ln -s /usr/bin/gcc-7 /usr/bin/gcc; fi
+ - if [ "$CXX" = "g++" ]; then sudo rm /usr/bin/g++; sudo ln -s /usr/bin/g++-7 /usr/bin/g++; export CXX="g++-7" CC="gcc-7"; fi
 #Report the compiler version
  - $CXX --version
  # Start xvfb so UI tests don't fail
