@@ -1961,8 +1961,8 @@ Access level:</source>
         <oldsource>&gt;
 has request to access this session.
 Access level:</oldsource>
-        <translation type="unfinished">&gt;
-ha pedido acceso a esta sesión.
+        <translation>&gt;
+está pidiendo acceso a esta sesión.
 Nivel de acceso:</translation>
     </message>
     <message>
@@ -2827,7 +2827,7 @@ Nivel de acceso:</translation>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="251"/>
         <source>Show FPS</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar FPS</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="429"/>
