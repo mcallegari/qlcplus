@@ -10,7 +10,7 @@ if [ "$TASK" = "compile" ]; then
     exit $?  
   fi
   if [ "$QT" = "qt5qml" ]; then
-    $QMAKE QMAKE_CXX=$CXX QMAKE_CC=$CC QMAKE_LINK=$CXX QMAKE_LINK_SHLIB=$CXX CONFIG+=qmlui && make && ./unittest.sh
+    $QMAKE QMAKE_CXX=$CXX QMAKE_CC=$CC QMAKE_LINK=$CXX QMAKE_LINK_SHLIB=$CXX CONFIG+=qmlui && make
     exit $?  
   fi  
 fi
