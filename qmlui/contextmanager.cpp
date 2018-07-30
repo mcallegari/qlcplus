@@ -320,18 +320,12 @@ void ContextManager::setPositionPickPoint(QVector3D point)
             QVector3D dir = (point - lightPos).normalized();
 
             // rotate x-axis according to light matrix.
-            QVector3D xa;
-            {
-                QVector4D res = lightMatrix * QVector4D(1.0, 0.0, 0.0, 0.0);
-                xa = QVector3D(res.x(), res.y(), res.z());
-            }
+            QVector4D res = lightMatrix * QVector4D(1.0, 0.0, 0.0, 0.0);
+            QVector3D xa = QVector3D(res.x(), res.y(), res.z());
 
             // rotate z-axis according to light matrix.
-            QVector3D za;
-            {
-                QVector4D res = lightMatrix * QVector4D(0.0, 0.0, 1.0, 0.0);
-                za = QVector3D(res.x(), res.y(), res.z());
-            }
+            res = lightMatrix * QVector4D(0.0, 0.0, 1.0, 0.0);
+            QVector3D za = QVector3D(res.x(), res.y(), res.z());
 
             QVector3D projDirX = QVector3D::dotProduct(dir, xa) * xa; 
             QVector3D projDirZ = QVector3D::dotProduct(dir, za) * za; 
@@ -366,23 +360,19 @@ void ContextManager::setPositionPickPoint(QVector3D point)
         {
             QVector3D dir = (point - lightPos).normalized();
             // rotate y-axis according to light matrix.
-            QVector3D ya;
-            {
-                QVector4D res = lightMatrix * QVector4D(0.0, -1.0, 0.0, 0.0);
-                ya = QVector3D(res.x(), res.y(), res.z());
-            }
+            QVector4D res = lightMatrix * QVector4D(0.0, -1.0, 0.0, 0.0);
+            QVector3D ya = QVector3D(res.x(), res.y(), res.z());
 
-            qreal tiltDeg =  qRadiansToDegrees(qAcos(QVector3D::dotProduct(dir, ya)) );
+            qreal tiltDeg =  qRadiansToDegrees(qAcos(QVector3D::dotProduct(dir, ya)));
 
             QLCPhysical phy = fixture->fixtureMode()->physical();
 
             // clamp the tilt.
-            if(tiltDeg < 0.0) {
+            if (tiltDeg < 0.0)
                 tiltDeg = 0.0;
-            }
-            if(tiltDeg > phy.focusTiltMax()/2) {
-                tiltDeg = phy.focusTiltMax()/2;
-            }
+
+            if (tiltDeg > phy.focusTiltMax() / 2)
+                tiltDeg = phy.focusTiltMax() / 2;
 
             tiltDeg = phy.focusTiltMax() / 2 - tiltDeg;
 
