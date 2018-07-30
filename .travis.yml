@@ -29,13 +29,13 @@ addons:
       - g++-5
     packages: &qmlui_pkg
       - *base_pkg
-      - qt510-meta
+      - qt510-meta-minimal
       - qt510declarative
       - qt510quickcontrols2
       - qt5103d
       - qt510svg
-      - qt56multimedia
-      - qt56serialport
+      - qt510multimedia
+      - qt510serialport
       - g++-5
 
 matrix:
