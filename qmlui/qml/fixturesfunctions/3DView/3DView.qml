@@ -131,9 +131,8 @@ Rectangle
                 "layer": sceneEntity.selectionLayer,
             });
 
-
+            var bloomTexture = null
             {
-
                 component = Qt.createComponent("GrabBrightFilter.qml");
                 if (component.status === Component.Error)
                     console.log("Error loading component:", component.errorString());
@@ -145,26 +144,30 @@ Rectangle
                     "outRenderTarget": brightnessTarget
                 });
 
-
                 component = Qt.createComponent("BlurFilter.qml");
                 if (component.status === Component.Error)
                     console.log("Error loading component:", component.errorString());
-                
-                mynode = component.createObject(frameGraph.myCameraSelector,
-                {
-                    "inTex": brightnessTexture,
-                    "screenQuadLayer": screenQuadBlurEntity0.quadLayer,
-                    "outRenderTarget": blurPingPong0Target,
-                    "blurDirection": Qt.vector4d(1,0,0,0)
-                });
 
-                mynode = component.createObject(frameGraph.myCameraSelector,
-                {
-                    "inTex": blurPingPong0Texture,
-                    "screenQuadLayer": screenQuadBlurEntity1.quadLayer,
-                    "outRenderTarget": blurPingPong1Target,
-                    "blurDirection": Qt.vector4d(0,1,0,0)
-                });                
+                for(var iter = 0; iter < 9; ++iter) {
+                
+                    mynode = component.createObject(frameGraph.myCameraSelector,
+                    {
+                        "inTex": (iter === 0) ? brightnessTexture : blurPingPong1Texture,
+                        "screenQuadLayer": screenQuadBlurEntity0.quadLayer,
+                        "outRenderTarget": blurPingPong0Target,
+                        "blurDirection": Qt.vector4d(1,0,0,0)
+                    });
+
+                    mynode = component.createObject(frameGraph.myCameraSelector,
+                    {
+                        "inTex": blurPingPong0Texture,
+                        "screenQuadLayer": screenQuadBlurEntity1.quadLayer,
+                        "outRenderTarget": blurPingPong1Target,
+                        "blurDirection": Qt.vector4d(0,1,0,0)
+                    });
+
+                    bloomTexture = blurPingPong1Texture
+                }
 
             }
 
@@ -236,7 +239,10 @@ Rectangle
             mynode = component.createObject(frameGraph.myCameraSelector,
             {
                 "hdrTexture": frameTarget.color,
+                "bloomTexture": bloomTexture,
+                
                 "outRenderTarget": hdr0RenderTarget,
+
                 "screenQuadGammaCorrectLayer": screenQuadGammaCorrectEntity.layer
             });
 

@@ -27,6 +27,8 @@ TechniqueFilter
     property GBuffer gBuffer
     property Layer screenQuadLayer
 
+                    
+
     property RenderTarget outRenderTarget
 
     parameters: [

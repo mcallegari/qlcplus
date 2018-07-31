@@ -28,10 +28,13 @@ TechniqueFilter
     property Layer screenQuadGammaCorrectLayer
 
     property Texture2D hdrTexture
+    property Texture2D bloomTexture
+    
     property RenderTarget outRenderTarget
 
     parameters: [
-        Parameter { name: "hdrTex"; value: hdrTexture }
+        Parameter { name: "hdrTex"; value: hdrTexture },
+        Parameter { name: "bloomTex"; value: bloomTexture }
     ]
 
     RenderStateSet

@@ -24,41 +24,37 @@ import Qt3D.Render 2.0
 import Qt3D.Extras 2.0
 
 
-    Entity
+Entity
+{
+    property Effect quadEffect : null
+    property Layer quadLayer : null
+    readonly property Layer spotlightShadingLayer: Layer { objectName: "spotlightShadingLayer" }
+
+    PlaneMesh
     {
-         property Effect quadEffect : null
-         property Layer quadLayer : null
-
-        readonly property Layer spotlightShadingLayer: Layer { objectName: "spotlightShadingLayer" }
-
-            PlaneMesh
-            {
-                id: quadMesh
-                width: 2.0
-                height: 2.0
-                meshResolution: Qt.size(2, 2)
-            }
-
-
-            Transform
-            {
-                id: quadTransform
-                // We rotate the plane so that it faces us
-                rotation: fromAxisAndAngle(Qt.vector3d(1, 0, 0), 90)
-            }
-
-
-            Material
-            {
-                id: quadMaterial
-                effect: quadEffect
-            }
-
-        components : [
-            quadTransform,
-            quadMaterial,
-            quadMesh,
-            quadLayer
-
-        ]
+        id: quadMesh
+        width: 2.0
+        height: 2.0
+        meshResolution: Qt.size(2, 2)
     }
+
+    Transform
+    {
+        id: quadTransform
+        // We rotate the plane so that it faces us
+        rotation: fromAxisAndAngle(Qt.vector3d(1, 0, 0), 90)
+    }
+
+    Material
+    {
+        id: quadMaterial
+        effect: quadEffect
+    }
+
+    components : [
+        quadTransform,
+        quadMaterial,
+        quadMesh,
+        quadLayer
+    ]
+}
