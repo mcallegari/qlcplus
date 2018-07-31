@@ -125,6 +125,7 @@ Contributors
 * Felix Edelmann, Florian Edelmann (fixture definitions, German translation)
 * Jannis Achstetter (German translation)
 * Dai Suetake (Japanese translation)
+* Hannes Bossuyt (Dutch translation)
 
 ### QLC+ 4:
 
