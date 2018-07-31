@@ -3787,8 +3787,8 @@ vraagt toegang tot deze sessie. Toegangsniveau:</translation>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="318"/>
         <source>Click &amp; Go button</source>
         <translation>Sneele toegang button</translation>
-    <message>
     </message>
+    <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="326"/>
         <source>None</source>
         <translation>Geen</translation>
