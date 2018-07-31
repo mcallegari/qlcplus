@@ -131,6 +131,43 @@ Rectangle
                 "layer": sceneEntity.selectionLayer,
             });
 
+
+            {
+
+                component = Qt.createComponent("GrabBrightFilter.qml");
+                if (component.status === Component.Error)
+                    console.log("Error loading component:", component.errorString());
+                
+                mynode = component.createObject(frameGraph.myCameraSelector,
+                {
+                    "gBuffer": gBufferTarget,
+                    "screenQuadLayer": screenQuadGrabBrightEntity.quadLayer,
+                    "outRenderTarget": brightnessTarget
+                });
+
+
+                component = Qt.createComponent("BlurFilter.qml");
+                if (component.status === Component.Error)
+                    console.log("Error loading component:", component.errorString());
+                
+                mynode = component.createObject(frameGraph.myCameraSelector,
+                {
+                    "inTex": brightnessTexture,
+                    "screenQuadLayer": screenQuadBlurEntity0.quadLayer,
+                    "outRenderTarget": blurPingPong0Target,
+                    "blurDirection": Qt.vector4d(1,0,0,0)
+                });
+
+                mynode = component.createObject(frameGraph.myCameraSelector,
+                {
+                    "inTex": blurPingPong0Texture,
+                    "screenQuadLayer": screenQuadBlurEntity1.quadLayer,
+                    "outRenderTarget": blurPingPong1Target,
+                    "blurDirection": Qt.vector4d(0,1,0,0)
+                });                
+
+            }
+
             component = Qt.createComponent("DirectionalLightFilter.qml");
             if (component.status === Component.Error)
                 console.log("Error loading component:", component.errorString());
@@ -202,7 +239,7 @@ Rectangle
                 "outRenderTarget": hdr0RenderTarget,
                 "screenQuadGammaCorrectLayer": screenQuadGammaCorrectEntity.layer
             });
-            
+
 
             component = Qt.createComponent("FXAAFilter.qml");
             if (component.status === Component.Error)
@@ -255,13 +292,114 @@ Rectangle
                 quadEffect : BlitEffect { }
             }
 
-            //ScreenQuadBlitEntity { id: screenQuadBlitEntity }
+            GenericScreenQuadEntity {
+                id: screenQuadGrabBrightEntity
+                quadLayer : Layer { }
+                quadEffect : GrabBrightEffect { }
+            }
+
+            GenericScreenQuadEntity {
+                id: screenQuadBlurEntity0
+                quadLayer : Layer { }
+                quadEffect : BlurEffect { }
+            }
+
+            GenericScreenQuadEntity {
+                id: screenQuadBlurEntity1
+                quadLayer : Layer { }
+                quadEffect : BlurEffect { }
+            }
 
             ScreenQuadEntity { id: screenQuadEntity }
 
             GBuffer { id: gBufferTarget }
 
             FrameTarget { id: frameTarget }
+
+            RenderTarget
+            {
+                id: brightnessTarget
+                attachments: [
+                    RenderTargetOutput
+                    {
+                        objectName: "color"
+                        attachmentPoint: RenderTargetOutput.Color0
+                        texture:
+                            Texture2D
+                            {
+                                id: brightnessTexture
+                                width: 1024
+                                height: 1024
+                                format: Texture.RGBA32F
+                                generateMipMaps: false
+                                magnificationFilter: Texture.Linear
+                                minificationFilter: Texture.Linear
+                                wrapMode
+                                {
+                                    x: WrapMode.ClampToEdge
+                                    y: WrapMode.ClampToEdge
+                                }
+                            }
+                    }
+                ] // outputs
+            }
+
+            RenderTarget
+            {
+                id: blurPingPong0Target
+                attachments: [
+                    RenderTargetOutput
+                    {
+                        objectName: "color"
+                        attachmentPoint: RenderTargetOutput.Color0
+                        texture:
+                            Texture2D
+                            {
+                                id: blurPingPong0Texture
+                                width: 1024
+                                height: 1024
+                                format: Texture.RGBA32F
+                                generateMipMaps: false
+                                magnificationFilter: Texture.Linear
+                                minificationFilter: Texture.Linear
+                                wrapMode
+                                {
+                                    x: WrapMode.ClampToEdge
+                                    y: WrapMode.ClampToEdge
+                                }
+                            }
+                    }
+                ] // outputs
+            }
+
+
+            RenderTarget
+            {
+                id: blurPingPong1Target
+                attachments: [
+                    RenderTargetOutput
+                    {
+                        objectName: "color"
+                        attachmentPoint: RenderTargetOutput.Color0
+                        texture:
+                            Texture2D
+                            {
+                                id: blurPingPong1Texture
+                                width: 1024
+                                height: 1024
+                                format: Texture.RGBA32F
+                                generateMipMaps: false
+                                magnificationFilter: Texture.Linear
+                                minificationFilter: Texture.Linear
+                                wrapMode
+                                {
+                                    x: WrapMode.ClampToEdge
+                                    y: WrapMode.ClampToEdge
+                                }
+                            }
+                    }
+                ] // outputs
+            }
 
             RenderTarget
             {

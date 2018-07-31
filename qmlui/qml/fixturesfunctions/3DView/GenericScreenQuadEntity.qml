@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  ScreenQuadEntity.qml
+  GenericScreenQuadEntity.qml
 
   Copyright (c) Massimo Callegari, Eric Arnebäck
 
