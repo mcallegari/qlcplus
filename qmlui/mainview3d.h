@@ -325,8 +325,11 @@ public:
 
     enum FixtureMeshType
     {
-        ParMeshType = 0,
+        NoMeshType = 0,
+        ParMeshType,
         MovingHeadMeshType,
+        ScannerMeshType,
+        LEDBarMeshType,
         DefaultMeshType
     };
     Q_ENUM(FixtureMeshType)

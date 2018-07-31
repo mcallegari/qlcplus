@@ -492,7 +492,7 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
      else if (fixture->type() == QLCFixtureDef::Scanner)
     {
         meshPath.append("scanner.dae");
-        newItem->setProperty("meshType", FixtureMeshType::DefaultMeshType);
+        newItem->setProperty("meshType", FixtureMeshType::ScannerMeshType);
     }
     else if (fixture->type() == QLCFixtureDef::Hazer)
     {

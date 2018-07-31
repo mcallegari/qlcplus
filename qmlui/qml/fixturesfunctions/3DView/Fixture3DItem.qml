@@ -39,7 +39,7 @@ Entity
 
     onItemIDChanged: isSelected = contextManager.isFixtureSelected(itemID)
 
-    property int meshType: MainView3D.DefaultMeshType
+    property int meshType: MainView3D.NoMeshType
 
     /* **************** Pan/Tilt properties **************** */
     property real panMaxDegrees: 360
@@ -85,6 +85,7 @@ Entity
     {
         switch(meshType)
         {
+            case MainView3D.NoMeshType: return 0;
             case MainView3D.ParMeshType: return 0.389005 * transform.scale3D.x
             case MainView3D.MovingHeadMeshType: return 0.63663 * transform.scale3D.x
         }
@@ -98,7 +99,7 @@ Entity
     property int lightIndex
     property real lightIntensity: dimmerValue * shutterValue
     property real dimmerValue: 0
-    property real shutterValue: 1.0
+    property real shutterValue: sAnimator.shutterValue
     property color lightColor: Qt.rgba(0, 0, 0, 1)
     property vector3d lightPos: Qt.vector3d(0, 0, 0)
     property vector3d lightDir: Math3D.getLightDirection(transform, panTransform, tiltTransform)
@@ -167,67 +168,14 @@ Entity
             tiltSpeed = tiltDuration
     }
 
+    function setShutter(type, low, high)
+    {
+        sAnimator.setShutter(type, low, high)
+    }
+
     function setZoom(value)
     {
         cutoffAngle = (((((focusMaxDegrees - focusMinDegrees) / 255) * value) + focusMinDegrees) / 2) * (Math.PI / 180)
-    }
-
-    function setShutter(type, low, high)
-    {
-        //console.log("Shutter " + low + ", " + high)
-        shutterAnim.stop()
-        inPhase.duration = 0
-        inPhase.easing.type = Easing.Linear
-        highPhase.duration = 0
-        outPhase.duration = 0
-        outPhase.easing.type = Easing.Linear
-        lowPhase.duration = low
-
-        switch(type)
-        {
-            case QLCCapability.ShutterOpen:
-                shutterValue = 1.0
-            break;
-
-            case QLCCapability.ShutterClose:
-                shutterValue = 0
-            break;
-
-            case QLCCapability.StrobeFastToSlow:
-            case QLCCapability.StrobeSlowToFast:
-            case QLCCapability.StrobeFrequency:
-            case QLCCapability.StrobeFreqRange:
-                highPhase.duration = high
-                shutterAnim.start()
-            break;
-
-            case QLCCapability.PulseFastToSlow:
-            case QLCCapability.PulseSlowToFast:
-            case QLCCapability.PulseFrequency:
-            case QLCCapability.PulseFreqRange:
-                inPhase.duration = high / 2
-                outPhase.duration = high / 2
-                inPhase.easing.type = Easing.InOutCubic
-                outPhase.easing.type = Easing.InOutCubic
-                shutterAnim.start()
-            break;
-
-            case QLCCapability.RampUpFastToSlow:
-            case QLCCapability.RampUpSlowToFast:
-            case QLCCapability.RampUpFrequency:
-            case QLCCapability.RampUpFreqRange:
-                inPhase.duration = high
-                shutterAnim.start()
-            break;
-
-            case QLCCapability.RampDownSlowToFast:
-            case QLCCapability.RampDownFastToSlow:
-            case QLCCapability.RampDownFrequency:
-            case QLCCapability.RampDownFreqRange:
-                outPhase.duration = high
-                shutterAnim.start()
-            break;
-        }
     }
 
     function setupScattering(shadingLayer, scatteringLayer, depthLayer,
@@ -256,6 +204,8 @@ Entity
         outDepthCone.spotlightConeMesh = sceneEntity.coneMesh
     }
 
+    ShutterAnimator { id: sAnimator }
+
     QQ2.NumberAnimation on panRotation
     {
         id: panAnim
@@ -268,18 +218,6 @@ Entity
         id: tiltAnim
         running: false
         easing.type: Easing.Linear
-    }
-
-    // strobe/pulse effect
-    QQ2.SequentialAnimation on shutterValue
-    {
-        id: shutterAnim
-        running: false
-        loops: QQ2.Animation.Infinite
-        QQ2.NumberAnimation { id: inPhase; from: 0; to: 1.0; duration: 0; easing.type: Easing.Linear }
-        QQ2.NumberAnimation { id: highPhase; from: 1.0; to: 1.0; duration: 200; easing.type: Easing.Linear }
-        QQ2.NumberAnimation { id: outPhase; from: 1.0; to: 0; duration: 0; easing.type: Easing.Linear }
-        QQ2.NumberAnimation { id: lowPhase; from: 0; to: 0; duration: 800; easing.type: Easing.Linear }
     }
 
     property RenderTarget shadowMap:
