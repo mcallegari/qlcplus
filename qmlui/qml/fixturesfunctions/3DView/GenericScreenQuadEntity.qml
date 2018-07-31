@@ -1,8 +1,8 @@
 /*
   Q Light Controller Plus
-  ScreenQuadBlitEntity.qml
+  ScreenQuadEntity.qml
 
-  Copyright (c) Eric Arnebäck
+  Copyright (c) Massimo Callegari, Eric Arnebäck
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -23,33 +23,42 @@ import Qt3D.Core 2.0
 import Qt3D.Render 2.0
 import Qt3D.Extras 2.0
 
-Entity
-{
-    readonly property Layer layer: screenQuadLayer
 
     Entity
     {
-        components : [
-            Layer { id: screenQuadLayer },
+         property Effect quadEffect : null
+         property Layer quadLayer : null
+
+        readonly property Layer spotlightShadingLayer: Layer { objectName: "spotlightShadingLayer" }
 
             PlaneMesh
             {
+                id: quadMesh
                 width: 2.0
                 height: 2.0
                 meshResolution: Qt.size(2, 2)
-            },
+            }
+
 
             Transform
             {
+                id: quadTransform
                 // We rotate the plane so that it faces us
                 rotation: fromAxisAndAngle(Qt.vector3d(1, 0, 0), 90)
-            },
+            }
+
 
             Material
             {
-                effect: BlitEffect { }
+                id: quadMaterial
+                effect: quadEffect
             }
+
+        components : [
+            quadTransform,
+            quadMaterial,
+            quadMesh,
+            quadLayer
 
         ]
     }
-}

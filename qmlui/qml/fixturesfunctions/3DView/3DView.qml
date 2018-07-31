@@ -202,26 +202,25 @@ Rectangle
                 "outRenderTarget": hdr0RenderTarget,
                 "screenQuadGammaCorrectLayer": screenQuadGammaCorrectEntity.layer
             });
+            
 
             component = Qt.createComponent("FXAAFilter.qml");
             if (component.status === Component.Error)
                 console.log("Error loading component:", component.errorString());
-
             mynode = component.createObject(frameGraph.myCameraSelector,
             {
                 "inTexture": hdr0ColorTexture,
                 "outRenderTarget": hdr1RenderTarget,
-                "screenQuadFXAALayer": screenQuadFXAAEntity.layer
+                "screenQuadFXAALayer": screenQuadFXAAEntity.quadLayer       
             });
 
             component = Qt.createComponent("BlitFilter.qml");
             if (component.status === Component.Error)
                 console.log("Error loading component:", component.errorString());
-
             mynode = component.createObject(frameGraph.myCameraSelector,
             {
                 "inTexture": hdr1ColorTexture,
-                "screenQuadBlitLayer": screenQuadBlitEntity.layer
+                "screenQuadBlitLayer": screenQuadBlitEntity.quadLayer
             });
         }
 
@@ -243,8 +242,20 @@ Rectangle
                 viewSize: Qt.size(scene3d.width, scene3d.height)
             }
             ScreenQuadGammaCorrectEntity { id: screenQuadGammaCorrectEntity }
-            ScreenQuadFXAAEntity { id: screenQuadFXAAEntity }
-            ScreenQuadBlitEntity { id: screenQuadBlitEntity }
+
+            GenericScreenQuadEntity {
+                id: screenQuadFXAAEntity
+                quadLayer : Layer { }
+                quadEffect : FXAAEffect { }
+            }
+    
+            GenericScreenQuadEntity {
+                id: screenQuadBlitEntity
+                quadLayer : Layer { }
+                quadEffect : BlitEffect { }
+            }
+
+            //ScreenQuadBlitEntity { id: screenQuadBlitEntity }
 
             ScreenQuadEntity { id: screenQuadEntity }
 

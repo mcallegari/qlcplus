@@ -153,8 +153,9 @@
     <file alias="SceneEntity.qml">qml/fixturesfunctions/3DView/SceneEntity.qml</file>
     <file alias="ScreenQuadEntity.qml">qml/fixturesfunctions/3DView/ScreenQuadEntity.qml</file>
     <file alias="ScreenQuadGammaCorrectEntity.qml">qml/fixturesfunctions/3DView/ScreenQuadGammaCorrectEntity.qml</file>
-    <file alias="ScreenQuadBlitEntity.qml">qml/fixturesfunctions/3DView/ScreenQuadBlitEntity.qml</file>
-    <file alias="ScreenQuadFXAAEntity.qml">qml/fixturesfunctions/3DView/ScreenQuadFXAAEntity.qml</file>
+
+    <file alias="GenericScreenQuadEntity.qml">qml/fixturesfunctions/3DView/GenericScreenQuadEntity.qml</file>
+
 
     <file alias="SelectionEntity.qml">qml/fixturesfunctions/3DView/SelectionEntity.qml</file>
     <file alias="SelectionGeometry.qml">qml/fixturesfunctions/3DView/SelectionGeometry.qml</file>
