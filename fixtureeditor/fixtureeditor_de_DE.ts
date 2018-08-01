@@ -34,7 +34,7 @@
     <message>
         <location filename="addchannelsdialog.ui" line="33"/>
         <source>Fixture Mode Channels Editor</source>
-        <translation>Gerätemodus Kanaleditor</translation>
+        <translation>Gerätemodus-Kanaleditor</translation>
     </message>
     <message>
         <location filename="addchannelsdialog.ui" line="114"/>
@@ -51,7 +51,7 @@
     <message>
         <location filename="addchannelsdialog.ui" line="121"/>
         <source>Mode channels</source>
-        <translation>Modus Kanäle</translation>
+        <translation>Kanäle im Modus</translation>
     </message>
 </context>
 <context>
@@ -108,7 +108,7 @@
         <location filename="app.cpp" line="260"/>
         <source>Save &amp;As...</source>
         <oldsource>Save &amp;As</oldsource>
-        <translation>Speichern &amp;unter ...</translation>
+        <translation>Speichern &amp;unter…</translation>
     </message>
     <message>
         <location filename="app.cpp" line="261"/>
@@ -141,12 +141,12 @@
     <message>
         <location filename="app.cpp" line="279"/>
         <source>About Fixture Definition Editor...</source>
-        <translation>Über Fixture Defninition Editor...</translation>
+        <translation>Über Fixture Definition Editor…</translation>
     </message>
     <message>
         <location filename="app.cpp" line="284"/>
         <source>About Qt...</source>
-        <translation>Über Qt...</translation>
+        <translation>Über Qt…</translation>
     </message>
     <message>
         <location filename="app.cpp" line="311"/>
@@ -169,7 +169,7 @@
     <message>
         <location filename="capabilitywizard.ui" line="33"/>
         <source>Capability Wizard</source>
-        <translation>Funktions Assistent</translation>
+        <translation>Funktions-Assistent</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="39"/>
@@ -184,7 +184,7 @@
     <message>
         <location filename="capabilitywizard.ui" line="52"/>
         <source>The starting DMX value</source>
-        <translation>Der Anfangs DMX-Wert</translation>
+        <translation>Der Anfangs-DMX-Wert</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="62"/>
@@ -194,7 +194,7 @@
     <message>
         <location filename="capabilitywizard.ui" line="69"/>
         <source>Number of values per capability</source>
-        <translation>Anzal der DMX-Werte pro Funktion</translation>
+        <translation>Anzahl der DMX-Werte pro Funktion</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="85"/>
@@ -204,7 +204,7 @@
     <message>
         <location filename="capabilitywizard.ui" line="92"/>
         <source>Number of capabilities to create</source>
-        <translation>Anzahl der Funktionen die erstellt werden sollen</translation>
+        <translation>Anzahl der Funktionen, die erstellt werden sollen</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="108"/>
@@ -214,7 +214,7 @@
     <message>
         <location filename="capabilitywizard.ui" line="114"/>
         <source>The common base name for all capabilities. Use hash &apos;#&apos; to create a running number.</source>
-        <translation>Der gemeinsame Stammname für alle Funktionen. Verwende die Raute &apos;#&apos; um eine Nummerierung zu erstellen.</translation>
+        <translation>Der gemeinsame Basisname für alle Funktionen. Verwende die Raute &apos;#&apos;, um eine Nummerierung zu erstellen.</translation>
     </message>
     <message>
         <location filename="capabilitywizard.ui" line="117"/>
@@ -229,7 +229,7 @@
     <message>
         <location filename="capabilitywizard.ui" line="133"/>
         <source>A list of capabilities that would be created with these settings</source>
-        <translation>Liste der Funktionen welche mit diesen Einstellungen erstellt würden</translation>
+        <translation>Liste der Funktionen, die mit diesen Einstellungen erstellt würden</translation>
     </message>
 </context>
 <context>
@@ -247,7 +247,7 @@
     <message>
         <location filename="../ui/src/docbrowser.cpp" line="125"/>
         <source>Forward</source>
-        <translation>Forwärts</translation>
+        <translation>Vorwärts</translation>
     </message>
     <message>
         <location filename="../ui/src/docbrowser.cpp" line="126"/>
@@ -275,7 +275,7 @@
     <message>
         <location filename="editchannel.ui" line="114"/>
         <source>&lt;font color=&quot;red&quot;&gt;&lt;b&gt;Capability overlapping detected. Please fix.&lt;/b&gt;&lt;/font&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;font color=&quot;red&quot;&gt;&lt;b&gt;Überlappende Funktionen erkannt. Bitte beheben.&lt;/b&gt;&lt;/font&gt;</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="198"/>
@@ -285,18 +285,18 @@
     <message>
         <location filename="editchannel.ui" line="240"/>
         <source>Default value</source>
-        <translation type="unfinished"></translation>
+        <translation>Standardwert</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="253"/>
         <source>Type</source>
-        <translation type="unfinished">Typ</translation>
+        <translation>Typ</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="260"/>
         <location filename="editchannel.ui" line="303"/>
         <source>Preset</source>
-        <translation type="unfinished"></translation>
+        <translation>Voreinstellung</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="267"/>
@@ -306,37 +306,37 @@
     <message>
         <location filename="editchannel.ui" line="274"/>
         <source>Role</source>
-        <translation type="unfinished"></translation>
+        <translation>Auflösung</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="336"/>
         <source>Color 1</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe 1</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="360"/>
         <source>Color 2</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe 2</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="387"/>
         <source>Value 1</source>
-        <translation type="unfinished"></translation>
+        <translation>Wert 1</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="401"/>
         <source>Value 2</source>
-        <translation type="unfinished"></translation>
+        <translation>Wert 2</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="430"/>
         <source>Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorschau</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="227"/>
         <source>The group this channel belongs to</source>
-        <translation>Gruppenzugehörigkeit dieses Kanals</translation>
+        <translation>Die Gruppe, zu der dieser Kanal gehört</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="322"/>
@@ -381,12 +381,12 @@
     <message>
         <location filename="editchannel.ui" line="154"/>
         <source>Remove the selected capability</source>
-        <translation>Ausgewählte Eigenschaft entfernen</translation>
+        <translation>Ausgewählte Funktion entfernen</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="121"/>
         <source>Capability wizard</source>
-        <translation>Funktions Wizard</translation>
+        <translation>Funktions-Assistent</translation>
     </message>
     <message>
         <location filename="editchannel.cpp" line="93"/>
@@ -401,7 +401,7 @@
     <message>
         <location filename="editchannel.cpp" line="500"/>
         <source>Open Gobo File</source>
-        <translation>Öffne Gobo Datei</translation>
+        <translation>Öffne Gobo-Datei</translation>
     </message>
     <message>
         <location filename="editchannel.cpp" line="503"/>
@@ -425,7 +425,7 @@
     <message>
         <location filename="editchannel.cpp" line="484"/>
         <source>Some capabilities could not be created because of overlapping values.</source>
-        <translation>Einige Funktionen konnte nicht angelegt werden aufgrund von überlappenden Werten.</translation>
+        <translation>Einige Funktionen konnten aufgrund von überlappenden Werten nicht angelegt werden.</translation>
     </message>
 </context>
 <context>
@@ -532,17 +532,17 @@
     <message>
         <location filename="editmode.ui" line="320"/>
         <source>Physical</source>
-        <translation>Physikalisch</translation>
+        <translation>Physisch</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="330"/>
         <source>Use global settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Globale Einstellungen verwenden</translation>
     </message>
     <message>
         <location filename="editmode.ui" line="340"/>
         <source>Override global settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Globale Einstellungen überschreiben</translation>
     </message>
 </context>
 <context>
@@ -608,7 +608,7 @@
     <message>
         <location filename="editphysical.ui" line="587"/>
         <source>Head(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Head(s)</translation>
     </message>
     <message>
         <location filename="editphysical.ui" line="664"/>
@@ -623,17 +623,17 @@
     <message>
         <location filename="editphysical.ui" line="699"/>
         <source>Min Degrees</source>
-        <translation>Min Grad</translation>
+        <translation>Min. Grad</translation>
     </message>
     <message>
         <location filename="editphysical.ui" line="706"/>
         <source>Max Degrees</source>
-        <translation>Max Grad</translation>
+        <translation>Max. Grad</translation>
     </message>
     <message>
         <location filename="editphysical.ui" line="739"/>
         <source>Prism faces</source>
-        <translation type="unfinished"></translation>
+        <translation>Prisma-Flächen</translation>
     </message>
     <message>
         <location filename="editphysical.ui" line="627"/>
@@ -668,7 +668,7 @@
     <message>
         <location filename="editphysical.ui" line="198"/>
         <source>Copy physical information to clipboard</source>
-        <translation>Phyische Informationen in die Zwischenablage kopieren</translation>
+        <translation>Physische Informationen in die Zwischenablage kopieren</translation>
     </message>
     <message>
         <location filename="editphysical.ui" line="215"/>
@@ -701,12 +701,12 @@
     <message>
         <location filename="fixtureeditor.ui" line="75"/>
         <source>Model</source>
-        <translation>Model</translation>
+        <translation>Modell</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="88"/>
         <source>The model name for this fixture (e.g. MAC250)</source>
-        <translation>Der Modelname dieses Geräts (z.B.: MAC250)</translation>
+        <translation>Der Modellname dieses Geräts (z.B.: MAC250)</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="95"/>
@@ -774,7 +774,7 @@
     <message>
         <location filename="fixtureeditor.ui" line="412"/>
         <source>Open/close all channel items</source>
-        <translation>Öffne/Schliesse alle Kanäle</translation>
+        <translation>Öffne/Schließe alle Kanäle</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="433"/>
@@ -789,12 +789,12 @@
     <message>
         <location filename="fixtureeditor.ui" line="470"/>
         <source>Add a mode</source>
-        <translation>Einen Modus hinzugfügen</translation>
+        <translation>Einen Modus hinzufügen</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="490"/>
         <source>Remove the selected mode</source>
-        <translation>Ausgwählten Modus entfernen</translation>
+        <translation>Ausgewählten Modus entfernen</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="510"/>
@@ -809,63 +809,63 @@
     <message>
         <location filename="fixtureeditor.ui" line="570"/>
         <source>Open/close all mode items</source>
-        <translation>Öffne/Schliesse alle Einträge</translation>
+        <translation>Öffne/Schließe alle Modi</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="591"/>
         <source>Aliases</source>
-        <translation type="unfinished"></translation>
+        <translation>Aliase</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="609"/>
         <source>In mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Im Modus</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="626"/>
         <source>Add a new alias</source>
-        <translation type="unfinished"></translation>
+        <translation>Neuen Alias hinzufügen</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="646"/>
         <source>with</source>
-        <translation type="unfinished"></translation>
+        <translation>mit</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="653"/>
         <source>replace</source>
-        <translation type="unfinished"></translation>
+        <translation>ersetze</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="670"/>
         <location filename="fixtureeditor.ui" line="723"/>
         <source>Alias</source>
-        <translation type="unfinished"></translation>
+        <translation>Alias</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="675"/>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modus</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="680"/>
         <source>Base channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Ersetzter Kanal</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="685"/>
         <source>Override channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Gesetzter Kanal</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="703"/>
         <source>Remove the currently selected alias</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgewählten Alias entfernen</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="736"/>
         <source>Physical</source>
-        <translation type="unfinished">Physikalisch</translation>
+        <translation>Physisch</translation>
     </message>
 </context>
 <context>
@@ -888,20 +888,20 @@ vor dem Schließen speichern?</translation>
         <location filename="fixtureeditor.cpp" line="236"/>
         <location filename="fixtureeditor.cpp" line="246"/>
         <source>Missing important information</source>
-        <translation>Wichtige Information fehlt</translation>
+        <translation>Wichtige Informationen fehlen</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="237"/>
         <source>Missing manufacturer name.
 Unable to save fixture.</source>
-        <translation>Fehlende Herstellerangabe.
+        <translation>Fehlender Herstellername.
 Kann Gerät nicht speichern.</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="247"/>
         <source>Missing fixture model name.
 Unable to save fixture.</source>
-        <translation>Fehlender Modelbezeichnung.
+        <translation>Fehlender Modellname.
 Kann Gerät nicht speichern.</translation>
     </message>
     <message>
@@ -1003,7 +1003,7 @@ Kann Gerät nicht speichern.</translation>
     <message>
         <location filename="fixtureeditor.cpp" line="766"/>
         <source>Another mode by that name already exists</source>
-        <translation>Ein ander Modus mit diesem Namen existiert bereits</translation>
+        <translation>Ein anderer Modus mit diesem Namen existiert bereits</translation>
     </message>
     <message>
         <location filename="fixtureeditor.cpp" line="775"/>
@@ -1048,8 +1048,7 @@ Kann Gerät nicht speichern.</translation>
     <message>
         <location filename="fixtureeditor.cpp" line="923"/>
         <source>Modes</source>
-        <translatorcomment>Was ist der richtige Plural?</translatorcomment>
-        <translation>Moden</translation>
+        <translation>Modi</translation>
     </message>
 </context>
 </TS>
