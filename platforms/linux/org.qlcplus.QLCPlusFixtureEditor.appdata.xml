@@ -43,4 +43,7 @@
  </screenshots>
  <url type="homepage">http://www.qlcplus.org/</url>
  <url type="bugtracker">https://github.com/mcallegari/qlcplus/issues</url>
+ <provides>
+  <binary>qlcplus-fixtureeditor</binary>
+ </provides>
 </component>

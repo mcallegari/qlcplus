@@ -8,4 +8,7 @@
   <url type="bugtracker">https://github.com/mcallegari/qlcplus/issues/new?title=[peperoni]:</url>
   <metadata_license>CC-BY-SA-3.0</metadata_license>
   <project_license>Apache-2.0</project_license>
+  <provides>
+    <modalias>usb:v0CE1d*</modalias>
+  </provides>
 </component>
