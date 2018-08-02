@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="addon">
-  <id>qlcplus-dmxusb</id>
-  <extends>qlcplus.desktop</extends>
+  <id>org.qlcplus.QLCPlus.dmxusb</id>
+  <extends>org.qlcplus.QLCPlus</extends>
   <name>DMXUSB</name>
   <summary>DMX USB plugin for QLC+</summary>
   <url type="homepage">http://www.qlcplus.org/</url>

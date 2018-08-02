@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2015 Dave Olsthoorn <dave.olsthoorn@gmail.com> -->
 <component type="desktop">
- <id>qlcplus.desktop</id>
+ <id>org.qlcplus.QLCPlus</id>
  <metadata_license>CC-BY-SA-3.0</metadata_license>
  <project_license>Apache-2.0</project_license>
  <name>Q Light Controller Plus</name>

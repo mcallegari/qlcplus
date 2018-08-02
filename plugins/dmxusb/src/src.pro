@@ -126,7 +126,7 @@ unix:!macx {
     INSTALLS  += udev
 
     metainfo.path   = $$METAINFODIR
-    metainfo.files += qlcplus-dmxusb.metainfo.xml
+    metainfo.files += org.qlcplus.QLCPlus.dmxusb.metainfo.xml
     INSTALLS       += metainfo
 }
 

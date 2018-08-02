@@ -59,6 +59,6 @@ INSTALLS   += target
 
 unix:!macx {
    metainfo.path   = $$METAINFODIR
-   metainfo.files += qlcplus-enttecwing.metainfo.xml
+   metainfo.files += org.qlcplus.QLCPlus.enttecwing.metainfo.xml
    INSTALLS       += metainfo
 }

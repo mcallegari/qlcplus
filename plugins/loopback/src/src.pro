@@ -35,6 +35,6 @@ INSTALLS   += target
 
 unix:!macx {
    metainfo.path   = $$METAINFODIR
-   metainfo.files += qlcplus-loopback.metainfo.xml
+   metainfo.files += org.qlcplus.QLCPlus.loopback.metainfo.xml
    INSTALLS       += metainfo
 }

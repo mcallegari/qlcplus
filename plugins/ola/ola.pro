@@ -25,7 +25,7 @@ macx: {
 
 unix:!macx {
    metainfo.path   = $$METAINFODIR
-   metainfo.files += qlcplus-ola.metainfo.xml
+   metainfo.files += org.qlcplus.QLCPlus.ola.metainfo.xml
    INSTALLS       += metainfo
 }
 

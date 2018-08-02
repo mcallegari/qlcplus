@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="addon">
-  <id>qlcplus-peperoni</id>
-  <extends>qlcplus.desktop</extends>
+  <id>org.qlcplus.QLCPlus.peperoni</id>
+  <extends>org.qlcplus.QLCPlus</extends>
   <name>Peperoni</name>
   <summary>Peperoni plugin for QLC+</summary>
   <url type="homepage">http://www.qlcplus.org/</url>

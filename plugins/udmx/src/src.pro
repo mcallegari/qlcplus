@@ -55,6 +55,6 @@ unix:!macx {
     INSTALLS  += udev
 
     metainfo.path   = $$METAINFODIR
-    metainfo.files += qlcplus-udmx.metainfo.xml
+    metainfo.files += org.qlcplus.QLCPlus.udmx.metainfo.xml
     INSTALLS       += metainfo
 }
