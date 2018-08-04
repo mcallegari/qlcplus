@@ -125,6 +125,20 @@ Rectangle
                         onAccepted: functionManager.deleteEditorItems(chWidget.selector.itemsList())
                     }
                 }
+
+                IconButton
+                {
+                    id: printButton
+                    width: height
+                    height: UISettings.iconSizeMedium - 2
+                    imgSource: "qrc:/printer.svg"
+                    tooltip: qsTr("Print the Chaser steps")
+                    onClicked:
+                    {
+                        chWidget.isPrinting = true
+                        qlcplus.printItem(chWidget)
+                    }
+                }
             }
 
             ChaserWidget

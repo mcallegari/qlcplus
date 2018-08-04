@@ -28,7 +28,7 @@ Rectangle
     width: 500
     height: UISettings.listItemHeight
 
-    color: "transparent"
+    color: isPrinting ? "white" : "transparent"
 
     property int functionID: -1
     property QLCFunction func
@@ -40,6 +40,8 @@ Rectangle
     property string stepDuration
     property string stepNote
 
+    property bool isPrinting: false
+    property color labelColor: isPrinting ? "black" : UISettings.fgMain
     property int labelFontSize: UISettings.textSizeDefault * 0.75
 
     property bool isSelected: false
@@ -182,6 +184,7 @@ Rectangle
             width: col1Width
             height: parent.height
             label: indexInList + 1
+            labelColor: stepDelegate.labelColor
             fontSize: labelFontSize
             wrapText: true
             textHAlign: Text.AlignHCenter
@@ -196,6 +199,7 @@ Rectangle
             height: 35
             anchors.verticalCenter: parent.verticalCenter
             tLabel: stepLabel
+            tLabelColor: stepDelegate.labelColor
         }
         Rectangle { visible: showFunctionName; height: parent.height; width: 1; color: UISettings.fgMedium }
 
@@ -205,6 +209,7 @@ Rectangle
             width: col3Width
             height: parent.height
             label: stepFadeIn
+            labelColor: stepDelegate.labelColor
             fontSize: labelFontSize
             wrapText: true
             textHAlign: Text.AlignHCenter
@@ -217,6 +222,7 @@ Rectangle
             width: col4Width
             height: parent.height
             label: stepHold
+            labelColor: stepDelegate.labelColor
             fontSize: labelFontSize
             wrapText: true
             textHAlign: Text.AlignHCenter
@@ -229,6 +235,7 @@ Rectangle
             width: col5Width
             height: parent.height
             label: stepFadeOut
+            labelColor: stepDelegate.labelColor
             fontSize: labelFontSize
             wrapText: true
             textHAlign: Text.AlignHCenter
@@ -241,6 +248,7 @@ Rectangle
             width: col6Width
             height: parent.height
             label: stepDuration
+            labelColor: stepDelegate.labelColor
             fontSize: labelFontSize
             wrapText: true
             textHAlign: Text.AlignHCenter
@@ -253,6 +261,7 @@ Rectangle
             width: stepDelegate.width - x
             height: parent.height
             label: stepNote
+            labelColor: stepDelegate.labelColor
             fontSize: labelFontSize
         }
     }

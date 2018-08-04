@@ -35,6 +35,7 @@ Column
     property bool isRunning: false
     property alias containsDrag: cwDropArea.containsDrag
     property alias selector: ceSelector
+    property bool isPrinting: false
 
     property int editStepIndex: -1
     property int editStepType
@@ -423,6 +424,7 @@ Column
                 col5Width: fOutCol.width
                 col6Width: durCol.width
 
+                isPrinting: widgetRoot.isPrinting
                 indexInList: index
                 highlightIndex: cStepsList.dragInsertIndex
                 highlightEditTime: editStepIndex === index ? editStepType : -1
