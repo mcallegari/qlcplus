@@ -46,7 +46,7 @@ Rectangle
 
         itemIcon = functionManager.functionIcon(cRef.type)
         if (cRef.type == QLCFunction.SceneType)
-            fdDropArea.keys = [ "dumpValues" ]
+            fdDropArea.keys = [ "dumpValues", "function" ]
     }
 
     signal toggled
@@ -113,7 +113,7 @@ Rectangle
             {
                 id: fdDropArea
                 anchors.fill: parent
-                keys: [ "none" ]
+                keys: [ "function" ]
 
                 onDropped: drag.source.itemDropped(cRef.id, cRef.name)
             }

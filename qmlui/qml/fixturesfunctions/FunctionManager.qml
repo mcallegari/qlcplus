@@ -287,6 +287,7 @@ Rectangle
 
                       onLoaded:
                       {
+                          item.z = 2
                           item.textLabel = Qt.binding(function() { return label })
                           item.isSelected = Qt.binding(function() { return isSelected })
                           item.dragItem = fDragItem
@@ -370,7 +371,7 @@ Rectangle
                       {
                           ignoreUnknownSignals: true
                           target: item
-                          onPathChanged: functionManager.setFolderPath(oldPath, newPath)
+                          onPathChanged: functionManager.setFolderPath(oldPath, newPath, true)
                       }
                       Connections
                       {
@@ -381,6 +382,20 @@ Rectangle
                   } // Loader
               } // Component
               ScrollBar.vertical: CustomScrollBar { id: fMgrScrollBar }
+
+              // "deselection" mouse area
+              MouseArea
+              {
+                  y: functionsListView.contentHeight
+                  height: Math.max(parent.height - functionsListView.contentHeight, 0)
+                  width: parent.width
+
+                  onClicked:
+                  {
+                      functionManager.selectFunctionID(-1, 0)
+                      functionManager.selectFolder("", 0)
+                  }
+              }
 
               GenericMultiDragItem
               {
@@ -393,6 +408,12 @@ Rectangle
                   Drag.active: functionsListView.dragActive
                   Drag.source: fDragItem
                   Drag.keys: [ "function" ]
+
+                  function itemDropped(id, name)
+                  {
+                      var path = functionManager.functionPath(id)
+                      functionManager.moveFunctions(path)
+                  }
 
                   onItemsListChanged:
                   {
