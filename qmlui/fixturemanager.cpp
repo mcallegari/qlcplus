@@ -1209,6 +1209,21 @@ QVariantList FixtureManager::fixtureNamesMap()
     return m_fixtureNamesMap;
 }
 
+QString FixtureManager::getTooltip(quint32 address)
+{
+    quint32 uniFilter = m_universeFilter == Universe::invalid() ? 0 : m_universeFilter;
+
+    quint32 fxID = m_doc->fixtureForAddress((uniFilter << 9) | address);
+    if (fxID == Fixture::invalidId())
+        return "";
+
+    Fixture *fixture = m_doc->fixture(fxID);
+    if (fixture == NULL)
+        return "";
+
+    return fixture->name();
+}
+
 QVariantList FixtureManager::fixturesMap()
 {
     bool odd = true;

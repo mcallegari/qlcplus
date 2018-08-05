@@ -64,10 +64,23 @@ Flickable
             return fixtureManager.channelIcon(itemID, chNumber)
         }
 
+        function getTooltip(xPos, yPos)
+        {
+            var uniAddress = (yPos * gridSize.width) + xPos
+            return fixtureManager.getTooltip(uniAddress)
+        }
+
         onPressed:
         {
             universeGridView.interactive = false
             var uniAddress = (yPos * gridSize.width) + xPos
+            if (selectionData && selectionData.indexOf(uniAddress) >= 0)
+                return
+            if (contextManager.multipleSelection === false && mods == 0)
+            {
+                var empty = []
+                setSelectionData(empty)
+            }
             console.log("Fixture pressed at address: " + uniAddress)
             setSelectionData(fixtureManager.fixtureSelection(uniAddress))
         }

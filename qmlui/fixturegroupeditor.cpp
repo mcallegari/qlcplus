@@ -427,6 +427,27 @@ void FixtureGroupEditor::transformSelection(int transformation)
     updateGroupMap();
 }
 
+QString FixtureGroupEditor::getTooltip(int x, int y)
+{
+    if (m_editGroup == NULL)
+        return "";
+
+    GroupHead head = m_editGroup->head(QLCPoint(x, y));
+    if (head.isValid() == false)
+        return "";
+
+    Fixture *fixture = m_doc->fixture(head.fxi);
+    if (fixture == NULL)
+        return "";
+
+    QString tooltip = QString("%1\nHead: %2\nAddress: %3\nUniverse: %4")
+            .arg(fixture->name())
+            .arg(head.head + 1)
+            .arg(fixture->address() + 1)
+            .arg(fixture->universe() + 1);
+    return tooltip;
+}
+
 void FixtureGroupEditor::updateGroupMap()
 {
     /** Data format:

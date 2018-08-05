@@ -129,6 +129,9 @@ public:
     /** Rotate the current selection by $degrees */
     Q_INVOKABLE void transformSelection(int transformation);
 
+    /** Get a string to be displayed as tooltip for a head at position x,y */
+    Q_INVOKABLE QString getTooltip(int x, int y);
+
 private:
     void updateGroupMap();
 
