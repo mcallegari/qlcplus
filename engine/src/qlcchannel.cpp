@@ -519,6 +519,7 @@ QLCCapability *QLCChannel::addPresetCapability()
         case GoboWheelFine:
         case GoboIndexFine:
         case ShutterIrisFine:
+        case BeamFocusFine:
         case BeamZoomFine:
         case NoFunction:
             cap->setName(name());

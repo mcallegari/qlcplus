@@ -212,6 +212,7 @@ elementFormDefault="qualified"
         <xs:enumeration value="ShutterIrisFine"/>
         <xs:enumeration value="BeamFocusNearFar"/>
         <xs:enumeration value="BeamFocusFarNear"/>
+        <xs:enumeration value="BeamFocusFine"/>
         <xs:enumeration value="BeamZoomSmallBig"/>
         <xs:enumeration value="BeamZoomBigSmall"/>
         <xs:enumeration value="BeamZoomFine"/>
