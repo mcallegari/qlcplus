@@ -198,6 +198,7 @@ elementFormDefault="qualified"
         <xs:enumeration value="ColorMacro"/>
         <xs:enumeration value="ColorWheel"/>
         <xs:enumeration value="ColorWheelFine"/>
+        <xs:enumeration value="ColorRGBMixer"/>
         <xs:enumeration value="ColorCTOMixer"/>
         <xs:enumeration value="ColorCTCMixer"/>
         <xs:enumeration value="ColorCTBMixer"/>
