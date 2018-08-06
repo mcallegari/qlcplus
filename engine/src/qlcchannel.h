@@ -132,7 +132,6 @@ public:
         IntensityValue,
         IntensityValueFine,
         PositionPan,
-        PositionPanCounterClockwise,
         PositionPanFine,
         PositionTilt,
         PositionTiltFine,

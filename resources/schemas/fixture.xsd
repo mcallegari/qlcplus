@@ -183,7 +183,6 @@ elementFormDefault="qualified"
         <xs:enumeration value="IntensityValue"/>
         <xs:enumeration value="IntensityValueFine"/>
         <xs:enumeration value="PositionPan"/>
-        <xs:enumeration value="PositionPanCounterClockwise"/>
         <xs:enumeration value="PositionPanFine"/>
         <xs:enumeration value="PositionTilt"/>
         <xs:enumeration value="PositionTiltFine"/>
