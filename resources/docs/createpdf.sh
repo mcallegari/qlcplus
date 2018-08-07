@@ -1,14 +1,13 @@
 #
-# QLC+ documentation PDF creation through wkhtmltopdf utility downloaded from:
+# QLC+ documentation PDF creation through wkhtmltopdf utility downloaded from
+# https://wkhtmltopdf.org/downloads.html
 #
-# http://download.gna.org/wkhtmltopdf/0.12/0.12.3/wkhtmltox-0.12.3_linux-generic-amd64.tar.xz
-#
-# and copied in /usr/bin
-#
+
+WKHTMLTOPDF=$(which wkhtmltopdf)
 
 cd $1
 
-wkhtmltopdf --footer-center "Page [page]" --image-quality 100 \
+$WKHTMLTOPDF --footer-center "Page [page]" --image-quality 100 --javascript-delay 1000 \
   pdf_cover.html \
   index_pdf.html \
   concept.html \
@@ -73,12 +72,7 @@ wkhtmltopdf --footer-center "Page [page]" --image-quality 100 \
   vellemanoutput.html \
   loopbackplugin.html \
   fixturedefinitioneditor.html \
-  capabilityeditor.html \
-  capabilitywizard.html \
-  channeleditor.html \
-  fixtureeditor.html \
   modeeditor.html \
-  headeditor.html \
   tutorial.html \
   tutorial-multipage.html \
   tutorial-soundcontrol.html \
