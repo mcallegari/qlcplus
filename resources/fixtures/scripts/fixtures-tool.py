@@ -10,6 +10,7 @@ singleCapCount = 0
 
 namespace = "http://www.qlcplus.org/FixtureDefinition"
 
+# please see https://github.com/mcallegari/qlcplus/wiki/Fixture-definition-presets when changing this list
 def getPresetsArray():
     return [
         "Custom",

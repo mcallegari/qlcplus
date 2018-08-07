@@ -148,6 +148,9 @@ QLCChannel::Preset QLCChannel::preset() const
     return m_preset;
 }
 
+/* please see
+https://github.com/mcallegari/qlcplus/wiki/Fixture-definition-presets
+when changing this function */
 void QLCChannel::setPreset(QLCChannel::Preset preset)
 {
     if (preset == m_preset)
@@ -457,6 +460,9 @@ void QLCChannel::setPreset(QLCChannel::Preset preset)
     setControlByte(cb);
 }
 
+/* please see
+https://github.com/mcallegari/qlcplus/wiki/Fixture-definition-presets
+when changing this function */
 QLCCapability *QLCChannel::addPresetCapability()
 {
     QLCCapability *cap = new QLCCapability();

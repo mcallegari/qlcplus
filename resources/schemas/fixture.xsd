@@ -146,6 +146,9 @@ elementFormDefault="qualified"
    <xs:attribute name="Color2" type="xs:string"/>
 </xs:complexType>
 
+<!-- please see
+https://github.com/mcallegari/qlcplus/wiki/Fixture-definition-presets
+when changing this list -->
 <xs:simpleType name="channelPresetType">
     <xs:restriction base="xs:string">
         <xs:enumeration value="IntensityMasterDimmer"/>
@@ -222,6 +225,9 @@ elementFormDefault="qualified"
     </xs:restriction>
 </xs:simpleType>
 
+<!-- please see
+https://github.com/mcallegari/qlcplus/wiki/Fixture-definition-presets
+when changing this list -->
 <xs:simpleType name="capabilityPresetType">
     <xs:restriction base="xs:string">
         <xs:enumeration value="SlowToFast" />
