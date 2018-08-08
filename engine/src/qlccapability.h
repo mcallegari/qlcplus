@@ -95,7 +95,11 @@ public:
     bool operator<(const QLCCapability& capability) const;
 
     /********************************************************************
-     * Preset
+     * Presets
+     *
+     * please see
+     * https://github.com/mcallegari/qlcplus/wiki/Fixture-definition-presets
+     * when changing this list
      ********************************************************************/
 public:
     enum Preset

@@ -10,6 +10,7 @@ singleCapCount = 0
 
 namespace = "http://www.qlcplus.org/FixtureDefinition"
 
+# please see https://github.com/mcallegari/qlcplus/wiki/Fixture-definition-presets when changing this list
 def getPresetsArray():
     return [
         "Custom",
@@ -25,7 +26,7 @@ def getPresetsArray():
         "ColorMacro", "ColorWheel", "ColorWheelFine", "ColorRGBMixer", "ColorCTOMixer", "ColorCTCMixer", "ColorCTBMixer",
         "GoboWheel", "GoboWheelFine", "GoboIndex", "GoboIndexFine",
         "ShutterStrobeSlowFast", "ShutterStrobeFastSlow", "ShutterIrisMinToMax", "ShutterIrisMaxToMin", "ShutterIrisFine"
-        "BeamFocusNearFar", "BeamFocusFarNear", "BeamZoomSmallBig", "BeamZoomBigSmall", "BeamZoomFine",
+        "BeamFocusNearFar", "BeamFocusFarNear", "BeamFocusFine", "BeamZoomSmallBig", "BeamZoomBigSmall", "BeamZoomFine",
         "PrismRotationSlowFast", "PrismRotationFastSlow",
         "NoFunction" ]
 

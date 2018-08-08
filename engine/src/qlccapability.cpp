@@ -92,6 +92,9 @@ void QLCCapability::setPreset(QLCCapability::Preset preset)
     m_preset = preset;
 }
 
+/* please see
+https://github.com/mcallegari/qlcplus/wiki/Fixture-definition-presets
+when changing this function */
 QLCCapability::PresetType QLCCapability::presetType() const
 {
     switch (m_preset)
@@ -119,6 +122,9 @@ QLCCapability::PresetType QLCCapability::presetType() const
     }
 }
 
+/* please see
+https://github.com/mcallegari/qlcplus/wiki/Fixture-definition-presets
+when changing this function */
 QString QLCCapability::presetUnits() const
 {
     switch (m_preset)
