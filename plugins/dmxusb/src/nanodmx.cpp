@@ -30,6 +30,8 @@ NanoDMX::NanoDMX(DMXInterface *interface, quint32 outputLine)
 
 NanoDMX::~NanoDMX()
 {
+    stop();
+
 #ifdef QTSERIAL
     if (isOpen())
         DMXUSBWidget::close();
@@ -212,7 +214,7 @@ bool NanoDMX::close(quint32 line, bool input)
         m_file.close();
 #endif
 
-    return DMXUSBWidget::close(line);
+    return true;
 }
 
 QString NanoDMX::uniqueName(ushort line, bool input) const
