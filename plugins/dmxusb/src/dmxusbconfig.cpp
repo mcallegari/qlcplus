@@ -22,6 +22,7 @@
 #include <QTreeWidget>
 #include <QSettings>
 #include <QComboBox>
+#include <QSpinBox>
 #include <QLayout>
 #include <QDebug>
 #include <QTimer>
@@ -35,6 +36,7 @@
 #define COL_NAME   0
 #define COL_SERIAL 1
 #define COL_TYPE   2
+#define COL_FREQ   3
 #define PROP_SERIAL "serial"
 
 DMXUSBConfig::DMXUSBConfig(DMXUSB* plugin, QWidget* parent)
@@ -49,7 +51,7 @@ DMXUSBConfig::DMXUSBConfig(DMXUSB* plugin, QWidget* parent)
     setWindowTitle(plugin->name());
 
     QStringList header;
-    header << tr("Name") << tr("Serial") << QString("Mode");
+    header << tr("Name") << tr("Serial") << QString("Mode") << QString("Frequency");
     m_tree->setHeaderLabels(header);
     m_tree->setSelectionMode(QAbstractItemView::NoSelection);
 
@@ -81,7 +83,7 @@ DMXUSBConfig::~DMXUSBConfig()
 
 void DMXUSBConfig::slotTypeComboActivated(int index)
 {
-    QComboBox* combo = qobject_cast<QComboBox*> (QObject::sender());
+    QComboBox *combo = qobject_cast<QComboBox*> (QObject::sender());
     Q_ASSERT(combo != NULL);
 
     QVariant var = combo->property(PROP_SERIAL);
@@ -96,6 +98,22 @@ void DMXUSBConfig::slotTypeComboActivated(int index)
     QTimer::singleShot(0, this, SLOT(slotRefresh()));
 }
 
+void DMXUSBConfig::slotFrequencyValueChanged(int value)
+{
+    QSpinBox *spin = qobject_cast<QSpinBox*> (QObject::sender());
+    Q_ASSERT(spin != NULL);
+
+    QVariant var = spin->property(PROP_SERIAL);
+    if (var.isValid() == true)
+    {
+        QMap <QString,QVariant> frequencyMap(DMXInterface::frequencyMap());
+        frequencyMap[var.toString()] = value;
+        DMXInterface::storeFrequencyMap(frequencyMap);
+    }
+
+    QTimer::singleShot(0, this, SLOT(slotRefresh()));
+}
+
 void DMXUSBConfig::slotRefresh()
 {
     m_plugin->rescanWidgets();
@@ -104,17 +122,18 @@ void DMXUSBConfig::slotRefresh()
     QListIterator <DMXUSBWidget*> it(m_plugin->widgets());
     while (it.hasNext() == true)
     {
-        DMXUSBWidget* widget = it.next();
-        QTreeWidgetItem* item = new QTreeWidgetItem(m_tree);
+        DMXUSBWidget *widget = it.next();
+        QTreeWidgetItem *item = new QTreeWidgetItem(m_tree);
         item->setText(COL_NAME, widget->uniqueName());
         item->setText(COL_SERIAL, widget->serial());
         m_tree->setItemWidget(item, COL_TYPE, createTypeCombo(widget));
+        m_tree->setItemWidget(item, COL_FREQ, createFrequencySpin(widget));
     }
 
     m_tree->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
-QComboBox* DMXUSBConfig::createTypeCombo(DMXUSBWidget *widget)
+QComboBox *DMXUSBConfig::createTypeCombo(DMXUSBWidget *widget)
 {
     Q_ASSERT(widget != NULL);
     QComboBox* combo = new QComboBox;
@@ -132,4 +151,18 @@ QComboBox* DMXUSBConfig::createTypeCombo(DMXUSBWidget *widget)
     connect(combo, SIGNAL(activated(int)), this, SLOT(slotTypeComboActivated(int)));
 
     return combo;
+}
+
+QSpinBox *DMXUSBConfig::createFrequencySpin(DMXUSBWidget *widget)
+{
+    Q_ASSERT(widget != NULL);
+    QSpinBox *spin = new QSpinBox;
+    spin->setProperty(PROP_SERIAL, widget->serial());
+    spin->setRange(1, 60);
+    spin->setValue(widget->outputFrequency());
+    spin->setSuffix("Hz");
+
+    connect(spin, SIGNAL(valueChanged(int)), this, SLOT(slotFrequencyValueChanged(int)));
+
+    return spin;
 }

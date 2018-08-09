@@ -89,7 +89,6 @@ protected:
 protected:
     bool m_running;
     QByteArray m_universe;
-    double m_frequency;
     TimerGranularity m_granularity;
 };
 

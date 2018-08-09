@@ -3,7 +3,7 @@
   enttecdmxusbopen.cpp
 
   Copyright (C) Heikki Junnila
-        		Christopher Staite
+                Christopher Staite
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -29,7 +29,6 @@
 #define DMX_MAB 16
 #define DMX_BREAK 110
 #define DMX_CHANNELS 512
-#define SETTINGS_FREQUENCY "enttecdmxusbopen/frequency"
 #define SETTINGS_CHANNELS "enttecdmxusbopen/channels"
 
 /****************************************************************************
@@ -42,18 +41,13 @@ EnttecDMXUSBOpen::EnttecDMXUSBOpen(DMXInterface *interface,
     , DMXUSBWidget(interface, outputLine)
     , m_running(false)
     , m_universe(QByteArray(DMX_CHANNELS + 1, 0))
-    , m_frequency(30)
     , m_granularity(Unknown)
 {
     QSettings settings;
-    QVariant var = settings.value(SETTINGS_FREQUENCY);
+    QVariant var = settings.value(SETTINGS_CHANNELS);
     if (var.isValid() == true)
-        m_frequency = var.toDouble();
-
-    QVariant var2 = settings.value(SETTINGS_CHANNELS);
-    if (var2.isValid() == true)
     {
-        int channels = var2.toInt();
+        int channels = var.toInt();
         if (channels > DMX_CHANNELS || channels <= 0)
             channels = DMX_CHANNELS;
         // channels + 1 Because the first byte is always zero
