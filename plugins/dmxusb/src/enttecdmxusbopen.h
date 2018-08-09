@@ -3,7 +3,7 @@
   enttecdmxusbopen.h
 
   Copyright (C) Heikki Junnila
-        		Christopher Staite
+                Christopher Staite
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -88,7 +88,6 @@ protected:
 
 protected:
     bool m_running;
-    QByteArray m_universe;
     TimerGranularity m_granularity;
 };
 

@@ -40,7 +40,6 @@ EnttecDMXUSBOpen::EnttecDMXUSBOpen(DMXInterface *interface,
     : QThread(parent)
     , DMXUSBWidget(interface, outputLine)
     , m_running(false)
-    , m_universe(QByteArray(DMX_CHANNELS + 1, 0))
     , m_granularity(Unknown)
 {
     QSettings settings;
@@ -52,10 +51,14 @@ EnttecDMXUSBOpen::EnttecDMXUSBOpen(DMXInterface *interface,
             channels = DMX_CHANNELS;
         // channels + 1 Because the first byte is always zero
         // to break a full DMX universe transmission
-        m_universe = QByteArray(channels + 1, 0);
+        m_outputLines[0].m_universeData = QByteArray(channels + 1, 0);
+    }
+    else
+    {
+        m_outputLines[0].m_universeData = QByteArray(DMX_CHANNELS + 1, 0);
     }
 
-// on OSX, QtSerialPort cannot handle an OpenDMX device
+// on macOS, QtSerialPort cannot handle an OpenDMX device
 // so, unfortunately, we need to switch back to libftdi
 #if defined(Q_OS_OSX) && defined(QTSERIAL) && (defined(LIBFTDI1) || defined(LIBFTDI))
     if (interface->type() == DMXInterface::QtSerial)
@@ -117,7 +120,7 @@ QString EnttecDMXUSBOpen::additionalInfo() const
                                          .arg(vendor());
     info += QString("<BR>");
     info += QString("<B>%1:</B> %2").arg(tr("DMX Channels"))
-                                    .arg(m_universe.size()-1);
+                                    .arg(m_outputLines[0].m_universeData.size()-1);
     info += QString("<BR>");
     info += QString("<B>%1:</B> %2Hz").arg(tr("DMX Frame Frequency"))
                                       .arg(m_frequency);
@@ -143,8 +146,8 @@ bool EnttecDMXUSBOpen::writeUniverse(quint32 universe, quint32 output, const QBy
     Q_UNUSED(universe)
     Q_UNUSED(output)
 
-    m_universe.replace(1, MIN(data.size(), m_universe.size() - 1),
-                       data.constData(), MIN(data.size(), m_universe.size() - 1));
+    m_outputLines[0].m_universeData.replace(1, MIN(data.size(), m_outputLines[0].m_universeData.size() - 1),
+                                            data.constData(), MIN(data.size(), m_outputLines[0].m_universeData.size() - 1));
     return true;
 }
 
@@ -159,18 +162,12 @@ void EnttecDMXUSBOpen::stop()
 
 void EnttecDMXUSBOpen::run()
 {
+    QElapsedTimer timer;
     // One "official" DMX frame can take (1s/44Hz) = 23ms
-    int frameTime = (int) floor(((double)1000 / m_frequency) + (double)0.5);
+    int frameTimeUs = (int) (floor(((double)1000 / m_frequency) + (double)0.5)) * 1000;
 
     // Wait for device to settle in case the device was opened just recently
-    // Also measure, whether timer granularity is OK
-    QTime time;
-    time.start();
     usleep(1000);
-    if (time.elapsed() > 3)
-        m_granularity = Bad;
-    else
-        m_granularity = Good;
 
     if (interface()->type() == DMXInterface::QtSerial)
     {
@@ -188,10 +185,12 @@ void EnttecDMXUSBOpen::run()
     }
 
     m_running = true;
+    // let's assume this is a good adapter...
+    m_granularity = Good;
+
     while (m_running == true)
     {
-        // Measure how much time passes during these calls
-        time.restart();
+        timer.restart();
 
         if (interface()->setBreak(true) == false)
             goto framesleep;
@@ -205,14 +204,22 @@ void EnttecDMXUSBOpen::run()
         if (m_granularity == Good)
             usleep(DMX_MAB);
 
-        if (interface()->write(m_universe) == false)
+        if (interface()->write(m_outputLines[0].m_universeData) == false)
             goto framesleep;
 
 framesleep:
         // Sleep for the remainder of the DMX frame time
-        if (m_granularity == Good)
-            while (time.elapsed() < frameTime) { usleep(1000); }
+        // and set granularity accordingly
+        int timetoSleep = frameTimeUs - (timer.nsecsElapsed() / 1000);
+        if (timetoSleep < 0)
+        {
+            qWarning() << "DMX output is running late !";
+            m_granularity = Bad;
+        }
         else
-            while (time.elapsed() < frameTime) { /* Busy sleep */ }
+        {
+            usleep(timetoSleep);
+            m_granularity = Good;
+        }
     }
 }
