@@ -24,11 +24,13 @@
 
 Stageprofi::Stageprofi(DMXInterface *interface, quint32 outputLine)
     : DMXUSBWidget(interface, outputLine)
+    , m_running(false)
 {
 }
 
 Stageprofi::~Stageprofi()
 {
+    stop();
 }
 
 DMXUSBWidget::Type Stageprofi::type() const
@@ -82,8 +84,6 @@ bool Stageprofi::open(quint32 line, bool input)
     Q_UNUSED(line)
     Q_UNUSED(input)
 
-    m_universe = QByteArray(512, 0);
-
     if (DMXUSBWidget::open() == false)
         return false;
 
@@ -94,9 +94,7 @@ bool Stageprofi::open(quint32 line, bool input)
     if (interface()->write(initSequence) == true)
     {
         if (checkReply() == false)
-        {
             qWarning() << Q_FUNC_INFO << name() << "Initialization failed";
-        }
     }
     else
         qWarning() << Q_FUNC_INFO << name() << "Initialization failed";
@@ -110,7 +108,18 @@ bool Stageprofi::open(quint32 line, bool input)
             qWarning() << Q_FUNC_INFO << name() << "Channels initialization failed";
     }
 
+    // start the output thread
+    start();
+
     return true;
+}
+
+bool Stageprofi::close(quint32 line, bool input)
+{
+    Q_UNUSED(input)
+
+    stop();
+    return DMXUSBWidget::close(line);
 }
 
 QString Stageprofi::uniqueName(ushort line, bool input) const
@@ -155,10 +164,50 @@ bool Stageprofi::writeUniverse(quint32 universe, quint32 output, const QByteArra
     if (isOpen() == false)
         return false;
 
-    for (int i = 0; i < data.size(); i++)
+    if (m_outputLines[0].m_universeData.size() == 0)
+        m_outputLines[0].m_universeData.append(data);
+    else
+        m_outputLines[0].m_universeData.replace(0, data.size(), data);
+
+    return true;
+}
+
+void Stageprofi::stop()
+{
+    if (isRunning() == true)
     {
-        if (data[i] != m_universe[i])
+        m_running = false;
+        wait();
+    }
+}
+
+void Stageprofi::run()
+{
+    qDebug() << "OUTPUT thread started";
+
+    QElapsedTimer timer;
+    // One "official" DMX frame can take (1s/44Hz) = 23ms
+    int frameTimeUs = (int) (floor(((double)1000 / m_frequency) + (double)0.5)) * 1000;
+
+    m_running = true;
+
+    if (m_outputLines[0].m_compareData.size() == 0)
+        m_outputLines[0].m_compareData.fill(0, 512);
+
+    // Wait for device to settle in case the device was opened just recently
+    usleep(1000);
+
+    while (m_running == true)
+    {
+        timer.restart();
+
+        for (int i = 0; i < m_outputLines[0].m_universeData.length(); i++)
         {
+            uchar val = uchar(m_outputLines[0].m_universeData[i]);
+
+            if (val == m_outputLines[0].m_compareData[i])
+                continue;
+
             QByteArray fastTrans;
             if (i < 256)
             {
@@ -170,23 +219,30 @@ bool Stageprofi::writeUniverse(quint32 universe, quint32 output, const QByteArra
                 fastTrans.append((char)0xE3);
                 fastTrans.append((char)(i - 256));
             }
-            fastTrans.append(data[i]);
+            fastTrans.append(val);
 
             if (interface()->write(fastTrans) == false)
             {
                 qWarning() << Q_FUNC_INFO << name() << "will not accept DMX data";
                 interface()->purgeBuffers();
-                return false;
+                continue;
             }
             else
             {
-                m_universe[i] = data[i];
+                m_outputLines[0].m_compareData[i] = val;
                 if (checkReply() == false)
                     interface()->purgeBuffers();
             }
         }
+
+        int timetoSleep = frameTimeUs - (timer.nsecsElapsed() / 1000);
+        if (timetoSleep < 0)
+            qWarning() << "DMX output is running late !";
+        else
+            usleep(timetoSleep);
     }
-    return true;
+
+    qDebug() << "OUTPUT thread terminated";
 }
 
 
