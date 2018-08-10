@@ -178,28 +178,20 @@ Entity
         cutoffAngle = (((((focusMaxDegrees - focusMinDegrees) / 255) * value) + focusMinDegrees) / 2) * (Math.PI / 180)
     }
 
-    function setupScattering(shadingLayer, scatteringLayer, depthLayer,
-                             shadingEffect, scatteringEffect, depthEffect,
-                             headEntity, sceneEntity)
+    function setupScattering(shadingEffect, scatteringEffect, depthEffect, sceneEntity)
     {
         if (sceneEntity.coneMesh.length !== distCutoff)
             sceneEntity.coneMesh.length = distCutoff
 
-        shadingCone.coneLayer = shadingLayer
         shadingCone.coneEffect = shadingEffect
-        shadingCone.coneMaterial.fxItem = fixtureEntity
         shadingCone.parent = sceneEntity
         shadingCone.spotlightConeMesh = sceneEntity.coneMesh
 
-        scatteringCone.coneLayer = scatteringLayer
         scatteringCone.coneEffect = scatteringEffect
-        scatteringCone.coneMaterial.fxItem = fixtureEntity
         scatteringCone.parent = sceneEntity
         scatteringCone.spotlightConeMesh = sceneEntity.coneMesh
 
-        outDepthCone.coneLayer = depthLayer
         outDepthCone.coneEffect = depthEffect
-        outDepthCone.coneMaterial.fxItem = fixtureEntity
         outDepthCone.parent = sceneEntity
         outDepthCone.spotlightConeMesh = sceneEntity.coneMesh
     }
@@ -278,9 +270,24 @@ Entity
     }
 
     /* Cone meshes used for scattering. These get re-parented to a head mesh via setupScattering */
-    SpotlightConeEntity { id: shadingCone }
-    SpotlightConeEntity { id: scatteringCone }
-    SpotlightConeEntity { id: outDepthCone }
+    SpotlightConeEntity
+    {
+        id: shadingCone
+        coneLayer: spotlightShadingLayer
+        fxEntity: fixtureEntity
+    }
+    SpotlightConeEntity
+    {
+        id: scatteringCone
+        coneLayer: spotlightScatteringLayer
+        fxEntity: fixtureEntity
+    }
+    SpotlightConeEntity
+    {
+        id: outDepthCone
+        coneLayer: outputDepthLayer
+        fxEntity: fixtureEntity
+    }
 
     SceneLoader
     {

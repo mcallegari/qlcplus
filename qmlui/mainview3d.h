@@ -86,10 +86,6 @@ typedef struct
     BoundingVolume m_volume;
     /** The selection box entity */
     QEntity *m_selectionBox;
-    /** Reference to the layers used for scattering */
-    QLayer *m_spotlightShadingLayer;
-    QLayer *m_spotlightScatteringLayer;
-    QLayer *m_outputDepthLayer;
 
     GoboTextureImage *m_goboTexture;
 } SceneItem;
@@ -350,6 +346,7 @@ public:
     float ambientIntensity() const;
     void setAmbientIntensity(float ambientIntensity);
 
+    /** Get/Set the amount of smoke in the environment */
     float smokeAmount() const;
     void setSmokeAmount(float smokeAmount);
 

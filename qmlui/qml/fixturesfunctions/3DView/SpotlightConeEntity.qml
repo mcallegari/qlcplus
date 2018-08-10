@@ -32,6 +32,7 @@ Entity
     property Layer coneLayer: null
     property alias coneMaterial: mtl
     property ConeMesh spotlightConeMesh: null
+    property alias fxEntity: mtl.fxItem
 
     Material
     {
