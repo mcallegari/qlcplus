@@ -153,7 +153,8 @@ QLCFixtureDef::FixtureType QLCFixtureDef::stringToType(const QString& type)
     else if (type == "Scanner") return Scanner;
     else if (type == "Smoke") return Smoke;
     else if (type == "Strobe") return Strobe;
-    else if (type == "LED Bar") return LEDBar;
+    else if (type == "LED Bar (Beams)") return LEDBarBeams;
+    else if (type == "LED Bar (Pixels)") return LEDBarPixels;
 
     return Other;
 }
@@ -173,7 +174,8 @@ QString QLCFixtureDef::typeToString(QLCFixtureDef::FixtureType type)
         case Scanner: return "Scanner";
         case Smoke: return "Smoke";
         case Strobe: return "Strobe";
-        case LEDBar: return "LED Bar";
+        case LEDBarBeams: return "LED Bar (Beams)";
+        case LEDBarPixels: return "LED Bar (Pixels)";
         default: return "Other";
     }
 }

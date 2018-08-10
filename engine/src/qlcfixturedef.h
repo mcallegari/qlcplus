@@ -102,7 +102,8 @@ public:
         Scanner,
         Smoke,
         Strobe,
-        LEDBar,
+        LEDBarBeams,
+        LEDBarPixels,
         Other
     };
 
