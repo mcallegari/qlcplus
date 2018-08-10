@@ -460,49 +460,69 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
     QString meshPath = meshDirectory() + "fixtures" + QDir::separator();
     QString openGobo = goboDirectory() + QDir::separator() + "Others/open.svg";
     quint32 itemID = FixtureUtils::fixtureItemID(fxID, headIndex, linkedIndex);
+    QEntity *newItem = NULL;
 
     SceneItem *mesh = new SceneItem;
     mesh->m_rootItem = NULL;
     mesh->m_rootTransform = NULL;
     mesh->m_armItem = NULL;
     mesh->m_headItem = NULL;
-    mesh->m_lightIndex = getNewLightIndex();
     mesh->m_selectionBox = NULL;
-    mesh->m_goboTexture = new GoboTextureImage(512, 512, openGobo);
 
-    QEntity *newItem = qobject_cast<QEntity *>(m_fixtureComponent->create());
-    if (newItem == NULL)
+    if (fixture->type() == QLCFixtureDef::LEDBarBeams)
     {
-        qDebug() << "Fixture 3D item creation failed !!";
-        return;
+        mesh->m_goboTexture = NULL;
+
+        QQmlComponent *lbComp = new QQmlComponent(m_view->engine(), QUrl("qrc:/MultiBeams3DItem.qml"));
+        if (lbComp->isError())
+            qDebug() << lbComp->errors();
+
+        newItem = qobject_cast<QEntity *>(lbComp->create());
+        if (newItem == NULL)
+        {
+            qDebug() << "Fixture 3D item creation failed !!";
+            return;
+        }
+    }
+    else
+    {
+        mesh->m_goboTexture = new GoboTextureImage(512, 512, openGobo);
+
+        newItem = qobject_cast<QEntity *>(m_fixtureComponent->create());
+        if (newItem == NULL)
+        {
+            qDebug() << "Fixture 3D item creation failed !!";
+            return;
+        }
     }
     newItem->setParent(m_sceneRootEntity);
 
-    if (fixture->type() == QLCFixtureDef::ColorChanger ||
-        fixture->type() == QLCFixtureDef::Dimmer)
+    switch (fixture->type())
     {
-        meshPath.append("par.dae");
-        newItem->setProperty("meshType", FixtureMeshType::ParMeshType);
-    }
-    else if (fixture->type() == QLCFixtureDef::MovingHead)
-    {
-        meshPath.append("moving_head.dae");
-        newItem->setProperty("meshType", FixtureMeshType::MovingHeadMeshType);
-    }
-     else if (fixture->type() == QLCFixtureDef::Scanner)
-    {
-        meshPath.append("scanner.dae");
-        newItem->setProperty("meshType", FixtureMeshType::ScannerMeshType);
-    }
-    else if (fixture->type() == QLCFixtureDef::Hazer)
-    {
-        meshPath.append("hazer.dae");
-        newItem->setProperty("meshType", FixtureMeshType::DefaultMeshType);
-    }
-    else if (fixture->type() == QLCFixtureDef::Smoke)
-    {
-        meshPath.append("smoke.dae");
-        newItem->setProperty("meshType", FixtureMeshType::DefaultMeshType);
+        case QLCFixtureDef::ColorChanger:
+        case QLCFixtureDef::Dimmer:
+            meshPath.append("par.dae");
+            newItem->setProperty("meshType", FixtureMeshType::ParMeshType);
+        break;
+        case QLCFixtureDef::MovingHead:
+            meshPath.append("moving_head.dae");
+            newItem->setProperty("meshType", FixtureMeshType::MovingHeadMeshType);
+        break;
+        case QLCFixtureDef::Scanner:
+            meshPath.append("scanner.dae");
+            newItem->setProperty("meshType", FixtureMeshType::ScannerMeshType);
+        break;
+        case QLCFixtureDef::Hazer:
+            meshPath.append("hazer.dae");
+            newItem->setProperty("meshType", FixtureMeshType::DefaultMeshType);
+        break;
+        case QLCFixtureDef::Smoke:
+            meshPath.append("smoke.dae");
+            newItem->setProperty("meshType", FixtureMeshType::DefaultMeshType);
+        break;
+        default:
+            qDebug() << "Implement me !";
+        break;
     }
 
     newItem->setProperty("itemID", itemID);
@@ -562,19 +582,6 @@ QMaterial *MainView3D::getMaterial(QEntity *entity)
     return NULL;
 }
 
-unsigned int MainView3D::getNewLightIndex()
-{
-    unsigned int newIdx = 0;
-
-    for (SceneItem *mesh : m_entitiesMap.values())
-    {
-        if (mesh->m_lightIndex >= newIdx)
-            newIdx = mesh->m_lightIndex + 1;
-    }
-
-    return newIdx;
-}
-
 QVector3D MainView3D::lightPosition(quint32 itemID)
 {
     SceneItem *meshRef = m_entitiesMap.value(itemID, NULL);
@@ -587,10 +594,8 @@ QVector3D MainView3D::lightPosition(quint32 itemID)
 QMatrix4x4 MainView3D::lightMatrix(quint32 itemID)
 {
     SceneItem *meshRef = m_entitiesMap.value(itemID, NULL);
-    if (meshRef == NULL) {
-        qDebug() << "COULD NOT FIND ";
+    if (meshRef == NULL)
         return QMatrix4x4();
-    }
 
     return meshRef->m_rootItem->property("lightMatrix").value<QMatrix4x4>();
 }
