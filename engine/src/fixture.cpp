@@ -685,7 +685,7 @@ QLCFixtureDef *Fixture::genericRGBPanelDef(int columns, Components components)
     QLCFixtureDef *def = new QLCFixtureDef();
     def->setManufacturer(KXMLFixtureGeneric);
     def->setModel(KXMLFixtureRGBPanel);
-    def->setType(QLCFixtureDef::LEDBar);
+    def->setType(QLCFixtureDef::LEDBarPixels);
     def->setAuthor("QLC+");
     for (int i = 0; i < columns; i++)
     {
