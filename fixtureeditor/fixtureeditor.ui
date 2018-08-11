@@ -221,6 +221,24 @@
             <normaloff>:/strobe.png</normaloff>:/strobe.png</iconset>
           </property>
          </item>
+         <item>
+          <property name="text">
+           <string>LED Bar (Beams)</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../ui/src/qlcui.qrc">
+            <normaloff>:/other.png</normaloff>:/other.png</iconset>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>LED Bar (Pixels)</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../ui/src/qlcui.qrc">
+            <normaloff>:/other.png</normaloff>:/other.png</iconset>
+          </property>
+         </item>
         </widget>
        </item>
        <item row="3" column="0">
