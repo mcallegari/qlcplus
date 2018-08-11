@@ -29,7 +29,7 @@
 #define EUROLITE_USB_DMX_PRO_START_OF_MSG  char(0x7E)
 #define EUROLITE_USB_DMX_PRO_END_OF_MSG    char(0xE7)
 
-class EuroliteUSBDMXPro : public DMXUSBWidget
+class EuroliteUSBDMXPro : public QThread, public DMXUSBWidget
 {
     /************************************************************************
      * Initialization
@@ -60,14 +60,20 @@ public:
     /** @reimp */
     bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
 
+protected:
+    /** Stop the writer thread */
+    void stop();
+
+    /** DMX writer thread worker method */
+    void run();
+
 private:
     QString getDeviceName();
 
 private:
     /** File handle for /dev/ttyACMx */
     QFile m_file;
-
-    QByteArray m_universe;
+    bool m_running;
 };
 
 #endif

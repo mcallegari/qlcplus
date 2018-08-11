@@ -28,21 +28,24 @@ class DMXUSB;
 class QPushButton;
 class QTreeWidget;
 class QComboBox;
+class QSpinBox;
 
 class DMXUSBConfig : public QDialog
 {
     Q_OBJECT
 
 public:
-    DMXUSBConfig(DMXUSB *plugin, QWidget* parent = 0);
+    DMXUSBConfig(DMXUSB *plugin, QWidget *parent = 0);
     ~DMXUSBConfig();
 
 private slots:
     void slotTypeComboActivated(int index);
+    void slotFrequencyValueChanged(int value);
     void slotRefresh();
 
 private:
-    QComboBox* createTypeCombo(DMXUSBWidget* widget);
+    QComboBox *createTypeCombo(DMXUSBWidget *widget);
+    QSpinBox *createFrequencySpin(DMXUSBWidget *widget);
 
 private:
     DMXUSB* m_plugin;

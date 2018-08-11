@@ -24,6 +24,7 @@
 #include <QtCore>
 
 #define SETTINGS_TYPE_MAP "qlcftdi/typemap"
+#define SETTINGS_FREQ_MAP "qlcftdi/freqmap"
 
 class DMXInterface
 {
@@ -112,11 +113,19 @@ public:
 
     /**
      * Get a map of [serial = type] bindings that tells which serials should
-     * be used to force the plugin to use pro/open method on which widget.
+     * be used to force the plugin to use pro/open method on which widget
      */
     static QMap <QString,QVariant> typeMap();
 
     static void storeTypeMap(const QMap <QString,QVariant> map);
+
+    /**
+     * Get a map of [serial = frequency] bindings that tells which
+     * output frequency should be used on a specifi serail number
+     */
+    static QMap <QString,QVariant> frequencyMap();
+
+    static void storeFrequencyMap(const QMap <QString,QVariant> map);
 
     /************************************************************************
      * DMX/Serial Interface Methods

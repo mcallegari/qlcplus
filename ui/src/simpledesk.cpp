@@ -597,8 +597,11 @@ void SimpleDesk::slotViewModeClicked(bool toggle)
                 if (fxRemoveList.contains(slider->fixture()) == false)
                 {
                     Fixture *currFx = m_doc->fixture(slider->fixture());
-                    disconnect(currFx, SIGNAL(aliasChanged()), this, SLOT(slotAliasChanged()));
-                    fxRemoveList.append(slider->fixture());
+                    if (currFx != NULL)
+                    {
+                        disconnect(currFx, SIGNAL(aliasChanged()), this, SLOT(slotAliasChanged()));
+                        fxRemoveList.append(slider->fixture());
+                    }
                 }
                 delete slider;
                 m_universeSliders[i] = NULL;
@@ -657,8 +660,11 @@ void SimpleDesk::slotUniversePageChanged(int page)
             if (fxRemoveList.contains(slider->fixture()) == false)
             {
                 Fixture *currFx = m_doc->fixture(slider->fixture());
-                disconnect(currFx, SIGNAL(aliasChanged()), this, SLOT(slotAliasChanged()));
-                fxRemoveList.append(slider->fixture());
+                if (currFx != NULL)
+                {
+                    disconnect(currFx, SIGNAL(aliasChanged()), this, SLOT(slotAliasChanged()));
+                    fxRemoveList.append(slider->fixture());
+                }
             }
             delete slider;
             m_universeSliders[i] = NULL;
