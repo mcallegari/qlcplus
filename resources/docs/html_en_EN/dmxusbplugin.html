@@ -49,7 +49,9 @@ Here's the meaning of each one:
  <LI><B>Vince Tx</B>: Vince DMX512 USB in output mode</LI>
 </UL>
 <B>Note for OSX users:</B> If your adapter is detected but doesn't produce any output, most likely you'll find the solution
-in the <A HREF="questionsandanswers.html#osx-mavericks">Questions and Answers</A> page.
+in the <A HREF="questionsandanswers.html#osx-mavericks">Questions and Answers</A> page (Question #3).<br>
+<B>Note 1</B>: Eurolite USB-DMX512 Pro devices must be forced to the "Pro RX/TX" mode to operate correctly.<br>
+<B>Note 2</B>: On Windows, Enttec open DMX clones might flicker at 44Hz. You can try and decrease the output frequency until the issue is resolved.
 </P>
 
 <H2>Requirements</H2>
@@ -67,18 +69,21 @@ to the "dialout" group with the following command:<br>
 <H3>macOS</H3>
 <P>
 On Apple macOS, you don't need any drivers at all since QLC+ uses the macOS native USB
-interface. Installing the D2XX drivers should cause no harm, but <B>DO NOT INSTALL VCP drivers</B> as they will definitely interfere
+interface. Installing the D2XX drivers should cause no harm, but <B>DO NOT INSTALL VCP (Virtual COM Port) drivers</B> as they will definitely interfere
 with QLC+. If you have previously installed the VCP drivers, consult the
 <A HREF="http://www.ftdichip.com/Support/Documents/InstallGuides.htm">FTDI installation guides</A> on how to uninstall them.<br>
 <br>
-<B>OSX Mavericks (or later) issues</B>: please check <a href="questionsandanswers.html#osx-mavericks">Questions &amp; answers #4</A>
+<B>OSX Mavericks (or later) issues</B>: please check <a href="questionsandanswers.html#osx-mavericks">Questions &amp; answers #3</A>
 </P>
 
 <H3>Windows</H3>
 <P>
 On Microsoft Windows, the plugin needs the <A HREF="http://www.ftdichip.com/Drivers/D2XX.htm">latest D2XX drivers from FTDI</A>.
-Consult the <A HREF="http://www.ftdichip.com/Support/Documents/InstallGuides.htm">FTDI installation guides</A> on how to install the drivers.
-<B>DO NOT INSTALL VCP drivers</B> as they will probably interfere with the D2XX interface.
+Normally, when a FTDI device is plugged in for the first time, Windows will automatically download the D2XX drivers for you, so no
+action is needed at all.<br>
+If that doesn't happen, please consult the <A HREF="http://www.ftdichip.com/Support/Documents/InstallGuides.htm">FTDI installation guides</A> 
+to know how to install the drivers.<br>
+<B>DO NOT INSTALL VCP (Virtual COM Port) drivers</B> as they will probably interfere with the D2XX interface.
 </P>
 
 <H2>ENTTEC DMX USB Pro supported modes</H2>
@@ -122,9 +127,8 @@ from 1 to 512 as described in the <a href="midiplugin.html#channelsmap">MIDI plu
 <H2>Tuning</H2>
 <P>
 <B>Note: Manual tuning should never be performed except for some very particular cases. Use it at your own risk!</B><BR>
-It is possible to change the DMX frame frequency for Enttec Open (and like) devices with a
-hidden settings key on each platform. The key tells QLC+ how many times each DMX frame (512 channels)
-should be sent to the universe per second. A value of "30" means 30 times per second (30Hz).<BR>
+It is possible to change the DMX frame size for Enttec Open (and like) devices with a
+hidden settings key on each platform. The key tells QLC+ how many channels should be transmitted in each DMX frame, so for a DMX universe (by default 512).<BR>
 Please refer to the <A HREF="file:parameterstuning.html#EnttecOpen">Manual parameters tuning</A> DMX USB Enttec Open section
 </P>
 
