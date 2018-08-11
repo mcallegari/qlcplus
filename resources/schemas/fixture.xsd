@@ -68,6 +68,8 @@ elementFormDefault="qualified"
         <xs:enumeration value="Scanner"/>
         <xs:enumeration value="Smoke"/>
         <xs:enumeration value="Strobe"/>
+        <xs:enumeration value="LED Bar (Beams)"/>
+        <xs:enumeration value="LED Bar (Pixels)"/>
     </xs:restriction>
 </xs:simpleType>
 
