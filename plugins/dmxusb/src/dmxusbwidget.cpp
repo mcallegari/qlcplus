@@ -36,7 +36,6 @@
 DMXUSBWidget::DMXUSBWidget(DMXInterface *interface, quint32 outputLine)
     : m_interface(interface)
     , m_outputBaseLine(outputLine)
-    , m_frequency(DEFAULT_OUTPUT_FREQUENCY)
     , m_inputBaseLine(0)
 {
     Q_ASSERT(interface != NULL);
@@ -44,6 +43,8 @@ DMXUSBWidget::DMXUSBWidget(DMXInterface *interface, quint32 outputLine)
     QMap <QString, QVariant> freqMap(DMXInterface::frequencyMap());
     if (freqMap.contains(m_interface->serial()))
         setOutputFrequency(freqMap[m_interface->serial()].toInt());
+    else
+        setOutputFrequency(DEFAULT_OUTPUT_FREQUENCY);
 
     setOutputsNumber(1);
     setInputsNumber(0);
@@ -395,6 +396,8 @@ int DMXUSBWidget::outputFrequency()
 void DMXUSBWidget::setOutputFrequency(int frequency)
 {
     m_frequency = frequency;
+    // One "official" DMX frame can take (1s/44Hz) = 23ms
+    m_frameTimeUs = (int) (floor(((double)1000 / m_frequency) + (double)0.5)) * 1000;
 }
 
 /********************************************************************

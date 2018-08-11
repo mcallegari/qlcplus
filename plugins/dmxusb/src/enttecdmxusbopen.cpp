@@ -163,8 +163,6 @@ void EnttecDMXUSBOpen::stop()
 void EnttecDMXUSBOpen::run()
 {
     QElapsedTimer timer;
-    // One "official" DMX frame can take (1s/44Hz) = 23ms
-    int frameTimeUs = (int) (floor(((double)1000 / m_frequency) + (double)0.5)) * 1000;
 
     // Wait for device to settle in case the device was opened just recently
     usleep(1000);
@@ -210,7 +208,7 @@ void EnttecDMXUSBOpen::run()
 framesleep:
         // Sleep for the remainder of the DMX frame time
         // and set granularity accordingly
-        int timetoSleep = frameTimeUs - (timer.nsecsElapsed() / 1000);
+        int timetoSleep = m_frameTimeUs - (timer.nsecsElapsed() / 1000);
         if (timetoSleep < 0)
         {
             qWarning() << "DMX output is running late !";

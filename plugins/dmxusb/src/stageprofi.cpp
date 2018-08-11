@@ -186,8 +186,6 @@ void Stageprofi::run()
     qDebug() << "OUTPUT thread started";
 
     QElapsedTimer timer;
-    // One "official" DMX frame can take (1s/44Hz) = 23ms
-    int frameTimeUs = (int) (floor(((double)1000 / m_frequency) + (double)0.5)) * 1000;
 
     m_running = true;
 
@@ -235,7 +233,7 @@ void Stageprofi::run()
             }
         }
 
-        int timetoSleep = frameTimeUs - (timer.nsecsElapsed() / 1000);
+        int timetoSleep = m_frameTimeUs - (timer.nsecsElapsed() / 1000);
         if (timetoSleep < 0)
             qWarning() << "DMX output is running late !";
         else

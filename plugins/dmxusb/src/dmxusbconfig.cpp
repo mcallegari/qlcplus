@@ -38,6 +38,7 @@
 #define COL_TYPE   2
 #define COL_FREQ   3
 #define PROP_SERIAL "serial"
+#define PROP_WIDGET "widget"
 
 DMXUSBConfig::DMXUSBConfig(DMXUSB* plugin, QWidget* parent)
     : QDialog(parent)
@@ -55,10 +56,10 @@ DMXUSBConfig::DMXUSBConfig(DMXUSB* plugin, QWidget* parent)
     m_tree->setHeaderLabels(header);
     m_tree->setSelectionMode(QAbstractItemView::NoSelection);
 
-    QVBoxLayout* vbox = new QVBoxLayout(this);
+    QVBoxLayout *vbox = new QVBoxLayout(this);
     vbox->addWidget(m_tree);
 
-    QHBoxLayout* hbox = new QHBoxLayout;
+    QHBoxLayout *hbox = new QHBoxLayout;
     hbox->addWidget(m_refreshButton);
     hbox->addStretch();
     hbox->addWidget(m_closeButton);
@@ -111,7 +112,9 @@ void DMXUSBConfig::slotFrequencyValueChanged(int value)
         DMXInterface::storeFrequencyMap(frequencyMap);
     }
 
-    QTimer::singleShot(0, this, SLOT(slotRefresh()));
+    var = spin->property(PROP_WIDGET);
+    DMXUSBWidget *widget = (DMXUSBWidget *) var.value<void *>();
+    widget->setOutputFrequency(value);
 }
 
 void DMXUSBConfig::slotRefresh()
@@ -158,6 +161,7 @@ QSpinBox *DMXUSBConfig::createFrequencySpin(DMXUSBWidget *widget)
     Q_ASSERT(widget != NULL);
     QSpinBox *spin = new QSpinBox;
     spin->setProperty(PROP_SERIAL, widget->serial());
+    spin->setProperty(PROP_WIDGET, qVariantFromValue((void *)widget));
     spin->setRange(1, 60);
     spin->setValue(widget->outputFrequency());
     spin->setSuffix("Hz");

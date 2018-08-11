@@ -150,6 +150,7 @@ protected:
 
     /** The output frequency in Hertz */
     int m_frequency;
+    int m_frameTimeUs;
 
     /** Array of output lines supported by the device. This is resized on setOutputsNumber */
     QVector<DMXUSBLineInfo> m_outputLines;
