@@ -484,6 +484,21 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
             return;
         }
     }
+    else if (fixture->type() == QLCFixtureDef::LEDBarPixels)
+    {
+        mesh->m_goboTexture = NULL;
+
+        QQmlComponent *lbComp = new QQmlComponent(m_view->engine(), QUrl("qrc:/PixelBar3DItem.qml")); // TODO
+        if (lbComp->isError())
+            qDebug() << lbComp->errors();
+
+        newItem = qobject_cast<QEntity *>(lbComp->create());
+        if (newItem == NULL)
+        {
+            qDebug() << "Fixture 3D item creation failed !!";
+            return;
+        }
+    }
     else
     {
         mesh->m_goboTexture = new GoboTextureImage(512, 512, openGobo);
@@ -520,8 +535,11 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
             meshPath.append("smoke.dae");
             newItem->setProperty("meshType", FixtureMeshType::DefaultMeshType);
         break;
+        case QLCFixtureDef::LEDBarBeams:
+        case QLCFixtureDef::LEDBarPixels:
+        break;
         default:
-            qDebug() << "Implement me !";
+            qDebug() << "I don't know what to do with you :'(";
         break;
     }
 
@@ -791,6 +809,7 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QSceneLoad
     qreal focusMax = 30;
     qreal focusMin = 10;
     bool calculateVolume = false;
+    QEntity *root = NULL;
 
     if (fxMode != NULL)
     {
@@ -811,16 +830,23 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QSceneLoad
 
     qDebug() << "Initialize fixture" << fixture->id();
 
-    // The QSceneLoader instance is a component of an entity. The loaded scene
-    // tree is added under this entity.
-    QVector<QEntity *> entities = loader->entities();
+    if (loader)
+    {
+        // The QSceneLoader instance is a component of an entity. The loaded scene
+        // tree is added under this entity.
+        QVector<QEntity *> entities = loader->entities();
 
-    if (entities.isEmpty())
-        return;
+        if (entities.isEmpty())
+            return;
 
-    // Technically there could be multiple entities referencing the scene loader
-    // but sharing is discouraged, and in our case there will be one anyhow.
-    QEntity *root = entities[0];
+        // Technically there could be multiple entities referencing the scene loader
+        // but sharing is discouraged, and in our case there will be one anyhow.
+        root = entities[0];
+    }
+    else
+    {
+        root = fxEntity;
+    }
 
     qDebug() << "There are" << root->children().count() << "components in the loaded fixture";
 
@@ -842,7 +868,7 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QSceneLoad
     tex->addTextureImage(meshRef->m_goboTexture);
 
     // If this model has been already loaded, re-use the cached bounding volume
-    if (m_boundingVolumesMap.contains(loader->source()))
+    if (loader && m_boundingVolumesMap.contains(loader->source()))
         meshRef->m_volume = m_boundingVolumesMap[loader->source()];
     else
         calculateVolume = true;
@@ -853,7 +879,7 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QSceneLoad
 
     qDebug() << "Calculated volume" << meshRef->m_volume.m_extents << meshRef->m_volume.m_center;
 
-    if (calculateVolume)
+    if (loader && calculateVolume)
         m_boundingVolumesMap[loader->source()] = meshRef->m_volume;
 
     if (meshRef->m_armItem)

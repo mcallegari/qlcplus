@@ -206,7 +206,14 @@ Entity
     QQ2.Repeater
     {
         id: headsRepeater
-        model: fixtureItem.headsNumber
+        model: headsNumber
+
+        onItemAdded:
+        {
+            if (index == headsNumber - 1)
+                View3D.initializeFixture(itemID, fixtureEntity, null)
+        }
+
         delegate:
             Entity
             {
@@ -287,5 +294,5 @@ Entity
         }
     }
 
-    components: [ eSceneLoader, transform, eObjectPicker ]
+    components: [ baseMesh, transform, eObjectPicker ]
 }
