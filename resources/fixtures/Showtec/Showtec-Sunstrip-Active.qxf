@@ -3,12 +3,12 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.2 GIT</Version>
+  <Version>4.12.0 GIT</Version>
   <Author>Julien Poilvilain</Author>
  </Creator>
  <Manufacturer>Showtec</Manufacturer>
  <Model>Sunstrip Active</Model>
- <Type>Dimmer</Type>
+ <Type>LED Bar (Pixels)</Type>
  <Channel Name="Channel 1" Preset="IntensityDimmer"/>
  <Channel Name="Channel 2" Preset="IntensityDimmer"/>
  <Channel Name="Channel 3" Preset="IntensityDimmer"/>
