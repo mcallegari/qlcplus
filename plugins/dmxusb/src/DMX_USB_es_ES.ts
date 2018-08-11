@@ -65,12 +65,12 @@
     <message>
         <location filename="dmxusbconfig.cpp" line="55"/>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo</translation>
     </message>
     <message>
         <location filename="dmxusbconfig.cpp" line="55"/>
         <source>Output frequency</source>
-        <translation type="unfinished"></translation>
+        <translation>Frecuencia de salida</translation>
     </message>
 </context>
 <context>
