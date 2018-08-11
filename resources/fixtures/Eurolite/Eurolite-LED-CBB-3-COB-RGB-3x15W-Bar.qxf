@@ -1,14 +1,14 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.8.3 GIT</Version>
+  <Version>4.12.0 GIT</Version>
   <Author>Thomas Demmel</Author>
  </Creator>
  <Manufacturer>Eurolite</Manufacturer>
  <Model>LED CBB-3 COB RBG 3x15W Bar</Model>
- <Type>Color Changer</Type>
+ <Type>LED Bar (Beams)</Type>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>
  <Channel Name="Blue" Preset="IntensityBlue"/>
@@ -37,16 +37,16 @@
  <Channel Name="Color Presets">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="10">No function</Capability>
-  <Capability Color="#ff0000" Color2="#ffff00" Min="11" Max="30">Red 100% / Green increasing</Capability>
-  <Capability Color="#ffff00" Color2="#00ff00" Min="31" Max="50">Red decreasing / Green 100%</Capability>
-  <Capability Color="#00ff00" Color2="#00ffff" Min="51" Max="70">Green 100% / Blue increasing</Capability>
-  <Capability Color="#00ffff" Color2="#0000ff" Min="71" Max="90">Green decreasing / Blue 100%</Capability>
-  <Capability Color="#0000ff" Color2="#ff00ff" Min="91" Max="110">Red increasing / Blue 100%</Capability>
-  <Capability Color="#ff00ff" Color2="#ff0000" Min="111" Max="130">Red 100% / Blue decreasing</Capability>
-  <Capability Color="#ff0000" Color2="#ffffff" Min="131" Max="150">Red 100% / Green and Blue increasing</Capability>
-  <Capability Color="#ffffff" Color2="#0000ff" Min="151" Max="170">Red and Green decreasing / Blue 100%</Capability>
-  <Capability Color="#ffffff" Min="171" Max="200">Red 100% / Green 100% / Blue 100%</Capability>
-  <Capability Color="#ffffc8" Color2="#e6e2ff" Min="201" Max="255">White (Warm to cold)</Capability>
+  <Capability Min="11" Max="30" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffff00">Red 100% / Green increasing</Capability>
+  <Capability Min="31" Max="50" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ff00">Red decreasing / Green 100%</Capability>
+  <Capability Min="51" Max="70" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#00ffff">Green 100% / Blue increasing</Capability>
+  <Capability Min="71" Max="90" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#0000ff">Green decreasing / Blue 100%</Capability>
+  <Capability Min="91" Max="110" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ff00ff">Red increasing / Blue 100%</Capability>
+  <Capability Min="111" Max="130" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ff0000">Red 100% / Blue decreasing</Capability>
+  <Capability Min="131" Max="150" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red 100% / Green and Blue increasing</Capability>
+  <Capability Min="151" Max="170" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#0000ff">Red and Green decreasing / Blue 100%</Capability>
+  <Capability Min="171" Max="200" Preset="ColorMacro" Res1="#ffffff">Red 100% / Green 100% / Blue 100%</Capability>
+  <Capability Min="201" Max="255" Preset="ColorDoubleMacro" Res1="#ffffc8" Res2="#e6e2ff">White (Warm to cold)</Capability>
  </Channel>
  <Channel Name="Internal Programs / STL">
   <Group Byte="0">Effect</Group>
@@ -153,11 +153,11 @@
    <Channel>7</Channel>
   </Head>
  </Mode>
-<Physical>
-   <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
-   <Dimensions Height="344" Width="204" Depth="144" Weight="3"/>
-   <Lens Name="Other" DegreesMin="71" DegreesMax="71"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3" Width="204" Height="344" Depth="144"/>
+  <Lens Name="Other" DegreesMin="71" DegreesMax="71"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

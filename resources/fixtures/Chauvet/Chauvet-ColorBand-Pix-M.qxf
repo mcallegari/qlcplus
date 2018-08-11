@@ -1,14 +1,14 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.9.0 GIT</Version>
+  <Version>4.12.0 GIT</Version>
   <Author>Louis Gutenschwager</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
  <Model>ColorBand Pix-M</Model>
- <Type>Moving Head</Type>
+ <Type>LED Bar (Beams)</Type>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>
  <Channel Name="Blue" Preset="IntensityBlue"/>
@@ -480,11 +480,11 @@
    <Channel>35</Channel>
   </Head>
  </Mode>
-<Physical>
-   <Bulb Type="LED" ColourTemperature="0" Lumens="2321"/>
-   <Dimensions Depth="1040" Height="188" Weight="4.7" Width="67"/>
-   <Lens Name="Other" DegreesMin="20" DegreesMax="34"/>
-   <Focus Type="Head" PanMax="0" TiltMax="270"/>
-   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="113"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="2321" ColourTemperature="0"/>
+  <Dimensions Weight="4.7" Width="1040" Height="188" Depth="67"/>
+  <Lens Name="Other" DegreesMin="20" DegreesMax="34"/>
+  <Focus Type="Head" PanMax="0" TiltMax="270"/>
+  <Technical PowerConsumption="113" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
 </FixtureDefinition>
