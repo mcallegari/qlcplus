@@ -52,7 +52,7 @@ DMXUSBConfig::DMXUSBConfig(DMXUSB* plugin, QWidget* parent)
     setWindowTitle(plugin->name());
 
     QStringList header;
-    header << tr("Name") << tr("Serial") << QString("Mode") << QString("Frequency");
+    header << tr("Name") << tr("Serial") << tr("Mode") << tr("Output frequency");
     m_tree->setHeaderLabels(header);
     m_tree->setSelectionMode(QAbstractItemView::NoSelection);
 
