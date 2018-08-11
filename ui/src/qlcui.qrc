@@ -80,6 +80,8 @@
         <file alias="input_output.png">../../resources/icons/png/input_output.png</file>
         <file alias="intensity.png">../../resources/icons/png/intensity.png</file>
         <file alias="laser.png">../../resources/icons/png/laser.png</file>
+        <file alias="ledbar_beams.png">../../resources/icons/png/ledbar_beams.png</file>
+        <file alias="ledbar_pixels.png">../../resources/icons/png/ledbar_pixels.png</file>
         <file alias="liveedit.png">../../resources/icons/png/liveedit.png</file>
         <file alias="liveedit_vc.png">../../resources/icons/png/liveedit_vc.png</file>
         <file alias="lock.png">../../resources/icons/png/lock.png</file>
