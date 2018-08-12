@@ -124,14 +124,13 @@ protected:
      * Aliases
      *********************************************************************/
 protected slots:
-    void slotAliasChanged();
     void slotAddAliasClicked();
     void slotRemoveAliasClicked();
+    void refreshAliasModes();
+    void refreshAliasModeChannels();
 
 protected:
     void refreshAliasList();
-    void refreshAliasModes();
-    void refreshAliasModeChannels();
     void refreshAliasAllChannels();
     void refreshAliasTree();
     void checkAliasAddButton();
