@@ -664,7 +664,7 @@ void Monitor::slotFixtureRemoved(quint32 fxi_id)
 
 void Monitor::slotUniverseSelected(int index)
 {
-    QComboBox *combo = (QComboBox *)sender();
+    QComboBox *combo = qobject_cast<QComboBox *>(sender());
     m_currentUniverse = combo->itemData(index).toUInt();
 
     for (quint32 i = 0; i < m_doc->inputOutputMap()->universesCount(); i++)
