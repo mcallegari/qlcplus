@@ -75,6 +75,11 @@ bool ChaserEditor::addFunctions(QVariantList idsList, int insertIndex)
     for (QVariant vID : idsList) // C++11
     {
         quint32 fid = vID.toUInt();
+
+        // do not allow a Chaser to add itself as step
+        if (fid == m_chaser->id())
+            continue;
+
         ChaserStep step(fid);
         if (m_chaser->durationMode() == Chaser::PerStep)
         {
