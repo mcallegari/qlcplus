@@ -19,6 +19,9 @@ qlcplus (4.12.0) stable; urgency=low
   * New fixtures: Ayra WSM02/WSM03 MKII, Involight FM1500 DMX, FM3000 PRO, FM1200 UP (thanks to Jászberényi Szabolcs)
   * New fixture: Cameo CLPFLATPRO Series (thanks to Antonio Nó Rodríguez)
   * New fixtures: Robe Robin Viva CMY, Robin 800 LEDWash (thanks to Jasper Zevering)
+  * New fixture: Chauvet COLORdash Par-Hex 7 (thanks to Jean-Daniel Garcia)
+  * New fixture: Showtec Compact Par 7 Tri (thanks to sonozikloc)
+  * New fixture: Stairville WGF 2000 (thanks to CoS2000)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 21 Oct 2018 12:13:14 +0200
 
