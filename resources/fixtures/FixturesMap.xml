@@ -155,6 +155,7 @@
     <F n="Ayra-ERO-506" m="ERO 506"/>
     <F n="Ayra-TDC-Agaricus" m="TDC Agaricus"/>
     <F n="Ayra-TDC-Triple-Burst" m="TDC Triple Burst"/>
+    <F n="Ayra-WSM02-WSM03-MKII" m="WSM02/WSM03 MKII"/>
   </M>
   <M n="Ayrton">
     <F n="Ayrton-Arcaline-100-RGB" m="Arcaline 100 RGB"/>
@@ -675,6 +676,9 @@
     <F n="IMG-Stageline-Wash-40-LED" m="Wash-40 LED"/>
   </M>
   <M n="Involight">
+    <F n="Involight-FM1200UP" m="FM1200UP"/>
+    <F n="Involight-FM1500-DMX" m="FM1500 DMX"/>
+    <F n="Involight-FM3000-PRO" m="FM3000 PRO"/>
     <F n="Involight-FM900-DMX" m="FM900 DMX"/>
     <F n="Involight-LED-CC60S" m="LED CC60S"/>
     <F n="Involight-LED-MH50S" m="LED MH50S"/>
@@ -1110,6 +1114,7 @@
     <F n="Stairville-AFH-600" m="AFH-600"/>
     <F n="Stairville-Beam-Moving-Head-B5R" m="Beam Moving Head B5R"/>
     <F n="Stairville-Blade-Sting-8-RGBW-Beam-Mover" m="Blade Sting 8 RGBW Beam Mover"/>
+    <F n="Stairville-BS-280-R10-BeamSpot" m="BS-280 R10 BeamSpot"/>
     <F n="Stairville-CLB2.4-CompactLED" m="CLB2.4 Compact LED PAR System"/>
     <F n="Stairville-Compact-LED-Bar-CLB8" m="Compact LED-Bar CLB8"/>
     <F n="Stairville-Crown-FX-PAR77" m="Crown FX PAR77"/>
