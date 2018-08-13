@@ -184,6 +184,8 @@ ShowManager* ShowManager::instance()
 
 void ShowManager::clearContents()
 {
+    hideRightEditor();
+    showSceneEditor(NULL);
     m_showview->resetView();
     m_showsCombo->clear();
     m_show = NULL;
@@ -453,7 +455,7 @@ void ShowManager::showSceneEditor(Scene *scene)
         emit functionManagerActive(false);       
         m_splitter->widget(1)->layout()->removeWidget(m_sceneEditor);
         m_splitter->widget(1)->hide();
-        m_sceneEditor->deleteLater();
+        delete m_sceneEditor;
         m_sceneEditor = NULL;
     }
 
@@ -480,7 +482,7 @@ void ShowManager::hideRightEditor()
     {
         m_vsplitter->widget(1)->layout()->removeWidget(m_currentEditor);
         m_vsplitter->widget(1)->hide();
-        m_currentEditor->deleteLater();
+        delete m_currentEditor;
         m_currentEditor = NULL;
         m_editorFunctionID = Function::invalidId();
     }
@@ -1546,7 +1548,7 @@ void ShowManager::slotDocClearing()
     if (m_currentEditor != NULL)
     {
         m_vsplitter->widget(1)->layout()->removeWidget(m_currentEditor);
-        m_currentEditor->deleteLater();
+        delete m_currentEditor;
         m_currentEditor = NULL;
     }
     m_vsplitter->widget(1)->hide();
@@ -1555,7 +1557,7 @@ void ShowManager::slotDocClearing()
     {
         emit functionManagerActive(false);
         m_splitter->widget(1)->layout()->removeWidget(m_sceneEditor);
-        m_sceneEditor->deleteLater();
+        delete m_sceneEditor;
         m_sceneEditor = NULL;
     }
     m_splitter->widget(1)->hide();
@@ -1790,7 +1792,7 @@ void ShowManager::hideEvent(QHideEvent* ev)
     {
         m_vsplitter->widget(1)->layout()->removeWidget(m_currentEditor);
         m_vsplitter->widget(1)->hide();
-        m_currentEditor->deleteLater();
+        delete m_currentEditor;
         m_currentEditor = NULL;
         m_editorFunctionID = Function::invalidId();
     }
@@ -1799,7 +1801,7 @@ void ShowManager::hideEvent(QHideEvent* ev)
     {
         m_splitter->widget(1)->layout()->removeWidget(m_sceneEditor);
         m_splitter->widget(1)->hide();
-        m_sceneEditor->deleteLater();
+        delete m_sceneEditor;
         m_sceneEditor = NULL;
     }
 

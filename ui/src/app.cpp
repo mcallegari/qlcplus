@@ -445,11 +445,11 @@ void App::clearDocument()
 {
     m_doc->masterTimer()->stop();
     VirtualConsole::instance()->resetContents();
+    ShowManager::instance()->clearContents();
     m_doc->clearContents();
     if (Monitor::instance() != NULL)
         Monitor::instance()->updateView();
     SimpleDesk::instance()->clearContents();
-    ShowManager::instance()->clearContents();
     m_doc->inputOutputMap()->resetUniverses();
     setFileName(QString());
     m_doc->resetModified();
