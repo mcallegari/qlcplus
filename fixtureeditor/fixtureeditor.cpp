@@ -788,7 +788,7 @@ void QLCFixtureEditor::slotAddMode()
                 m_fixtureDef->addMode(mode);
                 updateModeItem(mode, item);
                 m_modeList->setCurrentItem(item);
-                m_modeList->resizeColumnToContents(MODE_COL_NAME);
+                m_modeList->header()->resizeSections(QHeaderView::ResizeToContents);
 
                 refreshAliasModes();
                 setModified();
@@ -839,6 +839,7 @@ void QLCFixtureEditor::slotEditMode()
         updateModeItem(mode, item);
         refreshAliasModes();
         setModified();
+        m_modeList->header()->resizeSections(QHeaderView::ResizeToContents);
     }
     disconnect(&em, SIGNAL(copyToClipboard(QLCPhysical)),
                this, SLOT(slotCopyPhysicalClipboard(QLCPhysical)));
@@ -1138,6 +1139,8 @@ void QLCFixtureEditor::slotAddAliasClicked()
     QTreeWidgetItem *item = new QTreeWidgetItem(m_aliasTree, columns);
     item->setData(0, Qt::UserRole, qVariantFromValue((void *)selCap));
 
+    m_aliasTree->header()->resizeSections(QHeaderView::ResizeToContents);
+
     setModified();
 }
 
@@ -1156,8 +1159,8 @@ void QLCFixtureEditor::slotRemoveAliasClicked()
         alias.targetChannel = item->text(3);
         cap->removeAlias(alias);
         refreshAliasTree();
+        setModified();
     }
-    setModified();
 }
 
 /*****************************************************************************
