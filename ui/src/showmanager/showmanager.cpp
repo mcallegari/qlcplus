@@ -469,7 +469,7 @@ void ShowManager::showSceneEditor(Scene *scene)
         {
             m_splitter->widget(1)->layout()->addWidget(m_sceneEditor);
             m_splitter->widget(1)->show();
-            //m_scene_editor->show();
+
             connect(this, SIGNAL(functionManagerActive(bool)),
                     m_sceneEditor, SLOT(slotFunctionManagerActive(bool)));
         }
@@ -1300,7 +1300,6 @@ void ShowManager::slotShowItemMoved(ShowItem *item, quint32 time, bool moved)
     if (sequence != NULL)
     {
         quint32 sceneID = sequence->boundSceneID();
-
         Function *sf = m_doc->function(sceneID);
 
         if (sf == NULL)
@@ -1312,10 +1311,11 @@ void ShowManager::slotShowItemMoved(ShowItem *item, quint32 time, bool moved)
         {
             Scene *boundScene = qobject_cast<Scene*>(sf);
 
-            // destroy the Scene editor in any case, since
-            // the selected item might share the same bound Scene
-            // and Scene values might be overwritten
-            showSceneEditor(NULL);
+            // if the clicked item represents another Sequence,
+            // destroy the Scene editor cause they might share
+            // the same bound Scene and Scene values might be overwritten
+            if (fid != m_editorFunctionID)
+                showSceneEditor(NULL);
 
             if (boundScene != m_currentScene || m_sceneEditor == NULL)
             {
