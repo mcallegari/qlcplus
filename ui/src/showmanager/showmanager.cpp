@@ -450,7 +450,7 @@ void ShowManager::showSceneEditor(Scene *scene)
 {
     if (m_sceneEditor != NULL)
     {
-        emit functionManagerActive(false);
+        emit functionManagerActive(false);       
         m_splitter->widget(1)->layout()->removeWidget(m_sceneEditor);
         m_splitter->widget(1)->hide();
         m_sceneEditor->deleteLater();
@@ -1309,6 +1309,11 @@ void ShowManager::slotShowItemMoved(ShowItem *item, quint32 time, bool moved)
         else
         {
             Scene *boundScene = qobject_cast<Scene*>(sf);
+
+            // destroy the Scene editor in any case, since
+            // the selected item might share the same bound Scene
+            // and Scene values might be overwritten
+            showSceneEditor(NULL);
 
             if (boundScene != m_currentScene || m_sceneEditor == NULL)
             {

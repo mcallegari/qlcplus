@@ -578,7 +578,7 @@ void MultiTrackView::slotItemMoved(QGraphicsSceneMouseEvent *event, ShowItem *it
     }
     else if (shift < 3) // a drag of less than 3 pixel doesn't move the item
     {
-        qDebug() << "Drag too short (" << shift << "px) not allowed!";
+        //qDebug() << "Drag too short (" << shift << "px) not allowed!";
         item->setPos(item->getDraggingPos());
         s_time = item->getStartTime();
         moved = false;
