@@ -128,14 +128,14 @@
  </Channel>
  <Channel Name="Strobe effect">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="7">Closed (blackout)</Capability>
-  <Capability Min="8" Max="15">Open</Capability>
-  <Capability Min="16" Max="131">Shutter, increasing speed</Capability>
-  <Capability Min="132" Max="167">Shutter closes quickly and opens slowly</Capability>
-  <Capability Min="168" Max="203">Shutter closes slowly and opens quickly</Capability>
-  <Capability Min="204" Max="239">Shutter, increasing speed</Capability>
-  <Capability Min="240" Max="247">Shutter, random speed</Capability>
-  <Capability Min="248" Max="255">Open</Capability>
+  <Capability Min="0" Max="7" Preset="ShutterClose">Closed (blackout)</Capability>
+  <Capability Min="8" Max="15" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="16" Max="131" Preset="StrobeSlowToFast">Shutter, increasing speed</Capability>
+  <Capability Min="132" Max="167" Preset="RampUpSlowToFast">Shutter closes quickly and opens slowly</Capability>
+  <Capability Min="168" Max="203" Preset="RampDownSlowToFast">Shutter closes slowly and opens quickly</Capability>
+  <Capability Min="204" Max="239" Preset="StrobeSlowToFast">Shutter, increasing speed</Capability>
+  <Capability Min="240" Max="247" Preset="StrobeRandomSlowToFast">Shutter, random speed</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Gobo wheel 2">
