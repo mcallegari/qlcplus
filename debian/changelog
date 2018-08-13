@@ -2,6 +2,7 @@ qlcplus (4.12.0) stable; urgency=low
 
   * engine/RGBMatrix: added support for animated GIF pictures
   * UI/Scene Editor: fixed crash when removing a Fixture and Scene Editor is open
+  * UI/Show Manager: properly reset editors and selection when switching context
   * Fixture Editor: reworked to define more accurate information (see documentation)
   * New input profile: Akai APC40 mkII (thanks to Ovidijus Cepukas)
   * New input profiles: Novation Launchpad MK2, Behringer X-Touch Extender (thanks to Tim Cullingworth)

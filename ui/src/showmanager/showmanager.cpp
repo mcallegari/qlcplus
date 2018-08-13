@@ -1787,6 +1787,7 @@ void ShowManager::hideEvent(QHideEvent* ev)
         m_vsplitter->widget(1)->hide();
         m_currentEditor->deleteLater();
         m_currentEditor = NULL;
+        m_editorFunctionID = Function::invalidId();
     }
 
     if (m_sceneEditor != NULL)
@@ -1796,6 +1797,10 @@ void ShowManager::hideEvent(QHideEvent* ev)
         m_sceneEditor->deleteLater();
         m_sceneEditor = NULL;
     }
+
+    ShowItem *item = m_showview->getSelectedItem();
+    if (item != NULL)
+        item->setSelected(false);
 }
 
 FunctionParent ShowManager::functionParent() const
