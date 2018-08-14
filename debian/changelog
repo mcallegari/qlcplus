@@ -22,6 +22,11 @@ qlcplus (4.12.0) stable; urgency=low
   * New fixture: Chauvet COLORdash Par-Hex 7 (thanks to Jean-Daniel Garcia)
   * New fixture: Showtec Compact Par 7 Tri (thanks to sonozikloc)
   * New fixture: Stairville WGF 2000 (thanks to CoS2000)
+  * New fixture: Dia Lighting Diapro Spot LED 300 (thanks to DJ Ladonin)
+  * New fixtures: Showtec Phantom 130 LED Spot, Eurolite TMH-30/60 (thanks to Piotr Nowik)
+  * New fixture: Varytec BAT.PAR 6 RGBWA (thanks to Edgar Aichinger)
+  * New fixture: IMG Stageline PARL-40SET (thanks to Mitsch)
+  * New fixtures: Equinox Quad Pix Batten, Chauvet Wash FX2 (thanks to Justin Hornsby)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 21 Oct 2018 12:13:14 +0200
 

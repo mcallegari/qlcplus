@@ -374,6 +374,7 @@
     <F n="Chauvet-Vue-3.1" m="Vue 3.1"/>
     <F n="Chauvet-Vue-6.1" m="Vue 6.1"/>
     <F n="Chauvet-Wash-FX" m="Wash FX"/>
+    <F n="Chauvet-Wash-FX2" m="Wash FX2"/>
     <F n="Chauvet-Wedge-Tri" m="Wedge Tri"/>
   </M>
   <M n="Clay_Paky">
@@ -434,6 +435,9 @@
     <F n="Contest-STB-520-1500W-Strobe" m="STB-520 1500W Strobe"/>
     <F n="Contest-Tri4U" m="Tri4U"/>
   </M>
+  <M n="Dia_Lighting">
+    <F n="Dia-Lighting-Diapro-Spot-LED-300" m="Diapro Spot LED 300"/>
+  </M>
   <M n="DNA">
     <F n="DNA-Pro-Slim-18-RGBW" m="PRO SLIM 18 RGBW"/>
   </M>
@@ -476,6 +480,7 @@
     <F n="Equinox-Gigabar" m="Gigabar"/>
     <F n="Equinox-Party-Par-LED-PAR-56" m="Party Par LED PAR 56"/>
     <F n="Equinox-Photon" m="Photon"/>
+    <F n="Equinox-Quad-Pix-Batten" m="Quad Pix Batten"/>
     <F n="Equinox-Swing-Batten" m="Swing Batten"/>
     <F n="Equinox-Ultra-Scan-LED" m="Ultra Scan LED"/>
   </M>
@@ -542,6 +547,7 @@
     <F n="Eurolite-TMH-14" m="TMH-14"/>
     <F n="Eurolite-TMH-155" m="TMH-155"/>
     <F n="Eurolite-TMH-250" m="TMH-250"/>
+    <F n="Eurolite-TMH-30-60-mk2" m="TMH-30/60"/>
     <F n="Eurolite-TMH-8" m="TMH-8"/>
     <F n="Eurolite-TR-5" m="TR-5"/>
     <F n="Eurolite-TS-10" m="TS-10"/>
@@ -672,6 +678,7 @@
   <M n="IMG_Stageline">
     <F n="IMG-Stageline-BEAM-40-WS-RGBW" m="BEAM-40 WS/RGBW"/>
     <F n="IMG-Stageline-PARL-20-DMX" m="PARL 20 DMX"/>
+    <F n="IMG-Stageline-PARL-40Set" m="PARL-40SET"/>
     <F n="IMG-Stageline-PARL-4Set" m="Parl 4-SET"/>
     <F n="IMG-Stageline-PARL-73-RGB" m="Parl 73-RGB"/>
     <F n="IMG-Stageline-Wash-40-LED" m="Wash-40 LED"/>
@@ -1073,6 +1080,7 @@
     <F n="Showtec-Mini-Max-LED-RGB" m="Mini Max LED RGB"/>
     <F n="Showtec-MiniMax-250" m="MiniMax 250"/>
     <F n="Showtec-MultiDim-MK-III-DMX" m="MultiDim MK III DMX"/>
+    <F n="Showtec-Phantom-130-LED-Spot" m="Phantom 130 LED Spot"/>
     <F n="Showtec-Phantom-20-LED-Beam" m="Phantom 20 LED Beam"/>
     <F n="Showtec-Phantom-250-Wash" m="Phantom 250 Wash"/>
     <F n="Showtec-Phantom-250" m="Phantom 250"/>
@@ -1214,6 +1222,7 @@
     <F n="Vari-Lite-VL3500-Spot" m="VL3500 Spot"/>
   </M>
   <M n="Varytec">
+    <F n="Varytec-BAT.PAR-6-RGBWA" m="BAT.PAR 6 RGBWA"/>
     <F n="Varytec-Easy-Move-LED-XS-Spot" m="Easy Move LED XS Spot"/>
     <F n="Varytec-Easy-Move-LED-XS-Wash" m="Easy Move LED XS Wash"/>
     <F n="Varytec-Easy-Scan-XT-Mini" m="Easy Scan XT Mini"/>
