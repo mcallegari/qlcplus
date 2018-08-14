@@ -361,7 +361,7 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
         return false;
     }
 
-    /* Get low limit attribute (critical) */
+    /* Get low limit attribute (mandatory) */
     QXmlStreamAttributes attrs = doc.attributes();
     str = attrs.value(KXMLQLCCapabilityMin).toString();
     if (str.isEmpty() == true)
@@ -374,7 +374,7 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
         min = CLAMP(str.toInt(), 0, (int)UCHAR_MAX);
     }
 
-    /* Get high limit attribute (critical) */
+    /* Get high limit attribute (mandatory) */
     str = attrs.value(KXMLQLCCapabilityMax).toString();
     if (str.isEmpty() == true)
     {
@@ -485,6 +485,11 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
         setName(doc.text().toString().simplified());
         setMin(min);
         setMax(max);
+        if (name().isEmpty())
+        {
+            qWarning() << "Empty description provided. This should be fixed in the definition!";
+            return true;
+        }
     }
     else
     {
