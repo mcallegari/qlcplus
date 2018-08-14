@@ -240,6 +240,7 @@
     <F n="Cameo-LED-RGBW-PAR64-18x8W" m="LED RGBW PAR64 18x8W"/>
     <F n="Cameo-Multi-PAR-1" m="Multi Par 1"/>
     <F n="Cameo-Multi-PAR-3" m="Multi Par 3"/>
+    <F n="Cameo-NanoBeam-300" m="NanoBeam 300"/>
     <F n="Cameo-Pixbar-600-PRO" m="Pixbar 600 PRO"/>
     <F n="Cameo-Q-SPOT-15-RGBW" m="Q SPOT 15 RGBW"/>
     <F n="Cameo-Strobe-3x3.5W" m="Strobe 3x3.5W"/>
@@ -725,6 +726,7 @@
     <F n="JB-Systems-Plano-Spot-7TC" m="Plano Spot 7TC"/>
     <F n="JB-Systems-Plano-Spot-LED" m="Plano Spot LED"/>
     <F n="JB-Systems-Space-Color-Laser" m="Space Color Laser"/>
+    <F n="JB-Systems-Space-Laser-3" m="Space Laser 3"/>
     <F n="JB-Systems-Super-Solar-RGBW" m="Super Solar RGBW"/>
     <F n="JB-Systems-The-WinnerII" m="The Winner II"/>
   </M>
@@ -812,6 +814,7 @@
     <F n="MARQ-Gamut-PAR-H7" m="Gamut PAR H7"/>
     <F n="MARQ-Gesture-Beam-Wash-102" m="Gesture Beam/Wash 102"/>
     <F n="MARQ-Gesture-Spot-100-" m="Gesture Spot 100 "/>
+    <F n="MARQ-Gesture-Spot-300" m="Gesture Spot 300"/>
   </M>
   <M n="Martin">
     <F n="Martin-24-7-Hazer" m="ZR24/7 Hazer"/>
