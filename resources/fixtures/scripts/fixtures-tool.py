@@ -241,7 +241,7 @@ def update_fixture(path, filename, destpath):
 
     return fxSingleCapCount
 
-def check_physical(node, hasPan, hasTilt):
+def check_physical(absname, node, hasPan, hasTilt):
     errNum = 0
     phy_tag = node.find('{' + namespace + '}Physical')
 
@@ -397,7 +397,11 @@ def validate_fixture(path, filename):
                 groupByte = group_tag.attrib['Byte']
 
         if chPreset:
-            # no need to go further is this is a preset
+            if chPreset == "PositionPan" or chPreset == "PositionPanFine" or chPreset == "PositionXAxis":
+                hasPan = True
+            if chPreset == "PositionTilt" or chPreset == "PositionTiltFine" or chPreset == "PositionYAxis":
+                hasTilt = True
+            # no need to go further if this is a preset
             chCount += 1
             continue
 
@@ -522,7 +526,7 @@ def validate_fixture(path, filename):
             print absname + "/" + modeName + ": No channel found in mode"
             errNum += 1
 
-        errNum += check_physical(mode, hasPan, hasTilt)
+        errNum += check_physical(absname, mode, hasPan, hasTilt)
 
         modeCount += 1
 
@@ -532,7 +536,7 @@ def validate_fixture(path, filename):
 
     ################################ CHECK GLOBAL PHYSICAL ################################
 
-    errNum += check_physical(root, hasPan, hasTilt)
+    errNum += check_physical(absname, root, hasPan, hasTilt)
 
     if needSave:
         print "Saving back " + filename + "..."
