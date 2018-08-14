@@ -89,7 +89,7 @@
   <Capability Min="64" Max="70" Res="Others/gobo00033.svg">Gobo 9</Capability>
   <Capability Min="71" Max="77" Res="Robe/gobo00025.svg">Gobo 10</Capability>
   <Capability Min="78" Max="84" Res="ClayPaky/gobo00049.svg">Gobo 11</Capability>
-  <Capability Min="85" Max="92" Res="Chauvet/gobo00062.png">Gobo 12</Capability>
+  <Capability Min="85" Max="92" Res="Chauvet/gobo00062.svg">Gobo 12</Capability>
   <Capability Min="93" Max="99" Res="Chauvet/gobo00025.svg">Gobo 13</Capability>
   <Capability Min="100" Max="106" Res="Chauvet/gobo00024.svg">Gobo 14</Capability>
   <Capability Min="107" Max="113" Res="Chauvet/gobo00023.svg">Gobo 15</Capability>
@@ -108,7 +108,7 @@
   <Capability Min="206" Max="210" Res="Others/gobo00033.svg">Shake 9 from fast to slow</Capability>
   <Capability Min="211" Max="215" Res="Robe/gobo00025.svg">Shake 10 from fast to slow</Capability>
   <Capability Min="216" Max="220" Res="ClayPaky/gobo00049.svg">Shake 11 from fast to slow</Capability>
-  <Capability Min="221" Max="225" Res="Chauvet/gobo00062.png">Shake 12 from fast to slow</Capability>
+  <Capability Min="221" Max="225" Res="Chauvet/gobo00062.svg">Shake 12 from fast to slow</Capability>
   <Capability Min="226" Max="230" Res="Chauvet/gobo00025.svg">Shake 13 from fast to slow</Capability>
   <Capability Min="231" Max="240" Res="Chauvet/gobo00024.svg">Shake 14 from fast to slow</Capability>
   <Capability Min="241" Max="245" Res="Chauvet/gobo00023.svg">Shake 15 from fast to slow</Capability>
