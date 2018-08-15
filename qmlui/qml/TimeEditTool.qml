@@ -299,8 +299,16 @@ GridLayout
             fontSize: btnFontSize
 
             onEnterPressed: updateTime(-1, inputText)
-            Keys.onTabPressed: toolRoot.tabPressed(true)
-            Keys.onBacktabPressed: toolRoot.tabPressed(false)
+            Keys.onTabPressed:
+            {
+                updateTime(-1, inputText)
+                toolRoot.tabPressed(true)
+            }
+            Keys.onBacktabPressed:
+            {
+                updateTime(-1, inputText)
+                toolRoot.tabPressed(false)
+            }
             onEscapePressed:
             {
                 tapTimer.stop()

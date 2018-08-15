@@ -110,7 +110,7 @@ Column
         onTabPressed:
         {
             var typeArray = [ QLCFunction.FadeIn, QLCFunction.Hold, QLCFunction.FadeOut, QLCFunction.Duration ]
-            var currType = editStepType + (forward ? 1 : -1)
+            var currType = typeArray.indexOf(editStepType) + (forward ? 1 : -1)
 
             if (currType < 0)
             {
@@ -130,7 +130,7 @@ Column
             else
             {
                 // same step, other field
-                editStepTime(editStepIndex, cStepsList.currentItem, currType)
+                editStepTime(editStepIndex, cStepsList.currentItem, typeArray[currType])
             }
         }
     }
