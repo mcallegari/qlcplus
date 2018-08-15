@@ -567,6 +567,7 @@ int Tardis::processAction(TardisAction &action, bool undo)
         {
             m_fixtureManager->renameFixture(action.m_objID, value->toString());
         }
+        break;
         case FixtureSetPosition:
         {
             QVector3D pos = value->value<QVector3D>();
