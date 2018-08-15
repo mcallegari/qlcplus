@@ -142,6 +142,7 @@ Rectangle
         // precedence combo
         CustomComboBox
         {
+            visible: showFlags
             implicitWidth: UISettings.chPropsPrecedenceWidth
             height: parent.height - 2
 

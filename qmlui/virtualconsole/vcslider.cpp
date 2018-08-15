@@ -26,6 +26,7 @@
 #include "fixturemanager.h"
 #include "qlcfixturemode.h"
 #include "qlccapability.h"
+#include "fixtureutils.h"
 #include "qlcmacros.h"
 #include "vcslider.h"
 #include "function.h"
@@ -581,8 +582,9 @@ void VCSlider::slotTreeDataChanged(TreeModelItem *item, int role, const QVariant
         return;
 
     //QString type = itemData.at(1).toString();
-    quint32 fixtureID = itemData.at(2).toUInt();
+    quint32 itemID = itemData.at(2).toUInt();
     quint32 chIndex = itemData.at(4).toUInt();
+    quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
 
     if (value.toInt() == 0)
     {
