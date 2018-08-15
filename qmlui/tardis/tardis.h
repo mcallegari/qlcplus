@@ -73,6 +73,7 @@ public:
         FixtureCreate = 0x0100,
         FixtureDelete,
         FixtureMove,
+        FixtureSetName,
         FixtureSetPosition,
         FixtureSetDumpValue,
 

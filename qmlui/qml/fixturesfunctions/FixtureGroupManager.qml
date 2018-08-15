@@ -44,6 +44,9 @@ Rectangle
         infoButton.enabled = itemType !== App.HeadDragItem ? true : false
         updateInfoView()
 
+        // update rename button
+        renameButton.enabled = true
+
         // update linked button
         if (fixtureManager.propertyEditEnabled === false)
             return
@@ -135,7 +138,7 @@ Rectangle
                         {
                             var item = gfhcDragItem.itemsList[i]
 
-                            switch(item.itemType)
+                            switch (item.itemType)
                             {
                                 case App.UniverseDragItem:
                                 break;
@@ -172,6 +175,58 @@ Rectangle
                         fixtureManager.searchFilter = ""
                         if (checked)
                             sTextInput.forceActiveFocus()
+                    }
+                }
+
+                IconButton
+                {
+                    id: renameButton
+                    visible: allowEditing
+                    z: 2
+                    width: height
+                    height: topBar.height - 2
+                    imgSource: "qrc:/rename.svg"
+                    tooltip: qsTr("Rename the selected items")
+                    enabled: false
+
+                    onClicked:
+                    {
+                        renamePopup.showNumbering = gfhcDragItem.itemsList.length > 1 ? true : false
+                        renamePopup.editText = gfhcDragItem.itemsList[0].textLabel
+                        renamePopup.open()
+                    }
+
+                    PopupRenameItems
+                    {
+                        id: renamePopup
+                        title: qsTr("Rename items")
+                        onAccepted:
+                        {
+                            if (numberingEnabled)
+                            {
+                                var currNum = startNumber
+                                var i, zeroes = ""
+
+                                for (i = 0; i < digits; i++)
+                                    zeroes += '0'
+
+                                for (i = 0; i < gfhcDragItem.itemsList.length; i++)
+                                {
+                                    var item = gfhcDragItem.itemsList[i]
+                                    if (item.itemType === App.FixtureDragItem)
+                                    {
+                                        var zerofilled = (zeroes + currNum).slice(-digits);
+                                        var finalName = editText + " " + zerofilled
+                                        currNum++
+                                        fixtureManager.renameFixture(item.itemID, finalName)
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                fixtureManager.renameFixture(gfhcDragItem.itemsList[0].itemID, editText)
+                            }
+                        }
                     }
                 }
 
