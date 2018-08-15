@@ -402,6 +402,38 @@ void VCCueList::stopChaser()
     emit playbackStatusChanged();
 }
 
+void VCCueList::slotInputValueChanged(quint8 id, uchar value)
+{
+    switch(id)
+    {
+        case INPUT_NEXT_STEP_ID:
+        case INPUT_PREVIOUS_STEP_ID:
+        case INPUT_PLAY_PAUSE_ID:
+        case INPUT_STOP_PAUSE_ID:
+            if (value != UCHAR_MAX)
+                return;
+        break;
+        default:
+        break;
+    }
+
+    switch(id)
+    {
+        case INPUT_NEXT_STEP_ID:
+            nextClicked();
+        break;
+        case INPUT_PREVIOUS_STEP_ID:
+            previousClicked();
+        break;
+        case INPUT_PLAY_PAUSE_ID:
+            playClicked();
+        break;
+        case INPUT_STOP_PAUSE_ID:
+            stopClicked();
+        break;
+    }
+}
+
 void VCCueList::playClicked()
 {
     Chaser *ch = chaser();
