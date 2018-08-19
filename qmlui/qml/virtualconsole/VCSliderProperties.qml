@@ -233,7 +233,8 @@ Rectangle
 
                     IconButton
                     {
-                        Layout.alignment: Qt.TopRightCorner
+                        anchors.top: parent.top
+                        anchors.right: parent.right
                         imgSource: "qrc:/reset.svg"
                         tooltip: qsTr("Detach the current function")
                         onClicked: widgetRef.controlledFunction = -1

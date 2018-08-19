@@ -100,8 +100,8 @@ Column
     TimeEditTool
     {
         id: timeEditTool
-        parent: mainView
-        x: rightSidePanel.x - width
+        parent: mainView ? mainView : widgetRoot
+        x: rightSidePanel ? rightSidePanel.x - width : -width
         z: 99
         visible: false
 
