@@ -1,15 +1,15 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.2 GIT</Version>
+  <Version>4.12.0 GIT</Version>
   <Author>Tim Cullingworth</Author>
  </Creator>
  <Manufacturer>Martin</Manufacturer>
  <Model>MAC 401 Dual CT Zoom</Model>
  <Type>Moving Head</Type>
- <Channel Name="Strobe / Vitrual Shutter">
+ <Channel Name="Strobe / Virtual Shutter">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="19">Shutter closed</Capability>
   <Capability Min="20" Max="49">Shuuter open</Capability>
@@ -123,14 +123,14 @@
  </Channel>
  <Channel Name="No Function" Preset="NoFunction"/>
  <Channel Name="Group A CTC">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="19">No Function</Capability>
   <Capability Min="20" Max="255">CTC 10,000K - 2,000K</Capability>
  </Channel>
  <Channel Name="Group A Warm White" Preset="IntensityWhite"/>
  <Channel Name="Group A Cold White" Preset="IntensityWhite"/>
  <Channel Name="Group B CTC">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="19">No Function</Capability>
   <Capability Min="20" Max="255">CTC 10,000K - 2,000K</Capability>
  </Channel>
@@ -138,7 +138,7 @@
  <Channel Name="No Function B" Preset="NoFunction"/>
  <Channel Name="Group B Cold White" Preset="IntensityWhite"/>
  <Channel Name="Group C CTC">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="19">No Function</Capability>
   <Capability Min="20" Max="255">CTC 10,000K - 2,000K</Capability>
  </Channel>
@@ -146,7 +146,7 @@
  <Channel Name="No Function C" Preset="NoFunction"/>
  <Channel Name="Group C Cold White" Preset="IntensityWhite"/>
  <Channel Name="Group D CTC">
-  <Group Byte="0">Intensity</Group>
+  <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="19">No Function</Capability>
   <Capability Min="20" Max="255">CTC 10,000K - 2,000K</Capability>
  </Channel>
@@ -175,7 +175,7 @@
  </Channel>
  <Channel Name="No Function A" Preset="NoFunction"/>
  <Mode Name="HSVX 1">
-  <Channel Number="0">Strobe / Vitrual Shutter</Channel>
+  <Channel Number="0">Strobe / Virtual Shutter</Channel>
   <Channel Number="1">Virtual Dimmer</Channel>
   <Channel Number="2">Dynamic Effect 1</Channel>
   <Channel Number="3">Dynamic Effect 1 Speed</Channel>
@@ -234,7 +234,7 @@
   </Head>
  </Mode>
  <Mode Name="HSVX 2V">
-  <Channel Number="0">Strobe / Vitrual Shutter</Channel>
+  <Channel Number="0">Strobe / Virtual Shutter</Channel>
   <Channel Number="1">Virtual Dimmer</Channel>
   <Channel Number="2">Dynamic Effect 1</Channel>
   <Channel Number="3">Dynamic Effect 1 Speed</Channel>
@@ -273,7 +273,7 @@
   </Head>
  </Mode>
  <Mode Name="HSVX 2H">
-  <Channel Number="0">Strobe / Vitrual Shutter</Channel>
+  <Channel Number="0">Strobe / Virtual Shutter</Channel>
   <Channel Number="1">Virtual Dimmer</Channel>
   <Channel Number="2">Dynamic Effect 1</Channel>
   <Channel Number="3">Dynamic Effect 1 Speed</Channel>
@@ -312,7 +312,7 @@
   </Head>
  </Mode>
  <Mode Name="HSVX All">
-  <Channel Number="0">Strobe / Vitrual Shutter</Channel>
+  <Channel Number="0">Strobe / Virtual Shutter</Channel>
   <Channel Number="1">Virtual Dimmer</Channel>
   <Channel Number="2">Dynamic Effect 1</Channel>
   <Channel Number="3">Dynamic Effect 1 Speed</Channel>
@@ -335,7 +335,7 @@
   <Channel Number="20">Group A CTC</Channel>
  </Mode>
  <Mode Name="HSV 1">
-  <Channel Number="0">Strobe / Vitrual Shutter</Channel>
+  <Channel Number="0">Strobe / Virtual Shutter</Channel>
   <Channel Number="1">Virtual Dimmer</Channel>
   <Channel Number="2">Zoom</Channel>
   <Channel Number="3">Pan</Channel>
@@ -386,7 +386,7 @@
   </Head>
  </Mode>
  <Mode Name="HSV 2V">
-  <Channel Number="0">Strobe / Vitrual Shutter</Channel>
+  <Channel Number="0">Strobe / Virtual Shutter</Channel>
   <Channel Number="1">Virtual Dimmer</Channel>
   <Channel Number="2">Zoom</Channel>
   <Channel Number="3">Pan</Channel>
@@ -417,7 +417,7 @@
   </Head>
  </Mode>
  <Mode Name="HSV 2H">
-  <Channel Number="0">Strobe / Vitrual Shutter</Channel>
+  <Channel Number="0">Strobe / Virtual Shutter</Channel>
   <Channel Number="1">Virtual Dimmer</Channel>
   <Channel Number="2">Zoom</Channel>
   <Channel Number="3">Pan</Channel>
@@ -448,7 +448,7 @@
   </Head>
  </Mode>
  <Mode Name="HSV All">
-  <Channel Number="0">Strobe / Vitrual Shutter</Channel>
+  <Channel Number="0">Strobe / Virtual Shutter</Channel>
   <Channel Number="1">Virtual Dimmer</Channel>
   <Channel Number="2">Zoom</Channel>
   <Channel Number="3">Pan</Channel>
@@ -462,11 +462,11 @@
   <Channel Number="11">Group A Cold White</Channel>
   <Channel Number="12">Group A CTC</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="21" Width="505" Height="527" Depth="221"/>
-   <Lens Name="Other" DegreesMin="16" DegreesMax="50"/>
-   <Focus Type="Fixed" PanMax="630" TiltMax="300"/>
-   <Technical PowerConsumption="386" DmxConnector="5-pin"/>
-  </Physical>
-  </FixtureDefinition>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="21" Width="505" Height="527" Depth="221"/>
+  <Lens Name="Other" DegreesMin="16" DegreesMax="50"/>
+  <Focus Type="Fixed" PanMax="630" TiltMax="300"/>
+  <Technical PowerConsumption="386" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>
