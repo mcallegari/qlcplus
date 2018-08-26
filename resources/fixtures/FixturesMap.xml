@@ -39,6 +39,7 @@
     <F n="American-DJ-Dotz-TPar" m="Dotz TPar"/>
     <F n="American-DJ-Double-Phase" m="Double Phase"/>
     <F n="American-DJ-ECO-UV-BAR-DMX" m="ECO UV BAR DMX"/>
+    <F n="American-DJ-Entour-Venue" m="Entour Venue"/>
     <F n="American-DJ-Entourage" m="Entourage"/>
     <F n="American-DJ-Event-Bar-LED" m="Event Bar LED"/>
     <F n="American-DJ-Event-Bar-Pro" m="Event Bar Pro"/>
@@ -135,6 +136,7 @@
     <F n="American-DJ-Vizi-LED-Spot" m="Vizi LED Spot"/>
     <F n="American-DJ-Vizi-Roller-Beam-2R" m="Vizi Roller Beam 2R"/>
     <F n="American-DJ-VPar" m="VPar"/>
+    <F n="American-DJ-Warlock" m="Warlock"/>
     <F n="American-DJ-WiFly-EXR-Dotz-Par" m="WiFly EXR Dotz Par"/>
     <F n="American-DJ-WiFly-EXR-HEX5-IP" m="WiFly EXR HEX5 IP"/>
     <F n="American-DJ-X-Scan-LED-Plus" m="X-Scan LED Plus"/>
@@ -143,6 +145,7 @@
   </M>
   <M n="Antari">
     <F n="Antari-X-310-Pro-Fazer" m="X-310 Pro Fazer"/>
+    <F n="Antari-Z-1520-RGB" m="Z-1520 RGB"/>
   </M>
   <M n="AVE">
     <F n="AVE-Cobra-Wash-200" m="Cobra Wash 200"/>
@@ -252,6 +255,8 @@
     <F n="Cameo-Thunder-Wash-600-RGB" m="Thunder Wash 600 RGB"/>
     <F n="Cameo-Thunder-Wash-600-W" m="Thunder Wash 600 W"/>
     <F n="Cameo-Tribar-200-IR" m="Tribar 200 IR"/>
+    <F n="Cameo-TS-40-WW" m="TS 40 WW"/>
+    <F n="Cameo-TS-60-RGBW" m="TS 60 RGBW"/>
     <F n="Cameo-Wookie-series" m="Wookie series"/>
   </M>
   <M n="Chauvet">
@@ -362,6 +367,7 @@
     <F n="Chauvet-SlimPar-Hex-6" m="SlimPar Hex 6"/>
     <F n="Chauvet-SlimPAR-Pro-H-USB" m="SlimPAR Pro H USB"/>
     <F n="Chauvet-SlimPar-Pro-Tri" m="SlimPar Pro Tri"/>
+    <F n="Chauvet-SlimPAR-Q6-USB" m="SlimPAR Q6 USB"/>
     <F n="Chauvet-SlimPAR-QUAD-12-IRC" m="SlimPAR QUAD 12 IRC"/>
     <F n="Chauvet-SlimPAR-QUV12-USB" m="SlimPAR QUV12 USB"/>
     <F n="Chauvet-SlimPAR-T6-USB" m="SlimPAR T6 USB"/>
@@ -454,9 +460,11 @@
   <M n="Elation">
     <F n="Elation-Color-Spot-150" m="Color Spot 150"/>
     <F n="Elation-Cuepix-Batten" m="Cuepix Batten"/>
+    <F n="Elation-DW-Fresnel" m="DW Fresnel"/>
     <F n="Elation-EVC-MH" m="EVC MH"/>
     <F n="Elation-Platinum-Beam-5R" m="Platinum Beam 5R"/>
     <F n="Elation-Platinum-Spot-5R" m="Platinum Spot 5R"/>
+    <F n="Elation-Proteus-Beam" m="Proteus Beam"/>
     <F n="Elation-Rayzor-Q7" m="Rayzor Q7"/>
     <F n="Elation-SIXPAR-200IP" m="SIXPAR 200IP"/>
     <F n="Elation-Sniper-2R" m="Sniper 2R"/>
@@ -792,7 +800,8 @@
     <F n="Lite-Works-ColorChanger" m="ColorChanger"/>
   </M>
   <M n="Litecraft">
-    <F n="LiteCraft-LED-PAR-64-AT3" m="LED PAR 64 AT3"/>
+    <F n="Litecraft-LED-PAR-64-AT3" m="LED PAR 64 AT3"/>
+    <F n="Litecraft-OutLED-AT60.zoom" m="OutLED AT60.zoom"/>
     <F n="Litecraft-PowerBar-4" m="PowerBar 4"/>
     <F n="Litecraft-PowerBar-AT10.sx" m="PowerBar AT10.sx"/>
     <F n="Litecraft-WashX.21" m="WashX.21"/>
@@ -1102,6 +1111,7 @@
     <F n="Showtec-Stage-Blinder-Series" m="Stage Blinder Series"/>
     <F n="Showtec-Sunraise-LED" m="Sunraise LED"/>
     <F n="Showtec-Sunstrip-Active" m="Sunstrip Active"/>
+    <F n="Showtec-Vintage-Blaze" m="Vintage Blaze"/>
     <F n="Showtec-XB-Wave" m="XB-Wave"/>
     <F n="Showtec-XS-1W-Mini-Moving-Beam" m="XS-1W Mini Moving Beam"/>
     <F n="Showtec-ZIPP-LED-DMX" m="ZIPP LED DMX"/>

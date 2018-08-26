@@ -9,6 +9,7 @@ qlcplus (4.12.0) stable; urgency=low
   * Fixture Editor: reworked to define more accurate information (see documentation)
   * New input profile: Akai APC40 mkII (thanks to Ovidijus Cepukas)
   * New input profiles: Novation Launchpad MK2, Behringer X-Touch Extender (thanks to Tim Cullingworth)
+  * New fixture: American DJ Entour Venue
   * New fixtures: American DJ Auto Spot 150, Boom Box Fx2, Revo Sweep (thanks to Felix Edelmann)
   * New fixtures: JB-Lighting Varyscan P7, Showtec Dominator, Showtec Sunraise LED (thanks to Felix Edelmann)
   * New fixture: Orion Effects Lighting ORCAN2 (thanks to Felix Edelmann)
@@ -25,12 +26,15 @@ qlcplus (4.12.0) stable; urgency=low
   * New fixture: Showtec Compact Par 7 Tri (thanks to sonozikloc)
   * New fixture: Stairville WGF 2000 (thanks to CoS2000)
   * New fixture: Dia Lighting Diapro Spot LED 300 (thanks to DJ Ladonin)
-  * New fixtures: Showtec Phantom 130 LED Spot, Eurolite TMH-30/60 (thanks to Piotr Nowik)
+  * New fixtures: Showtec Phantom 130 LED Spot, Eurolite TMH-30/60, Showtec Vintage Blaze (thanks to Piotr Nowik)
   * New fixture: Varytec BAT.PAR 6 RGBWA (thanks to Edgar Aichinger)
   * New fixture: IMG Stageline PARL-40SET (thanks to Mitsch)
-  * New fixtures: Equinox Quad Pix Batten, Chauvet Wash FX2, MARQ Gesture Spot 300 (thanks to Justin Hornsby)
+  * New fixtures: Equinox Quad Pix Batten, Chauvet Wash FX2, MARQ Gesture Spot 300, American DJ Warlock (thanks to Justin Hornsby)
   * New fixture: JB Systems Space Laser 3 (thanks to Ben Engelen)
   * New fixture: Cameo NanoBeam 300 (thanks to Martin)
+  * New fixtures: Chauvet SlimPAR Q6 USB, Antari Z-1520 RGB, Cameo TS 40 WW, Cameo TS 60 RGBW (thanks to Andrew)
+  * New fixtures: Litecraft OutLED AT60.zoom, Elation Proteus Beam (thanks to Axel Metzke)
+  * New fixture: Elation DW Fresnel (thanks to Niklas Larsson)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 21 Oct 2018 12:13:14 +0200
 
