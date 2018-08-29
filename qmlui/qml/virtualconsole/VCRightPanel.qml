@@ -25,8 +25,6 @@ import "."
 
 SidePanel
 {
-    id: vcRightPanel
-
     onContentLoaded:
     {
         if (item.functionID)

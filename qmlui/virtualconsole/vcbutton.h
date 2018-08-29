@@ -49,6 +49,7 @@ class VCButton : public VCWidget
     Q_PROPERTY(quint32 functionID READ functionID WRITE setFunctionID NOTIFY functionIDChanged)
     Q_PROPERTY(bool startupIntensityEnabled READ startupIntensityEnabled WRITE setStartupIntensityEnabled NOTIFY startupIntensityEnabledChanged)
     Q_PROPERTY(qreal startupIntensity READ startupIntensity WRITE setStartupIntensity NOTIFY startupIntensityChanged)
+    Q_PROPERTY(int stopAllFadeOutTime READ stopAllFadeOutTime WRITE setStopAllFadeOutTime NOTIFY stopAllFadeOutTimeChanged)
 
     /*********************************************************************
      * Initialization
@@ -172,16 +173,17 @@ public:
     static ButtonAction stringToAction(const QString& str);
 
     void setStopAllFadeOutTime(int ms);
-    int stopAllFadeTime();
+    int stopAllFadeOutTime();
 
 signals:
     void actionTypeChanged(ButtonAction actionType);
+    void stopAllFadeOutTimeChanged();
 
 protected:
     ButtonAction m_actionType;
     /** if button action is StopAll, this indicates the time
      *  in milliseconds of fadeout before stopping */
-    int m_blackoutFadeOutTime;
+    int m_stopAllFadeOutTime;
 
     /*****************************************************************************
      * Function startup intensity adjustment

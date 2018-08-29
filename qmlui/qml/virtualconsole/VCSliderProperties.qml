@@ -297,14 +297,14 @@ Rectangle
                           {
                               if (checked)
                               {
-                                  vcRightPanel.width += UISettings.sidePanelWidth
+                                  rightSidePanel.width += UISettings.sidePanelWidth
                                   sideLoader.width = UISettings.sidePanelWidth
                                   sideLoader.modelProvider = widgetRef
                                   sideLoader.source = "qrc:/FixtureGroupManager.qml"
                               }
                               else
                               {
-                                  vcRightPanel.width = vcRightPanel.width - sideLoader.width
+                                  rightSidePanel.width = rightSidePanel.width - sideLoader.width
                                   sideLoader.source = ""
                                   sideLoader.width = 0
                               }

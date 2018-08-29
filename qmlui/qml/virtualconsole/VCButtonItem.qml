@@ -138,8 +138,15 @@ VCWidgetItem
             if (virtualConsole.editMode)
                 return;
 
-            if (buttonObj.actionType === VCButton.Toggle)
+            if (buttonObj.actionType === VCButton.Toggle || buttonObj.actionType === VCButton.Blackout)
+            {
                 buttonObj.requestStateChange(btnState === VCButton.Active ? false : true)
+            }
+            else if (buttonObj.actionType !== VCButton.Flash)
+            {
+                buttonObj.requestStateChange(true)
+                blink.start()
+            }
         }
         onPressed:
         {

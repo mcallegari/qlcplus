@@ -43,7 +43,7 @@ Rectangle
         wPropsLoader.active = false
         wPropsLoader.source = wObj ? wObj.propertiesResource : ""
         wPropsLoader.active = true
-        vcRightPanel.width = vcRightPanel.width - sideLoader.width
+        rightSidePanel.width = rightSidePanel.width - sideLoader.width
         sideLoader.source = ""
         sideLoader.width = 0
     }
@@ -60,7 +60,7 @@ Rectangle
     {
         id: bgColTool
         parent: mainView
-        x: vcRightPanel.x - width
+        x: rightSidePanel.x - width
         y: 100
         visible: false
         currentRGB: wObj ? wObj.backgroundColor : "black"
@@ -78,7 +78,7 @@ Rectangle
     {
         id: fgColTool
         parent: mainView
-        x: vcRightPanel.x - width
+        x: rightSidePanel.x - width
         y: 100
         visible: false
         currentRGB: wObj ? wObj.foregroundColor : "black"

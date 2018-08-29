@@ -148,13 +148,13 @@ Rectangle
                             {
                                 if (checked)
                                 {
-                                    vcRightPanel.width += mainView.width / 3
+                                    rightSidePanel.width += mainView.width / 3
                                     sideLoader.width = mainView.width / 3
                                     sideLoader.source = "qrc:/FunctionManager.qml"
                                 }
                                 else
                                 {
-                                    vcRightPanel.width = vcRightPanel.width - sideLoader.width
+                                    rightSidePanel.width = rightSidePanel.width - sideLoader.width
                                     sideLoader.source = ""
                                     sideLoader.width = 0
                                 }

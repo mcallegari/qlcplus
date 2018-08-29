@@ -73,7 +73,11 @@ GridLayout
         if (tX >= 0)
             x = tX
         if (tY >= 0)
+        {
             y = tY
+            if (y + height > mainView.height)
+                y = mainView.height - height - UISettings.listItemHeight
+        }
 
         visible = true
         timeBox.selectAndFocus()

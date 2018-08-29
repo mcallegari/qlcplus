@@ -32,7 +32,7 @@ VCButton::VCButton(Doc *doc, QObject *parent)
     , m_functionID(Function::invalidId())
     , m_state(Inactive)
     , m_actionType(Toggle)
-    , m_blackoutFadeOutTime(0)
+    , m_stopAllFadeOutTime(0)
     , m_startupIntensityEnabled(false)
     , m_startupIntensity(1.0)
 {
@@ -335,6 +335,20 @@ void VCButton::requestStateChange(bool pressed)
             }
         }
         break;
+        case Blackout:
+        {
+            m_doc->inputOutputMap()->toggleBlackout();
+            setState(pressed ? Active : Inactive);
+        }
+        break;
+        case StopAll:
+        {
+            if (stopAllFadeOutTime() == 0)
+                m_doc->masterTimer()->stopAllFunctions();
+            else
+                m_doc->masterTimer()->fadeAndStopAll(stopAllFadeOutTime());
+        }
+        break;
         default:
         break;
     }
@@ -389,12 +403,16 @@ VCButton::ButtonAction VCButton::stringToAction(const QString& str)
 
 void VCButton::setStopAllFadeOutTime(int ms)
 {
-    m_blackoutFadeOutTime = ms;
+    if (ms == m_stopAllFadeOutTime)
+        return;
+
+    m_stopAllFadeOutTime = ms;
+    emit stopAllFadeOutTimeChanged();
 }
 
-int VCButton::stopAllFadeTime()
+int VCButton::stopAllFadeOutTime()
 {
-    return m_blackoutFadeOutTime;
+    return m_stopAllFadeOutTime;
 }
 
 
@@ -496,12 +514,12 @@ bool VCButton::loadXML(QXmlStreamReader &root)
         }
         else if (root.name() == KXMLQLCVCButtonAction)
         {
-            //QXmlStreamAttributes attrs = root.attributes();
+            QXmlStreamAttributes attrs = root.attributes();
+            if (attrs.hasAttribute(KXMLQLCVCButtonStopAllFadeTime))
+                setStopAllFadeOutTime(attrs.value(KXMLQLCVCButtonStopAllFadeTime).toInt());
+
             setActionType(stringToAction(root.readElementText()));
-            /*
-            if (tag.hasAttribute(KXMLQLCVCButtonStopAllFadeTime))
-                setStopAllFadeOutTime(tag.attribute(KXMLQLCVCButtonStopAllFadeTime).toInt());
-            */
+
         }
         else if (root.name() == KXMLQLCVCButtonIntensity)
         {
@@ -554,8 +572,8 @@ bool VCButton::saveXML(QXmlStreamWriter *doc)
     /* Action */
     doc->writeStartElement(KXMLQLCVCButtonAction);
 
-    if (actionType() == StopAll && stopAllFadeTime() != 0)
-        doc->writeAttribute(KXMLQLCVCButtonStopAllFadeTime, QString::number(stopAllFadeTime()));
+    if (actionType() == StopAll && stopAllFadeOutTime() != 0)
+        doc->writeAttribute(KXMLQLCVCButtonStopAllFadeTime, QString::number(stopAllFadeOutTime()));
 
     doc->writeCharacters(actionToString(actionType()));
     doc->writeEndElement();
