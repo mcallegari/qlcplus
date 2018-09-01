@@ -351,6 +351,10 @@ void ChaserEditor::slotUpdateCurrentStep(SceneValue sv, bool enabled)
 
         for (int i = 0; i < m_chaser->stepsCount(); i++)
         {
+            // do not unset again on the currently edited step
+            if (i == idx)
+                continue;
+
             m_chaser->stepAt(i)->unSetValue(sv, svIndex);
             qDebug() << "[slotUpdateCurrentStep] Value removed from step: " << i << "@pos" << svIndex;
         }

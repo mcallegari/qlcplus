@@ -2,6 +2,7 @@ qlcplus (4.12.0) stable; urgency=low
 
   * engine/RGBMatrix: added support for animated GIF pictures
   * UI/Scene Editor: fixed crash when removing a Fixture and Scene Editor is open
+  * UI/Chaser Editor: fix Sequence step value unset
   * UI/Show Manager: properly reset editors and selection when switching context
   * UI/Show Manager: avoid Scene values to be overwritten on Sequences sharing the same bound Scene
   * Plugins/DMX USB: reworked to have asynchronous transmission and frequency setting from UI
