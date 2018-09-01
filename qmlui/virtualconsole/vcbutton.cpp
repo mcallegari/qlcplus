@@ -519,7 +519,6 @@ bool VCButton::loadXML(QXmlStreamReader &root)
                 setStopAllFadeOutTime(attrs.value(KXMLQLCVCButtonStopAllFadeTime).toInt());
 
             setActionType(stringToAction(root.readElementText()));
-
         }
         else if (root.name() == KXMLQLCVCButtonIntensity)
         {

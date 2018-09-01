@@ -36,8 +36,7 @@ Rectangle
 
     function addVideo(vContent)
     {
-        videoComponent.createObject(ctxRoot,
-                       {"video": vContent, "z": 1 });
+        videoComponent.createObject(ctxRoot, { "video": vContent, "z": 1 });
         if (videoComponent.status !== Component.Ready)
             console.log("Video component is not ready !!")
         mediaArray.push(vContent.id)
@@ -45,8 +44,7 @@ Rectangle
 
     function addPicture(pContent)
     {
-        pictureComponent.createObject(ctxRoot,
-                       {"picture": pContent, "z": 2 });
+        pictureComponent.createObject(ctxRoot, { "picture": pContent, "z": 2 });
         if (pictureComponent.status !== Component.Ready)
             console.log("Picture component is not ready !!")
         mediaArray.push(pContent.id)
