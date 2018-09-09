@@ -1852,7 +1852,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="qml/popup/PopupManualInputSource.qml" line="194"/>
         <source>Universe</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Вселенная</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupManualInputSource.qml" line="209"/>
@@ -2175,189 +2175,189 @@ Access level:</source>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="112"/>
         <source>Fixture Group</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Группа приборов</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="147"/>
         <source>Pattern</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Шаблон</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="183"/>
         <source>Blend mode</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Режим смешивания</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="199"/>
         <source>Default (HTP)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">По умолчанию (Наивысшее значение)</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="200"/>
         <source>Mask</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Маска</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="201"/>
         <source>Additive</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Сложение</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="202"/>
         <source>Subtractive</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Вычитание</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="219"/>
         <source>Colors</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Цвета</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="315"/>
         <source>Parameters</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Параметры</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="324"/>
         <source>Speed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Скорость</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="337"/>
         <source>Steps fade in</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Пошаговое появление</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="370"/>
         <source>Steps hold</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Пошаговое удержание</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="402"/>
         <source>Steps fade out</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Пошаговое исчезание</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="434"/>
         <source>Tempo type</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Тип темпа</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="441"/>
         <source>Time</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Время</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="442"/>
         <source>Beats</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Удары</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="458"/>
         <source>Order and direction</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Порядок и направление</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="473"/>
         <source>Loop</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Цикл</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="474"/>
         <source>Single Shot</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Одиночный</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="475"/>
         <source>Ping Pong</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Пинг Понг</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="484"/>
         <source>Run Order</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Порядок запуска</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="493"/>
         <source>Forward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Вперед</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="494"/>
         <source>Backward</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Назад</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="503"/>
         <source>Direction</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Направление</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="532"/>
         <source>Text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Текст</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="578"/>
         <source>Please choose a font</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Пожалуйста, выберите шрифт</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="595"/>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="740"/>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="753"/>
         <source>Animation</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Анимация</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="605"/>
         <source>Letters</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Буквы</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="606"/>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="751"/>
         <source>Horizontal</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Горизонтально</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="607"/>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="752"/>
         <source>Vertical</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Вертикально</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="618"/>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="764"/>
         <source>Offset</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Смещение</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="634"/>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="780"/>
         <source>X</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">X</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="649"/>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="795"/>
         <source>Y</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Y</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="684"/>
         <source>Image</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Изображение</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="728"/>
         <source>Select an image</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Выберите изображение</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="750"/>
         <source>Static</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Статично</translation>
     </message>
 </context>
 <context>
@@ -2365,92 +2365,92 @@ Access level:</source>
     <message>
         <location filename="qml/fixturesfunctions/RGBPanelProperties.qml" line="74"/>
         <source>RGB panel properties</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Свойства RGB панели</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBPanelProperties.qml" line="94"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Имя</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBPanelProperties.qml" line="110"/>
         <source>Universe</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Вселенная</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBPanelProperties.qml" line="126"/>
         <source>Address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Адрес</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBPanelProperties.qml" line="139"/>
         <source>Components</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Компоненты</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBPanelProperties.qml" line="166"/>
         <source>Size</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Размер</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBPanelProperties.qml" line="199"/>
         <source>Physical</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Физический</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBPanelProperties.qml" line="234"/>
         <source>Start corner</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Начальный угол</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBPanelProperties.qml" line="248"/>
         <source>Top-Left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Верх-Лево</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBPanelProperties.qml" line="249"/>
         <source>Top-Right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Верх-Право</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBPanelProperties.qml" line="250"/>
         <source>Bottom-Left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Низ-Лево</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBPanelProperties.qml" line="251"/>
         <source>Bottom-Right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Низ-Право</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBPanelProperties.qml" line="259"/>
         <source>Displacement</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Замещение</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBPanelProperties.qml" line="272"/>
         <source>Snake</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Змея</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBPanelProperties.qml" line="273"/>
         <source>Zig Zag</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Зиг-Заг</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBPanelProperties.qml" line="279"/>
         <source>Direction</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Направление</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBPanelProperties.qml" line="292"/>
         <source>Horizontal</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Горизонтально</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBPanelProperties.qml" line="293"/>
         <source>Vertical</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Вертикально</translation>
     </message>
 </context>
 <context>
@@ -2458,88 +2458,88 @@ Access level:</source>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="45"/>
         <source>Audio files</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Аудио файлы</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="51"/>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="69"/>
         <source>All files</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Все файлы</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="59"/>
         <source>Video files</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Видео файлы</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="63"/>
         <source>Picture files</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Изображение</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="167"/>
         <source>Function Manager</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Менеджер функций</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="189"/>
         <source>Add a new function</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Добавить новую функцию</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="213"/>
         <source>Delete the selected functions</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Удалить выбранные функции</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="219"/>
         <source>Are you sure you want to delete the following items?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Вы уверены, что хотите удалить следующие элементы?</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="226"/>
         <source>Delete items</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Удалить элементы</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="241"/>
         <source>Rename the selected items</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Переименовать выделенные элементы</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="257"/>
         <source>Rename items</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Переименовать элементы</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="271"/>
         <source>Clone the selected functions</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Клонировать выделенные функции</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="283"/>
         <source>Show function usage</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Показать использование функции</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="299"/>
         <source>Set/Unset autostart function</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Установить/Отменить автозапуск фукции</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="317"/>
         <source>Dump on a new Scene</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Скопировать на новую Сцену</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="449"/>
         <source>Function Preview</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Предпросмотр Функции</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RightPanel.qml" line="469"/>
         <source>Reset dump channels</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Сбросить значения каналов</translation>
     </message>
 </context>
 <context>
@@ -2547,22 +2547,22 @@ Access level:</source>
     <message>
         <location filename="qml/fixturesfunctions/SceneEditor.qml" line="89"/>
         <source>Remove the selected fixtures</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Удалить выбранные приборы</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SceneEditor.qml" line="132"/>
         <source>Speed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Скорость</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SceneEditor.qml" line="145"/>
         <source>Fade in</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Появление</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SceneEditor.qml" line="178"/>
         <source>Fade out</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Исчезание</translation>
     </message>
 </context>
 <context>
