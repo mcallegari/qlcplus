@@ -311,7 +311,7 @@ void SimpleDeskEngine::writeDMX(MasterTimer* timer, QList<Universe *> ua)
         ua[uni]->write(address, it.value(), true);
     }
 
-    foreach (CueStack* cueStack, m_cueStacks)
+    foreach (CueStack *cueStack, m_cueStacks)
     {
         if (cueStack == NULL)
             continue;
@@ -326,7 +326,7 @@ void SimpleDeskEngine::writeDMX(MasterTimer* timer, QList<Universe *> ua)
         else
         {
             if (cueStack->isStarted())
-                cueStack->postRun(timer);
+                cueStack->postRun(timer, ua);
         }
     }
 }

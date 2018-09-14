@@ -26,7 +26,6 @@
 #include "universe.h"
 
 class FadeChannel;
-class Doc;
 
 /** @addtogroup engine Engine
  * @{
@@ -35,7 +34,7 @@ class Doc;
 class GenericFader
 {
 public:
-    GenericFader(Doc* doc);
+    GenericFader();
     ~GenericFader();
 
     /**
@@ -45,7 +44,7 @@ public:
      *
      * If the fader already contains the same channel, the one whose current
      * value is higher remains in the fader. With LTP channels this might result
-     * in the value jumping ina weird way but LTP channels are rarely faded anyway.
+     * in the value jumping in a weird way but LTP channels are rarely faded anyway.
      * With HTP channels the lower value has no meaning in the first place.
      *
      * @param ch The channel to fade
@@ -53,18 +52,21 @@ public:
     void add(const FadeChannel& ch);
 
     /** Replace an existing FaderChannel */
-    void forceAdd(const FadeChannel& ch);
+    void replace(const FadeChannel& ch);
 
     /** Remove a channel whose fixture & channel match with $fc's */
     void remove(const FadeChannel& fc);
 
-    /**
-     * Remove all channels.
-     */
+    /** Remove all channels */
     void removeAll();
 
+    /** Returns a reference of a FadeChannel for the provided $fixtureID and $channel.
+     *  If no FadeChannel is found, a new one is created and added to m_channels.
+     *  Also, new channels will have a start value set depending on their type */
+    FadeChannel *getChannelFader(const Doc *doc, Universe *universe, quint32 fixtureID, quint32 channel);
+
     /** Get all channels in a non-modifiable hashmap */
-    const QHash <FadeChannel,FadeChannel>& channels() const;
+    const QHash <quint32,FadeChannel>& channels() const;
 
     /**
      * Run the channels forward by one step and write their current values to
@@ -73,21 +75,26 @@ public:
      * @param universes The universe array that receives channel data.
      * @param paused Request a pause state, so the fader doesn't have to advance its transition
      */
-    void write(QList<Universe *> universes, bool paused = false);
+    void write(Universe *universe);
 
-    /**
-     * Adjust the intensities of all channels by $fraction
-     *
-     * @param fraction 0.0 - 1.0
-     */
+    /** Get/Set the intensities of all channels in a 0.0 - 1.0 range */
+    qreal intensity() const;
     void adjustIntensity(qreal fraction);
 
-    /**
-     * Get the overall intensity adjustment
-     *
-     * @return 0.0 - 1.0
-     */
-    qreal intensity() const;
+    /** Get/Set the pause state of this fader */
+    bool isPaused() const;
+    void setPaused(bool paused);
+
+    /** Get/Set the enable state of this fader */
+    bool isEnabled() const;
+    void setEnabled(bool enable);
+
+    /** Get the fade out status of this fader */
+    bool isFadingOut() const;
+
+    /** Set this fader to fade out. If $fadeTime is non-zero,
+      * all the intensity channels will be updated */
+    void setFadeOut(bool enable, uint fadeTime);
 
     /**
      * Set the blend mode to be applied in the write method
@@ -97,10 +104,12 @@ public:
     void setBlendMode(Universe::BlendMode mode);
 
 private:
-    QHash <FadeChannel,FadeChannel> m_channels;
+    QHash <quint32,FadeChannel> m_channels;
     qreal m_intensity;
+    bool m_paused;
+    bool m_enabled;
+    bool m_fadeOut;
     Universe::BlendMode m_blendMode;
-    Doc* m_doc;
 };
 
 /** @} */

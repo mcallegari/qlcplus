@@ -42,6 +42,16 @@ class FadeChannel
      * Initialization
      ************************************************************************/
 public:
+    enum ChannelType
+    {
+        HTP         = (1 << 0),
+        LTP         = (1 << 1),
+        Intensity   = (1 << 2),
+        CanFade     = (1 << 3),
+        Flashing    = (1 << 4),
+        Relative    = (1 << 5)
+    };
+
     /** Create a new FadeChannel with empty/invalid values */
     FadeChannel();
 
@@ -56,6 +66,17 @@ public:
 
     /** Comparison operator (true if fixture & channel match) */
     bool operator==(const FadeChannel& fc) const;
+
+    void setType(int type);
+    int type() const;
+
+protected:
+    void autoDetect(const Doc *doc);
+
+private:
+    /** Bitmask including the channel type
+     *  and, if needed, more flags */
+    int m_type;
 
     /************************************************************************
      * Values
@@ -81,9 +102,6 @@ public:
 
     /** Get the absolute address in its universe for this channel. */
     quint32 addressInUniverse() const;
-
-    /** Get the channel group. */
-    QLCChannel::Group group(const Doc* doc) const;
 
     /** Set starting value. */
     void setStart(uchar value);
@@ -112,15 +130,8 @@ public:
     /** Check if this channel is ready. Default is false. */
     bool isReady() const;
 
-    /** Set a channel in flashing mode. This will be removed by
-     *  MasterTimer once applied */
-    void setFlashing(bool flashing);
-
-    /** Returns if this channel is flashing */
-    bool isFlashing() const;
-
     /** Returns if a channel can be faded or not */
-    bool canFade(const Doc *doc) const;
+    bool canFade() const;
 
     /** Set the fade time in milliseconds. */
     void setFadeTime(uint ms);
@@ -159,23 +170,15 @@ private:
     quint32 m_universe;
     quint32 m_channel;
     quint32 m_address;
-    QLCChannel::Group m_group;
 
     int m_start;
     int m_target;
     int m_current;
     bool m_ready;
-    bool m_flashing;
 
     uint m_fadeTime;
     uint m_elapsed;
 };
-
-/**
- * Hash function for FadeChannel. Needs a valid .fixture() and .channel() to work
- * correctly.
- */
-uint qHash(const FadeChannel& key);
 
 /** @} */
 

@@ -44,29 +44,21 @@
  * Initialization
  *****************************************************************************/
 
-EFX::EFX(Doc* doc) : Function(doc, Function::EFXType)
+EFX::EFX(Doc* doc)
+    : Function(doc, Function::EFXType)
+    , m_algorithm(EFX::Circle)
+    , m_isRelative(false)
+    , m_xFrequency(2)
+    , m_yFrequency(3)
+    , m_xPhase(M_PI / 2.0)
+    , m_yPhase(0)
+    , m_propagationMode(Parallel)
+    , m_legacyFadeBus(Bus::invalid())
+    , m_legacyHoldBus(Bus::invalid())
 {
-    m_isRelative = false;
-
     updateRotationCache();
-
-    m_xFrequency = 2;
-    m_yFrequency = 3;
-    m_xPhase = M_PI / 2.0;
-    m_yPhase = 0;
-
-    m_propagationMode = Parallel;
-
-    m_algorithm = EFX::Circle;
-
     setName(tr("New EFX"));
-
-    m_fader = NULL;
-
     setDuration(20000); // 20s
-
-    m_legacyHoldBus = Bus::invalid();
-    m_legacyFadeBus = Bus::invalid();
 
     registerAttribute(tr("Width"), Function::LastWins, 0.0, 127.0, 127.0);
     registerAttribute(tr("Height"), Function::LastWins, 0.0, 127.0, 127.0);
@@ -1025,6 +1017,20 @@ void EFX::postLoad()
 /*****************************************************************************
  * Running
  *****************************************************************************/
+GenericFader *EFX::getFader(QList<Universe *> universes, quint32 universeID)
+{
+    // get the universe Fader first. If doesn't exist, create it
+    GenericFader *fader = m_fadersMap.value(universeID, NULL);
+    if (fader == NULL)
+    {
+        fader = universes[universeID]->requestFader();
+        fader->adjustIntensity(getAttributeValue(Intensity));
+        fader->setBlendMode(blendMode());
+        m_fadersMap[universeID] = fader;
+    }
+
+    return fader;
+}
 
 void EFX::preRun(MasterTimer* timer)
 {
@@ -1038,15 +1044,15 @@ void EFX::preRun(MasterTimer* timer)
         ef->setSerialNumber(serialNumber++);
     }
 
-    Q_ASSERT(m_fader == NULL);
-    m_fader = new GenericFader(doc());
-    m_fader->adjustIntensity(getAttributeValue(Intensity));
-    m_fader->setBlendMode(blendMode());
+    //Q_ASSERT(m_fader == NULL);
+    //m_fader = new GenericFader(doc());
+    //m_fader->adjustIntensity(getAttributeValue(Intensity));
+    //m_fader->setBlendMode(blendMode());
 
     Function::preRun(timer);
 }
 
-void EFX::write(MasterTimer* timer, QList<Universe*> universes)
+void EFX::write(MasterTimer *timer, QList<Universe*> universes)
 {
     Q_UNUSED(timer);
 
@@ -1058,11 +1064,16 @@ void EFX::write(MasterTimer* timer, QList<Universe*> universes)
     QListIterator <EFXFixture*> it(m_fixtures);
     while (it.hasNext() == true)
     {
-        EFXFixture* ef = it.next();
+        EFXFixture *ef = it.next();
         if (ef->isReady() == false)
-            ef->nextStep(timer, universes);
+        {
+            GenericFader *fader = getFader(universes, ef->universe());
+            ef->nextStep(universes, fader);
+        }
         else
+        {
             ready++;
+        }
     }
 
     incrementElapsed();
@@ -1070,10 +1081,10 @@ void EFX::write(MasterTimer* timer, QList<Universe*> universes)
     /* Check for stop condition */
     if (ready == m_fixtures.count())
         stop(FunctionParent::master());
-    m_fader->write(universes);
+    //m_fader->write(universes);
 }
 
-void EFX::postRun(MasterTimer* timer, QList<Universe *> universes)
+void EFX::postRun(MasterTimer *timer, QList<Universe *> universes)
 {
     /* Reset all fixtures */
     QListIterator <EFXFixture*> it(m_fixtures);
@@ -1083,14 +1094,11 @@ void EFX::postRun(MasterTimer* timer, QList<Universe *> universes)
 
         /* Run the EFX's stop scene for Loop & PingPong modes */
         if (runOrder() != SingleShot)
-            ef->stop(timer, universes);
+            ef->stop();
         ef->reset();
     }
 
-    Q_ASSERT(m_fader != NULL);
-    m_fader->removeAll();
-    delete m_fader;
-    m_fader = NULL;
+    dismissAllFaders(universes);
 
     Function::postRun(timer, universes);
 }
@@ -1107,8 +1115,8 @@ int EFX::adjustAttribute(qreal fraction, int attributeId)
     {
         case Intensity:
         {
-            if (m_fader != NULL)
-                m_fader->adjustIntensity(getAttributeValue(Function::Intensity));
+            foreach (GenericFader *fader, m_fadersMap.values())
+                fader->adjustIntensity(getAttributeValue(Function::Intensity));
         }
         break;
 
@@ -1133,8 +1141,8 @@ void EFX::setBlendMode(Universe::BlendMode mode)
     if (mode == blendMode())
         return;
 
-    if (m_fader != NULL)
-        m_fader->setBlendMode(mode);
+    foreach (GenericFader *fader, m_fadersMap.values())
+        fader->setBlendMode(mode);
 
     Function::setBlendMode(mode);
 }

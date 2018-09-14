@@ -220,31 +220,27 @@ public:
     void tap();
 
     /** @reimp */
-    void preRun(MasterTimer* timer);
+    void preRun(MasterTimer *timer);
 
     /** @reimp */
-    void write(MasterTimer* timer, QList<Universe*> universes);
+    void write(MasterTimer *timer, QList<Universe*> universes);
 
     /** @reimp */
-    void postRun(MasterTimer* timer, QList<Universe*> universes);
+    void postRun(MasterTimer *timer, QList<Universe*> universes);
 
 private:
     /** Check what should be done when elapsed() >= duration() */
     void roundCheck();
 
-    /** Update new FadeChannels to m_fader when $map has changed since last time */
-    void updateMapChannels(const RGBMap& map, const FixtureGroup* grp);
+    FadeChannel *getFader(QList<Universe *> universes, quint32 universeID, quint32 fixtureID, quint32 channel);
+    void updateFaderValues(FadeChannel *fc, uchar value, uint fadeTime);
 
-    /** Grab starting values for a fade channel from $fader if available */
-    void insertStartValues(FadeChannel& fc, uint fadeTime) const;
+    /** Update FadeChannels when $map has changed since last time */
+    void updateMapChannels(const RGBMap& map, const FixtureGroup* grp, QList<Universe *> universes);
 
 private:
-    /** Reference of a GenericFader in charge of actually sending DMX data
-     *  of the current RGB Matrix step, including fade transitions */
-    GenericFader* m_fader;
-
     /** Reference to a timer counting the time in ms between steps */
-    QElapsedTimer* m_roundTime;
+    QElapsedTimer *m_roundTime;
 
     /** The number of steps returned by the currently loaded algorithm */
     int m_stepsCount;

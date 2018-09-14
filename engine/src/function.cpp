@@ -1027,6 +1027,20 @@ void Function::postRun(MasterTimer* timer, QList<Universe *> universes)
     emit stopped(m_id);
 }
 
+void Function::dismissAllFaders(QList<Universe *> universes)
+{
+    QMapIterator <quint32, GenericFader*> it(m_fadersMap);
+    while (it.hasNext() == true)
+    {
+        it.next();
+        quint32 universe = it.key();
+        GenericFader *fader = it.value();
+        universes[universe]->dismissFader(fader);
+    }
+
+    m_fadersMap.clear();
+}
+
 bool Function::isRunning() const
 {
     return m_running;

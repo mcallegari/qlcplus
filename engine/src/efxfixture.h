@@ -106,6 +106,9 @@ public:
     /** Get the parameter(s) that this efx will animate (ie. dimmer, RGB, ...) */
     Mode mode() const;
 
+    /** Return the Universe ID where this head falls in */
+    quint32 universe();
+
     /**
      * Check that this object has a fixture ID and at least LSB channel
      * for pan and/or tilt.
@@ -126,6 +129,7 @@ public:
 
 private:
     GroupHead m_head;
+    quint32 m_universe;
     Function::Direction m_direction;
     int m_startOffset;
     Mode m_mode;
@@ -184,24 +188,21 @@ private:
      * Running
      *************************************************************************/
 private:
+    void start();
+    void stop();
+
     /** Calculate the next step data for this fixture */
-    void nextStep(MasterTimer* timer, QList<Universe *> universes);
+    void nextStep(QList<Universe *> universes, GenericFader *fader);
 
-    /** Write this EFXFixture's channel data to universes */
-    void setPointPanTilt(QList<Universe *> universes, float pan, float tilt);
-    void setPointDimmer(QList<Universe *> universes, float dimmer);
-    void setPointRGB (QList<Universe *> universes, float x, float y);
+    void updateFaderValues(FadeChannel *fc, uchar value);
 
-    /* Run the start scene if necessary */
-    void start(MasterTimer* timer, QList<Universe *> universes);
-
-    /* Run the stop scene if necessary */
-    void stop(MasterTimer* timer, QList<Universe *> universes);
+    /** Write this EFXFixture's channel data to universe faders */
+    void setPointPanTilt(QList<Universe *> universes, GenericFader *fader, float pan, float tilt);
+    void setPointDimmer(QList<Universe *> universes, GenericFader *fader, float dimmer);
+    void setPointRGB (QList<Universe *> universes, GenericFader *fader, float x, float y);
 
 private:
     static QImage m_rgbGradient;
-
-    void setFadeChannel(quint32 nChannel, uchar val);
 };
 
 /** @} */

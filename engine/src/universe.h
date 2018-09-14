@@ -22,7 +22,9 @@
 #define UNIVERSE_H
 
 #include <QScopedPointer>
+#include <QSemaphore>
 #include <QByteArray>
+#include <QThread>
 #include <QSet>
 
 #include "qlcchannel.h"
@@ -31,10 +33,12 @@ class QXmlStreamReader;
 class QLCInputProfile;
 class ChannelModifier;
 class InputOutputMap;
+class GenericFader;
 class QLCIOPlugin;
 class GrandMaster;
 class OutputPatch;
 class InputPatch;
+class Doc;
 
 /** @addtogroup engine Engine
  * @{
@@ -58,7 +62,7 @@ class InputPatch;
 
 /** Universe class contains input/output data for one DMX universe
  */
-class Universe: public QObject
+class Universe: public QThread
 {
     Q_OBJECT
     Q_DISABLE_COPY(Universe)
@@ -327,6 +331,46 @@ protected:
     /** Modified channels with the non-modified value at 0.
      *  This is used for ranged initialization operations. */
     QScopedPointer<QByteArray> m_modifiedZeroValues;
+
+    /************************************************************************
+     * Faders
+     ************************************************************************/
+public:
+    enum FaderPriority
+    {
+        Auto = 0,
+        Override,
+        SimpleDesk
+    };
+
+    /** Request a new GenericFader used to compose the final values of
+     *  this Universe. The caller is in charge of adding/removing
+     *  FadeChannels and eventually dismiss a fader when no longer needed,
+     *  unless a fade out transition is needed, in which case, this Universe
+     *  is in charge of completing it and dismissing the fader. */
+    GenericFader *requestFader(FaderPriority priority = Auto);
+
+    /** Dismiss a fader requested with requestFader, which is no longer needed */
+    void dismissFader(GenericFader *fader);
+
+    void tick();
+
+protected:
+    /** DMX writer thread worker method */
+    void run();
+
+signals:
+    void universeWritten(quint32 universeID, const QByteArray& universeData);
+
+protected:
+    QSemaphore m_semaphore;
+
+    /** Indicated if the DMX writer worker thread is running */
+    bool m_running;
+
+    /** IMPORTANT: this is the list of faders that will compose
+     *  the Universe values. The order is very important ! */
+    QList<GenericFader *> m_faders;
 
     /************************************************************************
      * Values

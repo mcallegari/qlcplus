@@ -24,6 +24,7 @@
 
 #include "channelmodifier.h"
 #include "inputoutputmap.h"
+#include "genericfader.h"
 #include "qlcioplugin.h"
 #include "outputpatch.h"
 #include "grandmaster.h"
@@ -41,7 +42,7 @@
 #define KXMLUniverseSubtractiveBlend "Subtractive"
 
 Universe::Universe(quint32 id, GrandMaster *gm, QObject *parent)
-    : QObject(parent)
+    : QThread(parent)
     , m_id(id)
     , m_grandMaster(gm)
     , m_passthrough(false)
@@ -181,6 +182,66 @@ void Universe::slotGMValueChanged()
         {
             int channel = m_nonIntensityChannels.at(i);
             updatePostGMValue(channel);
+        }
+    }
+}
+
+/************************************************************************
+ * Faders
+ ************************************************************************/
+
+GenericFader *Universe::requestFader(Universe::FaderPriority priority)
+{
+    Q_UNUSED(priority)
+
+    GenericFader *fader = new GenericFader();
+
+    m_faders.append(fader);
+
+    return fader;
+}
+
+void Universe::dismissFader(GenericFader *fader)
+{
+    int index = m_faders.indexOf(fader);
+    if (index >= 0)
+    {
+        m_faders.takeAt(index);
+        delete fader;
+    }
+}
+
+void Universe::tick()
+{
+    foreach (GenericFader *fader, m_faders)
+        fader->write(this);
+
+    const QByteArray postGM = m_postGMValues->mid(0, m_usedChannels);
+    dumpOutput(postGM);
+
+    if (hasChanged())
+        emit universeWritten(id(), postGM);
+
+    m_semaphore.release(1);
+}
+
+void Universe::run()
+{
+    m_running = true;
+
+    while(m_running)
+    {
+        if (m_semaphore.tryAcquire(1, 20) == false)
+        {
+            qWarning() << "Semaphore not acquired !";
+            continue;
+        }
+
+        foreach (GenericFader *fader, m_faders)
+        {
+            if (fader->isEnabled() == false)
+                continue;
+            fader->write(this);
         }
     }
 }
