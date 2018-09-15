@@ -107,6 +107,11 @@ const QHash<quint32, FadeChannel> &GenericFader::channels() const
     return m_channels;
 }
 
+int GenericFader::channelsCount() const
+{
+    return m_channels.count();
+}
+
 void GenericFader::write(Universe *universe)
 {
     QMutableHashIterator <quint32,FadeChannel> it(m_channels);

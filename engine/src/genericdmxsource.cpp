@@ -37,6 +37,10 @@ GenericDMXSource::GenericDMXSource(Doc* doc)
 
 GenericDMXSource::~GenericDMXSource()
 {
+    foreach (GenericFader *fader, m_fadersMap.values())
+        fader->removeAll();
+    m_fadersMap.clear();
+
     m_doc->masterTimer()->unregisterDMXSource(this);
 }
 

@@ -145,19 +145,11 @@ void MasterTimer::timerTick()
     }
 
     QList<Universe *> universes = doc->inputOutputMap()->claimUniverses();
-    for (int i = 0 ; i < universes.count(); i++)
-    {
-        universes[i]->flushInput();
-        universes[i]->zeroIntensityChannels();
-        universes[i]->zeroRelativeValues();
-    }
 
     timerTickFunctions(universes);
     timerTickDMXSources(universes);
-    //timerTickFader(universes);
 
     doc->inputOutputMap()->releaseUniverses();
-    //doc->inputOutputMap()->dumpUniverses();
 
     m_beatRequested = false;
 

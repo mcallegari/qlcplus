@@ -71,6 +71,9 @@ public:
     /** Get all channels in a non-modifiable hashmap */
     const QHash <quint32,FadeChannel>& channels() const;
 
+    /** Return the number of channel added to this fader */
+    int channelsCount() const;
+
     /**
      * Run the channels forward by one step and write their current values to
      * the given Universe

@@ -285,8 +285,19 @@ void Universe::run()
 
         qDebug() << "<<<<<<<< UNIVERSE TICK - id" << id() << "faders:" << m_faders.count();
 
-        foreach (GenericFader *fader, m_faders)
+        flushInput();
+        zeroIntensityChannels();
+        zeroRelativeValues();
+
+        QMutableListIterator<GenericFader *> it(m_faders);
+        while (it.hasNext())
         {
+            GenericFader *fader = it.next();
+            if (fader->channelsCount() == 0)
+            {
+                it.remove();
+                continue;
+            }
             if (fader->isEnabled() == false)
                 continue;
             fader->write(this);
