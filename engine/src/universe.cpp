@@ -320,20 +320,6 @@ void Universe::reset()
     m_passthrough = false; // not releasing m_passthroughValues, see comment in setPassthrough
 }
 
-void Universe::applyPassthroughValues(int address, int range)
-{
-    if (!m_passthrough)
-        return;
-
-    for (int i = address; i < address + range && i < UNIVERSE_SIZE; i++)
-    {
-        if (static_cast<uchar>(m_postGMValues->at(i)) < static_cast<uchar>(m_passthroughValues->at(i))) // HTP merge
-        {
-            (*m_postGMValues)[i] = (*m_passthroughValues)[i];
-        }
-    }
-}
-
 void Universe::reset(int address, int range)
 {
     if (address >= UNIVERSE_SIZE)
@@ -346,6 +332,20 @@ void Universe::reset(int address, int range)
     memcpy(m_postGMValues->data() + address, m_modifiedZeroValues->data() + address, range * sizeof(*m_postGMValues->data()));
 
     applyPassthroughValues(address, range);
+}
+
+void Universe::applyPassthroughValues(int address, int range)
+{
+    if (!m_passthrough)
+        return;
+
+    for (int i = address; i < address + range && i < UNIVERSE_SIZE; i++)
+    {
+        if (static_cast<uchar>(m_postGMValues->at(i)) < static_cast<uchar>(m_passthroughValues->at(i))) // HTP merge
+        {
+            (*m_postGMValues)[i] = (*m_passthroughValues)[i];
+        }
+    }
 }
 
 void Universe::zeroIntensityChannels()
