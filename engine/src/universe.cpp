@@ -28,6 +28,7 @@
 #include "qlcioplugin.h"
 #include "outputpatch.h"
 #include "grandmaster.h"
+#include "mastertimer.h"
 #include "inputpatch.h"
 #include "qlcmacros.h"
 #include "universe.h"
@@ -67,10 +68,18 @@ Universe::Universe(quint32 id, GrandMaster *gm, QObject *parent)
 
     connect(m_grandMaster, SIGNAL(valueChanged(uchar)),
             this, SLOT(slotGMValueChanged()));
+
+    start();
 }
 
 Universe::~Universe()
 {
+    if (isRunning() == true)
+    {
+        m_running = false;
+        wait();
+    }
+
     delete m_inputPatch;
     int opCount = m_outputPatchList.count();
     for (int i = 0; i < opCount; i++)
@@ -258,30 +267,23 @@ void Universe::requestFaderPriority(GenericFader *fader, Universe::FaderPriority
 
 void Universe::tick()
 {
-    qDebug() << "<<<<<<<< UNIVERSE TICK - id" << id() << "faders:" << m_faders.count();
-    foreach (GenericFader *fader, m_faders)
-        fader->write(this);
-
-    const QByteArray postGM = m_postGMValues->mid(0, m_usedChannels);
-    dumpOutput(postGM);
-
-    if (hasChanged())
-        emit universeWritten(id(), postGM);
-
     m_semaphore.release(1);
 }
 
 void Universe::run()
 {
     m_running = true;
+    int tickDuration = MasterTimer::tick();
 
     while(m_running)
     {
-        if (m_semaphore.tryAcquire(1, 20) == false)
+        if (m_semaphore.tryAcquire(1, tickDuration) == false)
         {
-            qWarning() << "Semaphore not acquired !";
+            qWarning() << "Semaphore not acquired on universe" << id();
             continue;
         }
+
+        qDebug() << "<<<<<<<< UNIVERSE TICK - id" << id() << "faders:" << m_faders.count();
 
         foreach (GenericFader *fader, m_faders)
         {
@@ -289,6 +291,12 @@ void Universe::run()
                 continue;
             fader->write(this);
         }
+
+        const QByteArray postGM = m_postGMValues->mid(0, m_usedChannels);
+        dumpOutput(postGM);
+
+        if (hasChanged())
+            emit universeWritten(id(), postGM);
     }
 }
 
