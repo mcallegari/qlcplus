@@ -345,14 +345,17 @@ public:
 
     /** Request a new GenericFader used to compose the final values of
      *  this Universe. The caller is in charge of adding/removing
-     *  FadeChannels and eventually dismiss a fader when no longer needed,
-     *  unless a fade out transition is needed, in which case, this Universe
+     *  FadeChannels and eventually dismiss a fader when no longer needed.
+     *  If a fade out transition is needed, this Universe
      *  is in charge of completing it and dismissing the fader. */
     GenericFader *requestFader(FaderPriority priority = Auto);
 
     /** Dismiss a fader requested with requestFader, which is no longer needed */
     void dismissFader(GenericFader *fader);
 
+    void requestFaderPriority(GenericFader *fader, FaderPriority priority);
+
+public slots:
     void tick();
 
 protected:

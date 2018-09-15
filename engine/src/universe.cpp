@@ -192,11 +192,30 @@ void Universe::slotGMValueChanged()
 
 GenericFader *Universe::requestFader(Universe::FaderPriority priority)
 {
-    Q_UNUSED(priority)
-
     GenericFader *fader = new GenericFader();
+    fader->setPriority(priority);
 
-    m_faders.append(fader);
+    if (m_faders.isEmpty())
+    {
+        m_faders.append(fader);
+    }
+    else
+    {
+        int insertPos = 0;
+
+        for (int i = m_faders.count() - 1; i >= 0; i--)
+        {
+            GenericFader *f = m_faders.at(i);
+            if (f->priority() <= fader->priority())
+            {
+                insertPos = i + 1;
+                break;
+            }
+        }
+
+        m_faders.insert(insertPos, fader);
+        qDebug() << "Generic fader with priority" <<  fader->priority() << "registered at pos" << insertPos;
+    }
 
     return fader;
 }
@@ -211,8 +230,35 @@ void Universe::dismissFader(GenericFader *fader)
     }
 }
 
+void Universe::requestFaderPriority(GenericFader *fader, Universe::FaderPriority priority)
+{
+    if (m_faders.contains(fader) == false)
+        return;
+
+    int pos = m_faders.indexOf(fader);
+    int newPos = 0;
+
+    for (int i = m_faders.count() - 1; i >= 0; i--)
+    {
+        GenericFader *f = m_faders.at(i);
+        if (f->priority() <= priority)
+        {
+            newPos = i;
+            fader->setPriority(priority);
+            break;
+        }
+    }
+
+    if (newPos != pos)
+    {
+        m_faders.move(pos, newPos);
+        qDebug() << "Generic fader moved from" << pos << "to" << m_faders.indexOf(fader) << ". Count:" << m_faders.count();
+    }
+}
+
 void Universe::tick()
 {
+    qDebug() << "<<<<<<<< UNIVERSE TICK - id" << id() << "faders:" << m_faders.count();
     foreach (GenericFader *fader, m_faders)
         fader->write(this);
 
@@ -837,7 +883,7 @@ bool Universe::write(int channel, uchar value, bool forceLTP)
 {
     Q_ASSERT(channel < UNIVERSE_SIZE);
 
-    //qDebug() << "Universe write channel" << channel << ", value:" << value;
+    qDebug() << "Universe write channel" << channel << ", value:" << value;
 
     if (channel >= m_usedChannels)
         m_usedChannels = channel + 1;

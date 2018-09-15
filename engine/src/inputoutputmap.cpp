@@ -120,7 +120,7 @@ bool InputOutputMap::setBlackout(bool blackout)
 
         // notify the universe listeners that some channels have changed
         locker.unlock();
-        emit universesWritten(i, data);
+        emit universeWritten(i, data);
         locker.relock();
     }
 
@@ -152,8 +152,12 @@ bool InputOutputMap::addUniverse(quint32 id)
 {
     {
         QMutexLocker locker(&m_universeMutex);
+        Universe *uni = NULL;
+
         if (id == InputOutputMap::invalidUniverse())
+        {
             id = universesCount();
+        }
         else if (id < universesCount())
         {
             qWarning() << Q_FUNC_INFO
@@ -165,15 +169,20 @@ bool InputOutputMap::addUniverse(quint32 id)
         {
             qDebug() << Q_FUNC_INFO
                 << "Gap between universe" << (universesCount() - 1)
-                << "and universe" << id
-                << ", filling the gap...";
+                << "and universe" << id << ", filling the gap...";
             while (id > universesCount())
             {
-                m_universeArray.append(new Universe(universesCount(), m_grandMaster));
+                uni = new Universe(universesCount(), m_grandMaster);
+                connect(doc()->masterTimer(), SIGNAL(tickReady()), uni, SLOT(tick()), Qt::QueuedConnection);
+                connect(uni, SIGNAL(universeWritten(quint32,QByteArray)), this, SIGNAL(universeWritten(quint32,QByteArray)));
+                m_universeArray.append(uni);
             }
         }
 
-        m_universeArray.append(new Universe(id, m_grandMaster));
+        uni = new Universe(id, m_grandMaster);
+        connect(doc()->masterTimer(), SIGNAL(tickReady()), uni, SLOT(tick()), Qt::QueuedConnection);
+        connect(uni, SIGNAL(universeWritten(quint32,QByteArray)), this, SIGNAL(universeWritten(quint32,QByteArray)));
+        m_universeArray.append(uni);
     }
 
     emit universeAdded(id);
@@ -316,7 +325,7 @@ void InputOutputMap::dumpUniverses()
             if (universe->hasChanged())
             {
                 locker.unlock();
-                emit universesWritten(i, postGM);
+                emit universeWritten(i, postGM);
                 locker.relock();
             }
 

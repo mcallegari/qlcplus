@@ -35,6 +35,7 @@ class Universe;
 class DMXSource
 {
 public:
+    // TODO: remove this. Use only the one in Universe
     enum SourcePriority
     {
         Auto = 0,
@@ -42,7 +43,11 @@ public:
         SimpleDesk
     };
 
-    DMXSource() { m_priority = Auto; }
+    DMXSource()
+    {
+        m_priority = Auto;
+        m_changed = false;
+    }
     virtual ~DMXSource() {}
 
     /**
@@ -53,10 +58,16 @@ public:
      */
     virtual void writeDMX(MasterTimer* timer, QList<Universe*> universes) = 0;
 
+    /** Return the requested priority */
     int priority() const { return m_priority; }
+
+    /** Get/Set if the DMX source has changed */
+    bool hasChanged() { return m_changed; }
+    void setChanged() { m_changed = true; }
 
 protected:
     int m_priority;
+    bool m_changed;
 };
 
 /** @} */

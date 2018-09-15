@@ -37,6 +37,9 @@ public:
     GenericFader();
     ~GenericFader();
 
+    int priority() const;
+    void setPriority(int priority);
+
     /**
      * Add a channel that shall be faded from ch.start() to ch.target() within
      * the time specified by ch.fadeTime(). If ch.target() == 0, the channel will
@@ -70,10 +73,9 @@ public:
 
     /**
      * Run the channels forward by one step and write their current values to
-     * the given UniverseArray.
+     * the given Universe
      *
-     * @param universes The universe array that receives channel data.
-     * @param paused Request a pause state, so the fader doesn't have to advance its transition
+     * @param universe The universe that receives channel data.
      */
     void write(Universe *universe);
 
@@ -104,6 +106,7 @@ public:
     void setBlendMode(Universe::BlendMode mode);
 
 private:
+    int m_priority;
     QHash <quint32,FadeChannel> m_channels;
     qreal m_intensity;
     bool m_paused;

@@ -106,7 +106,7 @@ void MasterTimer::stop()
 
 void MasterTimer::timerTick()
 {
-    Doc* doc = qobject_cast<Doc*> (parent());
+    Doc *doc = qobject_cast<Doc*> (parent());
     Q_ASSERT(doc != NULL);
 
 #ifdef DEBUG_MASTERTIMER
@@ -161,6 +161,7 @@ void MasterTimer::timerTick()
 
     m_beatRequested = false;
 
+    qDebug() << ">>>>>>>> MASTERTIMER TICK";
     emit tickReady();
 }
 
@@ -342,31 +343,16 @@ void MasterTimer::timerTickFunctions(QList<Universe *> universes)
  * DMX Sources
  ****************************************************************************/
 
-void MasterTimer::registerDMXSource(DMXSource* source)
+void MasterTimer::registerDMXSource(DMXSource *source)
 {
     Q_ASSERT(source != NULL);
 
     QMutexLocker lock(&m_dmxSourceListMutex);
     if (m_dmxSourceList.contains(source) == false)
-    {
-        int insertPos = 0;
-
-        for (int i = m_dmxSourceList.count() - 1; i >= 0; i--)
-        {
-            DMXSource *src = m_dmxSourceList.at(i);
-            if (src->priority() <= source->priority())
-            {
-                insertPos = i + 1;
-                break;
-            }
-        }
-
-        m_dmxSourceList.insert(insertPos, source);
-        qDebug() << "DMX source with priority" <<  source->priority() << "registered at pos" << insertPos;
-    }
+        m_dmxSourceList.append(source);
 }
 
-void MasterTimer::unregisterDMXSource(DMXSource* source)
+void MasterTimer::unregisterDMXSource(DMXSource *source)
 {
     Q_ASSERT(source != NULL);
 
@@ -404,7 +390,7 @@ void MasterTimer::timerTickDMXSources(QList<Universe *> universes)
     /* Lock before accessing the DMX sources list. */
     QMutexLocker lock(&m_dmxSourceListMutex);
 
-    foreach (DMXSource* source, m_dmxSourceList)
+    foreach (DMXSource *source, m_dmxSourceList)
     {
         Q_ASSERT(source != NULL);
 

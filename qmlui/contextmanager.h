@@ -227,7 +227,7 @@ protected slots:
 
     /** Invoked by the QLC+ engine to inform the UI that the Universe at $idx
      *  has changed */
-    void slotUniversesWritten(int idx, const QByteArray& ua);
+    void slotUniverseWritten(quint32 idx, const QByteArray& ua);
 
     /** Invoked when Function editing begins or ends in the Function Manager.
      *  Context Manager doesn't care much about Functions, it just needs

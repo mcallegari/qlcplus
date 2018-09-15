@@ -419,14 +419,12 @@ qreal CueStack::intensity() const
 void CueStack::setFlashing(bool enable)
 {
     qDebug() << Q_FUNC_INFO;
-    if (m_flashing != enable && m_cues.size() > 0)
-    {
-        m_flashing = enable;
-        if (m_flashing == true)
-            doc()->masterTimer()->registerDMXSource(this);
-        else
-            doc()->masterTimer()->unregisterDMXSource(this);
-    }
+    if (m_flashing == enable || m_cues.isEmpty())
+        return;
+
+    m_flashing = enable;
+    if (m_flashing == true)
+        doc()->masterTimer()->registerDMXSource(this);
 }
 
 bool CueStack::isFlashing() const
@@ -434,22 +432,51 @@ bool CueStack::isFlashing() const
     return m_flashing;
 }
 
-void CueStack::writeDMX(MasterTimer* timer, QList<Universe*> ua)
+void CueStack::writeDMX(MasterTimer *timer, QList<Universe*> ua)
 {
     Q_UNUSED(timer);
-    if (isFlashing() == true && m_cues.size() > 0)
+    if (m_cues.isEmpty())
+        return;
+
+    if (isFlashing())
     {
-        QHashIterator <uint,uchar> it(m_cues.first().values());
+        if (m_fadersMap.isEmpty())
+        {
+            QHashIterator <uint,uchar> it(m_cues.first().values());
+            while (it.hasNext() == true)
+            {
+                it.next();
+                FadeChannel fc(doc(), Fixture::invalidId(), it.key());
+                quint32 universe = fc.universe();
+                if (universe == Universe::invalid())
+                    continue;
+
+                GenericFader *fader = m_fadersMap.value(universe, NULL);
+                if (fader == NULL)
+                {
+                    fader = ua[universe]->requestFader();
+                    m_fadersMap[universe] = fader;
+                }
+
+                fc.setTarget(it.value());
+                fc.setType(fc.type() | FadeChannel::Flashing);
+                fader->add(fc);
+            }
+        }
+    }
+    else
+    {
+        QMapIterator <quint32, GenericFader*> it(m_fadersMap);
         while (it.hasNext() == true)
         {
             it.next();
-            FadeChannel fc;
-            fc.setChannel(doc(), it.key());
-            fc.setTarget(it.value());
-            int uni = qFloor(fc.channel() / 512);
-            if (uni < ua.size())
-                ua[uni]->write(fc.channel() - (uni * 512), fc.target());
+            quint32 universe = it.key();
+            GenericFader *fader = it.value();
+            ua[universe]->dismissFader(fader);
         }
+
+        m_fadersMap.clear();
+        doc()->masterTimer()->unregisterDMXSource(this);
     }
 }
 

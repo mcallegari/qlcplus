@@ -254,7 +254,6 @@ private:
     void switchCue(int from, int to, const QList<Universe *> ua);
 
 private:
-protected:
     /** Map used to lookup a GenericFader instance for a Universe ID */
     QMap<quint32, GenericFader *> m_fadersMap;
     uint m_elapsed;

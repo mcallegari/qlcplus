@@ -140,7 +140,7 @@ public:
      *
      * @param source The DMXSource to register
      */
-    virtual void registerDMXSource(DMXSource* source);
+    virtual void registerDMXSource(DMXSource *source);
 
     /**
      * Unregister a previously registered DMXSource. This should be called
@@ -148,14 +148,14 @@ public:
      *
      * @param source The DMXSource to unregister
      */
-    virtual void unregisterDMXSource(DMXSource* source);
+    virtual void unregisterDMXSource(DMXSource *source);
 
     /**
      * Request a higher priority for a specific DMXSource.
      * This means the source will be placed at the end of the registered
      * sources list, but always before the Simple Desk
      */
-    virtual void requestNewPriority(DMXSource* source);
+    virtual void requestNewPriority(DMXSource *source);
 
 private:
     /** Execute one timer tick for each registered DMXSource */

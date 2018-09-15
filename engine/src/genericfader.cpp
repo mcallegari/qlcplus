@@ -25,7 +25,8 @@
 #include "doc.h"
 
 GenericFader::GenericFader()
-    : m_intensity(1.0)
+    : m_priority(Universe::Auto)
+    , m_intensity(1.0)
     , m_paused(false)
     , m_enabled(true)
     , m_fadeOut(false)
@@ -35,6 +36,16 @@ GenericFader::GenericFader()
 
 GenericFader::~GenericFader()
 {
+}
+
+int GenericFader::priority() const
+{
+    return m_priority;
+}
+
+void GenericFader::setPriority(int priority)
+{
+    m_priority = priority;
 }
 
 void GenericFader::add(const FadeChannel& ch)
@@ -51,6 +62,7 @@ void GenericFader::add(const FadeChannel& ch)
     else
     {
         m_channels.insert(hash, ch);
+        qDebug() << "Added new fader with hash" << hash;
     }
 }
 
@@ -63,7 +75,8 @@ void GenericFader::replace(const FadeChannel &ch)
 void GenericFader::remove(const FadeChannel& ch)
 {
     quint32 hash = (ch.fixture() << 16) | ch.channel();
-    m_channels.remove(hash);
+    if (m_channels.remove(hash) == 0)
+        qDebug() << "No FadeChannel found with hash" << hash;
 }
 
 void GenericFader::removeAll()
@@ -73,18 +86,19 @@ void GenericFader::removeAll()
 
 FadeChannel *GenericFader::getChannelFader(const Doc *doc, Universe *universe, quint32 fixtureID, quint32 channel)
 {
-    quint32 hash = (fixtureID << 16) | channel;
+    FadeChannel fc(doc, fixtureID, channel);
+    quint32 hash = (fc.fixture() << 16) | fc.channel();
     QHash<quint32,FadeChannel>::iterator channelIterator = m_channels.find(hash);
     if (channelIterator != m_channels.end())
         return &channelIterator.value();
 
-    FadeChannel fc(doc, fixtureID, channel);
     if (fc.type() & QLCChannel::Intensity)
         fc.setStart(0); // Intensity channels must start at zero
     else
         fc.setStart(universe->preGMValue(fc.address()));
 
     m_channels[hash] = fc;
+    qDebug() << "Added new fader with hash" << hash;
     return &m_channels[hash];
 }
 
