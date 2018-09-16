@@ -103,7 +103,7 @@
    <Dimensions Weight="13.6" Width="292" Height="571" Depth="229"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Barrel" PanMax="180" TiltMax="0"/>
-   <Technical PowerConsumption="350" DmxConnector="3-pin"/>
+   <Technical PowerConsumption="390" DmxConnector="3-pin"/>
   </Physical>
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Barrel rotation</Channel>
