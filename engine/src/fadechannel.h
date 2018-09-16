@@ -67,8 +67,11 @@ public:
     /** Comparison operator (true if fixture & channel match) */
     bool operator==(const FadeChannel& fc) const;
 
-    void setType(int type);
+    /** Get/Set the channel flags listed in ChannelType */
     int type() const;
+    void setType(int type);
+    void setTypeFlag(int flag);
+    void unsetTypeFlag(int flag);
 
 protected:
     void autoDetect(const Doc *doc);

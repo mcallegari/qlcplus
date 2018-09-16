@@ -150,13 +150,6 @@ public:
      */
     virtual void unregisterDMXSource(DMXSource *source);
 
-    /**
-     * Request a higher priority for a specific DMXSource.
-     * This means the source will be placed at the end of the registered
-     * sources list, but always before the Simple Desk
-     */
-    virtual void requestNewPriority(DMXSource *source);
-
 private:
     /** Execute one timer tick for each registered DMXSource */
     void timerTickDMXSources(QList<Universe *> universes);

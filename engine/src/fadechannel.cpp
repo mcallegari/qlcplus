@@ -80,14 +80,24 @@ bool FadeChannel::operator==(const FadeChannel& ch) const
     return (m_fixture == ch.m_fixture && m_channel == ch.m_channel);
 }
 
+int FadeChannel::type() const
+{
+    return m_type;
+}
+
 void FadeChannel::setType(int type)
 {
     m_type = type;
 }
 
-int FadeChannel::type() const
+void FadeChannel::setTypeFlag(int flag)
 {
-    return m_type;
+    m_type |= flag;
+}
+
+void FadeChannel::unsetTypeFlag(int flag)
+{
+    m_type &= (~flag);
 }
 
 void FadeChannel::autoDetect(const Doc *doc)

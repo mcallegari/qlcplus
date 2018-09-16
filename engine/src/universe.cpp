@@ -279,11 +279,12 @@ void Universe::run()
     {
         if (m_semaphore.tryAcquire(1, tickDuration) == false)
         {
-            qWarning() << "Semaphore not acquired on universe" << id();
+            //qWarning() << "Semaphore not acquired on universe" << id();
             continue;
         }
 
-        qDebug() << "<<<<<<<< UNIVERSE TICK - id" << id() << "faders:" << m_faders.count();
+        if (m_faders.count())
+            qDebug() << "<<<<<<<< UNIVERSE TICK - id" << id() << "faders:" << m_faders.count();
 
         flushInput();
         zeroIntensityChannels();
@@ -293,13 +294,16 @@ void Universe::run()
         while (it.hasNext())
         {
             GenericFader *fader = it.next();
-            if (fader->channelsCount() == 0)
+            if (fader->deleteRequest())
             {
+                fader->removeAll();
                 it.remove();
+                delete fader;
                 continue;
             }
             if (fader->isEnabled() == false)
                 continue;
+
             fader->write(this);
         }
 

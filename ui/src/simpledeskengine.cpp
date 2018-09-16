@@ -321,7 +321,7 @@ void SimpleDeskEngine::writeDMX(MasterTimer *timer, QList<Universe *> ua)
                 if (fader != NULL)
                 {
                     FadeChannel fc(m_doc, Fixture::invalidId(), channel);
-                    fader->remove(fc);
+                    fader->remove(&fc);
                     ua[universe]->reset(channel & 0x01FF, 1);
                 }
             }

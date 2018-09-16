@@ -604,7 +604,7 @@ void Scene::writeDMX(MasterTimer *timer, QList<Universe *> ua)
                 }
 
                 fc.setTarget(sv.value);
-                fc.setType(fc.type() | FadeChannel::Flashing);
+                fc.setTypeFlag(FadeChannel::Flashing);
                 fader->add(fc);
             }
         }

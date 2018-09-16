@@ -30,6 +30,7 @@ GenericFader::GenericFader()
     , m_paused(false)
     , m_enabled(true)
     , m_fadeOut(false)
+    , m_deleteRequest(false)
     , m_blendMode(Universe::NormalBlend)
 {
 }
@@ -72,9 +73,9 @@ void GenericFader::replace(const FadeChannel &ch)
     m_channels.insert(hash, ch);
 }
 
-void GenericFader::remove(const FadeChannel& ch)
+void GenericFader::remove(FadeChannel *ch)
 {
-    quint32 hash = (ch.fixture() << 16) | ch.channel();
+    quint32 hash = (ch->fixture() << 16) | ch->channel();
     if (m_channels.remove(hash) == 0)
         qDebug() << "No FadeChannel found with hash" << hash;
 }
@@ -82,6 +83,16 @@ void GenericFader::remove(const FadeChannel& ch)
 void GenericFader::removeAll()
 {
     m_channels.clear();
+}
+
+bool GenericFader::deleteRequest()
+{
+    return m_deleteRequest;
+}
+
+void GenericFader::requestDelete()
+{
+    m_deleteRequest = true;
 }
 
 FadeChannel *GenericFader::getChannelFader(const Doc *doc, Universe *universe, quint32 fixtureID, quint32 channel)
@@ -141,7 +152,7 @@ void GenericFader::write(Universe *universe)
         if ((channelType & FadeChannel::Intensity) && m_blendMode == Universe::NormalBlend)
         {
             // Remove all HTP channels that reach their target _zero_ value.
-            // They have no effect either way so removing them saves CPU a bit.
+            // They have no effect either way so removing them saves a bit of CPU.
             if (fc.current() == 0 && fc.target() == 0)
             {
                 it.remove();

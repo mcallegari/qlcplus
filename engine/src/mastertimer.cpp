@@ -153,7 +153,7 @@ void MasterTimer::timerTick()
 
     m_beatRequested = false;
 
-    qDebug() << ">>>>>>>> MASTERTIMER TICK";
+    //qDebug() << ">>>>>>>> MASTERTIMER TICK";
     emit tickReady();
 }
 
@@ -350,31 +350,6 @@ void MasterTimer::unregisterDMXSource(DMXSource *source)
 
     QMutexLocker lock(&m_dmxSourceListMutex);
     m_dmxSourceList.removeAll(source);
-}
-
-void MasterTimer::requestNewPriority(DMXSource *source)
-{
-    Q_ASSERT(source != NULL);
-    QMutexLocker lock(&m_dmxSourceListMutex);
-    if (m_dmxSourceList.contains(source) == true)
-    {
-       int pos = m_dmxSourceList.indexOf(source);
-       int newPos = 0;
-
-       for (int i = m_dmxSourceList.count() - 1; i >= 0; i--)
-       {
-           DMXSource *src = m_dmxSourceList.at(i);
-           if (src->priority() <= source->priority())
-           {
-               newPos = i;
-               break;
-           }
-       }
-
-       m_dmxSourceList.move(pos, newPos);
-       qDebug() << "DMX source moved from" << pos << "to" << m_dmxSourceList.indexOf(source) << ". Count:" << m_dmxSourceList.count();
-    }
-
 }
 
 void MasterTimer::timerTickDMXSources(QList<Universe *> universes)

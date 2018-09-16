@@ -58,10 +58,14 @@ public:
     void replace(const FadeChannel& ch);
 
     /** Remove a channel whose fixture & channel match with $fc's */
-    void remove(const FadeChannel& fc);
+    void remove(FadeChannel *ch);
 
     /** Remove all channels */
     void removeAll();
+
+    /** Get/Set a request of deletion of this fader */
+    bool deleteRequest();
+    void requestDelete();
 
     /** Returns a reference of a FadeChannel for the provided $fixtureID and $channel.
      *  If no FadeChannel is found, a new one is created and added to m_channels.
@@ -115,6 +119,7 @@ private:
     bool m_paused;
     bool m_enabled;
     bool m_fadeOut;
+    bool m_deleteRequest;
     Universe::BlendMode m_blendMode;
 };
 

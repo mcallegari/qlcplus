@@ -459,7 +459,7 @@ void CueStack::writeDMX(MasterTimer *timer, QList<Universe*> ua)
                 }
 
                 fc.setTarget(it.value());
-                fc.setType(fc.type() | FadeChannel::Flashing);
+                fc.setTypeFlag(FadeChannel::Flashing);
                 fader->add(fc);
             }
         }

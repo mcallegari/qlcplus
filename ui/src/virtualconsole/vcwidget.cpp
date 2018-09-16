@@ -1399,4 +1399,3 @@ void VCWidget::mouseMoveEvent(QMouseEvent* e)
         QWidget::mouseMoveEvent(e);
     }
 }
-

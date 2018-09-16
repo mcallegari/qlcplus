@@ -491,14 +491,14 @@ void EFXFixture::setPointPanTilt(QList<Universe *> universes, GenericFader *fade
     {
         FadeChannel *fc = fader->getChannelFader(doc(), uni, fxi->id(), panMsbChannel);
         if (m_parent->isRelative())
-            fc->setType(fc->type() | FadeChannel::Relative);
+            fc->setTypeFlag(FadeChannel::Relative);
         updateFaderValues(fc, static_cast<uchar>(pan));
     }
     if (tiltMsbChannel != QLCChannel::invalid())
     {
         FadeChannel *fc = fader->getChannelFader(doc(), uni, fxi->id(), tiltMsbChannel);
         if (m_parent->isRelative())
-            fc->setType(fc->type() | FadeChannel::Relative);
+            fc->setTypeFlag(FadeChannel::Relative);
         updateFaderValues(fc, static_cast<uchar>(tilt));
     }
 
@@ -509,7 +509,7 @@ void EFXFixture::setPointPanTilt(QList<Universe *> universes, GenericFader *fade
         uchar value = static_cast<uchar> ((pan - floor(pan)) * double(UCHAR_MAX));
         FadeChannel *fc = fader->getChannelFader(doc(), uni, fxi->id(), panLsbChannel);
         if (m_parent->isRelative())
-            fc->setType(fc->type() | FadeChannel::Relative);
+            fc->setTypeFlag(FadeChannel::Relative);
         updateFaderValues(fc, static_cast<uchar>(value));
     }
 
@@ -519,7 +519,7 @@ void EFXFixture::setPointPanTilt(QList<Universe *> universes, GenericFader *fade
         uchar value = static_cast<uchar> ((tilt - floor(tilt)) * double(UCHAR_MAX));
         FadeChannel *fc = fader->getChannelFader(doc(), uni, fxi->id(), tiltLsbChannel);
         if (m_parent->isRelative())
-            fc->setType(fc->type() | FadeChannel::Relative);
+            fc->setTypeFlag(FadeChannel::Relative);
         updateFaderValues(fc, static_cast<uchar>(value));
     }
 }
