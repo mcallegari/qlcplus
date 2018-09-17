@@ -30,6 +30,8 @@
 class QXmlStreamReader;
 class QXmlStreamWriter;
 class VCXYPadFixture;
+class GenericFader;
+class FadeChannel;
 class Universe;
 class Doc;
 
@@ -56,10 +58,10 @@ class VCXYPadFixture
      * Initialization
      ********************************************************************/
 public:
-    VCXYPadFixture(Doc* doc);
+    VCXYPadFixture(Doc *doc);
 
     /** Initialize from QVariant */
-    VCXYPadFixture(Doc* doc, const QVariant& variant);
+    VCXYPadFixture(Doc *doc, const QVariant& variant);
     ~VCXYPadFixture();
 
     /** Assignment operator */
@@ -72,7 +74,7 @@ public:
     operator QVariant() const;
 
 private:
-    Doc* m_doc;
+    Doc *m_doc;
 
     /********************************************************************
      * Fixture Head
@@ -184,11 +186,14 @@ public:
 public:
     /** Prepare for writing/reading - computes target channels */
     void arm();
+
     /** Drop information from arm() */
     void disarm();
 
     void setEnabled(bool enable);
     bool isEnabled() const;
+
+    quint32 universe() const;
 
     /** Write the value using x & y multipliers for the actual range
      *
@@ -199,7 +204,7 @@ public:
      *      (0.0 => min, 1.0 => max, or vice versa if the range is reversed)
      *  \param universes universes where the values are written
      */
-    void writeDMX(qreal xmul, qreal ymul, QList<Universe*> universes);
+    void writeDMX(qreal xmul, qreal ymul, GenericFader *fader, Universe *universe);
 
     /** Read position from the current universe
      *  \param universes universes from which the position is read
@@ -211,8 +216,12 @@ public:
     void readDMX(QList<Universe*> universes, qreal & xmul, qreal & ymul);
 
 private:
+    void updateChannel(FadeChannel *fc, uchar value);
+
+private:
     /** Flag to enable/disable this fixture at runtime */
     bool m_enabled;
+    quint32 m_universe;
 };
 
 /** @} */

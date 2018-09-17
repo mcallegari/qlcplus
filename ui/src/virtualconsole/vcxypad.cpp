@@ -182,6 +182,9 @@ VCXYPad::VCXYPad(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 VCXYPad::~VCXYPad()
 {
     m_doc->masterTimer()->unregisterDMXSource(this);
+    foreach (GenericFader *fader, m_fadersMap.values())
+        fader->requestDelete();
+    m_fadersMap.clear();
 }
 
 void VCXYPad::enableWidgetUI(bool enable)
@@ -380,7 +383,20 @@ void VCXYPad::writeXYFixtures(MasterTimer *timer, QList<Universe *> universes)
         foreach (VCXYPadFixture fixture, m_fixtures)
         {
             if (fixture.isEnabled())
-                fixture.writeDMX(x, y, universes);
+            {
+                quint32 universe = fixture.universe();
+                if (universe == Universe::invalid())
+                    continue;
+
+                GenericFader *fader = m_fadersMap.value(universe, NULL);
+                if (fader == NULL)
+                {
+                    fader = universes[universe]->requestFader();
+                    fader->adjustIntensity(intensity());
+                    m_fadersMap[universe] = fader;
+                }
+                fixture.writeDMX(x, y, fader, universes[universe]);
+            }
         }
     }
 

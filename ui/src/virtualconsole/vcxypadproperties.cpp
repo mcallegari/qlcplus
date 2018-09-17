@@ -202,6 +202,9 @@ VCXYPadProperties::~VCXYPadProperties()
     QSettings settings;
     settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
     m_doc->masterTimer()->unregisterDMXSource(this);
+    foreach (GenericFader *fader, m_fadersMap.values())
+        fader->requestDelete();
+    m_fadersMap.clear();
 
     delete m_presetInputWidget;
 }
@@ -480,7 +483,17 @@ void VCXYPadProperties::writeDMX(MasterTimer *timer, QList<Universe *> universes
         QVariant var((*it)->data(KColumnFixture, Qt::UserRole));
         VCXYPadFixture fixture(m_doc, var);
         fixture.arm();
-        fixture.writeDMX(x, y, universes);
+        quint32 universe = fixture.universe();
+        if (universe == Universe::invalid())
+            continue;
+
+        GenericFader *fader = m_fadersMap.value(universe, NULL);
+        if (fader == NULL)
+        {
+            fader = universes[universe]->requestFader();
+            m_fadersMap[universe] = fader;
+        }
+        fixture.writeDMX(x, y, fader, universes[universe]);
         fixture.disarm();
         ++it;
     }

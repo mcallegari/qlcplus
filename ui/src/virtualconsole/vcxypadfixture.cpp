@@ -32,6 +32,8 @@
 #include "qlcfile.h"
 
 #include "vcxypadfixture.h"
+#include "genericfader.h"
+#include "fadechannel.h"
 #include "universe.h"
 #include "fixture.h"
 #include "doc.h"
@@ -40,29 +42,26 @@
  * Initialization
  *****************************************************************************/
 
-VCXYPadFixture::VCXYPadFixture(Doc* doc)
+VCXYPadFixture::VCXYPadFixture(Doc *doc)
     : m_doc(doc)
     , m_head()
+    , m_xMin(0)
+    , m_xMax(1)
+    , m_xReverse(false)
+    , m_xLSB(QLCChannel::invalid())
+    , m_xMSB(QLCChannel::invalid())
+    , m_yMin(0)
+    , m_yMax(1)
+    , m_yReverse(false)
+    , m_yLSB(QLCChannel::invalid())
+    , m_yMSB(QLCChannel::invalid())
+    , m_displayMode(Degrees)
+    , m_enabled(true)
+    , m_universe(Universe::invalid())
 {
     Q_ASSERT(m_doc != NULL);
 
-    m_xMin = 0;
-    m_xMax = 1;
-    m_xReverse = false;
-
-    m_yMin = 0;
-    m_yMax = 1;
-    m_yReverse = false;
-
-    m_xLSB = QLCChannel::invalid();
-    m_xMSB = QLCChannel::invalid();
-    m_yLSB = QLCChannel::invalid();
-    m_yMSB = QLCChannel::invalid();
-
     precompute();
-
-    m_enabled = true;
-    m_displayMode = Degrees;
 }
 
 VCXYPadFixture::VCXYPadFixture(Doc* doc, const QVariant& variant)
@@ -269,7 +268,6 @@ QString VCXYPadFixture::xBrief() const
     else
         return QString("%1: %2%4 - %3%4").arg(QObject::tr("Reversed"))
                                       .arg(qRound(m_xMax * scale)).arg(qRound(m_xMin * scale)).arg(units);
-
 }
 
 void VCXYPadFixture::precompute()
@@ -470,9 +468,12 @@ void VCXYPadFixture::arm()
         m_xLSB = QLCChannel::invalid();
         m_yMSB = QLCChannel::invalid();
         m_yLSB = QLCChannel::invalid();
+        m_universe = Universe::invalid();
     }
     else
     {
+        m_universe = fxi->universe();
+
         m_xMSB = fxi->channelNumber(QLCChannel::Pan, QLCChannel::MSB, m_head.head);
         if (m_xMSB != QLCChannel::invalid() )
             m_xMSB += fxi->universeAddress();
@@ -509,7 +510,20 @@ bool VCXYPadFixture::isEnabled() const
     return m_enabled;
 }
 
-void VCXYPadFixture::writeDMX(qreal xmul, qreal ymul, QList<Universe *> universes)
+quint32 VCXYPadFixture::universe() const
+{
+    return m_universe;
+}
+
+void VCXYPadFixture::updateChannel(FadeChannel *fc, uchar value)
+{
+    fc->setStart(value);
+    fc->setCurrent(value);
+    fc->setTarget(value);
+    fc->setReady(false);
+}
+
+void VCXYPadFixture::writeDMX(qreal xmul, qreal ymul, GenericFader *fader, Universe *universe)
 {
     if (m_xMSB == QLCChannel::invalid() || m_yMSB == QLCChannel::invalid())
         return;
@@ -517,27 +531,19 @@ void VCXYPadFixture::writeDMX(qreal xmul, qreal ymul, QList<Universe *> universe
     ushort x = floor(m_xRange * xmul + m_xOffset + 0.5);
     ushort y = floor(m_yRange * ymul + m_yOffset + 0.5);
 
-    quint32 address = m_xMSB & 0x01FF;
-    int uni = m_xMSB >> 9;
-    if (uni < universes.count())
-        universes[uni]->write(address, char(x >> 8));
+    FadeChannel *fc = fader->getChannelFader(m_doc, universe, Fixture::invalidId(), m_xMSB);
+    updateChannel(fc, uchar(x >> 8));
 
-    address = m_yMSB & 0x01FF;
-    uni = m_yMSB >> 9;
-    if (uni < universes.count())
-        universes[uni]->write(address, char(y >> 8));
+    fc = fader->getChannelFader(m_doc, universe, Fixture::invalidId(), m_yMSB);
+    updateChannel(fc, uchar(y >> 8));
 
     if (m_xLSB != QLCChannel::invalid() && m_yLSB != QLCChannel::invalid())
     {
-        address = m_xLSB & 0x01FF;
-        uni = m_xLSB >> 9;
-        if (uni < universes.count())
-            universes[uni]->write(address, char(x & 0xFF));
+        fc = fader->getChannelFader(m_doc, universe, Fixture::invalidId(), m_xLSB);
+        updateChannel(fc, uchar(x & 0xFF));
 
-        address = m_yLSB & 0x01FF;
-        uni = m_yLSB >> 9;
-        if (uni < universes.count())
-            universes[uni]->write(address, char(y & 0xFF));
+        fc = fader->getChannelFader(m_doc, universe, Fixture::invalidId(), m_yLSB);
+        updateChannel(fc, uchar(y & 0xFF));
     }
 }
 
@@ -591,3 +597,4 @@ void VCXYPadFixture::readDMX(QList<Universe*> universes, qreal & xmul, qreal & y
     xmul = x;
     ymul = y;
 }
+

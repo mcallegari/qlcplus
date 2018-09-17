@@ -199,6 +199,9 @@ private:
     bool m_sliderInteraction;
     bool m_inputValueChanged;
 
+    /** Map used to lookup a GenericFader instance for a Universe ID */
+    QMap<quint32, GenericFader *> m_fadersMap;
+
     /*********************************************************************
      * Presets
      *********************************************************************/
