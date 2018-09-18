@@ -6,7 +6,7 @@ Q Light Controller Plus 4
 Copyright (c) Heikki Junnila
 	      Massimo Callegari
 
-QLC+ homepage: http://www.qlcplus.org/
+QLC+ homepage: https://www.qlcplus.org/
 
 QLC+ on GitHub: https://github.com/mcallegari/qlcplus
 
@@ -108,7 +108,7 @@ Support & Bug Reports
 ---------------------
 
 For discussions, feedbacks, ideas and new fixtures, go to:
-http://www.qlcplus.org/forum/index.php
+https://www.qlcplus.org/forum/index.php
 
 For developers wiki and code patches, go to:
 https://github.com/mcallegari/qlcplus
