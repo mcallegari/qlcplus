@@ -51,7 +51,6 @@ private slots:
     void preRun();
     void intensity();
     void nextPrevious();
-    void insertStartValue();
     void switchCue();
     void postRun();
     void write();
