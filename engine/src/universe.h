@@ -359,6 +359,8 @@ public slots:
     void tick();
 
 protected:
+    void processFaders();
+
     /** DMX writer thread worker method */
     void run();
 

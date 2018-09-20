@@ -270,14 +270,44 @@ void Universe::tick()
     m_semaphore.release(1);
 }
 
+void Universe::processFaders()
+{
+    flushInput();
+    zeroIntensityChannels();
+    zeroRelativeValues();
+
+    QMutableListIterator<GenericFader *> it(m_faders);
+    while (it.hasNext())
+    {
+        GenericFader *fader = it.next();
+        if (fader->deleteRequest())
+        {
+            fader->removeAll();
+            it.remove();
+            delete fader;
+            continue;
+        }
+        if (fader->isEnabled() == false)
+            continue;
+
+        fader->write(this);
+    }
+
+    const QByteArray postGM = m_postGMValues->mid(0, m_usedChannels);
+    dumpOutput(postGM);
+
+    if (hasChanged())
+        emit universeWritten(id(), postGM);
+}
+
 void Universe::run()
 {
     m_running = true;
-    int tickDuration = MasterTimer::tick();
+    int timeout = MasterTimer::tick() * 2;
 
     while(m_running)
     {
-        if (m_semaphore.tryAcquire(1, tickDuration) == false)
+        if (m_semaphore.tryAcquire(1, timeout) == false)
         {
             //qWarning() << "Semaphore not acquired on universe" << id();
             continue;
@@ -286,32 +316,7 @@ void Universe::run()
         if (m_faders.count())
             qDebug() << "<<<<<<<< UNIVERSE TICK - id" << id() << "faders:" << m_faders.count();
 
-        flushInput();
-        zeroIntensityChannels();
-        zeroRelativeValues();
-
-        QMutableListIterator<GenericFader *> it(m_faders);
-        while (it.hasNext())
-        {
-            GenericFader *fader = it.next();
-            if (fader->deleteRequest())
-            {
-                fader->removeAll();
-                it.remove();
-                delete fader;
-                continue;
-            }
-            if (fader->isEnabled() == false)
-                continue;
-
-            fader->write(this);
-        }
-
-        const QByteArray postGM = m_postGMValues->mid(0, m_usedChannels);
-        dumpOutput(postGM);
-
-        if (hasChanged())
-            emit universeWritten(id(), postGM);
+        processFaders();
     }
 }
 
