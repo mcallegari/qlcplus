@@ -649,7 +649,7 @@ void CueStack::switchCue(int from, int to, const QList<Universe *> ua)
         quint32 universe = (absChannel >> 9);
         FadeChannel *fc = getFader(ua, universe, Fixture::invalidId(), absChannel);
 
-        if (fc->type() & QLCChannel::Intensity)
+        if (fc->type() & FadeChannel::Intensity)
             updateFaderValues(fc, 0, oldCue.fadeOutSpeed());
     }
 
