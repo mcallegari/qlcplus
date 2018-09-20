@@ -468,7 +468,7 @@ void EFXFixture::nextStep(QList<Universe *> universes, GenericFader *fader)
 
 void EFXFixture::updateFaderValues(FadeChannel *fc, uchar value)
 {
-    fc->setCurrent(fc->start()); // or value ?
+    fc->setStart(fc->current());
     fc->setTarget(value);
     fc->setElapsed(0);
     fc->setReady(false);

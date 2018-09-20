@@ -675,7 +675,7 @@ FadeChannel *RGBMatrix::getFader(QList<Universe *> universes, quint32 universeID
 
 void RGBMatrix::updateFaderValues(FadeChannel *fc, uchar value, uint fadeTime)
 {
-    fc->setCurrent(fc->start());
+    fc->setStart(fc->current());
     fc->setTarget(value);
     fc->setElapsed(0);
     fc->setReady(false);

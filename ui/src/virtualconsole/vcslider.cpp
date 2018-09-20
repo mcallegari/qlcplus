@@ -1163,10 +1163,10 @@ void VCSlider::writeDMXLevel(MasterTimer *timer, QList<Universe *> universes)
                 }
             }
 
-            fc->setStart(modLevel * intensity());
-            fc->setCurrent(fc->start());
-            fc->setTarget(fc->start());
+            fc->setStart(fc->current());
+            fc->setTarget(modLevel * intensity());
             fc->setReady(false);
+            fc->setElapsed(0);
         }
     }
     m_levelValueChanged = false;
