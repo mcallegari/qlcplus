@@ -778,15 +778,15 @@ void CueStack_Test::switchCue()
     QCOMPARE(fader->channels().contains(chHash), false);
 
     chHash = (Fixture::invalidId() << 16) | 0;
-    fader->m_channels[chHash].setStart(127);
+    fader->m_channels[chHash].setCurrent(127);
     chHash = (Fixture::invalidId() << 16) | 1;
-    fader->m_channels[chHash].setStart(127);
+    fader->m_channels[chHash].setCurrent(127);
     chHash = (fxi->id() << 16) | 10;
-    fader->m_channels[chHash].setStart(127);
+    fader->m_channels[chHash].setCurrent(127);
     chHash = (fxi->id() << 16) | 11;
-    fader->m_channels[chHash].setStart(127);
+    fader->m_channels[chHash].setCurrent(127);
     chHash = (Fixture::invalidId() << 16) | 500;
-    fader->m_channels[chHash].setStart(127);
+    fader->m_channels[chHash].setCurrent(127);
 
     // Switch to cue two
     cs.switchCue(0, 1, ua);
