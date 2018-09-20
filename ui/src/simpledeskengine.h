@@ -25,6 +25,7 @@
 #include <QMutex>
 #include <QHash>
 #include <QList>
+#include <QMap>
 
 #include "dmxsource.h"
 #include "cue.h"
