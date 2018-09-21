@@ -29,7 +29,9 @@
 #include "vcxypadfixture_test.h"
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
+#define protected public
 #include "universe.h"
+#undef protected
 #include "qlcfile.h"
 #include "doc.h"
 
@@ -715,20 +717,23 @@ void VCXYPadFixture_Test::disarm()
 void VCXYPadFixture_Test::writeDimmer()
 {
     VCXYPadFixture xy(m_doc);
-    QList<Universe*> ua;
-    ua.append(new Universe(0, new GrandMaster()));
+    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
+    GenericFader *fader = ua[0]->requestFader();
 
-    xy.writeDMX(1, 1, ua);
+    xy.writeDMX(1, 1, fader, ua[0]);
+    ua[0]->processFaders();
     QCOMPARE(ua[0]->preGMValues()[0], char(0));
 
     xy.m_xMSB = 0;
     xy.m_yMSB = QLCChannel::invalid();
-    xy.writeDMX(1, 1, ua);
+    xy.writeDMX(1, 1, fader, ua[0]);
+    ua[0]->processFaders();
     QCOMPARE(ua[0]->preGMValues()[0], char(0));
 
     xy.m_xMSB = QLCChannel::invalid();
     xy.m_yMSB = 0;
-    xy.writeDMX(1, 1, ua);
+    xy.writeDMX(1, 1, fader, ua[0]);
+    ua[0]->processFaders();
     QCOMPARE(ua[0]->preGMValues()[0], char(0));
 }
 
@@ -748,16 +753,17 @@ void VCXYPadFixture_Test::write8bitNoReverse()
     xy.setY(0, 1, false);
     xy.arm();
 
-    QList<Universe*> ua;
-    ua.append(new Universe(0, new GrandMaster()));
+    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
+    GenericFader *fader = ua[0]->requestFader();
 
     for (qreal i = 0; i <= 1.01; i += (qreal(1) / qreal(USHRT_MAX)))
     {
-        xy.writeDMX(i, 1.0 - i, ua);
+        xy.writeDMX(i, 1.0 - i, fader, ua[0]);
 
         ushort x = floor((qreal(USHRT_MAX) * i) + 0.5);
         ushort y = floor((qreal(USHRT_MAX) * (1.0 - i)) + 0.5);
 
+        ua[0]->processFaders();
         QCOMPARE(ua[0]->preGMValues()[0], char(x >> 8));
         QCOMPARE(ua[0]->preGMValues()[1], char(y >> 8));
         QCOMPARE(ua[0]->preGMValues()[2], char(0));
@@ -783,16 +789,17 @@ void VCXYPadFixture_Test::write8bitReverse()
     xy.setY(0, 1, true);
     xy.arm();
 
-    QList<Universe*> ua;
-    ua.append(new Universe(0, new GrandMaster()));
+    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
+    GenericFader *fader = ua[0]->requestFader();
 
     for (qreal i = 0; i <= 1.01; i += (qreal(1) / qreal(USHRT_MAX)))
     {
-        xy.writeDMX(i, 1.0 - i, ua);
+        xy.writeDMX(i, 1.0 - i, fader, ua[0]);
 
         ushort x = floor((qreal(USHRT_MAX) * (1.0 - i)) + 0.5);
         ushort y = floor((qreal(USHRT_MAX) * i) + 0.5);
 
+        ua[0]->processFaders();
         QCOMPARE(ua[0]->preGMValues()[0], char(x >> 8));
         QCOMPARE(ua[0]->preGMValues()[1], char(y >> 8));
         QCOMPARE(ua[0]->preGMValues()[2], char(0));
@@ -818,16 +825,17 @@ void VCXYPadFixture_Test::write16bitNoReverse()
     xy.setY(0, 1, false);
     xy.arm();
 
-    QList<Universe*> ua;
-    ua.append(new Universe(0, new GrandMaster()));
+    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
+    GenericFader *fader = ua[0]->requestFader();
 
     for (qreal i = 0; i <= 1.01; i += (qreal(1) / qreal(USHRT_MAX)))
     {
-        xy.writeDMX(i, 1.0 - i, ua);
+        xy.writeDMX(i, 1.0 - i, fader, ua[0]);
 
         ushort x = floor((qreal(USHRT_MAX) * i) + 0.5);
         ushort y = floor((qreal(USHRT_MAX) * (1.0 - i)) + 0.5);
 
+        ua[0]->processFaders();
         QCOMPARE(ua[0]->preGMValues()[0], char(x >> 8));
         QCOMPARE(ua[0]->preGMValues()[1], char(x & 0xFF));
         QCOMPARE(ua[0]->preGMValues()[2], char(y >> 8));
@@ -851,13 +859,13 @@ void VCXYPadFixture_Test::write16bitReverse()
     xy.setY(0.2, 0.8, true);
     xy.arm();
 
-    QList<Universe*> ua;
-    ua.append(new Universe(0, new GrandMaster()));
+    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
+    GenericFader *fader = ua[0]->requestFader();
 
 #ifdef Q_PROCESSOR_X86_64
     for (qreal i = 0; i <= 1.01; i += (qreal(1) / qreal(USHRT_MAX)))
     {
-        xy.writeDMX(i, 1.0 - i, ua);
+        xy.writeDMX(i, 1.0 - i, fader, ua[0]);
 
         qreal xmul = i;
         qreal ymul = 1.0 - i;
@@ -871,6 +879,7 @@ void VCXYPadFixture_Test::write16bitReverse()
         ushort x = floor((qreal(USHRT_MAX) * xmul) + 0.5);
         ushort y = floor((qreal(USHRT_MAX) * ymul) + 0.5);
 
+        ua[0]->processFaders();
         QCOMPARE(ua[0]->preGMValues()[0], char(x >> 8));
         QCOMPARE(ua[0]->preGMValues()[1], char(x & 0xFF));
         QCOMPARE(ua[0]->preGMValues()[2], char(y >> 8));
@@ -899,8 +908,8 @@ void VCXYPadFixture_Test::writeRange()
 
     fxi->setFixtureDefinition(def, mode);
 
-    QList<Universe*> ua;
-    ua.append(new Universe(0, new GrandMaster()));
+    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
+    GenericFader *fader = ua[0]->requestFader();
 
     m_doc->addFixture(fxi);
     VCXYPadFixture xy(m_doc);
@@ -913,12 +922,14 @@ void VCXYPadFixture_Test::writeRange()
     qreal xmul = 0.0;
     qreal ymul = 0.0;
 
-    xy.writeDMX(xmul, ymul, ua);
+    xy.writeDMX(xmul, ymul, fader, ua[0]);
+    ua[0]->processFaders();
     QCOMPARE((int)ua[0]->preGMValue(0), valueAt0);
 
     // handle on the right
     xmul = 1;
-    xy.writeDMX(xmul, ymul, ua);
+    xy.writeDMX(xmul, ymul, fader, ua[0]);
+    ua[0]->processFaders();
     QCOMPARE((int)ua[0]->preGMValue(0), valueAt1);
 }
 
