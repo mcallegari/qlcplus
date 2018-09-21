@@ -40,6 +40,8 @@ public:
     int priority() const;
     void setPriority(int priority);
 
+    static quint32 channelHash(quint32 fixtureID, quint32 channel);
+
     /**
      * Add a channel that shall be faded from ch.start() to ch.target() within
      * the time specified by ch.fadeTime(). If ch.target() == 0, the channel will
