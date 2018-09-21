@@ -175,8 +175,10 @@ void GenericFader::write(Universe *universe)
                 it.remove();
         }
 */
+/*
         if (channelType & FadeChannel::Flashing)
             it.remove();
+*/
     }
 }
 
