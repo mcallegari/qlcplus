@@ -168,7 +168,7 @@ public:
     RGBMap previewMap(int step, RGBMatrixStep *handler);
 
 private:
-    RGBAlgorithm* m_algorithm;
+    RGBAlgorithm *m_algorithm;
     QMutex m_algorithmMutex;
 
     /************************************************************************
