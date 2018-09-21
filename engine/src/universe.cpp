@@ -74,6 +74,11 @@ Universe::~Universe()
 {
     if (isRunning() == true)
     {
+        // isRunning is inconsistent with m_running,
+        // so double check if the thread is really in the run loop
+        while (m_running == false)
+            usleep(10000);
+
         m_running = false;
         wait(1000);
     }
