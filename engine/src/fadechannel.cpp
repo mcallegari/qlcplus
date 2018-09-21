@@ -102,23 +102,32 @@ void FadeChannel::unsetTypeFlag(int flag)
 
 void FadeChannel::autoDetect(const Doc *doc)
 {
+    m_type = 0;
+
     /* on invalid fixture, channel number is most likely
      * absolute (SimpleDesk/CueStack do it this way), so attempt
      * a reverse lookup to try and find the Fixture ID */
     if (m_fixture == Fixture::invalidId())
         m_fixture = doc->fixtureForAddress(channel());
 
-    Fixture* fixture = doc->fixture(m_fixture);
+    Fixture *fixture = doc->fixture(m_fixture);
     if (fixture == NULL)
     {
         m_universe = Universe::invalid();
         m_address = QLCChannel::invalid();
-        m_type |= (FadeChannel::HTP | FadeChannel::Intensity);
+        m_type |= (FadeChannel::HTP | FadeChannel::Intensity | FadeChannel::CanFade);
     }
     else
     {
         m_universe = fixture->universe();
         m_address = fixture->address();
+
+        // non existing channel within fixture
+        if (fixture->channel(m_channel) == NULL)
+        {
+            m_type |= (FadeChannel::HTP | FadeChannel::Intensity | FadeChannel::CanFade);
+            return;
+        }
 
         // autodetect the channel type
         if (fixture->channelCanFade(m_channel))
