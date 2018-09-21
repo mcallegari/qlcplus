@@ -36,7 +36,7 @@
 void FadeChannel_Test::address()
 {
     Doc doc(this);
-    Fixture* fxi = new Fixture(&doc);
+    Fixture *fxi = new Fixture(&doc);
     fxi->setAddress(400);
     fxi->setChannels(5);
     doc.addFixture(fxi);
@@ -55,7 +55,7 @@ void FadeChannel_Test::address()
 void FadeChannel_Test::addressInUniverse()
 {
     Doc doc(this);
-    Fixture* fxi = new Fixture(&doc);
+    Fixture *fxi = new Fixture(&doc);
     fxi->setAddress(UNIVERSE_SIZE);
     fxi->setChannels(5);
     doc.addFixture(fxi);
@@ -91,7 +91,7 @@ void FadeChannel_Test::comparison()
     QVERIFY((ch1 == ch2) == false);
 }
 
-void FadeChannel_Test::group()
+void FadeChannel_Test::type()
 {
     Doc doc(this);
 
@@ -99,26 +99,30 @@ void FadeChannel_Test::group()
 
     // Only a channel given, no fixture at the address -> intensity
     fc.setChannel(&doc, 2);
-    QCOMPARE(fc.group(&doc), QLCChannel::Intensity);
+    QCOMPARE(fc.type() & FadeChannel::HTP, FadeChannel::HTP);
+    QCOMPARE(fc.type() & FadeChannel::Intensity, FadeChannel::Intensity);
+    QCOMPARE(fc.type() & FadeChannel::CanFade, FadeChannel::CanFade);
 
-    Fixture* fxi = new Fixture(&doc);
+    Fixture *fxi = new Fixture(&doc);
     fxi->setAddress(10);
     fxi->setChannels(5);
     doc.addFixture(fxi);
 
     // Fixture and channel given, fixture is a dimmer -> intensity
     fc.setFixture(&doc, fxi->id());
-    QCOMPARE(fc.group(&doc), QLCChannel::Intensity);
+    QCOMPARE(fc.type() & FadeChannel::HTP, FadeChannel::HTP);
+    QCOMPARE(fc.type() & FadeChannel::Intensity, FadeChannel::Intensity);
+    QCOMPARE(fc.type() & FadeChannel::CanFade, FadeChannel::CanFade);
 
     QDir dir(INTERNAL_FIXTUREDIR);
     dir.setFilter(QDir::Files);
     dir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
     QVERIFY(doc.fixtureDefCache()->loadMap(dir) == true);
 
-    QLCFixtureDef* def = doc.fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+    QLCFixtureDef *def = doc.fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
 
-    QLCFixtureMode* mode = def->modes().first();
+    QLCFixtureMode *mode = def->modes().first();
     QVERIFY(mode != NULL);
 
     fxi = new Fixture(&doc);
@@ -129,18 +133,67 @@ void FadeChannel_Test::group()
     // Fixture and channel given, but channel is beyond fixture's channels -> intensity
     fc.setFixture(&doc, fxi->id());
     fc.setChannel(&doc, 50);
-    QCOMPARE(fc.group(&doc), QLCChannel::Intensity);
+    QCOMPARE(fc.type() & FadeChannel::HTP, FadeChannel::HTP);
+    QCOMPARE(fc.type() & FadeChannel::Intensity, FadeChannel::Intensity);
+    QCOMPARE(fc.type() & FadeChannel::CanFade, FadeChannel::CanFade);
 
     // Only a channel given, no fixture given but a fixture occupies the address.
     // Check that reverse address -> fixture lookup works.
     fc.setFixture(&doc, Fixture::invalidId());
     fc.setChannel(&doc, 2);
-    QCOMPARE(fc.group(&doc), QLCChannel::Colour);
+    QCOMPARE(fc.type() & FadeChannel::LTP, FadeChannel::LTP);
+    QCOMPARE(fc.type() & FadeChannel::CanFade, FadeChannel::CanFade);
 
     // Fixture and channel given, but fixture doesn't exist -> intensity
     fc.setFixture(&doc, 12345);
     fc.setChannel(&doc, 2);
-    QCOMPARE(fc.group(&doc), QLCChannel::Intensity);
+    QCOMPARE(fc.type() & FadeChannel::HTP, FadeChannel::HTP);
+    QCOMPARE(fc.type() & FadeChannel::Intensity, FadeChannel::Intensity);
+    QCOMPARE(fc.type() & FadeChannel::CanFade, FadeChannel::CanFade);
+
+    // channel 3 cannot fade
+    fxi->setChannelCanFade(3, false);
+
+    fc.setFixture(&doc, fxi->id());
+    fc.setChannel(&doc, 3);
+    QCOMPARE(fc.type() & FadeChannel::LTP, FadeChannel::LTP);
+    QCOMPARE(fc.type() & FadeChannel::CanFade, 0);
+
+    // force channel 0 (Pan) to be HTP
+    QList<int> forced;
+    forced << 0;
+    fxi->setForcedHTPChannels(forced);
+
+    fc.setFixture(&doc, fxi->id());
+    fc.setChannel(&doc, 0);
+    QCOMPARE(fc.type() & FadeChannel::HTP, FadeChannel::HTP);
+    QCOMPARE(fc.type() & FadeChannel::LTP, 0);
+    QCOMPARE(fc.type() & FadeChannel::CanFade, FadeChannel::CanFade);
+
+    // add another generic dimmer
+    fxi = new Fixture(&doc);
+    fxi->setAddress(100);
+    fxi->setChannels(5);
+    forced.clear();
+    forced << 2;
+    // force channel 2 to be LTP
+    fxi->setForcedLTPChannels(forced);
+    doc.addFixture(fxi);
+
+    fc.setFixture(&doc, fxi->id());
+    fc.setChannel(&doc, 2);
+    QCOMPARE(fc.type() & FadeChannel::LTP, FadeChannel::LTP);
+    QCOMPARE(fc.type() & FadeChannel::HTP, 0);
+    QCOMPARE(fc.type() & FadeChannel::CanFade, FadeChannel::CanFade);
+
+    // unset a flag
+    fc.unsetTypeFlag(FadeChannel::CanFade);
+    QCOMPARE(fc.type() & FadeChannel::CanFade, 0);
+
+    // set a flag
+    QCOMPARE(fc.type() & FadeChannel::Flashing, 0);
+    fc.setTypeFlag(FadeChannel::Flashing);
+    QCOMPARE(fc.type() & FadeChannel::Flashing, FadeChannel::Flashing);
 }
 
 void FadeChannel_Test::start()
