@@ -68,8 +68,6 @@ Universe::Universe(quint32 id, GrandMaster *gm, QObject *parent)
 
     connect(m_grandMaster, SIGNAL(valueChanged(uchar)),
             this, SLOT(slotGMValueChanged()));
-
-    start();
 }
 
 Universe::~Universe()
@@ -77,7 +75,7 @@ Universe::~Universe()
     if (isRunning() == true)
     {
         m_running = false;
-        wait();
+        wait(1000);
     }
 
     delete m_inputPatch;
@@ -911,7 +909,7 @@ bool Universe::write(int channel, uchar value, bool forceLTP)
 {
     Q_ASSERT(channel < UNIVERSE_SIZE);
 
-    qDebug() << "Universe write channel" << channel << ", value:" << value;
+    //qDebug() << "Universe write channel" << channel << ", value:" << value;
 
     if (channel >= m_usedChannels)
         m_usedChannels = channel + 1;

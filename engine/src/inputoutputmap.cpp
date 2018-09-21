@@ -175,6 +175,7 @@ bool InputOutputMap::addUniverse(quint32 id)
                 uni = new Universe(universesCount(), m_grandMaster);
                 connect(doc()->masterTimer(), SIGNAL(tickReady()), uni, SLOT(tick()), Qt::QueuedConnection);
                 connect(uni, SIGNAL(universeWritten(quint32,QByteArray)), this, SIGNAL(universeWritten(quint32,QByteArray)));
+                uni->start();
                 m_universeArray.append(uni);
             }
         }
@@ -182,6 +183,7 @@ bool InputOutputMap::addUniverse(quint32 id)
         uni = new Universe(id, m_grandMaster);
         connect(doc()->masterTimer(), SIGNAL(tickReady()), uni, SLOT(tick()), Qt::QueuedConnection);
         connect(uni, SIGNAL(universeWritten(quint32,QByteArray)), this, SIGNAL(universeWritten(quint32,QByteArray)));
+        uni->start();
         m_universeArray.append(uni);
     }
 
