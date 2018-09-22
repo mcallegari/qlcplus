@@ -156,6 +156,7 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
 
             FadeChannel *fc = fader->getChannelFader(m_doc, universes[val.m_universe], val.m_fixtureID, val.m_channel);
 
+            fc->setStart(fc->current());
             fc->setTarget(val.m_value);
             fc->setFadeTime(val.m_fadeTime);
             fc->setElapsed(0);
