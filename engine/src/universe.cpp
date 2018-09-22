@@ -308,6 +308,8 @@ void Universe::run()
     m_running = true;
     int timeout = MasterTimer::tick() * 2;
 
+    qDebug() << "Universe thread started" << id();
+
     while(m_running)
     {
         if (m_semaphore.tryAcquire(1, timeout) == false)
@@ -316,11 +318,13 @@ void Universe::run()
             continue;
         }
 
-        if (m_faders.count())
-            qDebug() << "<<<<<<<< UNIVERSE TICK - id" << id() << "faders:" << m_faders.count();
+        //if (m_faders.count())
+        //    qDebug() << "<<<<<<<< UNIVERSE TICK - id" << id() << "faders:" << m_faders.count();
 
         processFaders();
     }
+
+    qDebug() << "Universe thread stopped" << id();
 }
 
 /************************************************************************

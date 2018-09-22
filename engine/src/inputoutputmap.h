@@ -124,7 +124,6 @@ public:
      */
     bool blackout() const;
 
-
 signals:
     /**
      * Signal that is sent when blackout state is changed.

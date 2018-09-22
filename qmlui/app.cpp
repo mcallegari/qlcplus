@@ -587,6 +587,8 @@ bool App::loadWorkspace(const QString &fileName)
             }
         }
 
+        m_doc->inputOutputMap()->startUniverses();
+
         return true;
     }
     return false;
