@@ -137,9 +137,6 @@ private:
     /** Current blackout state */
     bool m_blackout;
 
-    /** Blackout request applied when possible */
-    bool m_blackoutRequest;
-
     /*********************************************************************
      * Universes
      *********************************************************************/
@@ -258,12 +255,6 @@ public:
      * @param changed Set to true if DMX values were changed
      */
     virtual void releaseUniverses(bool changed = true);
-
-    /**
-     * Write current universe array data to plugins, each universe within
-     * the array to its assigned plugin.
-     */
-    void dumpUniverses();
 
     /**
      * Reset all universes (useful when starting from scratch)
