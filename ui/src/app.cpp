@@ -506,6 +506,7 @@ void App::initDoc()
     qDebug() << "[App] Doc initialization took" << speedTime.elapsed() << "ms";
 #endif
 
+    m_doc->inputOutputMap()->startUniverses();
     m_doc->masterTimer()->start();
 }
 

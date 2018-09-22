@@ -344,6 +344,7 @@ void InputOutputManager::slotAudioInputChanged()
 void InputOutputManager::slotAddUniverse()
 {
     m_ioMap->addUniverse();
+    m_ioMap->startUniverses();
     m_doc->setModified();
 }
 

@@ -123,6 +123,7 @@ void InputOutputManager::setSelectedIndex(int index)
 void InputOutputManager::addUniverse()
 {
     m_ioMap->addUniverse();
+    m_ioMap->startUniverses();
 
     quint32 uniID = m_ioMap->universes().last()->id();
     Tardis::instance()->enqueueAction(Tardis::IOAddUniverse, uniID, QVariant(),

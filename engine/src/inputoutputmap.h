@@ -167,6 +167,11 @@ public:
     bool removeAllUniverses();
 
     /**
+     * Start all the Universe threads
+     */
+    void startUniverses();
+
+    /**
      * Get the unique ID of the universe at the given index
      * @param index The universe index
      * @return The universe ID or invalidUniverse()

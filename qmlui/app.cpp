@@ -342,6 +342,7 @@ void App::clearDocument()
     m_doc->inputOutputMap()->resetUniverses();
     setFileName(QString());
     m_doc->resetModified();
+    m_doc->inputOutputMap()->startUniverses();
     m_doc->masterTimer()->start();
 }
 
@@ -403,6 +404,7 @@ void App::initDoc()
     m_doc->inputOutputMap()->loadDefaults();
 
     m_doc->inputOutputMap()->setBeatGeneratorType(InputOutputMap::Internal);
+    m_doc->inputOutputMap()->startUniverses();
     m_doc->masterTimer()->start();
 }
 

@@ -1181,7 +1181,10 @@ void FixtureManager::slotAddRGBPanel()
             {
                 uniIndex++;
                 if (m_doc->inputOutputMap()->getUniverseID(uniIndex) == m_doc->inputOutputMap()->invalidUniverse())
+                {
                     m_doc->inputOutputMap()->addUniverse();
+                    m_doc->inputOutputMap()->startUniverses();
+                }
                 address = 0;
             }
 
