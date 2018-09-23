@@ -545,6 +545,10 @@ qreal VCWidget::intensity()
     return m_intensity;
 }
 
+/*****************************************************************************
+ * External input
+ *****************************************************************************/
+
 bool VCWidget::acceptsInput()
 {
     if (mode() == Doc::Design || isEnabled() == false || isDisabled())
@@ -552,10 +556,6 @@ bool VCWidget::acceptsInput()
 
     return true;
 }
-
-/*****************************************************************************
- * External input
- *****************************************************************************/
 
 bool VCWidget::checkInputSource(quint32 universe, quint32 channel,
                                 uchar value, QObject *sender, quint32 id)

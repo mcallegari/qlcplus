@@ -102,7 +102,8 @@ void FadeChannel::unsetTypeFlag(int flag)
 
 void FadeChannel::autoDetect(const Doc *doc)
 {
-    m_type = 0;
+    // reset before autodetecting
+    setType(0);
 
     /* on invalid fixture, channel number is most likely
      * absolute (SimpleDesk/CueStack do it this way), so attempt
@@ -115,7 +116,7 @@ void FadeChannel::autoDetect(const Doc *doc)
     {
         m_universe = Universe::invalid();
         m_address = QLCChannel::invalid();
-        m_type |= (FadeChannel::HTP | FadeChannel::Intensity | FadeChannel::CanFade);
+        setTypeFlag(FadeChannel::HTP | FadeChannel::Intensity | FadeChannel::CanFade);
     }
     else
     {
@@ -125,23 +126,30 @@ void FadeChannel::autoDetect(const Doc *doc)
         // non existing channel within fixture
         if (fixture->channel(m_channel) == NULL)
         {
-            m_type |= (FadeChannel::HTP | FadeChannel::Intensity | FadeChannel::CanFade);
+            setTypeFlag(FadeChannel::HTP | FadeChannel::Intensity | FadeChannel::CanFade);
             return;
         }
 
         // autodetect the channel type
         if (fixture->channelCanFade(m_channel))
-            m_type |= FadeChannel::CanFade;
+            setTypeFlag(FadeChannel::CanFade);
+
+        if (fixture->channel(m_channel) != NULL &&
+            fixture->channel(m_channel)->group() == QLCChannel::Intensity)
+            setTypeFlag(FadeChannel::HTP | FadeChannel::Intensity);
+        else
+            setTypeFlag(FadeChannel::LTP);
 
         if (fixture->forcedHTPChannels().contains(m_channel))
-            m_type |= FadeChannel::HTP;
+        {
+            unsetTypeFlag(FadeChannel::LTP);
+            setTypeFlag(FadeChannel::HTP);
+        }
         else if (fixture->forcedLTPChannels().contains(m_channel))
-            m_type |= FadeChannel::LTP;
-        else if (fixture->channel(m_channel) != NULL &&
-                 fixture->channel(m_channel)->group() == QLCChannel::Intensity)
-            m_type |= (FadeChannel::HTP | FadeChannel::Intensity);
-        else
-            m_type |= FadeChannel::LTP;
+        {
+            unsetTypeFlag(FadeChannel::HTP);
+            setTypeFlag(FadeChannel::LTP);
+        }
     }
 }
 
