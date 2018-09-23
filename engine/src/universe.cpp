@@ -980,6 +980,7 @@ bool Universe::writeBlended(int channel, uchar value, Universe::BlendMode blend)
         case AdditiveBlend:
         {
             uchar currVal = uchar(m_preGMValues->at(channel));
+            //qDebug() << "Universe write additive channel" << channel << ", value:" << currVal << "+" << value;
             value = qMin((int)currVal + value, 255);
             (*m_preGMValues)[channel] = char(value);
         }

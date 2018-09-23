@@ -666,6 +666,7 @@ void Scene::write(MasterTimer *timer, QList<Universe*> ua)
 
             FadeChannel *fc = fader->getChannelFader(doc(), ua[universe], value.fxi, value.channel);
 
+            fc->setStart(0);
             fc->setTarget(value.value);
 
             if (fc->canFade() == false)
