@@ -835,7 +835,6 @@ void VCCueList::slotCurrentStepChanged(int stepNumber)
     }
     else
     {
-/*
         // if primary side fader is halfway, apply the adjusted intensity here
         Chaser *ch = chaser();
         if (ch != NULL)
@@ -843,9 +842,9 @@ void VCCueList::slotCurrentStepChanged(int stepNumber)
             int primaryValue = m_primaryLeft ? m_slider1->value() : m_slider2->value();
 
             if (primaryValue > 0 && primaryValue < 100)
-                ch->adjustIntensity((qreal)primaryValue / 100, m_primaryIndex, Chaser::Crossfade);
+                ch->adjustIntensity((qreal)primaryValue / 100, m_primaryIndex,
+                                    m_blendCheck->isChecked() ? Chaser::BlendedCrossfade : Chaser::Crossfade);
         }
-*/
         setSlidersInfo(m_primaryIndex);
     }
     emit stepChanged(m_primaryIndex);
