@@ -666,7 +666,6 @@ void Scene::write(MasterTimer *timer, QList<Universe*> ua)
 
             FadeChannel *fc = fader->getChannelFader(doc(), ua[universe], value.fxi, value.channel);
 
-            fc->setStart(0);
             fc->setTarget(value.value);
 
             if (fc->canFade() == false)
@@ -691,17 +690,16 @@ void Scene::write(MasterTimer *timer, QList<Universe*> ua)
         }
     }
 
-    //qDebug() << "[Scene] writing channels:" << m_fader->channels().count();
-    // Run the internal GenericFader
-    //m_fader->write(ua, isPaused());
-
     // check if all channels reached their target
     // e.g. this happens when all channels are LTP
     bool needToStop = true;
     foreach (GenericFader *f, m_fadersMap.values())
     {
-        if (f->channels().size() > 0)
+        if (f->channelsCount())
+        {
             needToStop = false;
+            break;
+        }
     }
     if (needToStop)
         stop(FunctionParent::master());
