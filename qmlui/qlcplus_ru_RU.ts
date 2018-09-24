@@ -2570,72 +2570,72 @@ Access level:</source>
     <message>
         <location filename="qml/fixturesfunctions/ScriptEditor.qml" line="120"/>
         <source>Add a method call at cursor position</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Добавить вызов метода в позицию курсора</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ScriptEditor.qml" line="131"/>
         <source>Show/hide functions tree</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Показать/скрыть дерево функций</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ScriptEditor.qml" line="160"/>
         <source>Show/hide fixture tree</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Показать/скрыть дерево приборов</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ScriptEditor.qml" line="188"/>
         <source>Check the script syntax</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Проверить синтаксис скрипта</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ScriptEditor.qml" line="200"/>
         <source>Syntax check</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Проверка синтаксиса</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ScriptEditor.qml" line="288"/>
         <source>Start function</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Запустить функцию</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ScriptEditor.qml" line="294"/>
         <source>Stop function</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Остановить функцию</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ScriptEditor.qml" line="300"/>
         <source>Set fixture channel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Назначить канал прибора</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ScriptEditor.qml" line="306"/>
         <source>Wait time</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Время ожидания</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ScriptEditor.qml" line="312"/>
         <source>Random number</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Случайное число</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ScriptEditor.qml" line="318"/>
         <source>Blackout</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Полная темнота</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ScriptEditor.qml" line="324"/>
         <source>System command</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Системная команда</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ScriptEditor.qml" line="330"/>
         <source>File path</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Путь к файлу</translation>
     </message>
     <message>
         <location filename="scripteditor.cpp" line="58"/>
         <source>No errors found.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ошибок не найдено.</translation>
     </message>
 </context>
 <context>
@@ -2643,27 +2643,27 @@ Access level:</source>
     <message>
         <location filename="qml/fixturesfunctions/SequenceEditor.qml" line="59"/>
         <source>Add a new step</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Добавить новый шаг</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SequenceEditor.qml" line="68"/>
         <source>Remove the selected steps</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Удалить выделенные шаги</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SequenceEditor.qml" line="68"/>
         <source>Remove the selected fixtures</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Удалить выделенные приборы</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SequenceEditor.qml" line="93"/>
         <source>Steps</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Шаги</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SequenceEditor.qml" line="106"/>
         <source>Fixtures</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Приборы</translation>
     </message>
 </context>
 <context>
@@ -2671,107 +2671,107 @@ Access level:</source>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="84"/>
         <source>Environment</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Окружение</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="94"/>
         <source>Width</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ширина</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="111"/>
         <source>Height</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Высота</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="128"/>
         <source>Depth</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Глубина</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="145"/>
         <source>Grid units</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Единица измерения сетки</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="151"/>
         <source>Meters</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Метры</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="152"/>
         <source>Feet</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Футы</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="167"/>
         <source>Point of view</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Точка обзора</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="173"/>
         <source>Top view</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Сверху</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="174"/>
         <source>Front view</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Спереди</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="175"/>
         <source>Right side view</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Справа</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="176"/>
         <source>Left side view</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Слева</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="197"/>
         <source>Selected fixtures</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Выделенные приборы</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="211"/>
         <source>Gel color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Цвет геля</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="230"/>
         <source>Rotation</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Поворот</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="248"/>
         <source>Alignment</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Выравнивание</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="262"/>
         <source>Align the selected items to the left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Выровнять выделенные элементы влево</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="272"/>
         <source>Align the selected items to the top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Выровнять выделенные элементы вверх</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="281"/>
         <source>Distribution</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Распределение</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="295"/>
         <source>Equally distribute horizontally the selected items</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Равномерно распределить выбранные элементы по горизонтали</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="305"/>
         <source>Equally distribute vertically the selected items</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Равномерно распределить выбранные элементы по вертикали</translation>
     </message>
 </context>
 <context>
@@ -2779,17 +2779,17 @@ Access level:</source>
     <message>
         <location filename="qml/fixturesfunctions/SettingsViewDMX.qml" line="58"/>
         <source>Channels</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Каналы</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SettingsViewDMX.qml" line="63"/>
         <source>Show addresses</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Показать адреса</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SettingsViewDMX.qml" line="73"/>
         <source>Relative addresses</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Относительные адреса</translation>
     </message>
 </context>
 <context>
@@ -2799,14 +2799,14 @@ Access level:</source>
         <location filename="qml/showmanager/ShowItem.qml" line="276"/>
         <location filename="qml/showmanager/ShowItem.qml" line="313"/>
         <source>Position: </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Положение: </translation>
     </message>
     <message>
         <location filename="qml/showmanager/ShowItem.qml" line="277"/>
         <location filename="qml/showmanager/ShowItem.qml" line="314"/>
         <location filename="qml/showmanager/ShowItem.qml" line="385"/>
         <source>Duration: </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Продолжительность: </translation>
     </message>
 </context>
 <context>
@@ -2814,105 +2814,106 @@ Access level:</source>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="84"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Имя</translation>
     </message>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="103"/>
         <source>Show items color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Показать цвет элементов</translation>
     </message>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="132"/>
         <source>Unlock the selected items</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Разблокировать выделенные элементы</translation>
     </message>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="137"/>
         <source>Lock the selected items</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Заблокировать выделенные элементы</translation>
     </message>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="164"/>
         <source>Snap to grid</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Привязка к сетке</translation>
     </message>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="176"/>
         <source>Stretch the original function</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Растянуть исходную функцию</translation>
     </message>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="189"/>
         <source>Remove the selected items</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Удалить выделенные элементы</translation>
     </message>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="195"/>
         <source>Are you sure you want to remove the following items?
 (Note that the original functions will not be deleted)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Вы действительно хотите удалить следующие элементы?
+(Обратите внимание, что исходные функции не будут удалены)</translation>
     </message>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="202"/>
         <source>Delete show items</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Удалить отображаемые элементы</translation>
     </message>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="213"/>
         <source>Copy the selected items in the clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Скопировать выделенные элементы в буфер обмена</translation>
     </message>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="224"/>
         <source>Paste items in the clipboard at cursor position</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Вставить элементы из буфера обмена в позицию курсора</translation>
     </message>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="248"/>
         <source>Play or resume</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Воспроизвести или продолжить</translation>
     </message>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="264"/>
         <source>Stop or rewind</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Остановить или перемотать</translation>
     </message>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="316"/>
         <source>Move the selected track up</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Переместить выбранную дорожку вверх</translation>
     </message>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="325"/>
         <source>Move the selected track down</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Переместить выбранную дорожку вниз</translation>
     </message>
     <message>
         <location filename="qml/showmanager/ShowManager.qml" line="575"/>
         <source>Create a new track</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Создать новую дорожку</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="43"/>
         <source>Show Manager</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Менеджер Шоу</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="186"/>
         <source>New Show</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Новое Шоу</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="207"/>
         <location filename="showmanager.cpp" line="305"/>
         <source>Track %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Дорожка %1</translation>
     </message>
     <message>
         <location filename="showmanager.cpp" line="680"/>
         <location filename="showmanager.cpp" line="693"/>
         <source>(Copy)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">(Копия)</translation>
     </message>
 </context>
 <context>
@@ -2920,7 +2921,7 @@ Access level:</source>
     <message>
         <location filename="qml/TimeEditTool.qml" line="175"/>
         <source>Tap</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Стук</translation>
     </message>
 </context>
 <context>
@@ -2928,12 +2929,12 @@ Access level:</source>
     <message>
         <location filename="qml/showmanager/TrackDelegate.qml" line="66"/>
         <source>Solo this track</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Соло</translation>
     </message>
     <message>
         <location filename="qml/showmanager/TrackDelegate.qml" line="94"/>
         <source>Mute this track</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Отключить эту дорожку</translation>
     </message>
 </context>
 <context>
@@ -2941,12 +2942,12 @@ Access level:</source>
     <message>
         <location filename="qml/inputoutput/UniverseIOItem.qml" line="255"/>
         <source>Passthrough</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Сквозной</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/UniverseIOItem.qml" line="272"/>
         <source>Enable/Disable feedbacks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Включить/Отключить обратную связь</translation>
     </message>
 </context>
 <context>
@@ -2955,71 +2956,71 @@ Access level:</source>
         <location filename="qml/fixturesfunctions/UniverseSummary.qml" line="52"/>
         <location filename="qml/fixturesfunctions/UniverseSummary.qml" line="119"/>
         <source>Manufacturer</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Производитель</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/UniverseSummary.qml" line="59"/>
         <location filename="qml/fixturesfunctions/UniverseSummary.qml" line="120"/>
         <source>Model</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Модель</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/UniverseSummary.qml" line="66"/>
         <location filename="qml/fixturesfunctions/UniverseSummary.qml" line="123"/>
         <source>Weight</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Вес</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/UniverseSummary.qml" line="73"/>
         <location filename="qml/fixturesfunctions/UniverseSummary.qml" line="124"/>
         <source>Consumption</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Потребление</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/UniverseSummary.qml" line="80"/>
         <location filename="qml/fixturesfunctions/UniverseSummary.qml" line="125"/>
         <source>DIP switch</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">DIP-переключатель</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/UniverseSummary.qml" line="89"/>
         <source>Print the universe summary</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Показать итого по Вселенной</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/UniverseSummary.qml" line="118"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Имя</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/UniverseSummary.qml" line="121"/>
         <source>Address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Адрес</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/UniverseSummary.qml" line="122"/>
         <source>Channels</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Каналы</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/UniverseSummary.qml" line="269"/>
         <source>Summary</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Итого</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/UniverseSummary.qml" line="278"/>
         <source>DMX channels used:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Использовано DMX каналов:</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/UniverseSummary.qml" line="292"/>
         <source>Total weight:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Общий вес:</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/UniverseSummary.qml" line="306"/>
         <source>Estimated power consumption:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Расчётная потребляемая мощность:</translation>
     </message>
 </context>
 <context>
@@ -3027,22 +3028,22 @@ Access level:</source>
     <message>
         <location filename="qml/UsageList.qml" line="64"/>
         <source>Go back to the Function Manager</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Вернуться к Менеджеру Функций</translation>
     </message>
     <message>
         <location filename="qml/UsageList.qml" line="71"/>
         <source>Usage of</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Использование</translation>
     </message>
     <message>
         <location filename="qml/UsageList.qml" line="85"/>
         <source>Used by function list</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Используется списком функций</translation>
     </message>
     <message>
         <location filename="qml/UsageList.qml" line="121"/>
         <source>Used by widget list</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Используется списком виджетов</translation>
     </message>
 </context>
 <context>
@@ -3050,12 +3051,12 @@ Access level:</source>
     <message>
         <location filename="virtualconsole/vcbutton.cpp" line="41"/>
         <source>Pressure</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Давление</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcbutton.cpp" line="52"/>
         <source>Button %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Кнопка %1</translation>
     </message>
 </context>
 <context>
@@ -3063,48 +3064,48 @@ Access level:</source>
     <message>
         <location filename="qml/virtualconsole/VCButtonProperties.qml" line="67"/>
         <source>Attached Function</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Прикреплённая Функция</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCButtonProperties.qml" line="94"/>
         <source>Detach the current function</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Отсоединить текущую функцию</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCButtonProperties.qml" line="105"/>
         <source>Pressure behaviour</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Поведение давления</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCButtonProperties.qml" line="122"/>
         <source>Toggle Function on/off</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Включить/выключить Функцию</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCButtonProperties.qml" line="139"/>
         <source>Flash Function (only for Scenes)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Вспыхиваемая Функция (только для Сцен)</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCButtonProperties.qml" line="156"/>
         <source>Toggle Blackout</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Переключить Полную темноту</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCButtonProperties.qml" line="173"/>
         <location filename="qml/virtualconsole/VCButtonProperties.qml" line="236"/>
         <source>Stop all Functions</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Остановить все Функции</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCButtonProperties.qml" line="192"/>
         <source>Adjust Function intensity</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Отрегулировать интенсивность Функции</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCButtonProperties.qml" line="248"/>
         <source>Fade out</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Исчезание</translation>
     </message>
 </context>
 <context>
@@ -3112,7 +3113,7 @@ Access level:</source>
     <message>
         <location filename="virtualconsole/vcclock.cpp" line="75"/>
         <source>Clock %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Часы %1</translation>
     </message>
 </context>
 <context>
@@ -3120,7 +3121,7 @@ Access level:</source>
     <message>
         <location filename="qml/virtualconsole/VCClockItem.qml" line="151"/>
         <source>Enable/Disable this scheduler</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Включить/Выключить этот планировщик</translation>
     </message>
 </context>
 <context>
@@ -3128,104 +3129,104 @@ Access level:</source>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="45"/>
         <source>Clock type</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Тип часов</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="62"/>
         <source>Clock</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Часы</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="79"/>
         <source>Stopwatch</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Секундомер</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="96"/>
         <source>Countdown</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Обратный отсчёт</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="123"/>
         <source>Schedule</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Расписание</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="146"/>
         <source>Add a function schedule</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Добавить расписание фукнций</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="212"/>
         <source>Remove this schedule</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Удалить это расписание</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="224"/>
         <source>Start time</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Время начала</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="237"/>
         <source>Stop time</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Время остановки</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="267"/>
         <source>Enable the stop time</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Включить время остановки</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="278"/>
         <source>M</source>
         <comment>As in Monday</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Пн</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="291"/>
         <source>T</source>
         <comment>As in Tuesday</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Вт</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="304"/>
         <source>W</source>
         <comment>As in Wednesday</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ср</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="317"/>
         <source>T</source>
         <comment>As in Thursday</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Чт</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="330"/>
         <source>F</source>
         <comment>As in Friday</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Пт</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="343"/>
         <source>S</source>
         <comment>As in Saturday</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Сб</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="356"/>
         <source>S</source>
         <comment>As in Sunday</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Вс</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="376"/>
         <source>Repeat weekly</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Повторять еженедельно</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCClockProperties.qml" line="411"/>
         <source>Add a new schedule</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Добавить новое расписание</translation>
     </message>
 </context>
 <context>
@@ -3233,37 +3234,37 @@ Access level:</source>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="45"/>
         <source>Next Cue</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Следующий Cue</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="46"/>
         <source>Previous Cue</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Предыдущий Cue</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="47"/>
         <source>Play/Stop/Pause</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Воспроизведение/Стоп/Пауза</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="48"/>
         <source>Left Crossfade</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Левый Кроссфейд</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="49"/>
         <source>Right Crossfade</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Правый Кроссфейд</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="50"/>
         <source>Stop/Pause</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Стоп/Пауза</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="66"/>
         <source>Cue List %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Список Cue %1</translation>
     </message>
 </context>
 <context>
@@ -3271,27 +3272,27 @@ Access level:</source>
     <message>
         <location filename="qml/virtualconsole/VCCueListItem.qml" line="114"/>
         <source>Play/Pause</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Воспроизведение/Пауза</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListItem.qml" line="123"/>
         <source>Pause</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Пауза</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListItem.qml" line="123"/>
         <source>Stop</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Стоп</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListItem.qml" line="132"/>
         <source>Previous cue</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Предыдущий Cue</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListItem.qml" line="141"/>
         <source>Next cue</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Следующий Cue</translation>
     </message>
 </context>
 <context>
@@ -3299,58 +3300,59 @@ Access level:</source>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="47"/>
         <source>Attached Chaser</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Прикрепленный Chaser</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="74"/>
         <source>Detach the current chaser</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Отсоединить текущий chaser</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="84"/>
         <source>Buttons behavior</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Поведение кнопок</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="99"/>
         <source>Play/Stop layout</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Раскладка Воспроизведения/Остановки</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="107"/>
         <source>Play/Pause + Stop</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Воспроизведение/Пауза + Стоп</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="108"/>
         <source>Play/Stop + Pause</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Воспроизведение/Стоп + Пауза</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="124"/>
         <source>Next/Previous
 (when chaser is not running)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Следущий/Предыдущий
+(когда chaser не запущен)</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="132"/>
         <source>Run from first/last cue</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Запускать с первого/последнего cue</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="133"/>
         <source>Run from next/previous cue</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Запускать со следующего/предыдущего cue</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="134"/>
         <source>Select next/previous cue</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Выбрать следующее/предыдущее cue</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="135"/>
         <source>Do nothing</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ничего не делать</translation>
     </message>
 </context>
 <context>
@@ -3358,27 +3360,27 @@ Access level:</source>
     <message>
         <location filename="virtualconsole/vcframe.cpp" line="53"/>
         <source>Next Page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Следущая Страница</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframe.cpp" line="54"/>
         <source>Previous Page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Предыдущая Страница</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframe.cpp" line="55"/>
         <source>Enable</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Включено</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframe.cpp" line="56"/>
         <source>Collapse</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Свернуть</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcframe.cpp" line="69"/>
         <source>Frame %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Кадр %1</translation>
     </message>
 </context>
 <context>
@@ -3386,27 +3388,27 @@ Access level:</source>
     <message>
         <location filename="qml/virtualconsole/VCFrameItem.qml" line="74"/>
         <source>Expand/Collapse this frame</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Развернуть/свернуть этот кадр</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCFrameItem.qml" line="115"/>
         <source>Enable/Disable this frame</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Включить/отключить этот кадр</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCFrameItem.qml" line="137"/>
         <source>Previous page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Предыдущая страница</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCFrameItem.qml" line="156"/>
         <source>Page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Страница</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCFrameItem.qml" line="167"/>
         <source>Next page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Следующая страница</translation>
     </message>
 </context>
 <context>
@@ -3414,42 +3416,42 @@ Access level:</source>
     <message>
         <location filename="qml/virtualconsole/VCFrameProperties.qml" line="43"/>
         <source>Header</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Заголовок</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCFrameProperties.qml" line="58"/>
         <source>Show header</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Показать заголовок</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCFrameProperties.qml" line="74"/>
         <source>Show enable button</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Показать кнопку включения</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCFrameProperties.qml" line="89"/>
         <source>Pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Страницы</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCFrameProperties.qml" line="104"/>
         <source>Enable pages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Включенные страницы</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCFrameProperties.qml" line="120"/>
         <source>Circular pages scrolling</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Прокрутка круговых страниц</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCFrameProperties.qml" line="140"/>
         <source>Pages number</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Номера страниц</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCFrameProperties.qml" line="159"/>
         <source>Clone first page widgets</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Склонировать виджеты первой страницы</translation>
     </message>
 </context>
 <context>
@@ -3457,7 +3459,7 @@ Access level:</source>
     <message>
         <location filename="virtualconsole/vclabel.cpp" line="39"/>
         <source>Label %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Название %1</translation>
     </message>
 </context>
 <context>
@@ -3465,12 +3467,12 @@ Access level:</source>
     <message>
         <location filename="virtualconsole/vcpage.cpp" line="34"/>
         <source>Page %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Страница %1</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcpage.cpp" line="38"/>
         <source>Virtual Console Page %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Виртуальная Консоль Страница %1</translation>
     </message>
 </context>
 <context>
@@ -3478,57 +3480,57 @@ Access level:</source>
     <message>
         <location filename="qml/virtualconsole/VCPageProperties.qml" line="57"/>
         <source>Width</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ширина</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCPageProperties.qml" line="77"/>
         <source>Height</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Высота</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCPageProperties.qml" line="97"/>
         <source>Security</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Безопасность</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCPageProperties.qml" line="105"/>
         <source>Set a PIN</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Установите PIN</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCPageProperties.qml" line="121"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ошибка</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCPageProperties.qml" line="122"/>
         <source>The entered PINs are either invalid or incorrect</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Введённый PIN некорректен или неверен</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCPageProperties.qml" line="137"/>
         <source>Add page to the left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Добавить страницу влево</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCPageProperties.qml" line="146"/>
         <source>Add page to the right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Добавить страницу вправо</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCPageProperties.qml" line="160"/>
         <source>Delete this page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Удалить эту страницу</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCPageProperties.qml" line="166"/>
         <source>Delete page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Удалить страницу</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCPageProperties.qml" line="167"/>
         <source>Are you sure you want to delete the selected page?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Вы действительно хотите удалить выделенную страницу?</translation>
     </message>
 </context>
 <context>
@@ -3536,42 +3538,42 @@ Access level:</source>
     <message>
         <location filename="qml/virtualconsole/VCRightPanel.qml" line="59"/>
         <source>Add a new widget to the console</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Добавить новый виджет на консоль</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCRightPanel.qml" line="78"/>
         <source>Enable/Disable the widgets edit mode</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Включить/Отключить режим редактирования виджетов</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCRightPanel.qml" line="105"/>
         <source>Function Manager</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Менеджер Функций</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCRightPanel.qml" line="123"/>
         <source>Remove the selected widgets</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Удалить выделенные виджеты</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCRightPanel.qml" line="129"/>
         <source>Are you sure you want to remove the following widgets?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Вы действительно хотите удалить следующие виджеты?</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCRightPanel.qml" line="136"/>
         <source>Delete functions</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Удалить функции</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCRightPanel.qml" line="148"/>
         <source>Copy the selected widgets to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Копировать выделенные виджеты в буфер обмена</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCRightPanel.qml" line="160"/>
         <source>Paste widgets from clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Вставить виджеты из буфера обмена</translation>
     </message>
 </context>
 <context>
@@ -3579,22 +3581,22 @@ Access level:</source>
     <message>
         <location filename="virtualconsole/vcslider.cpp" line="68"/>
         <source>Slider Control</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Слайдер</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcslider.cpp" line="69"/>
         <source>Reset Control</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Сброс</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcslider.cpp" line="86"/>
         <source>Slider %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Слайдер %1</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcslider.cpp" line="88"/>
         <source>Knob %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ручка %1</translation>
     </message>
 </context>
 <context>
@@ -3602,147 +3604,147 @@ Access level:</source>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="47"/>
         <source>Display Style</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Стиль отображения</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="74"/>
         <source>DMX Value</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">DMX Значение</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="90"/>
         <source>Percentage</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Проценты</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="107"/>
         <source>Normal</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Нормальный</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="123"/>
         <source>Inverted</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Инвертированный</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="130"/>
         <source>Slider Mode</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Режим Слайдера</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="156"/>
         <source>Level</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Уровень</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="172"/>
         <source>Adjust</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Регулятор</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="189"/>
         <source>Submaster</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Субмастер</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="205"/>
         <source>Grand Master</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Гранд Мастер</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="213"/>
         <source>Function Control</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Управление функциями</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="239"/>
         <source>Detach the current function</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Отсоединить текущую функцию</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="248"/>
         <source>Attribute</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Атрибут</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="264"/>
         <source>Level mode</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Режим уровня</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="278"/>
         <source>Channels</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Каналы</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="295"/>
         <source>Add/Remove channels</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Добавить/Удалить каналы</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="319"/>
         <source>Click &amp; Go button</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Кнопка Click &amp; Go</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="327"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ничего</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="328"/>
         <source>RGB/CMY</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">RGB/CMY</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="329"/>
         <source>Gobo/Effect/Macro</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Гобо/Эффект/Макро</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="349"/>
         <source>Monitor channel levels</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Мониторинг уровней каналов</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="357"/>
         <source>Values range</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Диапазон значений</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="371"/>
         <source>Upper limit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Верхний предел</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="386"/>
         <source>Lower limit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Нижний предел</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="402"/>
         <source>Grand Master mode</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Режим Гранд Мастер</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="429"/>
         <source>Reduce values</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Уменьшить значения</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="446"/>
         <source>Limit values</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Предельные значения</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="463"/>
         <source>Intensity channels</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Каналы интенсивности</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCSliderProperties.qml" line="480"/>
         <source>All channels</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Все каналы</translation>
     </message>
 </context>
 <context>
@@ -3750,7 +3752,7 @@ Access level:</source>
     <message>
         <location filename="virtualconsole/vcsoloframe.cpp" line="34"/>
         <source>Solo Frame %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Соло Рамка %1</translation>
     </message>
 </context>
 <context>
@@ -3758,69 +3760,69 @@ Access level:</source>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="184"/>
         <source>Button</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Кнопка</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="185"/>
         <source>Slider</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Слайдер</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="186"/>
         <source>Frame</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Кадр</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="187"/>
         <source>Solo Frame</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Соло Рамка</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="188"/>
         <source>Speed Dial</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Быстрый набор</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="189"/>
         <source>XY Pad</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Область XY</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="190"/>
         <source>Cue list</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Список Cue</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="191"/>
         <source>Label</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Название</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="192"/>
         <source>Audio Triggers</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Аудио Триггеры</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="193"/>
         <source>Animation</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Анимация</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="194"/>
         <source>Clock</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Часы</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="197"/>
         <location filename="virtualconsole/vcwidget.cpp" line="199"/>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Неизвестно</translation>
     </message>
     <message>
         <location filename="virtualconsole/vcwidget.cpp" line="742"/>
         <location filename="virtualconsole/vcwidget.cpp" line="743"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ничего</translation>
     </message>
 </context>
 <context>
@@ -3828,87 +3830,87 @@ Access level:</source>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="134"/>
         <source>Select a widget first</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Сначала выберите виджет</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="168"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Настройки</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="181"/>
         <source>External controls</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Внешние элементы управления</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="194"/>
         <source>Basic properties</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Базовые компоненты</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="209"/>
         <source>Label</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Название</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="234"/>
         <source>Background color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Фоновый цвет</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="257"/>
         <source>Foreground color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Цвет переднего плана</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="280"/>
         <source>Font</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Шрифт</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="315"/>
         <source>Please choose a font</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Выберите шрифт</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="335"/>
         <source>Background image</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Фоновое изображение</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="366"/>
         <source>Select an image</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Выберите изображение</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="384"/>
         <source>Alignment</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Выравнивание</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="399"/>
         <source>Align the selected widgets to the left</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Выровнять выбранные виджеты влево</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="409"/>
         <source>Align the selected widgets to the right</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Выровнять выбранные виджеты вправо</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="419"/>
         <source>Align the selected widgets to the top</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Выровнять выбранные виджеты вверх</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="429"/>
         <source>Align the selected widgets to the bottom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Выровнять выбранные виджеты вниз</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="450"/>
         <source>External Controls</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Внешние Элементы управления</translation>
     </message>
 </context>
 <context>
@@ -3916,142 +3918,142 @@ Access level:</source>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="88"/>
         <source>File name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Имя файла</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="112"/>
         <source>Video files</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Видео файлы</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="116"/>
         <source>Picture files</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Файлы изображений</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="121"/>
         <source>All files</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Все файлы</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="130"/>
         <source>Set a URL</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Задайте URL-адрес</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="136"/>
         <source>Enter a URL</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Введите URL-адрес</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="154"/>
         <source>Duration</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Длительность</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="164"/>
         <source>Resolution</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Разрешение</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="174"/>
         <source>Video Codec</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Видео Кодек</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="184"/>
         <source>Audio Codec</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Аудио Кодек</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="194"/>
         <source>Playback mode</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Режим воспроизведения</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="213"/>
         <source>Single shot</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Одиночный</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="227"/>
         <source>Looped</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Зацикленный</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="232"/>
         <source>Output screen</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Экран вывода</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="244"/>
         <source>Output mode</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Режим вывода</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="262"/>
         <source>Windowed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Оконный</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="276"/>
         <source>Fullscreen</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Полноэкранный</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="281"/>
         <source>Geometry</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Геометрия</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="308"/>
         <source>Original</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Оригинал</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="335"/>
         <source>Custom</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Настроенная</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="344"/>
         <source>Position</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Положение</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="380"/>
         <source>Size</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Размер</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="389"/>
         <source>W</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ш</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="399"/>
         <source>H</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">В</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="415"/>
         <source>Rotation</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Поворот</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="423"/>
         <source>X</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">X</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="434"/>
         <source>Y</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Y</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="445"/>
         <source>Z</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Z</translation>
     </message>
 </context>
 <context>
@@ -4059,72 +4061,72 @@ Access level:</source>
     <message>
         <location filename="qml/virtualconsole/VirtualConsole.qml" line="169"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ошибка</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VirtualConsole.qml" line="170"/>
         <source>Invalid PIN entered</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Введён неверный PIN</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VirtualConsole.qml" line="183"/>
         <source>Enable/Disable widgets snapping</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Включить/отключить привязку виджетов</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VirtualConsole.qml" line="227"/>
         <source>Widget matrix setup</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Настройка матрицы виджета</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VirtualConsole.qml" line="239"/>
         <source>Columns</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Столбцы</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VirtualConsole.qml" line="248"/>
         <source>Rows</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Строки</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VirtualConsole.qml" line="257"/>
         <source>Width</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ширина</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VirtualConsole.qml" line="267"/>
         <source>Height</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Высота</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VirtualConsole.qml" line="284"/>
         <source>Frame type</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Тип рамки</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VirtualConsole.qml" line="293"/>
         <source>Normal</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Нормальный</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VirtualConsole.qml" line="301"/>
         <source>Solo</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Соло</translation>
     </message>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="79"/>
         <source>Virtual Console</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Виртуальная Консоль</translation>
     </message>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="243"/>
         <source>&lt;None&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;Ничего&gt;</translation>
     </message>
     <message>
         <location filename="virtualconsole/virtualconsole.cpp" line="1216"/>
         <source>Page %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Страница %1</translation>
     </message>
 </context>
 <context>
@@ -4132,72 +4134,72 @@ Access level:</source>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="34"/>
         <source>Frame</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Рамка</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="35"/>
         <source>Solo Frame</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Соло Рамка</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="36"/>
         <source>Button</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Кнопка</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="37"/>
         <source>Button Matrix</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Матрица кнопок</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="38"/>
         <source>Slider</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Слайдер</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="39"/>
         <source>Slider Matrix</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Матрица слайдеров</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="40"/>
         <source>Knob</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ручка</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="41"/>
         <source>Cue List</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Список Cue</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="42"/>
         <source>Speed Dial</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Быстрый Набор</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="43"/>
         <source>XY Pad</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Область XY</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="44"/>
         <source>Animation</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Анимация</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="45"/>
         <source>Label</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Название</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="46"/>
         <source>Audio Triggers</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Аудио Триггеры</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/WidgetsList.qml" line="47"/>
         <source>Clock</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Часы</translation>
     </message>
 </context>
 </TS>
