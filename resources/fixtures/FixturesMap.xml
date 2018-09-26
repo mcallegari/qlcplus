@@ -19,6 +19,7 @@
     <F n="American-DJ-5P-Hex" m="5P Hex"/>
     <F n="American-DJ-64B-LED-PRO" m="64B LED PRO"/>
     <F n="American-DJ-Accu-Fog-1000" m="Accu Fog 1000"/>
+    <F n="American-DJ-Accu-Roller-250" m="Accu Roller 250"/>
     <F n="American-DJ-Accu-Spot-250-II" m="Accu Spot 250 II"/>
     <F n="American-DJ-Accu-Spot-Pro" m="ACCU Spot Pro"/>
     <F n="American-DJ-Accu-UFO" m="Accu UFO"/>
@@ -1249,6 +1250,7 @@
     <F n="Varytec-LED-PAR-64-Floor-5in1" m="LED Par 64 Floor 5in1 7x10W RGBWA"/>
     <F n="Varytec-LED-PAR56" m="LED PAR56"/>
     <F n="Varytec-RGB-LED-Spot-38" m="RGB LED Spot 38"/>
+    <F n="Varytec-Street-Bar" m="Street Bar"/>
     <F n="Varytec-Thunderscan-FX" m="Thunderscan FX"/>
   </M>
   <M n="Velleman">
