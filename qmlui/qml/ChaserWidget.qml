@@ -35,6 +35,7 @@ Column
     property bool isRunning: false
     property alias containsDrag: cwDropArea.containsDrag
     property alias selector: ceSelector
+    property bool isPrinting: false
 
     property int editStepIndex: -1
     property int editStepType
@@ -99,8 +100,8 @@ Column
     TimeEditTool
     {
         id: timeEditTool
-        parent: mainView
-        x: rightSidePanel.x - width
+        parent: mainView ? mainView : widgetRoot
+        x: rightSidePanel ? rightSidePanel.x - width : -width
         z: 99
         visible: false
 
@@ -109,7 +110,7 @@ Column
         onTabPressed:
         {
             var typeArray = [ QLCFunction.FadeIn, QLCFunction.Hold, QLCFunction.FadeOut, QLCFunction.Duration ]
-            var currType = editStepType + (forward ? 1 : -1)
+            var currType = typeArray.indexOf(editStepType) + (forward ? 1 : -1)
 
             if (currType < 0)
             {
@@ -129,7 +130,7 @@ Column
             else
             {
                 // same step, other field
-                editStepTime(editStepIndex, cStepsList.currentItem, currType)
+                editStepTime(editStepIndex, cStepsList.currentItem, typeArray[currType])
             }
         }
     }
@@ -423,6 +424,7 @@ Column
                 col5Width: fOutCol.width
                 col6Width: durCol.width
 
+                isPrinting: widgetRoot.isPrinting
                 indexInList: index
                 highlightIndex: cStepsList.dragInsertIndex
                 highlightEditTime: editStepIndex === index ? editStepType : -1

@@ -182,6 +182,7 @@ Column
                         return
                     disableEditing()
                     nodeContainer.pathChanged(nodePath, text)
+                    fixtureManager.renameFixture(itemID, text)
                 }
             }
 

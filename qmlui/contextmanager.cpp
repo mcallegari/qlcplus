@@ -679,6 +679,9 @@ void ContextManager::setRectangleSelection(qreal x, qreal y, qreal width, qreal 
 {
     QList<quint32> fxIDList;
 
+    if (multipleSelection() == false)
+        resetFixtureSelection();
+
     if (m_2DView->isEnabled())
         fxIDList = m_2DView->selectFixturesRect(QRectF(x, y, width, height));
 

@@ -41,7 +41,6 @@ Entity
             ]
         }
 
-
     CuboidMesh
     {
         id: stageMesh

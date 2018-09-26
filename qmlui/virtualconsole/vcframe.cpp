@@ -276,6 +276,7 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
             if (wType == "Knob")
             {
                 slider->setWidgetStyle(VCSlider::WKnob);
+                slider->setCaption(slider->defaultCaption());
                 slider->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 15, m_vc->pixelDensity() * 22));
             }
             else

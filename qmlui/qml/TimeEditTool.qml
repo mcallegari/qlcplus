@@ -73,7 +73,11 @@ GridLayout
         if (tX >= 0)
             x = tX
         if (tY >= 0)
+        {
             y = tY
+            if (y + height > mainView.height)
+                y = mainView.height - height - UISettings.listItemHeight
+        }
 
         visible = true
         timeBox.selectAndFocus()
@@ -299,8 +303,16 @@ GridLayout
             fontSize: btnFontSize
 
             onEnterPressed: updateTime(-1, inputText)
-            Keys.onTabPressed: toolRoot.tabPressed(true)
-            Keys.onBacktabPressed: toolRoot.tabPressed(false)
+            Keys.onTabPressed:
+            {
+                updateTime(-1, inputText)
+                toolRoot.tabPressed(true)
+            }
+            Keys.onBacktabPressed:
+            {
+                updateTime(-1, inputText)
+                toolRoot.tabPressed(false)
+            }
             onEscapePressed:
             {
                 tapTimer.stop()

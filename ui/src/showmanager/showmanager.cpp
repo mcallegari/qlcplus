@@ -184,6 +184,8 @@ ShowManager* ShowManager::instance()
 
 void ShowManager::clearContents()
 {
+    hideRightEditor();
+    showSceneEditor(NULL);
     m_showview->resetView();
     m_showsCombo->clear();
     m_show = NULL;
@@ -450,10 +452,10 @@ void ShowManager::showSceneEditor(Scene *scene)
 {
     if (m_sceneEditor != NULL)
     {
-        emit functionManagerActive(false);
+        emit functionManagerActive(false);       
         m_splitter->widget(1)->layout()->removeWidget(m_sceneEditor);
         m_splitter->widget(1)->hide();
-        m_sceneEditor->deleteLater();
+        delete m_sceneEditor;
         m_sceneEditor = NULL;
     }
 
@@ -467,7 +469,7 @@ void ShowManager::showSceneEditor(Scene *scene)
         {
             m_splitter->widget(1)->layout()->addWidget(m_sceneEditor);
             m_splitter->widget(1)->show();
-            //m_scene_editor->show();
+
             connect(this, SIGNAL(functionManagerActive(bool)),
                     m_sceneEditor, SLOT(slotFunctionManagerActive(bool)));
         }
@@ -480,7 +482,7 @@ void ShowManager::hideRightEditor()
     {
         m_vsplitter->widget(1)->layout()->removeWidget(m_currentEditor);
         m_vsplitter->widget(1)->hide();
-        m_currentEditor->deleteLater();
+        delete m_currentEditor;
         m_currentEditor = NULL;
         m_editorFunctionID = Function::invalidId();
     }
@@ -1298,7 +1300,6 @@ void ShowManager::slotShowItemMoved(ShowItem *item, quint32 time, bool moved)
     if (sequence != NULL)
     {
         quint32 sceneID = sequence->boundSceneID();
-
         Function *sf = m_doc->function(sceneID);
 
         if (sf == NULL)
@@ -1309,6 +1310,12 @@ void ShowManager::slotShowItemMoved(ShowItem *item, quint32 time, bool moved)
         else
         {
             Scene *boundScene = qobject_cast<Scene*>(sf);
+
+            // if the clicked item represents another Sequence,
+            // destroy the Scene editor cause they might share
+            // the same bound Scene and Scene values might be overwritten
+            if (fid != m_editorFunctionID)
+                showSceneEditor(NULL);
 
             if (boundScene != m_currentScene || m_sceneEditor == NULL)
             {
@@ -1541,7 +1548,7 @@ void ShowManager::slotDocClearing()
     if (m_currentEditor != NULL)
     {
         m_vsplitter->widget(1)->layout()->removeWidget(m_currentEditor);
-        m_currentEditor->deleteLater();
+        delete m_currentEditor;
         m_currentEditor = NULL;
     }
     m_vsplitter->widget(1)->hide();
@@ -1550,7 +1557,7 @@ void ShowManager::slotDocClearing()
     {
         emit functionManagerActive(false);
         m_splitter->widget(1)->layout()->removeWidget(m_sceneEditor);
-        m_sceneEditor->deleteLater();
+        delete m_sceneEditor;
         m_sceneEditor = NULL;
     }
     m_splitter->widget(1)->hide();
@@ -1785,17 +1792,22 @@ void ShowManager::hideEvent(QHideEvent* ev)
     {
         m_vsplitter->widget(1)->layout()->removeWidget(m_currentEditor);
         m_vsplitter->widget(1)->hide();
-        m_currentEditor->deleteLater();
+        delete m_currentEditor;
         m_currentEditor = NULL;
+        m_editorFunctionID = Function::invalidId();
     }
 
     if (m_sceneEditor != NULL)
     {
         m_splitter->widget(1)->layout()->removeWidget(m_sceneEditor);
         m_splitter->widget(1)->hide();
-        m_sceneEditor->deleteLater();
+        delete m_sceneEditor;
         m_sceneEditor = NULL;
     }
+
+    ShowItem *item = m_showview->getSelectedItem();
+    if (item != NULL)
+        item->setSelected(false);
 }
 
 FunctionParent ShowManager::functionParent() const

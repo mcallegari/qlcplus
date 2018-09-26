@@ -64,7 +64,7 @@ Rectangle
         {
             var ic
             var component
-            var mynode
+            var sgNode
             var fixtures = []
             var fixtureItem
 
@@ -96,12 +96,13 @@ Rectangle
             {
                 fixtureItem = fixtures[ic]
 
-                if(fixtureItem.useShadows) {
+                if (fixtureItem.useShadows)
+                {
                     component = Qt.createComponent("RenderShadowMapFilter.qml");
                     if (component.status === Component.Error)
                         console.log("Error loading component:", component.errorString());
 
-                    mynode = component.createObject(frameGraph.myShadowFrameGraphNode,
+                    sgNode = component.createObject(frameGraph.myShadowFrameGraphNode,
                     {
                         "sceneDeferredLayer": sceneEntity.deferredLayer,
                         "fixtureItem": fixtureItem
@@ -115,7 +116,7 @@ Rectangle
             if (component.status === Component.Error)
                 console.log("Error loading component:", component.errorString());
 
-            mynode = component.createObject(frameGraph.myCameraSelector,
+            sgNode = component.createObject(frameGraph.myCameraSelector,
             {
                 "gBuffer": gBufferTarget,
                 "sceneDeferredLayer": sceneEntity.deferredLayer,
@@ -125,7 +126,7 @@ Rectangle
             if (component.status === Component.Error)
                 console.log("Error loading component:", component.errorString());
 
-            mynode = component.createObject(frameGraph.myCameraSelector,
+            sgNode = component.createObject(frameGraph.myCameraSelector,
             {
                 "gBuffer": gBufferTarget,
                 "layer": sceneEntity.selectionLayer,
@@ -137,7 +138,7 @@ Rectangle
                 if (component.status === Component.Error)
                     console.log("Error loading component:", component.errorString());
                 
-                mynode = component.createObject(frameGraph.myCameraSelector,
+                sgNode = component.createObject(frameGraph.myCameraSelector,
                 {
                     "gBuffer": gBufferTarget,
                     "screenQuadLayer": screenQuadGrabBrightEntity.quadLayer,
@@ -150,7 +151,7 @@ Rectangle
 
                 for(var iter = 0; iter < 9; ++iter) {
                 
-                    mynode = component.createObject(frameGraph.myCameraSelector,
+                    sgNode = component.createObject(frameGraph.myCameraSelector,
                     {
                         "inTex": (iter === 0) ? brightnessTexture : blurPingPong1Texture,
                         "screenQuadLayer": screenQuadBlurEntity0.quadLayer,
@@ -158,7 +159,7 @@ Rectangle
                         "blurDirection": Qt.vector4d(1,0,0,0)
                     });
 
-                    mynode = component.createObject(frameGraph.myCameraSelector,
+                    sgNode = component.createObject(frameGraph.myCameraSelector,
                     {
                         "inTex": blurPingPong0Texture,
                         "screenQuadLayer": screenQuadBlurEntity1.quadLayer,
@@ -174,7 +175,7 @@ Rectangle
             component = Qt.createComponent("DirectionalLightFilter.qml");
             if (component.status === Component.Error)
                 console.log("Error loading component:", component.errorString());
-            mynode = component.createObject(frameGraph.myCameraSelector,
+            sgNode = component.createObject(frameGraph.myCameraSelector,
             {
                 "gBuffer": gBufferTarget,
                 "screenQuadLayer": screenQuadEntity.layer,
@@ -189,7 +190,7 @@ Rectangle
                 if (component.status === Component.Error)
                     console.log("Error loading component:", component.errorString());
 
-                mynode = component.createObject(frameGraph.myCameraSelector,
+                sgNode = component.createObject(frameGraph.myCameraSelector,
                 {
                     "gBuffer": gBufferTarget,
                     "shadowTex": fixtureItem.shadowMap.depth,
@@ -209,7 +210,7 @@ Rectangle
                     if (component.status === Component.Error)
                         console.log("Error loading component:", component.errorString());
 
-                    mynode = component.createObject(frameGraph.myCameraSelector,
+                    sgNode = component.createObject(frameGraph.myCameraSelector,
                     {
                         "frontDepth": depthTarget,
                         "outputDepthLayer": fixtureItem.outputDepthLayer
@@ -219,7 +220,7 @@ Rectangle
                     if (component.status === Component.Error)
                         console.log("Error loading component:", component.errorString());
 
-                    mynode = component.createObject(frameGraph.myCameraSelector,
+                    sgNode = component.createObject(frameGraph.myCameraSelector,
                     {
                         "fixtureItem": fixtureItem,
                         "frontDepth": depthTarget,
@@ -236,7 +237,7 @@ Rectangle
             if (component.status === Component.Error)
                 console.log("Error loading component:", component.errorString());
 
-            mynode = component.createObject(frameGraph.myCameraSelector,
+            sgNode = component.createObject(frameGraph.myCameraSelector,
             {
                 "hdrTexture": frameTarget.color,
                 "bloomTexture": bloomTexture,
@@ -250,7 +251,8 @@ Rectangle
             component = Qt.createComponent("FXAAFilter.qml");
             if (component.status === Component.Error)
                 console.log("Error loading component:", component.errorString());
-            mynode = component.createObject(frameGraph.myCameraSelector,
+
+            sgNode = component.createObject(frameGraph.myCameraSelector,
             {
                 "inTexture": hdr0ColorTexture,
                 "outRenderTarget": hdr1RenderTarget,
@@ -260,7 +262,8 @@ Rectangle
             component = Qt.createComponent("BlitFilter.qml");
             if (component.status === Component.Error)
                 console.log("Error loading component:", component.errorString());
-            mynode = component.createObject(frameGraph.myCameraSelector,
+
+            sgNode = component.createObject(frameGraph.myCameraSelector,
             {
                 "inTexture": hdr1ColorTexture,
                 "screenQuadBlitLayer": screenQuadBlitEntity.quadLayer

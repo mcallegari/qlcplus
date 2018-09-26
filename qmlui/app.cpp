@@ -72,6 +72,7 @@ App::App()
     , m_videoProvider(NULL)
     , m_doc(NULL)
     , m_docLoaded(false)
+    , m_printItem(NULL)
     , m_fileName(QString())
     , m_importManager(NULL)
 {
@@ -425,6 +426,7 @@ void App::printItem(QQuickItem *item)
     if (item == NULL)
         return;
 
+    m_printItem = item;
     m_printerImage = item->grabToImage();
     connect(m_printerImage.data(), &QQuickItemGrabResult::ready, this, &App::slotItemReadyForPrinting);
 }
@@ -469,6 +471,8 @@ void App::slotItemReadyForPrinting()
     }
 
     m_printerImage.clear();
+    m_printItem->setProperty("isPrinting", false);
+    m_printItem = NULL;
 }
 
 /*********************************************************************

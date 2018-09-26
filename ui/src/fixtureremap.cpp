@@ -817,7 +817,7 @@ void FixtureRemap::accept()
 
     foreach (QObject *object, widgetsList)
     {
-        VCWidget *widget = (VCWidget *)object;
+        VCWidget *widget = qobject_cast<VCWidget *>(object);
         if (widget->type() == VCWidget::SliderWidget)
         {
             VCSlider *slider = (VCSlider *)object;

@@ -868,7 +868,7 @@ bool VCFrame::copyFrom(const VCWidget* widget)
 
             if (childCopy->type() == VCWidget::SliderWidget)
             {
-                VCSlider *slider = (VCSlider*)childCopy;
+                VCSlider *slider = qobject_cast<VCSlider*>(childCopy);
                 // always connect a slider as it it was a submaster
                 // cause this signal is emitted only when a slider is
                 // a submaster

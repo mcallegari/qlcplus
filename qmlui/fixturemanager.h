@@ -159,10 +159,15 @@ public:
                                 int uniIdx, int address, int channels, int quantity, quint32 gap,
                                 qreal xPos, qreal yPos);
 
+    /** Move the Fixture with the provided $fixtureID to the requested universe address.
+     *  Returns true on success, false on error */
     Q_INVOKABLE bool moveFixture(quint32 fixtureID, quint32 newAddress);
 
     /** Delete some existing Fixtures with IDs provided by $IDList */
     Q_INVOKABLE bool deleteFixtures(QVariantList IDList);
+
+    /** Rename the Fixture with the provided $itemID to $newName */
+    Q_INVOKABLE void renameFixture(quint32 itemID, QString newName);
 
     /** Returns the number of fixtures currently loaded in the project */
     int fixturesCount();
@@ -298,6 +303,9 @@ public:
 
     /** Returns a list of fixture names for representation in a GridEditor QML component */
     QVariantList fixtureNamesMap();
+
+    /** Get a string to be displayed as tooltip for a fixture at $address */
+    Q_INVOKABLE QString getTooltip(quint32 address);
 
     /** Returns data for representation in a GridEditor QML component */
     QVariantList fixturesMap();

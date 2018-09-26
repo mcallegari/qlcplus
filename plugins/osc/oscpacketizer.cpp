@@ -119,26 +119,27 @@ bool OSCPacketizer::parseMessage(QByteArray const& data, QString& path, QByteArr
         switch (data.at(currPos))
         {
             case '\0': tagsEnded = true; break;
-            case 'b': typeArray.append(Blob); break;
-            case 'f': typeArray.append(Float); break;
-            case 'i': typeArray.append(Integer); break;
-            case 's': typeArray.append(String); break;
-            case 't': typeArray.append(Time); break;
+            case 'b': typeArray.append(BlobTag); break;
+            case 'f': typeArray.append(FloatTag); break;
+            case 'd': typeArray.append(DoubleTag); break;
+            case 'i': typeArray.append(IntegerTag); break;
+            case 's': typeArray.append(StringTag); break;
+            case 't': typeArray.append(TimeTag); break;
             default: break;
         }
         currPos++;
     }
     // round current position to 4
-    if (typeArray.count() < 4)
-        currPos += (2 - typeArray.count());
+    int left = (typeArray.count() + 1) % 4;
+    currPos += 3 - left;
 
     qDebug () << "[OSC] Tags found:" << typeArray.count() << "currpos at" << currPos;
 
-    foreach(TagType tag, typeArray)
+    foreach (TagType tag, typeArray)
     {
         switch (tag)
         {
-            case Integer:
+            case IntegerTag:
             {
                 if (currPos + 4 > data.size())
                     break;
@@ -158,7 +159,7 @@ bool OSCPacketizer::parseMessage(QByteArray const& data, QString& path, QByteArr
                 currPos += 4;
             }
             break;
-            case Float:
+            case FloatTag:
             {
                 if (currPos + 4 > data.size())
                     break;
@@ -176,7 +177,28 @@ bool OSCPacketizer::parseMessage(QByteArray const& data, QString& path, QByteArr
                 currPos += 4;
             }
             break;
-            case String:
+            case DoubleTag:
+            {
+                if (currPos + 8 > data.size())
+                    break;
+
+                double dVal;
+                *((uchar*)(&dVal) + 7) = data.at(currPos);
+                *((uchar*)(&dVal) + 6) = data.at(currPos + 1);
+                *((uchar*)(&dVal) + 5) = data.at(currPos + 2);
+                *((uchar*)(&dVal) + 4) = data.at(currPos + 3);
+                *((uchar*)(&dVal) + 3) = data.at(currPos + 4);
+                *((uchar*)(&dVal) + 2) = data.at(currPos + 5);
+                *((uchar*)(&dVal) + 1) = data.at(currPos + 6);
+                *((uchar*)(&dVal) + 0) = data.at(currPos + 7);
+
+                values.append((char)(255.0 * dVal));
+
+                qDebug() << "[OSC] dVal:" << dVal;
+                currPos += 8;
+            }
+            break;
+            case StringTag:
             {
                 int firstZeroPos = data.indexOf('\0', currPos);
                 QString str = QString(data.mid(currPos, firstZeroPos - currPos));
@@ -186,7 +208,7 @@ bool OSCPacketizer::parseMessage(QByteArray const& data, QString& path, QByteArr
                 currPos = firstZeroPos + zeroNumber;
             }
             break;
-            case Time:
+            case TimeTag:
             {
                 // A OSC timestamp would be helpful to defer
                 // value changes, but since QLC+ plugins don't support
@@ -247,7 +269,6 @@ QList<QPair<QString, QByteArray> > OSCPacketizer::parsePacket(QByteArray const& 
 
             bufPos += data.size();
         }
-
     }
 
     return messages;

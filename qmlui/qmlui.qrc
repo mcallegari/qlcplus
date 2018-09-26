@@ -99,6 +99,7 @@
     <file alias="SettingsView2D.qml">qml/fixturesfunctions/SettingsView2D.qml</file>
     <file alias="SettingsViewDMX.qml">qml/fixturesfunctions/SettingsViewDMX.qml</file>
     <file alias="Fixture2DItem.qml">qml/fixturesfunctions/Fixture2DItem.qml</file>
+    <file alias="ShutterAnimator.qml">qml/fixturesfunctions/ShutterAnimator.qml</file>
     <file alias="FunctionManager.qml">qml/fixturesfunctions/FunctionManager.qml</file>
     <file alias="AddFunctionMenu.qml">qml/fixturesfunctions/AddFunctionMenu.qml</file>
     <file alias="EditorTopBar.qml">qml/fixturesfunctions/EditorTopBar.qml</file>

@@ -19,6 +19,8 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.2
+import QtQuick.Controls 1.2
+import QtQuick.Controls.Private 1.0
 
 import "."
 
@@ -174,7 +176,6 @@ Rectangle
             }
             else
                 item.label = ""
-
         }
     }
 
@@ -215,6 +216,20 @@ Rectangle
         running: false
         interval: 100
         onTriggered: calculateCellSize()
+    }
+
+    Timer
+    {
+        id: ttTimer
+        interval: 1000
+        running: gridMouseArea.containsMouse
+        onTriggered:
+        {
+            var xPos = parseInt(gridMouseArea.mouseX / cellSize)
+            var yPos = parseInt(gridMouseArea.mouseY / cellSize)
+            var tooltip = getTooltip(xPos, yPos)
+            Tooltip.showText(gridMouseArea, Qt.point(gridMouseArea.mouseX, gridMouseArea.mouseY), tooltip)
+        }
     }
 
     GridLayout
@@ -313,10 +328,7 @@ Rectangle
         onReleased:
         {
             if (selectionOffset != 0)
-            {
                 gridRoot.released(lastX, lastY, selectionOffset, mouse.modifiers)
-                selectionData = null
-            }
 
             movingSelection = false
             validSelection = true
@@ -326,6 +338,8 @@ Rectangle
 
         onPositionChanged:
         {
+            ttTimer.restart()
+
             if (movingSelection == false)
                 return
 
@@ -349,6 +363,8 @@ Rectangle
             updateViewSelection(selectionOffset)
         }
 
+        onExited: Tooltip.hideText()
+        onCanceled: Tooltip.hideText()
     }
 
     DropArea

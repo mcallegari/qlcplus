@@ -358,6 +358,22 @@ bool FixtureManager::deleteFixtures(QVariantList IDList)
     return true;
 }
 
+void FixtureManager::renameFixture(quint32 itemID, QString newName)
+{
+    quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
+    //quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
+    //quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+
+    Fixture *fixture = m_doc->fixture(fixtureID);
+    if (fixture == NULL)
+        return;
+
+    Tardis::instance()->enqueueAction(Tardis::FixtureSetName, itemID, fixture->name(), newName);
+
+    setItemRoleData(itemID, -1, "label", newName);
+    fixture->setName(newName);
+}
+
 int FixtureManager::fixturesCount()
 {
     return m_doc->fixtures().count();
@@ -1207,6 +1223,21 @@ QVariantList FixtureManager::fixtureSelection(quint32 address)
 QVariantList FixtureManager::fixtureNamesMap()
 {
     return m_fixtureNamesMap;
+}
+
+QString FixtureManager::getTooltip(quint32 address)
+{
+    quint32 uniFilter = m_universeFilter == Universe::invalid() ? 0 : m_universeFilter;
+
+    quint32 fxID = m_doc->fixtureForAddress((uniFilter << 9) | address);
+    if (fxID == Fixture::invalidId())
+        return "";
+
+    Fixture *fixture = m_doc->fixture(fxID);
+    if (fixture == NULL)
+        return "";
+
+    return fixture->name();
 }
 
 QVariantList FixtureManager::fixturesMap()

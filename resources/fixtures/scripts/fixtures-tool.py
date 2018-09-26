@@ -10,6 +10,7 @@ singleCapCount = 0
 
 namespace = "http://www.qlcplus.org/FixtureDefinition"
 
+# please see https://github.com/mcallegari/qlcplus/wiki/Fixture-definition-presets when changing this list
 def getPresetsArray():
     return [
         "Custom",
@@ -25,7 +26,7 @@ def getPresetsArray():
         "ColorMacro", "ColorWheel", "ColorWheelFine", "ColorRGBMixer", "ColorCTOMixer", "ColorCTCMixer", "ColorCTBMixer",
         "GoboWheel", "GoboWheelFine", "GoboIndex", "GoboIndexFine",
         "ShutterStrobeSlowFast", "ShutterStrobeFastSlow", "ShutterIrisMinToMax", "ShutterIrisMaxToMin", "ShutterIrisFine"
-        "BeamFocusNearFar", "BeamFocusFarNear", "BeamZoomSmallBig", "BeamZoomBigSmall", "BeamZoomFine",
+        "BeamFocusNearFar", "BeamFocusFarNear", "BeamFocusFine", "BeamZoomSmallBig", "BeamZoomBigSmall", "BeamZoomFine",
         "PrismRotationSlowFast", "PrismRotationFastSlow",
         "NoFunction" ]
 
@@ -240,6 +241,42 @@ def update_fixture(path, filename, destpath):
 
     return fxSingleCapCount
 
+def check_physical(absname, node, hasPan, hasTilt):
+    errNum = 0
+    phy_tag = node.find('{' + namespace + '}Physical')
+
+    if phy_tag is not None:
+
+        dim_tag = phy_tag.find('{' + namespace + '}Dimensions')
+        focus_tag = phy_tag.find('{' + namespace + '}Focus')
+        tech_tag = phy_tag.find('{' + namespace + '}Technical')
+
+        width = int(dim_tag.attrib.get('Width', 0))
+        height = int(dim_tag.attrib.get('Height', 0))
+        depth = int(dim_tag.attrib.get('Depth', 0))
+        panDeg = int(focus_tag.attrib.get('PanMax', 0))
+        tiltDeg = int(focus_tag.attrib.get('TiltMax', 0))
+
+        if width == 0 or height == 0 or depth == 0:
+            print absname + ": Invalid physical dimensions detected"
+            errNum += 1
+
+        if hasPan and panDeg == 0:
+            print absname + ": Invalid PAN degrees"
+            errNum += 1
+
+        if hasTilt and tiltDeg == 0:
+            print absname + ": Invalid TILT degrees"
+            errNum += 1
+
+        if tech_tag is not None:
+            power = int(tech_tag.attrib.get('PowerConsumption', 0))
+            if power == 0:
+                print absname + ": Invalid power consumption"
+                errNum += 1
+
+    return errNum
+
 ###########################################################################################
 # validate_fixture
 #
@@ -360,7 +397,11 @@ def validate_fixture(path, filename):
                 groupByte = group_tag.attrib['Byte']
 
         if chPreset:
-            # no need to go further is this is a preset
+            if chPreset == "PositionPan" or chPreset == "PositionPanFine" or chPreset == "PositionXAxis":
+                hasPan = True
+            if chPreset == "PositionTilt" or chPreset == "PositionTiltFine" or chPreset == "PositionYAxis":
+                hasTilt = True
+            # no need to go further if this is a preset
             chCount += 1
             continue
 
@@ -485,6 +526,8 @@ def validate_fixture(path, filename):
             print absname + "/" + modeName + ": No channel found in mode"
             errNum += 1
 
+        errNum += check_physical(absname, mode, hasPan, hasTilt)
+
         modeCount += 1
 
     if modeCount == 0:
@@ -493,37 +536,7 @@ def validate_fixture(path, filename):
 
     ################################ CHECK GLOBAL PHYSICAL ################################
 
-    gphy_tag = root.find('{' + namespace + '}Physical')
-
-    if gphy_tag is not None:
-
-        dim_tag = gphy_tag.find('{' + namespace + '}Dimensions')
-        focus_tag = gphy_tag.find('{' + namespace + '}Focus')
-        tech_tag = gphy_tag.find('{' + namespace + '}Technical')
-
-        width = int(dim_tag.attrib.get('Width', 0))
-        height = int(dim_tag.attrib.get('Height', 0))
-        depth = int(dim_tag.attrib.get('Depth', 0))
-        panDeg = int(focus_tag.attrib.get('PanMax', 0))
-        tiltDeg = int(focus_tag.attrib.get('TiltMax', 0))
-
-        if width == 0 or height == 0 or depth == 0:
-            print absname + ": Invalid physical dimenstions detected"
-            errNum += 1
-
-        if hasPan and panDeg == 0:
-            print absname + ": Invalid PAN degrees"
-            errNum += 1
-
-        if hasTilt and tiltDeg == 0:
-            print absname + ": Invalid TILT degrees"
-            errNum += 1
-
-        if tech_tag is not None:
-            power = int(tech_tag.attrib.get('PowerConsumption', 0))
-            if power == 0:
-                print absname + ": Invalid power consumption"
-                errNum += 1
+    errNum += check_physical(absname, root, hasPan, hasTilt)
 
     if needSave:
         print "Saving back " + filename + "..."

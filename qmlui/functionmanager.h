@@ -112,6 +112,8 @@ public:
     /** Return the associated qrc icon resource for the specified Function $type */
     Q_INVOKABLE QString functionIcon(int type);
 
+    Q_INVOKABLE QString functionPath(quint32 id);
+
     /** Enable/disable the Function preview feature */
     Q_INVOKABLE void setPreview(bool enable);
 
@@ -180,6 +182,7 @@ protected:
     void addFunctionTreeItem(Function *func);
     void updateFunctionsTree();
     void clearTree();
+    void moveFunction(quint32 fID, QString newPath);
 
 signals:
     void functionsListChanged();
@@ -239,7 +242,7 @@ public:
     int selectedFolderCount() const;
 
     /** Change the path of an existing folder and all its children */
-    Q_INVOKABLE void setFolderPath(QString oldAbsPath, QString newRelPath);
+    Q_INVOKABLE void setFolderPath(QString oldAbsPath, QString newPath, bool isRelative);
 
     /** Create an empty folder with path starting from the currently
      *  selected item */

@@ -92,6 +92,10 @@ public:
 
     /*********************************************************************
      * Presets
+     *
+     * please see
+     * https://github.com/mcallegari/qlcplus/wiki/Fixture-definition-presets
+     * when changing this list
      *********************************************************************/
 public:
     enum Preset
@@ -132,7 +136,6 @@ public:
         IntensityValue,
         IntensityValueFine,
         PositionPan,
-        PositionPanCounterClockwise,
         PositionPanFine,
         PositionTilt,
         PositionTiltFine,

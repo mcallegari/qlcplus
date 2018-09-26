@@ -55,6 +55,8 @@ CustomPopupDialog
                 id: newNameEdit
                 Layout.fillWidth: true
                 Layout.columnSpan: 3
+
+                onEnterPressed: accept()
             }
 
             // Row 2

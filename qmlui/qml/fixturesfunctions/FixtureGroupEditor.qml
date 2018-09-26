@@ -200,25 +200,39 @@ Rectangle
                 return fixtureManager.fixtureIcon(fixtureID)
             }
 
+            function getTooltip(xPos, yPos)
+            {
+                return fixtureGroupEditor.getTooltip(xPos, yPos)
+            }
+
             gridSize: fixtureGroupEditor.groupSize
             fillDirection: Qt.Horizontal | Qt.Vertical
             mininumCellSize: UISettings.iconSizeDefault * 1.5
-            labelsFontSize: cellSize / 5
+            labelsFontSize: cellSize / 6
             gridData: fixtureGroupEditor.groupMap
             gridLabels: fixtureGroupEditor.groupLabels
             evenColor: UISettings.fgLight
 
             onPressed:
             {
+                var empty = []
+
                 if (xPos < 0 && yPos < 0)
                 {
-                    var empty = []
                     setSelectionData(empty)
                     fixtureGroupEditor.resetSelection()
                 }
                 else
                 {
                     gridFlickable.interactive = false
+                    var absIdx = (yPos * gridSize.width) + xPos
+                    if (selectionData && selectionData.indexOf(absIdx) >= 0)
+                        return
+                    if (contextManager.multipleSelection === false && mods == 0)
+                    {
+                        setSelectionData(empty)
+                        fixtureGroupEditor.resetSelection()
+                    }
                     setSelectionData(fixtureGroupEditor.groupSelection(xPos, yPos, mods))
                 }
             }

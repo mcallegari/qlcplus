@@ -113,17 +113,12 @@ int ChaserStep::setValue(SceneValue value, int index, bool *created)
 int ChaserStep::unSetValue(SceneValue value, int index)
 {
     if (index == -1)
-    {
         index = values.indexOf(value);
-        if (index == -1)
-            return -1;
-    }
 
     if (index < 0 || index >= values.count())
         return -1;
 
     values.removeAt(index);
-
 
     return index;
 }

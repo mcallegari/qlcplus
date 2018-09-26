@@ -281,7 +281,7 @@ void ChannelsSelection::slotComboChanged(int idx)
 
             foreach(QTreeWidgetItem *chItem, getSameChannels(item))
             {
-                QComboBox *chCombo = (QComboBox *)m_channelsTree->itemWidget(chItem, KColumnBehaviour);
+                QComboBox *chCombo = qobject_cast<QComboBox *>(m_channelsTree->itemWidget(chItem, KColumnBehaviour));
                 if (chCombo != NULL)
                 {
                     chCombo->blockSignals(true);
@@ -317,7 +317,7 @@ void ChannelsSelection::slotModifierButtonClicked()
 
         foreach(QTreeWidgetItem *chItem, getSameChannels(item))
         {
-            QPushButton *chButton = (QPushButton *)m_channelsTree->itemWidget(chItem, KColumnModifier);
+            QPushButton *chButton = qobject_cast<QPushButton *>(m_channelsTree->itemWidget(chItem, KColumnModifier));
             if (chButton != NULL)
                 chButton->setText(displayName);
         }

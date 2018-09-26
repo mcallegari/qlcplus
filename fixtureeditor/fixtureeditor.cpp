@@ -186,7 +186,8 @@ void QLCFixtureEditor::init()
     refreshAliasAllChannels();
     refreshAliasTree();
 
-    connect(m_aliasCapCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotAliasChanged()));
+    connect(m_aliasCapCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(refreshAliasModes()));
+    connect(m_modesCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(refreshAliasModeChannels()));
 
     /* Physical page */
     m_phyEdit = new EditPhysical(m_fixtureDef->physical(), this);
@@ -787,7 +788,7 @@ void QLCFixtureEditor::slotAddMode()
                 m_fixtureDef->addMode(mode);
                 updateModeItem(mode, item);
                 m_modeList->setCurrentItem(item);
-                m_modeList->resizeColumnToContents(MODE_COL_NAME);
+                m_modeList->header()->resizeSections(QHeaderView::ResizeToContents);
 
                 refreshAliasModes();
                 setModified();
@@ -838,6 +839,7 @@ void QLCFixtureEditor::slotEditMode()
         updateModeItem(mode, item);
         refreshAliasModes();
         setModified();
+        m_modeList->header()->resizeSections(QHeaderView::ResizeToContents);
     }
     disconnect(&em, SIGNAL(copyToClipboard(QLCPhysical)),
                this, SLOT(slotCopyPhysicalClipboard(QLCPhysical)));
@@ -1103,9 +1105,9 @@ void QLCFixtureEditor::refreshAliasTree()
                 QTreeWidgetItem *item = new QTreeWidgetItem(m_aliasTree, columns);
                 item->setData(0, Qt::UserRole, qVariantFromValue((void *)cap));
             }
-
         }
     }
+    m_aliasTree->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
 void QLCFixtureEditor::checkAliasAddButton()
@@ -1115,11 +1117,6 @@ void QLCFixtureEditor::checkAliasAddButton()
         m_addAliasButton->setEnabled(true);
     else
         m_addAliasButton->setEnabled(false);
-}
-
-void QLCFixtureEditor::slotAliasChanged()
-{
-    refreshAliasModes();
 }
 
 void QLCFixtureEditor::slotAddAliasClicked()
@@ -1142,6 +1139,8 @@ void QLCFixtureEditor::slotAddAliasClicked()
     QTreeWidgetItem *item = new QTreeWidgetItem(m_aliasTree, columns);
     item->setData(0, Qt::UserRole, qVariantFromValue((void *)selCap));
 
+    m_aliasTree->header()->resizeSections(QHeaderView::ResizeToContents);
+
     setModified();
 }
 
@@ -1160,8 +1159,8 @@ void QLCFixtureEditor::slotRemoveAliasClicked()
         alias.targetChannel = item->text(3);
         cap->removeAlias(alias);
         refreshAliasTree();
+        setModified();
     }
-    setModified();
 }
 
 /*****************************************************************************

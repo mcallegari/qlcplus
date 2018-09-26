@@ -430,6 +430,8 @@ void EditMode::slotPhysicalModeChanged()
 void EditMode::accept()
 {
     m_mode->setName(m_modeNameEdit->text());
+    if (m_overridePhyCheck->isChecked())
+        m_mode->setPhysical(m_phyEdit->physical());
 
     QDialog::accept();
 }

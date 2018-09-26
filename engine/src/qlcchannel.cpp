@@ -148,6 +148,9 @@ QLCChannel::Preset QLCChannel::preset() const
     return m_preset;
 }
 
+/* please see
+https://github.com/mcallegari/qlcplus/wiki/Fixture-definition-presets
+when changing this function */
 void QLCChannel::setPreset(QLCChannel::Preset preset)
 {
     if (preset == m_preset)
@@ -318,10 +321,6 @@ void QLCChannel::setPreset(QLCChannel::Preset preset)
             grp = Pan;
             prname = KXMLQLCChannelGroupPan;
         break;
-        case PositionPanCounterClockwise:
-            grp = Pan;
-            prname = KXMLQLCChannelGroupPan + " counterclockwise";
-        break;
         case PositionPanFine:
             grp = Pan;
             prname = KXMLQLCChannelGroupPan + " fine";
@@ -461,6 +460,9 @@ void QLCChannel::setPreset(QLCChannel::Preset preset)
     setControlByte(cb);
 }
 
+/* please see
+https://github.com/mcallegari/qlcplus/wiki/Fixture-definition-presets
+when changing this function */
 QLCCapability *QLCChannel::addPresetCapability()
 {
     QLCCapability *cap = new QLCCapability();
@@ -505,7 +507,6 @@ QLCCapability *QLCChannel::addPresetCapability()
         case IntensityLightnessFine:
         case IntensityValueFine:
         case PositionPan:
-        case PositionPanCounterClockwise:
         case PositionPanFine:
         case PositionTilt:
         case PositionTiltFine:
@@ -519,6 +520,7 @@ QLCCapability *QLCChannel::addPresetCapability()
         case GoboWheelFine:
         case GoboIndexFine:
         case ShutterIrisFine:
+        case BeamFocusFine:
         case BeamZoomFine:
         case NoFunction:
             cap->setName(name());

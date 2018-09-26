@@ -500,7 +500,7 @@ void EditChannel::slotPictureButtonPressed()
     dialog.setWindowTitle(tr("Open Gobo File"));
     dialog.setAcceptMode(QFileDialog::AcceptOpen);
     dialog.setDirectory(dir);
-    dialog.setNameFilter((tr("Gobo pictures") + " (*.jpg *.jpeg *.png *.bmp)"));
+    dialog.setNameFilter((tr("Gobo pictures") + " (*.jpg *.jpeg *.png *.bmp *.svg)"));
 
     /* Get file name */
     if (dialog.exec() != QDialog::Accepted)

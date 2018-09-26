@@ -19,6 +19,7 @@
     <F n="American-DJ-5P-Hex" m="5P Hex"/>
     <F n="American-DJ-64B-LED-PRO" m="64B LED PRO"/>
     <F n="American-DJ-Accu-Fog-1000" m="Accu Fog 1000"/>
+    <F n="American-DJ-Accu-Roller-250" m="Accu Roller 250"/>
     <F n="American-DJ-Accu-Spot-250-II" m="Accu Spot 250 II"/>
     <F n="American-DJ-Accu-Spot-Pro" m="ACCU Spot Pro"/>
     <F n="American-DJ-Accu-UFO" m="Accu UFO"/>
@@ -39,6 +40,7 @@
     <F n="American-DJ-Dotz-TPar" m="Dotz TPar"/>
     <F n="American-DJ-Double-Phase" m="Double Phase"/>
     <F n="American-DJ-ECO-UV-BAR-DMX" m="ECO UV BAR DMX"/>
+    <F n="American-DJ-Entour-Venue" m="Entour Venue"/>
     <F n="American-DJ-Entourage" m="Entourage"/>
     <F n="American-DJ-Event-Bar-LED" m="Event Bar LED"/>
     <F n="American-DJ-Event-Bar-Pro" m="Event Bar Pro"/>
@@ -135,6 +137,7 @@
     <F n="American-DJ-Vizi-LED-Spot" m="Vizi LED Spot"/>
     <F n="American-DJ-Vizi-Roller-Beam-2R" m="Vizi Roller Beam 2R"/>
     <F n="American-DJ-VPar" m="VPar"/>
+    <F n="American-DJ-Warlock" m="Warlock"/>
     <F n="American-DJ-WiFly-EXR-Dotz-Par" m="WiFly EXR Dotz Par"/>
     <F n="American-DJ-WiFly-EXR-HEX5-IP" m="WiFly EXR HEX5 IP"/>
     <F n="American-DJ-X-Scan-LED-Plus" m="X-Scan LED Plus"/>
@@ -143,6 +146,7 @@
   </M>
   <M n="Antari">
     <F n="Antari-X-310-Pro-Fazer" m="X-310 Pro Fazer"/>
+    <F n="Antari-Z-1520-RGB" m="Z-1520 RGB"/>
   </M>
   <M n="AVE">
     <F n="AVE-Cobra-Wash-200" m="Cobra Wash 200"/>
@@ -155,6 +159,7 @@
     <F n="Ayra-ERO-506" m="ERO 506"/>
     <F n="Ayra-TDC-Agaricus" m="TDC Agaricus"/>
     <F n="Ayra-TDC-Triple-Burst" m="TDC Triple Burst"/>
+    <F n="Ayra-WSM02-WSM03-MKII" m="WSM02/WSM03 MKII"/>
   </M>
   <M n="Ayrton">
     <F n="Ayrton-Arcaline-100-RGB" m="Arcaline 100 RGB"/>
@@ -239,6 +244,7 @@
     <F n="Cameo-LED-RGBW-PAR64-18x8W" m="LED RGBW PAR64 18x8W"/>
     <F n="Cameo-Multi-PAR-1" m="Multi Par 1"/>
     <F n="Cameo-Multi-PAR-3" m="Multi Par 3"/>
+    <F n="Cameo-NanoBeam-300" m="NanoBeam 300"/>
     <F n="Cameo-Pixbar-600-PRO" m="Pixbar 600 PRO"/>
     <F n="Cameo-Q-SPOT-15-RGBW" m="Q SPOT 15 RGBW"/>
     <F n="Cameo-Strobe-3x3.5W" m="Strobe 3x3.5W"/>
@@ -250,6 +256,8 @@
     <F n="Cameo-Thunder-Wash-600-RGB" m="Thunder Wash 600 RGB"/>
     <F n="Cameo-Thunder-Wash-600-W" m="Thunder Wash 600 W"/>
     <F n="Cameo-Tribar-200-IR" m="Tribar 200 IR"/>
+    <F n="Cameo-TS-40-WW" m="TS 40 WW"/>
+    <F n="Cameo-TS-60-RGBW" m="TS 60 RGBW"/>
     <F n="Cameo-Wookie-series" m="Wookie series"/>
   </M>
   <M n="Chauvet">
@@ -272,6 +280,7 @@
     <F n="Chauvet-COLORdash-Accent-RGBW" m="COLORdash Accent RGBW"/>
     <F n="Chauvet-COLORdash-Batten" m="COLORdash Batten"/>
     <F n="Chauvet-COLORdash-Par-Hex-12" m="COLORdash Par-Hex 12"/>
+    <F n="Chauvet-COLORdash-Par-Hex-7" m="COLORdash Par-Hex 7"/>
     <F n="Chauvet-COLORdash-Par-Quad-7" m="COLORdash Par-Quad 7"/>
     <F n="Chauvet-Colorpalette-II" m="Colorpalette II"/>
     <F n="Chauvet-COLORpalette" m="COLORpalette"/>
@@ -359,6 +368,7 @@
     <F n="Chauvet-SlimPar-Hex-6" m="SlimPar Hex 6"/>
     <F n="Chauvet-SlimPAR-Pro-H-USB" m="SlimPAR Pro H USB"/>
     <F n="Chauvet-SlimPar-Pro-Tri" m="SlimPar Pro Tri"/>
+    <F n="Chauvet-SlimPAR-Q6-USB" m="SlimPAR Q6 USB"/>
     <F n="Chauvet-SlimPAR-QUAD-12-IRC" m="SlimPAR QUAD 12 IRC"/>
     <F n="Chauvet-SlimPAR-QUV12-USB" m="SlimPAR QUV12 USB"/>
     <F n="Chauvet-SlimPAR-T6-USB" m="SlimPAR T6 USB"/>
@@ -372,6 +382,7 @@
     <F n="Chauvet-Vue-3.1" m="Vue 3.1"/>
     <F n="Chauvet-Vue-6.1" m="Vue 6.1"/>
     <F n="Chauvet-Wash-FX" m="Wash FX"/>
+    <F n="Chauvet-Wash-FX2" m="Wash FX2"/>
     <F n="Chauvet-Wedge-Tri" m="Wedge Tri"/>
   </M>
   <M n="Clay_Paky">
@@ -432,6 +443,9 @@
     <F n="Contest-STB-520-1500W-Strobe" m="STB-520 1500W Strobe"/>
     <F n="Contest-Tri4U" m="Tri4U"/>
   </M>
+  <M n="Dia_Lighting">
+    <F n="Dia-Lighting-Diapro-Spot-LED-300" m="Diapro Spot LED 300"/>
+  </M>
   <M n="DNA">
     <F n="DNA-Pro-Slim-18-RGBW" m="PRO SLIM 18 RGBW"/>
   </M>
@@ -447,9 +461,11 @@
   <M n="Elation">
     <F n="Elation-Color-Spot-150" m="Color Spot 150"/>
     <F n="Elation-Cuepix-Batten" m="Cuepix Batten"/>
+    <F n="Elation-DW-Fresnel" m="DW Fresnel"/>
     <F n="Elation-EVC-MH" m="EVC MH"/>
     <F n="Elation-Platinum-Beam-5R" m="Platinum Beam 5R"/>
     <F n="Elation-Platinum-Spot-5R" m="Platinum Spot 5R"/>
+    <F n="Elation-Proteus-Beam" m="Proteus Beam"/>
     <F n="Elation-Rayzor-Q7" m="Rayzor Q7"/>
     <F n="Elation-SIXPAR-200IP" m="SIXPAR 200IP"/>
     <F n="Elation-Sniper-2R" m="Sniper 2R"/>
@@ -474,6 +490,7 @@
     <F n="Equinox-Gigabar" m="Gigabar"/>
     <F n="Equinox-Party-Par-LED-PAR-56" m="Party Par LED PAR 56"/>
     <F n="Equinox-Photon" m="Photon"/>
+    <F n="Equinox-Quad-Pix-Batten" m="Quad Pix Batten"/>
     <F n="Equinox-Swing-Batten" m="Swing Batten"/>
     <F n="Equinox-Ultra-Scan-LED" m="Ultra Scan LED"/>
   </M>
@@ -540,6 +557,7 @@
     <F n="Eurolite-TMH-14" m="TMH-14"/>
     <F n="Eurolite-TMH-155" m="TMH-155"/>
     <F n="Eurolite-TMH-250" m="TMH-250"/>
+    <F n="Eurolite-TMH-30-60-mk2" m="TMH-30/60"/>
     <F n="Eurolite-TMH-8" m="TMH-8"/>
     <F n="Eurolite-TR-5" m="TR-5"/>
     <F n="Eurolite-TS-10" m="TS-10"/>
@@ -670,11 +688,15 @@
   <M n="IMG_Stageline">
     <F n="IMG-Stageline-BEAM-40-WS-RGBW" m="BEAM-40 WS/RGBW"/>
     <F n="IMG-Stageline-PARL-20-DMX" m="PARL 20 DMX"/>
+    <F n="IMG-Stageline-PARL-40Set" m="PARL-40SET"/>
     <F n="IMG-Stageline-PARL-4Set" m="Parl 4-SET"/>
     <F n="IMG-Stageline-PARL-73-RGB" m="Parl 73-RGB"/>
     <F n="IMG-Stageline-Wash-40-LED" m="Wash-40 LED"/>
   </M>
   <M n="Involight">
+    <F n="Involight-FM1200UP" m="FM1200UP"/>
+    <F n="Involight-FM1500-DMX" m="FM1500 DMX"/>
+    <F n="Involight-FM3000-PRO" m="FM3000 PRO"/>
     <F n="Involight-FM900-DMX" m="FM900 DMX"/>
     <F n="Involight-LED-CC60S" m="LED CC60S"/>
     <F n="Involight-LED-MH50S" m="LED MH50S"/>
@@ -713,6 +735,7 @@
     <F n="JB-Systems-Plano-Spot-7TC" m="Plano Spot 7TC"/>
     <F n="JB-Systems-Plano-Spot-LED" m="Plano Spot LED"/>
     <F n="JB-Systems-Space-Color-Laser" m="Space Color Laser"/>
+    <F n="JB-Systems-Space-Laser-3" m="Space Laser 3"/>
     <F n="JB-Systems-Super-Solar-RGBW" m="Super Solar RGBW"/>
     <F n="JB-Systems-The-WinnerII" m="The Winner II"/>
   </M>
@@ -778,7 +801,8 @@
     <F n="Lite-Works-ColorChanger" m="ColorChanger"/>
   </M>
   <M n="Litecraft">
-    <F n="LiteCraft-LED-PAR-64-AT3" m="LED PAR 64 AT3"/>
+    <F n="Litecraft-LED-PAR-64-AT3" m="LED PAR 64 AT3"/>
+    <F n="Litecraft-OutLED-AT60.zoom" m="OutLED AT60.zoom"/>
     <F n="Litecraft-PowerBar-4" m="PowerBar 4"/>
     <F n="Litecraft-PowerBar-AT10.sx" m="PowerBar AT10.sx"/>
     <F n="Litecraft-WashX.21" m="WashX.21"/>
@@ -800,6 +824,7 @@
     <F n="MARQ-Gamut-PAR-H7" m="Gamut PAR H7"/>
     <F n="MARQ-Gesture-Beam-Wash-102" m="Gesture Beam/Wash 102"/>
     <F n="MARQ-Gesture-Spot-100-" m="Gesture Spot 100 "/>
+    <F n="MARQ-Gesture-Spot-300" m="Gesture Spot 300"/>
   </M>
   <M n="Martin">
     <F n="Martin-24-7-Hazer" m="ZR24/7 Hazer"/>
@@ -1041,6 +1066,7 @@
     <F n="Showtec-Compact-Par-18-MKII" m="Compact Par 18 MKII"/>
     <F n="Showtec-Compact-Par-18-Tri-MKII" m="Compact Par 18 Tri MKII"/>
     <F n="Showtec-Compact-Par-7-Q4" m="Compact Par 7 Q4"/>
+    <F n="Showtec-Compact-Par-7-Tri" m="Compact Par 7 Tri"/>
     <F n="Showtec-Compact-Power-Lightset-COB" m="Compact Power Lightset COB"/>
     <F n="Showtec-Dominator" m="Dominator"/>
     <F n="Showtec-Dragon-F-350" m="Dragon F-350"/>
@@ -1067,6 +1093,7 @@
     <F n="Showtec-Mini-Max-LED-RGB" m="Mini Max LED RGB"/>
     <F n="Showtec-MiniMax-250" m="MiniMax 250"/>
     <F n="Showtec-MultiDim-MK-III-DMX" m="MultiDim MK III DMX"/>
+    <F n="Showtec-Phantom-130-LED-Spot" m="Phantom 130 LED Spot"/>
     <F n="Showtec-Phantom-20-LED-Beam" m="Phantom 20 LED Beam"/>
     <F n="Showtec-Phantom-250-Wash" m="Phantom 250 Wash"/>
     <F n="Showtec-Phantom-250" m="Phantom 250"/>
@@ -1085,6 +1112,7 @@
     <F n="Showtec-Stage-Blinder-Series" m="Stage Blinder Series"/>
     <F n="Showtec-Sunraise-LED" m="Sunraise LED"/>
     <F n="Showtec-Sunstrip-Active" m="Sunstrip Active"/>
+    <F n="Showtec-Vintage-Blaze" m="Vintage Blaze"/>
     <F n="Showtec-XB-Wave" m="XB-Wave"/>
     <F n="Showtec-XS-1W-Mini-Moving-Beam" m="XS-1W Mini Moving Beam"/>
     <F n="Showtec-ZIPP-LED-DMX" m="ZIPP LED DMX"/>
@@ -1110,6 +1138,7 @@
     <F n="Stairville-AFH-600" m="AFH-600"/>
     <F n="Stairville-Beam-Moving-Head-B5R" m="Beam Moving Head B5R"/>
     <F n="Stairville-Blade-Sting-8-RGBW-Beam-Mover" m="Blade Sting 8 RGBW Beam Mover"/>
+    <F n="Stairville-BS-280-R10-BeamSpot" m="BS-280 R10 BeamSpot"/>
     <F n="Stairville-CLB2.4-CompactLED" m="CLB2.4 Compact LED PAR System"/>
     <F n="Stairville-Compact-LED-Bar-CLB8" m="Compact LED-Bar CLB8"/>
     <F n="Stairville-Crown-FX-PAR77" m="Crown FX PAR77"/>
@@ -1160,6 +1189,7 @@
     <F n="Stairville-SF-1500" m="SF-1500"/>
     <F n="Stairville-Tri-Flat-PAR-Profile-5x3W-RGB" m="Tri Flat PAR Profile 5x3W RGB"/>
     <F n="Stairville-TRI-LED-Bundle-Complete" m="Stage TRI LED Bundle Complete"/>
+    <F n="Stairville-WGF-2000" m="WGF 2000"/>
     <F n="Stairville-xBrick-Full-Colour-16X3W" m="xBrick Full-Colour 16X3W"/>
     <F n="Stairville-xBrick-Full-Colour" m="xBrick Full-Colour"/>
     <F n="Stairville-ZF-1500" m="ZF-1500"/>
@@ -1206,6 +1236,7 @@
     <F n="Vari-Lite-VL3500-Spot" m="VL3500 Spot"/>
   </M>
   <M n="Varytec">
+    <F n="Varytec-BAT.PAR-6-RGBWA" m="BAT.PAR 6 RGBWA"/>
     <F n="Varytec-Easy-Move-LED-XS-Spot" m="Easy Move LED XS Spot"/>
     <F n="Varytec-Easy-Move-LED-XS-Wash" m="Easy Move LED XS Wash"/>
     <F n="Varytec-Easy-Scan-XT-Mini" m="Easy Scan XT Mini"/>
@@ -1219,6 +1250,7 @@
     <F n="Varytec-LED-PAR-64-Floor-5in1" m="LED Par 64 Floor 5in1 7x10W RGBWA"/>
     <F n="Varytec-LED-PAR56" m="LED PAR56"/>
     <F n="Varytec-RGB-LED-Spot-38" m="RGB LED Spot 38"/>
+    <F n="Varytec-Street-Bar" m="Street Bar"/>
     <F n="Varytec-Thunderscan-FX" m="Thunderscan FX"/>
   </M>
   <M n="Velleman">

@@ -139,8 +139,7 @@ void VirtualConsole::setEditMode(bool editMode)
         m_clipboardIDList.clear();
         emit clipboardItemsCountChanged();
 
-        m_itemsMap.clear();
-        emit selectedWidgetsCountChanged();
+        resetWidgetSelection();
     }
 
     m_editMode = editMode;

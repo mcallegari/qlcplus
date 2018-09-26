@@ -112,7 +112,7 @@ public:
 
     /** Get the Virtual Console's frame representing the given $page,
      *  where all the widgets are placed */
-    Q_INVOKABLE VCPage* page(int page) const;
+    Q_INVOKABLE VCPage *page(int page) const;
 
     /** Return the reference of the currently selected VC page */
     Q_INVOKABLE QQuickItem *currentPageItem() const;

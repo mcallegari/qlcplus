@@ -110,4 +110,20 @@ void DMXInterface::storeTypeMap(const QMap <QString,QVariant> map)
     settings.setValue(SETTINGS_TYPE_MAP, map);
 }
 
+QMap<QString, QVariant> DMXInterface::frequencyMap()
+{
+    QMap <QString,QVariant> typeMap;
+    QSettings settings;
+    QVariant var(settings.value(SETTINGS_FREQ_MAP));
+    if (var.isValid() == true)
+        typeMap = var.toMap();
+    return typeMap;
+}
+
+void DMXInterface::storeFrequencyMap(const QMap<QString, QVariant> map)
+{
+    QSettings settings;
+    settings.setValue(SETTINGS_FREQ_MAP, map);
+}
+
 

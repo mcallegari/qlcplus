@@ -72,16 +72,23 @@ void AddChannelsDialog::fillChannelsTrees(QList<QLCChannel *> allList, QVector<Q
     int i = 0;
     foreach (QLCChannel *ch, allList)
     {
-        QTreeWidgetItem *item = NULL;
         if (modeList.contains(ch) == false)
-            item = new QTreeWidgetItem(m_allTree);
-        else
-            item = new QTreeWidgetItem(m_modeTree);
+        {
+            QTreeWidgetItem *item = new QTreeWidgetItem(m_allTree);
+            item->setText(0, ch->name());
+            item->setIcon(0, ch->getIcon());
+            item->setData(0, Qt::UserRole, QVariant(i));
+        }
+        i++;
+    }
 
+    foreach (QLCChannel *ch, modeList)
+    {
+        QTreeWidgetItem *item = new QTreeWidgetItem(m_modeTree);
+        int index = allList.indexOf(ch);
         item->setText(0, ch->name());
         item->setIcon(0, ch->getIcon());
-        item->setData(0, Qt::UserRole, QVariant(i));
-        i++;
+        item->setData(0, Qt::UserRole, QVariant(index));
     }
 }
 

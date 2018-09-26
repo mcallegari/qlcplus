@@ -196,7 +196,6 @@ void DMXUSB::writeUniverse(quint32 universe, quint32 output, const QByteArray &d
 
 bool DMXUSB::openInput(quint32 input, quint32 universe)
 {
-    Q_UNUSED(universe)
     if (input < quint32(m_inputs.size()))
     {
         DMXUSBWidget *widget = m_inputs.at(input);
@@ -204,7 +203,7 @@ bool DMXUSB::openInput(quint32 input, quint32 universe)
             widget->type() == DMXUSBWidget::ProMk2 ||
             widget->type() == DMXUSBWidget::UltraPro)
         {
-            EnttecDMXUSBPro* pro = (EnttecDMXUSBPro*) widget;
+            EnttecDMXUSBPro *pro = static_cast<EnttecDMXUSBPro*>(widget);
             connect(pro, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
                     this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
         }

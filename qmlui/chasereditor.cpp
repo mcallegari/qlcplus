@@ -75,6 +75,11 @@ bool ChaserEditor::addFunctions(QVariantList idsList, int insertIndex)
     for (QVariant vID : idsList) // C++11
     {
         quint32 fid = vID.toUInt();
+
+        // do not allow a Chaser to add itself as step
+        if (fid == m_chaser->id())
+            continue;
+
         ChaserStep step(fid);
         if (m_chaser->durationMode() == Chaser::PerStep)
         {
@@ -294,7 +299,7 @@ void ChaserEditor::setSelectedValue(Function::PropType type, QString param, uint
 
         if (isSelected.isValid() && isSelected.toBool() == true)
         {
-            m_stepsList->setDataWithRole(idx, param, value);
+            m_stepsList->setDataWithRole(idx, param, (int)value);
 
             ChaserStep step = m_chaser->steps().at(i);
             uint duration = m_chaser->durationMode() == Chaser::Common ? m_chaser->duration() : step.duration;
@@ -315,7 +320,7 @@ void ChaserEditor::setSelectedValue(Function::PropType type, QString param, uint
                         step.hold = Function::speedSubtract(duration, step.fadeIn);
                         Tardis::instance()->enqueueAction(Tardis::ChaserSetStepHold, m_chaser->id(), QVariant::fromValue(oldHold),
                                                           QVariant::fromValue(UIntPair(i, step.hold)));
-                        m_stepsList->setDataWithRole(idx, "hold", step.hold);
+                        m_stepsList->setDataWithRole(idx, "hold", (int)step.hold);
                     }
                     else
                     {
@@ -323,7 +328,7 @@ void ChaserEditor::setSelectedValue(Function::PropType type, QString param, uint
                         step.duration = Function::speedAdd(step.fadeIn, step.hold);
                         Tardis::instance()->enqueueAction(Tardis::ChaserSetStepDuration, m_chaser->id(), QVariant::fromValue(oldDuration),
                                                           QVariant::fromValue(UIntPair(i, step.duration)));
-                        m_stepsList->setDataWithRole(idx, "duration", step.duration);
+                        m_stepsList->setDataWithRole(idx, "duration", (int)step.duration);
                     }
                 }
                 break;
@@ -340,7 +345,7 @@ void ChaserEditor::setSelectedValue(Function::PropType type, QString param, uint
                         step.fadeIn = Function::speedSubtract(duration, step.hold);
                         Tardis::instance()->enqueueAction(Tardis::ChaserSetStepFadeIn, m_chaser->id(), QVariant::fromValue(oldFadeIn),
                                                           QVariant::fromValue(UIntPair(i, step.fadeIn)));
-                        m_stepsList->setDataWithRole(idx, "fadeIn", step.hold);
+                        m_stepsList->setDataWithRole(idx, "fadeIn", (int)step.hold);
                     }
                     else
                     {
@@ -348,7 +353,7 @@ void ChaserEditor::setSelectedValue(Function::PropType type, QString param, uint
                         step.duration = Function::speedAdd(step.fadeIn, step.hold);
                         Tardis::instance()->enqueueAction(Tardis::ChaserSetStepDuration, m_chaser->id(), QVariant::fromValue(oldDuration),
                                                           QVariant::fromValue(UIntPair(i, step.duration)));
-                        m_stepsList->setDataWithRole(idx, "duration", step.duration);
+                        m_stepsList->setDataWithRole(idx, "duration", (int)step.duration);
                     }
                 }
                 break;
@@ -358,7 +363,7 @@ void ChaserEditor::setSelectedValue(Function::PropType type, QString param, uint
                     step.fadeOut = value;
                     Tardis::instance()->enqueueAction(Tardis::ChaserSetStepFadeOut, m_chaser->id(), QVariant::fromValue(oldFadeOut),
                                                       QVariant::fromValue(UIntPair(i, step.fadeOut)));
-                    m_stepsList->setDataWithRole(idx, "fadeOut", step.fadeOut);
+                    m_stepsList->setDataWithRole(idx, "fadeOut", (int)step.fadeOut);
                 }
                 break;
                 case Function::Duration:
@@ -373,7 +378,7 @@ void ChaserEditor::setSelectedValue(Function::PropType type, QString param, uint
                     Tardis::instance()->enqueueAction(Tardis::ChaserSetStepHold, m_chaser->id(), QVariant::fromValue(oldHold),
                                                       QVariant::fromValue(UIntPair(i, step.hold)));
 
-                    m_stepsList->setDataWithRole(idx, "hold", step.hold);
+                    m_stepsList->setDataWithRole(idx, "hold", (int)step.hold);
                 }
                 break;
                 default:

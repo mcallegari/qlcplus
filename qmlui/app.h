@@ -217,6 +217,7 @@ protected slots:
     void slotItemReadyForPrinting();
 
 private:
+    QQuickItem *m_printItem;
     QSharedPointer<QQuickItemGrabResult> m_printerImage;
 
     /*********************************************************************
