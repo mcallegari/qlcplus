@@ -36,6 +36,8 @@ qlcplus (4.12.0) stable; urgency=low
   * New fixtures: Chauvet SlimPAR Q6 USB, Antari Z-1520 RGB, Cameo TS 40 WW, Cameo TS 60 RGBW (thanks to Andrew)
   * New fixtures: Litecraft OutLED AT60.zoom, Elation Proteus Beam (thanks to Axel Metzke)
   * New fixture: Elation DW Fresnel (thanks to Niklas Larsson)
+  * New fixture: Varytec Street Bar (thanks to Daniel Fairhead)
+  * New fixture: American DJ Accu Roller 250 (thanks to Anders Thomsen)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 21 Oct 2018 12:13:14 +0200
 
