@@ -123,6 +123,9 @@ void FadeChannel::autoDetect(const Doc *doc)
         m_universe = fixture->universe();
         m_address = fixture->address();
 
+        if (m_channel >= fixture->channels())
+            m_channel -= fixture->address();
+
         // non existing channel within fixture
         if (fixture->channel(m_channel) == NULL)
         {
