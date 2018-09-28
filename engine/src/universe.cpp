@@ -317,10 +317,10 @@ void Universe::run()
             //qWarning() << "Semaphore not acquired on universe" << id();
             continue;
         }
-
-        //if (m_faders.count())
-        //    qDebug() << "<<<<<<<< UNIVERSE TICK - id" << id() << "faders:" << m_faders.count();
-
+#if 0
+        if (m_faders.count())
+            qDebug() << "<<<<<<<< UNIVERSE TICK - id" << id() << "faders:" << m_faders.count();
+#endif
         processFaders();
     }
 
@@ -939,6 +939,8 @@ bool Universe::write(int channel, uchar value, bool forceLTP)
 bool Universe::writeRelative(int channel, uchar value)
 {
     Q_ASSERT(channel < UNIVERSE_SIZE);
+
+    //qDebug() << "Write relative channel" << channel << value;
 
     if (channel >= m_usedChannels)
         m_usedChannels = channel + 1;
