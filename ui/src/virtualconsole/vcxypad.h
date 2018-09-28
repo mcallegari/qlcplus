@@ -190,6 +190,7 @@ public slots:
     void slotPositionChanged(const QPointF& pt);
     void slotSliderValueChanged();
     void slotRangeValueChanged();
+    void slotUniverseWritten(quint32 idx, const QByteArray& universeData);
 
 signals:
     void fixturePositions(const QVariantList positions);
@@ -211,6 +212,7 @@ public:
     QList<VCXYPadPreset *> presets() const;
 
 protected:
+    void updateSceneChannel(FadeChannel *fc, uchar value);
     void writeScenePositions(MasterTimer* timer, QList<Universe*> universes);
 
 protected slots:

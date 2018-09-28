@@ -122,8 +122,8 @@ private:
     qreal m_xMax; //!< end of pan range; 0.0 <= m_xMax <= 1.0; default: 1.0
     bool m_xReverse; //!< pan reverse; default: false
 
-    quint32 m_xLSB; //!< fine pan channel (absolute address)
-    quint32 m_xMSB; //!< coarse pan channel (absolute address)
+    quint32 m_xLSB; //!< fine pan channel (relative address)
+    quint32 m_xMSB; //!< coarse pan channel (relative address)
     qreal m_xOffset; //!< precomputed value for writeDMX/readDMX
     qreal m_xRange; //!< precomputed value for writeDMX/readDMX
 
@@ -151,8 +151,8 @@ private:
     qreal m_yMax; //!< end of tilt range; 0.0 <= m_yMax <= 1.0; default: 1.0
     bool m_yReverse; //!< tilt reverse; default: false
 
-    quint32 m_yLSB; //!< fine tilt channel (absolute address)
-    quint32 m_yMSB; //!< coarse tilt channel (absolute address)
+    quint32 m_yLSB; //!< fine tilt channel (relative address)
+    quint32 m_yMSB; //!< coarse tilt channel (relative address)
     qreal m_yOffset; //!< precomputed value for writeDMX/readDMX
     qreal m_yRange; //!< precomputed value for writeDMX/readDMX
 
@@ -207,13 +207,13 @@ public:
     void writeDMX(qreal xmul, qreal ymul, GenericFader *fader, Universe *universe);
 
     /** Read position from the current universe
-     *  \param universes universes from which the position is read
+     *  \param universeData universe values where this fixture is present
      *  \param xmul <0.0;1.0> - pan value in the range set by setX
      *      (min => 0.0, max => 1.0, or vice versa if the range is reversed)
      *  \param ymul <0.0;1.0> - tilt value in the range set by setY
      *      (min => 0.0, max => 1.0, or vice versa if the range is reversed)
      */
-    void readDMX(QList<Universe*> universes, qreal & xmul, qreal & ymul);
+    void readDMX(const QByteArray &universeData, qreal & xmul, qreal & ymul);
 
 private:
     void updateChannel(FadeChannel *fc, uchar value);
@@ -222,6 +222,7 @@ private:
     /** Flag to enable/disable this fixture at runtime */
     bool m_enabled;
     quint32 m_universe;
+    quint32 m_fixtureAddress;
 };
 
 /** @} */
