@@ -126,8 +126,10 @@ void FadeChannel::autoDetect(const Doc *doc)
         if (m_channel >= fixture->channels())
             m_channel -= fixture->address();
 
+        const QLCChannel *channel = fixture->channel(m_channel);
+
         // non existing channel within fixture
-        if (fixture->channel(m_channel) == NULL)
+        if (channel == NULL)
         {
             setTypeFlag(FadeChannel::HTP | FadeChannel::Intensity | FadeChannel::CanFade);
             return;
@@ -137,8 +139,7 @@ void FadeChannel::autoDetect(const Doc *doc)
         if (fixture->channelCanFade(m_channel))
             setTypeFlag(FadeChannel::CanFade);
 
-        if (fixture->channel(m_channel) != NULL &&
-            fixture->channel(m_channel)->group() == QLCChannel::Intensity)
+        if (channel != NULL && channel->group() == QLCChannel::Intensity)
             setTypeFlag(FadeChannel::HTP | FadeChannel::Intensity);
         else
             setTypeFlag(FadeChannel::LTP);

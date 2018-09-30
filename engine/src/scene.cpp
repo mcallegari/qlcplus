@@ -645,8 +645,8 @@ void Scene::write(MasterTimer *timer, QList<Universe*> ua)
         QMapIterator <SceneValue, uchar> it(m_values);
         while (it.hasNext() == true)
         {
-            SceneValue value(it.next().key());
-            Fixture *fixture = doc()->fixture(value.fxi);
+            SceneValue scv(it.next().key());
+            Fixture *fixture = doc()->fixture(scv.fxi);
 
             if (fixture == NULL)
                 continue;
@@ -664,10 +664,12 @@ void Scene::write(MasterTimer *timer, QList<Universe*> ua)
                 m_fadersMap[universe] = fader;
             }
 
-            FadeChannel *fc = fader->getChannelFader(doc(), ua[universe], value.fxi, value.channel);
+            FadeChannel *fc = fader->getChannelFader(doc(), ua[universe], scv.fxi, scv.channel);
+
+            //qDebug() << "Scene" << name() << "add channel" << scv.channel << "from" << fc->current() << "to" << scv.value;
 
             fc->setStart(fc->current());
-            fc->setTarget(value.value);
+            fc->setTarget(scv.value);
 
             if (fc->canFade() == false)
             {
