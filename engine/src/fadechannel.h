@@ -49,7 +49,8 @@ public:
         Intensity   = (1 << 2),
         CanFade     = (1 << 3),
         Flashing    = (1 << 4),
-        Relative    = (1 << 5)
+        Relative    = (1 << 5),
+        Override    = (1 << 6)
     };
 
     /** Create a new FadeChannel with empty/invalid values */

@@ -24,14 +24,16 @@
 #include "fadechannel.h"
 #include "doc.h"
 
-GenericFader::GenericFader()
-    : m_priority(Universe::Auto)
+GenericFader::GenericFader(QObject *parent)
+    : QObject(parent)
+    , m_priority(Universe::Auto)
     , m_intensity(1.0)
     , m_paused(false)
     , m_enabled(true)
     , m_fadeOut(false)
     , m_deleteRequest(false)
     , m_blendMode(Universe::NormalBlend)
+    , m_monitoring(false)
 {
 }
 
@@ -112,9 +114,9 @@ FadeChannel *GenericFader::getChannelFader(const Doc *doc, Universe *universe, q
         return &channelIterator.value();
 
     if (fc.type() & QLCChannel::Intensity)
-        fc.setStart(0); // Intensity channels must start at zero
+        fc.setCurrent(0); // Intensity channels must start at zero
     else
-        fc.setStart(universe->preGMValue(fc.address()));
+        fc.setCurrent(universe->preGMValue(fc.address()));
 
     m_channels[hash] = fc;
     qDebug() << "Added new fader with hash" << hash;
@@ -133,6 +135,9 @@ int GenericFader::channelsCount() const
 
 void GenericFader::write(Universe *universe)
 {
+    if (m_monitoring)
+        emit preWriteData(universe->id(), universe->preGMValues());
+
     QMutableHashIterator <quint32,FadeChannel> it(m_channels);
     while (it.hasNext() == true)
     {
@@ -152,7 +157,9 @@ void GenericFader::write(Universe *universe)
             value = fc.current(intensity());
 
         //qDebug() << "[GenericFader] >>> uni:" << universe->id() << ", address:" << address << ", value:" << value;
-        if (channelType & FadeChannel::Relative)
+        if (channelType & FadeChannel::Override)
+            universe->write(address, value, true);
+        else if (channelType & FadeChannel::Relative)
             universe->writeRelative(address, value);
         else
             universe->writeBlended(address, value, m_blendMode);
@@ -252,4 +259,9 @@ void GenericFader::setFadeOut(bool enable, uint fadeTime)
 void GenericFader::setBlendMode(Universe::BlendMode mode)
 {
     m_blendMode = mode;
+}
+
+void GenericFader::setMonitoring(bool enable)
+{
+    m_monitoring = enable;
 }

@@ -20,6 +20,7 @@
 #ifndef GENERICFADER
 #define GENERICFADER
 
+#include <QObject>
 #include <QList>
 #include <QHash>
 
@@ -31,10 +32,12 @@ class FadeChannel;
  * @{
  */
 
-class GenericFader
+class GenericFader : public QObject
 {
+    Q_OBJECT
+
 public:
-    GenericFader();
+    GenericFader(QObject *parent = 0);
     ~GenericFader();
 
     int priority() const;
@@ -114,6 +117,14 @@ public:
      */
     void setBlendMode(Universe::BlendMode mode);
 
+    /** Enable/disable universe monitoring before writing new data */
+    void setMonitoring(bool enable);
+
+signals:
+    /** Signal emitted when monitoring is enabled.
+     *  Data is preGM and includes the whole universe */
+    void preWriteData(quint32 index, const QByteArray& universeData);
+
 private:
     int m_priority;
     QHash <quint32,FadeChannel> m_channels;
@@ -123,6 +134,7 @@ private:
     bool m_fadeOut;
     bool m_deleteRequest;
     Universe::BlendMode m_blendMode;
+    bool m_monitoring;
 };
 
 /** @} */

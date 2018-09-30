@@ -204,6 +204,7 @@ void Universe::slotGMValueChanged()
 
 GenericFader *Universe::requestFader(Universe::FaderPriority priority)
 {
+    int insertPos = 0;
     GenericFader *fader = new GenericFader();
     fader->setPriority(priority);
 
@@ -213,8 +214,6 @@ GenericFader *Universe::requestFader(Universe::FaderPriority priority)
     }
     else
     {
-        int insertPos = 0;
-
         for (int i = m_faders.count() - 1; i >= 0; i--)
         {
             GenericFader *f = m_faders.at(i);
@@ -226,8 +225,9 @@ GenericFader *Universe::requestFader(Universe::FaderPriority priority)
         }
 
         m_faders.insert(insertPos, fader);
-        qDebug() << "Generic fader with priority" <<  fader->priority() << "registered at pos" << insertPos;
     }
+
+    qDebug() << "Generic fader with priority" <<  fader->priority() << "registered at pos" << insertPos << ", count" << m_faders.count();
 
     return fader;
 }
