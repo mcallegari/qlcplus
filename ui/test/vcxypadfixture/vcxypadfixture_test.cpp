@@ -860,10 +860,10 @@ void VCXYPadFixture_Test::write16bitReverse()
     xy.setY(0.2, 0.8, true);
     xy.arm();
 
+#ifdef Q_PROCESSOR_X86_64
     QList<Universe*> ua = m_doc->inputOutputMap()->universes();
     GenericFader *fader = ua[0]->requestFader();
 
-#ifdef Q_PROCESSOR_X86_64
     for (qreal i = 0; i <= 1.01; i += (qreal(1) / qreal(USHRT_MAX)))
     {
         xy.writeDMX(i, 1.0 - i, fader, ua[0]);
