@@ -339,6 +339,8 @@ protected slots:
      *  has changed */
     void slotMonitorDMXValueChanged(int value);
 
+    void slotUniverseWritten(quint32 idx, const QByteArray& universeData);
+
 protected:
     QList <VCSlider::LevelChannel> m_levelChannels;
     uchar m_levelLowLimit;
@@ -432,7 +434,6 @@ protected:
 private:
     /** Map used to lookup a GenericFader instance for a Universe ID */
     QMap<quint32, GenericFader *> m_fadersMap;
-    int m_priorityRequest;
 
     /*********************************************************************
      * Top label
