@@ -113,7 +113,7 @@ FadeChannel *GenericFader::getChannelFader(const Doc *doc, Universe *universe, q
     if (channelIterator != m_channels.end())
         return &channelIterator.value();
 
-    if (fc.type() & QLCChannel::Intensity)
+    if (fc.type() & FadeChannel::Intensity)
         fc.setCurrent(0); // Intensity channels must start at zero
     else
         fc.setCurrent(universe->preGMValue(fc.address()));
