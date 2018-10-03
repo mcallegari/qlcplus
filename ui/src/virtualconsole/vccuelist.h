@@ -89,7 +89,7 @@ public:
      *************************************************************************/
 public:
     /** Constructor */
-    VCCueList(QWidget* parent, Doc* doc);
+    VCCueList(QWidget *parent, Doc *doc);
 
     /** Destructor */
     ~VCCueList();
@@ -102,11 +102,11 @@ public:
      *************************************************************************/
 public:
     /** Create a copy of this widget into the given parent */
-    VCWidget* createCopy(VCWidget* parent);
+    VCWidget *createCopy(VCWidget *parent);
 
 protected:
     /** Copy the contents for this widget from another widget */
-    bool copyFrom(const VCWidget* widget);
+    bool copyFrom(const VCWidget *widget);
 
     /*************************************************************************
      * Cue list
@@ -163,7 +163,7 @@ private:
     void updateStepList();
 
     /** timer for updating the step list */
-    QTimer* m_updateTimer;
+    QTimer *m_updateTimer;
 
 public slots:
     /** Play/stop/resume the cue list from the current selection */
@@ -196,7 +196,7 @@ private slots:
 
     /** Slot that is called whenever the current item changes (either by
         pressing the key binding or clicking an item with mouse) */
-    void slotItemActivated(QTreeWidgetItem* item);
+    void slotItemActivated(QTreeWidgetItem *item);
 
     /** Slot that is called whenever an item field has been changed.
         Note that only 'Notes" column is considered */
@@ -214,8 +214,11 @@ private slots:
 private:
     /** Start associated chaser */
     void startChaser(int startIndex = -1);
+
     /** Stop associated */
     void stopChaser();
+
+    int getFadeMode();
 
 public:
     enum NextPrevBehavior
@@ -244,16 +247,16 @@ private:
 
     NextPrevBehavior m_nextPrevBehavior;
     PlaybackLayout m_playbackLayout;
-    QTreeWidget* m_tree;
-    QToolButton* m_crossfadeButton;
-    QToolButton* m_playbackButton;
-    QToolButton* m_stopButton;
-    QToolButton* m_previousButton;
-    QToolButton* m_nextButton;
-    QProgressBar* m_progress;
+    QTreeWidget *m_tree;
+    QToolButton *m_crossfadeButton;
+    QToolButton *m_playbackButton;
+    QToolButton *m_stopButton;
+    QToolButton *m_previousButton;
+    QToolButton *m_nextButton;
+    QProgressBar *m_progress;
     bool m_listIsUpdating;
 
-    QTimer* m_timer;
+    QTimer *m_timer;
 
     /*************************************************************************
      * Crossfade
@@ -281,17 +284,17 @@ protected slots:
     void slotSlider2ValueChanged(int value);
 
 protected:
-    void stopStepIfNeeded(Chaser* ch);
+    void stopStepIfNeeded(Chaser *ch);
 
 private:
     QCheckBox *m_blendCheck;
     QCheckBox *m_linkCheck;
     QLabel *m_sl1TopLabel;
-    ClickAndGoSlider* m_slider1;
+    ClickAndGoSlider *m_slider1;
     QLabel *m_sl1BottomLabel;
 
     QLabel *m_sl2TopLabel;
-    ClickAndGoSlider* m_slider2;
+    ClickAndGoSlider *m_slider2;
     QLabel *m_sl2BottomLabel;
 
     QBrush m_defCol;

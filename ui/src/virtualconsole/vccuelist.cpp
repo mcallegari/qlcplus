@@ -89,7 +89,7 @@ const QString cfLabelOrangeStyle =
 const QString cfLabelNoStyle =
         "QLabel { border: 1px solid; border-radius: 3px; font: bold; }";
 
-VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
+VCCueList::VCCueList(QWidget *parent, Doc *doc) : VCWidget(parent, doc)
     , m_chaserID(Function::invalidId())
     , m_nextPrevBehavior(DefaultRunFirst)
     , m_playbackLayout(PlayPauseStop)
@@ -103,7 +103,7 @@ VCCueList::VCCueList(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     setObjectName(VCCueList::staticMetaObject.className());
 
     /* Create a layout for this widget */
-    QGridLayout* grid = new QGridLayout(this);
+    QGridLayout *grid = new QGridLayout(this);
     grid->setSpacing(2);
 
     m_blendCheck = new QCheckBox(tr("Blend"));
@@ -310,11 +310,11 @@ void VCCueList::enableWidgetUI(bool enable)
  * Clipboard
  *****************************************************************************/
 
-VCWidget* VCCueList::createCopy(VCWidget* parent)
+VCWidget *VCCueList::createCopy(VCWidget *parent)
 {
     Q_ASSERT(parent != NULL);
 
-    VCCueList* cuelist = new VCCueList(parent, m_doc);
+    VCCueList *cuelist = new VCCueList(parent, m_doc);
     if (cuelist->copyFrom(this) == false)
     {
         delete cuelist;
@@ -324,9 +324,9 @@ VCWidget* VCCueList::createCopy(VCWidget* parent)
     return cuelist;
 }
 
-bool VCCueList::copyFrom(const VCWidget* widget)
+bool VCCueList::copyFrom(const VCWidget *widget)
 {
-    const VCCueList* cuelist = qobject_cast<const VCCueList*> (widget);
+    const VCCueList *cuelist = qobject_cast<const VCCueList*> (widget);
     if (cuelist == NULL)
         return false;
 
@@ -364,7 +364,7 @@ void VCCueList::setChaser(quint32 id)
                 this, SLOT(slotCurrentStepChanged(int)));
     }
 
-    Chaser* chaser = qobject_cast<Chaser*> (m_doc->function(id));
+    Chaser *chaser = qobject_cast<Chaser*> (m_doc->function(id));
     if (chaser != NULL)
     {
         /* Connect to the new function */
@@ -413,7 +413,7 @@ void VCCueList::updateStepList()
 
     m_tree->clear();
 
-    Chaser* ch = chaser();
+    Chaser *ch = chaser();
     if (ch == NULL)
         return;
 
@@ -422,10 +422,10 @@ void VCCueList::updateStepList()
     {
         ChaserStep step(it.next());
 
-        Function* function = m_doc->function(step.fid);
+        Function *function = m_doc->function(step.fid);
         Q_ASSERT(function != NULL);
 
-        QTreeWidgetItem* item = new QTreeWidgetItem(m_tree);
+        QTreeWidgetItem *item = new QTreeWidgetItem(m_tree);
         item->setFlags(item->flags() | Qt::ItemIsEditable);
         int index = m_tree->indexOfTopLevelItem(item) + 1;
         item->setText(COL_NUM, QString("%1").arg(index));
@@ -493,7 +493,7 @@ int VCCueList::getCurrentIndex()
 
 int VCCueList::getNextIndex()
 {
-    Chaser* ch = chaser();
+    Chaser *ch = chaser();
     if (ch == NULL)
         return -1;
 
@@ -505,7 +505,7 @@ int VCCueList::getNextIndex()
 
 int VCCueList::getPrevIndex()
 {
-    Chaser* ch = chaser();
+    Chaser *ch = chaser();
     if (ch == NULL)
         return -1;
 
@@ -517,7 +517,7 @@ int VCCueList::getPrevIndex()
 
 int VCCueList::getFirstIndex()
 {
-    Chaser* ch = chaser();
+    Chaser *ch = chaser();
     if (ch == NULL)
         return -1;
 
@@ -529,7 +529,7 @@ int VCCueList::getFirstIndex()
 
 int VCCueList::getLastIndex()
 {
-    Chaser* ch = chaser();
+    Chaser *ch = chaser();
     if (ch == NULL)
         return -1;
 
@@ -610,7 +610,7 @@ void VCCueList::slotFunctionNameChanged(quint32 fid)
     else
     {
         // fid might be an ID of a ChaserStep of m_chaser
-        Chaser* ch = chaser();
+        Chaser *ch = chaser();
         if (ch == NULL)
             return;
         foreach (ChaserStep step, ch->steps())
@@ -634,7 +634,7 @@ void VCCueList::slotPlayback()
     if (mode() != Doc::Operate)
         return;
 
-    Chaser* ch = chaser();
+    Chaser *ch = chaser();
     if (ch == NULL)
         return;
 
@@ -682,7 +682,7 @@ void VCCueList::slotStop()
     if (mode() != Doc::Operate)
         return;
 
-    Chaser* ch = chaser();
+    Chaser *ch = chaser();
     if (ch == NULL)
         return;
 
@@ -723,16 +723,24 @@ void VCCueList::slotNextCue()
     if (mode() != Doc::Operate)
         return;
 
-    Chaser* ch = chaser();
+    Chaser *ch = chaser();
     if (ch == NULL)
         return;
 
     if (ch->isRunning())
     {
         if (ch->isPaused())
+        {
             m_tree->setCurrentItem(m_tree->topLevelItem(getNextIndex()));
+        }
         else
-            ch->next();
+        {
+            ChaserAction action;
+            action.m_action = ChaserNextStep;
+            action.m_intensity = getPrimaryIntensity();
+            action.m_fadeMode = getFadeMode();
+            ch->setAction(action);
+        }
     }
     else
     {
@@ -760,16 +768,24 @@ void VCCueList::slotPreviousCue()
     if (mode() != Doc::Operate)
         return;
 
-    Chaser* ch = chaser();
+    Chaser *ch = chaser();
     if (ch == NULL)
         return;
 
     if (ch->isRunning())
     {
         if (ch->isPaused())
+        {
             m_tree->setCurrentItem(m_tree->topLevelItem(getPrevIndex()));
+        }
         else
-            ch->previous();
+        {
+            ChaserAction action;
+            action.m_action = ChaserPreviousStep;
+            action.m_intensity = getPrimaryIntensity();
+            action.m_fadeMode = getFadeMode();
+            ch->setAction(action);
+        }
     }
     else
     {
@@ -800,7 +816,7 @@ void VCCueList::slotCurrentStepChanged(int stepNumber)
         return;
 
     Q_ASSERT(stepNumber < m_tree->topLevelItemCount() && stepNumber >= 0);
-    QTreeWidgetItem* item = m_tree->topLevelItem(stepNumber);
+    QTreeWidgetItem *item = m_tree->topLevelItem(stepNumber);
     Q_ASSERT(item != NULL);
     m_tree->scrollToItem(item, QAbstractItemView::PositionAtCenter);
     m_tree->setCurrentItem(item);
@@ -835,6 +851,7 @@ void VCCueList::slotCurrentStepChanged(int stepNumber)
     }
     else
     {
+/*
         // if primary side fader is halfway, apply the adjusted intensity here
         Chaser *ch = chaser();
         if (ch != NULL)
@@ -845,12 +862,13 @@ void VCCueList::slotCurrentStepChanged(int stepNumber)
                 ch->adjustIntensity((qreal)primaryValue / 100, m_primaryIndex,
                                     m_blendCheck->isChecked() ? Chaser::BlendedCrossfade : Chaser::Crossfade);
         }
+*/
         setSlidersInfo(m_primaryIndex);
     }
     emit stepChanged(m_primaryIndex);
 }
 
-void VCCueList::slotItemActivated(QTreeWidgetItem* item)
+void VCCueList::slotItemActivated(QTreeWidgetItem *item)
 {
     if (mode() != Doc::Operate)
         return;
@@ -863,7 +881,7 @@ void VCCueList::slotItemChanged(QTreeWidgetItem *item, int column)
     if (m_listIsUpdating || column != COL_NOTES)
         return;
 
-    Chaser* ch = chaser();
+    Chaser *ch = chaser();
     if (ch == NULL)
         return;
 
@@ -914,7 +932,7 @@ void VCCueList::slotFunctionStopped(quint32 fid)
 
 void VCCueList::slotProgressTimeout()
 {
-    Chaser* ch = chaser();
+    Chaser *ch = chaser();
     if (ch == NULL || !ch->isRunning())
         return;
 
@@ -966,11 +984,17 @@ void VCCueList::slotProgressTimeout()
 
 void VCCueList::startChaser(int startIndex)
 {
-    Chaser* ch = chaser();
+    Chaser *ch = chaser();
     if (ch == NULL)
         return;
-    ch->setStepIndex(startIndex);
-    ch->setStartIntensity(getPrimaryIntensity());
+
+    ChaserAction action;
+    action.m_action = ChaserSetStepIndex;
+    action.m_stepIndex = startIndex;
+    action.m_intensity = getPrimaryIntensity();
+    action.m_fadeMode = getFadeMode();
+    ch->setAction(action);
+
     adjustFunctionIntensity(ch, intensity());
     ch->start(m_doc->masterTimer(), functionParent());
     emit functionStarting(m_chaserID);
@@ -978,11 +1002,25 @@ void VCCueList::startChaser(int startIndex)
 
 void VCCueList::stopChaser()
 {
-    Chaser* ch = chaser();
+    Chaser *ch = chaser();
     if (ch == NULL)
         return;
     ch->stop(functionParent());
     resetIntensityOverrideAttribute();
+}
+
+int VCCueList::getFadeMode()
+{
+    if (slidersMode() == Steps)
+        return Chaser::FromFunction;
+
+    qreal primary = (qreal)((m_primaryLeft ? m_slider1 : m_slider2)->value()) / 100;
+    qreal secondary = (qreal)((m_primaryLeft ? m_slider2 : m_slider1)->value()) / 100;
+
+    if (primary != 1.0 && secondary != 0.0)
+        return m_blendCheck->isChecked() ? Chaser::BlendedCrossfade : Chaser::Crossfade;
+
+    return m_blendCheck->isChecked() ? Chaser::Blended : Chaser::FromFunction;
 }
 
 void VCCueList::setNextPrevBehavior(NextPrevBehavior nextPrev)
@@ -1081,7 +1119,7 @@ QString VCCueList::slidersModeToString(VCCueList::SlidersMode mode)
  *****************************************************************************/
 void VCCueList::setSlidersInfo(int index)
 {
-    Chaser* ch = chaser();
+    Chaser *ch = chaser();
     if (ch == NULL || !ch->isRunning())
         return;
 
@@ -1121,7 +1159,7 @@ void VCCueList::slotShowCrossfadePanel(bool enable)
 
 void VCCueList::slotBlendedCrossfadeChecked(bool checked)
 {
-    Chaser* ch = chaser();
+    Chaser *ch = chaser();
 
     if (ch == NULL || ch->stopped())
         return;
@@ -1132,15 +1170,15 @@ void VCCueList::slotBlendedCrossfadeChecked(bool checked)
         int secondaryValue = m_primaryLeft ? m_slider2->value() : m_slider1->value();
 
         if (primaryValue > 0 && primaryValue < 100)
-            ch->adjustIntensity((qreal)primaryValue / 100, m_primaryIndex, Chaser::Crossfade);
+            ch->adjustStepIntensity((qreal)primaryValue / 100, m_primaryIndex, Chaser::Crossfade);
         if (secondaryValue > 0 && secondaryValue < 100)
-            ch->adjustIntensity((qreal)secondaryValue / 100, m_secondaryIndex, Chaser::Crossfade);
+            ch->adjustStepIntensity((qreal)secondaryValue / 100, m_secondaryIndex, Chaser::Crossfade);
     }
     else
     {
         int secondaryValue = m_primaryLeft ? m_slider2->value() : m_slider1->value();
         if (secondaryValue > 0)
-            ch->adjustIntensity((qreal)secondaryValue / 100, m_secondaryIndex, Chaser::BlendedCrossfade);
+            ch->adjustStepIntensity((qreal)secondaryValue / 100, m_secondaryIndex, Chaser::BlendedCrossfade);
     }
 }
 
@@ -1151,7 +1189,7 @@ void VCCueList::slotSlider1ValueChanged(int value)
         value = 255 - value;
         m_sl1TopLabel->setText(QString("%1").arg(value));
 
-        Chaser* ch = chaser();
+        Chaser *ch = chaser();
         if (ch == NULL || ch->stopped())
             return;
 
@@ -1166,27 +1204,23 @@ void VCCueList::slotSlider1ValueChanged(int value)
         }
         //qDebug() << "value:" << value << "steps:" << ch->stepsCount() << "new step:" << newStep;
 
+        ChaserAction action;
+        action.m_action = ChaserSetStepIndex;
+        action.m_stepIndex = newStep;
+        ch->setAction(action);
+
         if (newStep == ch->currentStepIndex())
-        {
-            ch->setStepIndex(newStep);
             return;
-        }
-        ch->setStepIndex(newStep);
     }
     else
     {
         m_sl1TopLabel->setText(QString("%1%").arg(value));
 
-        Chaser* ch = chaser();
+        Chaser *ch = chaser();
         if (!(ch == NULL || ch->stopped()))
         {
-            int stepIndex = m_primaryLeft ? m_primaryIndex : m_secondaryIndex;
-
-            if (stepIndex == m_secondaryIndex && m_blendCheck->isChecked())
-                ch->adjustIntensity((qreal)value / 100, stepIndex, Chaser::BlendedCrossfade);
-            else
-                ch->adjustIntensity((qreal)value / 100, stepIndex, Chaser::Crossfade);
-
+            int stepIndex = m_primaryLeft ? m_primaryIndex : m_secondaryIndex;            
+            ch->adjustStepIntensity((qreal)value / 100, stepIndex, Chaser::FadeControlMode(getFadeMode()));
             stopStepIfNeeded(ch);
         }
 
@@ -1207,16 +1241,11 @@ void VCCueList::slotSlider2ValueChanged(int value)
 
     m_sl2TopLabel->setText(QString("%1%").arg(value));
 
-    Chaser* ch = chaser();
+    Chaser *ch = chaser();
     if (!(ch == NULL || ch->stopped()))
     {
         int stepIndex = m_primaryLeft ? m_secondaryIndex : m_primaryIndex;
-
-        if (stepIndex == m_secondaryIndex && m_blendCheck->isChecked())
-            ch->adjustIntensity((qreal)value / 100, stepIndex, Chaser::BlendedCrossfade);
-        else
-            ch->adjustIntensity((qreal)value / 100, stepIndex, Chaser::Crossfade);
-
+        ch->adjustStepIntensity((qreal)value / 100, stepIndex, Chaser::FadeControlMode(getFadeMode()));
         stopStepIfNeeded(ch);
     }
 
@@ -1226,7 +1255,7 @@ void VCCueList::slotSlider2ValueChanged(int value)
     updateFeedback();
 }
 
-void VCCueList::stopStepIfNeeded(Chaser* ch)
+void VCCueList::stopStepIfNeeded(Chaser *ch)
 {
     if (ch->runningStepsNumber() != 2)
         return;
@@ -1234,14 +1263,19 @@ void VCCueList::stopStepIfNeeded(Chaser* ch)
     int primaryValue = m_primaryLeft ? m_slider1->value() : m_slider2->value();
     int secondaryValue = m_primaryLeft ? m_slider2->value() : m_slider1->value();
 
+    ChaserAction action;
+    action.m_action = ChaserStopStep;
+
     if (primaryValue == 0)
     {
         m_primaryLeft = !m_primaryLeft;
-        ch->stopStep(m_primaryIndex);
+        action.m_stepIndex = m_primaryIndex;
+        ch->setAction(action);
     }
     else if (secondaryValue == 0)
     {
-        ch->stopStep(m_secondaryIndex);
+        action.m_stepIndex = m_secondaryIndex;
+        ch->setAction(action);
     }
 }
 
@@ -1311,7 +1345,7 @@ void VCCueList::updateFeedback()
     fbv = (int)SCALE(float(100 - m_slider2->value()), float(0), float(100), float(0), float(UCHAR_MAX));
     sendFeedback(fbv, cf2InputSourceId);
 
-    Chaser* ch = chaser();
+    Chaser *ch = chaser();
     if (ch == NULL)
         return;
 
@@ -1428,7 +1462,7 @@ void VCCueList::slotInputValueChanged(quint32 universe, quint32 channel, uchar v
 
 void VCCueList::adjustIntensity(qreal val)
 {
-    Chaser* ch = chaser();
+    Chaser *ch = chaser();
     if (ch != NULL)
     {
         adjustFunctionIntensity(ch, val);
@@ -1437,9 +1471,9 @@ void VCCueList::adjustIntensity(qreal val)
         if (!ch->stopped() && slidersMode() == Crossfade)
         {
             if (m_slider1->value() != 0)
-                ch->adjustIntensity((qreal)m_slider1->value() / 100, m_primaryLeft ? m_primaryIndex : m_secondaryIndex);
+                ch->adjustStepIntensity((qreal)m_slider1->value() / 100, m_primaryLeft ? m_primaryIndex : m_secondaryIndex);
             if (m_slider2->value() != 0)
-                ch->adjustIntensity((qreal)m_slider2->value() / 100, m_primaryLeft ? m_secondaryIndex : m_primaryIndex);
+                ch->adjustStepIntensity((qreal)m_slider2->value() / 100, m_primaryLeft ? m_secondaryIndex : m_primaryIndex);
         }
     }
 
@@ -1510,13 +1544,18 @@ void VCCueList::playCueAtIndex(int idx)
 
     m_primaryIndex = idx;
 
-    Chaser* ch = chaser();
+    Chaser *ch = chaser();
     if (ch == NULL)
         return;
 
     if (ch->isRunning())
     {
-        ch->setCurrentStep(m_primaryIndex, getPrimaryIntensity());
+        ChaserAction action;
+        action.m_action = ChaserSetStepIndex;
+        action.m_stepIndex = m_primaryIndex;
+        action.m_intensity = getPrimaryIntensity();
+        action.m_fadeMode = getFadeMode();
+        ch->setAction(action);
     }
     else
     {
@@ -1655,7 +1694,7 @@ bool VCCueList::loadXML(QXmlStreamReader &root)
     if (legacyStepList.isEmpty() == false)
     {
         /* Construct a new chaser from legacy step functions and use that chaser */
-        Chaser* chaser = new Chaser(m_doc);
+        Chaser *chaser = new Chaser(m_doc);
         chaser->setName(caption());
 
         // Legacy cue lists relied on individual functions' timings and a common hold time
@@ -1665,7 +1704,7 @@ bool VCCueList::loadXML(QXmlStreamReader &root)
 
         foreach (quint32 id, legacyStepList)
         {
-            Function* function = m_doc->function(id);
+            Function *function = m_doc->function(id);
             if (function == NULL)
                 continue;
 
