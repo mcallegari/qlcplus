@@ -383,8 +383,13 @@ void VCCueList::startChaser(int startIndex)
     if (ch == NULL)
         return;
 
-    ch->setStepIndex(startIndex);
-    //ch->setStartIntensity(getPrimaryIntensity());
+    ChaserAction action;
+    action.m_action = ChaserSetStepIndex;
+    action.m_stepIndex = startIndex;
+    //action.m_intensity = getPrimaryIntensity();
+    //action.m_fadeMode = getFadeMode();
+    ch->setAction(action);
+
     adjustFunctionIntensity(ch, intensity());
     ch->start(m_doc->masterTimer(), functionParent());
     emit functionStarting(this, m_chaserID, intensity());
@@ -499,7 +504,13 @@ void VCCueList::previousClicked()
         if (ch->isPaused())
             setPlaybackIndex(getPrevIndex());
         else
-            ch->previous();
+        {
+            ChaserAction action;
+            action.m_action = ChaserPreviousStep;
+            //action.m_intensity = getPrimaryIntensity();
+            //action.m_fadeMode = getFadeMode();
+            ch->setAction(action);
+        }
     }
     else
     {
@@ -533,7 +544,13 @@ void VCCueList::nextClicked()
         if (ch->isPaused())
             setPlaybackIndex(getNextIndex());
         else
-            ch->next();
+        {
+            ChaserAction action;
+            action.m_action = ChaserNextStep;
+            //action.m_intensity = getPrimaryIntensity();
+            //action.m_fadeMode = getFadeMode();
+            ch->setAction(action);
+        }
     }
     else
     {

@@ -182,7 +182,12 @@ void ChaserEditor::setPlaybackIndex(int playbackIndex)
 void ChaserEditor::setPreviewEnabled(bool enable)
 {
     if (m_chaser != NULL && m_playbackIndex >= 0)
-        m_chaser->setStepIndex(m_playbackIndex);
+    {
+        ChaserAction action;
+        action.m_action = ChaserSetStepIndex;
+        action.m_stepIndex = m_playbackIndex;
+        m_chaser->setAction(action);
+    }
 
     FunctionEditor::setPreviewEnabled(enable);
 }
