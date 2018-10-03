@@ -666,7 +666,10 @@ void Scene::write(MasterTimer *timer, QList<Universe*> ua)
 
             FadeChannel *fc = fader->getChannelFader(doc(), ua[universe], scv.fxi, scv.channel);
 
-            //qDebug() << "Scene" << name() << "add channel" << scv.channel << "from" << fc->current() << "to" << scv.value;
+            if (blendMode() != Universe::NormalBlend)
+                fc->setCurrent(0);
+
+            qDebug() << "Scene" << name() << "add channel" << scv.channel << "from" << fc->current() << "to" << scv.value;
 
             fc->setStart(fc->current());
             fc->setTarget(scv.value);
