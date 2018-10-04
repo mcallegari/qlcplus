@@ -58,7 +58,7 @@
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="15">no gobo</Capability>
   <Capability Min="16" Max="31" Res="Others/gobo00013.svg">gobo 1</Capability>
-  <Capability Min="32" Max="47" Res="Others/gobo00037.png">gobo 2</Capability>
+  <Capability Min="32" Max="47" Res="Others/gobo00037.svg">gobo 2</Capability>
   <Capability Min="48" Max="63" Res="SGM-Color/gobo00547.png">gobo 3</Capability>
   <Capability Min="64" Max="79" Res="Chauvet/gobo00040.svg">gobo 4</Capability>
   <Capability Min="80" Max="95" Res="SGM/gobo00089.svg">gobo 5</Capability>
@@ -103,7 +103,7 @@
   <Capability Min="32" Max="35" Res="Others/gobo00016.svg">G8</Capability>
   <Capability Min="36" Max="39" Res="GLP/gobo00031.png">G9</Capability>
   <Capability Min="40" Max="43" Res="Others/gobo00013.svg">G10</Capability>
-  <Capability Min="44" Max="47" Res="Others/gobo00037.png">G11</Capability>
+  <Capability Min="44" Max="47" Res="Others/gobo00037.svg">G11</Capability>
   <Capability Min="48" Max="51" Res="SGM-Color/gobo00547.png">G12</Capability>
   <Capability Min="52" Max="55" Res="Chauvet/gobo00040.svg">G13</Capability>
   <Capability Min="56" Max="59" Res="SGM/gobo00089.svg">G14</Capability>

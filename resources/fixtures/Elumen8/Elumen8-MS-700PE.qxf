@@ -85,7 +85,7 @@
   <Capability Min="36" Max="42" Res="ClayPaky/gobo00058.svg">Gobo 5</Capability>
   <Capability Min="43" Max="49">Gobo 6</Capability>
   <Capability Min="50" Max="56">Gobo 7</Capability>
-  <Capability Min="57" Max="63" Res="Others/gobo00037.png">Gobo 8</Capability>
+  <Capability Min="57" Max="63" Res="Others/gobo00037.svg">Gobo 8</Capability>
   <Capability Min="64" Max="71" Res="SGM/gobo00010.png">Gobo 1 Shaking</Capability>
   <Capability Min="72" Max="79" Res="Chauvet/gobo00060.png">Gobo 2 Shaking</Capability>
   <Capability Min="80" Max="87" Res="SGM/gobo00280.png">Gobo 3 Shaking</Capability>
@@ -93,7 +93,7 @@
   <Capability Min="96" Max="103" Res="ClayPaky/gobo00058.svg">Gobo 5 Shaking</Capability>
   <Capability Min="104" Max="111">Gobo 6 Shaking</Capability>
   <Capability Min="112" Max="119">Gobo 7 Shaking</Capability>
-  <Capability Min="120" Max="127" Res="Others/gobo00037.png">Gobo 8 Shaking</Capability>
+  <Capability Min="120" Max="127" Res="Others/gobo00037.svg">Gobo 8 Shaking</Capability>
   <Capability Min="128" Max="189">CCW Fast - Slow</Capability>
   <Capability Min="190" Max="193">Stop</Capability>
   <Capability Min="194" Max="255">CW Slow - Fast</Capability>
