@@ -26,6 +26,7 @@
 #include <QMap>
 
 #include "function.h"
+#include "chaseraction.h"
 
 class QElapsedTimer;
 class FadeChannel;
@@ -42,7 +43,7 @@ class Doc;
 typedef struct
 {
     int m_index;                        //! Index of the step from the original Chaser
-    Function* m_function;               //! Currently active function
+    Function *m_function;               //! Currently active function
     quint32 m_elapsed;                  //! Elapsed milliseconds
     quint32 m_elapsedBeats;             //! Elapsed beats
     uint m_fadeIn;                      //! Step fade in in ms
@@ -64,8 +65,8 @@ private slots:
     void slotChaserChanged();
 
 private:
-    const Doc* m_doc;
-    const Chaser* m_chaser;
+    const Doc *m_doc;
+    const Chaser *m_chaser;
 
     /************************************************************************
      * Speed
@@ -87,35 +88,12 @@ private:
      * Step control
      ************************************************************************/
 public:
-    /**
-     * Skip to the next scene, obeying direction and run order settings.
-     */
-    void next();
-
-    /**
-     * Skip to the previous scene, obeying direction and run order settings.
-     */
-    void previous();
+    void setAction(ChaserAction &action);
 
     /**
      * Produce a tap event to the runner, possibly producing a next() call.
      */
     void tap();
-
-    /**
-     * Stop a specific running step
-     * @param stepIndex Index of the running step to stop
-     */
-    void stopStep(int stepIndex);
-
-    /**
-     * Set the NEW current step number. The value of m_currentStep is changed
-     * on the next call to write().
-     *
-     * @param step Step number to set
-     * @param intensity Optional startup intensity
-     */
-    void setCurrentStep(int step, qreal intensity = 1.0);
 
     /**
      * Get the current step number.
@@ -140,7 +118,7 @@ public:
      * Get the first step of the running list.
      * If none is running this returns NULL
      */
-    ChaserRunnerStep* currentRunningStep() const;
+    ChaserRunnerStep *currentRunningStep() const;
 
 private:
     /**
@@ -174,11 +152,9 @@ private:
     Function::Direction m_direction;        //! Run-time direction (reversed by ping-pong)
     QList <ChaserRunnerStep *> m_runnerSteps;  //! Queue of the currently running steps
     quint32 m_startOffset;                  //! Start step offset time in milliseconds
-    bool m_next;                            //! If true, skips to the next step when write is called
-    bool m_previous;                        //! If true, skips to the previous step when write is called
-    int m_newStartStepIdx;                  //! Manually set the start step index
+    ChaserAction m_pendingAction;           //! Action to be performed on steps at the next write call
     int m_lastRunStepIdx;                   //! Index of the last step ran
-    QElapsedTimer* m_roundTime;             //! Counts the time between steps
+    QElapsedTimer *m_roundTime;             //! Counts the time between steps
     QVector<int> m_order;                   //! Array of step indices in a randomized order
 
     /************************************************************************
@@ -188,7 +164,7 @@ public:
     /**
      * Adjust the intensities of chaser steps.
      */
-    void adjustIntensity(qreal fraction, int stepIndex = -1, int fadeControl = 0);
+    void adjustStepIntensity(qreal fraction, int stepIndex = -1, int fadeControl = 0);
 
 private:
     qreal m_intensity;

@@ -37,18 +37,12 @@ ScriptRunner::ScriptRunner(Doc *doc, QString &content, QObject *parent)
     , m_running(false)
     , m_engine(NULL)
     , m_waitCount(0)
-    , m_fader(NULL)
 {
 }
 
 ScriptRunner::~ScriptRunner()
 {
     stop();
-
-    // Stops keeping HTP channels up
-    if (m_fader != NULL)
-        delete m_fader;
-    m_fader = NULL;
 }
 
 void ScriptRunner::execute()
@@ -84,6 +78,11 @@ void ScriptRunner::stop()
         function->stop(FunctionParent::master());
     }
     m_startedFunctions.clear();
+
+    // request to delete all the active faders
+    foreach (GenericFader *fader, m_fadersMap.values())
+        fader->requestDelete();
+    m_fadersMap.clear();
 }
 
 QStringList ScriptRunner::collectScriptData()
@@ -135,20 +134,35 @@ int ScriptRunner::currentWaitTime()
     return m_waitCount * MasterTimer::tick();
 }
 
-GenericFader *ScriptRunner::fader()
-{
-    // Create a fader if it doesn't exist yet
-    if (m_fader == NULL)
-        m_fader = new GenericFader(m_doc);
-
-    return m_fader;
-}
-
 bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
 {
     if (m_waitCount > 0)
         m_waitCount--;
 
+    if (m_fixtureValueQueue.count())
+    {
+        while (!m_fixtureValueQueue.isEmpty())
+        {
+            FixtureValue val = m_fixtureValueQueue.dequeue();
+
+            GenericFader *fader = m_fadersMap.value(val.m_universe, NULL);
+            if (fader == NULL)
+            {
+                fader = universes[val.m_universe]->requestFader();
+                //fader->adjustIntensity(getAttributeValue(Intensity));
+                //fader->setBlendMode(blendMode());
+                m_fadersMap[val.m_universe] = fader;
+            }
+
+            FadeChannel *fc = fader->getChannelFader(m_doc, universes[val.m_universe], val.m_fixtureID, val.m_channel);
+
+            fc->setStart(fc->current());
+            fc->setTarget(val.m_value);
+            fc->setFadeTime(val.m_fadeTime);
+            fc->setElapsed(0);
+            fc->setReady(false);
+        }
+    }
     if (m_functionQueue.count())
     {
         while (!m_functionQueue.isEmpty())
@@ -176,10 +190,6 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
             }
         }
     }
-
-    // Handle GenericFader tasks (setFixture)
-    if (m_fader)
-        m_fader->write(universes);
 
     // If the JS call method has ended on its own, the thread
     // has finished, therefore there's nothing else to run here
@@ -275,24 +285,14 @@ bool ScriptRunner::setFixture(quint32 fxID, quint32 channel, uchar value, uint t
         return false;
     }
 
-    GenericFader *gf = fader();
-    Q_ASSERT(gf != NULL);
-
-    FadeChannel fc(m_doc, fxi->id(), channel);
-    fc.setTarget(value);
-    fc.setFadeTime(time);
-
-    // If the script has used the channel previously, it might still be in
-    // the bowels of GenericFader so get the starting value from there.
-    // Otherwise get it from universes (HTP channels are always 0 then).
-    //quint32 uni = fc.universe();
-    if (gf->channels().contains(fc) == true)
-        fc.setStart(gf->channels()[fc].current());
-    //else
-    //    fc.setStart(universes[uni]->preGMValue(address)); // TODO ?
-    fc.setCurrent(fc.start());
-
-    gf->add(fc);
+    // enqueue this fixture value to be processed at the next write call
+    FixtureValue val;
+    val.m_universe = fxi->universe();
+    val.m_fixtureID = fxID;
+    val.m_channel = channel;
+    val.m_value = value;
+    val.m_fadeTime = time;
+    m_fixtureValueQueue.enqueue(val);
 
     return true;
 }

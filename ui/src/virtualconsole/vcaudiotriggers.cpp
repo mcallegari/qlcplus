@@ -28,6 +28,8 @@
 #include "vcaudiotriggers.h"
 #include "virtualconsole.h"
 #include "audiocapture.h"
+#include "genericfader.h"
+#include "fadechannel.h"
 #include "universe.h"
 #include "audiobar.h"
 #include "apputil.h"
@@ -155,9 +157,7 @@ VCAudioTriggers::~VCAudioTriggers()
     QSharedPointer<AudioCapture> capture(m_doc->audioInputCapture());
 
     if (m_inputCapture == capture.data())
-    {
         m_inputCapture->unregisterBandsNumber(m_spectrum->barsNumber());
-    }
 }
 
 void VCAudioTriggers::enableWidgetUI(bool enable)
@@ -280,26 +280,61 @@ void VCAudioTriggers::writeDMX(MasterTimer *timer, QList<Universe *> universes)
     if (mode() == Doc::Design)
         return;
 
+    quint32 lastUniverse = Universe::invalid();
+    GenericFader *fader = NULL;
+
     if (m_volumeBar->m_type == AudioBar::DMXBar)
     {
-        for(int i = 0; i < m_volumeBar->m_absDmxChannels.count(); i++)
+        for (int i = 0; i < m_volumeBar->m_absDmxChannels.count(); i++)
         {
-            quint32 address = m_volumeBar->m_absDmxChannels.at(i) & 0x01FF;
-            int uni = m_volumeBar->m_absDmxChannels.at(i) >> 9;
-            if (uni < universes.count())
-                universes[uni]->write(address, m_volumeBar->m_value);
+            int absAddress = m_volumeBar->m_absDmxChannels.at(i);
+            //quint32 address = absAddress & 0x01FF;
+            quint32 universe = absAddress >> 9;
+            if (universe != lastUniverse)
+            {
+                fader = m_fadersMap.value(universe, NULL);
+                if (fader == NULL)
+                {
+                    fader = universes[universe]->requestFader();
+                    fader->adjustIntensity(intensity());
+                    m_fadersMap[universe] = fader;
+                }
+                lastUniverse = universe;
+            }
+
+            FadeChannel *fc = fader->getChannelFader(m_doc, universes[universe], Fixture::invalidId(), absAddress);           
+            fc->setStart(fc->current());
+            fc->setTarget(m_volumeBar->m_value);
+            fc->setReady(false);
+            fc->setElapsed(0);
         }
     }
     foreach(AudioBar *sb, m_spectrumBars)
     {
         if (sb->m_type == AudioBar::DMXBar)
         {
-            for(int i = 0; i < sb->m_absDmxChannels.count(); i++)
+            for (int i = 0; i < sb->m_absDmxChannels.count(); i++)
             {
-                quint32 address = sb->m_absDmxChannels.at(i) & 0x01FF;
-                int uni = sb->m_absDmxChannels.at(i) >> 9;
-                if (uni < universes.count())
-                    universes[uni]->write(address, sb->m_value);
+                int absAddress = sb->m_absDmxChannels.at(i);
+                //quint32 address = absAddress & 0x01FF;
+                quint32 universe = absAddress >> 9;
+                if (universe != lastUniverse)
+                {
+                    fader = m_fadersMap.value(universe, NULL);
+                    if (fader == NULL)
+                    {
+                        fader = universes[universe]->requestFader();
+                        fader->adjustIntensity(intensity());
+                        m_fadersMap[universe] = fader;
+                    }
+                    lastUniverse = universe;
+                }
+
+                FadeChannel *fc = fader->getChannelFader(m_doc, universes[universe], Fixture::invalidId(), absAddress);
+                fc->setStart(fc->current());
+                fc->setTarget(sb->m_value);
+                fc->setReady(false);
+                fc->setElapsed(0);
             }
         }
     }
@@ -430,6 +465,11 @@ void VCAudioTriggers::slotModeChanged(Doc::Mode mode)
         enableWidgetUI(false);
         enableCapture(false);
         m_doc->masterTimer()->unregisterDMXSource(this);
+
+        // request to delete all the active faders
+        foreach (GenericFader *fader, m_fadersMap.values())
+            fader->requestDelete();
+        m_fadersMap.clear();
     }
     VCWidget::slotModeChanged(mode);
 }

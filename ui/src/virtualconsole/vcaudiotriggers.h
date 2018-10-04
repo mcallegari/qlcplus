@@ -108,6 +108,10 @@ public:
     /** @reimpl */
     void writeDMX(MasterTimer* timer, QList<Universe*> universes);
 
+private:
+    /** Map used to lookup a GenericFader instance for a Universe ID */
+    QMap<quint32, GenericFader *> m_fadersMap;
+
     /*********************************************************************
      * Key sequence handler
      *********************************************************************/

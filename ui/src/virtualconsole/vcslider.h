@@ -89,7 +89,7 @@ public:
      *********************************************************************/
 public:
     /** Normal constructor */
-    VCSlider(QWidget* parent, Doc* doc);
+    VCSlider(QWidget *parent, Doc *doc);
 
     /** Destructor */
     ~VCSlider();
@@ -106,11 +106,11 @@ public:
      *********************************************************************/
 public:
     /** Create a copy of this widget into the given parent */
-    VCWidget* createCopy(VCWidget* parent);
+    VCWidget *createCopy(VCWidget *parent);
 
 protected:
     /** Copy the contents for this widget from another widget */
-    bool copyFrom(const VCWidget* widget);
+    bool copyFrom(const VCWidget *widget);
 
     /*********************************************************************
      * GUI
@@ -123,7 +123,7 @@ public:
 
 protected:
     /** @reimp */
-    void hideEvent(QHideEvent* ev);
+    void hideEvent(QHideEvent *ev);
 
     /*********************************************************************
      * Properties
@@ -339,6 +339,8 @@ protected slots:
      *  has changed */
     void slotMonitorDMXValueChanged(int value);
 
+    void slotUniverseWritten(quint32 idx, const QByteArray& universeData);
+
 protected:
     QList <VCSlider::LevelChannel> m_levelChannels;
     uchar m_levelLowLimit;
@@ -420,14 +422,18 @@ signals:
      *********************************************************************/
 public:
     /** @reimpl */
-    void writeDMX(MasterTimer* timer, QList<Universe*> universes);
+    void writeDMX(MasterTimer *timer, QList<Universe*> universes);
 
 protected:
     /** writeDMX for Level mode */
-    void writeDMXLevel(MasterTimer* timer, QList<Universe*> universes);
+    void writeDMXLevel(MasterTimer *timer, QList<Universe*> universes);
 
     /** writeDMX for Playback mode */
-    void writeDMXPlayback(MasterTimer* timer, QList<Universe*> universes);
+    void writeDMXPlayback(MasterTimer *timer, QList<Universe*> universes);
+
+private:
+    /** Map used to lookup a GenericFader instance for a Universe ID */
+    QMap<quint32, GenericFader *> m_fadersMap;
 
     /*********************************************************************
      * Top label
@@ -444,7 +450,7 @@ public:
     QString topLabelText();
 
 protected:
-    QLabel* m_topLabel;
+    QLabel *m_topLabel;
 
     /*********************************************************************
      * Slider / Knob
@@ -481,8 +487,8 @@ private slots:
     void slotSliderMoved(int value);
 
 protected:
-    QHBoxLayout* m_hbox;
-    QAbstractSlider* m_slider; //!< either ClickAndGoSlider or KnobWidget
+    QHBoxLayout *m_hbox;
+    QAbstractSlider *m_slider; //!< either ClickAndGoSlider or KnobWidget
     bool m_externalMovement;
     SliderWidgetStyle m_widgetMode;
 
@@ -501,7 +507,7 @@ public:
     QString bottomLabelText();
 
 protected:
-    QLabel* m_bottomLabel;
+    QLabel *m_bottomLabel;
 
     /*********************************************************************
      * Click & Go Button

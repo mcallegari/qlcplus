@@ -68,6 +68,7 @@ HEADERS += bus.h \
            channelsgroup.h \
            channelmodifier.h \
            chaser.h \
+           chaseraction.h \
            chaserrunner.h \
            chaserstep.h \
            collection.h \

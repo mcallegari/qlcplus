@@ -177,11 +177,16 @@ VCXYPad::VCXYPad(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
     setLiveEdit(m_liveEdit);
 
     m_doc->masterTimer()->registerDMXSource(this);
+    connect(m_doc->inputOutputMap(), SIGNAL(universeWritten(quint32,QByteArray)),
+            this, SLOT(slotUniverseWritten(quint32,QByteArray)));
 }
 
 VCXYPad::~VCXYPad()
 {
     m_doc->masterTimer()->unregisterDMXSource(this);
+    foreach (GenericFader *fader, m_fadersMap.values())
+        fader->requestDelete();
+    m_fadersMap.clear();
 }
 
 void VCXYPad::enableWidgetUI(bool enable)
@@ -380,30 +385,32 @@ void VCXYPad::writeXYFixtures(MasterTimer *timer, QList<Universe *> universes)
         foreach (VCXYPadFixture fixture, m_fixtures)
         {
             if (fixture.isEnabled())
-                fixture.writeDMX(x, y, universes);
+            {
+                quint32 universe = fixture.universe();
+                if (universe == Universe::invalid())
+                    continue;
+
+                GenericFader *fader = m_fadersMap.value(universe, NULL);
+                if (fader == NULL)
+                {
+                    fader = universes[universe]->requestFader();
+                    fader->adjustIntensity(intensity());
+                    m_fadersMap[universe] = fader;
+                }
+                fixture.writeDMX(x, y, fader, universes[universe]);
+            }
         }
     }
+}
 
-    QVariantList positions;
-    foreach (VCXYPadFixture fixture, m_fixtures)
-    {
-        if (fixture.isEnabled() == false)
-            continue;
-
-        qreal x(-1), y(-1);
-        fixture.readDMX(universes, x, y);
-        if( x != -1.0 && y != -1.0)
-        {
-            if (invertedAppearance())
-                y = qreal(1) - y;
-
-           x *= 256;
-           y *= 256;
-           positions.append(QPointF(x, y));
-        }
-    }
-
-    emit fixturePositions(positions);
+void VCXYPad::updateSceneChannel(FadeChannel *fc, uchar value)
+{
+    fc->setTypeFlag(FadeChannel::Relative);
+    fc->setStart(value);
+    fc->setCurrent(value);
+    fc->setTarget(value);
+    fc->setElapsed(0);
+    fc->setReady(false);
 }
 
 void VCXYPad::writeScenePositions(MasterTimer *timer, QList<Universe *> universes)
@@ -419,54 +426,46 @@ void VCXYPad::writeScenePositions(MasterTimer *timer, QList<Universe *> universe
     uchar tiltCoarse = uchar(qFloor(pt.y()));
     uchar tiltFine = uchar((pt.y() - qFloor(pt.y())) * 256);
 
-    QVariantList positions;
-    QMap <quint32, QPointF> fxMap;
-
     foreach(SceneChannel sc, m_sceneChannels)
     {
-        if(sc.m_universe >= (quint32)universes.count())
+        if (sc.m_universe >= (quint32)universes.count())
             continue;
 
-        qreal x = fxMap[sc.m_fixture].x();
-        qreal y = fxMap[sc.m_fixture].y();
+        GenericFader *fader = m_fadersMap.value(sc.m_universe, NULL);
+        if (fader == NULL)
+        {
+            fader = universes[sc.m_universe]->requestFader();
+            fader->adjustIntensity(intensity());
+            m_fadersMap[sc.m_universe] = fader;
+        }
 
         if (sc.m_group == QLCChannel::Pan)
         {
             if (sc.m_subType == QLCChannel::MSB)
             {
-                universes.at(sc.m_universe)->writeRelative(sc.m_channel, panCoarse);
-                x += universes.at(sc.m_universe)->postGMValue(sc.m_channel);
+                FadeChannel *fc = fader->getChannelFader(m_doc, universes[sc.m_universe], sc.m_fixture, sc.m_channel);
+                updateSceneChannel(fc, panCoarse);
             }
             else
             {
-                universes.at(sc.m_universe)->writeRelative(sc.m_channel, panFine);
-                x += (universes.at(sc.m_universe)->postGMValue(sc.m_channel) / 255);
+                FadeChannel *fc = fader->getChannelFader(m_doc, universes[sc.m_universe], sc.m_fixture, sc.m_channel);
+                updateSceneChannel(fc, panFine);
             }
         }
         else
         {
             if (sc.m_subType == QLCChannel::MSB)
             {
-                universes.at(sc.m_universe)->writeRelative(sc.m_channel, tiltCoarse);
-                y += universes.at(sc.m_universe)->postGMValue(sc.m_channel);
+                FadeChannel *fc = fader->getChannelFader(m_doc, universes[sc.m_universe], sc.m_fixture, sc.m_channel);
+                updateSceneChannel(fc, tiltCoarse);
             }
             else
             {
-                universes.at(sc.m_universe)->writeRelative(sc.m_channel, tiltFine);
-                y += (universes.at(sc.m_universe)->postGMValue(sc.m_channel) / 255);
+                FadeChannel *fc = fader->getChannelFader(m_doc, universes[sc.m_universe], sc.m_fixture, sc.m_channel);
+                updateSceneChannel(fc, tiltFine);
             }
         }
-        fxMap[sc.m_fixture] = QPointF(x, y);
     }
-
-    foreach(QPointF pt, fxMap.values())
-    {
-        if (invertedAppearance())
-            pt.setY(256 - pt.y());
-        positions.append(pt);
-    }
-
-    emit fixturePositions(positions);
 }
 
 void VCXYPad::slotPositionChanged(const QPointF& pt)
@@ -551,6 +550,73 @@ void VCXYPad::slotRangeValueChanged()
         sendFeedback(m_hRangeSlider->maximumValue(), heightInputSourceId);
     else if(QObject::sender() == m_vRangeSlider)
         sendFeedback(m_vRangeSlider->maximumValue(), widthInputSourceId);
+}
+
+void VCXYPad::slotUniverseWritten(quint32 idx, const QByteArray &universeData)
+{
+    QVariantList positions;
+
+    if (m_scene)
+    {
+        QMap <quint32, QPointF> fxMap;
+
+        foreach(SceneChannel sc, m_sceneChannels)
+        {
+            if (sc.m_universe != idx)
+                continue;
+
+            qreal x = fxMap[sc.m_fixture].x();
+            qreal y = fxMap[sc.m_fixture].y();
+
+            if (sc.m_group == QLCChannel::Pan)
+            {
+                if (sc.m_subType == QLCChannel::MSB)
+                    x += (uchar)universeData.at(sc.m_channel);
+                else
+                    x += ((uchar)universeData.at(sc.m_channel) / 255);
+            }
+            else
+            {
+                if (sc.m_subType == QLCChannel::MSB)
+                    y += (uchar)universeData.at(sc.m_channel);
+                else
+                    y += ((uchar)universeData.at(sc.m_channel) / 255);
+            }
+            fxMap[sc.m_fixture] = QPointF(x, y);
+        }
+
+        foreach(QPointF pt, fxMap.values())
+        {
+            if (invertedAppearance())
+                pt.setY(256 - pt.y());
+            positions.append(pt);
+        }
+    }
+    else
+    {
+        foreach (VCXYPadFixture fixture, m_fixtures)
+        {
+            if (fixture.isEnabled() == false)
+                continue;
+
+            if (fixture.universe() != idx)
+                continue;
+
+            qreal x(-1), y(-1);
+            fixture.readDMX(universeData, x, y);
+            if( x != -1.0 && y != -1.0)
+            {
+                if (invertedAppearance())
+                    y = qreal(1) - y;
+
+               x *= 256;
+               y *= 256;
+               positions.append(QPointF(x, y));
+            }
+        }
+    }
+
+    emit fixturePositions(positions);
 }
 
 /*********************************************************************
@@ -646,6 +712,9 @@ void VCXYPad::slotPresetClicked(bool checked)
     {
         m_scene->stop(functionParent());
         m_scene = NULL;
+        foreach (GenericFader *fader, m_fadersMap.values())
+            fader->requestDelete();
+        m_fadersMap.clear();
     }
 
     // deactivate all previously activated buttons first

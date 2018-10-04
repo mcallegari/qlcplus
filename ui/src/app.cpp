@@ -298,8 +298,8 @@ void App::init()
     connect(m_doc->inputOutputMap(), SIGNAL(blackoutChanged(bool)), this, SLOT(slotBlackoutChanged(bool)));
 
     // Listen to DMX value changes and update each Fixture values array
-    connect(m_doc->inputOutputMap(), SIGNAL(universesWritten(int, const QByteArray&)),
-            this, SLOT(slotUniversesWritten(int, const QByteArray&)));
+    connect(m_doc->inputOutputMap(), SIGNAL(universeWritten(quint32, const QByteArray&)),
+            this, SLOT(slotUniverseWritten(quint32, const QByteArray&)));
 
     // Enable/Disable panic button
     connect(m_doc->masterTimer(), SIGNAL(functionListChanged()), this, SLOT(slotRunningFunctionsChanged()));
@@ -453,6 +453,7 @@ void App::clearDocument()
     m_doc->inputOutputMap()->resetUniverses();
     setFileName(QString());
     m_doc->resetModified();
+    m_doc->inputOutputMap()->startUniverses();
     m_doc->masterTimer()->start();
 }
 
@@ -506,6 +507,7 @@ void App::initDoc()
     qDebug() << "[App] Doc initialization took" << speedTime.elapsed() << "ms";
 #endif
 
+    m_doc->inputOutputMap()->startUniverses();
     m_doc->masterTimer()->start();
 }
 
@@ -524,11 +526,11 @@ void App::slotDocModified(bool state)
         setWindowTitle(caption);
 }
 
-void App::slotUniversesWritten(int idx, const QByteArray &ua)
+void App::slotUniverseWritten(quint32 idx, const QByteArray &ua)
 {
     foreach(Fixture *fixture, m_doc->fixtures())
     {
-        if (fixture->universe() != (quint32)idx)
+        if (fixture->universe() != idx)
             continue;
 
         fixture->setChannelValues(ua);
@@ -794,33 +796,33 @@ bool App::handleFileError(QFile::FileError error)
 
     switch (error)
     {
-    case QFile::NoError:
-        return true;
+        case QFile::NoError:
+            return true;
         break;
-    case QFile::ReadError:
-        msg = tr("Unable to read from file");
+        case QFile::ReadError:
+            msg = tr("Unable to read from file");
         break;
-    case QFile::WriteError:
-        msg = tr("Unable to write to file");
+        case QFile::WriteError:
+            msg = tr("Unable to write to file");
         break;
-    case QFile::FatalError:
-        msg = tr("A fatal error occurred");
+        case QFile::FatalError:
+            msg = tr("A fatal error occurred");
         break;
-    case QFile::ResourceError:
-        msg = tr("Unable to access resource");
+        case QFile::ResourceError:
+            msg = tr("Unable to access resource");
         break;
-    case QFile::OpenError:
-        msg = tr("Unable to open file for reading or writing");
+        case QFile::OpenError:
+            msg = tr("Unable to open file for reading or writing");
         break;
-    case QFile::AbortError:
-        msg = tr("Operation was aborted");
+        case QFile::AbortError:
+            msg = tr("Operation was aborted");
         break;
-    case QFile::TimeOutError:
-        msg = tr("Operation timed out");
+        case QFile::TimeOutError:
+            msg = tr("Operation timed out");
         break;
-    default:
-    case QFile::UnspecifiedError:
-        msg = tr("An unspecified error has occurred. Nice.");
+        default:
+        case QFile::UnspecifiedError:
+            msg = tr("An unspecified error has occurred. Nice.");
         break;
     }
 
@@ -1429,6 +1431,8 @@ bool App::loadXML(QXmlStreamReader& doc, bool goToConsole, bool fromMemory)
         layout->addItem(horizontalSpacer, layout->rowCount(), 0, 1, layout->columnCount());
         msg.exec();
     }
+
+    m_doc->inputOutputMap()->startUniverses();
 
     return true;
 }

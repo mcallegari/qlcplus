@@ -1,8 +1,8 @@
 /*
-  Q Light Controller - Unit test
-  fadechannel_test.h
+  Q Light Controller Plus
+  chaseraction.h
 
-  Copyright (c) Heikki Junnila
+  Copyright (C) Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -17,27 +17,26 @@
   limitations under the License.
 */
 
-#ifndef FADECHANNEL_TEST_H
-#define FADECHANNEL_TEST_H
+#ifndef CHASERACTION_H
+#define CHASERACTION_H
 
-#include <QObject>
+#include <QtGlobal>
 
-class FadeChannel_Test : public QObject
+enum ChaserActionType
 {
-    Q_OBJECT
-
-private slots:
-    void address();
-    void addressInUniverse();
-    void comparison();
-    void type();
-    void start();
-    void target();
-    void current();
-    void ready();
-    void fadeTime();
-    void nextStep();
-    void calculateCurrent();
+    ChaserNoAction,
+    ChaserStopStep,
+    ChaserNextStep,
+    ChaserPreviousStep,
+    ChaserSetStepIndex
 };
 
-#endif
+typedef struct
+{
+    ChaserActionType m_action = ChaserNoAction;
+    qreal m_intensity = 1.0;
+    int m_fadeMode = 0; // Chaser::FromFunction;
+    int m_stepIndex = -1;
+} ChaserAction;
+
+#endif /* CHASERACTION_H */

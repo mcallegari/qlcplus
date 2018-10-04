@@ -94,7 +94,7 @@ void EFX_Test::initial()
     QCOMPARE(e.fixtures().size(), 0);
     QCOMPARE(e.propagationMode(), EFX::Parallel);
 
-    QCOMPARE(e.m_fader, (GenericFader*)(NULL));
+    QCOMPARE(e.m_fadersMap.count(), 0);
     QCOMPARE(e.m_legacyFadeBus, Bus::invalid());
     QCOMPARE(e.m_legacyHoldBus, Bus::invalid());
 }
@@ -3175,16 +3175,16 @@ void EFX_Test::preRunPostRun()
 
     EFX* e = new EFX(m_doc);
     e->setName("Test EFX");
-    QVERIFY(e->m_fader == NULL);
+    QVERIFY(e->m_fadersMap.count() == 0);
 
     QSignalSpy spy(e, SIGNAL(running(quint32)));
     e->preRun(&timer);
-    QVERIFY(e->m_fader != NULL);
+    QVERIFY(e->m_fadersMap.count() == 0);
     QCOMPARE(spy.size(), 1);
     QCOMPARE(spy[0].size(), 1);
     QCOMPARE(spy[0][0].toUInt(), e->id());
     e->postRun(&timer, ua);
-    QVERIFY(e->m_fader == NULL);
+    QVERIFY(e->m_fadersMap.count() == 0);
 }
 
 void EFX_Test::adjustIntensity()
@@ -3229,7 +3229,7 @@ void EFX_Test::adjustIntensity()
     e->preRun(m_doc->masterTimer());
 
     e->adjustAttribute(0.5);
-    QCOMPARE(e->m_fader->intensity(), 0.5);
+    QCOMPARE(e->getAttributeValue(Function::Intensity), 0.5);
 
     QList<Universe*> ua;
     ua.append(new Universe(0, new GrandMaster()));

@@ -46,7 +46,6 @@
 InputOutputMap::InputOutputMap(Doc *doc, quint32 universes)
   : QObject(doc)
   , m_blackout(false)
-  , m_blackoutRequest(BlackoutRequestNone)
   , m_universeChanged(false)
   , m_beatTime(new QElapsedTimer())
 {
@@ -87,41 +86,22 @@ bool InputOutputMap::toggleBlackout()
 
 bool InputOutputMap::setBlackout(bool blackout)
 {
-    m_blackoutRequest = BlackoutRequestNone;
-
     /* Don't do blackout twice */
     if (m_blackout == blackout)
         return false;
 
-    QMutexLocker locker(&m_universeMutex);
     m_blackout = blackout;
 
-    for (quint32 i = 0; i < universesCount(); i++)
+    // blackout is an atomic setting, so it's safe to do it
+    // without mutex locking
+    foreach (Universe *universe, m_universeArray)
     {
-        Universe *universe = m_universeArray.at(i);
-        QByteArray data;
-
-        for (int j = 0; j < universe->outputPatchesCount(); j++)
+        for (int i = 0; i < universe->outputPatchesCount(); i++)
         {
-            OutputPatch *op = universe->outputPatch(j);
+            OutputPatch *op = universe->outputPatch(i);
             if (op != NULL)
                 op->setBlackout(blackout);
         }
-
-        if (blackout == true)
-        {
-            universe->dumpBlackout();
-            data = universe->blackoutData();
-        }
-        else
-        {
-            data = universe->postGMValues()->mid(0, universe->usedChannels());
-        }
-
-        // notify the universe listeners that some channels have changed
-        locker.unlock();
-        emit universesWritten(i, data);
-        locker.relock();
     }
 
     emit blackoutChanged(m_blackout);
@@ -131,7 +111,8 @@ bool InputOutputMap::setBlackout(bool blackout)
 
 void InputOutputMap::requestBlackout(BlackoutRequest blackout)
 {
-    m_blackoutRequest = blackout;
+    if (blackout != BlackoutRequestNone)
+        setBlackout(blackout == BlackoutRequestOn ? true : false);
 }
 
 bool InputOutputMap::blackout() const
@@ -152,8 +133,12 @@ bool InputOutputMap::addUniverse(quint32 id)
 {
     {
         QMutexLocker locker(&m_universeMutex);
+        Universe *uni = NULL;
+
         if (id == InputOutputMap::invalidUniverse())
+        {
             id = universesCount();
+        }
         else if (id < universesCount())
         {
             qWarning() << Q_FUNC_INFO
@@ -165,15 +150,20 @@ bool InputOutputMap::addUniverse(quint32 id)
         {
             qDebug() << Q_FUNC_INFO
                 << "Gap between universe" << (universesCount() - 1)
-                << "and universe" << id
-                << ", filling the gap...";
+                << "and universe" << id << ", filling the gap...";
             while (id > universesCount())
             {
-                m_universeArray.append(new Universe(universesCount(), m_grandMaster));
+                uni = new Universe(universesCount(), m_grandMaster);
+                connect(doc()->masterTimer(), SIGNAL(tickReady()), uni, SLOT(tick()), Qt::QueuedConnection);
+                connect(uni, SIGNAL(universeWritten(quint32,QByteArray)), this, SIGNAL(universeWritten(quint32,QByteArray)));
+                m_universeArray.append(uni);
             }
         }
 
-        m_universeArray.append(new Universe(id, m_grandMaster));
+        uni = new Universe(id, m_grandMaster);
+        connect(doc()->masterTimer(), SIGNAL(tickReady()), uni, SLOT(tick()), Qt::QueuedConnection);
+        connect(uni, SIGNAL(universeWritten(quint32,QByteArray)), this, SIGNAL(universeWritten(quint32,QByteArray)));
+        m_universeArray.append(uni);
     }
 
     emit universeAdded(id);
@@ -208,6 +198,12 @@ bool InputOutputMap::removeAllUniverses()
     qDeleteAll(m_universeArray);
     m_universeArray.clear();
     return true;
+}
+
+void InputOutputMap::startUniverses()
+{
+    foreach (Universe *uni, m_universeArray)
+        uni->start();
 }
 
 quint32 InputOutputMap::getUniverseID(int index)
@@ -296,36 +292,6 @@ void InputOutputMap::releaseUniverses(bool changed)
     m_universeMutex.unlock();
 }
 
-void InputOutputMap::dumpUniverses()
-{
-    if (m_blackoutRequest != BlackoutRequestNone)
-    {
-        if (setBlackout(m_blackoutRequest == BlackoutRequestOn ? true : false))
-            return;
-    }
-
-    QMutexLocker locker(&m_universeMutex);
-    if (m_blackout == false)
-    {
-        for (int i = 0; i < m_universeArray.count(); i++)
-        {
-            Universe *universe = m_universeArray.at(i);
-            const QByteArray postGM = universe->postGMValues()->mid(0, universe->usedChannels());
-
-            // notify the universe listeners that some channels have changed
-            if (universe->hasChanged())
-            {
-                locker.unlock();
-                emit universesWritten(i, postGM);
-                locker.relock();
-            }
-
-            // this is where QLC+ sends data to the output plugins
-            universe->dumpOutput(postGM);
-        }
-    }
-}
-
 void InputOutputMap::resetUniverses()
 {
     {
@@ -410,13 +376,8 @@ uchar InputOutputMap::grandMasterValue()
 void InputOutputMap::flushInputs()
 {
     QMutexLocker locker(&m_universeMutex);
-
-    for (int i = 0; i < m_universeArray.count(); i++)
-    {
-        Universe *universe = m_universeArray.at(i);
-
+    foreach (Universe *universe, m_universeArray)
         universe->flushInput();
-    }
 }
 
 bool InputOutputMap::setInputPatch(quint32 universe, const QString &pluginName,

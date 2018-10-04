@@ -61,16 +61,12 @@ const QStringList knownKeywords(QStringList() << "ch" << "val" << "arg");
 Script::Script(Doc* doc) : Function(doc, Function::ScriptType)
     , m_currentCommand(0)
     , m_waitCount(0)
-    , m_fader(NULL)
 {
     setName(tr("New Script"));
 }
 
 Script::~Script()
 {
-    if (m_fader != NULL)
-        delete m_fader;
-    m_fader = NULL;
 }
 
 QIcon Script::getIcon() const
@@ -325,7 +321,7 @@ bool Script::saveXML(QXmlStreamWriter *doc)
  * Running
  ****************************************************************************/
 
-void Script::preRun(MasterTimer* timer)
+void Script::preRun(MasterTimer *timer)
 {
     // Reset
     m_waitCount = 0;
@@ -335,48 +331,43 @@ void Script::preRun(MasterTimer* timer)
     Function::preRun(timer);
 }
 
-void Script::write(MasterTimer* timer, QList<Universe *> universes)
+void Script::write(MasterTimer *timer, QList<Universe *> universes)
 {
-    if (isPaused())
+    if (stopped() || isPaused())
         return;
 
     incrementElapsed();
 
-    if (stopped() == false)
+    if (waiting() == false)
     {
-        if (waiting() == false)
+        // Not currently waiting for anything. Free to proceed to next command.
+        while (m_currentCommand < m_lines.size() && stopped() == false)
         {
-            // Not currently waiting for anything. Free to proceed to next command.
-            while (m_currentCommand < m_lines.size() && stopped() == false)
-            {
-                bool continueLoop = executeCommand(m_currentCommand, timer, universes);
-                m_currentCommand++;
-                if (continueLoop == false)
-                    break; // Executed command told to skip to the next cycle
-            }
-
-            // In case wait() is the last command, don't stop the script prematurely
-            if (m_currentCommand >= m_lines.size() && m_waitCount == 0)
-                stop(FunctionParent::master());
+            bool continueLoop = executeCommand(m_currentCommand, timer, universes);
+            m_currentCommand++;
+            if (continueLoop == false)
+                break; // Executed command told to skip to the next cycle
         }
 
-        // Handle GenericFader tasks (setltp/sethtp/setfixture)
-        if (m_fader != NULL)
-            m_fader->write(universes);
+        // In case wait() is the last command, don't stop the script prematurely
+        if (m_currentCommand >= m_lines.size() && m_waitCount == 0)
+            stop(FunctionParent::master());
     }
+
+    // Handle GenericFader tasks (setltp/sethtp/setfixture)
+    //if (m_fader != NULL)
+    //    m_fader->write(universes);
 }
 
-void Script::postRun(MasterTimer* timer, QList<Universe *> universes)
+void Script::postRun(MasterTimer *timer, QList<Universe *> universes)
 {
     // Stop all functions started by this script
-    foreach (Function* function, m_startedFunctions)
+    foreach (Function *function, m_startedFunctions)
         function->stop(FunctionParent::master());
+
     m_startedFunctions.clear();
 
-    // Stops keeping HTP channels up
-    if (m_fader != NULL)
-        delete m_fader;
-    m_fader = NULL;
+    dismissAllFaders(universes);
 
     Function::postRun(timer, universes);
 }
@@ -540,10 +531,10 @@ QString Script::handleStopFunction(const QList <QStringList>& tokens)
     if (ok == false)
         return QString("Invalid function ID: %1").arg(tokens[0][1]);
 
-    Doc* doc = qobject_cast<Doc*> (parent());
+    Doc *doc = qobject_cast<Doc*> (parent());
     Q_ASSERT(doc != NULL);
 
-    Function* function = doc->function(id);
+    Function *function = doc->function(id);
     if (function != NULL)
     {
         function->stop(FunctionParent::master());
@@ -655,10 +646,10 @@ QString Script::handleSetFixture(const QList<QStringList>& tokens, QList<Univers
         }
     }
 
-    Doc* doc = qobject_cast<Doc*> (parent());
+    Doc *doc = qobject_cast<Doc*> (parent());
     Q_ASSERT(doc != NULL);
 
-    Fixture* fxi = doc->fixture(id);
+    Fixture *fxi = doc->fixture(id);
     if (fxi != NULL)
     {
         if (ch < fxi->channels())
@@ -666,24 +657,19 @@ QString Script::handleSetFixture(const QList<QStringList>& tokens, QList<Univers
             int address = fxi->address() + ch;
             if (address < 512)
             {
-                GenericFader* gf = fader();
-                Q_ASSERT(gf != NULL);
+                quint32 universe = fxi->universe();
+                GenericFader *fader = m_fadersMap.value(universe, NULL);
+                if (fader == NULL)
+                {
+                    fader = universes[universe]->requestFader();
+                    fader->adjustIntensity(getAttributeValue(Intensity));
+                    fader->setBlendMode(blendMode());
+                    m_fadersMap[universe] = fader;
+                }
 
-                FadeChannel fc(doc, fxi->id(), ch);
-                fc.setTarget(value);
-                fc.setFadeTime(time);
-
-                // If the script has used the channel previously, it might still be in
-                // the bowels of GenericFader so get the starting value from there.
-                // Otherwise get it from universes (HTP channels are always 0 then).
-                quint32 uni = fc.universe();
-                if (gf->channels().contains(fc) == true)
-                    fc.setStart(gf->channels()[fc].current());
-                else
-                    fc.setStart(universes[uni]->preGMValue(address));
-                fc.setCurrent(fc.start());
-
-                gf->add(fc);
+                FadeChannel *fc = fader->getChannelFader(doc, universes[universe], fxi->id(), ch);
+                fc->setTarget(value);
+                fc->setFadeTime(time);
 
                 return QString();
             }
@@ -857,14 +843,3 @@ QList <QStringList> Script::tokenizeLine(const QString& str, bool* ok)
     return tokens;
 }
 
-GenericFader* Script::fader()
-{
-    // Create a fader if it doesn't exist yet
-    if (m_fader == NULL)
-    {
-        Doc* doc = qobject_cast<Doc*> (parent());
-        Q_ASSERT(doc != NULL);
-        m_fader = new GenericFader(doc);
-    }
-    return m_fader;
-}
