@@ -62,6 +62,9 @@ Chaser::Chaser(Doc* doc)
             this, SLOT(slotFunctionRemoved(quint32)));
 
     m_startupAction.m_action = ChaserNoAction;
+    m_startupAction.m_intensity = 1.0;
+    m_startupAction.m_fadeMode = FromFunction;
+    m_startupAction.m_stepIndex = -1;
 }
 
 Chaser::~Chaser()

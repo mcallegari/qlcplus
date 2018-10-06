@@ -46,6 +46,11 @@ ChaserRunner::ChaserRunner(const Doc *doc, const Chaser *chaser, quint32 startTi
 {
     Q_ASSERT(chaser != NULL);
 
+    m_pendingAction.m_action = ChaserNoAction;
+    m_pendingAction.m_intensity = 1.0;
+    m_pendingAction.m_fadeMode = Chaser::FromFunction;
+    m_pendingAction.m_stepIndex = -1;
+
     if (m_chaser->type() == Function::SequenceType)
     {
         qDebug() << "[ChaserRunner] startTime:" << startTime;
