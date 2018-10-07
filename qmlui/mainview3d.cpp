@@ -1000,8 +1000,8 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
     quint32 itemID = FixtureUtils::fixtureItemID(fixture->id(), headIndex, linkedIndex);
     SceneItem *meshItem = m_entitiesMap.value(itemID, NULL);
     QColor color;
-
     bool setPosition = false;
+    bool colorSet = false;
     bool goboSet = false;
     int panValue = 0;
     int tiltValue = 0;
@@ -1018,28 +1018,43 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
     if (fixture->type() == QLCFixtureDef::Dimmer)
     {
         qreal value = (qreal)fixture->channelValueAt(headIndex) / 255.0;
-        fixtureItem->setProperty("dimmerValue", value);
+        QMetaObject::invokeMethod(fixtureItem, "setHeadIntensity",
+                Q_ARG(QVariant, 0),
+                Q_ARG(QVariant, value));
 
         QColor gelColor = m_monProps->fixtureGelColor(fixture->id(), headIndex, linkedIndex);
         if (gelColor.isValid() == false)
             gelColor = Qt::white;
 
-        fixtureItem->setProperty("lightColor", gelColor);
+        QMetaObject::invokeMethod(fixtureItem, "setHeadRGBColor",
+                Q_ARG(QVariant, 0),
+                Q_ARG(QVariant, gelColor));
 
         return;
     }
 
-    quint32 headDimmerIndex = fixture->channelNumber(QLCChannel::Intensity, QLCChannel::MSB);
-    if (headDimmerIndex == QLCChannel::invalid())
-        headDimmerIndex = fixture->masterIntensityChannel();
+    for (int headIdx = 0; headIdx < fixture->heads(); headIdx++)
+    {
+        quint32 headDimmerIndex = fixture->channelNumber(QLCChannel::Intensity, QLCChannel::MSB, headIdx);
+        if (headDimmerIndex == QLCChannel::invalid())
+            headDimmerIndex = fixture->masterIntensityChannel();
 
-    qreal intensityValue = 1.0;
-    if (headDimmerIndex != QLCChannel::invalid())
-        intensityValue = (qreal)fixture->channelValueAt(headDimmerIndex) / 255;
+        //qDebug() << "Head" << headIdx << "dimmer channel:" << mdIndex;
+        qreal intensityValue = 1.0;
+        if (headDimmerIndex != QLCChannel::invalid())
+            intensityValue = (qreal)fixture->channelValueAt(headDimmerIndex) / 255;
 
-    fixtureItem->setProperty("dimmerValue", intensityValue);
+        QMetaObject::invokeMethod(fixtureItem, "setHeadIntensity",
+                Q_ARG(QVariant, headIdx),
+                Q_ARG(QVariant, intensityValue));
 
-    color = FixtureUtils::headColor(fixture);
+        color = FixtureUtils::headColor(fixture, headIdx);
+
+        QMetaObject::invokeMethod(fixtureItem, "setHeadRGBColor",
+                                  Q_ARG(QVariant, headIdx),
+                                  Q_ARG(QVariant, color));
+        colorSet = true;
+    } // for heads
 
     // now scan all the channels for "common" capabilities
     for (quint32 i = 0; i < fixture->channels(); i++)
@@ -1088,6 +1103,9 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
             break;
             case QLCChannel::Colour:
             {
+                if (colorSet && value == 0)
+                    break;
+
                 QLCCapability *cap = ch->searchCapability(value);
 
                 if (cap == NULL ||
@@ -1095,8 +1113,16 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                     cap->presetType() != QLCCapability::DoubleColor))
                     break;
 
-                if (cap->resource(0).isValid())
-                    color = FixtureUtils::applyColorFilter(color, cap->resource(0).value<QColor>());
+                QColor wheelColor1 = cap->resource(0).value<QColor>();
+                //QColor wheelColor2 = cap->resource(1).value<QColor>();
+
+                if (wheelColor1.isValid())
+                {
+                    color = FixtureUtils::applyColorFilter(color, wheelColor1);
+                    QMetaObject::invokeMethod(fixtureItem, "setHeadRGBColor",
+                                              Q_ARG(QVariant, 0),
+                                              Q_ARG(QVariant, color));
+                }
             }
             break;
             case QLCChannel::Beam:
@@ -1184,8 +1210,6 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                 Q_ARG(QVariant, panValue),
                 Q_ARG(QVariant, tiltValue));
     }
-
-    fixtureItem->setProperty("lightColor", color);
 }
 
 void MainView3D::updateFixtureSelection(QList<quint32> fixtures)

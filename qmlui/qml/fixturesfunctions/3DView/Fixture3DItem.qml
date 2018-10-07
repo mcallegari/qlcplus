@@ -96,7 +96,6 @@ Entity
     /* ********************* Light properties ********************* */
     /* ****** These are bound to uniforms in ScreenQuadEntity ***** */
 
-    property int lightIndex
     property real lightIntensity: dimmerValue * shutterValue
     property real dimmerValue: 0
     property real shutterValue: sAnimator.shutterValue
@@ -135,6 +134,16 @@ Entity
         fixtureEntity.tiltMaxDegrees = maxDegrees
         tiltRotation = maxDegrees / 2
         t.rotationX = Qt.binding(function() { return tiltRotation })
+    }
+
+    function setHeadIntensity(headIndex, intensity)
+    {
+        dimmerValue = intensity
+    }
+
+    function setHeadRGBColor(headIndex, color)
+    {
+        lightColor = color
     }
 
     function setPosition(pan, tilt)

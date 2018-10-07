@@ -79,12 +79,7 @@ Entity
     /* ********************* Light properties ********************* */
     /* ****** These are bound to uniforms in ScreenQuadEntity ***** */
 
-    property int lightIndex
-    property real lightIntensity: dimmerValue * shutterValue
-    property real dimmerValue: 0
     property real shutterValue: 1.0
-    //property color lightColor: Qt.rgba(0, 0, 0, 1)
-    //property vector3d lightPos: Qt.vector3d(0, 0, 0)
     property vector3d lightDir: Math3D.getLightDirection(transform, 0, tiltTransform)
 
     /* ********************** Light matrices ********************** */
@@ -106,6 +101,16 @@ Entity
         tiltRotation = maxDegrees / 2
         t.rotationX = Qt.binding(function() { return tiltRotation })
         */
+    }
+
+    function setHeadIntensity(headIndex, intensity)
+    {
+        headsRepeater.itemAt(headIndex).dimmerValue = intensity
+    }
+
+    function setHeadRGBColor(headIndex, color)
+    {
+        headsRepeater.itemAt(headIndex).lightColor = color
     }
 
     function setPosition(pan, tilt)
@@ -217,6 +222,12 @@ Entity
         delegate:
             Entity
             {
+                property real dimmerValue: 0
+                property real lightIntensity: dimmerValue * shutterValue
+
+                property color lightColor: Qt.rgba(0, 0, 0, 1)
+                property vector3d lightPos: Qt.vector3d(0, 0, 0)
+
                 property Transform transform: Transform { translation: Qt.vector3d(0, - (groundMesh.yExtent / 2), 0) }
 
                 property RenderTarget shadowMap:

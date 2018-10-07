@@ -336,6 +336,7 @@ void MainView2D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
 {
     quint32 itemID = FixtureUtils::fixtureItemID(fixture->id(), headIndex, linkedIndex);
     QQuickItem *fxItem = m_itemsMap.value(itemID, NULL);
+    QColor color;
     bool colorSet = false;
     bool goboSet = false;
     bool setPosition = false;
@@ -380,9 +381,11 @@ void MainView2D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                 Q_ARG(QVariant, headIdx),
                 Q_ARG(QVariant, intValue));
 
+        color = FixtureUtils::headColor(fixture, headIdx);
+
         QMetaObject::invokeMethod(fxItem, "setHeadRGBColor",
                                   Q_ARG(QVariant, headIdx),
-                                  Q_ARG(QVariant, FixtureUtils::headColor(fixture, headIdx)));
+                                  Q_ARG(QVariant, color));
         colorSet = true;
     } // for heads
 
@@ -434,6 +437,8 @@ void MainView2D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                 {
                     if (wheelColor2.isValid())
                     {
+                        wheelColor1 = FixtureUtils::applyColorFilter(color, wheelColor1);
+                        wheelColor2 = FixtureUtils::applyColorFilter(color, wheelColor2);
                         QMetaObject::invokeMethod(fxItem, "setWheelColor",
                                                   Q_ARG(QVariant, 0),
                                                   Q_ARG(QVariant, wheelColor1),
@@ -441,6 +446,7 @@ void MainView2D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                     }
                     else
                     {
+                        wheelColor1 = FixtureUtils::applyColorFilter(color, wheelColor1);
                         QMetaObject::invokeMethod(fxItem, "setHeadRGBColor",
                                                   Q_ARG(QVariant, 0),
                                                   Q_ARG(QVariant, wheelColor1));
