@@ -74,6 +74,8 @@ public:
 
     QLCPhysical& operator=(const QLCPhysical& physical);
 
+    bool isEmpty() const;
+
     /************************************************************************
      * Properties
      ************************************************************************/
