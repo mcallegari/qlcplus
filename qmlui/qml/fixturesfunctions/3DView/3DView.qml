@@ -63,6 +63,8 @@ Rectangle
         function updateSceneGraph(create)
         {
             var ic
+            var iHead
+            var headEntity
             var component
             var sgNode
             var fixtures = []
@@ -98,15 +100,18 @@ Rectangle
 
                 if (fixtureItem.useShadows)
                 {
-                    component = Qt.createComponent("RenderShadowMapFilter.qml");
-                    if (component.status === Component.Error)
-                        console.log("Error loading component:", component.errorString());
-
-                    sgNode = component.createObject(frameGraph.myShadowFrameGraphNode,
+                    for (iHead = 0; iHead < fixtureItem.headsNumber; iHead++)
                     {
-                        "sceneDeferredLayer": sceneEntity.deferredLayer,
-                        "fixtureItem": fixtureItem
-                    });
+                        component = Qt.createComponent("RenderShadowMapFilter.qml");
+                        if (component.status === Component.Error)
+                            console.log("Error loading component:", component.errorString());
+
+                        sgNode = component.createObject(frameGraph.myShadowFrameGraphNode,
+                        {
+                            "sceneDeferredLayer": sceneEntity.deferredLayer,
+                            "fixtureItem": fixtureItem.getHead(iHead)
+                        });
+                    }
                 }
             }
 
@@ -146,18 +151,23 @@ Rectangle
             {
                 fixtureItem = fixtures[ic]
 
-                component = Qt.createComponent("SpotlightShadingFilter.qml");
-                if (component.status === Component.Error)
-                    console.log("Error loading component:", component.errorString());
-
-                sgNode = component.createObject(frameGraph.myCameraSelector,
+                for (iHead = 0; iHead < fixtureItem.headsNumber; iHead++)
                 {
-                    "gBuffer": gBufferTarget,
-                    "shadowTex": fixtureItem.shadowMap.depth,
-                    "useShadows": fixtureItem.useShadows,
-                    "spotlightShadingLayer": fixtureItem.spotlightShadingLayer,
-                    "frameTarget": frameTarget
-                });
+                    headEntity = fixtureItem.getHead(iHead)
+
+                    component = Qt.createComponent("SpotlightShadingFilter.qml");
+                    if (component.status === Component.Error)
+                        console.log("Error loading component:", component.errorString());
+
+                    sgNode = component.createObject(frameGraph.myCameraSelector,
+                    {
+                        "gBuffer": gBufferTarget,
+                        "shadowTex": headEntity.shadowMap.depth,
+                        "useShadows": fixtureItem.useShadows,
+                        "spotlightShadingLayer": headEntity.spotlightShadingLayer,
+                        "frameTarget": frameTarget
+                    });
+                }
             }
 
             for (ic = 0; ic < fixtures.length; ++ic)
@@ -166,30 +176,35 @@ Rectangle
 
                 if (fixtureItem.useScattering)
                 {
-                    component = Qt.createComponent("OutputFrontDepthFilter.qml");
-                    if (component.status === Component.Error)
-                        console.log("Error loading component:", component.errorString());
-
-                    sgNode = component.createObject(frameGraph.myCameraSelector,
+                    for (iHead = 0; iHead < fixtureItem.headsNumber; iHead++)
                     {
-                        "frontDepth": depthTarget,
-                        "outputDepthLayer": fixtureItem.outputDepthLayer
-                    });
+                        headEntity = fixtureItem.getHead(iHead)
 
-                    component = Qt.createComponent("SpotlightScatteringFilter.qml");
-                    if (component.status === Component.Error)
-                        console.log("Error loading component:", component.errorString());
+                        component = Qt.createComponent("OutputFrontDepthFilter.qml");
+                        if (component.status === Component.Error)
+                            console.log("Error loading component:", component.errorString());
 
-                    sgNode = component.createObject(frameGraph.myCameraSelector,
-                    {
-                        "fixtureItem": fixtureItem,
-                        "frontDepth": depthTarget,
-                        "gBuffer": gBufferTarget,
-                        "spotlightScatteringLayer": fixtureItem.spotlightScatteringLayer,
-                        "shadowTex": fixtureItem.shadowMap.depth,
-                        "frameTarget": frameTarget,
-                        "useShadows": fixtureItem.useShadows
-                    });
+                        sgNode = component.createObject(frameGraph.myCameraSelector,
+                        {
+                            "frontDepth": depthTarget,
+                            "outputDepthLayer": headEntity.outputDepthLayer
+                        });
+
+                        component = Qt.createComponent("SpotlightScatteringFilter.qml");
+                        if (component.status === Component.Error)
+                            console.log("Error loading component:", component.errorString());
+
+                        sgNode = component.createObject(frameGraph.myCameraSelector,
+                        {
+                            "fixtureItem": fixtureItem,
+                            "frontDepth": depthTarget,
+                            "gBuffer": gBufferTarget,
+                            "spotlightScatteringLayer": headEntity.spotlightScatteringLayer,
+                            "shadowTex": headEntity.shadowMap.depth,
+                            "frameTarget": frameTarget,
+                            "useShadows": fixtureItem.useShadows
+                        });
+                    }
                 }
             }
 

@@ -67,10 +67,6 @@ Entity
     }
 
     /* **************** Spotlight cone properties **************** */
-    readonly property Layer spotlightShadingLayer: Layer { objectName: "spotlightShadingLayer" }
-    readonly property Layer outputDepthLayer: Layer { objectName: "outputDepthLayer" }
-    readonly property Layer spotlightScatteringLayer: Layer { objectName: "spotlightScatteringLayer" }
-
     property real coneBottomRadius: distCutoff * Math.tan(cutoffAngle) + coneTopRadius
     property real coneTopRadius: (0.24023 / 2) * transform.scale3D.x * 0.7 // (diameter / 2) * scale * magic number
 
@@ -82,16 +78,6 @@ Entity
     property real shutterValue: 1.0
     property vector3d lightDir: Math3D.getLightDirection(transform, 0, tiltTransform)
 
-    /* ********************** Light matrices ********************** */
-    property matrix4x4 lightMatrix
-    property matrix4x4 lightViewMatrix:
-        Math3D.getLightViewMatrix(lightMatrix, 0, tiltRotation, lightPos)
-    property matrix4x4 lightProjectionMatrix:
-        Math3D.getLightProjectionMatrix(distCutoff, coneBottomRadius, coneTopRadius, headLength, cutoffAngle)
-    property matrix4x4 lightViewProjectionMatrix: lightProjectionMatrix.times(lightViewMatrix)
-    property matrix4x4 lightViewProjectionScaleAndOffsetMatrix:
-        Math3D.getLightViewProjectionScaleOffsetMatrix(lightViewProjectionMatrix)
-
     function bindTiltTransform(t, maxDegrees)
     {
         /*
@@ -101,6 +87,11 @@ Entity
         tiltRotation = maxDegrees / 2
         t.rotationX = Qt.binding(function() { return tiltRotation })
         */
+    }
+
+    function getHead(headIndex)
+    {
+        return headsRepeater.itemAt(headIndex)
     }
 
     function setHeadIntensity(headIndex, intensity)
@@ -222,11 +213,26 @@ Entity
         delegate:
             Entity
             {
+                id: headEntity
                 property real dimmerValue: 0
                 property real lightIntensity: dimmerValue * shutterValue
 
                 property color lightColor: Qt.rgba(0, 0, 0, 1)
                 property vector3d lightPos: Qt.vector3d(0, 0, 0)
+
+                readonly property Layer spotlightShadingLayer: Layer { }
+                readonly property Layer outputDepthLayer: Layer { }
+                readonly property Layer spotlightScatteringLayer: Layer { }
+
+                /* ********************** Light matrices ********************** */
+                property matrix4x4 lightMatrix
+                property matrix4x4 lightViewMatrix:
+                    Math3D.getLightViewMatrix(lightMatrix, 0, tiltRotation, lightPos)
+                property matrix4x4 lightProjectionMatrix:
+                    Math3D.getLightProjectionMatrix(distCutoff, coneBottomRadius, coneTopRadius, headLength, cutoffAngle)
+                property matrix4x4 lightViewProjectionMatrix: lightProjectionMatrix.times(lightViewMatrix)
+                property matrix4x4 lightViewProjectionScaleAndOffsetMatrix:
+                    Math3D.getLightViewProjectionScaleOffsetMatrix(lightViewProjectionMatrix)
 
                 property Transform transform: Transform { translation: Qt.vector3d(0, - (groundMesh.yExtent / 2), 0) }
 
@@ -265,19 +271,19 @@ Entity
                 {
                     id: shadingCone
                     coneLayer: spotlightShadingLayer
-                    fxEntity: fixtureEntity
+                    fxEntity: headEntity
                 }
                 SpotlightConeEntity
                 {
                     id: scatteringCone
                     coneLayer: spotlightScatteringLayer
-                    fxEntity: fixtureEntity
+                    fxEntity: headEntity
                 }
                 SpotlightConeEntity
                 {
                     id: outDepthCone
                     coneLayer: outputDepthLayer
-                    fxEntity: fixtureEntity
+                    fxEntity: headEntity
                 }
 
                 components: [

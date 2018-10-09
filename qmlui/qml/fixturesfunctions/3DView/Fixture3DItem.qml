@@ -36,6 +36,7 @@ Entity
     property int itemID: fixtureManager.invalidFixture()
     property alias itemSource: eSceneLoader.source
     property bool isSelected: false
+    property int headsNumber: 1
 
     onItemIDChanged: isSelected = contextManager.isFixtureSelected(itemID)
 
@@ -134,6 +135,11 @@ Entity
         fixtureEntity.tiltMaxDegrees = maxDegrees
         tiltRotation = maxDegrees / 2
         t.rotationX = Qt.binding(function() { return tiltRotation })
+    }
+
+    function getHead(headIndex)
+    {
+        return fixtureEntity
     }
 
     function setHeadIntensity(headIndex, intensity)
