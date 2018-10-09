@@ -29,7 +29,7 @@ DECLARE_GBUFFER_OUTPUT
 
 void main()
 {
-    MGL_FRAG_DATA0 = vec4(diffuse.xyzw);
+    MGL_FRAG_DATA0 = vec4(10.0, 0.0, 0.0, 1.0);
     MGL_FRAG_DATA1 = vec4(fsNormal.xyz, 1.0);
 
     MGL_FRAG_DATA2 = vec4(specular.xyz, shininess);

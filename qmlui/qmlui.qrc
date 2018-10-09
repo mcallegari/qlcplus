@@ -139,8 +139,9 @@
     <file alias="BlitEffect.qml">qml/fixturesfunctions/3DView/BlitEffect.qml</file>
     <file alias="FXAAEffect.qml">qml/fixturesfunctions/3DView/FXAAEffect.qml</file>
     <file alias="GrabBrightEffect.qml">qml/fixturesfunctions/3DView/GrabBrightEffect.qml</file>
-    <file alias="BlurEffect.qml">qml/fixturesfunctions/3DView/BlurEffect.qml</file>
-
+    <file alias="DownsampleEffect.qml">qml/fixturesfunctions/3DView/DownsampleEffect.qml</file>
+    <file alias="UpsampleEffect.qml">qml/fixturesfunctions/3DView/UpsampleEffect.qml</file>
+ 
     <file alias="OutputFrontDepthEffect.qml">qml/fixturesfunctions/3DView/OutputFrontDepthEffect.qml</file>
     <file alias="FillGBufferFilter.qml">qml/fixturesfunctions/3DView/FillGBufferFilter.qml</file>
     <file alias="DirectionalLightFilter.qml">qml/fixturesfunctions/3DView/DirectionalLightFilter.qml</file>
@@ -150,8 +151,9 @@
     <file alias="OutputFrontDepthFilter.qml">qml/fixturesfunctions/3DView/OutputFrontDepthFilter.qml</file>
     <file alias="RenderShadowMapFilter.qml">qml/fixturesfunctions/3DView/RenderShadowMapFilter.qml</file>
     <file alias="GrabBrightFilter.qml">qml/fixturesfunctions/3DView/GrabBrightFilter.qml</file>
-    <file alias="BlurFilter.qml">qml/fixturesfunctions/3DView/BlurFilter.qml</file>
-
+    <file alias="DownsampleFilter.qml">qml/fixturesfunctions/3DView/DownsampleFilter.qml</file>
+    <file alias="UpsampleFilter.qml">qml/fixturesfunctions/3DView/UpsampleFilter.qml</file>
+  
     <file alias="GammaCorrectFilter.qml">qml/fixturesfunctions/3DView/GammaCorrectFilter.qml</file>
     <file alias="BlitFilter.qml">qml/fixturesfunctions/3DView/BlitFilter.qml</file>
     <file alias="FXAAFilter.qml">qml/fixturesfunctions/3DView/FXAAFilter.qml</file>
@@ -172,13 +174,15 @@
     <file alias="StageTheatre.qml">qml/fixturesfunctions/3DView/StageTheatre.qml</file>
 
 
+ 
 
-
-
+ 
 
     <file alias="SettingsView3D.qml">qml/fixturesfunctions/3DView/SettingsView3D.qml</file>
 
-    <file alias="blur.frag">qml/fixturesfunctions/3DView/shaders/blur.frag</file>
+    <file alias="downsample.frag">qml/fixturesfunctions/3DView/shaders/downsample.frag</file>
+    <file alias="upsample.frag">qml/fixturesfunctions/3DView/shaders/upsample.frag</file>
+    
     <file alias="grab_bright.frag">qml/fixturesfunctions/3DView/shaders/grab_bright.frag</file>
     <file alias="directional.frag">qml/fixturesfunctions/3DView/shaders/directional.frag</file>
     <file alias="gamma_correct.frag">qml/fixturesfunctions/3DView/shaders/gamma_correct.frag</file>

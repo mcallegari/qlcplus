@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  BlurEffect.qml
+  DownsampleEffect.qml
 
   Copyright (c) Eric Arnebäck
 
@@ -33,12 +33,12 @@ Effect
                 // Lights pass
                 RenderPass
                 {
-                    filterKeys: FilterKey { name : "pass"; value : "blur" }
+                    filterKeys: FilterKey { name : "pass"; value : "downsample" }
                     shaderProgram:
                         ShaderProgram
                         {
                             vertexShaderCode: View3D.makeShader(loadSource("qrc:/fullscreen.vert"))
-                            fragmentShaderCode: View3D.makeShader(loadSource("qrc:/blur.frag"))
+                            fragmentShaderCode: View3D.makeShader(loadSource("qrc:/downsample.frag"))
                         }
                 }
             ]

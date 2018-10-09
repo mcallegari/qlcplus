@@ -132,7 +132,25 @@ Rectangle
                 "layer": sceneEntity.selectionLayer,
             });
 
-            var bloomTexture = null
+
+
+            var texChainTargets = [texChainTarget0, texChainTarget1, texChainTarget2, texChainTarget3, texChainTarget4]         
+            var texChainTextures = [texChainTexture0, texChainTexture1, texChainTexture2, texChainTexture3, texChainTexture4]
+
+
+            var TEX_CHAIN_LEN = texChainTargets.length
+
+            var texChainDownsampleEntities = [
+                screenQuadDownsampleEntity0, screenQuadDownsampleEntity1, screenQuadDownsampleEntity2, screenQuadDownsampleEntity3,
+                 screenQuadDownsampleEntity4
+            ]
+
+            var texChainUpsampleEntities = [
+                screenQuadUpsampleEntity0, screenQuadUpsampleEntity1, screenQuadUpsampleEntity2, screenQuadUpsampleEntity3,
+                 screenQuadUpsampleEntity4
+            ]
+
+
             {
                 component = Qt.createComponent("GrabBrightFilter.qml");
                 if (component.status === Component.Error)
@@ -142,13 +160,65 @@ Rectangle
                 {
                     "gBuffer": gBufferTarget,
                     "screenQuadLayer": screenQuadGrabBrightEntity.quadLayer,
-                    "outRenderTarget": brightnessTarget
+                    "outRenderTarget": texChainTargets[0]
                 });
 
-                component = Qt.createComponent("BlurFilter.qml");
-                if (component.status === Component.Error)
-                    console.log("Error loading component:", component.errorString());
 
+                var m_width = 1024.0
+                var m_height = 1024.0
+
+                for(var ii = 0; ii < (TEX_CHAIN_LEN-1); ++ii) {
+
+                    component = Qt.createComponent("DownsampleFilter.qml");
+                    if (component.status === Component.Error)
+                        console.log("Error loading component:", component.errorString());
+
+					var dim = (1 << (ii + 1) );
+
+
+                    sgNode = component.createObject(frameGraph.myCameraSelector,
+                    {
+                        "inTex": texChainTextures[ii],
+                        "screenQuadLayer": texChainDownsampleEntities[ii].quadLayer,
+                        "outRenderTarget": texChainTargets[ii+1],
+                        "pixelSize": Qt.vector4d(1.0 / (m_width  / dim), 1.0 / (m_height / dim),0,0)
+                    });
+                }
+
+
+
+                for(var ii = 0; ii < (TEX_CHAIN_LEN-1); ++ii) {
+
+                    component = Qt.createComponent("UpsampleFilter.qml");
+                    if (component.status === Component.Error)
+                        console.log("Error loading component:", component.errorString());
+
+
+					var dim = (1 << (TEX_CHAIN_LEN - 2 - ii) );
+
+                    console.log("target: ",  texChainTargets[TEX_CHAIN_LEN - ii - 2])
+
+
+                    console.log("tex: ", texChainTextures[TEX_CHAIN_LEN - 1 - ii])
+
+                    console.log("quad layer: ",  texChainUpsampleEntities[ii].quadLayer)
+
+                    sgNode = component.createObject(frameGraph.myCameraSelector,
+                    {
+                        "inTex": texChainTextures[TEX_CHAIN_LEN - 1 - ii],
+                        "screenQuadLayer": texChainUpsampleEntities[ii].quadLayer,
+                        "outRenderTarget": texChainTargets[TEX_CHAIN_LEN - ii - 2],
+                        "pixelSize": Qt.vector4d(1.0 / (m_width  / dim), 1.0 / (m_height / dim),0,0),
+                        "intensity": Qt.vector4d(0.3, 0.0,0,0),
+                        
+                    });
+
+                }
+            
+
+
+
+/*
                 for(var iter = 0; iter < 9; ++iter) {
                 
                     sgNode = component.createObject(frameGraph.myCameraSelector,
@@ -169,8 +239,10 @@ Rectangle
 
                     bloomTexture = blurPingPong1Texture
                 }
+          */      
 
             }
+            
 
             component = Qt.createComponent("DirectionalLightFilter.qml");
             if (component.status === Component.Error)
@@ -240,7 +312,7 @@ Rectangle
             sgNode = component.createObject(frameGraph.myCameraSelector,
             {
                 "hdrTexture": frameTarget.color,
-                "bloomTexture": bloomTexture,
+         //       "bloomTexture": bloomTexture,
                 
                 "outRenderTarget": hdr0RenderTarget,
 
@@ -308,16 +380,74 @@ Rectangle
             }
 
             GenericScreenQuadEntity {
-                id: screenQuadBlurEntity0
+                id: screenQuadDownsampleEntity0
                 quadLayer : Layer { }
-                quadEffect : BlurEffect { }
+                quadEffect : DownsampleEffect { }
             }
 
             GenericScreenQuadEntity {
-                id: screenQuadBlurEntity1
+                id: screenQuadDownsampleEntity1
                 quadLayer : Layer { }
-                quadEffect : BlurEffect { }
+                quadEffect : DownsampleEffect { }
             }
+
+            GenericScreenQuadEntity {
+                id: screenQuadDownsampleEntity2
+                quadLayer : Layer { }
+                quadEffect : DownsampleEffect { }
+            }
+
+            GenericScreenQuadEntity {
+                id: screenQuadDownsampleEntity3
+                quadLayer : Layer { }
+                quadEffect : DownsampleEffect { }
+            }
+
+            GenericScreenQuadEntity {
+                id: screenQuadDownsampleEntity4
+                quadLayer : Layer { }
+                quadEffect : DownsampleEffect { }
+            }
+
+
+
+
+
+
+
+            GenericScreenQuadEntity {
+                id: screenQuadUpsampleEntity0
+                quadLayer : Layer { }
+                quadEffect : UpsampleEffect { }
+            }
+
+            GenericScreenQuadEntity {
+                id: screenQuadUpsampleEntity1
+                quadLayer : Layer { }
+                quadEffect : UpsampleEffect { }
+            }
+
+            GenericScreenQuadEntity {
+                id: screenQuadUpsampleEntity2
+                quadLayer : Layer { }
+                quadEffect : UpsampleEffect { }
+            }
+
+            GenericScreenQuadEntity {
+                id: screenQuadUpsampleEntity3
+                quadLayer : Layer { }
+                quadEffect : UpsampleEffect { }
+            }
+
+            GenericScreenQuadEntity {
+                id: screenQuadUpsampleEntity4
+                quadLayer : Layer { }
+                quadEffect : UpsampleEffect { }
+            }
+
+
+
+
 
             ScreenQuadEntity { id: screenQuadEntity }
 
@@ -327,7 +457,7 @@ Rectangle
 
             RenderTarget
             {
-                id: brightnessTarget
+                id: texChainTarget0
                 attachments: [
                     RenderTargetOutput
                     {
@@ -336,7 +466,7 @@ Rectangle
                         texture:
                             Texture2D
                             {
-                                id: brightnessTexture
+                                id: texChainTexture0
                                 width: 1024
                                 height: 1024
                                 format: Texture.RGBA32F
@@ -350,12 +480,12 @@ Rectangle
                                 }
                             }
                     }
-                ] // outputs
+                ] 
             }
 
             RenderTarget
             {
-                id: blurPingPong0Target
+                id: texChainTarget1
                 attachments: [
                     RenderTargetOutput
                     {
@@ -364,9 +494,9 @@ Rectangle
                         texture:
                             Texture2D
                             {
-                                id: blurPingPong0Texture
-                                width: 1024
-                                height: 1024
+                                id: texChainTexture1
+                                width: 512
+                                height: 512
                                 format: Texture.RGBA32F
                                 generateMipMaps: false
                                 magnificationFilter: Texture.Linear
@@ -378,13 +508,42 @@ Rectangle
                                 }
                             }
                     }
-                ] // outputs
+                ] 
             }
+
+            RenderTarget
+            {
+                id: texChainTarget2
+                attachments: [
+                    RenderTargetOutput
+                    {
+                        objectName: "color"
+                        attachmentPoint: RenderTargetOutput.Color0
+                        texture:
+                            Texture2D
+                            {
+                                id: texChainTexture2
+                                width: 256
+                                height: 256
+                                format: Texture.RGBA32F
+                                generateMipMaps: false
+                                magnificationFilter: Texture.Linear
+                                minificationFilter: Texture.Linear
+                                wrapMode
+                                {
+                                    x: WrapMode.ClampToEdge
+                                    y: WrapMode.ClampToEdge
+                                }
+                            }
+                    }
+                ] 
+            }
+
 
 
             RenderTarget
             {
-                id: blurPingPong1Target
+                id: texChainTarget3
                 attachments: [
                     RenderTargetOutput
                     {
@@ -393,9 +552,9 @@ Rectangle
                         texture:
                             Texture2D
                             {
-                                id: blurPingPong1Texture
-                                width: 1024
-                                height: 1024
+                                id: texChainTexture3
+                                width: 128
+                                height: 128
                                 format: Texture.RGBA32F
                                 generateMipMaps: false
                                 magnificationFilter: Texture.Linear
@@ -407,8 +566,39 @@ Rectangle
                                 }
                             }
                     }
-                ] // outputs
+                ] 
             }
+
+
+
+            RenderTarget
+            {
+                id: texChainTarget4
+                attachments: [
+                    RenderTargetOutput
+                    {
+                        objectName: "color"
+                        attachmentPoint: RenderTargetOutput.Color0
+                        texture:
+                            Texture2D
+                            {
+                                id: texChainTexture4
+                                width: 64
+                                height: 64
+                                format: Texture.RGBA32F
+                                generateMipMaps: false
+                                magnificationFilter: Texture.Linear
+                                minificationFilter: Texture.Linear
+                                wrapMode
+                                {
+                                    x: WrapMode.ClampToEdge
+                                    y: WrapMode.ClampToEdge
+                                }
+                            }
+                    }
+                ] 
+            }   
+
 
             RenderTarget
             {

@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  GrabBrightFilter.qml
+  UpsampleFilter.qml
 
   Copyright (c) Eric Arnebäck
 
@@ -29,12 +29,15 @@ TechniqueFilter
     property Texture2D inTex
     property RenderTarget outRenderTarget
 
-    property vector4d blurDirection: Qt.vector4d(0, 0, 0, 0)
+    property vector4d pixelSize: Qt.vector4d(0, 0, 0, 0)
+    property vector4d intensity: Qt.vector4d(0, 0, 0, 0)
 
     parameters: [
         Parameter { name: "tex"; value: inTex },
-        Parameter { name: "blurDirection"; value: blurDirection }        
-    ]
+        Parameter { name: "pixelSize"; value: pixelSize },  
+        Parameter { name: "intensity"; value: intensity }  
+              
+    ] 
 
     RenderStateSet
     {
@@ -54,14 +57,14 @@ TechniqueFilter
             RenderTargetSelector {
                 target: outRenderTarget
 
-                ClearBuffers
-                {
-                    buffers: ClearBuffers.ColorDepthBuffer
+               // ClearBuffers
+                //{
+                 //   buffers: ClearBuffers.ColorDepthBuffer
                     RenderPassFilter
                     {
-                        matchAny: FilterKey { name: "pass"; value: "blur" }
+                        matchAny: FilterKey { name: "pass"; value: "upsample" }
                     }
-                }
+               // }
 
             }
         }

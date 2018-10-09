@@ -31,7 +31,7 @@ void main()
 
     float luminance = dot(albedo.rgb, vec3(0.2126729, 0.7151522, 0.0721750));
     
-    if(luminance > 1.1) {
+    if(luminance > 0.3) {
         MGL_FRAG_COLOR = vec4(albedo.rgb, 1.0);
     } else {
         MGL_FRAG_COLOR = vec4(0.0, 0.0, 0.0, 0.0);
