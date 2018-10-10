@@ -37,7 +37,11 @@ Entity
     property bool isSelected: false
     property int headsNumber: 1
 
-    onItemIDChanged: isSelected = contextManager.isFixtureSelected(itemID)
+    onItemIDChanged:
+    {
+        isSelected = contextManager.isFixtureSelected(itemID)
+        headsRepeater.model = headsNumber
+    }
 
     /* **************** Tilt properties (motorized bars) **************** */
     property real tiltMaxDegrees: 270
@@ -91,17 +95,17 @@ Entity
 
     function getHead(headIndex)
     {
-        return headsRepeater.itemAt(headIndex)
+        return headsRepeater.objectAt(headIndex)
     }
 
     function setHeadIntensity(headIndex, intensity)
     {
-        headsRepeater.itemAt(headIndex).dimmerValue = intensity
+        headsRepeater.objectAt(headIndex).dimmerValue = intensity
     }
 
     function setHeadRGBColor(headIndex, color)
     {
-        headsRepeater.itemAt(headIndex).lightColor = color
+        headsRepeater.objectAt(headIndex).lightColor = color
     }
 
     function setPosition(pan, tilt)
@@ -172,7 +176,7 @@ Entity
     CuboidMesh
     {
         id: headMesh
-        xExtent: 0.1
+        xExtent: 0.1 * headsNumber
         zExtent: 0.1
         yExtent: 0.1
     }
@@ -184,7 +188,7 @@ Entity
 
         for (var i = 0; i < headsRepeater.count; i++)
         {
-            var item = headsRepeater.itemAt(i)
+            var item = headsRepeater.objectAt(i)
             item.shadingCone.coneEffect = shadingEffect
             item.shadingCone.parent = sceneEntity
             item.shadingCone.spotlightConeMesh = sceneEntity.coneMesh
@@ -199,14 +203,15 @@ Entity
         }
     }
 
-    QQ2.Repeater
+    NodeInstantiator
     {
         id: headsRepeater
-        model: headsNumber
+        //model: fixtureEntity.headsNumber
 
-        onItemAdded:
+        onObjectAdded:
         {
-            if (index == headsNumber - 1)
+            console.log("Head " + index + " added ----------------")
+            if (index == fixtureEntity.headsNumber - 1)
                 View3D.initializeFixture(itemID, fixtureEntity, null)
         }
 
@@ -234,7 +239,7 @@ Entity
                 property matrix4x4 lightViewProjectionScaleAndOffsetMatrix:
                     Math3D.getLightViewProjectionScaleOffsetMatrix(lightViewProjectionMatrix)
 
-                property Transform transform: Transform { translation: Qt.vector3d(0, - (groundMesh.yExtent / 2), 0) }
+                property Transform transform: Transform { translation: Qt.vector3d(0, 0.1 * index, 0) }
 
                 property RenderTarget shadowMap:
                     RenderTarget
@@ -285,15 +290,16 @@ Entity
                     coneLayer: outputDepthLayer
                     fxEntity: headEntity
                 }
-
+/*
                 components: [
                     headMesh,
                     fixtureEntity.material,
                     transform,
                     fixtureEntity.sceneLayer
                 ]
-            }
-    }
+*/
+            } // Entity
+    } // Repeater
 
     ObjectPicker
     {
@@ -311,5 +317,12 @@ Entity
         }
     }
 
-    components: [ baseMesh, transform, eObjectPicker ]
+    components: [
+        baseMesh,
+        headMesh,
+        transform,
+        material,
+        sceneLayer,
+        eObjectPicker
+    ]
 }

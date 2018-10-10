@@ -483,6 +483,7 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
             qDebug() << "Fixture 3D item creation failed !!";
             return;
         }
+        newItem->setProperty("headsNumber", fixture->heads());
     }
     else if (fixture->type() == QLCFixtureDef::LEDBarPixels)
     {
@@ -498,6 +499,7 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
             qDebug() << "Fixture 3D item creation failed !!";
             return;
         }
+        newItem->setProperty("headsNumber", fixture->heads());
     }
     else
     {
@@ -537,17 +539,19 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
         break;
         case QLCFixtureDef::LEDBarBeams:
         case QLCFixtureDef::LEDBarPixels:
+            meshPath.clear();
         break;
         default:
             qDebug() << "I don't know what to do with you :'(";
         break;
     }
 
-    newItem->setProperty("itemID", itemID);
-    newItem->setProperty("itemSource", meshPath);
-
     // at last, add the new fixture to the items map
     m_entitiesMap[itemID] = mesh;
+
+    newItem->setProperty("itemID", itemID);
+    if (meshPath.isEmpty() == false)
+        newItem->setProperty("itemSource", meshPath);
 
     m_createItemCount++;
 }
@@ -810,6 +814,7 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QSceneLoad
     qreal focusMin = 10;
     bool calculateVolume = false;
     QEntity *root = NULL;
+    QEntity *baseItem = NULL;
 
     if (fxMode != NULL)
     {
@@ -842,13 +847,12 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QSceneLoad
         // Technically there could be multiple entities referencing the scene loader
         // but sharing is discouraged, and in our case there will be one anyhow.
         root = entities[0];
+        qDebug() << "There are" << root->children().count() << "components in the loaded fixture";
     }
     else
     {
         root = fxEntity;
     }
-
-    qDebug() << "There are" << root->children().count() << "components in the loaded fixture";
 
     QLayer *sceneDeferredLayer = m_sceneRootEntity->property("deferredLayer").value<QLayer *>();
     QEffect *sceneEffect = m_sceneRootEntity->property("geometryPassEffect").value<QEffect *>();
@@ -863,9 +867,12 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QSceneLoad
     meshRef->m_rootItem = fxEntity;
     meshRef->m_rootTransform = getTransform(meshRef->m_rootItem);
 
-    QTexture2D *tex = fxEntity->property("goboTexture").value<QTexture2D *>();
-    //tex->setFormat(Qt3DRender::QAbstractTexture::RGBA8U);
-    tex->addTextureImage(meshRef->m_goboTexture);
+    if (meshRef->m_goboTexture != NULL)
+    {
+        QTexture2D *tex = fxEntity->property("goboTexture").value<QTexture2D *>();
+        //tex->setFormat(Qt3DRender::QAbstractTexture::RGBA8U);
+        tex->addTextureImage(meshRef->m_goboTexture);
+    }
 
     // If this model has been already loaded, re-use the cached bounding volume
     if (loader && m_boundingVolumesMap.contains(loader->source()))
@@ -873,9 +880,18 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QSceneLoad
     else
         calculateVolume = true;
 
-    // Walk through the scene tree and add each mesh to the deferred pipeline.
-    // If needed, calculate also the bounding volume */
-    QEntity *baseItem = inspectEntity(root, meshRef, sceneDeferredLayer, sceneEffect, calculateVolume, translation);
+    if (loader)
+    {
+        // Walk through the scene tree and add each mesh to the deferred pipeline.
+        // If needed, calculate also the bounding volume */
+        baseItem = inspectEntity(root, meshRef, sceneDeferredLayer, sceneEffect, calculateVolume, translation);
+    }
+    else
+    {
+        // root item is already the whole mesh. Add it to the pipeline
+        meshRef->m_rootItem->setProperty("sceneLayer", QVariant::fromValue(sceneDeferredLayer));
+        meshRef->m_rootItem->setProperty("sceneEffect", QVariant::fromValue(sceneEffect));
+    }
 
     qDebug() << "Calculated volume" << meshRef->m_volume.m_extents << meshRef->m_volume.m_center;
 
@@ -942,7 +958,9 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QSceneLoad
         Tardis::instance()->enqueueAction(Tardis::FixtureSetPosition, itemID, QVariant(QVector3D(0, 0, 0)), QVariant(fxPos));
     }
 
-    updateFixtureScale(itemID, fxSize);
+    // scaling is not needed for dynamic meshes
+    if (loader)
+        updateFixtureScale(itemID, fxSize);
     updateFixturePosition(itemID, fxPos);
     updateFixtureRotation(itemID, m_monProps->fixtureRotation(fxID, headIndex, linkedIndex));
 

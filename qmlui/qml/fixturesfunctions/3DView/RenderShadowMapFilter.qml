@@ -27,7 +27,7 @@ CameraSelector
     id: cs
     property alias sceneDeferredLayer: sceneDeferredLayerFilter.layers
     property alias depthTargetSelector: targetSelector.target
-    property Fixture3DItem fixtureItem
+    property Entity fixtureItem
 
     LayerFilter
     {
