@@ -351,6 +351,7 @@ void Universe::reset(int address, int range)
 {
     if (address >= UNIVERSE_SIZE)
         return;
+
     if (address + range > UNIVERSE_SIZE)
        range = UNIVERSE_SIZE - address;
 
@@ -831,11 +832,6 @@ uchar Universe::channelCapabilities(ushort channel)
 
 void Universe::setChannelDefaultValue(ushort channel, uchar value)
 {
-    if (channel >= (ushort)m_modifiedZeroValues.data()->count())
-        return;
-
-    (*m_modifiedZeroValues)[channel] = value;
-
     if (channel >= m_totalChannels)
     {
         m_totalChannels = channel + 1;
@@ -846,6 +842,7 @@ void Universe::setChannelDefaultValue(ushort channel, uchar value)
         m_usedChannels = channel + 1;
 
     (*m_preGMValues)[channel] = value;
+    updatePostGMValue(channel);
 }
 
 void Universe::setChannelModifier(ushort channel, ChannelModifier *modifier)
