@@ -1126,6 +1126,7 @@ void ChaserEditor::slotTestPlay()
         ChaserAction action;
         action.m_action = ChaserSetStepIndex;
         action.m_stepIndex = idx;
+        action.m_intensity = 1.0;
         m_chaser->setAction(action);
     }
     m_chaser->start(m_doc->masterTimer(), functionParent());
@@ -1148,6 +1149,7 @@ void ChaserEditor::slotTestPreviousClicked()
 {
     ChaserAction action;
     action.m_action = ChaserPreviousStep;
+    action.m_intensity = 1.0;
     m_chaser->setAction(action);
 }
 
@@ -1155,6 +1157,7 @@ void ChaserEditor::slotTestNextClicked()
 {
     ChaserAction action;
     action.m_action = ChaserNextStep;
+    action.m_intensity = 1.0;
     m_chaser->setAction(action);
 }
 
