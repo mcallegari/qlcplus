@@ -232,6 +232,9 @@ void ChaserRunner::setAction(ChaserAction &action)
     // apply the actions that can be applied immediately
     switch (action.m_action)
     {
+        case ChaserNoAction:
+        break;
+
         case ChaserStopStep:
         {
             bool stopped = false;

@@ -46,7 +46,7 @@
  * Initialization
  *****************************************************************************/
 
-Chaser::Chaser(Doc* doc)
+Chaser::Chaser(Doc *doc)
     : Function(doc, Function::ChaserType)
     , m_legacyHoldBus(Bus::invalid())
     , m_fadeInMode(Default)
@@ -605,7 +605,7 @@ void Chaser::createRunner(quint32 startTime)
     }
     m_runner->moveToThread(QCoreApplication::instance()->thread());
     m_runner->setParent(this);
-    m_startupAction.m_intensity *= getAttributeValue(Intensity);;
+    m_startupAction.m_intensity *= getAttributeValue(Intensity);
     m_runner->setAction(m_startupAction);
     m_startupAction.m_action = ChaserNoAction;
 }
