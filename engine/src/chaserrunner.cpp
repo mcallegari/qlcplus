@@ -265,10 +265,6 @@ void ChaserRunner::setAction(ChaserAction &action)
             }
         }
         break;
-        
-        case ChaserStartupIntensity:
-            m_pendingAction.m_intensity = action.m_intensity;
-        break;
 
         // copy to pending action. Will be processed at the next write call
         default:
