@@ -605,6 +605,7 @@ void Chaser::createRunner(quint32 startTime)
     }
     m_runner->moveToThread(QCoreApplication::instance()->thread());
     m_runner->setParent(this);
+    m_startupAction.m_action = ChaserStartupIntensity;
     m_startupAction.m_intensity *= getAttributeValue(Intensity);
     m_runner->setAction(m_startupAction);
     m_startupAction.m_action = ChaserNoAction;
