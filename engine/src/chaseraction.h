@@ -25,6 +25,7 @@
 enum ChaserActionType
 {
     ChaserNoAction,
+    ChaserStartupIntensity,
     ChaserStopStep,
     ChaserNextStep,
     ChaserPreviousStep,
