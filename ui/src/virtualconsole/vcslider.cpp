@@ -626,13 +626,13 @@ bool VCSlider::channelsMonitorEnabled() const
     return m_monitorEnabled;
 }
 
-void VCSlider::setLevelValue(uchar value)
+void VCSlider::setLevelValue(uchar value, bool external)
 {
     QMutexLocker locker(&m_levelValueMutex);
     m_levelValue = CLAMP(value, levelLowLimit(), levelHighLimit());
     if (m_monitorEnabled == true)
         m_monitorValue = m_levelValue;
-    if (m_slider->isSliderDown())
+    if (m_slider->isSliderDown() || external)
         m_levelValueChanged = true;
 }
 
@@ -1242,7 +1242,7 @@ QString VCSlider::topLabelText()
  * Slider
  *****************************************************************************/
 
-void VCSlider::setSliderValue(uchar value, bool scale)
+void VCSlider::setSliderValue(uchar value, bool scale, bool external)
 {
     if (m_slider == NULL)
         return;
@@ -1273,7 +1273,7 @@ void VCSlider::setSliderValue(uchar value, bool scale)
                 m_resetButton->setStyleSheet(QString("QToolButton{ background: red; }"));
                 m_isOverriding = true;
             }
-            setLevelValue(val);
+            setLevelValue(val, external);
             setClickAndGoWidgetFromLevel(val);
         }
         break;
@@ -1486,7 +1486,7 @@ void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
                 m_isOverriding = true;
             }
 
-            setSliderValue(value);
+            setSliderValue(value, true, true);
             m_lastInputValue = value;
         }
     }

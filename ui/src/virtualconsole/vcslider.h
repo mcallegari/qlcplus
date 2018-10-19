@@ -321,7 +321,7 @@ protected:
      *
      * @param value DMX value
      */
-    void setLevelValue(uchar value);
+    void setLevelValue(uchar value, bool external = false);
 
     /**
      * Get the current "level" mode value
@@ -463,7 +463,7 @@ public:
     };
 
 public:
-    void setSliderValue(uchar value, bool scale = true);
+    void setSliderValue(uchar value, bool scale = true, bool external = false);
 
     void setSliderShadowValue(int value);
 
