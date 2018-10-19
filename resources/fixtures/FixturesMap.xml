@@ -145,6 +145,7 @@
     <F n="American-DJ-XS-600" m="XS 600"/>
   </M>
   <M n="Antari">
+    <F n="Antari-F-5D-Fazer" m="F-5D Fazer"/>
     <F n="Antari-X-310-Pro-Fazer" m="X-310 Pro Fazer"/>
     <F n="Antari-Z-1520-RGB" m="Z-1520 RGB"/>
   </M>
@@ -195,6 +196,7 @@
   <M n="BoomToneDJ">
     <F n="BoomToneDJ-Froggy-LED-RGBW" m="Froggy LED RGBW"/>
     <F n="BoomToneDJ-Quattro-Scan-LED" m="Quattro Scan LED"/>
+    <F n="BoomToneDJ-SilentPAR-12x10w-6in1" m="SilentPAR 12x10w 6in1"/>
     <F n="BoomToneDJ-Sky-Bar-288-LED" m="Sky bar 288 LED"/>
     <F n="BoomToneDJ-Slim-PAR-7x3W-LED-RGB" m="Slim PAR 7x3W LED RGB"/>
     <F n="BoomToneDJ-Strob-LED-18" m="Strob LED 18"/>
@@ -273,6 +275,7 @@
     <F n="Chauvet-COLORado-1-Solo" m="COLORado 1 Solo"/>
     <F n="Chauvet-COLORado-1-Tour" m="COLORado 1 Tour"/>
     <F n="Chauvet-COLORado-3P" m="COLORado 3P"/>
+    <F n="Chauvet-COLORado-Batten-72-Tour" m="COLORado Batten 72 Tour"/>
     <F n="Chauvet-ColorBand-Pix-IP" m="ColorBand Pix IP"/>
     <F n="Chauvet-ColorBand-Pix-M" m="ColorBand Pix-M"/>
     <F n="Chauvet-COLORband-T3-USB" m="COLORband T3 USB"/>
@@ -1007,6 +1010,7 @@
     <F n="Robe-ColorSpot-575-AT" m="ColorSpot 575 AT"/>
     <F n="Robe-ColorSpot-700E-AT" m="ColorSpot 700E AT (v1.4)"/>
     <F n="Robe-ColorWash-1200E-AT" m="ColorWash 1200E AT"/>
+    <F n="Robe-Colorwash-250-AT" m="ColorWash 250 AT"/>
     <F n="Robe-DJ-Scan-150-XT" m="DJ Scan 150 XT"/>
     <F n="Robe-Fog-1500-FT" m="Fog 1500 FT"/>
     <F n="Robe-LED-Blinder-196LT" m="LED Blinder 196LT"/>
@@ -1073,6 +1077,7 @@
     <F n="Showtec-Dynamic-LED-v3" m="Dynamic LED v3"/>
     <F n="Showtec-Event-Spot-1800-Q4" m="Event Spot 1800 Q4"/>
     <F n="Showtec-Explorer-250-Pro-MKII" m="Explorer 250 Pro MKII"/>
+    <F n="Showtec-Explorer-575" m="Explorer 575"/>
     <F n="Showtec-Expression-5000" m="Expression 5000"/>
     <F n="Showtec-Giant-XL-LED" m="Giant XL LED"/>
     <F n="Showtec-Indigo-150-LED" m="Indigo 150 LED"/>
@@ -1109,6 +1114,7 @@
     <F n="Showtec-Shark-Beam-FX-One" m="Shark Beam FX One"/>
     <F n="Showtec-Shark-Wash-One" m="Shark Wash One"/>
     <F n="Showtec-Spectral-CYC650" m="Spectral CYC650"/>
+    <F n="Showtec-Spectral-ZP-5" m="Spectral ZP-5"/>
     <F n="Showtec-Stage-Blinder-Series" m="Stage Blinder Series"/>
     <F n="Showtec-Sunraise-LED" m="Sunraise LED"/>
     <F n="Showtec-Sunstrip-Active" m="Sunstrip Active"/>

@@ -13,7 +13,7 @@ qlcplus (4.12.0) stable; urgency=low
   * Fixture Editor: fixed D4 definitions import
   * New input profile: Akai APC40 mkII (thanks to Ovidijus Cepukas)
   * New input profiles: Novation Launchpad MK2, Behringer X-Touch Extender (thanks to Tim Cullingworth)
-  * New fixture: American DJ Entour Venue
+  * New fixtures: American DJ Entour Venue, Showtec Explorer 575
   * New fixtures: American DJ Auto Spot 150, Boom Box Fx2, Revo Sweep (thanks to Felix Edelmann)
   * New fixtures: JB-Lighting Varyscan P7, Showtec Dominator, Showtec Sunraise LED (thanks to Felix Edelmann)
   * New fixture: Orion Effects Lighting ORCAN2 (thanks to Felix Edelmann)
@@ -38,9 +38,13 @@ qlcplus (4.12.0) stable; urgency=low
   * New fixture: Cameo NanoBeam 300 (thanks to Martin)
   * New fixtures: Chauvet SlimPAR Q6 USB, Antari Z-1520 RGB, Cameo TS 40 WW, Cameo TS 60 RGBW (thanks to Andrew)
   * New fixtures: Litecraft OutLED AT60.zoom, Elation Proteus Beam (thanks to Axel Metzke)
-  * New fixture: Elation DW Fresnel (thanks to Niklas Larsson)
+  * New fixtures: Elation DW Fresnel, Robe ColorWash 250 AT (thanks to Niklas Larsson)
   * New fixture: Varytec Street Bar (thanks to Daniel Fairhead)
   * New fixture: American DJ Accu Roller 250 (thanks to Anders Thomsen)
+  * New fixture: BoomToneDJ SilentPAR 12x10w 6in1 (thanks to John Yiannikakis)
+  * New fixture: Chauvet COLORado Batten 72 Tour (thanks to James Wilson)
+  * New fixture: Antari F-5D Fazer (thanks to Mark Lohrey)
+  * New fixture: Showtec Spectral ZP-5 (thanks to JP)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 21 Oct 2018 12:13:14 +0200
 
