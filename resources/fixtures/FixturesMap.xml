@@ -100,6 +100,7 @@
     <F n="American-DJ-Profile-Panel-RGB" m="Profile Panel RGB"/>
     <F n="American-DJ-ProPAR-56RGB" m="ProPAR 56RGB"/>
     <F n="American-DJ-Punch-LED-Pro" m="Punch LED Pro"/>
+    <F n="American-DJ-QA5-IP" m="QA5 IP"/>
     <F n="American-DJ-Quad-Gem-DMX" m="Quad Gem DMX"/>
     <F n="American-DJ-Quad-Phase" m="Quad Phase"/>
     <F n="American-DJ-Quad-Scan-LED" m="Quad Scan LED"/>
@@ -140,6 +141,7 @@
     <F n="American-DJ-Warlock" m="Warlock"/>
     <F n="American-DJ-WiFly-EXR-Dotz-Par" m="WiFly EXR Dotz Par"/>
     <F n="American-DJ-WiFly-EXR-HEX5-IP" m="WiFly EXR HEX5 IP"/>
+    <F n="American-DJ-WiFly-PAR-QA5" m="WiFly PAR QA5"/>
     <F n="American-DJ-X-Scan-LED-Plus" m="X-Scan LED Plus"/>
     <F n="American-DJ-XS-400" m="XS 400"/>
     <F n="American-DJ-XS-600" m="XS 600"/>
@@ -234,6 +236,7 @@
     <F n="Cameo-Flash-Bar-150" m="Flash Bar 150"/>
     <F n="Cameo-Flat-PAR-CAN-TRI-3W" m="Flat PAR CAN TRI 3W"/>
     <F n="Cameo-Gobo-Scanner-60" m="Gobo Scanner 60"/>
+    <F n="Cameo-Hydrabeam-1000-RGBW" m="Hydrabeam 1000 RGBW"/>
     <F n="Cameo-Hydrabeam-400-Series" m="Hydrabeam 400 Series"/>
     <F n="Cameo-LED-Mini-PAR-CAN-RGB-7x3W" m="LED Mini PAR CAN RGB 7x3W"/>
     <F n="Cameo-LED-Mini-PAR-CAN-RGBW-7x8W" m="LED Mini PAR CAN RGBW 7x8W"/>
@@ -455,6 +458,7 @@
   <M n="DTS">
     <F n="DTS-Max-FAR" m="Max FAR"/>
     <F n="DTS-Nick-NRG1201" m="Nick NRG1201"/>
+    <F n="DTS-XR5-Wash" m="XR5 Wash"/>
     <F n="DTS-XR7-Spot" m="XR7 Spot"/>
   </M>
   <M n="Dune_Lighting">
@@ -697,6 +701,7 @@
     <F n="IMG-Stageline-Wash-40-LED" m="Wash-40 LED"/>
   </M>
   <M n="Involight">
+    <F n="Involight-COBBAR815" m="COBBAR815"/>
     <F n="Involight-FM1200UP" m="FM1200UP"/>
     <F n="Involight-FM1500-DMX" m="FM1500 DMX"/>
     <F n="Involight-FM3000-PRO" m="FM3000 PRO"/>
@@ -707,6 +712,7 @@
     <F n="Involight-LED-MH77S" m="LED MH77S"/>
     <F n="involight-LED-PAR-180" m="LED PAR 180"/>
     <F n="Involight-SBL2000" m="SBL2000"/>
+    <F n="Involight-SlimPar56-PRO" m="SlimPar56 PRO"/>
   </M>
   <M n="iSolution">
     <F n="iSolution-5-Series" m="iMove 5 Series"/>
@@ -762,6 +768,7 @@
     <F n="Laserworld-CS-1000RGB" m="CS-1000RGB"/>
     <F n="Laserworld-EL-200RGY" m="EL-200RGY"/>
     <F n="Laserworld-ES-600B" m="ES-600B"/>
+    <F n="Laserworld-PRO-1600RGB" m="PRO-1600RGB"/>
     <F n="Laserworld-PRO-800RGB" m="PRO-800RGB"/>
     <F n="Laserworld-RS400G" m="RS400G"/>
   </M>
@@ -1187,6 +1194,7 @@
     <F n="Stairville-novaWash-Quad-LED" m="novaWash Quad LED"/>
     <F n="Stairville-Octagon-Theater" m="Octagon Theater"/>
     <F n="Stairville-PAR64-CX-3-RGBW" m="PAR 64 CX-3 RGBW"/>
+    <F n="Stairville-Pixel-Panel-144-RGB" m="Pixel Panel 144 RGB"/>
     <F n="Stairville-PS1500DMX" m="PS 1500 DMX"/>
     <F n="Stairville-Quad-Par-Profile-RGBW-5x8W" m="Quad Par Profile RGBW 5x8W"/>
     <F n="Stairville-SC-100" m="SC-100"/>
