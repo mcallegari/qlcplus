@@ -169,10 +169,12 @@
   </M>
   <M n="beamZ">
     <F n="beamZ-BAC406" m="BAC406 ProPar 6x18W 6-1 Hex"/>
+    <F n="beamZ-BT270-LED-FlatPAR" m="BT270 LED FlatPAR"/>
     <F n="beamZ-BT310-LED-FlatPAR" m="BT310 LED FlatPAR 12x8W 4-1 DMX IR"/>
     <F n="beamZ-LCB-252" m="LCB-252"/>
     <F n="beamZ-LED-FlatPAR-154" m="LED FlatPAR-154"/>
     <F n="beamZ-LS-3DRG" m="LS-3DRG"/>
+    <F n="beamZ-MHL108-Wash-MKII" m="MHL108 Wash MKII"/>
     <F n="beamZ-MHL90-Wash-5x18W-RGBAW-UV" m="MHL90 Wash 5x18W RGBAW-UV"/>
   </M>
   <M n="Blizzard_Lighting">
@@ -380,6 +382,7 @@
     <F n="Chauvet-SlimPAR-T6-USB" m="SlimPAR T6 USB"/>
     <F n="Chauvet-SlimPAR-TRI-12-IRC" m="SlimPAR TRI 12 IRC"/>
     <F n="Chauvet-SlimPar-Tri-7-IRC" m="SlimPar Tri 7 IRC"/>
+    <F n="Chauvet-Swarm-4-FX" m="Swarm 4 FX"/>
     <F n="Chauvet-Swarm-5-FX" m="Swarm 5 FX"/>
     <F n="Chauvet-Swarm-Wash-FX" m="Swarm Wash FX"/>
     <F n="Chauvet-Techno-Strobe-168" m="Techno Strobe 168"/>
@@ -504,6 +507,7 @@
   <M n="ETC">
     <F n="ETC-ColorSource-PAR" m="ColorSource PAR"/>
     <F n="ETC-ColorSource-Spot" m="ColorSource Spot"/>
+    <F n="ETC-Desire-D22-Lustr+" m="Desire D22 Lustr+"/>
     <F n="ETC-Desire-D40-Vivid" m="Desire D40 Vivid"/>
   </M>
   <M n="ETEC">
@@ -542,6 +546,7 @@
     <F n="Eurolite-LED-SLS-5-BCL" m="LED SLS 5 BCL"/>
     <F n="Eurolite-LED-SLS-X-QCL" m="LED SLS-* QCL"/>
     <F n="Eurolite-LED-Strobe-PRO-DMX" m="LED Strobe PRO DMX"/>
+    <F n="Eurolite-LED-T-36-RGB-Pinspot" m="LED T-36 RGB Pinspot"/>
     <F n="Eurolite-LED-THA-250F" m="LED THA-250F"/>
     <F n="Eurolite-Led-Theatre-36x3W-CW-WW" m="LED Theatre 36x3W CW/WW"/>
     <F n="Eurolite-LED-TMH-6" m="LED TMH-6"/>
@@ -659,6 +664,7 @@
     <F n="GLP-Volkslicht" m="Volkslicht"/>
     <F n="GLP-YPOC250" m="YPOC 250"/>
     <F n="GLP-YPOC250Pro" m="YPOC 250 Pro"/>
+    <F n="GLP-YPOC575-PRO" m="YPOC 575 PRO"/>
     <F n="GLP-YPOC575" m="YPOC 575"/>
     <F n="GLP-YPOC700CMY" m="YPOC 700 CMY"/>
     <F n="GLP-YPOCBasic250" m="YPOC Basic 250"/>
@@ -894,6 +900,7 @@
     <F n="Martin-SCX-600" m="SCX-600"/>
     <F n="Martin-SCX-700" m="SCX-700"/>
     <F n="Martin-SCX-800" m="SCX-800"/>
+    <F n="Martin-Thrill-Mini-Profile" m="Thrill Mini Profile"/>
     <F n="Martin-Viper-AirFX" m="Mac Viper AirFX"/>
   </M>
   <M n="Microh">
@@ -936,6 +943,7 @@
     <F n="PixelRANGE-PixelPar-44" m="PixelPar 44"/>
   </M>
   <M n="PR_Lighting">
+    <F n="PR-Lighting-JNR-Flat-PAR-8160C" m="JNR Flat PAR 8160C"/>
     <F n="PR-Lighting-Pilot-150-PR-2150" m="Pilot 150 (PR-2150)"/>
     <F n="PR-Lighting-Pilot-575" m="Pilot 575"/>
     <F n="PR-Lighting-PR-5000-Spot" m="PR 5000 Spot"/>
@@ -982,6 +990,7 @@
     <F n="Proel-Moving-Head-3Wx108-LED-RGBW" m="Moving Head 3Wx108 LED RGBW"/>
     <F n="Proel-PLLED64RGB" m="PLLED64RGB"/>
     <F n="Proel-PLLEDMLBG" m="PLLEDMLBG LED Moving Head"/>
+    <F n="Proel-PLLEDSP" m="PLLEDSP"/>
     <F n="Proel-Tarkus-575-Spot" m="Tarkus 575 Spot"/>
   </M>
   <M n="PSL">
@@ -1088,6 +1097,7 @@
     <F n="Showtec-Expression-5000" m="Expression 5000"/>
     <F n="Showtec-Giant-XL-LED" m="Giant XL LED"/>
     <F n="Showtec-Indigo-150-LED" m="Indigo 150 LED"/>
+    <F n="Showtec-Indigo-4500" m="Indigo 4500"/>
     <F n="Showtec-Indigo-4600" m="Indigo 4600"/>
     <F n="Showtec-Indigo-6500" m="Indigo 6500"/>
     <F n="Showtec-Infinity-iB-5R" m="Infinity iB-5R"/>
@@ -1163,19 +1173,21 @@
     <F n="Stairville-HL-x9-Quad-Color-Flood-9x8W" m="HL-x9 Quad Color Flood 9x8W"/>
     <F n="Stairville-Hz-200-DMX" m="Hz-200 DMX"/>
     <F n="Stairville-JunoScan-MKII" m="JunoScan MKII"/>
-    <F n="Stairville-LED-bar-240-8-RGB" m="LED Bar 240/8 RGB"/>
+    <F n="Stairville-LED-BAR-240-8-RGB" m="LED Bar 240/8 RGB"/>
+    <F n="Stairville-LED-BAR-RGB-252" m="LED BAR 252 RGB (no. 234564)"/>
     <F n="Stairville-LED-Blinder-2-COB-2x65W" m="LED Blinder 2 COB 2x65W"/>
     <F n="Stairville-LED-Flood-Panel-150" m="LED Flood Panel 150"/>
     <F n="Stairville-LED-Flood-Panel-7x3W" m="LED Flood Panel 7x3W"/>
     <F n="Stairville-LED-Matrix-Blinder-5x5" m="LED Matrix Blinder 5x5"/>
+    <F n="Stairville-LED-Par-36-COB-RGBW-12W" m="LED Par 36 COB RGBW 12W"/>
     <F n="Stairville-LED-PAR-64-Alu" m="LED PAR 64 Alu"/>
     <F n="Stairville-LED-PAR56-10MM-UV" m="LED PAR56 10MM UV"/>
     <F n="Stairville-LED-PAR56-MKII-RGBA" m="LED Par56 MKII RGBA"/>
     <F n="Stairville-LED-PAR56-MKII-RGBW" m="LED Par56 MKII RGBW"/>
     <F n="Stairville-LED-PAR56" m="LED PAR56"/>
+    <F n="Stairville-LED-PAR64-MKII-RGBW" m="LED PAR64 MKII RGBW"/>
     <F n="Stairville-LED-PAR64" m="LED PAR64"/>
     <F n="Stairville-LED-Show-Bar-Tri-18x3W-RGB" m="Show Bar Tri 18x3W RGB"/>
-    <F n="Stairville-LED_BAR_RGB_252" m="LED BAR 252 RGB (no. 234564)"/>
     <F n="Stairville-M-Fog-1000-DMX" m="M-Fog 1000 DMX"/>
     <F n="Stairville-Matrixx-FL-110-DMX" m="Matrixx FL-110 DMX"/>
     <F n="Stairville-maTrixx-SC-100" m="maTrixx SC-100"/>
@@ -1191,6 +1203,7 @@
     <F n="Stairville-MH-X60th-LED-Spot" m="MH-X60th LED Spot"/>
     <F n="Stairville-MH-z1915" m="MH-z1915 Quad LED Wash Zoom"/>
     <F n="StairVille-MH-z720" m="MH-z720"/>
+    <F n="Stairville-Mini-Stage-Par-RGBW" m="Mini Stage Par RGBW"/>
     <F n="Stairville-novaWash-Quad-LED" m="novaWash Quad LED"/>
     <F n="Stairville-Octagon-Theater" m="Octagon Theater"/>
     <F n="Stairville-PAR64-CX-3-RGBW" m="PAR 64 CX-3 RGBW"/>
@@ -1204,6 +1217,7 @@
     <F n="Stairville-Tri-Flat-PAR-Profile-5x3W-RGB" m="Tri Flat PAR Profile 5x3W RGB"/>
     <F n="Stairville-TRI-LED-Bundle-Complete" m="Stage TRI LED Bundle Complete"/>
     <F n="Stairville-WGF-2000" m="WGF 2000"/>
+    <F n="Stairville-Wild-Wash-9x3W-LED-UV" m="Wild Wash 9x3W LED UV"/>
     <F n="Stairville-xBrick-Full-Colour-16X3W" m="xBrick Full-Colour 16X3W"/>
     <F n="Stairville-xBrick-Full-Colour" m="xBrick Full-Colour"/>
     <F n="Stairville-ZF-1500" m="ZF-1500"/>
@@ -1242,6 +1256,9 @@
   </M>
   <M n="TSSS">
     <F n="TSSS-XL35" m="XL35"/>
+  </M>
+  <M n="UKing">
+    <F n="UKing-Mini-RGBW-Moving-Head" m="Mini RGBW Moving Head"/>
   </M>
   <M n="Vari-Lite">
     <F n="Vari-Lite-VL2500-Wash" m="VL2500 Wash"/>
