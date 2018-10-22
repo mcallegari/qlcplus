@@ -173,18 +173,6 @@ void GenericFader::write(Universe *universe)
                 continue;
             }
         }
-/*
-        else
-        {
-            // Remove all LTP channels after their time is up
-            if (fc.elapsed() >= fc.fadeTime())
-                it.remove();
-        }
-*/
-/*
-        if (channelType & FadeChannel::Flashing)
-            it.remove();
-*/
     }
 }
 
