@@ -19,21 +19,7 @@
 
 /* VCButton */
 
-window.addEventListener("load",() => {
-    var buttons = document.getElementsByClassName("vcbutton");
 
-    for (var btn of buttons) {
-        btn.addEventListener("touchstart", (event) => {
-                 event.preventDefault();
-                buttonPress(this.id)
-        }, false);
-
-        btn.addEventListener("touchend", (event) => {
-                 event.preventDefault();
-                buttonRelease(this.id)
-        }, false);
-    }
-});
 
 function buttonPress(id) {
  websocket.send(id + "|255");
@@ -56,6 +42,20 @@ function wsSetButtonState(id, state) {
   obj.style.border = "3px solid #A0A0A0";
  }
 }
+
+window.addEventListener("load",() => {
+    var buttons = document.getElementsByClassName("vcbutton");
+    for (var btn of buttons) {
+        btn.addEventListener("touchstart", (event) => {
+                event.preventDefault();
+                buttonPress(this.id);
+        }, false);
+        btn.addEventListener("touchend", (event) => {
+                event.preventDefault();
+                buttonRelease(this.id);
+        }, false);
+    }
+});
 
 /* VCCueList */
 var cueListsIndices = new Array();
