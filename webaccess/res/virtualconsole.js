@@ -45,11 +45,11 @@ window.addEventListener("load",() => {
     for (var btn of buttons) {
         btn.addEventListener("touchstart", (event) => {
                 event.preventDefault();
-                buttonPress(this.id);
+                buttonPress(event.target.id);
         }, false);
         btn.addEventListener("touchend", (event) => {
                 event.preventDefault();
-                buttonRelease(this.id);
+                buttonRelease(event.target.id);
         }, false);
     }
 });
