@@ -18,9 +18,6 @@
 */
 
 /* VCButton */
-
-
-
 function buttonPress(id) {
  websocket.send(id + "|255");
 }
