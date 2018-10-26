@@ -68,16 +68,17 @@ ShowRunner::ShowRunner(const Doc* doc, quint32 showID, quint32 startTime)
         // get all the functions of the track and append them to the runner queue
         foreach(ShowFunction *sfunc, track->showFunctions())
         {
-            if (sfunc->startTime() + sfunc->duration() <= startTime)
+            if (sfunc->startTime() + sfunc->duration(m_doc) <= startTime)
                 continue;
+
             Function *f = m_doc->function(sfunc->functionID());
             if (f == NULL)
                 continue;
 
             m_functions.append(sfunc);
 
-            if (sfunc->startTime() + sfunc->duration() > m_totalRunTime)
-                m_totalRunTime = sfunc->startTime() + sfunc->duration();
+            if (sfunc->startTime() + sfunc->duration(m_doc) > m_totalRunTime)
+                m_totalRunTime = sfunc->startTime() + sfunc->duration(m_doc);
         }
 
         // Initialize the intensity map
@@ -89,7 +90,7 @@ ShowRunner::ShowRunner(const Doc* doc, quint32 showID, quint32 startTime)
 #if 1
     qDebug() << "Ordered list of ShowFunctions:";
     foreach (ShowFunction *sfunc, m_functions)
-        qDebug() << "ID:" << sfunc->functionID() << "st:" << sfunc->startTime() << "dur:" << sfunc->duration();
+        qDebug() << "ID:" << sfunc->functionID() << "st:" << sfunc->startTime() << "dur:" << sfunc->duration(m_doc);
 #endif
     m_runningQueue.clear();
 
@@ -172,7 +173,7 @@ void ShowRunner::write()
             }
 
             f->start(m_doc->masterTimer(), functionParent(), functionTimeOffset);
-            m_runningQueue.append(QPair<Function *, quint32>(f, sf->startTime() + sf->duration()));
+            m_runningQueue.append(QPair<Function *, quint32>(f, sf->startTime() + sf->duration(m_doc)));
             m_currentFunctionIndex++;
         }
         else

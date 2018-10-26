@@ -23,6 +23,7 @@
 
 #include "showfunction.h"
 #include "function.h"
+#include "doc.h"
 
 #define KXMLShowFunctionID "ID"
 #define KXMLShowFunctionStartTime "StartTime"
@@ -81,6 +82,18 @@ void ShowFunction::setDuration(quint32 duration)
 quint32 ShowFunction::duration() const
 {
     return m_duration;
+}
+
+quint32 ShowFunction::duration(const Doc *doc) const
+{
+    if (doc == NULL)
+        return 0;
+
+    Function *f = doc->function(m_id);
+    if (f == NULL)
+        return 0;
+
+    return f->totalDuration();
 }
 
 void ShowFunction::setColor(QColor color)
@@ -176,7 +189,8 @@ bool ShowFunction::saveXML(QXmlStreamWriter *doc) const
     /* Attributes */
     doc->writeAttribute(KXMLShowFunctionID, QString::number(functionID()));
     doc->writeAttribute(KXMLShowFunctionStartTime, QString::number(startTime()));
-    doc->writeAttribute(KXMLShowFunctionDuration, QString::number(duration()));
+    if (m_duration)
+        doc->writeAttribute(KXMLShowFunctionDuration, QString::number(m_duration));
     if (color().isValid())
         doc->writeAttribute(KXMLShowFunctionColor, color().name());
     if (isLocked())

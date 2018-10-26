@@ -25,6 +25,7 @@
 #include "function.h"
 
 class QXmlStreamReader;
+class Doc;
 
 /** @addtogroup engine_functions Functions
  * @{
@@ -59,6 +60,7 @@ public:
      *  to the original Function duration */
     void setDuration(quint32 duration);
     quint32 duration() const;
+    quint32 duration(const Doc *doc) const;
 
     /** Get/Set the color of the item when rendered in the Show Manager */
     void setColor(QColor color);
