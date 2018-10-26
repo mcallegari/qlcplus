@@ -32,13 +32,13 @@
 
 ShowFunction::ShowFunction(QObject *parent)
     : QObject(parent)
+    , m_id(Function::invalidId())
+    , m_startTime(UINT_MAX)
+    , m_duration(0)
+    , m_color(QColor())
+    , m_locked(false)
+    , m_intensityOverrideId(-1)
 {
-    m_id = Function::invalidId();
-    m_startTime = UINT_MAX;
-    m_duration = 0;
-    m_color = QColor();
-    m_locked = false;
-    m_intensityOverrideId = -1;
 }
 
 void ShowFunction::setFunctionID(quint32 id)
@@ -101,26 +101,14 @@ QColor ShowFunction::defaultColor(Function::Type type)
 {
     switch (type)
     {
-        case Function::ChaserType:
-            return QColor(85, 107, 128);
-        break;
-        case Function::AudioType:
-            return QColor(96, 128, 83);
-        break;
-        case Function::RGBMatrixType:
-            return QColor(101, 155, 155);
-        break;
-        case Function::EFXType:
-            return QColor(128, 60, 60);
-        break;
+        case Function::ChaserType:    return QColor(85, 107, 128);
+        case Function::AudioType:     return QColor(96, 128, 83);
+        case Function::RGBMatrixType: return QColor(101, 155, 155);
+        case Function::EFXType:       return QColor(128, 60, 60);
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-        case Function::VideoType:
-            return QColor(147, 140, 20);
-        break;
+        case Function::VideoType:     return QColor(147, 140, 20);
 #endif
-        default:
-            return QColor(100, 100, 100);
-        break;
+        default: return QColor(100, 100, 100);
     }
 }
 
