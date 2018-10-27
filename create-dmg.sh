@@ -34,9 +34,13 @@ fi
 OUTDIR=$PWD
 cd platforms/macos/dmg
 ./create-dmg --volname "Q Light Controller Plus $VERSION" \
+       --volicon $OUTDIR/resources/icons/qlcplus.icns \
 	     --background background.png \
-	     --window-size 300 225 \
-	     --icon-size 128 --icon "qlcplus" 150 16 \
-             $OUTDIR/QLC+_$VERSION.dmg \
+	     --window-size 400 300 \
+       --window-pos 200 100 \
+	     --icon-size 64 \
+       --icon "QLC+" 0 150 \
+       --app-drop-link 200 150 \
+       $OUTDIR/QLC+_$VERSION.dmg \
 	     ~/QLC+.app
 cd -
