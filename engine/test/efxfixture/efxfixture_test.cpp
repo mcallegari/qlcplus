@@ -112,7 +112,6 @@ void EFXFixture_Test::init()
         fxi->setFixtureDefinition(def, mode);
         fxi->setAddress(address);
         m_fixtureLedBarAddress = address;
-        address += fxi->channels();
         m_doc->addFixture(fxi);
         m_fixtureLedBar = fxi->id();
     }

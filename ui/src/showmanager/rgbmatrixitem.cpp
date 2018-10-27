@@ -67,11 +67,11 @@ void RGBMatrixItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
 
     ShowItem::paint(painter, option, widget);
 
-    float xpos = 0;
     quint32 matrixDuration = getDuration();
 
     if (matrixDuration)
     {
+        float xpos = 0;
         int loopCount = m_function->duration() ? qFloor(m_function->duration() / m_matrix->totalDuration()) : 0;
 
         for (int i = 0; i < loopCount; i++)

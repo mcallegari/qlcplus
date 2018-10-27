@@ -281,7 +281,7 @@ void InputPatch::setProfilePageControls()
 
 void InputPatch::flush(quint32 universe)
 {
-    if (universe == UINT_MAX || (universe != UINT_MAX && universe == m_universe))
+    if (universe == UINT_MAX || universe == m_universe)
     {
         QMutexLocker inputBufferLocker(&m_inputBufferMutex);
         for (QHash<quint32, InputValue>::const_iterator it = m_inputBuffer.begin(); it != m_inputBuffer.end(); ++it)

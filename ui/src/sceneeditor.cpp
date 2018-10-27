@@ -1278,12 +1278,10 @@ void SceneEditor::slotAddFixtureClicked()
     fs.setDisabledFixtures(disabled);
     if (fs.exec() == QDialog::Accepted)
     {
-        Fixture* fixture;
-
         QListIterator <quint32> it(fs.selection());
         while (it.hasNext() == true)
         {
-            fixture = m_doc->fixture(it.next());
+            Fixture *fixture = m_doc->fixture(it.next());
             Q_ASSERT(fixture != NULL);
 
             addFixtureItem(fixture);
