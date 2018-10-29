@@ -27,7 +27,7 @@ uniform sampler2D bloomTex;
 void main() {
 	vec3 hdrColor = SAMPLE_TEX2D(hdrTex, fsUv).rgb;
 
-//	hdrColor += SAMPLE_TEX2D(bloomTex, fsUv).rgb;
+ 	hdrColor += SAMPLE_TEX2D(bloomTex, fsUv).rgb;
 
     vec3 finalColor = vec3(1.0) - exp(-hdrColor * 1.0);
 

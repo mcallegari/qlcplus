@@ -132,11 +132,8 @@ Rectangle
                 "layer": sceneEntity.selectionLayer,
             });
 
-
-
             var texChainTargets = [texChainTarget0, texChainTarget1, texChainTarget2, texChainTarget3, texChainTarget4]         
             var texChainTextures = [texChainTexture0, texChainTexture1, texChainTexture2, texChainTexture3, texChainTexture4]
-
 
             var TEX_CHAIN_LEN = texChainTargets.length
 
@@ -149,7 +146,6 @@ Rectangle
                 screenQuadUpsampleEntity0, screenQuadUpsampleEntity1, screenQuadUpsampleEntity2, screenQuadUpsampleEntity3,
                  screenQuadUpsampleEntity4
             ]
-
 
             {
                 component = Qt.createComponent("GrabBrightFilter.qml");
@@ -214,7 +210,7 @@ Rectangle
                     });
 
                 }
-            
+        
 
 
 
@@ -305,6 +301,8 @@ Rectangle
                 }
             }
 
+
+
             component = Qt.createComponent("GammaCorrectFilter.qml");
             if (component.status === Component.Error)
                 console.log("Error loading component:", component.errorString());
@@ -312,8 +310,8 @@ Rectangle
             sgNode = component.createObject(frameGraph.myCameraSelector,
             {
                 "hdrTexture": frameTarget.color,
-         //       "bloomTexture": bloomTexture,
-                
+                "bloomTexture": texChainTextures[0],
+              
                 "outRenderTarget": hdr0RenderTarget,
 
                 "screenQuadGammaCorrectLayer": screenQuadGammaCorrectEntity.layer
