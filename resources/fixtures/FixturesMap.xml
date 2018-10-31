@@ -36,6 +36,7 @@
     <F n="American-DJ-Dotz-Bar-1.4" m="Dotz Bar 1.4"/>
     <F n="American-DJ-Dotz-Flood" m="Dotz Flood"/>
     <F n="American-DJ-Dotz-Matrix" m="Dotz Matrix"/>
+    <F n="American-DJ-Dotz-Panel-2.4" m="Dotz Panel 2.4"/>
     <F n="American-DJ-Dotz-Par" m="Dotz Par"/>
     <F n="American-DJ-Dotz-TPar" m="Dotz TPar"/>
     <F n="American-DJ-Double-Phase" m="Double Phase"/>
@@ -356,6 +357,7 @@
     <F n="Chauvet-Q-Spot-260-LED" m="Q-Spot 260 LED"/>
     <F n="Chauvet-Q-Spot-560-LED" m="Q-Spot 560 LED"/>
     <F n="Chauvet-Q-Wash-560Z-LED" m="Q-Wash 560Z-LED"/>
+    <F n="Chauvet-Rogue-R1-Spot" m="Rogue R1 Spot"/>
     <F n="Chauvet-Rogue-R2-Spot" m="Rogue R2 Spot"/>
     <F n="Chauvet-Rogue-RH1-Hybrid" m="Rogue RH1 Hybrid"/>
     <F n="Chauvet-RotoSphere-LED" m="RotoSphere LED"/>
@@ -594,6 +596,8 @@
   </M>
   <M n="Flash-Butrym">
     <F n="Flash-Butrym-LED-Moving-Head-Mini-Beam-18x3W-RGB-CREE" m="LED Moving Head Mini Beam 18x3W RGB CREE"/>
+    <F n="Flash-Butrym-LED-PAR-64-4x30W-COB-RGBW" m="LED PAR 64 4x30W COB RGBW"/>
+    <F n="Flash-Butrym-LED-PAR-64-COB-250W-2xWhite-Mk2" m="LED PAR 64 COB 250W 2xWhite Mk2"/>
   </M>
   <M n="Fun-Generation">
     <F n="Fun-Generation-LED-Diamond-Dome" m="LED Diamond Dome"/>
@@ -1148,6 +1152,8 @@
     <F n="Solena-Mini-Par-12" m="Mini Par 12"/>
   </M>
   <M n="Stage_Right">
+    <F n="Stage-Right-10Wx9-LED-Flat-PAR" m="10Wx9 LED Flat PAR"/>
+    <F n="Stage-Right-3-Color-LED-Light-Bar" m="3-Color LED Light Bar"/>
     <F n="Stage-Right-7x20W-COB-LED-Theater-PAR" m="7x20W COB LED Theater PAR"/>
     <F n="Stage-Right-Stage-Wash-18Wx18-LED-PAR" m="Stage Wash 18Wx18 LED PAR"/>
   </M>

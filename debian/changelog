@@ -32,7 +32,7 @@ qlcplus (4.12.0) stable; urgency=low
   * New fixture: Stairville WGF 2000 (thanks to CoS2000)
   * New fixture: Dia Lighting Diapro Spot LED 300 (thanks to DJ Ladonin)
   * New fixtures: Showtec Phantom 130 LED Spot, Eurolite TMH-30/60, Showtec Vintage Blaze (thanks to Piotr Nowik)
-  * New fixtures: Varytec BAT.PAR 6 RGBWA, American DJ WiFly PAR QA5 (thanks to Edgar Aichinger)
+  * New fixtures: Varytec BAT.PAR 6 RGBWA, American DJ WiFly PAR QA5, Flash-Butrym LED PAR 64 COB Mk2 (thanks to Edgar Aichinger)
   * New fixture: IMG Stageline PARL-40SET (thanks to Mitsch)
   * New fixtures: Equinox Quad Pix Batten, Chauvet Wash FX2, MARQ Gesture Spot 300, American DJ Warlock (thanks to Justin Hornsby)
   * New fixture: JB Systems Space Laser 3 (thanks to Ben Engelen)
@@ -60,6 +60,9 @@ qlcplus (4.12.0) stable; urgency=low
   * New fixtures: Stairville Mini Stage Par RGBW, LED Par 36 COB RGBW, LED PAR64 MKII RGBW (thanks to Jose Coelho)
   * New fixtures: Eurolite LED T-36 RGB Pinspot, beamZ BT270 LED FlatPAR (thanks to Herbie)
   * New fixture: Proel PLLEDSP (thanks to Martino)
+  * New fixtures: Stage Right 10Wx9 LED Flat PAR, 3-Color LED Light Bar (thanks to Daniel Smith)
+  * New fixture: Chauvet Rogue R1 Spot (thanks to David Wolfe)
+  * New fixtures: American DJ Dotz Panel 2.4, Flash-Butrym LED PAR 64 4x30W COB RGBW (thanks to Fotis)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 21 Oct 2018 12:13:14 +0200
 
