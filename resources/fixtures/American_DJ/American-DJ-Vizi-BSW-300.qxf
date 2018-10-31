@@ -80,7 +80,7 @@
   <Capability Min="22" Max="32" Res="Chauvet/gobo00009.svg">Gobo 2</Capability>
   <Capability Min="33" Max="43" Res="Others/gobo00055.png">Gobo 3</Capability>
   <Capability Min="44" Max="54" Res="GLP/gobo00009.png">Gobo 4</Capability>
-  <Capability Min="55" Max="65" Res="Chauvet/gobo00065.png">Gobo 5</Capability>
+  <Capability Min="55" Max="65" Res="Chauvet/gobo00065.svg">Gobo 5</Capability>
   <Capability Min="66" Max="76" Res="Chauvet/gobo00003.svg">Gobo 6</Capability>
   <Capability Min="77" Max="87" Res="Chauvet/gobo00066.png">Gobo 7</Capability>
   <Capability Min="88" Max="127">Gobo Shake (Gobos 1-7)</Capability>
