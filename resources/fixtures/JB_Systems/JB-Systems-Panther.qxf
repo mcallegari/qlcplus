@@ -20,7 +20,7 @@
   <Capability Min="0" Max="4">Blackout</Capability>
   <Capability Min="5" Max="12" Res="Others/open.svg">Open</Capability>
   <Capability Min="13" Max="20" Res="Chauvet/gobo00047.svg">Gobo 1 / Multicolor</Capability>
-  <Capability Min="21" Max="28" Res="Chauvet/gobo00037.png">Gobo 2 / Blue</Capability>
+  <Capability Min="21" Max="28" Res="Chauvet/gobo00037.svg">Gobo 2 / Blue</Capability>
   <Capability Min="29" Max="36">Gobo 3 / Yellow</Capability>
   <Capability Min="37" Max="44" Res="Others/gobo00012.svg">Gobo 4 / Green</Capability>
   <Capability Min="45" Max="52">Gobo 5 / Orange</Capability>

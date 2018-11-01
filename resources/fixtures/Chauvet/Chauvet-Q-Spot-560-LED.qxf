@@ -58,10 +58,10 @@
   <Capability Min="21" Max="30" Preset="GoboMacro" Res1="Chauvet/gobo00009.svg">Gobo 2</Capability>
   <Capability Min="31" Max="40" Preset="GoboMacro" Res1="Chauvet/gobo00010.svg">Gobo 3</Capability>
   <Capability Min="41" Max="50" Preset="GoboMacro" Res1="Chauvet/gobo00011.png">Gobo 4</Capability>
-  <Capability Min="51" Max="60" Preset="GoboMacro" Res1="Chauvet/gobo00012.png">Gobo 5</Capability>
-  <Capability Min="61" Max="70" Preset="GoboMacro" Res1="Chauvet/gobo00013.png">Gobo 6</Capability>
-  <Capability Min="71" Max="85" Preset="GoboMacro" Res1="Chauvet/gobo00013.png">Shaking Gobo 6</Capability>
-  <Capability Min="86" Max="100" Preset="GoboMacro" Res1="Chauvet/gobo00012.png">Shaking Gobo 5</Capability>
+  <Capability Min="51" Max="60" Preset="GoboMacro" Res1="Chauvet/gobo00012.svg">Gobo 5</Capability>
+  <Capability Min="61" Max="70" Preset="GoboMacro" Res1="Chauvet/gobo00013.svg">Gobo 6</Capability>
+  <Capability Min="71" Max="85" Preset="GoboMacro" Res1="Chauvet/gobo00013.svg">Shaking Gobo 6</Capability>
+  <Capability Min="86" Max="100" Preset="GoboMacro" Res1="Chauvet/gobo00012.svg">Shaking Gobo 5</Capability>
   <Capability Min="101" Max="105" Preset="GoboMacro" Res1="Chauvet/gobo00011.png">Shaking Gobo 4</Capability>
   <Capability Min="116" Max="130" Preset="GoboMacro" Res1="Chauvet/gobo00010.svg">Shaking Gobo 3</Capability>
   <Capability Min="131" Max="145" Preset="GoboMacro" Res1="Chauvet/gobo00009.svg">Shaking Gobo 2</Capability>

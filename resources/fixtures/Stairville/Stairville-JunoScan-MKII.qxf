@@ -49,18 +49,18 @@
   <Capability Min="6" Max="11" Res="Chauvet/gobo00045.svg">Gobo 01</Capability>
   <Capability Min="12" Max="17" Res="Chauvet/gobo00046.png">Gobo 02</Capability>
   <Capability Min="18" Max="23" Res="Chauvet/gobo00047.svg">Gobo 03</Capability>
-  <Capability Min="24" Max="29" Res="Chauvet/gobo00048.png">Gobo 04</Capability>
+  <Capability Min="24" Max="29" Res="Chauvet/gobo00048.svg">Gobo 04</Capability>
   <Capability Min="30" Max="35" Res="Chauvet/gobo00049.svg">Gobo 05</Capability>
   <Capability Min="36" Max="41" Res="Chauvet/gobo00050.png">Gobo 06</Capability>
   <Capability Min="42" Max="47" Res="Chauvet/gobo00042.svg">Gobo 07</Capability>
-  <Capability Min="48" Max="53" Res="Chauvet/gobo00052.png">Gobo 08</Capability>
-  <Capability Min="54" Max="63" Res="Chauvet/gobo00053.png">Gobo 09</Capability>
-  <Capability Min="64" Max="73" Res="Chauvet/gobo00053.png">Gobo 09 shake, speed increasing</Capability>
-  <Capability Min="74" Max="79" Res="Chauvet/gobo00052.png">Gobo 08 shake, speed increasing</Capability>
+  <Capability Min="48" Max="53" Res="Chauvet/gobo00052.svg">Gobo 08</Capability>
+  <Capability Min="54" Max="63" Res="Chauvet/gobo00053.svg">Gobo 09</Capability>
+  <Capability Min="64" Max="73" Res="Chauvet/gobo00053.svg">Gobo 09 shake, speed increasing</Capability>
+  <Capability Min="74" Max="79" Res="Chauvet/gobo00052.svg">Gobo 08 shake, speed increasing</Capability>
   <Capability Min="80" Max="85" Res="Chauvet/gobo00042.svg">Gobo 07 shake, speed increasing</Capability>
   <Capability Min="86" Max="91" Res="Chauvet/gobo00050.png">Gobo 06 shake, speed increasing</Capability>
   <Capability Min="92" Max="97" Res="Chauvet/gobo00049.svg">Gobo 05 shake, speed increasing</Capability>
-  <Capability Min="98" Max="103" Res="Chauvet/gobo00048.png">Gobo 04 shake, speed increasing</Capability>
+  <Capability Min="98" Max="103" Res="Chauvet/gobo00048.svg">Gobo 04 shake, speed increasing</Capability>
   <Capability Min="104" Max="109" Res="Chauvet/gobo00047.svg">Gobo 03 shake, speed increasing</Capability>
   <Capability Min="110" Max="115" Res="Chauvet/gobo00046.png">Gobo 02 shake, speed increasing</Capability>
   <Capability Min="116" Max="121" Res="Chauvet/gobo00045.svg">Gobo 01 shake, speed increasing</Capability>
