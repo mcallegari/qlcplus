@@ -616,8 +616,6 @@ void Doc_Test::channelGroups()
 
 void Doc_Test::monitorProperties()
 {
-    QRectF fxRect(100, 100, 300, 300);
-
     Fixture *f1 = new Fixture(m_doc);
     f1->setName("One");
     f1->setChannels(2);

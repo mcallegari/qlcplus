@@ -1196,7 +1196,7 @@ void ContextManager::slotChannelTypeValueChanged(int type, quint8 value, quint32
     QList<SceneValue> svList = m_channelsMap.values(type);
     for (SceneValue sv : svList)
     {
-        if (channel == UINT_MAX || (channel != UINT_MAX && channel == sv.channel))
+        if (channel == UINT_MAX || channel == sv.channel)
         {
             if (m_editingEnabled == false)
                 setDumpValue(sv.fxi, sv.channel, (uchar)value);

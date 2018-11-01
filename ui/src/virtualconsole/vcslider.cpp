@@ -626,13 +626,13 @@ bool VCSlider::channelsMonitorEnabled() const
     return m_monitorEnabled;
 }
 
-void VCSlider::setLevelValue(uchar value)
+void VCSlider::setLevelValue(uchar value, bool external)
 {
     QMutexLocker locker(&m_levelValueMutex);
     m_levelValue = CLAMP(value, levelLowLimit(), levelHighLimit());
     if (m_monitorEnabled == true)
         m_monitorValue = m_levelValue;
-    if (m_slider->isSliderDown())
+    if (m_slider->isSliderDown() || external)
         m_levelValueChanged = true;
 }
 
@@ -1100,6 +1100,7 @@ void VCSlider::writeDMXLevel(MasterTimer *timer, QList<Universe *> universes)
             if (fader == NULL)
             {
                 fader = universes[universe]->requestFader(m_monitorEnabled ? Universe::Override : Universe::Auto);
+                fader->adjustIntensity(intensity());
                 m_fadersMap[universe] = fader;
                 if (m_monitorEnabled)
                 {
@@ -1154,7 +1155,7 @@ void VCSlider::writeDMXLevel(MasterTimer *timer, QList<Universe *> universes)
             }
 
             fc->setStart(fc->current());
-            fc->setTarget(modLevel * intensity());
+            fc->setTarget(modLevel);
             fc->setReady(false);
             fc->setElapsed(0);
 
@@ -1242,7 +1243,7 @@ QString VCSlider::topLabelText()
  * Slider
  *****************************************************************************/
 
-void VCSlider::setSliderValue(uchar value, bool scale)
+void VCSlider::setSliderValue(uchar value, bool scale, bool external)
 {
     if (m_slider == NULL)
         return;
@@ -1273,7 +1274,7 @@ void VCSlider::setSliderValue(uchar value, bool scale)
                 m_resetButton->setStyleSheet(QString("QToolButton{ background: red; }"));
                 m_isOverriding = true;
             }
-            setLevelValue(val);
+            setLevelValue(val, external);
             setClickAndGoWidgetFromLevel(val);
         }
         break;
@@ -1486,7 +1487,7 @@ void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
                 m_isOverriding = true;
             }
 
-            setSliderValue(value);
+            setSliderValue(value, true, true);
             m_lastInputValue = value;
         }
     }
@@ -1509,6 +1510,11 @@ void VCSlider::adjustIntensity(qreal val)
 
         qreal pIntensity = qreal(m_playbackValue) / qreal(UCHAR_MAX);
         adjustFunctionIntensity(function, pIntensity * intensity());
+    }
+    else if (sliderMode() == Level)
+    {
+        foreach (GenericFader *fader, m_fadersMap.values())
+            fader->adjustIntensity(val);
     }
 }
 

@@ -159,6 +159,9 @@ EFX::Algorithm EFX::algorithm() const
 
 void EFX::setAlgorithm(EFX::Algorithm algo)
 {
+    if (algo == m_algorithm)
+        return;
+
     if (algo >= EFX::Circle && algo <= EFX::Lissajous)
         m_algorithm = algo;
     else

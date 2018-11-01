@@ -62,6 +62,16 @@ Rectangle
             videoContent.destroyContext()
     }
 
+    function translateUrl(url)
+    {
+        if (url.indexOf("://") !== -1)
+            return url
+        if (Qt.platform.os == "windows")
+            return "file:///" + url
+        else
+            return "file://" + url
+    }
+
     // Component representing a video content
     Component
     {
@@ -91,7 +101,7 @@ Rectangle
                 else
                     anchors.fill = parent
 
-                player.source = video.sourceUrl.indexOf("://") !== -1 ? video.sourceUrl : "file://" + video.sourceUrl
+                player.source = translateUrl(video.sourceUrl)
                 console.log("QML video source: " + player.source)
             }
 
@@ -167,7 +177,7 @@ Rectangle
                 else
                     anchors.fill = parent
 
-                source = picture.sourceUrl.indexOf("://") !== -1 ? picture.sourceUrl : "file://" + picture.sourceUrl
+                source = translateUrl(picture.sourceUrl)
                 console.log("QML picture source: " + source)
             }
 

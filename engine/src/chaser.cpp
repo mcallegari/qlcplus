@@ -46,7 +46,7 @@
  * Initialization
  *****************************************************************************/
 
-Chaser::Chaser(Doc* doc)
+Chaser::Chaser(Doc *doc)
     : Function(doc, Function::ChaserType)
     , m_legacyHoldBus(Bus::invalid())
     , m_fadeInMode(Default)
@@ -557,7 +557,13 @@ void Chaser::adjustStepIntensity(qreal fraction, int stepIndex, FadeControlMode 
 {
     QMutexLocker runnerLocker(&m_runnerMutex);
     if (m_runner != NULL)
+    {
         m_runner->adjustStepIntensity(fraction * getAttributeValue(Intensity), stepIndex, fadeControl);
+    }
+    else
+    {
+        m_startupAction.m_intensity = fraction * getAttributeValue(Intensity);
+    }
 }
 
 bool Chaser::contains(quint32 functionId)
@@ -605,7 +611,6 @@ void Chaser::createRunner(quint32 startTime)
     }
     m_runner->moveToThread(QCoreApplication::instance()->thread());
     m_runner->setParent(this);
-    m_startupAction.m_intensity *= getAttributeValue(Intensity);;
     m_runner->setAction(m_startupAction);
     m_startupAction.m_action = ChaserNoAction;
 }
@@ -673,7 +678,13 @@ int Chaser::adjustAttribute(qreal fraction, int attributeId)
         QMutexLocker runnerLocker(&m_runnerMutex);
         QMutexLocker stepListLocker(&m_stepListMutex);
         if (m_runner != NULL)
+        {
             m_runner->adjustStepIntensity(getAttributeValue(Function::Intensity));
+        }
+        else
+        {
+            m_startupAction.m_intensity = getAttributeValue(Intensity);
+        }
     }
 
     return attrIndex;

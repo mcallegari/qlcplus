@@ -788,7 +788,7 @@ public:
      * There is no way to cancel it, but the function can be started again
      * normally.
      */
-    void stop(FunctionParent parent);
+    void stop(FunctionParent parent, bool preserveAttributes = false);
 
     /**
      * Check, whether the function should be stopped ASAP. Functions can use this
@@ -966,7 +966,11 @@ private:
     /** A map of the overridden attributes */
     QMap <int, AttributeOverride> m_overrideMap;
 
+    /** Last assigned override ID */
     int m_lastOverrideAttributeId;
+
+    /** Flag to preserve or discard attributes on stop calls */
+    bool m_preserveAttributes;
 
     /*************************************************************************
      * Blend mode

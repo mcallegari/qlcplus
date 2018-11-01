@@ -140,7 +140,7 @@ void GenericFader::write(Universe *universe)
     {
         FadeChannel& fc(it.next().value());
         int channelType = fc.type();
-        quint32 address = fc.addressInUniverse();
+        int address = int(fc.addressInUniverse());
         uchar value;
 
         // Calculate the next step
@@ -161,7 +161,9 @@ void GenericFader::write(Universe *universe)
         else
             universe->writeBlended(address, value, m_blendMode);
 
-        if ((channelType & FadeChannel::Intensity) && m_blendMode == Universe::NormalBlend)
+        if ((channelType & FadeChannel::Intensity) &&
+            (channelType & FadeChannel::HTP) &&
+            m_blendMode == Universe::NormalBlend)
         {
             // Remove all HTP channels that reach their target _zero_ value.
             // They have no effect either way so removing them saves a bit of CPU.
@@ -171,18 +173,6 @@ void GenericFader::write(Universe *universe)
                 continue;
             }
         }
-/*
-        else
-        {
-            // Remove all LTP channels after their time is up
-            if (fc.elapsed() >= fc.fadeTime())
-                it.remove();
-        }
-*/
-/*
-        if (channelType & FadeChannel::Flashing)
-            it.remove();
-*/
     }
 }
 

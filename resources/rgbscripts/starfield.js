@@ -181,11 +181,11 @@ var testAlgo;
                 }
             }
             return map; // return the map back to QLC+
-        }
+        };
 
         algo.rgbMapStepCount = function (width, height) {
             return width * height;
-        }
+        };
 
     // Development tool access
     testAlgo = algo;

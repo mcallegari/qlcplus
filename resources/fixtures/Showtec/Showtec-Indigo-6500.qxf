@@ -36,7 +36,7 @@
  <Channel Name="Static Gobo-wheel + Gobo Shake">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="10">Open/White</Capability>
-  <Capability Res="Chauvet/gobo00065.png" Min="11" Max="20">Metal Gobo 1</Capability>
+  <Capability Res="Chauvet/gobo00065.svg" Min="11" Max="20">Metal Gobo 1</Capability>
   <Capability Res="Chauvet/gobo00006.svg" Min="21" Max="30">Metal Gobo 2</Capability>
   <Capability Res="Chauvet/gobo00005.svg" Min="31" Max="40">Metal Gobo 3</Capability>
   <Capability Res="ClayPaky/gobo00055.svg" Min="41" Max="50">Metal Gobo 4</Capability>
@@ -49,7 +49,7 @@
   <Capability Res="ClayPaky/gobo00055.svg" Min="126" Max="140">Shake 4 Slow-&gt;Fast</Capability>
   <Capability Res="Chauvet/gobo00005.svg" Min="141" Max="155">Shake 3 Slow-&gt;Fast</Capability>
   <Capability Res="Chauvet/gobo00006.svg" Min="156" Max="170">Shake 2 Slow-&gt;Fast</Capability>
-  <Capability Res="Chauvet/gobo00065.png" Min="171" Max="185">Shake 1 Slow-&gt;Fast</Capability>
+  <Capability Res="Chauvet/gobo00065.svg" Min="171" Max="185">Shake 1 Slow-&gt;Fast</Capability>
   <Capability Min="186" Max="255">Backwards (CCW) Rotation Slow-&gt;Fast</Capability>
  </Channel>
  <Channel Name="Rotating Gobo-wheel + Gobo Shake">

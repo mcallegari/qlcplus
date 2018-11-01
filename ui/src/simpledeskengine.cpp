@@ -305,12 +305,32 @@ void SimpleDeskEngine::writeDMX(MasterTimer *timer, QList<Universe *> ua)
                 if (universe >= (quint32)ua.count())
                     continue;
 
+                ua[universe]->reset();
+
                 GenericFader *fader = m_fadersMap.value(universe, NULL);
                 if (fader != NULL)
                 {
+                    // loop through all active fadechannels and restore defualt values
+                    QHashIterator<quint32, FadeChannel> it(fader->channels());
+                    while (it.hasNext() == true)
+                    {
+                        it.next();
+                        FadeChannel fc = it.value();
+                        Fixture *fixture = m_doc->fixture(fc.fixture());
+                        quint32 chIndex = fc.channel();
+                        if (fixture != NULL)
+                        {
+                            const QLCChannel *ch = fixture->channel(chIndex);
+                            if (ch != NULL)
+                            {
+                                qDebug() << "Restoring default value of fixture" << fixture->id()
+                                         << "channel" << chIndex << "value" << ch->defaultValue();
+                                ua[universe]->setChannelDefaultValue(fixture->address() + chIndex, ch->defaultValue());
+                            }
+                        }
+                    }
                     ua[universe]->dismissFader(fader);
                     m_fadersMap.remove(universe);
-                    ua[universe]->reset();
                 }
             }
             else if (command.first == ResetChannel)
@@ -321,8 +341,20 @@ void SimpleDeskEngine::writeDMX(MasterTimer *timer, QList<Universe *> ua)
                 if (fader != NULL)
                 {
                     FadeChannel fc(m_doc, Fixture::invalidId(), channel);
+                    Fixture *fixture = m_doc->fixture(fc.fixture());
+                    quint32 chIndex = fc.channel();
                     fader->remove(&fc);
                     ua[universe]->reset(channel & 0x01FF, 1);
+                    if (fixture != NULL)
+                    {
+                        const QLCChannel *ch = fixture->channel(chIndex);
+                        if (ch != NULL)
+                        {
+                            qDebug() << "Restoring default value of fixture" << fixture->id()
+                                     << "channel" << chIndex << "value" << ch->defaultValue();
+                            ua[universe]->setChannelDefaultValue(channel, ch->defaultValue());
+                        }
+                    }
                 }
             }
         }

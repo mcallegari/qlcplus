@@ -99,6 +99,7 @@ Function::Function(QObject *parent)
     , m_running(false)
     , m_paused(false)
     , m_lastOverrideAttributeId(OVERRIDE_ATTRIBUTE_START_ID)
+    , m_preserveAttributes(false)
     , m_blendMode(Universe::NormalBlend)
 {
 
@@ -128,6 +129,7 @@ Function::Function(Doc* doc, Type t)
     , m_running(false)
     , m_paused(false)
     , m_lastOverrideAttributeId(OVERRIDE_ATTRIBUTE_START_ID)
+    , m_preserveAttributes(false)
     , m_blendMode(Universe::NormalBlend)
 {
     Q_ASSERT(doc != NULL);
@@ -1018,7 +1020,8 @@ void Function::postRun(MasterTimer* timer, QList<Universe *> universes)
         QMutexLocker locker(&m_stopMutex);
 
         resetElapsed();
-        resetAttributes();
+        if (m_preserveAttributes == false)
+            resetAttributes();
 
         m_functionStopped.wakeAll();
     }
@@ -1141,7 +1144,7 @@ void Function::setPause(bool enable)
     m_paused = enable;
 }
 
-void Function::stop(FunctionParent source)
+void Function::stop(FunctionParent source, bool preserveAttributes)
 {
     qDebug() << "Function stop(). Name:" << m_name << "ID: " << m_id << "source:" << source.type() << source.id();
 
@@ -1162,6 +1165,7 @@ void Function::stop(FunctionParent source)
     {
         m_paused = false;
         m_stop = true;
+        m_preserveAttributes = preserveAttributes;
     }
 }
 

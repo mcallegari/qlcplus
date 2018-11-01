@@ -2011,12 +2011,12 @@ Zugriffsstufe:</translation>
     <message>
         <location filename="qml/popup/PopupNetworkConnect.qml" line="190"/>
         <source>Deny</source>
-        <translation>Zulassen</translation>
+        <translation>Verweigern</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupNetworkConnect.qml" line="201"/>
         <source>Allow</source>
-        <translation>Verweigern</translation>
+        <translation>Zulassen</translation>
     </message>
 </context>
 <context>
@@ -2069,12 +2069,12 @@ Zugriffsstufe:</translation>
     <message>
         <location filename="qml/popup/PopupNetworkServer.qml" line="146"/>
         <source>Stop server</source>
-        <translation>Server starten</translation>
+        <translation>Server stoppen</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupNetworkServer.qml" line="146"/>
         <source>Start server</source>
-        <translation>Server stoppen</translation>
+        <translation>Server starten</translation>
     </message>
 </context>
 <context>

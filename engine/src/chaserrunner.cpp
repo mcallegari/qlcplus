@@ -51,7 +51,7 @@ ChaserRunner::ChaserRunner(const Doc *doc, const Chaser *chaser, quint32 startTi
     m_pendingAction.m_fadeMode = Chaser::FromFunction;
     m_pendingAction.m_stepIndex = -1;
 
-    if (m_chaser->type() == Function::SequenceType)
+    if (m_chaser->type() == Function::SequenceType && startTime > 0)
     {
         qDebug() << "[ChaserRunner] startTime:" << startTime;
         int idx = 0;
@@ -65,7 +65,7 @@ ChaserRunner::ChaserRunner(const Doc *doc, const Chaser *chaser, quint32 startTi
                 m_pendingAction.m_action = ChaserSetStepIndex;
                 m_pendingAction.m_stepIndex = idx;
                 m_startOffset = startTime - stepsTime;
-                qDebug() << "New start index:" << idx;
+                qDebug() << "[ChaserRunner] Starting from step:" << idx;
                 break;
             }
             idx++;
@@ -232,6 +232,10 @@ void ChaserRunner::setAction(ChaserAction &action)
     // apply the actions that can be applied immediately
     switch (action.m_action)
     {
+        case ChaserNoAction:
+            m_pendingAction.m_intensity = action.m_intensity;
+        break;
+
         case ChaserStopStep:
         {
             bool stopped = false;
@@ -421,6 +425,7 @@ void ChaserRunner::adjustStepIntensity(qreal fraction, int requestedStepIndex, i
         // stepIndex == -1 means that the "global" intensity
         // of the chaser has to be changed
         m_intensity = fraction;
+        m_pendingAction.m_intensity = 1.0;
     }
 
     foreach(ChaserRunnerStep *step, m_runnerSteps)
@@ -714,7 +719,7 @@ bool ChaserRunner::write(MasterTimer *timer, QList<Universe *> universes)
             if (step->m_duration != 0)
                 prevStepRoundElapsed = step->m_elapsed % step->m_duration;
 
-            step->m_function->stop(functionParent());
+            step->m_function->stop(functionParent(), m_chaser->type() == Function::SequenceType);
             delete step;
             m_runnerSteps.removeOne(step);
         }
