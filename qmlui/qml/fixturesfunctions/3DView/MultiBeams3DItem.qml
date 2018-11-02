@@ -296,32 +296,24 @@ Entity
 
                 /* Cone meshes used for scattering. These get re-parented to
                    the main Scene entity via setupScattering */
-                SpotlightConeEntity
-                {
-                    id: shadingCone
-                    coneLayer: spotlightShadingLayer
-                    fxEntity: headDelegate
-                }
-                SpotlightConeEntity
-                {
-                    id: scatteringCone
-                    coneLayer: spotlightScatteringLayer
-                    fxEntity: headDelegate
-                }
-                SpotlightConeEntity
-                {
-                    id: outDepthCone
-                    coneLayer: outputDepthLayer
-                    fxEntity: headDelegate
-                }
-/*
-                components: [
-                    headDelegate,
-                    fixtureEntity.material,
-                    transform,
-                    fixtureEntity.sceneLayer
-                ]
-*/
+                property SpotlightConeEntity shadingCone:
+                    SpotlightConeEntity
+                    {
+                        coneLayer: spotlightShadingLayer
+                        fxEntity: headDelegate
+                    }
+                property SpotlightConeEntity scatteringCone:
+                    SpotlightConeEntity
+                    {
+                        coneLayer: spotlightScatteringLayer
+                        fxEntity: headDelegate
+                    }
+                property SpotlightConeEntity outDepthCone:
+                    SpotlightConeEntity
+                    {
+                        coneLayer: outputDepthLayer
+                        fxEntity: headDelegate
+                    }
             } // Entity
     } // Repeater
 
