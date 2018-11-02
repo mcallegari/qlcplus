@@ -38,20 +38,20 @@
  <Channel Name="Gobo Wheel">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
-  <Capability Min="8" Max="15" Preset="GoboMacro" Res1="Chauvet/gobo00014.png">Gobo 1</Capability>
+  <Capability Min="8" Max="15" Preset="GoboMacro" Res1="Chauvet/gobo00014.svg">Gobo 1</Capability>
   <Capability Min="16" Max="23" Preset="GoboMacro" Res1="Chauvet/gobo00015.png">Gobo 2</Capability>
   <Capability Min="24" Max="31" Preset="GoboMacro" Res1="Chauvet/gobo00001.svg">Gobo 3</Capability>
-  <Capability Min="32" Max="39" Preset="GoboMacro" Res1="Chauvet/gobo00016.png">Gobo 4</Capability>
+  <Capability Min="32" Max="39" Preset="GoboMacro" Res1="Chauvet/gobo00016.svg">Gobo 4</Capability>
   <Capability Min="40" Max="47" Preset="GoboMacro" Res1="Chauvet/gobo00017.png">Gobo 5</Capability>
   <Capability Min="48" Max="55" Preset="GoboMacro" Res1="Chauvet/gobo00018.png">Gobo 6</Capability>
   <Capability Min="56" Max="63" Preset="GoboMacro" Res1="Chauvet/gobo00019.png">Gobo 7</Capability>
   <Capability Min="64" Max="71" Preset="GoboMacro" Res1="Chauvet/gobo00019.png">Gobo 7 shake (slow to fast)</Capability>
   <Capability Min="72" Max="79" Preset="GoboMacro" Res1="Chauvet/gobo00018.png">Gobo 6 shake (slow to fast)</Capability>
   <Capability Min="80" Max="87" Preset="GoboMacro" Res1="Chauvet/gobo00017.png">Gobo 5 shake (slow to fast)</Capability>
-  <Capability Min="88" Max="95" Preset="GoboMacro" Res1="Chauvet/gobo00016.png">Gobo 4 shake (slow to fast)</Capability>
+  <Capability Min="88" Max="95" Preset="GoboMacro" Res1="Chauvet/gobo00016.svg">Gobo 4 shake (slow to fast)</Capability>
   <Capability Min="96" Max="103" Preset="GoboMacro" Res1="Chauvet/gobo00001.svg">Gobo 3 shake (slow to fast)</Capability>
   <Capability Min="104" Max="111" Preset="GoboMacro" Res1="Chauvet/gobo00015.png">Gobo 2 shake (slow to fast)</Capability>
-  <Capability Min="112" Max="119" Preset="GoboMacro" Res1="Chauvet/gobo00014.png">Gobo 1 shake (slow to fast)</Capability>
+  <Capability Min="112" Max="119" Preset="GoboMacro" Res1="Chauvet/gobo00014.svg">Gobo 1 shake (slow to fast)</Capability>
   <Capability Min="120" Max="127" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="128" Max="191">Cycle effect with increasing speed</Capability>
   <Capability Min="192" Max="255">Reverse cycle effect with increasing speed</Capability>

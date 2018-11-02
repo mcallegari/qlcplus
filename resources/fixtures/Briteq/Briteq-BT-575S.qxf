@@ -45,7 +45,7 @@
   <Capability Min="13" Max="25" Res="Chauvet/gobo00044.svg">gobo1</Capability>
   <Capability Min="26" Max="38" Res="Others/gobo00012.svg">gobo 2</Capability>
   <Capability Min="39" Max="50" Res="SGM/gobo00005.png">gobo 3</Capability>
-  <Capability Min="51" Max="63" Res="Chauvet/gobo00052.png">gobo 4</Capability>
+  <Capability Min="51" Max="63" Res="Chauvet/gobo00052.svg">gobo 4</Capability>
   <Capability Min="64" Max="76" Res="SGM/gobo00366.png">gobo 5</Capability>
   <Capability Min="77" Max="88" Res="GLP/gobo00028.png">gobo 6</Capability>
   <Capability Min="89" Max="101" Res="SGM/gobo00018.svg">gobo 7</Capability>
@@ -96,7 +96,7 @@
   <Capability Min="4" Max="7" Res="Chauvet/gobo00044.svg">G1</Capability>
   <Capability Min="8" Max="11" Res="Others/gobo00012.svg">G2</Capability>
   <Capability Min="12" Max="15" Res="SGM/gobo00005.png">G3</Capability>
-  <Capability Min="16" Max="19" Res="Chauvet/gobo00052.png">G4</Capability>
+  <Capability Min="16" Max="19" Res="Chauvet/gobo00052.svg">G4</Capability>
   <Capability Min="20" Max="23" Res="SGM/gobo00366.png">G5</Capability>
   <Capability Min="24" Max="27" Res="GLP/gobo00028.png">G6</Capability>
   <Capability Min="28" Max="31" Res="SGM/gobo00018.svg">G7</Capability>
