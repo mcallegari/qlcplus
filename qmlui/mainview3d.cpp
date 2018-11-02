@@ -1039,7 +1039,7 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
     // so treat this as a special case and go straight to the point
     if (fixture->type() == QLCFixtureDef::Dimmer)
     {
-        qreal value = qreal(fixture->channelValueAt(headIndex) / 255.0);
+        qreal value = qreal(fixture->channelValueAt(headIndex)) / 255.0;
         QMetaObject::invokeMethod(fixtureItem, "setHeadIntensity",
                 Q_ARG(QVariant, 0),
                 Q_ARG(QVariant, value));
@@ -1064,7 +1064,7 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
         //qDebug() << "Head" << headIdx << "dimmer channel:" << mdIndex;
         qreal intensityValue = 1.0;
         if (headDimmerIndex != QLCChannel::invalid())
-            intensityValue = qreal(fixture->channelValueAt(int(headDimmerIndex)) / 255);
+            intensityValue = qreal(fixture->channelValueAt(int(headDimmerIndex))) / 255.0;
 
         QMetaObject::invokeMethod(fixtureItem, "setHeadIntensity",
                 Q_ARG(QVariant, headIdx),
