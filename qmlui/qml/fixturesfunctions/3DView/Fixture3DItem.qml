@@ -142,6 +142,12 @@ Entity
         return fixtureEntity
     }
 
+    function setHeadLightProps(headIndex, pos, matrix)
+    {
+        lightPos = pos
+        lightMatrix = matrix
+    }
+
     function setHeadIntensity(headIndex, intensity)
     {
         dimmerValue = intensity

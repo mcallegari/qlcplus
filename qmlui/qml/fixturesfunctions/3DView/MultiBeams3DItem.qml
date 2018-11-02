@@ -36,6 +36,7 @@ Entity
     property int itemID: fixtureManager.invalidFixture()
     property bool isSelected: false
     property int headsNumber: 1
+    property vector3d phySize: Qt.vector3d(1, 0.1, 0.1)
 
     onItemIDChanged:
     {
@@ -84,18 +85,22 @@ Entity
 
     function bindTiltTransform(t, maxDegrees)
     {
-        /*
         console.log("Binding tilt ----")
         fixtureEntity.tiltTransform = t
         fixtureEntity.tiltMaxDegrees = maxDegrees
         tiltRotation = maxDegrees / 2
         t.rotationX = Qt.binding(function() { return tiltRotation })
-        */
     }
 
     function getHead(headIndex)
     {
         return headsRepeater.objectAt(headIndex)
+    }
+
+    function setHeadLightProps(headIndex, pos, matrix)
+    {
+        headsRepeater.objectAt(headIndex).lightPos = pos
+        headsRepeater.objectAt(headIndex).lightMatrix = matrix
     }
 
     function setHeadIntensity(headIndex, intensity)
@@ -168,17 +173,36 @@ Entity
     CuboidMesh
     {
         id: baseMesh
-        xExtent: 0.1 * headsNumber
-        zExtent: 0.1
-        yExtent: 0.1
+        xExtent: phySize.x
+        yExtent: phySize.y * 0.5
+        zExtent: phySize.z
     }
 
-    CuboidMesh
+    Entity
     {
-        id: headMesh
-        xExtent: 0.1 * headsNumber
-        zExtent: 0.1
-        yExtent: 0.1
+        id: headEntity
+        objectName: "headEntity"
+
+        CuboidMesh
+        {
+            id: headMesh
+            xExtent: phySize.x
+            yExtent: phySize.y * 0.5
+            zExtent: phySize.z
+        }
+
+        property Transform tiltTransform:
+            Transform
+            {
+                translation: Qt.vector3d(0, phySize.y * 0.5, 0)
+            }
+
+        components: [
+            headMesh,
+            tiltTransform,
+            fixtureEntity.material,
+            fixtureEntity.sceneLayer
+        ]
     }
 
     function setupScattering(shadingEffect, scatteringEffect, depthEffect, sceneEntity)
@@ -218,7 +242,7 @@ Entity
         delegate:
             Entity
             {
-                id: headEntity
+                id: headDelegate
                 property real dimmerValue: 0
                 property real lightIntensity: dimmerValue * shutterValue
 
@@ -276,23 +300,23 @@ Entity
                 {
                     id: shadingCone
                     coneLayer: spotlightShadingLayer
-                    fxEntity: headEntity
+                    fxEntity: headDelegate
                 }
                 SpotlightConeEntity
                 {
                     id: scatteringCone
                     coneLayer: spotlightScatteringLayer
-                    fxEntity: headEntity
+                    fxEntity: headDelegate
                 }
                 SpotlightConeEntity
                 {
                     id: outDepthCone
                     coneLayer: outputDepthLayer
-                    fxEntity: headEntity
+                    fxEntity: headDelegate
                 }
 /*
                 components: [
-                    headMesh,
+                    headDelegate,
                     fixtureEntity.material,
                     transform,
                     fixtureEntity.sceneLayer
@@ -319,7 +343,7 @@ Entity
 
     components: [
         baseMesh,
-        headMesh,
+        headEntity,
         transform,
         material,
         sceneLayer,
