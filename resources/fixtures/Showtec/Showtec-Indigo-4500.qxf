@@ -59,8 +59,8 @@
   <Capability Min="40" Max="49" Preset="GoboMacro" Res1="Others/gobo00062.svg">Metal Gobo 4</Capability>
   <Capability Min="50" Max="59" Preset="GoboMacro" Res1="Robe/gobo00038.svg">Metal Gobo 5</Capability>
   <Capability Min="60" Max="69" Preset="GoboMacro" Res1="Others/gobo00063.png">Glass Gobo 6</Capability>
-  <Capability Min="70" Max="79" Preset="GoboMacro" Res1="Chauvet/gobo00014.png">Glass Gobo 7</Capability>
-  <Capability Min="80" Max="99" Preset="GoboShakeMacro" Res1="Chauvet/gobo00014.png">Gobo Shake 7 from slow to fast</Capability>
+  <Capability Min="70" Max="79" Preset="GoboMacro" Res1="Chauvet/gobo00014.svg">Glass Gobo 7</Capability>
+  <Capability Min="80" Max="99" Preset="GoboShakeMacro" Res1="Chauvet/gobo00014.svg">Gobo Shake 7 from slow to fast</Capability>
   <Capability Min="100" Max="119" Preset="GoboShakeMacro" Res1="Others/gobo00063.png">Gobo Shake 6 from slow to fast</Capability>
   <Capability Min="120" Max="139" Preset="GoboShakeMacro" Res1="Robe/gobo00038.svg">Gobo Shake 5 from slow to fast</Capability>
   <Capability Min="140" Max="159" Preset="GoboShakeMacro" Res1="Others/gobo00062.svg">Gobo Shake 4 from slow to fast</Capability>
