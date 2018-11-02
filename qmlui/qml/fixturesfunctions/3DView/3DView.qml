@@ -104,7 +104,7 @@ Rectangle
                     {
                         component = Qt.createComponent("RenderShadowMapFilter.qml");
                         if (component.status === Component.Error)
-                            console.log("Error loading component:", component.errorString());
+                            console.log("Error loading component:", component.errorString())
 
                         sgNode = component.createObject(frameGraph.myShadowFrameGraphNode,
                         {
@@ -119,7 +119,7 @@ Rectangle
 
             component = Qt.createComponent("FillGBufferFilter.qml");
             if (component.status === Component.Error)
-                console.log("Error loading component:", component.errorString());
+                console.log("Error loading component:", component.errorString())
 
             sgNode = component.createObject(frameGraph.myCameraSelector,
             {
@@ -129,7 +129,7 @@ Rectangle
 
             component = Qt.createComponent("RenderSelectionBoxesFilter.qml");
             if (component.status === Component.Error)
-                console.log("Error loading component:", component.errorString());
+                console.log("Error loading component:", component.errorString())
 
             sgNode = component.createObject(frameGraph.myCameraSelector,
             {
@@ -139,7 +139,7 @@ Rectangle
 
             component = Qt.createComponent("DirectionalLightFilter.qml");
             if (component.status === Component.Error)
-                console.log("Error loading component:", component.errorString());
+                console.log("Error loading component:", component.errorString())
             sgNode = component.createObject(frameGraph.myCameraSelector,
             {
                 "gBuffer": gBufferTarget,
@@ -154,10 +154,12 @@ Rectangle
                 for (iHead = 0; iHead < fixtureItem.headsNumber; iHead++)
                 {
                     headEntity = fixtureItem.getHead(iHead)
+                    if (headEntity.hasOwnProperty("shadowMap") === false)
+                        continue
 
                     component = Qt.createComponent("SpotlightShadingFilter.qml");
                     if (component.status === Component.Error)
-                        console.log("Error loading component:", component.errorString());
+                        console.log("Error loading component:", component.errorString())
 
                     sgNode = component.createObject(frameGraph.myCameraSelector,
                     {
@@ -182,7 +184,7 @@ Rectangle
 
                         component = Qt.createComponent("OutputFrontDepthFilter.qml");
                         if (component.status === Component.Error)
-                            console.log("Error loading component:", component.errorString());
+                            console.log("Error loading component:", component.errorString())
 
                         sgNode = component.createObject(frameGraph.myCameraSelector,
                         {
@@ -192,7 +194,7 @@ Rectangle
 
                         component = Qt.createComponent("SpotlightScatteringFilter.qml");
                         if (component.status === Component.Error)
-                            console.log("Error loading component:", component.errorString());
+                            console.log("Error loading component:", component.errorString())
 
                         sgNode = component.createObject(frameGraph.myCameraSelector,
                         {
@@ -221,7 +223,7 @@ Rectangle
 
             component = Qt.createComponent("FXAAFilter.qml");
             if (component.status === Component.Error)
-                console.log("Error loading component:", component.errorString());
+                console.log("Error loading component:", component.errorString())
 
             sgNode = component.createObject(frameGraph.myCameraSelector,
             {
@@ -232,7 +234,7 @@ Rectangle
 
             component = Qt.createComponent("BlitFilter.qml");
             if (component.status === Component.Error)
-                console.log("Error loading component:", component.errorString());
+                console.log("Error loading component:", component.errorString())
 
             sgNode = component.createObject(frameGraph.myCameraSelector,
             {
