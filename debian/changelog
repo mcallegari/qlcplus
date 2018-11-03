@@ -7,6 +7,7 @@ qlcplus (4.12.0) stable; urgency=low
   * UI/Show Manager: properly reset editors and selection when switching context
   * UI/Show Manager: avoid Scene values to be overwritten on Sequences sharing the same bound Scene
   * UI/Show Manager: improved audio waveform preview
+  * Web Access: fixed visibility of nested frame pages
   * Plugins/DMX USB: reworked to have asynchronous transmission and frequency setting from UI
   * Plugins/OSC: added support for double values (in 0.0 - 1.0 range)
   * Fixture Editor: reworked to define more accurate information (see documentation)
