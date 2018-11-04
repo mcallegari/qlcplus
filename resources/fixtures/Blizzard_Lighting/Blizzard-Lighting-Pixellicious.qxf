@@ -1,14 +1,14 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.1</Version>
+  <Version>4.12.0 GIT</Version>
   <Author>Alton Olson</Author>
  </Creator>
  <Manufacturer>Blizzard Lighting</Manufacturer>
  <Model>Pixellicious</Model>
- <Type>Color Changer</Type>
+ <Type>LED Bar (Pixels)</Type>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
  <Channel Name="Red Intensity" Preset="IntensityRed"/>
@@ -16,15 +16,15 @@
  <Channel Name="Blue Intensity" Preset="IntensityBlue"/>
  <Channel Name="Auto Programs 1-15">
   <Group Byte="0">Effect</Group>
-  <Capability Max="255" Min="0">1-15</Capability>
+  <Capability Min="0" Max="255">1-15</Capability>
  </Channel>
  <Channel Name="Auto Programs 16-29 + Mix Mode">
   <Group Byte="0">Effect</Group>
-  <Capability Max="255" Min="0">16-29 + mix mode</Capability>
+  <Capability Min="0" Max="255">16-29 + mix mode</Capability>
  </Channel>
  <Channel Name="Auto Program Speed">
   <Group Byte="0">Speed</Group>
-  <Capability Max="255" Min="0">Slow &lt;--&gt; fast</Capability>
+  <Capability Min="0" Max="255">Slow &lt;--&gt; fast</Capability>
  </Channel>
  <Channel Name="Section 1 Red Intensity" Preset="IntensityRed"/>
  <Channel Name="Section 2 Red Intensity" Preset="IntensityRed"/>
@@ -147,11 +147,11 @@
   <Channel Number="6">Auto Programs 16-29 + Mix Mode</Channel>
   <Channel Number="7">Auto Program Speed</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="2160" Type="160 LEDs 5050" ColourTemperature="5500"/>
-   <Dimensions Height="117" Weight="3.5" Width="1000" Depth="107"/>
-   <Lens Name="Other" DegreesMin="120" DegreesMax="120"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical PowerConsumption="51" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="160 LEDs 5050" Lumens="2160" ColourTemperature="5500"/>
+  <Dimensions Weight="3.5" Width="1000" Height="117" Depth="107"/>
+  <Lens Name="Other" DegreesMin="120" DegreesMax="120"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="51" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

@@ -22,6 +22,8 @@
 #include <libudev.h>
 #include <unistd.h>
 #include <errno.h>
+
+#include <QStringList>
 #include <QDebug>
 
 #include "hpmprivate-udev.h"

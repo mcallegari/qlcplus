@@ -46,13 +46,13 @@ private slots:
     void serialNumber();
     void isValid();
     void reset();
+    void startOffset();
 
     void setPoint8bit();
     void setPoint16bit();
     void setPointPanOnly();
     void setPointLedBar();
 
-    void startOffset();
     void nextStepLoop();
     void nextStepLoopZeroDuration();
     void nextStepSingleShot();

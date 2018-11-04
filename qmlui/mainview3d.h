@@ -80,13 +80,12 @@ typedef struct
     QEntity *m_armItem;
     /** Reference to the head entity used by moving heads */
     QEntity *m_headItem;
-    /** The attached light index */
-    unsigned int m_lightIndex;
     /** The bounding volume information */
     BoundingVolume m_volume;
     /** The selection box entity */
     QEntity *m_selectionBox;
-
+    /** Reference to the texture used to render the
+     *  currently selected gobo picture */
     GoboTextureImage *m_goboTexture;
 } SceneItem;
 
@@ -242,7 +241,6 @@ protected:
 private:
     Qt3DCore::QTransform *getTransform(QEntity *entity);
     QMaterial *getMaterial(QEntity *entity);
-    unsigned int getNewLightIndex();
     void updateLightMatrix(SceneItem *mesh);
 
 private:

@@ -54,6 +54,7 @@
 #define KXMLQLCVCSliderControlledFunction "Function"
 
 class FunctionParent;
+class GenericFader;
 
 class VCSlider : public VCWidget, public DMXSource
 {
@@ -434,6 +435,11 @@ protected:
 
     /** writeDMX for Adjust mode */
     void writeDMXAdjust(MasterTimer* timer, QList<Universe*> universes);
+
+private:
+    /** Map used to lookup a GenericFader instance for a Universe ID */
+    QMap<quint32, GenericFader *> m_fadersMap;
+    int m_priorityRequest;
 
     /*********************************************************************
      * External input

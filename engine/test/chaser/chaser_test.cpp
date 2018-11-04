@@ -853,11 +853,11 @@ void Chaser_Test::tap()
     QVERIFY(c->m_runner != NULL);
     QCOMPARE(c->duration(), uint(0));
     c->write(m_doc->masterTimer(), QList<Universe*>());
-    QCOMPARE(c->m_runner->m_next, false);
+    QCOMPARE(c->m_runner->m_pendingAction.m_action, ChaserNoAction);
     c->tap();
     QTest::qWait(MasterTimer::tick());
     c->tap();
-    QCOMPARE(c->m_runner->m_next, true);
+    QCOMPARE(c->m_runner->m_pendingAction.m_action, ChaserNextStep);
 }
 
 void Chaser_Test::preRun()

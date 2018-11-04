@@ -430,6 +430,7 @@ bool Doc::addFixture(Fixture* fixture, quint32 id)
     {
         for (i = inputOutputMap()->universesCount(); i <= uni; i++)
             inputOutputMap()->addUniverse(i);
+        inputOutputMap()->startUniverses();
     }
 
     // Add the fixture channels capabilities to the universe they belong

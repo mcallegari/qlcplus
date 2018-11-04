@@ -72,8 +72,8 @@ quint32 Show::totalDuration()
     {
         foreach(ShowFunction *sf, track->showFunctions())
         {
-            if (sf->startTime() + sf->duration() > totalDuration)
-                totalDuration = sf->startTime() + sf->duration();
+            if (sf->startTime() + sf->duration(doc()) > totalDuration)
+                totalDuration = sf->startTime() + sf->duration(doc());
         }
     }
 

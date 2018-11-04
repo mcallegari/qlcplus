@@ -34,14 +34,14 @@
   <Capability Res="Others/gobo00023.svg" Min="20" Max="29">Cross (Metal)</Capability>
   <Capability Res="Others/gobo00035.png" Min="30" Max="39">Blue &amp; White Web (Dichoric)</Capability>
   <Capability Res="Others/gobo00034.png" Min="40" Max="49">Textured Glass (Glass)</Capability>
-  <Capability Res="Others/gobo00037.png" Min="50" Max="59">Donut (Metal)</Capability>
+  <Capability Res="Others/gobo00037.svg" Min="50" Max="59">Donut (Metal)</Capability>
   <Capability Res="Others/gobo00027.svg" Min="60" Max="69">Triangle (Metal)</Capability>
   <Capability Res="Others/gobo00029.svg" Min="70" Max="79">Dot Line (Metal)</Capability>
   <Capability Res="Others/gobo00036.svg" Min="80" Max="99">Star Circle (Metal) Shake</Capability>
   <Capability Res="Others/gobo00023.svg" Min="100" Max="119">Cross (Metal) Shake</Capability>
   <Capability Res="Others/gobo00035.png" Min="120" Max="139">Blue &amp; White Web (Dichoric) Shake</Capability>
   <Capability Res="Others/gobo00034.png" Min="140" Max="159">Textured Glass (Glass) Shake</Capability>
-  <Capability Res="Others/gobo00037.png" Min="160" Max="179">Donut (Metal) Shake</Capability>
+  <Capability Res="Others/gobo00037.svg" Min="160" Max="179">Donut (Metal) Shake</Capability>
   <Capability Res="Others/gobo00027.svg" Min="180" Max="199">Triangle (Metal) Shake</Capability>
   <Capability Res="Others/gobo00029.svg" Min="200" Max="219">Dot Line (Metal) Shake</Capability>
   <Capability Min="220" Max="255">Rotating Gobo Wheel (Slow -&gt; Fast)</Capability>

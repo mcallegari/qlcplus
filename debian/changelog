@@ -1,16 +1,19 @@
 qlcplus (4.12.0) stable; urgency=low
 
+  * engine: reworked to achieve multithreaded universes and properly handle fade transitions
   * engine/RGBMatrix: added support for animated GIF pictures
   * UI/Scene Editor: fixed crash when removing a Fixture and Scene Editor is open
   * UI/Chaser Editor: fix Sequence step value unset
   * UI/Show Manager: properly reset editors and selection when switching context
   * UI/Show Manager: avoid Scene values to be overwritten on Sequences sharing the same bound Scene
+  * UI/Show Manager: improved audio waveform preview
   * Plugins/DMX USB: reworked to have asynchronous transmission and frequency setting from UI
   * Plugins/OSC: added support for double values (in 0.0 - 1.0 range)
   * Fixture Editor: reworked to define more accurate information (see documentation)
+  * Fixture Editor: fixed D4 definitions import
   * New input profile: Akai APC40 mkII (thanks to Ovidijus Cepukas)
   * New input profiles: Novation Launchpad MK2, Behringer X-Touch Extender (thanks to Tim Cullingworth)
-  * New fixture: American DJ Entour Venue
+  * New fixtures: American DJ Entour Venue, Showtec Explorer 575
   * New fixtures: American DJ Auto Spot 150, Boom Box Fx2, Revo Sweep (thanks to Felix Edelmann)
   * New fixtures: JB-Lighting Varyscan P7, Showtec Dominator, Showtec Sunraise LED (thanks to Felix Edelmann)
   * New fixture: Orion Effects Lighting ORCAN2 (thanks to Felix Edelmann)
@@ -20,7 +23,8 @@ qlcplus (4.12.0) stable; urgency=low
   * New fixtures: Cameo CLPIXBAR200PRO, CLPIXBAR300PRO, CLPIXBAR400PRO (thanks to Stelian Cunitchi)
   * New fixtures: AVE Quad Pro Flat, Cobra Wash 200, StagePar Hex18 (thanks to Mark Sy)
   * New fixtures: Stairville LED PAR64, Clay Paky Mini Scan 150, Clay Paky Mini Scan 300 (thanks to Jászberényi Szabolcs)
-  * New fixtures: Ayra WSM02/WSM03 MKII, Involight FM1500 DMX, FM3000 PRO, FM1200 UP (thanks to Jászberényi Szabolcs)
+  * New fixtures: Ayra WSM02/WSM03 MKII, Laserworld PRO-1600RGB (thanks to Jászberényi Szabolcs)
+  * New fixtures: Involight FM1500 DMX, FM3000 PRO, FM1200 UP, SlimPar56 PRO (thanks to Jászberényi Szabolcs)
   * New fixture: Cameo CLPFLATPRO Series (thanks to Antonio Nó Rodríguez)
   * New fixtures: Robe Robin Viva CMY, Robin 800 LEDWash (thanks to Jasper Zevering)
   * New fixture: Chauvet COLORdash Par-Hex 7 (thanks to Jean-Daniel Garcia)
@@ -28,16 +32,37 @@ qlcplus (4.12.0) stable; urgency=low
   * New fixture: Stairville WGF 2000 (thanks to CoS2000)
   * New fixture: Dia Lighting Diapro Spot LED 300 (thanks to DJ Ladonin)
   * New fixtures: Showtec Phantom 130 LED Spot, Eurolite TMH-30/60, Showtec Vintage Blaze (thanks to Piotr Nowik)
-  * New fixture: Varytec BAT.PAR 6 RGBWA (thanks to Edgar Aichinger)
+  * New fixtures: Varytec BAT.PAR 6 RGBWA, American DJ WiFly PAR QA5, Flash-Butrym LED PAR 64 COB Mk2 (thanks to Edgar Aichinger)
   * New fixture: IMG Stageline PARL-40SET (thanks to Mitsch)
   * New fixtures: Equinox Quad Pix Batten, Chauvet Wash FX2, MARQ Gesture Spot 300, American DJ Warlock (thanks to Justin Hornsby)
   * New fixture: JB Systems Space Laser 3 (thanks to Ben Engelen)
   * New fixture: Cameo NanoBeam 300 (thanks to Martin)
   * New fixtures: Chauvet SlimPAR Q6 USB, Antari Z-1520 RGB, Cameo TS 40 WW, Cameo TS 60 RGBW (thanks to Andrew)
   * New fixtures: Litecraft OutLED AT60.zoom, Elation Proteus Beam (thanks to Axel Metzke)
-  * New fixture: Elation DW Fresnel (thanks to Niklas Larsson)
+  * New fixtures: Elation DW Fresnel, Robe ColorWash 250 AT (thanks to Niklas Larsson)
   * New fixture: Varytec Street Bar (thanks to Daniel Fairhead)
   * New fixture: American DJ Accu Roller 250 (thanks to Anders Thomsen)
+  * New fixtures: BoomToneDJ SilentPAR 12x10w 6in1, Involight COBBAR815 (thanks to John Yiannikakis)
+  * New fixture: Chauvet COLORado Batten 72 Tour (thanks to James Wilson)
+  * New fixture: Antari F-5D Fazer (thanks to Mark Lohrey)
+  * New fixture: Showtec Spectral ZP-5 (thanks to JP)
+  * New fixture: Stairville Pixel Panel 144 RGB (thanks to Michael Clements)
+  * New fixture: Cameo Hydrabeam 1000 RGBW (thanks to AxelOtl)
+  * New fixture: American DJ QA5 IP (thanks to Georg Müller)
+  * New fixtures: DTS XR5 Wash, Stairville Wild Wash 9x3W LED UV (thanks to Johannes Felber)
+  * New fixture: Martin Thrill Mini Profile (thanks to John R Houston)
+  * New fixture: Showtec Indigo 4500 (thanks to pixeldoc81)
+  * New fixture: PR Lighting JNR Flat PAR 8160C (thanks to Giacomo Gorini)
+  * New fixture: GLP YPOC 575 PRO (thanks to Felix Pickenäcker)
+  * New fixtures: beamZ MHL108 Wash MKII, UKing Mini RGBW Moving Head (thanks to Mike S)
+  * New fixture: ETC Desire D22 Lustr+ (thanks to Tavon Markov)
+  * New fixture: Chauvet Swarm 4 FX (thanks to David Gianforte)
+  * New fixtures: Stairville Mini Stage Par RGBW, LED Par 36 COB RGBW, LED PAR64 MKII RGBW (thanks to Jose Coelho)
+  * New fixtures: Eurolite LED T-36 RGB Pinspot, beamZ BT270 LED FlatPAR (thanks to Herbie)
+  * New fixture: Proel PLLEDSP (thanks to Martino)
+  * New fixtures: Stage Right 10Wx9 LED Flat PAR, 3-Color LED Light Bar (thanks to Daniel Smith)
+  * New fixture: Chauvet Rogue R1 Spot (thanks to David Wolfe)
+  * New fixtures: American DJ Dotz Panel 2.4, Flash-Butrym LED PAR 64 4x30W COB RGBW (thanks to Fotis)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 21 Oct 2018 12:13:14 +0200
 

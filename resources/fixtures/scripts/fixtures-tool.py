@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+# requires Python LXML (sudo apt-get install python-lxml)
+
 import sys
 import os
 import re

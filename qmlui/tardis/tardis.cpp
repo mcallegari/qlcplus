@@ -402,7 +402,10 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
         case IOAddUniverse:
         {
             if (objID >= m_doc->inputOutputMap()->universesCount())
+            {
                 m_doc->inputOutputMap()->addUniverse(objID);
+                m_doc->inputOutputMap()->startUniverses();
+            }
 
             QList<Universe *> uniList = m_doc->inputOutputMap()->universes();
             Universe *universe = qobject_cast<Universe *>(uniList.at(objID));

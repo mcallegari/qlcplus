@@ -595,6 +595,8 @@ QString Fixture::iconResource(bool svg) const
         case QLCFixtureDef::Scanner: return QString("%1:/scanner.%2").arg(prefix).arg(ext); break;
         case QLCFixtureDef::Smoke: return QString("%1:/smoke.%2").arg(prefix).arg(ext); break;
         case QLCFixtureDef::Strobe: return QString("%1:/strobe.%2").arg(prefix).arg(ext); break;
+        case QLCFixtureDef::LEDBarBeams: return QString("%1:/ledbar_beams.%2").arg(prefix).arg(ext); break;
+        case QLCFixtureDef::LEDBarPixels: return QString("%1:/ledbar_pixels.%2").arg(prefix).arg(ext); break;
         default: break;
     }
 
@@ -685,7 +687,7 @@ QLCFixtureDef *Fixture::genericRGBPanelDef(int columns, Components components)
     QLCFixtureDef *def = new QLCFixtureDef();
     def->setManufacturer(KXMLFixtureGeneric);
     def->setModel(KXMLFixtureRGBPanel);
-    def->setType(QLCFixtureDef::LEDBar);
+    def->setType(QLCFixtureDef::LEDBarPixels);
     def->setAuthor("QLC+");
     for (int i = 0; i < columns; i++)
     {

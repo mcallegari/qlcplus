@@ -40,7 +40,8 @@ EnttecDMXUSBPro::EnttecDMXUSBPro(DMXInterface *interface, quint32 outputLine, qu
 EnttecDMXUSBPro::~EnttecDMXUSBPro()
 {
     qDebug() << Q_FUNC_INFO;
-    stopOutputThread();
+    close(m_inputBaseLine, true);
+    close(m_outputBaseLine, false);
 }
 
 DMXUSBWidget::Type EnttecDMXUSBPro::type() const

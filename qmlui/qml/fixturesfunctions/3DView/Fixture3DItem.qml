@@ -36,6 +36,7 @@ Entity
     property int itemID: fixtureManager.invalidFixture()
     property alias itemSource: eSceneLoader.source
     property bool isSelected: false
+    property int headsNumber: 1
 
     onItemIDChanged: isSelected = contextManager.isFixtureSelected(itemID)
 
@@ -74,9 +75,9 @@ Entity
     }
 
     /* **************** Spotlight cone properties **************** */
-    readonly property Layer spotlightShadingLayer: Layer { objectName: "spotlightShadingLayer" }
-    readonly property Layer outputDepthLayer: Layer { objectName: "outputDepthLayer" }
-    readonly property Layer spotlightScatteringLayer: Layer { objectName: "spotlightScatteringLayer" }
+    readonly property Layer spotlightShadingLayer: Layer { }
+    readonly property Layer outputDepthLayer: Layer { }
+    readonly property Layer spotlightScatteringLayer: Layer { }
 
     property real coneBottomRadius: distCutoff * Math.tan(cutoffAngle) + coneTopRadius
     property real coneTopRadius: (0.24023 / 2) * transform.scale3D.x * 0.7 // (diameter / 2) * scale * magic number
@@ -96,7 +97,6 @@ Entity
     /* ********************* Light properties ********************* */
     /* ****** These are bound to uniforms in ScreenQuadEntity ***** */
 
-    property int lightIndex
     property real lightIntensity: dimmerValue * shutterValue
     property real dimmerValue: 0
     property real shutterValue: sAnimator.shutterValue
@@ -135,6 +135,27 @@ Entity
         fixtureEntity.tiltMaxDegrees = maxDegrees
         tiltRotation = maxDegrees / 2
         t.rotationX = Qt.binding(function() { return tiltRotation })
+    }
+
+    function getHead(headIndex)
+    {
+        return fixtureEntity
+    }
+
+    function setHeadLightProps(headIndex, pos, matrix)
+    {
+        lightPos = pos
+        lightMatrix = matrix
+    }
+
+    function setHeadIntensity(headIndex, intensity)
+    {
+        dimmerValue = intensity
+    }
+
+    function setHeadRGBColor(headIndex, color)
+    {
+        lightColor = color
     }
 
     function setPosition(pan, tilt)
@@ -269,7 +290,8 @@ Entity
         loops: QQ2.Animation.Infinite
     }
 
-    /* Cone meshes used for scattering. These get re-parented to a head mesh via setupScattering */
+    /* Cone meshes used for scattering. These get re-parented to
+       the main Scene entity via setupScattering */
     SpotlightConeEntity
     {
         id: shadingCone

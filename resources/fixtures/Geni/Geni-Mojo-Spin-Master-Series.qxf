@@ -13,7 +13,7 @@
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="9">Shutter</Capability>
   <Capability Min="10" Max="19" Res="Others/open.svg">White Circle</Capability>
-  <Capability Min="20" Max="29" Res="Chauvet/gobo00058.png">Red Triangle</Capability>
+  <Capability Min="20" Max="29" Res="Chauvet/gobo00058.svg">Red Triangle</Capability>
   <Capability Min="30" Max="39" Res="Chauvet/gobo00059.svg">Green, White, Yellow Bar</Capability>
   <Capability Min="40" Max="49" Res="GLP/gobo00009.png">Blue Bubbles</Capability>
   <Capability Min="50" Max="59" Res="SGM/gobo00017.svg">Four-Colour Square</Capability>

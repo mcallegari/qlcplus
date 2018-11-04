@@ -40,6 +40,20 @@ function wsSetButtonState(id, state) {
  }
 }
 
+window.addEventListener("load",() => {
+    var buttons = document.getElementsByClassName("vcbutton");
+    for (var btn of buttons) {
+        btn.addEventListener("touchstart", (event) => {
+                event.preventDefault();
+                buttonPress(event.target.id);
+        }, false);
+        btn.addEventListener("touchend", (event) => {
+                event.preventDefault();
+                buttonRelease(event.target.id);
+        }, false);
+    }
+});
+
 /* VCCueList */
 var cueListsIndices = new Array();
 

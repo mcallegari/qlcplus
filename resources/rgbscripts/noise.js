@@ -66,12 +66,12 @@ var testAlgo;
                     var bb = colorLevel;
 
                     // Limit each color element to the maximum for chosen color or make 0 if below 0
-                    if (rr > r) rr = r;
-                    if (rr < 0) rr = 0;
-                    if (gg > g) gg = g;
-                    if (gg < 0) gg = 0;
-                    if (bb > b) bb = b;
-                    if (bb < 0) bb = 0;
+                    if (rr > r) { rr = r; }
+                    if (rr < 0) { rr = 0; }
+                    if (gg > g) { gg = g; }
+                    if (gg < 0) { gg = 0; }
+                    if (bb > b) { bb = b; }
+                    if (bb < 0) { bb = 0; }
 
                     var cColor = (rr << 16) + (gg << 8) + bb;   // put rgb parts back together
                     var vDiv = 0;                               // for noise amount use

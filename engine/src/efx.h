@@ -507,7 +507,6 @@ public slots:
 
 private:
     QList <EFXFixture *> m_fixtures;
-    GenericFader *m_fader;
 
     /*********************************************************************
      * Fixture propagation mode
@@ -566,6 +565,9 @@ public:
 
     /** @reimp */
     void postRun(MasterTimer* timer, QList<Universe*> universes);
+
+private:
+    GenericFader *getFader(QList<Universe *> universes, quint32 universeID);
 
     /*********************************************************************
      * Intensity

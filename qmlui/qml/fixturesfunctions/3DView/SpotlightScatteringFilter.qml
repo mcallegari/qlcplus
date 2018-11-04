@@ -33,7 +33,7 @@ TechniqueFilter
     property FrameTarget frameTarget
     property bool useShadows: true
 
-    property Fixture3DItem fixtureItem
+    property Entity fixtureItem
 
     parameters: [
         Parameter { name: "frontDepthTex"; value: frontDepth ? frontDepth.position : null },

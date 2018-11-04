@@ -43,6 +43,7 @@ QImage EFXFixture::m_rgbGradient = QImage();
 EFXFixture::EFXFixture(const EFX* parent)
     : m_parent(parent)
     , m_head()
+    , m_universe(Universe::invalid())
     , m_direction(Function::Forward)
     , m_startOffset(0)
     , m_mode(EFXFixture::PanTilt)
@@ -89,9 +90,11 @@ void EFXFixture::setHead(GroupHead const & head)
 {
     m_head = head;
 
-    Fixture* fxi = doc()->fixture(head.fxi);
+    Fixture *fxi = doc()->fixture(head.fxi);
     if (fxi == NULL)
         return;
+
+    m_universe = fxi->universe();
 
     QList<Mode> modes;
 
@@ -149,9 +152,14 @@ EFXFixture::Mode EFXFixture::mode() const
     return m_mode;
 }
 
+quint32 EFXFixture::universe()
+{
+    return m_universe;
+}
+
 bool EFXFixture::isValid() const
 {
-    Fixture* fxi = doc()->fixture(head().fxi);
+    Fixture *fxi = doc()->fixture(head().fxi);
 
     if (fxi == NULL)
         return false;
@@ -373,7 +381,18 @@ uint EFXFixture::timeOffset() const
 /*****************************************************************************
  * Running
  *****************************************************************************/
-void EFXFixture::nextStep(MasterTimer* timer, QList<Universe *> universes)
+
+void EFXFixture::start()
+{
+    m_started = true;
+}
+
+void EFXFixture::stop()
+{
+    m_started = false;
+}
+
+void EFXFixture::nextStep(QList<Universe *> universes, GenericFader *fader)
 {
     m_elapsed += MasterTimer::tick();
 
@@ -388,7 +407,7 @@ void EFXFixture::nextStep(MasterTimer* timer, QList<Universe *> universes)
 
     // Fade in
     if (m_started == false)
-        start(timer, universes);
+        start();
 
     // Nothing to do
     if (m_parent->duration() == 0)
@@ -409,20 +428,20 @@ void EFXFixture::nextStep(MasterTimer* timer, QList<Universe *> universes)
     {
         m_parent->calculatePoint(m_runTimeDirection, m_startOffset, m_currentAngle, &valX, &valY);
 
-        /* Write this fixture's data to universes. */
+        /* Prepare faders on universes */
         switch(m_mode)
         {
-        case PanTilt:
-            setPointPanTilt(universes, valX, valY);
+            case PanTilt:
+                setPointPanTilt(universes, fader, valX, valY);
             break;
 
-        case RGB:
-            setPointRGB(universes, valX, valY);
+            case RGB:
+                setPointRGB(universes, fader, valX, valY);
             break;
 
-        case Dimmer:
-            //Use Y for coherence with RGB gradient.
-            setPointDimmer(universes, valY);
+            case Dimmer:
+                //Use Y for coherence with RGB gradient.
+                setPointDimmer(universes, fader, valY);
             break;
         }
     }
@@ -440,17 +459,27 @@ void EFXFixture::nextStep(MasterTimer* timer, QList<Universe *> universes)
         {
             /* De-initialize the fixture and mark as ready. */
             m_ready = true;
-            stop(timer, universes);
+            stop();
         }
 
         m_elapsed %= m_parent->duration();
     }
 }
 
-void EFXFixture::setPointPanTilt(QList<Universe *> universes, float pan, float tilt)
+void EFXFixture::updateFaderValues(FadeChannel *fc, uchar value)
+{
+    fc->setStart(fc->current());
+    fc->setTarget(value);
+    fc->setElapsed(0);
+    fc->setReady(false);
+    fc->setFadeTime(0);
+}
+
+void EFXFixture::setPointPanTilt(QList<Universe *> universes, GenericFader *fader, float pan, float tilt)
 {
     Fixture* fxi = doc()->fixture(head().fxi);
     Q_ASSERT(fxi != NULL);
+    Universe *uni = universes[universe()];
 
     /* Write coarse point data to universes */
     quint32 panMsbChannel = fxi->channelNumber(QLCChannel::Pan, QLCChannel::MSB, head().head);
@@ -460,67 +489,67 @@ void EFXFixture::setPointPanTilt(QList<Universe *> universes, float pan, float t
 
     if (panMsbChannel != QLCChannel::invalid())
     {
+        FadeChannel *fc = fader->getChannelFader(doc(), uni, fxi->id(), panMsbChannel);
         if (m_parent->isRelative())
-            universes[fxi->universe()]->writeRelative(fxi->address() + panMsbChannel, static_cast<char>(pan));
-        else
-            universes[fxi->universe()]->write(fxi->address() + panMsbChannel, static_cast<char>(pan));
+            fc->setTypeFlag(FadeChannel::Relative);
+        updateFaderValues(fc, static_cast<uchar>(pan));
     }
     if (tiltMsbChannel != QLCChannel::invalid())
     {
+        FadeChannel *fc = fader->getChannelFader(doc(), uni, fxi->id(), tiltMsbChannel);
         if (m_parent->isRelative())
-            universes[fxi->universe()]->writeRelative(fxi->address() + tiltMsbChannel, static_cast<char> (tilt));
-        else
-            universes[fxi->universe()]->write(fxi->address() + tiltMsbChannel, static_cast<char> (tilt));
+            fc->setTypeFlag(FadeChannel::Relative);
+        updateFaderValues(fc, static_cast<uchar>(tilt));
     }
 
     /* Write fine point data to universes if applicable */
     if (panLsbChannel != QLCChannel::invalid())
     {
         /* Leave only the fraction */
-        char value = static_cast<char> ((pan - floor(pan)) * double(UCHAR_MAX));
+        uchar value = static_cast<uchar> ((pan - floor(pan)) * double(UCHAR_MAX));
+        FadeChannel *fc = fader->getChannelFader(doc(), uni, fxi->id(), panLsbChannel);
         if (m_parent->isRelative())
-            universes[fxi->universe()]->writeRelative(fxi->address() + panLsbChannel, value);
-        else
-            universes[fxi->universe()]->write(fxi->address() + panLsbChannel, value);
+            fc->setTypeFlag(FadeChannel::Relative);
+        updateFaderValues(fc, static_cast<uchar>(value));
     }
 
     if (tiltLsbChannel != QLCChannel::invalid())
     {
         /* Leave only the fraction */
-        char value = static_cast<char> ((tilt - floor(tilt)) * double(UCHAR_MAX));
+        uchar value = static_cast<uchar> ((tilt - floor(tilt)) * double(UCHAR_MAX));
+        FadeChannel *fc = fader->getChannelFader(doc(), uni, fxi->id(), tiltLsbChannel);
         if (m_parent->isRelative())
-            universes[fxi->universe()]->writeRelative(fxi->address() + tiltLsbChannel, value);
-        else
-            universes[fxi->universe()]->write(fxi->address() + tiltLsbChannel, value);
+            fc->setTypeFlag(FadeChannel::Relative);
+        updateFaderValues(fc, static_cast<uchar>(value));
     }
 }
 
-void EFXFixture::setPointDimmer(QList<Universe *> universes, float dimmer)
+void EFXFixture::setPointDimmer(QList<Universe *> universes, GenericFader *fader, float dimmer)
 {
-    Q_UNUSED(universes);
-
-    Fixture* fxi = doc()->fixture(head().fxi);
+    Fixture *fxi = doc()->fixture(head().fxi);
     Q_ASSERT(fxi != NULL);
+    Universe *uni = universes[universe()];
 
     quint32 intChannel = fxi->channelNumber(QLCChannel::Intensity, QLCChannel::MSB, head().head);
 
     /* Don't write dimmer data directly to universes but use FadeChannel to avoid steps at EFX loop restart */
     if (intChannel != QLCChannel::invalid())
     {
-        setFadeChannel(intChannel, dimmer);
+        FadeChannel *fc = fader->getChannelFader(doc(), uni, fxi->id(), intChannel);
+        updateFaderValues(fc, dimmer);
     }
     else if (fxi->masterIntensityChannel() != QLCChannel::invalid())
     {
-        setFadeChannel(fxi->masterIntensityChannel(), dimmer);
+        FadeChannel *fc = fader->getChannelFader(doc(), uni, fxi->id(), fxi->masterIntensityChannel());
+        updateFaderValues(fc, dimmer);
     }
 }
 
-void EFXFixture::setPointRGB(QList<Universe *> universes, float x, float y)
+void EFXFixture::setPointRGB(QList<Universe *> universes, GenericFader *fader, float x, float y)
 {
-    Q_UNUSED(universes);
-
     Fixture* fxi = doc()->fixture(head().fxi);
     Q_ASSERT(fxi != NULL);
+    Universe *uni = universes[universe()];
 
     QVector<quint32> rgbChannels = fxi->rgbChannels(head().head);
 
@@ -529,35 +558,12 @@ void EFXFixture::setPointRGB(QList<Universe *> universes, float x, float y)
     {
         QColor pixel = m_rgbGradient.pixel(x, y);
 
-        setFadeChannel(rgbChannels[0], pixel.red());
-        setFadeChannel(rgbChannels[1], pixel.green());
-        setFadeChannel(rgbChannels[2], pixel.blue());
+        FadeChannel *fc = fader->getChannelFader(doc(), uni, fxi->id(), rgbChannels[0]);
+        updateFaderValues(fc, pixel.red());
+        fc = fader->getChannelFader(doc(), uni, fxi->id(), rgbChannels[1]);
+        updateFaderValues(fc, pixel.green());
+        fc = fader->getChannelFader(doc(), uni, fxi->id(), rgbChannels[2]);
+        updateFaderValues(fc, pixel.blue());
     }
 }
 
-void EFXFixture::start(MasterTimer* timer, QList<Universe *> universes)
-{
-    Q_UNUSED(universes);
-    Q_UNUSED(timer);
-
-    m_started = true;
-}
-
-void EFXFixture::stop(MasterTimer* timer, QList<Universe *> universes)
-{
-    Q_UNUSED(timer)
-    Q_UNUSED(universes);
-
-    m_started = false;
-}
-
-/*****************************************************************************
- * Helper Function
- *****************************************************************************/
-void EFXFixture::setFadeChannel(quint32 nChannel, uchar val)
-{
-    FadeChannel fc(doc(), head().fxi, nChannel);
-
-    fc.setTarget(val);
-    m_parent->m_fader->forceAdd(fc);
-}

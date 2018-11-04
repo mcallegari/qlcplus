@@ -45,14 +45,14 @@
   <Capability Res="Others/gobo00023.svg" Min="28" Max="41">Gobo 2</Capability>
   <Capability Res="Others/gobo00012.svg" Min="42" Max="55">Gobo 3</Capability>
   <Capability Res="SGM/gobo00022.png" Min="56" Max="69">Gobo 4</Capability>
-  <Capability Res="Others/gobo00037.png" Min="70" Max="83">Gobo 5</Capability>
+  <Capability Res="Others/gobo00037.svg" Min="70" Max="83">Gobo 5</Capability>
   <Capability Res="ClayPaky/gobo00028.svg" Min="84" Max="97">Gobo 6</Capability>
   <Capability Res="Chauvet/gobo00010.svg" Min="98" Max="115">Gobo 7</Capability>
   <Capability Res="Others/gobo00036.svg" Min="116" Max="135">Gobo 1 Shake</Capability>
   <Capability Res="Others/gobo00023.svg" Min="136" Max="155">Gobo 2 Shake</Capability>
   <Capability Res="Others/gobo00012.svg" Min="156" Max="175">Gobo 3 Shake</Capability>
   <Capability Res="SGM/gobo00022.png" Min="176" Max="195">Gobo 4 Shake</Capability>
-  <Capability Res="Others/gobo00037.png" Min="196" Max="215">Gobo 5 Shake</Capability>
+  <Capability Res="Others/gobo00037.svg" Min="196" Max="215">Gobo 5 Shake</Capability>
   <Capability Res="ClayPaky/gobo00028.svg" Min="216" Max="235">Gobo 6 Shake</Capability>
   <Capability Res="Chauvet/gobo00010.svg" Min="236" Max="255">Gobo 7 Shake</Capability>
  </Channel>
