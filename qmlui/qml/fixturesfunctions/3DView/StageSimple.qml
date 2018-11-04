@@ -41,15 +41,15 @@ Entity
             ]
         }
 
-    SphereMesh
+    CuboidMesh
     {
         id: stageMesh
-        /*
+        
         xExtent: size.x
         zExtent: size.z
         yExtent: 0.2
-        */
-        radius: 0.2
+        
+       // radius: 0.2
     }
 
     ObjectPicker
