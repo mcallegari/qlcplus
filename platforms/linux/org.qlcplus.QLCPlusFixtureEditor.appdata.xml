@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2015 Dave Olsthoorn <dave.olsthoorn@gmail.com> -->
 <component type="desktop">
- <id>qlcplus-fixtureeditor.desktop</id>
+ <id>org.qlcplus.QLCPlusFixtureEditor</id>
  <metadata_license>CC-BY-SA-3.0</metadata_license>
  <project_license>Apache-2.0</project_license>
  <name>QLC+ Fixture Definition Editor</name>
@@ -43,4 +43,7 @@
  </screenshots>
  <url type="homepage">http://www.qlcplus.org/</url>
  <url type="bugtracker">https://github.com/mcallegari/qlcplus/issues</url>
+ <provides>
+  <binary>qlcplus-fixtureeditor</binary>
+ </provides>
 </component>

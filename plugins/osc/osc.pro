@@ -46,7 +46,7 @@ SOURCES += oscpacketizer.cpp \
            configureosc.cpp
 
 unix:!macx {
-   metainfo.path   = $$INSTALLROOT/share/appdata/
-   metainfo.files += qlcplus-osc.metainfo.xml
+   metainfo.path   = $$METAINFODIR
+   metainfo.files += org.qlcplus.QLCPlus.osc.metainfo.xml
    INSTALLS       += metainfo
 }
