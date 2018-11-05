@@ -186,65 +186,26 @@ Rectangle
                     });
                 }
 
-
-
                 for(var ii = 0; ii < (TEX_CHAIN_LEN-1); ++ii) {
 
                     component = Qt.createComponent("UpsampleFilter.qml");
                     if (component.status === Component.Error)
                         console.log("Error loading component:", component.errorString());
 
-
 					var dim = (1 << (TEX_CHAIN_LEN - 2 - ii) );
-
-                    console.log("target: ",  texChainTargets[TEX_CHAIN_LEN - ii - 2])
-
-
-                    console.log("tex: ", texChainTextures[TEX_CHAIN_LEN - 1 - ii])
-
-                    console.log("quad layer: ",  texChainUpsampleEntities[ii].quadLayer)
-
                     sgNode = component.createObject(frameGraph.myCameraSelector,
                     {
                         "inTex": texChainTextures[TEX_CHAIN_LEN - 1 - ii],
                         "screenQuadLayer": texChainUpsampleEntities[ii].quadLayer,
                         "outRenderTarget": texChainTargets[TEX_CHAIN_LEN - ii - 2],
                         "pixelSize": Qt.vector4d(1.0 / (m_width  / dim), 1.0 / (m_height / dim),0,0),
-                        "intensity": Qt.vector4d(0.3, 0.0,0,0),
+                        "intensity": Qt.vector4d(  (TEX_CHAIN_LEN-1 - ii) *  0.4, 0.0,0,0),
                         
                     });
 
                 }
-        
-
-
-
-/*
-                for(var iter = 0; iter < 9; ++iter) {
-                
-                    sgNode = component.createObject(frameGraph.myCameraSelector,
-                    {
-                        "inTex": (iter === 0) ? brightnessTexture : blurPingPong1Texture,
-                        "screenQuadLayer": screenQuadBlurEntity0.quadLayer,
-                        "outRenderTarget": blurPingPong0Target,
-                        "blurDirection": Qt.vector4d(1,0,0,0)
-                    });
-
-                    sgNode = component.createObject(frameGraph.myCameraSelector,
-                    {
-                        "inTex": blurPingPong0Texture,
-                        "screenQuadLayer": screenQuadBlurEntity1.quadLayer,
-                        "outRenderTarget": blurPingPong1Target,
-                        "blurDirection": Qt.vector4d(0,1,0,0)
-                    });
-
-                    bloomTexture = blurPingPong1Texture
-                }
-          */      
-
             }
             
-
             component = Qt.createComponent("DirectionalLightFilter.qml");
             if (component.status === Component.Error)
                 console.log("Error loading component:", component.errorString())

@@ -26,13 +26,12 @@ TechniqueFilter
 {
     property GBuffer gBuffer
     property Layer screenQuadLayer
-
-                    
-
     property RenderTarget outRenderTarget
 
     parameters: [
-        Parameter { name: "albedoTex"; value: gBuffer.color }
+        Parameter { name: "albedoTex"; value: gBuffer.color },
+        Parameter { name: "normalTex"; value: gBuffer.normal }
+
     ]
 
     RenderStateSet

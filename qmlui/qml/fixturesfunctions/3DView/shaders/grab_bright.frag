@@ -21,18 +21,15 @@ FS_IN_ATTRIB vec2 fsUv;
 
 
 uniform sampler2D albedoTex;
+uniform sampler2D normalTex;
 DECLARE_FRAG_COLOR
 
 void main()
 {
     vec4 albedo = SAMPLE_TEX2D(albedoTex, fsUv).xyzw;
-
-
-
-    float luminance = dot(albedo.rgb, vec3(0.2126729, 0.7151522, 0.0721750));
-    
-    if(luminance > 0.3) {
-        MGL_FRAG_COLOR = vec4(albedo.rgb, 1.0);
+    float v = SAMPLE_TEX2D(normalTex, fsUv).w;
+    if(v > 2.0) {
+        MGL_FRAG_COLOR = vec4( albedo.rgb, 1.0);
     } else {
         MGL_FRAG_COLOR = vec4(0.0, 0.0, 0.0, 0.0);
     }

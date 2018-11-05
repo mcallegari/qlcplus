@@ -37,7 +37,9 @@ Entity
             parameters: [
                 Parameter { name: "diffuse"; value: "lightgray" },
                 Parameter { name: "specular"; value: "black" },
-                Parameter { name: "shininess"; value: 1.0 }
+                Parameter { name: "shininess"; value: 1.0 },
+                Parameter { name: "bloom"; value: 0 }
+
             ]
         }
 
