@@ -93,7 +93,7 @@ quint32 ShowFunction::duration(const Doc *doc) const
     if (f == NULL)
         return 0;
 
-    return f->totalDuration();
+    return f->totalDuration() ? f->totalDuration() : duration();
 }
 
 void ShowFunction::setColor(QColor color)
