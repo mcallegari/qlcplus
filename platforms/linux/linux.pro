@@ -15,8 +15,8 @@ mime.path   = $$INSTALLROOT/share/mime/packages
 mime.files += qlcplus.xml
 INSTALLS   += mime
 
-appdata.path   = $$INSTALLROOT/share/appdata/
-appdata.files += qlcplus-fixtureeditor.appdata.xml qlcplus.appdata.xml
+appdata.path   = $$METAINFODIR
+appdata.files += org.qlcplus.QLCPlus.appdata.xml org.qlcplus.QLCPlusFixtureEditor.appdata.xml
 INSTALLS      += appdata
 
 manpages.path = $$INSTALLROOT/$$MANDIR

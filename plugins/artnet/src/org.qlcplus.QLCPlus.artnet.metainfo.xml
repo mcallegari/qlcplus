@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="addon">
-  <id>qlcplus-artnet</id>
-  <extends>qlcplus.desktop</extends>
+  <id>org.qlcplus.QLCPlus.artnet</id>
+  <extends>org.qlcplus.QLCPlus</extends>
   <name>Artnet</name>
   <summary>ArtNet plugin for QLC+</summary>
   <url type="homepage">http://www.qlcplus.org/</url>

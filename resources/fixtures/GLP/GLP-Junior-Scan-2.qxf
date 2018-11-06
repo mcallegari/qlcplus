@@ -102,7 +102,7 @@
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="7" Res="Others/open.svg">Open</Capability>
-  <Capability Min="8" Max="15" Res="GLP/gobo00006.png">Gobo 1</Capability>
+  <Capability Min="8" Max="15" Res="GLP/gobo00006.svg">Gobo 1</Capability>
   <Capability Min="16" Max="23" Res="GLP/gobo00003.png">Gobo 2</Capability>
   <Capability Min="24" Max="31" Res="GLP/gobo00008.png">Gobo 3</Capability>
   <Capability Min="32" Max="39" Res="GLP/gobo00004.png">Gobo 4</Capability>
