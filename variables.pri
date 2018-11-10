@@ -4,7 +4,7 @@
 
 APPNAME    = Q Light Controller Plus
 FXEDNAME   = Fixture Definition Editor
-APPVERSION = 4.12.0 GIT
+APPVERSION = 4.12.0
 
 # Disable these if you don't want to see GIT short hash in the About Box
 #unix:REVISION = $$system(git log --pretty=format:'%h' -n 1)
@@ -36,11 +36,11 @@ contains(FORCECONFIG, release) {
   #DEFINES += QT_NO_DEBUG_OUTPUT
 } else {
   # Enable the following 2 lines when making a release
-  CONFIG         -= release
-#  DEFINES        += QT_NO_DEBUG_OUTPUT
+  CONFIG         += release
+  DEFINES        += QT_NO_DEBUG_OUTPUT
 
   # Disable this when making a release
-  CONFIG         += debug
+  CONFIG         -= debug
 }
 
 !macx:!ios: {
@@ -92,7 +92,7 @@ ios:BINDIR        =
 
 # Libraries
 win32:LIBSDIR      =
-unix:!macx:LIBSDIR = lib
+unix:!macx:LIBSDIR = lib/x86_64-linux-gnu
 macx:LIBSDIR       = Frameworks
 android:LIBSDIR    = /libs/armeabi-v7a
 ios:LIBSDIR        = lib
@@ -184,11 +184,11 @@ ios:USERFIXTUREDIR        = $$USERDATADIR/Fixtures
 
 # Plugins
 win32:PLUGINDIR      = Plugins
-unix:!macx:PLUGINDIR = $$LIBSDIR/qt4/plugins/qlcplus
+unix:!macx:PLUGINDIR = $$LIBSDIR/qt5/plugins/qlcplus
 macx:PLUGINDIR       = PlugIns
 android:PLUGINDIR    = Plugins
 ios:PLUGINDIR        = Plugins
-appimage:PLUGINDIR   = ../lib/qt4/plugins/qlcplus
+appimage:PLUGINDIR   = ../lib/qt5/plugins/qlcplus
 
 # Audio Plugins
 win32:AUDIOPLUGINDIR      = $$PLUGINDIR/Audio
