@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.11.1</Version>
+  <Author>Ex</Author>
+ </Creator>
+ <Manufacturer>ADJ</Manufacturer>
+ <Model>5P Hex</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">IntensityRed</Capability>
+ </Channel>
+ <Channel Name="Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">IntensityGreen</Capability>
+ </Channel>
+ <Channel Name="Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">IntensityBlue</Capability>
+ </Channel>
+ <Channel Name="White">
+  <Group Byte="0">Intensity</Group>
+  <Colour>White</Colour>
+  <Capability Min="0" Max="255">IntensityWhite</Capability>
+ </Channel>
+ <Channel Name="Amber">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Amber</Colour>
+  <Capability Min="0" Max="255">IntensityAmber</Capability>
+ </Channel>
+ <Channel Name="UV">
+  <Group Byte="0">Intensity</Group>
+  <Colour>UV</Colour>
+  <Capability Min="0" Max="255">IntensityUV</Capability>
+ </Channel>
+ <Channel Name="Master Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">IntensityDimmer</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31">OFF</Capability>
+  <Capability Min="32" Max="63">ON</Capability>
+  <Capability Min="64" Max="95">Strobe Slow-Fast</Capability>
+  <Capability Min="96" Max="127">ON</Capability>
+  <Capability Min="128" Max="159">Pulse Strobe Slow-Fast</Capability>
+  <Capability Min="160" Max="191">ON</Capability>
+  <Capability Min="192" Max="223">Random Strobe Slow-Fast</Capability>
+  <Capability Min="224" Max="255">On</Capability>
+ </Channel>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="3" Color="#000000">Off</Capability>
+  <Capability Min="4" Max="7" Color="#ff0000">Red</Capability>
+  <Capability Min="8" Max="11" Color="#00ff00">Green</Capability>
+  <Capability Min="12" Max="15" Color="#0000ff">Blue</Capability>
+  <Capability Min="16" Max="19" Color="#ffffff">White</Capability>
+  <Capability Min="20" Max="23" Color="#ffba00">Amber</Capability>
+  <Capability Min="24" Max="27" Color="#a800ff">UV</Capability>
+  <Capability Min="28" Max="31" Color="#ffff00">Red Green</Capability>
+  <Capability Min="32" Max="35" Color="#ff00ff">Red Blue</Capability>
+  <Capability Min="36" Max="39" Color="#ffa8a8">Red White</Capability>
+  <Capability Min="40" Max="43">Red Amber</Capability>
+  <Capability Min="44" Max="47">Red UV</Capability>
+  <Capability Min="48" Max="51" Color="#00ffff">Green Blue</Capability>
+  <Capability Min="52" Max="55" Color="#a8ffa8">Green White</Capability>
+  <Capability Min="56" Max="59">Green Amber</Capability>
+  <Capability Min="60" Max="63">Green UV</Capability>
+  <Capability Min="64" Max="67" Color="#a8a8ff">Blue White</Capability>
+  <Capability Min="68" Max="71">Blue Amber</Capability>
+  <Capability Min="72" Max="75">Blue UV</Capability>
+  <Capability Min="76" Max="79">White UV</Capability>
+  <Capability Min="80" Max="83">White Amber</Capability>
+  <Capability Min="84" Max="87">Amber UV</Capability>
+  <Capability Min="88" Max="91" Color="#ffffff">Red Green Blue</Capability>
+  <Capability Min="92" Max="95">Red Green White</Capability>
+  <Capability Min="96" Max="99">Red Green Amber</Capability>
+  <Capability Min="100" Max="103">Red Green UV</Capability>
+  <Capability Min="104" Max="107">Red Blue White</Capability>
+  <Capability Min="108" Max="111">Red Blue Amber</Capability>
+  <Capability Min="112" Max="115">Red Blue UV</Capability>
+  <Capability Min="116" Max="119">Red White Amber</Capability>
+  <Capability Min="120" Max="123">Red White UV</Capability>
+  <Capability Min="124" Max="127">Red Amber UV</Capability>
+  <Capability Min="128" Max="131">Green Blue White</Capability>
+  <Capability Min="132" Max="135">Green Blue Amber</Capability>
+  <Capability Min="136" Max="139">Green Blue UV</Capability>
+  <Capability Min="140" Max="143">Green White Amber</Capability>
+  <Capability Min="144" Max="147">Green White UV</Capability>
+  <Capability Min="148" Max="151">Green Amber UV</Capability>
+  <Capability Min="152" Max="155">Blue White Amber</Capability>
+  <Capability Min="156" Max="159">Blue White UV</Capability>
+  <Capability Min="160" Max="163">Blue Amber UV</Capability>
+  <Capability Min="164" Max="167">White Amber UV</Capability>
+  <Capability Min="168" Max="171">Red Green Blue White</Capability>
+  <Capability Min="172" Max="175">Red Green Blue Amber</Capability>
+  <Capability Min="176" Max="179">Red Green White Amber</Capability>
+  <Capability Min="180" Max="183">Red Green White Amber</Capability>
+  <Capability Min="184" Max="187">Red Green White UV</Capability>
+  <Capability Min="188" Max="191">Red Green Amber UV</Capability>
+  <Capability Min="192" Max="195">Red Blue White Amber</Capability>
+  <Capability Min="196" Max="199">Red Blue White UV</Capability>
+  <Capability Min="200" Max="203">Red Blue Amber UV</Capability>
+  <Capability Min="204" Max="207">Red White Amber UV</Capability>
+  <Capability Min="208" Max="211">Green Blue White Amber</Capability>
+  <Capability Min="212" Max="215">Green Blue White UV</Capability>
+  <Capability Min="216" Max="219">Green Blue Amber UV</Capability>
+  <Capability Min="220" Max="223">Green White Amber UV</Capability>
+  <Capability Min="224" Max="227">Blue White Amber UV</Capability>
+  <Capability Min="228" Max="231">Red Green Blue White Amber</Capability>
+  <Capability Min="232" Max="235">Red Green Blue White UV</Capability>
+  <Capability Min="236" Max="239">Red Green Blue Amber UV</Capability>
+  <Capability Min="240" Max="243">Red Green White Amber UV</Capability>
+  <Capability Min="244" Max="247">Red Blue White Amber UV</Capability>
+  <Capability Min="248" Max="251">Green Blue White Amber UV</Capability>
+  <Capability Min="252" Max="255">Red Green Blue White Amber UV</Capability>
+ </Channel>
+ <Channel Name="Function">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="20">no program</Capability>
+  <Capability Min="21" Max="40">30 color change</Capability>
+  <Capability Min="41" Max="60">6 color change</Capability>
+  <Capability Min="61" Max="80">color fade</Capability>
+  <Capability Min="81" Max="100">sound active 30 color chnage</Capability>
+  <Capability Min="101" Max="120">sound active 6 color cange</Capability>
+  <Capability Min="121" Max="140">sound active 6 color fade</Capability>
+  <Capability Min="141" Max="255">no program</Capability>
+ </Channel>
+ <Channel Name="program speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">speed</Capability>
+ </Channel>
+ <Channel Name="dimmer mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="20">standard</Capability>
+  <Capability Min="21" Max="40">stage</Capability>
+  <Capability Min="41" Max="60">tv</Capability>
+  <Capability Min="61" Max="80">architectural</Capability>
+  <Capability Min="81" Max="100">theatre</Capability>
+  <Capability Min="101" Max="255">default dimmer setting</Capability>
+ </Channel>
+ <Mode Name="6 Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2" Width="213" Height="120" Depth="224"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="60" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">UV</Channel>
+ </Mode>
+ <Mode Name="7 Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2" Width="213" Height="120" Depth="224"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="60" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">UV</Channel>
+  <Channel Number="6">Master Dimmer</Channel>
+ </Mode>
+ <Mode Name="8 Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2" Width="213" Height="120" Depth="224"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="60" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">UV</Channel>
+  <Channel Number="6">Master Dimmer</Channel>
+  <Channel Number="7">Strobe</Channel>
+ </Mode>
+ <Mode Name="12 Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="2" Width="213" Height="120" Depth="224"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="60" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">UV</Channel>
+  <Channel Number="6">Master Dimmer</Channel>
+  <Channel Number="7">Strobe</Channel>
+  <Channel Number="8">Colour</Channel>
+  <Channel Number="9">Function</Channel>
+  <Channel Number="10">program speed</Channel>
+  <Channel Number="11">dimmer mode</Channel>
+ </Mode>
+</FixtureDefinition>
