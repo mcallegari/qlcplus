@@ -23,6 +23,7 @@ lessThan(QT_MAJOR_VERSION, 5) {
                    $$QT_LIBS_PATH/Qt5Script$${QT_D}.dll \
                    $$QT_LIBS_PATH/Qt5Network$${QT_D}.dll \
                    $$QT_LIBS_PATH/Qt5Gui$${QT_D}.dll \
+                   $$QT_LIBS_PATH/Qt5Svg$${QT_D}.dll \
                    $$QT_LIBS_PATH/Qt5Widgets$${QT_D}.dll \
                    $$QT_LIBS_PATH/Qt5OpenGL$${QT_D}.dll \
                    $$QT_LIBS_PATH/Qt5Multimedia$${QT_D}.dll \
@@ -33,7 +34,6 @@ lessThan(QT_MAJOR_VERSION, 5) {
                         $$QT_LIBS_PATH/Qt5Quick$${QT_D}.dll \
                         $$QT_LIBS_PATH/Qt5QuickControls2$${QT_D}.dll \
                         $$QT_LIBS_PATH/Qt5QuickTemplates2$${QT_D}.dll \
-                        $$QT_LIBS_PATH/Qt5Svg$${QT_D}.dll \
                         $$QT_LIBS_PATH/Qt5Sql$${QT_D}.dll \
                         $$QT_LIBS_PATH/Qt53DCore$${QT_D}.dll \
                         $$QT_LIBS_PATH/Qt53DExtras$${QT_D}.dll \

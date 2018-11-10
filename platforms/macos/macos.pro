@@ -116,6 +116,7 @@ INSTALLS += $$qt5LibTarget(LIBQTNETWORK, QtNetwork) $$qt5LibTargetID(LIBQTNETWOR
 
 greaterThan(QT_MAJOR_VERSION, 4) {
   INSTALLS += $$qt5LibTarget(LIBQTWIDGETS, QtWidgets) $$qt5LibTargetID(LIBQTWIDGETS, QtWidgets)
+  INSTALLS += $$qt5LibTarget(LIBQTSVG, QtSvg) $$qt5LibTargetID(LIBQTSVG, QtSvg)
   INSTALLS += $$qt5LibTarget(LIBQTOPENGL, QtOpenGL) $$qt5LibTargetID(LIBQTOPENGL, QtOpenGL)
   INSTALLS += $$qt5LibTarget(LIBQTMULTIMEDIA, QtMultimedia) $$qt5LibTargetID(LIBQTMULTIMEDIA, QtMultimedia)
   INSTALLS += $$qt5LibTarget(LIBQTMULTIMEDIAWIDGETS, QtMultimediaWidgets) $$qt5LibTargetID(LIBQTMULTIMEDIAWIDGETS, QtMultimediaWidgets)
@@ -131,7 +132,6 @@ qmlui: {
   INSTALLS += $$qt5LibTarget(LIBQTQUICK, QtQuick) $$qt5LibTargetID(LIBQTQUICK, QtQuick)
   INSTALLS += $$qt5LibTarget(LIBQTQUICKCONTROLS2, QtQuickControls2) $$qt5LibTargetID(LIBQTQUICKCONTROLS2, QtQuickControls2)
   INSTALLS += $$qt5LibTarget(LIBQTQUICKTEMPLATES2, QtQuickTemplates2) $$qt5LibTargetID(LIBQTQUICKTEMPLATES2, QtQuickTemplates2)
-  INSTALLS += $$qt5LibTarget(LIBQTSVG, QtSvg) $$qt5LibTargetID(LIBQTSVG, QtSvg)
   INSTALLS += $$qt5LibTarget(LIBQTCONCURRENT, QtConcurrent) $$qt5LibTargetID(LIBQTCONCURRENT, QtConcurrent)
   INSTALLS += $$qt5LibTarget(LIBQTGAMEPAD, QtGamepad) $$qt5LibTargetID(LIBQTGAMEPAD, QtGamepad)
   INSTALLS += $$qt5LibTarget(LIBQT3DCORE, Qt3DCore) $$qt5LibTargetID(LIBQT3DCORE, Qt3DCore)
@@ -193,12 +193,12 @@ lessThan(QT_MAJOR_VERSION, 5) {
 } else {
     qtnametool.commands += && $$LIBQTNETWORK_INSTALL_NAME_TOOL \
         $$INSTALLROOT/$$LIBSDIR/$$LIBQLCENGINE_FILE
-!qmlui: {
-    qtnametool.commands += && $$LIBQTNETWORK_INSTALL_NAME_TOOL \
-        $$INSTALLROOT/$$LIBSDIR/$$LIBQLCUI_FILE
-    qtnametool.commands += && $$LIBQTNETWORK_INSTALL_NAME_TOOL \
-        $$INSTALLROOT/$$LIBSDIR/$$LIBQLCWEBACCESS_FILE
-}
+    !qmlui: {
+        qtnametool.commands += && $$LIBQTNETWORK_INSTALL_NAME_TOOL \
+            $$INSTALLROOT/$$LIBSDIR/$$LIBQLCUI_FILE
+        qtnametool.commands += && $$LIBQTNETWORK_INSTALL_NAME_TOOL \
+            $$INSTALLROOT/$$LIBSDIR/$$LIBQLCWEBACCESS_FILE
+    }
 }
 
 qtnametool.commands += && $$LIBFFTW_INSTALL_NAME_TOOL \
