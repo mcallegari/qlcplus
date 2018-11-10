@@ -79,7 +79,7 @@ INSTALL_ROOT=$RPM_BUILD_ROOT make install
 %{_datadir}/qlcplus/modifierstemplates/*
 %{_datadir}/qlcplus/web/*
 %{_datadir}/mime/packages/qlcplus.xml
-%{_datadir}/appdata/*
+%{_datadir}/metainfo/*
 %_libdir/qt5/plugins/qlcplus/audio/libmadplugin.so
 %_libdir/qt5/plugins/qlcplus/audio/libsndfileplugin.so
 %_libdir/qt5/plugins/qlcplus/libenttecwing.so
