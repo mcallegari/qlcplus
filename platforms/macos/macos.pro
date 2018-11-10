@@ -228,26 +228,22 @@ qtnametool.commands += && $$LIBVORBIS_INSTALL_NAME_TOOL \
 qtnametool.commands += && $$LIBOGG_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBVORBISENC_FILE
 
-# These never had any difference anyway...
-# include(imageformats-nametool.pri)
-# INSTALLS += imageformats
-
 greaterThan(QT_MAJOR_VERSION, 4) {
     include(platformplugins-nametool.pri)
+    include(imageformats-nametool.pri)
     include(audioplugins-nametool.pri)
     include(mediaservice-nametool.pri)
 
     INSTALLS += platformplugins
+    INSTALLS += imageformats
     INSTALLS += audioplugins
     INSTALLS += mediaservice
 
 qmlui: {
-    include(imageformats-nametool.pri)
     include(printsupport-nametool.pri)
     include(geometryloaders-nametool.pri)
     include(sceneparsers-nametool.pri)
 
-    INSTALLS += imageformats
     INSTALLS += printsupport
     INSTALLS += geometryloaders
     INSTALLS += sceneparsers
