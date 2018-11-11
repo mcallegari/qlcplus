@@ -1,3 +1,7 @@
+qlcplus (4.12.1) stable; urgency=low
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 10 Feb 2019 12:13:14 +0200
+
 qlcplus (4.12.0) stable; urgency=low
 
   * engine: reworked to achieve multithreaded universes and properly handle fade transitions
