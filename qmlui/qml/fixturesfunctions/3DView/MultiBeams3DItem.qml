@@ -35,7 +35,7 @@ Entity
 
     property int itemID: fixtureManager.invalidFixture()
     property bool isSelected: false
-    property int headsNumber: 1
+    property int headsNumber: 0
     property vector3d phySize: Qt.vector3d(1, 0.1, 0.1)
 
     onItemIDChanged:
@@ -52,8 +52,8 @@ Entity
     property Transform tiltTransform
 
     /* **************** Focus properties **************** */
-    property real focusMinDegrees: 15
-    property real focusMaxDegrees: 30
+    property real focusMinDegrees: 5
+    property real focusMaxDegrees: 5
     property real distCutoff: 40.0
     property real cutoffAngle: (focusMinDegrees / 2) * (Math.PI / 180)
 
@@ -99,9 +99,14 @@ Entity
 
     function setHeadLightProps(headIndex, pos, matrix)
     {
-        var head = getHead(headIndex)
-        head.lightPos = pos
-        head.lightMatrix = matrix
+        for (var h = 0; h < headsNumber; h++)
+        {
+            var head = getHead(h)
+            var hPos = Qt.vector3d(pos.x * h, pos.y, pos.z)
+            head.lightPos = hPos
+            head.lightMatrix = matrix
+            console.log("Setting light info: " + hPos + ", m: " + matrix)
+        }
     }
 
     function setHeadIntensity(headIndex, intensity)
@@ -223,7 +228,7 @@ Entity
     NodeInstantiator
     {
         id: headsRepeater
-        //model: fixtureEntity.headsNumber
+        model: 0
 
         onObjectAdded:
         {
@@ -267,18 +272,18 @@ Entity
                 property matrix4x4 lightViewProjectionScaleAndOffsetMatrix:
                     Math3D.getLightViewProjectionScaleOffsetMatrix(lightViewProjectionMatrix)
 
-                //property Transform headTransform: Transform { translation: Qt.vector3d(0, 0.1 * index, 0) }
+                property Transform headTransform: Transform { translation: Qt.vector3d(0.1 * index, 0, 0) }
 
                 function setupScattering(shadingEffect, scatteringEffect, depthEffect, sceneEntity)
                 {
                     shadingCone.coneEffect = shadingEffect
                     shadingCone.parent = sceneEntity
                     shadingCone.spotlightConeMesh = sceneEntity.coneMesh
-                    /*
-                    scatteringCone.coneEffect = scatteringEffect
+
+                    //scatteringCone.coneEffect = scatteringEffect
                     scatteringCone.parent = sceneEntity
                     scatteringCone.spotlightConeMesh = sceneEntity.coneMesh
-                    */
+
                     outDepthCone.coneEffect = depthEffect
                     outDepthCone.parent = sceneEntity
                     outDepthCone.spotlightConeMesh = sceneEntity.coneMesh
@@ -333,6 +338,11 @@ Entity
                     coneLayer: outputDepthLayer
                     fxEntity: headDelegate
                 }
+
+                components: [
+                    headTransform,
+                    sceneLayer
+                ]
             } // Entity
     } // Repeater
 

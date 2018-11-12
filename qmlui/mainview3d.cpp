@@ -1309,46 +1309,47 @@ void MainView3D::updateFixtureRotation(quint32 itemID, QVector3D degrees)
 
 void MainView3D::updateLightMatrix(SceneItem *mesh)
 {
+    // no head ? Nothing to do
+    if (mesh->m_headItem == nullptr)
+        return;
+
     // below, we extract a rotation matrix and position, which we need for properly
     // positioning and rotating the spotlight cone.
+    QMatrix4x4 m = (mesh->m_rootTransform->matrix());
+
+    if (mesh->m_armItem)
+    {
+        QMatrix4x4 armTransform = getTransform(mesh->m_armItem)->matrix();
+        m.translate(armTransform.data()[12], armTransform.data()[13], armTransform.data()[14]);
+    }
+
     if (mesh->m_headItem)
     {
-        QMatrix4x4 m = (mesh->m_rootTransform->matrix());
-
-        if (mesh->m_armItem)
-        {
-            QMatrix4x4 armTransform = getTransform(mesh->m_armItem)->matrix();
-            m.translate(armTransform.data()[12], armTransform.data()[13], armTransform.data()[14]);
-        }
-
-        if (mesh->m_headItem)
-        {
-            QMatrix4x4 headTransform = getTransform(mesh->m_headItem)->matrix();
-            m.translate(headTransform.data()[12], headTransform.data()[13], headTransform.data()[14]);
-        }
-
-        QVector4D xb = m * QVector4D(1, 0, 0, 0);
-        QVector4D yb = m * QVector4D(0, 1, 0, 0);
-        QVector4D zb = m * QVector4D(0, 0, 1, 0);
-
-        QVector3D xa = QVector3D(xb.x(), xb.y(), xb.z()).normalized();
-        QVector3D ya = QVector3D(yb.x(), yb.y(), yb.z()).normalized();
-        QVector3D za = QVector3D(zb.x(), zb.y(), zb.z()).normalized();
-
-        QMatrix4x4 lightMatrix = QMatrix4x4(
-            xa.x(), xa.y(), xa.z(), 0,
-            ya.x(), ya.y(), ya.z(), 0,
-            za.x(), za.y(), za.z(), 0,
-            0, 0, 0, 1
-        ).transposed();
-
-        QVector4D result = m * QVector4D(0, 0, 0, 1);
-
-        QMetaObject::invokeMethod(mesh->m_rootItem, "setHeadLightProps",
-                Q_ARG(QVariant, 0),
-                Q_ARG(QVariant, QVariant::fromValue(QVector3D(result.x(), result.y(), result.z()))),
-                Q_ARG(QVariant, QVariant::fromValue(lightMatrix)));
+        QMatrix4x4 headTransform = getTransform(mesh->m_headItem)->matrix();
+        m.translate(headTransform.data()[12], headTransform.data()[13], headTransform.data()[14]);
     }
+
+    QVector4D xb = m * QVector4D(1, 0, 0, 0);
+    QVector4D yb = m * QVector4D(0, 1, 0, 0);
+    QVector4D zb = m * QVector4D(0, 0, 1, 0);
+
+    QVector3D xa = QVector3D(xb.x(), xb.y(), xb.z()).normalized();
+    QVector3D ya = QVector3D(yb.x(), yb.y(), yb.z()).normalized();
+    QVector3D za = QVector3D(zb.x(), zb.y(), zb.z()).normalized();
+
+    QMatrix4x4 lightMatrix = QMatrix4x4(
+        xa.x(), xa.y(), xa.z(), 0,
+        ya.x(), ya.y(), ya.z(), 0,
+        za.x(), za.y(), za.z(), 0,
+        0, 0, 0, 1
+    ).transposed();
+
+    QVector4D result = m * QVector4D(0, 0, 0, 1);
+
+    QMetaObject::invokeMethod(mesh->m_rootItem, "setHeadLightProps",
+            Q_ARG(QVariant, 0),
+            Q_ARG(QVariant, QVariant::fromValue(QVector3D(result.x(), result.y(), result.z()))),
+            Q_ARG(QVariant, QVariant::fromValue(lightMatrix)));
 }
 
 void MainView3D::updateFixtureScale(quint32 itemID, QVector3D origSize)

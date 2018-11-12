@@ -257,7 +257,7 @@ private:
     QRenderTarget *m_gBuffer;
     QRenderTarget *m_frontDepthTarget;
 
-    /** Map of QLC+ fixture IDs and QML Entity items */
+    /** Map of QLC+ item IDs and SceneItem references */
     QMap<quint32, SceneItem*> m_entitiesMap;
 
     /** Cache of the loaded models against bounding volumes */
