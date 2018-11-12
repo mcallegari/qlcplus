@@ -1245,7 +1245,7 @@ QString WebAccess::getChildrenHTML(VCWidget *frame, int pagesNum, int currentPag
             QString fpID = QString("fp%1_%2").arg(frame->id()).arg(i);
             QString pg = "<div class=\"vcframePage\" id=\"" + fpID + "\"";
             if (i == currentPageIdx)
-                pg += " style=\"visibility: visible;\"";
+                pg += " style=\"visibility: inherit;\"";
             pg += ">\n";
             pagesHTML << pg;
         }

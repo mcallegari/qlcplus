@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="addon">
-  <id>qlcplus-loopback</id>
-  <extends>qlcplus.desktop</extends>
+  <id>org.qlcplus.QLCPlus.loopback</id>
+  <extends>org.qlcplus.QLCPlus</extends>
   <name>Loopback</name>
   <summary>Loopback plugin for QLC+</summary>
   <url type="homepage">http://www.qlcplus.org/</url>

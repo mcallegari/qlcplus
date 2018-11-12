@@ -7,6 +7,7 @@ qlcplus (4.12.0) stable; urgency=low
   * UI/Show Manager: properly reset editors and selection when switching context
   * UI/Show Manager: avoid Scene values to be overwritten on Sequences sharing the same bound Scene
   * UI/Show Manager: improved audio waveform preview
+  * Web Access: fixed visibility of nested frame pages
   * Plugins/DMX USB: reworked to have asynchronous transmission and frequency setting from UI
   * Plugins/OSC: added support for double values (in 0.0 - 1.0 range)
   * Fixture Editor: reworked to define more accurate information (see documentation)
@@ -57,12 +58,13 @@ qlcplus (4.12.0) stable; urgency=low
   * New fixtures: beamZ MHL108 Wash MKII, UKing Mini RGBW Moving Head (thanks to Mike S)
   * New fixture: ETC Desire D22 Lustr+ (thanks to Tavon Markov)
   * New fixture: Chauvet Swarm 4 FX (thanks to David Gianforte)
-  * New fixtures: Stairville Mini Stage Par RGBW, LED Par 36 COB RGBW, LED PAR64 MKII RGBW (thanks to Jose Coelho)
+  * New fixtures: Stairville Mini Stage Par RGBW, LED PAR 36 COB RGBW, LED PAR64 MKII RGBW, LED PAR 64 COB RGBW 60W (thanks to Jose Coelho)
   * New fixtures: Eurolite LED T-36 RGB Pinspot, beamZ BT270 LED FlatPAR (thanks to Herbie)
   * New fixture: Proel PLLEDSP (thanks to Martino)
   * New fixtures: Stage Right 10Wx9 LED Flat PAR, 3-Color LED Light Bar (thanks to Daniel Smith)
   * New fixture: Chauvet Rogue R1 Spot (thanks to David Wolfe)
   * New fixtures: American DJ Dotz Panel 2.4, Flash-Butrym LED PAR 64 4x30W COB RGBW (thanks to Fotis)
+  * New fixture: Pro-Lights Genesis (thanks to Lorenzo Andreani)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 21 Oct 2018 12:13:14 +0200
 

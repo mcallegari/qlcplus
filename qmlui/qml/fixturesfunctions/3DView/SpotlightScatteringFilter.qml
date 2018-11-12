@@ -28,7 +28,6 @@ TechniqueFilter
     property Layer spotlightScatteringLayer
     property DepthTarget frontDepth
     property GBuffer gBuffer
-    property real lightIntensity
     property Texture2D shadowTex: null
     property FrameTarget frameTarget
     property bool useShadows: true

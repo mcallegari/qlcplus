@@ -267,7 +267,7 @@ Rectangle
 
                         sgNode = component.createObject(frameGraph.myCameraSelector,
                         {
-                            "fixtureItem": fixtureItem,
+                            "fixtureItem": headEntity,
                             "frontDepth": depthTarget,
                             "gBuffer": gBufferTarget,
                             "spotlightScatteringLayer": headEntity.spotlightScatteringLayer,

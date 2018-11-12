@@ -471,7 +471,7 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
 
     if (fixture->type() == QLCFixtureDef::LEDBarBeams)
     {
-        mesh->m_goboTexture = nullptr;
+        mesh->m_goboTexture = new GoboTextureImage(512, 512, openGobo);
 
         QQmlComponent *lbComp = new QQmlComponent(m_view->engine(), QUrl("qrc:/MultiBeams3DItem.qml"));
         if (lbComp->isError())

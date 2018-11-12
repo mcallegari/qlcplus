@@ -99,8 +99,9 @@ Entity
 
     function setHeadLightProps(headIndex, pos, matrix)
     {
-        headsRepeater.objectAt(headIndex).lightPos = pos
-        headsRepeater.objectAt(headIndex).lightMatrix = matrix
+        var head = getHead(headIndex)
+        head.lightPos = pos
+        head.lightMatrix = matrix
     }
 
     function setHeadIntensity(headIndex, intensity)
@@ -215,19 +216,11 @@ Entity
         for (var i = 0; i < headsRepeater.count; i++)
         {
             var item = headsRepeater.objectAt(i)
-            item.shadingCone.coneEffect = shadingEffect
-            item.shadingCone.parent = sceneEntity
-            item.shadingCone.spotlightConeMesh = sceneEntity.coneMesh
-
-            item.scatteringCone.coneEffect = scatteringEffect
-            item.scatteringCone.parent = sceneEntity
-            item.scatteringCone.spotlightConeMesh = sceneEntity.coneMesh
-
-            item.outDepthCone.coneEffect = depthEffect
-            item.outDepthCone.parent = sceneEntity
-            item.outDepthCone.spotlightConeMesh = sceneEntity.coneMesh
+            item.setupScattering(shadingEffect, scatteringEffect, depthEffect, sceneEntity)
         }
     }
+
+    property Texture2D goboTexture: Texture2D { }
 
     NodeInstantiator
     {
@@ -250,6 +243,17 @@ Entity
 
                 property color lightColor: Qt.rgba(0, 0, 0, 1)
                 property vector3d lightPos: Qt.vector3d(0, 0, 0)
+                property vector3d lightDir: fixtureEntity.lightDir
+
+                property real raymarchSteps: fixtureEntity.raymarchSteps
+                property real distCutoff: fixtureEntity.distCutoff
+                property real headLength: fixtureEntity.headLength
+                property real coneBottomRadius: fixtureEntity.coneBottomRadius
+                property real coneTopRadius: fixtureEntity.coneTopRadius
+                property real tiltRotation: fixtureEntity.tiltRotation
+                property real panRotation: 0
+                property Texture2D goboTexture: fixtureEntity.goboTexture
+                property real goboRotation: 0
 
                 readonly property Layer spotlightShadingLayer: Layer { }
                 readonly property Layer outputDepthLayer: Layer { }
@@ -265,7 +269,22 @@ Entity
                 property matrix4x4 lightViewProjectionScaleAndOffsetMatrix:
                     Math3D.getLightViewProjectionScaleOffsetMatrix(lightViewProjectionMatrix)
 
-                property Transform transform: Transform { translation: Qt.vector3d(0, 0.1 * index, 0) }
+                //property Transform headTransform: Transform { translation: Qt.vector3d(0, 0.1 * index, 0) }
+
+                function setupScattering(shadingEffect, scatteringEffect, depthEffect, sceneEntity)
+                {
+                    shadingCone.coneEffect = shadingEffect
+                    shadingCone.parent = sceneEntity
+                    shadingCone.spotlightConeMesh = sceneEntity.coneMesh
+                    /*
+                    scatteringCone.coneEffect = scatteringEffect
+                    scatteringCone.parent = sceneEntity
+                    scatteringCone.spotlightConeMesh = sceneEntity.coneMesh
+                    */
+                    outDepthCone.coneEffect = depthEffect
+                    outDepthCone.parent = sceneEntity
+                    outDepthCone.spotlightConeMesh = sceneEntity.coneMesh
+                }
 
                 property RenderTarget shadowMap:
                     RenderTarget
@@ -298,24 +317,24 @@ Entity
 
                 /* Cone meshes used for scattering. These get re-parented to
                    the main Scene entity via setupScattering */
-                property SpotlightConeEntity shadingCone:
-                    SpotlightConeEntity
-                    {
-                        coneLayer: spotlightShadingLayer
-                        fxEntity: headDelegate
-                    }
-                property SpotlightConeEntity scatteringCone:
-                    SpotlightConeEntity
-                    {
-                        coneLayer: spotlightScatteringLayer
-                        fxEntity: headDelegate
-                    }
-                property SpotlightConeEntity outDepthCone:
-                    SpotlightConeEntity
-                    {
-                        coneLayer: outputDepthLayer
-                        fxEntity: headDelegate
-                    }
+                SpotlightConeEntity
+                {
+                    id: shadingCone
+                    coneLayer: spotlightShadingLayer
+                    fxEntity: headDelegate
+                }
+                SpotlightConeEntity
+                {
+                    id: scatteringCone
+                    coneLayer: spotlightScatteringLayer
+                    fxEntity: headDelegate
+                }
+                SpotlightConeEntity
+                {
+                    id: outDepthCone
+                    coneLayer: outputDepthLayer
+                    fxEntity: headDelegate
+                }
             } // Entity
     } // Repeater
 

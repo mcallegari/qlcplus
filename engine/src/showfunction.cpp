@@ -86,6 +86,9 @@ quint32 ShowFunction::duration() const
 
 quint32 ShowFunction::duration(const Doc *doc) const
 {
+    if (m_duration)
+        return m_duration;
+
     if (doc == NULL)
         return 0;
 

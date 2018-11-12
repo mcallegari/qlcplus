@@ -965,6 +965,7 @@
     <F n="Pro-Lights-Explo-3000D" m="Explo 3000D"/>
     <F n="Pro-Lights-Fury-FY250S" m="Fury FY250S"/>
     <F n="Pro-Lights-Fury-FY250W" m="Fury FY250W"/>
+    <F n="Pro-Lights-Genesis" m="Genesis"/>
     <F n="Pro-Lights-GoboMix" m="GoboMix"/>
     <F n="Pro-Lights-LedPar-64363-RGB" m="LedPar 64363 RGB"/>
     <F n="Pro-Lights-LumiPar-18-Tri" m="LumiPar 18 Tri"/>
@@ -974,7 +975,7 @@
     <F n="Pro-Lights-LumiPAR18QTour" m="LumiPAR18QTour"/>
     <F n="Pro-Lights-LumiPIX-12Q" m="LumiPIX 12Q"/>
     <F n="Pro-Lights-Miniruby" m="Miniruby"/>
-    <F n="Pro-lights-Moonstone" m="Moonstone"/>
+    <F n="Pro-Lights-Moonstone" m="Moonstone"/>
     <F n="Pro-Lights-Omni-Tri-9" m="Omni Tri-9"/>
     <F n="Pro-Lights-Onyx" m="Onyx"/>
     <F n="Pro-Lights-PIXIEWASH" m="PIXIEWASH"/>
@@ -1185,8 +1186,9 @@
     <F n="Stairville-LED-Flood-Panel-150" m="LED Flood Panel 150"/>
     <F n="Stairville-LED-Flood-Panel-7x3W" m="LED Flood Panel 7x3W"/>
     <F n="Stairville-LED-Matrix-Blinder-5x5" m="LED Matrix Blinder 5x5"/>
-    <F n="Stairville-LED-Par-36-COB-RGBW-12W" m="LED Par 36 COB RGBW 12W"/>
+    <F n="Stairville-LED-PAR-36-COB-RGBW-12W" m="LED PAR 36 COB RGBW 12W"/>
     <F n="Stairville-LED-PAR-64-Alu" m="LED PAR 64 Alu"/>
+    <F n="Stairville-LED-PAR-64-COB-RGBW-60W" m="LED PAR 64 COB RGBW 60W"/>
     <F n="Stairville-LED-PAR56-10MM-UV" m="LED PAR56 10MM UV"/>
     <F n="Stairville-LED-PAR56-MKII-RGBA" m="LED Par56 MKII RGBA"/>
     <F n="Stairville-LED-PAR56-MKII-RGBW" m="LED Par56 MKII RGBW"/>

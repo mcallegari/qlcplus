@@ -116,7 +116,7 @@ FadeChannel *GenericFader::getChannelFader(const Doc *doc, Universe *universe, q
     fc.setCurrent(universe->preGMValue(fc.address()));
 
     m_channels[hash] = fc;
-    qDebug() << "Added new fader with hash" << hash;
+    //qDebug() << "Added new fader with hash" << hash;
     return &m_channels[hash];
 }
 

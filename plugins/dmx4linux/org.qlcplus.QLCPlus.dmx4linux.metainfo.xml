@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="addon">
-  <id>qlcplus-dmx4linux</id>
-  <extends>qlcplus.desktop</extends>
+  <id>org.qlcplus.QLCPlus.dmx4linux</id>
+  <extends>org.qlcplus.QLCPlus</extends>
   <name>DMX4Linux</name>
   <summary>DMX4Linux plugin for QLC+</summary>
   <url type="homepage">http://www.qlcplus.org/</url>
