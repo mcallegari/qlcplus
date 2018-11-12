@@ -30,13 +30,12 @@ TechniqueFilter
     property RenderTarget outRenderTarget
 
     property vector4d pixelSize: Qt.vector4d(0, 0, 0, 0)
-    property vector4d intensity: Qt.vector4d(0, 0, 0, 0)
+    property vector4d index: Qt.vector4d(0, 0, 0, 0)
 
     parameters: [
         Parameter { name: "tex"; value: inTex },
         Parameter { name: "pixelSize"; value: pixelSize },  
-        Parameter { name: "intensity"; value: intensity }  
-              
+        Parameter { name: "intensity"; value: {return index.x * View3D.smokeAmount * 0.8 } }  
     ] 
 
     RenderStateSet

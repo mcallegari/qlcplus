@@ -186,6 +186,7 @@ Rectangle
                     });
                 }
 
+
                 for(var ii = 0; ii < (TEX_CHAIN_LEN-1); ++ii) {
 
                     component = Qt.createComponent("UpsampleFilter.qml");
@@ -198,14 +199,13 @@ Rectangle
                         "inTex": texChainTextures[TEX_CHAIN_LEN - 1 - ii],
                         "screenQuadLayer": texChainUpsampleEntities[ii].quadLayer,
                         "outRenderTarget": texChainTargets[TEX_CHAIN_LEN - ii - 2],
-                        "pixelSize": Qt.vector4d(1.0 / (m_width  / dim), 1.0 / (m_height / dim),0,0),
-                        "intensity": Qt.vector4d(  (TEX_CHAIN_LEN-1 - ii) *  0.4, 0.0,0,0),
-                        
+                        "pixelSize": Qt.vector4d(1.0 / (m_width  / dim), 1.0 / (m_height / dim),0,0),                         
+                        "index":  Qt.vector4d( (TEX_CHAIN_LEN-1 - ii), 0.0,0,0),      
                     });
 
                 }
             }
-            
+                
             component = Qt.createComponent("DirectionalLightFilter.qml");
             if (component.status === Component.Error)
                 console.log("Error loading component:", component.errorString())
@@ -267,7 +267,7 @@ Rectangle
 
                         sgNode = component.createObject(frameGraph.myCameraSelector,
                         {
-                            "fixtureItem": headEntity,
+                            "fixtureItem": fixtureItem,
                             "frontDepth": depthTarget,
                             "gBuffer": gBufferTarget,
                             "spotlightScatteringLayer": headEntity.spotlightScatteringLayer,
