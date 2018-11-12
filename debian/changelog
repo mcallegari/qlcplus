@@ -1,15 +1,22 @@
+qlcplus (4.12.1) stable; urgency=low
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 10 Feb 2019 12:13:14 +0200
+
 qlcplus (4.12.0) stable; urgency=low
 
   * engine: reworked to achieve multithreaded universes and properly handle fade transitions
   * engine/RGBMatrix: added support for animated GIF pictures
   * UI/Scene Editor: fixed crash when removing a Fixture and Scene Editor is open
-  * UI/Chaser Editor: fix Sequence step value unset
+  * UI/Chaser Editor: fixed Sequence step value unset
   * UI/Show Manager: properly reset editors and selection when switching context
   * UI/Show Manager: avoid Scene values to be overwritten on Sequences sharing the same bound Scene
   * UI/Show Manager: improved audio waveform preview
+  * Virtual Console/Slider: improved submaster on intensity channels forced to LTP
+  * Virtual Console/Cue List: improved some cross fade usages
   * Web Access: fixed visibility of nested frame pages
   * Plugins/DMX USB: reworked to have asynchronous transmission and frequency setting from UI
   * Plugins/OSC: added support for double values (in 0.0 - 1.0 range)
+  * Plugins/MIDI: [Linux] fixed Program Change MIDI channel
   * Fixture Editor: reworked to define more accurate information (see documentation)
   * Fixture Editor: fixed D4 definitions import
   * New input profile: Akai APC40 mkII (thanks to Ovidijus Cepukas)
@@ -64,9 +71,9 @@ qlcplus (4.12.0) stable; urgency=low
   * New fixtures: Stage Right 10Wx9 LED Flat PAR, 3-Color LED Light Bar (thanks to Daniel Smith)
   * New fixture: Chauvet Rogue R1 Spot (thanks to David Wolfe)
   * New fixtures: American DJ Dotz Panel 2.4, Flash-Butrym LED PAR 64 4x30W COB RGBW (thanks to Fotis)
-  * New fixture: Pro-Lights Genesis (thanks to Lorenzo Andreani)
+  * New fixtures: Pro-Lights Genesis, BB5 Pix (thanks to Lorenzo Andreani)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 21 Oct 2018 12:13:14 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 10 Nov 2018 12:13:14 +0200
 
 qlcplus (4.11.2) stable; urgency=low
 

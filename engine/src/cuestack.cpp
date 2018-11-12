@@ -540,7 +540,7 @@ void CueStack::postRun(MasterTimer* timer, QList<Universe *> ua)
 {
     qDebug() << Q_FUNC_INFO;
 
-    Q_ASSERT(timer != NULL);
+    Q_UNUSED(timer);
 
     /* If no fade out is needed, dismiss all the requested faders.
      * Otherwise, set all the faders to fade out and let Universe dismiss them
