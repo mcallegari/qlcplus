@@ -53,7 +53,7 @@ Entity
     }
 
     function setHeadIntensity(headIndex, intensity)
-    {       
+    {
         headsRepeater.objectAt(headIndex).dimmerValue = intensity
     }
 
@@ -85,7 +85,6 @@ Entity
                 Parameter { name: "specular"; value: "black" },
                 Parameter { name: "shininess"; value: 1.0 },
                 Parameter { name: "bloom"; value: 0 }
-
             ]
         }
 
@@ -144,7 +143,6 @@ Entity
                             Parameter { name: "specular"; value: "black" },
                             Parameter { name: "shininess"; value: 1.0 },
                             Parameter { name: "bloom"; value: 1 }
-
                         ]
                     }
 

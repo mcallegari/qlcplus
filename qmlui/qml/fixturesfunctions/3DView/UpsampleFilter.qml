@@ -53,18 +53,14 @@ TechniqueFilter
         {
             layers: screenQuadLayer
 
-            RenderTargetSelector {
+            RenderTargetSelector
+            {
                 target: outRenderTarget
 
-               // ClearBuffers
-                //{
-                 //   buffers: ClearBuffers.ColorDepthBuffer
-                    RenderPassFilter
-                    {
-                        matchAny: FilterKey { name: "pass"; value: "upsample" }
-                    }
-               // }
-
+                RenderPassFilter
+                {
+                    matchAny: FilterKey { name: "pass"; value: "upsample" }
+                }
             }
         }
     }

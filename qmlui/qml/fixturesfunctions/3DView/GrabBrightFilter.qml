@@ -31,7 +31,6 @@ TechniqueFilter
     parameters: [
         Parameter { name: "albedoTex"; value: gBuffer.color },
         Parameter { name: "normalTex"; value: gBuffer.normal }
-
     ]
 
     RenderStateSet

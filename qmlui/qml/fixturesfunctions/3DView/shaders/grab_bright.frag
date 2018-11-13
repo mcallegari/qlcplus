@@ -28,9 +28,12 @@ void main()
 {
     vec4 albedo = SAMPLE_TEX2D(albedoTex, fsUv).xyzw;
     float v = SAMPLE_TEX2D(normalTex, fsUv).w;
-    if(v > 2.0) {
-        MGL_FRAG_COLOR = vec4( albedo.rgb, 1.0);
-    } else {
+    if (v > 2.0)
+    {
+        MGL_FRAG_COLOR = vec4(albedo.rgb, 1.0);
+    }
+    else
+    {
         MGL_FRAG_COLOR = vec4(0.0, 0.0, 0.0, 0.0);
     }
 }

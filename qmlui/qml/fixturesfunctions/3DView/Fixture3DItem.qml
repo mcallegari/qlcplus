@@ -259,7 +259,7 @@ Entity
                             }
                         }
                 }
-            ] // outputs
+            ] // attachments
         }
 
     /* **************** Gobo properties **************** */

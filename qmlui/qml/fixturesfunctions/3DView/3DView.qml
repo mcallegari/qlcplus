@@ -152,60 +152,55 @@ Rectangle
                  screenQuadUpsampleEntity4
             ]
 
+            component = Qt.createComponent("GrabBrightFilter.qml");
+            if (component.status === Component.Error)
+                console.log("Error loading component:", component.errorString());
+
+            sgNode = component.createObject(frameGraph.myCameraSelector,
             {
-                component = Qt.createComponent("GrabBrightFilter.qml");
+                "gBuffer": gBufferTarget,
+                "screenQuadLayer": screenQuadGrabBrightEntity.quadLayer,
+                "outRenderTarget": texChainTargets[0]
+            });
+
+
+            var m_width = 1024.0
+            var m_height = 1024.0
+
+            for (ic = 0; ic < (TEX_CHAIN_LEN - 1); ++ic)
+            {
+                component = Qt.createComponent("DownsampleFilter.qml");
                 if (component.status === Component.Error)
                     console.log("Error loading component:", component.errorString());
-                
+
+                var dim = (1 << (ic + 1))
+
                 sgNode = component.createObject(frameGraph.myCameraSelector,
                 {
-                    "gBuffer": gBufferTarget,
-                    "screenQuadLayer": screenQuadGrabBrightEntity.quadLayer,
-                    "outRenderTarget": texChainTargets[0]
+                    "inTex": texChainTextures[ic],
+                    "screenQuadLayer": texChainDownsampleEntities[ic].quadLayer,
+                    "outRenderTarget": texChainTargets[ic + 1],
+                    "pixelSize": Qt.vector4d(1.0 / (m_width  / dim), 1.0 / (m_height / dim), 0, 0)
                 });
-
-
-                var m_width = 1024.0
-                var m_height = 1024.0
-
-                for(var ii = 0; ii < (TEX_CHAIN_LEN-1); ++ii) {
-
-                    component = Qt.createComponent("DownsampleFilter.qml");
-                    if (component.status === Component.Error)
-                        console.log("Error loading component:", component.errorString());
-
-					var dim = (1 << (ii + 1) );
-
-
-                    sgNode = component.createObject(frameGraph.myCameraSelector,
-                    {
-                        "inTex": texChainTextures[ii],
-                        "screenQuadLayer": texChainDownsampleEntities[ii].quadLayer,
-                        "outRenderTarget": texChainTargets[ii+1],
-                        "pixelSize": Qt.vector4d(1.0 / (m_width  / dim), 1.0 / (m_height / dim),0,0)
-                    });
-                }
-
-
-                for(var ii = 0; ii < (TEX_CHAIN_LEN-1); ++ii) {
-
-                    component = Qt.createComponent("UpsampleFilter.qml");
-                    if (component.status === Component.Error)
-                        console.log("Error loading component:", component.errorString());
-
-					var dim = (1 << (TEX_CHAIN_LEN - 2 - ii) );
-                    sgNode = component.createObject(frameGraph.myCameraSelector,
-                    {
-                        "inTex": texChainTextures[TEX_CHAIN_LEN - 1 - ii],
-                        "screenQuadLayer": texChainUpsampleEntities[ii].quadLayer,
-                        "outRenderTarget": texChainTargets[TEX_CHAIN_LEN - ii - 2],
-                        "pixelSize": Qt.vector4d(1.0 / (m_width  / dim), 1.0 / (m_height / dim),0,0),                         
-                        "index":  Qt.vector4d( (TEX_CHAIN_LEN-1 - ii), 0.0,0,0),      
-                    });
-
-                }
             }
-                
+
+            for (ic = 0; ic < (TEX_CHAIN_LEN - 1); ++ic)
+            {
+                component = Qt.createComponent("UpsampleFilter.qml");
+                if (component.status === Component.Error)
+                    console.log("Error loading component:", component.errorString());
+
+                var dim = (1 << (TEX_CHAIN_LEN - 2 - ic))
+                sgNode = component.createObject(frameGraph.myCameraSelector,
+                {
+                    "inTex": texChainTextures[TEX_CHAIN_LEN - 1 - ic],
+                    "screenQuadLayer": texChainUpsampleEntities[ic].quadLayer,
+                    "outRenderTarget": texChainTargets[TEX_CHAIN_LEN - ic - 2],
+                    "pixelSize": Qt.vector4d(1.0 / (m_width  / dim), 1.0 / (m_height / dim), 0, 0),
+                    "index":  Qt.vector4d( (TEX_CHAIN_LEN - 1 - ic), 0.0, 0, 0),
+                });
+            }
+
             component = Qt.createComponent("DirectionalLightFilter.qml");
             if (component.status === Component.Error)
                 console.log("Error loading component:", component.errorString())
@@ -279,8 +274,6 @@ Rectangle
                 }
             }
 
-
-
             component = Qt.createComponent("GammaCorrectFilter.qml");
             if (component.status === Component.Error)
                 console.log("Error loading component:", component.errorString());
@@ -294,7 +287,6 @@ Rectangle
 
                 "screenQuadGammaCorrectLayer": screenQuadGammaCorrectEntity.layer
             });
-
 
             component = Qt.createComponent("FXAAFilter.qml");
             if (component.status === Component.Error)
@@ -337,93 +329,96 @@ Rectangle
             }
             ScreenQuadGammaCorrectEntity { id: screenQuadGammaCorrectEntity }
 
-            GenericScreenQuadEntity {
+            GenericScreenQuadEntity
+            {
                 id: screenQuadFXAAEntity
                 quadLayer : Layer { }
                 quadEffect : FXAAEffect { }
             }
     
-            GenericScreenQuadEntity {
+            GenericScreenQuadEntity
+            {
                 id: screenQuadBlitEntity
                 quadLayer : Layer { }
                 quadEffect : BlitEffect { }
             }
 
-            GenericScreenQuadEntity {
+            GenericScreenQuadEntity
+            {
                 id: screenQuadGrabBrightEntity
                 quadLayer : Layer { }
                 quadEffect : GrabBrightEffect { }
             }
 
-            GenericScreenQuadEntity {
+            GenericScreenQuadEntity
+            {
                 id: screenQuadDownsampleEntity0
                 quadLayer : Layer { }
                 quadEffect : DownsampleEffect { }
             }
 
-            GenericScreenQuadEntity {
+            GenericScreenQuadEntity
+            {
                 id: screenQuadDownsampleEntity1
                 quadLayer : Layer { }
                 quadEffect : DownsampleEffect { }
             }
 
-            GenericScreenQuadEntity {
+            GenericScreenQuadEntity
+            {
                 id: screenQuadDownsampleEntity2
                 quadLayer : Layer { }
                 quadEffect : DownsampleEffect { }
             }
 
-            GenericScreenQuadEntity {
+            GenericScreenQuadEntity
+            {
                 id: screenQuadDownsampleEntity3
                 quadLayer : Layer { }
                 quadEffect : DownsampleEffect { }
             }
 
-            GenericScreenQuadEntity {
+            GenericScreenQuadEntity
+            {
                 id: screenQuadDownsampleEntity4
                 quadLayer : Layer { }
                 quadEffect : DownsampleEffect { }
             }
 
-
-
-
-
-
-
-            GenericScreenQuadEntity {
+            GenericScreenQuadEntity
+            {
                 id: screenQuadUpsampleEntity0
                 quadLayer : Layer { }
                 quadEffect : UpsampleEffect { }
             }
 
-            GenericScreenQuadEntity {
+            GenericScreenQuadEntity
+            {
                 id: screenQuadUpsampleEntity1
                 quadLayer : Layer { }
                 quadEffect : UpsampleEffect { }
             }
 
-            GenericScreenQuadEntity {
+            GenericScreenQuadEntity
+            {
                 id: screenQuadUpsampleEntity2
                 quadLayer : Layer { }
                 quadEffect : UpsampleEffect { }
             }
 
-            GenericScreenQuadEntity {
+            GenericScreenQuadEntity
+            {
                 id: screenQuadUpsampleEntity3
                 quadLayer : Layer { }
                 quadEffect : UpsampleEffect { }
             }
 
-            GenericScreenQuadEntity {
+            GenericScreenQuadEntity
+            {
                 id: screenQuadUpsampleEntity4
                 quadLayer : Layer { }
                 quadEffect : UpsampleEffect { }
             }
-
-
-
-
 
             ScreenQuadEntity { id: screenQuadEntity }
 
@@ -456,7 +451,7 @@ Rectangle
                                 }
                             }
                     }
-                ] 
+                ] // attachments
             }
 
             RenderTarget
@@ -484,7 +479,7 @@ Rectangle
                                 }
                             }
                     }
-                ] 
+                ] // attachments
             }
 
             RenderTarget
@@ -512,10 +507,8 @@ Rectangle
                                 }
                             }
                     }
-                ] 
+                ] // attachments
             }
-
-
 
             RenderTarget
             {
@@ -542,10 +535,8 @@ Rectangle
                                 }
                             }
                     }
-                ] 
+                ] // attachments
             }
-
-
 
             RenderTarget
             {
@@ -572,9 +563,8 @@ Rectangle
                                 }
                             }
                     }
-                ] 
+                ] // attachments
             }   
-
 
             RenderTarget
             {
@@ -601,7 +591,7 @@ Rectangle
                                 }
                             }
                     }
-                ] // outputs
+                ] // attachments
             }
 
             RenderTarget
@@ -629,7 +619,7 @@ Rectangle
                                 }
                             }
                     }
-                ] // outputs
+                ] // attachments
             }
 
             DepthTarget { id: depthTarget }

@@ -174,7 +174,6 @@ Entity
                 Parameter { name: "specular"; value: "black" },
                 Parameter { name: "shininess"; value: 1.0 },
                 Parameter { name: "bloom"; value: 0 }
-
             ]
         }
 
@@ -317,7 +316,7 @@ Entity
                                         }
                                     }
                             }
-                        ] // outputs
+                        ] // attachments
                     }
 
                 /* Cone meshes used for scattering. These get re-parented to

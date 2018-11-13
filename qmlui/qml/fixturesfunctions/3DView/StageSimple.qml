@@ -39,7 +39,6 @@ Entity
                 Parameter { name: "specular"; value: "black" },
                 Parameter { name: "shininess"; value: 1.0 },
                 Parameter { name: "bloom"; value: 0 }
-
             ]
         }
 

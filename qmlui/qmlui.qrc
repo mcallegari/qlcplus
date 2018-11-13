@@ -53,7 +53,6 @@
     <file alias="WindowLoader.qml">qml/WindowLoader.qml</file>
     <file alias="ZoomItem.qml">qml/ZoomItem.qml</file>
 
-
     <!-- Popup system -->
     <file alias="CustomPopupDialog.qml">qml/popup/CustomPopupDialog.qml</file>
     <file alias="PopupAbout.qml">qml/popup/PopupAbout.qml</file>
@@ -121,6 +120,7 @@
     <!-- 3D View -->
     <file alias="3DView.qml">qml/fixturesfunctions/3DView/3DView.qml</file>
     <file alias="3DViewUnsupported.qml">qml/fixturesfunctions/3DView/3DViewUnsupported.qml</file>
+    <file alias="SettingsView3D.qml">qml/fixturesfunctions/3DView/SettingsView3D.qml</file>
 
     <file alias="DeferredRenderer.qml">qml/fixturesfunctions/3DView/DeferredRenderer.qml</file>
     <file alias="Fixture3DItem.qml">qml/fixturesfunctions/3DView/Fixture3DItem.qml</file>
@@ -130,7 +130,6 @@
     <file alias="DepthTarget.qml">qml/fixturesfunctions/3DView/DepthTarget.qml</file>
     <file alias="GBuffer.qml">qml/fixturesfunctions/3DView/GBuffer.qml</file>
     <file alias="FrameTarget.qml">qml/fixturesfunctions/3DView/FrameTarget.qml</file>
-
 
     <file alias="SpotlightConeEntity.qml">qml/fixturesfunctions/3DView/SpotlightConeEntity.qml</file>
     <file alias="SpotlightShadingEffect.qml">qml/fixturesfunctions/3DView/SpotlightShadingEffect.qml</file>
@@ -143,7 +142,7 @@
     <file alias="GrabBrightEffect.qml">qml/fixturesfunctions/3DView/GrabBrightEffect.qml</file>
     <file alias="DownsampleEffect.qml">qml/fixturesfunctions/3DView/DownsampleEffect.qml</file>
     <file alias="UpsampleEffect.qml">qml/fixturesfunctions/3DView/UpsampleEffect.qml</file>
- 
+
     <file alias="OutputFrontDepthEffect.qml">qml/fixturesfunctions/3DView/OutputFrontDepthEffect.qml</file>
     <file alias="FillGBufferFilter.qml">qml/fixturesfunctions/3DView/FillGBufferFilter.qml</file>
     <file alias="DirectionalLightFilter.qml">qml/fixturesfunctions/3DView/DirectionalLightFilter.qml</file>
@@ -155,7 +154,6 @@
     <file alias="GrabBrightFilter.qml">qml/fixturesfunctions/3DView/GrabBrightFilter.qml</file>
     <file alias="DownsampleFilter.qml">qml/fixturesfunctions/3DView/DownsampleFilter.qml</file>
     <file alias="UpsampleFilter.qml">qml/fixturesfunctions/3DView/UpsampleFilter.qml</file>
-  
     <file alias="GammaCorrectFilter.qml">qml/fixturesfunctions/3DView/GammaCorrectFilter.qml</file>
     <file alias="BlitFilter.qml">qml/fixturesfunctions/3DView/BlitFilter.qml</file>
     <file alias="FXAAFilter.qml">qml/fixturesfunctions/3DView/FXAAFilter.qml</file>
@@ -163,9 +161,7 @@
     <file alias="SceneEntity.qml">qml/fixturesfunctions/3DView/SceneEntity.qml</file>
     <file alias="ScreenQuadEntity.qml">qml/fixturesfunctions/3DView/ScreenQuadEntity.qml</file>
     <file alias="ScreenQuadGammaCorrectEntity.qml">qml/fixturesfunctions/3DView/ScreenQuadGammaCorrectEntity.qml</file>
-
     <file alias="GenericScreenQuadEntity.qml">qml/fixturesfunctions/3DView/GenericScreenQuadEntity.qml</file>
-
 
     <file alias="SelectionEntity.qml">qml/fixturesfunctions/3DView/SelectionEntity.qml</file>
     <file alias="SelectionGeometry.qml">qml/fixturesfunctions/3DView/SelectionGeometry.qml</file>
@@ -175,16 +171,8 @@
     <file alias="StageRock.qml">qml/fixturesfunctions/3DView/StageRock.qml</file>
     <file alias="StageTheatre.qml">qml/fixturesfunctions/3DView/StageTheatre.qml</file>
 
-
- 
-
- 
-
-    <file alias="SettingsView3D.qml">qml/fixturesfunctions/3DView/SettingsView3D.qml</file>
-
     <file alias="downsample.frag">qml/fixturesfunctions/3DView/shaders/downsample.frag</file>
     <file alias="upsample.frag">qml/fixturesfunctions/3DView/shaders/upsample.frag</file>
-    
     <file alias="grab_bright.frag">qml/fixturesfunctions/3DView/shaders/grab_bright.frag</file>
     <file alias="directional.frag">qml/fixturesfunctions/3DView/shaders/directional.frag</file>
     <file alias="gamma_correct.frag">qml/fixturesfunctions/3DView/shaders/gamma_correct.frag</file>
