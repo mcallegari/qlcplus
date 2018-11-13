@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  GammaCorrectFilter.qml
+  UpsampleFilter.qml
 
   Copyright (c) Eric Arnebäck
 
@@ -24,18 +24,19 @@ import QtQuick 2.0
 
 TechniqueFilter
 {
- //   property GBuffer gBuffer
-    property Layer screenQuadGammaCorrectLayer
+    property Layer screenQuadLayer
 
-    property Texture2D hdrTexture
-    property Texture2D bloomTexture
-    
+    property Texture2D inTex
     property RenderTarget outRenderTarget
 
+    property vector4d pixelSize: Qt.vector4d(0, 0, 0, 0)
+    property vector4d index: Qt.vector4d(0, 0, 0, 0)
+
     parameters: [
-        Parameter { name: "hdrTex"; value: hdrTexture },
-        Parameter { name: "bloomTex"; value: bloomTexture }
-    ]
+        Parameter { name: "tex"; value: inTex },
+        Parameter { name: "pixelSize"; value: pixelSize },  
+        Parameter { name: "intensity"; value: {return index.x * View3D.smokeAmount * 0.8 } }  
+    ] 
 
     RenderStateSet
     {
@@ -50,22 +51,21 @@ TechniqueFilter
         ]
         LayerFilter
         {
-            layers: screenQuadGammaCorrectLayer
+            layers: screenQuadLayer
 
             RenderTargetSelector {
-                target:  outRenderTarget
+                target: outRenderTarget
 
-                ClearBuffers
-                {
-                    buffers: ClearBuffers.ColorDepthBuffer
+               // ClearBuffers
+                //{
+                 //   buffers: ClearBuffers.ColorDepthBuffer
                     RenderPassFilter
                     {
-                        matchAny: FilterKey { name: "pass"; value: "gamma_correct" }
+                        matchAny: FilterKey { name: "pass"; value: "upsample" }
                     }
-                }
+               // }
 
             }
-
         }
     }
 } // TechniqueFilter

@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  gamma_correct.frag
+  grab_bright.frag
 
   Copyright (c) Eric Arnebäck
 
@@ -19,15 +19,18 @@
 
 FS_IN_ATTRIB vec2 fsUv;
 
+
+uniform sampler2D albedoTex;
+uniform sampler2D normalTex;
 DECLARE_FRAG_COLOR
 
-uniform sampler2D hdrTex;
-uniform sampler2D bloomTex;
-
-void main() {
-	vec3 hdrColor = SAMPLE_TEX2D(hdrTex, fsUv).rgb;
- 	hdrColor += 0.5 * SAMPLE_TEX2D(bloomTex, fsUv).rgb;
-    vec3 finalColor = vec3(1.0) - exp(-hdrColor * 1.0);
-
-    MGL_FRAG_COLOR = vec4(pow(finalColor, vec3(1.0 / 2.2)), 1.0);
+void main()
+{
+    vec4 albedo = SAMPLE_TEX2D(albedoTex, fsUv).xyzw;
+    float v = SAMPLE_TEX2D(normalTex, fsUv).w;
+    if(v > 2.0) {
+        MGL_FRAG_COLOR = vec4( albedo.rgb, 1.0);
+    } else {
+        MGL_FRAG_COLOR = vec4(0.0, 0.0, 0.0, 0.0);
+    }
 }

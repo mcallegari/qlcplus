@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  GammaCorrectFilter.qml
+  GrabBrightFilter.qml
 
   Copyright (c) Eric Arnebäck
 
@@ -24,17 +24,14 @@ import QtQuick 2.0
 
 TechniqueFilter
 {
- //   property GBuffer gBuffer
-    property Layer screenQuadGammaCorrectLayer
-
-    property Texture2D hdrTexture
-    property Texture2D bloomTexture
-    
+    property GBuffer gBuffer
+    property Layer screenQuadLayer
     property RenderTarget outRenderTarget
 
     parameters: [
-        Parameter { name: "hdrTex"; value: hdrTexture },
-        Parameter { name: "bloomTex"; value: bloomTexture }
+        Parameter { name: "albedoTex"; value: gBuffer.color },
+        Parameter { name: "normalTex"; value: gBuffer.normal }
+
     ]
 
     RenderStateSet
@@ -50,22 +47,21 @@ TechniqueFilter
         ]
         LayerFilter
         {
-            layers: screenQuadGammaCorrectLayer
+            layers: screenQuadLayer
 
             RenderTargetSelector {
-                target:  outRenderTarget
+                target: outRenderTarget
 
                 ClearBuffers
                 {
                     buffers: ClearBuffers.ColorDepthBuffer
                     RenderPassFilter
                     {
-                        matchAny: FilterKey { name: "pass"; value: "gamma_correct" }
+                        matchAny: FilterKey { name: "pass"; value: "grab_bright" }
                     }
                 }
 
             }
-
         }
     }
 } // TechniqueFilter
