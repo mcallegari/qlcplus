@@ -94,6 +94,8 @@ Rectangle
             if (create === false)
                 return
 
+            console.log("BUILDING FRAME GRAPH")
+
             for (ic = 0; ic < fixtures.length; ++ic)
             {
                 fixtureItem = fixtures[ic]
@@ -102,6 +104,8 @@ Rectangle
                 {
                     for (iHead = 0; iHead < fixtureItem.headsNumber; iHead++)
                     {
+                        headEntity = fixtureItem.getHead(iHead)
+
                         component = Qt.createComponent("RenderShadowMapFilter.qml");
                         if (component.status === Component.Error)
                             console.log("Error loading component:", component.errorString())
@@ -109,13 +113,11 @@ Rectangle
                         sgNode = component.createObject(frameGraph.myShadowFrameGraphNode,
                         {
                             "sceneDeferredLayer": sceneEntity.deferredLayer,
-                            "fixtureItem": fixtureItem.getHead(iHead)
+                            "fixtureItem": headEntity
                         });
                     }
                 }
             }
-
-            console.log("BUILDING FRAME GRAPH")
 
             component = Qt.createComponent("FillGBufferFilter.qml");
             if (component.status === Component.Error)
@@ -215,11 +217,12 @@ Rectangle
             {
                 fixtureItem = fixtures[ic]
 
+                if (fixtureItem.useScattering === false)
+                    continue
+
                 for (iHead = 0; iHead < fixtureItem.headsNumber; iHead++)
                 {
                     headEntity = fixtureItem.getHead(iHead)
-                    if (headEntity.hasOwnProperty("shadowMap") === false)
-                        continue
 
                     component = Qt.createComponent("SpotlightShadingFilter.qml");
                     if (component.status === Component.Error)
@@ -240,37 +243,37 @@ Rectangle
             {
                 fixtureItem = fixtures[ic]
 
-                if (fixtureItem.useScattering)
+                if (fixtureItem.useScattering === false)
+                    continue
+
+                for (iHead = 0; iHead < fixtureItem.headsNumber; iHead++)
                 {
-                    for (iHead = 0; iHead < fixtureItem.headsNumber; iHead++)
+                    headEntity = fixtureItem.getHead(iHead)
+
+                    component = Qt.createComponent("OutputFrontDepthFilter.qml");
+                    if (component.status === Component.Error)
+                        console.log("Error loading component:", component.errorString())
+
+                    sgNode = component.createObject(frameGraph.myCameraSelector,
                     {
-                        headEntity = fixtureItem.getHead(iHead)
+                        "frontDepth": depthTarget,
+                        "outputDepthLayer": headEntity.outputDepthLayer
+                    });
 
-                        component = Qt.createComponent("OutputFrontDepthFilter.qml");
-                        if (component.status === Component.Error)
-                            console.log("Error loading component:", component.errorString())
+                    component = Qt.createComponent("SpotlightScatteringFilter.qml");
+                    if (component.status === Component.Error)
+                        console.log("Error loading component:", component.errorString())
 
-                        sgNode = component.createObject(frameGraph.myCameraSelector,
-                        {
-                            "frontDepth": depthTarget,
-                            "outputDepthLayer": headEntity.outputDepthLayer
-                        });
-
-                        component = Qt.createComponent("SpotlightScatteringFilter.qml");
-                        if (component.status === Component.Error)
-                            console.log("Error loading component:", component.errorString())
-
-                        sgNode = component.createObject(frameGraph.myCameraSelector,
-                        {
-                            "fixtureItem": headEntity,
-                            "frontDepth": depthTarget,
-                            "gBuffer": gBufferTarget,
-                            "spotlightScatteringLayer": headEntity.spotlightScatteringLayer,
-                            "shadowTex": headEntity.shadowMap.depth,
-                            "frameTarget": frameTarget,
-                            "useShadows": fixtureItem.useShadows
-                        });
-                    }
+                    sgNode = component.createObject(frameGraph.myCameraSelector,
+                    {
+                        "fixtureItem": headEntity,
+                        "frontDepth": depthTarget,
+                        "gBuffer": gBufferTarget,
+                        "spotlightScatteringLayer": headEntity.spotlightScatteringLayer,
+                        "shadowTex": headEntity.shadowMap.depth,
+                        "frameTarget": frameTarget,
+                        "useShadows": fixtureItem.useShadows
+                    });
                 }
             }
 
@@ -282,9 +285,7 @@ Rectangle
             {
                 "hdrTexture": frameTarget.color,
                 "bloomTexture": texChainTextures[0],
-              
                 "outRenderTarget": hdr0RenderTarget,
-
                 "screenQuadGammaCorrectLayer": screenQuadGammaCorrectEntity.layer
             });
 

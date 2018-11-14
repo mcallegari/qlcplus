@@ -18,7 +18,7 @@
   limitations under the License.
 */
 
-import QtQuick 2.7 as QQ2
+import QtQuick 2.7
 
 import Qt3D.Core 2.0
 import Qt3D.Render 2.0
@@ -41,7 +41,7 @@ Entity
     onItemIDChanged:
     {
         isSelected = contextManager.isFixtureSelected(itemID)
-        headsRepeater.model = headsNumber
+        updateHeads()
     }
 
     /* **************** Tilt properties (motorized bars) **************** */
@@ -83,6 +83,8 @@ Entity
     property real shutterValue: 1.0
     property vector3d lightDir: Math3D.getLightDirection(transform, 0, tiltTransform)
 
+    property var headsList: []
+
     function bindTiltTransform(t, maxDegrees)
     {
         console.log("Binding tilt ----")
@@ -92,9 +94,59 @@ Entity
         t.rotationX = Qt.binding(function() { return tiltRotation })
     }
 
+    function updateHeads()
+    {
+        var i
+
+        // delete existing heads first
+        for (i = headsList.length - 1; i >= 0; i--)
+            headsList[i].destroy()
+
+        headsList = []
+
+        for (i = 0; i < headsNumber; i++)
+        {
+            console.log("Item " + itemID + " creating head - " + i)
+
+            var component = Qt.createComponent("LightEntity.qml");
+            if (component.status === Component.Error)
+                console.log("Error loading component:", component.errorString())
+
+            var headNode = component.createObject(fixtureEntity,
+            {
+                "headIndex": i,
+                "lightDir": lightDir,
+                "shutterValue": shutterValue,
+                "raymarchSteps": raymarchSteps,
+                "cutoffAngle": cutoffAngle,
+                "distCutoff": distCutoff,
+                "headLength": headLength,
+                "coneBottomRadius": coneBottomRadius,
+                "coneTopRadius": coneTopRadius,
+                "tiltRotation": tiltRotation,
+                "goboTexture": goboTexture
+            });
+
+            headsList.push(headNode)
+        }
+
+        View3D.initializeFixture(itemID, fixtureEntity, null)
+    }
+
+    function setupScattering(shadingEffect, scatteringEffect, depthEffect, sceneEntity)
+    {
+        if (sceneEntity.coneMesh.length !== distCutoff)
+            sceneEntity.coneMesh.length = distCutoff
+
+        for (var i = 0; i < headsList.length; i++)
+        {
+            headsList[i].setupScattering(shadingEffect, scatteringEffect, depthEffect, sceneEntity)
+        }
+    }
+
     function getHead(headIndex)
     {
-        return headsRepeater.objectAt(headIndex)
+        return headsList[headIndex]
     }
 
     function setHeadLightProps(headIndex, pos, matrix)
@@ -111,12 +163,12 @@ Entity
 
     function setHeadIntensity(headIndex, intensity)
     {
-        headsRepeater.objectAt(headIndex).dimmerValue = intensity
+        headsList[headIndex].dimmerValue = intensity
     }
 
     function setHeadRGBColor(headIndex, color)
     {
-        headsRepeater.objectAt(headIndex).lightColor = color
+        headsList[headIndex].lightColor = color
     }
 
     function setPosition(pan, tilt)
@@ -149,7 +201,7 @@ Entity
         cutoffAngle = (((((focusMaxDegrees - focusMinDegrees) / 255) * value) + focusMinDegrees) / 2) * (Math.PI / 180)
     }
 
-    QQ2.NumberAnimation on tiltRotation
+    NumberAnimation on tiltRotation
     {
         id: tiltAnim
         running: false
@@ -212,140 +264,7 @@ Entity
         ]
     }
 
-    function setupScattering(shadingEffect, scatteringEffect, depthEffect, sceneEntity)
-    {
-        if (sceneEntity.coneMesh.length !== distCutoff)
-            sceneEntity.coneMesh.length = distCutoff
-
-        for (var i = 0; i < headsRepeater.count; i++)
-        {
-            var item = headsRepeater.objectAt(i)
-            item.setupScattering(shadingEffect, scatteringEffect, depthEffect, sceneEntity)
-        }
-    }
-
     property Texture2D goboTexture: Texture2D { }
-
-    NodeInstantiator
-    {
-        id: headsRepeater
-        model: 0
-
-        onObjectAdded:
-        {
-            console.log("Head " + index + " added ----------------")
-            if (index == fixtureEntity.headsNumber - 1)
-                View3D.initializeFixture(itemID, fixtureEntity, null)
-        }
-
-        delegate:
-            Entity
-            {
-                id: headDelegate
-                property real dimmerValue: 0
-                property real lightIntensity: dimmerValue * shutterValue
-
-                property color lightColor: Qt.rgba(0, 0, 0, 1)
-                property vector3d lightPos: Qt.vector3d(0, 0, 0)
-                property vector3d lightDir: fixtureEntity.lightDir
-
-                property real raymarchSteps: fixtureEntity.raymarchSteps
-                property real distCutoff: fixtureEntity.distCutoff
-                property real headLength: fixtureEntity.headLength
-                property real coneBottomRadius: fixtureEntity.coneBottomRadius
-                property real coneTopRadius: fixtureEntity.coneTopRadius
-                property real tiltRotation: fixtureEntity.tiltRotation
-                property real panRotation: 0
-                property Texture2D goboTexture: fixtureEntity.goboTexture
-                property real goboRotation: 0
-
-                readonly property Layer spotlightShadingLayer: Layer { }
-                readonly property Layer outputDepthLayer: Layer { }
-                readonly property Layer spotlightScatteringLayer: Layer { }
-
-                /* ********************** Light matrices ********************** */
-                property matrix4x4 lightMatrix
-                property matrix4x4 lightViewMatrix:
-                    Math3D.getLightViewMatrix(lightMatrix, 0, tiltRotation, lightPos)
-                property matrix4x4 lightProjectionMatrix:
-                    Math3D.getLightProjectionMatrix(distCutoff, coneBottomRadius, coneTopRadius, headLength, cutoffAngle)
-                property matrix4x4 lightViewProjectionMatrix: lightProjectionMatrix.times(lightViewMatrix)
-                property matrix4x4 lightViewProjectionScaleAndOffsetMatrix:
-                    Math3D.getLightViewProjectionScaleOffsetMatrix(lightViewProjectionMatrix)
-
-                property Transform headTransform: Transform { translation: Qt.vector3d(0.1 * index, 0, 0) }
-
-                function setupScattering(shadingEffect, scatteringEffect, depthEffect, sceneEntity)
-                {
-                    shadingCone.coneEffect = shadingEffect
-                    shadingCone.parent = sceneEntity
-                    shadingCone.spotlightConeMesh = sceneEntity.coneMesh
-
-                    //scatteringCone.coneEffect = scatteringEffect
-                    scatteringCone.parent = sceneEntity
-                    scatteringCone.spotlightConeMesh = sceneEntity.coneMesh
-
-                    outDepthCone.coneEffect = depthEffect
-                    outDepthCone.parent = sceneEntity
-                    outDepthCone.spotlightConeMesh = sceneEntity.coneMesh
-                }
-
-                property RenderTarget shadowMap:
-                    RenderTarget
-                    {
-                        property alias depth: depthAttachment
-
-                        attachments: [
-                            RenderTargetOutput
-                            {
-                                attachmentPoint: RenderTargetOutput.Depth
-                                texture:
-                                    Texture2D
-                                    {
-                                        id: depthAttachment
-                                        width: 512
-                                        height: 512
-                                        format: Texture.D32F
-                                        generateMipMaps: false
-                                        magnificationFilter: Texture.Linear
-                                        minificationFilter: Texture.Linear
-                                        wrapMode
-                                        {
-                                            x: WrapMode.ClampToEdge
-                                            y: WrapMode.ClampToEdge
-                                        }
-                                    }
-                            }
-                        ] // attachments
-                    }
-
-                /* Cone meshes used for scattering. These get re-parented to
-                   the main Scene entity via setupScattering */
-                SpotlightConeEntity
-                {
-                    id: shadingCone
-                    coneLayer: spotlightShadingLayer
-                    fxEntity: headDelegate
-                }
-                SpotlightConeEntity
-                {
-                    id: scatteringCone
-                    coneLayer: spotlightScatteringLayer
-                    fxEntity: headDelegate
-                }
-                SpotlightConeEntity
-                {
-                    id: outDepthCone
-                    coneLayer: outputDepthLayer
-                    fxEntity: headDelegate
-                }
-
-                components: [
-                    headTransform,
-                    sceneLayer
-                ]
-            } // Entity
-    } // Repeater
 
     ObjectPicker
     {
