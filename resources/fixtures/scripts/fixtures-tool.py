@@ -511,6 +511,7 @@ def validate_fixture(path, filename):
         #    errNum += 1
 
         modeChanCount = 0
+        modeHeadsCount = 0
 
         for mchan in mode.findall('{' + namespace + '}Channel'):
 
@@ -527,6 +528,16 @@ def validate_fixture(path, filename):
         if modeChanCount == 0:
             print absname + "/" + modeName + ": No channel found in mode"
             errNum += 1
+
+        for mchan in mode.findall('{' + namespace + '}Head'):
+            modeHeadsCount += 1
+
+        if modeHeadsCount == 1:
+            print absname + "/" + modeName + ": Single head found. Not allowed"
+            errNum += 1
+
+#        if modeHeadsCount > 3:
+#            print absname + "/" + modeName + ": Heads found: " + str(modeHeadsCount)
 
         errNum += check_physical(absname, mode, hasPan, hasTilt)
 
