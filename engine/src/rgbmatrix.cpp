@@ -732,6 +732,9 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup *grp, QL
         if (headDim != QLCChannel::invalid())
             dim << headDim;
 
+        if (pt.y() >= map.count() || pt.x() >= map[pt.y()].count())
+            continue;
+
         uint col = map[pt.y()][pt.x()];
 
         if (rgb.size() == 3)
