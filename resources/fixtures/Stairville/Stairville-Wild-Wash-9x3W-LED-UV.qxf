@@ -3,12 +3,12 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.0 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Johannes Felber</Author>
  </Creator>
  <Manufacturer>Stairville</Manufacturer>
  <Model>Wild Wash 9x3W LED UV</Model>
- <Type>Effect</Type>
+ <Type>LED Bar (Beams)</Type>
  <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
@@ -87,6 +87,7 @@
   <Dimensions Weight="1.3" Width="350" Height="125" Depth="75"/>
   <Lens Name="Other" DegreesMin="110" DegreesMax="110"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="9" Height="1"/>
   <Technical PowerConsumption="34" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>

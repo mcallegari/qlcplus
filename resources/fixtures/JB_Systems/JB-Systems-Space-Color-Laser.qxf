@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.0 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Ricardo Mendes</Author>
  </Creator>
  <Manufacturer>JB Systems</Manufacturer>
@@ -66,9 +66,9 @@
  </Channel>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="55" Color="#ff0000">Red</Capability>
-  <Capability Min="56" Max="83" Color="#00ff00">Green</Capability>
-  <Capability Min="84" Max="254" Color="#ff0000" Color2="#00ff00">Red &amp; Green</Capability>
+  <Capability Min="0" Max="55" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="56" Max="83" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="84" Max="254" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red &amp; Green</Capability>
   <Capability Min="255" Max="255">Original Pattern Color</Capability>
  </Channel>
  <Mode Name="8 channel">
@@ -80,16 +80,12 @@
   <Channel Number="5">Tilt</Channel>
   <Channel Number="6">Strobo</Channel>
   <Channel Number="7">Color</Channel>
-  <Head>
-   <Channel>4</Channel>
-   <Channel>5</Channel>
-  </Head>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="1" Width="300" Height="100" Depth="300"/>
-   <Lens Name="PC" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="90" TiltMax="90"/>
-   <Technical PowerConsumption="15" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1" Width="300" Height="100" Depth="300"/>
+  <Lens Name="PC" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="90" TiltMax="90"/>
+  <Technical PowerConsumption="15" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

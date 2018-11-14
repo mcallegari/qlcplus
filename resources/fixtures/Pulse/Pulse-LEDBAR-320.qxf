@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.0 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Allan Rhynas</Author>
  </Creator>
  <Manufacturer>Pulse</Manufacturer>
@@ -220,6 +220,7 @@
   <Dimensions Weight="1.9" Width="1025" Height="65" Depth="65"/>
   <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="8" Height="1"/>
   <Technical PowerConsumption="36" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>

@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Andres Robles</Author>
  </Creator>
  <Manufacturer>JB Systems</Manufacturer>
@@ -121,6 +121,7 @@
   <Dimensions Weight="8" Width="1060" Height="321" Depth="89"/>
   <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
   <Focus Type="Barrel" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
   <Technical PowerConsumption="67" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>

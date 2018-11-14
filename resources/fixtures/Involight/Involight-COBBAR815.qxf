@@ -3,12 +3,12 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.0 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>John Yiannikakis</Author>
  </Creator>
  <Manufacturer>Involight</Manufacturer>
  <Model>COBBAR815</Model>
- <Type>Color Changer</Type>
+ <Type>LED Bar (Beams)</Type>
  <Channel Name="2ch color changer">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="7" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
@@ -216,6 +216,7 @@
   <Dimensions Weight="4.5" Width="771" Height="159" Depth="120"/>
   <Lens Name="Other" DegreesMin="55" DegreesMax="55"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="8" Height="1"/>
   <Technical PowerConsumption="120" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>

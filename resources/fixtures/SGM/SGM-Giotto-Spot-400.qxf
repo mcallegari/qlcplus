@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Mihai Andrei</Author>
  </Creator>
  <Manufacturer>SGM</Manufacturer>
@@ -202,30 +202,6 @@
   <Channel Number="19">Colour mode</Channel>
   <Channel Number="20">Gobo 1 rotation mode</Channel>
   <Channel Number="21">Macro</Channel>
-  <Head>
-   <Channel>11</Channel>
-   <Channel>10</Channel>
-   <Channel>5</Channel>
-   <Channel>4</Channel>
-   <Channel>7</Channel>
-   <Channel>6</Channel>
-   <Channel>1</Channel>
-   <Channel>0</Channel>
-   <Channel>3</Channel>
-   <Channel>2</Channel>
-   <Channel>21</Channel>
-   <Channel>20</Channel>
-   <Channel>17</Channel>
-   <Channel>16</Channel>
-   <Channel>19</Channel>
-   <Channel>18</Channel>
-   <Channel>13</Channel>
-   <Channel>12</Channel>
-   <Channel>15</Channel>
-   <Channel>14</Channel>
-   <Channel>9</Channel>
-   <Channel>8</Channel>
-  </Head>
  </Mode>
  <Physical>
   <Bulb Type="MSR 400W" Lumens="32000" ColourTemperature="6000"/>

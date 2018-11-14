@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Avolites / Sinedied</Author>
  </Creator>
  <Manufacturer>Showtec</Manufacturer>
@@ -416,6 +416,7 @@
   <Dimensions Weight="6.6" Width="1185" Height="110" Depth="387"/>
   <Lens Name="" DegreesMin="0" DegreesMax="0"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="5" Height="1"/>
   <Technical PowerConsumption="45" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>

@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.0 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Thomas Achtner</Author>
  </Creator>
  <Manufacturer>Eurolite</Manufacturer>
@@ -90,12 +90,6 @@
   <Channel Number="2">Blue 1</Channel>
   <Channel Number="3">Dimmer</Channel>
   <Channel Number="4">Functions 5 Ch. Mode</Channel>
-  <Head>
-   <Channel>2</Channel>
-   <Channel>3</Channel>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
-  </Head>
  </Mode>
  <Mode Name="24 Channel">
   <Channel Number="0">Red 1</Channel>
@@ -237,6 +231,7 @@
   <Dimensions Weight="7.7" Width="880" Height="165" Depth="150"/>
   <Lens Name="Other" DegreesMin="60" DegreesMax="60"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="8" Height="1"/>
   <Technical PowerConsumption="240" DmxConnector="5-pin"/>
  </Physical>
 </FixtureDefinition>

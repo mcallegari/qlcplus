@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.0 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Dean Clough</Author>
  </Creator>
  <Manufacturer>Equinox</Manufacturer>
@@ -288,6 +288,7 @@
   <Dimensions Weight="7.5" Width="1065" Height="160" Depth="80"/>
   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="270"/>
+  <Layout Width="8" Height="1"/>
   <Technical PowerConsumption="100" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>

@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.2 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>JP</Author>
  </Creator>
  <Manufacturer>Cameo</Manufacturer>
@@ -46,7 +46,7 @@
  <Channel Name="Programs">
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="10">No function</Capability>
-  <Capability Min="11" Max="255" Color="#ffffff">Strobe Programs (alternating segments)</Capability>
+  <Capability Min="11" Max="255" Preset="ColorMacro" Res1="#ffffff">Strobe Programs (alternating segments)</Capability>
  </Channel>
  <Channel Name="Speed">
   <Group Byte="0">Speed</Group>
@@ -96,11 +96,12 @@
    <Channel>6</Channel>
   </Head>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="3.25" Width="335" Height="182" Depth="93"/>
-   <Lens Name="Other" DegreesMin="75" DegreesMax="75"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="135" DmxConnector="3-pin"/>
-  </Physical>
-  </FixtureDefinition>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.25" Width="335" Height="182" Depth="93"/>
+  <Lens Name="Other" DegreesMin="75" DegreesMax="75"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="135" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

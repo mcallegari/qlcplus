@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.0 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Andrea Ugolini</Author>
  </Creator>
  <Manufacturer>Pro-Lights</Manufacturer>
@@ -246,6 +246,7 @@
   <Dimensions Weight="4.3" Width="1055" Height="82" Depth="164"/>
   <Lens Name="Other" DegreesMin="17" DegreesMax="33"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="12" Height="1"/>
   <Technical PowerConsumption="120" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>

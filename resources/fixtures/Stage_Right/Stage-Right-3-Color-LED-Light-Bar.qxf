@@ -3,12 +3,12 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.0 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Daniel Smith</Author>
  </Creator>
  <Manufacturer>Stage Right</Manufacturer>
  <Model>3-Color LED Light Bar</Model>
- <Type>Color Changer</Type>
+ <Type>LED Bar (Pixels)</Type>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>
  <Channel Name="Blue" Preset="IntensityBlue"/>
@@ -232,6 +232,7 @@
   <Dimensions Weight="2.6" Width="1080" Height="88" Depth="65"/>
   <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="8" Height="1"/>
   <Technical PowerConsumption="36" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>

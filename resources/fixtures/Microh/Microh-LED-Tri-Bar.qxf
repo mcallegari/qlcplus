@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.0 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Michael Tughan</Author>
  </Creator>
  <Manufacturer>Microh</Manufacturer>
@@ -252,6 +252,7 @@
   <Dimensions Weight="3.81" Width="1015" Height="78" Depth="76"/>
   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="18" Height="1"/>
   <Technical PowerConsumption="128" DmxConnector="3-pin and 5-pin"/>
  </Physical>
 </FixtureDefinition>

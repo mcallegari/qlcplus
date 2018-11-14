@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Paul Wilton</Author>
  </Creator>
  <Manufacturer>Ledj</Manufacturer>
@@ -11,29 +11,29 @@
  <Type>Color Changer</Type>
  <Channel Name="Colour and Programmes">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="10" Color="#000000">Blackout</Capability>
-  <Capability Min="11" Max="21" Res="Others/rainbow.png">RGB mode</Capability>
-  <Capability Min="22" Max="32" Color="#ff0000">Red</Capability>
-  <Capability Min="33" Max="43" Color="#ffff00">Yellow</Capability>
-  <Capability Min="44" Max="54" Color="#00ff00">Green</Capability>
-  <Capability Min="55" Max="65" Color="#00ffff">Cyan</Capability>
-  <Capability Min="66" Max="76" Color="#0000ff">Blue</Capability>
-  <Capability Min="77" Max="87" Color="#800080">Purple</Capability>
-  <Capability Min="88" Max="98" Color="#ffffff" Color2="#ffffff">White</Capability>
-  <Capability Min="99" Max="109" Res="Others/rainbow.png">Dream: Seven colour fade</Capability>
-  <Capability Min="110" Max="120" Res="Others/rainbow.png">Meteor: Seven colour flow</Capability>
-  <Capability Min="121" Max="131" Res="Others/rainbow.png">Fade: Seven colour fade in, fade out</Capability>
-  <Capability Min="132" Max="142" Res="Others/rainbow.png">Change: Seven colour change</Capability>
-  <Capability Min="143" Max="153" Res="Others/rainbow.png">Flow 1: Seven colour chase (forward)</Capability>
-  <Capability Min="154" Max="164" Res="Others/rainbow.png">Flow 2: Seven colour chase (forward &amp; reverse)</Capability>
-  <Capability Min="165" Max="175" Res="Others/rainbow.png">Flow 3: Seven colour fade chase in relay pattern (forward)</Capability>
-  <Capability Min="176" Max="186" Res="Others/rainbow.png">Flow 4: Seven colour fade chase in relay pattern (forward &amp; reverse)</Capability>
-  <Capability Min="187" Max="197" Res="Others/rainbow.png">Flow 5: Seven colour chase from sides to centre</Capability>
-  <Capability Min="198" Max="208" Res="Others/rainbow.png">Flow 6: Seven colour chase from centre to sides</Capability>
-  <Capability Min="209" Max="219" Res="Others/rainbow.png">Flow 7: Seven colour rotating chase</Capability>
-  <Capability Min="220" Max="230" Res="Others/rainbow.png">Flow 8: Two colour chase (forward)</Capability>
-  <Capability Min="231" Max="241" Res="Others/rainbow.png">Flow 9: Two colour chase (forward &amp; reverse)</Capability>
-  <Capability Min="242" Max="255" Res="Others/rainbow.png">Sound active</Capability>
+  <Capability Min="0" Max="10" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="11" Max="21" Preset="GoboMacro" Res1="Others/rainbow.png">RGB mode</Capability>
+  <Capability Min="22" Max="32" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="33" Max="43" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="44" Max="54" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="55" Max="65" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="66" Max="76" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="77" Max="87" Preset="ColorMacro" Res1="#800080">Purple</Capability>
+  <Capability Min="88" Max="98" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ffffff">White</Capability>
+  <Capability Min="99" Max="109" Preset="GoboMacro" Res1="Others/rainbow.png">Dream: Seven colour fade</Capability>
+  <Capability Min="110" Max="120" Preset="GoboMacro" Res1="Others/rainbow.png">Meteor: Seven colour flow</Capability>
+  <Capability Min="121" Max="131" Preset="GoboMacro" Res1="Others/rainbow.png">Fade: Seven colour fade in, fade out</Capability>
+  <Capability Min="132" Max="142" Preset="GoboMacro" Res1="Others/rainbow.png">Change: Seven colour change</Capability>
+  <Capability Min="143" Max="153" Preset="GoboMacro" Res1="Others/rainbow.png">Flow 1: Seven colour chase (forward)</Capability>
+  <Capability Min="154" Max="164" Preset="GoboMacro" Res1="Others/rainbow.png">Flow 2: Seven colour chase (forward &amp; reverse)</Capability>
+  <Capability Min="165" Max="175" Preset="GoboMacro" Res1="Others/rainbow.png">Flow 3: Seven colour fade chase in relay pattern (forward)</Capability>
+  <Capability Min="176" Max="186" Preset="GoboMacro" Res1="Others/rainbow.png">Flow 4: Seven colour fade chase in relay pattern (forward &amp; reverse)</Capability>
+  <Capability Min="187" Max="197" Preset="GoboMacro" Res1="Others/rainbow.png">Flow 5: Seven colour chase from sides to centre</Capability>
+  <Capability Min="198" Max="208" Preset="GoboMacro" Res1="Others/rainbow.png">Flow 6: Seven colour chase from centre to sides</Capability>
+  <Capability Min="209" Max="219" Preset="GoboMacro" Res1="Others/rainbow.png">Flow 7: Seven colour rotating chase</Capability>
+  <Capability Min="220" Max="230" Preset="GoboMacro" Res1="Others/rainbow.png">Flow 8: Two colour chase (forward)</Capability>
+  <Capability Min="231" Max="241" Preset="GoboMacro" Res1="Others/rainbow.png">Flow 9: Two colour chase (forward &amp; reverse)</Capability>
+  <Capability Min="242" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Sound active</Capability>
  </Channel>
  <Channel Name="Master Dimmer (11&lt;=Ch1&lt;=21) Speed (Ch1&gt;=99)">
   <Group Byte="0">Effect</Group>
@@ -209,11 +209,12 @@
    <Channel>26</Channel>
   </Head>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="5" Width="445" Height="179" Depth="144"/>
-   <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="100" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5" Width="445" Height="179" Depth="144"/>
+  <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="2"/>
+  <Technical PowerConsumption="100" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

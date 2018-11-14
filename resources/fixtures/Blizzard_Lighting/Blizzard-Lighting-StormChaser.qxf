@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.0 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>killtheoldman</Author>
  </Creator>
  <Manufacturer>Blizzard Lighting</Manufacturer>
@@ -238,6 +238,7 @@
   <Dimensions Weight="1.6" Width="1074" Height="64" Depth="64"/>
   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="7" Height="1"/>
   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>

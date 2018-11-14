@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.0 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Jean-Daniel Garcia &amp; Jeremie Odermatt</Author>
  </Creator>
  <Manufacturer>Cameo</Manufacturer>
@@ -137,6 +137,7 @@
    <Dimensions Weight="7.9" Width="440" Height="110" Depth="130"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Layout Width="4" Height="1"/>
    <Technical PowerConsumption="130" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
@@ -180,6 +181,7 @@
    <Dimensions Weight="7.9" Width="440" Height="110" Depth="130"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Layout Width="4" Height="1"/>
    <Technical PowerConsumption="130" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
@@ -227,6 +229,7 @@
    <Dimensions Weight="7.9" Width="880" Height="110" Depth="130"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Layout Width="8" Height="1"/>
    <Technical PowerConsumption="250" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
@@ -302,6 +305,7 @@
    <Dimensions Weight="7.9" Width="880" Height="110" Depth="130"/>
    <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
    <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Layout Width="8" Height="1"/>
    <Technical PowerConsumption="250" DmxConnector="3-pin and 5-pin"/>
   </Physical>
   <Channel Number="0">Dimmer</Channel>
@@ -380,6 +384,7 @@
   <Dimensions Weight="7.9" Width="880" Height="110" Depth="130"/>
   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
   <Technical PowerConsumption="220" DmxConnector="3-pin and 5-pin"/>
  </Physical>
 </FixtureDefinition>

@@ -3,12 +3,12 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.0 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Daniel Fairhead</Author>
  </Creator>
  <Manufacturer>Varytec</Manufacturer>
  <Model>Street Bar</Model>
- <Type>Color Changer</Type>
+ <Type>LED Bar (Beams)</Type>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>
  <Channel Name="Blue" Preset="IntensityBlue"/>
@@ -289,6 +289,7 @@
   <Dimensions Weight="5.5" Width="1005" Height="160" Depth="130"/>
   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="16" Height="1"/>
   <Technical PowerConsumption="60" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>

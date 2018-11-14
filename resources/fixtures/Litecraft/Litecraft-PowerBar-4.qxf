@@ -1,14 +1,14 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>3.2.2w</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1 GIT</Version>
   <Author>Johan Nilsson</Author>
  </Creator>
  <Manufacturer>Litecraft</Manufacturer>
  <Model>PowerBar 4</Model>
- <Type>Color Changer</Type>
+ <Type>LED Bar (Pixels)</Type>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>
  <Channel Name="Blue" Preset="IntensityBlue"/>
@@ -54,6 +54,18 @@
   <Channel Number="1">Zone 2 RGBW</Channel>
   <Channel Number="2">Zone 3 RGBW</Channel>
   <Channel Number="3">Zone 4 RGBW</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
  </Mode>
  <Mode Name="16 channel mode">
   <Channel Number="0">Zone 1 Red</Channel>
@@ -72,12 +84,37 @@
   <Channel Number="13">Zone 4 Green</Channel>
   <Channel Number="14">Zone 4 Blue</Channel>
   <Channel Number="15">Zone 4 White</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="1070" Height="160" Weight="4.74" Depth="185"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="75" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4.74" Width="1070" Height="160" Depth="185"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="75" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
 </FixtureDefinition>

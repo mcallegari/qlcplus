@@ -3,12 +3,12 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.0 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Oscar Cervesato</Author>
  </Creator>
  <Manufacturer>SGM</Manufacturer>
  <Model>Idea LED BAR 100</Model>
- <Type>LED Bar (Beams)</Type>
+ <Type>LED Bar (Pixels)</Type>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
@@ -512,6 +512,7 @@
   <Dimensions Weight="15.36" Width="1000" Height="173" Depth="80"/>
   <Lens Name="Other" DegreesMin="45" DegreesMax="45"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="20" Height="1"/>
   <Technical PowerConsumption="250" DmxConnector="3-pin and 5-pin"/>
  </Physical>
 </FixtureDefinition>

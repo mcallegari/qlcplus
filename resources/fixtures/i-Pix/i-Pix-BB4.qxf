@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.0 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>i-Pix</Manufacturer>
@@ -506,6 +506,7 @@
   <Dimensions Weight="14" Width="600" Height="147" Depth="301"/>
   <Lens Name="Fresnel" DegreesMin="20" DegreesMax="20"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
   <Technical PowerConsumption="120" DmxConnector="5-pin"/>
  </Physical>
 </FixtureDefinition>

@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.0 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Andrew Hallmark</Author>
  </Creator>
  <Manufacturer>Cameo</Manufacturer>
@@ -737,6 +737,7 @@
   <Dimensions Weight="6.8" Width="900" Height="120" Depth="75"/>
   <Lens Name="Other" DegreesMin="23" DegreesMax="23"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="12" Height="1"/>
   <Technical PowerConsumption="160" DmxConnector="3-pin and 5-pin"/>
  </Physical>
 </FixtureDefinition>

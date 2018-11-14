@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.1 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Fredje</Author>
  </Creator>
  <Manufacturer>Nicols</Manufacturer>
@@ -175,11 +175,12 @@
    <Channel>25</Channel>
   </Head>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="5.2" Width="258" Height="304" Depth="168"/>
-   <Lens Name="Other" DegreesMin="35" DegreesMax="35"/>
-   <Focus Type="Fixed" PanMax="630" TiltMax="200"/>
-   <Technical PowerConsumption="150" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5.2" Width="258" Height="304" Depth="168"/>
+  <Lens Name="Other" DegreesMin="35" DegreesMax="35"/>
+  <Focus Type="Fixed" PanMax="630" TiltMax="200"/>
+  <Layout Width="2" Height="2"/>
+  <Technical PowerConsumption="150" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

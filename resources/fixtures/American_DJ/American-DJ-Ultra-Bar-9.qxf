@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.0 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Massimo Callegari</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -231,6 +231,7 @@
   <Dimensions Weight="2.6" Width="1060" Height="90" Depth="63"/>
   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="9" Height="1"/>
   <Technical PowerConsumption="35" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>

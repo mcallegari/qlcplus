@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.0 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Tim Cullingworth</Author>
  </Creator>
  <Manufacturer>Martin</Manufacturer>
@@ -571,12 +571,6 @@
   <Channel Number="18">Group A Green</Channel>
   <Channel Number="19">Group A Blue</Channel>
   <Channel Number="20">Group A CTC</Channel>
-  <Head>
-   <Channel>17</Channel>
-   <Channel>20</Channel>
-   <Channel>18</Channel>
-   <Channel>19</Channel>
-  </Head>
  </Mode>
  <Mode Name="HSVX All">
   <Channel Number="0">Strobe / Virtual Shutter</Channel>
@@ -600,12 +594,6 @@
   <Channel Number="18">Group A Saturation</Channel>
   <Channel Number="19">Group A Value</Channel>
   <Channel Number="20">Group A CTC</Channel>
-  <Head>
-   <Channel>17</Channel>
-   <Channel>18</Channel>
-   <Channel>19</Channel>
-   <Channel>20</Channel>
-  </Head>
  </Mode>
  <Mode Name="RGB 1">
   <Channel Number="0">Strobe / Virtual Shutter</Channel>
@@ -868,6 +856,7 @@
   <Dimensions Weight="21" Width="505" Height="527" Depth="221"/>
   <Lens Name="Other" DegreesMin="16" DegreesMax="50"/>
   <Focus Type="Fixed" PanMax="630" TiltMax="300"/>
+  <Layout Width="2" Height="2"/>
   <Technical PowerConsumption="386" DmxConnector="5-pin"/>
  </Physical>
 </FixtureDefinition>

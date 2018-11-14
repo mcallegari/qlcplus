@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Louis Gutenschwager</Author>
  </Creator>
  <Manufacturer>Clay Paky</Manufacturer>
@@ -208,32 +208,6 @@
   <Channel Number="21">Function</Channel>
   <Channel Number="22">Reset</Channel>
   <Channel Number="23">Lamp Control</Channel>
-  <Head>
-   <Channel>11</Channel>
-   <Channel>10</Channel>
-   <Channel>9</Channel>
-   <Channel>8</Channel>
-   <Channel>15</Channel>
-   <Channel>14</Channel>
-   <Channel>13</Channel>
-   <Channel>12</Channel>
-   <Channel>3</Channel>
-   <Channel>2</Channel>
-   <Channel>1</Channel>
-   <Channel>0</Channel>
-   <Channel>7</Channel>
-   <Channel>6</Channel>
-   <Channel>5</Channel>
-   <Channel>4</Channel>
-   <Channel>19</Channel>
-   <Channel>18</Channel>
-   <Channel>17</Channel>
-   <Channel>16</Channel>
-   <Channel>23</Channel>
-   <Channel>22</Channel>
-   <Channel>21</Channel>
-   <Channel>20</Channel>
-  </Head>
  </Mode>
  <Mode Name="Vector">
   <Channel Number="0">Cyan</Channel>
@@ -264,36 +238,6 @@
   <Channel Number="25">Colour Time</Channel>
   <Channel Number="26">Beam Time</Channel>
   <Channel Number="27">Gobo Time</Channel>
-  <Head>
-   <Channel>11</Channel>
-   <Channel>10</Channel>
-   <Channel>9</Channel>
-   <Channel>8</Channel>
-   <Channel>15</Channel>
-   <Channel>14</Channel>
-   <Channel>13</Channel>
-   <Channel>12</Channel>
-   <Channel>3</Channel>
-   <Channel>2</Channel>
-   <Channel>1</Channel>
-   <Channel>0</Channel>
-   <Channel>7</Channel>
-   <Channel>6</Channel>
-   <Channel>5</Channel>
-   <Channel>4</Channel>
-   <Channel>27</Channel>
-   <Channel>26</Channel>
-   <Channel>25</Channel>
-   <Channel>24</Channel>
-   <Channel>19</Channel>
-   <Channel>18</Channel>
-   <Channel>17</Channel>
-   <Channel>16</Channel>
-   <Channel>23</Channel>
-   <Channel>22</Channel>
-   <Channel>21</Channel>
-   <Channel>20</Channel>
-  </Head>
  </Mode>
  <Physical>
   <Bulb Type="Osram Lok-it 1500W" Lumens="135000" ColourTemperature="6000"/>

@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.0 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Robert Box</Author>
  </Creator>
  <Manufacturer>OXO</Manufacturer>
@@ -217,6 +217,7 @@
   <Dimensions Weight="6.3" Width="1040" Height="140" Depth="130"/>
   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="10" Height="1"/>
   <Technical PowerConsumption="90" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>

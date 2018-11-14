@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.0 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Mitsch</Author>
  </Creator>
  <Manufacturer>IMG Stageline</Manufacturer>
@@ -182,6 +182,7 @@
   <Dimensions Weight="9.1" Width="915" Height="275" Depth="62"/>
   <Lens Name="Other" DegreesMin="20" DegreesMax="20"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
   <Technical PowerConsumption="70" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>
