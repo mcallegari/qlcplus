@@ -293,7 +293,7 @@ void QLCPhysical_Test::save()
     buffer.open(QIODevice::WriteOnly | QIODevice::Text);
     QXmlStreamWriter xmlWriter(&buffer);
 
-    bool bulb = false, dim = false, lens = false, focus = false, technical = false;
+    bool bulb = false, dim = false, lens = false, focus = false, layout = false, technical = false;
 
     QVERIFY(p.saveXML(&xmlWriter) == true);
 
@@ -338,6 +338,12 @@ void QLCPhysical_Test::save()
             QVERIFY(xmlReader.attributes().value("PanMax") == "520");
             QVERIFY(xmlReader.attributes().value("TiltMax") == "270");
         }
+        else if (xmlReader.name() == "Layout")
+        {
+            layout = true;
+            QVERIFY(xmlReader.attributes().value("Width") == "6");
+            QVERIFY(xmlReader.attributes().value("Height") == "3");
+        }
         else if (xmlReader.name() == "Technical")
         {
             technical = true;
@@ -356,6 +362,7 @@ void QLCPhysical_Test::save()
     QVERIFY(dim == true);
     QVERIFY(lens == true);
     QVERIFY(focus == true);
+    QVERIFY(layout == true);
     QVERIFY(technical == true);
 }
 
