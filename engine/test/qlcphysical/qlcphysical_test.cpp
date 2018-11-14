@@ -117,6 +117,14 @@ void QLCPhysical_Test::focusTiltMax()
     p.setFocusTiltMax(270);
     QVERIFY(p.focusTiltMax() == 270);
 }
+
+void QLCPhysical_Test::layoutSize()
+{
+    QVERIFY(p.layoutSize() == QSize(1, 1));
+    p.setLayoutSize(QSize(6, 3));
+    QVERIFY(p.layoutSize() == QSize(6, 3));
+}
+
 void QLCPhysical_Test::powerConsumption()
 {
     QVERIFY(p.powerConsumption() == 0);

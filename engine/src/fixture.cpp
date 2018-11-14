@@ -1295,10 +1295,15 @@ QString Fixture::status() const
 
         // Focus
         QString frange("%1&deg;");
-        info += subTitle.arg(tr("Focus"));
+        info += subTitle.arg(tr("Head(s)"));
         info += genInfo.arg(tr("Type")).arg(physical.focusType());
         info += genInfo.arg(tr("Pan Range")).arg(frange.arg(physical.focusPanMax()));
         info += genInfo.arg(tr("Tilt Range")).arg(frange.arg(physical.focusTiltMax()));
+        if (physical.layoutSize() != QSize(1, 1))
+        {
+            info += genInfo.arg(tr("Layout"))
+                           .arg(QString("%1 x %2").arg(physical.layoutSize().width()).arg(physical.layoutSize().height()));
+        }
     }
 
     // HTML document & table closure
