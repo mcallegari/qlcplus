@@ -233,31 +233,30 @@ Entity
         easing.type: Easing.Linear
     }
 
+    property Texture2D depthTex:
+        Texture2D
+        {
+            width: 1024
+            height: 1024
+            format: Texture.D32F
+            generateMipMaps: false
+            magnificationFilter: Texture.Linear
+            minificationFilter: Texture.Linear
+            wrapMode
+            {
+                x: WrapMode.ClampToEdge
+                y: WrapMode.ClampToEdge
+            }
+        }
+
     property RenderTarget shadowMap:
         RenderTarget
         {
-            property alias depth: depthAttachment
-
             attachments: [
                 RenderTargetOutput
                 {
                     attachmentPoint: RenderTargetOutput.Depth
-                    texture:
-                        Texture2D
-                        {
-                            id: depthAttachment
-                            width: 1024
-                            height: 1024
-                            format: Texture.D32F
-                            generateMipMaps: false
-                            magnificationFilter: Texture.Linear
-                            minificationFilter: Texture.Linear
-                            wrapMode
-                            {
-                                x: WrapMode.ClampToEdge
-                                y: WrapMode.ClampToEdge
-                            }
-                        }
+                    texture: depthTex
                 }
             ] // attachments
         }
