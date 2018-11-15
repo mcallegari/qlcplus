@@ -238,6 +238,8 @@ protected:
                            QLayer *layer, QEffect *effect,
                            bool calculateVolume, QVector3D translation);
 
+    void walkNode(QNode *e, int depth);
+
 private:
     Qt3DCore::QTransform *getTransform(QEntity *entity);
     QMaterial *getMaterial(QEntity *entity);
@@ -246,6 +248,9 @@ private:
 private:
     /** Reference to the Scene3D component */
     QQuickItem *m_scene3D;
+
+    /** Reference to the entity contianing everything */
+    QEntity *m_scene3DEntity;
 
     /** Reference to the scene root entity for items creation */
     QEntity *m_sceneRootEntity;

@@ -27,6 +27,7 @@
 #include <QSvgRenderer>
 
 #include <Qt3DCore/QTransform>
+#include <Qt3DCore/QNode>
 #include <Qt3DRender/QGeometry>
 #include <Qt3DRender/QAttribute>
 #include <Qt3DRender/QBuffer>
@@ -42,6 +43,8 @@
 #include "qlccapability.h"
 #include "qlcfixturemode.h"
 #include "monitorproperties.h"
+
+//#define SHOW_FRAMEGRAPH
 
 MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
     : PreviewContext(view, doc, "3D", parent)
@@ -323,6 +326,13 @@ void MainView3D::initialize3DProperties()
         return;
     }
 
+    m_scene3DEntity = m_scene3D->findChild<QEntity *>("scene3DEntity");
+    if (m_scene3DEntity == nullptr)
+    {
+        qDebug() << "m_scene3DEntity not found!";
+        return;
+    }
+
     m_sceneRootEntity = m_scene3D->findChild<QEntity *>("sceneRootEntity");
     if (m_sceneRootEntity == nullptr)
     {
@@ -468,6 +478,7 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
     mesh->m_armItem = nullptr;
     mesh->m_headItem = nullptr;
     mesh->m_selectionBox = nullptr;
+    m_createItemCount++;
 
     if (fixture->type() == QLCFixtureDef::LEDBarBeams)
     {
@@ -552,8 +563,6 @@ void MainView3D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
     newItem->setProperty("itemID", itemID);
     if (meshPath.isEmpty() == false)
         newItem->setProperty("itemSource", meshPath);
-
-    m_createItemCount++;
 }
 
 void MainView3D::setFixtureFlags(quint32 itemID, quint32 flags)
@@ -794,6 +803,25 @@ QEntity *MainView3D::inspectEntity(QEntity *entity, SceneItem *meshRef,
     return baseItem;
 }
 
+#ifdef SHOW_FRAMEGRAPH
+void MainView3D::walkNode(QNode *e, int depth)
+{
+    QNodeVector nodes = e->childNodes();
+    for (int i = 0; i < nodes.count(); ++i)
+    {
+        QNode *node = nodes[i];
+        QEntity *entity = qobject_cast<QEntity *>(node);
+        QString indent;
+        indent.fill(' ', depth * 2);
+        if (entity)
+            qDebug().noquote() << indent << "Entity:" << entity;
+        else
+            qDebug().noquote() << indent << "Node:" << node->metaObject()->className();
+        walkNode(node, depth + 1);
+    }
+}
+#endif
+
 void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QSceneLoader *loader)
 {
     if (m_entitiesMap.contains(itemID) == false)
@@ -999,7 +1027,13 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QSceneLoad
 
     // Update the Scene Graph only when the last fixture has been added to the Scene
     if (m_createItemCount == 0)
+    {
         QMetaObject::invokeMethod(m_scene3D, "updateSceneGraph", Q_ARG(QVariant, true));
+#ifdef SHOW_FRAMEGRAPH
+        if (m_scene3DEntity)
+            walkNode(m_scene3DEntity, 0);
+#endif
+    }
 
     // at last, preview the fixture channels
     QByteArray values;
