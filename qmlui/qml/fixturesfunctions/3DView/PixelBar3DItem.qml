@@ -81,7 +81,7 @@ Entity
             effect: sceneEffect
 
             parameters: [
-                Parameter { name: "diffuse"; value: "lightgray" },
+                Parameter { name: "diffuse"; value: "gray" },
                 Parameter { name: "specular"; value: "black" },
                 Parameter { name: "shininess"; value: 1.0 },
                 Parameter { name: "bloom"; value: 0 }
@@ -115,8 +115,9 @@ Entity
                 property real dimmerValue: 0
                 property real lightIntensity: dimmerValue * shutterValue
                 property real headWidth: phySize.x / fixtureEntity.headsNumber
-
                 property color lightColor: Qt.rgba(0, 0, 0, 1)
+
+                enabled: lightColor === Qt.rgba(0, 0, 0, 1) ? false : true
 
                 PlaneMesh
                 {
