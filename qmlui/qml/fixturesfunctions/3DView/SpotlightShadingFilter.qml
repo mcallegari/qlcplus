@@ -27,9 +27,9 @@ TechniqueFilter
 {
     property GBuffer gBuffer
     property Layer spotlightShadingLayer
-    property Texture2D shadowTex
-    property FrameTarget frameTarget
-    property bool useShadows
+    property Texture2D shadowTex: null
+    property alias frameTarget: tSelector.target
+    property bool useShadows: true
 
     parameters: [
         Parameter { name: "albedoTex"; value: gBuffer ? gBuffer.color : null },
@@ -55,7 +55,7 @@ TechniqueFilter
             layers: spotlightShadingLayer
 
             RenderTargetSelector {
-                target: frameTarget
+                id: tSelector
                 RenderPassFilter
                 {
                     matchAny: FilterKey { name: "pass"; value: "spotlight_shading" }

@@ -249,7 +249,7 @@ private:
     /** Reference to the Scene3D component */
     QQuickItem *m_scene3D;
 
-    /** Reference to the entity contianing everything */
+    /** Reference to the entity containing everything */
     QEntity *m_scene3DEntity;
 
     /** Reference to the scene root entity for items creation */

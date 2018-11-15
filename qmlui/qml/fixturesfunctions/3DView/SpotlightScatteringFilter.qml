@@ -63,7 +63,8 @@ TechniqueFilter
         {
             layers: spotlightScatteringLayer
 
-            RenderTargetSelector {
+            RenderTargetSelector
+            {
                 target: frameTarget
                 RenderPassFilter
                 {

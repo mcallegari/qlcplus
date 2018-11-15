@@ -27,8 +27,8 @@ TechniqueFilter
  //   property GBuffer gBuffer
     property Layer screenQuadGammaCorrectLayer
 
-    property Texture2D hdrTexture
-    property Texture2D bloomTexture
+    property Texture2D hdrTexture: null
+    property Texture2D bloomTexture: null
     
     property RenderTarget outRenderTarget
 
