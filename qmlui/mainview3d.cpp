@@ -1336,9 +1336,11 @@ void MainView3D::updateFixtureRotation(quint32 itemID, QVector3D degrees)
 
     qDebug() << Q_FUNC_INFO << degrees;
 
-    mesh->m_rootTransform->setRotationX(degrees.x());
-    mesh->m_rootTransform->setRotationY(degrees.y());
-    mesh->m_rootTransform->setRotationZ(degrees.z());
+    QQuaternion qRotation;
+    qRotation = Qt3DCore::QTransform::fromAxesAndAngles(QVector3D(1, 0, 0), -degrees.x(),
+                                                        QVector3D(0, 1, 0), -degrees.y(),
+                                                        QVector3D(0, 0, 1), -degrees.z());
+    mesh->m_rootTransform->setRotation(qRotation);
 
     updateLightMatrix(mesh);
 }
@@ -1692,9 +1694,11 @@ void MainView3D::updateGenericItemRotation(quint32 itemID, QVector3D rot)
     if (item == nullptr || item->m_rootTransform == nullptr)
         return;
 
-    item->m_rootTransform->setRotationX(rot.x());
-    item->m_rootTransform->setRotationY(rot.y());
-    item->m_rootTransform->setRotationZ(rot.z());
+    QQuaternion qRotation;
+    qRotation = Qt3DCore::QTransform::fromAxesAndAngles(QVector3D(1, 0, 0), rot.x(),
+                                                        QVector3D(0, 1, 0), rot.y(),
+                                                        QVector3D(0, 0, 1), rot.z());
+    item->m_rootTransform->setRotation(qRotation);
 }
 
 QVector3D MainView3D::genericItemsRotation()
