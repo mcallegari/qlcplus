@@ -1059,7 +1059,7 @@ Changes will be lost if you don&apos;t save them.</source>
         <translation>%1 - Строка %2</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1394"/>
+        <location filename="fixturemanager.cpp" line="1397"/>
         <source>New filters %1</source>
         <translation>Новые фильтры %1</translation>
     </message>
@@ -1468,21 +1468,21 @@ Changes will be lost if you don&apos;t save them.</source>
         <translation>Все Области DMX</translation>
     </message>
     <message>
-        <location filename="inputoutputmanager.cpp" line="222"/>
-        <location filename="inputoutputmanager.cpp" line="254"/>
-        <location filename="inputoutputmanager.cpp" line="283"/>
-        <location filename="inputoutputmanager.cpp" line="316"/>
-        <location filename="inputoutputmanager.cpp" line="635"/>
+        <location filename="inputoutputmanager.cpp" line="223"/>
+        <location filename="inputoutputmanager.cpp" line="255"/>
+        <location filename="inputoutputmanager.cpp" line="284"/>
+        <location filename="inputoutputmanager.cpp" line="317"/>
+        <location filename="inputoutputmanager.cpp" line="636"/>
         <source>Default device</source>
         <translation>Устройство по умолчанию</translation>
     </message>
     <message>
-        <location filename="inputoutputmanager.cpp" line="593"/>
+        <location filename="inputoutputmanager.cpp" line="594"/>
         <source>Disabled</source>
         <translation>Выключено</translation>
     </message>
     <message>
-        <location filename="inputoutputmanager.cpp" line="602"/>
+        <location filename="inputoutputmanager.cpp" line="603"/>
         <source>Internal generator</source>
         <translation>Внутренний генератор</translation>
     </message>
@@ -3581,22 +3581,22 @@ Access level:</source>
 <context>
     <name>VCSlider</name>
     <message>
-        <location filename="virtualconsole/vcslider.cpp" line="68"/>
+        <location filename="virtualconsole/vcslider.cpp" line="71"/>
         <source>Slider Control</source>
         <translation>Слайдер</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcslider.cpp" line="69"/>
+        <location filename="virtualconsole/vcslider.cpp" line="72"/>
         <source>Reset Control</source>
         <translation>Сброс</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcslider.cpp" line="86"/>
+        <location filename="virtualconsole/vcslider.cpp" line="94"/>
         <source>Slider %1</source>
         <translation>Слайдер %1</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcslider.cpp" line="88"/>
+        <location filename="virtualconsole/vcslider.cpp" line="96"/>
         <source>Knob %1</source>
         <translation>Ручка %1</translation>
     </message>
