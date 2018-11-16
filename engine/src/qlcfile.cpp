@@ -239,6 +239,15 @@ QDir QLCFile::userDirectory(QString path, QString fallBackPath, QStringList exte
     return dir;
 }
 
+QString QLCFile::fileUrlPrefix()
+{
+#if defined(WIN32) || defined(Q_OS_WIN)
+    return QString("file:///");
+#else
+    return QString("file://");
+#endif
+}
+
 quint32 QLCFile::getQtRuntimeVersion()
 {
     QString ver(qVersion());

@@ -140,6 +140,10 @@ public:
      */
     static QDir userDirectory(QString path, QString fallBackPath, QStringList extensions);
 
+    /** @brief Return a OS dependent prefix used for local file URLs.
+      *        Linux and macOS needs "file://", while Windows needs "file:///" */
+    static QString fileUrlPrefix();
+
     /**
      * @brief getQtVersion get the runtime Qt version as number. E.g. 50602
      */
