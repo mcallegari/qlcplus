@@ -45,19 +45,34 @@ Rectangle
             lastRotation = Qt.vector3d(0, 0, 0)
     }
 
-    function updateRotation(x, y, z)
+    function updateRotation(degrees)
     {
         if (visible == false)
             return;
 
+        var rot
+        switch (View2D.pointOfView)
+        {
+            case MonitorProperties.LeftSideView:
+            case MonitorProperties.RightSideView:
+                rot = Qt.vector3d(degrees, fxRotation.y, fxRotation.z)
+            break;
+            case MonitorProperties.FrontView:
+                rot = Qt.vector3d(fxRotation.x, fxRotation.y, degrees)
+            break;
+            default:
+                rot = Qt.vector3d(fxRotation.x, degrees, fxRotation.z)
+            break;
+        }
+
         if (selFixturesCount == 1)
         {
-            contextManager.fixturesRotation = Qt.vector3d(x, y, z)
+            contextManager.fixturesRotation = Qt.vector3d(rot.x, rot.y, rot.z)
         }
         else
         {
-            contextManager.fixturesRotation = Qt.vector3d(x - lastRotation.x, y - lastRotation.y, z - lastRotation.z)
-            lastRotation = Qt.vector3d(x, y, z)
+            contextManager.fixturesRotation = Qt.vector3d(rot.x - lastRotation.x, rot.y - lastRotation.y, rot.z - lastRotation.z)
+            lastRotation = Qt.vector3d(rot.x, rot.y, rot.z)
         }
     }
 
@@ -237,8 +252,22 @@ Rectangle
                             from: -359
                             to: 359
                             suffix: "°"
-                            value: fxRotation.y
-                            onValueChanged: updateRotation(fxRotation.x, value, fxRotation.z)
+                            value:
+                            {
+                                switch (View2D.pointOfView)
+                                {
+                                    case MonitorProperties.LeftSideView:
+                                    case MonitorProperties.RightSideView:
+                                        return fxRotation.x
+
+                                    case MonitorProperties.FrontView:
+                                        return fxRotation.z
+
+                                    default:
+                                        return fxRotation.y
+                                }
+                            }
+                            onValueChanged: updateRotation(value)
                         }
 
                         // row 3
