@@ -1,14 +1,14 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Henk de Gunst</Author>
  </Creator>
  <Manufacturer>Showtec</Manufacturer>
  <Model>Pixel Bar 12</Model>
- <Type>Color Changer</Type>
+ <Type>LED Bar (Beams)</Type>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>
  <Channel Name="Blue" Preset="IntensityBlue"/>
@@ -344,11 +344,12 @@
    <Channel>35</Channel>
   </Head>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="1380" ColourTemperature="0"/>
-   <Dimensions Weight="4.28" Width="1015" Height="74" Depth="72"/>
-   <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="45" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="1380" ColourTemperature="0"/>
+  <Dimensions Weight="4.28" Width="1015" Height="74" Depth="72"/>
+  <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="12" Height="1"/>
+  <Technical PowerConsumption="45" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

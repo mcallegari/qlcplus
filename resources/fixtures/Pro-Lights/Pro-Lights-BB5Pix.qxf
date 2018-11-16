@@ -3,12 +3,12 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.0 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Lorenzo Andreani</Author>
  </Creator>
  <Manufacturer>Pro-Lights</Manufacturer>
  <Model>BB5 Pix</Model>
- <Type>Color Changer</Type>
+ <Type>LED Bar (Beams)</Type>
  <Channel Name="Dimmer" Preset="IntensityWhite"/>
  <Channel Name="Dimmer 1" Preset="IntensityWhite"/>
  <Channel Name="Dimmer 2" Preset="IntensityWhite"/>
@@ -74,6 +74,7 @@
   <Dimensions Weight="3.2" Width="500" Height="98" Depth="217"/>
   <Lens Name="Fresnel" DegreesMin="2" DegreesMax="2"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="5" Height="1"/>
   <Technical PowerConsumption="45" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>

@@ -1,7 +1,6 @@
-
 /*
   Q Light Controller Plus
-  MainCameraSelector.qml
+  grab_bright.frag
 
   Copyright (c) Eric Arnebäck
 
@@ -18,18 +17,23 @@
   limitations under the License.
 */
 
-import Qt3D.Core 2.0
-import Qt3D.Render 2.0
+FS_IN_ATTRIB vec2 fsUv;
 
-import QtQuick 2.0
 
-RenderSurfaceSelector
+uniform sampler2D albedoTex;
+uniform sampler2D normalTex;
+DECLARE_FRAG_COLOR
+
+void main()
 {
-    property alias myCameraSelector: sceneCameraSelector
-    property alias camera: sceneCameraSelector.camera
-
-    CameraSelector
+    vec4 albedo = SAMPLE_TEX2D(albedoTex, fsUv).xyzw;
+    float v = SAMPLE_TEX2D(normalTex, fsUv).w;
+    if (v > 2.0)
     {
-        id: sceneCameraSelector
-    } // CameraSelector
-} // RenderSurfaceSelector
+        MGL_FRAG_COLOR = vec4(albedo.rgb, 1.0);
+    }
+    else
+    {
+        MGL_FRAG_COLOR = vec4(0.0, 0.0, 0.0, 0.0);
+    }
+}

@@ -1159,31 +1159,41 @@ bool FixtureManager::addRGBPanel(QString name, qreal xPos, qreal yPos)
         }
 
         QVector3D pos;
-        QVector3D rot;
+        QVector3D rot = QVector3D(0, 0, 0);
         float gridUnits = m_monProps->gridUnits() == MonitorProperties::Meters ? 1000.0 : 304.8;
 
         switch (m_monProps->pointOfView())
         {
             case MonitorProperties::TopView:
-                pos = QVector3D(xPos, 0, yPos);
-                rot.setY(180);
+                pos = QVector3D(xPos, 1000, yPos);
+                if (displacement == Snake && i % 2)
+                    rot.setY(180);
             break;
             case MonitorProperties::LeftSideView:
                 pos = QVector3D(0, yPos, xPos);
-                rot.setX(180);
+                if (displacement == Snake && i % 2)
+                    rot.setY(-90);
+                else
+                    rot.setY(90);
+                rot.setZ(-90);
             break;
             case MonitorProperties::RightSideView:
                 pos = QVector3D(0, yPos, (m_monProps->gridSize().z() * gridUnits) - xPos);
-                rot.setX(180);
+                if (displacement == Snake && i % 2)
+                    rot.setY(90);
+                else
+                    rot.setY(-90);
+                rot.setZ(90);
             break;
             default:
                 pos = QVector3D(xPos, (m_monProps->gridSize().y() * gridUnits) - yPos, 0);
-                rot.setZ(180);
+                if (displacement == Snake && i % 2)
+                    rot.setZ(180);
+                rot.setX(-90);
             break;
         }
         m_monProps->setFixturePosition(fxi->id(), 0, 0, pos);
-        if (displacement == Snake && i % 2)
-            m_monProps->setFixtureRotation(fxi->id(), 0, 0, rot);
+        m_monProps->setFixtureRotation(fxi->id(), 0, 0, rot);
         slotFixtureAdded(fxi->id(), QVector3D(pos.x(), pos.y(), pos.z()));
         yPos += (qreal)phyHeight;
         currRow += rowInc;

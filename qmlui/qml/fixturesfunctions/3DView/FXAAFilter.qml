@@ -25,7 +25,6 @@ import QtQuick 2.0
 TechniqueFilter
 {
     property Layer screenQuadFXAALayer
-
     property Texture2D inTexture
 
     parameters: [
@@ -33,7 +32,6 @@ TechniqueFilter
     ]
 
     property RenderTarget outRenderTarget
-
 
     RenderStateSet
     {

@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.8.6 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Thierry Rodolfo</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -11,69 +11,69 @@
  <Type>Flower</Type>
  <Channel Name="Cluster Control 1">
   <Group Byte="0">Colour</Group>
-  <Capability Color="#000000" Min="0" Max="10">Closed</Capability>
-  <Capability Color="#ff0000" Min="11" Max="45">Red</Capability>
-  <Capability Color="#00ff00" Min="46" Max="80">Green</Capability>
-  <Capability Color="#0000ff" Min="81" Max="115">Blue</Capability>
-  <Capability Color="#ff0000" Color2="#00ff00" Min="116" Max="150">Red / Green</Capability>
-  <Capability Color="#ff0000" Color2="#0000ff" Min="151" Max="185">Red / Blue</Capability>
-  <Capability Color="#00ff00" Color2="#0000ff" Min="186" Max="220">Green / Blue</Capability>
-  <Capability Res="Others/rainbow.png" Min="221" Max="255">Red / Green / Blue</Capability>
+  <Capability Min="0" Max="10" Preset="ColorMacro" Res1="#000000">Closed</Capability>
+  <Capability Min="11" Max="45" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="46" Max="80" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="81" Max="115" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="116" Max="150" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red / Green</Capability>
+  <Capability Min="151" Max="185" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red / Blue</Capability>
+  <Capability Min="186" Max="220" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green / Blue</Capability>
+  <Capability Min="221" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Red / Green / Blue</Capability>
  </Channel>
  <Channel Name="Cluster Control 2">
   <Group Byte="0">Colour</Group>
-  <Capability Color="#000000" Min="0" Max="10">Closed</Capability>
-  <Capability Color="#ff0000" Min="11" Max="45">Red</Capability>
-  <Capability Color="#00ff00" Min="46" Max="80">Green</Capability>
-  <Capability Color="#0000ff" Min="81" Max="115">Blue</Capability>
-  <Capability Color="#ff0000" Color2="#00ff00" Min="116" Max="150">Red / Green</Capability>
-  <Capability Color="#ff0000" Color2="#0000ff" Min="151" Max="185">Red / Blue</Capability>
-  <Capability Color="#00ff00" Color2="#0000ff" Min="186" Max="220">Green / Blue</Capability>
-  <Capability Res="Others/rainbow.png" Min="221" Max="255">Red / Green / Blue</Capability>
+  <Capability Min="0" Max="10" Preset="ColorMacro" Res1="#000000">Closed</Capability>
+  <Capability Min="11" Max="45" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="46" Max="80" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="81" Max="115" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="116" Max="150" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red / Green</Capability>
+  <Capability Min="151" Max="185" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red / Blue</Capability>
+  <Capability Min="186" Max="220" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green / Blue</Capability>
+  <Capability Min="221" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Red / Green / Blue</Capability>
  </Channel>
  <Channel Name="Cluster Control 3">
   <Group Byte="0">Colour</Group>
-  <Capability Color="#000000" Min="0" Max="10">Closed</Capability>
-  <Capability Color="#ff0000" Min="11" Max="45">Red</Capability>
-  <Capability Color="#00ff00" Min="46" Max="80">Green</Capability>
-  <Capability Color="#0000ff" Min="81" Max="115">Blue</Capability>
-  <Capability Color="#ff0000" Color2="#00ff00" Min="116" Max="150">Red / Green</Capability>
-  <Capability Color="#ff0000" Color2="#0000ff" Min="151" Max="185">Red / Blue</Capability>
-  <Capability Color="#00ff00" Color2="#0000ff" Min="186" Max="220">Green / Blue</Capability>
-  <Capability Res="Others/rainbow.png" Min="221" Max="255">Red / Green / Blue</Capability>
+  <Capability Min="0" Max="10" Preset="ColorMacro" Res1="#000000">Closed</Capability>
+  <Capability Min="11" Max="45" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="46" Max="80" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="81" Max="115" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="116" Max="150" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red / Green</Capability>
+  <Capability Min="151" Max="185" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red / Blue</Capability>
+  <Capability Min="186" Max="220" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green / Blue</Capability>
+  <Capability Min="221" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Red / Green / Blue</Capability>
  </Channel>
  <Channel Name="Cluster Control 4">
   <Group Byte="0">Colour</Group>
-  <Capability Color="#000000" Min="0" Max="10">Closed</Capability>
-  <Capability Color="#ff0000" Min="11" Max="45">Red</Capability>
-  <Capability Color="#00ff00" Min="46" Max="80">Green</Capability>
-  <Capability Color="#0000ff" Min="81" Max="115">Blue</Capability>
-  <Capability Color="#ff0000" Color2="#00ff00" Min="116" Max="150">Red / Green</Capability>
-  <Capability Color="#ff0000" Color2="#0000ff" Min="151" Max="185">Red / Blue</Capability>
-  <Capability Color="#00ff00" Color2="#0000ff" Min="186" Max="220">Green / Blue</Capability>
-  <Capability Res="Others/rainbow.png" Min="221" Max="255">Red / Green / Blue</Capability>
+  <Capability Min="0" Max="10" Preset="ColorMacro" Res1="#000000">Closed</Capability>
+  <Capability Min="11" Max="45" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="46" Max="80" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="81" Max="115" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="116" Max="150" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red / Green</Capability>
+  <Capability Min="151" Max="185" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red / Blue</Capability>
+  <Capability Min="186" Max="220" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green / Blue</Capability>
+  <Capability Min="221" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Red / Green / Blue</Capability>
  </Channel>
  <Channel Name="Cluster Control 5">
   <Group Byte="0">Colour</Group>
-  <Capability Color="#000000" Min="0" Max="10">Closed</Capability>
-  <Capability Color="#ff0000" Min="11" Max="45">Red</Capability>
-  <Capability Color="#00ff00" Min="46" Max="80">Green</Capability>
-  <Capability Color="#0000ff" Min="81" Max="115">Blue</Capability>
-  <Capability Color="#ff0000" Color2="#00ff00" Min="116" Max="150">Red / Green</Capability>
-  <Capability Color="#ff0000" Color2="#0000ff" Min="151" Max="185">Red / Blue</Capability>
-  <Capability Color="#00ff00" Color2="#0000ff" Min="186" Max="220">Green / Blue</Capability>
-  <Capability Res="Others/rainbow.png" Min="221" Max="255">Red / Green / Blue</Capability>
+  <Capability Min="0" Max="10" Preset="ColorMacro" Res1="#000000">Closed</Capability>
+  <Capability Min="11" Max="45" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="46" Max="80" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="81" Max="115" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="116" Max="150" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red / Green</Capability>
+  <Capability Min="151" Max="185" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red / Blue</Capability>
+  <Capability Min="186" Max="220" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green / Blue</Capability>
+  <Capability Min="221" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Red / Green / Blue</Capability>
  </Channel>
  <Channel Name="Cluster Control 6">
   <Group Byte="0">Colour</Group>
-  <Capability Color="#000000" Min="0" Max="10">Closed</Capability>
-  <Capability Color="#ff0000" Min="11" Max="45">Red</Capability>
-  <Capability Color="#00ff00" Min="46" Max="80">Green</Capability>
-  <Capability Color="#0000ff" Min="81" Max="115">Blue</Capability>
-  <Capability Color="#ff0000" Color2="#00ff00" Min="116" Max="150">Red / Green</Capability>
-  <Capability Color="#ff0000" Color2="#0000ff" Min="151" Max="185">Red / Blue</Capability>
-  <Capability Color="#00ff00" Color2="#0000ff" Min="186" Max="220">Green / Blue</Capability>
-  <Capability Res="Others/rainbow.png" Min="221" Max="255">Red / Green / Blue</Capability>
+  <Capability Min="0" Max="10" Preset="ColorMacro" Res1="#000000">Closed</Capability>
+  <Capability Min="11" Max="45" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="46" Max="80" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="81" Max="115" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="116" Max="150" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red / Green</Capability>
+  <Capability Min="151" Max="185" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red / Blue</Capability>
+  <Capability Min="186" Max="220" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green / Blue</Capability>
+  <Capability Min="221" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Red / Green / Blue</Capability>
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
@@ -110,20 +110,12 @@
   <Channel Number="5">Cluster Control 6</Channel>
   <Channel Number="6">Strobe</Channel>
   <Channel Number="7">Auto Speed</Channel>
-  <Head>
-   <Channel>3</Channel>
-   <Channel>4</Channel>
-   <Channel>5</Channel>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
-   <Channel>2</Channel>
-  </Head>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Height="187" Width="302" Depth="382" Weight="1.8"/>
-   <Lens DegreesMin="16" DegreesMax="96" Name="Other"/>
-   <Focus TiltMax="0" PanMax="0" Type="Fixed"/>
-   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.8" Width="302" Height="187" Depth="382"/>
+  <Lens Name="Other" DegreesMin="16" DegreesMax="96"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

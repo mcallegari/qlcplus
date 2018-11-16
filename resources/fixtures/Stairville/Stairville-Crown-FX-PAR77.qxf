@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Andres Robles</Author>
  </Creator>
  <Manufacturer>Stairville</Manufacturer>
@@ -232,6 +232,7 @@
   <Dimensions Weight="1.7" Width="275" Height="280" Depth="76"/>
   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="2" Height="2"/>
   <Technical PowerConsumption="78" DmxConnector="5-pin"/>
  </Physical>
 </FixtureDefinition>

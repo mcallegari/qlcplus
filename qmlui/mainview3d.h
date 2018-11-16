@@ -80,13 +80,12 @@ typedef struct
     QEntity *m_armItem;
     /** Reference to the head entity used by moving heads */
     QEntity *m_headItem;
-    /** The attached light index */
-    unsigned int m_lightIndex;
     /** The bounding volume information */
     BoundingVolume m_volume;
     /** The selection box entity */
     QEntity *m_selectionBox;
-
+    /** Reference to the texture used to render the
+     *  currently selected gobo picture */
     GoboTextureImage *m_goboTexture;
 } SceneItem;
 
@@ -239,15 +238,19 @@ protected:
                            QLayer *layer, QEffect *effect,
                            bool calculateVolume, QVector3D translation);
 
+    void walkNode(QNode *e, int depth);
+
 private:
     Qt3DCore::QTransform *getTransform(QEntity *entity);
     QMaterial *getMaterial(QEntity *entity);
-    unsigned int getNewLightIndex();
     void updateLightMatrix(SceneItem *mesh);
 
 private:
     /** Reference to the Scene3D component */
     QQuickItem *m_scene3D;
+
+    /** Reference to the entity containing everything */
+    QEntity *m_scene3DEntity;
 
     /** Reference to the scene root entity for items creation */
     QEntity *m_sceneRootEntity;
@@ -259,7 +262,7 @@ private:
     QRenderTarget *m_gBuffer;
     QRenderTarget *m_frontDepthTarget;
 
-    /** Map of QLC+ fixture IDs and QML Entity items */
+    /** Map of QLC+ item IDs and SceneItem references */
     QMap<quint32, SceneItem*> m_entitiesMap;
 
     /** Cache of the loaded models against bounding volumes */

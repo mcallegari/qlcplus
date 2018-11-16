@@ -68,6 +68,8 @@ elementFormDefault="qualified"
         <xs:enumeration value="Scanner"/>
         <xs:enumeration value="Smoke"/>
         <xs:enumeration value="Strobe"/>
+        <xs:enumeration value="LED Bar (Beams)"/>
+        <xs:enumeration value="LED Bar (Pixels)"/>
     </xs:restriction>
 </xs:simpleType>
 
@@ -305,6 +307,7 @@ when changing this list -->
         <xs:element name="Dimensions" type="dimensionsType"/>
         <xs:element name="Lens" type="lensType"/>
         <xs:element name="Focus" type="focusType"/>
+        <xs:element name="Layout" type="layoutType" minOccurs="0"/>
         <xs:element name="Technical" type="technicalType" minOccurs="0"/>
     </xs:sequence>
 </xs:complexType>
@@ -333,6 +336,11 @@ when changing this list -->
     <xs:attribute name="DegreesMin" type="xs:decimal" use="required"/>
     <xs:attribute name="DegreesMax" type="xs:decimal" use="required"/>
     <xs:attribute name="PrismFaces" type="xs:positiveInteger"/>
+</xs:complexType>
+
+<xs:complexType name="layoutType">
+    <xs:attribute name="Width" type="xs:positiveInteger"/>
+    <xs:attribute name="Height" type="xs:positiveInteger"/>
 </xs:complexType>
 
 <xs:complexType name="focusType">

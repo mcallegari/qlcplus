@@ -91,6 +91,8 @@
     <file alias="knob.svg">knob.svg</file>
     <file alias="label.svg">label.svg</file>
     <file alias="laser.svg">laser.svg</file>
+    <file alias="ledbar_beams.svg">ledbar_beams.svg</file>
+    <file alias="ledbar_pixels.svg">ledbar_pixels.svg</file>
     <file alias="lock.svg">lock.svg</file>
     <file alias="loop.svg">loop.svg</file>
     <file alias="magenta.svg">magenta.svg</file>

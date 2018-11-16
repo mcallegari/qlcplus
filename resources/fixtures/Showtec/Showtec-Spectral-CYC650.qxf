@@ -1,14 +1,14 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>NiKoyes</Author>
  </Creator>
  <Manufacturer>Showtec</Manufacturer>
  <Model>Spectral CYC650</Model>
- <Type>Effect</Type>
+ <Type>LED Bar (Beams)</Type>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Pixel 1 Red" Preset="IntensityRed"/>
  <Channel Name="Pixel 1 Green" Preset="IntensityGreen"/>
@@ -204,50 +204,29 @@
   <Channel Number="7">Auto Speed</Channel>
   <Channel Number="8">Dimmer Speed</Channel>
   <Channel Number="9">Block</Channel>
-  <Head>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
-   <Channel>2</Channel>
-   <Channel>3</Channel>
-  </Head>
  </Mode>
  <Mode Name="ARC 1">
   <Channel Number="0">Red</Channel>
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
-  <Head>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
-   <Channel>2</Channel>
-  </Head>
  </Mode>
  <Mode Name="ARC 1+D">
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Red</Channel>
   <Channel Number="2">Green</Channel>
   <Channel Number="3">Blue</Channel>
-  <Head>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
-   <Channel>2</Channel>
-   <Channel>3</Channel>
-  </Head>
  </Mode>
  <Mode Name="HSV">
   <Channel Number="0">Hue</Channel>
   <Channel Number="1">Saturation</Channel>
   <Channel Number="2">Value</Channel>
-  <Head>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
-   <Channel>2</Channel>
-  </Head>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="640" ColourTemperature="0"/>
-   <Dimensions Weight="3.2" Width="500" Height="80" Depth="190"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="65" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="640" ColourTemperature="0"/>
+  <Dimensions Weight="3.2" Width="500" Height="80" Depth="190"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="8" Height="1"/>
+  <Technical PowerConsumption="65" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

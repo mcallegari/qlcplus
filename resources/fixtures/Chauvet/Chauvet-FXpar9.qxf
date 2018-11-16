@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>PeterK</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -185,6 +185,7 @@
   <Dimensions Weight="1.6" Width="275" Height="279" Depth="74"/>
   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="2" Height="2"/>
   <Technical PowerConsumption="77" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>

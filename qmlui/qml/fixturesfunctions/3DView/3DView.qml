@@ -63,7 +63,9 @@ Rectangle
         function updateSceneGraph(create)
         {
             var ic
-            var component
+            var iHead
+            var headEntity
+            var component, component2
             var sgNode
             var fixtures = []
             var fixtureItem
@@ -92,29 +94,37 @@ Rectangle
             if (create === false)
                 return
 
+            console.log("BUILDING FRAME GRAPH")
+
+            if (fixtures.length)
+            {
+                component = Qt.createComponent("RenderShadowMapFilter.qml");
+                if (component.status === Component.Error)
+                    console.log("Error loading component:", component.errorString())
+            }
+
             for (ic = 0; ic < fixtures.length; ++ic)
             {
                 fixtureItem = fixtures[ic]
 
                 if (fixtureItem.useShadows)
                 {
-                    component = Qt.createComponent("RenderShadowMapFilter.qml");
-                    if (component.status === Component.Error)
-                        console.log("Error loading component:", component.errorString());
-
-                    sgNode = component.createObject(frameGraph.myShadowFrameGraphNode,
+                    for (iHead = 0; iHead < fixtureItem.headsNumber; iHead++)
                     {
-                        "sceneDeferredLayer": sceneEntity.deferredLayer,
-                        "fixtureItem": fixtureItem
-                    });
+                        headEntity = fixtureItem.getHead(iHead)
+
+                        sgNode = component.createObject(frameGraph.myShadowFrameGraphNode,
+                        {
+                            "sceneDeferredLayer": sceneEntity.deferredLayer,
+                            "fixtureItem": headEntity
+                        });
+                    }
                 }
             }
 
-            console.log("BUILDING FRAME GRAPH")
-
             component = Qt.createComponent("FillGBufferFilter.qml");
             if (component.status === Component.Error)
-                console.log("Error loading component:", component.errorString());
+                console.log("Error loading component:", component.errorString())
 
             sgNode = component.createObject(frameGraph.myCameraSelector,
             {
@@ -124,7 +134,7 @@ Rectangle
 
             component = Qt.createComponent("RenderSelectionBoxesFilter.qml");
             if (component.status === Component.Error)
-                console.log("Error loading component:", component.errorString());
+                console.log("Error loading component:", component.errorString())
 
             sgNode = component.createObject(frameGraph.myCameraSelector,
             {
@@ -132,9 +142,73 @@ Rectangle
                 "layer": sceneEntity.selectionLayer,
             });
 
-            component = Qt.createComponent("DirectionalLightFilter.qml");
+            var texChainTargets = [texChainTarget0, texChainTarget1, texChainTarget2, texChainTarget3, texChainTarget4]         
+            var texChainTextures = [texChainTexture0, texChainTexture1, texChainTexture2, texChainTexture3, texChainTexture4]
+
+            var TEX_CHAIN_LEN = texChainTargets.length
+
+            var texChainDownsampleEntities = [
+                screenQuadDownsampleEntity0, screenQuadDownsampleEntity1, screenQuadDownsampleEntity2, screenQuadDownsampleEntity3,
+                 screenQuadDownsampleEntity4
+            ]
+
+            var texChainUpsampleEntities = [
+                screenQuadUpsampleEntity0, screenQuadUpsampleEntity1, screenQuadUpsampleEntity2, screenQuadUpsampleEntity3,
+                 screenQuadUpsampleEntity4
+            ]
+
+            component = Qt.createComponent("GrabBrightFilter.qml");
             if (component.status === Component.Error)
                 console.log("Error loading component:", component.errorString());
+
+            sgNode = component.createObject(frameGraph.myCameraSelector,
+            {
+                "gBuffer": gBufferTarget,
+                "screenQuadLayer": screenQuadGrabBrightEntity.quadLayer,
+                "outRenderTarget": texChainTargets[0]
+            });
+
+            var m_width = 1024.0
+            var m_height = 1024.0
+            var dim
+
+            component = Qt.createComponent("DownsampleFilter.qml");
+            if (component.status === Component.Error)
+                console.log("Error loading component:", component.errorString());
+
+            for (ic = 0; ic < (TEX_CHAIN_LEN - 1); ++ic)
+            {
+                dim = (1 << (ic + 1))
+
+                sgNode = component.createObject(frameGraph.myCameraSelector,
+                {
+                    "inTex": texChainTextures[ic],
+                    "screenQuadLayer": texChainDownsampleEntities[ic].quadLayer,
+                    "outRenderTarget": texChainTargets[ic + 1],
+                    "pixelSize": Qt.vector4d(1.0 / (m_width  / dim), 1.0 / (m_height / dim), 0, 0)
+                });
+            }
+
+            component = Qt.createComponent("UpsampleFilter.qml");
+            if (component.status === Component.Error)
+                console.log("Error loading component:", component.errorString());
+
+            for (ic = 0; ic < (TEX_CHAIN_LEN - 1); ++ic)
+            {
+                dim = (1 << (TEX_CHAIN_LEN - 2 - ic))
+                sgNode = component.createObject(frameGraph.myCameraSelector,
+                {
+                    "inTex": texChainTextures[TEX_CHAIN_LEN - 1 - ic],
+                    "screenQuadLayer": texChainUpsampleEntities[ic].quadLayer,
+                    "outRenderTarget": texChainTargets[TEX_CHAIN_LEN - ic - 2],
+                    "pixelSize": Qt.vector4d(1.0 / (m_width  / dim), 1.0 / (m_height / dim), 0, 0),
+                    "index":  Qt.vector4d( (TEX_CHAIN_LEN - 1 - ic), 0.0, 0, 0),
+                });
+            }
+
+            component = Qt.createComponent("DirectionalLightFilter.qml");
+            if (component.status === Component.Error)
+                console.log("Error loading component:", component.errorString())
             sgNode = component.createObject(frameGraph.myCameraSelector,
             {
                 "gBuffer": gBufferTarget,
@@ -142,51 +216,70 @@ Rectangle
                 "frameTarget": frameTarget
             });
 
-            for (ic = 0; ic < fixtures.length; ++ic)
+            if (fixtures.length)
             {
-                fixtureItem = fixtures[ic]
-
                 component = Qt.createComponent("SpotlightShadingFilter.qml");
                 if (component.status === Component.Error)
-                    console.log("Error loading component:", component.errorString());
-
-                sgNode = component.createObject(frameGraph.myCameraSelector,
-                {
-                    "gBuffer": gBufferTarget,
-                    "shadowTex": fixtureItem.shadowMap.depth,
-                    "useShadows": fixtureItem.useShadows,
-                    "spotlightShadingLayer": fixtureItem.spotlightShadingLayer,
-                    "frameTarget": frameTarget
-                });
+                    console.log("Error loading component:", component.errorString())
             }
 
             for (ic = 0; ic < fixtures.length; ++ic)
             {
                 fixtureItem = fixtures[ic]
 
-                if (fixtureItem.useScattering)
+                if (fixtureItem.useScattering === false)
+                    continue
+
+                for (iHead = 0; iHead < fixtureItem.headsNumber; iHead++)
                 {
-                    component = Qt.createComponent("OutputFrontDepthFilter.qml");
-                    if (component.status === Component.Error)
-                        console.log("Error loading component:", component.errorString());
+                    headEntity = fixtureItem.getHead(iHead)
+
+                    sgNode = component.createObject(frameGraph.myCameraSelector,
+                    {
+                        "gBuffer": gBufferTarget,
+                        "shadowTex": headEntity.depthTex,
+                        "useShadows": fixtureItem.useShadows,
+                        "spotlightShadingLayer": headEntity.spotlightShadingLayer,
+                        "frameTarget": frameTarget
+                    });
+                }
+            }
+
+            if (fixtures.length)
+            {
+                component = Qt.createComponent("OutputFrontDepthFilter.qml");
+                if (component.status === Component.Error)
+                    console.log("Error loading component:", component.errorString())
+
+                component2 = Qt.createComponent("SpotlightScatteringFilter.qml");
+                if (component2.status === Component.Error)
+                    console.log("Error loading component:", component2.errorString())
+            }
+
+            for (ic = 0; ic < fixtures.length; ++ic)
+            {
+                fixtureItem = fixtures[ic]
+
+                if (fixtureItem.useScattering === false)
+                    continue
+
+                for (iHead = 0; iHead < fixtureItem.headsNumber; iHead++)
+                {
+                    headEntity = fixtureItem.getHead(iHead)
 
                     sgNode = component.createObject(frameGraph.myCameraSelector,
                     {
                         "frontDepth": depthTarget,
-                        "outputDepthLayer": fixtureItem.outputDepthLayer
+                        "outputDepthLayer": headEntity.outputDepthLayer
                     });
 
-                    component = Qt.createComponent("SpotlightScatteringFilter.qml");
-                    if (component.status === Component.Error)
-                        console.log("Error loading component:", component.errorString());
-
-                    sgNode = component.createObject(frameGraph.myCameraSelector,
+                    sgNode = component2.createObject(frameGraph.myCameraSelector,
                     {
-                        "fixtureItem": fixtureItem,
+                        "fixtureItem": headEntity,
                         "frontDepth": depthTarget,
                         "gBuffer": gBufferTarget,
-                        "spotlightScatteringLayer": fixtureItem.spotlightScatteringLayer,
-                        "shadowTex": fixtureItem.shadowMap.depth,
+                        "spotlightScatteringLayer": headEntity.spotlightScatteringLayer,
+                        "shadowTex": headEntity.depthTex,
                         "frameTarget": frameTarget,
                         "useShadows": fixtureItem.useShadows
                     });
@@ -200,34 +293,36 @@ Rectangle
             sgNode = component.createObject(frameGraph.myCameraSelector,
             {
                 "hdrTexture": frameTarget.color,
+                "bloomTexture": texChainTextures[0],
                 "outRenderTarget": hdr0RenderTarget,
                 "screenQuadGammaCorrectLayer": screenQuadGammaCorrectEntity.layer
             });
 
             component = Qt.createComponent("FXAAFilter.qml");
             if (component.status === Component.Error)
-                console.log("Error loading component:", component.errorString());
+                console.log("Error loading component:", component.errorString())
 
             sgNode = component.createObject(frameGraph.myCameraSelector,
             {
                 "inTexture": hdr0ColorTexture,
                 "outRenderTarget": hdr1RenderTarget,
-                "screenQuadFXAALayer": screenQuadFXAAEntity.layer
+                "screenQuadFXAALayer": screenQuadFXAAEntity.quadLayer       
             });
 
             component = Qt.createComponent("BlitFilter.qml");
             if (component.status === Component.Error)
-                console.log("Error loading component:", component.errorString());
+                console.log("Error loading component:", component.errorString())
 
             sgNode = component.createObject(frameGraph.myCameraSelector,
             {
                 "inTexture": hdr1ColorTexture,
-                "screenQuadBlitLayer": screenQuadBlitEntity.layer
+                "screenQuadBlitLayer": screenQuadBlitEntity.quadLayer
             });
         }
 
         Entity
         {
+            objectName: "scene3DEntity"
             Component.onCompleted: contextManager.enableContext("3D", true, scene3d)
 
             OrbitCameraController
@@ -244,14 +339,264 @@ Rectangle
                 viewSize: Qt.size(scene3d.width, scene3d.height)
             }
             ScreenQuadGammaCorrectEntity { id: screenQuadGammaCorrectEntity }
-            ScreenQuadFXAAEntity { id: screenQuadFXAAEntity }
-            ScreenQuadBlitEntity { id: screenQuadBlitEntity }
+
+            GenericScreenQuadEntity
+            {
+                id: screenQuadFXAAEntity
+                quadLayer : Layer { }
+                quadEffect : FXAAEffect { }
+            }
+    
+            GenericScreenQuadEntity
+            {
+                id: screenQuadBlitEntity
+                quadLayer : Layer { }
+                quadEffect : BlitEffect { }
+            }
+
+            GenericScreenQuadEntity
+            {
+                id: screenQuadGrabBrightEntity
+                quadLayer : Layer { }
+                quadEffect : GrabBrightEffect { }
+            }
+
+            GenericScreenQuadEntity
+            {
+                id: screenQuadDownsampleEntity0
+                quadLayer : Layer { }
+                quadEffect : DownsampleEffect { }
+            }
+
+            GenericScreenQuadEntity
+            {
+                id: screenQuadDownsampleEntity1
+                quadLayer : Layer { }
+                quadEffect : DownsampleEffect { }
+            }
+
+            GenericScreenQuadEntity
+            {
+                id: screenQuadDownsampleEntity2
+                quadLayer : Layer { }
+                quadEffect : DownsampleEffect { }
+            }
+
+            GenericScreenQuadEntity
+            {
+                id: screenQuadDownsampleEntity3
+                quadLayer : Layer { }
+                quadEffect : DownsampleEffect { }
+            }
+
+            GenericScreenQuadEntity
+            {
+                id: screenQuadDownsampleEntity4
+                quadLayer : Layer { }
+                quadEffect : DownsampleEffect { }
+            }
+
+            GenericScreenQuadEntity
+            {
+                id: screenQuadUpsampleEntity0
+                quadLayer : Layer { }
+                quadEffect : UpsampleEffect { }
+            }
+
+            GenericScreenQuadEntity
+            {
+                id: screenQuadUpsampleEntity1
+                quadLayer : Layer { }
+                quadEffect : UpsampleEffect { }
+            }
+
+            GenericScreenQuadEntity
+            {
+                id: screenQuadUpsampleEntity2
+                quadLayer : Layer { }
+                quadEffect : UpsampleEffect { }
+            }
+
+            GenericScreenQuadEntity
+            {
+                id: screenQuadUpsampleEntity3
+                quadLayer : Layer { }
+                quadEffect : UpsampleEffect { }
+            }
+
+            GenericScreenQuadEntity
+            {
+                id: screenQuadUpsampleEntity4
+                quadLayer : Layer { }
+                quadEffect : UpsampleEffect { }
+            }
 
             ScreenQuadEntity { id: screenQuadEntity }
 
             GBuffer { id: gBufferTarget }
 
             FrameTarget { id: frameTarget }
+
+            Texture2D
+            {
+                id: texChainTexture0
+                width: 1024
+                height: 1024
+                format: Texture.RGBA32F
+                generateMipMaps: false
+                magnificationFilter: Texture.Linear
+                minificationFilter: Texture.Linear
+                wrapMode
+                {
+                    x: WrapMode.ClampToEdge
+                    y: WrapMode.ClampToEdge
+                }
+            }
+
+            RenderTarget
+            {
+                id: texChainTarget0
+                attachments: [
+                    RenderTargetOutput
+                    {
+                        objectName: "color"
+                        attachmentPoint: RenderTargetOutput.Color0
+                        texture: texChainTexture0
+                    }
+                ]
+            }
+
+            Texture2D
+            {
+                id: texChainTexture1
+                width: 512
+                height: 512
+                format: Texture.RGBA32F
+                generateMipMaps: false
+                magnificationFilter: Texture.Linear
+                minificationFilter: Texture.Linear
+                wrapMode
+                {
+                    x: WrapMode.ClampToEdge
+                    y: WrapMode.ClampToEdge
+                }
+            }
+
+            RenderTarget
+            {
+                id: texChainTarget1
+                attachments: [
+                    RenderTargetOutput
+                    {
+                        objectName: "color"
+                        attachmentPoint: RenderTargetOutput.Color0
+                        texture: texChainTexture1
+                    }
+                ]
+            }
+
+            Texture2D
+            {
+                id: texChainTexture2
+                width: 256
+                height: 256
+                format: Texture.RGBA32F
+                generateMipMaps: false
+                magnificationFilter: Texture.Linear
+                minificationFilter: Texture.Linear
+                wrapMode
+                {
+                    x: WrapMode.ClampToEdge
+                    y: WrapMode.ClampToEdge
+                }
+            }
+
+            RenderTarget
+            {
+                id: texChainTarget2
+                attachments: [
+                    RenderTargetOutput
+                    {
+                        objectName: "color"
+                        attachmentPoint: RenderTargetOutput.Color0
+                        texture: texChainTexture2
+                    }
+                ]
+            }
+
+            Texture2D
+            {
+                id: texChainTexture3
+                width: 128
+                height: 128
+                format: Texture.RGBA32F
+                generateMipMaps: false
+                magnificationFilter: Texture.Linear
+                minificationFilter: Texture.Linear
+                wrapMode
+                {
+                    x: WrapMode.ClampToEdge
+                    y: WrapMode.ClampToEdge
+                }
+            }
+
+            RenderTarget
+            {
+                id: texChainTarget3
+                attachments: [
+                    RenderTargetOutput
+                    {
+                        objectName: "color"
+                        attachmentPoint: RenderTargetOutput.Color0
+                        texture: texChainTexture3
+                    }
+                ]
+            }
+
+            RenderTarget
+            {
+                id: texChainTarget4
+                attachments: [
+                    RenderTargetOutput
+                    {
+                        objectName: "color"
+                        attachmentPoint: RenderTargetOutput.Color0
+                        texture:
+                            Texture2D
+                            {
+                                id: texChainTexture4
+                                width: 64
+                                height: 64
+                                format: Texture.RGBA32F
+                                generateMipMaps: false
+                                magnificationFilter: Texture.Linear
+                                minificationFilter: Texture.Linear
+                                wrapMode
+                                {
+                                    x: WrapMode.ClampToEdge
+                                    y: WrapMode.ClampToEdge
+                                }
+                            }
+                    }
+                ] // attachments
+            }   
+
+            property Texture2D hdr0ColorTexture:
+                Texture2D
+                {
+                    id: hdr0ColorTexture
+                    width: 1024
+                    height: 1024
+                    format: Texture.RGBA32F
+                    generateMipMaps: false
+                    magnificationFilter: Texture.Linear
+                    minificationFilter: Texture.Linear
+                    wrapMode
+                    {
+                        x: WrapMode.ClampToEdge
+                        y: WrapMode.ClampToEdge
+                    }
+                }
 
             RenderTarget
             {
@@ -261,25 +606,27 @@ Rectangle
                     {
                         objectName: "color"
                         attachmentPoint: RenderTargetOutput.Color0
-                        texture:
-                            Texture2D
-                            {
-                                id: hdr0ColorTexture
-                                width: 1024
-                                height: 1024
-                                format: Texture.RGBA32F
-                                generateMipMaps: false
-                                magnificationFilter: Texture.Linear
-                                minificationFilter: Texture.Linear
-                                wrapMode
-                                {
-                                    x: WrapMode.ClampToEdge
-                                    y: WrapMode.ClampToEdge
-                                }
-                            }
+                        texture: hdr0ColorTexture
                     }
-                ] // outputs
+                ]
             }
+
+            property Texture2D hdr1ColorTexture:
+                Texture2D
+                {
+                    id: hdr1ColorTexture
+                    width: 1024
+                    height: 1024
+                    format: Texture.RGBA32F
+                    generateMipMaps: false
+                    magnificationFilter: Texture.Linear
+                    minificationFilter: Texture.Linear
+                    wrapMode
+                    {
+                        x: WrapMode.ClampToEdge
+                        y: WrapMode.ClampToEdge
+                    }
+                }
 
             RenderTarget
             {
@@ -289,24 +636,9 @@ Rectangle
                     {
                         objectName: "color"
                         attachmentPoint: RenderTargetOutput.Color0
-                        texture:
-                            Texture2D
-                            {
-                                id: hdr1ColorTexture
-                                width: 1024
-                                height: 1024
-                                format: Texture.RGBA32F
-                                generateMipMaps: false
-                                magnificationFilter: Texture.Linear
-                                minificationFilter: Texture.Linear
-                                wrapMode
-                                {
-                                    x: WrapMode.ClampToEdge
-                                    y: WrapMode.ClampToEdge
-                                }
-                            }
+                        texture: hdr1ColorTexture
                     }
-                ] // outputs
+                ]
             }
 
             DepthTarget { id: depthTarget }

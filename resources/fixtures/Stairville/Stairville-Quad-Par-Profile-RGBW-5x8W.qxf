@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.2 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Nicolas Rasor</Author>
  </Creator>
  <Manufacturer>Stairville</Manufacturer>
@@ -52,12 +52,6 @@
   <Channel Number="1">Green</Channel>
   <Channel Number="2">Blue</Channel>
   <Channel Number="3">White</Channel>
-  <Head>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
-   <Channel>2</Channel>
-   <Channel>3</Channel>
-  </Head>
  </Mode>
  <Mode Name="6ch">
   <Channel Number="0">Red</Channel>
@@ -66,13 +60,6 @@
   <Channel Number="3">White</Channel>
   <Channel Number="4">Dimmer</Channel>
   <Channel Number="5">Strobe</Channel>
-  <Head>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
-   <Channel>2</Channel>
-   <Channel>3</Channel>
-   <Channel>4</Channel>
-  </Head>
  </Mode>
  <Mode Name="8ch">
   <Channel Number="0">Dimmer</Channel>
@@ -83,13 +70,6 @@
   <Channel Number="5">Macro</Channel>
   <Channel Number="6">Constant Color/Chasespeed Ch. 6</Channel>
   <Channel Number="7">Strobe</Channel>
-  <Head>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
-   <Channel>2</Channel>
-   <Channel>3</Channel>
-   <Channel>4</Channel>
-  </Head>
  </Mode>
  <Physical>
   <Bulb Type="LED" Lumens="9000" ColourTemperature="0"/>

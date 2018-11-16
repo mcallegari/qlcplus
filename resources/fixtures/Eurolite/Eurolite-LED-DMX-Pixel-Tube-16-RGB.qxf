@@ -1,14 +1,14 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.7.0</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Ryan Gough</Author>
  </Creator>
  <Manufacturer>Eurolite</Manufacturer>
  <Model>LED DMX Pixel Tube 16 RGB IP20</Model>
- <Type>Color Changer</Type>
+ <Type>LED Bar (Pixels)</Type>
  <Channel Name="Red 1" Preset="IntensityRed"/>
  <Channel Name="Green 1" Preset="IntensityGreen"/>
  <Channel Name="Blue 1" Preset="IntensityBlue"/>
@@ -187,11 +187,12 @@
    <Channel>45</Channel>
   </Head>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="LED"/>
-   <Dimensions Weight="1" Width="1005" Depth="50" Height="75"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical PowerConsumption="38" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1" Width="1005" Height="75" Depth="50"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="16" Height="1"/>
+  <Technical PowerConsumption="38" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.0 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Fotis</Author>
  </Creator>
  <Manufacturer>Flash-Butrym</Manufacturer>
@@ -316,6 +316,7 @@
   <Dimensions Weight="2.8" Width="27" Height="30" Depth="125"/>
   <Lens Name="Other" DegreesMin="50" DegreesMax="50"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="2" Height="2"/>
   <Technical PowerConsumption="120" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>

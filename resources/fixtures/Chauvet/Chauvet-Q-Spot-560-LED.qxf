@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.2 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Chris Laurie</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -30,7 +30,7 @@
   <Capability Min="160" Max="179" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ff00">Yellow / Green</Capability>
   <Capability Min="180" Max="199" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff0000">Green / Red</Capability>
   <Capability Min="200" Max="219" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red / White</Capability>
-  <Capability Min="220" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow / Linear Effect </Capability>
+  <Capability Min="220" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow / Linear Effect</Capability>
  </Channel>
  <Channel Name="Gobo Wheel 1">
   <Group Byte="0">Gobo</Group>
@@ -70,7 +70,7 @@
  </Channel>
  <Channel Name="Gobo Rotation">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="60">360° Indexing </Capability>
+  <Capability Min="0" Max="60">360° Indexing</Capability>
   <Capability Min="61" Max="150">Rotation (slow-fast)</Capability>
   <Capability Min="151" Max="165">No Function</Capability>
   <Capability Min="166" Max="255">Counter Rotation (slow-fast)</Capability>
@@ -93,7 +93,7 @@
   <Capability Min="96" Max="127">Open</Capability>
   <Capability Min="128" Max="159">Pulse Strobe (slow-fast)</Capability>
   <Capability Min="160" Max="191">Open</Capability>
-  <Capability Min="192" Max="223">Random Strobe </Capability>
+  <Capability Min="192" Max="223">Random Strobe</Capability>
   <Capability Min="224" Max="255">Open</Capability>
  </Channel>
  <Channel Name="Control">
@@ -173,24 +173,6 @@
   <Channel Number="14">Dimmer</Channel>
   <Channel Number="15">Strobe</Channel>
   <Channel Number="16">Control</Channel>
-  <Head>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
-   <Channel>2</Channel>
-   <Channel>3</Channel>
-   <Channel>4</Channel>
-   <Channel>5</Channel>
-   <Channel>6</Channel>
-   <Channel>7</Channel>
-   <Channel>8</Channel>
-   <Channel>9</Channel>
-   <Channel>11</Channel>
-   <Channel>12</Channel>
-   <Channel>13</Channel>
-   <Channel>14</Channel>
-   <Channel>15</Channel>
-   <Channel>16</Channel>
-  </Head>
  </Mode>
  <Mode Name="Basic">
   <Channel Number="0">Pan</Channel>
@@ -206,21 +188,6 @@
   <Channel Number="10">Dimmer</Channel>
   <Channel Number="11">Strobe</Channel>
   <Channel Number="12">Control</Channel>
-  <Head>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
-   <Channel>2</Channel>
-   <Channel>3</Channel>
-   <Channel>4</Channel>
-   <Channel>5</Channel>
-   <Channel>6</Channel>
-   <Channel>7</Channel>
-   <Channel>8</Channel>
-   <Channel>9</Channel>
-   <Channel>10</Channel>
-   <Channel>11</Channel>
-   <Channel>12</Channel>
-  </Head>
  </Mode>
  <Physical>
   <Bulb Type="LED" Lumens="5400" ColourTemperature="0"/>

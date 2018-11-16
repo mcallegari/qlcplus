@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.7.0</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Lorenzo Andreani</Author>
  </Creator>
  <Manufacturer>Proel</Manufacturer>
@@ -44,11 +44,12 @@
  <Mode Name="1Ch Group Mode">
   <Channel Number="0">Ch1 Dimmer</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
-   <Dimensions Width="482" Height="85" Weight="7.1" Depth="370"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="1000" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="7.1" Width="482" Height="85" Depth="370"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="3" Height="2"/>
+  <Technical PowerConsumption="1000" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

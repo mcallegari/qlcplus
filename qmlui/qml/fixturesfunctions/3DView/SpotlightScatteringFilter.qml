@@ -28,12 +28,11 @@ TechniqueFilter
     property Layer spotlightScatteringLayer
     property DepthTarget frontDepth
     property GBuffer gBuffer
-    property real lightIntensity
     property Texture2D shadowTex: null
     property FrameTarget frameTarget
     property bool useShadows: true
 
-    property Fixture3DItem fixtureItem
+    property Entity fixtureItem
 
     parameters: [
         Parameter { name: "frontDepthTex"; value: frontDepth ? frontDepth.position : null },
@@ -64,7 +63,8 @@ TechniqueFilter
         {
             layers: spotlightScatteringLayer
 
-            RenderTargetSelector {
+            RenderTargetSelector
+            {
                 target: frameTarget
                 RenderPassFilter
                 {

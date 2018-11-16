@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.1 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Thorben / Fredje</Author>
  </Creator>
  <Manufacturer>Stairville</Manufacturer>
@@ -329,11 +329,12 @@
   <Channel Number="12">Special Functions</Channel>
   <Channel Number="13">Preprogrammed movement patterns</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="10.6" Width="340" Height="420" Depth="250"/>
-   <Lens Name="Other" DegreesMin="10" DegreesMax="50"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="320" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="10.6" Width="340" Height="420" Depth="250"/>
+  <Lens Name="Other" DegreesMin="10" DegreesMax="50"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Layout Width="5" Height="1"/>
+  <Technical PowerConsumption="320" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

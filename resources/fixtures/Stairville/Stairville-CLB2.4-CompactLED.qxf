@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.0 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Patrick Rabl/Klaus Muth</Author>
  </Creator>
  <Manufacturer>Stairville</Manufacturer>
@@ -56,21 +56,21 @@
  </Channel>
  <Channel Name="Fixed colors">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="17" Color="#000000">LEDs off</Capability>
-  <Capability Min="18" Max="35" Color="#19fcff">Cyan</Capability>
-  <Capability Min="36" Max="53" Color="#800080">Purple</Capability>
-  <Capability Min="54" Max="71" Color="#ff4fde">Pink</Capability>
-  <Capability Min="72" Max="89" Color="#ffaa00">Orange</Capability>
-  <Capability Min="90" Max="107" Color="#ffffff">White</Capability>
-  <Capability Min="108" Max="125" Color="#ff5163">Light red</Capability>
-  <Capability Min="126" Max="143" Color="#a8ffa6">Light green</Capability>
-  <Capability Min="144" Max="161" Color="#89abff">Light blue</Capability>
-  <Capability Min="162" Max="179" Color="#fffb11">Yellow</Capability>
-  <Capability Min="180" Max="197" Color="#fff2d0">Warm white</Capability>
-  <Capability Min="198" Max="215" Color="#ff0000">Red</Capability>
-  <Capability Min="216" Max="233" Color="#00ff00">Green</Capability>
-  <Capability Min="234" Max="251" Color="#0000ff">Blue</Capability>
-  <Capability Min="252" Max="255" Color="#ff713b">Amber</Capability>
+  <Capability Min="0" Max="17" Preset="ColorMacro" Res1="#000000">LEDs off</Capability>
+  <Capability Min="18" Max="35" Preset="ColorMacro" Res1="#19fcff">Cyan</Capability>
+  <Capability Min="36" Max="53" Preset="ColorMacro" Res1="#800080">Purple</Capability>
+  <Capability Min="54" Max="71" Preset="ColorMacro" Res1="#ff4fde">Pink</Capability>
+  <Capability Min="72" Max="89" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
+  <Capability Min="90" Max="107" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="108" Max="125" Preset="ColorMacro" Res1="#ff5163">Light red</Capability>
+  <Capability Min="126" Max="143" Preset="ColorMacro" Res1="#a8ffa6">Light green</Capability>
+  <Capability Min="144" Max="161" Preset="ColorMacro" Res1="#89abff">Light blue</Capability>
+  <Capability Min="162" Max="179" Preset="ColorMacro" Res1="#fffb11">Yellow</Capability>
+  <Capability Min="180" Max="197" Preset="ColorMacro" Res1="#fff2d0">Warm white</Capability>
+  <Capability Min="198" Max="215" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="216" Max="233" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="234" Max="251" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="252" Max="255" Preset="ColorMacro" Res1="#ff713b">Amber</Capability>
  </Channel>
  <Mode Name="14 Channel">
   <Channel Number="0">Dimmer</Channel>
@@ -152,11 +152,12 @@
   <Channel Number="5">Speed/Sensitivity</Channel>
   <Channel Number="6">Strobe</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="1364" ColourTemperature="0"/>
-   <Dimensions Weight="5.6" Width="1007" Height="305" Depth="63"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="1364" ColourTemperature="0"/>
+  <Dimensions Weight="5.6" Width="1007" Height="305" Depth="63"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

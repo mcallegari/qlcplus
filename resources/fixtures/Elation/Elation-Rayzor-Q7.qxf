@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.9.1 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Thierry Rodolfo</Author>
  </Creator>
  <Manufacturer>Elation</Manufacturer>
@@ -203,11 +203,12 @@
   <Channel Number="15">Chase Speed</Channel>
   <Channel Number="16">Reset internal programs</Channel>
  </Mode>
-<Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Weight="4.9" Height="317" Width="235" Depth="140"/>
-   <Lens DegreesMin="7" Name="Other" DegreesMax="13"/>
-   <Focus TiltMax="265" Type="Head" PanMax="540"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="140"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4.9" Width="235" Height="317" Depth="140"/>
+  <Lens Name="Other" DegreesMin="7" DegreesMax="13"/>
+  <Focus Type="Head" PanMax="540" TiltMax="265"/>
+  <Layout Width="2" Height="2"/>
+  <Technical PowerConsumption="140" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

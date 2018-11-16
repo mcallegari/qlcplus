@@ -27,11 +27,14 @@ TechniqueFilter
  //   property GBuffer gBuffer
     property Layer screenQuadGammaCorrectLayer
 
-    property Texture2D hdrTexture
+    property Texture2D hdrTexture: null
+    property Texture2D bloomTexture: null
+    
     property RenderTarget outRenderTarget
 
     parameters: [
-        Parameter { name: "hdrTex"; value: hdrTexture }
+        Parameter { name: "hdrTex"; value: hdrTexture },
+        Parameter { name: "bloomTex"; value: bloomTexture }
     ]
 
     RenderStateSet

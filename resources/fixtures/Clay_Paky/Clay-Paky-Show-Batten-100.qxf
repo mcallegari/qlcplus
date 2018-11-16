@@ -1,14 +1,14 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.8.5 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>Thierry Rodolfo</Author>
  </Creator>
  <Manufacturer>Clay Paky</Manufacturer>
  <Model>Show Batten 100</Model>
- <Type>Moving Head</Type>
+ <Type>LED Bar (Beams)</Type>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>
  <Channel Name="Blue" Preset="IntensityBlue"/>
@@ -266,11 +266,12 @@
   <Channel Number="8">Zoom</Channel>
   <Channel Number="9">Tilt</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="2800" Type="LED" ColourTemperature="6000"/>
-   <Dimensions Width="1000" Height="100" Weight="10" Depth="186"/>
-   <Lens DegreesMax="48" Name="Other" DegreesMin="10"/>
-   <Focus PanMax="0" Type="Head" TiltMax="240"/>
-   <Technical PowerConsumption="170" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="2800" ColourTemperature="6000"/>
+  <Dimensions Weight="10" Width="1000" Height="100" Depth="186"/>
+  <Lens Name="Other" DegreesMin="10" DegreesMax="48"/>
+  <Focus Type="Head" PanMax="0" TiltMax="240"/>
+  <Layout Width="10" Height="1"/>
+  <Technical PowerConsumption="170" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
 </FixtureDefinition>

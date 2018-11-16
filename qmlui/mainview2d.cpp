@@ -200,6 +200,23 @@ void MainView2D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
         QVector3D newPos = FixtureUtils::item3DPosition(m_monProps, itemPos, 1000.0);
         m_monProps->setFixturePosition(fxID, headIndex, linkedIndex, newPos);
         m_monProps->setFixtureFlags(fxID, headIndex, linkedIndex, 0);
+        if (fixture->type() == QLCFixtureDef::LEDBarPixels)
+        {
+            switch (m_monProps->pointOfView())
+            {
+                case MonitorProperties::FrontView:
+                    m_monProps->setFixtureRotation(fxID, headIndex, linkedIndex, QVector3D(90, 0, 0));
+                break;
+                case MonitorProperties::LeftSideView:
+                    m_monProps->setFixtureRotation(fxID, headIndex, linkedIndex, QVector3D(0, -90, 0));
+                break;
+                case MonitorProperties::RightSideView:
+                    m_monProps->setFixtureRotation(fxID, headIndex, linkedIndex, QVector3D(0, 90, 0));
+                break;
+                default:
+                break;
+            }
+        }
         Tardis::instance()->enqueueAction(Tardis::FixtureSetPosition, itemID, QVariant(QVector3D(0, 0, 0)), QVariant(newPos));
     }
 
@@ -336,6 +353,7 @@ void MainView2D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
 {
     quint32 itemID = FixtureUtils::fixtureItemID(fixture->id(), headIndex, linkedIndex);
     QQuickItem *fxItem = m_itemsMap.value(itemID, NULL);
+    QColor color;
     bool colorSet = false;
     bool goboSet = false;
     bool setPosition = false;
@@ -380,9 +398,11 @@ void MainView2D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                 Q_ARG(QVariant, headIdx),
                 Q_ARG(QVariant, intValue));
 
+        color = FixtureUtils::headColor(fixture, headIdx);
+
         QMetaObject::invokeMethod(fxItem, "setHeadRGBColor",
                                   Q_ARG(QVariant, headIdx),
-                                  Q_ARG(QVariant, FixtureUtils::headColor(fixture, headIdx)));
+                                  Q_ARG(QVariant, color));
         colorSet = true;
     } // for heads
 
@@ -434,6 +454,8 @@ void MainView2D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                 {
                     if (wheelColor2.isValid())
                     {
+                        wheelColor1 = FixtureUtils::applyColorFilter(color, wheelColor1);
+                        wheelColor2 = FixtureUtils::applyColorFilter(color, wheelColor2);
                         QMetaObject::invokeMethod(fxItem, "setWheelColor",
                                                   Q_ARG(QVariant, 0),
                                                   Q_ARG(QVariant, wheelColor1),
@@ -441,6 +463,7 @@ void MainView2D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                     }
                     else
                     {
+                        wheelColor1 = FixtureUtils::applyColorFilter(color, wheelColor1);
                         QMetaObject::invokeMethod(fxItem, "setHeadRGBColor",
                                                   Q_ARG(QVariant, 0),
                                                   Q_ARG(QVariant, wheelColor1));
@@ -555,7 +578,20 @@ void MainView2D::updateFixtureRotation(quint32 itemID, QVector3D degrees)
         return;
 
     QQuickItem *fxItem = m_itemsMap[itemID];
-    fxItem->setProperty("rotation", degrees.y());
+
+    switch(m_monProps->pointOfView())
+    {
+        case MonitorProperties::FrontView:
+            fxItem->setProperty("rotation", degrees.z());
+        break;
+        case MonitorProperties::LeftSideView:
+        case MonitorProperties::RightSideView:
+            fxItem->setProperty("rotation", degrees.x());
+        break;
+        default:
+            fxItem->setProperty("rotation", degrees.y());
+        break;
+    }
 }
 
 void MainView2D::updateFixturePosition(quint32 itemID, QVector3D pos)

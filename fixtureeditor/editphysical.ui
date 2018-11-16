@@ -25,101 +25,134 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>661</width>
-    <height>540</height>
+    <width>524</width>
+    <height>500</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string notr="true">Edit physical</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_14">
-   <item row="0" column="1">
-    <widget class="QGroupBox" name="groupBox_9">
+   <item row="1" column="0">
+    <widget class="QGroupBox" name="groupBox_7">
      <property name="title">
-      <string>Dimensions</string>
+      <string>Head(s)</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout_12">
+     <layout class="QGridLayout" name="gridLayout_10">
       <item row="0" column="0">
-       <widget class="QLabel" name="m_weightLabel">
+       <widget class="QLabel" name="m_focusTypeLabel">
         <property name="text">
-         <string>Weight</string>
+         <string>Type</string>
         </property>
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QDoubleSpinBox" name="m_weightSpin">
-        <property name="suffix">
-         <string>kg</string>
+       <widget class="QComboBox" name="m_focusTypeCombo">
+        <property name="editable">
+         <bool>true</bool>
         </property>
-        <property name="maximum">
-         <double>999.990000000000009</double>
-        </property>
+        <item>
+         <property name="text">
+          <string notr="true">Fixed</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">Head</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">Mirror</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">Barrel</string>
+         </property>
+        </item>
        </widget>
       </item>
       <item row="1" column="0">
-       <widget class="QLabel" name="m_widthLabel">
+       <widget class="QLabel" name="m_panMaxLabel">
         <property name="text">
-         <string>Width</string>
+         <string>Pan Max Degrees</string>
         </property>
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QSpinBox" name="m_widthSpin">
+       <widget class="QSpinBox" name="m_panMaxSpin">
         <property name="accelerated">
          <bool>true</bool>
         </property>
-        <property name="suffix">
-         <string>mm</string>
-        </property>
         <property name="maximum">
-         <number>9999</number>
+         <number>999</number>
         </property>
        </widget>
       </item>
       <item row="2" column="0">
-       <widget class="QLabel" name="m_heightLabel">
+       <widget class="QLabel" name="m_tiltMaxLabel">
         <property name="text">
-         <string>Height</string>
+         <string>Tilt Max Degrees</string>
         </property>
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QSpinBox" name="m_heightSpin">
+       <widget class="QSpinBox" name="m_tiltMaxSpin">
         <property name="accelerated">
          <bool>true</bool>
         </property>
-        <property name="suffix">
-         <string>mm</string>
-        </property>
         <property name="maximum">
-         <number>9999</number>
+         <number>999</number>
         </property>
        </widget>
       </item>
       <item row="3" column="0">
-       <widget class="QLabel" name="m_depthLabel">
+       <widget class="QLabel" name="label">
         <property name="text">
-         <string>Depth</string>
+         <string>Layout
+(Columns x Rows)</string>
         </property>
        </widget>
       </item>
       <item row="3" column="1">
-       <widget class="QSpinBox" name="m_depthSpin">
-        <property name="accelerated">
-         <bool>true</bool>
-        </property>
-        <property name="suffix">
-         <string>mm</string>
-        </property>
-        <property name="maximum">
-         <number>9999</number>
-        </property>
-       </widget>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QSpinBox" name="m_layoutColsSpin">
+          <property name="minimum">
+           <number>1</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string notr="true">x</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="m_layoutRowsSpin">
+          <property name="minimum">
+           <number>1</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </widget>
    </item>
-   <item row="2" column="0">
+   <item row="4" column="0">
     <widget class="QGroupBox" name="groupBox_6">
      <property name="title">
       <string>Electrical</string>
@@ -190,7 +223,7 @@
      </layout>
     </widget>
    </item>
-   <item row="2" column="1">
+   <item row="4" column="1">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QToolButton" name="copyClipboardButton">
@@ -581,84 +614,7 @@
      </layout>
     </widget>
    </item>
-   <item row="1" column="1">
-    <widget class="QGroupBox" name="groupBox_7">
-     <property name="title">
-      <string>Head(s)</string>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_10">
-      <item row="0" column="0">
-       <widget class="QLabel" name="m_focusTypeLabel">
-        <property name="text">
-         <string>Type</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QComboBox" name="m_focusTypeCombo">
-        <property name="editable">
-         <bool>true</bool>
-        </property>
-        <item>
-         <property name="text">
-          <string notr="true">Fixed</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string notr="true">Head</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string notr="true">Mirror</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string notr="true">Barrel</string>
-         </property>
-        </item>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="m_panMaxLabel">
-        <property name="text">
-         <string>Pan Max Degrees</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QSpinBox" name="m_panMaxSpin">
-        <property name="accelerated">
-         <bool>true</bool>
-        </property>
-        <property name="maximum">
-         <number>999</number>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="m_tiltMaxLabel">
-        <property name="text">
-         <string>Tilt Max Degrees</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QSpinBox" name="m_tiltMaxSpin">
-        <property name="accelerated">
-         <bool>true</bool>
-        </property>
-        <property name="maximum">
-         <number>999</number>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="1" column="0">
+   <item row="0" column="1">
     <widget class="QGroupBox" name="groupBox_8">
      <property name="title">
       <string>Lens</string>
@@ -735,6 +691,105 @@
       </item>
      </layout>
     </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QGroupBox" name="groupBox_9">
+     <property name="title">
+      <string>Dimensions</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_12">
+      <item row="0" column="1">
+       <widget class="QDoubleSpinBox" name="m_weightSpin">
+        <property name="suffix">
+         <string>kg</string>
+        </property>
+        <property name="maximum">
+         <double>999.990000000000009</double>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="m_widthLabel">
+        <property name="text">
+         <string>Width</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QSpinBox" name="m_widthSpin">
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="suffix">
+         <string>mm</string>
+        </property>
+        <property name="maximum">
+         <number>9999</number>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="m_heightLabel">
+        <property name="text">
+         <string>Height</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QSpinBox" name="m_heightSpin">
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="suffix">
+         <string>mm</string>
+        </property>
+        <property name="maximum">
+         <number>9999</number>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="m_depthLabel">
+        <property name="text">
+         <string>Depth</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QSpinBox" name="m_depthSpin">
+        <property name="accelerated">
+         <bool>true</bool>
+        </property>
+        <property name="suffix">
+         <string>mm</string>
+        </property>
+        <property name="maximum">
+         <number>9999</number>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="m_weightLabel">
+        <property name="text">
+         <string>Weight</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="5" column="0" colspan="2">
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
    </item>
   </layout>
  </widget>

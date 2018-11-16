@@ -3,12 +3,12 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.1 GIT</Version>
   <Author>René Brixel</Author>
  </Creator>
  <Manufacturer>Cameo</Manufacturer>
  <Model>LED Colour Bar RGBA (CLBAR10RGBA)</Model>
- <Type>Color Changer</Type>
+ <Type>LED Bar (Pixels)</Type>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Colour-Macro">
   <Group Byte="0">Colour</Group>
@@ -245,6 +245,7 @@
   <Dimensions Weight="2.5" Width="1018" Height="63" Depth="87"/>
   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>
