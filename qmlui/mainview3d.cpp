@@ -1875,8 +1875,8 @@ void MainView3D::setSmokeAmount(float smokeAmount)
  *  ********************************************************************************* */
 
 GoboTextureImage::GoboTextureImage(int w, int h, QString filename)
+    : m_renderer(nullptr)
 {
-    m_renderer = new QSvgRenderer();
     setSize(QSize(w, h));
     setSource(filename);
 }
@@ -1892,8 +1892,21 @@ void GoboTextureImage::setSource(QString filename)
         return;
 
     m_source = filename;
-    if (m_renderer->load(m_source) == false)
-        qWarning() << "Failed to load SVG gobo" << m_source;
+
+    if (filename.endsWith(".svg"))
+    {
+        if (m_renderer == nullptr)
+            m_renderer = new QSvgRenderer();
+
+        if (m_renderer->load(m_source) == false)
+            qWarning() << "Failed to load SVG gobo" << m_source;
+    }
+    else
+    {
+        if (m_renderer)
+            delete m_renderer;
+        m_renderer = nullptr;
+    }
     update();
 }
 
@@ -1905,5 +1918,13 @@ void GoboTextureImage::paint(QPainter *painter)
     painter->fillRect(0, 0, w, h, Qt::black);
     painter->setBrush(QBrush(Qt::white));
     painter->drawEllipse(2, 2, w - 4, h - 4);
-    m_renderer->render(painter, QRect(1, 1, w - 2, h - 2));
+    if (m_renderer)
+    {
+        m_renderer->render(painter, QRect(1, 1, w - 2, h - 2));
+    }
+    else
+    {
+        QIcon goboFile(m_source);
+        painter->drawPixmap(1, 1, w - 2, h - 2, goboFile.pixmap(QSize(w - 2, h - 2)));
+    }
 }
