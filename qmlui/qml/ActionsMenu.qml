@@ -490,6 +490,13 @@ Popup
                     }
                     ContextMenuEntry
                     {
+                        imgSource: "qrc:/flag_ru.svg"
+                        iconWidth: UISettings.iconSizeDefault * 1.5
+                        entryText: qsTr("Russian")
+                        onClicked: { qlcplus.setLanguage("ru_RU"); menuRoot.close() }
+                    }
+                    ContextMenuEntry
+                    {
                         imgSource: "qrc:/flag_es.svg"
                         iconWidth: UISettings.iconSizeDefault * 1.5
                         entryText: qsTr("Spanish")

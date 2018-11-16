@@ -126,6 +126,7 @@ Contributors
 * Jannis Achstetter (German translation)
 * Dai Suetake (Japanese translation)
 * Hannes Bossuyt (Dutch translation)
+* Aleksandr Gusarov (Russian translation)
 
 ### QLC+ 4:
 

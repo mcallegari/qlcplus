@@ -1,7 +1,11 @@
 #!/bin/bash
 
 # Translated languages (update these also to qlcplus.pro)
-languages="de_DE es_ES fr_FR it_IT nl_NL cz_CZ pt_BR ca_ES ja_JP"
+if [ "$1" == "qmlui" ]; then
+    languages="de_DE es_ES fr_FR it_IT nl_NL ru_RU ca_ES ja_JP"
+else
+    languages="de_DE es_ES fr_FR it_IT nl_NL cz_CZ pt_BR ca_ES ja_JP"
+fi
 
 LRELEASE_BIN=$(which lrelease)
 
