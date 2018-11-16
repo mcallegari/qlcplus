@@ -811,6 +811,7 @@ void VCSlider::slotClickAndGoLevelChanged(uchar level)
     QPixmap px(42, 42);
     px.fill(col);
     m_cngButton->setIcon(px);
+    m_levelValueChanged = true;
 }
 
 void VCSlider::slotClickAndGoColorChanged(QRgb color)
@@ -836,6 +837,7 @@ void VCSlider::slotClickAndGoLevelAndPresetChanged(uchar level, QImage img)
 
     QPixmap px = QPixmap::fromImage(img);
     m_cngButton->setIcon(px);
+    m_levelValueChanged = true;
 }
 
 /*********************************************************************
