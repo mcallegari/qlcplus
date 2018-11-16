@@ -1414,7 +1414,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="qml/inputoutput/IOLeftPanel.qml" line="118"/>
         <source>Show the universe input profiles</source>
-        <translation type="unfinished">Показать профили ввода universe</translation>
+        <translation>Показать профили ввода Области DMX</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/IOLeftPanel.qml" line="143"/>
@@ -1432,7 +1432,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="qml/inputoutput/IORightPanel.qml" line="90"/>
         <source>Show the universe output sources</source>
-        <translation type="unfinished">Показать выходы universe</translation>
+        <translation>Показать выходы Области DMX</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/IORightPanel.qml" line="107"/>
@@ -1447,12 +1447,12 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="qml/inputoutput/IORightPanel.qml" line="137"/>
         <source>Add a new universe</source>
-        <translation type="unfinished">Добавить новый universe</translation>
+        <translation>Добавить новую Область DMX</translation>
     </message>
     <message>
         <location filename="qml/inputoutput/IORightPanel.qml" line="148"/>
         <source>Remove the selected universe</source>
-        <translation type="unfinished">Удалить выбранный universe</translation>
+        <translation>Удалить выбранную Область DMX</translation>
     </message>
 </context>
 <context>
@@ -1465,7 +1465,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="inputoutputmanager.cpp" line="91"/>
         <source>All universes</source>
-        <translation type="unfinished">Все universes</translation>
+        <translation>Все Области DMX</translation>
     </message>
     <message>
         <location filename="inputoutputmanager.cpp" line="222"/>
@@ -1492,7 +1492,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="qml/inputoutput/InputPatchItem.qml" line="59"/>
         <source>Remove this input profile</source>
-        <translation type="unfinished">Удалить этот профиль ввода</translation>
+        <translation>Удалить этот профиль ввода</translation>
     </message>
 </context>
 <context>
@@ -1676,7 +1676,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="mainviewdmx.cpp" line="38"/>
         <source>DMX View</source>
-        <translation type="unfinished">DMX Просмотр</translation>
+        <translation>Просмотр DMX значений</translation>
     </message>
 </context>
 <context>
@@ -1755,7 +1755,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="qml/popup/PopupDMXDump.qml" line="156"/>
         <source>RGB/CMY/WAUV</source>
-        <translation type="unfinished"></translation>
+        <translation>RGB/CMY/WAUV</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupDMXDump.qml" line="175"/>
@@ -1854,7 +1854,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="qml/popup/PopupManualInputSource.qml" line="194"/>
         <source>Universe</source>
-        <translation type="unfinished">Вселенная</translation>
+        <translation>Область DMX</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupManualInputSource.qml" line="209"/>
@@ -1867,7 +1867,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="qml/popup/PopupMonitor.qml" line="31"/>
         <source>2D Point of view selection</source>
-        <translation type="unfinished">Выбор точки 2D</translation>
+        <translation>Выбор точки 2D</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupMonitor.qml" line="49"/>
@@ -1935,7 +1935,7 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="qml/popup/PopupNetworkClient.qml" line="189"/>
         <source>Manual server</source>
-        <translation type="unfinished">Ручной сервер</translation>
+        <translation>Сервер вручную</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupNetworkClient.qml" line="212"/>
@@ -2002,7 +2002,7 @@ Access level:</source>
     <message>
         <location filename="qml/popup/PopupNetworkConnect.qml" line="130"/>
         <source>Simple Desk</source>
-        <translation type="unfinished">Простая панель</translation>
+        <translation>Простой пульт</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupNetworkConnect.qml" line="146"/>
@@ -2377,7 +2377,7 @@ Access level:</source>
     <message>
         <location filename="qml/fixturesfunctions/RGBPanelProperties.qml" line="110"/>
         <source>Universe</source>
-        <translation type="unfinished">Вселенная</translation>
+        <translation>Область DMX</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBPanelProperties.qml" line="126"/>
@@ -2987,7 +2987,7 @@ Access level:</source>
     <message>
         <location filename="qml/fixturesfunctions/UniverseSummary.qml" line="89"/>
         <source>Print the universe summary</source>
-        <translation type="unfinished">Показать итого по Вселенной</translation>
+        <translation>Показать сводку Области DMX</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/UniverseSummary.qml" line="118"/>
