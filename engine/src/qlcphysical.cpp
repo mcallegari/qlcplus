@@ -80,6 +80,24 @@ QLCPhysical& QLCPhysical::operator=(const QLCPhysical& physical)
     return *this;
 }
 
+bool QLCPhysical::isEmpty() const
+{
+    if (m_bulbLumens == 0 &&
+        m_bulbColourTemperature == 0 &&
+        m_weight == 0 &&
+        m_width == 0 &&
+        m_height == 0 &&
+        m_depth == 0 &&
+        m_lensDegreesMin == 0 &&
+        m_lensDegreesMax == 0 &&
+        m_focusPanMax == 0 &&
+        m_focusTiltMax == 0 &&
+        m_powerConsumption == 0)
+        return true;
+
+    return false;
+}
+
 /****************************************************************************
  * Properties
  ****************************************************************************/

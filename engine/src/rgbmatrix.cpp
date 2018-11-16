@@ -59,7 +59,6 @@ RGBMatrix::RGBMatrix(Doc* doc)
     , m_startColor(Qt::red)
     , m_endColor(QColor())
     , m_stepHandler(new RGBMatrixStep())
-    , m_fader(NULL)
     , m_roundTime(new QElapsedTimer())
     , m_stepsCount(0)
     , m_stepBeatDuration(0)
@@ -490,7 +489,7 @@ void RGBMatrix::tap()
     }
 }
 
-void RGBMatrix::preRun(MasterTimer* timer)
+void RGBMatrix::preRun(MasterTimer *timer)
 {
     {
         QMutexLocker algorithmLocker(&m_algorithmMutex);
@@ -505,10 +504,10 @@ void RGBMatrix::preRun(MasterTimer* timer)
 
         if (m_algorithm != NULL)
         {
-            Q_ASSERT(m_fader == NULL);
-            m_fader = new GenericFader(doc());
-            m_fader->adjustIntensity(getAttributeValue(Intensity));
-            m_fader->setBlendMode(blendMode());
+            //Q_ASSERT(m_fader == NULL);
+            //m_fader = new GenericFader(doc());
+            //m_fader->adjustIntensity(getAttributeValue(Intensity));
+            //m_fader->setBlendMode(blendMode());
 
             // Copy direction from parent class direction
             m_stepHandler->initializeDirection(direction(), m_startColor, m_endColor, m_stepsCount);
@@ -531,7 +530,7 @@ void RGBMatrix::preRun(MasterTimer* timer)
     Function::preRun(timer);
 }
 
-void RGBMatrix::write(MasterTimer* timer, QList<Universe *> universes)
+void RGBMatrix::write(MasterTimer *timer, QList<Universe *> universes)
 {
     Q_UNUSED(timer);
 
@@ -562,13 +561,13 @@ void RGBMatrix::write(MasterTimer* timer, QList<Universe *> universes)
 
                 //qDebug() << "RGBMatrix step" << m_stepHandler->currentStepIndex() << ", color:" << QString::number(m_stepHandler->stepColor().rgb(), 16);
                 RGBMap map = m_algorithm->rgbMap(m_group->size(), m_stepHandler->stepColor().rgb(), m_stepHandler->currentStepIndex());
-                updateMapChannels(map, m_group);
+                updateMapChannels(map, m_group, universes);
             }
         }
     }
 
     // Run the generic fader that takes care of fading in/out individual channels
-    m_fader->write(universes, isPaused());
+    //m_fader->write(universes, isPaused());
 
     if (isPaused() == false)
     {
@@ -611,47 +610,27 @@ void RGBMatrix::write(MasterTimer* timer, QList<Universe *> universes)
     }
 }
 
-void RGBMatrix::postRun(MasterTimer* timer, QList<Universe *> universes)
+void RGBMatrix::postRun(MasterTimer *timer, QList<Universe *> universes)
 {
-    if (m_fader != NULL)
+    uint fadeout = overrideFadeOutSpeed() == defaultSpeed() ? fadeOutSpeed() : overrideFadeOutSpeed();
+
+    /* If no fade out is needed, dismiss all the requested faders.
+     * Otherwise, set all the faders to fade out and let Universe dismiss them
+     * when done */
+    if (fadeout == 0)
     {
-        QHashIterator <FadeChannel,FadeChannel> it(m_fader->channels());
-        while (it.hasNext() == true)
-        {
-            it.next();
-            FadeChannel fc = it.value();
-            // fade out only intensity channels
-            if (fc.group(doc()) != QLCChannel::Intensity)
-                continue;
-
-            bool canFade = true;
-            Fixture *fixture = doc()->fixture(fc.fixture());
-            if (fixture != NULL)
-                canFade = fixture->channelCanFade(fc.channel());
-            fc.setStart(fc.current(getAttributeValue(Intensity)));
-            fc.setCurrent(fc.current(getAttributeValue(Intensity)));
-
-            fc.setElapsed(0);
-            fc.setReady(false);
-            if (canFade == false)
-            {
-                fc.setFadeTime(0);
-                fc.setTarget(fc.current(getAttributeValue(Intensity)));
-            }
-            else
-            {
-                if (overrideFadeOutSpeed() == defaultSpeed())
-                    fc.setFadeTime(fadeOutSpeed());
-                else
-                    fc.setFadeTime(overrideFadeOutSpeed());
-                fc.setTarget(0);
-            }
-            timer->faderAdd(fc);
-        }
-
-        delete m_fader;
-        m_fader = NULL;
+        dismissAllFaders(universes);
     }
+    else
+    {
+        if (tempoType() == Beats)
+            fadeout = beatsToTime(fadeout, timer->beatTimeDuration());
+
+        foreach (GenericFader *fader, m_fadersMap.values())
+            fader->setFadeOut(true, fadeout);
+    }
+
+    m_fadersMap.clear();
 
     {
         QMutexLocker algorithmLocker(&m_algorithmMutex);
@@ -679,165 +658,131 @@ void RGBMatrix::roundCheck()
         roundElapsed(duration());
 }
 
-void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup* grp)
+FadeChannel *RGBMatrix::getFader(QList<Universe *> universes, quint32 universeID, quint32 fixtureID, quint32 channel)
+{
+    // get the universe Fader first. If doesn't exist, create it
+    GenericFader *fader = m_fadersMap.value(universeID, NULL);
+    if (fader == NULL)
+    {
+        fader = universes[universeID]->requestFader();
+        fader->adjustIntensity(getAttributeValue(Intensity));
+        fader->setBlendMode(blendMode());
+        m_fadersMap[universeID] = fader;
+    }
+
+    return fader->getChannelFader(doc(), universes[universeID], fixtureID, channel);
+}
+
+void RGBMatrix::updateFaderValues(FadeChannel *fc, uchar value, uint fadeTime)
+{
+    fc->setStart(fc->current());
+    fc->setTarget(value);
+    fc->setElapsed(0);
+    fc->setReady(false);
+    // fade in/out depends on target value
+    if (value == 0)
+        fc->setFadeTime(fadeOutSpeed());
+    else
+        fc->setFadeTime(fadeTime);
+}
+
+void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup *grp, QList<Universe *> universes)
 {
     uint fadeTime = (overrideFadeInSpeed() == defaultSpeed()) ? fadeInSpeed() : overrideFadeInSpeed();
 
-    // Create/modify fade channels for ALL pixels in the color map.
-    for (int y = 0; y < map.size(); y++)
+    // Create/modify fade channels for ALL heads in the group
+    QMapIterator<QLCPoint, GroupHead> it(grp->headsMap());
+    while (it.hasNext())
     {
-        for (int x = 0; x < map[y].size(); x++)
+        it.next();
+        QLCPoint pt = it.key();
+        GroupHead grpHead = it.value();
+        Fixture *fxi = doc()->fixture(grpHead.fxi);
+        if (fxi == NULL)
+            continue;
+
+        QLCFixtureHead head = fxi->head(grpHead.head);
+
+        QVector <quint32> rgb = head.rgbChannels();
+        QVector <quint32> cmy = head.cmyChannels();
+
+        quint32 masterDim = fxi->masterIntensityChannel();
+        quint32 headDim = head.channelNumber(QLCChannel::Intensity, QLCChannel::MSB);
+
+        // Collect all dimmers that affect current head:
+        // They are the master dimmer (affects whole fixture)
+        // and per-head dimmer.
+        //
+        // If there are no RGB or CMY channels, the least important* dimmer channel
+        // is used to create grayscale image.
+        //
+        // The rest of the dimmer channels are set to full if dimmer control is
+        // enabled and target color is > 0 (see
+        // http://www.qlcplus.org/forum/viewtopic.php?f=29&t=11090)
+        //
+        // Note: If there is only one head, and only one dimmer channel,
+        // make it a master dimmer in fixture definition.
+        //
+        // *least important - per head dimmer if present,
+        // otherwise per fixture dimmer if present
+        QVector <quint32> dim;
+        if (masterDim != QLCChannel::invalid())
+            dim << masterDim;
+
+        if (headDim != QLCChannel::invalid())
+            dim << headDim;
+
+        if (pt.y() >= map.count() || pt.x() >= map[pt.y()].count())
+            continue;
+
+        uint col = map[pt.y()][pt.x()];
+
+        if (rgb.size() == 3)
         {
-            QLCPoint pt(x, y);
-            GroupHead grpHead(grp->head(pt));
-            Fixture* fxi = doc()->fixture(grpHead.fxi);
-            if (fxi == NULL)
-                continue;
+            // RGB color mixing
+            FadeChannel *fc = getFader(universes, fxi->universe(), grpHead.fxi, rgb.at(0));
+            updateFaderValues(fc, qRed(col), fadeTime);
 
-            QLCFixtureHead head = fxi->head(grpHead.head);
+            fc = getFader(universes, fxi->universe(), grpHead.fxi, rgb.at(1));
+            updateFaderValues(fc, qGreen(col), fadeTime);
 
-            QVector <quint32> rgb = head.rgbChannels();
-            QVector <quint32> cmy = head.cmyChannels();
+            fc = getFader(universes, fxi->universe(), grpHead.fxi, rgb.at(2));
+            updateFaderValues(fc, qBlue(col), fadeTime);
+        }
+        else if (cmy.size() == 3)
+        {
+            // CMY color mixing
+            QColor cmyCol(col);
 
-            quint32 masterDim = fxi->masterIntensityChannel();
-            quint32 headDim = head.channelNumber(QLCChannel::Intensity, QLCChannel::MSB);
+            FadeChannel *fc = getFader(universes, fxi->universe(), grpHead.fxi, cmy.at(0));
+            updateFaderValues(fc, cmyCol.cyan(), fadeTime);
 
-            // Collect all dimmers that affect current head:
-            // They are the master dimmer (affects whole fixture)
-            // and per-head dimmer.
-            //
-            // If there are no RGB or CMY channels, the least important* dimmer channel
-            // is used to create grayscale image.
-            //
-            // The rest of the dimmer channels are set to full if dimmer control is
-            // enabled and target color is > 0 (see
-            // http://www.qlcplus.org/forum/viewtopic.php?f=29&t=11090)
-            //
-            // Note: If there is only one head, and only one dimmer channel,
-            // make it a master dimmer in fixture definition.
-            //
-            // *least important - per head dimmer if present,
-            // otherwise per fixture dimmer if present
-            QVector <quint32> dim;
-            if (masterDim != QLCChannel::invalid())
-                dim << masterDim;
+            fc = getFader(universes, fxi->universe(), grpHead.fxi, cmy.at(1));
+            updateFaderValues(fc, cmyCol.magenta(), fadeTime);
 
-            if (headDim != QLCChannel::invalid())
-                dim << headDim;
+            fc = getFader(universes, fxi->universe(), grpHead.fxi, cmy.at(2));
+            updateFaderValues(fc, cmyCol.yellow(), fadeTime);
+        }
+        else if (!dim.empty())
+        {
+            // Set dimmer to value of the color (e.g. for PARs)
+            FadeChannel *fc = getFader(universes, fxi->universe(), grpHead.fxi, dim.last());
+            // the weights are taken from
+            // https://en.wikipedia.org/wiki/YUV#SDTV_with_BT.601
+            updateFaderValues(fc, 0.299 * qRed(col) + 0.587 * qGreen(col) + 0.114 * qBlue(col), fadeTime);
+            dim.pop_back();
+        }
 
-            uint col = map[y][x];
-
-            if (rgb.size() == 3)
+        if (m_dimmerControl)
+        {
+            // Set the rest of the dimmer channels to full on
+            foreach(quint32 ch, dim)
             {
-                // RGB color mixing
-                {
-                    FadeChannel fc(doc(), grpHead.fxi, rgb.at(0));
-                    fc.setTarget(qRed(col));
-                    insertStartValues(fc, fadeTime);
-                    m_fader->add(fc);
-                }
-
-                {
-                    FadeChannel fc(doc(), grpHead.fxi, rgb.at(1));
-                    fc.setTarget(qGreen(col));
-                    insertStartValues(fc, fadeTime);
-                    m_fader->add(fc);
-                }
-
-                {
-                    FadeChannel fc(doc(), grpHead.fxi, rgb.at(2));
-                    fc.setTarget(qBlue(col));
-                    insertStartValues(fc, fadeTime);
-                    m_fader->add(fc);
-                }
-            }
-            else if (cmy.size() == 3)
-            {
-                // CMY color mixing
-                QColor cmyCol(col);
-
-                {
-                    FadeChannel fc(doc(), grpHead.fxi, cmy.at(0));
-                    fc.setTarget(cmyCol.cyan());
-                    insertStartValues(fc, fadeTime);
-                    m_fader->add(fc);
-                }
-
-                {
-                    FadeChannel fc(doc(), grpHead.fxi, cmy.at(1));
-                    fc.setTarget(cmyCol.magenta());
-                    insertStartValues(fc, fadeTime);
-                    m_fader->add(fc);
-                }
-
-                {
-                    FadeChannel fc(doc(), grpHead.fxi, cmy.at(2));
-                    fc.setTarget(cmyCol.yellow());
-                    insertStartValues(fc, fadeTime);
-                    m_fader->add(fc);
-                }
-            }
-            else if (!dim.empty())
-            {
-                // Set dimmer to value of the color (e.g. for PARs)
-                FadeChannel fc(doc(), grpHead.fxi, dim.last());
-                // the weights are taken from
-                // https://en.wikipedia.org/wiki/YUV#SDTV_with_BT.601
-                fc.setTarget(0.299 * qRed(col) + 0.587 * qGreen(col) + 0.114 * qBlue(col));
-                insertStartValues(fc, fadeTime);
-                m_fader->add(fc);
-                dim.pop_back();
-            }
-
-            if (m_dimmerControl)
-            {
-                // Set the rest of the dimmer channels to full on
-                foreach(quint32 ch, dim)
-                {
-                    FadeChannel fc(doc(), grpHead.fxi, ch);
-                    fc.setTarget(col == 0 ? 0 : 255);
-                    insertStartValues(fc, fadeTime);
-                    m_fader->add(fc);
-                }
+                FadeChannel *fc = getFader(universes, fxi->universe(), grpHead.fxi, ch);
+                updateFaderValues(fc, col == 0 ? 0 : 255, fadeTime);
             }
         }
     }
-}
-
-void RGBMatrix::insertStartValues(FadeChannel& fc, uint fadeTime) const
-{
-    Q_ASSERT(m_fader != NULL);
-
-    // To create a nice and smooth fade, get the starting value from
-    // m_fader's existing FadeChannel (if any). Otherwise just assume
-    // we're starting from zero.
-    QHash <FadeChannel,FadeChannel>::const_iterator oldChannelIterator = m_fader->channels().find(fc);
-    if (oldChannelIterator != m_fader->channels().end())
-    {
-        FadeChannel old = oldChannelIterator.value();
-        fc.setCurrent(old.current());
-        if (fc.target() == old.target())
-        {
-            fc.setStart(old.start());
-            fc.setElapsed(old.elapsed());
-        }
-        else
-            fc.setStart(old.current());
-    }
-    else
-    {
-        fc.setCurrent(0);
-        fc.setStart(0);
-    }
-
-    // The channel is not ready yet
-    fc.setReady(false);
-
-    // Fade in speed is used for all non-zero targets
-    if (fc.target() == 0)
-        fc.setFadeTime(fadeOutSpeed());
-    else
-        fc.setFadeTime(fadeTime);
 }
 
 /*********************************************************************
@@ -848,8 +793,11 @@ int RGBMatrix::adjustAttribute(qreal fraction, int attributeId)
 {
     int attrIndex = Function::adjustAttribute(fraction, attributeId);
 
-    if (m_fader != NULL && attrIndex == Function::Intensity)
-        m_fader->adjustIntensity(getAttributeValue(Function::Intensity));
+    if (attrIndex == Intensity)
+    {
+        foreach (GenericFader *fader, m_fadersMap.values())
+            fader->adjustIntensity(getAttributeValue(Function::Intensity));
+    }
 
     return attrIndex;
 }
@@ -863,8 +811,9 @@ void RGBMatrix::setBlendMode(Universe::BlendMode mode)
     if (mode == blendMode())
         return;
 
-    if (m_fader != NULL)
-        m_fader->setBlendMode(mode);
+    foreach (GenericFader *fader, m_fadersMap.values())
+        fader->setBlendMode(mode);
+
     Function::setBlendMode(mode);
     emit changed(id());
 }

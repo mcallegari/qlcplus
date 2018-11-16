@@ -100,7 +100,7 @@ include(libsndfile-nametool.pri)
 
 INSTALLS += $$libraryTargetID(LIBQLCENGINE, libqlcplusengine.1.dylib)
 INSTALLS += LIBUSB LIBUSB_ID
-INSTALLS += $$systemLibTarget(LIBFTDI, libftdi.1.dylib, libftdi) $$libraryTargetID(LIBFTDI, libftdi.1.dylib)
+INSTALLS += $$systemLibTarget(LIBFTDI, libftdi1.2.dylib, libftdi1) $$libraryTargetID(LIBFTDI, libftdi1.2.dylib)
 INSTALLS += $$systemLibTarget(LIBMAD, libmad.0.dylib, mad) $$libraryTargetID(LIBMAD, libmad.0.dylib)
 INSTALLS += LIBSNDFILE LIBSNDFILE_ID
 INSTALLS += $$systemLibTarget(LIBFFTW, libfftw3.3.dylib, fftw3) $$libraryTargetID(LIBFFTW, libfftw3.3.dylib)
@@ -116,6 +116,7 @@ INSTALLS += $$qt5LibTarget(LIBQTNETWORK, QtNetwork) $$qt5LibTargetID(LIBQTNETWOR
 
 greaterThan(QT_MAJOR_VERSION, 4) {
   INSTALLS += $$qt5LibTarget(LIBQTWIDGETS, QtWidgets) $$qt5LibTargetID(LIBQTWIDGETS, QtWidgets)
+  INSTALLS += $$qt5LibTarget(LIBQTSVG, QtSvg) $$qt5LibTargetID(LIBQTSVG, QtSvg)
   INSTALLS += $$qt5LibTarget(LIBQTOPENGL, QtOpenGL) $$qt5LibTargetID(LIBQTOPENGL, QtOpenGL)
   INSTALLS += $$qt5LibTarget(LIBQTMULTIMEDIA, QtMultimedia) $$qt5LibTargetID(LIBQTMULTIMEDIA, QtMultimedia)
   INSTALLS += $$qt5LibTarget(LIBQTMULTIMEDIAWIDGETS, QtMultimediaWidgets) $$qt5LibTargetID(LIBQTMULTIMEDIAWIDGETS, QtMultimediaWidgets)
@@ -131,7 +132,6 @@ qmlui: {
   INSTALLS += $$qt5LibTarget(LIBQTQUICK, QtQuick) $$qt5LibTargetID(LIBQTQUICK, QtQuick)
   INSTALLS += $$qt5LibTarget(LIBQTQUICKCONTROLS2, QtQuickControls2) $$qt5LibTargetID(LIBQTQUICKCONTROLS2, QtQuickControls2)
   INSTALLS += $$qt5LibTarget(LIBQTQUICKTEMPLATES2, QtQuickTemplates2) $$qt5LibTargetID(LIBQTQUICKTEMPLATES2, QtQuickTemplates2)
-  INSTALLS += $$qt5LibTarget(LIBQTSVG, QtSvg) $$qt5LibTargetID(LIBQTSVG, QtSvg)
   INSTALLS += $$qt5LibTarget(LIBQTCONCURRENT, QtConcurrent) $$qt5LibTargetID(LIBQTCONCURRENT, QtConcurrent)
   INSTALLS += $$qt5LibTarget(LIBQTGAMEPAD, QtGamepad) $$qt5LibTargetID(LIBQTGAMEPAD, QtGamepad)
   INSTALLS += $$qt5LibTarget(LIBQT3DCORE, Qt3DCore) $$qt5LibTargetID(LIBQT3DCORE, Qt3DCore)
@@ -193,12 +193,12 @@ lessThan(QT_MAJOR_VERSION, 5) {
 } else {
     qtnametool.commands += && $$LIBQTNETWORK_INSTALL_NAME_TOOL \
         $$INSTALLROOT/$$LIBSDIR/$$LIBQLCENGINE_FILE
-!qmlui: {
-    qtnametool.commands += && $$LIBQTNETWORK_INSTALL_NAME_TOOL \
-        $$INSTALLROOT/$$LIBSDIR/$$LIBQLCUI_FILE
-    qtnametool.commands += && $$LIBQTNETWORK_INSTALL_NAME_TOOL \
-        $$INSTALLROOT/$$LIBSDIR/$$LIBQLCWEBACCESS_FILE
-}
+    !qmlui: {
+        qtnametool.commands += && $$LIBQTNETWORK_INSTALL_NAME_TOOL \
+            $$INSTALLROOT/$$LIBSDIR/$$LIBQLCUI_FILE
+        qtnametool.commands += && $$LIBQTNETWORK_INSTALL_NAME_TOOL \
+            $$INSTALLROOT/$$LIBSDIR/$$LIBQLCWEBACCESS_FILE
+    }
 }
 
 qtnametool.commands += && $$LIBFFTW_INSTALL_NAME_TOOL \
@@ -228,26 +228,22 @@ qtnametool.commands += && $$LIBVORBIS_INSTALL_NAME_TOOL \
 qtnametool.commands += && $$LIBOGG_INSTALL_NAME_TOOL \
     $$INSTALLROOT/$$LIBSDIR/$$LIBVORBISENC_FILE
 
-# These never had any difference anyway...
-# include(imageformats-nametool.pri)
-# INSTALLS += imageformats
-
 greaterThan(QT_MAJOR_VERSION, 4) {
     include(platformplugins-nametool.pri)
+    include(imageformats-nametool.pri)
     include(audioplugins-nametool.pri)
     include(mediaservice-nametool.pri)
 
     INSTALLS += platformplugins
+    INSTALLS += imageformats
     INSTALLS += audioplugins
     INSTALLS += mediaservice
 
 qmlui: {
-    include(imageformats-nametool.pri)
     include(printsupport-nametool.pri)
     include(geometryloaders-nametool.pri)
     include(sceneparsers-nametool.pri)
 
-    INSTALLS += imageformats
     INSTALLS += printsupport
     INSTALLS += geometryloaders
     INSTALLS += sceneparsers

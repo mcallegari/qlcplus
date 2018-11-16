@@ -9,7 +9,7 @@ Build-Depends:
  libfftw3-dev,
  libftdi-dev (>= 0.17),
  libmad0-dev,
- libqt4-dev (>= 4.6.0),
+ qtbase5-dev, qtscript5-dev, qtmultimedia5-dev,
  libsndfile1-dev,
  libstdc++-dev,
  libudev-dev,

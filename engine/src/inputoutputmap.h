@@ -124,7 +124,6 @@ public:
      */
     bool blackout() const;
 
-
 signals:
     /**
      * Signal that is sent when blackout state is changed.
@@ -136,9 +135,6 @@ signals:
 private:
     /** Current blackout state */
     bool m_blackout;
-
-    /** Blackout request applied when possible */
-    bool m_blackoutRequest;
 
     /*********************************************************************
      * Universes
@@ -165,6 +161,11 @@ public:
      * Remove all the universes in the current universes list
      */
     bool removeAllUniverses();
+
+    /**
+     * Start all the Universe threads
+     */
+    void startUniverses();
 
     /**
      * Get the unique ID of the universe at the given index
@@ -255,12 +256,6 @@ public:
     virtual void releaseUniverses(bool changed = true);
 
     /**
-     * Write current universe array data to plugins, each universe within
-     * the array to its assigned plugin.
-     */
-    void dumpUniverses();
-
-    /**
      * Reset all universes (useful when starting from scratch)
      */
     void resetUniverses();
@@ -268,7 +263,7 @@ public:
 signals:
     void universeAdded(quint32 id);
     void universeRemoved(quint32 id);
-    void universesWritten(int index, const QByteArray& universesCount);
+    void universeWritten(quint32 index, const QByteArray& universesData);
 
 private:
     /** The values of all universes */

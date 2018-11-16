@@ -90,8 +90,8 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
     connect(m_fixtureManager, &FixtureManager::colorChanged, this, &ContextManager::slotColorChanged);
     connect(m_fixtureManager, &FixtureManager::positionTypeValueChanged, this, &ContextManager::slotPositionChanged);
     connect(m_fixtureManager, &FixtureManager::presetChanged, this, &ContextManager::slotPresetChanged);
-    //connect(m_doc->inputOutputMap(), &InputOutputMap::universesWritten, this, &ContextManager::slotUniversesWritten);
-    connect(m_doc->inputOutputMap(), SIGNAL(universesWritten(int,QByteArray)), this, SLOT(slotUniversesWritten(int,QByteArray)));
+
+    connect(m_doc->inputOutputMap(), SIGNAL(universeWritten(quint32,QByteArray)), this, SLOT(slotUniverseWritten(quint32,QByteArray)));
     connect(m_functionManager, &FunctionManager::isEditingChanged, this, &ContextManager::slotFunctionEditingChanged);
 }
 
@@ -1196,7 +1196,7 @@ void ContextManager::slotChannelTypeValueChanged(int type, quint8 value, quint32
     QList<SceneValue> svList = m_channelsMap.values(type);
     for (SceneValue sv : svList)
     {
-        if (channel == UINT_MAX || (channel != UINT_MAX && channel == sv.channel))
+        if (channel == UINT_MAX || channel == sv.channel)
         {
             if (m_editingEnabled == false)
                 setDumpValue(sv.fxi, sv.channel, (uchar)value);
@@ -1264,11 +1264,11 @@ void ContextManager::slotPresetChanged(const QLCChannel *channel, quint8 value)
     }
 }
 
-void ContextManager::slotUniversesWritten(int idx, const QByteArray &ua)
+void ContextManager::slotUniverseWritten(quint32 idx, const QByteArray &ua)
 {
     for (Fixture *fixture : m_doc->fixtures())
     {
-        if (fixture->universe() != (quint32)idx)
+        if (fixture->universe() != idx)
             continue;
 
         QByteArray prevValues;

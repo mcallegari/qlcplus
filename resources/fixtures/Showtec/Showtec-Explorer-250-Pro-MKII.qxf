@@ -60,8 +60,8 @@
   <Capability Min="169" Max="184" Res="SGM-Color/gobo00373.png">Shaking 4</Capability>
   <Capability Min="185" Max="205" Res="Others/gobo00016.svg">5 (glass)</Capability>
   <Capability Min="206" Max="221" Res="Others/gobo00016.svg">Shaking 5</Capability>
-  <Capability Min="222" Max="242" Res="Chauvet/gobo00067.png">6 (glass)</Capability>
-  <Capability Min="243" Max="255" Res="Chauvet/gobo00067.png">Shaking 6</Capability>
+  <Capability Min="222" Max="242" Res="Chauvet/gobo00067.svg">6 (glass)</Capability>
+  <Capability Min="243" Max="255" Res="Chauvet/gobo00067.svg">Shaking 6</Capability>
  </Channel>
  <Channel Name="Gobowheel 2 + Gobo Shake">
   <Group Byte="0">Gobo</Group>

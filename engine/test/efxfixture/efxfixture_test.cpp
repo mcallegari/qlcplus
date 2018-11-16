@@ -112,7 +112,6 @@ void EFXFixture_Test::init()
         fxi->setFixtureDefinition(def, mode);
         fxi->setAddress(address);
         m_fixtureLedBarAddress = address;
-        address += fxi->channels();
         m_doc->addFixture(fxi);
         m_fixtureLedBar = fxi->id();
     }
@@ -451,13 +450,18 @@ void EFXFixture_Test::setPoint8bit()
     EFXFixture ef(&e);
     ef.setHead(GroupHead(m_fixture8bit, 0));
 
-    QList<Universe*> ua;
-    ua.append(new Universe(0, new GrandMaster()));
-    ef.setPointPanTilt (ua, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
-    QCOMPARE((int)ua[0]->preGMValues()[m_fixture8bitAddress + 0], 5);
-    QCOMPARE((int)ua[0]->preGMValues()[m_fixture8bitAddress + 1], 1);
-    QCOMPARE((int)ua[0]->preGMValues()[m_fixture8bitAddress + 2], 0); /* No LSB channels */
-    QCOMPARE((int)ua[0]->preGMValues()[m_fixture8bitAddress + 3], 0); /* No LSB channels */
+    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
+    Universe *universe = ua[0];
+    GenericFader *fader = universe->requestFader();
+
+    ef.setPointPanTilt(ua, fader, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
+    QCOMPARE(fader->channels().count(), 2);
+    universe->processFaders();
+
+    QCOMPARE((int)universe->preGMValues()[m_fixture8bitAddress + 0], 5);
+    QCOMPARE((int)universe->preGMValues()[m_fixture8bitAddress + 1], 1);
+    QCOMPARE((int)universe->preGMValues()[m_fixture8bitAddress + 2], 0); /* No LSB channels */
+    QCOMPARE((int)universe->preGMValues()[m_fixture8bitAddress + 3], 0); /* No LSB channels */
 }
 
 void EFXFixture_Test::setPoint16bit()
@@ -466,13 +470,17 @@ void EFXFixture_Test::setPoint16bit()
     EFXFixture ef(&e);
     ef.setHead(GroupHead(m_fixture16bit, 0));
 
-    QList<Universe*> ua;
-    ua.append(new Universe(0, new GrandMaster()));
-    ef.setPointPanTilt(ua, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
-    QCOMPARE((int)ua[0]->preGMValues()[m_fixture16bitAddress + 0], 5);
-    QCOMPARE((int)ua[0]->preGMValues()[m_fixture16bitAddress + 1], 1);
-    QCOMPARE((int)ua[0]->preGMValues()[m_fixture16bitAddress + 2], 102); /* 255 * 0.4 */
-    QCOMPARE((int)ua[0]->preGMValues()[m_fixture16bitAddress + 3], 127); /* 255 * 0.5 */
+    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
+    Universe *universe = ua[0];
+    GenericFader *fader = universe->requestFader();
+
+    ef.setPointPanTilt(ua, fader, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
+    QCOMPARE(fader->channels().count(), 4);
+    universe->processFaders();
+    QCOMPARE((int)universe->preGMValues()[m_fixture16bitAddress + 0], 5);
+    QCOMPARE((int)universe->preGMValues()[m_fixture16bitAddress + 1], 1);
+    QCOMPARE((int)universe->preGMValues()[m_fixture16bitAddress + 2], 102); /* 255 * 0.4 */
+    QCOMPARE((int)universe->preGMValues()[m_fixture16bitAddress + 3], 127); /* 255 * 0.5 */
 }
 
 void EFXFixture_Test::setPointPanOnly()
@@ -481,13 +489,17 @@ void EFXFixture_Test::setPointPanOnly()
     EFXFixture ef(&e);
     ef.setHead(GroupHead(m_fixturePanOnly, 0));
 
-    QList<Universe*> ua;
-    ua.append(new Universe(0, new GrandMaster()));
-    ef.setPointPanTilt(ua, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
-    QCOMPARE((int)ua[0]->preGMValues()[m_fixturePanOnlyAddress + 0], 5); /* Pan */
-    QCOMPARE((int)ua[0]->preGMValues()[m_fixturePanOnlyAddress + 1], 0);
-    QCOMPARE((int)ua[0]->preGMValues()[m_fixturePanOnlyAddress + 2], 0);
-    QCOMPARE((int)ua[0]->preGMValues()[m_fixturePanOnlyAddress + 3], 0);
+    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
+    Universe *universe = ua[0];
+    GenericFader *fader = universe->requestFader();
+
+    ef.setPointPanTilt(ua, fader, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
+    QCOMPARE(fader->channels().count(), 1);
+    universe->processFaders();
+    QCOMPARE((int)universe->preGMValues()[m_fixturePanOnlyAddress + 0], 5); /* Pan */
+    QCOMPARE((int)universe->preGMValues()[m_fixturePanOnlyAddress + 1], 0);
+    QCOMPARE((int)universe->preGMValues()[m_fixturePanOnlyAddress + 2], 0);
+    QCOMPARE((int)universe->preGMValues()[m_fixturePanOnlyAddress + 3], 0);
 }
 
 void EFXFixture_Test::setPointLedBar()
@@ -496,19 +508,26 @@ void EFXFixture_Test::setPointLedBar()
     EFXFixture ef(&e);
     ef.setHead(GroupHead(m_fixtureLedBar, 0));
 
-    QList<Universe*> ua;
-    ua.append(new Universe(0, new GrandMaster()));
-    ef.setPointPanTilt(ua, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
-    QCOMPARE((int)ua[0]->preGMValues()[m_fixtureLedBarAddress + 0], 1); /* Tilt */
-    QCOMPARE((int)ua[0]->preGMValues()[m_fixtureLedBarAddress + 1], 0);
-    QCOMPARE((int)ua[0]->preGMValues()[m_fixtureLedBarAddress + 2], 0);
-    QCOMPARE((int)ua[0]->preGMValues()[m_fixtureLedBarAddress + 3], 0);
+    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
+    Universe *universe = ua[0];
+    GenericFader *fader = universe->requestFader();
+
+    ef.setPointPanTilt(ua, fader, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
+    QCOMPARE(fader->channels().count(), 1);
+    universe->processFaders();
+
+    QCOMPARE((int)universe->preGMValues()[m_fixtureLedBarAddress + 0], 1); /* Tilt */
+    QCOMPARE((int)universe->preGMValues()[m_fixtureLedBarAddress + 1], 0);
+    QCOMPARE((int)universe->preGMValues()[m_fixtureLedBarAddress + 2], 0);
+    QCOMPARE((int)universe->preGMValues()[m_fixtureLedBarAddress + 3], 0);
 }
+
 
 void EFXFixture_Test::nextStepLoop()
 {
-    QList<Universe*> ua;
-    ua.append(new Universe(0, new GrandMaster()));
+    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
+    Universe *universe = ua[0];
+    GenericFader *fader = universe->requestFader();
     MasterTimerStub mts(m_doc, ua);
 
     EFX e(m_doc);
@@ -518,7 +537,7 @@ void EFXFixture_Test::nextStepLoop()
     ef->setHead(GroupHead(0,0));
     e.addFixture(ef);
 
-    /* Initialize the EFXFixture so that it can do math */
+    /* Initialize the EFXFixture so that it can do the math */
     ef->setSerialNumber(0);
     QVERIFY(ef->isValid() == true);
     QVERIFY(ef->isReady() == false);
@@ -533,7 +552,7 @@ void EFXFixture_Test::nextStepLoop()
     {
         for (; i < max; i += MasterTimer::tick())
         {
-            ef->nextStep(&mts, ua);
+            ef->nextStep(ua, fader);
             QVERIFY(ef->isReady() == false); // Loop is never ready
             QCOMPARE(ef->m_elapsed, i);
         }
@@ -546,8 +565,9 @@ void EFXFixture_Test::nextStepLoop()
 
 void EFXFixture_Test::nextStepLoopZeroDuration()
 {
-    QList<Universe*> ua;
-    ua.append(new Universe(0, new GrandMaster()));
+    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
+    Universe *universe = ua[0];
+    GenericFader *fader = universe->requestFader();
     MasterTimerStub mts(m_doc, ua);
 
     EFX e(m_doc);
@@ -572,7 +592,7 @@ void EFXFixture_Test::nextStepLoopZeroDuration()
     {
         for (; i < max; i += MasterTimer::tick())
         {
-            ef->nextStep(&mts, ua);
+            ef->nextStep(ua, fader);
             QVERIFY(ef->isReady() == false); // Loop is never ready
             QCOMPARE(ef->m_elapsed, i);
         }
@@ -585,8 +605,9 @@ void EFXFixture_Test::nextStepLoopZeroDuration()
 
 void EFXFixture_Test::nextStepSingleShot()
 {
-    QList<Universe*> ua;
-    ua.append(new Universe(0, new GrandMaster()));
+    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
+    Universe *universe = ua[0];
+    GenericFader *fader = universe->requestFader();
     MasterTimerStub mts(m_doc, ua);
 
     EFX e(m_doc);
@@ -611,12 +632,12 @@ void EFXFixture_Test::nextStepSingleShot()
     uint max = MasterTimer::tick() * MasterTimer::frequency();
     for (uint i = MasterTimer::tick(); i < max; i += MasterTimer::tick())
     {
-        ef->nextStep(&mts, ua);
+        ef->nextStep(ua, fader);
         QVERIFY(ef->isReady() == false);
         QCOMPARE(ef->m_elapsed, i);
     }
 
-    ef->nextStep(&mts, ua);
+    ef->nextStep(ua, fader);
 
     /* Single-shot EFX should now be ready */
     QVERIFY(ef->isReady() == true);

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.0 GIT</Version>
+  <Author>Jose Coelho</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>LED PAR 64 COB RGBW 60W</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Intensity Red" Preset="IntensityRed"/>
+ <Channel Name="Intensity Green" Preset="IntensityGreen"/>
+ <Channel Name="Intensity Blue" Preset="IntensityBlue"/>
+ <Channel Name="Intensity White" Preset="IntensityWhite"/>
+ <Channel Name="Fixed colour pattern">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15">No fixed colour and movement pattern</Capability>
+  <Capability Min="16" Max="255">One of 31 fixed colour patterns, channels 1, 2, 3, 4, 6 and 7 without function</Capability>
+ </Channel>
+ <Channel Name="Strobe effect">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="15" Preset="ShutterOpen">Full brightness, no strobe effect</Capability>
+  <Capability Min="16" Max="255" Preset="StrobeSlowToFast">Strobe effect, increasing speed, when channel 5 = 0...15, channels 1 to 4 define the colour</Capability>
+ </Channel>
+ <Channel Name="Operating mode selection">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="31">Constant colour, the hue is set by channels 1 to 4</Capability>
+  <Capability Min="32" Max="63">Fade-out effect, speed controlled by channel 6, channels 1 to 4 define the colour if channel 5 = 0...15</Capability>
+  <Capability Min="64" Max="95">Fade-in effect, speed controlled by channel 6, channels 1 to 4 define the colour if channel 5 = 0...15</Capability>
+  <Capability Min="96" Max="127">Fade-in-out effect, speed controlled by channel 6, channels 1 to 4 define the colour if channel 5 = 0...15</Capability>
+  <Capability Min="128" Max="159">Auto-mix effect, speed controlled by channel 6, channels 1 to 4 without function if channel 5 = 0...15</Capability>
+  <Capability Min="160" Max="191">Chase (4 colours), speed controlled by channel 6, channels 1 to 4 without function if channel 5 = 0...15</Capability>
+  <Capability Min="192" Max="223">Chase (12 colours), speed controlled by channel 6, channels 1 to 4 without function if channel 5 = 0...15</Capability>
+  <Capability Min="224" Max="255">Sound-controlled colour change (12 colours), channels 1 to 6 without function</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="6Ch Operating mode selection">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="63">Constant colour, colour hue is set via channels 2 to 5</Capability>
+  <Capability Min="64" Max="127">Automatic colour change with 7 colours, channels 2 to 5 without function</Capability>
+  <Capability Min="128" Max="191">Automatic colour change with 12 colours, channels 2 to 5 without function</Capability>
+  <Capability Min="192" Max="255">Automatic colour change with 4 colours, channels 2 to 5 without function</Capability>
+ </Channel>
+ <Channel Name="6Ch Effects speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="10">No automatic colour change</Capability>
+  <Capability Min="11" Max="100">Automatic colour change as set via channel 1, decreasing speed from fast to slow</Capability>
+  <Capability Min="101" Max="150">No automatic colour change</Capability>
+  <Capability Min="151" Max="255">Automatic colour change as set via channel 1, speed randomly changing</Capability>
+ </Channel>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Intensity Red</Channel>
+  <Channel Number="1">Intensity Green</Channel>
+  <Channel Number="2">Intensity Blue</Channel>
+  <Channel Number="3">Intensity White</Channel>
+  <Channel Number="4">Fixed colour pattern</Channel>
+  <Channel Number="5">Strobe effect</Channel>
+  <Channel Number="6">Operating mode selection</Channel>
+  <Channel Number="7">Dimmer</Channel>
+ </Mode>
+ <Mode Name="6 Channel">
+  <Channel Number="0">6Ch Operating mode selection</Channel>
+  <Channel Number="1">Intensity Red</Channel>
+  <Channel Number="2">Intensity Green</Channel>
+  <Channel Number="3">Intensity Blue</Channel>
+  <Channel Number="4">Intensity White</Channel>
+  <Channel Number="5">6Ch Effects speed</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Intensity Red</Channel>
+  <Channel Number="1">Intensity Green</Channel>
+  <Channel Number="2">Intensity Blue</Channel>
+  <Channel Number="3">Intensity White</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.93" Width="280" Height="200" Depth="500"/>
+  <Lens Name="Other" DegreesMin="60" DegreesMax="60"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="60" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

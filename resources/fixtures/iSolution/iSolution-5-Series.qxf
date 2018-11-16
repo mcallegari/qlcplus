@@ -23,7 +23,7 @@
   <Group Byte="0">Gobo</Group>
   <Capability Res="SGM/gobo00062.svg" Min="0" Max="8">Spot</Capability>
   <Capability Res="SGM/gobo00004.svg" Min="9" Max="17">Spot Ring</Capability>
-  <Capability Res="Others/gobo00037.png" Min="18" Max="25">Taurus</Capability>
+  <Capability Res="Others/gobo00037.svg" Min="18" Max="25">Taurus</Capability>
   <Capability Res="Others/gobo00039.svg" Min="26" Max="34">Bio Hazard</Capability>
   <Capability Res="SGM/gobo00174.svg" Min="35" Max="43">Web</Capability>
   <Capability Res="GLP/gobo00014.svg" Min="44" Max="51">3 Comas</Capability>

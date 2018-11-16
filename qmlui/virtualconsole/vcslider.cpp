@@ -27,6 +27,8 @@
 #include "qlcfixturemode.h"
 #include "qlccapability.h"
 #include "fixtureutils.h"
+#include "genericfader.h"
+#include "fadechannel.h"
 #include "qlcmacros.h"
 #include "vcslider.h"
 #include "function.h"
@@ -62,6 +64,7 @@ VCSlider::VCSlider(Doc *doc, QObject *parent)
     , m_controlledAttributeId(Function::invalidAttributeId())
     , m_attributeMinValue(0)
     , m_attributeMaxValue(UCHAR_MAX)
+    , m_priorityRequest(-1)
 {
     setType(VCWidget::SliderWidget);
 
@@ -75,6 +78,11 @@ VCSlider::~VCSlider()
        is no longer necessary. But a normal deletion of a VCSlider in
        design mode must unregister the slider. */
     m_doc->masterTimer()->unregisterDMXSource(this);
+
+    // request to delete all the active faders
+    foreach (GenericFader *fader, m_fadersMap.values())
+        fader->requestDelete();
+    m_fadersMap.clear();
 
     if (m_item)
         delete m_item;
@@ -223,7 +231,7 @@ void VCSlider::setSliderMode(SliderMode mode)
     setControlledAttribute(Function::Intensity);
     m_controlledAttributeId = Function::invalidAttributeId();
 
-    switch(mode)
+    switch (mode)
     {
         case Level:
         case Adjust:
@@ -232,13 +240,21 @@ void VCSlider::setSliderMode(SliderMode mode)
         break;
         case Submaster:
             setValue(UCHAR_MAX);
-            m_doc->masterTimer()->unregisterDMXSource(this);
         break;
         case GrandMaster:
             setValueDisplayStyle(PercentageValue);
             setValue(UCHAR_MAX);
-            m_doc->masterTimer()->unregisterDMXSource(this);
         break;
+    }
+
+    if (mode == Submaster || mode == GrandMaster)
+    {
+        m_doc->masterTimer()->unregisterDMXSource(this);
+
+        // request to delete all the active faders
+        foreach (GenericFader *fader, m_fadersMap.values())
+            fader->requestDelete();
+        m_fadersMap.clear();
     }
 }
 
@@ -382,8 +398,7 @@ void VCSlider::setValue(int value, bool setDMX, bool updateFeedback)
         case Level:
             if (m_monitorEnabled == true && m_isOverriding == false && setDMX)
             {
-                m_priority = DMXSource::Override;
-                m_doc->masterTimer()->requestNewPriority(this);
+                m_priorityRequest = Universe::Override;
                 m_isOverriding = true;
                 emit isOverridingChanged();
             }
@@ -461,9 +476,7 @@ void VCSlider::setMonitorEnabled(bool enable)
         return;
 
     m_monitorEnabled = enable;
-
-    m_priority = DMXSource::Override;
-    m_doc->masterTimer()->requestNewPriority(this);
+    m_priorityRequest = Universe::Override;
 
     emit monitorEnabledChanged();
 }
@@ -1084,36 +1097,44 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
         }
     }
 
-    for (SceneValue scv : m_levelChannels)
+    if (m_levelValueChanged)
     {
-        Fixture* fxi = m_doc->fixture(scv.fxi);
-        if (fxi != NULL)
+        for (SceneValue scv : m_levelChannels)
         {
-            const QLCChannel* qlcch = fxi->channel(scv.channel);
-            if (qlcch == NULL)
+            Fixture* fxi = m_doc->fixture(scv.fxi);
+            if (fxi == NULL)
                 continue;
 
-            quint32 dmx_ch = fxi->address() + scv.channel;
-            int uni = fxi->universe();
+            quint32 universe = fxi->universe();
 
-            // Dirty channel group check: is the channel HTP or LTP ?
-            QLCChannel::Group group = qlcch->group();
-            if (fxi->forcedLTPChannels().contains(scv.channel))
-                group = QLCChannel::Effect;
-            if (fxi->forcedHTPChannels().contains(scv.channel))
-                group = QLCChannel::Intensity;
-
-            if (group != QLCChannel::Intensity &&
-                m_levelValueChanged == false)
+            GenericFader *fader = m_fadersMap.value(universe, NULL);
+            if (fader == NULL)
             {
-                /* Value has not changed and this is not an intensity channel.
-                   LTP in effect. */
+                fader = universes[universe]->requestFader();
+                m_fadersMap[universe] = fader;
+            }
+
+            FadeChannel *fc = fader->getChannelFader(m_doc, universes[universe], scv.fxi, scv.channel);
+            if (fc->universe() == Universe::invalid())
+            {
+                fader->remove(fc);
                 continue;
             }
 
-            if (qlcch->group() == QLCChannel::Intensity)
+            int chType = fc->type();
+
+            // on override, force channel to LTP
+            if (m_isOverriding)
             {
-                if (clickAndGoType() == CnGColors)
+                fc->unsetTypeFlag(FadeChannel::HTP);
+                fc->setTypeFlag(FadeChannel::LTP);
+            }
+
+            if (chType & FadeChannel::Intensity && clickAndGoType() == CnGColors)
+            {
+                const QLCChannel *qlcch = fxi->channel(scv.channel);
+
+                if (qlcch != NULL)
                 {
                     switch (qlcch->colour())
                     {
@@ -1131,8 +1152,10 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
                 }
             }
 
-            if (uni < universes.count())
-                universes[uni]->write(dmx_ch, modLevel * intensity(), m_isOverriding ? true : false);
+            fc->setStart(fc->current());
+            fc->setTarget(modLevel * intensity());
+            fc->setReady(false);
+            fc->setElapsed(0);
         }
     }
     m_levelValueChanged = false;

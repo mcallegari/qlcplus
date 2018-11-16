@@ -49,7 +49,7 @@
   <Capability Res="Others/open.svg" Min="0" Max="9">Static Circle</Capability>
   <Capability Res="ClayPaky/gobo00022.svg" Min="10" Max="15">Small Circle</Capability>
   <Capability Res="SGM/gobo00025.svg" Min="16" Max="21">Spiral 1</Capability>
-  <Capability Res="Chauvet/gobo00017.png" Min="22" Max="27">Spiral 2</Capability>
+  <Capability Res="Chauvet/gobo00017.svg" Min="22" Max="27">Spiral 2</Capability>
   <Capability Res="Chauvet/gobo00039.svg" Min="28" Max="33">Lightning 1</Capability>
   <Capability Res="Chauvet/gobo00040.svg" Min="34" Max="39">Triangle 1</Capability>
   <Capability Res="Chauvet/gobo00041.svg" Min="40" Max="45">Arrow 1</Capability>
@@ -62,7 +62,7 @@
   <Capability Res="Chauvet/gobo00041.svg" Min="82" Max="87">Gobo 6 shake, increase speed</Capability>
   <Capability Res="Chauvet/gobo00040.svg" Min="88" Max="93">Gobo 5 shake, increase speed</Capability>
   <Capability Res="Chauvet/gobo00039.svg" Min="94" Max="99">Gobo 4 shake, increase speed</Capability>
-  <Capability Res="Chauvet/gobo00017.png" Min="100" Max="105">Gobo 3 shake, increase speed</Capability>
+  <Capability Res="Chauvet/gobo00017.svg" Min="100" Max="105">Gobo 3 shake, increase speed</Capability>
   <Capability Res="SGM/gobo00025.svg" Min="106" Max="111">Gobo 2 shake, increase speed</Capability>
   <Capability Res="ClayPaky/gobo00022.svg" Min="112" Max="117">Gobo 1 shake, increase speed</Capability>
   <Capability Res="Others/open.svg" Min="118" Max="127">White</Capability>
@@ -74,7 +74,7 @@
   <Capability Res="Others/open.svg" Min="0" Max="9">Static Circle</Capability>
   <Capability Res="ClayPaky/gobo00022.svg" Min="10" Max="15">Small Circle</Capability>
   <Capability Res="SGM/gobo00025.svg" Min="16" Max="21">Spiral 1</Capability>
-  <Capability Res="Chauvet/gobo00017.png" Min="22" Max="27">Spiral 2</Capability>
+  <Capability Res="Chauvet/gobo00017.svg" Min="22" Max="27">Spiral 2</Capability>
   <Capability Res="Chauvet/gobo00039.svg" Min="28" Max="33">Lightning 1</Capability>
   <Capability Res="Chauvet/gobo00040.svg" Min="34" Max="39">Triangle 1</Capability>
   <Capability Res="Chauvet/gobo00041.svg" Min="40" Max="45">Arrow 1</Capability>
@@ -87,7 +87,7 @@
   <Capability Res="Chauvet/gobo00041.svg" Min="82" Max="87">Gobo 6 shake, increase speed</Capability>
   <Capability Res="Chauvet/gobo00040.svg" Min="88" Max="93">Gobo 5 shake, increase speed</Capability>
   <Capability Res="Chauvet/gobo00039.svg" Min="94" Max="99">Gobo 4 shake, increase speed</Capability>
-  <Capability Res="Chauvet/gobo00017.png" Min="100" Max="105">Gobo 3 shake, increase speed</Capability>
+  <Capability Res="Chauvet/gobo00017.svg" Min="100" Max="105">Gobo 3 shake, increase speed</Capability>
   <Capability Res="SGM/gobo00025.svg" Min="106" Max="111">Gobo 2 shake, increase speed</Capability>
   <Capability Res="ClayPaky/gobo00022.svg" Min="112" Max="117">Gobo 1 shake, increase speed</Capability>
   <Capability Res="Others/open.svg" Min="118" Max="127">White</Capability>
@@ -191,7 +191,7 @@
   <Capability Res="Others/open.svg" Min="0" Max="9">Static Circle</Capability>
   <Capability Res="ClayPaky/gobo00022.svg" Min="10" Max="15">Small Circle</Capability>
   <Capability Res="SGM/gobo00025.svg" Min="16" Max="21">Spiral 1</Capability>
-  <Capability Res="Chauvet/gobo00017.png" Min="22" Max="27">Spiral 2</Capability>
+  <Capability Res="Chauvet/gobo00017.svg" Min="22" Max="27">Spiral 2</Capability>
   <Capability Res="Chauvet/gobo00039.svg" Min="28" Max="33">Lightning 1</Capability>
   <Capability Res="Chauvet/gobo00040.svg" Min="34" Max="39">Triangle 1</Capability>
   <Capability Res="Chauvet/gobo00041.svg" Min="40" Max="45">Arrow 1</Capability>
@@ -204,7 +204,7 @@
   <Capability Res="Chauvet/gobo00041.svg" Min="82" Max="87">Gobo 6 shake, increase speed</Capability>
   <Capability Res="Chauvet/gobo00040.svg" Min="88" Max="93">Gobo 5 shake, increase speed</Capability>
   <Capability Res="Chauvet/gobo00039.svg" Min="94" Max="99">Gobo 4 shake, increase speed</Capability>
-  <Capability Res="Chauvet/gobo00017.png" Min="100" Max="105">Gobo 3 shake, increase speed</Capability>
+  <Capability Res="Chauvet/gobo00017.svg" Min="100" Max="105">Gobo 3 shake, increase speed</Capability>
   <Capability Res="SGM/gobo00025.svg" Min="106" Max="111">Gobo 2 shake, increase speed</Capability>
   <Capability Res="ClayPaky/gobo00022.svg" Min="112" Max="117">Gobo 1 shake, increase speed</Capability>
   <Capability Res="Others/open.svg" Min="118" Max="127">White</Capability>

@@ -133,8 +133,8 @@ SimpleDesk::SimpleDesk(QWidget* parent, Doc* doc)
     connect(m_doc->inputOutputMap(), SIGNAL(universeRemoved(quint32)),
             this, SLOT(slotDocChanged()));
 
-    connect(m_doc->inputOutputMap(), SIGNAL(universesWritten(int, const QByteArray&)),
-            this, SLOT(slotUniversesWritten(int, const QByteArray&)));
+    connect(m_doc->inputOutputMap(), SIGNAL(universeWritten(quint32, const QByteArray&)),
+            this, SLOT(slotUniverseWritten(quint32, const QByteArray&)));
 }
 
 SimpleDesk::~SimpleDesk()
@@ -900,14 +900,16 @@ void SimpleDesk::slotUniverseSliderValueChanged(quint32 fid, quint32 chan, uchar
     }
 }
 
-void SimpleDesk::slotUniversesWritten(int idx, const QByteArray& ua)
+void SimpleDesk::slotUniverseWritten(quint32 idx, const QByteArray& universeData)
 {
     // If Simple Desk is not visible, don't even waste CPU
     if (isVisible() == false)
         return;
 
-    if (idx != m_currentUniverse)
+    if (idx != (quint32)m_currentUniverse)
         return;
+
+    //qDebug() << "SIMPLE DESK UNIVERSE WRITTEN" << idx;
 
     if (m_viewModeButton->isChecked() == false)
     {
@@ -916,7 +918,7 @@ void SimpleDesk::slotUniversesWritten(int idx, const QByteArray& ua)
         // update current page sliders
         for (quint32 i = start; i < start + (quint32)m_channelsPerPage; i++)
         {
-            if (i >= (quint32)ua.length())
+            if (i >= (quint32)universeData.length())
                 break;
 
             quint32 absAddr = i + (idx << 9);
@@ -937,7 +939,7 @@ void SimpleDesk::slotUniversesWritten(int idx, const QByteArray& ua)
             }
 
             cc->blockSignals(true);
-            cc->setValue(ua.at(i), false);
+            cc->setValue(universeData.at(i), false);
             cc->blockSignals(false);
         }
     }
@@ -955,14 +957,14 @@ void SimpleDesk::slotUniversesWritten(int idx, const QByteArray& ua)
                 quint32 startAddr = fixture->address();
                 for (quint32 c = 0; c < fixture->channels(); c++)
                 {
-                    if (startAddr + c >= (quint32)ua.length())
+                    if (startAddr + c >= (quint32)universeData.length())
                         break;
 
                     if (m_engine->hasChannel((startAddr + c) + (idx << 9)) == true)
                         continue;
 
                     fc->blockSignals(true);
-                    fc->setValue(c, ua.at(startAddr + c), false);
+                    fc->setValue(c, universeData.at(startAddr + c), false);
                     fc->blockSignals(false);
                 }
             }

@@ -92,6 +92,7 @@ FixtureRemap::FixtureRemap(Doc *doc, QWidget *parent)
     {
         m_targetDoc->inputOutputMap()->addUniverse(uni->id());
         m_targetDoc->inputOutputMap()->setUniverseName(index, uni->name());
+        m_targetDoc->inputOutputMap()->startUniverses();
         index++;
     }
 

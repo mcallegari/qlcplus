@@ -23,7 +23,7 @@
   <Capability Min="16" Max="31" Res="Robe/gobo00035.svg">Gobo 1</Capability>
   <Capability Min="32" Max="47" Res="SGM-Color/gobo00409.png">Gobo 2</Capability>
   <Capability Min="48" Max="63" Res="SGM-Color/gobo00562.png">Frost</Capability>
-  <Capability Min="64" Max="79" Res="Others/gobo00037.png">Gobo 4</Capability>
+  <Capability Min="64" Max="79" Res="Others/gobo00037.svg">Gobo 4</Capability>
   <Capability Min="80" Max="95" Res="Others/gobo00058.png">Gobo 5</Capability>
   <Capability Min="96" Max="111">3200k</Capability>
   <Capability Min="112" Max="127">5600k</Capability>

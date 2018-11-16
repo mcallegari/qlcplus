@@ -126,13 +126,13 @@ public:
      ************************************************************************/
 public:
     /** @reimp */
-    void preRun(MasterTimer* timer);
+    void preRun(MasterTimer *timer);
 
     /** @reimp */
-    void write(MasterTimer* timer, QList<Universe*> universes);
+    void write(MasterTimer *timer, QList<Universe*> universes);
 
     /** @reimp */
-    void postRun(MasterTimer* timer, QList<Universe*> universes);
+    void postRun(MasterTimer *timer, QList<Universe*> universes);
 
 private:
     /**
@@ -144,7 +144,7 @@ private:
      * @return true to continue loop immediately, false to return control back
      *         to MasterTimer.
      */
-    bool executeCommand(int index, MasterTimer* timer, QList<Universe*> universes);
+    bool executeCommand(int index, MasterTimer *timer, QList<Universe*> universes);
 
     /**
      * Check, if the script should still wait or if it should proceed to executing
@@ -245,9 +245,6 @@ private:
      * @return A list of tokens parsed from the line
      */
     static QList <QStringList> tokenizeLine(const QString& line, bool* ok = NULL);
-
-    /** Get the script's GenericFader (and create it if necessary) */
-    GenericFader* fader();
 
 private:
     int m_currentCommand;        //! Current command line being handled

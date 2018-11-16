@@ -696,6 +696,7 @@ void VCButton::pressFunction()
         f = m_doc->function(m_function);
         if (f != NULL)
         {
+            adjustFunctionIntensity(f, intensity());
             f->flash(m_doc->masterTimer());
             setState(Active);
         }
@@ -730,6 +731,7 @@ void VCButton::releaseFunction()
         if (f != NULL)
         {
             f->unFlash(m_doc->masterTimer());
+            resetIntensityOverrideAttribute();
             setState(Inactive);
         }
     }

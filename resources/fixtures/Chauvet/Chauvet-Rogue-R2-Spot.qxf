@@ -70,11 +70,11 @@
  <Channel Name="Gobo Wheel 1">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="7" Res="Others/open.svg">Open</Capability>
-  <Capability Min="8" Max="15" Res="Chauvet/gobo00054.png">Gobo 1</Capability>
+  <Capability Min="8" Max="15" Res="Chauvet/gobo00054.svg">Gobo 1</Capability>
   <Capability Min="16" Max="23" Res="Chauvet/gobo00055.png">Gobo 2</Capability>
-  <Capability Min="24" Max="31" Res="Chauvet/gobo00056.png">Gobo 3</Capability>
-  <Capability Min="32" Max="39" Res="Chauvet/gobo00057.png">Gobo 4</Capability>
-  <Capability Min="40" Max="47" Res="Chauvet/gobo00058.png">Gobo 5</Capability>
+  <Capability Min="24" Max="31" Res="Chauvet/gobo00056.svg">Gobo 3</Capability>
+  <Capability Min="32" Max="39" Res="Chauvet/gobo00057.svg">Gobo 4</Capability>
+  <Capability Min="40" Max="47" Res="Chauvet/gobo00058.svg">Gobo 5</Capability>
   <Capability Min="48" Max="55" Res="Chauvet/gobo00059.svg">Gobo 6</Capability>
   <Capability Min="56" Max="63" Res="Chauvet/gobo00060.png">Gobo 7</Capability>
   <Capability Min="64" Max="119">Gobo Shake 1-7 (Slow -&gt; Fast)</Capability>
@@ -95,10 +95,10 @@
   <Capability Min="7" Max="13" Res="Chauvet/gobo00061.png">Gobo 1</Capability>
   <Capability Min="14" Max="20" Res="Chauvet/gobo00062.svg">Gobo 2</Capability>
   <Capability Min="21" Max="27" Res="Chauvet/gobo00063.svg">Gobo 3</Capability>
-  <Capability Min="28" Max="34" Res="Chauvet/gobo00064.png">Gobo 4</Capability>
-  <Capability Min="35" Max="41" Res="Chauvet/gobo00065.png">Gobo 5</Capability>
+  <Capability Min="28" Max="34" Res="Chauvet/gobo00064.svg">Gobo 4</Capability>
+  <Capability Min="35" Max="41" Res="Chauvet/gobo00065.svg">Gobo 5</Capability>
   <Capability Min="42" Max="48" Res="Chauvet/gobo00066.png">Gobo 6</Capability>
-  <Capability Min="49" Max="55" Res="Chauvet/gobo00067.png">Gobo 7</Capability>
+  <Capability Min="49" Max="55" Res="Chauvet/gobo00067.svg">Gobo 7</Capability>
   <Capability Min="56" Max="63" Res="Chauvet/gobo00068.png">Gobo 8</Capability>
   <Capability Min="64" Max="120">Gobo Shake 1-8 (Slow -&gt; Fast)</Capability>
   <Capability Min="121" Max="127">Open</Capability>

@@ -22,6 +22,8 @@
 #include <libudev.h>
 #include <unistd.h>
 #include <errno.h>
+
+#include <QStringList>
 #include <QDebug>
 
 #include "hpmprivate-udev.h"
@@ -34,6 +36,7 @@
 #define USB_DEVICE_TYPE      "usb_device"
 #define PROPERTY_VID         "ID_VENDOR_ID"
 #define PROPERTY_PID         "ID_MODEL_ID"
+#define PROPERTY_PRODUCT     "PRODUCT"
 
 HPMPrivate::HPMPrivate(HotPlugMonitor* parent)
     : QThread(parent)
@@ -59,10 +62,10 @@ void HPMPrivate::stop()
 
 void HPMPrivate::run()
 {
-    udev* udev_ctx = udev_new();
+    udev *udev_ctx = udev_new();
     Q_ASSERT(udev_ctx != NULL);
 
-    udev_monitor* mon = udev_monitor_new_from_netlink(udev_ctx, UDEV_NETLINK_SOURCE);
+    udev_monitor *mon = udev_monitor_new_from_netlink(udev_ctx, UDEV_NETLINK_SOURCE);
     Q_ASSERT(mon != NULL);
 
     if (udev_monitor_filter_add_match_subsystem_devtype(mon, USB_SUBSYSTEM, USB_DEVICE_TYPE) < 0)
@@ -101,29 +104,41 @@ void HPMPrivate::run()
         }
         else if (retval > 0 && FD_ISSET(fd, &readfs))
         {
-            udev_device* dev = udev_monitor_receive_device(mon);
+            udev_device *dev = udev_monitor_receive_device(mon);
             if (dev != NULL)
             {
-                const char* action = udev_device_get_action(dev);
-                const char* vendor = udev_device_get_property_value(dev, PROPERTY_VID);
-                const char* product = udev_device_get_property_value(dev, PROPERTY_PID);
-                if (action == NULL || vendor == NULL || product == NULL)
+                QString action = QString(udev_device_get_action(dev));
+                QString vendor = QString(udev_device_get_property_value(dev, PROPERTY_VID));
+                QString product = QString(udev_device_get_property_value(dev, PROPERTY_PID));
+
+                // fallback to composite PRODUCT property VID/PID/REV
+                if (vendor.isEmpty() && product.isEmpty())
+                {
+                    QString compProduct = QString(udev_device_get_property_value(dev, PROPERTY_PRODUCT));
+                    QStringList tokens = compProduct.split("/");
+                    if (tokens.count() >= 2)
+                    {
+                        vendor = tokens.at(0);
+                        product = tokens.at(1);
+                    }
+                }
+                if (action.isEmpty() || vendor.isEmpty() || product.isEmpty())
                 {
                     qWarning() << Q_FUNC_INFO << "Unable to get device properties"
-                               << (void*) dev;
+                               << (void*) dev << "Action:" << QString(action);
                 }
-                else if (strcmp(action, DEVICE_ACTION_ADD) == 0)
+                else if (action == QString(DEVICE_ACTION_ADD))
                 {
-                    uint vid = QString(vendor).toUInt(0, 16);
-                    uint pid = QString(product).toUInt(0, 16);
+                    uint vid = vendor.toUInt(0, 16);
+                    uint pid = product.toUInt(0, 16);
                     HotPlugMonitor* hpm = qobject_cast<HotPlugMonitor*> (parent());
                     Q_ASSERT(hpm != NULL);
                     hpm->emitDeviceAdded(vid, pid);
                 }
-                else if (strcmp(action, DEVICE_ACTION_REMOVE) == 0)
+                else if (action == QString(DEVICE_ACTION_REMOVE))
                 {
-                    uint vid = QString(vendor).toUInt(0, 16);
-                    uint pid = QString(product).toUInt(0, 16);
+                    uint vid = vendor.toUInt(0, 16);
+                    uint pid = product.toUInt(0, 16);
                     HotPlugMonitor* hpm = qobject_cast<HotPlugMonitor*> (parent());
                     Q_ASSERT(hpm != NULL);
                     hpm->emitDeviceRemoved(vid, pid);

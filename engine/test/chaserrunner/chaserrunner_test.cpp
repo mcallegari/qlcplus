@@ -112,9 +112,10 @@ void ChaserRunner_Test::initial()
     QCOMPARE(cr.m_updateOverrideSpeeds, false);
     QCOMPARE(cr.m_direction, Function::Forward);
     QCOMPARE(cr.m_startOffset, quint32(0));
-    QCOMPARE(cr.m_next, false);
-    QCOMPARE(cr.m_previous, false);
-    QCOMPARE(cr.m_newStartStepIdx, -1);
+    QCOMPARE(cr.m_pendingAction.m_action, ChaserNoAction);
+    QCOMPARE(cr.m_pendingAction.m_intensity, 1.0);
+    QCOMPARE(cr.m_pendingAction.m_stepIndex, -1);
+    QCOMPARE(cr.m_pendingAction.m_fadeMode, (int)Chaser::FromFunction);
     QCOMPARE(cr.m_lastRunStepIdx, -1);
     QCOMPARE(cr.m_intensity, qreal(1.0));
 }
@@ -126,21 +127,23 @@ void ChaserRunner_Test::nextPrevious()
 
     ChaserRunner cr(m_doc, m_chaser);
 
-    cr.next();
-    QCOMPARE(cr.m_next, true);
-    QCOMPARE(cr.m_previous, false);
+    QCOMPARE(cr.m_pendingAction.m_action, ChaserNoAction);
 
-    cr.next();
-    QCOMPARE(cr.m_next, true);
-    QCOMPARE(cr.m_previous, false);
+    ChaserAction action;
+    action.m_action = ChaserNextStep;
 
-    cr.previous();
-    QCOMPARE(cr.m_next, false);
-    QCOMPARE(cr.m_previous, true);
+    cr.setAction(action);
+    QCOMPARE(cr.m_pendingAction.m_action, ChaserNextStep);
 
-    cr.previous();
-    QCOMPARE(cr.m_next, false);
-    QCOMPARE(cr.m_previous, true);
+    cr.setAction(action);
+    QCOMPARE(cr.m_pendingAction.m_action, ChaserNextStep);
+
+    action.m_action = ChaserPreviousStep;
+    cr.setAction(action);
+    QCOMPARE(cr.m_pendingAction.m_action, ChaserPreviousStep);
+
+    cr.setAction(action);
+    QCOMPARE(cr.m_pendingAction.m_action, ChaserPreviousStep);
 }
 
 void ChaserRunner_Test::currentFadeIn()
@@ -1242,7 +1245,9 @@ void ChaserRunner_Test::writeNoAutoStep()
         QCOMPARE(timer.m_functionList[0], m_scene1);
     }
 
-    cr.next();
+    ChaserAction action;
+    action.m_action = ChaserNextStep;
+    cr.setAction(action);
 
     for (int i = 0; i < 10; i++)
     {
@@ -1252,7 +1257,7 @@ void ChaserRunner_Test::writeNoAutoStep()
         QCOMPARE(timer.m_functionList[0], m_scene2);
     }
 
-    cr.next();
+    cr.setAction(action);
 
     for (int i = 0; i < 10; i++)
     {
@@ -1262,7 +1267,7 @@ void ChaserRunner_Test::writeNoAutoStep()
         QCOMPARE(timer.m_functionList[0], m_scene3);
     }
 
-    cr.next();
+    cr.setAction(action);
 
     for (int i = 0; i < 10; i++)
     {
@@ -1272,7 +1277,8 @@ void ChaserRunner_Test::writeNoAutoStep()
         QCOMPARE(timer.m_functionList[0], m_scene1);
     }
 
-    cr.previous();
+    action.m_action = ChaserPreviousStep;
+    cr.setAction(action);
 
     for (int i = 0; i < 10; i++)
     {
@@ -1282,7 +1288,7 @@ void ChaserRunner_Test::writeNoAutoStep()
         QCOMPARE(timer.m_functionList[0], m_scene3);
     }
 
-    cr.previous();
+    cr.setAction(action);
 
     for (int i = 0; i < 10; i++)
     {
@@ -1292,7 +1298,7 @@ void ChaserRunner_Test::writeNoAutoStep()
         QCOMPARE(timer.m_functionList[0], m_scene2);
     }
 
-    cr.previous();
+    cr.setAction(action);
 
     for (int i = 0; i < 10; i++)
     {
@@ -1311,7 +1317,7 @@ void ChaserRunner_Test::adjustIntensity()
     ChaserRunner cr(m_doc, m_chaser);
     MasterTimer timer(m_doc);
 
-    cr.adjustIntensity(0.5);
+    cr.adjustStepIntensity(0.5);
 
     QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
     timer.timerTick();
@@ -1337,7 +1343,7 @@ void ChaserRunner_Test::adjustIntensity()
     QCOMPARE(m_scene2->getAttributeValue(Function::Intensity), qreal(1.0));
     QCOMPARE(m_scene3->getAttributeValue(Function::Intensity), qreal(0.5));
 
-    cr.adjustIntensity(0.7);
+    cr.adjustStepIntensity(0.7);
     QCOMPARE(m_scene1->getAttributeValue(Function::Intensity), qreal(1.0));
     QCOMPARE(m_scene2->getAttributeValue(Function::Intensity), qreal(1.0));
     QCOMPARE(m_scene3->getAttributeValue(Function::Intensity), qreal(0.7));
@@ -1358,7 +1364,7 @@ void ChaserRunner_Test::adjustIntensity()
     QCOMPARE(m_scene2->getAttributeValue(Function::Intensity), qreal(0.7));
     QCOMPARE(m_scene3->getAttributeValue(Function::Intensity), qreal(1.0));
 
-    cr.adjustIntensity(1.5);
+    cr.adjustStepIntensity(1.5);
     QCOMPARE(m_scene1->getAttributeValue(Function::Intensity), qreal(1.0));
     QCOMPARE(m_scene2->getAttributeValue(Function::Intensity), qreal(1.0));
     QCOMPARE(m_scene3->getAttributeValue(Function::Intensity), qreal(1.0));

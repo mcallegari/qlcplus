@@ -47,8 +47,8 @@ unix:!macx {
     udev.files = linux/z65-fx5-hid.rules
     INSTALLS  += udev
 
-    metainfo.path   = $$INSTALLROOT/share/appdata/
-    metainfo.files += linux/qlcplus-hid.metainfo.xml
+    metainfo.path   = $$METAINFODIR
+    metainfo.files += linux/org.qlcplus.QLCPlus.hid.metainfo.xml
     INSTALLS       += metainfo
 }
 

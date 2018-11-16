@@ -22,6 +22,7 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 
+#define protected public
 #define private public
 #include "rgbscriptscache.h"
 #include "rgbmatrix_test.h"
@@ -34,6 +35,7 @@
 #include "qlcfile.h"
 #include "doc.h"
 #undef private
+#undef protected
 
 #include "../common/resource_paths.h"
 
@@ -82,7 +84,7 @@ void RGBMatrix_Test::initial()
     QCOMPARE(mtx.fixtureGroup(), FixtureGroup::invalidId());
     QCOMPARE(mtx.startColor(), QColor(Qt::red));
     QCOMPARE(mtx.endColor(), QColor());
-    QVERIFY(mtx.m_fader == NULL);
+    QCOMPARE(mtx.m_fadersMap.count(), 0);
     QCOMPARE(mtx.m_stepHandler->currentStepIndex(), 0);
     QCOMPARE(mtx.name(), tr("New RGB Matrix"));
     QCOMPARE(mtx.duration(), uint(500));
