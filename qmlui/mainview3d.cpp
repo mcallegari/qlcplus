@@ -1214,6 +1214,7 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                 switch (cap->preset())
                 {
                     case QLCCapability::GoboMacro:
+                    case QLCCapability::GoboShakeMacro:
                     {
                         QString resName = cap->resource(0).toString();
 

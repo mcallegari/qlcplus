@@ -97,6 +97,7 @@ void MainView2D::resetItems()
 
 bool MainView2D::initialize2DProperties()
 {
+    emit pointOfViewChanged(m_monProps->pointOfView());
     setGridSize(m_monProps->gridSize());
 
     m_gridItem = qobject_cast<QQuickItem*>(contextItem()->findChild<QObject *>("twoDContents"));
@@ -482,7 +483,8 @@ void MainView2D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                 if (cap == NULL)
                     break;
 
-                if (cap->preset() == QLCCapability::GoboMacro)
+                if (cap->preset() == QLCCapability::GoboMacro ||
+                    cap->preset() == QLCCapability::GoboShakeMacro)
                 {
                     QString resName = cap->resource(0).toString();
 
