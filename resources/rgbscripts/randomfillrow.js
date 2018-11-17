@@ -85,7 +85,7 @@ var testAlgo;
 
                 algo.steps = new Array(height);
                 var lastStep = 0;
-                for (var i = 0; i < width; i++)
+                for (var i = 0; i < height; i++)
                 {
                     var index = Math.floor(Math.random() * (stepList.length));
                     var yx = stepList[index];
