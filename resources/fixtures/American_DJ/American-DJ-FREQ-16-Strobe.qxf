@@ -9,91 +9,23 @@
  <Manufacturer>American DJ</Manufacturer>
  <Model>FREQ 16 Strobe</Model>
  <Type>LED Bar (Pixels)</Type>
- <Channel Name="Dimmer 1">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="0">Off</Capability>
-  <Capability Min="1" Max="255">0% -&gt; 100%</Capability>
- </Channel>
- <Channel Name="Dimmer 2">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="0">Off</Capability>
-  <Capability Min="1" Max="255">0% -&gt; 100%</Capability>
- </Channel>
- <Channel Name="Dimmer 3">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="0">Off</Capability>
-  <Capability Min="1" Max="255">0% -&gt; 100%</Capability>
- </Channel>
- <Channel Name="Dimmer 4">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="0">Off</Capability>
-  <Capability Min="1" Max="255">0% -&gt; 100%</Capability>
- </Channel>
- <Channel Name="Dimmer 5">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="0">Off</Capability>
-  <Capability Min="1" Max="255">0% -&gt; 100%</Capability>
- </Channel>
- <Channel Name="Dimmer 6">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="0">Off</Capability>
-  <Capability Min="1" Max="255">0% -&gt; 100%</Capability>
- </Channel>
- <Channel Name="Dimmer 7">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="0">Off</Capability>
-  <Capability Min="1" Max="255">0% -&gt; 100%</Capability>
- </Channel>
- <Channel Name="Dimmer 8">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="0">Off</Capability>
-  <Capability Min="1" Max="255">0% -&gt; 100%</Capability>
- </Channel>
- <Channel Name="Dimmer 9">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="0">Off</Capability>
-  <Capability Min="1" Max="255">0% -&gt; 100%</Capability>
- </Channel>
- <Channel Name="Dimmer 10">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="0">Off</Capability>
-  <Capability Min="1" Max="255">0% -&gt; 100%</Capability>
- </Channel>
- <Channel Name="Dimmer 11">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="0">Off</Capability>
-  <Capability Min="1" Max="255">0% -&gt; 100%</Capability>
- </Channel>
- <Channel Name="Dimmer 12">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="0">Off</Capability>
-  <Capability Min="1" Max="255">0% -&gt; 100%</Capability>
- </Channel>
- <Channel Name="Dimmer 13">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="0">Off</Capability>
-  <Capability Min="1" Max="255">0% -&gt; 100%</Capability>
- </Channel>
- <Channel Name="Dimmer 14">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="0">Off</Capability>
-  <Capability Min="1" Max="255">0% -&gt; 100%</Capability>
- </Channel>
- <Channel Name="Dimmer 15">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="0">Off</Capability>
-  <Capability Min="1" Max="255">0% -&gt; 100%</Capability>
- </Channel>
- <Channel Name="Dimmer 16">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="0">Off</Capability>
-  <Capability Min="1" Max="255">0% -&gt; 100%</Capability>
- </Channel>
- <Channel Name="Master Dimmer">
-  <Group Byte="0">Intensity</Group>
-  <Capability Min="0" Max="0">Off</Capability>
-  <Capability Min="1" Max="255">0% -&gt; 100%</Capability>
- </Channel>
+ <Channel Name="Dimmer 1" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 2" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 3" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 4" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 5" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 6" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 7" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 8" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 9" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 10" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 11" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 12" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 13" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 14" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 15" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 16" Preset="IntensityDimmer"/>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobing">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="8" Preset="ShutterClose">Off</Capability>
