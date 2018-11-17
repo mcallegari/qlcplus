@@ -76,7 +76,7 @@
   <Capability Res="ClayPaky/gobo00088.svg" Min="56" Max="59">Gobo 14</Capability>
   <Capability Res="ClayPaky/gobo00087.svg" Min="60" Max="63">Gobo 15</Capability>
   <Capability Res="ClayPaky/gobo00093.svg" Min="64" Max="67">Gobo 16</Capability>
-  <Capability Res="ClayPaky/gobo00092.svg" Min="68" Max="71">Gobo 17</Capability>
+  <Capability Res="ClayPaky/gobo00012.svg" Min="68" Max="71">Gobo 17</Capability>
   <Capability Min="72" Max="113">Rotation (Fast 60rpm to slow 5rpm)</Capability>
   <Capability Min="114" Max="117">Open</Capability>
   <Capability Min="118" Max="159">Rotation (Slow 5rpm to fast 60rpm)</Capability>

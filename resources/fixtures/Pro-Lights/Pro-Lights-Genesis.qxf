@@ -55,7 +55,7 @@
   <Capability Min="52" Max="55" Preset="GoboMacro" Res1="ClayPaky/gobo00094.svg">Star Abs</Capability>
   <Capability Min="56" Max="59" Preset="GoboMacro" Res1="ClayPaky/gobo00087.svg">Bubbles 2</Capability>
   <Capability Min="60" Max="63" Preset="GoboMacro" Res1="ClayPaky/gobo00088.svg">Bubbles 3</Capability>
-  <Capability Min="64" Max="67" Preset="GoboMacro" Res1="ClayPaky/gobo00092.svg">Line 1</Capability>
+  <Capability Min="64" Max="67" Preset="GoboMacro" Res1="ClayPaky/gobo00012.svg">Line 1</Capability>
   <Capability Min="68" Max="71" Preset="GoboMacro" Res1="ClayPaky/gobo00093.svg">Line 2</Capability>
   <Capability Min="72" Max="113" Preset="RotationClockwiseFastToSlow">Rotation Fast &gt; Slow</Capability>
   <Capability Min="114" Max="117" Preset="RotationStop">No Rotation</Capability>
@@ -74,7 +74,7 @@
   <Capability Min="231" Max="236" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00094.svg">Star Abs Shake Slow &gt; Fast</Capability>
   <Capability Min="237" Max="243" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00087.svg">Bubbles 2 Shake Slow &gt; Fast</Capability>
   <Capability Min="244" Max="249" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00088.svg">Bubbles 3 Shake Slow &gt; Fast</Capability>
-  <Capability Min="250" Max="255" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00092.svg">Line 1 Shake Slow &gt; Fast</Capability>
+  <Capability Min="250" Max="255" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00012.svg">Line 1 Shake Slow &gt; Fast</Capability>
  </Channel>
  <Channel Name="Prism / Gobo Rotation">
   <Group Byte="0">Gobo</Group>

@@ -75,7 +75,7 @@
   <Capability Min="56" Max="59" Preset="GoboMacro" Res1="ClayPaky/gobo00088.svg">Gobo 14</Capability>
   <Capability Min="60" Max="63" Preset="GoboMacro" Res1="ClayPaky/gobo00087.svg">Gobo 15</Capability>
   <Capability Min="64" Max="67" Preset="GoboMacro" Res1="ClayPaky/gobo00093.svg">Gobo 16</Capability>
-  <Capability Min="68" Max="71" Preset="GoboMacro" Res1="ClayPaky/gobo00092.svg">Gobo 17</Capability>
+  <Capability Min="68" Max="71" Preset="GoboMacro" Res1="ClayPaky/gobo00012.svg">Gobo 17</Capability>
   <Capability Min="72" Max="113">Rotation (Fast 60rpm to slow 5rpm)</Capability>
   <Capability Min="114" Max="117">Stop</Capability>
   <Capability Min="118" Max="159">Rotation (Slow 5rpm to fast 60rpm)</Capability>
