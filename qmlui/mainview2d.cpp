@@ -483,22 +483,28 @@ void MainView2D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                 if (cap == NULL)
                     break;
 
-                if (cap->preset() == QLCCapability::GoboMacro ||
-                    cap->preset() == QLCCapability::GoboShakeMacro)
+                switch (cap->preset())
                 {
-                    QString resName = cap->resource(0).toString();
-
-                    if (resName.isEmpty() == false && resName.endsWith("open.svg") == false)
+                    case QLCCapability::GoboMacro:
+                    case QLCCapability::GoboShakeMacro:
                     {
-                        QMetaObject::invokeMethod(fxItem, "setGoboPicture",
-                                Q_ARG(QVariant, 0),
-                                Q_ARG(QVariant, resName));
-                        // here we don't look for any other gobos, so if a
-                        // fixture has more than one gobo wheel, the second
-                        // one will be skipped if the first one has been set
-                        // to a non-open gobo
-                        goboSet = true;
+                        QString resName = cap->resource(0).toString();
+
+                        if (resName.isEmpty() == false && resName.endsWith("open.svg") == false)
+                        {
+                            QMetaObject::invokeMethod(fxItem, "setGoboPicture",
+                                    Q_ARG(QVariant, 0),
+                                    Q_ARG(QVariant, resName));
+                            // here we don't look for any other gobos, so if a
+                            // fixture has more than one gobo wheel, the second
+                            // one will be skipped if the first one has been set
+                            // to a non-open gobo
+                            goboSet = true;
+                        }
                     }
+                    break;
+                    default:
+                    break;
                 }
             }
             break;

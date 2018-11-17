@@ -269,8 +269,8 @@ Entity
     {
         //console.log("Gobo clockwise: " + (cw ? "yes" : "no") + " speed: " + speed)
         goboAnim.stop()
-        goboAnim.from = cw ? 0 : 359
-        goboAnim.to = cw ? 359 : 0
+        goboAnim.from = cw ? 0 : Math.PI * 2
+        goboAnim.to = cw ? Math.PI * 2 : 0
         if (speed !== 0)
         {
             goboAnim.duration = speed

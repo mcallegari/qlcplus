@@ -42,8 +42,8 @@
 #define MIN_POSITION_SPEED  4000 // ms
 #define MAX_POSITION_SPEED  20000 // ms
 
-#define MIN_GOBO_SPEED      3000 // ms
-#define MAX_GOBO_SPEED      10000 // ms
+#define MIN_GOBO_SPEED      500 // ms
+#define MAX_GOBO_SPEED      5000 // ms
 
 FixtureUtils::FixtureUtils()
 {
