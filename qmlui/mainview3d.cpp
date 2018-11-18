@@ -1136,7 +1136,7 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                 else
                     panValue += (value);
 
-                if (previous.isEmpty() || value != previous.at(i))
+                if (previous.isEmpty() || value != uchar(previous.at(i)))
                     setPosition = true;
             }
             break;
@@ -1147,13 +1147,13 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
                 else
                     tiltValue += (value);
 
-                if (previous.isEmpty() || value != previous.at(i))
+                if (previous.isEmpty() || value != uchar(previous.at(i)))
                     setPosition = true;
             }
             break;
             case QLCChannel::Speed:
             {
-                if (previous.count() && value == previous.at(i))
+                if (previous.count() && value == uchar(previous.at(i)))
                     break;
 
                 int panSpeed, tiltSpeed;
@@ -1189,7 +1189,7 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
             break;
             case QLCChannel::Beam:
             {
-                if (previous.count() && value == previous.at(i))
+                if (previous.count() && value == uchar(previous.at(i)))
                     break;
 
                 switch (ch->preset())
@@ -1207,7 +1207,7 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
             break;
             case QLCChannel::Gobo:
             {
-                if (previous.count() && value == previous.at(i))
+                if (previous.count() && value == uchar(previous.at(i)))
                     break;
 
                 QLCCapability *cap = ch->searchCapability(value);
@@ -1251,7 +1251,7 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
             break;
             case QLCChannel::Shutter:
             {
-                if (previous.count() && value == previous.at(i))
+                if (previous.count() && value == uchar(previous.at(i)))
                     break;
 
                 int high = 200, low = 800;
