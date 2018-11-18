@@ -159,6 +159,7 @@ Rectangle
                         function updateChannel()
                         {
                             chIcon.source = fixtureObj ? fixtureManager.channelIcon(fixtureObj.id, index) : ""
+                            chIcon.tooltip = fixtureObj ? fixtureManager.channelName(fixtureObj.id, index) : ""
                         }
 
                         onDmxValueChanged:
@@ -234,15 +235,15 @@ Rectangle
                                 }
                             }
 
-                            Image
+                            IconButton
                             {
                                 id: chIcon
                                 x: (parent.width - width) / 2
                                 width: UISettings.iconSizeMedium
                                 height: width
-                                //Layout.alignment: Qt.AlignCenter
-                                sourceSize: Qt.size(width, height)
-                                source: fixtureObj ? fixtureManager.channelIcon(fixtureObj.id, index) : ""
+                                border.width: 0
+                                tooltip: fixtureObj ? fixtureManager.channelName(fixtureObj.id, index) : ""
+                                imgSource: fixtureObj ? fixtureManager.channelIcon(fixtureObj.id, index) : ""
                             }
 
                             QLCPlusFader

@@ -213,6 +213,10 @@ public:
      *  the provided Fixture ID $fxID and channel index $chIdx */
     Q_INVOKABLE QString channelIcon(quint32 fxID, quint32 chIdx);
 
+    /** Generic helper to retrieve a channel name, from
+     *  the provided Fixture ID $fxID and channel index $chIdx */
+    Q_INVOKABLE QString channelName(quint32 fxID, quint32 chIdx);
+
 signals:
     /** Notify the listeners that the number of Fixtures has changed */
     void fixturesCountChanged();

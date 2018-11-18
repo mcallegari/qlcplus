@@ -872,6 +872,19 @@ QString FixtureManager::channelIcon(quint32 fxID, quint32 chIdx)
     return channel->getIconNameFromGroup(channel->group(), true);
 }
 
+QString FixtureManager::channelName(quint32 fxID, quint32 chIdx)
+{
+    Fixture *fixture = m_doc->fixture(fxID);
+    if (fixture == NULL)
+        return QString();
+
+    const QLCChannel *channel = fixture->channel(chIdx);
+    if (channel == NULL)
+        return QString();
+
+    return channel->name();
+}
+
 void FixtureManager::slotFixtureAdded(quint32 id, QVector3D pos)
 {
     if (m_doc->loadStatus() == Doc::Loading)
