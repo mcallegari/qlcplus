@@ -39,7 +39,7 @@ Entity
     property vector3d phySize: Qt.vector3d(1, 0.1, 0.1)
     property bool useScattering: false
     property bool useShadows: false
-    property real shutterValue: 1.0
+    property real shutterValue: sAnimator.shutterValue
 
     onItemIDChanged:
     {
@@ -117,7 +117,7 @@ Entity
                 property real headWidth: phySize.x / fixtureEntity.headsNumber
                 property color lightColor: Qt.rgba(0, 0, 0, 1)
 
-                enabled: lightColor === Qt.rgba(0, 0, 0, 1) ? false : true
+                enabled: lightIntensity === 0 || lightColor === Qt.rgba(0, 0, 0, 1) ? false : true
 
                 PlaneMesh
                 {
@@ -140,7 +140,10 @@ Entity
                         effect: sceneEffect
 
                         parameters: [
-                            Parameter { name: "diffuse"; value: lightColor },
+                            Parameter {
+                                name: "diffuse"
+                                value: Qt.rgba(lightColor.r * lightIntensity, lightColor.g * lightIntensity, lightColor.b * lightIntensity, 1)
+                            },
                             Parameter { name: "specular"; value: "black" },
                             Parameter { name: "shininess"; value: 1.0 },
                             Parameter { name: "bloom"; value: 1 }
