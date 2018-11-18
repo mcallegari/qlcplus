@@ -302,7 +302,7 @@
  </Mode>
  <Physical>
   <Bulb Type="MSD Platinum 20R" Lumens="24000" ColourTemperature="7800"/>
-  <Dimensions Weight="30" Width="404" Height="420" Depth="628"/>
+  <Dimensions Weight="30" Width="404" Height="628" Depth="420"/>
   <Lens Name="Other" DegreesMin="0" DegreesMax="4"/>
   <Focus Type="Head" PanMax="540" TiltMax="244"/>
   <Technical PowerConsumption="700" DmxConnector="3-pin and 5-pin"/>
