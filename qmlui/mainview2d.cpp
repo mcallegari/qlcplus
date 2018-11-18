@@ -626,6 +626,22 @@ void MainView2D::updateFixturePosition(quint32 itemID, QVector3D pos)
     }
 }
 
+void MainView2D::updateFixtureSize(quint32 itemID, Fixture *fixture)
+{
+    if (isEnabled() == false)
+        return;
+
+    if (m_itemsMap.contains(itemID))
+    {
+        QQuickItem *fxItem = m_itemsMap[itemID];
+        QLCFixtureMode *fxMode = fixture->fixtureMode();
+        QSizeF size = FixtureUtils::item2DDimension(fixture->type() == QLCFixtureDef::Dimmer ? NULL : fxMode,
+                                                    m_monProps->pointOfView());
+        fxItem->setProperty("mmWidth", size.width());
+        fxItem->setProperty("mmHeight", size.height());
+    }
+}
+
 void MainView2D::removeFixtureItem(quint32 itemID)
 {
     if (isEnabled() == false || m_itemsMap.contains(itemID) == false)
@@ -743,6 +759,7 @@ void MainView2D::setPointOfView(int pointOfView)
             quint32 itemID = FixtureUtils::fixtureItemID(fixture->id(), headIndex, linkedIndex);
 
             updateFixturePosition(itemID, m_monProps->fixturePosition(fixture->id(), headIndex, linkedIndex));
+            updateFixtureSize(itemID, fixture);
         }
     }
 }

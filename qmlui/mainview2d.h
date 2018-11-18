@@ -85,6 +85,9 @@ public:
     /** Update the position of a Fixture with the provided $itemID */
     void updateFixturePosition(quint32 itemID, QVector3D pos);
 
+    /** Update the position of a Fixture with the provided $itemID */
+    void updateFixtureSize(quint32 itemID, Fixture *fixture);
+
     /** Remove a Fixture item with the provided $itemID from the preview */
     void removeFixtureItem(quint32 itemID);
 
