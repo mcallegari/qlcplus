@@ -208,12 +208,15 @@ void MainView3D::setUniverseFilter(quint32 universeFilter)
     while(it.hasNext())
     {
         it.next();
-        quint32 fxID = it.key();
+        quint32 itemID = it.key();
+
+        quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+
         Fixture *fixture = m_doc->fixture(fxID);
         if (fixture == nullptr)
-            continue;
+            return;
 
-        SceneItem *meshRef = m_entitiesMap.value(fxID);
+        SceneItem *meshRef = m_entitiesMap.value(itemID);
 
         if (universeFilter == Universe::invalid() || fixture->universe() == (quint32)universeFilter)
         {

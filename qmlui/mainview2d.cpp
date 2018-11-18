@@ -71,11 +71,13 @@ void MainView2D::setUniverseFilter(quint32 universeFilter)
     while(it.hasNext())
     {
         it.next();
-        quint32 fxID = it.key();
+        quint32 itemID = it.key();
         QQuickItem *fxItem = it.value();
+        quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+
         Fixture *fixture = m_doc->fixture(fxID);
-        if (fixture == NULL)
-            continue;
+        if (fixture == nullptr)
+            return;
 
         if (universeFilter == Universe::invalid() || fixture->universe() == universeFilter)
             fxItem->setProperty("visible", "true");
