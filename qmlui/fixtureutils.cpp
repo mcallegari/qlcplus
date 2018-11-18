@@ -150,7 +150,7 @@ QSizeF FixtureUtils::item2DDimension(QLCFixtureMode *fxMode, int pointOfView)
         case MonitorProperties::Undefined:
         case MonitorProperties::FrontView:
             size.setWidth(phy.width());
-            size.setHeight(phy.depth());
+            size.setHeight(phy.height());
         break;
         case MonitorProperties::RightSideView:
         case MonitorProperties::LeftSideView:

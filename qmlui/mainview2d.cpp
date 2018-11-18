@@ -150,6 +150,7 @@ void MainView2D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
 
     newFixtureItem->setParentItem(m_gridItem);
     newFixtureItem->setProperty("itemID", itemID);
+    newFixtureItem->setProperty("fixtureName", fixture->name());
 
     if (itemFlags & MonitorProperties::HiddenFlag)
         newFixtureItem->setProperty("visible", false);
@@ -157,6 +158,9 @@ void MainView2D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
     if (fxMode != NULL && fixture->type() != QLCFixtureDef::Dimmer)
     {
         QLCPhysical phy = fxMode->physical();
+
+        if (phy.layoutSize() != QSize(1, 1))
+            newFixtureItem->setProperty("headsLayout", phy.layoutSize());
 
         //qDebug() << "Current mode fixture heads:" << fxMode->heads().count();
         newFixtureItem->setProperty("headsNumber", fxMode->heads().count());
@@ -225,7 +229,6 @@ void MainView2D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
     newFixtureItem->setProperty("mmYPos", itemPos.y());
     newFixtureItem->setProperty("mmWidth", size.width());
     newFixtureItem->setProperty("mmHeight", size.height());
-    newFixtureItem->setProperty("fixtureName", fixture->name());
 
     // and finally add the new item to the items map
     m_itemsMap[itemID] = newFixtureItem;

@@ -17,7 +17,7 @@
   limitations under the License.
 */
 
-import QtQuick 2.2
+import QtQuick 2.10
 
 import org.qlcplus.classes 1.0
 import "CanvasDrawFunctions.js" as DrawFuncs
@@ -52,8 +52,7 @@ Rectangle
 
     property int headsNumber: 1
     property real headSide: 10
-    property int headColumns: 1
-    property int headRows: 1
+    property size headsLayout: Qt.size(1, 1)
 
     property int panMaxDegrees: 0
     property int tiltMaxDegrees: 0
@@ -63,29 +62,47 @@ Rectangle
 
     onWidthChanged: calculateHeadSize();
     onHeightChanged: calculateHeadSize();
-    onHeadsNumberChanged: calculateHeadSize();
+    //onHeadsNumberChanged: calculateHeadSize();
 
     function calculateHeadSize()
     {
-        var areaSqrt = Math.sqrt((width * height) / headsNumber)
-        var columns = parseInt((width / areaSqrt) + 0.5)
-        var rows = parseInt((height / areaSqrt) + 0.5)
+        var columns, rows
+        if (headsLayout !== Qt.size(1, 1))
+        {
+            columns = headsLayout.width
+            rows = headsLayout.height
+            //console.log("" + fixtureName + ": layout provided - " + columns + "x" + rows)
+        }
+        else
+        {
+            // fallback to guessing based on heads number
+            //console.log("Guessing heads layout...")
+            var areaSqrt = Math.sqrt((width * height) / headsNumber)
+            columns = parseInt((width / areaSqrt) + 0.5)
+            rows = parseInt((height / areaSqrt) + 0.5)
 
-        // dirty workaround to correctly display right columns on one row
-        if (rows === 1) columns = headsNumber
-        if (columns === 1) rows = headsNumber
+            // dirty workaround to correctly display right columns on one row
+            if (rows === 1) columns = headsNumber
+            if (columns === 1) rows = headsNumber
 
-        if (columns > headsNumber)
-            columns = headsNumber
+            if (columns > headsNumber)
+                columns = headsNumber
 
-        if (rows < 1) rows = 1
-        if (columns < 1) columns = 1
-
+            if (rows < 1) rows = 1
+            if (columns < 1) columns = 1
+        }
         var cellWidth = width / columns
         var cellHeight = height / rows
-        headSide = parseInt(Math.min(cellWidth, cellHeight))
-        headColumns = columns
-        headRows = rows
+        headSide = Math.min(cellWidth, cellHeight) - 1
+
+        var hHeadsWidth = headSide * columns
+        var hSpacing = (width - hHeadsWidth) / (columns - 1)
+        headsBox.columnSpacing = parseInt(hSpacing)
+        headsBox.columns = columns
+        headsBox.rows = rows
+        headsBox.width = hHeadsWidth + (hSpacing * (columns - 1))
+        headsBox.height = (headSide + 2) * rows
+        //console.log("size: " + width + " x " + height + ", head size: " + headSide + ", spacing: " + hSpacing)
     }
 
     function setHeadIntensity(headIndex, intensity)
@@ -106,7 +123,6 @@ Rectangle
         for (var i = 0; i < headsRepeater.count; i++)
             headsRepeater.itemAt(i).setShutter(type, low, high);
     }
-
 
     function setPosition(pan, tilt)
     {
@@ -138,17 +154,17 @@ Rectangle
             headsRepeater.itemAt(headIndex).goboSource = "file:/" + resource
     }
 
-    Flow
+    Grid
     {
         id: headsBox
-        width: headSide * headColumns
-        height: headSide * headRows
+        //width: headSide * headsLayout.width
+        //height: headSide * headsLayout.height
         anchors.centerIn: parent
 
         Repeater
         {
             id: headsRepeater
-            model: fixtureItem.headsNumber
+            model: headsBox.columns * headsBox.rows // fixtureItem.headsNumber
             delegate:
                 Rectangle
                 {
