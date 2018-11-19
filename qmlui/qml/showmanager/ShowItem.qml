@@ -300,6 +300,7 @@ Item
 
             drag.target: horLeftHandler
             drag.axis: Drag.XAxis
+            drag.maximumX: horRightHandler.x
 
             onPositionChanged:
             {
@@ -370,6 +371,7 @@ Item
 
             drag.target: horRightHandler
             drag.axis: Drag.XAxis
+            drag.minimumX: horLeftHandler.x + width
 
             onPositionChanged:
             {
