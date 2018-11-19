@@ -1316,7 +1316,7 @@ QVariantList FixtureManager::fixturesMap()
         odd = !odd;
 
         m_fixtureNamesMap.append(fx->id());
-        m_fixtureNamesMap.append(fx->universeAddress());
+        m_fixtureNamesMap.append(fx->address());
         m_fixtureNamesMap.append(fx->channels());
         m_fixtureNamesMap.append(fx->name());
     }
