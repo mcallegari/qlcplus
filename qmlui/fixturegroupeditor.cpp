@@ -281,32 +281,59 @@ bool FixtureGroupEditor::checkSelection(int x, int y, int offset)
 
 void FixtureGroupEditor::moveSelection(int x, int y, int offset)
 {
-    Q_UNUSED(x)
-    Q_UNUSED(y)
-
     if (m_editGroup == NULL)
         return;
 
     if (checkSelection(x, y, offset) == false)
         return;
 
+    QList<QLCPoint> pointsList;
+    QList<GroupHead> headsList;
+
     for (int i = 0; i < m_groupSelection.count(); i++)
     {
-        int origPos = m_groupSelection.at(i).toInt();
-        int origYPos = qFloor(origPos / m_editGroup->size().width());
-        int origXPos = origPos - (origYPos * m_editGroup->size().width());
-        int targetPos = origPos + offset;
-        int targetYPos = qFloor(targetPos / m_editGroup->size().width());
-        int targetXPos = targetPos - (targetYPos * m_editGroup->size().width());
+        int headAbsIndex = m_groupSelection.at(i).toInt();
+        int yPos = qFloor(headAbsIndex / m_editGroup->size().width());
+        int xPos = headAbsIndex - (yPos * m_editGroup->size().width());
+        QLCPoint pt(xPos, yPos);
+        headsList.append(m_editGroup->head(pt));
+        m_editGroup->resignHead(pt);
 
-        qDebug() << "Moving head from" << origXPos << origYPos << "to" << targetXPos << targetYPos;
-
-        m_editGroup->swap(QLCPoint(origXPos, origYPos), QLCPoint(targetXPos, targetYPos));
+        pt.setX(xPos + offset);
+        if (pt.x() >= m_editGroup->size().width())
+        {
+            pt.setY(pt.y() + 1);
+            pt.setX(pt.x() - m_editGroup->size().width());
+        }
+        pointsList.append(pt);
     }
+
+    for (int i = 0; i < pointsList.count(); i++)
+        m_editGroup->assignHead(pointsList.at(i), headsList.at(i));
+
     updateGroupMap();
 
     for (int i = 0; i < m_groupSelection.count(); i++)
         m_groupSelection.replace(i, m_groupSelection.at(i).toInt() + offset);
+}
+
+void FixtureGroupEditor::deleteSelection()
+{
+    if (m_editGroup == NULL || m_groupSelection.isEmpty())
+        return;
+
+    for (QVariant head : m_groupSelection)
+    {
+        int headIdx = head.toInt();
+        int yPos = qFloor(headIdx / m_editGroup->size().width());
+        int xPos = headIdx - (yPos * m_editGroup->size().width());
+
+        m_editGroup->resignHead(QLCPoint(xPos, yPos));
+    }
+
+    m_groupSelection.clear();
+
+    updateGroupMap();
 }
 
 void FixtureGroupEditor::transformSelection(int transformation)

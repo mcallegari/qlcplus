@@ -104,6 +104,18 @@ Rectangle
 
             IconButton
             {
+                imgSource: "qrc:/remove.svg"
+                tooltip: qsTr("Remove the selected items")
+                onClicked:
+                {
+                    fixtureGroupEditor.deleteSelection()
+                    var empty = []
+                    groupGrid.setSelectionData(empty)
+                }
+            }
+
+            IconButton
+            {
                 imgSource: "qrc:/reset.svg"
                 tooltip: qsTr("Reset the entire group")
                 onClicked: fixtureGroupEditor.resetGroup()
@@ -213,9 +225,23 @@ Rectangle
             gridLabels: fixtureGroupEditor.groupLabels
             evenColor: UISettings.fgLight
 
+            Component.onCompleted: forceActiveFocus()
+
+            Keys.onPressed:
+            {
+                if (event.key === Qt.Key_Delete)
+                {
+                    fixtureGroupEditor.deleteSelection()
+                    var empty = []
+                    setSelectionData(empty)
+                    event.accepted = true;
+                }
+            }
+
             onPressed:
             {
                 var empty = []
+                focus = true
 
                 if (xPos < 0 && yPos < 0)
                 {

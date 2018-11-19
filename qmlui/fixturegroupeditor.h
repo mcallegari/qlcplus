@@ -126,6 +126,9 @@ public:
     /** Move the current selection by $offset cells */
     Q_INVOKABLE void moveSelection(int x, int y, int offset);
 
+    /** Delete the currently selected items */
+    Q_INVOKABLE void deleteSelection();
+
     /** Rotate the current selection by $degrees */
     Q_INVOKABLE void transformSelection(int transformation);
 
