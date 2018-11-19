@@ -227,7 +227,7 @@ Column
                         if (item.hasOwnProperty('itemIcon'))
                             item.itemIcon = nodeContainer.itemIcon
 
-                        if (classRef && item.hasOwnProperty('cRef'))
+                        if (model.classRef !== undefined && item.hasOwnProperty('cRef'))
                             item.cRef = classRef
 
                         if (item.hasOwnProperty('itemID'))
