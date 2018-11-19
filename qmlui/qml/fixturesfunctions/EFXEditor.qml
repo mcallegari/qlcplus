@@ -369,7 +369,7 @@ Rectangle
                                                     to: 359
                                                     suffix: "°"
                                                     value: model.offset
-                                                    onValueChanged: efxEditor.setFixtureOffset(fxID, head, value)
+                                                    onValueModified: efxEditor.setFixtureOffset(fxID, head, value)
                                                 }
 
                                             } // Row
@@ -511,7 +511,7 @@ Rectangle
                                     from: 0
                                     to: 127
                                     value: efxEditor.algorithmWidth
-                                    onValueChanged: efxEditor.algorithmWidth = value
+                                    onValueModified: efxEditor.algorithmWidth = value
                                 }
 
                                 // row 4
@@ -526,7 +526,7 @@ Rectangle
                                     from: 0
                                     to: 127
                                     value: efxEditor.algorithmHeight
-                                    onValueChanged: efxEditor.algorithmHeight = value
+                                    onValueModified: efxEditor.algorithmHeight = value
                                 }
 
                                 // row 5
@@ -543,7 +543,7 @@ Rectangle
                                     from: 0
                                     to: 255
                                     value: efxEditor.algorithmXOffset
-                                    onValueChanged: efxEditor.algorithmXOffset = value
+                                    onValueModified: efxEditor.algorithmXOffset = value
                                 }
 
                                 // row 6
@@ -560,7 +560,7 @@ Rectangle
                                     from: 0
                                     to: 255
                                     value: efxEditor.algorithmYOffset
-                                    onValueChanged: efxEditor.algorithmYOffset = value
+                                    onValueModified: efxEditor.algorithmYOffset = value
                                 }
 
                                 // row 7
@@ -576,7 +576,7 @@ Rectangle
                                     to: 359
                                     suffix: "°"
                                     value: efxEditor.algorithmRotation
-                                    onValueChanged: efxEditor.algorithmRotation = value
+                                    onValueModified: efxEditor.algorithmRotation = value
                                 }
 
                                 // row 8
@@ -592,7 +592,7 @@ Rectangle
                                     to: 360
                                     suffix: "°"
                                     value: efxEditor.algorithmStartOffset
-                                    onValueChanged: efxEditor.algorithmStartOffset = value
+                                    onValueModified: efxEditor.algorithmStartOffset = value
                                 }
 
                                 // row 9
@@ -609,7 +609,7 @@ Rectangle
                                     from: 0
                                     to: 32
                                     value: efxEditor.algorithmXFrequency
-                                    onValueChanged: efxEditor.algorithmXFrequency = value
+                                    onValueModified: efxEditor.algorithmXFrequency = value
                                 }
 
                                 // row 10
@@ -626,7 +626,7 @@ Rectangle
                                     from: 0
                                     to: 32
                                     value: efxEditor.algorithmYFrequency
-                                    onValueChanged: efxEditor.algorithmYFrequency = value
+                                    onValueModified: efxEditor.algorithmYFrequency = value
                                 }
 
                                 // row 11
@@ -644,7 +644,7 @@ Rectangle
                                     to: 360
                                     suffix: "°"
                                     value: efxEditor.algorithmXPhase
-                                    onValueChanged: efxEditor.algorithmXPhase = value
+                                    onValueModified: efxEditor.algorithmXPhase = value
                                 }
 
                                 // row 9
@@ -662,7 +662,7 @@ Rectangle
                                     to: 360
                                     suffix: "°"
                                     value: efxEditor.algorithmYPhase
-                                    onValueChanged: efxEditor.algorithmYPhase = value
+                                    onValueModified: efxEditor.algorithmYPhase = value
                                 }
                             } // GridLayout
                     } // SectionBox

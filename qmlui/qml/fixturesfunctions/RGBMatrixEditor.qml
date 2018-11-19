@@ -638,7 +638,7 @@ Rectangle
                         from: -255
                         to: 255
                         value: toffRow.algoOffset.width
-                        onValueChanged:
+                        onValueModified:
                         {
                             var newOffset = toffRow.algoOffset
                             newOffset.width = value
@@ -653,7 +653,7 @@ Rectangle
                         from: -255
                         to: 255
                         value: toffRow.algoOffset.height
-                        onValueChanged:
+                        onValueModified:
                         {
                             var newOffset = toffRow.algoOffset
                             newOffset.height = value
@@ -784,7 +784,7 @@ Rectangle
                         from: -255
                         to: 255
                         value: ioffRow.algoOffset.width
-                        onValueChanged:
+                        onValueModified:
                         {
                             var newOffset = ioffRow.algoOffset
                             newOffset.width = value
@@ -799,7 +799,7 @@ Rectangle
                         from: -255
                         to: 255
                         value: ioffRow.algoOffset.height
-                        onValueChanged:
+                        onValueModified:
                         {
                             var newOffset = ioffRow.algoOffset
                             newOffset.height = value
@@ -893,7 +893,7 @@ Rectangle
             Layout.fillWidth: true
             property string propName
 
-            onValueChanged: rgbMatrixEditor.setScriptIntProperty(propName, value)
+            onValueModified: rgbMatrixEditor.setScriptIntProperty(propName, value)
         }
     }
 

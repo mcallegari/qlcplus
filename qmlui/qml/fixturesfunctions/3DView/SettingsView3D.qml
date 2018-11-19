@@ -138,7 +138,7 @@ Rectangle
                             to: 50
                             suffix: "m"
                             value: envSize.x
-                            onValueChanged:
+                            onValueModified:
                             {
                                 if (settingsRoot.visible && contextManager)
                                     contextManager.environmentSize = Qt.vector3d(value, envSize.y, envSize.z)
@@ -155,7 +155,7 @@ Rectangle
                             to: 50
                             suffix: "m"
                             value: envSize.y
-                            onValueChanged:
+                            onValueModified:
                             {
                                 if (settingsRoot.visible && contextManager)
                                     contextManager.environmentSize = Qt.vector3d(envSize.x, value, envSize.z)
@@ -172,7 +172,7 @@ Rectangle
                             to: 100
                             suffix: "m"
                             value: envSize.z
-                            onValueChanged:
+                            onValueModified:
                             {
                                 if (settingsRoot.visible && contextManager)
                                     contextManager.environmentSize = Qt.vector3d(envSize.x, envSize.y, value)
@@ -231,7 +231,7 @@ Rectangle
                             from: 0
                             to: 100
                             suffix: "%"
-                            onValueChanged: View3D.ambientIntensity = value / 100
+                            onValueModified: View3D.ambientIntensity = value / 100
                         }
 
                         // row 3
@@ -244,7 +244,7 @@ Rectangle
                             from: 0
                             to: 100
                             suffix: "%"
-                            onValueChanged: View3D.smokeAmount = value / 100
+                            onValueModified: View3D.smokeAmount = value / 100
                         }
 
                         // row 4
@@ -312,7 +312,7 @@ Rectangle
                             stepSize: 10
                             suffix: "mm"
                             value: currentPosition.x
-                            onValueChanged: updatePosition(value, yPosSpin.value, zPosSpin.value)
+                            onValueModified: updatePosition(value, yPosSpin.value, zPosSpin.value)
                         }
 
                         // row 2
@@ -333,7 +333,7 @@ Rectangle
                             stepSize: 10
                             suffix: "mm"
                             value: currentPosition.y
-                            onValueChanged: updatePosition(xPosSpin.value, value, zPosSpin.value)
+                            onValueModified: updatePosition(xPosSpin.value, value, zPosSpin.value)
                         }
 
                         // row 3
@@ -354,7 +354,7 @@ Rectangle
                             stepSize: 10
                             suffix: "mm"
                             value: currentPosition.z
-                            onValueChanged: updatePosition(xPosSpin.value, yPosSpin.value, value)
+                            onValueModified: updatePosition(xPosSpin.value, yPosSpin.value, value)
                         }
                     } // GridLayout
             } // SectionBox - Position
@@ -412,7 +412,7 @@ Rectangle
                             to: 359
                             suffix: "°"
                             value: currentRotation.x
-                            onValueChanged: updateRotation(value, yRotSpin.value, zRotSpin.value)
+                            onValueModified: updateRotation(value, yRotSpin.value, zRotSpin.value)
                         }
 
                         // row 2
@@ -432,7 +432,7 @@ Rectangle
                             to: 359
                             suffix: "°"
                             value: currentRotation.y
-                            onValueChanged: updateRotation(xRotSpin.value, value, zRotSpin.value)
+                            onValueModified: updateRotation(xRotSpin.value, value, zRotSpin.value)
                         }
 
                         // row 3
@@ -452,7 +452,7 @@ Rectangle
                             to: 359
                             suffix: "°"
                             value: currentRotation.z
-                            onValueChanged: updateRotation(xRotSpin.value, yRotSpin.value, value)
+                            onValueModified: updateRotation(xRotSpin.value, yRotSpin.value, value)
                         }
                     } // GridLayout
             } // SectionBox - Rotation
@@ -507,7 +507,7 @@ Rectangle
                             to: 1000
                             suffix: "%"
                             value: currentScale.x
-                            onValueChanged:
+                            onValueModified:
                             {
                                 if (scaleLocked.checked)
                                     updateScale(value, value, value)
@@ -564,7 +564,7 @@ Rectangle
                             to: 1000
                             suffix: "%"
                             value: currentScale.y
-                            onValueChanged:
+                            onValueModified:
                             {
                                 if (scaleLocked.checked)
                                     updateScale(value, value, value)
@@ -590,7 +590,7 @@ Rectangle
                             to: 1000
                             suffix: "%"
                             value: currentScale.z
-                            onValueChanged:
+                            onValueModified:
                             {
                                 if (scaleLocked.checked)
                                     updateScale(value, value, value)

@@ -77,7 +77,7 @@ Rectangle
                 from: 1
                 to: 999
                 value: fixtureGroupEditor.groupSize.width
-                onValueChanged: fixtureGroupEditor.groupSize = Qt.size(value, gridHeightSpin.value)
+                onValueModified: fixtureGroupEditor.groupSize = Qt.size(value, gridHeightSpin.value)
             }
 
             RobotoText
@@ -91,7 +91,7 @@ Rectangle
                 from: 1
                 to: 999
                 value: fixtureGroupEditor.groupSize.height
-                onValueChanged: fixtureGroupEditor.groupSize = Qt.size(gridWidthSpin.value, value)
+                onValueModified: fixtureGroupEditor.groupSize = Qt.size(gridWidthSpin.value, value)
             }
 
             IconButton

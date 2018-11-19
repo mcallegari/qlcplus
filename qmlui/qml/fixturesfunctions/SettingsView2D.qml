@@ -115,7 +115,7 @@ Rectangle
                         to: 50
                         suffix: View2D.gridUnits === MonitorProperties.Meters ? "m" : "ft"
                         value: envSize.x
-                        onValueChanged:
+                        onValueModified:
                         {
                             if (settingsRoot.visible && contextManager)
                                 contextManager.environmentSize = Qt.vector3d(value, envSize.y, envSize.z)
@@ -132,7 +132,7 @@ Rectangle
                         to: 50
                         suffix: View2D.gridUnits === MonitorProperties.Meters ? "m" : "ft"
                         value: envSize.y
-                        onValueChanged:
+                        onValueModified:
                         {
                             if (settingsRoot.visible && contextManager)
                                 contextManager.environmentSize = Qt.vector3d(envSize.x, value, envSize.z)
@@ -149,7 +149,7 @@ Rectangle
                         to: 100
                         suffix: View2D.gridUnits === MonitorProperties.Meters ? "m" : "ft"
                         value: envSize.z
-                        onValueChanged:
+                        onValueModified:
                         {
                             if (settingsRoot.visible && contextManager)
                                 contextManager.environmentSize = Qt.vector3d(envSize.x, envSize.y, value)
@@ -267,7 +267,7 @@ Rectangle
                                         return fxRotation.y
                                 }
                             }
-                            onValueChanged: updateRotation(value)
+                            onValueModified: updateRotation(value)
                         }
 
                         // row 3
