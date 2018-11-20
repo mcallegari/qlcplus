@@ -149,29 +149,41 @@ double SceneEditor::channelValue(quint32 fxID, quint32 channel)
 
 void SceneEditor::slotSceneValueChanged(SceneValue scv)
 {
-    qDebug() << "slotSceneValueChanged---- " << scv;
     bool blindMode = false;
+
+    //qDebug() << "slotSceneValueChanged---- " << scv;
 
     if (m_source->isOutputEnabled() == false)
         blindMode = true;
 
+    Fixture *fixture = m_doc->fixture(scv.fxi);
+    if (fixture == NULL)
+        return;
+
+    int fxIndex = m_fixtureIDs.indexOf(scv.fxi);
+
+    if (fxIndex == -1)
+    {
+        connect(fixture, SIGNAL(aliasChanged()), this, SLOT(slotAliasChanged()));
+
+        QVariantMap fxMap;
+        fxMap.insert("fxRef", QVariant::fromValue(fixture));
+        fxMap.insert("isSelected", false);
+        m_fixtureList->addDataMap(fxMap);
+        m_fixtureIDs.append(scv.fxi);
+        emit fixtureListChanged();
+    }
+
     if (m_sceneConsole)
     {
-        int fxIndex = m_fixtureIDs.indexOf(scv.fxi);
+
         if (m_fxConsoleMap.contains(fxIndex))
         {
             QMetaObject::invokeMethod(m_fxConsoleMap[fxIndex], "setChannelValue",
                     Q_ARG(QVariant, scv.channel),
                     Q_ARG(QVariant, scv.value));
 
-            Fixture *fixture = m_doc->fixture(scv.fxi);
-            if (fixture)
-                fixture->checkAlias(scv.channel, scv.value);
-        }
-        else
-        {
-            if (fxIndex == -1)
-                updateFixtureList();
+            fixture->checkAlias(scv.channel, scv.value);
         }
     }
 
