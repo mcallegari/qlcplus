@@ -205,6 +205,7 @@ Rectangle
                             height: parent.height
                             spacing: 1
 
+                            // channel enable/disable
                             Rectangle
                             {
                                 id: enableCheckBox
@@ -235,6 +236,7 @@ Rectangle
                                 }
                             }
 
+                            // channel icon
                             IconButton
                             {
                                 id: chIcon
@@ -246,6 +248,7 @@ Rectangle
                                 imgSource: fixtureObj ? fixtureManager.channelIcon(fixtureObj.id, index) : ""
                             }
 
+                            // channel fader
                             QLCPlusFader
                             {
                                 id: slider
@@ -270,6 +273,7 @@ Rectangle
                                 }
                             }
 
+                            // channel value
                             CustomSpinBox
                             {
                                 id: chValueSpin
@@ -281,7 +285,7 @@ Rectangle
                                 showControls: false
                                 padding: 0
                                 horizontalAlignment: Qt.AlignHCenter
-                                onValueChanged: dmxValue = value
+                                onValueModified: dmxValue = value
                             }
                         }
                     }

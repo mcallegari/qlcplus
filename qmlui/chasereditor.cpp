@@ -26,7 +26,7 @@
 
 ChaserEditor::ChaserEditor(QQuickView *view, Doc *doc, QObject *parent)
     : FunctionEditor(view, doc, parent)
-    , m_chaser(NULL)
+    , m_chaser(nullptr)
     , m_playbackIndex(-1)
 {
     m_view->rootContext()->setContextProperty("chaserEditor", this);
@@ -44,7 +44,7 @@ void ChaserEditor::setFunctionID(quint32 ID)
 
     m_chaser = qobject_cast<Chaser *>(m_doc->function(ID));
     FunctionEditor::setFunctionID(ID);
-    if (m_chaser != NULL)
+    if (m_chaser != nullptr)
         connect(m_chaser, &Chaser::currentStepChanged, this, &ChaserEditor::slotStepChanged);
 
     updateStepsList(m_doc, m_chaser, m_stepsList);
@@ -53,7 +53,7 @@ void ChaserEditor::setFunctionID(quint32 ID)
 
 bool ChaserEditor::isSequence() const
 {
-    if (m_chaser != NULL && m_chaser->type() == Function::SequenceType)
+    if (m_chaser != nullptr && m_chaser->type() == Function::SequenceType)
         return true;
 
     return false;
@@ -66,7 +66,7 @@ QVariant ChaserEditor::stepsList() const
 
 bool ChaserEditor::addFunctions(QVariantList idsList, int insertIndex)
 {
-    if (m_chaser == NULL || idsList.count() == 0)
+    if (m_chaser == nullptr || idsList.count() == 0)
         return false;
 
     if (insertIndex == -1)
@@ -84,7 +84,7 @@ bool ChaserEditor::addFunctions(QVariantList idsList, int insertIndex)
         if (m_chaser->durationMode() == Chaser::PerStep)
         {
             Function *func = m_doc->function(fid);
-            if (func == NULL)
+            if (func == nullptr)
                 continue;
 
             step.duration = func->totalDuration();
@@ -106,7 +106,7 @@ bool ChaserEditor::addFunctions(QVariantList idsList, int insertIndex)
 
 bool ChaserEditor::addStep(int insertIndex)
 {
-    if (m_chaser == NULL || m_chaser->type() != Function::SequenceType)
+    if (m_chaser == nullptr || m_chaser->type() != Function::SequenceType)
     {
         qDebug() << "This is not a Sequence";
         return false;
@@ -116,7 +116,7 @@ bool ChaserEditor::addStep(int insertIndex)
     ChaserStep step(sequence->boundSceneID());
     Scene *currScene = qobject_cast<Scene*> (m_doc->function(sequence->boundSceneID()));
 
-    if (currScene == NULL)
+    if (currScene == nullptr)
     {
         qDebug() << "The Sequence bound Scene is NULL";
         return false;
@@ -147,10 +147,22 @@ bool ChaserEditor::addStep(int insertIndex)
     Tardis::instance()->enqueueAction(Tardis::ChaserAddStep, m_chaser->id(), QVariant(),
                                       Tardis::instance()->actionToByteArray(Tardis::ChaserAddStep, m_chaser->id(), insertIndex));
 
-    updateStepsList(m_doc, m_chaser, m_stepsList);
-    emit stepsListChanged();
+    addStepToListModel(m_doc, m_chaser, m_stepsList, &step);
+    //setPlaybackIndex(insertIndex);
 
     return true;
+}
+
+void ChaserEditor::setSequenceStepValue(SceneValue &scv)
+{
+    if (m_chaser == nullptr || m_chaser->type() != Function::SequenceType)
+        return;
+
+    if (m_playbackIndex < 0 || m_playbackIndex >= m_chaser->stepsCount())
+        return;
+
+    ChaserStep *cs = m_chaser->stepAt(m_playbackIndex);
+    cs->setValue(scv);
 }
 
 int ChaserEditor::playbackIndex() const
@@ -163,12 +175,12 @@ void ChaserEditor::setPlaybackIndex(int playbackIndex)
     if (m_playbackIndex == playbackIndex)
         return;
 
-    if (m_chaser != NULL && m_chaser->type() == Function::SequenceType && playbackIndex >= 0)
+    if (m_chaser != nullptr && m_chaser->type() == Function::SequenceType && playbackIndex >= 0)
     {
         Sequence *sequence = qobject_cast<Sequence*>(m_chaser);
         Scene *currScene = qobject_cast<Scene*> (m_doc->function(sequence->boundSceneID()));
 
-        if (currScene != NULL)
+        if (currScene != nullptr)
         {
             for(SceneValue scv : m_chaser->stepAt(playbackIndex)->values)
                 currScene->setValue(scv);
@@ -181,7 +193,7 @@ void ChaserEditor::setPlaybackIndex(int playbackIndex)
 
 void ChaserEditor::setPreviewEnabled(bool enable)
 {
-    if (m_chaser != NULL && m_playbackIndex >= 0)
+    if (m_chaser != nullptr && m_playbackIndex >= 0)
     {
         ChaserAction action;
         action.m_action = ChaserSetStepIndex;
@@ -194,7 +206,7 @@ void ChaserEditor::setPreviewEnabled(bool enable)
 
 void ChaserEditor::deleteItems(QVariantList list)
 {
-    if (m_chaser == NULL)
+    if (m_chaser == nullptr)
         return;
 
     qSort(list.begin(), list.end());
@@ -207,7 +219,7 @@ void ChaserEditor::deleteItems(QVariantList list)
                                                                                 m_chaser->id(), list.last().toUInt()),
                                           QVariant());
 
-        m_chaser->removeStep(list.last().toUInt());
+        m_chaser->removeStep(list.last().toInt());
         list.removeLast();
     }
 
@@ -220,83 +232,89 @@ void ChaserEditor::slotStepChanged(int index)
     setPlaybackIndex(index);
 }
 
+void ChaserEditor::addStepToListModel(Doc *doc, Chaser *chaser, ListModel *stepsList, ChaserStep *step)
+{
+    QVariantMap stepMap;
+    Function *func = doc->function(step->fid);
+
+    stepMap.insert("funcID", step->fid);
+    stepMap.insert("isSelected", false);
+
+    switch (chaser->fadeInMode())
+    {
+        case Chaser::Common:
+            stepMap.insert("fadeIn", chaser->fadeInSpeed());
+        break;
+        case Chaser::PerStep:
+            stepMap.insert("fadeIn", step->fadeIn);
+        break;
+        default:
+            stepMap.insert("fadeIn", func->fadeInSpeed());
+        break;
+    }
+
+    switch (chaser->fadeOutMode())
+    {
+        case Chaser::Common:
+            stepMap.insert("fadeOut", chaser->fadeOutSpeed());
+        break;
+        case Chaser::PerStep:
+            stepMap.insert("fadeOut", step->fadeOut);
+        break;
+        default:
+            stepMap.insert("fadeOut", func->fadeOutSpeed());
+        break;
+    }
+
+    switch (chaser->durationMode())
+    {
+        case Chaser::Common:
+            step->duration = chaser->duration();
+            step->hold = Function::speedSubtract(step->duration, step->fadeIn);
+            stepMap.insert("hold", int(step->hold));
+            stepMap.insert("duration", int(step->duration));
+        break;
+        case Chaser::PerStep:
+            stepMap.insert("hold", int(step->hold));
+            stepMap.insert("duration", int(step->duration));
+        break;
+        default:
+            step->duration = func->totalDuration();
+            step->hold = Function::speedSubtract(func->totalDuration(), func->fadeInSpeed());
+            stepMap.insert("hold", int(step->hold));
+            stepMap.insert("duration", int(step->duration));
+        break;
+    }
+
+    stepMap.insert("note", step->note);
+    stepsList->addDataMap(stepMap);
+}
+
 void ChaserEditor::updateStepsList(Doc *doc, Chaser *chaser, ListModel *stepsList)
 {
-    if (doc == NULL || chaser == NULL || stepsList == NULL)
+    if (doc == nullptr || chaser == nullptr || stepsList == nullptr)
         return;
 
     stepsList->clear();
 
-    if (chaser != NULL)
+    if (chaser == nullptr)
+        return;
+
+    for (int i = 0; i < chaser->stepsCount(); i++)
     {
-        foreach(ChaserStep step, chaser->steps())
-        {
-            QVariantMap stepMap;
-            Function *func = doc->function(step.fid);
-
-            stepMap.insert("funcID", step.fid);
-            stepMap.insert("isSelected", false);
-
-            switch (chaser->fadeInMode())
-            {
-                case Chaser::Common:
-                    stepMap.insert("fadeIn", chaser->fadeInSpeed());
-                break;
-                case Chaser::PerStep:
-                    stepMap.insert("fadeIn", step.fadeIn);
-                break;
-                default:
-                    stepMap.insert("fadeIn", func->fadeInSpeed());
-                break;
-            }
-
-            switch (chaser->fadeOutMode())
-            {
-                case Chaser::Common:
-                    stepMap.insert("fadeOut", chaser->fadeOutSpeed());
-                break;
-                case Chaser::PerStep:
-                    stepMap.insert("fadeOut", step.fadeOut);
-                break;
-                default:
-                    stepMap.insert("fadeOut", func->fadeOutSpeed());
-                break;
-            }
-
-            switch (chaser->durationMode())
-            {
-                case Chaser::Common:
-                    step.duration = chaser->duration();
-                    step.hold = Function::speedSubtract(step.duration, step.fadeIn);
-                    stepMap.insert("hold", (int)step.hold);
-                    stepMap.insert("duration", (int)step.duration);
-                break;
-                case Chaser::PerStep:
-                    stepMap.insert("hold", (int)step.hold);
-                    stepMap.insert("duration", (int)step.duration);
-                break;
-                default:
-                    step.duration = func->totalDuration();
-                    step.hold = Function::speedSubtract(func->totalDuration(), func->fadeInSpeed());
-                    stepMap.insert("hold", (int)step.hold);
-                    stepMap.insert("duration", (int)step.duration);
-                break;
-            }
-
-            stepMap.insert("note", step.note);
-            stepsList->addDataMap(stepMap);
-        }
+        ChaserStep *step = chaser->stepAt(i);
+        addStepToListModel(doc, chaser, stepsList, step);
     }
 }
 
 void ChaserEditor::setSelectedValue(Function::PropType type, QString param, uint value, bool selectedOnly)
 {
-    if (m_chaser == NULL)
+    if (m_chaser == nullptr)
         return;
 
-    for (int i = 0; i < m_chaser->stepsCount(); i++)
+    for (quint32 i = 0; i < quint32(m_chaser->stepsCount()); i++)
     {
-        QModelIndex idx = m_stepsList->index(i, 0, QModelIndex());
+        QModelIndex idx = m_stepsList->index(int(i), 0, QModelIndex());
 
         QVariant isSelected = true;
         if (selectedOnly == true)
@@ -304,9 +322,9 @@ void ChaserEditor::setSelectedValue(Function::PropType type, QString param, uint
 
         if (isSelected.isValid() && isSelected.toBool() == true)
         {
-            m_stepsList->setDataWithRole(idx, param, (int)value);
+            m_stepsList->setDataWithRole(idx, param, int(value));
 
-            ChaserStep step = m_chaser->steps().at(i);
+            ChaserStep step = m_chaser->steps().at(int(i));
             uint duration = m_chaser->durationMode() == Chaser::Common ? m_chaser->duration() : step.duration;
 
             /* Now update also the Chaser step */
@@ -325,7 +343,7 @@ void ChaserEditor::setSelectedValue(Function::PropType type, QString param, uint
                         step.hold = Function::speedSubtract(duration, step.fadeIn);
                         Tardis::instance()->enqueueAction(Tardis::ChaserSetStepHold, m_chaser->id(), QVariant::fromValue(oldHold),
                                                           QVariant::fromValue(UIntPair(i, step.hold)));
-                        m_stepsList->setDataWithRole(idx, "hold", (int)step.hold);
+                        m_stepsList->setDataWithRole(idx, "hold", int(step.hold));
                     }
                     else
                     {
@@ -333,7 +351,7 @@ void ChaserEditor::setSelectedValue(Function::PropType type, QString param, uint
                         step.duration = Function::speedAdd(step.fadeIn, step.hold);
                         Tardis::instance()->enqueueAction(Tardis::ChaserSetStepDuration, m_chaser->id(), QVariant::fromValue(oldDuration),
                                                           QVariant::fromValue(UIntPair(i, step.duration)));
-                        m_stepsList->setDataWithRole(idx, "duration", (int)step.duration);
+                        m_stepsList->setDataWithRole(idx, "duration", int(step.duration));
                     }
                 }
                 break;
@@ -350,7 +368,7 @@ void ChaserEditor::setSelectedValue(Function::PropType type, QString param, uint
                         step.fadeIn = Function::speedSubtract(duration, step.hold);
                         Tardis::instance()->enqueueAction(Tardis::ChaserSetStepFadeIn, m_chaser->id(), QVariant::fromValue(oldFadeIn),
                                                           QVariant::fromValue(UIntPair(i, step.fadeIn)));
-                        m_stepsList->setDataWithRole(idx, "fadeIn", (int)step.hold);
+                        m_stepsList->setDataWithRole(idx, "fadeIn", int(step.hold));
                     }
                     else
                     {
@@ -358,7 +376,7 @@ void ChaserEditor::setSelectedValue(Function::PropType type, QString param, uint
                         step.duration = Function::speedAdd(step.fadeIn, step.hold);
                         Tardis::instance()->enqueueAction(Tardis::ChaserSetStepDuration, m_chaser->id(), QVariant::fromValue(oldDuration),
                                                           QVariant::fromValue(UIntPair(i, step.duration)));
-                        m_stepsList->setDataWithRole(idx, "duration", (int)step.duration);
+                        m_stepsList->setDataWithRole(idx, "duration", int(step.duration));
                     }
                 }
                 break;
@@ -368,7 +386,7 @@ void ChaserEditor::setSelectedValue(Function::PropType type, QString param, uint
                     step.fadeOut = value;
                     Tardis::instance()->enqueueAction(Tardis::ChaserSetStepFadeOut, m_chaser->id(), QVariant::fromValue(oldFadeOut),
                                                       QVariant::fromValue(UIntPair(i, step.fadeOut)));
-                    m_stepsList->setDataWithRole(idx, "fadeOut", (int)step.fadeOut);
+                    m_stepsList->setDataWithRole(idx, "fadeOut", int(step.fadeOut));
                 }
                 break;
                 case Function::Duration:
@@ -383,14 +401,14 @@ void ChaserEditor::setSelectedValue(Function::PropType type, QString param, uint
                     Tardis::instance()->enqueueAction(Tardis::ChaserSetStepHold, m_chaser->id(), QVariant::fromValue(oldHold),
                                                       QVariant::fromValue(UIntPair(i, step.hold)));
 
-                    m_stepsList->setDataWithRole(idx, "hold", (int)step.hold);
+                    m_stepsList->setDataWithRole(idx, "hold", int(step.hold));
                 }
                 break;
                 default:
                 break;
             }
 
-            m_chaser->replaceStep(step, i);
+            m_chaser->replaceStep(step, int(i));
         }
     }
 }
@@ -400,7 +418,7 @@ void ChaserEditor::setSelectedValue(Function::PropType type, QString param, uint
  *********************************************************************/
 int ChaserEditor::tempoType() const
 {
-    if (m_chaser == NULL)
+    if (m_chaser == nullptr)
         return Function::Time;
 
     return m_chaser->tempoType();
@@ -408,13 +426,13 @@ int ChaserEditor::tempoType() const
 
 void ChaserEditor::setTempoType(int tempoType)
 {
-    if (m_chaser == NULL || m_chaser->tempoType() == Function::TempoType(tempoType))
+    if (m_chaser == nullptr || m_chaser->tempoType() == Function::TempoType(tempoType))
         return;
 
     m_chaser->setTempoType(Function::TempoType(tempoType));
 
     int beatDuration = m_doc->masterTimer()->beatTimeDuration();
-    int index = 0;
+    quint32 index = 0;
 
     foreach(ChaserStep step, m_chaser->steps())
     {
@@ -449,7 +467,7 @@ void ChaserEditor::setTempoType(int tempoType)
         Tardis::instance()->enqueueAction(Tardis::ChaserSetStepDuration, m_chaser->id(), QVariant::fromValue(oldDuration),
                                           QVariant::fromValue(UIntPair(index, step.duration)));
 
-        m_chaser->replaceStep(step, index);
+        m_chaser->replaceStep(step, int(index));
         index++;
     }
 
@@ -460,7 +478,7 @@ void ChaserEditor::setTempoType(int tempoType)
 
 int ChaserEditor::stepsFadeIn() const
 {
-    if (m_chaser == NULL)
+    if (m_chaser == nullptr)
         return Chaser::Default;
 
     return m_chaser->fadeInMode();
@@ -468,7 +486,7 @@ int ChaserEditor::stepsFadeIn() const
 
 void ChaserEditor::setStepsFadeIn(int stepsFadeIn)
 {
-    if (m_chaser == NULL || m_chaser->fadeInMode() == Chaser::SpeedMode(stepsFadeIn))
+    if (m_chaser == nullptr || m_chaser->fadeInMode() == Chaser::SpeedMode(stepsFadeIn))
         return;
 
     m_chaser->setFadeInMode(Chaser::SpeedMode(stepsFadeIn));
@@ -480,7 +498,7 @@ void ChaserEditor::setStepsFadeIn(int stepsFadeIn)
 
 int ChaserEditor::stepsFadeOut() const
 {
-    if (m_chaser == NULL)
+    if (m_chaser == nullptr)
         return Chaser::Default;
 
     return m_chaser->fadeOutMode();
@@ -488,7 +506,7 @@ int ChaserEditor::stepsFadeOut() const
 
 void ChaserEditor::setStepsFadeOut(int stepsFadeOut)
 {
-    if (m_chaser == NULL || m_chaser->fadeOutMode() == Chaser::SpeedMode(stepsFadeOut))
+    if (m_chaser == nullptr || m_chaser->fadeOutMode() == Chaser::SpeedMode(stepsFadeOut))
         return;
 
     m_chaser->setFadeOutMode(Chaser::SpeedMode(stepsFadeOut));
@@ -500,7 +518,7 @@ void ChaserEditor::setStepsFadeOut(int stepsFadeOut)
 
 int ChaserEditor::stepsDuration() const
 {
-    if (m_chaser == NULL)
+    if (m_chaser == nullptr)
         return Chaser::Default;
 
     return m_chaser->durationMode();
@@ -508,7 +526,7 @@ int ChaserEditor::stepsDuration() const
 
 void ChaserEditor::setStepsDuration(int stepsDuration)
 {
-    if (m_chaser == NULL || m_chaser->durationMode() == Chaser::SpeedMode(stepsDuration))
+    if (m_chaser == nullptr || m_chaser->durationMode() == Chaser::SpeedMode(stepsDuration))
         return;
 
     m_chaser->setDurationMode(Chaser::SpeedMode(stepsDuration));
@@ -520,7 +538,7 @@ void ChaserEditor::setStepsDuration(int stepsDuration)
 
 void ChaserEditor::setStepSpeed(int index, int value, int type)
 {
-    if (m_chaser == NULL || index < 0 || index >= m_chaser->stepsCount())
+    if (m_chaser == nullptr || index < 0 || index >= m_chaser->stepsCount())
         return;
 
     switch (Function::PropType(type))
@@ -584,7 +602,7 @@ void ChaserEditor::setStepSpeed(int index, int value, int type)
 
 void ChaserEditor::setStepNote(int index, QString text)
 {
-    if (m_chaser == NULL || index < 0 || index >= m_chaser->stepsCount())
+    if (m_chaser == nullptr || index < 0 || index >= m_chaser->stepsCount())
         return;
 
     QModelIndex mIdx = m_stepsList->index(index, 0, QModelIndex());

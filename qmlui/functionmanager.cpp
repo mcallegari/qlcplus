@@ -1137,9 +1137,14 @@ void FunctionManager::dumpOnScene(QList<SceneValue> dumpValues, QList<quint32> s
 void FunctionManager::setChannelValue(quint32 fxID, quint32 channel, uchar value)
 {
     FunctionEditor *editor = m_currentEditor;
+    SceneValue scv(fxID, channel, value);
 
     if (editor != NULL && editor->functionType() == Function::SequenceType)
+    {
+        ChaserEditor *cEditor = qobject_cast<ChaserEditor *>(editor);
+        cEditor->setSequenceStepValue(scv);
         editor = m_sceneEditor;
+    }
 
     if (editor != NULL && editor->functionType() == Function::SceneType)
     {
@@ -1150,7 +1155,7 @@ void FunctionManager::setChannelValue(quint32 fxID, quint32 channel, uchar value
         QVariant currentVal, newVal;
         uchar currDmxValue = scene->value(fxID, channel);
         currentVal.setValue(SceneValue(fxID, channel, currDmxValue));
-        newVal.setValue(SceneValue(fxID, channel, value));
+        newVal.setValue(scv);
         if (currentVal != newVal || value != currDmxValue)
         {
             Tardis::instance()->enqueueAction(Tardis::SceneSetChannelValue, scene->id(), currentVal, newVal);
