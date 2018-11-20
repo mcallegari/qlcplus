@@ -170,7 +170,8 @@ void SceneEditor::slotSceneValueChanged(SceneValue scv)
         }
         else
         {
-            updateFixtureList();
+            if (fxIndex == -1)
+                updateFixtureList();
         }
     }
 
