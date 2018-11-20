@@ -213,7 +213,7 @@ Rectangle
                         {
                             var insertIndex = cFunctionList.dragInsertIndex
                             if (insertIndex == -1)
-                                insertIndex = 0
+                                insertIndex = cFunctionList.count
 
                             for (var i = 0; i < drag.source.itemsList.length; i++)
                             {
