@@ -208,14 +208,13 @@ quint32 FunctionManager::addFunctiontoDoc(Function *func, QString name, bool sel
     if (func == NULL)
         return Function::invalidId();
 
+    func->setName(QString("%1 %2").arg(name).arg(m_doc->nextFunctionID()));
+
     if (m_doc->addFunction(func) == true)
     {
         if (select)
-        {
             m_functionTree->setItemRoleData(func->name(), 1, TreeModel::IsSelectedRole);
-        }
 
-        func->setName(QString("%1 %2").arg(name).arg(func->id()));
         QQmlEngine::setObjectOwnership(func, QQmlEngine::CppOwnership);
 
         if (select)
