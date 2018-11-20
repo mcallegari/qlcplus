@@ -523,7 +523,7 @@ void ChaserEditor::setStepSpeed(int index, int value, int type)
     if (m_chaser == NULL || index < 0 || index >= m_chaser->stepsCount())
         return;
 
-    switch(Function::PropType(type))
+    switch (Function::PropType(type))
     {
         case Function::FadeIn:
         {
@@ -540,7 +540,17 @@ void ChaserEditor::setStepSpeed(int index, int value, int type)
         }
         break;
         case Function::Hold:
-            setSelectedValue(Function::Hold, "hold", uint(value));
+            if (m_chaser->durationMode() == Chaser::Common)
+            {
+                Tardis::instance()->enqueueAction(Tardis::FunctionSetDuration, m_chaser->id(), m_chaser->duration(), value);
+                m_chaser->setDuration(value);
+                setSelectedValue(Function::Duration, "hold", uint(value), false);
+                setSelectedValue(Function::Duration, "duration", uint(value), false);
+            }
+            else
+            {
+                setSelectedValue(Function::Hold, "hold", uint(value));
+            }
         break;
         case Function::FadeOut:
             if (m_chaser->fadeOutMode() == Chaser::Common)

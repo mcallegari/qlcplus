@@ -31,6 +31,7 @@ Column
     property bool isSequence: false
     property alias model: cStepsList.model
     property alias playbackIndex: cStepsList.currentIndex
+    property alias speedType: timeEditTool.speedType
     property int tempoType: QLCFunction.Time
     property bool isRunning: false
     property alias containsDrag: cwDropArea.containsDrag

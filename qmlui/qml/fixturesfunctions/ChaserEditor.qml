@@ -149,6 +149,7 @@ Rectangle
                 height: ceContainer.height - (topbar.visible ? topbar.height : 0) - chModes.height
                 model: chaserEditor.stepsList
                 playbackIndex: chaserEditor.playbackIndex
+                speedType: chaserEditor.stepsDuration
                 tempoType: chaserEditor.tempoType
                 isRunning: chaserEditor.previewEnabled
 
