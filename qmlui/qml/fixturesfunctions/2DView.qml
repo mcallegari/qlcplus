@@ -129,10 +129,8 @@ Rectangle
             var gridWidth = View2D.cellPixels * gridSize.width
             var gridHeight = View2D.cellPixels * gridSize.height
 
-            if (gridWidth < w)
-                twoDContents.xOffset = (w - gridWidth) / 2
-            if (gridHeight < height)
-                twoDContents.yOffset = (height - gridHeight) / 2
+            twoDContents.xOffset = (gridWidth < w) ? (w - gridWidth) / 2 : 0
+            twoDContents.yOffset = (gridHeight < height) ? (height - gridHeight) / 2 : 0
 
             View2D.gridPosition = Qt.point(twoDContents.xOffset, twoDContents.yOffset)
 
