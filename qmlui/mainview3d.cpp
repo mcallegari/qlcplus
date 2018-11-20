@@ -1094,15 +1094,21 @@ void MainView3D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
         return;
     }
 
+    quint32 masterDimmerChannel = fixture->masterIntensityChannel();
+    qreal masterDimmerValue = qreal(fixture->channelValueAt(int(masterDimmerChannel))) / 255.0;
+
     for (int headIdx = 0; headIdx < fixture->heads(); headIdx++)
     {
-        quint32 headDimmerIndex = fixture->channelNumber(QLCChannel::Intensity, QLCChannel::MSB, headIdx);
-        if (headDimmerIndex == QLCChannel::invalid())
-            headDimmerIndex = fixture->masterIntensityChannel();
+        quint32 headDimmerChannel = fixture->channelNumber(QLCChannel::Intensity, QLCChannel::MSB, headIdx);
+        if (headDimmerChannel == QLCChannel::invalid())
+            headDimmerChannel = masterDimmerChannel;
 
         qreal intensityValue = 1.0;
-        if (headDimmerIndex != QLCChannel::invalid())
-            intensityValue = qreal(fixture->channelValueAt(int(headDimmerIndex))) / 255.0;
+        if (headDimmerChannel != QLCChannel::invalid())
+            intensityValue = qreal(fixture->channelValueAt(int(headDimmerChannel))) / 255.0;
+
+        if (headDimmerChannel != masterDimmerChannel)
+            intensityValue *= masterDimmerValue;
 
         //qDebug() << "Head" << headIdx << "dimmer channel:" << headDimmerIndex << "intensity" << intensityValue;
 
