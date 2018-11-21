@@ -283,7 +283,7 @@ bool Track::postLoad(Doc* doc)
             Sequence* sequence = qobject_cast<Sequence*>(function);
             if (sequence == NULL || getSceneID() == sequence->boundSceneID())
                 continue;
-
+#ifndef QMLUI
             if (getSceneID() == Function::invalidId())
             {
                 // No scene ID, use the one from this sequence
@@ -295,6 +295,7 @@ bool Track::postLoad(Doc* doc)
                 it.remove();
                 delete showFunction;
             }
+#endif
             modified = true;
         }
     }
