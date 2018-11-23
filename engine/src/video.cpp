@@ -31,6 +31,7 @@
 #define KXMLQLCVideoFullscreen "Fullscreen"
 #define KXMLQLCVideoGeometry "Geometry"
 #define KXMLQLCVideoRotation "Rotation"
+#define KXMLQLCVideoZIndex "ZIndex"
 
 const QStringList Video::m_defaultVideoCaps =
         QStringList() << "*.avi" << "*.wmv" << "*.mkv" << "*.mp4" << "*.mov" << "*.mpg" << "*.mpeg" << "*.flv" << "*.webm";
@@ -50,6 +51,7 @@ Video::Video(Doc* doc)
   , m_resolution(QSize(0,0))
   , m_customGeometry(QRect())
   , m_rotation(QVector3D(0, 0, 0))
+  , m_zIndex(1)
   , m_screen(0)
   , m_fullscreen(false)
 {
@@ -204,6 +206,20 @@ void Video::setRotation(QVector3D rotation)
     emit rotationChanged(m_rotation);
 }
 
+int Video::zIndex() const
+{
+    return m_zIndex;
+}
+
+void Video::setZIndex(int idx)
+{
+    if (m_zIndex == idx)
+        return;
+
+    m_zIndex = idx;
+    emit zIndexChanged(m_zIndex);
+}
+
 void Video::setAudioCodec(QString codec)
 {
     m_audioCodec = codec;
@@ -234,7 +250,10 @@ bool Video::setSourceUrl(QString filename)
     QString fileExt = "*" + filename.mid(filename.lastIndexOf('.'));
 
     if (m_defaultPictureCaps.contains(fileExt))
+    {
         m_isPicture = true;
+        setZIndex(2);
+    }
 
     if (m_sourceUrl.contains("://"))
     {
@@ -376,6 +395,7 @@ bool Video::saveXML(QXmlStreamWriter *doc)
         QString rot = QString("%1,%2,%3").arg(m_rotation.x()).arg(m_rotation.y()).arg(m_rotation.z());
         doc->writeAttribute(KXMLQLCVideoRotation, rot);
     }
+    doc->writeAttribute(KXMLQLCVideoZIndex, QString::number(m_zIndex));
 #endif
     if (m_sourceUrl.contains("://"))
         doc->writeCharacters(m_sourceUrl);
@@ -448,6 +468,10 @@ bool Video::loadXML(QXmlStreamReader &root)
                     v.setZ(slist.at(2).toInt());
                     setRotation(v);
                 }
+            }
+            if (attrs.hasAttribute(KXMLQLCVideoZIndex))
+            {
+                setZIndex(attrs.value(KXMLQLCVideoZIndex).toInt());
             }
 #endif
 
