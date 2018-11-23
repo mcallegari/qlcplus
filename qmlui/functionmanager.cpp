@@ -173,6 +173,9 @@ void FunctionManager::setFunctionFilter(quint32 filter, bool enable)
     else
         m_filter &= ~filter;
 
+    m_selectedFolderList.clear();
+    m_selectedIDList.clear();
+
     updateFunctionsTree();
     emit selectedFunctionCountChanged(m_selectedIDList.count());
 }
@@ -439,6 +442,7 @@ void FunctionManager::clearTree()
 {
     setPreview(false);
     m_selectedIDList.clear();
+    m_selectedFolderList.clear();
     m_functionTree->clear();
 }
 
