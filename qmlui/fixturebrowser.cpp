@@ -38,12 +38,12 @@ FixtureBrowser::FixtureBrowser(QQuickView *view, Doc *doc, QObject *parent)
     , m_fixtureName(QString())
     , m_selectedMode(QString())
     , m_modeChannelsCount(1)
-    , m_definition(NULL)
-    , m_mode(NULL)
+    , m_definition(nullptr)
+    , m_mode(nullptr)
     , m_searchFilter(QString())
 {
-    Q_ASSERT(m_doc != NULL);
-    Q_ASSERT(m_view != NULL);
+    Q_ASSERT(m_doc != nullptr);
+    Q_ASSERT(m_view != nullptr);
 
     m_view->rootContext()->setContextProperty("fixtureBrowser", this);
 
@@ -54,7 +54,7 @@ FixtureBrowser::FixtureBrowser(QQuickView *view, Doc *doc, QObject *parent)
 
 FixtureBrowser::~FixtureBrowser()
 {
-    m_view->rootContext()->setContextProperty("fixtureBrowser", NULL);
+    m_view->rootContext()->setContextProperty("fixtureBrowser", nullptr);
 }
 
 QStringList FixtureBrowser::manufacturers()
@@ -137,7 +137,7 @@ QStringList FixtureBrowser::modesList()
 
     m_definition = m_doc->fixtureDefCache()->fixtureDef(m_selectedManufacturer, m_selectedModel);
 
-    if (m_definition != NULL)
+    if (m_definition != nullptr)
     {
         QList<QLCFixtureMode *> fxModesList = m_definition->modes();
         foreach(QLCFixtureMode *mode, fxModesList)
@@ -167,7 +167,7 @@ void FixtureBrowser::setSelectedMode(QString selectedMode)
 
     m_selectedMode = selectedMode;
 
-    if (m_definition != NULL)
+    if (m_definition != nullptr)
     {
         m_mode = m_definition->mode(m_selectedMode);
         if (m_mode)
@@ -180,11 +180,11 @@ void FixtureBrowser::setSelectedMode(QString selectedMode)
 
 int FixtureBrowser::modeChannelsCount()
 {
-    if (m_definition != NULL)
+    if (m_definition != nullptr)
     {
         m_mode = m_definition->mode(m_selectedMode);
 
-        if (m_mode != NULL)
+        if (m_mode != nullptr)
             return m_mode->channels().count();
     }
     return m_modeChannelsCount;
@@ -203,7 +203,7 @@ QVariant FixtureBrowser::modeChannelList() const
 {
     QVariantList channelList;
 
-    if (m_mode != NULL)
+    if (m_mode != nullptr)
     {
         int i = 1;
         for (QLCChannel *channel : m_mode->channels()) // C++11
@@ -288,7 +288,7 @@ int FixtureBrowser::availableChannel(quint32 fixtureID, int requested)
     bool isAvailable = true;
 
     Fixture *fixture = m_doc->fixture(fixtureID);
-    if (fixture == NULL)
+    if (fixture == nullptr)
         return -1;
 
     quint32 channels = fixture->channels();

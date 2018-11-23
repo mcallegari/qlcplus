@@ -31,7 +31,7 @@ FixtureGroupEditor::FixtureGroupEditor(QQuickView *view, Doc *doc, QObject *pare
     , m_view(view)
     , m_doc(doc)
 {
-    Q_ASSERT(m_doc != NULL);
+    Q_ASSERT(m_doc != nullptr);
 
     m_view->rootContext()->setContextProperty("fixtureGroupEditor", this);
     qmlRegisterUncreatableType<FixtureGroupEditor>("org.qlcplus.classes", 1, 0,  "FixtureGroupEditor", "Can't create a FixtureGroupEditor!");
@@ -41,7 +41,7 @@ FixtureGroupEditor::FixtureGroupEditor(QQuickView *view, Doc *doc, QObject *pare
 
 FixtureGroupEditor::~FixtureGroupEditor()
 {
-    m_view->rootContext()->setContextProperty("fixtureGroupEditor", NULL);
+    m_view->rootContext()->setContextProperty("fixtureGroupEditor", nullptr);
 }
 
 QVariant FixtureGroupEditor::groupsListModel()
@@ -62,7 +62,7 @@ QVariant FixtureGroupEditor::groupsListModel()
 
 void FixtureGroupEditor::resetGroup()
 {
-    if (m_editGroup == NULL)
+    if (m_editGroup == nullptr)
         return;
 
     m_editGroup->reset();
@@ -92,17 +92,17 @@ void FixtureGroupEditor::setEditGroup(QVariant reference)
 
 quint32 FixtureGroupEditor::groupID() const
 {
-    return m_editGroup == NULL ? FixtureGroup::invalidId() : m_editGroup->id();
+    return m_editGroup == nullptr ? FixtureGroup::invalidId() : m_editGroup->id();
 }
 
 QString FixtureGroupEditor::groupName() const
 {
-    return m_editGroup == NULL ? "" : m_editGroup->name();
+    return m_editGroup == nullptr ? "" : m_editGroup->name();
 }
 
 void FixtureGroupEditor::setGroupName(QString name)
 {
-    if (m_editGroup == NULL || m_editGroup->name() == name)
+    if (m_editGroup == nullptr || m_editGroup->name() == name)
         return;
 
     m_editGroup->setName(name);
@@ -112,7 +112,7 @@ void FixtureGroupEditor::setGroupName(QString name)
 
 QSize FixtureGroupEditor::groupSize() const
 {
-    if (m_editGroup == NULL)
+    if (m_editGroup == nullptr)
         return QSize();
 
     return m_editGroup->size();
@@ -120,7 +120,7 @@ QSize FixtureGroupEditor::groupSize() const
 
 void FixtureGroupEditor::setGroupSize(QSize size)
 {
-    if (m_editGroup == NULL || size == m_editGroup->size())
+    if (m_editGroup == nullptr || size == m_editGroup->size())
         return;
 
     m_editGroup->setSize(size);
@@ -151,7 +151,7 @@ void FixtureGroupEditor::resetSelection()
 QVariantList FixtureGroupEditor::groupSelection(int x, int y, int mouseMods)
 {
     qDebug() << "Requested selection at" << x << y << "mods:" << mouseMods;
-    if (m_editGroup == NULL)
+    if (m_editGroup == nullptr)
         return m_groupSelection;
 
     int absIndex = (y * m_editGroup->size().width()) + x;
@@ -170,7 +170,7 @@ QVariantList FixtureGroupEditor::groupSelection(int x, int y, int mouseMods)
     }
 
     Fixture *fixture = m_doc->fixture(head.fxi);
-    if (fixture == NULL)
+    if (fixture == nullptr)
         return m_groupSelection;
 
     m_groupSelection.append(absIndex);
@@ -184,7 +184,7 @@ QVariantList FixtureGroupEditor::groupSelection(int x, int y, int mouseMods)
 
 QVariantList FixtureGroupEditor::fixtureSelection(QVariant reference, int x, int y, int mouseMods)
 {
-    if (m_editGroup == NULL)
+    if (m_editGroup == nullptr)
         return m_groupSelection;
 
     if (mouseMods == 0)
@@ -205,7 +205,7 @@ QVariantList FixtureGroupEditor::fixtureSelection(QVariant reference, int x, int
 
 QVariantList FixtureGroupEditor::headSelection(int x, int y, int mouseMods)
 {
-    if (m_editGroup == NULL)
+    if (m_editGroup == nullptr)
         return m_groupSelection;
 
     if (mouseMods == 0)
@@ -219,7 +219,7 @@ QVariantList FixtureGroupEditor::headSelection(int x, int y, int mouseMods)
 
 bool FixtureGroupEditor::addFixture(QVariant reference, int x, int y)
 {
-    if (m_editGroup == NULL)
+    if (m_editGroup == nullptr)
         return false;
 
     qDebug() << Q_FUNC_INFO << reference << x << y;
@@ -239,7 +239,7 @@ bool FixtureGroupEditor::addFixture(QVariant reference, int x, int y)
 
 bool FixtureGroupEditor::addHead(quint32 itemID, int headIndex, int x, int y)
 {
-    if (m_editGroup == NULL)
+    if (m_editGroup == nullptr)
         return false;
 
     quint32 fixtureID = FixtureUtils::itemFixtureID(itemID);
@@ -258,7 +258,7 @@ bool FixtureGroupEditor::checkSelection(int x, int y, int offset)
     Q_UNUSED(x)
     Q_UNUSED(y)
 
-    if (m_editGroup == NULL)
+    if (m_editGroup == nullptr)
         return false;
 
     // search for heads already occupying the target positions
@@ -281,7 +281,7 @@ bool FixtureGroupEditor::checkSelection(int x, int y, int offset)
 
 void FixtureGroupEditor::moveSelection(int x, int y, int offset)
 {
-    if (m_editGroup == NULL)
+    if (m_editGroup == nullptr)
         return;
 
     if (checkSelection(x, y, offset) == false)
@@ -319,7 +319,7 @@ void FixtureGroupEditor::moveSelection(int x, int y, int offset)
 
 void FixtureGroupEditor::deleteSelection()
 {
-    if (m_editGroup == NULL || m_groupSelection.isEmpty())
+    if (m_editGroup == nullptr || m_groupSelection.isEmpty())
         return;
 
     for (QVariant head : m_groupSelection)
@@ -338,7 +338,7 @@ void FixtureGroupEditor::deleteSelection()
 
 void FixtureGroupEditor::transformSelection(int transformation)
 {
-    if (m_editGroup == NULL)
+    if (m_editGroup == nullptr)
         return;
 
     int minX = m_editGroup->size().width();
@@ -456,7 +456,7 @@ void FixtureGroupEditor::transformSelection(int transformation)
 
 QString FixtureGroupEditor::getTooltip(int x, int y)
 {
-    if (m_editGroup == NULL)
+    if (m_editGroup == nullptr)
         return "";
 
     GroupHead head = m_editGroup->head(QLCPoint(x, y));
@@ -464,7 +464,7 @@ QString FixtureGroupEditor::getTooltip(int x, int y)
         return "";
 
     Fixture *fixture = m_doc->fixture(head.fxi);
-    if (fixture == NULL)
+    if (fixture == nullptr)
         return "";
 
     QString tooltip = QString("%1\nHead: %2\nAddress: %3\nUniverse: %4")
@@ -484,7 +484,7 @@ void FixtureGroupEditor::updateGroupMap()
    m_groupMap.clear();
    m_groupLabels.clear();
 
-   if (m_editGroup == NULL)
+   if (m_editGroup == nullptr)
        return;
 
    int gridWidth = m_editGroup->size().width();

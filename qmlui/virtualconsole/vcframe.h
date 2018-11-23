@@ -58,7 +58,7 @@ class VCFrame : public VCWidget
      * Initialization
      *********************************************************************/
 public:
-    VCFrame(Doc* doc = NULL, VirtualConsole *vc = NULL, QObject *parent = 0);
+    VCFrame(Doc* doc = nullptr, VirtualConsole *vc = nullptr, QObject *parent = nullptr);
     virtual ~VCFrame();
 
     /** @reimp */

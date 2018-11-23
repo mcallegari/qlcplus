@@ -29,7 +29,7 @@
 VCWidget::VCWidget(Doc *doc, QObject *parent)
     : QObject(parent)
     , m_doc(doc)
-    , m_item(NULL)
+    , m_item(nullptr)
     , m_id(invalidId())
     , m_type(UnknownWidget)
     , m_geometry(QRect(0,0,0,0))
@@ -58,7 +58,7 @@ VCWidget::~VCWidget()
 
 void VCWidget::setDocModified()
 {
-    if (m_doc != NULL)
+    if (m_doc != nullptr)
         m_doc->setModified();
 }
 
@@ -79,7 +79,7 @@ QQuickItem *VCWidget::renderItem() const
 
 void VCWidget::enqueueTardisAction(int code, QVariant oldVal, QVariant newVal)
 {
-    if (Tardis::instance() == NULL)
+    if (Tardis::instance() == nullptr)
         return;
 
     Tardis *tardis = Tardis::instance();
@@ -89,12 +89,12 @@ void VCWidget::enqueueTardisAction(int code, QVariant oldVal, QVariant newVal)
 VCWidget *VCWidget::createCopy(VCWidget *parent)
 {
     Q_UNUSED(parent)
-    return NULL;
+    return nullptr;
 }
 
 bool VCWidget::copyFrom(const VCWidget* widget)
 {
-    if (widget == NULL)
+    if (widget == nullptr)
         return false;
 
     m_backgroundImage = widget->m_backgroundImage;
@@ -515,7 +515,7 @@ bool VCWidget::hasSoloParent()
 {
     VCWidget *wParent = qobject_cast<VCWidget*>(parent());
 
-    if (wParent == NULL)
+    if (wParent == nullptr)
         return false;
 
     if (wParent->type() == VCWidget::FrameWidget)
@@ -540,7 +540,7 @@ void VCWidget::notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fInte
 
 void VCWidget::adjustFunctionIntensity(Function *f, qreal value)
 {
-    if (f == NULL)
+    if (f == nullptr)
         return;
 
     //qDebug() << "adjustFunctionIntensity" << caption() << "value" << value;
@@ -744,10 +744,10 @@ QVariantList VCWidget::inputSourcesList()
         }
 
         InputPatch *ip = m_doc->inputOutputMap()->inputPatch(source->universe());
-        if (ip != NULL && ip->profile() != NULL)
+        if (ip != nullptr && ip->profile() != nullptr)
         {
             QLCInputChannel *ich = ip->profile()->channel(source->channel());
-            if (ich != NULL && ich->type() == QLCInputChannel::Button)
+            if (ich != nullptr && ich->type() == QLCInputChannel::Button)
             {
                 min = ich->lowerValue();
                 max = ich->upperValue();
@@ -838,13 +838,13 @@ void VCWidget::sendFeedback(int value, quint8 id, SourceValueType type)
         QString chName = QString();
 
         InputPatch *ip = m_doc->inputOutputMap()->inputPatch(source->universe());
-        if (ip != NULL)
+        if (ip != nullptr)
         {
             QLCInputProfile* profile = ip->profile();
-            if (profile != NULL)
+            if (profile != nullptr)
             {
                 QLCInputChannel* ich = profile->channel(source->channel());
-                if (ich != NULL)
+                if (ich != nullptr)
                     chName = ich->name();
             }
         }
@@ -907,7 +907,7 @@ bool VCWidget::saveXML(QXmlStreamWriter *doc)
 
 bool VCWidget::loadXMLCommon(QXmlStreamReader &root)
 {
-    if (root.device() == NULL || root.hasError())
+    if (root.device() == nullptr || root.hasError())
         return false;
 
     QXmlStreamAttributes attrs = root.attributes();
@@ -929,7 +929,7 @@ bool VCWidget::loadXMLCommon(QXmlStreamReader &root)
 
 bool VCWidget::loadXMLAppearance(QXmlStreamReader &root)
 {
-    if (root.device() == NULL || root.hasError())
+    if (root.device() == nullptr || root.hasError())
         return false;
 
     if (root.name() != KXMLQLCVCWidgetAppearance)
@@ -989,8 +989,8 @@ bool VCWidget::loadXMLAppearance(QXmlStreamReader &root)
 bool VCWidget::loadXMLWindowState(QXmlStreamReader &root, int* x, int* y,
                                   int* w, int* h, bool* visible)
 {
-    if (root.device() == NULL || x == NULL || y == NULL || w == NULL || h == NULL ||
-            visible == NULL)
+    if (root.device() == nullptr || x == nullptr || y == nullptr || w == nullptr || h == nullptr ||
+            visible == nullptr)
         return false;
 
     if (root.name() == KXMLQLCWindowState)
@@ -1018,7 +1018,7 @@ bool VCWidget::loadXMLWindowState(QXmlStreamReader &root, int* x, int* y,
 
 bool VCWidget::loadXMLInputSource(QXmlStreamReader &root, const quint8 &id)
 {
-    if (root.device() == NULL || root.hasError())
+    if (root.device() == nullptr || root.hasError())
         return false;
 
     if (root.name() != KXMLQLCVCWidgetInput)
@@ -1049,7 +1049,7 @@ bool VCWidget::loadXMLInputSource(QXmlStreamReader &root, const quint8 &id)
 
 bool VCWidget::loadXMLInputKey(QXmlStreamReader &root, const quint8 &id)
 {
-    if (root.device() == NULL || root.hasError())
+    if (root.device() == nullptr || root.hasError())
         return false;
 
     if (root.name() != KXMLQLCVCWidgetKey)
@@ -1090,7 +1090,7 @@ bool VCWidget::loadXMLSources(QXmlStreamReader &root, const quint8 &id)
 
 bool VCWidget::saveXMLCommon(QXmlStreamWriter *doc)
 {
-    Q_ASSERT(doc != NULL);
+    Q_ASSERT(doc != nullptr);
 
     /* Caption */
     doc->writeAttribute(KXMLQLCVCCaption, caption());
@@ -1108,7 +1108,7 @@ bool VCWidget::saveXMLCommon(QXmlStreamWriter *doc)
 
 bool VCWidget::saveXMLAppearance(QXmlStreamWriter *doc)
 {
-    Q_ASSERT(doc != NULL);
+    Q_ASSERT(doc != nullptr);
 
     QString str;
 
@@ -1163,7 +1163,7 @@ bool VCWidget::saveXMLAppearance(QXmlStreamWriter *doc)
 
 bool VCWidget::saveXMLWindowState(QXmlStreamWriter *doc)
 {
-    Q_ASSERT(doc != NULL);
+    Q_ASSERT(doc != nullptr);
 
     QRectF r = geometry();
 
@@ -1188,7 +1188,7 @@ bool VCWidget::saveXMLWindowState(QXmlStreamWriter *doc)
 
 bool VCWidget::saveXMLInputControl(QXmlStreamWriter *doc, quint8 controlId, QString tagName)
 {
-    Q_ASSERT(doc != NULL);
+    Q_ASSERT(doc != nullptr);
 
     bool tagWritten = false;
 

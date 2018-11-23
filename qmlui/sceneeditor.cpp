@@ -29,9 +29,9 @@
 
 SceneEditor::SceneEditor(QQuickView *view, Doc *doc, QObject *parent)
     : FunctionEditor(view, doc, parent)
-    , m_scene(NULL)
-    , m_sceneConsole(NULL)
-    , m_source(NULL)
+    , m_scene(nullptr)
+    , m_sceneConsole(nullptr)
+    , m_source(nullptr)
 {
     m_view->rootContext()->setContextProperty("sceneEditor", this);
     m_source = new GenericDMXSource(m_doc);
@@ -43,9 +43,9 @@ SceneEditor::SceneEditor(QQuickView *view, Doc *doc, QObject *parent)
 
 SceneEditor::~SceneEditor()
 {
-    m_view->rootContext()->setContextProperty("sceneEditor", NULL);
+    m_view->rootContext()->setContextProperty("sceneEditor", nullptr);
     QQuickItem *bottomPanel = qobject_cast<QQuickItem*>(m_view->rootObject()->findChild<QObject *>("bottomPanelItem"));
-    if (bottomPanel != NULL)
+    if (bottomPanel != nullptr)
         bottomPanel->setProperty("visible", false);
 
     delete m_source;
@@ -59,12 +59,12 @@ void SceneEditor::setFunctionID(quint32 id)
     if (id == Function::invalidId())
     {
         disconnect(m_scene, &Scene::valueChanged, this, &SceneEditor::slotSceneValueChanged);
-        m_scene = NULL;
+        m_scene = nullptr;
         m_source->unsetAll();
         m_source->setOutputEnabled(false);
         m_fixtureList->clear();
         m_fixtureIDs.clear();
-        if (bottomPanel != NULL)
+        if (bottomPanel != nullptr)
             bottomPanel->setProperty("visible", false);
         return;
     }
@@ -73,7 +73,7 @@ void SceneEditor::setFunctionID(quint32 id)
     connect(m_scene, &Scene::valueChanged, this, &SceneEditor::slotSceneValueChanged);
 
     updateFixtureList();
-    if (bottomPanel != NULL)
+    if (bottomPanel != nullptr)
     {
         bottomPanel->setProperty("visible", true);
         bottomPanel->setProperty("editorSource", "qrc:/SceneFixtureConsole.qml");
@@ -110,7 +110,7 @@ void SceneEditor::sceneConsoleLoaded(bool status)
 {
     if (status == false)
     {
-        m_sceneConsole = NULL;
+        m_sceneConsole = nullptr;
         m_fxConsoleMap.clear();
     }
     else
@@ -133,7 +133,7 @@ void SceneEditor::unRegisterFixtureConsole(int index)
 
 bool SceneEditor::hasChannel(quint32 fxID, quint32 channel)
 {
-    if (m_scene == NULL)
+    if (m_scene == nullptr)
         return false;
 
     return m_scene->checkValue(SceneValue(fxID, channel));
@@ -141,7 +141,7 @@ bool SceneEditor::hasChannel(quint32 fxID, quint32 channel)
 
 double SceneEditor::channelValue(quint32 fxID, quint32 channel)
 {
-    if (m_scene == NULL)
+    if (m_scene == nullptr)
         return 0;
 
     return (double)m_scene->value(fxID, channel);
@@ -157,7 +157,7 @@ void SceneEditor::slotSceneValueChanged(SceneValue scv)
         blindMode = true;
 
     Fixture *fixture = m_doc->fixture(scv.fxi);
-    if (fixture == NULL)
+    if (fixture == nullptr)
         return;
 
     int fxIndex = m_fixtureIDs.indexOf(scv.fxi);
@@ -193,7 +193,7 @@ void SceneEditor::slotSceneValueChanged(SceneValue scv)
 
 void SceneEditor::slotAliasChanged()
 {
-    if (m_sceneConsole == NULL)
+    if (m_sceneConsole == nullptr)
         return;
 
     qDebug() << "Fixture alias changed";
@@ -206,7 +206,7 @@ void SceneEditor::slotAliasChanged()
 
 void SceneEditor::unsetChannel(quint32 fxID, quint32 channel)
 {
-    if (m_scene == NULL || m_fixtureIDs.contains(fxID) == false)
+    if (m_scene == nullptr || m_fixtureIDs.contains(fxID) == false)
         return;
 
     QVariant currentVal;
@@ -221,7 +221,7 @@ void SceneEditor::unsetChannel(quint32 fxID, quint32 channel)
 
 void SceneEditor::setFixtureSelection(quint32 fxID)
 {
-    if (m_scene == NULL || m_sceneConsole == NULL ||
+    if (m_scene == nullptr || m_sceneConsole == nullptr ||
         m_fixtureIDs.contains(fxID) == false)
             return;
 
@@ -232,13 +232,13 @@ void SceneEditor::setFixtureSelection(quint32 fxID)
 
 void SceneEditor::updateFixtureList()
 {
-    if(m_scene == NULL)
+    if(m_scene == nullptr)
         return;
 
     for (quint32 fxID : m_fixtureIDs)
     {
         Fixture *fixture = m_doc->fixture(fxID);
-        if(fixture == NULL)
+        if(fixture == nullptr)
             continue;
 
         disconnect(fixture, SIGNAL(aliasChanged()), this, SLOT(slotAliasChanged()));
@@ -252,7 +252,7 @@ void SceneEditor::updateFixtureList()
         if (m_fixtureIDs.contains(sv.fxi) == false)
         {
             Fixture *fixture = m_doc->fixture(sv.fxi);
-            if(fixture == NULL)
+            if(fixture == nullptr)
                 continue;
 
             connect(fixture, SIGNAL(aliasChanged()), this, SLOT(slotAliasChanged()));

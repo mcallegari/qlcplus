@@ -54,7 +54,7 @@ class NetworkManager : public QObject
     Q_PROPERTY(int connectionsCount READ connectionsCount NOTIFY connectionsCountChanged)
 
 public:
-    explicit NetworkManager(QObject *parent = 0, Doc *doc = NULL);
+    explicit NetworkManager(QObject *parent = nullptr, Doc *doc = nullptr);
     ~NetworkManager();
 
     enum HostType

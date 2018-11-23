@@ -77,7 +77,7 @@ void VCFrame::setupLookAndFeel(qreal pixelDensity, int page)
 
 void VCFrame::render(QQuickView *view, QQuickItem *parent)
 {
-    if (view == NULL || parent == NULL)
+    if (view == nullptr || parent == nullptr)
         return;
 
     QQmlComponent *component = new QQmlComponent(view->engine(), QUrl("qrc:/VCFrameItem.qml"));
@@ -115,13 +115,13 @@ QString VCFrame::propertiesResource() const
 
 VCWidget *VCFrame::createCopy(VCWidget *parent)
 {
-    Q_ASSERT(parent != NULL);
+    Q_ASSERT(parent != nullptr);
 
     VCFrame *frame = new VCFrame(m_doc, m_vc, parent);
     if (frame->copyFrom(this) == false)
     {
         delete frame;
-        frame = NULL;
+        frame = nullptr;
     }
 
     return frame;
@@ -130,7 +130,7 @@ VCWidget *VCFrame::createCopy(VCWidget *parent)
 bool VCFrame::copyFrom(const VCWidget *widget)
 {
     const VCFrame *frame = qobject_cast<const VCFrame*> (widget);
-    if (frame == NULL)
+    if (frame == nullptr)
         return false;
 
     setShowHeader(frame->showHeader());
@@ -144,7 +144,7 @@ bool VCFrame::copyFrom(const VCWidget *widget)
     while (it.hasNext() == true)
     {
         VCWidget *child = it.next();
-        VCWidget *childCopy = NULL;
+        VCWidget *childCopy = nullptr;
 
         /* findChildren() is recursive, so the list contains all
            possible child widgets below this frame. Each frame must
@@ -159,7 +159,7 @@ bool VCFrame::copyFrom(const VCWidget *widget)
             qDebug() << "Child copy in parent:" << childCopy->caption() << ", page:" << childCopy->page();
         }
 
-        if (childCopy != NULL)
+        if (childCopy != nullptr)
         {
             addWidgetToPageMap(childCopy);
             checkSubmasterConnection(childCopy);
@@ -372,7 +372,7 @@ void VCFrame::addWidgetMatrix(QQuickItem *parent, QString matrixType, QPoint pos
 
         for (int col = 0; col < matrixSize.width(); col++)
         {
-            frame->addWidget(NULL, matrixType == "buttonmatrix" ? typeToString(ButtonWidget) : typeToString(SliderWidget), QPoint(xPos, yPos));
+            frame->addWidget(nullptr, matrixType == "buttonmatrix" ? typeToString(ButtonWidget) : typeToString(SliderWidget), QPoint(xPos, yPos));
             xPos += widgetSize.width();
         }
         yPos += widgetSize.height();
@@ -392,7 +392,7 @@ void VCFrame::addWidgetsFromClipboard(QQuickItem *parent, QVariantList idsList, 
     for (QVariant wID : idsList)
     {
         VCWidget *widget = m_vc->widget(wID.toUInt());
-        if (widget == NULL)
+        if (widget == nullptr)
             continue;
 
         VCWidget *copy = widget->createCopy(this);
@@ -428,7 +428,7 @@ void VCFrame::addFunctions(QQuickItem *parent, QVariantList idsList, QPoint pos,
         quint32 funcID = vID.toUInt();
         Function *func = m_doc->function(funcID);
 
-        if (func == NULL)
+        if (func == nullptr)
             continue;
 
         if (keyModifiers & Qt::ShiftModifier)
@@ -1048,7 +1048,7 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
 
 bool VCFrame::saveXML(QXmlStreamWriter *doc)
 {
-    Q_ASSERT(doc != NULL);
+    Q_ASSERT(doc != nullptr);
 
     /* VC Frame entry */
     doc->writeStartElement(xmlTagName());

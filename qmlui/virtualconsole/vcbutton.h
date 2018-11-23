@@ -55,7 +55,7 @@ class VCButton : public VCWidget
      * Initialization
      *********************************************************************/
 public:
-    VCButton(Doc* doc = NULL, QObject *parent = 0);
+    VCButton(Doc* doc = nullptr, QObject *parent = nullptr);
     virtual ~VCButton();
 
     /** @reimp */

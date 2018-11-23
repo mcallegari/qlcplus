@@ -25,7 +25,7 @@
 
 AudioEditor::AudioEditor(QQuickView *view, Doc *doc, QObject *parent)
     : FunctionEditor(view, doc, parent)
-    , m_audio(NULL)
+    , m_audio(nullptr)
 {
     m_view->rootContext()->setContextProperty("audioEditor", this);
 }
@@ -34,14 +34,14 @@ void AudioEditor::setFunctionID(quint32 ID)
 {
     m_audio = qobject_cast<Audio *>(m_doc->function(ID));
     FunctionEditor::setFunctionID(ID);
-    if (m_audio != NULL)
+    if (m_audio != nullptr)
         connect(m_audio, SIGNAL(totalDurationChanged()),
                 this, SIGNAL(mediaInfoChanged()));
 }
 
 QString AudioEditor::sourceFileName() const
 {
-    if (m_audio == NULL)
+    if (m_audio == nullptr)
         return "";
 
     return m_audio->getSourceFileName();
@@ -52,7 +52,7 @@ void AudioEditor::setSourceFileName(QString sourceFileName)
     if (sourceFileName.startsWith("file:"))
         sourceFileName = QUrl(sourceFileName).toLocalFile();
 
-    if (m_audio == NULL || m_audio->getSourceFileName() == sourceFileName)
+    if (m_audio == nullptr || m_audio->getSourceFileName() == sourceFileName)
         return;
 
     Tardis::instance()->enqueueAction(Tardis::AudioSetSource, m_audio->id(), m_audio->getSourceFileName(), sourceFileName);
@@ -65,7 +65,7 @@ void AudioEditor::setSourceFileName(QString sourceFileName)
 
 QStringList AudioEditor::audioExtensions() const
 {
-    if (m_audio == NULL)
+    if (m_audio == nullptr)
         return QStringList();
 
     return m_audio->getCapabilities();
@@ -75,11 +75,11 @@ QVariant AudioEditor::mediaInfo() const
 {
     QVariantMap infoMap;
 
-    if (m_audio == NULL)
+    if (m_audio == nullptr)
         return QVariant();
 
     AudioDecoder *adec = m_audio->getAudioDecoder();
-    if (adec == NULL)
+    if (adec == nullptr)
         return QVariant();
 
     AudioParameters ap = adec->audioParameters();
@@ -93,7 +93,7 @@ QVariant AudioEditor::mediaInfo() const
 
 bool AudioEditor::isLooped()
 {
-    if (m_audio != NULL)
+    if (m_audio != nullptr)
         return m_audio->runOrder() == Audio::Loop;
 
     return false;
@@ -101,7 +101,7 @@ bool AudioEditor::isLooped()
 
 void AudioEditor::setLooped(bool looped)
 {
-    if (m_audio != NULL)
+    if (m_audio != nullptr)
     {
         Tardis::instance()->enqueueAction(Tardis::FunctionSetRunOrder, m_audio->id(), m_audio->runOrder(),
                                           looped ? Audio::Loop : Audio::SingleShot);
@@ -115,7 +115,7 @@ void AudioEditor::setLooped(bool looped)
 
 int AudioEditor::cardLineIndex() const
 {
-    if (m_audio == NULL || m_audio->audioDevice().isEmpty())
+    if (m_audio == nullptr || m_audio->audioDevice().isEmpty())
         return 0;
 
     QList<AudioDeviceInfo> devList = m_doc->audioPluginCache()->audioDevicesList();
@@ -137,7 +137,7 @@ int AudioEditor::cardLineIndex() const
 
 void AudioEditor::setCardLineIndex(int cardLineIndex)
 {
-    if (m_audio == NULL)
+    if (m_audio == nullptr)
         return;
 
     if (cardLineIndex == 0)

@@ -86,7 +86,7 @@ void VCClock::setupLookAndFeel(qreal pixelDensity, int page)
 
 void VCClock::render(QQuickView *view, QQuickItem *parent)
 {
-    if (view == NULL || parent == NULL)
+    if (view == nullptr || parent == nullptr)
         return;
 
     QQmlComponent *component = new QQmlComponent(view->engine(), QUrl("qrc:/VCClockItem.qml"));
@@ -110,13 +110,13 @@ QString VCClock::propertiesResource() const
 
 VCWidget *VCClock::createCopy(VCWidget *parent)
 {
-    Q_ASSERT(parent != NULL);
+    Q_ASSERT(parent != nullptr);
 
     VCClock *clock = new VCClock(m_doc, parent);
     if (clock->copyFrom(this) == false)
     {
         delete clock;
-        clock = NULL;
+        clock = nullptr;
     }
 
     return clock;
@@ -125,7 +125,7 @@ VCWidget *VCClock::createCopy(VCWidget *parent)
 bool VCClock::copyFrom(const VCWidget *widget)
 {
     const VCClock *clock = qobject_cast<const VCClock*> (widget);
-    if (clock == NULL)
+    if (clock == nullptr)
         return false;
 
     /* Clock type */
@@ -243,7 +243,7 @@ void VCClock::slotTimerTimeout()
         if (sch->m_cachedDuration == -1)
         {
             Function *f = m_doc->function(sch->functionID());
-            if (f != NULL)
+            if (f != nullptr)
                 sch->m_cachedDuration = f->totalDuration() / 1000;
         }
 
@@ -266,7 +266,7 @@ void VCClock::slotTimerTimeout()
 
             // check for existing Function
             Function *f = m_doc->function(sch->functionID());
-            if (f == NULL)
+            if (f == nullptr)
                 continue;
 
             // case #3 and #4
@@ -330,7 +330,7 @@ void VCClock::setEnableSchedule(bool enableSchedule)
         for(VCClockSchedule *sch : m_scheduleList) // C++11
         {
             Function *f = m_doc->function(sch->functionID());
-            if (f != NULL && f->isRunning())
+            if (f != nullptr && f->isRunning())
                 f->stop(functionParent());
             sch->m_canPlay = true;
         }
@@ -367,7 +367,7 @@ void VCClock::addSchedules(QVariantList idsList)
     for (QVariant vID : idsList) // C++11
     {
         quint32 funcID = vID.toUInt();
-        if (m_doc->function(funcID) == NULL)
+        if (m_doc->function(funcID) == nullptr)
             continue;
 
         VCClockSchedule *sch = new VCClockSchedule();
@@ -387,7 +387,7 @@ void VCClock::removeSchedule(int index)
 
     VCClockSchedule *sch = m_scheduleList.takeAt(index);
     Function *f = m_doc->function(sch->functionID());
-    if (f != NULL && f->isRunning())
+    if (f != nullptr && f->isRunning())
         f->stop(functionParent());
     delete sch;
     emit scheduleListChanged();
@@ -478,7 +478,7 @@ bool VCClock::loadXML(QXmlStreamReader &root)
 
 bool VCClock::saveXML(QXmlStreamWriter *doc)
 {
-    Q_ASSERT(doc != NULL);
+    Q_ASSERT(doc != nullptr);
 
     /* VC Clock entry */
     doc->writeStartElement(KXMLQLCVCClock);

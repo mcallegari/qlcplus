@@ -98,7 +98,7 @@ class VCClock : public VCWidget
      * Initialization
      *********************************************************************/
 public:
-    VCClock(Doc* doc = NULL, QObject *parent = 0);
+    VCClock(Doc* doc = nullptr, QObject *parent = nullptr);
     virtual ~VCClock();
 
     /** @reimp */

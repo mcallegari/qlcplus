@@ -28,7 +28,7 @@ PreviewContext::PreviewContext(QQuickView *view, Doc *doc, QString name, QObject
     , m_view(view)
     , m_mainView(view)
     , m_doc(doc)
-    , m_contextItem(NULL)
+    , m_contextItem(nullptr)
     , m_name(name)
     , m_title(name)
     , m_page(0)

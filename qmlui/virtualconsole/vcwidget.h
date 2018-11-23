@@ -95,7 +95,7 @@ class VCWidget : public QObject
      * Initialization
      *********************************************************************/
 public:
-    VCWidget(Doc* doc = NULL, QObject* parent = 0);
+    VCWidget(Doc* doc = nullptr, QObject* parent = nullptr);
     virtual ~VCWidget();
 
     void setDocModified();

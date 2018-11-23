@@ -27,7 +27,7 @@
 
 VideoEditor::VideoEditor(QQuickView *view, Doc *doc, QObject *parent)
     : FunctionEditor(view, doc, parent)
-    , m_video(NULL)
+    , m_video(nullptr)
 {
     m_view->rootContext()->setContextProperty("videoEditor", this);
     m_mediaPlayer = new QMediaPlayer(this, QMediaPlayer::VideoSurface);
@@ -47,7 +47,7 @@ void VideoEditor::setFunctionID(quint32 ID)
 {
     m_video = qobject_cast<Video *>(m_doc->function(ID));
     FunctionEditor::setFunctionID(ID);
-    if (m_video != NULL)
+    if (m_video != nullptr)
     {
         /*connect(m_video, SIGNAL(totalTimeChanged(qint64)),
                 this, SLOT(slotDurationChanged(qint64)));
@@ -64,7 +64,7 @@ void VideoEditor::setFunctionID(quint32 ID)
 
 QString VideoEditor::sourceFileName() const
 {
-    if (m_video == NULL)
+    if (m_video == nullptr)
         return "";
 
     return m_video->sourceUrl();
@@ -75,7 +75,7 @@ void VideoEditor::setSourceFileName(QString sourceFileName)
     if (sourceFileName.startsWith("file:"))
         sourceFileName = QUrl(sourceFileName).toLocalFile();
 
-    if (m_video == NULL || m_video->sourceUrl() == sourceFileName)
+    if (m_video == nullptr || m_video->sourceUrl() == sourceFileName)
         return;
 
     Tardis::instance()->enqueueAction(Tardis::VideoSetSource, m_video->id(), m_video->sourceUrl(), sourceFileName);
@@ -148,7 +148,7 @@ QStringList VideoEditor::screenList() const
 
 int VideoEditor::screenIndex() const
 {
-    if (m_video != NULL)
+    if (m_video != nullptr)
         return m_video->screen();
 
     return 0;
@@ -156,7 +156,7 @@ int VideoEditor::screenIndex() const
 
 void VideoEditor::setScreenIndex(int screenIndex)
 {
-    if (m_video == NULL || m_video->screen() == screenIndex)
+    if (m_video == nullptr || m_video->screen() == screenIndex)
         return;
 
     Tardis::instance()->enqueueAction(Tardis::VideoSetScreenIndex, m_video->id(), m_video->screen(), screenIndex);
@@ -166,7 +166,7 @@ void VideoEditor::setScreenIndex(int screenIndex)
 
 bool VideoEditor::isFullscreen() const
 {
-    if (m_video != NULL)
+    if (m_video != nullptr)
         return m_video->fullscreen();
 
     return false;
@@ -174,7 +174,7 @@ bool VideoEditor::isFullscreen() const
 
 void VideoEditor::setFullscreen(bool fullscreen)
 {
-    if (m_video == NULL || m_video->fullscreen() == fullscreen)
+    if (m_video == nullptr || m_video->fullscreen() == fullscreen)
         return;
 
     Tardis::instance()->enqueueAction(Tardis::VideoSetFullscreen, m_video->id(), m_video->fullscreen(), fullscreen);
@@ -184,7 +184,7 @@ void VideoEditor::setFullscreen(bool fullscreen)
 
 bool VideoEditor::isLooped()
 {
-    if (m_video != NULL)
+    if (m_video != nullptr)
         return m_video->runOrder() == Video::Loop;
 
     return false;
@@ -192,7 +192,7 @@ bool VideoEditor::isLooped()
 
 void VideoEditor::setLooped(bool looped)
 {
-    if (m_video != NULL)
+    if (m_video != nullptr)
     {
         Tardis::instance()->enqueueAction(Tardis::FunctionSetRunOrder, m_video->id(),
                                           m_video->runOrder(), looped ? Video::Loop : Video::SingleShot);
@@ -205,7 +205,7 @@ void VideoEditor::setLooped(bool looped)
 
 bool VideoEditor::hasCustomGeometry() const
 {
-    if (m_video != NULL && m_video->customGeometry().isNull() == false)
+    if (m_video != nullptr && m_video->customGeometry().isNull() == false)
         return true;
 
     return false;
@@ -213,7 +213,7 @@ bool VideoEditor::hasCustomGeometry() const
 
 QRect VideoEditor::customGeometry() const
 {
-    if (m_video != NULL)
+    if (m_video != nullptr)
         return m_video->customGeometry();
 
     return QRect();
@@ -221,7 +221,7 @@ QRect VideoEditor::customGeometry() const
 
 void VideoEditor::setCustomGeometry(QRect customGeometry)
 {
-    if (m_video == NULL || m_video->customGeometry() == customGeometry)
+    if (m_video == nullptr || m_video->customGeometry() == customGeometry)
         return;
 
     Tardis::instance()->enqueueAction(Tardis::VideoSetGeometry, m_video->id(), m_video->customGeometry(), customGeometry);
@@ -231,7 +231,7 @@ void VideoEditor::setCustomGeometry(QRect customGeometry)
 
 QVector3D VideoEditor::rotation() const
 {
-    if (m_video != NULL)
+    if (m_video != nullptr)
         return m_video->rotation();
 
     return QVector3D();
@@ -239,7 +239,7 @@ QVector3D VideoEditor::rotation() const
 
 void VideoEditor::setRotation(QVector3D rotation)
 {
-    if (m_video == NULL || m_video->rotation() == rotation)
+    if (m_video == nullptr || m_video->rotation() == rotation)
         return;
 
     Tardis::instance()->enqueueAction(Tardis::VideoSetRotation, m_video->id(), m_video->rotation(), rotation);

@@ -33,7 +33,7 @@ class VCLabel : public VCWidget
      *********************************************************************/
 
 public:
-    VCLabel(Doc* doc = NULL, QObject *parent = 0);
+    VCLabel(Doc* doc = nullptr, QObject *parent = nullptr);
     virtual ~VCLabel();
 
     /** @reimp */

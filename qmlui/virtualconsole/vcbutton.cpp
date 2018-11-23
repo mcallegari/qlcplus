@@ -61,7 +61,7 @@ void VCButton::setupLookAndFeel(qreal pixelDensity, int page)
 
 void VCButton::render(QQuickView *view, QQuickItem *parent)
 {
-    if (view == NULL || parent == NULL)
+    if (view == nullptr || parent == nullptr)
         return;
 
     QQmlComponent *component = new QQmlComponent(view->engine(), QUrl("qrc:/VCButtonItem.qml"));
@@ -85,13 +85,13 @@ QString VCButton::propertiesResource() const
 
 VCWidget *VCButton::createCopy(VCWidget *parent)
 {
-    Q_ASSERT(parent != NULL);
+    Q_ASSERT(parent != nullptr);
 
     VCButton *button = new VCButton(m_doc, parent);
     if (button->copyFrom(this) == false)
     {
         delete button;
-        button = NULL;
+        button = nullptr;
     }
 
     return button;
@@ -100,7 +100,7 @@ VCWidget *VCButton::createCopy(VCWidget *parent)
 bool VCButton::copyFrom(const VCWidget* widget)
 {
     const VCButton *button = qobject_cast <const VCButton*> (widget);
-    if (button == NULL)
+    if (button == nullptr)
         return false;
 
     /* Copy button-specific stuff */
@@ -129,7 +129,7 @@ void VCButton::setFunctionID(quint32 fid)
     Function *current = m_doc->function(m_functionID);
     Function *function = m_doc->function(fid);
 
-    if (current != NULL)
+    if (current != nullptr)
     {
         /* Get rid of old function connections */
         disconnect(current, SIGNAL(running(quint32)),
@@ -146,7 +146,7 @@ void VCButton::setFunctionID(quint32 fid)
         }
     }
 
-    if (function != NULL)
+    if (function != nullptr)
     {
         /* Connect to the new function */
         connect(function, SIGNAL(running(quint32)),
@@ -202,7 +202,7 @@ void VCButton::notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fInte
         return;
 
     Function *f = m_doc->function(m_functionID);
-    if (f == NULL)
+    if (f == nullptr)
         return;
 
     if (m_functionID != fid)
@@ -248,7 +248,7 @@ void VCButton::slotFunctionFlashing(quint32 fid, bool state)
 
     // if the function was flashed by another button, and the function is still running, keep the button pushed
     Function* f = m_doc->function(m_functionID);
-    if (state == false && actionType() == Toggle && f != NULL && f->isRunning())
+    if (state == false && actionType() == Toggle && f != nullptr && f->isRunning())
     {
         return;
     }
@@ -297,7 +297,7 @@ void VCButton::requestStateChange(bool pressed)
         case Toggle:
         {
             Function *f = m_doc->function(m_functionID);
-            if (f == NULL)
+            if (f == nullptr)
                 return;
 
             if (state() != Active && pressed == true)
@@ -320,7 +320,7 @@ void VCButton::requestStateChange(bool pressed)
         case Flash:
         {
             Function *f = m_doc->function(m_functionID);
-            if (f != NULL)
+            if (f != nullptr)
             {
                 if (state() == Inactive && pressed == true)
                 {
@@ -550,7 +550,7 @@ bool VCButton::loadXML(QXmlStreamReader &root)
 
 bool VCButton::saveXML(QXmlStreamWriter *doc)
 {
-    Q_ASSERT(doc != NULL);
+    Q_ASSERT(doc != nullptr);
 
     /* VC button entry */
     doc->writeStartElement(KXMLQLCVCButton);

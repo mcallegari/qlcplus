@@ -41,7 +41,7 @@
 
 VCSlider::VCSlider(Doc *doc, QObject *parent)
     : VCWidget(doc, parent)
-    , m_channelsTree(NULL)
+    , m_channelsTree(nullptr)
     , m_widgetMode(WSlider)
     , m_valueDisplayStyle(DMXValue)
     , m_invertedAppearance(false)
@@ -53,7 +53,7 @@ VCSlider::VCSlider(Doc *doc, QObject *parent)
     , m_monitorEnabled(false)
     , m_monitorValue(0)
     , m_isOverriding(false)
-    , m_fixtureTree(NULL)
+    , m_fixtureTree(nullptr)
     , m_searchFilter(QString())
     , m_clickAndGoType(CnGNone)
     , m_cngPrimaryColor(QColor())
@@ -105,7 +105,7 @@ void VCSlider::setupLookAndFeel(qreal pixelDensity, int page)
 
 void VCSlider::render(QQuickView *view, QQuickItem *parent)
 {
-    if (view == NULL || parent == NULL)
+    if (view == nullptr || parent == nullptr)
         return;
 
     QQmlComponent *component = new QQmlComponent(view->engine(), QUrl("qrc:/VCSliderItem.qml"));
@@ -129,13 +129,13 @@ QString VCSlider::propertiesResource() const
 
 VCWidget* VCSlider::createCopy(VCWidget* parent)
 {
-    Q_ASSERT(parent != NULL);
+    Q_ASSERT(parent != nullptr);
 
     VCSlider* slider = new VCSlider(m_doc, parent);
     if (slider->copyFrom(this) == false)
     {
         delete slider;
-        slider = NULL;
+        slider = nullptr;
     }
 
     return slider;
@@ -144,7 +144,7 @@ VCWidget* VCSlider::createCopy(VCWidget* parent)
 bool VCSlider::copyFrom(const VCWidget *widget)
 {
     const VCSlider *slider = qobject_cast<const VCSlider*> (widget);
-    if (slider == NULL)
+    if (slider == nullptr)
         return false;
 
     /* Copy widget style */
@@ -535,7 +535,7 @@ QList<SceneValue> VCSlider::levelChannels() const
 QVariant VCSlider::groupsTreeModel()
 {
     qDebug() << "Requesting tree model from slider" << m_levelChannels.count();
-    if (m_fixtureTree == NULL)
+    if (m_fixtureTree == nullptr)
     {
         m_fixtureTree = new TreeModel(this);
         QQmlEngine::setObjectOwnership(m_fixtureTree, QQmlEngine::CppOwnership);
@@ -676,18 +676,18 @@ QVariantList VCSlider::clickAndGoPresetsList()
     for (SceneValue scv : m_levelChannels)
     {
         Fixture *fixture = m_doc->fixture(scv.fxi);
-        if (fixture == NULL)
+        if (fixture == nullptr)
             continue;
 
         const QLCFixtureDef *def = fixture->fixtureDef();
         const QLCFixtureMode *mode = fixture->fixtureMode();
 
-        if (def == NULL || mode == NULL)
+        if (def == nullptr || mode == nullptr)
             continue;
 
         const QLCChannel *ch = fixture->channel(scv.channel);
 
-        if (ch == NULL)
+        if (ch == nullptr)
             continue;
 
         QVariantMap prMap;
@@ -732,11 +732,11 @@ void VCSlider::updateClickAndGoResource()
     for (SceneValue scv : m_levelChannels)
     {
         Fixture *fixture = m_doc->fixture(scv.fxi);
-        if (fixture == NULL)
+        if (fixture == nullptr)
             continue;
 
         const QLCChannel *ch = fixture->channel(scv.channel);
-        if (ch == NULL)
+        if (ch == nullptr)
             return;
 
         for (QLCCapability *cap : ch->capabilities())
@@ -792,7 +792,7 @@ void VCSlider::setControlledFunction(quint32 fid)
         return;
 
     Function *current = m_doc->function(m_controlledFunctionId);
-    if (current != NULL)
+    if (current != nullptr)
     {
         /* Get rid of old function connections */
         disconnect(current, SIGNAL(stopped(quint32)),
@@ -808,7 +808,7 @@ void VCSlider::setControlledFunction(quint32 fid)
     }
 
     Function *function = m_doc->function(fid);
-    if (function != NULL)
+    if (function != nullptr)
     {
         /* Connect to the new function */
         connect(function, SIGNAL(stopped(quint32)),
@@ -847,7 +847,7 @@ void VCSlider::adjustIntensity(qreal val)
     if (sliderMode() == Adjust)
     {
         Function* function = m_doc->function(m_controlledFunctionId);
-        if (function == NULL)
+        if (function == nullptr)
             return;
 
         qreal fraction = sliderValueToAttributeValue(m_value);
@@ -891,7 +891,7 @@ void VCSlider::setControlledAttribute(int attributeIndex)
         return;
 
     Function* function = m_doc->function(m_controlledFunctionId);
-    if (function == NULL || attributeIndex >= function->attributes().count())
+    if (function == nullptr || attributeIndex >= function->attributes().count())
         return;
 
     function->releaseAttributeOverride(m_controlledAttributeId);
@@ -927,7 +927,7 @@ void VCSlider::setControlledAttribute(int attributeIndex)
 
 void VCSlider::adjustFunctionAttribute(Function *f, qreal value)
 {
-    if (f == NULL)
+    if (f == nullptr)
         return;
 
     if (m_controlledAttributeId == Function::invalidAttributeId())
@@ -941,7 +941,7 @@ QStringList VCSlider::availableAttributes() const
     QStringList list;
 
     Function* function = m_doc->function(m_controlledFunctionId);
-    if (function == NULL)
+    if (function == nullptr)
         return list;
 
     for (Attribute attr : function->attributes())
@@ -1048,10 +1048,10 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
         for (SceneValue scv : m_levelChannels)
         {
             Fixture* fxi = m_doc->fixture(scv.fxi);
-            if (fxi != NULL)
+            if (fxi != nullptr)
             {
                 const QLCChannel* qlcch = fxi->channel(scv.channel);
-                if (qlcch == NULL)
+                if (qlcch == nullptr)
                     continue;
 
                 quint32 dmx_ch = fxi->address() + scv.channel;
@@ -1102,13 +1102,13 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
         for (SceneValue scv : m_levelChannels)
         {
             Fixture* fxi = m_doc->fixture(scv.fxi);
-            if (fxi == NULL)
+            if (fxi == nullptr)
                 continue;
 
             quint32 universe = fxi->universe();
 
-            GenericFader *fader = m_fadersMap.value(universe, NULL);
-            if (fader == NULL)
+            GenericFader *fader = m_fadersMap.value(universe, nullptr);
+            if (fader == nullptr)
             {
                 fader = universes[universe]->requestFader();
                 m_fadersMap[universe] = fader;
@@ -1134,7 +1134,7 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
             {
                 const QLCChannel *qlcch = fxi->channel(scv.channel);
 
-                if (qlcch != NULL)
+                if (qlcch != nullptr)
                 {
                     switch (qlcch->colour())
                     {
@@ -1171,7 +1171,7 @@ void VCSlider::writeDMXAdjust(MasterTimer* timer, QList<Universe *> ua)
         return;
 
     Function* function = m_doc->function(m_controlledFunctionId);
-    if (function == NULL)
+    if (function == nullptr)
         return;
 
     qreal fraction = sliderValueToAttributeValue(m_value);
@@ -1441,7 +1441,7 @@ bool VCSlider::loadXMLLegacyPlayback(QXmlStreamReader &pb_root)
 
 bool VCSlider::saveXML(QXmlStreamWriter *doc)
 {
-    Q_ASSERT(doc != NULL);
+    Q_ASSERT(doc != nullptr);
 
     /* VC slider entry */
     doc->writeStartElement(KXMLQLCVCSlider);

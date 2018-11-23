@@ -46,9 +46,9 @@ ImportManager::ImportManager(QQuickView *view, Doc *doc, QObject *parent)
     : QObject(parent)
     , m_view(view)
     , m_doc(doc)
-    , m_fixtureTree(NULL)
+    , m_fixtureTree(nullptr)
     , m_fixtureTreeUpdating(false)
-    , m_functionTree(NULL)
+    , m_functionTree(nullptr)
     , m_functionTreeUpdating(false)
 {
     m_importDoc = new Doc(this);
@@ -74,7 +74,7 @@ ImportManager::~ImportManager()
 {
     /* invalidate the fixture cache reference since
      * this is shared with the original Doc */
-    m_importDoc->setFixtureDefinitionCache(NULL);
+    m_importDoc->setFixtureDefinitionCache(nullptr);
     delete m_importDoc;
 }
 
@@ -90,7 +90,7 @@ bool ImportManager::loadWorkspace(const QString &fileName)
         return false;
 
     QXmlStreamReader *doc = QLCFile::getXMLReader(localFilename);
-    if (doc == NULL || doc->device() == NULL || doc->hasError())
+    if (doc == nullptr || doc->device() == nullptr || doc->hasError())
     {
         qWarning() << Q_FUNC_INFO << "Unable to read from" << localFilename;
         return false;
@@ -236,9 +236,9 @@ void ImportManager::importFixtures()
             QLCFixtureDef *importDef = importFixture->fixtureDef();
             QLCFixtureMode *importMode = importFixture->fixtureMode();
             QLCFixtureDef *fxiDef = m_doc->fixtureDefCache()->fixtureDef(importDef->manufacturer(), importDef->model());
-            QLCFixtureMode *fxiMode = NULL;
+            QLCFixtureMode *fxiMode = nullptr;
 
-            if (fxiDef != NULL && importMode != NULL)
+            if (fxiDef != nullptr && importMode != nullptr)
                 fxiMode = fxiDef->mode(importMode->name());
 
             Fixture *fxi = new Fixture(m_doc);
@@ -248,7 +248,7 @@ void ImportManager::importFixtures()
             fxi->setUniverse(uniIdx);
             fxi->setAddress(address);
 
-            if (fxiDef == NULL && fxiMode == NULL)
+            if (fxiDef == nullptr && fxiMode == nullptr)
             {
                 if (importDef->model() == "Generic Dimmer")
                 {
@@ -431,7 +431,7 @@ void ImportManager::importFunctionID(quint32 funcID)
                      * - same ID (nothing to do)
                      * - missing ID (add step index to remove list)
                      */
-                    if (m_doc->function(step->fid) == NULL)
+                    if (m_doc->function(step->fid) == nullptr)
                         removeList.append(i);
                 }
             }
@@ -490,7 +490,7 @@ void ImportManager::importFunctionID(quint32 funcID)
 
 void ImportManager::setChildrenChecked(TreeModel *tree, bool checked)
 {
-    if (tree == NULL)
+    if (tree == nullptr)
         return;
 
     for (TreeModelItem *item : tree->items())
@@ -508,7 +508,7 @@ void ImportManager::setChildrenChecked(TreeModel *tree, bool checked)
 
 QVariant ImportManager::groupsTreeModel()
 {
-    if (m_fixtureTree == NULL)
+    if (m_fixtureTree == nullptr)
     {
         m_fixtureTree = new TreeModel(this);
         QQmlEngine::setObjectOwnership(m_fixtureTree, QQmlEngine::CppOwnership);
@@ -613,7 +613,7 @@ void ImportManager::setFixtureSearchFilter(QString searchFilter)
 
 void ImportManager::checkFixtureTree(TreeModel *tree)
 {
-    if (tree == NULL)
+    if (tree == nullptr)
         return;
 
     for (TreeModelItem *item : tree->items())
@@ -644,7 +644,7 @@ void ImportManager::updateFunctionsTree()
 
     for(Function *func : m_importDoc->functions()) // C++11
     {
-        if (func == NULL || func->isVisible() == false)
+        if (func == nullptr || func->isVisible() == false)
             return;
 
         bool expandAll = m_functionSearchFilter.length() >= SEARCH_MIN_CHARS;
@@ -665,7 +665,7 @@ void ImportManager::updateFunctionsTree()
 
 QVariant ImportManager::functionsTreeModel()
 {
-    if (m_functionTree == NULL)
+    if (m_functionTree == nullptr)
     {
         m_functionTree = new TreeModel(this);
         QQmlEngine::setObjectOwnership(m_fixtureTree, QQmlEngine::CppOwnership);
@@ -686,7 +686,7 @@ QVariant ImportManager::functionsTreeModel()
 
 void ImportManager::checkFunctionTree(TreeModel *tree)
 {
-    if (tree == NULL)
+    if (tree == nullptr)
         return;
 
     for (TreeModelItem *item : tree->items())
@@ -695,7 +695,7 @@ void ImportManager::checkFunctionTree(TreeModel *tree)
         if (cRef.canConvert<Function *>())
         {
             Function *func = cRef.value<Function *>();
-            if (func != NULL)
+            if (func != nullptr)
             {
                 if (m_functionIDList.contains(func->id()))
                     tree->setItemRoleData(item, true, TreeModel::IsCheckedRole);
@@ -780,7 +780,7 @@ void ImportManager::setFunctionSearchFilter(QString searchFilter)
 void ImportManager::checkFunctionDependency(quint32 fid)
 {
     Function *func = m_importDoc->function(fid);
-    if (func == NULL)
+    if (func == nullptr)
         return;
 
     QList<quint32> funcList;

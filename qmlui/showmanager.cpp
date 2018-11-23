@@ -28,7 +28,7 @@
 
 ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
     : PreviewContext(view, doc, "SHOWMGR", parent)
-    , m_currentShow(NULL)
+    , m_currentShow(nullptr)
     , m_timeScale(5.0)
     , m_stretchFunctions(false)
     , m_gridEnabled(false)
@@ -52,14 +52,14 @@ ShowManager::ShowManager(QQuickView *view, Doc *doc, QObject *parent)
 
 int ShowManager::currentShowID() const
 {
-    if (m_currentShow == NULL)
+    if (m_currentShow == nullptr)
         return Function::invalidId();
     return m_currentShow->id();
 }
 
 void ShowManager::setCurrentShowID(int currentShowID)
 {
-    if (m_currentShow != NULL)
+    if (m_currentShow != nullptr)
     {
         if (m_currentShow->id() == (quint32)currentShowID)
             return;
@@ -68,7 +68,7 @@ void ShowManager::setCurrentShowID(int currentShowID)
 
     m_currentShow = qobject_cast<Show*>(m_doc->function(currentShowID));
     emit currentShowIDChanged(currentShowID);
-    if (m_currentShow != NULL)
+    if (m_currentShow != nullptr)
     {
         connect(m_currentShow, SIGNAL(timeChanged(quint32)), this, SLOT(slotTimeChanged(quint32)));
         emit showDurationChanged(m_currentShow->totalDuration());
@@ -84,7 +84,7 @@ void ShowManager::setCurrentShowID(int currentShowID)
 
 QString ShowManager::showName() const
 {
-    if (m_currentShow == NULL)
+    if (m_currentShow == nullptr)
         return QString();
 
     return m_currentShow->name();
@@ -92,7 +92,7 @@ QString ShowManager::showName() const
 
 void ShowManager::setShowName(QString showName)
 {
-    if (m_currentShow == NULL || m_currentShow->name() == showName)
+    if (m_currentShow == nullptr || m_currentShow->name() == showName)
         return;
 
     Tardis::instance()->enqueueAction(Tardis::FunctionSetName, m_currentShow->id(), m_currentShow->name(), showName);
@@ -181,7 +181,7 @@ void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVar
         return;
 
     // if no show is selected, then create a new one
-    if (m_currentShow == NULL)
+    if (m_currentShow == nullptr)
     {
         QString defaultName = QString("%1 %2").arg(tr("New Show")).arg(m_doc->nextFunctionID());
         m_currentShow = new Show(m_doc);
@@ -190,7 +190,7 @@ void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVar
         if (m_doc->addFunction(f) == false)
         {
             qDebug() << "Error in creating a new Show!";
-            m_currentShow = NULL;
+            m_currentShow = nullptr;
             return;
         }
         connect(m_currentShow,SIGNAL(timeChanged(quint32)), this, SLOT(slotTimeChanged(quint32)));
@@ -198,7 +198,7 @@ void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVar
         emit showNameChanged(m_currentShow->name());
     }
 
-    Track *selectedTrack = NULL;
+    Track *selectedTrack = nullptr;
 
     // if no Track index is provided, then add a new one
     if (trackIdx == -1)
@@ -230,7 +230,7 @@ void ShowManager::addItems(QQuickItem *parent, int trackIdx, int startTime, QVar
 
         // and now create the actual ShowFunction and the QML item
         Function *func = m_doc->function(functionID);
-        if (func == NULL)
+        if (func == nullptr)
             continue;
 
         ShowFunction *showFunc = selectedTrack->createShowFunction(functionID);
@@ -258,7 +258,7 @@ void ShowManager::deleteShowItems(QVariantList data)
 {
     Q_UNUSED(data)
 
-    if (m_currentShow == NULL)
+    if (m_currentShow == nullptr)
         return;
 
     foreach(SelectedShowItem ssi, m_selectedItems)
@@ -275,7 +275,7 @@ void ShowManager::deleteShowItems(QVariantList data)
 
         Track *track = m_currentShow->tracks().at(trackIndex);
         track->removeShowFunction(ssi.m_showFunc, true);
-        if (ssi.m_item != NULL)
+        if (ssi.m_item != nullptr)
         {
             quint32 key = m_itemsMap.key(ssi.m_item, UINT_MAX);
             if (key != UINT_MAX)
@@ -290,12 +290,12 @@ void ShowManager::deleteShowItems(QVariantList data)
 
 bool ShowManager::checkAndMoveItem(ShowFunction *sf, int originalTrackIdx, int newTrackIdx, int newStartTime)
 {
-    if (m_currentShow == NULL || sf == NULL)
+    if (m_currentShow == nullptr || sf == nullptr)
         return false;
 
     //qDebug() << Q_FUNC_INFO << "origIdx:" << originalTrackIdx << "newIdx:" << newTrackIdx << "time:" << newStartTime;
 
-    Track *dstTrack = NULL;
+    Track *dstTrack = nullptr;
 
     // check if it's moving on a new track or an existing one
     if (newTrackIdx >= m_currentShow->tracks().count())
@@ -349,7 +349,7 @@ void ShowManager::resetContents()
     m_currentTime = 0;
     m_selectedTrack = -1;
     emit currentTimeChanged(m_currentTime);
-    m_currentShow = NULL;
+    m_currentShow = nullptr;
 }
 
 void ShowManager::resetView()
@@ -367,7 +367,7 @@ void ShowManager::renderView(QQuickItem *parent)
 {
     resetView();
 
-    if (m_currentShow == NULL)
+    if (m_currentShow == nullptr)
         return;
 
     setContextItem(parent);
@@ -381,7 +381,7 @@ void ShowManager::renderView(QQuickItem *parent)
         foreach(ShowFunction *sf, track->showFunctions())
         {
             Function *func = m_doc->function(sf->functionID());
-            if (func == NULL)
+            if (func == nullptr)
                 continue;
 
             QQuickItem *newItem = qobject_cast<QQuickItem*>(siComponent->create());
@@ -408,7 +408,7 @@ void ShowManager::enableFlicking(bool enable)
 
 int ShowManager::showDuration() const
 {
-    if (m_currentShow == NULL)
+    if (m_currentShow == nullptr)
         return 0;
 
     return m_currentShow->totalDuration();
@@ -430,7 +430,7 @@ void ShowManager::setCurrentTime(int currentTime)
 
 void ShowManager::playShow()
 {
-    if (m_currentShow == NULL)
+    if (m_currentShow == nullptr)
         return;
 
     m_currentShow->start(m_doc->masterTimer(), FunctionParent::master(), m_currentTime);
@@ -439,7 +439,7 @@ void ShowManager::playShow()
 
 void ShowManager::stopShow()
 {
-    if (m_currentShow != NULL && m_currentShow->isRunning())
+    if (m_currentShow != nullptr && m_currentShow->isRunning())
     {
         m_currentShow->stop(FunctionParent::master());
         emit isPlayingChanged(false);
@@ -451,7 +451,7 @@ void ShowManager::stopShow()
 
 bool ShowManager::isPlaying() const
 {
-    if (m_currentShow != NULL && m_currentShow->isRunning())
+    if (m_currentShow != nullptr && m_currentShow->isRunning())
         return true;
     return false;
 }
@@ -504,7 +504,7 @@ void ShowManager::resetItemsSelection()
 {
     foreach(SelectedShowItem ssi, m_selectedItems)
     {
-        if (ssi.m_item != NULL)
+        if (ssi.m_item != nullptr)
             ssi.m_item->setProperty("isSelected", false);
     }
     m_selectedItems.clear();
@@ -528,7 +528,7 @@ QStringList ShowManager::selectedItemNames()
     foreach (SelectedShowItem si, m_selectedItems)
     {
         Function *func = m_doc->function(si.m_showFunc->functionID());
-        if (func != NULL)
+        if (func != nullptr)
             names.append(func->name());
     }
 
@@ -539,7 +539,7 @@ bool ShowManager::selectedItemsLocked()
 {
     foreach (SelectedShowItem si, m_selectedItems)
     {
-        if (si.m_showFunc != NULL && si.m_showFunc->isLocked())
+        if (si.m_showFunc != nullptr && si.m_showFunc->isLocked())
             return true;
     }
     return false;
@@ -549,7 +549,7 @@ void ShowManager::setSelectedItemsLock(bool lock)
 {
     foreach (SelectedShowItem si, m_selectedItems)
     {
-        if (si.m_showFunc != NULL)
+        if (si.m_showFunc != nullptr)
             si.m_showFunc->setLocked(lock);
     }
 }
@@ -563,7 +563,7 @@ void ShowManager::slotTimeChanged(quint32 msec_time)
 bool ShowManager::checkOverlapping(Track *track, ShowFunction *sourceFunc,
                                    quint32 startTime, quint32 duration)
 {
-    if (track == NULL)
+    if (track == nullptr)
         return false;
 
     foreach(ShowFunction *sf, track->showFunctions())
@@ -572,7 +572,7 @@ bool ShowManager::checkOverlapping(Track *track, ShowFunction *sourceFunc,
             continue;
 
         Function *func = m_doc->function(sf->functionID());
-        if (func != NULL)
+        if (func != nullptr)
         {
             quint32 fst = sf->startTime();
             if ((startTime >= fst && startTime <= fst + sf->duration()) ||
@@ -589,7 +589,7 @@ bool ShowManager::checkOverlapping(Track *track, ShowFunction *sourceFunc,
 QVariantList ShowManager::previewData(Function *f) const
 {
     QVariantList data;
-    if (f == NULL)
+    if (f == nullptr)
         return data;
 
     switch (f->type())
@@ -670,11 +670,11 @@ void ShowManager::pasteFromClipboard()
             continue;
 
         Function *func = m_doc->function(item.m_showFunc->functionID());
-        if (func == NULL)
+        if (func == nullptr)
             continue;
 
         Function *copyFunc = func->createCopy(m_doc);
-        if (copyFunc == NULL)
+        if (copyFunc == nullptr)
             continue;
 
         copyFunc->setName(QString("%1 %2").arg(copyFunc->name()).arg(tr("(Copy)")));
@@ -683,11 +683,11 @@ void ShowManager::pasteFromClipboard()
         {
             Sequence *sequence = qobject_cast<Sequence*>(copyFunc);
             Scene *scene = qobject_cast<Scene*>(m_doc->function(sequence->boundSceneID()));
-            if (scene == NULL)
+            if (scene == nullptr)
                 continue;
 
             Scene *copyScene = static_cast<Scene*>(scene->createCopy(m_doc, true));
-            if (copyScene == NULL)
+            if (copyScene == nullptr)
                 continue;
 
             copyScene->setName(QString("%1 %2").arg(copyScene->name()).arg(tr("(Copy)")));

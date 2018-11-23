@@ -34,7 +34,7 @@ class VCPage : public VCFrame
      * Initialization
      *********************************************************************/
 public:
-    VCPage(QQuickView *view = NULL, Doc* doc = NULL, VirtualConsole *vc = NULL, int pageIndex = 0, QObject *parent = 0);
+    VCPage(QQuickView *view = nullptr, Doc* doc = nullptr, VirtualConsole *vc = nullptr, int pageIndex = 0, QObject *parent = nullptr);
     ~VCPage();
 
     /** Return the Preview Context associated to this VC page */

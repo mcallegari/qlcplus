@@ -38,9 +38,9 @@ InputOutputManager::InputOutputManager(QQuickView *view, Doc *doc, QObject *pare
     , m_blackout(false)
     , m_beatType("INTERNAL")
 {
-    Q_ASSERT(m_doc != NULL);
+    Q_ASSERT(m_doc != nullptr);
     m_ioMap = m_doc->inputOutputMap();
-    Q_ASSERT(m_ioMap != NULL);
+    Q_ASSERT(m_ioMap != nullptr);
 
     setContextResource("qrc:/InputOutputManager.qml");
     setContextTitle(tr("Input/Output Manager"));
@@ -372,7 +372,7 @@ QVariant InputOutputManager::universeInputSources(int universe)
     QString currPlugin;
     int currLine = -1;
     InputPatch *ip = m_ioMap->inputPatch(universe);
-    if (ip != NULL)
+    if (ip != nullptr)
     {
         currPlugin = ip->pluginName();
         currLine = ip->input();
@@ -413,7 +413,7 @@ QVariant InputOutputManager::universeOutputSources(int universe)
     QString currPlugin;
     int currLine = -1;
     OutputPatch *op = m_ioMap->outputPatch(universe);
-    if (op != NULL)
+    if (op != nullptr)
     {
         currPlugin = op->pluginName();
         currLine = op->output();
@@ -455,13 +455,13 @@ QVariant InputOutputManager::universeInputProfiles(int universe)
     QStringList profileNames = m_ioMap->profileNames();
     profileNames.sort();
 
-    if (m_ioMap->inputPatch(universe) != NULL)
+    if (m_ioMap->inputPatch(universe) != nullptr)
         currentProfile = m_ioMap->inputPatch(universe)->profileName();
 
     foreach(QString name, profileNames)
     {
         QLCInputProfile *ip = m_ioMap->profile(name);
-        if (ip != NULL)
+        if (ip != nullptr)
         {
             QString type = ip->typeToString(ip->type());
             if (name != currentProfile)
@@ -501,7 +501,7 @@ void InputOutputManager::setFeedbackPatch(int universe, bool enable)
 {
     InputPatch *patch = m_ioMap->inputPatch(universe);
 
-    if (patch == NULL)
+    if (patch == nullptr)
         return;
 
     if (enable)
@@ -526,13 +526,13 @@ void InputOutputManager::configurePlugin(bool input)
     if (m_selectedUniverseIndex == -1)
         return;
 
-    QLCIOPlugin *plugin = NULL;
+    QLCIOPlugin *plugin = nullptr;
 
     if (input)
     {
         InputPatch *patch = m_ioMap->inputPatch(m_selectedUniverseIndex);
 
-        if (patch == NULL || patch->plugin() == NULL)
+        if (patch == nullptr || patch->plugin() == nullptr)
             return;
         plugin = patch->plugin();
     }
@@ -540,7 +540,7 @@ void InputOutputManager::configurePlugin(bool input)
     {
         OutputPatch *patch = m_ioMap->outputPatch(m_selectedUniverseIndex);
 
-        if (patch == NULL || patch->plugin() == NULL)
+        if (patch == nullptr || patch->plugin() == nullptr)
             return;
         plugin = patch->plugin();
     }
@@ -556,7 +556,7 @@ bool InputOutputManager::inputCanConfigure() const
 
     InputPatch *patch = m_ioMap->inputPatch(m_selectedUniverseIndex);
 
-    if (patch == NULL || patch->plugin() == NULL)
+    if (patch == nullptr || patch->plugin() == nullptr)
         return false;
 
     return patch->plugin()->canConfigure();
@@ -569,7 +569,7 @@ bool InputOutputManager::outputCanConfigure() const
 
     OutputPatch *patch = m_ioMap->outputPatch(m_selectedUniverseIndex);
 
-    if (patch == NULL || patch->plugin() == NULL)
+    if (patch == nullptr || patch->plugin() == nullptr)
         return false;
 
     return patch->plugin()->canConfigure();
@@ -610,7 +610,7 @@ QVariant InputOutputManager::beatGeneratorsList()
     foreach(Universe *uni, m_ioMap->universes())
     {
         InputPatch *ip = uni->inputPatch();
-        if (ip == NULL || ip->pluginName() != "MIDI")
+        if (ip == nullptr || ip->pluginName() != "MIDI")
             continue;
 
         QVariantMap midiInMap;

@@ -32,7 +32,7 @@
 
 MainView2D::MainView2D(QQuickView *view, Doc *doc, QObject *parent)
     : PreviewContext(view, doc, "2D", parent)
-    , m_gridItem(NULL)
+    , m_gridItem(nullptr)
     , m_monProps(doc->monitorProperties())
 {
     setGridSize(m_monProps->gridSize());
@@ -104,7 +104,7 @@ bool MainView2D::initialize2DProperties()
 
     m_gridItem = qobject_cast<QQuickItem*>(contextItem()->findChild<QObject *>("twoDContents"));
 
-    if (m_gridItem == NULL)
+    if (m_gridItem == nullptr)
     {
         qDebug() << "ERROR: got invalid twoDContents" << m_gridItem;
         return false;
@@ -116,7 +116,7 @@ bool MainView2D::initialize2DProperties()
 void MainView2D::createFixtureItems(quint32 fxID, QVector3D pos, bool mmCoords)
 {
     Fixture *fixture = m_doc->fixture(fxID);
-    if (fixture == NULL)
+    if (fixture == nullptr)
         return;
 
     if (fixture->type() == QLCFixtureDef::Dimmer)
@@ -136,13 +136,13 @@ void MainView2D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
     if (isEnabled() == false)
         return;
 
-    if (m_gridItem == NULL)
+    if (m_gridItem == nullptr)
        initialize2DProperties();
 
     qDebug() << "[MainView2D] Creating fixture with ID" << fxID << headIndex << linkedIndex << "pos:" << pos;
 
     Fixture *fixture = m_doc->fixture(fxID);
-    if (fixture == NULL)
+    if (fixture == nullptr)
         return;
 
     quint32 itemID = FixtureUtils::fixtureItemID(fxID, headIndex, linkedIndex);
@@ -157,7 +157,7 @@ void MainView2D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
     if (itemFlags & MonitorProperties::HiddenFlag)
         newFixtureItem->setProperty("visible", false);
 
-    if (fxMode != NULL && fixture->type() != QLCFixtureDef::Dimmer)
+    if (fxMode != nullptr && fixture->type() != QLCFixtureDef::Dimmer)
     {
         QLCPhysical phy = fxMode->physical();
 
@@ -182,7 +182,7 @@ void MainView2D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
     }
 
     QPointF itemPos;
-    QSizeF size = FixtureUtils::item2DDimension(fixture->type() == QLCFixtureDef::Dimmer ? NULL : fxMode,
+    QSizeF size = FixtureUtils::item2DDimension(fixture->type() == QLCFixtureDef::Dimmer ? nullptr : fxMode,
                                                 m_monProps->pointOfView());
 
     if (mmCoords == false && (pos.x() != 0 || pos.y() != 0))
@@ -241,9 +241,9 @@ void MainView2D::createFixtureItem(quint32 fxID, quint16 headIndex, quint16 link
 
 void MainView2D::setFixtureFlags(quint32 itemID, quint32 flags)
 {
-    QQuickItem *fxItem = m_itemsMap.value(itemID, NULL);
+    QQuickItem *fxItem = m_itemsMap.value(itemID, nullptr);
 
-    if (fxItem == NULL)
+    if (fxItem == nullptr)
         return;
 
     fxItem->setProperty("visible", (flags & MonitorProperties::HiddenFlag) ? false : true);
@@ -344,7 +344,7 @@ void MainView2D::slotRefreshView()
 
 void MainView2D::updateFixture(Fixture *fixture, QByteArray &previous)
 {
-    if (m_enabled == false || fixture == NULL)
+    if (m_enabled == false || fixture == nullptr)
         return;
 
     for (quint32 subID : m_monProps->fixtureIDList(fixture->id()))
@@ -358,7 +358,7 @@ void MainView2D::updateFixture(Fixture *fixture, QByteArray &previous)
 void MainView2D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 linkedIndex, QByteArray &previous)
 {
     quint32 itemID = FixtureUtils::fixtureItemID(fixture->id(), headIndex, linkedIndex);
-    QQuickItem *fxItem = m_itemsMap.value(itemID, NULL);
+    QQuickItem *fxItem = m_itemsMap.value(itemID, nullptr);
     QColor color;
     bool colorSet = false;
     bool goboSet = false;
@@ -366,7 +366,7 @@ void MainView2D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
     int panDegrees = 0;
     int tiltDegrees = 0;
 
-    if (fxItem == NULL)
+    if (fxItem == nullptr)
         return;
 
     // in case of a dimmer pack, headIndex is actually the fixture channel
@@ -422,7 +422,7 @@ void MainView2D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
     for (quint32 i = 0; i < fixture->channels(); i++)
     {
         const QLCChannel *ch = fixture->channel(i);
-        if (ch == NULL)
+        if (ch == nullptr)
             continue;
 
         uchar value = fixture->channelValueAt(i);
@@ -454,7 +454,7 @@ void MainView2D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
 
                 QLCCapability *cap = ch->searchCapability(value);
 
-                if (cap == NULL ||
+                if (cap == nullptr ||
                    (cap->presetType() != QLCCapability::SingleColor &&
                     cap->presetType() != QLCCapability::DoubleColor))
                     break;
@@ -491,7 +491,7 @@ void MainView2D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
 
                 QLCCapability *cap = ch->searchCapability(value);
 
-                if (cap == NULL)
+                if (cap == nullptr)
                     break;
 
                 switch (cap->preset())
@@ -550,7 +550,7 @@ void MainView2D::updateFixtureItem(Fixture *fixture, quint16 headIndex, quint16 
 
 void MainView2D::selectFixture(QQuickItem *fxItem, bool enable)
 {
-    if (fxItem == NULL)
+    if (fxItem == nullptr)
         return;
 
     fxItem->setProperty("isSelected", enable);
@@ -643,7 +643,7 @@ void MainView2D::updateFixtureSize(quint32 itemID, Fixture *fixture)
     {
         QQuickItem *fxItem = m_itemsMap[itemID];
         QLCFixtureMode *fxMode = fixture->fixtureMode();
-        QSizeF size = FixtureUtils::item2DDimension(fixture->type() == QLCFixtureDef::Dimmer ? NULL : fxMode,
+        QSizeF size = FixtureUtils::item2DDimension(fixture->type() == QLCFixtureDef::Dimmer ? nullptr : fxMode,
                                                     m_monProps->pointOfView());
         fxItem->setProperty("mmWidth", size.width());
         fxItem->setProperty("mmHeight", size.height());

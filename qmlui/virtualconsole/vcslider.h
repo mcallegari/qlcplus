@@ -97,7 +97,7 @@ class VCSlider : public VCWidget, public DMXSource
      * Initialization
      *********************************************************************/
 public:
-    VCSlider(Doc* doc = NULL, QObject *parent = 0);
+    VCSlider(Doc* doc = nullptr, QObject *parent = nullptr);
     virtual ~VCSlider();
 
     /** @reimp */

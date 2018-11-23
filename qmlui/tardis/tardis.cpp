@@ -52,7 +52,7 @@
 /* The maximum number of action a Tardis can hold */
 #define TARDIS_MAX_ACTIONS_NUMBER   100
 
-Tardis* Tardis::s_instance = NULL;
+Tardis* Tardis::s_instance = nullptr;
 
 Tardis::Tardis(QQuickView *view, Doc *doc, NetworkManager *netMgr,
                FixtureManager *fxMgr, FunctionManager *funcMgr, ContextManager *ctxMgr,
@@ -71,7 +71,7 @@ Tardis::Tardis(QQuickView *view, Doc *doc, NetworkManager *netMgr,
     , m_historyCount(0)
     , m_busy(false)
 {
-    Q_ASSERT(s_instance == NULL);
+    Q_ASSERT(s_instance == nullptr);
     s_instance = this;
 
     qRegisterMetaType<TardisAction>();

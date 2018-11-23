@@ -64,17 +64,17 @@
 
 App::App()
     : QQuickView()
-    , m_translator(NULL)
-    , m_fixtureBrowser(NULL)
-    , m_fixtureManager(NULL)
-    , m_contextManager(NULL)
-    , m_ioManager(NULL)
-    , m_videoProvider(NULL)
-    , m_doc(NULL)
+    , m_translator(nullptr)
+    , m_fixtureBrowser(nullptr)
+    , m_fixtureManager(nullptr)
+    , m_contextManager(nullptr)
+    , m_ioManager(nullptr)
+    , m_videoProvider(nullptr)
+    , m_doc(nullptr)
     , m_docLoaded(false)
-    , m_printItem(NULL)
+    , m_printItem(nullptr)
     , m_fileName(QString())
-    , m_importManager(NULL)
+    , m_importManager(nullptr)
 {
     QSettings settings;
 
@@ -194,7 +194,7 @@ void App::toggleFullscreen()
 
 void App::setLanguage(QString locale)
 {
-    if (m_translator != NULL)
+    if (m_translator != nullptr)
     {
         QCoreApplication::removeTranslator(m_translator);
         delete m_translator;
@@ -234,7 +234,7 @@ int App::accessMask() const
 
 bool App::is3DSupported() const
 {
-    if (openglContext() == NULL)
+    if (openglContext() == nullptr)
         return false;
 
     int glVersion = (openglContext()->format().majorVersion() * 10) + openglContext()->format().minorVersion();
@@ -292,7 +292,7 @@ bool App::event(QEvent *event)
 
 void App::slotSceneGraphInitialized()
 {
-    if (openglContext() == NULL)
+    if (openglContext() == nullptr)
         return;
 
     qDebug() << "OpenGL version: " << openglContext()->format().majorVersion() << openglContext()->format().minorVersion();
@@ -310,7 +310,7 @@ void App::slotClosing()
     if (m_contextManager)
     {
         delete m_contextManager;
-        m_contextManager = NULL;
+        m_contextManager = nullptr;
     }
 }
 
@@ -330,7 +330,7 @@ void App::clearDocument()
     if (m_videoProvider)
     {
         delete m_videoProvider;
-        m_videoProvider = NULL;
+        m_videoProvider = nullptr;
     }
 
     m_doc->masterTimer()->stop();
@@ -358,7 +358,7 @@ bool App::docModified() const
 
 void App::initDoc()
 {
-    Q_ASSERT(m_doc == NULL);
+    Q_ASSERT(m_doc == nullptr);
     m_doc = new Doc(this);
 
     connect(m_doc, SIGNAL(modified(bool)), this, SIGNAL(docModifiedChanged()));
@@ -396,7 +396,7 @@ void App::initDoc()
     m_doc->audioPluginCache()->load(QLCFile::systemDirectory(AUDIOPLUGINDIR, KExtPlugin));
     m_videoProvider = new VideoProvider(this, m_doc);
 
-    Q_ASSERT(m_doc->inputOutputMap() != NULL);
+    Q_ASSERT(m_doc->inputOutputMap() != nullptr);
 
     /* Load input plugins & profiles */
     m_doc->inputOutputMap()->loadProfiles(InputOutputMap::userProfileDirectory());
@@ -425,7 +425,7 @@ void App::createKioskCloseButton(const QRect &rect)
 
 void App::printItem(QQuickItem *item)
 {
-    if (item == NULL)
+    if (item == nullptr)
         return;
 
     m_printItem = item;
@@ -474,7 +474,7 @@ void App::slotItemReadyForPrinting()
 
     m_printerImage.clear();
     m_printItem->setProperty("isPrinting", false);
-    m_printItem = NULL;
+    m_printItem = nullptr;
 }
 
 /*********************************************************************
@@ -575,7 +575,7 @@ bool App::loadWorkspace(const QString &fileName)
         if (m_doc->startupFunction() != Function::invalidId())
         {
             Function *func = m_doc->function(m_doc->startupFunction());
-            if (func != NULL)
+            if (func != nullptr)
             {
                 qDebug() << Q_FUNC_INFO << "Starting startup function. (" << m_doc->startupFunction() << ")";
                 func->start(m_doc->masterTimer(), FunctionParent::master());
@@ -658,7 +658,7 @@ bool App::saveWorkspace(const QString &fileName)
 
 bool App::loadImportWorkspace(const QString &fileName)
 {
-    if (m_importManager != NULL)
+    if (m_importManager != nullptr)
         delete m_importManager;
 
     m_importManager = new ImportManager(this, m_doc);
@@ -667,21 +667,21 @@ bool App::loadImportWorkspace(const QString &fileName)
 
 void App::cancelImport()
 {
-    if (m_importManager != NULL)
+    if (m_importManager != nullptr)
         delete m_importManager;
 
-    m_importManager = NULL;
+    m_importManager = nullptr;
 }
 
 void App::importFromWorkspace()
 {
-    if (m_importManager == NULL)
+    if (m_importManager == nullptr)
         return;
 
     m_importManager->apply();
 
     delete m_importManager;
-    m_importManager = NULL;
+    m_importManager = nullptr;
 }
 
 QFileDevice::FileError App::loadXML(const QString &fileName)
@@ -692,7 +692,7 @@ QFileDevice::FileError App::loadXML(const QString &fileName)
         return QFile::OpenError;
 
     QXmlStreamReader *doc = QLCFile::getXMLReader(fileName);
-    if (doc == NULL || doc->device() == NULL || doc->hasError())
+    if (doc == nullptr || doc->device() == nullptr || doc->hasError())
     {
         qWarning() << Q_FUNC_INFO << "Unable to read from" << fileName;
         return QFile::ReadError;

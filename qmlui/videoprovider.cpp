@@ -28,9 +28,9 @@ VideoProvider::VideoProvider(QQuickView *view, Doc *doc, QObject *parent)
     : QObject(parent)
     , m_view(view)
     , m_doc(doc)
-    , m_fullscreenContext(NULL)
+    , m_fullscreenContext(nullptr)
 {
-    Q_ASSERT(doc != NULL);
+    Q_ASSERT(doc != nullptr);
 
     qmlRegisterUncreatableType<Video>("org.qlcplus.classes", 1, 0, "VideoFunction", "Can't create a Video!");
 
@@ -53,7 +53,7 @@ QQuickView *VideoProvider::fullscreenContext()
 
 void VideoProvider::setFullscreenContext(QQuickView *context)
 {
-    if (context == NULL && m_fullscreenContext)
+    if (context == nullptr && m_fullscreenContext)
         m_fullscreenContext->deleteLater();
 
     m_fullscreenContext = context;
@@ -62,7 +62,7 @@ void VideoProvider::setFullscreenContext(QQuickView *context)
 void VideoProvider::slotFunctionAdded(quint32 id)
 {
     Function *func = m_doc->function(id);
-    if (func == NULL || func->type() != Function::VideoType)
+    if (func == nullptr || func->type() != Function::VideoType)
         return;
 
     Video *video = qobject_cast<Video *>(func);
@@ -85,7 +85,7 @@ void VideoProvider::slotFunctionRemoved(quint32 id)
 void VideoProvider::slotRequestPlayback()
 {
     Video *video = qobject_cast<Video *>(sender());
-    if (video == NULL)
+    if (video == nullptr)
         return;
 
     if (m_videoMap.contains(video->id()))
@@ -100,7 +100,7 @@ void VideoProvider::slotRequestPause(bool enable)
 void VideoProvider::slotRequestStop()
 {
     Video *video = qobject_cast<Video *>(sender());
-    if (video == NULL)
+    if (video == nullptr)
         return;
 
     if (m_videoMap.contains(video->id()))
@@ -114,10 +114,10 @@ void VideoProvider::slotRequestStop()
 VideoContent::VideoContent(Video *video, VideoProvider *parent)
     : m_provider(parent)
     , m_video(video)
-    , m_mediaPlayer(NULL)
-    , m_viewContext(NULL)
+    , m_mediaPlayer(nullptr)
+    , m_viewContext(nullptr)
 {
-    Q_ASSERT(video != NULL);
+    Q_ASSERT(video != nullptr);
 
     if (video->fullscreen() == false)
         slotDetectResolution();
@@ -135,14 +135,14 @@ void VideoContent::destroyContext()
 {
     if (m_video->fullscreen())
     {
-        m_provider->setFullscreenContext(NULL);
+        m_provider->setFullscreenContext(nullptr);
     }
     else if (m_viewContext)
     {
         m_viewContext->deleteLater();
     }
 
-    m_viewContext = NULL;
+    m_viewContext = nullptr;
 }
 
 void VideoContent::playContent()
@@ -155,10 +155,10 @@ void VideoContent::playContent()
 
     qDebug() << "Video screen:" << m_video->screen() << ", geometry:" << m_geometry;
 
-    if (m_viewContext == NULL)
+    if (m_viewContext == nullptr)
     {
         QList<QScreen *> screens = QGuiApplication::screens();
-        QScreen *vScreen = NULL;
+        QScreen *vScreen = nullptr;
 
         if (m_video->screen() < screens.count())
             vScreen = screens.at(m_video->screen());
@@ -208,7 +208,7 @@ void VideoContent::playContent()
 
 void VideoContent::stopContent()
 {
-    if (m_viewContext == NULL)
+    if (m_viewContext == nullptr)
         return;
 
     QMetaObject::invokeMethod(m_viewContext->rootObject(), "removeContent",
@@ -241,7 +241,7 @@ void VideoContent::slotMetaDataChanged(const QString &key, const QVariant &value
         disconnect(m_mediaPlayer, SIGNAL(metaDataChanged(QString,QVariant)),
                     this, SLOT(slotMetaDataChanged(QString,QVariant)));
         m_mediaPlayer->deleteLater();
-        m_mediaPlayer = NULL;
+        m_mediaPlayer = nullptr;
     }
 }
 

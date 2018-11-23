@@ -25,7 +25,7 @@
 
 CollectionEditor::CollectionEditor(QQuickView *view, Doc *doc, QObject *parent)
     : FunctionEditor(view, doc, parent)
-    , m_collection(NULL)
+    , m_collection(nullptr)
 {
     m_view->rootContext()->setContextProperty("collectionEditor", this);
 
@@ -49,7 +49,7 @@ QVariant CollectionEditor::functionsList() const
 
 bool CollectionEditor::addFunction(quint32 fid, int insertIndex)
 {
-    if (m_collection != NULL)
+    if (m_collection != nullptr)
     {
         if(m_collection->addFunction(fid, insertIndex) == true)
         {
@@ -65,7 +65,7 @@ bool CollectionEditor::addFunction(quint32 fid, int insertIndex)
 
 bool CollectionEditor::moveFunction(quint32 fid, int newIndex)
 {
-    if (m_collection == NULL)
+    if (m_collection == nullptr)
         return false;
 
     QList<quint32> funcList = m_collection->functions();
@@ -81,7 +81,7 @@ bool CollectionEditor::moveFunction(quint32 fid, int newIndex)
 
 void CollectionEditor::deleteItems(QVariantList list)
 {
-    if (m_collection == NULL)
+    if (m_collection == nullptr)
         return;
 
     /** Retrieve the list of the current Functions */
@@ -102,7 +102,7 @@ void CollectionEditor::deleteItems(QVariantList list)
 
 void CollectionEditor::updateFunctionsList()
 {
-    if (m_collection != NULL)
+    if (m_collection != nullptr)
     {
         m_functionsList->clear();
 

@@ -64,7 +64,7 @@ void MainViewDMX::setUniverseFilter(quint32 universeFilter)
         quint32 fxID = it.key();
         QQuickItem *fxItem = it.value();
         Fixture *fixture = m_doc->fixture(fxID);
-        if (fixture == NULL)
+        if (fixture == nullptr)
             continue;
 
         if (universeFilter == Universe::invalid() || fixture->universe() == universeFilter)
@@ -96,7 +96,7 @@ void MainViewDMX::createFixtureItem(quint32 fxID)
     qDebug() << "[MainViewDMX] Creating fixture with ID" << fxID;
 
     Fixture *fixture = m_doc->fixture(fxID);
-    if (fixture == NULL)
+    if (fixture == nullptr)
         return;
 
     QQuickItem *newFixtureItem = qobject_cast<QQuickItem*>(fixtureComponent->create());
@@ -125,13 +125,13 @@ void MainViewDMX::setFixtureFlags(quint32 itemID, quint32 flags)
     if (headIndex || linkedIndex)
         return;
 
-    QQuickItem *fxItem = m_itemsMap.value(fixtureID, NULL);
+    QQuickItem *fxItem = m_itemsMap.value(fixtureID, nullptr);
     fxItem->setProperty("visible", (flags & MonitorProperties::HiddenFlag) ? false : true);
 }
 
 void MainViewDMX::updateFixture(Fixture *fixture)
 {
-    if (isEnabled() == false || fixture == NULL)
+    if (isEnabled() == false || fixture == nullptr)
         return;
 
     if (m_itemsMap.contains(fixture->id()) == false)

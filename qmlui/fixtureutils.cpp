@@ -130,7 +130,7 @@ QSizeF FixtureUtils::item2DDimension(QLCFixtureMode *fxMode, int pointOfView)
 {
     QSizeF size(300, 300);
 
-    if (fxMode == NULL)
+    if (fxMode == nullptr)
         return size;
 
     QLCPhysical phy = fxMode->physical();
@@ -223,7 +223,7 @@ QVector3D FixtureUtils::item3DPosition(MonitorProperties *monProps, QPointF poin
 QPointF FixtureUtils::available2DPosition(Doc *doc, int pointOfView, QRectF fxRect)
 {
     MonitorProperties *monProps = doc->monitorProperties();
-    if (monProps == NULL)
+    if (monProps == nullptr)
         return QPointF(0, 0);
 
     qreal xPos = fxRect.x(), yPos = fxRect.y();
@@ -264,7 +264,7 @@ QPointF FixtureUtils::available2DPosition(Doc *doc, int pointOfView, QRectF fxRe
             quint16 linkedIndex = monProps->fixtureLinkedIndex(subID);
             QPointF fxPoint = item2DPosition(monProps, pointOfView,
                                              monProps->fixturePosition(fixture->id(), headIndex, linkedIndex));
-            QSizeF fxSize = item2DDimension(fixture->type() == QLCFixtureDef::Dimmer ? NULL : fxMode, pointOfView);
+            QSizeF fxSize = item2DDimension(fixture->type() == QLCFixtureDef::Dimmer ? nullptr : fxMode, pointOfView);
             qreal itemXPos = fxPoint.x();
             qreal itemYPos = fxPoint.y();
             qreal itemWidth = fxSize.width();
@@ -460,7 +460,7 @@ int FixtureUtils::shutterTimings(const QLCChannel *ch, uchar value, int &highTim
         default:
         {
             QLCCapability *cap = ch->searchCapability(value);
-            if (cap == NULL)
+            if (cap == nullptr)
                 break;
 
             capPreset = cap->preset();
