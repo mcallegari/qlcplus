@@ -36,7 +36,7 @@ Rectangle
 
     function addVideo(vContent)
     {
-        videoComponent.createObject(ctxRoot, { "video": vContent, "z": 1 });
+        videoComponent.createObject(ctxRoot, { "video": vContent });
         if (videoComponent.status !== Component.Ready)
             console.log("Video component is not ready !!")
         mediaArray.push(vContent.id)
@@ -44,7 +44,7 @@ Rectangle
 
     function addPicture(pContent)
     {
-        pictureComponent.createObject(ctxRoot, { "picture": pContent, "z": 2 });
+        pictureComponent.createObject(ctxRoot, { "picture": pContent });
         if (pictureComponent.status !== Component.Ready)
             console.log("Picture component is not ready !!")
         mediaArray.push(pContent.id)
@@ -83,6 +83,7 @@ Rectangle
             //anchors.fill: parent
             color: "black"
             opacity: video ? video.intensity : 1.0
+            z: video ? video.zIndex : 1
 
             property VideoFunction video: null
 
@@ -161,6 +162,7 @@ Rectangle
             property VideoFunction picture: null
 
             opacity: picture ? picture.intensity : 1.0
+            z: picture ? picture.zIndex : 2
 
             onPictureChanged:
             {

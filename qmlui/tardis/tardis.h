@@ -39,7 +39,7 @@ class Doc;
 typedef struct
 {
     int m_action;
-    qint64 m_timestamp;
+    quint64 m_timestamp;
     quint32  m_objID;
     QVariant m_oldValue;
     QVariant m_newValue;
@@ -140,6 +140,7 @@ public:
         VideoSetFullscreen,
         VideoSetGeometry,
         VideoSetRotation,
+        VideoSetLayer,
 
         /* Virtual console editing actions */
         VCWidgetCreate = 0xE000,

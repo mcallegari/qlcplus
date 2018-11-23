@@ -317,10 +317,10 @@ QByteArray Tardis::actionToByteArray(int code, quint32 objID, QVariant data)
         case IOAddUniverse:
         case IORemoveUniverse:
         {
-            if (objID >= (quint32)m_doc->inputOutputMap()->universes().count())
+            if (objID >= quint32(m_doc->inputOutputMap()->universes().count()))
                 break;
 
-            Universe *universe = m_doc->inputOutputMap()->universes().at(objID);
+            Universe *universe = m_doc->inputOutputMap()->universes().at(int(objID));
             universe->saveXML(&xmlWriter);
         }
         break;
@@ -408,14 +408,14 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
             }
 
             QList<Universe *> uniList = m_doc->inputOutputMap()->universes();
-            Universe *universe = qobject_cast<Universe *>(uniList.at(objID));
-            universe->loadXML(xmlReader, objID, m_doc->inputOutputMap());
+            Universe *universe = qobject_cast<Universe *>(uniList.at(int(objID)));
+            universe->loadXML(xmlReader, int(objID), m_doc->inputOutputMap());
         }
         break;
 
         case IORemoveUniverse:
         {
-            m_doc->inputOutputMap()->removeUniverse(objID);
+            m_doc->inputOutputMap()->removeUniverse(int(objID));
         }
         break;
 
@@ -457,7 +457,7 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
         case ChaserRemoveStep:
         {
             Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(objID));
-            chaser->removeStep(value.toUInt());
+            chaser->removeStep(value.toInt());
         }
         break;
         case EFXAddFixture:
@@ -498,7 +498,6 @@ bool Tardis::processBufferedAction(int action, quint32 objID, QVariant &value)
         default:
             // This action was either not buffered or not implemented
             return false;
-        break;
     }
 
     return true;
@@ -536,31 +535,22 @@ int Tardis::processAction(TardisAction &action, bool undo)
 
         /* *********************** Input/Output manager actions ************************ */
         case IOAddUniverse:
-        {
             processBufferedAction(undo ? IORemoveUniverse : IOAddUniverse, action.m_objID, action.m_newValue);
             return undo ? IORemoveUniverse : IOAddUniverse;
-        }
-        break;
+
         case IORemoveUniverse:
-        {
             processBufferedAction(undo ? IOAddUniverse : IORemoveUniverse, action.m_objID, action.m_oldValue);
             return undo ? IOAddUniverse : IORemoveUniverse;
-        }
-        break;
 
         /* *********************** Fixture editing actions ************************ */
         case FixtureCreate:
-        {
             processBufferedAction(undo ? FixtureDelete : FixtureCreate, action.m_objID, action.m_newValue);
             return undo ? FixtureDelete : FixtureCreate;
-        }
-        break;
+
         case FixtureDelete:
-        {
             processBufferedAction(undo ? FixtureCreate : FixtureDelete, action.m_objID, action.m_oldValue);
             return undo ? FixtureCreate : FixtureDelete;
-        }
-        break;
+
         case FixtureMove:
         {
             m_fixtureManager->moveFixture(action.m_objID, value->toUInt());
@@ -586,17 +576,13 @@ int Tardis::processAction(TardisAction &action, bool undo)
 
         /* *********************** Function editing actions *********************** */
         case FunctionCreate:
-        {
             processBufferedAction(undo ? FunctionDelete : FunctionCreate, action.m_objID, action.m_newValue);
             return undo ? FunctionDelete : FunctionCreate;
-        }
-        break;
+
         case FunctionDelete:
-        {
             processBufferedAction(undo ? FunctionCreate : FunctionDelete, action.m_objID, action.m_oldValue);
             return undo ? FunctionCreate : FunctionDelete;
-        }
-        break;
+
         case FunctionSetName:
         {
             auto member = std::mem_fn(&Function::setName);
@@ -661,68 +647,60 @@ int Tardis::processAction(TardisAction &action, bool undo)
         /* *********************** Chaser editing actions *********************** */
 
         case ChaserAddStep:
-        {
             processBufferedAction(undo ? ChaserRemoveStep : ChaserAddStep, action.m_objID, action.m_newValue);
             return undo ? ChaserRemoveStep : ChaserAddStep;
-        }
-        break;
+
         case ChaserRemoveStep:
-        {
             processBufferedAction(undo ? ChaserAddStep : ChaserRemoveStep, action.m_objID, action.m_oldValue);
             return undo ? ChaserAddStep : ChaserRemoveStep;
-        }
-        break;
+
         case ChaserSetStepFadeIn:
         {
             Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(action.m_objID));
             UIntPair pairValue = value->value<UIntPair>(); // index on first, time on second
-            ChaserStep step = chaser->steps().at(pairValue.first);
+            ChaserStep step = chaser->steps().at(int(pairValue.first));
             step.fadeIn = pairValue.second;
-            chaser->replaceStep(step, pairValue.first);
+            chaser->replaceStep(step, int(pairValue.first));
         }
         break;
         case ChaserSetStepHold:
         {
             Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(action.m_objID));
             UIntPair pairValue = value->value<UIntPair>(); // index on first, time on second
-            ChaserStep step = chaser->steps().at(pairValue.first);
+            ChaserStep step = chaser->steps().at(int(pairValue.first));
             step.hold = pairValue.second;
-            chaser->replaceStep(step, pairValue.first);
+            chaser->replaceStep(step, int(pairValue.first));
         }
         break;
         case ChaserSetStepFadeOut:
         {
             Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(action.m_objID));
             UIntPair pairValue = value->value<UIntPair>(); // index on first, time on second
-            ChaserStep step = chaser->steps().at(pairValue.first);
+            ChaserStep step = chaser->steps().at(int(pairValue.first));
             step.fadeOut = pairValue.second;
-            chaser->replaceStep(step, pairValue.first);
+            chaser->replaceStep(step, int(pairValue.first));
         }
         break;
         case ChaserSetStepDuration:
         {
             Chaser *chaser = qobject_cast<Chaser *>(m_doc->function(action.m_objID));
             UIntPair pairValue = value->value<UIntPair>(); // index on first, time on second
-            ChaserStep step = chaser->steps().at(pairValue.first);
+            ChaserStep step = chaser->steps().at(int(pairValue.first));
             step.duration = pairValue.second;
-            chaser->replaceStep(step, pairValue.first);
+            chaser->replaceStep(step, int(pairValue.first));
         }
         break;
 
         /* *********************** EFX editing actions *********************** */
 
         case EFXAddFixture:
-        {
             processBufferedAction(undo ? EFXRemoveFixture : EFXAddFixture, action.m_objID, action.m_newValue);
             return undo ? EFXRemoveFixture : EFXAddFixture;
-        }
-        break;
+
         case EFXRemoveFixture:
-        {
             processBufferedAction(undo ? EFXAddFixture : EFXRemoveFixture, action.m_objID, action.m_oldValue);
             return undo ? EFXAddFixture : EFXRemoveFixture;
-        }
-        break;
+
         case EFXSetAlgorithmIndex:
         {
             auto member = std::mem_fn(&EFX::setAlgorithm);
@@ -800,22 +778,22 @@ int Tardis::processAction(TardisAction &action, bool undo)
 
         case CollectionAddFunction:
         {
-            Collection *collecion = qobject_cast<Collection *>(m_doc->function(action.m_objID));
+            Collection *collection = qobject_cast<Collection *>(m_doc->function(action.m_objID));
             UIntPair pairValue = value->value<UIntPair>(); // Function ID on first, insert index on second
             if (undo)
-                collecion->removeFunction(pairValue.first);
+                collection->removeFunction(pairValue.first);
             else
-                collecion->addFunction(pairValue.first, pairValue.second);
+                collection->addFunction(pairValue.first, int(pairValue.second));
         }
         break;
         case CollectionRemoveFunction:
         {
-            Collection *collecion = qobject_cast<Collection *>(m_doc->function(action.m_objID));
+            Collection *collection = qobject_cast<Collection *>(m_doc->function(action.m_objID));
             UIntPair pairValue = value->value<UIntPair>(); // Function ID on first, insert index on second
             if (undo)
-                collecion->addFunction(pairValue.first, pairValue.second);
+                collection->addFunction(pairValue.first, int(pairValue.second));
             else
-                collecion->removeFunction(pairValue.first);
+                collection->removeFunction(pairValue.first);
         }
         break;
 
@@ -959,21 +937,23 @@ int Tardis::processAction(TardisAction &action, bool undo)
             member(qobject_cast<Video *>(m_doc->function(action.m_objID)), rotation);
         }
         break;
+        case VideoSetLayer:
+        {
+            auto member = std::mem_fn(&Video::setZIndex);
+            member(qobject_cast<Video *>(m_doc->function(action.m_objID)), value->toInt());
+        }
+        break;
 
         /* ******************* Virtual console editing actions ******************** */
 
         case VCWidgetCreate:
-        {
             processBufferedAction(undo ? VCWidgetDelete : VCWidgetCreate, action.m_objID, action.m_newValue);
             return undo ? VCWidgetDelete : VCWidgetCreate;
-        }
-        break;
+
         case VCWidgetDelete:
-        {
             processBufferedAction(undo ? VCWidgetCreate : VCWidgetDelete, action.m_objID, action.m_oldValue);
             return undo ? VCWidgetCreate : VCWidgetDelete;
-        }
-        break;
+
         case VCWidgetGeometry:
         {
             auto member = std::mem_fn(&VCWidget::setGeometry);

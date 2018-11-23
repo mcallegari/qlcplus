@@ -246,3 +246,21 @@ void VideoEditor::setRotation(QVector3D rotation)
     m_video->setRotation(rotation);
     emit rotationChanged(rotation);
 }
+
+int VideoEditor::layer() const
+{
+    if (m_video != nullptr)
+        return m_video->zIndex();
+
+    return 1;
+}
+
+void VideoEditor::setLayer(int index)
+{
+    if (m_video == nullptr || m_video->zIndex() == index)
+        return;
+
+    Tardis::instance()->enqueueAction(Tardis::VideoSetLayer, m_video->id(), m_video->zIndex(), index);
+    m_video->setZIndex(index);
+    emit layerChanged(index);
+}
