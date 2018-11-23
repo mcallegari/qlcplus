@@ -153,6 +153,38 @@ bool ChaserEditor::addStep(int insertIndex)
     return true;
 }
 
+bool ChaserEditor::moveSteps(QVariantList indicesList, int insertIndex)
+{
+    if (m_chaser == nullptr || indicesList.count() == 0)
+        return false;
+
+    QVector<int>sortedList;
+
+    if (insertIndex == -1)
+        insertIndex = m_chaser->stepsCount() - 1;
+
+    // create a list of ordered step indices
+    for (QVariant vIndex : indicesList)
+    {
+        int idx = vIndex.toInt();
+        sortedList.append(idx);
+    }
+
+    qSort(sortedList);
+
+    for (int index : sortedList)
+    {
+        qDebug() << "Moving step from" << index << "to" << insertIndex;
+        m_chaser->moveStep(index, insertIndex);
+        // TODO: tardis
+    }
+
+    updateStepsList(m_doc, m_chaser, m_stepsList);
+    emit stepsListChanged();
+
+    return true;
+}
+
 void ChaserEditor::setSequenceStepValue(SceneValue &scv)
 {
     if (m_chaser == nullptr || m_chaser->type() != Function::SequenceType)
@@ -434,7 +466,7 @@ void ChaserEditor::setTempoType(int tempoType)
     int beatDuration = m_doc->masterTimer()->beatTimeDuration();
     quint32 index = 0;
 
-    foreach(ChaserStep step, m_chaser->steps())
+    for (ChaserStep step : m_chaser->steps())
     {
         UIntPair oldDuration(index, step.duration);
         UIntPair oldFadeIn(index, step.fadeIn);

@@ -56,7 +56,6 @@ Rectangle
     property int col5Width: UISettings.bigItemHeight
     property int col6Width: UISettings.bigItemHeight
 
-    signal clicked(int ID, var qItem, int mouseMods)
     signal doubleClicked(int ID, var qItem, int type)
 
     onFunctionIDChanged:
@@ -64,14 +63,6 @@ Rectangle
         func = functionManager.getFunction(functionID)
         stepLabel = func.name
         funcIconName.functionType = func.type
-    }
-
-    onHighlightIndexChanged:
-    {
-        if (indexInList >= 0 && highlightIndex == indexInList)
-            topDragLine.visible = true
-        else
-            topDragLine.visible = false
     }
 
     onHighlightEditTimeChanged:
@@ -96,7 +87,24 @@ Rectangle
             editBox.visible = false
     }
 
-    // Highlight rectangle
+    function handleDoubleClick(x, y)
+    {
+        var item = fieldsRow.childAt(x, y)
+        if (item === funcIconName)
+            stepDelegate.doubleClicked(functionID, item, QLCFunction.Name)
+        else if (item === fadeInText)
+            stepDelegate.doubleClicked(functionID, item, QLCFunction.FadeIn)
+        else if (item === holdText)
+            stepDelegate.doubleClicked(functionID, item, QLCFunction.Hold)
+        else if (item === fadeOutText)
+            stepDelegate.doubleClicked(functionID, item, QLCFunction.FadeOut)
+        else if (item === durationText)
+            stepDelegate.doubleClicked(functionID, item, QLCFunction.Duration)
+        else if (item === noteText)
+            stepDelegate.doubleClicked(functionID, item, QLCFunction.Notes)
+    }
+
+    // Selection rectangle
     Rectangle
     {
         anchors.fill: parent
@@ -132,41 +140,10 @@ Rectangle
         }
     }
 
-    MouseArea
-    {
-        anchors.fill: parent
-        onClicked:
-        {
-            clickTimer.modifiers = mouse.modifiers
-            clickTimer.start()
-        }
-        onDoubleClicked:
-        {
-            clickTimer.stop()
-            clickTimer.modifiers = 0
-            //console.log("Double click happened at " + mouse.x + "," + mouse.y)
-
-            var item = fieldsRow.childAt(mouse.x, mouse.y)
-            if (item === funcIconName)
-                stepDelegate.doubleClicked(functionID, item, QLCFunction.Name)
-            else if (item === fadeInText)
-                stepDelegate.doubleClicked(functionID, item, QLCFunction.FadeIn)
-            else if (item === holdText)
-                stepDelegate.doubleClicked(functionID, item, QLCFunction.Hold)
-            else if (item === fadeOutText)
-                stepDelegate.doubleClicked(functionID, item, QLCFunction.FadeOut)
-            else if (item === durationText)
-                stepDelegate.doubleClicked(functionID, item, QLCFunction.Duration)
-            else if (item === noteText)
-                stepDelegate.doubleClicked(functionID, item, QLCFunction.Notes)
-        }
-    }
-
     // top line drag highlight
     Rectangle
     {
-        id: topDragLine
-        visible: false
+        visible: highlightIndex == indexInList
         width: parent.width
         height: 2
         z: 1

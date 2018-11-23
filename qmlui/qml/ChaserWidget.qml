@@ -45,6 +45,7 @@ Column
     signal stepValueChanged(int index, int value, int type)
     signal noteTextChanged(int index, string text)
     signal addFunctions(var list, int index)
+    signal moveSteps(var list, int index)
     signal requestEditor(int funcID)
     signal dragEntered(var item)
     signal dragExited(var item)
@@ -406,49 +407,87 @@ Column
         }
 
         delegate:
-            ChaserStepDelegate
+            Item
             {
-                width: widgetRoot.width
-                showFunctionName: !isSequence
-                functionID: model.funcID
-                isSelected: model.isSelected
-                stepFadeIn: TimeUtils.timeToQlcString(model.fadeIn, widgetRoot.tempoType)
-                stepHold: TimeUtils.timeToQlcString(model.hold, widgetRoot.tempoType)
-                stepFadeOut: TimeUtils.timeToQlcString(model.fadeOut, widgetRoot.tempoType)
-                stepDuration: TimeUtils.timeToQlcString(model.duration, widgetRoot.tempoType)
-                stepNote: model.note
+                width: cStepsList.width
+                height: UISettings.listItemHeight
 
-                col1Width: numCol.width
-                col2Width: nameCol.width
-                col3Width: fInCol.width
-                col4Width: holdCol.width
-                col5Width: fOutCol.width
-                col6Width: durCol.width
-
-                isPrinting: widgetRoot.isPrinting
-                indexInList: index
-                highlightIndex: cStepsList.dragInsertIndex
-                highlightEditTime: editStepIndex === index ? editStepType : -1
-
-                onClicked:
+                MouseArea
                 {
-                    ceSelector.selectItem(indexInList, cStepsList.model, mouseMods & Qt.ControlModifier)
-                    console.log("mouse mods: " + mouseMods)
-                    if ((mouseMods & Qt.ControlModifier) == 0)
-                        widgetRoot.indexChanged(index)
-                }
+                    id: delegateRoot
+                    width: cStepsList.width
+                    height: parent.height
 
-                onDoubleClicked:
-                {
-                    console.log("Double clicked: " + indexInList + ", " + type)
-                    if (type === QLCFunction.Name)
-                        widgetRoot.requestEditor(ID)
-                    else if (type === QLCFunction.Notes)
-                        noteTextEdit.show(indexInList, qItem)
-                    else
-                        widgetRoot.editStepTime(indexInList, this, type)
-                }
-            }
+                    drag.target: csDelegate
+                    drag.threshold: height / 2
+
+                    onPressed:
+                    {
+                        ceSelector.selectItem(index, cStepsList.model, mouse.modifiers & Qt.ControlModifier)
+                        console.log("mouse mods: " + mouse.modifiers)
+                        if ((mouse.modifiers & Qt.ControlModifier) == 0)
+                            widgetRoot.indexChanged(index)
+                    }
+
+                    onDoubleClicked: csDelegate.handleDoubleClick(mouse.x, mouse.y)
+
+                    onReleased:
+                    {
+                        if (csDelegate.Drag.target === cwDropArea)
+                        {
+                            csDelegate.Drag.drop()
+                        }
+                        else
+                        {
+                            // return the dragged item to its original position
+                            parent = delegateRoot
+                            csDelegate.x = 0
+                            csDelegate.y = 0
+                        }
+                    }
+
+                    ChaserStepDelegate
+                    {
+                        id: csDelegate
+                        width: widgetRoot.width
+                        showFunctionName: !isSequence
+                        functionID: model.funcID
+                        isSelected: model.isSelected
+                        stepFadeIn: TimeUtils.timeToQlcString(model.fadeIn, widgetRoot.tempoType)
+                        stepHold: TimeUtils.timeToQlcString(model.hold, widgetRoot.tempoType)
+                        stepFadeOut: TimeUtils.timeToQlcString(model.fadeOut, widgetRoot.tempoType)
+                        stepDuration: TimeUtils.timeToQlcString(model.duration, widgetRoot.tempoType)
+                        stepNote: model.note
+
+                        col1Width: numCol.width
+                        col2Width: nameCol.width
+                        col3Width: fInCol.width
+                        col4Width: holdCol.width
+                        col5Width: fOutCol.width
+                        col6Width: durCol.width
+
+                        isPrinting: widgetRoot.isPrinting
+                        indexInList: index
+                        highlightIndex: cStepsList.dragInsertIndex
+                        highlightEditTime: editStepIndex === index ? editStepType : -1
+
+                        Drag.active: delegateRoot.drag.active
+                        Drag.source: csDelegate
+                        Drag.keys: [ "function" ]
+
+                        onDoubleClicked:
+                        {
+                            console.log("Double clicked: " + indexInList + ", " + type)
+                            if (type === QLCFunction.Name)
+                                widgetRoot.requestEditor(ID)
+                            else if (type === QLCFunction.Notes)
+                                noteTextEdit.show(indexInList, qItem)
+                            else
+                                widgetRoot.editStepTime(indexInList, this, type)
+                        }
+                    } // ChaserStepDelegate
+                } // MouseArea
+            } // Item
 
         DropArea
         {
@@ -472,8 +511,13 @@ Column
                 if (drag.source.hasOwnProperty("fromFunctionManager"))
                 {
                     widgetRoot.addFunctions(drag.source.itemsList, cStepsList.dragInsertIndex)
-                    cStepsList.dragInsertIndex = -1
                 }
+                else
+                {
+                    widgetRoot.moveSteps(ceSelector.itemsList(), cStepsList.dragInsertIndex)
+                }
+
+                cStepsList.dragInsertIndex = -1
             }
             onPositionChanged:
             {

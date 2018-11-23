@@ -159,7 +159,7 @@ Rectangle
                             drag.target: cfDelegate
                             drag.threshold: height / 2
 
-                            onClicked: ceSelector.selectItem(index, cFunctionList.model, mouse.modifiers & Qt.ControlModifier)
+                            onPressed: ceSelector.selectItem(index, cFunctionList.model, mouse.modifiers & Qt.ControlModifier)
                             onDoubleClicked:
                             {
                                 functionManager.setEditorFunction(model.funcID, false, false)

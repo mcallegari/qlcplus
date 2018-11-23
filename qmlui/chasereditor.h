@@ -72,6 +72,16 @@ public:
      */
     Q_INVOKABLE bool addStep(int insertIndex = -1);
 
+    /**
+     * Move the selected steps at @insertIndex position
+     *
+     * @param indicesList A list of step indices to move
+     * @param insertIndex a specific insertion index (-1 means append)
+     *
+     * @return true if successful, otherwise false
+     */
+    Q_INVOKABLE bool moveSteps(QVariantList indicesList, int insertIndex = -1);
+
     void setSequenceStepValue(SceneValue& scv);
 
     /** Get/Set the Chaser playback start index */

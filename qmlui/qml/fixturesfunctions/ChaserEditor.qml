@@ -157,6 +157,7 @@ Rectangle
                 onStepValueChanged: chaserEditor.setStepSpeed(index, value, type)
                 onNoteTextChanged: chaserEditor.setStepNote(index, text)
                 onAddFunctions: chaserEditor.addFunctions(list, index)
+                onMoveSteps: chaserEditor.moveSteps(list, index)
                 onRequestEditor:
                 {
                     functionManager.setEditorFunction(funcID, false, false)

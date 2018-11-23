@@ -36,9 +36,9 @@ void ModelSelector::selectItem(quint32 index, ListModel *model, bool multiSelect
     qDebug() << "select item with ID:" << index;
     if (multiSelection == false)
     {
-        foreach(quint32 sidx, m_selectedIndices)
+        for (quint32 sidx : m_selectedIndices)
         {
-            QModelIndex idx = model->index(sidx, 0, QModelIndex());
+            QModelIndex idx = model->index(int(sidx), 0, QModelIndex());
             model->setDataWithRole(idx, "isSelected", false);
         }
 
@@ -46,7 +46,7 @@ void ModelSelector::selectItem(quint32 index, ListModel *model, bool multiSelect
         m_itemsCount = 0;
     }
 
-    QModelIndex idx = model->index(index, 0, QModelIndex());
+    QModelIndex idx = model->index(int(index), 0, QModelIndex());
     model->setDataWithRole(idx, "isSelected", true);
     m_selectedIndices.append(index);
     m_itemsCount++;
@@ -56,7 +56,7 @@ void ModelSelector::selectItem(quint32 index, ListModel *model, bool multiSelect
 QVariantList ModelSelector::itemsList()
 {
     QVariantList list;
-    foreach(quint32 sidx, m_selectedIndices)
+    for (quint32 sidx : m_selectedIndices)
         list.append(sidx);
 
     return list;
