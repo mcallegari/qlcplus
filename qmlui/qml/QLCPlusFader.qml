@@ -63,9 +63,9 @@ Slider
         {
             y: slider.leftPadding
             x: slider.topPadding + slider.availableWidth / 2 - width / 2
-            implicitWidth: 5
+            //implicitWidth: 5
             implicitHeight: slider.height
-            width: implicitWidth
+            width: 5
             height: slider.availableHeight
             radius: 2
             color: trackColor

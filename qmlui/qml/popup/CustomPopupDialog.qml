@@ -81,7 +81,7 @@ Dialog
             visible: message
             font.family: UISettings.robotoFontName
             font.pixelSize: UISettings.textSizeDefault
-            color:  UISettings.fgMain
+            color: UISettings.fgMain
             text: message
         }
 
@@ -122,6 +122,7 @@ Dialog
                 {
                     id: buttonControl
                     width: buttonBoxControl.count === 1 ? UISettings.bigItemHeight * 2 : undefined
+                    implicitWidth: width
 
                     hoverEnabled: true
 
