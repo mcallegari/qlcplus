@@ -55,6 +55,10 @@ public:
         XRotation,
         YRotation,
         ZRotation,
+        XPosition,
+        YPosition,
+        WidthScale,
+        HeightScale
     };
 
     Video(Doc* doc);

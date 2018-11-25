@@ -61,7 +61,10 @@ Video::Video(Doc* doc)
     registerAttribute(tr("X Rotation"), Function::LastWins, -360.0, 360.0, 0.0);
     registerAttribute(tr("Y Rotation"), Function::LastWins, -360.0, 360.0, 0.0);
     registerAttribute(tr("Z Rotation"), Function::LastWins, -360.0, 360.0, 0.0);
-
+    registerAttribute(tr("X Position"), Function::LastWins, -100.0, 100.0, 0.0);
+    registerAttribute(tr("Y Position"), Function::LastWins, -100.0, 100.0, 0.0);
+    registerAttribute(tr("Width scale"), Function::LastWins, 0, 1000.0, 100.0);
+    registerAttribute(tr("Height scale"), Function::LastWins, 0, 1000.0, 100.0);
 
     // Listen to member Function removals
     connect(doc, SIGNAL(functionRemoved(quint32)),
@@ -326,26 +329,7 @@ int Video::adjustAttribute(qreal fraction, int attributeId)
             emit intensityChanged();
         }
         break;
-        case XRotation:
-        {
-            QVector3D rot = rotation();
-            rot.setX(getAttributeValue(XRotation));
-            setRotation(rot);
-        }
-        break;
-        case YRotation:
-        {
-            QVector3D rot = rotation();
-            rot.setY(getAttributeValue(YRotation));
-            setRotation(rot);
-        }
-        break;
-        case ZRotation:
-        {
-            QVector3D rot = rotation();
-            rot.setZ(getAttributeValue(ZRotation));
-            setRotation(rot);
-        }
+        default:
         break;
     }
 
