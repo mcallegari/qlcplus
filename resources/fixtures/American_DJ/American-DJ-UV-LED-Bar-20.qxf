@@ -35,9 +35,12 @@
  </Mode>
  <Mode Name="2 Channel">
   <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobing</Channel>
  </Mode>
  <Mode Name="3 Channel">
   <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobing</Channel>
+  <Channel Number="2">Dimmer Curves</Channel>
  </Mode>
  <Physical>
   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>

@@ -54,6 +54,7 @@
     <F n="American-DJ-Fog-Storm" m="Fog Storm (with FS-DMXT Timer Remote)"/>
     <F n="American-DJ-FREQ-16-Strobe" m="FREQ 16 Strobe"/>
     <F n="American-DJ-FREQ-5-Strobe" m="FREQ 5 Strobe"/>
+    <F n="American-DJ-FREQ-Matrix-Quad" m="FREQ Matrix Quad"/>
     <F n="American-DJ-Fusion-FX-Bar-1" m="Fusion FX Bar 1"/>
     <F n="American-DJ-Fusion-FX-Bar-5" m="Fusion FX Bar 5"/>
     <F n="American-DJ-Galaxian-3D" m="Galaxian 3D"/>
@@ -984,6 +985,7 @@
     <F n="Pro-Lights-SmartBatHEX" m="SmartBatHEX"/>
     <F n="Pro-Lights-Strobo-1500DMX" m="Strobo 1500DMX"/>
     <F n="Pro-Lights-StudioCOBFC" m="StudioCOBFC"/>
+    <F n="Pro-Lights-SunPix-12TRI" m="SunPix 12TRI"/>
     <F n="Pro-Lights-UVStrip18" m="UVStrip18"/>
     <F n="Pro-Lights-V200" m="V200"/>
     <F n="Pro-Lights-XP250" m="XP250"/>
