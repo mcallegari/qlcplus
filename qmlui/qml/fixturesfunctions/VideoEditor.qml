@@ -294,12 +294,7 @@ Rectangle
                 onToggled:
                 {
                     if (checked)
-                    {
-                        geomXSpin.value = 0
-                        geomYSpin.value = 0
-                        geomWSpin.value = 0
-                        geomHSpin.value = 0
-                    }
+                        videoEditor.customGeometry = Qt.rect(0, 0, 0, 0)
                 }
             }
             RobotoText

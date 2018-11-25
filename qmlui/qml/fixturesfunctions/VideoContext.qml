@@ -33,28 +33,35 @@ Rectangle
 
     // array of IDs of the contents currently playing
     property var mediaArray: []
+    property var mediaItems: []
 
     function addVideo(vContent)
     {
-        videoComponent.createObject(ctxRoot, { "video": vContent });
+        var item = videoComponent.createObject(ctxRoot, { "video": vContent });
         if (videoComponent.status !== Component.Ready)
             console.log("Video component is not ready !!")
         mediaArray.push(vContent.id)
+        mediaItems.push(item)
     }
 
     function addPicture(pContent)
     {
-        pictureComponent.createObject(ctxRoot, { "picture": pContent });
+        var item = pictureComponent.createObject(ctxRoot, { "picture": pContent });
         if (pictureComponent.status !== Component.Ready)
             console.log("Picture component is not ready !!")
         mediaArray.push(pContent.id)
+        mediaItems.push(item)
     }
 
     function removeContent(id)
     {
         var cIdx = mediaArray.indexOf(id)
         if (cIdx > -1)
+        {
+            mediaItems[cIdx].stopPlayback()
             mediaArray.splice(cIdx, 1)
+            mediaItems.splice(cIdx, 1)
+        }
 
         console.log("Removing content with ID: " + id + ", count: " + mediaArray.length)
 
@@ -79,25 +86,31 @@ Rectangle
 
         Rectangle
         {
-            id: videoRect
-            //anchors.fill: parent
+            objectName: "media-" + video.id
             color: "black"
-            opacity: video ? video.intensity : 1.0
-            z: video ? video.zIndex : 1
+            opacity: video.intensity
+            z: video.zIndex
 
             property VideoFunction video: null
+            property vector3d rotation: video.rotation
+            property rect geometry: video.customGeometry
+
+            function stopPlayback()
+            {
+                player.stop()
+            }
 
             onVideoChanged:
             {
-                if (video.customGeometry.width !== 0 && video.customGeometry.height !== 0)
+                if (geometry.width !== 0 && geometry.height !== 0)
                 {
                     if (video.fullscreen)
                     {
-                        x = video.customGeometry.x
-                        y = video.customGeometry.y
+                        x = Qt.binding(function() { return geometry.x })
+                        y = Qt.binding(function() { return geometry.y })
                     }
-                    width = video.customGeometry.width
-                    height = video.customGeometry.height
+                    width = Qt.binding(function() { return geometry.width })
+                    height = Qt.binding(function() { return geometry.height })
                 }
                 else
                     anchors.fill = parent
@@ -110,23 +123,23 @@ Rectangle
                 Rotation
                 {
                     origin.x: width / 2
-                    origin.y: video.rotation.x > 0 ? height : 0
+                    origin.y: rotation.x > 0 ? height : 0
                     axis { x: 1; y: 0; z: 0 }
-                    angle: video.rotation.x
+                    angle: rotation.x
                 },
                 Rotation
                 {
-                    origin.x: video.rotation.y > 0 ? 0 : width
+                    origin.x: rotation.y > 0 ? 0 : width
                     origin.y: height / 2
                     axis { x: 0; y: 1; z: 0 }
-                    angle: video.rotation.y
+                    angle: rotation.y
                 },
                 Rotation
                 {
                     origin.x: width / 2
                     origin.y: height / 2
                     axis { x: 0; y: 0; z: 1 }
-                    angle: video.rotation.z
+                    angle: rotation.z
                 }
             ]
 
@@ -159,22 +172,27 @@ Rectangle
 
         Image
         {
-            property VideoFunction picture: null
+            objectName: "media-" + picture.id
+            opacity: picture.intensity
+            z: picture.zIndex
 
-            opacity: picture ? picture.intensity : 1.0
-            z: picture ? picture.zIndex : 2
+            property VideoFunction picture: null
+            property vector3d rotation: picture.rotation
+            property rect geometry: picture.customGeometry
+
+            function stopPlayback() { }
 
             onPictureChanged:
             {
-                if (picture.customGeometry.width !== 0 && picture.customGeometry.height !== 0)
+                if (geometry.width !== 0 && geometry.height !== 0)
                 {
                     if (picture.fullscreen)
                     {
-                        x = picture.customGeometry.x
-                        y = picture.customGeometry.y
+                        x = Qt.binding(function() { return geometry.x })
+                        y = Qt.binding(function() { return geometry.y })
                     }
-                    width = picture.customGeometry.width
-                    height = picture.customGeometry.height
+                    width = Qt.binding(function() { return geometry.width })
+                    height = Qt.binding(function() { return geometry.height })
                 }
                 else
                     anchors.fill = parent
@@ -187,23 +205,23 @@ Rectangle
                 Rotation
                 {
                     origin.x: width / 2
-                    origin.y: picture.rotation.x > 0 ? height : 0
+                    origin.y: rotation.x > 0 ? height : 0
                     axis { x: 1; y: 0; z: 0 }
-                    angle: picture.rotation.x
+                    angle: rotation.x
                 },
                 Rotation
                 {
-                    origin.x: picture.rotation.y > 0 ? 0 : width
+                    origin.x: rotation.y > 0 ? 0 : width
                     origin.y: height / 2
                     axis { x: 0; y: 1; z: 0 }
-                    angle: picture.rotation.y
+                    angle: rotation.y
                 },
                 Rotation
                 {
                     origin.x: width / 2
                     origin.y: height / 2
                     axis { x: 0; y: 0; z: 1 }
-                    angle: picture.rotation.z
+                    angle: rotation.z
                 }
             ]
         }
