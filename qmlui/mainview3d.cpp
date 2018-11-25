@@ -1509,7 +1509,10 @@ void MainView3D::createGenericItem(QString filename, int itemID)
     SceneItem *mesh = new SceneItem;
     mesh->m_rootItem = nullptr;
     mesh->m_rootTransform = nullptr;
+    mesh->m_armItem = nullptr;
+    mesh->m_headItem = nullptr;
     mesh->m_selectionBox = nullptr;
+    mesh->m_goboTexture = nullptr;
 
     QEntity *newItem = qobject_cast<QEntity *>(m_genericComponent->create());
     newItem->setParent(m_sceneRootEntity);
