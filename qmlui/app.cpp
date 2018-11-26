@@ -284,6 +284,7 @@ bool App::event(QEvent *event)
         if (m_doc->isModified())
         {
             QMetaObject::invokeMethod(rootObject(), "saveBeforeExit");
+            event->ignore();
             return false;
         }
     }
