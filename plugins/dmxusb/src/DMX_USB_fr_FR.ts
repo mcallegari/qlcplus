@@ -66,12 +66,12 @@ NOTE : L&apos;interface VCP FTDI n&apos;est pas supportée par ce plugin.</trans
     <message>
         <location filename="dmxusbconfig.cpp" line="55"/>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Mode</translation>
     </message>
     <message>
         <location filename="dmxusbconfig.cpp" line="55"/>
         <source>Output frequency</source>
-        <translation type="unfinished"></translation>
+        <translation>Fréquence de sortie</translation>
     </message>
 </context>
 <context>
@@ -115,18 +115,18 @@ NOTE : L&apos;interface VCP FTDI n&apos;est pas supportée par ce plugin.</trans
 <context>
     <name>EnttecDMXUSBPro</name>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="93"/>
-        <location filename="enttecdmxusbpro.cpp" line="95"/>
+        <location filename="enttecdmxusbpro.cpp" line="94"/>
+        <location filename="enttecdmxusbpro.cpp" line="96"/>
         <source>Protocol</source>
         <translation>Protocole</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="98"/>
+        <location filename="enttecdmxusbpro.cpp" line="99"/>
         <source>Manufacturer</source>
         <translation>Fabricant</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="100"/>
+        <location filename="enttecdmxusbpro.cpp" line="101"/>
         <source>Serial number</source>
         <translation>N° de série</translation>
     </message>
@@ -166,22 +166,22 @@ NOTE : L&apos;interface VCP FTDI n&apos;est pas supportée par ce plugin.</trans
         <translation>Fabricant</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="236"/>
+        <location filename="enttecdmxusbpro.cpp" line="237"/>
         <source>MIDI Input</source>
         <translation>Entrée MIDI</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="238"/>
+        <location filename="enttecdmxusbpro.cpp" line="239"/>
         <source>DMX Input</source>
         <translation>Entrée DMX</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="243"/>
+        <location filename="enttecdmxusbpro.cpp" line="244"/>
         <source>MIDI Output</source>
         <translation>Sortie MIDI</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbpro.cpp" line="245"/>
+        <location filename="enttecdmxusbpro.cpp" line="246"/>
         <source>DMX Output</source>
         <translation>Sortie DMX</translation>
     </message>

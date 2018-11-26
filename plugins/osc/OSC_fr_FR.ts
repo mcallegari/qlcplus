@@ -40,22 +40,37 @@
         <translation>Port de sortie</translation>
     </message>
     <message>
-        <location filename="configureosc.cpp" line="80"/>
+        <location filename="configureosc.ui" line="88"/>
+        <source>Channel number calculator</source>
+        <translation>Calculateur de numéro de canal</translation>
+    </message>
+    <message>
+        <location filename="configureosc.ui" line="96"/>
+        <source>OSC path</source>
+        <translation>Chemin OSC</translation>
+    </message>
+    <message>
+        <location filename="configureosc.ui" line="106"/>
+        <source>Channel number</source>
+        <translation>Numéro de canal</translation>
+    </message>
+    <message>
+        <location filename="configureosc.cpp" line="83"/>
         <source>Inputs</source>
         <translation>Entrées</translation>
     </message>
     <message>
-        <location filename="configureosc.cpp" line="86"/>
+        <location filename="configureosc.cpp" line="89"/>
         <source>Outputs</source>
         <translation>Sorties</translation>
     </message>
     <message>
-        <location filename="configureosc.cpp" line="168"/>
+        <location filename="configureosc.cpp" line="171"/>
         <source>Invalid IP</source>
         <translation>IP invalide</translation>
     </message>
     <message>
-        <location filename="configureosc.cpp" line="168"/>
+        <location filename="configureosc.cpp" line="171"/>
         <source>%1 is not a valid IP.
 Please fix it before confirming.</source>
         <translation>%1 n&apos;est pas une IP valide.
