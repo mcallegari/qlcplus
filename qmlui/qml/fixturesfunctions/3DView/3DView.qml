@@ -459,7 +459,6 @@ Rectangle
                 attachments: [
                     RenderTargetOutput
                     {
-                        objectName: "color"
                         attachmentPoint: RenderTargetOutput.Color0
                         texture: texChainTexture0
                     }
@@ -488,7 +487,6 @@ Rectangle
                 attachments: [
                     RenderTargetOutput
                     {
-                        objectName: "color"
                         attachmentPoint: RenderTargetOutput.Color0
                         texture: texChainTexture1
                     }
@@ -517,7 +515,6 @@ Rectangle
                 attachments: [
                     RenderTargetOutput
                     {
-                        objectName: "color"
                         attachmentPoint: RenderTargetOutput.Color0
                         texture: texChainTexture2
                     }
@@ -546,11 +543,26 @@ Rectangle
                 attachments: [
                     RenderTargetOutput
                     {
-                        objectName: "color"
                         attachmentPoint: RenderTargetOutput.Color0
                         texture: texChainTexture3
                     }
                 ]
+            }
+
+            Texture2D
+            {
+                id: texChainTexture4
+                width: 64
+                height: 64
+                format: Texture.RGBA32F
+                generateMipMaps: false
+                magnificationFilter: Texture.Linear
+                minificationFilter: Texture.Linear
+                wrapMode
+                {
+                    x: WrapMode.ClampToEdge
+                    y: WrapMode.ClampToEdge
+                }
             }
 
             RenderTarget
@@ -559,24 +571,8 @@ Rectangle
                 attachments: [
                     RenderTargetOutput
                     {
-                        objectName: "color"
                         attachmentPoint: RenderTargetOutput.Color0
-                        texture:
-                            Texture2D
-                            {
-                                id: texChainTexture4
-                                width: 64
-                                height: 64
-                                format: Texture.RGBA32F
-                                generateMipMaps: false
-                                magnificationFilter: Texture.Linear
-                                minificationFilter: Texture.Linear
-                                wrapMode
-                                {
-                                    x: WrapMode.ClampToEdge
-                                    y: WrapMode.ClampToEdge
-                                }
-                            }
+                        texture: texChainTexture4
                     }
                 ] // attachments
             }   
@@ -604,7 +600,6 @@ Rectangle
                 attachments: [
                     RenderTargetOutput
                     {
-                        objectName: "color"
                         attachmentPoint: RenderTargetOutput.Color0
                         texture: hdr0ColorTexture
                     }
@@ -634,7 +629,6 @@ Rectangle
                 attachments: [
                     RenderTargetOutput
                     {
-                        objectName: "color"
                         attachmentPoint: RenderTargetOutput.Color0
                         texture: hdr1ColorTexture
                     }
