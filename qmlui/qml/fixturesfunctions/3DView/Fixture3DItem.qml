@@ -199,20 +199,20 @@ Entity
         cutoffAngle = (((((focusMaxDegrees - focusMinDegrees) / 255) * value) + focusMinDegrees) / 2) * (Math.PI / 180)
     }
 
-    function setupScattering(shadingEffect, scatteringEffect, depthEffect, sceneEntity)
+    function setupScattering(sceneEntity)
     {
         if (sceneEntity.coneMesh.length !== distCutoff)
             sceneEntity.coneMesh.length = distCutoff
 
-        shadingCone.coneEffect = shadingEffect
+        shadingCone.coneEffect = sceneEntity.spotlightShadingEffect
         shadingCone.parent = sceneEntity
         shadingCone.spotlightConeMesh = sceneEntity.coneMesh
 
-        scatteringCone.coneEffect = scatteringEffect
+        scatteringCone.coneEffect = sceneEntity.spotlightScatteringEffect
         scatteringCone.parent = sceneEntity
         scatteringCone.spotlightConeMesh = sceneEntity.coneMesh
 
-        outDepthCone.coneEffect = depthEffect
+        outDepthCone.coneEffect = sceneEntity.outputFrontDepthEffect
         outDepthCone.parent = sceneEntity
         outDepthCone.spotlightConeMesh = sceneEntity.coneMesh
     }

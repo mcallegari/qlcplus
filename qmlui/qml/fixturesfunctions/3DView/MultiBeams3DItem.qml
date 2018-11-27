@@ -133,14 +133,14 @@ Entity
         View3D.initializeFixture(itemID, fixtureEntity, null)
     }
 
-    function setupScattering(shadingEffect, scatteringEffect, depthEffect, sceneEntity)
+    function setupScattering(sceneEntity)
     {
         if (sceneEntity.coneMesh.length !== distCutoff)
             sceneEntity.coneMesh.length = distCutoff
 
         for (var i = 0; i < headsList.length; i++)
         {
-            headsList[i].setupScattering(shadingEffect, scatteringEffect, depthEffect, sceneEntity)
+            headsList[i].setupScattering(sceneEntity)
         }
     }
 

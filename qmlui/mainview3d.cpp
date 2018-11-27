@@ -881,11 +881,8 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QSceneLoad
 
     QLayer *sceneDeferredLayer = m_sceneRootEntity->property("deferredLayer").value<QLayer *>();
     QEffect *sceneEffect = m_sceneRootEntity->property("geometryPassEffect").value<QEffect *>();
-    QEffect *spotlightShadingEffect = m_sceneRootEntity->property("spotlightShadingEffect").value<QEffect *>();
-    QEffect *spotlightScatteringEffect = m_sceneRootEntity->property("spotlightScatteringEffect").value<QEffect *>();
-    QEffect *outputFrontDepthEffect = m_sceneRootEntity->property("outputFrontDepthEffect").value<QEffect *>();
 
-    qDebug() << sceneDeferredLayer << sceneEffect << spotlightShadingEffect << spotlightScatteringEffect << outputFrontDepthEffect;
+    qDebug() << sceneDeferredLayer << sceneEffect;
 
     QVector3D translation;
     SceneItem *meshRef = m_entitiesMap.value(itemID);
@@ -963,9 +960,6 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QSceneLoad
         meshRef->m_rootItem->setProperty("focusMaxDegrees", focusMax);
 
         QMetaObject::invokeMethod(meshRef->m_rootItem, "setupScattering",
-                                  Q_ARG(QVariant, QVariant::fromValue(spotlightShadingEffect)),
-                                  Q_ARG(QVariant, QVariant::fromValue(spotlightScatteringEffect)),
-                                  Q_ARG(QVariant, QVariant::fromValue(outputFrontDepthEffect)),
                                   Q_ARG(QVariant, QVariant::fromValue(m_sceneRootEntity)));
     }
 
@@ -979,7 +973,7 @@ void MainView3D::initializeFixture(quint32 itemID, QEntity *fxEntity, QSceneLoad
     {
         QSizeF size = FixtureUtils::item2DDimension(fxMode, MonitorProperties::TopView);
         QPointF itemPos = FixtureUtils::available2DPosition(m_doc, MonitorProperties::TopView,
-                                                               QRectF(0, 0, size.width(), size.height()));
+                                                            QRectF(0, 0, size.width(), size.height()));
         // add the new fixture to the Doc monitor properties
         fxPos = QVector3D(itemPos.x(), 1000.0, itemPos.y());
         m_monProps->setFixturePosition(fxID, headIndex, linkedIndex, fxPos);
