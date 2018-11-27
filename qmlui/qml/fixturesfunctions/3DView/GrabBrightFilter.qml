@@ -25,8 +25,8 @@ import QtQuick 2.0
 TechniqueFilter
 {
     property GBuffer gBuffer
-    property Layer screenQuadLayer
-    property RenderTarget outRenderTarget
+    property alias screenQuadLayer: gbLayerFilter.layers
+    property alias outRenderTarget: gbRenderTarget.target
 
     parameters: [
         Parameter { name: "albedoTex"; value: gBuffer.color },
@@ -46,10 +46,11 @@ TechniqueFilter
         ]
         LayerFilter
         {
-            layers: screenQuadLayer
+            id: gbLayerFilter
 
-            RenderTargetSelector {
-                target: outRenderTarget
+            RenderTargetSelector
+            {
+                id: gbRenderTarget
 
                 ClearBuffers
                 {
@@ -59,7 +60,6 @@ TechniqueFilter
                         matchAny: FilterKey { name: "pass"; value: "grab_bright" }
                     }
                 }
-
             }
         }
     }

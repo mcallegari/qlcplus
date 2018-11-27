@@ -27,7 +27,6 @@ TechniqueFilter
     property GBuffer gBuffer
     property Layer screenQuadLayer
     property real ambientIntensity: View3D.ambientIntensity
-
     property FrameTarget frameTarget
 
     parameters: [
@@ -52,9 +51,6 @@ TechniqueFilter
         ]
         LayerFilter
         {
-
-
-            //id: screenQuadLayerFilter
             layers: screenQuadLayer
 
             RenderTargetSelector {

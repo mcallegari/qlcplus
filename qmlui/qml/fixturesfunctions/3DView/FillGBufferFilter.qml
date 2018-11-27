@@ -25,11 +25,7 @@ import QtQuick 2.0
 
 LayerFilter
 {
-    property alias sceneDeferredLayer: sceneDeferredLayerFilter.layers
-
-    property alias gBuffer : gBufferTargetSelector.target
-
-    id: sceneDeferredLayerFilter
+    property alias gBuffer: gBufferTargetSelector.target
 
     RenderTargetSelector
     {

@@ -24,7 +24,6 @@ Effect
 {
     techniques:
     [
-        // OpenGL 3.1
         Technique
         {
             graphicsApiFilter { api: GraphicsApiFilter.OpenGL; profile: GraphicsApiFilter.CoreProfile; majorVersion: 3; minorVersion: 1 }
@@ -32,7 +31,7 @@ Effect
             [
                 RenderPass
                 {
-                    filterKeys: FilterKey { name : "pass"; value : "spotlight_scattering" }
+                    filterKeys: FilterKey { name: "pass"; value: "spotlight_scattering" }
                     shaderProgram:
                         ShaderProgram
                         {

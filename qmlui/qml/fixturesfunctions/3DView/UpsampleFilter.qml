@@ -24,11 +24,9 @@ import QtQuick 2.0
 
 TechniqueFilter
 {
-    property Layer screenQuadLayer
-
+    property alias screenQuadLayer: usLayerFilter.layers
+    property alias outRenderTarget: usRenderTarget.target
     property Texture2D inTex
-    property RenderTarget outRenderTarget
-
     property vector4d pixelSize: Qt.vector4d(0, 0, 0, 0)
     property vector4d index: Qt.vector4d(0, 0, 0, 0)
 
@@ -49,13 +47,14 @@ TechniqueFilter
                 destinationRgb: BlendEquationArguments.One
             }
         ]
+
         LayerFilter
         {
-            layers: screenQuadLayer
+            id: usLayerFilter
 
             RenderTargetSelector
             {
-                target: outRenderTarget
+                id: usRenderTarget
 
                 RenderPassFilter
                 {

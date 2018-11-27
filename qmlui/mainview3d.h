@@ -260,7 +260,6 @@ private:
 
     /** Reference to the render targets used for scattering */
     QRenderTarget *m_gBuffer;
-    QRenderTarget *m_frontDepthTarget;
 
     /** Map of QLC+ item IDs and SceneItem references */
     QMap<quint32, SceneItem*> m_entitiesMap;

@@ -64,7 +64,6 @@ MainView3D::MainView3D(QQuickView *view, Doc *doc, QObject *parent)
     , m_sceneRootEntity(nullptr)
     , m_quadEntity(nullptr)
     , m_gBuffer(nullptr)
-    , m_frontDepthTarget(nullptr)
     , m_latestGenericID(0)
     , m_renderQuality(HighQuality)
     , m_stageEntity(nullptr)
@@ -357,17 +356,10 @@ void MainView3D::initialize3DProperties()
         return;
     }
 
-    m_frontDepthTarget = m_scene3D->findChild<QRenderTarget *>("depthTarget");
-    if (m_frontDepthTarget == nullptr)
-    {
-        qDebug() << "frontDepth not found!";
-        return;
-    }
-
     if (m_frameAction)
         m_sceneRootEntity->addComponent(m_frameAction);
 
-    qDebug() << m_sceneRootEntity << m_quadEntity << m_gBuffer << m_frontDepthTarget;
+    qDebug() << m_sceneRootEntity << m_quadEntity << m_gBuffer;
 
     if (m_stageEntity == nullptr)
         createStage();

@@ -22,12 +22,12 @@ import Qt3D.Render 2.0
 
 RenderTarget
 {
+    objectName: "gBuffer"
+
     property alias color: colorAttachment
     property alias normal: normalAttachment
     property alias specular: specularAttachment
     property alias depth: depthAttachment
-
-    objectName: "gBuffer"
 
     Texture2D
     {
@@ -100,28 +100,24 @@ RenderTarget
     attachments: [
         RenderTargetOutput
         {
-            objectName: "color"
             attachmentPoint: RenderTargetOutput.Color0
             texture: colorAttachment
         },
 
         RenderTargetOutput
         {
-            objectName: "normal"
             attachmentPoint: RenderTargetOutput.Color1
             texture: normalAttachment
         },
 
         RenderTargetOutput
         {
-            objectName: "specular"
             attachmentPoint: RenderTargetOutput.Color2
             texture: specularAttachment
         },
 
         RenderTargetOutput
         {
-            objectName: "depth"
             attachmentPoint: RenderTargetOutput.Depth
             texture: depthAttachment
         }

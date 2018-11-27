@@ -33,7 +33,7 @@ Effect
                 // Lights pass
                 RenderPass
                 {
-                    filterKeys: FilterKey { name : "pass"; value : "blit" }
+                    filterKeys: FilterKey { name: "pass"; value: "blit" }
                     shaderProgram:
                         ShaderProgram
                         {

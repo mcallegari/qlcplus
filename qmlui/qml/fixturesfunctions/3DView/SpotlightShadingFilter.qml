@@ -25,10 +25,10 @@ import QtQuick 2.0
 
 TechniqueFilter
 {
-    property GBuffer gBuffer
-    property Layer spotlightShadingLayer
-    property Texture2D shadowTex: null
+    property alias spotlightShadingLayer: slsLayerFilter.layers
     property alias frameTarget: tSelector.target
+    property GBuffer gBuffer
+    property Texture2D shadowTex: null
     property bool useShadows: true
 
     parameters: [
@@ -52,10 +52,12 @@ TechniqueFilter
         ]
         LayerFilter
         {
-            layers: spotlightShadingLayer
+            id: slsLayerFilter
 
-            RenderTargetSelector {
+            RenderTargetSelector
+            {
                 id: tSelector
+
                 RenderPassFilter
                 {
                     matchAny: FilterKey { name: "pass"; value: "spotlight_shading" }

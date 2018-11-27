@@ -25,7 +25,6 @@ import QtQuick 2.0
 TechniqueFilter
 {
     property Layer screenQuadBlitLayer
-
     property Texture2D inTexture
 
     parameters: [
@@ -55,7 +54,6 @@ TechniqueFilter
                     matchAny: FilterKey { name: "pass"; value: "blit" }
                 }
             }
-
         }
     }
 } // TechniqueFilter

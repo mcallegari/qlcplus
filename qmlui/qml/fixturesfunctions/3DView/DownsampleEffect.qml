@@ -24,16 +24,15 @@ Effect
 {
     techniques:
     [
-        // OpenGL 3.1
         Technique
         {
             graphicsApiFilter { api: GraphicsApiFilter.OpenGL; profile: GraphicsApiFilter.CoreProfile; majorVersion: 3; minorVersion: 1 }
             renderPasses:
             [
-                // Lights pass
+                // Downsample pass
                 RenderPass
                 {
-                    filterKeys: FilterKey { name : "pass"; value : "downsample" }
+                    filterKeys: FilterKey { name: "pass"; value: "downsample" }
                     shaderProgram:
                         ShaderProgram
                         {

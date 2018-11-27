@@ -64,7 +64,6 @@ ComboBox
                 if (item.mIcon)
                     currentIcon = item.mIcon
                 currentIndex = i
-                console.log("Label: " + displayText)
                 return
             }
         }

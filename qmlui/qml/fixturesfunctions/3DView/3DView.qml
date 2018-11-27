@@ -2,7 +2,7 @@
   Q Light Controller Plus
   3DView.qml
 
-  Copyright (c) Massimo Callegari
+  Copyright (c) Massimo Callegari, Eric Arnebäck
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -115,8 +115,8 @@ Rectangle
 
                         sgNode = component.createObject(frameGraph.myShadowFrameGraphNode,
                         {
-                            "sceneDeferredLayer": sceneEntity.deferredLayer,
-                            "fixtureItem": headEntity
+                            "fixtureItem": headEntity,
+                            "layers": sceneEntity.deferredLayer
                         });
                     }
                 }
@@ -129,7 +129,7 @@ Rectangle
             sgNode = component.createObject(frameGraph.myCameraSelector,
             {
                 "gBuffer": gBufferTarget,
-                "sceneDeferredLayer": sceneEntity.deferredLayer,
+                "layers": sceneEntity.deferredLayer,
             });
 
             component = Qt.createComponent("RenderSelectionBoxesFilter.qml");
@@ -139,7 +139,7 @@ Rectangle
             sgNode = component.createObject(frameGraph.myCameraSelector,
             {
                 "gBuffer": gBufferTarget,
-                "layer": sceneEntity.selectionLayer,
+                "layers": sceneEntity.selectionLayer,
             });
 
             var texChainTargets = [texChainTarget0, texChainTarget1, texChainTarget2, texChainTarget3, texChainTarget4]         
@@ -343,92 +343,92 @@ Rectangle
             GenericScreenQuadEntity
             {
                 id: screenQuadFXAAEntity
-                quadLayer : Layer { }
-                quadEffect : FXAAEffect { }
+                quadLayer: Layer { }
+                quadEffect: FXAAEffect { }
             }
     
             GenericScreenQuadEntity
             {
                 id: screenQuadBlitEntity
-                quadLayer : Layer { }
-                quadEffect : BlitEffect { }
+                quadLayer: Layer { }
+                quadEffect: BlitEffect { }
             }
 
             GenericScreenQuadEntity
             {
                 id: screenQuadGrabBrightEntity
-                quadLayer : Layer { }
-                quadEffect : GrabBrightEffect { }
+                quadLayer: Layer { }
+                quadEffect: GrabBrightEffect { }
             }
 
             GenericScreenQuadEntity
             {
                 id: screenQuadDownsampleEntity0
-                quadLayer : Layer { }
-                quadEffect : DownsampleEffect { }
+                quadLayer: Layer { }
+                quadEffect: DownsampleEffect { }
             }
 
             GenericScreenQuadEntity
             {
                 id: screenQuadDownsampleEntity1
-                quadLayer : Layer { }
-                quadEffect : DownsampleEffect { }
+                quadLayer: Layer { }
+                quadEffect: DownsampleEffect { }
             }
 
             GenericScreenQuadEntity
             {
                 id: screenQuadDownsampleEntity2
-                quadLayer : Layer { }
-                quadEffect : DownsampleEffect { }
+                quadLayer: Layer { }
+                quadEffect: DownsampleEffect { }
             }
 
             GenericScreenQuadEntity
             {
                 id: screenQuadDownsampleEntity3
-                quadLayer : Layer { }
-                quadEffect : DownsampleEffect { }
+                quadLayer: Layer { }
+                quadEffect: DownsampleEffect { }
             }
 
             GenericScreenQuadEntity
             {
                 id: screenQuadDownsampleEntity4
-                quadLayer : Layer { }
-                quadEffect : DownsampleEffect { }
+                quadLayer: Layer { }
+                quadEffect: DownsampleEffect { }
             }
 
             GenericScreenQuadEntity
             {
                 id: screenQuadUpsampleEntity0
-                quadLayer : Layer { }
-                quadEffect : UpsampleEffect { }
+                quadLayer: Layer { }
+                quadEffect: UpsampleEffect { }
             }
 
             GenericScreenQuadEntity
             {
                 id: screenQuadUpsampleEntity1
-                quadLayer : Layer { }
-                quadEffect : UpsampleEffect { }
+                quadLayer: Layer { }
+                quadEffect: UpsampleEffect { }
             }
 
             GenericScreenQuadEntity
             {
                 id: screenQuadUpsampleEntity2
-                quadLayer : Layer { }
-                quadEffect : UpsampleEffect { }
+                quadLayer: Layer { }
+                quadEffect: UpsampleEffect { }
             }
 
             GenericScreenQuadEntity
             {
                 id: screenQuadUpsampleEntity3
-                quadLayer : Layer { }
-                quadEffect : UpsampleEffect { }
+                quadLayer: Layer { }
+                quadEffect: UpsampleEffect { }
             }
 
             GenericScreenQuadEntity
             {
                 id: screenQuadUpsampleEntity4
-                quadLayer : Layer { }
-                quadEffect : UpsampleEffect { }
+                quadLayer: Layer { }
+                quadEffect: UpsampleEffect { }
             }
 
             ScreenQuadEntity { id: screenQuadEntity }
@@ -643,11 +643,11 @@ Rectangle
 
             DepthTarget { id: depthTarget }
 
-            components : [
+            components: [
                 DeferredRenderer
                 {
                     id: frameGraph
-                    camera : sceneEntity.camera
+                    camera: sceneEntity.camera
                 },
                 InputSettings {}
             ]

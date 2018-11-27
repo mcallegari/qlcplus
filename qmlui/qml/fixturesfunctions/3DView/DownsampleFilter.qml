@@ -19,16 +19,13 @@
 
 import Qt3D.Core 2.0
 import Qt3D.Render 2.0
-
 import QtQuick 2.0
 
 TechniqueFilter
 {
     property Layer screenQuadLayer
-
     property Texture2D inTex
     property RenderTarget outRenderTarget
-
     property vector4d pixelSize: Qt.vector4d(0, 0, 0, 0)
 
     parameters: [
@@ -51,7 +48,8 @@ TechniqueFilter
         {
             layers: screenQuadLayer
 
-            RenderTargetSelector {
+            RenderTargetSelector
+            {
                 target: outRenderTarget
 
                 ClearBuffers
@@ -62,7 +60,6 @@ TechniqueFilter
                         matchAny: FilterKey { name: "pass"; value: "downsample" }
                     }
                 }
-
             }
         }
     }

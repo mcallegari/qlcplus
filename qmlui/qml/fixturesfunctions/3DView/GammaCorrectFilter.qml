@@ -24,13 +24,10 @@ import QtQuick 2.0
 
 TechniqueFilter
 {
- //   property GBuffer gBuffer
     property Layer screenQuadGammaCorrectLayer
-
+    property RenderTarget outRenderTarget
     property Texture2D hdrTexture: null
     property Texture2D bloomTexture: null
-    
-    property RenderTarget outRenderTarget
 
     parameters: [
         Parameter { name: "hdrTex"; value: hdrTexture },
@@ -52,8 +49,9 @@ TechniqueFilter
         {
             layers: screenQuadGammaCorrectLayer
 
-            RenderTargetSelector {
-                target:  outRenderTarget
+            RenderTargetSelector
+            {
+                target: outRenderTarget
 
                 ClearBuffers
                 {
@@ -63,9 +61,7 @@ TechniqueFilter
                         matchAny: FilterKey { name: "pass"; value: "gamma_correct" }
                     }
                 }
-
             }
-
         }
     }
 } // TechniqueFilter

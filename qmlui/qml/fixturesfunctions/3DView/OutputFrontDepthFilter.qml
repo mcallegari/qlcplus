@@ -26,8 +26,8 @@ import QtQuick 2.0
 // Lights pass technique
 TechniqueFilter
 {
-    property Layer outputDepthLayer
-    property DepthTarget frontDepth
+    property alias outputDepthLayer: ofdLayerFilter.layers
+    property alias frontDepth: ofdRenderTarget.target
 
     RenderStateSet
     {
@@ -39,25 +39,25 @@ TechniqueFilter
                 sourceRgb: BlendEquationArguments.One
                 destinationRgb: BlendEquationArguments.One
             },
-            CullFace {mode: CullFace.Back}
+            CullFace { mode: CullFace.Back }
         ]
         LayerFilter
         {
+            id: ofdLayerFilter
 
-            layers: outputDepthLayer
             RenderTargetSelector
             {
-                target: frontDepth
+                id: ofdRenderTarget
+
                 ClearBuffers
                 {
                     buffers: ClearBuffers.ColorBuffer
 
-                     RenderPassFilter
-                     {
-                         matchAny: FilterKey { name: "pass"; value: "output_depth" }
-                     }
+                    RenderPassFilter
+                    {
+                        matchAny: FilterKey { name: "pass"; value: "output_depth" }
+                    }
                 }
-
             }
         }
     }
