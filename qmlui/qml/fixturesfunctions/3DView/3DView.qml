@@ -60,13 +60,12 @@ Rectangle
         anchors.fill: parent
         aspects: ["input", "logic"]
 
-        function updateSceneGraph(create)
+        function updateFrameGraph(create)
         {
             var ic
             var iHead
             var headEntity
             var component, component2
-            var sgNode
             var fixtures = []
             var fixtureItem
 
@@ -113,7 +112,7 @@ Rectangle
                     {
                         headEntity = fixtureItem.getHead(iHead)
 
-                        sgNode = component.createObject(frameGraph.myShadowFrameGraphNode,
+                        component.createObject(frameGraph.myShadowFrameGraphNode,
                         {
                             "fixtureItem": headEntity,
                             "layers": sceneEntity.deferredLayer
@@ -126,7 +125,7 @@ Rectangle
             if (component.status === Component.Error)
                 console.log("Error loading component:", component.errorString())
 
-            sgNode = component.createObject(frameGraph.myCameraSelector,
+            component.createObject(frameGraph.myCameraSelector,
             {
                 "gBuffer": gBufferTarget,
                 "layers": sceneEntity.deferredLayer,
@@ -136,7 +135,7 @@ Rectangle
             if (component.status === Component.Error)
                 console.log("Error loading component:", component.errorString())
 
-            sgNode = component.createObject(frameGraph.myCameraSelector,
+            component.createObject(frameGraph.myCameraSelector,
             {
                 "gBuffer": gBufferTarget,
                 "layers": sceneEntity.selectionLayer,
@@ -161,7 +160,7 @@ Rectangle
             if (component.status === Component.Error)
                 console.log("Error loading component:", component.errorString());
 
-            sgNode = component.createObject(frameGraph.myCameraSelector,
+            component.createObject(frameGraph.myCameraSelector,
             {
                 "gBuffer": gBufferTarget,
                 "screenQuadLayer": screenQuadGrabBrightEntity.quadLayer,
@@ -180,7 +179,7 @@ Rectangle
             {
                 dim = (1 << (ic + 1))
 
-                sgNode = component.createObject(frameGraph.myCameraSelector,
+                component.createObject(frameGraph.myCameraSelector,
                 {
                     "inTex": texChainTextures[ic],
                     "screenQuadLayer": texChainDownsampleEntities[ic].quadLayer,
@@ -196,7 +195,7 @@ Rectangle
             for (ic = 0; ic < (TEX_CHAIN_LEN - 1); ++ic)
             {
                 dim = (1 << (TEX_CHAIN_LEN - 2 - ic))
-                sgNode = component.createObject(frameGraph.myCameraSelector,
+                component.createObject(frameGraph.myCameraSelector,
                 {
                     "inTex": texChainTextures[TEX_CHAIN_LEN - 1 - ic],
                     "screenQuadLayer": texChainUpsampleEntities[ic].quadLayer,
@@ -209,7 +208,7 @@ Rectangle
             component = Qt.createComponent("DirectionalLightFilter.qml");
             if (component.status === Component.Error)
                 console.log("Error loading component:", component.errorString())
-            sgNode = component.createObject(frameGraph.myCameraSelector,
+            component.createObject(frameGraph.myCameraSelector,
             {
                 "gBuffer": gBufferTarget,
                 "screenQuadLayer": screenQuadEntity.layer,
@@ -234,7 +233,7 @@ Rectangle
                 {
                     headEntity = fixtureItem.getHead(iHead)
 
-                    sgNode = component.createObject(frameGraph.myCameraSelector,
+                    component.createObject(frameGraph.myCameraSelector,
                     {
                         "gBuffer": gBufferTarget,
                         "shadowTex": headEntity.depthTex,
@@ -267,13 +266,13 @@ Rectangle
                 {
                     headEntity = fixtureItem.getHead(iHead)
 
-                    sgNode = component.createObject(frameGraph.myCameraSelector,
+                    component.createObject(frameGraph.myCameraSelector,
                     {
                         "frontDepth": depthTarget,
                         "outputDepthLayer": headEntity.outputDepthLayer
                     });
 
-                    sgNode = component2.createObject(frameGraph.myCameraSelector,
+                    component2.createObject(frameGraph.myCameraSelector,
                     {
                         "fixtureItem": headEntity,
                         "frontDepth": depthTarget,
@@ -290,7 +289,7 @@ Rectangle
             if (component.status === Component.Error)
                 console.log("Error loading component:", component.errorString());
 
-            sgNode = component.createObject(frameGraph.myCameraSelector,
+            component.createObject(frameGraph.myCameraSelector,
             {
                 "hdrTexture": frameTarget.color,
                 "bloomTexture": texChainTextures[0],
@@ -302,7 +301,7 @@ Rectangle
             if (component.status === Component.Error)
                 console.log("Error loading component:", component.errorString())
 
-            sgNode = component.createObject(frameGraph.myCameraSelector,
+            component.createObject(frameGraph.myCameraSelector,
             {
                 "inTexture": hdr0ColorTexture,
                 "outRenderTarget": hdr1RenderTarget,
@@ -313,7 +312,7 @@ Rectangle
             if (component.status === Component.Error)
                 console.log("Error loading component:", component.errorString())
 
-            sgNode = component.createObject(frameGraph.myCameraSelector,
+            component.createObject(frameGraph.myCameraSelector,
             {
                 "inTexture": hdr1ColorTexture,
                 "screenQuadBlitLayer": screenQuadBlitEntity.quadLayer

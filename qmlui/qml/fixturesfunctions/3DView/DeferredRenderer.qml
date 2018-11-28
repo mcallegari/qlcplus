@@ -43,11 +43,7 @@ RenderSettings
             RenderSurfaceSelector
             {
                 FrameGraphNode { id: shadowFrameGraphNode }
-
-                FrameGraphNode
-                {
-                    CameraSelector { id: sceneCameraSelector }
-                }
+                CameraSelector { id: sceneCameraSelector }
             } // RenderSurfaceSelector
         } // Viewport
 }
