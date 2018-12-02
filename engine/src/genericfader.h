@@ -40,6 +40,9 @@ public:
     GenericFader(QObject *parent = 0);
     ~GenericFader();
 
+    QString name() const;
+    void setName(QString name);
+
     int priority() const;
     void setPriority(int priority);
 
@@ -126,6 +129,7 @@ signals:
     void preWriteData(quint32 index, const QByteArray& universeData);
 
 private:
+    QString m_name;
     int m_priority;
     QHash <quint32,FadeChannel> m_channels;
     qreal m_intensity;

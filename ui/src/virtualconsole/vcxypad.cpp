@@ -369,36 +369,36 @@ void VCXYPad::writeXYFixtures(MasterTimer *timer, QList<Universe *> universes)
 {
     Q_UNUSED(timer);
 
-    if (m_area->hasPositionChanged() == true)
+    if (m_area->hasPositionChanged() == false)
+        return;
+
+    // This call also resets the m_changed flag in m_area
+    QPointF pt = m_area->position();
+
+    /* Scale XY coordinate values to 0.0 - 1.0 */
+    qreal x = SCALE(pt.x(), qreal(0), qreal(256), qreal(0), qreal(1));
+    qreal y = SCALE(pt.y(), qreal(0), qreal(256), qreal(0), qreal(1));
+
+    if (invertedAppearance())
+        y = qreal(1) - y;
+
+    /* Write values outside of mutex lock to keep UI snappy */
+    foreach (VCXYPadFixture fixture, m_fixtures)
     {
-        // This call also resets the m_changed flag in m_area
-        QPointF pt = m_area->position();
-
-        /* Scale XY coordinate values to 0.0 - 1.0 */
-        qreal x = SCALE(pt.x(), qreal(0), qreal(256), qreal(0), qreal(1));
-        qreal y = SCALE(pt.y(), qreal(0), qreal(256), qreal(0), qreal(1));
-
-        if (invertedAppearance())
-            y = qreal(1) - y;
-
-        /* Write values outside of mutex lock to keep UI snappy */
-        foreach (VCXYPadFixture fixture, m_fixtures)
+        if (fixture.isEnabled())
         {
-            if (fixture.isEnabled())
-            {
-                quint32 universe = fixture.universe();
-                if (universe == Universe::invalid())
-                    continue;
+            quint32 universe = fixture.universe();
+            if (universe == Universe::invalid())
+                continue;
 
-                GenericFader *fader = m_fadersMap.value(universe, NULL);
-                if (fader == NULL)
-                {
-                    fader = universes[universe]->requestFader();
-                    fader->adjustIntensity(intensity());
-                    m_fadersMap[universe] = fader;
-                }
-                fixture.writeDMX(x, y, fader, universes[universe]);
+            GenericFader *fader = m_fadersMap.value(universe, NULL);
+            if (fader == NULL)
+            {
+                fader = universes[universe]->requestFader();
+                fader->adjustIntensity(intensity());
+                m_fadersMap[universe] = fader;
             }
+            fixture.writeDMX(x, y, fader, universes[universe]);
         }
     }
 }

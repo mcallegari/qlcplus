@@ -997,7 +997,7 @@ void Function::preRun(MasterTimer* timer)
 {
     Q_UNUSED(timer);
 
-    qDebug() << "Function preRun. Name:" << m_name << "ID: " << m_id;
+    qDebug() << "Function preRun. Name:" << m_name << "ID:" << m_id << "type:" << typeToString(type());
     m_running = true;
 
     emit running(m_id);

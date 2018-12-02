@@ -41,6 +41,16 @@ GenericFader::~GenericFader()
 {
 }
 
+QString GenericFader::name() const
+{
+    return m_name;
+}
+
+void GenericFader::setName(QString name)
+{
+    m_name = name;
+}
+
 int GenericFader::priority() const
 {
     return m_priority;

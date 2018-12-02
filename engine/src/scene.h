@@ -232,9 +232,6 @@ public:
      *********************************************************************/
 public:
     /** @reimp */
-    void preRun(MasterTimer *timer);
-
-    /** @reimp */
     void write(MasterTimer *timer, QList<Universe*> ua);
 
     /** @reimp */

@@ -620,13 +620,6 @@ void Scene::writeDMX(MasterTimer *timer, QList<Universe *> ua)
  * Running
  ****************************************************************************/
 
-void Scene::preRun(MasterTimer *timer)
-{
-    qDebug() << "Scene preRun. ID: " << id();
-
-    Function::preRun(timer);
-}
-
 void Scene::write(MasterTimer *timer, QList<Universe*> ua)
 {
     //qDebug() << Q_FUNC_INFO << elapsed();
@@ -661,6 +654,7 @@ void Scene::write(MasterTimer *timer, QList<Universe*> ua)
                 fader = ua[universe]->requestFader();
                 fader->adjustIntensity(getAttributeValue(Intensity));
                 fader->setBlendMode(blendMode());
+                fader->setName(name());
                 m_fadersMap[universe] = fader;
             }
 

@@ -226,7 +226,7 @@ void FadeChannel::setCurrent(uchar value)
 
 uchar FadeChannel::current() const
 {
-    return m_current;
+    return uchar(m_current);
 }
 
 uchar FadeChannel::current(qreal intensity) const
@@ -295,6 +295,6 @@ uchar FadeChannel::calculateCurrent(uint fadeTime, uint elapsedTime)
         m_current += m_start;
     }
 
-    return current();
+    return uchar(m_current);
 }
 
