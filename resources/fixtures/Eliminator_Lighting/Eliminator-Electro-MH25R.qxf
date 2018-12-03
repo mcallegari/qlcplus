@@ -39,7 +39,7 @@
  <Channel Name="Gobo wheel">
   <Group Byte="0">Gobo</Group>
   <Capability Res="Others/open.svg" Min="0" Max="4">Spot</Capability>
-  <Capability Res="Others/gobo00001.png" Min="5" Max="9">Gobo 1 (Purple w/ Dots)</Capability>
+  <Capability Res="Others/gobo00001.svg" Min="5" Max="9">Gobo 1 (Purple w/ Dots)</Capability>
   <Capability Res="Others/gobo00034.png" Min="10" Max="14">Gobo 2 (Ice)</Capability>
   <Capability Res="Others/gobo00038.svg" Min="15" Max="19">Gobo 3 (Swirl)</Capability>
   <Capability Res="Others/gobo00039.svg" Min="20" Max="24">Gobo 4 (Viral)</Capability>
@@ -47,7 +47,7 @@
   <Capability Res="Others/gobo00040.svg" Min="30" Max="34">Gobo 6 (Tri Hatch)</Capability>
   <Capability Res="Others/gobo00041.svg" Min="35" Max="39">Gobo 7 (Dot Swirl)</Capability>
   <Capability Res="Others/open.svg" Min="40" Max="54">Spot</Capability>
-  <Capability Res="Others/gobo00001.png" Min="55" Max="69">Gobo 1 Shake</Capability>
+  <Capability Res="Others/gobo00001.svg" Min="55" Max="69">Gobo 1 Shake</Capability>
   <Capability Res="Others/gobo00034.png" Min="70" Max="84">Gobo 2 Shake</Capability>
   <Capability Res="Others/gobo00038.svg" Min="85" Max="99">Gobo 3 Shake</Capability>
   <Capability Res="Others/gobo00039.svg" Min="100" Max="114">Gobo 4 Shake</Capability>

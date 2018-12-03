@@ -32,7 +32,7 @@
  <Channel Name="Rotating Gobos (Continuous Rotation)">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="9">Open</Capability>
-  <Capability Res="Others/gobo00001.png" Min="10" Max="19">Rot. Gobo 1</Capability>
+  <Capability Res="Others/gobo00001.svg" Min="10" Max="19">Rot. Gobo 1</Capability>
   <Capability Res="Others/gobo00002.png" Min="20" Max="29">Rot. Gobo 2</Capability>
   <Capability Res="Others/gobo00003.png" Min="30" Max="39">Rot. Gobo 3</Capability>
   <Capability Res="Others/gobo00004.png" Min="40" Max="49">Rot. Gobo 4</Capability>
@@ -40,7 +40,7 @@
   <Capability Res="Others/gobo00006.svg" Min="60" Max="69">Rot. Gobo 6</Capability>
   <Capability Res="Others/gobo00007.svg" Min="70" Max="79">Rot. Gobo 7</Capability>
   <Capability Res="Others/gobo00008.svg" Min="80" Max="89">Rot. Gobo 8</Capability>
-  <Capability Res="Others/gobo00001.png" Min="90" Max="104">Rot. Gobo 1 Shake</Capability>
+  <Capability Res="Others/gobo00001.svg" Min="90" Max="104">Rot. Gobo 1 Shake</Capability>
   <Capability Res="Others/gobo00002.png" Min="105" Max="119">Rot. Gobo 2 Shake</Capability>
   <Capability Res="Others/gobo00003.png" Min="120" Max="134">Rot. Gobo 3 Shake</Capability>
   <Capability Res="Others/gobo00004.png" Min="135" Max="149">Rot. Gobo 4 Shake</Capability>

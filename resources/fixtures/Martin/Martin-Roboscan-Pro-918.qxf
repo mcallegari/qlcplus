@@ -120,7 +120,7 @@
  <Channel Name="Fixed Gobos">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="9">Open Gobo</Capability>
-  <Capability Res="GLP/gobo00002.png" Min="10" Max="19">Gobo 1</Capability>
+  <Capability Res="GLP/gobo00002.svg" Min="10" Max="19">Gobo 1</Capability>
   <Capability Res="ClayPaky/gobo00054.svg" Min="20" Max="29">Gobo 2</Capability>
   <Capability Res="Others/gobo00011.svg" Min="30" Max="39">Gobo 3</Capability>
   <Capability Res="ClayPaky/gobo00043.png" Min="40" Max="49">Gobo 4</Capability>
@@ -137,7 +137,7 @@
   <Capability Res="ClayPaky/gobo00043.png" Min="188" Max="204">Gobo Shake 4</Capability>
   <Capability Res="Others/gobo00011.svg" Min="205" Max="221">Gobo Shake 3</Capability>
   <Capability Res="ClayPaky/gobo00054.svg" Min="222" Max="238">Gobo Shake 2</Capability>
-  <Capability Res="GLP/gobo00002.png" Min="239" Max="255">Gobo Shake 1</Capability>
+  <Capability Res="GLP/gobo00002.svg" Min="239" Max="255">Gobo Shake 1</Capability>
  </Channel>
  <Channel Name="Focus" Preset="BeamFocusFarNear"/>
  <Channel Name="Iris">

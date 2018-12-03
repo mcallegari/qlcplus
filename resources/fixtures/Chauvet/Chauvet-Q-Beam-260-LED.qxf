@@ -32,7 +32,7 @@
   <Capability Min="0" Max="10" Preset="GoboMacro" Res1="Others/open.svg">No Gobo</Capability>
   <Capability Min="11" Max="20" Preset="GoboMacro" Res1="SGM-Color/gobo00375.svg">Gobo 1</Capability>
   <Capability Min="21" Max="30" Preset="GoboMacro" Res1="GLP/gobo00009.png">Gobo 2</Capability>
-  <Capability Min="31" Max="40" Preset="GoboMacro" Res1="GLP/gobo00002.png">Gobo 3</Capability>
+  <Capability Min="31" Max="40" Preset="GoboMacro" Res1="GLP/gobo00002.svg">Gobo 3</Capability>
   <Capability Min="41" Max="50" Preset="GoboMacro" Res1="GLP/gobo00014.svg">Gobo 4</Capability>
   <Capability Min="51" Max="60" Preset="GoboMacro" Res1="Others/gobo00027.svg">Gobo 5</Capability>
   <Capability Min="61" Max="70" Preset="GoboMacro" Res1="Robe/gobo00038.svg">Gobo 6</Capability>
@@ -41,7 +41,7 @@
   <Capability Min="96" Max="110" Preset="GoboMacro" Res1="Robe/gobo00038.svg">Shaking Gobo 6</Capability>
   <Capability Min="111" Max="125" Preset="GoboMacro" Res1="Others/gobo00027.svg">Shaking Gobo 5</Capability>
   <Capability Min="126" Max="140" Preset="GoboMacro" Res1="GLP/gobo00014.svg">Shaking Gobo 4</Capability>
-  <Capability Min="141" Max="155" Preset="GoboMacro" Res1="GLP/gobo00002.png">Shaking Gobo 3</Capability>
+  <Capability Min="141" Max="155" Preset="GoboMacro" Res1="GLP/gobo00002.svg">Shaking Gobo 3</Capability>
   <Capability Min="156" Max="170" Preset="GoboMacro" Res1="GLP/gobo00009.png">Shaking Gobo 2</Capability>
   <Capability Min="171" Max="185" Preset="GoboMacro" Res1="SGM-Color/gobo00375.svg">Shaking Gobo 1</Capability>
   <Capability Min="186" Max="255">Flow Effect</Capability>

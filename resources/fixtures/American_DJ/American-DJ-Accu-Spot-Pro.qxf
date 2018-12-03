@@ -32,13 +32,13 @@
   <Group Byte="0">Gobo</Group>
   <Capability Res="Others/open.svg" Min="0" Max="9">Open</Capability>
   <Capability Res="Others/gobo00036.svg" Min="10" Max="19">Rotating Gobo 1</Capability>
-  <Capability Res="Others/gobo00001.png" Min="20" Max="29">Rotating Gobo 2</Capability>
+  <Capability Res="Others/gobo00001.svg" Min="20" Max="29">Rotating Gobo 2</Capability>
   <Capability Res="Others/gobo00026.svg" Min="30" Max="39">Rotating Gobo 3</Capability>
   <Capability Res="Others/gobo00038.svg" Min="40" Max="49">Rotating Gobo 4</Capability>
   <Capability Res="Others/gobo00027.svg" Min="50" Max="59">Rotating Gobo 5</Capability>
   <Capability Res="Others/gobo00034.png" Min="60" Max="69">Rotating Gobo 6</Capability>
   <Capability Res="Others/gobo00036.svg" Min="70" Max="89">Gobo 1 Shake Slow - Fast</Capability>
-  <Capability Res="Others/gobo00001.png" Min="90" Max="109">Gobo 2 Shake Slow - Fast</Capability>
+  <Capability Res="Others/gobo00001.svg" Min="90" Max="109">Gobo 2 Shake Slow - Fast</Capability>
   <Capability Res="Others/gobo00026.svg" Min="110" Max="129">Gobo 3 Shake Slow - Fast</Capability>
   <Capability Res="Others/gobo00038.svg" Min="130" Max="149">Gobo 4 Shake Slow - Fast</Capability>
   <Capability Res="Others/gobo00027.svg" Min="150" Max="169">Gobo 5 Shake Slow - Fast</Capability>

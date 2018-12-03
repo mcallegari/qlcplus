@@ -68,7 +68,7 @@
   <Capability Res="Chauvet/gobo00001.svg" Min="98" Max="104">Gobo 13</Capability>
   <Capability Res="Chauvet/gobo00041.svg" Min="105" Max="112">Gobo 14</Capability>
   <Capability Res="Others/gobo00024.svg" Min="113" Max="119">Gobo 15</Capability>
-  <Capability Res="GLP/gobo00010.png" Min="120" Max="126">Gobo 16</Capability>
+  <Capability Res="GLP/gobo00010.svg" Min="120" Max="126">Gobo 16</Capability>
   <Capability Res="Chauvet/gobo00008.svg" Min="127" Max="133">Gobo 17</Capability>
   <Capability Min="134" Max="194">Clockwise Gobo Wheel Rotation From FAST to SLOW</Capability>
   <Capability Min="195" Max="255">Counterclockwise Gobo Wheel Rotation From SLOW to FAST</Capability>

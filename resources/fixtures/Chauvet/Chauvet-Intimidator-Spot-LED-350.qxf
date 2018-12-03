@@ -40,7 +40,7 @@
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
-  <Capability Min="8" Max="15" Preset="GoboMacro" Res1="Others/gobo00001.png">Gobo 1</Capability>
+  <Capability Min="8" Max="15" Preset="GoboMacro" Res1="Others/gobo00001.svg">Gobo 1</Capability>
   <Capability Min="16" Max="23" Preset="GoboMacro" Res1="Others/gobo00058.png">Gobo 2</Capability>
   <Capability Min="24" Max="31" Preset="GoboMacro" Res1="Others/gobo00038.svg">Gobo 3</Capability>
   <Capability Min="32" Max="39" Preset="GoboMacro" Res1="Others/gobo00039.svg">Gobo 4</Capability>
@@ -53,7 +53,7 @@
   <Capability Min="88" Max="95" Preset="GoboMacro" Res1="Others/gobo00039.svg">Gobo 4 shake, from slow to fast</Capability>
   <Capability Min="96" Max="103" Preset="GoboMacro" Res1="Others/gobo00038.svg">Gobo 3 shake, from slow to fast</Capability>
   <Capability Min="104" Max="111" Preset="GoboMacro" Res1="Others/gobo00058.png">Gobo 2 shake, from slow to fast</Capability>
-  <Capability Min="112" Max="119" Preset="GoboMacro" Res1="Others/gobo00001.png">Gobo 1 shake, from slow to fast</Capability>
+  <Capability Min="112" Max="119" Preset="GoboMacro" Res1="Others/gobo00001.svg">Gobo 1 shake, from slow to fast</Capability>
   <Capability Min="120" Max="127" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="128" Max="191" Preset="GoboMacro" Res1="Others/open.svg">Cycle effect with increasing speed</Capability>
   <Capability Min="192" Max="255" Preset="GoboMacro" Res1="Others/open.svg">Reverse cycle effect with increasing speed</Capability>

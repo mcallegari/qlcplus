@@ -40,20 +40,20 @@
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="7" Res="Others/open.svg">Open</Capability>
-  <Capability Min="8" Max="15" Res="Others/gobo00001.png">Gobo 1</Capability>
+  <Capability Min="8" Max="15" Res="Others/gobo00001.svg">Gobo 1</Capability>
   <Capability Min="16" Max="23" Res="Others/gobo00058.png">Gobo 2</Capability>
   <Capability Min="24" Max="31" Res="Others/gobo00038.svg">Gobo 3</Capability>
   <Capability Min="32" Max="39" Res="Others/gobo00039.svg">Gobo 4</Capability>
   <Capability Min="40" Max="47" Res="GLP/gobo00006.svg">Gobo 5</Capability>
-  <Capability Min="48" Max="55" Res="Chauvet/gobo00018.png">Gobo 6</Capability>
+  <Capability Min="48" Max="55" Res="Chauvet/gobo00018.svg">Gobo 6</Capability>
   <Capability Min="56" Max="63" Res="Others/gobo00041.svg">Gobo 7</Capability>
   <Capability Min="64" Max="71" Res="Others/gobo00041.svg">Gobo 7 shake, slow to fast</Capability>
-  <Capability Min="72" Max="79" Res="Chauvet/gobo00018.png">Gobo 6 shake, slow to fast</Capability>
+  <Capability Min="72" Max="79" Res="Chauvet/gobo00018.svg">Gobo 6 shake, slow to fast</Capability>
   <Capability Min="80" Max="87" Res="GLP/gobo00006.svg">Gobo 5 shake, slow to fast</Capability>
   <Capability Min="88" Max="95" Res="Others/gobo00039.svg">Gobo 4 shake, slow to fast</Capability>
   <Capability Min="96" Max="103" Res="Others/gobo00038.svg">Gobo 3 shake, slow to fast</Capability>
   <Capability Min="104" Max="111" Res="Others/gobo00058.png">Gobo 2 shake, slow to fast</Capability>
-  <Capability Min="112" Max="119" Res="Others/gobo00001.png">Gobo 1 shake, slow to fast</Capability>
+  <Capability Min="112" Max="119" Res="Others/gobo00001.svg">Gobo 1 shake, slow to fast</Capability>
   <Capability Min="120" Max="127" Res="Others/open.svg">Open</Capability>
   <Capability Min="128" Max="191" Res="Others/open.svg">Cycle gobos, slow to fast</Capability>
   <Capability Min="192" Max="255" Res="Others/open.svg">Reverse cycle gobos, slow to fast</Capability>

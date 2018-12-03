@@ -34,14 +34,14 @@
   <Capability Res="Others/open.svg" Min="0" Max="0">Open</Capability>
   <Capability Res="SGM/gobo00367.svg" Min="10" Max="18">Gobo 1</Capability>
   <Capability Res="ClayPaky/gobo00013.svg" Min="19" Max="27">Gobo 2</Capability>
-  <Capability Res="Chauvet/gobo00018.png" Min="28" Max="36">Gobo 3</Capability>
+  <Capability Res="Chauvet/gobo00018.svg" Min="28" Max="36">Gobo 3</Capability>
   <Capability Res="SGM/gobo00364.svg" Min="37" Max="45">Gobo 4</Capability>
   <Capability Res="SGM-Color/gobo00389.png" Min="46" Max="54">Gobo 5</Capability>
   <Capability Res="SGM-Color/gobo00402.png" Min="55" Max="63">Gobo 6</Capability>
   <Capability Res="Others/open.svg" Min="64" Max="73">Open Shake</Capability>
   <Capability Res="SGM/gobo00367.svg" Min="74" Max="82">Gobo 1 Shake</Capability>
   <Capability Res="ClayPaky/gobo00013.svg" Min="83" Max="91">Gobo 2 Shake</Capability>
-  <Capability Res="Chauvet/gobo00018.png" Min="92" Max="100">Gobo 3 Shake</Capability>
+  <Capability Res="Chauvet/gobo00018.svg" Min="92" Max="100">Gobo 3 Shake</Capability>
   <Capability Res="SGM/gobo00364.svg" Min="101" Max="109">Gobo 4 Shake</Capability>
   <Capability Res="SGM-Color/gobo00389.png" Min="110" Max="118">Gobo 5 Shake</Capability>
   <Capability Res="SGM-Color/gobo00402.png" Min="119" Max="127">Gobo 6 Shake</Capability>

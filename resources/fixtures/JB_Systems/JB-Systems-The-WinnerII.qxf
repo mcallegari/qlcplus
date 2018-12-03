@@ -25,7 +25,7 @@
   <Capability Min="32" Max="32" Res="Robe/gobo00025.svg">3 - Circle outline</Capability>
   <Capability Min="40" Max="40" Res="Robe/gobo00035.svg">4 - Circle dotted outline</Capability>
   <Capability Min="48" Max="48" Res="SGM/gobo00050.png">5 - Sunrise</Capability>
-  <Capability Min="56" Max="56" Res="GLP/gobo00004.png">6 - Circle zoom</Capability>
+  <Capability Min="56" Max="56" Res="GLP/gobo00004.svg">6 - Circle zoom</Capability>
   <Capability Min="64" Max="64" Res="Chauvet/gobo00047.svg">7 - Four circles</Capability>
   <Capability Min="72" Max="72" Res="SGM/gobo00249.png">8 - Hand</Capability>
   <Capability Min="80" Max="80" Res="ClayPaky/gobo00044.png">10 - Circle woods texture</Capability>
