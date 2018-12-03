@@ -19,7 +19,7 @@
   <Capability Min="50" Max="59" Res="SGM/gobo00017.svg">Four-Colour Square</Capability>
   <Capability Min="60" Max="69" Res="SGM/gobo00004.svg">Yellow Circle Ring</Capability>
   <Capability Min="70" Max="79" Res="SGM/gobo00083.svg">Green Flowers</Capability>
-  <Capability Min="80" Max="89" Res="GLP/gobo00002.png">Blue &amp; Purple Arc</Capability>
+  <Capability Min="80" Max="89" Res="GLP/gobo00002.svg">Blue &amp; Purple Arc</Capability>
   <Capability Min="90" Max="99" Res="SGM/gobo00181.svg">Purple Hearts</Capability>
   <Capability Min="100" Max="109" Res="SGM/gobo00128.png">Blue Stars</Capability>
   <Capability Min="110" Max="119" Res="SGM/gobo00100.svg">White Clouds</Capability>
