@@ -37,8 +37,8 @@
   <Capability Res="Others/gobo00062.svg" Min="40" Max="49">Gobo 4</Capability>
   <Capability Res="ClayPaky/gobo00012.svg" Min="50" Max="59">Gobo 5</Capability>
   <Capability Res="Others/gobo00063.png" Min="60" Max="69">Gobo 6</Capability>
-  <Capability Res="Others/gobo00001.png" Min="70" Max="79">Gobo 7</Capability>
-  <Capability Res="Others/gobo00001.png" Min="80" Max="99">Shaking Gobo 7</Capability>
+  <Capability Res="Others/gobo00001.svg" Min="70" Max="79">Gobo 7</Capability>
+  <Capability Res="Others/gobo00001.svg" Min="80" Max="99">Shaking Gobo 7</Capability>
   <Capability Res="Others/gobo00063.png" Min="100" Max="119">Shaking Gobo 6</Capability>
   <Capability Res="ClayPaky/gobo00012.svg" Min="120" Max="139">Shaking Gobo 5</Capability>
   <Capability Res="Others/gobo00062.svg" Min="140" Max="159">Shaking Gobo 4</Capability>
