@@ -173,7 +173,7 @@
  <Channel Name="Fixed Gobo (14/16 Channel)">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="5" Res="Others/open.svg">Position 1 (open) - indexed</Capability>
-  <Capability Min="6" Max="11" Res="Chauvet/gobo00018.png">Position 2 - indexed</Capability>
+  <Capability Min="6" Max="11" Res="Chauvet/gobo00018.svg">Position 2 - indexed</Capability>
   <Capability Min="12" Max="17" Res="Robe/gobo00039.png">Position 3 - indexed</Capability>
   <Capability Min="18" Max="23" Res="SGM/gobo00002.svg">Position 4 - indexed</Capability>
   <Capability Min="24" Max="29" Res="Robe/gobo00044.png">Position 5 - indexed</Capability>
@@ -181,14 +181,14 @@
   <Capability Min="36" Max="41" Res="SGM/gobo00012.png">Position 7 - indexed</Capability>
   <Capability Min="42" Max="47" Res="Chauvet/gobo00034.svg">Position 8 - indexed</Capability>
   <Capability Min="48" Max="53" Res="Others/open.svg">Position 1 (open) - indexed with backout</Capability>
-  <Capability Min="54" Max="59" Res="Chauvet/gobo00018.png">Position 2 - indexed with backout</Capability>
+  <Capability Min="54" Max="59" Res="Chauvet/gobo00018.svg">Position 2 - indexed with backout</Capability>
   <Capability Min="60" Max="65" Res="Robe/gobo00039.png">Position 3 - indexed with backout</Capability>
   <Capability Min="66" Max="71" Res="SGM/gobo00002.svg">Position 4 - indexed with backout</Capability>
   <Capability Min="72" Max="77" Res="Robe/gobo00044.png">Position 5 - indexed with backout</Capability>
   <Capability Min="78" Max="83" Res="Robe/gobo00040.png">Position 6 - indexed with backout</Capability>
   <Capability Min="84" Max="89" Res="SGM/gobo00012.png">Position 7 - indexed with backout</Capability>
   <Capability Min="90" Max="97" Res="Chauvet/gobo00034.svg">Position 8 - indexed with backout</Capability>
-  <Capability Min="98" Max="115" Res="Chauvet/gobo00018.png">Position 2 - indexed with shake</Capability>
+  <Capability Min="98" Max="115" Res="Chauvet/gobo00018.svg">Position 2 - indexed with shake</Capability>
   <Capability Min="116" Max="133" Res="Robe/gobo00039.png">Position 3 - indexed with shake</Capability>
   <Capability Min="134" Max="151" Res="SGM/gobo00002.svg">Position 4 - indexed with shake</Capability>
   <Capability Min="152" Max="169" Res="Robe/gobo00044.png">Position 5 - indexed with shake</Capability>

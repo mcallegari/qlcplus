@@ -26,7 +26,7 @@
   <Capability Min="24" Max="34" Preset="GoboMacro" Res1="Others/gobo00002.png">Blue</Capability>
   <Capability Min="35" Max="46" Preset="GoboMacro" Res1="Chauvet/gobo00037.svg">Blue+Red+Green</Capability>
   <Capability Min="47" Max="58" Preset="GoboMacro" Res1="Chauvet/gobo00045.svg">Green</Capability>
-  <Capability Min="59" Max="69" Preset="GoboMacro" Res1="Chauvet/gobo00018.png">Pink</Capability>
+  <Capability Min="59" Max="69" Preset="GoboMacro" Res1="Chauvet/gobo00018.svg">Pink</Capability>
   <Capability Min="70" Max="81" Preset="GoboMacro" Res1="Others/gobo00044.svg">Red+Yellow+Green+Blue</Capability>
   <Capability Min="82" Max="93" Preset="GoboMacro" Res1="SGM/gobo00007.png">Magenta</Capability>
   <Capability Min="94" Max="104" Preset="GoboMacro" Res1="Others/gobo00042.svg">Red</Capability>
