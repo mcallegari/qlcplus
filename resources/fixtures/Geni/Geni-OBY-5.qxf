@@ -66,7 +66,7 @@
   <Capability Min="48" Max="63" Res="Robe/gobo00065.svg">Gobo 4</Capability>
   <Capability Min="64" Max="79" Res="Robe/gobo00013.svg">Gobo 5</Capability>
   <Capability Min="80" Max="95" Res="Robe/gobo00010.png">Gobo 6</Capability>
-  <Capability Min="96" Max="111" Res="GLP/gobo00020.png">Gobo 7</Capability>
+  <Capability Min="96" Max="111" Res="GLP/gobo00020.svg">Gobo 7</Capability>
   <Capability Min="112" Max="127" Res="ClayPaky/gobo00058.svg">Gobo 8</Capability>
   <Capability Min="128" Max="143" Res="ClayPaky/gobo00039.png">Gobo 9</Capability>
   <Capability Min="144" Max="159" Res="SGM/gobo00127.png">Gobo 10</Capability>
