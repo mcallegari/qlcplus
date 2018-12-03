@@ -47,12 +47,12 @@
   <Capability Min="16" Max="23" Res="SGM/gobo00301.png">Gobo 3</Capability>
   <Capability Min="24" Max="31" Res="SGM/gobo00035.png">Gobo 4</Capability>
   <Capability Min="32" Max="39" Res="SGM/gobo00002.svg">Gobo 5</Capability>
-  <Capability Min="40" Max="47" Res="GLP/gobo00010.png">Gobo 6</Capability>
+  <Capability Min="40" Max="47" Res="GLP/gobo00010.svg">Gobo 6</Capability>
   <Capability Min="48" Max="55" Res="SGM/gobo00268.png">Gobo 7</Capability>
   <Capability Min="56" Max="63" Res="Chauvet/gobo00048.svg">Gobo 8</Capability>
   <Capability Min="64" Max="71" Res="Chauvet/gobo00048.svg">Gobo 8 shake (speed)</Capability>
   <Capability Min="72" Max="79" Res="SGM/gobo00268.png">Gobo 7 shake (speed)</Capability>
-  <Capability Min="80" Max="87" Res="GLP/gobo00010.png">Gobo 6 shake (speed)</Capability>
+  <Capability Min="80" Max="87" Res="GLP/gobo00010.svg">Gobo 6 shake (speed)</Capability>
   <Capability Min="88" Max="95" Res="SGM/gobo00002.svg">Gobo 5 shake (speed)</Capability>
   <Capability Min="96" Max="103" Res="SGM/gobo00035.png">Gobo 4 shake (speed)</Capability>
   <Capability Min="104" Max="111" Res="SGM/gobo00301.png">Gobo 3 shake (speed)</Capability>
