@@ -66,6 +66,7 @@ void EFXFixture::copyFrom(const EFXFixture* ef)
     // Don't copy m_parent because it is already assigned in constructor and might
     // be different than $ef's
     m_head = ef->m_head;
+    m_universe = ef->m_universe;
     m_direction = ef->m_direction;
     m_startOffset = ef->m_startOffset;
     m_mode = ef->m_mode;
