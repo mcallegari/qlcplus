@@ -611,7 +611,7 @@ void Scene::writeDMX(MasterTimer *timer, QList<Universe *> ua)
     }
     else
     {
-        dismissAllFaders(ua);
+        dismissAllFaders();
         timer->unregisterDMXSource(this);
     }
 }
@@ -721,7 +721,7 @@ void Scene::postRun(MasterTimer* timer, QList<Universe *> ua)
      * when done */
     if (fadeout == 0)
     {
-        dismissAllFaders(ua);
+        dismissAllFaders();
     }
     else
     {

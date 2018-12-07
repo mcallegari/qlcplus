@@ -697,7 +697,7 @@ protected:
     /** Helper method to dismiss all the faders previously added to
      *  m_fadersMap. This is usually called on Function postRun when
      *  no fade out is requested */
-    virtual void dismissAllFaders(QList<Universe *> universes);
+    virtual void dismissAllFaders();
 
 signals:
     /**

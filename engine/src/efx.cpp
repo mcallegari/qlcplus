@@ -1101,7 +1101,7 @@ void EFX::postRun(MasterTimer *timer, QList<Universe *> universes)
         ef->reset();
     }
 
-    dismissAllFaders(universes);
+    dismissAllFaders();
 
     Function::postRun(timer, universes);
 }

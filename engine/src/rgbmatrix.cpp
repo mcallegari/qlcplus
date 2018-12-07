@@ -619,7 +619,7 @@ void RGBMatrix::postRun(MasterTimer *timer, QList<Universe *> universes)
      * when done */
     if (fadeout == 0)
     {
-        dismissAllFaders(universes);
+        dismissAllFaders();
     }
     else
     {
@@ -667,6 +667,7 @@ FadeChannel *RGBMatrix::getFader(QList<Universe *> universes, quint32 universeID
         fader = universes[universeID]->requestFader();
         fader->adjustIntensity(getAttributeValue(Intensity));
         fader->setBlendMode(blendMode());
+        fader->setName(name());
         m_fadersMap[universeID] = fader;
     }
 

@@ -367,7 +367,7 @@ void Script::postRun(MasterTimer *timer, QList<Universe *> universes)
 
     m_startedFunctions.clear();
 
-    dismissAllFaders(universes);
+    dismissAllFaders();
 
     Function::postRun(timer, universes);
 }
