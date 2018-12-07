@@ -31,9 +31,7 @@
 #include "stageprofi.h"
 #include "vinceusbdmx512.h"
 
-#define DEFAULT_OUTPUT_FREQUENCY    44  // 44 Hertz, according to the DMX specs
-
-DMXUSBWidget::DMXUSBWidget(DMXInterface *interface, quint32 outputLine)
+DMXUSBWidget::DMXUSBWidget(DMXInterface *interface, quint32 outputLine, int frequency)
     : m_interface(interface)
     , m_outputBaseLine(outputLine)
     , m_inputBaseLine(0)
@@ -44,7 +42,7 @@ DMXUSBWidget::DMXUSBWidget(DMXInterface *interface, quint32 outputLine)
     if (freqMap.contains(m_interface->serial()))
         setOutputFrequency(freqMap[m_interface->serial()].toInt());
     else
-        setOutputFrequency(DEFAULT_OUTPUT_FREQUENCY);
+        setOutputFrequency(frequency);
 
     setOutputsNumber(1);
     setInputsNumber(0);
@@ -397,7 +395,7 @@ void DMXUSBWidget::setOutputFrequency(int frequency)
 {
     m_frequency = frequency;
     // One "official" DMX frame can take (1s/44Hz) = 23ms
-    m_frameTimeUs = (int) (floor(((double)1000 / m_frequency) + (double)0.5)) * 1000;
+    m_frameTimeUs = int((floor((1000.0 / double(m_frequency)) + 0.5)) * 1000.0);
 }
 
 /********************************************************************

@@ -23,7 +23,7 @@
 #include <QDebug>
 
 Stageprofi::Stageprofi(DMXInterface *interface, quint32 outputLine)
-    : DMXUSBWidget(interface, outputLine)
+    : DMXUSBWidget(interface, outputLine, DEFAULT_OUTPUT_FREQUENCY)
     , m_running(false)
 {
 }

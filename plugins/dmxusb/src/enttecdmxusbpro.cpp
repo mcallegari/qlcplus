@@ -27,7 +27,7 @@
 
 EnttecDMXUSBPro::EnttecDMXUSBPro(DMXInterface *interface, quint32 outputLine, quint32 inputLine)
     : QThread(NULL)
-    , DMXUSBWidget(interface, outputLine)
+    , DMXUSBWidget(interface, outputLine, DEFAULT_OUTPUT_FREQUENCY)
     , m_dmxKingMode(false)
     , m_inputThread(NULL)
     , m_outputRunning(false)

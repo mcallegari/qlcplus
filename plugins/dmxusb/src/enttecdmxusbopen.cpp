@@ -29,6 +29,7 @@
 #define DMX_MAB 16
 #define DMX_BREAK 110
 #define DMX_CHANNELS 512
+#define DEFAULT_OPEN_DMX_FREQUENCY    30  // crap
 #define SETTINGS_CHANNELS "enttecdmxusbopen/channels"
 
 /****************************************************************************
@@ -38,7 +39,7 @@
 EnttecDMXUSBOpen::EnttecDMXUSBOpen(DMXInterface *interface,
                                    quint32 outputLine, QObject* parent)
     : QThread(parent)
-    , DMXUSBWidget(interface, outputLine)
+    , DMXUSBWidget(interface, outputLine, DEFAULT_OPEN_DMX_FREQUENCY)
     , m_running(false)
     , m_granularity(Unknown)
 {
@@ -208,7 +209,7 @@ void EnttecDMXUSBOpen::run()
 framesleep:
         // Sleep for the remainder of the DMX frame time
         // and set granularity accordingly
-        int timetoSleep = m_frameTimeUs - (timer.nsecsElapsed() / 1000);
+        long timetoSleep = m_frameTimeUs - (timer.nsecsElapsed() / 1000);
         if (timetoSleep < 0)
         {
             qWarning() << "DMX output is running late !";
