@@ -283,6 +283,7 @@ uchar FadeChannel::calculateCurrent(uint fadeTime, uint elapsedTime)
         // Return the target value if all time has been consumed
         // or if the channel has been marked ready.
         m_current = m_target;
+        setReady(true);
     }
     else if (elapsedTime == 0)
     {

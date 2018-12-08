@@ -171,19 +171,22 @@ void GenericFader::write(Universe *universe)
         else
             universe->writeBlended(address, value, m_blendMode);
 
-        if ((channelType & FadeChannel::Intensity) &&
+        if (((channelType & FadeChannel::Intensity) &&
             (channelType & FadeChannel::HTP) &&
-            m_blendMode == Universe::NormalBlend)
+            m_blendMode == Universe::NormalBlend) || m_fadeOut)
         {
-            // Remove all HTP channels that reach their target _zero_ value.
+            // Remove all channels that reach their target _zero_ value.
             // They have no effect either way so removing them saves a bit of CPU.
-            if (fc.current() == 0 && fc.target() == 0)
+            if (fc.current() == 0 && fc.target() == 0 && fc.isReady())
             {
                 it.remove();
                 continue;
             }
         }
     }
+
+    if (m_fadeOut && channelsCount() == 0)
+        requestDelete();
 }
 
 qreal GenericFader::intensity() const
@@ -231,24 +234,16 @@ void GenericFader::setFadeOut(bool enable, uint fadeTime)
         while (it.hasNext() == true)
         {
             FadeChannel& fc(it.next().value());
-            int channelType = fc.type();
+            //int channelType = fc.type();
 
-            if ((channelType & FadeChannel::Intensity) == 0)
-                continue;
+            //if ((channelType & FadeChannel::Intensity) == 0)
+            //    continue;
 
             fc.setStart(fc.current());
+            fc.setTarget(0);
             fc.setElapsed(0);
             fc.setReady(false);
-
-            if (fc.canFade() == false)
-            {
-                fc.setFadeTime(0);
-            }
-            else
-            {
-                fc.setFadeTime(fadeTime);
-                fc.setTarget(0);
-            }
+            fc.setFadeTime(fc.canFade() ? fadeTime : 0);
         }
     }
 }

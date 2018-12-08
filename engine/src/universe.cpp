@@ -293,6 +293,7 @@ void Universe::processFaders()
         if (fader->isEnabled() == false)
             continue;
 
+        //qDebug() << "Processing fader" << fader->name();
         fader->write(this);
     }
 

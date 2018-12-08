@@ -690,20 +690,6 @@ void Scene::write(MasterTimer *timer, QList<Universe*> ua)
         }
     }
 
-    // check if all channels reached their target
-    // e.g. this happens when all channels are LTP
-    bool needToStop = true;
-    foreach (GenericFader *f, m_fadersMap.values())
-    {
-        if (f->channelsCount())
-        {
-            needToStop = false;
-            break;
-        }
-    }
-    if (needToStop)
-        stop(FunctionParent::master());
-
     if (isPaused() == false)
     {
         incrementElapsed();
