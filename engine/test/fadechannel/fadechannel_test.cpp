@@ -343,12 +343,14 @@ void FadeChannel_Test::calculateCurrent()
     // Simple reverse: 255 ticks to fade from 255 to 0
     fch.setStart(255);
     fch.setTarget(0);
+    fch.setReady(false);
     for (uint time = 0; time <= 255; time++)
         QCOMPARE(fch.calculateCurrent(255, time), uchar(255 - time));
 
     // A bit more complex involving decimals that don't produce round integers
     fch.setStart(13);
     fch.setTarget(147);
+    fch.setReady(false);
     QCOMPARE(fch.calculateCurrent(13, 0), uchar(13));
     QCOMPARE(fch.calculateCurrent(13, 1), uchar(23));
     QCOMPARE(fch.calculateCurrent(13, 2), uchar(33));
@@ -367,6 +369,7 @@ void FadeChannel_Test::calculateCurrent()
     // One more to check slower operation (200 ticks for 144 steps)
     fch.setStart(245);
     fch.setTarget(101);
+    fch.setReady(false);
     QCOMPARE(fch.calculateCurrent(200, 0), uchar(245));
     QCOMPARE(fch.calculateCurrent(200, 1), uchar(245));
     QCOMPARE(fch.calculateCurrent(200, 2), uchar(244));
