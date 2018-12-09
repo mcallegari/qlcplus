@@ -373,7 +373,7 @@ public:
     /** Set the widget intensity value. This is mostly used by submasters */
     virtual void adjustIntensity(qreal val);
 
-    virtual qreal intensity();
+    virtual qreal intensity() const;
 
 private:
     qreal m_intensity;

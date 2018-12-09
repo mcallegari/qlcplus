@@ -678,13 +678,7 @@ int Chaser::adjustAttribute(qreal fraction, int attributeId)
         QMutexLocker runnerLocker(&m_runnerMutex);
         QMutexLocker stepListLocker(&m_stepListMutex);
         if (m_runner != NULL)
-        {
             m_runner->adjustStepIntensity(getAttributeValue(Function::Intensity));
-        }
-        else
-        {
-            m_startupAction.m_intensity = getAttributeValue(Intensity);
-        }
     }
 
     return attrIndex;

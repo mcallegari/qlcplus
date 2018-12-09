@@ -572,7 +572,8 @@ qreal VCCueList::getPrimaryIntensity() const
         value = 1.0;
     else
         value = (qreal)((m_primaryLeft ? m_slider1 : m_slider2)->value()) / 100;
-    return value;
+
+    return value * intensity();
 }
 
 void VCCueList::notifyFunctionStarting(quint32 fid, qreal intensity)
@@ -988,6 +989,8 @@ void VCCueList::startChaser(int startIndex)
     if (ch == NULL)
         return;
 
+    adjustFunctionIntensity(ch, intensity());
+
     ChaserAction action;
     action.m_action = ChaserSetStepIndex;
     action.m_stepIndex = startIndex;
@@ -995,7 +998,6 @@ void VCCueList::startChaser(int startIndex)
     action.m_fadeMode = getFadeMode();
     ch->setAction(action);
 
-    adjustFunctionIntensity(ch, intensity());
     ch->start(m_doc->masterTimer(), functionParent());
     emit functionStarting(m_chaserID);
 }
