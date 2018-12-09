@@ -152,6 +152,7 @@ void GenericFader::write(Universe *universe)
         int channelType = fc.type();
         int address = int(fc.addressInUniverse());
         uchar value;
+        Universe::BlendMode blendMode = m_blendMode;
 
         // Calculate the next step
         if (m_paused)
@@ -163,17 +164,21 @@ void GenericFader::write(Universe *universe)
         if ((channelType & FadeChannel::Intensity) && fc.canFade())
             value = fc.current(intensity());
 
+        // LTP non intensity channels must use normal blending
+        if ((channelType & FadeChannel::LTP) && (channelType & FadeChannel::Intensity) == 0)
+            blendMode = Universe::NormalBlend;
+
         //qDebug() << "[GenericFader] >>> uni:" << universe->id() << ", address:" << address << ", value:" << value;
         if (channelType & FadeChannel::Override)
             universe->write(address, value, true);
         else if (channelType & FadeChannel::Relative)
             universe->writeRelative(address, value);
         else
-            universe->writeBlended(address, value, m_blendMode);
+            universe->writeBlended(address, value, blendMode);
 
         if (((channelType & FadeChannel::Intensity) &&
             (channelType & FadeChannel::HTP) &&
-            m_blendMode == Universe::NormalBlend) || m_fadeOut)
+            blendMode == Universe::NormalBlend) || m_fadeOut)
         {
             // Remove all channels that reach their target _zero_ value.
             // They have no effect either way so removing them saves a bit of CPU.
@@ -234,9 +239,8 @@ void GenericFader::setFadeOut(bool enable, uint fadeTime)
         while (it.hasNext() == true)
         {
             FadeChannel& fc(it.next().value());
-            int channelType = fc.type();
 
-            if ((channelType & FadeChannel::Intensity) == 0)
+            if ((fc.type() & FadeChannel::Intensity) == 0)
                 continue;
 
             fc.setStart(fc.current());

@@ -660,7 +660,10 @@ void Scene::write(MasterTimer *timer, QList<Universe*> ua)
 
             FadeChannel *fc = fader->getChannelFader(doc(), ua[universe], scv.fxi, scv.channel);
 
-            if (blendMode() != Universe::NormalBlend)
+            // when blend mode is not normal (e.g. additive) perform a full
+            // from-0 fade only on intensity channels and let LTP channels
+            // fade from the current universe value to their target
+            if (blendMode() != Universe::NormalBlend && (fc->type() & FadeChannel::Intensity))
                 fc->setCurrent(0);
 
             qDebug() << "Scene" << name() << "add channel" << scv.channel << "from" << fc->current() << "to" << scv.value;

@@ -1020,7 +1020,8 @@ int VCCueList::getFadeMode()
     qreal primary = qreal(((m_primaryLeft ? m_slider1 : m_slider2)->value())) / 100;
     qreal secondary = qreal(((m_primaryLeft ? m_slider2 : m_slider1)->value())) / 100;
 
-    if (primary != 1.0 && secondary != 0.0)
+    if ( (primary != 1.0 && secondary != 0.0) ||
+        ((primary != 1.0 || secondary != 0.0) && m_linkCheck->isChecked()))
         return m_blendCheck->isChecked() ? Chaser::BlendedCrossfade : Chaser::Crossfade;
 
     return m_blendCheck->isChecked() ? Chaser::Blended : Chaser::FromFunction;
