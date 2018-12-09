@@ -160,11 +160,24 @@ void GenericFader::write(Universe *universe)
         else
             value = fc.nextStep(MasterTimer::tick());
 
-        // Apply intensity to HTP channels
-        if ((channelType & FadeChannel::Intensity) && fc.canFade())
-            value = fc.current(intensity());
+        // Apply intensity to channels that can fade
+        if (fc.canFade())
+        {
+            if (channelType & FadeChannel::Intensity)
+            {
+                value = fc.current(intensity());
+            }
+            else if (blendMode != Universe::NormalBlend &&
+                     fc.fadeTime() == 0 && (channelType & FadeChannel::LTP))
+            {
+                // this translates into: LTP + crossfade.
+                // Value is proportional between start and target, depending on intensity
+                value = uchar((qreal(fc.target() - fc.start()) * intensity()) + fc.start());
+            }
+        }
 
-        // LTP non intensity channels must use normal blending
+        // LTP non intensity channels must use normal blending, otherwise they
+        // will be added up in case of additive blending
         if ((channelType & FadeChannel::LTP) && (channelType & FadeChannel::Intensity) == 0)
             blendMode = Universe::NormalBlend;
 

@@ -206,7 +206,7 @@ void FadeChannel::setStart(uchar value)
 
 uchar FadeChannel::start() const
 {
-    return m_start;
+    return uchar(m_start);
 }
 
 void FadeChannel::setTarget(uchar value)
@@ -216,7 +216,7 @@ void FadeChannel::setTarget(uchar value)
 
 uchar FadeChannel::target() const
 {
-    return m_target;
+    return uchar(m_target);
 }
 
 void FadeChannel::setCurrent(uchar value)
