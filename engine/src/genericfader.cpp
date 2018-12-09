@@ -234,10 +234,10 @@ void GenericFader::setFadeOut(bool enable, uint fadeTime)
         while (it.hasNext() == true)
         {
             FadeChannel& fc(it.next().value());
-            //int channelType = fc.type();
+            int channelType = fc.type();
 
-            //if ((channelType & FadeChannel::Intensity) == 0)
-            //    continue;
+            if ((channelType & FadeChannel::Intensity) == 0)
+                continue;
 
             fc.setStart(fc.current());
             fc.setTarget(0);
