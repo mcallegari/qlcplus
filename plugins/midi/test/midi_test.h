@@ -24,10 +24,39 @@
 
 class Midi_Test : public QObject
 {
-    Q_OBJECT
+  Q_OBJECT
+
+public:
+
+  static inline
+    uchar midi7b_to_dmx( int in )
+    { return in >= 127 ? 255 : in * 2; }
+  static inline
+    uchar midi14b_to_dmx( int in )
+    { return in >> 6; }
+
+  static const quint32 OmniChannelOffset = 1 << 12;
+
+  inline static
+    quint32 midiChannel_to_qlcChannel(uchar midi, uchar qlc, quint32 offset)
+    { return offset + (qlc == 16 ? midi * OmniChannelOffset : 0); }
+
+  inline static
+    int midiChannel_to_qlcValue(uchar midi, uchar qlc, uchar value)
+    { return (qlc == 16 || qlc == midi) ? value : -1; }
 
 private slots:
-    void midiToInput();
+
+  // Tests of data bytes conversion
+  void midiToInput_data();
+  void midiToInput();
+
+  // Tests of MIDI Channel filtering
+  void midiToInput_midiChannels_data();
+  void midiToInput_midiChannels();
+
+  // TODO Tests of System Common Messages
+
 };
 
 #endif

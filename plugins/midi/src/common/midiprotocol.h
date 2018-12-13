@@ -101,6 +101,8 @@ namespace QLCMIDIProtocol
 
 /****************************************************************************
  * MIDI commands with a MIDI channel (0-16)
+ *
+ * See https://www.midi.org/specifications-old/item/table-1-summary-of-midi-message
  ****************************************************************************/
 #define MIDI_NOTE_OFF           0x80
 #define MIDI_NOTE_ON            0x90
@@ -137,8 +139,6 @@ namespace QLCMIDIProtocol
 #define CHANNEL_OFFSET_NOTE_AFTERTOUCH_MAX 383
 
 #define CHANNEL_OFFSET_PROGRAM_CHANGE      384
-#define CHANNEL_OFFSET_PROGRAM_CHANGE_MAX  511
-
 #define CHANNEL_OFFSET_CHANNEL_AFTERTOUCH  512
 #define CHANNEL_OFFSET_PITCH_WHEEL         513
 
