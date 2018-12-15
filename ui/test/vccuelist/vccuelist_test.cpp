@@ -445,6 +445,7 @@ void VCCueList_Test::saveXML()
     cl.setPreviousKeySequence(QKeySequence(keySequenceA));
     cl.setPlaybackKeySequence(QKeySequence(keySequenceC));
     cl.setStopKeySequence(QKeySequence(keySequenceD));
+    cl.setSideFaderMode(VCCueList::Crossfade);
 
     QBuffer buffer;
     buffer.open(QIODevice::WriteOnly | QIODevice::Text);

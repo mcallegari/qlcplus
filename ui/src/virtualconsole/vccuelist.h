@@ -81,8 +81,7 @@ public:
     static const quint8 previousInputSourceId;
     static const quint8 playbackInputSourceId;
     static const quint8 stopInputSourceId;
-    static const quint8 cf1InputSourceId;
-    static const quint8 cf2InputSourceId;
+    static const quint8 sideFaderInputSourceId;
 
     /*************************************************************************
      * Initialization
@@ -262,45 +261,40 @@ private:
      * Crossfade
      *************************************************************************/
 public:
-    enum SlidersMode
+    enum FaderMode
     {
-        Crossfade = 0,
+        None = 0,
+        Crossfade,
         Steps
     };
 
-    SlidersMode slidersMode() const;
-    void setSlidersMode(SlidersMode mode);
+    FaderMode sideFaderMode() const;
+    void setSideFaderMode(FaderMode mode);
 
-    SlidersMode stringToSlidersMode(QString modeStr);
-    QString slidersModeToString(SlidersMode mode);
+    FaderMode stringToFaderMode(QString modeStr);
+    QString faderModeToString(FaderMode mode);
 
 protected:
-    void setSlidersInfo(int index);
+    void setFaderInfo(int index);
 
 protected slots:
     void slotShowCrossfadePanel(bool enable);
-    void slotBlendedCrossfadeChecked(bool checked);
-    void slotSlider1ValueChanged(int value);
-    void slotSlider2ValueChanged(int value);
+    void slotSideFaderValueChanged(int value);
 
 protected:
     void stopStepIfNeeded(Chaser *ch);
 
 private:
-    QCheckBox *m_blendCheck;
-    QCheckBox *m_linkCheck;
-    QLabel *m_sl1TopLabel;
-    ClickAndGoSlider *m_slider1;
-    QLabel *m_sl1BottomLabel;
-
-    QLabel *m_sl2TopLabel;
-    ClickAndGoSlider *m_slider2;
-    QLabel *m_sl2BottomLabel;
+    QLabel *m_topPercentageLabel;
+    QLabel *m_topStepLabel;
+    ClickAndGoSlider *m_sideFader;
+    QLabel *m_bottomPercentageLabel;
+    QLabel *m_bottomStepLabel;
 
     QBrush m_defCol;
     int m_primaryIndex, m_secondaryIndex;
-    bool m_primaryLeft;
-    SlidersMode m_slidersMode;
+    bool m_primaryTop;
+    FaderMode m_slidersMode;
 
     /*************************************************************************
      * Key sequences

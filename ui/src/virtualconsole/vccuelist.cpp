@@ -69,9 +69,8 @@
 const quint8 VCCueList::nextInputSourceId = 0;
 const quint8 VCCueList::previousInputSourceId = 1;
 const quint8 VCCueList::playbackInputSourceId = 2;
-const quint8 VCCueList::cf1InputSourceId = 3;
-const quint8 VCCueList::cf2InputSourceId = 4;
-const quint8 VCCueList::stopInputSourceId = 5;
+const quint8 VCCueList::sideFaderInputSourceId = 3;
+const quint8 VCCueList::stopInputSourceId = 4;
 
 const QString progressDisabledStyle =
         "QProgressBar { border: 2px solid #C3C3C3; border-radius: 4px; background-color: #DCDCDC; }";
@@ -96,8 +95,8 @@ VCCueList::VCCueList(QWidget *parent, Doc *doc) : VCWidget(parent, doc)
     , m_timer(NULL)
     , m_primaryIndex(0)
     , m_secondaryIndex(0)
-    , m_primaryLeft(true)
-    , m_slidersMode(Crossfade)
+    , m_primaryTop(true)
+    , m_slidersMode(None)
 {
     /* Set the class name "VCCueList" as the object name as well */
     setObjectName(VCCueList::staticMetaObject.className());
@@ -106,52 +105,39 @@ VCCueList::VCCueList(QWidget *parent, Doc *doc) : VCWidget(parent, doc)
     QGridLayout *grid = new QGridLayout(this);
     grid->setSpacing(2);
 
-    m_blendCheck = new QCheckBox(tr("Blend"));
-    grid->addWidget(m_blendCheck, 0, 0, 1, 2, Qt::AlignVCenter | Qt::AlignLeft);
-    connect(m_blendCheck, SIGNAL(clicked(bool)),
-            this, SLOT(slotBlendedCrossfadeChecked(bool)));
-
-    m_linkCheck = new QCheckBox(tr("Link"));
-    grid->addWidget(m_linkCheck, 1, 0, 1, 2, Qt::AlignVCenter | Qt::AlignLeft);
-
     QFontMetrics m_fm = QFontMetrics(this->font());
 
-    m_sl1TopLabel = new QLabel("100%");
-    m_sl1TopLabel->setAlignment(Qt::AlignHCenter);
-    m_sl1TopLabel->setFixedWidth(m_fm.width("100%"));
-    grid->addWidget(m_sl1TopLabel, 2, 0, 1, 1);
-    m_slider1 = new ClickAndGoSlider();
-    m_slider1->setSliderStyleSheet(CNG_DEFAULT_STYLE);
-    m_slider1->setFixedWidth(32);
-    m_slider1->setRange(0, 100);
-    m_slider1->setValue(100);
-    grid->addWidget(m_slider1, 3, 0, 1, 1);
-    m_sl1BottomLabel = new QLabel("");
-    m_sl1BottomLabel->setStyleSheet(cfLabelNoStyle);
-    m_sl1BottomLabel->setAlignment(Qt::AlignCenter);
-    m_sl1BottomLabel->setFixedSize(32, 24);
-    grid->addWidget(m_sl1BottomLabel, 4, 0, 1, 1);
-    connect(m_slider1, SIGNAL(valueChanged(int)),
-            this, SLOT(slotSlider1ValueChanged(int)));
+    m_topPercentageLabel = new QLabel("100%");
+    m_topPercentageLabel->setAlignment(Qt::AlignHCenter);
+    m_topPercentageLabel->setFixedWidth(m_fm.width("100%"));
+    grid->addWidget(m_topPercentageLabel, 1, 0, 1, 1);
 
-    m_sl2TopLabel = new QLabel("0%");
-    m_sl2TopLabel->setAlignment(Qt::AlignHCenter);
-    m_sl2TopLabel->setFixedWidth(m_fm.width("100%"));
-    grid->addWidget(m_sl2TopLabel, 2, 1, 1, 1);
-    m_slider2 = new ClickAndGoSlider();
-    m_slider2->setSliderStyleSheet(CNG_DEFAULT_STYLE);
-    m_slider2->setFixedWidth(32);
-    m_slider2->setRange(0, 100);
-    m_slider2->setValue(0);
-    m_slider2->setInvertedAppearance(true);
-    grid->addWidget(m_slider2, 3, 1, 1, 1);
-    m_sl2BottomLabel = new QLabel("");
-    m_sl2BottomLabel->setStyleSheet(cfLabelNoStyle);
-    m_sl2BottomLabel->setAlignment(Qt::AlignCenter);
-    m_sl2BottomLabel->setFixedSize(32, 24);
-    grid->addWidget(m_sl2BottomLabel, 4, 1, 1, 1);
-    connect(m_slider2, SIGNAL(valueChanged(int)),
-            this, SLOT(slotSlider2ValueChanged(int)));
+    m_topStepLabel = new QLabel("");
+    m_topStepLabel->setStyleSheet(cfLabelNoStyle);
+    m_topStepLabel->setAlignment(Qt::AlignCenter);
+    m_topStepLabel->setFixedSize(32, 24);
+    grid->addWidget(m_topStepLabel, 2, 0, 1, 1);
+
+    m_sideFader = new ClickAndGoSlider();
+    m_sideFader->setSliderStyleSheet(CNG_DEFAULT_STYLE);
+    m_sideFader->setFixedWidth(32);
+    m_sideFader->setRange(0, 100);
+    m_sideFader->setValue(100);
+    grid->addWidget(m_sideFader, 3, 0, 1, 1);
+
+    m_bottomStepLabel = new QLabel("");
+    m_bottomStepLabel->setStyleSheet(cfLabelNoStyle);
+    m_bottomStepLabel->setAlignment(Qt::AlignCenter);
+    m_bottomStepLabel->setFixedSize(32, 24);
+    grid->addWidget(m_bottomStepLabel, 4, 0, 1, 1);
+
+    m_bottomPercentageLabel = new QLabel("0%");
+    m_bottomPercentageLabel->setAlignment(Qt::AlignHCenter);
+    m_bottomPercentageLabel->setFixedWidth(m_fm.width("100%"));
+    grid->addWidget(m_bottomPercentageLabel, 5, 0, 1, 1);
+
+    connect(m_sideFader, SIGNAL(valueChanged(int)),
+            this, SLOT(slotSideFaderValueChanged(int)));
 
     slotShowCrossfadePanel(false);
 
@@ -255,7 +241,7 @@ VCCueList::VCCueList(QWidget *parent, Doc *doc) : VCWidget(parent, doc)
     hbox->addWidget(m_nextButton);
 
     vbox->addItem(hbox);
-    grid->addItem(vbox, 0, 2, 5);
+    grid->addItem(vbox, 0, 1, 6);
 
     setFrameStyle(KVCFrameStyleSunken);
     setType(VCWidget::CueListWidget);
@@ -296,14 +282,11 @@ void VCCueList::enableWidgetUI(bool enable)
     m_previousButton->setEnabled(enable);
     m_nextButton->setEnabled(enable);
 
-    m_blendCheck->setEnabled(enable);
-    m_linkCheck->setEnabled(enable);
-    m_sl1TopLabel->setEnabled(enable);
-    m_slider1->setEnabled(enable);
-    m_sl1BottomLabel->setEnabled(enable);
-    m_sl2TopLabel->setEnabled(enable);
-    m_slider2->setEnabled(enable);
-    m_sl2BottomLabel->setEnabled(enable);
+    m_topPercentageLabel->setEnabled(enable);
+    m_sideFader->setEnabled(enable);
+    m_topStepLabel->setEnabled(enable);
+    m_bottomPercentageLabel->setEnabled(enable);
+    m_bottomStepLabel->setEnabled(enable);
 }
 
 /*****************************************************************************
@@ -340,7 +323,7 @@ bool VCCueList::copyFrom(const VCWidget *widget)
     setStopKeySequence(cuelist->stopKeySequence());
 
     /* Sliders mode */
-    setSlidersMode(cuelist->slidersMode());
+    setSideFaderMode(cuelist->sideFaderMode());
 
     /* Common stuff */
     return VCWidget::copyFrom(widget);
@@ -568,10 +551,10 @@ int VCCueList::getLastTreeIndex()
 qreal VCCueList::getPrimaryIntensity() const
 {
     qreal value;
-    if (slidersMode() == Steps)
+    if (sideFaderMode() == Steps)
         value = 1.0;
     else
-        value = (qreal)((m_primaryLeft ? m_slider1 : m_slider2)->value()) / 100;
+        value = m_primaryTop ? qreal(m_sideFader->value() / 100.0) : qreal((100 - m_sideFader->value()) / 100.0);
 
     return value * intensity();
 }
@@ -822,10 +805,10 @@ void VCCueList::slotCurrentStepChanged(int stepNumber)
     m_tree->scrollToItem(item, QAbstractItemView::PositionAtCenter);
     m_tree->setCurrentItem(item);
     m_primaryIndex = stepNumber;
-    if (slidersMode() == Steps)
+    if (sideFaderMode() == Steps)
     {
-        m_sl1BottomLabel->setStyleSheet(cfLabelBlueStyle);
-        m_sl1BottomLabel->setText(QString("#%1").arg(m_primaryIndex + 1));
+        m_topStepLabel->setStyleSheet(cfLabelBlueStyle);
+        m_topStepLabel->setText(QString("#%1").arg(m_primaryIndex + 1));
 
         float stepVal;
         int stepsCount = m_tree->topLevelItemCount();
@@ -842,29 +825,17 @@ void VCCueList::slotCurrentStepChanged(int stepNumber)
         //qDebug() << "Slider value:" << m_slider1->value() << "Step range:" << (255 - slValue) << (255 - slValue - stepVal);
         // if the Step slider is already in range, then do not set its value
         // this means a user interaction is going on, either with the mouse or external controller
-        if (m_slider1->value() < lowerBound || m_slider1->value() >= upperBound)
+        if (m_sideFader->value() < lowerBound || m_sideFader->value() >= upperBound)
         {
-            m_slider1->blockSignals(true);
-            m_slider1->setValue(upperBound);
-            m_sl1TopLabel->setText(QString("%1").arg(slValue));
-            m_slider1->blockSignals(false);
+            m_sideFader->blockSignals(true);
+            m_sideFader->setValue(upperBound);
+            m_topPercentageLabel->setText(QString("%1").arg(slValue));
+            m_sideFader->blockSignals(false);
         }
     }
     else
     {
-/*
-        // if primary side fader is halfway, apply the adjusted intensity here
-        Chaser *ch = chaser();
-        if (ch != NULL)
-        {
-            int primaryValue = m_primaryLeft ? m_slider1->value() : m_slider2->value();
-
-            if (primaryValue > 0 && primaryValue < 100)
-                ch->adjustIntensity((qreal)primaryValue / 100, m_primaryIndex,
-                                    m_blendCheck->isChecked() ? Chaser::BlendedCrossfade : Chaser::Crossfade);
-        }
-*/
-        setSlidersInfo(m_primaryIndex);
+        setFaderInfo(m_primaryIndex);
     }
     emit stepChanged(m_primaryIndex);
 }
@@ -896,39 +867,39 @@ void VCCueList::slotItemChanged(QTreeWidgetItem *item, int column)
 
 void VCCueList::slotFunctionRunning(quint32 fid)
 {
-    if (fid == m_chaserID)
-    {
-        if (playbackLayout() == PlayPauseStop)
-            m_playbackButton->setIcon(QIcon(":/player_pause.png"));
-        else if (playbackLayout() == PlayStopPause)
-            m_playbackButton->setIcon(QIcon(":/player_stop.png"));
-        m_timer->start(PROGRESS_INTERVAL);
-        updateFeedback();
-    }
+    if (fid != m_chaserID)
+        return;
+
+    if (playbackLayout() == PlayPauseStop)
+        m_playbackButton->setIcon(QIcon(":/player_pause.png"));
+    else if (playbackLayout() == PlayStopPause)
+        m_playbackButton->setIcon(QIcon(":/player_stop.png"));
+    m_timer->start(PROGRESS_INTERVAL);
+    updateFeedback();
 }
 
 void VCCueList::slotFunctionStopped(quint32 fid)
 {
-    if (fid == m_chaserID)
-    {
-        m_playbackButton->setIcon(QIcon(":/player_play.png"));
-        m_sl1BottomLabel->setText("");
-        m_sl1BottomLabel->setStyleSheet(cfLabelNoStyle);
-        m_sl2BottomLabel->setText("");
-        m_sl2BottomLabel->setStyleSheet(cfLabelNoStyle);
-        // reset any previously set background
-        QTreeWidgetItem *item = m_tree->topLevelItem(m_secondaryIndex);
-        if (item != NULL)
-            item->setBackground(COL_NUM, m_defCol);
+    if (fid != m_chaserID)
+        return;
 
-        emit stepChanged(-1);
+    m_playbackButton->setIcon(QIcon(":/player_play.png"));
+    m_topStepLabel->setText("");
+    m_topStepLabel->setStyleSheet(cfLabelNoStyle);
+    m_bottomStepLabel->setText("");
+    m_bottomStepLabel->setStyleSheet(cfLabelNoStyle);
+    // reset any previously set background
+    QTreeWidgetItem *item = m_tree->topLevelItem(m_secondaryIndex);
+    if (item != NULL)
+        item->setBackground(COL_NUM, m_defCol);
 
-        m_progress->setFormat("");
-        m_progress->setValue(0);
+    emit stepChanged(-1);
 
-        qDebug() << Q_FUNC_INFO << "Cue stopped";
-        updateFeedback();
-    }
+    m_progress->setFormat("");
+    m_progress->setValue(0);
+
+    qDebug() << Q_FUNC_INFO << "Cue stopped";
+    updateFeedback();
 }
 
 void VCCueList::slotProgressTimeout()
@@ -980,7 +951,9 @@ void VCCueList::slotProgressTimeout()
         }
     }
     else
+    {
         m_progress->setValue(0);
+    }
 }
 
 void VCCueList::startChaser(int startIndex)
@@ -1014,17 +987,13 @@ void VCCueList::stopChaser()
 
 int VCCueList::getFadeMode()
 {
-    if (slidersMode() == Steps)
+    if (sideFaderMode() == Steps)
         return Chaser::FromFunction;
 
-    qreal primary = qreal(((m_primaryLeft ? m_slider1 : m_slider2)->value())) / 100;
-    qreal secondary = qreal(((m_primaryLeft ? m_slider2 : m_slider1)->value())) / 100;
+    if (m_sideFader->value() != 0 && m_sideFader->value() != 100)
+        return Chaser::BlendedCrossfade;
 
-    if ( (primary != 1.0 && secondary != 0.0) ||
-        ((primary != 1.0 || secondary != 0.0) && m_linkCheck->isChecked()))
-        return m_blendCheck->isChecked() ? Chaser::BlendedCrossfade : Chaser::Crossfade;
-
-    return m_blendCheck->isChecked() ? Chaser::Blended : Chaser::FromFunction;
+    return Chaser::Blended;
 }
 
 void VCCueList::setNextPrevBehavior(NextPrevBehavior nextPrev)
@@ -1072,56 +1041,50 @@ VCCueList::PlaybackLayout VCCueList::playbackLayout() const
     return m_playbackLayout;
 }
 
-VCCueList::SlidersMode VCCueList::slidersMode() const
+VCCueList::FaderMode VCCueList::sideFaderMode() const
 {
     return m_slidersMode;
 }
 
-void VCCueList::setSlidersMode(VCCueList::SlidersMode mode)
+void VCCueList::setSideFaderMode(VCCueList::FaderMode mode)
 {
     m_slidersMode = mode;
 
-    if (m_slider1->isVisible() == true)
-    {
-        bool show = (mode == Crossfade) ? true : false;
-        m_blendCheck->setVisible(show);
-        m_linkCheck->setVisible(show);
-        m_sl2TopLabel->setVisible(show);
-        m_slider2->setVisible(show);
-        m_sl2BottomLabel->setVisible(show);
-    }
-    if (mode == Steps)
-    {
-        m_slider1->setMaximum(255);
-        m_slider1->setValue(255);
-    }
-    else
-    {
-        m_slider1->setMaximum(100);
-        m_slider1->setValue(100);
-    }
+    bool show = (mode == None) ? false : true;
+    m_crossfadeButton->setVisible(show);
+    m_topPercentageLabel->setVisible(show);
+    m_topStepLabel->setVisible(show);
+    m_sideFader->setVisible(show);
+    m_bottomPercentageLabel->setVisible(show);
+    m_bottomStepLabel->setVisible(show);
+    m_sideFader->setMaximum(mode == Steps ? 255 : 100);
+    m_sideFader->setValue(mode == Steps ? 255 : 100);
 }
 
-VCCueList::SlidersMode VCCueList::stringToSlidersMode(QString modeStr)
+VCCueList::FaderMode VCCueList::stringToFaderMode(QString modeStr)
 {
-    if (modeStr == "Steps")
+    if (modeStr == "Crossfade")
+        return Crossfade;
+    else if (modeStr == "Steps")
         return Steps;
 
-    return Crossfade;
+    return None;
 }
 
-QString VCCueList::slidersModeToString(VCCueList::SlidersMode mode)
+QString VCCueList::faderModeToString(VCCueList::FaderMode mode)
 {
-    if (mode == Steps)
+    if (mode == Crossfade)
+        return "Crossfade";
+    else if (mode == Steps)
         return "Steps";
 
-    return "Crossfade";
+    return "None";
 }
 
 /*****************************************************************************
  * Crossfade
  *****************************************************************************/
-void VCCueList::setSlidersInfo(int index)
+void VCCueList::setFaderInfo(int index)
 {
     Chaser *ch = chaser();
     if (ch == NULL || !ch->isRunning())
@@ -1129,11 +1092,11 @@ void VCCueList::setSlidersInfo(int index)
 
     int tmpIndex = ch->computeNextStep(index);
 
-    m_sl1BottomLabel->setText(QString("#%1").arg(m_primaryLeft ? index + 1 : tmpIndex + 1));
-    m_sl1BottomLabel->setStyleSheet(m_primaryLeft ? cfLabelBlueStyle : cfLabelOrangeStyle);
+    m_topStepLabel->setText(QString("#%1").arg(m_primaryTop ? index + 1 : tmpIndex + 1));
+    m_topStepLabel->setStyleSheet(m_primaryTop ? cfLabelBlueStyle : cfLabelOrangeStyle);
 
-    m_sl2BottomLabel->setText(QString("#%1").arg(m_primaryLeft ? tmpIndex + 1 : index + 1));
-    m_sl2BottomLabel->setStyleSheet(m_primaryLeft ? cfLabelOrangeStyle : cfLabelBlueStyle);
+    m_bottomStepLabel->setText(QString("#%1").arg(m_primaryTop ? tmpIndex + 1 : index + 1));
+    m_bottomStepLabel->setStyleSheet(m_primaryTop ? cfLabelOrangeStyle : cfLabelBlueStyle);
 
     // reset any previously set background
     QTreeWidgetItem *item = m_tree->topLevelItem(m_secondaryIndex);
@@ -1148,50 +1111,19 @@ void VCCueList::setSlidersInfo(int index)
 
 void VCCueList::slotShowCrossfadePanel(bool enable)
 {
-    m_sl1TopLabel->setVisible(enable);
-    m_slider1->setVisible(enable);
-    m_sl1BottomLabel->setVisible(enable);
-    if (slidersMode() == Crossfade)
-    {
-        m_blendCheck->setVisible(enable);
-        m_linkCheck->setVisible(enable);
-        m_sl2TopLabel->setVisible(enable);
-        m_slider2->setVisible(enable);
-        m_sl2BottomLabel->setVisible(enable);
-    }
+    m_topPercentageLabel->setVisible(enable);
+    m_topStepLabel->setVisible(enable);
+    m_sideFader->setVisible(enable);
+    m_bottomStepLabel->setVisible(enable);
+    m_bottomPercentageLabel->setVisible(enable);
 }
 
-void VCCueList::slotBlendedCrossfadeChecked(bool checked)
+void VCCueList::slotSideFaderValueChanged(int value)
 {
-    Chaser *ch = chaser();
-
-    if (ch == NULL || ch->stopped())
-        return;
-
-    if (checked == false)
-    {
-        int primaryValue = m_primaryLeft ? m_slider1->value() : m_slider2->value();
-        int secondaryValue = m_primaryLeft ? m_slider2->value() : m_slider1->value();
-
-        if (primaryValue > 0 && primaryValue < 100)
-            ch->adjustStepIntensity((qreal)primaryValue / 100, m_primaryIndex, Chaser::Crossfade);
-        if (secondaryValue > 0 && secondaryValue < 100)
-            ch->adjustStepIntensity((qreal)secondaryValue / 100, m_secondaryIndex, Chaser::Crossfade);
-    }
-    else
-    {
-        int secondaryValue = m_primaryLeft ? m_slider2->value() : m_slider1->value();
-        if (secondaryValue > 0)
-            ch->adjustStepIntensity((qreal)secondaryValue / 100, m_secondaryIndex, Chaser::BlendedCrossfade);
-    }
-}
-
-void VCCueList::slotSlider1ValueChanged(int value)
-{
-    if (slidersMode() == Steps)
+    if (sideFaderMode() == Steps)
     {
         value = 255 - value;
-        m_sl1TopLabel->setText(QString("%1").arg(value));
+        m_topPercentageLabel->setText(QString("%1").arg(value));
 
         Chaser *ch = chaser();
         if (ch == NULL || ch->stopped())
@@ -1218,43 +1150,19 @@ void VCCueList::slotSlider1ValueChanged(int value)
     }
     else
     {
-        m_sl1TopLabel->setText(QString("%1%").arg(value));
+        m_topPercentageLabel->setText(QString("%1%").arg(value));
+        m_bottomPercentageLabel->setText(QString("%1%").arg(100 - value));
 
         Chaser *ch = chaser();
         if (!(ch == NULL || ch->stopped()))
         {
-            int stepIndex = m_primaryLeft ? m_primaryIndex : m_secondaryIndex;            
-            ch->adjustStepIntensity(qreal(value) / 100.0, stepIndex, Chaser::FadeControlMode(getFadeMode()));
+            ch->adjustStepIntensity(qreal(value) / 100.0, m_primaryTop ? m_primaryIndex : m_secondaryIndex,
+                                    Chaser::FadeControlMode(getFadeMode()));
+            ch->adjustStepIntensity(qreal(100 - value) / 100.0, m_primaryTop ? m_secondaryIndex : m_primaryIndex,
+                                    Chaser::FadeControlMode(getFadeMode()));
             stopStepIfNeeded(ch);
         }
-
-        if (m_linkCheck->isChecked())
-            m_slider2->setValue(100 - value);
     }
-
-    updateFeedback();
-}
-
-void VCCueList::slotSlider2ValueChanged(int value)
-{
-    if (slidersMode() == Steps)
-    {
-        qWarning() << "[VCCueList] ERROR ! Slider2 value change should never happen!";
-        return;
-    }
-
-    m_sl2TopLabel->setText(QString("%1%").arg(value));
-
-    Chaser *ch = chaser();
-    if (!(ch == NULL || ch->stopped()))
-    {
-        int stepIndex = m_primaryLeft ? m_secondaryIndex : m_primaryIndex;
-        ch->adjustStepIntensity(qreal(value) / 100.0, stepIndex, Chaser::FadeControlMode(getFadeMode()));
-        stopStepIfNeeded(ch);
-    }
-
-    if (m_linkCheck->isChecked())
-        m_slider1->setValue(100 - value);
 
     updateFeedback();
 }
@@ -1264,15 +1172,15 @@ void VCCueList::stopStepIfNeeded(Chaser *ch)
     if (ch->runningStepsNumber() != 2)
         return;
 
-    int primaryValue = m_primaryLeft ? m_slider1->value() : m_slider2->value();
-    int secondaryValue = m_primaryLeft ? m_slider2->value() : m_slider1->value();
+    int primaryValue = m_primaryTop ? m_sideFader->value() : 100 - m_sideFader->value();
+    int secondaryValue = m_primaryTop ? 100 - m_sideFader->value() : m_sideFader->value();
 
     ChaserAction action;
     action.m_action = ChaserStopStep;
 
     if (primaryValue == 0)
     {
-        m_primaryLeft = !m_primaryLeft;
+        m_primaryTop = !m_primaryTop;
         action.m_stepIndex = m_primaryIndex;
         ch->setAction(action);
     }
@@ -1344,10 +1252,8 @@ void VCCueList::slotKeyPressed(const QKeySequence& keySequence)
 
 void VCCueList::updateFeedback()
 {
-    int fbv = (int)SCALE(float(m_slider1->value()), float(0), float(100), float(0), float(UCHAR_MAX));
-    sendFeedback(fbv, cf1InputSourceId);
-    fbv = (int)SCALE(float(100 - m_slider2->value()), float(0), float(100), float(0), float(UCHAR_MAX));
-    sendFeedback(fbv, cf2InputSourceId);
+    int fbv = (int)SCALE(float(m_sideFader->value()), float(0), float(100), float(0), float(UCHAR_MAX));
+    sendFeedback(fbv, sideFaderInputSourceId);
 
     Chaser *ch = chaser();
     if (ch == NULL)
@@ -1444,19 +1350,12 @@ void VCCueList::slotInputValueChanged(quint32 universe, quint32 channel, uchar v
         if (value > HYSTERESIS)
             m_stopLatestValue = value;
     }
-    else if (checkInputSource(universe, pagedCh, value, sender(), cf1InputSourceId))
+    else if (checkInputSource(universe, pagedCh, value, sender(), sideFaderInputSourceId))
     {
         float val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
-                          (float) m_slider1->minimum(),
-                          (float) m_slider1->maximum());
-        m_slider1->setValue(val);
-    }
-    else if (checkInputSource(universe, pagedCh, value, sender(), cf2InputSourceId))
-    {
-        float val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
-                          (float) m_slider2->minimum(),
-                          (float) m_slider2->maximum());
-        m_slider2->setValue(100 - val);
+                          (float) m_sideFader->minimum(),
+                          (float) m_sideFader->maximum());
+        m_sideFader->setValue(val);
     }
 }
 
@@ -1472,12 +1371,10 @@ void VCCueList::adjustIntensity(qreal val)
         adjustFunctionIntensity(ch, val);
 
         // Refresh intensity of current steps
-        if (!ch->stopped() && slidersMode() == Crossfade)
+        if (!ch->stopped() && sideFaderMode() == Crossfade && m_sideFader->value() != 100)
         {
-            if (m_slider1->value() != 0)
-                ch->adjustStepIntensity((qreal)m_slider1->value() / 100, m_primaryLeft ? m_primaryIndex : m_secondaryIndex);
-            if (m_slider2->value() != 0)
-                ch->adjustStepIntensity((qreal)m_slider2->value() / 100, m_primaryLeft ? m_secondaryIndex : m_primaryIndex);
+                ch->adjustStepIntensity((qreal)m_sideFader->value() / 100, m_primaryTop ? m_primaryIndex : m_secondaryIndex);
+                ch->adjustStepIntensity((qreal)(100 - m_sideFader->value()) / 100, m_primaryTop ? m_secondaryIndex : m_primaryIndex);
         }
     }
 
@@ -1498,8 +1395,8 @@ void VCCueList::setFont(const QFont& font)
     VCWidget::setFont(font);
 
     QFontMetrics m_fm = QFontMetrics(font);
-    m_sl1TopLabel->setFixedWidth(m_fm.width("100%"));
-    m_sl2TopLabel->setFixedWidth(m_fm.width("100%"));
+    m_topPercentageLabel->setFixedWidth(m_fm.width("100%"));
+    m_bottomPercentageLabel->setFixedWidth(m_fm.width("100%"));
 }
 
 void VCCueList::slotModeChanged(Doc::Mode mode)
@@ -1515,10 +1412,10 @@ void VCCueList::slotModeChanged(Doc::Mode mode)
     }
     else
     {
-        m_sl1BottomLabel->setStyleSheet(cfLabelNoStyle);
-        m_sl1BottomLabel->setText("");
-        m_sl2BottomLabel->setStyleSheet(cfLabelNoStyle);
-        m_sl2BottomLabel->setText("");
+        m_topStepLabel->setStyleSheet(cfLabelNoStyle);
+        m_topStepLabel->setText("");
+        m_bottomStepLabel->setStyleSheet(cfLabelNoStyle);
+        m_bottomStepLabel->setText("");
         m_progress->setStyleSheet(progressDisabledStyle);
         // reset any previously set background
         QTreeWidgetItem *item = m_tree->topLevelItem(m_secondaryIndex);
@@ -1566,8 +1463,8 @@ void VCCueList::playCueAtIndex(int idx)
         startChaser(m_primaryIndex);
     }
 
-    if (slidersMode() == Crossfade)
-        setSlidersInfo(m_primaryIndex);
+    if (sideFaderMode() == Crossfade)
+        setFaderInfo(m_primaryIndex);
 }
 
 FunctionParent VCCueList::functionParent() const
@@ -1632,15 +1529,15 @@ bool VCCueList::loadXML(QXmlStreamReader &root)
         }
         else if (root.name() == KXMLQLCVCCueListSlidersMode)
         {
-            setSlidersMode(stringToSlidersMode(root.readElementText()));
+            setSideFaderMode(stringToFaderMode(root.readElementText()));
         }
         else if (root.name() == KXMLQLCVCCueListCrossfadeLeft)
         {
-            loadXMLSources(root, cf1InputSourceId);
+            loadXMLSources(root, sideFaderInputSourceId);
         }
-        else if (root.name() == KXMLQLCVCCueListCrossfadeRight)
+        else if (root.name() == KXMLQLCVCCueListCrossfadeRight) /* Legacy */
         {
-            loadXMLSources(root, cf2InputSourceId);
+            root.skipCurrentElement();
         }
         else if (root.name() == KXMLQLCVCWidgetKey) /* Legacy */
         {
@@ -1675,11 +1572,6 @@ bool VCCueList::loadXML(QXmlStreamReader &root)
         }
         else if (root.name() == KXMLQLCVCCueListCrossfade)
         {
-            QXmlStreamAttributes attrs = root.attributes();
-            if (attrs.hasAttribute(KXMLQLCVCCueListBlend))
-                m_blendCheck->setChecked(true);
-            if (attrs.hasAttribute(KXMLQLCVCCueListLinked))
-                m_linkCheck->setChecked(true);
             m_crossfadeButton->setChecked(true);
             root.skipCurrentElement();
         }
@@ -1751,16 +1643,6 @@ bool VCCueList::saveXML(QXmlStreamWriter *doc)
     /* Next/Prev behavior */
     doc->writeTextElement(KXMLQLCVCCueListNextPrevBehavior, QString::number(nextPrevBehavior()));
 
-    if (m_blendCheck->isChecked() || m_linkCheck->isChecked())
-    {
-        doc->writeStartElement(KXMLQLCVCCueListCrossfade);
-        if (m_blendCheck->isChecked())
-            doc->writeAttribute(KXMLQLCVCCueListBlend, KXMLQLCTrue);
-        if (m_linkCheck->isChecked())
-            doc->writeAttribute(KXMLQLCVCCueListLinked, KXMLQLCTrue);
-        doc->writeEndElement();
-    }
-
     /* Next cue */
     doc->writeStartElement(KXMLQLCVCCueListNext);
     if (m_nextKeySequence.toString().isEmpty() == false)
@@ -1790,20 +1672,14 @@ bool VCCueList::saveXML(QXmlStreamWriter *doc)
     doc->writeEndElement();
 
     /* Crossfade cue list */
-    doc->writeTextElement(KXMLQLCVCCueListSlidersMode, slidersModeToString(slidersMode()));
+    if (sideFaderMode() != None)
+        doc->writeTextElement(KXMLQLCVCCueListSlidersMode, faderModeToString(sideFaderMode()));
 
-    QSharedPointer<QLCInputSource> cf1Src = inputSource(cf1InputSourceId);
+    QSharedPointer<QLCInputSource> cf1Src = inputSource(sideFaderInputSourceId);
     if (!cf1Src.isNull() && cf1Src->isValid())
     {
         doc->writeStartElement(KXMLQLCVCCueListCrossfadeLeft);
         saveXMLInput(doc, cf1Src);
-        doc->writeEndElement();
-    }
-    QSharedPointer<QLCInputSource> cf2Src = inputSource(cf2InputSourceId);
-    if (!cf2Src.isNull() && cf2Src->isValid())
-    {
-        doc->writeStartElement(KXMLQLCVCCueListCrossfadeRight);
-        saveXMLInput(doc, cf2Src);
         doc->writeEndElement();
     }
 
