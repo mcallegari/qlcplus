@@ -807,8 +807,8 @@ void VCCueList::slotCurrentStepChanged(int stepNumber)
     m_primaryIndex = stepNumber;
     if (sideFaderMode() == Steps)
     {
-        m_topStepLabel->setStyleSheet(cfLabelBlueStyle);
-        m_topStepLabel->setText(QString("#%1").arg(m_primaryIndex + 1));
+        m_bottomStepLabel->setStyleSheet(cfLabelBlueStyle);
+        m_bottomStepLabel->setText(QString("#%1").arg(m_primaryIndex + 1));
 
         float stepVal;
         int stepsCount = m_tree->topLevelItemCount();
@@ -1053,9 +1053,9 @@ void VCCueList::setSideFaderMode(VCCueList::FaderMode mode)
     bool show = (mode == None) ? false : true;
     m_crossfadeButton->setVisible(show);
     m_topPercentageLabel->setVisible(show);
-    m_topStepLabel->setVisible(show);
+    m_topStepLabel->setVisible(mode == Steps ? false : show);
     m_sideFader->setVisible(show);
-    m_bottomPercentageLabel->setVisible(show);
+    m_bottomPercentageLabel->setVisible(mode == Steps ? false : show);
     m_bottomStepLabel->setVisible(show);
     m_sideFader->setMaximum(mode == Steps ? 255 : 100);
     m_sideFader->setValue(mode == Steps ? 255 : 100);
