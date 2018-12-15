@@ -200,6 +200,7 @@ VCCueList::VCCueList(QWidget *parent, Doc *doc) : VCWidget(parent, doc)
     m_crossfadeButton->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
     m_crossfadeButton->setFixedHeight(32);
     m_crossfadeButton->setToolTip(tr("Show/Hide crossfade sliders"));
+    m_crossfadeButton->setVisible(false);
     connect(m_crossfadeButton, SIGNAL(toggled(bool)),
             this, SLOT(slotShowCrossfadePanel(bool)));
     hbox->addWidget(m_crossfadeButton);
