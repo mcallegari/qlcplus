@@ -954,13 +954,13 @@ void Chaser_Test::adjustIntensity()
 
     c->preRun(&timer);
     c->adjustAttribute(0.5, Function::Intensity);
-    QCOMPARE(c->m_runner->m_intensity, qreal(0.5));
+    QCOMPARE(c->m_runner->m_pendingAction.m_intensity, qreal(0.5));
     c->adjustAttribute(0.8, Function::Intensity);
-    QCOMPARE(c->m_runner->m_intensity, qreal(0.8));
+    QCOMPARE(c->m_runner->m_pendingAction.m_intensity, qreal(0.8));
     c->adjustAttribute(1.5, Function::Intensity);
-    QCOMPARE(c->m_runner->m_intensity, qreal(1.0));
+    QCOMPARE(c->m_runner->m_pendingAction.m_intensity, qreal(1.0));
     c->adjustAttribute(-0.1, Function::Intensity);
-    QCOMPARE(c->m_runner->m_intensity, qreal(0.0));
+    QCOMPARE(c->m_runner->m_pendingAction.m_intensity, qreal(0.0));
     c->postRun(&timer, ua);
 
     // Mustn't crash after postRun

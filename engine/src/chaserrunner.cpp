@@ -42,7 +42,6 @@ ChaserRunner::ChaserRunner(const Doc *doc, const Chaser *chaser, quint32 startTi
     , m_lastRunStepIdx(-1)
     , m_roundTime(new QElapsedTimer())
     , m_order()
-    , m_intensity(1.0)
 {
     Q_ASSERT(chaser != NULL);
 
@@ -422,10 +421,9 @@ void ChaserRunner::adjustStepIntensity(qreal fraction, int requestedStepIndex, i
     if (stepIndex == -1)
     {
         stepIndex = m_lastRunStepIdx;
-        // stepIndex == -1 means that the "global" intensity
-        // of the chaser has to be changed
-        m_intensity = fraction;
-        m_pendingAction.m_intensity = 1.0;
+        // store the intensity to be applied
+        // at the next step startup
+        m_pendingAction.m_intensity = fraction;
     }
 
     foreach(ChaserRunnerStep *step, m_runnerSteps)
@@ -460,8 +458,9 @@ void ChaserRunner::clearRunningList()
     {
         if (step->m_function)
         {
-            // restore the original Function blend mode
+            // restore the original Function blend mode and fade out time
             step->m_function->setBlendMode(step->m_blendMode);
+            step->m_function->setOverrideFadeOutSpeed(stepFadeOut(step->m_index));
             step->m_function->stop(functionParent());
         }
         delete step;
@@ -694,7 +693,7 @@ bool ChaserRunner::write(MasterTimer *timer, QList<Universe *> universes)
                 clearRunningList();
                 m_lastRunStepIdx = m_pendingAction.m_stepIndex;
                 qDebug() << "Starting from step" << m_lastRunStepIdx << "@ offset" << m_startOffset;
-                startNewStep(m_lastRunStepIdx, timer, m_intensity * m_pendingAction.m_intensity, m_pendingAction.m_fadeMode);
+                startNewStep(m_lastRunStepIdx, timer, m_pendingAction.m_intensity, m_pendingAction.m_fadeMode);
                 emit currentStepChanged(m_lastRunStepIdx);
             }
         break;
@@ -749,9 +748,8 @@ bool ChaserRunner::write(MasterTimer *timer, QList<Universe *> universes)
         if (m_lastRunStepIdx != -1)
         {
             int blend = m_pendingAction.m_action == ChaserNoAction ? Chaser::FromFunction : m_pendingAction.m_fadeMode;
-            qreal intensity = m_intensity * m_pendingAction.m_intensity;
 
-            startNewStep(m_lastRunStepIdx, timer, intensity, blend, prevStepRoundElapsed);
+            startNewStep(m_lastRunStepIdx, timer, m_pendingAction.m_intensity, blend, prevStepRoundElapsed);
             emit currentStepChanged(m_lastRunStepIdx);
         }
         else

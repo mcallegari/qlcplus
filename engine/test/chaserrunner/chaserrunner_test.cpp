@@ -117,7 +117,6 @@ void ChaserRunner_Test::initial()
     QCOMPARE(cr.m_pendingAction.m_stepIndex, -1);
     QCOMPARE(cr.m_pendingAction.m_fadeMode, (int)Chaser::FromFunction);
     QCOMPARE(cr.m_lastRunStepIdx, -1);
-    QCOMPARE(cr.m_intensity, qreal(1.0));
 }
 
 void ChaserRunner_Test::nextPrevious()
