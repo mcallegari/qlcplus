@@ -77,6 +77,9 @@ public:
     /** @reimp */
     VCWidget *createCopy(VCWidget *parent);
 
+    /** @reimp */
+    void adjustIntensity(qreal val);
+
 protected:
     /** @reimp */
     bool copyFrom(const VCWidget* widget);
@@ -263,7 +266,6 @@ public slots:
     /*********************************************************************
      * Load & Save
      *********************************************************************/
-
 public:
     /** @reimp */
     bool loadXML(QXmlStreamReader &root);

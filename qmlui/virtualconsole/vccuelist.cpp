@@ -130,6 +130,24 @@ bool VCCueList::copyFrom(const VCWidget *widget)
     return VCWidget::copyFrom(widget);
 }
 
+void VCCueList::adjustIntensity(qreal val)
+{
+    Chaser *ch = chaser();
+    if (ch != nullptr)
+    {
+        adjustFunctionIntensity(ch, val);
+
+        // Refresh intensity of current steps
+        if (!ch->stopped() && sideFaderMode() == Crossfade && m_sideFaderLevel != 100)
+        {
+                ch->adjustStepIntensity(qreal(m_sideFaderLevel) / 100, m_primaryTop ? m_playbackIndex : m_nextStepIndex);
+                ch->adjustStepIntensity(qreal(100 - m_sideFaderLevel) / 100, m_primaryTop ? m_nextStepIndex : m_playbackIndex);
+        }
+    }
+
+    VCWidget::adjustIntensity(val);
+}
+
 /*********************************************************************
  * UI settings
  *********************************************************************/
