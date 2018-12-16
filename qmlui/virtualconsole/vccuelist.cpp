@@ -23,20 +23,25 @@
 #include "chasereditor.h"
 #include "vccuelist.h"
 #include "listmodel.h"
+#include "qlcmacros.h"
 #include "chaser.h"
 #include "tardis.h"
+#include "qmath.h"
 
 #define INPUT_NEXT_STEP_ID          0
 #define INPUT_PREVIOUS_STEP_ID      1
 #define INPUT_PLAY_PAUSE_ID         2
-#define INPUT_CROSSFADE_L_ID        3
-#define INPUT_CROSSFADE_R_ID        4
-#define INPUT_STOP_PAUSE_ID         5
+#define INPUT_STOP_PAUSE_ID         3
+#define INPUT_SIDE_FADER_ID         4
 
 VCCueList::VCCueList(Doc *doc, QObject *parent)
     : VCWidget(doc, parent)
     , m_nextPrevBehavior(DefaultRunFirst)
     , m_playbackLayout(PlayPauseStop)
+    , m_slidersMode(None)
+    , m_sideFaderLevel(0)
+    , m_nextStepIndex(-1)
+    , m_primaryTop(true)
     , m_chaserID(Function::invalidId())
     , m_playbackIndex(-1)
 {
@@ -45,9 +50,8 @@ VCCueList::VCCueList(Doc *doc, QObject *parent)
     registerExternalControl(INPUT_NEXT_STEP_ID, tr("Next Cue"), true);
     registerExternalControl(INPUT_PREVIOUS_STEP_ID, tr("Previous Cue"), true);
     registerExternalControl(INPUT_PLAY_PAUSE_ID, tr("Play/Stop/Pause"), true);
-    registerExternalControl(INPUT_CROSSFADE_L_ID, tr("Left Crossfade"), false);
-    registerExternalControl(INPUT_CROSSFADE_R_ID, tr("Right Crossfade"), false);
     registerExternalControl(INPUT_STOP_PAUSE_ID, tr("Stop/Pause"), true);
+    registerExternalControl(INPUT_SIDE_FADER_ID, tr("Side Fader"), false);
 
     m_stepsList = new ListModel(this);
     QStringList listRoles;
@@ -160,6 +164,162 @@ void VCCueList::setPlaybackLayout(VCCueList::PlaybackLayout layout)
 
     m_playbackLayout = layout;
     emit playbackLayoutChanged();
+}
+
+/*************************************************************************
+ * Side fader
+ *************************************************************************/
+VCCueList::FaderMode VCCueList::sideFaderMode() const
+{
+    return m_slidersMode;
+}
+
+void VCCueList::setSideFaderMode(VCCueList::FaderMode mode)
+{
+    if (mode == m_slidersMode)
+        return;
+
+    m_slidersMode = mode;
+    emit sideFaderModeChanged();
+
+    if (mode == Steps)
+        setSideFaderLevel(255);
+    else if (mode == Crossfade)
+        setSideFaderLevel(100);
+}
+
+VCCueList::FaderMode VCCueList::stringToFaderMode(QString modeStr)
+{
+    if (modeStr == "Crossfade")
+        return Crossfade;
+    else if (modeStr == "Steps")
+        return Steps;
+
+    return None;
+}
+
+QString VCCueList::faderModeToString(VCCueList::FaderMode mode)
+{
+    if (mode == Crossfade)
+        return "Crossfade";
+    else if (mode == Steps)
+        return "Steps";
+
+    return "None";
+}
+
+int VCCueList::sideFaderLevel() const
+{
+    return m_sideFaderLevel;
+}
+
+void VCCueList::setSideFaderLevel(int level)
+{
+    if (level == m_sideFaderLevel)
+        return;
+
+    m_sideFaderLevel = level;
+
+    if (sideFaderMode() == Steps)
+    {
+        level = 255 - level;
+
+        Chaser *ch = chaser();
+        if (ch == nullptr || ch->stopped())
+            return;
+
+        int newStep = level; // by default we assume the Chaser has more than 256 steps
+        if (ch->stepsCount() < 256)
+        {
+            float stepSize = 255 / float(ch->stepsCount());
+            if(level >= 255 - stepSize)
+                newStep = ch->stepsCount() - 1;
+            else
+                newStep = qFloor(qreal(level) / qreal(stepSize));
+        }
+        //qDebug() << "value:" << value << "steps:" << ch->stepsCount() << "new step:" << newStep;
+
+        ChaserAction action;
+        action.m_action = ChaserSetStepIndex;
+        action.m_stepIndex = newStep;
+        ch->setAction(action);
+
+        if (newStep == ch->currentStepIndex())
+            return;
+    }
+    else
+    {
+        Chaser *ch = chaser();
+        if (!(ch == nullptr || ch->stopped()))
+        {
+            ch->adjustStepIntensity(qreal(level) / 100.0, m_primaryTop ? m_playbackIndex : m_nextStepIndex,
+                                    Chaser::FadeControlMode(getFadeMode()));
+            ch->adjustStepIntensity(qreal(100 - level) / 100.0, m_primaryTop ? m_nextStepIndex : m_playbackIndex,
+                                    Chaser::FadeControlMode(getFadeMode()));
+            stopStepIfNeeded(ch);
+        }
+    }
+
+    //updateFeedback(); // TODO
+
+    emit sideFaderLevelChanged();
+}
+
+bool VCCueList::primaryTop() const
+{
+    return m_primaryTop;
+}
+
+int VCCueList::nextStepIndex() const
+{
+    return m_nextStepIndex;
+}
+
+qreal VCCueList::getPrimaryIntensity() const
+{
+    qreal value;
+    if (sideFaderMode() == Steps)
+        value = 1.0;
+    else
+        value = m_primaryTop ? qreal(m_sideFaderLevel / 100.0) : qreal((100 - m_sideFaderLevel) / 100.0);
+
+    return value * intensity();
+}
+
+int VCCueList::getFadeMode() const
+{
+    if (sideFaderMode() == Steps)
+        return Chaser::FromFunction;
+
+    if (m_sideFaderLevel != 0 && m_sideFaderLevel != 100)
+        return Chaser::BlendedCrossfade;
+
+    return Chaser::Blended;
+}
+
+void VCCueList::stopStepIfNeeded(Chaser *ch)
+{
+    if (ch->runningStepsNumber() != 2)
+        return;
+
+    int primaryValue = m_primaryTop ? m_sideFaderLevel : 100 - m_sideFaderLevel;
+    int secondaryValue = m_primaryTop ? 100 - m_sideFaderLevel : m_sideFaderLevel;
+
+    ChaserAction action;
+    action.m_action = ChaserStopStep;
+
+    if (primaryValue == 0)
+    {
+        m_primaryTop = !m_primaryTop;
+        action.m_stepIndex = m_playbackIndex;
+        ch->setAction(action);
+        emit primaryTopChanged();
+    }
+    else if (secondaryValue == 0)
+    {
+        action.m_stepIndex = m_nextStepIndex;
+        ch->setAction(action);
+    }
 }
 
 /*********************************************************************
@@ -363,6 +523,13 @@ void VCCueList::setPlaybackIndex(int playbackIndex)
 
     m_playbackIndex = playbackIndex;
     emit playbackIndexChanged(playbackIndex);
+
+    Chaser *ch = chaser();
+    if (ch == nullptr)
+        return;
+
+    m_nextStepIndex = playbackIndex >= 0 ? ch->computeNextStep(playbackIndex) : -1;
+    emit nextStepIndexChanged();
 }
 
 VCCueList::PlaybackStatus VCCueList::playbackStatus()
@@ -383,14 +550,15 @@ void VCCueList::startChaser(int startIndex)
     if (ch == nullptr)
         return;
 
+    adjustFunctionIntensity(ch, intensity());
+
     ChaserAction action;
     action.m_action = ChaserSetStepIndex;
     action.m_stepIndex = startIndex;
-    //action.m_intensity = getPrimaryIntensity();
-    //action.m_fadeMode = getFadeMode();
+    action.m_intensity = getPrimaryIntensity();
+    action.m_fadeMode = getFadeMode();
     ch->setAction(action);
 
-    adjustFunctionIntensity(ch, intensity());
     ch->start(m_doc->masterTimer(), functionParent());
     emit functionStarting(this, m_chaserID, intensity());
     emit playbackStatusChanged();
@@ -436,6 +604,13 @@ void VCCueList::slotInputValueChanged(quint8 id, uchar value)
         case INPUT_STOP_PAUSE_ID:
             stopClicked();
         break;
+        case INPUT_SIDE_FADER_ID:
+        {
+            float val = SCALE(float(value), 0, float(UCHAR_MAX), 0,
+                              float(sideFaderMode() == Crossfade ? 100 : 255));
+            setSideFaderLevel(int(val));
+        }
+        break;
     }
 }
 
@@ -449,11 +624,13 @@ void VCCueList::playClicked()
     {
         if (playbackLayout() == PlayPauseStop)
         {
-#if 0 // TODO
-            // check if the item selection has been changed during pause
-            if (m_playbackIndex != ch->currentStepIndex())
-                ch->setCurrentStep(m_playbackIndex, getPrimaryIntensity());
-#endif
+            ChaserAction action;
+            action.m_action = ChaserSetStepIndex;
+            action.m_stepIndex = m_playbackIndex;
+            action.m_intensity = getPrimaryIntensity();
+            action.m_fadeMode = getFadeMode();
+            ch->setAction(action);
+
             ch->setPause(!ch->isPaused());
             emit playbackStatusChanged();
         }
@@ -507,8 +684,8 @@ void VCCueList::previousClicked()
         {
             ChaserAction action;
             action.m_action = ChaserPreviousStep;
-            //action.m_intensity = getPrimaryIntensity();
-            //action.m_fadeMode = getFadeMode();
+            action.m_intensity = getPrimaryIntensity();
+            action.m_fadeMode = getFadeMode();
             ch->setAction(action);
         }
     }
@@ -547,8 +724,8 @@ void VCCueList::nextClicked()
         {
             ChaserAction action;
             action.m_action = ChaserNextStep;
-            //action.m_intensity = getPrimaryIntensity();
-            //action.m_fadeMode = getFadeMode();
+            action.m_intensity = getPrimaryIntensity();
+            action.m_fadeMode = getFadeMode();
             ch->setAction(action);
         }
     }
@@ -650,6 +827,10 @@ bool VCCueList::loadXML(QXmlStreamReader &root)
             }
             setNextPrevBehavior(nextPrev);
         }
+        else if (root.name() == KXMLQLCVCCueListSlidersMode)
+        {
+            setSideFaderMode(stringToFaderMode(root.readElementText()));
+        }
         else if (root.name() == KXMLQLCVCCueListNext)
         {
             loadXMLSources(root, INPUT_NEXT_STEP_ID);
@@ -668,15 +849,15 @@ bool VCCueList::loadXML(QXmlStreamReader &root)
         }
         else if (root.name() == KXMLQLCVCCueListCrossfadeLeft)
         {
-            loadXMLSources(root, INPUT_CROSSFADE_L_ID);
+            loadXMLSources(root, INPUT_SIDE_FADER_ID);
         }
-        else if (root.name() == KXMLQLCVCCueListCrossfadeRight)
+        else if (root.name() == KXMLQLCVCCueListCrossfadeRight) /* Legacy */
         {
-            loadXMLSources(root, INPUT_CROSSFADE_R_ID);
+            root.skipCurrentElement();
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown label tag:" << root.name().toString();
+            qWarning() << Q_FUNC_INFO << "Unknown VC Cue list tag:" << root.name().toString();
             root.skipCurrentElement();
         }
     }

@@ -561,7 +561,7 @@ void VCWidget::adjustIntensity(qreal val)
     m_intensity = val;
 }
 
-qreal VCWidget::intensity()
+qreal VCWidget::intensity() const
 {
     return m_intensity;
 }

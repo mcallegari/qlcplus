@@ -48,6 +48,7 @@ Rectangle
     property int indexInList: -1
     property int highlightIndex: -1
     property int highlightEditTime: -1
+    property int nextIndex: -1
 
     property int col1Width: 25
     property int col2Width: UISettings.bigItemHeight * 1.5
@@ -160,6 +161,7 @@ Rectangle
         {
             width: col1Width
             height: parent.height
+            color: nextIndex === indexInList ? "orange" : "transparent"
             label: indexInList + 1
             labelColor: stepDelegate.labelColor
             fontSize: labelFontSize

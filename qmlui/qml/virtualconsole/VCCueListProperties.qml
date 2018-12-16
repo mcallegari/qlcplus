@@ -143,5 +143,72 @@ Rectangle
                   }
               } // GridLayout
         } // SectionBox
+
+        SectionBox
+        {
+            sectionLabel: qsTr("Side fader")
+
+            sectionContents:
+              GridLayout
+              {
+                  width: parent.width
+                  columns: 7
+                  columnSpacing: 5
+                  rowSpacing: 3
+
+                  // row 1
+                  RobotoText
+                  {
+                      height: gridItemsHeight
+                      Layout.fillWidth: true
+                      label: qsTr("Mode")
+                  }
+
+                  CustomCheckBox
+                  {
+                      implicitWidth: UISettings.iconSizeMedium
+                      implicitHeight: implicitWidth
+                      checked: widgetRef ? widgetRef.sideFaderMode === VCCueList.None : false
+                      onClicked: if (checked && widgetRef) widgetRef.sideFaderMode = VCCueList.None
+                  }
+
+                  RobotoText
+                  {
+                      height: gridItemsHeight
+                      Layout.fillWidth: true
+                      label: qsTr("None")
+                  }
+
+                  CustomCheckBox
+                  {
+                      implicitWidth: UISettings.iconSizeMedium
+                      implicitHeight: implicitWidth
+                      checked: widgetRef ? widgetRef.sideFaderMode === VCCueList.Crossfade : false
+                      onClicked: if (checked && widgetRef) widgetRef.sideFaderMode = VCCueList.Crossfade
+                  }
+
+                  RobotoText
+                  {
+                      height: gridItemsHeight
+                      Layout.fillWidth: true
+                      label: qsTr("Crossfade")
+                  }
+
+                  CustomCheckBox
+                  {
+                      implicitWidth: UISettings.iconSizeMedium
+                      implicitHeight: implicitWidth
+                      checked: widgetRef ? widgetRef.sideFaderMode === VCCueList.Steps : false
+                      onClicked: if (checked && widgetRef) widgetRef.sideFaderMode = VCCueList.Steps
+                  }
+
+                  RobotoText
+                  {
+                      height: gridItemsHeight
+                      Layout.fillWidth: true
+                      label: qsTr("Steps")
+                  }
+              }
+        }
     } // Column
 }

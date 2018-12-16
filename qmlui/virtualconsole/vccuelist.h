@@ -27,15 +27,13 @@
 #define KXMLQLCVCCueListPlaybackLayout "PlaybackLayout"
 #define KXMLQLCVCCueListNextPrevBehavior "NextPrevBehavior"
 #define KXMLQLCVCCueListCrossfade "Crossfade"
-#define KXMLQLCVCCueListBlend "Blend"
-#define KXMLQLCVCCueListLinked "Linked"
 #define KXMLQLCVCCueListNext "Next"
 #define KXMLQLCVCCueListPrevious "Previous"
 #define KXMLQLCVCCueListPlayback "Playback"
 #define KXMLQLCVCCueListStop "Stop"
+#define KXMLQLCVCCueListSlidersMode "SlidersMode"
 #define KXMLQLCVCCueListCrossfadeLeft "CrossLeft"
 #define KXMLQLCVCCueListCrossfadeRight "CrossRight"
-#define KXMLQLCVCCueListSlidersMode "SlidersMode"
 
 class ListModel;
 
@@ -48,6 +46,11 @@ class VCCueList : public VCWidget
 
     Q_PROPERTY(NextPrevBehavior nextPrevBehavior READ nextPrevBehavior WRITE setNextPrevBehavior NOTIFY nextPrevBehaviorChanged)
     Q_PROPERTY(PlaybackLayout playbackLayout READ playbackLayout WRITE setPlaybackLayout NOTIFY playbackLayoutChanged)
+
+    Q_PROPERTY(FaderMode sideFaderMode READ sideFaderMode WRITE setSideFaderMode NOTIFY sideFaderModeChanged)
+    Q_PROPERTY(int sideFaderLevel READ sideFaderLevel WRITE setSideFaderLevel NOTIFY sideFaderLevelChanged)
+    Q_PROPERTY(bool primaryTop READ primaryTop NOTIFY primaryTopChanged)
+    Q_PROPERTY(int nextStepIndex READ nextStepIndex NOTIFY nextStepIndexChanged)
 
     Q_PROPERTY(PlaybackStatus playbackStatus READ playbackStatus NOTIFY playbackStatusChanged)
     Q_PROPERTY(int playbackIndex READ playbackIndex WRITE setPlaybackIndex NOTIFY playbackIndexChanged)
@@ -98,9 +101,11 @@ public:
     };
     Q_ENUM(PlaybackLayout)
 
+    /** Get/Set the next/previous buttons behaviour */
     NextPrevBehavior nextPrevBehavior() const;
     void setNextPrevBehavior(NextPrevBehavior nextPrev);
 
+    /** Get/Set the playback (play/pause/stop) layout */
     PlaybackLayout playbackLayout() const;
     void setPlaybackLayout(PlaybackLayout layout);
 
@@ -111,6 +116,50 @@ signals:
 private:
     NextPrevBehavior m_nextPrevBehavior;
     PlaybackLayout m_playbackLayout;
+
+    /*************************************************************************
+     * Side fader
+     *************************************************************************/
+public:
+    enum FaderMode
+    {
+        None = 0,
+        Crossfade,
+        Steps
+    };
+    Q_ENUM(FaderMode)
+
+    /** Get/Set the side fader mode */
+    FaderMode sideFaderMode() const;
+    void setSideFaderMode(FaderMode mode);
+
+    /** Convert side fader mode <-> string */
+    FaderMode stringToFaderMode(QString modeStr);
+    QString faderModeToString(FaderMode mode);
+
+    /** Get/Set the side fader level */
+    int sideFaderLevel() const;
+    void setSideFaderLevel(int level);
+
+    bool primaryTop() const;
+    int nextStepIndex() const;
+
+protected:
+    qreal getPrimaryIntensity() const;
+    int getFadeMode() const;
+    void stopStepIfNeeded(Chaser *ch);
+
+signals:
+    void sideFaderModeChanged();
+    void sideFaderLevelChanged();
+    void primaryTopChanged();
+    void nextStepIndexChanged();
+
+private:
+    FaderMode m_slidersMode;
+    int m_sideFaderLevel;
+    int m_nextStepIndex;
+    bool m_primaryTop;
 
     /*********************************************************************
      * Chaser attachment

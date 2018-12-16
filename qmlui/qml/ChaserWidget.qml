@@ -31,6 +31,7 @@ Column
     property bool isSequence: false
     property alias model: cStepsList.model
     property alias playbackIndex: cStepsList.currentIndex
+    property int nextIndex: -1
     property alias speedType: timeEditTool.speedType
     property int tempoType: QLCFunction.Time
     property bool isRunning: false
@@ -470,6 +471,7 @@ Column
                         indexInList: index
                         highlightIndex: cStepsList.dragInsertIndex
                         highlightEditTime: editStepIndex === index ? editStepType : -1
+                        nextIndex: widgetRoot.nextIndex
 
                         Drag.active: delegateRoot.drag.active
                         Drag.source: csDelegate
