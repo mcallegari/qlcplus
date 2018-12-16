@@ -115,14 +115,12 @@ VCCueListProperties::VCCueListProperties(VCCueList* cueList, Doc* doc)
         m_crossFadeRadio->setChecked(true);
 
     m_crossfadeInputWidget = new InputSelectionWidget(m_doc, this);
-    m_crossfadeInputWidget->setTitle(tr("Left Fader"));
+    m_crossfadeInputWidget->setTitle(tr("External Input"));
     m_crossfadeInputWidget->setKeyInputVisibility(false);
     m_crossfadeInputWidget->setInputSource(m_cueList->inputSource(VCCueList::sideFaderInputSourceId));
     m_crossfadeInputWidget->setWidgetPage(m_cueList->page());
     m_crossfadeInputWidget->show();
     m_crossFadeLayout->addWidget(m_crossfadeInputWidget);
-    connect(m_crossfadeInputWidget, SIGNAL(autoDetectToggled(bool)),
-            this, SLOT(slotCFAutoDetectionToggled(bool)));
 
     /* Playback layout */
     connect(m_play_stop_pause, SIGNAL(clicked(bool)), this, SLOT(slotPlaybackLayoutChanged()));
@@ -186,12 +184,6 @@ void VCCueListProperties::slotTabChanged()
     m_prevInputWidget->stopAutoDetection();
 
     m_crossfadeInputWidget->stopAutoDetection();
-}
-
-void VCCueListProperties::slotCFAutoDetectionToggled(bool checked)
-{
-    if (checked == true && m_crossfadeInputWidget->isAutoDetecting())
-        m_crossfadeInputWidget->stopAutoDetection();
 }
 
 /****************************************************************************

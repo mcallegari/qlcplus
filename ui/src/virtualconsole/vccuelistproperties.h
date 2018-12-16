@@ -49,7 +49,6 @@ public:
 public slots:
     void accept();
     void slotTabChanged();
-    void slotCFAutoDetectionToggled(bool checked);
 
 protected:
     VCCueList* m_cueList;
