@@ -125,6 +125,98 @@ void Midi_Test::midiToInput()
 
 
 
+void Midi_Test::feedbackToMidi_data()
+{
+  QTest::addColumn<quint32>("qlcChannel");
+  QTest::addColumn<uchar>("qlcValue");
+  QTest::addColumn<uchar>("midiChannel");
+  QTest::addColumn<bool>("sendNoteOff");
+  QTest::addColumn<uchar>("cmd_expected");
+  QTest::addColumn<uchar>("data1_expected");
+  QTest::addColumn<uchar>("data2_expected"); // 255 => data2 byte not used by MIDI command
+
+  for(quint32 qlcChannel = 0; qlcChannel < MAX_MIDI_CHANNELS; qlcChannel +=6)
+  {
+    for(uchar midiChannel = 0; midiChannel <= MAX_MIDI_CHANNELS; midiChannel += 4)
+    {
+      uchar qlcValue = 7 + 3 * qlcChannel + 3 * midiChannel;
+
+      for(uchar key = qlcChannel * 3 + midiChannel * 5; key < 128; key += 27)
+      {
+        QTest::addRow("Note OFF key=%d qlc=%d midi=%d", key, qlcChannel, midiChannel)
+          << qlcChannel * OmniChannelOffset + CHANNEL_OFFSET_NOTE + key << uchar(0) << midiChannel << true
+          << qlc_to_midiCmd(qlcChannel, midiChannel, MIDI_NOTE_OFF)
+          << uchar(key) << uchar(0);
+
+        QTest::addRow("Note ON key=%d qlc=%d midi=%d val=0", key, qlcChannel, midiChannel)
+          << qlcChannel * OmniChannelOffset + CHANNEL_OFFSET_NOTE + key << uchar(0) << midiChannel << false
+          << qlc_to_midiCmd(qlcChannel, midiChannel, MIDI_NOTE_ON)
+          << uchar(key) << uchar(0);
+
+        QTest::addRow("Note ON key=%d qlc=%d midi=%d val=%d", key, qlcChannel, midiChannel, qlcValue)
+          << qlcChannel * OmniChannelOffset + CHANNEL_OFFSET_NOTE + key << qlcValue << midiChannel << true
+          << qlc_to_midiCmd(qlcChannel, midiChannel, MIDI_NOTE_ON)
+          << uchar(key) << dmx_to_midi7b(qlcValue);
+
+        QTest::addRow("Note Aftertouch key=%d qlc=%d midi=%d val=%d", key, qlcChannel, midiChannel, qlcValue)
+          << qlcChannel * OmniChannelOffset + CHANNEL_OFFSET_NOTE_AFTERTOUCH + key << qlcValue << midiChannel << false
+          << qlc_to_midiCmd(qlcChannel, midiChannel, MIDI_NOTE_AFTERTOUCH)
+          << uchar(key) << dmx_to_midi7b(qlcValue);
+
+        QTest::addRow("Control Change ctrl=%d qlc=%d midi=%d val=%d", key, qlcChannel, midiChannel, qlcValue)
+          << qlcChannel * OmniChannelOffset + CHANNEL_OFFSET_CONTROL_CHANGE + key << qlcValue << midiChannel << true
+          << qlc_to_midiCmd(qlcChannel, midiChannel, MIDI_CONTROL_CHANGE)
+          << uchar(key) << dmx_to_midi7b(qlcValue);
+      }
+
+      QTest::addRow("Program Change prg=%d qlc=%d midi=%d", qlcValue, qlcChannel, midiChannel)
+        << qlcChannel * OmniChannelOffset + CHANNEL_OFFSET_PROGRAM_CHANGE << qlcValue << midiChannel << false
+        << qlc_to_midiCmd(qlcChannel, midiChannel, MIDI_PROGRAM_CHANGE)
+        << dmx_to_midi7b(qlcValue) << uchar(255);
+
+      QTest::addRow("Channel Aftertouch val=%d qlc=%d midi=%d", qlcValue, qlcChannel, midiChannel)
+        << qlcChannel * OmniChannelOffset + CHANNEL_OFFSET_CHANNEL_AFTERTOUCH << qlcValue << midiChannel << true
+        << qlc_to_midiCmd(qlcChannel, midiChannel, MIDI_CHANNEL_AFTERTOUCH)
+        << dmx_to_midi7b(qlcValue) << uchar(255);
+
+      QTest::addRow("Pitch Bend val=%d qlc=%d midi=%d", qlcValue, qlcChannel, midiChannel)
+        << qlcChannel * OmniChannelOffset + CHANNEL_OFFSET_PITCH_WHEEL << qlcValue << midiChannel << false
+        << qlc_to_midiCmd(qlcChannel, midiChannel, MIDI_PITCH_WHEEL)
+        << uchar((qlcValue & 0x01) << 6) << uchar(qlcValue >> 1);
+
+      ++qlcValue;
+    }
+  }
+
+}
+
+void Midi_Test::feedbackToMidi()
+{
+  uchar cmd_result, data1_result, data2_result;
+
+  QFETCH(quint32, qlcChannel);
+  QFETCH(uchar, qlcValue);
+  QFETCH(uchar, midiChannel);
+  QFETCH(bool, sendNoteOff);
+  QFETCH(uchar, cmd_expected);
+  QFETCH(uchar, data1_expected);
+  QFETCH(uchar, data2_expected);
+  if(data2_expected == 255) // data2 byte not used by MIDI command
+    data2_result = data2_expected;
+
+  QVERIFY2(
+    QLCMIDIProtocol::feedbackToMidi(
+      qlcChannel, qlcValue, midiChannel, sendNoteOff,
+      &cmd_result, &data1_result, &data2_result),
+    "Expecting valid answer from feedbackToMidi");
+
+  QCOMPARE(cmd_result, cmd_expected);
+  QCOMPARE(data1_result, data1_expected);
+  QCOMPARE(data2_result, data2_expected);
+}
+
+
+
 void Midi_Test::midiToInput_midiChannels_data()
 {
   QTest::addColumn<uchar>("cmd");

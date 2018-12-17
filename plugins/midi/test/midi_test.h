@@ -35,6 +35,11 @@ public:
     uchar midi14b_to_dmx( int in )
     { return in >> 6; }
 
+  static inline
+    uchar dmx_to_midi7b( int in )
+    { return in / 2; }
+
+
   static const quint32 OmniChannelOffset = 1 << 12;
 
   inline static
@@ -45,11 +50,18 @@ public:
     int midiChannel_to_qlcValue(uchar midi, uchar qlc, uchar value)
     { return (qlc == 16 || qlc == midi) ? value : -1; }
 
+  inline static
+    uchar qlc_to_midiCmd(quint32 qlcChannel, uchar midiChannel, uchar cmd)
+    { return cmd + (midiChannel == 16 ? qlcChannel : midiChannel); }
+
 private slots:
 
   // Tests of data bytes conversion
   void midiToInput_data();
   void midiToInput();
+
+  void feedbackToMidi_data();
+  void feedbackToMidi();
 
   // Tests of MIDI Channel filtering
   void midiToInput_midiChannels_data();
