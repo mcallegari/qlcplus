@@ -3,8 +3,7 @@ Q Light Controller Plus 4
 
 ![QLC+ LOGO](resources/icons/png/qlcplus.png)
 
-Copyright (c) Heikki Junnila
-	      Massimo Callegari
+Copyright (c) Heikki Junnila, Massimo Callegari
 
 QLC+ homepage: https://www.qlcplus.org/
 
@@ -44,9 +43,8 @@ limitations under the License.
 Requirements - Linux
 --------------------
 
-* Qt >= 4.6 development libraries & tools
+* Qt >= 5.0 development libraries & tools
 * libudev-dev, libmad0-dev, libsndfile1-dev, libfftw3-dev
-
 * DMX USB plugin: libftdi-dev, pkg-config
 * HID plugin: No additional requirements
 * MIDI plugin: libasound, libasound-dev, pkg-config
@@ -64,8 +62,6 @@ Requirements - Windows
 ----------------------
 
 * MSYS2 environment (https://msys2.github.io/)
-* Qt >= 5.0.x (http://download.qt.io/official_releases/qt/)
-
 * DMX USB plugin: D2XX driver & development package (http://www.ftdichip.com/Drivers/D2XX.htm)
 * HID plugin: No additional requirements
 * MIDI plugin: No additional requirements
@@ -83,9 +79,8 @@ Requirements - Mac OS X
 -----------------------
 
 * XCode (http://developer.apple.com/technologies/tools/xcode.html)
-* Qt SDK >= 5.0.x (http://download.qt.io/official_releases/qt/)
+* Qt >= 5.0.x (http://download.qt.io/official_releases/qt/)
 * macports (https://www.macports.org/)
-
 * DMX USB plugin: macports, libftdi-dev, pkg-config
 * HID plugin: No additional requirements
 * MIDI plugin: No additional requirements
@@ -127,6 +122,7 @@ Contributors
 * Dai Suetake (Japanese translation)
 * Hannes Bossuyt (Dutch translation)
 * Aleksandr Gusarov (Russian translation)
+* Vadim Syniuhin (Ukrainian translation)
 
 ### QLC+ 4:
 

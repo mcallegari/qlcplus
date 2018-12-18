@@ -2,7 +2,7 @@
 
 # Translated languages (update these also to qlcplus.pro)
 if [ "$1" == "qmlui" ]; then
-    languages="de_DE es_ES fr_FR it_IT nl_NL ru_RU ca_ES ja_JP"
+    languages="de_DE es_ES fr_FR it_IT nl_NL ru_RU ca_ES ja_JP uk_UA"
 else
     languages="de_DE es_ES fr_FR it_IT nl_NL cz_CZ pt_BR ca_ES ja_JP"
 fi

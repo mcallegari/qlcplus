@@ -47,7 +47,7 @@ qmlui: {
 translations.files = ./qlcplus_de_DE.qm ./qlcplus_es_ES.qm ./qlcplus_fr_FR.qm
 translations.files += ./qlcplus_it_IT.qm ./qlcplus_nl_NL.qm ./qlcplus_ca_ES.qm ./qlcplus_ja_JP.qm
 qmlui: {
-  translations.files += ./qlcplus_ru_RU.qm 
+  translations.files += ./qlcplus_ru_RU.qm ./qlcplus_uk_UA.qm
 } else {
   translations.files += ./qlcplus_cz_CZ.qm ./qlcplus_pt_BR.qm 
 }
