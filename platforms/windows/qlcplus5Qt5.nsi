@@ -80,6 +80,7 @@ SectionEnd
 Section
 	File qlcplus-qml.exe
 	File *.dll
+	File *.qm
 	File Sample.qxw
 	File /r audio
 	File /r geometryloaders
