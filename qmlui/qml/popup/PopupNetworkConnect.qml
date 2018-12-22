@@ -225,5 +225,5 @@ CustomPopupDialog
             }
         }
 
-    footer: null
+    footer.visible: false
 }
