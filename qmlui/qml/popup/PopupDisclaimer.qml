@@ -27,6 +27,7 @@ CustomPopupDialog
 {
     id: popupRoot
 
+    visible: true
     title: qsTr("Disclaimer")
     standardButtons: Dialog.Ok
 
