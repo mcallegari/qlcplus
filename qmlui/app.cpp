@@ -35,6 +35,7 @@
 #include "app.h"
 #include "mainview2d.h"
 #include "showmanager.h"
+#include "fixtureeditor.h"
 #include "modelselector.h"
 #include "videoprovider.h"
 #include "importmanager.h"
@@ -75,6 +76,7 @@ App::App()
     , m_printItem(nullptr)
     , m_fileName(QString())
     , m_importManager(nullptr)
+    , m_fixtureEditor(nullptr)
 {
     QSettings settings;
 
@@ -93,7 +95,6 @@ App::App()
 
 App::~App()
 {
-
 }
 
 QString App::appName() const
@@ -377,12 +378,6 @@ void App::initDoc()
     m_doc->rgbScriptsCache()->load(RGBScriptsCache::userScriptsDirectory());
 
     /* Load plugins */
-/*
-#if defined(__APPLE__) || defined(Q_OS_MAC)
-    connect(m_doc->ioPluginCache(), SIGNAL(pluginLoaded(const QString&)),
-            this, SLOT(slotSetProgressText(const QString&)));
-#endif
-*/
 #if defined Q_OS_ANDROID
     QString pluginsPath = QString("%1/../lib").arg(QDir::currentPath());
     m_doc->ioPluginCache()->load(QDir(pluginsPath));
@@ -657,34 +652,6 @@ bool App::saveWorkspace(const QString &fileName)
     return false;
 }
 
-bool App::loadImportWorkspace(const QString &fileName)
-{
-    if (m_importManager != nullptr)
-        delete m_importManager;
-
-    m_importManager = new ImportManager(this, m_doc);
-    return m_importManager->loadWorkspace(fileName);
-}
-
-void App::cancelImport()
-{
-    if (m_importManager != nullptr)
-        delete m_importManager;
-
-    m_importManager = nullptr;
-}
-
-void App::importFromWorkspace()
-{
-    if (m_importManager == nullptr)
-        return;
-
-    m_importManager->apply();
-
-    delete m_importManager;
-    m_importManager = nullptr;
-}
-
 QFileDevice::FileError App::loadXML(const QString &fileName)
 {
     QFile::FileError retval = QFile::NoError;
@@ -869,5 +836,72 @@ QFile::FileError App::saveXML(const QString& fileName)
     return QFile::NoError;
 }
 
+/*********************************************************************
+ * Import project
+ *********************************************************************/
 
+bool App::loadImportWorkspace(const QString &fileName)
+{
+    if (m_importManager != nullptr)
+        delete m_importManager;
+
+    m_importManager = new ImportManager(this, m_doc);
+    return m_importManager->loadWorkspace(fileName);
+}
+
+void App::cancelImport()
+{
+    if (m_importManager != nullptr)
+        delete m_importManager;
+
+    m_importManager = nullptr;
+}
+
+void App::importFromWorkspace()
+{
+    if (m_importManager == nullptr)
+        return;
+
+    m_importManager->apply();
+
+    delete m_importManager;
+    m_importManager = nullptr;
+}
+
+/*********************************************************************
+ * Fixture editor
+ *********************************************************************/
+
+void App::createFixture()
+{
+    if (m_fixtureEditor == nullptr)
+    {
+        m_fixtureEditor = new FixtureEditor(this, m_doc);
+        setSource(QUrl("qrc:/FixtureEditor.qml"));
+    }
+
+    m_fixtureEditor->createDefinition();
+}
+
+void App::editFixture(QString manufacturer, QString model)
+{
+    if (m_fixtureEditor == nullptr)
+    {
+        m_fixtureEditor = new FixtureEditor(this, m_doc);
+        setSource(QUrl("qrc:/FixtureEditor.qml"));
+    }
+    m_doc->fixtureDefCache()->fixtureDef(manufacturer, model);
+}
+
+void App::closeFixtureEditor()
+{
+    if (m_fixtureEditor)
+    {
+        delete m_fixtureEditor;
+        m_fixtureEditor = nullptr;
+    }
+
+    // reload the QLC+ main view
+    setSource(QUrl("qrc:/MainView.qml"));
+}
 

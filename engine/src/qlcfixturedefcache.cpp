@@ -289,32 +289,6 @@ bool QLCFixtureDefCache::loadMap(const QDir &dir)
     }
     qDebug() << fxCount << "fixtures found in map";
 
-#if 0
-    /* Attempt to read all files not in FixtureMap */
-    QStringList definitionPaths;
-
-    // Gather a list of manufacturers
-    QListIterator <QLCFixtureDef*> mfit(m_defs);
-    while (mfit.hasNext() == true)
-        definitionPaths << mfit.next()->definitionSourceFile();
-
-    QStringListIterator it(dir.entryList());
-    while (it.hasNext() == true)
-    {
-        QString path(dir.absoluteFilePath(it.next()));
-        if (definitionPaths.contains(path))
-            continue;
-
-        qWarning() << path << "not in" << FIXTURES_MAP_NAME;
-
-        if (path.toLower().endsWith(KExtFixture) == true)
-            loadQXF(path);
-        else if (path.toLower().endsWith(KExtAvolitesFixture) == true)
-            loadD4(path);
-        else
-            qWarning() << Q_FUNC_INFO << "Unrecognized fixture extension:" << path;
-    }
-#endif
     return true;
 }
 
