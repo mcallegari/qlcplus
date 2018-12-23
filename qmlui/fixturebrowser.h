@@ -21,7 +21,6 @@
 #define FIXTUREBROWSER_H
 
 #include <QQuickView>
-#include <QDebug>
 
 class QLCFixtureMode;
 class QLCFixtureDef;

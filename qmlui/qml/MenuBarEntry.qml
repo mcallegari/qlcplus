@@ -38,6 +38,7 @@ Button
     property string entryText: ""
     property real mFontSize: UISettings.textSizeDefault * 0.70
     property int iconSize: imgSource ? height - 4 - topPadding - bottomPadding : 0
+    property int iconRotation: 0
 
     property Gradient bgGradient: defBgGradient
     property Gradient selGradient: defSelectionGradient
@@ -70,6 +71,7 @@ Button
                 width: control.iconSize
                 x: 2
                 y: 2
+                rotation: iconRotation
                 source: control.imgSource
                 sourceSize: Qt.size(control.iconSize, control.iconSize)
             }
