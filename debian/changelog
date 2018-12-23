@@ -3,6 +3,7 @@ qlcplus (4.12.1) stable; urgency=low
   * engine/RGBMatrix: fix crash when a fixture group has out of bounds heads
   * engine/EFX: fix crash when previewing a cloned EFX
   * Virtual Console/Slider: fix Click & Go not applied to channels
+  * Virtual Console/Frame: fix geometry after move in collapsed state
   * New fixture: American DJ FREQ Matrix Quad (thanks to Rasmus Ahlberg)
   * New fixture: Pro-Lights SunPix 12TRI (thanks to Lorenzo Andreani)
 

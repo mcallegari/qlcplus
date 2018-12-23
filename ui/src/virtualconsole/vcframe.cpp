@@ -1479,6 +1479,9 @@ void VCFrame::mouseMoveEvent(QMouseEvent* e)
     else
         QWidget::mouseMoveEvent(e);
 
-    m_width = this->width();
-    m_height = this->height();
+    if (isCollapsed() == false)
+    {
+        m_width = this->width();
+        m_height = this->height();
+    }
 }
