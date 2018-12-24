@@ -1141,13 +1141,15 @@ void VCCueList::slotSideFaderValueChanged(int value)
         }
         //qDebug() << "value:" << value << "steps:" << ch->stepsCount() << "new step:" << newStep;
 
+        if (newStep == ch->currentStepIndex())
+            return;
+
         ChaserAction action;
         action.m_action = ChaserSetStepIndex;
         action.m_stepIndex = newStep;
+        action.m_intensity = getPrimaryIntensity();
+        action.m_fadeMode = getFadeMode();
         ch->setAction(action);
-
-        if (newStep == ch->currentStepIndex())
-            return;
     }
     else
     {

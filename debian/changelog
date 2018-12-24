@@ -5,6 +5,8 @@ qlcplus (4.12.1) stable; urgency=low
   * Simple Desk: fix wrong channel offset
   * Virtual Console/Slider: fix Click & Go not applied to channels
   * Virtual Console/Frame: fix geometry after move in collapsed state
+  * virtual Console/Cue List: simplified side faders with a single always blended fader
+  * virtual Console/Cue List: fix behavior of side fader in steps mode
   * New fixture: American DJ FREQ Matrix Quad (thanks to Rasmus Ahlberg)
   * New fixture: Pro-Lights SunPix 12TRI (thanks to Lorenzo Andreani)
 
