@@ -858,7 +858,7 @@ void SimpleDesk::slotAliasChanged()
 void SimpleDesk::slotUniverseSliderValueChanged(quint32 fid, quint32 chan, uchar value)
 {
     QVariant var(sender()->property(PROP_ADDRESS));
-    if (var.isValid() == true) // Not true with disabled sliders
+    if (var.isValid()) // Not true with disabled sliders
     {
         quint32 chanAbsAddr = var.toUInt();
         if (m_viewModeButton->isChecked() == false &&
@@ -879,24 +879,24 @@ void SimpleDesk::slotUniverseSliderValueChanged(quint32 fid, quint32 chan, uchar
     else // calculate the absolute address from the given parameters
     {
         Fixture *fixture = m_doc->fixture(fid);
-        if (fixture != NULL)
-        {
-            quint32 chanAbsAddr = fixture->universeAddress() + chan;
-            if (m_viewModeButton->isChecked() == true &&
-                m_engine->hasChannel(chanAbsAddr) == false)
-            {
-                if (m_consoleList.contains(fid))
-                {
-                    FixtureConsole *fc = m_consoleList[fid];
-                    if (fc != NULL)
-                        fc->setChannelStylesheet(chan, ssOverride);
-                }
-            }
-            m_engine->setValue(chanAbsAddr, value);
+        if (fixture == NULL)
+            return;
 
-            if (m_editCueStackButton->isChecked() == true)
-                replaceCurrentCue();
+        quint32 chanAbsAddr = fixture->universeAddress() + chan;
+        if (m_viewModeButton->isChecked() == true &&
+            m_engine->hasChannel(chanAbsAddr) == false)
+        {
+            if (m_consoleList.contains(fid))
+            {
+                FixtureConsole *fc = m_consoleList[fid];
+                if (fc != NULL)
+                    fc->setChannelStylesheet(chan, ssOverride);
+            }
         }
+        m_engine->setValue(chanAbsAddr, value);
+
+        if (m_editCueStackButton->isChecked() == true)
+            replaceCurrentCue();
     }
 }
 

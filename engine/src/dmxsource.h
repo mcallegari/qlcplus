@@ -48,7 +48,7 @@ public:
 
     /** Get/Set if the DMX source has changed */
     bool hasChanged() { return m_changed; }
-    void setChanged() { m_changed = true; }
+    void setChanged(bool changed) { m_changed = changed; }
 
 protected:
     bool m_changed;
