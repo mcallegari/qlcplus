@@ -23,25 +23,38 @@
 #include <QQuickView>
 
 class Doc;
-class QLCFixtureDef;
+class EditorView;
 
 class FixtureEditor : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QVariantList editorsList READ editorsList NOTIFY editorsListChanged)
 
 public:
     FixtureEditor(QQuickView *view, Doc *doc, QObject *parent = nullptr);
     ~FixtureEditor();
 
+    /** Create a new editor and an empty fixture definition */
     void createDefinition();
+
+    /** Edit an existing fixture definition */
+    void editDefinition(QString manufacturer, QString model);
+
+    /** Returns a list of the created editors */
+    QVariantList editorsList() const;
+
+signals:
+    void editorsListChanged();
 
 private:
     /** Reference to the QML view root */
     QQuickView *m_view;
     /** Reference to the project workspace */
     Doc *m_doc;
-    /** Map of index / references to the definitions being edited */
-    QMap<int, QLCFixtureDef *>m_fixtures;
+    /** The last assigned editor ID */
+    int m_lastId;
+    /** Map of id / references to the open editors */
+    QMap<int, EditorView *>m_editors;
 };
 
 #endif // FIXTUREEDITOR_H

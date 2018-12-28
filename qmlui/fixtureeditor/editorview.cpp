@@ -18,7 +18,9 @@
 */
 
 #include "qlcfixturedef.h"
+#include "qlcchannel.h"
 
+#include "physicaledit.h"
 #include "editorview.h"
 
 EditorView::EditorView(QQuickView *view, QLCFixtureDef *fixtureDef, QObject *parent)
@@ -26,7 +28,7 @@ EditorView::EditorView(QQuickView *view, QLCFixtureDef *fixtureDef, QObject *par
     , m_view(view)
     , m_fixtureDef(fixtureDef)
 {
-
+    m_globalPhy = new PhysicalEdit(m_fixtureDef->physical(), this);
 }
 
 EditorView::~EditorView()
@@ -60,4 +62,43 @@ void EditorView::setModel(QString model)
 
     m_fixtureDef->setModel(model);
     emit modelChanged(model);
+}
+
+QString EditorView::author() const
+{
+    return m_fixtureDef->author();
+}
+
+void EditorView::setAuthor(QString author)
+{
+    if (m_fixtureDef->author() == author)
+        return;
+
+    m_fixtureDef->setAuthor(author);
+    emit authorChanged(author);
+}
+
+PhysicalEdit *EditorView::globalPhysical()
+{
+    return m_globalPhy;
+}
+
+/************************************************************************
+ * Channels
+ ************************************************************************/
+
+QVariantList EditorView::channels() const
+{
+    QVariantList list;
+
+    for (QLCChannel *channel : m_fixtureDef->channels())
+    {
+        QVariantMap chMap;
+        chMap.insert("mIcon", channel->getIconNameFromGroup(channel->group(), true));
+        chMap.insert("mLabel", channel->name());
+        chMap.insert("mGroup", channel->groupToString(channel->group()));
+        list.append(chMap);
+    }
+
+    return list;
 }

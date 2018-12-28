@@ -102,7 +102,6 @@ Rectangle
 
             RowLayout
             {
-                id: rowLayout1
                 anchors.fill: parent
                 spacing: 5
                 ButtonGroup { id: vcToolbarGroup }

@@ -23,6 +23,7 @@
 #include <QQuickView>
 
 class QLCFixtureDef;
+class PhysicalEdit;
 
 class EditorView : public QObject
 {
@@ -30,6 +31,10 @@ class EditorView : public QObject
 
     Q_PROPERTY(QString manufacturer READ manufacturer WRITE setManufacturer NOTIFY manufacturerChanged)
     Q_PROPERTY(QString model READ model WRITE setModel NOTIFY modelChanged)
+    Q_PROPERTY(QString author READ author WRITE setAuthor NOTIFY authorChanged)
+
+    Q_PROPERTY(PhysicalEdit *globalPhysical READ globalPhysical CONSTANT)
+    Q_PROPERTY(QVariantList channels READ channels NOTIFY channelsChanged)
 
 public:
     EditorView(QQuickView *view, QLCFixtureDef* fixtureDef, QObject *parent = nullptr);
@@ -43,15 +48,34 @@ public:
     QString model() const;
     void setModel(QString model);
 
+    /** Get/Set the definition author */
+    QString author() const;
+    void setAuthor(QString author);
+
+    PhysicalEdit *globalPhysical();
+
 signals:
     void manufacturerChanged(QString manufacturer);
     void modelChanged(QString model);
+    void authorChanged(QString author);
 
 private:
     /** Reference to the QML view root */
     QQuickView *m_view;
     /** Reference to the definition being edited */
     QLCFixtureDef *m_fixtureDef;
+    /** Reference to the global physical properties */
+    PhysicalEdit *m_globalPhy;
+
+    /************************************************************************
+     * Channels
+     ************************************************************************/
+public:
+    /** Get a list of all the available channels in the definition */
+    QVariantList channels() const;
+
+signals:
+    void channelsChanged();
 };
 
 #endif // FIXTUREEDITOR_H

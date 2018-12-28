@@ -91,12 +91,12 @@ Rectangle
         IconButton
         {
             id: editButton
-            enabled: false
+            enabled: fixtureBrowser.selectedModel.length ? true : false
             width: height
             height: toolBar.height - 2
             imgSource: "qrc:/edit.svg"
             tooltip: qsTr("Edit the selected fixture definition")
-            //onClicked: contextManager.createFixtureGroup()
+            onClicked: qlcplus.editFixture(fixtureBrowser.selectedManufacturer, fixtureBrowser.selectedModel)
         }
     }
 
