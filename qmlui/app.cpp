@@ -877,7 +877,10 @@ void App::createFixture()
     if (m_fixtureEditor == nullptr)
     {
         m_fixtureEditor = new FixtureEditor(this, m_doc);
-        setSource(QUrl("qrc:/FixtureEditor.qml"));
+        //setSource(QUrl("qrc:/FixtureEditor.qml")); // another fucking segfault in QtQuick
+        QMetaObject::invokeMethod(rootObject(), "switchToContext",
+                                  Q_ARG(QVariant, "FXEDITOR"),
+                                  Q_ARG(QVariant, "qrc:/FixtureEditor.qml"));
     }
 
     m_fixtureEditor->createDefinition();
@@ -888,9 +891,12 @@ void App::editFixture(QString manufacturer, QString model)
     if (m_fixtureEditor == nullptr)
     {
         m_fixtureEditor = new FixtureEditor(this, m_doc);
-        setSource(QUrl("qrc:/FixtureEditor.qml"));
+        //setSource(QUrl("qrc:/FixtureEditor.qml"));
+        QMetaObject::invokeMethod(rootObject(), "switchToContext",
+                                  Q_ARG(QVariant, "FXEDITOR"),
+                                  Q_ARG(QVariant, "qrc:/FixtureEditor.qml"));
     }
-    m_doc->fixtureDefCache()->fixtureDef(manufacturer, model);
+    m_fixtureEditor->editDefinition(manufacturer, model);
 }
 
 void App::closeFixtureEditor()
@@ -902,6 +908,9 @@ void App::closeFixtureEditor()
     }
 
     // reload the QLC+ main view
-    setSource(QUrl("qrc:/MainView.qml"));
+    //setSource(QUrl("qrc:/MainView.qml"));
+    QMetaObject::invokeMethod(rootObject(), "switchToContext",
+                              Q_ARG(QVariant, "FIXANDFUNC"),
+                              Q_ARG(QVariant, "qrc:/FixturesAndFunctions.qml"));
 }
 

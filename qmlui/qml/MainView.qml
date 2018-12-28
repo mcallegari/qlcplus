@@ -58,7 +58,9 @@ Rectangle
             item.visible = true
             if (setChecked)
                 item.checked = true
+            return true
         }
+        return false
     }
 
     function switchToContext(ctx, qmlRes)
@@ -66,8 +68,17 @@ Rectangle
         if (currentContext === ctx)
             return
 
-        enableContext(ctx, true)
-        currentContext = ctx
+        if (enableContext(ctx, true) === true)
+        {
+            currentContext = ctx
+            mainToolbar.visible = true
+        }
+        else
+        {
+            mainToolbar.visible = false
+            currentContext = ""
+        }
+
         if (qmlRes)
             mainViewLoader.source = qmlRes
     }

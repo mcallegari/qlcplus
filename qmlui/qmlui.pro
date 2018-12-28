@@ -138,11 +138,13 @@ SOURCES += \
 
 HEADERS += \
     fixtureeditor/fixtureeditor.h \
-    fixtureeditor/editorview.h
+    fixtureeditor/editorview.h \
+    fixtureeditor/physicaledit.h
 
 SOURCES += \
     fixtureeditor/fixtureeditor.cpp \
-    fixtureeditor/editorview.cpp
+    fixtureeditor/editorview.cpp \
+    fixtureeditor/physicaledit.cpp
 
 RESOURCES += qmlui.qrc ../resources/icons/svg/svgicons.qrc ../resources/fonts/fonts.qrc
 

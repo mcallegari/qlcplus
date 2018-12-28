@@ -65,7 +65,7 @@ Rectangle
 
             MenuBarEntry
             {
-                imgSource: "qrc:/back.svg"
+                imgSource: "qrc:/arrow-right.svg"
                 entryText: qsTr("Back to QLC+")
                 iconRotation: 180
                 onPressed: qlcplus.closeFixtureEditor()
@@ -75,7 +75,7 @@ Rectangle
             MenuBarEntry
             {
                 imgSource: "qrc:/filenew.svg"
-                entryText: qsTr("New")
+                entryText: qsTr("New definition")
                 //onPressed: qlcplus.closeFixtureEditor()
                 autoExclusive: false
                 checkable: false
@@ -83,7 +83,7 @@ Rectangle
             MenuBarEntry
             {
                 imgSource: "qrc:/filesave.svg"
-                entryText: qsTr("Save")
+                entryText: qsTr("Save definition")
                 //onPressed: qlcplus.closeFixtureEditor()
                 autoExclusive: false
                 checkable: false
@@ -91,12 +91,71 @@ Rectangle
             MenuBarEntry
             {
                 imgSource: "qrc:/filesaveas.svg"
-                entryText: qsTr("Save as...")
+                entryText: qsTr("Save definition as...")
                 //onPressed: qlcplus.closeFixtureEditor()
                 autoExclusive: false
                 checkable: false
             }
+            // filler
+            Rectangle
+            {
+                Layout.fillWidth: true
+                color: "transparent"
+            }
         }
+    }
+
+    Rectangle
+    {
+        id: feToolbar
+        y: mainToolbar.height
+        width: parent.width
+        height: UISettings.iconSizeMedium
+        z: 10
+        gradient: Gradient
+        {
+            GradientStop { position: 0; color: UISettings.toolbarStartSub }
+            GradientStop { position: 1; color: UISettings.toolbarEnd }
+        }
+
+        RowLayout
+        {
+            anchors.fill: parent
+            spacing: 5
+            ButtonGroup { }
+
+            Repeater
+            {
+                id: editorsRepeater
+                model: fixtureEditor.editorsList
+
+                onItemAdded: item.clicked()
+
+                delegate:
+                    MenuBarEntry
+                    {
+                        property string fxManuf: modelData.cRef.manufacturer
+                        property string fxModel: modelData.cRef.model
+
+                        entryText: (fxManuf ? fxManuf : qsTr("Unknown")) + " - " + (fxModel ? fxModel : qsTr("Unknown"))
+                        checkable: true
+                        onClicked:
+                        {
+                            editorView.editorId = modelData.id
+                            editorView.editor = modelData.cRef
+                            checked = true
+                        }
+                    }
+            } // Repeater
+        } // RowLayout
+    } // Rectangle
+
+    EditorView
+    {
+        id: editorView
+        y: mainToolbar.height + feToolbar.height
+        width: parent.width
+        height: parent.height - (mainToolbar.height + feToolbar.height)
     }
 
     /* Rectangle covering the whole window to

@@ -17,16 +17,24 @@
   limitations under the License.
 */
 
+#include <QQmlContext>
+
 #include "qlcfixturedef.h"
+#include "doc.h"
 
 #include "fixtureeditor.h"
+#include "physicaledit.h"
+#include "editorview.h"
 
 FixtureEditor::FixtureEditor(QQuickView *view, Doc *doc, QObject *parent)
     : QObject(parent)
     , m_view(view)
     , m_doc(doc)
+    , m_lastId(0)
 {
-
+    m_view->rootContext()->setContextProperty("fixtureEditor", this);
+    qmlRegisterUncreatableType<EditorView>("org.qlcplus.classes", 1, 0, "EditorView", "Can't create EditorView!");
+    qmlRegisterUncreatableType<PhysicalEdit>("org.qlcplus.classes", 1, 0, "PhysicalEdit", "Can't create PhysicalEdit!");
 }
 
 FixtureEditor::~FixtureEditor()
@@ -36,5 +44,33 @@ FixtureEditor::~FixtureEditor()
 
 void FixtureEditor::createDefinition()
 {
+    m_editors[m_lastId] = new EditorView(m_view, new QLCFixtureDef());
+    m_lastId++;
+    emit editorsListChanged();
+}
 
+void FixtureEditor::editDefinition(QString manufacturer, QString model)
+{
+    QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef(manufacturer, model);
+
+    m_editors[m_lastId] = new EditorView(m_view, def);
+    m_lastId++;
+    emit editorsListChanged();
+}
+
+QVariantList FixtureEditor::editorsList() const
+{
+    QVariantList list;
+
+    QMap<int, EditorView*>::const_iterator i = m_editors.constBegin();
+    while (i != m_editors.constEnd())
+    {
+        QVariantMap eMap;
+        eMap.insert("id", i.key());
+        eMap.insert("cRef", QVariant::fromValue(i.value()));
+        list.append(eMap);
+        ++i;
+    }
+
+    return list;
 }
