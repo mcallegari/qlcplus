@@ -98,13 +98,13 @@ public:
         Flower,
         Hazer,
         Laser,
-        MovingHead,
-        Scanner,
-        Smoke,
-        Strobe,
         LEDBarBeams,
         LEDBarPixels,
-        Other
+        MovingHead,
+        Other,
+        Scanner,
+        Smoke,
+        Strobe
     };
 
     /** Get the temporary definition file absolute path */
