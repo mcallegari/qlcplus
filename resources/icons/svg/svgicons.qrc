@@ -86,6 +86,7 @@
     <file alias="help.svg">help.svg</file>
     <file alias="hidplugin.svg">hidplugin.svg</file>
     <file alias="import.svg">import.svg</file>
+    <file alias="indigo.svg">indigo.svg</file>
     <file alias="inputoutput.svg">inputoutput.svg</file>
     <file alias="info.svg">info.svg</file>
     <file alias="intensity.svg">intensity.svg</file>
@@ -95,6 +96,7 @@
     <file alias="laser.svg">laser.svg</file>
     <file alias="ledbar_beams.svg">ledbar_beams.svg</file>
     <file alias="ledbar_pixels.svg">ledbar_pixels.svg</file>
+    <file alias="lime.svg">lime.svg</file>
     <file alias="lock.svg">lock.svg</file>
     <file alias="loop.svg">loop.svg</file>
     <file alias="magenta.svg">magenta.svg</file>
