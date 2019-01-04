@@ -63,8 +63,8 @@ Button
     {
         anchors.fill: parent
         color: "black"
-        opacity: 0.6
-        visible: !parent.enabled
+        opacity: 0.4
+        visible: !enabled
     }
 
     ToolTip

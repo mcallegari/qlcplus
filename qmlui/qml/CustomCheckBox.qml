@@ -35,6 +35,15 @@ RadioButton
     property color pressColor: "#054A9E"
     property string tooltip: ""
 
+    Rectangle
+    {
+        anchors.fill: parent
+        z: 3
+        color: "black"
+        opacity: 0.4
+        visible: !enabled
+    }
+
     ToolTip
     {
         visible: tooltip && hovered
