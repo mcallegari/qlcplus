@@ -46,15 +46,30 @@ ComboBox
 
     signal valueChanged(int value)
 
-    onCurrentValueChanged: updateCurrentItem()
+    onCurrentValueChanged: updateFromValue()
+    onCurrentIndexChanged: updateFromIndex()
 
-    function updateCurrentItem()
+    function updateFromIndex()
+    {
+        if (!model)
+            return
+
+        var item = model.length === undefined ? model.get(currentIndex) : model[currentIndex]
+        displayText = item.mLabel ? item.mLabel : item
+        console.log("Index changed: " + currentIndex + ", label: " + displayText)
+        if (item.mIcon)
+            currentIcon = item.mIcon
+        //if (item.mValue)
+        //    currentValue = item.mValue
+    }
+
+    function updateFromValue()
     {
         if (!model)
             return
 
         var iCount = model.length === undefined ? model.count : model.length
-        //console.log("Value changed:" + currentValue + ", model count: " + iCount)
+        console.log("Value changed: " + currentValue + ", model count: " + iCount)
         for (var i = 0; i < iCount; i++)
         {
             var item = model.length === undefined ? model.get(i) : model[i]
@@ -74,8 +89,8 @@ ComboBox
         anchors.fill: parent
         z: 3
         color: "black"
-        opacity: 0.6
-        visible: !parent.enabled
+        opacity: 0.4
+        visible: !enabled
     }
 
     delegate:
@@ -92,10 +107,10 @@ ComboBox
             text: model.mLabel ? model.mLabel : (modelData.mLabel ? modelData.mLabel : modelData)
             property string itemIcon: model.mIcon ? model.mIcon : (typeof modelData !== 'undefined' ? modelData.mIcon ? modelData.mIcon : "" : "")
             property int itemValue: (model.mValue !== undefined) ? model.mValue : ((modelData.mValue !== undefined) ? modelData.mValue : index)
-
+/*
             Component.onCompleted:
             {
-                //console.log("Combo item completed index: " + index + ", label: " + text + ", value: " + itemValue)
+                console.log("Combo item completed index: " + index + ", label: " + text + ", value: " + itemValue)
 
                 if (index === control.currentIndex)
                 {
@@ -123,7 +138,7 @@ ComboBox
                     }
                 }
             }
-
+*/
             contentItem:
                 Row
                 {
@@ -154,7 +169,7 @@ ComboBox
                     width: contentItem.width
                     height: delegateHeight
                     visible: control.down || control.highlighted || control.visualFocus
-                    color: highlighted ? UISettings.highlight : hovered ? UISettings.bgControl : "transparent"
+                    color: highlighted ? UISettings.highlight : (hovered ? UISettings.bgControl : "transparent")
                 }
 
             onClicked:
