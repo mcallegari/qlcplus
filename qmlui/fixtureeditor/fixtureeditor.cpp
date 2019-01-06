@@ -24,6 +24,7 @@
 
 #include "fixtureeditor.h"
 #include "physicaledit.h"
+#include "channeledit.h"
 #include "editorview.h"
 
 FixtureEditor::FixtureEditor(QQuickView *view, Doc *doc, QObject *parent)
@@ -33,8 +34,9 @@ FixtureEditor::FixtureEditor(QQuickView *view, Doc *doc, QObject *parent)
     , m_lastId(0)
 {
     m_view->rootContext()->setContextProperty("fixtureEditor", this);
-    qmlRegisterUncreatableType<EditorView>("org.qlcplus.classes", 1, 0, "EditorView", "Can't create EditorView!");
+    qmlRegisterUncreatableType<EditorView>("org.qlcplus.classes", 1, 0, "EditorRef", "Can't create EditorView!");
     qmlRegisterUncreatableType<PhysicalEdit>("org.qlcplus.classes", 1, 0, "PhysicalEdit", "Can't create PhysicalEdit!");
+    qmlRegisterUncreatableType<ChannelEdit>("org.qlcplus.classes", 1, 0, "ChannelEdit", "Can't create ChannelEdit!");
 }
 
 FixtureEditor::~FixtureEditor()

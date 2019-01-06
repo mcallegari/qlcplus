@@ -21,12 +21,14 @@
 #include "qlcchannel.h"
 
 #include "physicaledit.h"
+#include "channeledit.h"
 #include "editorview.h"
 
 EditorView::EditorView(QQuickView *view, QLCFixtureDef *fixtureDef, QObject *parent)
     : QObject(parent)
     , m_view(view)
     , m_fixtureDef(fixtureDef)
+    , m_channelEdit(nullptr)
 {
     m_globalPhy = new PhysicalEdit(m_fixtureDef->physical(), this);
 }
@@ -102,3 +104,21 @@ QVariantList EditorView::channels() const
 
     return list;
 }
+
+ChannelEdit *EditorView::requestChannelEditor(QString chName)
+{
+    if (m_channelEdit != nullptr)
+        delete m_channelEdit;
+
+    QLCChannel *ch = m_fixtureDef->channel(chName);
+    if (ch == nullptr)
+    {
+        ch = new QLCChannel();
+        ch->setName(tr("New channel"));
+        m_fixtureDef->addChannel(ch);
+        emit channelsChanged();
+    }
+    m_channelEdit = new ChannelEdit(ch);
+    return m_channelEdit;
+}
+
