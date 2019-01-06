@@ -30,7 +30,7 @@ Rectangle
     id: editorRoot
 
     property int editorId
-    property EditorView editor: null
+    property EditorRef editor: null
 
     color: "transparent"
 
@@ -143,30 +143,154 @@ Rectangle
                     sectionLabel: qsTr("Channels")
 
                     sectionContents:
-                        ListView
+                        Column
                         {
-                            id: channelList
-                            width: Math.min(editorRoot.width / 2, parent.width)
-                            height: UISettings.listItemHeight * count
-                            boundsBehavior: Flickable.StopAtBounds
-                            model: editor ? editor.channels : null
-                            delegate:
-                                IconTextEntry
+                            width: channelSection.width
+                            //height: chEditToolbar.height + channelList.height
+
+                            Rectangle
+                            {
+                                id: chEditToolbar
+                                width: channelSection.width
+                                height: UISettings.iconSizeDefault
+                                gradient: Gradient
                                 {
-                                    width: channelList.width
-                                    height: UISettings.listItemHeight
-                                    tLabel: modelData.mLabel
-                                    iSrc: modelData.mIcon
+                                    GradientStop { position: 0; color: UISettings.toolbarStartSub }
+                                    GradientStop { position: 1; color: UISettings.toolbarEnd }
                                 }
-                        }
-                }
+
+                                RowLayout
+                                {
+                                    anchors.fill: parent
+
+                                    IconButton
+                                    {
+                                        id: newChButton
+                                        imgSource: "qrc:/add.svg"
+                                        tooltip: qsTr("Add a new channel")
+                                        onClicked: { /* TODO */ }
+                                    }
+
+                                    IconButton
+                                    {
+                                        id: delChButton
+                                        imgSource: "qrc:/remove.svg"
+                                        tooltip: qsTr("Remove the selected channel(s)")
+                                        onClicked: { /* TODO */ }
+                                    }
+
+                                    Rectangle
+                                    {
+                                        Layout.fillWidth: true
+                                        color: "transparent"
+                                    }
+                                }
+                            }
+                            ListView
+                            {
+                                id: channelList
+                                width: channelSection.width
+                                height: UISettings.listItemHeight * count
+                                boundsBehavior: Flickable.StopAtBounds
+                                currentIndex: -1
+
+                                property bool dragActive: false
+
+                                model: editor ? editor.channels : null
+                                delegate:
+                                    Item
+                                    {
+                                        width: channelList.width
+                                        height: UISettings.listItemHeight
+
+                                        MouseArea
+                                        {
+                                            id: delegateRoot
+                                            width: channelList.width
+                                            height: parent.height
+
+                                            property bool dragActive: drag.active
+
+                                            drag.target: fDragItem
+                                            drag.threshold: height / 2
+
+                                            onDragActiveChanged: channelList.dragActive = dragActive
+                                            onPressed: channelList.currentIndex = index
+                                            onDoubleClicked:
+                                            {
+                                                sideEditor.source = ""
+                                                sideEditor.itemName = modelData.mLabel
+                                                sideEditor.source = "qrc:/ChannelEditor.qml"
+                                            }
+
+                                            Rectangle
+                                            {
+                                                anchors.fill: parent
+                                                radius: 3
+                                                color: UISettings.highlight
+                                                visible: channelList.currentIndex === index
+                                            }
+
+                                            IconTextEntry
+                                            {
+                                                width: channelList.width
+                                                height: UISettings.listItemHeight
+                                                tLabel: modelData.mLabel
+                                                iSrc: modelData.mIcon
+                                            }
+                                        }
+                                    }
+
+                                GenericMultiDragItem
+                                {
+                                    id: fDragItem
+
+                                    property bool fromFunctionManager: true
+
+                                    visible: channelList.dragActive
+
+                                    Drag.active: channelList.dragActive
+                                    Drag.source: fDragItem
+                                    Drag.keys: [ "channel" ]
+
+                                    function itemDropped(id, name)
+                                    {
+                                        //var path = functionManager.functionPath(id)
+                                        //functionManager.moveFunctions(path)
+                                    }
+
+                                    onItemsListChanged:
+                                    {
+                                        console.log("Items in list: " + itemsList.length)
+                                        /*
+                                        if (itemsList.length)
+                                        {
+                                            var funcRef = functionManager.getFunction(itemsList[0])
+                                            itemLabel = funcRef.name
+                                            itemIcon = functionManager.functionIcon(funcRef.type)
+                                            //multipleItems = itemsList.length > 1 ? true : false
+                                        }
+                                        */
+                                    }
+                                }
+                            } // ListView
+                        } // Column
+                } // SectionBox
             } // Column
             ScrollBar.vertical: CustomScrollBar { id: sbar }
         } // Flickable
 
         Loader
         {
+            id: sideEditor
 
+            property string itemName: ""
+
+            onLoaded:
+            {
+                item.editor = editorRoot.editor
+                item.itemName = itemName
+            }
         }
     }
 }

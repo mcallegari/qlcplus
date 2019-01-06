@@ -56,11 +56,9 @@ ComboBox
 
         var item = model.length === undefined ? model.get(currentIndex) : model[currentIndex]
         displayText = item.mLabel ? item.mLabel : item
-        console.log("Index changed: " + currentIndex + ", label: " + displayText)
+        //console.log("Index changed: " + currentIndex + ", label: " + displayText)
         if (item.mIcon)
             currentIcon = item.mIcon
-        //if (item.mValue)
-        //    currentValue = item.mValue
     }
 
     function updateFromValue()
@@ -69,7 +67,7 @@ ComboBox
             return
 
         var iCount = model.length === undefined ? model.count : model.length
-        console.log("Value changed: " + currentValue + ", model count: " + iCount)
+        //console.log("Value changed: " + currentValue + ", model count: " + iCount)
         for (var i = 0; i < iCount; i++)
         {
             var item = model.length === undefined ? model.get(i) : model[i]
@@ -107,38 +105,7 @@ ComboBox
             text: model.mLabel ? model.mLabel : (modelData.mLabel ? modelData.mLabel : modelData)
             property string itemIcon: model.mIcon ? model.mIcon : (typeof modelData !== 'undefined' ? modelData.mIcon ? modelData.mIcon : "" : "")
             property int itemValue: (model.mValue !== undefined) ? model.mValue : ((modelData.mValue !== undefined) ? modelData.mValue : index)
-/*
-            Component.onCompleted:
-            {
-                console.log("Combo item completed index: " + index + ", label: " + text + ", value: " + itemValue)
 
-                if (index === control.currentIndex)
-                {
-                    displayText = text
-                    currentIcon = itemIcon
-                    if (itemValue !== undefined && itemValue != currentValue)
-                    {
-                        currentValue = itemValue
-                        control.valueChanged(itemValue)
-                    }
-                }
-            }
-
-            onCurrentIdxChanged:
-            {
-                if (index == currentIdx)
-                {
-                    displayText = text
-                    currentIcon = itemIcon
-                    //console.log("Index changed:" + index + ", value: " + itemValue)
-                    if (itemValue !== undefined)
-                    {
-                        currentValue = itemValue
-                        control.valueChanged(itemValue)
-                    }
-                }
-            }
-*/
             contentItem:
                 Row
                 {

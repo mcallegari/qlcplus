@@ -24,6 +24,7 @@
 
 class QLCFixtureDef;
 class PhysicalEdit;
+class ChannelEdit;
 
 class EditorView : public QObject
 {
@@ -37,7 +38,7 @@ class EditorView : public QObject
     Q_PROPERTY(QVariantList channels READ channels NOTIFY channelsChanged)
 
 public:
-    EditorView(QQuickView *view, QLCFixtureDef* fixtureDef, QObject *parent = nullptr);
+    EditorView(QQuickView *view, QLCFixtureDef *fixtureDef, QObject *parent = nullptr);
     ~EditorView();
 
     /** Get/Set the fixture manufacturer */
@@ -74,8 +75,15 @@ public:
     /** Get a list of all the available channels in the definition */
     QVariantList channels() const;
 
+    /** Request a channel editor. If chName is empty,
+     *  a new channel is added */
+    Q_INVOKABLE ChannelEdit *requestChannelEditor(QString chName);
+
+private:
+    ChannelEdit *m_channelEdit;
+
 signals:
     void channelsChanged();
 };
 
-#endif // FIXTUREEDITOR_H
+#endif // EDITORVIEW_H
