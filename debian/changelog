@@ -9,6 +9,17 @@ qlcplus (4.12.1) stable; urgency=low
   * virtual Console/Cue List: fix behavior of side fader in steps mode
   * New fixture: American DJ FREQ Matrix Quad (thanks to Rasmus Ahlberg)
   * New fixture: Pro-Lights SunPix 12TRI (thanks to Lorenzo Andreani)
+  * New fixture: GTD LM150 Spot (thanks to Pablo Martin Marrone)
+  * New fixture: Chauvet SlimPAR Q12 USB (thanks to Ham Sadler)
+  * New fixtures: American DJ Mega Bar RGBA, UKing PAR 36 (thanks to Gary M)
+  * New fixture: Generic RGBW (thanks to Giacomo Gorini)
+  * New fixtures: Lixada Triangle Spider Beam, Mini Gobo Moving Head (thanks to Daniel)
+  * New fixture: Chauvet Ovation E-910FC (thanks to David Hay)
+  * New fixtures: Ayrton MagicPanel 602, MagicBlade R (thanks to Baptiste Moinereau)
+  * New fixture: American DJ Saber Spot RGBW (thanks to Mark Sy)
+  * New fixture: Pulse Impstar 40 (thanks to Paul Wilton)
+  * New fixture: American DJ WiFLY Chameleon (thanks to Jason R Johnston)
+  * New fixtures: Chauvet COLORstrip Mini FX, Stage Right PAR StageLight 12Wx7 LED (thanks to John Thomas)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 10 Feb 2019 12:13:14 +0200
 

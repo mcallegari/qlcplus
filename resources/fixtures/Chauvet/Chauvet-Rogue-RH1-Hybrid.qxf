@@ -59,7 +59,7 @@
   <Capability Min="19" Max="21" Res="SGM/gobo00065.svg">Gobo 6</Capability>
   <Capability Min="22" Max="24" Res="Chauvet/gobo00031.svg">Gobo 7</Capability>
   <Capability Min="25" Max="27" Res="ClayPaky/gobo00004.svg">Gobo 8</Capability>
-  <Capability Min="28" Max="30" Res="GLP/gobo00026.png">Gobo 9</Capability>
+  <Capability Min="28" Max="30" Res="GLP/gobo00026.svg">Gobo 9</Capability>
   <Capability Min="31" Max="33" Res="SGM/gobo00057.png">Gobo 10</Capability>
   <Capability Min="34" Max="36" Res="ClayPaky/gobo00085.svg">Gobo 11</Capability>
   <Capability Min="37" Max="39" Res="ClayPaky/gobo00019.svg">Gobo 12</Capability>
@@ -73,7 +73,7 @@
   <Capability Min="80" Max="83" Res="SGM/gobo00065.svg">Gobo shake 6, slow to fast</Capability>
   <Capability Min="84" Max="87" Res="Chauvet/gobo00031.svg">Gobo shake 7, slow to fast</Capability>
   <Capability Min="88" Max="91" Res="ClayPaky/gobo00004.svg">Gobo shake 8, slow to fast</Capability>
-  <Capability Min="92" Max="95" Res="GLP/gobo00026.png">Gobo shake 9, slow to fast</Capability>
+  <Capability Min="92" Max="95" Res="GLP/gobo00026.svg">Gobo shake 9, slow to fast</Capability>
   <Capability Min="96" Max="99" Res="SGM/gobo00057.png">Gobo shake 10, slow to fast</Capability>
   <Capability Min="100" Max="103" Res="ClayPaky/gobo00085.svg">Gobo shake 11, slow to fast</Capability>
   <Capability Min="104" Max="107" Res="ClayPaky/gobo00019.svg">Gobo shake 12, slow to fast</Capability>

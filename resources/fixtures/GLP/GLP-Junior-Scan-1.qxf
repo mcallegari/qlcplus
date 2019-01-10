@@ -71,7 +71,7 @@
   <Capability Min="112" Max="119">Gobo 14</Capability>
   <Capability Min="120" Max="127" Res="Robe/gobo00041.png">Gobo 15</Capability>
   <Capability Min="128" Max="135" Res="Others/gobo00029.svg">Gobo 16</Capability>
-  <Capability Min="136" Max="143" Res="GLP/gobo00026.png">Gobo 17</Capability>
+  <Capability Min="136" Max="143" Res="GLP/gobo00026.svg">Gobo 17</Capability>
   <Capability Min="144" Max="151" Res="SGM/gobo00063.svg">Gobo 18</Capability>
   <Capability Min="152" Max="159" Res="Robe/gobo00025.svg">Gobo 19</Capability>
   <Capability Min="160" Max="253">No function</Capability>

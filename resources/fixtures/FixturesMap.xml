@@ -81,6 +81,7 @@
     <F n="American-DJ-LED-Trispot" m="LED Trispot"/>
     <F n="American-DJ-Mega-Bar-50RGB" m="Mega Bar 50RGB"/>
     <F n="American-DJ-Mega-Bar-LED" m="Mega Bar LED"/>
+    <F n="American-DJ-Mega-Bar-RGBA" m="Mega Bar RGBA"/>
     <F n="American-DJ-Mega-Flash-DMX" m="Mega Flash DMX"/>
     <F n="American-DJ-Mega-Hex-Par" m="Mega Hex Par"/>
     <F n="American-DJ-Mega-Panel-LED" m="Mega Panel LED"/>
@@ -111,6 +112,7 @@
     <F n="American-DJ-Revo-4" m="Revo 4"/>
     <F n="American-DJ-Revo-Burst" m="Revo Burst"/>
     <F n="American-DJ-Revo-Sweep" m="Revo Sweep"/>
+    <F n="American-DJ-Saber-Spot-RGBW" m="Saber Spot RGBW"/>
     <F n="American-DJ-SP1500-MKII" m="SP-1500 MKII"/>
     <F n="American-DJ-Spherion-Tri-LED" m="Spherion Tri LED"/>
     <F n="American-DJ-Starball-LED-DMX" m="Starball LED DMX"/>
@@ -141,6 +143,7 @@
     <F n="American-DJ-Vizi-Roller-Beam-2R" m="Vizi Roller Beam 2R"/>
     <F n="American-DJ-VPar" m="VPar"/>
     <F n="American-DJ-Warlock" m="Warlock"/>
+    <F n="American-DJ-WiFLY-Chameleon" m="WiFLY Chameleon"/>
     <F n="American-DJ-WiFly-EXR-Dotz-Par" m="WiFly EXR Dotz Par"/>
     <F n="American-DJ-WiFly-EXR-HEX5-IP" m="WiFly EXR HEX5 IP"/>
     <F n="American-DJ-WiFly-PAR-QA5" m="WiFly PAR QA5"/>
@@ -168,6 +171,8 @@
   </M>
   <M n="Ayrton">
     <F n="Ayrton-Arcaline-100-RGB" m="Arcaline 100 RGB"/>
+    <F n="Ayrton-MagicBlade-R" m="MagicBlade R"/>
+    <F n="Ayrton-MagicPanel-602" m="MagicPanel 602"/>
   </M>
   <M n="beamZ">
     <F n="beamZ-BAC406" m="BAC406 ProPar 6x18W 6-1 Hex"/>
@@ -295,6 +300,7 @@
     <F n="Chauvet-Colorpalette-II" m="Colorpalette II"/>
     <F n="Chauvet-COLORpalette" m="COLORpalette"/>
     <F n="Chauvet-COLORrail-IRC2" m="COLORrail IRC"/>
+    <F n="Chauvet-COLORstrip-Mini-FX" m="COLORstrip Mini FX"/>
     <F n="Chauvet-ColorStrip-Mini" m="ColorStrip Mini"/>
     <F n="Chauvet-CORE-3x3" m="CORE 3x3"/>
     <F n="Chauvet-COREpar-40-USB" m="COREpar 40 USB"/>
@@ -352,6 +358,7 @@
     <F n="Chauvet-MiN-Spot-RGBW" m="MiN Spot RGBW"/>
     <F n="Chauvet-Mini-Kinta" m="Mini Kinta"/>
     <F n="Chauvet-Omega-I-DMX-155" m="Omega I DMX-155"/>
+    <F n="Chauvet-Ovation-E-910FC" m="Ovation E-910FC"/>
     <F n="Chauvet-Ovation-FD-165WW" m="Ovation FD-165WW"/>
     <F n="Chauvet-Q-Beam-260-LED" m="Q-Beam 260-LED"/>
     <F n="Chauvet-Q-Spot-250" m="Q-Spot 250"/>
@@ -379,6 +386,7 @@
     <F n="Chauvet-SlimPar-Hex-6" m="SlimPar Hex 6"/>
     <F n="Chauvet-SlimPAR-Pro-H-USB" m="SlimPAR Pro H USB"/>
     <F n="Chauvet-SlimPar-Pro-Tri" m="SlimPar Pro Tri"/>
+    <F n="Chauvet-SlimPAR-Q12-USB" m="SlimPAR Q12 USB"/>
     <F n="Chauvet-SlimPAR-Q6-USB" m="SlimPAR Q6 USB"/>
     <F n="Chauvet-SlimPAR-QUAD-12-IRC" m="SlimPAR QUAD 12 IRC"/>
     <F n="Chauvet-SlimPAR-QUV12-USB" m="SlimPAR QUV12 USB"/>
@@ -647,6 +655,7 @@
   </M>
   <M n="Generic">
     <F n="Generic-Generic-RGB" m="Generic RGB"/>
+    <F n="Generic-Generic-RGBW" m="Generic RGBW"/>
     <F n="Generic-Generic-Smoke" m="Generic Smoke"/>
   </M>
   <M n="Geni">
@@ -683,6 +692,9 @@
   <M n="Griven">
     <F n="Griven-Gobostorm-Plus-MK2" m="Gobostorm Plus MK2"/>
     <F n="Griven-Kolorado-2500" m="Kolorado 2500"/>
+  </M>
+  <M n="GTD">
+    <F n="GTD-LM150-Spot" m="LM150 Spot"/>
   </M>
   <M n="High_End_Systems">
     <F n="High-End-Systems-Studio-Beam" m="Studio Beam"/>
@@ -827,6 +839,11 @@
     <F n="Litecraft-PowerBar-4" m="PowerBar 4"/>
     <F n="Litecraft-PowerBar-AT10.sx" m="PowerBar AT10.sx"/>
     <F n="Litecraft-WashX.21" m="WashX.21"/>
+  </M>
+  <M n="Lixada">
+    <F n="Lixada-Mini-Gobo-Moving-Head" m="Mini Gobo Moving Head"/>
+    <F n="Lixada-Mini-Wash-RGBW" m="Mini Wash RGBW"/>
+    <F n="Lixada-Triangle-Spider-Beam" m="Triangle Spider Beam"/>
   </M>
   <M n="Look_Solutions">
     <F n="Look-Solutions-Unique-2.1" m="Unique 2.1"/>
@@ -1006,6 +1023,7 @@
   </M>
   <M n="Pulse">
     <F n="Pulse-ECO-LED-PAR56" m="ECO LED PAR56"/>
+    <F n="Pulse-Impstar-40" m="Impstar 40"/>
     <F n="Pulse-LEDBAR-320" m="LED BAR 320"/>
     <F n="Pulse-SlimLite-56" m="SlimLite 56"/>
   </M>
@@ -1160,6 +1178,7 @@
     <F n="Stage-Right-3-Color-LED-Light-Bar" m="3-Color LED Light Bar"/>
     <F n="Stage-Right-7x20W-COB-LED-Theater-PAR" m="7x20W COB LED Theater PAR"/>
     <F n="Stage-Right-Stage-Wash-18Wx18-LED-PAR" m="Stage Wash 18Wx18 LED PAR"/>
+    <F n="Stage-Right-StageLight-12Wx7-LED-PAR" m="PAR StageLight 12Wx7 LED"/>
   </M>
   <M n="StageTech">
     <F n="StageTech-LeaderScan-Roto" m="LeaderScan Roto"/>
@@ -1270,6 +1289,7 @@
   </M>
   <M n="UKing">
     <F n="UKing-Mini-RGBW-Moving-Head" m="Mini RGBW Moving Head"/>
+    <F n="UKing-Par-36" m="Par 36"/>
   </M>
   <M n="Vari-Lite">
     <F n="Vari-Lite-VL2500-Wash" m="VL2500 Wash"/>
