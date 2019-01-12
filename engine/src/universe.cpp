@@ -268,6 +268,11 @@ void Universe::requestFaderPriority(GenericFader *fader, Universe::FaderPriority
     }
 }
 
+QList<GenericFader *> Universe::faders()
+{
+    return m_faders;
+}
+
 void Universe::tick()
 {
     m_semaphore.release(1);
@@ -283,7 +288,9 @@ void Universe::processFaders()
     while (it.hasNext())
     {
         GenericFader *fader = it.next();
-        if (fader->deleteRequest())
+        // destroy a fader if it's been requested
+        // and it's not fading out
+        if (fader->deleteRequest() && !fader->isFadingOut())
         {
             fader->removeAll();
             it.remove();

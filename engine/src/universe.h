@@ -353,7 +353,11 @@ public:
     /** Dismiss a fader requested with requestFader, which is no longer needed */
     void dismissFader(GenericFader *fader);
 
+    /** Request a new priority for a fader with the provided intance */
     void requestFaderPriority(GenericFader *fader, FaderPriority priority);
+
+    /** Retrieve a modifiable list of the currently active faders */
+    QList<GenericFader *> faders();
 
 public slots:
     void tick();
