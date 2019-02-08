@@ -3,7 +3,7 @@ qlcplus (4.12.1) stable; urgency=low
   * engine/RGBMatrix: fix crash when a fixture group has out of bounds heads
   * engine/EFX: fix crash when previewing a cloned EFX
   * engine: fix stop all with fade out time
-  * Simple Desk: fix wrong channel offset
+  * Simple Desk: fix wrong channel offset set and reset
   * Virtual Console/Slider: fix Click & Go not applied to channels
   * Virtual Console/Frame: fix geometry after move in collapsed state
   * virtual Console/Cue List: simplified side faders with a single always blended fader
