@@ -499,7 +499,8 @@ void ChaserRunner::startNewStep(int index, MasterTimer *timer, qreal intensity,
         case Chaser::Blended:
             newStep->m_fadeIn = stepFadeIn(index);
             newStep->m_fadeOut = stepFadeOut(index);
-            func->setBlendMode(Universe::AdditiveBlend);
+            if (newStep->m_fadeIn)
+                func->setBlendMode(Universe::AdditiveBlend);
         break;
         case Chaser::Crossfade:
             newStep->m_fadeIn = 0;
