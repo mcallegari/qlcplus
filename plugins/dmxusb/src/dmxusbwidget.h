@@ -152,6 +152,8 @@ protected:
 
     /** The output frequency in Hertz */
     int m_frequency;
+
+    /** The DMX frame time duration in microseconds */
     int m_frameTimeUs;
 
     /** Array of output lines supported by the device. This is resized on setOutputsNumber */

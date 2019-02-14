@@ -163,10 +163,15 @@ void EnttecDMXUSBOpen::stop()
 
 void EnttecDMXUSBOpen::run()
 {
-    QElapsedTimer timer;
-
     // Wait for device to settle in case the device was opened just recently
+    // Also measure, whether timer granularity is OK
+    QTime time;
+    time.start();
     usleep(1000);
+    if (time.elapsed() > 3)
+        m_granularity = Bad;
+    else
+        m_granularity = Good;
 
     if (interface()->type() == DMXInterface::QtSerial)
     {
@@ -184,12 +189,10 @@ void EnttecDMXUSBOpen::run()
     }
 
     m_running = true;
-    // let's assume this is a good adapter...
-    m_granularity = Good;
-
     while (m_running == true)
     {
-        timer.restart();
+        // Measure how much time passes during these calls
+        time.restart();
 
         if (interface()->setBreak(true) == false)
             goto framesleep;
@@ -208,17 +211,9 @@ void EnttecDMXUSBOpen::run()
 
 framesleep:
         // Sleep for the remainder of the DMX frame time
-        // and set granularity accordingly
-        long timetoSleep = m_frameTimeUs - (timer.nsecsElapsed() / 1000);
-        if (timetoSleep < 0)
-        {
-            qWarning() << "DMX output is running late !";
-            m_granularity = Bad;
-        }
+        if (m_granularity == Good)
+            while (time.elapsed() < (m_frameTimeUs / 1000)) { usleep(1000); }
         else
-        {
-            usleep(timetoSleep);
-            m_granularity = Good;
-        }
+            while (time.elapsed() < (m_frameTimeUs / 1000)) { /* Busy sleep */ }
     }
 }
