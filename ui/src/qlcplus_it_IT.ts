@@ -4367,7 +4367,7 @@ Si noti che la procedura guidata non può dire la differenza tra una manopola e 
     <message>
         <location filename="rgbmatrixeditor.ui" line="131"/>
         <source>Mask</source>
-        <translation>Mashera</translation>
+        <translation>Maschera</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="136"/>
