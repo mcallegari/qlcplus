@@ -21,8 +21,20 @@ qlcplus (4.12.1) stable; urgency=low
   * New fixture: Pulse Impstar 40 (thanks to Paul Wilton)
   * New fixture: American DJ WiFLY Chameleon (thanks to Jason R Johnston)
   * New fixtures: Chauvet COLORstrip Mini FX, Stage Right PAR StageLight 12Wx7 LED (thanks to John Thomas)
+  * New fixture: Expolite AkkuLED Power Compact (thanks to Matthias Schlecht)
+  * New fixture: Fun Generation PicoSpot 20 (thanks to Timo Willemsen)
+  * New fixture: Litecraft Mini PAR AT10 (thanks to BuiDH)
+  * New fixture: Ayra IntenZ CB-150 (thanks to Edgar Aichinger)
+  * New fixture: American DJ UB 6H (thanks to Tom Costers)
+  * New fixture: beamZ Lucid 1.2 (thanks to Owen Ling)
+  * New fixture: Chauvet Intimidator Barrel 300 (thanks to Justin Hornsby)
+  * New fixture: Briteq BT-575W (thanks to Carlos)
+  * New fixture: Eurolite LED TMH-46 (thanks to Jakob Frank)
+  * New fixture: Expolite TourLED MC180 (thanks to Luke Bonett)
+  * New fixture: Chauvet COLORado 2 Quad Zoom (thanks to Neil Queripel)
+  * New fixture: Chauvet Intimidator Spot 155 (thanks to Robert Scheffler)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sat, 10 Feb 2019 12:13:14 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 17 Feb 2019 12:13:14 +0200
 
 qlcplus (4.12.0) stable; urgency=low
 

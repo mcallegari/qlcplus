@@ -126,6 +126,7 @@
     <F n="American-DJ-TRI64-Profile" m="TRI64 PRO"/>
     <F n="American-DJ-Tribar-Spot2" m="Tribar Spot"/>
     <F n="American-DJ-UB-12H" m="UB 12H"/>
+    <F n="American-DJ-UB-6H" m="UB 6H"/>
     <F n="American-DJ-Ultra-Bar-12" m="Ultra Bar 12"/>
     <F n="American-DJ-Ultra-Bar-6" m="Ultra Bar 6"/>
     <F n="American-DJ-Ultra-Bar-9" m="Ultra Bar 9"/>
@@ -165,6 +166,7 @@
     <F n="Ayra-Compar-Kit-1" m="Compar Kit 1"/>
     <F n="Ayra-ComPar20" m="ComPar 20"/>
     <F n="Ayra-ERO-506" m="ERO 506"/>
+    <F n="Ayra-IntenZ-CB-150" m="IntenZ CB-150 "/>
     <F n="Ayra-TDC-Agaricus" m="TDC Agaricus"/>
     <F n="Ayra-TDC-Triple-Burst" m="TDC Triple Burst"/>
     <F n="Ayra-WSM02-WSM03-MKII" m="WSM02/WSM03 MKII"/>
@@ -181,6 +183,7 @@
     <F n="beamZ-LCB-252" m="LCB-252"/>
     <F n="beamZ-LED-FlatPAR-154" m="LED FlatPAR-154"/>
     <F n="beamZ-LS-3DRG" m="LS-3DRG"/>
+    <F n="beamZ-Lucid-1.2" m="Lucid 1.2"/>
     <F n="beamZ-MHL108-Wash-MKII" m="MHL108 Wash MKII"/>
     <F n="beamZ-MHL90-Wash-5x18W-RGBAW-UV" m="MHL90 Wash 5x18W RGBAW-UV"/>
   </M>
@@ -218,6 +221,7 @@
   </M>
   <M n="Briteq">
     <F n="Briteq-BT-575S" m="BT 575S"/>
+    <F n="Briteq-BT-575W" m="BT-575W"/>
     <F n="Briteq-BT-Theatre-100EC" m="BT Theatre 100EC"/>
     <F n="Briteq-BT-W07L12" m="BT-W07L12"/>
     <F n="Briteq-BT-W12L10" m="BT-W12L10"/>
@@ -286,6 +290,7 @@
     <F n="Chauvet-COLORado-1-Quad-Zoom-Tour" m="COLORado 1 Quad Zoom Tour"/>
     <F n="Chauvet-COLORado-1-Solo" m="COLORado 1 Solo"/>
     <F n="Chauvet-COLORado-1-Tour" m="COLORado 1 Tour"/>
+    <F n="Chauvet-COLORado-2-Quad-Zoom" m="COLORado 2 Quad Zoom"/>
     <F n="Chauvet-COLORado-3P" m="COLORado 3P"/>
     <F n="Chauvet-COLORado-Batten-72-Tour" m="COLORado Batten 72 Tour"/>
     <F n="Chauvet-ColorBand-Pix-IP" m="ColorBand Pix IP"/>
@@ -326,6 +331,7 @@
     <F n="Chauvet-Hive" m="Hive"/>
     <F n="Chauvet-Hurricane-1800-Flex" m="Hurricane 1800 Flex"/>
     <F n="Chauvet-Hurricane-Haze-2" m="Hurricane Haze 2"/>
+    <F n="Chauvet-Intimidator-Barrel-300" m="Intimidator Barrel 300"/>
     <F n="Chauvet-Intimidator-Barrel-305-IRC" m="Intimidator Barrel 305 IRC"/>
     <F n="Chauvet-Intimidator-Beam-LED-350" m="Intimidator Beam LED 350"/>
     <F n="Chauvet-Intimidator-Hybrid-140SR" m="Intimidator Hybrid 140SR"/>
@@ -334,6 +340,7 @@
     <F n="Chauvet-Intimidator-Scan-LED-300" m="Intimidator Scan LED 300"/>
     <F n="Chauvet-Intimidator-Spot--355Z-IRC" m="Intimidator Spot 355Z IRC"/>
     <F n="Chauvet-Intimidator-Spot-100-IRC" m="Intimidator Spot 100 IRC"/>
+    <F n="Chauvet-Intimidator-Spot-155" m="Intimidator Spot 155"/>
     <F n="Chauvet-Intimidator-Spot-250" m="Intimidator Spot 250"/>
     <F n="Chauvet-Intimidator-Spot-255-IRC" m="Intimidator Spot 255 IRC"/>
     <F n="Chauvet-Intimidator-Spot-400-IRC" m="Intimidator Spot 400 IRC"/>
@@ -560,6 +567,7 @@
     <F n="Eurolite-LED-T-36-RGB-Pinspot" m="LED T-36 RGB Pinspot"/>
     <F n="Eurolite-LED-THA-250F" m="LED THA-250F"/>
     <F n="Eurolite-Led-Theatre-36x3W-CW-WW" m="LED Theatre 36x3W CW/WW"/>
+    <F n="Eurolite-LED-TMH-46" m="LED TMH-46"/>
     <F n="Eurolite-LED-TMH-6" m="LED TMH-6"/>
     <F n="Eurolite-LED-TMH-9" m="LED TMH-9"/>
     <F n="Eurolite-LED-TMH-FE-600" m="LED TMH FE-600"/>
@@ -599,7 +607,9 @@
     <F n="Evolight-Colours-SL3" m="Colours SL3"/>
   </M>
   <M n="Expolite">
+    <F n="Expolite-AkkuLED-Power-Compact" m="AkkuLED Power Compact"/>
     <F n="Expolite-TourLed-42" m="TourLed 42"/>
+    <F n="Expolite-TourLED-MC180" m="TourLED MC180"/>
     <F n="Expolite-TourSpot-60" m="TourSpot 60"/>
     <F n="Expolite-TourStick-72-RGBWA" m="TourStick 72 RGBWA"/>
   </M>
@@ -610,6 +620,7 @@
   </M>
   <M n="Fun-Generation">
     <F n="Fun-Generation-LED-Diamond-Dome" m="LED Diamond Dome"/>
+    <F n="Fun-Generation-PicoSpot-20" m="PicoSpot 20"/>
     <F n="Fun-Generation-PicoWash-40-Pixel-Quad-LED" m="PicoWash 40 Pixel Quad LED"/>
     <F n="Fun-Generation-SePar-Quad-UV" m="SePar Quad UV"/>
   </M>
@@ -835,6 +846,7 @@
   </M>
   <M n="Litecraft">
     <F n="Litecraft-LED-PAR-64-AT3" m="LED PAR 64 AT3"/>
+    <F n="Litecraft-Mini-PAR-AT10" m="Mini PAR AT10 "/>
     <F n="Litecraft-OutLED-AT60.zoom" m="OutLED AT60.zoom"/>
     <F n="Litecraft-PowerBar-4" m="PowerBar 4"/>
     <F n="Litecraft-PowerBar-AT10.sx" m="PowerBar AT10.sx"/>
