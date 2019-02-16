@@ -58,40 +58,40 @@
  <Channel Name="Rotating Gobo Wheel">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="9" Preset="GoboMacro" Res1="Others/open.svg">Open (indexed)</Capability>
-  <Capability Min="10" Max="14" Preset="GoboMacro">Gobo 1 (indexed)</Capability>
-  <Capability Min="15" Max="19" Preset="GoboMacro">Gobo 2 (indexed)</Capability>
-  <Capability Min="20" Max="24" Preset="GoboMacro">Gobo 3 (indexed)</Capability>
-  <Capability Min="25" Max="29" Preset="GoboMacro">Gobo 4 (indexed)</Capability>
-  <Capability Min="30" Max="34" Preset="GoboMacro">Gobo 5 (indexed)</Capability>
-  <Capability Min="35" Max="39" Preset="Alias">
+  <Capability Min="10" Max="14" Preset="GoboMacro" Res1="Others/gobo00111.svg">Gobo 1 (indexed)</Capability>
+  <Capability Min="15" Max="19" Preset="GoboMacro" Res1="Others/gobo00112.svg">Gobo 2 (indexed)</Capability>
+  <Capability Min="20" Max="24" Preset="GoboMacro" Res1="Others/gobo00113.png">Gobo 3 (indexed)</Capability>
+  <Capability Min="25" Max="29" Preset="GoboMacro" Res1="Others/gobo00114.svg">Gobo 4 (indexed)</Capability>
+  <Capability Min="30" Max="34" Preset="GoboMacro" Res1="Others/gobo00115.svg">Gobo 5 (indexed)</Capability>
+  <Capability Min="35" Max="39" Preset="Alias" Res1="Others/gobo00111.svg">
    Gobo 1 (rotation)
    <Alias Mode="CLD" Channel="Gobo Indexing Angle" With="Gobo Rotation Speed"/>
    <Alias Mode="WRM" Channel="Gobo Indexing Angle" With="Gobo Rotation Speed"/>
    <Alias Mode="CLD" Channel="Gobo Indexing Angle fine" With="Gobo Rotation Speed fine"/>
    <Alias Mode="WRM" Channel="Gobo Indexing Angle fine" With="Gobo Rotation Speed fine"/>
   </Capability>
-  <Capability Min="40" Max="44" Preset="Alias">
+  <Capability Min="40" Max="44" Preset="Alias" Res1="Others/gobo00112.svg">
    Gobo 2 (rotation)
    <Alias Mode="CLD" Channel="Gobo Indexing Angle" With="Gobo Rotation Speed"/>
    <Alias Mode="WRM" Channel="Gobo Indexing Angle" With="Gobo Rotation Speed"/>
    <Alias Mode="CLD" Channel="Gobo Indexing Angle fine" With="Gobo Rotation Speed fine"/>
    <Alias Mode="WRM" Channel="Gobo Indexing Angle fine" With="Gobo Rotation Speed fine"/>
   </Capability>
-  <Capability Min="45" Max="49" Preset="Alias">
+  <Capability Min="45" Max="49" Preset="Alias" Res1="Others/gobo00113.png">
    Gobo 3 (rotation)
    <Alias Mode="CLD" Channel="Gobo Indexing Angle" With="Gobo Rotation Speed"/>
    <Alias Mode="WRM" Channel="Gobo Indexing Angle" With="Gobo Rotation Speed"/>
    <Alias Mode="CLD" Channel="Gobo Indexing Angle fine" With="Gobo Rotation Speed fine"/>
    <Alias Mode="WRM" Channel="Gobo Indexing Angle fine" With="Gobo Rotation Speed fine"/>
   </Capability>
-  <Capability Min="50" Max="54" Preset="Alias">
+  <Capability Min="50" Max="54" Preset="Alias" Res1="Others/gobo00114.svg">
    Gobo 4 (rotation)
    <Alias Mode="CLD" Channel="Gobo Indexing Angle" With="Gobo Rotation Speed"/>
    <Alias Mode="WRM" Channel="Gobo Indexing Angle" With="Gobo Rotation Speed"/>
    <Alias Mode="CLD" Channel="Gobo Indexing Angle fine" With="Gobo Rotation Speed fine"/>
    <Alias Mode="WRM" Channel="Gobo Indexing Angle fine" With="Gobo Rotation Speed fine"/>
   </Capability>
-  <Capability Min="55" Max="59" Preset="Alias">
+  <Capability Min="55" Max="59" Preset="Alias" Res1="Others/gobo00115.svg">
    Gobo 5 (rotation)
    <Alias Mode="CLD" Channel="Gobo Indexing Angle" With="Gobo Rotation Speed"/>
    <Alias Mode="WRM" Channel="Gobo Indexing Angle" With="Gobo Rotation Speed"/>
