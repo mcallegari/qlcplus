@@ -490,6 +490,7 @@ def validate_fixture(path, filename):
     ###################################### CHECK MODES ###################################
 
     modeCount = 0
+    global_phy_tag = root.find('{' + namespace + '}Physical')
 
     for mode in root.findall('{' + namespace + '}Mode'):
 
@@ -538,6 +539,12 @@ def validate_fixture(path, filename):
 
 #        if modeHeadsCount > 3:
 #            print absname + "/" + modeName + ": Heads found: " + str(modeHeadsCount)
+
+        phy_tag = mode.find('{' + namespace + '}Physical')
+
+        if phy_tag is None and global_phy_tag is None:
+            print absname + "/" + modeName + ": No physical data found"
+            errNum += 1
 
         errNum += check_physical(absname, mode, hasPan, hasTilt)
 
