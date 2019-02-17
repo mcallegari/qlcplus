@@ -19,7 +19,7 @@ OptionParser.new do |opts|
 end.parse!
 
 VERSION = (File.read('../../variables.pri') =~ /APPVERSION = (.*?)$/) ? $1 : "Unknown"
-GIT_COMMIT = `git describe`.strip
+GIT_COMMIT = `git rev-parse --short HEAD`.strip
 
 if !options[:destination].empty?
   FileUtils.mkdir_p options[:destination]
