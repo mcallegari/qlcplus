@@ -5638,74 +5638,72 @@ Durée : %3
 <context>
     <name>VCCueList</name>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="109"/>
         <source>Blend</source>
-        <translation>Mélanger</translation>
+        <translation type="vanished">Mélanger</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="114"/>
         <source>Link</source>
-        <translation>Lien</translation>
+        <translation type="vanished">Lien</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="216"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="202"/>
         <source>Show/Hide crossfade sliders</source>
         <translation>Afficher/Masquer les crossfaders</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="226"/>
-        <location filename="virtualconsole/vccuelist.cpp" line="1054"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="213"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1028"/>
         <source>Play/Pause Cue list</source>
         <translation>Lecture/pause de la liste de cue</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="235"/>
-        <location filename="virtualconsole/vccuelist.cpp" line="1055"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="222"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1029"/>
         <source>Stop Cue list</source>
         <translation>Arrêt de la liste de cue</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="244"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="231"/>
         <source>Go to previous step in the list</source>
         <translation>Aller au pas précédent</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="253"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="240"/>
         <source>Go to next step in the list</source>
         <translation>Aller au pas suivant</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="262"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="249"/>
         <source>Cue list</source>
         <translation>Séquenceur</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1048"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1022"/>
         <source>Play/Stop Cue list</source>
         <translation>Lecture/arrêt de la liste de cue</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1049"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1023"/>
         <source>Pause Cue list</source>
         <translation>Mettre la liste de cue en pause</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1488"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1392"/>
         <source>Fade In</source>
         <translation>Montée</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1488"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1392"/>
         <source>Fade Out</source>
         <translation>Descente</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1488"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1392"/>
         <source>Duration</source>
         <translation>Durée</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1488"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1392"/>
         <source>Notes</source>
         <translation>Notes</translation>
     </message>
@@ -5806,7 +5804,8 @@ Durée : %3
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="276"/>
-        <source>Side Faders</source>
+        <source>Side Fader</source>
+        <oldsource>Side Faders</oldsource>
         <translation>Faders sur le flanc</translation>
     </message>
     <message>
@@ -5821,48 +5820,56 @@ Durée : %3
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="294"/>
+        <source>None</source>
+        <translation>Aucun</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="304"/>
         <source>Crossfade</source>
         <translation>Crossfaders</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.ui" line="304"/>
+        <location filename="virtualconsole/vccuelistproperties.ui" line="314"/>
         <source>Steps</source>
         <translation>Pas</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="67"/>
-        <location filename="virtualconsole/vccuelistproperties.cpp" line="239"/>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="215"/>
         <source>Play/Pause control</source>
         <translation>Contrôle de lecture/pause</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="76"/>
-        <location filename="virtualconsole/vccuelistproperties.cpp" line="240"/>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="216"/>
         <source>Stop control</source>
         <translation>Contrôle d&apos;arrêt</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.cpp" line="118"/>
         <source>Left Fader</source>
-        <translation>Fader de gauche</translation>
+        <translation type="vanished">Fader de gauche</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.cpp" line="128"/>
         <source>Right Fader</source>
-        <translation>Fader de droite</translation>
+        <translation type="vanished">Fader de droite</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.cpp" line="244"/>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="118"/>
+        <source>External Input</source>
+        <translation>Entrée externe</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="220"/>
         <source>Play/Stop control</source>
         <translation>Contrôle de lecture/arrêt</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.cpp" line="245"/>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="221"/>
         <source>Pause control</source>
         <translation>Contrôle de pause</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelistproperties.cpp" line="253"/>
+        <location filename="virtualconsole/vccuelistproperties.cpp" line="229"/>
         <source>No function</source>
         <translation>Aucune fonction</translation>
     </message>
