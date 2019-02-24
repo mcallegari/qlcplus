@@ -3509,7 +3509,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="149"/>
         <source>Side fader</source>
-        <translation></translation>
+        <translation>Faders sur le flanc</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="164"/>
