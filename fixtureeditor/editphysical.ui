@@ -195,17 +195,27 @@
         </property>
         <item>
          <property name="text">
-          <string notr="true">5-pin</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
           <string notr="true">3-pin</string>
          </property>
         </item>
         <item>
          <property name="text">
+          <string notr="true">5-pin</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
           <string notr="true">3-pin and 5-pin</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">3-pin IP65</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string notr="true">5-pin IP65</string>
          </property>
         </item>
         <item>

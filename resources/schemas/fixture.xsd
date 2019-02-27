@@ -41,7 +41,7 @@ elementFormDefault="qualified"
             <xs:element name="Type" type="typeType"/>
             <xs:element name="Channel" type="channelType" maxOccurs="unbounded"/>
             <xs:element name="Mode" type="modeType" maxOccurs="unbounded"/>
-            <xs:element name="Physical" type="physicalType"/>
+            <xs:element name="Physical" type="physicalType" minOccurs="0"/>
         </xs:sequence>
      </xs:complexType>
 </xs:element>
@@ -359,6 +359,8 @@ when changing this list -->
         <xs:enumeration value="3-pin"/>
         <xs:enumeration value="5-pin"/>
         <xs:enumeration value="3-pin and 5-pin"/>
+        <xs:enumeration value="3-pin IP65"/>
+        <xs:enumeration value="5-pin IP65"/>
         <xs:enumeration value="3.5 mm stereo jack"/>
         <xs:enumeration value="Other"/>
     </xs:restriction>
