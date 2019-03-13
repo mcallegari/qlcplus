@@ -1,5 +1,8 @@
 qlcplus (4.12.2) stable; urgency=low
 
+  * Virtual Console/Slider: fix LTP channels being written continuously
+  * New fixture: Martin MAC Encore Performance (thanks to Flo Edelmann)
+
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 26 May 2019 12:13:14 +0200
 
 qlcplus (4.12.1) stable; urgency=low
