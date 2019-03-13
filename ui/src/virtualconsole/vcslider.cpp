@@ -1123,16 +1123,19 @@ void VCSlider::writeDMXLevel(MasterTimer *timer, QList<Universe *> universes)
             }
 
             int chType = fc->type();
+            const QLCChannel *qlcch = fxi->channel(lch.channel);
 
             // set override flag if needed
             if (m_isOverriding)
                 fc->setTypeFlag(FadeChannel::Override);
+            // request to autoremove LTP channels when set
+            if (qlcch->group() != QLCChannel::Intensity)
+                fc->setTypeFlag(FadeChannel::Autoremove);
 
             if (chType & FadeChannel::Intensity)
             {
                 if (m_cngType == ClickAndGoWidget::RGB)
                 {
-                    const QLCChannel *qlcch = fxi->channel(lch.channel);
                     if (qlcch != NULL)
                     {
                         if (qlcch->colour() == QLCChannel::Red)
@@ -1145,7 +1148,6 @@ void VCSlider::writeDMXLevel(MasterTimer *timer, QList<Universe *> universes)
                 }
                 else if (m_cngType == ClickAndGoWidget::CMY)
                 {
-                    const QLCChannel *qlcch = fxi->channel(lch.channel);
                     if (qlcch == NULL)
                         continue;
 

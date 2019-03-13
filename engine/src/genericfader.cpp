@@ -196,11 +196,11 @@ void GenericFader::write(Universe *universe)
             // Remove all channels that reach their target _zero_ value.
             // They have no effect either way so removing them saves a bit of CPU.
             if (fc.current() == 0 && fc.target() == 0 && fc.isReady())
-            {
                 it.remove();
-                continue;
-            }
         }
+
+        if (channelType & FadeChannel::Autoremove)
+            it.remove();
     }
 
     if (m_fadeOut && channelsCount() == 0)

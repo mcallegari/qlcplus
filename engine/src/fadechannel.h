@@ -50,7 +50,8 @@ public:
         CanFade     = (1 << 3),
         Flashing    = (1 << 4),
         Relative    = (1 << 5),
-        Override    = (1 << 6)
+        Override    = (1 << 6),
+        Autoremove  = (1 << 7)
     };
 
     /** Create a new FadeChannel with empty/invalid values */
