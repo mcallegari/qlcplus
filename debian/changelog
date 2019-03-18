@@ -1,5 +1,6 @@
 qlcplus (4.12.2) stable; urgency=low
 
+  * Simple Desk: fix faders not overriding value = 0
   * Virtual Console/Slider: fix LTP channels being written continuously
   * New fixture: Martin MAC Encore Performance (thanks to Flo Edelmann)
 

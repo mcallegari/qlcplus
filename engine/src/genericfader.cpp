@@ -183,11 +183,18 @@ void GenericFader::write(Universe *universe)
 
         //qDebug() << "[GenericFader] >>> uni:" << universe->id() << ", address:" << address << ", value:" << value;
         if (channelType & FadeChannel::Override)
+        {
             universe->write(address, value, true);
+            continue;
+        }
         else if (channelType & FadeChannel::Relative)
+        {
             universe->writeRelative(address, value);
+        }
         else
+        {
             universe->writeBlended(address, value, blendMode);
+        }
 
         if (((channelType & FadeChannel::Intensity) &&
             (channelType & FadeChannel::HTP) &&
