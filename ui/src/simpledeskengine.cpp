@@ -305,7 +305,7 @@ void SimpleDeskEngine::writeDMX(MasterTimer *timer, QList<Universe *> ua)
                 if (universe >= (quint32)ua.count())
                     continue;
 
-                ua[universe]->reset();
+                ua[universe]->reset(0, 512);
 
                 GenericFader *fader = m_fadersMap.value(universe, NULL);
                 if (fader != NULL)
