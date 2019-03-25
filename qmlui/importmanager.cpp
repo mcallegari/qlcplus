@@ -133,7 +133,7 @@ void ImportManager::apply()
 #if (QT_VERSION < QT_VERSION_CHECK(5, 13, 0))
     qSort(m_fixtureIDList.begin(), m_fixtureIDList.end());
 #else
-    std::sort(m_devices.begin(), m_devices.end(), wing_device_sort);
+    std::sort(m_fixtureIDList.begin(), m_fixtureIDList.end());
 #endif
     importFixtures();
 
