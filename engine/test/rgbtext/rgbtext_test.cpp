@@ -363,13 +363,21 @@ void RGBText_Test::horizontalScroll()
     text.setAnimationStyle(RGBText::Horizontal);
 
     QFontMetrics fm(text.font());
+#if (QT_VERSION < QT_VERSION_CHECK(5, 13, 0))
     QCOMPARE(text.rgbMapStepCount(QSize()), fm.width("QLC"));
+#else
+    QCOMPARE(text.rgbMapStepCount(QSize()), fm.horizontalAdvance("QLC"));
+#endif
 
     // Since fonts and their rendering differs from installation to installation,
     // these tests are here only to check that nothing crashes. The end result is
     // more or less OS, platform, HW and SW dependent and testing individual pixels
     // would thus be rather pointless.
+#if (QT_VERSION < QT_VERSION_CHECK(5, 13, 0))
     for (int i = 0; i < fm.width("QLC"); i++)
+#else
+    for (int i = 0; i < fm.horizontalAdvance("QLC"); i++)
+#endif
     {
         RGBMap map = text.rgbMap(QSize(10, 10), QRgb(0xFFFFFFFF), i);
         QCOMPARE(map.size(), 10);
@@ -378,7 +386,11 @@ void RGBText_Test::horizontalScroll()
     }
 
     // Invalid step
+#if (QT_VERSION < QT_VERSION_CHECK(5, 13, 0))
     RGBMap map = text.rgbMap(QSize(10, 10), QRgb(0xFFFFFFFF), fm.width("QLC"));
+#else
+    RGBMap map = text.rgbMap(QSize(10, 10), QRgb(0xFFFFFFFF), fm.horizontalAdvance("QLC"));
+#endif
     QCOMPARE(map.size(), 10);
     for (int i = 0; i < 10; i++)
     {

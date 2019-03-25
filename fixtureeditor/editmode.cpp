@@ -364,7 +364,11 @@ void EditMode::refreshHeadList()
         QLCFixtureHead head = m_mode->heads().at(i);
 
         QList <quint32> channels(head.channels());
+#if (QT_VERSION < QT_VERSION_CHECK(5, 13, 0))
         qSort(channels.begin(), channels.end());
+#else
+	std::sort(channels.begin(), channels.end());
+#endif
 
         QString summary;
 

@@ -108,7 +108,11 @@ static bool MonitorLayoutLessThan(MonitorLayoutItem* i1, MonitorLayoutItem* i2)
 
 void MonitorLayout::sort()
 {
+#if (QT_VERSION < QT_VERSION_CHECK(5, 13, 0))
     qSort(m_items.begin(), m_items.end(), MonitorLayoutLessThan);
+#else
+    std::sort(m_items.begin(), m_items.end(), MonitorLayoutLessThan);
+#endif
 }
 
 /****************************************************************************

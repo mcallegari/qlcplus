@@ -238,7 +238,11 @@ void CueStack::removeCues(const QList <int>& indexes)
     // Sort the list so that the items can be removed in reverse order.
     // This way, the indices are always correct.
     QList <int> indexList = indexes;
+#if (QT_VERSION < QT_VERSION_CHECK(5, 13, 0))
     qSort(indexList.begin(), indexList.end());
+#else
+    std::sort(indexList.begin(), indexList.end());
+#endif
 
     QListIterator <int> it(indexList);
     it.toBack();

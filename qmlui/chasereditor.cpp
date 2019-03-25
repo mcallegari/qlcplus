@@ -169,8 +169,11 @@ bool ChaserEditor::moveSteps(QVariantList indicesList, int insertIndex)
         int idx = vIndex.toInt();
         sortedList.append(idx);
     }
-
+#if (QT_VERSION < QT_VERSION_CHECK(5, 13, 0))
     qSort(sortedList);
+#else
+    std::sort(sortedList.begin(), sortedList.end());
+#endif
 
     for (int index : sortedList)
     {
@@ -241,7 +244,11 @@ void ChaserEditor::deleteItems(QVariantList list)
     if (m_chaser == nullptr)
         return;
 
+#if (QT_VERSION < QT_VERSION_CHECK(5, 13, 0))
     qSort(list.begin(), list.end());
+#else
+    std::sort(list.begin(), list.end());
+#endif
     qDebug() << "Chaser delete list" << list;
 
     while (!list.isEmpty())
