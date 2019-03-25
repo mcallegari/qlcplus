@@ -265,11 +265,7 @@ void EnttecWing::addDevice(Wing* device)
        between sessions they need to be sorted according to some
        (semi-)permanent criteria. Their addresses shouldn't change too
        often, so let's use that. */
-#if (QT_VERSION < QT_VERSION_CHECK(5, 13, 0))
-    qSort(m_devices.begin(), m_devices.end(), wing_device_sort);
-#else
     std::sort(m_devices.begin(), m_devices.end(), wing_device_sort);
-#endif
 
     emit configurationChanged();
 }

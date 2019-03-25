@@ -549,11 +549,7 @@ void VCSlider::addLevelChannel(quint32 fixture, quint32 channel)
     if (m_levelChannels.contains(lch) == false)
     {
         m_levelChannels.append(lch);
-#if (QT_VERSION < QT_VERSION_CHECK(5, 13, 0))
-        qSort(m_levelChannels.begin(), m_levelChannels.end());
-#else
 	std::sort(m_levelChannels.begin(), m_levelChannels.end());
-#endif
     }
 }
 

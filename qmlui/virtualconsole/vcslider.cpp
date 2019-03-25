@@ -606,12 +606,8 @@ void VCSlider::slotTreeDataChanged(TreeModelItem *item, int role, const QVariant
     else
     {
         addLevelChannel(fixtureID, chIndex);
-#if (QT_VERSION < QT_VERSION_CHECK(5, 13, 0))
-        qSort(m_levelChannels.begin(), m_levelChannels.end());
-#else
 	std::sort(m_levelChannels.begin(), m_levelChannels.end());
-#endif
-    }
+   }
 
     if (clickAndGoType() == CnGPreset)
     {
@@ -1386,11 +1382,7 @@ bool VCSlider::loadXMLLevel(QXmlStreamReader &level_root)
     }
 
     if (m_levelChannels.count()){
-#if (QT_VERSION < QT_VERSION_CHECK(5, 13, 0))
-        qSort(m_levelChannels.begin(), m_levelChannels.end());
-#else
 	std::sort(m_levelChannels.begin(), m_levelChannels.end());
-#endif
     }
     return true;
 }

@@ -404,11 +404,7 @@ void VCSpeedDial::resetPresets()
 QList<VCSpeedDialPreset*> VCSpeedDial::presets() const
 {
     QList<VCSpeedDialPreset*> presetsList = m_presets.values();
-#if (QT_VERSION < QT_VERSION_CHECK(5, 13, 0))
-    qSort(presetsList.begin(), presetsList.end(), VCSpeedDialPreset::compare);
-#else
     std::sort(presetsList.begin(), presetsList.end(), VCSpeedDialPreset::compare);
-#endif
     return presetsList;
 }
 

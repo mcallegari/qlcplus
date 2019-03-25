@@ -1041,11 +1041,7 @@ static bool capsort(const QLCCapability* cap1, const QLCCapability* cap2)
 
 void QLCChannel::sortCapabilities()
 {
-#if (QT_VERSION < QT_VERSION_CHECK(5, 13, 0))
-    qSort(m_capabilities.begin(), m_capabilities.end(), capsort);
-#else
     std::sort(m_capabilities.begin(), m_capabilities.end(), capsort);
-#endif
 }
 
 /*****************************************************************************

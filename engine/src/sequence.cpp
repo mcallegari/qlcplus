@@ -169,11 +169,7 @@ bool Sequence::loadXML(QXmlStreamReader &root)
     if (scene != NULL)
     {
         sceneValues = scene->values();
-#if (QT_VERSION < QT_VERSION_CHECK(5, 13, 0))
-        qSort(sceneValues.begin(), sceneValues.end());
-#else
 	std::sort(sceneValues.begin(), sceneValues.end());
-#endif
         m_needFixup = false;
     }
 
@@ -255,11 +251,7 @@ void Sequence::postLoad()
             return;
         }
 
-#if (QT_VERSION < QT_VERSION_CHECK(5, 13, 0))
-        qSort(sceneValues.begin(), sceneValues.end());
-#else
 	std::sort(sceneValues.begin(), sceneValues.end());
-#endif
     }
 
     int stepIndex = 0;

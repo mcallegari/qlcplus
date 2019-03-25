@@ -615,7 +615,7 @@ QList<SceneValue> FixtureRemap::remapSceneValues(QList<SceneValue> funcList,
             }
         }
     }
-    qSort(newValuesList.begin(), newValuesList.end());
+    std::sort(newValuesList.begin(), newValuesList.end());
     return newValuesList;
 }
 

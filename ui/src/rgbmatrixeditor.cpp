@@ -1067,11 +1067,7 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
             }
             // !! Important !! matrix's heads can be displaced randomly but in a sequence
             // we absolutely need ordered values. So do it now !
-#if (QT_VERSION < QT_VERSION_CHECK(5, 13, 0))
-            qSort(step.values.begin(), step.values.end());
-#else
 	    std::sort(step.values.begin(), step.values.end());
-#endif
 
             sequence->addStep(step);
             currentStep += increment;
