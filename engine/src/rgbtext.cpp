@@ -165,7 +165,7 @@ int RGBText::scrollingTextStepCount() const
 #if (QT_VERSION < QT_VERSION_CHECK(5, 13, 0))
         return fm.width(m_text);
 #else
-	return fm.horizontalAdvance(m_text);
+        return fm.horizontalAdvance(m_text);
 #endif
     }
 }

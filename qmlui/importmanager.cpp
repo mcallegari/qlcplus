@@ -439,7 +439,7 @@ void ImportManager::importFunctionID(quint32 funcID)
 
             if (removeList.isEmpty() == false)
             {
-		std::sort(removeList.begin(), removeList.end());
+                std::sort(removeList.begin(), removeList.end());
                 for (int i = removeList.count() - 1; i >= 0; i--)
                     chaser->removeStep(removeList.at(i));
             }
