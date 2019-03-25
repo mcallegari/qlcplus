@@ -172,7 +172,7 @@ bool Sequence::loadXML(QXmlStreamReader &root)
 #if (QT_VERSION < QT_VERSION_CHECK(5, 13, 0))
         qSort(sceneValues.begin(), sceneValues.end());
 #else
-	(sceneValues.begin(), sceneValues.end());
+	std::sort(sceneValues.begin(), sceneValues.end());
 #endif
         m_needFixup = false;
     }
