@@ -357,7 +357,7 @@ void VCClock::addSchedule(VCClockSchedule *schedule)
 {
     if (schedule->functionID() != Function::invalidId())
         m_scheduleList.append(schedule);
-    qSort(m_scheduleList);
+    std::sort(m_scheduleList.begin(), m_scheduleList.end());
     QQmlEngine::setObjectOwnership(schedule, QQmlEngine::CppOwnership);
     emit scheduleListChanged();
 }
@@ -376,7 +376,7 @@ void VCClock::addSchedules(QVariantList idsList)
         m_scheduleList.append(sch);
     }
 
-    qSort(m_scheduleList);
+    std::sort(m_scheduleList.begin(), m_scheduleList.end());
     emit scheduleListChanged();
 }
 

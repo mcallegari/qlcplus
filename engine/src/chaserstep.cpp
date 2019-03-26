@@ -71,7 +71,7 @@ int ChaserStep::setValue(SceneValue value, int index, bool *created)
         if (index == -1)
         {
             values.append(value);
-            qSort(values.begin(), values.end());
+            std::sort(values.begin(), values.end());
             if (created != NULL)
                 *created = true;
             return values.indexOf(value);

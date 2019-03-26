@@ -85,7 +85,7 @@ ShowRunner::ShowRunner(const Doc* doc, quint32 showID, quint32 startTime)
         m_intensityMap[track->id()] = 1.0;
     }
 
-    qSort(m_functions.begin(), m_functions.end(), compareShowFunctions);
+    std::sort(m_functions.begin(), m_functions.end(), compareShowFunctions);
 
 #if 1
     qDebug() << "Ordered list of ShowFunctions:";

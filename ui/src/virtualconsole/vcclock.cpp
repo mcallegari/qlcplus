@@ -143,7 +143,7 @@ void VCClock::addSchedule(VCClockSchedule schedule)
     qDebug() << Q_FUNC_INFO << "--- ID:" << schedule.function() << ", time:" << schedule.time().time().toString();
     if (schedule.function() != Function::invalidId())
         m_scheduleList.append(schedule);
-    qSort(m_scheduleList);
+    std::sort(m_scheduleList.begin(), m_scheduleList.end());
 }
 
 void VCClock::removeSchedule(int index)

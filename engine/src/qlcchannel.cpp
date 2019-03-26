@@ -1041,7 +1041,7 @@ static bool capsort(const QLCCapability* cap1, const QLCCapability* cap2)
 
 void QLCChannel::sortCapabilities()
 {
-    qSort(m_capabilities.begin(), m_capabilities.end(), capsort);
+    std::sort(m_capabilities.begin(), m_capabilities.end(), capsort);
 }
 
 /*****************************************************************************

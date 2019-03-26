@@ -326,7 +326,7 @@ void Fixture::setChannelCanFade(int idx, bool canFade)
     if (canFade == false && m_excludeFadeIndices.contains(idx) == false)
     {
         m_excludeFadeIndices.append(idx);
-        qSort(m_excludeFadeIndices.begin(), m_excludeFadeIndices.end());
+        std::sort(m_excludeFadeIndices.begin(), m_excludeFadeIndices.end());
     }
     else if (canFade == true && m_excludeFadeIndices.contains(idx) == true)
     {

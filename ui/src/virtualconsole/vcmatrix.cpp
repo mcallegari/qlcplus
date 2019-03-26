@@ -743,7 +743,7 @@ void VCMatrix::resetCustomControls()
 QList<VCMatrixControl *> VCMatrix::customControls() const
 {
     QList<VCMatrixControl*> controls = m_controls.values();
-    qSort(controls.begin(), controls.end(), VCMatrixControl::compare);
+    std::sort(controls.begin(), controls.end(), VCMatrixControl::compare);
     return controls;
 }
 

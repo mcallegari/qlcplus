@@ -108,7 +108,7 @@ static bool MonitorLayoutLessThan(MonitorLayoutItem* i1, MonitorLayoutItem* i2)
 
 void MonitorLayout::sort()
 {
-    qSort(m_items.begin(), m_items.end(), MonitorLayoutLessThan);
+    std::sort(m_items.begin(), m_items.end(), MonitorLayoutLessThan);
 }
 
 /****************************************************************************

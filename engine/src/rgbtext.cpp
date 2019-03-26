@@ -161,8 +161,13 @@ int RGBText::scrollingTextStepCount() const
     QFontMetrics fm(m_font);
     if (animationStyle() == Vertical)
         return m_text.length() * fm.ascent();
-    else
+    else{
+#if (QT_VERSION < QT_VERSION_CHECK(5, 13, 0))
         return fm.width(m_text);
+#else
+        return fm.horizontalAdvance(m_text);
+#endif
+    }
 }
 
 RGBMap RGBText::renderScrollingText(const QSize& size, uint rgb, int step) const

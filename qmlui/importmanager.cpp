@@ -130,7 +130,7 @@ bool ImportManager::loadWorkspace(const QString &fileName)
 void ImportManager::apply()
 {
     // try to preserve the Fixture order
-    qSort(m_fixtureIDList.begin(), m_fixtureIDList.end());
+    std::sort(m_fixtureIDList.begin(), m_fixtureIDList.end());
     importFixtures();
 
     /* Functions need to be imported respecting their
@@ -439,7 +439,7 @@ void ImportManager::importFunctionID(quint32 funcID)
 
             if (removeList.isEmpty() == false)
             {
-                qSort(removeList.begin(), removeList.end());
+                std::sort(removeList.begin(), removeList.end());
                 for (int i = removeList.count() - 1; i >= 0; i--)
                     chaser->removeStep(removeList.at(i));
             }

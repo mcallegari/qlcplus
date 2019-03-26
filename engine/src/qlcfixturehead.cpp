@@ -206,8 +206,8 @@ void QLCFixtureHead::cacheChannels(const QLCFixtureMode* mode)
     if (channelNumber(QLCChannel::Tilt, QLCChannel::LSB) == QLCChannel::invalid())
         setMapIndex(QLCChannel::Tilt, QLCChannel::LSB, mode->channelNumber(QLCChannel::Tilt, QLCChannel::LSB));
 
-    qSort(m_colorWheels);
-    qSort(m_shutterChannels);
+    std::sort(m_colorWheels.begin(), m_colorWheels.end());
+    std::sort(m_shutterChannels.begin(), m_shutterChannels.end());
 
     // Allow only one caching round per head
     m_channelsCached = true;

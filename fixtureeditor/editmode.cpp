@@ -364,7 +364,7 @@ void EditMode::refreshHeadList()
         QLCFixtureHead head = m_mode->heads().at(i);
 
         QList <quint32> channels(head.channels());
-        qSort(channels.begin(), channels.end());
+        std::sort(channels.begin(), channels.end());
 
         QString summary;
 

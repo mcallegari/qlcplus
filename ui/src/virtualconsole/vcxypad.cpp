@@ -680,7 +680,7 @@ void VCXYPad::resetPresets()
 QList<VCXYPadPreset *> VCXYPad::presets() const
 {
     QList<VCXYPadPreset*> presets = m_presets.values();
-    qSort(presets.begin(), presets.end(), VCXYPadPreset::compare);
+    std::sort(presets.begin(), presets.end(), VCXYPadPreset::compare);
     return presets;
 }
 
