@@ -253,7 +253,7 @@ void EditChannel::slotGroupActivated(int index)
 {
     quint32 val = m_typeCombo->itemData(index).toUInt();
 
-    if (val > QLCChannel::Maintenance && val < QLCChannel::NoGroup)
+    if (val > QLCChannel::Nothing && val < QLCChannel::NoGroup)
     {
         m_channel->setGroup(QLCChannel::Intensity);
         m_channel->setColour(QLCChannel::PrimaryColour(val));

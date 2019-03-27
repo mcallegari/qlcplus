@@ -3,6 +3,7 @@ qlcplus (4.12.2) stable; urgency=low
   * Simple Desk: fix faders not overriding value = 0
   * Simple Desk: fix universe reset erasing channel modifiers
   * Virtual Console/Slider: fix LTP channels being written continuously
+  * Fixture Editor: fix 'Nothing' type not handled correctly
   * New fixture: Martin MAC Encore Performance (thanks to Flo Edelmann)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 26 May 2019 12:13:14 +0200
