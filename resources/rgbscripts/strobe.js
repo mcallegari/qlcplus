@@ -28,6 +28,14 @@ var testAlgo;
       algo.author = "Rob Nieuwenhuizen";
       algo.properties = [];
       algo.acceptColors = 1;
+      algo.properties.push('name:freq|type:range|display:Frequency|values:2,10|write:setFreq|read:getFreq');
+      var freq = 2;
+      algo.setFreq = function(_freq){
+          freq = _freq;
+      };
+      algo.getFreq = function(){
+          return freq;
+      };
 
       /**
         * The actual "algorithm" for this RGB script. Produces a map of
@@ -45,14 +53,7 @@ var testAlgo;
           map[y] = [];
           for (var x = 0; x < width; x++)
           {
-            if ((step % 2) === 0)
-            {
-              map[y][x] = rgb;
-            }
-            else
-            {
-              map[y][x] = 0;
-            }
+            map[y][x] = (step % freq) ? 0 : rgb;
           }
         }
         return map;
@@ -67,7 +68,7 @@ var testAlgo;
       */
       algo.rgbMapStepCount = function (width, height)
       {
-        return 2;
+        return freq;
       };
 
       // Development tool access
