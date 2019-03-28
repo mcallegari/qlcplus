@@ -29,7 +29,7 @@ var testAlgo;
       algo.properties = [];
       algo.acceptColors = 1;
       algo.properties.push('name:freq|type:range|display:Frequency|values:2,10|write:setFreq|read:getFreq');
-      algo.frequency = 4;
+      algo.frequency = 2;
       algo.setFreq = function(_freq){
         algo.frequency = parseInt(_freq);
       };
