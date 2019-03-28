@@ -47,14 +47,15 @@ var testAlgo;
         */
       algo.rgbMap = function (width, height, rgb, step)
       {
-        var map = new Array(height);
+        var map = new Array();
         for (var y = 0; y < height; y++)
         {
-          map[y] = new Array(width);
+          var _map = new Array();
           for (var x = 0; x < width; x++)
           {
-            map[y][x] = (step % algo.frequency) !== 0 ? 0 : rgb;
+            _map.push((step % algo.frequency) !== 0 ? 0 : rgb);
           }
+          map.push(_map);
         }
         return map;
       };
