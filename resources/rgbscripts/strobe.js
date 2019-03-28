@@ -28,13 +28,13 @@ var testAlgo;
       algo.author = "Rob Nieuwenhuizen";
       algo.properties = [];
       algo.acceptColors = 1;
-      algo.properties.push('name:freq|type:range|display:Frequency|values:2,10|write:setFreq|read:getFreq');
-      algo.frequency = 2;
+      algo.properties.push("name:freq|type:range|display:Frequency|values:2,10|write:setFreq|read:getFreq");
+      var frequency = 2;
       algo.setFreq = function(_freq){
-        algo.frequency = parseInt(_freq);
+        frequency = parseInt(_freq);
       };
       algo.getFreq = function(){
-        return algo.frequency;
+        return frequency;
       };
 
       /**
@@ -53,7 +53,7 @@ var testAlgo;
           map[y] = [];
           for (var x = 0; x < width; x++)
           {
-            map[y][x] = (step % algo.frequency) != 0 ? 0 : rgb;
+            map[y][x] = (step % frequency) !== 0 ? 0 : rgb;
           }
         }
         return map;
@@ -68,7 +68,7 @@ var testAlgo;
       */
       algo.rgbMapStepCount = function (width, height)
       {
-        return algo.frequency;
+        return frequency;
       };
 
       // Development tool access
