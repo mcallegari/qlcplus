@@ -50,7 +50,7 @@ var testAlgo;
         var map = new Array(height);
         for (var y = 0; y < height; y++)
         {
-          map[y] = [];
+          map[y] = new Array(width);
           for (var x = 0; x < width; x++)
           {
             map[y][x] = (step % frequency) !== 0 ? 0 : rgb;
