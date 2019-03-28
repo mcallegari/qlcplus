@@ -29,12 +29,12 @@ var testAlgo;
       algo.properties = [];
       algo.acceptColors = 1;
       algo.properties.push('name:freq|type:range|display:Frequency|values:2,10|write:setFreq|read:getFreq');
-      var freq = 2;
+      algo.frequency = 4;
       algo.setFreq = function(_freq){
-          freq = _freq;
+        algo.frequency = parseInt(_freq);
       };
       algo.getFreq = function(){
-          return freq;
+        return algo.frequency;
       };
 
       /**
@@ -53,7 +53,7 @@ var testAlgo;
           map[y] = [];
           for (var x = 0; x < width; x++)
           {
-            map[y][x] = (step % freq) ? 0 : rgb;
+            map[y][x] = (step % algo.frequency) != 0 ? 0 : rgb;
           }
         }
         return map;
@@ -68,7 +68,7 @@ var testAlgo;
       */
       algo.rgbMapStepCount = function (width, height)
       {
-        return freq;
+        return algo.frequency;
       };
 
       // Development tool access
