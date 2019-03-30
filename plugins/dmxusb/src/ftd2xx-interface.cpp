@@ -281,7 +281,6 @@ bool FTD2XXInterface::setLineProperties()
     }
     else
     {
-        FT_SetTimeouts(m_handle, 100, 1);
         return true;
     }
 }
