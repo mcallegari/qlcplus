@@ -988,7 +988,7 @@ void VCCueList::stopChaser()
 
 int VCCueList::getFadeMode()
 {
-    if (sideFaderMode() == Steps)
+    if (sideFaderMode() != Crossfade)
         return Chaser::FromFunction;
 
     if (m_sideFader->value() != 0 && m_sideFader->value() != 100)
