@@ -89,6 +89,7 @@ INSTALL_ROOT=$RPM_BUILD_ROOT make install
 %_libdir/qt5/plugins/qlcplus/libdmxusb.so
 %_libdir/qt5/plugins/qlcplus/libpeperoni.so
 %_libdir/qt5/plugins/qlcplus/libudmx.so
+%_libdir/qt5/plugins/qlcplus/libos2l.so
 %_libdir/qt5/plugins/qlcplus/libosc.so
 %_libdir/qt5/plugins/qlcplus/libartnet.so
 %_libdir/qt5/plugins/qlcplus/libe131.so
