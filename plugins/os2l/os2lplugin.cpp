@@ -31,7 +31,7 @@
 
 OS2LPlugin::~OS2LPlugin()
 {
-    delete m_tcpServer;
+    enableTCPServer(false);
 }
 
 void OS2LPlugin::init()
