@@ -121,7 +121,7 @@ InputProfileEditor::InputProfileEditor(QWidget* parent, QLCInputProfile* profile
         if (m_profile->type() == type)
         {
             m_typeCombo->setCurrentIndex(i);
-            if (type == QLCInputProfile::Midi)
+            if (type == QLCInputProfile::MIDI)
             {
                 m_midiGroupSettings->setVisible(true);
                 m_noteOffCheck->setChecked(m_profile->midiSendNoteOff());
@@ -222,7 +222,7 @@ void InputProfileEditor::setOptionsVisibility(QLCInputChannel::Type type)
 
 void InputProfileEditor::slotTypeComboChanged(int)
 {
-    if (currentProfileType() == QLCInputProfile::Midi)
+    if (currentProfileType() == QLCInputProfile::MIDI)
         m_midiGroupSettings->setVisible(true);
     else
         m_midiGroupSettings->setVisible(false);
@@ -251,7 +251,7 @@ void InputProfileEditor::accept()
     m_profile->setModel(m_modelEdit->text());
     m_profile->setType(currentProfileType());
 
-    if (currentProfileType() == QLCInputProfile::Midi)
+    if (currentProfileType() == QLCInputProfile::MIDI)
         m_profile->setMidiSendNoteOff(m_noteOffCheck->isChecked());
 
     /* Check that we have at least the bare necessities to save the profile */
@@ -417,7 +417,7 @@ edit:
     else if (m_tree->selectedItems().count() > 1)
     {
         /* Multiple channels selected. Apply changes to all of them */
-        InputChannelEditor ice(this, NULL, NULL, QLCInputProfile::Dmx);
+        InputChannelEditor ice(this, NULL, NULL, QLCInputProfile::DMX);
         if (ice.exec() == QDialog::Accepted)
         {
             QListIterator <QTreeWidgetItem*>

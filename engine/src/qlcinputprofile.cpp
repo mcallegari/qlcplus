@@ -29,6 +29,7 @@
 #include "qlcfile.h"
 
 #define KXMLQLCInputProfileTypeMidi "MIDI"
+#define KXMLQLCInputProfileTypeOs2l "OS2L"
 #define KXMLQLCInputProfileTypeOsc "OSC"
 #define KXMLQLCInputProfileTypeHid "HID"
 #define KXMLQLCInputProfileTypeDmx "DMX"
@@ -43,7 +44,7 @@ QLCInputProfile::QLCInputProfile()
     : m_manufacturer(QString())
     , m_model(QString())
     , m_path(QString())
-    , m_type(Midi)
+    , m_type(MIDI)
     , m_midiSendNoteOff(true)
 {
 }
@@ -133,13 +134,15 @@ QString QLCInputProfile::typeToString(Type type)
 {
     switch (type)
     {
-    case Midi:
+    case MIDI:
         return KXMLQLCInputProfileTypeMidi;
-    case Osc:
+    case OS2L:
+        return KXMLQLCInputProfileTypeOs2l;
+    case OSC:
         return KXMLQLCInputProfileTypeOsc;
-    case Hid:
+    case HID:
         return KXMLQLCInputProfileTypeHid;
-    case Dmx:
+    case DMX:
         return KXMLQLCInputProfileTypeDmx;
     case Enttec:
         return KXMLQLCInputProfileTypeEnttec;
@@ -151,13 +154,15 @@ QString QLCInputProfile::typeToString(Type type)
 QLCInputProfile::Type QLCInputProfile::stringToType(const QString& str)
 {
     if (str == KXMLQLCInputProfileTypeMidi)
-        return Midi;
+        return MIDI;
+    else if (str == KXMLQLCInputProfileTypeOs2l)
+        return OS2L;
     else if (str == KXMLQLCInputProfileTypeOsc)
-        return Osc;
+        return OSC;
     else if (str == KXMLQLCInputProfileTypeHid)
-        return Hid;
+        return HID;
     else if (str == KXMLQLCInputProfileTypeDmx)
-        return Dmx;
+        return DMX;
     else // if (str == KXMLQLCInputProfileTypeEnttec)
         return Enttec;
 }
@@ -166,10 +171,11 @@ QList<QLCInputProfile::Type> QLCInputProfile::types()
 {
     QList<Type> result;
     result
-        << Midi
-        << Osc
-        << Hid
-        << Dmx
+        << MIDI
+        << OS2L
+        << OSC
+        << HID
+        << DMX
         << Enttec;
     return result;
 }

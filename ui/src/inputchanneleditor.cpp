@@ -99,7 +99,7 @@ InputChannelEditor::InputChannelEditor(QWidget* parent,
         type = QLCInputChannel::typeToString(channel->type());
         m_typeCombo->setCurrentIndex(m_typeCombo->findText(type));
 
-        if (profileType == QLCInputProfile::Midi)
+        if (profileType == QLCInputProfile::MIDI)
         {
             slotNumberChanged(m_numberSpin->value());
 

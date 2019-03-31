@@ -77,10 +77,11 @@ public:
 
     enum Type
     {
-        Midi,
-        Osc,
-        Hid,
-        Dmx,
+        MIDI,
+        OS2L,
+        OSC,
+        HID,
+        DMX,
         Enttec,
     };
 
