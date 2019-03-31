@@ -29,3 +29,4 @@ SUBDIRS              += artnet
 SUBDIRS              += E1.31
 SUBDIRS              += loopback
 SUBDIRS              += osc
+SUBDIRS              += os2l
