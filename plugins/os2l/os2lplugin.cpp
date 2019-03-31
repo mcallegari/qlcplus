@@ -203,6 +203,14 @@ void OS2LPlugin::slotProcessNewTCPConnection()
     QHostAddress senderAddress = clientConnection->peerAddress();
     qDebug() << "[slotProcessNewTCPConnection] Host connected:" << senderAddress.toString();
     connect(clientConnection, SIGNAL(readyRead()), this, SLOT(slotProcessTCPPackets()));
+    connect(clientConnection, SIGNAL(disconnected()), this, SLOT(slotProcessTCPPackets()));
+}
+
+void OS2LPlugin::slotHostDisconnected()
+{
+    QTcpSocket *socket = (QTcpSocket *)sender();
+    QHostAddress senderAddress = socket->peerAddress();
+    qDebug() << "Host with address" << senderAddress.toString() << "disconnected!";
 }
 
 void OS2LPlugin::slotProcessTCPPackets()
