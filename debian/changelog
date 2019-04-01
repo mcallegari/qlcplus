@@ -4,6 +4,7 @@ qlcplus (4.12.2) stable; urgency=low
   * Simple Desk: fix universe reset erasing channel modifiers
   * Virtual Console/Slider: fix LTP channels being written continuously
   * Fixture Editor: fix 'Nothing' type not handled correctly
+  * Plugins/DMX USB: default DMXIS to Pro Tx/Rx
   * NEW OS2L plugin (see documentation)
   * New fixture: Martin MAC Encore Performance (thanks to Flo Edelmann)
 

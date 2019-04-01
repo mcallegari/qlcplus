@@ -87,6 +87,8 @@ QList<DMXUSBWidget *> DMXUSBWidget::widgets()
 
     foreach (DMXInterface *iface, interfacesList)
     {
+        QString productName = iface->name().toUpper();
+
         if (types.contains(iface->serial()) == true)
         {
             // Force a widget with a specific serial to either type
@@ -132,7 +134,7 @@ QList<DMXUSBWidget *> DMXUSBWidget::widgets()
                 break;
             }
         }
-        else if (iface->name().toUpper().contains("PRO MK2") == true)
+        else if (productName.contains("PRO MK2") == true)
         {
             EnttecDMXUSBPro *promkii = new EnttecDMXUSBPro(iface, output_id, input_id);
             promkii->setOutputsNumber(2);
@@ -141,7 +143,7 @@ QList<DMXUSBWidget *> DMXUSBWidget::widgets()
             input_id += 2;
             widgetList << promkii;
         }
-        else if (iface->name().toUpper().contains("DMX USB PRO"))
+        else if (productName.contains("DMX USB PRO"))
         {
             /** Check if the device responds to label 77 and 78, so it might be a DMXking adapter */
             int ESTAID = 0;
@@ -178,7 +180,13 @@ QList<DMXUSBWidget *> DMXUSBWidget::widgets()
                 widgetList << pro;
             }
         }
-        else if (iface->name().toUpper().contains("USB-DMX512 CONVERTER") == true)
+        else if (productName.contains("DMXIS"))
+        {
+            EnttecDMXUSBPro *pro = new EnttecDMXUSBPro(iface, output_id++);
+            pro->setInputsNumber(0);
+            widgetList << pro;
+        }
+        else if (productName.contains("USB-DMX512 CONVERTER") == true)
         {
             widgetList << new VinceUSBDMX512(iface, output_id++);
         }
