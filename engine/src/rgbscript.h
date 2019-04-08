@@ -125,7 +125,7 @@ public:
     bool setProperty(QString propertyName, QString value);
 
     /** Read the value of the property with the given name */
-    QString property(QString propertyName);
+    QString property(QString propertyName) const;
 
 private:
     /** Load the script properties if any is available */
