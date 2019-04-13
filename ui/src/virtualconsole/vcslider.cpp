@@ -661,8 +661,6 @@ void VCSlider::slotMonitorDMXValueChanged(int value)
 
     m_monitorValue = value;
 
-    value = invertedAppearance() ? 255 - value : value;
-
     if (m_isOverriding == false)
     {
         {
@@ -1264,9 +1262,6 @@ void VCSlider::setSliderValue(uchar value, bool scale, bool external)
                 float(m_slider->maximum()));
     }
 
-    if (m_slider->invertedAppearance() == true)
-        val = uchar(m_slider->maximum()) - val + uchar(m_slider->minimum());
-
     /* Request the UI to update */
     if (m_slider->isSliderDown() == false && val != m_slider->value())
        emit requestSliderUpdate(val);
@@ -1305,19 +1300,14 @@ void VCSlider::setSliderShadowValue(int value)
     if (m_widgetMode == WSlider)
     {
         ClickAndGoSlider *sl = qobject_cast<ClickAndGoSlider*> (m_slider);
-        sl->setShadowLevel(m_slider->invertedAppearance() ? 255 - value : value);
+        sl->setShadowLevel(value);
     }
 }
 
 int VCSlider::sliderValue() const
 {
     if (m_slider)
-    {
-        if (invertedAppearance())
-            return 255 - m_slider->value();
-        else
-            return m_slider->value();
-    }
+        return m_slider->value();
 
     return 0;
 }
@@ -1415,11 +1405,11 @@ void VCSlider::updateFeedback()
     if (m_slider)
     {
         if (invertedAppearance() == true)
-            fbv = m_slider->maximum() - m_slider->value();
+            fbv = m_slider->maximum() - m_slider->value() + m_slider->minimum();
         else
             fbv = m_slider->value();
-        fbv = (int)SCALE(float(fbv), float(m_slider->minimum()),
-                         float(m_slider->maximum()), float(0), float(UCHAR_MAX));
+        fbv = int(SCALE(float(fbv), float(m_slider->minimum()),
+                        float(m_slider->maximum()), float(0), float(UCHAR_MAX)));
     }
     sendFeedback(fbv);
 }
@@ -1489,6 +1479,9 @@ void VCSlider::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
                 m_resetButton->setStyleSheet(QString("QToolButton{ background: red; }"));
                 m_isOverriding = true;
             }
+
+            if (invertedAppearance())
+                value = UCHAR_MAX - value;
 
             setSliderValue(value, true, true);
             m_lastInputValue = value;
