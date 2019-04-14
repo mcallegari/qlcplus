@@ -1298,9 +1298,12 @@ QString WebAccess::getChildrenHTML(VCWidget *frame, int pagesNum, int currentPag
         }
         if (lframe->multipageMode() == true && pagesNum > 0)
         {
-            pagesHTML[widget->page()] += str;
-            if (restoreDisable)
-                widget->setEnabled(false);
+            if (widget->page() < pagesHTML.count())
+            {
+                pagesHTML[widget->page()] += str;
+                if (restoreDisable)
+                    widget->setEnabled(false);
+            }
         }
         else
             unifiedHTML += str;
