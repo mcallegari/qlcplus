@@ -48,8 +48,10 @@ GridLayout
             {
                 Layout.fillWidth: true
                 palette.base: UISettings.bgControl
+                palette.window: UISettings.bgControl
                 palette.text: UISettings.fgMain
                 palette.highlightedText: UISettings.bgMain
+
                 model: ["LED", "CDM 70W", "CDM 150W", "CP29 5000W", "CP41 2000W", "CP60 1000W",
                         "CP61 1000W", "CP62 1000W", "CP86 500W", "CP87 500W", "CP88 500W",
                         "EFP 100W", "EFP 150W", "EFR 100W", "EFR 150W", "ELC 250W",
@@ -100,6 +102,7 @@ GridLayout
             {
                 Layout.fillWidth: true
                 palette.base: UISettings.bgControl
+                palette.window: UISettings.bgControl
                 palette.text: UISettings.fgMain
                 palette.highlightedText: UISettings.bgMain
                 model: ["Other", "PC", "Fresnel"]
@@ -146,6 +149,7 @@ GridLayout
             {
                 Layout.fillWidth: true
                 palette.base: UISettings.bgControl
+                palette.window: UISettings.bgControl
                 palette.text: UISettings.fgMain
                 palette.highlightedText: UISettings.bgMain
                 model: ["Fixed", "Head", "Mirror", "Barrel"]
@@ -281,6 +285,7 @@ GridLayout
             {
                 Layout.fillWidth: true
                 palette.base: UISettings.bgControl
+                palette.window: UISettings.bgControl
                 palette.text: UISettings.fgMain
                 palette.highlightedText: UISettings.bgMain
                 model: ["3-pin", "5-pin", "3-pin and 5-pin", "3.5 mm stereo jack", "Other"]
