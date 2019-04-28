@@ -348,16 +348,16 @@ public:
      *  FadeChannels and eventually dismiss a fader when no longer needed.
      *  If a fade out transition is needed, this Universe
      *  is in charge of completing it and dismissing the fader. */
-    GenericFader *requestFader(FaderPriority priority = Auto);
+    QSharedPointer<GenericFader> requestFader(FaderPriority priority = Auto);
 
     /** Dismiss a fader requested with requestFader, which is no longer needed */
-    void dismissFader(GenericFader *fader);
+    void dismissFader(QSharedPointer<GenericFader> fader);
 
     /** Request a new priority for a fader with the provided intance */
-    void requestFaderPriority(GenericFader *fader, FaderPriority priority);
+    void requestFaderPriority(QSharedPointer<GenericFader> fader, FaderPriority priority);
 
     /** Retrieve a modifiable list of the currently active faders */
-    QList<GenericFader *> faders();
+    QList<QSharedPointer<GenericFader> > faders();
 
 public slots:
     void tick();
@@ -379,7 +379,7 @@ protected:
 
     /** IMPORTANT: this is the list of faders that will compose
      *  the Universe values. The order is very important ! */
-    QList<GenericFader *> m_faders;
+    QList<QSharedPointer<GenericFader> > m_faders;
 
     /************************************************************************
      * Values

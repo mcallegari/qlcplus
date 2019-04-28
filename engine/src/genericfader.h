@@ -72,7 +72,7 @@ public:
     void removeAll();
 
     /** Get/Set a request of deletion of this fader */
-    bool deleteRequest();
+    bool deleteRequested();
     void requestDelete();
 
     /** Returns a reference of a FadeChannel for the provided $fixtureID and $channel.

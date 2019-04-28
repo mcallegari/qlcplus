@@ -256,7 +256,7 @@ private:
 
 private:
     /** Map used to lookup a GenericFader instance for a Universe ID */
-    QMap<quint32, GenericFader *> m_fadersMap;
+    QMap<quint32, QSharedPointer<GenericFader> > m_fadersMap;
     uint m_elapsed;
     bool m_previous;
     bool m_next;

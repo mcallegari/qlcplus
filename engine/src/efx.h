@@ -567,7 +567,7 @@ public:
     void postRun(MasterTimer* timer, QList<Universe*> universes);
 
 private:
-    GenericFader *getFader(QList<Universe *> universes, quint32 universeID);
+    QSharedPointer<GenericFader> getFader(QList<Universe *> universes, quint32 universeID);
 
     /*********************************************************************
      * Intensity

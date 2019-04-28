@@ -105,7 +105,7 @@ void GenericFader::removeAll()
     m_channels.clear();
 }
 
-bool GenericFader::deleteRequest()
+bool GenericFader::deleteRequested()
 {
     return m_deleteRequest;
 }
