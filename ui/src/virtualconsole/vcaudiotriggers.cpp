@@ -320,7 +320,7 @@ void VCAudioTriggers::writeDMX(MasterTimer *timer, QList<Universe *> universes)
                 quint32 universe = absAddress >> 9;
                 if (universe != lastUniverse)
                 {
-                    fader = m_fadersMap.value(universe, NULL);
+                    fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
                     if (fader == NULL)
                     {
                         fader = universes[universe]->requestFader();
