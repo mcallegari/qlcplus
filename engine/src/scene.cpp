@@ -655,6 +655,7 @@ void Scene::write(MasterTimer *timer, QList<Universe*> ua)
                 fader->adjustIntensity(getAttributeValue(Intensity));
                 fader->setBlendMode(blendMode());
                 fader->setName(name());
+                fader->setParentFunctionID(id());
                 m_fadersMap[universe] = fader;
             }
 

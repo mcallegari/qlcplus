@@ -26,6 +26,7 @@
 
 GenericFader::GenericFader(QObject *parent)
     : QObject(parent)
+    , m_fid(Function::invalidId())
     , m_priority(Universe::Auto)
     , m_intensity(1.0)
     , m_paused(false)
@@ -49,6 +50,16 @@ QString GenericFader::name() const
 void GenericFader::setName(QString name)
 {
     m_name = name;
+}
+
+quint32 GenericFader::parentFunctionID() const
+{
+    return m_fid;
+}
+
+void GenericFader::setParentFunctionID(quint32 fid)
+{
+    m_fid = fid;
 }
 
 int GenericFader::priority() const

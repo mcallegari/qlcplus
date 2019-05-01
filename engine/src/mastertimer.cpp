@@ -211,8 +211,8 @@ void MasterTimer::fadeAndStopAll(int timeout)
     {
         foreach (QSharedPointer<GenericFader> fader, universe->faders())
         {
-            if (!fader.isNull())
-                fader->setFadeOut(true, timeout);
+            if (!fader.isNull() && fader->parentFunctionID() != Function::invalidId())
+                fader->setFadeOut(true, uint(timeout));
         }
     }
     doc->inputOutputMap()->releaseUniverses();
