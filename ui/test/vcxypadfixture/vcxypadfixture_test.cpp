@@ -30,6 +30,7 @@
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
 #define protected public
+#include "genericfader.h"
 #include "universe.h"
 #undef protected
 #include "qlcfile.h"
