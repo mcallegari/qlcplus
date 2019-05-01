@@ -186,6 +186,9 @@ void VideoWidget::slotMetaDataChanged(QString key, QVariant data)
 
 void VideoWidget::slotPlaybackVideo()
 {
+    int screen = m_video->screen();
+    QRect rect = qApp->desktop()->screenGeometry(screen);
+
     if (QLCFile::getQtRuntimeVersion() < 50700 && m_videoWidget == NULL)
     {
         m_videoWidget = new QVideoWidget;
@@ -193,8 +196,7 @@ void VideoWidget::slotPlaybackVideo()
         m_videoPlayer->setVideoOutput(m_videoWidget);
     }
 
-    int screen = m_video->screen();
-    QRect rect = qApp->desktop()->screenGeometry(screen);
+    m_videoWidget->setWindowFlags(m_videoWidget->windowFlags() | Qt::WindowStaysOnTopHint);
 
     if (m_video->fullscreen() == false)
     {
@@ -223,7 +225,6 @@ void VideoWidget::slotPlaybackVideo()
         m_videoPlayer->setPosition(0);
 
     m_videoWidget->show();
-    m_videoWidget->setWindowFlags(m_videoWidget->windowFlags() | Qt::WindowStaysOnTopHint);
     m_videoPlayer->play();
 }
 
@@ -242,7 +243,8 @@ void VideoWidget::slotStopVideo()
 
     if (m_videoWidget != NULL)
     {
-        m_videoWidget->setFullScreen(false);
+        if (m_video->fullscreen())
+            m_videoWidget->setFullScreen(false);
         m_videoWidget->hide();
     }
 
