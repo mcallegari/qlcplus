@@ -288,9 +288,12 @@ void Universe::processFaders()
     while (it.hasNext())
     {
         QSharedPointer<GenericFader> fader = it.next();
+        if (fader.isNull())
+            continue;
+
         // destroy a fader if it's been requested
         // and it's not fading out
-        if (!fader.isNull() && fader->deleteRequested() && !fader->isFadingOut())
+        if (fader->deleteRequested() && !fader->isFadingOut())
         {
             fader->removeAll();
             it.remove();
