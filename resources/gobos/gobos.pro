@@ -10,6 +10,7 @@ gobo.files += Others
 gobo.files += Robe
 gobo.files += SGM
 gobo.files += SGM-Color
+gobo.files += HY-60-G
 
 gobo.path = $$INSTALLROOT/$$GOBODIR
 INSTALLS += gobo

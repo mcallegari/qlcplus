@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1</Version>
+  <Author>Thijs Van der Schaeghe</Author>
+ </Creator>
+ <Manufacturer>Hong Yi Stage Lighting</Manufacturer>
+ <Model>HY-60 G</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="X">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="255">Horizontal position</Capability>
+ </Channel>
+ <Channel Name="X Fine Tune">
+  <Group Byte="1">Pan</Group>
+  <Capability Min="0" Max="255">Horziontal position - fine tuning</Capability>
+ </Channel>
+ <Channel Name="Y">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="255">Vertical position</Capability>
+ </Channel>
+ <Channel Name="Y Fine Tune">
+  <Group Byte="1">Tilt</Group>
+  <Capability Min="0" Max="255">Vertical position - fine tuning</Capability>
+ </Channel>
+ <Channel Name="Color wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="10" Preset="ColorMacro" Res1="#eeeeec">White</Capability>
+  <Capability Min="11" Max="21" Preset="ColorDoubleMacro" Res1="#eeeeec" Res2="#a40000">Red/Yellow</Capability>
+  <Capability Min="22" Max="32" Preset="ColorMacro" Res1="#a40000">Red</Capability>
+  <Capability Min="33" Max="43" Preset="ColorDoubleMacro" Res1="#a40000" Res2="#ce5c00">Orange/Red</Capability>
+  <Capability Min="44" Max="54" Preset="ColorMacro" Res1="#ce5c00">Orange</Capability>
+  <Capability Min="55" Max="65" Preset="ColorDoubleMacro" Res1="#ce5c00" Res2="#c4a000">Yellow/Orange</Capability>
+  <Capability Min="66" Max="76" Preset="ColorMacro" Res1="#c4a000">Yellow</Capability>
+  <Capability Min="77" Max="87" Preset="ColorDoubleMacro" Res1="#4e9a06" Res2="#c4a000">Green/Yellow</Capability>
+  <Capability Min="88" Max="98" Preset="ColorMacro" Res1="#4e9a06">Green</Capability>
+  <Capability Min="99" Max="109" Preset="ColorDoubleMacro" Res1="#4e9a06" Res2="#204a87">Blue/Green</Capability>
+  <Capability Min="110" Max="120" Preset="ColorMacro" Res1="#204a87">Blue</Capability>
+  <Capability Min="121" Max="131" Preset="ColorDoubleMacro" Res1="#204a87" Res2="#5c3566">Purple/Blue</Capability>
+  <Capability Min="132" Max="142" Preset="ColorMacro" Res1="#5c3566">Purple</Capability>
+  <Capability Min="143" Max="153" Preset="ColorDoubleMacro" Res1="#5c3566" Res2="#729fcf">Cyan/Purple</Capability>
+  <Capability Min="154" Max="159" Preset="ColorMacro" Res1="#729fcf">Cyan</Capability>
+  <Capability Min="160" Max="207">Rotate Anticlockwise</Capability>
+  <Capability Min="208" Max="255">Rotate clocksiwe</Capability>
+ </Channel>
+ <Channel Name="Gobo wheel">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="9" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="10" Max="19" Preset="GoboMacro" Res1="HY-60-G/hy60-gobo1.png">Gobo 1</Capability>
+  <Capability Min="20" Max="29" Preset="GoboMacro" Res1="HY-60-G/hy60-gobo2.png">Gobo 2</Capability>
+  <Capability Min="30" Max="39" Preset="GoboMacro" Res1="HY-60-G/hy60-gobo3.png">Gobo 3</Capability>
+  <Capability Min="40" Max="49" Preset="GoboMacro" Res1="HY-60-G/hy60-gobo4.png">Gobo 4</Capability>
+  <Capability Min="50" Max="59" Preset="GoboMacro" Res1="HY-60-G/hy60-gobo5.png">Gobo 5</Capability>
+  <Capability Min="60" Max="69" Preset="GoboMacro" Res1="HY-60-G/hy60-gobo6.png">Gobo 6</Capability>
+  <Capability Min="70" Max="79" Preset="GoboMacro" Res1="HY-60-G/hy60-gobo7.png">Gobo 7</Capability>
+  <Capability Min="80" Max="89" Preset="GoboShakeMacro" Res1="HY-60-G/hy60-gobo7.png">Shaking gobo 7</Capability>
+  <Capability Min="90" Max="99" Preset="GoboShakeMacro" Res1="HY-60-G/hy60-gobo6.png">Shaking gobo 6</Capability>
+  <Capability Min="100" Max="109" Preset="GoboShakeMacro" Res1="HY-60-G/hy60-gobo5.png">Shaking gobo 5</Capability>
+  <Capability Min="110" Max="119" Preset="GoboShakeMacro" Res1="HY-60-G/hy60-gobo4.png">Shaking gobo 4</Capability>
+  <Capability Min="120" Max="129" Preset="GoboShakeMacro" Res1="HY-60-G/hy60-gobo3.png">Shaking gobo 3</Capability>
+  <Capability Min="130" Max="139" Preset="GoboShakeMacro" Res1="HY-60-G/hy60-gobo2.png">Shaking gobo 2</Capability>
+  <Capability Min="140" Max="149" Preset="GoboShakeMacro" Res1="HY-60-G/hy60-gobo1.png">Shaking gobo 1</Capability>
+  <Capability Min="150" Max="202">Gobowheel rotate clockwise</Capability>
+  <Capability Min="203" Max="255">Gobowheel rotate anticlockwise</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="15">No strobe</Capability>
+  <Capability Min="16" Max="255" Preset="StrobeSlowToFast">Strobe (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Light">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Light intensity</Capability>
+ </Channel>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255" Preset="SlowToFast">Movement speed</Capability>
+ </Channel>
+ <Channel Name="Macro functions">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="50">No function</Capability>
+  <Capability Min="51" Max="151">Fast moving</Capability>
+  <Capability Min="152" Max="255">Sound control</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="254">No function</Capability>
+  <Capability Min="255" Max="255">Reset</Capability>
+ </Channel>
+ <Mode Name="11 Channel">
+  <Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="3.2" Width="160" Height="150" Depth="290"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="540" TiltMax="180"/>
+   <Technical PowerConsumption="60" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">X</Channel>
+  <Channel Number="1">X Fine Tune</Channel>
+  <Channel Number="2">Y</Channel>
+  <Channel Number="3">Y Fine Tune</Channel>
+  <Channel Number="4">Color wheel</Channel>
+  <Channel Number="5">Gobo wheel</Channel>
+  <Channel Number="6">Strobe</Channel>
+  <Channel Number="7">Light</Channel>
+  <Channel Number="8">Speed</Channel>
+  <Channel Number="9">Macro functions</Channel>
+  <Channel Number="10">Reset</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="0" Width="250" Height="310" Depth="230"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="180"/>
+  <Technical PowerConsumption="75" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>
