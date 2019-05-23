@@ -548,14 +548,14 @@ void WebAccess::slotHandleWebSocketRequest(QHttpConnection *conn, QString data)
             else
                 wsAPIMessage.append(Function::typeToString(Function::Undefined));
         }
-        else if (apiCmd == "setFunctionStatus") {
+        else if (apiCmd == "setFunctionStatus") 
+	{
             if (cmdList.count() < 4)
                 return;
 
             quint32 fID = cmdList[2].toUInt();
-            Function *f = m_doc->function(fID);
-
             quint32 newStatus = cmdList[3].toUInt();
+            Function *f = m_doc->function(fID);
 
             if (f != NULL)
             {
