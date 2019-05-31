@@ -373,7 +373,7 @@ void SimpleDeskEngine::writeDMX(MasterTimer *timer, QList<Universe *> ua)
             FadeChannel *fc = getFader(ua, uni, Fixture::invalidId(), address);
             fc->setCurrent(value);
             fc->setTarget(value);
-            fc->setTypeFlag(FadeChannel::Override);
+            fc->addFlag(FadeChannel::Override);
         }
         setChanged(false);
     }

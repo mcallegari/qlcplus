@@ -42,16 +42,16 @@ class FadeChannel
      * Initialization
      ************************************************************************/
 public:
-    enum ChannelType
+    enum ChannelFlag
     {
-        HTP         = (1 << 0),
-        LTP         = (1 << 1),
-        Intensity   = (1 << 2),
-        CanFade     = (1 << 3),
-        Flashing    = (1 << 4),
-        Relative    = (1 << 5),
-        Override    = (1 << 6),
-        Autoremove  = (1 << 7)
+        HTP         = (1 << 0),     /** Highest takes precedence */
+        LTP         = (1 << 1),     /** Latest takes precedence */
+        Intensity   = (1 << 2),     /** Intensity channel (dimmer, RGB, CMY, etc) */
+        CanFade     = (1 << 3),     /** Subject to fade transitions */
+        Flashing    = (1 << 4),     /** Is flashing */
+        Relative    = (1 << 5),     /** Relative position */
+        Override    = (1 << 6),     /** Override the current universe value */
+        Autoremove  = (1 << 7)      /** Automatically remove the channel once value is written */
     };
 
     /** Create a new FadeChannel with empty/invalid values */
@@ -69,11 +69,13 @@ public:
     /** Comparison operator (true if fixture & channel match) */
     bool operator==(const FadeChannel& fc) const;
 
-    /** Get/Set the channel flags listed in ChannelType */
-    int type() const;
-    void setType(int type);
-    void setTypeFlag(int flag);
-    void unsetTypeFlag(int flag);
+    /** Get/Set the channel flags listed in ChannelFlag */
+    int flags() const;
+    void setFlags(int flags);
+
+    /** Add/Remove a single flag */
+    void addFlag(int flag);
+    void removeFlag(int flag);
 
 protected:
     void autoDetect(const Doc *doc);
@@ -81,7 +83,7 @@ protected:
 private:
     /** Bitmask including the channel type
      *  and, if needed, more flags */
-    int m_type;
+    int m_flags;
 
     /************************************************************************
      * Values

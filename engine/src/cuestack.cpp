@@ -462,7 +462,7 @@ void CueStack::writeDMX(MasterTimer *timer, QList<Universe*> ua)
                 }
 
                 fc.setTarget(it.value());
-                fc.setTypeFlag(FadeChannel::Flashing);
+                fc.addFlag(FadeChannel::Flashing);
                 fader->add(fc);
             }
         }
@@ -657,7 +657,7 @@ void CueStack::switchCue(int from, int to, const QList<Universe *> ua)
         quint32 universe = (absChannel >> 9);
         FadeChannel *fc = getFader(ua, universe, Fixture::invalidId(), absChannel);
 
-        if (fc->type() & FadeChannel::Intensity)
+        if (fc->flags() & FadeChannel::Intensity)
             updateFaderValues(fc, 0, oldCue.fadeOutSpeed());
     }
 

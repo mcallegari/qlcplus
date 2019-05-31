@@ -1129,15 +1129,15 @@ void VCSlider::writeDMXLevel(MasterTimer *timer, QList<Universe *> universes)
                 continue;
             }
 
-            int chType = fc->type();
+            int chType = fc->flags();
             const QLCChannel *qlcch = fxi->channel(lch.channel);
 
             // set override flag if needed
             if (m_isOverriding)
-                fc->setTypeFlag(FadeChannel::Override);
+                fc->addFlag(FadeChannel::Override);
             // request to autoremove LTP channels when set
             if (qlcch->group() != QLCChannel::Intensity)
-                fc->setTypeFlag(FadeChannel::Autoremove);
+                fc->addFlag(FadeChannel::Autoremove);
 
             if (chType & FadeChannel::Intensity)
             {

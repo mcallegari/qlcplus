@@ -1127,13 +1127,13 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
                 continue;
             }
 
-            int chType = fc->type();
+            int chType = fc->flags();
 
             // on override, force channel to LTP
             if (m_isOverriding)
             {
-                fc->unsetTypeFlag(FadeChannel::HTP);
-                fc->setTypeFlag(FadeChannel::LTP);
+                fc->removeFlag(FadeChannel::HTP);
+                fc->addFlag(FadeChannel::LTP);
             }
 
             if (chType & FadeChannel::Intensity && clickAndGoType() == CnGColors)

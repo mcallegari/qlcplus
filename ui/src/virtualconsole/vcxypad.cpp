@@ -408,7 +408,7 @@ void VCXYPad::writeXYFixtures(MasterTimer *timer, QList<Universe *> universes)
 
 void VCXYPad::updateSceneChannel(FadeChannel *fc, uchar value)
 {
-    fc->setTypeFlag(FadeChannel::Relative);
+    fc->addFlag(FadeChannel::Relative);
     fc->setStart(value);
     fc->setCurrent(value);
     fc->setTarget(value);

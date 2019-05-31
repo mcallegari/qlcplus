@@ -493,14 +493,14 @@ void EFXFixture::setPointPanTilt(QList<Universe *> universes, QSharedPointer<Gen
     {
         FadeChannel *fc = fader->getChannelFader(doc(), uni, fxi->id(), panMsbChannel);
         if (m_parent->isRelative())
-            fc->setTypeFlag(FadeChannel::Relative);
+            fc->addFlag(FadeChannel::Relative);
         updateFaderValues(fc, static_cast<uchar>(pan));
     }
     if (tiltMsbChannel != QLCChannel::invalid() && !fader.isNull())
     {
         FadeChannel *fc = fader->getChannelFader(doc(), uni, fxi->id(), tiltMsbChannel);
         if (m_parent->isRelative())
-            fc->setTypeFlag(FadeChannel::Relative);
+            fc->addFlag(FadeChannel::Relative);
         updateFaderValues(fc, static_cast<uchar>(tilt));
     }
 
@@ -511,7 +511,7 @@ void EFXFixture::setPointPanTilt(QList<Universe *> universes, QSharedPointer<Gen
         uchar value = static_cast<uchar> ((pan - floor(pan)) * double(UCHAR_MAX));
         FadeChannel *fc = fader->getChannelFader(doc(), uni, fxi->id(), panLsbChannel);
         if (m_parent->isRelative())
-            fc->setTypeFlag(FadeChannel::Relative);
+            fc->addFlag(FadeChannel::Relative);
         updateFaderValues(fc, static_cast<uchar>(value));
     }
 
@@ -521,7 +521,7 @@ void EFXFixture::setPointPanTilt(QList<Universe *> universes, QSharedPointer<Gen
         uchar value = static_cast<uchar> ((tilt - floor(tilt)) * double(UCHAR_MAX));
         FadeChannel *fc = fader->getChannelFader(doc(), uni, fxi->id(), tiltLsbChannel);
         if (m_parent->isRelative())
-            fc->setTypeFlag(FadeChannel::Relative);
+            fc->addFlag(FadeChannel::Relative);
         updateFaderValues(fc, static_cast<uchar>(value));
     }
 }
