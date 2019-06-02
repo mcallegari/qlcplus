@@ -68,6 +68,7 @@ public:
     {
         ProRXTX,    //! Enttec Pro widget using the TX/RX features of the dongle
         OpenTX,     //! Enttec Open widget (only TX)
+        OpenRX,     //! FTDI DMX widget with RX capabilities (only RX, use OpenTX for TX)
         ProMk2,     //! Enttec Pro Mk2 widget using 2 TX, 1 RX, 1 MIDI TX and 1 MIDI RX ports
         UltraPro,   //! DMXKing Ultra Pro widget using 2 TX and 1RX ports
         DMX4ALL,    //! DMX4ALL widget (only TX)

@@ -1,0 +1,314 @@
+/*
+  Q Light Controller
+  dmxusbopenrx.cpp
+
+  Copyright (C) Heikki Junnila
+                Christopher Staite
+                Emmanuel Coirier
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0.txt
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*/
+
+#include <QSettings>
+#include <QDebug>
+#include <math.h>
+#include <QTime>
+
+#include "dmxusbopenrx.h"
+#include "qlcmacros.h"
+
+#define DMX_MAB 16
+#define DMX_BREAK 110
+#define DMX_CHANNELS 512
+#define DEFAULT_OPEN_DMX_FREQUENCY    30  // crap
+#define SETTINGS_CHANNELS "dmxusbopenrx/channels"
+
+/****************************************************************************
+ * Initialization
+ ****************************************************************************/
+
+DMXUSBOpenRx::DMXUSBOpenRx(DMXInterface *interface,
+                                   quint32 inputLine, QObject* parent)
+    : QThread(parent)
+    , DMXUSBWidget(interface, 0, DEFAULT_OPEN_DMX_FREQUENCY)
+    , m_running(false)
+    , m_granularity(Unknown)
+    , m_reader_state(Idling)
+{
+    qDebug() << "Open RX contructor, line" << inputLine;
+
+    m_inputBaseLine = inputLine;
+    setOutputsNumber(0);
+    setInputsNumber(1);
+
+    m_inputLines[0].m_universeData = QByteArray();
+    m_inputLines[0].m_compareData = QByteArray();
+
+    /*QSettings settings;
+    QVariant var = settings.value(SETTINGS_CHANNELS);
+    if (var.isValid() == true)
+    {
+        int channels = var.toInt();
+        if (channels > DMX_CHANNELS || channels <= 0)
+            channels = DMX_CHANNELS;
+        // channels + 1 Because the first byte is always zero
+        // to break a full DMX universe transmission
+        m_outputLines[0].m_universeData = QByteArray(channels + 1, 0);
+    }
+    else
+    {
+        m_outputLines[0].m_universeData = QByteArray(DMX_CHANNELS + 1, 0);
+    }*/
+
+// on macOS, QtSerialPort cannot handle an OpenDMX device
+// so, unfortunately, we need to switch back to libftdi
+#if defined(Q_OS_OSX) && defined(QTSERIAL) && (defined(LIBFTDI1) || defined(LIBFTDI))
+    if (interface->type() == DMXInterface::QtSerial)
+        forceInterfaceDriver(DMXInterface::libFTDI);
+#endif
+    qDebug() << "Open RX contructor end";
+}
+
+DMXUSBOpenRx::~DMXUSBOpenRx()
+{
+    qDebug() << "Open RX destructor";
+    stop();
+    qDebug() << "Open RX stopped in destructor";
+}
+
+DMXUSBWidget::Type DMXUSBOpenRx::type() const
+{
+    return DMXUSBWidget::OpenRX;
+}
+
+/****************************************************************************
+ * Open & Close
+ ****************************************************************************/
+
+bool DMXUSBOpenRx::open(quint32 line, bool input)
+{
+    if (input == false) {
+        qWarning() << "DMX USB Open RX opened for output, giving up.";
+        return false;
+    }
+
+    qDebug() << "DMX USB Open RX, opening line" << line;
+
+    if (interface()->type() != DMXInterface::QtSerial)
+    {
+        if (DMXUSBWidget::open(line, input) == false)
+            return close(line);
+
+        if (interface()->clearRts() == false)
+            return close(line);
+    }
+    qDebug() << "Starting Open RX";
+    start(QThread::TimeCriticalPriority);
+    qDebug() << "Open RX started";
+    return true;
+}
+
+bool DMXUSBOpenRx::close(quint32 line, bool input)
+{
+    qDebug() << "Open RX close" << line << "input:" << input;
+    stop();
+    return DMXUSBWidget::close(line, input);
+}
+
+/****************************************************************************
+ * Name & Serial
+ ****************************************************************************/
+
+QString DMXUSBOpenRx::additionalInfo() const
+{
+    QString info;
+    QString gran;
+    QString state;
+
+    info += QString("<P>");
+    info += QString("<B>%1:</B> %2").arg(tr("Protocol")).arg("Open DMX USB (Receiving mode (RX))");
+    info += QString("<BR>");
+    info += QString("<B>%1:</B> %2").arg(QObject::tr("Manufacturer"))
+                                         .arg(vendor());
+    info += QString("<BR>");
+
+    if (m_reader_state == Idling)
+        state = QString("<FONT COLOR=\"#aa0000\">%1</FONT>").arg(tr("Idling"));
+    else
+        state = QString("<FONT COLOR=\"#00aa00\">%1</FONT>").arg(tr("Receiving"));
+
+    info += QString("<B>%1:</B> %2").arg(tr("Receiver state")).arg(state);
+    info += QString("<BR>");
+
+    if (m_reader_state == Receiving) {
+        info += QString("<B>%1:</B> %2").arg(tr("Received DMX Channels"))
+                                        .arg(m_inputLines[0].m_compareData.length() - 2);
+
+        info += QString("<BR>");
+        info += QString("<B>%1:</B> %2 Hz").arg(tr("DMX Frame Frequency"))
+                                        .arg(1000 / m_frameTimeUs);
+    }
+    info += QString("<BR>");
+    if (m_granularity == Bad)
+        gran = QString("<FONT COLOR=\"#aa0000\">%1</FONT>").arg(tr("Bad"));
+    else if (m_granularity == Good)
+        gran = QString("<FONT COLOR=\"#00aa00\">%1</FONT>").arg(tr("Good"));
+    else
+        gran = tr("Patch this widget to a universe to find out.");
+    info += QString("<B>%1:</B> %2").arg(tr("System Timer Accuracy")).arg(gran);
+    info += QString("</P>");
+
+    return info;
+}
+
+/****************************************************************************
+ * Thread
+ ****************************************************************************/
+
+bool DMXUSBOpenRx::writeUniverse(quint32 universe, quint32 output, const QByteArray& data)
+{
+    Q_UNUSED(universe)
+    Q_UNUSED(output)
+    Q_UNUSED(data)
+    // not used at runtime but needed for compilation
+    return true;
+}
+
+
+void DMXUSBOpenRx::stop()
+{
+    if (isRunning() == true)
+    {
+        qDebug() << "Waiting for receiving thread to stop";
+        m_running = false;
+        wait();
+        qDebug() << "Receiving thread stopped";
+    } else {
+        qDebug() << "Already stopped";
+    }
+}
+
+void DMXUSBOpenRx::compareAndEmit(const QByteArray& last_payload, const QByteArray& current_payload)
+{
+    int max_bound = qMax(last_payload.length(), current_payload.length());
+
+    // bytes 0 and 1 are not in use
+    for (int i = 2; i < max_bound; i++) {
+        if (i < last_payload.length() && i < current_payload.length()) {
+            // value exists in both, just compare
+            if (last_payload[i] != current_payload[i]) {
+                emit valueChanged(UINT_MAX, m_inputBaseLine, i - 2, current_payload[i]);
+                qDebug() << "Channel" << i - 2 << "changed to" << QString::number((uchar) current_payload[i], 10);
+            }
+        } else if (i < last_payload.length() && i >= current_payload.length()) {
+            // This frame is shorter. So put a 0 instead.
+            emit valueChanged(UINT_MAX, m_inputBaseLine, i - 2, 0);
+            qDebug() << "Channel" << i - 2 << "changed to \"0\"";
+        } else if (i < current_payload.length() && i >= last_payload.length()) {
+            // Last frame was shorter, just put the current value
+            emit valueChanged(UINT_MAX, m_inputBaseLine, i - 2, current_payload[i]);
+            qDebug() << "Channel" << i - 2 << "changed to" << QString::number((uchar) current_payload[i], 10);
+        }
+    }
+}
+
+void DMXUSBOpenRx::run()
+{
+    // Wait for device to settle in case the device was opened just recently
+    // Also measure, whether timer granularity is OK
+    QTime time;
+    time.start();
+    usleep(1000);
+    if (time.elapsed() > 3)
+        m_granularity = Bad;
+    else
+        m_granularity = Good;
+
+    if (interface()->type() == DMXInterface::QtSerial)
+    {
+        if (DMXUSBWidget::open(0) == false)
+        {
+            close(0);
+            return;
+        }
+
+        if (interface()->clearRts() == false)
+        {
+            close(0);
+            return;
+        }
+    }
+
+    m_running = true;
+
+    QByteArray payload;
+    QByteArray& last_payload = m_inputLines[0].m_compareData;
+    QByteArray& current_payload = m_inputLines[0].m_universeData;
+
+    quint32 missed_frames = 0;
+    quint32 erroneous_frames = 0;
+
+    m_frameTimeUs = 0;
+
+
+    while (m_running == true)
+    {
+        payload = interface()->read(520);
+
+        if (payload.length() == 0) {
+            usleep(1000); // nothing to read, don't waste CPU
+            missed_frames += 1;
+        } else if (payload.length() == 1) {
+            // a new frame has begun, the chip returns us the first byte
+            current_payload.append(payload);
+            usleep(500); // wait a little for the other bytes to be read
+        } else {
+            current_payload.append(payload);
+
+            if (current_payload.length() != last_payload.length() && erroneous_frames < 5) {
+                qDebug() << "Bogus frame" << current_payload.length() << "bytes instead of" << last_payload.length();
+                current_payload.clear();
+                erroneous_frames += 1;
+                continue;
+            }
+
+            // a frame has been received
+
+            if (missed_frames > 300) {
+                qDebug() << "Receiving";
+            }
+
+            m_reader_state = Receiving;
+            missed_frames = 0;
+            erroneous_frames = 0;
+
+            m_frameTimeUs = time.elapsed();
+            time.restart();
+
+            compareAndEmit(last_payload, current_payload);
+
+            last_payload.clear();
+            last_payload.append(current_payload);
+            current_payload.clear();
+        }
+
+        if (missed_frames == 300) {
+            m_reader_state = Idling;
+            qDebug() << "Idling";
+        } else if (missed_frames == UINT_MAX) {
+            missed_frames = 300;
+        }
+
+    }
+    qDebug() << "Requested to stop";
+}
