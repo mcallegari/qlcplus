@@ -269,6 +269,8 @@ QString DMXUSB::inputInfo(quint32 input)
         str += QString("<H3>%1</H3>").arg(inputs()[input]);
         str += QString("<P>");
         str += tr("Device is operating correctly.");
+        str += QString("<BR>");
+        str += tr("Driver in use: %1").arg(m_inputs[input]->interfaceTypeString());
         str += QString("</P>");
         QString add = m_inputs[input]->additionalInfo();
         if (add.isEmpty() == false)
