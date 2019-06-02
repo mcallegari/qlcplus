@@ -182,7 +182,7 @@ protected:
     /** The QLC+ input line number where this widget inputs start */
     quint32 m_inputBaseLine;
 
-    /** Array of output lines supported by the device. This is resized on setOutputsNumber */
+    /** Array of input lines supported by the device. This is resized on setInputsNumber */
     QVector<DMXUSBLineInfo> m_inputLines;
 
     /********************************************************************
