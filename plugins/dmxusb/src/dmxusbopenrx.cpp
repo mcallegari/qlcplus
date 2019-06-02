@@ -54,22 +54,6 @@ DMXUSBOpenRx::DMXUSBOpenRx(DMXInterface *interface,
     m_inputLines[0].m_universeData = QByteArray();
     m_inputLines[0].m_compareData = QByteArray();
 
-    /*QSettings settings;
-    QVariant var = settings.value(SETTINGS_CHANNELS);
-    if (var.isValid() == true)
-    {
-        int channels = var.toInt();
-        if (channels > DMX_CHANNELS || channels <= 0)
-            channels = DMX_CHANNELS;
-        // channels + 1 Because the first byte is always zero
-        // to break a full DMX universe transmission
-        m_outputLines[0].m_universeData = QByteArray(channels + 1, 0);
-    }
-    else
-    {
-        m_outputLines[0].m_universeData = QByteArray(DMX_CHANNELS + 1, 0);
-    }*/
-
 // on macOS, QtSerialPort cannot handle an OpenDMX device
 // so, unfortunately, we need to switch back to libftdi
 #if defined(Q_OS_OSX) && defined(QTSERIAL) && (defined(LIBFTDI1) || defined(LIBFTDI))
