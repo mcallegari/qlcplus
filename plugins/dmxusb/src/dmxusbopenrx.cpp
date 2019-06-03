@@ -1,9 +1,8 @@
 /*
-  Q Light Controller
+  Q Light Controller Plus
   dmxusbopenrx.cpp
 
-  Copyright (C) Heikki Junnila
-                Christopher Staite
+  Copyright (C) Massimo Callegari
                 Emmanuel Coirier
 
   Licensed under the Apache License, Version 2.0 (the "License");
