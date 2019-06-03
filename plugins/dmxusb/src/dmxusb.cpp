@@ -155,10 +155,10 @@ QString DMXUSB::outputInfo(quint32 output)
         if (m_outputs.size() == 0)
         {
             str += QString("<BR><B>%1</B>").arg(tr("No output support available."));
-            /*str += QString("<P>");
+            str += QString("<P>");
             str += tr("Make sure that you have your hardware firmly plugged in. "
                       "NOTE: FTDI VCP interface is not supported by this plugin.");
-            str += QString("</P>");*/
+            str += QString("</P>");
         }
     }
     else if (output < quint32(m_outputs.size()))
