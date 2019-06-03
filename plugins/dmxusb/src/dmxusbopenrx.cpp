@@ -80,7 +80,8 @@ DMXUSBWidget::Type DMXUSBOpenRx::type() const
 
 bool DMXUSBOpenRx::open(quint32 line, bool input)
 {
-    if (input == false) {
+    if (input == false)
+    {
         qWarning() << "DMX USB Open RX opened for output, giving up.";
         return false;
     }
@@ -133,7 +134,8 @@ QString DMXUSBOpenRx::additionalInfo() const
     info += QString("<B>%1:</B> %2").arg(tr("Receiver state")).arg(state);
     info += QString("<BR>");
 
-    if (m_reader_state == Receiving) {
+    if (m_reader_state == Receiving)
+    {
         info += QString("<B>%1:</B> %2").arg(tr("Received DMX Channels"))
                                         .arg(m_inputLines[0].m_compareData.length() - 2);
 
@@ -167,7 +169,6 @@ bool DMXUSBOpenRx::writeUniverse(quint32 universe, quint32 output, const QByteAr
     return true;
 }
 
-
 void DMXUSBOpenRx::stop()
 {
     if (isRunning() == true)
@@ -186,18 +187,23 @@ void DMXUSBOpenRx::compareAndEmit(const QByteArray& last_payload, const QByteArr
     int max_bound = qMax(last_payload.length(), current_payload.length());
 
     // bytes 0 and 1 are not in use
-    for (int i = 2; i < max_bound; i++) {
-        if (i < last_payload.length() && i < current_payload.length()) {
+    for (int i = 2; i < max_bound; i++)
+    {
+        if (i < last_payload.length() && i < current_payload.length())
+        {
             // value exists in both, just compare
-            if (last_payload[i] != current_payload[i]) {
+            if (last_payload[i] != current_payload[i])
+            {
                 emit valueChanged(UINT_MAX, m_inputBaseLine, i - 2, current_payload[i]);
                 qDebug() << "Channel" << i - 2 << "changed to" << QString::number((uchar) current_payload[i], 10);
             }
-        } else if (i < last_payload.length() && i >= current_payload.length()) {
+        } else if (i < last_payload.length() && i >= current_payload.length())
+        {
             // This frame is shorter. So put a 0 instead.
             emit valueChanged(UINT_MAX, m_inputBaseLine, i - 2, 0);
             qDebug() << "Channel" << i - 2 << "changed to \"0\"";
-        } else if (i < current_payload.length() && i >= last_payload.length()) {
+        } else if (i < current_payload.length() && i >= last_payload.length())
+        {
             // Last frame was shorter, just put the current value
             emit valueChanged(UINT_MAX, m_inputBaseLine, i - 2, current_payload[i]);
             qDebug() << "Channel" << i - 2 << "changed to" << QString::number((uchar) current_payload[i], 10);
@@ -243,22 +249,25 @@ void DMXUSBOpenRx::run()
 
     m_frameTimeUs = 0;
 
-
     while (m_running == true)
     {
         payload = interface()->read(520);
 
-        if (payload.length() == 0) {
+        if (payload.length() == 0)
+        {
             usleep(1000); // nothing to read, don't waste CPU
             missed_frames += 1;
-        } else if (payload.length() == 1) {
+        } else if (payload.length() == 1)
+        {
             // a new frame has begun, the chip returns us the first byte
             current_payload.append(payload);
             usleep(500); // wait a little for the other bytes to be read
-        } else {
+        } else
+        {
             current_payload.append(payload);
 
-            if (current_payload.length() != last_payload.length() && erroneous_frames < 5) {
+            if (current_payload.length() != last_payload.length() && erroneous_frames < 5)
+            {
                 qDebug() << "Bogus frame" << current_payload.length() << "bytes instead of" << last_payload.length();
                 current_payload.clear();
                 erroneous_frames += 1;
@@ -266,8 +275,8 @@ void DMXUSBOpenRx::run()
             }
 
             // a frame has been received
-
-            if (missed_frames > 300) {
+            if (missed_frames > 300) // only to emit the debug message once, not at each frame
+            {
                 qDebug() << "Receiving";
             }
 
@@ -285,13 +294,14 @@ void DMXUSBOpenRx::run()
             current_payload.clear();
         }
 
-        if (missed_frames == 300) {
+        if (missed_frames == 300)
+        {
             m_reader_state = Idling;
             qDebug() << "Idling";
-        } else if (missed_frames == UINT_MAX) {
+        } else if (missed_frames == UINT_MAX)
+        {
             missed_frames = 300;
         }
-
     }
     qDebug() << "Requested to stop";
 }
