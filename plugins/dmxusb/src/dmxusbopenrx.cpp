@@ -246,12 +246,13 @@ void DMXUSBOpenRx::run()
 
     quint32 missed_frames = 0;
     quint32 erroneous_frames = 0;
+    quint32 erroneous_reads = 0;
 
     m_frameTimeUs = 0;
 
     while (m_running == true)
     {
-        payload = interface()->read(520);
+        payload = interface()->read(1024);
 
         if (payload.length() == 0)
         {
@@ -265,6 +266,22 @@ void DMXUSBOpenRx::run()
         } else
         {
             current_payload.append(payload);
+
+            if (payload.length() > 600)
+            {
+                // we are not reading only a single frame but several of them in one chunk.
+                erroneous_reads += 1;
+                current_payload.clear();
+                qDebug() << interface()->serial() << "Erroneous read" << payload.length() << "bytes";
+
+                if (erroneous_reads > 10)
+                {
+                    // set low latency in order to try to fetch frames one by one.
+                    interface()->setLowLatency(true);
+                    erroneous_reads = 0;
+                }
+                continue;
+            }
 
             if (current_payload.length() != last_payload.length() && erroneous_frames < 5)
             {
@@ -283,6 +300,7 @@ void DMXUSBOpenRx::run()
             m_reader_state = Receiving;
             missed_frames = 0;
             erroneous_frames = 0;
+            erroneous_reads = 0;
 
             m_frameTimeUs = time.elapsed();
             time.restart();
@@ -303,5 +321,6 @@ void DMXUSBOpenRx::run()
             missed_frames = 300;
         }
     }
-    qDebug() << "Requested to stop";
+    qDebug() << interface()->serial() << "Requested to stop";
+    interface()->setLowLatency(false);
 }
