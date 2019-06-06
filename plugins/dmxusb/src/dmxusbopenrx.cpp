@@ -140,8 +140,9 @@ QString DMXUSBOpenRx::additionalInfo() const
                                         .arg(m_inputLines[0].m_compareData.length() - 2);
 
         info += QString("<BR>");
-        info += QString("<B>%1:</B> %2 Hz").arg(tr("DMX Frame Frequency"))
-                                        .arg(1000 / m_frameTimeUs);
+        if (m_frameTimeUs > 0)
+            info += QString("<B>%1:</B> %2 Hz").arg(tr("DMX Frame Frequency"))
+                                               .arg(1000 / m_frameTimeUs);
     }
     info += QString("<BR>");
     if (m_granularity == Bad)
