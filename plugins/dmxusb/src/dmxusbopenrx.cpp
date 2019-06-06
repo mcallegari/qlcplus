@@ -42,7 +42,7 @@ DMXUSBOpenRx::DMXUSBOpenRx(DMXInterface *interface,
     , DMXUSBWidget(interface, 0, DEFAULT_OPEN_DMX_FREQUENCY)
     , m_running(false)
     , m_granularity(Unknown)
-    , m_reader_state(Idling)
+    , m_reader_state(Calibrating)
 {
     qDebug() << "Open RX contructor, line" << inputLine;
 
@@ -126,8 +126,12 @@ QString DMXUSBOpenRx::additionalInfo() const
                                          .arg(vendor());
     info += QString("<BR>");
 
-    if (m_reader_state == Idling)
+    if (!m_running)
+        state = QString("<FONT COLOR=\"#000000\">%1</FONT>").arg(tr("Stopped"));
+    else if (m_reader_state == Idling)
         state = QString("<FONT COLOR=\"#aa0000\">%1</FONT>").arg(tr("Idling"));
+    else if (m_reader_state == Calibrating)
+        state = QString("<FONT COLOR=\"#aa5500\">%1</FONT>").arg(tr("Calibrating"));
     else
         state = QString("<FONT COLOR=\"#00aa00\">%1</FONT>").arg(tr("Receiving"));
 
@@ -324,4 +328,5 @@ void DMXUSBOpenRx::run()
     }
     qDebug() << interface()->serial() << "Requested to stop";
     interface()->setLowLatency(false);
+    m_reader_state = Calibrating;
 }

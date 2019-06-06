@@ -75,7 +75,7 @@ public:
 
 protected:
     enum TimerGranularity { Unknown, Good, Bad };
-    enum ReaderState { Idling, Receiving };
+    enum ReaderState { Calibrating, Idling, Receiving };
 
     /** Stop the writer thread */
     void stop();
