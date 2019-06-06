@@ -286,7 +286,7 @@ void DMXUSBOpenRx::run()
 
             if (current_payload.length() != last_payload.length() && erroneous_frames < 5)
             {
-                qDebug() << "Bogus frame" << current_payload.length() << "bytes instead of" << last_payload.length();
+                qDebug() << interface()->serial() << "Bogus frame" << current_payload.length() << "bytes instead of" << last_payload.length();
                 current_payload.clear();
                 erroneous_frames += 1;
                 continue;
@@ -295,7 +295,7 @@ void DMXUSBOpenRx::run()
             // a frame has been received
             if (missed_frames > 300) // only to emit the debug message once, not at each frame
             {
-                qDebug() << "Receiving";
+                qDebug() << interface()->serial() << "Receiving";
             }
 
             m_reader_state = Receiving;
@@ -316,7 +316,7 @@ void DMXUSBOpenRx::run()
         if (missed_frames == 300)
         {
             m_reader_state = Idling;
-            qDebug() << "Idling";
+            qDebug() << interface()->serial() << "Idling";
         } else if (missed_frames == UINT_MAX)
         {
             missed_frames = 300;
