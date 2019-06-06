@@ -260,8 +260,7 @@ bool LibFTDIInterface::openByPID(const int PID)
     {
         qWarning() << Q_FUNC_INFO << name() << ftdi_get_error_string(&m_handle);
         return false;
-    }
-    else
+    } else
     {
         return true;
     }
