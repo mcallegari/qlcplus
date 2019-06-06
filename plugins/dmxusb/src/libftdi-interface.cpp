@@ -242,10 +242,6 @@ bool LibFTDIInterface::open()
     }
     else
     {
-        if (ftdi_set_latency_timer(&m_handle, 1)) {
-            qWarning() << Q_FUNC_INFO << name() << "latency" <<ftdi_get_error_string(&m_handle);
-            return false;
-        }
         return true;
     }
 }
@@ -429,3 +425,12 @@ uchar LibFTDIInterface::readByte(bool* ok)
     return 0;
 }
 
+bool LibFTDIInterface::setLowLatency(bool lowLatency)
+{
+    if (ftdi_set_latency_timer(&m_handle, 1)) {
+        qWarning() << Q_FUNC_INFO << name() << ftdi_get_error_string(&m_handle);
+        return false;
+    }
+
+    return true;
+}
