@@ -26,10 +26,11 @@
 #include "dmxusbopenrx.h"
 #include "qlcmacros.h"
 
-#define DMX_MAB 16
-#define DMX_BREAK 110
-#define DMX_CHANNELS 512
 #define DEFAULT_OPEN_DMX_FREQUENCY    30  // crap
+#define RX_BUFFER_SIZE              1024
+#define RECEIVE_START_THRESHOLD      300  // number of missed packets before entering the receiving state
+#define LARGE_PAYLOAD_SIZE           600
+#define MAX_READ_ATTEMPTS             10
 #define SETTINGS_CHANNELS "dmxusbopenrx/channels"
 
 /****************************************************************************
@@ -262,7 +263,7 @@ void DMXUSBOpenRx::run()
 
     while (m_running == true)
     {
-        payload = interface()->read(1024);
+        payload = interface()->read(RX_BUFFER_SIZE);
 
         if (payload.length() == 0)
         {
@@ -279,14 +280,14 @@ void DMXUSBOpenRx::run()
         {
             current_payload.append(payload);
 
-            if (payload.length() > 600)
+            if (payload.length() > LARGE_PAYLOAD_SIZE)
             {
                 // we are not reading only a single frame but several of them in one chunk.
                 erroneous_reads += 1;
                 current_payload.clear();
                 qDebug() << interface()->serial() << "Erroneous read" << payload.length() << "bytes";
 
-                if (erroneous_reads > 10)
+                if (erroneous_reads > MAX_READ_ATTEMPTS)
                 {
                     // set low latency in order to try to fetch frames one by one.
                     interface()->setLowLatency(true);
@@ -304,7 +305,7 @@ void DMXUSBOpenRx::run()
             }
 
             // a frame has been received
-            if (missed_frames > 300) // only to emit the debug message once, not at each frame
+            if (missed_frames > RECEIVE_START_THRESHOLD) // only to emit the debug message once, not at each frame
                 qDebug() << interface()->serial() << "Receiving";
 
             m_reader_state = Receiving;
@@ -322,14 +323,14 @@ void DMXUSBOpenRx::run()
             current_payload.clear();
         }
 
-        if (missed_frames == 300)
+        if (missed_frames == RECEIVE_START_THRESHOLD)
         {
             m_reader_state = Idling;
             qDebug() << interface()->serial() << "Idling";
         } 
         else if (missed_frames == UINT_MAX)
         {
-            missed_frames = 300;
+            missed_frames = RECEIVE_START_THRESHOLD;
         }
     }
     qDebug() << interface()->serial() << "Requested to stop";
