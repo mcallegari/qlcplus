@@ -97,9 +97,13 @@ public:
     /** @reimpl */
     uchar readByte(bool* ok = NULL);
 
+    /** @reimpl */
+    bool setLowLatency(bool lowLatency);
+
 private:
     struct ftdi_context m_handle;
     quint8 m_busLocation;
+    unsigned char m_defaultLatency;
 };
 
 #endif

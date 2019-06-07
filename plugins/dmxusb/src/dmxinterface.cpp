@@ -126,4 +126,8 @@ void DMXInterface::storeFrequencyMap(const QMap<QString, QVariant> map)
     settings.setValue(SETTINGS_FREQ_MAP, map);
 }
 
-
+bool DMXInterface::setLowLatency(bool lowLatency)
+{
+    Q_UNUSED(lowLatency)
+    return true;
+}

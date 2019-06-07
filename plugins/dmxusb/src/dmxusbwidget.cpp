@@ -24,6 +24,7 @@
 #include "dmxusbwidget.h"
 #include "enttecdmxusbpro.h"
 #include "enttecdmxusbopen.h"
+#include "dmxusbopenrx.h"
 #if defined(Q_WS_X11) || defined(Q_OS_LINUX) || defined(Q_OS_OSX)
   #include "nanodmx.h"
   #include "euroliteusbdmxpro.h"
@@ -97,6 +98,9 @@ QList<DMXUSBWidget *> DMXUSBWidget::widgets()
             {
                 case DMXUSBWidget::OpenTX:
                     widgetList << new EnttecDMXUSBOpen(iface, output_id++);
+                break;
+                case DMXUSBWidget::OpenRX:
+                    widgetList << new DMXUSBOpenRx(iface, input_id++);
                 break;
                 case DMXUSBWidget::ProMk2:
                 {
