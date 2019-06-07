@@ -245,8 +245,8 @@ bool LibFTDIInterface::open()
     {
         qWarning() << Q_FUNC_INFO << serial() << ftdi_get_error_string(&m_handle) << "while querying latency";
         m_defaultLatency = 16;
-        // return true even if latency is unknown in order not to break old code
     }
+
     qDebug() << Q_FUNC_INFO << serial() << "Default latency is" << m_defaultLatency;
     return true;
 }
@@ -334,6 +334,31 @@ bool LibFTDIInterface::setFlowControl()
     {
         return true;
     }
+}
+
+bool LibFTDIInterface::setLowLatency(bool lowLatency)
+{
+    unsigned char latency;
+    if (lowLatency)
+    {
+        latency = 1;
+    }
+    else
+    {
+        latency = m_defaultLatency;
+    }
+
+    if (ftdi_set_latency_timer(&m_handle, latency))
+    {
+        qWarning() << Q_FUNC_INFO << serial() << ftdi_get_error_string(&m_handle);
+        return false;
+    }
+    else
+    {
+        qDebug() << Q_FUNC_INFO << serial() << "Latency set to" << latency;
+    }
+
+    return true;
 }
 
 bool LibFTDIInterface::clearRts()
@@ -427,28 +452,4 @@ uchar LibFTDIInterface::readByte(bool* ok)
     }
 
     return 0;
-}
-
-bool LibFTDIInterface::setLowLatency(bool lowLatency)
-{
-    unsigned char latency;
-    if (lowLatency)
-    {
-        latency = 1;
-    }
-    else
-    {
-        latency = m_defaultLatency;
-    }
-    if (ftdi_set_latency_timer(&m_handle, latency))
-    {
-        qWarning() << Q_FUNC_INFO << serial() << ftdi_get_error_string(&m_handle);
-        return false;
-    }
-    else
-    {
-        qDebug() << Q_FUNC_INFO << serial() << "Latency set to" << latency;
-    }
-
-    return true;
 }

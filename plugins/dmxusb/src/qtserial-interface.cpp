@@ -290,6 +290,12 @@ bool QtSerialInterface::setFlowControl()
     }
 }
 
+bool QtSerialInterface::setLowLatency(bool lowLatency)
+{
+    Q_UNUSED(lowLatency)
+    return true;
+}
+
 bool QtSerialInterface::clearRts()
 {
     qDebug() << Q_FUNC_INFO;
