@@ -122,8 +122,7 @@ QString DMXUSBOpenRx::additionalInfo() const
     info += QString("<P>");
     info += QString("<B>%1:</B> %2").arg(tr("Protocol")).arg("Open DMX USB (Receiving mode (RX))");
     info += QString("<BR>");
-    info += QString("<B>%1:</B> %2").arg(QObject::tr("Manufacturer"))
-                                         .arg(vendor());
+    info += QString("<B>%1:</B> %2").arg(QObject::tr("Manufacturer")).arg(vendor());
     info += QString("<BR>");
 
     if (!m_running)
@@ -149,12 +148,14 @@ QString DMXUSBOpenRx::additionalInfo() const
                                                .arg(1000 / m_frameTimeUs);
     }
     info += QString("<BR>");
+
     if (m_granularity == Bad)
         gran = QString("<FONT COLOR=\"#aa0000\">%1</FONT>").arg(tr("Bad"));
     else if (m_granularity == Good)
         gran = QString("<FONT COLOR=\"#00aa00\">%1</FONT>").arg(tr("Good"));
     else
         gran = tr("Patch this widget to a universe to find out.");
+
     info += QString("<B>%1:</B> %2").arg(tr("System Timer Accuracy")).arg(gran);
     info += QString("</P>");
 
@@ -182,7 +183,9 @@ void DMXUSBOpenRx::stop()
         m_running = false;
         wait();
         qDebug() << "Receiving thread stopped";
-    } else {
+    } 
+    else 
+    {
         qDebug() << "Already stopped";
     }
 }
@@ -202,12 +205,14 @@ void DMXUSBOpenRx::compareAndEmit(const QByteArray& last_payload, const QByteArr
                 emit valueChanged(UINT_MAX, m_inputBaseLine, i - 2, current_payload[i]);
                 qDebug() << "Channel" << i - 2 << "changed to" << QString::number((uchar) current_payload[i], 10);
             }
-        } else if (i < last_payload.length() && i >= current_payload.length())
+        } 
+        else if (i < last_payload.length() && i >= current_payload.length())
         {
             // This frame is shorter. So put a 0 instead.
             emit valueChanged(UINT_MAX, m_inputBaseLine, i - 2, 0);
             qDebug() << "Channel" << i - 2 << "changed to \"0\"";
-        } else if (i < current_payload.length() && i >= last_payload.length())
+        } 
+        else if (i < current_payload.length() && i >= last_payload.length())
         {
             // Last frame was shorter, just put the current value
             emit valueChanged(UINT_MAX, m_inputBaseLine, i - 2, current_payload[i]);
@@ -263,12 +268,14 @@ void DMXUSBOpenRx::run()
         {
             usleep(1000); // nothing to read, don't waste CPU
             missed_frames += 1;
-        } else if (payload.length() == 1)
+        } 
+        else if (payload.length() == 1)
         {
             // a new frame has begun, the chip returns us the first byte
             current_payload.append(payload);
             usleep(500); // wait a little for the other bytes to be read
-        } else
+        } 
+        else
         {
             current_payload.append(payload);
 
@@ -298,9 +305,7 @@ void DMXUSBOpenRx::run()
 
             // a frame has been received
             if (missed_frames > 300) // only to emit the debug message once, not at each frame
-            {
                 qDebug() << interface()->serial() << "Receiving";
-            }
 
             m_reader_state = Receiving;
             missed_frames = 0;
@@ -321,7 +326,8 @@ void DMXUSBOpenRx::run()
         {
             m_reader_state = Idling;
             qDebug() << interface()->serial() << "Idling";
-        } else if (missed_frames == UINT_MAX)
+        } 
+        else if (missed_frames == UINT_MAX)
         {
             missed_frames = 300;
         }
