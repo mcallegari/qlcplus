@@ -43,7 +43,7 @@ QList<QString> RGBScriptsCache::names() const
     while (it.hasNext() == true)
         names << it.next()->name();
 
-    return names;
+    return std::move(names);
 }
 
 RGBScript const& RGBScriptsCache::script(QString name) const
