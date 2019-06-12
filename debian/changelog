@@ -10,6 +10,7 @@ qlcplus (4.12.2) stable; urgency=low
   * Web Access: added "setFunctionStatus" API (thanks to Gabriele C.)
   * Fixture Editor: fix 'Nothing' type not handled correctly
   * Plugins/DMX USB: default DMXIS to Pro Tx/Rx
+  * Plugins/DMX USB: add new OpenRX mode (thanks to Emmanuel C.)
   * NEW OS2L plugin (see documentation)
   * New fixture: Martin MAC Encore Performance (thanks to Flo Edelmann)
 
