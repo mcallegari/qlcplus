@@ -27,7 +27,7 @@
 
 bool addressCompare(const ArtNetIO &v1, const ArtNetIO &v2)
 {
-	return v2.address.ip().toString() < v1.address.ip().toString();
+	return v1.address.ip().toString() < v2.address.ip().toString();
 }
 
 
