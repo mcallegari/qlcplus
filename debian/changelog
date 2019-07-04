@@ -11,10 +11,17 @@ qlcplus (4.12.2) stable; urgency=low
   * Fixture Editor: fix 'Nothing' type not handled correctly
   * Plugins/DMX USB: default DMXIS to Pro Tx/Rx
   * Plugins/DMX USB: add new OpenRX mode (thanks to Emmanuel C.)
+  * Plugins: order network interfaces by ascending IP address (thanks to Branimir Amidžić)
   * NEW OS2L plugin (see documentation)
   * New fixture: Martin MAC Encore Performance (thanks to Flo Edelmann)
+  * New fixtures: IMG Stageline PARL 36 DMX, Ledj Slimline 36 RGBW, Ledj Slimline 36 RGBA (thanks to Andrew)
+  * New fixtures: American DJ MB DMX II, Chauvet Intimidator Spot LED 260 (thanks to Peter Chave)
+  * New fixture: Eurolite LED PT-100 (thanks to Edgar Aichinger)
+  * New fixture: Ledj Performer 18 Quad Zoom (thanks to Allan Rhynas)
+  * New fixtures: JB Systems Super Solar White, Stairville DJ Lase Polar 200 (thanks to Andres Robles)
+  * New fixture: Varytec BAT.BAR 8 RGBW (thaks to Chris de Rock)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 23 Jun 2019 12:13:14 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 28 Jul 2019 12:13:14 +0200
 
 qlcplus (4.12.1) stable; urgency=low
 
