@@ -115,10 +115,9 @@ bool RGBScript::evaluate()
     m_rgbMapStepCount = QJSValue();
     m_apiVersion = 0;
 
-    if ((m_fileName == "") || (m_contents == ""))
+    if (m_fileName.isEmpty() || m_contents.isEmpty())
     {
-        QString msg("%1: Script fileName or content is empty, cannot parse");
-        qWarning() << msg.arg(m_fileName);
+        qWarning() << m_fileName << ": Script filename or content is empty, cannot parse";
         return false;
     }
 
