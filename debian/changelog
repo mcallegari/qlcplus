@@ -13,6 +13,7 @@ qlcplus (4.12.2) stable; urgency=low
   * Plugins/DMX USB: add new OpenRX mode (thanks to Emmanuel C.)
   * Plugins: order network interfaces by ascending IP address (thanks to Branimir Amidžić)
   * NEW OS2L plugin (see documentation)
+  * Windows: add missing libraries to display JPEG pictures
   * New fixture: Martin MAC Encore Performance (thanks to Flo Edelmann)
   * New fixtures: IMG Stageline PARL 36 DMX, Ledj Slimline 36 RGBW, Ledj Slimline 36 RGBA (thanks to Andrew)
   * New fixtures: American DJ MB DMX II, Chauvet Intimidator Spot LED 260 (thanks to Peter Chave)
