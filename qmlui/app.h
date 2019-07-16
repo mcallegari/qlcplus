@@ -56,6 +56,7 @@ class App : public QQuickView
 
     Q_PROPERTY(QString appName READ appName CONSTANT)
     Q_PROPERTY(QString appVersion READ appVersion CONSTANT)
+    Q_PROPERTY(bool noDisclaimer READ noDisclaimer CONSTANT)
     Q_PROPERTY(bool is3DSupported READ is3DSupported CONSTANT)
 
 public:
@@ -138,6 +139,9 @@ public:
     /** Get/Set the UI access mask */
     int defaultMask() const;
     int accessMask() const;
+
+    /** Get the flag to hide the disclaimer */
+    bool noDisclaimer() const;
 
     bool is3DSupported() const;
 
@@ -297,5 +301,6 @@ private:
     QStringList m_recentFiles;
     QString m_workingPath;
     ImportManager *m_importManager;
+    bool m_noDisclaimer;
 };
 #endif // APP_H

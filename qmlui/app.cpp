@@ -58,6 +58,7 @@
 
 #define SETTINGS_WORKINGPATH "workspace/workingpath"
 #define SETTINGS_RECENTFILE "workspace/recent"
+#define SETTINGS_NODISCLAIMER "workspace/nodisclaimer"
 #define KXMLQLCWorkspaceWindow "CurrentWindow"
 
 #define MAX_RECENT_FILES    10
@@ -75,6 +76,7 @@ App::App()
     , m_printItem(nullptr)
     , m_fileName(QString())
     , m_importManager(nullptr)
+    , m_noDisclaimer(false)
 {
     QSettings settings;
 
@@ -83,6 +85,8 @@ App::App()
     QVariant dir = settings.value(SETTINGS_WORKINGPATH);
     if (dir.isValid() == true)
         m_workingPath = dir.toString();
+
+    m_noDisclaimer = settings.value(SETTINGS_NODISCLAIMER).toBool();
 
     setAccessMask(defaultMask());
 
@@ -230,6 +234,11 @@ qreal App::pixelDensity() const
 int App::accessMask() const
 {
     return m_accessMask;
+}
+
+bool App::noDisclaimer() const
+{
+    return m_noDisclaimer;
 }
 
 bool App::is3DSupported() const
