@@ -363,7 +363,7 @@ void RGBText_Test::horizontalScroll()
     text.setAnimationStyle(RGBText::Horizontal);
 
     QFontMetrics fm(text.font());
-#if (QT_VERSION < QT_VERSION_CHECK(5, 13, 0))
+#if (QT_VERSION < QT_VERSION_CHECK(5, 11, 0))
     QCOMPARE(text.rgbMapStepCount(QSize()), fm.width("QLC"));
 #else
     QCOMPARE(text.rgbMapStepCount(QSize()), fm.horizontalAdvance("QLC"));
