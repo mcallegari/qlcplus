@@ -20,6 +20,7 @@
 #include <QDesktopWidget>
 #include <QApplication>
 #include <QPainter>
+#include <QScreen>
 #include <qmath.h>
 #include <QDebug>
 #include <QImage>
@@ -273,7 +274,8 @@ void ClickAndGoWidget::setupPresetPicker()
     if (m_resources.size() == 0)
         return;
 
-    QRect screen = QApplication::desktop()->availableGeometry(this);
+    QScreen *scr = QGuiApplication::screens().first();
+    QRect screen = scr->availableGeometry();
 
     m_cols = 2;
     m_rows = qCeil((qreal)m_resources.size() / 2);
