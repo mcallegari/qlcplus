@@ -35,7 +35,7 @@ RGBScriptsCache::RGBScriptsCache(Doc* doc)
     m_dummyScript = new RGBScript(doc);
 }
 
-QList<QString> RGBScriptsCache::names() const
+QStringList RGBScriptsCache::names() const
 {
     QStringList names;
 
@@ -43,7 +43,7 @@ QList<QString> RGBScriptsCache::names() const
     while (it.hasNext() == true)
         names << it.next()->name();
 
-    return std::move(names);
+    return names;
 }
 
 RGBScript const& RGBScriptsCache::script(QString name) const
