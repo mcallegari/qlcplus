@@ -53,6 +53,11 @@ QLCPhysical::~QLCPhysical()
 {
 }
 
+QLCPhysical::QLCPhysical(const QLCPhysical &other)
+{
+    *this = other;
+}
+
 QLCPhysical& QLCPhysical::operator=(const QLCPhysical& physical)
 {
     if (this != &physical)
