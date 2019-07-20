@@ -235,7 +235,8 @@ void App::init()
         {
             if (QLCFile::hasWindowManager() == false)
             {
-                QRect geometry = qApp->desktop()->screen()->geometry();
+                QScreen *screen = QGuiApplication::screens().first();
+                QRect geometry = screen->geometry();
                 if (m_noGui == true)
                 {
                     setGeometry(geometry.width(), geometry.height(), 1, 1);
