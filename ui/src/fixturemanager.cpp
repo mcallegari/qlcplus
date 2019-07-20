@@ -443,7 +443,7 @@ void FixtureManager::updateChannelsGroupView()
 
     if (m_channel_groups_tree->selectedItems().size() > 0)
     {
-        QTreeWidgetItem* item = m_channel_groups_tree->selectedItems().first();
+        QTreeWidgetItem *item = m_channel_groups_tree->selectedItems().first();
         selGroupID = item->data(KColumnName, PROP_ID).toUInt();
     }
 
@@ -451,9 +451,9 @@ void FixtureManager::updateChannelsGroupView()
         for (int i = m_channel_groups_tree->topLevelItemCount() - 1; i >= 0; i--)
             m_channel_groups_tree->takeTopLevelItem(i);
 
-    foreach (ChannelsGroup* grp, m_doc->channelsGroups())
+    foreach (ChannelsGroup *grp, m_doc->channelsGroups())
     {
-        QTreeWidgetItem* grpItem = new QTreeWidgetItem(m_channel_groups_tree);
+        QTreeWidgetItem *grpItem = new QTreeWidgetItem(m_channel_groups_tree);
         grpItem->setText(KColumnName, grp->name());
         grpItem->setData(KColumnName, PROP_ID, grp->id());
         grpItem->setText(KColumnChannels, QString("%1").arg(grp->getChannels().count()));
@@ -464,12 +464,12 @@ void FixtureManager::updateChannelsGroupView()
             if (fxi == NULL)
                 continue;
 
-            const QLCChannel* ch = fxi->channel(scv.channel);
+            const QLCChannel *ch = fxi->channel(scv.channel);
             if (ch != NULL)
                 grpItem->setIcon(KColumnName, ch->getIcon());
         }
         if (selGroupID == grp->id())
-            m_channel_groups_tree->setItemSelected(grpItem, true);
+            grpItem->setSelected(true);
     }
     m_propertiesAction->setEnabled(false);
     m_groupAction->setEnabled(false);
