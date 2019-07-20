@@ -1215,8 +1215,8 @@ void App::slotControlFullScreen(bool usingGeometry)
 {
     if (usingGeometry == true)
     {
-        QDesktopWidget dw;
-        setGeometry(dw.availableGeometry());
+        QScreen *screen = QGuiApplication::screens().first();
+        setGeometry(screen->geometry());
     }
     else
     {
