@@ -50,6 +50,22 @@ ChaserStep::ChaserStep(const ChaserStep& cs)
 {
 }
 
+ChaserStep &ChaserStep::operator=(const ChaserStep &step)
+{
+    if (this != &step)
+    {
+        fid = step.fid;
+        fadeIn = step.fadeIn;
+        hold = step.hold;
+        fadeOut = step.fadeOut;
+        duration = step.duration;
+        values = step.values;
+        note = step.note;
+    }
+
+    return *this;
+}
+
 bool ChaserStep::operator==(const ChaserStep& cs) const
 {
     return (fid == cs.fid) ? true : false;
