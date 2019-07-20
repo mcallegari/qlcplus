@@ -66,6 +66,8 @@ public:
     /** Destructor */
     virtual ~FadeChannel();
 
+    FadeChannel& operator=(const FadeChannel& fc);
+
     /** Comparison operator (true if fixture & channel match) */
     bool operator==(const FadeChannel& fc) const;
 
@@ -96,7 +98,7 @@ public:
     quint32 fixture() const;
 
     /** Get the universe of the Fixture that is being controlled. */
-    quint32 universe();
+    quint32 universe() const;
 
     /** Set channel within the Fixture. */
     void setChannel(const Doc* doc, quint32 num);

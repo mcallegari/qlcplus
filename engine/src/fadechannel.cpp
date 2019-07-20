@@ -75,6 +75,26 @@ FadeChannel::~FadeChannel()
 {
 }
 
+FadeChannel &FadeChannel::operator=(const FadeChannel &fc)
+{
+    if (this != &fc)
+    {
+        m_flags = fc.flags();
+        m_fixture = fc.fixture();
+        m_universe = fc.universe();
+        m_channel = fc.channel();
+        m_address = fc.address();
+        m_start = fc.start();
+        m_target = fc.target();
+        m_current = fc.current();
+        m_ready = fc.isReady();
+        m_fadeTime = fc.fadeTime();
+        m_elapsed = fc.elapsed();
+    }
+
+    return *this;
+}
+
 bool FadeChannel::operator==(const FadeChannel& ch) const
 {
     return (m_fixture == ch.m_fixture && m_channel == ch.m_channel);
@@ -174,7 +194,7 @@ quint32 FadeChannel::fixture() const
     return m_fixture;
 }
 
-quint32 FadeChannel::universe()
+quint32 FadeChannel::universe() const
 {
     if (m_universe == Universe::invalid())
         return address() / UNIVERSE_SIZE;

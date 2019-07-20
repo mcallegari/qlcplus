@@ -77,6 +77,8 @@ public:
     /** A SceneValue is not valid if .fxi == Fixture::invalidId() */
     bool isValid() const;
 
+    SceneValue& operator=(const SceneValue& scv);
+
     /** Comparator function for qSort() */
     bool operator< (const SceneValue& scv) const;
 
