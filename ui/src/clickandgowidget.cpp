@@ -304,7 +304,7 @@ void ClickAndGoWidget::setupPresetPicker()
     QPainter painter(&m_image);
     painter.setRenderHint(QPainter::Antialiasing);
     QLinearGradient presetGrad(QPointF(0,0), QPointF(0, m_height));
-    presetGrad.setColorAt(0, QApplication::palette().background().color());
+    presetGrad.setColorAt(0, QApplication::palette().window().color());
     presetGrad.setColorAt(1, QColor(173, 171, 179));
     painter.fillRect(0, 0, m_width, m_height, presetGrad);
 
