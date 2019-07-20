@@ -228,12 +228,14 @@ void App::init()
         /* Application geometry and window state */
         QSize size = settings.value("/workspace/size").toSize();
         if (size.isValid() == true)
+        {
             resize(size);
+        }
         else
         {
             if (QLCFile::hasWindowManager() == false)
             {
-                QRect geometry = qApp->desktop()->availableGeometry();
+                QRect geometry = qApp->desktop()->screen()->geometry();
                 if (m_noGui == true)
                 {
                     setGeometry(geometry.width(), geometry.height(), 1, 1);
