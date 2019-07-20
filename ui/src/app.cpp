@@ -251,8 +251,7 @@ void App::init()
                         w = (float)geometry.width() * 0.95;
                         h = (float)geometry.height() * 0.95;
                     }
-                    setGeometry((geometry.width() - w) / 2, (geometry.height() - h) / 2,
-                                w, h);
+                    setGeometry((geometry.width() - w) / 2, (geometry.height() - h) / 2, w, h);
                 }
             }
             else
