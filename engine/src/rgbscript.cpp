@@ -70,6 +70,23 @@ RGBScript::~RGBScript()
 {
 }
 
+RGBScript &RGBScript::operator=(const RGBScript &s)
+{
+    if (this != &s)
+    {
+        m_fileName = s.m_fileName;
+        m_contents = s.m_contents;
+        m_apiVersion = s.m_apiVersion;
+        evaluate();
+        foreach(RGBScriptProperty cap, s.m_properties)
+        {
+            setProperty(cap.m_name, s.property(cap.m_name));
+        }
+    }
+
+    return *this;
+}
+
 bool RGBScript::operator==(const RGBScript& s) const
 {
     if (this->fileName().isEmpty() == false && this->fileName() == s.fileName())

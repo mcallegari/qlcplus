@@ -79,17 +79,17 @@ FadeChannel &FadeChannel::operator=(const FadeChannel &fc)
 {
     if (this != &fc)
     {
-        m_flags = fc.flags();
-        m_fixture = fc.fixture();
-        m_universe = fc.universe();
-        m_channel = fc.channel();
-        m_address = fc.address();
-        m_start = fc.start();
-        m_target = fc.target();
-        m_current = fc.current();
-        m_ready = fc.isReady();
-        m_fadeTime = fc.fadeTime();
-        m_elapsed = fc.elapsed();
+        m_flags = fc.m_flags;
+        m_fixture = fc.m_fixture;
+        m_universe = fc.m_universe;
+        m_channel = fc.m_channel;
+        m_address = fc.m_address;
+        m_start = fc.m_start;
+        m_target = fc.m_target;
+        m_current = fc.m_current;
+        m_ready = fc.m_ready;
+        m_fadeTime = fc.m_fadeTime;
+        m_elapsed = fc.m_elapsed;
     }
 
     return *this;
