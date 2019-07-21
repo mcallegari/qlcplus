@@ -344,10 +344,6 @@ void FixtureManager::initDataView()
     m_fixtures_tree->setSelectionMode(QAbstractItemView::ExtendedSelection);
     m_fixtures_tree->sortByColumn(KColumnAddress, Qt::AscendingOrder);
 
-    QFont m_font = QApplication::font();
-    m_font.setPixelSize(13);
-    m_fixtures_tree->setFont(m_font);
-
     connect(m_fixtures_tree, SIGNAL(itemSelectionChanged()),
             this, SLOT(slotSelectionChanged()));
 
@@ -373,7 +369,6 @@ void FixtureManager::initDataView()
     m_channel_groups_tree->setAllColumnsShowFocus(true);
     m_channel_groups_tree->setIconSize(QSize(32, 32));
     m_channel_groups_tree->setSelectionMode(QAbstractItemView::ExtendedSelection);
-    m_channel_groups_tree->setFont(m_font);
 
     connect(m_channel_groups_tree, SIGNAL(itemSelectionChanged()),
             this, SLOT(slotChannelsGroupSelectionChanged()));
