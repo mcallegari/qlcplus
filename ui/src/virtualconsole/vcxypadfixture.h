@@ -62,6 +62,7 @@ public:
 
     /** Initialize from QVariant */
     VCXYPadFixture(Doc *doc, const QVariant& variant);
+    VCXYPadFixture(const VCXYPadFixture &other);
     ~VCXYPadFixture();
 
     /** Assignment operator */

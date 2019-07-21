@@ -114,6 +114,11 @@ VCXYPadFixture::VCXYPadFixture(Doc* doc, const QVariant& variant)
     }
 }
 
+VCXYPadFixture::VCXYPadFixture(const VCXYPadFixture &other)
+{
+    *this = other;
+}
+
 VCXYPadFixture::~VCXYPadFixture()
 {
 }
