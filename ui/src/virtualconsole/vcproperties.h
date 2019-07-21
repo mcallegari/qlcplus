@@ -63,6 +63,8 @@ public:
     VCProperties(const VCProperties& properties);
     ~VCProperties();
 
+    VCProperties& operator=(const VCProperties& props);
+
     /*********************************************************************
      * Size
      *********************************************************************/
