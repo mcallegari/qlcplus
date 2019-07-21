@@ -17,7 +17,6 @@
   limitations under the License.
 */
 
-#include <QDesktopWidget>
 #include <QInputDialog>
 #include <QFileDialog>
 #include <QLineEdit>
@@ -63,10 +62,7 @@ VideoEditor::VideoEditor(QWidget* parent, Video *video, Doc* doc)
     m_vcodecLabel->setText(video->videoCodec());
     m_acodecLabel->setText(video->audioCodec());
 
-    int screenCount = 0;
-    QDesktopWidget *desktop = qApp->desktop();
-    if (desktop != NULL)
-        screenCount = desktop->screenCount();
+    int screenCount = QGuiApplication::screens().count();
 
     if (screenCount > 0)
     {

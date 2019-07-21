@@ -1174,7 +1174,7 @@ bool VCXYPad::loadXML(QXmlStreamReader &root)
         {
             VCXYPadPreset preset(0xff);
             if (preset.loadXML(root))
-                newPresets.insert(qLowerBound(newPresets.begin(), newPresets.end(), preset), preset);
+                newPresets.insert(std::lower_bound(newPresets.begin(), newPresets.end(), preset), preset);
         }
         else
         {

@@ -989,7 +989,7 @@ bool VCMatrix::loadXML(QXmlStreamReader &root)
         {
             VCMatrixControl control(0xff);
             if (control.loadXML(root))
-                newControls.insert(qLowerBound(newControls.begin(), newControls.end(), control), control);
+                newControls.insert(std::lower_bound(newControls.begin(), newControls.end(), control), control);
         }
         else if (root.name() == KXMLQLCVCMatrixVisibilityMask)
         {

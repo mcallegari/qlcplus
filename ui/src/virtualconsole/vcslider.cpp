@@ -864,7 +864,7 @@ void VCSlider::slotResetButtonClicked()
 {
     m_isOverriding = false;
     m_resetButton->setStyleSheet(QString("QToolButton{ background: %1; }")
-                                 .arg(m_slider->palette().background().color().name()));
+                                 .arg(m_slider->palette().window().color().name()));
 
     // request to delete all the active fader channels
     foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())

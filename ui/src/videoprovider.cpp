@@ -22,9 +22,9 @@
 #include "doc.h"
 
 #include <QApplication>
-#include <QDesktopWidget>
 #include <QMediaPlayer>
 #include <QVideoWidget>
+#include <QScreen>
 
 VideoProvider::VideoProvider(Doc *doc, QObject *parent)
     : QObject(parent)
@@ -187,7 +187,9 @@ void VideoWidget::slotMetaDataChanged(QString key, QVariant data)
 void VideoWidget::slotPlaybackVideo()
 {
     int screen = m_video->screen();
-    QRect rect = qApp->desktop()->screenGeometry(screen);
+    QList<QScreen*> screens = QGuiApplication::screens();
+    QScreen *scr = screens.count() > screen ? screens.at(screen) : screens.first();
+    QRect rect = scr->availableGeometry();
 
     if (QLCFile::getQtRuntimeVersion() < 50700 && m_videoWidget == NULL)
     {
@@ -259,10 +261,7 @@ void VideoWidget::slotBrightnessAdjust(int value)
 
 int VideoWidget::getScreenCount()
 {
-    int screenCount = 0;
-    QDesktopWidget *desktop = qApp->desktop();
-    if (desktop != NULL)
-        screenCount = desktop->screenCount();
+    int screenCount = QGuiApplication::screens().count();
 
     return screenCount;
 }
