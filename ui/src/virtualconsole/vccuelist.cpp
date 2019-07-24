@@ -559,13 +559,10 @@ int VCCueList::getLastTreeIndex()
 
 qreal VCCueList::getPrimaryIntensity() const
 {
-    qreal value;
     if (sideFaderMode() == Steps)
-        value = 1.0;
-    else
-        value = m_primaryTop ? qreal(m_sideFader->value() / 100.0) : qreal((100 - m_sideFader->value()) / 100.0);
+        return  1.0;
 
-    return value * intensity();
+    return m_primaryTop ? qreal(m_sideFader->value() / 100.0) : qreal((100 - m_sideFader->value()) / 100.0);
 }
 
 void VCCueList::notifyFunctionStarting(quint32 fid, qreal intensity)
@@ -730,7 +727,8 @@ void VCCueList::slotNextCue()
         {
             ChaserAction action;
             action.m_action = ChaserNextStep;
-            action.m_intensity = getPrimaryIntensity();
+            action.m_masterIntensity = intensity();
+            action.m_stepIntensity = getPrimaryIntensity();
             action.m_fadeMode = getFadeMode();
             ch->setAction(action);
         }
@@ -775,7 +773,8 @@ void VCCueList::slotPreviousCue()
         {
             ChaserAction action;
             action.m_action = ChaserPreviousStep;
-            action.m_intensity = getPrimaryIntensity();
+            action.m_masterIntensity = intensity();
+            action.m_stepIntensity = getPrimaryIntensity();
             action.m_fadeMode = getFadeMode();
             ch->setAction(action);
         }
@@ -976,7 +975,8 @@ void VCCueList::startChaser(int startIndex)
     ChaserAction action;
     action.m_action = ChaserSetStepIndex;
     action.m_stepIndex = startIndex;
-    action.m_intensity = getPrimaryIntensity();
+    action.m_masterIntensity = intensity();
+    action.m_stepIntensity = getPrimaryIntensity();
     action.m_fadeMode = getFadeMode();
     ch->setAction(action);
 
@@ -1155,7 +1155,8 @@ void VCCueList::slotSideFaderValueChanged(int value)
         ChaserAction action;
         action.m_action = ChaserSetStepIndex;
         action.m_stepIndex = newStep;
-        action.m_intensity = getPrimaryIntensity();
+        action.m_masterIntensity = intensity();
+        action.m_stepIntensity = getPrimaryIntensity();
         action.m_fadeMode = getFadeMode();
         ch->setAction(action);
     }
@@ -1380,13 +1381,14 @@ void VCCueList::adjustIntensity(qreal val)
     if (ch != NULL)
     {
         adjustFunctionIntensity(ch, val);
-
+/*
         // Refresh intensity of current steps
         if (!ch->stopped() && sideFaderMode() == Crossfade && m_sideFader->value() != 100)
         {
                 ch->adjustStepIntensity((qreal)m_sideFader->value() / 100, m_primaryTop ? m_primaryIndex : m_secondaryIndex);
                 ch->adjustStepIntensity((qreal)(100 - m_sideFader->value()) / 100, m_primaryTop ? m_secondaryIndex : m_primaryIndex);
         }
+*/
     }
 
     VCWidget::adjustIntensity(val);
@@ -1470,7 +1472,8 @@ void VCCueList::playCueAtIndex(int idx)
         ChaserAction action;
         action.m_action = ChaserSetStepIndex;
         action.m_stepIndex = m_primaryIndex;
-        action.m_intensity = getPrimaryIntensity();
+        action.m_masterIntensity = intensity();
+        action.m_stepIntensity = getPrimaryIntensity();
         action.m_fadeMode = getFadeMode();
         ch->setAction(action);
     }

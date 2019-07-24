@@ -295,13 +295,10 @@ int VCCueList::nextStepIndex() const
 
 qreal VCCueList::getPrimaryIntensity() const
 {
-    qreal value;
     if (sideFaderMode() == Steps)
-        value = 1.0;
-    else
-        value = m_primaryTop ? qreal(m_sideFaderLevel / 100.0) : qreal((100 - m_sideFaderLevel) / 100.0);
+        return 1.0;
 
-    return value * intensity();
+    return m_primaryTop ? qreal(m_sideFaderLevel / 100.0) : qreal((100 - m_sideFaderLevel) / 100.0);
 }
 
 int VCCueList::getFadeMode() const
@@ -573,7 +570,8 @@ void VCCueList::startChaser(int startIndex)
     ChaserAction action;
     action.m_action = ChaserSetStepIndex;
     action.m_stepIndex = startIndex;
-    action.m_intensity = getPrimaryIntensity();
+    action.m_masterIntensity = intensity();
+    action.m_stepIntensity = getPrimaryIntensity();
     action.m_fadeMode = getFadeMode();
     ch->setAction(action);
 
@@ -645,7 +643,8 @@ void VCCueList::playClicked()
             ChaserAction action;
             action.m_action = ChaserSetStepIndex;
             action.m_stepIndex = m_playbackIndex;
-            action.m_intensity = getPrimaryIntensity();
+            action.m_masterIntensity = intensity();
+            action.m_stepIntensity = getPrimaryIntensity();
             action.m_fadeMode = getFadeMode();
             ch->setAction(action);
 
@@ -702,7 +701,8 @@ void VCCueList::previousClicked()
         {
             ChaserAction action;
             action.m_action = ChaserPreviousStep;
-            action.m_intensity = getPrimaryIntensity();
+            action.m_masterIntensity = intensity();
+            action.m_stepIntensity = getPrimaryIntensity();
             action.m_fadeMode = getFadeMode();
             ch->setAction(action);
         }
@@ -742,7 +742,8 @@ void VCCueList::nextClicked()
         {
             ChaserAction action;
             action.m_action = ChaserNextStep;
-            action.m_intensity = getPrimaryIntensity();
+            action.m_masterIntensity = intensity();
+            action.m_stepIntensity = getPrimaryIntensity();
             action.m_fadeMode = getFadeMode();
             ch->setAction(action);
         }

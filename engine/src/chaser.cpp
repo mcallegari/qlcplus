@@ -62,7 +62,8 @@ Chaser::Chaser(Doc *doc)
             this, SLOT(slotFunctionRemoved(quint32)));
 
     m_startupAction.m_action = ChaserNoAction;
-    m_startupAction.m_intensity = 1.0;
+    m_startupAction.m_masterIntensity = 1.0;
+    m_startupAction.m_stepIntensity = 1.0;
     m_startupAction.m_fadeMode = FromFunction;
     m_startupAction.m_stepIndex = -1;
 }
@@ -498,7 +499,8 @@ void Chaser::setAction(ChaserAction &action)
     {
         m_startupAction.m_action = action.m_action;
         m_startupAction.m_stepIndex = action.m_stepIndex;
-        m_startupAction.m_intensity = action.m_intensity;
+        m_startupAction.m_masterIntensity = action.m_masterIntensity;
+        m_startupAction.m_stepIntensity = action.m_stepIntensity;
         m_startupAction.m_fadeMode = action.m_fadeMode;
     }
 }
@@ -551,19 +553,6 @@ ChaserRunnerStep Chaser::currentRunningStep() const
         }
     }
     return ret;
-}
-
-void Chaser::adjustStepIntensity(qreal fraction, int stepIndex, FadeControlMode fadeControl)
-{
-    QMutexLocker runnerLocker(&m_runnerMutex);
-    if (m_runner != NULL)
-    {
-        m_runner->adjustStepIntensity(fraction * getAttributeValue(Intensity), stepIndex, fadeControl);
-    }
-    else
-    {
-        m_startupAction.m_intensity = fraction * getAttributeValue(Intensity);
-    }
 }
 
 bool Chaser::contains(quint32 functionId)
@@ -682,4 +671,18 @@ int Chaser::adjustAttribute(qreal fraction, int attributeId)
     }
 
     return attrIndex;
+}
+
+void Chaser::adjustStepIntensity(qreal fraction, int stepIndex, FadeControlMode fadeControl)
+{
+    QMutexLocker runnerLocker(&m_runnerMutex);
+    if (m_runner != NULL)
+    {
+        m_runner->adjustStepIntensity(fraction, stepIndex, fadeControl);
+    }
+    else
+    {
+        m_startupAction.m_masterIntensity = getAttributeValue(Function::Intensity);
+        m_startupAction.m_stepIntensity = fraction;
+    }
 }

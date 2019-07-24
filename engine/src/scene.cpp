@@ -43,8 +43,10 @@
 Scene::Scene(Doc* doc)
     : Function(doc, Function::SceneType)
     , m_legacyFadeBus(Bus::invalid())
+    , m_blendFunctionID(Function::invalidId())
 {
     setName(tr("New Scene"));
+    registerAttribute(tr("ParentIntensity"), Multiply | Single);
 }
 
 Scene::~Scene()
@@ -600,6 +602,8 @@ void Scene::writeDMX(MasterTimer *timer, QList<Universe *> ua)
                     fader = ua[universe]->requestFader();
                     fader->adjustIntensity(getAttributeValue(Intensity));
                     fader->setBlendMode(blendMode());
+                    fader->setName(name());
+                    fader->setParentFunctionID(id());
                     m_fadersMap[universe] = fader;
                 }
 
@@ -657,6 +661,9 @@ void Scene::write(MasterTimer *timer, QList<Universe*> ua)
                 fader->setName(name());
                 fader->setParentFunctionID(id());
                 m_fadersMap[universe] = fader;
+
+                //if (blendFunctionID() != Function::invalidId())
+                fader->setParentIntensity(getAttributeValue(ParentIntensity));
             }
 
             FadeChannel *fc = fader->getChannelFader(doc(), ua[universe], scv.fxi, scv.channel);
@@ -664,8 +671,26 @@ void Scene::write(MasterTimer *timer, QList<Universe*> ua)
             // when blend mode is not normal (e.g. additive) perform a full
             // from-0 fade only on intensity channels and let LTP channels
             // fade from the current universe value to their target
-            if (blendMode() != Universe::NormalBlend && (fc->flags() & FadeChannel::Intensity))
-                fc->setCurrent(0);
+            //if (blendMode() != Universe::NormalBlend && (fc->flags() & FadeChannel::Intensity))
+            //    fc->setCurrent(0);
+
+            /** If a blend Function has been set, check if this channel needs to
+             *  be blended from a previous value. If so, mark it for crossfade
+             *  and apply all the specific rules */
+            if (blendFunctionID() != Function::invalidId() && (fc->flags() & FadeChannel::Intensity))
+            {
+                qDebug() << "----- BLEND FROM ID" << blendFunctionID();
+                Scene *blendScene = qobject_cast<Scene *>(doc()->function(blendFunctionID()));
+                if (blendScene != NULL)
+                {
+                    if (blendScene->checkValue(scv))
+                    {
+                        fc->addFlag(FadeChannel::CrossFade);
+                        fc->setCurrent(blendScene->value(scv.fxi, scv.channel));
+                        qDebug() << "----- BLEND VALUE" << fc->current();
+                    }
+                }
+            }
 
             qDebug() << "Scene" << name() << "add channel" << scv.channel << "from" << fc->current() << "to" << scv.value;
 
@@ -727,6 +752,9 @@ void Scene::postRun(MasterTimer* timer, QList<Universe *> ua)
 
     m_fadersMap.clear();
 
+    // autonomously reset a blend function if set
+    setBlendFunctionID(Function::invalidId());
+
     Function::postRun(timer, ua);
 }
 
@@ -744,6 +772,14 @@ int Scene::adjustAttribute(qreal fraction, int attributeId)
         {
             if (!fader.isNull())
                 fader->adjustIntensity(getAttributeValue(Function::Intensity));
+        }
+    }
+    else if (attrIndex == ParentIntensity)
+    {
+        foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+        {
+            if (!fader.isNull())
+                fader->setParentIntensity(getAttributeValue(ParentIntensity));
         }
     }
 
@@ -768,4 +804,22 @@ void Scene::setBlendMode(Universe::BlendMode mode)
     }
 
     Function::setBlendMode(mode);
+}
+
+quint32 Scene::blendFunctionID() const
+{
+    return m_blendFunctionID;
+}
+
+void Scene::setBlendFunctionID(quint32 fid)
+{
+    m_blendFunctionID = fid;
+    if (isRunning() && fid == Function::invalidId())
+    {
+        foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+        {
+            if (!fader.isNull())
+                fader->resetCrossfade();
+        }
+    }
 }

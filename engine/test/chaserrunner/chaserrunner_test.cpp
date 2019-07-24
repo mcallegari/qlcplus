@@ -113,7 +113,7 @@ void ChaserRunner_Test::initial()
     QCOMPARE(cr.m_direction, Function::Forward);
     QCOMPARE(cr.m_startOffset, quint32(0));
     QCOMPARE(cr.m_pendingAction.m_action, ChaserNoAction);
-    QCOMPARE(cr.m_pendingAction.m_intensity, 1.0);
+    QCOMPARE(cr.m_pendingAction.m_masterIntensity, 1.0);
     QCOMPARE(cr.m_pendingAction.m_stepIndex, -1);
     QCOMPARE(cr.m_pendingAction.m_fadeMode, (int)Chaser::FromFunction);
     QCOMPARE(cr.m_lastRunStepIdx, -1);
@@ -1322,7 +1322,7 @@ void ChaserRunner_Test::adjustIntensity()
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene1);
-    QCOMPARE(m_scene1->getAttributeValue(Function::Intensity), qreal(0.5));
+    QCOMPARE(m_scene1->getAttributeValue(Scene::ParentIntensity), qreal(0.5));
     QCOMPARE(m_scene2->getAttributeValue(Function::Intensity), qreal(1.0));
     QCOMPARE(m_scene3->getAttributeValue(Function::Intensity), qreal(1.0));
 
@@ -1331,7 +1331,7 @@ void ChaserRunner_Test::adjustIntensity()
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene2);
     QCOMPARE(m_scene1->getAttributeValue(Function::Intensity), qreal(1.0));
-    QCOMPARE(m_scene2->getAttributeValue(Function::Intensity), qreal(0.5));
+    QCOMPARE(m_scene2->getAttributeValue(Scene::ParentIntensity), qreal(0.5));
     QCOMPARE(m_scene3->getAttributeValue(Function::Intensity), qreal(1.0));
 
     QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
@@ -1340,18 +1340,18 @@ void ChaserRunner_Test::adjustIntensity()
     QCOMPARE(timer.m_functionList[0], m_scene3);
     QCOMPARE(m_scene1->getAttributeValue(Function::Intensity), qreal(1.0));
     QCOMPARE(m_scene2->getAttributeValue(Function::Intensity), qreal(1.0));
-    QCOMPARE(m_scene3->getAttributeValue(Function::Intensity), qreal(0.5));
+    QCOMPARE(m_scene3->getAttributeValue(Scene::ParentIntensity), qreal(0.5));
 
     cr.adjustStepIntensity(0.7);
     QCOMPARE(m_scene1->getAttributeValue(Function::Intensity), qreal(1.0));
     QCOMPARE(m_scene2->getAttributeValue(Function::Intensity), qreal(1.0));
-    QCOMPARE(m_scene3->getAttributeValue(Function::Intensity), qreal(0.7));
+    QCOMPARE(m_scene3->getAttributeValue(Scene::ParentIntensity), qreal(0.7));
 
     QVERIFY(cr.write(&timer, QList<Universe*>()) == true);
     timer.timerTick();
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene1);
-    QCOMPARE(m_scene1->getAttributeValue(Function::Intensity), qreal(0.7));
+    QCOMPARE(m_scene1->getAttributeValue(Scene::ParentIntensity), qreal(0.7));
     QCOMPARE(m_scene2->getAttributeValue(Function::Intensity), qreal(1.0));
     QCOMPARE(m_scene3->getAttributeValue(Function::Intensity), qreal(1.0));
 
@@ -1360,7 +1360,7 @@ void ChaserRunner_Test::adjustIntensity()
     QCOMPARE(timer.m_functionList.size(), 1);
     QCOMPARE(timer.m_functionList[0], m_scene2);
     QCOMPARE(m_scene1->getAttributeValue(Function::Intensity), qreal(1.0));
-    QCOMPARE(m_scene2->getAttributeValue(Function::Intensity), qreal(0.7));
+    QCOMPARE(m_scene2->getAttributeValue(Scene::ParentIntensity), qreal(0.7));
     QCOMPARE(m_scene3->getAttributeValue(Function::Intensity), qreal(1.0));
 
     cr.adjustStepIntensity(1.5);

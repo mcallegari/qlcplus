@@ -51,7 +51,8 @@ public:
         Flashing    = (1 << 4),     /** Is flashing */
         Relative    = (1 << 5),     /** Relative position */
         Override    = (1 << 6),     /** Override the current universe value */
-        Autoremove  = (1 << 7)      /** Automatically remove the channel once value is written */
+        Autoremove  = (1 << 7),     /** Automatically remove the channel once value is written */
+        CrossFade   = (1 << 8)      /** Channel subject to crossfade */
     };
 
     /** Create a new FadeChannel with empty/invalid values */
