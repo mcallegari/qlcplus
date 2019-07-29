@@ -662,37 +662,29 @@ void Scene::write(MasterTimer *timer, QList<Universe*> ua)
                 fader->setParentFunctionID(id());
                 m_fadersMap[universe] = fader;
 
-                //if (blendFunctionID() != Function::invalidId())
                 fader->setParentIntensity(getAttributeValue(ParentIntensity));
             }
 
             FadeChannel *fc = fader->getChannelFader(doc(), ua[universe], scv.fxi, scv.channel);
 
-            // when blend mode is not normal (e.g. additive) perform a full
-            // from-0 fade only on intensity channels and let LTP channels
-            // fade from the current universe value to their target
-            //if (blendMode() != Universe::NormalBlend && (fc->flags() & FadeChannel::Intensity))
-            //    fc->setCurrent(0);
-
             /** If a blend Function has been set, check if this channel needs to
              *  be blended from a previous value. If so, mark it for crossfade
-             *  and apply all the specific rules */
-            if (blendFunctionID() != Function::invalidId() && (fc->flags() & FadeChannel::Intensity))
+             *  and set its current value */
+            if (blendFunctionID() != Function::invalidId())
             {
-                qDebug() << "----- BLEND FROM ID" << blendFunctionID();
                 Scene *blendScene = qobject_cast<Scene *>(doc()->function(blendFunctionID()));
-                if (blendScene != NULL)
+                if (blendScene != NULL && blendScene->checkValue(scv))
                 {
-                    if (blendScene->checkValue(scv))
-                    {
-                        fc->addFlag(FadeChannel::CrossFade);
-                        fc->setCurrent(blendScene->value(scv.fxi, scv.channel));
-                        qDebug() << "----- BLEND VALUE" << fc->current();
-                    }
+                    fc->addFlag(FadeChannel::CrossFade);
+                    fc->setCurrent(blendScene->value(scv.fxi, scv.channel));
+                    qDebug() << "----- BLEND from Scene" << blendScene->name()
+                             << ", fixture:" << scv.fxi << ", channel:" << scv.channel << ", value:" << fc->current();
                 }
             }
-
-            qDebug() << "Scene" << name() << "add channel" << scv.channel << "from" << fc->current() << "to" << scv.value;
+            else
+            {
+                qDebug() << "Scene" << name() << "add channel" << scv.channel << "from" << fc->current() << "to" << scv.value;
+            }
 
             fc->setStart(fc->current());
             fc->setTarget(scv.value);

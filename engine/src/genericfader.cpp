@@ -178,10 +178,8 @@ void GenericFader::write(Universe *universe)
         {
             if ((flags & FadeChannel::CrossFade) && fc.fadeTime() == 0)
             {
-                if (flags & FadeChannel::LTP)
-                    value = uchar(((qreal(fc.target() - fc.start()) * intensity()) + fc.start()) * parentIntensity());
-                else
-                    value = qreal(fc.target()) * parentIntensity();
+                // morph start <-> target depending on intensities
+                value = uchar(((qreal(fc.target() - fc.start()) * intensity()) + fc.start()) * parentIntensity());
             }
             else if (flags & FadeChannel::Intensity)
             {
@@ -229,7 +227,7 @@ qreal GenericFader::intensity() const
 
 void GenericFader::adjustIntensity(qreal fraction)
 {
-    qDebug() << name() << "I FADER intensity" << fraction << ", PARENT:" << m_parentIntensity;
+    //qDebug() << name() << "I FADER intensity" << fraction << ", PARENT:" << m_parentIntensity;
     m_intensity = fraction;
 }
 
@@ -240,7 +238,7 @@ qreal GenericFader::parentIntensity() const
 
 void GenericFader::setParentIntensity(qreal fraction)
 {
-    qDebug() << name() << "P FADER intensity" << m_intensity << ", PARENT:" << fraction;
+    //qDebug() << name() << "P FADER intensity" << m_intensity << ", PARENT:" << fraction;
     m_parentIntensity = fraction;
 }
 

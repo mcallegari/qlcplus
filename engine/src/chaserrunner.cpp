@@ -414,7 +414,7 @@ void ChaserRunner::adjustStepIntensity(qreal fraction, int requestedStepIndex, i
 {
     fraction = CLAMP(fraction, qreal(0.0), qreal(1.0));
 
-    qDebug() << "Adjust intensity" << fraction << "step:" << requestedStepIndex << "fade:" << fadeControl;
+    //qDebug() << "Adjust intensity" << fraction << "step:" << requestedStepIndex << "fade:" << fadeControl;
 
     int stepIndex = requestedStepIndex;
     if (stepIndex == -1)
