@@ -45,58 +45,58 @@
         <translation>Configuration du démarrage automatique modifiée</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="804"/>
+        <location filename="webaccess.cpp" line="822"/>
         <source>Widget not supported (yet) for web access</source>
         <translation>Le widget n&apos;est pas (encore) supporté depuis l&apos;accès web</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="855"/>
-        <location filename="webaccess.cpp" line="907"/>
+        <location filename="webaccess.cpp" line="873"/>
+        <location filename="webaccess.cpp" line="925"/>
         <source>Page</source>
         <translation>Page</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1070"/>
+        <location filename="webaccess.cpp" line="1088"/>
         <source>Enable</source>
         <translation>Activer</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1102"/>
+        <location filename="webaccess.cpp" line="1120"/>
         <source>Name</source>
         <translation>Nom</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1103"/>
+        <location filename="webaccess.cpp" line="1121"/>
         <source>Fade In</source>
         <translation>Fondu en ouverture</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1104"/>
+        <location filename="webaccess.cpp" line="1122"/>
         <source>Fade Out</source>
         <translation>Fondu en fermeture</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1105"/>
+        <location filename="webaccess.cpp" line="1123"/>
         <source>Duration</source>
         <translation>Durée</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1106"/>
+        <location filename="webaccess.cpp" line="1124"/>
         <source>Notes</source>
         <translation>Notes</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1339"/>
+        <location filename="webaccess.cpp" line="1360"/>
         <source>Load project</source>
         <translation>Charger un projet</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1341"/>
+        <location filename="webaccess.cpp" line="1362"/>
         <source>Simple Desk</source>
         <translation>Pupitre traditionnel</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1343"/>
+        <location filename="webaccess.cpp" line="1364"/>
         <source>Configuration</source>
         <translation>Configuration</translation>
     </message>

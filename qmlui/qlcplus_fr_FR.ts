@@ -109,17 +109,17 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/ActionsMenu.qml" line="456"/>
         <source>Catalan</source>
-        <translation>Catalan</translation>
+        <translation>Català</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="464"/>
         <source>Dutch</source>
-        <translation>Néérlandais</translation>
+        <translation>Nederlands</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="472"/>
         <source>English</source>
-        <translation>Anglais</translation>
+        <translation>English</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="480"/>
@@ -129,32 +129,32 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     <message>
         <location filename="qml/ActionsMenu.qml" line="488"/>
         <source>German</source>
-        <translation>Allemand</translation>
+        <translation>Deutsch</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="496"/>
         <source>Italian</source>
-        <translation>Italien</translation>
+        <translation>Italiano</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="504"/>
         <source>Japanese</source>
-        <translation>Japonais</translation>
+        <translation>日本語</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="512"/>
         <source>Russian</source>
-        <translation>Russe</translation>
+        <translation>русский</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="520"/>
         <source>Spanish</source>
-        <translation>Espagnol</translation>
+        <translation>Español</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="528"/>
         <source>Ukrainian</source>
-        <translation>Ukrainien</translation>
+        <translation>Українська</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="539"/>
@@ -3409,12 +3409,7 @@ Niveau d&apos;accès&#xa0;:</translation>
         <translation>Arrêt/Pause</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="54"/>
-        <source>Side Fader</source>
-        <translation>Faders sur le flanc</translation>
-    </message>
-    <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="70"/>
+
         <source>Cue List %1</source>
         <translation>Séquenceur %1</translation>
     </message>
@@ -3506,31 +3501,7 @@ Niveau d&apos;accès&#xa0;:</translation>
         <source>Do nothing</source>
         <translation>Ne rien faire</translation>
     </message>
-    <message>
-        <location filename="qml/virtualconsole/VCCueListProperties.qml" line="149"/>
-        <source>Side fader</source>
-        <translation>Faders sur le flanc</translation>
-    </message>
-    <message>
-        <location filename="qml/virtualconsole/VCCueListProperties.qml" line="164"/>
-        <source>Mode</source>
-        <translation>Mode</translation>
-    </message>
-    <message>
-        <location filename="qml/virtualconsole/VCCueListProperties.qml" line="179"/>
-        <source>None</source>
-        <translation>Aucun</translation>
-    </message>
-    <message>
-        <location filename="qml/virtualconsole/VCCueListProperties.qml" line="194"/>
-        <source>Crossfade</source>
-        <translation>Fondu enchaîné</translation>
-    </message>
-    <message>
-        <location filename="qml/virtualconsole/VCCueListProperties.qml" line="209"/>
-        <source>Steps</source>
-        <translation>Étapes</translation>
-    </message>
+
 </context>
 <context>
     <name>VCFrame</name>
@@ -3766,12 +3737,12 @@ Niveau d&apos;accès&#xa0;:</translation>
         <translation>Réinitialiser les contrôles</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcslider.cpp" line="94"/>
+        <location filename="virtualconsole/vcslider.cpp" line="97"/>
         <source>Slider %1</source>
         <translation>Fader %1</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcslider.cpp" line="96"/>
+        <location filename="virtualconsole/vcslider.cpp" line="99"/>
         <source>Knob %1</source>
         <translation>Potard %1</translation>
     </message>
