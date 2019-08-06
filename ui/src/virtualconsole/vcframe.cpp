@@ -1170,7 +1170,9 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
             /* Create a new slider into its parent */
             VCSlider* slider = new VCSlider(this, m_doc);
             if (slider->loadXML(root) == false)
+            {
                 delete slider;
+            }
             else
             {
                 addWidgetToPageMap(slider);

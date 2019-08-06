@@ -238,9 +238,6 @@ public:
     /** Get the first step of the running list. If none is running this returns NULL */
     ChaserRunnerStep currentRunningStep() const;
 
-    /** Adjust the intensities of chaser steps. */
-    void adjustStepIntensity(qreal fraction, int stepIndex = -1, FadeControlMode fadeControl = FromFunction);
-
 private:
     ChaserAction m_startupAction;
 
@@ -292,6 +289,10 @@ private:
 public:
     /** @reimp */
     int adjustAttribute(qreal fraction, int attributeId);
+
+    /** Adjust the intensities of chaser steps. */
+    void adjustStepIntensity(qreal fraction, int stepIndex = -1,
+                             FadeControlMode fadeControl = FromFunction);
 };
 
 /** @} */

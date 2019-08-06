@@ -108,6 +108,10 @@ public:
     qreal intensity() const;
     void adjustIntensity(qreal fraction);
 
+    /** Get/Set an optional intensity for the fader parent Function */
+    qreal parentIntensity() const;
+    void setParentIntensity(qreal fraction);
+
     /** Get/Set the pause state of this fader */
     bool isPaused() const;
     void setPaused(bool paused);
@@ -133,6 +137,8 @@ public:
     /** Enable/disable universe monitoring before writing new data */
     void setMonitoring(bool enable);
 
+    void resetCrossfade();
+
 signals:
     /** Signal emitted when monitoring is enabled.
      *  Data is preGM and includes the whole universe */
@@ -144,6 +150,7 @@ private:
     int m_priority;
     QHash <quint32,FadeChannel> m_channels;
     qreal m_intensity;
+    qreal m_parentIntensity;
     bool m_paused;
     bool m_enabled;
     bool m_fadeOut;
