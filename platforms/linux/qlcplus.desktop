@@ -11,6 +11,7 @@ GenericName[it]=Controllore di luci
 GenericName[nl]=Lichtregeling
 GenericName[es]=Controlador de iluminación
 GenericName[ca]=Controlador d'iluminació
+Keywords=qlc;light;controller;dmx;analog;midi;artnet;e131;osc;
 Exec=qlcplus --open %f
 Icon=qlcplus
 MimeType=application/x-qlc-workspace;
