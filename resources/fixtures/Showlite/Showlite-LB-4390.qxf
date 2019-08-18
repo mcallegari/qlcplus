@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.2 GIT</Version>
+  <Author>Ballonpower</Author>
+ </Creator>
+ <Manufacturer>Showlite</Manufacturer>
+ <Model>LB 4390</Model>
+ <Type>LED Bar (Beams)</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="Dimmer 2" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe 2" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="Dimmer 3" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe 3" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Red 4" Preset="IntensityRed"/>
+ <Channel Name="Green 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue 4" Preset="IntensityBlue"/>
+ <Channel Name="Dimmer 4" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe 4" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Strobe 11" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe 22" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe 33" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe 44" Preset="IntensityDimmer"/>
+ <Mode Name="24 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Dimmer</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Red 2</Channel>
+  <Channel Number="6">Green 2</Channel>
+  <Channel Number="7">Blue 2</Channel>
+  <Channel Number="8">Dimmer 2</Channel>
+  <Channel Number="9">Strobe 2</Channel>
+  <Channel Number="10">Red 3</Channel>
+  <Channel Number="11">Green 3</Channel>
+  <Channel Number="12">Blue 3</Channel>
+  <Channel Number="13">Dimmer 3</Channel>
+  <Channel Number="14">Strobe 3</Channel>
+  <Channel Number="15">Red 4</Channel>
+  <Channel Number="16">Green 4</Channel>
+  <Channel Number="17">Blue 4</Channel>
+  <Channel Number="18">Dimmer 4</Channel>
+  <Channel Number="19">Strobe 4</Channel>
+  <Channel Number="20">Strobe 11</Channel>
+  <Channel Number="21">Strobe 22</Channel>
+  <Channel Number="22">Strobe 33</Channel>
+  <Channel Number="23">Strobe 44</Channel>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>3</Channel>
+   <Channel>2</Channel>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="10.2" Width="1032" Height="235" Depth="71"/>
+  <Lens Name="PC" DegreesMin="15" DegreesMax="0"/>
+  <Focus Type="Head" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="84" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

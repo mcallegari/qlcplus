@@ -50,6 +50,7 @@
     <F n="American-DJ-Flat-Par-TW12" m="Flat Par TW12"/>
     <F n="American-DJ-Focus-Spot-Three-Z" m="Focus Spot Three Z"/>
     <F n="American-DJ-Fog-Fury-3000-WiFly" m="Fog Fury 3000 WiFly"/>
+    <F n="American-DJ-Fog-Fury-Jett-Pro" m="Fog Fury Jett Pro"/>
     <F n="American-DJ-Fog-Fury-Jett" m="Fog Fury Jett"/>
     <F n="American-DJ-Fog-Storm" m="Fog Storm (with FS-DMXT Timer Remote)"/>
     <F n="American-DJ-FREQ-16-Strobe" m="FREQ 16 Strobe"/>
@@ -64,6 +65,7 @@
     <F n="American-DJ-Hyper-Gem-LED" m="Hyper Gem LED"/>
     <F n="American-DJ-Hypnotic-RGB" m="Hypnotic RGB"/>
     <F n="American-DJ-Ikon-Profile" m="Ikon Profile"/>
+    <F n="American-DJ-Illusion-Dotz-4-dot-4" m="Illusion Dotz 4.4"/>
     <F n="American-DJ-Inno-Color-Beam-LED" m="Inno Color Beam LED"/>
     <F n="American-DJ-Inno-Color-Beam-Quad-7" m="Inno Color Beam Quad 7"/>
     <F n="American-DJ-Inno-Pocket-Beam-Q4" m="Inno Pocket Beam Q4"/>
@@ -260,6 +262,7 @@
     <F n="Cameo-LED-Mini-PAR-CAN-White-7x4W" m="LED Mini PAR CAN White 7x4W"/>
     <F n="Cameo-LED-Moving-Head-60W-CLMHRGB60W" m="LED Moving Head 60W CLMHR60W"/>
     <F n="Cameo-LED-MultiPAR-CLM-PAR-COB1" m="LED MultiPAR CLM-PAR-COB1"/>
+    <F n="Cameo-LED-PAR-64-CAN-RGB-36x1W" m="LED PAR 64 RGB 36x1W"/>
     <F n="Cameo-LED-RGB-PAR56-9x3W" m="LED RGB PAR56 9x3W"/>
     <F n="Cameo-LED-RGB-PAR56-Can" m="LED RGB PAR56 Can"/>
     <F n="Cameo-LED-RGB-PAR64-18x3W" m="LED RGB PAR64 18x3W"/>
@@ -280,6 +283,7 @@
     <F n="Cameo-Tribar-200-IR" m="Tribar 200 IR"/>
     <F n="Cameo-TS-40-WW" m="TS 40 WW"/>
     <F n="Cameo-TS-60-RGBW" m="TS 60 RGBW"/>
+    <F n="Cameo-Twinscan-20" m="Twinscan 20"/>
     <F n="Cameo-Wookie-series" m="Wookie series"/>
   </M>
   <M n="Chauvet">
@@ -494,10 +498,13 @@
   <M n="Elation">
     <F n="Elation-Color-Spot-150" m="Color Spot 150"/>
     <F n="Elation-Cuepix-Batten" m="Cuepix Batten"/>
+    <F n="Elation-Cuepix-Blinder-WW2" m="Cuepix Blinder WW2"/>
     <F n="Elation-DW-Fresnel" m="DW Fresnel"/>
     <F n="Elation-EVC-MH" m="EVC MH"/>
+    <F n="Elation-Fuze-Wash-Z350" m="Fuze Wash Z350"/>
     <F n="Elation-Platinum-Beam-5R" m="Platinum Beam 5R"/>
     <F n="Elation-Platinum-Spot-5R" m="Platinum Spot 5R"/>
+    <F n="Elation-Platinum-Spot-III" m="Platinum Spot III"/>
     <F n="Elation-Proteus-Beam" m="Proteus Beam"/>
     <F n="Elation-Rayzor-Q7" m="Rayzor Q7"/>
     <F n="Elation-SIXPAR-200IP" m="SIXPAR 200IP"/>
@@ -755,6 +762,7 @@
     <F n="Involight-LED-MH60S" m="LED MH60S"/>
     <F n="Involight-LED-MH77S" m="LED MH77S"/>
     <F n="involight-LED-PAR-180" m="LED PAR 180"/>
+    <F n="Involight-LEDSTROB400" m="LEDSTROB400"/>
     <F n="Involight-SBL2000" m="SBL2000"/>
     <F n="Involight-SlimPar56-PRO" m="SlimPar56 PRO"/>
   </M>
@@ -780,6 +788,7 @@
     <F n="JB-Systems-COB-Plano" m="COB-PLANO"/>
     <F n="JB-Systems-Dynamo-250" m="Dynamo 250"/>
     <F n="JB-Systems-Dynaspot" m="Dynaspot"/>
+    <F n="JB-Systems-Emperor" m="Emperor"/>
     <F n="JB-Systems-iRock-5C" m="iRock 5C"/>
     <F n="JB-Systems-LED-Devil" m="LED Devil"/>
     <F n="JB-Systems-LED-DJ-BAR" m="LED DJ-BAR"/>
@@ -1135,6 +1144,7 @@
   </M>
   <M n="Showlite">
     <F n="Showlite-Flood-Light-Panel-144x10mm-LED-RGBW" m="Flood Light Panel 144x10mm LED RGBW"/>
+    <F n="Showlite-LB-4390" m="LB 4390"/>
   </M>
   <M n="Showtec">
     <F n="Showtec-Acrobat" m="Acrobat"/>
