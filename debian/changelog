@@ -32,6 +32,12 @@ qlcplus (4.12.2) stable; urgency=low
   * New fixture: Involight LEDSTROB400 (thanks to Dávid Czirók)
   * New fixture: JB-Systems Emperor (thanks to Andrea Ballarin)
   * New fixture: Showlite LB 4390 (thanks to Ballonpower)
+  * New fixture: Robe ColorSpot 250 AT (thanks to Dmitry Eremin-Solenikov)
+  * New fixture: Contest irLED64-18x10FIVE (thanks to Jonathan Pain-Chammings)
+  * New fixture: Showtec LED Pixel Bar 12 RGBW (thanks to Paul Misset)
+  * New fixture: beamZ Panther 25 LED Spot (thanks to David Ellis)
+  * New fixture: Cameo Movo Beam Z 100 (thanks to Felix Hartnagel)
+  * New fixture: American DJ Focus Spot 4Z (thanks to Rico Hansen)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 25 Aug 2019 12:13:14 +0200
 

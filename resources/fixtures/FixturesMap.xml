@@ -48,6 +48,7 @@
     <F n="American-DJ-Event-Bar-Q4" m="Event Bar Q4"/>
     <F n="American-DJ-Flat-Par-Tri7X" m="Flat Par Tri7X"/>
     <F n="American-DJ-Flat-Par-TW12" m="Flat Par TW12"/>
+    <F n="American-DJ-Focus-Spot-4Z" m="Focus Spot 4Z"/>
     <F n="American-DJ-Focus-Spot-Three-Z" m="Focus Spot Three Z"/>
     <F n="American-DJ-Fog-Fury-3000-WiFly" m="Fog Fury 3000 WiFly"/>
     <F n="American-DJ-Fog-Fury-Jett-Pro" m="Fog Fury Jett Pro"/>
@@ -189,6 +190,7 @@
     <F n="beamZ-Lucid-1.2" m="Lucid 1.2"/>
     <F n="beamZ-MHL108-Wash-MKII" m="MHL108 Wash MKII"/>
     <F n="beamZ-MHL90-Wash-5x18W-RGBAW-UV" m="MHL90 Wash 5x18W RGBAW-UV"/>
+    <F n="Beamz-Panther-25-LED-Spot" m="Panther 25 LED Spot"/>
   </M>
   <M n="Blizzard_Lighting">
     <F n="Blizzard-Lighting-Blade-RGBW" m="Blade RGBW"/>
@@ -267,6 +269,7 @@
     <F n="Cameo-LED-RGB-PAR56-Can" m="LED RGB PAR56 Can"/>
     <F n="Cameo-LED-RGB-PAR64-18x3W" m="LED RGB PAR64 18x3W"/>
     <F n="Cameo-LED-RGBW-PAR64-18x8W" m="LED RGBW PAR64 18x8W"/>
+    <F n="Cameo-Movo-Beam-Z-100" m="Movo Beam Z 100"/>
     <F n="Cameo-Multi-PAR-1" m="Multi Par 1"/>
     <F n="Cameo-Multi-PAR-3" m="Multi Par 3"/>
     <F n="Cameo-NanoBeam-300" m="NanoBeam 300"/>
@@ -471,6 +474,7 @@
     <F n="Contest-Evora-Beam-5R" m="Evora Beam 5R"/>
     <F n="Contest-Evora-DUO-B2R" m="Evora DUO B2R"/>
     <F n="Contest-EvoraB2R" m="Evora B2R"/>
+    <F n="Contest-irLED64-18x10FIVE" m="irLED64-18x10FIVE"/>
     <F n="Contest-LedColor" m="LedColor"/>
     <F n="Contest-Mini-Head-10W" m="Mini-Head 10W"/>
     <F n="Contest-MiniCube-6TCb" m="MiniCube-6TCb"/>
@@ -1088,6 +1092,7 @@
     <F n="Robe-ClubWash-500-CT" m="ClubWash 500 CT"/>
     <F n="Robe-ClubWash-600-CT" m="ClubWash 600 CT"/>
     <F n="Robe-ColorSpot-170-AT" m="ColorSpot 170 AT"/>
+    <F n="Robe-ColorSpot-250-AT" m="ColorSpot 250 AT"/>
     <F n="Robe-ColorSpot-250-XT" m="ColorSpot 250 XT"/>
     <F n="Robe-ColorSpot-575-AT" m="ColorSpot 575 AT"/>
     <F n="Robe-ColorSpot-700E-AT" m="ColorSpot 700E AT (v1.4)"/>
@@ -1190,6 +1195,7 @@
     <F n="Showtec-Phantom-65" m="Phantom 65"/>
     <F n="Showtec-Phantom-75-LED-Spot-V2" m="Phantom 75 LED Spot V2"/>
     <F n="Showtec-Phantom-95-LED-Spot" m="Phantom 95 LED Spot"/>
+    <F n="Showtec-Pixel-Bar-12-RGBW" m="LED Pixel Bar 12 RGBW"/>
     <F n="Showtec-Pixel-Bar-12" m="Pixel Bar 12"/>
     <F n="Showtec-Power-Spot-9-Q6-Tour-V1" m="Power Spot 9 Q6 Tour V1"/>
     <F n="Showtec-Power-Spot-Q5" m="Power Spot 9 Q5"/>
