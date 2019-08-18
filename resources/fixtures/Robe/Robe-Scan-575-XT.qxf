@@ -57,10 +57,10 @@
   <Capability Min="167" Max="179" Res="Robe/gobo00005.png">Gobo 5</Capability>
   <Capability Min="180" Max="191" Res="Robe/gobo00006.png">Gobo 6</Capability>
   <Capability Min="192" Max="204" Res="Robe/gobo00007.png">Gobo 7</Capability>
-  <Capability Min="205" Max="217" Res="Robe/gobo00008.png">Gobo 8</Capability>
+  <Capability Min="205" Max="217" Res="Others/gobo00044.svg">Gobo 8</Capability>
   <Capability Min="218" Max="230" Res="Robe/gobo00039.png">Gobo 9</Capability>
   <Capability Min="231" Max="243" Res="Robe/gobo00040.png">Gobo 10</Capability>
-  <Capability Min="244" Max="255" Res="Robe/gobo00041.png">Gobo 11</Capability>
+  <Capability Min="244" Max="255" Res="Others/gobo00012.svg">Gobo 11</Capability>
  </Channel>
  <Channel Name="Beam">
   <Group Byte="0">Beam</Group>
