@@ -238,6 +238,8 @@
     <F n="Briteq-Tornado-7" m="Tornado 7"/>
   </M>
   <M n="Cameo">
+    <F n="Cameo-Auro-Spot-100" m="Auro Spot 100"/>
+    <F n="Cameo-Auro-Spot-200" m="Auro Spot 200"/>
     <F n="Cameo-CL-Superfly-HP" m="CL Superfly HP"/>
     <F n="Cameo-CLBARL10RGBA" m="LED Colour Bar RGBA (CLBAR10RGBA)"/>
     <F n="Cameo-CLHB400RGBW" m="CLHB400RGBW"/>
@@ -252,6 +254,7 @@
     <F n="Cameo-Gobo-Scanner-60" m="Gobo Scanner 60"/>
     <F n="Cameo-Hydrabeam-1000-RGBW" m="Hydrabeam 1000 RGBW"/>
     <F n="Cameo-Hydrabeam-400-Series" m="Hydrabeam 400 Series"/>
+    <F n="Cameo-HydraBeam-4000" m="HydraBeam 4000"/>
     <F n="Cameo-LED-Mini-PAR-CAN-RGB-7x3W" m="LED Mini PAR CAN RGB 7x3W"/>
     <F n="Cameo-LED-Mini-PAR-CAN-RGBW-7x8W" m="LED Mini PAR CAN RGBW 7x8W"/>
     <F n="Cameo-LED-Mini-PAR-CAN-White-7x4W" m="LED Mini PAR CAN White 7x4W"/>
@@ -515,6 +518,9 @@
   </M>
   <M n="Enterius">
     <F n="Enterius-EC-133DMX" m="EC-133DMX"/>
+  </M>
+  <M n="Epsilon">
+    <F n="Epsilon-PixBeam" m="PixBeam"/>
   </M>
   <M n="Equinox">
     <F n="Equinox-Gigabar" m="Gigabar"/>
@@ -868,6 +874,9 @@
   <M n="Look_Solutions">
     <F n="Look-Solutions-Unique-2.1" m="Unique 2.1"/>
   </M>
+  <M n="Lumeri">
+    <F n="Lumeri-PRO-COB-200" m="PRO-COB 200"/>
+  </M>
   <M n="Luxibel">
     <F n="Luxibel-LX161" m="LX161"/>
   </M>
@@ -894,6 +903,7 @@
     <F n="Martin-EFX-600" m="EFX-600"/>
     <F n="Martin-EFX-700" m="EFX-700"/>
     <F n="Martin-EFX-800" m="EFX-800"/>
+    <F n="Martin-ERA-300-Profile" m="ERA 300 Profile"/>
     <F n="Martin-Jem-Compact-Hazer-Pro" m="Jem Compact Hazer Pro"/>
     <F n="Martin-JEM-K1-Hazer" m="JEM K1 Hazer"/>
     <F n="Martin-JEM-ZR44" m="JEM ZR44"/>
@@ -1221,6 +1231,7 @@
     <F n="Stairville-DJ-Lase-25+25-G-MK-II" m="DJ Lase 25+25-G MK-II"/>
     <F n="Stairville-DJ-Lase-GR-140-RGY-MKII" m="DJ Lase GR-140 RGY MKII"/>
     <F n="Stairville-DJ-Lase-Polar-200" m="DJ Lase Polar 200"/>
+    <F n="Stairville-FS-x75-Follow-Spot" m="FS-x75 Follow Spot"/>
     <F n="Stairville-HL-x9-Quad-Color-Flood-9x8W" m="HL-x9 Quad Color Flood 9x8W"/>
     <F n="Stairville-Hz-200-DMX" m="Hz-200 DMX"/>
     <F n="Stairville-JunoScan-MKII" m="JunoScan MKII"/>
@@ -1259,6 +1270,7 @@
     <F n="Stairville-novaWash-Quad-LED" m="novaWash Quad LED"/>
     <F n="Stairville-Octagon-Theater" m="Octagon Theater"/>
     <F n="Stairville-PAR64-CX-3-RGBW" m="PAR 64 CX-3 RGBW"/>
+    <F n="Stairville-PAR64-CX-6-RGBWAUV" m="PAR64 CX-6 RGBWAUV"/>
     <F n="Stairville-Pixel-Panel-144-RGB" m="Pixel Panel 144 RGB"/>
     <F n="Stairville-PS1500DMX" m="PS 1500 DMX"/>
     <F n="Stairville-Quad-Par-Profile-RGBW-5x8W" m="Quad Par Profile RGBW 5x8W"/>
@@ -1302,6 +1314,9 @@
   <M n="Talent">
     <F n="Talent-BL252A" m="BL252A"/>
     <F n="Talent-BL63-10-LED-Bar" m="BL63 10&quot; LED Bar"/>
+  </M>
+  <M n="Tomshine">
+    <F n="Tomshine-Mini-Gobo-Moving-Head" m="Mini Gobo Moving Head"/>
   </M>
   <M n="Triton_Blue">
     <F n="Triton-Blue-Wally-MH-20" m="Wally MH-20"/>
