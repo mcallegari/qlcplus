@@ -216,8 +216,12 @@ void GenericFader::write(Universe *universe)
             it.remove();
     }
 
+    // self-request deletion when fadeout is complete
     if (m_fadeOut && channelsCount() == 0)
+    {
+        m_fadeOut = false;
         requestDelete();
+    }
 }
 
 qreal GenericFader::intensity() const
@@ -279,7 +283,10 @@ void GenericFader::setFadeOut(bool enable, uint fadeTime)
             FadeChannel& fc(it.next().value());
 
             if ((fc.flags() & FadeChannel::Intensity) == 0)
+            {
+                fc.addFlag(FadeChannel::Autoremove);
                 continue;
+            }
 
             fc.setStart(fc.current());
             fc.setTarget(0);

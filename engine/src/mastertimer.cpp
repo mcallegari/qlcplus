@@ -200,24 +200,24 @@ void MasterTimer::stopAllFunctions()
 
 void MasterTimer::fadeAndStopAll(int timeout)
 {
-    if (timeout == 0)
-        return;
-
-    Doc* doc = qobject_cast<Doc*> (parent());
-    Q_ASSERT(doc != NULL);
-
-    QList<Universe *> universes = doc->inputOutputMap()->claimUniverses();
-    foreach (Universe *universe, universes)
+    if (timeout)
     {
-        foreach (QSharedPointer<GenericFader> fader, universe->faders())
-        {
-            if (!fader.isNull() && fader->parentFunctionID() != Function::invalidId())
-                fader->setFadeOut(true, uint(timeout));
-        }
-    }
-    doc->inputOutputMap()->releaseUniverses();
+        Doc *doc = qobject_cast<Doc*> (parent());
+        Q_ASSERT(doc != NULL);
 
-    // Stop all functions first
+        QList<Universe *> universes = doc->inputOutputMap()->claimUniverses();
+        foreach (Universe *universe, universes)
+        {
+            foreach (QSharedPointer<GenericFader> fader, universe->faders())
+            {
+                if (!fader.isNull() && fader->parentFunctionID() != Function::invalidId())
+                    fader->setFadeOut(true, uint(timeout));
+            }
+        }
+        doc->inputOutputMap()->releaseUniverses();
+    }
+
+    // At last, stop all functions
     stopAllFunctions();
 }
 

@@ -304,7 +304,7 @@ void Universe::processFaders()
         if (fader->isEnabled() == false)
             continue;
 
-        //qDebug() << "Processing fader" << fader->name();
+        //qDebug() << "Processing fader" << fader->name() << fader->channelsCount();
         fader->write(this);
     }
 
