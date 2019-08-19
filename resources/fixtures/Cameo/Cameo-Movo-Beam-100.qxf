@@ -7,7 +7,7 @@
   <Author>Felix Hartnagel</Author>
  </Creator>
  <Manufacturer>Cameo</Manufacturer>
- <Model>Movo Beam Z 100</Model>
+ <Model>Movo Beam 100</Model>
  <Type>Moving Head</Type>
  <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobe">
@@ -162,14 +162,13 @@
   <Group Byte="0">Speed</Group>
   <Capability Min="0" Max="255">slow &gt; fast</Capability>
  </Channel>
- <Mode Name="5 Channel">
+ <Mode Name="4 Channel">
   <Channel Number="0">Dimmer</Channel>
   <Channel Number="1">Strobe</Channel>
-  <Channel Number="2">Zoom</Channel>
-  <Channel Number="3">Auto Program</Channel>
-  <Channel Number="4">Pan/Tilt Speed (Set Speed Auto Programms)</Channel>
+  <Channel Number="2">Auto Program</Channel>
+  <Channel Number="3">Pan/Tilt Speed (Set Speed Auto Programms)</Channel>
  </Mode>
- <Mode Name="16 Channel">
+ <Mode Name="15 Channel">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan fine</Channel>
   <Channel Number="2">Endless Pan rotation</Channel>
@@ -182,12 +181,11 @@
   <Channel Number="9">Green</Channel>
   <Channel Number="10">Blue</Channel>
   <Channel Number="11">White</Channel>
-  <Channel Number="12">Zoom</Channel>
-  <Channel Number="13">Device settings</Channel>
-  <Channel Number="14">Colour Ring Macro (override RGB)</Channel>
-  <Channel Number="15">Colour Ring Macro Speed</Channel>
+  <Channel Number="12">Device settings</Channel>
+  <Channel Number="13">Colour Ring Macro (override RGB)</Channel>
+  <Channel Number="14">Colour Ring Macro Speed</Channel>
  </Mode>
- <Mode Name="36 Channel">
+ <Mode Name="35 Channel">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan fine</Channel>
   <Channel Number="2">Endless Pan rotation</Channel>
@@ -202,34 +200,58 @@
   <Channel Number="11">Blue</Channel>
   <Channel Number="12">White</Channel>
   <Channel Number="13">Colour Macro (override RGBW)</Channel>
-  <Channel Number="14">Zoom</Channel>
-  <Channel Number="15">Auto Program</Channel>
-  <Channel Number="16">Pan/Tilt Macro</Channel>
-  <Channel Number="17">Set dimmer curve</Channel>
-  <Channel Number="18">Pan/Tilt Speed (Set Speed of Pan&amp;Tilt / Auto Programms / Pan&amp;Tilt Macros)</Channel>
-  <Channel Number="19">Device settings</Channel>
-  <Channel Number="20">Dimmer Colour Ring</Channel>
-  <Channel Number="21">Strobe Colour Ring</Channel>
-  <Channel Number="22">Red1</Channel>
-  <Channel Number="23">Green1</Channel>
-  <Channel Number="24">Blue1</Channel>
-  <Channel Number="25">Red2</Channel>
-  <Channel Number="26">Green2</Channel>
-  <Channel Number="27">Blue2</Channel>
-  <Channel Number="28">Red3</Channel>
-  <Channel Number="29">Green3</Channel>
-  <Channel Number="30">Blue3</Channel>
-  <Channel Number="31">Red4</Channel>
-  <Channel Number="32">Green4</Channel>
-  <Channel Number="33">Blue4</Channel>
-  <Channel Number="34">Colour Ring Macro (override RGB)</Channel>
-  <Channel Number="35">Colour Ring Macro Speed</Channel>
+  <Channel Number="14">Auto Program</Channel>
+  <Channel Number="15">Pan/Tilt Macro</Channel>
+  <Channel Number="16">Set dimmer curve</Channel>
+  <Channel Number="17">Pan/Tilt Speed (Set Speed of Pan&amp;Tilt / Auto Programms / Pan&amp;Tilt Macros)</Channel>
+  <Channel Number="18">Device settings</Channel>
+  <Channel Number="19">Dimmer Colour Ring</Channel>
+  <Channel Number="20">Strobe Colour Ring</Channel>
+  <Channel Number="21">Red1</Channel>
+  <Channel Number="22">Green1</Channel>
+  <Channel Number="23">Blue1</Channel>
+  <Channel Number="24">Red2</Channel>
+  <Channel Number="25">Green2</Channel>
+  <Channel Number="26">Blue2</Channel>
+  <Channel Number="27">Red3</Channel>
+  <Channel Number="28">Green3</Channel>
+  <Channel Number="29">Blue3</Channel>
+  <Channel Number="30">Red4</Channel>
+  <Channel Number="31">Green4</Channel>
+  <Channel Number="32">Blue4</Channel>
+  <Channel Number="33">Colour Ring Macro (override RGB)</Channel>
+  <Channel Number="34">Colour Ring Macro Speed</Channel>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+  </Head>
+  <Head>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+  </Head>
+  <Head>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+  </Head>
  </Mode>
  <Physical>
-  <Bulb Type="LED" Lumens="1220" ColourTemperature="0"/>
-  <Dimensions Weight="6.5" Width="210" Height="299" Depth="210"/>
-  <Lens Name="Other" DegreesMin="4" DegreesMax="30"/>
+  <Bulb Type="LED" Lumens="1480" ColourTemperature="0"/>
+  <Dimensions Weight="5.2" Width="210" Height="299" Depth="210"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-  <Technical PowerConsumption="140" DmxConnector="3-pin"/>
+  <Technical PowerConsumption="130" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>

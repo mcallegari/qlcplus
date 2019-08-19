@@ -269,6 +269,7 @@
     <F n="Cameo-LED-RGB-PAR56-Can" m="LED RGB PAR56 Can"/>
     <F n="Cameo-LED-RGB-PAR64-18x3W" m="LED RGB PAR64 18x3W"/>
     <F n="Cameo-LED-RGBW-PAR64-18x8W" m="LED RGBW PAR64 18x8W"/>
+    <F n="Cameo-Movo-Beam-100" m="Movo Beam 100"/>
     <F n="Cameo-Movo-Beam-Z-100" m="Movo Beam Z 100"/>
     <F n="Cameo-Multi-PAR-1" m="Multi Par 1"/>
     <F n="Cameo-Multi-PAR-3" m="Multi Par 3"/>
@@ -351,6 +352,7 @@
     <F n="Chauvet-Intimidator-Scan-LED-300" m="Intimidator Scan LED 300"/>
     <F n="Chauvet-Intimidator-Spot--355Z-IRC" m="Intimidator Spot 355Z IRC"/>
     <F n="Chauvet-Intimidator-Spot-100-IRC" m="Intimidator Spot 100 IRC"/>
+    <F n="Chauvet-Intimidator-Spot-110" m="Intimidator Spot 110"/>
     <F n="Chauvet-Intimidator-Spot-155" m="Intimidator Spot 155"/>
     <F n="Chauvet-Intimidator-Spot-250" m="Intimidator Spot 250"/>
     <F n="Chauvet-Intimidator-Spot-255-IRC" m="Intimidator Spot 255 IRC"/>
@@ -560,6 +562,7 @@
     <F n="Eurolite-LED-Bar-RGB-252_10_40__Indoor" m="LED Bar RGB 252/10 40° Indoor"/>
     <F n="Eurolite-LED-CBB-3-COB-RGB-3x15W-Bar" m="LED CBB-3 COB RBG 3x15W Bar"/>
     <F n="Eurolite-LED-CLS-9-QCL-RGBW-9x8W-12" m="LED CLS-9 QCL RGBW 9x8W 12"/>
+    <F n="Eurolite-LED-D-1000" m="LED D-1000"/>
     <F n="Eurolite-LED-D-400-RGBAW-3W-DMX" m="LED D-400 RGBAW 3W DMX"/>
     <F n="Eurolite-LED-DMX-Pixel-Tube-16-RGB" m="LED DMX Pixel Tube 16 RGB IP20"/>
     <F n="Eurolite-LED-FE-1500" m="LED FE-1500"/>
@@ -880,6 +883,7 @@
     <F n="Litecraft-WashX.21" m="WashX.21"/>
   </M>
   <M n="Lixada">
+    <F n="Lixada-12-RGBW-LED-Par-Light" m="12 RGBW LED Par Light"/>
     <F n="Lixada-Mini-Gobo-Moving-Head" m="Mini Gobo Moving Head"/>
     <F n="Lixada-Mini-Wash-RGBW" m="Mini Wash RGBW"/>
     <F n="Lixada-Triangle-Spider-Beam" m="Triangle Spider Beam"/>
@@ -1150,6 +1154,7 @@
   <M n="Showlite">
     <F n="Showlite-Flood-Light-Panel-144x10mm-LED-RGBW" m="Flood Light Panel 144x10mm LED RGBW"/>
     <F n="Showlite-LB-4390" m="LB 4390"/>
+    <F n="Showlite-LED-Stage-Bar" m="LED Stage Bar"/>
   </M>
   <M n="Showtec">
     <F n="Showtec-Acrobat" m="Acrobat"/>
@@ -1314,6 +1319,7 @@
     <F n="Starway-Mode-B" m="Mode B"/>
     <F n="Starway-NanoKolor" m="NanoKolor"/>
     <F n="Starway-Servo-Beam-5R" m="Servo Beam 5R"/>
+    <F n="Starway-Servo-Color-4k" m="Servo Color 4k"/>
     <F n="Starway-Servocolor-600" m="Servocolor 600"/>
     <F n="Starway-Servocolor-800" m="ServoColor 800"/>
     <F n="Starway-TourKolor" m="TourKolor"/>

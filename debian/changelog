@@ -36,8 +36,11 @@ qlcplus (4.12.2) stable; urgency=low
   * New fixture: Contest irLED64-18x10FIVE (thanks to Jonathan Pain-Chammings)
   * New fixture: Showtec LED Pixel Bar 12 RGBW (thanks to Paul Misset)
   * New fixture: beamZ Panther 25 LED Spot (thanks to David Ellis)
-  * New fixture: Cameo Movo Beam Z 100 (thanks to Felix Hartnagel)
+  * New fixtures: Cameo Movo Beam Z 100, Movo Beam 100 (thanks to Felix Hartnagel)
   * New fixture: American DJ Focus Spot 4Z (thanks to Rico Hansen)
+  * New fixtures: Showlite LED Stage Bar, Eurolite LED D-1000 (thanks to Mark Baar)
+  * New fixture: Starway Servo Color 4k (thanks to miktallerra)
+  * New fixtures: Lixada 12 RGBW LED Par Light, Chauvet Intimidator Spot 110 (thanks to Lance Moore)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 25 Aug 2019 12:13:14 +0200
 
