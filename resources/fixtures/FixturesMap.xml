@@ -851,6 +851,10 @@
     <F n="Ledj-Stage-Color-24" m="Stage Color 24"/>
     <F n="Ledj-Tri-LED-back-drop-controller" m="Pro Tri LED back drop controller"/>
   </M>
+  <M n="LedProLight">
+    <F n="LedProLight-LP04-36x18W-RGBWAP" m="LP04 - 36x18W RGBWAP"/>
+    <F n="LedProLight-LP05-36x15W-RGBWAP" m="LP05 - 36x15W RGBWAP"/>
+  </M>
   <M n="Light_Emotion">
     <F n="Light-Emotion-LED-Parbar" m="LED Parbar"/>
   </M>

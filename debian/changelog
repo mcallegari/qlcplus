@@ -42,6 +42,7 @@ qlcplus (4.12.2) stable; urgency=low
   * New fixtures: Showlite LED Stage Bar, Eurolite LED D-1000 (thanks to Mark Baar)
   * New fixture: Starway Servo Color 4k (thanks to miktallerra)
   * New fixtures: Lixada 12 RGBW LED Par Light, Chauvet Intimidator Spot 110 (thanks to Lance Moore)
+  * New fixtures: LedProLight LP04 36x18W RGBWAP, LP05 - 36x15W RGBWAP (thanks to Ivan Brinda)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 25 Aug 2019 12:13:14 +0200
 
