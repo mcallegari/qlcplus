@@ -5,6 +5,7 @@ qlcplus (4.12.2) stable; urgency=low
   * Simple Desk: fix universe reset erasing channel modifiers
   * Virtual Console/Slider: fix LTP channels being written continuously
   * Virtual Console/Slider: fix inverted behavior
+  * Virtual Console/Slider: fix submaster affecting VC widgets on inactive frame pages
   * UI: fix Stop all Functions fading out all intensity channels
   * Web Access: fix crash caused by VC widgets on deleted frame pages
   * Web Access: fix VC Sliders in level mode not changing DMX values
