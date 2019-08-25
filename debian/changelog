@@ -43,6 +43,8 @@ qlcplus (4.12.2) stable; urgency=low
   * New fixture: Starway Servo Color 4k (thanks to miktallerra)
   * New fixtures: Lixada 12 RGBW LED Par Light, Chauvet Intimidator Spot 110 (thanks to Lance Moore)
   * New fixtures: LedProLight LP04 36x18W RGBWAP, LP05 - 36x15W RGBWAP (thanks to Ivan Brinda)
+  * New fixture: Botex SP-1500 (thanks to Gabse)
+  * New fixture: Robe Robin 150 LEDBeam (thanks to Toby G)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 25 Aug 2019 12:13:14 +0200
 
