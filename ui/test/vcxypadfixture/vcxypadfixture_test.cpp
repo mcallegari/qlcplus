@@ -30,6 +30,7 @@
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
 #define protected public
+#include "genericfader.h"
 #include "universe.h"
 #undef protected
 #include "qlcfile.h"
@@ -719,7 +720,7 @@ void VCXYPadFixture_Test::writeDimmer()
 {
     VCXYPadFixture xy(m_doc);
     QList<Universe*> ua = m_doc->inputOutputMap()->universes();
-    GenericFader *fader = ua[0]->requestFader();
+    QSharedPointer<GenericFader> fader = ua[0]->requestFader();
 
     xy.writeDMX(1, 1, fader, ua[0]);
     ua[0]->processFaders();
@@ -755,7 +756,7 @@ void VCXYPadFixture_Test::write8bitNoReverse()
     xy.arm();
 
     QList<Universe*> ua = m_doc->inputOutputMap()->universes();
-    GenericFader *fader = ua[0]->requestFader();
+    QSharedPointer<GenericFader> fader = ua[0]->requestFader();
 
     for (qreal i = 0; i <= 1.01; i += (qreal(1) / qreal(USHRT_MAX)))
     {
@@ -791,7 +792,7 @@ void VCXYPadFixture_Test::write8bitReverse()
     xy.arm();
 
     QList<Universe*> ua = m_doc->inputOutputMap()->universes();
-    GenericFader *fader = ua[0]->requestFader();
+    QSharedPointer<GenericFader> fader = ua[0]->requestFader();
 
     for (qreal i = 0; i <= 1.01; i += (qreal(1) / qreal(USHRT_MAX)))
     {
@@ -827,7 +828,7 @@ void VCXYPadFixture_Test::write16bitNoReverse()
     xy.arm();
 
     QList<Universe*> ua = m_doc->inputOutputMap()->universes();
-    GenericFader *fader = ua[0]->requestFader();
+    QSharedPointer<GenericFader> fader = ua[0]->requestFader();
 
     for (qreal i = 0; i <= 1.01; i += (qreal(1) / qreal(USHRT_MAX)))
     {
@@ -862,7 +863,7 @@ void VCXYPadFixture_Test::write16bitReverse()
 
 #ifdef Q_PROCESSOR_X86_64
     QList<Universe*> ua = m_doc->inputOutputMap()->universes();
-    GenericFader *fader = ua[0]->requestFader();
+    QSharedPointer<GenericFader> fader = ua[0]->requestFader();
 
     for (qreal i = 0; i <= 1.01; i += (qreal(1) / qreal(USHRT_MAX)))
     {
@@ -910,7 +911,7 @@ void VCXYPadFixture_Test::writeRange()
     fxi->setFixtureDefinition(def, mode);
 
     QList<Universe*> ua = m_doc->inputOutputMap()->universes();
-    GenericFader *fader = ua[0]->requestFader();
+    QSharedPointer<GenericFader> fader = ua[0]->requestFader();
 
     m_doc->addFixture(fxi);
     VCXYPadFixture xy(m_doc);

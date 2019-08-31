@@ -80,8 +80,11 @@ void ScriptRunner::stop()
     m_startedFunctions.clear();
 
     // request to delete all the active faders
-    foreach (GenericFader *fader, m_fadersMap.values())
-        fader->requestDelete();
+    foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+    {
+        if (!fader.isNull())
+            fader->requestDelete();
+    }
     m_fadersMap.clear();
 }
 
@@ -145,8 +148,8 @@ bool ScriptRunner::write(MasterTimer *timer, QList<Universe *> universes)
         {
             FixtureValue val = m_fixtureValueQueue.dequeue();
 
-            GenericFader *fader = m_fadersMap.value(val.m_universe, NULL);
-            if (fader == NULL)
+            QSharedPointer<GenericFader> fader = m_fadersMap.value(val.m_universe, QSharedPointer<GenericFader>());
+            if (fader.isNull())
             {
                 fader = universes[val.m_universe]->requestFader();
                 //fader->adjustIntensity(getAttributeValue(Intensity));

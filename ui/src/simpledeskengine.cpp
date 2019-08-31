@@ -280,8 +280,8 @@ FadeChannel *SimpleDeskEngine::getFader(QList<Universe *> universes, quint32 uni
                                         quint32 fixtureID, quint32 channel)
 {
     // get the universe Fader first. If doesn't exist, create it
-    GenericFader *fader = m_fadersMap.value(universeID, NULL);
-    if (fader == NULL)
+    QSharedPointer<GenericFader> fader = m_fadersMap.value(universeID, QSharedPointer<GenericFader>());
+    if (fader.isNull())
     {
         fader = universes[universeID]->requestFader(Universe::SimpleDesk);
         m_fadersMap[universeID] = fader;
@@ -307,8 +307,8 @@ void SimpleDeskEngine::writeDMX(MasterTimer *timer, QList<Universe *> ua)
 
                 ua[universe]->reset(0, 512);
 
-                GenericFader *fader = m_fadersMap.value(universe, NULL);
-                if (fader != NULL)
+                QSharedPointer<GenericFader> fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
+                if (!fader.isNull())
                 {
                     // loop through all active fadechannels and restore defualt values
                     QHashIterator<quint32, FadeChannel> it(fader->channels());
@@ -337,8 +337,8 @@ void SimpleDeskEngine::writeDMX(MasterTimer *timer, QList<Universe *> ua)
             {
                 quint32 channel = command.second;
                 quint32 universe = channel >> 9;
-                GenericFader *fader = m_fadersMap.value(universe, NULL);
-                if (fader != NULL)
+                QSharedPointer<GenericFader> fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
+                if (!fader.isNull())
                 {
                     FadeChannel fc(m_doc, Fixture::invalidId(), channel);
                     Fixture *fixture = m_doc->fixture(fc.fixture());
@@ -373,7 +373,7 @@ void SimpleDeskEngine::writeDMX(MasterTimer *timer, QList<Universe *> ua)
             FadeChannel *fc = getFader(ua, uni, Fixture::invalidId(), address);
             fc->setCurrent(value);
             fc->setTarget(value);
-            fc->setTypeFlag(FadeChannel::Override);
+            fc->addFlag(FadeChannel::Override);
         }
         setChanged(false);
     }

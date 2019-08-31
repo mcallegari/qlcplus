@@ -37,8 +37,11 @@ GenericDMXSource::GenericDMXSource(Doc* doc)
 
 GenericDMXSource::~GenericDMXSource()
 {
-    foreach (GenericFader *fader, m_fadersMap.values())
-        fader->requestDelete();
+    foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+    {
+        if (!fader.isNull())
+            fader->requestDelete();
+    }
     m_fadersMap.clear();
 
     m_doc->masterTimer()->unregisterDMXSource(this);
@@ -115,8 +118,8 @@ void GenericDMXSource::writeDMX(MasterTimer* timer, QList<Universe *> ua)
                 continue;
 
             quint32 universe = fixture->universe();
-            GenericFader *fader = m_fadersMap.value(universe, NULL);
-            if (fader == NULL)
+            QSharedPointer<GenericFader> fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
+            if (fader.isNull())
             {
                 fader = ua[universe]->requestFader();
                 m_fadersMap[universe] = fader;
@@ -132,12 +135,12 @@ void GenericDMXSource::writeDMX(MasterTimer* timer, QList<Universe *> ua)
         m_clearRequest = false;
         m_values.clear();
 
-        QMapIterator <quint32, GenericFader*> it(m_fadersMap);
+        QMapIterator <quint32, QSharedPointer<GenericFader> > it(m_fadersMap);
         while (it.hasNext() == true)
         {
             it.next();
             quint32 universe = it.key();
-            GenericFader *fader = it.value();
+            QSharedPointer<GenericFader> fader = it.value();
             ua[universe]->dismissFader(fader);
         }
         m_fadersMap.clear();

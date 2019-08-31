@@ -64,6 +64,7 @@ lessThan(QT_MAJOR_VERSION, 5) {
                      $$SYS_LIBS_PATH/libintl-8.dll \
                      $$SYS_LIBS_PATH/libpcre-1.dll \
                      $$SYS_LIBS_PATH/libpng16-16.dll \
+                     $$SYS_LIBS_PATH/libjpeg-8.dll \
                      $$SYS_LIBS_PATH/libspeex-1.dll \
                      $$SYS_LIBS_PATH/zlib1.dll
 
@@ -92,6 +93,7 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 
     qtimageformats.path = $$INSTALLROOT/$$LIBSDIR/imageformats
     qtimageformats.files = $$QT_PLUGINS_PATH/imageformats/qgif$${QT_D}.dll \
+                           $$QT_PLUGINS_PATH/imageformats/qjpeg$${QT_D}.dll \
                            $$QT_PLUGINS_PATH/imageformats/qsvg$${QT_D}.dll
     INSTALLS += qtimageformats
 

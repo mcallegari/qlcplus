@@ -80,8 +80,11 @@ VCSlider::~VCSlider()
     m_doc->masterTimer()->unregisterDMXSource(this);
 
     // request to delete all the active faders
-    foreach (GenericFader *fader, m_fadersMap.values())
-        fader->requestDelete();
+    foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+    {
+        if (!fader.isNull())
+            fader->requestDelete();
+    }
     m_fadersMap.clear();
 
     if (m_item)
@@ -252,8 +255,11 @@ void VCSlider::setSliderMode(SliderMode mode)
         m_doc->masterTimer()->unregisterDMXSource(this);
 
         // request to delete all the active faders
-        foreach (GenericFader *fader, m_fadersMap.values())
-            fader->requestDelete();
+        foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+        {
+            if (!fader.isNull())
+                fader->requestDelete();
+        }
         m_fadersMap.clear();
     }
 }
@@ -1107,8 +1113,8 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
 
             quint32 universe = fxi->universe();
 
-            GenericFader *fader = m_fadersMap.value(universe, nullptr);
-            if (fader == nullptr)
+            QSharedPointer<GenericFader> fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>(nullptr));
+            if (fader.isNull())
             {
                 fader = universes[universe]->requestFader();
                 m_fadersMap[universe] = fader;
@@ -1121,13 +1127,13 @@ void VCSlider::writeDMXLevel(MasterTimer* timer, QList<Universe *> universes)
                 continue;
             }
 
-            int chType = fc->type();
+            int chType = fc->flags();
 
             // on override, force channel to LTP
             if (m_isOverriding)
             {
-                fc->unsetTypeFlag(FadeChannel::HTP);
-                fc->setTypeFlag(FadeChannel::LTP);
+                fc->removeFlag(FadeChannel::HTP);
+                fc->addFlag(FadeChannel::LTP);
             }
 
             if (chType & FadeChannel::Intensity && clickAndGoType() == CnGColors)

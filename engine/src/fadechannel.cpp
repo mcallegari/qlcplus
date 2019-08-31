@@ -27,7 +27,7 @@
 #include "fixture.h"
 
 FadeChannel::FadeChannel()
-    : m_type(0)
+    : m_flags(0)
     , m_fixture(Fixture::invalidId())
     , m_universe(Universe::invalid())
     , m_channel(QLCChannel::invalid())
@@ -42,7 +42,7 @@ FadeChannel::FadeChannel()
 }
 
 FadeChannel::FadeChannel(const FadeChannel& ch)
-    : m_type(ch.m_type)
+    : m_flags(ch.m_flags)
     , m_fixture(ch.m_fixture)
     , m_universe(ch.m_universe)
     , m_channel(ch.m_channel)
@@ -58,7 +58,7 @@ FadeChannel::FadeChannel(const FadeChannel& ch)
 }
 
 FadeChannel::FadeChannel(const Doc *doc, quint32 fxi, quint32 channel)
-    : m_type(0)
+    : m_flags(0)
     , m_fixture(fxi)
     , m_channel(channel)
     , m_start(0)
@@ -75,36 +75,56 @@ FadeChannel::~FadeChannel()
 {
 }
 
+FadeChannel &FadeChannel::operator=(const FadeChannel &fc)
+{
+    if (this != &fc)
+    {
+        m_flags = fc.m_flags;
+        m_fixture = fc.m_fixture;
+        m_universe = fc.m_universe;
+        m_channel = fc.m_channel;
+        m_address = fc.m_address;
+        m_start = fc.m_start;
+        m_target = fc.m_target;
+        m_current = fc.m_current;
+        m_ready = fc.m_ready;
+        m_fadeTime = fc.m_fadeTime;
+        m_elapsed = fc.m_elapsed;
+    }
+
+    return *this;
+}
+
 bool FadeChannel::operator==(const FadeChannel& ch) const
 {
     return (m_fixture == ch.m_fixture && m_channel == ch.m_channel);
 }
 
-int FadeChannel::type() const
+int FadeChannel::flags() const
 {
-    return m_type;
+    return m_flags;
 }
 
-void FadeChannel::setType(int type)
+void FadeChannel::setFlags(int flags)
 {
-    m_type = type;
+    m_flags = flags;
 }
 
-void FadeChannel::setTypeFlag(int flag)
+void FadeChannel::addFlag(int flag)
 {
-    m_type |= flag;
+    m_flags |= flag;
 }
 
-void FadeChannel::unsetTypeFlag(int flag)
+void FadeChannel::removeFlag(int flag)
 {
-    m_type &= (~flag);
+    m_flags &= (~flag);
 }
 
 void FadeChannel::autoDetect(const Doc *doc)
 {
     bool fixtureWasInvalid = false;
     // reset before autodetecting
-    setType(0);
+    setFlags(0);
 
     /* on invalid fixture, channel number is most likely
      * absolute (SimpleDesk/CueStack do it this way), so attempt
@@ -120,7 +140,7 @@ void FadeChannel::autoDetect(const Doc *doc)
     {
         m_universe = Universe::invalid();
         m_address = QLCChannel::invalid();
-        setTypeFlag(FadeChannel::HTP | FadeChannel::Intensity | FadeChannel::CanFade);
+        addFlag(FadeChannel::HTP | FadeChannel::Intensity | FadeChannel::CanFade);
     }
     else
     {
@@ -137,28 +157,28 @@ void FadeChannel::autoDetect(const Doc *doc)
         // non existing channel within fixture
         if (channel == NULL)
         {
-            setTypeFlag(FadeChannel::HTP | FadeChannel::Intensity | FadeChannel::CanFade);
+            addFlag(FadeChannel::HTP | FadeChannel::Intensity | FadeChannel::CanFade);
             return;
         }
 
         // autodetect the channel type
         if (fixture->channelCanFade(m_channel))
-            setTypeFlag(FadeChannel::CanFade);
+            addFlag(FadeChannel::CanFade);
 
         if (channel != NULL && channel->group() == QLCChannel::Intensity)
-            setTypeFlag(FadeChannel::HTP | FadeChannel::Intensity);
+            addFlag(FadeChannel::HTP | FadeChannel::Intensity);
         else
-            setTypeFlag(FadeChannel::LTP);
+            addFlag(FadeChannel::LTP);
 
         if (fixture->forcedHTPChannels().contains(m_channel))
         {
-            unsetTypeFlag(FadeChannel::LTP);
-            setTypeFlag(FadeChannel::HTP);
+            removeFlag(FadeChannel::LTP);
+            addFlag(FadeChannel::HTP);
         }
         else if (fixture->forcedLTPChannels().contains(m_channel))
         {
-            unsetTypeFlag(FadeChannel::HTP);
-            setTypeFlag(FadeChannel::LTP);
+            removeFlag(FadeChannel::HTP);
+            addFlag(FadeChannel::LTP);
         }
     }
 }
@@ -174,7 +194,7 @@ quint32 FadeChannel::fixture() const
     return m_fixture;
 }
 
-quint32 FadeChannel::universe()
+quint32 FadeChannel::universe() const
 {
     if (m_universe == Universe::invalid())
         return address() / UNIVERSE_SIZE;
@@ -252,7 +272,7 @@ bool FadeChannel::isReady() const
 
 bool FadeChannel::canFade() const
 {
-    return (m_type & CanFade) ? true : false;
+    return (m_flags & CanFade) ? true : false;
 }
 
 void FadeChannel::setFadeTime(uint ms)

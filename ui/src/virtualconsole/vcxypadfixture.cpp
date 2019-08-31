@@ -114,6 +114,11 @@ VCXYPadFixture::VCXYPadFixture(Doc* doc, const QVariant& variant)
     }
 }
 
+VCXYPadFixture::VCXYPadFixture(const VCXYPadFixture &other)
+{
+    *this = other;
+}
+
 VCXYPadFixture::~VCXYPadFixture()
 {
 }
@@ -519,9 +524,12 @@ void VCXYPadFixture::updateChannel(FadeChannel *fc, uchar value)
     fc->setReady(false);
 }
 
-void VCXYPadFixture::writeDMX(qreal xmul, qreal ymul, GenericFader *fader, Universe *universe)
+void VCXYPadFixture::writeDMX(qreal xmul, qreal ymul, QSharedPointer<GenericFader> fader, Universe *universe)
 {
     if (m_xMSB == QLCChannel::invalid() || m_yMSB == QLCChannel::invalid())
+        return;
+
+    if (fader.isNull())
         return;
 
     ushort x = floor(m_xRange * xmul + m_xOffset + 0.5);

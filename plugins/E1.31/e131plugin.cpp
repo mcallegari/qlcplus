@@ -25,6 +25,12 @@
 
 #define MAX_INIT_RETRY  10
 
+
+bool addressCompare(const E131IO &v1, const E131IO &v2)
+{
+    return v1.address.ip().toString() < v2.address.ip().toString();
+}
+
 E131Plugin::~E131Plugin()
 {
 }
@@ -59,6 +65,7 @@ void E131Plugin::init()
             }
         }
     }
+    std::sort(m_IOmapping.begin(), m_IOmapping.end(), addressCompare);
 }
 
 QString E131Plugin::name()

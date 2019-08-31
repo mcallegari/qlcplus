@@ -66,6 +66,7 @@ $WKHTMLTOPDF --footer-center "Page [page]" --image-quality 100 --javascript-dela
   hidplugin.html \
   midiplugin.html \
   olaplugin.html \
+  os2lplugin.html \
   oscplugin.html \
   peperonioutput.html \
   udmxoutput.html \

@@ -159,6 +159,17 @@ public:
     /** Disable flow control */
     virtual bool setFlowControl() = 0;
 
+    /**
+     * Set the widget in "low latency mode". Some DMX controllers send DMX
+     * frames at a much higher rate than the specified value. USB widget may
+     * have difficulties to read independant frames in this case and need
+     * some configuration.
+     *
+     * @param lowLatency true for low latency, false otherwise
+     * @return true if the interface was set in low latency state
+     */
+    virtual bool setLowLatency(bool lowLatency) = 0;
+
     /** Clear the RTS bit */
     virtual bool clearRts() = 0;
 
@@ -176,6 +187,10 @@ public:
 
     /** Read exactly one byte. $ok tells if a byte was read or not. */
     virtual uchar readByte(bool* ok = NULL) = 0;
+
+protected:
+    /** Latency amount in ms for FTDI devices */
+    unsigned char m_defaultLatency;
 };
 
 #endif

@@ -25,6 +25,11 @@
 
 #define MAX_INIT_RETRY  10
 
+bool addressCompare(const OSCIO &v1, const OSCIO &v2)
+{
+    return v1.IPAddress < v2.IPAddress;
+}
+
 OSCPlugin::~OSCPlugin()
 {
 }
@@ -58,6 +63,7 @@ void OSCPlugin::init()
             }
         }
     }
+    std::sort(m_IOmapping.begin(), m_IOmapping.end(), addressCompare);
 }
 
 QString OSCPlugin::name()

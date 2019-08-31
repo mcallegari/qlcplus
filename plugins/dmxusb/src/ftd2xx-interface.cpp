@@ -225,10 +225,16 @@ bool FTD2XXInterface::open()
         qWarning() << Q_FUNC_INFO << "Error opening" << name() << status;
         return false;
     }
-    else
+
+    status = FT_GetLatencyTimer(m_handle, &m_defaultLatency);
+    if (status != FT_OK)
     {
-        return true;
+        qWarning() << Q_FUNC_INFO << name() << status;
+        m_defaultLatency = 16;
     }
+
+    qDebug() << Q_FUNC_INFO << serial() << "Default latency is" << m_defaultLatency;
+    return true;
 }
 
 bool FTD2XXInterface::openByPID(const int PID)
@@ -302,6 +308,30 @@ bool FTD2XXInterface::setBaudRate()
 bool FTD2XXInterface::setFlowControl()
 {
     FT_STATUS status = FT_SetFlowControl(m_handle, 0, 0, 0);
+    if (status != FT_OK)
+    {
+        qWarning() << Q_FUNC_INFO << name() << status;
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
+bool FTD2XXInterface::setLowLatency(bool lowLatency)
+{
+    unsigned char latency;
+    if (lowLatency)
+    {
+        latency = 1;
+    }
+    else
+    {
+        latency = m_defaultLatency;
+    }
+
+    FT_STATUS status = FT_SetLatencyTimer(m_handle, latency);
     if (status != FT_OK)
     {
         qWarning() << Q_FUNC_INFO << name() << status;

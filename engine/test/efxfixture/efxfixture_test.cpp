@@ -452,7 +452,7 @@ void EFXFixture_Test::setPoint8bit()
 
     QList<Universe*> ua = m_doc->inputOutputMap()->universes();
     Universe *universe = ua[0];
-    GenericFader *fader = universe->requestFader();
+    QSharedPointer<GenericFader> fader = universe->requestFader();
 
     ef.setPointPanTilt(ua, fader, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
     QCOMPARE(fader->channels().count(), 2);
@@ -472,7 +472,7 @@ void EFXFixture_Test::setPoint16bit()
 
     QList<Universe*> ua = m_doc->inputOutputMap()->universes();
     Universe *universe = ua[0];
-    GenericFader *fader = universe->requestFader();
+    QSharedPointer<GenericFader> fader = universe->requestFader();
 
     ef.setPointPanTilt(ua, fader, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
     QCOMPARE(fader->channels().count(), 4);
@@ -491,7 +491,7 @@ void EFXFixture_Test::setPointPanOnly()
 
     QList<Universe*> ua = m_doc->inputOutputMap()->universes();
     Universe *universe = ua[0];
-    GenericFader *fader = universe->requestFader();
+    QSharedPointer<GenericFader> fader = universe->requestFader();
 
     ef.setPointPanTilt(ua, fader, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
     QCOMPARE(fader->channels().count(), 1);
@@ -510,7 +510,7 @@ void EFXFixture_Test::setPointLedBar()
 
     QList<Universe*> ua = m_doc->inputOutputMap()->universes();
     Universe *universe = ua[0];
-    GenericFader *fader = universe->requestFader();
+    QSharedPointer<GenericFader> fader = universe->requestFader();
 
     ef.setPointPanTilt(ua, fader, 5.4, 1.5); // PMSB: 5, PLSB: 0.4, TMSB: 1 (102), TLSB: 0.5(127)
     QCOMPARE(fader->channels().count(), 1);
@@ -527,7 +527,7 @@ void EFXFixture_Test::nextStepLoop()
 {
     QList<Universe*> ua = m_doc->inputOutputMap()->universes();
     Universe *universe = ua[0];
-    GenericFader *fader = universe->requestFader();
+    QSharedPointer<GenericFader> fader = universe->requestFader();
     MasterTimerStub mts(m_doc, ua);
 
     EFX e(m_doc);
@@ -567,7 +567,7 @@ void EFXFixture_Test::nextStepLoopZeroDuration()
 {
     QList<Universe*> ua = m_doc->inputOutputMap()->universes();
     Universe *universe = ua[0];
-    GenericFader *fader = universe->requestFader();
+    QSharedPointer<GenericFader> fader = universe->requestFader();
     MasterTimerStub mts(m_doc, ua);
 
     EFX e(m_doc);
@@ -607,7 +607,7 @@ void EFXFixture_Test::nextStepSingleShot()
 {
     QList<Universe*> ua = m_doc->inputOutputMap()->universes();
     Universe *universe = ua[0];
-    GenericFader *fader = universe->requestFader();
+    QSharedPointer<GenericFader> fader = universe->requestFader();
     MasterTimerStub mts(m_doc, ua);
 
     EFX e(m_doc);

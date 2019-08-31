@@ -73,6 +73,8 @@ class QLCPhysical
      ************************************************************************/
 public:
     QLCPhysical();
+    QLCPhysical(const QLCPhysical &other);
+
     virtual ~QLCPhysical();
 
     QLCPhysical& operator=(const QLCPhysical& physical);

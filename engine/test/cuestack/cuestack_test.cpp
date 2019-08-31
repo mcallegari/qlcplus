@@ -735,7 +735,7 @@ void CueStack_Test::switchCue()
     cs.switchCue(3, 0, ua);
     QCOMPARE(cs.m_fadersMap.count(), 1);
 
-    GenericFader *fader = cs.m_fadersMap[0];
+    QSharedPointer<GenericFader> fader = cs.m_fadersMap[0];
 
     quint32 chHash = GenericFader::channelHash(Fixture::invalidId(), 0);
     QCOMPARE(fader->channels()[chHash].start(), uchar(0));
@@ -890,7 +890,7 @@ void CueStack_Test::postRun()
     cs.switchCue(-1, 0, ua);
     QCOMPARE(cs.m_fadersMap.count(), 1);
 
-    GenericFader *fader = cs.m_fadersMap[0];
+    QSharedPointer<GenericFader> fader = cs.m_fadersMap[0];
     QCOMPARE(fader->channels().size(), 5);
 
     QSignalSpy cueSpy(&cs, SIGNAL(currentCueChanged(int)));
@@ -950,7 +950,7 @@ void CueStack_Test::write()
     QCOMPARE(cs.currentIndex(), 0);
     QCOMPARE(cs.m_fadersMap.count(), 1);
 
-    GenericFader *fader = cs.m_fadersMap[0];
+    QSharedPointer<GenericFader> fader = cs.m_fadersMap[0];
     quint32 chHash = (Fixture::invalidId() << 16) | 0;
 
     QCOMPARE(fader->channels()[chHash].channel(), uint(0));

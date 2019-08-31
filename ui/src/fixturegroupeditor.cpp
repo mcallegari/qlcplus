@@ -240,8 +240,11 @@ void FixtureGroupEditor::slotResized()
             if (item != NULL)
             {
                 QFont scaledFont = font;
+#if (QT_VERSION < QT_VERSION_CHECK(5, 11, 0))
                 float baseWidth  = (float)fm.width(item->text());
-
+#else
+                float baseWidth  = (float)fm.horizontalAdvance(item->text());
+#endif
                 float factor = cellWidth / baseWidth;
                 if (factor != 1)
                     scaledFont.setPointSizeF((pSizeF * factor) + 2);

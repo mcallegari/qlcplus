@@ -62,6 +62,7 @@ public:
 
     /** Initialize from QVariant */
     VCXYPadFixture(Doc *doc, const QVariant& variant);
+    VCXYPadFixture(const VCXYPadFixture &other);
     ~VCXYPadFixture();
 
     /** Assignment operator */
@@ -204,7 +205,7 @@ public:
      *      (0.0 => min, 1.0 => max, or vice versa if the range is reversed)
      *  \param universes universes where the values are written
      */
-    void writeDMX(qreal xmul, qreal ymul, GenericFader *fader, Universe *universe);
+    void writeDMX(qreal xmul, qreal ymul, QSharedPointer<GenericFader> fader, Universe *universe);
 
     /** Read position from the current universe
      *  \param universeData universe values where this fixture is present

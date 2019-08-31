@@ -202,10 +202,10 @@ void Universe::slotGMValueChanged()
  * Faders
  ************************************************************************/
 
-GenericFader *Universe::requestFader(Universe::FaderPriority priority)
+QSharedPointer<GenericFader> Universe::requestFader(Universe::FaderPriority priority)
 {
     int insertPos = 0;
-    GenericFader *fader = new GenericFader();
+    QSharedPointer<GenericFader> fader = QSharedPointer<GenericFader>(new GenericFader());
     fader->setPriority(priority);
 
     if (m_faders.isEmpty())
@@ -216,8 +216,8 @@ GenericFader *Universe::requestFader(Universe::FaderPriority priority)
     {
         for (int i = m_faders.count() - 1; i >= 0; i--)
         {
-            GenericFader *f = m_faders.at(i);
-            if (f->priority() <= fader->priority())
+            QSharedPointer<GenericFader> f = m_faders.at(i);
+            if (!f.isNull() && f->priority() <= fader->priority())
             {
                 insertPos = i + 1;
                 break;
@@ -232,17 +232,17 @@ GenericFader *Universe::requestFader(Universe::FaderPriority priority)
     return fader;
 }
 
-void Universe::dismissFader(GenericFader *fader)
+void Universe::dismissFader(QSharedPointer<GenericFader> fader)
 {
     int index = m_faders.indexOf(fader);
     if (index >= 0)
     {
         m_faders.takeAt(index);
-        delete fader;
+        fader.clear();
     }
 }
 
-void Universe::requestFaderPriority(GenericFader *fader, Universe::FaderPriority priority)
+void Universe::requestFaderPriority(QSharedPointer<GenericFader> fader, Universe::FaderPriority priority)
 {
     if (m_faders.contains(fader) == false)
         return;
@@ -252,8 +252,8 @@ void Universe::requestFaderPriority(GenericFader *fader, Universe::FaderPriority
 
     for (int i = m_faders.count() - 1; i >= 0; i--)
     {
-        GenericFader *f = m_faders.at(i);
-        if (f->priority() <= priority)
+        QSharedPointer<GenericFader> f = m_faders.at(i);
+        if (!f.isNull() && f->priority() <= priority)
         {
             newPos = i;
             fader->setPriority(priority);
@@ -268,7 +268,7 @@ void Universe::requestFaderPriority(GenericFader *fader, Universe::FaderPriority
     }
 }
 
-QList<GenericFader *> Universe::faders()
+QList<QSharedPointer<GenericFader> > Universe::faders()
 {
     return m_faders;
 }
@@ -284,23 +284,27 @@ void Universe::processFaders()
     zeroIntensityChannels();
     zeroRelativeValues();
 
-    QMutableListIterator<GenericFader *> it(m_faders);
+    QMutableListIterator<QSharedPointer<GenericFader> > it(m_faders);
     while (it.hasNext())
     {
-        GenericFader *fader = it.next();
+        QSharedPointer<GenericFader> fader = it.next();
+        if (fader.isNull())
+            continue;
+
         // destroy a fader if it's been requested
         // and it's not fading out
-        if (fader->deleteRequest() && !fader->isFadingOut())
+        if (fader->deleteRequested() && !fader->isFadingOut())
         {
             fader->removeAll();
             it.remove();
-            delete fader;
+            fader.clear();
             continue;
         }
+
         if (fader->isEnabled() == false)
             continue;
 
-        //qDebug() << "Processing fader" << fader->name();
+        //qDebug() << "Processing fader" << fader->name() << fader->channelsCount();
         fader->write(this);
     }
 

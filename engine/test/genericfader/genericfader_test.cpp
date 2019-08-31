@@ -65,7 +65,7 @@ void GenericFader_Test::cleanup()
 void GenericFader_Test::addRemove()
 {
     QList<Universe*> ua = m_doc->inputOutputMap()->universes();
-    GenericFader *fader = new GenericFader();
+    QSharedPointer<GenericFader> fader = QSharedPointer<GenericFader>(new GenericFader());
 
     FadeChannel fc;
     fc.setFixture(m_doc, 0);
@@ -131,7 +131,7 @@ void GenericFader_Test::addRemove()
 void GenericFader_Test::writeZeroFade()
 {
     QList<Universe*> ua = m_doc->inputOutputMap()->universes();
-    GenericFader *fader = ua[0]->requestFader();
+    QSharedPointer<GenericFader> fader = ua[0]->requestFader();
 
     FadeChannel fc;
     fc.setFixture(m_doc, 0);
@@ -149,7 +149,7 @@ void GenericFader_Test::writeZeroFade()
 void GenericFader_Test::writeLoop()
 {
     QList<Universe*> ua = m_doc->inputOutputMap()->universes();
-    GenericFader *fader = ua[0]->requestFader();
+    QSharedPointer<GenericFader> fader = ua[0]->requestFader();
 
     FadeChannel fc;
     fc.setFixture(m_doc, 0);
@@ -176,7 +176,7 @@ void GenericFader_Test::writeLoop()
 void GenericFader_Test::adjustIntensity()
 {
     QList<Universe*> ua = m_doc->inputOutputMap()->universes();
-    GenericFader *fader = ua[0]->requestFader();
+    QSharedPointer<GenericFader> fader = ua[0]->requestFader();
 
     FadeChannel fc;
 

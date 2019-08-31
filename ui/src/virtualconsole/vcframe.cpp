@@ -647,8 +647,8 @@ void VCFrame::slotSubmasterValueChanged(qreal value)
     QListIterator <VCWidget*> it(this->findChildren<VCWidget*>());
     while (it.hasNext() == true)
     {
-        VCWidget* child = it.next();
-        if (child->parent() == this && child != submaster)
+        VCWidget *child = it.next();
+        if (child->parent() == this && child->page() == this->currentPage() && child != submaster)
             child->adjustIntensity(value);
     }
 }
@@ -673,8 +673,8 @@ void VCFrame::adjustIntensity(qreal val)
     QListIterator <VCWidget*> it(this->findChildren<VCWidget*>());
     while (it.hasNext() == true)
     {
-        VCWidget* child = it.next();
-        if (child->parent() == this)
+        VCWidget *child = it.next();
+        if (child->parent() == this && child->page() == this->currentPage())
             child->adjustIntensity(val);
     }
     VCWidget::adjustIntensity(val);
@@ -1170,7 +1170,9 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
             /* Create a new slider into its parent */
             VCSlider* slider = new VCSlider(this, m_doc);
             if (slider->loadXML(root) == false)
+            {
                 delete slider;
+            }
             else
             {
                 addWidgetToPageMap(slider);

@@ -34,7 +34,8 @@ enum ChaserActionType
 typedef struct
 {
     ChaserActionType m_action;
-    qreal m_intensity;
+    qreal m_masterIntensity;
+    qreal m_stepIntensity;
     int m_fadeMode;
     int m_stepIndex;
 } ChaserAction;

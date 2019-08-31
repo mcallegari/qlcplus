@@ -125,5 +125,3 @@ void DMXInterface::storeFrequencyMap(const QMap<QString, QVariant> map)
     QSettings settings;
     settings.setValue(SETTINGS_FREQ_MAP, map);
 }
-
-

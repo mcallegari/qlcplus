@@ -75,7 +75,7 @@
   <Capability Min="16" Max="20" Preset="GoboMacro" Res1="Others/gobo00071.svg">Gobo 3</Capability>
   <Capability Min="21" Max="25" Preset="GoboMacro" Res1="Others/gobo00072.svg">Gobo 4</Capability>
   <Capability Min="26" Max="30" Preset="GoboMacro" Res1="Others/gobo00006.svg">Gobo 5</Capability>
-  <Capability Min="31" Max="35" Preset="GoboMacro" Res1="SGM/gobo00304.png">Gobo 6</Capability>
+  <Capability Min="31" Max="35" Preset="GoboMacro" Res1="Others/gobo00059.svg">Gobo 6</Capability>
   <Capability Min="36" Max="42" Preset="GoboMacro" Res1="SGM/gobo00026.png">Gobo 7</Capability>
   <Capability Min="43" Max="50" Preset="GoboMacro" Res1="Others/open.svg">Rotate open gobo</Capability>
   <Capability Min="51" Max="58" Preset="GoboMacro" Res1="Robe/gobo00044.png">Rotate gobo 1</Capability>
@@ -83,10 +83,10 @@
   <Capability Min="66" Max="73" Preset="GoboMacro" Res1="Others/gobo00071.svg">Rotate gobo 3</Capability>
   <Capability Min="74" Max="81" Preset="GoboMacro" Res1="Others/gobo00072.svg">Rotate gobo 4</Capability>
   <Capability Min="82" Max="89" Preset="GoboMacro" Res1="Others/gobo00006.svg">Rotate gobo 5</Capability>
-  <Capability Min="90" Max="96" Preset="GoboMacro" Res1="SGM/gobo00304.png">Rotate gobo 6</Capability>
+  <Capability Min="90" Max="96" Preset="GoboMacro" Res1="Others/gobo00059.svg">Rotate gobo 6</Capability>
   <Capability Min="97" Max="104" Preset="GoboMacro" Res1="SGM/gobo00026.png">Rotate gobo 7</Capability>
   <Capability Min="105" Max="119" Preset="GoboMacro" Res1="SGM/gobo00026.png">Gobo 7, shake slow -&gt; fast</Capability>
-  <Capability Min="120" Max="134" Preset="GoboMacro" Res1="SGM/gobo00304.png">Gobo 6, shake slow -&gt; fast</Capability>
+  <Capability Min="120" Max="134" Preset="GoboMacro" Res1="Others/gobo00059.svg">Gobo 6, shake slow -&gt; fast</Capability>
   <Capability Min="135" Max="149" Preset="GoboMacro" Res1="Others/gobo00006.svg">Gobo 5, shake slow -&gt; fast</Capability>
   <Capability Min="150" Max="164" Preset="GoboMacro" Res1="Others/gobo00072.svg">Gobo 4, shake slow -&gt; fast</Capability>
   <Capability Min="165" Max="179" Preset="GoboMacro" Res1="Others/gobo00071.svg">Gobo 3, shake slow -&gt; fast</Capability>

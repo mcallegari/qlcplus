@@ -92,6 +92,7 @@ HEADERS += dmxusb.h \
            dmxusbconfig.h \
            enttecdmxusbpro.h \
            enttecdmxusbopen.h \
+           dmxusbopenrx.h \
            stageprofi.h \
            vinceusbdmx512.h \
            dmxinterface.h
@@ -105,6 +106,7 @@ SOURCES += dmxinterface.cpp \
            dmxusbconfig.cpp \
            enttecdmxusbpro.cpp \
            enttecdmxusbopen.cpp \
+           dmxusbopenrx.cpp \
            stageprofi.cpp \
            vinceusbdmx512.cpp
 

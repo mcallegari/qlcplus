@@ -109,7 +109,11 @@ VCCueList::VCCueList(QWidget *parent, Doc *doc) : VCWidget(parent, doc)
 
     m_topPercentageLabel = new QLabel("100%");
     m_topPercentageLabel->setAlignment(Qt::AlignHCenter);
+#if (QT_VERSION < QT_VERSION_CHECK(5, 11, 0))
     m_topPercentageLabel->setFixedWidth(m_fm.width("100%"));
+#else
+    m_topPercentageLabel->setFixedWidth(m_fm.horizontalAdvance("100%"));
+#endif
     grid->addWidget(m_topPercentageLabel, 1, 0, 1, 1);
 
     m_topStepLabel = new QLabel("");
@@ -133,7 +137,11 @@ VCCueList::VCCueList(QWidget *parent, Doc *doc) : VCWidget(parent, doc)
 
     m_bottomPercentageLabel = new QLabel("0%");
     m_bottomPercentageLabel->setAlignment(Qt::AlignHCenter);
+#if (QT_VERSION < QT_VERSION_CHECK(5, 11, 0))
     m_bottomPercentageLabel->setFixedWidth(m_fm.width("100%"));
+#else
+    m_bottomPercentageLabel->setFixedWidth(m_fm.horizontalAdvance("100%"));
+#endif
     grid->addWidget(m_bottomPercentageLabel, 5, 0, 1, 1);
 
     connect(m_sideFader, SIGNAL(valueChanged(int)),
@@ -551,13 +559,10 @@ int VCCueList::getLastTreeIndex()
 
 qreal VCCueList::getPrimaryIntensity() const
 {
-    qreal value;
     if (sideFaderMode() == Steps)
-        value = 1.0;
-    else
-        value = m_primaryTop ? qreal(m_sideFader->value() / 100.0) : qreal((100 - m_sideFader->value()) / 100.0);
+        return  1.0;
 
-    return value * intensity();
+    return m_primaryTop ? qreal(m_sideFader->value() / 100.0) : qreal((100 - m_sideFader->value()) / 100.0);
 }
 
 void VCCueList::notifyFunctionStarting(quint32 fid, qreal intensity)
@@ -630,7 +635,7 @@ void VCCueList::slotPlayback()
             if (ch->isPaused())
             {
                 m_playbackButton->setStyleSheet(QString("QToolButton{ background: %1; }")
-                                                .arg(m_stopButton->palette().background().color().name()));
+                                                .arg(m_stopButton->palette().window().color().name()));
                 m_playbackButton->setIcon(QIcon(":/player_pause.png"));
             }
             else
@@ -650,7 +655,7 @@ void VCCueList::slotPlayback()
         {
             stopChaser();
             m_stopButton->setStyleSheet(QString("QToolButton{ background: %1; }")
-                                            .arg(m_playbackButton->palette().background().color().name()));
+                                            .arg(m_playbackButton->palette().window().color().name()));
         }
     }
     else
@@ -677,7 +682,7 @@ void VCCueList::slotStop()
         {
             stopChaser();
             m_playbackButton->setStyleSheet(QString("QToolButton{ background: %1; }")
-                                            .arg(m_stopButton->palette().background().color().name()));
+                                            .arg(m_stopButton->palette().window().color().name()));
             m_progress->setFormat("");
             m_progress->setValue(0);
         }
@@ -686,7 +691,7 @@ void VCCueList::slotStop()
             if (ch->isPaused())
             {
                 m_stopButton->setStyleSheet(QString("QToolButton{ background: %1; }")
-                                                .arg(m_playbackButton->palette().background().color().name()));
+                                                .arg(m_playbackButton->palette().window().color().name()));
                 m_stopButton->setIcon(QIcon(":/player_pause.png"));
             }
             else
@@ -722,7 +727,8 @@ void VCCueList::slotNextCue()
         {
             ChaserAction action;
             action.m_action = ChaserNextStep;
-            action.m_intensity = getPrimaryIntensity();
+            action.m_masterIntensity = intensity();
+            action.m_stepIntensity = getPrimaryIntensity();
             action.m_fadeMode = getFadeMode();
             ch->setAction(action);
         }
@@ -767,7 +773,8 @@ void VCCueList::slotPreviousCue()
         {
             ChaserAction action;
             action.m_action = ChaserPreviousStep;
-            action.m_intensity = getPrimaryIntensity();
+            action.m_masterIntensity = intensity();
+            action.m_stepIntensity = getPrimaryIntensity();
             action.m_fadeMode = getFadeMode();
             ch->setAction(action);
         }
@@ -968,7 +975,8 @@ void VCCueList::startChaser(int startIndex)
     ChaserAction action;
     action.m_action = ChaserSetStepIndex;
     action.m_stepIndex = startIndex;
-    action.m_intensity = getPrimaryIntensity();
+    action.m_masterIntensity = intensity();
+    action.m_stepIntensity = getPrimaryIntensity();
     action.m_fadeMode = getFadeMode();
     ch->setAction(action);
 
@@ -1147,7 +1155,8 @@ void VCCueList::slotSideFaderValueChanged(int value)
         ChaserAction action;
         action.m_action = ChaserSetStepIndex;
         action.m_stepIndex = newStep;
-        action.m_intensity = getPrimaryIntensity();
+        action.m_masterIntensity = intensity();
+        action.m_stepIntensity = getPrimaryIntensity();
         action.m_fadeMode = getFadeMode();
         ch->setAction(action);
     }
@@ -1372,13 +1381,14 @@ void VCCueList::adjustIntensity(qreal val)
     if (ch != NULL)
     {
         adjustFunctionIntensity(ch, val);
-
+/*
         // Refresh intensity of current steps
         if (!ch->stopped() && sideFaderMode() == Crossfade && m_sideFader->value() != 100)
         {
                 ch->adjustStepIntensity((qreal)m_sideFader->value() / 100, m_primaryTop ? m_primaryIndex : m_secondaryIndex);
                 ch->adjustStepIntensity((qreal)(100 - m_sideFader->value()) / 100, m_primaryTop ? m_secondaryIndex : m_primaryIndex);
         }
+*/
     }
 
     VCWidget::adjustIntensity(val);
@@ -1398,8 +1408,13 @@ void VCCueList::setFont(const QFont& font)
     VCWidget::setFont(font);
 
     QFontMetrics m_fm = QFontMetrics(font);
-    m_topPercentageLabel->setFixedWidth(m_fm.width("100%"));
-    m_bottomPercentageLabel->setFixedWidth(m_fm.width("100%"));
+#if (QT_VERSION < QT_VERSION_CHECK(5, 11, 0))
+    int w = m_fm.width("100%");
+#else
+    int w = m_fm.horizontalAdvance("100%");
+#endif
+    m_topPercentageLabel->setFixedWidth(w);
+    m_bottomPercentageLabel->setFixedWidth(w);
 }
 
 void VCCueList::slotModeChanged(Doc::Mode mode)
@@ -1457,7 +1472,8 @@ void VCCueList::playCueAtIndex(int idx)
         ChaserAction action;
         action.m_action = ChaserSetStepIndex;
         action.m_stepIndex = m_primaryIndex;
-        action.m_intensity = getPrimaryIntensity();
+        action.m_masterIntensity = intensity();
+        action.m_stepIntensity = getPrimaryIntensity();
         action.m_fadeMode = getFadeMode();
         ch->setAction(action);
     }

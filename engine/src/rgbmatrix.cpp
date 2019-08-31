@@ -626,8 +626,11 @@ void RGBMatrix::postRun(MasterTimer *timer, QList<Universe *> universes)
         if (tempoType() == Beats)
             fadeout = beatsToTime(fadeout, timer->beatTimeDuration());
 
-        foreach (GenericFader *fader, m_fadersMap.values())
-            fader->setFadeOut(true, fadeout);
+        foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+        {
+            if (!fader.isNull())
+                fader->setFadeOut(true, fadeout);
+        }
     }
 
     m_fadersMap.clear();
@@ -661,13 +664,14 @@ void RGBMatrix::roundCheck()
 FadeChannel *RGBMatrix::getFader(QList<Universe *> universes, quint32 universeID, quint32 fixtureID, quint32 channel)
 {
     // get the universe Fader first. If doesn't exist, create it
-    GenericFader *fader = m_fadersMap.value(universeID, NULL);
-    if (fader == NULL)
+    QSharedPointer<GenericFader> fader = m_fadersMap.value(universeID, QSharedPointer<GenericFader>());
+    if (fader.isNull())
     {
         fader = universes[universeID]->requestFader();
         fader->adjustIntensity(getAttributeValue(Intensity));
         fader->setBlendMode(blendMode());
         fader->setName(name());
+        fader->setParentFunctionID(id());
         m_fadersMap[universeID] = fader;
     }
 
@@ -796,8 +800,11 @@ int RGBMatrix::adjustAttribute(qreal fraction, int attributeId)
 
     if (attrIndex == Intensity)
     {
-        foreach (GenericFader *fader, m_fadersMap.values())
-            fader->adjustIntensity(getAttributeValue(Function::Intensity));
+        foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+        {
+            if (!fader.isNull())
+                fader->adjustIntensity(getAttributeValue(Function::Intensity));
+        }
     }
 
     return attrIndex;
@@ -812,8 +819,11 @@ void RGBMatrix::setBlendMode(Universe::BlendMode mode)
     if (mode == blendMode())
         return;
 
-    foreach (GenericFader *fader, m_fadersMap.values())
-        fader->setBlendMode(mode);
+    foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+    {
+        if (!fader.isNull())
+            fader->setBlendMode(mode);
+    }
 
     Function::setBlendMode(mode);
     emit changed(id());

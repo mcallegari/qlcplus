@@ -393,7 +393,7 @@ void EFXFixture::stop()
     m_started = false;
 }
 
-void EFXFixture::nextStep(QList<Universe *> universes, GenericFader *fader)
+void EFXFixture::nextStep(QList<Universe *> universes, QSharedPointer<GenericFader> fader)
 {
     m_elapsed += MasterTimer::tick();
 
@@ -476,7 +476,8 @@ void EFXFixture::updateFaderValues(FadeChannel *fc, uchar value)
     fc->setFadeTime(0);
 }
 
-void EFXFixture::setPointPanTilt(QList<Universe *> universes, GenericFader *fader, float pan, float tilt)
+void EFXFixture::setPointPanTilt(QList<Universe *> universes, QSharedPointer<GenericFader> fader,
+                                 float pan, float tilt)
 {
     Fixture* fxi = doc()->fixture(head().fxi);
     Q_ASSERT(fxi != NULL);
@@ -488,44 +489,44 @@ void EFXFixture::setPointPanTilt(QList<Universe *> universes, GenericFader *fade
     quint32 tiltMsbChannel = fxi->channelNumber(QLCChannel::Tilt, QLCChannel::MSB, head().head);
     quint32 tiltLsbChannel = fxi->channelNumber(QLCChannel::Tilt, QLCChannel::LSB, head().head);
 
-    if (panMsbChannel != QLCChannel::invalid())
+    if (panMsbChannel != QLCChannel::invalid() && !fader.isNull())
     {
         FadeChannel *fc = fader->getChannelFader(doc(), uni, fxi->id(), panMsbChannel);
         if (m_parent->isRelative())
-            fc->setTypeFlag(FadeChannel::Relative);
+            fc->addFlag(FadeChannel::Relative);
         updateFaderValues(fc, static_cast<uchar>(pan));
     }
-    if (tiltMsbChannel != QLCChannel::invalid())
+    if (tiltMsbChannel != QLCChannel::invalid() && !fader.isNull())
     {
         FadeChannel *fc = fader->getChannelFader(doc(), uni, fxi->id(), tiltMsbChannel);
         if (m_parent->isRelative())
-            fc->setTypeFlag(FadeChannel::Relative);
+            fc->addFlag(FadeChannel::Relative);
         updateFaderValues(fc, static_cast<uchar>(tilt));
     }
 
     /* Write fine point data to universes if applicable */
-    if (panLsbChannel != QLCChannel::invalid())
+    if (panLsbChannel != QLCChannel::invalid() && !fader.isNull())
     {
         /* Leave only the fraction */
         uchar value = static_cast<uchar> ((pan - floor(pan)) * double(UCHAR_MAX));
         FadeChannel *fc = fader->getChannelFader(doc(), uni, fxi->id(), panLsbChannel);
         if (m_parent->isRelative())
-            fc->setTypeFlag(FadeChannel::Relative);
+            fc->addFlag(FadeChannel::Relative);
         updateFaderValues(fc, static_cast<uchar>(value));
     }
 
-    if (tiltLsbChannel != QLCChannel::invalid())
+    if (tiltLsbChannel != QLCChannel::invalid() && !fader.isNull())
     {
         /* Leave only the fraction */
         uchar value = static_cast<uchar> ((tilt - floor(tilt)) * double(UCHAR_MAX));
         FadeChannel *fc = fader->getChannelFader(doc(), uni, fxi->id(), tiltLsbChannel);
         if (m_parent->isRelative())
-            fc->setTypeFlag(FadeChannel::Relative);
+            fc->addFlag(FadeChannel::Relative);
         updateFaderValues(fc, static_cast<uchar>(value));
     }
 }
 
-void EFXFixture::setPointDimmer(QList<Universe *> universes, GenericFader *fader, float dimmer)
+void EFXFixture::setPointDimmer(QList<Universe *> universes, QSharedPointer<GenericFader> fader, float dimmer)
 {
     Fixture *fxi = doc()->fixture(head().fxi);
     Q_ASSERT(fxi != NULL);
@@ -536,17 +537,23 @@ void EFXFixture::setPointDimmer(QList<Universe *> universes, GenericFader *fader
     /* Don't write dimmer data directly to universes but use FadeChannel to avoid steps at EFX loop restart */
     if (intChannel != QLCChannel::invalid())
     {
-        FadeChannel *fc = fader->getChannelFader(doc(), uni, fxi->id(), intChannel);
-        updateFaderValues(fc, dimmer);
+        if (!fader.isNull())
+        {
+            FadeChannel *fc = fader->getChannelFader(doc(), uni, fxi->id(), intChannel);
+            updateFaderValues(fc, dimmer);
+        }
     }
     else if (fxi->masterIntensityChannel() != QLCChannel::invalid())
     {
-        FadeChannel *fc = fader->getChannelFader(doc(), uni, fxi->id(), fxi->masterIntensityChannel());
-        updateFaderValues(fc, dimmer);
+        if (!fader.isNull())
+        {
+            FadeChannel *fc = fader->getChannelFader(doc(), uni, fxi->id(), fxi->masterIntensityChannel());
+            updateFaderValues(fc, dimmer);
+        }
     }
 }
 
-void EFXFixture::setPointRGB(QList<Universe *> universes, GenericFader *fader, float x, float y)
+void EFXFixture::setPointRGB(QList<Universe *> universes, QSharedPointer<GenericFader> fader, float x, float y)
 {
     Fixture* fxi = doc()->fixture(head().fxi);
     Q_ASSERT(fxi != NULL);
@@ -555,7 +562,7 @@ void EFXFixture::setPointRGB(QList<Universe *> universes, GenericFader *fader, f
     QVector<quint32> rgbChannels = fxi->rgbChannels(head().head);
 
     /* Don't write dimmer data directly to universes but use FadeChannel to avoid steps at EFX loop restart */
-    if (rgbChannels.size() >= 3)
+    if (rgbChannels.size() >= 3 && !fader.isNull())
     {
         QColor pixel = m_rgbGradient.pixel(x, y);
 

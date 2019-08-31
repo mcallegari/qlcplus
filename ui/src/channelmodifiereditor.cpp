@@ -93,7 +93,7 @@ static bool alphabeticSort(QString const & left, QString const & right)
 void ChannelModifierEditor::updateModifiersList(QString modifier)
 {
     QList<QString> names = m_doc->modifiersCache()->templateNames();
-    qStableSort(names.begin(), names.end(), alphabeticSort);
+    std::stable_sort(names.begin(), names.end(), alphabeticSort);
 
     m_templatesTree->clear();
     foreach(QString name, names)

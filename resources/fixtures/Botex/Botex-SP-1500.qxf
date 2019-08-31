@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.2 GIT</Version>
+  <Author>Gabse</Author>
+ </Creator>
+ <Manufacturer>Botex</Manufacturer>
+ <Model>SP-1500</Model>
+ <Type>Strobe</Type>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Control">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="49">Normal</Capability>
+  <Capability Min="50" Max="99">Blinder</Capability>
+  <Capability Min="100" Max="149">Random</Capability>
+  <Capability Min="150" Max="199">Single Flash</Capability>
+  <Capability Min="200" Max="255">SYNC</Capability>
+ </Channel>
+ <Mode Name="Default">
+  <Channel Number="0">Strobe</Channel>
+  <Channel Number="1">Dimmer</Channel>
+ </Mode>
+ <Mode Name="Henne's Mod">
+  <Channel Number="0">Strobe</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Control</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="XOP-15" Lumens="7500" ColourTemperature="8000"/>
+  <Dimensions Weight="5.65" Width="480" Height="220" Depth="124"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="1600" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

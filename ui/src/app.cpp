@@ -228,12 +228,15 @@ void App::init()
         /* Application geometry and window state */
         QSize size = settings.value("/workspace/size").toSize();
         if (size.isValid() == true)
+        {
             resize(size);
+        }
         else
         {
             if (QLCFile::hasWindowManager() == false)
             {
-                QRect geometry = qApp->desktop()->availableGeometry();
+                QScreen *screen = QGuiApplication::screens().first();
+                QRect geometry = screen->geometry();
                 if (m_noGui == true)
                 {
                     setGeometry(geometry.width(), geometry.height(), 1, 1);
@@ -248,8 +251,7 @@ void App::init()
                         w = (float)geometry.width() * 0.95;
                         h = (float)geometry.height() * 0.95;
                     }
-                    setGeometry((geometry.width() - w) / 2, (geometry.height() - h) / 2,
-                                w, h);
+                    setGeometry((geometry.width() - w) / 2, (geometry.height() - h) / 2, w, h);
                 }
             }
             else
@@ -1212,8 +1214,8 @@ void App::slotControlFullScreen(bool usingGeometry)
 {
     if (usingGeometry == true)
     {
-        QDesktopWidget dw;
-        setGeometry(dw.availableGeometry());
+        QScreen *screen = QGuiApplication::screens().first();
+        setGeometry(screen->geometry());
     }
     else
     {

@@ -93,11 +93,17 @@ void UniverseItemWidget::paint(QPainter *painter, const QStyleOptionViewItem &op
     painter->drawText(QRect(midPos, r.top() + 30, 150, 20), Qt::AlignLeft, fbStr);
 
     QFontMetrics fm(font);
+#if (QT_VERSION < QT_VERSION_CHECK(5, 11, 0))
     int inPos = fm.width(inStr) + 170 + 5;
     int proPos = fm.width(proStr) + midPos + 5;
     int outPos = fm.width(outStr) + 170 + 5;
     int fbPos = fm.width(fbStr) + midPos + 5;
-
+#else
+    int inPos = fm.horizontalAdvance(inStr) + 170 + 5;
+    int proPos = fm.horizontalAdvance(proStr) + midPos + 5;
+    int outPos = fm.horizontalAdvance(outStr) + 170 + 5;
+    int fbPos = fm.horizontalAdvance(fbStr) + midPos + 5;
+#endif
     font.setBold(false);
     painter->setFont(font);
 

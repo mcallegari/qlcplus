@@ -40,12 +40,22 @@ public:
     GenericFader(QObject *parent = 0);
     ~GenericFader();
 
+    /** Get/Set an arbitrary name for this fader */
     QString name() const;
     void setName(QString name);
 
+    /** Get/Set the ID of the Function controlling this fader.
+     *  VC widgets won't set this. */
+    quint32 parentFunctionID() const;
+    void setParentFunctionID(quint32 fid);
+
+    /** Get/Set a priority for this fader.
+     *  The Universe class is in charge of sorting faders by priority */
     int priority() const;
     void setPriority(int priority);
 
+    /** Build a hash for a fader channel which is unique in a Universe.
+     *  This is used to map channels and access them quickly */
     static quint32 channelHash(quint32 fixtureID, quint32 channel);
 
     /**
@@ -72,7 +82,7 @@ public:
     void removeAll();
 
     /** Get/Set a request of deletion of this fader */
-    bool deleteRequest();
+    bool deleteRequested();
     void requestDelete();
 
     /** Returns a reference of a FadeChannel for the provided $fixtureID and $channel.
@@ -97,6 +107,10 @@ public:
     /** Get/Set the intensities of all channels in a 0.0 - 1.0 range */
     qreal intensity() const;
     void adjustIntensity(qreal fraction);
+
+    /** Get/Set an optional intensity for the fader parent Function */
+    qreal parentIntensity() const;
+    void setParentIntensity(qreal fraction);
 
     /** Get/Set the pause state of this fader */
     bool isPaused() const;
@@ -123,6 +137,8 @@ public:
     /** Enable/disable universe monitoring before writing new data */
     void setMonitoring(bool enable);
 
+    void resetCrossfade();
+
 signals:
     /** Signal emitted when monitoring is enabled.
      *  Data is preGM and includes the whole universe */
@@ -130,9 +146,11 @@ signals:
 
 private:
     QString m_name;
+    quint32 m_fid;
     int m_priority;
     QHash <quint32,FadeChannel> m_channels;
     qreal m_intensity;
+    qreal m_parentIntensity;
     bool m_paused;
     bool m_enabled;
     bool m_fadeOut;

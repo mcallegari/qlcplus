@@ -41,9 +41,11 @@ class RGBScript : public RGBAlgorithm
      * Initialization
      ************************************************************************/
 public:
-    RGBScript(Doc * doc);
+    RGBScript(Doc *doc);
     RGBScript(const RGBScript& s);
     ~RGBScript();
+
+    RGBScript& operator=(const RGBScript& s);
 
     /** Comparison operator. Uses simply fileName() == s.fileName(). */
     bool operator==(const RGBScript& s) const;
@@ -65,8 +67,8 @@ public:
     bool evaluate();
 
 private:
-    static QScriptEngine* s_engine; //! The engine that runs all scripts
-    static QMutex* s_engineMutex;   //! Protection
+    static QScriptEngine *s_engine; //! The engine that runs all scripts
+    static QMutex *s_engineMutex;   //! Protection
     QString m_fileName;             //! The file name that contains this script
     QString m_contents;             //! The file's contents
 

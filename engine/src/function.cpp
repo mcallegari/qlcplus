@@ -968,19 +968,23 @@ QList<quint32> Function::components()
  * Flash
  *****************************************************************************/
 
-void Function::flash(MasterTimer* timer)
+void Function::flash(MasterTimer *timer)
 {
     Q_UNUSED(timer);
+
     if (m_flashing == false)
         emit flashing(m_id, true);
+
     m_flashing = true;
 }
 
-void Function::unFlash(MasterTimer* timer)
+void Function::unFlash(MasterTimer *timer)
 {
     Q_UNUSED(timer);
+
     if (m_flashing == true)
         emit flashing(m_id, false);
+
     m_flashing = false;
 }
 
@@ -993,7 +997,7 @@ bool Function::flashing() const
  * Running
  *****************************************************************************/
 
-void Function::preRun(MasterTimer* timer)
+void Function::preRun(MasterTimer *timer)
 {
     Q_UNUSED(timer);
 
@@ -1009,7 +1013,7 @@ void Function::write(MasterTimer *timer, QList<Universe *> universes)
     Q_UNUSED(universes);
 }
 
-void Function::postRun(MasterTimer* timer, QList<Universe *> universes)
+void Function::postRun(MasterTimer *timer, QList<Universe *> universes)
 {
     Q_UNUSED(timer);
     Q_UNUSED(universes);
@@ -1032,12 +1036,13 @@ void Function::postRun(MasterTimer* timer, QList<Universe *> universes)
 
 void Function::dismissAllFaders()
 {
-    QMapIterator <quint32, GenericFader*> it(m_fadersMap);
+    QMapIterator <quint32, QSharedPointer<GenericFader> > it(m_fadersMap);
     while (it.hasNext() == true)
     {
         it.next();
-        GenericFader *fader = it.value();
-        fader->requestDelete();
+        QSharedPointer<GenericFader> fader = it.value();
+        if (!fader.isNull())
+            fader->requestDelete();
     }
 
     m_fadersMap.clear();

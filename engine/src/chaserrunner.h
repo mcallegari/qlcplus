@@ -51,6 +51,7 @@ typedef struct
     uint m_duration;                    //! Step hold in ms
     Universe::BlendMode m_blendMode;    //! The original Function blend mode
     int m_intensityOverrideId;          //! An ID to control the step intensity
+    int m_pIntensityOverrideId;         //! An ID to control the step parent intensity
 } ChaserRunnerStep;
 
 class ChaserRunner : public QObject
@@ -154,6 +155,7 @@ private:
     quint32 m_startOffset;                  //! Start step offset time in milliseconds
     ChaserAction m_pendingAction;           //! Action to be performed on steps at the next write call
     int m_lastRunStepIdx;                   //! Index of the last step ran
+    quint32 m_lastFunctionID;               //! ID of the last Function ran (Scene only)
     QElapsedTimer *m_roundTime;             //! Counts the time between steps
     QVector<int> m_order;                   //! Array of step indices in a randomized order
 
@@ -174,8 +176,8 @@ private:
     void clearRunningList();
 
     /**
-     * Start a Chaser step Function with the given $index, at the given $intensity
-     * and from the given $elapsed time.
+     * Start a Chaser step Function with the given $index, at the given
+     * master and step intensity and from the given $elapsed time.
      * $fadeControl specifies how the step Function should fade, according to
      * the Chaser::FadeControlMode enumeration:
      * - Chaser::FromFunction will use the original Function fadeIn time
@@ -184,7 +186,8 @@ private:
      * - Chaser::LinkedCrossfade is like Crossfade, and the Function will also be requested
      *                           to use the Universe::AdditiveBlend mode
      */
-    void startNewStep(int index, MasterTimer *timer, qreal intensity, int fadeControl, quint32 elapsed = 0);
+    void startNewStep(int index, MasterTimer *timer, qreal mIntensity, qreal sIntensity,
+                      int fadeControl, quint32 elapsed = 0);
 
     /**
      * Get the index of the next step that should be started,

@@ -658,12 +658,14 @@ QString Script::handleSetFixture(const QList<QStringList>& tokens, QList<Univers
             if (address < 512)
             {
                 quint32 universe = fxi->universe();
-                GenericFader *fader = m_fadersMap.value(universe, NULL);
-                if (fader == NULL)
+                QSharedPointer<GenericFader> fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
+                if (fader.isNull())
                 {
                     fader = universes[universe]->requestFader();
                     fader->adjustIntensity(getAttributeValue(Intensity));
                     fader->setBlendMode(blendMode());
+                    fader->setParentFunctionID(this->id());
+                    fader->setName(name());
                     m_fadersMap[universe] = fader;
                 }
 

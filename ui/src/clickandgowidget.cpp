@@ -20,6 +20,7 @@
 #include <QDesktopWidget>
 #include <QApplication>
 #include <QPainter>
+#include <QScreen>
 #include <qmath.h>
 #include <QDebug>
 #include <QImage>
@@ -273,7 +274,8 @@ void ClickAndGoWidget::setupPresetPicker()
     if (m_resources.size() == 0)
         return;
 
-    QRect screen = QApplication::desktop()->availableGeometry(this);
+    QScreen *scr = QGuiApplication::screens().first();
+    QRect screen = scr->availableGeometry();
 
     m_cols = 2;
     m_rows = qCeil((qreal)m_resources.size() / 2);
@@ -302,7 +304,7 @@ void ClickAndGoWidget::setupPresetPicker()
     QPainter painter(&m_image);
     painter.setRenderHint(QPainter::Antialiasing);
     QLinearGradient presetGrad(QPointF(0,0), QPointF(0, m_height));
-    presetGrad.setColorAt(0, QApplication::palette().background().color());
+    presetGrad.setColorAt(0, QApplication::palette().window().color());
     presetGrad.setColorAt(1, QColor(173, 171, 179));
     painter.fillRect(0, 0, m_width, m_height, presetGrad);
 

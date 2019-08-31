@@ -281,7 +281,7 @@ void VCAudioTriggers::writeDMX(MasterTimer *timer, QList<Universe *> universes)
         return;
 
     quint32 lastUniverse = Universe::invalid();
-    GenericFader *fader = NULL;
+    QSharedPointer<GenericFader> fader;
 
     if (m_volumeBar->m_type == AudioBar::DMXBar)
     {
@@ -292,8 +292,8 @@ void VCAudioTriggers::writeDMX(MasterTimer *timer, QList<Universe *> universes)
             quint32 universe = absAddress >> 9;
             if (universe != lastUniverse)
             {
-                fader = m_fadersMap.value(universe, NULL);
-                if (fader == NULL)
+                fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
+                if (fader.isNull())
                 {
                     fader = universes[universe]->requestFader();
                     fader->adjustIntensity(intensity());
@@ -320,7 +320,7 @@ void VCAudioTriggers::writeDMX(MasterTimer *timer, QList<Universe *> universes)
                 quint32 universe = absAddress >> 9;
                 if (universe != lastUniverse)
                 {
-                    fader = m_fadersMap.value(universe, NULL);
+                    fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
                     if (fader == NULL)
                     {
                         fader = universes[universe]->requestFader();
@@ -467,8 +467,11 @@ void VCAudioTriggers::slotModeChanged(Doc::Mode mode)
         m_doc->masterTimer()->unregisterDMXSource(this);
 
         // request to delete all the active faders
-        foreach (GenericFader *fader, m_fadersMap.values())
-            fader->requestDelete();
+        foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+        {
+            if (!fader.isNull())
+                fader->requestDelete();
+        }
         m_fadersMap.clear();
     }
     VCWidget::slotModeChanged(mode);

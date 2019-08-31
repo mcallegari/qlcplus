@@ -41,6 +41,8 @@ public:
     QLCFixtureHead(const QLCFixtureHead& head);
     virtual ~QLCFixtureHead();
 
+    QLCFixtureHead& operator=(const QLCFixtureHead& head);
+
     /************************************************************************
      * Channels
      ************************************************************************/
@@ -83,6 +85,11 @@ public:
      * @return A list of three channels or an empty list
      */
     QVector <quint32> rgbChannels() const;
+
+    /**
+     * Return a copy of the cached channel map
+     */
+    QMap<int, quint32> channelsMap() const;
 
     /**
      * Get a list of CMY channels. If the fixture doesn't support CMY mixing,

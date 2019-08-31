@@ -202,8 +202,11 @@ VCXYPadProperties::~VCXYPadProperties()
     QSettings settings;
     settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
     m_doc->masterTimer()->unregisterDMXSource(this);
-    foreach (GenericFader *fader, m_fadersMap.values())
-        fader->requestDelete();
+    foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+    {
+        if (!fader.isNull())
+            fader->requestDelete();
+    }
     m_fadersMap.clear();
 
     delete m_presetInputWidget;
@@ -487,8 +490,8 @@ void VCXYPadProperties::writeDMX(MasterTimer *timer, QList<Universe *> universes
         if (universe == Universe::invalid())
             continue;
 
-        GenericFader *fader = m_fadersMap.value(universe, NULL);
-        if (fader == NULL)
+        QSharedPointer<GenericFader> fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
+        if (fader.isNull())
         {
             fader = universes[universe]->requestFader();
             m_fadersMap[universe] = fader;

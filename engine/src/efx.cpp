@@ -1020,15 +1020,17 @@ void EFX::postLoad()
 /*****************************************************************************
  * Running
  *****************************************************************************/
-GenericFader *EFX::getFader(QList<Universe *> universes, quint32 universeID)
+QSharedPointer<GenericFader> EFX::getFader(QList<Universe *> universes, quint32 universeID)
 {
     // get the universe Fader first. If doesn't exist, create it
-    GenericFader *fader = m_fadersMap.value(universeID, NULL);
-    if (fader == NULL)
+    QSharedPointer<GenericFader> fader = m_fadersMap.value(universeID, QSharedPointer<GenericFader>());
+    if (fader.isNull())
     {
         fader = universes[universeID]->requestFader();
         fader->adjustIntensity(getAttributeValue(Intensity));
         fader->setBlendMode(blendMode());
+        fader->setName(name());
+        fader->setParentFunctionID(id());
         m_fadersMap[universeID] = fader;
     }
 
@@ -1070,7 +1072,7 @@ void EFX::write(MasterTimer *timer, QList<Universe*> universes)
         EFXFixture *ef = it.next();
         if (ef->isReady() == false)
         {
-            GenericFader *fader = getFader(universes, ef->universe());
+            QSharedPointer<GenericFader> fader = getFader(universes, ef->universe());
             ef->nextStep(universes, fader);
         }
         else
@@ -1118,8 +1120,11 @@ int EFX::adjustAttribute(qreal fraction, int attributeId)
     {
         case Intensity:
         {
-            foreach (GenericFader *fader, m_fadersMap.values())
-                fader->adjustIntensity(getAttributeValue(Function::Intensity));
+            foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+            {
+                if (!fader.isNull())
+                    fader->adjustIntensity(getAttributeValue(Function::Intensity));
+            }
         }
         break;
 
@@ -1144,8 +1149,11 @@ void EFX::setBlendMode(Universe::BlendMode mode)
     if (mode == blendMode())
         return;
 
-    foreach (GenericFader *fader, m_fadersMap.values())
-        fader->setBlendMode(mode);
+    foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+    {
+        if (!fader.isNull())
+            fader->setBlendMode(mode);
+    }
 
     Function::setBlendMode(mode);
 }

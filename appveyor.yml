@@ -1,4 +1,4 @@
-version: 4.12.2.{build}
+version: 4.12.3.{build}
 
 environment:
     MSYSTEM: MSYS
@@ -16,7 +16,13 @@ install:
     #- pacman --noconfirm --needed -S pacman-mirrors
     #- pacman --noconfirm -Sy
     - pacman --noconfirm --needed -S unzip mingw32/mingw-w64-i686-libmad mingw32/mingw-w64-i686-libsndfile mingw32/mingw-w64-i686-flac mingw32/mingw-w64-i686-fftw mingw32/mingw-w64-i686-nsis
+    - wget http://repo.msys2.org/mingw/i686/mingw-w64-i686-gcc-libs-7.4.0-1-any.pkg.tar.xz -P /c/projects
+    - wget http://repo.msys2.org/mingw/i686/mingw-w64-i686-gcc-7.4.0-1-any.pkg.tar.xz -P /c/projects
     - wget http://www.qlcplus.org/misc/mingw-w64-i686-qt5-5.6.2-4-any.pkg.tar.xz -P /c/projects
+    - pacman --noconfirm -Rdd mingw-w64-i686-gcc
+    - pacman --noconfirm -Rdd mingw-w64-i686-gcc-libs
+    - pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-gcc-libs-7.4.0-1-any.pkg.tar.xz
+    - pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-gcc-7.4.0-1-any.pkg.tar.xz
     - pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-qt5-5.6.2-4-any.pkg.tar.xz
 
 build_script:
@@ -27,6 +33,7 @@ build_script:
           exec 0</dev/null 2>&1
           export
           gcc -v
+          qmake -v
           # get and prepare the D2XX SDK
           mkdir -p /c/Qt/D2XXSDK
           wget http://www.ftdichip.com/Drivers/CDM/CDM%20v2.12.24%20WHQL%20Certified.zip -O /c/Qt/D2XXSDK/cdm.zip
@@ -59,4 +66,4 @@ build_script:
 
 artifacts:
   - path: QLC+_$(APPVEYOR_BUILD_VERSION).exe
-    name: qlcplus_4_12_2
+    name: qlcplus_4_12_3

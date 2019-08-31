@@ -184,8 +184,11 @@ VCXYPad::VCXYPad(QWidget* parent, Doc* doc) : VCWidget(parent, doc)
 VCXYPad::~VCXYPad()
 {
     m_doc->masterTimer()->unregisterDMXSource(this);
-    foreach (GenericFader *fader, m_fadersMap.values())
-        fader->requestDelete();
+    foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+    {
+        if (!fader.isNull())
+            fader->requestDelete();
+    }
     m_fadersMap.clear();
 }
 
@@ -391,8 +394,8 @@ void VCXYPad::writeXYFixtures(MasterTimer *timer, QList<Universe *> universes)
             if (universe == Universe::invalid())
                 continue;
 
-            GenericFader *fader = m_fadersMap.value(universe, NULL);
-            if (fader == NULL)
+            QSharedPointer<GenericFader> fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
+            if (fader.isNull())
             {
                 fader = universes[universe]->requestFader();
                 fader->adjustIntensity(intensity());
@@ -405,7 +408,7 @@ void VCXYPad::writeXYFixtures(MasterTimer *timer, QList<Universe *> universes)
 
 void VCXYPad::updateSceneChannel(FadeChannel *fc, uchar value)
 {
-    fc->setTypeFlag(FadeChannel::Relative);
+    fc->addFlag(FadeChannel::Relative);
     fc->setStart(value);
     fc->setCurrent(value);
     fc->setTarget(value);
@@ -431,8 +434,8 @@ void VCXYPad::writeScenePositions(MasterTimer *timer, QList<Universe *> universe
         if (sc.m_universe >= (quint32)universes.count())
             continue;
 
-        GenericFader *fader = m_fadersMap.value(sc.m_universe, NULL);
-        if (fader == NULL)
+        QSharedPointer<GenericFader> fader = m_fadersMap.value(sc.m_universe, QSharedPointer<GenericFader>());
+        if (fader.isNull())
         {
             fader = universes[sc.m_universe]->requestFader();
             fader->adjustIntensity(intensity());
@@ -712,8 +715,11 @@ void VCXYPad::slotPresetClicked(bool checked)
     {
         m_scene->stop(functionParent());
         m_scene = NULL;
-        foreach (GenericFader *fader, m_fadersMap.values())
-            fader->requestDelete();
+        foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+        {
+            if (!fader.isNull())
+                fader->requestDelete();
+        }
         m_fadersMap.clear();
     }
 
@@ -1168,7 +1174,7 @@ bool VCXYPad::loadXML(QXmlStreamReader &root)
         {
             VCXYPadPreset preset(0xff);
             if (preset.loadXML(root))
-                newPresets.insert(qLowerBound(newPresets.begin(), newPresets.end(), preset), preset);
+                newPresets.insert(std::lower_bound(newPresets.begin(), newPresets.end(), preset), preset);
         }
         else
         {

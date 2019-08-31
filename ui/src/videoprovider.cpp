@@ -22,9 +22,9 @@
 #include "doc.h"
 
 #include <QApplication>
-#include <QDesktopWidget>
 #include <QMediaPlayer>
 #include <QVideoWidget>
+#include <QScreen>
 
 VideoProvider::VideoProvider(Doc *doc, QObject *parent)
     : QObject(parent)
@@ -186,6 +186,11 @@ void VideoWidget::slotMetaDataChanged(QString key, QVariant data)
 
 void VideoWidget::slotPlaybackVideo()
 {
+    int screen = m_video->screen();
+    QList<QScreen*> screens = QGuiApplication::screens();
+    QScreen *scr = screens.count() > screen ? screens.at(screen) : screens.first();
+    QRect rect = scr->availableGeometry();
+
     if (QLCFile::getQtRuntimeVersion() < 50700 && m_videoWidget == NULL)
     {
         m_videoWidget = new QVideoWidget;
@@ -193,8 +198,7 @@ void VideoWidget::slotPlaybackVideo()
         m_videoPlayer->setVideoOutput(m_videoWidget);
     }
 
-    int screen = m_video->screen();
-    QRect rect = qApp->desktop()->screenGeometry(screen);
+    m_videoWidget->setWindowFlags(m_videoWidget->windowFlags() | Qt::WindowStaysOnTopHint);
 
     if (m_video->fullscreen() == false)
     {
@@ -223,7 +227,6 @@ void VideoWidget::slotPlaybackVideo()
         m_videoPlayer->setPosition(0);
 
     m_videoWidget->show();
-    m_videoWidget->setWindowFlags(m_videoWidget->windowFlags() | Qt::WindowStaysOnTopHint);
     m_videoPlayer->play();
 }
 
@@ -242,7 +245,8 @@ void VideoWidget::slotStopVideo()
 
     if (m_videoWidget != NULL)
     {
-        m_videoWidget->setFullScreen(false);
+        if (m_video->fullscreen())
+            m_videoWidget->setFullScreen(false);
         m_videoWidget->hide();
     }
 
@@ -257,10 +261,7 @@ void VideoWidget::slotBrightnessAdjust(int value)
 
 int VideoWidget::getScreenCount()
 {
-    int screenCount = 0;
-    QDesktopWidget *desktop = qApp->desktop();
-    if (desktop != NULL)
-        screenCount = desktop->screenCount();
+    int screenCount = QGuiApplication::screens().count();
 
     return screenCount;
 }
