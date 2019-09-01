@@ -32,7 +32,10 @@
 #include <qmath.h>
 #include <QLabel>
 #include <QDebug>
+#include <QSettings>
+#include <QCheckBox>
 
+#include "inputselectionwidget.h"
 #include "genericdmxsource.h"
 #include "fixtureselection.h"
 #include "speeddialwidget.h"
@@ -87,6 +90,45 @@ SceneEditor::SceneEditor(QWidget* parent, Scene* scene, Doc* doc, bool applyValu
     setupUi(this);
 
     init(applyValues);
+
+    // start hw_edit
+    QSettings settings;
+    // read settings
+    hw_enable = settings.value("sceneEdit/hardwareEnable",false).toBool();
+    channelBanks.append(settings.value("sceneEdit/channelBank1",-1).toUInt());
+    channelBanks.append(settings.value("sceneEdit/channelBank2",-1).toUInt());
+    channelBanks.append(settings.value("sceneEdit/channelBank3",-1).toUInt());
+    channelBanks.append(settings.value("sceneEdit/channelBank4",-1).toUInt());
+    channelBanks.append(settings.value("sceneEdit/channelBank5",-1).toUInt());
+    channelBanks.append(settings.value("sceneEdit/channelBank6",-1).toUInt());
+    channelBanks.append(settings.value("sceneEdit/channelBank7",-1).toUInt());
+    channelBanks.append(settings.value("sceneEdit/channelBank8",-1).toUInt());
+    armButton.append(settings.value("sceneEdit/armButton1",-1).toUInt());
+    armButton.append(settings.value("sceneEdit/armButton2",-1).toUInt());
+    armButton.append(settings.value("sceneEdit/armButton3",-1).toUInt());
+    armButton.append(settings.value("sceneEdit/armButton4",-1).toUInt());
+    armButton.append(settings.value("sceneEdit/armButton5",-1).toUInt());
+    armButton.append(settings.value("sceneEdit/armButton6",-1).toUInt());
+    armButton.append(settings.value("sceneEdit/armButton7",-1).toUInt());
+    armButton.append(settings.value("sceneEdit/armButton8",-1).toUInt());
+    faders.append(settings.value("sceneEdit/fader1",-1).toUInt());
+    faders.append(settings.value("sceneEdit/fader2",-1).toUInt());
+    faders.append(settings.value("sceneEdit/fader3",-1).toUInt());
+    faders.append(settings.value("sceneEdit/fader4",-1).toUInt());
+    faders.append(settings.value("sceneEdit/fader5",-1).toUInt());
+    faders.append(settings.value("sceneEdit/fader6",-1).toUInt());
+    faders.append(settings.value("sceneEdit/fader7",-1).toUInt());
+    faders.append(settings.value("sceneEdit/fader8",-1).toUInt());
+    tabs.append(settings.value("sceneEdit/tabPrev",-1).toUInt());
+    tabs.append(settings.value("sceneEdit/tabNext",-1).toUInt());
+    if(channelBanks.count() != 8 || armButton.count() != 8 || faders.count() != 8 || tabs.count() != 2)
+      hw_enable = false;
+    m_offset = 0;
+    // connect hw to virtual faders
+    if(hw_enable)
+      connect(m_doc->inputOutputMap(), SIGNAL(inputValueChanged(quint32, quint32, uchar, const QString&)),
+              this, SLOT(onInput(quint32, quint32, uchar, const QString&)));
+    // end hw_edit
 
     // Start new (==empty) scenes from the first tab and ones with something in them
     // on the first fixture page.
@@ -223,6 +265,10 @@ void SceneEditor::init(bool applyValues)
     if (tabMode.isNull() || tabMode.toInt() == UI_STATE_TABBED_FIXTURES)
         m_tabViewAction->setChecked(true);
 
+    m_hardwareAction = new QAction(QIcon(":/configure.png"),tr("Configure editing hardware"), this);
+    connect(m_hardwareAction, SIGNAL(triggered(bool)),
+            this, SLOT(slotHardwareAction()));
+
     // Chaser combo init
     quint32 selectId = Function::invalidId();
     QSettings settings;
@@ -294,6 +340,8 @@ void SceneEditor::init(bool applyValues)
     toolBar->addAction(m_tabViewAction);
     toolBar->addSeparator();
     toolBar->addAction(m_blindAction);
+    toolBar->addSeparator();
+    toolBar->addAction(m_hardwareAction);
     toolBar->addSeparator();
     toolBar->addAction(m_recordAction);
     toolBar->addWidget(m_chaserCombo);
@@ -1632,4 +1680,460 @@ void SceneEditor::slotGoToPreviousTab()
     else
         m_currentTab--;
     m_tab->setCurrentIndex(m_currentTab);
+}
+
+void
+SceneEditor::onInput(quint32 univ, quint32 chan, uchar val, const QString &key)
+{
+    Q_UNUSED(key);
+    static const QString activeChannel = QString(
+                                                 "QSlider::groove:vertical { background: #f0f0f0; width: 32px; } "
+                                                 "QSlider::handle:vertical { "
+                                                 "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ddd, stop:0.45 #888, stop:0.50 #000, stop:0.55 #888, stop:1 #999);"
+                                                 "border: 1px solid #5c5c5c;"
+                                                 "border-radius: 4px; margin: 0 -1px; height: 20px; }"
+                                                 "QSlider::handle:vertical:hover {"
+                                                 "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #eee, stop:0.45 #999, stop:0.50 #ff0000, stop:0.55 #999, stop:1 #ccc);"
+                                                 "border: 1px solid #000; }"
+                                                 "QSlider::add-page:vertical { background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #78d, stop: 1 #97CDEC );"
+                                                 "border: 1px solid #5288A7; margin: 0 13px; }"
+                                                 "QSlider::sub-page:vertical { background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #888, stop: 1 #ddd );"
+                                                 "border: 1px solid #8E8A86; margin: 0 13px; }"
+                                                 "QSlider::handle:vertical:disabled { background: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ddd, stop:0.45 #888, stop:0.50 #444, stop:0.55 #888, stop:1 #999);"
+                                                 "border: 1px solid #666; }"
+                                                 );
+    static const QString inactiveChannel = QString(
+                                                   "QSlider::groove:vertical { background: transparent; width: 32px; } "
+                                                   "QSlider::handle:vertical { "
+                                                   "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ddd, stop:0.45 #888, stop:0.50 #000, stop:0.55 #888, stop:1 #999);"
+                                                   "border: 1px solid #5c5c5c;"
+                                                   "border-radius: 4px; margin: 0 -1px; height: 20px; }"
+                                                   "QSlider::handle:vertical:hover {"
+                                                   "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #eee, stop:0.45 #999, stop:0.50 #ff0000, stop:0.55 #999, stop:1 #ccc);"
+                                                   "border: 1px solid #000; }"
+                                                   "QSlider::add-page:vertical { background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #78d, stop: 1 #97CDEC );"
+                                                   "border: 1px solid #5288A7; margin: 0 13px; }"
+                                                   "QSlider::sub-page:vertical { background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #888, stop: 1 #ddd );"
+                                                   "border: 1px solid #8E8A86; margin: 0 13px; }"
+                                                   "QSlider::handle:vertical:disabled { background: QLinearGradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ddd, stop:0.45 #888, stop:0.50 #444, stop:0.55 #888, stop:1 #999);"
+                                                   "border: 1px solid #666; }"
+                                                   );
+    if(m_doc->mode() == Doc::Operate) return;
+    if (m_scene->uiStateValue(UI_STATE_TAB_MODE).toInt() != UI_STATE_TABBED_FIXTURES) return;
+    if((int)val > 0){
+        switch(tabs.indexOf(chan)){
+        case 0: // left
+            slotGoToPreviousTab();
+            m_offset = 0; 
+            if(m_currentTab < m_fixtureFirstTabIndex) return;
+            for(int i = 0; i < 8; i++)
+                m_doc->inputOutputMap()->sendFeedBack(univ, channelBanks.at(i), i == 0 ? 0xFF : 0, 0);
+            for(int i = 0; i < 8; i++)
+                m_doc->inputOutputMap()->sendFeedBack(univ, armButton.at(i), fixtureConsoleTab(m_currentTab)->isChecked(m_offset + i) ? 0xFF : 0, 0);
+            for(unsigned int i = 0; i < 64; i++)
+                fixtureConsoleTab(m_currentTab)->setSliderStylesheet(i, (i < m_offset || i > (m_offset + 7)) ? inactiveChannel : activeChannel);
+            return;
+            break;
+        case 1: // right
+            slotGoToNextTab();
+            m_offset = 0; 
+            if(m_currentTab < m_fixtureFirstTabIndex) return;
+            for(int i = 0; i < 8; i++)
+                m_doc->inputOutputMap()->sendFeedBack(univ, channelBanks.at(i), i == 0 ? 0xFF : 0, 0);
+            for(int i = 0; i < 8; i++)
+                m_doc->inputOutputMap()->sendFeedBack(univ, armButton.at(i), fixtureConsoleTab(m_currentTab)->isChecked(m_offset + i) ? 0xFF : 0, 0);
+            for(unsigned int i = 0; i < 64; i++)
+                fixtureConsoleTab(m_currentTab)->setSliderStylesheet(i, (i < m_offset || i > (m_offset + 7)) ? inactiveChannel : activeChannel);
+            return;
+            break;
+        }
+    }
+    if(m_currentTab < m_fixtureFirstTabIndex) return;
+    int index;
+    if((int)val > 0 && (index = channelBanks.indexOf(chan)) >= 0){
+        m_offset = 8 * index;
+        for(int i = 0; i < 8; i++)
+            m_doc->inputOutputMap()->sendFeedBack(univ, channelBanks.at(i), channelBanks.at(i) == chan ? 0xFF : 0, 0);
+        for(int i = 0; i < 8; i++)
+            m_doc->inputOutputMap()->sendFeedBack(univ, armButton.at(i), fixtureConsoleTab(m_currentTab)->isChecked(m_offset + i) ? 0xFF : 0, 0);
+        for(unsigned int i = 0; i < 64; i++)
+            fixtureConsoleTab(m_currentTab)->setSliderStylesheet(i, (i < m_offset || i > (m_offset + 7)) ? inactiveChannel : activeChannel);
+        return;
+    }
+    if((index = faders.indexOf(chan)) >=0){
+        fixtureConsoleTab(m_currentTab)->setValue(index + m_offset, val);
+        return;
+    }
+    if((int)val > 0 && (index = armButton.indexOf(chan)) >= 0){
+        bool check = fixtureConsoleTab(m_currentTab)->check(m_offset + index);
+        m_doc->inputOutputMap()->sendFeedBack(univ, chan, check ? 0xFF : 0, 0);
+        return;
+    }
+}
+
+void SceneEditor::slotHardwareAction()
+{
+    QSettings settings;
+    QDialog *d = new QDialog(this);
+    d->setWindowTitle(tr("Configure hardware editing"));
+    QVBoxLayout *mainLayout = new QVBoxLayout();
+    d->setLayout(mainLayout);
+
+    QTabWidget *page1 = new QTabWidget();
+    page1->setTabPosition(QTabWidget::West);
+    QWidget *page1_1 = new QWidget();
+    QGridLayout *grid1_1 = new QGridLayout(page1_1);
+    page1->addTab(page1_1, tr("1-2"));
+
+    QLabel *lcb1 = new QLabel(tr("Channel Bank 1"));
+    grid1_1->addWidget(lcb1, 0, 0);
+    InputSelectionWidget *cb1 = new InputSelectionWidget(m_doc, d);
+    QSharedPointer<QLCInputSource> pcb1(new QLCInputSource(0, settings.value("sceneEdit/channelBank1",-1).toUInt()));
+    cb1->setKeyInputVisibility(false);
+    cb1->setInputSource(pcb1);
+    grid1_1->addWidget(cb1, 0, 1);
+
+    QLabel *lcb2 = new QLabel(tr("Channel Bank 2"));
+    grid1_1->addWidget(lcb2, 1, 0);
+    InputSelectionWidget *cb2 = new InputSelectionWidget(m_doc, d);
+    QSharedPointer<QLCInputSource> pcb2(new QLCInputSource(0, settings.value("sceneEdit/channelBank2",-1).toUInt()));
+    cb2->setKeyInputVisibility(false);
+    cb2->setInputSource(pcb2);
+    grid1_1->addWidget(cb2, 1, 1);
+
+    QWidget *page1_2 = new QWidget();
+    QGridLayout *grid1_2 = new QGridLayout(page1_2);
+    page1->addTab(page1_2, tr("3-4"));
+
+    QLabel *lcb3 = new QLabel(tr("Channel Bank 3"));
+    grid1_2->addWidget(lcb3, 0, 0);
+    InputSelectionWidget *cb3 = new InputSelectionWidget(m_doc, d);
+    QSharedPointer<QLCInputSource> pcb3(new QLCInputSource(0, settings.value("sceneEdit/channelBank3",-1).toUInt()));
+    cb3->setKeyInputVisibility(false);
+    cb3->setInputSource(pcb3);
+    grid1_2->addWidget(cb3, 0, 1);
+
+    QLabel *lcb4 = new QLabel(tr("Channel Bank 4"));
+    grid1_2->addWidget(lcb4, 1, 0);
+    InputSelectionWidget *cb4 = new InputSelectionWidget(m_doc, d);
+    QSharedPointer<QLCInputSource> pcb4(new QLCInputSource(0, settings.value("sceneEdit/channelBank4",-1).toUInt()));
+    cb4->setKeyInputVisibility(false);
+    cb4->setInputSource(pcb4);
+    grid1_2->addWidget(cb4, 1, 1);
+
+    QWidget *page1_3 = new QWidget();
+    QGridLayout *grid1_3 = new QGridLayout(page1_3);
+    page1->addTab(page1_3, tr("5-6"));
+
+    QLabel *lcb5 = new QLabel(tr("Channel Bank 5"));
+    grid1_3->addWidget(lcb5, 0, 0);
+    InputSelectionWidget *cb5 = new InputSelectionWidget(m_doc, d);
+    QSharedPointer<QLCInputSource> pcb5(new QLCInputSource(0, settings.value("sceneEdit/channelBank5",-1).toUInt()));
+    cb5->setKeyInputVisibility(false);
+    cb5->setInputSource(pcb5);
+    grid1_3->addWidget(cb5, 0, 1);
+
+    QLabel *lcb6 = new QLabel(tr("Channel Bank 6"));
+    grid1_3->addWidget(lcb6, 1, 0);
+    InputSelectionWidget *cb6 = new InputSelectionWidget(m_doc, d);
+    QSharedPointer<QLCInputSource> pcb6(new QLCInputSource(0, settings.value("sceneEdit/channelBank6",-1).toUInt()));
+    cb6->setKeyInputVisibility(false);
+    cb6->setInputSource(pcb6);
+    grid1_3->addWidget(cb6, 1, 1);
+
+    QWidget *page1_4 = new QWidget();
+    QGridLayout *grid1_4 = new QGridLayout(page1_4);
+    page1->addTab(page1_4, tr("7-8"));
+
+    QLabel *lcb7 = new QLabel(tr("Channel Bank 7"));
+    grid1_4->addWidget(lcb7, 0, 0);
+    InputSelectionWidget *cb7 = new InputSelectionWidget(m_doc, d);
+    QSharedPointer<QLCInputSource> pcb7(new QLCInputSource(0, settings.value("sceneEdit/channelBank7",-1).toUInt()));
+    cb7->setKeyInputVisibility(false);
+    cb7->setInputSource(pcb7);
+    grid1_4->addWidget(cb7, 0, 1);
+
+    QLabel *lcb8 = new QLabel(tr("Channel Bank 8"));
+    grid1_4->addWidget(lcb8, 1, 0);
+    InputSelectionWidget *cb8 = new InputSelectionWidget(m_doc, d);
+    QSharedPointer<QLCInputSource> pcb8(new QLCInputSource(0, settings.value("sceneEdit/channelBank8",-1).toUInt()));
+    cb8->setKeyInputVisibility(false);
+    cb8->setInputSource(pcb8);
+    grid1_4->addWidget(cb8, 1, 1);
+
+    QTabWidget *page2 = new QTabWidget();
+    page2->setTabPosition(QTabWidget::West);
+    QWidget *page2_1 = new QWidget();
+    QGridLayout *grid2_1 = new QGridLayout(page2_1);
+    page2->addTab(page2_1, tr("1-2"));
+    
+    QLabel *lab1 = new QLabel(tr("Arm Button 1"));
+    grid2_1->addWidget(lab1, 0, 0);
+    InputSelectionWidget *ab1 = new InputSelectionWidget(m_doc, d);
+    QSharedPointer<QLCInputSource> pab1(new QLCInputSource(0, settings.value("sceneEdit/armButton1",-1).toUInt()));
+    ab1->setKeyInputVisibility(false);
+    ab1->setInputSource(pab1);
+    grid2_1->addWidget(ab1, 0, 1);
+    
+    QLabel *lab2 = new QLabel(tr("Arm Button 2"));
+    grid2_1->addWidget(lab2, 1, 0);
+    InputSelectionWidget *ab2 = new InputSelectionWidget(m_doc, d);
+    QSharedPointer<QLCInputSource> pab2(new QLCInputSource(0, settings.value("sceneEdit/armButton2",-1).toUInt()));
+    ab2->setKeyInputVisibility(false);
+    ab2->setInputSource(pab1);
+    grid2_1->addWidget(ab2, 1, 1);
+
+    QWidget *page2_2 = new QWidget();
+    QGridLayout *grid2_2 = new QGridLayout(page2_2);
+    page2->addTab(page2_2, tr("3-4"));
+
+    QLabel *lab3 = new QLabel(tr("Arm Button 3"));
+    grid2_2->addWidget(lab3, 0, 0);
+    InputSelectionWidget *ab3 = new InputSelectionWidget(m_doc, d);
+    QSharedPointer<QLCInputSource> pab3(new QLCInputSource(0, settings.value("sceneEdit/armButton3",-1).toUInt()));
+    ab3->setKeyInputVisibility(false);
+    ab3->setInputSource(pab3);
+    grid2_2->addWidget(ab3, 0, 1);
+
+    QLabel *lab4 = new QLabel(tr("Arm Button 4"));
+    grid2_2->addWidget(lab4, 1, 0);
+    InputSelectionWidget *ab4 = new InputSelectionWidget(m_doc, d);
+    QSharedPointer<QLCInputSource> pab4(new QLCInputSource(0, settings.value("sceneEdit/armButton4",-1).toUInt()));
+    ab4->setKeyInputVisibility(false);
+    ab4->setInputSource(pab4);
+    grid2_2->addWidget(ab4, 1, 1);
+
+    QWidget *page2_3 = new QWidget();
+    QGridLayout *grid2_3 = new QGridLayout(page2_3);
+    page2->addTab(page2_3, tr("5-6"));
+
+    QLabel *lab5 = new QLabel(tr("Arm Button 5"));
+    grid2_3->addWidget(lab5, 0, 0);
+    InputSelectionWidget *ab5 = new InputSelectionWidget(m_doc, d);
+    QSharedPointer<QLCInputSource> pab5(new QLCInputSource(0, settings.value("sceneEdit/armButton5",-1).toUInt()));
+    ab5->setKeyInputVisibility(false);
+    ab5->setInputSource(pab5);
+    grid2_3->addWidget(ab5, 0, 1);
+
+    QLabel *lab6 = new QLabel(tr("Arm Button 6"));
+    grid2_3->addWidget(lab6, 1, 0);
+    InputSelectionWidget *ab6 = new InputSelectionWidget(m_doc, d);
+    QSharedPointer<QLCInputSource> pab6(new QLCInputSource(0, settings.value("sceneEdit/armButton6",-1).toUInt()));
+    ab6->setKeyInputVisibility(false);
+    ab6->setInputSource(pab6);
+    grid2_3->addWidget(ab6, 1, 1);
+
+    QWidget *page2_4 = new QWidget();
+    QGridLayout *grid2_4 = new QGridLayout(page2_4);
+    page2->addTab(page2_4, tr("7-8"));
+
+    QLabel *lab7 = new QLabel(tr("Arm Button 7"));
+    grid2_4->addWidget(lab7, 0, 0);
+    InputSelectionWidget *ab7 = new InputSelectionWidget(m_doc, d);
+    QSharedPointer<QLCInputSource> pab7(new QLCInputSource(0, settings.value("sceneEdit/armButton7",-1).toUInt()));
+    ab7->setKeyInputVisibility(false);
+    ab7->setInputSource(pab7);
+    grid2_4->addWidget(ab7, 0, 1);
+
+    QLabel *lab8 = new QLabel(tr("Arm Button 8"));
+    grid2_4->addWidget(lab8, 1, 0);
+    InputSelectionWidget *ab8 = new InputSelectionWidget(m_doc, d);
+    QSharedPointer<QLCInputSource> pab8(new QLCInputSource(0, settings.value("sceneEdit/armButton8",-1).toUInt()));
+    ab8->setKeyInputVisibility(false);
+    ab8->setInputSource(pab8);
+    grid2_4->addWidget(ab8, 1, 1);
+
+    QTabWidget *page3 = new QTabWidget();
+    page3->setTabPosition(QTabWidget::West);
+    QWidget *page3_1 = new QWidget();
+    QGridLayout *grid3_1 = new QGridLayout(page3_1);
+    page3->addTab(page3_1, tr("1-2"));
+
+    QLabel *lfd1 = new QLabel(tr("Fader 1"));
+    grid3_1->addWidget(lfd1, 0, 0);
+    InputSelectionWidget *fd1 = new InputSelectionWidget(m_doc, d);
+    QSharedPointer<QLCInputSource> pfd1(new QLCInputSource(0, settings.value("sceneEdit/fader1",-1).toUInt()));
+    fd1->setKeyInputVisibility(false);
+    fd1->setInputSource(pfd1);
+    grid3_1->addWidget(fd1, 0, 1);
+
+    QLabel *lfd2 = new QLabel(tr("Fader 2"));
+    grid3_1->addWidget(lfd2, 1, 0);
+    InputSelectionWidget *fd2 = new InputSelectionWidget(m_doc, d);
+    QSharedPointer<QLCInputSource> pfd2(new QLCInputSource(0, settings.value("sceneEdit/fader2",-1).toUInt()));
+    fd2->setKeyInputVisibility(false);
+    fd2->setInputSource(pfd2);
+    grid3_1->addWidget(fd2, 1, 1);
+
+    QWidget *page3_2 = new QWidget();
+    QGridLayout *grid3_2 = new QGridLayout(page3_2);
+    page3->addTab(page3_2, tr("3-4"));
+
+    QLabel *lfd3 = new QLabel(tr("Fader 3"));
+    grid3_2->addWidget(lfd3, 0, 0);
+    InputSelectionWidget *fd3 = new InputSelectionWidget(m_doc, d);
+    QSharedPointer<QLCInputSource> pfd3(new QLCInputSource(0, settings.value("sceneEdit/fader3",-1).toUInt()));
+    fd3->setKeyInputVisibility(false);
+    fd3->setInputSource(pfd3);
+    grid3_2->addWidget(fd3, 0, 1);
+
+    QLabel *lfd4 = new QLabel(tr("Fader 4"));
+    grid3_2->addWidget(lfd4, 1, 0);
+    InputSelectionWidget *fd4 = new InputSelectionWidget(m_doc, d);
+    QSharedPointer<QLCInputSource> pfd4(new QLCInputSource(0, settings.value("sceneEdit/fader4",-1).toUInt()));
+    fd4->setKeyInputVisibility(false);
+    fd4->setInputSource(pfd4);
+    grid3_2->addWidget(fd4, 1, 1);
+
+    QWidget *page3_3 = new QWidget();
+    QGridLayout *grid3_3 = new QGridLayout(page3_3);
+    page3->addTab(page3_3, tr("5-6"));
+
+    QLabel *lfd5 = new QLabel(tr("Fader 5"));
+    grid3_3->addWidget(lfd5, 0, 0);
+    InputSelectionWidget *fd5 = new InputSelectionWidget(m_doc, d);
+    QSharedPointer<QLCInputSource> pfd5(new QLCInputSource(0, settings.value("sceneEdit/fader5",-1).toUInt()));
+    fd5->setKeyInputVisibility(false);
+    fd5->setInputSource(pfd5);
+    grid3_3->addWidget(fd5, 0, 1);
+
+    QLabel *lfd6 = new QLabel(tr("Fader 6"));
+    grid3_3->addWidget(lfd6, 1, 0);
+    InputSelectionWidget *fd6 = new InputSelectionWidget(m_doc, d);
+    QSharedPointer<QLCInputSource> pfd6(new QLCInputSource(0, settings.value("sceneEdit/fader6",-1).toUInt()));
+    fd6->setKeyInputVisibility(false);
+    fd6->setInputSource(pfd6);
+    grid3_3->addWidget(fd6, 1, 1);
+
+    QWidget *page3_4 = new QWidget();
+    QGridLayout *grid3_4 = new QGridLayout(page3_4);
+    page3->addTab(page3_4, tr("7-8"));
+
+    QLabel *lfd7 = new QLabel(tr("Fader 7"));
+    grid3_4->addWidget(lfd7, 0, 0);
+    InputSelectionWidget *fd7 = new InputSelectionWidget(m_doc, d);
+    QSharedPointer<QLCInputSource> pfd7(new QLCInputSource(0, settings.value("sceneEdit/fader7",-1).toUInt()));
+    fd7->setKeyInputVisibility(false);
+    fd7->setInputSource(pfd7);
+    grid3_4->addWidget(fd7, 0, 1);
+
+    QLabel *lfd8 = new QLabel(tr("Fader 8"));
+    grid3_4->addWidget(lfd8, 1, 0);
+    InputSelectionWidget *fd8 = new InputSelectionWidget(m_doc, d);
+    QSharedPointer<QLCInputSource> pfd8(new QLCInputSource(0, settings.value("sceneEdit/fader8",-1).toUInt()));
+    fd8->setKeyInputVisibility(false);
+    fd8->setInputSource(pfd8);
+    grid3_4->addWidget(fd8, 1, 1);
+
+    QWidget *page4 = new QWidget();
+    QGridLayout *grid4 = new QGridLayout(page4);
+
+    QLabel *lbLeft = new QLabel(tr("Previous Fixture"));
+    grid4->addWidget(lbLeft, 0, 0);
+    InputSelectionWidget *iLeft = new InputSelectionWidget(m_doc, d);
+    QSharedPointer<QLCInputSource> pLeft(new QLCInputSource(0, settings.value("sceneEdit/tabPrev",-1).toUInt()));
+    iLeft->setKeyInputVisibility(false);
+    iLeft->setInputSource(pLeft);
+    grid4->addWidget(iLeft, 0, 1);
+
+    QLabel *lbRight = new QLabel(tr("Next Fixture"));
+    grid4->addWidget(lbRight, 1, 0);
+    InputSelectionWidget *iRight = new InputSelectionWidget(m_doc, d);
+    QSharedPointer<QLCInputSource> pRight(new QLCInputSource(0, settings.value("sceneEdit/tabNext",-1).toUInt()));
+    iRight->setKeyInputVisibility(false);
+    iRight->setInputSource(pRight);
+    grid4->addWidget(iRight, 1, 1);
+    
+    QHBoxLayout *boxLabel = new QHBoxLayout();
+    QLabel *lbHw = new QLabel(tr("Enable Hardware"));
+    boxLabel->addWidget(lbHw);
+    QCheckBox *cHw = new QCheckBox();
+    cHw->setCheckState(settings.value("sceneEdit/hardwareEnable",false).toBool() ? Qt::Checked : Qt::Unchecked);
+    boxLabel->addWidget(cHw);
+    mainLayout->addLayout(boxLabel);
+
+    QHBoxLayout *boxBtn = new QHBoxLayout();
+    QPushButton *bSave = new QPushButton(tr("Save"));
+    boxBtn->addWidget(bSave);
+    connect(bSave, SIGNAL(released()), d, SLOT(accept()));
+    QPushButton *bCancel = new QPushButton(tr("Cancel"));
+    boxBtn->addWidget(bCancel);
+    connect(bCancel, SIGNAL(released()), d, SLOT(reject()));
+
+    QTabWidget *tw = new QTabWidget();
+    tw->addTab(page1, tr("Channel Banks"));
+    tw->addTab(page2, tr("Arm Buttons"));
+    tw->addTab(page3, tr("Faders"));
+    tw->addTab(page4, tr("Other"));
+    // d->adjustSize();
+    mainLayout->addWidget(tw);
+    mainLayout->addLayout(boxBtn);
+    if(d->exec() == QDialog::Accepted){
+        fprintf(stderr, "CB1: %d\n", pcb1->channel());
+        settings.setValue("sceneEdit/channelBank1", cb1->inputSource()->channel());
+        settings.setValue("sceneEdit/channelBank2", cb2->inputSource()->channel());
+        settings.setValue("sceneEdit/channelBank3", cb3->inputSource()->channel());
+        settings.setValue("sceneEdit/channelBank4", cb4->inputSource()->channel());
+        settings.setValue("sceneEdit/channelBank5", cb5->inputSource()->channel());
+        settings.setValue("sceneEdit/channelBank6", cb6->inputSource()->channel());
+        settings.setValue("sceneEdit/channelBank7", cb7->inputSource()->channel());
+        settings.setValue("sceneEdit/channelBank8", cb8->inputSource()->channel());
+        settings.setValue("sceneEdit/armButton1", ab1->inputSource()->channel());
+        settings.setValue("sceneEdit/armButton2", ab2->inputSource()->channel());
+        settings.setValue("sceneEdit/armButton3", ab3->inputSource()->channel());
+        settings.setValue("sceneEdit/armButton4", ab4->inputSource()->channel());
+        settings.setValue("sceneEdit/armButton5", ab5->inputSource()->channel());
+        settings.setValue("sceneEdit/armButton6", ab6->inputSource()->channel());
+        settings.setValue("sceneEdit/armButton7", ab7->inputSource()->channel());
+        settings.setValue("sceneEdit/armButton8", ab8->inputSource()->channel());
+        settings.setValue("sceneEdit/fader1", fd1->inputSource()->channel());
+        settings.setValue("sceneEdit/fader2", fd2->inputSource()->channel());
+        settings.setValue("sceneEdit/fader3", fd3->inputSource()->channel());
+        settings.setValue("sceneEdit/fader4", fd4->inputSource()->channel());
+        settings.setValue("sceneEdit/fader5", fd5->inputSource()->channel());
+        settings.setValue("sceneEdit/fader6", fd6->inputSource()->channel());
+        settings.setValue("sceneEdit/fader7", fd7->inputSource()->channel());
+        settings.setValue("sceneEdit/fader8", fd8->inputSource()->channel());
+        settings.setValue("sceneEdit/tabPrev", iLeft->inputSource()->channel());
+        settings.setValue("sceneEdit/tabNext", iRight->inputSource()->channel());
+        settings.setValue("sceneEdit/hardwareEnabled", cHw->isChecked());
+        hw_enable = settings.value("sceneEdit/hardwareEnable",false).toBool();
+        // settings.sync();
+        fprintf(stderr, "CB1:%d\n", settings.value("sceneEdit/channelBank1",-1).toUInt());
+        
+        channelBanks.clear();
+        channelBanks.append(settings.value("sceneEdit/channelBank1",-1).toUInt());
+        channelBanks.append(settings.value("sceneEdit/channelBank2",-1).toUInt());
+        channelBanks.append(settings.value("sceneEdit/channelBank3",-1).toUInt());
+        channelBanks.append(settings.value("sceneEdit/channelBank4",-1).toUInt());
+        channelBanks.append(settings.value("sceneEdit/channelBank5",-1).toUInt());
+        channelBanks.append(settings.value("sceneEdit/channelBank6",-1).toUInt());
+        channelBanks.append(settings.value("sceneEdit/channelBank7",-1).toUInt());
+        channelBanks.append(settings.value("sceneEdit/channelBank8",-1).toUInt());
+        armButton.clear();
+        armButton.append(settings.value("sceneEdit/armButton1",-1).toUInt());
+        armButton.append(settings.value("sceneEdit/armButton2",-1).toUInt());
+        armButton.append(settings.value("sceneEdit/armButton3",-1).toUInt());
+        armButton.append(settings.value("sceneEdit/armButton4",-1).toUInt());
+        armButton.append(settings.value("sceneEdit/armButton5",-1).toUInt());
+        armButton.append(settings.value("sceneEdit/armButton6",-1).toUInt());
+        armButton.append(settings.value("sceneEdit/armButton7",-1).toUInt());
+        armButton.append(settings.value("sceneEdit/armButton8",-1).toUInt());
+        faders.clear();
+        faders.append(settings.value("sceneEdit/fader1",-1).toUInt());
+        faders.append(settings.value("sceneEdit/fader2",-1).toUInt());
+        faders.append(settings.value("sceneEdit/fader3",-1).toUInt());
+        faders.append(settings.value("sceneEdit/fader4",-1).toUInt());
+        faders.append(settings.value("sceneEdit/fader5",-1).toUInt());
+        faders.append(settings.value("sceneEdit/fader6",-1).toUInt());
+        faders.append(settings.value("sceneEdit/fader7",-1).toUInt());
+        faders.append(settings.value("sceneEdit/fader8",-1).toUInt());
+        tabs.clear();
+        tabs.append(settings.value("sceneEdit/tabPrev",-1).toUInt());
+        tabs.append(settings.value("sceneEdit/tabNext",-1).toUInt());
+        if(channelBanks.count() != 8 || armButton.count() != 8 || faders.count() != 8 || tabs.count() != 2)
+            hw_enable = false;
+        settings.sync();
+        fprintf(stderr, "Sync\n");
+    }
 }

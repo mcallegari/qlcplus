@@ -203,6 +203,28 @@ void FixtureConsole::setChecked(bool state, quint32 channel)
     }
 }
 
+bool FixtureConsole::check(quint32 channel)
+{
+    QListIterator <ConsoleChannel*> it(m_channels);
+    while (it.hasNext() == true)
+    {
+        ConsoleChannel* cc = it.next();
+        Q_ASSERT(cc != NULL);
+        if (channel == cc->channelIndex()){
+          cc->setChecked(!cc->isChecked());
+          return cc->isChecked();
+        }
+    }
+    return false;
+}
+
+bool FixtureConsole::isChecked(quint32 channel)
+{
+  if((int)channel >= m_channels.count())
+     return false;
+  return m_channels.at(channel)->isChecked();
+}
+
 void FixtureConsole::setOutputDMX(bool state)
 {
     Q_UNUSED(state);
@@ -310,6 +332,13 @@ void FixtureConsole::setChannelStylesheet(quint32 ch, QString ss)
     ConsoleChannel* cc = channel(ch);
     if (cc != NULL)
         cc->setChannelStyleSheet(ss);
+}
+
+void FixtureConsole::setSliderStylesheet(quint32 ch, QString ss)
+{
+    ConsoleChannel* cc = channel(ch);
+    if (cc != NULL)
+        cc->setSliderStylesheet(ss);
 }
 
 void FixtureConsole::resetChannelsStylesheet()
