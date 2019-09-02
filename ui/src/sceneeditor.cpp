@@ -95,32 +95,32 @@ SceneEditor::SceneEditor(QWidget* parent, Scene* scene, Doc* doc, bool applyValu
     QSettings settings;
     // read settings
     hw_enable = settings.value("sceneEdit/hardwareEnable",false).toBool();
-    channelBanks.append(settings.value("sceneEdit/channelBank1",-1).toUInt());
-    channelBanks.append(settings.value("sceneEdit/channelBank2",-1).toUInt());
-    channelBanks.append(settings.value("sceneEdit/channelBank3",-1).toUInt());
-    channelBanks.append(settings.value("sceneEdit/channelBank4",-1).toUInt());
-    channelBanks.append(settings.value("sceneEdit/channelBank5",-1).toUInt());
-    channelBanks.append(settings.value("sceneEdit/channelBank6",-1).toUInt());
-    channelBanks.append(settings.value("sceneEdit/channelBank7",-1).toUInt());
-    channelBanks.append(settings.value("sceneEdit/channelBank8",-1).toUInt());
-    armButton.append(settings.value("sceneEdit/armButton1",-1).toUInt());
-    armButton.append(settings.value("sceneEdit/armButton2",-1).toUInt());
-    armButton.append(settings.value("sceneEdit/armButton3",-1).toUInt());
-    armButton.append(settings.value("sceneEdit/armButton4",-1).toUInt());
-    armButton.append(settings.value("sceneEdit/armButton5",-1).toUInt());
-    armButton.append(settings.value("sceneEdit/armButton6",-1).toUInt());
-    armButton.append(settings.value("sceneEdit/armButton7",-1).toUInt());
-    armButton.append(settings.value("sceneEdit/armButton8",-1).toUInt());
-    faders.append(settings.value("sceneEdit/fader1",-1).toUInt());
-    faders.append(settings.value("sceneEdit/fader2",-1).toUInt());
-    faders.append(settings.value("sceneEdit/fader3",-1).toUInt());
-    faders.append(settings.value("sceneEdit/fader4",-1).toUInt());
-    faders.append(settings.value("sceneEdit/fader5",-1).toUInt());
-    faders.append(settings.value("sceneEdit/fader6",-1).toUInt());
-    faders.append(settings.value("sceneEdit/fader7",-1).toUInt());
-    faders.append(settings.value("sceneEdit/fader8",-1).toUInt());
-    tabs.append(settings.value("sceneEdit/tabPrev",-1).toUInt());
-    tabs.append(settings.value("sceneEdit/tabNext",-1).toUInt());
+    channelBanks.append(settings.value("sceneEdit/channelBank1",QLCInputSource::invalidChannel).toUInt());
+    channelBanks.append(settings.value("sceneEdit/channelBank2",QLCInputSource::invalidChannel).toUInt());
+    channelBanks.append(settings.value("sceneEdit/channelBank3",QLCInputSource::invalidChannel).toUInt());
+    channelBanks.append(settings.value("sceneEdit/channelBank4",QLCInputSource::invalidChannel).toUInt());
+    channelBanks.append(settings.value("sceneEdit/channelBank5",QLCInputSource::invalidChannel).toUInt());
+    channelBanks.append(settings.value("sceneEdit/channelBank6",QLCInputSource::invalidChannel).toUInt());
+    channelBanks.append(settings.value("sceneEdit/channelBank7",QLCInputSource::invalidChannel).toUInt());
+    channelBanks.append(settings.value("sceneEdit/channelBank8",QLCInputSource::invalidChannel).toUInt());
+    armButton.append(settings.value("sceneEdit/armButton1",QLCInputSource::invalidChannel).toUInt());
+    armButton.append(settings.value("sceneEdit/armButton2",QLCInputSource::invalidChannel).toUInt());
+    armButton.append(settings.value("sceneEdit/armButton3",QLCInputSource::invalidChannel).toUInt());
+    armButton.append(settings.value("sceneEdit/armButton4",QLCInputSource::invalidChannel).toUInt());
+    armButton.append(settings.value("sceneEdit/armButton5",QLCInputSource::invalidChannel).toUInt());
+    armButton.append(settings.value("sceneEdit/armButton6",QLCInputSource::invalidChannel).toUInt());
+    armButton.append(settings.value("sceneEdit/armButton7",QLCInputSource::invalidChannel).toUInt());
+    armButton.append(settings.value("sceneEdit/armButton8",QLCInputSource::invalidChannel).toUInt());
+    faders.append(settings.value("sceneEdit/fader1",QLCInputSource::invalidChannel).toUInt());
+    faders.append(settings.value("sceneEdit/fader2",QLCInputSource::invalidChannel).toUInt());
+    faders.append(settings.value("sceneEdit/fader3",QLCInputSource::invalidChannel).toUInt());
+    faders.append(settings.value("sceneEdit/fader4",QLCInputSource::invalidChannel).toUInt());
+    faders.append(settings.value("sceneEdit/fader5",QLCInputSource::invalidChannel).toUInt());
+    faders.append(settings.value("sceneEdit/fader6",QLCInputSource::invalidChannel).toUInt());
+    faders.append(settings.value("sceneEdit/fader7",QLCInputSource::invalidChannel).toUInt());
+    faders.append(settings.value("sceneEdit/fader8",QLCInputSource::invalidChannel).toUInt());
+    tabs.append(settings.value("sceneEdit/tabPrev",QLCInputSource::invalidChannel).toUInt());
+    tabs.append(settings.value("sceneEdit/tabNext",QLCInputSource::invalidChannel).toUInt());
     if(channelBanks.count() != 8 || armButton.count() != 8 || faders.count() != 8 || tabs.count() != 2)
       hw_enable = false;
     m_offset = 0;
@@ -1719,6 +1719,7 @@ SceneEditor::onInput(quint32 univ, quint32 chan, uchar val, const QString &key)
                                                    "border: 1px solid #666; }"
                                                    );
     if(m_doc->mode() == Doc::Operate) return;
+    if(!hw_enable) return;
     if (m_scene->uiStateValue(UI_STATE_TAB_MODE).toInt() != UI_STATE_TABBED_FIXTURES) return;
     if((int)val > 0){
         switch(tabs.indexOf(chan)){
@@ -2069,7 +2070,6 @@ void SceneEditor::slotHardwareAction()
     mainLayout->addWidget(tw);
     mainLayout->addLayout(boxBtn);
     if(d->exec() == QDialog::Accepted){
-        fprintf(stderr, "CB1: %d\n", pcb1->channel());
         settings.setValue("sceneEdit/channelBank1", cb1->inputSource()->channel());
         settings.setValue("sceneEdit/channelBank2", cb2->inputSource()->channel());
         settings.setValue("sceneEdit/channelBank3", cb3->inputSource()->channel());
@@ -2098,42 +2098,38 @@ void SceneEditor::slotHardwareAction()
         settings.setValue("sceneEdit/tabNext", iRight->inputSource()->channel());
         settings.setValue("sceneEdit/hardwareEnabled", cHw->isChecked());
         hw_enable = settings.value("sceneEdit/hardwareEnable",false).toBool();
-        // settings.sync();
-        fprintf(stderr, "CB1:%d\n", settings.value("sceneEdit/channelBank1",-1).toUInt());
-        
         channelBanks.clear();
-        channelBanks.append(settings.value("sceneEdit/channelBank1",-1).toUInt());
-        channelBanks.append(settings.value("sceneEdit/channelBank2",-1).toUInt());
-        channelBanks.append(settings.value("sceneEdit/channelBank3",-1).toUInt());
-        channelBanks.append(settings.value("sceneEdit/channelBank4",-1).toUInt());
-        channelBanks.append(settings.value("sceneEdit/channelBank5",-1).toUInt());
-        channelBanks.append(settings.value("sceneEdit/channelBank6",-1).toUInt());
-        channelBanks.append(settings.value("sceneEdit/channelBank7",-1).toUInt());
-        channelBanks.append(settings.value("sceneEdit/channelBank8",-1).toUInt());
+        channelBanks.append(settings.value("sceneEdit/channelBank1",QLCInputSource::invalidChannel).toUInt());
+        channelBanks.append(settings.value("sceneEdit/channelBank2",QLCInputSource::invalidChannel).toUInt());
+        channelBanks.append(settings.value("sceneEdit/channelBank3",QLCInputSource::invalidChannel).toUInt());
+        channelBanks.append(settings.value("sceneEdit/channelBank4",QLCInputSource::invalidChannel).toUInt());
+        channelBanks.append(settings.value("sceneEdit/channelBank5",QLCInputSource::invalidChannel).toUInt());
+        channelBanks.append(settings.value("sceneEdit/channelBank6",QLCInputSource::invalidChannel).toUInt());
+        channelBanks.append(settings.value("sceneEdit/channelBank7",QLCInputSource::invalidChannel).toUInt());
+        channelBanks.append(settings.value("sceneEdit/channelBank8",QLCInputSource::invalidChannel).toUInt());
         armButton.clear();
-        armButton.append(settings.value("sceneEdit/armButton1",-1).toUInt());
-        armButton.append(settings.value("sceneEdit/armButton2",-1).toUInt());
-        armButton.append(settings.value("sceneEdit/armButton3",-1).toUInt());
-        armButton.append(settings.value("sceneEdit/armButton4",-1).toUInt());
-        armButton.append(settings.value("sceneEdit/armButton5",-1).toUInt());
-        armButton.append(settings.value("sceneEdit/armButton6",-1).toUInt());
-        armButton.append(settings.value("sceneEdit/armButton7",-1).toUInt());
-        armButton.append(settings.value("sceneEdit/armButton8",-1).toUInt());
+        armButton.append(settings.value("sceneEdit/armButton1",QLCInputSource::invalidChannel).toUInt());
+        armButton.append(settings.value("sceneEdit/armButton2",QLCInputSource::invalidChannel).toUInt());
+        armButton.append(settings.value("sceneEdit/armButton3",QLCInputSource::invalidChannel).toUInt());
+        armButton.append(settings.value("sceneEdit/armButton4",QLCInputSource::invalidChannel).toUInt());
+        armButton.append(settings.value("sceneEdit/armButton5",QLCInputSource::invalidChannel).toUInt());
+        armButton.append(settings.value("sceneEdit/armButton6",QLCInputSource::invalidChannel).toUInt());
+        armButton.append(settings.value("sceneEdit/armButton7",QLCInputSource::invalidChannel).toUInt());
+        armButton.append(settings.value("sceneEdit/armButton8",QLCInputSource::invalidChannel).toUInt());
         faders.clear();
-        faders.append(settings.value("sceneEdit/fader1",-1).toUInt());
-        faders.append(settings.value("sceneEdit/fader2",-1).toUInt());
-        faders.append(settings.value("sceneEdit/fader3",-1).toUInt());
-        faders.append(settings.value("sceneEdit/fader4",-1).toUInt());
-        faders.append(settings.value("sceneEdit/fader5",-1).toUInt());
-        faders.append(settings.value("sceneEdit/fader6",-1).toUInt());
-        faders.append(settings.value("sceneEdit/fader7",-1).toUInt());
-        faders.append(settings.value("sceneEdit/fader8",-1).toUInt());
+        faders.append(settings.value("sceneEdit/fader1",QLCInputSource::invalidChannel).toUInt());
+        faders.append(settings.value("sceneEdit/fader2",QLCInputSource::invalidChannel).toUInt());
+        faders.append(settings.value("sceneEdit/fader3",QLCInputSource::invalidChannel).toUInt());
+        faders.append(settings.value("sceneEdit/fader4",QLCInputSource::invalidChannel).toUInt());
+        faders.append(settings.value("sceneEdit/fader5",QLCInputSource::invalidChannel).toUInt());
+        faders.append(settings.value("sceneEdit/fader6",QLCInputSource::invalidChannel).toUInt());
+        faders.append(settings.value("sceneEdit/fader7",QLCInputSource::invalidChannel).toUInt());
+        faders.append(settings.value("sceneEdit/fader8",QLCInputSource::invalidChannel).toUInt());
         tabs.clear();
-        tabs.append(settings.value("sceneEdit/tabPrev",-1).toUInt());
-        tabs.append(settings.value("sceneEdit/tabNext",-1).toUInt());
+        tabs.append(settings.value("sceneEdit/tabPrev",QLCInputSource::invalidChannel).toUInt());
+        tabs.append(settings.value("sceneEdit/tabNext",QLCInputSource::invalidChannel).toUInt());
         if(channelBanks.count() != 8 || armButton.count() != 8 || faders.count() != 8 || tabs.count() != 2)
             hw_enable = false;
         settings.sync();
-        fprintf(stderr, "Sync\n");
     }
 }
