@@ -31,7 +31,7 @@ Rectangle
     width: UISettings.bigItemHeight * 2.2
     height: UISettings.bigItemHeight * 3.3
     color: UISettings.bgMedium
-    border.color: "#666"
+    border.color: UISettings.fgMedium
     border.width: 2
 
     property int panMaxDegrees: 360

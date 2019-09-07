@@ -274,13 +274,13 @@ Rectangle
                 radius: height / 2
                 border.width: 2
                 border.color: "#333"
-                color: "#666"
+                color: UISettings.fgMedium
 
                 ColorAnimation on color
                 {
                     id: cAnim
                     from: "#00FF00"
-                    to: "#666"
+                    to: UISettings.fgMedium
                     // half the duration of the current BPM
                     duration: ioManager.bpmNumber ? 30000 / ioManager.bpmNumber : 200
                     running: false
