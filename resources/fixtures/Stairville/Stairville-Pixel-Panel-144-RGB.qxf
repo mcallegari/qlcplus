@@ -1654,7 +1654,7 @@
  </Mode>
  <Physical>
   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-  <Dimensions Weight="3" Width="300" Height="3000" Depth="110"/>
+  <Dimensions Weight="3" Width="300" Height="300" Depth="110"/>
   <Lens Name="Other" DegreesMin="120" DegreesMax="120"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
   <Layout Width="12" Height="12"/>
