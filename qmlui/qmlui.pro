@@ -140,12 +140,14 @@ HEADERS += \
     fixtureeditor/fixtureeditor.h \
     fixtureeditor/editorview.h \
     fixtureeditor/channeledit.h \
+    fixtureeditor/modeedit.h \
     fixtureeditor/physicaledit.h
 
 SOURCES += \
     fixtureeditor/fixtureeditor.cpp \
     fixtureeditor/editorview.cpp \
     fixtureeditor/channeledit.cpp \
+    fixtureeditor/modeedit.cpp \
     fixtureeditor/physicaledit.cpp
 
 RESOURCES += qmlui.qrc ../resources/icons/svg/svgicons.qrc ../resources/fonts/fonts.qrc

@@ -25,6 +25,7 @@
 class QLCFixtureDef;
 class PhysicalEdit;
 class ChannelEdit;
+class ModeEdit;
 
 class EditorView : public QObject
 {
@@ -36,6 +37,8 @@ class EditorView : public QObject
 
     Q_PROPERTY(PhysicalEdit *globalPhysical READ globalPhysical CONSTANT)
     Q_PROPERTY(QVariantList channels READ channels NOTIFY channelsChanged)
+
+    Q_PROPERTY(QVariantList modes READ modes NOTIFY modesChanged)
 
 public:
     EditorView(QQuickView *view, QLCFixtureDef *fixtureDef, QObject *parent = nullptr);
@@ -77,13 +80,32 @@ public:
 
     /** Request a channel editor. If chName is empty,
      *  a new channel is added */
-    Q_INVOKABLE ChannelEdit *requestChannelEditor(QString chName);
+    Q_INVOKABLE ChannelEdit *requestChannelEditor(QString name);
 
 private:
+    /** Reference to a channel editor */
     ChannelEdit *m_channelEdit;
 
 signals:
     void channelsChanged();
+
+    /************************************************************************
+     * Modes
+     ************************************************************************/
+public:
+    /** Get a list of all the available modes in the definition */
+    QVariantList modes() const;
+
+    /** Request a channel editor. If chName is empty,
+     *  a new channel is added */
+    Q_INVOKABLE ModeEdit *requestModeEditor(QString name);
+
+private:
+    /** Reference to a mode editor */
+    ModeEdit *m_modeEdit;
+
+signals:
+    void modesChanged();
 };
 
 #endif // EDITORVIEW_H

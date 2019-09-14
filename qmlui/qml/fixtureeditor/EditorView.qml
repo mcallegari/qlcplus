@@ -185,7 +185,8 @@ Rectangle
                                         color: "transparent"
                                     }
                                 }
-                            }
+                            } // Rectangle - toolbar
+
                             ListView
                             {
                                 id: channelList
@@ -211,7 +212,7 @@ Rectangle
 
                                             property bool dragActive: drag.active
 
-                                            drag.target: fDragItem
+                                            drag.target: cDragItem
                                             drag.threshold: height / 2
 
                                             onDragActiveChanged: channelList.dragActive = dragActive
@@ -238,19 +239,27 @@ Rectangle
                                                 tLabel: modelData.mLabel
                                                 iSrc: modelData.mIcon
                                             }
+
+                                            Rectangle
+                                            {
+                                                width: parent.width
+                                                height: 1
+                                                y: parent.height - 1
+                                                color: UISettings.fgMedium
+                                            }
                                         }
                                     }
 
                                 GenericMultiDragItem
                                 {
-                                    id: fDragItem
+                                    id: cDragItem
 
                                     property bool fromFunctionManager: true
 
                                     visible: channelList.dragActive
 
                                     Drag.active: channelList.dragActive
-                                    Drag.source: fDragItem
+                                    Drag.source: cDragItem
                                     Drag.keys: [ "channel" ]
 
                                     function itemDropped(id, name)
@@ -275,7 +284,126 @@ Rectangle
                                 }
                             } // ListView
                         } // Column
-                } // SectionBox
+                } // SectionBox - Channels
+
+                SectionBox
+                {
+                    id: modeSection
+                    width: parent.width
+                    sectionLabel: qsTr("Modes")
+
+                    sectionContents:
+                        Column
+                        {
+                            width: modeSection.width
+                            //height: modeEditToolbar.height + modeList.height
+
+                            Rectangle
+                            {
+                                id: modeEditToolbar
+                                width: modeSection.width
+                                height: UISettings.iconSizeDefault
+                                gradient: Gradient
+                                {
+                                    GradientStop { position: 0; color: UISettings.toolbarStartSub }
+                                    GradientStop { position: 1; color: UISettings.toolbarEnd }
+                                }
+
+                                RowLayout
+                                {
+                                    anchors.fill: parent
+
+                                    IconButton
+                                    {
+                                        id: newModeButton
+                                        imgSource: "qrc:/add.svg"
+                                        tooltip: qsTr("Add a new mode")
+                                        onClicked: { /* TODO */ }
+                                    }
+
+                                    IconButton
+                                    {
+                                        id: delModeButton
+                                        imgSource: "qrc:/remove.svg"
+                                        tooltip: qsTr("Remove the selected mode(s)")
+                                        onClicked: { /* TODO */ }
+                                    }
+
+                                    Rectangle
+                                    {
+                                        Layout.fillWidth: true
+                                        color: "transparent"
+                                    }
+                                }
+                            } // Rectangle - toolbar
+
+                            ListView
+                            {
+                                id: modeList
+                                width: modeSection.width
+                                height: UISettings.listItemHeight * count
+                                boundsBehavior: Flickable.StopAtBounds
+                                currentIndex: -1
+
+                                model: editor ? editor.modes : null
+                                delegate:
+                                    Item
+                                    {
+                                        width: modeList.width
+                                        height: UISettings.listItemHeight
+
+                                        MouseArea
+                                        {
+                                            width: modeList.width
+                                            height: parent.height
+
+                                            onPressed: modeList.currentIndex = index
+                                            onDoubleClicked:
+                                            {
+                                                sideEditor.source = ""
+                                                sideEditor.itemName = modelData.mLabel
+                                                sideEditor.source = "qrc:/ModeEditor.qml"
+                                            }
+
+                                            Rectangle
+                                            {
+                                                anchors.fill: parent
+                                                radius: 3
+                                                color: UISettings.highlight
+                                                visible: modeList.currentIndex === index
+                                            }
+
+                                            IconTextEntry
+                                            {
+                                                width: modeList.width
+                                                height: UISettings.listItemHeight
+                                                tLabel: modelData.mLabel
+                                                faSource: FontAwesome.fa_list
+                                                faColor: UISettings.fgMain
+                                            }
+
+                                            Rectangle
+                                            {
+                                                width: parent.width
+                                                height: 1
+                                                y: parent.height - 1
+                                                color: UISettings.fgMedium
+                                            }
+                                        }
+                                    }
+                            } // ListView
+                        } // Column
+                } // SectionBox - Modes
+
+                SectionBox
+                {
+                    id: aliasSection
+                    width: parent.width
+                    sectionLabel: qsTr("Aliases")
+
+                    sectionContents: null
+                } // SectionBox - Alias
+
             } // Column
             ScrollBar.vertical: CustomScrollBar { id: sbar }
         } // Flickable

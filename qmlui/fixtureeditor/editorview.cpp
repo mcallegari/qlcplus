@@ -17,18 +17,21 @@
   limitations under the License.
 */
 
+#include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
 #include "qlcchannel.h"
 
 #include "physicaledit.h"
 #include "channeledit.h"
 #include "editorview.h"
+#include "modeedit.h"
 
 EditorView::EditorView(QQuickView *view, QLCFixtureDef *fixtureDef, QObject *parent)
     : QObject(parent)
     , m_view(view)
     , m_fixtureDef(fixtureDef)
     , m_channelEdit(nullptr)
+    , m_modeEdit(nullptr)
 {
     m_globalPhy = new PhysicalEdit(m_fixtureDef->physical(), this);
 }
@@ -105,12 +108,12 @@ QVariantList EditorView::channels() const
     return list;
 }
 
-ChannelEdit *EditorView::requestChannelEditor(QString chName)
+ChannelEdit *EditorView::requestChannelEditor(QString name)
 {
     if (m_channelEdit != nullptr)
         delete m_channelEdit;
 
-    QLCChannel *ch = m_fixtureDef->channel(chName);
+    QLCChannel *ch = m_fixtureDef->channel(name);
     if (ch == nullptr)
     {
         ch = new QLCChannel();
@@ -120,5 +123,45 @@ ChannelEdit *EditorView::requestChannelEditor(QString chName)
     }
     m_channelEdit = new ChannelEdit(ch);
     return m_channelEdit;
+}
+
+/************************************************************************
+ * Modes
+ ************************************************************************/
+
+QVariantList EditorView::modes() const
+{
+    QVariantList list;
+
+    for (QLCFixtureMode *mode : m_fixtureDef->modes())
+    {
+        QVariantMap modeMap;
+        modeMap.insert("mLabel", mode->name());
+        modeMap.insert("mChannels", mode->channels().count());
+        modeMap.insert("mHeads", mode->heads().count());
+        list.append(modeMap);
+
+        qDebug() << "Added mode" << mode->name();
+    }
+
+    return list;
+}
+
+ModeEdit *EditorView::requestModeEditor(QString name)
+{
+    if (m_modeEdit != nullptr)
+        delete m_modeEdit;
+
+    QLCFixtureMode *mode = m_fixtureDef->mode(name);
+    if (mode == nullptr)
+    {
+        mode = new QLCFixtureMode(m_fixtureDef);
+        mode->setName(tr("New mode"));
+        m_fixtureDef->addMode(mode);
+        emit modesChanged();
+    }
+
+    m_modeEdit = new ModeEdit(mode);
+    return m_modeEdit;
 }
 
