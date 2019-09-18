@@ -3,20 +3,14 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.0 GIT</Version>
-  <Author>Piotr Nowik</Author>
+  <Version>4.12.1</Version>
+  <Author>Piotr Nowik, Jannis Achstetter</Author>
  </Creator>
  <Manufacturer>Eurolite</Manufacturer>
- <Model>TMH-30/60</Model>
+ <Model>TMH-30/60 MK2</Model>
  <Type>Moving Head</Type>
- <Channel Name="Pan">
-  <Group Byte="0">Pan</Group>
-  <Capability Min="0" Max="255">Horizontal movement</Capability>
- </Channel>
- <Channel Name="Tilt">
-  <Group Byte="0">Tilt</Group>
-  <Capability Min="0" Max="255">Vertical movement</Capability>
- </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Pan/Tilt speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>
@@ -28,7 +22,7 @@
   <Capability Min="80" Max="95" Preset="ColorMacro" Res1="#00007f">Dark blue</Capability>
   <Capability Min="96" Max="111" Preset="ColorMacro" Res1="#00aa00">Green</Capability>
   <Capability Min="112" Max="127" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
-  <Capability Min="128" Max="191" Preset="RotationClockwiseFastToSlow">Rainbow forwards decresing speed</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseFastToSlow">Rainbow forwards decreasing speed</Capability>
   <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Rainbow backwards increasing speed</Capability>
  </Channel>
  <Channel Name="Rotating gobo">
@@ -40,15 +34,15 @@
   <Capability Min="76" Max="94">Gobo 4</Capability>
   <Capability Min="95" Max="113">Gobo 5</Capability>
   <Capability Min="114" Max="127">Gobo 6</Capability>
-  <Capability Min="128" Max="191" Preset="RotationClockwiseFastToSlow">Forwards rotation decreasing speed</Capability>
-  <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Backwards rotation increasing speed</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseFastToSlow">Forward rotation decreasing speed</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Backward rotation increasing speed</Capability>
  </Channel>
  <Channel Name="Gobo rotation">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="9" Preset="RotationStop">No rotation</Capability>
-  <Capability Min="10" Max="115" Preset="RotationClockwiseFastToSlow">Forwards gobo rotation with decreasing speed</Capability>
+  <Capability Min="10" Max="115" Preset="RotationClockwiseFastToSlow">Forward gobo rotation with decreasing speed</Capability>
   <Capability Min="116" Max="119" Preset="RotationStop">No rotation</Capability>
-  <Capability Min="120" Max="225" Preset="RotationCounterClockwiseSlowToFast">Backwards gobo rotation with increasing speed</Capability>
+  <Capability Min="120" Max="225" Preset="RotationCounterClockwiseSlowToFast">Backward gobo rotation with increasing speed</Capability>
   <Capability Min="226" Max="255">Rocking gobo</Capability>
  </Channel>
  <Channel Name="Static gobo">
@@ -71,22 +65,22 @@
   <Capability Min="105" Max="111">Gobo 2 shake with increasing speed</Capability>
   <Capability Min="112" Max="118">Gobo 1 shake with increasing speed</Capability>
   <Capability Min="119" Max="127">Open</Capability>
-  <Capability Min="128" Max="191">Cont. gobo-wheel forwards rotation with decreasing speed</Capability>
-  <Capability Min="192" Max="255">Cont. gobo-wheel backwards rotation with increasing speed</Capability>
+  <Capability Min="128" Max="191">Cont. gobo-wheel forward rotation with decreasing speed</Capability>
+  <Capability Min="192" Max="255">Cont. gobo-wheel backward rotation with increasing speed</Capability>
  </Channel>
  <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Prism">
   <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="15" Preset="PrismEffectOff">Open</Capability>
   <Capability Min="16" Max="50" Preset="PrismEffectOn" Res1="3">Prism (no rotation)</Capability>
-  <Capability Min="51" Max="255">Prism rotation with increasing speed</Capability>
+  <Capability Min="51" Max="255" Preset="PrismEffectOn" Res1="3">Prism rotation with increasing speed</Capability>
  </Channel>
  <Channel Name="Switching LEDs, Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="15">Neutral</Capability>
+  <Capability Min="0" Max="15" Preset="ShutterOpen">Neutral</Capability>
   <Capability Min="16" Max="200" Preset="StrobeSlowToFast">Strobe-effect with increasing speed</Capability>
   <Capability Min="201" Max="250" Preset="StrobeRandomSlowToFast">Random strobe-effect with increasing speed</Capability>
-  <Capability Min="251" Max="255">LEDs on</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">LEDs on</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Reset, internal programs">
@@ -101,6 +95,19 @@
  </Channel>
  <Channel Name="Pan fine" Preset="PositionPanFine"/>
  <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Internal programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">Backout</Capability>
+  <Capability Min="16" Max="75">Internal program low speed</Capability>
+  <Capability Min="76" Max="135">Internal program medium speed</Capability>
+  <Capability Min="136" Max="195">Internal program high speed</Capability>
+  <Capability Min="196" Max="255">Music control</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">Neutral</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe with increasing speed</Capability>
+ </Channel>
  <Mode Name="14 channel">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Tilt</Channel>
@@ -129,6 +136,10 @@
   <Channel Number="8">Switching LEDs, Strobe</Channel>
   <Channel Number="9">Dimmer</Channel>
   <Channel Number="10">Reset, internal programs</Channel>
+ </Mode>
+ <Mode Name="2 channel">
+  <Channel Number="0">Internal programs</Channel>
+  <Channel Number="1">Strobe</Channel>
  </Mode>
  <Physical>
   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
