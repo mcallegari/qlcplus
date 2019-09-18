@@ -3,11 +3,11 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.1 GIT</Version>
+  <Version>4.12.1</Version>
   <Author>BuiDH</Author>
  </Creator>
  <Manufacturer>Litecraft</Manufacturer>
- <Model>Mini PAR AT10 </Model>
+ <Model>Mini PAR AT10</Model>
  <Type>Color Changer</Type>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>
