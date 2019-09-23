@@ -1,5 +1,11 @@
 qlcplus (4.12.3) stable; urgency=low
 
+  * New fixtures: Cameo Auro Spot 300, Auro Spot 400, Storm, Zenit B60 (thanks to Jannis Achstetter and Henrik Bauer)
+  * New fixtures: American DJ Vizi Wash LED 108, Eurolite LED B-40 Beam, Eurolite TMH X3 (thanks to Jannis Achstetter and Henrik Bauer)
+  * New fixtures: Litecraft OutLED AT10, Litecraft WashX.36, Martin JEM ZR24-7 (thanks to Jannis Achstetter and Henrik Bauer)
+  * New fixtures: Stairville Mobile Color, Outdoor Stage PAR 12x3W Tri, xBrick Quad 16x8W RGBW (thanks to Jannis Achstetter and Henrik Bauer)
+  * New fixture: Varytec BAT.PAR-6 RGBUV (thanks to Jannis Achstetter and Henrik Bauer)
+
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 29 Dec 2019 12:13:14 +0200
 
 qlcplus (4.12.2) stable; urgency=low

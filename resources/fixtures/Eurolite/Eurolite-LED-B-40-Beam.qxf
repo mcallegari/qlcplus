@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.1</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Henrik Bauer</Author>
  </Creator>
  <Manufacturer>Eurolite</Manufacturer>
@@ -48,7 +48,7 @@
   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
   <Dimensions Weight="3" Width="320" Height="380" Depth="320"/>
   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Focus Type="Head" PanMax="360" TiltMax="0"/>
   <Technical PowerConsumption="30" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>

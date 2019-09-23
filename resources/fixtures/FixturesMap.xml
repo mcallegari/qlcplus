@@ -146,6 +146,7 @@
     <F n="American-DJ-Vizi-Hex-Wash7" m="Vizi Hex Wash7"/>
     <F n="American-DJ-Vizi-LED-Spot" m="Vizi LED Spot"/>
     <F n="American-DJ-Vizi-Roller-Beam-2R" m="Vizi Roller Beam 2R"/>
+    <F n="American-DJ-Vizi-Wash-LED-108" m="Vizi Wash LED 108"/>
     <F n="American-DJ-VPar" m="VPar"/>
     <F n="American-DJ-Warlock" m="Warlock"/>
     <F n="American-DJ-WiFLY-Chameleon" m="WiFLY Chameleon"/>
@@ -245,6 +246,8 @@
   <M n="Cameo">
     <F n="Cameo-Auro-Spot-100" m="Auro Spot 100"/>
     <F n="Cameo-Auro-Spot-200" m="Auro Spot 200"/>
+    <F n="Cameo-Auro-Spot-300" m="Auro Spot 300"/>
+    <F n="Cameo-Auro-Spot-400" m="Auro Spot 400"/>
     <F n="Cameo-CL-Superfly-HP" m="CL Superfly HP"/>
     <F n="Cameo-CLBARL10RGBA" m="LED Colour Bar RGBA (CLBAR10RGBA)"/>
     <F n="Cameo-CLHB400RGBW" m="CLHB400RGBW"/>
@@ -277,6 +280,7 @@
     <F n="Cameo-NanoBeam-300" m="NanoBeam 300"/>
     <F n="Cameo-Pixbar-600-PRO" m="Pixbar 600 PRO"/>
     <F n="Cameo-Q-SPOT-15-RGBW" m="Q SPOT 15 RGBW"/>
+    <F n="Cameo-Storm" m="Storm"/>
     <F n="Cameo-Strobe-3x3.5W" m="Strobe 3x3.5W"/>
     <F n="Cameo-Strobe-6x10W" m="Strobe 6x10W"/>
     <F n="Cameo-Studio-PAR-64-RGBWA-UV-12W" m="Studio PAR 64 RGBWA UV 12W"/>
@@ -290,6 +294,7 @@
     <F n="Cameo-TS-60-RGBW" m="TS 60 RGBW"/>
     <F n="Cameo-Twinscan-20" m="Twinscan 20"/>
     <F n="Cameo-Wookie-series" m="Wookie series"/>
+    <F n="Cameo-Zenit-B60" m="Zenit B60"/>
   </M>
   <M n="Chauvet">
     <F n="Chauvet-200b" m="200b"/>
@@ -560,6 +565,7 @@
     <F n="Eurolite-GKF-60" m="GKF-60"/>
     <F n="Eurolite-KLS200" m="KLS200"/>
     <F n="Eurolite-LED-ACS-BAR-12" m="LED ACS BAR-12"/>
+    <F n="Eurolite-LED-B-40-Beam" m="LED B-40 Beam"/>
     <F n="Eurolite-LED-Bar-RGB-252_10_40__Indoor" m="LED Bar RGB 252/10 40° Indoor"/>
     <F n="Eurolite-LED-CBB-3-COB-RGB-3x15W-Bar" m="LED CBB-3 COB RBG 3x15W Bar"/>
     <F n="Eurolite-LED-CLS-9-QCL-RGBW-9x8W-12" m="LED CLS-9 QCL RGBW 9x8W 12"/>
@@ -612,8 +618,9 @@
     <F n="Eurolite-TMH-14" m="TMH-14"/>
     <F n="Eurolite-TMH-155" m="TMH-155"/>
     <F n="Eurolite-TMH-250" m="TMH-250"/>
-    <F n="Eurolite-TMH-30-60-mk2" m="TMH-30/60"/>
+    <F n="Eurolite-TMH-30-60-mk2" m="TMH-30/60 MK2"/>
     <F n="Eurolite-TMH-8" m="TMH-8"/>
+    <F n="Eurolite-TMH-X3" m="TMH-X3"/>
     <F n="Eurolite-TR-5" m="TR-5"/>
     <F n="Eurolite-TS-10" m="TS-10"/>
     <F n="Eurolite-TS-150" m="TS-150"/>
@@ -881,11 +888,13 @@
   </M>
   <M n="Litecraft">
     <F n="Litecraft-LED-PAR-64-AT3" m="LED PAR 64 AT3"/>
-    <F n="Litecraft-Mini-PAR-AT10" m="Mini PAR AT10 "/>
+    <F n="Litecraft-Mini-PAR-AT10" m="Mini PAR AT10"/>
+    <F n="Litecraft-OutLED-AT10" m="OutLED AT10"/>
     <F n="Litecraft-OutLED-AT60.zoom" m="OutLED AT60.zoom"/>
     <F n="Litecraft-PowerBar-4" m="PowerBar 4"/>
     <F n="Litecraft-PowerBar-AT10.sx" m="PowerBar AT10.sx"/>
     <F n="Litecraft-WashX.21" m="WashX.21"/>
+    <F n="Litecraft-WashX.36" m="WashX.36"/>
   </M>
   <M n="Lixada">
     <F n="Lixada-12-RGBW-LED-Par-Light" m="12 RGBW LED Par Light"/>
@@ -928,6 +937,7 @@
     <F n="Martin-ERA-300-Profile" m="ERA 300 Profile"/>
     <F n="Martin-Jem-Compact-Hazer-Pro" m="Jem Compact Hazer Pro"/>
     <F n="Martin-JEM-K1-Hazer" m="JEM K1 Hazer"/>
+    <F n="Martin-JEM-ZR24-7" m="JEM ZR24/7"/>
     <F n="Martin-JEM-ZR44" m="JEM ZR44"/>
     <F n="Martin-MAC-101" m="MAC 101"/>
     <F n="Martin-MAC-2000-Performance-II" m="MAC 2000 Performance II"/>
@@ -1294,8 +1304,10 @@
     <F n="Stairville-MH-z1915" m="MH-z1915 Quad LED Wash Zoom"/>
     <F n="StairVille-MH-z720" m="MH-z720"/>
     <F n="Stairville-Mini-Stage-Par-RGBW" m="Mini Stage Par RGBW"/>
+    <F n="Stairville-Mobile-Color" m="Mobile Color"/>
     <F n="Stairville-novaWash-Quad-LED" m="novaWash Quad LED"/>
     <F n="Stairville-Octagon-Theater" m="Octagon Theater"/>
+    <F n="Stairville-Outdoor-Stage-PAR-12x3W-Tri" m="Outdoor Stage PAR 12x3W Tri"/>
     <F n="Stairville-PAR64-CX-3-RGBW" m="PAR 64 CX-3 RGBW"/>
     <F n="Stairville-PAR64-CX-6-RGBWAUV" m="PAR64 CX-6 RGBWAUV"/>
     <F n="Stairville-Pixel-Panel-144-RGB" m="Pixel Panel 144 RGB"/>
@@ -1311,6 +1323,7 @@
     <F n="Stairville-Wild-Wash-9x3W-LED-UV" m="Wild Wash 9x3W LED UV"/>
     <F n="Stairville-xBrick-Full-Colour-16X3W" m="xBrick Full-Colour 16X3W"/>
     <F n="Stairville-xBrick-Full-Colour" m="xBrick Full-Colour"/>
+    <F n="Stairville-xBrick-Quad-16x8W-RGBW" m="xBrick Quad 16x8W RGBW"/>
     <F n="Stairville-ZF-1500" m="ZF-1500"/>
   </M>
   <M n="Star-Lights">
@@ -1364,6 +1377,7 @@
   </M>
   <M n="Varytec">
     <F n="Varytec-BAT.BAR-8-RGBW" m="BAT.BAR 8 RGBW"/>
+    <F n="Varytec-BAT.PAR-6-RGBUV" m="BAT.PAR 6 RGBUV"/>
     <F n="Varytec-BAT.PAR-6-RGBWA" m="BAT.PAR 6 RGBWA"/>
     <F n="Varytec-Easy-Move-LED-XS-Spot" m="Easy Move LED XS Spot"/>
     <F n="Varytec-Easy-Move-LED-XS-Wash" m="Easy Move LED XS Wash"/>
