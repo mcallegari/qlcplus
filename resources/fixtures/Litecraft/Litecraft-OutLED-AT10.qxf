@@ -4,17 +4,17 @@
  <Creator>
   <Name>Q Light Controller Plus</Name>
   <Version>4.12.1</Version>
-  <Author>BuiDH</Author>
+  <Author>BuiDH, Jannis Achstetter</Author>
  </Creator>
  <Manufacturer>Litecraft</Manufacturer>
- <Model>Mini PAR AT10</Model>
+ <Model>OutLED AT10</Model>
  <Type>Color Changer</Type>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>
  <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="Amber" Preset="IntensityAmber"/>
  <Channel Name="Macro Color">
-  <Group Byte="0">Effect</Group>
+  <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="13">no macro</Capability>
   <Capability Min="14" Max="255">pre-programmed colors</Capability>
  </Channel>
@@ -80,9 +80,9 @@
  </Mode>
  <Physical>
   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-  <Dimensions Weight="1.9" Width="145" Height="185" Depth="250"/>
-  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Dimensions Weight="6" Width="287" Height="219" Depth="308"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-  <Technical PowerConsumption="70" DmxConnector="3-pin"/>
+  <Technical PowerConsumption="140" DmxConnector="5-pin"/>
  </Physical>
 </FixtureDefinition>
