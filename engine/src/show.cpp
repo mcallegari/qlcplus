@@ -133,7 +133,11 @@ bool Show::copyFrom(const Function* function)
             if (copy != NULL)
             {
                 copy->setName(tr("Copy of %1").arg(function->name()));
-                newTrack->createShowFunction(copy->id());
+                ShowFunction *showFunc = newTrack->createShowFunction(copy->id());
+                showFunc->setStartTime(sfunc->startTime());
+                showFunc->setDuration(sfunc->duration());
+                showFunc->setColor(sfunc->color());
+                showFunc->setLocked(sfunc->isLocked());
             }
         }
     }
