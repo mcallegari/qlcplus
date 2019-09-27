@@ -39,6 +39,12 @@ Rectangle
 
     signal colorChanged(real r, real g, real b, real w, real a, real uv)
 
+    MouseArea
+    {
+        anchors.fill: parent
+        onWheel: { return false }
+    }
+
     Rectangle
     {
         id: colorToolBar

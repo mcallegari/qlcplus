@@ -49,6 +49,12 @@ Rectangle
         }
     }
 
+    MouseArea
+    {
+        anchors.fill: parent
+        onWheel: { return false }
+    }
+
     // toolbar area containing the available preset channels
     Rectangle
     {
@@ -90,6 +96,7 @@ Rectangle
                             selectedFixture = fxID
                             selectedChannel = chIdx
                             capRepeater.model = fixtureManager.presetCapabilities(selectedFixture, selectedChannel)
+                            prFlickable.contentY = 0
                         }
                     }
 
@@ -113,6 +120,7 @@ Rectangle
                             selectedFixture = delegateRoot.fxID
                             selectedChannel = delegateRoot.chIdx
                             capRepeater.model = fixtureManager.presetCapabilities(selectedFixture, selectedChannel)
+                            prFlickable.contentY = 0
                         }
                     }
             }
@@ -122,6 +130,7 @@ Rectangle
     // flickable layout containing the actual preset capabilities
     Flickable
     {
+        id: prFlickable
         width: parent.width
         height: parent.height - presetToolBar.height
         y: presetToolBar.height

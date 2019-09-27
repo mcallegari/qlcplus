@@ -59,6 +59,12 @@ Rectangle
         return array
     }
 
+    MouseArea
+    {
+        anchors.fill: parent
+        onWheel: { return false }
+    }
+
     Rectangle
     {
         id: posToolBar

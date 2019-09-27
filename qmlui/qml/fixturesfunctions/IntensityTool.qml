@@ -42,6 +42,12 @@ Rectangle
             fixtureManager.setIntensityValue(currentValue * 2.55)
     }
 
+    MouseArea
+    {
+        anchors.fill: parent
+        onWheel: { return false }
+    }
+
     Rectangle
     {
         id: intToolBar

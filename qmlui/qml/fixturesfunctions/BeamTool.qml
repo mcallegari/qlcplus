@@ -37,6 +37,12 @@ Rectangle
     onMinDegreesChanged: gCanvas.requestPaint()
     onMaxDegreesChanged: gCanvas.requestPaint()
 
+    MouseArea
+    {
+        anchors.fill: parent
+        onWheel: { return false }
+    }
+
     Rectangle
     {
         id: toolbar
