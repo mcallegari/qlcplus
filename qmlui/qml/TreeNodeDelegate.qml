@@ -221,7 +221,7 @@ Column
                         item.isCheckable = model.isCheckable
                         item.isChecked = Qt.binding(function() { return model.isChecked })
                         item.dragItem = dragItem
-                        if (hasOwnProperty("type") && item.hasOwnProperty("itemType"))
+                        if (model.hasOwnProperty("type") && item.hasOwnProperty("itemType"))
                             item.itemType = type
 
                         if (item.hasOwnProperty('itemIcon'))
