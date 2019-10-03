@@ -1,6 +1,8 @@
 qlcplus (4.12.3) stable; urgency=low
 
   * engine: fix cloning a Show
+  * ui: fix virtual console resize
+  * ui: fix crash on 2D monitor strobing
   * New fixtures: Cameo Auro Spot 300, Auro Spot 400, Storm, Zenit B60 (thanks to Jannis Achstetter and Henrik Bauer)
   * New fixtures: American DJ Vizi Wash LED 108, Eurolite LED B-40 Beam, Eurolite TMH X3 (thanks to Jannis Achstetter and Henrik Bauer)
   * New fixtures: Litecraft OutLED AT10, Litecraft WashX.36, Martin JEM ZR24-7 (thanks to Jannis Achstetter and Henrik Bauer)
