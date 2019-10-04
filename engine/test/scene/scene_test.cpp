@@ -141,11 +141,19 @@ void Scene_Test::values()
     s.unsetValue(4, 5);
     QVERIFY(s.values().size() == 0);
 
+    /* Unset unknown fixture value */
+    s.unsetValue(42, 123);
+    QVERIFY(s.values().size() == 0);
+
+    /* set 3 fixtures, 4 values */
     s.setValue(1, 1, 255);
     s.setValue(2, 2, 255);
     s.setValue(4, 3, 255);
     s.setValue(1, 4, 255);
     QVERIFY(s.values().size() == 4);
+
+    /* check 3 fixture IDs are set */
+    QVERIFY(s.components().size() == 3);
 
     QVERIFY(s.checkValue(SceneValue(1, 1)) == true);
     QVERIFY(s.checkValue(SceneValue(7, 8)) == false);
@@ -774,6 +782,24 @@ void Scene_Test::writeHTPTwoTicks()
     QVERIFY(s1->stopped() == false);
     doc->inputOutputMap()->releaseUniverses(false);
 
+    // Write a value when running (with HTP check)
+    s1->setValue(SceneValue(fxi->id(), 5, 254), false, true);
+    timer.timerTick();
+    ua = doc->inputOutputMap()->claimUniverses();
+    ua[0]->processFaders();
+    QVERIFY(ua[0]->preGMValues()[5] == (char) 254);
+    QVERIFY(ua[0]->preGMValues()[0] == (char) 100);
+    doc->inputOutputMap()->releaseUniverses(false);
+
+    // Write a value when running (no HTP check)
+    s1->setValue(SceneValue(fxi->id(), 5, 180), false, false);
+    timer.timerTick();
+    ua = doc->inputOutputMap()->claimUniverses();
+    ua[0]->processFaders();
+    QVERIFY(ua[0]->preGMValues()[5] == (char) 180);
+    QVERIFY(ua[0]->preGMValues()[0] == (char) 100);
+    doc->inputOutputMap()->releaseUniverses(false);
+
     s1->stop(FunctionParent::master());
     QVERIFY(s1->stopped() == true);
     QVERIFY(s1->isRunning() == true);
@@ -784,8 +810,8 @@ void Scene_Test::writeHTPTwoTicks()
     // Now, the channels are inside MasterTimer's GenericFader to be zeroed out
     ua = doc->inputOutputMap()->claimUniverses();
     ua[0]->processFaders();
-    QVERIFY(ua[0]->preGMValues()[5] == (char) 125); // HTP fades out
-    QVERIFY(ua[0]->preGMValues()[0] == (char) 100);  // LTP doesn't
+    QCOMPARE(ua[0]->preGMValues()[5], (char) 90); // HTP fades out
+    QCOMPARE(ua[0]->preGMValues()[0], (char) 100);  // LTP doesn't
     doc->inputOutputMap()->releaseUniverses(false);
 
     // Now, the channels are inside MasterTimer's GenericFader to be zeroed out
