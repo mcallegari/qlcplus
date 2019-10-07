@@ -17,163 +17,134 @@
   limitations under the License.
 */
 
+var width;
+var height;
+var stepCount;
+var currentStep;
+
 function init()
 {
-    var w = document.getElementById("width");
-    var h = document.getElementById("height");
-
-    if (!w.value) {
-        w.value = 15;
-    }
-    if (!h.value) {
-        h.value = 15;
-    }
-
-    updateProperties();
-    updateStepCount();
+    initProperties();
+    initPixelColors();
+    onGridSizeUpdated();
     writeCurrentStep();
 }
 
-function updateStepCount()
+function initProperties()
 {
-    var w = document.getElementById("width");
-    var h = document.getElementById("height");
-    var stepCount = document.getElementById("stepcount");
-    var currentStep = document.getElementById("currentstep");
-
-    if (w && h && stepCount && currentStep)
-    {
-        stepCount.value = testAlgo.rgbMapStepCount(w.value, h.value);
-        currentStep.value = -1;
-        nextStep();
-        updateProperties();
-    }
-    else
-    {
-        alert("Width, Height or Result element not found!");
-    }
+    document.getElementById("apiversion").value = testAlgo.apiVersion;
+    document.getElementById("name").value = testAlgo.name;
+    document.getElementById("author").value = testAlgo.author;
 }
 
-function updateProperties()
+function initPixelColors()
 {
-    var apiVersion = document.getElementById("apiversion");
-    var name = document.getElementById("name");
-    var author = document.getElementById("author");
+    var pixelColorChooser = document.getElementById("pixelColorChooser");
+    pixelColorChooser.hidden = testAlgo.acceptColors === 0;
 
-    if (apiVersion) {
-        apiVersion.value = testAlgo.apiVersion;
-    }
-    if (name) {
-        name.value = testAlgo.name;
-    }
-    if (author) {
-        author.value = testAlgo.author;
-    }
+    var secondaryColorChooser = document.getElementById("secondaryColorChooser");
+    secondaryColorChooser.hidden = testAlgo.acceptColors === 1;
+}
+
+function onGridSizeUpdated()
+{
+    width = parseInt(document.getElementById("width").value);
+    height = parseInt(document.getElementById("height").value);
+
+    stepCount = testAlgo.rgbMapStepCount(width, height);
+    document.getElementById("stepCount").value = stepCount;
+    document.getElementById("currentStep").max = stepCount - 1;
+
+    setStep(0);
 }
 
 function nextStep()
 {
-    var stepCount = document.getElementById("stepcount");
-    var currentStep = document.getElementById("currentstep");
-
-    if (stepCount && currentStep)
-    {
-        var steps = parseInt(stepCount.value);
-        var current = parseInt(currentStep.value);
-
-        var next;
-        if ((current + 1) < steps) {
-            next = current + 1;
-        } else {
-            next = 0;
-        }
-
-        currentStep.value = next;
-        writeCurrentStep();
+    if (currentStep + 1 < stepCount) {
+        setStep(currentStep + 1);
     }
-    else
-    {
-        alert("stepcount or currentstep element not found!");
+    else {
+        setStep(0);
     }
 }
 
 function previousStep()
 {
-    var stepCount = document.getElementById("stepcount");
-    var currentStep = document.getElementById("currentstep");
-
-    if (stepcount && currentStep)
-    {
-        var steps = parseInt(stepCount.value);
-        var current = parseInt(currentStep.value);
-
-        var next;
-        if (current > 0) {
-            next = current - 1;
-        } else {
-            next = steps - 1;
-        }
-        currentStep.value = next;
-        writeCurrentStep();
+    if (currentStep > 0) {
+        setStep(currentStep - 1);
+    } else {
+        setStep(stepCount - 1); // last step
     }
-    else
-    {
-        alert("stepcount or currentstep element not found!");
-    }
+}
+
+function setStep(step) {
+    currentStep = step;
+    document.getElementById("currentStep").value = currentStep;
+    writeCurrentStep();
 }
 
 function writeCurrentStep()
 {
+    currentStep = parseInt(document.getElementById("currentStep").value); // currentStep may have been changed manually
+
     var map = document.getElementById("map");
-    var w = document.getElementById("width");
-    var h = document.getElementById("height");
-    var currentStep = document.getElementById("currentstep");
-    var stepCount = document.getElementById("stepcount");
-    var bicolor = document.getElementById("bicolor");
-
-    var currentRgb = parseInt(document.getElementById("color1").value, 16);
-
-    if (bicolor.checked)
-    {
-        var stepCountMinusOne = parseInt(stepCount.value) - 1;
-        stepCountMinusOne = stepCountMinusOne === 0 ? 1 : stepCountMinusOne;
-        var currentR = ((stepCountMinusOne - parseInt(currentStep.value)) / stepCountMinusOne) * 255;
-        var currentG = 0;
-        var currentB = (parseInt(currentStep.value) / stepCountMinusOne) * 255;
-        currentRgb = (Math.round(currentR) * 256 * 256 + Math.round(currentG) * 256 + Math.round(currentB)).toString(16);
-        currentRgb = "000000".substr(0, 6 - currentRgb.length) + currentRgb;
+    for (var i = map.rows.length - 1; i >= 0; i--) {
+        map.deleteRow(i);
     }
+    var rgb = testAlgo.rgbMap(width, height, getCurrentColorInt(), currentStep);
 
-    if (w && h && map && currentStep)
+    for (var y = 0; y < height; y++)
     {
-        var width = parseInt(w.value);
-        var height = parseInt(h.value);
-        var step = parseInt(currentStep.value);
+        var row = map.insertRow(y);
 
-        for (var i = map.rows.length - 1; i >= 0; i--) {
-            map.deleteRow(i);
-        }
-        var rgb = testAlgo.rgbMap(width, height, currentRgb, step);
-
-        for (var y = 0; y < height; y++)
+        for (var x = 0; x < width; x++)
         {
-            var row = map.insertRow(y);
-
-            for (var x = 0; x < width; x++)
-            {
-                var cell = row.insertCell(x);
-                var rgbStr = rgb[y][x].toString(16);
-                while (rgbStr.length !== 6) {
-                    rgbStr = "0" + rgbStr;
-                }
-                cell.style.backgroundColor = rgbStr;
-                cell.style.height = 20;
-                cell.style.width = 20;
+            var cell = row.insertCell(x);
+            var rgbStr = rgb[y][x].toString(16);
+            while (rgbStr.length !== 6) {
+                rgbStr = "0" + rgbStr;
             }
+            rgbStr = "#" + rgbStr;
+            cell.style.backgroundColor = rgbStr;
+            cell.style.height = 20;
+            cell.style.width = 20;
+            cell.title = "(" + x + ", " + y + "): " + rgbStr + " – " + cell.style.backgroundColor; // rgbStr will be #rrggbb whereas the cell style will be rgb(255, 255, 255)
         }
     }
-    else
-    {
-        alert("map element not found!");
+}
+
+function getCurrentColorInt()
+{
+    var primaryColorInput = document.getElementById("primaryColor");
+    var primaryColor = parseInt(primaryColorInput.value, 16);
+    var secondaryColorInput = document.getElementById("secondaryColor");
+    var secondaryColor = parseInt(secondaryColorInput.value, 16);
+
+    if (testAlgo.acceptColors === 0 || Number.isNaN(primaryColor)) {
+        return null;
     }
+
+    if (testAlgo.acceptColors === 1 || Number.isNaN(secondaryColor) || stepCount <= 1) {
+        return primaryColor;
+    }
+
+    var primaryColorRgb = getRgbFromColorInt(primaryColor);
+    var secondaryColorRgb = getRgbFromColorInt(secondaryColor);
+
+    var primaryFactor = (stepCount - currentStep - 1) / (stepCount - 1);
+    var secondaryFactor = currentStep / (stepCount - 1);
+
+    var red = Math.round(primaryColorRgb[0] * primaryFactor + secondaryColorRgb[0] * secondaryFactor);
+    var green = Math.round(primaryColorRgb[1] * primaryFactor + secondaryColorRgb[1] * secondaryFactor);
+    var blue = Math.round(primaryColorRgb[2] * primaryFactor + secondaryColorRgb[2] * secondaryFactor);
+
+    return red * 256 * 256 + green * 256 + blue;
+}
+
+function getRgbFromColorInt(color)
+{
+    var red = color >> 16;
+    var green = (color >> 8) - red * 256;
+    var blue = color - red * 256 * 256 - green * 256;
+    return [red, green, blue];
 }
