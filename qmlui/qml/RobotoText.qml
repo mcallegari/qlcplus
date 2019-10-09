@@ -47,7 +47,7 @@ Rectangle
         font.family: UISettings.robotoFontName
         font.pixelSize: fontSize ? fontSize : 12
         font.bold: fontBold
-        color: labelColor
+        color: rtRoot.enabled ? labelColor : Qt.darker(labelColor, 2.0)
         wrapMode: wrapText ? Text.Wrap : Text.NoWrap
         horizontalAlignment: textHAlign
         verticalAlignment: textVAlign
