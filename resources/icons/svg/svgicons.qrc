@@ -105,6 +105,7 @@
     <file alias="olaplugin.svg">olaplugin.svg</file>
     <file alias="oscplugin.svg">oscplugin.svg</file>
     <file alias="other.svg">other.svg</file>
+    <file alias="palette.svg">palette.svg</file>
     <file alias="pan.svg">pan.svg</file>
     <file alias="pause.svg">pause.svg</file>
     <file alias="pingpong.svg">pingpong.svg</file>

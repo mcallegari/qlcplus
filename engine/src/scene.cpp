@@ -100,6 +100,10 @@ bool Scene::copyFrom(const Function* function)
     m_channelGroups = scene->m_channelGroups;
     m_channelGroupsLevels.clear();
     m_channelGroupsLevels = scene->m_channelGroupsLevels;
+    m_fixtureGroups.clear();
+    m_fixtureGroups = scene->m_fixtureGroups;
+    m_palettes.clear();
+    m_palettes = scene->m_palettes;
 
     return Function::copyFrom(function);
 }
@@ -281,6 +285,8 @@ void Scene::clear()
 {
     m_values.clear();
     m_fixtures.clear();
+    m_fixtureGroups.clear();
+    m_palettes.clear();
 }
 
 /*********************************************************************
@@ -364,6 +370,47 @@ QList<quint32> Scene::fixtures() const
 {
     return m_fixtures;
 }
+
+/*********************************************************************
+ * Fixture Groups
+ *********************************************************************/
+
+void Scene::addFixtureGroup(quint32 id)
+{
+    if (m_fixtureGroups.contains(id) == false)
+        m_fixtureGroups.append(id);
+}
+
+bool Scene::removeFixtureGroup(quint32 id)
+{
+    return m_fixtureGroups.removeOne(id);
+}
+
+QList<quint32> Scene::fixtureGroups() const
+{
+    return m_fixtureGroups;
+}
+
+/*********************************************************************
+ * Palettes
+ *********************************************************************/
+
+void Scene::addPalette(quint32 id)
+{
+    if (m_palettes.contains(id) == false)
+        m_palettes.append(id);
+}
+
+bool Scene::removePalette(quint32 id)
+{
+    return m_palettes.removeOne(id);
+}
+
+QList<quint32> Scene::palettes() const
+{
+    return m_palettes;
+}
+
 /*****************************************************************************
  * Load & Save
  *****************************************************************************/
@@ -428,6 +475,22 @@ bool Scene::saveXML(QXmlStreamWriter *doc)
         }
 
         saveXMLFixtureValues(doc, fxId, currFixValues);
+    }
+
+    /* Save referenced Fixture Groups */
+    foreach (quint32 groupId, m_fixtureGroups)
+    {
+        doc->writeStartElement(KXMLQLCFixtureGroup);
+        doc->writeAttribute(KXMLQLCFixtureGroupID, QString::number(groupId));
+        doc->writeEndElement();
+    }
+
+    /* Save referenced Palettes */
+    foreach (quint32 pId, m_palettes)
+    {
+        doc->writeStartElement(KXMLQLCPalette);
+        doc->writeAttribute(KXMLQLCPaletteID, QString::number(pId));
+        doc->writeEndElement();
     }
 
     /* End the <Function> tag */
@@ -523,6 +586,18 @@ bool Scene::loadXML(QXmlStreamReader &root)
                     setValue(scv);
                 }
             }
+        }
+        else if (root.name() == KXMLQLCFixtureGroup)
+        {
+            quint32 id = root.attributes().value(KXMLQLCFixtureGroupID).toString().toUInt();
+            addFixtureGroup(id);
+            root.skipCurrentElement();
+        }
+        else if (root.name() == KXMLQLCPalette)
+        {
+            quint32 id = root.attributes().value(KXMLQLCPaletteID).toString().toUInt();
+            addPalette(id);
+            root.skipCurrentElement();
         }
         else
         {

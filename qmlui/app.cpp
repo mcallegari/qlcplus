@@ -42,6 +42,7 @@
 #include "virtualconsole.h"
 #include "fixturebrowser.h"
 #include "fixturemanager.h"
+#include "palettemanager.h"
 #include "functionmanager.h"
 #include "fixturegroupeditor.h"
 #include "inputoutputmanager.h"
@@ -137,6 +138,7 @@ void App::startup()
     m_fixtureBrowser = new FixtureBrowser(this, m_doc);
     m_fixtureManager = new FixtureManager(this, m_doc);
     m_fixtureGroupEditor = new FixtureGroupEditor(this, m_doc);
+    m_paletteManager = new PaletteManager(this, m_doc);
     m_functionManager = new FunctionManager(this, m_doc);
     m_contextManager = new ContextManager(this, m_doc, m_fixtureManager, m_functionManager);
 

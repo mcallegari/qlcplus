@@ -203,6 +203,28 @@ private:
     QList<quint32> m_fixtures;
 
     /*********************************************************************
+     * Fixture Groups
+     *********************************************************************/
+public:
+    void addFixtureGroup(quint32 id);
+    bool removeFixtureGroup(quint32 id);
+    QList<quint32> fixtureGroups() const;
+
+private:
+    QList<quint32> m_fixtureGroups;
+
+    /*********************************************************************
+     * Palettes
+     *********************************************************************/
+public:
+    void addPalette(quint32 id);
+    bool removePalette(quint32 id);
+    QList<quint32> palettes() const;
+
+private:
+    QList<quint32> m_palettes;
+
+    /*********************************************************************
      * Load & Save
      *********************************************************************/
 public:

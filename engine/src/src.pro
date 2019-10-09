@@ -56,6 +56,7 @@ HEADERS += avolitesd4parser.h \
            qlcinputprofile.h \
            qlcinputsource.h \
            qlcmodifierscache.h \
+           qlcpalette.h \
            qlcphysical.h \
            utils.h
 
@@ -137,6 +138,7 @@ SOURCES += avolitesd4parser.cpp \
            qlcinputprofile.cpp \
            qlcinputsource.cpp \
            qlcmodifierscache.cpp \
+           qlcpalette.cpp \
            qlcphysical.cpp
 
 greaterThan(QT_MAJOR_VERSION, 4) {

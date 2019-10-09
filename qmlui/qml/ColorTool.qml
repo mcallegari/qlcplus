@@ -26,7 +26,7 @@ Rectangle
 {
     id: colorToolBox
     width: UISettings.bigItemHeight * 3
-    height: UISettings.bigItemHeight * 3.5
+    height: UISettings.bigItemHeight * 4
     color: UISettings.bgMedium
     border.color: "#666"
     border.width: 2

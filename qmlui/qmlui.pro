@@ -46,6 +46,7 @@ HEADERS += \
     mainview3d.h \
     mainviewdmx.h \
     modelselector.h \
+    palettemanager.h \
     previewcontext.h \
     rgbmatrixeditor.h \
     sceneeditor.h \
@@ -77,6 +78,7 @@ SOURCES += main.cpp \
     mainview3d.cpp \
     mainviewdmx.cpp \
     modelselector.cpp \
+    palettemanager.cpp \
     previewcontext.cpp \
     rgbmatrixeditor.cpp \
     sceneeditor.cpp \

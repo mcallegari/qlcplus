@@ -37,6 +37,15 @@ SidePanel
         item.height = Qt.binding(function() { return leftSidePanel.height })
     }
 
+    function showPalettePopup(type, value1, value2)
+    {
+        palettePopup.type = type
+        palettePopup.value1 = value1
+        palettePopup.value2 = value2
+        palettePopup.open()
+        palettePopup.focusEditItem()
+    }
+
     Rectangle
     {
         id: sideBar
@@ -97,6 +106,25 @@ SidePanel
 
             IconButton
             {
+                id: paletteEditor
+                z: 2
+                width: iconSize
+                height: iconSize
+                imgSource: "qrc:/palette.svg"
+                checkable: true
+                tooltip: qsTr("Palettes")
+                ButtonGroup.group: fxManagerGroup
+                autoExclusive: false
+                onToggled:
+                {
+                    if (checked == true)
+                        loaderSource = "qrc:/PaletteManager.qml"
+                    animatePanel(checked)
+                }
+            }
+
+            IconButton
+            {
                 objectName: "capIntensity"
                 z: 2
                 width: iconSize
@@ -116,6 +144,7 @@ SidePanel
                     x: leftSidePanel.width
                     y: UISettings.bigItemHeight
                     visible: false
+                    onRequestPalettePopup: leftSidePanel.showPalettePopup(type, value, 0)
                 }
             }
 
@@ -333,6 +362,11 @@ SidePanel
                 tooltip: qsTr("Select/Deselect all fixtures") + " (CTRL+A)"
                 onClicked: contextManager.toggleFixturesSelection()
             }
-        }
+        } // ColumnLayout
+    } // Rectangle
+
+    PopupCreatePalette
+    {
+        id: palettePopup
     }
 }

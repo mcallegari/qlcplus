@@ -25,7 +25,7 @@ Rectangle
     id: rootBox
     width: 330
     height: 370
-    color: "#444"
+    color: UISettings.bgMedium
     border.color: "#222"
     border.width: 2
 
