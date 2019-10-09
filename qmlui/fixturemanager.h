@@ -61,7 +61,7 @@ class FixtureManager : public QObject
     Q_PROPERTY(ColorFilters *selectedFilters READ selectedFilters NOTIFY selectedFiltersChanged)
 
 public:
-    FixtureManager(QQuickView *view, Doc *doc, QObject *parent = 0);
+    FixtureManager(QQuickView *view, Doc *doc, QObject *parent = nullptr);
     ~FixtureManager();
 
     /** Get/Set the Universe index used to filter Fixture lists/tree */

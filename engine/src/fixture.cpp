@@ -21,6 +21,7 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QString>
+#include <QtMath>
 #include <QDebug>
 
 #include "qlcfixturedefcache.h"
@@ -306,6 +307,82 @@ QVector <quint32> Fixture::cmyChannels(int head) const
         return QVector <quint32> ();
 
     return m_fixtureMode->heads().at(head).cmyChannels();
+}
+
+QList<SceneValue> Fixture::positionToValues(int type, int degrees) const
+{
+    QList<SceneValue> posList;
+    // cache a list of channels processed, to avoid duplicates
+    QList<quint32> chDone;
+
+    if (m_fixtureMode == NULL)
+        return posList;
+
+    QLCPhysical phy = fixtureMode()->physical();
+    float maxDegrees;
+    if (type == QLCChannel::Pan)
+    {
+        maxDegrees = phy.focusPanMax();
+        if (maxDegrees == 0) maxDegrees = 360;
+
+        for (int i = 0; i < heads(); i++)
+        {
+            quint32 panMSB = channelNumber(QLCChannel::Pan, QLCChannel::MSB, i);
+            if (panMSB == QLCChannel::invalid() || chDone.contains(panMSB))
+                continue;
+
+            float dmxValue = (float)(degrees * UCHAR_MAX) / maxDegrees;
+            posList.append(SceneValue(id(), panMSB, static_cast<uchar>(qFloor(dmxValue))));
+
+            qDebug() << "[getFixturePosition] Pan MSB:" << dmxValue;
+
+            quint32 panLSB = channelNumber(QLCChannel::Pan, QLCChannel::LSB, i);
+
+            if (panLSB != QLCChannel::invalid())
+            {
+                float lsbDegrees = (float)maxDegrees / (float)UCHAR_MAX;
+                float lsbValue = (float)((dmxValue - qFloor(dmxValue)) * UCHAR_MAX) / lsbDegrees;
+                posList.append(SceneValue(id(), panLSB, static_cast<uchar>(lsbValue)));
+
+                qDebug() << "[getFixturePosition] Pan LSB:" << lsbValue;
+            }
+
+            chDone.append(panMSB);
+        }
+    }
+    else if (type == QLCChannel::Tilt)
+    {
+        maxDegrees = phy.focusTiltMax();
+        if (maxDegrees == 0) maxDegrees = 270;
+
+        for (int i = 0; i < heads(); i++)
+        {
+            quint32 tiltMSB = channelNumber(QLCChannel::Tilt, QLCChannel::MSB, i);
+            if (tiltMSB == QLCChannel::invalid() || chDone.contains(tiltMSB))
+                continue;
+
+            float dmxValue = (float)(degrees * UCHAR_MAX) / maxDegrees;
+            posList.append(SceneValue(id(), tiltMSB, static_cast<uchar>(qFloor(dmxValue))));
+
+            qDebug() << "[getFixturePosition] Tilt MSB:" << dmxValue;
+
+            quint32 tiltLSB = channelNumber(QLCChannel::Tilt, QLCChannel::LSB, i);
+
+            if (tiltLSB != QLCChannel::invalid())
+            {
+                float lsbDegrees = (float)maxDegrees / (float)UCHAR_MAX;
+                float lsbValue = (float)((dmxValue - qFloor(dmxValue)) * UCHAR_MAX) / lsbDegrees;
+                posList.append(SceneValue(id(), tiltLSB, static_cast<uchar>(lsbValue)));
+
+                qDebug() << "[getFixturePosition] Tilt LSB:" << lsbValue;
+            }
+
+            chDone.append(tiltMSB);
+        }
+
+    }
+
+    return posList;
 }
 
 void Fixture::setExcludeFadeChannels(QList<int> indices)

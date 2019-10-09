@@ -37,6 +37,7 @@ class ChannelModifier;
 class QLCFixtureMode;
 class QLCFixtureHead;
 class FixtureConsole;
+class SceneValue;
 class Doc;
 
 /** @addtogroup engine Engine
@@ -273,6 +274,10 @@ public:
 
     /** @see QLCFixtureHead */
     QVector <quint32> cmyChannels(int head = 0) const;
+
+    /** Return a list of values based on the given position degrees
+     *  and the provided type (Pan or Tilt) */
+    QList<SceneValue> positionToValues(int type, int degrees) const;
 
     /** Set a list of channel indices to exclude from fade transitions */
     void setExcludeFadeChannels(QList<int> indices);

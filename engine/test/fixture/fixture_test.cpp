@@ -533,13 +533,38 @@ void Fixture_Test::degrees()
     QVERIFY(fixtureDef != NULL);
 
     QLCFixtureMode* fixtureMode;
-    fixtureMode = fixtureDef->modes().at(0);
+    fixtureMode = fixtureDef->modes().at(1);
     QVERIFY(fixtureMode != NULL);
 
     fxi.setFixtureDefinition(fixtureDef, fixtureMode);
 
     QCOMPARE(fxi.degreesRange(0).width(), 540.0);
     QCOMPARE(fxi.degreesRange(0).height(), 270.0);
+
+    // dummy ID just for testing
+    fxi.setID(99);
+
+    QList<SceneValue> pos = fxi.positionToValues(QLCChannel::Pan, 90);
+    QCOMPARE(pos.count(), 2);
+    // verify coarse Pan
+    QCOMPARE(pos.at(0).fxi, quint32(99));
+    QCOMPARE(pos.at(0).channel, quint32(7));
+    QCOMPARE(pos.at(0).value, uchar(42));
+    // verify fine Pan
+    QCOMPARE(pos.at(1).fxi, quint32(99));
+    QCOMPARE(pos.at(1).channel, quint32(8));
+    QCOMPARE(pos.at(1).value, uchar(60));
+
+    pos = fxi.positionToValues(QLCChannel::Tilt, 45);
+    QCOMPARE(pos.count(), 2);
+    // verify coarse Tilt
+    QCOMPARE(pos.at(0).fxi, quint32(99));
+    QCOMPARE(pos.at(0).channel, quint32(9));
+    QCOMPARE(pos.at(0).value, uchar(42));
+    // verify fine Tilt
+    QCOMPARE(pos.at(1).fxi, quint32(99));
+    QCOMPARE(pos.at(1).channel, quint32(10));
+    QCOMPARE(pos.at(1).value, uchar(120));
 }
 
 void Fixture_Test::heads()
