@@ -21,15 +21,27 @@
 
 #include "palettemanager.h"
 #include "qlcpalette.h"
+#include "listmodel.h"
 #include "doc.h"
 
 PaletteManager::PaletteManager(QQuickView *view, Doc *doc, QObject *parent)
     : QObject(parent)
     , m_view(view)
     , m_doc(doc)
+    , m_typeFilter(QLCPalette::Undefined)
+    , m_searchFilter(QString())
 {
     m_view->rootContext()->setContextProperty("paletteManager", this);
     qmlRegisterUncreatableType<QLCPalette>("org.qlcplus.classes", 1, 0, "QLCPalette", "Can't create a QLCPalette!");
+
+    m_paletteList = new ListModel(this);
+    QStringList listRoles;
+    listRoles << "paletteID" << "isSelected";
+    m_paletteList->setRoleNames(listRoles);
+
+    m_dimmerCount = m_colorCount = m_positionCount = 0;
+
+    updatePaletteList();
 }
 
 PaletteManager::~PaletteManager()
@@ -37,14 +49,14 @@ PaletteManager::~PaletteManager()
 
 }
 
-QVariantList PaletteManager::paletteList()
+QVariant PaletteManager::paletteList()
 {
-    QVariantList list;
+    return QVariant::fromValue(m_paletteList);
+}
 
-    for (QLCPalette *palette : m_doc->palettes())
-        list.append(QVariant::fromValue(palette));
-
-    return list;
+QLCPalette *PaletteManager::getPalette(quint32 id)
+{
+    return m_doc->palette(id);
 }
 
 void PaletteManager::createPalette(int type, QString name, QVariant value1, QVariant value2)
@@ -62,6 +74,77 @@ void PaletteManager::createPalette(int type, QString name, QVariant value1, QVar
         qWarning() << "Failed to add palette";
         delete palette;
     }
+
+    updatePaletteList();
+}
+
+int PaletteManager::typeFilter() const
+{
+    return int(m_typeFilter);
+}
+
+void PaletteManager::setTypeFilter(quint32 filter)
+{
+    if (filter == m_typeFilter)
+        return;
+
+    m_typeFilter = filter;
+
+    updatePaletteList();
+    emit typeFilterChanged();
+}
+
+QString PaletteManager::searchFilter() const
+{
+    return m_searchFilter;
+}
+
+void PaletteManager::setSearchFilter(QString searchFilter)
+{
+    if (m_searchFilter == searchFilter)
+        return;
+
+    int currLen = m_searchFilter.length();
+
+    m_searchFilter = searchFilter;
+
+    if (searchFilter.length() >= SEARCH_MIN_CHARS ||
+        (currLen >= SEARCH_MIN_CHARS && searchFilter.length() < SEARCH_MIN_CHARS))
+            updatePaletteList();
+
+    emit searchFilterChanged();
+}
+
+void PaletteManager::updatePaletteList()
+{
+    m_paletteList->clear();
+    m_dimmerCount = m_colorCount = m_positionCount = 0;
+
+    for (QLCPalette *palette : m_doc->palettes())
+    {
+        if ((m_typeFilter == QLCPalette::Undefined || m_typeFilter & palette->type()) &&
+            (m_searchFilter.length() < SEARCH_MIN_CHARS || palette->name().toLower().contains(m_searchFilter)))
+        {
+            QVariantMap funcMap;
+            funcMap.insert("paletteID", palette->id());
+            funcMap.insert("isSelected", false);
+            m_paletteList->addDataMap(funcMap);
+
+            switch (palette->type())
+            {
+                case QLCPalette::Dimmer: m_dimmerCount++; break;
+                case QLCPalette::Color: m_colorCount++; break;
+                case QLCPalette::Position: m_positionCount++; break;
+                default: break;
+            }
+        }
+    }
+
+    emit dimmerCountChanged();
+    emit colorCountChanged();
+    emit positionCountChanged();
+
+    emit paletteListChanged();
 }
 
 

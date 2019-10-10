@@ -23,12 +23,14 @@
 #include <QAbstractListModel>
 #include <QStringList>
 
+#define SEARCH_MIN_CHARS    3
+
 class ListModel : public QAbstractListModel
 {
     Q_OBJECT
     Q_DISABLE_COPY(ListModel)
 public:
-    ListModel(QObject *parent = 0);
+    ListModel(QObject *parent = nullptr);
     ~ListModel();
 
     void clear();

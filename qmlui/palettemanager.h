@@ -25,24 +25,68 @@
 
 class Doc;
 class ListModel;
+class QLCPalette;
 
 class PaletteManager : public QObject
 {
     Q_OBJECT
 
+    Q_PROPERTY(QVariant paletteList READ paletteList NOTIFY paletteListChanged)
+    Q_PROPERTY(int typeFilter READ typeFilter WRITE setTypeFilter NOTIFY typeFilterChanged)
+    Q_PROPERTY(QString searchFilter READ searchFilter WRITE setSearchFilter NOTIFY searchFilterChanged)
+
+    Q_PROPERTY(int dimmerCount READ dimmerCount NOTIFY dimmerCountChanged)
+    Q_PROPERTY(int colorCount READ colorCount NOTIFY colorCountChanged)
+    Q_PROPERTY(int positionCount READ positionCount NOTIFY positionCountChanged)
+
 public:
     PaletteManager(QQuickView *view, Doc *doc, QObject *parent = nullptr);
     ~PaletteManager();
 
-    Q_INVOKABLE QVariantList paletteList();
+    /** Get a list of Palettes filtered with typeFilter */
+    QVariant paletteList();
+
+    /** Get the reference to a QLCPalette from the given ID */
+    Q_INVOKABLE QLCPalette *getPalette(quint32 id);
 
     Q_INVOKABLE void createPalette(int type, QString name, QVariant value1, QVariant value2);
+
+    /** Get/Set the type of Palettes to be displayed */
+    int typeFilter() const;
+    void setTypeFilter(quint32 filter);
+
+    /** Get/Set a string to filter Function names */
+    QString searchFilter() const;
+    void setSearchFilter(QString searchFilter);
+
+    int dimmerCount() const { return m_dimmerCount; }
+    int colorCount() const { return m_colorCount; }
+    int positionCount() const { return m_positionCount; }
+
+protected:
+    void updatePaletteList();
+
+signals:
+    void typeFilterChanged();
+    void searchFilterChanged();
+    void paletteListChanged();
+
+    void dimmerCountChanged();
+    void colorCountChanged();
+    void positionCountChanged();
 
 private:
     /** Reference to the QML view root */
     QQuickView *m_view;
     /** Reference to the project workspace */
     Doc *m_doc;
+
+    quint32 m_typeFilter;
+    QString m_searchFilter;
+
+    int m_dimmerCount, m_colorCount, m_positionCount;
+
+    ListModel *m_paletteList;
 };
 
 #endif // PALETTEMANAGER_H

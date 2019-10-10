@@ -54,12 +54,12 @@ public:
      */
     enum PaletteType
     {
-        Undefined,
-        Dimmer,
-        Color,
-        Position,
-        Shutter,
-        Gobo
+        Undefined = 0,
+        Dimmer    = 1 << 0,
+        Color     = 1 << 1,
+        Position  = 1 << 2,
+        Shutter   = 1 << 3,
+        Gobo      = 1 << 4
     };
 #if QT_VERSION >= 0x050500
     Q_ENUM(PaletteType)

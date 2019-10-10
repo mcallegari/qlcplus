@@ -117,6 +117,7 @@
     <file alias="EFXEditor.qml">qml/fixturesfunctions/EFXEditor.qml</file>
     <file alias="EFXPreview.qml">qml/fixturesfunctions/EFXPreview.qml</file>
     <file alias="ScriptEditor.qml">qml/fixturesfunctions/ScriptEditor.qml</file>
+    <file alias="PaletteManager.qml">qml/fixturesfunctions/PaletteManager.qml</file>
 
     <!-- 3D View -->
     <file alias="3DView.qml">qml/fixturesfunctions/3DView/3DView.qml</file>
