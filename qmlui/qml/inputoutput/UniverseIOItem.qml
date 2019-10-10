@@ -423,7 +423,7 @@ Rectangle
         width: parent.width
         height: 2
         y: parent.height - 2
-        color: isSelected ? UISettings.selection : "#666"
+        color: isSelected ? UISettings.selection : UISettings.bgLight
     }
 }
 

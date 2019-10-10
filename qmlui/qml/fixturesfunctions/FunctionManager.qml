@@ -82,7 +82,6 @@ Rectangle
 
         RowLayout
         {
-            id: topBarRowLayout
             width: parent.width
             height: parent.height
             y: 1
