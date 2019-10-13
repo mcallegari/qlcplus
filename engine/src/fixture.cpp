@@ -661,19 +661,19 @@ QString Fixture::iconResource(bool svg) const
 
     switch(type())
     {
-        case QLCFixtureDef::ColorChanger: return QString("%1:/fixture.%2").arg(prefix).arg(ext); break;
-        case QLCFixtureDef::Dimmer: return QString("%1:/dimmer.%2").arg(prefix).arg(ext); break;
-        case QLCFixtureDef::Effect: return QString("%1:/effect.%2").arg(prefix).arg(ext); break;
-        case QLCFixtureDef::Fan: return QString("%1:/fan.%2").arg(prefix).arg(ext); break;
-        case QLCFixtureDef::Flower: return QString("%1:/flower.%2").arg(prefix).arg(ext); break;
-        case QLCFixtureDef::Hazer: return QString("%1:/hazer.%2").arg(prefix).arg(ext); break;
-        case QLCFixtureDef::Laser: return QString("%1:/laser.%2").arg(prefix).arg(ext); break;
-        case QLCFixtureDef::MovingHead: return QString("%1:/movinghead.%2").arg(prefix).arg(ext); break;
-        case QLCFixtureDef::Scanner: return QString("%1:/scanner.%2").arg(prefix).arg(ext); break;
-        case QLCFixtureDef::Smoke: return QString("%1:/smoke.%2").arg(prefix).arg(ext); break;
-        case QLCFixtureDef::Strobe: return QString("%1:/strobe.%2").arg(prefix).arg(ext); break;
-        case QLCFixtureDef::LEDBarBeams: return QString("%1:/ledbar_beams.%2").arg(prefix).arg(ext); break;
-        case QLCFixtureDef::LEDBarPixels: return QString("%1:/ledbar_pixels.%2").arg(prefix).arg(ext); break;
+        case QLCFixtureDef::ColorChanger: return QString("%1:/fixture.%2").arg(prefix).arg(ext);
+        case QLCFixtureDef::Dimmer: return QString("%1:/dimmer.%2").arg(prefix).arg(ext);
+        case QLCFixtureDef::Effect: return QString("%1:/effect.%2").arg(prefix).arg(ext);
+        case QLCFixtureDef::Fan: return QString("%1:/fan.%2").arg(prefix).arg(ext);
+        case QLCFixtureDef::Flower: return QString("%1:/flower.%2").arg(prefix).arg(ext);
+        case QLCFixtureDef::Hazer: return QString("%1:/hazer.%2").arg(prefix).arg(ext);
+        case QLCFixtureDef::Laser: return QString("%1:/laser.%2").arg(prefix).arg(ext);
+        case QLCFixtureDef::MovingHead: return QString("%1:/movinghead.%2").arg(prefix).arg(ext);
+        case QLCFixtureDef::Scanner: return QString("%1:/scanner.%2").arg(prefix).arg(ext);
+        case QLCFixtureDef::Smoke: return QString("%1:/smoke.%2").arg(prefix).arg(ext);
+        case QLCFixtureDef::Strobe: return QString("%1:/strobe.%2").arg(prefix).arg(ext);
+        case QLCFixtureDef::LEDBarBeams: return QString("%1:/ledbar_beams.%2").arg(prefix).arg(ext);
+        case QLCFixtureDef::LEDBarPixels: return QString("%1:/ledbar_pixels.%2").arg(prefix).arg(ext);
         default: break;
     }
 

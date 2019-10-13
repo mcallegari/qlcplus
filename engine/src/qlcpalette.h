@@ -91,6 +91,8 @@ public:
     static QString typeToString(QLCPalette::PaletteType type);
     static PaletteType stringToType(const QString& str);
 
+    Q_INVOKABLE QString iconResource(bool svg = false) const;
+
     /** Get/Set the name of this palette */
     QString name() const;
     void setName(const QString& name);

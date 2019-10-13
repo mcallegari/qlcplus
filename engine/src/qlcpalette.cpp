@@ -98,6 +98,22 @@ QLCPalette::PaletteType QLCPalette::stringToType(const QString &str)
     return Undefined;
 }
 
+QString QLCPalette::iconResource(bool svg) const
+{
+    QString prefix = svg ? "qrc" : "";
+    QString ext = svg ? "svg" : "png";
+
+    switch(type())
+    {
+        case Dimmer: return QString("%1:/intensity.%2").arg(prefix).arg(ext);
+        case Color: return QString("%1:/color.%2").arg(prefix).arg(ext);
+        case Position: return QString("%1:/position.%2").arg(prefix).arg(ext);
+        case Shutter: return QString("%1:/shutter.%2").arg(prefix).arg(ext);
+        case Gobo: return QString("%1:/gobo.%2").arg(prefix).arg(ext);
+        default: return "";
+    }
+}
+
 QString QLCPalette::name() const
 {
     return m_name;
