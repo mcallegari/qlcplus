@@ -87,6 +87,7 @@ public:
         FixtureGroupDragItem,
         FixtureDragItem,
         ChannelDragItem,
+        PaletteDragItem,
         HeadDragItem,
         WidgetDragItem
     };

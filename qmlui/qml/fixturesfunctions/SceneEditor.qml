@@ -50,7 +50,7 @@ Rectangle
         z: 99
         x: rightSidePanel.x - width
         visible: false
-        tempoType: sceneEditor.tempoType
+        tempoType: sceneEditor ? sceneEditor.tempoType : 0
 
         onValueChanged:
         {
@@ -69,7 +69,7 @@ Rectangle
         {
             id: toolbar
             visible: showToolBar
-            text: sceneEditor.functionName
+            text: sceneEditor ? sceneEditor.functionName : ""
             onTextChanged: sceneEditor.functionName = text
 
             onBackClicked:
@@ -98,11 +98,68 @@ Rectangle
             height: seContainer.height - UISettings.iconSizeMedium - speedSection.height
             y: toolbar.height
             boundsBehavior: Flickable.StopAtBounds
-            model: sceneEditor ? sceneEditor.fixtureList : null
+            model: sceneEditor ? sceneEditor.componentList : null
             delegate:
+                Rectangle
+                {
+                    id: compDelegate
+                    width: seContainer.width
+                    height: UISettings.listItemHeight
+                    color: "transparent"
+
+                    property int itemType: model.type
+
+                    Rectangle
+                    {
+                        anchors.fill: parent
+                        radius: 3
+                        color: UISettings.highlight
+                        visible: model.isSelected
+                    }
+
+                    IconTextEntry
+                    {
+                        anchors.fill: parent
+                        tLabel: model.cRef.name
+                        iSrc:
+                        {
+                            switch(compDelegate.itemType)
+                            {
+                                case App.FixtureGroupDragItem:
+                                    "qrc:/group.svg"
+                                break;
+                                case App.PaletteDragItem:
+                                case App.FixtureDragItem:
+                                    model.cRef.iconResource(true)
+                                break;
+                            }
+                        }
+
+                        MouseArea
+                        {
+                            anchors.fill: parent
+
+                            onClicked:
+                            {
+                                if (compDelegate.itemType === App.FixtureDragItem)
+                                {
+                                    seSelector.selectItem(index, sfxList.model, mouse.modifiers & Qt.ControlModifier)
+
+                                    if (!(mouse.modifiers & Qt.ControlModifier))
+                                        contextManager.resetFixtureSelection()
+
+                                    contextManager.setFixtureIDSelection(model.cRef.id, true)
+                                    sceneEditor.setFixtureSelection(model.cRef.id)
+                                }
+                            }
+                            //onDoubleClicked: fxDelegate.mouseEvent(App.DoubleClicked, cRef.id, cRef.type, fxDelegate, -1)
+                        }
+                    }
+                }
+/*
                 FixtureDelegate
                 {
-                    cRef: model.fxRef
+                    cRef: model.cRef
                     width: seContainer.width
                     isSelected: model.isSelected
                     Component.onCompleted: contextManager.setFixtureIDSelection(cRef.id, true)
@@ -121,6 +178,25 @@ Rectangle
                         }
                     }
                 }
+*/
+
+            DropArea
+            {
+                id: cfDropArea
+                anchors.fill: parent
+                keys: [ "fixture", "palette" ]
+
+                onDropped:
+                {
+                    console.log("[SceneEditor] Item dropped at x: " + drag.x + " y: " + drag.y)
+                    for (var i = 0; i < drag.source.itemsList.length; i++)
+                    {
+                        console.log("Item type: " + drag.source.itemsList[i].itemType + ", id: " + drag.source.itemsList[i].cRef.id)
+                        sceneEditor.addComponent(drag.source.itemsList[i].itemType, drag.source.itemsList[i].cRef.id)
+                    }
+                }
+            }
+
             ScrollBar.vertical: CustomScrollBar { }
         }
 

@@ -172,22 +172,10 @@ Rectangle
           id: pListView
           width: pmContainer.width
           Layout.fillHeight: true
+          z: 4
           boundsBehavior: Flickable.StopAtBounds
 
           property bool dragActive: false
-
-          function typeToIcon(type)
-          {
-              switch(type)
-              {
-                  case QLCPalette.Dimmer: return "qrc:/intensity.svg"
-                  case QLCPalette.Color: return "qrc:/color.svg"
-                  case QLCPalette.Position: return "qrc:/position.svg"
-                  case QLCPalette.Shutter: return "qrc:/shutter.svg"
-                  case QLCPalette.Gobo: return "qrc:/gobo.svg"
-                  default: return ""
-              }
-          }
 
           model: paletteManager.paletteList
           delegate:
@@ -207,7 +195,24 @@ Rectangle
                       drag.target: pDragItem
                       drag.threshold: height / 2
 
-                      onPressed: pmSelector.selectItem(index, pListView.model, mouse.modifiers & Qt.ControlModifier)
+                      onPressed:
+                      {
+                          if (model.isSelected)
+                              return
+
+                          var posnInWindow = pDelegate.mapToItem(mainView, pDelegate.x, pDelegate.y)
+                          pDragItem.parent = mainView
+                          pDragItem.x = posnInWindow.x - (pDragItem.width / 4)
+                          pDragItem.y = posnInWindow.y - (pDragItem.height / 4)
+                          pDragItem.z = 10
+
+                          pmSelector.selectItem(index, pListView.model, mouse.modifiers & Qt.ControlModifier)
+
+                          if ((mouse.modifiers & Qt.ControlModifier) == 0)
+                              pDragItem.itemsList = []
+
+                          pDragItem.itemsList.push(pDelegate)
+                      }
                       onDragActiveChanged:
                       {
                           if (dragActive)
@@ -233,7 +238,8 @@ Rectangle
                           height: UISettings.listItemHeight
                           color: "transparent"
 
-                          property QLCPalette paletteRef: paletteManager.getPalette(model.paletteID)
+                          property QLCPalette cRef: paletteManager.getPalette(model.paletteID)
+                          property int itemType: App.PaletteDragItem
 
                           Rectangle
                           {
@@ -248,8 +254,8 @@ Rectangle
                               id: pEntryItem
                               width: parent.width
                               height: parent.height
-                              iSrc: pListView.typeToIcon(pDelegate.paletteRef.type)
-                              tLabel: pDelegate.paletteRef ? pDelegate.paletteRef.name : ""
+                              iSrc: pDelegate.cRef.iconResource(true)
+                              tLabel: pDelegate.cRef ? pDelegate.cRef.name : ""
                           }
 
                           // items divider

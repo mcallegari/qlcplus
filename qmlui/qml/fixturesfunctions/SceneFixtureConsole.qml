@@ -60,7 +60,7 @@ Rectangle
                 {
                     id: fxConsole
                     x: 2
-                    fixtureObj: model.fxRef
+                    fixtureObj: model.cRef
                     isSelected: model.isSelected
                     height: parent.height
                     color: index % 2 ? "#202020" : "#404040"
