@@ -420,6 +420,7 @@ void App::enableKioskMode()
 void App::createKioskCloseButton(const QRect &rect)
 {
     Q_UNUSED(rect)
+    // TODO
 }
 
 /*********************************************************************

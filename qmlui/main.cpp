@@ -103,11 +103,11 @@ int main(int argc, char *argv[])
 
     App qlcplusApp;
     qlcplusApp.setLanguage(locale);
-    qlcplusApp.startup();
 
     if (parser.isSet(kioskOption))
         qlcplusApp.enableKioskMode();
 
+    qlcplusApp.startup();
     qlcplusApp.show();
 
     QString filename = parser.value(openFileOption);
