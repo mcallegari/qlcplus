@@ -57,9 +57,11 @@ public:
         Undefined = 0,
         Dimmer    = 1 << 0,
         Color     = 1 << 1,
-        Position  = 1 << 2,
-        Shutter   = 1 << 3,
-        Gobo      = 1 << 4
+        Pan       = 1 << 2,
+        Tilt      = 1 << 3,
+        PanTilt   = 1 << 4,
+        Shutter   = 1 << 5,
+        Gobo      = 1 << 6
     };
 #if QT_VERSION >= 0x050500
     Q_ENUM(PaletteType)

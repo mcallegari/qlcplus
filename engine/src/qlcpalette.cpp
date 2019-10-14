@@ -73,7 +73,9 @@ QString QLCPalette::typeToString(QLCPalette::PaletteType type)
     {
         case Dimmer:    return "Dimmer";
         case Color:     return "Color";
-        case Position:  return "Position";
+        case Pan:       return "Pan";
+        case Tilt:      return "Tilt";
+        case PanTilt:   return "PanTilt";
         case Shutter:   return "Shutter";
         case Gobo:      return "Gobo";
         case Undefined: return "";
@@ -88,8 +90,12 @@ QLCPalette::PaletteType QLCPalette::stringToType(const QString &str)
         return Dimmer;
     else if (str == "Color")
         return Color;
-    else if (str == "Position")
-        return Position;
+    else if (str == "Pan")
+        return Pan;
+    else if (str == "Tilt")
+        return Tilt;
+    else if (str == "PanTilt")
+        return PanTilt;
     else if (str == "Shutter")
         return Shutter;
     else if (str == "Gobo")
@@ -107,7 +113,9 @@ QString QLCPalette::iconResource(bool svg) const
     {
         case Dimmer: return QString("%1:/intensity.%2").arg(prefix).arg(ext);
         case Color: return QString("%1:/color.%2").arg(prefix).arg(ext);
-        case Position: return QString("%1:/position.%2").arg(prefix).arg(ext);
+        case Pan: return QString("%1:/pan.%2").arg(prefix).arg(ext);
+        case Tilt: return QString("%1:/tilt.%2").arg(prefix).arg(ext);
+        case PanTilt: return QString("%1:/position.%2").arg(prefix).arg(ext);
         case Shutter: return QString("%1:/shutter.%2").arg(prefix).arg(ext);
         case Gobo: return QString("%1:/gobo.%2").arg(prefix).arg(ext);
         default: return "";
@@ -189,7 +197,17 @@ QList<SceneValue> QLCPalette::valuesFromFixtures(Doc *doc, QList<quint32> fixtur
                 }
             }
             break;
-            case Position:
+            case Pan:
+            {
+                list << fixture->positionToValues(QLCChannel::Pan, value().toInt());
+            }
+            break;
+            case Tilt:
+            {
+                list << fixture->positionToValues(QLCChannel::Tilt, value().toInt());
+            }
+            break;
+            case PanTilt:
             {
                 if (m_values.count() == 2)
                 {
@@ -296,12 +314,14 @@ bool QLCPalette::loadXML(QXmlStreamReader &doc)
         switch (m_type)
         {
             case Dimmer:
+            case Pan:
+            case Tilt:
                 setValue(strVal.toInt());
             break;
             case Color:
                 setValue(QColor(strVal));
             break;
-            case Position:
+            case PanTilt:
             {
                 QStringList posList = strVal.split(",");
                 if (posList.count() == 2)
@@ -330,6 +350,8 @@ bool QLCPalette::saveXML(QXmlStreamWriter *doc)
     switch (m_type)
     {
         case Dimmer:
+        case Pan:
+        case Tilt:
             doc->writeAttribute(KXMLQLCPaletteValue, value().toString());
         break;
         case Color:
@@ -338,7 +360,7 @@ bool QLCPalette::saveXML(QXmlStreamWriter *doc)
             doc->writeAttribute(KXMLQLCPaletteValue, col.name());
         }
         break;
-        case Position:
+        case PanTilt:
             doc->writeAttribute(KXMLQLCPaletteValue,
                                 QString("%1,%2").arg(m_values.at(0).toInt()).arg(m_values.at(1).toInt()));
         break;

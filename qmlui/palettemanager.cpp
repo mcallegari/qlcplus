@@ -64,7 +64,7 @@ void PaletteManager::createPalette(int type, QString name, QVariant value1, QVar
     QLCPalette *palette = new QLCPalette(QLCPalette::PaletteType(type));
     palette->setName(name);
 
-    if (type == QLCPalette::Position)
+    if (type == QLCPalette::PanTilt)
         palette->setValue(value1, value2);
     else
         palette->setValue(value1);
@@ -132,9 +132,17 @@ void PaletteManager::updatePaletteList()
 
             switch (palette->type())
             {
-                case QLCPalette::Dimmer: m_dimmerCount++; break;
-                case QLCPalette::Color: m_colorCount++; break;
-                case QLCPalette::Position: m_positionCount++; break;
+                case QLCPalette::Dimmer:
+                    m_dimmerCount++;
+                break;
+                case QLCPalette::Color:
+                    m_colorCount++;
+                break;
+                case QLCPalette::Pan:
+                case QLCPalette::Tilt:
+                case QLCPalette::PanTilt:
+                    m_positionCount++;
+                break;
                 default: break;
             }
         }
