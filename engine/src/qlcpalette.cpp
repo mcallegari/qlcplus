@@ -26,16 +26,22 @@
 #include "scenevalue.h"
 #include "doc.h"
 
-#define KXMLQLCPaletteType  "Type"
-#define KXMLQLCPaletteName  "Name"
-#define KXMLQLCPaletteValue "Value"
+#define KXMLQLCPaletteType      "Type"
+#define KXMLQLCPaletteName      "Name"
+#define KXMLQLCPaletteValue     "Value"
+#define KXMLQLCPaletteFanning   "Fan"
+#define KXMLQLCPaletteFanLayout "Layout"
+#define KXMLQLCPaletteFanAmount "Amount"
+#define KXMLQLCPaletteFanValue  "FanValue"
 
 QLCPalette::QLCPalette(QLCPalette::PaletteType type, QObject *parent)
     : QObject(parent)
     , m_id(QLCPalette::invalidId())
     , m_type(type)
+    , m_fanningType(Flat)
+    , m_fanningLayout(LeftToRight)
+    , m_fanningAmount(100)
 {
-
 }
 
 QLCPalette::~QLCPalette()
@@ -252,6 +258,133 @@ QList<SceneValue> QLCPalette::valuesFromFixtureGroups(Doc *doc, QList<quint32> g
     }
 
     return list;
+}
+
+/************************************************************************
+ * Fanning
+ ************************************************************************/
+
+QLCPalette::FanningType QLCPalette::fanningType() const
+{
+    return m_fanningType;
+}
+
+void QLCPalette::setFanningType(QLCPalette::FanningType type)
+{
+    m_fanningType = type;
+}
+
+QString QLCPalette::fanningTypeToString(QLCPalette::FanningType type)
+{
+    switch (type)
+    {
+        case Flat:      return "Flat";
+        case Linear:    return "Linear";
+        case Sine:      return "Sine";
+        case Square:    return "Square";
+        case Saw:       return "Saw";
+    }
+
+    return "";
+}
+
+QLCPalette::FanningType QLCPalette::stringToFanningType(const QString &str)
+{
+    if (str == "Flat")
+        return Flat;
+    else if (str == "Linear")
+        return Linear;
+    else if (str == "Sine")
+        return Sine;
+    else if (str == "Square")
+        return Square;
+    else if (str == "Saw")
+        return Saw;
+
+    return Flat;
+}
+
+QLCPalette::FanningLayout QLCPalette::fanningLayout() const
+{
+    return m_fanningLayout;
+}
+
+void QLCPalette::setFanningLayout(QLCPalette::FanningLayout layout)
+{
+    m_fanningLayout = layout;
+}
+
+QString QLCPalette::fanningLayoutToString(QLCPalette::FanningLayout layout)
+{
+    switch (layout)
+    {
+        case LeftToRight:   return "LeftToRight";
+        case RightToLeft:   return "RightToLeft";
+        case TopToBottom:   return "TopToBottom";
+        case BottomToTop:   return "BottomToTop";
+        case Centered:      return "Centered";
+    }
+
+    return "";
+}
+
+QLCPalette::FanningLayout QLCPalette::stringToFanningLayout(const QString &str)
+{
+    if (str == "LeftToRight")
+        return LeftToRight;
+    else if (str == "RightToLeft")
+        return RightToLeft;
+    else if (str == "TopToBottom")
+        return TopToBottom;
+    else if (str == "BottomToTop")
+        return BottomToTop;
+    else if (str == "Centered")
+        return Centered;
+
+    return LeftToRight;
+}
+
+int QLCPalette::fanningAmount() const
+{
+    return m_fanningAmount;
+}
+
+void QLCPalette::setFanningAmount(int amount)
+{
+    m_fanningAmount = amount;
+}
+
+QVariant QLCPalette::fanningValue() const
+{
+    return m_fanningValue;
+}
+
+void QLCPalette::setFanningValue(QVariant value)
+{
+    m_fanningValue = value;
+}
+
+/************************************************************************
+ * Color helpers
+ ************************************************************************/
+
+QString QLCPalette::colorToString(QColor rgb, QColor wauv)
+{
+    QString final = rgb.name();
+    final.append(wauv.name().right(6));
+    return final;
+}
+
+bool QLCPalette::stringToColor(QString str, QColor &rgb, QColor &wauv)
+{
+    // string must be like #112233aabbcc
+    if (str.length() != 13)
+        return false;
+
+    rgb = QColor(str.left(7));
+    wauv = QColor("#" + str.right(6));
+
+    return true;
 }
 
 /************************************************************************

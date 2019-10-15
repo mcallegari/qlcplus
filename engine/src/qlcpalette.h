@@ -21,6 +21,7 @@
 #define QLCPALETTE_H
 
 #include <QObject>
+#include <QVariant>
 
 class QXmlStreamReader;
 class QXmlStreamWriter;
@@ -86,7 +87,7 @@ public:
     /** Get an invalid palette id */
     static quint32 invalidId();
 
-    /** Get/Set the palette type */
+    /** Get the palette type */
     PaletteType type() const;
 
     /** Helper methods to convert palette type <-> string */
@@ -116,6 +117,76 @@ private:
     PaletteType m_type;
     QString m_name;
     QVariantList m_values;
+
+    /************************************************************************
+     * Fanning
+     ************************************************************************/
+public:
+    enum FanningType
+    {
+        Flat,
+        Linear,
+        Sine,
+        Square,
+        Saw
+    };
+#if QT_VERSION >= 0x050500
+    Q_ENUM(FanningType)
+#endif
+
+    enum FanningLayout
+    {
+        LeftToRight,
+        RightToLeft,
+        TopToBottom,
+        BottomToTop,
+        Centered
+    };
+#if QT_VERSION >= 0x050500
+    Q_ENUM(FanningLayout)
+#endif
+
+    /** Get/Set the fanning type */
+    FanningType fanningType() const;
+    void setFanningType(QLCPalette::FanningType type);
+
+    /** Helper methods to convert fanning type <-> string */
+    static QString fanningTypeToString(QLCPalette::FanningType type);
+    static FanningType stringToFanningType(const QString& str);
+
+    /** Get/Set the fanning layout */
+    FanningLayout fanningLayout() const;
+    void setFanningLayout(QLCPalette::FanningLayout layout);
+
+    /** Helper methods to convert fanning layout <-> string */
+    static QString fanningLayoutToString(QLCPalette::FanningLayout layout);
+    static FanningLayout stringToFanningLayout(const QString& str);
+
+    /** Get/Set the amount of fanning applied to this palette */
+    int fanningAmount() const;
+    void setFanningAmount(int amount);
+
+    /** Get/Set the fanning value */
+    QVariant fanningValue() const;
+    void setFanningValue(QVariant value);
+
+private:
+    FanningType m_fanningType;
+    FanningLayout m_fanningLayout;
+    int m_fanningAmount;
+    QVariant m_fanningValue;
+
+    /************************************************************************
+     * Color helpers
+     ************************************************************************/
+public:
+    /** Helper method to pack two QColor into a Qt-like style string
+     *  formatted like this: "#rrggbbwwaauv" */
+    static QString colorToString(QColor rgb, QColor wauv);
+
+    /** Helper method to convert a string created with colorToString
+     *  back to 2 separate QColor */
+    static bool stringToColor(QString str, QColor &rgb, QColor &wauv);
 
     /************************************************************************
      * Load & Save
