@@ -25,6 +25,9 @@
 
 	<key>NSHighResolutionCapable</key>
 	<string>True</string>
+	
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Process incoming audio</string>
 
 	<key>CFBundleDocumentTypes</key>
 	<array>
