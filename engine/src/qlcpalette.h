@@ -103,6 +103,7 @@ public:
     /** Get/Set the value(s) for this Palette.
      *  Some types like Position will store 2 values */
     QVariant value() const;
+    QVariantList values() const;
     void setValue(QVariant val);
     void setValue(QVariant val1, QVariant val2);
 

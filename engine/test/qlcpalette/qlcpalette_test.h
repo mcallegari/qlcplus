@@ -29,6 +29,11 @@ class QLCPalette_Test : public QObject
 
 private slots:
     void initialization();
+    void type();
+    void icon();
+    void value();
+    void fanning();
+
     void colorHelpers();
 
     void load();

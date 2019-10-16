@@ -150,6 +150,11 @@ QVariant QLCPalette::value() const
     return m_values.first();
 }
 
+QVariantList QLCPalette::values() const
+{
+    return m_values;
+}
+
 void QLCPalette::setValue(QVariant val)
 {
     m_values.clear();
@@ -428,7 +433,7 @@ bool QLCPalette::loadXML(QXmlStreamReader &doc)
         return false;
     }
 
-    m_id = id;
+    setID(id);
 
     if (attrs.hasAttribute(KXMLQLCPaletteType) == false)
     {
@@ -439,7 +444,7 @@ bool QLCPalette::loadXML(QXmlStreamReader &doc)
     m_type = stringToType(attrs.value(KXMLQLCPaletteType).toString());
 
     if (attrs.hasAttribute(KXMLQLCPaletteName))
-        m_name = attrs.value(KXMLQLCPaletteName).toString();
+        setName(attrs.value(KXMLQLCPaletteName).toString());
 
     if (attrs.hasAttribute(KXMLQLCPaletteValue))
     {
@@ -452,7 +457,7 @@ bool QLCPalette::loadXML(QXmlStreamReader &doc)
                 setValue(strVal.toInt());
             break;
             case Color:
-                setValue(QColor(strVal));
+                setValue(strVal);
             break;
             case PanTilt:
             {
@@ -467,6 +472,37 @@ bool QLCPalette::loadXML(QXmlStreamReader &doc)
         }
     }
 
+    if (attrs.hasAttribute(KXMLQLCPaletteFanning))
+    {
+        setFanningType(stringToFanningType(attrs.value(KXMLQLCPaletteFanning).toString()));
+
+        if (attrs.hasAttribute(KXMLQLCPaletteFanLayout))
+            setFanningLayout(stringToFanningLayout(attrs.value(KXMLQLCPaletteFanLayout).toString()));
+
+        if (attrs.hasAttribute(KXMLQLCPaletteFanAmount))
+            setFanningAmount(attrs.value(KXMLQLCPaletteFanLayout).toInt());
+
+        if (attrs.hasAttribute(KXMLQLCPaletteFanValue))
+        {
+            QString strVal = attrs.value(KXMLQLCPaletteValue).toString();
+            switch (m_type)
+            {
+                case Dimmer:
+                case Pan:
+                case Tilt:
+                case PanTilt:
+                    setFanningValue(strVal.toInt());
+                break;
+                case Color:
+                    setFanningValue(strVal);
+                break;
+                case Shutter:   break;
+                case Gobo:      break;
+                case Undefined: break;
+            }
+        }
+    }
+
     return true;
 }
 
@@ -474,24 +510,26 @@ bool QLCPalette::saveXML(QXmlStreamWriter *doc)
 {
     Q_ASSERT(doc != NULL);
 
+    if (m_values.isEmpty())
+    {
+        qWarning() << "Unable to save a Palette without value!";
+        return false;
+    }
+
     /* write a Palette entry */
     doc->writeStartElement(KXMLQLCPalette);
     doc->writeAttribute(KXMLQLCPaletteID, QString::number(this->id()));
     doc->writeAttribute(KXMLQLCPaletteType, typeToString(m_type));
     doc->writeAttribute(KXMLQLCPaletteName, this->name());
 
+    /* write value */
     switch (m_type)
     {
         case Dimmer:
         case Pan:
         case Tilt:
-            doc->writeAttribute(KXMLQLCPaletteValue, value().toString());
-        break;
         case Color:
-        {
-            QColor col = value().value<QColor>();
-            doc->writeAttribute(KXMLQLCPaletteValue, col.name());
-        }
+            doc->writeAttribute(KXMLQLCPaletteValue, value().toString());
         break;
         case PanTilt:
             doc->writeAttribute(KXMLQLCPaletteValue,
@@ -500,6 +538,15 @@ bool QLCPalette::saveXML(QXmlStreamWriter *doc)
         case Shutter:   break;
         case Gobo:      break;
         case Undefined: break;
+    }
+
+    /* write fanning */
+    if (m_fanningType != Flat)
+    {
+        doc->writeAttribute(KXMLQLCPaletteFanning, fanningTypeToString(m_fanningType));
+        doc->writeAttribute(KXMLQLCPaletteFanLayout, fanningLayoutToString(m_fanningLayout));
+        doc->writeAttribute(KXMLQLCPaletteFanAmount, QString::number(m_fanningAmount));
+        doc->writeAttribute(KXMLQLCPaletteFanValue, fanningValue().toString());
     }
 
     doc->writeEndElement();
