@@ -24,6 +24,7 @@
 #include <QFontDatabase>
 #include <QOpenGLContext>
 #include <QPrintDialog>
+#include <QApplication>
 #include <QQmlContext>
 #include <QQuickItem>
 #include <QSettings>
@@ -245,7 +246,8 @@ bool App::is3DSupported() const
 
 void App::exit()
 {
-    destroy();
+    //destroy();
+    QApplication::quit();
 }
 
 void App::setAccessMask(int mask)
