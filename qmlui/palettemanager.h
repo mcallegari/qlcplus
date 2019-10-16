@@ -75,6 +75,9 @@ signals:
     void colorCountChanged();
     void positionCountChanged();
 
+public slots:
+    void slotDocLoaded();
+
 private:
     /** Reference to the QML view root */
     QQuickView *m_view;
