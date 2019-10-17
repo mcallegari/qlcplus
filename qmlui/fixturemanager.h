@@ -379,8 +379,6 @@ public:
     Q_INVOKABLE void setIntensityValue(quint8 value);
     Q_INVOKABLE void setColorValue(quint8 red, quint8 green, quint8 blue,
                                    quint8 white, quint8 amber, quint8 uv);
-    Q_INVOKABLE void setPanValue(int degrees);
-    Q_INVOKABLE void setTiltValue(int degrees);
     Q_INVOKABLE void setPresetValue(quint32 fixtureID, int chIndex, quint8 value);
     Q_INVOKABLE void setBeamValue(quint8 value);
 

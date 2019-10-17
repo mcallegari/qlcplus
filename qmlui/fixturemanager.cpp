@@ -1478,16 +1478,6 @@ void FixtureManager::setColorValue(quint8 red, quint8 green, quint8 blue,
     emit colorChanged(QColor(red, green, blue), QColor(white, amber, uv));
 }
 
-void FixtureManager::setPanValue(int degrees)
-{
-    emit positionTypeValueChanged(QLCChannel::Pan, degrees);
-}
-
-void FixtureManager::setTiltValue(int degrees)
-{
-    emit positionTypeValueChanged(QLCChannel::Tilt, degrees);
-}
-
 void FixtureManager::setPresetValue(quint32 fixtureID, int chIndex, quint8 value)
 {
     qDebug() << "[FixtureManager] setPresetValue - fixture:" << fixtureID << ", channel:" << chIndex << "value:" << value;

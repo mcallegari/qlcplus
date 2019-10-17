@@ -210,6 +210,11 @@ public:
         Nothing,
         NoGroup = INT_MAX
     };
+#if QT_VERSION >= 0x050500
+    Q_ENUM(Group)
+#else
+    Q_ENUMS(Group)
+#endif
 
     /** Get a list of possible channel groups */
     static QStringList groupList();
