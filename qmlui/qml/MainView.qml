@@ -152,7 +152,6 @@ Rectangle
                 ButtonGroup.group: menuBarGroup
                 onCheckedChanged:
                 {
-                    console.log("CHECKED CHANGED FNF")
                     if (checked == true)
                         switchToContext(fnfEntry.ctxName, fnfEntry.ctxRes)
                 }
@@ -169,7 +168,6 @@ Rectangle
                 ButtonGroup.group: menuBarGroup
                 onCheckedChanged:
                 {
-                    console.log("CHECKED CHANGED VC")
                     if (checked == true)
                         switchToContext(vcEntry.ctxName, vcEntry.ctxRes)
                 }
