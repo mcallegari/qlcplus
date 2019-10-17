@@ -22,6 +22,7 @@ import QtQuick.Layouts 1.0
 import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.2
 
+import org.qlcplus.classes 1.0
 import "CanvasDrawFunctions.js" as DrawFuncs
 import "."
 
@@ -29,7 +30,7 @@ Rectangle
 {
     id: posToolRoot
     width: UISettings.bigItemHeight * 2.2
-    height: UISettings.bigItemHeight * 3.3
+    height: UISettings.bigItemHeight * 3.5
     color: UISettings.bgMedium
     border.color: UISettings.bgLight
     border.width: 2
@@ -40,8 +41,8 @@ Rectangle
     property int panDegrees: 0
     property int tiltDegrees: 0
 
-    onPanDegreesChanged: fixtureManager.setPanValue(panDegrees)
-    onTiltDegreesChanged: fixtureManager.setTiltValue(tiltDegrees)
+    onPanDegreesChanged: contextManager.setPositionValue(QLCChannel.Pan, panDegrees)
+    onTiltDegreesChanged: contextManager.setPositionValue(QLCChannel.Tilt, tiltDegrees)
 
     onPanMaxDegreesChanged: gCanvas.requestPaint()
     onTiltMaxDegreesChanged: gCanvas.requestPaint()
@@ -198,6 +199,7 @@ Rectangle
         // row 1
         RobotoText
         {
+            height: UISettings.listItemHeight
             label: "Pan"
         }
 
@@ -247,6 +249,7 @@ Rectangle
         // row 2
         RobotoText
         {
+            height: UISettings.listItemHeight
             label: "Tilt"
         }
 
@@ -304,5 +307,15 @@ Rectangle
                 }
             }
         }
-    }
+
+        // row 3
+        PaletteFanningBox
+        {
+            Layout.columnSpan: 4
+            Layout.fillWidth: true
+            paletteType: QLCPalette.PanTilt
+            value1: posToolRoot.panDegrees
+            value2: posToolRoot.tiltDegrees
+        }
+    } // GridLayout
 }

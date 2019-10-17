@@ -35,8 +35,6 @@ Rectangle
     property bool dmxValues: true
     property alias currentValue: spinBox.value
 
-    signal requestPalettePopup(int type, int value)
-
     onCurrentValueChanged:
     {
         if (dmxValues)
@@ -94,7 +92,7 @@ Rectangle
             color: "transparent"
             x: (parent.width - width) / 2
             width: intRoot.width * 0.75
-            height: intRoot.height - (UISettings.listItemHeight * 3) - 20
+            height: intRoot.height - (UISettings.listItemHeight * 2) - UISettings.iconSizeMedium - 20
 
             Image
             {
@@ -146,7 +144,7 @@ Rectangle
 
         Row
         {
-            x: 10
+            x: 5
             height: UISettings.listItemHeight
             spacing: 5
 
@@ -181,19 +179,12 @@ Rectangle
             }
         }
 
-        Row
+        PaletteFanningBox
         {
-            x: 10
-            height: UISettings.listItemHeight
-
-            IconButton
-            {
-                width: height
-                height: UISettings.listItemHeight
-                imgSource: "qrc:/palette.svg"
-                tooltip: qsTr("Create a new palette")
-                onClicked: intRoot.requestPalettePopup(QLCPalette.Dimmer, intRoot.currentValue)
-            }
+            x: 5
+            width: intRoot.width - 10
+            paletteType: QLCPalette.Dimmer
+            value1: intRoot.currentValue
         }
     }
 }

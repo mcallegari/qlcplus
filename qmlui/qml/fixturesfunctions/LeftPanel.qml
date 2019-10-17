@@ -37,15 +37,6 @@ SidePanel
         item.height = Qt.binding(function() { return leftSidePanel.height })
     }
 
-    function showPalettePopup(type, value1, value2)
-    {
-        palettePopup.type = type
-        palettePopup.value1 = value1
-        palettePopup.value2 = value2
-        palettePopup.open()
-        palettePopup.focusEditItem()
-    }
-
     Rectangle
     {
         id: sideBar
@@ -141,7 +132,6 @@ SidePanel
                     x: leftSidePanel.width
                     y: UISettings.bigItemHeight
                     visible: false
-                    onRequestPalettePopup: leftSidePanel.showPalettePopup(type, value, 0)
                 }
             }
 
@@ -352,9 +342,4 @@ SidePanel
             }
         } // ColumnLayout
     } // Rectangle
-
-    PopupCreatePalette
-    {
-        id: palettePopup
-    }
 }

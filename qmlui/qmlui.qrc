@@ -40,6 +40,7 @@
     <file alias="MainView.qml">qml/MainView.qml</file>
     <file alias="MenuBarEntry.qml">qml/MenuBarEntry.qml</file>
     <file alias="MultiColorBox.qml">qml/MultiColorBox.qml</file>
+    <file alias="PaletteFanningBox.qml">qml/PaletteFanningBox.qml</file>
     <file alias="QLCPlusFader.qml">qml/QLCPlusFader.qml</file>
     <file alias="QLCPlusKnob.qml">qml/QLCPlusKnob.qml</file>
     <file alias="RobotoText.qml">qml/RobotoText.qml</file>
