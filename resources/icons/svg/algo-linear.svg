@@ -41,8 +41,8 @@
      id="namedview18"
      showgrid="false"
      inkscape:zoom="9.8333333"
-     inkscape:cx="20.497965"
-     inkscape:cy="27.790931"
+     inkscape:cx="-3.3791979"
+     inkscape:cy="33.856251"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="0"
@@ -59,21 +59,27 @@
        id="g8">
       <path
          d="m4.44 1048.83 0-39.77"
-         style="fill:#1a1a1a;stroke-width:2.7;stroke:#1a1a1a;stroke-opacity:1;fill-opacity:1"
+         style="fill:#1a1a1a;stroke-width:3.5;stroke:#1a1a1a;stroke-opacity:1;fill-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
          id="path10" />
       <path
-         d="m3.09 1048.25 39.87 0"
-         style="fill:#1a1a1a;stroke-width:2.7;stroke:#1a1a1a;stroke-opacity:1;fill-opacity:1"
-         id="path12" />
+         d="m 2.7086441,1048.25 40.2513559,0"
+         style="fill:#1a1a1a;fill-opacity:1;stroke:#1a1a1a;stroke-width:3.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path12"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cc" />
       <path
-         d="m2.35 1010.32 2.11-3.65 2.11 3.65z"
-         style="fill:#1a1a1a;stroke-width:1.31;stroke:#1a1a1a;stroke-opacity:1;fill-opacity:1"
-         id="path14" />
+         d="M 1.7398305,1010.32 4.46,1006.67 l 2.7201695,3.65 z"
+         style="fill:#1a1a1a;fill-opacity:1;stroke:#1a1a1a;stroke-width:1.30999994;stroke-opacity:1"
+         id="path14"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cccc" />
       <path
          transform="matrix(0,1,-1,0,1054.3733,1024.8164)"
-         d="m21.19 1012.55 2.11-3.65 2.11 3.65z"
-         style="fill:#1a1a1a;stroke-width:1.31;stroke:#1a1a1a;stroke-opacity:1;fill-opacity:1"
-         id="path16" />
+         d="M 20.579831,1012.55 23.3,1008.9 l 2.720169,3.65 z"
+         style="fill:#1a1a1a;fill-opacity:1;stroke:#1a1a1a;stroke-width:1.30999994;stroke-opacity:1"
+         id="path16"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cccc" />
     </g>
   </g>
 </svg>

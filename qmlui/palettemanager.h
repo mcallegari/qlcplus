@@ -23,9 +23,10 @@
 #include <QQuickView>
 #include <QObject>
 
+#include "qlcpalette.h"
+
 class Doc;
 class ListModel;
-class QLCPalette;
 
 class PaletteManager : public QObject
 {
@@ -48,6 +49,9 @@ public:
 
     /** Get the reference to a QLCPalette from the given ID */
     Q_INVOKABLE QLCPalette *getPalette(quint32 id);
+
+    /* Request a palette for editing */
+    Q_INVOKABLE QLCPalette *getEditingPalette(int type);
 
     Q_INVOKABLE void createPalette(int type, QString name, QVariant value1, QVariant value2);
 
@@ -90,6 +94,8 @@ private:
     int m_dimmerCount, m_colorCount, m_positionCount;
 
     ListModel *m_paletteList;
+    // map of type/palette used for editing
+    QMap<int, QLCPalette *> m_editingMap;
 };
 
 #endif // PALETTEMANAGER_H

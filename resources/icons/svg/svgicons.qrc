@@ -99,6 +99,11 @@
     <file alias="knob.svg">knob.svg</file>
     <file alias="label.svg">label.svg</file>
     <file alias="laser.svg">laser.svg</file>
+    <file alias="layout-btt.svg">layout-btt.svg</file>
+    <file alias="layout-center.svg">layout-center.svg</file>
+    <file alias="layout-ltr.svg">layout-ltr.svg</file>
+    <file alias="layout-rtl.svg">layout-rtl.svg</file>
+    <file alias="layout-ttb.svg">layout-ttb.svg</file>
     <file alias="ledbar_beams.svg">ledbar_beams.svg</file>
     <file alias="ledbar_pixels.svg">ledbar_pixels.svg</file>
     <file alias="lock.svg">lock.svg</file>

@@ -20,7 +20,6 @@
 #include <QQmlContext>
 
 #include "palettemanager.h"
-#include "qlcpalette.h"
 #include "listmodel.h"
 #include "doc.h"
 
@@ -46,7 +45,6 @@ PaletteManager::PaletteManager(QQuickView *view, Doc *doc, QObject *parent)
 
 PaletteManager::~PaletteManager()
 {
-
 }
 
 QVariant PaletteManager::paletteList()
@@ -57,6 +55,16 @@ QVariant PaletteManager::paletteList()
 QLCPalette *PaletteManager::getPalette(quint32 id)
 {
     return m_doc->palette(id);
+}
+
+QLCPalette *PaletteManager::getEditingPalette(int type)
+{
+    qDebug() << "Requesting a palette for editing. Type" << type;
+
+    if (m_editingMap.contains(type) == false)
+        m_editingMap[type] = new QLCPalette(QLCPalette::PaletteType(type));
+
+    return m_editingMap.value(type);
 }
 
 void PaletteManager::createPalette(int type, QString name, QVariant value1, QVariant value2)

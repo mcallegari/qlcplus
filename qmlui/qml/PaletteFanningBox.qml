@@ -31,9 +31,12 @@ Rectangle
     height: UISettings.iconSizeMedium
     color: "transparent"
 
-    property int paletteType: QLCPalette.Dimmer
+    property QLCPalette palette
+    property int paletteType: QLCPalette.Undefined
     property int value1: 0
     property int value2: 0
+
+    onVisibleChanged: palette = paletteManager.getEditingPalette(paletteType)
 
     function showPalettePopup()
     {
@@ -46,13 +49,25 @@ Rectangle
 
     function stringFromType()
     {
-        switch(curveButton.currentValue)
+        switch(typeButton.currentValue)
         {
             case QLCPalette.Flat: return qsTr("Flat")
             case QLCPalette.Linear: return qsTr("Linear")
             case QLCPalette.Square: return qsTr("Square")
             case QLCPalette.Saw: return qsTr("Saw")
             case QLCPalette.Sine: return qsTr("Sine")
+        }
+    }
+
+    function stringFromLayout()
+    {
+        switch(layoutButton.currentValue)
+        {
+            case QLCPalette.LeftToRight: return qsTr("Left to right")
+            case QLCPalette.RightToLeft: return qsTr("Right to left")
+            case QLCPalette.TopToBottom: return qsTr("Top to bottom")
+            case QLCPalette.BottomToTop: return qsTr("Bottom to top")
+            case QLCPalette.Centered: return qsTr("Centered")
         }
     }
 
@@ -112,34 +127,84 @@ Rectangle
             y: 5
 
             // row 1
-            IconPopupButton
-            {
-                id: curveButton
-                implicitWidth: UISettings.iconSizeMedium
-                implicitHeight: implicitWidth
-
-                ListModel
-                {
-                    id: curveModel
-                    ListElement { mLabel: qsTr("Flat"); mIcon: "qrc:/algo-flat.svg"; mValue: QLCPalette.Flat }
-                    ListElement { mLabel: qsTr("Linear"); mIcon: "qrc:/algo-linear.svg"; mValue: QLCPalette.Linear }
-                    ListElement { mLabel: qsTr("Square"); mIcon: "qrc:/algo-square.svg"; mValue: QLCPalette.Square }
-                    ListElement { mLabel: qsTr("Saw"); mIcon: "qrc:/algo-saw.svg"; mValue: QLCPalette.Saw }
-                    ListElement { mLabel: qsTr("Sine"); mIcon: "qrc:/algo-sine.svg"; mValue: QLCPalette.Sine }
-                }
-                model: curveModel
-
-                //currentValue: efxEditor.runOrder
-                //onValueChanged: efxEditor.runOrder = value
-            }
-
             RobotoText
             {
                 height: UISettings.iconSizeMedium
-                label: stringFromType()
+                label: qsTr("Type")
+            }
+            RowLayout
+            {
+                Layout.fillWidth: true
+                height: UISettings.iconSizeMedium
+
+                IconPopupButton
+                {
+                    id: typeButton
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+
+                    ListModel
+                    {
+                        id: typeModel
+                        ListElement { mLabel: qsTr("Flat"); mIcon: "qrc:/algo-flat.svg"; mValue: QLCPalette.Flat }
+                        ListElement { mLabel: qsTr("Linear"); mIcon: "qrc:/algo-linear.svg"; mValue: QLCPalette.Linear }
+                        ListElement { mLabel: qsTr("Square"); mIcon: "qrc:/algo-square.svg"; mValue: QLCPalette.Square }
+                        ListElement { mLabel: qsTr("Saw"); mIcon: "qrc:/algo-saw.svg"; mValue: QLCPalette.Saw }
+                        ListElement { mLabel: qsTr("Sine"); mIcon: "qrc:/algo-sine.svg"; mValue: QLCPalette.Sine }
+                    }
+                    model: typeModel
+
+                    //currentValue: efxEditor.runOrder
+                    //onValueChanged: efxEditor.runOrder = value
+                }
+
+                RobotoText
+                {
+                    height: UISettings.iconSizeMedium
+                    label: stringFromType()
+                }
             }
 
             // row 2
+            RobotoText
+            {
+                height: UISettings.iconSizeMedium
+                label: qsTr("Layout")
+            }
+            RowLayout
+            {
+                Layout.fillWidth: true
+                height: UISettings.iconSizeMedium
+
+                IconPopupButton
+                {
+                    id: layoutButton
+                    implicitWidth: UISettings.iconSizeMedium
+                    implicitHeight: implicitWidth
+
+                    ListModel
+                    {
+                        id: layoutModel
+                        ListElement { mLabel: qsTr("Left to right"); mIcon: "qrc:/layout-ltr.svg"; mValue: QLCPalette.LeftToRight }
+                        ListElement { mLabel: qsTr("Right to left"); mIcon: "qrc:/layout-rtl.svg"; mValue: QLCPalette.RightToLeft }
+                        ListElement { mLabel: qsTr("Top to bottom"); mIcon: "qrc:/layout-ttb.svg"; mValue: QLCPalette.TopToBottom }
+                        ListElement { mLabel: qsTr("Bottom to top"); mIcon: "qrc:/layout-btt.svg"; mValue: QLCPalette.BottomToTop }
+                        ListElement { mLabel: qsTr("Centered"); mIcon: "qrc:/layout-center.svg"; mValue: QLCPalette.Centered }
+                    }
+                    model: layoutModel
+
+                    //currentValue: efxEditor.runOrder
+                    //onValueChanged: efxEditor.runOrder = value
+                }
+
+                RobotoText
+                {
+                    height: UISettings.iconSizeMedium
+                    label: stringFromLayout()
+                }
+            }
+
+            // row 3
             RobotoText
             {
                 height: UISettings.iconSizeMedium
@@ -153,7 +218,7 @@ Rectangle
                 suffix: "%"
             }
 
-            // row 3
+            // row 4
             RowLayout
             {
                 Layout.columnSpan: 2
@@ -183,7 +248,7 @@ Rectangle
                 }
             }
 
-            // row 4
+            // row 5
             RobotoText
             {
                 label: qsTr("Value")
