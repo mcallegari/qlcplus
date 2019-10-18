@@ -87,6 +87,7 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc,
         m_pages.append(page);
     }
 
+    view->rootContext()->setContextProperty("virtualConsole", this);
     qmlRegisterUncreatableType<GrandMaster>("org.qlcplus.classes", 1, 0, "GrandMaster", "Can't create a GrandMaster!");
     qmlRegisterUncreatableType<QLCInputChannel>("org.qlcplus.classes", 1, 0, "QLCInputChannel", "Can't create a QLCInputChannel!");
 

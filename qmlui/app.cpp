@@ -134,21 +134,15 @@ void App::startup()
     initDoc();
 
     m_ioManager = new InputOutputManager(this, m_doc);
-    rootContext()->setContextProperty("ioManager", m_ioManager);
-
     m_fixtureBrowser = new FixtureBrowser(this, m_doc);
     m_fixtureManager = new FixtureManager(this, m_doc);
     m_fixtureGroupEditor = new FixtureGroupEditor(this, m_doc);
-    m_paletteManager = new PaletteManager(this, m_doc);
     m_functionManager = new FunctionManager(this, m_doc);
     m_contextManager = new ContextManager(this, m_doc, m_fixtureManager, m_functionManager);
+    m_paletteManager = new PaletteManager(this, m_doc);
 
     m_virtualConsole = new VirtualConsole(this, m_doc, m_contextManager);
-    rootContext()->setContextProperty("virtualConsole", m_virtualConsole);
-
     m_showManager = new ShowManager(this, m_doc);
-    rootContext()->setContextProperty("showManager", m_showManager);
-
     m_networkManager = new NetworkManager(this, m_doc);
     rootContext()->setContextProperty("networkManager", m_networkManager);
 
