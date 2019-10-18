@@ -173,7 +173,7 @@ public:
     Q_INVOKABLE void toggleFixturesSelection();
 
     /** Select the fixtures that intersects the provided rectangle coordinates in a 2D environment */
-    Q_INVOKABLE void setRectangleSelection(qreal x, qreal y, qreal width, qreal height);
+    Q_INVOKABLE void setRectangleSelection(qreal x, qreal y, qreal width, qreal height, int keyModifiers);
 
     /** Returns if at least one fixture is currently selected */
     int selectedFixturesCount();

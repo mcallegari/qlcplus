@@ -675,11 +675,11 @@ void ContextManager::toggleFixturesSelection()
     }
 }
 
-void ContextManager::setRectangleSelection(qreal x, qreal y, qreal width, qreal height)
+void ContextManager::setRectangleSelection(qreal x, qreal y, qreal width, qreal height, int keyModifiers)
 {
     QList<quint32> fxIDList;
 
-    if (multipleSelection() == false)
+    if (keyModifiers == 0 && multipleSelection() == false)
         resetFixtureSelection();
 
     if (m_2DView->isEnabled())
