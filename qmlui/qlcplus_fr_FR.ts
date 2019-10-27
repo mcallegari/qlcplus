@@ -299,17 +299,17 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
 <context>
     <name>BeamTool</name>
     <message>
-        <location filename="qml/fixturesfunctions/BeamTool.qml" line="57"/>
+        <location filename="qml/fixturesfunctions/BeamTool.qml" line="63"/>
         <source>Beam</source>
         <translation>Rayon</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/BeamTool.qml" line="128"/>
+        <location filename="qml/fixturesfunctions/BeamTool.qml" line="134"/>
         <source>Beam degrees</source>
         <translation>Angle du rayon</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/BeamTool.qml" line="162"/>
+        <location filename="qml/fixturesfunctions/BeamTool.qml" line="168"/>
         <source>Distance</source>
         <translation>Distance</translation>
     </message>
@@ -504,17 +504,17 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
 <context>
     <name>ColorTool</name>
     <message>
-        <location filename="qml/ColorTool.qml" line="66"/>
+        <location filename="qml/ColorTool.qml" line="72"/>
         <source>Basic</source>
         <translation>Basique</translation>
     </message>
     <message>
-        <location filename="qml/ColorTool.qml" line="82"/>
+        <location filename="qml/ColorTool.qml" line="88"/>
         <source>Full</source>
         <translation>Complet</translation>
     </message>
     <message>
-        <location filename="qml/ColorTool.qml" line="96"/>
+        <location filename="qml/ColorTool.qml" line="102"/>
         <source>Filters</source>
         <translation>Filtres</translation>
     </message>
@@ -1511,7 +1511,7 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
 <context>
     <name>IntensityTool</name>
     <message>
-        <location filename="qml/fixturesfunctions/IntensityTool.qml" line="62"/>
+        <location filename="qml/fixturesfunctions/IntensityTool.qml" line="68"/>
         <source>Intensity</source>
         <translation>Intensité</translation>
     </message>
@@ -2163,24 +2163,24 @@ Niveau d&apos;accès&#xa0;:</translation>
 <context>
     <name>PositionTool</name>
     <message>
-        <location filename="qml/fixturesfunctions/PositionTool.qml" line="79"/>
+        <location filename="qml/fixturesfunctions/PositionTool.qml" line="85"/>
         <source>Position</source>
         <translation>Position</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/PositionTool.qml" line="99"/>
+        <location filename="qml/fixturesfunctions/PositionTool.qml" line="105"/>
         <source>Rotate 90° clockwise</source>
         <translation>Tourner de 90° (horaire)</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/PositionTool.qml" line="219"/>
-        <location filename="qml/fixturesfunctions/PositionTool.qml" line="268"/>
+        <location filename="qml/fixturesfunctions/PositionTool.qml" line="225"/>
+        <location filename="qml/fixturesfunctions/PositionTool.qml" line="274"/>
         <source>Snap to the previous value</source>
         <translation>Rammener à la valeur précédente</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/PositionTool.qml" line="232"/>
-        <location filename="qml/fixturesfunctions/PositionTool.qml" line="287"/>
+        <location filename="qml/fixturesfunctions/PositionTool.qml" line="238"/>
+        <location filename="qml/fixturesfunctions/PositionTool.qml" line="293"/>
         <source>Snap to the next value</source>
         <translation>Rammener à la valeur suivante</translation>
     </message>
@@ -3409,7 +3409,12 @@ Niveau d&apos;accès&#xa0;:</translation>
         <translation>Arrêt/Pause</translation>
     </message>
     <message>
-
+        <location filename="virtualconsole/vccuelist.cpp" line="54"/>
+        <source>Side Fader</source>
+        <translation>Faders sur le flanc</translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelist.cpp" line="70"/>
         <source>Cue List %1</source>
         <translation>Séquenceur %1</translation>
     </message>
@@ -3501,7 +3506,31 @@ Niveau d&apos;accès&#xa0;:</translation>
         <source>Do nothing</source>
         <translation>Ne rien faire</translation>
     </message>
-
+    <message>
+        <location filename="qml/virtualconsole/VCCueListProperties.qml" line="149"/>
+        <source>Side fader</source>
+        <translation>Faders sur le flanc</translation>
+    </message>
+    <message>
+        <location filename="qml/virtualconsole/VCCueListProperties.qml" line="164"/>
+        <source>Mode</source>
+        <translation>Mode</translation>
+    </message>
+    <message>
+        <location filename="qml/virtualconsole/VCCueListProperties.qml" line="179"/>
+        <source>None</source>
+        <translation>Aucun</translation>
+    </message>
+    <message>
+        <location filename="qml/virtualconsole/VCCueListProperties.qml" line="194"/>
+        <source>Crossfade</source>
+        <translation>Fondu enchaîné</translation>
+    </message>
+    <message>
+        <location filename="qml/virtualconsole/VCCueListProperties.qml" line="209"/>
+        <source>Steps</source>
+        <translation>Étapes</translation>
+    </message>
 </context>
 <context>
     <name>VCFrame</name>
