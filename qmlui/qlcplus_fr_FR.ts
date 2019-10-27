@@ -2878,7 +2878,7 @@ Niveau d&apos;accès&#xa0;:</translation>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="614"/>
         <source>Select a mesh file</source>
-        <translation>Sélectionner un fichier 3D</translation>
+        <translation>Sélectionner un fichier de modèle 3D</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="616"/>
