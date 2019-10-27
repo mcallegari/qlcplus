@@ -11,12 +11,12 @@
     <message>
         <location filename="os2lconfiguration.ui" line="52"/>
         <source>Host settings</source>
-        <translation>Paramètres du serveur</translation>
+        <translation>Paramètres de l&apos;hôte</translation>
     </message>
     <message>
         <location filename="os2lconfiguration.ui" line="58"/>
         <source>OS2L Host IP address</source>
-        <translation>Adresse IP du serveur OS2L</translation>
+        <translation>Adresse IP de l&apos;hôte OS2L</translation>
     </message>
     <message>
         <location filename="os2lconfiguration.ui" line="65"/>
@@ -26,7 +26,7 @@
     <message>
         <location filename="os2lconfiguration.ui" line="72"/>
         <source>OS2L Host Port</source>
-        <translation>Port du serveur OS2L</translation>
+        <translation>Port de l&apos;hôte OS2L</translation>
     </message>
     <message>
         <location filename="os2lconfiguration.ui" line="92"/>
@@ -39,7 +39,7 @@
     <message>
         <location filename="os2lplugin.cpp" line="68"/>
         <source>This plugin provides support for one OS2L host.</source>
-        <translation>Ce plugin offre le support pour un serveur OS2L.</translation>
+        <translation>Ce plugin offre le support pour un hôte OS2L.</translation>
     </message>
 </context>
 </TS>
