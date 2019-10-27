@@ -330,7 +330,7 @@
     <message>
         <location filename="editchannel.ui" line="430"/>
         <source>Preview</source>
-        <translation>Prévisualisation</translation>
+        <translation>Aperçu</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="227"/>
