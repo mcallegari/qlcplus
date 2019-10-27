@@ -295,7 +295,7 @@
         <location filename="editchannel.ui" line="260"/>
         <location filename="editchannel.ui" line="303"/>
         <source>Preset</source>
-        <translation>Mode</translation>
+        <translation>Pré-réglage</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="267"/>
