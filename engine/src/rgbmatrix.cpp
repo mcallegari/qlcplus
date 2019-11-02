@@ -249,20 +249,17 @@ int RGBMatrix::stepsCount()
     return 0;
 }
 
-RGBMap RGBMatrix::previewMap(int step, RGBMatrixStep *handler)
+void RGBMatrix::previewMap(int step, RGBMatrixStep *handler)
 {
-    RGBMap map;
     QMutexLocker algorithmLocker(&m_algorithmMutex);
     if (m_algorithm == NULL || handler == NULL)
-        return map;
+        return;
 
     if (m_group == NULL)
         m_group = doc()->fixtureGroup(fixtureGroup());
 
     if (m_group != NULL)
-        map = m_algorithm->rgbMap(m_group->size(), handler->stepColor().rgb(), step);
-
-    return map;
+        handler->m_map = m_algorithm->rgbMap(m_group->size(), handler->stepColor().rgb(), step);
 }
 
 /****************************************************************************

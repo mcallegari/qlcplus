@@ -152,8 +152,8 @@ void RGBMatrix_Test::previewMaps()
     int steps = mtx.stepsCount();
     QCOMPARE(steps, 0);
 
-    RGBMap map = mtx.previewMap(0, &handler);
-    QCOMPARE(map.size(), 0); // No fixture group
+    mtx.previewMap(0, &handler);
+    QCOMPARE(handler.m_map.size(), 0); // No fixture group
 
     mtx.setFixtureGroup(0);
     steps = mtx.stepsCount();
@@ -164,20 +164,20 @@ void RGBMatrix_Test::previewMaps()
     mtx.setTotalDuration(8000);
     QCOMPARE(mtx.totalDuration(), uint(8000));
 
-    map = mtx.previewMap(0, &handler);
-    QCOMPARE(map.size(), 5);
+    mtx.previewMap(0, &handler);
+    QCOMPARE(handler.m_map.size(), 5);
 
     for (int z = 0; z < steps; z++)
     {
-        map = mtx.previewMap(z, &handler);
+        mtx.previewMap(z, &handler);
         for (int y = 0; y < 5; y++)
         {
             for (int x = 0; x < 5; x++)
             {
                 if (x == z)
-                    QCOMPARE(map[y][x], QColor(Qt::black).rgb());
+                    QCOMPARE(handler.m_map[y][x], QColor(Qt::black).rgb());
                 else
-                    QCOMPARE(map[y][x], uint(0));
+                    QCOMPARE(handler.m_map[y][x], uint(0));
             }
         }
     }

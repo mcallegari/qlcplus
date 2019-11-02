@@ -78,6 +78,10 @@ public:
      *  false is returned and the caller should stop the RGBMatrix */
     bool checkNextStep(Function::RunOrder order, QColor startColor, QColor endColor, int stepsNumber);
 
+public:
+    /** Matrix RGB data of the current step */
+    RGBMap m_map;
+
 private:
     /** The current direction of the steps playback */
     Function::Direction m_direction;
@@ -165,7 +169,7 @@ public:
     int stepsCount();
 
     /** Get the preview of the current algorithm at the given step */
-    RGBMap previewMap(int step, RGBMatrixStep *handler);
+    void previewMap(int step, RGBMatrixStep *handler);
 
 private:
     RGBAlgorithm *m_algorithm;
