@@ -162,7 +162,7 @@ QSpinBox *DMXUSBConfig::createFrequencySpin(DMXUSBWidget *widget)
     Q_ASSERT(widget != NULL);
     QSpinBox *spin = new QSpinBox;
     spin->setProperty(PROP_SERIAL, widget->serial());
-    spin->setProperty(PROP_WIDGET, qVariantFromValue((void *)widget));
+    spin->setProperty(PROP_WIDGET, QVariant::fromValue((void *)widget));
     spin->setRange(1, 60);
     spin->setValue(widget->outputFrequency());
     spin->setSuffix("Hz");

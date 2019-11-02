@@ -165,7 +165,7 @@ void EnttecDMXUSBOpen::run()
 {
     // Wait for device to settle in case the device was opened just recently
     // Also measure, whether timer granularity is OK
-    QTime time;
+    QElapsedTimer time;
     time.start();
     usleep(1000);
     if (time.elapsed() > 3)
