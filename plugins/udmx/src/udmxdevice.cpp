@@ -25,9 +25,9 @@
 #   include <usb.h>
 #endif
 
+#include <QElapsedTimer>
 #include <QSettings>
 #include <QDebug>
-#include <QTime>
 #include <cmath>
 
 #include "udmxdevice.h"
@@ -237,7 +237,7 @@ void UDMXDevice::run()
 
     // Wait for device to settle in case the device was opened just recently
     // Also measure, whether timer granularity is OK
-    QTime time;
+    QElapsedTimer time;
     time.start();
     usleep(1000);
     if (time.elapsed() > 3)

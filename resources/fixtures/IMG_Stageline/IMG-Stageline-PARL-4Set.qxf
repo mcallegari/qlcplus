@@ -7,7 +7,7 @@
   <Author>Mitsch</Author>
  </Creator>
  <Manufacturer>IMG Stageline</Manufacturer>
- <Model>Parl 4-SET</Model>
+ <Model>PARL-4SET</Model>
  <Type>Color Changer</Type>
  <Channel Name="spotlight S 1: red" Preset="IntensityRed"/>
  <Channel Name="spotlight S 1: green" Preset="IntensityGreen"/>
@@ -122,7 +122,7 @@
  <Physical>
   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
   <Dimensions Weight="9.2" Width="1060" Height="330" Depth="90"/>
-  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
   <Layout Width="4" Height="1"/>
   <Technical PowerConsumption="110" DmxConnector="3-pin"/>

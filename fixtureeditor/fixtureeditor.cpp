@@ -626,7 +626,7 @@ void QLCFixtureEditor::updateChannelItem(const QLCChannel *channel, QTreeWidgetI
     item->setText(CH_COL_NAME, channel->name());
     item->setIcon(CH_COL_NAME, channel->getIcon());
     item->setText(CH_COL_GRP, QLCChannel::groupToString(channel->group()));
-    item->setData(CH_COL_NAME, PROP_PTR, qVariantFromValue((void *)channel));
+    item->setData(CH_COL_NAME, PROP_PTR, QVariant::fromValue((void *)channel));
 
     /* Destroy the existing list of children */
     QList <QTreeWidgetItem*> children(item->takeChildren());
@@ -1026,8 +1026,8 @@ void QLCFixtureEditor::refreshAliasList()
 
             QString capStr = QString("%1 - %2 [%3-%4]").arg(channel->name()).arg(cap->name()).arg(cap->min()).arg(cap->max());
             m_aliasCapCombo->addItem(capStr);
-            m_aliasCapCombo->setItemData(m_aliasCapCombo->count() - 1, qVariantFromValue((void *)channel), Qt::UserRole);
-            m_aliasCapCombo->setItemData(m_aliasCapCombo->count() - 1, qVariantFromValue((void *)cap), Qt::UserRole + 1);
+            m_aliasCapCombo->setItemData(m_aliasCapCombo->count() - 1, QVariant::fromValue((void *)channel), Qt::UserRole);
+            m_aliasCapCombo->setItemData(m_aliasCapCombo->count() - 1, QVariant::fromValue((void *)cap), Qt::UserRole + 1);
         }
     }
     checkAliasAddButton();
@@ -1048,7 +1048,7 @@ void QLCFixtureEditor::refreshAliasModes()
     foreach (QLCFixtureMode *mode, m_fixtureDef->modes())
     {
         if (mode->channel(selChannel->name()) != NULL)
-            m_modesCombo->addItem(mode->name(), qVariantFromValue((void *)mode));
+            m_modesCombo->addItem(mode->name(), QVariant::fromValue((void *)mode));
     }
     refreshAliasModeChannels();
 }
@@ -1103,7 +1103,7 @@ void QLCFixtureEditor::refreshAliasTree()
                 QString capStr = QString("%1 - %2 [%3-%4]").arg(channel->name()).arg(cap->name()).arg(cap->min()).arg(cap->max());
                 columns << capStr << alias.targetMode << alias.sourceChannel << alias.targetChannel;
                 QTreeWidgetItem *item = new QTreeWidgetItem(m_aliasTree, columns);
-                item->setData(0, Qt::UserRole, qVariantFromValue((void *)cap));
+                item->setData(0, Qt::UserRole, QVariant::fromValue((void *)cap));
             }
         }
     }
@@ -1137,7 +1137,7 @@ void QLCFixtureEditor::slotAddAliasClicked()
 
     // add a visual entry
     QTreeWidgetItem *item = new QTreeWidgetItem(m_aliasTree, columns);
-    item->setData(0, Qt::UserRole, qVariantFromValue((void *)selCap));
+    item->setData(0, Qt::UserRole, QVariant::fromValue((void *)selCap));
 
     m_aliasTree->header()->resizeSections(QHeaderView::ResizeToContents);
 

@@ -397,7 +397,7 @@ void EditChannel::slotCapabilityCellSelected(int currentRow, int currentColumn,
         m_capabilityList->setItem(currentRow, COL_NAME, item);
 
         // QLCCapability reference
-        item->setData(Qt::UserRole, qVariantFromValue((void *)cap));
+        item->setData(Qt::UserRole, QVariant::fromValue((void *)cap));
 
         m_currentCapability = cap;
     }
@@ -595,7 +595,7 @@ void EditChannel::refreshCapabilities()
         m_capabilityList->setItem(i, COL_NAME, item);
 
         // QLCCapability reference
-        item->setData(Qt::UserRole, qVariantFromValue((void *)cap));
+        item->setData(Qt::UserRole, QVariant::fromValue((void *)cap));
 
         if (cap->presetType() == QLCCapability::Picture && cap->resource(0).isValid())
         {

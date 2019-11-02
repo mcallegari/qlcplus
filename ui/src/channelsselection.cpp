@@ -155,7 +155,7 @@ void ChannelsSelection::updateFixturesTree()
                 QComboBox *combo = new QComboBox();
                 combo->addItem("HTP", false);
                 combo->addItem("LTP", false);
-                combo->setProperty("treeItem", qVariantFromValue((void *)item));
+                combo->setProperty("treeItem", QVariant::fromValue((void *)item));
                 m_channelsTree->setItemWidget(item, KColumnBehaviour, combo);
 
                 int bIdx = 1;
@@ -177,7 +177,7 @@ void ChannelsSelection::updateFixturesTree()
                     button->setText("...");
                 else
                     button->setText(mod->name());
-                button->setProperty("treeItem", qVariantFromValue((void *)item));
+                button->setProperty("treeItem", QVariant::fromValue((void *)item));
                 m_channelsTree->setItemWidget(item, KColumnModifier, button);
 
                 connect(combo, SIGNAL(currentIndexChanged(int)),

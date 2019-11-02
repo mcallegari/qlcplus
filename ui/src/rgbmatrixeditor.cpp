@@ -495,9 +495,9 @@ bool RGBMatrixEditor::createPreviewItems()
     m_previewHandler->initializeDirection(m_matrix->direction(), m_matrix->startColor(),
                                           m_matrix->endColor(), m_matrix->stepsCount());
 
-    RGBMap map = m_matrix->previewMap(m_previewHandler->currentStepIndex(), m_previewHandler);
+    m_matrix->previewMap(m_previewHandler->currentStepIndex(), m_previewHandler);
 
-    if (map.isEmpty())
+    if (m_previewHandler->m_map.isEmpty())
         return false;
 
     for (int x = 0; x < grp->size().width(); x++)
@@ -508,7 +508,7 @@ bool RGBMatrixEditor::createPreviewItems()
 
             if (grp->headsMap().contains(pt) == true)
             {
-                RGBItem* item;
+                RGBItem *item;
                 if (m_shapeButton->isChecked() == false)
                 {
                     QGraphicsEllipseItem* circleItem = new QGraphicsEllipseItem();
@@ -521,7 +521,7 @@ bool RGBMatrixEditor::createPreviewItems()
                 }
                 else
                 {
-                    QGraphicsRectItem* rectItem = new QGraphicsRectItem();
+                    QGraphicsRectItem *rectItem = new QGraphicsRectItem();
                     rectItem->setRect(
                             x * RECT_SIZE + RECT_PADDING + ITEM_PADDING,
                             y * RECT_SIZE + RECT_PADDING + ITEM_PADDING,
@@ -530,7 +530,7 @@ bool RGBMatrixEditor::createPreviewItems()
                     item = new RGBItem(rectItem);
                 }
 
-                item->setColor(map[y][x]);
+                item->setColor(m_previewHandler->m_map[y][x]);
                 item->draw(0, 0);
                 m_scene->addItem(item->graphicsItem());
                 m_previewHash[pt] = item;
@@ -545,8 +545,6 @@ void RGBMatrixEditor::slotPreviewTimeout()
     if (m_matrix->duration() <= 0)
         return;
 
-    RGBMap map;
-
     m_previewIterator += MasterTimer::tick();
     uint elapsed = 0;
     while (m_previewIterator >= MAX(m_matrix->duration(), MasterTimer::tick()))
@@ -554,21 +552,21 @@ void RGBMatrixEditor::slotPreviewTimeout()
         m_previewHandler->checkNextStep(m_matrix->runOrder(), m_matrix->startColor(),
                                         m_matrix->endColor(), m_matrix->stepsCount());
 
-        map = m_matrix->previewMap(m_previewHandler->currentStepIndex(), m_previewHandler);
+        m_matrix->previewMap(m_previewHandler->currentStepIndex(), m_previewHandler);
 
         m_previewIterator -= MAX(m_matrix->duration(), MasterTimer::tick());
         elapsed += MAX(m_matrix->duration(), MasterTimer::tick());
     }
-    for (int y = 0; y < map.size(); y++)
+    for (int y = 0; y < m_previewHandler->m_map.size(); y++)
     {
-        for (int x = 0; x < map[y].size(); x++)
+        for (int x = 0; x < m_previewHandler->m_map[y].size(); x++)
         {
             QLCPoint pt(x, y);
             if (m_previewHash.contains(pt) == true)
             {
                 RGBItem* shape = m_previewHash[pt];
-                if (shape->color() != QColor(map[y][x]).rgb())
-                    shape->setColor(map[y][x]);
+                if (shape->color() != QColor(m_previewHandler->m_map[y][x]).rgb())
+                    shape->setColor(m_previewHandler->m_map[y][x]);
 
                 if (shape->color() == QColor(Qt::black).rgb())
                     shape->draw(elapsed, m_matrix->fadeOutSpeed());
@@ -1032,7 +1030,7 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
 
         for (int i = 0; i < totalSteps; i++)
         {
-            RGBMap map = m_matrix->previewMap(currentStep, m_previewHandler);
+            m_matrix->previewMap(currentStep, m_previewHandler);
             ChaserStep step;
             step.fid = grpScene->id();
             step.hold = m_matrix->duration() - m_matrix->fadeInSpeed();
@@ -1040,11 +1038,11 @@ void RGBMatrixEditor::slotSaveToSequenceClicked()
             step.fadeIn = m_matrix->fadeInSpeed();
             step.fadeOut = m_matrix->fadeOutSpeed();
 
-            for (int y = 0; y < map.size(); y++)
+            for (int y = 0; y < m_previewHandler->m_map.size(); y++)
             {
-                for (int x = 0; x < map[y].size(); x++)
+                for (int x = 0; x < m_previewHandler->m_map[y].size(); x++)
                 {
-                    uint col = map[y][x];
+                    uint col = m_previewHandler->m_map[y][x];
                     QColor rgb = QColor(col);
                     GroupHead head = grp->head(QLCPoint(x, y));
 
