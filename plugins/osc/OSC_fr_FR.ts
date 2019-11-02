@@ -80,39 +80,39 @@ Veuillez la corriger avant de valider.</translation>
 <context>
     <name>OSCPlugin</name>
     <message>
-        <location filename="oscplugin.cpp" line="85"/>
+        <location filename="oscplugin.cpp" line="91"/>
         <source>This plugin provides input for devices supporting the OSC transmission protocol.</source>
         <translation>Ce plugin offre le support des périphériques supportant le protocole OSC.</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="136"/>
-        <location filename="oscplugin.cpp" line="270"/>
+        <location filename="oscplugin.cpp" line="142"/>
+        <location filename="oscplugin.cpp" line="276"/>
         <source>Status: Not open</source>
         <translation>Status : fermé</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="139"/>
-        <location filename="oscplugin.cpp" line="273"/>
+        <location filename="oscplugin.cpp" line="145"/>
+        <location filename="oscplugin.cpp" line="279"/>
         <source>Status: Open</source>
         <translation>Status : ouvert</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="141"/>
+        <location filename="oscplugin.cpp" line="147"/>
         <source>Packets sent: </source>
         <translation>Paquets envoyés : </translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="275"/>
+        <location filename="oscplugin.cpp" line="281"/>
         <source>Packets received: </source>
         <translation>Paquets reçus : </translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="132"/>
+        <location filename="oscplugin.cpp" line="138"/>
         <source>Output</source>
         <translation>Sortie</translation>
     </message>
     <message>
-        <location filename="oscplugin.cpp" line="266"/>
+        <location filename="oscplugin.cpp" line="272"/>
         <source>Input</source>
         <translation>Entrée</translation>
     </message>

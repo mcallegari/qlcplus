@@ -26,17 +26,18 @@ NOTE : L&apos;interface VCP FTDI n&apos;est pas supportée par ce plugin.</trans
     </message>
     <message>
         <location filename="dmxusb.cpp" line="168"/>
-        <location filename="dmxusb.cpp" line="271"/>
+        <location filename="dmxusb.cpp" line="272"/>
         <source>Device is operating correctly.</source>
         <translation>L&apos;interface fonctionne correctement.</translation>
     </message>
     <message>
         <location filename="dmxusb.cpp" line="170"/>
+        <location filename="dmxusb.cpp" line="274"/>
         <source>Driver in use: %1</source>
         <translation>Pilote utilisé : %1</translation>
     </message>
     <message>
-        <location filename="dmxusb.cpp" line="258"/>
+        <location filename="dmxusb.cpp" line="259"/>
         <source>No input support available.</source>
         <translation>Support de l&apos;entrée indisponible.</translation>
     </message>
@@ -75,39 +76,102 @@ NOTE : L&apos;interface VCP FTDI n&apos;est pas supportée par ce plugin.</trans
     </message>
 </context>
 <context>
-    <name>EnttecDMXUSBOpen</name>
+    <name>DMXUSBOpenRx</name>
     <message>
-        <location filename="enttecdmxusbopen.cpp" line="117"/>
+        <location filename="dmxusbopenrx.cpp" line="124"/>
         <source>Protocol</source>
         <translation>Protocole</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbopen.cpp" line="122"/>
-        <source>DMX Channels</source>
-        <translation>Canaux DMX</translation>
+        <location filename="dmxusbopenrx.cpp" line="130"/>
+        <source>Stopped</source>
+        <translation>À l&apos;arrêt</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbopen.cpp" line="125"/>
+        <location filename="dmxusbopenrx.cpp" line="132"/>
+        <source>Idling</source>
+        <translation>En pause</translation>
+    </message>
+    <message>
+        <location filename="dmxusbopenrx.cpp" line="134"/>
+        <source>Calibrating</source>
+        <translation>Calibration</translation>
+    </message>
+    <message>
+        <location filename="dmxusbopenrx.cpp" line="136"/>
+        <source>Receiving</source>
+        <translation>Réception</translation>
+    </message>
+    <message>
+        <location filename="dmxusbopenrx.cpp" line="138"/>
+        <source>Receiver state</source>
+        <translation>État du récepteur</translation>
+    </message>
+    <message>
+        <location filename="dmxusbopenrx.cpp" line="143"/>
+        <source>Received DMX Channels</source>
+        <translation>Canaux DMX Reçus</translation>
+    </message>
+    <message>
+        <location filename="dmxusbopenrx.cpp" line="148"/>
         <source>DMX Frame Frequency</source>
         <translation>Fréquence de trame DMX</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbopen.cpp" line="129"/>
+        <location filename="dmxusbopenrx.cpp" line="154"/>
         <source>Bad</source>
         <translation>Mauvaise</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbopen.cpp" line="131"/>
+        <location filename="dmxusbopenrx.cpp" line="156"/>
         <source>Good</source>
         <translation>Bonne</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbopen.cpp" line="133"/>
+        <location filename="dmxusbopenrx.cpp" line="158"/>
+        <source>Patch this widget to a universe to find out.</source>
+        <translation>Patchez ce plugin à un univers pour le découvrir.</translation>
+    </message>
+    <message>
+        <location filename="dmxusbopenrx.cpp" line="160"/>
+        <source>System Timer Accuracy</source>
+        <translation>Précision de l&apos;horloge système</translation>
+    </message>
+</context>
+<context>
+    <name>EnttecDMXUSBOpen</name>
+    <message>
+        <location filename="enttecdmxusbopen.cpp" line="118"/>
+        <source>Protocol</source>
+        <translation>Protocole</translation>
+    </message>
+    <message>
+        <location filename="enttecdmxusbopen.cpp" line="123"/>
+        <source>DMX Channels</source>
+        <translation>Canaux DMX</translation>
+    </message>
+    <message>
+        <location filename="enttecdmxusbopen.cpp" line="126"/>
+        <source>DMX Frame Frequency</source>
+        <translation>Fréquence de trame DMX</translation>
+    </message>
+    <message>
+        <location filename="enttecdmxusbopen.cpp" line="130"/>
+        <source>Bad</source>
+        <translation>Mauvaise</translation>
+    </message>
+    <message>
+        <location filename="enttecdmxusbopen.cpp" line="132"/>
+        <source>Good</source>
+        <translation>Bonne</translation>
+    </message>
+    <message>
+        <location filename="enttecdmxusbopen.cpp" line="134"/>
         <source>Patch this widget to a universe to find out.</source>
         <translation>Patchez ce plugin à un univers pour la découvrir.</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbopen.cpp" line="134"/>
+        <location filename="enttecdmxusbopen.cpp" line="135"/>
         <source>System Timer Accuracy</source>
         <translation>Précision de l&apos;horloge système</translation>
     </message>
@@ -158,7 +222,8 @@ NOTE : L&apos;interface VCP FTDI n&apos;est pas supportée par ce plugin.</trans
         <translation>Sortie</translation>
     </message>
     <message>
-        <location filename="enttecdmxusbopen.cpp" line="119"/>
+        <location filename="dmxusbopenrx.cpp" line="126"/>
+        <location filename="enttecdmxusbopen.cpp" line="120"/>
         <location filename="euroliteusbdmxpro.cpp" line="175"/>
         <location filename="nanodmx.cpp" line="240"/>
         <location filename="stageprofi.cpp" line="145"/>
