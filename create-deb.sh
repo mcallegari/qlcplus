@@ -4,4 +4,4 @@
 # folders from the source package.
 
 # Build package
-dpkg-buildpackage -rfakeroot -I.git
+dpkg-buildpackage -rfakeroot -I.git --jobs=auto
