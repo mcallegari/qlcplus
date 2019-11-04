@@ -213,7 +213,7 @@ RGBMap RGBScript::rgbMap(const QSize& size, uint rgb, int step)
             for (int x = 0; x < xlen && x < size.width(); x++)
             {
                 QJSValue yx = xarray.property(quint32(x));
-                map[y][x] = yx.toInt();
+                map[y][x] = yx.toUInt();
             }
         }
     }
