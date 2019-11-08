@@ -39,6 +39,11 @@ void ArtNetPlugin::init()
 {
     foreach(QNetworkInterface interface, QNetworkInterface::allInterfaces())
     {
+        //qDebug() << "[ArtNet] Interface " << interface.index() << "-" << interface.humanReadableName() << ":" << interface;
+
+        if (!interface.flags().testFlag(QNetworkInterface::IsUp))
+            continue;
+
         foreach (QNetworkAddressEntry entry, interface.addressEntries())
         {
             QHostAddress addr = entry.ip();

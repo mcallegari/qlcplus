@@ -55,6 +55,11 @@ QString E131Controller::getNetworkIP()
     return m_ipAddr.toString();
 }
 
+bool E131Controller::canMulticast()
+{
+    return m_interface.flags().testFlag(QNetworkInterface::CanMulticast);
+}
+
 void E131Controller::addUniverse(quint32 universe, E131Controller::Type type)
 {
     qDebug() << "[E1.31] addUniverse - universe" << universe << ", type" << type;
@@ -65,12 +70,12 @@ void E131Controller::addUniverse(quint32 universe, E131Controller::Type type)
     else
     {
         UniverseInfo info;
-        info.inputMulticast = true;
+        info.inputMulticast = canMulticast();
         info.inputMcastAddress = QHostAddress(QString("239.255.0.%1").arg(universe + 1));
         info.inputUcastPort = E131_DEFAULT_PORT;
         info.inputUniverse = universe + 1;
         info.inputSocket.clear();
-        info.outputMulticast = true;
+        info.outputMulticast = canMulticast();
         info.outputMcastAddress = QHostAddress(QString("239.255.0.%1").arg(universe + 1));
         if (m_ipAddr != QHostAddress::LocalHost)
             info.outputUcastAddress = QHostAddress(quint32((m_ipAddr.toIPv4Address() & 0xFFFFFF00) + (universe + 1)));

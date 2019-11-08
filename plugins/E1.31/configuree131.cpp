@@ -125,6 +125,8 @@ void ConfigureE131::fillMappingTree()
                     portSpin->setValue(info->inputUcastPort);
                     m_uniMapTree->setItemWidget(item, KMapColumnPort, portSpin);
                 }
+                if (!controller->canMulticast())
+                    multicastCb->setEnabled(false);
                 connect(multicastCb, SIGNAL(clicked()), this, SLOT(slotMulticastCheckboxClicked()));
                 m_uniMapTree->setItemWidget(item, KMapColumnMulticast, multicastCb);
 
@@ -164,6 +166,8 @@ void ConfigureE131::fillMappingTree()
                     portSpin->setValue(info->outputUcastPort);
                     m_uniMapTree->setItemWidget(item, KMapColumnPort, portSpin);
                 }
+                if (!controller->canMulticast())
+                    multicastCb->setEnabled(false);
                 connect(multicastCb, SIGNAL(clicked()), this, SLOT(slotMulticastCheckboxClicked()));
                 m_uniMapTree->setItemWidget(item, KMapColumnMulticast, multicastCb);
 
