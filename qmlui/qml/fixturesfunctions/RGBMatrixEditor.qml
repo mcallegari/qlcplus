@@ -122,7 +122,7 @@ Rectangle
                     Layout.fillWidth: true
                     height: editorColumn.itemsHeight
                     model: fixtureGroupEditor.groupsListModel
-                    currentValue: rgbMatrixEditor.fixtureGroup
+                    currValue: rgbMatrixEditor.fixtureGroup
                     onValueChanged: rgbMatrixEditor.fixtureGroup = value
                 }
             }
@@ -445,7 +445,7 @@ Rectangle
                             height: UISettings.listItemHeight
                             model: tempoModel
 
-                            currentValue: rgbMatrixEditor.tempoType
+                            currValue: rgbMatrixEditor.tempoType
                             onValueChanged: rgbMatrixEditor.tempoType = value
                         }
                     }
@@ -476,7 +476,7 @@ Rectangle
                             }
                             model: runOrderModel
 
-                            currentValue: rgbMatrixEditor.runOrder
+                            currValue: rgbMatrixEditor.runOrder
                             onValueChanged: rgbMatrixEditor.runOrder = value
                         }
                         RobotoText
@@ -495,7 +495,7 @@ Rectangle
                             }
                             model: directionModel
 
-                            currentValue: rgbMatrixEditor.direction
+                            currValue: rgbMatrixEditor.direction
                             onValueChanged: rgbMatrixEditor.direction = value
                         }
                         RobotoText

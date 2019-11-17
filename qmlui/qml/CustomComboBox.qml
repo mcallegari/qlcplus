@@ -41,12 +41,12 @@ ComboBox
     wheelEnabled: true
 
     property string currentIcon
-    property int currentValue
+    property int currValue
     property int delegateHeight: UISettings.listItemHeight
 
     signal valueChanged(int value)
 
-    onCurrentValueChanged: updateCurrentItem()
+    onCurrValueChanged: updateCurrentItem()
 
     function updateCurrentItem()
     {
@@ -54,11 +54,11 @@ ComboBox
             return
 
         var iCount = model.length === undefined ? model.count : model.length
-        //console.log("Value changed:" + currentValue + ", model count: " + iCount)
+        //console.log("Value changed:" + currValue + ", model count: " + iCount)
         for (var i = 0; i < iCount; i++)
         {
             var item = model.length === undefined ? model.get(i) : model[i]
-            if (item.mValue === currentValue)
+            if (item.mValue === currValue)
             {
                 displayText = item.mLabel
                 if (item.mIcon)
@@ -101,9 +101,9 @@ ComboBox
                 {
                     displayText = text
                     currentIcon = itemIcon
-                    if (itemValue !== undefined && itemValue != currentValue)
+                    if (itemValue !== undefined && itemValue != currValue)
                     {
-                        currentValue = itemValue
+                        currValue = itemValue
                         control.valueChanged(itemValue)
                     }
                 }
@@ -118,7 +118,7 @@ ComboBox
                     //console.log("Index changed:" + index + ", value: " + itemValue)
                     if (itemValue !== undefined)
                     {
-                        currentValue = itemValue
+                        currValue = itemValue
                         control.valueChanged(itemValue)
                     }
                 }

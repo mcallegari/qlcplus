@@ -59,7 +59,8 @@ Column
             Layout.columnSpan: 2
             height: UISettings.listItemHeight
             model: dObjRef ? dObjRef.externalControlsList : null
-            currentValue: controlID
+
+            currValue: controlID
             onValueChanged:
             {
                 controlID = value
