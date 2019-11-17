@@ -1185,9 +1185,9 @@ void ContextManager::slotFixtureFlagsChanged(quint32 itemID, quint32 flags)
 void ContextManager::slotChannelValueChanged(quint32 fxID, quint32 channel, quint8 value)
 {
     if (m_editingEnabled == false)
-        setDumpValue(fxID, channel, (uchar)value);
+        setDumpValue(fxID, channel, uchar(value));
     else
-        m_functionManager->setChannelValue(fxID, channel, (uchar)value);
+        m_functionManager->setChannelValue(fxID, channel, uchar(value));
 }
 
 void ContextManager::slotChannelTypeValueChanged(int type, quint8 value, quint32 channel)
@@ -1199,9 +1199,9 @@ void ContextManager::slotChannelTypeValueChanged(int type, quint8 value, quint32
         if (channel == UINT_MAX || channel == sv.channel)
         {
             if (m_editingEnabled == false)
-                setDumpValue(sv.fxi, sv.channel, (uchar)value);
+                setDumpValue(sv.fxi, sv.channel, uchar(value));
             else
-                m_functionManager->setChannelValue(sv.fxi, sv.channel, (uchar)value);
+                m_functionManager->setChannelValue(sv.fxi, sv.channel, uchar(value));
         }
     }
 }
@@ -1243,6 +1243,17 @@ void ContextManager::setPositionValue(int type, int degrees)
             else
                 m_functionManager->setChannelValue(posSv.fxi, posSv.channel, posSv.value);
         }
+    }
+}
+
+void ContextManager::setChannelValues(QList<SceneValue> values)
+{
+    for (SceneValue sv : values)
+    {
+            if (m_editingEnabled == false)
+                setDumpValue(sv.fxi, sv.channel, sv.value);
+            else
+                m_functionManager->setChannelValue(sv.fxi, sv.channel, sv.value);
     }
 }
 

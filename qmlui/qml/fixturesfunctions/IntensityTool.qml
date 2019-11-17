@@ -18,6 +18,7 @@
 */
 
 import QtQuick 2.0
+import QtQuick.Layouts 1.1
 import QtQuick.Controls 2.0
 
 import org.qlcplus.classes 1.0
@@ -37,11 +38,20 @@ Rectangle
 
     onCurrentValueChanged:
     {
-        if (dmxValues)
-            fixtureManager.setIntensityValue(currentValue)
+        if (paletteBox.checked)
+        {
+            paletteBox.updatePreview()
+        }
         else
-            fixtureManager.setIntensityValue(currentValue * 2.55)
+        {
+            if (dmxValues)
+                fixtureManager.setIntensityValue(currentValue)
+            else
+                fixtureManager.setIntensityValue(currentValue * 2.55)
+        }
     }
+
+    onVisibleChanged: if(!visible) paletteBox.checked = false
 
     MouseArea
     {
@@ -106,7 +116,7 @@ Rectangle
             {
                 id: rectMask
                 color: "transparent"
-                width: (parent.height * currentValue) / (dmxValues ? 256 : 100)
+                width: Math.round((parent.height * currentValue) / (dmxValues ? 256.0 : 100.0))
                 y: parent.height
                 height: parent.width
                 transformOrigin: Item.TopLeft
@@ -142,18 +152,20 @@ Rectangle
             }
         }
 
-        Row
+        RowLayout
         {
             x: 5
             height: UISettings.listItemHeight
+            width: intRoot.width - 10
             spacing: 5
 
             CustomSpinBox
             {
                 id: spinBox
-                width: intRoot.width / 2
+                Layout.fillWidth: true
                 height: UISettings.listItemHeight
                 from: 0
+                suffix: dmxValues ? "" : "%"
                 to: dmxValues ? 255 : 100
 
                 onValueChanged: currentValue = value
@@ -170,9 +182,9 @@ Rectangle
                     var newVal
                     dmxValues = !dmxValues
                     if (dmxValues == false)
-                        newVal = (slVal / 255) * 100
+                        newVal = Math.round((slVal / 255.0) * 100.0)
                     else
-                        newVal = (slVal / 100) * 255
+                        newVal = Math.round((slVal / 100.0) * 255.0)
 
                     currentValue = newVal
                 }
@@ -181,6 +193,7 @@ Rectangle
 
         PaletteFanningBox
         {
+            id: paletteBox
             x: 5
             width: intRoot.width - 10
             paletteType: QLCPalette.Dimmer

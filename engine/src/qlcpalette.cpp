@@ -19,6 +19,7 @@
 
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
+#include <QtMath>
 #include <QDebug>
 
 #include "qlcpalette.h"
@@ -172,58 +173,96 @@ QList<SceneValue> QLCPalette::valuesFromFixtures(Doc *doc, QList<quint32> fixtur
 {
     QList<SceneValue> list;
 
+    int fxCount = fixtures.count();
+    // nomralized progress in [ 0.0, 1.0 ] range
+    qreal progress = 0.0;
+    int intFanValue = fanningValue().toInt();
+
     foreach (quint32 id, fixtures)
     {
         Fixture *fixture = doc->fixture(id);
         if (fixture == NULL)
             continue;
 
+        qreal factor = valueFactor(progress);
+
         switch(type())
         {
             case Dimmer:
             {
+                int dValue = value().toInt();
                 quint32 intCh = fixture->masterIntensityChannel();
+
+                qDebug() << "dvalue" << dValue;
+
                 if (intCh != QLCChannel::invalid())
-                    list << SceneValue(id, intCh, uchar(value().toUInt()));
+                {
+                    if (fanningType() != Flat)
+                        dValue = int((qreal(intFanValue - dValue) * factor) + dValue);
+
+                    qDebug() << "progress" << progress << "factor" << factor << "value" << dValue;
+                    list << SceneValue(id, intCh, uchar(dValue));
+                }
             }
             break;
             case Color:
             {
-                // TODO loop through heads
                 QColor col = value().value<QColor>();
-                QVector<quint32> rgbCh = fixture->rgbChannels();
-                if (rgbCh.size() == 3)
+
+                for (int i = 0; i < fixture->heads(); i++)
                 {
-                    list << SceneValue(id, rgbCh.at(0), uchar(col.red()));
-                    list << SceneValue(id, rgbCh.at(1), uchar(col.green()));
-                    list << SceneValue(id, rgbCh.at(2), uchar(col.blue()));
-                    break;
-                }
-                QVector<quint32> cmyCh = fixture->cmyChannels();
-                if (cmyCh.size() == 3)
-                {
-                    list << SceneValue(id, cmyCh.at(0), uchar(col.cyan()));
-                    list << SceneValue(id, cmyCh.at(1), uchar(col.magenta()));
-                    list << SceneValue(id, cmyCh.at(2), uchar(col.yellow()));
+                    QVector<quint32> rgbCh = fixture->rgbChannels(i);
+                    if (rgbCh.size() == 3)
+                    {
+                        list << SceneValue(id, rgbCh.at(0), uchar(col.red()));
+                        list << SceneValue(id, rgbCh.at(1), uchar(col.green()));
+                        list << SceneValue(id, rgbCh.at(2), uchar(col.blue()));
+                    }
+                    QVector<quint32> cmyCh = fixture->cmyChannels(i);
+                    if (cmyCh.size() == 3)
+                    {
+                        list << SceneValue(id, cmyCh.at(0), uchar(col.cyan()));
+                        list << SceneValue(id, cmyCh.at(1), uchar(col.magenta()));
+                        list << SceneValue(id, cmyCh.at(2), uchar(col.yellow()));
+                    }
                 }
             }
             break;
             case Pan:
             {
-                list << fixture->positionToValues(QLCChannel::Pan, value().toInt());
+                int degrees = value().toInt();
+
+                if (fanningType() != Flat)
+                    degrees = int((qreal(degrees) + qreal(intFanValue) * factor));
+
+                list << fixture->positionToValues(QLCChannel::Pan, degrees);
             }
             break;
             case Tilt:
             {
-                list << fixture->positionToValues(QLCChannel::Tilt, value().toInt());
+                int degrees = m_values.count() == 2 ? m_values.at(1).toInt() : value().toInt();
+
+                if (fanningType() != Flat)
+                    degrees = int((qreal(degrees) + qreal(intFanValue) * factor));
+
+                list << fixture->positionToValues(QLCChannel::Tilt, degrees);
             }
             break;
             case PanTilt:
             {
                 if (m_values.count() == 2)
                 {
-                    list << fixture->positionToValues(QLCChannel::Pan, m_values.at(0).toInt());
-                    list << fixture->positionToValues(QLCChannel::Tilt, m_values.at(1).toInt());
+                    int panDegrees = m_values.at(0).toInt();
+                    int tiltDegrees = m_values.at(1).toInt();
+
+                    if (fanningType() != Flat)
+                    {
+                        panDegrees = int((qreal(panDegrees) + qreal(intFanValue) * factor));
+                        tiltDegrees = int((qreal(tiltDegrees) + qreal(intFanValue) * factor));
+                    }
+
+                    list << fixture->positionToValues(QLCChannel::Pan, panDegrees);
+                    list << fixture->positionToValues(QLCChannel::Tilt, tiltDegrees);
                 }
             }
             break;
@@ -244,6 +283,8 @@ QList<SceneValue> QLCPalette::valuesFromFixtures(Doc *doc, QList<quint32> fixtur
             case Undefined:
             break;
         }
+
+        progress += (1.0 / qreal(fxCount - 1));
     }
 
     return list;
@@ -265,6 +306,65 @@ QList<SceneValue> QLCPalette::valuesFromFixtureGroups(Doc *doc, QList<quint32> g
     return list;
 }
 
+qreal QLCPalette::valueFactor(qreal progress)
+{
+    qreal factor = 1.0;
+    qreal normalizedAmount = qreal(m_fanningAmount) / 100.0;
+
+    switch (m_fanningType)
+    {
+        case Flat:
+            // nothing to do. Factor is always 1.0
+        break;
+        case Linear:
+        {
+            if (normalizedAmount < 1.0)
+            {
+                if (progress > normalizedAmount)
+                    factor = 1.0;
+                else
+                    factor = progress * normalizedAmount;
+            }
+            else if (normalizedAmount > 1.0)
+            {
+                factor = progress / normalizedAmount;
+            }
+            else
+            {
+                factor = progress;
+            }
+        }
+        break;
+        case Sine:
+        {
+            //qreal degrees = (progress * 3.6) + 270;
+
+
+        }
+        break;
+        case Square:
+        {
+            if (normalizedAmount < 1.0)
+            {
+                factor = progress < normalizedAmount ? 0.0 : 1.0;
+            }
+            else if (normalizedAmount > 1.0)
+            {
+
+            }
+            else
+            {
+                factor = progress < 0.5 ? 0.0 : 1.0;
+            }
+        }
+        break;
+        case Saw:
+        break;
+    }
+
+    return factor;
+}
+
 /************************************************************************
  * Fanning
  ************************************************************************/
@@ -276,7 +376,12 @@ QLCPalette::FanningType QLCPalette::fanningType() const
 
 void QLCPalette::setFanningType(QLCPalette::FanningType type)
 {
+    if (type == m_fanningType)
+        return;
+
     m_fanningType = type;
+
+    emit fanningTypeChanged();
 }
 
 QString QLCPalette::fanningTypeToString(QLCPalette::FanningType type)
@@ -316,7 +421,12 @@ QLCPalette::FanningLayout QLCPalette::fanningLayout() const
 
 void QLCPalette::setFanningLayout(QLCPalette::FanningLayout layout)
 {
+    if (layout == m_fanningLayout)
+        return;
+
     m_fanningLayout = layout;
+
+    emit fanningLayoutChanged();
 }
 
 QString QLCPalette::fanningLayoutToString(QLCPalette::FanningLayout layout)
@@ -356,7 +466,12 @@ int QLCPalette::fanningAmount() const
 
 void QLCPalette::setFanningAmount(int amount)
 {
+    if (amount == m_fanningAmount)
+        return;
+
     m_fanningAmount = amount;
+
+    emit fanningAmountChanged();
 }
 
 QVariant QLCPalette::fanningValue() const
@@ -366,7 +481,12 @@ QVariant QLCPalette::fanningValue() const
 
 void QLCPalette::setFanningValue(QVariant value)
 {
+    if (value == m_fanningValue)
+        return;
+
     m_fanningValue = value;
+
+    emit fanningValueChanged();
 }
 
 /************************************************************************

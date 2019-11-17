@@ -20,13 +20,16 @@
 #include <QQmlContext>
 
 #include "palettemanager.h"
+#include "contextmanager.h"
 #include "listmodel.h"
 #include "doc.h"
 
-PaletteManager::PaletteManager(QQuickView *view, Doc *doc, QObject *parent)
+PaletteManager::PaletteManager(QQuickView *view, Doc *doc,
+                               ContextManager *ctxManager, QObject *parent)
     : QObject(parent)
     , m_view(view)
     , m_doc(doc)
+    , m_contextManager(ctxManager)
     , m_typeFilter(QLCPalette::Undefined)
     , m_searchFilter(QString())
 {
@@ -84,6 +87,16 @@ void PaletteManager::createPalette(int type, QString name, QVariant value1, QVar
     }
 
     updatePaletteList();
+}
+
+void PaletteManager::previewPalette(QLCPalette *palette, QVariant value1, QVariant value2)
+{
+    if (palette == nullptr)
+        return;
+
+    palette->setValue(value1, value2);
+
+    m_contextManager->setChannelValues(palette->valuesFromFixtures(m_doc, m_contextManager->selectedFixtureIDList()));
 }
 
 int PaletteManager::typeFilter() const

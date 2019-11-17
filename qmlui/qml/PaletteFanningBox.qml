@@ -31,6 +31,7 @@ Rectangle
     height: UISettings.iconSizeMedium
     color: "transparent"
 
+    property alias checked: fanningButton.checked
     property QLCPalette palette
     property int paletteType: QLCPalette.Undefined
     property int value1: 0
@@ -38,11 +39,16 @@ Rectangle
 
     onVisibleChanged: palette = paletteManager.getEditingPalette(paletteType)
 
+    function updatePreview()
+    {
+        paletteManager.previewPalette(palette, value1, value2)
+    }
+
     function showPalettePopup()
     {
-        palettePopup.type = boxRoot.paletteType
-        palettePopup.value1 = boxRoot.value1
-        palettePopup.value2 = boxRoot.value2
+        palettePopup.type = paletteType
+        palettePopup.value1 = value1
+        palettePopup.value2 = value2
         palettePopup.open()
         palettePopup.focusEditItem()
     }
@@ -154,8 +160,15 @@ Rectangle
                     }
                     model: typeModel
 
-                    //currentValue: efxEditor.runOrder
-                    //onValueChanged: efxEditor.runOrder = value
+                    currValue: boxRoot.palette ? boxRoot.palette.fanningType : QLCPalette.Flat
+                    onValueChanged:
+                    {
+                        if (boxRoot.palette)
+                        {
+                            boxRoot.palette.fanningType = value
+                            boxRoot.updatePreview()
+                        }
+                    }
                 }
 
                 RobotoText
@@ -193,8 +206,15 @@ Rectangle
                     }
                     model: layoutModel
 
-                    //currentValue: efxEditor.runOrder
-                    //onValueChanged: efxEditor.runOrder = value
+                    currValue: boxRoot.palette ? boxRoot.palette.fanningLayout : QLCPalette.LeftToRight
+                    onValueChanged:
+                    {
+                        if (boxRoot.palette)
+                        {
+                            boxRoot.palette.fanningLayout = value
+                            boxRoot.updatePreview()
+                        }
+                    }
                 }
 
                 RobotoText
@@ -213,9 +233,10 @@ Rectangle
             CustomSpinBox
             {
                 from: 0
-                to: 100
-                value: 100
+                to: 1000
+                value: boxRoot.palette ? boxRoot.palette.fanningAmount : 100
                 suffix: "%"
+                onValueChanged: boxRoot.palette.fanningAmount = value
             }
 
             // row 4
@@ -228,9 +249,19 @@ Rectangle
 
                 CustomCheckBox
                 {
+                    id: panCheck
                     implicitHeight: UISettings.iconSizeMedium
                     implicitWidth: implicitHeight
                     checked: true
+                    onCheckedChanged:
+                    {
+                        if (checked)
+                            boxRoot.paletteType = tiltCheck.checked ? QLCPalette.PanTilt : QLCPalette.Pan
+                        else
+                            boxRoot.paletteType = tiltCheck.checked ? QLCPalette.Tilt : QLCPalette.PanTilt
+
+                        boxRoot.palette = paletteManager.getEditingPalette(boxRoot.paletteType)
+                    }
                 }
                 RobotoText
                 {
@@ -238,9 +269,19 @@ Rectangle
                 }
                 CustomCheckBox
                 {
+                    id: tiltCheck
                     implicitHeight: UISettings.iconSizeMedium
                     implicitWidth: implicitHeight
                     checked: true
+                    onCheckedChanged:
+                    {
+                        if (checked)
+                            boxRoot.paletteType = panCheck.checked ? QLCPalette.PanTilt : QLCPalette.Tilt
+                        else
+                            boxRoot.paletteType = panCheck.checked ? QLCPalette.Pan : QLCPalette.PanTilt
+
+                        boxRoot.palette = paletteManager.getEditingPalette(boxRoot.paletteType)
+                    }
                 }
                 RobotoText
                 {
@@ -255,12 +296,57 @@ Rectangle
             }
             CustomSpinBox
             {
+                function suffixFromType()
+                {
+                    switch (boxRoot.paletteType)
+                    {
+                        case QLCPalette.Pan:
+                        case QLCPalette.Tilt:
+                        case QLCPalette.PanTilt:
+                            return "°"
+                        default:
+                            return ""
+                    }
+                }
+
+                function fromFromType()
+                {
+                    switch (boxRoot.paletteType)
+                    {
+                        case QLCPalette.Pan:
+                        case QLCPalette.Tilt:
+                        case QLCPalette.PanTilt:
+                            return -360
+                        default:
+                            return 0
+                    }
+                }
+
+                function toFromType()
+                {
+                    switch (boxRoot.paletteType)
+                    {
+                        case QLCPalette.Pan:
+                        case QLCPalette.Tilt:
+                        case QLCPalette.PanTilt:
+                            return 360
+                        default:
+                            return 255
+                    }
+                }
+
                 visible: boxRoot.paletteType != QLCPalette.Color
-                from: 0
-                to: 255
-                suffix: boxRoot.paletteType === QLCPalette.Pan ||
-                        boxRoot.paletteType === QLCPalette.Tilt ||
-                        boxRoot.paletteType === QLCPalette.PanTilt ? "°" : ""
+                from: fromFromType()
+                to: toFromType()
+                suffix: suffixFromType()
+                onValueChanged:
+                {
+                    if (boxRoot.palette)
+                    {
+                        boxRoot.palette.fanningValue = value
+                        boxRoot.updatePreview()
+                    }
+                }
             }
         } // GridLayout
     } // Rectangle

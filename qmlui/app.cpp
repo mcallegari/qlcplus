@@ -139,7 +139,7 @@ void App::startup()
     m_fixtureGroupEditor = new FixtureGroupEditor(this, m_doc);
     m_functionManager = new FunctionManager(this, m_doc);
     m_contextManager = new ContextManager(this, m_doc, m_fixtureManager, m_functionManager);
-    m_paletteManager = new PaletteManager(this, m_doc);
+    m_paletteManager = new PaletteManager(this, m_doc, m_contextManager);
 
     m_virtualConsole = new VirtualConsole(this, m_doc, m_contextManager);
     m_showManager = new ShowManager(this, m_doc);

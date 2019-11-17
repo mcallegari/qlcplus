@@ -41,8 +41,21 @@ Rectangle
     property int panDegrees: 0
     property int tiltDegrees: 0
 
-    onPanDegreesChanged: contextManager.setPositionValue(QLCChannel.Pan, panDegrees)
-    onTiltDegreesChanged: contextManager.setPositionValue(QLCChannel.Tilt, tiltDegrees)
+    onPanDegreesChanged:
+    {
+        if (paletteBox.checked)
+            paletteBox.updatePreview()
+        else
+            contextManager.setPositionValue(QLCChannel.Pan, panDegrees)
+    }
+
+    onTiltDegreesChanged:
+    {
+        if (paletteBox.checked)
+            paletteBox.updatePreview()
+        else
+            contextManager.setPositionValue(QLCChannel.Tilt, tiltDegrees)
+    }
 
     onPanMaxDegreesChanged: gCanvas.requestPaint()
     onTiltMaxDegreesChanged: gCanvas.requestPaint()
@@ -311,6 +324,7 @@ Rectangle
         // row 3
         PaletteFanningBox
         {
+            id: paletteBox
             Layout.columnSpan: 4
             Layout.fillWidth: true
             paletteType: QLCPalette.PanTilt

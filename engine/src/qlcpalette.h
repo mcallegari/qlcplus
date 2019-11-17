@@ -47,6 +47,10 @@ class QLCPalette : public QObject
     Q_PROPERTY(quint32 id READ id CONSTANT)
     Q_PROPERTY(int type READ type CONSTANT)
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
+    Q_PROPERTY(FanningType fanningType READ fanningType WRITE setFanningType NOTIFY fanningTypeChanged)
+    Q_PROPERTY(FanningLayout fanningLayout READ fanningLayout WRITE setFanningLayout NOTIFY fanningLayoutChanged)
+    Q_PROPERTY(int fanningAmount READ fanningAmount WRITE setFanningAmount NOTIFY fanningAmountChanged)
+    Q_PROPERTY(QVariant fanningValue READ fanningValue WRITE setFanningValue NOTIFY fanningValueChanged)
 
 public:
     /**
@@ -110,6 +114,14 @@ public:
     QList<SceneValue> valuesFromFixtures(Doc *doc, QList<quint32>fixtures);
     QList<SceneValue> valuesFromFixtureGroups(Doc *doc, QList<quint32>groups);
 
+protected:
+    /** This method returns a normalized factor between 0.0 and 1.0
+     *  which will then be multiplied by a value to obtain the final
+     *  DMX value.
+     *  It considers the fanning algorithm and amount and with
+     *  the provided progress it can calculate the X-axis value. */
+    qreal valueFactor(qreal progress);
+
 signals:
     void nameChanged();
 
@@ -170,6 +182,12 @@ public:
     /** Get/Set the fanning value */
     QVariant fanningValue() const;
     void setFanningValue(QVariant value);
+
+signals:
+    void fanningTypeChanged();
+    void fanningLayoutChanged();
+    void fanningAmountChanged();
+    void fanningValueChanged();
 
 private:
     FanningType m_fanningType;

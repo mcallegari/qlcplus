@@ -27,6 +27,7 @@
 
 class Doc;
 class ListModel;
+class ContextManager;
 
 class PaletteManager : public QObject
 {
@@ -41,7 +42,7 @@ class PaletteManager : public QObject
     Q_PROPERTY(int positionCount READ positionCount NOTIFY positionCountChanged)
 
 public:
-    PaletteManager(QQuickView *view, Doc *doc, QObject *parent = nullptr);
+    PaletteManager(QQuickView *view, Doc *doc, ContextManager *ctxManager, QObject *parent = nullptr);
     ~PaletteManager();
 
     /** Get a list of Palettes filtered with typeFilter */
@@ -54,6 +55,8 @@ public:
     Q_INVOKABLE QLCPalette *getEditingPalette(int type);
 
     Q_INVOKABLE void createPalette(int type, QString name, QVariant value1, QVariant value2);
+
+    Q_INVOKABLE void previewPalette(QLCPalette *palette, QVariant value1, QVariant value2);
 
     /** Get/Set the type of Palettes to be displayed */
     int typeFilter() const;
@@ -87,6 +90,8 @@ private:
     QQuickView *m_view;
     /** Reference to the project workspace */
     Doc *m_doc;
+    /** Reference to the Context Manager. Used to apply DMX values */
+    ContextManager *m_contextManager;
 
     quint32 m_typeFilter;
     QString m_searchFilter;

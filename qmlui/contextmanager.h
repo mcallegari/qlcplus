@@ -217,6 +217,8 @@ public:
     /** Set a Pan/Tilt position in degrees */
     Q_INVOKABLE void setPositionValue(int type, int degrees);
 
+    void setChannelValues(QList<SceneValue> values);
+
 protected slots:
     void slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z = 0);
     void slotFixtureDeleted(quint32 itemID);
@@ -293,7 +295,6 @@ public:
 
     GenericDMXSource *dmxSource() const;
 
-private:
     /** Return a list only of the fixture IDs from the selected preview items */
     QList<quint32> selectedFixtureIDList() const;
 
