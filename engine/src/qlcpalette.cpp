@@ -337,25 +337,13 @@ qreal QLCPalette::valueFactor(qreal progress)
         break;
         case Sine:
         {
-            //qreal degrees = (progress * 3.6) + 270;
-
-
+            qreal degrees = (progress * 360.0) + 270.0;
+            factor = qSin(normalizedAmount * qDegreesToRadians(degrees)) + 1.0;
         }
         break;
         case Square:
         {
-            if (normalizedAmount < 1.0)
-            {
-                factor = progress < normalizedAmount ? 0.0 : 1.0;
-            }
-            else if (normalizedAmount > 1.0)
-            {
-
-            }
-            else
-            {
-                factor = progress < 0.5 ? 0.0 : 1.0;
-            }
+            factor = qSin(normalizedAmount * qDegreesToRadians(progress * 360.0)) < 0 ? 1 : 0;
         }
         break;
         case Saw:

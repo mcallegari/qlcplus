@@ -236,7 +236,14 @@ Rectangle
                 to: 1000
                 value: boxRoot.palette ? boxRoot.palette.fanningAmount : 100
                 suffix: "%"
-                onValueChanged: boxRoot.palette.fanningAmount = value
+                onValueChanged:
+                {
+                    if (boxRoot.palette)
+                    {
+                        boxRoot.palette.fanningAmount = value
+                        boxRoot.updatePreview()
+                    }
+                }
             }
 
             // row 4
