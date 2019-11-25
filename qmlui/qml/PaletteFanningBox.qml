@@ -32,10 +32,11 @@ Rectangle
     color: "transparent"
 
     property alias checked: fanningButton.checked
+    property alias isPicking: colorPicker.checked
     property QLCPalette palette
     property int paletteType: QLCPalette.Undefined
-    property int value1: 0
-    property int value2: 0
+    property var value1: 0
+    property var value2: 0
 
     onVisibleChanged: palette = paletteManager.getEditingPalette(paletteType)
 
@@ -51,6 +52,12 @@ Rectangle
         palettePopup.value2 = value2
         palettePopup.open()
         palettePopup.focusEditItem()
+    }
+
+    function setColor(color)
+    {
+        colorPreview.color = color
+        palette.fanningValue = color
     }
 
     function stringFromType()
@@ -353,6 +360,27 @@ Rectangle
                         boxRoot.palette.fanningValue = value
                         boxRoot.updatePreview()
                     }
+                }
+            }
+            RowLayout
+            {
+                visible: boxRoot.paletteType == QLCPalette.Color
+
+                Rectangle
+                {
+                    id: colorPreview
+                    height: UISettings.iconSizeDefault
+                    Layout.fillWidth: true
+                    color: "black"
+                }
+                IconButton
+                {
+                    id: colorPicker
+                    faSource: FontAwesome.fa_eyedropper
+                    faColor: "white"
+                    imgMargins: UISettings.iconSizeDefault / 4
+                    checkable: true
+                    tooltip: qsTr("Pick the selected color")
                 }
             }
         } // GridLayout

@@ -324,11 +324,12 @@ Rectangle
         RobotoText
         {
             height: UISettings.listItemHeight
-            label: qsTr("Selected color");
+            label: qsTr("Selected color")
         }
 
         MultiColorBox
         {
+            id: previewBox
             width: UISettings.mediumItemHeight
             height: UISettings.listItemHeight
             primary: currentRGB

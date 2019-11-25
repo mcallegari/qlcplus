@@ -177,6 +177,7 @@ QList<SceneValue> QLCPalette::valuesFromFixtures(Doc *doc, QList<quint32> fixtur
     // nomralized progress in [ 0.0, 1.0 ] range
     qreal progress = 0.0;
     int intFanValue = fanningValue().toInt();
+    FanningType fType = fanningType();
 
     foreach (quint32 id, fixtures)
     {
@@ -193,21 +194,30 @@ QList<SceneValue> QLCPalette::valuesFromFixtures(Doc *doc, QList<quint32> fixtur
                 int dValue = value().toInt();
                 quint32 intCh = fixture->masterIntensityChannel();
 
-                qDebug() << "dvalue" << dValue;
-
                 if (intCh != QLCChannel::invalid())
                 {
-                    if (fanningType() != Flat)
+                    if (fType != Flat)
                         dValue = int((qreal(intFanValue - dValue) * factor) + dValue);
 
-                    qDebug() << "progress" << progress << "factor" << factor << "value" << dValue;
                     list << SceneValue(id, intCh, uchar(dValue));
                 }
             }
             break;
             case Color:
             {
-                QColor col = value().value<QColor>();
+                QColor startColor = value().value<QColor>();
+                QColor col = startColor;
+
+                if (fType != Flat)
+                {
+                    QColor endColor = fanningValue().value<QColor>();
+                    qreal rDelta = endColor.red() - startColor.red();
+                    qreal gDelta = endColor.green() - startColor.green();
+                    qreal bDelta = endColor.blue() - startColor.blue();
+                    col.setRed(startColor.red() + qRound(rDelta * factor));
+                    col.setGreen(startColor.green() + qRound(gDelta * factor));
+                    col.setBlue(startColor.blue() + qRound(bDelta * factor));
+                }
 
                 for (int i = 0; i < fixture->heads(); i++)
                 {
@@ -232,7 +242,7 @@ QList<SceneValue> QLCPalette::valuesFromFixtures(Doc *doc, QList<quint32> fixtur
             {
                 int degrees = value().toInt();
 
-                if (fanningType() != Flat)
+                if (fType != Flat)
                     degrees = int((qreal(degrees) + qreal(intFanValue) * factor));
 
                 list << fixture->positionToValues(QLCChannel::Pan, degrees);
@@ -242,7 +252,7 @@ QList<SceneValue> QLCPalette::valuesFromFixtures(Doc *doc, QList<quint32> fixtur
             {
                 int degrees = m_values.count() == 2 ? m_values.at(1).toInt() : value().toInt();
 
-                if (fanningType() != Flat)
+                if (fType != Flat)
                     degrees = int((qreal(degrees) + qreal(intFanValue) * factor));
 
                 list << fixture->positionToValues(QLCChannel::Tilt, degrees);
@@ -255,7 +265,7 @@ QList<SceneValue> QLCPalette::valuesFromFixtures(Doc *doc, QList<quint32> fixtur
                     int panDegrees = m_values.at(0).toInt();
                     int tiltDegrees = m_values.at(1).toInt();
 
-                    if (fanningType() != Flat)
+                    if (fType != Flat)
                     {
                         panDegrees = int((qreal(panDegrees) + qreal(intFanValue) * factor));
                         tiltDegrees = int((qreal(tiltDegrees) + qreal(intFanValue) * factor));
