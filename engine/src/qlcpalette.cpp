@@ -348,7 +348,7 @@ qreal QLCPalette::valueFactor(qreal progress)
         case Sine:
         {
             qreal degrees = (progress * 360.0) + 270.0;
-            factor = qSin(normalizedAmount * qDegreesToRadians(degrees)) + 1.0;
+            factor = (qSin(normalizedAmount * qDegreesToRadians(degrees)) + 1.0) / 2.0;
         }
         break;
         case Square:
