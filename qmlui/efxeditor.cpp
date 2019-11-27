@@ -436,7 +436,7 @@ void EFXEditor::addGroup(QVariant reference)
                     {
                         Tardis::instance()->enqueueAction(Tardis::EFXAddFixture, m_efx->id(), QVariant(),
                                                           Tardis::instance()->actionToByteArray(Tardis::EFXAddFixture, m_efx->id(),
-                                                                                                qVariantFromValue((void *)ef)));
+                                                                                                QVariant::fromValue((void *)ef)));
                         listChanged = true;
                     }
                 }
@@ -477,7 +477,7 @@ void EFXEditor::addFixture(QVariant reference)
             {
                 Tardis::instance()->enqueueAction(Tardis::EFXAddFixture, m_efx->id(), QVariant(),
                                                   Tardis::instance()->actionToByteArray(Tardis::EFXAddFixture, m_efx->id(),
-                                                                                        qVariantFromValue((void *)ef)));
+                                                                                        QVariant::fromValue((void *)ef)));
                 updateFixtureList();
             }
         }
@@ -501,7 +501,7 @@ void EFXEditor::addHead(int fixtureID, int headIndex)
     {
         Tardis::instance()->enqueueAction(Tardis::EFXAddFixture, m_efx->id(), QVariant(),
                                           Tardis::instance()->actionToByteArray(Tardis::EFXAddFixture, m_efx->id(),
-                                                                                qVariantFromValue((void *)ef)));
+                                                                                QVariant::fromValue((void *)ef)));
         updateFixtureList();
     }
 }

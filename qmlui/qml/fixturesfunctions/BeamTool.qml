@@ -28,7 +28,7 @@ Rectangle
     width: UISettings.bigItemHeight * 3
     height: UISettings.bigItemHeight * 2.5
     color: UISettings.bgMedium
-    border.color: "#666"
+    border.color: UISettings.bgLight
     border.width: 2
 
     property real minDegrees: 15.0

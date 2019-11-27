@@ -3,6 +3,11 @@
     <file alias="2dview.svg">2dview.svg</file>
     <file alias="3dview.svg">3dview.svg</file>
     <file alias="add.svg">add.svg</file>
+    <file alias="algo-flat.svg">algo-flat.svg</file>
+    <file alias="algo-linear.svg">algo-linear.svg</file>
+    <file alias="algo-saw.svg">algo-saw.svg</file>
+    <file alias="algo-sine.svg">algo-sine.svg</file>
+    <file alias="algo-square.svg">algo-square.svg</file>
     <file alias="align-bottom.svg">align-bottom.svg</file>
     <file alias="align-left.svg">align-left.svg</file>
     <file alias="align-right.svg">align-right.svg</file>
@@ -54,6 +59,7 @@
     <file alias="effect.svg">effect.svg</file>
     <file alias="efx.svg">efx.svg</file>
     <file alias="fan.svg">fan.svg</file>
+    <file alias="fanning.svg">fanning.svg</file>
     <file alias="filenew.svg">filenew.svg</file>
     <file alias="fileopen.svg">fileopen.svg</file>
     <file alias="filesave.svg">filesave.svg</file>
@@ -93,6 +99,11 @@
     <file alias="knob.svg">knob.svg</file>
     <file alias="label.svg">label.svg</file>
     <file alias="laser.svg">laser.svg</file>
+    <file alias="layout-btt.svg">layout-btt.svg</file>
+    <file alias="layout-center.svg">layout-center.svg</file>
+    <file alias="layout-ltr.svg">layout-ltr.svg</file>
+    <file alias="layout-rtl.svg">layout-rtl.svg</file>
+    <file alias="layout-ttb.svg">layout-ttb.svg</file>
     <file alias="ledbar_beams.svg">ledbar_beams.svg</file>
     <file alias="ledbar_pixels.svg">ledbar_pixels.svg</file>
     <file alias="lock.svg">lock.svg</file>
@@ -105,6 +116,7 @@
     <file alias="olaplugin.svg">olaplugin.svg</file>
     <file alias="oscplugin.svg">oscplugin.svg</file>
     <file alias="other.svg">other.svg</file>
+    <file alias="palette.svg">palette.svg</file>
     <file alias="pan.svg">pan.svg</file>
     <file alias="pause.svg">pause.svg</file>
     <file alias="pingpong.svg">pingpong.svg</file>

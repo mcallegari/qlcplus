@@ -30,6 +30,7 @@ SUBDIRS += qlci18n
 SUBDIRS += qlcinputchannel
 SUBDIRS += qlcinputprofile
 SUBDIRS += qlcmacros
+SUBDIRS += qlcpalette
 SUBDIRS += qlcphysical
 SUBDIRS += qlcpoint
 SUBDIRS += rgbalgorithm

@@ -31,6 +31,7 @@ class ShowManager;
 class ActionManager;
 class FixtureBrowser;
 class FixtureManager;
+class PaletteManager;
 class ContextManager;
 class VirtualConsole;
 class FunctionManager;
@@ -86,6 +87,7 @@ public:
         FixtureGroupDragItem,
         FixtureDragItem,
         ChannelDragItem,
+        PaletteDragItem,
         HeadDragItem,
         WidgetDragItem
     };
@@ -173,6 +175,7 @@ private:
     FixtureBrowser *m_fixtureBrowser;
     FixtureManager *m_fixtureManager;
     FixtureGroupEditor *m_fixtureGroupEditor;
+    PaletteManager *m_paletteManager;
     ContextManager *m_contextManager;
     FunctionManager *m_functionManager;
     InputOutputManager *m_ioManager;

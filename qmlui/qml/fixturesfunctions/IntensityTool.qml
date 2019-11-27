@@ -18,8 +18,10 @@
 */
 
 import QtQuick 2.0
+import QtQuick.Layouts 1.1
 import QtQuick.Controls 2.0
 
+import org.qlcplus.classes 1.0
 import "."
 
 Rectangle
@@ -28,7 +30,7 @@ Rectangle
     width: UISettings.bigItemHeight * 1.5
     height: UISettings.bigItemHeight * 3
     color: UISettings.bgMedium
-    border.color: "#666"
+    border.color: UISettings.bgLight
     border.width: 2
 
     property bool dmxValues: true
@@ -36,11 +38,20 @@ Rectangle
 
     onCurrentValueChanged:
     {
-        if (dmxValues)
-            fixtureManager.setIntensityValue(currentValue)
+        if (paletteBox.checked)
+        {
+            paletteBox.updatePreview()
+        }
         else
-            fixtureManager.setIntensityValue(currentValue * 2.55)
+        {
+            if (dmxValues)
+                fixtureManager.setIntensityValue(currentValue)
+            else
+                fixtureManager.setIntensityValue(currentValue * 2.55)
+        }
     }
+
+    onVisibleChanged: if(!visible) paletteBox.checked = false
 
     MouseArea
     {
@@ -48,126 +59,145 @@ Rectangle
         onWheel: { return false }
     }
 
-    Rectangle
+    Column
     {
-        id: intToolBar
         width: parent.width
-        height: UISettings.listItemHeight
-        z: 10
-        gradient:
-            Gradient
-            {
-                GradientStop { position: 0; color: UISettings.toolbarStartSub }
-                GradientStop { position: 1; color: UISettings.toolbarEnd }
-            }
+        height: parent.height
+        spacing: 5
 
-        RobotoText
-        {
-            height: parent.height
-            anchors.horizontalCenter: parent.horizontalCenter
-            label: qsTr("Intensity")
-            fontSize: UISettings.textSizeDefault
-            fontBold: true
-        }
-        // allow the tool to be dragged around
-        // by holding it on the title bar
-        MouseArea
-        {
-            anchors.fill: parent
-            drag.target: intRoot
-        }
-    }
-
-    Rectangle
-    {
-        color: "transparent"
-        x: 30
-        y: intToolBar.height + 5
-        width: intRoot.width - 60
-        height: intRoot.height - (UISettings.listItemHeight * 2) - 10
-
-        Image
-        {
-            id: intBackgroundImg
-            anchors.fill: parent
-            source: "qrc:/dimmer-back.svg"
-            sourceSize: Qt.size(width, height)
-        }
-
+        // draggable topbar
         Rectangle
         {
-            id: rectMask
+            width: parent.width
+            height: UISettings.listItemHeight
+            z: 10
+            gradient:
+                Gradient
+                {
+                    GradientStop { position: 0; color: UISettings.toolbarStartSub }
+                    GradientStop { position: 1; color: UISettings.toolbarEnd }
+                }
+
+            RobotoText
+            {
+                height: parent.height
+                anchors.horizontalCenter: parent.horizontalCenter
+                label: qsTr("Intensity")
+                fontSize: UISettings.textSizeDefault
+                fontBold: true
+            }
+            // allow the tool to be dragged around
+            // by holding it on the title bar
+            MouseArea
+            {
+                anchors.fill: parent
+                drag.target: intRoot
+            }
+        }
+
+        // main control 'widget'
+        Rectangle
+        {
+            id: intControl
             color: "transparent"
-            width: (parent.height * currentValue) / (dmxValues ? 256 : 100)
-            y: parent.height
-            height: parent.width
-            transformOrigin: Item.TopLeft
-            rotation: -90
-            clip: true
+            x: (parent.width - width) / 2
+            width: intRoot.width * 0.75
+            height: intRoot.height - (UISettings.listItemHeight * 2) - UISettings.iconSizeMedium - 20
 
             Image
             {
-                id: intForegroundImg
-                y: -height
-                width: intBackgroundImg.width
-                height: intBackgroundImg.height
-                transformOrigin: Item.BottomLeft
-                rotation: 90
-                source: "qrc:/dimmer-fill.svg"
+                id: intBackgroundImg
+                anchors.fill: parent
+                source: "qrc:/dimmer-back.svg"
                 sourceSize: Qt.size(width, height)
             }
-        }
 
-        Slider
-        {
-            id: slider
-            anchors.fill: parent
-            orientation: Qt.Vertical
-            from: 0
-            to: dmxValues ? 255 : 100
-            stepSize: 1.0
-            background: Rectangle { color: "transparent" }
-            handle: Rectangle { color: "transparent" }
-            value: currentValue
-
-            onPositionChanged: currentValue = valueAt(position)
-        }
-    }
-
-    Row
-    {
-        x: 10
-        y: intRoot.height - UISettings.listItemHeight - 10
-        spacing: 5
-
-        CustomSpinBox
-        {
-            id: spinBox
-            width: intRoot.width / 2
-            height: UISettings.listItemHeight
-            from: 0
-            to: dmxValues ? 255 : 100
-
-            onValueChanged: currentValue = value
-        }
-
-        DMXPercentageButton
-        {
-            height: UISettings.listItemHeight
-            width: intRoot.width / 3
-            dmxMode: dmxValues
-            onClicked:
+            Rectangle
             {
-                var slVal = currentValue
-                var newVal
-                dmxValues = !dmxValues
-                if (dmxValues == false)
-                    newVal = (slVal / 255) * 100
-                else
-                    newVal = (slVal / 100) * 255
+                id: rectMask
+                color: "transparent"
+                width: Math.round((parent.height * currentValue) / (dmxValues ? 256.0 : 100.0))
+                y: parent.height
+                height: parent.width
+                transformOrigin: Item.TopLeft
+                rotation: -90
+                clip: true
 
-                currentValue = newVal
+                Image
+                {
+                    id: intForegroundImg
+                    y: -height
+                    width: intBackgroundImg.width
+                    height: intBackgroundImg.height
+                    transformOrigin: Item.BottomLeft
+                    rotation: 90
+                    source: "qrc:/dimmer-fill.svg"
+                    sourceSize: Qt.size(width, height)
+                }
             }
+
+            Slider
+            {
+                id: slider
+                anchors.fill: parent
+                orientation: Qt.Vertical
+                from: 0
+                to: dmxValues ? 255 : 100
+                stepSize: 1.0
+                background: Rectangle { color: "transparent" }
+                handle: Rectangle { color: "transparent" }
+                value: currentValue
+
+                onPositionChanged: currentValue = valueAt(position)
+            }
+        }
+
+        RowLayout
+        {
+            x: 5
+            height: UISettings.listItemHeight
+            width: intRoot.width - 10
+            spacing: 5
+
+            CustomSpinBox
+            {
+                id: spinBox
+                Layout.fillWidth: true
+                height: UISettings.listItemHeight
+                from: 0
+                suffix: dmxValues ? "" : "%"
+                to: dmxValues ? 255 : 100
+
+                onValueChanged: currentValue = value
+            }
+
+            DMXPercentageButton
+            {
+                height: UISettings.listItemHeight
+                width: intRoot.width / 3
+                dmxMode: dmxValues
+                onClicked:
+                {
+                    var slVal = currentValue
+                    var newVal
+                    dmxValues = !dmxValues
+                    if (dmxValues == false)
+                        newVal = Math.round((slVal / 255.0) * 100.0)
+                    else
+                        newVal = Math.round((slVal / 100.0) * 255.0)
+
+                    currentValue = newVal
+                }
+            }
+        }
+
+        PaletteFanningBox
+        {
+            id: paletteBox
+            x: 5
+            width: intRoot.width - 10
+            paletteType: QLCPalette.Dimmer
+            value1: intRoot.currentValue
         }
     }
 }

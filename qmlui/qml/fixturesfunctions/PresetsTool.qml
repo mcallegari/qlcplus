@@ -28,7 +28,7 @@ Rectangle
     width: UISettings.bigItemHeight * 3
     height: UISettings.bigItemHeight * 3
     color: UISettings.bgMedium
-    border.color: "#666"
+    border.color: UISettings.bgLight
     border.width: 2
     clip: true
 
@@ -84,7 +84,7 @@ Rectangle
                     height: presetToolBar.height
                     color: prMouseArea.pressed ? UISettings.bgLight : UISettings.bgMedium
                     border.width: 1
-                    border.color: "#666"
+                    border.color: UISettings.bgLight
 
                     property int fxID: modelData.fixtureID
                     property int chIdx: modelData.channelIdx

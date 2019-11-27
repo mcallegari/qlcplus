@@ -30,7 +30,7 @@ Rectangle
     id: rootBox
     width: 330
     height: 370
-    color: "#444"
+    color: UISettings.bgMedium
     border.color: "#222"
     border.width: 2
 
@@ -324,11 +324,12 @@ Rectangle
         RobotoText
         {
             height: UISettings.listItemHeight
-            label: qsTr("Selected color");
+            label: qsTr("Selected color")
         }
 
         MultiColorBox
         {
+            id: previewBox
             width: UISettings.mediumItemHeight
             height: UISettings.listItemHeight
             primary: currentRGB

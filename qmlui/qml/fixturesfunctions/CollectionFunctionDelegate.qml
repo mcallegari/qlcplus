@@ -65,7 +65,7 @@ Rectangle
         width: parent.width
         height: 1
         y: parent.height - 1
-        color: "#666"
+        color: UISettings.bgLight
     }
 
     // top line drag highlight

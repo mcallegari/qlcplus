@@ -40,6 +40,7 @@
     <file alias="MainView.qml">qml/MainView.qml</file>
     <file alias="MenuBarEntry.qml">qml/MenuBarEntry.qml</file>
     <file alias="MultiColorBox.qml">qml/MultiColorBox.qml</file>
+    <file alias="PaletteFanningBox.qml">qml/PaletteFanningBox.qml</file>
     <file alias="QLCPlusFader.qml">qml/QLCPlusFader.qml</file>
     <file alias="QLCPlusKnob.qml">qml/QLCPlusKnob.qml</file>
     <file alias="RobotoText.qml">qml/RobotoText.qml</file>
@@ -56,6 +57,7 @@
     <!-- Popup system -->
     <file alias="CustomPopupDialog.qml">qml/popup/CustomPopupDialog.qml</file>
     <file alias="PopupAbout.qml">qml/popup/PopupAbout.qml</file>
+    <file alias="PopupCreatePalette.qml">qml/popup/PopupCreatePalette.qml</file>
     <file alias="PopupDisclaimer.qml">qml/popup/PopupDisclaimer.qml</file>
     <file alias="PopupImportProject.qml">qml/popup/PopupImportProject.qml</file>
     <file alias="PopupPINRequest.qml">qml/popup/PopupPINRequest.qml</file>
@@ -116,6 +118,7 @@
     <file alias="EFXEditor.qml">qml/fixturesfunctions/EFXEditor.qml</file>
     <file alias="EFXPreview.qml">qml/fixturesfunctions/EFXPreview.qml</file>
     <file alias="ScriptEditor.qml">qml/fixturesfunctions/ScriptEditor.qml</file>
+    <file alias="PaletteManager.qml">qml/fixturesfunctions/PaletteManager.qml</file>
 
     <!-- 3D View -->
     <file alias="3DView.qml">qml/fixturesfunctions/3DView/3DView.qml</file>

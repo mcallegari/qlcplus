@@ -173,7 +173,7 @@ public:
     Q_INVOKABLE void toggleFixturesSelection();
 
     /** Select the fixtures that intersects the provided rectangle coordinates in a 2D environment */
-    Q_INVOKABLE void setRectangleSelection(qreal x, qreal y, qreal width, qreal height);
+    Q_INVOKABLE void setRectangleSelection(qreal x, qreal y, qreal width, qreal height, int keyModifiers);
 
     /** Returns if at least one fixture is currently selected */
     int selectedFixturesCount();
@@ -214,6 +214,11 @@ public:
     /** Select/Deselect all the fixtures of the Group/Universe with the provided $id */
     Q_INVOKABLE void setFixtureGroupSelection(quint32 id, bool enable, bool isUniverse);
 
+    /** Set a Pan/Tilt position in degrees */
+    Q_INVOKABLE void setPositionValue(int type, int degrees);
+
+    void setChannelValues(QList<SceneValue> values);
+
 protected slots:
     void slotNewFixtureCreated(quint32 fxID, qreal x, qreal y, qreal z = 0);
     void slotFixtureDeleted(quint32 itemID);
@@ -222,7 +227,7 @@ protected slots:
     void slotChannelValueChanged(quint32 fxID, quint32 channel, quint8 value);
     void slotChannelTypeValueChanged(int type, quint8 value, quint32 channel = UINT_MAX);
     void slotColorChanged(QColor col, QColor wauv);
-    void slotPositionChanged(int type, int degrees);
+
     void slotPresetChanged(const QLCChannel *channel, quint8 value);
 
     /** Invoked by the QLC+ engine to inform the UI that the Universe at $idx
@@ -290,7 +295,6 @@ public:
 
     GenericDMXSource *dmxSource() const;
 
-private:
     /** Return a list only of the fixture IDs from the selected preview items */
     QList<quint32> selectedFixtureIDList() const;
 

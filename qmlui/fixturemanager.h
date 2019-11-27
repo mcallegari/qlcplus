@@ -61,7 +61,7 @@ class FixtureManager : public QObject
     Q_PROPERTY(ColorFilters *selectedFilters READ selectedFilters NOTIFY selectedFiltersChanged)
 
 public:
-    FixtureManager(QQuickView *view, Doc *doc, QObject *parent = 0);
+    FixtureManager(QQuickView *view, Doc *doc, QObject *parent = nullptr);
     ~FixtureManager();
 
     /** Get/Set the Universe index used to filter Fixture lists/tree */
@@ -379,8 +379,6 @@ public:
     Q_INVOKABLE void setIntensityValue(quint8 value);
     Q_INVOKABLE void setColorValue(quint8 red, quint8 green, quint8 blue,
                                    quint8 white, quint8 amber, quint8 uv);
-    Q_INVOKABLE void setPanValue(int degrees);
-    Q_INVOKABLE void setTiltValue(int degrees);
     Q_INVOKABLE void setPresetValue(quint32 fixtureID, int chIndex, quint8 value);
     Q_INVOKABLE void setBeamValue(quint8 value);
 

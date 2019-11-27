@@ -139,7 +139,7 @@ QVariantList FixtureManager::universeInfo(quint32 id)
         {
             quint16 headIndex = m_monProps->fixtureHeadIndex(subID);
             quint16 linkedIndex = m_monProps->fixtureLinkedIndex(subID);
-            int flags = m_monProps->fixtureFlags(fixtureID, headIndex, linkedIndex);
+            quint32 flags = m_monProps->fixtureFlags(fixtureID, headIndex, linkedIndex);
             if (flags & MonitorProperties::HiddenFlag)
                 continue;
 
@@ -1478,16 +1478,6 @@ void FixtureManager::setColorValue(quint8 red, quint8 green, quint8 blue,
     emit colorChanged(QColor(red, green, blue), QColor(white, amber, uv));
 }
 
-void FixtureManager::setPanValue(int degrees)
-{
-    emit positionTypeValueChanged(QLCChannel::Pan, degrees);
-}
-
-void FixtureManager::setTiltValue(int degrees)
-{
-    emit positionTypeValueChanged(QLCChannel::Tilt, degrees);
-}
-
 void FixtureManager::setPresetValue(quint32 fixtureID, int chIndex, quint8 value)
 {
     qDebug() << "[FixtureManager] setPresetValue - fixture:" << fixtureID << ", channel:" << chIndex << "value:" << value;
@@ -1733,79 +1723,11 @@ void FixtureManager::resetCapabilities()
 
 QList<SceneValue> FixtureManager::getFixturePosition(quint32 fxID, int type, int degrees)
 {
-    QList<SceneValue> posList;
-    // cache a list of channels processed, to avoid duplicates
-    QList<quint32> chDone;
-
     Fixture *fixture = m_doc->fixture(fxID);
     if (fixture == nullptr || fixture->fixtureMode() == nullptr)
-        return posList;
+        return QList<SceneValue>();
 
-    QLCPhysical phy = fixture->fixtureMode()->physical();
-    float maxDegrees;
-    if (type == QLCChannel::Pan)
-    {
-        maxDegrees = phy.focusPanMax();
-        if (maxDegrees == 0) maxDegrees = 360;
-
-        for (int i = 0; i < fixture->heads(); i++)
-        {
-            quint32 panMSB = fixture->channelNumber(QLCChannel::Pan, QLCChannel::MSB, i);
-            if (panMSB == QLCChannel::invalid() || chDone.contains(panMSB))
-                continue;
-
-            float dmxValue = (float)(degrees * UCHAR_MAX) / maxDegrees;
-            posList.append(SceneValue(fixture->id(), panMSB, static_cast<uchar>(qFloor(dmxValue))));
-
-            qDebug() << "[getFixturePosition] Pan MSB:" << dmxValue;
-
-            quint32 panLSB = fixture->channelNumber(QLCChannel::Pan, QLCChannel::LSB, i);
-
-            if (panLSB != QLCChannel::invalid())
-            {
-                float lsbDegrees = (float)maxDegrees / (float)UCHAR_MAX;
-                float lsbValue = (float)((dmxValue - qFloor(dmxValue)) * UCHAR_MAX) / lsbDegrees;
-                posList.append(SceneValue(fixture->id(), panLSB, static_cast<uchar>(lsbValue)));
-
-                qDebug() << "[getFixturePosition] Pan LSB:" << lsbValue;
-            }
-
-            chDone.append(panMSB);
-        }
-    }
-    else if (type == QLCChannel::Tilt)
-    {
-        maxDegrees = phy.focusTiltMax();
-        if (maxDegrees == 0) maxDegrees = 270;
-
-        for (int i = 0; i < fixture->heads(); i++)
-        {
-            quint32 tiltMSB = fixture->channelNumber(QLCChannel::Tilt, QLCChannel::MSB, i);
-            if (tiltMSB == QLCChannel::invalid() || chDone.contains(tiltMSB))
-                continue;
-
-            float dmxValue = (float)(degrees * UCHAR_MAX) / maxDegrees;
-            posList.append(SceneValue(fixture->id(), tiltMSB, static_cast<uchar>(qFloor(dmxValue))));
-
-            qDebug() << "[getFixturePosition] Tilt MSB:" << dmxValue;
-
-            quint32 tiltLSB = fixture->channelNumber(QLCChannel::Tilt, QLCChannel::LSB, i);
-
-            if (tiltLSB != QLCChannel::invalid())
-            {
-                float lsbDegrees = (float)maxDegrees / (float)UCHAR_MAX;
-                float lsbValue = (float)((dmxValue - qFloor(dmxValue)) * UCHAR_MAX) / lsbDegrees;
-                posList.append(SceneValue(fixture->id(), tiltLSB, static_cast<uchar>(lsbValue)));
-
-                qDebug() << "[getFixturePosition] Tilt LSB:" << lsbValue;
-            }
-
-            chDone.append(tiltMSB);
-        }
-
-    }
-
-    return posList;
+    return fixture->positionToValues(type, degrees);
 }
 
 QVariantList FixtureManager::presetsChannels(QLCChannel::Group group)

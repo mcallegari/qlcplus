@@ -24,6 +24,7 @@
 #include <QFontDatabase>
 #include <QOpenGLContext>
 #include <QPrintDialog>
+#include <QApplication>
 #include <QQmlContext>
 #include <QQuickItem>
 #include <QSettings>
@@ -42,6 +43,7 @@
 #include "virtualconsole.h"
 #include "fixturebrowser.h"
 #include "fixturemanager.h"
+#include "palettemanager.h"
 #include "functionmanager.h"
 #include "fixturegroupeditor.h"
 #include "inputoutputmanager.h"
@@ -132,20 +134,15 @@ void App::startup()
     initDoc();
 
     m_ioManager = new InputOutputManager(this, m_doc);
-    rootContext()->setContextProperty("ioManager", m_ioManager);
-
     m_fixtureBrowser = new FixtureBrowser(this, m_doc);
     m_fixtureManager = new FixtureManager(this, m_doc);
     m_fixtureGroupEditor = new FixtureGroupEditor(this, m_doc);
     m_functionManager = new FunctionManager(this, m_doc);
     m_contextManager = new ContextManager(this, m_doc, m_fixtureManager, m_functionManager);
+    m_paletteManager = new PaletteManager(this, m_doc, m_contextManager);
 
     m_virtualConsole = new VirtualConsole(this, m_doc, m_contextManager);
-    rootContext()->setContextProperty("virtualConsole", m_virtualConsole);
-
     m_showManager = new ShowManager(this, m_doc);
-    rootContext()->setContextProperty("showManager", m_showManager);
-
     m_networkManager = new NetworkManager(this, m_doc);
     rootContext()->setContextProperty("networkManager", m_networkManager);
 
@@ -243,7 +240,8 @@ bool App::is3DSupported() const
 
 void App::exit()
 {
-    destroy();
+    //destroy();
+    QApplication::quit();
 }
 
 void App::setAccessMask(int mask)
@@ -418,6 +416,7 @@ void App::enableKioskMode()
 void App::createKioskCloseButton(const QRect &rect)
 {
     Q_UNUSED(rect)
+    // TODO
 }
 
 /*********************************************************************

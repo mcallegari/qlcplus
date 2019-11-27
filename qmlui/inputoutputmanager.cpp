@@ -17,6 +17,7 @@
   limitations under the License.
 */
 
+#include <QQmlContext>
 #include <QSettings>
 #include <QDebug>
 
@@ -45,6 +46,7 @@ InputOutputManager::InputOutputManager(QQuickView *view, Doc *doc, QObject *pare
     setContextResource("qrc:/InputOutputManager.qml");
     setContextTitle(tr("Input/Output Manager"));
 
+    view->rootContext()->setContextProperty("ioManager", this);
     qmlRegisterType<Universe>("org.qlcplus.classes", 1, 0, "Universe");
     qmlRegisterType<InputPatch>("org.qlcplus.classes", 1, 0, "InputPatch");
     qmlRegisterType<OutputPatch>("org.qlcplus.classes", 1, 0, "OutputPatch");

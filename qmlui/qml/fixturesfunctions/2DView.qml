@@ -291,10 +291,10 @@ Rectangle
                         var rh = selectionRect.height
                         switch (selectionRect.rotation)
                         {
-                            case 0: contextManager.setRectangleSelection(rx, ry, rw, rh); break;
-                            case -180: contextManager.setRectangleSelection(rx - rw, ry - rh, rw, rh); break;
-                            case 90: contextManager.setRectangleSelection(rx - rh, ry, rh, rw); break;
-                            case -90: contextManager.setRectangleSelection(rx, ry - rw, rh, rw); break;
+                            case 0: contextManager.setRectangleSelection(rx, ry, rw, rh, mouse.modifiers); break;
+                            case -180: contextManager.setRectangleSelection(rx - rw, ry - rh, rw, rh, mouse.modifiers); break;
+                            case 90: contextManager.setRectangleSelection(rx - rh, ry, rh, rw, mouse.modifiers); break;
+                            case -90: contextManager.setRectangleSelection(rx, ry - rw, rh, rw, mouse.modifiers); break;
                         }
                         selectionRect.visible = false
                     }
