@@ -50,10 +50,31 @@ RGBScript::RGBScript(const RGBScript& s)
     , m_apiVersion(0)
 {
     evaluate();
+    foreach(RGBScriptProperty cap, s.m_properties)
+    {
+        setProperty(cap.m_name, s.property(cap.m_name));
+    }
 }
 
 RGBScript::~RGBScript()
 {
+}
+
+RGBScript &RGBScript::operator=(const RGBScript &s)
+{
+    if (this != &s)
+    {
+        m_fileName = s.m_fileName;
+        m_contents = s.m_contents;
+        m_apiVersion = s.m_apiVersion;
+        evaluate();
+        foreach(RGBScriptProperty cap, s.m_properties)
+        {
+            setProperty(cap.m_name, s.property(cap.m_name));
+        }
+    }
+
+    return *this;
 }
 
 bool RGBScript::operator==(const RGBScript& s) const
@@ -341,7 +362,7 @@ bool RGBScript::setProperty(QString propertyName, QString value)
     return false;
 }
 
-QString RGBScript::property(QString propertyName)
+QString RGBScript::property(QString propertyName) const
 {
     QMutexLocker engineLocker(s_engineMutex);
 
