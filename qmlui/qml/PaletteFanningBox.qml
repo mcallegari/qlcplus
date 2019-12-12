@@ -68,6 +68,7 @@ Rectangle
             case QLCPalette.Saw: return qsTr("Saw")
             case QLCPalette.Sine: return qsTr("Sine")
         }
+        return ""
     }
 
     function stringFromLayout()
@@ -80,6 +81,7 @@ Rectangle
             case QLCPalette.BottomToTop: return qsTr("Bottom to top")
             case QLCPalette.Centered: return qsTr("Centered")
         }
+        return ""
     }
 
     PopupCreatePalette

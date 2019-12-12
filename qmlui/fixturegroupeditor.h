@@ -23,6 +23,8 @@
 #include <QQuickView>
 #include <QObject>
 
+#include <qlcpoint.h>
+
 class Doc;
 class Fixture;
 class FixtureGroup;
@@ -137,6 +139,7 @@ public:
 
 private:
     void updateGroupMap();
+    QLCPoint pointFromAbsolute(int absoluteIndex);
 
 signals:
     void groupSizeChanged();
