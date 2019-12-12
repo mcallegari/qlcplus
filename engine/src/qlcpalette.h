@@ -77,6 +77,7 @@ public:
      ************************************************************************/
 public:
     QLCPalette(QLCPalette::PaletteType type, QObject *parent = 0);
+    QLCPalette *createCopy();
 
     virtual ~QLCPalette();
 
@@ -107,9 +108,11 @@ public:
     /** Get/Set the value(s) for this Palette.
      *  Some types like Position will store 2 values */
     QVariant value() const;
-    QVariantList values() const;
     void setValue(QVariant val);
     void setValue(QVariant val1, QVariant val2);
+    QVariantList values() const;
+    void setValues(QVariantList values);
+    void resetValues();
 
     QList<SceneValue> valuesFromFixtures(Doc *doc, QList<quint32>fixtures);
     QList<SceneValue> valuesFromFixtureGroups(Doc *doc, QList<quint32>groups);

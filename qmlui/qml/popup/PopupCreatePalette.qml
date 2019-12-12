@@ -29,9 +29,7 @@ CustomPopupDialog
     id: popupRoot
     title: qsTr("Create a new palette")
 
-    property int type: QLCPalette.Undefined
-    property int value1: 0
-    property int value2: 0
+    property QLCPalette paletteObj
 
     function focusEditItem()
     {
@@ -53,7 +51,7 @@ CustomPopupDialog
 
     onAccepted:
     {
-        paletteManager.createPalette(type, nameInputBox.inputText, value1, value2)
+        paletteManager.createPalette(paletteObj, nameInputBox.inputText)
     }
 
     contentItem:

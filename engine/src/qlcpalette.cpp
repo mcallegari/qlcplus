@@ -45,6 +45,19 @@ QLCPalette::QLCPalette(QLCPalette::PaletteType type, QObject *parent)
 {
 }
 
+QLCPalette *QLCPalette::createCopy()
+{
+    QLCPalette *copy = new QLCPalette(type());
+    copy->setValues(this->values());
+    copy->setName(this->name());
+    copy->setFanningType(this->fanningType());
+    copy->setFanningLayout(this->fanningLayout());
+    copy->setFanningAmount(this->fanningAmount());
+    copy->setFanningValue(this->fanningValue());
+
+    return copy;
+}
+
 QLCPalette::~QLCPalette()
 {
 
@@ -151,11 +164,6 @@ QVariant QLCPalette::value() const
     return m_values.first();
 }
 
-QVariantList QLCPalette::values() const
-{
-    return m_values;
-}
-
 void QLCPalette::setValue(QVariant val)
 {
     m_values.clear();
@@ -167,6 +175,21 @@ void QLCPalette::setValue(QVariant val1, QVariant val2)
     m_values.clear();
     m_values.append(val1);
     m_values.append(val2);
+}
+
+QVariantList QLCPalette::values() const
+{
+    return m_values;
+}
+
+void QLCPalette::setValues(QVariantList values)
+{
+    m_values = values;
+}
+
+void QLCPalette::resetValues()
+{
+    m_values.clear();
 }
 
 QList<SceneValue> QLCPalette::valuesFromFixtures(Doc *doc, QList<quint32> fixtures)

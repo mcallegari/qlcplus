@@ -70,17 +70,26 @@ QLCPalette *PaletteManager::getEditingPalette(int type)
     return m_editingMap.value(type);
 }
 
-void PaletteManager::createPalette(int type, QString name, QVariant value1, QVariant value2)
+void PaletteManager::createPalette(QLCPalette *palette, QString name)
 {
-    QLCPalette *palette = new QLCPalette(QLCPalette::PaletteType(type));
-    palette->setName(name);
+    if (palette == nullptr)
+        return;
 
-    if (type == QLCPalette::PanTilt)
-        palette->setValue(value1, value2);
-    else
-        palette->setValue(value1);
+    QLCPalette *newPalette = palette->createCopy();
+    newPalette->setName(name);
 
-    if (m_doc->addPalette(palette) == false)
+    if (palette->type() == QLCPalette::Pan)
+    {
+        newPalette->resetValues();
+        newPalette->setValue(palette->values().at(0));
+    }
+    else if (palette->type() == QLCPalette::Tilt)
+    {
+        newPalette->resetValues();
+        newPalette->setValue(palette->values().at(1));
+    }
+
+    if (m_doc->addPalette(newPalette) == false)
     {
         qWarning() << "Failed to add palette";
         delete palette;

@@ -47,9 +47,7 @@ Rectangle
 
     function showPalettePopup()
     {
-        palettePopup.type = paletteType
-        palettePopup.value1 = value1
-        palettePopup.value2 = value2
+        palettePopup.paletteObj = palette
         palettePopup.open()
         palettePopup.focusEditItem()
     }
@@ -267,14 +265,16 @@ Rectangle
                     implicitHeight: UISettings.iconSizeMedium
                     implicitWidth: implicitHeight
                     checked: true
+                    enabled: tiltCheck.checked ? true : false
                     onCheckedChanged:
                     {
                         if (checked)
                             boxRoot.paletteType = tiltCheck.checked ? QLCPalette.PanTilt : QLCPalette.Pan
                         else
-                            boxRoot.paletteType = tiltCheck.checked ? QLCPalette.Tilt : QLCPalette.PanTilt
+                            boxRoot.paletteType = QLCPalette.Tilt
 
                         boxRoot.palette = paletteManager.getEditingPalette(boxRoot.paletteType)
+                        updatePreview()
                     }
                 }
                 RobotoText
@@ -287,14 +287,16 @@ Rectangle
                     implicitHeight: UISettings.iconSizeMedium
                     implicitWidth: implicitHeight
                     checked: true
+                    enabled: panCheck.checked ? true : false
                     onCheckedChanged:
                     {
                         if (checked)
                             boxRoot.paletteType = panCheck.checked ? QLCPalette.PanTilt : QLCPalette.Tilt
                         else
-                            boxRoot.paletteType = panCheck.checked ? QLCPalette.Pan : QLCPalette.PanTilt
+                            boxRoot.paletteType = QLCPalette.Pan
 
                         boxRoot.palette = paletteManager.getEditingPalette(boxRoot.paletteType)
+                        updatePreview()
                     }
                 }
                 RobotoText

@@ -54,7 +54,7 @@ public:
     /* Request a palette for editing */
     Q_INVOKABLE QLCPalette *getEditingPalette(int type);
 
-    Q_INVOKABLE void createPalette(int type, QString name, QVariant value1, QVariant value2);
+    Q_INVOKABLE void createPalette(QLCPalette *palette, QString name);
 
     Q_INVOKABLE void previewPalette(QLCPalette *palette, QVariant value1, QVariant value2);
 
