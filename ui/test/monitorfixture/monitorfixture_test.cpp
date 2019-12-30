@@ -151,7 +151,7 @@ void MonitorFixture_Test::channelValueStyles()
     {
         QString str;
         QVERIFY(mof.m_channelLabels[i] != NULL);
-        QCOMPARE(mof.m_channelLabels[i]->text(), str.sprintf("<B>%.3d</B>", i + fxi->address() + 1));
+        QCOMPARE(mof.m_channelLabels[i]->text(), str.asprintf("<B>%.3d</B>", i + fxi->address() + 1));
 
         QVERIFY(mof.m_valueLabels[i] != NULL);
         QCOMPARE(mof.m_valueLabels[i]->text(), QString("000"));
@@ -163,7 +163,7 @@ void MonitorFixture_Test::channelValueStyles()
     {
         QString str;
         QVERIFY(mof.m_channelLabels[i] != NULL);
-        QCOMPARE(mof.m_channelLabels[i]->text(), str.sprintf("<B>%.3d</B>", i + 1));
+        QCOMPARE(mof.m_channelLabels[i]->text(), str.asprintf("<B>%.3d</B>", i + 1));
 
         QVERIFY(mof.m_valueLabels[i] != NULL);
         QCOMPARE(mof.m_valueLabels[i]->text(), QString("000"));
@@ -174,7 +174,7 @@ void MonitorFixture_Test::channelValueStyles()
     {
         QString str;
         QVERIFY(mof.m_channelLabels[i] != NULL);
-        QCOMPARE(mof.m_channelLabels[i]->text(), str.sprintf("<B>%.3d</B>", i + fxi->address() + 1));
+        QCOMPARE(mof.m_channelLabels[i]->text(), str.asprintf("<B>%.3d</B>", i + fxi->address() + 1));
 
         QVERIFY(mof.m_valueLabels[i] != NULL);
         QCOMPARE(mof.m_valueLabels[i]->text(), QString("000"));
@@ -183,7 +183,7 @@ void MonitorFixture_Test::channelValueStyles()
     for (int i = 0; i < mof.m_valueLabels.size(); i++)
     {
         QString str;
-        mof.m_valueLabels[i]->setText(str.sprintf("%.3d", (i + 1) * 10));
+        mof.m_valueLabels[i]->setText(str.asprintf("%.3d", (i + 1) * 10));
     }
 
     mof.slotValueStyleChanged(MonitorProperties::PercentageValues);
@@ -191,12 +191,12 @@ void MonitorFixture_Test::channelValueStyles()
     {
         QString str;
         QVERIFY(mof.m_channelLabels[i] != NULL);
-        QCOMPARE(mof.m_channelLabels[i]->text(), str.sprintf("<B>%.3d</B>", i + fxi->address() + 1));
+        QCOMPARE(mof.m_channelLabels[i]->text(), str.asprintf("<B>%.3d</B>", i + fxi->address() + 1));
 
         QVERIFY(mof.m_valueLabels[i] != NULL);
-        QCOMPARE(mof.m_valueLabels[i]->text(), str.sprintf("%.3d", (int) ceil(SCALE(qreal((i + 1) * 10),
-                                                                                    qreal(0), qreal(UCHAR_MAX),
-                                                                                    qreal(0), qreal(100)))));
+        QCOMPARE(mof.m_valueLabels[i]->text(), str.asprintf("%.3d", (int) ceil(SCALE(qreal((i + 1) * 10),
+                                                                                     qreal(0), qreal(UCHAR_MAX),
+                                                                                     qreal(0), qreal(100)))));
     }
 }
 
@@ -223,14 +223,14 @@ void MonitorFixture_Test::updateValues()
     for (int i = 0; i < mof.m_valueLabels.size(); i++)
     {
         QString str;
-        QCOMPARE(mof.m_valueLabels[i]->text(), str.sprintf("%.3d", 127 + i));
+        QCOMPARE(mof.m_valueLabels[i]->text(), str.asprintf("%.3d", 127 + i));
     }
 
     mof.slotValueStyleChanged(MonitorProperties::PercentageValues);
     for (int i = 0; i < mof.m_valueLabels.size(); i++)
     {
         QString str;
-        QCOMPARE(mof.m_valueLabels[i]->text(), str.sprintf("%.3d",
+        QCOMPARE(mof.m_valueLabels[i]->text(), str.asprintf("%.3d",
             int(ceil(SCALE(qreal(127 + i), qreal(0), qreal(UCHAR_MAX), qreal(0), qreal(100))))));
     }
 }

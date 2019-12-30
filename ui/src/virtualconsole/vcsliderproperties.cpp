@@ -464,8 +464,8 @@ void VCSliderProperties::levelUpdateCapabilityNode(QTreeWidgetItem* parent,
 
     item = new QTreeWidgetItem(parent);
     item->setText(KColumnName, cap->name());
-    item->setText(KColumnRange, str.sprintf("%.3d - %.3d",
-                                            cap->min(), cap->max()));
+    item->setText(KColumnRange, str.asprintf("%.3d - %.3d",
+                                             cap->min(), cap->max()));
     item->setFlags(item->flags() & (~Qt::ItemIsUserCheckable));
 }
 

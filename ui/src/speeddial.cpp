@@ -17,6 +17,7 @@
   limitations under the License.
 */
 
+#include <QElapsedTimer>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QFocusEvent>
@@ -27,7 +28,6 @@
 #include <QTimer>
 #include <QDebug>
 #include <QDial>
-#include <QTime>
 #include <qmath.h>
 
 #include "mastertimer.h"
@@ -545,7 +545,7 @@ void SpeedDial::slotTapClicked()
 {
     if (m_tapTime == NULL)
     {
-        m_tapTime = new QTime(QTime::currentTime());
+        m_tapTime = new QElapsedTimer();
         m_tapTime->start();
         return;
     }

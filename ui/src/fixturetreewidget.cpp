@@ -196,11 +196,11 @@ void FixtureTreeWidget::updateFixtureItem(QTreeWidgetItem* item, Fixture* fixtur
         QString s;
         if (fixture->channels() > 1)
         {
-            s.sprintf("%.3d - %.3d", fixture->address() + 1, fixture->address() + fixture->channels());
+            s.asprintf("%.3d - %.3d", fixture->address() + 1, fixture->address() + fixture->channels());
         }
         else
         {
-            s.sprintf("%.3d", fixture->address() + 1);
+            s.asprintf("%.3d", fixture->address() + 1);
         }
         item->setText(m_addressColumn, s);
     }

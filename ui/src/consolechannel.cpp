@@ -522,7 +522,7 @@ void ConsoleChannel::initCapabilityMenu(const QLCChannel* ch)
             for (int i = cap->min(); i <= cap->max(); i++)
             {
                 action = valueMenu->addAction(
-                             t.sprintf("%.3d", i));
+                             t.asprintf("%.3d", i));
                 action->setData(i);
             }
 
