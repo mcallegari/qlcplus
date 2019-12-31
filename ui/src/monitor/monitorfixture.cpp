@@ -165,9 +165,9 @@ void MonitorFixture::setFixture(quint32 fxi_id)
 
             /* Create a label for value */
             QString str;
-            str.asprintf("%.3d", uchar(fxValues.at(i)));
-            label = new QLabel(str, this);
+            label = new QLabel(this);
             lay->addWidget(label, 3, i, Qt::AlignHCenter);
+            label->setText(str.asprintf("%.3d", uchar(fxValues.at(i))));
             m_valueLabels.append(label);
         }
         connect(fxi, SIGNAL(valuesChanged()), this, SLOT(slotValuesChanged()));
