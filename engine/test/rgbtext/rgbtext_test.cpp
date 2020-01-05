@@ -323,28 +323,29 @@ void RGBText_Test::staticLetters()
     QCOMPARE(text.rgbMapStepCount(QSize()), 3); // Q, L, C
 
     QRgb color(0xFFFFFFFF);
+    RGBMap map;
 
     // Since fonts and their rendering differs from installation to installation,
     // these tests are here only to check that nothing crashes. The end result is
     // more or less OS, platform, HW and SW dependent and testing individual pixels
     // would thus be rather pointless.
-    RGBMap map = text.rgbMap(QSize(10, 10), color, 0);
+    text.rgbMap(QSize(10, 10), color, 0, map);
     QCOMPARE(map.size(), 10);
     for (int i = 0; i < 10; i++)
         QCOMPARE(map[i].size(), 10);
 
-    map = text.rgbMap(QSize(10, 10), color, 1);
+    text.rgbMap(QSize(10, 10), color, 1, map);
     QCOMPARE(map.size(), 10);
     for (int i = 0; i < 10; i++)
         QCOMPARE(map[i].size(), 10);
 
-    map = text.rgbMap(QSize(10, 10), color, 2);
+    text.rgbMap(QSize(10, 10), color, 2, map);
     QCOMPARE(map.size(), 10);
     for (int i = 0; i < 10; i++)
         QCOMPARE(map[i].size(), 10);
 
     // Invalid step
-    map = text.rgbMap(QSize(10, 10), color, 3);
+    text.rgbMap(QSize(10, 10), color, 3, map);
     QCOMPARE(map.size(), 10);
     for (int i = 0; i < 10; i++)
     {
@@ -379,17 +380,19 @@ void RGBText_Test::horizontalScroll()
     for (int i = 0; i < fm.horizontalAdvance("QLC"); i++)
 #endif
     {
-        RGBMap map = text.rgbMap(QSize(10, 10), QRgb(0xFFFFFFFF), i);
+        RGBMap map;
+        text.rgbMap(QSize(10, 10), QRgb(0xFFFFFFFF), i, map);
         QCOMPARE(map.size(), 10);
         for (int y = 0; y < 10; y++)
             QCOMPARE(map[y].size(), 10);
     }
 
+    RGBMap map;
     // Invalid step
 #if (QT_VERSION < QT_VERSION_CHECK(5, 13, 0))
-    RGBMap map = text.rgbMap(QSize(10, 10), QRgb(0xFFFFFFFF), fm.width("QLC"));
+    text.rgbMap(QSize(10, 10), QRgb(0xFFFFFFFF), fm.width("QLC"), map);
 #else
-    RGBMap map = text.rgbMap(QSize(10, 10), QRgb(0xFFFFFFFF), fm.horizontalAdvance("QLC"));
+    text.rgbMap(QSize(10, 10), QRgb(0xFFFFFFFF), fm.horizontalAdvance("QLC"), map);
 #endif
     QCOMPARE(map.size(), 10);
     for (int i = 0; i < 10; i++)
@@ -417,14 +420,16 @@ void RGBText_Test::verticalScroll()
     // would thus be rather pointless.
     for (int i = 0; i < fm.ascent() * 3; i++)
     {
-        RGBMap map = text.rgbMap(QSize(10, 10), QRgb(0xFFFFFFFF), i);
+        RGBMap map;
+        text.rgbMap(QSize(10, 10), QRgb(0xFFFFFFFF), i, map);
         QCOMPARE(map.size(), 10);
         for (int y = 0; y < 10; y++)
             QCOMPARE(map[y].size(), 10);
     }
 
     // Invalid step
-    RGBMap map = text.rgbMap(QSize(10, 10), QRgb(0xFFFFFFFF), fm.ascent() * 4);
+    RGBMap map;
+    text.rgbMap(QSize(10, 10), QRgb(0xFFFFFFFF), fm.ascent() * 4, map);
     QCOMPARE(map.size(), 10);
     for (int i = 0; i < 10; i++)
     {

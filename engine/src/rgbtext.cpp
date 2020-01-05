@@ -237,8 +237,8 @@ void RGBText::renderStaticLetters(const QSize& size, uint rgb, int step, RGBMap 
     p.setRenderHint(QPainter::TextAntialiasing, false);
     p.setRenderHint(QPainter::Antialiasing, false);
     p.setFont(m_font);
-
     p.setPen(QColor(rgb));
+
     // Draw one letter at a time
     QRect rect(xOffset(), yOffset(), size.width(), size.height());
     p.drawText(rect, Qt::AlignCenter, m_text.mid(step, 1));
