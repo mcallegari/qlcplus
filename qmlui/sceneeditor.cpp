@@ -271,6 +271,41 @@ void SceneEditor::addComponent(int type, quint32 id)
     updateLists();
 }
 
+void SceneEditor::deleteItems(QVariantList list)
+{
+    if (m_scene == nullptr)
+        return;
+
+    for (QVariant vIdx : list)
+    {
+        int index = vIdx.toInt();
+        QVariantMap dataMap = m_componentList->itemAt(index).toMap();
+        int type = dataMap["type"].toInt();
+
+        switch(type)
+        {
+            case App::FixtureGroupDragItem:
+            {
+                FixtureGroup *group = dataMap["cRef"].value<FixtureGroup *>();
+                qDebug() << "removing fixture group with ID" << group->id();
+                // TODO: tardis
+                m_scene->removeFixtureGroup(group->id());
+            }
+            break;
+            case App::PaletteDragItem:
+            {
+                QLCPalette *palette = dataMap["cRef"].value<QLCPalette *>();
+                qDebug() << "removing palette with ID" << palette->id();
+                // TODO: tardis
+                m_scene->removePalette(palette->id());
+            }
+            break;
+        }
+    }
+
+    updateLists();
+}
+
 void SceneEditor::updateLists()
 {
     if (m_scene == nullptr)

@@ -72,7 +72,7 @@ Entity
         shadingCone.parent = sceneEntity
         shadingCone.spotlightConeMesh = sceneEntity.coneMesh
 
-        //scatteringCone.coneEffect = sceneEntity.spotlightScatteringEffect
+        //scatteringCone.coneEffect = sceneEntity.spotlightScatteringEffect // this hangs your PC
         scatteringCone.parent = sceneEntity
         scatteringCone.spotlightConeMesh = sceneEntity.coneMesh
 

@@ -76,6 +76,14 @@ QVariant ListModel::data(const QModelIndex &index, QString role) const
     return dataMap[role];
 }
 
+QVariant ListModel::itemAt(int index) const
+{
+    if (index < 0 || index >= m_data.count())
+        return QVariant();
+
+    return m_data.at(index);
+}
+
 bool ListModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
     int itemRow = index.row();

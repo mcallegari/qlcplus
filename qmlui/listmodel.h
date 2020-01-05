@@ -43,6 +43,8 @@ public:
 
     QVariant data(const QModelIndex & index, QString role) const;
 
+    QVariant itemAt(int index) const;
+
     bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
 
     bool setDataWithRole(const QModelIndex &index, QString roleName, const QVariant &value);

@@ -86,8 +86,16 @@ Rectangle
                 width: height
                 height: UISettings.iconSizeMedium
                 imgSource: "qrc:/remove.svg"
-                tooltip: qsTr("Remove the selected fixtures")
-                onClicked: { /* TODO */  }
+                tooltip: qsTr("Remove the selected items")
+                onClicked: deleteItemsPopup.open()
+
+                CustomPopupDialog
+                {
+                    id: deleteItemsPopup
+                    title: qsTr("Delete items")
+                    message: qsTr("Are you sure you want to remove the selected items?")
+                    onAccepted: functionManager.deleteEditorItems(seSelector.itemsList())
+                }
             }
         }
 
@@ -119,7 +127,9 @@ Rectangle
 
                     IconTextEntry
                     {
-                        anchors.fill: parent
+                        width: parent.width
+                        height: UISettings.listItemHeight
+
                         tLabel: model.cRef.name
                         iSrc:
                         {
@@ -141,10 +151,10 @@ Rectangle
 
                             onClicked:
                             {
+                                seSelector.selectItem(index, sfxList.model, mouse.modifiers & Qt.ControlModifier)
+
                                 if (compDelegate.itemType === App.FixtureDragItem)
                                 {
-                                    seSelector.selectItem(index, sfxList.model, mouse.modifiers & Qt.ControlModifier)
-
                                     if (!(mouse.modifiers & Qt.ControlModifier))
                                         contextManager.resetFixtureSelection()
 

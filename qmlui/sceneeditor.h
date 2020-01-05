@@ -77,6 +77,9 @@ public:
      *  e.g. FixtureGroup, Fixture, Palette */
     Q_INVOKABLE void addComponent(int type, quint32 id);
 
+    /** @reimp */
+    void deleteItems(QVariantList list);
+
 protected slots:
     void slotSceneValueChanged(SceneValue scv);
     void slotAliasChanged();
