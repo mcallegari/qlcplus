@@ -210,30 +210,37 @@ int RGBScript::rgbMapStepCount(const QSize& size)
     return ret;
 }
 
-RGBMap RGBScript::rgbMap(const QSize& size, uint rgb, int step)
+void RGBScript::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
 {
-    RGBMap map;
-
     QMutexLocker engineLocker(s_engineMutex);
 
     if (m_rgbMap.isUndefined() == true)
-        return map;
+        return;
 
     QJSValueList args;
     args << size.width() << size.height() << rgb << step;
-    QJSValue yarray = m_rgbMap.call(args);
+    QJSValue yarray(m_rgbMap.call(args));
+
     if (yarray.isArray() == true)
     {
         int ylen = yarray.property("length").toInt();
-        map = RGBMap(ylen);
+        map.resize(ylen);
+
         for (int y = 0; y < ylen && y < size.height(); y++)
         {
-            QJSValue xarray = yarray.property(quint32(y));
+            if (yarray.isNull() || yarray.isUndefined())
+                continue;
+
+            QJSValue xarray(yarray.property(quint32(y)));
             int xlen = xarray.property("length").toInt();
             map[y].resize(xlen);
+
             for (int x = 0; x < xlen && x < size.width(); x++)
             {
-                QJSValue yx = xarray.property(quint32(x));
+                if (xarray.isNull() || xarray.isUndefined())
+                    continue;
+
+                QJSValue yx(xarray.property(quint32(x)));
                 map[y][x] = yx.toUInt();
             }
         }
@@ -242,8 +249,6 @@ RGBMap RGBScript::rgbMap(const QSize& size, uint rgb, int step)
     {
         qWarning() << "Returned value is not an array within an array!";
     }
-
-    return map;
 }
 
 QString RGBScript::name() const

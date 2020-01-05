@@ -170,7 +170,7 @@ int RGBText::scrollingTextStepCount() const
     }
 }
 
-RGBMap RGBText::renderScrollingText(const QSize& size, uint rgb, int step) const
+void RGBText::renderScrollingText(const QSize& size, uint rgb, int step, RGBMap &map) const
 {
     QImage image;
     if (animationStyle() == Horizontal)
@@ -208,7 +208,7 @@ RGBMap RGBText::renderScrollingText(const QSize& size, uint rgb, int step) const
 
     // Treat the RGBMap as a "window" on top of the fully-drawn text and pick the
     // correct pixels according to $step.
-    RGBMap map(size.height());
+    map.resize(size.height());
     for (int y = 0; y < size.height(); y++)
     {
         map[y].resize(size.width());
@@ -226,11 +226,9 @@ RGBMap RGBText::renderScrollingText(const QSize& size, uint rgb, int step) const
             }
         }
     }
-
-    return map;
 }
 
-RGBMap RGBText::renderStaticLetters(const QSize& size, uint rgb, int step) const
+void RGBText::renderStaticLetters(const QSize& size, uint rgb, int step, RGBMap &map) const
 {
     QImage image(size, QImage::Format_RGB32);
     image.fill(QRgb(0));
@@ -246,15 +244,13 @@ RGBMap RGBText::renderStaticLetters(const QSize& size, uint rgb, int step) const
     p.drawText(rect, Qt::AlignCenter, m_text.mid(step, 1));
     p.end();
 
-    RGBMap map(size.height());
+    map.resize(size.height());
     for (int y = 0; y < size.height(); y++)
     {
         map[y].resize(size.width());
         for (int x = 0; x < size.width(); x++)
             map[y][x] = image.pixel(x, y);
     }
-
-    return map;
 }
 
 /****************************************************************************
@@ -270,12 +266,12 @@ int RGBText::rgbMapStepCount(const QSize& size)
         return scrollingTextStepCount();
 }
 
-RGBMap RGBText::rgbMap(const QSize& size, uint rgb, int step)
+void RGBText::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
 {
     if (animationStyle() == StaticLetters)
-        return renderStaticLetters(size, rgb, step);
+        return renderStaticLetters(size, rgb, step, map);
     else
-        return renderScrollingText(size, rgb, step);
+        return renderScrollingText(size, rgb, step, map);
 }
 
 QString RGBText::name() const

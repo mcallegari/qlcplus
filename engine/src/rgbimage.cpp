@@ -235,14 +235,14 @@ int RGBImage::rgbMapStepCount(const QSize& size)
     }
 }
 
-RGBMap RGBImage::rgbMap(const QSize& size, uint rgb, int step)
+void RGBImage::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
 {
     Q_UNUSED(rgb);
 
     QMutexLocker locker(&m_mutex);
 
     if (m_animatedSource == false && (m_image.width() == 0 || m_image.height() == 0))
-        return RGBMap();
+        return;
 
     int xOffs = xOffset();
     int yOffs = yOffset();
@@ -269,7 +269,7 @@ RGBMap RGBImage::rgbMap(const QSize& size, uint rgb, int step)
         m_image = m_animatedPlayer.currentImage().scaled(size);
     }
 
-    RGBMap map(size.height());
+    map.resize(size.height());
     for (int y = 0; y < size.height(); y++)
     {
         map[y].resize(size.width());
@@ -283,8 +283,6 @@ RGBMap RGBImage::rgbMap(const QSize& size, uint rgb, int step)
                 map[y][x] = 0;
         }
     }
-
-    return map;
 }
 
 QString RGBImage::name() const
