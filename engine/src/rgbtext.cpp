@@ -269,9 +269,9 @@ int RGBText::rgbMapStepCount(const QSize& size)
 void RGBText::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
 {
     if (animationStyle() == StaticLetters)
-        return renderStaticLetters(size, rgb, step, map);
+        renderStaticLetters(size, rgb, step, map);
     else
-        return renderScrollingText(size, rgb, step, map);
+        renderScrollingText(size, rgb, step, map);
 }
 
 QString RGBText::name() const
