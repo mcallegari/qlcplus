@@ -23,13 +23,9 @@ HEADERS += audio.h \
            audiocapture.h \
            audioplugincache.h
 
-lessThan(QT_MAJOR_VERSION, 5) {
-  unix:!macx:HEADERS += audiorenderer_alsa.h audiocapture_alsa.h
-  win32:HEADERS += audiorenderer_waveout.h audiocapture_wavein.h
-}
-else {
-  HEADERS += audiorenderer_qt.h audiocapture_qt.h
-}
+
+HEADERS += audiorenderer_qt.h audiocapture_qt.h
+
 
 SOURCES += audio.cpp \
            audiodecoder.cpp \
@@ -39,17 +35,12 @@ SOURCES += audio.cpp \
            audioplugincache.cpp
 
 lessThan(QT_MAJOR_VERSION, 5) {
-  unix:!macx:SOURCES += audiorenderer_alsa.cpp audiocapture_alsa.cpp
-  win32:SOURCES += audiorenderer_waveout.cpp audiocapture_wavein.cpp
-
-  macx {
     system(pkg-config --exists portaudio-2.0) {
       DEFINES += HAS_PORTAUDIO
       PKGCONFIG += portaudio-2.0
       HEADERS += audiorenderer_portaudio.h audiocapture_portaudio.h
       SOURCES += audiorenderer_portaudio.cpp audiocapture_portaudio.cpp
     }
-  }
 }
 else {
   SOURCES += audiorenderer_qt.cpp audiocapture_qt.cpp
@@ -61,6 +52,4 @@ else {
     PKGCONFIG += fftw3
     macx:LIBS += -lfftw3
   }
-
-  unix:!macx:LIBS += -lasound
 }
