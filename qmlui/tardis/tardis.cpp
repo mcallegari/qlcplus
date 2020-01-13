@@ -972,6 +972,12 @@ int Tardis::processAction(TardisAction &action, bool undo)
             member(qobject_cast<VCWidget *>(m_virtualConsole->widget(action.m_objID)), value->value<QColor>());
         }
         break;
+        case VCWidgetBackgroundColor2:
+        {
+            auto member = std::mem_fn(&VCWidget::setBackgroundColor2);
+            member(qobject_cast<VCWidget *>(m_virtualConsole->widget(action.m_objID)), value->value<QColor>());
+        }
+        break;
         case VCWidgetBackgroundImage:
         {
             auto member = std::mem_fn(&VCWidget::setBackgroundImage);

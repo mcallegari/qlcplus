@@ -26,6 +26,9 @@
 #include "tardis.h"
 #include "doc.h"
 
+
+const QColor VCWidget::defaultBackgroundColor = Qt::darkGray;
+
 VCWidget::VCWidget(Doc *doc, QObject *parent)
     : QObject(parent)
     , m_doc(doc)
@@ -38,8 +41,8 @@ VCWidget::VCWidget(Doc *doc, QObject *parent)
     , m_isDisabled(false)
     , m_isVisible(true)
     , m_caption(QString())
-    , m_backgroundColor(QColor("#333"))
-    , m_hasCustomBackgroundColor(false)
+    , m_backgroundColor(defaultBackgroundColor)
+    , m_backgroundColor2(defaultBackgroundColor)
     , m_backgroundImage(QString())
     , m_foregroundColor(QColor(Qt::white))
     , m_hasCustomForegroundColor(false)
@@ -99,9 +102,10 @@ bool VCWidget::copyFrom(const VCWidget* widget)
 
     m_backgroundImage = widget->m_backgroundImage;
 
-    m_hasCustomBackgroundColor = widget->m_hasCustomBackgroundColor;
-    if (m_hasCustomBackgroundColor == true)
+    if (widget->hasCustomBackgroundColor())
         setBackgroundColor(widget->backgroundColor());
+    if (widget->hasCustomBackgroundColor2())
+        setBackgroundColor2(widget->backgroundColor2());
 
     m_hasCustomForegroundColor = widget->m_hasCustomForegroundColor;
     if (m_hasCustomForegroundColor == true)
@@ -368,30 +372,55 @@ QColor VCWidget::backgroundColor() const
     return m_backgroundColor;
 }
 
+QColor VCWidget::backgroundColor2() const
+{
+    return m_backgroundColor2;
+}
+
 void VCWidget::setBackgroundColor(QColor backgroundColor)
 {
     if (m_backgroundColor == backgroundColor)
         return;
 
-    setBackgroundImage("");
     enqueueTardisAction(Tardis::VCWidgetBackgroundColor, m_backgroundColor, backgroundColor);
 
     m_backgroundColor = backgroundColor;
-    m_hasCustomBackgroundColor = true;
     emit backgroundColorChanged(backgroundColor);
 }
 
-bool VCWidget::hasCustomBackgroundColor() const
+void VCWidget::setBackgroundColor2(QColor backgroundColor)
 {
-    return m_hasCustomBackgroundColor;
+    if (m_backgroundColor2 == backgroundColor)
+        return;
+
+    enqueueTardisAction(Tardis::VCWidgetBackgroundColor2, m_backgroundColor2, backgroundColor);
+
+    m_backgroundColor2 = backgroundColor;
+    emit backgroundColor2Changed(backgroundColor);
 }
 
 void VCWidget::resetBackgroundColor()
 {
-    m_hasCustomBackgroundColor = false;
-    m_backgroundColor = Qt::gray;
+    m_backgroundColor = defaultBackgroundColor;
     setDocModified();
     emit backgroundColorChanged(m_backgroundColor);
+}
+
+void VCWidget::resetBackgroundColor2()
+{
+    m_backgroundColor2 = defaultBackgroundColor;
+    setDocModified();
+    emit backgroundColor2Changed(m_backgroundColor2);
+}
+
+bool VCWidget::hasCustomBackgroundColor() const
+{
+    return m_backgroundColor != defaultBackgroundColor;
+}
+
+bool VCWidget::hasCustomBackgroundColor2() const
+{
+    return m_backgroundColor2 != defaultBackgroundColor;
 }
 
 /*********************************************************************
@@ -406,7 +435,6 @@ void VCWidget::setBackgroundImage(QString path)
 
     enqueueTardisAction(Tardis::VCWidgetBackgroundImage, m_backgroundImage, strippedPath);
 
-    m_hasCustomBackgroundColor = false;
     m_backgroundImage = strippedPath;
 
     emit backgroundImageChanged(strippedPath);
@@ -955,6 +983,12 @@ bool VCWidget::loadXMLAppearance(QXmlStreamReader &root)
             if (str != KXMLQLCVCWidgetColorDefault)
                 setBackgroundColor(QColor(str.toUInt()));
         }
+        else if (root.name() == KXMLQLCVCWidgetBackgroundColor2)
+        {
+            QString str = root.readElementText();
+            if (str != KXMLQLCVCWidgetColorDefault)
+                setBackgroundColor2(QColor(str.toUInt()));
+        }
         else if (root.name() == KXMLQLCVCWidgetBackgroundImage)
         {
             QString str = root.readElementText();
@@ -1114,6 +1148,7 @@ bool VCWidget::saveXMLAppearance(QXmlStreamWriter *doc)
 
     if (hasCustomForegroundColor() == false &&
         hasCustomBackgroundColor() == false &&
+        hasCustomBackgroundColor2() == false &&
         //backgroundImage().isEmpty() &&
         hasCustomFont() == false)
             return true;
@@ -1125,8 +1160,6 @@ bool VCWidget::saveXMLAppearance(QXmlStreamWriter *doc)
     if (hasCustomForegroundColor() == true)
     {
         str.setNum(foregroundColor().rgb());
-    //else
-    //    str = KXMLQLCVCWidgetColorDefault;
         doc->writeTextElement(KXMLQLCVCWidgetForegroundColor, str);
     }
 
@@ -1134,9 +1167,14 @@ bool VCWidget::saveXMLAppearance(QXmlStreamWriter *doc)
     if (hasCustomBackgroundColor() == true)
     {
         str.setNum(backgroundColor().rgb());
-    //else
-    //    str = KXMLQLCVCWidgetColorDefault;
         doc->writeTextElement(KXMLQLCVCWidgetBackgroundColor, str);
+    }
+
+    /* Background color 2 */
+    if (hasCustomBackgroundColor2() == true)
+    {
+        str.setNum(backgroundColor2().rgb());
+        doc->writeTextElement(KXMLQLCVCWidgetBackgroundColor2, str);
     }
 
     /* Background image */

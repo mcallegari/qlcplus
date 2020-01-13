@@ -194,6 +194,7 @@ public:
     Q_INVOKABLE void setWidgetsCaption(QString caption);
     Q_INVOKABLE void setWidgetsForegroundColor(QColor color);
     Q_INVOKABLE void setWidgetsBackgroundColor(QColor color);
+    Q_INVOKABLE void setWidgetsBackgroundColor2(QColor color);
     Q_INVOKABLE void setWidgetsBackgroundImage(QString path);
     Q_INVOKABLE void setWidgetsFont(QFont font);
 

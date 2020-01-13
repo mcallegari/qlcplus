@@ -67,10 +67,30 @@ Rectangle
 
         onColorChanged:
         {
-            if(wObj && selectedWidgetsCount < 2)
+            // This control flow is required to allow the background color of a vc page itself
+            if (wObj && selectedWidgetsCount < 2)
                 wObj.backgroundColor = Qt.rgba(r, g, b, 1.0)
             else
                 virtualConsole.setWidgetsBackgroundColor(Qt.rgba(r, g, b, 1.0))
+        }
+    }
+
+    ColorTool
+    {
+        id: bgColTool2
+        parent: mainView
+        x: rightSidePanel.x - width
+        y: 100
+        visible: false
+        currentRGB: wObj ? wObj.backgroundColor2 : "black"
+
+        onColorChanged:
+        {
+            // This control flow is required to allow the background color of a vc page itself
+            if (wObj && selectedWidgetsCount < 2)
+                wObj.backgroundColor2 = Qt.rgba(r, g, b, 1.0)
+            else
+                virtualConsole.setWidgetsBackgroundColor2(Qt.rgba(r, g, b, 1.0))
         }
     }
 
@@ -85,7 +105,8 @@ Rectangle
 
         onColorChanged:
         {
-            if(wObj && selectedWidgetsCount < 2)
+            // This control flow is required to allow the foreground color of a vc page itself
+            if (wObj && selectedWidgetsCount < 2)
                 wObj.foregroundColor = Qt.rgba(r, g, b, 1.0)
             else
                 virtualConsole.setWidgetsForegroundColor(Qt.rgba(r, g, b, 1.0))
@@ -245,12 +266,41 @@ Rectangle
                                 onClicked:
                                 {
                                     fgColTool.visible = false
+                                    bgColTool2.visible = false
+
                                     bgColTool.visible = !bgColTool.visible
+                                    bgColTool.currentRGB = wObj.backgroundColor
                                 }
                             }
                         }
 
                         // row 3
+                        RobotoText
+                        {
+                            height: UISettings.listItemHeight
+                            label: qsTr("Background color 2")
+                        }
+                        Rectangle
+                        {
+                            Layout.fillWidth: true
+                            height: UISettings.listItemHeight
+                            color: wObj ? wObj.backgroundColor2 : "black"
+
+                            MouseArea
+                            {
+                                anchors.fill: parent
+                                onClicked:
+                                {
+                                    fgColTool.visible = false
+                                    bgColTool.visible = false
+
+                                    bgColTool2.visible = !bgColTool2.visible
+                                    bgColTool2.currentRGB = wObj.backgroundColor2
+                                }
+                            }
+                        }
+
+                        // row 4
                         RobotoText
                         {
                             height: UISettings.listItemHeight
@@ -268,12 +318,13 @@ Rectangle
                                 onClicked:
                                 {
                                     bgColTool.visible = false
+                                    bgColTool2.visible = false
                                     fgColTool.visible = !fgColTool.visible
                                 }
                             }
                         }
 
-                        // row 4
+                        // row 5
                         RobotoText
                         {
                             height: UISettings.listItemHeight
@@ -328,7 +379,7 @@ Rectangle
                             }
                         }
 
-                        // row 5
+                        // row 6
                         RobotoText
                         {
                             height: UISettings.listItemHeight
@@ -377,7 +428,7 @@ Rectangle
                             }
                         }
 
-                        // row 6
+                        // row 7
                         RobotoText
                         {
                             visible: selectedWidgetsCount > 1 ? true : false

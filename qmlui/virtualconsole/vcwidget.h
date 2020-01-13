@@ -39,6 +39,7 @@
 
 #define KXMLQLCVCWidgetForegroundColor "ForegroundColor"
 #define KXMLQLCVCWidgetBackgroundColor "BackgroundColor"
+#define KXMLQLCVCWidgetBackgroundColor2 "BackgroundColor2"
 #define KXMLQLCVCWidgetColorDefault "Default"
 
 #define KXMLQLCVCWidgetFont "Font"
@@ -82,6 +83,7 @@ class VCWidget : public QObject
     Q_PROPERTY(bool isVisible READ isVisible WRITE setVisible NOTIFY isVisibleChanged)
     Q_PROPERTY(QString caption READ caption WRITE setCaption NOTIFY captionChanged)
     Q_PROPERTY(QColor backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged)
+    Q_PROPERTY(QColor backgroundColor2 READ backgroundColor2 WRITE setBackgroundColor2 NOTIFY backgroundColor2Changed)
     Q_PROPERTY(QString backgroundImage READ backgroundImage WRITE setBackgroundImage NOTIFY backgroundImageChanged)
     Q_PROPERTY(QColor foregroundColor READ foregroundColor WRITE setForegroundColor NOTIFY foregroundColorChanged)
     Q_PROPERTY(QFont font READ font WRITE setFont NOTIFY fontChanged)
@@ -285,21 +287,38 @@ public:
         widget has a background image. */
     QColor backgroundColor() const;
 
+    /** Get the widget's background color2. The color is invalid if the
+        widget has a background image. */
+    QColor backgroundColor2() const;
+
     /** Set the widget's background color and invalidate background image */
     void setBackgroundColor(QColor backgroundColor);
 
+    /** Set the widget's background color and invalidate background image */
+    void setBackgroundColor2(QColor backgroundColor);
+
     /** Check, whether the widget has a custom background color */
-    bool hasCustomBackgroundColor() const;
+    Q_INVOKABLE bool hasCustomBackgroundColor() const;
+
+    /** Check, whether the widget has a custom background color */
+    Q_INVOKABLE bool hasCustomBackgroundColor2() const;
 
     /** Reset the widget's background color to default */
     void resetBackgroundColor();
 
+    /** Reset the widget's background color to default */
+    void resetBackgroundColor2();
+
+    /** The default background color of all widgets */
+    static const QColor defaultBackgroundColor;
+
 signals:
     void backgroundColorChanged(QColor backgroundColor);
+    void backgroundColor2Changed(QColor backgroundColor);
 
 protected:
     QColor m_backgroundColor;
-    bool m_hasCustomBackgroundColor;
+    QColor m_backgroundColor2;
 
     /*********************************************************************
      * Background image

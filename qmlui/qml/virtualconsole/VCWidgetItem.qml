@@ -18,6 +18,7 @@
 */
 
 import QtQuick 2.0
+import QtGraphicalEffects 1.0
 
 import org.qlcplus.classes 1.0
 import "."
@@ -41,6 +42,22 @@ Rectangle
     Drag.source: wRoot
     Drag.keys: [ "vcwidget" ]
     Drag.active: dragMouseArea.drag.active
+
+    // Horizontal split background
+    LinearGradient {
+        id: gradientBackground
+        anchors.fill: parent
+        anchors.margins: 1
+        start: Qt.point(0, 0)
+        end: Qt.point(parent.width, 0)
+        visible: wObj && wObj.backgroundColor2 && wObj.hasCustomBackgroundColor() && wObj.hasCustomBackgroundColor2() ? true : false
+        gradient: Gradient {
+            GradientStop { position: 0.0; color: wObj ? wObj.backgroundColor : "darkgray" }
+            GradientStop { position: 0.49999999999; color: wObj ? wObj.backgroundColor : "darkgray" }
+            GradientStop { position: 0.5; color: wObj ? wObj.backgroundColor2 : "darkgray" }
+            GradientStop { position: 1.0; color: wObj ? wObj.backgroundColor2 : "darkgray" }
+        }
+    }
 
     onIsSelectedChanged:
     {

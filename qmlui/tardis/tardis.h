@@ -151,6 +151,7 @@ public:
         VCWidgetVisible,
         VCWidgetCaption,
         VCWidgetBackgroundColor,
+        VCWidgetBackgroundColor2,
         VCWidgetBackgroundImage,
         VCWidgetForegroundColor,
         VCWidgetFont,

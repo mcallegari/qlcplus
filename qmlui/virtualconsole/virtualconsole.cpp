@@ -681,6 +681,18 @@ void VirtualConsole::setWidgetsBackgroundColor(QColor color)
     }
 }
 
+void VirtualConsole::setWidgetsBackgroundColor2(QColor color)
+{
+    QMapIterator<quint32, QQuickItem*> it(m_itemsMap);
+    while(it.hasNext())
+    {
+        it.next();
+
+        VCWidget *widget = m_widgetsMap[it.key()];
+        widget->setBackgroundColor2(color);
+    }
+}
+
 void VirtualConsole::setWidgetsBackgroundImage(QString path)
 {
     QMapIterator<quint32, QQuickItem*> it(m_itemsMap);

@@ -32,10 +32,15 @@ VCWidgetItem
 
     radius: 4
 
-    gradient: Gradient
+    // Overlay a shading gradient
+    Rectangle
     {
-        GradientStop { position: 0 ; color: Qt.lighter(buttonRoot.color, 1.3) }
-        GradientStop { position: 1 ; color: buttonRoot.color }
+        anchors.fill: parent
+        gradient: Gradient
+        {
+            GradientStop { position: 0 ; color: "#66FFFFFF" }
+            GradientStop { position: 0.67 ; color: "#00FFFFFF" }
+        }
     }
 
     function checkActionType()
