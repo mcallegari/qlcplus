@@ -547,8 +547,12 @@ QStringList VirtualConsole::selectedWidgetNames()
         foreach(quint32 wID, m_itemsMap.keys())
         {
             VCWidget *vcWidget = m_widgetsMap[wID];
-            if (vcWidget != nullptr)
-                names << vcWidget->caption();
+            if (vcWidget != nullptr) {
+                if (vcWidget->caption().isEmpty())
+                    names << vcWidget->typeToString(vcWidget->type());
+                else
+                    names << vcWidget->caption();
+            }
         }
     }
 
