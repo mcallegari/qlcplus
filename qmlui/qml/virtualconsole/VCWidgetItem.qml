@@ -97,6 +97,7 @@ Rectangle
         id: bgImage
         anchors.fill: parent
         source: wObj && wObj.backgroundImage !== "" ? "file://" + wObj.backgroundImage : ""
+        sourceSize: Qt.size(width, height)
     }
 
     // resize area

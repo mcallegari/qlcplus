@@ -364,7 +364,7 @@ Rectangle
                                     id: fileDialog
                                     visible: false
                                     title: qsTr("Select an image")
-                                    nameFilters: [ "Image files (*.png *.bmp *.jpg *.jpeg *.gif)", "All files (*)" ]
+                                    nameFilters: [ "Image files (*.png *.bmp *.jpg *.jpeg *.gif *.svg)", "All files (*)" ]
 
                                     onAccepted:
                                     {
