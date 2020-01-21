@@ -38,6 +38,7 @@ Rectangle
     property color currentRGB
     property color currentWAUV
     property string colorToolQML: "qrc:/ColorToolBasic.qml"
+    property alias showPalette: paletteBox.visible
 
     signal colorChanged(real r, real g, real b, real w, real a, real uv)
 
@@ -130,7 +131,7 @@ Rectangle
         //objectName: "editorLoader"
         anchors.top: colorToolBar.bottom
         width: colorToolBox.width
-        height: colorToolBox.height - colorToolBar.height - paletteBox.height - 4
+        height: colorToolBox.height - colorToolBar.height - (paletteBox.visible ? paletteBox.height + 4 : 0)
         source: colorToolQML
 
         onLoaded:

@@ -64,6 +64,7 @@ Rectangle
         y: 100
         visible: false
         currentRGB: wObj ? wObj.backgroundColor : "black"
+        showPalette: false
 
         onColorChanged:
         {
@@ -82,6 +83,7 @@ Rectangle
         y: 100
         visible: false
         currentRGB: wObj ? wObj.foregroundColor : "black"
+        showPalette: false
 
         onColorChanged:
         {

@@ -33,12 +33,15 @@ Rectangle
 
     property alias checked: fanningButton.checked
     property alias isPicking: colorPicker.checked
-    property QLCPalette palette
+    property QLCPalette palette: null
     property int paletteType: QLCPalette.Undefined
     property var value1: 0
     property var value2: 0
 
-    onVisibleChanged: palette = paletteManager.getEditingPalette(paletteType)
+    onVisibleChanged: {
+        if (visible)
+            palette = paletteManager.getEditingPalette(paletteType)
+    }
 
     function updatePreview()
     {
