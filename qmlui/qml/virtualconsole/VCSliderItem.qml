@@ -31,6 +31,7 @@ VCWidgetItem
     property int sliderMode: sliderObj ? sliderObj.sliderMode : VCSlider.Adjust
 
     radius: 2
+    width: screenPixelDensity * 15
 
     onSliderObjChanged:
     {
