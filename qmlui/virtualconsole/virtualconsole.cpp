@@ -745,7 +745,7 @@ void VirtualConsole::deleteVCWidgets(QVariantList IDList)
         m_widgetsMap.remove(wID);
 
         /* 4- perform the actual widget deletion */
-        delete w;
+        w->deleteLater();
     }
     m_itemsMap.clear();
 }

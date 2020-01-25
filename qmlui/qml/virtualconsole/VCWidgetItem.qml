@@ -18,6 +18,7 @@
 */
 
 import QtQuick 2.0
+import QtQuick.Controls 2.13
 
 import org.qlcplus.classes 1.0
 import "."
@@ -303,6 +304,73 @@ Rectangle
                     wRoot.width -= blHandle.x
                 }
                 onReleased: wRoot.updateGeometry(drag)
+            }
+        }
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        acceptedButtons: Qt.RightButton
+        onClicked:
+        {
+            if (virtualConsole.editMode)
+            {
+                contextMenu.x = mouse.x
+                contextMenu.y = mouse.y
+                contextMenu.open()
+            }
+        }
+    }
+
+    Popup
+    {
+        id: contextMenu
+        padding: 0
+
+        background: Rectangle
+        {
+            color: UISettings.bgStrong
+            border.color: UISettings.bgStronger
+        }
+
+        Column
+        {
+            ContextMenuEntry
+            {
+                entryText: qsTr("Copy")
+                height: UISettings.listItemHeight
+                // Use the PIN property to identify a vcPage - do not show on vcPage
+                visible: (wObj.PIN === undefined)
+                enabled: virtualConsole.selectedWidgetsCount > 0
+                onClicked:
+                {
+                    virtualConsole.copyToClipboard()
+                    contextMenu.close()
+                }
+            }
+            ContextMenuEntry
+            {
+                entryText: qsTr("Paste")
+                height: UISettings.listItemHeight
+                enabled: virtualConsole.clipboardItemsCount > 0
+                onClicked:
+                {
+                    virtualConsole.pasteFromClipboard()
+                    contextMenu.close()
+                }
+            }
+            ContextMenuEntry
+            {
+                entryText: qsTr("Delete")
+                height: UISettings.listItemHeight
+                // Use the PIN property to identify a vcPage - do not show on vcPage
+                visible: (wObj.PIN === undefined)
+                enabled: virtualConsole.selectedWidgetsCount > 0
+                onClicked:
+                {
+                    virtualConsole.deleteVCWidgets(virtualConsole.selectedWidgetIDs())
+                    contextMenu.close()
+                }
             }
         }
     }
