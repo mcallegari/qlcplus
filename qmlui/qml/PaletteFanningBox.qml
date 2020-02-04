@@ -24,12 +24,11 @@ import QtQuick.Layouts 1.1
 import org.qlcplus.classes 1.0
 import "."
 
-Rectangle
+Item
 {
     id: boxRoot
     width: 330
-    height: UISettings.iconSizeMedium
-    color: "transparent"
+    height: boxLayout.height
 
     property alias checked: fanningButton.checked
     property alias isPicking: colorPicker.checked
@@ -92,52 +91,48 @@ Rectangle
         id: palettePopup
     }
 
-    RowLayout
+    Column
     {
-        width: boxRoot.width
-        height: UISettings.iconSizeMedium
+        id: boxLayout
+        width: parent.width
 
-        IconButton
+        RowLayout
         {
-            id: fanningButton
-            width: UISettings.iconSizeMedium
-            height: width
-            imgSource: "qrc:/fanning.svg"
-            tooltip: qsTr("Show/Hide fanning options")
-            checkable: true
-            checked: false
-        }
-
-        Rectangle
-        {
-            color: "transparent"
-            Layout.fillWidth: true
+            width: boxRoot.width
             height: UISettings.iconSizeMedium
-        }
 
-        IconButton
-        {
-            width: UISettings.iconSizeMedium
-            height: width
-            imgSource: "qrc:/palette.svg"
-            tooltip: qsTr("Create a new palette")
-            onClicked: boxRoot.showPalettePopup()
-        }
-    }
+            IconButton
+            {
+                id: fanningButton
+                width: UISettings.iconSizeMedium
+                height: width
+                imgSource: "qrc:/fanning.svg"
+                tooltip: qsTr("Show/Hide fanning options")
+                checkable: true
+                checked: false
+            }
 
-    Rectangle
-    {
-        visible: fanningButton.checked
-        y: UISettings.iconSizeMedium + 2
-        width: paramsGrid.width + 10
-        height: paramsGrid.height + 10
-        color: UISettings.bgMedium
-        border.color: UISettings.bgLight
-        border.width: 2
+            Rectangle
+            {
+                color: "transparent"
+                Layout.fillWidth: true
+                height: UISettings.iconSizeMedium
+            }
+
+            IconButton
+            {
+                width: UISettings.iconSizeMedium
+                height: width
+                imgSource: "qrc:/palette.svg"
+                tooltip: qsTr("Create a new palette")
+                onClicked: boxRoot.showPalettePopup()
+            }
+        }
 
         GridLayout
         {
             id: paramsGrid
+            visible: fanningButton.checked
             columns: 2
             x: 5
             y: 5
@@ -391,5 +386,5 @@ Rectangle
                 }
             }
         } // GridLayout
-    } // Rectangle
+    } // Column
 }

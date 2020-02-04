@@ -41,7 +41,7 @@ RowLayout
         rotation: 180
         bgColor: UISettings.bgMedium
         imgSource: "qrc:/arrow-right.svg"
-        tooltip: qsTr("Go back to the Function Manager")
+        tooltip: qsTr("Go back to the previous view")
         onClicked: backClicked()
     }
 

@@ -213,6 +213,28 @@ Rectangle
 
                           pDragItem.itemsList.push(pDelegate)
                       }
+                      onDoubleClicked:
+                      {
+                          var paletteType = pDelegate.cRef.type
+                          console.log("Palette type: " + paletteType)
+                          toolLoader.paletteID = pDelegate.cRef.id
+
+                          switch (paletteType)
+                          {
+                              case QLCPalette.Dimmer:
+                                  toolLoader.source = "qrc:/IntensityTool.qml"
+                              break
+                              case QLCPalette.Color:
+                                  toolLoader.source = "qrc:/ColorTool.qml"
+                              break
+                              case QLCPalette.Pan:
+                              case QLCPalette.Tilt:
+                              case QLCPalette.PanTilt:
+                                  toolLoader.source = "qrc:/PositionTool.qml"
+                              break
+                          }
+                      }
+
                       onDragActiveChanged:
                       {
                           if (dragActive)
@@ -281,4 +303,17 @@ Rectangle
           }
       } // ListView
     } // ColumnLayout
+
+    Loader
+    {
+        id: toolLoader
+        anchors.fill: parent
+
+        property int paletteID
+
+        onLoaded:
+        {
+            item.loadPalette(paletteID)
+        }
+    }
 }

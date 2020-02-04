@@ -28,10 +28,10 @@ Rectangle
 {
     id: intRoot
     width: UISettings.bigItemHeight * 1.5
-    height: UISettings.bigItemHeight * 3
+    height: (UISettings.bigItemHeight * 3) + paletteBox.height
     color: UISettings.bgMedium
-    border.color: UISettings.bgLight
-    border.width: 2
+    //border.color: UISettings.bgLight
+    //border.width: 2
 
     property bool dmxValues: true
     property alias currentValue: spinBox.value
@@ -53,6 +53,17 @@ Rectangle
 
     onVisibleChanged: if(!visible) paletteBox.checked = false
 
+    function loadPalette(id)
+    {
+        var palette = paletteManager.getPalette(id)
+        if (palette)
+        {
+            dragTopBar.visible = false
+            paletteToolbar.visible = true
+            paletteToolbar.text = palette.name
+        }
+    }
+
     MouseArea
     {
         anchors.fill: parent
@@ -68,6 +79,7 @@ Rectangle
         // draggable topbar
         Rectangle
         {
+            id: dragTopBar
             width: parent.width
             height: UISettings.listItemHeight
             z: 10
@@ -95,6 +107,12 @@ Rectangle
             }
         }
 
+        EditorTopBar
+        {
+            id: paletteToolbar
+            visible: false
+        }
+
         // main control 'widget'
         Rectangle
         {
@@ -102,7 +120,7 @@ Rectangle
             color: "transparent"
             x: (parent.width - width) / 2
             width: intRoot.width * 0.75
-            height: intRoot.height - (UISettings.listItemHeight * 2) - UISettings.iconSizeMedium - 20
+            height: intRoot.height - (UISettings.listItemHeight * 2) - paletteBox.height - 20
 
             Image
             {
@@ -199,6 +217,6 @@ Rectangle
             paletteType: QLCPalette.Dimmer
             value1: intRoot.currentValue
         }
-    }
+    } // Column
 }
 

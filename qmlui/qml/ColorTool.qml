@@ -28,10 +28,9 @@ Rectangle
 {
     id: colorToolBox
     width: UISettings.bigItemHeight * 3
-    height: UISettings.bigItemHeight * 4
+    height: (paletteToolbar.visible ? paletteToolbar.height : 0) +
+            colorToolBar.height + toolLoader.height + paletteBox.height
     color: UISettings.bgMedium
-    border.color: UISettings.bgLight
-    border.width: 2
 
     property bool closeOnSelect: false
     property int colorsMask: 0
@@ -42,140 +41,161 @@ Rectangle
 
     signal colorChanged(real r, real g, real b, real w, real a, real uv)
 
+    function loadPalette(id)
+    {
+        var palette = paletteManager.getPalette(id)
+        if (palette)
+        {
+            dragTopBar.visible = false
+            paletteToolbar.visible = true
+            paletteToolbar.text = palette.name
+        }
+    }
+
     MouseArea
     {
         anchors.fill: parent
         onWheel: { return false }
     }
 
-    Rectangle
+    ColumnLayout
     {
-        id: colorToolBar
+        id: toolBody
         width: parent.width
-        height: UISettings.listItemHeight
-        z: 10
-        gradient:
-            Gradient
-            {
-                id: cBarGradient
-                GradientStop { position: 0; color: UISettings.toolbarStartSub }
-                GradientStop { position: 1; color: UISettings.toolbarEnd }
-            }
+        spacing: 0
 
-        RowLayout
+        EditorTopBar
         {
-            id: rowLayout1
-            anchors.fill: parent
-            spacing: 5
-            ButtonGroup { id: ctMenuBarGroup }
-
-            MenuBarEntry
-            {
-                id: basicView
-                entryText: qsTr("Basic")
-                checked: true
-                checkedColor: "green"
-                bgGradient: cBarGradient
-                ButtonGroup.group: ctMenuBarGroup
-                mFontSize: UISettings.textSizeDefault
-                onCheckedChanged:
-                {
-                    if (checked == true)
-                        colorToolQML = "qrc:/ColorToolBasic.qml"
-                }
-            }
-
-            MenuBarEntry
-            {
-                id: rgbView
-                entryText: qsTr("Full")
-                checkedColor: "green"
-                bgGradient: cBarGradient
-                ButtonGroup.group: ctMenuBarGroup
-                mFontSize: UISettings.textSizeDefault
-                onCheckedChanged:
-                {
-                    if (checked == true)
-                        colorToolQML = "qrc:/ColorToolFull.qml"
-                }
-            }
-            MenuBarEntry
-            {
-                id: filtersView
-                entryText: qsTr("Filters")
-                checkedColor: "green"
-                bgGradient: cBarGradient
-                ButtonGroup.group: ctMenuBarGroup
-                mFontSize: UISettings.textSizeDefault
-                onCheckedChanged:
-                {
-                    if (checked == true)
-                        colorToolQML = "qrc:/ColorToolFilters.qml"
-                }
-            }
-            // allow the tool to be dragged around
-            // by holding it on the title bar
-            MouseArea
-            {
-                Layout.fillWidth: true
-                height: colorToolBar.height
-                drag.target: colorToolBox
-            }
-        }
-    }
-
-    Loader
-    {
-        id: toolLoader
-        z: 0
-        //objectName: "editorLoader"
-        anchors.top: colorToolBar.bottom
-        width: colorToolBox.width
-        height: colorToolBox.height - colorToolBar.height - (paletteBox.visible ? paletteBox.height + 4 : 0)
-        source: colorToolQML
-
-        onLoaded:
-        {
-            item.width = width
-            item.colorsMask = Qt.binding(function() { return colorToolBox.colorsMask })
-            if (item.hasOwnProperty("currentRGB"))
-                item.currentRGB = Qt.binding(function() { return colorToolBox.currentRGB })
-            if (item.hasOwnProperty("currentWAUV"))
-                item.currentWAUV = Qt.binding(function() { return colorToolBox.currentWAUV })
+            id: paletteToolbar
+            visible: false
         }
 
-        Connections
+        Rectangle
         {
-            target: toolLoader.item
-            ignoreUnknownSignals: true
-            onColorChanged:
+            id: colorToolBar
+            width: parent.width
+            height: UISettings.listItemHeight
+            z: 10
+            gradient:
+                Gradient
+                {
+                    id: cBarGradient
+                    GradientStop { position: 0; color: UISettings.toolbarStartSub }
+                    GradientStop { position: 1; color: UISettings.toolbarEnd }
+                }
+
+            RowLayout
             {
-                if (paletteBox.checked && paletteBox.isPicking)
+                id: rowLayout1
+                anchors.fill: parent
+                spacing: 5
+                ButtonGroup { id: ctMenuBarGroup }
+
+                MenuBarEntry
                 {
-                    var rgb = Qt.rgba(r, g, b, 1.0)
-                    paletteBox.setColor(rgb)
-                }
-                else
-                {
-                    currentRGB = Qt.rgba(r, g, b, 1.0)
-                    currentWAUV = Qt.rgba(w, a, uv, 1.0)
-                    colorToolBox.colorChanged(r, g, b, w, a, uv)
+                    id: basicView
+                    entryText: qsTr("Basic")
+                    checked: true
+                    checkedColor: "green"
+                    bgGradient: cBarGradient
+                    ButtonGroup.group: ctMenuBarGroup
+                    mFontSize: UISettings.textSizeDefault
+                    onCheckedChanged:
+                    {
+                        if (checked == true)
+                            colorToolQML = "qrc:/ColorToolBasic.qml"
+                    }
                 }
 
-                if (paletteBox.checked)
-                    paletteBox.updatePreview()
+                MenuBarEntry
+                {
+                    id: rgbView
+                    entryText: qsTr("Full")
+                    checkedColor: "green"
+                    bgGradient: cBarGradient
+                    ButtonGroup.group: ctMenuBarGroup
+                    mFontSize: UISettings.textSizeDefault
+                    onCheckedChanged:
+                    {
+                        if (checked == true)
+                            colorToolQML = "qrc:/ColorToolFull.qml"
+                    }
+                }
+                MenuBarEntry
+                {
+                    id: filtersView
+                    entryText: qsTr("Filters")
+                    checkedColor: "green"
+                    bgGradient: cBarGradient
+                    ButtonGroup.group: ctMenuBarGroup
+                    mFontSize: UISettings.textSizeDefault
+                    onCheckedChanged:
+                    {
+                        if (checked == true)
+                            colorToolQML = "qrc:/ColorToolFilters.qml"
+                    }
+                }
+                // allow the tool to be dragged around
+                // by holding it on the title bar
+                MouseArea
+                {
+                    Layout.fillWidth: true
+                    height: colorToolBar.height
+                    drag.target: colorToolBox
+                }
             }
-            onReleased: if (closeOnSelect) colorToolBox.visible = false
         }
-    }
 
-    PaletteFanningBox
-    {
-        id: paletteBox
-        x: 5
-        y: colorToolBox.height - height - 2
-        width: colorToolBox.width - 10
-        paletteType: QLCPalette.Color
-        value1: colorToolBox.currentRGB
-    }
+        Loader
+        {
+            id: toolLoader
+            z: 0
+            width: colorToolBox.width
+            height: UISettings.bigItemHeight * 3.3
+            source: colorToolQML
+
+            onLoaded:
+            {
+                item.width = width
+                item.colorsMask = Qt.binding(function() { return colorToolBox.colorsMask })
+                if (item.hasOwnProperty("currentRGB"))
+                    item.currentRGB = Qt.binding(function() { return colorToolBox.currentRGB })
+                if (item.hasOwnProperty("currentWAUV"))
+                    item.currentWAUV = Qt.binding(function() { return colorToolBox.currentWAUV })
+            }
+
+            Connections
+            {
+                target: toolLoader.item
+                ignoreUnknownSignals: true
+                onColorChanged:
+                {
+                    if (paletteBox.checked && paletteBox.isPicking)
+                    {
+                        var rgb = Qt.rgba(r, g, b, 1.0)
+                        paletteBox.setColor(rgb)
+                    }
+                    else
+                    {
+                        currentRGB = Qt.rgba(r, g, b, 1.0)
+                        currentWAUV = Qt.rgba(w, a, uv, 1.0)
+                        colorToolBox.colorChanged(r, g, b, w, a, uv)
+                    }
+
+                    if (paletteBox.checked)
+                        paletteBox.updatePreview()
+                }
+                onReleased: if (closeOnSelect) colorToolBox.visible = false
+            }
+        }
+
+        PaletteFanningBox
+        {
+            id: paletteBox
+            x: 5
+            width: colorToolBox.width - 10
+            paletteType: QLCPalette.Color
+            value1: colorToolBox.currentRGB
+        }
+    } // Column
 }
