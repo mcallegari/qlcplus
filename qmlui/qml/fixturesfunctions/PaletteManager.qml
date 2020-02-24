@@ -33,9 +33,9 @@ Rectangle
     function setTypeFilter(pType, checked)
     {
         if (checked === true)
-            paletteManager.typeFilter |= fType
+            paletteManager.typeFilter |= pType
         else
-            paletteManager.typeFilter &= ~fType
+            paletteManager.typeFilter &= ~pType
     }
 
     ModelSelector
@@ -117,10 +117,10 @@ Rectangle
                 height: topBar.height - 2
                 imgSource: "qrc:/position.svg"
                 checkable: true
-                checked: paletteManager.typeFilter & QLCPalette.Position
+                checked: paletteManager.typeFilter & (QLCPalette.Pan || QLCPalette.Tilt || QLCPalette.PanTilt)
                 tooltip: qsTr("Position")
                 counter: paletteManager.positionCount
-                onCheckedChanged: setTypeFilter(QLCPalette.Position, checked)
+                onCheckedChanged: setTypeFilter(QLCPalette.Pan | QLCPalette.Tilt | QLCPalette.PanTilt, checked)
             }
 
             Rectangle { Layout.fillWidth: true }
@@ -310,6 +310,11 @@ Rectangle
         anchors.fill: parent
 
         property int paletteID
+
+        function dismiss()
+        {
+            source = ""
+        }
 
         onLoaded:
         {

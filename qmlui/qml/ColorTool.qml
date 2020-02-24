@@ -46,9 +46,9 @@ Rectangle
         var palette = paletteManager.getPalette(id)
         if (palette)
         {
-            dragTopBar.visible = false
             paletteToolbar.visible = true
             paletteToolbar.text = palette.name
+            paletteBox.palette = palette
         }
     }
 
@@ -68,6 +68,8 @@ Rectangle
         {
             id: paletteToolbar
             visible: false
+            onBackClicked: colorToolBox.parent.dismiss()
+            onTextChanged: paletteBox.palette.name = text
         }
 
         Rectangle

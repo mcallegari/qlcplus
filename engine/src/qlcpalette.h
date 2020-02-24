@@ -47,6 +47,8 @@ class QLCPalette : public QObject
     Q_PROPERTY(quint32 id READ id CONSTANT)
     Q_PROPERTY(int type READ type CONSTANT)
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
+    Q_PROPERTY(int intValue1 READ intValue1 CONSTANT)
+    Q_PROPERTY(int intValue2 READ intValue2 CONSTANT)
     Q_PROPERTY(FanningType fanningType READ fanningType WRITE setFanningType NOTIFY fanningTypeChanged)
     Q_PROPERTY(FanningLayout fanningLayout READ fanningLayout WRITE setFanningLayout NOTIFY fanningLayoutChanged)
     Q_PROPERTY(int fanningAmount READ fanningAmount WRITE setFanningAmount NOTIFY fanningAmountChanged)
@@ -108,6 +110,9 @@ public:
     /** Get/Set the value(s) for this Palette.
      *  Some types like Position will store 2 values */
     QVariant value() const;
+    int intValue1() const;
+    int intValue2() const;
+
     void setValue(QVariant val);
     void setValue(QVariant val1, QVariant val2);
     QVariantList values() const;

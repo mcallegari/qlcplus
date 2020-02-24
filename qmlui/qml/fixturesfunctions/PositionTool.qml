@@ -81,6 +81,7 @@ Rectangle
             posToolBar.visible = false
             paletteToolbar.visible = true
             paletteToolbar.text = palette.name
+            paletteBox.palette = palette
         }
     }
 
@@ -124,6 +125,8 @@ Rectangle
     {
         id: paletteToolbar
         visible: false
+        onBackClicked: posToolRoot.parent.dismiss()
+        onTextChanged: paletteBox.palette.name = text
     }
 
     IconButton

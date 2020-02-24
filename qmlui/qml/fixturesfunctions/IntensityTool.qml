@@ -44,10 +44,7 @@ Rectangle
         }
         else
         {
-            if (dmxValues)
-                fixtureManager.setIntensityValue(currentValue)
-            else
-                fixtureManager.setIntensityValue(currentValue * 2.55)
+            fixtureManager.setIntensityValue(dmxValues ? currentValue : currentValue * 2.55)
         }
     }
 
@@ -61,6 +58,8 @@ Rectangle
             dragTopBar.visible = false
             paletteToolbar.visible = true
             paletteToolbar.text = palette.name
+            currentValue = dmxValues ? palette.intValue1 : palette.intValue1 / 255
+            paletteBox.palette = palette
         }
     }
 
@@ -111,6 +110,8 @@ Rectangle
         {
             id: paletteToolbar
             visible: false
+            onBackClicked: intRoot.parent.dismiss()
+            onTextChanged: paletteBox.palette.name = text
         }
 
         // main control 'widget'
