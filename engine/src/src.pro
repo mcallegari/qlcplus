@@ -35,6 +35,7 @@ LIBS        += -L../../hotplugmonitor/src -lhotplugmonitor
 
 LIBS        += -L../audio/src -lqlcplusaudio
 LIBS        += `pkg-config --libs portaudio-2.0`
+LIBS        += `pkg-config --libs fftw3`
 
 #############################################################################
 # Sources
