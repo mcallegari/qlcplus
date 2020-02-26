@@ -9,7 +9,7 @@ TARGET = qlcplus-qml
 QT += qml quick widgets svg
 QT += multimedia multimediawidgets
 QT += printsupport
-QT += 3dcore 3drender 3dinput 3dquick 3dquickextras
+QT += 3dcore 3drender 3dinput 3dquick 3dquickextras 3dextras
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =

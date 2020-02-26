@@ -19,11 +19,13 @@ install:
     - wget http://repo.msys2.org/mingw/i686/mingw-w64-i686-gcc-libs-7.4.0-1-any.pkg.tar.xz -P /c/projects
     - wget http://repo.msys2.org/mingw/i686/mingw-w64-i686-gcc-7.4.0-1-any.pkg.tar.xz -P /c/projects
     - wget http://www.qlcplus.org/misc/mingw-w64-i686-qt5-5.6.2-4-any.pkg.tar.xz -P /c/projects
+    - wget http://repo.msys2.org/mingw/x86_64/mingw-w64-x86_64-portaudio-190600_20161030-3-any.pkg.tar.xz /c/projects
     - pacman --noconfirm -Rdd mingw-w64-i686-gcc
     - pacman --noconfirm -Rdd mingw-w64-i686-gcc-libs
     - pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-gcc-libs-7.4.0-1-any.pkg.tar.xz
     - pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-gcc-7.4.0-1-any.pkg.tar.xz
     - pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-qt5-5.6.2-4-any.pkg.tar.xz
+    - pacman --noconfirm --needed -U /c/projects/mingw-w64-x86_64-portaudio-190600_20161030-3-any.pkg.tar.xz
 
 build_script:
     - ps: >-

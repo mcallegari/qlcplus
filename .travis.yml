@@ -18,6 +18,7 @@ addons:
       - libsndfile1-dev 
       - liblo-dev
       - libfftw3-dev
+      - portaudio19-dev
  # Needed for `xmllint`
       - libxml2-utils
     packages: &qt5_pkg

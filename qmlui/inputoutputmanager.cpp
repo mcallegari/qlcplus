@@ -25,7 +25,7 @@
 #include "monitorproperties.h"
 #include "audioplugincache.h"
 #include "audiorenderer_qt.h"
-#include "audiocapture_qt.h"
+#include "audiocapture.h"
 #include "qlcioplugin.h"
 #include "outputpatch.h"
 #include "inputpatch.h"

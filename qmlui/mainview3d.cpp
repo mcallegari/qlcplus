@@ -32,7 +32,6 @@
 #include <Qt3DRender/QAttribute>
 #include <Qt3DRender/QBuffer>
 #include <Qt3DRender/QParameter>
-#include <Qt3DExtras/QPhongMaterial>
 
 #include "doc.h"
 #include "tardis.h"
