@@ -48,17 +48,7 @@
 #include "doc.h"
 #include "bus.h"
 
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
- #if defined(__APPLE__) || defined(Q_OS_MAC)
-  #include "audiocapture_portaudio.h"
- #elif defined(WIN32) || defined (Q_OS_WIN)
-  #include "audiocapture_wavein.h"
- #else
-  #include "audiocapture_alsa.h"
- #endif
-#else
- #include "audiocapture_qt.h"
-#endif
+#include "audiocapture_portaudio.h"
 
 Doc::Doc(QObject* parent, int universes)
     : QObject(parent)
@@ -272,18 +262,8 @@ QSharedPointer<AudioCapture> Doc::audioInputCapture()
     {
         qDebug() << "Creating new audio capture";
         m_inputCapture = QSharedPointer<AudioCapture>(
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-#if defined(__APPLE__) || defined(Q_OS_MAC)
             new AudioCapturePortAudio()
-#elif defined(WIN32) || defined (Q_OS_WIN)
-            new AudioCaptureWaveIn()
-#else
-            new AudioCaptureAlsa()
-#endif
-#else
-            new AudioCaptureQt()
-#endif
-            );
+        );
     }
     return m_inputCapture;
 }

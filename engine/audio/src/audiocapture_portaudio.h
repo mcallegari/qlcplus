@@ -36,6 +36,9 @@ public:
     /** @reimpl */
     qint64 latency();
 
+    /** @reimpl */
+    void setVolume(qreal volume);
+    
 protected:
     /** @reimpl */
     bool initialize();
@@ -51,6 +54,8 @@ protected:
 
     /** @reimpl */
     bool readAudio(int maxSize);
+private:
+    float Volume;
 };
 
 /** @} */

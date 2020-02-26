@@ -9,11 +9,10 @@ LANGUAGE = C++
 TARGET   = qlcplusengine
 
 QT      += core gui
-greaterThan(QT_MAJOR_VERSION, 4) {
-  QT += multimedia
-  macx:QT_CONFIG -= no-pkg-config
-  win32:QT += widgets
-}
+
+macx:QT_CONFIG -= no-pkg-config
+win32:QT += widgets
+
 
 qmlui {
   QT += qml

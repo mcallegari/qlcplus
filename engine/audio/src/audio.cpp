@@ -27,18 +27,7 @@
 #include "audiorenderer.h"
 #include "audioplugincache.h"
 
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-
- #if defined(__APPLE__) || defined(Q_OS_MAC)
-   #include "audiorenderer_portaudio.h"
- #elif defined(WIN32) || defined(Q_OS_WIN)
-   #include "audiorenderer_waveout.h"
- #else
-   #include "audiorenderer_alsa.h"
- #endif
-#else
- #include "audiorenderer_qt.h"
-#endif
+#include "audiorenderer_portaudio.h"
 
 #include "audio.h"
 #include "doc.h"
@@ -319,19 +308,11 @@ void Audio::preRun(MasterTimer* timer)
     {
         m_decoder->seek(elapsed());
         AudioParameters ap = m_decoder->audioParameters();
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
- #if defined(__APPLE__) || defined(Q_OS_MAC)
-        //m_audio_out = new AudioRendererCoreAudio();
+
         m_audio_out = new AudioRendererPortAudio(m_audioDevice);
- #elif defined(WIN32) || defined(Q_OS_WIN)
-        m_audio_out = new AudioRendererWaveOut(m_audioDevice);
- #else
-        m_audio_out = new AudioRendererAlsa(m_audioDevice);
- #endif
         m_audio_out->moveToThread(QCoreApplication::instance()->thread());
-#else
-        m_audio_out = new AudioRendererQt(m_audioDevice);
-#endif
+
+
         m_audio_out->setDecoder(m_decoder);
         m_audio_out->initialize(ap.sampleRate(), ap.channels(), ap.format());
         m_audio_out->adjustIntensity(getAttributeValue(Intensity));

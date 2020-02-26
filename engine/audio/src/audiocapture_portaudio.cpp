@@ -31,6 +31,7 @@ static PaStream *stream = NULL;
 AudioCapturePortAudio::AudioCapturePortAudio(QObject * parent)
     : AudioCapture(parent)
 {
+    Volume=0.0f;
 }
 
 AudioCapturePortAudio::~AudioCapturePortAudio()
@@ -121,6 +122,11 @@ void AudioCapturePortAudio::uninitialize()
 qint64 AudioCapturePortAudio::latency()
 {
     return 0; // TODO
+}
+
+void AudioCapturePortAudio::setVolume(qreal volume){
+    Volume=volume;
+   
 }
 
 void AudioCapturePortAudio::suspend()
