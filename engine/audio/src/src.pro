@@ -29,12 +29,10 @@ SOURCES += audio.cpp \
            audiocapture.cpp \
            audioplugincache.cpp
 
-system(pkg-config --exists portaudio-2.0) {
-    DEFINES += HAS_PORTAUDIO
-    PKGCONFIG += portaudio-2.0
-    HEADERS += audiorenderer_portaudio.h audiocapture_portaudio.h
-    SOURCES += audiorenderer_portaudio.cpp audiocapture_portaudio.cpp
-}
+DEFINES += HAS_PORTAUDIO
+PKGCONFIG += portaudio-2.0
+HEADERS += audiorenderer_portaudio.h audiocapture_portaudio.h
+SOURCES += audiorenderer_portaudio.cpp audiocapture_portaudio.cpp
 
 !android:!ios {
   system(pkg-config --exists fftw3) {

@@ -13,6 +13,7 @@ QT      += core gui
 QT_CONFIG -= no-pkg-config
 win32:QT += widgets
 
+CONFIG += link_pkgconfig
 
 qmlui {
   QT += qml
@@ -28,14 +29,22 @@ win32:QMAKE_LFLAGS += -shared
 win32:INCLUDEPATH += ./
 
 !android:!ios {
-DEPENDPATH  += ../../hotplugmonitor/src
-INCLUDEPATH += ../../hotplugmonitor/src
-LIBS        += -L../../hotplugmonitor/src -lhotplugmonitor
+  DEPENDPATH  += ../../hotplugmonitor/src
+  INCLUDEPATH += ../../hotplugmonitor/src
+  LIBS        += -L../../hotplugmonitor/src -lhotplugmonitor
+}
+
+PKGCONFIG += portaudio-2.0
+
+!android:!ios {
+  system(pkg-config --exists fftw3) {
+    PKGCONFIG += fftw3
+    macx:LIBS += -lfftw3
+  }
 }
 
 LIBS        += -L../audio/src -lqlcplusaudio
-LIBS        += `pkg-config --libs portaudio-2.0`
-LIBS        += `pkg-config --libs fftw3`
+
 
 #############################################################################
 # Sources
