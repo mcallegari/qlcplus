@@ -25,6 +25,8 @@
 #include <QtMath>
 #include <QDir>
 
+#include <qlcconfig.h>
+
 #include "monitorproperties.h"
 #include "fixturemanager.h"
 #include "qlcfixturemode.h"
@@ -34,7 +36,6 @@
 #include "colorfilters.h"
 #include "fixtureutils.h"
 #include "treemodel.h"
-#include "qlcconfig.h"
 #include "qlcfile.h"
 #include "fixture.h"
 #include "tardis.h"
