@@ -126,7 +126,6 @@ qint64 AudioCapturePortAudio::latency()
 
 void AudioCapturePortAudio::setVolume(qreal volume){
     Volume=volume;
-   
 }
 
 void AudioCapturePortAudio::suspend()

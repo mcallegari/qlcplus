@@ -7,7 +7,7 @@ CONFIG  += staticlib
 
 QT      += core
 
-macx:QT_CONFIG -= no-pkg-config
+QT_CONFIG -= no-pkg-config
 win32:QT += widgets
 
 

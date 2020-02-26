@@ -10,7 +10,7 @@ TARGET   = qlcplusengine
 
 QT      += core gui
 
-macx:QT_CONFIG -= no-pkg-config
+QT_CONFIG -= no-pkg-config
 win32:QT += widgets
 
 
@@ -19,8 +19,6 @@ qmlui {
 } else {
   QT += script
 }
-
-CONFIG += link_pkgconfig
 
 #QTPLUGIN =
 
@@ -36,6 +34,7 @@ LIBS        += -L../../hotplugmonitor/src -lhotplugmonitor
 }
 
 LIBS        += -L../audio/src -lqlcplusaudio
+LIBS        += `pkg-config --libs portaudio-2.0`
 
 #############################################################################
 # Sources
@@ -141,6 +140,7 @@ SOURCES += avolitesd4parser.cpp \
            qlcphysical.cpp
 
 greaterThan(QT_MAJOR_VERSION, 4) {
+  QT      += multimedia
   SOURCES += video.cpp
 }
 
@@ -206,8 +206,6 @@ unix:SOURCES  += mastertimer-unix.cpp
     PKGCONFIG += fftw3
     macx:LIBS += -lfftw3
   }
-
-  unix:!macx:LIBS += -lasound
 }
 
 # Interfaces
