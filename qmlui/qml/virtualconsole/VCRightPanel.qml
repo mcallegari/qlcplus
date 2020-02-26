@@ -124,8 +124,7 @@ SidePanel
                 counter: virtualConsole.selectedWidgetsCount
                 onClicked:
                 {
-                    var selNames = virtualConsole.selectedWidgetNames()
-                    //console.log(selNames)
+                    var selNames = virtualConsole.selectedWidgetNames().join(", ")
                     deleteWidgetsPopup.message = qsTr("Are you sure you want to remove the following widgets?") + "\n" + selNames
                     deleteWidgetsPopup.open()
                 }
@@ -133,7 +132,7 @@ SidePanel
                 CustomPopupDialog
                 {
                     id: deleteWidgetsPopup
-                    title: qsTr("Delete functions")
+                    title: qsTr("Delete selected widgets")
                     onAccepted: virtualConsole.deleteVCWidgets(virtualConsole.selectedWidgetIDs())
                 }
             }

@@ -164,6 +164,22 @@ QVariant QLCPalette::value() const
     return m_values.first();
 }
 
+int QLCPalette::intValue1() const
+{
+    if (m_values.isEmpty())
+        return -1;
+
+    return m_values.at(0).toInt();
+}
+
+int QLCPalette::intValue2() const
+{
+    if (m_values.count() < 2)
+        return -1;
+
+    return m_values.at(1).toInt();
+}
+
 void QLCPalette::setValue(QVariant val)
 {
     m_values.clear();

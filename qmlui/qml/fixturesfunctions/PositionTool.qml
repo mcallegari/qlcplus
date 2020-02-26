@@ -30,10 +30,10 @@ Rectangle
 {
     id: posToolRoot
     width: UISettings.bigItemHeight * 2.2
-    height: UISettings.bigItemHeight * 3.5
+    height: (UISettings.bigItemHeight * 3.2) + paletteBox.height
     color: UISettings.bgMedium
-    border.color: UISettings.bgLight
-    border.width: 2
+    //border.color: UISettings.bgLight
+    //border.width: 2
 
     property int panMaxDegrees: 360
     property int tiltMaxDegrees: 270
@@ -73,6 +73,18 @@ Rectangle
         return array
     }
 
+    function loadPalette(id)
+    {
+        var palette = paletteManager.getPalette(id)
+        if (palette)
+        {
+            posToolBar.visible = false
+            paletteToolbar.visible = true
+            paletteToolbar.text = palette.name
+            paletteBox.palette = palette
+        }
+    }
+
     MouseArea
     {
         anchors.fill: parent
@@ -107,6 +119,14 @@ Rectangle
             anchors.fill: parent
             drag.target: posToolRoot
         }
+    }
+
+    EditorTopBar
+    {
+        id: paletteToolbar
+        visible: false
+        onBackClicked: posToolRoot.parent.dismiss()
+        onTextChanged: paletteBox.palette.name = text
     }
 
     IconButton
