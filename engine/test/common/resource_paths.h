@@ -23,11 +23,13 @@
 #ifdef USE_CTEST
     #define INTERNAL_FIXTUREDIR "../../resources/fixtures/"
     #define INTERNAL_PROFILEDIR "../../resources/inputprofiles/"
-    #define INTERNAL_SCRIPTDIR "../../resources/rgbscripts/"
+    #define INTERNAL_SCRIPTDIR  "../../resources/rgbscripts/"
+    #define INTERNAL_ICONDIR    "../../resources/icons/"
 #else
     #define INTERNAL_FIXTUREDIR "../../../resources/fixtures/"
     #define INTERNAL_PROFILEDIR "../../../resources/inputprofiles/"
-    #define INTERNAL_SCRIPTDIR "../../../resources/rgbscripts/"
+    #define INTERNAL_SCRIPTDIR  "../../../resources/rgbscripts/"
+    #define INTERNAL_ICONDIR    "../../../resources/icons/"
 #endif
 
 #endif
