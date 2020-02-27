@@ -125,6 +125,13 @@ public:
     /** Edit this widget's properties */
     void editProperties();
 
+    /*************************************************************************
+     * VCWidget-inherited
+     *************************************************************************/
+public:
+    /** @reimp */
+    void adjustIntensity(qreal val);
+
     /*********************************************************************
      * Function attachment
      *********************************************************************/
@@ -151,8 +158,6 @@ public:
 private slots:
     /** Update slider when function stops. */
     void slotFunctionStopped();
-    /** Update slider when function starts. */
-    void slotFunctionAttributeChanged(int attrIndex, qreal fraction);
     /** Update widget when function changes. */
     void slotFunctionChanged();
     void slotUpdate();
