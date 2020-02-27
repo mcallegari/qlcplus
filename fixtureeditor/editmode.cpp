@@ -236,8 +236,7 @@ void EditMode::refreshChannelList()
         Q_ASSERT(ch != NULL);
 
         QString str;
-        str.asprintf("%.3d", (i + 1));
-        item->setText(COL_NUM, str);
+        item->setText(COL_NUM, str.asprintf("%.3d", (i + 1)));
         item->setText(COL_NAME, ch->name());
         item->setIcon(COL_NAME, ch->getIcon());
         item->setData(COL_NAME, PROP_PTR, (qulonglong) ch);

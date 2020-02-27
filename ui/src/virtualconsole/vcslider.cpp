@@ -1231,7 +1231,7 @@ void VCSlider::setTopLabelText(int value)
 
     if (valueDisplayStyle() == ExactValue)
     {
-        text.asprintf("%.3d", value);
+        m_topLabel->setText(text.asprintf("%.3d", value));
     }
     else
     {
@@ -1240,9 +1240,8 @@ void VCSlider::setTopLabelText(int value)
         if (m_slider)
             f = SCALE(float(value), float(m_slider->minimum()),
                       float(m_slider->maximum()), float(0), float(100));
-        text.asprintf("%.3d%%", static_cast<int> (f));
+        m_topLabel->setText(text.asprintf("%.3d%%", static_cast<int> (f)));
     }
-    m_topLabel->setText(text);
 
     emit valueChanged(text);
 }

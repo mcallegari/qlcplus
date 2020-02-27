@@ -385,12 +385,10 @@ void EditChannel::slotCapabilityCellSelected(int currentRow, int currentColumn,
             return;
         }
 
-        str.asprintf("%.3d", cap->min());
-        QTableWidgetItem *item = new QTableWidgetItem(str);
+        QTableWidgetItem *item = new QTableWidgetItem(str.asprintf("%.3d", cap->min()));
         m_capabilityList->setItem(currentRow, COL_MIN, item);
 
-        str.asprintf("%.3d", cap->max());
-        item = new QTableWidgetItem(str);
+        item = new QTableWidgetItem(str.asprintf("%.3d", cap->max()));
         m_capabilityList->setItem(currentRow, COL_MAX, item);
 
         item = new QTableWidgetItem(cap->name());
@@ -581,13 +579,11 @@ void EditChannel::refreshCapabilities()
         QLCCapability *cap = it.next();
 
         // Min
-        str.asprintf("%.3d", cap->min());
-        QTableWidgetItem *item = new QTableWidgetItem(str);
+        QTableWidgetItem *item = new QTableWidgetItem(str.asprintf("%.3d", cap->min()));
         m_capabilityList->setItem(i, COL_MIN, item);
 
         // Max
-        str.asprintf("%.3d", cap->max());
-        item = new QTableWidgetItem(str);
+        item = new QTableWidgetItem(str.asprintf("%.3d", cap->max()));
         m_capabilityList->setItem(i, COL_MAX, item);
 
         // Name

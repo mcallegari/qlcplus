@@ -106,8 +106,9 @@ QString WebAccessSimpleDesk::getChannelsMessage(Doc *doc, SimpleDesk *sd,
                 if (ch->group() == QLCChannel::Intensity)
                 {
                     QString hexCol;
-                    hexCol.asprintf("%06X", ch->colour());
-                    type = QString("%1.#%2").arg(ch->group()).arg(hexCol);
+                    type = QString("%1.#%2")
+                            .arg(ch->group())
+                            .arg(hexCol.asprintf("%06X", ch->colour()));
                 }
                 else
                     type = QString::number(ch->group());
