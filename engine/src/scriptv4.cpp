@@ -32,12 +32,12 @@
 #define KXMLQLCScriptCommand "Command"
 #define KXMLQLCScriptVersion "Version"
 
-const QString ScriptV4::startFunctionCmd = QString("startfunction");
-const QString ScriptV4::stopFunctionCmd = QString("stopfunction");
-const QString ScriptV4::blackoutCmd = QString("blackout");
-const QString ScriptV4::waitCmd = QString("wait");
-const QString ScriptV4::setFixtureCmd = QString("setfixture");
-const QString ScriptV4::systemCmd = QString("systemcommand");
+const QString Script::startFunctionCmd = QString("startfunction");
+const QString Script::stopFunctionCmd = QString("stopfunction");
+const QString Script::blackoutCmd = QString("blackout");
+const QString Script::waitCmd = QString("wait");
+const QString Script::setFixtureCmd = QString("setfixture");
+const QString Script::systemCmd = QString("systemcommand");
 
 const QStringList knownKeywords(QStringList() << "ch" << "val" << "arg");
 
@@ -45,22 +45,22 @@ const QStringList knownKeywords(QStringList() << "ch" << "val" << "arg");
  * Initialization
  ****************************************************************************/
 
-ScriptV4::ScriptV4(Doc* doc) : Function(doc, Function::ScriptType)
+Script::Script(Doc* doc) : Function(doc, Function::ScriptType)
     , m_runner(NULL)
 {
-    setName(tr("New Scriptv4"));
+    setName(tr("New Script"));
 }
 
-ScriptV4::~ScriptV4()
+Script::~Script()
 {
 }
 
-QIcon ScriptV4::getIcon() const
+QIcon Script::getIcon() const
 {
     return QIcon(":/script.png");
 }
 
-quint32 ScriptV4::totalDuration()
+quint32 Script::totalDuration()
 {
     quint32 totalDuration = 0;
 
@@ -74,11 +74,11 @@ quint32 ScriptV4::totalDuration()
     return totalDuration;
 }
 
-Function* ScriptV4::createCopy(Doc* doc, bool addToDoc)
+Function* Script::createCopy(Doc* doc, bool addToDoc)
 {
     Q_ASSERT(doc != NULL);
 
-    Function* copy = new ScriptV4(doc);
+    Function* copy = new Script(doc);
     if (copy->copyFrom(this) == false)
     {
         delete copy;
@@ -93,9 +93,9 @@ Function* ScriptV4::createCopy(Doc* doc, bool addToDoc)
     return copy;
 }
 
-bool ScriptV4::copyFrom(const Function* function)
+bool Script::copyFrom(const Function* function)
 {
-    const ScriptV4* script = qobject_cast<const ScriptV4*> (function);
+    const Script* script = qobject_cast<const Script*> (function);
     if (script == NULL)
         return false;
 
@@ -105,10 +105,10 @@ bool ScriptV4::copyFrom(const Function* function)
 }
 
 /****************************************************************************
- * ScriptV4 data
+ * Script data
  ****************************************************************************/
 
-bool ScriptV4::setData(const QString& str)
+bool Script::setData(const QString& str)
 {
     if (str == m_data)
         return false;
@@ -122,7 +122,7 @@ bool ScriptV4::setData(const QString& str)
     return true;
 }
 
-bool ScriptV4::appendData(const QString &str)
+bool Script::appendData(const QString &str)
 {
     //m_data.append(str + QString("\n"));
     m_data.append(convertLine(str + QString("\n")));
@@ -130,12 +130,12 @@ bool ScriptV4::appendData(const QString &str)
     return true;
 }
 
-QString ScriptV4::data() const
+QString Script::data() const
 {
     return m_data;
 }
 
-QStringList ScriptV4::dataLines() const
+QStringList Script::dataLines() const
 {
     QStringList result = m_data.split(QRegExp("(\r\n|\n\r|\r|\n)"), QString::KeepEmptyParts);
 
@@ -145,7 +145,7 @@ QStringList ScriptV4::dataLines() const
     return result;
 }
 
-QList<quint32> ScriptV4::functionList() const
+QList<quint32> Script::functionList() const
 {
     QList<quint32> list;
 
@@ -170,7 +170,7 @@ QList<quint32> ScriptV4::functionList() const
     return list;
 }
 
-QList<quint32> ScriptV4::fixtureList() const
+QList<quint32> Script::fixtureList() const
 {
     QList<quint32> list;
 
@@ -195,7 +195,7 @@ QList<quint32> ScriptV4::fixtureList() const
     return list;
 }
 
-QStringList ScriptV4::syntaxErrorsLines()
+QStringList Script::syntaxErrorsLines()
 {
     ScriptRunner *runner = new ScriptRunner(doc(), m_data);
     QStringList errorList = runner->collectScriptData();
@@ -208,7 +208,7 @@ QStringList ScriptV4::syntaxErrorsLines()
  * Load & Save
  ****************************************************************************/
 
-bool ScriptV4::loadXML(QXmlStreamReader &root)
+bool Script::loadXML(QXmlStreamReader &root)
 {
     if (root.name() != KXMLQLCFunction)
     {
@@ -262,7 +262,7 @@ bool ScriptV4::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool ScriptV4::saveXML(QXmlStreamWriter *doc)
+bool Script::saveXML(QXmlStreamWriter *doc)
 {
     Q_ASSERT(doc != NULL);
 
@@ -300,7 +300,7 @@ bool ScriptV4::saveXML(QXmlStreamWriter *doc)
  * Running
  ****************************************************************************/
 
-void ScriptV4::preRun(MasterTimer* timer)
+void Script::preRun(MasterTimer* timer)
 {
     m_runner = new ScriptRunner(doc(), m_data);
     connect(m_runner, SIGNAL(finished()), this, SLOT(slotRunnerFinished()));
@@ -309,7 +309,7 @@ void ScriptV4::preRun(MasterTimer* timer)
     Function::preRun(timer);
 }
 
-void ScriptV4::write(MasterTimer *timer, QList<Universe *> universes)
+void Script::write(MasterTimer *timer, QList<Universe *> universes)
 {
     if (isPaused())
         return;
@@ -323,7 +323,7 @@ void ScriptV4::write(MasterTimer *timer, QList<Universe *> universes)
     }
 }
 
-void ScriptV4::postRun(MasterTimer* timer, QList<Universe *> universes)
+void Script::postRun(MasterTimer* timer, QList<Universe *> universes)
 {
     if (m_runner)
     {
@@ -334,13 +334,13 @@ void ScriptV4::postRun(MasterTimer* timer, QList<Universe *> universes)
     Function::postRun(timer, universes);
 }
 
-void ScriptV4::slotRunnerFinished()
+void Script::slotRunnerFinished()
 {
     delete m_runner;
     m_runner = NULL;
 }
 
-quint32 ScriptV4::getValueFromString(QString str, bool *ok)
+quint32 Script::getValueFromString(QString str, bool *ok)
 {
     if (str.startsWith("random") == false)
     {
@@ -361,7 +361,7 @@ quint32 ScriptV4::getValueFromString(QString str, bool *ok)
     return qrand() % ((max + 1) - min) + min;
 }
 
-QString ScriptV4::convertLine(const QString& str, bool *ok)
+QString Script::convertLine(const QString& str, bool *ok)
 {
     QStringList values;
     QString comment;
@@ -527,7 +527,7 @@ QString ScriptV4::convertLine(const QString& str, bool *ok)
     return line;
 }
 
-QString ScriptV4::convertLegacyMethod(QString method)
+QString Script::convertLegacyMethod(QString method)
 {
     if (method == startFunctionCmd) return "Engine.startFunction";
     else if (method == stopFunctionCmd) return "Engine.stopFunction";

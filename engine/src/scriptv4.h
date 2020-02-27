@@ -35,7 +35,7 @@ class Doc;
  * @{
  */
 
-class ScriptV4 : public Function
+class Script : public Function
 {
     Q_OBJECT
 
@@ -59,8 +59,8 @@ public:
      * Initialization
      ************************************************************************/
 public:
-    ScriptV4(Doc* doc);
-    virtual ~ScriptV4();
+    Script(Doc* doc);
+    virtual ~Script();
 
     /** @reimp */
     QIcon getIcon() const;
