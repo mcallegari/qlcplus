@@ -17,12 +17,13 @@
   limitations under the License.
 */
 
-#ifndef AUDIORENDERER_COREAUDIO_H
-#define AUDIORENDERER_COREAUDIO_H
+#ifndef AUDIORENDERER_PORTAUDIO_H
+#define AUDIORENDERER_PORTAUDIO_H
 
 #include "audiorenderer.h"
 #include "audiodecoder.h"
 
+#include <qobject.h>
 #include <portaudio.h>
 
 /** @addtogroup engine_audio Audio

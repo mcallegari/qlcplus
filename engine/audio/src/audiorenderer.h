@@ -22,6 +22,8 @@
 
 #include <QThread>
 #include <QMutex>
+#include <QString>
+#include <QObject>
 
 #include "audiodecoder.h"
 

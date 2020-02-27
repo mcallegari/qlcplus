@@ -19,6 +19,7 @@
 
 #include <QDebug>
 #include <QMutexLocker>
+#include <QObject>
 
 #include "audiorenderer.h"
 #include "qlcmacros.h"

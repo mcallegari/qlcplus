@@ -26,6 +26,7 @@
 #ifndef AUDIODECODER_H
 #define AUDIODECODER_H
 
+#include <QObject>
 #include <QtPlugin>
 #include <QStringList>
 
