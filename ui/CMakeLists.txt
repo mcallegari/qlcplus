@@ -154,6 +154,7 @@ target_link_libraries(qlcplusui
     Qt5::MultimediaWidgets
     Qt5::Gui
     qlcplusengine
+    qlcpluswebaccess
 )
 
 install(TARGETS qlcplusui DESTINATION "${LIBSDIR}")
