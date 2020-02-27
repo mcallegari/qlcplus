@@ -36,20 +36,20 @@ class QDir;
 
 #define KXMLQLCRGBScript "Script"
 
-class RGBScript : public RGBAlgorithm
+class RGBScriptV4 : public RGBAlgorithm
 {
     /************************************************************************
      * Initialization
      ************************************************************************/
 public:
-    RGBScript(Doc * doc);
-    RGBScript(const RGBScript& s);
-    ~RGBScript();
+    RGBScriptV4(Doc * doc);
+    RGBScriptV4(const RGBScriptV4& s);
+    ~RGBScriptV4();
 
-    RGBScript& operator=(const RGBScript& s);
+    RGBScriptV4& operator=(const RGBScriptV4& s);
 
     /** Comparison operator. Uses simply fileName() == s.fileName(). */
-    bool operator==(const RGBScript& s) const;
+    bool operator==(const RGBScriptV4& s) const;
 
     /** @reimp */
     RGBAlgorithm* clone() const;

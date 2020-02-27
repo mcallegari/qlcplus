@@ -30,20 +30,20 @@
 #include "qlcconfig.h"
 #include "qlcfile.h"
 
-QJSEngine* RGBScript::s_engine = NULL;
-QMutex* RGBScript::s_engineMutex = NULL;
+QJSEngine* RGBScriptV4::s_engine = NULL;
+QMutex* RGBScriptV4::s_engineMutex = NULL;
 
 /****************************************************************************
  * Initialization
  ****************************************************************************/
 
-RGBScript::RGBScript(Doc * doc)
+RGBScriptV4::RGBScriptV4(Doc * doc)
     : RGBAlgorithm(doc)
     , m_apiVersion(0)
 {
 }
 
-RGBScript::RGBScript(const RGBScript& s)
+RGBScriptV4::RGBScriptV4(const RGBScriptV4& s)
     : RGBAlgorithm(s.doc())
     , m_fileName(s.m_fileName)
     , m_contents(s.m_contents)
@@ -56,11 +56,11 @@ RGBScript::RGBScript(const RGBScript& s)
     }
 }
 
-RGBScript::~RGBScript()
+RGBScriptV4::~RGBScriptV4()
 {
 }
 
-RGBScript &RGBScript::operator=(const RGBScript &s)
+RGBScriptV4 &RGBScriptV4::operator=(const RGBScriptV4 &s)
 {
     if (this != &s)
     {
@@ -77,7 +77,7 @@ RGBScript &RGBScript::operator=(const RGBScript &s)
     return *this;
 }
 
-bool RGBScript::operator==(const RGBScript& s) const
+bool RGBScriptV4::operator==(const RGBScriptV4& s) const
 {
     if (this->fileName().isEmpty() == false && this->fileName() == s.fileName())
         return true;
@@ -85,9 +85,9 @@ bool RGBScript::operator==(const RGBScript& s) const
         return false;
 }
 
-RGBAlgorithm* RGBScript::clone() const
+RGBAlgorithm* RGBScriptV4::clone() const
 {
-    RGBScript* script = new RGBScript(*this);
+    RGBScriptV4* script = new RGBScriptV4(*this);
     return static_cast<RGBAlgorithm*> (script);
 }
 
@@ -95,7 +95,7 @@ RGBAlgorithm* RGBScript::clone() const
  * Load & Evaluation
  ****************************************************************************/
 
-bool RGBScript::load(const QDir& dir, const QString& fileName)
+bool RGBScriptV4::load(const QDir& dir, const QString& fileName)
 {
     // Create the script engine when it's first needed
     initEngine();
@@ -123,12 +123,12 @@ bool RGBScript::load(const QDir& dir, const QString& fileName)
     return evaluate();
 }
 
-QString RGBScript::fileName() const
+QString RGBScriptV4::fileName() const
 {
     return m_fileName;
 }
 
-bool RGBScript::evaluate()
+bool RGBScriptV4::evaluate()
 {
     QMutexLocker engineLocker(s_engineMutex);
 
@@ -181,7 +181,7 @@ bool RGBScript::evaluate()
     }
 }
 
-void RGBScript::initEngine()
+void RGBScriptV4::initEngine()
 {
     if (s_engineMutex == NULL)
     {
@@ -196,7 +196,7 @@ void RGBScript::initEngine()
  * Script API
  ****************************************************************************/
 
-int RGBScript::rgbMapStepCount(const QSize& size)
+int RGBScriptV4::rgbMapStepCount(const QSize& size)
 {
     QMutexLocker engineLocker(s_engineMutex);
 
@@ -210,7 +210,7 @@ int RGBScript::rgbMapStepCount(const QSize& size)
     return ret;
 }
 
-void RGBScript::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
+void RGBScriptV4::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
 {
     QMutexLocker engineLocker(s_engineMutex);
 
@@ -251,7 +251,7 @@ void RGBScript::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
     }
 }
 
-QString RGBScript::name() const
+QString RGBScriptV4::name() const
 {
     QMutexLocker engineLocker(s_engineMutex);
 
@@ -260,7 +260,7 @@ QString RGBScript::name() const
     return ret;
 }
 
-QString RGBScript::author() const
+QString RGBScriptV4::author() const
 {
     QMutexLocker engineLocker(s_engineMutex);
 
@@ -269,17 +269,17 @@ QString RGBScript::author() const
     return ret;
 }
 
-int RGBScript::apiVersion() const
+int RGBScriptV4::apiVersion() const
 {
     return m_apiVersion;
 }
 
-RGBAlgorithm::Type RGBScript::type() const
+RGBAlgorithm::Type RGBScriptV4::type() const
 {
     return RGBAlgorithm::Script;
 }
 
-int RGBScript::acceptColors() const
+int RGBScriptV4::acceptColors() const
 {
     QMutexLocker engineLocker(s_engineMutex);
 
@@ -291,14 +291,14 @@ int RGBScript::acceptColors() const
     return 2;
 }
 
-bool RGBScript::loadXML(QXmlStreamReader &root)
+bool RGBScriptV4::loadXML(QXmlStreamReader &root)
 {
     Q_UNUSED(root)
 
     return false;
 }
 
-bool RGBScript::saveXML(QXmlStreamWriter *doc) const
+bool RGBScriptV4::saveXML(QXmlStreamWriter *doc) const
 {
     Q_ASSERT(doc != NULL);
 
@@ -320,12 +320,12 @@ bool RGBScript::saveXML(QXmlStreamWriter *doc) const
  * Capabilities
  ************************************************************************/
 
-QList<RGBScriptProperty> RGBScript::properties()
+QList<RGBScriptProperty> RGBScriptV4::properties()
 {
     return m_properties;
 }
 
-QHash<QString, QString> RGBScript::propertiesAsStrings()
+QHash<QString, QString> RGBScriptV4::propertiesAsStrings()
 {
     QMutexLocker engineLocker(s_engineMutex);
 
@@ -344,7 +344,7 @@ QHash<QString, QString> RGBScript::propertiesAsStrings()
     return properties;
 }
 
-bool RGBScript::setProperty(QString propertyName, QString value)
+bool RGBScriptV4::setProperty(QString propertyName, QString value)
 {
     QMutexLocker engineLocker(s_engineMutex);
 
@@ -367,7 +367,7 @@ bool RGBScript::setProperty(QString propertyName, QString value)
     return false;
 }
 
-QString RGBScript::property(QString propertyName) const
+QString RGBScriptV4::property(QString propertyName) const
 {
     QMutexLocker engineLocker(s_engineMutex);
 
@@ -392,7 +392,7 @@ QString RGBScript::property(QString propertyName) const
     return QString();
 }
 
-bool RGBScript::loadProperties()
+bool RGBScriptV4::loadProperties()
 {
     QMutexLocker engineLocker(s_engineMutex);
 
