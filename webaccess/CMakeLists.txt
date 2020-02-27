@@ -9,6 +9,7 @@ set(qlcpluswebaccess_src
     src/webaccessconfiguration.cpp
     src/webaccesssimpledesk.cpp
     src/webaccessauth.cpp
+    src/webaccessnetwork.cpp
 )
 
 include_directories(
@@ -19,7 +20,6 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/ui/src/
     ${CMAKE_SOURCE_DIR}/ui/src/virtualconsole/
     ${CMAKE_CURRENT_SOURCE_DIR}/src/qhttpserver/
-    
 )
 
 add_library(qlcpluswebaccess SHARED ${qlcpluswebaccess_src})
