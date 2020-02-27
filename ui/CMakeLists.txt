@@ -1,0 +1,159 @@
+set(qlcplusui_src
+           src/aboutbox.cpp 
+           src/addchannelsgroup.cpp 
+           src/addfixture.cpp 
+           src/addresstool.cpp 
+           src/addrgbpanel.cpp 
+           src/app.cpp 
+           src/apputil.cpp 
+           src/assignhotkey.cpp 
+           src/audiobar.cpp 
+           src/audioeditor.cpp 
+           src/audiotriggerwidget.cpp 
+           src/channelmodifiereditor.cpp 
+           src/channelmodifiergraphicsview.cpp 
+           src/channelsselection.cpp 
+           src/chasereditor.cpp 
+           src/clickandgoslider.cpp 
+           src/clickandgowidget.cpp 
+           src/collectioneditor.cpp 
+           src/consolechannel.cpp 
+           src/createfixturegroup.cpp 
+           src/ctkrangeslider.cpp 
+           src/cuestackmodel.cpp 
+           src/docbrowser.cpp 
+           src/dmxdumpfactory.cpp 
+           src/efxeditor.cpp 
+           src/efxpreviewarea.cpp 
+           src/fixtureconsole.cpp 
+           src/fixturegroupeditor.cpp 
+           src/fixturemanager.cpp 
+           src/fixtureremap.cpp 
+           src/fixtureselection.cpp 
+           src/fixturetreewidget.cpp 
+           src/flowlayout.cpp 
+           src/functionliveeditdialog.cpp 
+           src/functionmanager.cpp 
+           src/functionselection.cpp 
+           src/functionstreewidget.cpp 
+           src/functionwizard.cpp 
+           src/grandmasterslider.cpp 
+           src/groupsconsole.cpp 
+           src/inputchanneleditor.cpp 
+           src/inputoutputmanager.cpp 
+           src/inputoutputpatcheditor.cpp 
+           src/inputprofileeditor.cpp 
+           src/inputselectionwidget.cpp 
+           src/knobwidget.cpp 
+           src/palettegenerator.cpp 
+           src/playbackslider.cpp 
+           src/positiontool.cpp 
+           src/remapwidget.cpp 
+           src/rgbmatrixeditor.cpp 
+           src/rgbitem.cpp 
+           src/sceneeditor.cpp 
+           src/scripteditor.cpp 
+           src/selectinputchannel.cpp 
+           src/simpledesk.cpp 
+           src/simpledeskengine.cpp 
+           src/speeddial.cpp 
+           src/speeddialwidget.cpp 
+           src/universeitemwidget.cpp
+
+# monitor sources
+           src/monitor/monitor.cpp 
+           src/monitor/monitorbackgroundselection.cpp 
+           src/monitor/monitorfixture.cpp 
+           src/monitor/monitorfixtureitem.cpp 
+           src/monitor/monitorgraphicsview.cpp 
+           src/monitor/monitorlayout.cpp 
+           src/monitor/monitorfixturepropertieseditor.cpp
+
+# Show Manager sources
+           src/showmanager/multitrackview.cpp 
+           src/showmanager/showeditor.cpp 
+           src/showmanager/headeritems.cpp 
+           src/showmanager/trackitem.cpp 
+           src/showmanager/showitem.cpp 
+           src/showmanager/sequenceitem.cpp 
+           src/showmanager/audioitem.cpp 
+           src/showmanager/rgbmatrixitem.cpp 
+           src/showmanager/efxitem.cpp 
+           src/showmanager/timingstool.cpp 
+           src/showmanager/showmanager.cpp
+# Virtual Console sources
+           src/virtualconsole/addvcbuttonmatrix.cpp 
+           src/virtualconsole/addvcslidermatrix.cpp 
+           src/virtualconsole/vcaudiotriggers.cpp 
+           src/virtualconsole/vcaudiotriggersproperties.cpp 
+           src/virtualconsole/vcbutton.cpp 
+           src/virtualconsole/vcbuttonproperties.cpp 
+           src/virtualconsole/vcclock.cpp 
+           src/virtualconsole/vcclockproperties.cpp 
+           src/virtualconsole/vccuelist.cpp 
+           src/virtualconsole/vccuelistproperties.cpp 
+           src/virtualconsole/vcdockarea.cpp 
+           src/virtualconsole/vcframe.cpp 
+           src/virtualconsole/vcframepageshortcut.cpp 
+           src/virtualconsole/vcframeproperties.cpp 
+           src/virtualconsole/vclabel.cpp 
+           src/virtualconsole/vcmatrix.cpp 
+           src/virtualconsole/vcmatrixcontrol.cpp 
+           src/virtualconsole/vcmatrixpresetselection.cpp 
+           src/virtualconsole/vcmatrixproperties.cpp 
+           src/virtualconsole/vcproperties.cpp 
+           src/virtualconsole/vcpropertieseditor.cpp 
+           src/virtualconsole/vcslider.cpp 
+           src/virtualconsole/vcsliderproperties.cpp 
+           src/virtualconsole/vcsoloframe.cpp 
+           src/virtualconsole/vcsoloframeproperties.cpp 
+           src/virtualconsole/vcspeeddial.cpp 
+           src/virtualconsole/vcspeeddialfunction.cpp 
+           src/virtualconsole/vcspeeddialpreset.cpp 
+           src/virtualconsole/vcspeeddialproperties.cpp 
+           src/virtualconsole/vcwidget.cpp 
+           src/virtualconsole/vcwidgetproperties.cpp 
+           src/virtualconsole/vcwidgetselection.cpp 
+           src/virtualconsole/vcxypad.cpp 
+           src/virtualconsole/vcxypadarea.cpp 
+           src/virtualconsole/vcxypadfixture.cpp 
+           src/virtualconsole/vcxypadfixtureeditor.cpp 
+           src/virtualconsole/vcxypadpreset.cpp 
+           src/virtualconsole/vcxypadproperties.cpp 
+           src/virtualconsole/virtualconsole.cpp
+           #video things most will will replaced by ffmpeg
+           src/videoeditor.cpp 
+           src/showmanager/videoitem.cpp 
+           src/videoprovider.cpp
+)
+
+include_directories(
+    ${CMAKE_BINARY_DIR}/engine
+    ${CMAKE_SOURCE_DIR}/ui/src
+    ../engine/src 
+    ../engine/audio/src
+    ../hotplugmonitor/src
+    ../plugins/interfaces
+    ../webaccess
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/monitor 
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/showmanager
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/virtualconsole
+    ${Qt5Widgets_INCLUDE_DIRS}
+    ${Qt5Script_INCLUDE_DIRS}
+    ${Qt5Multimedia_INCLUDE_DIRS}
+    ${Qt5MultimediaWidgets_INCLUDE_DIRS}
+    ${Qt5Gui_INCLUDE_DIRS}
+)
+
+add_library(qlcplusui SHARED ${qlcplusui_src})
+
+target_link_libraries(qlcplusui 
+    Qt5::Widgets 
+    Qt5::Script
+    Qt5::Multimedia
+    Qt5::MultimediaWidgets
+    Qt5::Gui
+    qlcplusengine
+)
+
+install(TARGETS qlcplusui DESTINATION "${LIBSDIR}")

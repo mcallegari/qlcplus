@@ -20,7 +20,9 @@
 #ifndef CHANNELMODIFIERGRAPHICSVIEW_H
 #define CHANNELMODIFIERGRAPHICSVIEW_H
 
+#include <QPen>
 #include <QGraphicsView>
+#include <QGraphicsItem>
 #include <QGraphicsEllipseItem>
 #include <QObject>
 

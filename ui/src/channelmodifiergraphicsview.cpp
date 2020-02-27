@@ -398,4 +398,3 @@ void HandlerGraphicsItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     emit itemMoved(this, event, m_boundingBox);
 }
 
-
