@@ -162,6 +162,9 @@
     <F n="Antari-X-310-Pro-Fazer" m="X-310 Pro Fazer"/>
     <F n="Antari-Z-1520-RGB" m="Z-1520 RGB"/>
   </M>
+  <M n="Art_System">
+    <F n="Art-System-GC-18x15-RGBWA" m="GC 18x15W RGBWA"/>
+  </M>
   <M n="AVE">
     <F n="AVE-Cobra-Wash-200" m="Cobra Wash 200"/>
     <F n="AVE-Quad-Pro-Flat" m="Quad Pro Flat"/>
@@ -337,6 +340,7 @@
     <F n="Chauvet-Double-Derby-X" m="Double Derby X"/>
     <F n="Chauvet-Eclipse-RGB" m="Eclipse RGB"/>
     <F n="Chauvet-EZPAR-64-RGBA" m="EZPar 64 RGBA"/>
+    <F n="Chauvet-Freedom-H1" m="Freedom H1"/>
     <F n="Chauvet-Freedom-Stick" m="Freedom Stick"/>
     <F n="Chauvet-FXpar9" m="FXpar 9"/>
     <F n="Chauvet-Geyser-P6" m="Geyser P6"/>
@@ -412,7 +416,9 @@
     <F n="Chauvet-SlimPAR-HEX-3" m="SlimPar HEX 3"/>
     <F n="Chauvet-SlimPar-Hex-6" m="SlimPar Hex 6"/>
     <F n="Chauvet-SlimPAR-Pro-H-USB" m="SlimPAR Pro H USB"/>
+    <F n="Chauvet-SlimPAR-Pro-Q-USB" m="SlimPAR Pro Q USB"/>
     <F n="Chauvet-SlimPar-Pro-Tri" m="SlimPar Pro Tri"/>
+    <F n="Chauvet-SlimPAR-Pro-W-USB" m="SlimPAR Pro W USB"/>
     <F n="Chauvet-SlimPAR-Q12-USB" m="SlimPAR Q12 USB"/>
     <F n="Chauvet-SlimPAR-Q6-USB" m="SlimPAR Q6 USB"/>
     <F n="Chauvet-SlimPAR-QUAD-12-IRC" m="SlimPAR QUAD 12 IRC"/>
@@ -653,6 +659,7 @@
     <F n="Fun-Generation-LED-Diamond-Dome" m="LED Diamond Dome"/>
     <F n="Fun-Generation-PicoSpot-20" m="PicoSpot 20"/>
     <F n="Fun-Generation-PicoWash-40-Pixel-Quad-LED" m="PicoWash 40 Pixel Quad LED"/>
+    <F n="Fun-Generation-SePar-Hex-LED-RGBAW-UV-IR" m="SePar Hex LED RGBAW UV IR"/>
     <F n="Fun-Generation-SePar-Quad-UV" m="SePar Quad UV"/>
   </M>
   <M n="Futurelight">
@@ -678,6 +685,7 @@
     <F n="Futurelight-PCC-1200" m="PCC-1200"/>
     <F n="Futurelight-PCC-250" m="PCC-250"/>
     <F n="Futurelight-PCC-250CMY" m="PCC-250CMY"/>
+    <F n="Futurelight-PCC-500" m="PCC-500"/>
     <F n="Futurelight-PFE-1200" m="PFE-1200"/>
     <F n="Futurelight-PHS-150" m="PHS-150"/>
     <F n="Futurelight-PHS-200" m="PHS-200"/>

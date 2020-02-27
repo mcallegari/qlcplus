@@ -1,6 +1,10 @@
 #!/usr/bin/env python
-
+#
 # requires Python LXML (sudo apt-get install python-lxml)
+#
+# When adding new fixtures, regenerate the fixtures map with:
+# scripts/fixtures-tool.py --validate --map
+#
 
 import sys
 import os

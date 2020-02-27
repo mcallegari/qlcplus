@@ -9,8 +9,13 @@ qlcplus (4.12.3) stable; urgency=low
   * New fixtures: Litecraft OutLED AT10, Litecraft WashX.36, Martin JEM ZR24-7 (thanks to Jannis Achstetter and Henrik Bauer)
   * New fixtures: Stairville Mobile Color, Outdoor Stage PAR 12x3W Tri, xBrick Quad 16x8W RGBW (thanks to Jannis Achstetter and Henrik Bauer)
   * New fixture: Varytec BAT.PAR-6 RGBUV (thanks to Jannis Achstetter and Henrik Bauer)
+  * New fixture: Chauvet Freedom H1 (thanks to Jason R Johnston)
+  * New fixture: Futurelight PCC-500 (thanks to Justin Hornsby)
+  * New fixtures: Chauvet SlimPAR Pro W USB, SlimPAR Pro Q USB (thanks to Lance Moore)
+  * New fixture: Fun-Generation SePar Hex LED RGBAW UV IR (thanks to Sergeant Pelzkinn)
+  * New fixture: Art System GC 18x15W RGBWA (thanks to Daniel Carretas)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 29 Dec 2019 12:13:14 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 26 Apr 2020 12:13:14 +0200
 
 qlcplus (4.12.2) stable; urgency=low
 
