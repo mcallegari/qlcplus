@@ -203,3 +203,4 @@ void Bus_Test::cleanupTestCase()
 }
 
 QTEST_APPLESS_MAIN(Bus_Test)
+#include "moc_bus_test.cpp"

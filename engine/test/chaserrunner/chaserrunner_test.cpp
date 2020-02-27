@@ -1378,3 +1378,4 @@ void ChaserRunner_Test::adjustIntensity()
 }
 
 QTEST_APPLESS_MAIN(ChaserRunner_Test)
+#include "moc_chaserrunner_test.cpp"

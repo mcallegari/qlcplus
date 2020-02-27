@@ -20,8 +20,14 @@
 #ifndef RESOURCE_PATHS_H
 #define RESOURCE_PATHS_H
 
-#define INTERNAL_FIXTUREDIR "../../../resources/fixtures/"
-#define INTERNAL_PROFILEDIR "../../../resources/inputprofiles/"
-#define INTERNAL_SCRIPTDIR "../../../resources/rgbscripts/"
+#ifdef USE_CTEST
+    #define INTERNAL_FIXTUREDIR "../../resources/fixtures/"
+    #define INTERNAL_PROFILEDIR "../../resources/inputprofiles/"
+    #define INTERNAL_SCRIPTDIR "../../resources/rgbscripts/"
+#else
+    #define INTERNAL_FIXTUREDIR "../../../resources/fixtures/"
+    #define INTERNAL_PROFILEDIR "../../../resources/inputprofiles/"
+    #define INTERNAL_SCRIPTDIR "../../../resources/rgbscripts/"
+#endif
 
 #endif

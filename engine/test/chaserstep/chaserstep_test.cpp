@@ -350,3 +350,4 @@ void ChaserStep_Test::save_sequence()
 }
 
 QTEST_APPLESS_MAIN(ChaserStep_Test)
+#include "moc_chaserstep_test.cpp"

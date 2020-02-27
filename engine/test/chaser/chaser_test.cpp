@@ -1020,3 +1020,4 @@ void Chaser_Test::quickChaser()
 }
 
 QTEST_MAIN(Chaser_Test)
+#include "moc_chaser_test.cpp"
