@@ -265,7 +265,7 @@ void VCAudioTriggers::slotDisplaySpectrum(double *spectrumBands, int size,
 #if QT_VERSION >= 0x050000
 void VCAudioTriggers::slotVolumeChanged(int volume)
 {
-    m_doc->audioInputCapture()->setVolume((qreal)volume / 100);
+    m_doc->audioInputCapture()->setVolume(intensity() * (qreal)volume / 100);
 }
 #endif
 
@@ -574,6 +574,13 @@ void VCAudioTriggers::editProperties()
                         this, SLOT(slotDisplaySpectrum(double*,int,double,quint32)));
         }
     }
+}
+
+
+void VCAudioTriggers::adjustIntensity(qreal val)
+{
+    VCWidget::adjustIntensity(val);
+    slotVolumeChanged(m_volumeSlider->value());
 }
 
 /*********************************************************************
