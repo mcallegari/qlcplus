@@ -15,6 +15,26 @@
           "name": "Qt5_DIR",
           "value": "C:/Qt/5.14.1/msvc2017_64",
           "type": "PATH"
+        },
+        {
+          "name": "LIBUSB_1_LIBRARY",
+          "value": "C:/Users/jan/vcpkg/packages/libusb_x64-windows/lib/libusb-1.0.lib",
+          "type": "FILEPATH"
+        },
+        {
+          "name": "LIBUSB_1_INCLUDE_DIR",
+          "value": "C:/Users/jan/vcpkg/packages/libusb_x64-windows/include/libusb-1.0",
+          "type": "PATH"
+        },
+        {
+          "name": "PORTAUDIO_INCLUDE_DIR",
+          "value": "C:/Users/jan/vcpkg/packages/portaudio_x64-windows/include",
+          "type": "PATH"
+        },
+        {
+          "name": "PORTAUDIO_LIBRARY",
+          "value": "C:/Users/jan/vcpkg/packages/portaudio_x64-windows/lib/portaudio.lib",
+          "type": "FILEPATH"
         }
       ]
     }

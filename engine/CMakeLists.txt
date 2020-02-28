@@ -134,12 +134,15 @@ set(qlcplusengine_src
 )
 
 IF (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
-    set(qlcplusengine_src
+    list( APPEND qlcplusengine_src
         ${qlcplusengine_src}
         src/mastertimer-win32.cpp
     )
+    list( APPEND qlcplusengine_link
+        winmm
+    )
 ELSE()
-    set(qlcplusengine_src
+    list( APPEND qlcplusengine_src
         ${qlcplusengine_src}
         src/mastertimer-unix.cpp
     )
@@ -157,7 +160,6 @@ set(qlcplusengine_link
 
 add_library(qlcplusengine SHARED ${qlcplusengine_src})
 target_link_libraries(qlcplusengine ${qlcplusengine_link})
-
 install(TARGETS qlcplusengine DESTINATION "${LIBSDIR}")
 
 #build tests
