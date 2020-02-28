@@ -28,6 +28,7 @@ include_directories(
     ${Qt5Multimedia_INCLUDE_DIRS}
     ${Qt5Qml_INCLUDE_DIRS}
     ${Qt5Test_INCLUDE_DIRS}
+    ${PORTAUDIO_INCLUDE_DIRS}
 )
 
 if(${FFTW_FOUND})

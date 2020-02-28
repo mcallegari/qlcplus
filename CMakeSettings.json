@@ -1,0 +1,32 @@
+﻿{
+  "configurations": [
+    {
+      "name": "x64-Debug",
+      "generator": "Ninja",
+      "configurationType": "Debug",
+      "inheritEnvironments": [ "msvc_x64_x64" ],
+      "buildRoot": "${projectDir}\\out\\build\\${name}",
+      "installRoot": "${projectDir}\\out\\install\\${name}",
+      "cmakeCommandArgs": "",
+      "buildCommandArgs": "-v",
+      "ctestCommandArgs": "",
+      "variables": [
+        {
+          "name": "Qt5_DIR",
+          "value": "C:/Qt/5.14.1/msvc2017_64",
+          "type": "PATH"
+        },
+        {
+          "name": "PORTAUDIO_INCLUDE_DIR",
+          "value": "C:/Users/jan/Desktop/qlcplus/pa_stable_v190600_20161030/portaudio",
+          "type": "PATH"
+        },
+        {
+          "name": "PORTAUDIO_LIBRARY",
+          "value": "C:/Users/jan/Desktop/qlcplus/pa_stable_v190600_20161030/build/portaudio_static_x64.lib",
+          "type": "FILEPATH"
+        }
+      ]
+    }
+  ]
+}

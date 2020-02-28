@@ -49,3 +49,6 @@ coverage/
 
 # Development IDEs
 .vscode/
+/.vs
+/launcher/out/build/x64-Debug
+/out/build/x64-Debug
