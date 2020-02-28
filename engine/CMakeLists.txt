@@ -35,7 +35,7 @@ include_directories(
 
 if(${FFTW_FOUND})
     add_definitions(-DHAS_FFTW3)
-    list(Append audioengine_link ${FFTW_LIBRARIES})
+    list(APPEND audioengine_link ${FFTW_LIBRARIES})
 endif(${FFTW_FOUND})
 
 if(${MAD_FOUND})
