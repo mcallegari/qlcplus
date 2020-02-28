@@ -147,11 +147,14 @@ QString QLCFile::currentUserName()
 {
 #if defined(WIN32) || defined(Q_OS_WIN)
     DWORD length = UNLEN + 1;
-    TCHAR name[length];
+    TCHAR *name = new TCHAR[length];
+    QString tmpname;
     if (GetUserName(name, &length))
-        return QString::fromUtf16((ushort*) name);
+        tmpname = QString::fromUtf16((ushort*)name);
     else
-        return QString("Unknown windows user");
+        tmpname = QString("Unknown windows user");
+    delete name;
+    return tmpname;
 #else
  #if defined(Q_OS_ANDROID)
     return QString(getenv("USER"));

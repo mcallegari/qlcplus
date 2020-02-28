@@ -23,8 +23,8 @@
 #include <QList>
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
-
-#include <math.h>
+#include <QtCore\qmath.h>
+#include <cmath>
 
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
@@ -39,6 +39,7 @@
 #include "doc.h"
 #include "efx.h"
 #include "bus.h"
+
 
 /*****************************************************************************
  * Initialization

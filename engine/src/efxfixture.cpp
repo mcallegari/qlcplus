@@ -21,7 +21,8 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QDebug>
-#include <math.h>
+#include <cmath>
+#include <QtCore\qmath.h>
 
 #include "genericfader.h"
 #include "mastertimer.h"
