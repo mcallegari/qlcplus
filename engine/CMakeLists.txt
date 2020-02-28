@@ -35,6 +35,7 @@ include_directories(
 
 if(${FFTW_FOUND})
     add_definitions(-DHAS_FFTW3)
+    list(Append audioengine_link ${FFTW_LIBRARIES})
 endif(${FFTW_FOUND})
 
 if(${MAD_FOUND})
@@ -60,7 +61,7 @@ add_library(qlcplusaudio STATIC ${audioengine_src})
 target_link_libraries(qlcplusaudio 
     Qt5::Core
     ${PORTAUDIO_LIBRARIES}
-    ${FFTW_LIBRARIES}
+    ${audioengine_link}
 )
 
 set(qlcplusengine_src

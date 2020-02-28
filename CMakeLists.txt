@@ -68,9 +68,8 @@ find_package(Qt5 COMPONENTS
     Network
     MultimediaWidgets REQUIRED
     SerialPort
+    Test
 )
-
-find_package(Qt5Test REQUIRED)
 
 find_package(FTDI)
 
