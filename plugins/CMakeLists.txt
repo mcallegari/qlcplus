@@ -73,21 +73,24 @@ if(FTD2XX_FOUND)
     LIST(APPEND dmxusb_src
         dmxusb/src/ftd2xx-interface.cpp
     )
+    list(APPEND dmxusb_link ${FTD2XX_LIBRARY} ${LIBUSB_1_LIBRARIES})
 elseif(${FTDI_FOUND})
-  message(STATUS "Building with libFTDI1 support")
-  add_definitions(-DLIBFTDI1)
-  LIST(APPEND dmxusb_src 
-    dmxusb/src/libftdi-interface.cpp
-    dmxusb/src/nanodmx.cpp
-    dmxusb/src/euroliteusbdmxpro.cpp
-  )
-  IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-    install(FILES dmxusb/src/z65-dmxusb.rules DESTINATION ${UDEVRULESDIR})
-  ENDIF()
+    message(STATUS "Building with libFTDI1 support")
+    add_definitions(-DLIBFTDI1)
+    LIST(APPEND dmxusb_src 
+        dmxusb/src/libftdi-interface.cpp
+        dmxusb/src/nanodmx.cpp
+        dmxusb/src/euroliteusbdmxpro.cpp
+    )
+    IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+        install(FILES dmxusb/src/z65-dmxusb.rules DESTINATION ${UDEVRULESDIR})
+    ENDIF()
+    list(APPEND dmxusb_link ${FTDI_LIBRARIES} ${LIBUSB_1_LIBRARIES})
 else()
   message(STATUS "Building with QtSerial support")
   add_definitions(-DQTSERIAL)
   LIST(APPEND dmxusb_src dmxusb/src/qtserial-interface.cpp)
+  list(APPEND dmxusb_link Qt5::SerialPort)
 endif()
 
 add_library(dmxusb SHARED ${dmxusb_src})
@@ -95,10 +98,7 @@ add_library(dmxusb SHARED ${dmxusb_src})
 target_link_libraries(dmxusb
     Qt5::Core
     Qt5::Widgets
-    Qt5::SerialPort
-    ${FTDI_LIBRARIES}
-    ${LIBUSB_1_LIBRARIES}
-    ${FTD2XX_LIBRARY}
+    ${dmxusb_link}
 )
 
 install(TARGETS dmxusb DESTINATION ${PLUGINDIR})
