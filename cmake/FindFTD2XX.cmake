@@ -6,10 +6,11 @@
 #  FTD2XX_INCLUDE_DIR - ~ the ftd2xx include directory 
 #  FTD2XX_LIBRARY - Link these to use ftd2xx
 
-file(GLOB_RECURSE extern_file "${PROJECT_SOURCE_DIR}/3rdparty/" "*ftd2xx.h" LIMIT 1)
+file(GLOB_RECURSE extern_file "${PROJECT_SOURCE_DIR}/3rdparty/*ftd2xx.h")
 if (extern_file)
-  get_filename_component(extern_lib_path "${extern_file}" DIRECTORY)
-  MESSAGE(STATUS "Found FTD2XX library in '3rdparty' subfolder:" ${extern_lib_path})
+    list(FILTER extern_file EXCLUDE REGEX "/*examples*")
+    get_filename_component(extern_lib_path "${extern_file}" DIRECTORY)
+    MESSAGE(STATUS "Found FTD2XX library in '3rdparty' subfolder:" ${extern_lib_path})
 endif(extern_file)
 
 FIND_PATH(FTD2XX_INCLUDE_DIR
@@ -34,7 +35,7 @@ PATHS /usr/lib
       /usr/local/lib
       /opt/local/lib
       /sw/lib
-      ${extern_lib_path}
+      ${extern_lib_path}/*
 )
 
 # set path to DLL for later installation

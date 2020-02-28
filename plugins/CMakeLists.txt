@@ -1,4 +1,6 @@
 include_directories(
+    ${CMAKE_BINARY_DIR}/engine
+    ${CMAKE_SOURCE_DIR}/engine/src
     interfaces
     artnet/src/
     enttecwing/src
@@ -8,6 +10,9 @@ include_directories(
     hid/linux OPTIONAL
     hid/macx  OPTIONAL
     hid/win32 OPTIONAL
+    midi/alsa OPTIONAL
+    midi/win32 OPTIONAL
+    midi/macx OPTIONAL
     ${Qt5Core_INCLUDE_DIRS}
     ${Qt5Network_INCLUDE_DIRS}
     ${Qt5Widgets_INCLUDE_DIRS}
@@ -218,38 +223,48 @@ install(FILES loopback/src/org.qlcplus.QLCPlus.loopback.metainfo.xml DESTINATION
 
 #midi plugin
 
-set(midi_src
+set(midiplugin_src
     interfaces/qlcioplugin.cpp
+    midi/src/common/configuremidiplugin.cpp
+    midi/src/common/mididevice.cpp
+    midi/src/common/midiinputdevice.cpp
+    midi/src/common/midioutputdevice.cpp
+    midi/src/common/midiplugin.cpp
+    midi/src/common/midiprotocol.cpp
+    midi/src/common/miditemplate.cpp
 )
 
 IF (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
-    LIST(APPEND midi_src
+    LIST(APPEND midiplugin_src
         midi/src/win32/win32midienumerator.cpp
         midi/src/win32/win32midiinputdevice.cpp
         midi/src/win32/win32midioutputdevice.cpp
     )
-    set(midilink Qt5::Widgets setupapi winmm)
+    set(midilink setupapi winmm)
 ELSEIF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-    LIST(APPEND midi_src
+    LIST(APPEND midiplugin_src
         midi/src/macx/coremidienumerator.cpp
         midi/src/macx/coremidiinputdevice.cpp
         midi/src/macx/coremidioutputdevice.cpp
     )
-    set(midilink Qt5::Widgets IOKit CoreFoundation)
+    set(midilink CoreMIDI CoreFoundation)
+ELSE()
+    IF(ALSA_FOUND)
+        LIST(APPEND midiplugin_src
+            midi/src/alsa/alsamidienumerator.cpp
+            midi/src/alsa/alsamidiinputdevice.cpp
+            midi/src/alsa/alsamidiinputthread.cpp
+            midi/src/alsa/alsamidioutputdevice.cpp
+            midi/src/alsa/alsamidiutil.cpp
+        )
+        set(midilink ${ALSA_LIBRARIES})
+    ENDIF()
 ENDIF()
 
-IF(ALSA_FOUND)
-    LIST(APPEND midi_src
-        midi/src/alsa/alsamidienumerator.cpp
-        midi/src/alsa/alsamidiinputdevice.cpp
-        midi/src/alsa/alsamidiinputthread.cpp
-        midi/src/alsa/alsamidioutputdevice.cpp
-        midi/src/alsa/alsamidiutil.cpp
-    )
-    set(midilink Qt5::Widgets ${ALSA_LIBRARIES})
-ENDIF()
+add_library(midiplugin SHARED 
+    ${midiplugin_src}
+)
 
-add_library(midiplugin SHARED ${midi_src} )
-target_link_libraries(midiplugin Qt5::Widgets ${midilink})
+target_link_libraries(midiplugin Qt5::Widgets ${midilink} )
 install(TARGETS midiplugin DESTINATION ${PLUGINDIR})
 install(FILES midi/src/org.qlcplus.QLCPlus.midi.metainfo.xml DESTINATION ${METAINFODIR})
