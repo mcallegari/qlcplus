@@ -30,3 +30,5 @@ target_link_libraries(qlcpluswebaccess
     Qt5::Script 
     Qt5::Network
 )
+
+install(TARGETS qlcpluswebaccess DESTINATION ${LIBSDIR})

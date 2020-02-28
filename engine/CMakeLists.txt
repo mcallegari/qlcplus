@@ -3,8 +3,6 @@ find_package(FFTW)
 find_package(Mad)
 find_package(LibSndFile)
 
-set(GOBODIR Gobos)
-
 configure_file(qlcconfig.h.in qlcconfig.h)
 
 set (audioengine_src 

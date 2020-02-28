@@ -5,25 +5,30 @@ enable_testing(true)
 
 IF (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     set(APPROOT "ENV{SystemDrive}/qlcplus")
+    set(LIBSDIR "${APPROOT}")
     set(DATADIR "")
     set(USERDATADIR "QLC+")
     set(DOCSDIR "Documents")
     set(INPUTPROFILEDIR "InputProfiles")
 ELSEIF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     set(APPROOT "~/QLC+.app/Contents")
+    set(LIBSDIR "~/Library")
     set(DATADIR "Resources")
     set(USERDATADIR "Library/Application Support/QLC+")
     set(DOCSDIR "${DATADIR}/Documents")
     set(INPUTPROFILEDIR "${DATADIR}/InputProfiles")
+    set(CMAKE_MACOSX_RPATH 1)
 ELSEIF(${CMAKE_SYSTEM_NAME} MATCHES "Android")
     set(APPROOT "/")
+    set(LIBSDIR "${CMAKE_INSTALL_PREFIX}/lib/qlcplus")
     set(DATADIR "assets")
     set(USERDATADIR ".qlcplus")
     set(DOCSDIR "${DATADIR}/Documents")
     set(INPUTPROFILEDIR "${DATADIR}/inputprofiles")
 ELSE()
     set(APPROOT ${CMAKE_INSTALL_PREFIX})
-    set(DATADIR "share/qlcplus")
+    set(LIBSDIR "${CMAKE_INSTALL_PREFIX}/lib/qlcplus")
+    set(DATADIR "${CMAKE_INSTALL_PREFIX}/share/qlcplus/resources")
     set(USERDATADIR ".qlcplus")
     set(DOCSDIR "${DATADIR}/Documents")
     set(INPUTPROFILEDIR "${DATADIR}/inputprofiles")
@@ -32,16 +37,20 @@ ENDIF()
 set(APPNAME        "Q Light Controller Plus")
 set(FXEDNAME       "Fixture Definition Editor")
 set(TRANSLATIONDIR "${APPROOT}/share/qlcplus/translations")
-set(AUDIOPLUGINDIR "${APPROOT}/lib/qlcplus/PlugIns/Audio")
-set(PLUGINDIR      "${APPROOT}/lib/qlcplus/Plugins")
-set(RGBSCRIPTDIR   "${DATADIR}/RGBScripts")
-set(LIBSDIR        "${CMAKE_LIBRARY_PATH}")
-set(USERRGBSCRIPTDIR "${USERDATADIR}/RGBScripts")
-set(USERINPUTPROFILEDIR "${USERDATADIR}/InputProfiles")
+set(AUDIOPLUGINDIR "${APPROOT}/lib/qlcplus/plugIns/audio")
+set(PLUGINDIR      "${APPROOT}/lib/qlcplus/plugins")
+set(RGBSCRIPTDIR   "${DATADIR}/rgbscripts")
+set(USERRGBSCRIPTDIR "${USERDATADIR}/rgbscripts")
+set(USERINPUTPROFILEDIR "${USERDATADIR}/inputprofiles")
 set(WEBFILESDIR     "${DATADIR}/web")
+set(GOBODIR         "gobos")
+set(FIXTUREDIR      "${DATADIR}/fixtures")
+set(USERFIXTUREDIR  "${USERDATADIR}/Fixtures")
+
+set(CMAKE_INSTALL_RPATH ${LIBSDIR})
 
 find_package(Qt5 COMPONENTS 
-    Core 
+    Core
     Widgets 
     Script 
     Multimedia 
@@ -68,13 +77,6 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpic")
 
-add_subdirectory(hotplugmonitor)
-add_subdirectory(engine)
-add_subdirectory(ui)
-add_subdirectory(webaccess)
-add_subdirectory(launcher)
-add_subdirectory(main)
-
 list(APPEND languages 
     de_DE
     es_ES
@@ -100,7 +102,18 @@ endforeach()
 
 #$LRELEASE_BIN -silent $FILELIST -qm $OUTPUT_NAME
 
-file(GLOB_RECURSE qmfiles "${CMAKE_CURRENT_BINARY_DIR}/*.qm" LIST_DIRECTORIES false) 
+file(GLOB_RECURSE qmfiles "${CMAKE_CURRENT_BINARY_DIR}/*.qm" LIST_DIRECTORIES false)
+
 install(FILES ${qmfiles} DESTINATION ${TRANSLATIONDIR})
 
-install(DIRECTORY resources DESTINATION ${DATADIR})
+install(DIRECTORY resources/ DESTINATION ${DATADIR} 
+        PATTERN "Makefile" EXCLUDE
+        PATTERN "*.pro" EXCLUDE
+)
+
+add_subdirectory(hotplugmonitor)
+add_subdirectory(engine)
+add_subdirectory(ui)
+add_subdirectory(webaccess)
+add_subdirectory(launcher)
+add_subdirectory(main)

@@ -11,7 +11,7 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/webaccess/src/
 )
 
-add_executable(qlcplus ${qlcplus_src})
+add_executable(qlcplus ${qlcplus_src} ../ui/src/qlcui.qrc)
 
 target_link_libraries(qlcplus
     Qt5::Widgets
@@ -19,3 +19,5 @@ target_link_libraries(qlcplus
     qlcplusui
     qlcpluswebaccess
 )
+
+install(TARGETS qlcplus DESTINATION "${APPROOT}/bin")
