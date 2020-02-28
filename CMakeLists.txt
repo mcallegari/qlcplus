@@ -66,8 +66,8 @@ find_package(Qt5 COMPONENTS
     Gui
     LinguistTools
     Network
-    SerialPort
     MultimediaWidgets REQUIRED
+    SerialPort
 )
 
 find_package(Qt5Test REQUIRED)
