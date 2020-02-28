@@ -47,8 +47,14 @@ set(GOBODIR         "gobos")
 set(FIXTUREDIR      "${DATADIR}/fixtures")
 set(USERFIXTUREDIR  "${USERDATADIR}/fixtures")
 set(METAINFODIR     "${APPROOT}/share/metainfo")
+set(UDEVRULESDIR    "/etc/udev/rules.d")
 
 set(CMAKE_INSTALL_RPATH ${LIBSDIR})
+
+set(CMAKE_MODULE_PATH 
+    ${CMAKE_MODULE_PATH}
+    ${PROJECT_SOURCE_DIR}/cmake
+)
 
 find_package(Qt5 COMPONENTS 
     Core
@@ -60,15 +66,15 @@ find_package(Qt5 COMPONENTS
     Gui
     LinguistTools
     Network
+    SerialPort
     MultimediaWidgets REQUIRED
 )
 
 find_package(Qt5Test REQUIRED)
 
-set(CMAKE_MODULE_PATH 
-    ${CMAKE_MODULE_PATH}
-    ${PROJECT_SOURCE_DIR}/cmake
-)
+find_package(FTDI)
+
+find_package(libusb-1.0)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -76,8 +82,8 @@ set(CMAKE_AUTOUIC ON)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpic")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fpic")
 
 list(APPEND languages 
     de_DE

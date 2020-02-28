@@ -25,6 +25,7 @@
 #include <QThread>
 #include <QMutex>
 
+#include "dmxinterface.h"
 #include "dmxusbwidget.h"
 
 class DMXUSBOpenRx : public QThread, public DMXUSBWidget

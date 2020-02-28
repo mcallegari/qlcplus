@@ -30,7 +30,7 @@ class LibFTDIInterface : public DMXInterface
 {
 public:
     LibFTDIInterface(const QString& serial, const QString& name, const QString& vendor,
-                     quint16 VID, quint16 PID, quint32 id);
+                     quint16 VID, quint16 PID, quint32 id=0);
 
     /** Destructor */
     virtual ~LibFTDIInterface();

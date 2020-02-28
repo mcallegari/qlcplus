@@ -33,16 +33,7 @@ include_directories(
     ${LIBSNDFILE_INCLUDE_DIRS} OPTIONAL
 )
 
-set(audioengine_link
-    Qt5::Core
-    ${PORTAUDIO_LIBRARIES}
-)
-
 if(${FFTW_FOUND})
-    set ( audioengine_link
-        ${audioengine_link}
-        ${FFTW_LIBRARIES}
-    )
     add_definitions(-DHAS_FFTW3)
 endif(${FFTW_FOUND})
 
@@ -66,7 +57,11 @@ endif(${LIBSNDFILE_FOUND})
 
 add_library(qlcplusaudio STATIC ${audioengine_src})
 
-target_link_libraries(qlcplusaudio ${audioengine_link})
+target_link_libraries(qlcplusaudio 
+    Qt5::Core
+    ${PORTAUDIO_LIBRARIES}
+    ${FFTW_LIBRARIES}
+)
 
 set(qlcplusengine_src
            src/avolitesd4parser.cpp 
