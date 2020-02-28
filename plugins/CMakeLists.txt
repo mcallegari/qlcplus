@@ -10,6 +10,7 @@ include_directories(
     ${Qt5SerialPort_INCLUDE_DIRS}
     ${FTDI_INCLUDE_DIRS} OPTIONAL
     ${LIBUSB_1_INCLUDE_DIRS} OPTIONAL
+    ${FTD2XX_INCLUDE_DIR} OPTIONAL
 )
 
 #arnet plugin
@@ -56,12 +57,17 @@ set(dmxusb_src
     dmxusb/src/dmxusbwidget.cpp
     dmxusb/src/enttecdmxusbopen.cpp
     dmxusb/src/enttecdmxusbpro.cpp
-#     dmxusb/src/ftd2xx-interface.cpp
     dmxusb/src/stageprofi.cpp
     dmxusb/src/vinceusbdmx512.cpp
 )
 
-if(${FTDI_FOUND})
+if(FTD2XX_FOUND)
+    add_definitions(-DFTD2XX)
+    message(STATUS "Building with libFTD2XX support")
+    LIST(APPEND dmxusb_src
+        dmxusb/src/ftd2xx-interface.cpp
+    )
+elseif(${FTDI_FOUND})
   message(STATUS "Building with libFTDI1 support")
   add_definitions(-DLIBFTDI1)
   LIST(APPEND dmxusb_src 
@@ -86,6 +92,7 @@ target_link_libraries(dmxusb
     Qt5::SerialPort
     ${FTDI_LIBRARIES}
     ${LIBUSB_1_LIBRARIES}
+    ${FTD2XX_LIBRARY}
 )
 
 install(TARGETS dmxusb DESTINATION ${PLUGINDIR})

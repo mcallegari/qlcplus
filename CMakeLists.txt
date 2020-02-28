@@ -76,6 +76,8 @@ find_package(FTDI)
 
 find_package(libusb-1.0)
 
+find_package(FTD2XX)
+
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)

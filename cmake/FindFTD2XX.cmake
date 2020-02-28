@@ -6,13 +6,13 @@
 #  FTD2XX_INCLUDE_DIR - ~ the ftd2xx include directory 
 #  FTD2XX_LIBRARY - Link these to use ftd2xx
 
-file(GLOB_RECURSE extern_file ${PROJECT_SOURCE_DIR}/extern/*ftd2xx.h)
+file(GLOB_RECURSE extern_file LIST_DIRECTORIES false "${PROJECT_SOURCE_DIR}/3rdparty/" "*ftd2xx.h" LIMIT 0)
 if (extern_file)
-  get_filename_component(extern_lib_path ${extern_file} PATH)
-  MESSAGE(STATUS "Found FTD2XX library in 'extern' subfolder: ${extern_lib_path}")
+  get_filename_component(extern_lib_path "${extern_file}" DIRECTORY)
+  MESSAGE(STATUS "Found FTD2XX library in '3rdparty' subfolder:" ${extern_lib_path})
 endif(extern_file)
 
-FIND_PATH(FTD2XX_INCLUDE_DIR 
+FIND_PATH(FTD2XX_INCLUDE_DIR
 NAMES   ftd2xx.h
 PATHS   /usr/local/include
         /usr/include
@@ -22,12 +22,6 @@ PATHS   /usr/local/include
 	/sw/include
 	${extern_lib_path}
 )
-
-# determine if we run a 64bit compiler or not
-set(bitness i386)
-if(CMAKE_SIZEOF_VOID_P EQUAL 8)
-  set(bitness amd64)
-endif()
 
 SET(FTD2XX_LIBNAME ftd2xx)
 IF(WIN32)
@@ -40,7 +34,7 @@ PATHS /usr/lib
       /usr/local/lib
       /opt/local/lib
       /sw/lib
-      ${extern_lib_path}/${bitness}
+      ${extern_lib_path}
 )
 
 # set path to DLL for later installation
