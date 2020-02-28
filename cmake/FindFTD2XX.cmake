@@ -6,7 +6,7 @@
 #  FTD2XX_INCLUDE_DIR - ~ the ftd2xx include directory 
 #  FTD2XX_LIBRARY - Link these to use ftd2xx
 
-file(GLOB_RECURSE extern_file LIST_DIRECTORIES false "${PROJECT_SOURCE_DIR}/3rdparty/" "*ftd2xx.h" LIMIT 0)
+file(GLOB_RECURSE extern_file "${PROJECT_SOURCE_DIR}/3rdparty/" "*ftd2xx.h" LIMIT 1)
 if (extern_file)
   get_filename_component(extern_lib_path "${extern_file}" DIRECTORY)
   MESSAGE(STATUS "Found FTD2XX library in '3rdparty' subfolder:" ${extern_lib_path})
