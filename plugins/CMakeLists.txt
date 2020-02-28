@@ -69,7 +69,7 @@ set(dmxusb_src
 
 if(FTD2XX_FOUND)
     add_definitions(-DFTD2XX)
-    list(APPEND INCLUDE_DIRECTORIES 
+    include_directories(
         ${FTD2XX_INCLUDE_DIR} 
         ${LIBUSB_1_INCLUDE_DIRS}
     )
@@ -81,7 +81,7 @@ if(FTD2XX_FOUND)
 elseif(${FTDI_FOUND})
     message(STATUS "Building with libFTDI1 support")
     add_definitions(-DLIBFTDI1)
-    list(APPEND INCLUDE_DIRECTORIES
+    include_directories(
         ${FTDI_INCLUDE_DIRS} 
         ${LIBUSB_1_INCLUDE_DIRS}
     )
@@ -97,7 +97,7 @@ elseif(${FTDI_FOUND})
 else()
     message(STATUS "Building with QtSerial support")
     add_definitions(-DQTSERIAL)
-    list(APPEND INCLUDE_DIRECTORIES
+    include_directories(
         ${Qt5SerialPort_INCLUDE_DIRS}
     )
     list(APPEND dmxusb_src dmxusb/src/qtserial-interface.cpp)

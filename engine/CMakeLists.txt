@@ -34,14 +34,14 @@ include_directories(
 if(${FFTW_FOUND})
     add_definitions(-DHAS_FFTW3)
     list(APPEND audioengine_link ${FFTW_LIBRARIES})
-    list(APPEND INCLUDE_DIRECTORIES ${FFTW_INCLUDE_DIRS})
+    include_directories( ${FFTW_INCLUDE_DIRS})
 endif(${FFTW_FOUND})
 
 if(${MAD_FOUND})
     set (madplugin_src 
         audio/plugins/mad/audiodecoder_mad.cpp
     )
-    list(APPEND INCLUDE_DIRECTORIES ${MAD_INCLUDE_DIR})
+    include_directories( ${MAD_INCLUDE_DIR})
     add_library(madplugin SHARED ${madplugin_src})
     target_link_libraries(madplugin ${MAD_LIBRARIES})
     install(TARGETS madplugin DESTINATION ${AUDIOPLUGINDIR})
@@ -51,7 +51,7 @@ if(${LIBSNDFILE_FOUND})
     set (sndfileplugin_src 
         audio/plugins/sndfile/audiodecoder_sndfile.cpp
     )
-    list(APPEND INCLUDE_DIRECTORIES ${LIBSNDFILE_INCLUDE_DIRS})
+    include_directories( ${LIBSNDFILE_INCLUDE_DIRS})
     add_library(sndfileplugin SHARED ${sndfileplugin_src})
     install(TARGETS sndfileplugin DESTINATION ${AUDIOPLUGINDIR})
     target_link_libraries(sndfileplugin ${LIBSNDFILE_LIBRARIES})
