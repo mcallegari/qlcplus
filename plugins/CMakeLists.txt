@@ -16,6 +16,7 @@ include_directories(
     ${FTDI_INCLUDE_DIRS} OPTIONAL
     ${LIBUSB_1_INCLUDE_DIRS} OPTIONAL
     ${FTD2XX_INCLUDE_DIR} OPTIONAL
+    ${ALSA_INCLUDE_DIRS} OPTIONAL
 )
 
 #arnet plugin
@@ -215,3 +216,40 @@ target_link_libraries(loopback Qt5::Core )
 install(TARGETS loopback DESTINATION ${PLUGINDIR})
 install(FILES loopback/src/org.qlcplus.QLCPlus.loopback.metainfo.xml DESTINATION ${METAINFODIR})
 
+#midi plugin
+
+set(midi_src
+    interfaces/qlcioplugin.cpp
+)
+
+IF (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+    LIST(APPEND midi_src
+        midi/src/win32/win32midienumerator.cpp
+        midi/src/win32/win32midiinputdevice.cpp
+        midi/src/win32/win32midioutputdevice.cpp
+    )
+    set(midilink Qt5::Widgets setupapi winmm)
+ELSEIF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    LIST(APPEND midi_src
+        midi/src/macx/coremidienumerator.cpp
+        midi/src/macx/coremidiinputdevice.cpp
+        midi/src/macx/coremidioutputdevice.cpp
+    )
+    set(midilink Qt5::Widgets IOKit CoreFoundation)
+ENDIF()
+
+IF(ALSA_FOUND)
+    LIST(APPEND midi_src
+        midi/src/alsa/alsamidienumerator.cpp
+        midi/src/alsa/alsamidiinputdevice.cpp
+        midi/src/alsa/alsamidiinputthread.cpp
+        midi/src/alsa/alsamidioutputdevice.cpp
+        midi/src/alsa/alsamidiutil.cpp
+    )
+    set(midilink Qt5::Widgets ${ALSA_LIBRARIES})
+ENDIF()
+
+add_library(midiplugin SHARED ${midi_src} )
+target_link_libraries(midiplugin Qt5::Widgets ${midilink})
+install(TARGETS midiplugin DESTINATION ${PLUGINDIR})
+install(FILES midi/src/org.qlcplus.QLCPlus.midi.metainfo.xml DESTINATION ${METAINFODIR})
