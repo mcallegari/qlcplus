@@ -32,3 +32,15 @@ target_link_libraries(qlcpluswebaccess
 )
 
 install(TARGETS qlcpluswebaccess DESTINATION ${LIBSDIR})
+install(FILES 
+    res/common.css
+    res/keypad.html
+    res/networkconfig.js
+    res/simpledesk.css
+    res/simpledesk.js
+    res/virtualconsole.css
+    res/virtualconsole.js
+    res/configuration.js
+    res/websocket.js
+    DESTINATION ${DATADIR}/${WEBFILESDIR}
+)
