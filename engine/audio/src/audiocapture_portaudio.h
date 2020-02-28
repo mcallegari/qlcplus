@@ -21,6 +21,7 @@
 #define AUDIOCAPTURE_PORTAUDIO_H
 
 #include "audiocapture.h"
+#include <portaudio.h>
 
 /** @addtogroup engine_audio Audio
  * @{
