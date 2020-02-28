@@ -20,6 +20,7 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/ui/src/
     ${CMAKE_SOURCE_DIR}/ui/src/virtualconsole/
     ${CMAKE_CURRENT_SOURCE_DIR}/src/qhttpserver/
+    ${Qt5Network_INCLUDE_DIRS}
 )
 
 add_library(qlcpluswebaccess SHARED ${qlcpluswebaccess_src})
@@ -29,6 +30,7 @@ target_link_libraries(qlcpluswebaccess
     Qt5::Widgets
     Qt5::Script 
     Qt5::Network
+    qlcplusengine
 )
 
 install(TARGETS qlcpluswebaccess DESTINATION ${LIBSDIR})

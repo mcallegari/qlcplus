@@ -22,9 +22,9 @@
 
 #include "audiorenderer.h"
 #include "audiodecoder.h"
+#include <portaudio.h>
 
 #include <qobject.h>
-#include <portaudio.h>
 
 /** @addtogroup engine_audio Audio
  * @{

@@ -144,7 +144,7 @@ bool HPMPrivate::processWinEvent(MSG* message, long* RESULT)
         if (hdr->dbch_devicetype == DBT_DEVTYP_DEVICEINTERFACE)
         {
             PDEV_BROADCAST_DEVICEINTERFACE dev = (PDEV_BROADCAST_DEVICEINTERFACE) hdr;
-            QString dbcc_name(QString::fromWCharArray(dev->dbcc_name));
+            QString dbcc_name(QString::fromWCharArray((wchar_t*)&dev->dbcc_name,dev->dbcc_size));
             if (dbcc_name.contains(DBCC_NAME_RAWDEVICE_USB_GUID) == true)
             {
                 // Emit only raw USB devices
@@ -161,7 +161,7 @@ bool HPMPrivate::processWinEvent(MSG* message, long* RESULT)
         if (hdr->dbch_devicetype == DBT_DEVTYP_DEVICEINTERFACE)
         {
             PDEV_BROADCAST_DEVICEINTERFACE dev = (PDEV_BROADCAST_DEVICEINTERFACE) hdr;
-            QString dbccName(QString::fromWCharArray(dev->dbcc_name));
+            QString dbccName(QString::fromWCharArray((wchar_t*)&dev->dbcc_name));
             if (dbccName.contains(DBCC_NAME_RAWDEVICE_USB_GUID) == true)
             {
                 // Emit only raw USB devices

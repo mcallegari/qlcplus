@@ -19,9 +19,6 @@
 
 #include <QSettings>
 #include <QDebug>
-
-#include <portaudio.h>
-
 #include "audiocapture_portaudio.h"
 
 // Since only one instance of this class is allowed, I can

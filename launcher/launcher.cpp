@@ -26,7 +26,9 @@
 #include <QLabel>
 #include <QUrl>
 
+#ifndef WIN32
 #include <unistd.h>
+#endif
 
 #include "qlcconfig.h"
 #include "qlcfile.h"

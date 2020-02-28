@@ -18,12 +18,12 @@
         },
         {
           "name": "PORTAUDIO_INCLUDE_DIR",
-          "value": "C:/Users/jan/Desktop/qlcplus/pa_stable_v190600_20161030/portaudio",
+          "value": "C:/Users/jan/Desktop/qlcplus/pa_stable_v190600_20161030/portaudio/include",
           "type": "PATH"
         },
         {
           "name": "PORTAUDIO_LIBRARY",
-          "value": "C:/Users/jan/Desktop/qlcplus/pa_stable_v190600_20161030/build/portaudio_static_x64.lib",
+          "value": "C:/Users/jan/Desktop/qlcplus/pa_stable_v190600_20161030/portaudio/out/build/x64-Debug/portaudio_static_x64.lib",
           "type": "FILEPATH"
         }
       ]
