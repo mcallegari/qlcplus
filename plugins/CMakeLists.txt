@@ -17,11 +17,6 @@ include_directories(
     ${Qt5Network_INCLUDE_DIRS}
     ${Qt5Widgets_INCLUDE_DIRS}
     ${Qt5Test_INCLUDE_DIRS}
-    ${Qt5SerialPort_INCLUDE_DIRS} OPTIONAL
-    ${FTDI_INCLUDE_DIRS} OPTIONAL
-    ${LIBUSB_1_INCLUDE_DIRS} OPTIONAL
-    ${FTD2XX_INCLUDE_DIR} OPTIONAL
-    ${ALSA_INCLUDE_DIRS} OPTIONAL
 )
 
 #arnet plugin
@@ -74,15 +69,23 @@ set(dmxusb_src
 
 if(FTD2XX_FOUND)
     add_definitions(-DFTD2XX)
+    list(APPEND INCLUDE_DIRECTORIES 
+        ${FTD2XX_INCLUDE_DIR} 
+        ${LIBUSB_1_INCLUDE_DIRS}
+    )
     message(STATUS "Building with libFTD2XX support")
-    LIST(APPEND dmxusb_src
+    list(APPEND dmxusb_src
         dmxusb/src/ftd2xx-interface.cpp
     )
     list(APPEND dmxusb_link ${FTD2XX_LIBRARY} ${LIBUSB_1_LIBRARIES})
 elseif(${FTDI_FOUND})
     message(STATUS "Building with libFTDI1 support")
     add_definitions(-DLIBFTDI1)
-    LIST(APPEND dmxusb_src 
+    list(APPEND INCLUDE_DIRECTORIES
+        ${FTDI_INCLUDE_DIRS} 
+        ${LIBUSB_1_INCLUDE_DIRS}
+    )
+    list(APPEND dmxusb_src 
         dmxusb/src/libftdi-interface.cpp
         dmxusb/src/nanodmx.cpp
         dmxusb/src/euroliteusbdmxpro.cpp
@@ -92,10 +95,13 @@ elseif(${FTDI_FOUND})
     ENDIF()
     list(APPEND dmxusb_link ${FTDI_LIBRARIES} ${LIBUSB_1_LIBRARIES})
 else()
-  message(STATUS "Building with QtSerial support")
-  add_definitions(-DQTSERIAL)
-  LIST(APPEND dmxusb_src dmxusb/src/qtserial-interface.cpp)
-  list(APPEND dmxusb_link Qt5::SerialPort)
+    message(STATUS "Building with QtSerial support")
+    add_definitions(-DQTSERIAL)
+    list(APPEND INCLUDE_DIRECTORIES
+        ${Qt5SerialPort_INCLUDE_DIRS}
+    )
+    list(APPEND dmxusb_src dmxusb/src/qtserial-interface.cpp)
+    list(APPEND dmxusb_link Qt5::SerialPort)
 endif()
 
 add_library(dmxusb SHARED ${dmxusb_src})
@@ -250,6 +256,9 @@ ELSEIF(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     set(midilink CoreMIDI CoreFoundation)
 ELSE()
     IF(ALSA_FOUND)
+        list(APPEND INCLUDE_DIRECTORIES
+            ${ALSA_INCLUDE_DIRS}
+        )
         LIST(APPEND midiplugin_src
             midi/src/alsa/alsamidienumerator.cpp
             midi/src/alsa/alsamidiinputdevice.cpp

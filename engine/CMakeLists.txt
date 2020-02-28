@@ -28,20 +28,19 @@ include_directories(
     ${Qt5Multimedia_INCLUDE_DIRS}
     ${Qt5Qml_INCLUDE_DIRS}
     ${Qt5Test_INCLUDE_DIRS}
-    ${FFTW_INCLUDE_DIRS} OPTIONAL
-    ${MAD_INCLUDE_DIR} OPTIONAL
-    ${LIBSNDFILE_INCLUDE_DIRS} OPTIONAL
 )
 
 if(${FFTW_FOUND})
     add_definitions(-DHAS_FFTW3)
     list(APPEND audioengine_link ${FFTW_LIBRARIES})
+    list(APPEND INCLUDE_DIRECTORIES ${FFTW_INCLUDE_DIRS})
 endif(${FFTW_FOUND})
 
 if(${MAD_FOUND})
     set (madplugin_src 
         audio/plugins/mad/audiodecoder_mad.cpp
     )
+    list(APPEND INCLUDE_DIRECTORIES ${MAD_INCLUDE_DIR})
     add_library(madplugin SHARED ${madplugin_src})
     target_link_libraries(madplugin ${MAD_LIBRARIES})
     install(TARGETS madplugin DESTINATION ${AUDIOPLUGINDIR})
@@ -51,6 +50,7 @@ if(${LIBSNDFILE_FOUND})
     set (sndfileplugin_src 
         audio/plugins/sndfile/audiodecoder_sndfile.cpp
     )
+    list(APPEND INCLUDE_DIRECTORIES ${LIBSNDFILE_INCLUDE_DIRS})
     add_library(sndfileplugin SHARED ${sndfileplugin_src})
     install(TARGETS sndfileplugin DESTINATION ${AUDIOPLUGINDIR})
     target_link_libraries(sndfileplugin ${LIBSNDFILE_LIBRARIES})
