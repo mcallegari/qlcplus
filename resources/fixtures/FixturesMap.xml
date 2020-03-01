@@ -8,6 +8,9 @@
     <F n="ADB-ALC4" m="ALC4"/>
     <F n="ADB-Warp-M" m="Warp M"/>
   </M>
+  <M n="AFX">
+    <F n="AFX-Spot-180-LED" m="Spot 180 LED"/>
+  </M>
   <M n="AGPtek">
     <F n="AGPtek-RGB-6ch-crystal-ball" m="RGB 6ch crystal ball"/>
   </M>
@@ -104,6 +107,7 @@
     <F n="American-DJ-P64-LED-Plus" m="P64 LED Plus"/>
     <F n="American-DJ-Par-38-Pro" m="Par 38 Pro"/>
     <F n="American-DJ-Pinspot-LED-Quad-DMX" m="Pinspot LED Quad DMX"/>
+    <F n="American-DJ-Pocket-Pro" m="Pocket Pro"/>
     <F n="American-DJ-Profile-Panel-RGB" m="Profile Panel RGB"/>
     <F n="American-DJ-ProPAR-56RGB" m="ProPAR 56RGB"/>
     <F n="American-DJ-Punch-LED-Pro" m="Punch LED Pro"/>
@@ -360,12 +364,13 @@
     <F n="Chauvet-Intimidator-Scan-305-IRC" m="Intimidator Scan 305 IRC"/>
     <F n="Chauvet-Intimidator-Scan-LED-200" m="Intimidator Scan LED 200"/>
     <F n="Chauvet-Intimidator-Scan-LED-300" m="Intimidator Scan LED 300"/>
-    <F n="Chauvet-Intimidator-Spot--355Z-IRC" m="Intimidator Spot 355Z IRC"/>
     <F n="Chauvet-Intimidator-Spot-100-IRC" m="Intimidator Spot 100 IRC"/>
     <F n="Chauvet-Intimidator-Spot-110" m="Intimidator Spot 110"/>
     <F n="Chauvet-Intimidator-Spot-155" m="Intimidator Spot 155"/>
     <F n="Chauvet-Intimidator-Spot-250" m="Intimidator Spot 250"/>
     <F n="Chauvet-Intimidator-Spot-255-IRC" m="Intimidator Spot 255 IRC"/>
+    <F n="Chauvet-Intimidator-Spot-355-IRC" m="Intimidator Spot 355 IRC"/>
+    <F n="Chauvet-Intimidator-Spot-355Z-IRC" m="Intimidator Spot 355Z IRC"/>
     <F n="Chauvet-Intimidator-Spot-400-IRC" m="Intimidator Spot 400 IRC"/>
     <F n="Chauvet-Intimidator-Spot-Duo" m="Intimidator Spot Duo"/>
     <F n="Chauvet-Intimidator-Spot-LED-150" m="Intimidator Spot LED 150"/>
@@ -375,6 +380,7 @@
     <F n="Chauvet-Intimidator-Trio" m="Intimidator Trio"/>
     <F n="Chauvet-Intimidator-Wash-Zoom-350-IRC" m="Intimidator Wash Zoom 350 IRC"/>
     <F n="Chauvet-Intimidator-Wave-360-IRC" m="Intimidator Wave 360 IRC"/>
+    <F n="Chauvet-LED-PAR-64-36B" m="LED PAR 64-36B"/>
     <F n="Chauvet-LED-PAR-64-Tri-B" m="LED PAR 64 Tri-B"/>
     <F n="Chauvet-LED-PAR-64-Tri-C" m="LED PAR 64 Tri-C"/>
     <F n="Chauvet-LED-Shadow" m="LED Shadow"/>
@@ -534,8 +540,9 @@
     <F n="Electroconcept-SPC029" m="SPC029"/>
   </M>
   <M n="Eliminator_Lighting">
-    <F n="Eliminator-Electro-86" m="Electro 86"/>
-    <F n="Eliminator-Electro-MH25R" m="Electro MH25R"/>
+    <F n="Eliminator-Lighting-Electro-86" m="Electro 86"/>
+    <F n="Eliminator-Lighting-Electro-MH25R" m="Electro MH25R"/>
+    <F n="Eliminator-Lighting-Follow-Spot-100-LED" m="Follow Spot 100 LED"/>
   </M>
   <M n="Elumen8">
     <F n="Elumen8-COB-Tri-4-Pixel-Batten" m="COB Tri 4 Pixel Batten"/>
@@ -548,6 +555,7 @@
     <F n="Epsilon-PixBeam" m="PixBeam"/>
   </M>
   <M n="Equinox">
+    <F n="Equinox-Domin8R-II" m="Domin8R II"/>
     <F n="Equinox-Gigabar" m="Gigabar"/>
     <F n="Equinox-Party-Par-LED-PAR-56" m="Party Par LED PAR 56"/>
     <F n="Equinox-Photon" m="Photon"/>
@@ -996,6 +1004,9 @@
     <F n="Martin-Thrill-Mini-Profile" m="Thrill Mini Profile"/>
     <F n="Martin-Viper-AirFX" m="Mac Viper AirFX"/>
   </M>
+  <M n="MFL">
+    <F n="MFL-Spot-G60" m="Spot G60"/>
+  </M>
   <M n="Microh">
     <F n="Microh-Firefly-RGY-II" m="Firefly RGY II"/>
     <F n="Microh-LED-Tri-Bar" m="LED Tri Bar"/>
@@ -1128,6 +1139,7 @@
     <F n="Robe-DJ-Scan-150-XT" m="DJ Scan 150 XT"/>
     <F n="Robe-Fog-1500-FT" m="Fog 1500 FT"/>
     <F n="Robe-LED-Blinder-196LT" m="LED Blinder 196LT"/>
+    <F n="Robe-ParFect-150" m="Robin ParFect 150"/>
     <F n="Robe-Pointe" m="Pointe"/>
     <F n="Robe-Robin-100-LEDBeam" m="Robin 100 LEDBeam"/>
     <F n="Robe-Robin-150-LEDBeam" m="Robin 150 LEDBeam"/>
@@ -1259,6 +1271,9 @@
   <M n="StageTech">
     <F n="StageTech-LeaderScan-Roto" m="LeaderScan Roto"/>
   </M>
+  <M n="Stagg">
+    <F n="Stagg-Headbanger-10" m="Headbanger 10"/>
+  </M>
   <M n="Stairville">
     <F n="Stairville-AF-150" m="AF-150"/>
     <F n="Stairville-AF-180-LED-Fogger-Co2-FX" m="AF-180 LED Fogger Co2 FX"/>
@@ -1328,6 +1343,7 @@
     <F n="Stairville-Tri-Flat-PAR-Profile-5x3W-RGB" m="Tri Flat PAR Profile 5x3W RGB"/>
     <F n="Stairville-TRI-LED-Bundle-Complete" m="Stage TRI LED Bundle Complete"/>
     <F n="Stairville-WGF-2000" m="WGF 2000"/>
+    <F n="Stairville-Wild-Wash-132-RGB-LED" m="Wild Wash 132 RGB LED"/>
     <F n="Stairville-Wild-Wash-9x3W-LED-UV" m="Wild Wash 9x3W LED UV"/>
     <F n="Stairville-xBrick-Full-Colour-16X3W" m="xBrick Full-Colour 16X3W"/>
     <F n="Stairville-xBrick-Full-Colour" m="xBrick Full-Colour"/>
@@ -1391,6 +1407,7 @@
     <F n="Varytec-Easy-Move-LED-XS-Wash" m="Easy Move LED XS Wash"/>
     <F n="Varytec-Easy-Scan-XT-Mini" m="Easy Scan XT Mini"/>
     <F n="Varytec-Gigabar-II" m="Gigabar II"/>
+    <F n="Varytec-Hero-Wash-715-HEX-LED" m="Hero Wash 715 HEX LED"/>
     <F n="Varytec-LED-Easy-Move-Mini-Beam-Wash-RGBW" m="LED Easy Move Mini Beam + Wash RGBW"/>
     <F n="Varytec-LED-Giga-bar-4-MKII" m="LED Giga Bar 4 MKII"/>
     <F n="Varytec-LED-Hellball-3" m="LED Hellball 3"/>

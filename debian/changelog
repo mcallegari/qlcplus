@@ -10,10 +10,17 @@ qlcplus (4.12.3) stable; urgency=low
   * New fixtures: Stairville Mobile Color, Outdoor Stage PAR 12x3W Tri, xBrick Quad 16x8W RGBW (thanks to Jannis Achstetter and Henrik Bauer)
   * New fixture: Varytec BAT.PAR-6 RGBUV (thanks to Jannis Achstetter and Henrik Bauer)
   * New fixture: Chauvet Freedom H1 (thanks to Jason R Johnston)
-  * New fixture: Futurelight PCC-500 (thanks to Justin Hornsby)
-  * New fixtures: Chauvet SlimPAR Pro W USB, SlimPAR Pro Q USB (thanks to Lance Moore)
+  * New fixtures: Futurelight PCC-500, American DJ Pocket Pro, Stagg Headbanger 10 (thanks to Justin Hornsby)
+  * New fixtures: Chauvet SlimPAR Pro W USB, SlimPAR Pro Q USB, LED PAR 64-36B, Intimidator Spot 355 IRC (thanks to Lance Moore)
   * New fixture: Fun-Generation SePar Hex LED RGBAW UV IR (thanks to Sergeant Pelzkinn)
   * New fixture: Art System GC 18x15W RGBWA (thanks to Daniel Carretas)
+  * New fixture: MFL Spot G60 (thanks to Nathan Durnan)
+  * New fixture: Stairville Wild Wash 132 RGB LED (thanks to Noé Sierra)
+  * New fixture: AFX Spot 180 LED (thanks to Aurelien)
+  * New fixture: Varytec Hero Wash 715 HEX LED (thanks to Willy Pigerre)
+  * New fixture: Robe Robin ParFect 150 (thanks to Iro Suraci)
+  * New fixture: Eliminator Lighting Follow Spot 100 LED (thanks to Chris Yarger)
+  * New fixture: Equinox Domin8R II (thanks to Andrew Newton)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 26 Apr 2020 12:13:14 +0200
 

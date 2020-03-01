@@ -362,6 +362,7 @@ when changing this list -->
         <xs:enumeration value="3-pin IP65"/>
         <xs:enumeration value="5-pin IP65"/>
         <xs:enumeration value="3.5 mm stereo jack"/>
+        <xs:enumeration value="Wireless"/>
         <xs:enumeration value="Other"/>
     </xs:restriction>
 </xs:simpleType>
