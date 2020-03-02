@@ -49,6 +49,7 @@
     <F n="American-DJ-Event-Bar-LED" m="Event Bar LED"/>
     <F n="American-DJ-Event-Bar-Pro" m="Event Bar Pro"/>
     <F n="American-DJ-Event-Bar-Q4" m="Event Bar Q4"/>
+    <F n="American-DJ-Flat-Par-QA12X" m="Flat Par QA12X"/>
     <F n="American-DJ-Flat-Par-Tri7X" m="Flat Par Tri7X"/>
     <F n="American-DJ-Flat-Par-TW12" m="Flat Par TW12"/>
     <F n="American-DJ-Focus-Spot-4Z" m="Focus Spot 4Z"/>
@@ -259,6 +260,7 @@
     <F n="Cameo-CLBARL10RGBA" m="LED Colour Bar RGBA (CLBAR10RGBA)"/>
     <F n="Cameo-CLHB400RGBW" m="CLHB400RGBW"/>
     <F n="Cameo-CLM-PAR-COB-1" m="CLM PAR COB 1"/>
+    <F n="Cameo-CLMPAR3" m="CLMPAR3"/>
     <F n="Cameo-CLPFLATPRO-Series" m="CLPFLATPRO Series"/>
     <F n="Cameo-CLPIXBAR200PRO" m="CLPIXBAR200PRO"/>
     <F n="Cameo-CLPIXBAR300PRO" m="CLPIXBAR300PRO"/>
@@ -950,6 +952,7 @@
     <F n="Martin-EFX-600" m="EFX-600"/>
     <F n="Martin-EFX-700" m="EFX-700"/>
     <F n="Martin-EFX-800" m="EFX-800"/>
+    <F n="Martin-ELP-CL-Profile" m="ELP-CL Profile"/>
     <F n="Martin-ERA-300-Profile" m="ERA 300 Profile"/>
     <F n="Martin-Jem-Compact-Hazer-Pro" m="Jem Compact Hazer Pro"/>
     <F n="Martin-JEM-K1-Hazer" m="JEM K1 Hazer"/>
@@ -1027,6 +1030,7 @@
     <F n="Nicols-IP-Wash-120" m="IP Wash 120"/>
     <F n="Nicols-Movelight" m="Movelight"/>
     <F n="Nicols-Strob-LED-W" m="Strob LED W"/>
+    <F n="Nicols-WP600Z" m="WP600Z"/>
   </M>
   <M n="NJD">
     <F n="NJD-Spectre" m="Spectre"/>
@@ -1183,6 +1187,7 @@
     <F n="SGM-Idea-Spot-575" m="Idea Spot 575"/>
     <F n="SGM-Idea-Spot-700" m="Idea Spot 700"/>
     <F n="SGM-Newton-1200" m="Newton 1200"/>
+    <F n="SGM-P-5" m="P-5"/>
     <F n="SGM-Victory-250" m="Victory 250"/>
     <F n="SGM-Victory-II-250" m="Victory II 250"/>
     <F n="SGM-Victory-II-Pro150" m="Victory II Pro150"/>

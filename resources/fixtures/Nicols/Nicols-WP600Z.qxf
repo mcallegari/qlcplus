@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Philippe Thibault</Author>
+ </Creator>
+ <Manufacturer>Nicols</Manufacturer>
+ <Model>WP600Z</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Color macro" Preset="ColorMacro"/>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Program">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="49">No function</Capability>
+  <Capability Min="50" Max="99">Auto program 1</Capability>
+  <Capability Min="100" Max="149">Auto program 2</Capability>
+  <Capability Min="150" Max="199">Auto program 3</Capability>
+  <Capability Min="200" Max="249">Auto program 4</Capability>
+  <Capability Min="250" Max="255">Sound activation mode</Capability>
+ </Channel>
+ <Channel Name="Auto program speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Slow to fast</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="249">No function</Capability>
+  <Capability Min="250" Max="255">5s for reset</Capability>
+ </Channel>
+ <Mode Name="16 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Color macro</Channel>
+  <Channel Number="6">Pan</Channel>
+  <Channel Number="7">Tilt</Channel>
+  <Channel Number="8">Focus</Channel>
+  <Channel Number="9">Pan fine</Channel>
+  <Channel Number="10">Tilt fine</Channel>
+  <Channel Number="11">Pan/Tilt speed</Channel>
+  <Channel Number="12">Strobe</Channel>
+  <Channel Number="13">Program</Channel>
+  <Channel Number="14">Auto program speed</Channel>
+  <Channel Number="15">Reset</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="9.2" Width="325" Height="396" Depth="188"/>
+  <Lens Name="Other" DegreesMin="5" DegreesMax="40"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="320" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

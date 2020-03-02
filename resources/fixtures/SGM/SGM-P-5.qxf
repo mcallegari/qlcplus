@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Matthias Schlecht</Author>
+ </Creator>
+ <Manufacturer>SGM</Manufacturer>
+ <Model>P-5</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Red fine" Preset="IntensityRedFine"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Green fine" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Blue fine" Preset="IntensityBlueFine"/>
+ <Channel Name="Intensity" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Intensity fine" Preset="IntensityMasterDimmerFine"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="White fine" Preset="IntensityWhiteFine"/>
+ <Channel Name="CTC">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="0">5600 K</Capability>
+  <Capability Min="1" Max="4">No CTC (Raw)</Capability>
+  <Capability Min="5" Max="255">CTC 2000K -&gt; 10000K</Capability>
+ </Channel>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="7" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="8" Max="15" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="16" Max="151" Preset="StrobeSlowToFast">Strobe</Capability>
+  <Capability Min="152" Max="175" Preset="RampUpSlowToFast">Pulse - Open</Capability>
+  <Capability Min="176" Max="199" Preset="RampDownSlowToFast">Pulse - Close</Capability>
+  <Capability Min="200" Max="244" Preset="StrobeRandomSlowToFast">Strobe Random</Capability>
+  <Capability Min="245" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Mode Name="3 Channel (Full Color Calibrated)">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="4 Channel (RAW)">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+ </Mode>
+ <Mode Name="6 Channel (RAW)">
+  <Channel Number="0">Shutter</Channel>
+  <Channel Number="1">Intensity</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">White</Channel>
+ </Mode>
+ <Mode Name="6 Channel (CTC)">
+  <Channel Number="0">Shutter</Channel>
+  <Channel Number="1">Intensity</Channel>
+  <Channel Number="2">CTC</Channel>
+  <Channel Number="3">Red</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Blue</Channel>
+ </Mode>
+ <Mode Name="8 Channel (RAW) 16bit">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Red fine</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Green fine</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">Blue fine</Channel>
+  <Channel Number="6">White</Channel>
+  <Channel Number="7">White fine</Channel>
+ </Mode>
+ <Mode Name="9 Channel (RAW) 16bit">
+  <Channel Number="0">Intensity</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Red fine</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Green fine</Channel>
+  <Channel Number="5">Blue</Channel>
+  <Channel Number="6">Blue fine</Channel>
+  <Channel Number="7">White</Channel>
+  <Channel Number="8">White fine</Channel>
+ </Mode>
+ <Mode Name="10 Channel (RAW) 16bit">
+  <Channel Number="0">Intensity</Channel>
+  <Channel Number="1">Intensity fine</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Red fine</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Green fine</Channel>
+  <Channel Number="6">Blue</Channel>
+  <Channel Number="7">Blue fine</Channel>
+  <Channel Number="8">White</Channel>
+  <Channel Number="9">White fine</Channel>
+ </Mode>
+ <Mode Name="10 Channel (CTC)">
+  <Channel Number="0">Shutter</Channel>
+  <Channel Number="1">Intensity</Channel>
+  <Channel Number="2">Intensity fine</Channel>
+  <Channel Number="3">CTC</Channel>
+  <Channel Number="4">Red</Channel>
+  <Channel Number="5">Red fine</Channel>
+  <Channel Number="6">Green</Channel>
+  <Channel Number="7">Green fine</Channel>
+  <Channel Number="8">Blue</Channel>
+  <Channel Number="9">Blue fine</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="20031" ColourTemperature="0"/>
+  <Dimensions Weight="8.9" Width="497" Height="268" Depth="122"/>
+  <Lens Name="Other" DegreesMin="15" DegreesMax="43"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="450" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>
