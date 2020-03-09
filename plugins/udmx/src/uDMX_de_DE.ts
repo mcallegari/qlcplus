@@ -24,7 +24,7 @@
     <message>
         <location filename="udmxdevice.cpp" line="151"/>
         <source>DMX Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>DMX Kanäle</translation>
     </message>
     <message>
         <location filename="udmxdevice.cpp" line="153"/>

@@ -79,62 +79,62 @@
     <message>
         <location filename="dmxusbopenrx.cpp" line="124"/>
         <source>Protocol</source>
-        <translation type="unfinished">Protokoll</translation>
+        <translation>Protokoll</translation>
     </message>
     <message>
         <location filename="dmxusbopenrx.cpp" line="130"/>
         <source>Stopped</source>
-        <translation type="unfinished"></translation>
+        <translation>Gestoppt</translation>
     </message>
     <message>
         <location filename="dmxusbopenrx.cpp" line="132"/>
         <source>Idling</source>
-        <translation type="unfinished"></translation>
+        <translation>Leerlauf</translation>
     </message>
     <message>
         <location filename="dmxusbopenrx.cpp" line="134"/>
         <source>Calibrating</source>
-        <translation type="unfinished"></translation>
+        <translation>Kalibrierung</translation>
     </message>
     <message>
         <location filename="dmxusbopenrx.cpp" line="136"/>
         <source>Receiving</source>
-        <translation type="unfinished"></translation>
+        <translation>Empfangen</translation>
     </message>
     <message>
         <location filename="dmxusbopenrx.cpp" line="138"/>
         <source>Receiver state</source>
-        <translation type="unfinished"></translation>
+        <translation>Empfängerstatus</translation>
     </message>
     <message>
         <location filename="dmxusbopenrx.cpp" line="143"/>
         <source>Received DMX Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Empfangene DMX Kanäle</translation>
     </message>
     <message>
         <location filename="dmxusbopenrx.cpp" line="148"/>
         <source>DMX Frame Frequency</source>
-        <translation type="unfinished">Frequenz der DMX-Frames</translation>
+        <translation>Frequenz der DMX-Frames</translation>
     </message>
     <message>
         <location filename="dmxusbopenrx.cpp" line="154"/>
         <source>Bad</source>
-        <translation type="unfinished">Schlecht</translation>
+        <translation>Schlecht</translation>
     </message>
     <message>
         <location filename="dmxusbopenrx.cpp" line="156"/>
         <source>Good</source>
-        <translation type="unfinished">Gut</translation>
+        <translation>Gut</translation>
     </message>
     <message>
         <location filename="dmxusbopenrx.cpp" line="158"/>
         <source>Patch this widget to a universe to find out.</source>
-        <translation type="unfinished">Dieses Geräte mit einem Universum verbinden um es herauszufinden.</translation>
+        <translation>Dieses Geräte mit einem Universum verbinden um es herauszufinden.</translation>
     </message>
     <message>
         <location filename="dmxusbopenrx.cpp" line="160"/>
         <source>System Timer Accuracy</source>
-        <translation type="unfinished">System-Timer Genauigkeit</translation>
+        <translation>System-Timer Genauigkeit</translation>
     </message>
 </context>
 <context>

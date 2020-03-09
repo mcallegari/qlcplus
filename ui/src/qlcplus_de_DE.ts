@@ -4926,7 +4926,7 @@ Dauer: %3
         <location filename="showmanager/showitem.cpp" line="70"/>
         <source>Click to move this item along the timeline</source>
         <oldsource>Click to move this item across the timeline</oldsource>
-        <translation type="unfinished">Klicken um das Element über die Zeitleiste zu bewegen</translation>
+        <translation>Klicken um das Element über die Zeitleiste zu bewegen</translation>
     </message>
     <message>
         <location filename="showmanager/showitem.cpp" line="80"/>
@@ -5734,7 +5734,7 @@ Dauer: %3
         <location filename="virtualconsole/vccuelistproperties.ui" line="276"/>
         <source>Side Fader</source>
         <oldsource>Side Faders</oldsource>
-        <translation type="unfinished">Seiten-Schieberegler</translation>
+        <translation>Seiten-Schieberegler</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="204"/>
@@ -5795,7 +5795,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="294"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Kein</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.ui" line="304"/>
@@ -5850,7 +5850,7 @@ Dauer: %3
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="118"/>
         <source>External Input</source>
-        <translation type="unfinished">Externer Eingang</translation>
+        <translation>Externer Eingang</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelistproperties.cpp" line="220"/>

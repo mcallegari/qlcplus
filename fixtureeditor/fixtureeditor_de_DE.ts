@@ -648,7 +648,8 @@
         <location filename="editphysical.ui" line="113"/>
         <source>Layout
 (Columns x Rows)</source>
-        <translation type="unfinished"></translation>
+        <translation>Anordnung
+(Spalten x Zeilen)</translation>
     </message>
     <message>
         <location filename="editphysical.ui" line="158"/>
@@ -726,12 +727,12 @@
     <message>
         <location filename="fixtureeditor.ui" line="226"/>
         <source>LED Bar (Beams)</source>
-        <translation type="unfinished"></translation>
+        <translation>LED Bar (Strahlen)</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="235"/>
         <source>LED Bar (Pixels)</source>
-        <translation type="unfinished"></translation>
+        <translation>LED Bar (Pixel)</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="247"/>
