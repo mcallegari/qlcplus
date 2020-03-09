@@ -17,42 +17,47 @@
 <context>
     <name>UDMXDevice</name>
     <message>
-        <location filename="udmxdevice.cpp" line="118"/>
+        <location filename="udmxdevice.cpp" line="130"/>
         <source>Unknown</source>
         <translation>Desconocido</translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="139"/>
+        <location filename="udmxdevice.cpp" line="151"/>
+        <source>DMX Channels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="udmxdevice.cpp" line="153"/>
         <source>DMX Frame Frequency</source>
         <translation>Frecuencia de Frames DMX</translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="142"/>
+        <location filename="udmxdevice.cpp" line="156"/>
         <source>Bad</source>
         <translation>Mal</translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="144"/>
+        <location filename="udmxdevice.cpp" line="158"/>
         <source>Good</source>
         <translation>Bien</translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="146"/>
+        <location filename="udmxdevice.cpp" line="160"/>
         <source>Patch this device to a universe to find out.</source>
         <translation>Patchear este dispositivo a un universo a encontrar.</translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="147"/>
+        <location filename="udmxdevice.cpp" line="161"/>
         <source>System Timer Accuracy</source>
         <translation>Precisión del Reloj de Sistema</translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="152"/>
+        <location filename="udmxdevice.cpp" line="166"/>
         <source>Unknown device</source>
         <translation>Dispositivo desconocido</translation>
     </message>
     <message>
-        <location filename="udmxdevice.cpp" line="154"/>
+        <location filename="udmxdevice.cpp" line="168"/>
         <source>Cannot connect to USB device.</source>
         <translation>No se puede conectar con dispositivo USB.</translation>
     </message>
