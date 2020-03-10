@@ -1837,7 +1837,7 @@ Ungesicherte Änderungen gehen verloren, wenn du sie nicht speicherst.</translat
     <message>
         <location filename="qml/fixturesfunctions/PaletteManager.qml" line="134"/>
         <source>Delete the selected palette(s)</source>
-        <translation>Ausgewählte Palette löschen</translation>
+        <translation>Ausgewählte Palette(n) löschen</translation>
     </message>
 </context>
 <context>
