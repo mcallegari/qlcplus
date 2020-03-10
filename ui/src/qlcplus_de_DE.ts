@@ -4926,7 +4926,7 @@ Dauer: %3
         <location filename="showmanager/showitem.cpp" line="70"/>
         <source>Click to move this item along the timeline</source>
         <oldsource>Click to move this item across the timeline</oldsource>
-        <translation>Klicken um das Element über die Zeitleiste zu bewegen</translation>
+        <translation>Klicken, um das Element über die Zeitleiste zu bewegen</translation>
     </message>
     <message>
         <location filename="showmanager/showitem.cpp" line="80"/>
