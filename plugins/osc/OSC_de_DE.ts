@@ -47,7 +47,7 @@
     <message>
         <location filename="configureosc.ui" line="96"/>
         <source>OSC path</source>
-        <translation>OSC pfad</translation>
+        <translation>OSC-Pfad</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="106"/>
