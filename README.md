@@ -123,6 +123,7 @@ Contributors
 * Hannes Bossuyt (Dutch translation)
 * Aleksandr Gusarov (Russian translation)
 * Vadim Syniuhin (Ukrainian translation)
+* Mateusz Kędzierski (Polish translation)
 
 ### QLC+ 4:
 
