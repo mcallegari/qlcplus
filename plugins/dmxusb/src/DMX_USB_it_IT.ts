@@ -79,62 +79,62 @@
     <message>
         <location filename="dmxusbopenrx.cpp" line="124"/>
         <source>Protocol</source>
-        <translation type="unfinished">Protocollo</translation>
+        <translation>Protocollo</translation>
     </message>
     <message>
         <location filename="dmxusbopenrx.cpp" line="130"/>
         <source>Stopped</source>
-        <translation type="unfinished"></translation>
+        <translation>Fermo</translation>
     </message>
     <message>
         <location filename="dmxusbopenrx.cpp" line="132"/>
         <source>Idling</source>
-        <translation type="unfinished"></translation>
+        <translation>In attesa</translation>
     </message>
     <message>
         <location filename="dmxusbopenrx.cpp" line="134"/>
         <source>Calibrating</source>
-        <translation type="unfinished"></translation>
+        <translation>In calibrazione</translation>
     </message>
     <message>
         <location filename="dmxusbopenrx.cpp" line="136"/>
         <source>Receiving</source>
-        <translation type="unfinished"></translation>
+        <translation>In ricezione</translation>
     </message>
     <message>
         <location filename="dmxusbopenrx.cpp" line="138"/>
         <source>Receiver state</source>
-        <translation type="unfinished"></translation>
+        <translation>Stato del ricevitore</translation>
     </message>
     <message>
         <location filename="dmxusbopenrx.cpp" line="143"/>
         <source>Received DMX Channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Canali DMX ricevuti</translation>
     </message>
     <message>
         <location filename="dmxusbopenrx.cpp" line="148"/>
         <source>DMX Frame Frequency</source>
-        <translation type="unfinished">Frequenza del frame DMX</translation>
+        <translation>Frequenza del frame DMX</translation>
     </message>
     <message>
         <location filename="dmxusbopenrx.cpp" line="154"/>
         <source>Bad</source>
-        <translation type="unfinished">Sbagliato</translation>
+        <translation>Scadente</translation>
     </message>
     <message>
         <location filename="dmxusbopenrx.cpp" line="156"/>
         <source>Good</source>
-        <translation type="unfinished">Buono</translation>
+        <translation>Buona</translation>
     </message>
     <message>
         <location filename="dmxusbopenrx.cpp" line="158"/>
         <source>Patch this widget to a universe to find out.</source>
-        <translation type="unfinished">Usa questo dispositivo per un universo libero.</translation>
+        <translation>Associa questo dispositivo ad un universo per il rilevamento.</translation>
     </message>
     <message>
         <location filename="dmxusbopenrx.cpp" line="160"/>
         <source>System Timer Accuracy</source>
-        <translation type="unfinished">Precisione del Timer di Sistema</translation>
+        <translation>Precisione del timer di sistema</translation>
     </message>
 </context>
 <context>
@@ -167,12 +167,12 @@
     <message>
         <location filename="enttecdmxusbopen.cpp" line="134"/>
         <source>Patch this widget to a universe to find out.</source>
-        <translation>Usa questo dispositivo per un universo libero.</translation>
+        <translation>Associa questo dispositivo ad un universo per il rilevamento.</translation>
     </message>
     <message>
         <location filename="enttecdmxusbopen.cpp" line="135"/>
         <source>System Timer Accuracy</source>
-        <translation>Precisione del Timer di Sistema</translation>
+        <translation>Precisione del timer di sistema</translation>
     </message>
 </context>
 <context>

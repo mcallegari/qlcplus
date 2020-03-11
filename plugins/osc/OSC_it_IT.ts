@@ -42,17 +42,17 @@
     <message>
         <location filename="configureosc.ui" line="88"/>
         <source>Channel number calculator</source>
-        <translation type="unfinished"></translation>
+        <translation>Calcolatore numero di canale</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="96"/>
         <source>OSC path</source>
-        <translation type="unfinished"></translation>
+        <translation>Percorso OSC</translation>
     </message>
     <message>
         <location filename="configureosc.ui" line="106"/>
         <source>Channel number</source>
-        <translation type="unfinished"></translation>
+        <translation>Numero di canale</translation>
     </message>
     <message>
         <location filename="configureosc.cpp" line="83"/>

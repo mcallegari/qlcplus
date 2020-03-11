@@ -19,11 +19,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="os2lconfiguration.ui" line="65"/>
-        <source>127.0.0.1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="os2lconfiguration.ui" line="72"/>
         <source>OS2L Host Port</source>
         <translation type="unfinished"></translation>

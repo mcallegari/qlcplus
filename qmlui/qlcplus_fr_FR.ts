@@ -143,21 +143,26 @@ Les modifications seront perdues si vous ne les enregistrez pas.</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="512"/>
+        <source>Polish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/ActionsMenu.qml" line="520"/>
         <source>Russian</source>
         <translation>русский</translation>
     </message>
     <message>
-        <location filename="qml/ActionsMenu.qml" line="520"/>
+        <location filename="qml/ActionsMenu.qml" line="528"/>
         <source>Spanish</source>
         <translation>Español</translation>
     </message>
     <message>
-        <location filename="qml/ActionsMenu.qml" line="528"/>
+        <location filename="qml/ActionsMenu.qml" line="536"/>
         <source>Ukrainian</source>
         <translation>Українська</translation>
     </message>
     <message>
-        <location filename="qml/ActionsMenu.qml" line="539"/>
+        <location filename="qml/ActionsMenu.qml" line="547"/>
         <source>About</source>
         <translation>À propos</translation>
     </message>

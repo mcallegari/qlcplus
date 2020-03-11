@@ -19,11 +19,6 @@
         <translation>Adresse IP de l&apos;hôte OS2L</translation>
     </message>
     <message>
-        <location filename="os2lconfiguration.ui" line="65"/>
-        <source>127.0.0.1</source>
-        <translation>127.0.0.1</translation>
-    </message>
-    <message>
         <location filename="os2lconfiguration.ui" line="72"/>
         <source>OS2L Host Port</source>
         <translation>Port de l&apos;hôte OS2L</translation>
