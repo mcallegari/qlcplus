@@ -359,19 +359,19 @@
     </message>
     <message>
         <location filename="editchannel.ui" line="90"/>
-        <location filename="editchannel.cpp" line="574"/>
+        <location filename="editchannel.cpp" line="572"/>
         <source>Minimum value</source>
         <translation>Valeur minimum</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="95"/>
-        <location filename="editchannel.cpp" line="574"/>
+        <location filename="editchannel.cpp" line="572"/>
         <source>Maximum value</source>
         <translation>Valeur maximum</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="100"/>
-        <location filename="editchannel.cpp" line="574"/>
+        <location filename="editchannel.cpp" line="572"/>
         <source>Description</source>
         <translation>Description</translation>
     </message>
@@ -391,27 +391,27 @@
         <translation>Éditeur de canal : </translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="483"/>
+        <location filename="editchannel.cpp" line="481"/>
         <source>Overlapping values</source>
         <translation>Chevauchement de valeurs</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="500"/>
+        <location filename="editchannel.cpp" line="498"/>
         <source>Open Gobo File</source>
         <translation>Ouvrir un fichier de gobo</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="503"/>
+        <location filename="editchannel.cpp" line="501"/>
         <source>Gobo pictures</source>
         <translation>Images de gobo</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="619"/>
+        <location filename="editchannel.cpp" line="615"/>
         <source>Missing resources</source>
         <translation>Ressources manquantes</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="620"/>
+        <location filename="editchannel.cpp" line="616"/>
         <source>Some gobos are missing:
 
 </source>
@@ -420,7 +420,7 @@
 </translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="484"/>
+        <location filename="editchannel.cpp" line="482"/>
         <source>Some capabilities could not be created because of overlapping values.</source>
         <translation>Certaines fonctionnalités n&apos;ont pas pu être générées à cause d&apos;un chevauchement de valeurs.</translation>
     </message>

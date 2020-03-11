@@ -45,58 +45,58 @@
         <translation>Autostart-Konfiguration geändert</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="803"/>
+        <location filename="webaccess.cpp" line="822"/>
         <source>Widget not supported (yet) for web access</source>
         <translation>Assistent wird (zur Zeit) für Webzugriff nicht unterstützt</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="854"/>
-        <location filename="webaccess.cpp" line="905"/>
+        <location filename="webaccess.cpp" line="873"/>
+        <location filename="webaccess.cpp" line="925"/>
         <source>Page</source>
         <translation>Seite</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1047"/>
+        <location filename="webaccess.cpp" line="1088"/>
         <source>Enable</source>
         <translation>Aktivieren</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1076"/>
+        <location filename="webaccess.cpp" line="1120"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1077"/>
+        <location filename="webaccess.cpp" line="1121"/>
         <source>Fade In</source>
         <translation>Einblenden</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1078"/>
+        <location filename="webaccess.cpp" line="1122"/>
         <source>Fade Out</source>
         <translation>Ausblenden</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1079"/>
+        <location filename="webaccess.cpp" line="1123"/>
         <source>Duration</source>
         <translation>Dauer</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1080"/>
+        <location filename="webaccess.cpp" line="1124"/>
         <source>Notes</source>
         <translation>Notizen</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1313"/>
+        <location filename="webaccess.cpp" line="1360"/>
         <source>Load project</source>
         <translation>Lade Projekt</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1315"/>
+        <location filename="webaccess.cpp" line="1362"/>
         <source>Simple Desk</source>
         <translation>Einfache Arbeitsfläche</translation>
     </message>
     <message>
-        <location filename="webaccess.cpp" line="1317"/>
+        <location filename="webaccess.cpp" line="1364"/>
         <source>Configuration</source>
         <translation>Einstellungen</translation>
     </message>
@@ -134,93 +134,93 @@
         <translation>Aktion</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="237"/>
+        <location filename="webaccessconfiguration.cpp" line="235"/>
         <source>Leave blank to not change</source>
         <translation>Leerlassen um keine Änderung durchzuführen</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="244"/>
-        <location filename="webaccessconfiguration.cpp" line="274"/>
+        <location filename="webaccessconfiguration.cpp" line="242"/>
+        <location filename="webaccessconfiguration.cpp" line="272"/>
         <source>Only Virtual Console</source>
         <translation>Nur Virtuelle Konsole</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="249"/>
-        <location filename="webaccessconfiguration.cpp" line="276"/>
+        <location filename="webaccessconfiguration.cpp" line="247"/>
+        <location filename="webaccessconfiguration.cpp" line="274"/>
         <source>Virtual Console and Simple Desk</source>
         <translation>Virtuelle Konsole und Einfache Arbeitsfläche</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="254"/>
-        <location filename="webaccessconfiguration.cpp" line="278"/>
+        <location filename="webaccessconfiguration.cpp" line="252"/>
+        <location filename="webaccessconfiguration.cpp" line="276"/>
         <source>Everything</source>
         <translation>Alles</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="260"/>
-        <location filename="webaccessconfiguration.cpp" line="285"/>
+        <location filename="webaccessconfiguration.cpp" line="258"/>
+        <location filename="webaccessconfiguration.cpp" line="283"/>
         <source>Change</source>
         <translation>Ändern</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="262"/>
-        <location filename="webaccessconfiguration.cpp" line="285"/>
+        <location filename="webaccessconfiguration.cpp" line="260"/>
+        <location filename="webaccessconfiguration.cpp" line="283"/>
         <source>Delete user</source>
         <translation>Nutzer löschen</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="268"/>
+        <location filename="webaccessconfiguration.cpp" line="266"/>
         <source>New username...</source>
         <translation>Neuer Benutzername...</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="269"/>
-        <location filename="webaccessconfiguration.cpp" line="287"/>
+        <location filename="webaccessconfiguration.cpp" line="267"/>
+        <location filename="webaccessconfiguration.cpp" line="285"/>
         <source>New password...</source>
         <translation>Neues Passwort...</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="286"/>
+        <location filename="webaccessconfiguration.cpp" line="284"/>
         <source>Username and password are required fields.</source>
         <translation>Benutzername und Passwort sind benötigte Felder.</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="289"/>
+        <location filename="webaccessconfiguration.cpp" line="287"/>
         <source>Add user</source>
         <translation>Benutzer hinzufügen</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="294"/>
+        <location filename="webaccessconfiguration.cpp" line="292"/>
         <source>Note: if there isn&apos;t at least one user with access level &quot;Everything&quot; on the list authorization will be disabled.</source>
         <translation>Hinweis: Falls nicht mindestens ein Benutzer mit Zugriffslevel &quot;Alles&quot; auf der Liste ist, wird die Authorisierung deaktiviert.</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="325"/>
+        <location filename="webaccessconfiguration.cpp" line="323"/>
         <source>System</source>
         <translation>System</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="334"/>
+        <location filename="webaccessconfiguration.cpp" line="332"/>
         <source>Back</source>
         <translation>Zurück</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="342"/>
+        <location filename="webaccessconfiguration.cpp" line="340"/>
         <source>Universes configuration</source>
         <translation>Universen-Einstellungen</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="349"/>
+        <location filename="webaccessconfiguration.cpp" line="347"/>
         <source>Audio configuration</source>
         <translation>Audio-Einstellungen</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="357"/>
+        <location filename="webaccessconfiguration.cpp" line="355"/>
         <source>User loaded fixtures</source>
         <translation>Vom Benutzer geladene Geräte</translation>
     </message>
     <message>
-        <location filename="webaccessconfiguration.cpp" line="366"/>
+        <location filename="webaccessconfiguration.cpp" line="364"/>
         <source>Authorized users</source>
         <translation>Authorisierte Benutzer</translation>
     </message>

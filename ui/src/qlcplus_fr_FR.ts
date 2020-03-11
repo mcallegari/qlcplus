@@ -4471,17 +4471,17 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
         <translation>Aucun groupe d&apos;appareils à controller</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="768"/>
+        <location filename="rgbmatrixeditor.cpp" line="766"/>
         <source>Select image</source>
         <translation>Sélectionner une image</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="770"/>
+        <location filename="rgbmatrixeditor.cpp" line="768"/>
         <source>Images</source>
         <translation>Images</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="1017"/>
+        <location filename="rgbmatrixeditor.cpp" line="1015"/>
         <source>Sequence</source>
         <translation>Séquence</translation>
     </message>
@@ -4541,105 +4541,105 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
         <translation>Désactiver tous les canaux des appareils</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="185"/>
+        <location filename="sceneeditor.cpp" line="189"/>
         <source>Enable all channels in current fixture</source>
         <translation>Activer tous les canaux des appareils actuel</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="187"/>
+        <location filename="sceneeditor.cpp" line="191"/>
         <source>Disable all channels in current fixture</source>
         <translation>Désactiver tous les canaux de l&apos;appareil actuel</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="189"/>
+        <location filename="sceneeditor.cpp" line="193"/>
         <source>Copy current values to clipboard</source>
         <translation>Copier les valeurs actuelles dans le presse-papier</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="191"/>
+        <location filename="sceneeditor.cpp" line="195"/>
         <source>Paste clipboard values to current fixture</source>
         <translation>Coller les valeurs du presse-papier vers cet appareil</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="193"/>
+        <location filename="sceneeditor.cpp" line="197"/>
         <source>Copy current values to all fixtures</source>
         <translation>Copier les valeurs actuelles vers tous les appareils</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="195"/>
+        <location filename="sceneeditor.cpp" line="199"/>
         <source>Color tool for CMY/RGB-capable fixtures</source>
         <translation>Outil de couleur pour les appareils à composantes CMJ/RVB</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="197"/>
+        <location filename="sceneeditor.cpp" line="201"/>
         <source>Position tool for moving heads/scanners</source>
         <translation>Outil de positionnement pour les lyres/scanners</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="199"/>
+        <location filename="sceneeditor.cpp" line="203"/>
         <source>Switch between tab view and all channels view</source>
         <translation>Basculer entre la vue par onglets et la vue de tous les canaux</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="201"/>
+        <location filename="sceneeditor.cpp" line="205"/>
         <source>Toggle blind mode</source>
         <translation>Basculer le mode aveugle</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="203"/>
+        <location filename="sceneeditor.cpp" line="207"/>
         <source>Show/Hide speed dial window</source>
         <translation>Afficher/Masquer la fenêtre de réglage des vitesses</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="205"/>
+        <location filename="sceneeditor.cpp" line="209"/>
         <source>Clone this scene and append as a new step to the selected chaser</source>
         <translation>Cloner cette scène et l&apos;ajouter comme nouveau pas dans le chaser sélectionné</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="207"/>
+        <location filename="sceneeditor.cpp" line="211"/>
         <source>Go to next fixture tab</source>
         <translation>Aller à l&apos;appareil suivant</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="211"/>
+        <location filename="sceneeditor.cpp" line="215"/>
         <source>Go to previous fixture tab</source>
         <translation>Aller à l&apos;appareil précédent</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="234"/>
+        <location filename="sceneeditor.cpp" line="238"/>
         <source>None</source>
         <translation>Aucun</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="246"/>
+        <location filename="sceneeditor.cpp" line="250"/>
         <source>Scene name:</source>
         <translation>Nom de la scène :</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="921"/>
-        <location filename="sceneeditor.cpp" line="922"/>
+        <location filename="sceneeditor.cpp" line="925"/>
+        <location filename="sceneeditor.cpp" line="926"/>
         <source>All fixtures</source>
         <translation>Tous les appareils</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1454"/>
-        <location filename="sceneeditor.cpp" line="1455"/>
+        <location filename="sceneeditor.cpp" line="1458"/>
+        <location filename="sceneeditor.cpp" line="1459"/>
         <source>Channels Groups</source>
         <translation>Groupes de canaux</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1231"/>
-        <location filename="sceneeditor.cpp" line="1232"/>
+        <location filename="sceneeditor.cpp" line="1235"/>
+        <location filename="sceneeditor.cpp" line="1236"/>
         <source>Generic</source>
         <translation>Générique</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1299"/>
+        <location filename="sceneeditor.cpp" line="1303"/>
         <source>Remove fixtures</source>
         <translation>Enlever les appareils</translation>
     </message>
     <message>
-        <location filename="sceneeditor.cpp" line="1300"/>
+        <location filename="sceneeditor.cpp" line="1304"/>
         <source>Do you want to remove the selected fixture(s)?</source>
         <translation>Voulez-vous enlever le(s) appareil(s) sélectionné(s)&#xa0;?</translation>
     </message>
@@ -5996,37 +5996,37 @@ Durée : %3
         <translation>Animation %1</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="635"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="634"/>
         <source>End Color Reset</source>
         <translation>Réinitialiser la couleur de fin</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="674"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="673"/>
         <source>Start color Red component</source>
         <translation>Couleur de départ : composante rouge</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="676"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="675"/>
         <source>Start color Green component</source>
         <translation>Couleur de départ : composante verte</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="678"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="677"/>
         <source>Start color Blue component</source>
         <translation>Couleur de départ : composante bleue</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="690"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="689"/>
         <source>End color Red component</source>
         <translation>Couleur de fin : composante rouge</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="692"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="691"/>
         <source>End color Green component</source>
         <translation>Couleur de fin : composante verte</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcmatrix.cpp" line="694"/>
+        <location filename="virtualconsole/vcmatrix.cpp" line="693"/>
         <source>End color Blue component</source>
         <translation>Couleur de fin : composante bleue</translation>
     </message>

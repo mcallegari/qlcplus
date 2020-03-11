@@ -93,39 +93,39 @@ Please fix it before confirming.</source>
 <context>
     <name>E131Plugin</name>
     <message>
-        <location filename="e131plugin.cpp" line="86"/>
+        <location filename="e131plugin.cpp" line="93"/>
         <source>This plugin provides DMX output for devices supporting the E1.31 communication protocol.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="e131plugin.cpp" line="133"/>
+        <location filename="e131plugin.cpp" line="140"/>
         <source>Output</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="e131plugin.cpp" line="137"/>
-        <location filename="e131plugin.cpp" line="277"/>
+        <location filename="e131plugin.cpp" line="144"/>
+        <location filename="e131plugin.cpp" line="284"/>
         <source>Status: Not open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="e131plugin.cpp" line="140"/>
-        <location filename="e131plugin.cpp" line="280"/>
+        <location filename="e131plugin.cpp" line="147"/>
+        <location filename="e131plugin.cpp" line="287"/>
         <source>Status: Open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="e131plugin.cpp" line="142"/>
+        <location filename="e131plugin.cpp" line="149"/>
         <source>Packets sent: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="e131plugin.cpp" line="273"/>
+        <location filename="e131plugin.cpp" line="280"/>
         <source>Input</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="e131plugin.cpp" line="282"/>
+        <location filename="e131plugin.cpp" line="289"/>
         <source>Packets received: </source>
         <translation type="unfinished"></translation>
     </message>

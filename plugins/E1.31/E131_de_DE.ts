@@ -94,39 +94,39 @@ Bitte vor Bestätigung korrigieren.</translation>
 <context>
     <name>E131Plugin</name>
     <message>
-        <location filename="e131plugin.cpp" line="86"/>
+        <location filename="e131plugin.cpp" line="93"/>
         <source>This plugin provides DMX output for devices supporting the E1.31 communication protocol.</source>
         <translation>Dieses Plugin bietet DMX Ausgabe für Geräte mit dem E1.31 Kommunikationsprotokoll.</translation>
     </message>
     <message>
-        <location filename="e131plugin.cpp" line="133"/>
+        <location filename="e131plugin.cpp" line="140"/>
         <source>Output</source>
         <translation>Ausgabe</translation>
     </message>
     <message>
-        <location filename="e131plugin.cpp" line="137"/>
-        <location filename="e131plugin.cpp" line="277"/>
+        <location filename="e131plugin.cpp" line="144"/>
+        <location filename="e131plugin.cpp" line="284"/>
         <source>Status: Not open</source>
         <translation>Status: Nicht geöffnet</translation>
     </message>
     <message>
-        <location filename="e131plugin.cpp" line="140"/>
-        <location filename="e131plugin.cpp" line="280"/>
+        <location filename="e131plugin.cpp" line="147"/>
+        <location filename="e131plugin.cpp" line="287"/>
         <source>Status: Open</source>
         <translation>Status: Geöffnet</translation>
     </message>
     <message>
-        <location filename="e131plugin.cpp" line="142"/>
+        <location filename="e131plugin.cpp" line="149"/>
         <source>Packets sent: </source>
         <translation>Gesendete Pakete: </translation>
     </message>
     <message>
-        <location filename="e131plugin.cpp" line="273"/>
+        <location filename="e131plugin.cpp" line="280"/>
         <source>Input</source>
         <translation>Eingang</translation>
     </message>
     <message>
-        <location filename="e131plugin.cpp" line="282"/>
+        <location filename="e131plugin.cpp" line="289"/>
         <source>Packets received: </source>
         <translation>Empfangene Pakete: </translation>
     </message>
