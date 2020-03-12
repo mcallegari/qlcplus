@@ -36,7 +36,7 @@ typedef LONG NTSTATUS;
 #define _wcsdup wcsdup
 #endif
 
-/*#define HIDAPI_USE_DDK*/
+#define HIDAPI_USE_DDK
 
 #ifdef __cplusplus
 extern "C" {
@@ -96,15 +96,15 @@ extern "C" {
 	typedef void* PHIDP_PREPARSED_DATA;
 	#define HIDP_STATUS_SUCCESS 0x110000
 
-	typedef BOOLEAN (__stdcall *HidD_GetAttributes_)(HANDLE device, PHIDD_ATTRIBUTES attrib);
-	typedef BOOLEAN (__stdcall *HidD_GetSerialNumberString_)(HANDLE device, PVOID buffer, ULONG buffer_len);
-	typedef BOOLEAN (__stdcall *HidD_GetManufacturerString_)(HANDLE handle, PVOID buffer, ULONG buffer_len);
-	typedef BOOLEAN (__stdcall *HidD_GetProductString_)(HANDLE handle, PVOID buffer, ULONG buffer_len);
-	typedef BOOLEAN (__stdcall *HidD_SetFeature_)(HANDLE handle, PVOID data, ULONG length);
-	typedef BOOLEAN (__stdcall *HidD_GetFeature_)(HANDLE handle, PVOID data, ULONG length);
-	typedef BOOLEAN (__stdcall *HidD_GetIndexedString_)(HANDLE handle, ULONG string_index, PVOID buffer, ULONG buffer_len);
-	typedef BOOLEAN (__stdcall *HidD_GetPreparsedData_)(HANDLE handle, PHIDP_PREPARSED_DATA *preparsed_data);
-	typedef BOOLEAN (__stdcall *HidD_FreePreparsedData_)(PHIDP_PREPARSED_DATA preparsed_data);
+    typedef int (__stdcall *HidD_GetAttributes_)(HANDLE device, PHIDD_ATTRIBUTES attrib);
+    typedef int (__stdcall *HidD_GetSerialNumberString_)(HANDLE device, PVOID buffer, ULONG buffer_len);
+    typedef int (__stdcall *HidD_GetManufacturerString_)(HANDLE handle, PVOID buffer, ULONG buffer_len);
+    typedef int (__stdcall *HidD_GetProductString_)(HANDLE handle, PVOID buffer, ULONG buffer_len);
+    typedef int (__stdcall *HidD_SetFeature_)(HANDLE handle, PVOID data, ULONG length);
+    typedef int (__stdcall *HidD_GetFeature_)(HANDLE handle, PVOID data, ULONG length);
+    typedef int (__stdcall *HidD_GetIndexedString_)(HANDLE handle, ULONG string_index, PVOID buffer, ULONG buffer_len);
+    typedef int (__stdcall *HidD_GetPreparsedData_)(HANDLE handle, PHIDP_PREPARSED_DATA *preparsed_data);
+    typedef int (__stdcall *HidD_FreePreparsedData_)(PHIDP_PREPARSED_DATA preparsed_data);
 	typedef NTSTATUS (__stdcall *HidP_GetCaps_)(PHIDP_PREPARSED_DATA preparsed_data, HIDP_CAPS *caps);
 
 	static HidD_GetAttributes_ HidD_GetAttributes;
@@ -196,16 +196,16 @@ static int lookup_functions()
     lib_handle = LoadLibraryA("hid.dll");
 	if (lib_handle) {
 #define RESOLVE(x) x = (x##_)GetProcAddress(lib_handle, #x); if (!x) return -1;
-		RESOLVE(HidD_GetAttributes);
-		RESOLVE(HidD_GetSerialNumberString);
-		RESOLVE(HidD_GetManufacturerString);
-		RESOLVE(HidD_GetProductString);
-		RESOLVE(HidD_SetFeature);
-		RESOLVE(HidD_GetFeature);
-		RESOLVE(HidD_GetIndexedString);
-		RESOLVE(HidD_GetPreparsedData);
-		RESOLVE(HidD_FreePreparsedData);
-		RESOLVE(HidP_GetCaps);
+        RESOLVE(HidD_GetAttributes)
+        RESOLVE(HidD_GetSerialNumberString)
+        RESOLVE(HidD_GetManufacturerString)
+        RESOLVE(HidD_GetProductString)
+        RESOLVE(HidD_SetFeature)
+        RESOLVE(HidD_GetFeature)
+        RESOLVE(HidD_GetIndexedString)
+        RESOLVE(HidD_GetPreparsedData)
+        RESOLVE(HidD_FreePreparsedData)
+        RESOLVE(HidP_GetCaps)
 #undef RESOLVE
 	}
     else
@@ -392,7 +392,6 @@ struct hid_device_info HID_API_EXPORT * HID_API_CALL hid_enumerate(unsigned shor
 			BOOLEAN res;
 			NTSTATUS nt_res;
 			wchar_t wstr[WSTR_LEN]; /* TODO: Determine Size */
-			size_t len;
 
 			/* VID/PID match. Create the record. */
 			tmp = (struct hid_device_info*) calloc(1, sizeof(struct hid_device_info));
@@ -420,10 +419,7 @@ struct hid_device_info HID_API_EXPORT * HID_API_CALL hid_enumerate(unsigned shor
 			cur_dev->next = NULL;
 			str = device_interface_detail_data->DevicePath;
 			if (str) {
-				len = strlen(str);
-				cur_dev->path = (char*) calloc(len+1, sizeof(char));
-				strncpy(cur_dev->path, str, len+1);
-				cur_dev->path[len] = '\0';
+                cur_dev->path = (char*) strdup(str);
 			}
 			else
 				cur_dev->path = NULL;
