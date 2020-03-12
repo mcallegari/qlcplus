@@ -144,12 +144,12 @@ Es perdran els canvis si no els guarda.</translation>
     <message>
         <location filename="qml/ActionsMenu.qml" line="512"/>
         <source>Polish</source>
-        <translation type="unfinished"></translation>
+        <translation>Polac</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="520"/>
         <source>Russian</source>
-        <translation type="unfinished"></translation>
+        <translation>Rus</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="528"/>
@@ -159,7 +159,7 @@ Es perdran els canvis si no els guarda.</translation>
     <message>
         <location filename="qml/ActionsMenu.qml" line="536"/>
         <source>Ukrainian</source>
-        <translation type="unfinished"></translation>
+        <translation>Ucraïnès</translation>
     </message>
     <message>
         <location filename="qml/ActionsMenu.qml" line="547"/>
@@ -352,7 +352,7 @@ Es perdran els canvis si no els guarda.</translation>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="135"/>
         <source>Print the Chaser steps</source>
-        <translation type="unfinished"></translation>
+        <translation>Imprimiu els pasos del Chaser</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="173"/>
@@ -855,7 +855,7 @@ Es perdran els canvis si no els guarda.</translation>
         <location filename="qml/fixturesfunctions/EditorTopBar.qml" line="44"/>
         <source>Go back to the previous view</source>
         <oldsource>Go back to the Function Manager</oldsource>
-        <translation type="unfinished">Torna al Gestor de Funcions</translation>
+        <translation>Torna al Gestor de Funcions</translation>
     </message>
 </context>
 <context>
@@ -957,7 +957,7 @@ Es perdran els canvis si no els guarda.</translation>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupEditor.qml" line="108"/>
         <source>Remove the selected items</source>
-        <translation type="unfinished"></translation>
+        <translation>Suprimeix els elements seleccionats</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupEditor.qml" line="120"/>
@@ -1010,12 +1010,12 @@ Es perdran els canvis si no els guarda.</translation>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="189"/>
         <source>Rename the selected items</source>
-        <translation type="unfinished">Reanomena els elements seleccionats</translation>
+        <translation>Reanomena els elements seleccionats</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="202"/>
         <source>Rename items</source>
-        <translation type="unfinished">Reanomena elements</translation>
+        <translation>Reanomena els elements</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupManager.qml" line="241"/>
@@ -1568,7 +1568,7 @@ Es perdran els canvis si no els guarda.</translation>
     <message>
         <location filename="qml/fixturesfunctions/LeftPanel.qml" line="104"/>
         <source>Palettes</source>
-        <translation type="unfinished"></translation>
+        <translation>Paletes</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/LeftPanel.qml" line="122"/>
@@ -1722,96 +1722,96 @@ Es perdran els canvis si no els guarda.</translation>
         <location filename="qml/PaletteFanningBox.qml" line="67"/>
         <location filename="qml/PaletteFanningBox.qml" line="160"/>
         <source>Flat</source>
-        <translation type="unfinished"></translation>
+        <translation>Pla</translation>
     </message>
     <message>
         <location filename="qml/PaletteFanningBox.qml" line="68"/>
         <location filename="qml/PaletteFanningBox.qml" line="161"/>
         <source>Linear</source>
-        <translation type="unfinished"></translation>
+        <translation>Lineal</translation>
     </message>
     <message>
         <location filename="qml/PaletteFanningBox.qml" line="69"/>
         <location filename="qml/PaletteFanningBox.qml" line="162"/>
         <source>Square</source>
-        <translation type="unfinished"></translation>
+        <translation>Quadrat</translation>
     </message>
     <message>
         <location filename="qml/PaletteFanningBox.qml" line="70"/>
         <location filename="qml/PaletteFanningBox.qml" line="163"/>
         <source>Saw</source>
-        <translation type="unfinished"></translation>
+        <translation>Serra</translation>
     </message>
     <message>
         <location filename="qml/PaletteFanningBox.qml" line="71"/>
         <location filename="qml/PaletteFanningBox.qml" line="164"/>
         <source>Sine</source>
-        <translation type="unfinished"></translation>
+        <translation>Sinusoidal</translation>
     </message>
     <message>
         <location filename="qml/PaletteFanningBox.qml" line="80"/>
         <location filename="qml/PaletteFanningBox.qml" line="206"/>
         <source>Left to right</source>
-        <translation type="unfinished"></translation>
+        <translation>Esquerra a Dreta</translation>
     </message>
     <message>
         <location filename="qml/PaletteFanningBox.qml" line="81"/>
         <location filename="qml/PaletteFanningBox.qml" line="207"/>
         <source>Right to left</source>
-        <translation type="unfinished"></translation>
+        <translation>Dreta a Esquerra</translation>
     </message>
     <message>
         <location filename="qml/PaletteFanningBox.qml" line="82"/>
         <location filename="qml/PaletteFanningBox.qml" line="208"/>
         <source>Top to bottom</source>
-        <translation type="unfinished"></translation>
+        <translation>Dalt a Baix</translation>
     </message>
     <message>
         <location filename="qml/PaletteFanningBox.qml" line="83"/>
         <location filename="qml/PaletteFanningBox.qml" line="209"/>
         <source>Bottom to top</source>
-        <translation type="unfinished"></translation>
+        <translation>Baix a Dalt</translation>
     </message>
     <message>
         <location filename="qml/PaletteFanningBox.qml" line="84"/>
         <location filename="qml/PaletteFanningBox.qml" line="210"/>
         <source>Centered</source>
-        <translation type="unfinished"></translation>
+        <translation>Centrat</translation>
     </message>
     <message>
         <location filename="qml/PaletteFanningBox.qml" line="110"/>
         <source>Show/Hide fanning options</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra/Amaga opcions de ventall</translation>
     </message>
     <message>
         <location filename="qml/PaletteFanningBox.qml" line="127"/>
         <source>Create a new palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Crea una nova paleta</translation>
     </message>
     <message>
         <location filename="qml/PaletteFanningBox.qml" line="144"/>
         <source>Type</source>
-        <translation type="unfinished">Tipus</translation>
+        <translation>Tipus</translation>
     </message>
     <message>
         <location filename="qml/PaletteFanningBox.qml" line="190"/>
         <source>Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Disposició</translation>
     </message>
     <message>
         <location filename="qml/PaletteFanningBox.qml" line="236"/>
         <source>Amount</source>
-        <translation type="unfinished"></translation>
+        <translation>Quantitat</translation>
     </message>
     <message>
         <location filename="qml/PaletteFanningBox.qml" line="311"/>
         <source>Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor</translation>
     </message>
     <message>
         <location filename="qml/PaletteFanningBox.qml" line="385"/>
         <source>Pick the selected color</source>
-        <translation type="unfinished"></translation>
+        <translation>Tria el color seleccionat</translation>
     </message>
 </context>
 <context>
@@ -1819,27 +1819,27 @@ Es perdran els canvis si no els guarda.</translation>
     <message>
         <location filename="qml/fixturesfunctions/PaletteManager.qml" line="81"/>
         <source>Search a palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Cerca una paleta</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/PaletteManager.qml" line="97"/>
         <source>Intensity</source>
-        <translation type="unfinished">Intensitat</translation>
+        <translation>Intensitat</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/PaletteManager.qml" line="109"/>
         <source>Color</source>
-        <translation type="unfinished">Color</translation>
+        <translation>Color</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/PaletteManager.qml" line="121"/>
         <source>Position</source>
-        <translation type="unfinished">Posició</translation>
+        <translation>Posició</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/PaletteManager.qml" line="134"/>
         <source>Delete the selected palette(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Suprimeix la(les) paleta(s) selecionada(s)</translation>
     </message>
 </context>
 <context>
@@ -1875,62 +1875,62 @@ Es perdran els canvis si no els guarda.</translation>
     <message>
         <location filename="qml/popup/PopupCreatePalette.qml" line="30"/>
         <source>Create a new palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Crea una nova paleta</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupCreatePalette.qml" line="43"/>
         <source>Dimmer</source>
-        <translation type="unfinished"></translation>
+        <translation>Dimmer</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupCreatePalette.qml" line="44"/>
         <source>Color</source>
-        <translation type="unfinished">Color</translation>
+        <translation>Color</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupCreatePalette.qml" line="45"/>
         <source>Position</source>
-        <translation type="unfinished">Posició</translation>
+        <translation>Posició</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupCreatePalette.qml" line="46"/>
         <source>Shutter</source>
-        <translation type="unfinished">Obturador</translation>
+        <translation>Obturador</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupCreatePalette.qml" line="47"/>
         <source>Gobo</source>
-        <translation type="unfinished">Gobo</translation>
+        <translation>Gobo</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupCreatePalette.qml" line="68"/>
         <source>Palette name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom de la Paleta</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupCreatePalette.qml" line="75"/>
         <source>New Palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Nova Paleta</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupCreatePalette.qml" line="83"/>
         <source>Type</source>
-        <translation type="unfinished">Tipus</translation>
+        <translation>Tipus</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupCreatePalette.qml" line="109"/>
         <source>Also create a Scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Crea també una escena</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupCreatePalette.qml" line="117"/>
         <source>Scene name</source>
-        <translation type="unfinished">Nom de la escena</translation>
+        <translation>Nom de la escena</translation>
     </message>
     <message>
         <location filename="qml/popup/PopupCreatePalette.qml" line="124"/>
         <source>New Scene</source>
-        <translation type="unfinished"></translation>
+        <translation>Nova Escena</translation>
     </message>
 </context>
 <context>
@@ -2766,17 +2766,17 @@ Nivell d&apos;accés:</translation>
         <location filename="qml/fixturesfunctions/SceneEditor.qml" line="89"/>
         <source>Remove the selected items</source>
         <oldsource>Remove the selected fixtures</oldsource>
-        <translation type="unfinished">Elimina els fixtures seleccionats</translation>
+        <translation>Elimina els elements seleccionats</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SceneEditor.qml" line="95"/>
         <source>Delete items</source>
-        <translation type="unfinished">Elimina elements</translation>
+        <translation>Elimina elements</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SceneEditor.qml" line="96"/>
         <source>Are you sure you want to remove the selected items?</source>
-        <translation type="unfinished"></translation>
+        <translation>Esteu segur que vols eliminar els elements sleccionats?</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SceneEditor.qml" line="218"/>
@@ -2965,7 +2965,7 @@ Nivell d&apos;accés:</translation>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="226"/>
         <source>Gel color</source>
-        <translation type="unfinished"></translation>
+        <translation>Color del filtre</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="245"/>
@@ -3073,7 +3073,7 @@ Nivell d&apos;accés:</translation>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="251"/>
         <source>Show FPS</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra FPS</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="465"/>
@@ -3457,7 +3457,7 @@ Nivell d&apos;accés:</translation>
     <message>
         <location filename="qml/virtualconsole/VCButtonProperties.qml" line="248"/>
         <source>Fade out</source>
-        <translation type="unfinished"></translation>
+        <translation>Fade out</translation>
     </message>
 </context>
 <context>
@@ -3614,7 +3614,7 @@ Nivell d&apos;accés:</translation>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="54"/>
         <source>Side Fader</source>
-        <translation type="unfinished"></translation>
+        <translation>Fader Lateral</translation>
     </message>
     <message>
         <location filename="virtualconsole/vccuelist.cpp" line="70"/>
@@ -3712,27 +3712,27 @@ Nivell d&apos;accés:</translation>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="149"/>
         <source>Side fader</source>
-        <translation type="unfinished"></translation>
+        <translation>Fader Lateral</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="164"/>
         <source>Mode</source>
-        <translation type="unfinished">Mode</translation>
+        <translation>Mode</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="179"/>
         <source>None</source>
-        <translation type="unfinished">Cap</translation>
+        <translation>Cap</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="194"/>
         <source>Crossfade</source>
-        <translation type="unfinished"></translation>
+        <translation>Crossfade</translation>
     </message>
     <message>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="209"/>
         <source>Steps</source>
-        <translation type="unfinished">Passos</translation>
+        <translation>Passos</translation>
     </message>
 </context>
 <context>
@@ -3943,7 +3943,7 @@ Nivell d&apos;accés:</translation>
     <message>
         <location filename="qml/virtualconsole/VCRightPanel.qml" line="135"/>
         <source>Delete selected widgets</source>
-        <translation type="unfinished"></translation>
+        <translation>Esborra els ginys seleccionats</translation>
     </message>
     <message>
         <source>Delete functions</source>
@@ -4442,7 +4442,7 @@ Nivell d&apos;accés:</translation>
     <message>
         <location filename="qml/fixturesfunctions/VideoEditor.qml" line="457"/>
         <source>Layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Capa</translation>
     </message>
 </context>
 <context>
