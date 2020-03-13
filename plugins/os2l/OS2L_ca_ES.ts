@@ -6,27 +6,27 @@
     <message>
         <location filename="os2lconfiguration.ui" line="33"/>
         <source>OS2L Plugin Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuració Connector OS2L</translation>
     </message>
     <message>
         <location filename="os2lconfiguration.ui" line="52"/>
         <source>Host settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuració de l&apos;Amfitrió</translation>
     </message>
     <message>
         <location filename="os2lconfiguration.ui" line="58"/>
         <source>OS2L Host IP address</source>
-        <translation type="unfinished"></translation>
+        <translation>Direcció IP de l&apos;Amfitrió OS2L</translation>
     </message>
     <message>
         <location filename="os2lconfiguration.ui" line="72"/>
         <source>OS2L Host Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Port de l&apos;Amfitrió OS2L</translation>
     </message>
     <message>
         <location filename="os2lconfiguration.ui" line="92"/>
         <source>Enable the plugin first</source>
-        <translation type="unfinished"></translation>
+        <translation>Habilita primer el connector</translation>
     </message>
 </context>
 <context>
@@ -34,7 +34,7 @@
     <message>
         <location filename="os2lplugin.cpp" line="68"/>
         <source>This plugin provides support for one OS2L host.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aquest connector proporciona suport per un amfitrió OS2L.</translation>
     </message>
 </context>
 </TS>
