@@ -62,6 +62,7 @@
     <F n="American-DJ-FREQ-5-Strobe" m="FREQ 5 Strobe"/>
     <F n="American-DJ-FREQ-Matrix-Quad" m="FREQ Matrix Quad"/>
     <F n="American-DJ-Fusion-FX-Bar-1" m="Fusion FX Bar 1"/>
+    <F n="American-DJ-Fusion-FX-Bar-2" m="Fusion FX Bar 2"/>
     <F n="American-DJ-Fusion-FX-Bar-5" m="Fusion FX Bar 5"/>
     <F n="American-DJ-Galaxian-3D" m="Galaxian 3D"/>
     <F n="American-DJ-Galaxian-Gem-IR" m="Galaxian Gem IR"/>
@@ -107,6 +108,7 @@
     <F n="American-DJ-On-X" m="On-X"/>
     <F n="American-DJ-P64-LED-Plus" m="P64 LED Plus"/>
     <F n="American-DJ-Par-38-Pro" m="Par 38 Pro"/>
+    <F n="American-DJ-Pearl-LED-WH" m="Pearl LED WH"/>
     <F n="American-DJ-Pinspot-LED-Quad-DMX" m="Pinspot LED Quad DMX"/>
     <F n="American-DJ-Pocket-Pro" m="Pocket Pro"/>
     <F n="American-DJ-Profile-Panel-RGB" m="Profile Panel RGB"/>
@@ -169,6 +171,9 @@
   </M>
   <M n="Art_System">
     <F n="Art-System-GC-18x15-RGBWA" m="GC 18x15W RGBWA"/>
+  </M>
+  <M n="Astera">
+    <F n="Astera-AX3-Lightdrop" m="AX3 Lightdrop"/>
   </M>
   <M n="AVE">
     <F n="AVE-Cobra-Wash-200" m="Cobra Wash 200"/>
@@ -321,6 +326,7 @@
     <F n="Chauvet-COLORado-3P" m="COLORado 3P"/>
     <F n="Chauvet-COLORado-Batten-72-Tour" m="COLORado Batten 72 Tour"/>
     <F n="Chauvet-ColorBand-Pix-IP" m="ColorBand Pix IP"/>
+    <F n="Chauvet-ColorBand-Pix-M-USB" m="ColorBand Pix-M USB"/>
     <F n="Chauvet-ColorBand-Pix-M" m="ColorBand Pix-M"/>
     <F n="Chauvet-COLORband-T3-USB" m="COLORband T3 USB"/>
     <F n="Chauvet-COLORdash-Accent-Quad" m="COLORdash Accent Quad"/>
@@ -382,6 +388,7 @@
     <F n="Chauvet-Intimidator-Trio" m="Intimidator Trio"/>
     <F n="Chauvet-Intimidator-Wash-Zoom-350-IRC" m="Intimidator Wash Zoom 350 IRC"/>
     <F n="Chauvet-Intimidator-Wave-360-IRC" m="Intimidator Wave 360 IRC"/>
+    <F n="Chauvet-Kinta-FX" m="Kinta FX"/>
     <F n="Chauvet-LED-PAR-64-36B" m="LED PAR 64-36B"/>
     <F n="Chauvet-LED-PAR-64-Tri-B" m="LED PAR 64 Tri-B"/>
     <F n="Chauvet-LED-PAR-64-Tri-C" m="LED PAR 64 Tri-C"/>
@@ -618,6 +625,7 @@
     <F n="Eurolite-LED-TMH-9" m="LED TMH-9"/>
     <F n="Eurolite-LED-TMH-FE-600" m="LED TMH FE-600"/>
     <F n="Eurolite-LED-Z-200-TCL" m="LED Z-200 TCL"/>
+    <F n="Eurolite-NH-30-MK2" m="NH-30 MK2"/>
     <F n="Eurolite-Party-TCL-Spot-RGB" m="Party TCL Spot RGB"/>
     <F n="Eurolite-PST-15W-QCL-RGB" m="LED PST-15W QCL"/>
     <F n="Eurolite-PST-9W-RGB" m="LED PST-9W RGB"/>
@@ -785,6 +793,7 @@
     <F n="IMG-Stageline-Wash-40-LED" m="Wash-40 LED"/>
   </M>
   <M n="Involight">
+    <F n="Involight-AX470" m="AX470"/>
     <F n="Involight-COBBAR815" m="COBBAR815"/>
     <F n="Involight-FM1200UP" m="FM1200UP"/>
     <F n="Involight-FM1500-DMX" m="FM1500 DMX"/>
@@ -1065,8 +1074,9 @@
     <F n="Pro-Lights-Accent1Q" m="Accent1Q"/>
     <F n="Pro-Lights-ARCLED7314HD" m="ArcLed-7314HD"/>
     <F n="Pro-Lights-BB5Pix" m="BB5 Pix"/>
-    <F n="Pro-Lights-CromoSpot-150" m="CromoSpot150"/>
-    <F n="Pro-Lights-CromoSpot-300" m="CromoSpot300"/>
+    <F n="Pro-Lights-CromoSpot150" m="CromoSpot150"/>
+    <F n="Pro-Lights-CromoSpot300" m="CromoSpot300"/>
+    <F n="Pro-Lights-CromoWash300" m="CromoWash300"/>
     <F n="Pro-Lights-Explo-3000D" m="Explo 3000D"/>
     <F n="Pro-Lights-Fury-FY250S" m="Fury FY250S"/>
     <F n="Pro-Lights-Fury-FY250W" m="Fury FY250W"/>
@@ -1088,6 +1098,7 @@
     <F n="Pro-Lights-SmartBatHEX" m="SmartBatHEX"/>
     <F n="Pro-Lights-Strobo-1500DMX" m="Strobo 1500DMX"/>
     <F n="Pro-Lights-StudioCOBFC" m="StudioCOBFC"/>
+    <F n="Pro-Lights-StudioCOBPLUSFC" m="STUDIOCOBPLUSFC"/>
     <F n="Pro-Lights-SunPix-12TRI" m="SunPix 12TRI"/>
     <F n="Pro-Lights-UVStrip18" m="UVStrip18"/>
     <F n="Pro-Lights-V200" m="V200"/>
@@ -1353,6 +1364,7 @@
     <F n="Stairville-xBrick-Full-Colour-16X3W" m="xBrick Full-Colour 16X3W"/>
     <F n="Stairville-xBrick-Full-Colour" m="xBrick Full-Colour"/>
     <F n="Stairville-xBrick-Quad-16x8W-RGBW" m="xBrick Quad 16x8W RGBW"/>
+    <F n="Stairville-Z100M" m="Z100M"/>
     <F n="Stairville-ZF-1500" m="ZF-1500"/>
   </M>
   <M n="Star-Lights">

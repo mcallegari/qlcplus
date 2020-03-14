@@ -27,6 +27,14 @@ qlcplus (4.12.3) stable; urgency=low
   * New fixture: Martin ELP-CL Profile (thanks to John Yiannikakis)
   * New fixture: American DJ Flat Par QA12X
   * New fixture: Nicols WP600Z (thanks to Philippe Thibault)
+  * New fixture: Pro-Lights STUDIOCOBPLUSFC (thanks to Martin Vlcek)
+  * New fixture: Astera AX3 Lightdrop (thanks to Fredje Gallon)
+  * New fixtures: American DJ Fusion FX Bar 2, Chauvet ColorBand Pix-M USB (thanks to Mike Morris)
+  * New fixtures: Chauvet Kinta FX (thanks to Dave Wilson)
+  * New fixtures: Involight AX470, American DJ Pearl LED WH (thanks to CodehunterWorks)
+  * New fixture: Pro-Lights CromoWash300 (thanks to Bruno)
+  * New fixture: Eurolite NH-30 MK2 (thanks to Peter Goderie)
+  * New fixture: Stairville Z100M (thanks to Stefan Gross)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 26 Apr 2020 12:13:14 +0200
 
