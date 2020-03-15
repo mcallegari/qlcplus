@@ -20,8 +20,8 @@
 #include <QDebug>
 
 #include "function.h"
+#include "scriptv3.h"
 #include "scriptv4.h"
-#include "scriptv5.h"
 #include "script.h"
 
 short Script::ScriptVersion;
