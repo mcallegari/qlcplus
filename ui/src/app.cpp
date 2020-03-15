@@ -56,7 +56,6 @@
 #include "qlcfixturedef.h"
 #include "qlcconfig.h"
 #include "qlcfile.h"
-#include "script.h"
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
  #include "videoprovider.h"
@@ -127,7 +126,6 @@ App::App()
     , m_videoProvider(NULL)
 #endif
 {
-    Script::ScriptVersion=3;
     QCoreApplication::setOrganizationName("qlcplus");
     QCoreApplication::setOrganizationDomain("sf.net");
     QCoreApplication::setApplicationName(APPNAME);

@@ -723,6 +723,8 @@ QString ScriptV3::handleJump(const QList<QStringList>& tokens)
     }
 }
 
+const QStringList knownKeywords(QStringList() << "ch" << "val" << "arg");
+
 QList <QStringList> ScriptV3::tokenizeLine(const QString& str, bool* ok)
 {
     QList<QStringList> tokens;

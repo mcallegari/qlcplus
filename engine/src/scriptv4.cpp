@@ -356,6 +356,8 @@ quint32 ScriptV4::getValueFromString(QString str, bool *ok)
     return qrand() % ((max + 1) - min) + min;
 }
 
+const QStringList knownKeywords(QStringList() << "ch" << "val" << "arg");
+
 QString ScriptV4::convertLine(const QString& str, bool *ok)
 {
     QStringList values;

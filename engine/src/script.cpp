@@ -24,7 +24,7 @@
 #include "scriptv4.h"
 #include "script.h"
 
-short Script::ScriptVersion;
+short Script::ScriptVersion=0;
 
 const QString Script::startFunctionCmd = QString("startfunction");
 const QString Script::stopFunctionCmd = QString("stopfunction");
@@ -47,9 +47,11 @@ Script::Script(Doc* doc) : Function (doc, Function::ScriptType){
         case 4:
             CallApi=new ScriptV4(doc);
             break;
-        default:
+        case 3:
             CallApi=new ScriptV3(doc);
             break;
+        default:
+            exit(1);
     }
 }
 

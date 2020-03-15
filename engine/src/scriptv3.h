@@ -18,8 +18,8 @@
   limitations under the License.
 */
 
-#ifndef SCRIPTV5_H
-#define SCRIPTV5_H
+#ifndef SCRIPTV3_H
+#define SCRIPTV3_H
 
 #include <QStringList>
 #include <QObject>

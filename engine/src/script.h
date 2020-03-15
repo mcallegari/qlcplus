@@ -32,8 +32,6 @@ class MasterTimer;
 class Universe;
 class Doc;
 
-const QStringList knownKeywords(QStringList() << "ch" << "val" << "arg");
-
 class ScriptApi : public Function
 {
     Q_OBJECT

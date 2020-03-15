@@ -45,6 +45,7 @@
 #include "webaccessauth.h"
 #include "app.h"
 #include "doc.h"
+#include "script.h"
 
 /* Use this namespace for command-line arguments so that we don't pollute
    the global namespace. */
@@ -309,6 +310,7 @@ bool parseArgs()
  */
 int main(int argc, char** argv)
 {
+    
     /* Create the Qt core application object */
     QApplication qapp(argc, argv);
 
@@ -332,6 +334,8 @@ int main(int argc, char** argv)
     if (parseArgs() == false)
         return 0;
 
+    Script::ScriptVersion=3;
+    
     /* Load translation for main application */
     QLCi18n::loadTranslation("qlcplus");
 
