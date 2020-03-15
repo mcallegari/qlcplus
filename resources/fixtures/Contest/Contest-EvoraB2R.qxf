@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Fredje Gallon</Author>
  </Creator>
  <Manufacturer>Contest</Manufacturer>
@@ -27,7 +27,7 @@
   <Capability Min="117" Max="127" Preset="ColorMacro" Res1="#ffffcf">Vale white</Capability>
   <Capability Min="128" Max="189" Preset="GoboMacro" Res1="Others/rainbow.png">Color Scroll CW</Capability>
   <Capability Min="190" Max="193">Color Scroll stop</Capability>
-  <Capability Min="194" Max="225" Preset="GoboMacro" Res1="Others/rainbow.png">Color Scroll CCW</Capability>
+  <Capability Min="194" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Color Scroll CCW</Capability>
  </Channel>
  <Channel Name="Color Fine" Preset="ColorWheelFine"/>
  <Channel Name="Gobo">
@@ -63,7 +63,7 @@
   <Capability Min="211" Max="217" Preset="GoboMacro" Res1="Others/gobo00024.svg">Star shake</Capability>
   <Capability Min="218" Max="255">Gobo scrol F&gt;S</Capability>
  </Channel>
- <Channel Name="Gobo Index" Preset="GoboIndexFine"/>
+ <Channel Name="Gobo Index" Preset="GoboIndex"/>
  <Channel Name="Pan" Preset="PositionPan"/>
  <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Pan / Tilt speed">
