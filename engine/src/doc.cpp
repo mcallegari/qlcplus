@@ -261,7 +261,7 @@ QSharedPointer<AudioCapture> Doc::audioInputCapture()
     if (!m_inputCapture)
     {
         qDebug() << "Creating new audio capture";
-        m_inputCapture = QSharedPointer<AudioCapture>(
+        m_inputCapture = QSharedPointer<AudioCapturePortAudio>(
             new AudioCapturePortAudio()
         );
     }
