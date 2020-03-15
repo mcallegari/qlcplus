@@ -55,12 +55,12 @@ void ChaserStep_Test::comparison()
     QVERIFY((step1 == step2) == false);
 }
 
-void ChaserStep_Test::resolveFunction()
+void ChaserStep_Test::resolveFunction(short scriptversion)
 {
     ChaserStep step(0);
     QVERIFY(step.resolveFunction(NULL) == NULL);
 
-    Doc doc(this);
+    Doc doc(this,scriptversion);
     QVERIFY(step.resolveFunction(&doc) == NULL);
 
     Scene* scene = new Scene(&doc);

@@ -29,7 +29,7 @@ class ChaserStep_Test : public QObject
 private slots:
     void initial();
     void comparison();
-    void resolveFunction();
+    void resolveFunction(short scriptversion);
     void variant();
     void values();
     void load();

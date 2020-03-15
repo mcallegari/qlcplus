@@ -24,7 +24,7 @@
 #include <QObject>
 #include <QMap>
 
-#include "function.h"
+#include "script.h"
 
 class ScriptRunner;
 class MasterTimer;
@@ -35,32 +35,17 @@ class Doc;
  * @{
  */
 
-class Script : public Function
+class ScriptV4 : public ScriptApi
 {
     Q_OBJECT
 
-    /************************************************************************
-     * Script keywords
-     ************************************************************************/
-public:
-    static const QString startFunctionCmd;
-    static const QString stopFunctionCmd;
-    static const QString blackoutCmd;
-
-    static const QString waitCmd;
-
-    static const QString setFixtureCmd;
-    static const QString systemCmd;
-
-    static const QString blackoutOn;
-    static const QString blackoutOff;
 
     /************************************************************************
      * Initialization
      ************************************************************************/
 public:
-    Script(Doc* doc);
-    virtual ~Script();
+    ScriptV4(Doc* doc);
+    virtual ~ScriptV4();
 
     /** @reimp */
     QIcon getIcon() const;
@@ -102,7 +87,8 @@ public:
      *  The returned list is formatted as: Fixture ID / line number */
     QList<quint32> fixtureList() const;
 
-    QStringList syntaxErrorsLines();
+    QList<int> syntaxErrorsLines();
+    QStringList syntaxErrorsLinesString();
 
 private:
     QString m_data;

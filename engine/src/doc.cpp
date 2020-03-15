@@ -35,7 +35,7 @@
 #include "audioplugincache.h"
 #include "rgbscriptscache.h"
 #include "channelsgroup.h"
-#include "scriptwrapper.h"
+#include "script.h"
 #include "collection.h"
 #include "function.h"
 #include "universe.h"

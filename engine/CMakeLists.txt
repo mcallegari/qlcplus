@@ -129,8 +129,10 @@ set(qlcplusengine_src
            src/track.cpp
            src/universe.cpp
            src/rgbscript.cpp 
-           src/scriptrunner.cpp 
+           src/scriptrunner.cpp
            src/script.cpp
+           src/scriptv5.cpp
+           src/scriptv4.cpp
 )
 
 IF (${CMAKE_SYSTEM_NAME} MATCHES "Windows")

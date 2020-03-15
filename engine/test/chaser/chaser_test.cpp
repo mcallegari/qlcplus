@@ -55,9 +55,9 @@ void Chaser_Test::cleanupTestCase()
     delete m_doc;
 }
 
-void Chaser_Test::init()
+void Chaser_Test::init(short scriptversion)
 {
-    m_doc = new Doc(this);
+    m_doc = new Doc(this,scriptversion);
 }
 
 void Chaser_Test::cleanup()
@@ -313,9 +313,9 @@ void Chaser_Test::copyFrom()
     QVERIFY(c2.steps().at(2) == ChaserStep(3));
 }
 
-void Chaser_Test::createCopy()
+void Chaser_Test::createCopy(short scriptversion)
 {
-    Doc doc(this);
+    Doc doc(this,scriptversion);
 
     Chaser* c1 = new Chaser(m_doc);
     c1->setName("First");

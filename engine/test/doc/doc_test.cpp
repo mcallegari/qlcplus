@@ -30,7 +30,8 @@
 #include "monitorproperties.h"
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
-#include "scriptwrapper.h"
+#include "scriptv4.h"
+#include "scriptv5.h"
 #include "qlcphysical.h"
 #include "collection.h"
 #include "qlcchannel.h"
@@ -53,14 +54,15 @@
 void Doc_Test::initTestCase()
 {
     Bus::init(this);
-
-    m_doc = new Doc(this);
-
-    QDir dir(INTERNAL_FIXTUREDIR);
-    dir.setFilter(QDir::Files);
-    dir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
-    QVERIFY(m_doc->fixtureDefCache()->loadMap(dir) == true);
-    m_currentAddr = 0;
+    short sver[]={4,5,'\0'};
+    for(int i=0; i!='\0'; ++i){
+        m_doc = new Doc(this,sver[i]);
+        QDir dir(INTERNAL_FIXTUREDIR);
+        dir.setFilter(QDir::Files);
+        dir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
+        QVERIFY(m_doc->fixtureDefCache()->loadMap(dir) == true);
+        m_currentAddr = 0;
+    }
 }
 
 void Doc_Test::init()
@@ -850,7 +852,7 @@ void Doc_Test::function()
     QVERIFY(m_doc->startupFunction() == s1->id());
 }
 
-void Doc_Test::usage()
+void Doc_Test::usage(short scriptversion)
 {
     Scene *s1 = new Scene(m_doc);
     m_doc->addFunction(s1);
@@ -884,6 +886,7 @@ void Doc_Test::usage()
     m_doc->addFunction(seq1);
 
     Script *sc1 = new Script(m_doc);
+
     sc1->appendData(QString("startfunction:%1").arg(c1->id()));
     m_doc->addFunction(sc1);
 

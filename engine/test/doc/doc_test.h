@@ -59,7 +59,7 @@ private slots:
     void addFunction();
     void deleteFunction();
     void function();
-    void usage();
+    void usage(short scriptversion);
 
     void load();
     void loadWrongRoot();

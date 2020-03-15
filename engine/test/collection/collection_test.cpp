@@ -36,9 +36,9 @@
 #include "doc.h"
 #undef protected
 
-void Collection_Test::initTestCase()
+void Collection_Test::initTestCase(short scriptversion)
 {
-    m_doc = new Doc(this);
+    m_doc = new Doc(this,scriptversion);
 }
 
 void Collection_Test::cleanupTestCase()
@@ -107,9 +107,9 @@ void Collection_Test::functions()
     QVERIFY(c.functions().size() == 0);
 }
 
-void Collection_Test::contains()
+void Collection_Test::contains(short scriptversion)
 {
-    Doc* doc = new Doc(this);
+    Doc* doc = new Doc(this,scriptversion);
 
     Scene *s1 = new Scene(doc);
     Scene *s2 = new Scene(doc);
@@ -395,9 +395,9 @@ void Collection_Test::copyFrom()
     QVERIFY(c2.functions().at(2) == 3);
 }
 
-void Collection_Test::createCopy()
+void Collection_Test::createCopy(short scriptversion)
 {
-    Doc doc(this);
+    Doc doc(this,scriptversion);
 
     Collection* c1 = new Collection(m_doc);
     c1->setName("First");
@@ -421,9 +421,9 @@ void Collection_Test::createCopy()
     QVERIFY(copy->functions().at(2) == 40);
 }
 
-void Collection_Test::write()
+void Collection_Test::write(short scriptversion)
 {
-    Doc* doc = new Doc(this);
+    Doc* doc = new Doc(this,scriptversion);
 
     Fixture* fxi = new Fixture(doc);
     fxi->setAddress(0);
@@ -527,9 +527,9 @@ void Collection_Test::write()
     delete doc;
 }
 
-void Collection_Test::stopNotOwnChildren()
+void Collection_Test::stopNotOwnChildren(short scriptversion)
 {
-    Doc* doc = new Doc(this);
+    Doc* doc = new Doc(this,scriptversion);
 
     Fixture* fxi = new Fixture(doc);
     fxi->setAddress(0);
