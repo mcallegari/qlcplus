@@ -30,7 +30,7 @@ class Chaser_Test : public QObject
 private slots:
     void initTestCase();
     void cleanupTestCase();
-    void init(short scriptversion);
+    void init();
     void cleanup();
 
     void initial();
@@ -39,7 +39,7 @@ private slots:
     void stepAt();
     void functionRemoval();
     void copyFrom();
-    void createCopy(short scriptversion);
+    void createCopy();
     void speedModes();
 
     void loadSuccessLegacy();

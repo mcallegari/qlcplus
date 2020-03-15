@@ -42,18 +42,13 @@
 
 #include "../common/resource_paths.h"
 
-short Script::ScriptVersion=5;
-
 void ChaserRunner_Test::initTestCase()
 {
-    short sver[]={4,5,'\0'};
-    for(int i=0; i!='\0'; ++i){
-        m_doc = new Doc(this,sver[i]);
-        QDir dir(INTERNAL_FIXTUREDIR);
-        dir.setFilter(QDir::Files);
-        dir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
-        m_doc->fixtureDefCache()->loadMap(dir);
-    }
+    m_doc = new Doc(this);
+    QDir dir(INTERNAL_FIXTUREDIR);
+    dir.setFilter(QDir::Files);
+    dir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
+    m_doc->fixtureDefCache()->loadMap(dir);
 }
 
 void ChaserRunner_Test::cleanupTestCase()

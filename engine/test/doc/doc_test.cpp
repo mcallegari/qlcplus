@@ -53,15 +53,12 @@
 void Doc_Test::initTestCase()
 {
     Bus::init(this);
-    short sver[]={4,5,'\0'};
-    for(int i=0; i!='\0'; ++i){
-        m_doc = new Doc(this,sver[i]);
-        QDir dir(INTERNAL_FIXTUREDIR);
-        dir.setFilter(QDir::Files);
-        dir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
-        QVERIFY(m_doc->fixtureDefCache()->loadMap(dir) == true);
-        m_currentAddr = 0;
-    }
+    m_doc = new Doc(this);
+    QDir dir(INTERNAL_FIXTUREDIR);
+    dir.setFilter(QDir::Files);
+    dir.setNameFilters(QStringList() << QString("*%1").arg(KExtFixture));
+    QVERIFY(m_doc->fixtureDefCache()->loadMap(dir) == true);
+    m_currentAddr = 0;
 }
 
 void Doc_Test::init()

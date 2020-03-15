@@ -28,14 +28,14 @@ class Collection_Test : public QObject
     Q_OBJECT
 
 private slots:
-    void initTestCase(short scriptversion);
+    void initTestCase();
     void cleanupTestCase();
     void init();
     void cleanup();
 
     void initial();
     void functions();
-    void contains(short scriptversion);
+    void contains();
     void functionRemoval();
 
     void loadSuccess();
@@ -45,11 +45,11 @@ private slots:
     void loadPostLoad();
     void save();
     void copyFrom();
-    void createCopy(short scriptversion);
+    void createCopy();
 
-    void write(short scriptversion);
+    void write();
 
-    void stopNotOwnChildren(short scriptversion);
+    void stopNotOwnChildren();
 
 private:
     Doc* m_doc;
