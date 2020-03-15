@@ -40,23 +40,23 @@
  * Initialization
  ****************************************************************************/
 
-ScriptV5::ScriptV5(Doc* doc) : ScriptApi(doc)
+ScriptV3::ScriptV3(Doc* doc) : ScriptApi(doc)
     , m_currentCommand(0)
     , m_waitCount(0) 
 {
     setName(tr("New Script"));
 }
 
-ScriptV5::~ScriptV5()
+ScriptV3::~ScriptV3()
 {
 }
 
-QIcon ScriptV5::getIcon() const
+QIcon ScriptV3::getIcon() const
 {
     return QIcon(":/script.png");
 }
 
-quint32 ScriptV5::totalDuration()
+quint32 ScriptV3::totalDuration()
 {
     quint32 totalDuration = 0;
 
@@ -78,11 +78,11 @@ quint32 ScriptV5::totalDuration()
     return totalDuration;
 }
 
-Function* ScriptV5::createCopy(Doc* doc, bool addToDoc)
+Function* ScriptV3::createCopy(Doc* doc, bool addToDoc)
 {
     Q_ASSERT(doc != NULL);
 
-    Function* copy = new ScriptV5(doc);
+    Function* copy = new ScriptV3(doc);
     if (copy->copyFrom(this) == false)
     {
         delete copy;
@@ -97,9 +97,9 @@ Function* ScriptV5::createCopy(Doc* doc, bool addToDoc)
     return copy;
 }
 
-bool ScriptV5::copyFrom(const Function* function)
+bool ScriptV3::copyFrom(const Function* function)
 {
-    const ScriptV5* script = qobject_cast<const ScriptV5*> (function);
+    const ScriptV3* script = qobject_cast<const ScriptV3*> (function);
     if (script == NULL)
         return false;
 
@@ -112,7 +112,7 @@ bool ScriptV5::copyFrom(const Function* function)
  * Script data
  ****************************************************************************/
 
-bool ScriptV5::setData(const QString& str)
+bool ScriptV3::setData(const QString& str)
 {
     m_data = str;
     m_syntaxErrorLines.clear();
@@ -151,7 +151,7 @@ bool ScriptV5::setData(const QString& str)
     return true;
 }
 
-bool ScriptV5::appendData(const QString &str)
+bool ScriptV3::appendData(const QString &str)
 {
     m_data.append(str + QString("\n"));
     m_lines << tokenizeLine(str + QString("\n"));
@@ -159,12 +159,12 @@ bool ScriptV5::appendData(const QString &str)
     return true;
 }
 
-QString ScriptV5::data() const
+QString ScriptV3::data() const
 {
     return m_data;
 }
 
-QStringList ScriptV5::dataLines() const
+QStringList ScriptV3::dataLines() const
 {
     QStringList result = m_data.split(QRegExp("(\r\n|\n\r|\r|\n)"), QString::KeepEmptyParts);
 
@@ -174,7 +174,7 @@ QStringList ScriptV5::dataLines() const
     return result;
 }
 
-QList<quint32> ScriptV5::functionList() const
+QList<quint32> ScriptV3::functionList() const
 {
     QList<quint32> list;
 
@@ -194,7 +194,7 @@ QList<quint32> ScriptV5::functionList() const
     return list;
 }
 
-QList<quint32> ScriptV5::fixtureList() const
+QList<quint32> ScriptV3::fixtureList() const
 {
     QList<quint32> list;
 
@@ -214,12 +214,12 @@ QList<quint32> ScriptV5::fixtureList() const
     return list;
 }
 
-QList<int> ScriptV5::syntaxErrorsLines()
+QList<int> ScriptV3::syntaxErrorsLines()
 {
     return m_syntaxErrorLines;
 }
 
-QStringList ScriptV5::syntaxErrorsLinesString(){
+QStringList ScriptV3::syntaxErrorsLinesString(){
     return QStringList{0};
 }
 
@@ -227,7 +227,7 @@ QStringList ScriptV5::syntaxErrorsLinesString(){
  * Load & Save
  ****************************************************************************/
 
-bool ScriptV5::loadXML(QXmlStreamReader &root)
+bool ScriptV3::loadXML(QXmlStreamReader &root)
 {
     if (root.name() != KXMLQLCFunction)
     {
@@ -272,7 +272,7 @@ bool ScriptV5::loadXML(QXmlStreamReader &root)
     return true;
 }
 
-bool ScriptV5::saveXML(QXmlStreamWriter *doc)
+bool ScriptV3::saveXML(QXmlStreamWriter *doc)
 {
     Q_ASSERT(doc != NULL);
 
@@ -307,7 +307,7 @@ bool ScriptV5::saveXML(QXmlStreamWriter *doc)
  * Running
  ****************************************************************************/
 
-void ScriptV5::preRun(MasterTimer *timer)
+void ScriptV3::preRun(MasterTimer *timer)
 {
     // Reset
     m_waitCount = 0;
@@ -317,7 +317,7 @@ void ScriptV5::preRun(MasterTimer *timer)
     Function::preRun(timer);
 }
 
-void ScriptV5::write(MasterTimer *timer, QList<Universe *> universes)
+void ScriptV3::write(MasterTimer *timer, QList<Universe *> universes)
 {
     if (stopped() || isPaused())
         return;
@@ -345,7 +345,7 @@ void ScriptV5::write(MasterTimer *timer, QList<Universe *> universes)
     //    m_fader->write(universes);
 }
 
-void ScriptV5::postRun(MasterTimer *timer, QList<Universe *> universes)
+void ScriptV3::postRun(MasterTimer *timer, QList<Universe *> universes)
 {
     // Stop all functions started by this script
     foreach (Function *function, m_startedFunctions)
@@ -358,7 +358,7 @@ void ScriptV5::postRun(MasterTimer *timer, QList<Universe *> universes)
     Function::postRun(timer, universes);
 }
 
-bool ScriptV5::waiting()
+bool ScriptV3::waiting()
 {
     if (m_waitCount > 0)
     {
@@ -373,7 +373,7 @@ bool ScriptV5::waiting()
     }
 }
 
-quint32 ScriptV5::getValueFromString(QString str, bool *ok)
+quint32 ScriptV3::getValueFromString(QString str, bool *ok)
 {
     if (str.startsWith("random") == false)
     {
@@ -394,7 +394,7 @@ quint32 ScriptV5::getValueFromString(QString str, bool *ok)
     return qrand() % ((max + 1) - min) + min;
 }
 
-bool ScriptV5::executeCommand(int index, MasterTimer* timer, QList<Universe *> universes)
+bool ScriptV3::executeCommand(int index, MasterTimer* timer, QList<Universe *> universes)
 {
     if (index < 0 || index >= m_lines.size())
     {
@@ -476,7 +476,7 @@ bool ScriptV5::executeCommand(int index, MasterTimer* timer, QList<Universe *> u
     return continueLoop;
 }
 
-QString ScriptV5::handleStartFunction(const QList<QStringList>& tokens, MasterTimer* timer)
+QString ScriptV3::handleStartFunction(const QList<QStringList>& tokens, MasterTimer* timer)
 {
     qDebug() << Q_FUNC_INFO;
 
@@ -505,7 +505,7 @@ QString ScriptV5::handleStartFunction(const QList<QStringList>& tokens, MasterTi
     }
 }
 
-QString ScriptV5::handleStopFunction(const QList <QStringList>& tokens)
+QString ScriptV3::handleStopFunction(const QList <QStringList>& tokens)
 {
     qDebug() << Q_FUNC_INFO;
 
@@ -534,7 +534,7 @@ QString ScriptV5::handleStopFunction(const QList <QStringList>& tokens)
     }
 }
 
-QString ScriptV5::handleBlackout(const QList <QStringList>& tokens)
+QString ScriptV3::handleBlackout(const QList <QStringList>& tokens)
 {
     qDebug() << Q_FUNC_INFO;
 
@@ -564,7 +564,7 @@ QString ScriptV5::handleBlackout(const QList <QStringList>& tokens)
     return QString();
 }
 
-QString ScriptV5::handleWait(const QList<QStringList>& tokens)
+QString ScriptV3::handleWait(const QList<QStringList>& tokens)
 {
     qDebug() << Q_FUNC_INFO;
 
@@ -581,7 +581,7 @@ QString ScriptV5::handleWait(const QList<QStringList>& tokens)
     return QString();
 }
 
-QString ScriptV5::handleWaitKey(const QList<QStringList>& tokens)
+QString ScriptV3::handleWaitKey(const QList<QStringList>& tokens)
 {
     qDebug() << Q_FUNC_INFO << tokens;
 
@@ -594,7 +594,7 @@ QString ScriptV5::handleWaitKey(const QList<QStringList>& tokens)
     return QString();
 }
 
-QString ScriptV5::handleSetFixture(const QList<QStringList>& tokens, QList<Universe *> universes)
+QString ScriptV3::handleSetFixture(const QList<QStringList>& tokens, QList<Universe *> universes)
 {
     qDebug() << Q_FUNC_INFO;
 
@@ -677,7 +677,7 @@ QString ScriptV5::handleSetFixture(const QList<QStringList>& tokens, QList<Unive
     }
 }
 
-QString ScriptV5::handleSystemCommand(const QList<QStringList> &tokens)
+QString ScriptV3::handleSystemCommand(const QList<QStringList> &tokens)
 {
     qDebug() << Q_FUNC_INFO;
 
@@ -692,7 +692,7 @@ QString ScriptV5::handleSystemCommand(const QList<QStringList> &tokens)
     return QString();
 }
 
-QString ScriptV5::handleLabel(const QList<QStringList>& tokens)
+QString ScriptV3::handleLabel(const QList<QStringList>& tokens)
 {
     // A label just exists. Not much to do here.
     qDebug() << Q_FUNC_INFO;
@@ -703,7 +703,7 @@ QString ScriptV5::handleLabel(const QList<QStringList>& tokens)
     return QString();
 }
 
-QString ScriptV5::handleJump(const QList<QStringList>& tokens)
+QString ScriptV3::handleJump(const QList<QStringList>& tokens)
 {
     qDebug() << Q_FUNC_INFO;
 
@@ -723,7 +723,7 @@ QString ScriptV5::handleJump(const QList<QStringList>& tokens)
     }
 }
 
-QList <QStringList> ScriptV5::tokenizeLine(const QString& str, bool* ok)
+QList <QStringList> ScriptV3::tokenizeLine(const QString& str, bool* ok)
 {
     QList<QStringList> tokens;
     QString keyword;

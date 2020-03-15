@@ -35,7 +35,7 @@ class Doc;
  * @{
  */
 
-class ScriptV5 : public ScriptApi
+class ScriptV3 : public ScriptApi
 {
 
     Q_OBJECT
@@ -43,8 +43,8 @@ class ScriptV5 : public ScriptApi
      * Initialization
      ************************************************************************/
 public:
-    ScriptV5(Doc* doc);
-    virtual ~ScriptV5();
+    ScriptV3(Doc* doc);
+    virtual ~ScriptV3();
 
     /** @reimp */
     QIcon getIcon() const;
