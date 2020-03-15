@@ -20,7 +20,7 @@
 #ifndef ARTNETPLUGIN_H
 #define ARTNETPLUGIN_H
 
-#include <QTGlobal>
+#include <QtGlobal>
 #include <QNetworkConfiguration>
 #include <QNetworkInterface>
 #include <QNetworkAddressEntry>
