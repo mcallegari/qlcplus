@@ -28,8 +28,7 @@
 #include "qlcmacros.h"
 #include "qlcfile.h"
 
-#include "scriptv4.h"
-#include "scriptv5.h"
+#include "script.h"
 #include "mastertimer.h"
 #include "collection.h"
 #include "rgbmatrix.h"
