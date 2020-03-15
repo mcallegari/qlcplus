@@ -31,7 +31,7 @@
 #include "mastertimer.h"
 #include "qlcmacros.h"
 #include "universe.h"
-#include "scriptv5.h"
+#include "scriptv3.h"
 #include "doc.h"
 
 #define KXMLQLCScriptCommand "Command"
