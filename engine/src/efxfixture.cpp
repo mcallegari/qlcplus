@@ -22,7 +22,7 @@
 #include <QXmlStreamWriter>
 #include <QDebug>
 #include <cmath>
-#include <QtCore\qmath.h>
+#include <QtCore/qmath.h>
 
 #include "genericfader.h"
 #include "mastertimer.h"

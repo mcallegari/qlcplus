@@ -23,7 +23,7 @@
 #include <QList>
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
-#include <QtCore\qmath.h>
+#include <QtCore/qmath.h>
 #include <cmath>
 
 #include "qlcfixturemode.h"
