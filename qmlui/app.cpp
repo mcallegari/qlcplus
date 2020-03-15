@@ -57,6 +57,7 @@
 #include "qlcfixturedef.h"
 #include "qlcconfig.h"
 #include "qlcfile.h"
+#include "script.h"
 
 #define SETTINGS_WORKINGPATH "workspace/workingpath"
 #define SETTINGS_RECENTFILE "workspace/recent"
@@ -78,6 +79,7 @@ App::App()
     , m_fileName(QString())
     , m_importManager(nullptr)
 {
+    Script::ScriptVersion=5;
     QSettings settings;
 
     updateRecentFilesList();
