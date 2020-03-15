@@ -131,7 +131,7 @@ set(qlcplusengine_src
            src/rgbscript.cpp 
            src/scriptrunner.cpp
            src/script.cpp
-           src/scriptv5.cpp
+           src/scriptv3.cpp
            src/scriptv4.cpp
 )
 

@@ -79,7 +79,7 @@ App::App()
     , m_fileName(QString())
     , m_importManager(nullptr)
 {
-    Script::ScriptVersion=5;
+    Script::ScriptVersion=4;
     QSettings settings;
 
     updateRecentFilesList();

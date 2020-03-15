@@ -48,7 +48,7 @@ Script::Script(Doc* doc) : Function (doc, Function::ScriptType){
             CallApi=new ScriptV4(doc);
             break;
         default:
-            CallApi=new ScriptV5(doc);
+            CallApi=new ScriptV3(doc);
             break;
     }
 }

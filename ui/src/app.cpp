@@ -127,7 +127,7 @@ App::App()
     , m_videoProvider(NULL)
 #endif
 {
-    Script::ScriptVersion=4;
+    Script::ScriptVersion=3;
     QCoreApplication::setOrganizationName("qlcplus");
     QCoreApplication::setOrganizationDomain("sf.net");
     QCoreApplication::setApplicationName(APPNAME);
