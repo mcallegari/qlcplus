@@ -22,6 +22,9 @@
 
 #include <QTGlobal>
 #include <QNetworkConfiguration>
+#include <QNetworkInterface>
+#include <QNetworkAddressEntry>
+
 #include <QString>
 #include <QHash>
 #include <QFile>
