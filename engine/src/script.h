@@ -42,10 +42,8 @@ public:
     virtual ~ScriptApi();
     virtual QIcon getIcon() const=0;
     virtual quint32 totalDuration()=0;
-public:
     virtual Function* createCopy(Doc* doc, bool addToDoc = true)=0;
     virtual bool copyFrom(const Function* function)=0;
-public:
     virtual bool setData(const QString& str)=0;
     virtual bool appendData(const QString& str)=0;
     virtual QString data() const =0;
@@ -56,10 +54,13 @@ public:
     virtual bool saveXML(QXmlStreamWriter *doc)=0;
     virtual QList<int> syntaxErrorsLines()=0;
     virtual QStringList syntaxErrorsLinesString()=0;
-public:
     virtual void preRun(MasterTimer *timer)=0;
     virtual void write(MasterTimer *timer, QList<Universe*> universes)=0;
     virtual void postRun(MasterTimer *timer, QList<Universe*> universes)=0;
+protected slots:
+    virtual void slotRunnerFinished()=0;
+
+    friend class Script;
 };
 
 class Script : public Function 
@@ -104,6 +105,8 @@ public:
     QStringList syntaxErrorsLinesString();
     bool loadXML(QXmlStreamReader &root);
     bool saveXML(QXmlStreamWriter *doc);
+protected slots:
+    void slotRunnerFinished();
 private:
     ScriptApi *CallApi;
 };

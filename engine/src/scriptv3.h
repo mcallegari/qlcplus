@@ -227,6 +227,9 @@ private:
      */
     static QList <QStringList> tokenizeLine(const QString& line, bool* ok = NULL);
 
+protected slots:
+    void slotRunnerFinished();
+
 private:
     int m_currentCommand;        //! Current command line being handled
     quint32 m_waitCount;         //! Timer ticks to wait before executing the next line

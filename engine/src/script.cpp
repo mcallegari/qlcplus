@@ -113,6 +113,11 @@ QStringList Script::syntaxErrorsLinesString(){
     return CallApi->syntaxErrorsLinesString();
 }
 
+void Script::slotRunnerFinished(){
+  if(ScriptVersion==4)
+      CallApi->slotRunnerFinished();
+}
+
 bool Script::loadXML(QXmlStreamReader &root){
     return CallApi->loadXML(root);
 }
