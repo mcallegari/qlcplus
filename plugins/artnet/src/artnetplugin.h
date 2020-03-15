@@ -20,6 +20,7 @@
 #ifndef ARTNETPLUGIN_H
 #define ARTNETPLUGIN_H
 
+#include <QTGlobal>
 #include <QNetworkConfiguration>
 #include <QString>
 #include <QHash>

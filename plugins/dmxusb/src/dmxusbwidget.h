@@ -35,7 +35,7 @@
 
 #define DEFAULT_OUTPUT_FREQUENCY    44  // 44 Hertz, according to the DMX specs
 
-typedef class
+typedef struct
 {
 public:
     /** The device line type (DMX, MIDI, etc) */
