@@ -20,9 +20,7 @@
 #ifndef ARTNETPLUGIN_H
 #define ARTNETPLUGIN_H
 
-#include <QNetworkAddressEntry>
-#include <QNetworkInterface>
-#include <QHostAddress>
+#include <QNetworkConfiguration>
 #include <QString>
 #include <QHash>
 #include <QFile>
@@ -32,6 +30,7 @@
 
 typedef struct
 {
+public:
     QNetworkInterface interface;
     QNetworkAddressEntry address;
     ArtNetController* controller;

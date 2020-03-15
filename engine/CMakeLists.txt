@@ -148,7 +148,7 @@ ELSE()
     )
 ENDIF()
 
-set(qlcplusengine_link
+list( APPEND qlcplusengine_link
     Qt5::Qml
     Qt5::Script
     Qt5::Multimedia

@@ -24,13 +24,13 @@ set(artnet_src
     interfaces/qlcioplugin.cpp
     artnet/src/artnetcontroller.cpp
     artnet/src/artnetpacketizer.cpp
-    artnet/src/artnetplugin.cpp
     artnet/src/configureartnet.cpp
+    artnet/src/artnetplugin.cpp
 )
 
 add_library(artnet SHARED ${artnet_src})
 
-target_link_libraries(artnet Qt5::Widgets Qt5::Network)
+target_link_libraries(artnet Qt5::Core Qt5::Widgets Qt5::Network)
 
 add_executable(artnet_test artnet/test/artnet_test.cpp)
 
@@ -87,8 +87,6 @@ elseif(${FTDI_FOUND})
     )
     list(APPEND dmxusb_src 
         dmxusb/src/libftdi-interface.cpp
-        dmxusb/src/nanodmx.cpp
-        dmxusb/src/euroliteusbdmxpro.cpp
     )
     IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
         install(FILES dmxusb/src/z65-dmxusb.rules DESTINATION ${UDEVRULESDIR})
@@ -102,6 +100,13 @@ else()
     )
     list(APPEND dmxusb_src dmxusb/src/qtserial-interface.cpp)
     list(APPEND dmxusb_link Qt5::SerialPort)
+endif()
+
+if(NOT ${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+    list(APPEND dmxusb_src
+        dmxusb/src/nanodmx.cpp
+        dmxusb/src/euroliteusbdmxpro.cpp
+    )
 endif()
 
 add_library(dmxusb SHARED ${dmxusb_src})
@@ -124,6 +129,12 @@ set(dummy_src
 )
 
 add_library(dummy SHARED ${dummy_src})
+
+target_link_libraries(dummy
+    Qt5::Core
+    Qt5::Widgets
+)
+
 install(TARGETS dummy DESTINATION ${PLUGINDIR})
 
 #E1.31 plugin
@@ -223,7 +234,7 @@ add_library(loopback SHARED
     loopback/src/loopback.cpp
 )
 
-target_link_libraries(loopback Qt5::Core )
+target_link_libraries(loopback Qt5::Core)
 install(TARGETS loopback DESTINATION ${PLUGINDIR})
 install(FILES loopback/src/org.qlcplus.QLCPlus.loopback.metainfo.xml DESTINATION ${METAINFODIR})
 

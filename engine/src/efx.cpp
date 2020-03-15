@@ -274,7 +274,7 @@ void EFX::calculatePoint(Function::Direction direction, int startOffset, float i
     iterator += convertOffset(startOffset + getAttributeValue(StartOffset));
 
     if (iterator >= M_PI * 2.0)
-        iterator -= M_PI * 2.0;
+        iterator -= (float)M_PI * 2.0;
 
     calculatePoint(iterator, x, y);
 }

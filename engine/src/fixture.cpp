@@ -1327,8 +1327,8 @@ QString Fixture::status() const
         QLCPhysical physical = m_fixtureMode->physical();
         info += title.arg(tr("Physical"));
 
-        float mmInch = 0.0393700787;
-        float kgLbs = 2.20462262;
+        float mmInch = (float)0.0393700787;
+        float kgLbs = (float)2.20462262;
         QString mm("%1mm (%2\")");
         QString kg("%1kg (%2 lbs)");
         QString W("%1W");
