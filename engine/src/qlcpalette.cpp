@@ -637,11 +637,11 @@ bool QLCPalette::loadXML(QXmlStreamReader &doc)
             setFanningLayout(stringToFanningLayout(attrs.value(KXMLQLCPaletteFanLayout).toString()));
 
         if (attrs.hasAttribute(KXMLQLCPaletteFanAmount))
-            setFanningAmount(attrs.value(KXMLQLCPaletteFanLayout).toInt());
+            setFanningAmount(attrs.value(KXMLQLCPaletteFanAmount).toInt());
 
         if (attrs.hasAttribute(KXMLQLCPaletteFanValue))
         {
-            QString strVal = attrs.value(KXMLQLCPaletteValue).toString();
+            QString strVal = attrs.value(KXMLQLCPaletteFanValue).toString();
             switch (m_type)
             {
                 case Dimmer:

@@ -177,6 +177,10 @@ void QLCPalette_Test::load()
     xmlWriter.writeAttribute("Type", "Color");
     xmlWriter.writeAttribute("Name", "Lavender");
     xmlWriter.writeAttribute("Value", "#AABBCCDDEEFF");
+    xmlWriter.writeAttribute("Fan", "Linear");
+    xmlWriter.writeAttribute("Layout", "LeftToRight");
+    xmlWriter.writeAttribute("Amount", "42");
+    xmlWriter.writeAttribute("FanValue", "#00ff00");
     xmlWriter.writeEndElement();
 
     xmlWriter.writeEndDocument();
@@ -194,6 +198,10 @@ void QLCPalette_Test::load()
     QVERIFY(p.type() == QLCPalette::Color);
     QVERIFY(p.name() == "Lavender");
     QVERIFY(p.value().toString() == "#AABBCCDDEEFF");
+    QVERIFY(p.fanningType() == QLCPalette::Linear);
+    QVERIFY(p.fanningLayout() == QLCPalette::LeftToRight);
+    QVERIFY(p.fanningAmount() == 42);
+    QVERIFY(p.fanningValue().toString() == "#00ff00");
 }
 
 void QLCPalette_Test::loadWrongRoot()
