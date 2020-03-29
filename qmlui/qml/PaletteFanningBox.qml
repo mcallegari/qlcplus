@@ -32,6 +32,7 @@ Item
 
     property alias checked: fanningButton.checked
     property alias isPicking: colorPicker.checked
+    property bool isEditing: false
     property QLCPalette palette: null
     property int paletteType: QLCPalette.Undefined
     property var value1: 0

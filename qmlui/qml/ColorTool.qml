@@ -184,7 +184,7 @@ Rectangle
                         colorToolBox.colorChanged(r, g, b, w, a, uv)
                     }
 
-                    if (paletteBox.checked)
+                    if (paletteBox.isEditing || paletteBox.checked)
                         paletteBox.updatePreview()
                 }
                 onReleased: if (closeOnSelect) colorToolBox.visible = false

@@ -108,6 +108,20 @@ void PaletteManager::previewPalette(QLCPalette *palette, QVariant value1, QVaria
     m_contextManager->setChannelValues(palette->valuesFromFixtures(m_doc, m_contextManager->selectedFixtureIDList()));
 }
 
+void PaletteManager::deletePalettes(QVariantList list)
+{
+    for (QVariant pID : list)
+    {
+        QLCPalette *p = m_doc->palette(pID.toInt());
+        if (p == nullptr)
+            continue;
+
+        m_doc->deletePalette(pID.toInt());
+    }
+
+    updatePaletteList();
+}
+
 int PaletteManager::typeFilter() const
 {
     return int(m_typeFilter);
@@ -143,6 +157,21 @@ void PaletteManager::setSearchFilter(QString searchFilter)
             updatePaletteList();
 
     emit searchFilterChanged();
+}
+
+QStringList PaletteManager::selectedItemNames(QVariantList list)
+{
+    QStringList names;
+
+    for (QVariant pID : list)
+    {
+        QLCPalette *p = m_doc->palette(pID.toInt());
+        if (p == nullptr)
+            continue;
+        names.append(p->name());
+    }
+
+    return names;
 }
 
 void PaletteManager::updatePaletteList()

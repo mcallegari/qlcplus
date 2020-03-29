@@ -43,7 +43,7 @@ Rectangle
 
     onPanDegreesChanged:
     {
-        if (paletteBox.checked)
+        if (paletteBox.isEditing || paletteBox.checked)
             paletteBox.updatePreview()
         else
             contextManager.setPositionValue(QLCChannel.Pan, panDegrees)
@@ -51,7 +51,7 @@ Rectangle
 
     onTiltDegreesChanged:
     {
-        if (paletteBox.checked)
+        if (paletteBox.isEditing || paletteBox.checked)
             paletteBox.updatePreview()
         else
             contextManager.setPositionValue(QLCChannel.Tilt, tiltDegrees)
@@ -81,6 +81,21 @@ Rectangle
             posToolBar.visible = false
             paletteToolbar.visible = true
             paletteToolbar.text = palette.name
+            paletteBox.isEditing = true
+            if (palette.type === QLCPalette.Pan)
+            {
+                panSpinBox.value = palette.intValue1
+            }
+            else if (palette.type === QLCPalette.Tilt)
+            {
+                tiltSpinBox.value = palette.intValue1
+            }
+            else if (palette.type === QLCPalette.PanTilt)
+            {
+                panSpinBox.value = palette.intValue1
+                tiltSpinBox.value = palette.intValue2
+            }
+
             paletteBox.palette = palette
         }
     }

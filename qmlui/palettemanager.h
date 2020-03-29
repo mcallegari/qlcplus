@@ -48,6 +48,9 @@ public:
     /** Get a list of Palettes filtered with typeFilter */
     QVariant paletteList();
 
+    /** Return a list of Palette names from the give $list of IDs */
+    Q_INVOKABLE QStringList selectedItemNames(QVariantList list);
+
     /** Get the reference to a QLCPalette from the given ID */
     Q_INVOKABLE QLCPalette *getPalette(quint32 id);
 
@@ -57,6 +60,8 @@ public:
     Q_INVOKABLE void createPalette(QLCPalette *palette, QString name);
 
     Q_INVOKABLE void previewPalette(QLCPalette *palette, QVariant value1, QVariant value2);
+
+    Q_INVOKABLE void deletePalettes(QVariantList list);
 
     /** Get/Set the type of Palettes to be displayed */
     int typeFilter() const;

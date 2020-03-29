@@ -38,7 +38,7 @@ Rectangle
 
     onCurrentValueChanged:
     {
-        if (paletteBox.checked)
+        if (paletteBox.isEditing || paletteBox.checked)
         {
             paletteBox.updatePreview()
         }
@@ -58,6 +58,7 @@ Rectangle
             dragTopBar.visible = false
             paletteToolbar.visible = true
             paletteToolbar.text = palette.name
+            paletteBox.isEditing = true
             currentValue = dmxValues ? palette.intValue1 : palette.intValue1 / 255
             paletteBox.palette = palette
         }
