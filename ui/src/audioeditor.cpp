@@ -79,7 +79,7 @@ AudioEditor::AudioEditor(QWidget* parent, Audio *audio, Doc* doc)
     QList<AudioDeviceInfo> devList = m_doc->audioPluginCache()->audioDevicesList();
     QSettings settings;
     QString outputName;
-    int i = 1, selIdx = 1;
+    int i = 1, selIdx = 0;
 
     m_audioDevCombo->addItem(tr("Default device"), "__qlcplusdefault__");
     if (m_audio->audioDevice().isEmpty())
