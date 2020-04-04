@@ -266,9 +266,14 @@ bool Video::setSourceUrl(QString filename)
     else
     {
         if (QFile(m_sourceUrl).exists())
+        {
             setName(QFileInfo(m_sourceUrl).fileName());
+        }
         else
+        {
+            doc()->appendToErrorLog(tr("Video file <b>%1</b> not found").arg(m_sourceUrl));
             setName(tr("File not found"));
+        }
     }
 
     emit sourceChanged(m_sourceUrl);
