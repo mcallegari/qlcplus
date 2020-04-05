@@ -570,10 +570,11 @@ QString QLCPalette::colorToString(QColor rgb, QColor wauv)
 bool QLCPalette::stringToColor(QString str, QColor &rgb, QColor &wauv)
 {
     // string must be like #rrggbb or #rrggbbwwaauv
-    if (str.length() < 7)
+    if (str.length() != 7 && str.length() != 13)
         return false;
 
     rgb = QColor(str.left(7));
+
     if (str.length() == 13)
         wauv = QColor("#" + str.right(6));
     else
