@@ -38,7 +38,11 @@ Item
     property var value1: 0
     property var value2: 0
 
-    onVisibleChanged: {
+    onVisibleChanged:
+    {
+        if (isEditing)
+            return
+
         if (visible)
             palette = paletteManager.getEditingPalette(paletteType)
     }
@@ -46,6 +50,40 @@ Item
     function updatePreview()
     {
         paletteManager.previewPalette(palette, value1, value2)
+    }
+
+    function editPalette(ePalette, val1, val2)
+    {
+        isEditing = true
+        palette = ePalette
+        value1 = val1
+        value2 = val1
+
+        switch (palette.type)
+        {
+            case QLCPalette.Pan:
+                panCheck.checked = true
+                tiltCheck.checked = false
+                valueSpin.value = palette.fanningValue
+            break
+            case QLCPalette.Tilt:
+                panCheck.checked = false
+                tiltCheck.checked = true
+                valueSpin.value = palette.fanningValue
+            break
+            case QLCPalette.PanTilt:
+                panCheck.checked = true
+                tiltCheck.checked = true
+                valueSpin.value = palette.fanningValue
+            break
+            case QLCPalette.Dimmer:
+                valueSpin.value = palette.fanningValue
+            break;
+
+            case QLCPalette.Color:
+                colorPreview.color = palette.fanningValue
+            break;
+        }
     }
 
     function showPalettePopup()
@@ -274,7 +312,8 @@ Item
                         else
                             boxRoot.paletteType = QLCPalette.Tilt
 
-                        boxRoot.palette = paletteManager.getEditingPalette(boxRoot.paletteType)
+                        if (isEditing == false)
+                            boxRoot.palette = paletteManager.getEditingPalette(boxRoot.paletteType)
                         updatePreview()
                     }
                 }
@@ -296,7 +335,8 @@ Item
                         else
                             boxRoot.paletteType = QLCPalette.Pan
 
-                        boxRoot.palette = paletteManager.getEditingPalette(boxRoot.paletteType)
+                        if (isEditing == false)
+                            boxRoot.palette = paletteManager.getEditingPalette(boxRoot.paletteType)
                         updatePreview()
                     }
                 }
@@ -313,6 +353,8 @@ Item
             }
             CustomSpinBox
             {
+                id: valueSpin
+
                 function suffixFromType()
                 {
                     switch (boxRoot.paletteType)

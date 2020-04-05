@@ -48,7 +48,9 @@ Rectangle
         {
             paletteToolbar.visible = true
             paletteToolbar.text = palette.name
-            paletteBox.palette = palette
+            currentRGB = palette.rgbValue
+            currentWAUV = palette.wauvValue
+            paletteBox.editPalette(palette, palette.strValue1, "")
         }
     }
 
@@ -69,7 +71,7 @@ Rectangle
             id: paletteToolbar
             visible: false
             onBackClicked: colorToolBox.parent.dismiss()
-            onTextChanged: paletteBox.palette.name = text
+            onTextChanged: if (paletteBox.palette) paletteBox.palette.name = text
         }
 
         Rectangle

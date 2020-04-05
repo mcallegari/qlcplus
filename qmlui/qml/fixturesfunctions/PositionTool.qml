@@ -81,7 +81,8 @@ Rectangle
             posToolBar.visible = false
             paletteToolbar.visible = true
             paletteToolbar.text = palette.name
-            paletteBox.isEditing = true
+            paletteBox.editPalette(palette, palette.intValue1, palette.intValue2)
+
             if (palette.type === QLCPalette.Pan)
             {
                 panSpinBox.value = palette.intValue1
@@ -95,8 +96,6 @@ Rectangle
                 panSpinBox.value = palette.intValue1
                 tiltSpinBox.value = palette.intValue2
             }
-
-            paletteBox.palette = palette
         }
     }
 
@@ -141,7 +140,7 @@ Rectangle
         id: paletteToolbar
         visible: false
         onBackClicked: posToolRoot.parent.dismiss()
-        onTextChanged: paletteBox.palette.name = text
+        onTextChanged: if (paletteBox.palette) paletteBox.palette.name = text
     }
 
     IconButton

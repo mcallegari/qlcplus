@@ -180,6 +180,36 @@ int QLCPalette::intValue2() const
     return m_values.at(1).toInt();
 }
 
+QString QLCPalette::strValue1() const
+{
+    if (m_values.isEmpty())
+        return QString();
+
+    return m_values.at(0).toString();
+}
+
+QColor QLCPalette::rgbValue() const
+{
+    if (m_values.isEmpty())
+        return QColor();
+
+    QColor rgb, wauv;
+    stringToColor(m_values.at(0).toString(), rgb, wauv);
+
+    return rgb;
+}
+
+QColor QLCPalette::wauvValue() const
+{
+    if (m_values.isEmpty())
+        return QColor();
+
+    QColor rgb, wauv;
+    stringToColor(m_values.at(0).toString(), rgb, wauv);
+
+    return wauv;
+}
+
 void QLCPalette::setValue(QVariant val)
 {
     m_values.clear();
@@ -539,12 +569,15 @@ QString QLCPalette::colorToString(QColor rgb, QColor wauv)
 
 bool QLCPalette::stringToColor(QString str, QColor &rgb, QColor &wauv)
 {
-    // string must be like #112233aabbcc
-    if (str.length() != 13)
+    // string must be like #rrggbb or #rrggbbwwaauv
+    if (str.length() < 7)
         return false;
 
     rgb = QColor(str.left(7));
-    wauv = QColor("#" + str.right(6));
+    if (str.length() == 13)
+        wauv = QColor("#" + str.right(6));
+    else
+        wauv = QColor();
 
     return true;
 }

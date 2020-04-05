@@ -20,6 +20,7 @@
 #ifndef QLCPALETTE_H
 #define QLCPALETTE_H
 
+#include <QColor>
 #include <QObject>
 #include <QVariant>
 
@@ -49,6 +50,9 @@ class QLCPalette : public QObject
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(int intValue1 READ intValue1 CONSTANT)
     Q_PROPERTY(int intValue2 READ intValue2 CONSTANT)
+    Q_PROPERTY(QString strValue1 READ strValue1 CONSTANT)
+    Q_PROPERTY(QColor rgbValue READ rgbValue CONSTANT)
+    Q_PROPERTY(QColor wauvValue READ wauvValue CONSTANT)
     Q_PROPERTY(FanningType fanningType READ fanningType WRITE setFanningType NOTIFY fanningTypeChanged)
     Q_PROPERTY(FanningLayout fanningLayout READ fanningLayout WRITE setFanningLayout NOTIFY fanningLayoutChanged)
     Q_PROPERTY(int fanningAmount READ fanningAmount WRITE setFanningAmount NOTIFY fanningAmountChanged)
@@ -112,6 +116,9 @@ public:
     QVariant value() const;
     int intValue1() const;
     int intValue2() const;
+    QString strValue1() const;
+    QColor rgbValue() const;
+    QColor wauvValue() const;
 
     void setValue(QVariant val);
     void setValue(QVariant val1, QVariant val2);
