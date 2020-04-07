@@ -2,6 +2,7 @@ qlcplus (4.12.3) stable; urgency=low
 
   * engine: fix cloning a Show
   * engine: audio/video files not found are now shown in error log
+  * engine: reduce audio playback startup latency in some cases
   * UI: fix virtual console resize
   * UI: fix crash on 2D monitor strobing
   * UI/Audio Editor: fix selected device index (thanks to Santiago Benejam Torres)
