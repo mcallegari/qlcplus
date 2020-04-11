@@ -42,7 +42,10 @@ CustomPopupDialog
         {
             case QLCPalette.Dimmer:    return qsTr("Dimmer");
             case QLCPalette.Color:     return qsTr("Color");
-            case QLCPalette.Position:  return qsTr("Position");
+            case QLCPalette.Pan:
+            case QLCPalette.Tilt:
+            case QLCPalette.PanTilt:
+                                       return qsTr("Position");
             case QLCPalette.Shutter:   return qsTr("Shutter");
             case QLCPalette.Gobo:      return qsTr("Gobo");
             case QLCPalette.Undefined: return "";
@@ -87,7 +90,7 @@ CustomPopupDialog
             {
                 height: UISettings.listItemHeight
                 Layout.fillWidth: true
-                label: typeToString(popupRoot.type)
+                label: typeToString(popupRoot.paletteObj.type)
             }
 
             // row 3
