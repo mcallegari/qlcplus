@@ -90,7 +90,7 @@ CustomPopupDialog
             {
                 height: UISettings.listItemHeight
                 Layout.fillWidth: true
-                label: typeToString(popupRoot.paletteObj.type)
+                label: popupRoot.paletteObj ? typeToString(popupRoot.paletteObj.type) : ""
             }
 
             // row 3

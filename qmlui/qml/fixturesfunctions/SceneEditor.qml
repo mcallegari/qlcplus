@@ -19,6 +19,7 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
+import QtQuick.Controls 1.2 as QC1
 import QtQuick.Controls 2.1
 
 import org.qlcplus.classes 1.0
@@ -63,231 +64,337 @@ Rectangle
         }
     }
 
-    Column
+    QC1.SplitView
     {
-        EditorTopBar
+        anchors.fill: parent
+        Loader
         {
-            id: toolbar
-            visible: showToolBar
-            text: sceneEditor ? sceneEditor.functionName : ""
-            onTextChanged: sceneEditor.functionName = text
+            id: sideLoader
+            visible: width
+            width: 0
+            height: seContainer.height
+            source: ""
 
-            onBackClicked:
+            onLoaded:
             {
-                var prevID = sceneEditor.previousID
-                functionManager.setEditorFunction(prevID, false, true)
-                requestView(prevID, functionManager.getEditorResource(prevID))
+                if (source)
+                    item.allowEditing = false
             }
 
-            IconButton
+            Rectangle
             {
-                id: removeFxButton
-                x: parent.width - UISettings.iconSizeMedium - 5
-                width: height
-                height: UISettings.iconSizeMedium
-                imgSource: "qrc:/remove.svg"
-                tooltip: qsTr("Remove the selected items")
-                onClicked: deleteItemsPopup.open()
-
-                CustomPopupDialog
-                {
-                    id: deleteItemsPopup
-                    title: qsTr("Delete items")
-                    message: qsTr("Are you sure you want to remove the selected items?")
-                    onAccepted: functionManager.deleteEditorItems(seSelector.itemsList())
-                }
+                width: 2
+                height: parent.height
+                x: parent.width - 2
+                color: UISettings.bgLighter
             }
         }
 
-        ListView
+        Column
         {
-            id: sfxList
-            width: seContainer.width
-            height: seContainer.height - UISettings.iconSizeMedium - speedSection.height
-            y: toolbar.height
-            boundsBehavior: Flickable.StopAtBounds
-            model: sceneEditor ? sceneEditor.componentList : null
-            delegate:
-                Rectangle
+            EditorTopBar
+            {
+                id: toolbar
+                visible: showToolBar
+                text: sceneEditor ? sceneEditor.functionName : ""
+                onTextChanged: sceneEditor.functionName = text
+
+                onBackClicked:
                 {
-                    id: compDelegate
-                    width: seContainer.width
-                    height: UISettings.listItemHeight
-                    color: "transparent"
-
-                    property int itemType: model.type
-
-                    Rectangle
+                    if (sideLoader.width)
                     {
-                        anchors.fill: parent
-                        radius: 3
-                        color: UISettings.highlight
-                        visible: model.isSelected
+                        sideLoader.source = ""
+                        sideLoader.width = 0
+                        rightSidePanel.width = rightSidePanel.width / 2
                     }
 
-                    IconTextEntry
+                    var prevID = sceneEditor.previousID
+                    functionManager.setEditorFunction(prevID, false, true)
+                    requestView(prevID, functionManager.getEditorResource(prevID))
+                }
+
+                IconButton
+                {
+                    id: addFixture
+                    width: height
+                    height: UISettings.iconSizeMedium
+                    imgSource: "qrc:/fixture.svg"
+                    checkable: true
+                    tooltip: qsTr("Add a fixture/group")
+
+                    Image
+                    {
+                        x: parent.width - width - 2
+                        y: 2
+                        width: parent.height / 3
+                        height: width
+                        source: "qrc:/add.svg"
+                        sourceSize: Qt.size(width, height)
+                    }
+
+                    onCheckedChanged:
+                    {
+                        if (checked)
+                        {
+                            rightSidePanel.width += UISettings.sidePanelWidth
+                            sideLoader.width = UISettings.sidePanelWidth
+                            sideLoader.source = "qrc:/FixtureGroupManager.qml"
+                        }
+                        else
+                        {
+                            rightSidePanel.width = rightSidePanel.width - sideLoader.width
+                            sideLoader.source = ""
+                            sideLoader.width = 0
+                        }
+                    }
+                }
+
+                IconButton
+                {
+                    id: addPalette
+                    width: height
+                    height: UISettings.iconSizeMedium
+                    imgSource: "qrc:/palette.svg"
+                    checkable: true
+                    tooltip: qsTr("Add a palette")
+
+                    Image
+                    {
+                        x: parent.width - width - 2
+                        y: 2
+                        width: parent.height / 3
+                        height: width
+                        source: "qrc:/add.svg"
+                        sourceSize: Qt.size(width, height)
+                    }
+
+                    onCheckedChanged:
+                    {
+                        if (checked)
+                        {
+                            rightSidePanel.width += UISettings.sidePanelWidth
+                            sideLoader.width = UISettings.sidePanelWidth
+                            sideLoader.source = "qrc:/PaletteManager.qml"
+                        }
+                        else
+                        {
+                            rightSidePanel.width = rightSidePanel.width - sideLoader.width
+                            sideLoader.source = ""
+                            sideLoader.width = 0
+                        }
+                    }
+                }
+
+                IconButton
+                {
+                    id: removeFxButton
+                    x: parent.width - UISettings.iconSizeMedium - 5
+                    width: height
+                    height: UISettings.iconSizeMedium
+                    imgSource: "qrc:/remove.svg"
+                    tooltip: qsTr("Remove the selected items")
+                    onClicked: deleteItemsPopup.open()
+
+                    CustomPopupDialog
+                    {
+                        id: deleteItemsPopup
+                        title: qsTr("Delete items")
+                        message: qsTr("Are you sure you want to remove the selected items?")
+                        onAccepted: functionManager.deleteEditorItems(seSelector.itemsList())
+                    }
+                }
+            }
+
+            ListView
+            {
+                id: sfxList
+                width: seContainer.width
+                height: seContainer.height - UISettings.iconSizeMedium - speedSection.height
+                y: toolbar.height
+                boundsBehavior: Flickable.StopAtBounds
+                model: sceneEditor ? sceneEditor.componentList : null
+                delegate:
+                    Rectangle
+                    {
+                        id: compDelegate
+                        width: seContainer.width
+                        height: UISettings.listItemHeight
+                        color: "transparent"
+
+                        property int itemType: model.type
+
+                        Rectangle
+                        {
+                            anchors.fill: parent
+                            radius: 3
+                            color: UISettings.highlight
+                            visible: model.isSelected
+                        }
+
+                        IconTextEntry
+                        {
+                            width: parent.width
+                            height: UISettings.listItemHeight
+
+                            tLabel: model.cRef.name
+                            iSrc:
+                            {
+                                switch(compDelegate.itemType)
+                                {
+                                    case App.FixtureGroupDragItem:
+                                        "qrc:/group.svg"
+                                    break;
+                                    case App.PaletteDragItem:
+                                    case App.FixtureDragItem:
+                                        model.cRef.iconResource(true)
+                                    break;
+                                }
+                            }
+
+                            MouseArea
+                            {
+                                anchors.fill: parent
+
+                                onClicked:
+                                {
+                                    seSelector.selectItem(index, sfxList.model, mouse.modifiers & Qt.ControlModifier)
+
+                                    if (compDelegate.itemType === App.FixtureDragItem)
+                                    {
+                                        if (!(mouse.modifiers & Qt.ControlModifier))
+                                            contextManager.resetFixtureSelection()
+
+                                        contextManager.setFixtureIDSelection(model.cRef.id, true)
+                                        sceneEditor.setFixtureSelection(model.cRef.id)
+                                    }
+                                }
+                                //onDoubleClicked: fxDelegate.mouseEvent(App.DoubleClicked, cRef.id, cRef.type, fxDelegate, -1)
+                            }
+                        }
+                    }
+    /*
+                    FixtureDelegate
+                    {
+                        cRef: model.cRef
+                        width: seContainer.width
+                        isSelected: model.isSelected
+                        Component.onCompleted: contextManager.setFixtureIDSelection(cRef.id, true)
+                        Component.onDestruction: if (contextManager) contextManager.setFixtureIDSelection(cRef.id, false)
+                        onMouseEvent:
+                        {
+                            if (type === App.Clicked)
+                            {
+                                seSelector.selectItem(index, sfxList.model, mouseMods & Qt.ControlModifier)
+
+                                if (!(mouseMods & Qt.ControlModifier))
+                                    contextManager.resetFixtureSelection()
+
+                                contextManager.setFixtureIDSelection(cRef.id, true)
+                                sceneEditor.setFixtureSelection(cRef.id)
+                            }
+                        }
+                    }
+    */
+
+                DropArea
+                {
+                    id: cfDropArea
+                    anchors.fill: parent
+                    keys: [ "fixture", "palette" ]
+
+                    onDropped:
+                    {
+                        console.log("[SceneEditor] Item dropped at x: " + drag.x + " y: " + drag.y)
+                        for (var i = 0; i < drag.source.itemsList.length; i++)
+                        {
+                            console.log("[SE] Item type: " + drag.source.itemsList[i].itemType + ", id: " + drag.source.itemsList[i].cRef.id)
+                            sceneEditor.addComponent(drag.source.itemsList[i].itemType, drag.source.itemsList[i].cRef.id)
+                        }
+                    }
+                }
+
+                ScrollBar.vertical: CustomScrollBar { }
+            }
+
+            SectionBox
+            {
+                id: speedSection
+                width: parent.width
+                isExpanded: false
+                sectionLabel: qsTr("Speed")
+                sectionContents:
+                    GridLayout
                     {
                         width: parent.width
-                        height: UISettings.listItemHeight
+                        columns: 2
+                        columnSpacing: 5
+                        rowSpacing: 4
 
-                        tLabel: model.cRef.name
-                        iSrc:
+                        // Row 1
+                        RobotoText
                         {
-                            switch(compDelegate.itemType)
-                            {
-                                case App.FixtureGroupDragItem:
-                                    "qrc:/group.svg"
-                                break;
-                                case App.PaletteDragItem:
-                                case App.FixtureDragItem:
-                                    model.cRef.iconResource(true)
-                                break;
-                            }
+                            id: fiLabel
+                            label: qsTr("Fade in")
+                            height: UISettings.listItemHeight
                         }
 
-                        MouseArea
+                        Rectangle
                         {
-                            anchors.fill: parent
+                            Layout.fillWidth: true
+                            height: UISettings.listItemHeight
+                            color: UISettings.bgMedium
 
-                            onClicked:
+                            RobotoText
                             {
-                                seSelector.selectItem(index, sfxList.model, mouse.modifiers & Qt.ControlModifier)
+                                anchors.fill: parent
+                                label: TimeUtils.timeToQlcString(sceneEditor.fadeInSpeed, sceneEditor.tempoType)
 
-                                if (compDelegate.itemType === App.FixtureDragItem)
+                                MouseArea
                                 {
-                                    if (!(mouse.modifiers & Qt.ControlModifier))
-                                        contextManager.resetFixtureSelection()
-
-                                    contextManager.setFixtureIDSelection(model.cRef.id, true)
-                                    sceneEditor.setFixtureSelection(model.cRef.id)
+                                    anchors.fill: parent
+                                    onDoubleClicked:
+                                    {
+                                        timeEditTool.allowFractions = QLCFunction.ByTwoFractions
+                                        timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y - timeEditTool.height,
+                                                          fiLabel.label, parent.label, QLCFunction.FadeIn)
+                                    }
                                 }
                             }
-                            //onDoubleClicked: fxDelegate.mouseEvent(App.DoubleClicked, cRef.id, cRef.type, fxDelegate, -1)
                         }
-                    }
-                }
-/*
-                FixtureDelegate
-                {
-                    cRef: model.cRef
-                    width: seContainer.width
-                    isSelected: model.isSelected
-                    Component.onCompleted: contextManager.setFixtureIDSelection(cRef.id, true)
-                    Component.onDestruction: if (contextManager) contextManager.setFixtureIDSelection(cRef.id, false)
-                    onMouseEvent:
-                    {
-                        if (type === App.Clicked)
+
+                        // Row 2
+                        RobotoText
                         {
-                            seSelector.selectItem(index, sfxList.model, mouseMods & Qt.ControlModifier)
-
-                            if (!(mouseMods & Qt.ControlModifier))
-                                contextManager.resetFixtureSelection()
-
-                            contextManager.setFixtureIDSelection(cRef.id, true)
-                            sceneEditor.setFixtureSelection(cRef.id)
+                            id: foLabel
+                            height: UISettings.listItemHeight
+                            label: qsTr("Fade out")
                         }
-                    }
-                }
-*/
 
-            DropArea
-            {
-                id: cfDropArea
-                anchors.fill: parent
-                keys: [ "fixture", "palette" ]
+                        Rectangle
+                        {
+                            Layout.fillWidth: true
+                            height: UISettings.listItemHeight
+                            color: UISettings.bgMedium
 
-                onDropped:
-                {
-                    console.log("[SceneEditor] Item dropped at x: " + drag.x + " y: " + drag.y)
-                    for (var i = 0; i < drag.source.itemsList.length; i++)
-                    {
-                        console.log("Item type: " + drag.source.itemsList[i].itemType + ", id: " + drag.source.itemsList[i].cRef.id)
-                        sceneEditor.addComponent(drag.source.itemsList[i].itemType, drag.source.itemsList[i].cRef.id)
-                    }
-                }
+                            RobotoText
+                            {
+                                anchors.fill: parent
+                                label: TimeUtils.timeToQlcString(sceneEditor.fadeOutSpeed, sceneEditor.tempoType)
+
+                                MouseArea
+                                {
+                                    anchors.fill: parent
+                                    onDoubleClicked:
+                                    {
+                                        timeEditTool.allowFractions = QLCFunction.ByTwoFractions
+                                        timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y - timeEditTool.height,
+                                                          foLabel.label, parent.label, QLCFunction.FadeOut)
+                                    }
+                                }
+                            }
+                        }
+                    } // GridLayout
             }
-
-            ScrollBar.vertical: CustomScrollBar { }
-        }
-
-        SectionBox
-        {
-            id: speedSection
-            width: parent.width
-            isExpanded: false
-            sectionLabel: qsTr("Speed")
-            sectionContents:
-                GridLayout
-                {
-                    width: parent.width
-                    columns: 2
-                    columnSpacing: 5
-                    rowSpacing: 4
-
-                    // Row 1
-                    RobotoText
-                    {
-                        id: fiLabel
-                        label: qsTr("Fade in")
-                        height: UISettings.listItemHeight
-                    }
-
-                    Rectangle
-                    {
-                        Layout.fillWidth: true
-                        height: UISettings.listItemHeight
-                        color: UISettings.bgMedium
-
-                        RobotoText
-                        {
-                            anchors.fill: parent
-                            label: TimeUtils.timeToQlcString(sceneEditor.fadeInSpeed, sceneEditor.tempoType)
-
-                            MouseArea
-                            {
-                                anchors.fill: parent
-                                onDoubleClicked:
-                                {
-                                    timeEditTool.allowFractions = QLCFunction.ByTwoFractions
-                                    timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y - timeEditTool.height,
-                                                      fiLabel.label, parent.label, QLCFunction.FadeIn)
-                                }
-                            }
-                        }
-                    }
-
-                    // Row 2
-                    RobotoText
-                    {
-                        id: foLabel
-                        height: UISettings.listItemHeight
-                        label: qsTr("Fade out")
-                    }
-
-                    Rectangle
-                    {
-                        Layout.fillWidth: true
-                        height: UISettings.listItemHeight
-                        color: UISettings.bgMedium
-
-                        RobotoText
-                        {
-                            anchors.fill: parent
-                            label: TimeUtils.timeToQlcString(sceneEditor.fadeOutSpeed, sceneEditor.tempoType)
-
-                            MouseArea
-                            {
-                                anchors.fill: parent
-                                onDoubleClicked:
-                                {
-                                    timeEditTool.allowFractions = QLCFunction.ByTwoFractions
-                                    timeEditTool.show(-1, this.mapToItem(mainView, 0, 0).y - timeEditTool.height,
-                                                      foLabel.label, parent.label, QLCFunction.FadeOut)
-                                }
-                            }
-                        }
-                    }
-                } // GridLayout
-        }
-    }
+        } // Column
+    } // Splitview
 }

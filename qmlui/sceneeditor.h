@@ -85,6 +85,7 @@ protected slots:
     void slotAliasChanged();
 
 private:
+    void addFixtureToList(quint32 fid);
     void updateLists();
 
 signals:

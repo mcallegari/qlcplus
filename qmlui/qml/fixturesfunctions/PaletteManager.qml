@@ -30,6 +30,8 @@ Rectangle
     anchors.fill: parent
     color: "transparent"
 
+    property bool allowEditing: true
+
     function setTypeFilter(pType, checked)
     {
         if (checked === true)
@@ -130,6 +132,7 @@ Rectangle
                 z: 2
                 width: height
                 height: topBar.height - 2
+                visible: allowEditing
                 imgSource: "qrc:/remove.svg"
                 tooltip: qsTr("Delete the selected palette(s)")
                 //counter: paletteManager.positionCount

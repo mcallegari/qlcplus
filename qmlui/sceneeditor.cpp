@@ -284,6 +284,14 @@ void SceneEditor::deleteItems(QVariantList list)
 
         switch(type)
         {
+            case App::FixtureDragItem:
+            {
+                Fixture *fixture = dataMap["cRef"].value<Fixture *>();
+                qDebug() << "removing fixture with ID" << fixture->id();
+                // TODO: tardis
+                m_scene->removeFixture(fixture->id());
+            }
+            break;
             case App::FixtureGroupDragItem:
             {
                 FixtureGroup *group = dataMap["cRef"].value<FixtureGroup *>();
@@ -304,6 +312,31 @@ void SceneEditor::deleteItems(QVariantList list)
     }
 
     updateLists();
+}
+
+void SceneEditor::addFixtureToList(quint32 fid)
+{
+    if (m_fixtureIDs.contains(fid))
+        return;
+
+    Fixture *fixture = m_doc->fixture(fid);
+    if (fixture == nullptr)
+        return;
+
+    connect(fixture, SIGNAL(aliasChanged()), this, SLOT(slotAliasChanged()));
+
+    QVariantMap fxMap;
+    fxMap.insert("cRef", QVariant::fromValue(fixture));
+    fxMap.insert("isSelected", false);
+    m_fixtureList->addDataMap(fxMap);
+
+    QVariantMap fxcMap;
+    fxcMap.insert("type", App::FixtureDragItem);
+    fxcMap.insert("cRef", QVariant::fromValue(fixture));
+    fxcMap.insert("isSelected", false);
+    m_componentList->addDataMap(fxcMap);
+
+    m_fixtureIDs.append(fid);
 }
 
 void SceneEditor::updateLists()
@@ -379,31 +412,13 @@ void SceneEditor::updateLists()
         m_componentList->addDataMap(pMap);
     }
 
+    // fixtures (there might be fixtures with no values set)
+    for (quint32 fId : m_scene->fixtures())
+        addFixtureToList(fId);
+
     // scene values
     for (SceneValue sv : m_scene->values())
-    {
-        if (m_fixtureIDs.contains(sv.fxi) == false)
-        {
-            Fixture *fixture = m_doc->fixture(sv.fxi);
-            if (fixture == nullptr)
-                continue;
-
-            connect(fixture, SIGNAL(aliasChanged()), this, SLOT(slotAliasChanged()));
-
-            QVariantMap fxMap;
-            fxMap.insert("cRef", QVariant::fromValue(fixture));
-            fxMap.insert("isSelected", false);
-            m_fixtureList->addDataMap(fxMap);
-
-            QVariantMap fxcMap;
-            fxcMap.insert("type", App::FixtureDragItem);
-            fxcMap.insert("cRef", QVariant::fromValue(fixture));
-            fxcMap.insert("isSelected", false);
-            m_componentList->addDataMap(fxcMap);
-
-            m_fixtureIDs.append(sv.fxi);
-        }
-    }
+        addFixtureToList(sv.fxi);
 
     emit componentListChanged();
     emit fixtureListChanged();
