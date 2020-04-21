@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Gary M</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -78,7 +78,7 @@
  </Channel>
  <Channel Name="Program Speed/Sound Sensitivity">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="255">SLOW - FAST/LEAST SENSITIVE - MOST SENSITIVE</Capability>
+  <Capability Min="0" Max="255" Preset="SlowToFast">SLOW - FAST/LEAST SENSITIVE - MOST SENSITIVE</Capability>
  </Channel>
  <Channel Name="Red 1-4" Preset="IntensityRed"/>
  <Channel Name="Green 1-4" Preset="IntensityGreen"/>

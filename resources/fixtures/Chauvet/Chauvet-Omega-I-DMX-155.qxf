@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.8.4 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Tom Moeller</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -12,7 +12,7 @@
  <Channel Name="Color/Gobo Combo">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="9">closed</Capability>
-  <Capability Color="#ffffff" Min="10" Max="19">open</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ffffff">open</Capability>
   <Capability Min="20" Max="29">combo 01</Capability>
   <Capability Min="30" Max="39">Combo 02</Capability>
   <Capability Min="40" Max="49">Combo 03</Capability>
@@ -32,13 +32,13 @@
  </Channel>
  <Channel Name="Strobe/Gobo Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9">Open</Capability>
-  <Capability Min="10" Max="45">Strobe speed 1</Capability>
-  <Capability Min="46" Max="115">Strobe speed 2</Capability>
-  <Capability Min="116" Max="150">Strobe speed 3</Capability>
-  <Capability Min="151" Max="185">Strobe speed 4</Capability>
-  <Capability Min="186" Max="220">Strobe speed 5</Capability>
-  <Capability Min="221" Max="255">Strobe speed 6</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="10" Max="45" Preset="StrobeRandom">Strobe speed 1</Capability>
+  <Capability Min="46" Max="115" Preset="StrobeRandom">Strobe speed 2</Capability>
+  <Capability Min="116" Max="150" Preset="StrobeRandom">Strobe speed 3</Capability>
+  <Capability Min="151" Max="185" Preset="StrobeRandom">Strobe speed 4</Capability>
+  <Capability Min="186" Max="220" Preset="StrobeRandom">Strobe speed 5</Capability>
+  <Capability Min="221" Max="255" Preset="StrobeRandom">Strobe speed 6</Capability>
  </Channel>
  <Channel Name="Pan" Preset="PositionPan"/>
  <Channel Name="Tilt" Preset="PositionTilt"/>
@@ -48,11 +48,11 @@
   <Channel Number="2">Pan</Channel>
   <Channel Number="3">Tilt</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" Type="EFR 150W" ColourTemperature="0"/>
-   <Dimensions Height="279" Width="356" Depth="279" Weight="4.72"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus TiltMax="90" PanMax="180" Type="Barrel"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="250"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="EFR 150W" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4.72" Width="356" Height="279" Depth="279"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Barrel" PanMax="180" TiltMax="90"/>
+  <Technical PowerConsumption="250" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

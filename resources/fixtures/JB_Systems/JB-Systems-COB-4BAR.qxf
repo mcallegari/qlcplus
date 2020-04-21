@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Robert Box</Author>
  </Creator>
  <Manufacturer>JB Systems</Manufacturer>
@@ -15,10 +15,10 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe Modes">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="7">No strobe</Capability>
-  <Capability Min="8" Max="37">Random strobe</Capability>
+  <Capability Min="0" Max="7" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="8" Max="37" Preset="StrobeRandom">Random strobe</Capability>
   <Capability Min="38" Max="67">Sound strobe</Capability>
-  <Capability Min="68" Max="255">Strobe speed (slow to fast)</Capability>
+  <Capability Min="68" Max="255" Preset="StrobeSlowToFast">Strobe speed (slow to fast)</Capability>
  </Channel>
  <Channel Name="Color macros and automatic color modes">
   <Group Byte="0">Effect</Group>

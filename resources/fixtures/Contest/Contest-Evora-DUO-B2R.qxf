@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Jan Lachman</Author>
  </Creator>
  <Manufacturer>Contest</Manufacturer>
@@ -17,25 +17,25 @@
  <Channel Name="Right head 16-bit TILT movement" Preset="PositionTiltFine"/>
  <Channel Name="Left head Shutter and Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="31">Shutter closed</Capability>
-  <Capability Min="32" Max="63">No action, shutter open</Capability>
-  <Capability Min="64" Max="95">Slow to fast strobe</Capability>
-  <Capability Min="96" Max="127">No action, shutter open</Capability>
-  <Capability Min="128" Max="159">Slow to fast pulse effect</Capability>
-  <Capability Min="160" Max="191">No action, shutter open</Capability>
-  <Capability Min="192" Max="223">Slow to fast random strobe</Capability>
-  <Capability Min="224" Max="255">No action, shutter open</Capability>
+  <Capability Min="0" Max="31" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">No action, shutter open</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Slow to fast strobe</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">No action, shutter open</Capability>
+  <Capability Min="128" Max="159" Preset="PulseSlowToFast">Slow to fast pulse effect</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">No action, shutter open</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Slow to fast random strobe</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">No action, shutter open</Capability>
  </Channel>
  <Channel Name="Right head Shutter and Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="31">Shutter closed</Capability>
-  <Capability Min="32" Max="63">No action, shutter open</Capability>
-  <Capability Min="64" Max="95">Slow to fast strobe</Capability>
-  <Capability Min="96" Max="127">No action, shutter open</Capability>
-  <Capability Min="128" Max="159">Slow to fast pulse effect</Capability>
-  <Capability Min="160" Max="191">No action, shutter open</Capability>
-  <Capability Min="192" Max="223">Slow to fast random strobe</Capability>
-  <Capability Min="224" Max="255">No action, shutter open</Capability>
+  <Capability Min="0" Max="31" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">No action, shutter open</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Slow to fast strobe</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">No action, shutter open</Capability>
+  <Capability Min="128" Max="159" Preset="PulseSlowToFast">Slow to fast pulse effect</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">No action, shutter open</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Slow to fast random strobe</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">No action, shutter open</Capability>
  </Channel>
  <Channel Name="Left head dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Right head dimmer" Preset="IntensityDimmer"/>
@@ -226,30 +226,30 @@
  <Channel Name="Non-stop left TILT movement">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="127">No function</Capability>
-  <Capability Min="128" Max="189">Non-stop clockwise rotation from fast to slow</Capability>
-  <Capability Min="190" Max="193">No rotation</Capability>
-  <Capability Min="194" Max="255">Non-stop counterclockwise rotation from slow to fast</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Non-stop clockwise rotation from fast to slow</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">No rotation</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Non-stop counterclockwise rotation from slow to fast</Capability>
  </Channel>
  <Channel Name="Non-stop right TILT movement">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="127">No function</Capability>
-  <Capability Min="128" Max="189">Non-stop clockwise rotation from fast to slow</Capability>
-  <Capability Min="190" Max="193">No rotation</Capability>
-  <Capability Min="194" Max="255">Non-stop counterclockwise rotation from slow to fast</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Non-stop clockwise rotation from fast to slow</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">No rotation</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Non-stop counterclockwise rotation from slow to fast</Capability>
  </Channel>
  <Channel Name="Lamp management, built-in programs and resets">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="19">Regular colour changes</Capability>
   <Capability Min="20" Max="29">Linear colour wheel (can create half-colours)</Capability>
   <Capability Min="30" Max="39">Linear gobo and color wheels (can create half-colours/gobos)</Capability>
-  <Capability Min="40" Max="59">Lamp on (Only if this mode has been activated via the Lamp Control menu)</Capability>
-  <Capability Min="60" Max="79">Lamp off (Only if this mode has been activated via the Lamp Control menu)</Capability>
-  <Capability Min="80" Max="84">Resets all motors</Capability>
-  <Capability Min="85" Max="87">Resets movement motors</Capability>
-  <Capability Min="88" Max="90">Reset the color wheel motor</Capability>
-  <Capability Min="91" Max="93">Resets the gobo wheel motors</Capability>
-  <Capability Min="94" Max="96">Resets the Dimmer and Shutter motor</Capability>
-  <Capability Min="97" Max="99">Resets other motors</Capability>
+  <Capability Min="40" Max="59" Preset="LampOn">Lamp on (Only if this mode has been activated via the Lamp Control menu)</Capability>
+  <Capability Min="60" Max="79" Preset="LampOff">Lamp off (Only if this mode has been activated via the Lamp Control menu)</Capability>
+  <Capability Min="80" Max="84" Preset="ResetAll">Resets all motors</Capability>
+  <Capability Min="85" Max="87" Preset="ResetMotors">Resets movement motors</Capability>
+  <Capability Min="88" Max="90" Preset="ResetColor">Reset the color wheel motor</Capability>
+  <Capability Min="91" Max="93" Preset="ResetGobo">Resets the gobo wheel motors</Capability>
+  <Capability Min="94" Max="96" Preset="ResetAll">Resets the Dimmer and Shutter motor</Capability>
+  <Capability Min="97" Max="99" Preset="ResetAll">Resets other motors</Capability>
   <Capability Min="100" Max="119">Internal program 1</Capability>
   <Capability Min="120" Max="139">Internal program 2</Capability>
   <Capability Min="140" Max="159">Internal program 3</Capability>

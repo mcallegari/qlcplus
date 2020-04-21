@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>GLP</Manufacturer>
@@ -188,8 +188,8 @@
   <Capability Min="192" Max="207">Audio pan/tilt fast</Capability>
   <Capability Min="208" Max="223">No function</Capability>
   <Capability Min="224" Max="229">Fan silent</Capability>
-  <Capability Min="230" Max="249">Lamp OFF (3sec when shutter closed)</Capability>
-  <Capability Min="250" Max="255">Reset</Capability>
+  <Capability Min="230" Max="249" Preset="LampOff">Lamp OFF (3sec when shutter closed)</Capability>
+  <Capability Min="250" Max="255" Preset="ResetAll">Reset</Capability>
  </Channel>
  <Channel Name="Movement">
   <Group Byte="0">Effect</Group>

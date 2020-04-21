@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>Futurelight</Manufacturer>
@@ -62,8 +62,8 @@
   <Capability Min="16" Max="31">Normal colour change, search clockwise</Capability>
   <Capability Min="32" Max="47">Colour change at every position, shortest distance</Capability>
   <Capability Min="48" Max="63">Colour change at every position, search clockwise</Capability>
-  <Capability Min="64" Max="79">Lamp on</Capability>
-  <Capability Min="80" Max="95">Reset</Capability>
+  <Capability Min="64" Max="79" Preset="LampOn">Lamp on</Capability>
+  <Capability Min="80" Max="95" Preset="ResetAll">Reset</Capability>
   <Capability Min="96" Max="111">Internal program 1</Capability>
   <Capability Min="112" Max="127">Internal program 2</Capability>
   <Capability Min="128" Max="143">Internal program 3</Capability>
@@ -72,7 +72,7 @@
   <Capability Min="176" Max="191">Internal program 6</Capability>
   <Capability Min="192" Max="207">Internal program 7</Capability>
   <Capability Min="208" Max="223">Internal program 8</Capability>
-  <Capability Min="224" Max="239">Lamp off</Capability>
+  <Capability Min="224" Max="239" Preset="LampOff">Lamp off</Capability>
   <Capability Min="240" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Pan fine" Preset="PositionPanFine"/>
@@ -90,11 +90,11 @@
   <Channel Number="9">Pan fine</Channel>
   <Channel Number="10">Tilt fine</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="HSD 150W" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="13" Width="320" Height="485" Depth="330"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Head" PanMax="540" TiltMax="265"/>
-   <Technical PowerConsumption="285" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="HSD 150W" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="13" Width="320" Height="485" Depth="330"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Head" PanMax="540" TiltMax="265"/>
+  <Technical PowerConsumption="285" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

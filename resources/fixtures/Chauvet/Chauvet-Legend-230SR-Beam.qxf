@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Craig Cudmore</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -18,14 +18,14 @@
  <Channel Name="Fine Dimmer" Preset="IntensityDimmerFine"/>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
-  <Capability Min="8" Max="15">Open</Capability>
-  <Capability Min="16" Max="131">Slow to fast (strobe)</Capability>
+  <Capability Min="0" Max="7" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="8" Max="15" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="16" Max="131" Preset="StrobeSlowToFast">Slow to fast (strobe)</Capability>
   <Capability Min="132" Max="167">Fast close/slow open</Capability>
   <Capability Min="168" Max="203">Slow close/fast open</Capability>
-  <Capability Min="204" Max="239">Slow to fast (pulse effect)</Capability>
-  <Capability Min="240" Max="247">Random strobe</Capability>
-  <Capability Min="248" Max="255">Open</Capability>
+  <Capability Min="204" Max="239" Preset="PulseSlowToFast">Slow to fast (pulse effect)</Capability>
+  <Capability Min="240" Max="247" Preset="StrobeRandom">Random strobe</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Color Wheel">
   <Group Byte="0">Colour</Group>
@@ -164,17 +164,17 @@
   <Capability Min="100" Max="109">Color change blackout mode disabled</Capability>
   <Capability Min="110" Max="119">Gobo change blackout mode enabled</Capability>
   <Capability Min="120" Max="129">Gobo change blackout mode disabled</Capability>
-  <Capability Min="130" Max="139">Lamp On</Capability>
-  <Capability Min="140" Max="149">Pan/tilt reset</Capability>
-  <Capability Min="150" Max="159">Color reset</Capability>
-  <Capability Min="160" Max="169">Gobo reset</Capability>
-  <Capability Min="170" Max="179">Shutter/prism reset</Capability>
+  <Capability Min="130" Max="139" Preset="LampOn">Lamp On</Capability>
+  <Capability Min="140" Max="149" Preset="ResetPanTilt">Pan/tilt reset</Capability>
+  <Capability Min="150" Max="159" Preset="ResetColor">Color reset</Capability>
+  <Capability Min="160" Max="169" Preset="ResetGobo">Gobo reset</Capability>
+  <Capability Min="170" Max="179" Preset="ResetPrism">Shutter/prism reset</Capability>
   <Capability Min="180" Max="189">No Function</Capability>
-  <Capability Min="190" Max="199">Frost/focus/zoom reset</Capability>
-  <Capability Min="200" Max="209">Reset all</Capability>
+  <Capability Min="190" Max="199" Preset="ResetFrost">Frost/focus/zoom reset</Capability>
+  <Capability Min="200" Max="209" Preset="ResetAll">Reset all</Capability>
   <Capability Min="210" Max="219">Enable all movement blackout modes</Capability>
   <Capability Min="220" Max="229">Disable all movement blackout modes</Capability>
-  <Capability Min="230" Max="239">Lamp off</Capability>
+  <Capability Min="230" Max="239" Preset="LampOff">Lamp off</Capability>
   <Capability Min="240" Max="255">No function</Capability>
  </Channel>
  <Mode Name="Mode 1">

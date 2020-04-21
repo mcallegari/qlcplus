@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.9.1</Version>
+  <Version>4.12.2</Version>
   <Author>Didou</Author>
  </Creator>
  <Manufacturer>BoomToneDJ</Manufacturer>
@@ -48,11 +48,11 @@
   <Channel Number="9">Mode</Channel>
   <Channel Number="10">Reset</Channel>
  </Mode>
-<Physical>
-   <Bulb ColourTemperature="7600" Lumens="0" Type="LED"/>
-   <Dimensions Depth="110" Width="140" Height="250" Weight="1.9"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus TiltMax="270" PanMax="540" Type="Head"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="30"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="7600"/>
+  <Dimensions Weight="1.9" Width="140" Height="250" Depth="110"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

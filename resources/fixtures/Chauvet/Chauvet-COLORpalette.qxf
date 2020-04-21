@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>JL Griffin</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -40,9 +40,9 @@
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="2">No Strobe</Capability>
-  <Capability Min="3" Max="249">Strobe [Slow &gt; Fast]</Capability>
-  <Capability Min="250" Max="255">Sound-Active</Capability>
+  <Capability Min="0" Max="2" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="3" Max="249" Preset="StrobeSlowToFast">Strobe [Slow &gt; Fast]</Capability>
+  <Capability Min="250" Max="255" Preset="SilentModeOff">Sound-Active</Capability>
  </Channel>
  <Channel Name="Red 1" Preset="IntensityRed"/>
  <Channel Name="Green 1" Preset="IntensityGreen"/>

@@ -16,7 +16,7 @@
  <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Shutter / Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="7" Preset="ShutterClose">No function</Capability>
+  <Capability Min="0" Max="7" Preset="ShutterOpen">No function</Capability>
   <Capability Min="8" Max="15" Preset="ShutterOpen">Open</Capability>
   <Capability Min="16" Max="131" Preset="StrobeSlowToFast">Strobe slow to fast</Capability>
   <Capability Min="132" Max="167" Preset="RampUpSlowToFast">Fast close/slow open, slow to fast</Capability>

@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>David Gianforte</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -91,8 +91,8 @@
  </Channel>
  <Channel Name="Laser Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9">No function</Capability>
-  <Capability Min="10" Max="254">Strobe, slow to fast</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="10" Max="254" Preset="StrobeSlowToFast">Strobe, slow to fast</Capability>
   <Capability Min="255" Max="255">Sound-Active</Capability>
  </Channel>
  <Channel Name="Laser FX Rotation">
@@ -132,8 +132,8 @@
  </Channel>
  <Channel Name="Strobe Rate">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9">No function</Capability>
-  <Capability Min="10" Max="254">Strobe, slow to fast</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="10" Max="254" Preset="StrobeSlowToFast">Strobe, slow to fast</Capability>
   <Capability Min="255" Max="255">Sound-Active</Capability>
  </Channel>
  <Channel Name="Program">

@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Henning Borgen</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -84,16 +84,16 @@
   <Capability Min="35" Max="39">Gobo Wheel Move in Black (Disable)</Capability>
   <Capability Min="40" Max="44">All Movement Move in Black</Capability>
   <Capability Min="45" Max="49">All Movement Move in Black (disabled)</Capability>
-  <Capability Min="50" Max="54">Reset Pan/Tilt</Capability>
-  <Capability Min="55" Max="59">Reset Color Wheel</Capability>
-  <Capability Min="60" Max="64">Reset Gobo Wheel</Capability>
-  <Capability Min="65" Max="69">Reset Shutter</Capability>
-  <Capability Min="70" Max="74">Reset Focus</Capability>
-  <Capability Min="75" Max="79">Reset Prism</Capability>
-  <Capability Min="80" Max="89">Reset All</Capability>
+  <Capability Min="50" Max="54" Preset="ResetPanTilt">Reset Pan/Tilt</Capability>
+  <Capability Min="55" Max="59" Preset="ResetGobo">Reset Color Wheel</Capability>
+  <Capability Min="60" Max="64" Preset="ResetGobo">Reset Gobo Wheel</Capability>
+  <Capability Min="65" Max="69" Preset="ResetAll">Reset Shutter</Capability>
+  <Capability Min="70" Max="74" Preset="ResetAll">Reset Focus</Capability>
+  <Capability Min="75" Max="79" Preset="ResetPrism">Reset Prism</Capability>
+  <Capability Min="80" Max="89" Preset="ResetAll">Reset All</Capability>
   <Capability Min="90" Max="111">No Function</Capability>
-  <Capability Min="112" Max="119">Lamp Off</Capability>
-  <Capability Min="120" Max="127">Lamp On</Capability>
+  <Capability Min="112" Max="119" Preset="LampOff">Lamp Off</Capability>
+  <Capability Min="120" Max="127" Preset="LampOn">Lamp On</Capability>
   <Capability Min="128" Max="129">No Function</Capability>
   <Capability Min="130" Max="192">Auto Program</Capability>
   <Capability Min="193" Max="255">Sound Program</Capability>

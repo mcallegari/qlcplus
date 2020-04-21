@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Robert Box</Author>
  </Creator>
  <Manufacturer>Eurolite</Manufacturer>
@@ -23,26 +23,26 @@
  </Channel>
  <Channel Name="Shutter / Speed / Sensitivity">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="255">Shutter / Speed / Sensitivity (increasing)</Capability>
+  <Capability Min="0" Max="255" Preset="StrobeSlowToFast">Shutter / Speed / Sensitivity (increasing)</Capability>
  </Channel>
  <Channel Name="Color Macros/Programs">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="19">No function</Capability>
-  <Capability Min="20" Max="29" Color="#ff0000">R</Capability>
-  <Capability Min="30" Max="39" Color="#00ff00">G</Capability>
-  <Capability Min="40" Max="49" Color="#0000ff">B</Capability>
-  <Capability Min="50" Max="59" Color="#ffffff">W</Capability>
-  <Capability Min="60" Max="69" Color="#ffff00">RG</Capability>
-  <Capability Min="70" Max="79" Color="#00ffff">GB</Capability>
-  <Capability Min="80" Max="89" Color="#8080ff">BW</Capability>
-  <Capability Min="90" Max="99" Color="#ff8080">WR</Capability>
-  <Capability Min="100" Max="109" Color="#80ff80">GW</Capability>
-  <Capability Min="110" Max="119" Color="#ff00ff">RB</Capability>
-  <Capability Min="120" Max="129" Color="#ffffff">RGB</Capability>
-  <Capability Min="130" Max="139" Color="#80ffff">GBW</Capability>
-  <Capability Min="140" Max="149" Color="#ffff80">RGW</Capability>
-  <Capability Min="150" Max="159" Color="#ff80ff">RBW</Capability>
-  <Capability Min="160" Max="169" Color="#ffffff">RGBW</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#ff0000">R</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#00ff00">G</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#0000ff">B</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ffffff">W</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#ffff00">RG</Capability>
+  <Capability Min="70" Max="79" Preset="ColorMacro" Res1="#00ffff">GB</Capability>
+  <Capability Min="80" Max="89" Preset="ColorMacro" Res1="#8080ff">BW</Capability>
+  <Capability Min="90" Max="99" Preset="ColorMacro" Res1="#ff8080">WR</Capability>
+  <Capability Min="100" Max="109" Preset="ColorMacro" Res1="#80ff80">GW</Capability>
+  <Capability Min="110" Max="119" Preset="ColorMacro" Res1="#ff00ff">RB</Capability>
+  <Capability Min="120" Max="129" Preset="ColorMacro" Res1="#ffffff">RGB</Capability>
+  <Capability Min="130" Max="139" Preset="ColorMacro" Res1="#80ffff">GBW</Capability>
+  <Capability Min="140" Max="149" Preset="ColorMacro" Res1="#ffff80">RGW</Capability>
+  <Capability Min="150" Max="159" Preset="ColorMacro" Res1="#ff80ff">RBW</Capability>
+  <Capability Min="160" Max="169" Preset="ColorMacro" Res1="#ffffff">RGBW</Capability>
   <Capability Min="170" Max="179">Pr. 2</Capability>
   <Capability Min="180" Max="189">Pr. 3</Capability>
   <Capability Min="190" Max="199">Pr. 4</Capability>
@@ -176,11 +176,11 @@
    <Channel>12</Channel>
   </Head>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="5" Width="335" Height="210" Depth="185"/>
-   <Lens Name="Other" DegreesMin="12" DegreesMax="12"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="75" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5" Width="335" Height="210" Depth="185"/>
+  <Lens Name="Other" DegreesMin="12" DegreesMax="12"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="75" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

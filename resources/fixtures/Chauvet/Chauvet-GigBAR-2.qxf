@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Flo Edelmann</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -26,7 +26,7 @@
  <Channel Name="Par 2 UV" Preset="IntensityUV"/>
  <Channel Name="Par 2 Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="127">Dimmer 0-100%</Capability>
+  <Capability Min="0" Max="127" Preset="ShutterOpen">Dimmer 0-100%</Capability>
   <Capability Min="128" Max="239" Preset="StrobeSlowToFast">Strobe slow-fast</Capability>
   <Capability Min="240" Max="249">Strobe to sound</Capability>
   <Capability Min="250" Max="255">RGB 100%</Capability>
@@ -118,7 +118,7 @@
   <Capability Min="130" Max="149">Auto Strobe Program 8</Capability>
   <Capability Min="150" Max="169">Auto Strobe Program 9</Capability>
   <Capability Min="170" Max="189">Auto Strobe Program 10</Capability>
-  <Capability Min="190" Max="209">Manual Strobe slow-fast</Capability>
+  <Capability Min="190" Max="209" Preset="StrobeSlowToFast">Manual Strobe slow-fast</Capability>
   <Capability Min="210" Max="255">Strobe to sound</Capability>
  </Channel>
  <Channel Name="White Strobe Dimmer" Preset="IntensityDimmer"/>

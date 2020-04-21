@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.0 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Jasper Zevering</Author>
  </Creator>
  <Manufacturer>Cameo</Manufacturer>
@@ -14,21 +14,21 @@
  <Channel Name="Pan/Tilt Motion" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Colour Wheel">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="13" Color="#ffffff">White</Capability>
-  <Capability Min="14" Max="27" Color="#ffff00">Yellow</Capability>
-  <Capability Min="28" Max="41" Color="#ff0080">Magenta</Capability>
-  <Capability Min="42" Max="55" Color="#00e100">Green</Capability>
-  <Capability Min="56" Max="69" Color="#ff6cff">Bright magenta</Capability>
-  <Capability Min="70" Max="83" Color="#00ffff">Cyan</Capability>
-  <Capability Min="84" Max="97" Color="#6cff00">Bright green</Capability>
-  <Capability Min="98" Max="111" Color="#ffd100">Amber</Capability>
-  <Capability Min="112" Max="127" Color="#ff0000">Red</Capability>
+  <Capability Min="0" Max="13" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="14" Max="27" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="28" Max="41" Preset="ColorMacro" Res1="#ff0080">Magenta</Capability>
+  <Capability Min="42" Max="55" Preset="ColorMacro" Res1="#00e100">Green</Capability>
+  <Capability Min="56" Max="69" Preset="ColorMacro" Res1="#ff6cff">Bright magenta</Capability>
+  <Capability Min="70" Max="83" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="84" Max="97" Preset="ColorMacro" Res1="#6cff00">Bright green</Capability>
+  <Capability Min="98" Max="111" Preset="ColorMacro" Res1="#ffd100">Amber</Capability>
+  <Capability Min="112" Max="127" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
   <Capability Min="128" Max="191">Rainbow, direction of rotation forwards (speed slow - fast)</Capability>
   <Capability Min="192" Max="255">Rainbow, direction of rotation forwards (speed slow - fast)</Capability>
  </Channel>
  <Channel Name="Gobo Wheel">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="9" Res="Others/open.svg">Open</Capability>
+  <Capability Min="0" Max="9" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="10" Max="19">Gobo 1</Capability>
   <Capability Min="20" Max="29">Gobo 2</Capability>
   <Capability Min="30" Max="39">Gobo 3</Capability>
@@ -43,7 +43,7 @@
   <Capability Min="160" Max="179">Gobo 5 shake, (speed)</Capability>
   <Capability Min="180" Max="199">Gobo 6 shake, (speed)</Capability>
   <Capability Min="200" Max="219">Gobo 7 shake, (speed)</Capability>
-  <Capability Min="220" Max="255" Res="Others/rainbow.png">Rotation (speed)</Capability>
+  <Capability Min="220" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Rotation (speed)</Capability>
  </Channel>
  <Channel Name="Gobo Rotation">
   <Group Byte="0">Speed</Group>
@@ -53,12 +53,12 @@
  </Channel>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9">Closed</Capability>
-  <Capability Min="10" Max="19">Open</Capability>
-  <Capability Min="20" Max="127">Stroboscope effect 1 (speed slow - fast)</Capability>
-  <Capability Min="128" Max="137">Open</Capability>
-  <Capability Min="138" Max="201">Stroboscope effect 2 (speed slow - fast)</Capability>
-  <Capability Min="202" Max="255">Open</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="10" Max="19" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="20" Max="127" Preset="StrobeSlowToFast">Stroboscope effect 1 (speed slow - fast)</Capability>
+  <Capability Min="128" Max="137" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="138" Max="201" Preset="StrobeSlowToFast">Stroboscope effect 2 (speed slow - fast)</Capability>
+  <Capability Min="202" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Focus" Preset="BeamFocusNearFar"/>
@@ -73,8 +73,8 @@
   <Capability Min="0" Max="16">No function</Capability>
   <Capability Min="17" Max="33">Blackout during pan / tilt motion</Capability>
   <Capability Min="34" Max="50">Blackout during gobo / colour wheel rotation</Capability>
-  <Capability Min="51" Max="67">Colour motor and gobo wheel motor reset</Capability>
-  <Capability Min="68" Max="84">Reset all motors</Capability>
+  <Capability Min="51" Max="67" Preset="ResetColor">Colour motor and gobo wheel motor reset</Capability>
+  <Capability Min="68" Max="84" Preset="ResetAll">Reset all motors</Capability>
   <Capability Min="85" Max="101">Program 1</Capability>
   <Capability Min="102" Max="118">Program 2</Capability>
   <Capability Min="119" Max="135">Program 3</Capability>
@@ -113,11 +113,11 @@
   <Channel Number="11">Pan Fine Control</Channel>
   <Channel Number="12">Tilt Fine Control</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="1456" ColourTemperature="0"/>
-   <Dimensions Height="275" Depth="320" Weight="7" Width="230"/>
-   <Lens Name="Other" DegreesMin="11" DegreesMax="11"/>
-   <Focus Type="Fixed" TiltMax="270" PanMax="540"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="100"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="1456" ColourTemperature="0"/>
+  <Dimensions Weight="7" Width="230" Height="275" Depth="320"/>
+  <Lens Name="Other" DegreesMin="11" DegreesMax="11"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="100" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

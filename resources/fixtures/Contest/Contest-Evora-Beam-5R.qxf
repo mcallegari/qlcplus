@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Jan Lachman</Author>
  </Creator>
  <Manufacturer>Contest</Manufacturer>
@@ -86,21 +86,21 @@
  </Channel>
  <Channel Name="Shutter, strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="31">Shutter closed</Capability>
-  <Capability Min="32" Max="63">No function (shutter open)</Capability>
-  <Capability Min="64" Max="95">Strobe effect slow to fast </Capability>
-  <Capability Min="96" Max="127">No function (shutter open)</Capability>
-  <Capability Min="128" Max="159">Pulse-effect in sequences</Capability>
-  <Capability Min="160" Max="191">No function (shutter open)</Capability>
-  <Capability Min="192" Max="223">Random strobe effect slow to fast</Capability>
-  <Capability Min="224" Max="255">No function (shutter open)</Capability>
+  <Capability Min="0" Max="31" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">No function (shutter open)</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Strobe effect slow to fast</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">No function (shutter open)</Capability>
+  <Capability Min="128" Max="159" Preset="PulseSlowToFast">Pulse-effect in sequences</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">No function (shutter open)</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Random strobe effect slow to fast</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">No function (shutter open)</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Dimmer Fine" Preset="IntensityDimmerFine"/>
  <Channel Name="Frost">
   <Group Byte="0">Beam</Group>
   <Capability Min="0" Max="127">Disable frost</Capability>
-  <Capability Min="128" Max="255"> Enable frost</Capability>
+  <Capability Min="128" Max="255">Enable frost</Capability>
  </Channel>
  <Channel Name="Speed Pan/Tilt movement">
   <Group Byte="0">Speed</Group>
@@ -111,17 +111,17 @@
  </Channel>
  <Channel Name="Lamp on/off, reset, internal programs">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="19">colour change normal </Capability>
-  <Capability Min="20" Max="29">colour change to any position </Capability>
+  <Capability Min="0" Max="19">colour change normal</Capability>
+  <Capability Min="20" Max="29">colour change to any position</Capability>
   <Capability Min="30" Max="39">colour &amp; gobo change to any position</Capability>
-  <Capability Min="40" Max="59">Lamp On</Capability>
-  <Capability Min="60" Max="79">Lamp Off</Capability>
-  <Capability Min="80" Max="84">All motor reset</Capability>
-  <Capability Min="85" Max="87">Scan motor reset</Capability>
-  <Capability Min="88" Max="90">Colors motor reset</Capability>
-  <Capability Min="91" Max="93">Gobo motor reset</Capability>
-  <Capability Min="94" Max="96">Shutter &amp; Dimmer motor reset</Capability>
-  <Capability Min="97" Max="99">Other motor reset</Capability>
+  <Capability Min="40" Max="59" Preset="LampOn">Lamp On</Capability>
+  <Capability Min="60" Max="79" Preset="LampOff">Lamp Off</Capability>
+  <Capability Min="80" Max="84" Preset="ResetAll">All motor reset</Capability>
+  <Capability Min="85" Max="87" Preset="ResetMotors">Scan motor reset</Capability>
+  <Capability Min="88" Max="90" Preset="ResetColor">Colors motor reset</Capability>
+  <Capability Min="91" Max="93" Preset="ResetGobo">Gobo motor reset</Capability>
+  <Capability Min="94" Max="96" Preset="ResetMotors">Shutter &amp; Dimmer motor reset</Capability>
+  <Capability Min="97" Max="99" Preset="ResetMotors">Other motor reset</Capability>
   <Capability Min="100" Max="119">Internal program 1</Capability>
   <Capability Min="120" Max="139">Internal program 2</Capability>
   <Capability Min="140" Max="159">Internal program 3</Capability>
@@ -186,11 +186,11 @@
   <Channel Number="16">Frost</Channel>
   <Channel Number="17">Lamp on/off, reset, internal programs</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="MSD 200W" Lumens="10000" ColourTemperature="0"/>
-   <Dimensions Weight="20" Width="329" Height="509" Depth="352"/>
-   <Lens Name="" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Head" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="350" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="MSD 200W" Lumens="10000" ColourTemperature="0"/>
+  <Dimensions Weight="20" Width="329" Height="509" Depth="352"/>
+  <Lens Name="" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="350" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

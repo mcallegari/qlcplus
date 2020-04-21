@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>Movitec</Manufacturer>
@@ -23,9 +23,9 @@
  <Channel Name="Lamp On/Off, reset, fan">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="127">Fan speed</Capability>
-  <Capability Min="128" Max="139">Lamp ON</Capability>
+  <Capability Min="128" Max="139" Preset="LampOn">Lamp ON</Capability>
   <Capability Min="140" Max="229">No function</Capability>
-  <Capability Min="230" Max="239">Lamp OFF in 3sec</Capability>
+  <Capability Min="230" Max="239" Preset="LampOff">Lamp OFF in 3sec</Capability>
   <Capability Min="240" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Colour wheel">

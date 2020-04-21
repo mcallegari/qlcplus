@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Dean Clough</Author>
  </Creator>
  <Manufacturer>Equinox</Manufacturer>
@@ -12,8 +12,8 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="7">No Function</Capability>
-  <Capability Min="8" Max="255">Strobe (Slow To Fast)</Capability>
+  <Capability Min="0" Max="7" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="8" Max="255" Preset="StrobeSlowToFast">Strobe (Slow To Fast)</Capability>
  </Channel>
  <Channel Name="Shows">
   <Group Byte="0">Effect</Group>

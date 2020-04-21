@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.0</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Matthias Schlecht</Author>
  </Creator>
  <Manufacturer>Expolite</Manufacturer>
@@ -48,12 +48,12 @@
  </Channel>
  <Channel Name="Special/Classic Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9">Special Strobe: No Strobe</Capability>
-  <Capability Min="10" Max="99">Special Strobe: Strobe (slow to fast)</Capability>
-  <Capability Min="100" Max="109">Special Strobe: No Strobe</Capability>
-  <Capability Min="110" Max="179">Special Strobe: Lightning Strobe (slow to fast)</Capability>
-  <Capability Min="180" Max="189">Special Strobe: No Strobe</Capability>
-  <Capability Min="190" Max="255">Special Strobe: Random Strobe (slow to fast)</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">Special Strobe: No Strobe</Capability>
+  <Capability Min="10" Max="99" Preset="StrobeSlowToFast">Special Strobe: Strobe (slow to fast)</Capability>
+  <Capability Min="100" Max="109" Preset="ShutterOpen">Special Strobe: No Strobe</Capability>
+  <Capability Min="110" Max="179" Preset="StrobeSlowToFast">Special Strobe: Lightning Strobe (slow to fast)</Capability>
+  <Capability Min="180" Max="189" Preset="ShutterOpen">Special Strobe: No Strobe</Capability>
+  <Capability Min="190" Max="255" Preset="StrobeRandomSlowToFast">Special Strobe: Random Strobe (slow to fast)</Capability>
  </Channel>
  <Channel Name="Automation Speed">
   <Group Byte="0">Speed</Group>

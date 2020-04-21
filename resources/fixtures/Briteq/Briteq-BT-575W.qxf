@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Carlitos AntiCrispis</Author>
  </Creator>
  <Manufacturer>Briteq</Manufacturer>
@@ -59,9 +59,9 @@
  <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Lamp On/Off/Reset">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="130" Max="139">Lamp On (Keep 5 seconds to activate)</Capability>
-  <Capability Min="200" Max="209">DMX Reset (Keep 5 seconds to activate)</Capability>
-  <Capability Min="230" Max="239">Lamp Off (Keep 5 seconds to activate)</Capability>
+  <Capability Min="130" Max="139" Preset="LampOn">Lamp On (Keep 5 seconds to activate)</Capability>
+  <Capability Min="200" Max="209" Preset="ResetAll">DMX Reset (Keep 5 seconds to activate)</Capability>
+  <Capability Min="230" Max="239" Preset="LampOff">Lamp Off (Keep 5 seconds to activate)</Capability>
  </Channel>
  <Mode Name="16 Channel">
   <Channel Number="0">Pan</Channel>
