@@ -55,7 +55,7 @@
  <Channel Name="Dimmer Quadrant 4" Preset="IntensityDimmer"/>
  <Channel Name="Strobe Quadrant 4">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="19"Preset="ShutterOpen" >No Function</Capability>
+  <Capability Min="0" Max="19" Preset="ShutterOpen">No Function</Capability>
   <Capability Min="20" Max="249" Preset="StrobeFreqRange" Res1="0" Res2="20">0-20hz</Capability>
   <Capability Min="250" Max="255">No Function</Capability>
  </Channel>

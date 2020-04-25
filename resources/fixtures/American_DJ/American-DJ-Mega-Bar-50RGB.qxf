@@ -51,7 +51,7 @@
  <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobing/Program Speed">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="15"Preset="ShutterOpen">Off</Capability>
+  <Capability Min="0" Max="15" Preset="ShutterOpen">Off</Capability>
   <Capability Min="16" Max="255" Preset="StrobeSlowToFast">Slow -&gt; Fast</Capability>
  </Channel>
  <Channel Name="Programs">

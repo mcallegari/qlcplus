@@ -535,13 +535,6 @@
   <Capability Min="141" Max="255">No function</Capability>
  </Channel>
  <Mode Name="CLD">
-  <Physical>
-   <Bulb Type="White LED" Lumens="11600" ColourTemperature="3000"/>
-   <Dimensions Weight="31" Width="480" Height="740" Depth="452"/>
-   <Lens Name="Other" DegreesMin="12" DegreesMax="48"/>
-   <Focus Type="Head" PanMax="540" TiltMax="268"/>
-   <Technical PowerConsumption="585" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Shutter / Strobe</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Dimmer fine</Channel>
@@ -582,13 +575,6 @@
   <Channel Number="37">FX Synchronization</Channel>
  </Mode>
  <Mode Name="WRM">
-  <Physical>
-   <Bulb Type="White LED" Lumens="9200" ColourTemperature="6000"/>
-   <Dimensions Weight="31" Width="480" Height="740" Depth="452"/>
-   <Lens Name="Other" DegreesMin="12" DegreesMax="48"/>
-   <Focus Type="Head" PanMax="540" TiltMax="268"/>
-   <Technical PowerConsumption="585" DmxConnector="5-pin"/>
-  </Physical>
   <Channel Number="0">Shutter / Strobe</Channel>
   <Channel Number="1">Dimmer</Channel>
   <Channel Number="2">Dimmer fine</Channel>
@@ -629,10 +615,10 @@
   <Channel Number="37">FX Synchronization</Channel>
  </Mode>
  <Physical>
-  <Bulb Type="" Lumens="0" ColourTemperature="0"/>
-  <Dimensions Weight="0" Width="0" Height="0" Depth="0"/>
-  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-  <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+  <Bulb Type="LED" Lumens="11600" ColourTemperature="3000"/>
+  <Dimensions Weight="31" Width="480" Height="740" Depth="452"/>
+  <Lens Name="Other" DegreesMin="12" DegreesMax="48"/>
+  <Focus Type="Head" PanMax="540" TiltMax="268"/>
+  <Technical PowerConsumption="585" DmxConnector="5-pin"/>
  </Physical>
 </FixtureDefinition>
