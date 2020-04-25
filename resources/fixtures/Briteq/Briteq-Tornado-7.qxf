@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Robert Box</Author>
  </Creator>
  <Manufacturer>Briteq</Manufacturer>
@@ -11,9 +11,9 @@
  <Type>Moving Head</Type>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="0">No strobe</Capability>
-  <Capability Min="1" Max="129">Pulse from slow to fast</Capability>
-  <Capability Min="130" Max="255">Strobe from slow to fast</Capability>
+  <Capability Min="0" Max="0" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="1" Max="129" Preset="PulseSlowToFast">Pulse from slow to fast</Capability>
+  <Capability Min="130" Max="255" Preset="StrobeSlowToFast">Strobe from slow to fast</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="16 Bit Dimmer" Preset="IntensityDimmerFine"/>

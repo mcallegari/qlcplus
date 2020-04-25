@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.9.0 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Giacomo</Author>
  </Creator>
  <Manufacturer>Briteq</Manufacturer>
@@ -12,8 +12,8 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="5">open</Capability>
-  <Capability Min="6" Max="255">strobe speed</Capability>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">open</Capability>
+  <Capability Min="6" Max="255" Preset="StrobeRandom">strobe speed</Capability>
  </Channel>
  <Mode Name="Dimmer+Strobe">
   <Channel Number="0">Dimmer</Channel>
@@ -22,11 +22,11 @@
  <Mode Name="Dimmer">
   <Channel Number="0">Dimmer</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" ColourTemperature="3200" Lumens="6800"/>
-   <Dimensions Depth="305" Height="280" Weight="6" Width="230"/>
-   <Lens DegreesMin="10" DegreesMax="50" Name="Fresnel"/>
-   <Focus TiltMax="0" Type="Fixed" PanMax="0"/>
-   <Technical DmxConnector="3-pin and 5-pin" PowerConsumption="120"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="6800" ColourTemperature="3200"/>
+  <Dimensions Weight="6" Width="230" Height="280" Depth="305"/>
+  <Lens Name="Fresnel" DegreesMin="10" DegreesMax="50"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="120" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
 </FixtureDefinition>

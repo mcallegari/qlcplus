@@ -2,8 +2,8 @@
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>OFL – https://open-fixture-library.org/martin/mac-encore-performance</Name>
-  <Version>1.0.1</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
   <Author>Felix Edelmann</Author>
  </Creator>
  <Manufacturer>Martin</Manufacturer>
@@ -63,55 +63,48 @@
   <Capability Min="20" Max="24" Preset="GoboMacro" Res1="Others/gobo00113.png">Gobo 3 (indexed)</Capability>
   <Capability Min="25" Max="29" Preset="GoboMacro" Res1="Others/gobo00114.svg">Gobo 4 (indexed)</Capability>
   <Capability Min="30" Max="34" Preset="GoboMacro" Res1="Others/gobo00115.svg">Gobo 5 (indexed)</Capability>
-  <Capability Min="35" Max="39" Preset="Alias" Res1="Others/gobo00111.svg">
-   Gobo 1 (rotation)
+  <Capability Min="35" Max="39" Preset="Alias">Gobo 1 (rotation)
    <Alias Mode="CLD" Channel="Gobo Indexing Angle" With="Gobo Rotation Speed"/>
    <Alias Mode="WRM" Channel="Gobo Indexing Angle" With="Gobo Rotation Speed"/>
    <Alias Mode="CLD" Channel="Gobo Indexing Angle fine" With="Gobo Rotation Speed fine"/>
    <Alias Mode="WRM" Channel="Gobo Indexing Angle fine" With="Gobo Rotation Speed fine"/>
   </Capability>
-  <Capability Min="40" Max="44" Preset="Alias" Res1="Others/gobo00112.svg">
-   Gobo 2 (rotation)
+  <Capability Min="40" Max="44" Preset="Alias">Gobo 2 (rotation)
    <Alias Mode="CLD" Channel="Gobo Indexing Angle" With="Gobo Rotation Speed"/>
    <Alias Mode="WRM" Channel="Gobo Indexing Angle" With="Gobo Rotation Speed"/>
    <Alias Mode="CLD" Channel="Gobo Indexing Angle fine" With="Gobo Rotation Speed fine"/>
    <Alias Mode="WRM" Channel="Gobo Indexing Angle fine" With="Gobo Rotation Speed fine"/>
   </Capability>
-  <Capability Min="45" Max="49" Preset="Alias" Res1="Others/gobo00113.png">
-   Gobo 3 (rotation)
+  <Capability Min="45" Max="49" Preset="Alias">Gobo 3 (rotation)
    <Alias Mode="CLD" Channel="Gobo Indexing Angle" With="Gobo Rotation Speed"/>
    <Alias Mode="WRM" Channel="Gobo Indexing Angle" With="Gobo Rotation Speed"/>
    <Alias Mode="CLD" Channel="Gobo Indexing Angle fine" With="Gobo Rotation Speed fine"/>
    <Alias Mode="WRM" Channel="Gobo Indexing Angle fine" With="Gobo Rotation Speed fine"/>
   </Capability>
-  <Capability Min="50" Max="54" Preset="Alias" Res1="Others/gobo00114.svg">
-   Gobo 4 (rotation)
+  <Capability Min="50" Max="54" Preset="Alias">Gobo 4 (rotation)
    <Alias Mode="CLD" Channel="Gobo Indexing Angle" With="Gobo Rotation Speed"/>
    <Alias Mode="WRM" Channel="Gobo Indexing Angle" With="Gobo Rotation Speed"/>
    <Alias Mode="CLD" Channel="Gobo Indexing Angle fine" With="Gobo Rotation Speed fine"/>
    <Alias Mode="WRM" Channel="Gobo Indexing Angle fine" With="Gobo Rotation Speed fine"/>
   </Capability>
-  <Capability Min="55" Max="59" Preset="Alias" Res1="Others/gobo00115.svg">
-   Gobo 5 (rotation)
+  <Capability Min="55" Max="59" Preset="Alias">Gobo 5 (rotation)
    <Alias Mode="CLD" Channel="Gobo Indexing Angle" With="Gobo Rotation Speed"/>
    <Alias Mode="WRM" Channel="Gobo Indexing Angle" With="Gobo Rotation Speed"/>
    <Alias Mode="CLD" Channel="Gobo Indexing Angle fine" With="Gobo Rotation Speed fine"/>
    <Alias Mode="WRM" Channel="Gobo Indexing Angle fine" With="Gobo Rotation Speed fine"/>
   </Capability>
-  <Capability Min="60" Max="89" Preset="GoboShakeMacro">Gobo 1 shake 360…10° slow…fast</Capability>
-  <Capability Min="90" Max="119" Preset="GoboShakeMacro">Gobo 2 shake 360…10° slow…fast</Capability>
-  <Capability Min="120" Max="149" Preset="GoboShakeMacro">Gobo 3 shake 360…10° slow…fast</Capability>
-  <Capability Min="150" Max="179" Preset="GoboShakeMacro">Gobo 4 shake 360…10° slow…fast</Capability>
-  <Capability Min="180" Max="209" Preset="GoboShakeMacro">Gobo 5 shake 360…10° slow…fast</Capability>
-  <Capability Min="210" Max="232" Preset="Alias">
-   Rotating Gobo Wheel rotation CW fast…slow
+  <Capability Min="60" Max="89" Preset="GoboShakeMacro" Res1="">Gobo 1 shake 360…10° slow…fast</Capability>
+  <Capability Min="90" Max="119" Preset="GoboShakeMacro" Res1="">Gobo 2 shake 360…10° slow…fast</Capability>
+  <Capability Min="120" Max="149" Preset="GoboShakeMacro" Res1="">Gobo 3 shake 360…10° slow…fast</Capability>
+  <Capability Min="150" Max="179" Preset="GoboShakeMacro" Res1="">Gobo 4 shake 360…10° slow…fast</Capability>
+  <Capability Min="180" Max="209" Preset="GoboShakeMacro" Res1="">Gobo 5 shake 360…10° slow…fast</Capability>
+  <Capability Min="210" Max="232" Preset="Alias">Rotating Gobo Wheel rotation CW fast…slow
    <Alias Mode="CLD" Channel="Gobo Indexing Angle" With="Gobo Rotation Speed"/>
    <Alias Mode="WRM" Channel="Gobo Indexing Angle" With="Gobo Rotation Speed"/>
    <Alias Mode="CLD" Channel="Gobo Indexing Angle fine" With="Gobo Rotation Speed fine"/>
    <Alias Mode="WRM" Channel="Gobo Indexing Angle fine" With="Gobo Rotation Speed fine"/>
   </Capability>
-  <Capability Min="233" Max="255" Preset="Alias">
-   Rotating Gobo Wheel rotation CCW slow…fast
+  <Capability Min="233" Max="255" Preset="Alias">Rotating Gobo Wheel rotation CCW slow…fast
    <Alias Mode="CLD" Channel="Gobo Indexing Angle" With="Gobo Rotation Speed"/>
    <Alias Mode="WRM" Channel="Gobo Indexing Angle" With="Gobo Rotation Speed"/>
    <Alias Mode="CLD" Channel="Gobo Indexing Angle fine" With="Gobo Rotation Speed fine"/>
@@ -133,19 +126,16 @@
   <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="5">No function</Capability>
   <Capability Min="6" Max="10">Horizontal indexed position</Capability>
-  <Capability Min="11" Max="15" Preset="Alias">
-   Horizontal rotation
+  <Capability Min="11" Max="15" Preset="Alias">Horizontal rotation
    <Alias Mode="CLD" Channel="Animation Wheel Indexing Angle" With="Animation Wheel Rotation Speed"/>
    <Alias Mode="WRM" Channel="Animation Wheel Indexing Angle" With="Animation Wheel Rotation Speed"/>
   </Capability>
-  <Capability Min="16" Max="20" Preset="Alias">
-   Vertical rotation
+  <Capability Min="16" Max="20" Preset="Alias">Vertical rotation
    <Alias Mode="CLD" Channel="Animation Wheel Indexing Angle" With="Animation Wheel Rotation Speed"/>
    <Alias Mode="WRM" Channel="Animation Wheel Indexing Angle" With="Animation Wheel Rotation Speed"/>
   </Capability>
   <Capability Min="21" Max="25">Vertical indexed position</Capability>
-  <Capability Min="26" Max="110" Preset="Alias">
-   Angled position rotation
+  <Capability Min="26" Max="110" Preset="Alias">Angled position rotation
    <Alias Mode="CLD" Channel="Animation Wheel Indexing Angle" With="Animation Wheel Rotation Speed"/>
    <Alias Mode="WRM" Channel="Animation Wheel Indexing Angle" With="Animation Wheel Rotation Speed"/>
   </Capability>
@@ -226,11 +216,11 @@
  <Channel Name="Fixture Control">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="9">No function (disables calibration) (hold 5s)</Capability>
-  <Capability Min="10" Max="14">Reset entire fixture (hold 5s)</Capability>
+  <Capability Min="10" Max="14" Preset="ResetAll">Reset entire fixture (hold 5s)</Capability>
   <Capability Min="15" Max="15">No function</Capability>
-  <Capability Min="16" Max="16">Reset color only (hold 5s)</Capability>
-  <Capability Min="17" Max="17">Reset beam only (hold 5s)</Capability>
-  <Capability Min="18" Max="18">Reset pan and tilt only (hold 5s)</Capability>
+  <Capability Min="16" Max="16" Preset="ResetColor">Reset color only (hold 5s)</Capability>
+  <Capability Min="17" Max="17" Preset="ResetEffects">Reset beam only (hold 5s)</Capability>
+  <Capability Min="18" Max="18" Preset="ResetPanTilt">Reset pan and tilt only (hold 5s)</Capability>
   <Capability Min="19" Max="22">No function</Capability>
   <Capability Min="23" Max="23">Linear dimming curve (hold 1s)</Capability>
   <Capability Min="24" Max="24">Square law dimming curve (hold 1s)</Capability>
@@ -267,11 +257,11 @@
   <Capability Min="67" Max="67">Store current pan position as lower pan limit (hold 5s)</Capability>
   <Capability Min="68" Max="68">Store current pan position as upper pan limit – (hold 5s)</Capability>
   <Capability Min="69" Max="69">Store current tilt position as lower tilt limit (hold 5s)</Capability>
-  <Capability Min="70" Max="70">Store current tilt position  as upper tilt limit (hold 5s)</Capability>
+  <Capability Min="70" Max="70">Store current tilt position as upper tilt limit (hold 5s)</Capability>
   <Capability Min="71" Max="71">Reset pan and tilt limits and disable pan/tilt limit functionality (hold 1s)</Capability>
   <Capability Min="72" Max="72">Tungsten Emulation = ON (hold 1s)</Capability>
   <Capability Min="73" Max="73">Tungsten Emulation = OFF (hold 1s)</Capability>
-  <Capability Min="74" Max="74">Alternative light source (color  temperature shift) = ON (hold 1s)</Capability>
+  <Capability Min="74" Max="74">Alternative light source (color temperature shift) = ON (hold 1s)</Capability>
   <Capability Min="75" Max="75">Alternative light source (color temperature shift) = OFF (hold 1s)</Capability>
   <Capability Min="76" Max="99">No function</Capability>
   <Capability Min="100" Max="100">Enable calibration (hold 5s)</Capability>
@@ -502,7 +492,6 @@
  </Channel>
  <Channel Name="FX Synchronization">
   <Group Byte="0">Intensity</Group>
-  <Colour>Generic</Colour>
   <Capability Min="0" Max="0">No function</Capability>
   <Capability Min="1" Max="1">Offset shift 10°</Capability>
   <Capability Min="2" Max="2">Offset shift 20°</Capability>
@@ -551,7 +540,7 @@
    <Dimensions Weight="31" Width="480" Height="740" Depth="452"/>
    <Lens Name="Other" DegreesMin="12" DegreesMax="48"/>
    <Focus Type="Head" PanMax="540" TiltMax="268"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="585"/>
+   <Technical PowerConsumption="585" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Shutter / Strobe</Channel>
   <Channel Number="1">Dimmer</Channel>
@@ -598,7 +587,7 @@
    <Dimensions Weight="31" Width="480" Height="740" Depth="452"/>
    <Lens Name="Other" DegreesMin="12" DegreesMax="48"/>
    <Focus Type="Head" PanMax="540" TiltMax="268"/>
-   <Technical DmxConnector="5-pin" PowerConsumption="585"/>
+   <Technical PowerConsumption="585" DmxConnector="5-pin"/>
   </Physical>
   <Channel Number="0">Shutter / Strobe</Channel>
   <Channel Number="1">Dimmer</Channel>
@@ -639,4 +628,11 @@
   <Channel Number="36">FX2 Speed</Channel>
   <Channel Number="37">FX Synchronization</Channel>
  </Mode>
+ <Physical>
+  <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="0" Width="0" Height="0" Depth="0"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+ </Physical>
 </FixtureDefinition>

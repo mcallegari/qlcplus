@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>István Király</Author>
  </Creator>
  <Manufacturer>PR Lighting</Manufacturer>
@@ -27,13 +27,13 @@
  <Channel Name="Control">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="48">Reserved</Capability>
-  <Capability Min="49" Max="80">Reset</Capability>
+  <Capability Min="49" Max="80" Preset="ResetAll">Reset</Capability>
   <Capability Min="81" Max="112">Reserved</Capability>
-  <Capability Min="113" Max="144">Lamp off (stop in DMX value for 10s)</Capability>
+  <Capability Min="113" Max="144" Preset="LampOff">Lamp off (stop in DMX value for 10s)</Capability>
   <Capability Min="145" Max="168">Reserved</Capability>
-  <Capability Min="169" Max="200">Lamp power reduced to 50%</Capability>
+  <Capability Min="169" Max="200" Preset="LampOn">Lamp power reduced to 50%</Capability>
   <Capability Min="201" Max="223">Reserved</Capability>
-  <Capability Min="224" Max="255">Lamp on</Capability>
+  <Capability Min="224" Max="255" Preset="LampOn">Lamp on</Capability>
  </Channel>
  <Channel Name="Dimmer Fine" Preset="IntensityDimmerFine"/>
  <Channel Name="Zoom Fine" Preset="BeamZoomFine"/>

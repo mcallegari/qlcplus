@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.0 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>John Yiannikakis</Author>
  </Creator>
  <Manufacturer>BoomToneDJ</Manufacturer>
@@ -18,7 +18,7 @@
  <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobe speed">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="0" Preset="ShutterOpen">Strobe OFF</Capability>
+  <Capability Min="0" Max="0" Preset="ShutterOpen">Strobe off</Capability>
   <Capability Min="1" Max="255" Preset="StrobeSlowToFast">Strobe speed</Capability>
  </Channel>
  <Channel Name="Program scrolling speed">

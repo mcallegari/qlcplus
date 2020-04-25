@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Owen Ling</Author>
  </Creator>
  <Manufacturer>beamZ</Manufacturer>
@@ -16,8 +16,8 @@
  <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobe (with Sound Active)">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9">No function</Capability>
-  <Capability Min="10" Max="119">Slow to Fast</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="10" Max="119" Preset="StrobeSlowToFast">Slow to Fast</Capability>
   <Capability Min="120" Max="255">Strobe sound program</Capability>
  </Channel>
  <Channel Name="LED 1 Red" Preset="IntensityRed"/>
@@ -28,8 +28,8 @@
  <Channel Name="LED 2 Blue" Preset="IntensityBlue"/>
  <Channel Name="Mode">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="9">No funciton</Capability>
-  <Capability Min="10" Max="119">Auto program</Capability>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="119" Preset="LampOff">Auto program</Capability>
   <Capability Min="120" Max="255">Sound program</Capability>
  </Channel>
  <Channel Name="Speed">

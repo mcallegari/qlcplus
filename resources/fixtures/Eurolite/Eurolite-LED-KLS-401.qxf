@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Robert Box</Author>
  </Creator>
  <Manufacturer>Eurolite</Manufacturer>
@@ -29,8 +29,8 @@
  <Channel Name="Master control" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobe control">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9">Off</Capability>
-  <Capability Min="10" Max="255">Strobe slow -&gt; fast</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">Off</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe slow -&gt; fast</Capability>
  </Channel>
  <Channel Name="Spot 1: Brightness red or running speed">
   <Group Byte="0">Effect</Group>

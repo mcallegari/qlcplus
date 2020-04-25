@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Thierry Rodolfo</Author>
  </Creator>
  <Manufacturer>Clay Paky</Manufacturer>
@@ -21,16 +21,16 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="3">Light On</Capability>
-  <Capability Min="4" Max="69">Strobe Min &lt; Max</Capability>
-  <Capability Min="70" Max="74">Light On</Capability>
-  <Capability Min="75" Max="140">Pulse Min &lt; Max</Capability>
-  <Capability Min="141" Max="206">Pulse Max &gt; Min</Capability>
-  <Capability Min="207" Max="211">Light On</Capability>
-  <Capability Min="212" Max="224">Random Strobe Low</Capability>
-  <Capability Min="225" Max="237">Random Strobe Medium</Capability>
-  <Capability Min="238" Max="250">Random Strobe Fast</Capability>
-  <Capability Min="251" Max="255">Light On</Capability>
+  <Capability Min="0" Max="3" Preset="ShutterOpen">Light on</Capability>
+  <Capability Min="4" Max="69" Preset="StrobeSlowToFast">Strobe Min &lt; Max</Capability>
+  <Capability Min="70" Max="74" Preset="ShutterOpen">Light on</Capability>
+  <Capability Min="75" Max="140" Preset="PulseSlowToFast">Pulse Min &lt; Max</Capability>
+  <Capability Min="141" Max="206" Preset="PulseFastToSlow">Pulse Max &gt; Min</Capability>
+  <Capability Min="207" Max="211" Preset="ShutterOpen">Light on</Capability>
+  <Capability Min="212" Max="224" Preset="StrobeRandom">Random Strobe Low</Capability>
+  <Capability Min="225" Max="237" Preset="StrobeRandom">Random Strobe Medium</Capability>
+  <Capability Min="238" Max="250" Preset="StrobeRandom">Random Strobe Fast</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">Light on</Capability>
  </Channel>
  <Channel Name="Macro Colordark Pink">
   <Group Byte="0">Effect</Group>

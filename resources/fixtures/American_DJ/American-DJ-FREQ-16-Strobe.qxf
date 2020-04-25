@@ -57,7 +57,7 @@
  </Channel>
  <Channel Name="Strobing simple">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="8" Preset="ShutterClose">No function</Capability>
+  <Capability Min="0" Max="8" Preset="ShutterOpen">No function</Capability>
   <Capability Min="9" Max="255" Preset="StrobeSlowToFast">Strobing Slow to fast</Capability>
  </Channel>
  <Mode Name="18 Channels">

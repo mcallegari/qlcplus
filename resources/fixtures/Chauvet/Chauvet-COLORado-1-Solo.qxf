@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Robert Box</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -17,35 +17,35 @@
  <Channel Name="Color Macro">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="10">No function</Capability>
-  <Capability Min="11" Max="30" Color="#ff0000" Color2="#ffff00">R: 100% G: 0-100% B: 0</Capability>
-  <Capability Min="31" Max="50" Color="#ffff00" Color2="#00ff00">R: 100%-0 G: 100% B: 0</Capability>
-  <Capability Min="51" Max="70" Color="#00ff00" Color2="#00ffff">R: 0 G: 100% B: 0-100%</Capability>
-  <Capability Min="71" Max="90" Color="#00ffff" Color2="#0000ff">R: 0 G: 100%-0 B: 100%</Capability>
-  <Capability Min="91" Max="110" Color="#0000ff" Color2="#ff00ff">R: 0-100% G: 0 B: 100%</Capability>
-  <Capability Min="111" Max="130" Color="#ff00ff" Color2="#ff0000">R: 100% G: 0 B: 100%-0</Capability>
-  <Capability Min="131" Max="150" Color="#ff0000" Color2="#ffffff">R: 100% G: 0-100% B: 0-100%</Capability>
-  <Capability Min="151" Max="170" Color="#ffffff" Color2="#0000ff">R: 100%-0 G: 100%-0 B: 100% </Capability>
-  <Capability Min="171" Max="200" Color="#ffffff">R: 100% G: 100% B: 100% W: 100%</Capability>
-  <Capability Min="201" Max="205" Color="#ffb46b">White 1</Capability>
-  <Capability Min="206" Max="210" Color="#ffbb78">White 2</Capability>
-  <Capability Min="211" Max="215" Color="#ffc489">White 3</Capability>
-  <Capability Min="216" Max="220" Color="#ffd1a3">White 4</Capability>
-  <Capability Min="221" Max="225" Color="#ffd5ad">White 5</Capability>
-  <Capability Min="226" Max="230" Color="#ffdbba">White 6</Capability>
-  <Capability Min="231" Max="235" Color="#ffeee3">White 7</Capability>
-  <Capability Min="236" Max="240" Color="#fff3ef">White 8</Capability>
-  <Capability Min="241" Max="245" Color="#fff9fd">White 9</Capability>
-  <Capability Min="246" Max="250" Color="#f0f1ff">White 10</Capability>
-  <Capability Min="251" Max="255" Color="#e3e9ff">White 11</Capability>
+  <Capability Min="11" Max="30" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffff00">R: 100% G: 0-100% B: 0</Capability>
+  <Capability Min="31" Max="50" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ff00">R: 100%-0 G: 100% B: 0</Capability>
+  <Capability Min="51" Max="70" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#00ffff">R: 0 G: 100% B: 0-100%</Capability>
+  <Capability Min="71" Max="90" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#0000ff">R: 0 G: 100%-0 B: 100%</Capability>
+  <Capability Min="91" Max="110" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ff00ff">R: 0-100% G: 0 B: 100%</Capability>
+  <Capability Min="111" Max="130" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ff0000">R: 100% G: 0 B: 100%-0</Capability>
+  <Capability Min="131" Max="150" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">R: 100% G: 0-100% B: 0-100%</Capability>
+  <Capability Min="151" Max="170" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#0000ff">R: 100%-0 G: 100%-0 B: 100%</Capability>
+  <Capability Min="171" Max="200" Preset="ColorMacro" Res1="#ffffff">R: 100% G: 100% B: 100% W: 100%</Capability>
+  <Capability Min="201" Max="205" Preset="ColorMacro" Res1="#ffb46b">White 1</Capability>
+  <Capability Min="206" Max="210" Preset="ColorMacro" Res1="#ffbb78">White 2</Capability>
+  <Capability Min="211" Max="215" Preset="ColorMacro" Res1="#ffc489">White 3</Capability>
+  <Capability Min="216" Max="220" Preset="ColorMacro" Res1="#ffd1a3">White 4</Capability>
+  <Capability Min="221" Max="225" Preset="ColorMacro" Res1="#ffd5ad">White 5</Capability>
+  <Capability Min="226" Max="230" Preset="ColorMacro" Res1="#ffdbba">White 6</Capability>
+  <Capability Min="231" Max="235" Preset="ColorMacro" Res1="#ffeee3">White 7</Capability>
+  <Capability Min="236" Max="240" Preset="ColorMacro" Res1="#fff3ef">White 8</Capability>
+  <Capability Min="241" Max="245" Preset="ColorMacro" Res1="#fff9fd">White 9</Capability>
+  <Capability Min="246" Max="250" Preset="ColorMacro" Res1="#f0f1ff">White 10</Capability>
+  <Capability Min="251" Max="255" Preset="ColorMacro" Res1="#e3e9ff">White 11</Capability>
  </Channel>
  <Channel Name="Strobe Effect">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9">No function</Capability>
-  <Capability Min="10" Max="99">0-20 Hz</Capability>
-  <Capability Min="100" Max="109">No function</Capability>
-  <Capability Min="110" Max="179">Lightning strobe</Capability>
-  <Capability Min="180" Max="189">No function</Capability>
-  <Capability Min="190" Max="255">Random strobe</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="10" Max="99" Preset="StrobeFreqRange" Res1="0" Res2="20">0-20 Hz</Capability>
+  <Capability Min="100" Max="109" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="110" Max="179" Preset="StrobeSlowToFast">Lightning strobe</Capability>
+  <Capability Min="180" Max="189" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="190" Max="255" Preset="StrobeRandom">Random strobe</Capability>
  </Channel>
  <Channel Name="Programs">
   <Group Byte="0">Effect</Group>
@@ -112,7 +112,7 @@
  <Channel Name="Zoom Control">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="200">No function</Capability>
-  <Capability Min="201" Max="220">Zoom reset</Capability>
+  <Capability Min="201" Max="220" Preset="ResetZoom">Zoom reset</Capability>
   <Capability Min="221" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
@@ -198,11 +198,11 @@
   <Channel Number="7">Zoom Control</Channel>
   <Channel Number="8">Dimmer Speed</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="780" ColourTemperature="0"/>
-   <Dimensions Weight="5.4" Width="242" Height="176" Depth="346"/>
-   <Lens Name="Other" DegreesMin="4" DegreesMax="40"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="65" DmxConnector="5-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="780" ColourTemperature="0"/>
+  <Dimensions Weight="5.4" Width="242" Height="176" Depth="346"/>
+  <Lens Name="Other" DegreesMin="4" DegreesMax="40"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="65" DmxConnector="5-pin"/>
+ </Physical>
 </FixtureDefinition>

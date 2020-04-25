@@ -13,7 +13,7 @@
  <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
  <Channel Name="Strobe Speed">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="10" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="0" Max="10" >No function</Capability>
   <Capability Min="11" Max="255" Preset="StrobeFreqRange" Res1="5" Res2="20">Strobe speed 5-20Hz</Capability>
  </Channel>
  <Channel Name="Dimmer speed">

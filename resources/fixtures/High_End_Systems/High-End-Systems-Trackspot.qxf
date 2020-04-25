@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.3.2</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Louis Gutenschwager</Author>
  </Creator>
  <Manufacturer>High End Systems</Manufacturer>
@@ -27,7 +27,7 @@
   <Capability Min="79" Max="79">Reverse Color Spin 6</Capability>
   <Capability Min="87" Max="87">Reverse Color Spin 5</Capability>
   <Capability Min="94" Max="94">Reverse Color Spin 4</Capability>
-  <Capability Min="99" Max="99">Reverse Color Spin  3</Capability>
+  <Capability Min="99" Max="99">Reverse Color Spin 3</Capability>
   <Capability Min="107" Max="107">Reverse Color Spin 2</Capability>
   <Capability Min="112" Max="112">Reverse Color Spin 1</Capability>
   <Capability Min="120" Max="120">half color 2</Capability>
@@ -81,17 +81,17 @@
  </Channel>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="0">closed</Capability>
-  <Capability Min="26" Max="26">open</Capability>
-  <Capability Min="51" Max="51">strobe 1</Capability>
-  <Capability Min="77" Max="77">strobe 2</Capability>
-  <Capability Min="102" Max="102">strobe 3</Capability>
-  <Capability Min="128" Max="128">strobe 4</Capability>
-  <Capability Min="153" Max="153">strobe 5</Capability>
-  <Capability Min="179" Max="179">strobe 6</Capability>
-  <Capability Min="204" Max="204">strobe 7</Capability>
-  <Capability Min="230" Max="230">closed</Capability>
-  <Capability Min="242" Max="255">open</Capability>
+  <Capability Min="0" Max="0" Preset="ShutterClose">closed</Capability>
+  <Capability Min="26" Max="26" Preset="ShutterOpen">open</Capability>
+  <Capability Min="51" Max="51" Preset="StrobeRandom">strobe 1</Capability>
+  <Capability Min="77" Max="77" Preset="StrobeRandom">strobe 2</Capability>
+  <Capability Min="102" Max="102" Preset="StrobeRandom">strobe 3</Capability>
+  <Capability Min="128" Max="128" Preset="StrobeRandom">strobe 4</Capability>
+  <Capability Min="153" Max="153" Preset="StrobeRandom">strobe 5</Capability>
+  <Capability Min="179" Max="179" Preset="StrobeRandom">strobe 6</Capability>
+  <Capability Min="204" Max="204" Preset="StrobeRandom">strobe 7</Capability>
+  <Capability Min="230" Max="230" Preset="ShutterClose">closed</Capability>
+  <Capability Min="242" Max="255" Preset="ShutterOpen">open</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="MSpeed">
@@ -107,11 +107,11 @@
   <Channel Number="5">Dimmer</Channel>
   <Channel Number="6">MSpeed</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" Type="QT 8500" ColourTemperature="0"/>
-   <Dimensions Width="650" Height="178" Weight="11" Depth="221"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="170" Type="Mirror" TiltMax="110"/>
-   <Technical PowerConsumption="350" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="QT 8500" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="11" Width="650" Height="178" Depth="221"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Mirror" PanMax="170" TiltMax="110"/>
+  <Technical PowerConsumption="350" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

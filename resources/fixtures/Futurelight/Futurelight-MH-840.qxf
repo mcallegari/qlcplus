@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>Futurelight</Manufacturer>
@@ -22,9 +22,9 @@
  </Channel>
  <Channel Name="Lamp switch, reset, fan speed">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="127">Lamp on, fan speed max to min</Capability>
-  <Capability Min="128" Max="139">Lamp on, reset</Capability>
-  <Capability Min="230" Max="239">Lamp off after 3 seconds</Capability>
+  <Capability Min="0" Max="127" Preset="LampOn">Lamp on, fan speed max to min</Capability>
+  <Capability Min="128" Max="139" Preset="ResetAll">Lamp on, reset</Capability>
+  <Capability Min="230" Max="239" Preset="LampOff">Lamp off after 3 seconds</Capability>
  </Channel>
  <Channel Name="Colour">
   <Group Byte="0">Colour</Group>

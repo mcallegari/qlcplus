@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.0 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>John R Houston</Author>
  </Creator>
  <Manufacturer>Martin</Manufacturer>
@@ -28,11 +28,11 @@
  <Channel Name="Fixture Control Settings">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="9">No function</Capability>
-  <Capability Min="10" Max="14">Reset entire fixture</Capability>
+  <Capability Min="10" Max="14" Preset="ResetAll">Reset entire fixture</Capability>
   <Capability Min="15" Max="19">No function</Capability>
-  <Capability Min="20" Max="24">Reset Color</Capability>
+  <Capability Min="20" Max="24" Preset="ResetColor">Reset Color</Capability>
   <Capability Min="25" Max="29">No Function</Capability>
-  <Capability Min="30" Max="34">Reset Pan and Tilt</Capability>
+  <Capability Min="30" Max="34" Preset="ResetPanTilt">Reset Pan and Tilt</Capability>
   <Capability Min="35" Max="54">No Function</Capability>
   <Capability Min="55" Max="59">Enable Calibration</Capability>
   <Capability Min="60" Max="64">Linear Dimmer Curve</Capability>

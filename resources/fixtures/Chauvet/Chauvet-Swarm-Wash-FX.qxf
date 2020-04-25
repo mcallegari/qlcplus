@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Stephen Olah</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -139,8 +139,8 @@
  </Channel>
  <Channel Name="Derby Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="4">No function</Capability>
-  <Capability Min="5" Max="200">Strobe speed (fast to slow)</Capability>
+  <Capability Min="0" Max="4" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="5" Max="200" Preset="StrobeFastToSlow">Strobe speed (fast to slow)</Capability>
   <Capability Min="201" Max="255">Sound active mode</Capability>
  </Channel>
  <Channel Name="Derby Speed">
@@ -179,8 +179,8 @@
  </Channel>
  <Channel Name="Laser Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="4">No function</Capability>
-  <Capability Min="5" Max="254">Strobe (fast to slow)</Capability>
+  <Capability Min="0" Max="4" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="5" Max="254" Preset="StrobeFastToSlow">Strobe (fast to slow)</Capability>
   <Capability Min="255" Max="255">Sound active strobe</Capability>
  </Channel>
  <Channel Name="Motor LED">

@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.0 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>David Wolfe</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -147,14 +147,14 @@
   <Capability Min="40" Max="47">Disable color wheel blackout (3 sec hold)</Capability>
   <Capability Min="48" Max="55">Disable gobo wheel blackout (3 sec hold)</Capability>
   <Capability Min="56" Max="95">No function</Capability>
-  <Capability Min="96" Max="103">Pan reset</Capability>
-  <Capability Min="104" Max="111">Tilt reset</Capability>
-  <Capability Min="112" Max="119">Color wheel reset</Capability>
-  <Capability Min="120" Max="127">Gobo wheel reset</Capability>
-  <Capability Min="128" Max="135">Gobo rotation reset</Capability>
-  <Capability Min="136" Max="143">Prism reset</Capability>
-  <Capability Min="144" Max="151">Focus reset</Capability>
-  <Capability Min="152" Max="159">All reset</Capability>
+  <Capability Min="96" Max="103" Preset="ResetPan">Pan reset</Capability>
+  <Capability Min="104" Max="111" Preset="ResetTilt">Tilt reset</Capability>
+  <Capability Min="112" Max="119" Preset="ResetColor">Color wheel reset</Capability>
+  <Capability Min="120" Max="127" Preset="ResetGobo">Gobo wheel reset</Capability>
+  <Capability Min="128" Max="135" Preset="ResetGobo">Gobo rotation reset</Capability>
+  <Capability Min="136" Max="143" Preset="ResetPrism">Prism reset</Capability>
+  <Capability Min="144" Max="151" Preset="ResetAll">Focus reset</Capability>
+  <Capability Min="152" Max="159" Preset="ResetAll">All reset</Capability>
   <Capability Min="160" Max="167">Iris reset</Capability>
   <Capability Min="168" Max="239">No function</Capability>
   <Capability Min="240" Max="247">Pan/Tilt movement ramp speed, increase on</Capability>

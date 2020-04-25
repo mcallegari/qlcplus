@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.7.5 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Rob Nieuwenhuizen</Author>
  </Creator>
  <Manufacturer>Laserworld</Manufacturer>
@@ -39,8 +39,8 @@
  </Channel>
  <Channel Name="Width (rotation over Y)">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="150">Fixed rotation</Capability>
-  <Capability Min="151" Max="255">automatic rotation with increased speed</Capability>
+  <Capability Min="0" Max="150" Preset="RotationIndexed">Fixed rotation</Capability>
+  <Capability Min="151" Max="255" Preset="RotationClockwiseSlowToFast">automatic rotation with increased speed</Capability>
  </Channel>
  <Channel Name="Width (rotation over X)">
   <Group Byte="0">Maintenance</Group>
@@ -90,11 +90,11 @@
   <Channel Number="11">Colour</Channel>
   <Channel Number="12">Image format</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" ColourTemperature="0" Type="RGB Laser"/>
-   <Dimensions Width="330" Weight="7" Depth="310" Height="170"/>
-   <Lens DegreesMin="40" DegreesMax="40" Name="Other"/>
-   <Focus PanMax="40" TiltMax="40" Type="Mirror"/>
-   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="RGB Laser" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="7" Width="330" Height="170" Depth="310"/>
+  <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
+  <Focus Type="Mirror" PanMax="40" TiltMax="40"/>
+  <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

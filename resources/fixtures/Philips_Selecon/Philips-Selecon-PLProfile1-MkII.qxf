@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Freasy</Author>
  </Creator>
  <Manufacturer>Philips Selecon</Manufacturer>
@@ -70,7 +70,7 @@
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="0">Default setting on console</Capability>
   <Capability Min="3" Max="4">Display on/off</Capability>
-  <Capability Min="5" Max="7">Reset all settings to defaults</Capability>
+  <Capability Min="5" Max="7" Preset="ResetAll">Reset all settings to defaults</Capability>
   <Capability Min="8" Max="10">Quiet mode</Capability>
   <Capability Min="11" Max="13">Studio mode</Capability>
   <Capability Min="14" Max="15">Normal mode</Capability>
@@ -108,7 +108,7 @@
   <Capability Min="82" Max="83">Preset 32 store</Capability>
   <Capability Min="100" Max="103">Color normalization on</Capability>
   <Capability Min="104" Max="107">Color normalization off</Capability>
-  <Capability Min="108" Max="112">Fixture reset</Capability>
+  <Capability Min="108" Max="112" Preset="ResetAll">Fixture reset</Capability>
   <Capability Min="113" Max="115">Red correction on</Capability>
   <Capability Min="116" Max="118">Red correction off</Capability>
  </Channel>

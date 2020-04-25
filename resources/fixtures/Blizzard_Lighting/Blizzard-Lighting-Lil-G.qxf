@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Alton Olson</Author>
  </Creator>
  <Manufacturer>Blizzard Lighting</Manufacturer>
@@ -18,20 +18,20 @@
  <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
  <Channel Name="Color Wheel">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="19" Color="#ffffff">White</Capability>
-  <Capability Min="20" Max="39" Color="#ffaaff">Pink</Capability>
-  <Capability Min="40" Max="59" Color="#00ff00">Green</Capability>
-  <Capability Min="60" Max="79" Color="#0000ff">Blue</Capability>
-  <Capability Min="80" Max="99" Color="#ffff00">Yellow</Capability>
-  <Capability Min="100" Max="119" Color="#8600ff">Purple</Capability>
-  <Capability Min="120" Max="139" Color="#00ffff">Teal</Capability>
-  <Capability Min="140" Max="159" Color="#ff5c00">Orange</Capability>
-  <Capability Min="160" Max="207" Res="Others/rainbow.png">Clockwise rainbow effect</Capability>
-  <Capability Min="208" Max="255" Res="Others/rainbow.png">Counterclockwise rainbow effect</Capability>
+  <Capability Min="0" Max="19" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="20" Max="39" Preset="ColorMacro" Res1="#ffaaff">Pink</Capability>
+  <Capability Min="40" Max="59" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="60" Max="79" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="80" Max="99" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="100" Max="119" Preset="ColorMacro" Res1="#8600ff">Purple</Capability>
+  <Capability Min="120" Max="139" Preset="ColorMacro" Res1="#00ffff">Teal</Capability>
+  <Capability Min="140" Max="159" Preset="ColorMacro" Res1="#ff5c00">Orange</Capability>
+  <Capability Min="160" Max="207" Preset="GoboMacro" Res1="Others/rainbow.png">Clockwise rainbow effect</Capability>
+  <Capability Min="208" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Counterclockwise rainbow effect</Capability>
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="9" Res="Others/open.svg">Open</Capability>
+  <Capability Min="0" Max="9" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="10" Max="19">Gobo 1</Capability>
   <Capability Min="20" Max="29">Gobo 2</Capability>
   <Capability Min="30" Max="39">Gobo 3</Capability>
@@ -62,7 +62,7 @@
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="254">No function</Capability>
-  <Capability Min="255" Max="255">Fixture reset in 3 seconds</Capability>
+  <Capability Min="255" Max="255" Preset="ResetAll">Fixture reset in 3 seconds</Capability>
  </Channel>
  <Mode Name="11 Channel Mode">
   <Channel Number="0">Pan</Channel>
@@ -77,11 +77,11 @@
   <Channel Number="9">Auto/Sound Active</Channel>
   <Channel Number="10">Reset</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="40W white LED" Lumens="7730" ColourTemperature="5500"/>
-   <Dimensions Weight="3.5" Width="201" Height="317" Depth="196"/>
-   <Lens Name="Other" DegreesMin="9" DegreesMax="9"/>
-   <Focus Type="Fixed" PanMax="540" TiltMax="220"/>
-   <Technical PowerConsumption="59" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="40W white LED" Lumens="7730" ColourTemperature="5500"/>
+  <Dimensions Weight="3.5" Width="201" Height="317" Depth="196"/>
+  <Lens Name="Other" DegreesMin="9" DegreesMax="9"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="220"/>
+  <Technical PowerConsumption="59" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

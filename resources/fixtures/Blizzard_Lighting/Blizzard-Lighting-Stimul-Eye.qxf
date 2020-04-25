@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>George Qualley IV</Author>
  </Creator>
  <Manufacturer>Blizzard Lighting</Manufacturer>
@@ -147,7 +147,7 @@
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="128">No function</Capability>
   <Capability Min="129" Max="249">Auto run mode</Capability>
-  <Capability Min="250" Max="255">Reset (after 6 seconds)</Capability>
+  <Capability Min="250" Max="255" Preset="ResetAll">Reset (after 6 seconds)</Capability>
  </Channel>
  <Channel Name="LED 1-6 Intensity">
   <Group Byte="0">Intensity</Group>

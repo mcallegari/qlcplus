@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Thierry Rodolfo</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -74,7 +74,7 @@
   <Capability Min="110" Max="119">Blackout with gobo change</Capability>
   <Capability Min="120" Max="129">No Blackout with gobo change</Capability>
   <Capability Min="130" Max="199">No function</Capability>
-  <Capability Min="200" Max="209">Reset All</Capability>
+  <Capability Min="200" Max="209" Preset="ResetAll">Reset All</Capability>
   <Capability Min="210" Max="249">No function</Capability>
   <Capability Min="250" Max="255">Sound active mode</Capability>
  </Channel>
@@ -111,11 +111,11 @@
   <Channel Number="9">Function</Channel>
   <Channel Number="10">Dimmer Curves</Channel>
  </Mode>
-<Physical>
+ <Physical>
   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
   <Dimensions Weight="3" Width="159" Height="265" Depth="147"/>
   <Lens Name="" DegreesMin="13" DegreesMax="13"/>
   <Focus Type="Head" PanMax="540" TiltMax="230"/>
   <Technical PowerConsumption="27" DmxConnector="3-pin"/>
-  </Physical>
+ </Physical>
 </FixtureDefinition>

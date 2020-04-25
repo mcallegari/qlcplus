@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.6 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Lukas Jähn</Author>
  </Creator>
  <Manufacturer>Futurelight</Manufacturer>
@@ -18,15 +18,15 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe_8ch">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="0" Max="0" Preset="ShutterOpen">No function</Capability>
   <Capability Min="1" Max="5">Sound Control</Capability>
-  <Capability Min="6" Max="10">No function</Capability>
-  <Capability Min="11" Max="255">slow to fast (increasing speed)</Capability>
+  <Capability Min="6" Max="10" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">slow to fast (increasing speed)</Capability>
  </Channel>
  <Channel Name="Strobe_12ch">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="10">No function</Capability>
-  <Capability Min="11" Max="255">slow to fast (increasing speed)</Capability>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">slow to fast (increasing speed)</Capability>
  </Channel>
  <Channel Name="Color presets">
   <Group Byte="0">Colour</Group>
@@ -50,7 +50,7 @@
   <Capability Min="236" Max="240">WHITE 8: 7200 K</Capability>
   <Capability Min="241" Max="245">WHITE 9: 8000 K</Capability>
   <Capability Min="246" Max="250">WHITE 10: 8500 K</Capability>
-  <Capability Min="251" Max="255" Color="#ffffff">WHITE 11: 10000 K</Capability>
+  <Capability Min="251" Max="255" Preset="ColorMacro" Res1="#ffffff">WHITE 11: 10000 K</Capability>
  </Channel>
  <Channel Name="Internal programs">
   <Group Byte="0">Effect</Group>
@@ -120,11 +120,11 @@
   <Channel Number="1">Saturation</Channel>
   <Channel Number="2">Intensity</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="5" Width="298" Height="323" Depth="112"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="95" DmxConnector="3-pin and 5-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5" Width="298" Height="323" Depth="112"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="95" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
 </FixtureDefinition>

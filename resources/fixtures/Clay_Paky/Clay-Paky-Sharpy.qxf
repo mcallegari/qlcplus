@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Massimo Callegari</Author>
  </Creator>
  <Manufacturer>Clay Paky</Manufacturer>
@@ -138,15 +138,15 @@
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="25">Unused</Capability>
-  <Capability Min="26" Max="76">Effects Reset</Capability>
-  <Capability Min="77" Max="127">Pan/Tilt Reset</Capability>
-  <Capability Min="128" Max="255">Complete Reset</Capability>
+  <Capability Min="26" Max="76" Preset="ResetEffects">Effects Reset</Capability>
+  <Capability Min="77" Max="127" Preset="ResetPanTilt">Pan/Tilt Reset</Capability>
+  <Capability Min="128" Max="255" Preset="ResetAll">Complete Reset</Capability>
  </Channel>
  <Channel Name="Lamp Control">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="25">Unused</Capability>
-  <Capability Min="26" Max="100">Lamp OFF</Capability>
-  <Capability Min="101" Max="255">Lamp ON</Capability>
+  <Capability Min="26" Max="100" Preset="LampOff">Lamp OFF</Capability>
+  <Capability Min="101" Max="255" Preset="LampOn">Lamp ON</Capability>
  </Channel>
  <Channel Name="Pan - Tilt Time">
   <Group Byte="0">Speed</Group>

@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Flox Garden</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -145,14 +145,14 @@
  </Channel>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="31">LED Off</Capability>
-  <Capability Min="32" Max="63">LED On</Capability>
-  <Capability Min="64" Max="95">Strobe Slow-&gt;Fast</Capability>
-  <Capability Min="96" Max="127">LED On</Capability>
-  <Capability Min="128" Max="159">Strobe Pulse Slow-&gt;Fast</Capability>
-  <Capability Min="160" Max="191">LED On</Capability>
-  <Capability Min="192" Max="223">Random Strobe Slow-&gt;Fast</Capability>
-  <Capability Min="224" Max="255">LED On</Capability>
+  <Capability Min="0" Max="31" Preset="ShutterClose">LED Off</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">LED On</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Strobe Slow-&gt;Fast</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">LED On</Capability>
+  <Capability Min="128" Max="159" Preset="PulseSlowToFast">Strobe Pulse Slow-&gt;Fast</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">LED On</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Random Strobe Slow-&gt;Fast</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">LED On</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Dimmer Fine" Preset="IntensityDimmerFine"/>

@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.9.1</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>George Qualley IV</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -14,56 +14,56 @@
  <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="Color macros/programs/sound activity">
   <Group Byte="0">Effect</Group>
-  <Capability Max="15" Min="0">Mode 1</Capability>
-  <Capability Max="31" Min="16">Mode 2</Capability>
-  <Capability Max="47" Min="32">Mode 3</Capability>
-  <Capability Max="63" Min="48">Mode 4</Capability>
-  <Capability Max="79" Min="64">Mode 5</Capability>
-  <Capability Max="95" Min="80">Mode 6</Capability>
-  <Capability Max="111" Min="96">Mode 7</Capability>
-  <Capability Max="127" Min="112">Mode 8</Capability>
-  <Capability Max="143" Min="128">Mode 9</Capability>
-  <Capability Max="159" Min="144">Mode 10</Capability>
-  <Capability Max="175" Min="160">Mode 11</Capability>
-  <Capability Max="191" Min="176">Mode 12</Capability>
-  <Capability Max="207" Min="192">Mode 13</Capability>
-  <Capability Max="223" Min="208">Mode 14</Capability>
-  <Capability Max="239" Min="224">Mode 15</Capability>
-  <Capability Max="255" Min="240">Mode 16</Capability>
+  <Capability Min="0" Max="15">Mode 1</Capability>
+  <Capability Min="16" Max="31">Mode 2</Capability>
+  <Capability Min="32" Max="47">Mode 3</Capability>
+  <Capability Min="48" Max="63">Mode 4</Capability>
+  <Capability Min="64" Max="79">Mode 5</Capability>
+  <Capability Min="80" Max="95">Mode 6</Capability>
+  <Capability Min="96" Max="111">Mode 7</Capability>
+  <Capability Min="112" Max="127">Mode 8</Capability>
+  <Capability Min="128" Max="143">Mode 9</Capability>
+  <Capability Min="144" Max="159">Mode 10</Capability>
+  <Capability Min="160" Max="175">Mode 11</Capability>
+  <Capability Min="176" Max="191">Mode 12</Capability>
+  <Capability Min="192" Max="207">Mode 13</Capability>
+  <Capability Min="208" Max="223">Mode 14</Capability>
+  <Capability Min="224" Max="239">Mode 15</Capability>
+  <Capability Min="240" Max="255">Mode 16</Capability>
  </Channel>
  <Channel Name="Program selection mode">
   <Group Byte="0">Effect</Group>
-  <Capability Max="51" Min="0">Dimming mode</Capability>
-  <Capability Max="102" Min="52">Color macro mode</Capability>
-  <Capability Max="153" Min="103">Color change mode</Capability>
-  <Capability Max="204" Min="154">Color fade mode</Capability>
-  <Capability Max="255" Min="205">Sound active mode</Capability>
+  <Capability Min="0" Max="51">Dimming mode</Capability>
+  <Capability Min="52" Max="102">Color macro mode</Capability>
+  <Capability Min="103" Max="153">Color change mode</Capability>
+  <Capability Min="154" Max="204">Color fade mode</Capability>
+  <Capability Min="205" Max="255">Sound active mode</Capability>
  </Channel>
  <Channel Name="Shutter/strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Max="31" Min="0">LED off</Capability>
-  <Capability Max="63" Min="32">LED on</Capability>
-  <Capability Max="95" Min="64">Strobing slow - fast</Capability>
-  <Capability Max="127" Min="96">LED on</Capability>
-  <Capability Max="159" Min="128">Strobe pulse slow - fast</Capability>
-  <Capability Max="191" Min="160">LED on</Capability>
-  <Capability Max="223" Min="192">Random strobe slow - fast</Capability>
-  <Capability Max="255" Min="224">LED on</Capability>
+  <Capability Min="0" Max="31" Preset="ShutterClose">LED Off</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">LED on</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Strobing slow - fast</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">LED on</Capability>
+  <Capability Min="128" Max="159" Preset="PulseSlowToFast">Strobe pulse slow - fast</Capability>
+  <Capability Min="160" Max="191" Preset="PrismEffectOff">LED on</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Random strobe slow - fast</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">LED on</Capability>
  </Channel>
  <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="UV" Preset="IntensityUV"/>
  <Channel Name="Program speed/sound sensitive">
   <Group Byte="0">Effect</Group>
-  <Capability Max="255" Min="0">Slow - fast/least sensitive - most sensitive</Capability>
+  <Capability Min="0" Max="255">Slow - fast/least sensitive - most sensitive</Capability>
  </Channel>
  <Channel Name="Dimmer curves">
   <Group Byte="0">Effect</Group>
-  <Capability Max="20" Min="0">Standard</Capability>
-  <Capability Max="40" Min="21">Stage</Capability>
-  <Capability Max="60" Min="41">TV</Capability>
-  <Capability Max="80" Min="61">Architectural</Capability>
-  <Capability Max="100" Min="81">Theatre</Capability>
-  <Capability Max="255" Min="101">Default to unit setting</Capability>
+  <Capability Min="0" Max="20">Standard</Capability>
+  <Capability Min="21" Max="40">Stage</Capability>
+  <Capability Min="41" Max="60">TV</Capability>
+  <Capability Min="61" Max="80">Architectural</Capability>
+  <Capability Min="81" Max="100">Theatre</Capability>
+  <Capability Min="101" Max="255">Default to unit setting</Capability>
  </Channel>
  <Mode Name="5 channel mode">
   <Channel Number="0">Red</Channel>
@@ -109,11 +109,11 @@
   <Channel Number="8">Program speed/sound sensitive</Channel>
   <Channel Number="9">Dimmer curves</Channel>
  </Mode>
-<Physical>
-   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
-   <Dimensions Weight="1.23" Width="220" Height="225" Depth="85"/>
-   <Lens DegreesMin="40" Name="Other" DegreesMax="40"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical DmxConnector="3-pin" PowerConsumption="21"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.23" Width="220" Height="225" Depth="85"/>
+  <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="21" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

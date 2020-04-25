@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Heiko Fanieng</Author>
  </Creator>
  <Manufacturer>Eurolite</Manufacturer>
@@ -13,22 +13,22 @@
  <Channel Name="Vertical movement" Preset="PositionTilt"/>
  <Channel Name="Dimmer/strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="7">Closed</Capability>
+  <Capability Min="0" Max="7" Preset="ShutterClose">Closed</Capability>
   <Capability Min="8" Max="134">dimmer intensity from 0 to 100 %</Capability>
-  <Capability Min="135" Max="239">Strobe-effect with increasing speed</Capability>
-  <Capability Min="240" Max="255">Open</Capability>
+  <Capability Min="135" Max="239" Preset="StrobeRandomSlowToFast">Strobe-effect with increasing speed</Capability>
+  <Capability Min="240" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Color macros">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="10">No function</Capability>
-  <Capability Min="11" Max="31" Color="#ffffff">RGB White</Capability>
-  <Capability Min="32" Max="52" Color="#ff0000">Red</Capability>
-  <Capability Min="53" Max="73" Color="#00ff00">Green</Capability>
-  <Capability Min="74" Max="94" Color="#0000ff">Blue</Capability>
-  <Capability Min="95" Max="115" Color="#ffffff">White (pure)</Capability>
-  <Capability Min="116" Max="136" Color="#ffff00">Yellow</Capability>
-  <Capability Min="137" Max="157" Color="#00ffff">Cyan</Capability>
-  <Capability Min="158" Max="178" Color="#ff00ff">Magenta</Capability>
+  <Capability Min="11" Max="31" Preset="ColorMacro" Res1="#ffffff">RGB White</Capability>
+  <Capability Min="32" Max="52" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="53" Max="73" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="74" Max="94" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="95" Max="115" Preset="ColorMacro" Res1="#ffffff">White (pure)</Capability>
+  <Capability Min="116" Max="136" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="137" Max="157" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="158" Max="178" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
   <Capability Min="179" Max="199">Color Change Macro 1</Capability>
   <Capability Min="200" Max="220">Color Change Macro 2</Capability>
   <Capability Min="221" Max="241">Color Change Macro 3</Capability>
@@ -64,10 +64,10 @@
  <Channel Name="Pan/Tilt-Speed" Preset="SpeedPanTiltFastSlow"/>
  <Channel Name="Dimmer/strobe 16Bit">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="7">Closed</Capability>
+  <Capability Min="0" Max="7" Preset="ShutterClose">Closed</Capability>
   <Capability Min="8" Max="134">Gradual adjustment of the dimmer intensity from 0 to 100 %</Capability>
-  <Capability Min="135" Max="239">Strobe-effect with increasing speed</Capability>
-  <Capability Min="240" Max="255">Open</Capability>
+  <Capability Min="135" Max="239" Preset="StrobeSlowToFast">Strobe-effect with increasing speed</Capability>
+  <Capability Min="240" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>
@@ -120,11 +120,11 @@
   <Channel Number="12">Motion macros</Channel>
   <Channel Number="13">Gobos/Gobo shake</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="3" Width="175" Height="245" Depth="170"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Head" PanMax="540" TiltMax="230"/>
-   <Technical PowerConsumption="35" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3" Width="175" Height="245" Depth="170"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Head" PanMax="540" TiltMax="230"/>
+  <Technical PowerConsumption="35" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

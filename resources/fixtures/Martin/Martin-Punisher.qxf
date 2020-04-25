@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>Martin</Manufacturer>
@@ -11,9 +11,9 @@
  <Type>Flower</Type>
  <Channel Name="Lamp">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="11">Lamp OFF</Capability>
-  <Capability Min="12" Max="193">Lamp ON</Capability>
-  <Capability Min="194" Max="255">Gobo strobe slow to fast</Capability>
+  <Capability Min="0" Max="11" Preset="LampOff">Lamp OFF</Capability>
+  <Capability Min="12" Max="193" Preset="LampOn">Lamp ON</Capability>
+  <Capability Min="194" Max="255" Preset="StrobeSlowToFast">Gobo strobe slow to fast</Capability>
  </Channel>
  <Channel Name="Trigger Mode">
   <Group Byte="0">Maintenance</Group>
@@ -78,11 +78,11 @@
  <Mode Name="Single">
   <Channel Number="0">Control</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="EHJ 250W" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="7" Width="265" Height="303" Depth="340"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="270" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="EHJ 250W" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="7" Width="265" Height="303" Depth="340"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="270" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

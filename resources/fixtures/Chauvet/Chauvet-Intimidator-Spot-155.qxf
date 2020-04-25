@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Robert Scheffler</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -82,11 +82,11 @@
   <Capability Min="88" Max="107">Blackout while pan/tilt/moving color wheel</Capability>
   <Capability Min="108" Max="127">Blackout while moving gobo/color wheel</Capability>
   <Capability Min="128" Max="147">Blackout while moving pan/tilt/gobo/color wheel</Capability>
-  <Capability Min="148" Max="167">Reset pan</Capability>
-  <Capability Min="168" Max="187">Reset tilt</Capability>
-  <Capability Min="188" Max="207">Reset color wheel</Capability>
-  <Capability Min="208" Max="227">Reset gobo wheel</Capability>
-  <Capability Min="228" Max="247">Reset all channels</Capability>
+  <Capability Min="148" Max="167" Preset="ResetPan">Reset pan</Capability>
+  <Capability Min="168" Max="187" Preset="ResetTilt">Reset tilt</Capability>
+  <Capability Min="188" Max="207" Preset="ResetColor">Reset color wheel</Capability>
+  <Capability Min="208" Max="227" Preset="ResetGobo">Reset gobo wheel</Capability>
+  <Capability Min="228" Max="247" Preset="ResetAll">Reset all channels</Capability>
   <Capability Min="248" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Movement Macros">

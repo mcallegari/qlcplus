@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Thorben / Fredje</Author>
  </Creator>
  <Manufacturer>Litecraft</Manufacturer>
@@ -21,8 +21,8 @@
  <Channel Name="White" Preset="IntensityWhite"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="13">No Strobe</Capability>
-  <Capability Min="14" Max="255">Strobe 16 speeds</Capability>
+  <Capability Min="0" Max="13" Preset="ShutterOpen">No Strobe</Capability>
+  <Capability Min="14" Max="255" Preset="StrobeFrequency">Strobe 16 speeds</Capability>
  </Channel>
  <Channel Name="Mode selection">
   <Group Byte="0">Effect</Group>
