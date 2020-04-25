@@ -45,6 +45,7 @@ qlcplus (4.12.3) stable; urgency=low
   * New fixtures: JB-Lighting Varycolor P3, Varyscan P3, Varyscan P4 (thanks to Marcus Lammert)
   * New fixture: Fun-Generation LED Pot 12x1W RGBW (thanks to Mark van Kemenade)
   * New fixture: Ibiza 400 RGB (thanks to Jochem de Kruijf)
+  * New fixture: Martin MAC Axiom Hybrid (thanks to Michał Kluska)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 26 Apr 2020 12:13:14 +0200
 

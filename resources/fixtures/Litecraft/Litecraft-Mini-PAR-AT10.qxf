@@ -7,7 +7,7 @@
   <Author>BuiDH</Author>
  </Creator>
  <Manufacturer>Litecraft</Manufacturer>
- <Model>Mini PAR AT10 </Model>
+ <Model>Mini PAR AT10</Model>
  <Type>Color Changer</Type>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>
