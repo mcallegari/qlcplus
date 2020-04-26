@@ -501,11 +501,6 @@ void RGBMatrix::preRun(MasterTimer *timer)
 
         if (m_algorithm != NULL)
         {
-            //Q_ASSERT(m_fader == NULL);
-            //m_fader = new GenericFader(doc());
-            //m_fader->adjustIntensity(getAttributeValue(Intensity));
-            //m_fader->setBlendMode(blendMode());
-
             // Copy direction from parent class direction
             m_stepHandler->initializeDirection(direction(), m_startColor, m_endColor, m_stepsCount);
 
@@ -563,9 +558,6 @@ void RGBMatrix::write(MasterTimer *timer, QList<Universe *> universes)
             }
         }
     }
-
-    // Run the generic fader that takes care of fading in/out individual channels
-    //m_fader->write(universes, isPaused());
 
     if (isPaused() == false)
     {

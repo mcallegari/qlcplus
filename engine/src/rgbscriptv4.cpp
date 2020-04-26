@@ -223,26 +223,19 @@ void RGBScript::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
 
     if (yarray.isArray() == true)
     {
-        int ylen = yarray.property("length").toInt();
+        QVariantList yvArray = yarray.toVariant().toList();
+
+        int ylen = yvArray.length();
         map.resize(ylen);
 
         for (int y = 0; y < ylen && y < size.height(); y++)
         {
-            if (yarray.isNull() || yarray.isUndefined())
-                continue;
-
-            QJSValue xarray(yarray.property(quint32(y)));
-            int xlen = xarray.property("length").toInt();
+            QVariantList xvArray = yvArray.at(y).toList();
+            int xlen = xvArray.length();
             map[y].resize(xlen);
 
             for (int x = 0; x < xlen && x < size.width(); x++)
-            {
-                if (xarray.isNull() || xarray.isUndefined())
-                    continue;
-
-                QJSValue yx(xarray.property(quint32(x)));
-                map[y][x] = yx.toUInt();
-            }
+                map[y][x] = xvArray.at(x).toUInt();
         }
     }
     else
