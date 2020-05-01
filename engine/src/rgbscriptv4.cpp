@@ -224,7 +224,6 @@ void RGBScript::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
     if (yarray.isArray() == true)
     {
         QVariantList yvArray = yarray.toVariant().toList();
-
         int ylen = yvArray.length();
         map.resize(ylen);
 
