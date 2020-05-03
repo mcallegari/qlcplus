@@ -303,6 +303,12 @@ public:
         Indigo      = 0x4B0082
     };
 
+#if QT_VERSION >= 0x050500
+    Q_ENUM(PrimaryColour)
+#else
+    Q_ENUMS(PrimaryColour)
+#endif
+
     /** Get a list of possible channel groups */
     static QStringList colourList();
 

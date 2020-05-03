@@ -34,7 +34,11 @@ Rectangle
     //border.width: 2
 
     property bool dmxValues: true
+    property bool closeOnSelect: false
+    property alias showPalette: paletteBox.visible
     property alias currentValue: spinBox.value
+
+    signal valueChanged(int value)
 
     onCurrentValueChanged:
     {
@@ -44,7 +48,9 @@ Rectangle
         }
         else
         {
-            fixtureManager.setIntensityValue(dmxValues ? currentValue : currentValue * 2.55)
+            intRoot.valueChanged(dmxValues ? currentValue : currentValue * 2.55)
+            if (closeOnSelect)
+                intRoot.visible = false
         }
     }
 
@@ -121,7 +127,7 @@ Rectangle
             color: "transparent"
             x: (parent.width - width) / 2
             width: intRoot.width * 0.75
-            height: intRoot.height - (UISettings.listItemHeight * 2) - paletteBox.height - 20
+            height: intRoot.height - (UISettings.listItemHeight * 2) - (showPalette ? paletteBox.height : 0) - 20
 
             Image
             {

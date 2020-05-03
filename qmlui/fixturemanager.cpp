@@ -885,6 +885,44 @@ QString FixtureManager::channelName(quint32 fxID, quint32 chIdx)
     return channel->name();
 }
 
+int FixtureManager::channelType(quint32 fxID, quint32 chIdx)
+{
+    Fixture *fixture = m_doc->fixture(fxID);
+    if (fixture == nullptr)
+        return QLCChannel::NoGroup;
+
+    const QLCChannel *channel = fixture->channel(chIdx);
+    if (channel == nullptr)
+        return QLCChannel::NoGroup;
+
+    if (channel->group() == QLCChannel::Intensity)
+        return channel->colour();
+    else
+        return channel->group();
+}
+
+int FixtureManager::channelDegrees(quint32 fxID, quint32 chIdx)
+{
+    Fixture *fixture = m_doc->fixture(fxID);
+    if (fixture == nullptr)
+        return 0;
+
+    const QLCChannel *channel = fixture->channel(chIdx);
+    if (channel == nullptr)
+        return 0;
+
+    if (channel->group() != QLCChannel::Pan &&
+        channel->group() != QLCChannel::Tilt)
+        return 0;
+
+    QRectF rect = fixture->degreesRange(0);
+
+    if (channel->group() == QLCChannel::Pan)
+        return rect.width();
+    else
+        return rect.height();
+}
+
 void FixtureManager::slotFixtureAdded(quint32 id, QVector3D pos)
 {
     if (m_doc->loadStatus() == Doc::Loading)
@@ -1843,6 +1881,34 @@ QVariantList FixtureManager::presetCapabilities(quint32 fixtureID, int chIndex)
         var.append(QVariant::fromValue(cap));
 
     return var;
+}
+
+QVariantList FixtureManager::presetChannel(quint32 fixtureID, int chIndex)
+{
+    QVariantList prList;
+
+    Fixture *fixture = m_doc->fixture(fixtureID);
+    if (fixture == nullptr)
+        return prList;
+
+    const QLCFixtureDef *def = fixture->fixtureDef();
+    const QLCFixtureMode *mode = fixture->fixtureMode();
+
+    if (def == nullptr || mode == nullptr)
+        return prList;
+
+    const QLCChannel *ch = fixture->channel(chIndex);
+
+    if (ch == nullptr)
+        return prList;
+
+    QVariantMap prMap;
+    prMap.insert("name", ch->name());
+    prMap.insert("fixtureID", fixtureID);
+    prMap.insert("channelIdx", chIndex);
+    prList.append(prMap);
+
+    return prList;
 }
 
 int FixtureManager::colorsMask() const

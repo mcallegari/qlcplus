@@ -132,6 +132,8 @@ SidePanel
                     x: leftSidePanel.width
                     y: UISettings.bigItemHeight
                     visible: false
+
+                    onValueChanged: fixtureManager.setIntensityValue(value)
                 }
             }
 

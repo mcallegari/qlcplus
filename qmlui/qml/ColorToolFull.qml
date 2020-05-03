@@ -82,50 +82,50 @@ Rectangle
 
         function fillWithGradient(r, g, b, xPos)
         {
-            context.beginPath();
-            var grad = context.createLinearGradient(xPos, 0, xPos, 255);
-            grad.addColorStop(0, 'black');
-            grad.addColorStop(0.5, Helpers.getHTMLColor(r,g,b));
-            grad.addColorStop(1, 'white');
-            context.strokeStyle = grad;
-            context.moveTo(xPos, 0);
-            context.lineTo(xPos, 255);
-            context.closePath();
-            context.stroke();
+            context.beginPath()
+            var grad = context.createLinearGradient(xPos, 0, xPos, 255)
+            grad.addColorStop(0, 'black')
+            grad.addColorStop(0.5, Helpers.getHTMLColor(r,g,b))
+            grad.addColorStop(1, 'white')
+            context.strokeStyle = grad
+            context.moveTo(xPos, 0)
+            context.lineTo(xPos, 255)
+            context.closePath()
+            context.stroke()
         }
 
         onPaint:
         {
-            context.globalAlpha = 1.0;
-            var i = 0;
-            var x = 0;
-            var r = 0xFF;
-            var g = 0;
-            var b = 0;
-            context.lineWidth = 1;
+            context.globalAlpha = 1.0
+            var i = 0
+            var x = 0
+            var r = 0xFF
+            var g = 0
+            var b = 0
+            context.lineWidth = 1
 
-            var baseColors = [ 0xFF0000, 0xFFFF00, 0x00FF00, 0x00FFFF, 0x0000FF, 0xFF00FF, 0xFF0000 ];
+            var baseColors = [ 0xFF0000, 0xFFFF00, 0x00FF00, 0x00FFFF, 0x0000FF, 0xFF00FF, 0xFF0000 ]
 
             for (var c = 0; c < 6; c++)
             {
-                r = (baseColors[c] >> 16) & 0x00FF;
-                g = (baseColors[c] >> 8) & 0x00FF;
-                b = baseColors[c] & 0x00FF;
-                var nr = (baseColors[c + 1] >> 16) & 0x00FF;
-                var ng = (baseColors[c + 1] >> 8) & 0x00FF;
-                var nb = baseColors[c + 1] & 0x00FF;
-                var rD = (nr - r) / 42;
-                var gD = (ng - g) / 42;
-                var bD = (nb - b) / 42;
+                r = (baseColors[c] >> 16) & 0x00FF
+                g = (baseColors[c] >> 8) & 0x00FF
+                b = baseColors[c] & 0x00FF
+                var nr = (baseColors[c + 1] >> 16) & 0x00FF
+                var ng = (baseColors[c + 1] >> 8) & 0x00FF
+                var nb = baseColors[c + 1] & 0x00FF
+                var rD = (nr - r) / 42
+                var gD = (ng - g) / 42
+                var bD = (nb - b) / 42
 
                 for (i = x; i < x + 42; i++)
                 {
-                    fillWithGradient(r, g, b, i);
-                    r+=rD;
-                    g+=gD;
-                    b+=bD;
+                    fillWithGradient(r, g, b, i)
+                    r += rD
+                    g += gD
+                    b += bD
                 }
-                x+=42;
+                x += 42
             }
         }
 
@@ -234,7 +234,7 @@ Rectangle
         {
             visible: colorsMask & App.White
             height: UISettings.listItemHeight
-            label: qsTr("White");
+            label: qsTr("White")
         }
 
         CustomSlider
@@ -262,7 +262,7 @@ Rectangle
         {
             visible: colorsMask & App.Amber
             height: UISettings.listItemHeight
-            label: qsTr("Amber");
+            label: qsTr("Amber")
         }
 
         CustomSlider
@@ -290,7 +290,7 @@ Rectangle
         {
             visible: colorsMask & App.UV
             height: UISettings.listItemHeight
-            label: qsTr("UV");
+            label: qsTr("UV")
         }
 
         CustomSlider

@@ -217,6 +217,14 @@ public:
      *  the provided Fixture ID $fxID and channel index $chIdx */
     Q_INVOKABLE QString channelName(quint32 fxID, quint32 chIdx);
 
+    /** Generic helper to retrieve a channel type, from
+     *  the provided Fixture ID $fxID and channel index $chIdx */
+    Q_INVOKABLE int channelType(quint32 fxID, quint32 chIdx);
+
+    /** Generic helper to retrieve the maximum degrees,
+     *  from a pan/tilt channel of the given $fxID */
+    Q_INVOKABLE int channelDegrees(quint32 fxID, quint32 chIdx);
+
 signals:
     /** Notify the listeners that the number of Fixtures has changed */
     void fixturesCountChanged();
@@ -416,6 +424,9 @@ public:
     /** Returns the list of QLCCapability in QVariant format for
      *  the channel cached at the given index */
     Q_INVOKABLE QVariantList presetCapabilities(quint32 fixtureID, int chIndex);
+
+    /** Returns a preset channel usable by the QML PresetTool */
+    Q_INVOKABLE QVariantList presetChannel(quint32 fixtureID, int chIndex);
 
     /** Returns the currently available colors as a bitmask */
     int colorsMask() const;

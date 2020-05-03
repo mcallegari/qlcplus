@@ -5,12 +5,14 @@
     <!-- Common components -->
     <file alias="ActionsMenu.qml">qml/ActionsMenu.qml</file>
     <file alias="BeatGeneratorsPanel.qml">qml/BeatGeneratorsPanel.qml</file>
+    <file alias="ChannelToolLoader.qml">qml/ChannelToolLoader.qml</file>
     <file alias="ChaserStepDelegate.qml">qml/ChaserStepDelegate.qml</file>
     <file alias="ChaserWidget.qml">qml/ChaserWidget.qml</file>
     <file alias="ColorTool.qml">qml/ColorTool.qml</file>
     <file alias="ColorToolBasic.qml">qml/ColorToolBasic.qml</file>
     <file alias="ColorToolFilters.qml">qml/ColorToolFilters.qml</file>
     <file alias="ColorToolFull.qml">qml/ColorToolFull.qml</file>
+    <file alias="ColorToolPrimary.qml">qml/ColorToolPrimary.qml</file>
     <file alias="ContextMenuEntry.qml">qml/ContextMenuEntry.qml</file>
     <file alias="CustomCheckBox.qml">qml/CustomCheckBox.qml</file>
     <file alias="CustomComboBox.qml">qml/CustomComboBox.qml</file>
@@ -46,6 +48,7 @@
     <file alias="RobotoText.qml">qml/RobotoText.qml</file>
     <file alias="SectionBox.qml">qml/SectionBox.qml</file>
     <file alias="SidePanel.qml">qml/SidePanel.qml</file>
+    <file alias="SingleAxisTool.qml">qml/SingleAxisTool.qml</file>
     <file alias="TimeEditTool.qml">qml/TimeEditTool.qml</file>
     <file alias="TreeNodeDelegate.qml">qml/TreeNodeDelegate.qml</file>
     <file alias="UISettings.qml">qml/UISettings.qml</file>

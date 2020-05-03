@@ -41,6 +41,8 @@ Rectangle
     property int panDegrees: 0
     property int tiltDegrees: 0
 
+    property alias showPalette: paletteBox.visible
+
     onPanDegreesChanged:
     {
         if (paletteBox.isEditing || paletteBox.checked)

@@ -36,8 +36,10 @@ Rectangle
     property alias presetModel: prList.model
     property int selectedFixture: -1
     property int selectedChannel: -1
+    property bool showPalette: false
 
     signal presetSelected(QLCCapability cap, int fxID, int chIdx, int value)
+    signal valueChanged(int value)
 
     function updatePresets(presetModel)
     {
@@ -152,6 +154,7 @@ Rectangle
                     onValueChanged:
                     {
                         toolRoot.presetSelected(capability, selectedFixture, selectedChannel, value)
+                        toolRoot.valueChanged(value)
                         if (closeOnSelect)
                             toolRoot.visible = false
                     }
