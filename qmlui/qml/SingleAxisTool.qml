@@ -32,7 +32,7 @@ Rectangle
     border.color: "#222"
     border.width: 2
 
-    property int maxDegrees: 360
+    property real maxDegrees: 360
     property int currentValue: 0 // in DMX values
     property int currentDegrees: Math.round((currentValue * maxDegrees) / 255.0)
     property bool closeOnSelect: false

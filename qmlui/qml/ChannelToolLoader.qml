@@ -34,6 +34,8 @@ Popup
     property int channelValue: 0
     property int yPos: 0
 
+    signal valueChanged(int fixtureID, int channelIndex, int value)
+
     function loadChannelTool(cItem, fxId, chIdx, val)
     {
         channelType = fixtureManager.channelType(fxId, chIdx)
@@ -114,7 +116,7 @@ Popup
         {
             ignoreUnknownSignals: true
             target: toolLoader.item
-            onValueChanged: functionManager.setChannelValue(popupRoot.fixtureId, popupRoot.channelIndex, value)
+            onValueChanged: popupRoot.valueChanged(popupRoot.fixtureId, popupRoot.channelIndex, value)
         }
     }
 }

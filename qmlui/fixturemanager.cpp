@@ -901,7 +901,7 @@ int FixtureManager::channelType(quint32 fxID, quint32 chIdx)
         return channel->group();
 }
 
-int FixtureManager::channelDegrees(quint32 fxID, quint32 chIdx)
+qreal FixtureManager::channelDegrees(quint32 fxID, quint32 chIdx)
 {
     Fixture *fixture = m_doc->fixture(fxID);
     if (fixture == nullptr)
@@ -918,9 +918,13 @@ int FixtureManager::channelDegrees(quint32 fxID, quint32 chIdx)
     QRectF rect = fixture->degreesRange(0);
 
     if (channel->group() == QLCChannel::Pan)
-        return rect.width();
+    {
+        return (channel->controlByte() == QLCChannel::MSB) ? rect.width() : rect.width() / 255.0;
+    }
     else
-        return rect.height();
+    {
+        return (channel->controlByte() == QLCChannel::MSB) ? rect.height() : rect.height() / 255.0;
+    }
 }
 
 void FixtureManager::slotFixtureAdded(quint32 id, QVector3D pos)

@@ -223,7 +223,7 @@ public:
 
     /** Generic helper to retrieve the maximum degrees,
      *  from a pan/tilt channel of the given $fxID */
-    Q_INVOKABLE int channelDegrees(quint32 fxID, quint32 chIdx);
+    Q_INVOKABLE qreal channelDegrees(quint32 fxID, quint32 chIdx);
 
 signals:
     /** Notify the listeners that the number of Fixtures has changed */

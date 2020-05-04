@@ -43,6 +43,8 @@ Rectangle
     {
         id: channelToolLoader
         z: 2
+
+        onValueChanged: functionManager.setChannelValue(fixtureID, channelIndex, value)
     }
 
     ListView
