@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.0 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Lorenzo Andreani</Author>
  </Creator>
  <Manufacturer>Pro-Lights</Manufacturer>
@@ -119,8 +119,8 @@
  <Channel Name="Lamp Control">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="25">No function</Capability>
-  <Capability Min="26" Max="100">Lamp Off</Capability>
-  <Capability Min="101" Max="255">Lamp On</Capability>
+  <Capability Min="26" Max="100" Preset="LampOff">Lamp Off</Capability>
+  <Capability Min="101" Max="255" Preset="LampOn">Lamp On</Capability>
  </Channel>
  <Channel Name="Function">
   <Group Byte="0">Nothing</Group>
