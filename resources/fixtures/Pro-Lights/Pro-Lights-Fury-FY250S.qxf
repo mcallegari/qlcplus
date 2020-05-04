@@ -89,7 +89,7 @@
   <Capability Min="108" Max="127">Disable Blackout while Gobo Wheel/Color Wheel Moving</Capability>
   <Capability Min="128" Max="147">Disable Blackout while Pan/Tilt/Gobo Wheel/Color Wheel Moving</Capability>
   <Capability Min="148" Max="157" Preset="ResetPan">Reset Pan</Capability>
-  <Capability Min="158" Max="167">Reset Tilt</Capability>
+  <Capability Min="158" Max="167" Preset="ResetTilt">Reset Tilt</Capability>
   <Capability Min="168" Max="177" Preset="ResetColor">Reset Color Wheel</Capability>
   <Capability Min="178" Max="187" Preset="ResetGobo">Reset Gobo Wheel</Capability>
   <Capability Min="188" Max="197" Preset="ResetPrism">Reset Prism</Capability>
