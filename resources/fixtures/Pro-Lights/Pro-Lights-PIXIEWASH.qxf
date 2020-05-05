@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Tolmino Muccitelli</Author>
  </Creator>
  <Manufacturer>Pro-Lights</Manufacturer>
@@ -25,14 +25,14 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="31">Shutter Closed</Capability>
-  <Capability Min="32" Max="63">No function (Shutter Open)</Capability>
-  <Capability Min="64" Max="95">Strobe Effect (Slow to Fast)</Capability>
-  <Capability Min="96" Max="127">No function (Shutter Open)</Capability>
+  <Capability Min="0" Max="31" Preset="ShutterClose">Shutter Closed</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">No function (Shutter Open)</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Strobe Effect (Slow to Fast)</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">No function (Shutter Open)</Capability>
   <Capability Min="128" Max="159">Pulse - Effect in sequence</Capability>
-  <Capability Min="160" Max="191">No function (Shutter Open)</Capability>
-  <Capability Min="192" Max="223">Random Strobe Effect (Slow to Fast)</Capability>
-  <Capability Min="224" Max="255">No function (Shutter Open)</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">No function (Shutter Open)</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Random Strobe Effect (Slow to Fast)</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">No function (Shutter Open)</Capability>
  </Channel>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>
