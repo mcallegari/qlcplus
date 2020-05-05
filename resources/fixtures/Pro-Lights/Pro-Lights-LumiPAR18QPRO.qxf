@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.4.1</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Veljko Stankov</Author>
  </Creator>
  <Manufacturer>Pro-Lights</Manufacturer>
@@ -54,7 +54,7 @@
  </Channel>
  <Channel Name="Auto Speed Adj">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="255">Slow-Fast</Capability>
+  <Capability Min="0" Max="255" Preset="SlowToFast">Slow-Fast</Capability>
  </Channel>
  <Channel Name="Dimmer Speed">
   <Group Byte="0">Maintenance</Group>
@@ -88,11 +88,11 @@
   <Channel Number="2">Blue</Channel>
   <Channel Number="3">White</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="3000" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="302" Height="239" Weight="5" Depth="259"/>
-   <Lens DegreesMax="33" Name="Other" DegreesMin="33"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="200" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="3000" ColourTemperature="0"/>
+  <Dimensions Weight="5" Width="302" Height="239" Depth="259"/>
+  <Lens Name="Other" DegreesMin="33" DegreesMax="33"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="200" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>
