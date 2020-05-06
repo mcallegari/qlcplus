@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.0 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Lorenzo Andreani</Author>
  </Creator>
  <Manufacturer>Pro-Lights</Manufacturer>
@@ -19,11 +19,11 @@
  </Channel>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="7">Closed</Capability>
+  <Capability Min="0" Max="7" Preset="ShutterClose">Closed</Capability>
   <Capability Min="8" Max="132">Dimmer 75% - 0</Capability>
-  <Capability Min="133" Max="134">Closed</Capability>
-  <Capability Min="135" Max="239">Strobe Slow &gt; Fast</Capability>
-  <Capability Min="240" Max="255">Open</Capability>
+  <Capability Min="133" Max="134" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="135" Max="239" Preset="StrobeSlowToFast">Strobe Slow &gt; Fast</Capability>
+  <Capability Min="240" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>
@@ -35,12 +35,12 @@
  </Channel>
  <Channel Name="Color Macro">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="7" Res="Others/open.svg">No function</Capability>
-  <Capability Min="8" Max="21" Color="#ffffff">Ice</Capability>
-  <Capability Min="22" Max="35" Color="#ff0000">Red</Capability>
-  <Capability Min="36" Max="49" Color="#00ff00">Green</Capability>
-  <Capability Min="50" Max="63" Color="#0000ff">Blue</Capability>
-  <Capability Min="64" Max="77" Color="#ffffff">White</Capability>
+  <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.svg">No function</Capability>
+  <Capability Min="8" Max="21" Preset="ColorMacro" Res1="#ffffff">Ice</Capability>
+  <Capability Min="22" Max="35" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="36" Max="49" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="50" Max="63" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="64" Max="77" Preset="ColorMacro" Res1="#ffffff">White</Capability>
   <Capability Min="78" Max="91">Color 1</Capability>
   <Capability Min="92" Max="105">Color 2</Capability>
   <Capability Min="106" Max="119">Color 3</Capability>
@@ -63,16 +63,16 @@
   <Capability Min="0" Max="7">Reserved</Capability>
   <Capability Min="8" Max="27">Blackout while Pan/Tilt Moving</Capability>
   <Capability Min="28" Max="147">Retention</Capability>
-  <Capability Min="148" Max="167">Reset Pan</Capability>
-  <Capability Min="168" Max="187">Reset Tilt</Capability>
+  <Capability Min="148" Max="167" Preset="ResetPan">Reset Pan</Capability>
+  <Capability Min="168" Max="187" Preset="ResetTilt">Reset Tilt</Capability>
   <Capability Min="188" Max="207">Retention</Capability>
   <Capability Min="208" Max="227">Retention</Capability>
-  <Capability Min="228" Max="247">Reset All</Capability>
+  <Capability Min="228" Max="247" Preset="ResetAll">Reset All</Capability>
   <Capability Min="248" Max="255">Reserved</Capability>
  </Channel>
  <Channel Name="Effect">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="7" Res="Others/open.svg">No function</Capability>
+  <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.svg">No function</Capability>
   <Capability Min="8" Max="23">Effect 1</Capability>
   <Capability Min="24" Max="39">Effect 2</Capability>
   <Capability Min="40" Max="55">Effect 3</Capability>
@@ -115,11 +115,11 @@
   <Channel Number="4">Led Color Saturation (Dark &gt; Light)</Channel>
   <Channel Number="5">Color Macro</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="42000" ColourTemperature="0"/>
-   <Dimensions Weight="3.2" Width="208" Height="225" Depth="213"/>
-   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
-   <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
-   <Technical PowerConsumption="67" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="42000" ColourTemperature="0"/>
+  <Dimensions Weight="3.2" Width="208" Height="225" Depth="213"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="67" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>
