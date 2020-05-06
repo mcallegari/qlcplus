@@ -54,7 +54,7 @@
  </Channel>
  <Channel Name="Auto Speed">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="255" Preset="SlowToFast">Slow-Fast</Capability>
+  <Capability Min="0" Max="255">Slow-Fast</Capability>
  </Channel>
  <Channel Name="Dimmer Speed">
   <Group Byte="0">Maintenance</Group>
