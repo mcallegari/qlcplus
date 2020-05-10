@@ -246,7 +246,7 @@ signals:
     void fixturesRotationChanged();
 
 private:
-    /** The list of the currently selected Fixture IDs */
+    /** The list of the currently selected Fixture item IDs */
     QList<quint32> m_selectedFixtures;
 
     /** A flag indicating if a Function is currently being edited */

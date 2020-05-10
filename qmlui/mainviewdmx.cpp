@@ -153,7 +153,7 @@ void MainViewDMX::updateFixtureSelection(QList<quint32>fixtures)
     while(it.hasNext())
     {
         it.next();
-        quint32 itemID = it.key();
+        quint32 itemID = FixtureUtils::fixtureItemID(it.key(), 0, 0);
         QQuickItem *fxItem = it.value();
         if (fixtures.contains(itemID))
             fxItem->setProperty("isSelected", true);
