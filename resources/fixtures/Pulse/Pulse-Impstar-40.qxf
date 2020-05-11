@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Paul Wilton</Author>
  </Creator>
  <Manufacturer>Pulse</Manufacturer>
@@ -26,21 +26,21 @@
  <Channel Name="Special Functions 16">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="199">No function</Capability>
-  <Capability Min="200" Max="209">Reset</Capability>
+  <Capability Min="200" Max="209" Preset="ResetAll">Reset</Capability>
   <Capability Min="210" Max="239">No Function</Capability>
  </Channel>
  <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Special Functions 21">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="199">No function</Capability>
-  <Capability Min="200" Max="209">Reset</Capability>
+  <Capability Min="200" Max="209" Preset="ResetAll">Reset</Capability>
   <Capability Min="210" Max="239">No Function</Capability>
   <Capability Min="240" Max="255">Automatic sound-to-light-show</Capability>
  </Channel>
  <Channel Name="5050 SMD Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="5050 SMD Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="8">Off</Capability>
+  <Capability Min="0" Max="8" Preset="ShutterClose">Off</Capability>
   <Capability Min="9" Max="255">Increasing speed</Capability>
  </Channel>
  <Channel Name="5050 SMD Red" Preset="IntensityRed"/>
