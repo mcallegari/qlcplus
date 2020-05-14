@@ -77,7 +77,7 @@
  <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="49" Preset="LampOff">Off</Capability>
+  <Capability Min="0" Max="49">Off</Capability>
   <Capability Min="50" Max="234">Lamp hysteresis</Capability>
   <Capability Min="235" Max="255" Preset="ResetAll">Reset</Capability>
  </Channel>
