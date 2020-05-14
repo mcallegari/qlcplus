@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Alexander</Author>
  </Creator>
  <Manufacturer>Showtec</Manufacturer>
@@ -16,13 +16,13 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="1">Shutter</Group>
-  <Capability Min="0" Max="10">No Strobe</Capability>
-  <Capability Min="11" Max="255" Preset="ColorMacro" Res1="#ffffff">Strobe 0-20 Hz</Capability>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">No Strobe</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="20">Strobe 0-20 Hz</Capability>
  </Channel>
  <Channel Name="Random Strobe">
   <Group Byte="1">Shutter</Group>
-  <Capability Min="0" Max="10">No Strobe</Capability>
-  <Capability Min="11" Max="255">Random Strobe</Capability>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">No Strobe</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeRandom">Random Strobe</Capability>
  </Channel>
  <Channel Name="Color Presets">
   <Group Byte="1">Colour</Group>
