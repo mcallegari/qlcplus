@@ -159,6 +159,13 @@ bool Script::setData(const QString& str)
         }
     }
 
+    scanForLabels();
+
+    return true;
+}
+
+void Script::scanForLabels()
+{
     // Map all labels to their individual line numbers for fast jumps
     m_labels.clear();
     for (int i = 0; i < m_lines.size(); i++)
@@ -170,14 +177,14 @@ bool Script::setData(const QString& str)
             m_labels[line.first()[1]] = i;
         }
     }
-
-    return true;
 }
 
 bool Script::appendData(const QString &str)
 {
     m_data.append(str + QString("\n"));
     m_lines << tokenizeLine(str + QString("\n"));
+
+    scanForLabels();
 
     return true;
 }

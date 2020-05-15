@@ -97,6 +97,11 @@ public:
     /** Get the raw script data */
     QString data() const;
 
+    /** Parse existing, tokenized lines for jump label definitions.
+     * Used to be part of data() but was not called after loadXML,
+     * so moved to a separate function */
+    void scanForLabels();
+
     /** Get the script data lines as a list of  strings */
     QStringList dataLines() const;
 
