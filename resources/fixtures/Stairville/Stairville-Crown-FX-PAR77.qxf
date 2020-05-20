@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Andres Robles</Author>
  </Creator>
  <Manufacturer>Stairville</Manufacturer>
@@ -47,7 +47,7 @@
  <Channel Name="Intensity blue" Preset="IntensityBlue"/>
  <Channel Name="Strobe function">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">No function</Capability>
   <Capability Min="6" Max="20">Strobe LED ring constantly on</Capability>
   <Capability Min="21" Max="250" Preset="StrobeSlowToFast">Strobe effect, increasing speed, strobe LED ring</Capability>
   <Capability Min="251" Max="255">Strobe effect sound mode, strobe LED ring</Capability>
@@ -61,13 +61,13 @@
  <Channel Name="Intensity blue COB LED" Preset="IntensityBlue"/>
  <Channel Name="Strobe effect2">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="5">Strobe effect off</Capability>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Strobe effect off</Capability>
   <Capability Min="6" Max="250" Preset="StrobeSlowToFast">Strobe effect, increasing speed, all colour LEDs</Capability>
   <Capability Min="251" Max="255">Strobe effect sound mode, all colour LEDs</Capability>
  </Channel>
  <Channel Name="Strobe function2">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">No function</Capability>
   <Capability Min="6" Max="20">Strobe LED ring constantly on</Capability>
   <Capability Min="21" Max="250" Preset="StrobeSlowToFast">Strobe effect, increasing speed, strobe LED ring</Capability>
   <Capability Min="251" Max="255">Strobe effect sound mode, strobe LED ring</Capability>
@@ -110,7 +110,7 @@
  </Channel>
  <Channel Name="Strobe LED ring">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">No function</Capability>
   <Capability Min="6" Max="20">Strobe LED ring constantly on</Capability>
   <Capability Min="21" Max="250" Preset="StrobeSlowToFast">Strobe effect, increasing speed, strobe LED ring</Capability>
   <Capability Min="251" Max="255">Strobe effect sound mode, strobe LED ring</Capability>
