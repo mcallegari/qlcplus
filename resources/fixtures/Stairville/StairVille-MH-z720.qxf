@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Tim Cullingworth</Author>
  </Creator>
  <Manufacturer>Stairville</Manufacturer>
@@ -44,28 +44,28 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="19">Closed</Capability>
-  <Capability Min="20" Max="24">Open</Capability>
-  <Capability Min="25" Max="64">Strobe effect 1 Fast to Slow</Capability>
-  <Capability Min="65" Max="69">Open</Capability>
+  <Capability Min="0" Max="19" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="20" Max="24" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="25" Max="64" Preset="StrobeSlowToFast">Strobe effect 1 Fast to Slow</Capability>
+  <Capability Min="65" Max="69" Preset="ShutterOpen">Open</Capability>
   <Capability Min="70" Max="84">Strobe effect 2 (fast o,n slow off) Fast to Slow consecutively</Capability>
-  <Capability Min="85" Max="89">Open</Capability>
+  <Capability Min="85" Max="89" Preset="ShutterOpen">Open</Capability>
   <Capability Min="90" Max="104">Strobe effect 3 (slow on, fast off) Fast to Slow consecutively</Capability>
-  <Capability Min="105" Max="109">Open</Capability>
-  <Capability Min="110" Max="124">Strobe effect 4 (random) Fast to Slow consecutively</Capability>
-  <Capability Min="125" Max="129">Open</Capability>
+  <Capability Min="105" Max="109" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="110" Max="124" Preset="StrobeRandomFastToSlow">Strobe effect 4 (random) Fast to Slow consecutively</Capability>
+  <Capability Min="125" Max="129" Preset="ShutterOpen">Open</Capability>
   <Capability Min="130" Max="144">Strobe effect 5 (random, fast on, slow off) Fast to Slow consecutively</Capability>
-  <Capability Min="145" Max="149">Open</Capability>
+  <Capability Min="145" Max="149" Preset="ShutterOpen">Open</Capability>
   <Capability Min="150" Max="164">Strobe effect 6 (random, slow on, fast off) Fast to Slow consecutively</Capability>
-  <Capability Min="165" Max="169">Open</Capability>
-  <Capability Min="170" Max="184">Strobe effect 7 (pulse series) Pulse interval increasing</Capability>
-  <Capability Min="185" Max="189">Open</Capability>
-  <Capability Min="190" Max="204">Strobe effect 8 (pulse series with random frequency) Fast to Slow consecutively</Capability>
-  <Capability Min="205" Max="209">Open</Capability>
-  <Capability Min="210" Max="224">Strobe effect 9 (single pulses) Fast to Slow consecutively</Capability>
-  <Capability Min="225" Max="229">Open</Capability>
-  <Capability Min="230" Max="244">Strobe effect 10 (inverted pulse series) Pulse interval increasing</Capability>
-  <Capability Min="245" Max="255">Open</Capability>
+  <Capability Min="165" Max="169" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="170" Max="184" Preset="PulseSlowToFast">Strobe effect 7 (pulse series) Pulse interval increasing</Capability>
+  <Capability Min="185" Max="189" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="190" Max="204" Preset="StrobeFastToSlow">Strobe effect 8 (pulse series with random frequency) Fast to Slow consecutively</Capability>
+  <Capability Min="205" Max="209" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="210" Max="224" Preset="StrobeFastToSlow">Strobe effect 9 (single pulses) Fast to Slow consecutively</Capability>
+  <Capability Min="225" Max="229" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="230" Max="244" Preset="PulseSlowToFast">Strobe effect 10 (inverted pulse series) Pulse interval increasing</Capability>
+  <Capability Min="245" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Zoom" Preset="BeamZoomBigSmall"/>
  <Channel Name="Special Settings">
@@ -75,9 +75,9 @@
   <Capability Min="15" Max="49">Without function</Capability>
   <Capability Min="50" Max="54">Rotation position reset</Capability>
   <Capability Min="55" Max="59">Inclination position reset</Capability>
-  <Capability Min="60" Max="64">Optical zoom reset</Capability>
+  <Capability Min="60" Max="64" Preset="ResetZoom">Optical zoom reset</Capability>
   <Capability Min="65" Max="69">Without function</Capability>
-  <Capability Min="70" Max="74">All functions reset</Capability>
+  <Capability Min="70" Max="74" Preset="ResetAll">All functions reset</Capability>
   <Capability Min="75" Max="79">Without function</Capability>
   <Capability Min="80" Max="84">Inversion of rotation and inclination direction</Capability>
   <Capability Min="85" Max="89">Inversion of rotation direction</Capability>
