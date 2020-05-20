@@ -13,13 +13,13 @@
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="5">LEDs on, brightness controlled by ch1</Capability>
-  <Capability Min="6" Max="10">Blackout</Capability>
+  <Capability Min="6" Max="10" Preset="ShutterClose">Blackout</Capability>
   <Capability Min="11" Max="33">Random impulses, increasing speed</Capability>
   <Capability Min="34" Max="56">Randomly increasing brightness, increasing speed</Capability>
   <Capability Min="57" Max="79">Randomly decreasing brightness, increasing speed</Capability>
   <Capability Min="80" Max="102">Random strobe effect, increasing speed</Capability>
   <Capability Min="103" Max="127">Interrupt effect, 5s to 1s</Capability>
-  <Capability Min="128" Max="250">Strobe effect, speed increasing from approximately 0Hz to 30Hz</Capability>
+  <Capability Min="128" Max="250" Preset="StrobeFreqRange" Res1="0" Res2="30">Strobe effect, speed increasing from approximately 0Hz to 30Hz</Capability>
   <Capability Min="251" Max="255">LEDs on, brightness controlled by ch1</Capability>
  </Channel>
  <Channel Name="Red" Preset="IntensityRed"/>
@@ -54,10 +54,10 @@
  </Channel>
  <Channel Name="Simple Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="5">LEDs on</Capability>
-  <Capability Min="6" Max="10">Blackout</Capability>
-  <Capability Min="11" Max="250">Strobe effect, speed increasing from approximately 0Hz to 30Hz</Capability>
-  <Capability Min="251" Max="255">LEDs On</Capability>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">LEDs on</Capability>
+  <Capability Min="6" Max="10" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="11" Max="250" Preset="StrobeFreqRange" Res1="0" Res2="30">Strobe effect, speed increasing from approximately 0Hz to 30Hz</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">LEDs On</Capability>
  </Channel>
  <Channel Name="Flash Impulse">
   <Group Byte="0">Shutter</Group>
