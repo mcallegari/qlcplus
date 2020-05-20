@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Lars Kildholt</Author>
  </Creator>
  <Manufacturer>Stairville</Manufacturer>
@@ -18,8 +18,8 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9">No effect</Capability>
-  <Capability Min="10" Max="255">Strobe (inc speed)</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No effect</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe (inc speed)</Capability>
  </Channel>
  <Channel Name="Red Spot 1" Preset="IntensityRed"/>
  <Channel Name="Green Spot 1" Preset="IntensityGreen"/>
