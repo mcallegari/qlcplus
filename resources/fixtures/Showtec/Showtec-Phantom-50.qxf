@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Petja Touru</Author>
  </Creator>
  <Manufacturer>Showtec</Manufacturer>
@@ -39,10 +39,10 @@
  </Channel>
  <Channel Name="Shutter/Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="3">Shutter closed</Capability>
-  <Capability Min="4" Max="7">Shutter open</Capability>
-  <Capability Min="8" Max="215">Strobe (slow -&gt; fast)</Capability>
-  <Capability Min="216" Max="255">Shutter open</Capability>
+  <Capability Min="0" Max="3" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="4" Max="7" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="8" Max="215" Preset="StrobeSlowToFast">Strobe (slow -&gt; fast)</Capability>
+  <Capability Min="216" Max="255" Preset="ShutterOpen">Shutter open</Capability>
  </Channel>
  <Channel Name="Dimmer intensity" Preset="IntensityDimmer"/>
  <Channel Name="Gobowheel">
@@ -142,10 +142,10 @@
   <Channel Number="7">Prism</Channel>
  </Mode>
  <Physical>
-  <Bulb Lumens="18500" Type="LED" ColourTemperature="0"/>
-  <Dimensions Width="204" Height="340" Weight="5.64" Depth="210"/>
-  <Lens DegreesMax="17" Name="" DegreesMin="17"/>
-  <Focus PanMax="540" Type="Head" TiltMax="270"/>
+  <Bulb Type="LED" Lumens="18500" ColourTemperature="0"/>
+  <Dimensions Weight="5.64" Width="204" Height="340" Depth="210"/>
+  <Lens Name="" DegreesMin="17" DegreesMax="17"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
   <Technical PowerConsumption="50" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>
