@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.3.0</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Jannis Achstetter</Author>
  </Creator>
  <Manufacturer>Stairville</Manufacturer>
@@ -20,20 +20,20 @@
   <Capability Min="70" Max="79">Enable BlackOut while Pan or Tilt move</Capability>
   <Capability Min="80" Max="89">Disable BlackOut while Pan or Tilt move</Capability>
   <Capability Min="90" Max="199">No function</Capability>
-  <Capability Min="200" Max="209">Reset</Capability>
+  <Capability Min="200" Max="209" Preset="ResetAll">Reset</Capability>
   <Capability Min="240" Max="255">Stand-Alone</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="15">No function</Capability>
-  <Capability Min="16" Max="131">Fast strobe -&gt; Slow strobe</Capability>
-  <Capability Min="132" Max="139">No function</Capability>
+  <Capability Min="0" Max="15" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="16" Max="131" Preset="StrobeFastToSlow">Fast strobe -&gt; Slow strobe</Capability>
+  <Capability Min="132" Max="139" Preset="ShutterOpen">No function</Capability>
   <Capability Min="140" Max="181">Fast close -&gt; Slow open</Capability>
-  <Capability Min="182" Max="189">No function</Capability>
+  <Capability Min="182" Max="189" Preset="ShutterOpen">No function</Capability>
   <Capability Min="190" Max="231">Slow close -&gt; Fast open</Capability>
-  <Capability Min="240" Max="247">Strobe</Capability>
-  <Capability Min="248" Max="255">No function</Capability>
+  <Capability Min="240" Max="247" Preset="StrobeSlowToFast">Strobe</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">No function</Capability>
  </Channel>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>
@@ -64,11 +64,11 @@
   <Channel Number="11">Color/Chase/Fade</Channel>
   <Channel Number="12">Chase/Fade Speed</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="800" Type="LED" ColourTemperature="3200"/>
-   <Dimensions Width="260" Height="285" Weight="9" Depth="317"/>
-   <Lens DegreesMax="45" Name="Other" DegreesMin="15"/>
-   <Focus PanMax="540" Type="Fixed" TiltMax="220"/>
-   <Technical PowerConsumption="300" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="800" ColourTemperature="3200"/>
+  <Dimensions Weight="9" Width="260" Height="285" Depth="317"/>
+  <Lens Name="Other" DegreesMin="15" DegreesMax="45"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="220"/>
+  <Technical PowerConsumption="300" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>
