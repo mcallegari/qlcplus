@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.0 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Mike S</Author>
  </Creator>
  <Manufacturer>UKing</Manufacturer>
@@ -46,7 +46,7 @@
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="149">Do nothing</Capability>
-  <Capability Min="150" Max="200">Reset</Capability>
+  <Capability Min="150" Max="200" Preset="ResetAll">Reset</Capability>
   <Capability Min="201" Max="255">Do nothing</Capability>
  </Channel>
  <Mode Name="14 Channel">
