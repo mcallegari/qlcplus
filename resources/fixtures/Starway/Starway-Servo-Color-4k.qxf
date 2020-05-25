@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>miktallerra</Author>
  </Creator>
  <Manufacturer>Starway</Manufacturer>
@@ -60,9 +60,9 @@
   <Capability Min="70" Max="79">For future function</Capability>
   <Capability Min="80" Max="89">For future function</Capability>
   <Capability Min="90" Max="99">Idle</Capability>
-  <Capability Min="100" Max="109">Pan reset</Capability>
-  <Capability Min="110" Max="119">Tilt reset</Capability>
-  <Capability Min="120" Max="129">Zoom reset</Capability>
+  <Capability Min="100" Max="109" Preset="ResetPan">Pan reset</Capability>
+  <Capability Min="110" Max="119" Preset="ResetTilt">Tilt reset</Capability>
+  <Capability Min="120" Max="129" Preset="ResetZoom">Zoom reset</Capability>
   <Capability Min="130" Max="139">System reset</Capability>
   <Capability Min="140" Max="149">Idle</Capability>
   <Capability Min="150" Max="255">Not used</Capability>
