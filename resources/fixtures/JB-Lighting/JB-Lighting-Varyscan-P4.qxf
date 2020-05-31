@@ -105,7 +105,7 @@
   <Capability Min="52" Max="55" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#00ffff">Blue/cyan</Capability>
   <Capability Min="56" Max="59" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
   <Capability Min="60" Max="63" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#ffffff">Cyan/white</Capability>
-  <Capability Min="64" Max="191" Preset="GoboMacro" Res1="Others/rainbow.svg">colour position</Capability>
+  <Capability Min="64" Max="191" Preset="GoboMacro" Res1="Others/rainbow.png">colour position</Capability>
   <Capability Min="192" Max="222" Preset="RotationClockwise">Rotation clockwise</Capability>
   <Capability Min="223" Max="224" Preset="RotationStop">Rotation stop</Capability>
   <Capability Min="225" Max="255" Preset="RotationCounterClockwise">Rotation anticlockwise</Capability>
