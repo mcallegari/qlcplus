@@ -30,9 +30,7 @@
 
 #define USE_HANNING
 #define CLEAR_FFT_NOISE
-
 #define M_2PI       6.28318530718           /* 2*pi */
-#define SQRT_32768  181.0193
 
 AudioCapture::AudioCapture (QObject* parent)
     : QThread (parent)
@@ -162,7 +160,7 @@ double AudioCapture::fillBandsData(int number)
 
     for (int b = 0; b < number; b++)
     {
-        quint64 magnitudeSum = 0;
+        double magnitudeSum = 0.;
         for (int s = 0; s < subBandWidth; s++, i++)
         {
             if (i == bufferSize)
@@ -170,7 +168,7 @@ double AudioCapture::fillBandsData(int number)
             magnitudeSum += qSqrt((((fftw_complex*)m_fftOutputBuffer)[i][0] * ((fftw_complex*)m_fftOutputBuffer)[i][0]) +
                                   (((fftw_complex*)m_fftOutputBuffer)[i][1] * ((fftw_complex*)m_fftOutputBuffer)[i][1]));
         }
-        double bandMagnitude = (magnitudeSum / subBandWidth) * SQRT_32768;
+        double bandMagnitude = (magnitudeSum / (subBandWidth * M_2PI));
         m_fftMagnitudeMap[number].m_fftMagnitudeBuffer[b] = bandMagnitude;
         if (maxMagnitude < bandMagnitude)
             maxMagnitude = bandMagnitude;
@@ -245,7 +243,7 @@ void AudioCapture::processData()
         {
             pwrSum += m_fftMagnitudeMap[barsNumber].m_fftMagnitudeBuffer[n];
         }
-        m_signalPower = pwrSum * qSqrt(M_2PI) * SQRT_32768 / barsNumber;
+        m_signalPower = 32768 * pwrSum * qSqrt(M_2PI) / (double)barsNumber;
         emit dataProcessed(m_fftMagnitudeMap[barsNumber].m_fftMagnitudeBuffer.data(),
                            m_fftMagnitudeMap[barsNumber].m_fftMagnitudeBuffer.size(),
                            maxMagnitude, m_signalPower);
