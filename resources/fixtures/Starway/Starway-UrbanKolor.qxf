@@ -20,9 +20,9 @@
   <Capability Min="176" Max="183">Close Pulse Slow</Capability>
   <Capability Min="184" Max="190">Close Pulse Med</Capability>
   <Capability Min="191" Max="199">Close Pulse Fast</Capability>
-  <Capability Min="200" Max="207">Random Strobe Slow</Capability>
-  <Capability Min="208" Max="215">Random Strobe Med</Capability>
-  <Capability Min="216" Max="223">Random Strobe Fast</Capability>
+  <Capability Min="200" Max="207" Preset="StrobeRandom">Random Strobe Slow</Capability>
+  <Capability Min="208" Max="215" Preset="StrobeRandom">Random Strobe Med</Capability>
+  <Capability Min="216" Max="223" Preset="StrobeRandom">Random Strobe Fast</Capability>
   <Capability Min="224" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
