@@ -48,9 +48,9 @@
   <Capability Min="20" Max="24" Preset="ShutterOpen">Open</Capability>
   <Capability Min="25" Max="64" Preset="StrobeSlowToFast">Strobe effect 1 Fast to Slow</Capability>
   <Capability Min="65" Max="69" Preset="ShutterOpen">Open</Capability>
-  <Capability Min="70" Max="84">Strobe effect 2 (fast o,n slow off) Fast to Slow consecutively</Capability>
+  <Capability Min="70" Max="84" Preset="RampDownFastToSlow">Strobe effect 2 (fast o,n slow off) Fast to Slow consecutively</Capability>
   <Capability Min="85" Max="89" Preset="ShutterOpen">Open</Capability>
-  <Capability Min="90" Max="104">Strobe effect 3 (slow on, fast off) Fast to Slow consecutively</Capability>
+  <Capability Min="90" Max="104" Preset="RampUpFastToSlow">Strobe effect 3 (slow on, fast off) Fast to Slow consecutively</Capability>
   <Capability Min="105" Max="109" Preset="ShutterOpen">Open</Capability>
   <Capability Min="110" Max="124" Preset="StrobeRandomFastToSlow">Strobe effect 4 (random) Fast to Slow consecutively</Capability>
   <Capability Min="125" Max="129" Preset="ShutterOpen">Open</Capability>

@@ -29,9 +29,9 @@
   <Capability Min="0" Max="15" Preset="ShutterOpen">No function</Capability>
   <Capability Min="16" Max="131" Preset="StrobeFastToSlow">Fast strobe -&gt; Slow strobe</Capability>
   <Capability Min="132" Max="139" Preset="ShutterOpen">No function</Capability>
-  <Capability Min="140" Max="181">Fast close -&gt; Slow open</Capability>
+  <Capability Min="140" Max="181" Preset="RampUpFrequency">Fast close -&gt; Slow open</Capability>
   <Capability Min="182" Max="189" Preset="ShutterOpen">No function</Capability>
-  <Capability Min="190" Max="231">Slow close -&gt; Fast open</Capability>
+  <Capability Min="190" Max="231" Preset="RampDownFrequency">Slow close -&gt; Fast open</Capability>
   <Capability Min="240" Max="247" Preset="StrobeSlowToFast">Strobe</Capability>
   <Capability Min="248" Max="255" Preset="ShutterOpen">No function</Capability>
  </Channel>
