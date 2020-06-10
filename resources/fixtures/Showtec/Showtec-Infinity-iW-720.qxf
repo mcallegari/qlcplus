@@ -105,9 +105,9 @@
   <Capability Min="20" Max="24" Preset="ShutterOpen">Shutter Open</Capability>
   <Capability Min="25" Max="64" Preset="StrobeSlowToFast">Shutter effect 1, from fast to slow</Capability>
   <Capability Min="65" Max="69" Preset="ShutterOpen">Shutter Open</Capability>
-  <Capability Min="70" Max="84">Strobe effect 2 (fast on and slow off), from fast to slow</Capability>
+  <Capability Min="70" Max="84" Preset="RampDownFastToSlow">Strobe effect 2 (fast on and slow off), from fast to slow</Capability>
   <Capability Min="85" Max="89" Preset="ShutterOpen">Shutter open</Capability>
-  <Capability Min="90" Max="104">Strobe effect 3 (slow on and fast off), from fast to slow</Capability>
+  <Capability Min="90" Max="104" Preset="RampUpFastToSlow">Strobe effect 3 (slow on and fast off), from fast to slow</Capability>
   <Capability Min="105" Max="109" Preset="ShutterOpen">Shutter open</Capability>
   <Capability Min="110" Max="124" Preset="StrobeRandomFastToSlow">Strobe effect 4 (random strobe), from fast to slow</Capability>
   <Capability Min="125" Max="129" Preset="ShutterOpen">Shutter open</Capability>
@@ -115,7 +115,7 @@
   <Capability Min="145" Max="149" Preset="ShutterOpen">Shutter open</Capability>
   <Capability Min="150" Max="164">Strobe effect 6 (random strobe slow on and fast off), from fast to slow</Capability>
   <Capability Min="165" Max="169" Preset="ShutterOpen">Shutter open</Capability>
-  <Capability Min="170" Max="184">Strobe effect 7 (pulse strobe), from fast to slow</Capability>
+  <Capability Min="170" Max="184" Preset="PulseFastToSlow">Strobe effect 7 (pulse strobe), from fast to slow</Capability>
   <Capability Min="185" Max="189" Preset="ShutterOpen">Shutter open</Capability>
   <Capability Min="190" Max="204">Strobe effect 8 (random pulse frequency strobe), from fast to slow</Capability>
   <Capability Min="205" Max="209" Preset="ShutterOpen">Shutter open</Capability>
