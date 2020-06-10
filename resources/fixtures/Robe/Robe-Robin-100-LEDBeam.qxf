@@ -115,8 +115,8 @@
   <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Strobe effect from slow--&gt; fast (All zones together)</Capability>
   <Capability Min="96" Max="111">Zone effects+rainbow effects speed control, slow--&gt; fast</Capability>
   <Capability Min="112" Max="127">Zone effects+rainbow effects speed control, fast--&gt; slow</Capability>
-  <Capability Min="128" Max="143">Opening pulses in sequences from slow--&gt; fast (All zones together)</Capability>
-  <Capability Min="144" Max="159">Closing pulses in sequences from fast--&gt; slow (All zones together)</Capability>
+  <Capability Min="128" Max="143" Preset="RampUpSlowToFast">Opening pulses in sequences from slow--&gt; fast (All zones together)</Capability>
+  <Capability Min="144" Max="159" Preset="RampDownFastToSlow">Closing pulses in sequences from fast--&gt; slow (All zones together)</Capability>
   <Capability Min="160" Max="175" Preset="StrobeRandomSlowToFast">Random strobe effect from slow--&gt; fast (random zone)</Capability>
   <Capability Min="176" Max="191" Preset="StrobeRandomSlowToFast">Random strobe effect from slow--&gt; fast (random zone + random strobe)</Capability>
   <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Random strobe effect from slow --&gt; fast (All zones together)</Capability>

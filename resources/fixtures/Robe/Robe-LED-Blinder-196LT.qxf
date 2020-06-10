@@ -65,8 +65,8 @@
   <Capability Min="32" Max="63" Preset="ShutterOpen">Shutter Open</Capability>
   <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Strobe (Slow - Fast)</Capability>
   <Capability Min="96" Max="127" Preset="ShutterOpen">Shutter Open</Capability>
-  <Capability Min="128" Max="143">Opening Pulses in sequences (Slow - Fast)</Capability>
-  <Capability Min="144" Max="159">Closing Pulses in sequences (Fast - Slow)</Capability>
+  <Capability Min="128" Max="143" Preset="RampUpSlowToFast">Opening Pulses in sequences (Slow - Fast)</Capability>
+  <Capability Min="144" Max="159" Preset="RampDownFastToSlow">Closing Pulses in sequences (Fast - Slow)</Capability>
   <Capability Min="160" Max="191" Preset="ShutterOpen">Shutter Open</Capability>
   <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Random Strobe effect (Slow - Fast)</Capability>
   <Capability Min="224" Max="255" Preset="ShutterOpen">Shutter Open</Capability>
