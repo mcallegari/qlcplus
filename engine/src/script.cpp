@@ -143,11 +143,7 @@ bool Script::setData(const QString& str)
     if (m_data.isEmpty() == false)
     {
         int i = 1;
-#if QT_VERSION < QT_VERSION_CHECK( 5, 14, 0 )
-        QStringList lines = m_data.split(QRegExp("(\r\n|\n\r|\r|\n)"), QString::KeepEmptyParts);
-#else
-        QStringList lines = m_data.split(QRegExp("(\r\n|\n\r|\r|\n)"), Qt::KeepEmptyParts);
-#endif
+        QStringList lines = m_data.split(QRegExp("(\r\n|\n\r|\r|\n)"));
         foreach (QString line, lines)
         {
             bool ok = false;
@@ -191,11 +187,7 @@ QString Script::data() const
 
 QStringList Script::dataLines() const
 {
-#if QT_VERSION < QT_VERSION_CHECK( 5, 14, 0 )
-    QStringList result = m_data.split(QRegExp("(\r\n|\n\r|\r|\n)"), QString::KeepEmptyParts);
-#else
-    QStringList result = m_data.split(QRegExp("(\r\n|\n\r|\r|\n)"), Qt::KeepEmptyParts);
-#endif
+    QStringList result = m_data.split(QRegExp("(\r\n|\n\r|\r|\n)"));
     while (result.count() && result.last().isEmpty())
         result.takeLast();
 
