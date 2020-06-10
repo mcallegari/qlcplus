@@ -26,6 +26,7 @@
 #include <QList>
 #include <QTime>
 #include <QDir>
+#include <QRandomGenerator>
 
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
@@ -85,7 +86,10 @@ Doc::Doc(QObject* parent, int universes)
 {
     Bus::init(this);
     resetModified();
+#if QT_VERSION < QT_VERSION_CHECK( 5, 10, 0 )
     qsrand(QTime::currentTime().msec());
+#endif
+    
 }
 
 Doc::~Doc()
