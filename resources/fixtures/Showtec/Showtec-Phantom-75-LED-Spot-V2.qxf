@@ -42,7 +42,7 @@
   <Capability Min="0" Max="3" Preset="ShutterClose">Close</Capability>
   <Capability Min="4" Max="7" Preset="ShutterOpen">Shutter Open</Capability>
   <Capability Min="8" Max="76" Preset="StrobeSlowToFast">Strobe slow to fast</Capability>
-  <Capability Min="77" Max="145">Pulse strobe effect</Capability>
+  <Capability Min="77" Max="145" Preset="PulseSlowToFast">Pulse strobe effect</Capability>
   <Capability Min="146" Max="215" Preset="StrobeRandom">Random Strobe</Capability>
   <Capability Min="216" Max="255" Preset="ShutterOpen">Shutter Open</Capability>
  </Channel>

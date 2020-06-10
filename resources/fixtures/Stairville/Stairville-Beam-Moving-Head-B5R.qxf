@@ -60,7 +60,7 @@
   <Capability Min="210" Max="219">Effect 2</Capability>
   <Capability Min="220" Max="229" Preset="StrobeRandomSlowToFast">Random slow strobe effect</Capability>
   <Capability Min="230" Max="239">Random strobe effect with medium speed</Capability>
-  <Capability Min="240" Max="249">Random strobe effect with decreasing speed</Capability>
+  <Capability Min="240" Max="249" Preset="StrobeRandomFastToSlow">Random strobe effect with decreasing speed</Capability>
   <Capability Min="250" Max="255" Preset="ShutterOpen">No strobe effect, lamp on</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
