@@ -83,8 +83,8 @@
   <Capability Min="96" Max="127" Preset="StrobeSlowToFast">Strobe effect from slow to fast (max. 8 flashes/s)</Capability>
   <Capability Min="128" Max="139">Reset, shutter closed</Capability>
   <Capability Min="140" Max="159" Preset="ShutterClose">Shutter closed</Capability>
-  <Capability Min="160" Max="175">Pulse effect in sequences with increasing speed</Capability>
-  <Capability Min="176" Max="191">Pulse effect in sequences with decreasing speed</Capability>
+  <Capability Min="160" Max="175" Preset="RampUpSlowToFast">Pulse effect in sequences with increasing speed</Capability>
+  <Capability Min="176" Max="191" Preset="RampDownFastToSlow">Pulse effect in sequences with decreasing speed</Capability>
   <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Random strobe effect with increasing speed</Capability>
   <Capability Min="224" Max="255" Preset="ShutterOpen">Shutter open</Capability>
  </Channel>
