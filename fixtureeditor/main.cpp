@@ -52,6 +52,7 @@ void printVersion()
 {
     QTextStream cout(stdout, QIODevice::WriteOnly);
 
+#if QT_VERSION >= QT_VERSION_CHECK( 5, 15, 0 )
     cout << Qt::endl;
     cout << App::longName() << " " << App::version() << Qt::endl;
     cout << "This program is licensed under the terms of the ";
@@ -59,6 +60,15 @@ void printVersion()
     cout << "Copyright (c) Heikki Junnila (hjunnila@users.sf.net)." << Qt::endl;
     cout << "Copyright (c) Massimo Callegari (massimocallegari@yahoo.it)." << Qt::endl;
     cout << Qt::endl;
+#else
+    cout << endl;
+    cout << App::longName() << " " << App::version() << endl;
+    cout << "This program is licensed under the terms of the ";
+    cout << "Apache 2.0 license." << endl;
+    cout << "Copyright (c) Heikki Junnila (hjunnila@users.sf.net)." << endl;
+    cout << "Copyright (c) Massimo Callegari (massimocallegari@yahoo.it)." << endl;
+    cout << endl;
+#endif
 }
 
 /**
@@ -68,6 +78,7 @@ void printUsage()
 {
     QTextStream cout(stdout, QIODevice::WriteOnly);
 
+#if QT_VERSION >= QT_VERSION_CHECK( 5, 15, 0 )
     cout << "Usage:";
     cout << "  qlcplus-fixtureeditor [options]" << Qt::endl;
     cout << "Options:" << Qt::endl;
@@ -76,6 +87,16 @@ void printUsage()
     cout << "  -h or --help\t\t\tPrint this help" << Qt::endl;
     cout << "  -v or --version\t\tPrint version information" << Qt::endl;
     cout << Qt::endl;
+#else
+    cout << "Usage:";
+    cout << "  qlcplus-fixtureeditor [options]" << endl;
+    cout << "Options:" << endl;
+    cout << "  -o or --open <file>\t\tOpen the specified fixture definition file" << endl;
+    cout << "  -l or --locale <locale>\tForce a locale for translation" << endl;
+    cout << "  -h or --help\t\t\tPrint this help" << endl;
+    cout << "  -v or --version\t\tPrint version information" << endl;
+    cout << endl;
+#endif
 }
 
 /**
