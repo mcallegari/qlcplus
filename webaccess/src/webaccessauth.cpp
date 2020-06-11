@@ -110,7 +110,11 @@ bool WebAccessAuth::savePasswordsFile() const
             << user.passwordHash << ':'
             << (int)user.level << ':'
             << user.hashType << ':'
+#if QT_VERSION >= QT_VERSION_CHECK( 5, 15, 0 )
             << user.passwordSalt << Qt::endl;
+#else
+            << user.passwordSalt << endl;
+#endif
     }
 
     return true;
