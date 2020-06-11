@@ -937,7 +937,7 @@ void VCWidget_Test::mousePress()
     stub->resize(QSize(20, 20));
     QCOMPARE(stub->pos(), QPoint(0, 0));
 
-    QMouseEvent e(QEvent::MouseButtonPress, QPoint(10, 10), Qt::LeftButton, 0, 0);
+    QMouseEvent e(QEvent::MouseButtonPress, QPoint(10, 10), Qt::LeftButton, Qt::NoButton, Qt::NoModifier);
 
     stub->mousePressEvent(&e);
     QCOMPARE(vc->selectedWidgets().size(), 1);
@@ -945,7 +945,7 @@ void VCWidget_Test::mousePress()
     QCOMPARE(stub->lastClickPoint(), QPoint(10, 10));
     QTest::qWait(10);
 
-    e = QMouseEvent(QEvent::MouseMove, QPoint(20, 20), Qt::NoButton, Qt::LeftButton, 0);
+    e = QMouseEvent(QEvent::MouseMove, QPoint(20, 20), Qt::NoButton, Qt::LeftButton, Qt::NoModifier);
     stub->mouseMoveEvent(&e);
     QTest::qWait(10);
     QCOMPARE(stub->pos(), QPoint(10, 10));

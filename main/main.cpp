@@ -156,13 +156,13 @@ void printVersion()
 {
     QTextStream cout(stdout, QIODevice::WriteOnly);
 
-    cout << endl;
-    cout << APPNAME << " " << "version " << APPVERSION << endl;
+    cout << Qt::endl;
+    cout << APPNAME << " " << "version " << APPVERSION << Qt::endl;
     cout << "This program is licensed under the terms of the ";
-    cout << "Apache 2.0 license." << endl;
-    cout << "Copyright (c) Heikki Junnila (hjunnila@users.sf.net)" << endl;
-    cout << "Copyright (c) Massimo Callegari (massimocallegari@yahoo.it)" << endl;
-    cout << endl;
+    cout << "Apache 2.0 license." << Qt::endl;
+    cout << "Copyright (c) Heikki Junnila (hjunnila@users.sf.net)" << Qt::endl;
+    cout << "Copyright (c) Massimo Callegari (massimocallegari@yahoo.it)" << Qt::endl;
+    cout << Qt::endl;
 }
 
 /**
@@ -173,24 +173,24 @@ void printUsage()
     QTextStream cout(stdout, QIODevice::WriteOnly);
 
     cout << "Usage:";
-    cout << "  qlcplus [options]" << endl;
-    cout << "Options:" << endl;
-    cout << "  -c or --closebutton <x,y,w,h>\tPlace a close button in virtual console (only when -k is specified)" << endl;
-    cout << "  -d or --debug <level>\t\tSet debug output level (0-3, see QtMsgType)" << endl;
-    cout << "  -f or --fullscreen <method>\tStart the application in fullscreen mode (method is either 'normal' or 'resize')" << endl;
-    cout << "  -g or --log\t\t\tLog debug messages to a file" << endl;
-    cout << "  -h or --help\t\t\tPrint this help" << endl;
-    cout << "  -k or --kiosk\t\t\tEnable kiosk mode (only virtual console in forced operate mode)" << endl;
-    cout << "  -l or --locale <locale>\tForce a locale for translation" << endl;
-    cout << "  -m or --nowm\t\t\tInform the application that the system doesn't provide a window manager" << endl;
-    cout << "  -n or --nogui\t\t\tStart the application with the GUI hidden (requires --nowm)" << endl;
-    cout << "  -o or --open <file>\t\tOpen the specified workspace file" << endl;
-    cout << "  -p or --operate\t\tStart in operate mode" << endl;
-    cout << "  -v or --version\t\tPrint version information" << endl;
-    cout << "  -w or --web\t\t\tEnable remote web access" << endl;
-    cout << "  -wa or --web-auth\t\tEnable remote web access with users authentication" << endl;
-    cout << "  -a or --web-auth-file <file>\tSpecify a file where to store web access basic authentication credentials" << endl;
-    cout << endl;
+    cout << "  qlcplus [options]" << Qt::endl;
+    cout << "Options:" << Qt::endl;
+    cout << "  -c or --closebutton <x,y,w,h>\tPlace a close button in virtual console (only when -k is specified)" << Qt::endl;
+    cout << "  -d or --debug <level>\t\tSet debug output level (0-3, see QtMsgType)" << Qt::endl;
+    cout << "  -f or --fullscreen <method>\tStart the application in fullscreen mode (method is either 'normal' or 'resize')" << Qt::endl;
+    cout << "  -g or --log\t\t\tLog debug messages to a file" << Qt::endl;
+    cout << "  -h or --help\t\t\tPrint this help" << Qt::endl;
+    cout << "  -k or --kiosk\t\t\tEnable kiosk mode (only virtual console in forced operate mode)" << Qt::endl;
+    cout << "  -l or --locale <locale>\tForce a locale for translation" << Qt::endl;
+    cout << "  -m or --nowm\t\t\tInform the application that the system doesn't provide a window manager" << Qt::endl;
+    cout << "  -n or --nogui\t\t\tStart the application with the GUI hidden (requires --nowm)" << Qt::endl;
+    cout << "  -o or --open <file>\t\tOpen the specified workspace file" << Qt::endl;
+    cout << "  -p or --operate\t\tStart in operate mode" << Qt::endl;
+    cout << "  -v or --version\t\tPrint version information" << Qt::endl;
+    cout << "  -w or --web\t\t\tEnable remote web access" << Qt::endl;
+    cout << "  -wa or --web-auth\t\tEnable remote web access with users authentication" << Qt::endl;
+    cout << "  -a or --web-auth-file <file>\tSpecify a file where to store web access basic authentication credentials" << Qt::endl;
+    cout << Qt::endl;
 }
 
 /**

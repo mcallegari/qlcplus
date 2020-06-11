@@ -386,7 +386,7 @@ void QLCInputProfile_Test::save()
 
 #if !defined(WIN32) && !defined(Q_OS_WIN)
     QFile::Permissions perm = QFile::permissions(path);
-    QFile::setPermissions(path, 0);
+    QFile::setPermissions(path, QFileDevice::WriteOwner);
     QVERIFY(ip.saveXML(path) == false);
     QFile::setPermissions(path, perm);
 #endif

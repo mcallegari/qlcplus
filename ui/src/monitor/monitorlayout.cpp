@@ -117,7 +117,7 @@ void MonitorLayout::sort()
 
 Qt::Orientations MonitorLayout::expandingDirections() const
 {
-    return 0;
+    return Qt::Vertical;
 }
 
 bool MonitorLayout::hasHeightForWidth() const
