@@ -40,7 +40,7 @@
  <Channel Name="5050 SMD Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="5050 SMD Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="8" Preset="ShutterClose">Off</Capability>
+  <Capability Min="0" Max="8" Preset="ShutterOpen">Off</Capability>
   <Capability Min="9" Max="255" Preset="StrobeSlowToFast">Increasing speed</Capability>
  </Channel>
  <Channel Name="5050 SMD Red" Preset="IntensityRed"/>

@@ -14,7 +14,7 @@
  <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9" Preset="ShutterClose">No function</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
   <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Slow-fast</Capability>
  </Channel>
  <Channel Name="Red Dimming/Static Colour/Speed Adjust/Sound Sensitivity">

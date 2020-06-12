@@ -21,8 +21,8 @@
   <Capability Min="0" Max="7" Preset="ShutterClose">Close</Capability>
   <Capability Min="8" Max="15" Preset="ShutterOpen">Shutter open</Capability>
   <Capability Min="16" Max="131" Preset="StrobeSlowToFast">Strobe effect, from slow to fast (0-10 flashes/sec.)</Capability>
-  <Capability Min="132" Max="167">Fast close/shutter and slow opening, from slow to fast (0-10 flashes/sec.)</Capability>
-  <Capability Min="168" Max="203">Slow close/shutter and fast opening, from slow to fast (0-10 flashes/sec.)</Capability>
+  <Capability Min="132" Max="167" Preset="RampUpSlowToFast">Fast close/shutter and slow opening, from slow to fast (0-10 flashes/sec.)</Capability>
+  <Capability Min="168" Max="203" Preset="RampDownSlowToFast">Slow close/shutter and fast opening, from slow to fast (0-10 flashes/sec.)</Capability>
   <Capability Min="204" Max="239" Preset="PulseSlowToFast">Pulse strobe effect, from slow to fast (0-10 flashes/sec.)</Capability>
   <Capability Min="240" Max="247" Preset="StrobeRandomSlowToFast">Random strobe effect, from slow to fast (0-10 flashes/sec.)</Capability>
   <Capability Min="248" Max="255" Preset="ShutterOpen">Open</Capability>

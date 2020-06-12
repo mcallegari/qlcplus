@@ -16,9 +16,9 @@
   <Capability Min="1" Max="7" Preset="ShutterOpen">Open</Capability>
   <Capability Min="8" Max="63" Preset="StrobeSlowToFast">Shutter Slow-Fast</Capability>
   <Capability Min="64" Max="71" Preset="ShutterOpen">Open</Capability>
-  <Capability Min="72" Max="127">Fade Out Fast-Slow</Capability>
+  <Capability Min="72" Max="127" Preset="RampDownFastToSlow">Fade Out Fast-Slow</Capability>
   <Capability Min="128" Max="135" Preset="ShutterOpen">Open</Capability>
-  <Capability Min="136" Max="191">Fade In Slow Fast</Capability>
+  <Capability Min="136" Max="191" Preset="RampUpSlowToFast">Fade In Slow Fast</Capability>
   <Capability Min="192" Max="199" Preset="ShutterOpen">Open</Capability>
   <Capability Min="200" Max="253" Preset="StrobeRandomSlowToFast">Random Shutter Slow Fast</Capability>
   <Capability Min="254" Max="255" Preset="ShutterOpen">Open</Capability>

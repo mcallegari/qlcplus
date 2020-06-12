@@ -17,11 +17,11 @@
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="6">Dimmer mode</Capability>
   <Capability Min="7" Max="65" Preset="StrobeSlowToFast">Strobe from slow to fast</Capability>
-  <Capability Min="66" Max="69">None</Capability>
+  <Capability Min="66" Max="69" Preset="ShutterOpen">None</Capability>
   <Capability Min="70" Max="128" Preset="PulseSlowToFast">Pulse strobe from slow to fast</Capability>
-  <Capability Min="129" Max="132">None</Capability>
+  <Capability Min="129" Max="132" Preset="ShutterOpen">None</Capability>
   <Capability Min="133" Max="191">Strobe fading in from slow to fast</Capability>
-  <Capability Min="192" Max="195">None</Capability>
+  <Capability Min="192" Max="195" Preset="ShutterOpen">None</Capability>
   <Capability Min="196" Max="255">Strobe fading out from slow to fast</Capability>
  </Channel>
  <Channel Name="Static Color" Preset="ColorMacro"/>
