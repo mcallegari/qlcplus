@@ -16,7 +16,7 @@
  <Channel Name="Strobe/Flashing">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="63" Preset="ShutterOpen">No strobe</Capability>
-  <Capability Min="64" Max="223">AUTO strobe, speed from slow to fast</Capability>
+  <Capability Min="64" Max="223" Preset="StrobeSlowToFast">AUTO strobe, speed from slow to fast</Capability>
   <Capability Min="224" Max="255">Sound strobe</Capability>
  </Channel>
  <Channel Name="All LEDs Brightness" Preset="IntensityDimmer"/>

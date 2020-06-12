@@ -393,7 +393,7 @@
   <Capability Min="144" Max="159" Preset="RampDownFastToSlow">Closing pulse in sequences from fast to slow</Capability>
   <Capability Min="160" Max="191" Preset="ShutterOpen">Open</Capability>
   <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Random strobe effect from slow to fast</Capability>
-  <Capability Min="224" Max="255" Preset="SmallToBig">Open</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Mode Name="24-channel">

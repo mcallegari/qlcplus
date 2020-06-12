@@ -40,7 +40,7 @@
  <Channel Name="Shutter/Strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="3" Preset="ShutterClose">Closed</Capability>
-  <Capability Min="4" Max="7" Preset="SmallToBig">Open</Capability>
+  <Capability Min="4" Max="7" Preset="ShutterOpen">Open</Capability>
   <Capability Min="8" Max="215" Preset="StrobeSlowToFast">Strobe Slow-&gt;Fast</Capability>
   <Capability Min="216" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
