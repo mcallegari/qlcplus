@@ -54,7 +54,7 @@
   <Capability Min="0" Max="7" Preset="ShutterClose">Blackout</Capability>
   <Capability Min="8" Max="15" Preset="ShutterOpen">Shutter open</Capability>
   <Capability Min="16" Max="131" Preset="StrobeSlowToFast">Strobe-effect with increasing speed</Capability>
-  <Capability Min="132" Max="139" Preset="SmallToBig">Shutter open</Capability>
+  <Capability Min="132" Max="139" Preset="ShutterOpen">Shutter open</Capability>
   <Capability Min="140" Max="180" Preset="PulseSlowToFast">Pulse closing with increasing speed</Capability>
   <Capability Min="181" Max="189" Preset="ShutterOpen">Shutter open</Capability>
   <Capability Min="190" Max="231" Preset="PulseSlowToFast">Pulse closing with decreasing speed</Capability>

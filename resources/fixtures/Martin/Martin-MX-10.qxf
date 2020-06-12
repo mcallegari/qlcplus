@@ -12,7 +12,7 @@
  <Channel Name="Shutter, Strobe, Reset, Lamp">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="19" Preset="ShutterClose">Shutter closed</Capability>
-  <Capability Min="20" Max="49" Preset="SmallToBig">Shutter open</Capability>
+  <Capability Min="20" Max="49" Preset="ShutterOpen">Shutter open</Capability>
   <Capability Min="50" Max="72" Preset="StrobeFastToSlow">Strobe fast -&gt; slow</Capability>
   <Capability Min="73" Max="79" Preset="ShutterOpen">Shutter open</Capability>
   <Capability Min="80" Max="99" Preset="PulseFastToSlow">Opening pulse, fast -&gt; slow</Capability>
@@ -22,11 +22,11 @@
   <Capability Min="188" Max="190" Preset="ShutterOpen">Shutter open</Capability>
   <Capability Min="191" Max="196" Preset="StrobeRandomFastToSlow">Random opening pulse, fast -&gt; slow</Capability>
   <Capability Min="197" Max="202" Preset="StrobeRandomFastToSlow">Random closing pulse, fast -&gt; slow</Capability>
-  <Capability Min="203" Max="207" Preset="SmallToBig">Shutter open</Capability>
+  <Capability Min="203" Max="207" Preset="ShutterOpen">Shutter open</Capability>
   <Capability Min="208" Max="217" Preset="ResetAll">Reset</Capability>
   <Capability Min="218" Max="227" Preset="ShutterOpen">Shutter open</Capability>
   <Capability Min="228" Max="237" Preset="ColorMacro">Lamp on</Capability>
-  <Capability Min="238" Max="247" Preset="SmallToBig">Shutter open</Capability>
+  <Capability Min="238" Max="247" Preset="ShutterOpen">Shutter open</Capability>
   <Capability Min="248" Max="255" Preset="LampOff">Lamp off</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
