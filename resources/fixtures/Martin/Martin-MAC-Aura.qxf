@@ -22,7 +22,7 @@
   <Capability Min="110" Max="124" Preset="StrobeRandomFastToSlow">Strobe 4: random strobe (fast → slow)</Capability>
   <Capability Min="125" Max="129" Preset="ShutterOpen">Shutter open</Capability>
   <Capability Min="130" Max="144" Preset="StrobeRandomFastToSlow">Strobe 5: random opening pulse (fast → slow)</Capability>
-  <Capability Min="145" Max="149" Preset="SmallToBig">Shutter open</Capability>
+  <Capability Min="145" Max="149" Preset="ShutterOpen">Shutter open</Capability>
   <Capability Min="150" Max="164" Preset="StrobeRandomFastToSlow">Strobe 6: random closing pulse (fast → slow)</Capability>
   <Capability Min="165" Max="169" Preset="ShutterOpen">Shutter open</Capability>
   <Capability Min="170" Max="184" Preset="SlowToFast">Strobe 7: burst pulse (fast → slow)</Capability>
