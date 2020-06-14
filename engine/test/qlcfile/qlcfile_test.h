@@ -31,6 +31,7 @@ private slots:
     void getXMLHeader();
     void errorString();
     void version();
+    void windowManager();
 };
 
 #endif

@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.0 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Felix Pickenäcker</Author>
  </Creator>
  <Manufacturer>GLP</Manufacturer>
@@ -169,8 +169,8 @@
   <Capability Min="192" Max="207">Laser ON</Capability>
   <Capability Min="208" Max="223">No Function</Capability>
   <Capability Min="224" Max="229">Fan silent</Capability>
-  <Capability Min="230" Max="249">Lamp OFF (3sec when shutter closed)</Capability>
-  <Capability Min="250" Max="255">Reset</Capability>
+  <Capability Min="230" Max="249" Preset="LampOff">Lamp OFF (3sec when shutter closed)</Capability>
+  <Capability Min="250" Max="255" Preset="ResetAll">Reset</Capability>
  </Channel>
  <Channel Name="Movement">
   <Group Byte="0">Effect</Group>
@@ -191,16 +191,16 @@
  </Channel>
  <Channel Name="Iris">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="127">Iris open - closed</Capability>
-  <Capability Min="128" Max="143">Ascend with Shutter, random</Capability>
-  <Capability Min="144" Max="159">Descend with Shutter, random</Capability>
+  <Capability Min="0" Max="127" Preset="BigToSmall">Iris open - closed</Capability>
+  <Capability Min="128" Max="143" Preset="StrobeRandomSlowToFast">Ascend with Shutter, random</Capability>
+  <Capability Min="144" Max="159" Preset="StrobeRandomFastToSlow">Descend with Shutter, random</Capability>
   <Capability Min="160" Max="175">Ascend with Shutter, audio</Capability>
   <Capability Min="176" Max="191">Descend with Shutter, audio</Capability>
-  <Capability Min="192" Max="207">Ascend with Shutter</Capability>
-  <Capability Min="208" Max="223">Descend with Shutter</Capability>
-  <Capability Min="224" Max="239">Pulse - effect</Capability>
-  <Capability Min="240" Max="253">Ascend - descend effect</Capability>
-  <Capability Min="254" Max="255">Iris open</Capability>
+  <Capability Min="192" Max="207" Preset="StrobeSlowToFast">Ascend with Shutter</Capability>
+  <Capability Min="208" Max="223" Preset="StrobeFastToSlow">Descend with Shutter</Capability>
+  <Capability Min="224" Max="239" Preset="PulseSlowToFast">Pulse - effect</Capability>
+  <Capability Min="240" Max="253" Preset="PulseFastToSlow">Ascend - descend effect</Capability>
+  <Capability Min="254" Max="255" Preset="ShutterOpen">Iris open</Capability>
  </Channel>
  <Mode Name="Default">
   <Channel Number="0">Pan coarse</Channel>

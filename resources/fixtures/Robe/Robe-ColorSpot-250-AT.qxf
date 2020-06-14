@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.2 GIT</Version>
+  <Version>4.12.1</Version>
   <Author>Dmitry Eremin-Solenikov</Author>
  </Creator>
  <Manufacturer>Robe</Manufacturer>
@@ -122,10 +122,10 @@
   <Capability Min="170" Max="179" Preset="GoboMacro" Res1="Robe/gobo00044.png">Gobo shaking rotation 5</Capability>
   <Capability Min="180" Max="189" Preset="GoboMacro" Res1="Robe/gobo00043.png">Gobo shaking rotation 6</Capability>
   <Capability Min="190" Max="199" Preset="GoboMacro" Res1="Robe/gobo00042.png">Gobo shaking rotation 7</Capability>
-  <Capability Min="200" Max="201">Open</Capability>
-  <Capability Min="202" Max="221">Forwards rotation Fast to Slow</Capability>
-  <Capability Min="222" Max="223">No Rotation</Capability>
-  <Capability Min="224" Max="243">Backwards rotation Slow to Fast</Capability>
+  <Capability Min="200" Max="201" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="202" Max="221" Preset="RotationClockwiseFastToSlow">Forwards rotation Fast to Slow</Capability>
+  <Capability Min="222" Max="223" Preset="RotationStop">No Rotation</Capability>
+  <Capability Min="224" Max="243" Preset="RotationCounterClockwiseSlowToFast">Backwards rotation Slow to Fast</Capability>
   <Capability Min="244" Max="249">Random selection by audio control</Capability>
   <Capability Min="250" Max="255">Auto random selection Fast to Slow</Capability>
  </Channel>
@@ -177,7 +177,7 @@
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Dimmer Fine" Preset="IntensityMasterDimmerFine"/>
- <Mode Name="18 Channel">
+ <Mode Name="18 Channel (Mode 1)">
   <Channel Number="0">Pan</Channel>
   <Channel Number="1">Pan Fine</Channel>
   <Channel Number="2">Tilt</Channel>
@@ -197,7 +197,7 @@
   <Channel Number="16">Dimmer</Channel>
   <Channel Number="17">Dimmer Fine</Channel>
  </Mode>
- <Mode Name="14 Channel">
+ <Mode Name="14 Channel (Mode 2)">
   <Physical>
    <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="9000"/>
    <Dimensions Weight="20.5" Width="419" Height="494" Depth="438"/>
@@ -220,7 +220,7 @@
   <Channel Number="12">Shutter</Channel>
   <Channel Number="13">Dimmer</Channel>
  </Mode>
- <Mode Name="20 Channel">
+ <Mode Name="20 Channel (Mode 3)">
   <Physical>
    <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="9000"/>
    <Dimensions Weight="20.5" Width="419" Height="494" Depth="438"/>
@@ -249,7 +249,7 @@
   <Channel Number="18">Dimmer</Channel>
   <Channel Number="19">Dimmer Fine</Channel>
  </Mode>
- <Mode Name="16 Channel">
+ <Mode Name="16 Channel (Mode 4)">
   <Physical>
    <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="9000"/>
    <Dimensions Weight="20.5" Width="419" Height="494" Depth="438"/>
@@ -275,7 +275,7 @@
   <Channel Number="15">Dimmer</Channel>
  </Mode>
  <Physical>
-  <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="6000"/>
+  <Bulb Type="MSD 250W" Lumens="18000" ColourTemperature="6000"/>
   <Dimensions Weight="20.5" Width="419" Height="494" Depth="438"/>
   <Lens Name="Other" DegreesMin="15" DegreesMax="15"/>
   <Focus Type="Head" PanMax="530" TiltMax="280"/>

@@ -4,150 +4,165 @@
 <context>
     <name>ActionsMenu</name>
     <message>
-        <location filename="qml/ActionsMenu.qml" line="45"/>
+        <location filename="qml/ActionsMenu.qml" line="53"/>
         <source>Open a project</source>
         <translation>Відкрити проект</translation>
     </message>
     <message>
-        <location filename="qml/ActionsMenu.qml" line="47"/>
-        <location filename="qml/ActionsMenu.qml" line="64"/>
-        <location filename="qml/ActionsMenu.qml" line="79"/>
+        <location filename="qml/ActionsMenu.qml" line="55"/>
+        <location filename="qml/ActionsMenu.qml" line="72"/>
+        <location filename="qml/ActionsMenu.qml" line="87"/>
         <source>Project files</source>
         <translation>Файли проекту</translation>
     </message>
     <message>
-        <location filename="qml/ActionsMenu.qml" line="47"/>
-        <location filename="qml/ActionsMenu.qml" line="64"/>
-        <location filename="qml/ActionsMenu.qml" line="79"/>
+        <location filename="qml/ActionsMenu.qml" line="55"/>
+        <location filename="qml/ActionsMenu.qml" line="72"/>
+        <location filename="qml/ActionsMenu.qml" line="87"/>
         <source>All files</source>
         <translation>Усі файлы</translation>
     </message>
     <message>
-        <location filename="qml/ActionsMenu.qml" line="62"/>
-        <location filename="qml/ActionsMenu.qml" line="263"/>
+        <location filename="qml/ActionsMenu.qml" line="70"/>
+        <location filename="qml/ActionsMenu.qml" line="271"/>
         <source>Import from project</source>
         <translation>Імпорт з проекту</translation>
     </message>
     <message>
-        <location filename="qml/ActionsMenu.qml" line="77"/>
-        <location filename="qml/ActionsMenu.qml" line="249"/>
+        <location filename="qml/ActionsMenu.qml" line="85"/>
+        <location filename="qml/ActionsMenu.qml" line="257"/>
         <source>Save project as...</source>
         <translation>Зберегти проект як...</translation>
     </message>
     <message>
-        <location filename="qml/ActionsMenu.qml" line="94"/>
+        <location filename="qml/ActionsMenu.qml" line="102"/>
         <source>Your project has changes</source>
         <translation>Ваш проект має незбереженні зміни</translation>
     </message>
     <message>
-        <location filename="qml/ActionsMenu.qml" line="95"/>
+        <location filename="qml/ActionsMenu.qml" line="103"/>
         <source>Do you wish to save the current project first?
 Changes will be lost if you don&apos;t save them.</source>
         <translation>Ви бажаєте спочатку зберегти проект?
 Зміни будуть втрачені, якщо їх не зберегти.</translation>
     </message>
     <message>
-        <location filename="qml/ActionsMenu.qml" line="154"/>
+        <location filename="qml/ActionsMenu.qml" line="162"/>
         <source>New project</source>
         <translation>Новий проект</translation>
     </message>
     <message>
-        <location filename="qml/ActionsMenu.qml" line="174"/>
+        <location filename="qml/ActionsMenu.qml" line="182"/>
         <source>Open project</source>
         <translation>Відкрити проект</translation>
     </message>
     <message>
-        <location filename="qml/ActionsMenu.qml" line="231"/>
+        <location filename="qml/ActionsMenu.qml" line="239"/>
         <source>Save project</source>
         <translation>Зберегти проект</translation>
     </message>
     <message>
-        <location filename="qml/ActionsMenu.qml" line="293"/>
+        <location filename="qml/ActionsMenu.qml" line="301"/>
         <source>Undo</source>
         <translation>Відмінити</translation>
     </message>
     <message>
-        <location filename="qml/ActionsMenu.qml" line="306"/>
+        <location filename="qml/ActionsMenu.qml" line="314"/>
         <source>Redo</source>
         <translation>Повторити</translation>
     </message>
     <message>
-        <location filename="qml/ActionsMenu.qml" line="319"/>
+        <location filename="qml/ActionsMenu.qml" line="327"/>
         <source>Network</source>
         <translation>Мережа</translation>
     </message>
     <message>
-        <location filename="qml/ActionsMenu.qml" line="344"/>
+        <location filename="qml/ActionsMenu.qml" line="352"/>
         <source>Server setup</source>
         <translation>Налаштування сервера</translation>
     </message>
     <message>
-        <location filename="qml/ActionsMenu.qml" line="362"/>
+        <location filename="qml/ActionsMenu.qml" line="370"/>
         <source>Client setup</source>
         <translation>Налаштування клієнта</translation>
     </message>
     <message>
-        <location filename="qml/ActionsMenu.qml" line="383"/>
+        <location filename="qml/ActionsMenu.qml" line="391"/>
         <source>Address tool</source>
         <translation>Адресний помічник</translation>
     </message>
     <message>
-        <location filename="qml/ActionsMenu.qml" line="394"/>
+        <location filename="qml/ActionsMenu.qml" line="402"/>
         <source>DMX Address tool</source>
         <translation>Помічник адрес DMX</translation>
     </message>
     <message>
-        <location filename="qml/ActionsMenu.qml" line="407"/>
+        <location filename="qml/ActionsMenu.qml" line="413"/>
         <source>Toggle fullscreen</source>
         <translation>Переключити повноекранний режим</translation>
     </message>
     <message>
-        <location filename="qml/ActionsMenu.qml" line="419"/>
+        <location filename="qml/ActionsMenu.qml" line="425"/>
         <source>Language</source>
         <translation>Мова</translation>
     </message>
     <message>
-        <location filename="qml/ActionsMenu.qml" line="446"/>
+        <location filename="qml/ActionsMenu.qml" line="456"/>
         <source>Catalan</source>
         <translation>Каталонська</translation>
     </message>
     <message>
-        <location filename="qml/ActionsMenu.qml" line="453"/>
+        <location filename="qml/ActionsMenu.qml" line="464"/>
         <source>Dutch</source>
         <translation>Нідерландська</translation>
     </message>
     <message>
-        <location filename="qml/ActionsMenu.qml" line="460"/>
+        <location filename="qml/ActionsMenu.qml" line="472"/>
         <source>English</source>
         <translation>Англійська</translation>
     </message>
     <message>
-        <location filename="qml/ActionsMenu.qml" line="467"/>
+        <location filename="qml/ActionsMenu.qml" line="480"/>
         <source>French</source>
         <translation>Французька</translation>
     </message>
     <message>
-        <location filename="qml/ActionsMenu.qml" line="474"/>
+        <location filename="qml/ActionsMenu.qml" line="488"/>
         <source>German</source>
         <translation>Німецька</translation>
     </message>
     <message>
-        <location filename="qml/ActionsMenu.qml" line="481"/>
+        <location filename="qml/ActionsMenu.qml" line="496"/>
         <source>Italian</source>
         <translation>Італійська</translation>
     </message>
     <message>
-        <location filename="qml/ActionsMenu.qml" line="488"/>
+        <location filename="qml/ActionsMenu.qml" line="504"/>
         <source>Japanese</source>
         <translation>Японська</translation>
     </message>
     <message>
-        <location filename="qml/ActionsMenu.qml" line="495"/>
+        <location filename="qml/ActionsMenu.qml" line="512"/>
+        <source>Polish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/ActionsMenu.qml" line="520"/>
+        <source>Russian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/ActionsMenu.qml" line="528"/>
         <source>Spanish</source>
         <translation>Іспанська</translation>
     </message>
     <message>
-        <location filename="qml/ActionsMenu.qml" line="506"/>
+        <location filename="qml/ActionsMenu.qml" line="536"/>
+        <source>Ukrainian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/ActionsMenu.qml" line="547"/>
         <source>About</source>
         <translation>Що до програми</translation>
     </message>
@@ -289,17 +304,17 @@ Changes will be lost if you don&apos;t save them.</source>
 <context>
     <name>BeamTool</name>
     <message>
-        <location filename="qml/fixturesfunctions/BeamTool.qml" line="57"/>
+        <location filename="qml/fixturesfunctions/BeamTool.qml" line="63"/>
         <source>Beam</source>
         <translation>Промінь</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/BeamTool.qml" line="128"/>
+        <location filename="qml/fixturesfunctions/BeamTool.qml" line="134"/>
         <source>Beam degrees</source>
         <translation>Розкриття проміня</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/BeamTool.qml" line="162"/>
+        <location filename="qml/fixturesfunctions/BeamTool.qml" line="168"/>
         <source>Distance</source>
         <translation>Відстань</translation>
     </message>
@@ -340,97 +355,97 @@ Changes will be lost if you don&apos;t save them.</source>
         <translation>Показати кроки Чейзера</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="171"/>
+        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="173"/>
         <source>Run properties</source>
         <translation>Властивості запуску</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="188"/>
+        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="190"/>
         <source>Loop</source>
         <translation>Цикл</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="189"/>
+        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="191"/>
         <source>Single Shot</source>
         <translation>Одине проведення</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="190"/>
+        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="192"/>
         <source>Ping Pong</source>
         <translation>Пинг Понг</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="191"/>
+        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="193"/>
         <source>Random</source>
         <translation>Випадково</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="200"/>
+        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="202"/>
         <source>Run Order</source>
         <translation>Порядок запуску</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="209"/>
+        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="211"/>
         <source>Forward</source>
         <translation>Уперед</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="210"/>
+        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="212"/>
         <source>Backward</source>
         <translation>Назад</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="219"/>
+        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="221"/>
         <source>Direction</source>
         <translation>Напрям</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="228"/>
+        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="230"/>
         <source>Time</source>
         <translation>Час</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="229"/>
+        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="231"/>
         <source>Beats</source>
         <translation>Удари</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="238"/>
+        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="240"/>
         <source>Tempo</source>
         <translation>Темп</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="248"/>
-        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="268"/>
+        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="250"/>
+        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="270"/>
         <source>Default</source>
         <translation>За замовчуванням</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="249"/>
-        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="269"/>
-        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="288"/>
+        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="251"/>
+        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="271"/>
+        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="290"/>
         <source>Common</source>
         <translation>Загальний</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="250"/>
-        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="270"/>
-        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="289"/>
+        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="252"/>
+        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="272"/>
+        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="291"/>
         <source>Per Step</source>
         <translation>За крок</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="259"/>
+        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="261"/>
         <source>Fade In</source>
         <translation>Плавна поява</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="279"/>
+        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="281"/>
         <source>Fade Out</source>
         <translation>Плавне зникнення</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="298"/>
+        <location filename="qml/fixturesfunctions/ChaserEditor.qml" line="300"/>
         <source>Duration</source>
         <translation>Тривалість</translation>
     </message>
@@ -438,32 +453,32 @@ Changes will be lost if you don&apos;t save them.</source>
 <context>
     <name>ChaserWidget</name>
     <message>
-        <location filename="qml/ChaserWidget.qml" line="171"/>
+        <location filename="qml/ChaserWidget.qml" line="174"/>
         <source>Function</source>
         <translation>Функція</translation>
     </message>
     <message>
-        <location filename="qml/ChaserWidget.qml" line="210"/>
+        <location filename="qml/ChaserWidget.qml" line="213"/>
         <source>Fade In</source>
         <translation>Плавна поява</translation>
     </message>
     <message>
-        <location filename="qml/ChaserWidget.qml" line="248"/>
+        <location filename="qml/ChaserWidget.qml" line="251"/>
         <source>Hold</source>
         <translation>Закрепити</translation>
     </message>
     <message>
-        <location filename="qml/ChaserWidget.qml" line="286"/>
+        <location filename="qml/ChaserWidget.qml" line="289"/>
         <source>Fade Out</source>
         <translation>Плавне зникнення</translation>
     </message>
     <message>
-        <location filename="qml/ChaserWidget.qml" line="324"/>
+        <location filename="qml/ChaserWidget.qml" line="327"/>
         <source>Duration</source>
         <translation>Тривалість</translation>
     </message>
     <message>
-        <location filename="qml/ChaserWidget.qml" line="362"/>
+        <location filename="qml/ChaserWidget.qml" line="365"/>
         <source>Note</source>
         <translation>Примітка</translation>
     </message>
@@ -494,17 +509,17 @@ Changes will be lost if you don&apos;t save them.</source>
 <context>
     <name>ColorTool</name>
     <message>
-        <location filename="qml/ColorTool.qml" line="66"/>
+        <location filename="qml/ColorTool.qml" line="99"/>
         <source>Basic</source>
         <translation>Базовий</translation>
     </message>
     <message>
-        <location filename="qml/ColorTool.qml" line="82"/>
+        <location filename="qml/ColorTool.qml" line="115"/>
         <source>Full</source>
         <translation>Повний</translation>
     </message>
     <message>
-        <location filename="qml/ColorTool.qml" line="96"/>
+        <location filename="qml/ColorTool.qml" line="129"/>
         <source>Filters</source>
         <translation>Фільтри</translation>
     </message>
@@ -512,7 +527,7 @@ Changes will be lost if you don&apos;t save them.</source>
 <context>
     <name>ColorToolBasic</name>
     <message>
-        <location filename="qml/ColorToolBasic.qml" line="192"/>
+        <location filename="qml/ColorToolBasic.qml" line="187"/>
         <source>Selected color</source>
         <translation>Виділені кольори</translation>
     </message>
@@ -535,73 +550,73 @@ Changes will be lost if you don&apos;t save them.</source>
         <translation>Червоний</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="228"/>
+        <location filename="qml/ColorToolFilters.qml" line="229"/>
         <source>White</source>
         <translation>Білий</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="249"/>
+        <location filename="qml/ColorToolFilters.qml" line="251"/>
         <source>Magenta</source>
         <translation>Пурпурний</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="249"/>
+        <location filename="qml/ColorToolFilters.qml" line="251"/>
         <source>Green</source>
         <translation>Зелений</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="269"/>
+        <location filename="qml/ColorToolFilters.qml" line="272"/>
         <source>Amber</source>
         <translation>Бурштиновий</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="290"/>
+        <location filename="qml/ColorToolFilters.qml" line="294"/>
         <source>Yellow</source>
         <translation>Жовтий</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="290"/>
+        <location filename="qml/ColorToolFilters.qml" line="294"/>
         <source>Blue</source>
         <translation>Синій</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="310"/>
+        <location filename="qml/ColorToolFilters.qml" line="315"/>
         <source>UV</source>
         <translatorcomment>Ультрафіолет</translatorcomment>
         <translation>УФ</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="331"/>
+        <location filename="qml/ColorToolFilters.qml" line="337"/>
         <source>CMY</source>
         <translation>CMY</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="378"/>
+        <location filename="qml/ColorToolFilters.qml" line="384"/>
         <source>Add a new color filters file</source>
         <translation>Додати новий файл колірних фільтрів</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="392"/>
+        <location filename="qml/ColorToolFilters.qml" line="398"/>
         <source>Rename the current color filters file</source>
         <translation>Перейменувати поточний файл колірних фільтрів</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="401"/>
+        <location filename="qml/ColorToolFilters.qml" line="407"/>
         <source>Save the current color filters file</source>
         <translation>Зберегти поточний файл колірних фільтрів</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="417"/>
+        <location filename="qml/ColorToolFilters.qml" line="423"/>
         <source>Add a new filter</source>
         <translation>Додати новий фільтр</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="437"/>
+        <location filename="qml/ColorToolFilters.qml" line="443"/>
         <source>Delete the selected filter</source>
         <translation>Видалити виділені фільтри</translation>
     </message>
     <message>
-        <location filename="qml/ColorToolFilters.qml" line="454"/>
+        <location filename="qml/ColorToolFilters.qml" line="460"/>
         <source>Paste the latest picked color as new filter</source>
         <translation>Вставити останній вибраний колір в якості нового фільтра</translation>
     </message>
@@ -840,8 +855,9 @@ Changes will be lost if you don&apos;t save them.</source>
     <name>EditorTopBar</name>
     <message>
         <location filename="qml/fixturesfunctions/EditorTopBar.qml" line="44"/>
-        <source>Go back to the Function Manager</source>
-        <translation>Повернутися назад до Менеджеру Функцій</translation>
+        <source>Go back to the previous view</source>
+        <oldsource>Go back to the Function Manager</oldsource>
+        <translation type="unfinished">Повернутися назад до Менеджеру Функцій</translation>
     </message>
 </context>
 <context>
@@ -852,37 +868,37 @@ Changes will be lost if you don&apos;t save them.</source>
         <translation>Управління</translation>
     </message>
     <message>
-        <location filename="qml/ExternalControlDelegate.qml" line="74"/>
+        <location filename="qml/ExternalControlDelegate.qml" line="75"/>
         <source>Universe</source>
         <translation>Universe</translation>
     </message>
     <message>
-        <location filename="qml/ExternalControlDelegate.qml" line="99"/>
+        <location filename="qml/ExternalControlDelegate.qml" line="100"/>
         <source>Activate auto detection</source>
         <translation>Активувати автоматичне виявлення</translation>
     </message>
     <message>
-        <location filename="qml/ExternalControlDelegate.qml" line="125"/>
+        <location filename="qml/ExternalControlDelegate.qml" line="126"/>
         <source>Channel</source>
         <translation>Канал</translation>
     </message>
     <message>
-        <location filename="qml/ExternalControlDelegate.qml" line="148"/>
+        <location filename="qml/ExternalControlDelegate.qml" line="149"/>
         <source>Remove this input source</source>
         <translation>Видалити це джерело вхідного сигналу</translation>
     </message>
     <message>
-        <location filename="qml/ExternalControlDelegate.qml" line="159"/>
+        <location filename="qml/ExternalControlDelegate.qml" line="160"/>
         <source>Custom feedbacks</source>
         <translation>Налаштований зворотній зв&apos;язок</translation>
     </message>
     <message>
-        <location filename="qml/ExternalControlDelegate.qml" line="171"/>
+        <location filename="qml/ExternalControlDelegate.qml" line="172"/>
         <source>Lower</source>
         <translation>Нижче</translation>
     </message>
     <message>
-        <location filename="qml/ExternalControlDelegate.qml" line="181"/>
+        <location filename="qml/ExternalControlDelegate.qml" line="182"/>
         <source>Upper</source>
         <translation>Вище</translation>
     </message>
@@ -942,31 +958,36 @@ Changes will be lost if you don&apos;t save them.</source>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/FixtureGroupEditor.qml" line="108"/>
+        <source>Remove the selected items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/FixtureGroupEditor.qml" line="120"/>
         <source>Reset the entire group</source>
         <translation>Скинути всю групу</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/FixtureGroupEditor.qml" line="131"/>
+        <location filename="qml/fixturesfunctions/FixtureGroupEditor.qml" line="143"/>
         <source>Rotate 90° clockwise</source>
         <translation>Повернути на 90 ° за годинниковою стрілкою</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/FixtureGroupEditor.qml" line="140"/>
+        <location filename="qml/fixturesfunctions/FixtureGroupEditor.qml" line="152"/>
         <source>Rotate 180° clockwise</source>
         <translation>Повернути на 180 ° за годинниковою стрілкою</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/FixtureGroupEditor.qml" line="149"/>
+        <location filename="qml/fixturesfunctions/FixtureGroupEditor.qml" line="161"/>
         <source>Rotate 270° clockwise</source>
         <translation>Повернути на 270 ° за годинниковою стрілкою</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/FixtureGroupEditor.qml" line="158"/>
+        <location filename="qml/fixturesfunctions/FixtureGroupEditor.qml" line="170"/>
         <source>Flip horizontally</source>
         <translation>Відобразити по горизонталі</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/FixtureGroupEditor.qml" line="167"/>
+        <location filename="qml/fixturesfunctions/FixtureGroupEditor.qml" line="179"/>
         <source>Flip vertically</source>
         <translation>Відобразити по вертикалі</translation>
     </message>
@@ -1044,22 +1065,22 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="fixturemanager.cpp" line="587"/>
         <location filename="fixturemanager.cpp" line="722"/>
-        <location filename="fixturemanager.cpp" line="982"/>
+        <location filename="fixturemanager.cpp" line="995"/>
         <source>Head</source>
         <translation>Голова</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="909"/>
+        <location filename="fixturemanager.cpp" line="922"/>
         <source>New group %1</source>
         <translation>Нова група %1</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1097"/>
+        <location filename="fixturemanager.cpp" line="1110"/>
         <source>%1 - Row %2</source>
         <translation>%1 - Рядок %2</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1397"/>
+        <location filename="fixturemanager.cpp" line="1420"/>
         <source>New filters %1</source>
         <translation>Нові фільтри %1</translation>
     </message>
@@ -1279,57 +1300,57 @@ Changes will be lost if you don&apos;t save them.</source>
 <context>
     <name>FunctionManager</name>
     <message>
-        <location filename="qml/fixturesfunctions/FunctionManager.qml" line="100"/>
+        <location filename="qml/fixturesfunctions/FunctionManager.qml" line="99"/>
         <source>Scenes</source>
         <translation>Сцени</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/FunctionManager.qml" line="112"/>
+        <location filename="qml/fixturesfunctions/FunctionManager.qml" line="111"/>
         <source>Chasers</source>
         <translation>Чейзери</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/FunctionManager.qml" line="124"/>
+        <location filename="qml/fixturesfunctions/FunctionManager.qml" line="123"/>
         <source>Sequences</source>
         <translation>Послідовності</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/FunctionManager.qml" line="136"/>
+        <location filename="qml/fixturesfunctions/FunctionManager.qml" line="135"/>
         <source>EFX</source>
         <translation>EFX</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/FunctionManager.qml" line="148"/>
+        <location filename="qml/fixturesfunctions/FunctionManager.qml" line="147"/>
         <source>Collections</source>
         <translation>Колекції</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/FunctionManager.qml" line="160"/>
+        <location filename="qml/fixturesfunctions/FunctionManager.qml" line="159"/>
         <source>RGB Matrices</source>
         <translation>RGB Матриці</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/FunctionManager.qml" line="172"/>
+        <location filename="qml/fixturesfunctions/FunctionManager.qml" line="171"/>
         <source>Shows</source>
         <translation>Шоу</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/FunctionManager.qml" line="184"/>
+        <location filename="qml/fixturesfunctions/FunctionManager.qml" line="183"/>
         <source>Scripts</source>
         <translation>Скрипти</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/FunctionManager.qml" line="196"/>
+        <location filename="qml/fixturesfunctions/FunctionManager.qml" line="195"/>
         <source>Audio</source>
         <translation>Аудіо</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/FunctionManager.qml" line="208"/>
+        <location filename="qml/fixturesfunctions/FunctionManager.qml" line="207"/>
         <source>Videos</source>
         <translation>Відео</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/FunctionManager.qml" line="225"/>
+        <location filename="qml/fixturesfunctions/FunctionManager.qml" line="224"/>
         <source>Set a Function search filter</source>
         <translation>Встановіти фільтр пошуку функцій</translation>
     </message>
@@ -1339,62 +1360,62 @@ Changes will be lost if you don&apos;t save them.</source>
         <translation>&lt;Відсутнє&gt;</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="248"/>
+        <location filename="functionmanager.cpp" line="250"/>
         <source>New Scene</source>
         <translation>Нова Сцена</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="256"/>
+        <location filename="functionmanager.cpp" line="258"/>
         <source>New Chaser</source>
         <translation>Новий Чейзер</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="278"/>
+        <location filename="functionmanager.cpp" line="280"/>
         <source>New Sequence</source>
         <translation>Нова Послідовність</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="291"/>
+        <location filename="functionmanager.cpp" line="293"/>
         <source>New EFX</source>
         <translation>Новий EFX</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="299"/>
+        <location filename="functionmanager.cpp" line="301"/>
         <source>New Collection</source>
         <translation>Нова Колекція</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="314"/>
+        <location filename="functionmanager.cpp" line="316"/>
         <source>New RGB Matrix</source>
         <translation>Нова RGB Матриця</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="322"/>
+        <location filename="functionmanager.cpp" line="324"/>
         <source>New Script</source>
         <translation>Новий Скрипт</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="330"/>
+        <location filename="functionmanager.cpp" line="332"/>
         <source>New Show</source>
         <translation>Нове Шоу</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="337"/>
+        <location filename="functionmanager.cpp" line="339"/>
         <source>New Audio</source>
         <translation>Нове Аудіо</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="369"/>
+        <location filename="functionmanager.cpp" line="371"/>
         <source>New Video</source>
         <translation>Нове Відео</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="784"/>
+        <location filename="functionmanager.cpp" line="787"/>
         <source> (Copy)</source>
         <translation> (Копія)</translation>
     </message>
     <message>
-        <location filename="functionmanager.cpp" line="975"/>
+        <location filename="functionmanager.cpp" line="978"/>
         <source>New folder</source>
         <translation>Нова папка</translation>
     </message>
@@ -1458,31 +1479,31 @@ Changes will be lost if you don&apos;t save them.</source>
 <context>
     <name>InputOutputManager</name>
     <message>
-        <location filename="inputoutputmanager.cpp" line="46"/>
+        <location filename="inputoutputmanager.cpp" line="47"/>
         <source>Input/Output Manager</source>
         <translation>Вхідний/Вихідний Менеджер</translation>
     </message>
     <message>
-        <location filename="inputoutputmanager.cpp" line="91"/>
+        <location filename="inputoutputmanager.cpp" line="93"/>
         <source>All universes</source>
         <translation>Усі Universe</translation>
     </message>
     <message>
-        <location filename="inputoutputmanager.cpp" line="223"/>
-        <location filename="inputoutputmanager.cpp" line="255"/>
-        <location filename="inputoutputmanager.cpp" line="284"/>
-        <location filename="inputoutputmanager.cpp" line="317"/>
-        <location filename="inputoutputmanager.cpp" line="636"/>
+        <location filename="inputoutputmanager.cpp" line="225"/>
+        <location filename="inputoutputmanager.cpp" line="257"/>
+        <location filename="inputoutputmanager.cpp" line="286"/>
+        <location filename="inputoutputmanager.cpp" line="319"/>
+        <location filename="inputoutputmanager.cpp" line="638"/>
         <source>Default device</source>
         <translation>Пристрій за замовчуванням</translation>
     </message>
     <message>
-        <location filename="inputoutputmanager.cpp" line="594"/>
+        <location filename="inputoutputmanager.cpp" line="596"/>
         <source>Disabled</source>
         <translation>Вимкнено</translation>
     </message>
     <message>
-        <location filename="inputoutputmanager.cpp" line="603"/>
+        <location filename="inputoutputmanager.cpp" line="605"/>
         <source>Internal generator</source>
         <translation>Внутрішній генератор</translation>
     </message>
@@ -1498,7 +1519,7 @@ Changes will be lost if you don&apos;t save them.</source>
 <context>
     <name>IntensityTool</name>
     <message>
-        <location filename="qml/fixturesfunctions/IntensityTool.qml" line="62"/>
+        <location filename="qml/fixturesfunctions/IntensityTool.qml" line="96"/>
         <source>Intensity</source>
         <translation>Яскравість</translation>
     </message>
@@ -1542,57 +1563,62 @@ Changes will be lost if you don&apos;t save them.</source>
         <translation>Додати прилади</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="87"/>
+        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="86"/>
         <source>Fixture Groups</source>
         <translation>Групи приладів</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="106"/>
+        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="104"/>
+        <source>Palettes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="122"/>
         <source>Intensity</source>
         <translation>Яскравість</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="130"/>
+        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="145"/>
         <source>Shutter</source>
         <translation>Затвор</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="158"/>
+        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="172"/>
         <source>Position</source>
         <translation>Положення</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="187"/>
+        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="200"/>
         <source>Color</source>
         <translation>Колір</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="214"/>
+        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="226"/>
         <source>Color Wheel</source>
         <translation>Колесо коліру</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="241"/>
+        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="252"/>
         <source>Gobos</source>
         <translation>Гобо</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="269"/>
+        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="279"/>
         <source>Beam</source>
         <translation>Промінь</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="311"/>
+        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="320"/>
         <source>Pick a 3D point</source>
         <translation>Выбрати трьохмірну точку</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="321"/>
+        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="329"/>
         <source>Toggle multiple item selection</source>
         <translation>Переключити множинний вибір елементів</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="333"/>
+        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="340"/>
         <source>Select/Deselect all fixtures</source>
         <translation>Вибрати / Скасувати вибір всіх приладів</translation>
     </message>
@@ -1605,32 +1631,32 @@ Changes will be lost if you don&apos;t save them.</source>
         <translation>Дійство</translation>
     </message>
     <message>
-        <location filename="qml/MainView.qml" line="147"/>
+        <location filename="qml/MainView.qml" line="150"/>
         <source>Fixtures &amp; Functions</source>
         <translation>Прилади та Функції</translation>
     </message>
     <message>
-        <location filename="qml/MainView.qml" line="161"/>
+        <location filename="qml/MainView.qml" line="167"/>
         <source>Virtual Console</source>
         <translation>Віртуальна консоль</translation>
     </message>
     <message>
-        <location filename="qml/MainView.qml" line="179"/>
+        <location filename="qml/MainView.qml" line="188"/>
         <source>Simple Desk</source>
         <translation>Проста панель</translation>
     </message>
     <message>
-        <location filename="qml/MainView.qml" line="197"/>
+        <location filename="qml/MainView.qml" line="209"/>
         <source>Show Manager</source>
         <translation>Менеджер Шоу</translation>
     </message>
     <message>
-        <location filename="qml/MainView.qml" line="215"/>
+        <location filename="qml/MainView.qml" line="230"/>
         <source>Input/Output</source>
         <translation>Вхідні/Вихідні</translation>
     </message>
     <message>
-        <location filename="qml/MainView.qml" line="237"/>
+        <location filename="qml/MainView.qml" line="252"/>
         <source>Off</source>
         <translation>Вимкнути</translation>
     </message>
@@ -1646,27 +1672,27 @@ Changes will be lost if you don&apos;t save them.</source>
 <context>
     <name>MainView3D</name>
     <message>
-        <location filename="mainview3d.cpp" line="72"/>
+        <location filename="mainview3d.cpp" line="74"/>
         <source>3D View</source>
         <translation>3D Перегляд</translation>
     </message>
     <message>
-        <location filename="mainview3d.cpp" line="79"/>
+        <location filename="mainview3d.cpp" line="81"/>
         <source>Simple ground</source>
         <translation>Просто земля</translation>
     </message>
     <message>
-        <location filename="mainview3d.cpp" line="79"/>
+        <location filename="mainview3d.cpp" line="81"/>
         <source>Simple box</source>
         <translation>Проста коробка</translation>
     </message>
     <message>
-        <location filename="mainview3d.cpp" line="79"/>
+        <location filename="mainview3d.cpp" line="81"/>
         <source>Rock stage</source>
         <translation>Рок сцена</translation>
     </message>
     <message>
-        <location filename="mainview3d.cpp" line="79"/>
+        <location filename="mainview3d.cpp" line="81"/>
         <source>Theatre stage</source>
         <translation>Театральна сцена</translation>
     </message>
@@ -1690,6 +1716,132 @@ Changes will be lost if you don&apos;t save them.</source>
         <location filename="qml/inputoutput/OutputPatchItem.qml" line="77"/>
         <source>Enable/Disable a blackout on this output patch</source>
         <translation>Включити / Виключити blackout на цьому виході</translation>
+    </message>
+</context>
+<context>
+    <name>PaletteFanningBox</name>
+    <message>
+        <location filename="qml/PaletteFanningBox.qml" line="67"/>
+        <location filename="qml/PaletteFanningBox.qml" line="160"/>
+        <source>Flat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/PaletteFanningBox.qml" line="68"/>
+        <location filename="qml/PaletteFanningBox.qml" line="161"/>
+        <source>Linear</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/PaletteFanningBox.qml" line="69"/>
+        <location filename="qml/PaletteFanningBox.qml" line="162"/>
+        <source>Square</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/PaletteFanningBox.qml" line="70"/>
+        <location filename="qml/PaletteFanningBox.qml" line="163"/>
+        <source>Saw</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/PaletteFanningBox.qml" line="71"/>
+        <location filename="qml/PaletteFanningBox.qml" line="164"/>
+        <source>Sine</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/PaletteFanningBox.qml" line="80"/>
+        <location filename="qml/PaletteFanningBox.qml" line="206"/>
+        <source>Left to right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/PaletteFanningBox.qml" line="81"/>
+        <location filename="qml/PaletteFanningBox.qml" line="207"/>
+        <source>Right to left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/PaletteFanningBox.qml" line="82"/>
+        <location filename="qml/PaletteFanningBox.qml" line="208"/>
+        <source>Top to bottom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/PaletteFanningBox.qml" line="83"/>
+        <location filename="qml/PaletteFanningBox.qml" line="209"/>
+        <source>Bottom to top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/PaletteFanningBox.qml" line="84"/>
+        <location filename="qml/PaletteFanningBox.qml" line="210"/>
+        <source>Centered</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/PaletteFanningBox.qml" line="110"/>
+        <source>Show/Hide fanning options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/PaletteFanningBox.qml" line="127"/>
+        <source>Create a new palette</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/PaletteFanningBox.qml" line="144"/>
+        <source>Type</source>
+        <translation type="unfinished">Тип</translation>
+    </message>
+    <message>
+        <location filename="qml/PaletteFanningBox.qml" line="190"/>
+        <source>Layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/PaletteFanningBox.qml" line="236"/>
+        <source>Amount</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/PaletteFanningBox.qml" line="311"/>
+        <source>Value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/PaletteFanningBox.qml" line="385"/>
+        <source>Pick the selected color</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PaletteManager</name>
+    <message>
+        <location filename="qml/fixturesfunctions/PaletteManager.qml" line="81"/>
+        <source>Search a palette</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/PaletteManager.qml" line="97"/>
+        <source>Intensity</source>
+        <translation type="unfinished">Яскравість</translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/PaletteManager.qml" line="109"/>
+        <source>Color</source>
+        <translation type="unfinished">Колір</translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/PaletteManager.qml" line="121"/>
+        <source>Position</source>
+        <translation type="unfinished">Положення</translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/PaletteManager.qml" line="134"/>
+        <source>Delete the selected palette(s)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1718,6 +1870,69 @@ Changes will be lost if you don&apos;t save them.</source>
         <location filename="qml/popup/PopupAbout.qml" line="58"/>
         <source>Apache 2.0 license</source>
         <translation>лицензії Apache 2.0</translation>
+    </message>
+</context>
+<context>
+    <name>PopupCreatePalette</name>
+    <message>
+        <location filename="qml/popup/PopupCreatePalette.qml" line="30"/>
+        <source>Create a new palette</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/popup/PopupCreatePalette.qml" line="43"/>
+        <source>Dimmer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/popup/PopupCreatePalette.qml" line="44"/>
+        <source>Color</source>
+        <translation type="unfinished">Колір</translation>
+    </message>
+    <message>
+        <location filename="qml/popup/PopupCreatePalette.qml" line="45"/>
+        <source>Position</source>
+        <translation type="unfinished">Положення</translation>
+    </message>
+    <message>
+        <location filename="qml/popup/PopupCreatePalette.qml" line="46"/>
+        <source>Shutter</source>
+        <translation type="unfinished">Затвор</translation>
+    </message>
+    <message>
+        <location filename="qml/popup/PopupCreatePalette.qml" line="47"/>
+        <source>Gobo</source>
+        <translation type="unfinished">Гобо</translation>
+    </message>
+    <message>
+        <location filename="qml/popup/PopupCreatePalette.qml" line="68"/>
+        <source>Palette name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/popup/PopupCreatePalette.qml" line="75"/>
+        <source>New Palette</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/popup/PopupCreatePalette.qml" line="83"/>
+        <source>Type</source>
+        <translation type="unfinished">Тип</translation>
+    </message>
+    <message>
+        <location filename="qml/popup/PopupCreatePalette.qml" line="109"/>
+        <source>Also create a Scene</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/popup/PopupCreatePalette.qml" line="117"/>
+        <source>Scene name</source>
+        <translation type="unfinished">Ім&apos;я сцени</translation>
+    </message>
+    <message>
+        <location filename="qml/popup/PopupCreatePalette.qml" line="124"/>
+        <source>New Scene</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1811,7 +2026,7 @@ Changes will be lost if you don&apos;t save them.</source>
 <context>
     <name>PopupDisclaimer</name>
     <message>
-        <location filename="qml/popup/PopupDisclaimer.qml" line="30"/>
+        <location filename="qml/popup/PopupDisclaimer.qml" line="31"/>
         <source>Disclaimer</source>
         <translation>Відмома від відповідальності</translation>
     </message>
@@ -2150,24 +2365,24 @@ Access level:</source>
 <context>
     <name>PositionTool</name>
     <message>
-        <location filename="qml/fixturesfunctions/PositionTool.qml" line="79"/>
+        <location filename="qml/fixturesfunctions/PositionTool.qml" line="111"/>
         <source>Position</source>
         <translation>Положення</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/PositionTool.qml" line="99"/>
+        <location filename="qml/fixturesfunctions/PositionTool.qml" line="139"/>
         <source>Rotate 90° clockwise</source>
         <translation>Повернути на 90 ° за годинниковою стрілкою</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/PositionTool.qml" line="219"/>
-        <location filename="qml/fixturesfunctions/PositionTool.qml" line="268"/>
+        <location filename="qml/fixturesfunctions/PositionTool.qml" line="260"/>
+        <location filename="qml/fixturesfunctions/PositionTool.qml" line="310"/>
         <source>Snap to the previous value</source>
         <translation>Прив&apos;язати до попереднього значення</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/PositionTool.qml" line="232"/>
-        <location filename="qml/fixturesfunctions/PositionTool.qml" line="287"/>
+        <location filename="qml/fixturesfunctions/PositionTool.qml" line="273"/>
+        <location filename="qml/fixturesfunctions/PositionTool.qml" line="329"/>
         <source>Snap to the next value</source>
         <translation>Прив&apos;язати до наступного значення</translation>
     </message>
@@ -2331,8 +2546,12 @@ Access level:</source>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="618"/>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="764"/>
+        <source>Offset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Displacement</source>
-        <translation>Зсув</translation>
+        <translation type="vanished">Зсув</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="634"/>
@@ -2355,6 +2574,11 @@ Access level:</source>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="728"/>
         <source></source>
         <translation>Виберіть зображення</translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="728"/>
+        <source>Select an image</source>
+        <translation type="unfinished">Выберить зображення</translation>
     </message>
     <message>
         <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="750"/>
@@ -2548,21 +2772,32 @@ Access level:</source>
     <name>SceneEditor</name>
     <message>
         <location filename="qml/fixturesfunctions/SceneEditor.qml" line="89"/>
-        <source>Remove the selected fixtures</source>
-        <translation>Видалити вибрані прилади</translation>
+        <source>Remove the selected items</source>
+        <oldsource>Remove the selected fixtures</oldsource>
+        <translation type="unfinished">Видалити вибрані прилади</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/SceneEditor.qml" line="132"/>
+        <location filename="qml/fixturesfunctions/SceneEditor.qml" line="95"/>
+        <source>Delete items</source>
+        <translation type="unfinished">Видалити елементи</translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/SceneEditor.qml" line="96"/>
+        <source>Are you sure you want to remove the selected items?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/SceneEditor.qml" line="218"/>
         <source>Speed</source>
         <translation>Швидкість</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/SceneEditor.qml" line="145"/>
+        <location filename="qml/fixturesfunctions/SceneEditor.qml" line="231"/>
         <source>Fade in</source>
         <translation>Плавна Поява</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/SceneEditor.qml" line="178"/>
+        <location filename="qml/fixturesfunctions/SceneEditor.qml" line="264"/>
         <source>Fade out</source>
         <translation>Плавне зникнення</translation>
     </message>
@@ -2671,109 +2906,232 @@ Access level:</source>
 <context>
     <name>SettingsView2D</name>
     <message>
-        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="84"/>
+        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="99"/>
         <source>Environment</source>
         <translation>Оточення</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="94"/>
+        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="109"/>
         <source>Width</source>
         <translation>Ширина</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="111"/>
+        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="126"/>
         <source>Height</source>
         <translation>Висота</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="128"/>
+        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="143"/>
         <source>Depth</source>
         <translation>Глибина</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="145"/>
+        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="160"/>
         <source>Grid units</source>
         <translation>Елементи сітки</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="151"/>
+        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="166"/>
         <source>Meters</source>
         <translation>Метри</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="152"/>
+        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="167"/>
         <source>Feet</source>
         <translation>Фути</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="167"/>
+        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="182"/>
         <source>Point of view</source>
         <translation>Точка огляду</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="173"/>
+        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="188"/>
         <source>Top view</source>
         <translation>Вигляд зверху</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="174"/>
+        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="189"/>
         <source>Front view</source>
         <translation>Вигляд спереду</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="175"/>
+        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="190"/>
         <source>Right side view</source>
         <translation>Вигляд з правого боку</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="176"/>
+        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="191"/>
         <source>Left side view</source>
         <translation>Вигляд з лівого боку</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="197"/>
+        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="212"/>
         <source>Selected fixtures</source>
         <translation>Вибрані прилади</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="211"/>
+        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="226"/>
         <source>Gel color</source>
         <translation>Колір Гелю</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="230"/>
+        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="245"/>
         <source>Rotation</source>
         <translation>Обертання</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="248"/>
+        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="277"/>
         <source>Alignment</source>
         <translation>Вирівнювання</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="262"/>
+        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="291"/>
         <source>Align the selected items to the left</source>
         <translation>Вирівнювати вибрані елементи ліворуч</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="272"/>
+        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="301"/>
         <source>Align the selected items to the top</source>
         <translation>Вирівнювати вибрані елементи зверху</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="281"/>
+        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="310"/>
         <source>Distribution</source>
         <translation>Розповсюдження</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="295"/>
+        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="324"/>
         <source>Equally distribute horizontally the selected items</source>
         <translation>Рівномірно розподілити вибрані елементи по горизонталі</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="305"/>
+        <location filename="qml/fixturesfunctions/SettingsView2D.qml" line="334"/>
         <source>Equally distribute vertically the selected items</source>
         <translation>Рівномірно розподілити вибрані елементи по вертикалі</translation>
+    </message>
+</context>
+<context>
+    <name>SettingsView3D</name>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="110"/>
+        <source>Environment</source>
+        <translation type="unfinished">Оточення</translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="120"/>
+        <source>Type</source>
+        <translation type="unfinished">Тип</translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="132"/>
+        <source>Width</source>
+        <translation type="unfinished">Ширина</translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="149"/>
+        <source>Height</source>
+        <translation type="unfinished">Висота</translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="166"/>
+        <source>Depth</source>
+        <translation type="unfinished">Глибина</translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="188"/>
+        <source>Rendering</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="204"/>
+        <source>Quality</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="213"/>
+        <source>Low</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="214"/>
+        <source>Medium</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="215"/>
+        <source>High</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="216"/>
+        <source>Ultra</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="225"/>
+        <source>Ambient light</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="238"/>
+        <source>Smoke amount</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="251"/>
+        <source>Show FPS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="266"/>
+        <source>Position</source>
+        <translation type="unfinished">Положення</translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="367"/>
+        <source>Rotation</source>
+        <translation type="unfinished">Обертання</translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="465"/>
+        <source>Scale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="608"/>
+        <source>Custom items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="614"/>
+        <source>Select a mesh file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="616"/>
+        <source>3D files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="616"/>
+        <source>All files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="627"/>
+        <source>Actions</source>
+        <translation type="unfinished">Дійство</translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="633"/>
+        <source>Add a new item to the scene</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/3DView/SettingsView3D.qml" line="642"/>
+        <source>Remove the selected items</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2799,14 +3157,14 @@ Access level:</source>
     <message>
         <location filename="qml/showmanager/ShowItem.qml" line="220"/>
         <location filename="qml/showmanager/ShowItem.qml" line="276"/>
-        <location filename="qml/showmanager/ShowItem.qml" line="313"/>
+        <location filename="qml/showmanager/ShowItem.qml" line="314"/>
         <source>Position: </source>
         <translation>Положення: </translation>
     </message>
     <message>
         <location filename="qml/showmanager/ShowItem.qml" line="277"/>
-        <location filename="qml/showmanager/ShowItem.qml" line="314"/>
-        <location filename="qml/showmanager/ShowItem.qml" line="385"/>
+        <location filename="qml/showmanager/ShowItem.qml" line="315"/>
+        <location filename="qml/showmanager/ShowItem.qml" line="387"/>
         <source>Duration: </source>
         <translation>Тривалість: </translation>
     </message>
@@ -2896,24 +3254,24 @@ Access level:</source>
         <translation>Створити нову композицію</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="43"/>
+        <location filename="showmanager.cpp" line="46"/>
         <source>Show Manager</source>
         <translation>Менеджер Шоу</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="186"/>
+        <location filename="showmanager.cpp" line="189"/>
         <source>New Show</source>
         <translation>Нове Шоу</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="207"/>
-        <location filename="showmanager.cpp" line="305"/>
+        <location filename="showmanager.cpp" line="210"/>
+        <location filename="showmanager.cpp" line="308"/>
         <source>Track %1</source>
         <translation>Композиція %1</translation>
     </message>
     <message>
-        <location filename="showmanager.cpp" line="680"/>
-        <location filename="showmanager.cpp" line="693"/>
+        <location filename="showmanager.cpp" line="683"/>
+        <location filename="showmanager.cpp" line="696"/>
         <source>(Copy)</source>
         <translation>(Копія)</translation>
     </message>
@@ -3234,37 +3592,40 @@ Access level:</source>
 <context>
     <name>VCCueList</name>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="45"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="50"/>
         <source>Next Cue</source>
         <translation>Наступна Cue</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="46"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="51"/>
         <source>Previous Cue</source>
         <translation>Попередня Cue</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="47"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="52"/>
         <source>Play/Stop/Pause</source>
         <translation>Відтворення/Зупинка/Пауза</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="48"/>
         <source>Left Crossfade</source>
-        <translation>Лівий Кроссфейд</translation>
+        <translation type="vanished">Лівий Кроссфейд</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="49"/>
         <source>Right Crossfade</source>
-        <translation>Правий Кроссфейд</translation>
+        <translation type="vanished">Правий Кроссфейд</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="50"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="53"/>
         <source>Stop/Pause</source>
         <translation>Зупинка/Пауза</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="66"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="54"/>
+        <source>Side Fader</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="virtualconsole/vccuelist.cpp" line="70"/>
         <source>Cue List %1</source>
         <translation>Список Cue %1</translation>
     </message>
@@ -3272,27 +3633,27 @@ Access level:</source>
 <context>
     <name>VCCueListItem</name>
     <message>
-        <location filename="qml/virtualconsole/VCCueListItem.qml" line="114"/>
+        <location filename="qml/virtualconsole/VCCueListItem.qml" line="222"/>
         <source>Play/Pause</source>
         <translation>Відтворення/Пауза</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCCueListItem.qml" line="123"/>
+        <location filename="qml/virtualconsole/VCCueListItem.qml" line="231"/>
         <source>Pause</source>
         <translation>Пауза</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCCueListItem.qml" line="123"/>
+        <location filename="qml/virtualconsole/VCCueListItem.qml" line="231"/>
         <source>Stop</source>
         <translation>Зупинка</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCCueListItem.qml" line="132"/>
+        <location filename="qml/virtualconsole/VCCueListItem.qml" line="240"/>
         <source>Previous cue</source>
         <translation>Попередній Cue</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCCueListItem.qml" line="141"/>
+        <location filename="qml/virtualconsole/VCCueListItem.qml" line="249"/>
         <source>Next cue</source>
         <translation>Наступний Cue</translation>
     </message>
@@ -3355,6 +3716,31 @@ Access level:</source>
         <location filename="qml/virtualconsole/VCCueListProperties.qml" line="135"/>
         <source>Do nothing</source>
         <translation>Нічого не робити</translation>
+    </message>
+    <message>
+        <location filename="qml/virtualconsole/VCCueListProperties.qml" line="149"/>
+        <source>Side fader</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/virtualconsole/VCCueListProperties.qml" line="164"/>
+        <source>Mode</source>
+        <translation type="unfinished">Режим</translation>
+    </message>
+    <message>
+        <location filename="qml/virtualconsole/VCCueListProperties.qml" line="179"/>
+        <source>None</source>
+        <translation type="unfinished">Нічого</translation>
+    </message>
+    <message>
+        <location filename="qml/virtualconsole/VCCueListProperties.qml" line="194"/>
+        <source>Crossfade</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/virtualconsole/VCCueListProperties.qml" line="209"/>
+        <source>Steps</source>
+        <translation type="unfinished">Кроки</translation>
     </message>
 </context>
 <context>
@@ -3558,22 +3944,26 @@ Access level:</source>
         <translation>Видалити вибрані віджети</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCRightPanel.qml" line="129"/>
+        <location filename="qml/virtualconsole/VCRightPanel.qml" line="128"/>
         <source>Are you sure you want to remove the following widgets?</source>
         <translation>Ви впевнені, що бажаете видалити наступні віджети?</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCRightPanel.qml" line="136"/>
-        <source>Delete functions</source>
-        <translation>Видалити функції</translation>
+        <location filename="qml/virtualconsole/VCRightPanel.qml" line="135"/>
+        <source>Delete selected widgets</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCRightPanel.qml" line="148"/>
+        <source>Delete functions</source>
+        <translation type="vanished">Видалити функції</translation>
+    </message>
+    <message>
+        <location filename="qml/virtualconsole/VCRightPanel.qml" line="147"/>
         <source>Copy the selected widgets to clipboard</source>
         <translation>Копіювати виділені елементи у буфер обміну</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCRightPanel.qml" line="160"/>
+        <location filename="qml/virtualconsole/VCRightPanel.qml" line="159"/>
         <source>Paste widgets from clipboard</source>
         <translation>Додати віджети з буфера обміну</translation>
     </message>
@@ -3591,12 +3981,12 @@ Access level:</source>
         <translation>Скидання</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcslider.cpp" line="94"/>
+        <location filename="virtualconsole/vcslider.cpp" line="97"/>
         <source>Slider %1</source>
         <translation>Слайдер %1</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vcslider.cpp" line="96"/>
+        <location filename="virtualconsole/vcslider.cpp" line="99"/>
         <source>Knob %1</source>
         <translation>Ручка %1</translation>
     </message>
@@ -3830,87 +4220,87 @@ Access level:</source>
 <context>
     <name>VCWidgetProperties</name>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="134"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="136"/>
         <source>Select a widget first</source>
         <translation>Спочатку виберіть віджет</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="168"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="170"/>
         <source>Settings</source>
         <translation>Налаштування</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="181"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="183"/>
         <source>External controls</source>
         <translation>Зовнішні елементи управління</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="194"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="196"/>
         <source>Basic properties</source>
         <translation>Базові компоненти</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="209"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="211"/>
         <source>Label</source>
         <translation>Назва</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="234"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="236"/>
         <source>Background color</source>
         <translation>Колір фону</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="257"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="259"/>
         <source>Foreground color</source>
         <translation>Колір переднього плану</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="280"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="282"/>
         <source>Font</source>
         <translation>Шрифт</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="315"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="317"/>
         <source>Please choose a font</source>
         <translation>Виберить шрифт</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="335"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="337"/>
         <source>Background image</source>
         <translation>Фонове зображення</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="366"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="368"/>
         <source>Select an image</source>
         <translation>Выберить зображення</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="384"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="386"/>
         <source>Alignment</source>
         <translation>Вирівнювання</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="399"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="401"/>
         <source>Align the selected widgets to the left</source>
         <translation>Вирівняти вибрані віджети ліворуч</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="409"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="411"/>
         <source>Align the selected widgets to the right</source>
         <translation>Вирівняти вибрані віджети праворуч</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="419"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="421"/>
         <source>Align the selected widgets to the top</source>
         <translation>Вирівняти вибрані віджети вгору</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="429"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="431"/>
         <source>Align the selected widgets to the bottom</source>
         <translation>Вирівняти вибрані віджети донизу</translation>
     </message>
     <message>
-        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="450"/>
+        <location filename="qml/virtualconsole/VCWidgetProperties.qml" line="452"/>
         <source>External Controls</source>
         <translation>Зовнішні Элементи управління</translation>
     </message>
@@ -4008,54 +4398,59 @@ Access level:</source>
         <translation>Геометрія</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/VideoEditor.qml" line="308"/>
+        <location filename="qml/fixturesfunctions/VideoEditor.qml" line="303"/>
         <source>Original</source>
         <translation>Оригінал</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/VideoEditor.qml" line="335"/>
+        <location filename="qml/fixturesfunctions/VideoEditor.qml" line="330"/>
         <source>Custom</source>
         <translation>Налаштований</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/VideoEditor.qml" line="344"/>
+        <location filename="qml/fixturesfunctions/VideoEditor.qml" line="339"/>
         <source>Position</source>
         <translation>Положення</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/VideoEditor.qml" line="380"/>
+        <location filename="qml/fixturesfunctions/VideoEditor.qml" line="375"/>
         <source>Size</source>
         <translation>Розмір</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/VideoEditor.qml" line="389"/>
+        <location filename="qml/fixturesfunctions/VideoEditor.qml" line="384"/>
         <source>W</source>
         <translation>Ш</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/VideoEditor.qml" line="399"/>
+        <location filename="qml/fixturesfunctions/VideoEditor.qml" line="394"/>
         <source>H</source>
         <translation>В</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/VideoEditor.qml" line="415"/>
+        <location filename="qml/fixturesfunctions/VideoEditor.qml" line="410"/>
         <source>Rotation</source>
         <translation>Обертання</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/VideoEditor.qml" line="423"/>
+        <location filename="qml/fixturesfunctions/VideoEditor.qml" line="418"/>
         <source>X</source>
         <translation>X</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/VideoEditor.qml" line="434"/>
+        <location filename="qml/fixturesfunctions/VideoEditor.qml" line="429"/>
         <source>Y</source>
         <translation>Y</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/VideoEditor.qml" line="445"/>
+        <location filename="qml/fixturesfunctions/VideoEditor.qml" line="440"/>
         <source>Z</source>
         <translation>Z</translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/VideoEditor.qml" line="457"/>
+        <source>Layer</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4121,12 +4516,12 @@ Access level:</source>
         <translation>Віртуальна Консоль</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="243"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="244"/>
         <source>&lt;None&gt;</source>
         <translation>&lt;Нічого&gt;</translation>
     </message>
     <message>
-        <location filename="virtualconsole/virtualconsole.cpp" line="1216"/>
+        <location filename="virtualconsole/virtualconsole.cpp" line="1222"/>
         <source>Page %1</source>
         <translation>Сторінка %1</translation>
     </message>

@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.0 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>DJ_Ladonin</Author>
  </Creator>
  <Manufacturer>Dia Lighting</Manufacturer>
@@ -158,7 +158,7 @@
  <Channel Name="Dimmer Fine" Preset="IntensityMasterDimmerFine"/>
  <Channel Name="Function">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="200" Max="209">All Reset</Capability>
+  <Capability Min="200" Max="209" Preset="ResetAll">All Reset</Capability>
  </Channel>
  <Mode Name="22 Channel">
   <Channel Number="0">Pan</Channel>

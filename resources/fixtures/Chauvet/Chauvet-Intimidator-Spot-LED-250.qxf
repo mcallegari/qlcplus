@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Robert Scheffler</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -66,10 +66,10 @@
  </Channel>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="3">Closed</Capability>
-  <Capability Min="4" Max="7">Open</Capability>
-  <Capability Min="8" Max="215">Strobe effect with increasing speed</Capability>
-  <Capability Min="216" Max="255">Open</Capability>
+  <Capability Min="0" Max="3" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="4" Max="7" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="8" Max="215" Preset="StrobeSlowToFast">Strobe effect with increasing speed</Capability>
+  <Capability Min="216" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Control Functions">
@@ -82,12 +82,12 @@
   <Capability Min="88" Max="107">Disable blackout while pan/tilt/moving color wheel</Capability>
   <Capability Min="108" Max="127">Disable blackout while moving gobo/color wheel</Capability>
   <Capability Min="128" Max="147">Disable blackout while pan/tilt/moving gobo/moving color wheel</Capability>
-  <Capability Min="148" Max="157">Reset pan</Capability>
-  <Capability Min="158" Max="167">Reset tilt</Capability>
-  <Capability Min="168" Max="177">Reset color wheel</Capability>
-  <Capability Min="178" Max="187">Reset gobo wheel</Capability>
-  <Capability Min="188" Max="197">Reset prism</Capability>
-  <Capability Min="198" Max="207">Reset all channels</Capability>
+  <Capability Min="148" Max="157" Preset="ResetPan">Reset pan</Capability>
+  <Capability Min="158" Max="167" Preset="ResetTilt">Reset tilt</Capability>
+  <Capability Min="168" Max="177" Preset="ResetColor">Reset color wheel</Capability>
+  <Capability Min="178" Max="187" Preset="ResetGobo">Reset gobo wheel</Capability>
+  <Capability Min="188" Max="197" Preset="ResetPrism">Reset prism</Capability>
+  <Capability Min="198" Max="207" Preset="ResetAll">Reset all channels</Capability>
   <Capability Min="208" Max="255">No function</Capability>
  </Channel>
  <Channel Name="Movement Macros">

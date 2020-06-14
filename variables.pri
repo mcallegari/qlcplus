@@ -4,7 +4,8 @@
 
 APPNAME    = Q Light Controller Plus
 FXEDNAME   = Fixture Definition Editor
-APPVERSION = 4.12.3 GIT
+!qmlui: APPVERSION = 4.12.3 GIT
+qmlui:  APPVERSION = 5.0.0 Alpha 4
 
 # Disable these if you don't want to see GIT short hash in the About Box
 #unix:REVISION = $$system(git log --pretty=format:'%h' -n 1)
@@ -25,9 +26,7 @@ android|ios: CONFIG += qmlui
 # Build everything in the order specified in .pro files
 CONFIG         += ordered
 
-qmlui {
-    DEFINES+=QMLUI
-}
+qmlui: DEFINES += QMLUI
 
 contains(FORCECONFIG, release) {
   message("Forcing a release build")

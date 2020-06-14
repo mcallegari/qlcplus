@@ -50,7 +50,7 @@ public:
     int rgbMapStepCount(const QSize& size);
 
     /** @reimp */
-    RGBMap rgbMap(const QSize& size, uint rgb, int step);
+    void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map);
 
     /** @reimp */
     QString name() const;

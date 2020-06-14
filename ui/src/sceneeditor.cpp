@@ -154,7 +154,11 @@ void SceneEditor::slotSetSceneValues(QList <SceneValue>&sceneValues)
 
         FixtureConsole *fc = fixtureConsole(fixture);
         if (fc != NULL)
+        {
+            fc->blockSignals(true);
             fc->setSceneValue(sv);
+            fc->blockSignals(false);
+        }
     }
 }
 

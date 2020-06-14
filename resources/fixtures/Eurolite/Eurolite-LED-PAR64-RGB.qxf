@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>3.1.0</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
   <Author>Kevin Deldycke</Author>
  </Creator>
  <Manufacturer>Eurolite</Manufacturer>
@@ -15,8 +15,8 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="10">No function</Capability>
-  <Capability Min="11" Max="255">Strobe slow to fast</Capability>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe slow to fast</Capability>
  </Channel>
  <Mode Name="Normal">
   <Channel Number="0">Red</Channel>
@@ -25,11 +25,11 @@
   <Channel Number="3">Dimmer</Channel>
   <Channel Number="4">Strobe</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="396" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="265" Height="240" Weight="2.4" Depth="340"/>
-   <Lens DegreesMax="36" Name="Other" DegreesMin="36"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="32" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="396" ColourTemperature="0"/>
+  <Dimensions Weight="2.4" Width="265" Height="240" Depth="340"/>
+  <Lens Name="Other" DegreesMin="36" DegreesMax="36"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="32" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

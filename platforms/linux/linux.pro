@@ -58,6 +58,7 @@ appimage: {
                     $$QT_LIBS_PATH/libQt5MultimediaWidgets.so.5 \
                     $$QT_LIBS_PATH/libQt5MultimediaGstTools.so.5 \
                     $$QT_LIBS_PATH/libQt5Qml.so.5 \
+                    $$QT_LIBS_PATH/libQt5QmlModels.so.5 \
                     $$QT_LIBS_PATH/libQt5Quick.so.5 \
                     $$QT_LIBS_PATH/libQt5QuickControls2.so.5 \
                     $$QT_LIBS_PATH/libQt5QuickTemplates2.so.5 \
@@ -75,12 +76,6 @@ appimage: {
                     $$QT_LIBS_PATH/libQt5Concurrent.so.5 \
                     $$QT_LIBS_PATH/libQt5Gamepad.so.5 \
                     $$QT_LIBS_PATH/libQt5PrintSupport.so.5
-
-    lessThan(QT_MINOR_VERSION, 10) {
-        qtlibs.files += $$QT_LIBS_PATH/libQt5MultimediaQuick_p.so.5
-    } else {
-        qtlibs.files += $$QT_LIBS_PATH/libQt5MultimediaQuick.so.5
-    }
 
     INSTALLS += qtlibs
 

@@ -71,7 +71,7 @@ bool Stageprofi::sendChannelValue(int channel, uchar value)
 {
     QByteArray chanMsg;
     QString msg;
-    chanMsg.append(msg.sprintf("C%03dL%03d", channel, value));
+    chanMsg.append(msg.asprintf("C%03dL%03d", channel, value));
     return interface()->write(chanMsg);
 }
 

@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Ricardo Mendes</Author>
  </Creator>
  <Manufacturer>JB Systems</Manufacturer>
@@ -13,7 +13,7 @@
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="200">Stepper Motor scanning Speed (from fast to slow)</Capability>
   <Capability Min="201" Max="254">Stand-Alone</Capability>
-  <Capability Min="255" Max="255">Reset</Capability>
+  <Capability Min="255" Max="255" Preset="ResetAll">Reset</Capability>
  </Channel>
  <Channel Name="Globo">
   <Group Byte="0">Gobo</Group>
@@ -60,9 +60,9 @@
  <Channel Name="Tilt" Preset="PositionTilt"/>
  <Channel Name="Strobo">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="0">Blackout</Capability>
-  <Capability Min="1" Max="254">Blanking Frequency (from low to high)</Capability>
-  <Capability Min="255" Max="255">No Blanking</Capability>
+  <Capability Min="0" Max="0" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="1" Max="254" Preset="StrobeSlowToFast">Blanking Frequency (from low to high)</Capability>
+  <Capability Min="255" Max="255" Preset="ShutterOpen">No Blanking</Capability>
  </Channel>
  <Channel Name="Color">
   <Group Byte="0">Colour</Group>

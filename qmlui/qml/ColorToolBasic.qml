@@ -25,7 +25,7 @@ Rectangle
     id: rootBox
     width: 330
     height: 370
-    color: "#444"
+    color: UISettings.bgMedium
     border.color: "#222"
     border.width: 2
 
@@ -36,28 +36,23 @@ Rectangle
     signal colorChanged(real r, real g, real b, real w, real a, real uv)
     signal released()
 
-    onCurrentRGBChanged:
-    {
-        colorChanged(currentRGB.r, currentRGB.g, currentRGB.b, 0, 0, 0)
-    }
-
     property var baseColors: [ 0xFF0000, 0xFF9900, 0xFFFF00, 0x00FF00, 0x00FFFF, 0x0000FF, 0x9900FF, 0xFF00FF ]
 
     function getHTMLColor(r, g, b)
     {
-        return "#" + r.toString(16) + g.toString(16) + b.toString(16);
+        return "#" + r.toString(16) + g.toString(16) + b.toString(16)
     }
 
     function getBaseHTMLColor(index)
     {
-        var bcStr = baseColors[index].toString(16);
-        return "#" + "000000".substr(0, 6 - bcStr.length) + bcStr;
+        var bcStr = baseColors[index].toString(16)
+        return "#" + "000000".substr(0, 6 - bcStr.length) + bcStr
     }
 
     function getShadedColor(colIndex, index)
     {
-        var bcStr = baseColors[colIndex].toString(16);
-        var htmlColor = "#" + "000000".substr(0, 6 - bcStr.length) + bcStr;
+        var bcStr = baseColors[colIndex].toString(16)
+        var htmlColor = "#" + "000000".substr(0, 6 - bcStr.length) + bcStr
         if (index < 3)
             return Qt.lighter(htmlColor, 1 + (0.20 * (3 - index)))
         else
@@ -89,7 +84,7 @@ Rectangle
                             anchors.fill: parent
                             onClicked:
                             {
-                                currentRGB = color
+                                rootBox.colorChanged(color.r, color.g, color.b, 0, 0, 0)
                                 rootBox.released()
                             }
                         }
@@ -124,7 +119,7 @@ Rectangle
                             anchors.fill: parent
                             onClicked:
                             {
-                                currentRGB = color
+                                rootBox.colorChanged(color.r, color.g, color.b, 0, 0, 0)
                                 rootBox.released()
                             }
                         }
@@ -168,7 +163,7 @@ Rectangle
                                         anchors.fill: parent
                                         onClicked:
                                         {
-                                            currentRGB = color
+                                            rootBox.colorChanged(color.r, color.g, color.b, 0, 0, 0)
                                             rootBox.released()
                                         }
                                     }
@@ -189,7 +184,7 @@ Rectangle
         RobotoText
         {
             height: UISettings.listItemHeight
-            label: qsTr("Selected color");
+            label: qsTr("Selected color")
         }
         Rectangle
         {

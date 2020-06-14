@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Daniel</Author>
  </Creator>
  <Manufacturer>Lixada</Manufacturer>
@@ -78,7 +78,7 @@
  <Channel Name="White 9" Preset="IntensityWhite"/>
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="250">Reset</Capability>
+  <Capability Min="0" Max="250" Preset="ResetAll">Reset</Capability>
  </Channel>
  <Mode Name="48 Channel">
   <Channel Number="0">X Pan Fine</Channel>

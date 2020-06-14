@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Administrator</Author>
  </Creator>
  <Manufacturer>Light Emotion</Manufacturer>
@@ -33,8 +33,8 @@
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9">Off</Capability>
-  <Capability Min="10" Max="255">Flash, with increasing speed</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">Off</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Flash, with increasing speed</Capability>
  </Channel>
  <Channel Name="Spot 1: red" Preset="IntensityRed"/>
  <Channel Name="Spot 1: green" Preset="IntensityGreen"/>

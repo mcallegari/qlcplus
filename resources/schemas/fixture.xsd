@@ -275,6 +275,26 @@ when changing this list -->
         <xs:enumeration value="GenericPicture" />
         <xs:enumeration value="PrismEffectOn" />
         <xs:enumeration value="PrismEffectOff" />
+        <xs:enumeration value="LampOn" />
+        <xs:enumeration value="LampOff" />
+        <xs:enumeration value="ResetAll" />
+        <xs:enumeration value="ResetPanTilt" />
+        <xs:enumeration value="ResetPan" />
+        <xs:enumeration value="ResetTilt" />
+        <xs:enumeration value="ResetMotors" />
+        <xs:enumeration value="ResetGobo" />
+        <xs:enumeration value="ResetColor" />
+        <xs:enumeration value="ResetCMY" />
+        <xs:enumeration value="ResetCTO" />
+        <xs:enumeration value="ResetEffects" />
+        <xs:enumeration value="ResetPrism" />
+        <xs:enumeration value="ResetBlades" />
+        <xs:enumeration value="ResetIris" />
+        <xs:enumeration value="ResetFrost" />
+        <xs:enumeration value="ResetZoom" />
+        <xs:enumeration value="SilentModeOn" />
+        <xs:enumeration value="SilentModeOff" />
+        <xs:enumeration value="SilentModeAutomatic" />
         <xs:enumeration value="Alias" />
     </xs:restriction>
 </xs:simpleType>
@@ -362,6 +382,7 @@ when changing this list -->
         <xs:enumeration value="3-pin IP65"/>
         <xs:enumeration value="5-pin IP65"/>
         <xs:enumeration value="3.5 mm stereo jack"/>
+        <xs:enumeration value="Wireless"/>
         <xs:enumeration value="Other"/>
     </xs:restriction>
 </xs:simpleType>

@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.5 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Christian Hollbjär</Author>
  </Creator>
  <Manufacturer>Eurolite</Manufacturer>
@@ -14,10 +14,10 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Sound / Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="0" Max="0" Preset="ShutterOpen">No function</Capability>
   <Capability Min="1" Max="5">Sound control</Capability>
-  <Capability Min="6" Max="10">No function</Capability>
-  <Capability Min="11" Max="255">Strobe (slow to fast)</Capability>
+  <Capability Min="6" Max="10" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe (slow to fast)</Capability>
  </Channel>
  <Channel Name="CH5 Modes">
   <Group Byte="0">Effect</Group>
@@ -56,11 +56,11 @@
   <Channel Number="3">Strobe/Speed/Sensitivity</Channel>
   <Channel Number="4">CH5 Modes</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="3" Width="230" Height="270" Depth="110"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="20"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="24" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3" Width="230" Height="270" Depth="110"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="20"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="24" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

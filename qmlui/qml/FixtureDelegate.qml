@@ -86,6 +86,6 @@ Rectangle
         width: parent.width
         height: 1
         y: parent.height - 1
-        color: UISettings.fgMedium
+        color: UISettings.bgLight
     }
 }

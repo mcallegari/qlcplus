@@ -87,6 +87,7 @@ VirtualConsole::VirtualConsole(QQuickView *view, Doc *doc,
         m_pages.append(page);
     }
 
+    view->rootContext()->setContextProperty("virtualConsole", this);
     qmlRegisterUncreatableType<GrandMaster>("org.qlcplus.classes", 1, 0, "GrandMaster", "Can't create a GrandMaster!");
     qmlRegisterUncreatableType<QLCInputChannel>("org.qlcplus.classes", 1, 0, "QLCInputChannel", "Can't create a QLCInputChannel!");
 
@@ -547,7 +548,12 @@ QStringList VirtualConsole::selectedWidgetNames()
         {
             VCWidget *vcWidget = m_widgetsMap[wID];
             if (vcWidget != nullptr)
-                names << vcWidget->caption();
+            {
+                if (vcWidget->caption().isEmpty())
+                    names << vcWidget->typeToString(vcWidget->type());
+                else
+                    names << vcWidget->caption();
+            }
         }
     }
 

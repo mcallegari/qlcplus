@@ -179,7 +179,7 @@ MonitorFixtureItem::MonitorFixtureItem(Doc *doc, quint32 fid)
                        // handle case when the channel has only one capability 0-255 strobe:
                        // make 0 Open to avoid blinking
                        values << FixtureHead::Open;
-                       for (i = 1; i < 255; i++)
+                       for (i = 1; i < 256; i++)
                            values << FixtureHead::Strobe;
                        containsShutter = true;
                    }

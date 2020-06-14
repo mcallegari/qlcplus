@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Thierry Rodolfo</Author>
  </Creator>
  <Manufacturer>Clay Paky</Manufacturer>
@@ -100,15 +100,15 @@
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="3">Closed</Capability>
-  <Capability Min="4" Max="103">Strobe Slow to Fast</Capability>
-  <Capability Min="104" Max="107">Open</Capability>
-  <Capability Min="108" Max="207">Pulse Slow to Fast</Capability>
-  <Capability Min="208" Max="212">Open</Capability>
-  <Capability Min="213" Max="225">Random Slow Strobe</Capability>
-  <Capability Min="226" Max="238">Random Medium Strobe</Capability>
-  <Capability Min="239" Max="251">Random Fast Strobe</Capability>
-  <Capability Min="252" Max="255">Open</Capability>
+  <Capability Min="0" Max="3" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="4" Max="103" Preset="StrobeSlowToFast">Strobe Slow to Fast</Capability>
+  <Capability Min="104" Max="107" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="108" Max="207" Preset="PulseSlowToFast">Pulse Slow to Fast</Capability>
+  <Capability Min="208" Max="212" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="213" Max="225" Preset="StrobeRandom">Random Slow Strobe</Capability>
+  <Capability Min="226" Max="238" Preset="StrobeRandom">Random Medium Strobe</Capability>
+  <Capability Min="239" Max="251" Preset="StrobeRandom">Random Fast Strobe</Capability>
+  <Capability Min="252" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Dimmer fine" Preset="IntensityDimmerFine"/>
@@ -136,9 +136,9 @@
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="25">Unused Range</Capability>
-  <Capability Min="26" Max="76">Zoom Reset</Capability>
-  <Capability Min="77" Max="127">Pan Tilt Reset</Capability>
-  <Capability Min="128" Max="255">Complete Reset</Capability>
+  <Capability Min="26" Max="76" Preset="ResetZoom">Zoom Reset</Capability>
+  <Capability Min="77" Max="127" Preset="ResetPanTilt">Pan Tilt Reset</Capability>
+  <Capability Min="128" Max="255" Preset="ResetAll">Complete Reset</Capability>
  </Channel>
  <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
  <Channel Name="Zoom Rotoation">

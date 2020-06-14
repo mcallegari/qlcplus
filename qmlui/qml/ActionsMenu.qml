@@ -507,6 +507,14 @@ Popup
                     ContextMenuEntry
                     {
                         Layout.fillWidth: true
+                        imgSource: "qrc:/flag_pl.svg"
+                        iconWidth: flagSize
+                        entryText: qsTr("Polish")
+                        onClicked: setLanguage("pl_PL")
+                    }
+                    ContextMenuEntry
+                    {
+                        Layout.fillWidth: true
                         imgSource: "qrc:/flag_ru.svg"
                         iconWidth: flagSize
                         entryText: qsTr("Russian")

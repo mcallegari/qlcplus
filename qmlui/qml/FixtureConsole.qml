@@ -52,6 +52,7 @@ Rectangle
     signal clicked
     signal sizeChanged(var w, var h)
     signal valueChanged(var fixtureID, var chIndex, var value)
+    signal requestTool(var item, var fixtureID, var chIndex, var value)
 
     onValuesChanged:
     {
@@ -246,6 +247,12 @@ Rectangle
                                 border.width: 0
                                 tooltip: fixtureObj ? fixtureManager.channelName(fixtureObj.id, index) : ""
                                 imgSource: fixtureObj ? fixtureManager.channelIcon(fixtureObj.id, index) : ""
+
+                                onClicked:
+                                {
+                                    if (fixtureObj)
+                                        consoleRoot.requestTool(chColumn, fixtureObj.id, index, dmxValue)
+                                }
                             }
 
                             // channel fader

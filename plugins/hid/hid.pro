@@ -12,7 +12,7 @@ CONFIG      += plugin
 unix:!macx:INCLUDEPATH += linux
 macx:INCLUDEPATH += macx
 
-win32:LIBS += -lsetupapi -lwinmm
+win32:LIBS += -lsetupapi -lwinmm -lhid
 macx:LIBS += -framework IOKit -framework CoreFoundation
 
 HEADERS += ../interfaces/qlcioplugin.h

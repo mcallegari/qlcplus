@@ -249,20 +249,17 @@ int RGBMatrix::stepsCount()
     return 0;
 }
 
-RGBMap RGBMatrix::previewMap(int step, RGBMatrixStep *handler)
+void RGBMatrix::previewMap(int step, RGBMatrixStep *handler)
 {
-    RGBMap map;
     QMutexLocker algorithmLocker(&m_algorithmMutex);
     if (m_algorithm == NULL || handler == NULL)
-        return map;
+        return;
 
     if (m_group == NULL)
         m_group = doc()->fixtureGroup(fixtureGroup());
 
     if (m_group != NULL)
-        map = m_algorithm->rgbMap(m_group->size(), handler->stepColor().rgb(), step);
-
-    return map;
+        m_algorithm->rgbMap(m_group->size(), handler->stepColor().rgb(), step, handler->m_map);
 }
 
 /****************************************************************************
@@ -504,11 +501,6 @@ void RGBMatrix::preRun(MasterTimer *timer)
 
         if (m_algorithm != NULL)
         {
-            //Q_ASSERT(m_fader == NULL);
-            //m_fader = new GenericFader(doc());
-            //m_fader->adjustIntensity(getAttributeValue(Intensity));
-            //m_fader->setBlendMode(blendMode());
-
             // Copy direction from parent class direction
             m_stepHandler->initializeDirection(direction(), m_startColor, m_endColor, m_stepsCount);
 
@@ -560,14 +552,12 @@ void RGBMatrix::write(MasterTimer *timer, QList<Universe *> universes)
                     m_stepBeatDuration = beatsToTime(duration(), timer->beatTimeDuration());
 
                 //qDebug() << "RGBMatrix step" << m_stepHandler->currentStepIndex() << ", color:" << QString::number(m_stepHandler->stepColor().rgb(), 16);
-                RGBMap map = m_algorithm->rgbMap(m_group->size(), m_stepHandler->stepColor().rgb(), m_stepHandler->currentStepIndex());
-                updateMapChannels(map, m_group, universes);
+                m_algorithm->rgbMap(m_group->size(), m_stepHandler->stepColor().rgb(),
+                                    m_stepHandler->currentStepIndex(), m_stepHandler->m_map);
+                updateMapChannels(m_stepHandler->m_map, m_group, universes);
             }
         }
     }
-
-    // Run the generic fader that takes care of fading in/out individual channels
-    //m_fader->write(universes, isPaused());
 
     if (isPaused() == false)
     {

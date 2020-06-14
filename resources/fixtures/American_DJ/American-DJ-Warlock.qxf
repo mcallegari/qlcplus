@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.0 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Justin Hornsby</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -78,14 +78,14 @@
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="29">No Function</Capability>
   <Capability Min="30" Max="39">Enable Colour Wheel To Any Position</Capability>
-  <Capability Min="40" Max="59">Lamp On</Capability>
-  <Capability Min="60" Max="79">Lamp Off</Capability>
-  <Capability Min="80" Max="84">All Motors Reset</Capability>
-  <Capability Min="85" Max="87">Pan/Tilt Motors Reset</Capability>
-  <Capability Min="88" Max="90">Colour Wheel Motor Reset</Capability>
-  <Capability Min="91" Max="93">Gobo Wheel Motor Reset</Capability>
+  <Capability Min="40" Max="59" Preset="LampOn">Lamp On</Capability>
+  <Capability Min="60" Max="79" Preset="LampOff">Lamp Off</Capability>
+  <Capability Min="80" Max="84" Preset="ResetAll">All Motors Reset</Capability>
+  <Capability Min="85" Max="87" Preset="ResetPanTilt">Pan/Tilt Motors Reset</Capability>
+  <Capability Min="88" Max="90" Preset="ResetColor">Colour Wheel Motor Reset</Capability>
+  <Capability Min="91" Max="93" Preset="ResetGobo">Gobo Wheel Motor Reset</Capability>
   <Capability Min="94" Max="96">Shutter/ Dimmer Motor Reset</Capability>
-  <Capability Min="97" Max="99">Other Motors Reset</Capability>
+  <Capability Min="97" Max="99" Preset="ResetAll">Other Motors Reset</Capability>
   <Capability Min="100" Max="109">Enable Blackout With Pan/Tilt Movement</Capability>
   <Capability Min="110" Max="119">Enable Blackout With Colour Change</Capability>
   <Capability Min="120" Max="129">Enable Blackout With Gobo Change</Capability>

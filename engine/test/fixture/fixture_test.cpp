@@ -173,6 +173,106 @@ void Fixture_Test::type()
     QCOMPARE(fxi.typeString(), fixtureDef->typeToString(fixtureDef->type()));
     QCOMPARE(fxi.type(), QLCFixtureDef::MovingHead);
     QCOMPARE(fxi.iconResource(), QString(":/movinghead.png"));
+
+    fixtureDef = m_doc->fixtureDefCache()->fixtureDef("SGM", "Colorlab 250");
+    QVERIFY(fixtureDef != NULL);
+    fixtureMode = fixtureDef->modes().at(0);
+    QVERIFY(fixtureMode != NULL);
+
+    fxi.setFixtureDefinition(fixtureDef, fixtureMode);
+    QCOMPARE(fxi.typeString(), fixtureDef->typeToString(fixtureDef->type()));
+    QCOMPARE(fxi.type(), QLCFixtureDef::ColorChanger);
+    QCOMPARE(fxi.iconResource(), QString(":/fixture.png"));
+
+    fixtureDef = m_doc->fixtureDefCache()->fixtureDef("Chauvet", "Vue 3.1");
+    QVERIFY(fixtureDef != NULL);
+    fixtureMode = fixtureDef->modes().at(0);
+    QVERIFY(fixtureMode != NULL);
+
+    fxi.setFixtureDefinition(fixtureDef, fixtureMode);
+    QCOMPARE(fxi.typeString(), fixtureDef->typeToString(fixtureDef->type()));
+    QCOMPARE(fxi.type(), QLCFixtureDef::Effect);
+    QCOMPARE(fxi.iconResource(), QString(":/effect.png"));
+
+    fixtureDef = m_doc->fixtureDefCache()->fixtureDef("Cameo", "Storm");
+    QVERIFY(fixtureDef != NULL);
+    fixtureMode = fixtureDef->modes().at(0);
+    QVERIFY(fixtureMode != NULL);
+
+    fxi.setFixtureDefinition(fixtureDef, fixtureMode);
+    QCOMPARE(fxi.typeString(), fixtureDef->typeToString(fixtureDef->type()));
+    QCOMPARE(fxi.type(), QLCFixtureDef::Flower);
+    QCOMPARE(fxi.iconResource(), QString(":/flower.png"));
+
+    fixtureDef = m_doc->fixtureDefCache()->fixtureDef("Showtec", "Dragon F-350");
+    QVERIFY(fixtureDef != NULL);
+    fixtureMode = fixtureDef->modes().at(0);
+    QVERIFY(fixtureMode != NULL);
+
+    fxi.setFixtureDefinition(fixtureDef, fixtureMode);
+    QCOMPARE(fxi.typeString(), fixtureDef->typeToString(fixtureDef->type()));
+    QCOMPARE(fxi.type(), QLCFixtureDef::Hazer);
+    QCOMPARE(fxi.iconResource(true), QString("qrc:/hazer.svg"));
+
+    fixtureDef = m_doc->fixtureDefCache()->fixtureDef("beamZ", "LS-3DRG");
+    QVERIFY(fixtureDef != NULL);
+    fixtureMode = fixtureDef->modes().at(0);
+    QVERIFY(fixtureMode != NULL);
+
+    fxi.setFixtureDefinition(fixtureDef, fixtureMode);
+    QCOMPARE(fxi.typeString(), fixtureDef->typeToString(fixtureDef->type()));
+    QCOMPARE(fxi.type(), QLCFixtureDef::Laser);
+    QCOMPARE(fxi.iconResource(), QString(":/laser.png"));
+
+    fixtureDef = m_doc->fixtureDefCache()->fixtureDef("GLP", "PocketScan");
+    QVERIFY(fixtureDef != NULL);
+    fixtureMode = fixtureDef->modes().at(0);
+    QVERIFY(fixtureMode != NULL);
+
+    fxi.setFixtureDefinition(fixtureDef, fixtureMode);
+    QCOMPARE(fxi.typeString(), fixtureDef->typeToString(fixtureDef->type()));
+    QCOMPARE(fxi.type(), QLCFixtureDef::Scanner);
+    QCOMPARE(fxi.iconResource(), QString(":/scanner.png"));
+
+    fixtureDef = m_doc->fixtureDefCache()->fixtureDef("Robe", "Fog 1500 FT");
+    QVERIFY(fixtureDef != NULL);
+    fixtureMode = fixtureDef->modes().at(0);
+    QVERIFY(fixtureMode != NULL);
+
+    fxi.setFixtureDefinition(fixtureDef, fixtureMode);
+    QCOMPARE(fxi.typeString(), fixtureDef->typeToString(fixtureDef->type()));
+    QCOMPARE(fxi.type(), QLCFixtureDef::Smoke);
+    QCOMPARE(fxi.iconResource(true), QString("qrc:/smoke.svg"));
+
+    fixtureDef = m_doc->fixtureDefCache()->fixtureDef("Chauvet", "LED Shadow");
+    QVERIFY(fixtureDef != NULL);
+    fixtureMode = fixtureDef->modes().at(0);
+    QVERIFY(fixtureMode != NULL);
+
+    fxi.setFixtureDefinition(fixtureDef, fixtureMode);
+    QCOMPARE(fxi.typeString(), fixtureDef->typeToString(fixtureDef->type()));
+    QCOMPARE(fxi.type(), QLCFixtureDef::Strobe);
+    QCOMPARE(fxi.iconResource(), QString(":/strobe.png"));
+
+    fixtureDef = m_doc->fixtureDefCache()->fixtureDef("Varytec", "Gigabar II");
+    QVERIFY(fixtureDef != NULL);
+    fixtureMode = fixtureDef->modes().at(0);
+    QVERIFY(fixtureMode != NULL);
+
+    fxi.setFixtureDefinition(fixtureDef, fixtureMode);
+    QCOMPARE(fxi.typeString(), fixtureDef->typeToString(fixtureDef->type()));
+    QCOMPARE(fxi.type(), QLCFixtureDef::LEDBarPixels);
+    QCOMPARE(fxi.iconResource(), QString(":/ledbar_pixels.png"));
+
+    fixtureDef = m_doc->fixtureDefCache()->fixtureDef("Clay Paky", "Show Batten 100");
+    QVERIFY(fixtureDef != NULL);
+    fixtureMode = fixtureDef->modes().at(0);
+    QVERIFY(fixtureMode != NULL);
+
+    fxi.setFixtureDefinition(fixtureDef, fixtureMode);
+    QCOMPARE(fxi.typeString(), fixtureDef->typeToString(fixtureDef->type()));
+    QCOMPARE(fxi.type(), QLCFixtureDef::LEDBarBeams);
+    QCOMPARE(fxi.iconResource(true), QString("qrc:/ledbar_beams.svg"));
 }
 
 void Fixture_Test::dimmer()
@@ -218,23 +318,18 @@ void Fixture_Test::rgbPanel()
 
     QVERIFY(fxi.channels() == 40);
 
-    const QLCChannel *ch0 = fxi.channel(0);
-    const QLCChannel *ch1 = fxi.channel(1);
-    const QLCChannel *ch2 = fxi.channel(2);
-    const QLCChannel *ch3 = fxi.channel(3);
-
-    QVERIFY(ch0->group() == QLCChannel::Intensity);
-    QVERIFY(ch0->colour() == QLCChannel::Red);
-    QVERIFY(ch0->name() == "Red 1");
-    QVERIFY(ch1->group() == QLCChannel::Intensity);
-    QVERIFY(ch1->colour() == QLCChannel::Green);
-    QVERIFY(ch1->name() == "Green 1");
-    QVERIFY(ch2->group() == QLCChannel::Intensity);
-    QVERIFY(ch2->colour() == QLCChannel::Blue);
-    QVERIFY(ch2->name() == "Blue 1");
-    QVERIFY(ch3->group() == QLCChannel::Intensity);
-    QVERIFY(ch3->colour() == QLCChannel::White);
-    QVERIFY(ch3->name() == "White 1");
+    QVERIFY(fxi.channel(0)->group() == QLCChannel::Intensity);
+    QVERIFY(fxi.channel(0)->colour() == QLCChannel::Red);
+    QVERIFY(fxi.channel(0)->name() == "Red 1");
+    QVERIFY(fxi.channel(1)->group() == QLCChannel::Intensity);
+    QVERIFY(fxi.channel(1)->colour() == QLCChannel::Green);
+    QVERIFY(fxi.channel(1)->name() == "Green 1");
+    QVERIFY(fxi.channel(2)->group() == QLCChannel::Intensity);
+    QVERIFY(fxi.channel(2)->colour() == QLCChannel::Blue);
+    QVERIFY(fxi.channel(2)->name() == "Blue 1");
+    QVERIFY(fxi.channel(3)->group() == QLCChannel::Intensity);
+    QVERIFY(fxi.channel(3)->colour() == QLCChannel::White);
+    QVERIFY(fxi.channel(3)->name() == "White 1");
 
     QVERIFY(fxi.fixtureMode()->name() == "RGBW");
     QVERIFY(fxi.fixtureMode()->channels().count() == 40);
@@ -242,6 +337,114 @@ void Fixture_Test::rgbPanel()
     QVERIFY(fxi.fixtureMode()->physical().height() == 100);
     QVERIFY(fxi.fixtureMode()->physical().depth() == 100);
     QVERIFY(fxi.fixtureMode()->heads().count() == 10);
+
+    rowDef = fxi.genericRGBPanelDef(10, Fixture::RGB);
+    rowMode = fxi.genericRGBPanelMode(rowDef, Fixture::RGB, 1000, 100);
+    fxi.setFixtureDefinition(rowDef, rowMode);
+
+    QVERIFY(fxi.channels() == 30);
+    QVERIFY(fxi.fixtureMode()->name() == "RGB");
+    QVERIFY(fxi.fixtureMode()->channels().count() == 30);
+
+    QVERIFY(fxi.channel(0)->group() == QLCChannel::Intensity);
+    QVERIFY(fxi.channel(0)->colour() == QLCChannel::Red);
+    QVERIFY(fxi.channel(0)->name() == "Red 1");
+    QVERIFY(fxi.channel(1)->group() == QLCChannel::Intensity);
+    QVERIFY(fxi.channel(1)->colour() == QLCChannel::Green);
+    QVERIFY(fxi.channel(1)->name() == "Green 1");
+    QVERIFY(fxi.channel(2)->group() == QLCChannel::Intensity);
+    QVERIFY(fxi.channel(2)->colour() == QLCChannel::Blue);
+    QVERIFY(fxi.channel(2)->name() == "Blue 1");
+
+    rowDef = fxi.genericRGBPanelDef(10, Fixture::RBG);
+    rowMode = fxi.genericRGBPanelMode(rowDef, Fixture::RBG, 1000, 100);
+    fxi.setFixtureDefinition(rowDef, rowMode);
+
+    QVERIFY(fxi.channels() == 30);
+    QVERIFY(fxi.fixtureMode()->name() == "RBG");
+    QVERIFY(fxi.fixtureMode()->channels().count() == 30);
+
+    QVERIFY(fxi.channel(0)->group() == QLCChannel::Intensity);
+    QVERIFY(fxi.channel(0)->colour() == QLCChannel::Red);
+    QVERIFY(fxi.channel(0)->name() == "Red 1");
+    QVERIFY(fxi.channel(1)->group() == QLCChannel::Intensity);
+    QVERIFY(fxi.channel(1)->colour() == QLCChannel::Blue);
+    QVERIFY(fxi.channel(1)->name() == "Blue 1");
+    QVERIFY(fxi.channel(2)->group() == QLCChannel::Intensity);
+    QVERIFY(fxi.channel(2)->colour() == QLCChannel::Green);
+    QVERIFY(fxi.channel(2)->name() == "Green 1");
+
+    rowDef = fxi.genericRGBPanelDef(10, Fixture::BGR);
+    rowMode = fxi.genericRGBPanelMode(rowDef, Fixture::BGR, 1000, 100);
+    fxi.setFixtureDefinition(rowDef, rowMode);
+
+    QVERIFY(fxi.channels() == 30);
+    QVERIFY(fxi.fixtureMode()->name() == "BGR");
+    QVERIFY(fxi.fixtureMode()->channels().count() == 30);
+
+    QVERIFY(fxi.channel(0)->group() == QLCChannel::Intensity);
+    QVERIFY(fxi.channel(0)->colour() == QLCChannel::Blue);
+    QVERIFY(fxi.channel(0)->name() == "Blue 1");
+    QVERIFY(fxi.channel(1)->group() == QLCChannel::Intensity);
+    QVERIFY(fxi.channel(1)->colour() == QLCChannel::Green);
+    QVERIFY(fxi.channel(1)->name() == "Green 1");
+    QVERIFY(fxi.channel(2)->group() == QLCChannel::Intensity);
+    QVERIFY(fxi.channel(2)->colour() == QLCChannel::Red);
+    QVERIFY(fxi.channel(2)->name() == "Red 1");
+
+    rowDef = fxi.genericRGBPanelDef(10, Fixture::BRG);
+    rowMode = fxi.genericRGBPanelMode(rowDef, Fixture::BRG, 1000, 100);
+    fxi.setFixtureDefinition(rowDef, rowMode);
+
+    QVERIFY(fxi.channels() == 30);
+    QVERIFY(fxi.fixtureMode()->name() == "BRG");
+    QVERIFY(fxi.fixtureMode()->channels().count() == 30);
+
+    QVERIFY(fxi.channel(0)->group() == QLCChannel::Intensity);
+    QVERIFY(fxi.channel(0)->colour() == QLCChannel::Blue);
+    QVERIFY(fxi.channel(0)->name() == "Blue 1");
+    QVERIFY(fxi.channel(1)->group() == QLCChannel::Intensity);
+    QVERIFY(fxi.channel(1)->colour() == QLCChannel::Red);
+    QVERIFY(fxi.channel(1)->name() == "Red 1");
+    QVERIFY(fxi.channel(2)->group() == QLCChannel::Intensity);
+    QVERIFY(fxi.channel(2)->colour() == QLCChannel::Green);
+    QVERIFY(fxi.channel(2)->name() == "Green 1");
+
+    rowDef = fxi.genericRGBPanelDef(10, Fixture::GBR);
+    rowMode = fxi.genericRGBPanelMode(rowDef, Fixture::GBR, 1000, 100);
+    fxi.setFixtureDefinition(rowDef, rowMode);
+
+    QVERIFY(fxi.channels() == 30);
+    QVERIFY(fxi.fixtureMode()->name() == "GBR");
+    QVERIFY(fxi.fixtureMode()->channels().count() == 30);
+
+    QVERIFY(fxi.channel(0)->group() == QLCChannel::Intensity);
+    QVERIFY(fxi.channel(0)->colour() == QLCChannel::Green);
+    QVERIFY(fxi.channel(0)->name() == "Green 1");
+    QVERIFY(fxi.channel(1)->group() == QLCChannel::Intensity);
+    QVERIFY(fxi.channel(1)->colour() == QLCChannel::Blue);
+    QVERIFY(fxi.channel(1)->name() == "Blue 1");
+    QVERIFY(fxi.channel(2)->group() == QLCChannel::Intensity);
+    QVERIFY(fxi.channel(2)->colour() == QLCChannel::Red);
+    QVERIFY(fxi.channel(2)->name() == "Red 1");
+
+    rowDef = fxi.genericRGBPanelDef(10, Fixture::GRB);
+    rowMode = fxi.genericRGBPanelMode(rowDef, Fixture::GRB, 1000, 100);
+    fxi.setFixtureDefinition(rowDef, rowMode);
+
+    QVERIFY(fxi.channels() == 30);
+    QVERIFY(fxi.fixtureMode()->name() == "GRB");
+    QVERIFY(fxi.fixtureMode()->channels().count() == 30);
+
+    QVERIFY(fxi.channel(0)->group() == QLCChannel::Intensity);
+    QVERIFY(fxi.channel(0)->colour() == QLCChannel::Green);
+    QVERIFY(fxi.channel(0)->name() == "Green 1");
+    QVERIFY(fxi.channel(1)->group() == QLCChannel::Intensity);
+    QVERIFY(fxi.channel(1)->colour() == QLCChannel::Red);
+    QVERIFY(fxi.channel(1)->name() == "Red 1");
+    QVERIFY(fxi.channel(2)->group() == QLCChannel::Intensity);
+    QVERIFY(fxi.channel(2)->colour() == QLCChannel::Blue);
+    QVERIFY(fxi.channel(2)->name() == "Blue 1");
 }
 
 void Fixture_Test::fixtureDef()
@@ -330,13 +533,38 @@ void Fixture_Test::degrees()
     QVERIFY(fixtureDef != NULL);
 
     QLCFixtureMode* fixtureMode;
-    fixtureMode = fixtureDef->modes().at(0);
+    fixtureMode = fixtureDef->modes().at(1);
     QVERIFY(fixtureMode != NULL);
 
     fxi.setFixtureDefinition(fixtureDef, fixtureMode);
 
     QCOMPARE(fxi.degreesRange(0).width(), 540.0);
     QCOMPARE(fxi.degreesRange(0).height(), 270.0);
+
+    // dummy ID just for testing
+    fxi.setID(99);
+
+    QList<SceneValue> pos = fxi.positionToValues(QLCChannel::Pan, 90);
+    QCOMPARE(pos.count(), 2);
+    // verify coarse Pan
+    QCOMPARE(pos.at(0).fxi, quint32(99));
+    QCOMPARE(pos.at(0).channel, quint32(7));
+    QCOMPARE(pos.at(0).value, uchar(42));
+    // verify fine Pan
+    QCOMPARE(pos.at(1).fxi, quint32(99));
+    QCOMPARE(pos.at(1).channel, quint32(8));
+    QCOMPARE(pos.at(1).value, uchar(60));
+
+    pos = fxi.positionToValues(QLCChannel::Tilt, 45);
+    QCOMPARE(pos.count(), 2);
+    // verify coarse Tilt
+    QCOMPARE(pos.at(0).fxi, quint32(99));
+    QCOMPARE(pos.at(0).channel, quint32(9));
+    QCOMPARE(pos.at(0).value, uchar(42));
+    // verify fine Tilt
+    QCOMPARE(pos.at(1).fxi, quint32(99));
+    QCOMPARE(pos.at(1).channel, quint32(10));
+    QCOMPARE(pos.at(1).value, uchar(120));
 }
 
 void Fixture_Test::heads()

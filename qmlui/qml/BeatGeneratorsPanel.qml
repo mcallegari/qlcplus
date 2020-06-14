@@ -28,7 +28,7 @@ Rectangle
     width: UISettings.bigItemHeight * 3
     height: contentsColumn.height + 30
     color: UISettings.bgMedium
-    border.color: UISettings.fgMedium
+    border.color: UISettings.bgLight
     border.width: 2
 
     onVisibleChanged:

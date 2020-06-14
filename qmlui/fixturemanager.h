@@ -61,7 +61,7 @@ class FixtureManager : public QObject
     Q_PROPERTY(ColorFilters *selectedFilters READ selectedFilters NOTIFY selectedFiltersChanged)
 
 public:
-    FixtureManager(QQuickView *view, Doc *doc, QObject *parent = 0);
+    FixtureManager(QQuickView *view, Doc *doc, QObject *parent = nullptr);
     ~FixtureManager();
 
     /** Get/Set the Universe index used to filter Fixture lists/tree */
@@ -216,6 +216,14 @@ public:
     /** Generic helper to retrieve a channel name, from
      *  the provided Fixture ID $fxID and channel index $chIdx */
     Q_INVOKABLE QString channelName(quint32 fxID, quint32 chIdx);
+
+    /** Generic helper to retrieve a channel type, from
+     *  the provided Fixture ID $fxID and channel index $chIdx */
+    Q_INVOKABLE int channelType(quint32 fxID, quint32 chIdx);
+
+    /** Generic helper to retrieve the maximum degrees,
+     *  from a pan/tilt channel of the given $fxID */
+    Q_INVOKABLE qreal channelDegrees(quint32 fxID, quint32 chIdx);
 
 signals:
     /** Notify the listeners that the number of Fixtures has changed */
@@ -379,8 +387,6 @@ public:
     Q_INVOKABLE void setIntensityValue(quint8 value);
     Q_INVOKABLE void setColorValue(quint8 red, quint8 green, quint8 blue,
                                    quint8 white, quint8 amber, quint8 uv);
-    Q_INVOKABLE void setPanValue(int degrees);
-    Q_INVOKABLE void setTiltValue(int degrees);
     Q_INVOKABLE void setPresetValue(quint32 fixtureID, int chIndex, quint8 value);
     Q_INVOKABLE void setBeamValue(quint8 value);
 
@@ -418,6 +424,9 @@ public:
     /** Returns the list of QLCCapability in QVariant format for
      *  the channel cached at the given index */
     Q_INVOKABLE QVariantList presetCapabilities(quint32 fixtureID, int chIndex);
+
+    /** Returns a preset channel usable by the QML PresetTool */
+    Q_INVOKABLE QVariantList presetChannel(quint32 fixtureID, int chIndex);
 
     /** Returns the currently available colors as a bitmask */
     int colorsMask() const;

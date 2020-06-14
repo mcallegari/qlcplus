@@ -143,7 +143,7 @@ Rectangle
 
         onPositionChanged: capBar.width = mouse.x
         onExited: capBar.width = 0
-        onPressed: iRoot.color = UISettings.fgMedium
+        onPressed: iRoot.color = UISettings.bgLight
         onReleased: iRoot.color = "white"
         onClicked:
         {

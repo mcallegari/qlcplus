@@ -1,10 +1,10 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>3.0.0</Version>
-  <Author/>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Büro</Author>
  </Creator>
  <Manufacturer>Eurolite</Manufacturer>
  <Model>TS-10</Model>
@@ -45,13 +45,13 @@
  </Channel>
  <Channel Name="Shutter, strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="15">Closed</Capability>
+  <Capability Min="0" Max="15" Preset="ShutterClose">Closed</Capability>
   <Capability Min="16" Max="128">Dimmer intensity</Capability>
-  <Capability Min="129" Max="131">RESET (5sec)</Capability>
-  <Capability Min="132" Max="140">Open</Capability>
-  <Capability Min="141" Max="199">Strobe slow to fast</Capability>
-  <Capability Min="200" Max="249">Random strobe</Capability>
-  <Capability Min="250" Max="255">Open</Capability>
+  <Capability Min="129" Max="131" Preset="ResetAll">RESET (5sec)</Capability>
+  <Capability Min="132" Max="140" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="141" Max="199" Preset="ShutterClose">Strobe slow to fast</Capability>
+  <Capability Min="200" Max="249" Preset="StrobeRandom">Random strobe</Capability>
+  <Capability Min="250" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Mode Name="Normal">
   <Channel Number="0">Pan</Channel>
@@ -61,11 +61,11 @@
   <Channel Number="4">Gobo rotation</Channel>
   <Channel Number="5">Shutter, strobe</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="18000" Type="MSD 250W" ColourTemperature="8000"/>
-   <Dimensions Width="290" Height="540" Weight="14" Depth="150"/>
-   <Lens DegreesMax="18" Name="Other" DegreesMin="18"/>
-   <Focus PanMax="180" Type="Mirror" TiltMax="90"/>
-   <Technical PowerConsumption="550" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="MSD 250W" Lumens="18000" ColourTemperature="8000"/>
+  <Dimensions Weight="14" Width="290" Height="540" Depth="150"/>
+  <Lens Name="Other" DegreesMin="18" DegreesMax="18"/>
+  <Focus Type="Mirror" PanMax="180" TiltMax="90"/>
+  <Technical PowerConsumption="550" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Robert Scheffler</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -82,12 +82,12 @@
   <Capability Min="88" Max="107">Disable Blackout while pan/tilt/moving color wheel</Capability>
   <Capability Min="108" Max="127">Disable Blackout while moving gobo/color wheel</Capability>
   <Capability Min="128" Max="147">Disable Blackout while pan/tilt/moving gobo/moving color wheel</Capability>
-  <Capability Min="148" Max="157">Reset Pan</Capability>
-  <Capability Min="158" Max="167">Reset Tilt</Capability>
-  <Capability Min="168" Max="177">Reset Color wheel</Capability>
-  <Capability Min="178" Max="187">Reset Gobo wheel</Capability>
-  <Capability Min="188" Max="197">Reset Prism</Capability>
-  <Capability Min="198" Max="207">Reset all channels</Capability>
+  <Capability Min="148" Max="157" Preset="ResetPan">Reset Pan</Capability>
+  <Capability Min="158" Max="167" Preset="ResetTilt">Reset Tilt</Capability>
+  <Capability Min="168" Max="177" Preset="ResetColor">Reset Color wheel</Capability>
+  <Capability Min="178" Max="187" Preset="ResetGobo">Reset Gobo wheel</Capability>
+  <Capability Min="188" Max="197" Preset="ResetPrism">Reset Prism</Capability>
+  <Capability Min="198" Max="207" Preset="ResetAll">Reset all channels</Capability>
   <Capability Min="208" Max="255">No Function</Capability>
  </Channel>
  <Channel Name="Movement Macros">

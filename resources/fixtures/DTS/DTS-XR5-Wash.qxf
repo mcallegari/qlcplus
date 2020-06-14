@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.0 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Johannes Felber</Author>
  </Creator>
  <Manufacturer>DTS</Manufacturer>
@@ -143,20 +143,20 @@
  <Channel Name="Lamp/Reset XR 5">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="9">No Effect</Capability>
-  <Capability Min="10" Max="60">Lamp OFF (Active after 3 seconds)</Capability>
+  <Capability Min="10" Max="60" Preset="LampOff">Lamp OFF (Active after 3 seconds)</Capability>
   <Capability Min="61" Max="129">No Effect</Capability>
-  <Capability Min="130" Max="179">Lamp ON (Active after 3 seconds)</Capability>
+  <Capability Min="130" Max="179" Preset="LampOn">Lamp ON (Active after 3 seconds)</Capability>
   <Capability Min="180" Max="200">No Effect</Capability>
-  <Capability Min="201" Max="239">Internal Motors Reset</Capability>
-  <Capability Min="240" Max="255">Total Reset</Capability>
+  <Capability Min="201" Max="239" Preset="ResetMotors">Internal Motors Reset</Capability>
+  <Capability Min="240" Max="255" Preset="ResetAll">Total Reset</Capability>
  </Channel>
  <Channel Name="Lamp/Reset XR 250 Wash">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="29">No Effect</Capability>
-  <Capability Min="30" Max="85">Lamp OFF (active after 3 seconds)</Capability>
-  <Capability Min="86" Max="170">Internal motor Reset</Capability>
-  <Capability Min="171" Max="235">Total Reset</Capability>
-  <Capability Min="236" Max="255">Lamp ON (active after 3 seconds)</Capability>
+  <Capability Min="30" Max="85" Preset="LampOff">Lamp OFF (active after 3 seconds)</Capability>
+  <Capability Min="86" Max="170" Preset="ResetMotors">Internal motor Reset</Capability>
+  <Capability Min="171" Max="235" Preset="ResetAll">Total Reset</Capability>
+  <Capability Min="236" Max="255" Preset="LampOn">Lamp ON (active after 3 seconds)</Capability>
  </Channel>
  <Channel Name="Macro CMY/Colour 2">
   <Group Byte="0">Effect</Group>

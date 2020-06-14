@@ -56,17 +56,15 @@ int RGBPlain::rgbMapStepCount(const QSize& size)
     return 1;
 }
 
-RGBMap RGBPlain::rgbMap(const QSize& size, uint rgb, int step)
+void RGBPlain::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
 {
     Q_UNUSED(step)
-    RGBMap map(size.height());
+    map.resize(size.height());
     for (int y = 0; y < size.height(); y++)
     {
         map[y].resize(size.width());
         map[y].fill(rgb);
     }
-
-    return map;
 }
 
 QString RGBPlain::name() const

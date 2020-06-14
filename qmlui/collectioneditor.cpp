@@ -106,7 +106,7 @@ void CollectionEditor::updateFunctionsList()
     {
         m_functionsList->clear();
 
-        foreach(quint32 fId, m_collection->functions())
+        for (quint32 fId : m_collection->functions())
         {
             qDebug() << "Adding" << fId << "to collection list";
             QVariantMap funcMap;

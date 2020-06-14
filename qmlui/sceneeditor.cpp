@@ -26,6 +26,7 @@
 #include "tardis.h"
 #include "scene.h"
 #include "doc.h"
+#include "app.h"
 
 SceneEditor::SceneEditor(QQuickView *view, Doc *doc, QObject *parent)
     : FunctionEditor(view, doc, parent)
@@ -36,9 +37,14 @@ SceneEditor::SceneEditor(QQuickView *view, Doc *doc, QObject *parent)
     m_view->rootContext()->setContextProperty("sceneEditor", this);
     m_source = new GenericDMXSource(m_doc);
     m_fixtureList = new ListModel(this);
-    QStringList listRoles;
-    listRoles << "fxRef" << "isSelected";
-    m_fixtureList->setRoleNames(listRoles);
+    QStringList fRoles;
+    fRoles << "cRef" << "isSelected";
+    m_fixtureList->setRoleNames(fRoles);
+
+    m_componentList = new ListModel(this);
+    QStringList cRoles;
+    cRoles << "type" << "cRef" << "isSelected";
+    m_componentList->setRoleNames(cRoles);
 }
 
 SceneEditor::~SceneEditor()
@@ -72,7 +78,7 @@ void SceneEditor::setFunctionID(quint32 id)
 
     connect(m_scene, &Scene::valueChanged, this, &SceneEditor::slotSceneValueChanged);
 
-    updateFixtureList();
+    updateLists();
     if (bottomPanel != nullptr)
     {
         bottomPanel->setProperty("visible", true);
@@ -84,6 +90,11 @@ void SceneEditor::setFunctionID(quint32 id)
 QVariant SceneEditor::fixtureList() const
 {
     return QVariant::fromValue(m_fixtureList);
+}
+
+QVariant SceneEditor::componentList() const
+{
+    return QVariant::fromValue(m_componentList);
 }
 
 void SceneEditor::setPreviewEnabled(bool enable)
@@ -167,7 +178,7 @@ void SceneEditor::slotSceneValueChanged(SceneValue scv)
         connect(fixture, SIGNAL(aliasChanged()), this, SLOT(slotAliasChanged()));
 
         QVariantMap fxMap;
-        fxMap.insert("fxRef", QVariant::fromValue(fixture));
+        fxMap.insert("cRef", QVariant::fromValue(fixture));
         fxMap.insert("isSelected", false);
         m_fixtureList->addDataMap(fxMap);
         m_fixtureIDs.append(scv.fxi);
@@ -230,15 +241,113 @@ void SceneEditor::setFixtureSelection(quint32 fxID)
                               Q_ARG(QVariant, fxIndex));
 }
 
-void SceneEditor::updateFixtureList()
+void SceneEditor::addComponent(int type, quint32 id)
 {
-    if(m_scene == nullptr)
+    if (m_scene == nullptr)
+        return;
+
+    switch(type)
+    {
+        case App::UniverseDragItem:
+        {
+            // TODO
+        }
+        break;
+        case App::FixtureGroupDragItem:
+            m_scene->addFixtureGroup(id);
+        break;
+        case App::FixtureDragItem:
+            m_scene->addFixture(id);
+        break;
+        case App::PaletteDragItem:
+        {
+            m_scene->addPalette(id);
+        }
+        break;
+        default:
+        break;
+    }
+
+    updateLists();
+}
+
+void SceneEditor::deleteItems(QVariantList list)
+{
+    if (m_scene == nullptr)
+        return;
+
+    for (QVariant vIdx : list)
+    {
+        int index = vIdx.toInt();
+        QVariantMap dataMap = m_componentList->itemAt(index).toMap();
+        int type = dataMap["type"].toInt();
+
+        switch(type)
+        {
+            case App::FixtureDragItem:
+            {
+                Fixture *fixture = dataMap["cRef"].value<Fixture *>();
+                qDebug() << "removing fixture with ID" << fixture->id();
+                // TODO: tardis
+                m_scene->removeFixture(fixture->id());
+            }
+            break;
+            case App::FixtureGroupDragItem:
+            {
+                FixtureGroup *group = dataMap["cRef"].value<FixtureGroup *>();
+                qDebug() << "removing fixture group with ID" << group->id();
+                // TODO: tardis
+                m_scene->removeFixtureGroup(group->id());
+            }
+            break;
+            case App::PaletteDragItem:
+            {
+                QLCPalette *palette = dataMap["cRef"].value<QLCPalette *>();
+                qDebug() << "removing palette with ID" << palette->id();
+                // TODO: tardis
+                m_scene->removePalette(palette->id());
+            }
+            break;
+        }
+    }
+
+    updateLists();
+}
+
+void SceneEditor::addFixtureToList(quint32 fid)
+{
+    if (m_fixtureIDs.contains(fid))
+        return;
+
+    Fixture *fixture = m_doc->fixture(fid);
+    if (fixture == nullptr)
+        return;
+
+    connect(fixture, SIGNAL(aliasChanged()), this, SLOT(slotAliasChanged()));
+
+    QVariantMap fxMap;
+    fxMap.insert("cRef", QVariant::fromValue(fixture));
+    fxMap.insert("isSelected", false);
+    m_fixtureList->addDataMap(fxMap);
+
+    QVariantMap fxcMap;
+    fxcMap.insert("type", App::FixtureDragItem);
+    fxcMap.insert("cRef", QVariant::fromValue(fixture));
+    fxcMap.insert("isSelected", false);
+    m_componentList->addDataMap(fxcMap);
+
+    m_fixtureIDs.append(fid);
+}
+
+void SceneEditor::updateLists()
+{
+    if (m_scene == nullptr)
         return;
 
     for (quint32 fxID : m_fixtureIDs)
     {
         Fixture *fixture = m_doc->fixture(fxID);
-        if(fixture == nullptr)
+        if (fixture == nullptr)
             continue;
 
         disconnect(fixture, SIGNAL(aliasChanged()), this, SLOT(slotAliasChanged()));
@@ -246,25 +355,72 @@ void SceneEditor::updateFixtureList()
 
     m_fixtureIDs.clear();
     m_fixtureList->clear();
+    m_componentList->clear();
 
-    for (SceneValue sv : m_scene->values())
+    /** The component list order is:
+     *  - Fixture groups
+     *  - Palettes
+     *  - Fixtures (means additional values were set manually)
+     *
+     *  Fixture list, instead, is to display Fixture consoles
+     *  in a bottom panel, so it's the expanded list of all
+     *  the Fixtures involved, including those in groups
+     */
+
+    // fixture groups
+    for (quint32 grpId : m_scene->fixtureGroups())
     {
-        if (m_fixtureIDs.contains(sv.fxi) == false)
+        FixtureGroup *grp = m_doc->fixtureGroup(grpId);
+        if (grp == nullptr)
+            continue;
+
+        QVariantMap grpMap;
+        grpMap.insert("type", App::FixtureGroupDragItem);
+        grpMap.insert("cRef", QVariant::fromValue(grp));
+        grpMap.insert("isSelected", false);
+        m_componentList->addDataMap(grpMap);
+
+        for (quint32 fxId : grp->fixtureList())
         {
-            Fixture *fixture = m_doc->fixture(sv.fxi);
-            if(fixture == nullptr)
-                continue;
+            if (m_fixtureIDs.contains(fxId) == false)
+            {
+                Fixture *fixture = m_doc->fixture(fxId);
+                if (fixture != nullptr)
+                {
+                    QVariantMap fxMap;
+                    fxMap.insert("cRef", QVariant::fromValue(fixture));
+                    fxMap.insert("isSelected", false);
+                    m_fixtureList->addDataMap(fxMap);
+                }
 
-            connect(fixture, SIGNAL(aliasChanged()), this, SLOT(slotAliasChanged()));
-
-            QVariantMap fxMap;
-            fxMap.insert("fxRef", QVariant::fromValue(fixture));
-            fxMap.insert("isSelected", false);
-            m_fixtureList->addDataMap(fxMap);
-
-            m_fixtureIDs.append(sv.fxi);
+                m_fixtureIDs.append(fxId);
+            }
         }
     }
+
+    // palettes
+    for (quint32 pId : m_scene->palettes())
+    {
+        QLCPalette *palette = m_doc->palette(pId);
+        if (palette == nullptr)
+            continue;
+
+        QVariantMap pMap;
+        pMap.insert("type", App::PaletteDragItem);
+        pMap.insert("cRef", QVariant::fromValue(palette));
+        pMap.insert("isSelected", false);
+        m_componentList->addDataMap(pMap);
+    }
+
+    // fixtures (there might be fixtures with no values set)
+    for (quint32 fId : m_scene->fixtures())
+        addFixtureToList(fId);
+
+    // scene values
+    for (SceneValue sv : m_scene->values())
+        addFixtureToList(sv.fxi);
+
+    emit componentListChanged();
     emit fixtureListChanged();
 }
 

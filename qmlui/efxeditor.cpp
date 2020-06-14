@@ -395,7 +395,7 @@ void EFXEditor::addGroup(QVariant reference)
 
                     if (panCh != QLCChannel::invalid() || tiltCh != QLCChannel::invalid())
                     {
-                        EFXFixture* ef = new EFXFixture(m_efx);
+                        EFXFixture *ef = new EFXFixture(m_efx);
                         GroupHead head(fixture->id(), headIdx);
                         ef->setHead(head);
 
@@ -417,7 +417,7 @@ void EFXEditor::addGroup(QVariant reference)
             qDebug() << "Adding a fixture group";
             for (GroupHead head : group->headList())
             {
-                Fixture* fixture = m_doc->fixture(head.fxi);
+                Fixture *fixture = m_doc->fixture(head.fxi);
                 if (fixture == nullptr)
                     continue;
 
@@ -426,7 +426,7 @@ void EFXEditor::addGroup(QVariant reference)
 
                 if (panCh != QLCChannel::invalid() || tiltCh != QLCChannel::invalid())
                 {
-                    EFXFixture* ef = new EFXFixture(m_efx);
+                    EFXFixture *ef = new EFXFixture(m_efx);
                     ef->setHead(head);
                     if (m_efx->addFixture(ef) == false)
                     {
@@ -436,7 +436,7 @@ void EFXEditor::addGroup(QVariant reference)
                     {
                         Tardis::instance()->enqueueAction(Tardis::EFXAddFixture, m_efx->id(), QVariant(),
                                                           Tardis::instance()->actionToByteArray(Tardis::EFXAddFixture, m_efx->id(),
-                                                                                                qVariantFromValue((void *)ef)));
+                                                                                                QVariant::fromValue((void *)ef)));
                         listChanged = true;
                     }
                 }
@@ -465,7 +465,7 @@ void EFXEditor::addFixture(QVariant reference)
 
         if (panCh != QLCChannel::invalid() || tiltCh != QLCChannel::invalid())
         {
-            EFXFixture* ef = new EFXFixture(m_efx);
+            EFXFixture *ef = new EFXFixture(m_efx);
             GroupHead head(fixture->id(), headIdx);
             ef->setHead(head);
 
@@ -477,7 +477,7 @@ void EFXEditor::addFixture(QVariant reference)
             {
                 Tardis::instance()->enqueueAction(Tardis::EFXAddFixture, m_efx->id(), QVariant(),
                                                   Tardis::instance()->actionToByteArray(Tardis::EFXAddFixture, m_efx->id(),
-                                                                                        qVariantFromValue((void *)ef)));
+                                                                                        QVariant::fromValue((void *)ef)));
                 updateFixtureList();
             }
         }
@@ -490,7 +490,7 @@ void EFXEditor::addHead(int fixtureID, int headIndex)
         return;
 
     GroupHead head(fixtureID, headIndex);
-    EFXFixture* ef = new EFXFixture(m_efx);
+    EFXFixture *ef = new EFXFixture(m_efx);
     ef->setHead(head);
 
     if (m_efx->addFixture(ef) == false)
@@ -501,7 +501,7 @@ void EFXEditor::addHead(int fixtureID, int headIndex)
     {
         Tardis::instance()->enqueueAction(Tardis::EFXAddFixture, m_efx->id(), QVariant(),
                                           Tardis::instance()->actionToByteArray(Tardis::EFXAddFixture, m_efx->id(),
-                                                                                qVariantFromValue((void *)ef)));
+                                                                                QVariant::fromValue((void *)ef)));
         updateFixtureList();
     }
 }

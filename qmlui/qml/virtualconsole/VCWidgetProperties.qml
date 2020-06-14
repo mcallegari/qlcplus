@@ -64,6 +64,7 @@ Rectangle
         y: 100
         visible: false
         currentRGB: wObj ? wObj.backgroundColor : "black"
+        showPalette: false
 
         onColorChanged:
         {
@@ -82,6 +83,7 @@ Rectangle
         y: 100
         visible: false
         currentRGB: wObj ? wObj.foregroundColor : "black"
+        showPalette: false
 
         onColorChanged:
         {
@@ -364,7 +366,7 @@ Rectangle
                                     id: fileDialog
                                     visible: false
                                     title: qsTr("Select an image")
-                                    nameFilters: [ "Image files (*.png *.bmp *.jpg *.jpeg *.gif)", "All files (*)" ]
+                                    nameFilters: [ "Image files (*.png *.bmp *.jpg *.jpeg *.gif *.svg)", "All files (*)" ]
 
                                     onAccepted:
                                     {

@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>leo</Author>
  </Creator>
  <Manufacturer>Martin</Manufacturer>
@@ -22,7 +22,7 @@
   <Capability Min="208" Max="215">Camera mode, 50Hz</Capability>
   <Capability Min="216" Max="223">Camera mode, 60Hz</Capability>
   <Capability Min="224" Max="231">Camera mode, FLEX</Capability>
-  <Capability Min="240" Max="247">Reset (after 1 second delay)</Capability>
+  <Capability Min="240" Max="247" Preset="ResetAll">Reset (after 1 second delay)</Capability>
  </Channel>
  <Channel Name="Electronic shutter effect">
   <Group Byte="0">Shutter</Group>

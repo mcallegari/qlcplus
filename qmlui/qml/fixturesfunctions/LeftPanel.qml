@@ -54,13 +54,13 @@ SidePanel
             anchors.horizontalCenter: parent.horizontalCenter
             height: parent.height
             width: iconSize
+            z: 2
             spacing: 3
 
             IconButton
             {
                 id: fxEditor
                 visible: qlcplus.accessMask & App.AC_FixtureEditing
-                z: 2
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/fixture.svg"
@@ -79,7 +79,6 @@ SidePanel
             IconButton
             {
                 id: grpEditor
-                z: 2
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/group.svg"
@@ -97,8 +96,25 @@ SidePanel
 
             IconButton
             {
+                id: paletteEditor
+                width: iconSize
+                height: iconSize
+                imgSource: "qrc:/palette.svg"
+                checkable: true
+                tooltip: qsTr("Palettes")
+                ButtonGroup.group: fxManagerGroup
+                autoExclusive: false
+                onToggled:
+                {
+                    if (checked == true)
+                        loaderSource = "qrc:/PaletteManager.qml"
+                    animatePanel(checked)
+                }
+            }
+
+            IconButton
+            {
                 objectName: "capIntensity"
-                z: 2
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/intensity.svg"
@@ -116,13 +132,14 @@ SidePanel
                     x: leftSidePanel.width
                     y: UISettings.bigItemHeight
                     visible: false
+
+                    onValueChanged: fixtureManager.setIntensityValue(value)
                 }
             }
 
             IconButton
             {
                 objectName: "capShutter"
-                z: 2
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/shutter.svg"
@@ -150,7 +167,6 @@ SidePanel
             {
                 id: posToolButton
                 objectName: "capPosition"
-                z: 2
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/position.svg"
@@ -179,7 +195,6 @@ SidePanel
             IconButton
             {
                 objectName: "capColor"
-                z: 2
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/color.svg"
@@ -206,7 +221,6 @@ SidePanel
             IconButton
             {
                 objectName: "capColorWheel"
-                z: 2
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/colorwheel.svg"
@@ -233,7 +247,6 @@ SidePanel
             IconButton
             {
                 objectName: "capGobos"
-                z: 2
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/gobo.svg"
@@ -261,7 +274,6 @@ SidePanel
             {
                 id: beamToolButton
                 objectName: "capBeam"
-                z: 2
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/beam.svg"
@@ -302,7 +314,6 @@ SidePanel
                 onPickingActiveChanged: checked = pickingActive
 
                 visible: fixtureAndFunctions.currentView === "3D"
-                z: 2
                 width: iconSize
                 height: iconSize
                 checkable: true
@@ -314,7 +325,6 @@ SidePanel
 
             IconButton
             {
-                z: 2
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/multiple.svg"
@@ -326,13 +336,12 @@ SidePanel
 
             IconButton
             {
-                z: 2
                 width: iconSize
                 height: iconSize
                 imgSource: "qrc:/selectall.svg"
                 tooltip: qsTr("Select/Deselect all fixtures") + " (CTRL+A)"
                 onClicked: contextManager.toggleFixturesSelection()
             }
-        }
-    }
+        } // ColumnLayout
+    } // Rectangle
 }

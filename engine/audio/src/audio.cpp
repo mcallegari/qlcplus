@@ -153,12 +153,13 @@ bool Audio::setSourceFileName(QString filename)
 
     m_sourceFileName = filename;
 
-    //QMessageBox::warning(0,"Warning", QString("File complete path: %1").arg(m_sourceFileName));
-
     if (QFile(m_sourceFileName).exists())
+    {
         setName(QFileInfo(m_sourceFileName).fileName());
+    }
     else
     {
+        doc()->appendToErrorLog(tr("Audio file <b>%1</b> not found").arg(m_sourceFileName));
         setName(tr("File not found"));
         //m_audioDuration = 0;
         emit changed(id());
@@ -167,6 +168,7 @@ bool Audio::setSourceFileName(QString filename)
     emit sourceFilenameChanged();
 
     m_decoder = m_doc->audioPluginCache()->getDecoderForFile(m_sourceFileName);
+
     if (m_decoder == NULL)
         return false;
 
@@ -282,8 +284,10 @@ bool Audio::loadXML(QXmlStreamReader &root)
         if (root.name() == KXMLQLCAudioSource)
         {
             QXmlStreamAttributes attrs = root.attributes();
+
             if (attrs.hasAttribute(KXMLQLCAudioDevice))
                 setAudioDevice(attrs.value(KXMLQLCAudioDevice).toString());
+
             setSourceFileName(m_doc->denormalizeComponentPath(root.readElementText()));
         }
         else if (root.name() == KXMLQLCFunctionSpeed)
@@ -330,7 +334,7 @@ void Audio::preRun(MasterTimer* timer)
  #endif
         m_audio_out->moveToThread(QCoreApplication::instance()->thread());
 #else
-        m_audio_out = new AudioRendererQt(m_audioDevice);
+        m_audio_out = new AudioRendererQt(m_audioDevice, doc());
 #endif
         m_audio_out->setDecoder(m_decoder);
         m_audio_out->initialize(ap.sampleRate(), ap.channels(), ap.format());

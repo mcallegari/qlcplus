@@ -47,6 +47,7 @@ HEADERS += \
     mainview3d.h \
     mainviewdmx.h \
     modelselector.h \
+    palettemanager.h \
     previewcontext.h \
     rgbmatrixeditor.h \
     sceneeditor.h \
@@ -78,6 +79,7 @@ SOURCES += main.cpp \
     mainview3d.cpp \
     mainviewdmx.cpp \
     modelselector.cpp \
+    palettemanager.cpp \
     previewcontext.cpp \
     rgbmatrixeditor.cpp \
     sceneeditor.cpp \
@@ -170,6 +172,7 @@ TRANSLATIONS += \
     qlcplus_it_IT.ts \
     qlcplus_ja_JP.ts \
     qlcplus_nl_NL.ts \
+    qlcplus_pl_PL.ts \
     qlcplus_ru_RU.ts \
     qlcplus_uk_UA.ts
 

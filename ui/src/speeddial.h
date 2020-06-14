@@ -23,6 +23,7 @@
 #include <QGroupBox>
 #include <QSpinBox>
 
+class QElapsedTimer;
 class QPushButton;
 class QToolButton;
 class QFocusEvent;
@@ -30,7 +31,6 @@ class QCheckBox;
 class QLabel;
 class QTimer;
 class QDial;
-class QTime;
 
 /** @addtogroup ui UI
  * @{
@@ -151,7 +151,7 @@ private:
     int m_value;
 
     bool m_tapTick;
-    QTime* m_tapTime;
+    QElapsedTimer* m_tapTime;
     QTimer* m_tapTickTimer;
     QTimer* m_tapTickElapseTimer;
 

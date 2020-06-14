@@ -466,7 +466,7 @@ void ChaserRunner::clearRunningList()
         {
             // restore the original Function fade out time
             step->m_function->setOverrideFadeOutSpeed(stepFadeOut(step->m_index));
-            step->m_function->stop(functionParent());
+            step->m_function->stop(functionParent(), m_chaser->type() == Function::SequenceType);
             m_lastFunctionID = step->m_function->type() == Function::SceneType ? step->m_function->id() : Function::invalidId();
         }
         delete step;

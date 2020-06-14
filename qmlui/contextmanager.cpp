@@ -78,6 +78,7 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
     registerContext(m_3DView);
     m_view->rootContext()->setContextProperty("View3D", m_3DView);
 
+    qmlRegisterUncreatableType<QLCChannel>("org.qlcplus.classes", 1, 0, "QLCChannel", "Can't create a QLCChannel!");
     qmlRegisterUncreatableType<MonitorProperties>("org.qlcplus.classes", 1, 0, "MonitorProperties", "Can't create MonitorProperties!");
 
     connect(m_fixtureManager, &FixtureManager::newFixtureCreated, this, &ContextManager::slotNewFixtureCreated);
@@ -88,7 +89,6 @@ ContextManager::ContextManager(QQuickView *view, Doc *doc,
     connect(m_fixtureManager, SIGNAL(channelTypeValueChanged(int, quint8)),
             this, SLOT(slotChannelTypeValueChanged(int, quint8)));
     connect(m_fixtureManager, &FixtureManager::colorChanged, this, &ContextManager::slotColorChanged);
-    connect(m_fixtureManager, &FixtureManager::positionTypeValueChanged, this, &ContextManager::slotPositionChanged);
     connect(m_fixtureManager, &FixtureManager::presetChanged, this, &ContextManager::slotPresetChanged);
 
     connect(m_doc->inputOutputMap(), SIGNAL(universeWritten(quint32,QByteArray)), this, SLOT(slotUniverseWritten(quint32,QByteArray)));
@@ -308,7 +308,7 @@ void ContextManager::setPositionPickPoint(QVector3D point)
 
         QVector3D lightPos = m_3DView->lightPosition(itemID);
         QMatrix4x4 lightMatrix = m_3DView->lightMatrix(itemID);
-        
+
         lightPos = QVector3D(lightPos.x() + m_monProps->gridSize().x() / 2,
                              lightPos.y(),
                              lightPos.z() + m_monProps->gridSize().z() / 2);
@@ -327,16 +327,16 @@ void ContextManager::setPositionPickPoint(QVector3D point)
             res = lightMatrix * QVector4D(0.0, 0.0, 1.0, 0.0);
             QVector3D za = QVector3D(res.x(), res.y(), res.z());
 
-            QVector3D projDirX = QVector3D::dotProduct(dir, xa) * xa; 
-            QVector3D projDirZ = QVector3D::dotProduct(dir, za) * za; 
+            QVector3D projDirX = QVector3D::dotProduct(dir, xa) * xa;
+            QVector3D projDirZ = QVector3D::dotProduct(dir, za) * za;
 
             qreal b = projDirX.length();
             qreal c = projDirZ.length();
             qreal panDeg = qRadiansToDegrees(M_PI_2 - qAtan(c / b)); // PI/2 - angle
-    
+
             bool xLeft = QVector3D::dotProduct(projDirX, xa) < 0.0 ? true : false;
             bool zBack = QVector3D::dotProduct(projDirZ, za) < 0.0 ? true : false;
-    
+
             if (xLeft && !zBack)
                 panDeg = 90.0 + (90.0 - panDeg);
             else if (!xLeft && !zBack)
@@ -675,11 +675,11 @@ void ContextManager::toggleFixturesSelection()
     }
 }
 
-void ContextManager::setRectangleSelection(qreal x, qreal y, qreal width, qreal height)
+void ContextManager::setRectangleSelection(qreal x, qreal y, qreal width, qreal height, int keyModifiers)
 {
     QList<quint32> fxIDList;
 
-    if (multipleSelection() == false)
+    if (keyModifiers == 0 && multipleSelection() == false)
         resetFixtureSelection();
 
     if (m_2DView->isEnabled())
@@ -1185,9 +1185,9 @@ void ContextManager::slotFixtureFlagsChanged(quint32 itemID, quint32 flags)
 void ContextManager::slotChannelValueChanged(quint32 fxID, quint32 channel, quint8 value)
 {
     if (m_editingEnabled == false)
-        setDumpValue(fxID, channel, (uchar)value);
+        setDumpValue(fxID, channel, uchar(value));
     else
-        m_functionManager->setChannelValue(fxID, channel, (uchar)value);
+        m_functionManager->setChannelValue(fxID, channel, uchar(value));
 }
 
 void ContextManager::slotChannelTypeValueChanged(int type, quint8 value, quint32 channel)
@@ -1199,9 +1199,9 @@ void ContextManager::slotChannelTypeValueChanged(int type, quint8 value, quint32
         if (channel == UINT_MAX || channel == sv.channel)
         {
             if (m_editingEnabled == false)
-                setDumpValue(sv.fxi, sv.channel, (uchar)value);
+                setDumpValue(sv.fxi, sv.channel, uchar(value));
             else
-                m_functionManager->setChannelValue(sv.fxi, sv.channel, (uchar)value);
+                m_functionManager->setChannelValue(sv.fxi, sv.channel, uchar(value));
         }
     }
 }
@@ -1222,7 +1222,7 @@ void ContextManager::slotColorChanged(QColor col, QColor wauv)
     slotChannelTypeValueChanged((int)QLCChannel::Yellow, (quint8)cmykColor.yellow());
 }
 
-void ContextManager::slotPositionChanged(int type, int degrees)
+void ContextManager::setPositionValue(int type, int degrees)
 {
     // list to keep track of the already processed Fixture IDs
     QList<quint32>fxIDs;
@@ -1243,6 +1243,17 @@ void ContextManager::slotPositionChanged(int type, int degrees)
             else
                 m_functionManager->setChannelValue(posSv.fxi, posSv.channel, posSv.value);
         }
+    }
+}
+
+void ContextManager::setChannelValues(QList<SceneValue> values)
+{
+    for (SceneValue sv : values)
+    {
+            if (m_editingEnabled == false)
+                setDumpValue(sv.fxi, sv.channel, sv.value);
+            else
+                m_functionManager->setChannelValue(sv.fxi, sv.channel, sv.value);
     }
 }
 

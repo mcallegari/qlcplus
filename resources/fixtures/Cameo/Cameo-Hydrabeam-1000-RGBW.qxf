@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.0 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>AxlOtl</Author>
  </Creator>
  <Manufacturer>Cameo</Manufacturer>
@@ -16,9 +16,9 @@
   <Capability Min="31" Max="53">show 2</Capability>
   <Capability Min="54" Max="76">show 3</Capability>
   <Capability Min="77" Max="99">show 4</Capability>
-  <Capability Min="100" Max="122">sound control</Capability>
+  <Capability Min="100" Max="122" Preset="SilentModeOff">sound control</Capability>
   <Capability Min="123" Max="199">no function</Capability>
-  <Capability Min="200" Max="224">reset</Capability>
+  <Capability Min="200" Max="224" Preset="ResetAll">reset</Capability>
   <Capability Min="225" Max="255">no function</Capability>
  </Channel>
  <Channel Name="Sound sensitivity / Auto speed">

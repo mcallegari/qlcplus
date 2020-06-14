@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Harm Aldick</Author>
  </Creator>
  <Manufacturer>Fun-Generation</Manufacturer>
@@ -17,8 +17,8 @@
  <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9">No function (open)</Capability>
-  <Capability Min="10" Max="255">Strobe, slow to fast (1 Hz - 25 Hz)</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function (open)</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="1" Res2="25">Strobe, slow to fast (1 Hz - 25 Hz)</Capability>
  </Channel>
  <Channel Name="LED 1 Red" Preset="IntensityRed"/>
  <Channel Name="LED 1 Green" Preset="IntensityGreen"/>

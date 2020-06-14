@@ -239,27 +239,27 @@
         <translation>%1 - Explorateur de documents</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="124"/>
+        <location filename="../ui/src/docbrowser.cpp" line="127"/>
         <source>Backward</source>
         <translation>Avant</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="125"/>
+        <location filename="../ui/src/docbrowser.cpp" line="128"/>
         <source>Forward</source>
         <translation>Arrière</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="126"/>
+        <location filename="../ui/src/docbrowser.cpp" line="129"/>
         <source>Index</source>
         <translation>Aide</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="127"/>
+        <location filename="../ui/src/docbrowser.cpp" line="130"/>
         <source>About Qt</source>
         <translation>À propos de Qt</translation>
     </message>
     <message>
-        <location filename="../ui/src/docbrowser.cpp" line="128"/>
+        <location filename="../ui/src/docbrowser.cpp" line="131"/>
         <source>Close this window</source>
         <translation>Fermer cette fenêtre</translation>
     </message>
@@ -295,7 +295,7 @@
         <location filename="editchannel.ui" line="260"/>
         <location filename="editchannel.ui" line="303"/>
         <source>Preset</source>
-        <translation type="unfinished"></translation>
+        <translation>Pré-réglage</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="267"/>
@@ -305,7 +305,7 @@
     <message>
         <location filename="editchannel.ui" line="274"/>
         <source>Role</source>
-        <translation type="unfinished"></translation>
+        <translation>Rôle</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="336"/>
@@ -330,7 +330,7 @@
     <message>
         <location filename="editchannel.ui" line="430"/>
         <source>Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Aperçu</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="227"/>
@@ -359,19 +359,19 @@
     </message>
     <message>
         <location filename="editchannel.ui" line="90"/>
-        <location filename="editchannel.cpp" line="574"/>
+        <location filename="editchannel.cpp" line="572"/>
         <source>Minimum value</source>
         <translation>Valeur minimum</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="95"/>
-        <location filename="editchannel.cpp" line="574"/>
+        <location filename="editchannel.cpp" line="572"/>
         <source>Maximum value</source>
         <translation>Valeur maximum</translation>
     </message>
     <message>
         <location filename="editchannel.ui" line="100"/>
-        <location filename="editchannel.cpp" line="574"/>
+        <location filename="editchannel.cpp" line="572"/>
         <source>Description</source>
         <translation>Description</translation>
     </message>
@@ -391,27 +391,27 @@
         <translation>Éditeur de canal : </translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="483"/>
+        <location filename="editchannel.cpp" line="481"/>
         <source>Overlapping values</source>
         <translation>Chevauchement de valeurs</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="500"/>
+        <location filename="editchannel.cpp" line="498"/>
         <source>Open Gobo File</source>
         <translation>Ouvrir un fichier de gobo</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="503"/>
+        <location filename="editchannel.cpp" line="501"/>
         <source>Gobo pictures</source>
         <translation>Images de gobo</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="619"/>
+        <location filename="editchannel.cpp" line="615"/>
         <source>Missing resources</source>
         <translation>Ressources manquantes</translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="620"/>
+        <location filename="editchannel.cpp" line="616"/>
         <source>Some gobos are missing:
 
 </source>
@@ -420,7 +420,7 @@
 </translation>
     </message>
     <message>
-        <location filename="editchannel.cpp" line="484"/>
+        <location filename="editchannel.cpp" line="482"/>
         <source>Some capabilities could not be created because of overlapping values.</source>
         <translation>Certaines fonctionnalités n&apos;ont pas pu être générées à cause d&apos;un chevauchement de valeurs.</translation>
     </message>
@@ -544,60 +544,60 @@
 <context>
     <name>EditPhysical</name>
     <message>
-        <location filename="editphysical.ui" line="267"/>
+        <location filename="editphysical.ui" line="277"/>
         <source>Bulb</source>
         <translation>Lampe</translation>
     </message>
     <message>
         <location filename="editphysical.ui" line="45"/>
-        <location filename="editphysical.ui" line="273"/>
+        <location filename="editphysical.ui" line="283"/>
         <source>Type</source>
         <translation>Type</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="505"/>
+        <location filename="editphysical.ui" line="515"/>
         <source>Lumens</source>
         <translation>Lumens</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="525"/>
+        <location filename="editphysical.ui" line="535"/>
         <source>Colour Temp (K)</source>
         <translation>Température de couleur (en K)</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="698"/>
+        <location filename="editphysical.ui" line="708"/>
         <source>Dimensions</source>
         <translation>Dimensions</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="774"/>
+        <location filename="editphysical.ui" line="784"/>
         <source>Weight</source>
         <translation>Poids</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="704"/>
+        <location filename="editphysical.ui" line="714"/>
         <source>kg</source>
         <translation>&#xa0;kg</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="714"/>
+        <location filename="editphysical.ui" line="724"/>
         <source>Width</source>
         <translation>Plage</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="724"/>
-        <location filename="editphysical.ui" line="744"/>
-        <location filename="editphysical.ui" line="764"/>
+        <location filename="editphysical.ui" line="734"/>
+        <location filename="editphysical.ui" line="754"/>
+        <location filename="editphysical.ui" line="774"/>
         <source>mm</source>
         <translation> mm</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="734"/>
+        <location filename="editphysical.ui" line="744"/>
         <source>Height</source>
         <translation>Hauteur</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="754"/>
+        <location filename="editphysical.ui" line="764"/>
         <source>Depth</source>
         <translation>Profondeur</translation>
     </message>
@@ -607,22 +607,22 @@
         <translation>Tête(s)</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="620"/>
+        <location filename="editphysical.ui" line="630"/>
         <source>Lens</source>
         <translation>Lentille</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="626"/>
+        <location filename="editphysical.ui" line="636"/>
         <source>Name</source>
         <translation>Nom</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="655"/>
+        <location filename="editphysical.ui" line="665"/>
         <source>Min Degrees</source>
         <translation>Angle min</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="662"/>
+        <location filename="editphysical.ui" line="672"/>
         <source>Max Degrees</source>
         <translation>Angle max</translation>
     </message>
@@ -664,12 +664,12 @@
         <translation>Connecteur DMX</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="231"/>
+        <location filename="editphysical.ui" line="241"/>
         <source>Copy physical information to clipboard</source>
         <translation>Copier les données physiques dans le presse-papier</translation>
     </message>
     <message>
-        <location filename="editphysical.ui" line="248"/>
+        <location filename="editphysical.ui" line="258"/>
         <source>Paste physical information from clipboard</source>
         <translation>Coller les données physiques depuis le presse-papier</translation>
     </message>
@@ -719,7 +719,7 @@
     <message>
         <location filename="fixtureeditor.ui" line="226"/>
         <source>LED Bar (Beams)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Barre LED (Beams)</translation>
     </message>
     <message>
         <location filename="fixtureeditor.ui" line="235"/>

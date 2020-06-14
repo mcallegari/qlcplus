@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.6 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Simon Orlob</Author>
  </Creator>
  <Manufacturer>ETEC</Manufacturer>
@@ -31,8 +31,8 @@
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="63">No Strobe</Capability>
-  <Capability Min="64" Max="223">AUTO Strobe, Spped from slow to fast</Capability>
+  <Capability Min="0" Max="63" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="64" Max="223" Preset="StrobeSlowToFast">AUTO Strobe, Speed from slow to fast</Capability>
   <Capability Min="224" Max="255">Sound Strobe</Capability>
  </Channel>
  <Mode Name="9 Channel">
@@ -54,11 +54,11 @@
   <Channel Number="4">Amber</Channel>
   <Channel Number="5">Static Colour / Speed</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="2.5" Width="270" Height="270" Depth="300"/>
-   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="190" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.5" Width="270" Height="270" Depth="300"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="190" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

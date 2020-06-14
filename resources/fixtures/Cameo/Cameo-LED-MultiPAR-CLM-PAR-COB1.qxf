@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Freasy</Author>
  </Creator>
  <Manufacturer>Cameo</Manufacturer>
@@ -58,13 +58,13 @@
  </Channel>
  <Channel Name="Power Out 1">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="127">Power out 1 off</Capability>
-  <Capability Min="128" Max="255">Power out 1 on</Capability>
+  <Capability Min="0" Max="127" Preset="LampOff">Power out 1 off</Capability>
+  <Capability Min="128" Max="255" Preset="LampOn">Power out 1 on</Capability>
  </Channel>
  <Channel Name="Power Out 2">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="127">Power out 2 off</Capability>
-  <Capability Min="128" Max="255">Power out 2 on</Capability>
+  <Capability Min="0" Max="127" Preset="LampOff">Power out 2 off</Capability>
+  <Capability Min="128" Max="255" Preset="LampOn">Power out 2 on</Capability>
  </Channel>
  <Channel Name="Red 1 + 2" Preset="IntensityRed"/>
  <Channel Name="Green 1 + 2" Preset="IntensityGreen"/>

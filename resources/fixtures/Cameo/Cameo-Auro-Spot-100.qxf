@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.2 GIT</Version>
+  <Version>4.12.1</Version>
   <Author>István Király</Author>
  </Creator>
  <Manufacturer>Cameo</Manufacturer>
@@ -211,7 +211,7 @@
  <Physical>
   <Bulb Type="LED" Lumens="2100" ColourTemperature="10000"/>
   <Dimensions Weight="8.75" Width="285" Height="480" Depth="180"/>
-  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Lens Name="Other" DegreesMin="12" DegreesMax="12"/>
   <Focus Type="Head" PanMax="540" TiltMax="235"/>
   <Technical PowerConsumption="175" DmxConnector="3-pin and 5-pin"/>
  </Physical>

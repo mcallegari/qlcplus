@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Habefaro</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -224,10 +224,10 @@
   <Capability Min="40" Max="44">Macros used when linking 4 heads together: This is the value for second head</Capability>
   <Capability Min="45" Max="49">Macros used when linking 4 heads together: This is the value for third head</Capability>
   <Capability Min="50" Max="54">Macros used when linking 4 heads together: This is the value for fourth head</Capability>
-  <Capability Min="55" Max="59">Pan Reset</Capability>
-  <Capability Min="60" Max="64">Tilt Reset</Capability>
+  <Capability Min="55" Max="59" Preset="ResetPan">Pan Reset</Capability>
+  <Capability Min="60" Max="64" Preset="ResetTilt">Tilt Reset</Capability>
   <Capability Min="65" Max="69">Reserved for future use</Capability>
-  <Capability Min="70" Max="74">Reset all</Capability>
+  <Capability Min="70" Max="74" Preset="ResetAll">Reset all</Capability>
   <Capability Min="75" Max="79">Reserved for future use</Capability>
   <Capability Min="80" Max="84">Pan/ tilt reverse</Capability>
   <Capability Min="85" Max="89">Pan reverse</Capability>

@@ -33,7 +33,7 @@ Rectangle
     anchors.fill: parent
     color: UISettings.bgMain
 
-    property string currentContext: "FIXANDFUNC"
+    property string currentContext: ""
 
     Component.onCompleted: UISettings.sidePanelWidth = Math.min(width / 3, UISettings.bigItemHeight * 5)
     onWidthChanged: UISettings.sidePanelWidth = Math.min(width / 3, UISettings.bigItemHeight * 5)
@@ -43,7 +43,7 @@ Rectangle
         var item = null
 
         if (ctx === "FIXANDFUNC")
-            item = edEntry
+            item = fnfEntry
         else if (ctx === "VC")
             item = vcEntry
         else if (ctx === "SDESK")
@@ -153,20 +153,26 @@ Rectangle
             }
             MenuBarEntry
             {
-                id: edEntry
+                id: fnfEntry
+                property string ctxName: "FIXANDFUNC"
+                property string ctxRes: "qrc:/FixturesAndFunctions.qml"
+
                 imgSource: "qrc:/editor.svg"
                 entryText: qsTr("Fixtures & Functions")
-                checked: true
+                checked: false
                 ButtonGroup.group: menuBarGroup
                 onCheckedChanged:
                 {
                     if (checked == true)
-                        switchToContext("FIXANDFUNC", "qrc:/FixturesAndFunctions.qml")
+                        switchToContext(fnfEntry.ctxName, fnfEntry.ctxRes)
                 }
             }
             MenuBarEntry
             {
                 id: vcEntry
+                property string ctxName: "VC"
+                property string ctxRes: "qrc:/VirtualConsole.qml"
+
                 visible: qlcplus.accessMask & App.AC_VCControl
                 imgSource: "qrc:/virtualconsole.svg"
                 entryText: qsTr("Virtual Console")
@@ -174,7 +180,7 @@ Rectangle
                 onCheckedChanged:
                 {
                     if (checked == true)
-                        switchToContext("VC", "qrc:/VirtualConsole.qml")
+                        switchToContext(vcEntry.ctxName, vcEntry.ctxRes)
                 }
                 onRightClicked:
                 {
@@ -185,6 +191,9 @@ Rectangle
             MenuBarEntry
             {
                 id: sdEntry
+                property string ctxName: "SDESK"
+                property string ctxRes: "qrc:/SimpleDesk.qml"
+
                 visible: qlcplus.accessMask & App.AC_SimpleDesk
                 imgSource: "qrc:/simpledesk.svg"
                 entryText: qsTr("Simple Desk")
@@ -192,7 +201,7 @@ Rectangle
                 onCheckedChanged:
                 {
                     if (checked == true)
-                        switchToContext("SDESK", "qrc:/SimpleDesk.qml")
+                        switchToContext(sdEntry.ctxName, sdEntry.ctxRes)
                 }
                 onRightClicked:
                 {
@@ -203,6 +212,9 @@ Rectangle
             MenuBarEntry
             {
                 id: smEntry
+                property string ctxName: "SHOWMGR"
+                property string ctxRes: "qrc:/ShowManager.qml"
+
                 visible: qlcplus.accessMask & App.AC_ShowManager
                 imgSource: "qrc:/showmanager.svg"
                 entryText: qsTr("Show Manager")
@@ -210,7 +222,7 @@ Rectangle
                 onCheckedChanged:
                 {
                     if (checked == true)
-                        switchToContext("SHOWMGR", "qrc:/ShowManager.qml")
+                        switchToContext(smEntry.ctxName, smEntry.ctxRes)
                 }
                 onRightClicked:
                 {
@@ -221,6 +233,9 @@ Rectangle
             MenuBarEntry
             {
                 id: ioEntry
+                property string ctxName: "IOMGR"
+                property string ctxRes: "qrc:/InputOutputManager.qml"
+
                 visible: qlcplus.accessMask & App.AC_InputOutput
                 imgSource: "qrc:/inputoutput.svg"
                 entryText: qsTr("Input/Output")
@@ -228,7 +243,7 @@ Rectangle
                 onCheckedChanged:
                 {
                     if (checked == true)
-                        switchToContext("IOMGR", "qrc:/InputOutputManager.qml")
+                        switchToContext(ioEntry.ctxName, ioEntry.ctxRes)
                 }
                 onRightClicked:
                 {
@@ -303,7 +318,15 @@ Rectangle
         width: parent.width
         height: parent.height - (mainToolbar.visible ? mainToolbar.height : 0)
         y: mainToolbar.visible ? mainToolbar.height : 0
-        source: "qrc:/FixturesAndFunctions.qml"
+
+        Component.onCompleted:
+        {
+            var ctx = "FIXANDFUNC"
+            // handle Kiosk mode on startup
+            if (qlcplus.accessMask === App.AC_VCControl)
+                ctx = "VC"
+            enableContext(ctx, true)
+        }
     }
 
     PopupNetworkConnect { id: clientAccessPopup }

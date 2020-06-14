@@ -385,19 +385,17 @@ void EditChannel::slotCapabilityCellSelected(int currentRow, int currentColumn,
             return;
         }
 
-        str.sprintf("%.3d", cap->min());
-        QTableWidgetItem *item = new QTableWidgetItem(str);
+        QTableWidgetItem *item = new QTableWidgetItem(str.asprintf("%.3d", cap->min()));
         m_capabilityList->setItem(currentRow, COL_MIN, item);
 
-        str.sprintf("%.3d", cap->max());
-        item = new QTableWidgetItem(str);
+        item = new QTableWidgetItem(str.asprintf("%.3d", cap->max()));
         m_capabilityList->setItem(currentRow, COL_MAX, item);
 
         item = new QTableWidgetItem(cap->name());
         m_capabilityList->setItem(currentRow, COL_NAME, item);
 
         // QLCCapability reference
-        item->setData(Qt::UserRole, qVariantFromValue((void *)cap));
+        item->setData(Qt::UserRole, QVariant::fromValue((void *)cap));
 
         m_currentCapability = cap;
     }
@@ -581,13 +579,11 @@ void EditChannel::refreshCapabilities()
         QLCCapability *cap = it.next();
 
         // Min
-        str.sprintf("%.3d", cap->min());
-        QTableWidgetItem *item = new QTableWidgetItem(str);
+        QTableWidgetItem *item = new QTableWidgetItem(str.asprintf("%.3d", cap->min()));
         m_capabilityList->setItem(i, COL_MIN, item);
 
         // Max
-        str.sprintf("%.3d", cap->max());
-        item = new QTableWidgetItem(str);
+        item = new QTableWidgetItem(str.asprintf("%.3d", cap->max()));
         m_capabilityList->setItem(i, COL_MAX, item);
 
         // Name
@@ -595,7 +591,7 @@ void EditChannel::refreshCapabilities()
         m_capabilityList->setItem(i, COL_NAME, item);
 
         // QLCCapability reference
-        item->setData(Qt::UserRole, qVariantFromValue((void *)cap));
+        item->setData(Qt::UserRole, QVariant::fromValue((void *)cap));
 
         if (cap->presetType() == QLCCapability::Picture && cap->resource(0).isValid())
         {

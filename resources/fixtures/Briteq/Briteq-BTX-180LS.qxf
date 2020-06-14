@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Thierry Rodolfo</Author>
  </Creator>
  <Manufacturer>Briteq</Manufacturer>
@@ -133,13 +133,13 @@
   <Capability Min="110" Max="119">Activate blackout during gobo change (*)</Capability>
   <Capability Min="120" Max="129">Disable blackout during gobo change (*)</Capability>
   <Capability Min="130" Max="139">No function</Capability>
-  <Capability Min="140" Max="149">Pan/tilt reset (*)</Capability>
-  <Capability Min="150" Max="159">Color reset (*)</Capability>
-  <Capability Min="160" Max="169">Gobo reset (*)</Capability>
+  <Capability Min="140" Max="149" Preset="ResetPanTilt">Pan/tilt reset (*)</Capability>
+  <Capability Min="150" Max="159" Preset="ResetColor">Color reset (*)</Capability>
+  <Capability Min="160" Max="169" Preset="ResetGobo">Gobo reset (*)</Capability>
   <Capability Min="170" Max="179">No function</Capability>
-  <Capability Min="180" Max="189">Focus reset (*)</Capability>
+  <Capability Min="180" Max="189" Preset="ResetAll">Focus reset (*)</Capability>
   <Capability Min="190" Max="199">No function</Capability>
-  <Capability Min="200" Max="209">Reset all (*)</Capability>
+  <Capability Min="200" Max="209" Preset="ResetAll">Reset all (*)</Capability>
   <Capability Min="210" Max="219">Activate blackout during gobo/color or pan/tilt change (*)</Capability>
   <Capability Min="220" Max="229">Disable blackout during gobo/color or pan/tilt change (*)</Capability>
   <Capability Min="230" Max="255">No function</Capability>

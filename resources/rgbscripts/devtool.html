@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
 <TITLE>Q Light Controller Plus - RGBScript Development Tool</TITLE>
-<!-- Include your script on the following line, replace "oppositerows.js" -->
+<!-- Include your script on the following line, replace "opposite.js" -->
 <SCRIPT SRC="opposite.js"></SCRIPT>
 <SCRIPT SRC="devtool.js"></SCRIPT>
 
@@ -12,6 +12,7 @@ var testTimer;
 function startTest()
 {
     var speed = document.getElementById("speed").value;
+    window.clearInterval(testTimer); // avoid multiple timers running simultaneously
     testTimer = window.setInterval("nextStep()", speed);
 }
 
@@ -71,17 +72,32 @@ Developer</I> which is very useful in hunting errors within the JavaScript code.
 </TABLE>
 </FORM>
 
-<H2>Grid Size</H2>
 <FORM>
-Width: <INPUT TYPE="text" ID="width" SIZE="3" onChange="updateStepCount()"/>
-Height: <INPUT TYPE="text" ID="height" SIZE="3" onChange="updateStepCount()"/>
-<INPUT TYPE="button" value="Update" onClick="updateStepCount()"/><BR>
+<H2>Grid Size</H2>
+<TABLE>
+ <TR>
+  <TD>Width</TD>
+  <TD><INPUT TYPE="number" MIN="1" ID="width" value="15" required onChange="onGridSizeUpdated()"/></TD>
+ </TR>
+ <TR>
+  <TD>Height</TD>
+  <TD><INPUT TYPE="number" MIN="1" ID="height" value="15" required onChange="onGridSizeUpdated()"/></TD>
+ </TR>
+</TABLE>
 </FORM>
 
+<FORM id="pixelColorChooser">
 <H2>Pixel colors</H2>
-<FORM>
-Primary color:<INPUT TYPE="text" ID="color1" value="FF0000" SIZE="6" onChange="updateStepCount()"/>
-Secondary color:<INPUT TYPE="checkbox" ID="bicolor" onClick="writeCurrentStep()"/>
+<TABLE>
+ <TR>
+  <TD>Primary color (rrggbb)</TD>
+  <TD><INPUT TYPE="text" ID="primaryColor" value="FF0000" pattern="[0-9A-Fa-f]{6}" SIZE="6" onChange="writeCurrentStep()" required />
+ </TR>
+ <TR id="secondaryColorChooser">
+  <TD>Secondary color (rrggbb, leave empty to disable)</TD>
+  <TD><INPUT TYPE="text" ID="secondaryColor" value="" pattern="[0-9A-Fa-f]{6}" SIZE="6" onChange="writeCurrentStep()"/>
+ </TR>
+</TABLE>
 </FORM>
 
 <H2>Algorithm Functions</H2>
@@ -89,7 +105,7 @@ Secondary color:<INPUT TYPE="checkbox" ID="bicolor" onClick="writeCurrentStep()"
 <TABLE>
  <TR>
   <TD>rgbMapStepCount(width, height)</TD>
-  <TD><INPUT TYPE="text" READONLY="readonly" size="3" ID="stepcount"/></TD>
+  <TD><INPUT TYPE="text" READONLY="readonly" size="3" ID="stepCount"/></TD>
  </TR>
 </TABLE>
 </FORM>
@@ -100,11 +116,11 @@ Secondary color:<INPUT TYPE="checkbox" ID="bicolor" onClick="writeCurrentStep()"
   <TD>
    <FORM>
    <INPUT TYPE="button" value="Previous" onClick="previousStep()"/>
-   <INPUT TYPE="text" ID="currentstep" size="3" onChange="writeCurrentStep()"/>
+   <INPUT TYPE="number" MIN="0" ID="currentStep" onChange="writeCurrentStep()"/>
    <INPUT TYPE="button" value="Next" onClick="nextStep()"/><BR>
    <INPUT TYPE="button" value="Start test" onClick="startTest()"/>
    <INPUT TYPE="button" value="Stop test" onClick="stopTest()"/>
-   Speed (ms):<INPUT TYPE="text" ID="speed" size="5" value="500"/>
+   Speed (ms):<INPUT TYPE="number" MIN="1" ID="speed" value="500"/>
    </FORM>
   </TD>
  </TR>

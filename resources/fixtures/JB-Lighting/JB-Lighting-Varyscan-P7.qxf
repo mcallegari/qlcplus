@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Felix Edelmann</Author>
  </Creator>
  <Manufacturer>JB-Lighting</Manufacturer>
@@ -29,33 +29,33 @@
   <Capability Min="216" Max="223">Camera mode, 60Hz (hold 2s)</Capability>
   <Capability Min="224" Max="231">Camera mode, FLEX (hold 2s)</Capability>
   <Capability Min="232" Max="239">Save</Capability>
-  <Capability Min="240" Max="247">Reset (hold 2s)</Capability>
+  <Capability Min="240" Max="247" Preset="ResetAll">Reset (hold 2s)</Capability>
   <Capability Min="248" Max="255">Save</Capability>
  </Channel>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="15" Preset="ShutterClose">Closed</Capability>
   <Capability Min="16" Max="95" Preset="ShutterOpen">Open</Capability>
-  <Capability Min="96" Max="110" Preset="RampUpFastToSlow">Pulse opening &gt;20Hz fast-slow</Capability>
+  <Capability Min="96" Max="110" Preset="PulseFrequency" Res1="20">Pulse opening &gt;20Hz fast-slow</Capability>
   <Capability Min="111" Max="111" Preset="ShutterOpen">Open</Capability>
-  <Capability Min="112" Max="125">Dimmer fade effect slow-fast</Capability>
+  <Capability Min="112" Max="125" Preset="SlowToFast">Dimmer fade effect slow-fast</Capability>
   <Capability Min="126" Max="126" Preset="ShutterOpen">Open</Capability>
   <Capability Min="127" Max="127" Preset="ShutterClose">Closed</Capability>
-  <Capability Min="128" Max="142" Preset="RampUpFastToSlow">Pulse opening &lt;20Hz fast-slow</Capability>
+  <Capability Min="128" Max="142" Preset="PulseFrequency" Res1="20">Pulse opening &lt;20Hz fast-slow</Capability>
   <Capability Min="143" Max="143" Preset="ShutterOpen">Open</Capability>
   <Capability Min="144" Max="158" Preset="RampDownFastToSlow">Pulse closing fast-slow</Capability>
   <Capability Min="159" Max="159" Preset="ShutterClose">Closed</Capability>
-  <Capability Min="160" Max="174">Fade 0% fast-slow</Capability>
+  <Capability Min="160" Max="174" Preset="FastToSlow">Fade 0% fast-slow</Capability>
   <Capability Min="175" Max="175" Preset="ShutterOpen">Open</Capability>
-  <Capability Min="176" Max="190">Fade 100% fast-slow</Capability>
+  <Capability Min="176" Max="190" Preset="FastToSlow">Fade 100% fast-slow</Capability>
   <Capability Min="191" Max="191" Preset="ShutterClose">Closed</Capability>
-  <Capability Min="192" Max="206">Random 100% fast-slow</Capability>
+  <Capability Min="192" Max="206" Preset="FastToSlow">Random 100% fast-slow</Capability>
   <Capability Min="207" Max="207" Preset="ShutterOpen">Open</Capability>
-  <Capability Min="208" Max="222">Random 0% fast-slow</Capability>
+  <Capability Min="208" Max="222" Preset="FastToSlow">Random 0% fast-slow</Capability>
   <Capability Min="223" Max="223" Preset="ShutterClose">Closed</Capability>
-  <Capability Min="224" Max="238">Random fade 0% fast-slow</Capability>
+  <Capability Min="224" Max="238" Preset="FastToSlow">Random fade 0% fast-slow</Capability>
   <Capability Min="239" Max="239" Preset="ShutterOpen">Open</Capability>
-  <Capability Min="240" Max="254">Random fade 100% fast-slow</Capability>
+  <Capability Min="240" Max="254" Preset="FastToSlow">Random fade 100% fast-slow</Capability>
   <Capability Min="255" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>

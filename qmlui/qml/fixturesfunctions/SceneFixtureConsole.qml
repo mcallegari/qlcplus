@@ -19,6 +19,8 @@
 
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
+
+import org.qlcplus.classes 1.0
 import "."
 
 Rectangle
@@ -37,6 +39,14 @@ Rectangle
         fixtureList.positionViewAtIndex(fxIdx, ListView.Beginning)
     }
 
+    ChannelToolLoader
+    {
+        id: channelToolLoader
+        z: 2
+
+        onValueChanged: functionManager.setChannelValue(fixtureID, channelIndex, value)
+    }
+
     ListView
     {
         id: fixtureList
@@ -45,6 +55,7 @@ Rectangle
         model: sceneEditor.fixtureList
         boundsBehavior: Flickable.StopAtBounds
         highlightFollowsCurrentItem: false
+        z: 1
 
         delegate:
             Rectangle
@@ -60,12 +71,14 @@ Rectangle
                 {
                     id: fxConsole
                     x: 2
-                    fixtureObj: model.fxRef
+                    fixtureObj: model.cRef
                     isSelected: model.isSelected
                     height: parent.height
                     color: index % 2 ? "#202020" : "#404040"
                     showEnablers: true
                     sceneConsole: true
+
+                    onRequestTool: channelToolLoader.loadChannelTool(item, fixtureID, chIndex, value)
                 }
                 // Fixture divider
                 Rectangle

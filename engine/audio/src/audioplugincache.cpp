@@ -49,6 +49,7 @@ AudioPluginCache::AudioPluginCache(QObject *parent)
  #endif
 #else
     m_audioDevicesList = AudioRendererQt::getDevicesInfo();
+    m_outputDevicesList = QAudioDeviceInfo::availableDevices(QAudio::AudioOutput);
 #endif
 }
 
@@ -136,4 +137,15 @@ AudioDecoder *AudioPluginCache::getDecoderForFile(const QString &filename)
 QList<AudioDeviceInfo> AudioPluginCache::audioDevicesList() const
 {
     return m_audioDevicesList;
+}
+
+QAudioDeviceInfo AudioPluginCache::getOutputDeviceInfo(QString devName) const
+{
+    foreach (const QAudioDeviceInfo &deviceInfo, m_outputDevicesList)
+    {
+        if (deviceInfo.deviceName() == devName)
+            return deviceInfo;
+    }
+
+    return QAudioDeviceInfo::defaultOutputDevice();
 }

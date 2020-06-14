@@ -340,6 +340,5 @@ CustomPopupDialog
                 iSrc: "qrc:/configure.svg"
                 tLabel: qsTr("Maintenance")
             }
-        }
-
+        } // GridLayout
 }

@@ -41,6 +41,14 @@ Rectangle
         dmxSettings.visible = show
     }
 
+    ChannelToolLoader
+    {
+        id: channelToolLoader
+        z: 2
+
+        onValueChanged: fixtureManager.setChannelValue(fixtureID, channelIndex, value)
+    }
+
     Flickable
     {
         id: fixtureDMXView
@@ -63,6 +71,11 @@ Rectangle
             objectName: "DMXFlowView"
             spacing: 5
             width: dmxViewRoot.width - viewMargin
+
+            function loadTool(item, fixtureID, chIndex, value)
+            {
+                channelToolLoader.loadChannelTool(item, fixtureID, chIndex, value)
+            }
 
             Component.onCompleted: contextManager.enableContext("DMX", true, flowLayout)
             Component.onDestruction: if(contextManager) contextManager.enableContext("DMX", false, flowLayout)

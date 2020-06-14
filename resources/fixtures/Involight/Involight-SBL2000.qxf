@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.0 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Facek</Author>
  </Creator>
  <Manufacturer>Involight</Manufacturer>
@@ -15,8 +15,8 @@
  <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9">no use</Capability>
-  <Capability Min="10" Max="255">Strobe</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">no use</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe</Capability>
  </Channel>
  <Channel Name="Speed">
   <Group Byte="0">Speed</Group>
@@ -137,11 +137,11 @@
   <Channel Number="24">Blue 8</Channel>
   <Channel Number="25">Strobe</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="10" Width="1060" Height="190" Depth="70"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="90" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="10" Width="1060" Height="190" Depth="70"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="90" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

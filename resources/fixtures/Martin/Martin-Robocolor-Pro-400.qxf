@@ -1,24 +1,24 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>3.0.0</Version>
-  <Author/>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Büro</Author>
  </Creator>
  <Manufacturer>Martin</Manufacturer>
  <Model>Robocolor Pro 400</Model>
  <Type>Color Changer</Type>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="3">Strobe off</Capability>
-  <Capability Min="4" Max="7">Strobe off / Fan low</Capability>
-  <Capability Min="8" Max="199">Strobe fast to slow</Capability>
+  <Capability Min="0" Max="3" Preset="ShutterOpen">Strobe off</Capability>
+  <Capability Min="4" Max="7" Preset="ShutterOpen">Strobe off / Fan low</Capability>
+  <Capability Min="8" Max="199" Preset="StrobeFastToSlow">Strobe fast to slow</Capability>
   <Capability Min="200" Max="218">Remote music trigger</Capability>
   <Capability Min="219" Max="238">Remote auto trigger</Capability>
-  <Capability Min="239" Max="248">RESET</Capability>
-  <Capability Min="249" Max="252">Lamp ON</Capability>
-  <Capability Min="253" Max="255">Lamp OFF (mode 3)</Capability>
+  <Capability Min="239" Max="248" Preset="ResetAll">RESET</Capability>
+  <Capability Min="249" Max="252" Preset="LampOn">Lamp ON</Capability>
+  <Capability Min="253" Max="255" Preset="LampOff">Lamp OFF (mode 3)</Capability>
  </Channel>
  <Channel Name="Dimmer">
   <Group Byte="0">Intensity</Group>
@@ -46,7 +46,7 @@
  <Channel Name="Colour 2">
   <Group Byte="0">Colour</Group>
   <Capability Min="0" Max="25">White (scroll)</Capability>
-  <Capability Min="26" Max="51">Pink  (scroll)</Capability>
+  <Capability Min="26" Max="51">Pink (scroll)</Capability>
   <Capability Min="52" Max="77">Light green (scroll)</Capability>
   <Capability Min="78" Max="103">Magenta (scroll)</Capability>
   <Capability Min="104" Max="129">Dark lavender (scroll)</Capability>
@@ -92,11 +92,11 @@
   <Channel Number="5">Color speed</Channel>
   <Channel Number="6">Dimmer speed</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" Type="MSD 200W" ColourTemperature="0"/>
-   <Dimensions Width="337" Height="282" Weight="11" Depth="306"/>
-   <Lens DegreesMax="33" Name="PC" DegreesMin="15"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="270" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="MSD 200W" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="11" Width="337" Height="282" Depth="306"/>
+  <Lens Name="PC" DegreesMin="15" DegreesMax="33"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="270" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

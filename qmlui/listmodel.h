@@ -23,12 +23,14 @@
 #include <QAbstractListModel>
 #include <QStringList>
 
+#define SEARCH_MIN_CHARS    3
+
 class ListModel : public QAbstractListModel
 {
     Q_OBJECT
     Q_DISABLE_COPY(ListModel)
 public:
-    ListModel(QObject *parent = 0);
+    ListModel(QObject *parent = nullptr);
     ~ListModel();
 
     void clear();
@@ -40,6 +42,8 @@ public:
     QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
 
     QVariant data(const QModelIndex & index, QString role) const;
+
+    QVariant itemAt(int index) const;
 
     bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
 

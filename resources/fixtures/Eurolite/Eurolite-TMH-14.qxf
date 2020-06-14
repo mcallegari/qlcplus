@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Chris de Rock</Author>
  </Creator>
  <Manufacturer>Eurolite</Manufacturer>
@@ -50,7 +50,7 @@
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="149">No Function</Capability>
-  <Capability Min="150" Max="200">Reset</Capability>
+  <Capability Min="150" Max="200" Preset="ResetAll">Reset</Capability>
   <Capability Min="201" Max="255">No Function</Capability>
  </Channel>
  <Mode Name="11 Channel">

@@ -28,7 +28,7 @@ Rectangle
     width: UISettings.bigItemHeight * 3
     height: UISettings.bigItemHeight * 2.5
     color: UISettings.bgMedium
-    border.color: UISettings.fgMedium
+    border.color: UISettings.bgLight
     border.width: 2
 
     property real minDegrees: 15.0
@@ -36,6 +36,12 @@ Rectangle
 
     onMinDegreesChanged: gCanvas.requestPaint()
     onMaxDegreesChanged: gCanvas.requestPaint()
+
+    MouseArea
+    {
+        anchors.fill: parent
+        onWheel: { return false }
+    }
 
     Rectangle
     {

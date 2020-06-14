@@ -4,75 +4,75 @@
 <context>
     <name>ArtNetPlugin</name>
     <message>
-        <location filename="artnetplugin.cpp" line="85"/>
+        <location filename="artnetplugin.cpp" line="93"/>
         <source>This plugin provides DMX output for devices supporting the ArtNet communication protocol.</source>
         <oldsource>This plugin provides output for devices supporting the ArtNet communication protocol.</oldsource>
         <translation>Ce plugin offre le support des périphériques supportant le protocole ArtNet.</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="132"/>
+        <location filename="artnetplugin.cpp" line="140"/>
         <source>Output</source>
         <translation>Sortie</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="136"/>
-        <location filename="artnetplugin.cpp" line="287"/>
+        <location filename="artnetplugin.cpp" line="144"/>
+        <location filename="artnetplugin.cpp" line="295"/>
         <source>Status: Not open</source>
         <translation>État : fermé</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="139"/>
+        <location filename="artnetplugin.cpp" line="147"/>
         <source>Status: Open</source>
         <translation>État : ouvert</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="144"/>
+        <location filename="artnetplugin.cpp" line="152"/>
         <source>No</source>
         <translation>Non</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="146"/>
+        <location filename="artnetplugin.cpp" line="154"/>
         <source>Yes</source>
         <translation>Oui</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="147"/>
+        <location filename="artnetplugin.cpp" line="155"/>
         <source>Can receive nodes information</source>
         <oldsource>Can receive node information</oldsource>
         <translation>Peut recevoir les informations des nœuds</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="150"/>
+        <location filename="artnetplugin.cpp" line="158"/>
         <source>Nodes discovered: </source>
         <translation>Nœuds découverts : </translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="153"/>
+        <location filename="artnetplugin.cpp" line="161"/>
         <source>Packets sent: </source>
         <translation>Paquets envoyés : </translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="283"/>
+        <location filename="artnetplugin.cpp" line="291"/>
         <source>Input</source>
         <translation>Entrée</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="292"/>
+        <location filename="artnetplugin.cpp" line="300"/>
         <source>Bind failed</source>
         <translation>Échec du lien</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="294"/>
+        <location filename="artnetplugin.cpp" line="302"/>
         <source>Open</source>
         <translation>Ouvert</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="295"/>
+        <location filename="artnetplugin.cpp" line="303"/>
         <source>Status</source>
         <translation>État</translation>
     </message>
     <message>
-        <location filename="artnetplugin.cpp" line="298"/>
+        <location filename="artnetplugin.cpp" line="306"/>
         <source>Packets received: </source>
         <translation>Paquets reçus : </translation>
     </message>

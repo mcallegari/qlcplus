@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>3.1.0</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -12,8 +12,8 @@
  <Channel Name="Reserved" Preset="NoFunction"/>
  <Channel Name="Shutter/Strobe/Dimmer">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="1">Blackout</Capability>
-  <Capability Min="2" Max="127">Strobe</Capability>
+  <Capability Min="0" Max="1" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="2" Max="127" Preset="StrobeRandom">Strobe</Capability>
   <Capability Min="128" Max="255">Intensity</Capability>
  </Channel>
  <Channel Name="Red" Preset="IntensityRed"/>
@@ -26,11 +26,11 @@
   <Channel Number="3">Green</Channel>
   <Channel Number="4">Blue</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="538" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="121" Height="168" Weight="1" Depth="102"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="24" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="538" ColourTemperature="0"/>
+  <Dimensions Weight="1" Width="121" Height="168" Depth="102"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="24" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

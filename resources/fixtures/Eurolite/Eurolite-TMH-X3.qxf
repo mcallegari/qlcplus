@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1</Version>
+  <Author>kom,ma, Jannis Achstetter</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>TMH-X3</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Zoom" Preset="BeamZoomBigSmall"/>
+ <Channel Name="Prism">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="64" Preset="PrismEffectOff">No effect</Capability>
+  <Capability Min="65" Max="128" Preset="PrismEffectOn" Res1="8">8-facetted prism</Capability>
+  <Capability Min="129" Max="255" Preset="PrismEffectOn" Res1="8">Prism rotation with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Colour change">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="31">No function</Capability>
+  <Capability Min="32" Max="255">Colour change linear</Capability>
+ </Channel>
+ <Channel Name="Internal programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="63">No function</Capability>
+  <Capability Min="64" Max="127">Internal program</Capability>
+  <Capability Min="128" Max="191">Music control</Capability>
+  <Capability Min="192" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="249">Reset all motors</Capability>
+  <Capability Min="250" Max="255">No function</Capability>
+ </Channel>
+ <Mode Name="16 channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt fine</Channel>
+  <Channel Number="4">Pan/Tilt speed</Channel>
+  <Channel Number="5">Strobe</Channel>
+  <Channel Number="6">Dimmer</Channel>
+  <Channel Number="7">Zoom</Channel>
+  <Channel Number="8">Prism</Channel>
+  <Channel Number="9">Red</Channel>
+  <Channel Number="10">Green</Channel>
+  <Channel Number="11">Blue</Channel>
+  <Channel Number="12">White</Channel>
+  <Channel Number="13">Colour change</Channel>
+  <Channel Number="14">Internal programs</Channel>
+  <Channel Number="15">Reset</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5.2" Width="190" Height="370" Depth="245"/>
+  <Lens Name="Other" DegreesMin="5" DegreesMax="47"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="220"/>
+  <Technical PowerConsumption="90" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

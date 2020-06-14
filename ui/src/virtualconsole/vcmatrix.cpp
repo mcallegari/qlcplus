@@ -359,6 +359,16 @@ void VCMatrix::editProperties()
         m_doc->setModified();
 }
 
+/*************************************************************************
+ * VCWidget-inherited
+ *************************************************************************/
+
+void VCMatrix::adjustIntensity(qreal val)
+{
+    VCWidget::adjustIntensity(val);
+    this->slotSliderMoved(this->m_slider->value());
+}
+
 /*********************************************************************
  * Function attachment
  *********************************************************************/
@@ -435,17 +445,6 @@ void VCMatrix::slotFunctionStopped()
     m_slider->blockSignals(true);
     m_slider->setValue(0);
     resetIntensityOverrideAttribute();
-    m_slider->blockSignals(false);
-}
-
-void VCMatrix::slotFunctionAttributeChanged(int attrIndex, qreal fraction)
-{
-    // Only use the Intensity attribute
-    if (attrIndex != 0)
-        return;
-
-    m_slider->blockSignals(true);
-    m_slider->setValue(int(floor((qreal(m_slider->maximum()) * fraction) + 0.5)));
     m_slider->blockSignals(false);
 }
 

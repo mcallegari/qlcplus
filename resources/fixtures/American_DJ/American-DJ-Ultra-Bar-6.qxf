@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Massimo Callegari</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -14,8 +14,8 @@
  <Channel Name="Blue" Preset="IntensityBlue"/>
  <Channel Name="Strobing">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="15">No function</Capability>
-  <Capability Min="16" Max="255">Strobing (slow to fast)</Capability>
+  <Capability Min="0" Max="15" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="16" Max="255" Preset="StrobeSlowToFast">Strobing (slow to fast)</Capability>
  </Channel>
  <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Color macros">

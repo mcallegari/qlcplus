@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>BLACKsun</Author>
  </Creator>
  <Manufacturer>JB-Lighting</Manufacturer>
@@ -24,19 +24,19 @@
   <Capability Min="216" Max="223">Camera mode 60Hz (after 2 seconds)</Capability>
   <Capability Min="224" Max="231">Camera mode FLEX (after 2 seconds)</Capability>
   <Capability Min="232" Max="239">Safe</Capability>
-  <Capability Min="240" Max="247">Reset (after 2 seconds)</Capability>
+  <Capability Min="240" Max="247" Preset="ResetAll">Reset (after 2 seconds)</Capability>
   <Capability Min="248" Max="255">Safe</Capability>
  </Channel>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="15" Preset="ShutterClose">Closed</Capability>
   <Capability Min="16" Max="95" Preset="ShutterOpen">Open</Capability>
-  <Capability Min="96" Max="110">Pulse opening &gt;10Hz (0.6sec - 4.8sec)</Capability>
+  <Capability Min="96" Max="110" Preset="PulseFrequency" Res1="10">Pulse opening &gt;10Hz (0.6sec - 4.8sec)</Capability>
   <Capability Min="111" Max="111" Preset="ShutterOpen">Open</Capability>
-  <Capability Min="112" Max="125">Fade effect with dimmer (slow - fast)</Capability>
+  <Capability Min="112" Max="125" Preset="StrobeSlowToFast">Fade effect with dimmer (slow - fast)</Capability>
   <Capability Min="126" Max="126" Preset="ShutterOpen">Open</Capability>
   <Capability Min="127" Max="127" Preset="ShutterClose">Closed</Capability>
-  <Capability Min="128" Max="142">Pulse opening &lt;10Hz (0.6sec - 4.8sec)</Capability>
+  <Capability Min="128" Max="142" Preset="PulseFrequency" Res1="10">Pulse opening &lt;10Hz (0.6sec - 4.8sec)</Capability>
   <Capability Min="143" Max="143" Preset="ShutterOpen">Open</Capability>
   <Capability Min="144" Max="158">Pulse closing (0.6sec - 4.8sec)</Capability>
   <Capability Min="159" Max="159" Preset="ShutterClose">Closed</Capability>
@@ -44,13 +44,13 @@
   <Capability Min="175" Max="175" Preset="ShutterOpen">Open</Capability>
   <Capability Min="176" Max="190">Fade 100% (0,6sec - 4,8sec)</Capability>
   <Capability Min="191" Max="191" Preset="ShutterClose">Closed</Capability>
-  <Capability Min="192" Max="206">Random 100% (0.6sec - 4.8sec)</Capability>
+  <Capability Min="192" Max="206" Preset="StrobeRandom">Random 100% (0.6sec - 4.8sec)</Capability>
   <Capability Min="207" Max="207" Preset="ShutterOpen">Open</Capability>
-  <Capability Min="208" Max="222">Random 0% (0.6sec - 4.8sec)</Capability>
+  <Capability Min="208" Max="222" Preset="StrobeRandom">Random 0% (0.6sec - 4.8sec)</Capability>
   <Capability Min="223" Max="223" Preset="ShutterClose">Closed</Capability>
-  <Capability Min="224" Max="238">Random fade 0% (0.6sec - 4.8sec)</Capability>
+  <Capability Min="224" Max="238" Preset="StrobeRandom">Random fade 0% (0.6sec - 4.8sec)</Capability>
   <Capability Min="239" Max="239" Preset="ShutterOpen">Open</Capability>
-  <Capability Min="240" Max="254">Random fade 100% (0.6sec - 4.8sec)</Capability>
+  <Capability Min="240" Max="254" Preset="StrobeRandom">Random fade 100% (0.6sec - 4.8sec)</Capability>
   <Capability Min="255" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>

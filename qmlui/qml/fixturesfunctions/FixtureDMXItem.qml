@@ -28,6 +28,8 @@ Rectangle
     property variant values
     property bool isSelected: false
 
+    //signal requestTool(var item, var fixtureID, var chIndex, var value)
+
     onValuesChanged:
     {
         for (var i = 0; i < values.length; i++)
@@ -210,6 +212,12 @@ Rectangle
              {
                  //console.log("Channel " + chIndex + " value changed " + value)
                  channelsRpt.itemAt(chIndex).dmxValue = value
+             }
+
+             onRequestTool:
+             {
+                 //dmxItemRoot.requestTool(item, fixtureID, chIndex, value)
+                 dmxItemRoot.parent.loadTool(item, fixtureID, chIndex, value)
              }
         }
     }

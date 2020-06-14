@@ -297,7 +297,7 @@ void QLCPhysical_Test::save()
 
     QVERIFY(p.saveXML(&xmlWriter) == true);
 
-    qDebug() << buffer.buffer();
+    //qDebug() << buffer.buffer();
     xmlWriter.setDevice(NULL);
     buffer.close();
 

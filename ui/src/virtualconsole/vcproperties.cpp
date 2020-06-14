@@ -65,6 +65,7 @@ VCProperties &VCProperties::operator=(const VCProperties &props)
 {
     if (this != &props)
     {
+        m_size = props.m_size;
         m_gmChannelMode = props.m_gmChannelMode;
         m_gmValueMode = props.m_gmValueMode;
         m_gmSliderMode = props.m_gmSliderMode;

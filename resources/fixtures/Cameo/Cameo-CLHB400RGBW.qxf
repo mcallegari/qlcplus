@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Mihai</Author>
  </Creator>
  <Manufacturer>Cameo</Manufacturer>
@@ -62,8 +62,8 @@
  <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="10">No strobe</Capability>
-  <Capability Min="11" Max="255">Slow to fast</Capability>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Slow to fast</Capability>
  </Channel>
  <Channel Name="Show Mode">
   <Group Byte="0">Effect</Group>

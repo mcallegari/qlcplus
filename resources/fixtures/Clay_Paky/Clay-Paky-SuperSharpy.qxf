@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.1 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Thierry Rodolfo</Author>
  </Creator>
  <Manufacturer>Clay Paky</Manufacturer>
@@ -44,13 +44,13 @@
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="3" Preset="ShutterClose">Light OFF</Capability>
   <Capability Min="4" Max="103" Preset="StrobeSlowToFast">Strobe 0&lt;Max</Capability>
-  <Capability Min="104" Max="107" Preset="ShutterOpen">Light ON</Capability>
+  <Capability Min="104" Max="107" Preset="ShutterOpen">Light on</Capability>
   <Capability Min="108" Max="207" Preset="PulseSlowToFast">Pulse 0&lt;Max</Capability>
-  <Capability Min="208" Max="212" Preset="ShutterOpen">Light ON</Capability>
+  <Capability Min="208" Max="212" Preset="ShutterOpen">Light on</Capability>
   <Capability Min="213" Max="225" Preset="StrobeRandom">Ramdom Strobe Low</Capability>
   <Capability Min="226" Max="238" Preset="StrobeRandom">Ramdom Strobe Medium</Capability>
   <Capability Min="239" Max="251" Preset="StrobeRandom">Ramdom Strobe High</Capability>
-  <Capability Min="252" Max="255" Preset="ShutterOpen">Light ON</Capability>
+  <Capability Min="252" Max="255" Preset="ShutterOpen">Light on</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Dimmer Fine" Preset="IntensityDimmerFine"/>
@@ -190,15 +190,15 @@
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="25">Unused range</Capability>
-  <Capability Min="26" Max="76">Zoom reset</Capability>
-  <Capability Min="77" Max="127">Pan / Tilt Reset</Capability>
-  <Capability Min="128" Max="255">Complete Reset</Capability>
+  <Capability Min="26" Max="76" Preset="ResetZoom">Zoom reset</Capability>
+  <Capability Min="77" Max="127" Preset="ResetPanTilt">Pan / Tilt Reset</Capability>
+  <Capability Min="128" Max="255" Preset="ResetAll">Complete Reset</Capability>
  </Channel>
  <Channel Name="Lamp Control">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="25">Unused range</Capability>
-  <Capability Min="26" Max="100">Lamp OFF</Capability>
-  <Capability Min="101" Max="255">Lamp ON</Capability>
+  <Capability Min="26" Max="100" Preset="LampOff">Lamp OFF</Capability>
+  <Capability Min="101" Max="255" Preset="LampOn">Lamp ON</Capability>
  </Channel>
  <Channel Name="Macros Effects">
   <Group Byte="0">Effect</Group>
