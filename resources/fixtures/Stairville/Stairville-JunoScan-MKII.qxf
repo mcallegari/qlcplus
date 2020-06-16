@@ -40,7 +40,7 @@
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="3" Preset="ShutterClose">Closed (blackout)</Capability>
   <Capability Min="4" Max="7" Preset="ShutterOpen">Open</Capability>
-  <Capability Min="8" Max="215" Preset="ShutterSlowToFast">Strobe effect, speed increasing</Capability>
+  <Capability Min="8" Max="215" Preset="StrobeSlowToFast">Strobe effect, speed increasing</Capability>
   <Capability Min="216" Max="255" Preset="ShutterOpen">Open</Capability>
  </Channel>
  <Channel Name="Gobo-Wheel">
