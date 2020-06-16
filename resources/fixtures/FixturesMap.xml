@@ -44,6 +44,7 @@
     <F n="American-DJ-Dotz-TPar" m="Dotz TPar"/>
     <F n="American-DJ-Double-Phase" m="Double Phase"/>
     <F n="American-DJ-ECO-UV-BAR-DMX" m="ECO UV BAR DMX"/>
+    <F n="American-DJ-Emerald-Scan" m="Emerald Scan"/>
     <F n="American-DJ-Entour-Venue" m="Entour Venue"/>
     <F n="American-DJ-Entourage" m="Entourage"/>
     <F n="American-DJ-Event-Bar-LED" m="Event Bar LED"/>
@@ -417,6 +418,7 @@
     <F n="Chauvet-RotoSphere-LED" m="RotoSphere LED"/>
     <F n="Chauvet-Rotosphere-Q3" m="Rotosphere Q3"/>
     <F n="Chauvet-Scorpion-Bar-RG" m="Scorpion Bar RG"/>
+    <F n="Chauvet-Scorpion-Dual-RGB" m="Scorpion Dual RGB"/>
     <F n="Chauvet-Scorpion-Dual" m="Scorpion Dual"/>
     <F n="Chauvet-Scorpion-Storm-FX-RGB" m="Scorpion Storm FX RGB"/>
     <F n="Chauvet-Scorpion-Storm-RGX" m="Scorpion Storm RGX"/>
@@ -908,6 +910,7 @@
     <F n="lightmaXX-LED-PAR-64" m="LED PAR 64"/>
     <F n="lightmaXX-Platinum-CLS-1" m="Platinum CLS-1"/>
     <F n="lightmaXX-Platinum-CLS-2" m="Platinum CLS-2"/>
+    <F n="lightmaXX-Platinum-CLS-3-MKII" m="Platinum CLS-3 MKII"/>
     <F n="lightmaXX-Platinum-Line-Flat-PAR-COB" m="Platinum Line Flat PAR COB"/>
     <F n="lightmaXX-Platinum-Line-Mini-PAR-QUAD-7x8W" m="Platinum Line Mini PAR QUAD 7x8W"/>
     <F n="lightmaXX-Platinum-Line-Mini-TRI-PAR-7x3-W" m="Platinum Line Mini TRI-PAR 7x3 Watt"/>

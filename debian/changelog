@@ -46,6 +46,9 @@ qlcplus (4.12.3) stable; urgency=low
   * New fixture: Fun-Generation LED Pot 12x1W RGBW (thanks to Mark van Kemenade)
   * New fixture: Ibiza 400 RGB (thanks to Jochem de Kruijf)
   * New fixture: Martin MAC Axiom Hybrid (thanks to Michał Kluska)
+  * New fixture: American DJ Emerald Scan (thanks to Skye Peterson)
+  * New fixture: lightmaXX Platinum CLS-3 MKII (thanks to Hans-Juergen Tappe)
+  * New fixture: Chauvet Scorpion Dual RGB (thanks to Ryan Morgan)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 26 Apr 2020 12:13:14 +0200
 

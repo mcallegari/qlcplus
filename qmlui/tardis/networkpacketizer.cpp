@@ -49,7 +49,7 @@ void NetworkPacketizer::addSection(QByteArray &packet, QVariant value)
     if (value.isNull())
         return;
 
-    switch (value.type())
+    switch (QMetaType::Type(value.type()))
     {
         case QMetaType::Bool:
             packet.append(BoolType);   // section type
