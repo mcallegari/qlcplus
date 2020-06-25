@@ -25,7 +25,10 @@
 #endif
 #include <QDebug>
 #include <QUrl>
-
+#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
+#include <QRandomGenerator>
+#endif
+ 
 #include "genericfader.h"
 #include "fadechannel.h"
 #include "mastertimer.h"
@@ -140,7 +143,7 @@ bool Script::setData(const QString& str)
     if (m_data.isEmpty() == false)
     {
         int i = 1;
-        QStringList lines = m_data.split(QRegExp("(\r\n|\n\r|\r|\n)"), QString::KeepEmptyParts);
+        QStringList lines = m_data.split(QRegExp("(\r\n|\n\r|\r|\n)"));
         foreach (QString line, lines)
         {
             bool ok = false;
@@ -184,8 +187,7 @@ QString Script::data() const
 
 QStringList Script::dataLines() const
 {
-    QStringList result = m_data.split(QRegExp("(\r\n|\n\r|\r|\n)"), QString::KeepEmptyParts);
-
+    QStringList result = m_data.split(QRegExp("(\r\n|\n\r|\r|\n)"));
     while (result.count() && result.last().isEmpty())
         result.takeLast();
 
@@ -405,7 +407,11 @@ quint32 Script::getValueFromString(QString str, bool *ok)
     int max = Function::stringToSpeed(valList.at(1));
 
     *ok = true;
+#if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
     return qrand() % ((max + 1) - min) + min;
+#else
+      return QRandomGenerator::global()->generate() % ((max + 1) - min) + min;
+#endif
 }
 
 bool Script::executeCommand(int index, MasterTimer* timer, QList<Universe *> universes)

@@ -377,7 +377,7 @@ void EditMode::refreshHeadList()
                 chitem->setText(0, QString("%1: %2").arg(chnum + 1).arg(ch->name()));
             else
                 chitem->setText(0, QString("%1: INVALID!"));
-            chitem->setFlags(0); // Disable channel selection inside heads
+            chitem->setFlags(Qt::NoItemFlags); // Disable channel selection inside heads
 
             summary += QString::number(chnum + 1);
             if (it.hasNext() == true)

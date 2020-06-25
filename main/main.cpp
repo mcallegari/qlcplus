@@ -149,6 +149,10 @@ void qlcMessageHandler(QtMsgType type, const QMessageLogContext &context, const 
 }
 #endif
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
+#define endl Qt::endl
+#endif
+
 /**
  * Prints the application version
  */
