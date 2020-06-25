@@ -25,7 +25,7 @@
 #endif
 #include <QDebug>
 #include <QUrl>
-#if QT_VERSION >= QT_VERSION_CHECK( 5, 10, 0 )
+#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
 #include <QRandomGenerator>
 #endif
  
@@ -407,7 +407,7 @@ quint32 Script::getValueFromString(QString str, bool *ok)
     int max = Function::stringToSpeed(valList.at(1));
 
     *ok = true;
-#if QT_VERSION < QT_VERSION_CHECK( 5, 10, 0 )
+#if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
     return qrand() % ((max + 1) - min) + min;
 #else
       return QRandomGenerator::global()->generate() % ((max + 1) - min) + min;

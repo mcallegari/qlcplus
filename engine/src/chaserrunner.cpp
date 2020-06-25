@@ -20,7 +20,7 @@
 */
 
 #include <QElapsedTimer>
-#if QT_VERSION >= QT_VERSION_CHECK( 5, 10, 0 )
+#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
 #include <QRandomGenerator>
 #endif
 #include <QDebug>
@@ -383,7 +383,7 @@ void ChaserRunner::shuffle(QVector<int> & data)
    int n = data.size();
    for (int i = n - 1; i > 0; --i)
    {
-#if QT_VERSION < QT_VERSION_CHECK( 5, 10, 0 )
+#if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
       qSwap(data[i], data[qrand() % (i + 1)]);
 #else
       qSwap(data[i], data[QRandomGenerator::global()->generate() % (i + 1)]);

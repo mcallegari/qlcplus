@@ -26,7 +26,7 @@
 #include <QList>
 #include <QTime>
 #include <QDir>
-#if QT_VERSION >= QT_VERSION_CHECK( 5, 10, 0 )
+#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
 #include <QRandomGenerator>
 #endif
 
@@ -88,7 +88,7 @@ Doc::Doc(QObject* parent, int universes)
 {
     Bus::init(this);
     resetModified();
-#if QT_VERSION < QT_VERSION_CHECK( 5, 10, 0 )
+#if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
     qsrand(QTime::currentTime().msec());
 #endif
     
