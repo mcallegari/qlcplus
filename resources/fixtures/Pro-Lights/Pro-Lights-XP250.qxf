@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Tolmino Muccitelli</Author>
  </Creator>
  <Manufacturer>Pro-Lights</Manufacturer>
@@ -12,8 +12,8 @@
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="7">Shutter Closed</Capability>
-  <Capability Min="8" Max="255">Strobe Slow-Fast</Capability>
+  <Capability Min="0" Max="7" Preset="ShutterClose">Shutter Closed</Capability>
+  <Capability Min="8" Max="255" Preset="StrobeSlowToFast">Strobe Slow-Fast</Capability>
  </Channel>
  <Channel Name="Colours">
   <Group Byte="0">Colour</Group>

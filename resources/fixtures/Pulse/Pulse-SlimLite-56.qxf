@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Jimmy Traylor</Author>
  </Creator>
  <Manufacturer>Pulse</Manufacturer>
@@ -14,53 +14,53 @@
  <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9">No function</Capability>
-  <Capability Min="10" Max="255">Slow-fast</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Slow-fast</Capability>
  </Channel>
  <Channel Name="Red Dimming/Static Colour/Speed Adjust/Sound Sensitivity">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="8" Color="#ff0000">Red intensity/R (255)/Slow-fast/Sensitivity</Capability>
-  <Capability Min="9" Max="17" Color="#ff3200">Red intensity/R (255) G (50)/Slow-fast/Sensitivity</Capability>
-  <Capability Min="18" Max="26" Color="#ff9600">Red intensity/R (255) G (150)/Slow-fast/Sensitivity</Capability>
-  <Capability Min="27" Max="35" Color="#ffff00">Red intensity/R (255) G (255)/Slow-fast/Sensitivity</Capability>
-  <Capability Min="36" Max="44" Color="#c8ff00">Red intensity/R (200) G (255)/Slow-fast/Sensitivity</Capability>
-  <Capability Min="45" Max="53" Color="#64ff00">Red intensity/R (100) G (255)/Slow-fast/Sensitivity</Capability>
-  <Capability Min="54" Max="62" Color="#28ff00">Red intensity/R (40) G (255)/Slow-fast/Sensitivity</Capability>
-  <Capability Min="63" Max="71" Color="#00ff00">Red intensity/G (255)/Slow-fast/Sensitivity</Capability>
-  <Capability Min="72" Max="80" Color="#00ff32">Red intensity/G (255) B (50)/Slow-fast/Sensitivity</Capability>
-  <Capability Min="81" Max="89" Color="#00ff96">Red intensity/G (255) B (150)/Slow-fast/Sensitivity</Capability>
-  <Capability Min="90" Max="98" Color="#00ffff">Red intensity/G (255) B (255)/Slow-fast/Sensitivity</Capability>
-  <Capability Min="99" Max="107" Color="#0096ff">Red intensity/G (150) B (255)/Slow-fast/Sensitivity</Capability>
-  <Capability Min="108" Max="116" Color="#0032ff">Red intensity/G (50) B (255)/Slow-fast/Sensitivity</Capability>
-  <Capability Min="117" Max="125" Color="#0000ff">Red intensity/B (255)/Slow-fast/Sensitivity</Capability>
-  <Capability Min="126" Max="134" Color="#3200ff">Red intensity/R (50) B (255)/Slow-fast/Sensitivity</Capability>
-  <Capability Min="135" Max="143" Color="#9600ff">Red intensity/R (150) B (255)/Slow-fast/Sensitivity</Capability>
-  <Capability Min="144" Max="152" Color="#ffff00">Red intensity/R (255) B (255)/Slow-fast/Sensitivity</Capability>
-  <Capability Min="153" Max="161" Color="#dc0032">Red intensity/R (220) B (50)/Slow-fast/Sensitivity</Capability>
-  <Capability Min="162" Max="170" Color="#963264">Red intensity/R (150) G (50 B (100)/Slow-fast/Sensitivity</Capability>
-  <Capability Min="171" Max="179" Color="#3296dc">Red intensity/R (50) G (150) B (220)/Slow-fast/Sensitivity</Capability>
-  <Capability Min="180" Max="188" Color="#32dcdc">Red intensity/R (50) G (220) B (220)/Slow-fast/Sensitivity</Capability>
-  <Capability Min="189" Max="197" Color="#96dc00">Red intensity/R (150) G (220)/Slow-fast/Sensitivity</Capability>
-  <Capability Min="198" Max="206" Color="#9600dc">Red intensity/R (150) B (220)/Slow-fast/Sensitivity</Capability>
-  <Capability Min="207" Max="215" Color="#00b4dc">Red intensity/G (180) B (220)/Slow-fast/Sensitivity</Capability>
-  <Capability Min="216" Max="224" Color="#00dc32">Red intensity/G (220) B (50)/Slow-fast/Sensitivity</Capability>
-  <Capability Min="225" Max="233" Color="#dc6432">Red intensity/R (220) G (100) B (50)/Slow-fast/Sensitivity</Capability>
-  <Capability Min="234" Max="242" Color="#dcc864">Red intensity/R (220) G (200) B (100)/Slow-fast/Sensitivity</Capability>
-  <Capability Min="243" Max="251" Color="#ffc896">Red intensity/R (255) G (200) B (150)/Slow-fast/Sensitivity</Capability>
-  <Capability Min="252" Max="255" Color="#ffffff">Red intensity/R (255) G (255) B (255)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="0" Max="8" Preset="ColorMacro" Res1="#ff0000">Red intensity/R (255)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="9" Max="17" Preset="ColorMacro" Res1="#ff3200">Red intensity/R (255) G (50)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="18" Max="26" Preset="ColorMacro" Res1="#ff9600">Red intensity/R (255) G (150)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="27" Max="35" Preset="ColorMacro" Res1="#ffff00">Red intensity/R (255) G (255)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="36" Max="44" Preset="ColorMacro" Res1="#c8ff00">Red intensity/R (200) G (255)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="45" Max="53" Preset="ColorMacro" Res1="#64ff00">Red intensity/R (100) G (255)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="54" Max="62" Preset="ColorMacro" Res1="#28ff00">Red intensity/R (40) G (255)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="63" Max="71" Preset="ColorMacro" Res1="#00ff00">Red intensity/G (255)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="72" Max="80" Preset="ColorMacro" Res1="#00ff32">Red intensity/G (255) B (50)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="81" Max="89" Preset="ColorMacro" Res1="#00ff96">Red intensity/G (255) B (150)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="90" Max="98" Preset="ColorMacro" Res1="#00ffff">Red intensity/G (255) B (255)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="99" Max="107" Preset="ColorMacro" Res1="#0096ff">Red intensity/G (150) B (255)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="108" Max="116" Preset="ColorMacro" Res1="#0032ff">Red intensity/G (50) B (255)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="117" Max="125" Preset="ColorMacro" Res1="#0000ff">Red intensity/B (255)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="126" Max="134" Preset="ColorMacro" Res1="#3200ff">Red intensity/R (50) B (255)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="135" Max="143" Preset="ColorMacro" Res1="#9600ff">Red intensity/R (150) B (255)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="144" Max="152" Preset="ColorMacro" Res1="#ffff00">Red intensity/R (255) B (255)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="153" Max="161" Preset="ColorMacro" Res1="#dc0032">Red intensity/R (220) B (50)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="162" Max="170" Preset="ColorMacro" Res1="#963264">Red intensity/R (150) G (50 B (100)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="171" Max="179" Preset="ColorMacro" Res1="#3296dc">Red intensity/R (50) G (150) B (220)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="180" Max="188" Preset="ColorMacro" Res1="#32dcdc">Red intensity/R (50) G (220) B (220)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="189" Max="197" Preset="ColorMacro" Res1="#96dc00">Red intensity/R (150) G (220)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="198" Max="206" Preset="ColorMacro" Res1="#9600dc">Red intensity/R (150) B (220)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="207" Max="215" Preset="ColorMacro" Res1="#00b4dc">Red intensity/G (180) B (220)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="216" Max="224" Preset="ColorMacro" Res1="#00dc32">Red intensity/G (220) B (50)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="225" Max="233" Preset="ColorMacro" Res1="#dc6432">Red intensity/R (220) G (100) B (50)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="234" Max="242" Preset="ColorMacro" Res1="#dcc864">Red intensity/R (220) G (200) B (100)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="243" Max="251" Preset="ColorMacro" Res1="#ffc896">Red intensity/R (255) G (200) B (150)/Slow-fast/Sensitivity</Capability>
+  <Capability Min="252" Max="255" Preset="ColorMacro" Res1="#ffffff">Red intensity/R (255) G (255) B (255)/Slow-fast/Sensitivity</Capability>
  </Channel>
  <Channel Name="Color Programs">
   <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="24" Res="Others/rainbow.png">Channel 2 static colours</Capability>
-  <Capability Min="25" Max="49" Res="Others/rainbow.png">Pr02 (7 colour fading)</Capability>
-  <Capability Min="50" Max="74" Res="Others/rainbow.png">Pr03 (3 colour fading)</Capability>
-  <Capability Min="75" Max="99" Res="Others/rainbow.png">Pr04 (7 colour jump)</Capability>
-  <Capability Min="100" Max="124" Res="Others/rainbow.png">Pr05 (3 colour jump)</Capability>
-  <Capability Min="125" Max="149" Res="Others/rainbow.png">Pr06 (colour dreaming 1)</Capability>
-  <Capability Min="150" Max="174" Res="Others/rainbow.png">Pr07 (colour dreaming 2)</Capability>
-  <Capability Min="175" Max="199" Color="#ff0000">Pr08 (red fading)</Capability>
-  <Capability Min="200" Max="224" Color="#00ff00">Pr09 (green fading)</Capability>
-  <Capability Min="225" Max="249" Color="#0000ff">Pr10 (blue fading)</Capability>
+  <Capability Min="0" Max="24" Preset="GoboMacro" Res1="Others/rainbow.png">Channel 2 static colours</Capability>
+  <Capability Min="25" Max="49" Preset="GoboMacro" Res1="Others/rainbow.png">Pr02 (7 colour fading)</Capability>
+  <Capability Min="50" Max="74" Preset="GoboMacro" Res1="Others/rainbow.png">Pr03 (3 colour fading)</Capability>
+  <Capability Min="75" Max="99" Preset="GoboMacro" Res1="Others/rainbow.png">Pr04 (7 colour jump)</Capability>
+  <Capability Min="100" Max="124" Preset="GoboMacro" Res1="Others/rainbow.png">Pr05 (3 colour jump)</Capability>
+  <Capability Min="125" Max="149" Preset="GoboMacro" Res1="Others/rainbow.png">Pr06 (colour dreaming 1)</Capability>
+  <Capability Min="150" Max="174" Preset="GoboMacro" Res1="Others/rainbow.png">Pr07 (colour dreaming 2)</Capability>
+  <Capability Min="175" Max="199" Preset="ColorMacro" Res1="#ff0000">Pr08 (red fading)</Capability>
+  <Capability Min="200" Max="224" Preset="ColorMacro" Res1="#00ff00">Pr09 (green fading)</Capability>
+  <Capability Min="225" Max="249" Preset="ColorMacro" Res1="#0000ff">Pr10 (blue fading)</Capability>
   <Capability Min="250" Max="255">Sound active</Capability>
  </Channel>
  <Channel Name="ID Address">
@@ -159,11 +159,11 @@
   <Channel Number="6">ID Address</Channel>
   <Channel Number="7">Fader Response</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="1.81" Width="205" Height="205" Depth="69"/>
-   <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="20" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.81" Width="205" Height="205" Depth="69"/>
+  <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="20" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

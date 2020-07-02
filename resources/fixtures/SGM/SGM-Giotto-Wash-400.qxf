@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>SGM</Manufacturer>
@@ -73,7 +73,7 @@
   <Capability Min="61" Max="129">Hysteresis</Capability>
   <Capability Min="130" Max="179">On</Capability>
   <Capability Min="180" Max="239">Hysteresis</Capability>
-  <Capability Min="240" Max="255">Reset</Capability>
+  <Capability Min="240" Max="255" Preset="ResetAll">Reset</Capability>
  </Channel>
  <Channel Name="Linear CTO" Preset="ColorCTOMixer"/>
  <Channel Name="Colour Map">
