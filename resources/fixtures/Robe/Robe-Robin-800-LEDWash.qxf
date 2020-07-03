@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Jasper Zevering</Author>
  </Creator>
  <Manufacturer>Robe</Manufacturer>
@@ -35,11 +35,11 @@
   <Capability Min="110" Max="114">Zoom mode: Wash</Capability>
   <Capability Min="115" Max="119">Zoom mode:Beam</Capability>
   <Capability Min="120" Max="139">Reserved</Capability>
-  <Capability Min="140" Max="149">Pan/Tilt Reset</Capability>
+  <Capability Min="140" Max="149" Preset="ResetPanTilt">Pan/Tilt Reset</Capability>
   <Capability Min="150" Max="179">Reseved</Capability>
   <Capability Min="180" Max="189">Zoom/beam shaper Reset</Capability>
   <Capability Min="190" Max="199">Reserved</Capability>
-  <Capability Min="200" Max="209">Total Reset</Capability>
+  <Capability Min="200" Max="209" Preset="ResetAll">Total Reset</Capability>
   <Capability Min="210" Max="239">Reserved</Capability>
   <Capability Min="240" Max="240">Disable &quot;Silent mode&quot; of fan</Capability>
   <Capability Min="241" Max="255">&quot;Silent mode of fans&quot;:fans noise from min. to max.</Capability>
