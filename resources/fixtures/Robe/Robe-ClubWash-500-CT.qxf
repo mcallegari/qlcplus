@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>3.1.0</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
   <Author>Heikki Junnila</Author>
  </Creator>
  <Manufacturer>Robe</Manufacturer>
@@ -71,15 +71,15 @@
  </Channel>
  <Channel Name="Shutter, strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="31">Shutter closed</Capability>
-  <Capability Min="32" Max="63">Shutter open</Capability>
-  <Capability Min="64" Max="95">Strobe slow to fast</Capability>
-  <Capability Min="96" Max="127">Shutter open</Capability>
-  <Capability Min="128" Max="143">Closing pulse slow to fast</Capability>
-  <Capability Min="144" Max="159">Opening pulse fast to slow</Capability>
-  <Capability Min="160" Max="191">No function</Capability>
-  <Capability Min="192" Max="223">Random strobe slow to fast</Capability>
-  <Capability Min="224" Max="255">Shutter open</Capability>
+  <Capability Min="0" Max="31" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Strobe slow to fast</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="128" Max="143" Preset="RampDownSlowToFast">Closing pulse slow to fast</Capability>
+  <Capability Min="144" Max="159" Preset="RampUpFastToSlow">Opening pulse fast to slow</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Random strobe slow to fast</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">Shutter open</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Mode Name="Mode 1 (16bit)">
@@ -125,11 +125,11 @@
   <Channel Number="9">Shutter, strobe</Channel>
   <Channel Number="10">Dimmer</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" Type="MSD 575W" ColourTemperature="0"/>
-   <Dimensions Width="449" Height="583" Weight="32" Depth="467"/>
-   <Lens DegreesMax="28" Name="Fresnel" DegreesMin="7"/>
-   <Focus PanMax="530" Type="Head" TiltMax="280"/>
-   <Technical PowerConsumption="900" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="MSD 575W" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="32" Width="449" Height="583" Depth="467"/>
+  <Lens Name="Fresnel" DegreesMin="7" DegreesMax="28"/>
+  <Focus Type="Head" PanMax="530" TiltMax="280"/>
+  <Technical PowerConsumption="900" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

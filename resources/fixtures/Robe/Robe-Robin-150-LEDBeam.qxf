@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Toby G</Author>
  </Creator>
  <Manufacturer>Robe</Manufacturer>
@@ -39,8 +39,8 @@
   <Capability Min="90" Max="94">Fans mode: Quiet</Capability>
   <Capability Min="95" Max="129">Reserved</Capability>
   <Capability Min="130" Max="139">Reserved</Capability>
-  <Capability Min="140" Max="149">Pan/Tilt reset</Capability>
-  <Capability Min="150" Max="159">Zoom reset</Capability>
+  <Capability Min="140" Max="149" Preset="ResetPanTilt">Pan/Tilt reset</Capability>
+  <Capability Min="150" Max="159" Preset="ResetZoom">Zoom reset</Capability>
   <Capability Min="160" Max="169">Reserved</Capability>
   <Capability Min="170" Max="171">Tungsten effect simulation (750W) On</Capability>
   <Capability Min="172" Max="173">Tungsten effect simulation (1000W) On</Capability>
@@ -64,7 +64,7 @@
   <Capability Min="197" Max="197">LED Frequency (step +4)</Capability>
   <Capability Min="198" Max="198">LED Frequency (step +5)</Capability>
   <Capability Min="199" Max="199">LED Frequency (step +6)</Capability>
-  <Capability Min="200" Max="209">Total Fixture Reset</Capability>
+  <Capability Min="200" Max="209" Preset="ResetAll">Total Fixture Reset</Capability>
   <Capability Min="210" Max="255">Reserved</Capability>
  </Channel>
  <Channel Name="Virtual Colour Wheel" Default="2">
