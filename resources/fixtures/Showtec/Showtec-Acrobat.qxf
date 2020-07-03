@@ -41,7 +41,7 @@
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="3" Preset="ShutterClose">Closed / Blackout</Capability>
   <Capability Min="4" Max="7" Preset="ShutterOpen">Shutter Open</Capability>
-  <Capability Min="8" Max="215" Preset="StrobeSlowToFast">Strobe, Slow - Fast ( 0-10 Flash / Sec )</Capability>
+  <Capability Min="8" Max="215" Preset="StrobeFreqRange" Res1="0" Res2="10">Strobe, Slow - Fast ( 0-10 Flash / Sec )</Capability>
   <Capability Min="216" Max="255" Preset="ShutterOpen">Shutter Open</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>

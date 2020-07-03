@@ -31,7 +31,7 @@
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="3" Preset="ShutterClose">Shutter closed</Capability>
   <Capability Min="4" Max="7" Preset="ShutterOpen">Shutter open</Capability>
-  <Capability Min="8" Max="76" Preset="StrobeSlowToFast">Strobe effect, from slow to fast (0-10 flashes/sec.)</Capability>
+  <Capability Min="8" Max="76" Preset="StrobeFreqRange" Res1="0" Res2="10">Strobe effect, from slow to fast (0-10 flashes/sec.)</Capability>
   <Capability Min="77" Max="145" Preset="PulseSlowToFast">Pulse strobe effect from slow to fast</Capability>
   <Capability Min="146" Max="215" Preset="StrobeRandomSlowToFast">Random strobe effect, from slow to fast (0-10 flashes/sec.)</Capability>
   <Capability Min="216" Max="255" Preset="ShutterOpen">Shutter open</Capability>

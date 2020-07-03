@@ -45,7 +45,7 @@
  <Channel Name="Shutter / strobe">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="9" Preset="ShutterOpen">Open</Capability>
-  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe effect, from slot to fast (0-10 fashes/sec)</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="10">Strobe effect, from slot to fast (0-10 fashes/sec)</Capability>
  </Channel>
  <Channel Name="Control">
   <Group Byte="0">Maintenance</Group>
