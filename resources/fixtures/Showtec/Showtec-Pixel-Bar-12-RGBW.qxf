@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Paul Misset</Author>
  </Creator>
  <Manufacturer>Showtec</Manufacturer>
@@ -129,8 +129,8 @@
  </Channel>
  <Channel Name="Linear Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="1">Strobe off</Capability>
-  <Capability Min="2" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="20">Strobe from slow to fast</Capability>
+  <Capability Min="0" Max="1" Preset="ShutterOpen">Strobe off</Capability>
+  <Capability Min="2" Max="255" Preset="StrobeFastToSlow">Strobe from slow to fast</Capability>
  </Channel>
  <Channel Name="Random Strobe">
   <Group Byte="0">Shutter</Group>

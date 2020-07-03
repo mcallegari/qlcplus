@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.0 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>JP</Author>
  </Creator>
  <Manufacturer>Showtec</Manufacturer>
@@ -171,7 +171,7 @@
  <Channel Name="Zoom reset">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="200">Not functional</Capability>
-  <Capability Min="201" Max="220">Zoom reset</Capability>
+  <Capability Min="201" Max="220" Preset="ResetZoom">Zoom reset</Capability>
   <Capability Min="221" Max="255">Not functional</Capability>
  </Channel>
  <Channel Name="Red" Preset="IntensityRed"/>
