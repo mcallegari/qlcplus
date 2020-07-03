@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>3.0.4</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
   <Author>Klaus Weidenbach</Author>
  </Creator>
  <Manufacturer>Showtec</Manufacturer>
@@ -54,9 +54,9 @@
  </Channel>
  <Channel Name="Lamp Control">
   <Group Byte="0">Maintenance</Group>
-  <Capability Min="0" Max="127">Lamp ON</Capability>
-  <Capability Min="128" Max="191">Reset after 5 seconds</Capability>
-  <Capability Min="192" Max="250">Lamp OFF</Capability>
+  <Capability Min="0" Max="127" Preset="LampOn">Lamp ON</Capability>
+  <Capability Min="128" Max="191" Preset="ResetAll">Reset after 5 seconds</Capability>
+  <Capability Min="192" Max="250" Preset="LampOff">Lamp OFF</Capability>
   <Capability Min="251" Max="255">Lamp OFF after 10 seconds</Capability>
  </Channel>
  <Mode Name="Standard">
@@ -76,11 +76,11 @@
   <Channel Number="5">Strobe / Dimmer</Channel>
   <Channel Number="6">Lamp Control</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" Type="ELC 250W" ColourTemperature="3400"/>
-   <Dimensions Width="220" Height="350" Weight="6" Depth="220"/>
-   <Lens DegreesMax="17" Name="Other" DegreesMin="17"/>
-   <Focus PanMax="510" Type="Fixed" TiltMax="260"/>
-   <Technical PowerConsumption="250" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="ELC 250W" Lumens="0" ColourTemperature="3400"/>
+  <Dimensions Weight="6" Width="220" Height="350" Depth="220"/>
+  <Lens Name="Other" DegreesMin="17" DegreesMax="17"/>
+  <Focus Type="Fixed" PanMax="510" TiltMax="260"/>
+  <Technical PowerConsumption="250" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

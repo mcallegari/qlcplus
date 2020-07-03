@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.0 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Noel Utter</Author>
  </Creator>
  <Manufacturer>StageTech</Manufacturer>
@@ -11,9 +11,9 @@
  <Type>Scanner</Type>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="20">Closed</Capability>
-  <Capability Min="21" Max="40">Opened</Capability>
-  <Capability Min="41" Max="255">Strobe</Capability>
+  <Capability Min="0" Max="20" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="21" Max="40" Preset="ShutterOpen">Opened</Capability>
+  <Capability Min="41" Max="255" Preset="StrobeSlowToFast">Strobe</Capability>
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
