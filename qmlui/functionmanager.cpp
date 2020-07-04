@@ -1142,28 +1142,41 @@ void FunctionManager::setChannelValue(quint32 fxID, quint32 channel, uchar value
 {
     FunctionEditor *editor = m_currentEditor;
     SceneValue scv(fxID, channel, value);
+    QVariant currentVal, newVal;
 
-    if (editor != nullptr && editor->functionType() == Function::SequenceType)
+    if (editor == nullptr)
+        return;
+
+    if (editor->functionType() == Function::SequenceType)
     {
         ChaserEditor *cEditor = qobject_cast<ChaserEditor *>(editor);
         cEditor->setSequenceStepValue(scv);
         editor = m_sceneEditor;
     }
 
-    if (editor != nullptr && editor->functionType() == Function::SceneType)
+    if (editor->functionType() == Function::SceneType)
     {
         Scene *scene = qobject_cast<Scene *>(m_doc->function(editor->functionID()));
         if (scene == nullptr)
             return;
 
-        QVariant currentVal, newVal;
-        uchar currDmxValue = scene->value(fxID, channel);
-        currentVal.setValue(SceneValue(fxID, channel, currDmxValue));
         newVal.setValue(scv);
-        if (currentVal != newVal || value != currDmxValue)
+
+        if (scene->checkValue(scv) == false)
         {
-            Tardis::instance()->enqueueAction(Tardis::SceneSetChannelValue, scene->id(), currentVal, newVal);
+            Tardis::instance()->enqueueAction(Tardis::SceneSetChannelValue, scene->id(), QVariant(), newVal);
             scene->setValue(fxID, channel, value);
+        }
+        else
+        {
+            uchar currDmxValue = scene->value(fxID, channel);
+            currentVal.setValue(SceneValue(fxID, channel, currDmxValue));
+
+            if (currentVal != newVal || value != currDmxValue)
+            {
+                Tardis::instance()->enqueueAction(Tardis::SceneSetChannelValue, scene->id(), currentVal, newVal);
+                scene->setValue(fxID, channel, value);
+            }
         }
     }
 }

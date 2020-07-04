@@ -639,8 +639,19 @@ int Tardis::processAction(TardisAction &action, bool undo)
         {
             SceneValue scv = value->value<SceneValue>();
             Scene *scene = qobject_cast<Scene *>(m_doc->function(action.m_objID));
+
             if (scene)
-                scene->setValue(scv.fxi, scv.channel, scv.value);
+            {
+                if (value->isNull())
+                {
+                    SceneValue otherValue = undo ? action.m_newValue.value<SceneValue>() : action.m_oldValue.value<SceneValue>();
+                    scene->unsetValue(otherValue.fxi, otherValue.channel);
+                }
+                else
+                {
+                    scene->setValue(scv.fxi, scv.channel, scv.value);
+                }
+            }
         }
         break;
 

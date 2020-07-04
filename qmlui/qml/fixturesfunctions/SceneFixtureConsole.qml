@@ -64,7 +64,7 @@ Rectangle
             {
                 height: parent.height
                 width: fxConsole.width + 4
-                color: "black"
+                color: UISettings.bgMain
 
                 Component.onCompleted: sceneEditor.registerFixtureConsole(index, fxConsole)
                 Component.onDestruction: sceneEditor.unRegisterFixtureConsole(index)
