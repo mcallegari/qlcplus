@@ -37,6 +37,7 @@ Rectangle
     {
         console.log("[scrollToItem] fxIdx: " + fxIdx)
         fixtureList.positionViewAtIndex(fxIdx, ListView.Beginning)
+        fixtureList.currentIndex = fxIdx
     }
 
     ChannelToolLoader
@@ -55,6 +56,7 @@ Rectangle
         model: sceneEditor.fixtureList
         boundsBehavior: Flickable.StopAtBounds
         highlightFollowsCurrentItem: false
+        currentIndex: -1
         z: 1
 
         delegate:
@@ -62,7 +64,7 @@ Rectangle
             {
                 height: parent.height
                 width: fxConsole.width + 4
-                color: "black"
+                color: UISettings.bgMain
 
                 Component.onCompleted: sceneEditor.registerFixtureConsole(index, fxConsole)
                 Component.onDestruction: sceneEditor.unRegisterFixtureConsole(index)
@@ -88,7 +90,7 @@ Rectangle
                     color: "transparent"
                     radius: 3
                     border.width: 2
-                    border.color: model.isSelected ? UISettings.highlight : "transparent"
+                    border.color: fixtureList.currentIndex == index ? UISettings.selection : "transparent"
                 }
             }
     }

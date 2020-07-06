@@ -82,17 +82,17 @@
   <Capability Min="91" Max="94" Preset="GoboMacro" Res1="Chauvet/gobo00036.svg">Indexed with backout gobo 9</Capability>
   <Capability Min="95" Max="98" Preset="GoboMacro" Res1="GLP/gobo00014.svg">Indexed with backout gobo 10</Capability>
   <Capability Min="99" Max="102" Preset="GoboMacro" Res1="Chauvet/gobo00023.svg">Indexed with backout gobo 11</Capability>
-  <Capability Min="103" Max="113" Preset="GoboMacro" Res1="SGM/gobo00371.svg">Indexed with shake gobo 1</Capability>
-  <Capability Min="114" Max="124" Preset="GoboMacro" Res1="Robe/gobo00044.png">Indexed with shake gobo 2</Capability>
-  <Capability Min="125" Max="135" Preset="GoboMacro" Res1="Chauvet/gobo00026.svg">Indexed with shake gobo 3</Capability>
-  <Capability Min="136" Max="146" Preset="GoboMacro" Res1="Chauvet/gobo00027.svg">Indexed with shake gobo 4</Capability>
-  <Capability Min="147" Max="157" Preset="GoboMacro" Res1="Others/gobo00068.svg">Indexed with shake gobo 5</Capability>
-  <Capability Min="158" Max="168" Preset="GoboMacro" Res1="Chauvet/gobo00037.svg">Indexed with shake gobo 6</Capability>
-  <Capability Min="169" Max="179" Preset="GoboMacro" Res1="Others/gobo00012.svg">Indexed with shake gobo 7</Capability>
-  <Capability Min="180" Max="190" Preset="GoboMacro" Res1="Others/gobo00027.svg">Indexed with shake gobo 8</Capability>
-  <Capability Min="191" Max="201" Preset="GoboMacro" Res1="Chauvet/gobo00036.svg">Indexed with shake gobo 9</Capability>
-  <Capability Min="202" Max="212" Preset="GoboMacro" Res1="GLP/gobo00014.svg">Indexed with shake gobo 10</Capability>
-  <Capability Min="213" Max="223" Preset="GoboMacro" Res1="Chauvet/gobo00023.svg">Indexed with shake gobo 11</Capability>
+  <Capability Min="103" Max="113" Preset="GoboShakeMacro" Res1="SGM/gobo00371.svg">Indexed with shake gobo 1</Capability>
+  <Capability Min="114" Max="124" Preset="GoboShakeMacro" Res1="Robe/gobo00044.png">Indexed with shake gobo 2</Capability>
+  <Capability Min="125" Max="135" Preset="GoboShakeMacro" Res1="Chauvet/gobo00026.svg">Indexed with shake gobo 3</Capability>
+  <Capability Min="136" Max="146" Preset="GoboShakeMacro" Res1="Chauvet/gobo00027.svg">Indexed with shake gobo 4</Capability>
+  <Capability Min="147" Max="157" Preset="GoboShakeMacro" Res1="Others/gobo00068.svg">Indexed with shake gobo 5</Capability>
+  <Capability Min="158" Max="168" Preset="GoboShakeMacro" Res1="Chauvet/gobo00037.svg">Indexed with shake gobo 6</Capability>
+  <Capability Min="169" Max="179" Preset="GoboShakeMacro" Res1="Others/gobo00012.svg">Indexed with shake gobo 7</Capability>
+  <Capability Min="180" Max="190" Preset="GoboShakeMacro" Res1="Others/gobo00027.svg">Indexed with shake gobo 8</Capability>
+  <Capability Min="191" Max="201" Preset="GoboShakeMacro" Res1="Chauvet/gobo00036.svg">Indexed with shake gobo 9</Capability>
+  <Capability Min="202" Max="212" Preset="GoboShakeMacro" Res1="GLP/gobo00014.svg">Indexed with shake gobo 10</Capability>
+  <Capability Min="213" Max="223" Preset="GoboShakeMacro" Res1="Chauvet/gobo00023.svg">Indexed with shake gobo 11</Capability>
   <Capability Min="224" Max="239">Forward wheel spind stop to fast</Capability>
   <Capability Min="240" Max="255">Reverse wheel spin stop to fast</Capability>
  </Channel>

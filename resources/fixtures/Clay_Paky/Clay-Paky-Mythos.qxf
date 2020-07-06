@@ -78,24 +78,24 @@
   <Capability Min="72" Max="113">Gobo rotation Fast&gt;Slow</Capability>
   <Capability Min="114" Max="117">Stop Rotation</Capability>
   <Capability Min="118" Max="159">Gobo rotation Slow&gt;Fast</Capability>
-  <Capability Min="160" Max="165" Preset="GoboMacro" Res1="ClayPaky/gobo00006.svg">Gobo 1 Shake</Capability>
-  <Capability Min="166" Max="170" Preset="GoboMacro" Res1="ClayPaky/gobo00007.svg">Gobo 2 Shake</Capability>
-  <Capability Min="171" Max="175" Preset="GoboMacro" Res1="ClayPaky/gobo00008.svg">Gobo 3 Shake</Capability>
-  <Capability Min="176" Max="181" Preset="GoboMacro" Res1="ClayPaky/gobo00009.svg">Gobo 4 Shake</Capability>
-  <Capability Min="182" Max="186" Preset="GoboMacro" Res1="ClayPaky/gobo00010.svg">Gobo 5 Shake</Capability>
-  <Capability Min="187" Max="191" Preset="GoboMacro" Res1="ClayPaky/gobo00011.svg">Gobo 6 Shake</Capability>
-  <Capability Min="192" Max="197" Preset="GoboMacro" Res1="SGM/gobo00020.svg">Gobo 7 Shake</Capability>
-  <Capability Min="198" Max="202" Preset="GoboMacro" Res1="ClayPaky/gobo00005.svg">Gobo 8 Shake</Capability>
-  <Capability Min="203" Max="207" Preset="GoboMacro" Res1="Chauvet/gobo00003.svg">Gobo 9 Shake</Capability>
-  <Capability Min="208" Max="214" Preset="GoboMacro" Res1="ClayPaky/gobo00089.svg">Gobo 10 Shake</Capability>
-  <Capability Min="215" Max="218" Preset="GoboMacro" Res1="ClayPaky/gobo00001.svg">Gobo 11 Shake</Capability>
-  <Capability Min="219" Max="223" Preset="GoboMacro" Res1="ClayPaky/gobo00002.svg">Gobo 12 Shake</Capability>
-  <Capability Min="224" Max="229" Preset="GoboMacro" Res1="ClayPaky/gobo00019.svg">Gobo 13 Shake</Capability>
-  <Capability Min="230" Max="234" Preset="GoboMacro" Res1="ClayPaky/gobo00003.svg">Gobo 14 Shake</Capability>
-  <Capability Min="235" Max="239" Preset="GoboMacro" Res1="ClayPaky/gobo00004.svg">Gobo 15 Shake</Capability>
-  <Capability Min="240" Max="245" Preset="GoboMacro" Res1="ClayPaky/gobo00079.svg">Gobo 16 Shake</Capability>
-  <Capability Min="246" Max="250" Preset="GoboMacro" Res1="ClayPaky/gobo00028.svg">Gobo 17 Shake</Capability>
-  <Capability Min="251" Max="255" Preset="GoboMacro" Res1="SGM/gobo00001.svg">Gobo 18 Shake</Capability>
+  <Capability Min="160" Max="165" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00006.svg">Gobo 1 Shake</Capability>
+  <Capability Min="166" Max="170" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00007.svg">Gobo 2 Shake</Capability>
+  <Capability Min="171" Max="175" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00008.svg">Gobo 3 Shake</Capability>
+  <Capability Min="176" Max="181" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00009.svg">Gobo 4 Shake</Capability>
+  <Capability Min="182" Max="186" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00010.svg">Gobo 5 Shake</Capability>
+  <Capability Min="187" Max="191" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00011.svg">Gobo 6 Shake</Capability>
+  <Capability Min="192" Max="197" Preset="GoboShakeMacro" Res1="SGM/gobo00020.svg">Gobo 7 Shake</Capability>
+  <Capability Min="198" Max="202" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00005.svg">Gobo 8 Shake</Capability>
+  <Capability Min="203" Max="207" Preset="GoboShakeMacro" Res1="Chauvet/gobo00003.svg">Gobo 9 Shake</Capability>
+  <Capability Min="208" Max="214" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00089.svg">Gobo 10 Shake</Capability>
+  <Capability Min="215" Max="218" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00001.svg">Gobo 11 Shake</Capability>
+  <Capability Min="219" Max="223" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00002.svg">Gobo 12 Shake</Capability>
+  <Capability Min="224" Max="229" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00019.svg">Gobo 13 Shake</Capability>
+  <Capability Min="230" Max="234" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00003.svg">Gobo 14 Shake</Capability>
+  <Capability Min="235" Max="239" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00004.svg">Gobo 15 Shake</Capability>
+  <Capability Min="240" Max="245" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00079.svg">Gobo 16 Shake</Capability>
+  <Capability Min="246" Max="250" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00028.svg">Gobo 17 Shake</Capability>
+  <Capability Min="251" Max="255" Preset="GoboShakeMacro" Res1="SGM/gobo00001.svg">Gobo 18 Shake</Capability>
  </Channel>
  <Channel Name="Disk Insert">
   <Group Byte="0">Effect</Group>
@@ -116,12 +116,12 @@
   <Capability Min="75" Max="92" Preset="GoboMacro" Res1="ClayPaky/gobo00070.svg">Gobo 4</Capability>
   <Capability Min="93" Max="111" Preset="GoboMacro" Res1="Others/gobo00025.svg">Gobo 5</Capability>
   <Capability Min="112" Max="129" Preset="GoboMacro" Res1="ClayPaky/gobo00021.svg">Gobo 6</Capability>
-  <Capability Min="130" Max="150" Preset="GoboMacro" Res1="ClayPaky/gobo00091.svg">Gobo Shake 1</Capability>
-  <Capability Min="151" Max="171" Preset="GoboMacro" Res1="ClayPaky/gobo00002.svg">Gobo Shake 2</Capability>
-  <Capability Min="172" Max="192" Preset="GoboMacro" Res1="ClayPaky/gobo00012.svg">Gobo Shake 3</Capability>
-  <Capability Min="193" Max="213" Preset="GoboMacro" Res1="ClayPaky/gobo00070.svg">Gobo Shake 4</Capability>
-  <Capability Min="214" Max="234" Preset="GoboMacro" Res1="Others/gobo00025.svg">Gobo Shake 5</Capability>
-  <Capability Min="235" Max="255" Preset="GoboMacro" Res1="ClayPaky/gobo00021.svg">Gobo Shake 6</Capability>
+  <Capability Min="130" Max="150" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00091.svg">Gobo Shake 1</Capability>
+  <Capability Min="151" Max="171" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00002.svg">Gobo Shake 2</Capability>
+  <Capability Min="172" Max="192" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00012.svg">Gobo Shake 3</Capability>
+  <Capability Min="193" Max="213" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00070.svg">Gobo Shake 4</Capability>
+  <Capability Min="214" Max="234" Preset="GoboShakeMacro" Res1="Others/gobo00025.svg">Gobo Shake 5</Capability>
+  <Capability Min="235" Max="255" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00021.svg">Gobo Shake 6</Capability>
  </Channel>
  <Channel Name="Gobo Rotation">
   <Group Byte="0">Gobo</Group>

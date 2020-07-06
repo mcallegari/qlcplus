@@ -160,20 +160,20 @@
   <Capability Min="48" Max="51" Preset="GoboMacro" Res1="Robe/gobo00058.svg">Gobo 5 &gt;</Capability>
   <Capability Min="52" Max="55" Preset="GoboMacro" Res1="Robe/gobo00050.png">Gobo 6 &gt;</Capability>
   <Capability Min="56" Max="59" Preset="GoboMacro" Res1="Robe/gobo00060.png">Gobo 7 &gt;</Capability>
-  <Capability Min="60" Max="69" Preset="GoboMacro" Res1="Robe/gobo00054.svg">Shaking Gobo 1</Capability>
-  <Capability Min="70" Max="79" Preset="GoboMacro" Res1="Robe/gobo00055.svg">Shaking Gobo 2</Capability>
-  <Capability Min="80" Max="89" Preset="GoboMacro" Res1="Robe/gobo00056.svg">Shaking Gobo 3</Capability>
-  <Capability Min="90" Max="99" Preset="GoboMacro" Res1="Robe/gobo00057.png">Shaking Gobo 4</Capability>
-  <Capability Min="100" Max="109" Preset="GoboMacro" Res1="Robe/gobo00058.svg">Shaking Gobo 5</Capability>
-  <Capability Min="110" Max="119" Preset="GoboMacro" Res1="Robe/gobo00050.png">Shaking Gobo 6</Capability>
-  <Capability Min="120" Max="129" Preset="GoboMacro" Res1="Robe/gobo00060.png">Shaking Gobo 7</Capability>
-  <Capability Min="130" Max="139" Preset="GoboMacro" Res1="Robe/gobo00054.svg">Shaking Gobo 1 &gt;</Capability>
-  <Capability Min="140" Max="149" Preset="GoboMacro" Res1="Robe/gobo00055.svg">Shaking Gobo 2 &gt;</Capability>
-  <Capability Min="150" Max="159" Preset="GoboMacro" Res1="Robe/gobo00056.svg">Shaking Gobo 3 &gt;</Capability>
-  <Capability Min="160" Max="169" Preset="GoboMacro" Res1="Robe/gobo00057.png">Shaking Gobo 4 &gt;</Capability>
-  <Capability Min="170" Max="179" Preset="GoboMacro" Res1="Robe/gobo00058.svg">Shaking Gobo 5 &gt;</Capability>
-  <Capability Min="180" Max="189" Preset="GoboMacro" Res1="Robe/gobo00050.png">Shaking Gobo 6 &gt;</Capability>
-  <Capability Min="190" Max="199" Preset="GoboMacro" Res1="Robe/gobo00060.png">Shaking Gobo 7 &gt;</Capability>
+  <Capability Min="60" Max="69" Preset="GoboShakeMacro" Res1="Robe/gobo00054.svg">Shaking Gobo 1</Capability>
+  <Capability Min="70" Max="79" Preset="GoboShakeMacro" Res1="Robe/gobo00055.svg">Shaking Gobo 2</Capability>
+  <Capability Min="80" Max="89" Preset="GoboShakeMacro" Res1="Robe/gobo00056.svg">Shaking Gobo 3</Capability>
+  <Capability Min="90" Max="99" Preset="GoboShakeMacro" Res1="Robe/gobo00057.png">Shaking Gobo 4</Capability>
+  <Capability Min="100" Max="109" Preset="GoboShakeMacro" Res1="Robe/gobo00058.svg">Shaking Gobo 5</Capability>
+  <Capability Min="110" Max="119" Preset="GoboShakeMacro" Res1="Robe/gobo00050.png">Shaking Gobo 6</Capability>
+  <Capability Min="120" Max="129" Preset="GoboShakeMacro" Res1="Robe/gobo00060.png">Shaking Gobo 7</Capability>
+  <Capability Min="130" Max="139" Preset="GoboShakeMacro" Res1="Robe/gobo00054.svg">Shaking Gobo 1 &gt;</Capability>
+  <Capability Min="140" Max="149" Preset="GoboShakeMacro" Res1="Robe/gobo00055.svg">Shaking Gobo 2 &gt;</Capability>
+  <Capability Min="150" Max="159" Preset="GoboShakeMacro" Res1="Robe/gobo00056.svg">Shaking Gobo 3 &gt;</Capability>
+  <Capability Min="160" Max="169" Preset="GoboShakeMacro" Res1="Robe/gobo00057.png">Shaking Gobo 4 &gt;</Capability>
+  <Capability Min="170" Max="179" Preset="GoboShakeMacro" Res1="Robe/gobo00058.svg">Shaking Gobo 5 &gt;</Capability>
+  <Capability Min="180" Max="189" Preset="GoboShakeMacro" Res1="Robe/gobo00050.png">Shaking Gobo 6 &gt;</Capability>
+  <Capability Min="190" Max="199" Preset="GoboShakeMacro" Res1="Robe/gobo00060.png">Shaking Gobo 7 &gt;</Capability>
   <Capability Min="200" Max="201">Open</Capability>
   <Capability Min="202" Max="221">Fwd Wheel &lt;&lt;</Capability>
   <Capability Min="222" Max="223">No Rotation</Capability>

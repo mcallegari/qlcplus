@@ -37,13 +37,13 @@
   <Capability Min="50" Max="59" Preset="GoboMacro" Res1="Others/gobo00037.svg">Donut (Metal)</Capability>
   <Capability Min="60" Max="69" Preset="GoboMacro" Res1="Others/gobo00027.svg">Triangle (Metal)</Capability>
   <Capability Min="70" Max="79" Preset="GoboMacro" Res1="Others/gobo00029.svg">Dot Line (Metal)</Capability>
-  <Capability Min="80" Max="99" Preset="GoboMacro" Res1="Others/gobo00036.svg">Star Circle (Metal) Shake</Capability>
-  <Capability Min="100" Max="119" Preset="GoboMacro" Res1="Others/gobo00023.svg">Cross (Metal) Shake</Capability>
-  <Capability Min="120" Max="139" Preset="GoboMacro" Res1="Others/gobo00035.png">Blue &amp; White Web (Dichoric) Shake</Capability>
-  <Capability Min="140" Max="159" Preset="GoboMacro" Res1="Others/gobo00034.png">Textured Glass (Glass) Shake</Capability>
-  <Capability Min="160" Max="179" Preset="GoboMacro" Res1="Others/gobo00037.svg">Donut (Metal) Shake</Capability>
-  <Capability Min="180" Max="199" Preset="GoboMacro" Res1="Others/gobo00027.svg">Triangle (Metal) Shake</Capability>
-  <Capability Min="200" Max="219" Preset="GoboMacro" Res1="Others/gobo00029.svg">Dot Line (Metal) Shake</Capability>
+  <Capability Min="80" Max="99" Preset="GoboShakeMacro" Res1="Others/gobo00036.svg">Star Circle (Metal) Shake</Capability>
+  <Capability Min="100" Max="119" Preset="GoboShakeMacro" Res1="Others/gobo00023.svg">Cross (Metal) Shake</Capability>
+  <Capability Min="120" Max="139" Preset="GoboShakeMacro" Res1="Others/gobo00035.png">Blue &amp; White Web (Dichoric) Shake</Capability>
+  <Capability Min="140" Max="159" Preset="GoboShakeMacro" Res1="Others/gobo00034.png">Textured Glass (Glass) Shake</Capability>
+  <Capability Min="160" Max="179" Preset="GoboShakeMacro" Res1="Others/gobo00037.svg">Donut (Metal) Shake</Capability>
+  <Capability Min="180" Max="199" Preset="GoboShakeMacro" Res1="Others/gobo00027.svg">Triangle (Metal) Shake</Capability>
+  <Capability Min="200" Max="219" Preset="GoboShakeMacro" Res1="Others/gobo00029.svg">Dot Line (Metal) Shake</Capability>
   <Capability Min="220" Max="255">Rotating Gobo Wheel (Slow -&gt; Fast)</Capability>
  </Channel>
  <Channel Name="Gobo Rotation">

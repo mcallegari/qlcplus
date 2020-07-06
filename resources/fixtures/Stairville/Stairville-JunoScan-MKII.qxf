@@ -55,15 +55,15 @@
   <Capability Min="42" Max="47" Preset="GoboMacro" Res1="Chauvet/gobo00042.svg">Gobo 07</Capability>
   <Capability Min="48" Max="53" Preset="GoboMacro" Res1="Chauvet/gobo00052.svg">Gobo 08</Capability>
   <Capability Min="54" Max="63" Preset="GoboMacro" Res1="Chauvet/gobo00053.svg">Gobo 09</Capability>
-  <Capability Min="64" Max="73" Preset="GoboMacro" Res1="Chauvet/gobo00053.svg">Gobo 09 shake, speed increasing</Capability>
-  <Capability Min="74" Max="79" Preset="GoboMacro" Res1="Chauvet/gobo00052.svg">Gobo 08 shake, speed increasing</Capability>
-  <Capability Min="80" Max="85" Preset="GoboMacro" Res1="Chauvet/gobo00042.svg">Gobo 07 shake, speed increasing</Capability>
-  <Capability Min="86" Max="91" Preset="GoboMacro" Res1="Chauvet/gobo00050.png">Gobo 06 shake, speed increasing</Capability>
-  <Capability Min="92" Max="97" Preset="GoboMacro" Res1="Chauvet/gobo00049.svg">Gobo 05 shake, speed increasing</Capability>
-  <Capability Min="98" Max="103" Preset="GoboMacro" Res1="Chauvet/gobo00048.svg">Gobo 04 shake, speed increasing</Capability>
-  <Capability Min="104" Max="109" Preset="GoboMacro" Res1="Chauvet/gobo00047.svg">Gobo 03 shake, speed increasing</Capability>
-  <Capability Min="110" Max="115" Preset="GoboMacro" Res1="Chauvet/gobo00046.png">Gobo 02 shake, speed increasing</Capability>
-  <Capability Min="116" Max="121" Preset="GoboMacro" Res1="Chauvet/gobo00045.svg">Gobo 01 shake, speed increasing</Capability>
+  <Capability Min="64" Max="73" Preset="GoboShakeMacro" Res1="Chauvet/gobo00053.svg">Gobo 09 shake, speed increasing</Capability>
+  <Capability Min="74" Max="79" Preset="GoboShakeMacro" Res1="Chauvet/gobo00052.svg">Gobo 08 shake, speed increasing</Capability>
+  <Capability Min="80" Max="85" Preset="GoboShakeMacro" Res1="Chauvet/gobo00042.svg">Gobo 07 shake, speed increasing</Capability>
+  <Capability Min="86" Max="91" Preset="GoboShakeMacro" Res1="Chauvet/gobo00050.png">Gobo 06 shake, speed increasing</Capability>
+  <Capability Min="92" Max="97" Preset="GoboShakeMacro" Res1="Chauvet/gobo00049.svg">Gobo 05 shake, speed increasing</Capability>
+  <Capability Min="98" Max="103" Preset="GoboShakeMacro" Res1="Chauvet/gobo00048.svg">Gobo 04 shake, speed increasing</Capability>
+  <Capability Min="104" Max="109" Preset="GoboShakeMacro" Res1="Chauvet/gobo00047.svg">Gobo 03 shake, speed increasing</Capability>
+  <Capability Min="110" Max="115" Preset="GoboShakeMacro" Res1="Chauvet/gobo00046.png">Gobo 02 shake, speed increasing</Capability>
+  <Capability Min="116" Max="121" Preset="GoboShakeMacro" Res1="Chauvet/gobo00045.svg">Gobo 01 shake, speed increasing</Capability>
   <Capability Min="122" Max="127">Open</Capability>
   <Capability Min="128" Max="191">Rainbow-Effect with positive direction of rotation, speed increasing</Capability>
   <Capability Min="192" Max="255">Rainbow-Effect with negative direction of rotation, speed increasing</Capability>
