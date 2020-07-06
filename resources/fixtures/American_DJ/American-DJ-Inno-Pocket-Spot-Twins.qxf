@@ -14,21 +14,21 @@
  <Channel Name="Gobo Wheel 1">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
-  <Capability Min="8" Max="15">Gobo 1</Capability>
-  <Capability Min="16" Max="23">Gobo 2</Capability>
-  <Capability Min="24" Max="31">Gobo 3</Capability>
-  <Capability Min="32" Max="39">Gobo 4</Capability>
-  <Capability Min="40" Max="47">Gobo 5</Capability>
-  <Capability Min="48" Max="55">Gobo 6</Capability>
-  <Capability Min="56" Max="63">Gobo 7</Capability>
+  <Capability Min="8" Max="15" Preset="GoboMacro">Gobo 1</Capability>
+  <Capability Min="16" Max="23" Preset="GoboMacro">Gobo 2</Capability>
+  <Capability Min="24" Max="31" Preset="GoboMacro">Gobo 3</Capability>
+  <Capability Min="32" Max="39" Preset="GoboMacro">Gobo 4</Capability>
+  <Capability Min="40" Max="47" Preset="GoboMacro">Gobo 5</Capability>
+  <Capability Min="48" Max="55" Preset="GoboMacro">Gobo 6</Capability>
+  <Capability Min="56" Max="63" Preset="GoboMacro">Gobo 7</Capability>
   <Capability Min="64" Max="71" Preset="GoboMacro" Res1="Others/open.svg">Open shake</Capability>
-  <Capability Min="72" Max="79">Gobo 1 shake</Capability>
-  <Capability Min="80" Max="87">Gobo 2 shake</Capability>
-  <Capability Min="88" Max="95">Gobo 3 shake</Capability>
-  <Capability Min="96" Max="103">Gobo 4 shake</Capability>
-  <Capability Min="104" Max="111">Gobo 5 shake</Capability>
-  <Capability Min="112" Max="119">Gobo 6 shake</Capability>
-  <Capability Min="120" Max="127">Gobo 7 shake</Capability>
+  <Capability Min="72" Max="79" Preset="GoboShakeMacro">Gobo 1 shake</Capability>
+  <Capability Min="80" Max="87" Preset="GoboShakeMacro">Gobo 2 shake</Capability>
+  <Capability Min="88" Max="95" Preset="GoboShakeMacro">Gobo 3 shake</Capability>
+  <Capability Min="96" Max="103" Preset="GoboShakeMacro">Gobo 4 shake</Capability>
+  <Capability Min="104" Max="111" Preset="GoboShakeMacro">Gobo 5 shake</Capability>
+  <Capability Min="112" Max="119" Preset="GoboShakeMacro">Gobo 6 shake</Capability>
+  <Capability Min="120" Max="127" Preset="GoboShakeMacro">Gobo 7 shake</Capability>
   <Capability Min="128" Max="189">Gobo scroll fast - slow</Capability>
   <Capability Min="190" Max="193">Stop</Capability>
   <Capability Min="194" Max="255">Gobo scroll slow - fast</Capability>

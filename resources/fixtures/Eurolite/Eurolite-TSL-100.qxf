@@ -27,23 +27,23 @@
  <Channel Name="Gobo-wheel, gobo shake">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
-  <Capability Min="8" Max="14">Gobo 1</Capability>
-  <Capability Min="15" Max="21">Gobo 2</Capability>
-  <Capability Min="22" Max="28">Gobo 3</Capability>
-  <Capability Min="29" Max="35">Gobo 4</Capability>
-  <Capability Min="36" Max="42">Gobo 5</Capability>
-  <Capability Min="43" Max="49">Gobo 6</Capability>
-  <Capability Min="50" Max="56">Gobo 7</Capability>
-  <Capability Min="57" Max="63">Gobo 8</Capability>
-  <Capability Min="64" Max="70" Preset="GoboMacro" Res1="Others/open.svg">Open shake</Capability>
-  <Capability Min="71" Max="77">Gobo 1 shake</Capability>
-  <Capability Min="78" Max="84">Gobo 2 shake</Capability>
-  <Capability Min="85" Max="91">Gobo 3 shake</Capability>
-  <Capability Min="92" Max="98">Gobo 4 shake</Capability>
-  <Capability Min="99" Max="105">Gobo 5 shake</Capability>
-  <Capability Min="106" Max="112">Gobo 6 shake</Capability>
-  <Capability Min="113" Max="119">Gobo 7 shake</Capability>
-  <Capability Min="120" Max="127">Gobo 8 shake</Capability>
+  <Capability Min="8" Max="14" Preset="GoboMacro">Gobo 1</Capability>
+  <Capability Min="15" Max="21" Preset="GoboMacro">Gobo 2</Capability>
+  <Capability Min="22" Max="28" Preset="GoboMacro">Gobo 3</Capability>
+  <Capability Min="29" Max="35" Preset="GoboMacro">Gobo 4</Capability>
+  <Capability Min="36" Max="42" Preset="GoboMacro">Gobo 5</Capability>
+  <Capability Min="43" Max="49" Preset="GoboMacro">Gobo 6</Capability>
+  <Capability Min="50" Max="56" Preset="GoboMacro">Gobo 7</Capability>
+  <Capability Min="57" Max="63" Preset="GoboMacro">Gobo 8</Capability>
+  <Capability Min="64" Max="70" Preset="GoboShakeMacro" Res1="Others/open.svg">Open shake</Capability>
+  <Capability Min="71" Max="77" Preset="GoboShakeMacro">Gobo 1 shake</Capability>
+  <Capability Min="78" Max="84" Preset="GoboShakeMacro">Gobo 2 shake</Capability>
+  <Capability Min="85" Max="91" Preset="GoboShakeMacro">Gobo 3 shake</Capability>
+  <Capability Min="92" Max="98" Preset="GoboShakeMacro">Gobo 4 shake</Capability>
+  <Capability Min="99" Max="105" Preset="GoboShakeMacro">Gobo 5 shake</Capability>
+  <Capability Min="106" Max="112" Preset="GoboShakeMacro">Gobo 6 shake</Capability>
+  <Capability Min="113" Max="119" Preset="GoboShakeMacro">Gobo 7 shake</Capability>
+  <Capability Min="120" Max="127" Preset="GoboShakeMacro">Gobo 8 shake</Capability>
   <Capability Min="128" Max="255">Cont. gobo-wheel rotation with increasing speed</Capability>
  </Channel>
  <Channel Name="Shutter, strobe">

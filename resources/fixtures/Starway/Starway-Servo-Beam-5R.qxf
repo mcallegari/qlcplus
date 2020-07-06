@@ -80,21 +80,21 @@
   <Capability Min="72" Max="113">Rotation (Fast 60rpm to slow 5rpm)</Capability>
   <Capability Min="114" Max="117">Open</Capability>
   <Capability Min="118" Max="159">Rotation (Slow 5rpm to fast 60rpm)</Capability>
-  <Capability Min="160" Max="166" Preset="GoboMacro" Res1="ClayPaky/gobo00007.svg">Gobo 1 Shake (Slow to Fast)</Capability>
-  <Capability Min="167" Max="172" Preset="GoboMacro" Res1="ClayPaky/gobo00008.svg">Gobo 2 Shake (Slow to Fast)</Capability>
-  <Capability Min="173" Max="179" Preset="GoboMacro" Res1="ClayPaky/gobo00009.svg">Gobo 3 Shake (Slow to Fast)</Capability>
-  <Capability Min="180" Max="185" Preset="GoboMacro" Res1="ClayPaky/gobo00010.svg">Gobo 4 Shake (Slow to Fast)</Capability>
-  <Capability Min="186" Max="191" Preset="GoboMacro" Res1="ClayPaky/gobo00011.svg">Gobo 5 Shake (Slow to Fast)</Capability>
-  <Capability Min="192" Max="198" Preset="GoboMacro" Res1="ClayPaky/gobo00091.svg">Gobo 6 Shake (Slow to Fast)</Capability>
-  <Capability Min="199" Max="204" Preset="GoboMacro" Res1="ClayPaky/gobo00085.svg">Gobo 7 Shake (Slow to Fast)</Capability>
-  <Capability Min="205" Max="211" Preset="GoboMacro" Res1="ClayPaky/gobo00086.svg">Gobo 8 Shake (Slow to Fast)</Capability>
-  <Capability Min="212" Max="217" Preset="GoboMacro" Res1="ClayPaky/gobo00089.svg">Gobo 9 Shake (Slow to Fast)</Capability>
-  <Capability Min="218" Max="223" Preset="GoboMacro" Res1="ClayPaky/gobo00095.svg">Gobo 10 Shake (Slow to Fast)</Capability>
-  <Capability Min="224" Max="230" Preset="GoboMacro" Res1="ClayPaky/gobo00094.svg">Gobo 11 Shake (Slow to Fast)</Capability>
-  <Capability Min="231" Max="236" Preset="GoboMacro" Res1="ClayPaky/gobo00090.svg">Gobo 12 Shake (Slow to Fast)</Capability>
-  <Capability Min="237" Max="243" Preset="GoboMacro" Res1="ClayPaky/gobo00088.svg">Gobo 13 Shake (Slow to Fast)</Capability>
-  <Capability Min="244" Max="249" Preset="GoboMacro" Res1="ClayPaky/gobo00087.svg">Gobo 14 Shake (Slow to Fast)</Capability>
-  <Capability Min="250" Max="255" Preset="GoboMacro" Res1="ClayPaky/gobo00093.svg">Gobo 15 Shake (Slow to Fast)</Capability>
+  <Capability Min="160" Max="166" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00007.svg">Gobo 1 Shake (Slow to Fast)</Capability>
+  <Capability Min="167" Max="172" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00008.svg">Gobo 2 Shake (Slow to Fast)</Capability>
+  <Capability Min="173" Max="179" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00009.svg">Gobo 3 Shake (Slow to Fast)</Capability>
+  <Capability Min="180" Max="185" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00010.svg">Gobo 4 Shake (Slow to Fast)</Capability>
+  <Capability Min="186" Max="191" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00011.svg">Gobo 5 Shake (Slow to Fast)</Capability>
+  <Capability Min="192" Max="198" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00091.svg">Gobo 6 Shake (Slow to Fast)</Capability>
+  <Capability Min="199" Max="204" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00085.svg">Gobo 7 Shake (Slow to Fast)</Capability>
+  <Capability Min="205" Max="211" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00086.svg">Gobo 8 Shake (Slow to Fast)</Capability>
+  <Capability Min="212" Max="217" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00089.svg">Gobo 9 Shake (Slow to Fast)</Capability>
+  <Capability Min="218" Max="223" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00095.svg">Gobo 10 Shake (Slow to Fast)</Capability>
+  <Capability Min="224" Max="230" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00094.svg">Gobo 11 Shake (Slow to Fast)</Capability>
+  <Capability Min="231" Max="236" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00090.svg">Gobo 12 Shake (Slow to Fast)</Capability>
+  <Capability Min="237" Max="243" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00088.svg">Gobo 13 Shake (Slow to Fast)</Capability>
+  <Capability Min="244" Max="249" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00087.svg">Gobo 14 Shake (Slow to Fast)</Capability>
+  <Capability Min="250" Max="255" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00093.svg">Gobo 15 Shake (Slow to Fast)</Capability>
  </Channel>
  <Channel Name="Prism Insertion">
   <Group Byte="0">Prism</Group>
