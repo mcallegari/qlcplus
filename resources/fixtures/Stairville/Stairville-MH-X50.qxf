@@ -65,7 +65,7 @@
   <Capability Min="96" Max="103" Preset="GoboShakeMacro" Res1="Others/gobo00038.svg">Gobo 4 shake (speed)</Capability>
   <Capability Min="104" Max="111" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00050.png">Gobo 3 shake (speed)</Capability>
   <Capability Min="112" Max="119" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00067.svg">Gobo 2 shake (speed)</Capability>
-  <Capability Min="120" Max="127">Open</Capability>
+  <Capability Min="120" Max="127" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="128" Max="191">Rainbow effect in positive rotation direction (speed)</Capability>
   <Capability Min="192" Max="255">Rainbow effect in négative rotation direction (speed)</Capability>
  </Channel>
