@@ -42,7 +42,7 @@
   <Capability Min="160" Max="175" Preset="GoboShakeMacro" Res1="SGM/gobo00028.png">Gobo 2 shake slow - fast</Capability>
   <Capability Min="176" Max="191" Preset="GoboShakeMacro" Res1="GLP/gobo00009.png">Gobo 3 shake slow - fast</Capability>
   <Capability Min="192" Max="207" Preset="GoboShakeMacro" Res1="Robe/gobo00013.svg">Gobo 4 shake slow - fast</Capability>
-  <Capability Min="208" Max="223" Preset="GoboShakeMacro">Gobo 5 shake slow - fast</Capability>
+  <Capability Min="208" Max="223">Gobo 5 shake slow - fast</Capability>
   <Capability Min="224" Max="239" Preset="GoboShakeMacro" Res1="SGM/gobo00008.svg">Gobo 6 shake slow - fast</Capability>
   <Capability Min="240" Max="255" Preset="GoboShakeMacro" Res1="GLP/gobo00002.svg">Gobo 7 shake slow - fast</Capability>
  </Channel>

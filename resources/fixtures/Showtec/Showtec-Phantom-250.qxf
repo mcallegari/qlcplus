@@ -42,7 +42,7 @@
   <Capability Min="140" Max="159" Preset="GoboShakeMacro" Res1="Others/gobo00027.svg">shaking Gobo 4</Capability>
   <Capability Min="160" Max="179" Preset="GoboShakeMacro" Res1="Others/gobo00038.svg">shaking Gobo 5</Capability>
   <Capability Min="180" Max="199" Preset="GoboShakeMacro" Res1="Robe/gobo00047.png">shaking Gobo 6</Capability>
-  <Capability Min="200" Max="219" Preset="GoboShakeMacro">shaking Gobo 7</Capability>
+  <Capability Min="200" Max="219">shaking Gobo 7</Capability>
   <Capability Min="220" Max="255">Clockwise Rotation slow - fast</Capability>
  </Channel>
  <Channel Name="Gobo Rotation">
