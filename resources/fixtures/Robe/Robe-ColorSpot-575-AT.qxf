@@ -93,13 +93,13 @@
   <Capability Min="100" Max="104" Preset="GoboMacro" Res1="Robe/gobo00026.svg">Positioning 8</Capability>
   <Capability Min="105" Max="109" Preset="GoboMacro" Res1="Robe/gobo00025.svg">Positioning 9</Capability>
   <Capability Min="110" Max="119">Shaking 1 from slow to fast</Capability>
-  <Capability Min="120" Max="129" Preset="GoboMacro" Res1="Robe/gobo00031.svg">Shaking 2 from slow to fast</Capability>
-  <Capability Min="130" Max="139" Preset="GoboMacro" Res1="Robe/gobo00030.svg">Shaking 3 from slow to fast</Capability>
-  <Capability Min="140" Max="149" Preset="GoboMacro" Res1="Robe/gobo00029.svg">Shaking 4 from slow to fast</Capability>
-  <Capability Min="150" Max="159" Preset="GoboMacro" Res1="Robe/gobo00028.svg">Shaking 5 from slow to fast</Capability>
-  <Capability Min="160" Max="169" Preset="GoboMacro" Res1="Robe/gobo00027.svg">Shaking 6 from slow to fast</Capability>
-  <Capability Min="170" Max="179" Preset="GoboMacro" Res1="Robe/gobo00026.svg">Shaking 7 from slow to fast</Capability>
-  <Capability Min="180" Max="189" Preset="GoboMacro" Res1="Robe/gobo00025.svg">Shaking 8 from slow to fast</Capability>
+  <Capability Min="120" Max="129" Preset="GoboShakeMacro" Res1="Robe/gobo00031.svg">Shaking 2 from slow to fast</Capability>
+  <Capability Min="130" Max="139" Preset="GoboShakeMacro" Res1="Robe/gobo00030.svg">Shaking 3 from slow to fast</Capability>
+  <Capability Min="140" Max="149" Preset="GoboShakeMacro" Res1="Robe/gobo00029.svg">Shaking 4 from slow to fast</Capability>
+  <Capability Min="150" Max="159" Preset="GoboShakeMacro" Res1="Robe/gobo00028.svg">Shaking 5 from slow to fast</Capability>
+  <Capability Min="160" Max="169" Preset="GoboShakeMacro" Res1="Robe/gobo00027.svg">Shaking 6 from slow to fast</Capability>
+  <Capability Min="170" Max="179" Preset="GoboShakeMacro" Res1="Robe/gobo00026.svg">Shaking 7 from slow to fast</Capability>
+  <Capability Min="180" Max="189" Preset="GoboShakeMacro" Res1="Robe/gobo00025.svg">Shaking 8 from slow to fast</Capability>
   <Capability Min="190" Max="199">Shaking 9 from slow to fast</Capability>
   <Capability Min="200" Max="201">Shaking open/hole from slow to fast</Capability>
   <Capability Min="202" Max="221">Forwards rotation from fast to slow</Capability>
@@ -126,20 +126,20 @@
   <Capability Min="48" Max="51" Preset="GoboMacro" Res1="Robe/gobo00034.svg">Rotation 5</Capability>
   <Capability Min="52" Max="55" Preset="GoboMacro" Res1="Robe/gobo00033.svg">Rotation 6</Capability>
   <Capability Min="56" Max="59" Preset="GoboMacro" Res1="Robe/gobo00032.svg">Rotation 7</Capability>
-  <Capability Min="60" Max="69" Preset="GoboMacro" Res1="Robe/gobo00036.svg">Shaking, indexed, 1 from slow to fast</Capability>
-  <Capability Min="70" Max="79" Preset="GoboMacro" Res1="Robe/gobo00037.svg">Shaking, indexed, 2 from slow to fast</Capability>
-  <Capability Min="80" Max="89" Preset="GoboMacro" Res1="Robe/gobo00038.svg">Shaking, indexed, 3 from slow to fast</Capability>
-  <Capability Min="90" Max="99" Preset="GoboMacro" Res1="Robe/gobo00035.svg">Shaking, indexed, 4 from slow to fast</Capability>
-  <Capability Min="100" Max="109" Preset="GoboMacro" Res1="Robe/gobo00034.svg">Shaking, indexed, 5 from slow to fast</Capability>
-  <Capability Min="110" Max="119" Preset="GoboMacro" Res1="Robe/gobo00033.svg">Shaking, indexed, 6 from slow to fast</Capability>
-  <Capability Min="120" Max="129" Preset="GoboMacro" Res1="Robe/gobo00032.svg">Shaking, indexed, 7 from slow to fast</Capability>
-  <Capability Min="130" Max="139" Preset="GoboMacro" Res1="Robe/gobo00036.svg">Shaking, rotation, 1 from slow to fast</Capability>
-  <Capability Min="140" Max="149" Preset="GoboMacro" Res1="Robe/gobo00037.svg">Shaking, rotation, 2 from slow to fast</Capability>
-  <Capability Min="150" Max="159" Preset="GoboMacro" Res1="Robe/gobo00038.svg">Shaking, rotation, 3 from slow to fast</Capability>
-  <Capability Min="160" Max="169" Preset="GoboMacro" Res1="Robe/gobo00035.svg">Shaking, rotation, 4 from slow to fast</Capability>
-  <Capability Min="170" Max="179" Preset="GoboMacro" Res1="Robe/gobo00034.svg">Shaking, rotation, 5 from slow to fast</Capability>
-  <Capability Min="180" Max="189" Preset="GoboMacro" Res1="Robe/gobo00033.svg">Shaking, rotation, 6 from slow to fast</Capability>
-  <Capability Min="190" Max="199" Preset="GoboMacro" Res1="Robe/gobo00032.svg">Shaking, rotation, 7 from slow to fast</Capability>
+  <Capability Min="60" Max="69" Preset="GoboShakeMacro" Res1="Robe/gobo00036.svg">Shaking, indexed, 1 from slow to fast</Capability>
+  <Capability Min="70" Max="79" Preset="GoboShakeMacro" Res1="Robe/gobo00037.svg">Shaking, indexed, 2 from slow to fast</Capability>
+  <Capability Min="80" Max="89" Preset="GoboShakeMacro" Res1="Robe/gobo00038.svg">Shaking, indexed, 3 from slow to fast</Capability>
+  <Capability Min="90" Max="99" Preset="GoboShakeMacro" Res1="Robe/gobo00035.svg">Shaking, indexed, 4 from slow to fast</Capability>
+  <Capability Min="100" Max="109" Preset="GoboShakeMacro" Res1="Robe/gobo00034.svg">Shaking, indexed, 5 from slow to fast</Capability>
+  <Capability Min="110" Max="119" Preset="GoboShakeMacro" Res1="Robe/gobo00033.svg">Shaking, indexed, 6 from slow to fast</Capability>
+  <Capability Min="120" Max="129" Preset="GoboShakeMacro" Res1="Robe/gobo00032.svg">Shaking, indexed, 7 from slow to fast</Capability>
+  <Capability Min="130" Max="139" Preset="GoboShakeMacro" Res1="Robe/gobo00036.svg">Shaking, rotation, 1 from slow to fast</Capability>
+  <Capability Min="140" Max="149" Preset="GoboShakeMacro" Res1="Robe/gobo00037.svg">Shaking, rotation, 2 from slow to fast</Capability>
+  <Capability Min="150" Max="159" Preset="GoboShakeMacro" Res1="Robe/gobo00038.svg">Shaking, rotation, 3 from slow to fast</Capability>
+  <Capability Min="160" Max="169" Preset="GoboShakeMacro" Res1="Robe/gobo00035.svg">Shaking, rotation, 4 from slow to fast</Capability>
+  <Capability Min="170" Max="179" Preset="GoboShakeMacro" Res1="Robe/gobo00034.svg">Shaking, rotation, 5 from slow to fast</Capability>
+  <Capability Min="180" Max="189" Preset="GoboShakeMacro" Res1="Robe/gobo00033.svg">Shaking, rotation, 6 from slow to fast</Capability>
+  <Capability Min="190" Max="199" Preset="GoboShakeMacro" Res1="Robe/gobo00032.svg">Shaking, rotation, 7 from slow to fast</Capability>
   <Capability Min="200" Max="201">Shaking open/hole</Capability>
   <Capability Min="202" Max="221">Forwards rotation from fast to slow</Capability>
   <Capability Min="222" Max="223">No rotation</Capability>

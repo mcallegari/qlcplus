@@ -56,15 +56,15 @@
   <Capability Min="46" Max="51" Preset="GoboMacro" Res1="Chauvet/gobo00042.svg">Wave 1</Capability>
   <Capability Min="52" Max="57" Preset="GoboMacro" Res1="Chauvet/gobo00043.svg">Fan Wave 1</Capability>
   <Capability Min="58" Max="63" Preset="GoboMacro" Res1="Chauvet/gobo00044.svg">Snowflake</Capability>
-  <Capability Min="64" Max="69" Preset="GoboMacro" Res1="Chauvet/gobo00044.svg">Gobo 9 shake, increase speed</Capability>
-  <Capability Min="70" Max="75" Preset="GoboMacro" Res1="Chauvet/gobo00043.svg">Gobo 8 shake, increase speed</Capability>
-  <Capability Min="76" Max="81" Preset="GoboMacro" Res1="Chauvet/gobo00042.svg">Gobo 7 shake, increase speed</Capability>
-  <Capability Min="82" Max="87" Preset="GoboMacro" Res1="Chauvet/gobo00041.svg">Gobo 6 shake, increase speed</Capability>
-  <Capability Min="88" Max="93" Preset="GoboMacro" Res1="Chauvet/gobo00040.svg">Gobo 5 shake, increase speed</Capability>
-  <Capability Min="94" Max="99" Preset="GoboMacro" Res1="Chauvet/gobo00039.svg">Gobo 4 shake, increase speed</Capability>
-  <Capability Min="100" Max="105" Preset="GoboMacro" Res1="Chauvet/gobo00017.svg">Gobo 3 shake, increase speed</Capability>
-  <Capability Min="106" Max="111" Preset="GoboMacro" Res1="SGM/gobo00025.svg">Gobo 2 shake, increase speed</Capability>
-  <Capability Min="112" Max="117" Preset="GoboMacro" Res1="ClayPaky/gobo00022.svg">Gobo 1 shake, increase speed</Capability>
+  <Capability Min="64" Max="69" Preset="GoboShakeMacro" Res1="Chauvet/gobo00044.svg">Gobo 9 shake, increase speed</Capability>
+  <Capability Min="70" Max="75" Preset="GoboShakeMacro" Res1="Chauvet/gobo00043.svg">Gobo 8 shake, increase speed</Capability>
+  <Capability Min="76" Max="81" Preset="GoboShakeMacro" Res1="Chauvet/gobo00042.svg">Gobo 7 shake, increase speed</Capability>
+  <Capability Min="82" Max="87" Preset="GoboShakeMacro" Res1="Chauvet/gobo00041.svg">Gobo 6 shake, increase speed</Capability>
+  <Capability Min="88" Max="93" Preset="GoboShakeMacro" Res1="Chauvet/gobo00040.svg">Gobo 5 shake, increase speed</Capability>
+  <Capability Min="94" Max="99" Preset="GoboShakeMacro" Res1="Chauvet/gobo00039.svg">Gobo 4 shake, increase speed</Capability>
+  <Capability Min="100" Max="105" Preset="GoboShakeMacro" Res1="Chauvet/gobo00017.svg">Gobo 3 shake, increase speed</Capability>
+  <Capability Min="106" Max="111" Preset="GoboShakeMacro" Res1="SGM/gobo00025.svg">Gobo 2 shake, increase speed</Capability>
+  <Capability Min="112" Max="117" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00022.svg">Gobo 1 shake, increase speed</Capability>
   <Capability Min="118" Max="127" Preset="GoboMacro" Res1="Others/open.svg">White</Capability>
   <Capability Min="128" Max="191">Rainbow with increase speed</Capability>
   <Capability Min="192" Max="255">Reverse rainbow with increase speed</Capability>
@@ -81,15 +81,15 @@
   <Capability Min="46" Max="51" Preset="GoboMacro" Res1="Chauvet/gobo00042.svg">Wave 1</Capability>
   <Capability Min="52" Max="57" Preset="GoboMacro" Res1="Chauvet/gobo00043.svg">Fan Wave 1</Capability>
   <Capability Min="58" Max="63" Preset="GoboMacro" Res1="Chauvet/gobo00044.svg">Snowflake</Capability>
-  <Capability Min="64" Max="69" Preset="GoboMacro" Res1="Chauvet/gobo00044.svg">Gobo 9 shake, increase speed</Capability>
-  <Capability Min="70" Max="75" Preset="GoboMacro" Res1="Chauvet/gobo00043.svg">Gobo 8 shake, increase speed</Capability>
-  <Capability Min="76" Max="81" Preset="GoboMacro" Res1="Chauvet/gobo00042.svg">Gobo 7 shake, increase speed</Capability>
-  <Capability Min="82" Max="87" Preset="GoboMacro" Res1="Chauvet/gobo00041.svg">Gobo 6 shake, increase speed</Capability>
-  <Capability Min="88" Max="93" Preset="GoboMacro" Res1="Chauvet/gobo00040.svg">Gobo 5 shake, increase speed</Capability>
-  <Capability Min="94" Max="99" Preset="GoboMacro" Res1="Chauvet/gobo00039.svg">Gobo 4 shake, increase speed</Capability>
-  <Capability Min="100" Max="105" Preset="GoboMacro" Res1="Chauvet/gobo00017.svg">Gobo 3 shake, increase speed</Capability>
-  <Capability Min="106" Max="111" Preset="GoboMacro" Res1="SGM/gobo00025.svg">Gobo 2 shake, increase speed</Capability>
-  <Capability Min="112" Max="117" Preset="GoboMacro" Res1="ClayPaky/gobo00022.svg">Gobo 1 shake, increase speed</Capability>
+  <Capability Min="64" Max="69" Preset="GoboShakeMacro" Res1="Chauvet/gobo00044.svg">Gobo 9 shake, increase speed</Capability>
+  <Capability Min="70" Max="75" Preset="GoboShakeMacro" Res1="Chauvet/gobo00043.svg">Gobo 8 shake, increase speed</Capability>
+  <Capability Min="76" Max="81" Preset="GoboShakeMacro" Res1="Chauvet/gobo00042.svg">Gobo 7 shake, increase speed</Capability>
+  <Capability Min="82" Max="87" Preset="GoboShakeMacro" Res1="Chauvet/gobo00041.svg">Gobo 6 shake, increase speed</Capability>
+  <Capability Min="88" Max="93" Preset="GoboShakeMacro" Res1="Chauvet/gobo00040.svg">Gobo 5 shake, increase speed</Capability>
+  <Capability Min="94" Max="99" Preset="GoboShakeMacro" Res1="Chauvet/gobo00039.svg">Gobo 4 shake, increase speed</Capability>
+  <Capability Min="100" Max="105" Preset="GoboShakeMacro" Res1="Chauvet/gobo00017.svg">Gobo 3 shake, increase speed</Capability>
+  <Capability Min="106" Max="111" Preset="GoboShakeMacro" Res1="SGM/gobo00025.svg">Gobo 2 shake, increase speed</Capability>
+  <Capability Min="112" Max="117" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00022.svg">Gobo 1 shake, increase speed</Capability>
   <Capability Min="118" Max="127" Preset="GoboMacro" Res1="Others/open.svg">White</Capability>
   <Capability Min="128" Max="191">Rainbow with increase speed</Capability>
   <Capability Min="192" Max="255">Reverse rainbow with increase speed</Capability>
@@ -198,15 +198,15 @@
   <Capability Min="46" Max="51" Preset="GoboMacro" Res1="Chauvet/gobo00042.svg">Wave 1</Capability>
   <Capability Min="52" Max="57" Preset="GoboMacro" Res1="Chauvet/gobo00043.svg">Fan Wave 1</Capability>
   <Capability Min="58" Max="63" Preset="GoboMacro" Res1="Chauvet/gobo00044.svg">Snowflake</Capability>
-  <Capability Min="64" Max="69" Preset="GoboMacro" Res1="Chauvet/gobo00044.svg">Gobo 9 shake, increase speed</Capability>
-  <Capability Min="70" Max="75" Preset="GoboMacro" Res1="Chauvet/gobo00043.svg">Gobo 8 shake, increase speed</Capability>
-  <Capability Min="76" Max="81" Preset="GoboMacro" Res1="Chauvet/gobo00042.svg">Gobo 7 shake, increase speed</Capability>
-  <Capability Min="82" Max="87" Preset="GoboMacro" Res1="Chauvet/gobo00041.svg">Gobo 6 shake, increase speed</Capability>
-  <Capability Min="88" Max="93" Preset="GoboMacro" Res1="Chauvet/gobo00040.svg">Gobo 5 shake, increase speed</Capability>
-  <Capability Min="94" Max="99" Preset="GoboMacro" Res1="Chauvet/gobo00039.svg">Gobo 4 shake, increase speed</Capability>
-  <Capability Min="100" Max="105" Preset="GoboMacro" Res1="Chauvet/gobo00017.svg">Gobo 3 shake, increase speed</Capability>
-  <Capability Min="106" Max="111" Preset="GoboMacro" Res1="SGM/gobo00025.svg">Gobo 2 shake, increase speed</Capability>
-  <Capability Min="112" Max="117" Preset="GoboMacro" Res1="ClayPaky/gobo00022.svg">Gobo 1 shake, increase speed</Capability>
+  <Capability Min="64" Max="69" Preset="GoboShakeMacro" Res1="Chauvet/gobo00044.svg">Gobo 9 shake, increase speed</Capability>
+  <Capability Min="70" Max="75" Preset="GoboShakeMacro" Res1="Chauvet/gobo00043.svg">Gobo 8 shake, increase speed</Capability>
+  <Capability Min="76" Max="81" Preset="GoboShakeMacro" Res1="Chauvet/gobo00042.svg">Gobo 7 shake, increase speed</Capability>
+  <Capability Min="82" Max="87" Preset="GoboShakeMacro" Res1="Chauvet/gobo00041.svg">Gobo 6 shake, increase speed</Capability>
+  <Capability Min="88" Max="93" Preset="GoboShakeMacro" Res1="Chauvet/gobo00040.svg">Gobo 5 shake, increase speed</Capability>
+  <Capability Min="94" Max="99" Preset="GoboShakeMacro" Res1="Chauvet/gobo00039.svg">Gobo 4 shake, increase speed</Capability>
+  <Capability Min="100" Max="105" Preset="GoboShakeMacro" Res1="Chauvet/gobo00017.svg">Gobo 3 shake, increase speed</Capability>
+  <Capability Min="106" Max="111" Preset="GoboShakeMacro" Res1="SGM/gobo00025.svg">Gobo 2 shake, increase speed</Capability>
+  <Capability Min="112" Max="117" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00022.svg">Gobo 1 shake, increase speed</Capability>
   <Capability Min="118" Max="127" Preset="GoboMacro" Res1="Others/open.svg">White</Capability>
   <Capability Min="128" Max="191">Rainbow with increase speed</Capability>
   <Capability Min="192" Max="255">Reverse rainbow with increase speed</Capability>

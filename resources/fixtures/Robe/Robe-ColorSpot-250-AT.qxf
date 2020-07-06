@@ -115,13 +115,13 @@
   <Capability Min="100" Max="109" Preset="GoboShakeMacro" Res1="Robe/gobo00044.png">Gobo shaking 5</Capability>
   <Capability Min="110" Max="119" Preset="GoboShakeMacro" Res1="Robe/gobo00043.png">Gobo shaking 6</Capability>
   <Capability Min="120" Max="129" Preset="GoboShakeMacro" Res1="Robe/gobo00042.png">Gobo shaking 7</Capability>
-  <Capability Min="130" Max="139" Preset="GoboMacro" Res1="Robe/gobo00048.png">Gobo shaking rotation 1</Capability>
-  <Capability Min="140" Max="149" Preset="GoboMacro" Res1="Robe/gobo00047.png">Gobo shaking rotation 2</Capability>
-  <Capability Min="150" Max="159" Preset="GoboMacro" Res1="Robe/gobo00046.svg">Gobo shaking rotation 3</Capability>
-  <Capability Min="160" Max="169" Preset="GoboMacro" Res1="Robe/gobo00045.svg">Gobo shaking rotation 4</Capability>
-  <Capability Min="170" Max="179" Preset="GoboMacro" Res1="Robe/gobo00044.png">Gobo shaking rotation 5</Capability>
-  <Capability Min="180" Max="189" Preset="GoboMacro" Res1="Robe/gobo00043.png">Gobo shaking rotation 6</Capability>
-  <Capability Min="190" Max="199" Preset="GoboMacro" Res1="Robe/gobo00042.png">Gobo shaking rotation 7</Capability>
+  <Capability Min="130" Max="139" Preset="GoboShakeMacro" Res1="Robe/gobo00048.png">Gobo shaking rotation 1</Capability>
+  <Capability Min="140" Max="149" Preset="GoboShakeMacro" Res1="Robe/gobo00047.png">Gobo shaking rotation 2</Capability>
+  <Capability Min="150" Max="159" Preset="GoboShakeMacro" Res1="Robe/gobo00046.svg">Gobo shaking rotation 3</Capability>
+  <Capability Min="160" Max="169" Preset="GoboShakeMacro" Res1="Robe/gobo00045.svg">Gobo shaking rotation 4</Capability>
+  <Capability Min="170" Max="179" Preset="GoboShakeMacro" Res1="Robe/gobo00044.png">Gobo shaking rotation 5</Capability>
+  <Capability Min="180" Max="189" Preset="GoboShakeMacro" Res1="Robe/gobo00043.png">Gobo shaking rotation 6</Capability>
+  <Capability Min="190" Max="199" Preset="GoboShakeMacro" Res1="Robe/gobo00042.png">Gobo shaking rotation 7</Capability>
   <Capability Min="200" Max="201" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="202" Max="221" Preset="RotationClockwiseFastToSlow">Forwards rotation Fast to Slow</Capability>
   <Capability Min="222" Max="223" Preset="RotationStop">No Rotation</Capability>

@@ -111,12 +111,12 @@
   <Capability Min="50" Max="54" Preset="GoboMacro" Res1="Others/gobo00075.svg">Gobo 4 - Gobo rotation</Capability>
   <Capability Min="55" Max="59" Preset="GoboMacro" Res1="Others/gobo00076.svg">Gobo 5 - Gobo rotation</Capability>
   <Capability Min="60" Max="64" Preset="GoboMacro" Res1="Others/gobo00077.svg">Gobo 6 - Gobo rotation</Capability>
-  <Capability Min="65" Max="88" Preset="GoboMacro" Res1="Chauvet/gobo00059.svg">Gobo 1 - shake</Capability>
-  <Capability Min="89" Max="112" Preset="GoboMacro" Res1="Others/gobo00073.svg">Gobo 2 - shake</Capability>
-  <Capability Min="113" Max="136" Preset="GoboMacro" Res1="Others/gobo00074.svg">Gobo 3 - shake</Capability>
-  <Capability Min="137" Max="160" Preset="GoboMacro" Res1="Others/gobo00075.svg">Gobo 4 - shake</Capability>
-  <Capability Min="161" Max="184" Preset="GoboMacro" Res1="Others/gobo00076.svg">Gobo 5 - shake</Capability>
-  <Capability Min="185" Max="208" Preset="GoboMacro" Res1="Others/gobo00077.svg">Gobo 6 - shake</Capability>
+  <Capability Min="65" Max="88" Preset="GoboShakeMacro" Res1="Chauvet/gobo00059.svg">Gobo 1 - shake</Capability>
+  <Capability Min="89" Max="112" Preset="GoboShakeMacro" Res1="Others/gobo00073.svg">Gobo 2 - shake</Capability>
+  <Capability Min="113" Max="136" Preset="GoboShakeMacro" Res1="Others/gobo00074.svg">Gobo 3 - shake</Capability>
+  <Capability Min="137" Max="160" Preset="GoboShakeMacro" Res1="Others/gobo00075.svg">Gobo 4 - shake</Capability>
+  <Capability Min="161" Max="184" Preset="GoboShakeMacro" Res1="Others/gobo00076.svg">Gobo 5 - shake</Capability>
+  <Capability Min="185" Max="208" Preset="GoboShakeMacro" Res1="Others/gobo00077.svg">Gobo 6 - shake</Capability>
   <Capability Min="209" Max="209">No function</Capability>
   <Capability Min="210" Max="232">Continuous wheel rotation, clockwise, fast to slow</Capability>
   <Capability Min="233" Max="255">Continuous wheel rotation, counter-clockwise, slow to fast</Capability>

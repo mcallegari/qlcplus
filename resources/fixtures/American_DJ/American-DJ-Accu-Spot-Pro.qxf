@@ -37,12 +37,12 @@
   <Capability Min="40" Max="49" Preset="GoboMacro" Res1="Others/gobo00038.svg">Rotating Gobo 4</Capability>
   <Capability Min="50" Max="59" Preset="GoboMacro" Res1="Others/gobo00027.svg">Rotating Gobo 5</Capability>
   <Capability Min="60" Max="69" Preset="GoboMacro" Res1="Others/gobo00034.png">Rotating Gobo 6</Capability>
-  <Capability Min="70" Max="89" Preset="GoboMacro" Res1="Others/gobo00036.svg">Gobo 1 Shake Slow - Fast</Capability>
-  <Capability Min="90" Max="109" Preset="GoboMacro" Res1="Others/gobo00001.svg">Gobo 2 Shake Slow - Fast</Capability>
-  <Capability Min="110" Max="129" Preset="GoboMacro" Res1="Others/gobo00026.svg">Gobo 3 Shake Slow - Fast</Capability>
-  <Capability Min="130" Max="149" Preset="GoboMacro" Res1="Others/gobo00038.svg">Gobo 4 Shake Slow - Fast</Capability>
-  <Capability Min="150" Max="169" Preset="GoboMacro" Res1="Others/gobo00027.svg">Gobo 5 Shake Slow - Fast</Capability>
-  <Capability Min="170" Max="189" Preset="GoboMacro" Res1="Others/gobo00034.png">Gobo 6 Shake Slow - Fast</Capability>
+  <Capability Min="70" Max="89" Preset="GoboShakeMacro" Res1="Others/gobo00036.svg">Gobo 1 Shake Slow - Fast</Capability>
+  <Capability Min="90" Max="109" Preset="GoboShakeMacro" Res1="Others/gobo00001.svg">Gobo 2 Shake Slow - Fast</Capability>
+  <Capability Min="110" Max="129" Preset="GoboShakeMacro" Res1="Others/gobo00026.svg">Gobo 3 Shake Slow - Fast</Capability>
+  <Capability Min="130" Max="149" Preset="GoboShakeMacro" Res1="Others/gobo00038.svg">Gobo 4 Shake Slow - Fast</Capability>
+  <Capability Min="150" Max="169" Preset="GoboShakeMacro" Res1="Others/gobo00027.svg">Gobo 5 Shake Slow - Fast</Capability>
+  <Capability Min="170" Max="189" Preset="GoboShakeMacro" Res1="Others/gobo00034.png">Gobo 6 Shake Slow - Fast</Capability>
   <Capability Min="190" Max="255">Rot. Gobo Scroll Slow - Fast</Capability>
  </Channel>
  <Channel Name="Rotating Gobo Index">
@@ -62,13 +62,13 @@
   <Capability Min="70" Max="83" Preset="GoboMacro" Res1="SGM/gobo00282.png">Gobo 5</Capability>
   <Capability Min="84" Max="97" Preset="GoboMacro" Res1="SGM/gobo00034.png">Gobo 6</Capability>
   <Capability Min="98" Max="111" Preset="GoboMacro" Res1="SGM/gobo00281.png">Gobo 7</Capability>
-  <Capability Min="112" Max="127" Preset="GoboMacro" Res1="ClayPaky/gobo00041.png">Gobo 1 Shake Slow - Fast</Capability>
-  <Capability Min="128" Max="143" Preset="GoboMacro" Res1="SGM/gobo00268.png">Gobo 2 Shake Slow - Fast</Capability>
-  <Capability Min="144" Max="159" Preset="GoboMacro" Res1="SGM/gobo00054.png">Gobo 3 Shake Slow - Fast</Capability>
-  <Capability Min="160" Max="175" Preset="GoboMacro" Res1="Others/gobo00026.svg">Gobo 4 Shake Slow - Fast</Capability>
-  <Capability Min="176" Max="191" Preset="GoboMacro" Res1="SGM/gobo00282.png">Gobo 5 Shake Slow - Fast</Capability>
-  <Capability Min="192" Max="207" Preset="GoboMacro" Res1="SGM/gobo00034.png">Gobo 6 Shake Slow - Fast</Capability>
-  <Capability Min="208" Max="223" Preset="GoboMacro" Res1="SGM/gobo00281.png">Gobo 7 Shake Slow - Fast</Capability>
+  <Capability Min="112" Max="127" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00041.png">Gobo 1 Shake Slow - Fast</Capability>
+  <Capability Min="128" Max="143" Preset="GoboShakeMacro" Res1="SGM/gobo00268.png">Gobo 2 Shake Slow - Fast</Capability>
+  <Capability Min="144" Max="159" Preset="GoboShakeMacro" Res1="SGM/gobo00054.png">Gobo 3 Shake Slow - Fast</Capability>
+  <Capability Min="160" Max="175" Preset="GoboShakeMacro" Res1="Others/gobo00026.svg">Gobo 4 Shake Slow - Fast</Capability>
+  <Capability Min="176" Max="191" Preset="GoboShakeMacro" Res1="SGM/gobo00282.png">Gobo 5 Shake Slow - Fast</Capability>
+  <Capability Min="192" Max="207" Preset="GoboShakeMacro" Res1="SGM/gobo00034.png">Gobo 6 Shake Slow - Fast</Capability>
+  <Capability Min="208" Max="223" Preset="GoboShakeMacro" Res1="SGM/gobo00281.png">Gobo 7 Shake Slow - Fast</Capability>
   <Capability Min="224" Max="255">Gobo Wheel Rot. Slow - Fast</Capability>
  </Channel>
  <Channel Name="Rotating Prism">

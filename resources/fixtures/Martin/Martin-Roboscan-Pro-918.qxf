@@ -129,15 +129,15 @@
   <Capability Min="70" Max="79" Preset="GoboMacro" Res1="Robe/gobo00061.svg">Gobo 7</Capability>
   <Capability Min="80" Max="89" Preset="GoboMacro" Res1="Others/gobo00040.svg">Gobo 8</Capability>
   <Capability Min="90" Max="102" Preset="GoboMacro" Res1="SGM/gobo00002.svg">Gobo 9</Capability>
-  <Capability Min="103" Max="119" Preset="GoboMacro" Res1="SGM/gobo00002.svg">Gobo Shake 9</Capability>
-  <Capability Min="120" Max="136" Preset="GoboMacro" Res1="Others/gobo00040.svg">Gobo Shake 8</Capability>
-  <Capability Min="137" Max="153" Preset="GoboMacro" Res1="Robe/gobo00061.svg">Gobo Shake 7</Capability>
-  <Capability Min="154" Max="170" Preset="GoboMacro" Res1="GLP/gobo00030.png">Gobo Shake 6</Capability>
-  <Capability Min="171" Max="187" Preset="GoboMacro" Res1="SGM/gobo00039.png">Gobo Shake 5</Capability>
-  <Capability Min="188" Max="204" Preset="GoboMacro" Res1="ClayPaky/gobo00043.png">Gobo Shake 4</Capability>
-  <Capability Min="205" Max="221" Preset="GoboMacro" Res1="Others/gobo00011.svg">Gobo Shake 3</Capability>
-  <Capability Min="222" Max="238" Preset="GoboMacro" Res1="ClayPaky/gobo00054.svg">Gobo Shake 2</Capability>
-  <Capability Min="239" Max="255" Preset="GoboMacro" Res1="GLP/gobo00002.svg">Gobo Shake 1</Capability>
+  <Capability Min="103" Max="119" Preset="GoboShakeMacro" Res1="SGM/gobo00002.svg">Gobo Shake 9</Capability>
+  <Capability Min="120" Max="136" Preset="GoboShakeMacro" Res1="Others/gobo00040.svg">Gobo Shake 8</Capability>
+  <Capability Min="137" Max="153" Preset="GoboShakeMacro" Res1="Robe/gobo00061.svg">Gobo Shake 7</Capability>
+  <Capability Min="154" Max="170" Preset="GoboShakeMacro" Res1="GLP/gobo00030.png">Gobo Shake 6</Capability>
+  <Capability Min="171" Max="187" Preset="GoboShakeMacro" Res1="SGM/gobo00039.png">Gobo Shake 5</Capability>
+  <Capability Min="188" Max="204" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00043.png">Gobo Shake 4</Capability>
+  <Capability Min="205" Max="221" Preset="GoboShakeMacro" Res1="Others/gobo00011.svg">Gobo Shake 3</Capability>
+  <Capability Min="222" Max="238" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00054.svg">Gobo Shake 2</Capability>
+  <Capability Min="239" Max="255" Preset="GoboShakeMacro" Res1="GLP/gobo00002.svg">Gobo Shake 1</Capability>
  </Channel>
  <Channel Name="Focus" Preset="BeamFocusFarNear"/>
  <Channel Name="Iris">

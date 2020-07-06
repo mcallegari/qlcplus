@@ -35,7 +35,7 @@
   <Capability Min="43" Max="49">Gobo 6</Capability>
   <Capability Min="50" Max="56">Gobo 7</Capability>
   <Capability Min="57" Max="63">Gobo 8</Capability>
-  <Capability Min="64" Max="70" Preset="GoboMacro" Res1="Others/open.svg">Open shake</Capability>
+  <Capability Min="64" Max="70" Preset="GoboShakeMacro" Res1="Others/open.svg">Open shake</Capability>
   <Capability Min="71" Max="77">Gobo 1 shake</Capability>
   <Capability Min="78" Max="84">Gobo 2 shake</Capability>
   <Capability Min="85" Max="91">Gobo 3 shake</Capability>

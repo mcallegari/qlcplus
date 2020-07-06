@@ -38,13 +38,13 @@
   <Capability Min="56" Max="63" Preset="GoboMacro" Res1="GLP/gobo00002.svg">Gobo 7</Capability>
   <Capability Min="64" Max="127">Gobo rotation slow - fast</Capability>
   <Capability Min="128" Max="143">No function</Capability>
-  <Capability Min="144" Max="159" Preset="GoboMacro" Res1="Robe/gobo00011.svg">Gobo 1 shake slow - fast</Capability>
-  <Capability Min="160" Max="175" Preset="GoboMacro" Res1="SGM/gobo00028.png">Gobo 2 shake slow - fast</Capability>
-  <Capability Min="176" Max="191" Preset="GoboMacro" Res1="GLP/gobo00009.png">Gobo 3 shake slow - fast</Capability>
-  <Capability Min="192" Max="207" Preset="GoboMacro" Res1="Robe/gobo00013.svg">Gobo 4 shake slow - fast</Capability>
+  <Capability Min="144" Max="159" Preset="GoboShakeMacro" Res1="Robe/gobo00011.svg">Gobo 1 shake slow - fast</Capability>
+  <Capability Min="160" Max="175" Preset="GoboShakeMacro" Res1="SGM/gobo00028.png">Gobo 2 shake slow - fast</Capability>
+  <Capability Min="176" Max="191" Preset="GoboShakeMacro" Res1="GLP/gobo00009.png">Gobo 3 shake slow - fast</Capability>
+  <Capability Min="192" Max="207" Preset="GoboShakeMacro" Res1="Robe/gobo00013.svg">Gobo 4 shake slow - fast</Capability>
   <Capability Min="208" Max="223">Gobo 5 shake slow - fast</Capability>
-  <Capability Min="224" Max="239" Preset="GoboMacro" Res1="SGM/gobo00008.svg">Gobo 6 shake slow - fast</Capability>
-  <Capability Min="240" Max="255" Preset="GoboMacro" Res1="GLP/gobo00002.svg">Gobo 7 shake slow - fast</Capability>
+  <Capability Min="224" Max="239" Preset="GoboShakeMacro" Res1="SGM/gobo00008.svg">Gobo 6 shake slow - fast</Capability>
+  <Capability Min="240" Max="255" Preset="GoboShakeMacro" Res1="GLP/gobo00002.svg">Gobo 7 shake slow - fast</Capability>
  </Channel>
  <Channel Name="Dimmer" Preset="IntensityDimmer"/>
  <Channel Name="Strobe / Shutter">

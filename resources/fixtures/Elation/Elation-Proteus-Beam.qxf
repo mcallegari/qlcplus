@@ -89,19 +89,19 @@
   <Capability Min="78" Max="84" Preset="GoboMacro" Res1="Others/gobo00108.svg">Static / Fixed Gobo 11</Capability>
   <Capability Min="85" Max="91" Preset="GoboMacro" Res1="Robe/gobo00017.svg">Static / Fixed Gobo 12</Capability>
   <Capability Min="92" Max="98" Preset="GoboMacro" Res1="Others/open.svg">Static / Fixed Gobo 13</Capability>
-  <Capability Min="99" Max="105" Preset="GoboMacro" Res1="ClayPaky/gobo00007.svg">Shake Slow to Fast Static / Fixed Gobo 1</Capability>
-  <Capability Min="106" Max="112" Preset="GoboMacro" Res1="ClayPaky/gobo00008.svg">Shake Slow to Fast Static / Fixed Gobo 2</Capability>
-  <Capability Min="113" Max="119" Preset="GoboMacro" Res1="Others/gobo00105.svg">Shake Slow to Fast Static / Fixed Gobo 3</Capability>
-  <Capability Min="120" Max="126" Preset="GoboMacro" Res1="Others/gobo00109.svg">Shake Slow to Fast Static / Fixed Gobo 4</Capability>
-  <Capability Min="127" Max="133" Preset="GoboMacro" Res1="Others/gobo00107.svg">Shake Slow to Fast Static / Fixed Gobo 5</Capability>
-  <Capability Min="134" Max="140" Preset="GoboMacro" Res1="Others/gobo00106.svg">Shake Slow to Fast Static / Fixed Gobo 6</Capability>
-  <Capability Min="141" Max="147" Preset="GoboMacro" Res1="Others/gobo00042.svg">Shake Slow to Fast Static / Fixed Gobo 7</Capability>
-  <Capability Min="148" Max="154" Preset="GoboMacro" Res1="Others/gobo00032.svg">Shake Slow to Fast Static / Fixed Gobo 8</Capability>
-  <Capability Min="155" Max="161" Preset="GoboMacro" Res1="Others/gobo00023.svg">Shake Slow to Fast Static / Fixed Gobo 9</Capability>
-  <Capability Min="162" Max="168" Preset="GoboMacro" Res1="Others/gobo00018.svg">Shake Slow to Fast Static / Fixed Gobo 10</Capability>
-  <Capability Min="169" Max="175" Preset="GoboMacro" Res1="Others/gobo00108.svg">Shake Slow to Fast Static / Fixed Gobo 11</Capability>
-  <Capability Min="176" Max="182" Preset="GoboMacro" Res1="Robe/gobo00017.svg">Shake Slow to Fast Static / Fixed Gobo 12</Capability>
-  <Capability Min="183" Max="189" Preset="GoboMacro" Res1="Others/open.svg">Shake Slow to Fast Static / Fixed Gobo 13</Capability>
+  <Capability Min="99" Max="105" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00007.svg">Shake Slow to Fast Static / Fixed Gobo 1</Capability>
+  <Capability Min="106" Max="112" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00008.svg">Shake Slow to Fast Static / Fixed Gobo 2</Capability>
+  <Capability Min="113" Max="119" Preset="GoboShakeMacro" Res1="Others/gobo00105.svg">Shake Slow to Fast Static / Fixed Gobo 3</Capability>
+  <Capability Min="120" Max="126" Preset="GoboShakeMacro" Res1="Others/gobo00109.svg">Shake Slow to Fast Static / Fixed Gobo 4</Capability>
+  <Capability Min="127" Max="133" Preset="GoboShakeMacro" Res1="Others/gobo00107.svg">Shake Slow to Fast Static / Fixed Gobo 5</Capability>
+  <Capability Min="134" Max="140" Preset="GoboShakeMacro" Res1="Others/gobo00106.svg">Shake Slow to Fast Static / Fixed Gobo 6</Capability>
+  <Capability Min="141" Max="147" Preset="GoboShakeMacro" Res1="Others/gobo00042.svg">Shake Slow to Fast Static / Fixed Gobo 7</Capability>
+  <Capability Min="148" Max="154" Preset="GoboShakeMacro" Res1="Others/gobo00032.svg">Shake Slow to Fast Static / Fixed Gobo 8</Capability>
+  <Capability Min="155" Max="161" Preset="GoboShakeMacro" Res1="Others/gobo00023.svg">Shake Slow to Fast Static / Fixed Gobo 9</Capability>
+  <Capability Min="162" Max="168" Preset="GoboShakeMacro" Res1="Others/gobo00018.svg">Shake Slow to Fast Static / Fixed Gobo 10</Capability>
+  <Capability Min="169" Max="175" Preset="GoboShakeMacro" Res1="Others/gobo00108.svg">Shake Slow to Fast Static / Fixed Gobo 11</Capability>
+  <Capability Min="176" Max="182" Preset="GoboShakeMacro" Res1="Robe/gobo00017.svg">Shake Slow to Fast Static / Fixed Gobo 12</Capability>
+  <Capability Min="183" Max="189" Preset="GoboShakeMacro" Res1="Others/open.svg">Shake Slow to Fast Static / Fixed Gobo 13</Capability>
   <Capability Min="190" Max="221" Preset="RotationClockwiseFastToSlow">Clockwise Gobo Wheel Rotation from Fast to Slow</Capability>
   <Capability Min="222" Max="223" Preset="RotationStop">No Rotation</Capability>
   <Capability Min="224" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counterclockwise Gobo Wheel Rotation from Slow to Fast</Capability>
