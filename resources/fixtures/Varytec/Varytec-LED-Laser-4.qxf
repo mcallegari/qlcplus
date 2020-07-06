@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.1</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Heiko Fanieng</Author>
  </Creator>
  <Manufacturer>Varytec</Manufacturer>
@@ -11,8 +11,8 @@
  <Type>Effect</Type>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="119">Off</Capability>
-  <Capability Min="120" Max="255">On</Capability>
+  <Capability Min="0" Max="119" Preset="ShutterClose">Off</Capability>
+  <Capability Min="120" Max="255" Preset="ShutterOpen">On</Capability>
  </Channel>
  <Channel Name="Red" Preset="IntensityRed"/>
  <Channel Name="Green" Preset="IntensityGreen"/>
@@ -70,11 +70,11 @@
   <Channel Number="4">LED effects</Channel>
   <Channel Number="5">Speed settings for programm channel</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
-   <Dimensions Weight="6.7" Width="935" Height="155" Depth="195"/>
-   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="45" DmxConnector="5-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="6.7" Width="935" Height="155" Depth="195"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="45" DmxConnector="5-pin"/>
+ </Physical>
 </FixtureDefinition>

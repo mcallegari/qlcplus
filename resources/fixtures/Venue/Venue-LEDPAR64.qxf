@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
-  <Name>Q Light Controller</Name>
-  <Version>3.1.0</Version>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
   <Author>eklynx</Author>
  </Creator>
  <Manufacturer>Venue</Manufacturer>
@@ -49,8 +49,8 @@
  </Channel>
  <Channel Name="Strobe Speed">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="15">Off/Slowest</Capability>
-  <Capability Min="16" Max="255">Slow to fast Strobe (increments every 16)</Capability>
+  <Capability Min="0" Max="15" Preset="ShutterOpen">Off/Slowest</Capability>
+  <Capability Min="16" Max="255" Preset="StrobeSlowToFast">Slow to fast Strobe (increments every 16)</Capability>
  </Channel>
  <Channel Name="Presets/Sound">
   <Group Byte="0">Effect</Group>
@@ -71,11 +71,11 @@
   <Channel Number="4">Strobe Speed</Channel>
   <Channel Number="5">Presets/Sound</Channel>
  </Mode>
-<Physical>
-   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
-   <Dimensions Width="400" Height="300" Weight="3" Depth="210"/>
-   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
-   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
-   <Technical PowerConsumption="15" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3" Width="400" Height="300" Depth="210"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="15" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>
