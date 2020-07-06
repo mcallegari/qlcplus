@@ -15,7 +15,7 @@
  <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="6">Dimmer mode</Capability>
+  <Capability Min="0" Max="6" Preset="ShutterOpen">Dimmer mode</Capability>
   <Capability Min="7" Max="65" Preset="StrobeSlowToFast">Strobe from slow to fast</Capability>
   <Capability Min="66" Max="69" Preset="ShutterOpen">None</Capability>
   <Capability Min="70" Max="128" Preset="PulseSlowToFast">Pulse strobe from slow to fast</Capability>

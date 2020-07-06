@@ -46,8 +46,8 @@
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="2" Preset="ShutterOpen">Open</Capability>
   <Capability Min="3" Max="5" Preset="ShutterClose">Closed</Capability>
-  <Capability Min="6" Max="7">Slow Random</Capability>
-  <Capability Min="8" Max="12">Med Random</Capability>
+  <Capability Min="6" Max="7" Preset="StrobeRandom">Slow Random</Capability>
+  <Capability Min="8" Max="12" Preset="StrobeRandom">Med Random</Capability>
   <Capability Min="13" Max="255">Speed Range</Capability>
  </Channel>
  <Channel Name="Focus Time">

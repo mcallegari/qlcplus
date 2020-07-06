@@ -92,7 +92,7 @@
   <Capability Min="95" Max="99" Preset="GoboMacro" Res1="Robe/gobo00027.svg">Positioning 7</Capability>
   <Capability Min="100" Max="104" Preset="GoboMacro" Res1="Robe/gobo00026.svg">Positioning 8</Capability>
   <Capability Min="105" Max="109" Preset="GoboMacro" Res1="Robe/gobo00025.svg">Positioning 9</Capability>
-  <Capability Min="110" Max="119" Preset="GoboShakeMacro">Shaking 1 from slow to fast</Capability>
+  <Capability Min="110" Max="119">Shaking 1 from slow to fast</Capability>
   <Capability Min="120" Max="129" Preset="GoboShakeMacro" Res1="Robe/gobo00031.svg">Shaking 2 from slow to fast</Capability>
   <Capability Min="130" Max="139" Preset="GoboShakeMacro" Res1="Robe/gobo00030.svg">Shaking 3 from slow to fast</Capability>
   <Capability Min="140" Max="149" Preset="GoboShakeMacro" Res1="Robe/gobo00029.svg">Shaking 4 from slow to fast</Capability>
