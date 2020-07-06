@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Gaudig</Author>
  </Creator>
  <Manufacturer>Tomshine</Manufacturer>
@@ -74,7 +74,7 @@
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="240">No Function</Capability>
-  <Capability Min="241" Max="255">RESET</Capability>
+  <Capability Min="241" Max="255" Preset="ResetAll">RESET</Capability>
  </Channel>
  <Mode Name="Normal">
   <Channel Number="0">Pan</Channel>

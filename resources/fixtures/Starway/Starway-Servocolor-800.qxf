@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Thierry Rodolfo</Author>
  </Creator>
  <Manufacturer>Starway</Manufacturer>
@@ -28,7 +28,7 @@
   <Capability Min="160" Max="169">Test</Capability>
   <Capability Min="170" Max="179">Custom</Capability>
   <Capability Min="180" Max="199">Sound1</Capability>
-  <Capability Min="200" Max="219">Reset</Capability>
+  <Capability Min="200" Max="219" Preset="ResetAll">Reset</Capability>
   <Capability Min="220" Max="235">No Function</Capability>
   <Capability Min="236" Max="239">Dim 1</Capability>
   <Capability Min="240" Max="243">Dim 2</Capability>
