@@ -24,7 +24,7 @@
   <Capability Min="130" Max="144" Preset="StrobeRandomFastToSlow">Strobe 5: random opening pulse (Fast -&gt; Slow)</Capability>
   <Capability Min="145" Max="149" Preset="ShutterOpen">Shutter open</Capability>
   <Capability Min="150" Max="164" Preset="StrobeRandomSlowToFast">Strobe 6: random closing pulse (fast -&gt; Slow)</Capability>
-  <Capability Min="165" Max="169" Preset="SmallToBig">Shutter open</Capability>
+  <Capability Min="165" Max="169" Preset="ShutterOpen">Shutter open</Capability>
   <Capability Min="170" Max="184" Preset="PulseFastToSlow">Strobe 7: burst pulse (Fast -&gt; Slow)</Capability>
   <Capability Min="185" Max="189" Preset="ShutterOpen">Shutter open</Capability>
   <Capability Min="190" Max="204" Preset="StrobeRandomFastToSlow">Strobe 8: random burst pulse (Fast -&gt; Slow)</Capability>
