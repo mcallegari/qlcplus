@@ -40,7 +40,9 @@ function initProperties()
 {
     var table = document.getElementById("properties");
     var properties = Array();
-    var i, property, entry;
+    var i;
+    var property;
+    var entry;
 
     // Algo properties not supported by versions prior to 2.
     if (testAlgo.apiVersion < 2) {
@@ -61,7 +63,7 @@ function initProperties()
             var keyValue = propKeyValue[entry].split(":");
             var key = keyValue[0];
             keyValue.shift();
-            property.push(Array(key, keyValue.join(":")))
+            property.push(Array(key, keyValue.join(":")));
         }
         properties.push(property);
     }
@@ -114,7 +116,7 @@ function initProperties()
         nameCell.innerHTML = displayName;
 
         var formCell = row.insertCell(-1);
-        var html = ""
+        var html = "";
         if (typeProperty === "list") {
             html += "<select name=\"" + name + "\" id=\"" + name + "\"";
             html += " onChange=\"writeFunction('" + writeFunction + "', '" + name + "', this.value); setStep(0); writeCurrentStep()\"/>\n";
