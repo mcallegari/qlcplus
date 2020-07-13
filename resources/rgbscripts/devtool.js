@@ -24,189 +24,124 @@ var currentStep;
 var testTimer;
 var timerRunning;
 
-function loadAlgoFile()
-{
-	var storedValue = localStorage.getItem("filename");
-	if (storedValue === null) {
-		storedValue = "evenodd.js";
-	}
-	document.getElementById("filename").value = storedValue;
-	onFilenameUpdated(storedValue);
-}
-
-function onFilenameUpdated(filename)
-{
-	if (filename === "") {
-		return;
-	}
-
-	localStorage.setItem("filename", filename);
-	
-	var script = document.getElementById("algoScript");
-	if (script === null) {
-		script = document.createElement('script');
-		script.id = "algoScript";
-		script.addEventListener('load', () => init(), false);
-		script.addEventListener('error', () => handleLoadError(), false);
-		script.type = "text/javascript";
-		script.src = filename;
-		document.head.appendChild(script);
-	} else {
-		script.src = filename;
-	}
-	// init(); // is called onload.
-}
-
-function handleLoadError()
-{
-	return;
-}
-
-function init()
-{
-	if (typeof testAlgo === "undefined") {
-		return;
-	}
-    initDefinitions();
-	initSpeedValue();
-    initProperties();
-    initPixelColors();
-    onGridSizeUpdated();
-    writeCurrentStep();
-	initTestStatus();
-}
-
-function initTestStatus()
-{
-	timerStatus = localStorage.getItem("timerRunning");
-	if (timerStatus === null || parseInt(timerStatus) === 1) {
-		startTest();
-	}
-}
-
 function initDefinitions()
 {
     document.getElementById("apiversion").value = testAlgo.apiVersion;
     document.getElementById("name").value = testAlgo.name;
     document.getElementById("author").value = testAlgo.author;
-	if (typeof testAlgo.acceptColors !== 'undefined') {
-		document.getElementById("acceptColors").value = testAlgo.acceptColors;
-	} else {
-		document.getElementById("acceptColors").value = "2 (Default)";
-	}
+    if (typeof testAlgo.acceptColors !== 'undefined') {
+        document.getElementById("acceptColors").value = testAlgo.acceptColors;
+    } else {
+        document.getElementById("acceptColors").value = "2 (Default)";
+    }
 }
 
 function initProperties()
 {
     var table = document.getElementById("properties");
-	var properties = Array();
+    var properties = Array();
+    var i, property, entry;
 
-	// Algo properties not supported by versions prior to 2.
-	if (testAlgo.apiVersion < 2) {
-		return;
-	}
+    // Algo properties not supported by versions prior to 2.
+    if (testAlgo.apiVersion < 2) {
+        return;
+    }
 
-    for (var i = table.rows.length - 1; i >= 0; i--) {
+    for (i = table.rows.length - 1; i >= 0; i--) {
         table.deleteRow(i);
     }
-	// Get the properties
-    for (var i = 0; i < testAlgo.properties.length; i++)
+    // Get the properties
+    for (i = 0; i < testAlgo.properties.length; i++)
     {
-		var propDef = testAlgo.properties[i];
-		var propKeyValue = propDef.split("|");
-		var property = Array();
-		
-		for (var entry = 0; entry < propKeyValue.length; entry++) {
-			var keyValue = propKeyValue[entry].split(":");
-			var key = keyValue[0];
-			keyValue.shift();
-			property.push(Array(key, keyValue.join(":")))
-		}
-		properties.push(property);
-    }
-	// Write the properties
-	for (var entry = 0; entry < properties.length; entry++) {
-        var row = table.insertRow(-1);
-		var property = properties[entry];
-		
-		var keys = new Array();
-		for (var i = 0; i < property.length; i++) {
-			keys.push(property[i][0]);
-		}
+        var propDef = testAlgo.properties[i];
+        var propKeyValue = propDef.split("|");
+        property = Array();
 
-		var name = "";
-		if (keys.indexOf("name") >= 0) {
-			name = property[keys.indexOf("name")][1];
-		}
-		var displayName = name;
-		if (keys.indexOf("display") >= 0) {
-			displayName = property[keys.indexOf("display")][1];
-		}
-		var typeProperty = "string";
-		if (keys.indexOf("type") >= 0) {
-			// list: defines a list of strings that will be displayed by the QLC+ RGB Matrix Editor 
-			// range: defined a range of integer values that this property can handle 
-			// integer: an integer value that QLC+ can exchange with the script 
-			// string: a string that QLC+ can exchange with the script 
-			typeProperty = property[keys.indexOf("type")][1];
-		}
-		var values = Array(0, 0);
-		if (keys.indexOf("values") >= 0) {
-			values = property[keys.indexOf("values")][1].split(",");
-		}
-		var writeFunction = "";
-		if (keys.indexOf("write") >= 0) {
-			writeFunction = property[keys.indexOf("write")][1];
-			if (name !== "") {
-				var storedValue = localStorage.getItem(name);
-				if (storedValue !== null) {
-					eval("testAlgo." + writeFunction + "(\"" + storedValue + "\")");
-				}
-			}
-		}
-		var readFunction = "";
-		if (keys.indexOf("read") >= 0) {
-			readFunction = property[keys.indexOf("read")][1];
-		}
+        for (entry = 0; entry < propKeyValue.length; entry++) {
+            var keyValue = propKeyValue[entry].split(":");
+            var key = keyValue[0];
+            keyValue.shift();
+            property.push(Array(key, keyValue.join(":")))
+        }
+        properties.push(property);
+    }
+    // Write the properties
+    for (entry = 0; entry < properties.length; entry++) {
+        var row = table.insertRow(-1);
+        property = properties[entry];
+
+        var keys = new Array();
+        for (var i = 0; i < property.length; i++) {
+            keys.push(property[i][0]);
+        }
+
+        var name = "";
+        if (keys.indexOf("name") >= 0) {
+            name = property[keys.indexOf("name")][1];
+        }
+        var displayName = name;
+        if (keys.indexOf("display") >= 0) {
+            displayName = property[keys.indexOf("display")][1];
+        }
+        var typeProperty = "string";
+        if (keys.indexOf("type") >= 0) {
+            // list: defines a list of strings that will be displayed by the QLC+ RGB Matrix Editor
+            // range: defined a range of integer values that this property can handle
+            // integer: an integer value that QLC+ can exchange with the script
+            // string: a string that QLC+ can exchange with the script
+            typeProperty = property[keys.indexOf("type")][1];
+        }
+        var values = Array(0, 0);
+        if (keys.indexOf("values") >= 0) {
+            values = property[keys.indexOf("values")][1].split(",");
+        }
+        var writeFunction = "";
+        if (keys.indexOf("write") >= 0) {
+            writeFunction = property[keys.indexOf("write")][1];
+            if (name !== "") {
+                var storedValue = localStorage.getItem(name);
+                if (storedValue !== null) {
+                    eval("testAlgo." + writeFunction + "(\"" + storedValue + "\")");
+                }
+            }
+        }
+        var readFunction = "";
+        if (keys.indexOf("read") >= 0) {
+            readFunction = property[keys.indexOf("read")][1];
+        }
 
         var nameCell = row.insertCell(-1);
-		nameCell.innerHTML = displayName;
+        nameCell.innerHTML = displayName;
 
-		var formCell = row.insertCell(-1);
-		var html = ""
-		if (typeProperty === "list") {
-			html += "<select name=\"" + name + "\" id=\"" + name + "\"";
-			html += " onChange=\"writeFunction('" + writeFunction + "', '" + name + "', this.value); setStep(0); writeCurrentStep()\"/>\n";
-			for (var i = 0; i < values.length; i++) {
-				var selected = "";
-				if (eval("testAlgo." + readFunction)() === values[i]) {
-					selected = " selected";
-				}
-				html += "<option value=\"" + values[i] + "\" " + selected + ">" + values[i] + "</option>\n";
-			}
-			html += "</select>\n";
-		} else if (typeProperty === "range") {
-			html += "<input type=\"number\" required name=\"" + name + "\"";
-			html += " value=\"" + eval("testAlgo." + name) + "\" id=\"" + name + "\"";
-			html += " min=\"" + values[0] + "\" max=\"" + values[1] + "\"";
-			html += " onChange=\"writeFunction('" + writeFunction + "', '" + name + "', this.value); setStep(0); writeCurrentStep()\"/>\n";
-		} else if (typeProperty === "integer") {
-			html += "<input type=\"number\" required name=\"" + name + "\"";
-			html += " value=\"" + eval("testAlgo." + name) + "\" id=\"" + name + "\"";
-			html += " onChange=\"writeFunction('" + writeFunction + "', '" + name + "', this.value); setStep(0); writeCurrentStep()\"/>\n";
-		} else { // string
-			html += "<input type=\"text\" name=\"" + name + "\"";
-			html += " value=\"" + eval("testAlgo." + name) + "\" id=\"" + name + "\"";
-			html += " onChange=\"writeFunction('" + writeFunction + "', '" + name + "', this.value); setStep(0); writeCurrentStep()\"/>\n";
-		}
-		formCell.innerHTML = html;
-	}
-}
-
-function writeFunction(functionName, propertyName, value)
-{
-	eval("testAlgo." + functionName + "(\"" + value + "\")");
-	localStorage.setItem(propertyName, value);
+        var formCell = row.insertCell(-1);
+        var html = ""
+        if (typeProperty === "list") {
+            html += "<select name=\"" + name + "\" id=\"" + name + "\"";
+            html += " onChange=\"writeFunction('" + writeFunction + "', '" + name + "', this.value); setStep(0); writeCurrentStep()\"/>\n";
+            for (i = 0; i < values.length; i++) {
+                var selected = "";
+                if (eval("testAlgo." + readFunction)() === values[i]) {
+                    selected = " selected";
+                }
+                html += "<option value=\"" + values[i] + "\" " + selected + ">" + values[i] + "</option>\n";
+            }
+            html += "</select>\n";
+        } else if (typeProperty === "range") {
+            html += "<input type=\"number\" required name=\"" + name + "\"";
+            html += " value=\"" + eval("testAlgo." + name) + "\" id=\"" + name + "\"";
+            html += " min=\"" + values[0] + "\" max=\"" + values[1] + "\"";
+            html += " onChange=\"writeFunction('" + writeFunction + "', '" + name + "', this.value); setStep(0); writeCurrentStep()\"/>\n";
+        } else if (typeProperty === "integer") {
+            html += "<input type=\"number\" required name=\"" + name + "\"";
+            html += " value=\"" + eval("testAlgo." + name) + "\" id=\"" + name + "\"";
+            html += " onChange=\"writeFunction('" + writeFunction + "', '" + name + "', this.value); setStep(0); writeCurrentStep()\"/>\n";
+        } else { // string
+            html += "<input type=\"text\" name=\"" + name + "\"";
+            html += " value=\"" + eval("testAlgo." + name) + "\" id=\"" + name + "\"";
+            html += " onChange=\"writeFunction('" + writeFunction + "', '" + name + "', this.value); setStep(0); writeCurrentStep()\"/>\n";
+        }
+        formCell.innerHTML = html;
+    }
 }
 
 function initPixelColors()
@@ -220,71 +155,47 @@ function initPixelColors()
 
 function initSpeedValue()
 {
-	var speed = localStorage.getItem("speed");
-	if (speed === null) {
-		speed = 500;
-	}
-	document.getElementById("speed").value = speed;
-}
-
-function startTest()
-{
-    var speed = document.getElementById("speed").value;
-    window.clearInterval(testTimer); // avoid multiple timers running simultaneously
-    testTimer = window.setInterval("nextStep()", speed);
-	localStorage.setItem("timerRunning", 1);
-}
-
-function stopTest()
-{
-    window.clearInterval(testTimer);
-	localStorage.setItem("timerRunning", 0);
-;
-}
-
-function onGridSizeUpdated()
-{
-    width = parseInt(document.getElementById("width").value);
-    height = parseInt(document.getElementById("height").value);
-
-    stepCount = testAlgo.rgbMapStepCount(width, height);
-    document.getElementById("stepCount").value = stepCount;
-    document.getElementById("currentStep").max = stepCount - 1;
-
-    setStep(0);
-	writeCurrentStep();
-}
-
-function onSpeedChanged()
-{
-	var speed = document.getElementById("speed").value;
-	localStorage.setItem("speed", speed);
-	initTestStatus();
-}
-
-function nextStep()
-{
-    if (currentStep + 1 < stepCount) {
-        setStep(currentStep + 1);
+    var speed = localStorage.getItem("speed");
+    if (speed === null) {
+        speed = 500;
     }
-    else {
-        setStep(0);
-    }
+    document.getElementById("speed").value = speed;
 }
 
-function previousStep()
+function getRgbFromColorInt(color)
 {
-    if (currentStep > 0) {
-        setStep(currentStep - 1);
-    } else {
-        setStep(stepCount - 1); // last step
-    }
+    var red = color >> 16;
+    var green = (color >> 8) - red * 256;
+    var blue = color - red * 256 * 256 - green * 256;
+    return [red, green, blue];
 }
 
-function setStep(step) {
-    currentStep = step;
-    document.getElementById("currentStep").value = currentStep;
-    writeCurrentStep();
+function getCurrentColorInt()
+{
+    var primaryColorInput = document.getElementById("primaryColor");
+    var primaryColor = parseInt(primaryColorInput.value, 16);
+    var secondaryColorInput = document.getElementById("secondaryColor");
+    var secondaryColor = parseInt(secondaryColorInput.value, 16);
+
+    if (testAlgo.acceptColors === 0 || Number.isNaN(primaryColor)) {
+        return null;
+    }
+
+    if (testAlgo.acceptColors === 1 || Number.isNaN(secondaryColor) || stepCount <= 1) {
+        return primaryColor;
+    }
+
+    var primaryColorRgb = getRgbFromColorInt(primaryColor);
+    var secondaryColorRgb = getRgbFromColorInt(secondaryColor);
+
+    var primaryFactor = (stepCount - currentStep - 1) / (stepCount - 1);
+    var secondaryFactor = currentStep / (stepCount - 1);
+
+    var red = Math.round(primaryColorRgb[0] * primaryFactor + secondaryColorRgb[0] * secondaryFactor);
+    var green = Math.round(primaryColorRgb[1] * primaryFactor + secondaryColorRgb[1] * secondaryFactor);
+    var blue = Math.round(primaryColorRgb[2] * primaryFactor + secondaryColorRgb[2] * secondaryFactor);
+
+    return red * 256 * 256 + green * 256 + blue;
 }
 
 function writeCurrentStep()
@@ -317,38 +228,127 @@ function writeCurrentStep()
     }
 }
 
-function getCurrentColorInt()
-{
-    var primaryColorInput = document.getElementById("primaryColor");
-    var primaryColor = parseInt(primaryColorInput.value, 16);
-    var secondaryColorInput = document.getElementById("secondaryColor");
-    var secondaryColor = parseInt(secondaryColorInput.value, 16);
-
-    if (testAlgo.acceptColors === 0 || Number.isNaN(primaryColor)) {
-        return null;
-    }
-
-    if (testAlgo.acceptColors === 1 || Number.isNaN(secondaryColor) || stepCount <= 1) {
-        return primaryColor;
-    }
-
-    var primaryColorRgb = getRgbFromColorInt(primaryColor);
-    var secondaryColorRgb = getRgbFromColorInt(secondaryColor);
-
-    var primaryFactor = (stepCount - currentStep - 1) / (stepCount - 1);
-    var secondaryFactor = currentStep / (stepCount - 1);
-
-    var red = Math.round(primaryColorRgb[0] * primaryFactor + secondaryColorRgb[0] * secondaryFactor);
-    var green = Math.round(primaryColorRgb[1] * primaryFactor + secondaryColorRgb[1] * secondaryFactor);
-    var blue = Math.round(primaryColorRgb[2] * primaryFactor + secondaryColorRgb[2] * secondaryFactor);
-
-    return red * 256 * 256 + green * 256 + blue;
+function setStep(step) {
+    currentStep = step;
+    document.getElementById("currentStep").value = currentStep;
+    writeCurrentStep();
 }
 
-function getRgbFromColorInt(color)
+function onGridSizeUpdated()
 {
-    var red = color >> 16;
-    var green = (color >> 8) - red * 256;
-    var blue = color - red * 256 * 256 - green * 256;
-    return [red, green, blue];
+    width = parseInt(document.getElementById("width").value);
+    height = parseInt(document.getElementById("height").value);
+
+    stepCount = testAlgo.rgbMapStepCount(width, height);
+    document.getElementById("stepCount").value = stepCount;
+    document.getElementById("currentStep").max = stepCount - 1;
+
+    setStep(0);
+    writeCurrentStep();
+}
+
+function startTest()
+{
+    var speed = document.getElementById("speed").value;
+    window.clearInterval(testTimer); // avoid multiple timers running simultaneously
+    testTimer = window.setInterval("nextStep()", speed);
+    localStorage.setItem("timerRunning", 1);
+}
+
+function stopTest()
+{
+    window.clearInterval(testTimer);
+    localStorage.setItem("timerRunning", 0);
+}
+
+function initTestStatus()
+{
+    var timerStatus = localStorage.getItem("timerRunning");
+    if (timerStatus === null || parseInt(timerStatus) === 1) {
+        startTest();
+    }
+}
+
+function init()
+{
+    if (typeof testAlgo === "undefined") {
+        return;
+    }
+    initDefinitions();
+    initSpeedValue();
+    initProperties();
+    initPixelColors();
+    onGridSizeUpdated();
+    writeCurrentStep();
+    initTestStatus();
+}
+
+function handleLoadError()
+{
+    return;
+}
+
+function onFilenameUpdated(filename)
+{
+    if (filename === "") {
+        return;
+    }
+
+    localStorage.setItem("filename", filename);
+
+    var script = document.getElementById("algoScript");
+    if (script === null) {
+        script = document.createElement("script");
+        script.id = "algoScript";
+        script.addEventListener("load", () => init(), false);
+        script.addEventListener("error", () => handleLoadError(), false);
+        script.type = "text/javascript";
+        script.src = filename;
+        document.head.appendChild(script);
+    } else {
+        script.src = filename;
+    }
+    // init(); // is called onload.
+}
+
+function loadAlgoFile()
+{
+    var storedValue = localStorage.getItem("filename");
+    if (storedValue === null) {
+        storedValue = "evenodd.js";
+    }
+    document.getElementById("filename").value = storedValue;
+    onFilenameUpdated(storedValue);
+}
+
+function writeFunction(functionName, propertyName, value)
+{
+    eval("testAlgo." + functionName + "(\"" + value + "\")");
+    localStorage.setItem(propertyName, value);
+}
+
+function onSpeedChanged()
+{
+    var speed = document.getElementById("speed").value;
+    localStorage.setItem("speed", speed);
+    initTestStatus();
+}
+
+function nextStep()
+{
+    if (currentStep + 1 < stepCount) {
+        setStep(currentStep + 1);
+    }
+    else {
+        setStep(0);
+    }
+}
+
+function previousStep()
+{
+    if (currentStep > 0) {
+        setStep(currentStep - 1);
+    } else {
+        setStep(stepCount - 1); // last step
+    }
 }
