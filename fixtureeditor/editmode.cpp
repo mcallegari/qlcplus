@@ -33,6 +33,7 @@
 #include <QAction>
 
 #include "addchannelsdialog.h"
+#include "actsonchanneldialog.h"
 #include "qlcfixturemode.h"
 #include "qlcfixturehead.h"
 #include "qlcfixturedef.h"
@@ -84,6 +85,7 @@ void EditMode::init()
     connect(m_removeChannelButton, SIGNAL(clicked()), this, SLOT(slotRemoveChannelClicked()));
     connect(m_raiseChannelButton, SIGNAL(clicked()), this, SLOT(slotRaiseChannelClicked()));
     connect(m_lowerChannelButton, SIGNAL(clicked()), this, SLOT(slotLowerChannelClicked()));
+    connect(m_actsOnChannelButton, SIGNAL(clicked()), this, SLOT(slotActsOnChannelClicked()));
 
     m_modeNameEdit->setText(m_mode->name());
     m_modeNameEdit->setValidator(CAPS_VALIDATOR(this));
@@ -223,6 +225,25 @@ void EditMode::slotLowerChannelClicked()
 
     refreshChannelList();
     selectChannel(ch->name());
+}
+
+void EditMode::slotActsOnChannelClicked()
+{
+    ActsOnChannelDialog ach(m_mode->fixtureDef()->channels(), m_mode->channels());
+    if (ach.exec() != QDialog::Accepted)
+        return;
+
+    QList <QLCChannel *> newChannelList = ach.getModeChannelsList();
+
+    // clear the previous list
+    m_mode->removeAllChannels();
+
+    // Append the channels
+    foreach(QLCChannel *ch, newChannelList)
+        m_mode->insertChannel(ch, m_mode->channels().size());
+
+    // Easier to refresh the whole list
+    refreshChannelList();
 }
 
 void EditMode::refreshChannelList()

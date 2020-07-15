@@ -71,6 +71,7 @@ protected slots:
     void slotRemoveChannelClicked();
     void slotRaiseChannelClicked();
     void slotLowerChannelClicked();
+    void slotActsOnChannelClicked();
 
 protected:
     void refreshChannelList();
