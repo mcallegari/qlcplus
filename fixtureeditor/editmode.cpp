@@ -86,6 +86,8 @@ void EditMode::init()
     connect(m_raiseChannelButton, SIGNAL(clicked()), this, SLOT(slotRaiseChannelClicked()));
     connect(m_lowerChannelButton, SIGNAL(clicked()), this, SLOT(slotLowerChannelClicked()));
     connect(m_actsOnChannelButton, SIGNAL(clicked()), this, SLOT(slotActsOnChannelClicked()));
+    connect(m_channelList, SIGNAL(itemActivated(QTreeWidgetItem*,int)),
+            this, SLOT(slotActsOnChannelClicked()));
 
     m_modeNameEdit->setText(m_mode->name());
     m_modeNameEdit->setValidator(CAPS_VALIDATOR(this));
@@ -229,21 +231,24 @@ void EditMode::slotLowerChannelClicked()
 
 void EditMode::slotActsOnChannelClicked()
 {
-    ActsOnChannelDialog ach(m_mode->fixtureDef()->channels(), m_mode->channels());
-    if (ach.exec() != QDialog::Accepted)
-        return;
+    QLCChannel* ch = currentChannel();
 
-    QList <QLCChannel *> newChannelList = ach.getModeChannelsList();
+    if (ch != NULL)
+    {
+        ActsOnChannelDialog ach(m_mode->fixtureDef()->channels(), ch);
 
-    // clear the previous list
-    m_mode->removeAllChannels();
+        if (ach.exec() != QDialog::Accepted)
+            return;
 
-    // Append the channels
-    foreach(QLCChannel *ch, newChannelList)
-        m_mode->insertChannel(ch, m_mode->channels().size());
+        QLCChannel *newActsOnChannel = ach.getModeChannelActsOn();
 
-    // Easier to refresh the whole list
-    refreshChannelList();
+
+        if(newActsOnChannel != nullptr){
+            qDebug() << "New Channel: " << newActsOnChannel->name();
+        }
+
+        ch->setActsOnChannel(newActsOnChannel);
+    }
 }
 
 void EditMode::refreshChannelList()

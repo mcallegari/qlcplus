@@ -196,7 +196,7 @@
          </property>
          <property name="icon">
           <iconset resource="../ui/src/qlcui.qrc">
-           <normaloff>:/pan.png</normaloff>:/pan.png</iconset>
+           <normaloff>:/acts-on.png</normaloff>:/acts-on.png</iconset>
          </property>
          <property name="iconSize">
           <size>

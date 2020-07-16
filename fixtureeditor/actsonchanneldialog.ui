@@ -75,7 +75,7 @@
     </layout>
    </item>
    <item row="1" column="0">
-    <widget class="QTreeWidget" name="m_allTree">
+    <widget class="QTreeWidget" name="m_allChannelsTree">
      <property name="alternatingRowColors">
       <bool>true</bool>
      </property>
@@ -104,7 +104,7 @@
     </widget>
    </item>
    <item row="1" column="2">
-    <widget class="QTreeWidget" name="m_modeTree">
+    <widget class="QTreeWidget" name="m_actsOnTree">
      <property name="alternatingRowColors">
       <bool>true</bool>
      </property>
@@ -121,5 +121,38 @@
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>ActsOnChannelDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>379</x>
+     <y>492</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>379</x>
+     <y>256</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>ActsOnChannelDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>379</x>
+     <y>492</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>379</x>
+     <y>256</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

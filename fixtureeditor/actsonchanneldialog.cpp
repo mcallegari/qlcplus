@@ -1,30 +1,31 @@
 #include "qlcchannel.h"
 #include "actsonchanneldialog.h"
 #include "ui_actsonchanneldialog.h"
+#include <QDebug>
 
-ActsOnChannelDialog::ActsOnChannelDialog(QList<QLCChannel *> allList, QVector<QLCChannel *> modeList, QWidget *parent) :
+ActsOnChannelDialog::ActsOnChannelDialog(QList<QLCChannel *> allList, QLCChannel *currentChannel, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ActsOnChannelDialog),
     m_channelsList(allList)
 {
     ui->setupUi(this);
 
-    ui->m_allTree->setIconSize(QSize(32, 32));
-    ui->m_modeTree->setIconSize(QSize(32, 32));
+    ui->m_allChannelsTree->setIconSize(QSize(32, 32));
+    ui->m_actsOnTree->setIconSize(QSize(32, 32));
 
-    ui->m_allTree->setSelectionMode(QAbstractItemView::ExtendedSelection);
-    ui->m_allTree->setDragEnabled(true);
-    ui->m_allTree->setDragDropMode(QAbstractItemView::InternalMove);
-    ui->m_modeTree->setAcceptDrops(true);
-    ui->m_modeTree->setDropIndicatorShown(true);
-    ui->m_modeTree->setSelectionMode(QAbstractItemView::ExtendedSelection);
+    ui->m_allChannelsTree->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->m_allChannelsTree->setDragEnabled(true);
+    ui->m_allChannelsTree->setDragDropMode(QAbstractItemView::InternalMove);
+    ui->m_actsOnTree->setAcceptDrops(true);
+    ui->m_actsOnTree->setDropIndicatorShown(true);
+    ui->m_actsOnTree->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
     connect(ui->m_addChannel, SIGNAL(clicked()),
             this, SLOT(slotAddChannel()));
     connect(ui->m_removeChannel, SIGNAL(clicked()),
             this, SLOT(slotRemoveChannel()));
 
-    fillChannelsTrees(m_channelsList, modeList);
+    fillChannelsTrees(m_channelsList, currentChannel);
 }
 
 ActsOnChannelDialog::~ActsOnChannelDialog()
@@ -32,72 +33,90 @@ ActsOnChannelDialog::~ActsOnChannelDialog()
     delete ui;
 }
 
-QList<QLCChannel *> ActsOnChannelDialog::getModeChannelsList()
+QLCChannel *ActsOnChannelDialog::getModeChannelActsOn()
 {
-    QList<QLCChannel *> retList;
-    for (int i = 0; i < ui->m_modeTree->topLevelItemCount(); i++)
+    QLCChannel *actsOnChannel = nullptr;
+
+    qDebug() << ui->m_actsOnTree->topLevelItemCount();
+
+    for(int i = 0; i < ui->m_actsOnTree->topLevelItemCount(); i++)
     {
-        QTreeWidgetItem *item = ui->m_modeTree->topLevelItem(i);
+        QTreeWidgetItem *item = ui->m_actsOnTree->topLevelItem(i);
         if (item == NULL)
             continue;
         int idx = item->data(0, Qt::UserRole).toInt();
         if (idx < 0 || idx >= m_channelsList.count())
             continue;
-        QLCChannel *ch = m_channelsList.at(idx);
-        retList.append(ch);
+
+        qDebug() << "idx: " << idx << " - " << m_channelsList.at(idx)->name();
+        actsOnChannel = m_channelsList.at(idx);
     }
-    return retList;
+
+    return actsOnChannel;
 }
 
 void ActsOnChannelDialog::slotAddChannel()
 {
-    QList<QTreeWidgetItem*> selection = ui->m_allTree->selectedItems();
-    if (selection.count() == 0)
-        return;
+    qDebug()<< __PRETTY_FUNCTION__;
 
-    foreach(QTreeWidgetItem *item, selection)
+
+
+    QList<QTreeWidgetItem*> selection = ui->m_allChannelsTree->selectedItems();
+    if(selection.count() == 1 && ui->m_actsOnTree->topLevelItemCount() == 0)
     {
-        QTreeWidgetItem *newItem = item->clone();
-        ui->m_modeTree->addTopLevelItem(newItem);
-        ui->m_allTree->takeTopLevelItem(ui->m_allTree->indexOfTopLevelItem(item));
+        foreach(QTreeWidgetItem *item, selection)
+        {
+            QTreeWidgetItem *newItem = item->clone();
+            ui->m_actsOnTree->addTopLevelItem(newItem);
+            ui->m_allChannelsTree->takeTopLevelItem(ui->m_allChannelsTree->indexOfTopLevelItem(item));
+        }
+    }else{
+        return;
     }
 }
 
 void ActsOnChannelDialog::slotRemoveChannel()
 {
-    QList<QTreeWidgetItem*> selection = ui->m_modeTree->selectedItems();
+    qDebug()<< __PRETTY_FUNCTION__;
+
+    QList<QTreeWidgetItem*> selection = ui->m_actsOnTree->selectedItems();
     if (selection.count() == 0)
         return;
 
     foreach(QTreeWidgetItem *item, selection)
     {
         QTreeWidgetItem *newItem = item->clone();
-        ui->m_allTree->addTopLevelItem(newItem);
-        ui->m_modeTree->takeTopLevelItem(ui->m_modeTree->indexOfTopLevelItem(item));
+        ui->m_allChannelsTree->addTopLevelItem(newItem);
+        ui->m_actsOnTree->takeTopLevelItem(ui->m_actsOnTree->indexOfTopLevelItem(item));
     }
 }
 
-void ActsOnChannelDialog::fillChannelsTrees(QList<QLCChannel *> allList, QVector<QLCChannel *> modeList)
+void ActsOnChannelDialog::fillChannelsTrees(QList<QLCChannel *> allList, QLCChannel *currentChannel)
 {
+    ui->m_actsOnTree->clear();
+
+    QLCChannel *actsOnList = currentChannel->getActsOnChannel();
+
     int i = 0;
-    foreach (QLCChannel *ch, allList)
+    foreach (QLCChannel *channel, allList)
     {
-        if (modeList.contains(ch) == false)
+        if (currentChannel != channel && actsOnList != channel)
         {
-            QTreeWidgetItem *item = new QTreeWidgetItem(ui->m_allTree);
-            item->setText(0, ch->name());
-            item->setIcon(0, ch->getIcon());
-            item->setData(0, Qt::UserRole, QVariant(i));
+            QTreeWidgetItem *itemChannel = new QTreeWidgetItem(ui->m_allChannelsTree);
+            itemChannel->setText(0, channel->name());
+            itemChannel->setIcon(0, channel->getIcon());
+            itemChannel->setData(0, Qt::UserRole, QVariant(i));
         }
         i++;
     }
 
-    foreach (QLCChannel *ch, modeList)
+    if(actsOnList != nullptr)
     {
-        QTreeWidgetItem *item = new QTreeWidgetItem(ui->m_modeTree);
-        int index = allList.indexOf(ch);
-        item->setText(0, ch->name());
-        item->setIcon(0, ch->getIcon());
-        item->setData(0, Qt::UserRole, QVariant(index));
+        QTreeWidgetItem *itemActsOn = new QTreeWidgetItem(ui->m_actsOnTree);
+
+        int index = allList.indexOf(actsOnList);
+        itemActsOn->setText(0, actsOnList->name());
+        itemActsOn->setIcon(0, actsOnList->getIcon());
+        itemActsOn->setData(0, Qt::UserRole, QVariant(index));
     }
 }
