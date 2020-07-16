@@ -242,11 +242,6 @@ void EditMode::slotActsOnChannelClicked()
 
         QLCChannel *newActsOnChannel = ach.getModeChannelActsOn();
 
-
-        if(newActsOnChannel != nullptr){
-            qDebug() << "New Channel: " << newActsOnChannel->name();
-        }
-
         ch->setActsOnChannel(newActsOnChannel);
     }
 }

@@ -1,7 +1,6 @@
 #include "qlcchannel.h"
 #include "actsonchanneldialog.h"
 #include "ui_actsonchanneldialog.h"
-#include <QDebug>
 
 ActsOnChannelDialog::ActsOnChannelDialog(QList<QLCChannel *> allList, QLCChannel *currentChannel, QWidget *parent) :
     QDialog(parent),
@@ -37,8 +36,6 @@ QLCChannel *ActsOnChannelDialog::getModeChannelActsOn()
 {
     QLCChannel *actsOnChannel = nullptr;
 
-    qDebug() << ui->m_actsOnTree->topLevelItemCount();
-
     for(int i = 0; i < ui->m_actsOnTree->topLevelItemCount(); i++)
     {
         QTreeWidgetItem *item = ui->m_actsOnTree->topLevelItem(i);
@@ -48,7 +45,6 @@ QLCChannel *ActsOnChannelDialog::getModeChannelActsOn()
         if (idx < 0 || idx >= m_channelsList.count())
             continue;
 
-        qDebug() << "idx: " << idx << " - " << m_channelsList.at(idx)->name();
         actsOnChannel = m_channelsList.at(idx);
     }
 
@@ -57,10 +53,6 @@ QLCChannel *ActsOnChannelDialog::getModeChannelActsOn()
 
 void ActsOnChannelDialog::slotAddChannel()
 {
-    qDebug()<< __PRETTY_FUNCTION__;
-
-
-
     QList<QTreeWidgetItem*> selection = ui->m_allChannelsTree->selectedItems();
     if(selection.count() == 1 && ui->m_actsOnTree->topLevelItemCount() == 0)
     {
@@ -77,8 +69,6 @@ void ActsOnChannelDialog::slotAddChannel()
 
 void ActsOnChannelDialog::slotRemoveChannel()
 {
-    qDebug()<< __PRETTY_FUNCTION__;
-
     QList<QTreeWidgetItem*> selection = ui->m_actsOnTree->selectedItems();
     if (selection.count() == 0)
         return;

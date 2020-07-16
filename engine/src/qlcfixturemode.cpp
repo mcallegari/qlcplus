@@ -410,11 +410,19 @@ bool QLCFixtureMode::saveXML(QXmlStreamWriter *doc)
 
     /* Channels */
     QVectorIterator <QLCChannel*> it(m_channels);
-    while (it.hasNext() == true)
+    while(it.hasNext() == true)
     {
+        QLCChannel* channel = it.next();
+
         doc->writeStartElement(KXMLQLCFixtureModeChannel);
         doc->writeAttribute(KXMLQLCFixtureModeChannelNumber, QString::number(i++));
-        doc->writeCharacters(it.next()->name());
+
+        if(channel->getActsOnChannel() != nullptr){
+            QLCChannel *ChannelActsOn = channel->getActsOnChannel();
+            doc->writeAttribute(KXMLQLCFixtureModeChannelActsOn, QString::number(m_channels.indexOf(ChannelActsOn)));
+        }
+
+        doc->writeCharacters(channel->name());
         doc->writeEndElement();
     }
 
