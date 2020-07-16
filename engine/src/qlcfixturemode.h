@@ -207,6 +207,23 @@ public:
 
     quint32 masterIntensityChannel() const;
 
+    /*!
+     * \brief The ChannelActsOnData struct
+     *
+     * Contains channel pointer and acts on channel index.
+     *
+     */
+
+    struct ChannelActsOnData{
+        QLCChannel *channel;
+        int actsOnIndex;
+
+        ChannelActsOnData(QLCChannel *newChannel, int newAcsOnIndex) :
+            channel(newChannel),
+            actsOnIndex(newAcsOnIndex)
+        {}
+    };
+
 protected:
     /** List of channels (pointers are not owned) */
     QVector <QLCChannel*> m_channels;

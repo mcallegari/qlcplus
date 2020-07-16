@@ -357,6 +357,9 @@ bool QLCFixtureMode::loadXML(QXmlStreamReader &doc)
         setName(str);
     }
 
+    /* Temporary list with mode's channels pointer and acts on indexes. */
+    QList<ChannelActsOnData> listChannelsWithActsOnIndex;
+
     /* Subtags */
     while (doc.readNextStartElement())
     {
@@ -365,7 +368,20 @@ bool QLCFixtureMode::loadXML(QXmlStreamReader &doc)
             /* Channel */
             Q_ASSERT(m_fixtureDef != NULL);
             str = doc.attributes().value(KXMLQLCFixtureModeChannelNumber).toString();
-            insertChannel(m_fixtureDef->channel(doc.readElementText()),
+
+            int actsOnChannelIndex = -1;
+
+            if (doc.attributes().hasAttribute(KXMLQLCFixtureModeChannelActsOn)){
+                actsOnChannelIndex = doc.attributes().value(KXMLQLCFixtureModeChannelActsOn).toInt();
+            }
+
+            QLCChannel *currentChannel = m_fixtureDef->channel(doc.readElementText());
+
+            ChannelActsOnData channelActsData(currentChannel, actsOnChannelIndex);
+
+            listChannelsWithActsOnIndex.append(channelActsData);
+
+            insertChannel(currentChannel,
                           str.toInt());
         }
         else if (doc.name() == KXMLQLCFixtureHead)
@@ -386,6 +402,21 @@ bool QLCFixtureMode::loadXML(QXmlStreamReader &doc)
         {
             qWarning() << Q_FUNC_INFO << "Unknown Fixture Mode tag:" << doc.name();
             doc.skipCurrentElement();
+        }
+    }
+
+    // Set acts on channels
+
+    foreach(ChannelActsOnData channelSctsOnData, listChannelsWithActsOnIndex) {
+
+        if(m_channels.contains(channelSctsOnData.channel) &&
+                channelSctsOnData.actsOnIndex >= 0 &&
+                m_channels.size() > channelSctsOnData.actsOnIndex)
+        {
+            QLCChannel *actsOnChannel = m_channels.at(channelSctsOnData.actsOnIndex);
+
+            int channelIndex = m_channels.indexOf(channelSctsOnData.channel);
+            m_channels.at(channelIndex)->setActsOnChannel(actsOnChannel);
         }
     }
 

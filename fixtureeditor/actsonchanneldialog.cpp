@@ -14,7 +14,7 @@ ActsOnChannelDialog::ActsOnChannelDialog(QList<QLCChannel *> allList, QLCChannel
 
     ui->m_allChannelsTree->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->m_allChannelsTree->setDragEnabled(true);
-    ui->m_allChannelsTree->setDragDropMode(QAbstractItemView::InternalMove);
+    ui->m_allChannelsTree->setDragDropMode(QAbstractItemView::NoDragDrop);
     ui->m_actsOnTree->setAcceptDrops(true);
     ui->m_actsOnTree->setDropIndicatorShown(true);
     ui->m_actsOnTree->setSelectionMode(QAbstractItemView::ExtendedSelection);
