@@ -69,6 +69,9 @@ var testAlgo;
 	algo.apiVersion = 2;
 	algo.name = "Alternate";
 	algo.author = "Hans-Jürgen Tappe";
+	
+	var x = 0;
+	var y = 0;
 
 	algo.acceptColors = 0;
 	// Only two steps; one for even pixels and another for odd pixels
@@ -81,7 +84,7 @@ var testAlgo;
 			idx = (colorPalette.collection.length - 1);
 		}
 		return idx;
-	}
+	};
 
 	algo.color1Index = algo.getColorIndex("Red");
 	algo.properties.push("name:color1Index|type:list|display:Color 1|"
@@ -208,7 +211,7 @@ var testAlgo;
 		if (algo.align === 1 && width % 2 === 0) {
 			xMax = width / 2 + width % 2;
 		}
-		for (var y = 0; y < height; y++) {
+		for (y = 0; y < height; y++) {
 			if (algo.orientation === 0 ) {
 				// Initialize vertical bars, each column the same
 				colorSelectOne = (step === 1) ? false : true;
@@ -227,7 +230,7 @@ var testAlgo;
 				colorSelectOne = rowColorOne;
 			}
 			map[y] = new Array();
-			for (var x = 0; x < width; x++) {
+			for (x = 0; x < width; x++) {
 				if (algo.orientation === 0) {
 					// Vertical bars, count steps by column
 					effectiveStep = x + algo.offset;
@@ -251,8 +254,8 @@ var testAlgo;
 		}
 		// Align centered
 		if (algo.align === 1 && width % 2 === 0) {
-			for (var y = 0; y < height; y++) {
-				for (var x = 0; x < xMax; x++) {
+			for (y = 0; y < height; y++) {
+				for (x = 0; x < xMax; x++) {
 					map[y][x] = map[y][width - x - 1];
 				}
 			}
