@@ -36,13 +36,26 @@ function initDefinitions()
     }
 }
 
+function writeSelectOptions(item)
+{
+	var opt = document.createElement("option");
+	var t = document.createTextNode(item);
+	if (eval("testAlgo." + this.readFunction)() === item) {
+		opt.selected = "selected";
+	}
+	opt.value = item;
+	opt.appendChild(t);
+	this.inputElement.appendChild(opt);
+}
+
 function addPropertyTableEntry(property)
 {
     var table = document.getElementById("properties");
     var row = table.insertRow(-1);
 	var i = 0;
-
 	var keys = new Array();
+	var input;
+
 	for (i = 0; i < property.length; i++) {
 		keys.push(property[i][0]);
 	}
@@ -88,23 +101,17 @@ function addPropertyTableEntry(property)
 
 	var formCell = row.insertCell(-1);
 	if (typeProperty === "list") {
-		var input = document.createElement("select");
+		input = document.createElement("select");
 		input.name = name;
 		input.id = name;
 		input.onChange = "writeFunction(\"" + writeFunction + "', '" + name + "\", this.value); setStep(0); writeCurrentStep()";
-		for (i = 0; i < values.length; i++) {
-			var opt = document.createElement("option");
-			var t = document.createTextNode(values[i]);
-			if (eval("testAlgo." + readFunction)() === values[i]) {
-				opt.selected = "selected";
-			}
-			opt.value = values[i];
-			opt.appendChild(t);
-			input.appendChild(opt);
-		}
+		var selectOption = new Object();
+		selectOption.readFunction = readFunction;
+		selectOption.inputElement = input;
+		values.forEach(writeSelectOptions, selectOption);
 		formCell.appendChild(input);
 	} else if (typeProperty === "range") {
-		var input = document.createElement("input");
+		input = document.createElement("input");
 		input.type = "number";
 		input.required = "required";
 		input.name = name;
@@ -115,7 +122,7 @@ function addPropertyTableEntry(property)
 		input.onChange = "writeFunction(\"" + writeFunction + "', '" + name + "\", this.value); setStep(0); writeCurrentStep()";
 		formCell.appendChild(input);
 	} else if (typeProperty === "integer") {
-		var input = document.createElement("input");
+		input = document.createElement("input");
 		input.type = "number";
 		input.required = "required";
 		input.name = name;
@@ -124,7 +131,7 @@ function addPropertyTableEntry(property)
 		input.onChange = "writeFunction(\"" + writeFunction + "', '" + name + "\", this.value); setStep(0); writeCurrentStep()";
 		formCell.appendChild(input);
 	} else { // string
-		var input = document.createElement("input");
+		input = document.createElement("input");
 		input.type = "text";
 		input.name = name;
 		input.value = eval("testAlgo." + name);
