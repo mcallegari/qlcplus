@@ -1,8 +1,8 @@
 /*
   Q Light Controller Plus
-  plasmacolors.js
+  alternate.js
 
-  Copyright (c) Nathan Durnan
+  Copyright (c) Hans-Jürgen Tappe
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -68,7 +68,7 @@ var testAlgo;
 	var algo = new Object;
 	algo.apiVersion = 2;
 	algo.name = "Alternate";
-	algo.author = "Hans-J�rgen Tappe";
+	algo.author = "Hans-Jürgen Tappe";
 
 	algo.acceptColors = 0;
 	// Only two steps; one for even pixels and another for odd pixels
