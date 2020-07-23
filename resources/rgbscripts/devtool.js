@@ -40,10 +40,10 @@ function writeSelectOptions(item)
 {
 	var opt = document.createElement("option");
 	var t = document.createTextNode(item);
-	if (eval("testAlgo." + this.readFunction)() === item) {
+	if (window.testAlgo[this.readFunction]() === item) {
 		opt.selected = "selected";
 	}
-	opt.value = item;
+	opt.setAttribute("value", item);
 	opt.appendChild(t);
 	this.inputElement.appendChild(opt);
 }
@@ -86,7 +86,7 @@ function addPropertyTableEntry(property)
 		if (name !== "") {
 			var storedValue = localStorage.getItem(name);
 			if (storedValue !== null) {
-				eval("testAlgo." + writeFunction + "(\"" + storedValue + "\")");
+				window.testAlgo[writeFunction](storedValue);
 			}
 		}
 	}
@@ -104,7 +104,7 @@ function addPropertyTableEntry(property)
 		input = document.createElement("select");
 		input.name = name;
 		input.id = name;
-		input.onChange = "writeFunction(\"" + writeFunction + "', '" + name + "\", this.value); setStep(0); writeCurrentStep()";
+		input.setAttribute("onChange", "writeFunction('" + writeFunction + "', '" + name + "', this.value); setStep(0); writeCurrentStep()");
 		var selectOption = new Object();
 		selectOption.readFunction = readFunction;
 		selectOption.inputElement = input;
@@ -115,28 +115,28 @@ function addPropertyTableEntry(property)
 		input.type = "number";
 		input.required = "required";
 		input.name = name;
-		input.value = eval("testAlgo." + name);
+		input.setAttribute("value", window.testAlgo[name]);
 		input.id = name;
 		input.min = values[0];
 		input.max = values[1];
-		input.onChange = "writeFunction(\"" + writeFunction + "', '" + name + "\", this.value); setStep(0); writeCurrentStep()";
+		input.setAttribute("onChange", "writeFunction('" + writeFunction + "', '" + name + "', this.value); setStep(0); writeCurrentStep()");
 		formCell.appendChild(input);
 	} else if (typeProperty === "integer") {
 		input = document.createElement("input");
 		input.type = "number";
 		input.required = "required";
 		input.name = name;
-		input.value = eval("testAlgo." + name);
+		input.setAttribute("value", window.testAlgo[name]);
 		input.id = name;
-		input.onChange = "writeFunction(\"" + writeFunction + "', '" + name + "\", this.value); setStep(0); writeCurrentStep()";
+		input.setAttribute("onChange", "writeFunction('" + writeFunction + "', '" + name + "', this.value); setStep(0); writeCurrentStep()");
 		formCell.appendChild(input);
 	} else { // string
 		input = document.createElement("input");
 		input.type = "text";
 		input.name = name;
-		input.value = eval("testAlgo." + name);
+		input.setAttribute("value", window.testAlgo[name]);
 		input.id = name;
-		input.onChange = "writeFunction(\"" + writeFunction + "', '" + name + "\", this.value); setStep(0); writeCurrentStep()";
+		input.setAttribute("onChange", "writeFunction('" + writeFunction + "', '" + name + "', this.value); setStep(0); writeCurrentStep()");
 		formCell.appendChild(input);
     }
 }
@@ -357,7 +357,7 @@ function loadAlgoFile()
 
 function writeFunction(functionName, propertyName, value)
 {
-    eval("testAlgo." + functionName + "(\"" + value + "\")");
+    window.testAlgo[functionName](value);
     localStorage.setItem(propertyName, value);
 }
 
