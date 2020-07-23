@@ -59,7 +59,7 @@ var testAlgo;
 	colorPalette.makeSubArray = function(_index) {
 		var _array = new Array();
 		for (var i = 0; i < colorPalette.collection.length; i++) {
-			_array.push(colorPalette.collection[i][_index]);
+			_array.push(colorPalette.collection[parseInt(i)][parseInt(_index)]);
 		}
 		return _array;
 	};
@@ -102,7 +102,7 @@ var testAlgo;
 		if (_index >= colorPalette.collection.length) {
 			_index = (colorPalette.collection.length - 1);
 		}
-		return colorPalette.collection[_index][0];
+		return colorPalette.collection[parseInt(_index)][0];
 	};
 	algo.getColorValue = function(_index) {
 		if (_index < 0) {
@@ -111,7 +111,7 @@ var testAlgo;
 		if (_index >= colorPalette.collection.length) {
 			_index = (colorPalette.collection.length - 1);
 		}
-		return colorPalette.collection[_index][1];
+		return colorPalette.collection[parseInt(_index)][1];
 	};
 
 	algo.setColor1Index = function(_name) {
@@ -229,7 +229,7 @@ var testAlgo;
 				}
 				colorSelectOne = rowColorOne;
 			}
-			map[y] = new Array();
+			map[parseInt(y)] = new Array();
 			for (x = 0; x < width; x++) {
 				if (algo.orientation === 0) {
 					// Vertical bars, count steps by column
@@ -246,9 +246,9 @@ var testAlgo;
 					}
 				}
 				if (colorSelectOne) {
-					map[y][x] = algo.getColor1Value();
+					map[parseInt(y)][parseInt(x)] = algo.getColor1Value();
 				} else {
-					map[y][x] = algo.getColor2Value();
+					map[parseInt(y)][parseInt(x)] = algo.getColor2Value();
 				}
 			}
 		}
@@ -256,7 +256,7 @@ var testAlgo;
 		if (algo.align === 1 && width % 2 === 0) {
 			for (y = 0; y < height; y++) {
 				for (x = 0; x < xMax; x++) {
-					map[y][x] = map[y][width - x - 1];
+					map[parseInt(y)][parseInt(x)] = map[y][width - x - 1];
 				}
 			}
 		}
