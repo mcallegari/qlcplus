@@ -29,7 +29,7 @@ function initDefinitions()
     document.getElementById("apiversion").value = testAlgo.apiVersion;
     document.getElementById("name").value = testAlgo.name;
     document.getElementById("author").value = testAlgo.author;
-    if (typeof testAlgo.acceptColors !== 'undefined') {
+    if (typeof testAlgo.acceptColors !== "undefined") {
         document.getElementById("acceptColors").value = testAlgo.acceptColors;
     } else {
         document.getElementById("acceptColors").value = "2 (Default)";
@@ -40,26 +40,25 @@ function initProperties()
 {
     var table = document.getElementById("properties");
     var properties = Array();
-    var i;
-    var property;
-    var entry;
+
+    // Cleanup the table before updating its contents
+    for (var i = table.rows.length - 1; i >= 0; i--) {
+        table.deleteRow(i);
+    }
 
     // Algo properties not supported by versions prior to 2.
     if (testAlgo.apiVersion < 2) {
         return;
     }
 
-    for (i = table.rows.length - 1; i >= 0; i--) {
-        table.deleteRow(i);
-    }
     // Get the properties
-    for (i = 0; i < testAlgo.properties.length; i++)
+    for (var i = 0; i < testAlgo.properties.length; i++)
     {
         var propDef = testAlgo.properties[i];
         var propKeyValue = propDef.split("|");
-        property = Array();
+        var property = Array();
 
-        for (entry = 0; entry < propKeyValue.length; entry++) {
+        for (var entry = 0; entry < propKeyValue.length; entry++) {
             var keyValue = propKeyValue[entry].split(":");
             var key = keyValue[0];
             keyValue.shift();
@@ -68,9 +67,9 @@ function initProperties()
         properties.push(property);
     }
     // Write the properties
-    for (entry = 0; entry < properties.length; entry++) {
+    for (var entry = 0; entry < properties.length; entry++) {
         var row = table.insertRow(-1);
-        property = properties[entry];
+        var property = properties[entry];
 
         var keys = new Array();
         for (var i = 0; i < property.length; i++) {
@@ -113,36 +112,55 @@ function initProperties()
         }
 
         var nameCell = row.insertCell(-1);
-        nameCell.innerHTML = displayName;
+        var t = document.createTextNode(displayName);
+        nameCell.appendChild(t);
 
         var formCell = row.insertCell(-1);
-        var html = "";
         if (typeProperty === "list") {
-            html += "<select name=\"" + name + "\" id=\"" + name + "\"";
-            html += " onChange=\"writeFunction('" + writeFunction + "', '" + name + "', this.value); setStep(0); writeCurrentStep()\"/>\n";
-            for (i = 0; i < values.length; i++) {
-                var selected = "";
+            var input = document.createElement("select");
+            input.name = name;
+            input.id = name;
+            input.onChange = "writeFunction(\"" + writeFunction + "', '" + name + "\", this.value); setStep(0); writeCurrentStep()";
+            for (var i = 0; i < values.length; i++) {
+                var opt = document.createElement("option");
+                var t = document.createTextNode(values[i]);
                 if (eval("testAlgo." + readFunction)() === values[i]) {
-                    selected = " selected";
+                    opt.selected = "selected";
                 }
-                html += "<option value=\"" + values[i] + "\" " + selected + ">" + values[i] + "</option>\n";
+                opt.value = values[i];
+                opt.appendChild(t);
+                input.appendChild(opt);
             }
-            html += "</select>\n";
+            formCell.appendChild(input);
         } else if (typeProperty === "range") {
-            html += "<input type=\"number\" required name=\"" + name + "\"";
-            html += " value=\"" + eval("testAlgo." + name) + "\" id=\"" + name + "\"";
-            html += " min=\"" + values[0] + "\" max=\"" + values[1] + "\"";
-            html += " onChange=\"writeFunction('" + writeFunction + "', '" + name + "', this.value); setStep(0); writeCurrentStep()\"/>\n";
+            var input = document.createElement("input");
+            input.type = "number";
+            input.required = "required";
+            input.name = name;
+            input.value = eval("testAlgo." + name);
+            input.id = name;
+            input.min = values[0];
+            input.max = values[1];
+            input.onChange = "writeFunction(\"" + writeFunction + "', '" + name + "\", this.value); setStep(0); writeCurrentStep()";
+            formCell.appendChild(input);
         } else if (typeProperty === "integer") {
-            html += "<input type=\"number\" required name=\"" + name + "\"";
-            html += " value=\"" + eval("testAlgo." + name) + "\" id=\"" + name + "\"";
-            html += " onChange=\"writeFunction('" + writeFunction + "', '" + name + "', this.value); setStep(0); writeCurrentStep()\"/>\n";
+            var input = document.createElement("input");
+            input.type = "number";
+            input.required = "required";
+            input.name = name;
+            input.value = eval("testAlgo." + name);
+            input.id = name;
+            input.onChange = "writeFunction(\"" + writeFunction + "', '" + name + "\", this.value); setStep(0); writeCurrentStep()";
+            formCell.appendChild(input);
         } else { // string
-            html += "<input type=\"text\" name=\"" + name + "\"";
-            html += " value=\"" + eval("testAlgo." + name) + "\" id=\"" + name + "\"";
-            html += " onChange=\"writeFunction('" + writeFunction + "', '" + name + "', this.value); setStep(0); writeCurrentStep()\"/>\n";
+            var input = document.createElement("input");
+            input.type = "text";
+            input.name = name;
+            input.value = eval("testAlgo." + name);
+            input.id = name;
+            input.onChange = "writeFunction(\"" + writeFunction + "', '" + name + "\", this.value); setStep(0); writeCurrentStep()";
+            formCell.appendChild(input);
         }
-        formCell.innerHTML = html;
     }
 }
 
