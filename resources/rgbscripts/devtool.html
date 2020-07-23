@@ -3,27 +3,54 @@
 <head>
 <title>Q Light Controller Plus - RGBScript Development Tool</title>
 <style>
- .readonly {
-  background-color: lightgrey;
- }
- body {
-  background: #373737;
-  color: #f9f8f0;
- }
+  .readonly {
+    background-color: lightgrey;
+    border: solid 0px;
+  }
+  body {
+    background: #373737;
+    color: #f9f8f0;
+    font-family: Arial;
+  }
+  h2 {
+    background: #aaa;
+    color: #333;
+    padding: 10px;
+  }
+  .box {
+    padding: 10px;
+    display: inline-block;
+    vertical-align:top;
+    min-width: 200px;
+  }
+  input[type=button] {
+    background-color: #7497b6;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-decoration: none;
+    margin: 4px 2px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  input[type=button]:hover {
+    background-color: #8db8dd;
+  }
 </style>
+<!-- Include your script on the following line, replace "opposite.js" -->
 <script type="text/javascript" src="devtool.js"></script>
 </head>
-<body onLoad="loadAlgoFile()" style="font-family:Arial;">
+<body onLoad="loadAlgoFile()">
 
 <h1>Q Light Controller Plus - RGB Script Development Tool</h1>
 
 <div>
 <h2>Instructions</h2>
 <p>
-To use this tool, you must first set the filename of the script you intend to test/debug 
-(including the .js extension) in the 'filename' field. Then hit 'Reload' to load it. 
-To make your algorithm object accessible to this tool, you must create a global variable 
-within your algorithm file called <b>testAlgo</b>, which then actually contains your algorithm 
+To use this tool, you must first set the filename of the script you intend to test/debug
+(including the .js extension) in the 'filename' field. Then hit 'Reload' to load it.
+To make your algorithm object accessible to this tool, you must create a global variable
+within your algorithm file called <b>testAlgo</b>, which then actually contains your algorithm
 object i.e. the object that provides rgbMap() and rgbMapStepCount() functions. Now you're ready to load
 this file with your browser and see your first results.
 </p>
@@ -31,8 +58,8 @@ this file with your browser and see your first results.
 <p>
 If you see what you expect to see in the <b>Algorithm Properties</b> section below,
 you'll know your script has been evaluated successfully. Next, put some values to the
-<b>Width</b> and <b>Height</b> boxes in the <b>Grid Size</b> section and see if your 
-script calculates the <b>rgbMapStepCount(width, height)</b> result correctly. 
+<b>Width</b> and <b>Height</b> boxes in the <b>Grid Size</b> section and see if your
+script calculates the <b>rgbMapStepCount(width, height)</b> result correctly.
 If everything is OK, you should already see your RGB script running through frames.
 To inspect individual frames, stop the script and hit the previous and next buttons.
 </p>
@@ -45,7 +72,7 @@ Google Chrome has one as well, that you can access with F12 or with <i>More Tool
 </b>
 </div>
 
-<div style="display: inline-block; vertical-align:top; min-width: 200px;">
+<div class="box">
 <h2>Algorithm Specification</h2>
 <form>
 <table id="definitions">
@@ -76,19 +103,9 @@ Google Chrome has one as well, that you can access with F12 or with <i>More Tool
  </tr>
 </table>
 </form>
-</div>
 
-<div style="display: inline-block; vertical-align:top; min-width: 200px;">
-<h2>Algorithm Properties</h2>
-<form>
-<table id="properties">
-</table>
-</form>
-</div>
-
-<div style="display: inline-block; vertical-align:top; min-width: 200px;">
-<form>
 <h2>Grid Size</h2>
+<form>
 <table>
  <tr>
   <td>Width</td>
@@ -101,6 +118,9 @@ Google Chrome has one as well, that you can access with F12 or with <i>More Tool
 </table>
 </form>
 
+</div>
+
+<div class="box">
 <form id="pixelColorChooser">
 <h2>Pixel colors</h2>
 <table>
@@ -114,9 +134,13 @@ Google Chrome has one as well, that you can access with F12 or with <i>More Tool
  </tr>
 </table>
 </form>
-</div>
 
-<div style="display: inline-block; vertical-align:top; min-width: 200px;">
+<h2>Algorithm Properties</h2>
+<form>
+<table id="properties">
+</table>
+</form>
+
 <h2>Algorithm Functions</h2>
 <form>
 <table>
@@ -149,14 +173,17 @@ Google Chrome has one as well, that you can access with F12 or with <i>More Tool
  </tr>
 </table>
 </form>
+
 </div>
 
-<div style="display: inline-block; min-width: 200px;">
+<div class="box">
+<h2>Preview</h2>
 <table id="map">
 </table>
 </div>
 
 <hr/>
 This file is licensed under the Apache 2.0 license. Copyright &copy; Heikki Junnila, Massimo Callegari, APIv2 integration: Hans-Jürgen Tappe.
+
 </body>
 </html>
