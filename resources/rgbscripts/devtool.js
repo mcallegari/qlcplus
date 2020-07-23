@@ -36,13 +36,114 @@ function initDefinitions()
     }
 }
 
+function addPropertyTableEntry(property)
+{
+    var table = document.getElementById("properties");
+    var row = table.insertRow(-1);
+	var i = 0;
+
+	var keys = new Array();
+	for (i = 0; i < property.length; i++) {
+		keys.push(property[i][0]);
+	}
+
+	var name = "";
+	if (keys.indexOf("name") >= 0) {
+		name = property[keys.indexOf("name")][1];
+	}
+	var displayName = name;
+	if (keys.indexOf("display") >= 0) {
+		displayName = property[keys.indexOf("display")][1];
+	}
+	var typeProperty = "string";
+	if (keys.indexOf("type") >= 0) {
+		// list: defines a list of strings that will be displayed by the QLC+ RGB Matrix Editor
+		// range: defined a range of integer values that this property can handle
+		// integer: an integer value that QLC+ can exchange with the script
+		// string: a string that QLC+ can exchange with the script
+		typeProperty = property[keys.indexOf("type")][1];
+	}
+	var values = Array(0, 0);
+	if (keys.indexOf("values") >= 0) {
+		values = property[keys.indexOf("values")][1].split(",");
+	}
+	var writeFunction = "";
+	if (keys.indexOf("write") >= 0) {
+		writeFunction = property[keys.indexOf("write")][1];
+		if (name !== "") {
+			var storedValue = localStorage.getItem(name);
+			if (storedValue !== null) {
+				eval("testAlgo." + writeFunction + "(\"" + storedValue + "\")");
+			}
+		}
+	}
+	var readFunction = "";
+	if (keys.indexOf("read") >= 0) {
+		readFunction = property[keys.indexOf("read")][1];
+	}
+
+	var nameCell = row.insertCell(-1);
+	var t = document.createTextNode(displayName);
+	nameCell.appendChild(t);
+
+	var formCell = row.insertCell(-1);
+	if (typeProperty === "list") {
+		var input = document.createElement("select");
+		input.name = name;
+		input.id = name;
+		input.onChange = "writeFunction(\"" + writeFunction + "', '" + name + "\", this.value); setStep(0); writeCurrentStep()";
+		for (i = 0; i < values.length; i++) {
+			var opt = document.createElement("option");
+			var t = document.createTextNode(values[i]);
+			if (eval("testAlgo." + readFunction)() === values[i]) {
+				opt.selected = "selected";
+			}
+			opt.value = values[i];
+			opt.appendChild(t);
+			input.appendChild(opt);
+		}
+		formCell.appendChild(input);
+	} else if (typeProperty === "range") {
+		var input = document.createElement("input");
+		input.type = "number";
+		input.required = "required";
+		input.name = name;
+		input.value = eval("testAlgo." + name);
+		input.id = name;
+		input.min = values[0];
+		input.max = values[1];
+		input.onChange = "writeFunction(\"" + writeFunction + "', '" + name + "\", this.value); setStep(0); writeCurrentStep()";
+		formCell.appendChild(input);
+	} else if (typeProperty === "integer") {
+		var input = document.createElement("input");
+		input.type = "number";
+		input.required = "required";
+		input.name = name;
+		input.value = eval("testAlgo." + name);
+		input.id = name;
+		input.onChange = "writeFunction(\"" + writeFunction + "', '" + name + "\", this.value); setStep(0); writeCurrentStep()";
+		formCell.appendChild(input);
+	} else { // string
+		var input = document.createElement("input");
+		input.type = "text";
+		input.name = name;
+		input.value = eval("testAlgo." + name);
+		input.id = name;
+		input.onChange = "writeFunction(\"" + writeFunction + "', '" + name + "\", this.value); setStep(0); writeCurrentStep()";
+		formCell.appendChild(input);
+    }
+}
+
 function initProperties()
 {
     var table = document.getElementById("properties");
     var properties = Array();
+    var property = Array();
+	var i = 0;
+    var entry = 0;
 
     // Cleanup the table before updating its contents
-    for (var i = table.rows.length - 1; i >= 0; i--) {
+    for (i = table.rows.length - 1; i >= 0; i--) {
         table.deleteRow(i);
     }
 
@@ -52,13 +153,13 @@ function initProperties()
     }
 
     // Get the properties
-    for (var i = 0; i < testAlgo.properties.length; i++)
+    for (i = 0; i < testAlgo.properties.length; i++)
     {
         var propDef = testAlgo.properties[i];
         var propKeyValue = propDef.split("|");
-        var property = Array();
+        property = Array();
 
-        for (var entry = 0; entry < propKeyValue.length; entry++) {
+        for (entry = 0; entry < propKeyValue.length; entry++) {
             var keyValue = propKeyValue[entry].split(":");
             var key = keyValue[0];
             keyValue.shift();
@@ -67,101 +168,7 @@ function initProperties()
         properties.push(property);
     }
     // Write the properties
-    for (var entry = 0; entry < properties.length; entry++) {
-        var row = table.insertRow(-1);
-        var property = properties[entry];
-
-        var keys = new Array();
-        for (var i = 0; i < property.length; i++) {
-            keys.push(property[i][0]);
-        }
-
-        var name = "";
-        if (keys.indexOf("name") >= 0) {
-            name = property[keys.indexOf("name")][1];
-        }
-        var displayName = name;
-        if (keys.indexOf("display") >= 0) {
-            displayName = property[keys.indexOf("display")][1];
-        }
-        var typeProperty = "string";
-        if (keys.indexOf("type") >= 0) {
-            // list: defines a list of strings that will be displayed by the QLC+ RGB Matrix Editor
-            // range: defined a range of integer values that this property can handle
-            // integer: an integer value that QLC+ can exchange with the script
-            // string: a string that QLC+ can exchange with the script
-            typeProperty = property[keys.indexOf("type")][1];
-        }
-        var values = Array(0, 0);
-        if (keys.indexOf("values") >= 0) {
-            values = property[keys.indexOf("values")][1].split(",");
-        }
-        var writeFunction = "";
-        if (keys.indexOf("write") >= 0) {
-            writeFunction = property[keys.indexOf("write")][1];
-            if (name !== "") {
-                var storedValue = localStorage.getItem(name);
-                if (storedValue !== null) {
-                    eval("testAlgo." + writeFunction + "(\"" + storedValue + "\")");
-                }
-            }
-        }
-        var readFunction = "";
-        if (keys.indexOf("read") >= 0) {
-            readFunction = property[keys.indexOf("read")][1];
-        }
-
-        var nameCell = row.insertCell(-1);
-        var t = document.createTextNode(displayName);
-        nameCell.appendChild(t);
-
-        var formCell = row.insertCell(-1);
-        if (typeProperty === "list") {
-            var input = document.createElement("select");
-            input.name = name;
-            input.id = name;
-            input.onChange = "writeFunction(\"" + writeFunction + "', '" + name + "\", this.value); setStep(0); writeCurrentStep()";
-            for (var i = 0; i < values.length; i++) {
-                var opt = document.createElement("option");
-                var t = document.createTextNode(values[i]);
-                if (eval("testAlgo." + readFunction)() === values[i]) {
-                    opt.selected = "selected";
-                }
-                opt.value = values[i];
-                opt.appendChild(t);
-                input.appendChild(opt);
-            }
-            formCell.appendChild(input);
-        } else if (typeProperty === "range") {
-            var input = document.createElement("input");
-            input.type = "number";
-            input.required = "required";
-            input.name = name;
-            input.value = eval("testAlgo." + name);
-            input.id = name;
-            input.min = values[0];
-            input.max = values[1];
-            input.onChange = "writeFunction(\"" + writeFunction + "', '" + name + "\", this.value); setStep(0); writeCurrentStep()";
-            formCell.appendChild(input);
-        } else if (typeProperty === "integer") {
-            var input = document.createElement("input");
-            input.type = "number";
-            input.required = "required";
-            input.name = name;
-            input.value = eval("testAlgo." + name);
-            input.id = name;
-            input.onChange = "writeFunction(\"" + writeFunction + "', '" + name + "\", this.value); setStep(0); writeCurrentStep()";
-            formCell.appendChild(input);
-        } else { // string
-            var input = document.createElement("input");
-            input.type = "text";
-            input.name = name;
-            input.value = eval("testAlgo." + name);
-            input.id = name;
-            input.onChange = "writeFunction(\"" + writeFunction + "', '" + name + "\", this.value); setStep(0); writeCurrentStep()";
-            formCell.appendChild(input);
-        }
-    }
+    properties.forEach(addPropertyTableEntry);
 }
 
 function initPixelColors()
