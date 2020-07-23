@@ -256,7 +256,7 @@ var testAlgo;
 		if (algo.align === 1 && width % 2 === 0) {
 			for (y = 0; y < height; y++) {
 				for (x = 0; x < xMax; x++) {
-					map[parseInt(y)][parseInt(x)] = map[y][width - x - 1];
+					map[parseInt(y)][parseInt(x)] = map[parseInt(y)][parseInt(width - x - 1)];
 				}
 			}
 		}
