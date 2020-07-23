@@ -87,6 +87,8 @@ protected slots:
 private:
     void addFixtureToList(quint32 fid);
     void updateLists();
+    void setCacheChannelValue(SceneValue scv);
+    void cacheChannelValues();
 
 signals:
     void fixtureListChanged();
@@ -107,6 +109,9 @@ private:
     /** Keep a track of the registered Fixture consoles in a Scene Console,
      *  to rapidly set a channel value */
     QMap<int, QQuickItem *> m_fxConsoleMap;
+    /** Pre-cache initial channel values including palettes.
+     *  arranged as <fixture ID, channel values array> */
+    QMap<quint32, QByteArray> m_channelsCache;
     /** Reference to a DMX source used to edit a Scene */
     GenericDMXSource *m_source;
 };
