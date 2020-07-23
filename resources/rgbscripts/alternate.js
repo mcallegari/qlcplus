@@ -59,7 +59,7 @@ var testAlgo;
 	colorPalette.makeSubArray = function(_index) {
 		var _array = new Array();
 		for (var i = 0; i < colorPalette.collection.length; i++) {
-			_array.push(colorPalette.collection[i][_index]);
+			_array.push(colorPalette.collection[parseInt(i)][parseInt(_index)]);
 		}
 		return _array;
 	};
@@ -69,6 +69,9 @@ var testAlgo;
 	algo.apiVersion = 2;
 	algo.name = "Alternate";
 	algo.author = "Hans-Jürgen Tappe";
+	
+	var x = 0;
+	var y = 0;
 
 	algo.acceptColors = 0;
 	// Only two steps; one for even pixels and another for odd pixels
@@ -81,7 +84,7 @@ var testAlgo;
 			idx = (colorPalette.collection.length - 1);
 		}
 		return idx;
-	}
+	};
 
 	algo.color1Index = algo.getColorIndex("Red");
 	algo.properties.push("name:color1Index|type:list|display:Color 1|"
@@ -99,7 +102,7 @@ var testAlgo;
 		if (_index >= colorPalette.collection.length) {
 			_index = (colorPalette.collection.length - 1);
 		}
-		return colorPalette.collection[_index][0];
+		return colorPalette.collection[parseInt(_index)][0];
 	};
 	algo.getColorValue = function(_index) {
 		if (_index < 0) {
@@ -108,7 +111,7 @@ var testAlgo;
 		if (_index >= colorPalette.collection.length) {
 			_index = (colorPalette.collection.length - 1);
 		}
-		return colorPalette.collection[_index][1];
+		return colorPalette.collection[parseInt(_index)][1];
 	};
 
 	algo.setColor1Index = function(_name) {
@@ -208,7 +211,7 @@ var testAlgo;
 		if (algo.align === 1 && width % 2 === 0) {
 			xMax = width / 2 + width % 2;
 		}
-		for (var y = 0; y < height; y++) {
+		for (y = 0; y < height; y++) {
 			if (algo.orientation === 0 ) {
 				// Initialize vertical bars, each column the same
 				colorSelectOne = (step === 1) ? false : true;
@@ -226,8 +229,8 @@ var testAlgo;
 				}
 				colorSelectOne = rowColorOne;
 			}
-			map[y] = new Array();
-			for (var x = 0; x < width; x++) {
+			map[parseInt(y)] = new Array();
+			for (x = 0; x < width; x++) {
 				if (algo.orientation === 0) {
 					// Vertical bars, count steps by column
 					effectiveStep = x + algo.offset;
@@ -243,17 +246,17 @@ var testAlgo;
 					}
 				}
 				if (colorSelectOne) {
-					map[y][x] = algo.getColor1Value();
+					map[parseInt(y)][parseInt(x)] = algo.getColor1Value();
 				} else {
-					map[y][x] = algo.getColor2Value();
+					map[parseInt(y)][parseInt(x)] = algo.getColor2Value();
 				}
 			}
 		}
 		// Align centered
 		if (algo.align === 1 && width % 2 === 0) {
-			for (var y = 0; y < height; y++) {
-				for (var x = 0; x < xMax; x++) {
-					map[y][x] = map[y][width - x - 1];
+			for (y = 0; y < height; y++) {
+				for (x = 0; x < xMax; x++) {
+					map[parseInt(y)][parseInt(x)] = map[parseInt(y)][parseInt(width - x - 1)];
 				}
 			}
 		}
