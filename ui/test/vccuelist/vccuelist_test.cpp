@@ -405,7 +405,7 @@ void VCCueList_Test::loadXML()
 
     QCOMPARE(cl.pos(), QPoint(3, 4));
     QCOMPARE(cl.size(), QSize(42, 69));
-    QCOMPARE(cl.font(), f);
+    QCOMPARE(cl.font().toString(), f.toString());
 
     cl.postLoad();
     QCOMPARE(cl.m_tree->topLevelItemCount(), 4);
