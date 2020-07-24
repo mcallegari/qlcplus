@@ -243,12 +243,12 @@ void VCWidget_Test::font()
 
     StubWidget stub(&w, m_doc);
     stub.setFont(font);
-    QCOMPARE(stub.font(), font);
+    QCOMPARE(stub.font().toString(), font.toString());
     QCOMPARE(stub.hasCustomFont(), true);
     QCOMPARE(spy.size(), 1);
 
     stub.resetFont();
-    QCOMPARE(stub.font(), w.font());
+    QCOMPARE(stub.font().toString(), w.font().toString());
     QCOMPARE(stub.hasCustomFont(), false);
     QCOMPARE(spy.size(), 2);
 }
@@ -483,7 +483,7 @@ void VCWidget_Test::loadAppearance()
     QCOMPARE(stub.foregroundColor(), QColor(Qt::red));
     QCOMPARE(stub.hasCustomBackgroundColor(), true);
     QCOMPARE(stub.backgroundColor(), QColor(Qt::blue));
-    QCOMPARE(stub.font(), font);
+    QCOMPARE(stub.font().toString(), font.toString());
 
     buffer.close();
     QByteArray bData = buffer.data();
@@ -501,7 +501,7 @@ void VCWidget_Test::loadAppearance()
     QCOMPARE(stub.hasCustomForegroundColor(), false);
     QCOMPARE(stub.hasCustomBackgroundColor(), false);
     QCOMPARE(stub.backgroundImage(), QFileInfo("../../../resources/icons/png/qlcplus.png").absoluteFilePath());
-    QCOMPARE(stub.font(), font);
+    QCOMPARE(stub.font().toString(), font.toString());
 
     buffer.close();
     bData = buffer.data();
@@ -517,7 +517,7 @@ void VCWidget_Test::loadAppearance()
     QCOMPARE(stub.hasCustomForegroundColor(), false);
     QCOMPARE(stub.hasCustomBackgroundColor(), false);
     QCOMPARE(stub.backgroundImage(), QFileInfo("../../../resources/icons/png/qlcplus.png").absoluteFilePath());
-    QCOMPARE(stub.font(), font);
+    QCOMPARE(stub.font().toString(), font.toString());
 }
 
 void VCWidget_Test::saveInput()
