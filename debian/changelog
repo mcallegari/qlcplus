@@ -5,6 +5,7 @@ qlcplus (4.12.3) stable; urgency=low
   * engine: reduce audio playback startup latency in some cases
   * UI: fix virtual console resize
   * UI: fix crash on 2D monitor strobing
+  * UI: fix sorting in DMX dump dialog
   * UI/Audio Editor: fix selected device index (thanks to Santiago Benejam Torres)
   * Virtual Console: fix Animation and Audio Trigger widgets to respond to submaster (thanks to Branimir Amidžić)
   * Virtual Console: fix submaster not affecting a Sequence in a Cue List (thanks to ryhel)
