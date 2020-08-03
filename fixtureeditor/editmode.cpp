@@ -51,6 +51,7 @@
 #define PROP_PTR Qt::UserRole
 #define COL_NUM  0
 #define COL_NAME 1
+#define COL_ACTS_ON 2
 
 EditMode::EditMode(QWidget *parent, QLCFixtureMode *mode)
     : QDialog(parent)
@@ -242,20 +243,23 @@ void EditMode::slotActsOnChannelClicked()
 
         QLCChannel *newActsOnChannel = ach.getModeChannelActsOn();
 
-        qDebug() << "newActsOnChannel: " << newActsOnChannel;
-
         m_mode->updateActsOnChannel(channel, newActsOnChannel);
+
+        refreshChannelList();
     }
 }
 
 void EditMode::refreshChannelList()
 {
+    qDebug() << __PRETTY_FUNCTION__;
     m_channelList->clear();
 
     for (int i = 0; i < m_mode->channels().size(); i++)
     {
         QTreeWidgetItem* item = new QTreeWidgetItem(m_channelList);
         QLCChannel* ch = m_mode->channel(i);
+        int actsOnChannelIndex = m_mode->channels().indexOf(
+                    m_mode->actsOnChannelsList().value(ch));
         Q_ASSERT(ch != NULL);
 
         QString str;
@@ -263,6 +267,11 @@ void EditMode::refreshChannelList()
         item->setText(COL_NAME, ch->name());
         item->setIcon(COL_NAME, ch->getIcon());
         item->setData(COL_NAME, PROP_PTR, (qulonglong) ch);
+        if(actsOnChannelIndex > 0){
+            item->setText(COL_ACTS_ON, str.asprintf("%.3d", (actsOnChannelIndex + 1)));
+        }else{
+            item->setText(COL_ACTS_ON, "-");
+        }
     }
     m_channelList->header()->resizeSections(QHeaderView::ResizeToContents);
 }
