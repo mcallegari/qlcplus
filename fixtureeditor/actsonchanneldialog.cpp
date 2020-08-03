@@ -2,10 +2,11 @@
 #include "actsonchanneldialog.h"
 #include "ui_actsonchanneldialog.h"
 
-ActsOnChannelDialog::ActsOnChannelDialog(QList<QLCChannel *> allList, QLCChannel *currentChannel, QWidget *parent) :
+ActsOnChannelDialog::ActsOnChannelDialog(QVector<QLCChannel*> allModeChannels, QHash<QLCChannel*, QLCChannel*> actsOnChannelsList, QLCChannel *currentChannel, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ActsOnChannelDialog),
-    m_channelsList(allList)
+    m_channelsList(allModeChannels),
+    m_actsOnChannelsList(actsOnChannelsList)
 {
     ui->setupUi(this);
 
@@ -24,7 +25,7 @@ ActsOnChannelDialog::ActsOnChannelDialog(QList<QLCChannel *> allList, QLCChannel
     connect(ui->m_removeChannel, SIGNAL(clicked()),
             this, SLOT(slotRemoveChannel()));
 
-    fillChannelsTrees(m_channelsList, currentChannel);
+    fillChannelsTrees(allModeChannels, currentChannel);
 }
 
 ActsOnChannelDialog::~ActsOnChannelDialog()
@@ -81,16 +82,16 @@ void ActsOnChannelDialog::slotRemoveChannel()
     }
 }
 
-void ActsOnChannelDialog::fillChannelsTrees(QList<QLCChannel *> allList, QLCChannel *currentChannel)
+void ActsOnChannelDialog::fillChannelsTrees(QVector<QLCChannel *> allModeChannels, QLCChannel *currentChannel)
 {
     ui->m_actsOnTree->clear();
 
-    QLCChannel *actsOnList = currentChannel->getActsOnChannel();
+    QLCChannel *actsOnChannel = m_actsOnChannelsList.value(currentChannel, nullptr);
 
     int i = 0;
-    foreach (QLCChannel *channel, allList)
+    foreach (QLCChannel *channel, allModeChannels)
     {
-        if (currentChannel != channel && actsOnList != channel)
+        if (currentChannel != channel && actsOnChannel != channel)
         {
             QTreeWidgetItem *itemChannel = new QTreeWidgetItem(ui->m_allChannelsTree);
             itemChannel->setText(0, channel->name());
@@ -100,13 +101,13 @@ void ActsOnChannelDialog::fillChannelsTrees(QList<QLCChannel *> allList, QLCChan
         i++;
     }
 
-    if(actsOnList != nullptr)
+    if(actsOnChannel != nullptr)
     {
         QTreeWidgetItem *itemActsOn = new QTreeWidgetItem(ui->m_actsOnTree);
 
-        int index = allList.indexOf(actsOnList);
-        itemActsOn->setText(0, actsOnList->name());
-        itemActsOn->setIcon(0, actsOnList->getIcon());
+        int index = allModeChannels.indexOf(actsOnChannel);
+        itemActsOn->setText(0, actsOnChannel->name());
+        itemActsOn->setIcon(0, actsOnChannel->getIcon());
         itemActsOn->setData(0, Qt::UserRole, QVariant(index));
     }
 }

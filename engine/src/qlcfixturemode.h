@@ -224,9 +224,14 @@ public:
         {}
     };
 
+    void updateActsOnChannel(QLCChannel *mainChannel, QLCChannel *actsOnChannel);
+
 protected:
     /** List of channels (pointers are not owned) */
-    QVector <QLCChannel*> m_channels;
+    QVector<QLCChannel*> m_channels;
+
+    /** List of acts on channels */
+    QHash<QLCChannel *, QLCChannel *> m_actsOnChannelsList;
 
     quint32 m_masterIntensityChannel;
 
@@ -317,6 +322,7 @@ public:
 
     /** Save a mode to an XML document */
     bool saveXML(QXmlStreamWriter *doc);
+    QHash<QLCChannel *, QLCChannel *> actsOnChannelsList() const;
 };
 
 /** @} */

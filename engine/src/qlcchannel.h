@@ -187,12 +187,8 @@ public:
 
     QLCCapability *addPresetCapability();
 
-    QLCChannel *getActsOnChannel() const;
-    void setActsOnChannel(QLCChannel *actsOnChannel);
-
 protected:
     Preset m_preset;
-    QLCChannel *m_actsOnChannel;
 
     /*********************************************************************
      * Groups

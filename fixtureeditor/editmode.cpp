@@ -231,18 +231,18 @@ void EditMode::slotLowerChannelClicked()
 
 void EditMode::slotActsOnChannelClicked()
 {
-    QLCChannel* ch = currentChannel();
+    QLCChannel* channel = currentChannel();
 
-    if (ch != NULL)
+    if (channel != NULL)
     {
-        ActsOnChannelDialog ach(m_mode->fixtureDef()->channels(), ch);
+        ActsOnChannelDialog ach(m_mode->channels(), m_mode->actsOnChannelsList(), channel);
 
         if (ach.exec() != QDialog::Accepted)
             return;
 
         QLCChannel *newActsOnChannel = ach.getModeChannelActsOn();
 
-        ch->setActsOnChannel(newActsOnChannel);
+        m_mode->updateActsOnChannel(channel, newActsOnChannel);
     }
 }
 

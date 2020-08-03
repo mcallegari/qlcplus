@@ -38,7 +38,7 @@ class ActsOnChannelDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit ActsOnChannelDialog(QList<QLCChannel*> allList, QLCChannel* currentChannel, QWidget *parent = nullptr);
+    explicit ActsOnChannelDialog(QVector<QLCChannel*> allModeChannels, QHash<QLCChannel*, QLCChannel*> actsOnChannelsList, QLCChannel* currentChannel, QWidget *parent = nullptr);
     ~ActsOnChannelDialog();
 
     QLCChannel *getModeChannelActsOn();
@@ -49,8 +49,9 @@ private slots:
 
 private:
     Ui::ActsOnChannelDialog *ui;
-    QList<QLCChannel*> m_channelsList;
-    void fillChannelsTrees(QList<QLCChannel*> allList, QLCChannel *currentChannel);
+    QVector<QLCChannel*> m_channelsList;
+    void fillChannelsTrees(QVector<QLCChannel *> allModeChannels, QLCChannel *currentChannel);
+    QHash<QLCChannel*, QLCChannel*> m_actsOnChannelsList;
 
 };
 

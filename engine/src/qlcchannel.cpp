@@ -59,7 +59,6 @@
 QLCChannel::QLCChannel(QObject *parent)
     : QObject(parent)
     , m_preset(Custom)
-    , m_actsOnChannel(nullptr)
     , m_group(Intensity)
     , m_defaultValue(0)
     , m_controlByte(MSB)
@@ -71,7 +70,6 @@ QLCChannel *QLCChannel::createCopy()
 {
     QLCChannel *copy = new QLCChannel();
     copy->setPreset(this->preset());
-    copy->setActsOnChannel(this->getActsOnChannel());
     if (this->preset() != Custom)
     {
         copy->setName(this->name());
@@ -107,7 +105,6 @@ QLCChannel& QLCChannel::operator=(const QLCChannel& channel)
 
         m_name = channel.m_name;
         m_preset = channel.m_preset;
-        m_actsOnChannel = channel.m_actsOnChannel;
         m_group = channel.m_group;
         m_defaultValue = channel.m_defaultValue;
         m_controlByte = channel.m_controlByte;
@@ -589,16 +586,6 @@ QLCCapability *QLCChannel::addPresetCapability()
     addCapability(cap);
 
     return cap;
-}
-
-QLCChannel *QLCChannel::getActsOnChannel() const
-{
-    return m_actsOnChannel;
-}
-
-void QLCChannel::setActsOnChannel(QLCChannel *actsOnChannel)
-{
-    m_actsOnChannel = actsOnChannel;
 }
 
 /*****************************************************************************
