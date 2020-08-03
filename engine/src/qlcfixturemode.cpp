@@ -37,7 +37,6 @@ QLCFixtureMode::QLCFixtureMode(QLCFixtureDef* fixtureDef)
     , m_useGlobalPhysical(true)
 
 {
-    qDebug() << __PRETTY_FUNCTION__;
     Q_ASSERT(fixtureDef != NULL);
 }
 
@@ -47,8 +46,6 @@ QLCFixtureMode::QLCFixtureMode(QLCFixtureDef* fixtureDef, const QLCFixtureMode* 
     , m_masterIntensityChannel(QLCChannel::invalid())
     , m_useGlobalPhysical(true)
 {
-    qDebug() << __PRETTY_FUNCTION__;
-
     Q_ASSERT(fixtureDef != NULL);
     Q_ASSERT(mode != NULL);
 
@@ -62,8 +59,6 @@ QLCFixtureMode::~QLCFixtureMode()
 
 QLCFixtureMode& QLCFixtureMode::operator=(const QLCFixtureMode& mode)
 {
-    qDebug() << __PRETTY_FUNCTION__;
-
     if (this != &mode)
     {
         m_name = mode.m_name;
@@ -432,18 +427,16 @@ bool QLCFixtureMode::loadXML(QXmlStreamReader &doc)
 
     // Set acts on channels
 
-//    foreach(ChannelActsOnData channelSctsOnData, listChannelsWithActsOnIndex) {
+    foreach(ChannelActsOnData channelSctsOnData, listChannelsWithActsOnIndex) {
 
-////        if(m_channels.contains(channelSctsOnData.channel) &&
-////                channelSctsOnData.actsOnIndex >= 0 &&
-////                m_channels.size() > channelSctsOnData.actsOnIndex)
-////        {
-////            QLCChannel *actsOnChannel = m_channels.at(channelSctsOnData.actsOnIndex);
-
-////            int channelIndex = m_channels.indexOf(channelSctsOnData.channel);
-////            m_channels.at(channelIndex)->setActsOnChannel(actsOnChannel);
-////        }
-//    }
+        if(m_channels.contains(channelSctsOnData.channel) &&
+                channelSctsOnData.actsOnIndex >= 0 &&
+                m_channels.size() > channelSctsOnData.actsOnIndex)
+        {
+            m_actsOnChannelsList.insert(channelSctsOnData.channel,
+                                        m_channels.at(channelSctsOnData.actsOnIndex));
+        }
+    }
 
     // Cache all head channels
     cacheHeads();
@@ -470,12 +463,8 @@ bool QLCFixtureMode::saveXML(QXmlStreamWriter *doc)
     {
         QLCChannel* channel = it.next();
 
-        qDebug() << channel->name();
-
         doc->writeStartElement(KXMLQLCFixtureModeChannel);
         doc->writeAttribute(KXMLQLCFixtureModeChannelNumber, QString::number(i++));
-
-        qDebug() << "Saving size: "<< m_actsOnChannelsList.size();
 
         if(m_actsOnChannelsList.contains(channel))
         {
