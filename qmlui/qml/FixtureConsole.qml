@@ -274,8 +274,6 @@ Rectangle
                                     {
                                         if (showEnablers && sceneEditor.hasChannel(fixtureObj.id, index) === true)
                                             isEnabled = true
-
-                                        dmxValue = sceneEditor.channelValue(fixtureObj.id, index)
                                     }
                                 }
                             }

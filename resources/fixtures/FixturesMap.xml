@@ -18,6 +18,7 @@
     <F n="Alkalite-Octopod-DP-80" m="Octopod DP-80"/>
   </M>
   <M n="American_DJ">
+    <F n="American-DJ-12P-Hex-IP" m="12P Hex IP"/>
     <F n="American-DJ-12P-Hex" m="12P Hex Pearl"/>
     <F n="American-DJ-5P-Hex" m="5P Hex"/>
     <F n="American-DJ-64B-LED-PRO" m="64B LED PRO"/>
@@ -185,6 +186,7 @@
     <F n="Ayra-Compar-Kit-1" m="Compar Kit 1"/>
     <F n="Ayra-ComPar20" m="ComPar 20"/>
     <F n="Ayra-ERO-506" m="ERO 506"/>
+    <F n="Ayra-ERO-Microspot" m="ERO Micro Spot"/>
     <F n="Ayra-IntenZ-CB-150" m="IntenZ CB-150 "/>
     <F n="Ayra-TDC-Agaricus" m="TDC Agaricus"/>
     <F n="Ayra-TDC-Triple-Burst" m="TDC Triple Burst"/>
@@ -1184,6 +1186,9 @@
     <F n="Robe-Wash-575-XT" m="Wash 575 XT"/>
     <F n="Robe_ColorMix_240_AT" m="ColorMix 240 AT"/>
   </M>
+  <M n="Rockville">
+    <F n="Rockville-Motionstrip-RGBW" m="Motionstrip RGBW"/>
+  </M>
   <M n="Rosco">
     <F n="Rosco-I-Cue" m="I-Cue"/>
   </M>
@@ -1223,6 +1228,7 @@
     <F n="Showtec-Acrobat" m="Acrobat"/>
     <F n="Showtec-Atmos-F-350" m="Atmos F-350"/>
     <F n="Showtec-Blade-Runner" m="Blade Runner"/>
+    <F n="Showtec-Club-Par-12x6-RGBWAUV" m="Club Par 12-6 RGBWAUV"/>
     <F n="Showtec-Compact-Par-18-MKII" m="Compact Par 18 MKII"/>
     <F n="Showtec-Compact-Par-18-Tri-MKII" m="Compact Par 18 Tri MKII"/>
     <F n="Showtec-Compact-Par-7-Q4" m="Compact Par 7 Q4"/>
@@ -1418,6 +1424,7 @@
     <F n="TSSS-XL35" m="XL35"/>
   </M>
   <M n="UKing">
+    <F n="UKing-4-Head-Beam-RGBW" m="4 Head Beam RGBW"/>
     <F n="UKing-Mini-RGBW-Moving-Head" m="Mini RGBW Moving Head"/>
     <F n="UKing-Par-36" m="Par 36"/>
   </M>

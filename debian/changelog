@@ -5,11 +5,13 @@ qlcplus (4.12.3) stable; urgency=low
   * engine: reduce audio playback startup latency in some cases
   * UI: fix virtual console resize
   * UI: fix crash on 2D monitor strobing
+  * UI: fix sorting in DMX dump dialog
   * UI/Audio Editor: fix selected device index (thanks to Santiago Benejam Torres)
   * Virtual Console: fix Animation and Audio Trigger widgets to respond to submaster (thanks to Branimir Amidžić)
   * Virtual Console: fix submaster not affecting a Sequence in a Cue List (thanks to ryhel)
   * Resources: added Novation Launch Control XL input profile (thanks to pille)
   * Resources: updated Novation Launchpad Pro input profile (thanks to Nate Doyon)
+  * Resources: added RGB script 'Alternate' (thanks to Hans-Jürgen Tappe)
   * New fixtures: Cameo Auro Spot 300, Auro Spot 400, Storm, Zenit B60 (thanks to Jannis Achstetter and Henrik Bauer)
   * New fixtures: American DJ Vizi Wash LED 108, Eurolite LED B-40 Beam, Eurolite TMH X3 (thanks to Jannis Achstetter and Henrik Bauer)
   * New fixtures: Litecraft OutLED AT10, Litecraft WashX.36, Martin JEM ZR24-7 (thanks to Jannis Achstetter and Henrik Bauer)
@@ -49,8 +51,12 @@ qlcplus (4.12.3) stable; urgency=low
   * New fixture: American DJ Emerald Scan (thanks to Skye Peterson)
   * New fixture: lightmaXX Platinum CLS-3 MKII (thanks to Hans-Juergen Tappe)
   * New fixture: Chauvet Scorpion Dual RGB (thanks to Ryan Morgan)
+  * New fixtures: Rockville Motionstrip RGBW, U'King 4 Head Beam RGBW (thanks to Donny Lockart)
+  * New fixture: Ayra ERO Micro Spot (thanks to Bob)
+  * New fixture: American DJ 12P Hex IP (thanks to István Király)
+  * New fixture: Showtec Club Par 12-6 RGBWAUV (thanks to Santiago Benejam Torres)
 
- -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 26 Apr 2020 12:13:14 +0200
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 30 Aug 2020 12:13:14 +0200
 
 qlcplus (4.12.2) stable; urgency=low
 
