@@ -179,7 +179,7 @@
   <Bulb Type="LED" Lumens="1452" ColourTemperature="0"/>
   <Dimensions Weight="5.8" Width="1092" Height="140" Depth="210"/>
   <Lens Name="Other" DegreesMin="5" DegreesMax="5"/>
-  <Focus Type="Head" PanMax="0" TiltMax="270"/>
+  <Focus Type="Head" PanMax="270" TiltMax="0"/>
   <Layout Width="8" Height="1"/>
   <Technical PowerConsumption="80" DmxConnector="3-pin"/>
  </Physical>

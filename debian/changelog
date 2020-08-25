@@ -58,6 +58,7 @@ qlcplus (4.12.3) stable; urgency=low
   * New fixture: Ayra ERO Micro Spot (thanks to Bob)
   * New fixture: American DJ 12P Hex IP (thanks to István Király)
   * New fixture: Showtec Club Par 12-6 RGBWAUV (thanks to Santiago Benejam Torres)
+  * New fixture: Ledj Stage Color Quad (thanks to Peter Crowther)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 30 Aug 2020 12:13:14 +0200
 

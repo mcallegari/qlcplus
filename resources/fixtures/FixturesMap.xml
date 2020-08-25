@@ -895,6 +895,7 @@
     <F n="Ledj-Slimline-36-RGBA" m="Slimline 36 RGBA"/>
     <F n="Ledj-Slimline-36-RGBW" m="Slimline 36 RGBW"/>
     <F n="Ledj-Stage-Color-24" m="Stage Color 24"/>
+    <F n="Ledj-Stage-Color-Quad" m="Stage Color Quad"/>
     <F n="Ledj-Tri-LED-back-drop-controller" m="Pro Tri LED back drop controller"/>
   </M>
   <M n="LedProLight">
