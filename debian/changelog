@@ -3,6 +3,7 @@ qlcplus (4.12.3) stable; urgency=low
   * engine: fix cloning a Show
   * engine: audio/video files not found are now shown in error log
   * engine: reduce audio playback startup latency in some cases
+  * engine: improved audio input level (thanks to Damien Zammit)
   * UI: fix virtual console resize
   * UI: fix crash on 2D monitor strobing
   * UI: fix sorting in DMX dump dialog
@@ -10,6 +11,7 @@ qlcplus (4.12.3) stable; urgency=low
   * UI/Simple Desk: fix playback sliders numbering
   * Virtual Console: fix Animation and Audio Trigger widgets to respond to submaster (thanks to Branimir Amidžić)
   * Virtual Console: fix submaster not affecting a Sequence in a Cue List (thanks to ryhel)
+  * Virtual Console/Cue List: fix input when side fader type is set to None
   * Resources: added Novation Launch Control XL input profile (thanks to pille)
   * Resources: updated Novation Launchpad Pro input profile (thanks to Nate Doyon)
   * Resources: added RGB script 'Alternate' (thanks to Hans-Jürgen Tappe)

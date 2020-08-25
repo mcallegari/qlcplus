@@ -1364,6 +1364,9 @@ void VCCueList::slotInputValueChanged(quint32 universe, quint32 channel, uchar v
     }
     else if (checkInputSource(universe, pagedCh, value, sender(), sideFaderInputSourceId))
     {
+        if (sideFaderMode() == None)
+            return;
+
         float val = SCALE((float) value, (float) 0, (float) UCHAR_MAX,
                           (float) m_sideFader->minimum(),
                           (float) m_sideFader->maximum());
