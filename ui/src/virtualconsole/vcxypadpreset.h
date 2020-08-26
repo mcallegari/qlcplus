@@ -48,7 +48,7 @@ class VCXYPadPreset
 {
 public:
     explicit VCXYPadPreset(quint8 id);
-    explicit VCXYPadPreset(VCXYPadPreset const& vcpp);
+    explicit VCXYPadPreset(VCXYPadPreset const& other);
 
     /** Destructor */
     ~VCXYPadPreset();
@@ -73,6 +73,7 @@ public:
     QList<GroupHead> fixtureGroup() const;
 
 public:
+    VCXYPadPreset& operator=(const VCXYPadPreset& vcpp);
     bool operator<(VCXYPadPreset const& right) const;
     static bool compare(VCXYPadPreset const* left, VCXYPadPreset const* right);
 

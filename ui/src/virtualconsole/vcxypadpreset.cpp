@@ -34,26 +34,13 @@ VCXYPadPreset::VCXYPadPreset(quint8 id)
 
 }
 
-VCXYPadPreset::VCXYPadPreset(const VCXYPadPreset &vcpp)
-    : m_id(vcpp.m_id)
-    , m_type(vcpp.m_type)
-    , m_name(vcpp.m_name)
-    , m_dmxPos(vcpp.m_dmxPos)
-    , m_funcID(vcpp.m_funcID)
-    , m_fxGroup(vcpp.m_fxGroup)
-    , m_keySequence(vcpp.m_keySequence)
+VCXYPadPreset::VCXYPadPreset(const VCXYPadPreset &other)
 {
-    if (vcpp.m_inputSource != NULL)
-    {
-        m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(vcpp.m_inputSource->universe(),
-                                               vcpp.m_inputSource->channel()));
-        m_inputSource->setRange(vcpp.m_inputSource->lowerValue(), vcpp.m_inputSource->upperValue());
-    }
+    *this = other;
 }
 
 VCXYPadPreset::~VCXYPadPreset()
 {
-
 }
 
 QString VCXYPadPreset::getColor() const
@@ -98,6 +85,28 @@ void VCXYPadPreset::setFixtureGroup(QList<GroupHead> heads)
 QList<GroupHead> VCXYPadPreset::fixtureGroup() const
 {
     return m_fxGroup;
+}
+
+VCXYPadPreset &VCXYPadPreset::operator=(const VCXYPadPreset &vcpp)
+{
+    if (this != &vcpp)
+    {
+        m_id = vcpp.m_id;
+        m_type = vcpp.m_type;
+        m_name = vcpp.m_name;
+        m_dmxPos = vcpp.m_dmxPos;
+        m_funcID = vcpp.m_funcID;
+        m_fxGroup = vcpp.m_fxGroup;
+        m_keySequence = vcpp.m_keySequence;
+
+        if (vcpp.m_inputSource != NULL)
+        {
+            m_inputSource = QSharedPointer<QLCInputSource>(new QLCInputSource(vcpp.m_inputSource->universe(),
+                                                   vcpp.m_inputSource->channel()));
+            m_inputSource->setRange(vcpp.m_inputSource->lowerValue(), vcpp.m_inputSource->upperValue());
+        }
+    }
+    return *this;
 }
 
 bool VCXYPadPreset::operator<(const VCXYPadPreset &right) const

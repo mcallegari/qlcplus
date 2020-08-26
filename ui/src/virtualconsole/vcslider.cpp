@@ -1828,8 +1828,18 @@ VCSlider::LevelChannel::LevelChannel(quint32 fid, quint32 ch)
 
 VCSlider::LevelChannel::LevelChannel(const LevelChannel& lc)
 {
-    this->fixture = lc.fixture;
-    this->channel = lc.channel;
+    *this = lc;
+}
+
+VCSlider::LevelChannel &VCSlider::LevelChannel::operator=(const VCSlider::LevelChannel &lc)
+{
+    if (this != &lc)
+    {
+        this->fixture = lc.fixture;
+        this->channel = lc.channel;
+    }
+
+    return *this;
 }
 
 bool VCSlider::LevelChannel::operator==(const LevelChannel& lc) const

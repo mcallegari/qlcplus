@@ -47,10 +47,12 @@ class VCMatrixControl
 
 public:
     explicit VCMatrixControl(quint8 id);
-    explicit VCMatrixControl(VCMatrixControl const& vcmc);
+    VCMatrixControl(const VCMatrixControl &other);
 
     /** Destructor */
     ~VCMatrixControl();
+
+    VCMatrixControl& operator=(const VCMatrixControl& vcmc);
 
     enum ControlType
     {
