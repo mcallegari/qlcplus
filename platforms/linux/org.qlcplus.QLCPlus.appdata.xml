@@ -81,6 +81,7 @@
  </screenshots>
  <url type="homepage">https://www.qlcplus.org/</url>
  <url type="bugtracker">https://github.com/mcallegari/qlcplus/issues</url>
+ <launchable type="desktop-id">qlcplus.desktop</launchable>
  <provides>
   <binary>qlcplus</binary>
  </provides>
