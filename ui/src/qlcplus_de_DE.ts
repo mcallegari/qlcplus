@@ -4391,7 +4391,8 @@ Der Assistent kennt keinen Unterschied zwischen einem Schalter und einem Regler,
     <message>
         <location filename="rgbmatrixeditor.ui" line="162"/>
         <source>Amber</source>
-        <translation>Elfenbein</translation>
+        <translatorcomment>Nicht &quot;Bernstein&quot;, da &quot;Amber&quot; auch im Deutschen die übliche LED-Bezeichnung ist.</translatorcomment>
+        <translation>Amber</translation>
     </message>
     <message>
         <location filename="rgbmatrixeditor.ui" line="167"/>
