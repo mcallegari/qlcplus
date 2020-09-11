@@ -7,14 +7,14 @@
 
   Copyright (c) 2015 Massimo Callegari
 
-  Licensed under the Apache License, Version 2.0 (the "License");
+  Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
 
       http://www.apache.org/licenses/LICENSE-2.0.txt
 
   Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
+  distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
@@ -26,7 +26,7 @@
     <x>0</x>
     <y>0</y>
     <width>549</width>
-    <height>610</height>
+    <height>667</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -65,60 +65,6 @@
         <property name="verticalSpacing">
          <number>4</number>
         </property>
-        <item row="3" column="1">
-         <widget class="QPushButton" name="m_endColorButton">
-          <property name="toolTip">
-           <string>Matrix end color</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>50</width>
-            <height>26</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="2">
-         <widget class="QToolButton" name="m_resetEndColorButton">
-          <property name="toolTip">
-           <string>Reset the end color</string>
-          </property>
-          <property name="icon">
-           <iconset resource="qlcui.qrc">
-            <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0" colspan="3">
-         <widget class="QComboBox" name="m_patternCombo">
-          <property name="toolTip">
-           <string>The RGB matrix pattern</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QPushButton" name="m_startColorButton">
-          <property name="toolTip">
-           <string>Matrix start color</string>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>50</width>
-            <height>26</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="m_blendModeLabel">
-          <property name="text">
-           <string>Blend mode</string>
-          </property>
-         </widget>
-        </item>
         <item row="2" column="1" colspan="2">
          <widget class="QComboBox" name="m_blendModeCombo">
           <item>
@@ -139,6 +85,91 @@
           <item>
            <property name="text">
             <string>Subtractive</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QPushButton" name="m_endColorButton">
+          <property name="toolTip">
+           <string>Matrix end color</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>50</width>
+            <height>26</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QPushButton" name="m_startColorButton">
+          <property name="toolTip">
+           <string>Matrix start color</string>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>50</width>
+            <height>26</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0" colspan="3">
+         <widget class="QComboBox" name="m_patternCombo">
+          <property name="toolTip">
+           <string>The RGB matrix pattern</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="2">
+         <widget class="QToolButton" name="m_resetEndColorButton">
+          <property name="toolTip">
+           <string>Reset the end color</string>
+          </property>
+          <property name="icon">
+           <iconset resource="qlcui.qrc">
+            <normaloff>:/fileclose.png</normaloff>:/fileclose.png</iconset>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="m_blendModeLabel">
+          <property name="text">
+           <string>Blend mode</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="m_colorModeLabel">
+          <property name="text">
+           <string>Color mode</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1" colspan="2">
+         <widget class="QComboBox" name="m_colorModeCombo">
+          <item>
+           <property name="text">
+            <string>Default (RGB)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Amber</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>White</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>UV</string>
            </property>
           </item>
          </widget>

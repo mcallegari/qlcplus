@@ -45,6 +45,12 @@
 #define KXMLQLCRGBMatrixPropertyName "Name"
 #define KXMLQLCRGBMatrixPropertyValue "Value"
 
+#define KXMLQLCRGBMatrixColorMode "ColorMode"
+#define KXMLQLCRGBMatrixColorModeRgb "RGB"
+#define KXMLQLCRGBMatrixColorModeAmber "Amber"
+#define KXMLQLCRGBMatrixColorModeWhite "White"
+#define KXMLQLCRGBMatrixColorModeUV "UV"
+
 /****************************************************************************
  * Initialization
  ****************************************************************************/
@@ -62,6 +68,7 @@ RGBMatrix::RGBMatrix(Doc* doc)
     , m_roundTime(new QElapsedTimer())
     , m_stepsCount(0)
     , m_stepBeatDuration(0)
+	, m_colorMode(RGBMatrix::ColorModeRgb)
 {
     setName(tr("New RGB Matrix"));
     setDuration(500);
@@ -392,6 +399,10 @@ bool RGBMatrix::loadXML(QXmlStreamReader &root)
         {
             setEndColor(QColor::fromRgb(QRgb(root.readElementText().toUInt())));
         }
+        else if (root.name() == KXMLQLCRGBMatrixColorMode)
+        {
+            setColorMode(stringToColorMode(root.readElementText()));
+        }
         else if (root.name() == KXMLQLCRGBMatrixProperty)
         {
             QString name = root.attributes().value(KXMLQLCRGBMatrixPropertyName).toString();
@@ -447,6 +458,9 @@ bool RGBMatrix::saveXML(QXmlStreamWriter *doc)
     {
         doc->writeTextElement(KXMLQLCRGBMatrixEndColor, QString::number(endColor().rgb()));
     }
+
+    /* Color Mode */
+    doc->writeTextElement(KXMLQLCRGBMatrixColorMode, RGBMatrix::colorModeToString(m_colorMode));
 
     /* Fixture Group */
     doc->writeTextElement(KXMLQLCRGBMatrixFixtureGroup, QString::number(fixtureGroup()));
@@ -700,6 +714,9 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup *grp, QL
 
         QVector <quint32> rgb = head.rgbChannels();
         QVector <quint32> cmy = head.cmyChannels();
+        QVector <quint32> white = head.whiteChannels();
+        QVector <quint32> amber = head.amberChannels();
+        QVector <quint32> uv = head.uvChannels();
 
         quint32 masterDim = fxi->masterIntensityChannel();
         quint32 headDim = head.channelNumber(QLCChannel::Intensity, QLCChannel::MSB);
@@ -732,7 +749,7 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup *grp, QL
 
         uint col = map[pt.y()][pt.x()];
 
-        if (rgb.size() == 3)
+        if (m_colorMode == ColorModeRgb && rgb.size() == 3)
         {
             // RGB color mixing
             FadeChannel *fc = getFader(universes, fxi->universe(), grpHead.fxi, rgb.at(0));
@@ -744,7 +761,7 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup *grp, QL
             fc = getFader(universes, fxi->universe(), grpHead.fxi, rgb.at(2));
             updateFaderValues(fc, qBlue(col), fadeTime);
         }
-        else if (cmy.size() == 3)
+        else if (m_colorMode == ColorModeRgb && cmy.size() == 3)
         {
             // CMY color mixing
             QColor cmyCol(col);
@@ -758,13 +775,26 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup *grp, QL
             fc = getFader(universes, fxi->universe(), grpHead.fxi, cmy.at(2));
             updateFaderValues(fc, cmyCol.yellow(), fadeTime);
         }
-        else if (!dim.empty())
+        else if (m_colorMode == ColorModeAmber && amber.size() == 1)
+        {
+            FadeChannel *fc = getFader(universes, fxi->universe(), grpHead.fxi, amber.at(0));
+            updateFaderValues(fc, rgbToGrey(col), fadeTime);
+        }
+        else if (m_colorMode == ColorModeWhite && white.size() == 1)
+        {
+            FadeChannel *fc = getFader(universes, fxi->universe(), grpHead.fxi, white.at(0));
+            updateFaderValues(fc, rgbToGrey(col), fadeTime);
+        }
+        else if (m_colorMode == ColorModeUV && uv.size() == 1)
+        {
+            FadeChannel *fc = getFader(universes, fxi->universe(), grpHead.fxi, uv.at(0));
+            updateFaderValues(fc, rgbToGrey(col), fadeTime);
+        }
+        else if ((m_colorMode == ColorModeRgb || m_colorMode == ColorModeWhite) && !dim.empty())
         {
             // Set dimmer to value of the color (e.g. for PARs)
             FadeChannel *fc = getFader(universes, fxi->universe(), grpHead.fxi, dim.last());
-            // the weights are taken from
-            // https://en.wikipedia.org/wiki/YUV#SDTV_with_BT.601
-            updateFaderValues(fc, 0.299 * qRed(col) + 0.587 * qGreen(col) + 0.114 * qBlue(col), fadeTime);
+            updateFaderValues(fc, rgbToGrey(col), fadeTime);
             dim.pop_back();
         }
 
@@ -778,6 +808,13 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup *grp, QL
             }
         }
     }
+}
+
+uchar RGBMatrix::rgbToGrey(uint col)
+{
+    // the weights are taken from
+    // https://en.wikipedia.org/wiki/YUV#SDTV_with_BT.601
+	return (0.299 * qRed(col) + 0.587 * qGreen(col) + 0.114 * qBlue(col));
 }
 
 /*********************************************************************
@@ -817,6 +854,55 @@ void RGBMatrix::setBlendMode(Universe::BlendMode mode)
 
     Function::setBlendMode(mode);
     emit changed(id());
+}
+
+/*************************************************************************
+ * RGB Color Mode
+ *************************************************************************/
+
+RGBMatrix::ColorMode RGBMatrix::colorMode() const
+{
+	return m_colorMode;
+}
+
+void RGBMatrix::setColorMode(RGBMatrix::ColorMode type)
+{
+	m_colorMode = type;
+    emit changed(id());
+}
+
+RGBMatrix::ColorMode RGBMatrix::stringToColorMode(QString mode)
+{
+    if (mode == KXMLQLCRGBMatrixColorModeRgb)
+        return ColorModeRgb;
+    else if (mode == KXMLQLCRGBMatrixColorModeAmber)
+        return ColorModeAmber;
+    else if (mode == KXMLQLCRGBMatrixColorModeWhite)
+        return ColorModeWhite;
+    else if (mode == KXMLQLCRGBMatrixColorModeUV)
+        return ColorModeUV;
+
+    return ColorModeRgb;
+}
+
+QString RGBMatrix::colorModeToString(RGBMatrix::ColorMode mode)
+{
+    switch(mode)
+    {
+        default:
+        case ColorModeRgb:
+            return QString(KXMLQLCRGBMatrixColorModeRgb);
+        break;
+        case ColorModeAmber:
+            return QString(KXMLQLCRGBMatrixColorModeAmber);
+        break;
+        case ColorModeWhite:
+            return QString(KXMLQLCRGBMatrixColorModeWhite);
+        break;
+        case ColorModeUV:
+            return QString(KXMLQLCRGBMatrixColorModeUV);
+        break;
+    }
 }
 
 

@@ -509,17 +509,17 @@ Changes will be lost if you don&apos;t save them.</source>
 <context>
     <name>ColorTool</name>
     <message>
-        <location filename="qml/ColorTool.qml" line="99"/>
+        <location filename="qml/ColorTool.qml" line="101"/>
         <source>Basic</source>
         <translation>Базовий</translation>
     </message>
     <message>
-        <location filename="qml/ColorTool.qml" line="115"/>
+        <location filename="qml/ColorTool.qml" line="117"/>
         <source>Full</source>
         <translation>Повний</translation>
     </message>
     <message>
-        <location filename="qml/ColorTool.qml" line="129"/>
+        <location filename="qml/ColorTool.qml" line="131"/>
         <source>Filters</source>
         <translation>Фільтри</translation>
     </message>
@@ -1065,22 +1065,22 @@ Changes will be lost if you don&apos;t save them.</source>
     <message>
         <location filename="fixturemanager.cpp" line="587"/>
         <location filename="fixturemanager.cpp" line="722"/>
-        <location filename="fixturemanager.cpp" line="995"/>
+        <location filename="fixturemanager.cpp" line="1037"/>
         <source>Head</source>
         <translation>Голова</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="922"/>
+        <location filename="fixturemanager.cpp" line="964"/>
         <source>New group %1</source>
         <translation>Нова група %1</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1110"/>
+        <location filename="fixturemanager.cpp" line="1152"/>
         <source>%1 - Row %2</source>
         <translation>%1 - Рядок %2</translation>
     </message>
     <message>
-        <location filename="fixturemanager.cpp" line="1420"/>
+        <location filename="fixturemanager.cpp" line="1462"/>
         <source>New filters %1</source>
         <translation>Нові фільтри %1</translation>
     </message>
@@ -1519,7 +1519,7 @@ Changes will be lost if you don&apos;t save them.</source>
 <context>
     <name>IntensityTool</name>
     <message>
-        <location filename="qml/fixturesfunctions/IntensityTool.qml" line="96"/>
+        <location filename="qml/fixturesfunctions/IntensityTool.qml" line="102"/>
         <source>Intensity</source>
         <translation>Яскравість</translation>
     </message>
@@ -1578,47 +1578,47 @@ Changes will be lost if you don&apos;t save them.</source>
         <translation>Яскравість</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="145"/>
+        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="147"/>
         <source>Shutter</source>
         <translation>Затвор</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="172"/>
+        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="174"/>
         <source>Position</source>
         <translation>Положення</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="200"/>
+        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="202"/>
         <source>Color</source>
         <translation>Колір</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="226"/>
+        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="228"/>
         <source>Color Wheel</source>
         <translation>Колесо коліру</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="252"/>
+        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="254"/>
         <source>Gobos</source>
         <translation>Гобо</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="279"/>
+        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="281"/>
         <source>Beam</source>
         <translation>Промінь</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="320"/>
+        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="322"/>
         <source>Pick a 3D point</source>
         <translation>Выбрати трьохмірну точку</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="329"/>
+        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="331"/>
         <source>Toggle multiple item selection</source>
         <translation>Переключити множинний вибір елементів</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="340"/>
+        <location filename="qml/fixturesfunctions/LeftPanel.qml" line="342"/>
         <source>Select/Deselect all fixtures</source>
         <translation>Вибрати / Скасувати вибір всіх приладів</translation>
     </message>
@@ -1721,97 +1721,97 @@ Changes will be lost if you don&apos;t save them.</source>
 <context>
     <name>PaletteFanningBox</name>
     <message>
-        <location filename="qml/PaletteFanningBox.qml" line="67"/>
-        <location filename="qml/PaletteFanningBox.qml" line="160"/>
+        <location filename="qml/PaletteFanningBox.qml" line="106"/>
+        <location filename="qml/PaletteFanningBox.qml" line="199"/>
         <source>Flat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/PaletteFanningBox.qml" line="68"/>
-        <location filename="qml/PaletteFanningBox.qml" line="161"/>
+        <location filename="qml/PaletteFanningBox.qml" line="107"/>
+        <location filename="qml/PaletteFanningBox.qml" line="200"/>
         <source>Linear</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/PaletteFanningBox.qml" line="69"/>
-        <location filename="qml/PaletteFanningBox.qml" line="162"/>
+        <location filename="qml/PaletteFanningBox.qml" line="108"/>
+        <location filename="qml/PaletteFanningBox.qml" line="201"/>
         <source>Square</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/PaletteFanningBox.qml" line="70"/>
-        <location filename="qml/PaletteFanningBox.qml" line="163"/>
+        <location filename="qml/PaletteFanningBox.qml" line="109"/>
+        <location filename="qml/PaletteFanningBox.qml" line="202"/>
         <source>Saw</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/PaletteFanningBox.qml" line="71"/>
-        <location filename="qml/PaletteFanningBox.qml" line="164"/>
+        <location filename="qml/PaletteFanningBox.qml" line="110"/>
+        <location filename="qml/PaletteFanningBox.qml" line="203"/>
         <source>Sine</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/PaletteFanningBox.qml" line="80"/>
-        <location filename="qml/PaletteFanningBox.qml" line="206"/>
+        <location filename="qml/PaletteFanningBox.qml" line="119"/>
+        <location filename="qml/PaletteFanningBox.qml" line="245"/>
         <source>Left to right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/PaletteFanningBox.qml" line="81"/>
-        <location filename="qml/PaletteFanningBox.qml" line="207"/>
+        <location filename="qml/PaletteFanningBox.qml" line="120"/>
+        <location filename="qml/PaletteFanningBox.qml" line="246"/>
         <source>Right to left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/PaletteFanningBox.qml" line="82"/>
-        <location filename="qml/PaletteFanningBox.qml" line="208"/>
+        <location filename="qml/PaletteFanningBox.qml" line="121"/>
+        <location filename="qml/PaletteFanningBox.qml" line="247"/>
         <source>Top to bottom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/PaletteFanningBox.qml" line="83"/>
-        <location filename="qml/PaletteFanningBox.qml" line="209"/>
+        <location filename="qml/PaletteFanningBox.qml" line="122"/>
+        <location filename="qml/PaletteFanningBox.qml" line="248"/>
         <source>Bottom to top</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/PaletteFanningBox.qml" line="84"/>
-        <location filename="qml/PaletteFanningBox.qml" line="210"/>
+        <location filename="qml/PaletteFanningBox.qml" line="123"/>
+        <location filename="qml/PaletteFanningBox.qml" line="249"/>
         <source>Centered</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/PaletteFanningBox.qml" line="110"/>
+        <location filename="qml/PaletteFanningBox.qml" line="149"/>
         <source>Show/Hide fanning options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/PaletteFanningBox.qml" line="127"/>
+        <location filename="qml/PaletteFanningBox.qml" line="166"/>
         <source>Create a new palette</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/PaletteFanningBox.qml" line="144"/>
+        <location filename="qml/PaletteFanningBox.qml" line="183"/>
         <source>Type</source>
         <translation type="unfinished">Тип</translation>
     </message>
     <message>
-        <location filename="qml/PaletteFanningBox.qml" line="190"/>
+        <location filename="qml/PaletteFanningBox.qml" line="229"/>
         <source>Layout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/PaletteFanningBox.qml" line="236"/>
+        <location filename="qml/PaletteFanningBox.qml" line="275"/>
         <source>Amount</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/PaletteFanningBox.qml" line="311"/>
+        <location filename="qml/PaletteFanningBox.qml" line="352"/>
         <source>Value</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/PaletteFanningBox.qml" line="385"/>
+        <location filename="qml/PaletteFanningBox.qml" line="428"/>
         <source>Pick the selected color</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1819,29 +1819,39 @@ Changes will be lost if you don&apos;t save them.</source>
 <context>
     <name>PaletteManager</name>
     <message>
-        <location filename="qml/fixturesfunctions/PaletteManager.qml" line="81"/>
+        <location filename="qml/fixturesfunctions/PaletteManager.qml" line="83"/>
         <source>Search a palette</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/PaletteManager.qml" line="97"/>
+        <location filename="qml/fixturesfunctions/PaletteManager.qml" line="99"/>
         <source>Intensity</source>
         <translation type="unfinished">Яскравість</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/PaletteManager.qml" line="109"/>
+        <location filename="qml/fixturesfunctions/PaletteManager.qml" line="111"/>
         <source>Color</source>
         <translation type="unfinished">Колір</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/PaletteManager.qml" line="121"/>
+        <location filename="qml/fixturesfunctions/PaletteManager.qml" line="123"/>
         <source>Position</source>
         <translation type="unfinished">Положення</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/PaletteManager.qml" line="134"/>
+        <location filename="qml/fixturesfunctions/PaletteManager.qml" line="137"/>
         <source>Delete the selected palette(s)</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/PaletteManager.qml" line="143"/>
+        <source>Are you sure you want to delete the following items?</source>
+        <translation type="unfinished">Ви впевнені, що бажаєте видалити наступні елементи?</translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/PaletteManager.qml" line="150"/>
+        <source>Delete items</source>
+        <translation type="unfinished">Видалити елементи</translation>
     </message>
 </context>
 <context>
@@ -1890,47 +1900,47 @@ Changes will be lost if you don&apos;t save them.</source>
         <translation type="unfinished">Колір</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupCreatePalette.qml" line="45"/>
+        <location filename="qml/popup/PopupCreatePalette.qml" line="48"/>
         <source>Position</source>
         <translation type="unfinished">Положення</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupCreatePalette.qml" line="46"/>
+        <location filename="qml/popup/PopupCreatePalette.qml" line="49"/>
         <source>Shutter</source>
         <translation type="unfinished">Затвор</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupCreatePalette.qml" line="47"/>
+        <location filename="qml/popup/PopupCreatePalette.qml" line="50"/>
         <source>Gobo</source>
         <translation type="unfinished">Гобо</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupCreatePalette.qml" line="68"/>
+        <location filename="qml/popup/PopupCreatePalette.qml" line="71"/>
         <source>Palette name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupCreatePalette.qml" line="75"/>
+        <location filename="qml/popup/PopupCreatePalette.qml" line="78"/>
         <source>New Palette</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupCreatePalette.qml" line="83"/>
+        <location filename="qml/popup/PopupCreatePalette.qml" line="86"/>
         <source>Type</source>
         <translation type="unfinished">Тип</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupCreatePalette.qml" line="109"/>
+        <location filename="qml/popup/PopupCreatePalette.qml" line="112"/>
         <source>Also create a Scene</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupCreatePalette.qml" line="117"/>
+        <location filename="qml/popup/PopupCreatePalette.qml" line="120"/>
         <source>Scene name</source>
         <translation type="unfinished">Ім&apos;я сцени</translation>
     </message>
     <message>
-        <location filename="qml/popup/PopupCreatePalette.qml" line="124"/>
+        <location filename="qml/popup/PopupCreatePalette.qml" line="127"/>
         <source>New Scene</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2365,24 +2375,24 @@ Access level:</source>
 <context>
     <name>PositionTool</name>
     <message>
-        <location filename="qml/fixturesfunctions/PositionTool.qml" line="111"/>
+        <location filename="qml/fixturesfunctions/PositionTool.qml" line="127"/>
         <source>Position</source>
         <translation>Положення</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/PositionTool.qml" line="139"/>
+        <location filename="qml/fixturesfunctions/PositionTool.qml" line="155"/>
         <source>Rotate 90° clockwise</source>
         <translation>Повернути на 90 ° за годинниковою стрілкою</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/PositionTool.qml" line="260"/>
-        <location filename="qml/fixturesfunctions/PositionTool.qml" line="310"/>
+        <location filename="qml/fixturesfunctions/PositionTool.qml" line="276"/>
+        <location filename="qml/fixturesfunctions/PositionTool.qml" line="326"/>
         <source>Snap to the previous value</source>
         <translation>Прив&apos;язати до попереднього значення</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/PositionTool.qml" line="273"/>
-        <location filename="qml/fixturesfunctions/PositionTool.qml" line="329"/>
+        <location filename="qml/fixturesfunctions/PositionTool.qml" line="289"/>
+        <location filename="qml/fixturesfunctions/PositionTool.qml" line="345"/>
         <source>Snap to the next value</source>
         <translation>Прив&apos;язати до наступного значення</translation>
     </message>
@@ -2425,127 +2435,152 @@ Access level:</source>
         <translation>Віднімання</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="219"/>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="217"/>
+        <source>Color mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="233"/>
+        <source>Default (RGB)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="234"/>
+        <source>Amber</source>
+        <translation type="unfinished">Бурштиновий</translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="235"/>
+        <source>White</source>
+        <translation type="unfinished">Білий</translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="236"/>
+        <source>UV</source>
+        <translation type="unfinished">УФ</translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="253"/>
         <source>Colors</source>
         <translation>Кольори</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="315"/>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="349"/>
         <source>Parameters</source>
         <translation>Параметри</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="324"/>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="358"/>
         <source>Speed</source>
         <translation>Швидкість</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="337"/>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="371"/>
         <source>Steps fade in</source>
         <translation>Покрокова поява</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="370"/>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="404"/>
         <source>Steps hold</source>
         <translation>Покрокове утримання</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="402"/>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="436"/>
         <source>Steps fade out</source>
         <translation>Покрокове зникнення</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="434"/>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="468"/>
         <source>Tempo type</source>
         <translation>Тип темпу</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="441"/>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="475"/>
         <source>Time</source>
         <translation>Час</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="442"/>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="476"/>
         <source>Beats</source>
         <translation>Удари</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="458"/>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="492"/>
         <source>Order and direction</source>
         <translation>Порядок та напрям</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="473"/>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="507"/>
         <source>Loop</source>
         <translation>Цикл</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="474"/>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="508"/>
         <source>Single Shot</source>
         <translation>Одне проведення</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="475"/>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="509"/>
         <source>Ping Pong</source>
         <translation>Пинг Понг</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="484"/>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="518"/>
         <source>Run Order</source>
         <translation>Порядок запуску</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="493"/>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="527"/>
         <source>Forward</source>
         <translation>Уперед</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="494"/>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="528"/>
         <source>Backward</source>
         <translation>Назад</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="503"/>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="537"/>
         <source>Direction</source>
         <translation>Напрям</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="532"/>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="566"/>
         <source>Text</source>
         <translation>Текст</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="578"/>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="612"/>
         <source>Please choose a font</source>
         <translation>Будь ласка, виберіть шрифт</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="595"/>
-        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="740"/>
-        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="753"/>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="629"/>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="774"/>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="787"/>
         <source>Animation</source>
         <translation>Анімація</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="605"/>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="639"/>
         <source>Letters</source>
         <translation>Літери</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="606"/>
-        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="751"/>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="640"/>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="785"/>
         <source>Horizontal</source>
         <translation>Горизонтально</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="607"/>
-        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="752"/>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="641"/>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="786"/>
         <source>Vertical</source>
         <translation>Вертикально</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="618"/>
-        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="764"/>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="652"/>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="798"/>
         <source>Offset</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2554,19 +2589,19 @@ Access level:</source>
         <translation type="vanished">Зсув</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="634"/>
-        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="780"/>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="668"/>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="814"/>
         <source>X</source>
         <translation>X</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="649"/>
-        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="795"/>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="683"/>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="829"/>
         <source>Y</source>
         <translation>Y</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="684"/>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="718"/>
         <source>Image</source>
         <translation>Зображення</translation>
     </message>
@@ -2576,12 +2611,12 @@ Access level:</source>
         <translation>Виберіть зображення</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="728"/>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="762"/>
         <source>Select an image</source>
         <translation type="unfinished">Выберить зображення</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="750"/>
+        <location filename="qml/fixturesfunctions/RGBMatrixEditor.qml" line="784"/>
         <source>Static</source>
         <translation>Статично</translation>
     </message>
@@ -2771,33 +2806,43 @@ Access level:</source>
 <context>
     <name>SceneEditor</name>
     <message>
-        <location filename="qml/fixturesfunctions/SceneEditor.qml" line="89"/>
+        <location filename="qml/fixturesfunctions/SceneEditor.qml" line="123"/>
+        <source>Add a fixture/group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/SceneEditor.qml" line="159"/>
+        <source>Add a palette</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="qml/fixturesfunctions/SceneEditor.qml" line="195"/>
         <source>Remove the selected items</source>
         <oldsource>Remove the selected fixtures</oldsource>
         <translation type="unfinished">Видалити вибрані прилади</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/SceneEditor.qml" line="95"/>
+        <location filename="qml/fixturesfunctions/SceneEditor.qml" line="201"/>
         <source>Delete items</source>
         <translation type="unfinished">Видалити елементи</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/SceneEditor.qml" line="96"/>
+        <location filename="qml/fixturesfunctions/SceneEditor.qml" line="202"/>
         <source>Are you sure you want to remove the selected items?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/SceneEditor.qml" line="218"/>
+        <location filename="qml/fixturesfunctions/SceneEditor.qml" line="324"/>
         <source>Speed</source>
         <translation>Швидкість</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/SceneEditor.qml" line="231"/>
+        <location filename="qml/fixturesfunctions/SceneEditor.qml" line="337"/>
         <source>Fade in</source>
         <translation>Плавна Поява</translation>
     </message>
     <message>
-        <location filename="qml/fixturesfunctions/SceneEditor.qml" line="264"/>
+        <location filename="qml/fixturesfunctions/SceneEditor.qml" line="370"/>
         <source>Fade out</source>
         <translation>Плавне зникнення</translation>
     </message>
