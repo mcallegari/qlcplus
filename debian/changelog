@@ -1,14 +1,21 @@
+qlcplus (4.12.4) stable; urgency=low
+
+ -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 20 Dec 2020 12:13:14 +0200
+
 qlcplus (4.12.3) stable; urgency=low
 
   * engine: fix cloning a Show
   * engine: audio/video files not found are now shown in error log
   * engine: reduce audio playback startup latency in some cases
+  * engine: improved audio input level (thanks to Damien Zammit)
   * UI: fix virtual console resize
   * UI: fix crash on 2D monitor strobing
   * UI: fix sorting in DMX dump dialog
   * UI/Audio Editor: fix selected device index (thanks to Santiago Benejam Torres)
+  * UI/Simple Desk: fix playback sliders numbering
   * Virtual Console: fix Animation and Audio Trigger widgets to respond to submaster (thanks to Branimir Amidžić)
   * Virtual Console: fix submaster not affecting a Sequence in a Cue List (thanks to ryhel)
+  * Virtual Console/Cue List: fix input when side fader type is set to None
   * Resources: added Novation Launch Control XL input profile (thanks to pille)
   * Resources: updated Novation Launchpad Pro input profile (thanks to Nate Doyon)
   * Resources: added RGB script 'Alternate' (thanks to Hans-Jürgen Tappe)
@@ -55,6 +62,7 @@ qlcplus (4.12.3) stable; urgency=low
   * New fixture: Ayra ERO Micro Spot (thanks to Bob)
   * New fixture: American DJ 12P Hex IP (thanks to István Király)
   * New fixture: Showtec Club Par 12-6 RGBWAUV (thanks to Santiago Benejam Torres)
+  * New fixture: Ledj Stage Color Quad (thanks to Peter Crowther)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 30 Aug 2020 12:13:14 +0200
 
