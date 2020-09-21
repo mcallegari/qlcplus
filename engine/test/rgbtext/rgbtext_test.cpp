@@ -249,7 +249,7 @@ void RGBText_Test::load()
 
     buffer.close();
     QByteArray bData = buffer.data();
-    bData.replace(fn.toString(), "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z");
+    bData.replace(fn.toString().toUtf8(), "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z");
     buffer.setData(bData);
     buffer.open(QIODevice::ReadWrite | QIODevice::Text);
     buffer.seek(0);

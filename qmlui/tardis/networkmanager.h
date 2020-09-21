@@ -23,7 +23,10 @@
 #if defined(WIN32) || defined(Q_OS_WIN)
   #include <windows.h>
 #endif
-#include <QtNetwork>
+
+#include <QTcpSocket>
+#include <QTcpServer>
+#include <QUdpSocket>
 #include <QThread>
 #include <QHash>
 

@@ -104,13 +104,13 @@ void ShowManager::setShowName(QString showName)
     emit showNameChanged(showName);
 }
 
-QQmlListProperty<Track> ShowManager::tracks()
+QList<Track *> ShowManager::tracks()
 {
     m_tracksList.clear();
     if (m_currentShow)
         m_tracksList = m_currentShow->tracks();
 
-    return QQmlListProperty<Track>(this, m_tracksList);
+    return m_tracksList;
 }
 
 int ShowManager::selectedTrack() const
