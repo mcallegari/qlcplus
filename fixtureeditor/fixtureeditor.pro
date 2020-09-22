@@ -25,7 +25,6 @@ win32:RC_FILE = fixtureeditor.rc
 HEADERS += ../ui/src/aboutbox.h \
            ../ui/src/docbrowser.h \
            ../ui/src/apputil.h \
-           actsonchanneldialog.h \
            addchannelsdialog.h \
            app.h \
            capabilitywizard.h \
@@ -37,7 +36,6 @@ HEADERS += ../ui/src/aboutbox.h \
            util.h
 
 FORMS += ../ui/src/aboutbox.ui \
-         actsonchanneldialog.ui \
          addchannelsdialog.ui \
          capabilitywizard.ui \
          editchannel.ui \
@@ -49,7 +47,6 @@ FORMS += ../ui/src/aboutbox.ui \
 SOURCES += ../ui/src/aboutbox.cpp \
            ../ui/src/docbrowser.cpp \
            ../ui/src/apputil.cpp \
-           actsonchanneldialog.cpp \
            addchannelsdialog.cpp \
            app.cpp \
            capabilitywizard.cpp \

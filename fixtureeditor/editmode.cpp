@@ -33,7 +33,6 @@
 #include <QAction>
 
 #include "addchannelsdialog.h"
-#include "actsonchanneldialog.h"
 #include "qlcfixturemode.h"
 #include "qlcfixturehead.h"
 #include "qlcfixturedef.h"
