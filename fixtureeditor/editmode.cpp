@@ -86,9 +86,6 @@ void EditMode::init()
     connect(m_removeChannelButton, SIGNAL(clicked()), this, SLOT(slotRemoveChannelClicked()));
     connect(m_raiseChannelButton, SIGNAL(clicked()), this, SLOT(slotRaiseChannelClicked()));
     connect(m_lowerChannelButton, SIGNAL(clicked()), this, SLOT(slotLowerChannelClicked()));
-    connect(m_actsOnChannelButton, SIGNAL(clicked()), this, SLOT(slotActsOnChannelClicked()));
-    connect(m_channelList, SIGNAL(itemActivated(QTreeWidgetItem*,int)),
-            this, SLOT(slotActsOnChannelClicked()));
 
     m_modeNameEdit->setText(m_mode->name());
     m_modeNameEdit->setValidator(CAPS_VALIDATOR(this));
@@ -230,19 +227,14 @@ void EditMode::slotLowerChannelClicked()
     selectChannel(ch->name());
 }
 
-void EditMode::slotActsOnChannelClicked()
+void EditMode::slotActsOnChannelChanged(QLCChannel *newActsOnChannel)
 {
+    qDebug() << __PRETTY_FUNCTION__;
+
     QLCChannel* channel = currentChannel();
 
     if (channel != NULL)
     {
-        ActsOnChannelDialog ach(m_mode->channels(), m_mode->actsOnChannelsList(), channel);
-
-        if (ach.exec() != QDialog::Accepted)
-            return;
-
-        QLCChannel *newActsOnChannel = ach.getModeChannelActsOn();
-
         m_mode->updateActsOnChannel(channel, newActsOnChannel);
 
         refreshChannelList();
@@ -258,8 +250,10 @@ void EditMode::refreshChannelList()
     {
         QTreeWidgetItem* item = new QTreeWidgetItem(m_channelList);
         QLCChannel* ch = m_mode->channel(i);
+
         int actsOnChannelIndex = m_mode->channels().indexOf(
                     m_mode->actsOnChannelsList().value(ch));
+
         Q_ASSERT(ch != NULL);
 
         QString str;
@@ -267,11 +261,34 @@ void EditMode::refreshChannelList()
         item->setText(COL_NAME, ch->name());
         item->setIcon(COL_NAME, ch->getIcon());
         item->setData(COL_NAME, PROP_PTR, (qulonglong) ch);
-        if(actsOnChannelIndex > 0){
-            item->setText(COL_ACTS_ON, str.asprintf("%.3d", (actsOnChannelIndex + 1)));
-        }else{
-            item->setText(COL_ACTS_ON, "-");
+
+        QStringList comboList;
+
+        comboList << "-";
+
+        for(auto index = 0; index < m_mode->channels().size(); index++)
+        {
+            QLCChannel *currentChannel = m_mode->channels().at(index);
+            comboList << QString::number(index) + " - " + currentChannel->name();
         }
+
+        QComboBox *comboBox = new QComboBox(this);
+        comboBox->addItems(comboList);
+        if(actsOnChannelIndex >= 0){
+            comboBox->setCurrentIndex(actsOnChannelIndex + 1);
+        }else{
+            comboBox->setCurrentIndex(0);
+        }
+        m_channelList->setItemWidget(item, COL_ACTS_ON, comboBox);
+
+        connect(comboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), comboBox,
+                [comboBox, item, this](int index){
+                qDebug() << "ComboBox index: " << index << " " <<
+                            "ComboBox value: " << comboBox->itemText(index) <<
+                            "Current Item: " << item->text(0) << item->text(1);
+                QLCChannel *actsOnChannel = m_mode->channels().at(index - 1);
+                slotActsOnChannelChanged(actsOnChannel);
+            });
     }
     m_channelList->header()->resizeSections(QHeaderView::ResizeToContents);
 }

@@ -20,6 +20,7 @@
 #include "qlcchannel.h"
 #include "addchannelsdialog.h"
 #include "ui_addchannelsdialog.h"
+#include <QDebug>
 
 AddChannelsDialog::AddChannelsDialog(QList<QLCChannel *> allList, QVector<QLCChannel *> modeList, QWidget *parent) :
     QDialog(parent)
