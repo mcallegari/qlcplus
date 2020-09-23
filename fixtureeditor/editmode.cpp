@@ -281,11 +281,8 @@ void EditMode::refreshChannelList()
         }
         m_channelList->setItemWidget(item, COL_ACTS_ON, comboBox);
 
-        connect(comboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), comboBox,
-                [comboBox, item, this](int index){
-                qDebug() << "ComboBox index: " << index << " " <<
-                            "ComboBox value: " << comboBox->itemText(index) <<
-                            "Current Item: " << item->text(0) << item->text(1);
+        connect(comboBox, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), comboBox,
+                [this](int index){
                 QLCChannel *actsOnChannel = m_mode->channels().at(index - 1);
                 slotActsOnChannelChanged(actsOnChannel);
             });
