@@ -229,8 +229,6 @@ void EditMode::slotLowerChannelClicked()
 
 void EditMode::slotActsOnChannelChanged(QLCChannel *newActsOnChannel)
 {
-    qDebug() << __PRETTY_FUNCTION__;
-
     QLCChannel* channel = currentChannel();
 
     if (channel != NULL)
@@ -243,7 +241,6 @@ void EditMode::slotActsOnChannelChanged(QLCChannel *newActsOnChannel)
 
 void EditMode::refreshChannelList()
 {
-    qDebug() << __PRETTY_FUNCTION__;
     m_channelList->clear();
 
     for (int i = 0; i < m_mode->channels().size(); i++)
@@ -274,16 +271,27 @@ void EditMode::refreshChannelList()
 
         QComboBox *comboBox = new QComboBox(this);
         comboBox->addItems(comboList);
+
         if(actsOnChannelIndex >= 0){
             comboBox->setCurrentIndex(actsOnChannelIndex + 1);
         }else{
             comboBox->setCurrentIndex(0);
         }
+
         m_channelList->setItemWidget(item, COL_ACTS_ON, comboBox);
 
         connect(comboBox, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), comboBox,
                 [this](int index){
-                QLCChannel *actsOnChannel = m_mode->channels().at(index - 1);
+
+                int channelNumber = index - 1;
+
+                QLCChannel *actsOnChannel = nullptr;
+
+                if(channelNumber >= 0)
+                {
+                    actsOnChannel = m_mode->channels().at(channelNumber);
+                }
+
                 slotActsOnChannelChanged(actsOnChannel);
             });
     }

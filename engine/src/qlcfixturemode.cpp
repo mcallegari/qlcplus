@@ -250,13 +250,7 @@ quint32 QLCFixtureMode::masterIntensityChannel() const
 
 void QLCFixtureMode::updateActsOnChannel(QLCChannel *mainChannel, QLCChannel *actsOnChannel)
 {
-    qDebug() << "Function: " << __PRETTY_FUNCTION__;
-
-    qDebug() << "List size: " << m_actsOnChannelsList.size();
-
     m_actsOnChannelsList.insert(mainChannel, actsOnChannel);
-
-    qDebug() << "List size after: " << m_actsOnChannelsList.size();
 }
 
 QHash<QLCChannel *, QLCChannel *> QLCFixtureMode::actsOnChannelsList() const
