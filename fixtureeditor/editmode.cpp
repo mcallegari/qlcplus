@@ -31,6 +31,7 @@
 #include <QDebug>
 #include <QSize>
 #include <QAction>
+#include <QtGlobal>
 
 #include "addchannelsdialog.h"
 #include "qlcfixturemode.h"
