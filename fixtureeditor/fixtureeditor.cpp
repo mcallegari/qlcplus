@@ -514,7 +514,6 @@ void QLCFixtureEditor::slotRemoveChannel()
         setModified();
 
         // Remove channel from modes and set nullptr for acts on channels
-
         for (int i = 0; i < m_modeList->topLevelItemCount(); ++i)
         {
             QTreeWidgetItem *item = m_modeList->topLevelItem(i);
@@ -523,7 +522,7 @@ void QLCFixtureEditor::slotRemoveChannel()
             mode->actsOnChannelsList().remove(channel);
 
             QLCChannel *mainChannel = mode->actsOnChannelsList().value(channel);
-            mode->actsOnChannelsList()[mainChannel] = nullptr;
+            mode->actsOnChannelsList()[mainChannel] = NULL;
         }
 
         refreshModeList();
