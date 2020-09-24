@@ -34,7 +34,6 @@ QLCFixtureMode::QLCFixtureMode(QLCFixtureDef* fixtureDef)
     : m_fixtureDef(fixtureDef)
     , m_masterIntensityChannel(QLCChannel::invalid())
     , m_useGlobalPhysical(true)
-
 {
     Q_ASSERT(fixtureDef != NULL);
 }

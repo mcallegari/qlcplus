@@ -274,7 +274,9 @@ void EditMode::refreshChannelList()
         if (actsOnChannelIndex >= 0)
         {
             comboBox->setCurrentIndex(actsOnChannelIndex + 1);
-        } else {
+        }
+        else
+        {
             comboBox->setCurrentIndex(0);
         }
 
