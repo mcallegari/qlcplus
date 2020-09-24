@@ -45,6 +45,7 @@ class QLCChannel;
 #define KXMLQLCFixtureModeName          "Name"
 #define KXMLQLCFixtureModeChannel       "Channel"
 #define KXMLQLCFixtureModeChannelNumber "Number"
+#define KXMLQLCFixtureModeChannelActsOn "ActsOn"
 
 /**
  * QLCFixtureMode is essentially a collection of QLCChannels, arranged in such
@@ -206,9 +207,29 @@ public:
 
     quint32 masterIntensityChannel() const;
 
+    /*!
+     * \brief The ChannelActsOnData struct
+     *
+     * Contains channel pointer and acts on channel index.
+     *
+     */
+
+    struct ChannelActsOnData
+    {
+        QLCChannel *channel;
+        int actsOnIndex;
+
+        ChannelActsOnData(QLCChannel *newChannel, int newAcsOnIndex);
+    };
+
+    void updateActsOnChannel(QLCChannel *mainChannel, QLCChannel *actsOnChannel);
+
 protected:
     /** List of channels (pointers are not owned) */
-    QVector <QLCChannel*> m_channels;
+    QVector<QLCChannel*> m_channels;
+
+    /** List of acts on channels */
+    QHash<QLCChannel *, QLCChannel *> m_actsOnChannelsList;
 
     quint32 m_masterIntensityChannel;
 
@@ -299,6 +320,7 @@ public:
 
     /** Save a mode to an XML document */
     bool saveXML(QXmlStreamWriter *doc);
+    QHash<QLCChannel *, QLCChannel *> actsOnChannelsList() const;
 };
 
 /** @} */
