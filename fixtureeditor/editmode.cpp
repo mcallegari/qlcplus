@@ -115,7 +115,7 @@ void EditMode::init()
     connect(m_phyEdit, SIGNAL(requestPasteFromClipboard()), this, SIGNAL(requestPasteFromClipboard()));
 
     // Close shortcut
-    QAction* action = new QAction(this);
+    QAction *action = new QAction(this);
     action->setShortcut(QKeySequence(QKeySequence::Close));
     connect(action, SIGNAL(triggered(bool)), this, SLOT(reject()));
     addAction(action);
@@ -186,7 +186,7 @@ void EditMode::slotRemoveChannelClicked()
 
 void EditMode::slotRaiseChannelClicked()
 {
-    QLCChannel* ch = currentChannel();
+    QLCChannel *ch = currentChannel();
     int index = 0;
 
     if (ch == NULL)
@@ -207,7 +207,7 @@ void EditMode::slotRaiseChannelClicked()
 
 void EditMode::slotLowerChannelClicked()
 {
-    QLCChannel* ch = currentChannel();
+    QLCChannel *ch = currentChannel();
     int index = 0;
 
     if (ch == NULL)
@@ -244,8 +244,8 @@ void EditMode::refreshChannelList()
 
     for (int i = 0; i < m_mode->channels().size(); i++)
     {
-        QTreeWidgetItem* item = new QTreeWidgetItem(m_channelList);
-        QLCChannel* ch = m_mode->channel(i);
+        QTreeWidgetItem *item = new QTreeWidgetItem(m_channelList);
+        QLCChannel *ch = m_mode->channel(i);
 
         int actsOnChannelIndex = m_mode->channels().indexOf(
                     m_mode->actsOnChannelsList().value(ch));
@@ -272,13 +272,9 @@ void EditMode::refreshChannelList()
         comboBox->addItems(comboList);
 
         if (actsOnChannelIndex >= 0)
-        {
             comboBox->setCurrentIndex(actsOnChannelIndex + 1);
-        }
         else
-        {
             comboBox->setCurrentIndex(0);
-        }
 
         m_channelList->setItemWidget(item, COL_ACTS_ON, comboBox);
 
@@ -289,8 +285,8 @@ void EditMode::refreshChannelList()
 
 QLCChannel* EditMode::currentChannel()
 {
-    QTreeWidgetItem* item;
-    QLCChannel* ch = NULL;
+    QTreeWidgetItem *item;
+    QLCChannel *ch = NULL;
 
     // Convert the string-form ulong to a QLCChannel pointer and return it
     item = m_channelList->currentItem();
@@ -319,12 +315,10 @@ void EditMode::setActsOnChannel(int index)
 {
     int channelNumber = index - 1;
 
-    QLCChannel *actsOnChannel = nullptr;
+    QLCChannel *actsOnChannel = NULL;
 
-    if(channelNumber >= 0)
-    {
+    if (channelNumber >= 0)
         actsOnChannel = m_mode->channels().at(channelNumber);
-    }
 
     slotActsOnChannelChanged(actsOnChannel);
 }
@@ -345,7 +339,7 @@ void EditMode::slotAddHeadClicked()
 
 void EditMode::slotRemoveHeadClicked()
 {
-    QTreeWidgetItem* item = m_headList->currentItem();
+    QTreeWidgetItem *item = m_headList->currentItem();
     if (item == NULL)
         return;
 
@@ -356,7 +350,7 @@ void EditMode::slotRemoveHeadClicked()
 
 void EditMode::slotEditHeadClicked()
 {
-    QTreeWidgetItem* item = m_headList->currentItem();
+    QTreeWidgetItem *item = m_headList->currentItem();
     if (item == NULL)
         return;
 
@@ -371,7 +365,7 @@ void EditMode::slotEditHeadClicked()
 
 void EditMode::slotRaiseHeadClicked()
 {
-    QTreeWidgetItem* item = m_headList->currentItem();
+    QTreeWidgetItem *item = m_headList->currentItem();
     if (item == NULL)
         return;
 
@@ -391,7 +385,7 @@ void EditMode::slotRaiseHeadClicked()
 
 void EditMode::slotLowerHeadClicked()
 {
-    QTreeWidgetItem* item = m_headList->currentItem();
+    QTreeWidgetItem *item = m_headList->currentItem();
     if (item == NULL)
         return;
 
@@ -415,21 +409,19 @@ void EditMode::refreshHeadList()
 
     for (int i = 0; i < m_mode->heads().size(); i++)
     {
-        QTreeWidgetItem* item = new QTreeWidgetItem(m_headList);
-
+        QTreeWidgetItem *item = new QTreeWidgetItem(m_headList);
         QLCFixtureHead head = m_mode->heads().at(i);
-
         QList <quint32> channels(head.channels());
-        std::sort(channels.begin(), channels.end());
-
         QString summary;
+
+        std::sort(channels.begin(), channels.end());      
 
         QListIterator <quint32> it(channels);
         while (it.hasNext() == true)
         {
             quint32 chnum = it.next();
-            const QLCChannel* ch = m_mode->channel(chnum);
-            QTreeWidgetItem* chitem = new QTreeWidgetItem(item);
+            const QLCChannel *ch = m_mode->channel(chnum);
+            QTreeWidgetItem *chitem = new QTreeWidgetItem(item);
             if (ch != NULL)
                 chitem->setText(0, QString("%1: %2").arg(chnum + 1).arg(ch->name()));
             else
@@ -448,7 +440,7 @@ void EditMode::refreshHeadList()
 
 QLCFixtureHead EditMode::currentHead()
 {
-    QTreeWidgetItem* item = m_headList->currentItem();
+    QTreeWidgetItem *item = m_headList->currentItem();
     if (item == NULL)
         return QLCFixtureHead();
 
@@ -461,7 +453,7 @@ void EditMode::selectHead(int index)
     if (index >= m_headList->topLevelItemCount())
         return;
 
-    QTreeWidgetItem* item = m_headList->topLevelItem(index);
+    QTreeWidgetItem *item = m_headList->topLevelItem(index);
     m_headList->setCurrentItem(item);
 }
 
