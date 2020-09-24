@@ -142,13 +142,13 @@ void EditMode::slotAddChannelClicked()
     if (ach.exec() != QDialog::Accepted)
         return;
 
-    QList <QLCChannel *> newChannelList = ach.getModeChannelsList();
+    QList<QLCChannel *> newChannelList = ach.getModeChannelsList();
 
     // clear the previous list
     m_mode->removeAllChannels();
 
     // Append the channels
-    foreach(QLCChannel *ch, newChannelList)
+    foreach (QLCChannel *ch, newChannelList)
         m_mode->insertChannel(ch, m_mode->channels().size());
 
     // Easier to refresh the whole list
@@ -157,11 +157,11 @@ void EditMode::slotAddChannelClicked()
 
 void EditMode::slotRemoveChannelClicked()
 {
-    QLCChannel* ch = currentChannel();
+    QLCChannel *ch = currentChannel();
 
     if (ch != NULL)
     {
-        QTreeWidgetItem* item;
+        QTreeWidgetItem *item;
         QString select;
 
         // Pick the item above or below to be selected next
@@ -228,14 +228,13 @@ void EditMode::slotLowerChannelClicked()
 
 void EditMode::slotActsOnChannelChanged(QLCChannel *newActsOnChannel)
 {
-    QLCChannel* channel = currentChannel();
+    QLCChannel *channel = currentChannel();
 
-    if (channel != NULL)
-    {
-        m_mode->updateActsOnChannel(channel, newActsOnChannel);
+    if (channel == NULL)
+        return;
 
-        refreshChannelList();
-    }
+    m_mode->updateActsOnChannel(channel, newActsOnChannel);
+    refreshChannelList();
 }
 
 void EditMode::refreshChannelList()
@@ -247,8 +246,7 @@ void EditMode::refreshChannelList()
         QTreeWidgetItem *item = new QTreeWidgetItem(m_channelList);
         QLCChannel *ch = m_mode->channel(i);
 
-        int actsOnChannelIndex = m_mode->channels().indexOf(
-                    m_mode->actsOnChannelsList().value(ch));
+        int actsOnChannelIndex = m_mode->channels().indexOf(m_mode->actsOnChannelsList().value(ch));
 
         Q_ASSERT(ch != NULL);
 
@@ -262,7 +260,7 @@ void EditMode::refreshChannelList()
 
         comboList << "-";
 
-        for(int index = 0; index < m_mode->channels().size(); index++)
+        for (int index = 0; index < m_mode->channels().size(); index++)
         {
             QLCChannel *currentChannel = m_mode->channels().at(index);
             comboList << QString::number(index) + " - " + currentChannel->name();
