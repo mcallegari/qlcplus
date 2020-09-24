@@ -291,7 +291,7 @@ QLCChannel* EditMode::currentChannel()
     // Convert the string-form ulong to a QLCChannel pointer and return it
     item = m_channelList->currentItem();
     if (item != NULL)
-        ch = (QLCChannel*) item->data(COL_NAME, PROP_PTR).toULongLong();
+        ch = qobject_cast<QLCChannel*>(item->data(COL_NAME, PROP_PTR).toULongLong());
 
     return ch;
 }
