@@ -32,7 +32,6 @@
 
 QLCFixtureMode::QLCFixtureMode(QLCFixtureDef* fixtureDef)
     : m_fixtureDef(fixtureDef)
-    , m_actsOnChannelsList({})
     , m_masterIntensityChannel(QLCChannel::invalid())
     , m_useGlobalPhysical(true)
 
@@ -385,7 +384,8 @@ bool QLCFixtureMode::loadXML(QXmlStreamReader &doc)
 
             int actsOnChannelIndex = -1;
 
-            if (doc.attributes().hasAttribute(KXMLQLCFixtureModeChannelActsOn)){
+            if (doc.attributes().hasAttribute(KXMLQLCFixtureModeChannelActsOn))
+            {
                 actsOnChannelIndex = doc.attributes().value(KXMLQLCFixtureModeChannelActsOn).toInt();
             }
 
@@ -421,8 +421,8 @@ bool QLCFixtureMode::loadXML(QXmlStreamReader &doc)
 
     // Set acts on channels
 
-    foreach(ChannelActsOnData channelSctsOnData, listChannelsWithActsOnIndex) {
-
+    foreach (ChannelActsOnData channelSctsOnData, listChannelsWithActsOnIndex)
+    {
         if(m_channels.contains(channelSctsOnData.channel) &&
                 channelSctsOnData.actsOnIndex >= 0 &&
                 m_channels.size() > channelSctsOnData.actsOnIndex)
@@ -453,17 +453,17 @@ bool QLCFixtureMode::saveXML(QXmlStreamWriter *doc)
 
     /* Channels */
     QVectorIterator <QLCChannel*> it(m_channels);
-    while(it.hasNext() == true)
+    while (it.hasNext() == true)
     {
         QLCChannel* channel = it.next();
 
         doc->writeStartElement(KXMLQLCFixtureModeChannel);
         doc->writeAttribute(KXMLQLCFixtureModeChannelNumber, QString::number(i++));
 
-        if(m_actsOnChannelsList.contains(channel))
+        if (m_actsOnChannelsList.contains(channel))
         {
             QLCChannel *ChannelActsOn = m_actsOnChannelsList.value(channel);
-            if(ChannelActsOn != nullptr){
+            if(ChannelActsOn != NULL){
                 doc->writeAttribute(KXMLQLCFixtureModeChannelActsOn, QString::number(m_channels.indexOf(ChannelActsOn)));
             }
         }
@@ -481,3 +481,8 @@ bool QLCFixtureMode::saveXML(QXmlStreamWriter *doc)
 
     return true;
 }
+
+QLCFixtureMode::ChannelActsOnData::ChannelActsOnData(QLCChannel *newChannel, int newAcsOnIndex) :
+    channel(newChannel),
+    actsOnIndex(newAcsOnIndex)
+{}

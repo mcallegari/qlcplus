@@ -262,7 +262,7 @@ void EditMode::refreshChannelList()
 
         comboList << "-";
 
-        for(auto index = 0; index < m_mode->channels().size(); index++)
+        for(int index = 0; index < m_mode->channels().size(); index++)
         {
             QLCChannel *currentChannel = m_mode->channels().at(index);
             comboList << QString::number(index) + " - " + currentChannel->name();
@@ -271,28 +271,16 @@ void EditMode::refreshChannelList()
         QComboBox *comboBox = new QComboBox(this);
         comboBox->addItems(comboList);
 
-        if(actsOnChannelIndex >= 0){
+        if (actsOnChannelIndex >= 0)
+        {
             comboBox->setCurrentIndex(actsOnChannelIndex + 1);
-        }else{
+        } else {
             comboBox->setCurrentIndex(0);
         }
 
         m_channelList->setItemWidget(item, COL_ACTS_ON, comboBox);
 
-        connect(comboBox, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), comboBox,
-                [this](int index){
-
-                int channelNumber = index - 1;
-
-                QLCChannel *actsOnChannel = nullptr;
-
-                if(channelNumber >= 0)
-                {
-                    actsOnChannel = m_mode->channels().at(channelNumber);
-                }
-
-                slotActsOnChannelChanged(actsOnChannel);
-            });
+        connect(comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(setActsOnChannel(int)));
     }
     m_channelList->header()->resizeSections(QHeaderView::ResizeToContents);
 }
@@ -323,6 +311,20 @@ void EditMode::selectChannel(const QString &name)
 
         ++it;
     }
+}
+
+void EditMode::setActsOnChannel(int index)
+{
+    int channelNumber = index - 1;
+
+    QLCChannel *actsOnChannel = nullptr;
+
+    if(channelNumber >= 0)
+    {
+        actsOnChannel = m_mode->channels().at(channelNumber);
+    }
+
+    slotActsOnChannelChanged(actsOnChannel);
 }
 
 /****************************************************************************

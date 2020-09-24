@@ -214,14 +214,12 @@ public:
      *
      */
 
-    struct ChannelActsOnData{
+    struct ChannelActsOnData
+    {
         QLCChannel *channel;
         int actsOnIndex;
 
-        ChannelActsOnData(QLCChannel *newChannel, int newAcsOnIndex) :
-            channel(newChannel),
-            actsOnIndex(newAcsOnIndex)
-        {}
+        ChannelActsOnData(QLCChannel *newChannel, int newAcsOnIndex);
     };
 
     void updateActsOnChannel(QLCChannel *mainChannel, QLCChannel *actsOnChannel);

@@ -21,7 +21,6 @@
 #define ADDCHANNELSDIALOG_H
 
 #include <QDialog>
-#include <QComboBox>
 
 #include "ui_addchannelsdialog.h"
 
