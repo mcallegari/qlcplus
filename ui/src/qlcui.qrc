@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file alias="acts-on.png">../../resources/icons/png/acts-on.png</file>
         <file alias="add_dump.png">../../resources/icons/png/add_dump.png</file>
         <file alias="animation.png">../../resources/icons/png/animation.png</file>
         <file alias="attach.png">../../resources/icons/png/attach.png</file>
