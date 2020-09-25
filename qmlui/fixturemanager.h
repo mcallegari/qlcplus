@@ -42,7 +42,7 @@ class FixtureManager : public QObject
     Q_OBJECT
 
     Q_PROPERTY(int fixturesCount READ fixturesCount NOTIFY fixturesCountChanged)
-    Q_PROPERTY(QQmlListProperty<Fixture> fixtures READ fixtures)
+    Q_PROPERTY(QList<Fixture*> fixtures READ fixtures)
     Q_PROPERTY(QVariantList fixturesMap READ fixturesMap NOTIFY fixturesMapChanged)
     Q_PROPERTY(QVariantList fixtureNamesMap READ fixtureNamesMap NOTIFY fixtureNamesMapChanged)
     Q_PROPERTY(QVariant groupsTreeModel READ groupsTreeModel NOTIFY groupsTreeModelChanged)
@@ -173,7 +173,7 @@ public:
     int fixturesCount();
 
     /** Returns a QML-readable list of references to Fixture classes */
-    QQmlListProperty<Fixture> fixtures();
+    QList<Fixture*> fixtures();
 
     /** Returns the data model to display a tree of Fixture Groups/Fixtures */
     QVariant groupsTreeModel();

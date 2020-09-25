@@ -25,6 +25,7 @@
 #include <QOpenGLContext>
 #include <QPrintDialog>
 #include <QApplication>
+#include <QTranslator>
 #include <QQmlContext>
 #include <QQuickItem>
 #include <QSettings>

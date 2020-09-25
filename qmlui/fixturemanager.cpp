@@ -379,11 +379,11 @@ int FixtureManager::fixturesCount()
     return m_doc->fixtures().count();
 }
 
-QQmlListProperty<Fixture> FixtureManager::fixtures()
+QList<Fixture*> FixtureManager::fixtures()
 {
     m_fixtureList.clear();
     m_fixtureList = m_doc->fixtures();
-    return QQmlListProperty<Fixture>(this, m_fixtureList);
+    return m_fixtureList;
 }
 
 QVariant FixtureManager::groupsTreeModel()

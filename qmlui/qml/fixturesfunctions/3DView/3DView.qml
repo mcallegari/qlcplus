@@ -33,7 +33,6 @@ Rectangle
 
     property string contextName: "3D"
     property alias contextItem: scene3d
-    property alias cameraZ: sceneEntity.cameraZ
 
     Component.onDestruction: if(contextManager) contextManager.enableContext("3D", false, scene3d)
 
@@ -49,7 +48,7 @@ Rectangle
 
     function setZoom(amount)
     {
-        cameraZ -= amount
+        viewCamera.setZoom(-amount)
     }
 
     Scene3D
@@ -324,12 +323,95 @@ Rectangle
             objectName: "scene3DEntity"
             Component.onCompleted: contextManager.enableContext("3D", true, scene3d)
 
+/*
             OrbitCameraController
             {
                 id: camController
                 camera: sceneEntity.camera
                 linearSpeed: 40.0
                 lookSpeed: 300.0
+            }
+*/
+
+            // Global elements
+            Camera
+            {
+                id: viewCamera
+                projectionType: CameraLens.PerspectiveProjection
+                fieldOfView: 45
+                aspectRatio: viewSize.width / viewSize.height
+                nearPlane: 1.0
+                farPlane: 1000.0
+                position: Qt.vector3d(0.0, 3.0, 7.5)
+                upVector: Qt.vector3d(0.0, 1.0, 0.0)
+                viewCenter: Qt.vector3d(0.0, 1.0, 0.0)
+
+                function setZoom(amount)
+                {
+                    translate(Qt.vector3d(0, 0, -amount), Camera.DontTranslateViewCenter)
+                }
+            }
+
+            MouseDevice
+            {
+                id: mDevice
+            }
+
+            MouseHandler
+            {
+                property point startPoint
+                property int direction
+                property int directionCounter
+                property real dx
+                property real dy
+
+                sourceDevice: mDevice
+                onPressed:
+                {
+                    directionCounter = 0
+                    dx = 0
+                    dy = 0
+                    startPoint = Qt.point(mouse.x, mouse.y)
+                }
+
+                onPositionChanged:
+                {
+                    if (directionCounter < 3)
+                    {
+                        dx += (Math.abs(mouse.x - startPoint.x))
+                        dy += (Math.abs(mouse.y - startPoint.y))
+                        directionCounter++
+                        return
+                    }
+                    else
+                    {
+                        direction = dx > dy ? Qt.Horizontal : Qt.Vertical
+                    }
+
+                    if (mouse.buttons === Qt.RightButton)
+                    {
+                        if (direction == Qt.Horizontal)
+                            viewCamera.panAboutViewCenter(-(mouse.x - startPoint.x), Qt.vector3d(0, 1, 0))
+                        else
+                            viewCamera.tiltAboutViewCenter(mouse.y - startPoint.y, Qt.vector3d(1, 0, 0))
+                    }
+                    else if (mouse.buttons === Qt.MiddleButton)
+                    {
+                        if (direction == Qt.Horizontal)
+                            viewCamera.translate(Qt.vector3d(-(mouse.x - startPoint.x) / 100, 0, 0))
+                        else
+                            viewCamera.translate(Qt.vector3d(0, (mouse.y - startPoint.y) / 100, 0))
+                    }
+                    startPoint = Qt.point(mouse.x, mouse.y)
+                }
+
+                onWheel:
+                {
+                    if (wheel.angleDelta.y > 0)
+                        viewCamera.setZoom(-1)
+                    else
+                        viewCamera.setZoom(1)
+                }
             }
 
             SceneEntity
@@ -640,7 +722,7 @@ Rectangle
                 DeferredRenderer
                 {
                     id: frameGraph
-                    camera: sceneEntity.camera
+                    camera: viewCamera
                 },
                 InputSettings {}
             ]

@@ -89,7 +89,7 @@ E131Packetizer::E131Packetizer()
 
     // User Assigned Name of source !!must be 64 bytes long!!
     QString sourceName("Q Light Controller Plus - E1.31");
-    m_commonHeader.append(sourceName);
+    m_commonHeader.append(sourceName.toUtf8());
     for (int i = 0; i < 64 - sourceName.length(); i++)
         m_commonHeader.append((char)0x00);
 
