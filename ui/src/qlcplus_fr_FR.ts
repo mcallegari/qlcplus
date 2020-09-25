@@ -1018,22 +1018,22 @@ Celui-ci a dû être déplacé ou effacé.</translation>
         <translation>Périphérique par défaut</translation>
     </message>
     <message>
-        <location filename="audioeditor.cpp" line="142"/>
+        <location filename="audioeditor.cpp" line="140"/>
         <source>Open Audio File</source>
         <translation>Ouvrir un fichier audio</translation>
     </message>
     <message>
-        <location filename="audioeditor.cpp" line="150"/>
+        <location filename="audioeditor.cpp" line="148"/>
         <source>Audio Files (%1)</source>
         <translation>Fichiers audio (%1)</translation>
     </message>
     <message>
-        <location filename="audioeditor.cpp" line="152"/>
+        <location filename="audioeditor.cpp" line="150"/>
         <source>All Files (*.*)</source>
         <translation>Tous les fichiers (*.*)</translation>
     </message>
     <message>
-        <location filename="audioeditor.cpp" line="154"/>
+        <location filename="audioeditor.cpp" line="152"/>
         <source>All Files (*)</source>
         <translation>Tous les fichiers (*)</translation>
     </message>
@@ -1773,13 +1773,13 @@ Celui-ci a dû être déplacé ou effacé.</translation>
         <translation>Nom de la scène :</translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.cpp" line="75"/>
+        <location filename="dmxdumpfactory.cpp" line="74"/>
         <source>Dump all channels (%1 Universes, %2 Fixtures, %3 Channels)</source>
         <oldsource>Dump all DMX values (%1 Universes, %2 Fixtures, %3 Channels)</oldsource>
         <translation>Capturer tous les canaux (%1 univers, %2 appareils, %3 canaux)</translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.cpp" line="78"/>
+        <location filename="dmxdumpfactory.cpp" line="77"/>
         <source>New Scene From Live %1</source>
         <translation>Nouvelle scène live %1</translation>
     </message>
@@ -4241,32 +4241,32 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
         <translation>Éditeur de matrice RVB</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="539"/>
+        <location filename="rgbmatrixeditor.ui" line="508"/>
         <source>RGB matrix name</source>
         <translation>Nom de la matrice RVB</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="552"/>
+        <location filename="rgbmatrixeditor.ui" line="521"/>
         <source>The name of this RGB matrix function</source>
         <translation>Le nom de la matrice RVB en cours d&apos;édition</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="583"/>
+        <location filename="rgbmatrixeditor.ui" line="552"/>
         <source>Save this matrix to a sequence</source>
         <translation>Enregistrer cette matrice vers une séquence</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="603"/>
+        <location filename="rgbmatrixeditor.ui" line="572"/>
         <source>Toggle between circle and square preview</source>
         <translation>Basculer entre un aperçu en cercles ou en carrés</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="649"/>
+        <location filename="rgbmatrixeditor.ui" line="618"/>
         <source>Fixture group</source>
         <translation>Groupe d&apos;appareils</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="662"/>
+        <location filename="rgbmatrixeditor.ui" line="631"/>
         <source>The fixture group to use as the pixel matrix</source>
         <translation>Le groupe d&apos;appareils à utiliser comme matrice</translation>
     </message>
@@ -4276,237 +4276,212 @@ Notez que l&apos;assistant ne peut pas différencier un bouton rotatif d&apos;un
         <translation>Motif</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="124"/>
+        <location filename="rgbmatrixeditor.ui" line="98"/>
         <source>The RGB matrix pattern</source>
         <translation>Le motif de la matrice RVB</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="204"/>
+        <location filename="rgbmatrixeditor.ui" line="173"/>
         <source>Animated Text</source>
         <translation>Texte animé</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="225"/>
+        <location filename="rgbmatrixeditor.ui" line="194"/>
         <source>Text to display</source>
         <translation>Le texte à afficher</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="232"/>
+        <location filename="rgbmatrixeditor.ui" line="201"/>
         <source>Choose the font</source>
         <translation>Choisir la police</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="183"/>
+        <location filename="rgbmatrixeditor.ui" line="152"/>
         <source>Properties</source>
         <translation>Propriétés</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="252"/>
+        <location filename="rgbmatrixeditor.ui" line="221"/>
         <source>Animation style</source>
         <translation>Le style de l&apos;animation</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="262"/>
+        <location filename="rgbmatrixeditor.ui" line="231"/>
         <source>Image</source>
         <translation>Image</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="310"/>
+        <location filename="rgbmatrixeditor.ui" line="279"/>
         <source>Offset</source>
         <translation>Décalage</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="322"/>
+        <location filename="rgbmatrixeditor.ui" line="291"/>
         <source>X</source>
         <translation>X</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="329"/>
+        <location filename="rgbmatrixeditor.ui" line="298"/>
         <source>Shift the pattern X pixels horizontally</source>
         <translation>Le décalage horizontal du motif</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="342"/>
+        <location filename="rgbmatrixeditor.ui" line="311"/>
         <source>Y</source>
         <translation>Y</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="349"/>
+        <location filename="rgbmatrixeditor.ui" line="318"/>
         <source>Shift the pattern Y pixels vertically</source>
         <translation>Le décalage vertical du motif</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="407"/>
+        <location filename="rgbmatrixeditor.ui" line="376"/>
         <source>Dimmer control</source>
         <translation>Contrôle du gradateur</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="404"/>
+        <location filename="rgbmatrixeditor.ui" line="373"/>
         <source>Set the dimmer channel of fixtures to 100%</source>
         <translation>Passe le canal gradateur des appareils à 100%</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="95"/>
+        <location filename="rgbmatrixeditor.ui" line="71"/>
         <source>Matrix end color</source>
         <translation>Couleur de fin de la matrice</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="131"/>
+        <location filename="rgbmatrixeditor.ui" line="87"/>
         <source>Reset the end color</source>
         <translation>Réinitialiser la couleur de fin</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="111"/>
+        <location filename="rgbmatrixeditor.ui" line="105"/>
         <source>Matrix start color</source>
         <translation>Couleur de départ de la matrice</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="142"/>
+        <location filename="rgbmatrixeditor.ui" line="118"/>
         <source>Blend mode</source>
         <translation>Mode de mélange</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="72"/>
+        <location filename="rgbmatrixeditor.ui" line="126"/>
         <source>Default (HTP)</source>
         <translation>Par défaut (HTP)</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="77"/>
+        <location filename="rgbmatrixeditor.ui" line="131"/>
         <source>Mask</source>
         <translation>Masque</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="82"/>
+        <location filename="rgbmatrixeditor.ui" line="136"/>
         <source>Additive</source>
         <translation>Additif</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="87"/>
+        <location filename="rgbmatrixeditor.ui" line="141"/>
         <source>Subtractive</source>
         <translation>Soustractif</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="149"/>
-        <source>Color mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="rgbmatrixeditor.ui" line="157"/>
-        <source>Default (RGB)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="rgbmatrixeditor.ui" line="162"/>
-        <source>Amber</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="rgbmatrixeditor.ui" line="167"/>
-        <source>White</source>
-        <translation type="unfinished">Blanc</translation>
-    </message>
-    <message>
-        <location filename="rgbmatrixeditor.ui" line="172"/>
-        <source>UV</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="rgbmatrixeditor.ui" line="392"/>
+        <location filename="rgbmatrixeditor.ui" line="361"/>
         <source>Other Controls</source>
         <translation>Divers</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="483"/>
+        <location filename="rgbmatrixeditor.ui" line="452"/>
         <source>Run Order</source>
         <translation>Ordre de lecture</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="495"/>
+        <location filename="rgbmatrixeditor.ui" line="464"/>
         <source>Run through over and over again</source>
         <translation>Répéter indéfiniment</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="498"/>
+        <location filename="rgbmatrixeditor.ui" line="467"/>
         <source>Loop</source>
         <translation>Boucle</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="508"/>
+        <location filename="rgbmatrixeditor.ui" line="477"/>
         <source>Run through once and stop</source>
         <translation>Lire une seule fois</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="511"/>
+        <location filename="rgbmatrixeditor.ui" line="480"/>
         <source>Single Shot</source>
         <translation>Unique</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="518"/>
+        <location filename="rgbmatrixeditor.ui" line="487"/>
         <source>First run forwards, then backwards, again forwards, etc.</source>
         <translation>Alterner l&apos;ordre de lecture dans les deux directions</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="521"/>
+        <location filename="rgbmatrixeditor.ui" line="490"/>
         <source>Ping Pong</source>
         <translation>Ping pong</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="423"/>
+        <location filename="rgbmatrixeditor.ui" line="392"/>
         <source>Direction</source>
         <translation>Direction</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="435"/>
+        <location filename="rgbmatrixeditor.ui" line="404"/>
         <source>Start from the first step</source>
         <translation>Commencer à partir du premier pas</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="438"/>
+        <location filename="rgbmatrixeditor.ui" line="407"/>
         <source>Forward</source>
         <translation>Avant</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="448"/>
+        <location filename="rgbmatrixeditor.ui" line="417"/>
         <source>Start from the last step</source>
         <translation>Commencer à partir du dernier pas</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="451"/>
+        <location filename="rgbmatrixeditor.ui" line="420"/>
         <source>Backward</source>
         <translation>Arrière</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="563"/>
+        <location filename="rgbmatrixeditor.ui" line="532"/>
         <source>Show/Hide speed dial window</source>
         <translation>Afficher/Masquer la fenêtre de réglage des vitesses</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="623"/>
+        <location filename="rgbmatrixeditor.ui" line="592"/>
         <source>See what the RGB Matrix does when it is run</source>
         <translation>Prévisualiser la matrice RVB</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="278"/>
+        <location filename="rgbmatrixeditor.cpp" line="273"/>
         <source>None</source>
         <translation>Aucun</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="494"/>
+        <location filename="rgbmatrixeditor.cpp" line="489"/>
         <source>No fixture group to control</source>
         <translation>Aucun groupe d&apos;appareils à controller</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="779"/>
+        <location filename="rgbmatrixeditor.cpp" line="766"/>
         <source>Select image</source>
         <translation>Sélectionner une image</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="781"/>
+        <location filename="rgbmatrixeditor.cpp" line="768"/>
         <source>Images</source>
         <translation>Images</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="1028"/>
+        <location filename="rgbmatrixeditor.cpp" line="1015"/>
         <source>Sequence</source>
         <translation>Séquence</translation>
     </message>
@@ -5713,22 +5688,22 @@ Durée : %3
         <translation>Mettre la liste de cue en pause</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1405"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1402"/>
         <source>Fade In</source>
         <translation>Montée</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1405"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1402"/>
         <source>Fade Out</source>
         <translation>Descente</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1405"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1402"/>
         <source>Duration</source>
         <translation>Durée</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1405"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1402"/>
         <source>Notes</source>
         <translation>Notes</translation>
     </message>

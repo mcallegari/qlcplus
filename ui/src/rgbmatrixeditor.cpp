@@ -382,7 +382,7 @@ void RGBMatrixEditor::updateExtraOptions()
             }
             else // accColors > 1
             {
-            	m_endColorButton->show();
+                m_endColorButton->show();
                 m_resetEndColorButton->show();
             }
             m_blendModeLabel->show();
@@ -398,62 +398,62 @@ void RGBMatrixEditor::updateColors()
         int accColors = m_matrix->algorithm()->acceptColors();
         if (accColors > 0)
         {
-        	if (m_matrix->blendMode() == Universe::MaskBlend)
-			{
-				m_matrix->setStartColor(Qt::white);
-				m_matrix->setEndColor(QColor());
+            if (m_matrix->blendMode() == Universe::MaskBlend)
+            {
+                m_matrix->setStartColor(Qt::white);
+                m_matrix->setEndColor(QColor());
 
-				m_previewHandler->calculateColorDelta(m_matrix->startColor(), m_matrix->endColor());
+                m_previewHandler->calculateColorDelta(m_matrix->startColor(), m_matrix->endColor());
 
-				QPixmap pm(50, 26);
-				pm.fill(Qt::white);
-				m_startColorButton->setIcon(QIcon(pm));
-			}
-			else if (m_colorModeCombo->currentIndex() != RGBMatrix::ColorModeRgb)
-			{
-				// Convert startColor to grayscale for single color modes
-				uchar gray = qGray(m_matrix->startColor().rgb());
-				m_matrix->setStartColor(QColor(gray, gray, gray));
-				QPixmap pm(50, 26);
-				pm.fill(QColor(gray, gray, gray));
-				m_startColorButton->setIcon(QIcon(pm));
+                QPixmap pm(50, 26);
+                pm.fill(Qt::white);
+                m_startColorButton->setIcon(QIcon(pm));
+            }
+            else if (m_colorModeCombo->currentIndex() != RGBMatrix::ColorModeRgb)
+            {
+                // Convert startColor to grayscale for single color modes
+                uchar gray = qGray(m_matrix->startColor().rgb());
+                m_matrix->setStartColor(QColor(gray, gray, gray));
+                QPixmap pm(50, 26);
+                pm.fill(QColor(gray, gray, gray));
+                m_startColorButton->setIcon(QIcon(pm));
 
-				if (accColors > 1)
-				{
-					// Convert endColor to grayscale for single color modes
-					gray = qGray(m_matrix->endColor().rgb());
-					m_matrix->setEndColor(QColor(gray, gray, gray));
-					if (m_matrix->endColor() == QColor())
-					{
-						pm.fill(Qt::transparent);
-					}
-					else
-					{
-						pm.fill(QColor(gray, gray, gray));
-					}
-					m_endColorButton->setIcon(QIcon(pm));
-				}
-				m_previewHandler->calculateColorDelta(m_matrix->startColor(), m_matrix->endColor());
-			}
-			else {
-				QPixmap pm(50, 26);
-				pm.fill(m_matrix->startColor());
-				m_startColorButton->setIcon(QIcon(pm));
+                if (accColors > 1)
+                {
+                    // Convert endColor to grayscale for single color modes
+                    gray = qGray(m_matrix->endColor().rgb());
+                    m_matrix->setEndColor(QColor(gray, gray, gray));
+                    if (m_matrix->endColor() == QColor())
+                    {
+                        pm.fill(Qt::transparent);
+                    }
+                    else
+                    {
+                        pm.fill(QColor(gray, gray, gray));
+                    }
+                    m_endColorButton->setIcon(QIcon(pm));
+                }
+                m_previewHandler->calculateColorDelta(m_matrix->startColor(), m_matrix->endColor());
+            }
+            else {
+                QPixmap pm(50, 26);
+                pm.fill(m_matrix->startColor());
+                m_startColorButton->setIcon(QIcon(pm));
 
-				if (accColors > 1)
-				{
-					m_previewHandler->calculateColorDelta(m_matrix->startColor(), m_matrix->endColor());
-					if (m_matrix->endColor() == QColor())
-					{
-						pm.fill(Qt::transparent);
-					}
-					else
-					{
-						pm.fill(m_matrix->endColor());
-					}
-					m_endColorButton->setIcon(QIcon(pm));
-				}
-			}
+                if (accColors > 1)
+                {
+                    m_previewHandler->calculateColorDelta(m_matrix->startColor(), m_matrix->endColor());
+                    if (m_matrix->endColor() == QColor())
+                    {
+                        pm.fill(Qt::transparent);
+                    }
+                    else
+                    {
+                        pm.fill(m_matrix->endColor());
+                    }
+                    m_endColorButton->setIcon(QIcon(pm));
+                }
+            }
         }
     }
 }
@@ -716,13 +716,13 @@ void RGBMatrixEditor::slotBlendModeChanged(int index)
     }
     updateExtraOptions();
     updateColors();
-	slotRestartTest();
+    slotRestartTest();
 }
 
 void RGBMatrixEditor::slotColorModeChanged(int index)
 {
-	RGBMatrix::ColorMode mode = RGBMatrix::ColorMode(index);
-	m_matrix->setColorMode(mode);
+    RGBMatrix::ColorMode mode = RGBMatrix::ColorMode(index);
+    m_matrix->setColorMode(mode);
     updateColors();
     slotRestartTest();
 }

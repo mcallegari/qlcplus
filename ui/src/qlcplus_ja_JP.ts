@@ -1012,22 +1012,22 @@ The selected file has been moved or deleted.</source>
         <translation>既定のデバイス</translation>
     </message>
     <message>
-        <location filename="audioeditor.cpp" line="142"/>
+        <location filename="audioeditor.cpp" line="140"/>
         <source>Open Audio File</source>
         <translation>オーディオファイルを開く</translation>
     </message>
     <message>
-        <location filename="audioeditor.cpp" line="150"/>
+        <location filename="audioeditor.cpp" line="148"/>
         <source>Audio Files (%1)</source>
         <translation>オーディオファイル (%1)</translation>
     </message>
     <message>
-        <location filename="audioeditor.cpp" line="152"/>
+        <location filename="audioeditor.cpp" line="150"/>
         <source>All Files (*.*)</source>
         <translation>すべてのファイル (*.*)</translation>
     </message>
     <message>
-        <location filename="audioeditor.cpp" line="154"/>
+        <location filename="audioeditor.cpp" line="152"/>
         <source>All Files (*)</source>
         <translation>すべてのファイル (*)</translation>
     </message>
@@ -1765,13 +1765,13 @@ The selected file has been moved or deleted.</source>
         <translation>シーン名</translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.cpp" line="75"/>
+        <location filename="dmxdumpfactory.cpp" line="74"/>
         <source>Dump all channels (%1 Universes, %2 Fixtures, %3 Channels)</source>
         <oldsource>Dump all DMX values (%1 Universes, %2 Fixtures, %3 Channels)</oldsource>
         <translation>すべてのチャンネルを出力 (%1 個のuniverse, %2 個のDMX機器, %3 チャンネル)</translation>
     </message>
     <message>
-        <location filename="dmxdumpfactory.cpp" line="78"/>
+        <location filename="dmxdumpfactory.cpp" line="77"/>
         <source>New Scene From Live %1</source>
         <translation>New Scene From Live %1</translation>
     </message>
@@ -4233,32 +4233,32 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
         <translation>RGBマトリックスエディタ</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="539"/>
+        <location filename="rgbmatrixeditor.ui" line="508"/>
         <source>RGB matrix name</source>
         <translation>マトリックス名</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="552"/>
+        <location filename="rgbmatrixeditor.ui" line="521"/>
         <source>The name of this RGB matrix function</source>
         <translation>このRGBマトリックスの名前</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="583"/>
+        <location filename="rgbmatrixeditor.ui" line="552"/>
         <source>Save this matrix to a sequence</source>
         <translation>シーケンスに保存</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="603"/>
+        <location filename="rgbmatrixeditor.ui" line="572"/>
         <source>Toggle between circle and square preview</source>
         <translation>円形、四角を切り替え</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="649"/>
+        <location filename="rgbmatrixeditor.ui" line="618"/>
         <source>Fixture group</source>
         <translation>機器グループ</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="662"/>
+        <location filename="rgbmatrixeditor.ui" line="631"/>
         <source>The fixture group to use as the pixel matrix</source>
         <translation>ドットとして使用する機器グループ</translation>
     </message>
@@ -4268,237 +4268,212 @@ Note that the wizard cannot tell the difference between a knob and a slider so y
         <translation>パターン</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="124"/>
+        <location filename="rgbmatrixeditor.ui" line="98"/>
         <source>The RGB matrix pattern</source>
         <translation>RGBマトリックスパターン</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="204"/>
+        <location filename="rgbmatrixeditor.ui" line="173"/>
         <source>Animated Text</source>
         <translation>テキスト</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="225"/>
+        <location filename="rgbmatrixeditor.ui" line="194"/>
         <source>Text to display</source>
         <translation>表示するテキスト</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="232"/>
+        <location filename="rgbmatrixeditor.ui" line="201"/>
         <source>Choose the font</source>
         <translation>フォントを選択</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="183"/>
+        <location filename="rgbmatrixeditor.ui" line="152"/>
         <source>Properties</source>
         <translation>プロパティー</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="252"/>
+        <location filename="rgbmatrixeditor.ui" line="221"/>
         <source>Animation style</source>
         <translation>アニメーションスタイル</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="262"/>
+        <location filename="rgbmatrixeditor.ui" line="231"/>
         <source>Image</source>
         <translation>画像</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="310"/>
+        <location filename="rgbmatrixeditor.ui" line="279"/>
         <source>Offset</source>
         <translation>オフセット</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="322"/>
+        <location filename="rgbmatrixeditor.ui" line="291"/>
         <source>X</source>
         <translation>X</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="329"/>
+        <location filename="rgbmatrixeditor.ui" line="298"/>
         <source>Shift the pattern X pixels horizontally</source>
         <translation>X軸方向にずらす</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="342"/>
+        <location filename="rgbmatrixeditor.ui" line="311"/>
         <source>Y</source>
         <translation>Y</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="349"/>
+        <location filename="rgbmatrixeditor.ui" line="318"/>
         <source>Shift the pattern Y pixels vertically</source>
         <translation>Y軸方向にずらす</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="407"/>
+        <location filename="rgbmatrixeditor.ui" line="376"/>
         <source>Dimmer control</source>
         <translation>光量の自動化設定</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="404"/>
+        <location filename="rgbmatrixeditor.ui" line="373"/>
         <source>Set the dimmer channel of fixtures to 100%</source>
         <translation>チェックを入れるとファンクション再生時に自動的光量が100%になります。</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="95"/>
+        <location filename="rgbmatrixeditor.ui" line="71"/>
         <source>Matrix end color</source>
         <translation>第2色設定</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="131"/>
+        <location filename="rgbmatrixeditor.ui" line="87"/>
         <source>Reset the end color</source>
         <translation>リセット</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="111"/>
+        <location filename="rgbmatrixeditor.ui" line="105"/>
         <source>Matrix start color</source>
         <translation>第一色</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="142"/>
+        <location filename="rgbmatrixeditor.ui" line="118"/>
         <source>Blend mode</source>
         <translation>ブレンドモード</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="72"/>
+        <location filename="rgbmatrixeditor.ui" line="126"/>
         <source>Default (HTP)</source>
         <translation>デフォルト (HTP)</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="77"/>
+        <location filename="rgbmatrixeditor.ui" line="131"/>
         <source>Mask</source>
         <translation>マスク</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="82"/>
+        <location filename="rgbmatrixeditor.ui" line="136"/>
         <source>Additive</source>
         <translation>加算</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="87"/>
+        <location filename="rgbmatrixeditor.ui" line="141"/>
         <source>Subtractive</source>
         <translation>減算</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="149"/>
-        <source>Color mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="rgbmatrixeditor.ui" line="157"/>
-        <source>Default (RGB)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="rgbmatrixeditor.ui" line="162"/>
-        <source>Amber</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="rgbmatrixeditor.ui" line="167"/>
-        <source>White</source>
-        <translation type="unfinished">White</translation>
-    </message>
-    <message>
-        <location filename="rgbmatrixeditor.ui" line="172"/>
-        <source>UV</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="rgbmatrixeditor.ui" line="392"/>
+        <location filename="rgbmatrixeditor.ui" line="361"/>
         <source>Other Controls</source>
         <translation>その他</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="483"/>
+        <location filename="rgbmatrixeditor.ui" line="452"/>
         <source>Run Order</source>
         <translation>タイプ</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="495"/>
+        <location filename="rgbmatrixeditor.ui" line="464"/>
         <source>Run through over and over again</source>
         <translation>繰り返し</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="498"/>
+        <location filename="rgbmatrixeditor.ui" line="467"/>
         <source>Loop</source>
         <translation>繰り返し</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="508"/>
+        <location filename="rgbmatrixeditor.ui" line="477"/>
         <source>Run through once and stop</source>
         <translation>一方通行</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="511"/>
+        <location filename="rgbmatrixeditor.ui" line="480"/>
         <source>Single Shot</source>
         <translation>一方通行</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="518"/>
+        <location filename="rgbmatrixeditor.ui" line="487"/>
         <source>First run forwards, then backwards, again forwards, etc.</source>
         <translation>往復</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="521"/>
+        <location filename="rgbmatrixeditor.ui" line="490"/>
         <source>Ping Pong</source>
         <translation>往復</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="423"/>
+        <location filename="rgbmatrixeditor.ui" line="392"/>
         <source>Direction</source>
         <translation>順/逆</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="435"/>
+        <location filename="rgbmatrixeditor.ui" line="404"/>
         <source>Start from the first step</source>
         <translation>最初のステップから再生</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="438"/>
+        <location filename="rgbmatrixeditor.ui" line="407"/>
         <source>Forward</source>
         <translation>順再生</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="448"/>
+        <location filename="rgbmatrixeditor.ui" line="417"/>
         <source>Start from the last step</source>
         <translation>最後のステップから再生</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="451"/>
+        <location filename="rgbmatrixeditor.ui" line="420"/>
         <source>Backward</source>
         <translation>逆再生</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="563"/>
+        <location filename="rgbmatrixeditor.ui" line="532"/>
         <source>Show/Hide speed dial window</source>
         <translation>スピードダイヤルの表示/非表示</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.ui" line="623"/>
+        <location filename="rgbmatrixeditor.ui" line="592"/>
         <source>See what the RGB Matrix does when it is run</source>
         <translation>プレビュー再生</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="278"/>
+        <location filename="rgbmatrixeditor.cpp" line="273"/>
         <source>None</source>
         <translation>無し</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="494"/>
+        <location filename="rgbmatrixeditor.cpp" line="489"/>
         <source>No fixture group to control</source>
         <translation>操作する機器グループがありません</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="779"/>
+        <location filename="rgbmatrixeditor.cpp" line="766"/>
         <source>Select image</source>
         <translation>画像を選択</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="781"/>
+        <location filename="rgbmatrixeditor.cpp" line="768"/>
         <source>Images</source>
         <translation>画像</translation>
     </message>
     <message>
-        <location filename="rgbmatrixeditor.cpp" line="1028"/>
+        <location filename="rgbmatrixeditor.cpp" line="1015"/>
         <source>Sequence</source>
         <translation>シーケンス</translation>
     </message>
@@ -5703,22 +5678,22 @@ Duration: %3
         <translation>キューリストの停止</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1405"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1402"/>
         <source>Fade In</source>
         <translation>フェードイン</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1405"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1402"/>
         <source>Fade Out</source>
         <translation>フェードアウト</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1405"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1402"/>
         <source>Duration</source>
         <translation>再生継続時間</translation>
     </message>
     <message>
-        <location filename="virtualconsole/vccuelist.cpp" line="1405"/>
+        <location filename="virtualconsole/vccuelist.cpp" line="1402"/>
         <source>Notes</source>
         <translation>メモ</translation>
     </message>

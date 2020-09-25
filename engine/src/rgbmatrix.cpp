@@ -68,7 +68,7 @@ RGBMatrix::RGBMatrix(Doc* doc)
     , m_roundTime(new QElapsedTimer())
     , m_stepsCount(0)
     , m_stepBeatDuration(0)
-	, m_colorMode(RGBMatrix::ColorModeRgb)
+    , m_colorMode(RGBMatrix::ColorModeRgb)
 {
     setName(tr("New RGB Matrix"));
     setDuration(500);
@@ -814,7 +814,7 @@ uchar RGBMatrix::rgbToGrey(uint col)
 {
     // the weights are taken from
     // https://en.wikipedia.org/wiki/YUV#SDTV_with_BT.601
-	return (0.299 * qRed(col) + 0.587 * qGreen(col) + 0.114 * qBlue(col));
+    return (0.299 * qRed(col) + 0.587 * qGreen(col) + 0.114 * qBlue(col));
 }
 
 /*********************************************************************
@@ -862,12 +862,12 @@ void RGBMatrix::setBlendMode(Universe::BlendMode mode)
 
 RGBMatrix::ColorMode RGBMatrix::colorMode() const
 {
-	return m_colorMode;
+    return m_colorMode;
 }
 
 void RGBMatrix::setColorMode(RGBMatrix::ColorMode type)
 {
-	m_colorMode = type;
+    m_colorMode = type;
     emit changed(id());
 }
 

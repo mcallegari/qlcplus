@@ -278,9 +278,9 @@ public:
     enum ColorMode
     {
         ColorModeRgb = 0,
-		ColorModeAmber,
-		ColorModeWhite,
-		ColorModeUV
+        ColorModeAmber,
+        ColorModeWhite,
+        ColorModeUV
     };
 
     /** Get/Set the Color Mode associated to this RGBMatrix */
