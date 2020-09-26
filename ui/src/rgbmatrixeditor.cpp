@@ -435,7 +435,8 @@ void RGBMatrixEditor::updateColors()
                 }
                 m_previewHandler->calculateColorDelta(m_matrix->startColor(), m_matrix->endColor());
             }
-            else {
+            else 
+            {
                 QPixmap pm(50, 26);
                 pm.fill(m_matrix->startColor());
                 m_startColorButton->setIcon(QIcon(pm));
@@ -463,7 +464,8 @@ void RGBMatrixEditor::updateColors()
  */
 void RGBMatrixEditor::resetProperties(QLayoutItem *item)
 {
-    if (item->layout()) {
+    if (item->layout()) 
+    {
         // Process all child items recursively.
         for (int i = item->layout()->count() - 1; i >= 0; i--)
             resetProperties(item->layout()->itemAt(i));
@@ -500,20 +502,16 @@ void RGBMatrixEditor::displayProperties(RGBScript *script)
                 {
                     QString pValue = m_matrix->property(prop.m_name);
                     if (!pValue.isEmpty())
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+                    {
                         propCombo->setCurrentText(pValue);
-#else
-                        propCombo->setCurrentIndex(propCombo->findText(pValue));
-#endif
+                    }
                     else
                     {
                         pValue = script->property(prop.m_name);
                         if (!pValue.isEmpty())
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+                        {
                             propCombo->setCurrentText(pValue);
-#else
-                            propCombo->setCurrentIndex(propCombo->findText(pValue));
-#endif
+                        }
                     }
                 }
                 gridRowIdx++;
