@@ -712,11 +712,16 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup *grp, QL
 
         QLCFixtureHead head = fxi->head(grpHead.head);
 
-        QVector <quint32> rgb = head.rgbChannels();
-        QVector <quint32> cmy = head.cmyChannels();
-        QVector <quint32> white = head.whiteChannels();
-        QVector <quint32> amber = head.amberChannels();
-        QVector <quint32> uv = head.uvChannels();
+        QVector <quint32> rgb;
+        QVector <quint32> cmy;
+        QVector <quint32> white;
+        QVector <quint32> amber;
+        QVector <quint32> uv;
+
+        if (pt.y() >= map.count() || pt.x() >= map[pt.y()].count())
+            continue;
+
+        uint col = map[pt.y()][pt.x()];
 
         quint32 masterDim = fxi->masterIntensityChannel();
         quint32 headDim = head.channelNumber(QLCChannel::Intensity, QLCChannel::MSB);
@@ -738,16 +743,33 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup *grp, QL
         // *least important - per head dimmer if present,
         // otherwise per fixture dimmer if present
         QVector <quint32> dim;
-        if (masterDim != QLCChannel::invalid())
-            dim << masterDim;
+        if (m_colorMode == ColorModeRgb || m_colorMode == ColorModeWhite)
+        {
+            if (masterDim != QLCChannel::invalid())
+                dim << masterDim;
 
-        if (headDim != QLCChannel::invalid())
-            dim << headDim;
+            if (headDim != QLCChannel::invalid())
+                dim << headDim;
+        }
 
-        if (pt.y() >= map.count() || pt.x() >= map[pt.y()].count())
-            continue;
-
-        uint col = map[pt.y()][pt.x()];
+        // initialize the head channels depending on the selected mode
+        if (m_colorMode == ColorModeRgb )
+        {
+            rgb = head.rgbChannels();
+            cmy = head.cmyChannels();
+        }
+        else if (m_colorMode == ColorModeWhite)
+        {
+            white = head.whiteChannels();
+        }
+        else if (m_colorMode == ColorModeAmber)
+        {
+            amber = head.amberChannels();
+        }
+        else if (m_colorMode == ColorModeUV)
+        {
+            uv = head.uvChannels();
+        }
 
         if (m_colorMode == ColorModeRgb && rgb.size() == 3)
         {
