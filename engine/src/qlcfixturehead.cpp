@@ -130,6 +130,39 @@ QVector <quint32> QLCFixtureHead::cmyChannels() const
     return vector;
 }
 
+QVector <quint32> QLCFixtureHead::whiteChannels() const
+{
+    QVector <quint32> vector;
+    quint32 c = channelNumber(QLCChannel::White, QLCChannel::MSB);
+
+    if (c != QLCChannel::invalid())
+        vector << c;
+
+    return vector;
+}
+
+QVector <quint32> QLCFixtureHead::amberChannels() const
+{
+    QVector <quint32> vector;
+    quint32 c = channelNumber(QLCChannel::Amber, QLCChannel::MSB);
+
+    if (c != QLCChannel::invalid())
+        vector << c;
+
+    return vector;
+}
+
+QVector <quint32> QLCFixtureHead::uvChannels() const
+{
+    QVector <quint32> vector;
+    quint32 c = channelNumber(QLCChannel::UV, QLCChannel::MSB);
+
+    if (c != QLCChannel::invalid())
+        vector << c;
+
+    return vector;
+}
+
 QVector <quint32> QLCFixtureHead::colorWheels() const
 {
     return m_colorWheels;

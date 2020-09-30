@@ -242,6 +242,10 @@ private:
     /** Update FadeChannels when $map has changed since last time */
     void updateMapChannels(const RGBMap& map, const FixtureGroup* grp, QList<Universe *> universes);
 
+public:
+    /** Convert color values to fader value */
+    uchar rgbToGrey(uint col);
+
 private:
     /** Reference to a timer counting the time in ms between steps */
     QElapsedTimer *m_roundTime;
@@ -265,6 +269,31 @@ public:
 public:
     /** @reimp */
     void setBlendMode(Universe::BlendMode mode);
+
+    /*************************************************************************
+     * RGB Color Mode
+     *************************************************************************/
+public:
+    /** Color Modes for the RGB Matrix */
+    enum ColorMode
+    {
+        ColorModeRgb = 0,
+        ColorModeAmber,
+        ColorModeWhite,
+        ColorModeUV
+    };
+
+    /** Get/Set the Color Mode associated to this RGBMatrix */
+    ColorMode colorMode() const;
+    void setColorMode(ColorMode type);
+
+    /** Return a color mode from a string */
+    static ColorMode stringToColorMode(QString mode);
+
+    /** Return a string from a color mode, to be saved into a XML */
+    static QString colorModeToString(ColorMode mode);
+private:
+    ColorMode m_colorMode;
 };
 
 /** @} */
