@@ -217,7 +217,6 @@ void RGBMatrix_Test::loadSave()
     mtx->setDuration(1200);
     mtx->setFadeInSpeed(10);
     mtx->setFadeOutSpeed(20);
-    mtx->setDimmerControl(false);
     m_doc->addFunction(mtx);
 
     QBuffer buffer;
@@ -238,7 +237,7 @@ void RGBMatrix_Test::loadSave()
     QCOMPARE(xmlReader.attributes().value("ID").toString(), QString::number(mtx->id()));
     QCOMPARE(xmlReader.attributes().value("Name").toString(), QString("Xyzzy"));
 
-    int speed = 0, dir = 0, run = 0, algo = 0, monocolor = 0, endcolor = 0, grp = 0, dimmer = 0, colormode = 0;
+    int speed = 0, dir = 0, run = 0, algo = 0, monocolor = 0, endcolor = 0, grp = 0, colormode = 0;
 
     while (xmlReader.readNextStartElement())
     {
@@ -281,12 +280,7 @@ void RGBMatrix_Test::loadSave()
             QCOMPARE(xmlReader.readElementText(), QString("42"));
             grp++;
         }
-        else if (xmlReader.name() == "DimmerControl")
-        {
-            QCOMPARE(xmlReader.readElementText(), QString("0"));
-            dimmer++;
-        }
-        else if (xmlReader.name() == "ColorMode")
+        else if (xmlReader.name() == "ControlMode")
         {
             QCOMPARE(xmlReader.readElementText(), QString("RGB"));
             colormode++;
@@ -304,7 +298,6 @@ void RGBMatrix_Test::loadSave()
     QCOMPARE(monocolor, 1);
     QCOMPARE(endcolor, 1);
     QCOMPARE(grp, 1);
-    QCOMPARE(dimmer, 1);
     QCOMPARE(colormode, 1);
 
     xmlReader.setDevice(NULL);
