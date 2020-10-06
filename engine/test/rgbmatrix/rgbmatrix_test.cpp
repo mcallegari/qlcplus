@@ -205,7 +205,7 @@ void RGBMatrix_Test::loadSave()
     RGBMatrix* mtx = new RGBMatrix(m_doc);
     mtx->setStartColor(Qt::magenta);
     mtx->setEndColor(Qt::blue);
-    mtx->setColorMode(RGBMatrix::ColorModeRgb);
+    mtx->setControlMode(RGBMatrix::ControlModeRgb);
     mtx->setFixtureGroup(42);
     mtx->setAlgorithm(RGBAlgorithm::algorithm(m_doc, "Stripes"));
     QVERIFY(mtx->algorithm() != NULL);
@@ -318,7 +318,7 @@ void RGBMatrix_Test::loadSave()
     QCOMPARE(mtx2.runOrder(), Function::PingPong);
     QCOMPARE(mtx2.startColor(), QColor(Qt::magenta));
     QCOMPARE(mtx2.endColor(), QColor(Qt::blue));
-    QCOMPARE(mtx2.colorMode(), RGBMatrix::ColorModeRgb);
+    QCOMPARE(mtx2.controlMode(), RGBMatrix::ControlModeRgb);
     QCOMPARE(mtx2.fixtureGroup(), uint(42));
     QVERIFY(mtx2.algorithm() != NULL);
     QCOMPARE(mtx2.algorithm()->name(), mtx->algorithm()->name());

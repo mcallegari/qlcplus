@@ -154,14 +154,18 @@ void RGBMatrixEditor::init()
         break;
     }
 
-    /* Dimmer control */
-    m_dimmerControlCb->setChecked(m_matrix->dimmerControl());
 
     /* Blend mode */
     m_blendModeCombo->setCurrentIndex(m_matrix->blendMode());
 
     /* Color mode */
-    m_colorModeCombo->setCurrentIndex(m_matrix->colorMode());
+    m_colorModeCombo->setCurrentIndex(m_matrix->controlMode());
+
+    /* Dimmer control */
+    if (m_matrix->dimmerControl())
+        m_dimmerControlCb->setChecked(m_matrix->dimmerControl());
+    else
+        m_intensityGroup->hide();
 
     fillPatternCombo();
     fillFixtureGroupCombo();
@@ -409,28 +413,26 @@ void RGBMatrixEditor::updateColors()
                 pm.fill(Qt::white);
                 m_startColorButton->setIcon(QIcon(pm));
             }
-            else if (m_colorModeCombo->currentIndex() != RGBMatrix::ColorModeRgb)
+            else if (m_colorModeCombo->currentIndex() != RGBMatrix::ControlModeRgb)
             {
                 // Convert startColor to grayscale for single color modes
                 uchar gray = qGray(m_matrix->startColor().rgb());
-                m_matrix->setStartColor(QColor(gray, gray, gray));
                 QPixmap pm(50, 26);
                 pm.fill(QColor(gray, gray, gray));
                 m_startColorButton->setIcon(QIcon(pm));
+                m_matrix->setStartColor(QColor(gray, gray, gray));
 
                 if (accColors > 1)
                 {
                     // Convert endColor to grayscale for single color modes
                     gray = qGray(m_matrix->endColor().rgb());
                     m_matrix->setEndColor(QColor(gray, gray, gray));
+
                     if (m_matrix->endColor() == QColor())
-                    {
                         pm.fill(Qt::transparent);
-                    }
                     else
-                    {
                         pm.fill(QColor(gray, gray, gray));
-                    }
+
                     m_endColorButton->setIcon(QIcon(pm));
                 }
                 m_previewHandler->calculateColorDelta(m_matrix->startColor(), m_matrix->endColor());
@@ -444,14 +446,12 @@ void RGBMatrixEditor::updateColors()
                 if (accColors > 1)
                 {
                     m_previewHandler->calculateColorDelta(m_matrix->startColor(), m_matrix->endColor());
+
                     if (m_matrix->endColor() == QColor())
-                    {
                         pm.fill(Qt::transparent);
-                    }
                     else
-                    {
                         pm.fill(m_matrix->endColor());
-                    }
+
                     m_endColorButton->setIcon(QIcon(pm));
                 }
             }
@@ -719,8 +719,8 @@ void RGBMatrixEditor::slotBlendModeChanged(int index)
 
 void RGBMatrixEditor::slotColorModeChanged(int index)
 {
-    RGBMatrix::ColorMode mode = RGBMatrix::ColorMode(index);
-    m_matrix->setColorMode(mode);
+    RGBMatrix::ControlMode mode = RGBMatrix::ControlMode(index);
+    m_matrix->setControlMode(mode);
     updateColors();
     slotRestartTest();
 }
@@ -920,6 +920,8 @@ void RGBMatrixEditor::slotBackwardClicked()
 void RGBMatrixEditor::slotDimmerControlClicked()
 {
     m_matrix->setDimmerControl(m_dimmerControlCb->isChecked());
+    if (m_dimmerControlCb->isChecked() == false)
+        m_dimmerControlCb->setEnabled(false);
 }
 
 void RGBMatrixEditor::slotFadeInChanged(int ms)

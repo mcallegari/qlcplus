@@ -99,27 +99,6 @@ public:
     QVector <quint32> cmyChannels() const;
 
     /**
-     * Get a list of white color channels. If the fixture doesn't have white channels,
-     * the list is empty.
-     * @return A list of one channel or an empty list
-     */
-    QVector <quint32> whiteChannels() const;
-
-    /**
-     * Get a list of amber color channels. If the fixture doesn't have amber channels,
-     * the list is empty.
-     * @return A list of one channel or an empty list
-     */
-    QVector <quint32> amberChannels() const;
-
-    /**
-     * Get a list of UV color channels. If the fixture doesn't have UV channels,
-     * the list is empty.
-     * @return A list of one channel or an empty list
-     */
-    QVector <quint32> uvChannels() const;
-
-    /**
      * Get a list of color wheel channels. Channels are ordered by their number
      * @return A list of zero or more channels
      */

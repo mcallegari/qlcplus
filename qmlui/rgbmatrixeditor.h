@@ -43,6 +43,9 @@ class RGBMatrixEditor : public FunctionEditor
     Q_PROPERTY(QColor endColor READ endColor WRITE setEndColor NOTIFY endColorChanged)
     Q_PROPERTY(bool hasEndColor READ hasEndColor WRITE setHasEndColor NOTIFY hasEndColorChanged)
 
+    Q_PROPERTY(int blendMode READ blendMode WRITE setBlendMode NOTIFY blendModeChanged)
+    Q_PROPERTY(int controlMode READ controlMode WRITE setControlMode NOTIFY controlModeChanged)
+
     // Text Algorithm specific properties
     Q_PROPERTY(QString algoText READ algoText WRITE setAlgoText NOTIFY algoTextChanged)
     Q_PROPERTY(QFont algoTextFont READ algoTextFont WRITE setAlgoTextFont NOTIFY algoTextFontChanged)
@@ -137,6 +140,26 @@ signals:
 
     void algoOffsetChanged(QSize algoOffset);
     void animationStyleChanged(int style);
+
+    /************************************************************************
+     * Blend mode
+     ************************************************************************/
+public:
+    int blendMode() const;
+    void setBlendMode(int mode);
+
+signals:
+    void blendModeChanged();
+
+    /************************************************************************
+     * Control mode
+     ************************************************************************/
+public:
+    int controlMode() const;
+    void setControlMode(int mode);
+
+signals:
+    void controlModeChanged();
 
     /************************************************************************
      * Preview

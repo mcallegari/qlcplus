@@ -125,6 +125,7 @@ public:
     bool dimmerControl() const;
 
 private:
+    // LEGACY: replaced by ControlModeDimmer
     bool m_dimmerControl;
 
     /*********************************************************************
@@ -271,29 +272,32 @@ public:
     void setBlendMode(Universe::BlendMode mode);
 
     /*************************************************************************
-     * RGB Color Mode
+     * Control Mode
      *************************************************************************/
 public:
-    /** Color Modes for the RGB Matrix */
-    enum ColorMode
+    /** Control modes for the RGB Matrix */
+    enum ControlMode
     {
-        ColorModeRgb = 0,
-        ColorModeAmber,
-        ColorModeWhite,
-        ColorModeUV
+        ControlModeRgb = 0,
+        ControlModeWhite,
+        ControlModeAmber,
+        ControlModeUV,
+        ControlModeDimmer,
+        ControlModeShutter
     };
 
-    /** Get/Set the Color Mode associated to this RGBMatrix */
-    ColorMode colorMode() const;
-    void setColorMode(ColorMode type);
+    /** Get/Set the control mode associated to this RGBMatrix */
+    ControlMode controlMode() const;
+    void setControlMode(ControlMode mode);
 
-    /** Return a color mode from a string */
-    static ColorMode stringToColorMode(QString mode);
+    /** Return a control mode from a string */
+    static ControlMode stringToControlMode(QString mode);
 
-    /** Return a string from a color mode, to be saved into a XML */
-    static QString colorModeToString(ColorMode mode);
+    /** Return a string from a control mode, to be saved into a XML */
+    static QString controlModeToString(ControlMode mode);
+
 private:
-    ColorMode m_colorMode;
+    ControlMode m_controlMode;
 };
 
 /** @} */

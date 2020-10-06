@@ -45,11 +45,13 @@
 #define KXMLQLCRGBMatrixPropertyName "Name"
 #define KXMLQLCRGBMatrixPropertyValue "Value"
 
-#define KXMLQLCRGBMatrixColorMode "ColorMode"
-#define KXMLQLCRGBMatrixColorModeRgb "RGB"
-#define KXMLQLCRGBMatrixColorModeAmber "Amber"
-#define KXMLQLCRGBMatrixColorModeWhite "White"
-#define KXMLQLCRGBMatrixColorModeUV "UV"
+#define KXMLQLCRGBMatrixControlMode "ControlMode"
+#define KXMLQLCRGBMatrixControlModeRgb "RGB"
+#define KXMLQLCRGBMatrixControlModeAmber "Amber"
+#define KXMLQLCRGBMatrixControlModeWhite "White"
+#define KXMLQLCRGBMatrixControlModeUV "UV"
+#define KXMLQLCRGBMatrixControlModeDimmer "Dimmer"
+#define KXMLQLCRGBMatrixControlModeShutter "Shutter"
 
 /****************************************************************************
  * Initialization
@@ -57,7 +59,7 @@
 
 RGBMatrix::RGBMatrix(Doc* doc)
     : Function(doc, Function::RGBMatrixType)
-    , m_dimmerControl(true)
+    , m_dimmerControl(false)
     , m_fixtureGroupID(FixtureGroup::invalidId())
     , m_group(NULL)
     , m_algorithm(NULL)
@@ -68,7 +70,7 @@ RGBMatrix::RGBMatrix(Doc* doc)
     , m_roundTime(new QElapsedTimer())
     , m_stepsCount(0)
     , m_stepBeatDuration(0)
-    , m_colorMode(RGBMatrix::ColorModeRgb)
+    , m_controlMode(RGBMatrix::ControlModeRgb)
 {
     setName(tr("New RGB Matrix"));
     setDuration(500);
@@ -399,9 +401,9 @@ bool RGBMatrix::loadXML(QXmlStreamReader &root)
         {
             setEndColor(QColor::fromRgb(QRgb(root.readElementText().toUInt())));
         }
-        else if (root.name() == KXMLQLCRGBMatrixColorMode)
+        else if (root.name() == KXMLQLCRGBMatrixControlMode)
         {
-            setColorMode(stringToColorMode(root.readElementText()));
+            setControlMode(stringToControlMode(root.readElementText()));
         }
         else if (root.name() == KXMLQLCRGBMatrixProperty)
         {
@@ -447,20 +449,19 @@ bool RGBMatrix::saveXML(QXmlStreamWriter *doc)
     if (m_algorithm != NULL)
         m_algorithm->saveXML(doc);
 
-    /* Dimmer Control */
-    doc->writeTextElement(KXMLQLCRGBMatrixDimmerControl, QString::number(dimmerControl()));
+    /* LEGACY - Dimmer Control */
+    if (dimmerControl())
+        doc->writeTextElement(KXMLQLCRGBMatrixDimmerControl, QString::number(dimmerControl()));
 
     /* Start Color */
     doc->writeTextElement(KXMLQLCRGBMatrixStartColor, QString::number(startColor().rgb()));
 
     /* End Color */
     if (endColor().isValid())
-    {
         doc->writeTextElement(KXMLQLCRGBMatrixEndColor, QString::number(endColor().rgb()));
-    }
 
-    /* Color Mode */
-    doc->writeTextElement(KXMLQLCRGBMatrixColorMode, RGBMatrix::colorModeToString(m_colorMode));
+    /* Control Mode */
+    doc->writeTextElement(KXMLQLCRGBMatrixControlMode, RGBMatrix::controlModeToString(m_controlMode));
 
     /* Fixture Group */
     doc->writeTextElement(KXMLQLCRGBMatrixFixtureGroup, QString::number(fixtureGroup()));
@@ -712,118 +713,123 @@ void RGBMatrix::updateMapChannels(const RGBMap& map, const FixtureGroup *grp, QL
 
         QLCFixtureHead head = fxi->head(grpHead.head);
 
-        QVector <quint32> rgb;
-        QVector <quint32> cmy;
-        QVector <quint32> white;
-        QVector <quint32> amber;
-        QVector <quint32> uv;
-
         if (pt.y() >= map.count() || pt.x() >= map[pt.y()].count())
             continue;
 
         uint col = map[pt.y()][pt.x()];
 
-        quint32 masterDim = fxi->masterIntensityChannel();
-        quint32 headDim = head.channelNumber(QLCChannel::Intensity, QLCChannel::MSB);
-
-        // Collect all dimmers that affect current head:
-        // They are the master dimmer (affects whole fixture)
-        // and per-head dimmer.
-        //
-        // If there are no RGB or CMY channels, the least important* dimmer channel
-        // is used to create grayscale image.
-        //
-        // The rest of the dimmer channels are set to full if dimmer control is
-        // enabled and target color is > 0 (see
-        // http://www.qlcplus.org/forum/viewtopic.php?f=29&t=11090)
-        //
-        // Note: If there is only one head, and only one dimmer channel,
-        // make it a master dimmer in fixture definition.
-        //
-        // *least important - per head dimmer if present,
-        // otherwise per fixture dimmer if present
-        QVector <quint32> dim;
-        if (m_colorMode == ColorModeRgb || m_colorMode == ColorModeWhite)
+        if (m_controlMode == ControlModeRgb)
         {
+            QVector <quint32> rgb = head.rgbChannels();
+            QVector <quint32> cmy = head.cmyChannels();
+
+            if (rgb.size() == 3)
+            {
+                // RGB color mixing
+                FadeChannel *fc = getFader(universes, fxi->universe(), grpHead.fxi, rgb.at(0));
+                updateFaderValues(fc, qRed(col), fadeTime);
+
+                fc = getFader(universes, fxi->universe(), grpHead.fxi, rgb.at(1));
+                updateFaderValues(fc, qGreen(col), fadeTime);
+
+                fc = getFader(universes, fxi->universe(), grpHead.fxi, rgb.at(2));
+                updateFaderValues(fc, qBlue(col), fadeTime);
+            }
+            else if (cmy.size() == 3)
+            {
+                // CMY color mixing
+                QColor cmyCol(col);
+
+                FadeChannel *fc = getFader(universes, fxi->universe(), grpHead.fxi, cmy.at(0));
+                updateFaderValues(fc, cmyCol.cyan(), fadeTime);
+
+                fc = getFader(universes, fxi->universe(), grpHead.fxi, cmy.at(1));
+                updateFaderValues(fc, cmyCol.magenta(), fadeTime);
+
+                fc = getFader(universes, fxi->universe(), grpHead.fxi, cmy.at(2));
+                updateFaderValues(fc, cmyCol.yellow(), fadeTime);
+            }
+        }
+        else if (m_controlMode == ControlModeWhite)
+        {
+            quint32 white = head.channelNumber(QLCChannel::White, QLCChannel::MSB);
+
+            if (white != QLCChannel::invalid())
+            {
+                FadeChannel *fc = getFader(universes, fxi->universe(), grpHead.fxi, white);
+                updateFaderValues(fc, rgbToGrey(col), fadeTime);
+            }
+        }
+        else if (m_controlMode == ControlModeAmber)
+        {
+            quint32 amber = head.channelNumber(QLCChannel::Amber, QLCChannel::MSB);
+
+            if (amber != QLCChannel::invalid())
+            {
+                FadeChannel *fc = getFader(universes, fxi->universe(), grpHead.fxi, amber);
+                updateFaderValues(fc, rgbToGrey(col), fadeTime);
+            }
+        }
+        else if (m_controlMode == ControlModeUV)
+        {
+            quint32 uv = head.channelNumber(QLCChannel::UV, QLCChannel::MSB);
+
+            if (uv != QLCChannel::invalid())
+            {
+                FadeChannel *fc = getFader(universes, fxi->universe(), grpHead.fxi, uv);
+                updateFaderValues(fc, rgbToGrey(col), fadeTime);
+            }
+        }
+        else if (m_controlMode == ControlModeShutter)
+        {
+            QVector <quint32> shutters = head.shutterChannels();
+
+            if (shutters.size())
+            {
+                FadeChannel *fc = getFader(universes, fxi->universe(), grpHead.fxi, shutters.first());
+                updateFaderValues(fc, rgbToGrey(col), fadeTime);
+            }
+        }
+
+        if (m_controlMode == ControlModeDimmer || m_dimmerControl)
+        {
+            quint32 masterDim = fxi->masterIntensityChannel();
+            quint32 headDim = head.channelNumber(QLCChannel::Intensity, QLCChannel::MSB);
+            QVector <quint32> dimmers;
+
+            // Collect all dimmers that affect current head:
+            // They are the master dimmer (affects whole fixture)
+            // and per-head dimmer.
+            //
+            // If there are no RGB or CMY channels, the least important* dimmer channel
+            // is used to create grayscale image.
+            //
+            // The rest of the dimmer channels are set to full if dimmer control is
+            // enabled and target color is > 0 (see
+            // http://www.qlcplus.org/forum/viewtopic.php?f=29&t=11090)
+            //
+            // Note: If there is only one head, and only one dimmer channel,
+            // make it a master dimmer in fixture definition.
+            //
+            // *least important - per head dimmer if present,
+            // otherwise per fixture dimmer if present
+
             if (masterDim != QLCChannel::invalid())
-                dim << masterDim;
+                dimmers << masterDim;
 
             if (headDim != QLCChannel::invalid())
-                dim << headDim;
-        }
+                dimmers << headDim;
 
-        // initialize the head channels depending on the selected mode
-        if (m_colorMode == ColorModeRgb )
-        {
-            rgb = head.rgbChannels();
-            cmy = head.cmyChannels();
-        }
-        else if (m_colorMode == ColorModeWhite)
-        {
-            white = head.whiteChannels();
-        }
-        else if (m_colorMode == ColorModeAmber)
-        {
-            amber = head.amberChannels();
-        }
-        else if (m_colorMode == ColorModeUV)
-        {
-            uv = head.uvChannels();
-        }
+            if (dimmers.size())
+            {
+                // Set dimmer to value of the color (e.g. for PARs)
+                FadeChannel *fc = getFader(universes, fxi->universe(), grpHead.fxi, dimmers.last());
+                updateFaderValues(fc, rgbToGrey(col), fadeTime);
+                dimmers.pop_back();
+            }
 
-        if (m_colorMode == ColorModeRgb && rgb.size() == 3)
-        {
-            // RGB color mixing
-            FadeChannel *fc = getFader(universes, fxi->universe(), grpHead.fxi, rgb.at(0));
-            updateFaderValues(fc, qRed(col), fadeTime);
-
-            fc = getFader(universes, fxi->universe(), grpHead.fxi, rgb.at(1));
-            updateFaderValues(fc, qGreen(col), fadeTime);
-
-            fc = getFader(universes, fxi->universe(), grpHead.fxi, rgb.at(2));
-            updateFaderValues(fc, qBlue(col), fadeTime);
-        }
-        else if (m_colorMode == ColorModeRgb && cmy.size() == 3)
-        {
-            // CMY color mixing
-            QColor cmyCol(col);
-
-            FadeChannel *fc = getFader(universes, fxi->universe(), grpHead.fxi, cmy.at(0));
-            updateFaderValues(fc, cmyCol.cyan(), fadeTime);
-
-            fc = getFader(universes, fxi->universe(), grpHead.fxi, cmy.at(1));
-            updateFaderValues(fc, cmyCol.magenta(), fadeTime);
-
-            fc = getFader(universes, fxi->universe(), grpHead.fxi, cmy.at(2));
-            updateFaderValues(fc, cmyCol.yellow(), fadeTime);
-        }
-        else if (m_colorMode == ColorModeAmber && amber.size() == 1)
-        {
-            FadeChannel *fc = getFader(universes, fxi->universe(), grpHead.fxi, amber.at(0));
-            updateFaderValues(fc, rgbToGrey(col), fadeTime);
-        }
-        else if (m_colorMode == ColorModeWhite && white.size() == 1)
-        {
-            FadeChannel *fc = getFader(universes, fxi->universe(), grpHead.fxi, white.at(0));
-            updateFaderValues(fc, rgbToGrey(col), fadeTime);
-        }
-        else if (m_colorMode == ColorModeUV && uv.size() == 1)
-        {
-            FadeChannel *fc = getFader(universes, fxi->universe(), grpHead.fxi, uv.at(0));
-            updateFaderValues(fc, rgbToGrey(col), fadeTime);
-        }
-        else if ((m_colorMode == ColorModeRgb || m_colorMode == ColorModeWhite) && !dim.empty())
-        {
-            // Set dimmer to value of the color (e.g. for PARs)
-            FadeChannel *fc = getFader(universes, fxi->universe(), grpHead.fxi, dim.last());
-            updateFaderValues(fc, rgbToGrey(col), fadeTime);
-            dim.pop_back();
-        }
-
-        if (m_dimmerControl)
-        {
             // Set the rest of the dimmer channels to full on
-            foreach(quint32 ch, dim)
+            foreach (quint32 ch, dimmers)
             {
                 FadeChannel *fc = getFader(universes, fxi->universe(), grpHead.fxi, ch);
                 updateFaderValues(fc, col == 0 ? 0 : 255, fadeTime);
@@ -879,50 +885,60 @@ void RGBMatrix::setBlendMode(Universe::BlendMode mode)
 }
 
 /*************************************************************************
- * RGB Color Mode
+ * Control Mode
  *************************************************************************/
 
-RGBMatrix::ColorMode RGBMatrix::colorMode() const
+RGBMatrix::ControlMode RGBMatrix::controlMode() const
 {
-    return m_colorMode;
+    return m_controlMode;
 }
 
-void RGBMatrix::setColorMode(RGBMatrix::ColorMode type)
+void RGBMatrix::setControlMode(RGBMatrix::ControlMode mode)
 {
-    m_colorMode = type;
+    m_controlMode = mode;
     emit changed(id());
 }
 
-RGBMatrix::ColorMode RGBMatrix::stringToColorMode(QString mode)
+RGBMatrix::ControlMode RGBMatrix::stringToControlMode(QString mode)
 {
-    if (mode == KXMLQLCRGBMatrixColorModeRgb)
-        return ColorModeRgb;
-    else if (mode == KXMLQLCRGBMatrixColorModeAmber)
-        return ColorModeAmber;
-    else if (mode == KXMLQLCRGBMatrixColorModeWhite)
-        return ColorModeWhite;
-    else if (mode == KXMLQLCRGBMatrixColorModeUV)
-        return ColorModeUV;
+    if (mode == KXMLQLCRGBMatrixControlModeRgb)
+        return ControlModeRgb;
+    else if (mode == KXMLQLCRGBMatrixControlModeAmber)
+        return ControlModeAmber;
+    else if (mode == KXMLQLCRGBMatrixControlModeWhite)
+        return ControlModeWhite;
+    else if (mode == KXMLQLCRGBMatrixControlModeUV)
+        return ControlModeUV;
+    else if (mode == KXMLQLCRGBMatrixControlModeDimmer)
+        return ControlModeDimmer;
+    else if (mode == KXMLQLCRGBMatrixControlModeShutter)
+        return ControlModeShutter;
 
-    return ColorModeRgb;
+    return ControlModeRgb;
 }
 
-QString RGBMatrix::colorModeToString(RGBMatrix::ColorMode mode)
+QString RGBMatrix::controlModeToString(RGBMatrix::ControlMode mode)
 {
     switch(mode)
     {
         default:
-        case ColorModeRgb:
-            return QString(KXMLQLCRGBMatrixColorModeRgb);
+        case ControlModeRgb:
+            return QString(KXMLQLCRGBMatrixControlModeRgb);
         break;
-        case ColorModeAmber:
-            return QString(KXMLQLCRGBMatrixColorModeAmber);
+        case ControlModeAmber:
+            return QString(KXMLQLCRGBMatrixControlModeAmber);
         break;
-        case ColorModeWhite:
-            return QString(KXMLQLCRGBMatrixColorModeWhite);
+        case ControlModeWhite:
+            return QString(KXMLQLCRGBMatrixControlModeWhite);
         break;
-        case ColorModeUV:
-            return QString(KXMLQLCRGBMatrixColorModeUV);
+        case ControlModeUV:
+            return QString(KXMLQLCRGBMatrixControlModeUV);
+        break;
+        case ControlModeDimmer:
+            return QString(KXMLQLCRGBMatrixControlModeDimmer);
+        break;
+        case ControlModeShutter:
+            return QString(KXMLQLCRGBMatrixControlModeShutter);
         break;
     }
 }

@@ -202,6 +202,9 @@ Rectangle
                         ListElement { mLabel: qsTr("Subtractive"); }
                     }
                     model: blendModel
+
+                    currentIndex: rgbMatrixEditor.blendMode
+                    onCurrentIndexChanged: rgbMatrixEditor.blendMode = currentIndex
                 }
             }
 
@@ -227,13 +230,18 @@ Rectangle
 
                     ListModel
                     {
-                        id: colorModel
+                        id: controlModel
                         ListElement { mLabel: qsTr("Default (RGB)"); }
-                        ListElement { mLabel: qsTr("Amber"); }
                         ListElement { mLabel: qsTr("White"); }
+                        ListElement { mLabel: qsTr("Amber"); }
                         ListElement { mLabel: qsTr("UV"); }
+                        ListElement { mLabel: qsTr("Dimmer"); }
+                        ListElement { mLabel: qsTr("Shutter"); }
                     }
-                    model: colorModel
+                    model: controlModel
+
+                    currentIndex: rgbMatrixEditor.controlMode
+                    onCurrentIndexChanged: rgbMatrixEditor.controlMode = currentIndex
                 }
             }
 
