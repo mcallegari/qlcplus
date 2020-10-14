@@ -768,6 +768,9 @@ QVector3D ContextManager::fixturesPosition() const
 
 void ContextManager::setFixturesPosition(QVector3D position)
 {
+    if (m_selectedFixtures.isEmpty())
+        return;
+
     if (m_selectedFixtures.count() == 1)
     {
         quint32 fxID = FixtureUtils::itemFixtureID(m_selectedFixtures.first());

@@ -337,6 +337,7 @@ Rectangle
             Camera
             {
                 id: viewCamera
+
                 projectionType: CameraLens.PerspectiveProjection
                 fieldOfView: 45
                 aspectRatio: viewSize.width / viewSize.height
@@ -365,6 +366,9 @@ Rectangle
                 property real dx
                 property real dy
 
+                property int selFixturesCount: contextManager ? contextManager.selectedFixturesCount : 0
+                property int selGenericCount: View3D.genericSelectedCount
+
                 sourceDevice: mDevice
                 onPressed:
                 {
@@ -388,19 +392,58 @@ Rectangle
                         direction = dx > dy ? Qt.Horizontal : Qt.Vertical
                     }
 
-                    if (mouse.buttons === Qt.RightButton)
+                    var newPos
+                    var xDelta = mouse.x - startPoint.x
+                    var yDelta = mouse.y - startPoint.y
+
+                    if (mouse.buttons === Qt.LeftButton) // move items
                     {
-                        if (direction == Qt.Horizontal)
-                            viewCamera.panAboutViewCenter(-(mouse.x - startPoint.x), Qt.vector3d(0, 1, 0))
+                        if (selFixturesCount == 1 && selGenericCount == 0)
+                        {
+                            newPos = contextManager.fixturesPosition
+
+                            if (direction == Qt.Horizontal)
+                                contextManager.fixturesPosition = Qt.vector3d(newPos.x + (xDelta * viewCamera.position.z), newPos.y, newPos.z)
+                            else
+                                contextManager.fixturesPosition = Qt.vector3d(newPos.x, newPos.y - (yDelta * viewCamera.position.z), newPos.z)
+
+                            threeDSettings.refreshPositionValues(false)
+                        }
+                        else if (selFixturesCount == 0 && selGenericCount == 1)
+                        {
+                            newPos = View3D.genericItemsPosition
+
+                            if (direction == Qt.Horizontal)
+                                View3D.genericItemsPosition = Qt.vector3d(newPos.x + (xDelta * viewCamera.position.z), newPos.y, newPos.z)
+                            else
+                                View3D.genericItemsPosition = Qt.vector3d(newPos.x, newPos.y - (yDelta * viewCamera.position.z), newPos.z)
+
+                            threeDSettings.refreshPositionValues(true)
+                        }
                         else
-                            viewCamera.tiltAboutViewCenter(mouse.y - startPoint.y, Qt.vector3d(1, 0, 0))
+                        {
+                            if (direction == Qt.Horizontal)
+                                newPos = Qt.vector3d(xDelta * viewCamera.position.z, 0, 0)
+                            else
+                                newPos = Qt.vector3d(0, -yDelta * viewCamera.position.z, 0)
+
+                            contextManager.fixturesPosition = newPos
+                            View3D.genericItemsPosition = newPos
+                        }
                     }
-                    else if (mouse.buttons === Qt.MiddleButton)
+                    else if (mouse.buttons === Qt.RightButton)  // camera rotation
                     {
                         if (direction == Qt.Horizontal)
-                            viewCamera.translate(Qt.vector3d(-(mouse.x - startPoint.x) / 100, 0, 0))
+                            viewCamera.panAboutViewCenter(-xDelta, Qt.vector3d(0, 1, 0))
                         else
-                            viewCamera.translate(Qt.vector3d(0, (mouse.y - startPoint.y) / 100, 0))
+                            viewCamera.tiltAboutViewCenter(yDelta, Qt.vector3d(1, 0, 0))
+                    }
+                    else if (mouse.buttons === Qt.MiddleButton) // camera translation
+                    {
+                        if (direction == Qt.Horizontal)
+                            viewCamera.translate(Qt.vector3d(-xDelta / 100, 0, 0))
+                        else
+                            viewCamera.translate(Qt.vector3d(0, yDelta / 100, 0))
                     }
                     startPoint = Qt.point(mouse.x, mouse.y)
                 }

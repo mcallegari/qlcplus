@@ -1679,7 +1679,7 @@ void MainView3D::setGenericItemsPosition(QVector3D pos)
         for (int itemID : m_genericSelectedItems)
         {
             QVector3D newPos = m_monProps->itemPosition(itemID) + pos;
-            updateGenericItemPosition(m_genericSelectedItems.first(), newPos);
+            updateGenericItemPosition(itemID, newPos);
         }
     }
 
