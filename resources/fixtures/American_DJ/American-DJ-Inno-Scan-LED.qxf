@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>4.12.4 GIT</Version>
   <Author>Thierry Rodolfo</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -29,21 +29,21 @@
  <Channel Name="Gobo Wheel">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="9" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
-  <Capability Min="10" Max="18" Preset="GoboMacro" Res1="GLP/gobo00010.svg">Gobo 1</Capability>
-  <Capability Min="19" Max="27" Preset="GoboMacro" Res1="Others/gobo00042.svg">Gobo 2</Capability>
-  <Capability Min="28" Max="36" Preset="GoboMacro" Res1="Chauvet/gobo00001.svg">Gobo 3</Capability>
-  <Capability Min="37" Max="45" Preset="GoboMacro" Res1="Robe/gobo00035.svg">Gobo 4</Capability>
-  <Capability Min="46" Max="54" Preset="GoboMacro" Res1="Chauvet/gobo00008.svg">Gobo 5</Capability>
-  <Capability Min="55" Max="63" Preset="GoboMacro" Res1="Chauvet/gobo00018.svg">Gobo 6</Capability>
+  <Capability Min="10" Max="18" Preset="GoboRotatingMacro" Res1="GLP/gobo00010.svg">Gobo 1</Capability>
+  <Capability Min="19" Max="27" Preset="GoboRotatingMacro" Res1="Others/gobo00042.svg">Gobo 2</Capability>
+  <Capability Min="28" Max="36" Preset="GoboRotatingMacro" Res1="Chauvet/gobo00001.svg">Gobo 3</Capability>
+  <Capability Min="37" Max="45" Preset="GoboRotatingMacro" Res1="Robe/gobo00035.svg">Gobo 4</Capability>
+  <Capability Min="46" Max="54" Preset="GoboRotatingMacro" Res1="Chauvet/gobo00008.svg">Gobo 5</Capability>
+  <Capability Min="55" Max="63" Preset="GoboRotatingMacro" Res1="Chauvet/gobo00018.svg">Gobo 6</Capability>
   <Capability Min="64" Max="74" Preset="GoboShakeMacro" Res1="GLP/gobo00010.svg">Gobo 1 Shake</Capability>
   <Capability Min="75" Max="85" Preset="GoboShakeMacro" Res1="Others/gobo00042.svg">Gobo 2 Shake</Capability>
   <Capability Min="86" Max="95" Preset="GoboShakeMacro" Res1="Chauvet/gobo00001.svg">Gobo 3 Shake</Capability>
   <Capability Min="96" Max="106" Preset="GoboShakeMacro" Res1="Robe/gobo00035.svg">Gobo 4 Shake</Capability>
   <Capability Min="107" Max="116" Preset="GoboShakeMacro" Res1="Chauvet/gobo00008.svg">Gobo 5 Shake</Capability>
   <Capability Min="117" Max="127" Preset="GoboShakeMacro" Res1="Chauvet/gobo00018.svg">Gobo 6 Shake</Capability>
-  <Capability Min="128" Max="189">Clockwise rotation Fast to Slow</Capability>
-  <Capability Min="190" Max="193">Stop</Capability>
-  <Capability Min="194" Max="255">Counter - Clockwise rotation Slow to Fast</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Clockwise rotation Fast to Slow</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Stop</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counter - Clockwise rotation Slow to Fast</Capability>
  </Channel>
  <Channel Name="Color Wheel">
   <Group Byte="0">Colour</Group>
@@ -84,10 +84,10 @@
  </Channel>
  <Channel Name="Gobo Rotation">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="127">Gobo Indexing</Capability>
-  <Capability Min="128" Max="189">Clockwise rotation Fast to Slow</Capability>
-  <Capability Min="190" Max="193">Stop</Capability>
-  <Capability Min="194" Max="255">Counter - Clockwise rotation Slow to Fast</Capability>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Gobo Indexing</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Clockwise rotation Fast to Slow</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Stop</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counter - Clockwise rotation Slow to Fast</Capability>
  </Channel>
  <Channel Name="Pan / Tilt Speed" Preset="SpeedPanTiltSlowFast"/>
  <Mode Name="8 Channel Mode">
@@ -117,7 +117,7 @@
   <Channel Number="6">Strobe</Channel>
   <Channel Number="7">Color Wheel</Channel>
   <Channel Number="8">Gobo Wheel</Channel>
-  <Channel Number="9">Gobo Rotation</Channel>
+  <Channel Number="9" ActsOn="8">Gobo Rotation</Channel>
   <Channel Number="10">Reset / Blackout</Channel>
  </Mode>
  <Physical>
