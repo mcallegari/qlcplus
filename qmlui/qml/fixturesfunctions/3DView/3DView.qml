@@ -398,14 +398,22 @@ Rectangle
 
                     if (mouse.buttons === Qt.LeftButton) // move items
                     {
+                        xDelta = xDelta * viewCamera.position.z
+                        yDelta = yDelta * viewCamera.position.z
+
                         if (selFixturesCount == 1 && selGenericCount == 0)
                         {
                             newPos = contextManager.fixturesPosition
 
                             if (direction == Qt.Horizontal)
-                                contextManager.fixturesPosition = Qt.vector3d(newPos.x + (xDelta * viewCamera.position.z), newPos.y, newPos.z)
+                                contextManager.fixturesPosition = Qt.vector3d(newPos.x + xDelta, newPos.y, newPos.z)
                             else
-                                contextManager.fixturesPosition = Qt.vector3d(newPos.x, newPos.y - (yDelta * viewCamera.position.z), newPos.z)
+                            {
+                                if (mouse.modifiers & Qt.ShiftModifier)
+                                    contextManager.fixturesPosition = Qt.vector3d(newPos.x, newPos.y, newPos.z + yDelta)
+                                else
+                                    contextManager.fixturesPosition = Qt.vector3d(newPos.x, newPos.y - yDelta, newPos.z)
+                            }
 
                             threeDSettings.refreshPositionValues(false)
                         }
@@ -414,18 +422,28 @@ Rectangle
                             newPos = View3D.genericItemsPosition
 
                             if (direction == Qt.Horizontal)
-                                View3D.genericItemsPosition = Qt.vector3d(newPos.x + (xDelta * viewCamera.position.z), newPos.y, newPos.z)
+                                View3D.genericItemsPosition = Qt.vector3d(newPos.x + xDelta, newPos.y, newPos.z)
                             else
-                                View3D.genericItemsPosition = Qt.vector3d(newPos.x, newPos.y - (yDelta * viewCamera.position.z), newPos.z)
+                            {
+                                if (mouse.modifiers & Qt.ShiftModifier)
+                                    View3D.genericItemsPosition = Qt.vector3d(newPos.x, newPos.y, newPos.z + yDelta)
+                                else
+                                    View3D.genericItemsPosition = Qt.vector3d(newPos.x, newPos.y - yDelta, newPos.z)
+                            }
 
                             threeDSettings.refreshPositionValues(true)
                         }
                         else
                         {
                             if (direction == Qt.Horizontal)
-                                newPos = Qt.vector3d(xDelta * viewCamera.position.z, 0, 0)
+                                newPos = Qt.vector3d(xDelta, 0, 0)
                             else
-                                newPos = Qt.vector3d(0, -yDelta * viewCamera.position.z, 0)
+                            {
+                                if (mouse.modifiers & Qt.ShiftModifier)
+                                    newPos = Qt.vector3d(0, 0, yDelta)
+                                else
+                                    newPos = Qt.vector3d(0, -yDelta, 0)
+                            }
 
                             contextManager.fixturesPosition = newPos
                             View3D.genericItemsPosition = newPos
@@ -433,16 +451,16 @@ Rectangle
                     }
                     else if (mouse.buttons === Qt.RightButton)  // camera rotation
                     {
-                        if (direction == Qt.Horizontal)
+                        if (!mouse.modifiers || (mouse.modifiers & Qt.ShiftModifier && direction == Qt.Horizontal))
                             viewCamera.panAboutViewCenter(-xDelta, Qt.vector3d(0, 1, 0))
-                        else
+                        if (!mouse.modifiers || (mouse.modifiers & Qt.ShiftModifier && direction == Qt.Vertical))
                             viewCamera.tiltAboutViewCenter(yDelta, Qt.vector3d(1, 0, 0))
                     }
                     else if (mouse.buttons === Qt.MiddleButton) // camera translation
                     {
-                        if (direction == Qt.Horizontal)
+                        if (!mouse.modifiers || (mouse.modifiers & Qt.ShiftModifier && direction == Qt.Horizontal))
                             viewCamera.translate(Qt.vector3d(-xDelta / 100, 0, 0))
-                        else
+                        if (!mouse.modifiers || (mouse.modifiers & Qt.ShiftModifier && direction == Qt.Vertical))
                             viewCamera.translate(Qt.vector3d(0, yDelta / 100, 0))
                     }
                     startPoint = Qt.point(mouse.x, mouse.y)
