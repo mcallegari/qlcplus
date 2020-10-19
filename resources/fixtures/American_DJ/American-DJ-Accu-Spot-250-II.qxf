@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.2</Version>
+  <Version>4.12.4 GIT</Version>
   <Author>Lime Lounge</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -30,13 +30,13 @@
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="9" Preset="GoboMacro" Res1="Others/open.svg">Spot</Capability>
-  <Capability Min="10" Max="19" Preset="GoboMacro" Res1="Others/gobo00036.svg">Star Circle (Metal)</Capability>
-  <Capability Min="20" Max="29" Preset="GoboMacro" Res1="Others/gobo00023.svg">Cross (Metal)</Capability>
-  <Capability Min="30" Max="39" Preset="GoboMacro" Res1="Others/gobo00035.png">Blue &amp; White Web (Dichoric)</Capability>
-  <Capability Min="40" Max="49" Preset="GoboMacro" Res1="Others/gobo00034.png">Textured Glass (Glass)</Capability>
-  <Capability Min="50" Max="59" Preset="GoboMacro" Res1="Others/gobo00037.svg">Donut (Metal)</Capability>
-  <Capability Min="60" Max="69" Preset="GoboMacro" Res1="Others/gobo00027.svg">Triangle (Metal)</Capability>
-  <Capability Min="70" Max="79" Preset="GoboMacro" Res1="Others/gobo00029.svg">Dot Line (Metal)</Capability>
+  <Capability Min="10" Max="19" Preset="GoboRotatingMacro" Res1="Others/gobo00036.svg">Star Circle (Metal)</Capability>
+  <Capability Min="20" Max="29" Preset="GoboRotatingMacro" Res1="Others/gobo00023.svg">Cross (Metal)</Capability>
+  <Capability Min="30" Max="39" Preset="GoboRotatingMacro" Res1="Others/gobo00035.png">Blue &amp; White Web (Dichoric)</Capability>
+  <Capability Min="40" Max="49" Preset="GoboRotatingMacro" Res1="Others/gobo00034.png">Textured Glass (Glass)</Capability>
+  <Capability Min="50" Max="59" Preset="GoboRotatingMacro" Res1="Others/gobo00037.svg">Donut (Metal)</Capability>
+  <Capability Min="60" Max="69" Preset="GoboRotatingMacro" Res1="Others/gobo00027.svg">Triangle (Metal)</Capability>
+  <Capability Min="70" Max="79" Preset="GoboRotatingMacro" Res1="Others/gobo00029.svg">Dot Line (Metal)</Capability>
   <Capability Min="80" Max="99" Preset="GoboShakeMacro" Res1="Others/gobo00036.svg">Star Circle (Metal) Shake</Capability>
   <Capability Min="100" Max="119" Preset="GoboShakeMacro" Res1="Others/gobo00023.svg">Cross (Metal) Shake</Capability>
   <Capability Min="120" Max="139" Preset="GoboShakeMacro" Res1="Others/gobo00035.png">Blue &amp; White Web (Dichoric) Shake</Capability>
@@ -44,14 +44,14 @@
   <Capability Min="160" Max="179" Preset="GoboShakeMacro" Res1="Others/gobo00037.svg">Donut (Metal) Shake</Capability>
   <Capability Min="180" Max="199" Preset="GoboShakeMacro" Res1="Others/gobo00027.svg">Triangle (Metal) Shake</Capability>
   <Capability Min="200" Max="219" Preset="GoboShakeMacro" Res1="Others/gobo00029.svg">Dot Line (Metal) Shake</Capability>
-  <Capability Min="220" Max="255">Rotating Gobo Wheel (Slow -&gt; Fast)</Capability>
+  <Capability Min="220" Max="255" Preset="RotationClockwiseSlowToFast">Rotating Gobo Wheel (Slow -&gt; Fast)</Capability>
  </Channel>
  <Channel Name="Gobo Rotation">
-  <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="7">No Rotation</Capability>
-  <Capability Min="8" Max="127">Forward Gobo Rotation (Fast -&gt; Slow)</Capability>
-  <Capability Min="128" Max="135">No Rotation</Capability>
-  <Capability Min="136" Max="255">Backward Gobo Rotation (Fast -&gt; Slow)</Capability>
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="7" Preset="RotationStop">No Rotation</Capability>
+  <Capability Min="8" Max="127" Preset="RotationClockwiseFastToSlow">Forward Gobo Rotation (Fast -&gt; Slow)</Capability>
+  <Capability Min="128" Max="135" Preset="RotationStop">No Rotation</Capability>
+  <Capability Min="136" Max="255" Preset="RotationCounterClockwiseFastToSlow">Backward Gobo Rotation (Fast -&gt; Slow)</Capability>
  </Channel>
  <Channel Name="Shutter/Strobe">
   <Group Byte="0">Shutter</Group>
@@ -98,7 +98,7 @@
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Color</Channel>
   <Channel Number="3">Gobo</Channel>
-  <Channel Number="4">Gobo Rotation</Channel>
+  <Channel Number="4" ActsOn="3">Gobo Rotation</Channel>
   <Channel Number="5">Shutter/Strobe</Channel>
   <Channel Number="6">Lamp On/Off/Reset/Internal Programs</Channel>
   <Channel Number="7">Movement Speed</Channel>
@@ -108,7 +108,7 @@
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Color</Channel>
   <Channel Number="3">Gobo</Channel>
-  <Channel Number="4">Gobo Rotation</Channel>
+  <Channel Number="4" ActsOn="3">Gobo Rotation</Channel>
   <Channel Number="5">Shutter/Strobe</Channel>
   <Channel Number="6">Dimmer</Channel>
   <Channel Number="7">Lamp On/Off/Reset/Internal Programs</Channel>

@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>4.12.4 GIT</Version>
   <Author>Thierry Rodolfo</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -46,9 +46,9 @@
   <Capability Min="104" Max="111" Preset="GoboShakeMacro" Res1="Others/gobo00008.svg">Gobo 5 Shake</Capability>
   <Capability Min="112" Max="119" Preset="GoboShakeMacro" Res1="Chauvet/gobo00008.svg">Gobo 6 Shake</Capability>
   <Capability Min="120" Max="127" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00044.png">Gobo 7 Shake</Capability>
-  <Capability Min="128" Max="189">Gobo Scroll Fast to Slow</Capability>
-  <Capability Min="190" Max="193">Stop</Capability>
-  <Capability Min="194" Max="255">Gobo Scroll Slow to Fast</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Gobo Scroll Fast to Slow</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Stop</Capability>
+  <Capability Min="194" Max="255" Preset="RotationClockwiseSlowToFast">Gobo Scroll Slow to Fast</Capability>
  </Channel>
  <Channel Name="Shutter/Strobe">
   <Group Byte="0">Shutter</Group>
