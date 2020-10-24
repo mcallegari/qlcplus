@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3</Version>
+  <Version>4.12.4</Version>
   <Author>vidschofelix</Author>
  </Creator>
  <Manufacturer>Varytec</Manufacturer>
@@ -20,10 +20,10 @@
   <Capability Min="48" Max="55">Constant unicoloured pattern in blue and red</Capability>
   <Capability Min="56" Max="63">Constant unicoloured pattern in red, green and blue</Capability>
   <Capability Min="64" Max="231" Preset="Alias">Built-in automatic show programmes
-   <Alias Mode="2-ch" Channel="No function" With="Speed"/>
+   <Alias Mode="2 Channel" Channel="No function" With="Speed"/>
   </Capability>
   <Capability Min="232" Max="255" Preset="Alias">Sound-controlled show
-   <Alias Mode="2-ch" Channel="No function" With="Sensitivity"/>
+   <Alias Mode="2 Channel" Channel="No function" With="Sensitivity"/>
   </Capability>
  </Channel>
  <Channel Name="Red1" Preset="IntensityRed"/>
@@ -61,39 +61,23 @@
   <Group Byte="0">Intensity</Group>
   <Capability Min="0" Max="255" Preset="SlowToFast">Sensitivity of the built-in microphone for sound control</Capability>
  </Channel>
- <Mode Name="2-ch">
+ <Mode Name="2 Channel">
   <Channel Number="0">Function</Channel>
   <Channel Number="1">No function</Channel>
-  <Head>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
-  </Head>
  </Mode>
- <Mode Name="3-ch">
+ <Mode Name="3 Channel">
   <Channel Number="0">Red1</Channel>
   <Channel Number="1">Green1</Channel>
   <Channel Number="2">Blue1</Channel>
-  <Head>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
-   <Channel>2</Channel>
-  </Head>
  </Mode>
- <Mode Name="5-ch">
+ <Mode Name="5 Channel">
   <Channel Number="0">Red1</Channel>
   <Channel Number="1">Green1</Channel>
   <Channel Number="2">Blue1</Channel>
   <Channel Number="3">Master dimmer</Channel>
   <Channel Number="4">Strobe</Channel>
-  <Head>
-   <Channel>0</Channel>
-   <Channel>1</Channel>
-   <Channel>2</Channel>
-   <Channel>3</Channel>
-   <Channel>4</Channel>
-  </Head>
  </Mode>
- <Mode Name="24-ch">
+ <Mode Name="24 Channel">
   <Channel Number="0">Red1</Channel>
   <Channel Number="1">Green1</Channel>
   <Channel Number="2">Blue1</Channel>
