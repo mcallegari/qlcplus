@@ -3,7 +3,7 @@
  <Creator>
   <Author>vidschofelix</Author>
  </Creator>
- <Description>Sets the LP Mini MK3 into developer mode.</Description>
- <Name>Novation LaunchPad Mini [MK3] Developer Mode</Name>
+ <Description>Sets the Launchpad Mini MK3 into developer mode.</Description>
+ <Name>Novation Launchpad Mini MK3 Developer Mode</Name>
  <InitMessage>F0 00 20 29 02 0D 0E 01 F7</InitMessage>
 </MidiTemplate>
