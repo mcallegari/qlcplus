@@ -7,7 +7,7 @@
   <Author>vidschofelix</Author>
  </Creator>
  <Manufacturer>Novation</Manufacturer>
- <Model>LaunchPad Mini MK3</Model>
+ <Model>Launchpad Mini MK3</Model>
  <Type>MIDI</Type>
  <Channel Number="19">
   <Name>Stop Solo Mute</Name>
