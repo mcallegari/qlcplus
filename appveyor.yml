@@ -12,9 +12,9 @@ configuration:
   - Release
 
 install:
-    #- pacman --noconfirm -Sy
-    #- pacman --noconfirm --needed -S pacman-mirrors
-    #- pacman --noconfirm -Sy
+    - pacman --noconfirm -Sy
+    - pacman --noconfirm --needed -S pacman-mirrors
+    - pacman --noconfirm -Sy
     - pacman --noconfirm --needed -S unzip mingw32/mingw-w64-i686-libmad mingw32/mingw-w64-i686-libsndfile mingw32/mingw-w64-i686-flac mingw32/mingw-w64-i686-fftw mingw32/mingw-w64-i686-nsis
     #- wget http://repo.msys2.org/mingw/i686/mingw-w64-i686-gcc-libs-9.3.0-2-any.pkg.tar.xz -P /c/projects
     #- wget http://repo.msys2.org/mingw/i686/mingw-w64-i686-gcc-9.3.0-2-any.pkg.tar.xz -P /c/projects
