@@ -3,6 +3,7 @@ qlcplus (4.12.4) stable; urgency=low
   * engine: RGB Matrix can now control white, amber, UV, dimmer and shutter channels too (started by Hans-Jürgen Tappe)
   * engine: add "acts on" property to channels (thanks to Michał Kluska)
   * Virtual Console/Button: fix submaster not affecting a Chaser startup intensity
+  * Plugins/E1.31: make CID unique on each network interface
   * Resources: add Novation Launchpad Mini MK3 (thanks to Felix)
   * New fixture: Varytec Giga Bar Pix 8 RGB (thanks to Felix)
   * New fixture: Clay Paky Mini-B
