@@ -14,7 +14,7 @@ configuration:
 install:
     - wget http://repo.msys2.org/msys/x86_64/msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz -P /c/projects
     - wget http://repo.msys2.org/msys/x86_64/msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz.sig  -P /c/projects
-    - pacman-key --verify /c/projects/msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz.sig
+    #- pacman-key --verify /c/projects/msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz.sig
     - pacman -U /c/projects/msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz
     - pacman --noconfirm -Sy
     - pacman --noconfirm --needed -S pacman-mirrors
