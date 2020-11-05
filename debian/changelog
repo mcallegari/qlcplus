@@ -5,6 +5,11 @@ qlcplus (4.12.4) stable; urgency=low
   * Virtual Console/Button: fix submaster not affecting a Chaser startup intensity
   * Resources: add Novation Launchpad Mini MK3 (thanks to Felix)
   * New fixture: Varytec Giga Bar Pix 8 RGB (thanks to Felix)
+  * New fixture: Clay Paky Mini-B
+  * New fixture: Eurolite LED PT-100/32 Pixel DMX Tube (thanks to Torsten Caninenberg)
+  * New fixture: U'King LED Spot Moving Head 100W (thanks to Jay Seaman)
+  * New fixtures: Equinox Microbar Quad System, U'King 7x10W Mini Moving Head (thanks to Peter Crowther)
+  * New fixture: Starway MaxSpot 500 (thanks to David Thomas)
 
  -- Massimo Callegari <massimocallegari@yahoo.it>  Sun, 20 Dec 2020 12:13:14 +0200
 

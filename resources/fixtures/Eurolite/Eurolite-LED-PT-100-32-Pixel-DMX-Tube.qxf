@@ -1,0 +1,643 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.4</Version>
+  <Author>Torsten Caninenberg</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED PT-100/32 Pixel DMX Tube</Model>
+ <Type>LED Bar (Pixels)</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Master dimmer" Default="255" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Function">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="0">No function</Capability>
+  <Capability Min="1" Max="5">Sound control</Capability>
+  <Capability Min="6" Max="10">No function</Capability>
+  <Capability Min="11" Max="255">Strobe with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Strobe effect">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe effect with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Preset colors">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="60" Max="69" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="70" Max="79" Preset="ColorMacro" Res1="#c28100">Dark orange</Capability>
+  <Capability Min="80" Max="89" Preset="ColorMacro" Res1="#aaff7f">Green yellow</Capability>
+  <Capability Min="90" Max="99" Preset="ColorMacro" Res1="#ffaa7f">Salmon</Capability>
+  <Capability Min="100" Max="109" Preset="ColorMacro" Res1="#aaffff">Turquoise</Capability>
+  <Capability Min="110" Max="119" Preset="ColorMacro" Res1="#aaff00">Light green</Capability>
+  <Capability Min="120" Max="129" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
+  <Capability Min="130" Max="139" Preset="ColorMacro" Res1="#aaaaff">Lavender</Capability>
+  <Capability Min="140" Max="149" Preset="ColorMacro" Res1="#00aaff">Light blue</Capability>
+  <Capability Min="150" Max="159" Preset="ColorMacro" Res1="#00007f">Dark blue</Capability>
+  <Capability Min="160" Max="169" Preset="ColorMacro" Res1="#ffaaff">Pink</Capability>
+  <Capability Min="170" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Internal programs">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">Bo function</Capability>
+  <Capability Min="10" Max="19">Auto program 1</Capability>
+  <Capability Min="20" Max="29">Auto program 2</Capability>
+  <Capability Min="30" Max="39">Auto program 3</Capability>
+  <Capability Min="40" Max="49">Auto program 4</Capability>
+  <Capability Min="50" Max="59">Auto program 5</Capability>
+  <Capability Min="60" Max="69">Auto program 6</Capability>
+  <Capability Min="70" Max="79">Auto program 7</Capability>
+  <Capability Min="80" Max="89">Auto program 8</Capability>
+  <Capability Min="90" Max="99">Auto program 9</Capability>
+  <Capability Min="100" Max="109">Auto program 10</Capability>
+  <Capability Min="110" Max="119">Auto program 11</Capability>
+  <Capability Min="120" Max="129">Auto program 12</Capability>
+  <Capability Min="130" Max="139">Sound program 1</Capability>
+  <Capability Min="140" Max="149">Sound program 2</Capability>
+  <Capability Min="150" Max="159">Sound program 3</Capability>
+  <Capability Min="160" Max="169">Sound program 4</Capability>
+  <Capability Min="170" Max="179">Sound program 5</Capability>
+  <Capability Min="180" Max="189">Sound program 6</Capability>
+  <Capability Min="190" Max="199">Sound program 7</Capability>
+  <Capability Min="200" Max="209">Sound program 8</Capability>
+  <Capability Min="210" Max="219">Sound program 9</Capability>
+  <Capability Min="220" Max="229">Sound program 10</Capability>
+  <Capability Min="230" Max="239">Sound program 11</Capability>
+  <Capability Min="240" Max="255">Sound program 12</Capability>
+ </Channel>
+ <Channel Name="Running speed for Auto - and Sound program">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Auto and Sound program speed slow &gt; fast</Capability>
+ </Channel>
+ <Channel Name="Pixel 1-2 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 1-2 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 1-2 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 3-4 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 3-4 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 3-4 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 5-6 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 5-6 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 5-6 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 7-8 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 7-8 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 7-8 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 9-10 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 9-10 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 9-10 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 11-12 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 11-12 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 11-12 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 13-14 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 13-14 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 13-14 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 15-16 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 15-16 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 15-16 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 17-18 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 17-18 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 17-18 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 19-20 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 19-20 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 19-20 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 21-22 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 21-22 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 21-22 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 23-24 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 23-24 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 23-24 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 25-26 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 25-26 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 25-26 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 27-28 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 27-28 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 27-28 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 29-30 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 29-30 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 29-30 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 31-32 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 31-32 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 31-32 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 1 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 1 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 1 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 2 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 2 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 2 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 3 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 3 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 3 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 4 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 4 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 4 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 5 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 5 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 5 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 6 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 6 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 6 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 7 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 7 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 7 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 8 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 8 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 8 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 9 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 9 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 9 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 10 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 10 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 10 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 11 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 11 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 11 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 12 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 12 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 12 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 13 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 13 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 13 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 14 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 14 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 14 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 15 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 15 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 15 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 16 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 16 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 16 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 17 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 17 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 17 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 18 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 18 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 18 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 19 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 19 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 19 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 20 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 20 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 20 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 21 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 21 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 21 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 22 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 22 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 22 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 23 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 23 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 23 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 24 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 24 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 24 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 25 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 25 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 25 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 26 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 26 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 26 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 27 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 27 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 27 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 28 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 28 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 28 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 29 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 29 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 29 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 30 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 30 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 30 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 31 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 31 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 31 Blue" Preset="IntensityBlue"/>
+ <Channel Name="Pixel 32 Red" Preset="IntensityRed"/>
+ <Channel Name="Pixel 32 Green" Preset="IntensityGreen"/>
+ <Channel Name="Pixel 32 Blue" Preset="IntensityBlue"/>
+ <Mode Name="3 Channels">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="5 Channels">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Master dimmer</Channel>
+  <Channel Number="4">Function</Channel>
+ </Mode>
+ <Mode Name="8 Channels">
+  <Channel Number="0">Master dimmer</Channel>
+  <Channel Number="1">Strobe effect</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">Preset colors</Channel>
+  <Channel Number="6">Internal programs</Channel>
+  <Channel Number="7">Running speed for Auto - and Sound program</Channel>
+ </Mode>
+ <Mode Name="48 Channels">
+  <Channel Number="0">Pixel 1-2 Red</Channel>
+  <Channel Number="1">Pixel 1-2 Green</Channel>
+  <Channel Number="2">Pixel 1-2 Blue</Channel>
+  <Channel Number="3">Pixel 3-4 Red</Channel>
+  <Channel Number="4">Pixel 3-4 Green</Channel>
+  <Channel Number="5">Pixel 3-4 Blue</Channel>
+  <Channel Number="6">Pixel 5-6 Red</Channel>
+  <Channel Number="7">Pixel 5-6 Green</Channel>
+  <Channel Number="8">Pixel 5-6 Blue</Channel>
+  <Channel Number="9">Pixel 7-8 Red</Channel>
+  <Channel Number="10">Pixel 7-8 Green</Channel>
+  <Channel Number="11">Pixel 7-8 Blue</Channel>
+  <Channel Number="12">Pixel 9-10 Red</Channel>
+  <Channel Number="13">Pixel 9-10 Green</Channel>
+  <Channel Number="14">Pixel 9-10 Blue</Channel>
+  <Channel Number="15">Pixel 11-12 Red</Channel>
+  <Channel Number="16">Pixel 11-12 Green</Channel>
+  <Channel Number="17">Pixel 11-12 Blue</Channel>
+  <Channel Number="18">Pixel 13-14 Red</Channel>
+  <Channel Number="19">Pixel 13-14 Green</Channel>
+  <Channel Number="20">Pixel 13-14 Blue</Channel>
+  <Channel Number="21">Pixel 15-16 Red</Channel>
+  <Channel Number="22">Pixel 15-16 Green</Channel>
+  <Channel Number="23">Pixel 15-16 Blue</Channel>
+  <Channel Number="24">Pixel 17-18 Red</Channel>
+  <Channel Number="25">Pixel 17-18 Green</Channel>
+  <Channel Number="26">Pixel 17-18 Blue</Channel>
+  <Channel Number="27">Pixel 19-20 Red</Channel>
+  <Channel Number="28">Pixel 19-20 Green</Channel>
+  <Channel Number="29">Pixel 19-20 Blue</Channel>
+  <Channel Number="30">Pixel 21-22 Red</Channel>
+  <Channel Number="31">Pixel 21-22 Green</Channel>
+  <Channel Number="32">Pixel 21-22 Blue</Channel>
+  <Channel Number="33">Pixel 23-24 Red</Channel>
+  <Channel Number="34">Pixel 23-24 Green</Channel>
+  <Channel Number="35">Pixel 23-24 Blue</Channel>
+  <Channel Number="36">Pixel 25-26 Red</Channel>
+  <Channel Number="37">Pixel 25-26 Green</Channel>
+  <Channel Number="38">Pixel 25-26 Blue</Channel>
+  <Channel Number="39">Pixel 27-28 Red</Channel>
+  <Channel Number="40">Pixel 27-28 Green</Channel>
+  <Channel Number="41">Pixel 27-28 Blue</Channel>
+  <Channel Number="42">Pixel 29-30 Red</Channel>
+  <Channel Number="43">Pixel 29-30 Green</Channel>
+  <Channel Number="44">Pixel 29-30 Blue</Channel>
+  <Channel Number="45">Pixel 31-32 Red</Channel>
+  <Channel Number="46">Pixel 31-32 Green</Channel>
+  <Channel Number="47">Pixel 31-32 Blue</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+  </Head>
+  <Head>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+  </Head>
+  <Head>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+  </Head>
+  <Head>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+  </Head>
+  <Head>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+  </Head>
+  <Head>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+  </Head>
+  <Head>
+   <Channel>39</Channel>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+  </Head>
+  <Head>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+   <Channel>44</Channel>
+  </Head>
+  <Head>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+   <Channel>47</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="96 Channels">
+  <Channel Number="0">Pixel 1 Red</Channel>
+  <Channel Number="1">Pixel 1 Green</Channel>
+  <Channel Number="2">Pixel 1 Blue</Channel>
+  <Channel Number="3">Pixel 2 Red</Channel>
+  <Channel Number="4">Pixel 2 Green</Channel>
+  <Channel Number="5">Pixel 2 Blue</Channel>
+  <Channel Number="6">Pixel 3 Red</Channel>
+  <Channel Number="7">Pixel 3 Green</Channel>
+  <Channel Number="8">Pixel 3 Blue</Channel>
+  <Channel Number="9">Pixel 4 Red</Channel>
+  <Channel Number="10">Pixel 4 Green</Channel>
+  <Channel Number="11">Pixel 4 Blue</Channel>
+  <Channel Number="12">Pixel 5 Red</Channel>
+  <Channel Number="13">Pixel 5 Green</Channel>
+  <Channel Number="14">Pixel 5 Blue</Channel>
+  <Channel Number="15">Pixel 6 Red</Channel>
+  <Channel Number="16">Pixel 6 Green</Channel>
+  <Channel Number="17">Pixel 6 Blue</Channel>
+  <Channel Number="18">Pixel 7 Red</Channel>
+  <Channel Number="19">Pixel 7 Green</Channel>
+  <Channel Number="20">Pixel 7 Blue</Channel>
+  <Channel Number="21">Pixel 8 Red</Channel>
+  <Channel Number="22">Pixel 8 Green</Channel>
+  <Channel Number="23">Pixel 8 Blue</Channel>
+  <Channel Number="24">Pixel 9 Red</Channel>
+  <Channel Number="25">Pixel 9 Green</Channel>
+  <Channel Number="26">Pixel 9 Blue</Channel>
+  <Channel Number="27">Pixel 10 Red</Channel>
+  <Channel Number="28">Pixel 10 Green</Channel>
+  <Channel Number="29">Pixel 10 Blue</Channel>
+  <Channel Number="30">Pixel 11 Red</Channel>
+  <Channel Number="31">Pixel 11 Green</Channel>
+  <Channel Number="32">Pixel 11 Blue</Channel>
+  <Channel Number="33">Pixel 12 Red</Channel>
+  <Channel Number="34">Pixel 12 Green</Channel>
+  <Channel Number="35">Pixel 12 Blue</Channel>
+  <Channel Number="36">Pixel 13 Red</Channel>
+  <Channel Number="37">Pixel 13 Green</Channel>
+  <Channel Number="38">Pixel 13 Blue</Channel>
+  <Channel Number="39">Pixel 14 Red</Channel>
+  <Channel Number="40">Pixel 14 Green</Channel>
+  <Channel Number="41">Pixel 14 Blue</Channel>
+  <Channel Number="42">Pixel 15 Red</Channel>
+  <Channel Number="43">Pixel 15 Green</Channel>
+  <Channel Number="44">Pixel 15 Blue</Channel>
+  <Channel Number="45">Pixel 16 Red</Channel>
+  <Channel Number="46">Pixel 16 Green</Channel>
+  <Channel Number="47">Pixel 16 Blue</Channel>
+  <Channel Number="48">Pixel 17 Red</Channel>
+  <Channel Number="49">Pixel 17 Green</Channel>
+  <Channel Number="50">Pixel 17 Blue</Channel>
+  <Channel Number="51">Pixel 18 Red</Channel>
+  <Channel Number="52">Pixel 18 Green</Channel>
+  <Channel Number="53">Pixel 18 Blue</Channel>
+  <Channel Number="54">Pixel 19 Red</Channel>
+  <Channel Number="55">Pixel 19 Green</Channel>
+  <Channel Number="56">Pixel 19 Blue</Channel>
+  <Channel Number="57">Pixel 20 Red</Channel>
+  <Channel Number="58">Pixel 20 Green</Channel>
+  <Channel Number="59">Pixel 20 Blue</Channel>
+  <Channel Number="60">Pixel 21 Red</Channel>
+  <Channel Number="61">Pixel 21 Green</Channel>
+  <Channel Number="62">Pixel 21 Blue</Channel>
+  <Channel Number="63">Pixel 22 Red</Channel>
+  <Channel Number="64">Pixel 22 Green</Channel>
+  <Channel Number="65">Pixel 22 Blue</Channel>
+  <Channel Number="66">Pixel 23 Red</Channel>
+  <Channel Number="67">Pixel 23 Green</Channel>
+  <Channel Number="68">Pixel 23 Blue</Channel>
+  <Channel Number="69">Pixel 24 Red</Channel>
+  <Channel Number="70">Pixel 24 Green</Channel>
+  <Channel Number="71">Pixel 24 Blue</Channel>
+  <Channel Number="72">Pixel 25 Red</Channel>
+  <Channel Number="73">Pixel 25 Green</Channel>
+  <Channel Number="74">Pixel 25 Blue</Channel>
+  <Channel Number="75">Pixel 26 Red</Channel>
+  <Channel Number="76">Pixel 26 Green</Channel>
+  <Channel Number="77">Pixel 26 Blue</Channel>
+  <Channel Number="78">Pixel 27 Red</Channel>
+  <Channel Number="79">Pixel 27 Green</Channel>
+  <Channel Number="80">Pixel 27 Blue</Channel>
+  <Channel Number="81">Pixel 28 Red</Channel>
+  <Channel Number="82">Pixel 28 Green</Channel>
+  <Channel Number="83">Pixel 28 Blue</Channel>
+  <Channel Number="84">Pixel 29 Red</Channel>
+  <Channel Number="85">Pixel 29 Green</Channel>
+  <Channel Number="86">Pixel 29 Blue</Channel>
+  <Channel Number="87">Pixel 30 Red</Channel>
+  <Channel Number="88">Pixel 30 Green</Channel>
+  <Channel Number="89">Pixel 30 Blue</Channel>
+  <Channel Number="90">Pixel 31 Red</Channel>
+  <Channel Number="91">Pixel 31 Green</Channel>
+  <Channel Number="92">Pixel 31 Blue</Channel>
+  <Channel Number="93">Pixel 32 Red</Channel>
+  <Channel Number="94">Pixel 32 Green</Channel>
+  <Channel Number="95">Pixel 32 Blue</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+  </Head>
+  <Head>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+  <Head>
+   <Channel>24</Channel>
+   <Channel>25</Channel>
+   <Channel>26</Channel>
+  </Head>
+  <Head>
+   <Channel>27</Channel>
+   <Channel>28</Channel>
+   <Channel>29</Channel>
+  </Head>
+  <Head>
+   <Channel>30</Channel>
+   <Channel>31</Channel>
+   <Channel>32</Channel>
+  </Head>
+  <Head>
+   <Channel>33</Channel>
+   <Channel>34</Channel>
+   <Channel>35</Channel>
+  </Head>
+  <Head>
+   <Channel>36</Channel>
+   <Channel>37</Channel>
+   <Channel>38</Channel>
+  </Head>
+  <Head>
+   <Channel>39</Channel>
+   <Channel>40</Channel>
+   <Channel>41</Channel>
+  </Head>
+  <Head>
+   <Channel>42</Channel>
+   <Channel>43</Channel>
+   <Channel>44</Channel>
+  </Head>
+  <Head>
+   <Channel>45</Channel>
+   <Channel>46</Channel>
+   <Channel>47</Channel>
+  </Head>
+  <Head>
+   <Channel>48</Channel>
+   <Channel>49</Channel>
+   <Channel>50</Channel>
+  </Head>
+  <Head>
+   <Channel>51</Channel>
+   <Channel>52</Channel>
+   <Channel>53</Channel>
+  </Head>
+  <Head>
+   <Channel>54</Channel>
+   <Channel>55</Channel>
+   <Channel>56</Channel>
+  </Head>
+  <Head>
+   <Channel>57</Channel>
+   <Channel>58</Channel>
+   <Channel>59</Channel>
+  </Head>
+  <Head>
+   <Channel>60</Channel>
+   <Channel>61</Channel>
+   <Channel>62</Channel>
+  </Head>
+  <Head>
+   <Channel>63</Channel>
+   <Channel>64</Channel>
+   <Channel>65</Channel>
+  </Head>
+  <Head>
+   <Channel>66</Channel>
+   <Channel>67</Channel>
+   <Channel>68</Channel>
+  </Head>
+  <Head>
+   <Channel>69</Channel>
+   <Channel>70</Channel>
+   <Channel>71</Channel>
+  </Head>
+  <Head>
+   <Channel>72</Channel>
+   <Channel>73</Channel>
+   <Channel>74</Channel>
+  </Head>
+  <Head>
+   <Channel>75</Channel>
+   <Channel>76</Channel>
+   <Channel>77</Channel>
+  </Head>
+  <Head>
+   <Channel>78</Channel>
+   <Channel>79</Channel>
+   <Channel>80</Channel>
+  </Head>
+  <Head>
+   <Channel>81</Channel>
+   <Channel>82</Channel>
+   <Channel>83</Channel>
+  </Head>
+  <Head>
+   <Channel>84</Channel>
+   <Channel>85</Channel>
+   <Channel>86</Channel>
+  </Head>
+  <Head>
+   <Channel>87</Channel>
+   <Channel>88</Channel>
+   <Channel>89</Channel>
+  </Head>
+  <Head>
+   <Channel>90</Channel>
+   <Channel>91</Channel>
+   <Channel>92</Channel>
+  </Head>
+  <Head>
+   <Channel>93</Channel>
+   <Channel>94</Channel>
+   <Channel>95</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.1" Width="999" Height="153" Depth="59"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="32" Height="1"/>
+  <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>
