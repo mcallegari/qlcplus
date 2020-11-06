@@ -30,12 +30,12 @@
  <Channel Name="Gobo Wheel">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="4" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
-  <Capability Min="5" Max="19" Preset="GoboRotatingMacro" Res1="Others/gobo00013.svg">Gobo 1</Capability>
-  <Capability Min="20" Max="34" Preset="GoboRotatingMacro" Res1="Others/gobo00115.svg">Gobo 2</Capability>
-  <Capability Min="35" Max="49" Preset="GoboRotatingMacro" Res1="SGM/gobo00027.svg">Gobo 3</Capability>
-  <Capability Min="50" Max="64" Preset="GoboRotatingMacro" Res1="Others/gobo00023.svg">Gobo 4</Capability>
-  <Capability Min="65" Max="79" Preset="GoboRotatingMacro" Res1="Others/gobo00086.svg">Gobo 5</Capability>
-  <Capability Min="80" Max="94" Preset="GoboRotatingMacro" Res1="Others/gobo00008.svg">Gobo 6</Capability>
+  <Capability Min="5" Max="19" Preset="GoboMacro" Res1="Others/gobo00013.svg">Gobo 1</Capability>
+  <Capability Min="20" Max="34" Preset="GoboMacro" Res1="Others/gobo00115.svg">Gobo 2</Capability>
+  <Capability Min="35" Max="49" Preset="GoboMacro" Res1="SGM/gobo00027.svg">Gobo 3</Capability>
+  <Capability Min="50" Max="64" Preset="GoboMacro" Res1="Others/gobo00023.svg">Gobo 4</Capability>
+  <Capability Min="65" Max="79" Preset="GoboMacro" Res1="Others/gobo00086.svg">Gobo 5</Capability>
+  <Capability Min="80" Max="94" Preset="GoboMacro" Res1="Others/gobo00008.svg">Gobo 6</Capability>
   <Capability Min="95" Max="109" Preset="GoboShakeMacro" Res1="Others/gobo00013.svg">Gobo 1 Shake Slow-Fast</Capability>
   <Capability Min="110" Max="124" Preset="GoboShakeMacro" Res1="Others/gobo00115.svg">Gobo 2 Shake Slow-Fast</Capability>
   <Capability Min="125" Max="139" Preset="GoboShakeMacro" Res1="SGM/gobo00027.svg">Gobo 3 Shake Slow-Fast</Capability>
@@ -144,7 +144,7 @@
   <Channel Number="7">Prism 1</Channel>
   <Channel Number="8" ActsOn="7">Prism 1 Indexing &amp; Rotation</Channel>
   <Channel Number="9">Prism 2</Channel>
-  <Channel Number="10" ActsOn="9" ActsOn="3">Prism 2 Indexing &amp; Rotation</Channel>
+  <Channel Number="10" ActsOn="9">Prism 2 Indexing &amp; Rotation</Channel>
   <Channel Number="11">Focus</Channel>
   <Channel Number="12">Zoom</Channel>
   <Channel Number="13">Dim curves</Channel>
@@ -162,7 +162,7 @@
   <Channel Number="7">Shutter &amp; Strobing</Channel>
   <Channel Number="8">Master Dimmer</Channel>
   <Channel Number="9">Prism 1</Channel>
-  <Channel Number="10" ActsOn="10">Prism 1 Indexing &amp; Rotation</Channel>
+  <Channel Number="10" ActsOn="9">Prism 1 Indexing &amp; Rotation</Channel>
   <Channel Number="11">Prism 2</Channel>
   <Channel Number="12" ActsOn="11">Prism 2 Indexing &amp; Rotation</Channel>
   <Channel Number="13">Focus</Channel>

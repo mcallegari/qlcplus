@@ -105,7 +105,7 @@
   <Channel Number="5">Gobo</Channel>
   <Channel Number="6" ActsOn="5">Gobo Rot</Channel>
   <Channel Number="7">Prism</Channel>
-  <Channel Number="8" ActsOn="8">Prism Rotation</Channel>
+  <Channel Number="8" ActsOn="7">Prism Rotation</Channel>
   <Channel Number="9">Focus</Channel>
   <Channel Number="10">Shutter/Strobe</Channel>
   <Channel Number="11">Dimmer</Channel>

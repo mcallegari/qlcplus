@@ -34,13 +34,13 @@
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="13" Preset="GoboMacro" Res1="Others/open.svg">Spot</Capability>
-  <Capability Min="14" Max="27" Preset="GoboRotatingMacro" Res1="Others/gobo00036.svg">Rotating 1</Capability>
-  <Capability Min="28" Max="41" Preset="GoboRotatingMacro" Res1="Others/gobo00023.svg">Rotating 2</Capability>
-  <Capability Min="42" Max="55" Preset="GoboRotatingMacro" Res1="Others/gobo00110.svg">Rotating 3</Capability>
-  <Capability Min="56" Max="69" Preset="GoboRotatingMacro" Res1="Chauvet/gobo00015.png">Rotating 4</Capability>
-  <Capability Min="70" Max="83" Preset="GoboRotatingMacro" Res1="Others/gobo00037.svg">Rotating 5</Capability>
-  <Capability Min="84" Max="97" Preset="GoboRotatingMacro" Res1="Chauvet/gobo00040.svg">Rotating 6</Capability>
-  <Capability Min="98" Max="115" Preset="GoboRotatingMacro" Res1="Others/gobo00029.svg">Rotating 7</Capability>
+  <Capability Min="14" Max="27" Preset="GoboMacro" Res1="Others/gobo00036.svg">Rotating 1</Capability>
+  <Capability Min="28" Max="41" Preset="GoboMacro" Res1="Others/gobo00023.svg">Rotating 2</Capability>
+  <Capability Min="42" Max="55" Preset="GoboMacro" Res1="Others/gobo00110.svg">Rotating 3</Capability>
+  <Capability Min="56" Max="69" Preset="GoboMacro" Res1="Chauvet/gobo00015.png">Rotating 4</Capability>
+  <Capability Min="70" Max="83" Preset="GoboMacro" Res1="Others/gobo00037.svg">Rotating 5</Capability>
+  <Capability Min="84" Max="97" Preset="GoboMacro" Res1="Chauvet/gobo00040.svg">Rotating 6</Capability>
+  <Capability Min="98" Max="115" Preset="GoboMacro" Res1="Others/gobo00029.svg">Rotating 7</Capability>
   <Capability Min="116" Max="135" Preset="GoboShakeMacro" Res1="Others/gobo00036.svg">Shake 1</Capability>
   <Capability Min="136" Max="155" Preset="GoboShakeMacro" Res1="Others/gobo00023.svg">Shake 2</Capability>
   <Capability Min="156" Max="175" Preset="GoboShakeMacro" Res1="Others/gobo00110.svg">Shake 3</Capability>
