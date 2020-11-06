@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.4</Version>
+  <Version>4.12.4 GIT</Version>
   <Author>Andres Robles</Author>
  </Creator>
  <Manufacturer>Briteq</Manufacturer>
