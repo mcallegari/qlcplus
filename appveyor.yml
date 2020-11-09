@@ -1,5 +1,7 @@
 version: 4.12.4.{build}
 
+image: Visual Studio 2019
+
 environment:
     MSYSTEM: MSYS
     PATH: C:\msys64\mingw32\bin;C:\msys64\usr\bin;C:\Windows\System32;C:\Windows;%PATH%
