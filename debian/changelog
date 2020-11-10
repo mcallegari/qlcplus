@@ -4,7 +4,8 @@ qlcplus (4.12.4) stable; urgency=low
   * engine: add "acts on" property to channels (thanks to Michał Kluska)
   * Virtual Console/Button: fix submaster not affecting a Chaser startup intensity
   * Plugins/E1.31: make CID unique on each network interface
-  * Resources: add Novation Launchpad Mini MK3 (thanks to Felix)
+  * New input profile: Novation Launchpad Mini MK3 (thanks to Felix)
+  * New input profile: KORG nanoKONTROL Studio (thanks to Hans-Jürgen Tappe)
   * New fixture: Varytec Giga Bar Pix 8 RGB (thanks to Felix)
   * New fixture: Clay Paky Mini-B
   * New fixture: Eurolite LED PT-100/32 Pixel DMX Tube (thanks to Torsten Caninenberg)
