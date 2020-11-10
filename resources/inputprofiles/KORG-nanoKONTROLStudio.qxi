@@ -1,0 +1,1237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE InputProfile>
+<InputProfile xmlns="http://www.qlcplus.org/InputProfile">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.2</Version>
+  <Author>Hans-Jürgen Tappe</Author>
+ </Creator>
+ <Manufacturer>KORG</Manufacturer>
+ <Model>nanoKONTROL Studio</Model>
+ <Type>MIDI</Type>
+ <Channel Number="2">
+  <Name>Slider 1 - Scene 1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="3">
+  <Name>Slider 2 - Scene 1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="4">
+  <Name>Slider 3 - Scene 1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="5">
+  <Name>Slider 4 - Scene 1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="6">
+  <Name>Slider 5 - Scene 1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="8">
+  <Name>Slider 6 - Scene 1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="9">
+  <Name>Slider 7 - Scene 1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="12">
+  <Name>Slider 8 - Scene 1</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="13">
+  <Name>Knob 1 - Scene 1</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="14">
+  <Name>Knob 2 - Scene 1</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="15">
+  <Name>Knob 3 - Scene 1</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="16">
+  <Name>Knob 4 - Scene 1</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="17">
+  <Name>Knob 5 - Scene 1</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="18">
+  <Name>Knob 6 - Scene 1</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="19">
+  <Name>Knob 7 - Scene 1</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="20">
+  <Name>Knob 8 - Scene 1</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="21">
+  <Name>Mute 1 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="22">
+  <Name>Mute 2 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="23">
+  <Name>Mute 3 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="24">
+  <Name>Mute 4 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="25">
+  <Name>Mute 5 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="26">
+  <Name>Mute 6 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="27">
+  <Name>Mute 7 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="28">
+  <Name>Mute 8 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="29">
+  <Name>Solo 1 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="30">
+  <Name>Solo 2 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="31">
+  <Name>Solo 3 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="33">
+  <Name>Solo 4 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="34">
+  <Name>Solo 5 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="35">
+  <Name>Solo 6 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="36">
+  <Name>Solo 7 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="37">
+  <Name>Solo 8 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="38">
+  <Name>Rec 1 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="39">
+  <Name>Rec 2 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="40">
+  <Name>Rec 3 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="41">
+  <Name>Rec 4 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="42">
+  <Name>Rec 5 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="43">
+  <Name>Rec 6 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="44">
+  <Name>Rec 7 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="45">
+  <Name>Rec 8 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="46">
+  <Name>Select 1 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="47">
+  <Name>Select 2 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="48">
+  <Name>Select 3 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="49">
+  <Name>Select 4 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="50">
+  <Name>Select 5 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="51">
+  <Name>Select 6 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="52">
+  <Name>Select 7 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="53">
+  <Name>Select 8 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="54">
+  <Name>Cycle - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="55">
+  <Name>Marker Set - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="56">
+  <Name>Marker Left - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="57">
+  <Name>Marker Right - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="58">
+  <Name>Track Rew - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="59">
+  <Name>Track Fwd - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="60">
+  <Name>Track Left - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="61">
+  <Name>Track Right - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="62">
+  <Name>Back - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="63">
+  <Name>Stop - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="80">
+  <Name>Play - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="81">
+  <Name>Rec - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="86">
+  <Name>Jogwheel - Scene 1</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="4098">
+  <Name>Slider 1 - Scene 2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="4099">
+  <Name>Slider 2 - Scene 2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="4100">
+  <Name>Slider 3 - Scene 2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="4101">
+  <Name>Slider 4 - Scene 2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="4102">
+  <Name>Slider 5 - Scene 2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="4104">
+  <Name>Slider 6 - Scene 2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="4105">
+  <Name>Slider 7 - Scene 2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="4108">
+  <Name>Slider 8 - Scene 2</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="4109">
+  <Name>Knob 1 - Scene 2</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="4110">
+  <Name>Knob 2 - Scene 2</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="4111">
+  <Name>Knob 3 - Scene 2</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="4112">
+  <Name>Knob 4 - Scene 2</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="4113">
+  <Name>Knob 5 - Scene 2</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="4114">
+  <Name>Knob 6 - Scene 2</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="4115">
+  <Name>Knob 7 - Scene 2</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="4116">
+  <Name>Knob 8 - Scene 2</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="4117">
+  <Name>Mute 1 - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4118">
+  <Name>Mute 2 - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4119">
+  <Name>Mute 3 - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4120">
+  <Name>Mute 4 - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4121">
+  <Name>Mute 5 - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4122">
+  <Name>Mute 6 - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4123">
+  <Name>Mute 7 - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4124">
+  <Name>Mute 8 - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4125">
+  <Name>Solo 1 - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4126">
+  <Name>Solo 2 - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4127">
+  <Name>Solo 3 - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4129">
+  <Name>Solo 4 - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4130">
+  <Name>Solo 5 - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4131">
+  <Name>Solo 6 - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4132">
+  <Name>Solo 7 - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4133">
+  <Name>Solo 8 - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4134">
+  <Name>Rec 1 - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4135">
+  <Name>Rec 2 - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4136">
+  <Name>Rec 3 - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4137">
+  <Name>Rec 4 - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4138">
+  <Name>Rec 5 - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4139">
+  <Name>Rec 6 - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4140">
+  <Name>Rec 7 - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4141">
+  <Name>Rec 8 - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4142">
+  <Name>Select 1 - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4143">
+  <Name>Select 2 - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4144">
+  <Name>Select 3 - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4145">
+  <Name>Select 4 - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4146">
+  <Name>Select 5 - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4147">
+  <Name>Select 6 - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4148">
+  <Name>Select 7 - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4149">
+  <Name>Select 8 - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4150">
+  <Name>Cycle - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4151">
+  <Name>Marker Set - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4152">
+  <Name>Marker Left - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4153">
+  <Name>Marker Right - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4154">
+  <Name>Track Rew - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4155">
+  <Name>Track Fwd - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4156">
+  <Name>Track Left - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4157">
+  <Name>Track Right - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4158">
+  <Name>Back - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4159">
+  <Name>Stop - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4176">
+  <Name>Play - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4177">
+  <Name>Rec - Scene 2</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="4182">
+  <Name>Jogwheel - Scene 2</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="8194">
+  <Name>Slider 1 - Scene 3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="8195">
+  <Name>Slider 2 - Scene 3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="8196">
+  <Name>Slider 3 - Scene 3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="8197">
+  <Name>Slider 4 - Scene 3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="8198">
+  <Name>Slider 5 - Scene 3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="8200">
+  <Name>Slider 6 - Scene 3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="8201">
+  <Name>Slider 7 - Scene 3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="8204">
+  <Name>Slider 8 - Scene 3</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="8205">
+  <Name>Knob 1 - Scene 3</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="8206">
+  <Name>Knob 2 - Scene 3</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="8207">
+  <Name>Knob 3 - Scene 3</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="8208">
+  <Name>Knob 4 - Scene 3</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="8209">
+  <Name>Knob 5 - Scene 3</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="8210">
+  <Name>Knob 6 - Scene 3</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="8211">
+  <Name>Knob 7 - Scene 3</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="8212">
+  <Name>Knob 8 - Scene 3</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="8213">
+  <Name>Mute 1 - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8214">
+  <Name>Mute 2 - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8215">
+  <Name>Mute 3 - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8216">
+  <Name>Mute 4 - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8217">
+  <Name>Mute 5 - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8218">
+  <Name>Mute 6 - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8219">
+  <Name>Mute 7 - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8220">
+  <Name>Mute 8 - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8221">
+  <Name>Solo 1 - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8222">
+  <Name>Solo 2 - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8223">
+  <Name>Solo 3 - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8225">
+  <Name>Solo 4 - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8226">
+  <Name>Solo 5 - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8227">
+  <Name>Solo 6 - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8228">
+  <Name>Solo 7 - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8229">
+  <Name>Solo 8 - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8230">
+  <Name>Rec 1 - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8231">
+  <Name>Rec 2 - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8232">
+  <Name>Rec 3 - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8233">
+  <Name>Rec 4 - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8234">
+  <Name>Rec 5 - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8235">
+  <Name>Rec 6 - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8236">
+  <Name>Rec 7 - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8237">
+  <Name>Rec 8 - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8238">
+  <Name>Select 1 - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8239">
+  <Name>Select 2 - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8240">
+  <Name>Select 3 - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8241">
+  <Name>Select 4 - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8242">
+  <Name>Select 5 - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8243">
+  <Name>Select 6 - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8244">
+  <Name>Select 7 - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8245">
+  <Name>Select 8 - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8246">
+  <Name>Cycle - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8247">
+  <Name>Marker Set - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8248">
+  <Name>Marker Left - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8249">
+  <Name>Marker Right - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8250">
+  <Name>Track Rew - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8251">
+  <Name>Track Fwd - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8252">
+  <Name>Track Left - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8253">
+  <Name>Track Right - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8254">
+  <Name>Back - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8255">
+  <Name>Stop - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8272">
+  <Name>Play - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8273">
+  <Name>Rec - Scene 3</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="8278">
+  <Name>Jogwheel - Scene 3</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="12290">
+  <Name>Slider 1 - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12291">
+  <Name>Slider 2 - Scene 4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="12292">
+  <Name>Slider 3 - Scene 4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="12293">
+  <Name>Slider 4 - Scene 4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="12294">
+  <Name>Slider 5 - Scene 4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="12296">
+  <Name>Slider 6 - Scene 4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="12297">
+  <Name>Slider 7 - Scene 4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="12300">
+  <Name>Slider 8 - Scene 4</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="12301">
+  <Name>Knob 1 - Scene 4</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="12302">
+  <Name>Knob 2 - Scene 4</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="12303">
+  <Name>Knob 3 - Scene 4</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="12304">
+  <Name>Knob 4 - Scene 4</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="12305">
+  <Name>Knob 5 - Scene 4</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="12306">
+  <Name>Knob 6 - Scene 4</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="12307">
+  <Name>Knob 7 - Scene 4</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="12308">
+  <Name>Knob 8 - Scene 4</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="12309">
+  <Name>Mute 1 - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12310">
+  <Name>Mute 2 - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12311">
+  <Name>Mute 3 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12312">
+  <Name>Mute 4 - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12313">
+  <Name>Mute 5 - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12314">
+  <Name>Mute 6 - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12315">
+  <Name>Mute 7 - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12316">
+  <Name>Mute 8 - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12317">
+  <Name>Solo 1 - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12318">
+  <Name>Solo 2 - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12319">
+  <Name>Solo 3 - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12321">
+  <Name>Solo 4 - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12322">
+  <Name>Solo 5 - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12323">
+  <Name>Solo 6 - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12324">
+  <Name>Solo 7 - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12325">
+  <Name>Solo 8 - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12326">
+  <Name>Rec 1 - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12327">
+  <Name>Rec 2 - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12328">
+  <Name>Rec 3 - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12329">
+  <Name>Rec 4 - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12330">
+  <Name>Rec 5 - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12331">
+  <Name>Rec 6 - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12332">
+  <Name>Rec 7 - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12333">
+  <Name>Rec 8 - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12334">
+  <Name>Select 1 - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12335">
+  <Name>Select 2 - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12336">
+  <Name>Select 3 - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12337">
+  <Name>Select 4 - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12338">
+  <Name>Select 5 - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12339">
+  <Name>Select 6 - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12340">
+  <Name>Select 7 - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12341">
+  <Name>Select 8 - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12342">
+  <Name>Cycle - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12343">
+  <Name>Marker Set - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12344">
+  <Name>Marker Left - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12345">
+  <Name>Marker Right - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12346">
+  <Name>Track Rew - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12347">
+  <Name>Track Fwd - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12348">
+  <Name>Track Left - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12349">
+  <Name>Track Right - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12350">
+  <Name>Back - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12351">
+  <Name>Stop - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12368">
+  <Name>Play - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12369">
+  <Name>Rec - Scene 4</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="12374">
+  <Name>Jogwheel - Scene 4</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+ <Channel Number="16386">
+  <Name>Slider 1 - Scene 5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="16387">
+  <Name>Slider 2 - Scene 5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="16388">
+  <Name>Slider 3 - Scene 5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="16389">
+  <Name>Slider 4 - Scene 5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="16390">
+  <Name>Slider 5 - Scene 5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="16392">
+  <Name>Slider 6 - Scene 5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="16393">
+  <Name>Slider 7 - Scene 5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="16396">
+  <Name>Slider 8 - Scene 5</Name>
+  <Type>Slider</Type>
+ </Channel>
+ <Channel Number="16397">
+  <Name>Knob 1 - Scene 5</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="16398">
+  <Name>Knob 2 - Scene 5</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="16399">
+  <Name>Knob 3 - Scene 5</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="16400">
+  <Name>Knob 4 - Scene 5</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="16401">
+  <Name>Knob 5 - Scene 5</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="16402">
+  <Name>Knob 6 - Scene 5</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="16403">
+  <Name>Knob 7 - Scene 5</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="16404">
+  <Name>Knob 8 - Scene 5</Name>
+  <Type>Knob</Type>
+ </Channel>
+ <Channel Number="16405">
+  <Name>Mute 1 - Scene 1</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16406">
+  <Name>Mute 2 - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16407">
+  <Name>Mute 3 - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16408">
+  <Name>Mute 4 - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16409">
+  <Name>Mute 5 - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16410">
+  <Name>Mute 6 - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16411">
+  <Name>Mute 7 - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16412">
+  <Name>Mute 8 - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16413">
+  <Name>Solo 1 - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16414">
+  <Name>Solo 2 - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16415">
+  <Name>Solo 3 - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16417">
+  <Name>Solo 4 - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16418">
+  <Name>Solo 5 - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16419">
+  <Name>Solo 6 - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16420">
+  <Name>Solo 7 - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16421">
+  <Name>Solo 8 - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16422">
+  <Name>Rec 1 - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16423">
+  <Name>Rec 2 - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16424">
+  <Name>Rec 3 - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16425">
+  <Name>Rec 4 - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16426">
+  <Name>Rec 5 - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16427">
+  <Name>Rec 6 - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16428">
+  <Name>Rec 7 - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16429">
+  <Name>Rec 8 - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16430">
+  <Name>Select 1 - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16431">
+  <Name>Select 2 - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16432">
+  <Name>Select 3 - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16433">
+  <Name>Select 4 - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16434">
+  <Name>Select 5 - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16435">
+  <Name>Select 6 - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16436">
+  <Name>Select 7 - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16437">
+  <Name>Select 8 - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16438">
+  <Name>Cycle - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16439">
+  <Name>Marker Set - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16440">
+  <Name>Marker Left - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16441">
+  <Name>Marker Right - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16442">
+  <Name>Track Rew - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16443">
+  <Name>Track Fwd - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16444">
+  <Name>Track Left - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16445">
+  <Name>Track Right - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16446">
+  <Name>Back - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16447">
+  <Name>Stop - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16464">
+  <Name>Play - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16465">
+  <Name>Rec - Scene 5</Name>
+  <Type>Button</Type>
+ </Channel>
+ <Channel Number="16470">
+  <Name>Jogwheel - Scene 5</Name>
+  <Type>Encoder</Type>
+  <Movement Sensitivity="1"/>
+ </Channel>
+</InputProfile>
