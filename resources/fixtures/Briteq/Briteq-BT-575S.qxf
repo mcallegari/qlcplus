@@ -185,10 +185,10 @@
   <Channel Number="7">Focus</Channel>
  </Mode>
  <Physical>
-  <Bulb Type="" Lumens="0" ColourTemperature="0"/>
-  <Dimensions Weight="0" Width="0" Height="0" Depth="0"/>
-  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
-  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-  <Technical PowerConsumption="0" DmxConnector="5-pin"/>
+  <Bulb Type="MSD 575W" Lumens="0" ColourTemperature="6500"/>
+  <Dimensions Weight="27.7" Width="427" Height="478" Depth="39"/>
+  <Lens Name="PC" DegreesMin="14" DegreesMax="14"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="600" DmxConnector="3-pin"/>
  </Physical>
 </FixtureDefinition>
