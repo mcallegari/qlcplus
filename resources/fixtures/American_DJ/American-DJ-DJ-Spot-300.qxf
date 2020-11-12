@@ -46,7 +46,7 @@
   <Capability Min="128" Max="255" Preset="RotationClockwiseSlowToFast">Gobo scroll</Capability>
  </Channel>
  <Channel Name="Gobo Rotation">
-  <Group Byte="0">Speed</Group>
+  <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="85" Preset="RotationClockwiseFastToSlow">Fast -&gt; slow</Capability>
   <Capability Min="86" Max="170" Preset="RotationClockwiseSlowToFast">Slow -&gt; fast</Capability>
   <Capability Min="171" Max="178" Preset="RotationStop">No rotation</Capability>

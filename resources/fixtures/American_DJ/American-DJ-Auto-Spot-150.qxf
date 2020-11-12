@@ -24,7 +24,7 @@
   <Capability Min="128" Max="255" Preset="RotationClockwiseSlowToFast">Rotating slow-fast</Capability>
  </Channel>
  <Channel Name="Gobo Rotation">
-  <Group Byte="0">Speed</Group>
+  <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="9" Preset="RotationStop">Stop</Capability>
   <Capability Min="10" Max="120" Preset="RotationClockwiseFastToSlow">Rotation CW fast-slow</Capability>
   <Capability Min="121" Max="134" Preset="RotationStop">Stop</Capability>
