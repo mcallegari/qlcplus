@@ -14,10 +14,6 @@ configuration:
   - Release
 
 install:
-    #- wget http://repo.msys2.org/msys/x86_64/msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz -P /c/projects
-    #- wget http://repo.msys2.org/msys/x86_64/msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz.sig  -P /c/projects
-    #- pacman-key --verify /c/projects/msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz.sig
-    #- pacman --noconfirm --needed -U /c/projects/msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz
     #- pacman --noconfirm -Sy
     #- pacman --noconfirm --needed -S pacman-mirrors
     #- pacman --noconfirm -Syu
@@ -25,11 +21,13 @@ install:
     #- wget http://repo.msys2.org/mingw/i686/mingw-w64-i686-gcc-libs-9.3.0-2-any.pkg.tar.xz -P /c/projects
     #- wget http://repo.msys2.org/mingw/i686/mingw-w64-i686-gcc-9.3.0-2-any.pkg.tar.xz -P /c/projects
     - wget http://www.qlcplus.org/misc/mingw-w64-i686-qt5-5.14.2-2-any.pkg.tar.zst -P /c/projects
+    - wget http://www.qlcplus.org/misc/qttools-5.14.2.zip -P /c/projects
     #- pacman --noconfirm -Rdd mingw-w64-i686-gcc
     #- pacman --noconfirm -Rdd mingw-w64-i686-gcc-libs
     #- pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-gcc-libs-9.3.0-2-any.pkg.tar.xz
     #- pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-gcc-9.3.0-2-any.pkg.tar.xz
     - pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-qt5-5.14.2-2-any.pkg.tar.zst
+    - unzip -d /c/msys64/mingw32/ /c/projects/qttools-5.14.2.zip
 
 build_script:
     - ps: >-
