@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>4.12.4 GIT</Version>
   <Author>Justin Hornsby</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -37,21 +37,21 @@
  </Channel>
  <Channel Name="Gobos">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="4">Open</Capability>
-  <Capability Min="5" Max="9">Gobo 1</Capability>
-  <Capability Min="10" Max="14">Gobo 2</Capability>
-  <Capability Min="15" Max="19">Gobo 3</Capability>
-  <Capability Min="20" Max="24">Gobo 4</Capability>
-  <Capability Min="25" Max="29">Gobo 5</Capability>
-  <Capability Min="30" Max="34">Gobo 6</Capability>
-  <Capability Min="35" Max="39">Gobo 7</Capability>
-  <Capability Min="40" Max="44">Gobo 8</Capability>
-  <Capability Min="45" Max="49">Gobo 9</Capability>
-  <Capability Min="50" Max="54">Gobo 10</Capability>
-  <Capability Min="55" Max="59">Gobo 11</Capability>
-  <Capability Min="60" Max="64">Gobo 12</Capability>
+  <Capability Min="0" Max="4" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="5" Max="9" Preset="GoboMacro" Res1="">Gobo 1</Capability>
+  <Capability Min="10" Max="14" Preset="GoboMacro" Res1="">Gobo 2</Capability>
+  <Capability Min="15" Max="19" Preset="GoboMacro" Res1="">Gobo 3</Capability>
+  <Capability Min="20" Max="24" Preset="GoboMacro" Res1="">Gobo 4</Capability>
+  <Capability Min="25" Max="29" Preset="GoboMacro" Res1="">Gobo 5</Capability>
+  <Capability Min="30" Max="34" Preset="GoboMacro" Res1="">Gobo 6</Capability>
+  <Capability Min="35" Max="39" Preset="GoboMacro" Res1="">Gobo 7</Capability>
+  <Capability Min="40" Max="44" Preset="GoboMacro" Res1="">Gobo 8</Capability>
+  <Capability Min="45" Max="49" Preset="GoboMacro" Res1="">Gobo 9</Capability>
+  <Capability Min="50" Max="54" Preset="GoboMacro" Res1="">Gobo 10</Capability>
+  <Capability Min="55" Max="59" Preset="GoboMacro" Res1="">Gobo 11</Capability>
+  <Capability Min="60" Max="64" Preset="GoboMacro" Res1="">Gobo 12</Capability>
   <Capability Min="65" Max="127">Gobo Animation</Capability>
-  <Capability Min="128" Max="255">Gobo Wheel Rotation Slow-Fast</Capability>
+  <Capability Min="128" Max="255" Preset="RotationClockwiseSlowToFast">Gobo Wheel Rotation Slow-Fast</Capability>
  </Channel>
  <Channel Name="Reflector Rotation">
   <Group Byte="0">Effect</Group>

@@ -272,7 +272,6 @@ when changing this list -->
         <xs:enumeration value="ColorWheelIndex" />
         <xs:enumeration value="GoboMacro" />
         <xs:enumeration value="GoboShakeMacro" />
-        <xs:enumeration value="GoboRotatingMacro" />
         <xs:enumeration value="GenericPicture" />
         <xs:enumeration value="PrismEffectOn" />
         <xs:enumeration value="PrismEffectOff" />

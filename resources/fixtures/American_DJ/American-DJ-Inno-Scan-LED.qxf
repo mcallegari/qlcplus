@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>4.12.4 GIT</Version>
   <Author>Thierry Rodolfo</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -41,9 +41,9 @@
   <Capability Min="96" Max="106" Preset="GoboShakeMacro" Res1="Robe/gobo00035.svg">Gobo 4 Shake</Capability>
   <Capability Min="107" Max="116" Preset="GoboShakeMacro" Res1="Chauvet/gobo00008.svg">Gobo 5 Shake</Capability>
   <Capability Min="117" Max="127" Preset="GoboShakeMacro" Res1="Chauvet/gobo00018.svg">Gobo 6 Shake</Capability>
-  <Capability Min="128" Max="189">Clockwise rotation Fast to Slow</Capability>
-  <Capability Min="190" Max="193">Stop</Capability>
-  <Capability Min="194" Max="255">Counter - Clockwise rotation Slow to Fast</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Clockwise rotation Fast to Slow</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Stop</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counter - Clockwise rotation Slow to Fast</Capability>
  </Channel>
  <Channel Name="Color Wheel">
   <Group Byte="0">Colour</Group>
@@ -84,10 +84,10 @@
  </Channel>
  <Channel Name="Gobo Rotation">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="127">Gobo Indexing</Capability>
-  <Capability Min="128" Max="189">Clockwise rotation Fast to Slow</Capability>
-  <Capability Min="190" Max="193">Stop</Capability>
-  <Capability Min="194" Max="255">Counter - Clockwise rotation Slow to Fast</Capability>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Gobo Indexing</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Clockwise rotation Fast to Slow</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Stop</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counter - Clockwise rotation Slow to Fast</Capability>
  </Channel>
  <Channel Name="Pan / Tilt Speed" Preset="SpeedPanTiltSlowFast"/>
  <Mode Name="8 Channel Mode">
@@ -96,7 +96,7 @@
   <Channel Number="2">Strobe</Channel>
   <Channel Number="3">Color Wheel</Channel>
   <Channel Number="4">Gobo Wheel</Channel>
-  <Channel Number="5">Gobo Rotation</Channel>
+  <Channel Number="5" ActsOn="4">Gobo Rotation</Channel>
   <Channel Number="6">Dimmer</Channel>
   <Channel Number="7">Reset / Blackout</Channel>
  </Mode>
@@ -117,7 +117,7 @@
   <Channel Number="6">Strobe</Channel>
   <Channel Number="7">Color Wheel</Channel>
   <Channel Number="8">Gobo Wheel</Channel>
-  <Channel Number="9">Gobo Rotation</Channel>
+  <Channel Number="9" ActsOn="8">Gobo Rotation</Channel>
   <Channel Number="10">Reset / Blackout</Channel>
  </Mode>
  <Physical>

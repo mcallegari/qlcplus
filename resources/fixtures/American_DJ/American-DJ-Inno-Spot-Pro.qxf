@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>4.12.4 GIT</Version>
   <Author>Thierry Rodolfo</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -45,16 +45,16 @@
   <Capability Min="101" Max="109" Preset="GoboShakeMacro" Res1="SGM/gobo00364.svg">Gobo 4 Shake</Capability>
   <Capability Min="110" Max="118" Preset="GoboShakeMacro" Res1="SGM-Color/gobo00389.png">Gobo 5 Shake</Capability>
   <Capability Min="119" Max="127" Preset="GoboShakeMacro" Res1="SGM-Color/gobo00402.png">Gobo 6 Shake</Capability>
-  <Capability Min="128" Max="189">Rotation Slow &lt; Fast</Capability>
-  <Capability Min="190" Max="193">Stop</Capability>
-  <Capability Min="194" Max="255">Rotation Fast &gt; Slow</Capability>
+  <Capability Min="128" Max="189" Preset="RotationCounterClockwiseSlowToFast">Rotation Slow &lt; Fast</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Stop</Capability>
+  <Capability Min="194" Max="255" Preset="RotationClockwiseFastToSlow">Rotation Fast &gt; Slow</Capability>
  </Channel>
  <Channel Name="Gobo Rot">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="127">Index</Capability>
-  <Capability Min="128" Max="189">Fast &gt; Slow</Capability>
-  <Capability Min="190" Max="193">Stop</Capability>
-  <Capability Min="194" Max="255">Slow &lt; Fast</Capability>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Index</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseFastToSlow">Fast &gt; Slow</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Stop</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Slow &lt; Fast</Capability>
  </Channel>
  <Channel Name="Prism">
   <Group Byte="0">Prism</Group>
@@ -103,9 +103,9 @@
   <Channel Number="3">Tilt Fine</Channel>
   <Channel Number="4">Colour</Channel>
   <Channel Number="5">Gobo</Channel>
-  <Channel Number="6">Gobo Rot</Channel>
+  <Channel Number="6" ActsOn="5">Gobo Rot</Channel>
   <Channel Number="7">Prism</Channel>
-  <Channel Number="8">Prism Rotation</Channel>
+  <Channel Number="8" ActsOn="7">Prism Rotation</Channel>
   <Channel Number="9">Focus</Channel>
   <Channel Number="10">Shutter/Strobe</Channel>
   <Channel Number="11">Dimmer</Channel>
