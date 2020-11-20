@@ -280,6 +280,15 @@ QList<Universe *> InputOutputMap::universes() const
     return m_universeArray;
 }
 
+Universe *InputOutputMap::universe(quint32 id)
+{
+    for (int i = 0; i < m_universeArray.size(); i++)
+        if (m_universeArray.at(i)->id() == id)
+            return m_universeArray.at(i);
+
+    return NULL;
+}
+
 QList<Universe*> InputOutputMap::claimUniverses()
 {
     m_universeMutex.lock();

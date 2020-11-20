@@ -242,6 +242,12 @@ public:
     QList<Universe*> universes() const;
 
     /**
+     * Get a reference to a Universe from the given Universe ID
+     * Return NULL if no Universe is found
+     */
+    Universe *universe(quint32 id);
+
+    /**
      * Claim access to a universe. This is declared virtual to make
      * unit testing a bit easier.
      */

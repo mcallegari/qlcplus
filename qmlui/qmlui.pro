@@ -52,6 +52,7 @@ HEADERS += \
     sceneeditor.h \
     scripteditor.h \
     showmanager.h \
+    simpledesk.h \
     treemodel.h \
     treemodelitem.h \
     videoeditor.h \
@@ -84,6 +85,7 @@ SOURCES += main.cpp \
     sceneeditor.cpp \
     scripteditor.cpp \
     showmanager.cpp \
+    simpledesk.cpp \
     treemodel.cpp \
     treemodelitem.cpp \
     videoeditor.cpp \

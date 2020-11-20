@@ -92,6 +92,7 @@ HEADERS += bus.h \
            inputoutputmap.h \
            inputpatch.h \
            ioplugincache.h \
+           keypadparser.h \
            mastertimer.h \
            monitorproperties.h \
            outputpatch.h \
@@ -171,6 +172,7 @@ SOURCES += bus.cpp \
            inputoutputmap.cpp \
            inputpatch.cpp \
            ioplugincache.cpp \
+           keypadparser.cpp \
            mastertimer.cpp \
            monitorproperties.cpp \
            outputpatch.cpp \

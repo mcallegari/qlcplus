@@ -230,8 +230,8 @@ protected slots:
 
     void slotPresetChanged(const QLCChannel *channel, quint8 value);
 
-    /** Invoked by the QLC+ engine to inform the UI that the Universe at $idx
-     *  has changed */
+    /** Invoked by the QLC+ engine to inform the UI that the
+     *  Universe at $idx has changed */
     void slotUniverseWritten(quint32 idx, const QByteArray& ua);
 
     /** Invoked when Function editing begins or ends in the Function Manager.
