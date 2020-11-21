@@ -472,6 +472,7 @@ protected slots:
 
 protected:
     QHash <quint8, QSharedPointer<QLCInputSource> > m_inputs;
+    bool m_extraFeedbackOnRelease = false;
 
     /*********************************************************************
      * Key sequence handler

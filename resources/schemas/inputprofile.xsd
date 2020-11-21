@@ -75,6 +75,7 @@ elementFormDefault="qualified"
         <xs:element name="Name" type="xs:string"/>
         <xs:element name="Type" type="channelTypeEnum"/>
         <xs:element name="ExtraPress" type="qlcBool" minOccurs="0"/>
+        <xs:element name="ExtraFeedback" type="qlcBool" minOccurs="0"/>
         <xs:element name="Movement" type="movementType" minOccurs="0"/>
         <xs:element name="Feedbacks" type="feedbackType" minOccurs="0"/>
     </xs:sequence>

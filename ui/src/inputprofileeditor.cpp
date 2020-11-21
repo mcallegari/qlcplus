@@ -85,6 +85,8 @@ InputProfileEditor::InputProfileEditor(QWidget* parent, QLCInputProfile* profile
             this, SLOT(slotSensitivitySpinChanged(int)));
     connect(m_extraPressCheck, SIGNAL(toggled(bool)),
             this, SLOT(slotExtraPressChecked(bool)));
+    connect(m_extraFeedback, SIGNAL(toggled(bool)),
+            this, SLOT(slotExtraFeedback(bool)));
     connect(m_lowerSpin, SIGNAL(valueChanged(int)),
             this, SLOT(slotLowerValueSpinChanged(int)));
     connect(m_upperSpin, SIGNAL(valueChanged(int)),
@@ -216,6 +218,7 @@ void InputProfileEditor::setOptionsVisibility(QLCInputChannel::Type type)
     m_sensitivityLabel->setVisible(showSensitivity);
     m_sensitivitySpin->setVisible(showSensitivity);
     m_extraPressCheck->setVisible(showButtonOpts);
+    m_extraFeedback->setVisible(showButtonOpts);
     m_feedbackGroup->setVisible(showButtonOpts);
     m_behaviourBox->setVisible(showBox);
 }
@@ -499,6 +502,7 @@ void InputProfileEditor::slotItemClicked(QTreeWidgetItem *item, int col)
         else if (ich->type() == QLCInputChannel::Button)
         {
             m_extraPressCheck->setChecked(ich->sendExtraPress());
+            m_extraFeedback->setChecked(ich->extraFeedback());
             m_lowerSpin->blockSignals(true);
             m_upperSpin->blockSignals(true);
             m_lowerSpin->setValue(ich->lowerValue());
@@ -550,6 +554,15 @@ void InputProfileEditor::slotExtraPressChecked(bool checked)
     {
         if(channel->type() == QLCInputChannel::Button)
             channel->setSendExtraPress(checked);
+    }
+}
+
+void InputProfileEditor::slotExtraFeedback(bool checked)
+{
+    foreach(QLCInputChannel *channel, selectedChannels())
+    {
+        if(channel->type() == QLCInputChannel::Button)
+            channel->setExtraFeedback(checked);
     }
 }
 

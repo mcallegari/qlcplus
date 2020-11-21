@@ -48,6 +48,7 @@ QLCInputChannel *QLCInputChannel::createCopy()
     copy->setMovementType(this->movementType());
     copy->setMovementSensitivity(this->movementSensitivity());
     copy->setSendExtraPress(this->sendExtraPress());
+    copy->setExtraFeedback(this->extraFeedback());
     copy->setRange(this->lowerValue(), this->upperValue());
 
     return copy;
@@ -208,6 +209,16 @@ bool QLCInputChannel::sendExtraPress() const
     return m_sendExtraPress;
 }
 
+void QLCInputChannel::setExtraFeedback(bool enable)
+{
+    m_extraFeedback = enable;
+}
+
+bool QLCInputChannel::extraFeedback() const
+{
+    return m_extraFeedback;
+}
+
 void QLCInputChannel::setRange(uchar lower, uchar upper)
 {
     m_lower = lower;
@@ -250,6 +261,11 @@ bool QLCInputChannel::loadXML(QXmlStreamReader &root)
         {
             root.readElementText();
             setSendExtraPress(true);
+        }
+        else if (root.name() == KXMLQLCInputChannelExtraFeedback)
+        {
+            root.readElementText();
+            setExtraFeedback(true);
         }
         else if (root.name() == KXMLQLCInputChannelMovement)
         {
@@ -294,6 +310,8 @@ bool QLCInputChannel::saveXML(QXmlStreamWriter *doc, quint32 channelNumber) cons
     doc->writeTextElement(KXMLQLCInputChannelType, typeToString(m_type));
     if (sendExtraPress() == true)
         doc->writeTextElement(KXMLQLCInputChannelExtraPress, "True");
+    if (extraFeedback() == true)
+        doc->writeTextElement(KXMLQLCInputChannelExtraFeedback, "True");
 
     /* Save only slider's relative movement */
     if ((type() == Slider || type() == Knob) && movementType() == Relative)

@@ -47,6 +47,7 @@ class QString;
 #define KXMLQLCInputChannelRelative "Relative"
 #define KXMLQLCInputChannelSensitivity "Sensitivity"
 #define KXMLQLCInputChannelExtraPress "ExtraPress"
+#define KXMLQLCInputChannelExtraFeedback "ExtraFeedback"
 #define KXMLQLCInputChannelFeedbacks "Feedbacks"
 #define KXMLQLCInputChannelLowerValue "LowerValue"
 #define KXMLQLCInputChannelUpperValue "UpperValue"
@@ -155,13 +156,16 @@ protected:
      *********************************************************************/
 public:
     void setSendExtraPress(bool enable);
+    void setExtraFeedback(bool enable);
     bool sendExtraPress() const;
+    bool extraFeedback() const;
     void setRange(uchar lower, uchar upper);
     uchar lowerValue() const;
     uchar upperValue() const;
 
 protected:
     bool m_sendExtraPress;
+    bool m_extraFeedback;
     uchar m_lower, m_upper;
 
     /********************************************************************

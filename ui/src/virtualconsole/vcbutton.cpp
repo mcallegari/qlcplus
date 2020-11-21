@@ -552,8 +552,14 @@ void VCButton::slotInputValueChanged(quint32 universe, quint32 channel, uchar va
         else if (value > 0)
         {
             // Only toggle when the external button is pressed.
-            // Releasing the button does nothing.
             pressFunction();
+        }
+        else if (m_extraFeedbackOnRelease)
+        {
+            // Releasing the button does nothing. Except when the extraFeedback
+            // option of the input channel is set: In that case, we send an
+            // extra feedback update on release.
+            updateFeedback();
         }
     }
 }

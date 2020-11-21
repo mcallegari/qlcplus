@@ -78,6 +78,7 @@ protected slots:
     void slotMovementComboChanged(int index);
     void slotSensitivitySpinChanged(int value);
     void slotExtraPressChecked(bool checked);
+    void slotExtraFeedback(bool checked);
     void slotLowerValueSpinChanged(int value);
     void slotUpperValueSpinChanged(int value);
 

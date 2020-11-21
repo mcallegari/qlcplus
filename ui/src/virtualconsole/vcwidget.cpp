@@ -637,6 +637,7 @@ void VCWidget::setInputSource(QSharedPointer<QLCInputSource> const& source, quin
                             connect(source.data(), SIGNAL(inputValueChanged(quint32,quint32,uchar)),
                                     this, SLOT(slotInputValueChanged(quint32,quint32,uchar)));
                         }
+                        m_extraFeedbackOnRelease = ich->extraFeedback();
 
                         // user custom feedbacks have precedence over input profile custom feedbacks
                         source->setRange((source->lowerValue() != 0) ? source->lowerValue() : ich->lowerValue(),
