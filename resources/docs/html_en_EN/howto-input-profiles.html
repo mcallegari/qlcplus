@@ -183,17 +183,22 @@ channel value.
 It is possible to change the behaviour of individual buttons from an input profile, and
 the following properties will be used globally in QLC+.
 <br><br>
+
 <B>Generate an extra Press/Release when toggled</B>: this is a quite specific option used for
 example when dealing with TouchOSC or the Behringer BCF2000.<br>
 QLC+ toggle events are triggered when a high+low sequence is received. This means that QLC+ expects a
 non zero value (typically 255) followed by a zero value to toggle, for example, a button.<br>
 Devices like BCF2000 or softwares like TouchOSC, instead, send just a non zero value when activating
 a button, and a zero value when deactivating it.<br>
+When checking this option, QLC+ will generate the "missing" events to standardize the way some controller
+work. So, for example, the BCF2000 will look like sending 255+0 when pressing a button, and
+another 255+0 when pressing it again.<br><br>
+
 <B>Send extra feedback on release</B>: this is a another specific option, used for
 example for the Behringer X Touch Compact.<br>
 Typically, feedback about the button state is only send to the controller, when the state changes. Unless "Send extra feedback on release" is checked, for a toggle buttons this corresponds to a high value being received. Some controllers (such as the Behringer X Touch Compact) turn off the button LED internally, when a button is released. Thus, after releasing a button, it does not represent the state of the virtual console button anymore.<br>
-When checking this option, an additional feedback message is sent, when a low signal is received (i.e. when the controller button is released). This way, the controller's button state is overridden correctly.<br>
-<br><br>
+When checking this option, an additional feedback message is sent, when a low signal is received (i.e. when the controller button is released). This way, the controller's button state is overridden correctly.<br><br>
+
 <B>Custom feedback</B>: with the "Lower value" and "Upper value" boxes, it is possible to force
 custom values to be sent when the selected button sends a non-zero and a zero value.<br>
 For example, with this option it is possible to set globally how Akai APC devices LEDs should be
