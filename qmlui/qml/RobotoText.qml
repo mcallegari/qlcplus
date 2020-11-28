@@ -36,6 +36,7 @@ Rectangle
     property bool wrapText: false
     property int textHAlign: Text.AlignLeft
     property int textVAlign: wrapText ? Text.AlignVCenter : Text.AlignTop
+    property alias leftMargin: textBox.x
 
     Text
     {
