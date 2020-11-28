@@ -31,7 +31,8 @@ Rectangle
     color: "transparent"
 
     property string contextName: "SDESK"
-    property bool dmxMode: true
+    property bool dmxValues: true
+    property real maxValue: 255
 
     SplitView
     {
@@ -63,8 +64,6 @@ Rectangle
                     anchors.fill: parent
                     spacing: 5
 
-                    Rectangle { Layout.fillWidth: true; color: "transparent" }
-
                     RobotoText
                     {
                         label: qsTr("Universe")
@@ -88,6 +87,86 @@ Rectangle
                         faColor: UISettings.bgControl
                         tooltip: qsTr("Reset the whole universe")
                         onClicked: simpleDesk.resetUniverse(viewUniverseCombo.currentIndex)
+                    }
+
+                    Rectangle { Layout.fillWidth: true; color: "transparent" }
+
+                    DMXPercentageButton
+                    {
+                        height: parent.height - 2
+                        dmxMode: dmxValues
+                        onClicked:
+                        {
+                            if (dmxValues)
+                            {
+                                dmxValues = false
+                                maxValue = 100
+                            }
+                            else
+                            {
+                                maxValue = 255
+                                dmxValues = true
+                            }
+                        }
+                    }
+
+                    IconButton
+                    {
+                        id: sceneDump
+                        z: 2
+                        imgSource: "qrc:/dmxdump.svg"
+                        tooltip: qsTr("Dump on a new Scene")
+                        counter: contextManager ? contextManager.dumpValuesCount && (qlcplus.accessMask & App.AC_FunctionEditing) : 0
+
+                        onClicked:
+                        {
+                            if (dmxDumpDialog.show)
+                            {
+                                dmxDumpDialog.sceneID = -1
+                                dmxDumpDialog.open()
+                                dmxDumpDialog.focusEditItem()
+                            }
+                        }
+
+                        Rectangle
+                        {
+                            x: -3
+                            y: -3
+                            width: sceneDump.width * 0.4
+                            height: width
+                            color: "red"
+                            border.width: 1
+                            border.color: UISettings.fgMain
+                            radius: 3
+                            clip: true
+
+                            RobotoText
+                            {
+                                anchors.centerIn: parent
+                                height: parent.height * 0.7
+                                label: contextManager ? contextManager.dumpValuesCount : ""
+                                fontSize: height
+                            }
+                        }
+
+                        PopupDMXDump
+                        {
+                            id: dmxDumpDialog
+                            implicitWidth: Math.min(UISettings.bigItemHeight * 4, mainView.width / 3)
+
+                            property int sceneID: -1
+
+                            onAccepted:
+                            {
+                                if (sceneID == -1)
+                                    contextManager.dumpDmxChannels(sceneName, getChannelsMask())
+                                else
+                                    contextManager.dumpDmxChannels(sceneID, getChannelsMask())
+                                loaderSource = "qrc:/FunctionManager.qml"
+                                animatePanel(true)
+                                funcEditor.checked = true
+                            }
+                        }
                     }
                 }
             }
@@ -126,7 +205,6 @@ Rectangle
                         border.color: UISettings.borderColorDark
 
                         property Fixture fixtureObj: model.cRef
-                        property alias dmxValue: chValueSpin.value
                         property int chDisplay: model.chDisplay
                         property bool isOverride: model.isOverride
 
@@ -159,12 +237,12 @@ Rectangle
                                 Layout.alignment: Qt.AlignHCenter
                                 Layout.fillHeight: true
                                 from: 0
-                                to: dmxMode ? 255 : 100
-                                value: dmxValue
+                                to: 255
+                                value: model.chValue
                                 onMoved: {
                                     model.isOverride = true
                                     model.chValue = valueAt(position)
-                                    simpleDesk.setValue(index, dmxValue)
+                                    simpleDesk.setValue(index, model.chValue)
                                 }
                             }
 
@@ -175,16 +253,16 @@ Rectangle
                                 implicitWidth: UISettings.iconSizeDefault
                                 height: UISettings.listItemHeight * 0.75
                                 from: 0
-                                to: dmxMode ? 255 : 100
-                                suffix: dmxMode ? "" : "%"
+                                to: maxValue
+                                suffix: dmxValues ? "" : "%"
                                 showControls: false
                                 padding: 0
                                 horizontalAlignment: Qt.AlignHCenter
-                                value: model.chValue
+                                value: dmxValues ? model.chValue : (model.chValue / 255.0) * 100.0
                                 onValueModified: {
                                     model.isOverride = true
-                                    model.chValue = value
-                                    simpleDesk.setValue(index, dmxValue)
+                                    model.chValue = value * (dmxValues ? 1.0 : 2.55)
+                                    simpleDesk.setValue(index, model.chValue)
                                 }
                             }
 
