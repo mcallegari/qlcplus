@@ -365,6 +365,7 @@ Rectangle
                             {
                                 x: parent.width - width
                                 height: UISettings.listItemHeight
+                                rightMargin: 5
                                 label: (fixtureObj.address + 1) + " - " + (fixtureObj.address + fixtureObj.channels + 1)
                             }
                         }

@@ -36,10 +36,12 @@ public:
         CommandZERO,
         CommandBY,
         CommandPlus,
-        CommandMinus
+        CommandPlusPercent,
+        CommandMinus,
+        CommandMinusPercent
     };
 
-    static QList<SceneValue> parseCommand(Doc *doc, QString command);
+    static QList<SceneValue> parseCommand(Doc *doc, QString command, QByteArray &uniData);
 };
 
 #endif // KEYPADPARSER_H

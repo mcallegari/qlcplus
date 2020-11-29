@@ -18,14 +18,14 @@
 */
 
 #include "keypadparser.h"
-
+#include "qlcmacros.h"
 
 KeyPadParser::KeyPadParser()
 {
 
 }
 
-QList<SceneValue> KeyPadParser::parseCommand(Doc *doc, QString command)
+QList<SceneValue> KeyPadParser::parseCommand(Doc *doc, QString command, QByteArray &uniData)
 {
     QList<SceneValue> values;
     if (doc == NULL)
@@ -57,12 +57,10 @@ QList<SceneValue> KeyPadParser::parseCommand(Doc *doc, QString command)
         else if (token == "FULL")
         {
             lastCommand = CommandFULL;
-            fromValue = toValue = 255;
         }
         else if (token == "ZERO")
         {
             lastCommand = CommandZERO;
-            fromValue = toValue = 0;
         }
         else if (token == "BY")
         {
@@ -75,6 +73,22 @@ QList<SceneValue> KeyPadParser::parseCommand(Doc *doc, QString command)
         else if (token == "-")
         {
             lastCommand = CommandMinus;
+        }
+        else if (token == "+%")
+        {
+            lastCommand = CommandPlusPercent;
+        }
+
+        else if (token == "-%")
+        {
+            lastCommand = CommandMinusPercent;
+        }
+        else if (token == "%")
+        {
+            if (lastCommand == CommandPlus)
+                lastCommand = CommandPlusPercent;
+            else if (lastCommand == CommandMinus)
+                lastCommand = CommandMinusPercent;
         }
         else
         {
@@ -104,19 +118,21 @@ QList<SceneValue> KeyPadParser::parseCommand(Doc *doc, QString command)
                     thruCount++;
                 break;
                 case CommandFULL:
-                    // nothing to do?
+                    fromValue = toValue = 255;
                 break;
                 case CommandZERO:
-                    // nothing to do?
+                    fromValue = toValue = 0;
                 break;
                 case CommandBY:
                     byChannel = number;
                 break;
                 case CommandPlus:
-                    // TODO
-                break;
                 case CommandMinus:
-                    // TODO
+                    toValue = number;
+                break;
+                case CommandPlusPercent:
+                case CommandMinusPercent:
+                    toValue = float(number) / 100.0;
                 break;
             }
         }
@@ -129,11 +145,25 @@ QList<SceneValue> KeyPadParser::parseCommand(Doc *doc, QString command)
         valueDelta = (float(toValue) - float(fromValue)) / valueDelta;
     }
 
-    for (quint32 i = fromChannel; i <= toChannel; i += byChannel)
+    for (quint32 i = fromChannel - 1; i <= toChannel - 1; i += byChannel)
     {
+        uchar uniValue = 0;
         SceneValue scv;
+
+        if (quint32(uniData.length()) >= i)
+            uniValue = uchar(uniData.at(i));
+
         scv.channel = i;
-        scv.value = uchar(fromValue);
+        if (lastCommand == CommandPlus)
+            scv.value = CLAMP(uniValue + toValue, 0, 255);
+        else if (lastCommand == CommandMinus)
+            scv.value = CLAMP(uniValue - toValue, 0, 255);
+        else if (lastCommand == CommandPlusPercent)
+            scv.value = CLAMP(uniValue * (1.0 + toValue), 0, 255);
+        else if (lastCommand == CommandMinusPercent)
+            scv.value = CLAMP(uniValue - (float(uniValue) * toValue), 0, 255);
+        else
+            scv.value = uchar(fromValue);
 
         values.append(scv);
         fromValue += valueDelta;

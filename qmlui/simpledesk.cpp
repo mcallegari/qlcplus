@@ -307,7 +307,8 @@ void SimpleDesk::slotUniverseWritten(quint32 idx, const QByteArray& ua)
 
 void SimpleDesk::sendKeypadCommand(QString command)
 {
-    QList<SceneValue> scvList = KeyPadParser::parseCommand(m_doc, command);
+    QByteArray uniData = m_prevUniverseValues.value(m_universeFilter);
+    QList<SceneValue> scvList = KeyPadParser::parseCommand(m_doc, command, uniData);
 
     for (SceneValue scv : scvList)
     {
