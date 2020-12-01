@@ -6,7 +6,7 @@
   <Version>4.12.4</Version>
   <Author>Peter Crowther</Author>
  </Creator>
- <Manufacturer>U'King</Manufacturer>
+ <Manufacturer>UKing</Manufacturer>
  <Model>7x10W Mini Moving Head</Model>
  <Type>Moving Head</Type>
  <Channel Name="Pan" Preset="PositionPan"/>
