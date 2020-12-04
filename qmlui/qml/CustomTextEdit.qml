@@ -73,8 +73,8 @@ Rectangle
         anchors.fill: parent
         z: 3
         color: "black"
-        opacity: 0.4
-        visible: !enabled
+        opacity: 0.5
+        visible: !parent.enabled
     }
 
     TextInput

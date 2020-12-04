@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.2 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Antoni J. Canos</Author>
  </Creator>
  <Manufacturer>Stairville</Manufacturer>
@@ -19,60 +19,60 @@
  <Channel Name="White" Preset="IntensityWhite"/>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="9">Off</Capability>
-  <Capability Min="10" Max="140">Increasing speed</Capability>
-  <Capability Min="141" Max="255">Random speed</Capability>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">Off</Capability>
+  <Capability Min="10" Max="140" Preset="StrobeSlowToFast">Increasing speed</Capability>
+  <Capability Min="141" Max="255" Preset="StrobeRandom">Random speed</Capability>
  </Channel>
  <Channel Name="Pan Fine" Preset="PositionPanFine"/>
  <Channel Name="White with Full Intensity and Adjustable Colour Temperature">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="35" Color="#000000">All LEDs off</Capability>
-  <Capability Min="36" Max="55" Color="#ffbb78">3200 K</Capability>
-  <Capability Min="56" Max="75" Color="#ffc184">3400 K</Capability>
-  <Capability Min="76" Max="95" Color="#ffd5ad">4200 K</Capability>
-  <Capability Min="96" Max="115" Color="#ffe3ca">4900 K</Capability>
-  <Capability Min="116" Max="135" Color="#ffeee3">5600 K</Capability>
-  <Capability Min="136" Max="175" Color="#fff9fd">6500 K</Capability>
-  <Capability Min="176" Max="195" Color="#f0f1ff">7200 K</Capability>
-  <Capability Min="196" Max="215" Color="#e3e9ff">8000 K</Capability>
-  <Capability Min="216" Max="235" Color="#dce5ff">8500 K</Capability>
-  <Capability Min="236" Max="255" Color="#ccdbff">10000 K</Capability>
+  <Capability Min="0" Max="35" Preset="ColorMacro" Res1="#000000">All LEDs off</Capability>
+  <Capability Min="36" Max="55" Preset="ColorMacro" Res1="#ffbb78">3200 K</Capability>
+  <Capability Min="56" Max="75" Preset="ColorMacro" Res1="#ffc184">3400 K</Capability>
+  <Capability Min="76" Max="95" Preset="ColorMacro" Res1="#ffd5ad">4200 K</Capability>
+  <Capability Min="96" Max="115" Preset="ColorMacro" Res1="#ffe3ca">4900 K</Capability>
+  <Capability Min="116" Max="135" Preset="ColorMacro" Res1="#ffeee3">5600 K</Capability>
+  <Capability Min="136" Max="175" Preset="ColorMacro" Res1="#fff9fd">6500 K</Capability>
+  <Capability Min="176" Max="195" Preset="ColorMacro" Res1="#f0f1ff">7200 K</Capability>
+  <Capability Min="196" Max="215" Preset="ColorMacro" Res1="#e3e9ff">8000 K</Capability>
+  <Capability Min="216" Max="235" Preset="ColorMacro" Res1="#dce5ff">8500 K</Capability>
+  <Capability Min="236" Max="255" Preset="ColorMacro" Res1="#ccdbff">10000 K</Capability>
  </Channel>
  <Channel Name="Preprogrammed Colours">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="14" Color="#000000">All LEDs off</Capability>
-  <Capability Min="15" Max="22" Color="#ff0000">Red (255,0,0)</Capability>
-  <Capability Min="23" Max="30" Color="#ff3d0d">Scarlet (255,51,0) + 10% white LEDs</Capability>
-  <Capability Min="31" Max="37" Color="#ff6600">Safety Orange (255,102,0)</Capability>
-  <Capability Min="38" Max="45" Color="#ff9900">Orange Peel (255,153,0)</Capability>
-  <Capability Min="46" Max="52" Color="#ffd11a">Tangerine Yellow (255,204,0) + 20% white LEDs</Capability>
-  <Capability Min="53" Max="60" Color="#ffff00">Yellow (255,255,0)</Capability>
-  <Capability Min="61" Max="67" Color="#ccff00">Electric Lime (204,255,0)</Capability>
-  <Capability Min="68" Max="75" Color="#9eff0d">Spring Bud (153,255,0) + 10% white LEDs</Capability>
-  <Capability Min="76" Max="82" Color="#66ff00">Bright Green (102,255,0)</Capability>
-  <Capability Min="83" Max="90" Color="#47ff1a">Harlequin (51,255,0) + 20% white LEDs</Capability>
-  <Capability Min="91" Max="97" Color="#00ff00">Green (Lime) (0,255,0)</Capability>
-  <Capability Min="98" Max="105" Color="#0dff3d">Free Speech Green (0,255,51) + 10% white LEDs</Capability>
-  <Capability Min="106" Max="112" Color="#00ff66">Spring Green (0,255,102)</Capability>
-  <Capability Min="113" Max="120" Color="#00ff99">Medium Spring Green (0,255,153)</Capability>
-  <Capability Min="121" Max="127" Color="#0dffcf">Bright Turquoise (0,255,204) + 10% white LEDs</Capability>
-  <Capability Min="128" Max="135" Color="#00ffff">Cyan (0,255,255)</Capability>
-  <Capability Min="136" Max="143" Color="#00ccff">Deep Sky Blue (0,204,255)</Capability>
-  <Capability Min="144" Max="150" Color="#0d9eff">Dodger Blue (0,153,255) + 10% white LEDs</Capability>
-  <Capability Min="151" Max="158" Color="#0066ff">Navy Blue (0,102,255)</Capability>
-  <Capability Min="159" Max="165" Color="#1a47ff">Neon Blue (0,51,255) + 20% white LEDs</Capability>
-  <Capability Min="166" Max="173" Color="#0000ff">Blue (0,0,255)</Capability>
-  <Capability Min="174" Max="180" Color="#3300ff">Han Purple (Ultramarine) (51,0,255)</Capability>
-  <Capability Min="181" Max="188" Color="#6600ff">Electric Indigo (102,0,255)</Capability>
-  <Capability Min="189" Max="195" Color="#a31aff">Vivid Violet (153,0,255) + 20% white LEDs</Capability>
-  <Capability Min="196" Max="203" Color="#cc00ff">Electric Purple (204,0,255)</Capability>
-  <Capability Min="204" Max="210" Color="#ff00ff">Magenta (255,0,255)</Capability>
-  <Capability Min="211" Max="218" Color="#ff00cc">Hot Magenta (255,0,204)</Capability>
-  <Capability Min="219" Max="225" Color="#ff0099">Hollywood Cerise (255,0,153)</Capability>
-  <Capability Min="226" Max="233" Color="#ff0066">Razzmatazz Rose (255,0,102)</Capability>
-  <Capability Min="234" Max="240" Color="#ff1a47">Torch Red (255,0,51) + 20% white LEDs</Capability>
-  <Capability Min="241" Max="248" Color="#ff8080">Red (255,0,0) + 100% white LEDs</Capability>
-  <Capability Min="249" Max="255" Color="#ffffff">White (255,255,255) + 100% white LEDs</Capability>
+  <Capability Min="0" Max="14" Preset="ColorMacro" Res1="#000000">All LEDs off</Capability>
+  <Capability Min="15" Max="22" Preset="ColorMacro" Res1="#ff0000">Red (255,0,0)</Capability>
+  <Capability Min="23" Max="30" Preset="ColorMacro" Res1="#ff3d0d">Scarlet (255,51,0) + 10% white LEDs</Capability>
+  <Capability Min="31" Max="37" Preset="ColorMacro" Res1="#ff6600">Safety Orange (255,102,0)</Capability>
+  <Capability Min="38" Max="45" Preset="ColorMacro" Res1="#ff9900">Orange Peel (255,153,0)</Capability>
+  <Capability Min="46" Max="52" Preset="ColorMacro" Res1="#ffd11a">Tangerine Yellow (255,204,0) + 20% white LEDs</Capability>
+  <Capability Min="53" Max="60" Preset="ColorMacro" Res1="#ffff00">Yellow (255,255,0)</Capability>
+  <Capability Min="61" Max="67" Preset="ColorMacro" Res1="#ccff00">Electric Lime (204,255,0)</Capability>
+  <Capability Min="68" Max="75" Preset="ColorMacro" Res1="#9eff0d">Spring Bud (153,255,0) + 10% white LEDs</Capability>
+  <Capability Min="76" Max="82" Preset="ColorMacro" Res1="#66ff00">Bright Green (102,255,0)</Capability>
+  <Capability Min="83" Max="90" Preset="ColorMacro" Res1="#47ff1a">Harlequin (51,255,0) + 20% white LEDs</Capability>
+  <Capability Min="91" Max="97" Preset="ColorMacro" Res1="#00ff00">Green (Lime) (0,255,0)</Capability>
+  <Capability Min="98" Max="105" Preset="ColorMacro" Res1="#0dff3d">Free Speech Green (0,255,51) + 10% white LEDs</Capability>
+  <Capability Min="106" Max="112" Preset="ColorMacro" Res1="#00ff66">Spring Green (0,255,102)</Capability>
+  <Capability Min="113" Max="120" Preset="ColorMacro" Res1="#00ff99">Medium Spring Green (0,255,153)</Capability>
+  <Capability Min="121" Max="127" Preset="ColorMacro" Res1="#0dffcf">Bright Turquoise (0,255,204) + 10% white LEDs</Capability>
+  <Capability Min="128" Max="135" Preset="ColorMacro" Res1="#00ffff">Cyan (0,255,255)</Capability>
+  <Capability Min="136" Max="143" Preset="ColorMacro" Res1="#00ccff">Deep Sky Blue (0,204,255)</Capability>
+  <Capability Min="144" Max="150" Preset="ColorMacro" Res1="#0d9eff">Dodger Blue (0,153,255) + 10% white LEDs</Capability>
+  <Capability Min="151" Max="158" Preset="ColorMacro" Res1="#0066ff">Navy Blue (0,102,255)</Capability>
+  <Capability Min="159" Max="165" Preset="ColorMacro" Res1="#1a47ff">Neon Blue (0,51,255) + 20% white LEDs</Capability>
+  <Capability Min="166" Max="173" Preset="ColorMacro" Res1="#0000ff">Blue (0,0,255)</Capability>
+  <Capability Min="174" Max="180" Preset="ColorMacro" Res1="#3300ff">Han Purple (Ultramarine) (51,0,255)</Capability>
+  <Capability Min="181" Max="188" Preset="ColorMacro" Res1="#6600ff">Electric Indigo (102,0,255)</Capability>
+  <Capability Min="189" Max="195" Preset="ColorMacro" Res1="#a31aff">Vivid Violet (153,0,255) + 20% white LEDs</Capability>
+  <Capability Min="196" Max="203" Preset="ColorMacro" Res1="#cc00ff">Electric Purple (204,0,255)</Capability>
+  <Capability Min="204" Max="210" Preset="ColorMacro" Res1="#ff00ff">Magenta (255,0,255)</Capability>
+  <Capability Min="211" Max="218" Preset="ColorMacro" Res1="#ff00cc">Hot Magenta (255,0,204)</Capability>
+  <Capability Min="219" Max="225" Preset="ColorMacro" Res1="#ff0099">Hollywood Cerise (255,0,153)</Capability>
+  <Capability Min="226" Max="233" Preset="ColorMacro" Res1="#ff0066">Razzmatazz Rose (255,0,102)</Capability>
+  <Capability Min="234" Max="240" Preset="ColorMacro" Res1="#ff1a47">Torch Red (255,0,51) + 20% white LEDs</Capability>
+  <Capability Min="241" Max="248" Preset="ColorMacro" Res1="#ff8080">Red (255,0,0) + 100% white LEDs</Capability>
+  <Capability Min="249" Max="255" Preset="ColorMacro" Res1="#ffffff">White (255,255,255) + 100% white LEDs</Capability>
  </Channel>
  <Channel Name="Special Functions">
   <Group Byte="0">Maintenance</Group>
@@ -108,11 +108,11 @@
   <Channel Number="12">Strobe</Channel>
   <Channel Number="13">Special Functions</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="949" ColourTemperature="0"/>
-   <Dimensions Weight="4.9" Width="260" Height="310" Depth="148"/>
-   <Lens Name="Other" DegreesMin="8" DegreesMax="8"/>
-   <Focus Type="Fixed" PanMax="630" TiltMax="220"/>
-   <Technical PowerConsumption="150" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="949" ColourTemperature="0"/>
+  <Dimensions Weight="4.9" Width="260" Height="310" Depth="148"/>
+  <Lens Name="Other" DegreesMin="8" DegreesMax="8"/>
+  <Focus Type="Fixed" PanMax="630" TiltMax="220"/>
+  <Technical PowerConsumption="150" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>

@@ -205,6 +205,7 @@ void RGBMatrix_Test::loadSave()
     RGBMatrix* mtx = new RGBMatrix(m_doc);
     mtx->setStartColor(Qt::magenta);
     mtx->setEndColor(Qt::blue);
+    mtx->setControlMode(RGBMatrix::ControlModeRgb);
     mtx->setFixtureGroup(42);
     mtx->setAlgorithm(RGBAlgorithm::algorithm(m_doc, "Stripes"));
     QVERIFY(mtx->algorithm() != NULL);
@@ -216,7 +217,6 @@ void RGBMatrix_Test::loadSave()
     mtx->setDuration(1200);
     mtx->setFadeInSpeed(10);
     mtx->setFadeOutSpeed(20);
-    mtx->setDimmerControl(false);
     m_doc->addFunction(mtx);
 
     QBuffer buffer;
@@ -237,7 +237,7 @@ void RGBMatrix_Test::loadSave()
     QCOMPARE(xmlReader.attributes().value("ID").toString(), QString::number(mtx->id()));
     QCOMPARE(xmlReader.attributes().value("Name").toString(), QString("Xyzzy"));
 
-    int speed = 0, dir = 0, run = 0, algo = 0, monocolor = 0, endcolor = 0, grp = 0, dimmer = 0;
+    int speed = 0, dir = 0, run = 0, algo = 0, monocolor = 0, endcolor = 0, grp = 0, colormode = 0;
 
     while (xmlReader.readNextStartElement())
     {
@@ -280,10 +280,10 @@ void RGBMatrix_Test::loadSave()
             QCOMPARE(xmlReader.readElementText(), QString("42"));
             grp++;
         }
-        else if (xmlReader.name() == "DimmerControl")
+        else if (xmlReader.name() == "ControlMode")
         {
-            QCOMPARE(xmlReader.readElementText(), QString("0"));
-            dimmer++;
+            QCOMPARE(xmlReader.readElementText(), QString("RGB"));
+            colormode++;
         }
         else
         {
@@ -298,7 +298,7 @@ void RGBMatrix_Test::loadSave()
     QCOMPARE(monocolor, 1);
     QCOMPARE(endcolor, 1);
     QCOMPARE(grp, 1);
-    QCOMPARE(dimmer, 1);
+    QCOMPARE(colormode, 1);
 
     xmlReader.setDevice(NULL);
     buffer.seek(0);
@@ -311,6 +311,7 @@ void RGBMatrix_Test::loadSave()
     QCOMPARE(mtx2.runOrder(), Function::PingPong);
     QCOMPARE(mtx2.startColor(), QColor(Qt::magenta));
     QCOMPARE(mtx2.endColor(), QColor(Qt::blue));
+    QCOMPARE(mtx2.controlMode(), RGBMatrix::ControlModeRgb);
     QCOMPARE(mtx2.fixtureGroup(), uint(42));
     QVERIFY(mtx2.algorithm() != NULL);
     QCOMPARE(mtx2.algorithm()->name(), mtx->algorithm()->name());

@@ -512,6 +512,20 @@ void QLCFixtureEditor::slotRemoveChannel()
 
         m_channelList->setCurrentItem(next);
         setModified();
+
+        // Remove channel from modes and set nullptr for acts on channels
+        for (int i = 0; i < m_modeList->topLevelItemCount(); ++i)
+        {
+            QTreeWidgetItem *item = m_modeList->topLevelItem(i);
+
+            QLCFixtureMode *mode = (QLCFixtureMode*)item->data(MODE_COL_NAME, PROP_PTR).toULongLong();
+            mode->actsOnChannelsList().remove(channel);
+
+            QLCChannel *mainChannel = mode->actsOnChannelsList().value(channel);
+            mode->actsOnChannelsList()[mainChannel] = NULL;
+        }
+
+        refreshModeList();
     }
 }
 
@@ -644,7 +658,7 @@ void QLCFixtureEditor::updateChannelItem(const QLCChannel *channel, QTreeWidgetI
         capitem->setText(CH_COL_NAME,
                          QString("[%1-%2]: %3").arg(cap->min())
                          .arg(cap->max()).arg(cap->name()));
-        capitem->setFlags(0); /* No selection etc. */
+        capitem->setFlags(Qt::NoItemFlags); /* No selection etc. */
     }
 }
 
@@ -988,7 +1002,7 @@ void QLCFixtureEditor::updateModeItem(const QLCFixtureMode *mode,
         chitem->setText(MODE_COL_NAME, ch->name());
         chitem->setIcon(MODE_COL_NAME, ch->getIcon());
         chitem->setText(MODE_COL_CHS, QString("%1").arg(i + 1));
-        chitem->setFlags(0); /* No selection etc. */
+        chitem->setFlags(Qt::NoItemFlags); /* No selection etc. */
     }
 }
 

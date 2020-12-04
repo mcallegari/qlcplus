@@ -29,6 +29,7 @@
 #include "functionmanager.h"
 #include "contextmanager.h"
 #include "functioneditor.h"
+#include "simpledesk.h"
 #include "collection.h"
 #include "rgbmatrix.h"
 #include "vccuelist.h"
@@ -55,7 +56,7 @@
 Tardis* Tardis::s_instance = nullptr;
 
 Tardis::Tardis(QQuickView *view, Doc *doc, NetworkManager *netMgr,
-               FixtureManager *fxMgr, FunctionManager *funcMgr, ContextManager *ctxMgr,
+               FixtureManager *fxMgr, FunctionManager *funcMgr, ContextManager *ctxMgr, SimpleDesk *sDesk,
                ShowManager *showMgr, VirtualConsole *vc, QObject *parent)
     : QThread(parent)
     , m_running(false)
@@ -65,6 +66,7 @@ Tardis::Tardis(QQuickView *view, Doc *doc, NetworkManager *netMgr,
     , m_fixtureManager(fxMgr)
     , m_functionManager(funcMgr)
     , m_contextManager(ctxMgr)
+    , m_simpleDesk(sDesk)
     , m_showManager(showMgr)
     , m_virtualConsole(vc)
     , m_historyIndex(-1)
@@ -639,8 +641,19 @@ int Tardis::processAction(TardisAction &action, bool undo)
         {
             SceneValue scv = value->value<SceneValue>();
             Scene *scene = qobject_cast<Scene *>(m_doc->function(action.m_objID));
+
             if (scene)
-                scene->setValue(scv.fxi, scv.channel, scv.value);
+            {
+                if (value->isNull())
+                {
+                    SceneValue otherValue = undo ? action.m_newValue.value<SceneValue>() : action.m_oldValue.value<SceneValue>();
+                    scene->unsetValue(otherValue.fxi, otherValue.channel);
+                }
+                else
+                {
+                    scene->setValue(scv.fxi, scv.channel, scv.value);
+                }
+            }
         }
         break;
 
@@ -941,6 +954,30 @@ int Tardis::processAction(TardisAction &action, bool undo)
         {
             auto member = std::mem_fn(&Video::setZIndex);
             member(qobject_cast<Video *>(m_doc->function(action.m_objID)), value->toInt());
+        }
+        break;
+
+        /* ************************* Simple Desk actions ************************** */
+
+        case SimpleDeskSetChannel:
+        {
+            SceneValue scv = value->value<SceneValue>();
+            if (scv.channel == QLCChannel::invalid())
+            {
+                SceneValue newVal = action.m_newValue.value<SceneValue>();
+                m_simpleDesk->resetChannel(newVal.channel);
+            }
+            else
+                m_simpleDesk->setValue(scv.fxi, scv.channel, scv.value);
+        }
+        break;
+        case SimpleDeskResetChannel:
+        {
+            SceneValue scv = value->value<SceneValue>();
+            if (undo)
+                m_simpleDesk->setValue(scv.fxi, scv.channel, scv.value);
+            else
+                m_simpleDesk->resetChannel(scv.channel);
         }
         break;
 

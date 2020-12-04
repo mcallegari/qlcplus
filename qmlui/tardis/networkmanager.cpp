@@ -18,6 +18,7 @@
 */
 
 #include <QXmlStreamWriter>
+#include <QNetworkInterface>
 #include <QtCore/qbuffer.h>
 #include <QFile>
 

@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.11.3 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Jasper Zevering</Author>
  </Creator>
  <Manufacturer>Robe</Manufacturer>
@@ -39,13 +39,13 @@
   <Capability Min="110" Max="114">Blackout while colour wheels moving</Capability>
   <Capability Min="115" Max="119">Disabled blackout while colour wheels moving</Capability>
   <Capability Min="120" Max="139">Reserved</Capability>
-  <Capability Min="140" Max="149">Pan/Tilt reset</Capability>
-  <Capability Min="150" Max="159">Colour system reset</Capability>
+  <Capability Min="140" Max="149" Preset="ResetPanTilt">Pan/Tilt reset</Capability>
+  <Capability Min="150" Max="159" Preset="ResetColor">Colour system reset</Capability>
   <Capability Min="160" Max="169">Gobo wheels + iris reset</Capability>
   <Capability Min="170" Max="179">Reserved</Capability>
   <Capability Min="180" Max="189">Zoom/focus/frost/prism reset</Capability>
   <Capability Min="190" Max="199">Reserved</Capability>
-  <Capability Min="200" Max="209">Total reset</Capability>
+  <Capability Min="200" Max="209" Preset="ResetAll">Total reset</Capability>
   <Capability Min="210" Max="239">Reserved</Capability>
   <Capability Min="240" Max="240">Disable &quot;Quiet mode&quot;</Capability>
   <Capability Min="241" Max="255">&quot;Quiet mode&quot; - fan noise control from min. to max.</Capability>

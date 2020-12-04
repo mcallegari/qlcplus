@@ -1661,7 +1661,7 @@ void SimpleDesk::resizeEvent(QResizeEvent *ev)
             {
                 PlaybackSlider* slider = new PlaybackSlider(m_playbackGroup);
                 m_playbackGroup->layout()->addWidget(slider);
-                slider->setLabel(QString::number(m_playbackSliders.count()));
+                slider->setLabel(QString::number(m_playbackSliders.count() + 1));
                 slider->setProperty(PROP_PLAYBACK, uint(m_playbackSliders.count()));
                 m_playbackSliders << slider;
                 connect(slider, SIGNAL(selected()), this, SLOT(slotPlaybackSelected()));

@@ -46,7 +46,7 @@ ComboBox
 
     signal valueChanged(int value)
 
-    onCurrValueChanged: updateCurrentItem()
+    onCurrValueChanged: updateFromValue()
     onCurrentIndexChanged: updateFromIndex()
 
     function updateFromIndex()
@@ -59,6 +59,8 @@ ComboBox
         //console.log("Index changed: " + currentIndex + ", label: " + displayText)
         if (item.mIcon)
             currentIcon = item.mIcon
+
+        control.valueChanged(item.mValue)
     }
 
     function updateFromValue()
@@ -88,8 +90,8 @@ ComboBox
         anchors.fill: parent
         z: 3
         color: "black"
-        opacity: 0.4
-        visible: !enabled
+        opacity: 0.6
+        visible: !parent.enabled
     }
 
     delegate:

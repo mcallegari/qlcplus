@@ -79,6 +79,8 @@ void SceneEditor::setFunctionID(quint32 id)
     connect(m_scene, &Scene::valueChanged, this, &SceneEditor::slotSceneValueChanged);
 
     updateLists();
+    cacheChannelValues();
+
     if (bottomPanel != nullptr)
     {
         bottomPanel->setProperty("visible", true);
@@ -134,6 +136,21 @@ void SceneEditor::registerFixtureConsole(int index, QQuickItem *item)
 {
     qDebug() << "[SceneEditor] Fixture console registered at index" << index;
     m_fxConsoleMap[index] = item;
+
+    if (index >= m_fixtureIDs.count())
+    {
+        qDebug() << "[SceneEditor] index out of bounds";
+        return;
+    }
+
+    quint32 fixtureID = m_fixtureIDs[index];
+    QVariantList dmxValues;
+    QByteArray values = m_channelsCache[fixtureID];
+
+    for (int i = 0; i < values.count(); i++)
+        dmxValues.append(QString::number((uchar)values.at(i)));
+
+    item->setProperty("values", QVariant::fromValue(dmxValues));
 }
 
 void SceneEditor::unRegisterFixtureConsole(int index)
@@ -182,7 +199,7 @@ void SceneEditor::slotSceneValueChanged(SceneValue scv)
         fxMap.insert("isSelected", false);
         m_fixtureList->addDataMap(fxMap);
         m_fixtureIDs.append(scv.fxi);
-        emit fixtureListChanged();
+        updateLists();
     }
 
     if (m_sceneConsole)
@@ -422,5 +439,46 @@ void SceneEditor::updateLists()
 
     emit componentListChanged();
     emit fixtureListChanged();
+}
+
+void SceneEditor::setCacheChannelValue(SceneValue scv)
+{
+    if (m_channelsCache.contains(scv.fxi))
+    {
+        QByteArray values = m_channelsCache[scv.fxi];
+        values[scv.channel] = scv.value;
+        m_channelsCache[scv.fxi] = values;
+    }
+    else
+    {
+        Fixture *fixture = m_doc->fixture(scv.fxi);
+        int chNumber = fixture->channels();
+        QByteArray values;
+
+        values.fill(0, chNumber);
+        values[scv.channel] = scv.value;
+        m_channelsCache[scv.fxi] = values;
+    }
+}
+
+void SceneEditor::cacheChannelValues()
+{
+    m_channelsCache.clear();
+
+    for (quint32 pId : m_scene->palettes())
+    {
+        QLCPalette *palette = m_doc->palette(pId);
+        if (palette == nullptr)
+            continue;
+
+        for (SceneValue scv : palette->valuesFromFixtureGroups(m_doc, m_scene->fixtureGroups()))
+            setCacheChannelValue(scv);
+
+        for (SceneValue scv : palette->valuesFromFixtures(m_doc, m_scene->fixtures()))
+            setCacheChannelValue(scv);
+    }
+
+    for (SceneValue scv : m_scene->values())
+        setCacheChannelValue(scv);
 }
 

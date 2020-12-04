@@ -90,6 +90,13 @@ Rectangle
 
     onCurrentScaleChanged: console.log("Current scale " + currentScale)
 
+    function refreshPositionValues(generic)
+    {
+        isUpdating = true
+        currentPosition = generic ? View3D.genericItemsPosition : contextManager.fixturesPosition
+        isUpdating = false
+    }
+
     Flickable
     {
         x: 5

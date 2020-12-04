@@ -1074,14 +1074,14 @@ quint32 FunctionManager::getChannelTypeMask(quint32 fxID, quint32 channel)
 void FunctionManager::dumpOnNewScene(QList<SceneValue> dumpValues, QList<quint32> selectedFixtures,
                                      quint32 channelMask, QString name)
 {
-    if (selectedFixtures.isEmpty() || dumpValues.isEmpty() || channelMask == 0)
+    if (dumpValues.isEmpty() || channelMask == 0)
         return;
 
     Scene *newScene = new Scene(m_doc);
 
     for (SceneValue sv : dumpValues)
     {
-        if (selectedFixtures.contains(sv.fxi) == false)
+        if (selectedFixtures.count() && selectedFixtures.contains(sv.fxi) == false)
             continue;
 
         quint32 chTypeBit = getChannelTypeMask(sv.fxi, sv.channel);
@@ -1108,7 +1108,7 @@ void FunctionManager::dumpOnNewScene(QList<SceneValue> dumpValues, QList<quint32
 void FunctionManager::dumpOnScene(QList<SceneValue> dumpValues, QList<quint32> selectedFixtures,
                                   quint32 channelMask, quint32 sceneID)
 {
-    if (selectedFixtures.isEmpty() || dumpValues.isEmpty() || channelMask == 0)
+    if (dumpValues.isEmpty() || channelMask == 0)
         return;
 
     Scene *scene = qobject_cast<Scene *>(m_doc->function(sceneID));
@@ -1118,7 +1118,7 @@ void FunctionManager::dumpOnScene(QList<SceneValue> dumpValues, QList<quint32> s
 
     for (SceneValue sv : dumpValues)
     {
-        if (selectedFixtures.contains(sv.fxi) == false)
+        if (selectedFixtures.count() && selectedFixtures.contains(sv.fxi) == false)
             continue;
 
         quint32 chTypeBit = getChannelTypeMask(sv.fxi, sv.channel);
@@ -1142,28 +1142,41 @@ void FunctionManager::setChannelValue(quint32 fxID, quint32 channel, uchar value
 {
     FunctionEditor *editor = m_currentEditor;
     SceneValue scv(fxID, channel, value);
+    QVariant currentVal, newVal;
 
-    if (editor != nullptr && editor->functionType() == Function::SequenceType)
+    if (editor == nullptr)
+        return;
+
+    if (editor->functionType() == Function::SequenceType)
     {
         ChaserEditor *cEditor = qobject_cast<ChaserEditor *>(editor);
         cEditor->setSequenceStepValue(scv);
         editor = m_sceneEditor;
     }
 
-    if (editor != nullptr && editor->functionType() == Function::SceneType)
+    if (editor->functionType() == Function::SceneType)
     {
         Scene *scene = qobject_cast<Scene *>(m_doc->function(editor->functionID()));
         if (scene == nullptr)
             return;
 
-        QVariant currentVal, newVal;
-        uchar currDmxValue = scene->value(fxID, channel);
-        currentVal.setValue(SceneValue(fxID, channel, currDmxValue));
         newVal.setValue(scv);
-        if (currentVal != newVal || value != currDmxValue)
+
+        if (scene->checkValue(scv) == false)
         {
-            Tardis::instance()->enqueueAction(Tardis::SceneSetChannelValue, scene->id(), currentVal, newVal);
+            Tardis::instance()->enqueueAction(Tardis::SceneSetChannelValue, scene->id(), QVariant(), newVal);
             scene->setValue(fxID, channel, value);
+        }
+        else
+        {
+            uchar currDmxValue = scene->value(fxID, channel);
+            currentVal.setValue(SceneValue(fxID, channel, currDmxValue));
+
+            if (currentVal != newVal || value != currDmxValue)
+            {
+                Tardis::instance()->enqueueAction(Tardis::SceneSetChannelValue, scene->id(), currentVal, newVal);
+                scene->setValue(fxID, channel, value);
+            }
         }
     }
 }

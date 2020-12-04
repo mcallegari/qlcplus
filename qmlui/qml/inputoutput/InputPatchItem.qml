@@ -97,13 +97,13 @@ Rectangle
             radius: height / 2
             border.width: 2
             border.color: "#333"
-            color: UISettings.fgMedium
+            color: "#666"
 
             ColorAnimation on color
             {
                 id: cAnim
                 from: "#00FF00"
-                to: UISettings.fgMedium
+                to: "#666"
                 duration: 500
                 running: false
             }

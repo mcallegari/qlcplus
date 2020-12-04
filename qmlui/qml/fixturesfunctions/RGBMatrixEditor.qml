@@ -202,12 +202,50 @@ Rectangle
                         ListElement { mLabel: qsTr("Subtractive"); }
                     }
                     model: blendModel
-                    //currentIndex: rgbMatrixEditor.currentAlgo
-                    //onCurrentIndexChanged: rgbMatrixEditor.currentAlgo = currentIndex
+
+                    currentIndex: rgbMatrixEditor.blendMode
+                    onCurrentIndexChanged: rgbMatrixEditor.blendMode = currentIndex
                 }
             }
 
             // row 5
+            RowLayout
+            {
+                width: editorColumn.colWidth
+
+                RobotoText
+                {
+                    label: qsTr("Color mode")
+                    height: editorColumn.itemsHeight
+                    onWidthChanged:
+                    {
+                        editorColumn.checkLabelWidth(width)
+                        width = Qt.binding(function() { return editorColumn.firstColumnWidth })
+                    }
+                }
+                CustomComboBox
+                {
+                    Layout.fillWidth: true
+                    height: editorColumn.itemsHeight
+
+                    ListModel
+                    {
+                        id: controlModel
+                        ListElement { mLabel: qsTr("Default (RGB)"); }
+                        ListElement { mLabel: qsTr("White"); }
+                        ListElement { mLabel: qsTr("Amber"); }
+                        ListElement { mLabel: qsTr("UV"); }
+                        ListElement { mLabel: qsTr("Dimmer"); }
+                        ListElement { mLabel: qsTr("Shutter"); }
+                    }
+                    model: controlModel
+
+                    currentIndex: rgbMatrixEditor.controlMode
+                    onCurrentIndexChanged: rgbMatrixEditor.controlMode = currentIndex
+                }
+            }
+
+            // row 6
             Row
             {
                 width: editorColumn.colWidth

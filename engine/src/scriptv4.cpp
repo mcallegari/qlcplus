@@ -19,6 +19,7 @@
 
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
+#include <QRandomGenerator>
 #include <QDebug>
 #include <QUrl>
 
@@ -137,7 +138,7 @@ QString Script::data() const
 
 QStringList Script::dataLines() const
 {
-    QStringList result = m_data.split(QRegExp("(\r\n|\n\r|\r|\n)"), QString::KeepEmptyParts);
+    QStringList result = m_data.split(QRegExp("(\r\n|\n\r|\r|\n)"));
 
     while (result.count() && result.last().isEmpty())
         result.takeLast();
@@ -358,7 +359,7 @@ quint32 Script::getValueFromString(QString str, bool *ok)
     int max = Function::stringToSpeed(valList.at(1));
 
     *ok = true;
-    return qrand() % ((max + 1) - min) + min;
+    return QRandomGenerator::global()->generate() % ((max + 1) - min) + min;
 }
 
 QString Script::convertLine(const QString& str, bool *ok)

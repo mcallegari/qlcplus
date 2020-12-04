@@ -391,6 +391,7 @@ when changing this list -->
     <xs:simpleContent>
         <xs:extension base="xs:string">
             <xs:attribute name="Number" type="xs:nonNegativeInteger" use="required"/>
+            <xs:attribute name="ActsOn" type="xs:nonNegativeInteger" use="optional"/>
         </xs:extension>
      </xs:simpleContent>
 </xs:complexType>

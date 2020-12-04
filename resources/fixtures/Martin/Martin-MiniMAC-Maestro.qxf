@@ -12,7 +12,7 @@
  <Channel Name="Shutter, strobe, reset, lamp">
   <Group Byte="0">Shutter</Group>
   <Capability Min="0" Max="19" Preset="ShutterClose">Shutter closed</Capability>
-  <Capability Min="20" Max="49" Preset="SmallToBig">Shutter open</Capability>
+  <Capability Min="20" Max="49" Preset="ShutterOpen">Shutter open</Capability>
   <Capability Min="50" Max="112" Preset="StrobeSlowToFast">Strobe, fast to slow</Capability>
   <Capability Min="113" Max="127" Preset="ShutterOpen">Shutter open</Capability>
   <Capability Min="128" Max="157" Preset="StrobeRandom">Random strobe speed</Capability>

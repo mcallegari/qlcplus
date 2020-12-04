@@ -18,6 +18,7 @@
     <F n="Alkalite-Octopod-DP-80" m="Octopod DP-80"/>
   </M>
   <M n="American_DJ">
+    <F n="American-DJ-12P-Hex-IP" m="12P Hex IP"/>
     <F n="American-DJ-12P-Hex" m="12P Hex Pearl"/>
     <F n="American-DJ-5P-Hex" m="5P Hex"/>
     <F n="American-DJ-64B-LED-PRO" m="64B LED PRO"/>
@@ -185,6 +186,7 @@
     <F n="Ayra-Compar-Kit-1" m="Compar Kit 1"/>
     <F n="Ayra-ComPar20" m="ComPar 20"/>
     <F n="Ayra-ERO-506" m="ERO 506"/>
+    <F n="Ayra-ERO-Microspot" m="ERO Micro Spot"/>
     <F n="Ayra-IntenZ-CB-150" m="IntenZ CB-150 "/>
     <F n="Ayra-TDC-Agaricus" m="TDC Agaricus"/>
     <F n="Ayra-TDC-Triple-Burst" m="TDC Triple Burst"/>
@@ -469,6 +471,7 @@
     <F n="Clay-Paky-Atlas" m="Atlas"/>
     <F n="Clay-Paky-CP-Color-400" m="CP Color 400"/>
     <F n="Clay-Paky-Glow-Up" m="Glow Up"/>
+    <F n="Clay-Paky-Mini-B" m="Mini-B"/>
     <F n="Clay-Paky-Mini-Scan-150" m="Mini Scan 150"/>
     <F n="Clay-Paky-Mini-Scan-300" m="Mini Scan 300"/>
     <F n="Clay-Paky-Mini-Scan-HPE" m="Mini Scan HPE"/>
@@ -568,6 +571,7 @@
   <M n="Equinox">
     <F n="Equinox-Domin8R-II" m="Domin8R II"/>
     <F n="Equinox-Gigabar" m="Gigabar"/>
+    <F n="Equinox-Microbar-Quad-System" m="Microbar Quad System"/>
     <F n="Equinox-Party-Par-LED-PAR-56" m="Party Par LED PAR 56"/>
     <F n="Equinox-Photon" m="Photon"/>
     <F n="Equinox-Quad-Pix-Batten" m="Quad Pix Batten"/>
@@ -613,6 +617,7 @@
     <F n="Eurolite-LED-PARty-RGBW" m="LED PARty RGBW"/>
     <F n="Eurolite-LED-PMB-4-COB-RGB-30W-Bar" m="LED PMB-4 COB RGB 30W Bar"/>
     <F n="Eurolite-LED-PMB-8-COB-RGB-30W" m="LED PMB-8 COB RGB 30W"/>
+    <F n="Eurolite-LED-PT-100-32-Pixel-DMX-Tube" m="LED PT-100/32 Pixel DMX Tube"/>
     <F n="Eurolite-LED-PT-100" m="LED PT-100"/>
     <F n="Eurolite-LED-SCY-100-RGBW-DMX" m="LED SCY-100 RGBW DMX"/>
     <F n="Eurolite-LED-SL-600" m="LED SL-600"/>
@@ -893,6 +898,7 @@
     <F n="Ledj-Slimline-36-RGBA" m="Slimline 36 RGBA"/>
     <F n="Ledj-Slimline-36-RGBW" m="Slimline 36 RGBW"/>
     <F n="Ledj-Stage-Color-24" m="Stage Color 24"/>
+    <F n="Ledj-Stage-Color-Quad" m="Stage Color Quad"/>
     <F n="Ledj-Tri-LED-back-drop-controller" m="Pro Tri LED back drop controller"/>
   </M>
   <M n="LedProLight">
@@ -1184,6 +1190,9 @@
     <F n="Robe-Wash-575-XT" m="Wash 575 XT"/>
     <F n="Robe_ColorMix_240_AT" m="ColorMix 240 AT"/>
   </M>
+  <M n="Rockville">
+    <F n="Rockville-Motionstrip-RGBW" m="Motionstrip RGBW"/>
+  </M>
   <M n="Rosco">
     <F n="Rosco-I-Cue" m="I-Cue"/>
   </M>
@@ -1223,6 +1232,7 @@
     <F n="Showtec-Acrobat" m="Acrobat"/>
     <F n="Showtec-Atmos-F-350" m="Atmos F-350"/>
     <F n="Showtec-Blade-Runner" m="Blade Runner"/>
+    <F n="Showtec-Club-Par-12x6-RGBWAUV" m="Club Par 12-6 RGBWAUV"/>
     <F n="Showtec-Compact-Par-18-MKII" m="Compact Par 18 MKII"/>
     <F n="Showtec-Compact-Par-18-Tri-MKII" m="Compact Par 18 Tri MKII"/>
     <F n="Showtec-Compact-Par-7-Q4" m="Compact Par 7 Q4"/>
@@ -1386,6 +1396,7 @@
     <F n="Starway-EventKolor" m="EventKolor"/>
     <F n="Starway-FullKolor" m="FullKolor"/>
     <F n="Starway-MaxKolor-18" m="MaxKolor 18"/>
+    <F n="Starway-MaxSpot500" m="MaxSpot 500"/>
     <F n="Starway-MiniKolor" m="MiniKolor"/>
     <F n="Starway-Mode-B" m="Mode B"/>
     <F n="Starway-NanoKolor" m="NanoKolor"/>
@@ -1418,6 +1429,9 @@
     <F n="TSSS-XL35" m="XL35"/>
   </M>
   <M n="UKing">
+    <F n="UKing-4-Head-Beam-RGBW" m="4 Head Beam RGBW"/>
+    <F n="UKing-7x10W-Mini-Moving-Head" m="7x10W Mini Moving Head"/>
+    <F n="UKing-LED-Spot-Moving-Head-100W" m="LED Spot Moving Head 100W"/>
     <F n="UKing-Mini-RGBW-Moving-Head" m="Mini RGBW Moving Head"/>
     <F n="UKing-Par-36" m="Par 36"/>
   </M>
@@ -1434,6 +1448,7 @@
     <F n="Varytec-Easy-Move-LED-XS-Spot" m="Easy Move LED XS Spot"/>
     <F n="Varytec-Easy-Move-LED-XS-Wash" m="Easy Move LED XS Wash"/>
     <F n="Varytec-Easy-Scan-XT-Mini" m="Easy Scan XT Mini"/>
+    <F n="Varytec-Giga-Bar-Pix-8-RGB" m="Giga Bar Pix 8 RGB"/>
     <F n="Varytec-Gigabar-II" m="Gigabar II"/>
     <F n="Varytec-Hero-Wash-715-HEX-LED" m="Hero Wash 715 HEX LED"/>
     <F n="Varytec-LED-Easy-Move-Mini-Beam-Wash-RGBW" m="LED Easy Move Mini Beam + Wash RGBW"/>

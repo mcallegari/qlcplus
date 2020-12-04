@@ -46,7 +46,7 @@ Button
     property string imgSource: ""
     property int imgMargins: 4
     property string faSource: ""
-    property color faColor: "#222"
+    property color faColor: UISettings.bgStrong
 
     property string tooltip: ""
 
@@ -63,8 +63,8 @@ Button
     {
         anchors.fill: parent
         color: "black"
-        opacity: 0.4
-        visible: !enabled
+        opacity: 0.6
+        visible: !parent.enabled
     }
 
     ToolTip

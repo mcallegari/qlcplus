@@ -1310,7 +1310,7 @@ void MainView3D::updateFixturePosition(quint32 itemID, QVector3D pos)
     if (mesh == nullptr || mesh->m_rootTransform == nullptr)
         return;
 
-    qDebug() << Q_FUNC_INFO << pos;
+    //qDebug() << "Update 3D fixture position" << pos;
 
     float x = (pos.x() / 1000.0) - (m_monProps->gridSize().x() / 2) + (mesh->m_volume.m_extents.x() / 2);
     float y = (pos.y() / 1000.0) + (mesh->m_volume.m_extents.y() / 2);
@@ -1678,7 +1678,7 @@ void MainView3D::setGenericItemsPosition(QVector3D pos)
         for (int itemID : m_genericSelectedItems)
         {
             QVector3D newPos = m_monProps->itemPosition(itemID) + pos;
-            updateGenericItemPosition(m_genericSelectedItems.first(), newPos);
+            updateGenericItemPosition(itemID, newPos);
         }
     }
 

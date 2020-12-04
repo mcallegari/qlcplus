@@ -58,6 +58,7 @@ DmxDumpFactory::DmxDumpFactory(Doc *doc, DmxDumpFactoryProperties *props, QWidge
 
     m_fixturesTree = new FixtureTreeWidget(m_doc, treeFlags, this);
     m_fixturesTree->setIconSize(QSize(24, 24));
+    m_fixturesTree->setSortingEnabled(false);
 
     m_treeLayout->addWidget(m_fixturesTree);
     m_fixturesTree->setChannelsMask(m_properties->channelsMask());

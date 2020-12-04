@@ -145,13 +145,13 @@
   <Capability Min="78" Max="83" Preset="GoboMacro" Res1="Others/gobo00045.svg">Position 6 - indexed with backout</Capability>
   <Capability Min="84" Max="89" Preset="GoboMacro" Res1="Others/gobo00072.svg">Position 7 - indexed with backout</Capability>
   <Capability Min="90" Max="97" Preset="GoboMacro" Res1="Others/gobo00006.svg">Position 8 - indexed with backout</Capability>
-  <Capability Min="98" Max="115" Preset="GoboMacro" Res1="Others/gobo00003.png">Position 2 - indexed with shake</Capability>
-  <Capability Min="116" Max="133" Preset="GoboMacro" Res1="SGM-Color/gobo00373.png">Position 3 - indexed with shake</Capability>
-  <Capability Min="134" Max="151" Preset="GoboMacro" Res1="SGM/gobo00026.png">Position 4 - indexed with shake</Capability>
-  <Capability Min="152" Max="169" Preset="GoboMacro" Res1="SGM/gobo00033.png">Position 5 - indexed with shake</Capability>
-  <Capability Min="170" Max="187" Preset="GoboMacro" Res1="Others/gobo00045.svg">Position 6 - indexed with shake</Capability>
-  <Capability Min="188" Max="205" Preset="GoboMacro" Res1="Others/gobo00072.svg">Position 7 - indexed with shake</Capability>
-  <Capability Min="206" Max="223" Preset="GoboMacro" Res1="Others/gobo00006.svg">Position 8 - indexed with shake</Capability>
+  <Capability Min="98" Max="115" Preset="GoboShakeMacro" Res1="Others/gobo00003.png">Position 2 - indexed with shake</Capability>
+  <Capability Min="116" Max="133" Preset="GoboShakeMacro" Res1="SGM-Color/gobo00373.png">Position 3 - indexed with shake</Capability>
+  <Capability Min="134" Max="151" Preset="GoboShakeMacro" Res1="SGM/gobo00026.png">Position 4 - indexed with shake</Capability>
+  <Capability Min="152" Max="169" Preset="GoboShakeMacro" Res1="SGM/gobo00033.png">Position 5 - indexed with shake</Capability>
+  <Capability Min="170" Max="187" Preset="GoboShakeMacro" Res1="Others/gobo00045.svg">Position 6 - indexed with shake</Capability>
+  <Capability Min="188" Max="205" Preset="GoboShakeMacro" Res1="Others/gobo00072.svg">Position 7 - indexed with shake</Capability>
+  <Capability Min="206" Max="223" Preset="GoboShakeMacro" Res1="Others/gobo00006.svg">Position 8 - indexed with shake</Capability>
   <Capability Min="224" Max="239">Forward wheel spin (stop to fastest)</Capability>
   <Capability Min="240" Max="255">Reverse wheel spin (stop to fastest)</Capability>
  </Channel>
@@ -188,13 +188,13 @@
   <Capability Min="78" Max="83" Preset="GoboMacro" Res1="Robe/gobo00040.png">Position 6 - indexed with backout</Capability>
   <Capability Min="84" Max="89" Preset="GoboMacro" Res1="SGM/gobo00012.png">Position 7 - indexed with backout</Capability>
   <Capability Min="90" Max="97" Preset="GoboMacro" Res1="Chauvet/gobo00034.svg">Position 8 - indexed with backout</Capability>
-  <Capability Min="98" Max="115" Preset="GoboMacro" Res1="Chauvet/gobo00018.svg">Position 2 - indexed with shake</Capability>
-  <Capability Min="116" Max="133" Preset="GoboMacro" Res1="Robe/gobo00039.png">Position 3 - indexed with shake</Capability>
-  <Capability Min="134" Max="151" Preset="GoboMacro" Res1="SGM/gobo00002.svg">Position 4 - indexed with shake</Capability>
-  <Capability Min="152" Max="169" Preset="GoboMacro" Res1="Robe/gobo00044.png">Position 5 - indexed with shake</Capability>
-  <Capability Min="170" Max="187" Preset="GoboMacro" Res1="Robe/gobo00040.png">Position 6 - indexed with shake</Capability>
-  <Capability Min="188" Max="205" Preset="GoboMacro" Res1="SGM/gobo00012.png">Position 7 - indexed with shake</Capability>
-  <Capability Min="206" Max="223" Preset="GoboMacro" Res1="Chauvet/gobo00034.svg">Position 8 - indexed with shake</Capability>
+  <Capability Min="98" Max="115" Preset="GoboShakeMacro" Res1="Chauvet/gobo00018.svg">Position 2 - indexed with shake</Capability>
+  <Capability Min="116" Max="133" Preset="GoboShakeMacro" Res1="Robe/gobo00039.png">Position 3 - indexed with shake</Capability>
+  <Capability Min="134" Max="151" Preset="GoboShakeMacro" Res1="SGM/gobo00002.svg">Position 4 - indexed with shake</Capability>
+  <Capability Min="152" Max="169" Preset="GoboShakeMacro" Res1="Robe/gobo00044.png">Position 5 - indexed with shake</Capability>
+  <Capability Min="170" Max="187" Preset="GoboShakeMacro" Res1="Robe/gobo00040.png">Position 6 - indexed with shake</Capability>
+  <Capability Min="188" Max="205" Preset="GoboShakeMacro" Res1="SGM/gobo00012.png">Position 7 - indexed with shake</Capability>
+  <Capability Min="206" Max="223" Preset="GoboShakeMacro" Res1="Chauvet/gobo00034.svg">Position 8 - indexed with shake</Capability>
   <Capability Min="224" Max="239">Forward wheel spin - stop to fastest</Capability>
   <Capability Min="240" Max="255">Reverse wheel spin - stop to fastest</Capability>
  </Channel>

@@ -339,7 +339,7 @@ void FunctionSelection::refillTree()
         {
             QTreeWidgetItem* item = m_funcTree->addFunction(function->id());
             if (disabledFunctions().contains(function->id()))
-                item->setFlags(0); // Disable the item
+                item->setFlags(Qt::NoItemFlags); // Disable the item
             else
                 item->setSelected(selection.contains(function->id()));
         }

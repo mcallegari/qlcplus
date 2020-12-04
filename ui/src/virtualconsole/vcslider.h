@@ -231,6 +231,8 @@ public:
         LevelChannel(quint32 fid, quint32 ch);
         /** Copy constructor */
         LevelChannel(const LevelChannel& lc);
+        /** Copy operator */
+        LevelChannel& operator=(const LevelChannel& lc);
         /** Comparison operator */
         bool operator==(const LevelChannel& lc) const;
         /** Sorting operator */

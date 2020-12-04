@@ -182,7 +182,7 @@ void FixtureTreeWidget::updateFixtureItem(QTreeWidgetItem* item, Fixture* fixtur
     if (m_disabledFixtures.contains(fixture->id()) == true)
     {
         // Disable selection
-        item->setFlags(0);
+        item->setFlags(Qt::NoItemFlags);
     }
 
     if (m_uniColumn > 0)
@@ -235,14 +235,14 @@ void FixtureTreeWidget::updateFixtureItem(QTreeWidgetItem* item, Fixture* fixtur
             headItem->setData(KColumnName, PROP_HEAD, i);
             if (m_disabledHeads.contains(GroupHead(fixture->id(), i)) == true)
             {
-                headItem->setFlags(0); // Disable selection
+                headItem->setFlags(Qt::NoItemFlags); // Disable selection
                 disabled++;
             }
         }
 
         // Disable the whole fixture if all heads are disabled
         if (disabled == fixture->heads())
-            item->setFlags(0);
+            item->setFlags(Qt::NoItemFlags);
     }
 
     if (m_channelSelection == true)

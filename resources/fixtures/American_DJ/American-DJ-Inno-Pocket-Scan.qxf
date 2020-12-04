@@ -35,12 +35,12 @@
   <Capability Min="43" Max="49" Preset="ColorMacro" Res1="#800080">Gobo 6 UV</Capability>
   <Capability Min="50" Max="56" Preset="ColorMacro" Res1="#66ffff">Gobo 7 light blue</Capability>
   <Capability Min="57" Max="63" Preset="ColorDoubleMacro" Res1="#800080" Res2="#66ffff">Gobo 8 UV &amp; light blue</Capability>
-  <Capability Min="64" Max="71" Preset="GoboMacro" Res1="Others/open.svg">Open Shake</Capability>
+  <Capability Min="64" Max="71" Preset="GoboShakeMacro" Res1="Others/open.svg">Open Shake</Capability>
   <Capability Min="72" Max="78" Preset="ColorMacro" Res1="#ffff00">Gobo 1 yellow shake</Capability>
   <Capability Min="79" Max="85" Preset="ColorMacro" Res1="#ff0000">Gobo 2 red shake</Capability>
   <Capability Min="86" Max="92" Preset="ColorMacro" Res1="#00ff00">Gobo 3 green shake</Capability>
   <Capability Min="93" Max="99" Preset="ColorMacro" Res1="#0000ff">Gobo 4 blue shake</Capability>
-  <Capability Min="100" Max="106" Preset="GoboMacro" Res1="Others/rainbow.png">Gobo 5 RGB shake</Capability>
+  <Capability Min="100" Max="106" Preset="GoboShakeMacro" Res1="Others/rainbow.png">Gobo 5 RGB shake</Capability>
   <Capability Min="107" Max="113" Preset="ColorMacro" Res1="#8000ff">Gobo 6 UV shake</Capability>
   <Capability Min="114" Max="120" Preset="ColorMacro" Res1="#00ffff">Gobo 7 light blue shake</Capability>
   <Capability Min="121" Max="127" Preset="ColorDoubleMacro" Res1="#800080" Res2="#66ffff">Gobo 8 UV &amp; light blue shake</Capability>

@@ -170,7 +170,7 @@
   <Capability Min="48" Max="63" Preset="GoboMacro" Res1="">Gobo 3</Capability>
   <Capability Min="64" Max="79" Preset="GoboMacro" Res1="">Gobo 4</Capability>
   <Capability Min="80" Max="127" Preset="GoboMacro" Res1="">Gobo 5</Capability>
-  <Capability Min="128" Max="135" Preset="GoboMacro" Res1="Others/open.svg">Open shake</Capability>
+  <Capability Min="128" Max="135" Preset="GoboShakeMacro" Res1="Others/open.svg">Open shake</Capability>
   <Capability Min="136" Max="143" Preset="GoboShakeMacro" Res1="">Gobo 1 shake (fast - slow)</Capability>
   <Capability Min="144" Max="151" Preset="GoboShakeMacro" Res1="">Gobo 2 shake (fast - slow)</Capability>
   <Capability Min="152" Max="159" Preset="GoboShakeMacro" Res1="">Gobo 3 shake (fast - slow)</Capability>

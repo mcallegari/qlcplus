@@ -63,6 +63,7 @@ private:
     void fillAnimationCombo();
     void fillImageAnimationCombo();
     void updateExtraOptions();
+    void updateColors();
     void resetProperties(QLayoutItem *item);
     void displayProperties(RGBScript *script);
 
@@ -75,6 +76,7 @@ private slots:
     void slotPatternActivated(const QString& text);
     void slotFixtureGroupActivated(int index);
     void slotBlendModeChanged(int index);
+    void slotColorModeChanged(int index);
     void slotStartColorButtonClicked();
     void slotEndColorButtonClicked();
     void slotResetEndColorButtonClicked();

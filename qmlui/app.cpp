@@ -25,6 +25,7 @@
 #include <QOpenGLContext>
 #include <QPrintDialog>
 #include <QApplication>
+#include <QTranslator>
 #include <QQmlContext>
 #include <QQuickItem>
 #include <QSettings>
@@ -35,6 +36,7 @@
 
 #include "app.h"
 #include "mainview2d.h"
+#include "simpledesk.h"
 #include "showmanager.h"
 #include "fixtureeditor.h"
 #include "modelselector.h"
@@ -72,6 +74,8 @@ App::App()
     , m_fixtureManager(nullptr)
     , m_contextManager(nullptr)
     , m_ioManager(nullptr)
+    , m_showManager(nullptr)
+    , m_simpleDesk(nullptr)
     , m_videoProvider(nullptr)
     , m_doc(nullptr)
     , m_docLoaded(false)
@@ -139,7 +143,8 @@ void App::startup()
     m_fixtureManager = new FixtureManager(this, m_doc);
     m_fixtureGroupEditor = new FixtureGroupEditor(this, m_doc);
     m_functionManager = new FunctionManager(this, m_doc);
-    m_contextManager = new ContextManager(this, m_doc, m_fixtureManager, m_functionManager);
+    m_simpleDesk = new SimpleDesk(this, m_doc);
+    m_contextManager = new ContextManager(this, m_doc, m_fixtureManager, m_functionManager, m_simpleDesk);
     m_paletteManager = new PaletteManager(this, m_doc, m_contextManager);
 
     m_virtualConsole = new VirtualConsole(this, m_doc, m_contextManager);
@@ -152,7 +157,7 @@ void App::startup()
     connect(m_networkManager, &NetworkManager::requestProjectLoad, this, &App::slotLoadDocFromMemory);
 
     m_tardis = new Tardis(this, m_doc, m_networkManager, m_fixtureManager, m_functionManager,
-                          m_contextManager, m_showManager, m_virtualConsole);
+                          m_contextManager, m_simpleDesk, m_showManager, m_virtualConsole);
     rootContext()->setContextProperty("tardis", m_tardis);
 
     m_contextManager->registerContext(m_virtualConsole);
@@ -163,6 +168,7 @@ void App::startup()
     qmlRegisterUncreatableType<ContextManager>("org.qlcplus.classes", 1, 0, "ContextManager", "Can't create a ContextManager!");
     qmlRegisterUncreatableType<ShowManager>("org.qlcplus.classes", 1, 0, "ShowManager", "Can't create a ShowManager!");
     qmlRegisterUncreatableType<NetworkManager>("org.qlcplus.classes", 1, 0, "NetworkManager", "Can't create a NetworkManager!");
+    qmlRegisterUncreatableType<SimpleDesk>("org.qlcplus.classes", 1, 0, "SimpleDesk", "Can't create a NetworkManager!");
 
     // Start up in non-modified state
     m_doc->resetModified();

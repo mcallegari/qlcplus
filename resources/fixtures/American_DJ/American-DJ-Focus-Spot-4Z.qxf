@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.2 GIT</Version>
+  <Version>4.12.4 GIT</Version>
   <Author>Rico Hansen</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -138,13 +138,13 @@
   <Channel Number="1">Tilt Movement</Channel>
   <Channel Number="2">Color Wheel</Channel>
   <Channel Number="3">Gobo Wheel</Channel>
-  <Channel Number="4">Gobo Rotation</Channel>
+  <Channel Number="4" ActsOn="3">Gobo Rotation</Channel>
   <Channel Number="5">Shutter &amp; Strobing</Channel>
   <Channel Number="6">Master Dimmer</Channel>
   <Channel Number="7">Prism 1</Channel>
-  <Channel Number="8">Prism 1 Indexing &amp; Rotation</Channel>
+  <Channel Number="8" ActsOn="7">Prism 1 Indexing &amp; Rotation</Channel>
   <Channel Number="9">Prism 2</Channel>
-  <Channel Number="10">Prism 2 Indexing &amp; Rotation</Channel>
+  <Channel Number="10" ActsOn="9">Prism 2 Indexing &amp; Rotation</Channel>
   <Channel Number="11">Focus</Channel>
   <Channel Number="12">Zoom</Channel>
   <Channel Number="13">Dim curves</Channel>
@@ -158,13 +158,13 @@
   <Channel Number="3">Tilt Fine 16-bit</Channel>
   <Channel Number="4">Color Wheel</Channel>
   <Channel Number="5">Gobo Wheel</Channel>
-  <Channel Number="6">Gobo Rotation</Channel>
+  <Channel Number="6" ActsOn="5">Gobo Rotation</Channel>
   <Channel Number="7">Shutter &amp; Strobing</Channel>
   <Channel Number="8">Master Dimmer</Channel>
   <Channel Number="9">Prism 1</Channel>
-  <Channel Number="10">Prism 1 Indexing &amp; Rotation</Channel>
+  <Channel Number="10" ActsOn="9">Prism 1 Indexing &amp; Rotation</Channel>
   <Channel Number="11">Prism 2</Channel>
-  <Channel Number="12">Prism 2 Indexing &amp; Rotation</Channel>
+  <Channel Number="12" ActsOn="11">Prism 2 Indexing &amp; Rotation</Channel>
   <Channel Number="13">Focus</Channel>
   <Channel Number="14">Zoom</Channel>
   <Channel Number="15">Dim curves</Channel>
@@ -178,15 +178,15 @@
   <Channel Number="3">Tilt Fine 16-bit</Channel>
   <Channel Number="4">Color Wheel</Channel>
   <Channel Number="5">Gobo Wheel</Channel>
-  <Channel Number="6">Gobo Rotation</Channel>
+  <Channel Number="6" ActsOn="5">Gobo Rotation</Channel>
   <Channel Number="7">Shutter &amp; Strobing</Channel>
   <Channel Number="8">Master Dimmer</Channel>
   <Channel Number="9">Dimmer Fine 16-bit</Channel>
   <Channel Number="10">Prism 1</Channel>
-  <Channel Number="11">Prism 1 Indexing &amp; Rotation</Channel>
+  <Channel Number="11" ActsOn="10">Prism 1 Indexing &amp; Rotation</Channel>
   <Channel Number="12">Prism 1 Indexing Fine 16-bit</Channel>
   <Channel Number="13">Prism 2</Channel>
-  <Channel Number="14">Prism 2 Indexing &amp; Rotation</Channel>
+  <Channel Number="14" ActsOn="13">Prism 2 Indexing &amp; Rotation</Channel>
   <Channel Number="15">Prism 2 Indexing Fine 16-bit</Channel>
   <Channel Number="16">Focus</Channel>
   <Channel Number="17">Zoom</Channel>

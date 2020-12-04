@@ -757,19 +757,7 @@ void MainView2D::setPointOfView(int pointOfView)
     emit pointOfViewChanged(pointOfView);
 
     setGridSize(m_monProps->gridSize());
-
-    for (Fixture *fixture : m_doc->fixtures())
-    {
-        for (quint32 subID : m_monProps->fixtureIDList(fixture->id()))
-        {
-            quint16 headIndex = m_monProps->fixtureHeadIndex(subID);
-            quint16 linkedIndex = m_monProps->fixtureLinkedIndex(subID);
-            quint32 itemID = FixtureUtils::fixtureItemID(fixture->id(), headIndex, linkedIndex);
-
-            updateFixturePosition(itemID, m_monProps->fixturePosition(fixture->id(), headIndex, linkedIndex));
-            updateFixtureSize(itemID, fixture);
-        }
-    }
+    slotRefreshView();
 }
 
 

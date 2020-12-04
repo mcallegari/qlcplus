@@ -41,7 +41,7 @@ RadioButton
         z: 3
         color: "black"
         opacity: 0.4
-        visible: !enabled
+        visible: !parent.enabled
     }
 
     ToolTip

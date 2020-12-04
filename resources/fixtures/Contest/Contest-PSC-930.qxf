@@ -33,12 +33,12 @@
   <Capability Min="40" Max="49" Preset="GoboMacro" Res1="Robe/gobo00031.svg">Lines</Capability>
   <Capability Min="50" Max="59" Preset="GoboMacro" Res1="Robe/gobo00037.svg">Triangle</Capability>
   <Capability Min="60" Max="69" Preset="GoboMacro" Res1="Robe/gobo00028.svg">Cross</Capability>
-  <Capability Min="70" Max="89" Preset="GoboMacro" Res1="ClayPaky/gobo00010.svg">Dot Shake</Capability>
-  <Capability Min="90" Max="109" Preset="GoboMacro" Res1="SGM/gobo00007.png">Dots Shake</Capability>
-  <Capability Min="110" Max="129" Preset="GoboMacro" Res1="SGM-Color/gobo00389.png">Turbine Shake</Capability>
-  <Capability Min="130" Max="149" Preset="GoboMacro" Res1="Robe/gobo00031.svg">Lines Shake</Capability>
-  <Capability Min="150" Max="169" Preset="GoboMacro" Res1="Robe/gobo00037.svg">Triangle Shake</Capability>
-  <Capability Min="170" Max="189" Preset="GoboMacro" Res1="Robe/gobo00028.svg">Cross Shake</Capability>
+  <Capability Min="70" Max="89" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00010.svg">Dot Shake</Capability>
+  <Capability Min="90" Max="109" Preset="GoboShakeMacro" Res1="SGM/gobo00007.png">Dots Shake</Capability>
+  <Capability Min="110" Max="129" Preset="GoboShakeMacro" Res1="SGM-Color/gobo00389.png">Turbine Shake</Capability>
+  <Capability Min="130" Max="149" Preset="GoboShakeMacro" Res1="Robe/gobo00031.svg">Lines Shake</Capability>
+  <Capability Min="150" Max="169" Preset="GoboShakeMacro" Res1="Robe/gobo00037.svg">Triangle Shake</Capability>
+  <Capability Min="170" Max="189" Preset="GoboShakeMacro" Res1="Robe/gobo00028.svg">Cross Shake</Capability>
   <Capability Min="190" Max="255">Gobo rainbow</Capability>
  </Channel>
  <Channel Name="Gobo rotation">

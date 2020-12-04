@@ -48,6 +48,7 @@
     <file alias="RobotoText.qml">qml/RobotoText.qml</file>
     <file alias="SectionBox.qml">qml/SectionBox.qml</file>
     <file alias="SidePanel.qml">qml/SidePanel.qml</file>
+    <file alias="SimpleDesk.qml">qml/SimpleDesk.qml</file>
     <file alias="SingleAxisTool.qml">qml/SingleAxisTool.qml</file>
     <file alias="TimeEditTool.qml">qml/TimeEditTool.qml</file>
     <file alias="TreeNodeDelegate.qml">qml/TreeNodeDelegate.qml</file>

@@ -517,10 +517,10 @@ void VCButton_Test::toggle()
 
     // Mouse button press in design mode doesn't toggle the function
     QCOMPARE(m_doc->mode(), Doc::Design);
-    QMouseEvent ev(QEvent::MouseButtonPress, QPoint(0, 0), Qt::LeftButton, 0, 0);
+    QMouseEvent ev(QEvent::MouseButtonPress, QPoint(0, 0), Qt::LeftButton, Qt::NoButton, Qt::NoModifier);
     btn.mousePressEvent(&ev);
     QCOMPARE(m_doc->masterTimer()->m_functionList.size(), 0);
-    ev = QMouseEvent(QEvent::MouseButtonRelease, QPoint(0, 0), Qt::LeftButton, 0, 0);
+    ev = QMouseEvent(QEvent::MouseButtonRelease, QPoint(0, 0), Qt::LeftButton, Qt::NoButton, Qt::NoModifier);
     btn.mouseReleaseEvent(&ev);
     QCOMPARE(m_doc->masterTimer()->m_functionList.size(), 0);
 
@@ -537,7 +537,7 @@ void VCButton_Test::toggle()
     QCOMPARE(sc->stopped(), false);
     QCOMPARE(btn.state(), VCButton::Active);
 
-    ev = QMouseEvent(QEvent::MouseButtonPress, QPoint(0, 0), Qt::LeftButton, 0, 0);
+    ev = QMouseEvent(QEvent::MouseButtonPress, QPoint(0, 0), Qt::LeftButton, Qt::NoButton, Qt::NoModifier);
     btn.mousePressEvent(&ev);
     QCOMPARE(sc->m_stop, true);
     QCOMPARE(btn.state(), VCButton::Active);
@@ -549,7 +549,7 @@ void VCButton_Test::toggle()
     QTest::qWait(500);
     QVERIFY(btn.palette().color(QPalette::Button) == another.palette().color(QPalette::Button));
 
-    ev = QMouseEvent(QEvent::MouseButtonRelease, QPoint(0, 0), Qt::LeftButton, 0, 0);
+    ev = QMouseEvent(QEvent::MouseButtonRelease, QPoint(0, 0), Qt::LeftButton, Qt::NoButton, Qt::NoModifier);
     btn.mouseReleaseEvent(&ev);
 }
 

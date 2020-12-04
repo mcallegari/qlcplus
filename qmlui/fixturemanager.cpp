@@ -303,8 +303,6 @@ bool FixtureManager::addFixture(QString manuf, QString model, QString mode, QStr
 
     connect(m_doc, SIGNAL(fixtureAdded(quint32)), this, SLOT(slotFixtureAdded(quint32)));
 
-    m_fixtureList.clear();
-    m_fixtureList = m_doc->fixtures();
     emit fixturesCountChanged();
     emit fixturesMapChanged();
 
@@ -347,8 +345,6 @@ bool FixtureManager::deleteFixtures(QVariantList IDList)
         emit fixtureDeleted(itemID);
     }
 
-    m_fixtureList.clear();
-    m_fixtureList = m_doc->fixtures();
     emit fixturesCountChanged();
 
     updateGroupsTree(m_doc, m_fixtureTree, m_searchFilter);
@@ -377,13 +373,6 @@ void FixtureManager::renameFixture(quint32 itemID, QString newName)
 int FixtureManager::fixturesCount()
 {
     return m_doc->fixtures().count();
-}
-
-QQmlListProperty<Fixture> FixtureManager::fixtures()
-{
-    m_fixtureList.clear();
-    m_fixtureList = m_doc->fixtures();
-    return QQmlListProperty<Fixture>(this, m_fixtureList);
 }
 
 QVariant FixtureManager::groupsTreeModel()
@@ -783,6 +772,8 @@ void FixtureManager::updateGroupsTree(Doc *doc, TreeModel *treeModel, QString se
 
         QString universeName = uniNames.at(fixture->universe());
         int matchMask = 0;
+
+        qDebug() << "----> add fixture:" << fixture->name();
 
         addFixtureNode(doc, treeModel, fixture, universeName, fixture->universe(),
                        matchMask, searchFilter, showFlags, checkedChannels);

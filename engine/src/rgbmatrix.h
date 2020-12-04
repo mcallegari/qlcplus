@@ -125,6 +125,7 @@ public:
     bool dimmerControl() const;
 
 private:
+    // LEGACY: replaced by ControlModeDimmer
     bool m_dimmerControl;
 
     /*********************************************************************
@@ -242,6 +243,10 @@ private:
     /** Update FadeChannels when $map has changed since last time */
     void updateMapChannels(const RGBMap& map, const FixtureGroup* grp, QList<Universe *> universes);
 
+public:
+    /** Convert color values to fader value */
+    uchar rgbToGrey(uint col);
+
 private:
     /** Reference to a timer counting the time in ms between steps */
     QElapsedTimer *m_roundTime;
@@ -265,6 +270,34 @@ public:
 public:
     /** @reimp */
     void setBlendMode(Universe::BlendMode mode);
+
+    /*************************************************************************
+     * Control Mode
+     *************************************************************************/
+public:
+    /** Control modes for the RGB Matrix */
+    enum ControlMode
+    {
+        ControlModeRgb = 0,
+        ControlModeWhite,
+        ControlModeAmber,
+        ControlModeUV,
+        ControlModeDimmer,
+        ControlModeShutter
+    };
+
+    /** Get/Set the control mode associated to this RGBMatrix */
+    ControlMode controlMode() const;
+    void setControlMode(ControlMode mode);
+
+    /** Return a control mode from a string */
+    static ControlMode stringToControlMode(QString mode);
+
+    /** Return a string from a control mode, to be saved into a XML */
+    static QString controlModeToString(ControlMode mode);
+
+private:
+    ControlMode m_controlMode;
 };
 
 /** @} */

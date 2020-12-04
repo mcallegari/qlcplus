@@ -488,6 +488,50 @@ void RGBMatrixEditor::setScriptIntProperty(QString paramName, int value)
 }
 
 /************************************************************************
+ * Blend mode
+ ************************************************************************/
+
+int RGBMatrixEditor::blendMode() const
+{
+    if (m_matrix == nullptr)
+        return 0;
+
+    return m_matrix->blendMode();
+}
+
+void RGBMatrixEditor::setBlendMode(int mode)
+{
+    if (m_matrix == nullptr || mode == m_matrix->blendMode())
+        return;
+
+    m_matrix->setBlendMode(Universe::BlendMode(mode));
+
+    emit blendModeChanged();
+}
+
+/************************************************************************
+ * Control mode
+ ************************************************************************/
+
+int RGBMatrixEditor::controlMode() const
+{
+    if (m_matrix == nullptr)
+        return 0;
+
+    return m_matrix->controlMode();
+}
+
+void RGBMatrixEditor::setControlMode(int mode)
+{
+    if (m_matrix == nullptr || mode == m_matrix->controlMode())
+        return;
+
+    m_matrix->setControlMode(RGBMatrix::ControlMode(mode));
+
+    emit controlModeChanged();
+}
+
+/************************************************************************
  * Preview
  ************************************************************************/
 

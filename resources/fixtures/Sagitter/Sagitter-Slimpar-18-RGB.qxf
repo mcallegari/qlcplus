@@ -1,9 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE FixtureDefinition>
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.10.6 GIT</Version>
+  <Version>4.12.3 GIT</Version>
   <Author>Daniele Fogale</Author>
  </Creator>
  <Manufacturer>Sagitter</Manufacturer>
@@ -26,8 +26,8 @@
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>
-  <Capability Min="0" Max="11">No Strobe</Capability>
-  <Capability Min="12" Max="255">Strobe from min to max</Capability>
+  <Capability Min="0" Max="11" Preset="ShutterOpen">No Strobe</Capability>
+  <Capability Min="12" Max="255" Preset="StrobeSlowToFast">Strobe from min to max</Capability>
  </Channel>
  <Channel Name="Color Macro" Preset="ColorMacro"/>
  <Mode Name="7 Channel">
@@ -53,11 +53,11 @@
  <Mode Name="1 Channel">
   <Channel Number="0">Color Macro</Channel>
  </Mode>
-<Physical>
-   <Bulb Type="LED" Lumens="4400" ColourTemperature="0"/>
-   <Dimensions Weight="2.1" Width="257" Height="250" Depth="130"/>
-   <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
-   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
-   <Technical PowerConsumption="70" DmxConnector="3-pin"/>
-  </Physical>
+ <Physical>
+  <Bulb Type="LED" Lumens="4400" ColourTemperature="0"/>
+  <Dimensions Weight="2.1" Width="257" Height="250" Depth="130"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="70" DmxConnector="3-pin"/>
+ </Physical>
 </FixtureDefinition>
