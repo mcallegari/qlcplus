@@ -38,6 +38,7 @@ ComboBox
      */
 
     textRole: "mLabel"
+    valueRole: "mValue"
     wheelEnabled: true
 
     property string currentIcon
@@ -60,7 +61,8 @@ ComboBox
         if (item.mIcon)
             currentIcon = item.mIcon
 
-        control.valueChanged(item.mValue)
+        if (item.mValue !== undefined)
+            control.valueChanged(item.mValue)
     }
 
     function updateFromValue()
@@ -90,7 +92,7 @@ ComboBox
         anchors.fill: parent
         z: 3
         color: "black"
-        opacity: 0.6
+        opacity: 0.4
         visible: !parent.enabled
     }
 
