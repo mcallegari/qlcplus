@@ -18,9 +18,8 @@
 */
 
 import QtQuick 2.2
-import QtQuick.Layouts 1.1
-import QtQuick.Controls 1.2 as QC1
-import QtQuick.Controls 2.3
+import QtQuick.Layouts 1.12
+import QtQuick.Controls 2.13
 
 import org.qlcplus.classes 1.0
 import "."
@@ -34,10 +33,12 @@ Rectangle
 
     color: "transparent"
 
-    QC1.SplitView
+    SplitView
     {
         anchors.fill: parent
+        orientation: Qt.Horizontal
 
+        // left view: definition sections
         Flickable
         {
             id: editorFlickable
@@ -46,6 +47,10 @@ Rectangle
 
             contentHeight: editorColumn.height
             boundsBehavior: Flickable.StopAtBounds
+
+            SplitView.minimumWidth: editorRoot.width * 0.2
+            SplitView.preferredWidth: editorRoot.width * 0.5
+            SplitView.maximumWidth: editorRoot.width * 0.8
 
             Column
             {
@@ -408,14 +413,24 @@ Rectangle
             ScrollBar.vertical: CustomScrollBar { id: sbar }
         } // Flickable
 
+        // right view: editors
         Loader
         {
             id: sideEditor
+
+            SplitView.minimumWidth: editorRoot.width * 0.2
+            SplitView.preferredWidth: editorRoot.width * 0.5
+            SplitView.maximumWidth: editorRoot.width * 0.8
 
             property string itemName: ""
 
             onLoaded:
             {
+                item.x = 10
+                item.y = 10
+                item.width = Qt.binding(function() { return sideEditor.width - 20 })
+                item.height = Qt.binding(function() { return sideEditor.height - 20 })
+
                 item.editor = editorRoot.editor
                 item.itemName = itemName
             }

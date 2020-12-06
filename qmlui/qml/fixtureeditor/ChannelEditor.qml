@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.2
-import QtQuick.Layouts 1.1
+import QtQuick 2.14
+import QtQuick.Layouts 1.14
 import QtQuick.Controls 2.4
 
 import org.qlcplus.classes 1.0
@@ -63,7 +63,7 @@ GridLayout
         Layout.fillWidth: true
         enabled: channel ? (channel.preset ? false : true) : false
         model: channel ? channel.channelTypeList : null
-        currentValue: channel ? channel.group : 0
+        currValue: channel ? channel.group : 0
     }
 
     RobotoText { label: qsTr("Role") }
@@ -109,43 +109,86 @@ GridLayout
 
     Rectangle
     {
+        Layout.columnSpan: 4
         Layout.fillHeight: true
+        Layout.fillWidth: true
         color: "transparent"
 
         ListView
         {
             id: capsList
+            z: 1
             anchors.fill: parent
+            boundsBehavior: Flickable.StopAtBounds
+            headerPositioning: ListView.OverlayHeader
+            clip: true
             model: channel ? channel.capabilities : null
+
+            header:
+                RowLayout
+                {
+                    z: 2
+                    width: capsList.width
+                    height: UISettings.listItemHeight
+
+                    RobotoText
+                    {
+                        width: UISettings.bigItemHeight
+                        height: UISettings.listItemHeight
+                        label: qsTr("From")
+                        color: UISettings.sectionHeader
+                    }
+                    Rectangle { width: 1; height: UISettings.listItemHeight }
+
+                    RobotoText
+                    {
+                        width: UISettings.bigItemHeight
+                        height: UISettings.listItemHeight
+                        label: qsTr("To")
+                        color: UISettings.sectionHeader
+                    }
+                    Rectangle { width: 1; height: UISettings.listItemHeight }
+
+                    RobotoText
+                    {
+                        Layout.fillWidth: true
+                        height: UISettings.listItemHeight
+                        label: qsTr("Description")
+                        color: UISettings.sectionHeader
+                    }
+                }
+
             delegate:
                 RowLayout
                 {
                     width: capsList.width
                     height: UISettings.listItemHeight
 
-                    RobotoText
+                    CustomTextEdit
                     {
                         id: minValBox
                         width: UISettings.bigItemHeight
-                        label: modelData.iMin
+                        inputText: modelData.iMin
                     }
                     Rectangle { width: 1; height: UISettings.listItemHeight }
 
-                    RobotoText
+                    CustomTextEdit
                     {
                         id: maxValBox
                         width: UISettings.bigItemHeight
-                        label: modelData.iMax
+                        inputText: modelData.iMax
                     }
                     Rectangle { width: 1; height: UISettings.listItemHeight }
 
-                    RobotoText
+                    CustomTextEdit
                     {
                         id: capDescription
-                        //Layout.fillWidth: true
-                        label: modelData.sDesc
+                        Layout.fillWidth: true
+                        inputText: modelData.sDesc
                     }
                 }
+
+            ScrollBar.vertical: CustomScrollBar { }
         }
-    }
-}
+    } // Rectangle
+} // GridLayout
