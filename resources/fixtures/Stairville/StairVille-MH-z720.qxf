@@ -225,7 +225,6 @@
    <Channel>7</Channel>
    <Channel>6</Channel>
    <Channel>5</Channel>
-   <Channel>24</Channel>
    <Channel>8</Channel>
   </Head>
   <Head>
@@ -233,12 +232,10 @@
    <Channel>11</Channel>
    <Channel>10</Channel>
    <Channel>9</Channel>
-   <Channel>24</Channel>
   </Head>
   <Head>
    <Channel>13</Channel>
    <Channel>16</Channel>
-   <Channel>24</Channel>
    <Channel>15</Channel>
    <Channel>14</Channel>
   </Head>
@@ -247,7 +244,6 @@
    <Channel>18</Channel>
    <Channel>17</Channel>
    <Channel>20</Channel>
-   <Channel>24</Channel>
   </Head>
  </Mode>
  <Physical>
