@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>4.12.4</Version>
   <Author>David Wolfe</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -37,8 +37,8 @@
   <Capability Min="49" Max="55" Preset="ColorMacro" Res1="#aa55ff">Magenta</Capability>
   <Capability Min="56" Max="63" Preset="ColorMacro" Res1="#a11cff">Purple</Capability>
   <Capability Min="64" Max="127">Split Colors</Capability>
-  <Capability Min="128" Max="191">Clockwise color scroll - Slow to Fast</Capability>
-  <Capability Min="192" Max="255">Counter-clockwise color scroll, slow to fast</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">Clockwise color scroll - Slow to Fast</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counter-clockwise color scroll, slow to fast</Capability>
  </Channel>
  <Channel Name="Gobo wheel 1">
   <Group Byte="0">Gobo</Group>
@@ -51,9 +51,9 @@
   <Capability Min="48" Max="55" Preset="GoboMacro" Res1="Chauvet/gobo00059.svg">Gobo 6</Capability>
   <Capability Min="56" Max="63" Preset="GoboMacro" Res1="Chauvet/gobo00083.svg">Gobo 7</Capability>
   <Capability Min="64" Max="119">Gobo shake 1–7, slow to fast</Capability>
-  <Capability Min="120" Max="127">Open</Capability>
-  <Capability Min="128" Max="191">Clockwise gobo scroll, slow to fast</Capability>
-  <Capability Min="192" Max="255">Counter-clockwise gobo scroll, slow to fast</Capability>
+  <Capability Min="120" Max="127" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">Clockwise gobo scroll, slow to fast</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counter-clockwise gobo scroll, slow to fast</Capability>
  </Channel>
  <Channel Name="Gobo Wheel 1 Rotate">
   <Group Byte="0">Gobo</Group>
@@ -75,8 +75,8 @@
   <Capability Min="56" Max="63" Preset="GoboMacro" Res1="Others/gobo00008.svg">Gobo 8</Capability>
   <Capability Min="64" Max="120">Gobo shake 1–8, slow to fast</Capability>
   <Capability Min="121" Max="127">Open</Capability>
-  <Capability Min="128" Max="191">Clockwise gobo scroll, slow to fast</Capability>
-  <Capability Min="192" Max="255">Counter-clockwise gobo scroll, slow to fast</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseFastToSlow">Clockwise gobo scroll, slow to fast</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counter-clockwise gobo scroll, slow to fast</Capability>
  </Channel>
  <Channel Name="Focus" Preset="BeamFocusNearFar"/>
  <Channel Name="Prism">
@@ -171,14 +171,14 @@
   <Channel Number="7">Shutter</Channel>
   <Channel Number="8">Color Wheel</Channel>
   <Channel Number="9">Gobo wheel 1</Channel>
-  <Channel Number="10">Gobo Wheel 1 Rotate</Channel>
+  <Channel Number="10" ActsOn="9">Gobo Wheel 1 Rotate</Channel>
   <Channel Number="11">Gobo wheel 2</Channel>
   <Channel Number="12">Focus</Channel>
   <Channel Number="13">Prism</Channel>
-  <Channel Number="14">Prism Rotate</Channel>
+  <Channel Number="14" ActsOn="13">Prism Rotate</Channel>
   <Channel Number="15">Iris</Channel>
   <Channel Number="16">Movement Macros</Channel>
-  <Channel Number="17">Movement Macro Speed</Channel>
+  <Channel Number="17" ActsOn="16">Movement Macro Speed</Channel>
   <Channel Number="18">Control</Channel>
  </Mode>
  <Mode Name="16 Channel">
@@ -191,11 +191,11 @@
   <Channel Number="6">Shutter</Channel>
   <Channel Number="7">Color Wheel</Channel>
   <Channel Number="8">Gobo wheel 1</Channel>
-  <Channel Number="9">Gobo Wheel 1 Rotate</Channel>
+  <Channel Number="9" ActsOn="8">Gobo Wheel 1 Rotate</Channel>
   <Channel Number="10">Gobo wheel 2</Channel>
   <Channel Number="11">Focus</Channel>
   <Channel Number="12">Prism</Channel>
-  <Channel Number="13">Prism Rotate</Channel>
+  <Channel Number="13" ActsOn="12">Prism Rotate</Channel>
   <Channel Number="14">Iris</Channel>
   <Channel Number="15">Control</Channel>
  </Mode>
