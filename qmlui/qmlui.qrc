@@ -238,6 +238,12 @@
     <file alias="ShowItem.qml">qml/showmanager/ShowItem.qml</file>
     <file alias="HeaderAndCursor.qml">qml/showmanager/HeaderAndCursor.qml</file>
 
+    <!-- Fixture Definition Editor -->
+    <file alias="FixtureEditor.qml">qml/fixtureeditor/FixtureEditor.qml</file>
+    <file alias="EditorView.qml">qml/fixtureeditor/EditorView.qml</file>
+    <file alias="PhysicalProperties.qml">qml/fixtureeditor/PhysicalProperties.qml</file>
+    <file alias="ChannelEditor.qml">qml/fixtureeditor/ChannelEditor.qml</file>
+
     <!-- JavaScript helpers -->
     <file alias="CanvasDrawFunctions.js">js/CanvasDrawFunctions.js</file>
     <file alias="FixtureDrag.js">js/FixtureDrag.js</file>

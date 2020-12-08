@@ -1,6 +1,6 @@
 /*
   Q Light Controller Plus
-  CustomScrollBar.qml
+  modeedit.h
 
   Copyright (c) Massimo Callegari
 
@@ -17,31 +17,24 @@
   limitations under the License.
 */
 
-import QtQuick 2.6
-import QtQuick.Controls 2.1
+#ifndef MODEEDIT_H
+#define MODEEDIT_H
 
-import "."
+#include <QQuickView>
 
-ScrollBar
+class QLCFixtureMode;
+
+class ModeEdit : public QObject
 {
-    id: control
-    active: true
-    visible: size == 1.0 ? false : true
-    orientation: Qt.Vertical
+    Q_OBJECT
 
-    background:
-        Rectangle
-        {
-            color: UISettings.bgMedium
-            border.width: 1
-            border.color: UISettings.bgMedium
-        }
+public:
+    ModeEdit(QLCFixtureMode *mode, QObject *parent = nullptr);
+    ~ModeEdit();
 
-    contentItem:
-        Rectangle
-        {
-            implicitWidth: UISettings.scrollBarWidth
-            implicitHeight: UISettings.scrollBarWidth
-            color: (control.pressed ? UISettings.highlight : UISettings.bgControl)
-        }
-}
+private:
+    /** Reference to the mode being edited */
+    QLCFixtureMode *m_mode;
+};
+
+#endif /* MODEEDIT_H */
