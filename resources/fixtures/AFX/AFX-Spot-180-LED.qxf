@@ -59,13 +59,13 @@
  </Channel>
  <Channel Name="Rotation Gobos">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="15" Preset="GoboRotatingMacro" Res1="Other/Open.svg">Open</Capability>
-  <Capability Min="16" Max="31" Preset="GoboRotatingMacro">Gobo 1</Capability>
-  <Capability Min="32" Max="47" Preset="GoboRotatingMacro">Gobo 2</Capability>
-  <Capability Min="48" Max="63" Preset="GoboRotatingMacro">Gobo 3</Capability>
-  <Capability Min="64" Max="79" Preset="GoboRotatingMacro">Gobo 4</Capability>
-  <Capability Min="80" Max="95" Preset="GoboRotatingMacro">Gobo 5</Capability>
-  <Capability Min="96" Max="127" Preset="GoboRotatingMacro">Gobo 6</Capability>
+  <Capability Min="0" Max="15" Preset="GoboMacro" Res1="">Open</Capability>
+  <Capability Min="16" Max="31" Preset="GoboMacro" Res1="">Gobo 1</Capability>
+  <Capability Min="32" Max="47" Preset="GoboMacro" Res1="">Gobo 2</Capability>
+  <Capability Min="48" Max="63" Preset="GoboMacro" Res1="">Gobo 3</Capability>
+  <Capability Min="64" Max="79" Preset="GoboMacro" Res1="">Gobo 4</Capability>
+  <Capability Min="80" Max="95" Preset="GoboMacro" Res1="">Gobo 5</Capability>
+  <Capability Min="96" Max="127" Preset="GoboMacro" Res1="">Gobo 6</Capability>
   <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">Gobo Rotate CW slow to fast</Capability>
   <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Gobo Rotate CCW slow to fast</Capability>
  </Channel>

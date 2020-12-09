@@ -272,7 +272,6 @@ when changing this list -->
         <xs:enumeration value="ColorWheelIndex" />
         <xs:enumeration value="GoboMacro" />
         <xs:enumeration value="GoboShakeMacro" />
-        <xs:enumeration value="GoboRotatingMacro" />
         <xs:enumeration value="GenericPicture" />
         <xs:enumeration value="PrismEffectOn" />
         <xs:enumeration value="PrismEffectOff" />
@@ -392,6 +391,7 @@ when changing this list -->
     <xs:simpleContent>
         <xs:extension base="xs:string">
             <xs:attribute name="Number" type="xs:nonNegativeInteger" use="required"/>
+            <xs:attribute name="ActsOn" type="xs:nonNegativeInteger" use="optional"/>
         </xs:extension>
      </xs:simpleContent>
 </xs:complexType>

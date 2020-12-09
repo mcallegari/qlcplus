@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.4</Version>
+  <Version>4.12.4 GIT</Version>
   <Author>laserandi</Author>
  </Creator>
  <Manufacturer>American DJ</Manufacturer>
@@ -31,12 +31,12 @@
  <Channel Name="Rotating Gobos">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="9" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
-  <Capability Min="10" Max="19" Preset="GoboRotatingMacro" Res1="Others/gobo00036.svg">Rotating Gobo 1</Capability>
-  <Capability Min="20" Max="29" Preset="GoboRotatingMacro" Res1="Others/gobo00001.svg">Rotating Gobo 2</Capability>
-  <Capability Min="30" Max="39" Preset="GoboRotatingMacro" Res1="Others/gobo00026.svg">Rotating Gobo 3</Capability>
-  <Capability Min="40" Max="49" Preset="GoboRotatingMacro" Res1="Others/gobo00038.svg">Rotating Gobo 4</Capability>
-  <Capability Min="50" Max="59" Preset="GoboRotatingMacro" Res1="Others/gobo00027.svg">Rotating Gobo 5</Capability>
-  <Capability Min="60" Max="69" Preset="GoboRotatingMacro" Res1="Others/gobo00034.png">Rotating Gobo 6</Capability>
+  <Capability Min="10" Max="19" Preset="GoboMacro" Res1="Others/gobo00036.svg">Rotating Gobo 1</Capability>
+  <Capability Min="20" Max="29" Preset="GoboMacro" Res1="Others/gobo00001.svg">Rotating Gobo 2</Capability>
+  <Capability Min="30" Max="39" Preset="GoboMacro" Res1="Others/gobo00026.svg">Rotating Gobo 3</Capability>
+  <Capability Min="40" Max="49" Preset="GoboMacro" Res1="Others/gobo00038.svg">Rotating Gobo 4</Capability>
+  <Capability Min="50" Max="59" Preset="GoboMacro" Res1="Others/gobo00027.svg">Rotating Gobo 5</Capability>
+  <Capability Min="60" Max="69" Preset="GoboMacro" Res1="Others/gobo00034.png">Rotating Gobo 6</Capability>
   <Capability Min="70" Max="89" Preset="GoboShakeMacro" Res1="Others/gobo00036.svg">Gobo 1 Shake Slow - Fast</Capability>
   <Capability Min="90" Max="109" Preset="GoboShakeMacro" Res1="Others/gobo00001.svg">Gobo 2 Shake Slow - Fast</Capability>
   <Capability Min="110" Max="129" Preset="GoboShakeMacro" Res1="Others/gobo00026.svg">Gobo 3 Shake Slow - Fast</Capability>
@@ -101,7 +101,7 @@
   <Capability Min="32" Max="63" Preset="ShutterOpen">Shutter open</Capability>
   <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Strobe Effect Slow - Fast</Capability>
   <Capability Min="96" Max="127" Preset="ShutterOpen">Shutter open</Capability>
-  <Capability Min="128" Max="159" Preset="PulseFrequency" Res1="0">Pulse Effect</Capability>
+  <Capability Min="128" Max="159" Preset="PulseSlowToFast">Pulse Effect</Capability>
   <Capability Min="160" Max="191" Preset="ShutterOpen">Shutter open</Capability>
   <Capability Min="192" Max="223" Preset="StrobeSlowToFast">Random Strobe Effect Slow - Fast</Capability>
   <Capability Min="224" Max="255" Preset="ShutterOpen">Shutter open</Capability>
@@ -137,7 +137,7 @@
   <Channel Number="3">Tilt Fine</Channel>
   <Channel Number="4">Colour</Channel>
   <Channel Number="5">Rotating Gobos</Channel>
-  <Channel Number="6">Rotating Gobo Index</Channel>
+  <Channel Number="6" ActsOn="5">Rotating Gobo Index</Channel>
   <Channel Number="7">Fixed Gobos</Channel>
   <Channel Number="8">Rotating Prism</Channel>
   <Channel Number="9">Focus</Channel>

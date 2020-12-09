@@ -145,7 +145,6 @@ public:
         ColorWheelIndex,
         GoboMacro,
         GoboShakeMacro,
-        GoboRotatingMacro,
         GenericPicture,
         PrismEffectOn,
         PrismEffectOff,

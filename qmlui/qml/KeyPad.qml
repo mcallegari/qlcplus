@@ -26,6 +26,7 @@ Rectangle
 {
     id: keyPadRoot
     width: UISettings.bigItemHeight * 2.5
+    implicitHeight: UISettings.iconSizeDefault * keyPadGrid.rows
     height: keyPadGrid.height
     color: "transparent"
 
@@ -60,11 +61,13 @@ Rectangle
     {
         id: keyPadGrid
         width: parent.width
-        height: UISettings.iconSizeDefault * rows
+        height: itemHeight * rows
         columns: showDMXcontrol ? 4 : 3
         rows: 6
         rowSpacing: 3
         columnSpacing: 3
+
+        property real itemHeight: Math.max(UISettings.iconSizeDefault, keyPadRoot.height / rows) - 3
 
         // row 1
         CustomTextEdit
@@ -73,7 +76,7 @@ Rectangle
             property int span: showTapButton ? keyPadGrid.columns - 1 : keyPadGrid.columns
             Layout.columnSpan: span
             Layout.fillWidth: true
-            height: UISettings.iconSizeDefault
+            implicitHeight: keyPadGrid.itemHeight
             color: UISettings.bgLight
             onEnterPressed: keyPadRoot.executeCommand(keyPadRoot.commandString)
             onEscapePressed: keyPadRoot.escapePressed()
@@ -84,6 +87,7 @@ Rectangle
             id: tapButton
             visible: showTapButton
             Layout.fillWidth: true
+            implicitHeight: keyPadGrid.itemHeight
             label: qsTr("Tap")
 
             onClicked:
@@ -113,18 +117,21 @@ Rectangle
         GenericButton
         {
             Layout.fillWidth: true
+            implicitHeight: keyPadGrid.itemHeight
             label: "7"
             onClicked: commandBox.appendText(label)
         }
         GenericButton
         {
             Layout.fillWidth: true
+            implicitHeight: keyPadGrid.itemHeight
             label: "8"
             onClicked: commandBox.appendText(label)
         }
         GenericButton
         {
             Layout.fillWidth: true
+            implicitHeight: keyPadGrid.itemHeight
             label: "9"
             onClicked: commandBox.appendText(label)
         }
@@ -132,26 +139,30 @@ Rectangle
         {
             visible: showDMXcontrol
             Layout.fillWidth: true
+            implicitHeight: keyPadGrid.itemHeight
             label: "AT"
-            onClicked: commandBox.appendText(" AT")
+            onClicked: commandBox.appendText(" AT ")
         }
 
         // row 3
         GenericButton
         {
             Layout.fillWidth: true
+            implicitHeight: keyPadGrid.itemHeight
             label: "4"
             onClicked: commandBox.appendText(label)
         }
         GenericButton
         {
             Layout.fillWidth: true
+            implicitHeight: keyPadGrid.itemHeight
             label: "5"
             onClicked: commandBox.appendText(label)
         }
         GenericButton
         {
             Layout.fillWidth: true
+            implicitHeight: keyPadGrid.itemHeight
             label: "6"
             onClicked: commandBox.appendText(label)
         }
@@ -159,26 +170,30 @@ Rectangle
         {
             visible: showDMXcontrol
             Layout.fillWidth: true
+            implicitHeight: keyPadGrid.itemHeight
             label: "THRU"
-            onClicked: commandBox.appendText(" THRU")
+            onClicked: commandBox.appendText(" THRU ")
         }
 
         // row 4
         GenericButton
         {
             Layout.fillWidth: true
+            implicitHeight: keyPadGrid.itemHeight
             label: "1"
             onClicked: commandBox.appendText(label)
         }
         GenericButton
         {
             Layout.fillWidth: true
+            implicitHeight: keyPadGrid.itemHeight
             label: "2"
             onClicked: commandBox.appendText(label)
         }
         GenericButton
         {
             Layout.fillWidth: true
+            implicitHeight: keyPadGrid.itemHeight
             label: "3"
             onClicked: commandBox.appendText(label)
         }
@@ -186,14 +201,16 @@ Rectangle
         {
             visible: showDMXcontrol
             Layout.fillWidth: true
+            implicitHeight: keyPadGrid.itemHeight
             label: "FULL"
-            onClicked: commandBox.appendText(" FULL")
+            onClicked: commandBox.appendText(" FULL ")
         }
 
         // row 5
         GenericButton
         {
             Layout.fillWidth: true
+            implicitHeight: keyPadGrid.itemHeight
             label: "-"
             repetition: true
             onClicked:
@@ -205,12 +222,14 @@ Rectangle
         GenericButton
         {
             Layout.fillWidth: true
+            implicitHeight: keyPadGrid.itemHeight
             label: "0"
             onClicked: commandBox.appendText(label)
         }
         GenericButton
         {
             Layout.fillWidth: true
+            implicitHeight: keyPadGrid.itemHeight
             label: "+"
             repetition: true
             onClicked:
@@ -223,7 +242,9 @@ Rectangle
         {
             visible: showDMXcontrol
             Layout.fillWidth: true
+            implicitHeight: keyPadGrid.itemHeight
             label: "ZERO"
+            onClicked: commandBox.appendText(" ZERO ")
         }
 
         // row 6
@@ -231,6 +252,7 @@ Rectangle
         {
             Layout.columnSpan: 2
             Layout.fillWidth: true
+            implicitHeight: keyPadGrid.itemHeight
             label: "ENTER"
             bgColor: "#43B008"
             hoverColor: "#61FF0C"
@@ -240,6 +262,7 @@ Rectangle
         GenericButton
         {
             Layout.fillWidth: true
+            implicitHeight: keyPadGrid.itemHeight
             label: "CLR"
             onClicked: keyPadRoot.commandString = ""
         }
@@ -247,7 +270,9 @@ Rectangle
         {
             visible: showDMXcontrol
             Layout.fillWidth: true
+            implicitHeight: keyPadGrid.itemHeight
             label: "BY"
+            onClicked: commandBox.appendText(" BY ")
         }
     }
 }

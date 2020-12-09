@@ -1,5 +1,7 @@
 version: 4.12.4.{build}
 
+image: Visual Studio 2019
+
 environment:
     MSYSTEM: MSYS
     PATH: C:\msys64\mingw32\bin;C:\msys64\usr\bin;C:\Windows\System32;C:\Windows;%PATH%
@@ -14,16 +16,18 @@ configuration:
 install:
     #- pacman --noconfirm -Sy
     #- pacman --noconfirm --needed -S pacman-mirrors
-    #- pacman --noconfirm -Sy
+    #- pacman --noconfirm -Syu
     - pacman --noconfirm --needed -S unzip mingw32/mingw-w64-i686-libmad mingw32/mingw-w64-i686-libsndfile mingw32/mingw-w64-i686-flac mingw32/mingw-w64-i686-fftw mingw32/mingw-w64-i686-nsis
-    - wget http://repo.msys2.org/mingw/i686/mingw-w64-i686-gcc-libs-9.3.0-2-any.pkg.tar.xz -P /c/projects
-    - wget http://repo.msys2.org/mingw/i686/mingw-w64-i686-gcc-9.3.0-2-any.pkg.tar.xz -P /c/projects
-    - wget http://www.qlcplus.org/misc/mingw-w64-i686-qt5-5.9.2-1-any.pkg.tar.xz -P /c/projects
-    - pacman --noconfirm -Rdd mingw-w64-i686-gcc
-    - pacman --noconfirm -Rdd mingw-w64-i686-gcc-libs
-    - pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-gcc-libs-9.3.0-2-any.pkg.tar.xz
-    - pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-gcc-9.3.0-2-any.pkg.tar.xz
-    - pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-qt5-5.9.2-1-any.pkg.tar.xz
+    #- wget http://repo.msys2.org/mingw/i686/mingw-w64-i686-gcc-libs-9.3.0-2-any.pkg.tar.xz -P /c/projects
+    #- wget http://repo.msys2.org/mingw/i686/mingw-w64-i686-gcc-9.3.0-2-any.pkg.tar.xz -P /c/projects
+    - wget http://www.qlcplus.org/misc/mingw-w64-i686-qt5-5.14.2-2-any.pkg.tar.zst -P /c/projects
+    - wget http://www.qlcplus.org/misc/qttools-5.14.2.zip -P /c/projects
+    #- pacman --noconfirm -Rdd mingw-w64-i686-gcc
+    #- pacman --noconfirm -Rdd mingw-w64-i686-gcc-libs
+    #- pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-gcc-libs-9.3.0-2-any.pkg.tar.xz
+    #- pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-gcc-9.3.0-2-any.pkg.tar.xz
+    - pacman --noconfirm --needed -U /c/projects/mingw-w64-i686-qt5-5.14.2-2-any.pkg.tar.zst
+    - unzip -d /c/msys64/mingw32/ /c/projects/qttools-5.14.2.zip
 
 build_script:
     - ps: >-

@@ -30,13 +30,13 @@
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="9" Preset="GoboMacro" Res1="Others/open.svg">Spot</Capability>
-  <Capability Min="10" Max="19" Preset="GoboRotatingMacro" Res1="Others/gobo00036.svg">Star Circle (Metal)</Capability>
-  <Capability Min="20" Max="29" Preset="GoboRotatingMacro" Res1="Others/gobo00023.svg">Cross (Metal)</Capability>
-  <Capability Min="30" Max="39" Preset="GoboRotatingMacro" Res1="Others/gobo00035.png">Blue &amp; White Web (Dichoric)</Capability>
-  <Capability Min="40" Max="49" Preset="GoboRotatingMacro" Res1="Others/gobo00034.png">Textured Glass (Glass)</Capability>
-  <Capability Min="50" Max="59" Preset="GoboRotatingMacro" Res1="Others/gobo00037.svg">Donut (Metal)</Capability>
-  <Capability Min="60" Max="69" Preset="GoboRotatingMacro" Res1="Others/gobo00027.svg">Triangle (Metal)</Capability>
-  <Capability Min="70" Max="79" Preset="GoboRotatingMacro" Res1="Others/gobo00029.svg">Dot Line (Metal)</Capability>
+  <Capability Min="10" Max="19" Preset="GoboMacro" Res1="Others/gobo00036.svg">Star Circle (Metal)</Capability>
+  <Capability Min="20" Max="29" Preset="GoboMacro" Res1="Others/gobo00023.svg">Cross (Metal)</Capability>
+  <Capability Min="30" Max="39" Preset="GoboMacro" Res1="Others/gobo00035.png">Blue &amp; White Web (Dichoric)</Capability>
+  <Capability Min="40" Max="49" Preset="GoboMacro" Res1="Others/gobo00034.png">Textured Glass (Glass)</Capability>
+  <Capability Min="50" Max="59" Preset="GoboMacro" Res1="Others/gobo00037.svg">Donut (Metal)</Capability>
+  <Capability Min="60" Max="69" Preset="GoboMacro" Res1="Others/gobo00027.svg">Triangle (Metal)</Capability>
+  <Capability Min="70" Max="79" Preset="GoboMacro" Res1="Others/gobo00029.svg">Dot Line (Metal)</Capability>
   <Capability Min="80" Max="99" Preset="GoboShakeMacro" Res1="Others/gobo00036.svg">Star Circle (Metal) Shake</Capability>
   <Capability Min="100" Max="119" Preset="GoboShakeMacro" Res1="Others/gobo00023.svg">Cross (Metal) Shake</Capability>
   <Capability Min="120" Max="139" Preset="GoboShakeMacro" Res1="Others/gobo00035.png">Blue &amp; White Web (Dichoric) Shake</Capability>

@@ -286,10 +286,10 @@ icons.files += ../../resources/icons/qlcplus.icns
 
 qmlui: {
     plist.path   = $$INSTALLROOT
-    plist.commands = cp Info.plist.qmlui $$INSTALLROOT/Info.plist
+    plist.commands = sed \'s/__QLC_VERSION__/$$APPVERSION/g\' Info.plist.qmlui > $$INSTALLROOT/Info.plist
 } else {
     plist.path   = $$INSTALLROOT
-    plist.files += Info.plist
+    plist.commands = sed \'s/__QLC_VERSION__/$$APPVERSION/g\' Info.plist > $$INSTALLROOT/Info.plist
 }
 INSTALLS    += icons plist
 

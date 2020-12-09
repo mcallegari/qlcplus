@@ -31,13 +31,13 @@
  <Channel Name="Gobos">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="9" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
-  <Capability Min="10" Max="19" Preset="GoboRotatingMacro" Res1="">Rotating Gobo 1</Capability>
-  <Capability Min="20" Max="29" Preset="GoboRotatingMacro" Res1="">Rotating Gobo 2</Capability>
-  <Capability Min="30" Max="39" Preset="GoboRotatingMacro" Res1="">Rotating Gobo 3</Capability>
-  <Capability Min="40" Max="49" Preset="GoboRotatingMacro" Res1="">Rotating Gobo 4</Capability>
-  <Capability Min="50" Max="59" Preset="GoboRotatingMacro" Res1="">Rotating Gobo 5</Capability>
-  <Capability Min="60" Max="69" Preset="GoboRotatingMacro" Res1="">Rotating Gobo 6</Capability>
-  <Capability Min="70" Max="79" Preset="GoboRotatingMacro" Res1="">Rotating Gobo 7</Capability>
+  <Capability Min="10" Max="19" Preset="GoboMacro" Res1="">Rotating Gobo 1</Capability>
+  <Capability Min="20" Max="29" Preset="GoboMacro" Res1="">Rotating Gobo 2</Capability>
+  <Capability Min="30" Max="39" Preset="GoboMacro" Res1="">Rotating Gobo 3</Capability>
+  <Capability Min="40" Max="49" Preset="GoboMacro" Res1="">Rotating Gobo 4</Capability>
+  <Capability Min="50" Max="59" Preset="GoboMacro" Res1="">Rotating Gobo 5</Capability>
+  <Capability Min="60" Max="69" Preset="GoboMacro" Res1="">Rotating Gobo 6</Capability>
+  <Capability Min="70" Max="79" Preset="GoboMacro" Res1="">Rotating Gobo 7</Capability>
   <Capability Min="80" Max="95" Preset="GoboShakeMacro" Res1="">Rotating Gobo 1 Shake</Capability>
   <Capability Min="96" Max="111" Preset="GoboShakeMacro" Res1="">Rotating Gobo 2 Shake</Capability>
   <Capability Min="112" Max="127" Preset="GoboShakeMacro" Res1="">Rotating Gobo 3 Shake</Capability>
@@ -83,7 +83,7 @@
   <Capability Min="32" Max="63" Preset="ShutterOpen">LED on</Capability>
   <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Strobing (Slow - Fast)</Capability>
   <Capability Min="96" Max="127" Preset="ShutterOpen">LED on</Capability>
-  <Capability Min="128" Max="159" Preset="PulseFrequency" Res1="0">Pulse Effect in Sequences</Capability>
+  <Capability Min="128" Max="159" Preset="PulseSlowToFast">Pulse Effect in Sequences</Capability>
   <Capability Min="160" Max="191" Preset="ShutterOpen">LED on</Capability>
   <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Random Strobe (Slow - Fast)</Capability>
   <Capability Min="224" Max="255" Preset="ShutterOpen">LED on</Capability>
@@ -120,7 +120,7 @@
   <Channel Number="3">Tilt fine</Channel>
   <Channel Number="4">Color Wheel</Channel>
   <Channel Number="5">Gobos</Channel>
-  <Channel Number="6">Gobo Rotation</Channel>
+  <Channel Number="6" ActsOn="5">Gobo Rotation</Channel>
   <Channel Number="7">Rotating Prism/Gobo Macros</Channel>
   <Channel Number="8">Shutter &amp; Strobe</Channel>
   <Channel Number="9">Dimmer</Channel>
@@ -132,7 +132,7 @@
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Color Wheel</Channel>
   <Channel Number="3">Gobos</Channel>
-  <Channel Number="4">Gobo Rotation</Channel>
+  <Channel Number="4" ActsOn="3">Gobo Rotation</Channel>
   <Channel Number="5">Rotating Prism/Gobo Macros</Channel>
   <Channel Number="6">Shutter &amp; Strobe</Channel>
   <Channel Number="7">Dimmer</Channel>
@@ -153,7 +153,7 @@
   <Channel Number="3">Tilt fine</Channel>
   <Channel Number="4">Color Wheel</Channel>
   <Channel Number="5">Gobos</Channel>
-  <Channel Number="6">Gobo Rotation</Channel>
+  <Channel Number="6" ActsOn="5">Gobo Rotation</Channel>
   <Channel Number="7">Rotating Prism/Gobo Macros</Channel>
   <Channel Number="8">Shutter &amp; Strobe</Channel>
   <Channel Number="9">Dimmer</Channel>

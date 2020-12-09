@@ -773,9 +773,13 @@ void ContextManager::setFixturesPosition(QVector3D position)
 
     if (m_selectedFixtures.count() == 1)
     {
-        quint32 fxID = FixtureUtils::itemFixtureID(m_selectedFixtures.first());
-        quint16 headIndex = FixtureUtils::itemHeadIndex(m_selectedFixtures.first());
-        quint16 linkedIndex = FixtureUtils::itemLinkedIndex(m_selectedFixtures.first());
+        quint32 itemID = m_selectedFixtures.first();
+        quint32 fxID = FixtureUtils::itemFixtureID(itemID);
+        quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
+        quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+        QVector3D currPos = m_monProps->fixturePosition(fxID, headIndex, linkedIndex);
+
+        Tardis::instance()->enqueueAction(Tardis::FixtureSetPosition, itemID, QVariant(currPos), QVariant(position));
 
         // absolute position change
         m_monProps->setFixturePosition(fxID, headIndex, linkedIndex, position);
@@ -790,8 +794,10 @@ void ContextManager::setFixturesPosition(QVector3D position)
             quint32 fxID = FixtureUtils::itemFixtureID(itemID);
             quint16 headIndex = FixtureUtils::itemHeadIndex(itemID);
             quint16 linkedIndex = FixtureUtils::itemLinkedIndex(itemID);
+            QVector3D currPos = m_monProps->fixturePosition(fxID, headIndex, linkedIndex);
+            QVector3D newPos = currPos + position;
+            Tardis::instance()->enqueueAction(Tardis::FixtureSetPosition, itemID, QVariant(currPos), QVariant(newPos));
 
-            QVector3D newPos = m_monProps->fixturePosition(fxID, headIndex, linkedIndex) + position;
             m_monProps->setFixturePosition(fxID, headIndex, linkedIndex, newPos);
             if (m_3DView->isEnabled())
                 m_3DView->updateFixturePosition(itemID, newPos);

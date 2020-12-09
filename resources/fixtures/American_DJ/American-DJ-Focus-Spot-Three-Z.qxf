@@ -23,9 +23,9 @@
   <Capability Min="50" Max="56" Preset="ColorMacro" Res1="#8080ff">Light blue</Capability>
   <Capability Min="57" Max="63" Preset="ColorMacro" Res1="#ff55ff">Pink</Capability>
   <Capability Min="64" Max="127" Preset="GoboMacro" Res1="Others/rainbow.png">Color mixing</Capability>
-  <Capability Min="128" Max="189" Preset="GoboMacro" Res1="Others/rainbow.png">Counter clockwise rotation fast - slow</Capability>
+  <Capability Min="128" Max="189" Preset="RotationCounterClockwiseFastToSlow">Counter clockwise rotation fast - slow</Capability>
   <Capability Min="190" Max="193" Preset="RotationStop">Stop</Capability>
-  <Capability Min="194" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Clockwise rotation slow - fast</Capability>
+  <Capability Min="194" Max="255" Preset="RotationClockwiseSlowToFast">Clockwise rotation slow - fast</Capability>
  </Channel>
  <Channel Name="Gobos (Static)">
   <Group Byte="0">Gobo</Group>
@@ -51,13 +51,13 @@
  <Channel Name="Gobos (Rotating)">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="9" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
-  <Capability Min="10" Max="18" Preset="GoboRotatingMacro" Res1="ClayPaky/gobo00052.svg">Gobo 1</Capability>
-  <Capability Min="19" Max="27" Preset="GoboRotatingMacro" Res1="Others/gobo00025.svg">Gobo 2</Capability>
-  <Capability Min="28" Max="36" Preset="GoboRotatingMacro" Res1="Chauvet/gobo00049.svg">Gobo 3</Capability>
-  <Capability Min="37" Max="45" Preset="GoboRotatingMacro" Res1="SGM/gobo00058.png">Gobo 4</Capability>
-  <Capability Min="46" Max="54" Preset="GoboRotatingMacro" Res1="SGM/gobo00027.svg">Gobo 5</Capability>
-  <Capability Min="55" Max="63" Preset="GoboRotatingMacro" Res1="SGM/gobo00035.png">Gobo 6</Capability>
-  <Capability Min="64" Max="73" Preset="GoboRotatingMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="10" Max="18" Preset="GoboMacro" Res1="ClayPaky/gobo00052.svg">Gobo 1</Capability>
+  <Capability Min="19" Max="27" Preset="GoboMacro" Res1="Others/gobo00025.svg">Gobo 2</Capability>
+  <Capability Min="28" Max="36" Preset="GoboMacro" Res1="Chauvet/gobo00049.svg">Gobo 3</Capability>
+  <Capability Min="37" Max="45" Preset="GoboMacro" Res1="SGM/gobo00058.png">Gobo 4</Capability>
+  <Capability Min="46" Max="54" Preset="GoboMacro" Res1="SGM/gobo00027.svg">Gobo 5</Capability>
+  <Capability Min="55" Max="63" Preset="GoboMacro" Res1="SGM/gobo00035.png">Gobo 6</Capability>
+  <Capability Min="64" Max="73" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="74" Max="82" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00052.svg">Gobo 1 shake</Capability>
   <Capability Min="83" Max="91" Preset="GoboShakeMacro" Res1="Others/gobo00025.svg">Gobo 2 shake</Capability>
   <Capability Min="92" Max="100" Preset="GoboShakeMacro" Res1="Chauvet/gobo00049.svg">Gobo 3 shake</Capability>
@@ -163,7 +163,7 @@
   <Channel Number="4">Gobos (Rotating)</Channel>
   <Channel Number="5" ActsOn="4">Gobo Wheel 2 Gobo Rotation</Channel>
   <Channel Number="6">Prism</Channel>
-  <Channel Number="7">Prism Rotation</Channel>
+  <Channel Number="7" ActsOn="6">Prism Rotation</Channel>
   <Channel Number="8">Strobe/Shutter</Channel>
   <Channel Number="9">Master Dimmer</Channel>
   <Channel Number="10">Focus</Channel>

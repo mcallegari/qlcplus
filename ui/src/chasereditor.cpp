@@ -1152,6 +1152,7 @@ void ChaserEditor::slotTestPreviousClicked()
     action.m_action = ChaserPreviousStep;
     action.m_masterIntensity = 1.0;
     action.m_stepIntensity = 1.0;
+    action.m_fadeMode = Chaser::FromFunction;
     m_chaser->setAction(action);
 }
 
@@ -1161,6 +1162,7 @@ void ChaserEditor::slotTestNextClicked()
     action.m_action = ChaserNextStep;
     action.m_masterIntensity = 1.0;
     action.m_stepIntensity = 1.0;
+    action.m_fadeMode = Chaser::FromFunction;
     m_chaser->setAction(action);
 }
 

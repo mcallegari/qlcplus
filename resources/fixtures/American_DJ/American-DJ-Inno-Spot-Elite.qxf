@@ -31,13 +31,13 @@
  <Channel Name="Gobo Wheel">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="7" Preset="GoboMacro" Res1="Others/open.svg">Spot</Capability>
-  <Capability Min="8" Max="15" Preset="GoboRotatingMacro" Res1="">Gobo 1</Capability>
-  <Capability Min="16" Max="23" Preset="GoboRotatingMacro" Res1="">Gobo 2</Capability>
-  <Capability Min="24" Max="31" Preset="GoboRotatingMacro" Res1="">Gobo 3</Capability>
-  <Capability Min="32" Max="39" Preset="GoboRotatingMacro" Res1="">Gobo 4</Capability>
-  <Capability Min="40" Max="47" Preset="GoboRotatingMacro" Res1="">Gobo 5</Capability>
-  <Capability Min="48" Max="55" Preset="GoboRotatingMacro" Res1="">Gobo 6</Capability>
-  <Capability Min="56" Max="63" Preset="GoboRotatingMacro" Res1="">Gobo 7</Capability>
+  <Capability Min="8" Max="15" Preset="GoboMacro" Res1="">Gobo 1</Capability>
+  <Capability Min="16" Max="23" Preset="GoboMacro" Res1="">Gobo 2</Capability>
+  <Capability Min="24" Max="31" Preset="GoboMacro" Res1="">Gobo 3</Capability>
+  <Capability Min="32" Max="39" Preset="GoboMacro" Res1="">Gobo 4</Capability>
+  <Capability Min="40" Max="47" Preset="GoboMacro" Res1="">Gobo 5</Capability>
+  <Capability Min="48" Max="55" Preset="GoboMacro" Res1="">Gobo 6</Capability>
+  <Capability Min="56" Max="63" Preset="GoboMacro" Res1="">Gobo 7</Capability>
   <Capability Min="64" Max="73" Preset="GoboShakeMacro" Res1="">Gobo 1 shake</Capability>
   <Capability Min="74" Max="82" Preset="GoboShakeMacro" Res1="">Gobo 2 shake</Capability>
   <Capability Min="83" Max="91" Preset="GoboShakeMacro" Res1="">Gobo 3 shake</Capability>

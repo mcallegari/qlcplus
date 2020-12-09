@@ -29,12 +29,12 @@
  <Channel Name="Gobo Wheel">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="9" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
-  <Capability Min="10" Max="18" Preset="GoboRotatingMacro" Res1="GLP/gobo00010.svg">Gobo 1</Capability>
-  <Capability Min="19" Max="27" Preset="GoboRotatingMacro" Res1="Others/gobo00042.svg">Gobo 2</Capability>
-  <Capability Min="28" Max="36" Preset="GoboRotatingMacro" Res1="Chauvet/gobo00001.svg">Gobo 3</Capability>
-  <Capability Min="37" Max="45" Preset="GoboRotatingMacro" Res1="Robe/gobo00035.svg">Gobo 4</Capability>
-  <Capability Min="46" Max="54" Preset="GoboRotatingMacro" Res1="Chauvet/gobo00008.svg">Gobo 5</Capability>
-  <Capability Min="55" Max="63" Preset="GoboRotatingMacro" Res1="Chauvet/gobo00018.svg">Gobo 6</Capability>
+  <Capability Min="10" Max="18" Preset="GoboMacro" Res1="GLP/gobo00010.svg">Gobo 1</Capability>
+  <Capability Min="19" Max="27" Preset="GoboMacro" Res1="Others/gobo00042.svg">Gobo 2</Capability>
+  <Capability Min="28" Max="36" Preset="GoboMacro" Res1="Chauvet/gobo00001.svg">Gobo 3</Capability>
+  <Capability Min="37" Max="45" Preset="GoboMacro" Res1="Robe/gobo00035.svg">Gobo 4</Capability>
+  <Capability Min="46" Max="54" Preset="GoboMacro" Res1="Chauvet/gobo00008.svg">Gobo 5</Capability>
+  <Capability Min="55" Max="63" Preset="GoboMacro" Res1="Chauvet/gobo00018.svg">Gobo 6</Capability>
   <Capability Min="64" Max="74" Preset="GoboShakeMacro" Res1="GLP/gobo00010.svg">Gobo 1 Shake</Capability>
   <Capability Min="75" Max="85" Preset="GoboShakeMacro" Res1="Others/gobo00042.svg">Gobo 2 Shake</Capability>
   <Capability Min="86" Max="95" Preset="GoboShakeMacro" Res1="Chauvet/gobo00001.svg">Gobo 3 Shake</Capability>
@@ -96,7 +96,7 @@
   <Channel Number="2">Strobe</Channel>
   <Channel Number="3">Color Wheel</Channel>
   <Channel Number="4">Gobo Wheel</Channel>
-  <Channel Number="5">Gobo Rotation</Channel>
+  <Channel Number="5" ActsOn="4">Gobo Rotation</Channel>
   <Channel Number="6">Dimmer</Channel>
   <Channel Number="7">Reset / Blackout</Channel>
  </Mode>

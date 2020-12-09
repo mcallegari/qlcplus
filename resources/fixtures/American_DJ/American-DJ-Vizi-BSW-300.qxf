@@ -76,13 +76,13 @@
  <Channel Name="Gobo Wheel 1 (Glass Gobos)">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="10" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
-  <Capability Min="11" Max="21" Preset="GoboRotatingMacro" Res1="Chauvet/gobo00036.svg">Gobo 1</Capability>
-  <Capability Min="22" Max="32" Preset="GoboRotatingMacro" Res1="Chauvet/gobo00009.svg">Gobo 2</Capability>
-  <Capability Min="33" Max="43" Preset="GoboRotatingMacro" Res1="Others/gobo00055.png">Gobo 3</Capability>
-  <Capability Min="44" Max="54" Preset="GoboRotatingMacro" Res1="GLP/gobo00009.png">Gobo 4</Capability>
-  <Capability Min="55" Max="65" Preset="GoboRotatingMacro" Res1="Chauvet/gobo00065.svg">Gobo 5</Capability>
-  <Capability Min="66" Max="76" Preset="GoboRotatingMacro" Res1="Chauvet/gobo00003.svg">Gobo 6</Capability>
-  <Capability Min="77" Max="87" Preset="GoboRotatingMacro" Res1="Chauvet/gobo00066.png">Gobo 7</Capability>
+  <Capability Min="11" Max="21" Preset="GoboMacro" Res1="Chauvet/gobo00036.svg">Gobo 1</Capability>
+  <Capability Min="22" Max="32" Preset="GoboMacro" Res1="Chauvet/gobo00009.svg">Gobo 2</Capability>
+  <Capability Min="33" Max="43" Preset="GoboMacro" Res1="Others/gobo00055.png">Gobo 3</Capability>
+  <Capability Min="44" Max="54" Preset="GoboMacro" Res1="GLP/gobo00009.png">Gobo 4</Capability>
+  <Capability Min="55" Max="65" Preset="GoboMacro" Res1="Chauvet/gobo00065.svg">Gobo 5</Capability>
+  <Capability Min="66" Max="76" Preset="GoboMacro" Res1="Chauvet/gobo00003.svg">Gobo 6</Capability>
+  <Capability Min="77" Max="87" Preset="GoboMacro" Res1="Chauvet/gobo00066.png">Gobo 7</Capability>
   <Capability Min="88" Max="127">Gobo Shake (Gobos 1-7)</Capability>
   <Capability Min="128" Max="189" Preset="RotationCounterClockwiseFastToSlow">Counter-Clockwise Rotation (Fast -&gt; Slow)</Capability>
   <Capability Min="190" Max="193" Preset="RotationStop">No Rotation</Capability>
@@ -196,7 +196,7 @@
   <Channel Number="7">Shutter</Channel>
   <Channel Number="8">Master Dimmer</Channel>
   <Channel Number="9">Prism (6 Facet)</Channel>
-  <Channel Number="10">Prism Rotation</Channel>
+  <Channel Number="10" ActsOn="9">Prism Rotation</Channel>
   <Channel Number="11">Frost</Channel>
   <Channel Number="12">Focus</Channel>
   <Channel Number="13">Shows</Channel>

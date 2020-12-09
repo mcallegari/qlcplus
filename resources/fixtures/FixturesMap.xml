@@ -471,6 +471,7 @@
     <F n="Clay-Paky-Atlas" m="Atlas"/>
     <F n="Clay-Paky-CP-Color-400" m="CP Color 400"/>
     <F n="Clay-Paky-Glow-Up" m="Glow Up"/>
+    <F n="Clay-Paky-Mini-B" m="Mini-B"/>
     <F n="Clay-Paky-Mini-Scan-150" m="Mini Scan 150"/>
     <F n="Clay-Paky-Mini-Scan-300" m="Mini Scan 300"/>
     <F n="Clay-Paky-Mini-Scan-HPE" m="Mini Scan HPE"/>
@@ -570,6 +571,7 @@
   <M n="Equinox">
     <F n="Equinox-Domin8R-II" m="Domin8R II"/>
     <F n="Equinox-Gigabar" m="Gigabar"/>
+    <F n="Equinox-Microbar-Quad-System" m="Microbar Quad System"/>
     <F n="Equinox-Party-Par-LED-PAR-56" m="Party Par LED PAR 56"/>
     <F n="Equinox-Photon" m="Photon"/>
     <F n="Equinox-Quad-Pix-Batten" m="Quad Pix Batten"/>
@@ -615,6 +617,7 @@
     <F n="Eurolite-LED-PARty-RGBW" m="LED PARty RGBW"/>
     <F n="Eurolite-LED-PMB-4-COB-RGB-30W-Bar" m="LED PMB-4 COB RGB 30W Bar"/>
     <F n="Eurolite-LED-PMB-8-COB-RGB-30W" m="LED PMB-8 COB RGB 30W"/>
+    <F n="Eurolite-LED-PT-100-32-Pixel-DMX-Tube" m="LED PT-100/32 Pixel DMX Tube"/>
     <F n="Eurolite-LED-PT-100" m="LED PT-100"/>
     <F n="Eurolite-LED-SCY-100-RGBW-DMX" m="LED SCY-100 RGBW DMX"/>
     <F n="Eurolite-LED-SL-600" m="LED SL-600"/>
@@ -1393,6 +1396,7 @@
     <F n="Starway-EventKolor" m="EventKolor"/>
     <F n="Starway-FullKolor" m="FullKolor"/>
     <F n="Starway-MaxKolor-18" m="MaxKolor 18"/>
+    <F n="Starway-MaxSpot500" m="MaxSpot 500"/>
     <F n="Starway-MiniKolor" m="MiniKolor"/>
     <F n="Starway-Mode-B" m="Mode B"/>
     <F n="Starway-NanoKolor" m="NanoKolor"/>
@@ -1426,6 +1430,8 @@
   </M>
   <M n="UKing">
     <F n="UKing-4-Head-Beam-RGBW" m="4 Head Beam RGBW"/>
+    <F n="UKing-7x10W-Mini-Moving-Head" m="7x10W Mini Moving Head"/>
+    <F n="UKing-LED-Spot-Moving-Head-100W" m="LED Spot Moving Head 100W"/>
     <F n="UKing-Mini-RGBW-Moving-Head" m="Mini RGBW Moving Head"/>
     <F n="UKing-Par-36" m="Par 36"/>
   </M>
@@ -1442,6 +1448,7 @@
     <F n="Varytec-Easy-Move-LED-XS-Spot" m="Easy Move LED XS Spot"/>
     <F n="Varytec-Easy-Move-LED-XS-Wash" m="Easy Move LED XS Wash"/>
     <F n="Varytec-Easy-Scan-XT-Mini" m="Easy Scan XT Mini"/>
+    <F n="Varytec-Giga-Bar-Pix-8-RGB" m="Giga Bar Pix 8 RGB"/>
     <F n="Varytec-Gigabar-II" m="Gigabar II"/>
     <F n="Varytec-Hero-Wash-715-HEX-LED" m="Hero Wash 715 HEX LED"/>
     <F n="Varytec-LED-Easy-Move-Mini-Beam-Wash-RGBW" m="LED Easy Move Mini Beam + Wash RGBW"/>

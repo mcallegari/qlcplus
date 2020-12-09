@@ -116,7 +116,6 @@ QLCCapability::PresetType QLCCapability::presetType() const
             return DoubleColor;
         case GoboMacro:
         case GoboShakeMacro:
-        case GoboRotatingMacro:
         case GenericPicture:
             return Picture;
         default: return None;
