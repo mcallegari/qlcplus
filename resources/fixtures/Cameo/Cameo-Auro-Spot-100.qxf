@@ -75,7 +75,7 @@
   <Capability Min="111" Max="118" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
   <Capability Min="119" Max="125" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ffffff">Split Colour Magenta - Open</Capability>
   <Capability Min="126" Max="128" Preset="RotationStop">Colour Wheel Rotation Stop</Capability>
-  <Capability Min="129" Max="255" Preset="RotationCounterClockwiseSlowToFast">Colour Wheel Rotation Speed slow -&gt; fast</Capability>
+  <Capability Min="129" Max="255" Preset="RotationClockwiseSlowToFast">Colour Wheel Rotation Speed slow -&gt; fast</Capability>
  </Channel>
  <Channel Name="Gobo Wheel">
   <Group Byte="0">Gobo</Group>

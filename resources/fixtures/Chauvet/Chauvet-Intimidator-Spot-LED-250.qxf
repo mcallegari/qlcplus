@@ -55,7 +55,7 @@
   <Capability Min="104" Max="111" Preset="GoboShakeMacro" Res1="Chauvet/gobo00015.png">Gobo 2 shake, from slow to fast</Capability>
   <Capability Min="112" Max="119" Preset="GoboShakeMacro" Res1="Chauvet/gobo00014.svg">Gobo 1 shake, from slow to fast</Capability>
   <Capability Min="120" Max="127" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
-  <Capability Min="128" Max="191" Preset="RotationClockwiseFastToSlow">Cycle effect with increasing speed</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">Cycle effect with increasing speed</Capability>
   <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Reverse cycle effect with increasing speed</Capability>
  </Channel>
  <Channel Name="Gobo Rotation">

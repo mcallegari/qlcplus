@@ -208,7 +208,7 @@
   <Capability Min="106" Max="111" Preset="GoboShakeMacro" Res1="SGM/gobo00025.svg">Gobo 2 shake, increase speed</Capability>
   <Capability Min="112" Max="117" Preset="GoboShakeMacro" Res1="ClayPaky/gobo00022.svg">Gobo 1 shake, increase speed</Capability>
   <Capability Min="118" Max="127" Preset="GoboMacro" Res1="Others/open.svg">White</Capability>
-  <Capability Min="128" Max="191" Preset="RotationClockwiseFastToSlow">Rainbow with increase speed</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">Rainbow with increase speed</Capability>
   <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Reverse rainbow with increase speed</Capability>
  </Channel>
  <Channel Name="Shutter">

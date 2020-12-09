@@ -75,7 +75,7 @@
   <Capability Min="56" Max="63" Preset="GoboMacro" Res1="Others/gobo00008.svg">Gobo 8</Capability>
   <Capability Min="64" Max="120">Gobo shake 1–8, slow to fast</Capability>
   <Capability Min="121" Max="127">Open</Capability>
-  <Capability Min="128" Max="191" Preset="RotationClockwiseFastToSlow">Clockwise gobo scroll, slow to fast</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">Clockwise gobo scroll, slow to fast</Capability>
   <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counter-clockwise gobo scroll, slow to fast</Capability>
  </Channel>
  <Channel Name="Focus" Preset="BeamFocusNearFar"/>
