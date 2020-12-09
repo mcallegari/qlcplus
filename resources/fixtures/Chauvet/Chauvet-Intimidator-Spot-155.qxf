@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>4.12.4</Version>
   <Author>Robert Scheffler</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -36,8 +36,8 @@
   <Capability Min="106" Max="111" Preset="ColorDoubleMacro" Res1="#0000aa" Res2="#00ff00">Blue + light green</Capability>
   <Capability Min="112" Max="117" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffbf00">Light green + amber</Capability>
   <Capability Min="118" Max="127" Preset="ColorDoubleMacro" Res1="#ffbf00" Res2="#ffffff">Amber + white</Capability>
-  <Capability Min="128" Max="191" Preset="GoboMacro" Res1="Others/rainbow.png">Color cycling rainbow with increasing speed</Capability>
-  <Capability Min="192" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Reverse color cycling rainbow with increasing speed</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">Color cycling rainbow with increasing speed</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Reverse color cycling rainbow with increasing speed</Capability>
  </Channel>
  <Channel Name="Gobo Wheel">
   <Group Byte="0">Gobo</Group>
@@ -61,8 +61,8 @@
   <Capability Min="110" Max="115" Preset="GoboShakeMacro" Res1="Chauvet/gobo00046.png">Gobo 2 shake, from slow to fast</Capability>
   <Capability Min="116" Max="121" Preset="GoboShakeMacro" Res1="Chauvet/gobo00045.svg">Gobo 1 shake, from slow to fast</Capability>
   <Capability Min="122" Max="127" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
-  <Capability Min="128" Max="191" Preset="GoboMacro" Res1="Others/open.svg">Cycle effect with increasing speed</Capability>
-  <Capability Min="192" Max="255" Preset="GoboMacro" Res1="Others/open.svg">Reverse cycle effect with increasing speed</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">Cycle effect with increasing speed</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Reverse cycle effect with increasing speed</Capability>
  </Channel>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>

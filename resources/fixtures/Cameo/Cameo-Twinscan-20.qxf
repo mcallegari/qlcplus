@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.2 GIT</Version>
+  <Version>4.12.4</Version>
   <Author>István Király</Author>
  </Creator>
  <Manufacturer>Cameo</Manufacturer>
@@ -19,60 +19,60 @@
  <Channel Name="White 1" Preset="IntensityWhite"/>
  <Channel Name="Gobo 1">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="6">Open</Capability>
-  <Capability Min="7" Max="12">Gobo 1 Yellow</Capability>
-  <Capability Min="13" Max="18">Gobo 2 Green</Capability>
-  <Capability Min="19" Max="25">Gobo 3 Four color</Capability>
-  <Capability Min="26" Max="31">Gobo 4 Magenta</Capability>
-  <Capability Min="32" Max="37">Gobo 5 White</Capability>
-  <Capability Min="38" Max="44">Gobo 6 Blue</Capability>
-  <Capability Min="45" Max="50">Gobo 7 Orange</Capability>
-  <Capability Min="51" Max="56">Gobo 8 GreenYellow</Capability>
-  <Capability Min="57" Max="63">Gobo 9 Blue Green</Capability>
+  <Capability Min="0" Max="6" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="7" Max="12" Preset="GoboMacro" Res1="">Gobo 1 Yellow</Capability>
+  <Capability Min="13" Max="18" Preset="GoboMacro" Res1="">Gobo 2 Green</Capability>
+  <Capability Min="19" Max="25" Preset="GoboMacro" Res1="">Gobo 3 Four color</Capability>
+  <Capability Min="26" Max="31" Preset="GoboMacro" Res1="">Gobo 4 Magenta</Capability>
+  <Capability Min="32" Max="37" Preset="GoboMacro" Res1="">Gobo 5 White</Capability>
+  <Capability Min="38" Max="44" Preset="GoboMacro" Res1="">Gobo 6 Blue</Capability>
+  <Capability Min="45" Max="50" Preset="GoboMacro" Res1="">Gobo 7 Orange</Capability>
+  <Capability Min="51" Max="56" Preset="GoboMacro" Res1="">Gobo 8 GreenYellow</Capability>
+  <Capability Min="57" Max="63" Preset="GoboMacro" Res1="">Gobo 9 Blue Green</Capability>
   <Capability Min="64" Max="70">Spot Shake effect</Capability>
   <Capability Min="71" Max="127">Shake effects gobo 1..9</Capability>
-  <Capability Min="128" Max="189">Clockwise slow-fast</Capability>
-  <Capability Min="190" Max="193">Stop</Capability>
-  <Capability Min="194" Max="255">Counterclockwise slow-fast</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseSlowToFast">Clockwise slow-fast</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Stop</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counterclockwise slow-fast</Capability>
  </Channel>
  <Channel Name="Tilt 2" Preset="PositionTilt"/>
  <Channel Name="White 2" Preset="IntensityWhite"/>
  <Channel Name="Gobo 2">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="6">Open</Capability>
-  <Capability Min="7" Max="12">Gobo 1 Yellow</Capability>
-  <Capability Min="13" Max="18">Gobo 2 Green</Capability>
-  <Capability Min="19" Max="25">Gobo 3 Four color</Capability>
-  <Capability Min="26" Max="31">Gobo 4 Magenta</Capability>
-  <Capability Min="32" Max="37">Gobo 5 White</Capability>
-  <Capability Min="38" Max="44">Gobo 6 Blue</Capability>
-  <Capability Min="45" Max="50">Gobo 7 Orange</Capability>
-  <Capability Min="51" Max="56">Gobo 8 GreenYellow</Capability>
-  <Capability Min="57" Max="63">Gobo 9 Blue Green</Capability>
+  <Capability Min="0" Max="6" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="7" Max="12" Preset="GoboMacro" Res1="">Gobo 1 Yellow</Capability>
+  <Capability Min="13" Max="18" Preset="GoboMacro" Res1="">Gobo 2 Green</Capability>
+  <Capability Min="19" Max="25" Preset="GoboMacro" Res1="">Gobo 3 Four color</Capability>
+  <Capability Min="26" Max="31" Preset="GoboMacro" Res1="">Gobo 4 Magenta</Capability>
+  <Capability Min="32" Max="37" Preset="GoboMacro" Res1="">Gobo 5 White</Capability>
+  <Capability Min="38" Max="44" Preset="GoboMacro" Res1="">Gobo 6 Blue</Capability>
+  <Capability Min="45" Max="50" Preset="GoboMacro" Res1="">Gobo 7 Orange</Capability>
+  <Capability Min="51" Max="56" Preset="GoboMacro" Res1="">Gobo 8 GreenYellow</Capability>
+  <Capability Min="57" Max="63" Preset="GoboMacro" Res1="">Gobo 9 Blue Green</Capability>
   <Capability Min="64" Max="70">Spot Shake effect</Capability>
   <Capability Min="71" Max="127">Shake effects gobo 1..9</Capability>
-  <Capability Min="128" Max="189">Clockwise slow-fast</Capability>
-  <Capability Min="190" Max="193">Stop</Capability>
-  <Capability Min="194" Max="255">Counterclockwise slow-fast</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseSlowToFast">Clockwise slow-fast</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Stop</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counterclockwise slow-fast</Capability>
  </Channel>
  <Channel Name="Tilt-both" Preset="PositionTilt"/>
  <Channel Name="Gobo-both">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="6">Open</Capability>
-  <Capability Min="7" Max="12">Gobo 1 Yellow</Capability>
-  <Capability Min="13" Max="18">Gobo 2 Green</Capability>
-  <Capability Min="19" Max="25">Gobo 3 Four color</Capability>
-  <Capability Min="26" Max="31">Gobo 4 Magenta</Capability>
-  <Capability Min="32" Max="37">Gobo 5 White</Capability>
-  <Capability Min="38" Max="44">Gobo 6 Blue</Capability>
-  <Capability Min="45" Max="50">Gobo 7 Orange</Capability>
-  <Capability Min="51" Max="56">Gobo 8 GreenYellow</Capability>
-  <Capability Min="57" Max="63">Gobo 9 Blue Green</Capability>
+  <Capability Min="0" Max="6" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="7" Max="12" Preset="GoboMacro" Res1="">Gobo 1 Yellow</Capability>
+  <Capability Min="13" Max="18" Preset="GoboMacro" Res1="">Gobo 2 Green</Capability>
+  <Capability Min="19" Max="25" Preset="GoboMacro" Res1="">Gobo 3 Four color</Capability>
+  <Capability Min="26" Max="31" Preset="GoboMacro" Res1="">Gobo 4 Magenta</Capability>
+  <Capability Min="32" Max="37" Preset="GoboMacro" Res1="">Gobo 5 White</Capability>
+  <Capability Min="38" Max="44" Preset="GoboMacro" Res1="">Gobo 6 Blue</Capability>
+  <Capability Min="45" Max="50" Preset="GoboMacro" Res1="">Gobo 7 Orange</Capability>
+  <Capability Min="51" Max="56" Preset="GoboMacro" Res1="">Gobo 8 GreenYellow</Capability>
+  <Capability Min="57" Max="63" Preset="GoboMacro" Res1="">Gobo 9 Blue Green</Capability>
   <Capability Min="64" Max="70">Spot Shake effect</Capability>
   <Capability Min="71" Max="127">Shake effects gobo 1..9</Capability>
-  <Capability Min="128" Max="189">Clockwise slow-fast</Capability>
-  <Capability Min="190" Max="193">Stop</Capability>
-  <Capability Min="194" Max="255">Counterclockwise slow-fast</Capability>
+  <Capability Min="128" Max="189" Preset="RotationClockwiseSlowToFast">Clockwise slow-fast</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Stop</Capability>
+  <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counterclockwise slow-fast</Capability>
  </Channel>
  <Channel Name="Auto">
   <Group Byte="0">Effect</Group>

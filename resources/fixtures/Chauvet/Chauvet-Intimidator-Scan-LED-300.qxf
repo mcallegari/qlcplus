@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>4.12.4</Version>
   <Author>Craig Cudmore</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -31,8 +31,8 @@
   <Capability Min="106" Max="112" Preset="ColorDoubleMacro" Res1="#69ff0a" Res2="#ff492c">Kelly/red split</Capability>
   <Capability Min="113" Max="119" Preset="ColorDoubleMacro" Res1="#ff5c1b" Res2="#0100ff">Red/dark blue split</Capability>
   <Capability Min="120" Max="127" Preset="ColorDoubleMacro" Res1="#092fff" Res2="#ffffff">Dark blue/white split</Capability>
-  <Capability Min="128" Max="191">Rotate clockwise (slow to fast)</Capability>
-  <Capability Min="192" Max="255">Rotate counter-clockwise (slow to fast)</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">Rotate clockwise (slow to fast)</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Rotate counter-clockwise (slow to fast)</Capability>
  </Channel>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
@@ -60,14 +60,14 @@
   <Capability Min="104" Max="111" Preset="GoboShakeMacro" Res1="Chauvet/gobo00015.png">Gobo 2 shake (fast to slow)</Capability>
   <Capability Min="112" Max="119" Preset="GoboShakeMacro" Res1="Chauvet/gobo00014.svg">Gobo 1 shake (fast to slow)</Capability>
   <Capability Min="120" Max="127" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
-  <Capability Min="128" Max="191">Gobo scroll clockwise</Capability>
-  <Capability Min="192" Max="255">Gobo scroll counter-clockwise</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwise">Gobo scroll clockwise</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwise">Gobo scroll counter-clockwise</Capability>
  </Channel>
  <Channel Name="Gobo Rotation">
-  <Group Byte="0">Effect</Group>
-  <Capability Min="0" Max="15">Stop</Capability>
-  <Capability Min="16" Max="127">Rotate Counter Clockwise (slow to fast)</Capability>
-  <Capability Min="128" Max="239">Rotate Clockwise (slow to fast)</Capability>
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="15" Preset="RotationStop">Stop</Capability>
+  <Capability Min="16" Max="127" Preset="RotationCounterClockwiseSlowToFast">Rotate Counter Clockwise (slow to fast)</Capability>
+  <Capability Min="128" Max="239" Preset="RotationClockwiseSlowToFast">Rotate Clockwise (slow to fast)</Capability>
   <Capability Min="240" Max="255">Gobo Bounce</Capability>
  </Channel>
  <Channel Name="Prism">
@@ -122,7 +122,7 @@
   <Channel Number="3">Shutter</Channel>
   <Channel Number="4">Dimmer</Channel>
   <Channel Number="5">Gobo Wheel</Channel>
-  <Channel Number="6">Gobo Rotation</Channel>
+  <Channel Number="6" ActsOn="5">Gobo Rotation</Channel>
   <Channel Number="7">Prism</Channel>
   <Channel Number="8">Focus</Channel>
   <Channel Number="9">Function</Channel>
@@ -134,7 +134,7 @@
   <Channel Number="2">Color</Channel>
   <Channel Number="3">Shutter</Channel>
   <Channel Number="4">Gobo Wheel</Channel>
-  <Channel Number="5">Gobo Rotation</Channel>
+  <Channel Number="5" ActsOn="4">Gobo Rotation</Channel>
   <Channel Number="6">Prism</Channel>
   <Channel Number="7">Focus</Channel>
  </Mode>

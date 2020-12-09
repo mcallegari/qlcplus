@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>4.12.4</Version>
   <Author>Jasper Zevering</Author>
  </Creator>
  <Manufacturer>Cameo</Manufacturer>
@@ -23,33 +23,33 @@
   <Capability Min="84" Max="97" Preset="ColorMacro" Res1="#6cff00">Bright green</Capability>
   <Capability Min="98" Max="111" Preset="ColorMacro" Res1="#ffd100">Amber</Capability>
   <Capability Min="112" Max="127" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
-  <Capability Min="128" Max="191">Rainbow, direction of rotation forwards (speed slow - fast)</Capability>
-  <Capability Min="192" Max="255">Rainbow, direction of rotation forwards (speed slow - fast)</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">Rainbow, direction of rotation forwards (speed slow - fast)</Capability>
+  <Capability Min="192" Max="255" Preset="RotationClockwiseSlowToFast">Rainbow, direction of rotation forwards (speed slow - fast)</Capability>
  </Channel>
  <Channel Name="Gobo Wheel">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="9" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
-  <Capability Min="10" Max="19">Gobo 1</Capability>
-  <Capability Min="20" Max="29">Gobo 2</Capability>
-  <Capability Min="30" Max="39">Gobo 3</Capability>
-  <Capability Min="40" Max="49">Gobo 4</Capability>
-  <Capability Min="50" Max="59">Gobo 5</Capability>
-  <Capability Min="60" Max="69">Gobo 6</Capability>
-  <Capability Min="70" Max="79">Gobo 7</Capability>
-  <Capability Min="80" Max="99">Gobo 1 shake, (speed)</Capability>
-  <Capability Min="100" Max="119">Gobo 2 shake, (speed)</Capability>
-  <Capability Min="120" Max="139">Gobo 3 shake, (speed)</Capability>
-  <Capability Min="140" Max="159">Gobo 4 shake, (speed)</Capability>
-  <Capability Min="160" Max="179">Gobo 5 shake, (speed)</Capability>
-  <Capability Min="180" Max="199">Gobo 6 shake, (speed)</Capability>
-  <Capability Min="200" Max="219">Gobo 7 shake, (speed)</Capability>
-  <Capability Min="220" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Rotation (speed)</Capability>
+  <Capability Min="10" Max="19" Preset="GoboMacro" Res1="">Gobo 1</Capability>
+  <Capability Min="20" Max="29" Preset="GoboMacro" Res1="">Gobo 2</Capability>
+  <Capability Min="30" Max="39" Preset="GoboMacro" Res1="">Gobo 3</Capability>
+  <Capability Min="40" Max="49" Preset="GoboMacro" Res1="">Gobo 4</Capability>
+  <Capability Min="50" Max="59" Preset="GoboMacro" Res1="">Gobo 5</Capability>
+  <Capability Min="60" Max="69" Preset="GoboMacro" Res1="">Gobo 6</Capability>
+  <Capability Min="70" Max="79" Preset="GoboMacro" Res1="">Gobo 7</Capability>
+  <Capability Min="80" Max="99" Preset="GoboMacro" Res1="">Gobo 1 shake, (speed)</Capability>
+  <Capability Min="100" Max="119" Preset="GoboShakeMacro" Res1="">Gobo 2 shake, (speed)</Capability>
+  <Capability Min="120" Max="139" Preset="GoboShakeMacro" Res1="">Gobo 3 shake, (speed)</Capability>
+  <Capability Min="140" Max="159" Preset="GoboShakeMacro" Res1="">Gobo 4 shake, (speed)</Capability>
+  <Capability Min="160" Max="179" Preset="GoboShakeMacro" Res1="">Gobo 5 shake, (speed)</Capability>
+  <Capability Min="180" Max="199" Preset="GoboShakeMacro" Res1="">Gobo 6 shake, (speed)</Capability>
+  <Capability Min="200" Max="219" Preset="GoboShakeMacro" Res1="">Gobo 7 shake, (speed)</Capability>
+  <Capability Min="220" Max="255" Preset="RotationClockwiseSlowToFast">Rotation (speed)</Capability>
  </Channel>
  <Channel Name="Gobo Rotation">
   <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="127">Manual</Capability>
-  <Capability Min="128" Max="191">Right (speed slow - fast)</Capability>
-  <Capability Min="192" Max="255">Left (speed slow - fast)</Capability>
+  <Capability Min="0" Max="127" Preset="RotationIndexed">Manual</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">Right (speed slow - fast)</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Left (speed slow - fast)</Capability>
  </Channel>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
@@ -93,7 +93,7 @@
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Colour Wheel</Channel>
   <Channel Number="3">Gobo Wheel</Channel>
-  <Channel Number="4">Gobo Rotation</Channel>
+  <Channel Number="4" ActsOn="3">Gobo Rotation</Channel>
   <Channel Number="5">Shutter</Channel>
   <Channel Number="6">Focus</Channel>
   <Channel Number="7">Prism</Channel>
@@ -104,7 +104,7 @@
   <Channel Number="2">Pan/Tilt Motion</Channel>
   <Channel Number="3">Colour Wheel</Channel>
   <Channel Number="4">Gobo Wheel</Channel>
-  <Channel Number="5">Gobo Rotation</Channel>
+  <Channel Number="5" ActsOn="4">Gobo Rotation</Channel>
   <Channel Number="6">Shutter</Channel>
   <Channel Number="7">Dimmer</Channel>
   <Channel Number="8">Focus</Channel>
