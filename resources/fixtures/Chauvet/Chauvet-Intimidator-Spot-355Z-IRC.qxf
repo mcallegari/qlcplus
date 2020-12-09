@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>4.12.4</Version>
   <Author>Michael Clements</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -34,8 +34,8 @@
   <Capability Min="107" Max="113" Preset="ColorDoubleMacro" Res1="#00aa00" Res2="#ff5500">Kelly Green + Orange</Capability>
   <Capability Min="114" Max="120" Preset="ColorDoubleMacro" Res1="#ff5500" Res2="#0000ff">Orange + Dark Blue</Capability>
   <Capability Min="121" Max="127" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Dark Blue + White</Capability>
-  <Capability Min="128" Max="191" Preset="GoboMacro" Res1="Others/rainbow.png">Color cycling rainbow with increasing speed</Capability>
-  <Capability Min="192" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Reverse color cycling rainbow with increasing speed</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">Color cycling rainbow with increasing speed</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Reverse color cycling rainbow with increasing speed</Capability>
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
@@ -55,14 +55,14 @@
   <Capability Min="104" Max="111" Preset="GoboShakeMacro" Res1="Others/gobo00058.png">Gobo 2 shake, slow to fast</Capability>
   <Capability Min="112" Max="119" Preset="GoboShakeMacro" Res1="Others/gobo00001.svg">Gobo 1 shake, slow to fast</Capability>
   <Capability Min="120" Max="127" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
-  <Capability Min="128" Max="191" Preset="GoboMacro" Res1="Others/open.svg">Cycle gobos, slow to fast</Capability>
-  <Capability Min="192" Max="255" Preset="GoboMacro" Res1="Others/open.svg">Reverse cycle gobos, slow to fast</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">Cycle gobos, slow to fast</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Reverse cycle gobos, slow to fast</Capability>
  </Channel>
  <Channel Name="Gobo Rotation">
-  <Group Byte="0">Speed</Group>
-  <Capability Min="0" Max="63">Index</Capability>
-  <Capability Min="64" Max="147">Rotate, slow to fast</Capability>
-  <Capability Min="148" Max="231">Reverse rotate, slow to fast</Capability>
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="63" Preset="RotationIndexed">Index</Capability>
+  <Capability Min="64" Max="147" Preset="RotationClockwiseSlowToFast">Rotate, slow to fast</Capability>
+  <Capability Min="148" Max="231" Preset="RotationCounterClockwiseSlowToFast">Reverse rotate, slow to fast</Capability>
   <Capability Min="232" Max="255">Gobo bounce</Capability>
  </Channel>
  <Channel Name="Shutter">
@@ -131,7 +131,7 @@
   <Channel Number="4">Pan/Tilt Speed (fast to slow)</Channel>
   <Channel Number="5">Color</Channel>
   <Channel Number="6">Gobo</Channel>
-  <Channel Number="7">Gobo Rotation</Channel>
+  <Channel Number="7" ActsOn="6">Gobo Rotation</Channel>
   <Channel Number="8">Prism</Channel>
   <Channel Number="9">Focus</Channel>
   <Channel Number="10">Dimmer</Channel>
@@ -145,7 +145,7 @@
   <Channel Number="1">Tilt coarse</Channel>
   <Channel Number="2">Color</Channel>
   <Channel Number="3">Gobo</Channel>
-  <Channel Number="4">Gobo Rotation</Channel>
+  <Channel Number="4" ActsOn="3">Gobo Rotation</Channel>
   <Channel Number="5">Prism</Channel>
   <Channel Number="6">Focus</Channel>
   <Channel Number="7">Shutter</Channel>

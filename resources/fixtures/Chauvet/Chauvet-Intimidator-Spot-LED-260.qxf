@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.2 GIT</Version>
+  <Version>4.12.4</Version>
   <Author>Peter Chave</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -50,11 +50,11 @@
   <Capability Min="112" Max="119" Preset="GoboShakeMacro" Res1="Chauvet/gobo00014.svg">Gobo 1 shake, slow to fast</Capability>
   <Capability Min="120" Max="127" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
   <Capability Min="128" Max="189" Preset="RotationClockwiseSlowToFast">Cycle effect, slow to fast</Capability>
-  <Capability Min="190" Max="193">Stop</Capability>
+  <Capability Min="190" Max="193" Preset="RotationStop">Stop</Capability>
   <Capability Min="194" Max="255" Preset="RotationCounterClockwiseSlowToFast">Reverse cycle effect, slow to fast</Capability>
  </Channel>
  <Channel Name="Gobo Rotation">
-  <Group Byte="0">Speed</Group>
+  <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="7" Preset="RotationStop">No function</Capability>
   <Capability Min="8" Max="119" Preset="RotationClockwiseSlowToFast">Gobo rotation, slow to fast</Capability>
   <Capability Min="120" Max="231" Preset="RotationCounterClockwiseSlowToFast">Reverse gobo rotation, slow to fast</Capability>
@@ -124,7 +124,7 @@
   <Channel Number="4">Pan/Tilt Speed</Channel>
   <Channel Number="5">Color</Channel>
   <Channel Number="6">Gobo</Channel>
-  <Channel Number="7">Gobo Rotation</Channel>
+  <Channel Number="7" ActsOn="6">Gobo Rotation</Channel>
   <Channel Number="8">Prism</Channel>
   <Channel Number="9">Focus</Channel>
   <Channel Number="10">Dimmer</Channel>
@@ -137,7 +137,7 @@
   <Channel Number="1">Tilt Coarse</Channel>
   <Channel Number="2">Color</Channel>
   <Channel Number="3">Gobo</Channel>
-  <Channel Number="4">Gobo Rotation</Channel>
+  <Channel Number="4" ActsOn="3">Gobo Rotation</Channel>
   <Channel Number="5">Prism</Channel>
   <Channel Number="6">Focus</Channel>
   <Channel Number="7">Strobe</Channel>
