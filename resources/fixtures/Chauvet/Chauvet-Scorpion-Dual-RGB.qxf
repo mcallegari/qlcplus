@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>4.12.4</Version>
   <Author>Ryan Morgan</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -28,7 +28,7 @@
   <Capability Min="239" Max="255" Preset="ColorMacro" Res1="#00ffff">Sound-active mode (cyan)</Capability>
  </Channel>
  <Channel Name="Pattern">
-  <Group Byte="0">Gobo</Group>
+  <Group Byte="0">Effect</Group>
   <Capability Min="0" Max="7">Circle</Capability>
   <Capability Min="8" Max="15">Dashed Circle</Capability>
   <Capability Min="16" Max="23">Triangle</Capability>
@@ -76,7 +76,7 @@
   <Capability Min="150" Max="174" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#1f52ff">Green &amp; Blue</Capability>
   <Capability Min="175" Max="199" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0549ff">Red &amp; Blue</Capability>
   <Capability Min="200" Max="224">Red/Green/Blue/Yellow/Magenta/Cyan</Capability>
-  <Capability Min="225" Max="255" Preset="GenericPicture" Res1="Others/rainbow.png">Color Roll</Capability>
+  <Capability Min="225" Max="255" Preset="RotationClockwise">Color Roll</Capability>
  </Channel>
  <Channel Name="Strobe">
   <Group Byte="0">Shutter</Group>

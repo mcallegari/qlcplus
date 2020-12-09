@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>4.12.4</Version>
   <Author>Tavon Markov</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -36,8 +36,8 @@
   <Capability Min="106" Max="111" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#55ff7f">Blue + Light Green</Capability>
   <Capability Min="112" Max="117" Preset="ColorDoubleMacro" Res1="#55ff7f" Res2="#ffaa00">Light Green + Amber</Capability>
   <Capability Min="118" Max="127" Preset="ColorDoubleMacro" Res1="#ffaa00" Res2="#ffffff">Amber + White</Capability>
-  <Capability Min="128" Max="191" Preset="GoboMacro" Res1="Others/rainbow.png">Color Cycle (Slow -&gt; Fast)</Capability>
-  <Capability Min="192" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Reverse Color Cycle (Slow -&gt; Fast)</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">Color Cycle (Slow -&gt; Fast)</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Reverse Color Cycle (Slow -&gt; Fast)</Capability>
  </Channel>
  <Channel Name="Shutter">
   <Group Byte="0">Shutter</Group>
@@ -69,8 +69,8 @@
   <Capability Min="110" Max="115" Preset="GoboShakeMacro" Res1="Chauvet/gobo00046.png">Gobo 2 Shake (Slow -&gt; Fast)</Capability>
   <Capability Min="116" Max="121" Preset="GoboShakeMacro" Res1="Chauvet/gobo00045.svg">Gobo 1 Shake (Slow -&gt; Fast)</Capability>
   <Capability Min="122" Max="127" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
-  <Capability Min="128" Max="191">Gobo Cycle (Slow -&gt; Fast)</Capability>
-  <Capability Min="192" Max="255">Reverse Gobo Cycle (Slow -&gt; Fast)</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">Gobo Cycle (Slow -&gt; Fast)</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Reverse Gobo Cycle (Slow -&gt; Fast)</Capability>
  </Channel>
  <Channel Name="Control Functions">
   <Group Byte="0">Maintenance</Group>
