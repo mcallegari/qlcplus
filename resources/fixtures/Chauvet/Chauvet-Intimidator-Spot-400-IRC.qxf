@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>4.12.4</Version>
   <Author>Robert Scheffler</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -32,8 +32,8 @@
   <Capability Min="104" Max="111" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ffff">Red + light blue</Capability>
   <Capability Min="112" Max="119" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#ff5500">Light blue + Orange red</Capability>
   <Capability Min="120" Max="127" Preset="ColorDoubleMacro" Res1="#ff5500" Res2="#ffffff">Orange red + white</Capability>
-  <Capability Min="128" Max="191" Preset="ColorMacro" Res1="#ffffff">Rainbow effect with increasing speed</Capability>
-  <Capability Min="192" Max="255" Preset="ColorMacro" Res1="#ffffff">Reverse rainbow effect with increasing speed</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">Rainbow effect with increasing speed</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Reverse rainbow effect with increasing speed</Capability>
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
@@ -53,12 +53,12 @@
   <Capability Min="104" Max="111" Preset="GoboShakeMacro" Res1="SGM/gobo00018.svg">Gobo 2 shake, from slow to fast</Capability>
   <Capability Min="112" Max="119" Preset="GoboShakeMacro" Res1="Robe/gobo00030.svg">Gobo 1 shake, from slow to fast</Capability>
   <Capability Min="120" Max="127" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
-  <Capability Min="128" Max="191" Preset="GoboMacro" Res1="Others/open.svg">Cycle effect with increasing speed</Capability>
-  <Capability Min="192" Max="255" Preset="GoboMacro" Res1="Others/open.svg">Reverse cycle effect with increasing speed</Capability>
+  <Capability Min="128" Max="191" Preset="RotationClockwiseSlowToFast">Cycle effect with increasing speed</Capability>
+  <Capability Min="192" Max="255" Preset="RotationCounterClockwiseSlowToFast">Reverse cycle effect with increasing speed</Capability>
  </Channel>
  <Channel Name="Gobo Rotation">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="63">Indexing</Capability>
+  <Capability Min="0" Max="63" Preset="RotationIndexed">Indexing</Capability>
   <Capability Min="64" Max="147" Preset="RotationClockwiseSlowToFast">Rotation with increasing speed</Capability>
   <Capability Min="148" Max="231" Preset="RotationCounterClockwiseSlowToFast">Reverse rotation with increasing speed</Capability>
   <Capability Min="232" Max="255">Boomerang with increasing speed</Capability>
@@ -129,7 +129,7 @@
   <Channel Number="4">Speed</Channel>
   <Channel Number="5">Color</Channel>
   <Channel Number="6">Gobo</Channel>
-  <Channel Number="7">Gobo Rotation</Channel>
+  <Channel Number="7" ActsOn="6">Gobo Rotation</Channel>
   <Channel Number="8">Prism</Channel>
   <Channel Number="9">Focus</Channel>
   <Channel Number="10">Dimmer</Channel>
@@ -142,7 +142,7 @@
   <Channel Number="1">Tilt</Channel>
   <Channel Number="2">Color</Channel>
   <Channel Number="3">Gobo</Channel>
-  <Channel Number="4">Gobo Rotation</Channel>
+  <Channel Number="4" ActsOn="3">Gobo Rotation</Channel>
   <Channel Number="5">Prism</Channel>
   <Channel Number="6">Focus</Channel>
   <Channel Number="7">Shutter</Channel>

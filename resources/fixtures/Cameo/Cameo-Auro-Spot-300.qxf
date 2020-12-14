@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.1</Version>
+  <Version>4.12.4</Version>
   <Author>Jannis Achstetter</Author>
  </Creator>
  <Manufacturer>Cameo</Manufacturer>
@@ -34,9 +34,9 @@
  <Channel Name="Reset">
   <Group Byte="0">Maintenance</Group>
   <Capability Min="0" Max="5">no function</Capability>
-  <Capability Min="6" Max="127">Reset Pan / Tilt</Capability>
-  <Capability Min="128" Max="191">Reset Effects (Prism, Gobo…)</Capability>
-  <Capability Min="192" Max="255">Reset All Functions</Capability>
+  <Capability Min="6" Max="127" Preset="ResetPanTilt">Reset Pan / Tilt</Capability>
+  <Capability Min="128" Max="191" Preset="ResetEffects">Reset Effects (Prism, Gobo…)</Capability>
+  <Capability Min="192" Max="255" Preset="ResetAll">Reset All Functions</Capability>
  </Channel>
  <Channel Name="Pan" Preset="PositionPan"/>
  <Channel Name="Pan fine" Preset="PositionPanFine"/>
@@ -56,7 +56,7 @@
  </Channel>
  <Channel Name="Colour Wheel">
   <Group Byte="0">Colour</Group>
-  <Capability Min="0" Max="5">Colour off (open)</Capability>
+  <Capability Min="0" Max="5" Preset="ColorMacro" Res1="#ffffff">Colour off (open)</Capability>
   <Capability Min="6" Max="10" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">Split Colour Open - Red</Capability>
   <Capability Min="11" Max="15" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
   <Capability Min="16" Max="20" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffaa00">Split Colour Red - Orange</Capability>
@@ -74,8 +74,8 @@
   <Capability Min="104" Max="110" Preset="ColorDoubleMacro" Res1="#aaaaff" Res2="#ff00ff">Split Colour Lavender - Magenta</Capability>
   <Capability Min="111" Max="118" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
   <Capability Min="119" Max="125" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ffffff">Split Colour Magenta - Open</Capability>
-  <Capability Min="126" Max="128">Colour Wheel Rotation Stop</Capability>
-  <Capability Min="129" Max="255">Colour Wheel Rotation Speed slow -&gt; fast</Capability>
+  <Capability Min="126" Max="128" Preset="RotationStop">Colour Wheel Rotation Stop</Capability>
+  <Capability Min="129" Max="255" Preset="RotationClockwiseSlowToFast">Colour Wheel Rotation Speed slow -&gt; fast</Capability>
  </Channel>
  <Channel Name="Gobo Wheel 1">
   <Group Byte="0">Gobo</Group>
@@ -139,7 +139,7 @@
  <Channel Name="Prism">
   <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="5" Preset="PrismEffectOff">Prism off</Capability>
-  <Capability Min="6" Max="10" Preset="PrismEffectOn">Prism in</Capability>
+  <Capability Min="6" Max="10" Preset="PrismEffectOn" Res1="3">Prism in</Capability>
   <Capability Min="11" Max="127" Preset="RotationIndexed">Prism Position 0° ... 360°</Capability>
   <Capability Min="128" Max="128" Preset="RotationStop">Prism Rotation Stop</Capability>
   <Capability Min="129" Max="191" Preset="RotationClockwiseSlowToFast">Prism Rotation, Slow -&gt; Fast, CW</Capability>
@@ -200,10 +200,10 @@
   <Channel Number="5">Strobe functions</Channel>
   <Channel Number="6">Colour Wheel</Channel>
   <Channel Number="7">Gobo Wheel 1</Channel>
-  <Channel Number="8">Gobo Wheel 1 Rotation</Channel>
-  <Channel Number="9">Gobo Wheel 1 Shake</Channel>
+  <Channel Number="8" ActsOn="7">Gobo Wheel 1 Rotation</Channel>
+  <Channel Number="9" ActsOn="7">Gobo Wheel 1 Shake</Channel>
   <Channel Number="10">Gobo Wheel 2</Channel>
-  <Channel Number="11">Gobo Wheel 2 Shake</Channel>
+  <Channel Number="11" ActsOn="10">Gobo Wheel 2 Shake</Channel>
   <Channel Number="12">Prism</Channel>
   <Channel Number="13">Focus</Channel>
   <Channel Number="14">Reset</Channel>
@@ -218,17 +218,17 @@
   <Channel Number="6">Strobe functions</Channel>
   <Channel Number="7">Colour Wheel</Channel>
   <Channel Number="8">Gobo Wheel 1</Channel>
-  <Channel Number="9">Gobo Wheel 1 Rotation</Channel>
-  <Channel Number="10">Gobo Wheel 1 Shake</Channel>
+  <Channel Number="9" ActsOn="8">Gobo Wheel 1 Rotation</Channel>
+  <Channel Number="10" ActsOn="8">Gobo Wheel 1 Shake</Channel>
   <Channel Number="11">Gobo Wheel 2</Channel>
-  <Channel Number="12">Gobo Wheel 2 Shake</Channel>
+  <Channel Number="12" ActsOn="11">Gobo Wheel 2 Shake</Channel>
   <Channel Number="13">Prism</Channel>
   <Channel Number="14">Focus</Channel>
   <Channel Number="15">Focus fine</Channel>
   <Channel Number="16">Auto Program</Channel>
-  <Channel Number="17">Auto Program Speed</Channel>
+  <Channel Number="17" ActsOn="16">Auto Program Speed</Channel>
   <Channel Number="18">Pan/Tilt Macro</Channel>
-  <Channel Number="19">Pan/Tilt Macro Speed</Channel>
+  <Channel Number="19" ActsOn="18">Pan/Tilt Macro Speed</Channel>
   <Channel Number="20">Set dimmer curve</Channel>
   <Channel Number="21">Pan/Tilt Speed</Channel>
   <Channel Number="22">Device settings</Channel>

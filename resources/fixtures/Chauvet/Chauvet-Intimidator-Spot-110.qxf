@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.2 GIT</Version>
+  <Version>4.12.4</Version>
   <Author>Lance Moore</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -40,14 +40,14 @@
  <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
  <Channel Name="Gobo Wheel">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="31">Open</Capability>
-  <Capability Min="32" Max="63">Gobo 1</Capability>
-  <Capability Min="64" Max="95">Gobo 2</Capability>
-  <Capability Min="96" Max="127">Gobo 3</Capability>
-  <Capability Min="128" Max="159">Gobo 4</Capability>
-  <Capability Min="160" Max="191">Gobo 5</Capability>
-  <Capability Min="192" Max="223">Gobo 6</Capability>
-  <Capability Min="224" Max="255">Gobo 7</Capability>
+  <Capability Min="0" Max="31" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="32" Max="63" Preset="GoboMacro" Res1="">Gobo 1</Capability>
+  <Capability Min="64" Max="95" Preset="GoboMacro" Res1="">Gobo 2</Capability>
+  <Capability Min="96" Max="127" Preset="GoboMacro" Res1="">Gobo 3</Capability>
+  <Capability Min="128" Max="159" Preset="GoboMacro" Res1="">Gobo 4</Capability>
+  <Capability Min="160" Max="191" Preset="GoboMacro" Res1="">Gobo 5</Capability>
+  <Capability Min="192" Max="223" Preset="GoboMacro" Res1="">Gobo 6</Capability>
+  <Capability Min="224" Max="255" Preset="GoboMacro" Res1="">Gobo 7</Capability>
  </Channel>
  <Channel Name="Function">
   <Group Byte="0">Effect</Group>

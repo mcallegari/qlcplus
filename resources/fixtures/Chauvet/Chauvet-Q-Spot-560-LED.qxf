@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>4.12.4</Version>
   <Author>Chris Laurie</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -30,7 +30,7 @@
   <Capability Min="160" Max="179" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ff00">Yellow / Green</Capability>
   <Capability Min="180" Max="199" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff0000">Green / Red</Capability>
   <Capability Min="200" Max="219" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red / White</Capability>
-  <Capability Min="220" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Rainbow / Linear Effect</Capability>
+  <Capability Min="220" Max="255" Preset="RotationClockwise">Rainbow / Linear Effect</Capability>
  </Channel>
  <Channel Name="Gobo Wheel 1">
   <Group Byte="0">Gobo</Group>
@@ -49,7 +49,7 @@
   <Capability Min="141" Max="155" Preset="GoboShakeMacro" Res1="Chauvet/gobo00003.svg">Shaking Gobo 3</Capability>
   <Capability Min="156" Max="170" Preset="GoboShakeMacro" Res1="Chauvet/gobo00002.svg">Shaking Gobo 2</Capability>
   <Capability Min="171" Max="185" Preset="GoboShakeMacro" Res1="Chauvet/gobo00001.svg">Shaking Gobo 1</Capability>
-  <Capability Min="186" Max="255">Flow effect</Capability>
+  <Capability Min="186" Max="255" Preset="RotationClockwise">Flow effect</Capability>
  </Channel>
  <Channel Name="Gobo Wheel 2">
   <Group Byte="0">Gobo</Group>
@@ -66,14 +66,14 @@
   <Capability Min="116" Max="130" Preset="GoboShakeMacro" Res1="Chauvet/gobo00010.svg">Shaking Gobo 3</Capability>
   <Capability Min="131" Max="145" Preset="GoboShakeMacro" Res1="Chauvet/gobo00009.svg">Shaking Gobo 2</Capability>
   <Capability Min="146" Max="160" Preset="GoboShakeMacro" Res1="Chauvet/gobo00008.svg">Shaking Gobo 1</Capability>
-  <Capability Min="161" Max="255">Flow effect</Capability>
+  <Capability Min="161" Max="255" Preset="RotationClockwise">Flow effect</Capability>
  </Channel>
  <Channel Name="Gobo Rotation">
   <Group Byte="0">Gobo</Group>
-  <Capability Min="0" Max="60">360° Indexing</Capability>
-  <Capability Min="61" Max="150">Rotation (slow-fast)</Capability>
+  <Capability Min="0" Max="60" Preset="RotationIndexed">360° Indexing</Capability>
+  <Capability Min="61" Max="150" Preset="RotationClockwiseSlowToFast">Rotation (slow-fast)</Capability>
   <Capability Min="151" Max="165">No Function</Capability>
-  <Capability Min="166" Max="255">Counter Rotation (slow-fast)</Capability>
+  <Capability Min="166" Max="255" Preset="RotationCounterClockwiseSlowToFast">Counter Rotation (slow-fast)</Capability>
  </Channel>
  <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
  <Channel Name="Prism Rotation">
@@ -164,9 +164,9 @@
   <Channel Number="5">Color Wheel</Channel>
   <Channel Number="6">Gobo Wheel 1</Channel>
   <Channel Number="7">Gobo Wheel 2</Channel>
-  <Channel Number="8">Gobo Rotation</Channel>
+  <Channel Number="8" ActsOn="7">Gobo Rotation</Channel>
   <Channel Number="9">Prism effects</Channel>
-  <Channel Number="10">Prism Rotation</Channel>
+  <Channel Number="10" ActsOn="9">Prism Rotation</Channel>
   <Channel Number="11">Iris</Channel>
   <Channel Number="12">Focus</Channel>
   <Channel Number="13">Focus Fine</Channel>
@@ -180,9 +180,9 @@
   <Channel Number="2">Color Wheel</Channel>
   <Channel Number="3">Gobo Wheel 1</Channel>
   <Channel Number="4">Gobo Wheel 2</Channel>
-  <Channel Number="5">Gobo Rotation</Channel>
+  <Channel Number="5" ActsOn="4">Gobo Rotation</Channel>
   <Channel Number="6">Prism effects</Channel>
-  <Channel Number="7">Prism Rotation</Channel>
+  <Channel Number="7" ActsOn="6">Prism Rotation</Channel>
   <Channel Number="8">Iris</Channel>
   <Channel Number="9">Focus</Channel>
   <Channel Number="10">Dimmer</Channel>

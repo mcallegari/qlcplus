@@ -3,7 +3,7 @@
 <FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.3 GIT</Version>
+  <Version>4.12.4</Version>
   <Author>Henning Borgen</Author>
  </Creator>
  <Manufacturer>Chauvet</Manufacturer>
@@ -32,8 +32,8 @@
   <Capability Min="121" Max="136" Preset="ColorDoubleMacro" Res1="#009140" Res2="#fff605">Green+Yellow</Capability>
   <Capability Min="137" Max="152" Preset="ColorDoubleMacro" Res1="#fff605" Res2="#ba697c">Yellow+Pink</Capability>
   <Capability Min="153" Max="170" Preset="ColorDoubleMacro" Res1="#ba697c" Res2="#2d1972">Pink+UV</Capability>
-  <Capability Min="171" Max="212" Preset="GoboMacro" Res1="Others/rainbow.png">Rotate Clockwise With Speed Increase</Capability>
-  <Capability Min="213" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Rotate CounterClockwise With Speed Increase</Capability>
+  <Capability Min="171" Max="212" Preset="RotationClockwiseSlowToFast">Rotate Clockwise With Speed Increase</Capability>
+  <Capability Min="213" Max="255" Preset="RotationCounterClockwiseSlowToFast">Rotate CounterClockwise With Speed Increase</Capability>
  </Channel>
  <Channel Name="Gobo">
   <Group Byte="0">Gobo</Group>
@@ -57,7 +57,7 @@
  <Channel Name="Gobo Rotation">
   <Group Byte="0">Gobo</Group>
   <Capability Min="0" Max="10" Preset="RotationStop">Stop</Capability>
-  <Capability Min="11" Max="127">Fixed Gobo Indexing</Capability>
+  <Capability Min="11" Max="127" Preset="RotationIndexed">Fixed Gobo Indexing</Capability>
   <Capability Min="128" Max="191" Preset="RotationCounterClockwiseFastToSlow">Rotate Counter-Clockwise (fast-slow)</Capability>
   <Capability Min="192" Max="255" Preset="RotationClockwiseSlowToFast">Rotate Clockwise (Slow-Fast)</Capability>
  </Channel>
@@ -142,7 +142,7 @@
   <Channel Number="4">Pan/Tilt Speed</Channel>
   <Channel Number="5">Color</Channel>
   <Channel Number="6">Gobo</Channel>
-  <Channel Number="7">Gobo Rotation</Channel>
+  <Channel Number="7" ActsOn="6">Gobo Rotation</Channel>
   <Channel Number="8">Shutter</Channel>
   <Channel Number="9">Dimmer</Channel>
   <Channel Number="10">Mode Function</Channel>
@@ -155,7 +155,7 @@
   <Channel Number="1">Tilt Coarse</Channel>
   <Channel Number="2">Color</Channel>
   <Channel Number="3">Gobo</Channel>
-  <Channel Number="4">Gobo Rotation</Channel>
+  <Channel Number="4" ActsOn="3">Gobo Rotation</Channel>
   <Channel Number="5">Shutter</Channel>
   <Channel Number="6">Dimmer</Channel>
   <Channel Number="7">Effect</Channel>
