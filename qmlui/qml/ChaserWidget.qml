@@ -394,14 +394,14 @@ Column
                 width = item.width
                 height = item.height
 
-                inputText = item.label
+                text = item.label
                 visible = true
                 selectAndFocus()
             }
 
-            onEnterPressed:
+            onAccepted:
             {
-                widgetRoot.noteTextChanged(editStepIndex, inputText)
+                widgetRoot.noteTextChanged(editStepIndex, text)
                 editStepIndex = -1
                 visible = false
             }

@@ -50,9 +50,9 @@ CustomPopupDialog
                 id: nameEdit
                 Layout.columnSpan: 2
                 Layout.fillWidth: true
-                nextTabItem: keyEdit
-                previousTabItem: keyEdit
-                inputText: hostname
+                KeyNavigation.tab: keyEdit
+                KeyNavigation.backtab: keyEdit
+                text: hostname
                 onTextChanged: networkManager.hostName = text
             }
 
@@ -69,8 +69,8 @@ CustomPopupDialog
                 Layout.fillWidth: true
                 echoMode: TextInput.Password
                 maximumLength: 8
-                nextTabItem: nameEdit
-                previousTabItem: nameEdit
+                KeyNavigation.tab: nameEdit
+                KeyNavigation.backtab: nameEdit
 
                 onTextChanged:
                 {

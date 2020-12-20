@@ -215,7 +215,7 @@ Rectangle
                             Layout.fillWidth: true
                             height: UISettings.listItemHeight
                             color: UISettings.bgMedium
-                            inputText: wObj ? wObj.caption : ""
+                            text: wObj ? wObj.caption : ""
 
                             onTextChanged:
                             {

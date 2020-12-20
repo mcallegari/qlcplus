@@ -74,7 +74,7 @@ Rectangle
                             CustomTextEdit
                             {
                                 Layout.fillWidth: true
-                                inputText: editor ? editor.manufacturer : ""
+                                text: editor ? editor.manufacturer : ""
                                 onTextChanged: if (editor) editor.manufacturer = text
                             }
 
@@ -83,7 +83,7 @@ Rectangle
                             CustomTextEdit
                             {
                                 Layout.fillWidth: true
-                                inputText: editor ? editor.model : ""
+                                text: editor ? editor.model : ""
                                 onTextChanged: if (editor) editor.model = text
                             }
 
@@ -121,7 +121,7 @@ Rectangle
                             CustomTextEdit
                             {
                                 Layout.fillWidth: true
-                                inputText: editor ? editor.author : ""
+                                text: editor ? editor.author : ""
                                 onTextChanged: if (editor) editor.author = text
                             }
                         }

@@ -297,23 +297,24 @@ GridLayout
             id: timeBox
             anchors.fill: parent
             //anchors.fill: parent
-            textAlignment: TextInput.AlignHCenter
+            horizontalAlignment: TextInput.AlignHCenter
             radius: 0
-            inputText: timeValueString
-            fontSize: btnFontSize
+            text: timeValueString
+            font.pixelSize: btnFontSize
 
-            onEnterPressed: updateTime(-1, inputText)
+            onAccepted: updateTime(-1, text)
+
             Keys.onTabPressed:
             {
-                updateTime(-1, inputText)
+                updateTime(-1, text)
                 toolRoot.tabPressed(true)
             }
             Keys.onBacktabPressed:
             {
-                updateTime(-1, inputText)
+                updateTime(-1, text)
                 toolRoot.tabPressed(false)
             }
-            onEscapePressed:
+            Keys.onEscapePressed:
             {
                 tapTimer.stop()
                 toolRoot.visible = false
