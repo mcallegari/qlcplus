@@ -51,7 +51,7 @@ CustomPopupDialog
                 Layout.columnSpan: 2
                 Layout.fillWidth: true
                 KeyNavigation.tab: keyEdit
-                KeyNavigation.backtab: keyEdit
+                KeyNavigation.backtab: startCheckBox
                 text: hostname
                 onTextChanged: networkManager.hostName = text
             }
@@ -69,7 +69,7 @@ CustomPopupDialog
                 Layout.fillWidth: true
                 echoMode: TextInput.Password
                 maximumLength: 8
-                KeyNavigation.tab: nameEdit
+                KeyNavigation.tab: startCheckBox
                 KeyNavigation.backtab: nameEdit
 
                 onTextChanged:
@@ -93,9 +93,12 @@ CustomPopupDialog
             }
             CustomCheckBox
             {
+                id: startCheckBox
                 implicitHeight: UISettings.listItemHeight
                 implicitWidth: height
                 Layout.columnSpan: 2
+                KeyNavigation.tab: nameEdit
+                KeyNavigation.backtab: keyEdit
             }
 
             // Row 4
