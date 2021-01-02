@@ -33,6 +33,10 @@ var testAlgo;
     // number of flakes on screen at one time (default)
     algo.presetflakes = 20;
     algo.properties.push("name:presetflakes|type:range|display:Number of Flakes (10-255)|values:10,255|write:setAmount|read:getAmount");
+    algo.windchill = 0;
+    algo.properties.push("name:windchill|type:list|display:Windchill|values:No,Yes|write:setWindchill|read:getWindchill");
+    algo.reverse = 0;
+    algo.properties.push("name:reverse|type:list|display:Bottom-to-top|values:No,Yes|write:setReverse|read:getReverse");
     // Multicolor flakes off defaultly (1 = flakes will be randomly colored)
     algo.multiColor = 0;
     algo.properties.push("name:multiColor|type:list|display:MultiColored flakes?|values:No,Yes|write:setMulti|read:getMulti");
@@ -42,6 +46,7 @@ var testAlgo;
     var flakes = new Array(255);
     // set flake color to user chosen color at the start
     var zcolor = algo.presetColor;
+    algo.speedX = 0;
 
     algo.setAmount = function (_amount) {
       algo.presetflakes = _amount;
@@ -65,6 +70,46 @@ var testAlgo;
     algo.getMulti = function()
     {
       if (algo.multiColor === 1) {
+        return "Yes";
+      } else {
+        return "No";
+      }
+    };
+
+    algo.setWindchill = function(_wind)
+    {
+      if (_wind === "Yes") {
+        // Random Colored flakes
+        algo.windchill = 1;
+      } else {
+        // flakes are chosen color
+        algo.windchill = 0;
+      }
+    };
+
+    algo.getWindchill = function()
+    {
+      if (algo.windchill === 1) {
+        return "Yes";
+      } else {
+        return "No";
+      }
+    };
+
+    algo.setReverse = function(_reverse)
+    {
+      if (_reverse === "Yes") {
+        // Random Colored flakes
+        algo.reverse = 1;
+      } else {
+        // flakes are chosen color
+        algo.reverse = 0;
+      }
+    };
+
+    algo.getReverse = function()
+    {
+      if (algo.reverse === 1) {
         return "Yes";
       } else {
         return "No";
@@ -100,10 +145,29 @@ var testAlgo;
         return zColor;
       }
     }
-    
+
+    // update x speed of flakes
+    function updateFlakeSpeedx(currentSpeed) {
+      if (algo.windchill === 1) {
+        var r = Math.random() - 0.5;
+        var factor = Math.sqrt(Math.abs(r));
+        if (r < 0) {
+          factor = -1 * factor;
+        }
+        return Math.min(0.4, Math.max(-0.4, currentSpeed + factor));
+      } else {
+        return 0;
+      }
+    }
+
     // get y speed of flake
     function getFlakeSpeedy(depth) {
-      return (1 / (depth + 1));
+      var s = (1 / (depth + 1))
+      if (algo.reverse === 0) {
+        return s;
+      } else {
+        return (-1 * s);
+      }
     }
 
     // initialize the flakes and load random positions
@@ -137,14 +201,20 @@ var testAlgo;
           map[y][x] = 0;
         }
       }
+      
+      algo.speedX = updateFlakeSpeedx(algo.speedX);
 
       // Start moving the flakes by looping through this routine,
       // addressing each flake individually (i is the flake number)
       for (var i = 0; i < algo.presetflakes; i++) {
         // create a new position for the flake
-        if (flakes[i].y > height) {
+        if (flakes[i].y > height || flakes[i].y < 0) {
           flakes[i].x = getNewNumberRange(0, width - 1);
-          flakes[i].y = 0;
+          if (algo.reverse === 0) {
+            flakes[i].y = 0;
+          } else {
+            flakes[i].y = height - 1;
+          }
           flakes[i].z = getNewNumberRange(0, depth - 1);
           flakes[i].c = getNewColor(algo.multiColor,rgb);
           flakes[i].s = getFlakeSpeedy(flakes[i].z);
@@ -190,9 +260,10 @@ var testAlgo;
 
           // store the flake's combined color in the map
           map[py][px] = pRGB;
-        }        // new x position of flake is static so far.
+        }
         
-        // new y position of flake
+        // new position of flake
+        flakes[i].x += algo.speedX;
         flakes[i].y += flakes[i].s;
       }
       // return the map back to QLC+
