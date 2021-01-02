@@ -104,9 +104,9 @@ var testAlgo;
 
     // Combine RGB color from color channels
     function mergeRgb(r, g, b) {
-      r = Math.min(255, r);
-      g = Math.min(255, g);
-      b = Math.min(255, b);
+      r = Math.min(255, Math.round(r));
+      g = Math.min(255, Math.round(g));
+      b = Math.min(255, Math.round(b));
       return ((r << 16) + (g << 8) + b);
     }
     
