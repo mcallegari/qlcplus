@@ -140,9 +140,9 @@
  <Channel Name="Prism Wheel 1">
   <Group Byte="0">Prism</Group>
   <Capability Min="0" Max="5" Preset="PrismEffectOff">Prism Off (Open)</Capability>
-  <Capability Min="6" Max="127" Preset="PrismEffectOn" Res1="0">Prism 1</Capability>
-  <Capability Min="128" Max="191" Preset="PrismEffectOn" Res1="0">Prism 2</Capability>
-  <Capability Min="192" Max="255" Preset="PrismEffectOn" Res1="0">Prism 3</Capability>
+  <Capability Min="6" Max="127" Preset="PrismEffectOn" Res1="3">Prism 1</Capability>
+  <Capability Min="128" Max="191" Preset="PrismEffectOn" Res1="5">Prism 2</Capability>
+  <Capability Min="192" Max="255" Preset="PrismEffectOn" Res1="8">Prism 3</Capability>
  </Channel>
  <Channel Name="Prism Wheel 1 Rotation">
   <Group Byte="0">Prism</Group>
