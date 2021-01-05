@@ -61,6 +61,12 @@ class Scene : public Function, public DMXSource
      * Initialization
      *********************************************************************/
 public:
+    enum SceneAttr
+    {
+        Intensity = Function::Intensity,
+        ParentIntensity
+    };
+
     /**
      * Construct a new scene function, with given parent object. If the
      * parent is not a Doc* object, the debug build asserts.
@@ -76,8 +82,6 @@ public:
 
     /** @reimp */
     QIcon getIcon() const;
-
-    void setChildrenFlag(bool flag);
 
     /** @reimp */
     quint32 totalDuration();
@@ -129,6 +133,9 @@ public:
      */
     QList <SceneValue> values() const;
 
+    /** @reimp */
+    QList<quint32> components();
+
     /**
      * Try to retrieve a RGB/CMY color if the Scene has RGB/CMY channels set.
      * A fixture ID can be specified to retrieve a single fixture color.
@@ -140,6 +147,9 @@ public:
      * Clear all values
      */
     void clear();
+
+signals:
+    void valueChanged(SceneValue scv);
 
 protected:
     QMap <SceneValue, uchar> m_values;
@@ -193,6 +203,28 @@ private:
     QList<quint32> m_fixtures;
 
     /*********************************************************************
+     * Fixture Groups
+     *********************************************************************/
+public:
+    void addFixtureGroup(quint32 id);
+    bool removeFixtureGroup(quint32 id);
+    QList<quint32> fixtureGroups() const;
+
+private:
+    QList<quint32> m_fixtureGroups;
+
+    /*********************************************************************
+     * Palettes
+     *********************************************************************/
+public:
+    void addPalette(quint32 id);
+    bool removePalette(quint32 id);
+    QList<quint32> palettes() const;
+
+private:
+    QList<quint32> m_palettes;
+
+    /*********************************************************************
      * Load & Save
      *********************************************************************/
 public:
@@ -213,47 +245,51 @@ private:
      *********************************************************************/
 public:
     /** @reimp */
-    void flash(MasterTimer* timer);
+    void flash(MasterTimer *timer);
 
     /** @reimp */
-    void unFlash(MasterTimer* timer);
+    void unFlash(MasterTimer *timer);
 
     /** @reimp from DMXSource */
-    void writeDMX(MasterTimer* timer, QList<Universe*> ua);
+    void writeDMX(MasterTimer *timer, QList<Universe*> ua);
 
     /*********************************************************************
      * Running
      *********************************************************************/
 public:
     /** @reimp */
-    void preRun(MasterTimer* timer);
+    void write(MasterTimer *timer, QList<Universe*> ua);
 
     /** @reimp */
-    void write(MasterTimer* timer, QList<Universe*> ua);
-
-    /** @reimp */
-    void postRun(MasterTimer* timer, QList<Universe*> ua);
+    void postRun(MasterTimer *timer, QList<Universe*> ua);
 
 private:
-    /** Insert starting values to $fc, either from $timer->fader() or $ua */
-    void insertStartValue(FadeChannel& fc, const MasterTimer* timer, const QList<Universe *> ua);
-
-private:
-    GenericFader* m_fader;
+    /** Internal helper method to abtract Scene value processing */
+    void processValue(MasterTimer *timer, QList<Universe*> ua, uint fadeIn, SceneValue &scv);
 
     /*********************************************************************
      * Attributes
      *********************************************************************/
 public:
     /** @reimp */
-    void adjustAttribute(qreal fraction, int attributeIndex);
+    int adjustAttribute(qreal fraction, int attributeId);
 
     /*************************************************************************
-     * Blend mode
+     * Blending
      *************************************************************************/
 public:
     /** @reimp */
     void setBlendMode(Universe::BlendMode mode);
+
+    /** Get/Set the ID of a Function to blend from.
+     *  When preparing the faders of this Scene,
+     *  blend function ID will be taken into account
+     *  to blend channels from a value to another */
+    quint32 blendFunctionID() const;
+    void setBlendFunctionID(quint32 fid);
+
+protected:
+    quint32 m_blendFunctionID;
 };
 
 /** @} */

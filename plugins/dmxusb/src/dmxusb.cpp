@@ -196,15 +196,15 @@ void DMXUSB::writeUniverse(quint32 universe, quint32 output, const QByteArray &d
 
 bool DMXUSB::openInput(quint32 input, quint32 universe)
 {
-    Q_UNUSED(universe)
     if (input < quint32(m_inputs.size()))
     {
         DMXUSBWidget *widget = m_inputs.at(input);
         if (widget->type() == DMXUSBWidget::ProRXTX ||
             widget->type() == DMXUSBWidget::ProMk2 ||
+            widget->type() == DMXUSBWidget::OpenRX ||
             widget->type() == DMXUSBWidget::UltraPro)
         {
-            EnttecDMXUSBPro* pro = (EnttecDMXUSBPro*) widget;
+            EnttecDMXUSBPro *pro = static_cast<EnttecDMXUSBPro*>(widget);
             connect(pro, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)),
                     this, SIGNAL(valueChanged(quint32,quint32,quint32,uchar)));
         }
@@ -270,6 +270,8 @@ QString DMXUSB::inputInfo(quint32 input)
         str += QString("<H3>%1</H3>").arg(inputs()[input]);
         str += QString("<P>");
         str += tr("Device is operating correctly.");
+        str += QString("<BR>");
+        str += tr("Driver in use: %1").arg(m_inputs[input]->interfaceTypeString());
         str += QString("</P>");
         QString add = m_inputs[input]->additionalInfo();
         if (add.isEmpty() == false)

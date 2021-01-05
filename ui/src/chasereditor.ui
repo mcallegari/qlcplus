@@ -574,7 +574,7 @@
      </property>
     </widget>
    </item>
-   <item row="7" column="2" rowspan="5">
+   <item row="9" column="2" rowspan="5">
     <spacer>
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -760,6 +760,30 @@
      <property name="icon">
       <iconset resource="qlcui.qrc">
        <normaloff>:/up.png</normaloff>:/up.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>24</width>
+       <height>24</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="2">
+    <widget class="Line" name="line">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="2">
+    <widget class="QToolButton" name="m_shuffle">
+     <property name="toolTip">
+      <string>Shuffle steps</string>
+     </property>
+     <property name="icon">
+      <iconset resource="qlcui.qrc">
+       <normaloff>:/random.png</normaloff>:/random.png</iconset>
      </property>
      <property name="iconSize">
       <size>

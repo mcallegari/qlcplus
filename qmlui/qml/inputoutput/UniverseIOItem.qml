@@ -19,7 +19,7 @@
 
 import QtQuick 2.0
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "."
 
 Rectangle
@@ -27,13 +27,14 @@ Rectangle
     id: uniItem
     width: parent.width
     height: itemHeight ? itemHeight : UISettings.bigItemHeight
-    color: isSelected ? "#2D444E" : "transparent"
+    color: isSelected ? UISettings.highlightPressed : "transparent"
     border.width: 2
     border.color: isSelected ? UISettings.selection : "transparent"
+    z: isSelected ? 5 : 1
 
     property int itemHeight: Math.max(inputPatchesNumber, outputPatchesNumber) * UISettings.bigItemHeight
     property Universe universe
-    property bool isSelected: false
+    property bool isSelected: universe && ioManager.selectedIndex === universe.id ? true : false
     property int outputPatchesNumber: universe ? universe.outputPatchesCount : 0
     property int inputPatchesNumber: iPatch == null ? 0 : 1
     property int wireBoxWidth: (uniItem.width - uniBox.width) / 8 // one quarter of a uniItem side
@@ -41,6 +42,12 @@ Rectangle
 
     signal selected(int index)
     signal patchDragging(bool status)
+
+    onIsSelectedChanged:
+    {
+        if (isSelected == false)
+            uniNameEdit.enableEditing(false)
+    }
 
     // area containing the input patches
     Column
@@ -92,7 +99,7 @@ Rectangle
                             id: ipItem
                             width: ipRoot.width
 
-                            universeID: universe.id
+                            universeID: universe ? universe.id : -1
                             patch: universe ? universe.inputPatch : null
 
                             Drag.active: ipMouseArea.drag.active
@@ -100,6 +107,8 @@ Rectangle
                             Drag.hotSpot.x: width / 2
                             Drag.hotSpot.y: height / 2
                             Drag.keys: [ "removePatch" ]
+
+                            onRemoveProfile: ioManager.setInputProfile(universe.id, "")
 
                             DropArea
                             {
@@ -124,13 +133,13 @@ Rectangle
                                             }
                                         }
                                     ]
-                                }
-                            }
-                        }
-                    }
-                }
-        }
-    }
+                                } // Rectangle
+                            } // DropArea
+                        } // InputPatchItem
+                    } // MouseArea
+                } // Item
+        } // Repeater
+    } // Column
 
     // Input patches wires box
     PatchWireBox
@@ -142,13 +151,14 @@ Rectangle
         z: 10
 
         patchesNumber: inputPatchesNumber
+        showFeedback: universe ? universe.hasFeedbacks : false
     }
 
     // Input patch drop area
     DropArea
     {
         id: inputDropTarget
-        x: inputBox.x
+        x: 2
         y: 2
         width: ((uniItem.width - uniBox.width) / 2) - 6
         height: uniItem.height - 4
@@ -161,7 +171,7 @@ Rectangle
         {
             id: inDropRect
             anchors.fill: parent
-            color: inputDropTarget.containsDrag ? "#3356FF56" : "transparent"
+            color: inputDropTarget.containsDrag ? UISettings.highlight : "transparent"
         }
     }
 
@@ -179,14 +189,15 @@ Rectangle
             Gradient
             {
                 id: bgGradient
-                GradientStop { position: 0 ; color: "#1C2255" }
-                GradientStop { position: 1 ; color: "#2B3483" }
+                GradientStop { position: 0 ; color: UISettings.highlightPressed }
+                GradientStop { position: 1 ; color: UISettings.highlight }
             }
         border.width: 2
         border.color: "#111"
 
         EditableTextBox
         {
+            id: uniNameEdit
             anchors.centerIn: parent
             width: parent.width
             maximumHeight: parent.height
@@ -196,13 +207,13 @@ Rectangle
 
             onClicked:
             {
-                if (isSelected == false)
-                {
-                    isSelected = true
-                    ioManager.setSelectedItem(uniItem, universe.id)
-                    uniItem.selected(universe.id);
-                }
+                enableEditing(false)
+
+                ioManager.selectedIndex = universe.id
+                uniItem.selected(universe.id);
             }
+
+            onTextChanged: if (universe) universe.name = text
         }
 
         Canvas
@@ -217,7 +228,7 @@ Rectangle
                 var vCenter = (height / 2) - 4
                 var wireMargin = width / 20
                 context.strokeStyle = "yellow"
-                context.lineWidth = 2
+                context.lineWidth = 3
                 context.beginPath()
                 context.clearRect(0, 0, width, height)
 
@@ -244,6 +255,34 @@ Rectangle
             tooltip: qsTr("Passthrough")
             checked: universe ? universe.passthrough : false
             onToggled: if (universe) universe.passthrough = checked
+        }
+
+        IconButton
+        {
+            id: fbButton
+            z: 2
+            visible: inputPatchesNumber
+            anchors.bottom: parent.bottom
+            width: UISettings.iconSizeMedium * 0.8
+            height: UISettings.iconSizeMedium * 0.8
+            checkedColor: "green"
+            imgSource: ""
+            checkable: true
+            checked: universe ? universe.hasFeedbacks : false
+            tooltip: qsTr("Enable/Disable feedbacks")
+            onToggled:
+            {
+                if (universe)
+                    ioManager.setFeedbackPatch(universe.id, checked)
+            }
+
+            RobotoText
+            {
+                anchors.centerIn: parent
+                label: "F"
+                fontSize: UISettings.textSizeDefault * 1.1
+                fontBold: true
+            }
         }
     }
 
@@ -324,14 +363,14 @@ Rectangle
                     }
                 }
         }
-    }
+    } // Column
 
     // New output patch drop area
     DropArea
     {
         id: outputDropTarget
         x: outWireBox.x + 6
-        y: outputBox.y + outputBox.height
+        y: outputBox.y + outputBox.height + 2
         width: ((uniItem.width - uniBox.width) / 2) - 6
         height: UISettings.bigItemHeight * 0.9
 
@@ -350,7 +389,7 @@ Rectangle
         {
             id: outDropRect
             anchors.fill: parent
-            color: outputDropTarget.containsDrag ? "#3356FF56" : "transparent"
+            color: outputDropTarget.containsDrag ? UISettings.highlight : "transparent"
             states: [
                 State
                 {
@@ -373,12 +412,8 @@ Rectangle
 
         onClicked:
         {
-            if (isSelected == false)
-            {
-                isSelected = true
-                ioManager.setSelectedItem(uniItem, universe.id)
-                uniItem.selected(universe.id);
-            }
+            ioManager.selectedIndex = universe.id
+            uniItem.selected(universe.id);
         }
     }
 
@@ -388,7 +423,7 @@ Rectangle
         width: parent.width
         height: 2
         y: parent.height - 2
-        color: isSelected ? UISettings.selection : "#666"
+        color: isSelected ? UISettings.selection : UISettings.bgLight
     }
 }
 

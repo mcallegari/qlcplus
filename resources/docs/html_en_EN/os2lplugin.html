@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - OS2L Plugin</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>OS2L plugin</H1>
+
+<H2>Introduction</H2>
+<P>
+The OS2L plugin allows direct communication between QLC+ and an OS2L capable host.<br>
+OS2L specifications can be found at: <a href="http://os2l.org/">http://os2l.org</a><br>
+At the moment the only OS2L host supported is <a href="https://www.virtualdj.com/">Virtual DJ</a>.<br>
+QLC+ OS2L plugin will work either on the same host (127.0.0.1) or on a different host with
+an OS of your choice (Windows, macOS, Linux)
+</P>
+
+<H2>Configuration - Virtual DJ</H2>
+
+<P>
+First and foremost, you need to tell VDJ where to send OS2L messages.<br>
+Open VDJ settings, go to the 'Options' panel and type 'os2l' in the top search box.<br>
+Modify the 'os2lDirectIp' field by setting the IP:port where VDJ can reach QLC+.
+For example, '127.0.0.1:9996' should work if QLC+ runs on the same (Windows) PC of VDJ.<br>
+Once done, restart VDJ.<br>
+<br>
+Now go to QLC+, enable the OS2L plugin on any universe. If you have set a specific port in VDJ,
+open the OS2L configuration dialog and set the same port there.<br>
+Once done, QLC+ will start receiving signals from VDJ (joystick icon will blink beside the Universe box)
+</P>
+
+</BODY>
+</HTML>

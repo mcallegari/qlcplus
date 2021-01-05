@@ -45,27 +45,37 @@ class VCButton : public VCWidget
     Q_OBJECT
 
     Q_PROPERTY(ButtonAction actionType READ actionType WRITE setActionType NOTIFY actionTypeChanged)
-    Q_PROPERTY(bool isOn READ isOn WRITE setOn NOTIFY isOnChanged)
+    Q_PROPERTY(ButtonState state READ state WRITE setState NOTIFY stateChanged)
     Q_PROPERTY(quint32 functionID READ functionID WRITE setFunctionID NOTIFY functionIDChanged)
+    Q_PROPERTY(bool startupIntensityEnabled READ startupIntensityEnabled WRITE setStartupIntensityEnabled NOTIFY startupIntensityEnabledChanged)
+    Q_PROPERTY(qreal startupIntensity READ startupIntensity WRITE setStartupIntensity NOTIFY startupIntensityChanged)
+    Q_PROPERTY(int stopAllFadeOutTime READ stopAllFadeOutTime WRITE setStopAllFadeOutTime NOTIFY stopAllFadeOutTimeChanged)
 
     /*********************************************************************
      * Initialization
      *********************************************************************/
 public:
-    VCButton(Doc* doc = NULL, QObject *parent = 0);
+    VCButton(Doc* doc = nullptr, QObject *parent = nullptr);
     virtual ~VCButton();
 
     /** @reimp */
-    void setID(quint32 id);
+    QString defaultCaption();
 
     /** @reimp */
-    QString defaultCaption();
+    void setupLookAndFeel(qreal pixelDensity, int page);
 
     /** @reimp */
     void render(QQuickView *view, QQuickItem *parent);
 
     /** @reimp */
     QString propertiesResource() const;
+
+    /** @reimp */
+    VCWidget *createCopy(VCWidget *parent);
+
+protected:
+    /** @reimp */
+    bool copyFrom(const VCWidget* widget);
 
     /*********************************************************************
      * Function attachment
@@ -87,6 +97,9 @@ public:
      */
     quint32 functionID() const;
 
+    /** @reimp */
+    void adjustFunctionIntensity(Function *f, qreal value);
+
     /**
      *  The actual method used to request a change of state of this
      *  Button. Depending on the action type this will start/stop
@@ -95,6 +108,9 @@ public:
 
     /** @reimp */
     void notifyFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensity);
+
+signals:
+    void functionIDChanged(quint32 id);
 
 protected slots:
     /** Handler for function running signal */
@@ -117,18 +133,24 @@ protected:
      * Button state
      *********************************************************************/
 public:
-    /** Get the current on/off state of the button */
-    bool isOn() const;
+    enum ButtonState
+    {
+        Inactive,
+        Monitoring,
+        Active
+    };
+    Q_ENUM(ButtonState)
 
-    /** Set the button on/off state */
-    void setOn(bool isOn);
+    /** Get/Set the button pressure state */
+    ButtonState state() const;
+    void setState(ButtonState state);
 
 signals:
-    void isOnChanged(bool isOn);
-    void functionIDChanged(quint32 id);
+    /** Signal emitted when the button has actually changed the graphic state */
+    void stateChanged(int state);
 
 protected:
-    bool m_isOn;
+    ButtonState m_state;
 
     /*********************************************************************
      * Button action
@@ -151,42 +173,35 @@ public:
     static ButtonAction stringToAction(const QString& str);
 
     void setStopAllFadeOutTime(int ms);
-    int stopAllFadeTime();
+    int stopAllFadeOutTime();
 
 signals:
     void actionTypeChanged(ButtonAction actionType);
+    void stopAllFadeOutTimeChanged();
 
 protected:
     ButtonAction m_actionType;
     /** if button action is StopAll, this indicates the time
      *  in milliseconds of fadeout before stopping */
-    int m_blackoutFadeOutTime;
+    int m_stopAllFadeOutTime;
 
-    /*********************************************************************
-     * Startup intensity adjustment
-     *********************************************************************/
+    /*****************************************************************************
+     * Function startup intensity adjustment
+     *****************************************************************************/
 public:
-    /**
-     * Make the button adjust the attached function's intensity when the
-     * button is used to start the function.
-     *
-     * @param enable true to make the button adjust intensity, false to disable
-     *               intensity adjustment
-     */
-    void enableStartupIntensity(bool enable);
+    /** Get/Set if a startup intensity amount should be applied
+     *  when starting the attached Function */
+    bool startupIntensityEnabled() const;
+    void setStartupIntensityEnabled(bool enable);
 
-    /** Check, whether the button adjusts intensity */
-    bool isStartupIntensityEnabled() const;
-
-    /**
-     * Set the amount of the startupintensity adjustment.
-     *
-     * @param fraction Intensity adjustment amount (0.0 - 1.0)
-     */
+    /** Get/Set the amount of intensity adjustment applied
+     *  when starting the attached Function */
+    qreal startupIntensity() const;
     void setStartupIntensity(qreal fraction);
 
-    /** Get the amount of intensity adjustment. */
-    qreal startupIntensity() const;
+signals:
+    void startupIntensityEnabledChanged();
+    void startupIntensityChanged();
 
 protected:
     bool m_startupIntensityEnabled;
@@ -204,7 +219,10 @@ public slots:
      *********************************************************************/
 
 public:
+    /** @reimp */
     bool loadXML(QXmlStreamReader &root);
+
+    /** @reimp */
     bool saveXML(QXmlStreamWriter *doc);
 };
 

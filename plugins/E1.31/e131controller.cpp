@@ -34,7 +34,7 @@ E131Controller::E131Controller(QNetworkInterface const& interface, QNetworkAddre
     , m_packetReceived(0)
     , m_line(line)
     , m_UdpSocket(new QUdpSocket(this))
-    , m_packetizer(new E131Packetizer())
+    , m_packetizer(new E131Packetizer(interface.hardwareAddress()))
 {
     qDebug() << Q_FUNC_INFO;
     m_UdpSocket->bind(m_ipAddr, 0);

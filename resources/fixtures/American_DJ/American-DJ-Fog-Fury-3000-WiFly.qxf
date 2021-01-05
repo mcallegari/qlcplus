@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
+  <Author>MaBonzo</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Fog Fury 3000 WiFly</Model>
+ <Type>Smoke</Type>
+ <Channel Name="Volume">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">0%</Capability>
+  <Capability Min="5" Max="30">10%</Capability>
+  <Capability Min="31" Max="55">11-20%</Capability>
+  <Capability Min="56" Max="80">21-30%</Capability>
+  <Capability Min="81" Max="105">31-40%</Capability>
+  <Capability Min="106" Max="130">41-50%</Capability>
+  <Capability Min="131" Max="155">51-60%</Capability>
+  <Capability Min="156" Max="180">61-70%</Capability>
+  <Capability Min="181" Max="205">71-80%</Capability>
+  <Capability Min="206" Max="230">81-90%</Capability>
+  <Capability Min="231" Max="255">91-100%</Capability>
+ </Channel>
+ <Channel Name="Interval">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="3">3s</Capability>
+  <Capability Min="4" Max="10">3-10s</Capability>
+  <Capability Min="11" Max="20">11-20s</Capability>
+  <Capability Min="21" Max="30">21-30s</Capability>
+  <Capability Min="31" Max="40">31-40s</Capability>
+  <Capability Min="41" Max="50">41-50s</Capability>
+  <Capability Min="51" Max="60">51-60s</Capability>
+  <Capability Min="61" Max="70">61-70s</Capability>
+  <Capability Min="71" Max="80">71-80s</Capability>
+  <Capability Min="81" Max="90">81-90s</Capability>
+  <Capability Min="91" Max="100">91-100s</Capability>
+  <Capability Min="101" Max="110">101-110s</Capability>
+  <Capability Min="111" Max="120">111-120s</Capability>
+  <Capability Min="121" Max="130">121-131s</Capability>
+  <Capability Min="131" Max="140">131-140s</Capability>
+  <Capability Min="141" Max="150">141-150s</Capability>
+  <Capability Min="151" Max="160">151-160s</Capability>
+  <Capability Min="161" Max="170">161-170s</Capability>
+  <Capability Min="171" Max="180">171-180s</Capability>
+  <Capability Min="181" Max="190">181-190s</Capability>
+  <Capability Min="191" Max="200">191-200s</Capability>
+  <Capability Min="201" Max="210">201-210s</Capability>
+  <Capability Min="211" Max="220">211-220s</Capability>
+  <Capability Min="221" Max="230">221-230s</Capability>
+  <Capability Min="231" Max="240">231-240s</Capability>
+  <Capability Min="241" Max="250">241-250s</Capability>
+  <Capability Min="251" Max="255">251-255s</Capability>
+ </Channel>
+ <Channel Name="Duration">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="25">0.5-1.0s</Capability>
+  <Capability Min="26" Max="50">1.1-2.0s</Capability>
+  <Capability Min="51" Max="75">2.1-3.0s</Capability>
+  <Capability Min="76" Max="100">3.1-4.0s</Capability>
+  <Capability Min="101" Max="125">4.1-5.0s</Capability>
+  <Capability Min="126" Max="150">5.1-6.0s</Capability>
+  <Capability Min="151" Max="175">6.1-7.0s</Capability>
+  <Capability Min="176" Max="200">7.1-8.0s</Capability>
+  <Capability Min="201" Max="225">8.1-9.0s</Capability>
+  <Capability Min="226" Max="250">9.1-10s</Capability>
+  <Capability Min="251" Max="255">Constant fogging</Capability>
+ </Channel>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Volume</Channel>
+  <Channel Number="1">Interval</Channel>
+  <Channel Number="2">Duration</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="11.28" Width="352" Height="359" Depth="448"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Head" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="1600" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

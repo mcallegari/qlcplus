@@ -50,6 +50,22 @@ ChaserStep::ChaserStep(const ChaserStep& cs)
 {
 }
 
+ChaserStep &ChaserStep::operator=(const ChaserStep &step)
+{
+    if (this != &step)
+    {
+        fid = step.fid;
+        fadeIn = step.fadeIn;
+        hold = step.hold;
+        fadeOut = step.fadeOut;
+        duration = step.duration;
+        values = step.values;
+        note = step.note;
+    }
+
+    return *this;
+}
+
 bool ChaserStep::operator==(const ChaserStep& cs) const
 {
     return (fid == cs.fid) ? true : false;
@@ -71,7 +87,7 @@ int ChaserStep::setValue(SceneValue value, int index, bool *created)
         if (index == -1)
         {
             values.append(value);
-            qSort(values.begin(), values.end());
+            std::sort(values.begin(), values.end());
             if (created != NULL)
                 *created = true;
             return values.indexOf(value);
@@ -113,17 +129,12 @@ int ChaserStep::setValue(SceneValue value, int index, bool *created)
 int ChaserStep::unSetValue(SceneValue value, int index)
 {
     if (index == -1)
-    {
         index = values.indexOf(value);
-        if (index == -1)
-            return -1;
-    }
 
     if (index < 0 || index >= values.count())
         return -1;
 
     values.removeAt(index);
-
 
     return index;
 }
@@ -156,7 +167,7 @@ ChaserStep ChaserStep::fromVariant(const QVariant& var)
     return cs;
 }
 
-bool ChaserStep::loadXML(QXmlStreamReader &root, int& stepNumber)
+bool ChaserStep::loadXML(QXmlStreamReader &root, int& stepNumber, Doc *doc)
 {
     bool holdFound = false;
     if (root.name() != KXMLQLCFunctionStep)
@@ -198,9 +209,11 @@ bool ChaserStep::loadXML(QXmlStreamReader &root, int& stepNumber)
             for (int f = 0; f < fxArray.count(); f+=2)
             {
                 if (f + 1 >= fxArray.count())
-                    break;;
+                    break;
 
                 quint32 fxID = QString(fxArray.at(f)).toUInt();
+                if (doc != NULL && doc->fixture(fxID) == NULL)
+                    continue;
 
                 // now split the chunk into channel/values
                 QStringList varray = fxArray.at(f + 1).split(",");

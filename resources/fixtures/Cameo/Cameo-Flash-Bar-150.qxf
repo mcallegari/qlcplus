@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.11.3 GIT</Version>
+  <Author>Kevin Wimmer</Author>
+ </Creator>
+ <Manufacturer>Cameo</Manufacturer>
+ <Model>Flash Bar 150</Model>
+ <Type>Strobe</Type>
+ <Channel Name="Auto Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">Auto Programs off</Capability>
+  <Capability Min="6" Max="54">Auto Program 1</Capability>
+  <Capability Min="55" Max="103">Auto Program 2</Capability>
+  <Capability Min="104" Max="152">Auto Program 3</Capability>
+  <Capability Min="153" Max="201">Auto Program 4</Capability>
+  <Capability Min="202" Max="255">Auto Program 5</Capability>
+ </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterOpen">Strobe off</Capability>
+  <Capability Min="6" Max="255" Preset="StrobeSlowToFast">Strobe Speed (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Duration">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Flash Duration (0ms to 510ms)</Capability>
+ </Channel>
+ <Channel Name="Auto Speed / Sound Sensitivity">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Auto Speed (slow to fast) / Sound Sensitivity</Capability>
+ </Channel>
+ <Channel Name="Light Control LED 1" Preset="IntensityWhite"/>
+ <Channel Name="Light Control LED 2" Preset="IntensityWhite"/>
+ <Channel Name="Light Control LED 3" Preset="IntensityWhite"/>
+ <Channel Name="Light Control LED 4" Preset="IntensityWhite"/>
+ <Channel Name="Light Control LED 5" Preset="IntensityWhite"/>
+ <Channel Name="Light Control LED 6" Preset="IntensityWhite"/>
+ <Channel Name="Light Control LED 7" Preset="IntensityWhite"/>
+ <Channel Name="Light Control LED 8" Preset="IntensityWhite"/>
+ <Channel Name="Light Control LED 9" Preset="IntensityWhite"/>
+ <Channel Name="Light Control LED 10" Preset="IntensityWhite"/>
+ <Channel Name="Light Control LED 11" Preset="IntensityWhite"/>
+ <Channel Name="Light Control LED 12" Preset="IntensityWhite"/>
+ <Channel Name="Light Control LED 13" Preset="IntensityWhite"/>
+ <Channel Name="Light Control LED 14" Preset="IntensityWhite"/>
+ <Channel Name="Light Control LED 15" Preset="IntensityWhite"/>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Auto Programs</Channel>
+ </Mode>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+ </Mode>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Duration</Channel>
+ </Mode>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Duration</Channel>
+  <Channel Number="3">Auto Programs</Channel>
+  <Channel Number="4">Auto Speed / Sound Sensitivity</Channel>
+ </Mode>
+ <Mode Name="15 Channel">
+  <Channel Number="0">Light Control LED 1</Channel>
+  <Channel Number="1">Light Control LED 2</Channel>
+  <Channel Number="2">Light Control LED 3</Channel>
+  <Channel Number="3">Light Control LED 4</Channel>
+  <Channel Number="4">Light Control LED 5</Channel>
+  <Channel Number="5">Light Control LED 6</Channel>
+  <Channel Number="6">Light Control LED 7</Channel>
+  <Channel Number="7">Light Control LED 8</Channel>
+  <Channel Number="8">Light Control LED 9</Channel>
+  <Channel Number="9">Light Control LED 10</Channel>
+  <Channel Number="10">Light Control LED 11</Channel>
+  <Channel Number="11">Light Control LED 12</Channel>
+  <Channel Number="12">Light Control LED 13</Channel>
+  <Channel Number="13">Light Control LED 14</Channel>
+  <Channel Number="14">Light Control LED 15</Channel>
+ </Mode>
+ <Mode Name="20 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Duration</Channel>
+  <Channel Number="3">Auto Programs</Channel>
+  <Channel Number="4">Auto Speed / Sound Sensitivity</Channel>
+  <Channel Number="5">Light Control LED 1</Channel>
+  <Channel Number="6">Light Control LED 2</Channel>
+  <Channel Number="7">Light Control LED 3</Channel>
+  <Channel Number="8">Light Control LED 4</Channel>
+  <Channel Number="9">Light Control LED 5</Channel>
+  <Channel Number="10">Light Control LED 6</Channel>
+  <Channel Number="11">Light Control LED 7</Channel>
+  <Channel Number="12">Light Control LED 8</Channel>
+  <Channel Number="13">Light Control LED 9</Channel>
+  <Channel Number="14">Light Control LED 10</Channel>
+  <Channel Number="15">Light Control LED 11</Channel>
+  <Channel Number="16">Light Control LED 12</Channel>
+  <Channel Number="17">Light Control LED 13</Channel>
+  <Channel Number="18">Light Control LED 14</Channel>
+  <Channel Number="19">Light Control LED 15</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.3" Width="906" Height="73" Depth="115"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="90" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

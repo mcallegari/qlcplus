@@ -3,7 +3,7 @@
   enttecdmxusbopen.cpp
 
   Copyright (C) Heikki Junnila
-        		Christopher Staite
+                Christopher Staite
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@
 #define DMX_MAB 16
 #define DMX_BREAK 110
 #define DMX_CHANNELS 512
-#define SETTINGS_FREQUENCY "enttecdmxusbopen/frequency"
+#define DEFAULT_OPEN_DMX_FREQUENCY    30  // crap
 #define SETTINGS_CHANNELS "enttecdmxusbopen/channels"
 
 /****************************************************************************
@@ -39,28 +39,27 @@
 EnttecDMXUSBOpen::EnttecDMXUSBOpen(DMXInterface *interface,
                                    quint32 outputLine, QObject* parent)
     : QThread(parent)
-    , DMXUSBWidget(interface, outputLine)
+    , DMXUSBWidget(interface, outputLine, DEFAULT_OPEN_DMX_FREQUENCY)
     , m_running(false)
-    , m_universe(QByteArray(513, 0))
-    , m_frequency(30)
     , m_granularity(Unknown)
 {
     QSettings settings;
-    QVariant var = settings.value(SETTINGS_FREQUENCY);
+    QVariant var = settings.value(SETTINGS_CHANNELS);
     if (var.isValid() == true)
-        m_frequency = var.toDouble();
-    QVariant var2 = settings.value(SETTINGS_CHANNELS);
-    if (var2.isValid() == true)
     {
-        int channels = var2.toInt();
+        int channels = var.toInt();
         if (channels > DMX_CHANNELS || channels <= 0)
             channels = DMX_CHANNELS;
         // channels + 1 Because the first byte is always zero
         // to break a full DMX universe transmission
-        m_universe = QByteArray(channels + 1, 0);
+        m_outputLines[0].m_universeData = QByteArray(channels + 1, 0);
+    }
+    else
+    {
+        m_outputLines[0].m_universeData = QByteArray(DMX_CHANNELS + 1, 0);
     }
 
-// on OSX, QtSerialPort cannot handle an OpenDMX device
+// on macOS, QtSerialPort cannot handle an OpenDMX device
 // so, unfortunately, we need to switch back to libftdi
 #if defined(Q_OS_OSX) && defined(QTSERIAL) && (defined(LIBFTDI1) || defined(LIBFTDI))
     if (interface->type() == DMXInterface::QtSerial)
@@ -122,7 +121,7 @@ QString EnttecDMXUSBOpen::additionalInfo() const
                                          .arg(vendor());
     info += QString("<BR>");
     info += QString("<B>%1:</B> %2").arg(tr("DMX Channels"))
-                                    .arg(m_universe.size()-1);
+                                    .arg(m_outputLines[0].m_universeData.size()-1);
     info += QString("<BR>");
     info += QString("<B>%1:</B> %2Hz").arg(tr("DMX Frame Frequency"))
                                       .arg(m_frequency);
@@ -148,7 +147,8 @@ bool EnttecDMXUSBOpen::writeUniverse(quint32 universe, quint32 output, const QBy
     Q_UNUSED(universe)
     Q_UNUSED(output)
 
-    m_universe.replace(1, MIN(data.size(), m_universe.size()), data);
+    m_outputLines[0].m_universeData.replace(1, MIN(data.size(), m_outputLines[0].m_universeData.size() - 1),
+                                            data.constData(), MIN(data.size(), m_outputLines[0].m_universeData.size() - 1));
     return true;
 }
 
@@ -163,12 +163,9 @@ void EnttecDMXUSBOpen::stop()
 
 void EnttecDMXUSBOpen::run()
 {
-    // One "official" DMX frame can take (1s/44Hz) = 23ms
-    int frameTime = (int) floor(((double)1000 / m_frequency) + (double)0.5);
-
     // Wait for device to settle in case the device was opened just recently
     // Also measure, whether timer granularity is OK
-    QTime time;
+    QElapsedTimer time;
     time.start();
     usleep(1000);
     if (time.elapsed() > 3)
@@ -209,14 +206,14 @@ void EnttecDMXUSBOpen::run()
         if (m_granularity == Good)
             usleep(DMX_MAB);
 
-        if (interface()->write(m_universe) == false)
+        if (interface()->write(m_outputLines[0].m_universeData) == false)
             goto framesleep;
 
 framesleep:
         // Sleep for the remainder of the DMX frame time
         if (m_granularity == Good)
-            while (time.elapsed() < frameTime) { usleep(1000); }
+            while (time.elapsed() < (m_frameTimeUs / 1000)) { usleep(1000); }
         else
-            while (time.elapsed() < frameTime) { /* Busy sleep */ }
+            while (time.elapsed() < (m_frameTimeUs / 1000)) { /* Busy sleep */ }
     }
 }

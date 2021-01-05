@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1 GIT</Version>
+  <Author>John Yiannikakis</Author>
+ </Creator>
+ <Manufacturer>MARQ</Manufacturer>
+ <Model>Colormax Bat</Model>
+ <Type>LED Bar (Pixels)</Type>
+ <Channel Name="Red Dimmer, Section 1" Preset="IntensityRed"/>
+ <Channel Name="Green Dimmer, Section 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimmer, Section 1" Preset="IntensityBlue"/>
+ <Channel Name="Red Dimmer, Section 2" Preset="IntensityRed"/>
+ <Channel Name="Green Dimmer, Section 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimmer, Section 2" Preset="IntensityBlue"/>
+ <Channel Name="Red Dimmer, Section 3" Preset="IntensityRed"/>
+ <Channel Name="Green Dimmer, Section 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimmer, Section 3" Preset="IntensityBlue"/>
+ <Channel Name="Red Dimmer, Section 4" Preset="IntensityRed"/>
+ <Channel Name="Green Dimmer, Section 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimmer, Section 4" Preset="IntensityBlue"/>
+ <Channel Name="Red Dimmer, Section 5" Preset="IntensityRed"/>
+ <Channel Name="Green Dimmer, Section 5" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimmer, Section 5" Preset="IntensityBlue"/>
+ <Channel Name="Red Dimmer, Section 6" Preset="IntensityRed"/>
+ <Channel Name="Green Dimmer, Section 6" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimmer, Section 6" Preset="IntensityBlue"/>
+ <Channel Name="Red Dimmer, Section 7" Preset="IntensityRed"/>
+ <Channel Name="Green Dimmer, Section 7" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimmer, Section 7" Preset="IntensityBlue"/>
+ <Channel Name="Red Dimmer, Section 8" Preset="IntensityRed"/>
+ <Channel Name="Green Dimmer, Section 8" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimmer, Section 8" Preset="IntensityBlue"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="15">No function</Capability>
+  <Capability Min="16" Max="255">Strobe rate, slow (010) to fast (255)</Capability>
+ </Channel>
+ <Channel Name="Color Preset">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15">No function</Capability>
+  <Capability Min="16" Max="35" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="36" Max="55" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="56" Max="75" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="76" Max="95" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="96" Max="115" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="116" Max="135" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
+  <Capability Min="136" Max="155" Preset="ColorMacro" Res1="#ffaaff">Pink</Capability>
+  <Capability Min="156" Max="175" Preset="ColorMacro" Res1="#aa55ff">Purple</Capability>
+  <Capability Min="176" Max="195" Preset="ColorMacro" Res1="#00007f">Dark Blue</Capability>
+  <Capability Min="196" Max="215" Preset="ColorMacro" Res1="#aaffff">Light Cyan</Capability>
+  <Capability Min="216" Max="235" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="236" Max="255" Preset="ColorMacro" Res1="#fff5e5">Warm White</Capability>
+ </Channel>
+ <Channel Name="Color Programs">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15">No function</Capability>
+  <Capability Min="16" Max="35">Color Program 1 (3-color snap)</Capability>
+  <Capability Min="36" Max="55">Color Program 2 (7-color snap)</Capability>
+  <Capability Min="56" Max="75">Color Program 3 (3-color fade)</Capability>
+  <Capability Min="76" Max="115">Color Program 5 (3-color crossfade)</Capability>
+  <Capability Min="116" Max="135">Color Program 6 (7-color crossfade)</Capability>
+  <Capability Min="136" Max="155">Color Program 7 (red pulse)</Capability>
+  <Capability Min="156" Max="175">Color Program 8 (green pulse)</Capability>
+  <Capability Min="176" Max="195">Color Program 9 (blue pulse)</Capability>
+  <Capability Min="196" Max="255">Sound-active color programs</Capability>
+ </Channel>
+ <Channel Name="Program Speed (when Ch. 27 is set to 016–195) Microphone Sensitivity (when Ch. 27 is set to 196–255)">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Color-change rate, slow (000) to fast (255) Microphone sensitivity for sound-active programs, low (000) to high (255)</Capability>
+ </Channel>
+ <Channel Name="Chase Programs (overrides Ch. 1–24 &amp; 26–27)">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="15">No function</Capability>
+  <Capability Min="16" Max="25">Chase Program 1</Capability>
+  <Capability Min="26" Max="35">Chase Program 2</Capability>
+  <Capability Min="36" Max="45">Chase Program 3</Capability>
+  <Capability Min="46" Max="55">Chase Program 4</Capability>
+  <Capability Min="56" Max="65">Chase Program 5</Capability>
+  <Capability Min="66" Max="75">Chase Program 6</Capability>
+  <Capability Min="76" Max="85">Chase Program 7</Capability>
+  <Capability Min="86" Max="95">Chase Program 8</Capability>
+  <Capability Min="96" Max="105">Chase Program 9</Capability>
+  <Capability Min="106" Max="115">Chase Program 10</Capability>
+  <Capability Min="116" Max="125">Chase Program 11</Capability>
+  <Capability Min="126" Max="135">Chase Program 12</Capability>
+  <Capability Min="136" Max="145">Chase Program 13</Capability>
+  <Capability Min="146" Max="155">Chase Program 14</Capability>
+  <Capability Min="156" Max="165">Chase Program 15</Capability>
+  <Capability Min="166" Max="175">Chase Program 16</Capability>
+  <Capability Min="176" Max="185">Chase Program 17</Capability>
+  <Capability Min="186" Max="195">Chase Program 18</Capability>
+  <Capability Min="196" Max="205">Chase Program 19</Capability>
+  <Capability Min="206" Max="215">Chase Program 20</Capability>
+  <Capability Min="216" Max="225">Chase Program 21</Capability>
+  <Capability Min="226" Max="255">Sound-active chase programs</Capability>
+ </Channel>
+ <Channel Name="Red Dimmer, Section 1&amp;2" Preset="IntensityRed"/>
+ <Channel Name="Green Dimmer, Section 1&amp;2" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimmer, Section 1&amp;2" Preset="IntensityBlue"/>
+ <Channel Name="Red Dimmer, Section 3&amp;4" Preset="IntensityRed"/>
+ <Channel Name="Green Dimmer, Section 3&amp;4" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimmer, Section 3&amp;4" Preset="IntensityBlue"/>
+ <Channel Name="Red Dimmer, Section 5&amp;6" Preset="IntensityRed"/>
+ <Channel Name="Green Dimmer, Section 5&amp;6" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimmer, Section 5&amp;6" Preset="IntensityBlue"/>
+ <Channel Name="Red Dimmer, Section 7&amp;8" Preset="IntensityRed"/>
+ <Channel Name="Green Dimmer, Section 7&amp;8" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimmer, Section 7&amp;8" Preset="IntensityBlue"/>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Red Dimmer" Preset="IntensityRed"/>
+ <Channel Name="Green Dimmer" Preset="IntensityGreen"/>
+ <Channel Name="Blue Dimmer" Preset="IntensityBlue"/>
+ <Mode Name="29 Channel">
+  <Channel Number="0">Red Dimmer, Section 1</Channel>
+  <Channel Number="1">Green Dimmer, Section 1</Channel>
+  <Channel Number="2">Blue Dimmer, Section 1</Channel>
+  <Channel Number="3">Red Dimmer, Section 2</Channel>
+  <Channel Number="4">Green Dimmer, Section 2</Channel>
+  <Channel Number="5">Blue Dimmer, Section 2</Channel>
+  <Channel Number="6">Red Dimmer, Section 3</Channel>
+  <Channel Number="7">Green Dimmer, Section 3</Channel>
+  <Channel Number="8">Blue Dimmer, Section 3</Channel>
+  <Channel Number="9">Red Dimmer, Section 4</Channel>
+  <Channel Number="10">Green Dimmer, Section 4</Channel>
+  <Channel Number="11">Blue Dimmer, Section 4</Channel>
+  <Channel Number="12">Red Dimmer, Section 5</Channel>
+  <Channel Number="13">Green Dimmer, Section 5</Channel>
+  <Channel Number="14">Blue Dimmer, Section 5</Channel>
+  <Channel Number="15">Red Dimmer, Section 6</Channel>
+  <Channel Number="16">Green Dimmer, Section 6</Channel>
+  <Channel Number="17">Blue Dimmer, Section 6</Channel>
+  <Channel Number="18">Red Dimmer, Section 7</Channel>
+  <Channel Number="19">Green Dimmer, Section 7</Channel>
+  <Channel Number="20">Blue Dimmer, Section 7</Channel>
+  <Channel Number="21">Red Dimmer, Section 8</Channel>
+  <Channel Number="22">Green Dimmer, Section 8</Channel>
+  <Channel Number="23">Blue Dimmer, Section 8</Channel>
+  <Channel Number="24">Strobe</Channel>
+  <Channel Number="25">Color Preset</Channel>
+  <Channel Number="26">Color Programs</Channel>
+  <Channel Number="27">Program Speed (when Ch. 27 is set to 016–195) Microphone Sensitivity (when Ch. 27 is set to 196–255)</Channel>
+  <Channel Number="28">Chase Programs (overrides Ch. 1–24 &amp; 26–27)</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+  </Head>
+  <Head>
+   <Channel>18</Channel>
+   <Channel>19</Channel>
+   <Channel>20</Channel>
+  </Head>
+  <Head>
+   <Channel>21</Channel>
+   <Channel>22</Channel>
+   <Channel>23</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="17 Channel">
+  <Channel Number="0">Red Dimmer, Section 1&amp;2</Channel>
+  <Channel Number="1">Green Dimmer, Section 1&amp;2</Channel>
+  <Channel Number="2">Blue Dimmer, Section 1&amp;2</Channel>
+  <Channel Number="3">Red Dimmer, Section 3&amp;4</Channel>
+  <Channel Number="4">Green Dimmer, Section 3&amp;4</Channel>
+  <Channel Number="5">Blue Dimmer, Section 3&amp;4</Channel>
+  <Channel Number="6">Red Dimmer, Section 5&amp;6</Channel>
+  <Channel Number="7">Green Dimmer, Section 5&amp;6</Channel>
+  <Channel Number="8">Blue Dimmer, Section 5&amp;6</Channel>
+  <Channel Number="9">Red Dimmer, Section 7&amp;8</Channel>
+  <Channel Number="10">Green Dimmer, Section 7&amp;8</Channel>
+  <Channel Number="11">Blue Dimmer, Section 7&amp;8</Channel>
+  <Channel Number="12">Strobe</Channel>
+  <Channel Number="13">Color Preset</Channel>
+  <Channel Number="14">Color Programs</Channel>
+  <Channel Number="15">Program Speed (when Ch. 27 is set to 016–195) Microphone Sensitivity (when Ch. 27 is set to 196–255)</Channel>
+  <Channel Number="16">Chase Programs (overrides Ch. 1–24 &amp; 26–27)</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="9 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red Dimmer</Channel>
+  <Channel Number="2">Green Dimmer</Channel>
+  <Channel Number="3">Blue Dimmer</Channel>
+  <Channel Number="4">Strobe</Channel>
+  <Channel Number="5">Color Preset</Channel>
+  <Channel Number="6">Color Programs</Channel>
+  <Channel Number="7">Program Speed (when Ch. 27 is set to 016–195) Microphone Sensitivity (when Ch. 27 is set to 196–255)</Channel>
+  <Channel Number="8">Chase Programs (overrides Ch. 1–24 &amp; 26–27)</Channel>
+ </Mode>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Red Dimmer</Channel>
+  <Channel Number="2">Green Dimmer</Channel>
+  <Channel Number="3">Blue Dimmer</Channel>
+  <Channel Number="4">Strobe</Channel>
+ </Mode>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Red Dimmer</Channel>
+  <Channel Number="1">Green Dimmer</Channel>
+  <Channel Number="2">Blue Dimmer</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="3060" ColourTemperature="7000"/>
+  <Dimensions Weight="2.6" Width="1064" Height="65" Depth="89"/>
+  <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="8" Height="1"/>
+  <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

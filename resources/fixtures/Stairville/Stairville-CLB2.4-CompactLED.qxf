@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1 GIT</Version>
+  <Author>Patrick Rabl/Klaus Muth</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>CLB2.4 Compact LED PAR System</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Red Spot 1" Preset="IntensityRed"/>
+ <Channel Name="Green Spot 1" Preset="IntensityGreen"/>
+ <Channel Name="Blue Spot 1" Preset="IntensityBlue"/>
+ <Channel Name="Red Spot 2" Preset="IntensityRed"/>
+ <Channel Name="Green Spot 2" Preset="IntensityGreen"/>
+ <Channel Name="Blue Spot 2" Preset="IntensityBlue"/>
+ <Channel Name="Red Spot 3" Preset="IntensityRed"/>
+ <Channel Name="Green Spot 3" Preset="IntensityGreen"/>
+ <Channel Name="Blue Spot 3" Preset="IntensityBlue"/>
+ <Channel Name="Red Spot 4" Preset="IntensityRed"/>
+ <Channel Name="Green Spot 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue Spot 4" Preset="IntensityBlue"/>
+ <Channel Name="Master Red" Preset="IntensityRed"/>
+ <Channel Name="Master Green" Preset="IntensityGreen"/>
+ <Channel Name="Master Blue" Preset="IntensityBlue"/>
+ <Channel Name="Red Spot 1-2" Preset="IntensityRed"/>
+ <Channel Name="Green Spot 1-2" Preset="IntensityGreen"/>
+ <Channel Name="Blue Spot 1-2" Preset="IntensityBlue"/>
+ <Channel Name="Red Spot 3-4" Preset="IntensityRed"/>
+ <Channel Name="Green Spot 3-4" Preset="IntensityGreen"/>
+ <Channel Name="Blue Spot 3-4" Preset="IntensityBlue"/>
+ <Channel Name="Preprogrammed automatic Shows">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="17">auto Show 1</Capability>
+  <Capability Min="18" Max="35">auto Show 2</Capability>
+  <Capability Min="36" Max="53">auto Show 3</Capability>
+  <Capability Min="54" Max="71">auto Show 4</Capability>
+  <Capability Min="72" Max="89">auto Show 5</Capability>
+  <Capability Min="90" Max="107">auto Show 6</Capability>
+  <Capability Min="108" Max="125">auto Show 7</Capability>
+  <Capability Min="126" Max="143">auto Show 8</Capability>
+  <Capability Min="144" Max="161">auto Show 9</Capability>
+  <Capability Min="162" Max="179">auto Show 10</Capability>
+  <Capability Min="180" Max="197">auto Show 11</Capability>
+  <Capability Min="198" Max="215">auto Show 12</Capability>
+  <Capability Min="216" Max="233">auto Show 13</Capability>
+  <Capability Min="234" Max="251">auto Show 14</Capability>
+  <Capability Min="252" Max="255">Sound</Capability>
+ </Channel>
+ <Channel Name="Speed/Sensitivity">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed or sound sensitivity (0 to 100%)</Capability>
+ </Channel>
+ <Channel Name="Fixed colors">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="17" Preset="ColorMacro" Res1="#000000">LEDs off</Capability>
+  <Capability Min="18" Max="35" Preset="ColorMacro" Res1="#19fcff">Cyan</Capability>
+  <Capability Min="36" Max="53" Preset="ColorMacro" Res1="#800080">Purple</Capability>
+  <Capability Min="54" Max="71" Preset="ColorMacro" Res1="#ff4fde">Pink</Capability>
+  <Capability Min="72" Max="89" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
+  <Capability Min="90" Max="107" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="108" Max="125" Preset="ColorMacro" Res1="#ff5163">Light red</Capability>
+  <Capability Min="126" Max="143" Preset="ColorMacro" Res1="#a8ffa6">Light green</Capability>
+  <Capability Min="144" Max="161" Preset="ColorMacro" Res1="#89abff">Light blue</Capability>
+  <Capability Min="162" Max="179" Preset="ColorMacro" Res1="#fffb11">Yellow</Capability>
+  <Capability Min="180" Max="197" Preset="ColorMacro" Res1="#fff2d0">Warm white</Capability>
+  <Capability Min="198" Max="215" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="216" Max="233" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="234" Max="251" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="252" Max="255" Preset="ColorMacro" Res1="#ff713b">Amber</Capability>
+ </Channel>
+ <Mode Name="14 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red Spot 1</Channel>
+  <Channel Number="2">Green Spot 1</Channel>
+  <Channel Number="3">Blue Spot 1</Channel>
+  <Channel Number="4">Red Spot 2</Channel>
+  <Channel Number="5">Green Spot 2</Channel>
+  <Channel Number="6">Blue Spot 2</Channel>
+  <Channel Number="7">Red Spot 3</Channel>
+  <Channel Number="8">Green Spot 3</Channel>
+  <Channel Number="9">Blue Spot 3</Channel>
+  <Channel Number="10">Red Spot 4</Channel>
+  <Channel Number="11">Green Spot 4</Channel>
+  <Channel Number="12">Blue Spot 4</Channel>
+  <Channel Number="13">Strobe</Channel>
+  <Head>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>12</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Master Red</Channel>
+  <Channel Number="1">Master Green</Channel>
+  <Channel Number="2">Master Blue</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Master Red</Channel>
+  <Channel Number="2">Master Green</Channel>
+  <Channel Number="3">Master Blue</Channel>
+ </Mode>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red Spot 1-2</Channel>
+  <Channel Number="2">Green Spot 1-2</Channel>
+  <Channel Number="3">Blue Spot 1-2</Channel>
+  <Channel Number="4">Red Spot 3-4</Channel>
+  <Channel Number="5">Green Spot 3-4</Channel>
+  <Channel Number="6">Blue Spot 3-4</Channel>
+  <Channel Number="7">Strobe</Channel>
+  <Head>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Preprogrammed automatic Shows</Channel>
+  <Channel Number="1">Fixed colors</Channel>
+ </Mode>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Master Red</Channel>
+  <Channel Number="2">Master Green</Channel>
+  <Channel Number="3">Master Blue</Channel>
+  <Channel Number="4">Preprogrammed automatic Shows</Channel>
+  <Channel Number="5">Speed/Sensitivity</Channel>
+  <Channel Number="6">Strobe</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="1364" ColourTemperature="0"/>
+  <Dimensions Weight="5.6" Width="1007" Height="305" Depth="63"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="50" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Tim Cullingworth</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>MH-z720</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Rotation" Preset="PositionPan"/>
+ <Channel Name="Rotation Fine" Preset="PositionPanFine"/>
+ <Channel Name="Inclination" Preset="PositionTilt"/>
+ <Channel Name="Inclination Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Movement Speed (Fast to Slow)" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Intensity Red" Preset="IntensityRed"/>
+ <Channel Name="Intensity Green" Preset="IntensityGreen"/>
+ <Channel Name="Intersity Blue" Preset="IntensityBlue"/>
+ <Channel Name="Intensity White" Preset="IntensityWhite"/>
+ <Channel Name="Light Effects">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">No Effect</Capability>
+  <Capability Min="16" Max="31">Light Effect 1</Capability>
+  <Capability Min="32" Max="47">Light Effect 2</Capability>
+  <Capability Min="48" Max="63">Light Effect 3</Capability>
+  <Capability Min="64" Max="79">Light Effect 4</Capability>
+  <Capability Min="80" Max="95">Light Effect 5</Capability>
+  <Capability Min="96" Max="111">Light Effect 6</Capability>
+  <Capability Min="112" Max="127">Light Effect 7</Capability>
+  <Capability Min="128" Max="143">Light Effect 8</Capability>
+  <Capability Min="144" Max="159">Light Effect 9</Capability>
+  <Capability Min="160" Max="175">Light Effect 10</Capability>
+  <Capability Min="176" Max="191">Light Effect 11</Capability>
+  <Capability Min="192" Max="207">Light Effect 12</Capability>
+  <Capability Min="208" Max="223">Light Effect 13</Capability>
+  <Capability Min="224" Max="239">Light Effect 14</Capability>
+  <Capability Min="240" Max="255">Light Effect 15</Capability>
+ </Channel>
+ <Channel Name="Effect Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Effect Speed Slow to Fast</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="19" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="20" Max="24" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="25" Max="64" Preset="StrobeSlowToFast">Strobe effect 1 Fast to Slow</Capability>
+  <Capability Min="65" Max="69" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="70" Max="84" Preset="RampDownFastToSlow">Strobe effect 2 (fast o,n slow off) Fast to Slow consecutively</Capability>
+  <Capability Min="85" Max="89" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="90" Max="104" Preset="RampUpFastToSlow">Strobe effect 3 (slow on, fast off) Fast to Slow consecutively</Capability>
+  <Capability Min="105" Max="109" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="110" Max="124" Preset="StrobeRandomFastToSlow">Strobe effect 4 (random) Fast to Slow consecutively</Capability>
+  <Capability Min="125" Max="129" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="130" Max="144">Strobe effect 5 (random, fast on, slow off) Fast to Slow consecutively</Capability>
+  <Capability Min="145" Max="149" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="150" Max="164">Strobe effect 6 (random, slow on, fast off) Fast to Slow consecutively</Capability>
+  <Capability Min="165" Max="169" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="170" Max="184" Preset="PulseSlowToFast">Strobe effect 7 (pulse series) Pulse interval increasing</Capability>
+  <Capability Min="185" Max="189" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="190" Max="204" Preset="StrobeFastToSlow">Strobe effect 8 (pulse series with random frequency) Fast to Slow consecutively</Capability>
+  <Capability Min="205" Max="209" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="210" Max="224" Preset="StrobeFastToSlow">Strobe effect 9 (single pulses) Fast to Slow consecutively</Capability>
+  <Capability Min="225" Max="229" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="230" Max="244" Preset="PulseSlowToFast">Strobe effect 10 (inverted pulse series) Pulse interval increasing</Capability>
+  <Capability Min="245" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomBigSmall"/>
+ <Channel Name="Special Settings">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">Without function</Capability>
+  <Capability Min="10" Max="14">Blackout during Pan or Tilt movment</Capability>
+  <Capability Min="15" Max="49">Without function</Capability>
+  <Capability Min="50" Max="54">Rotation position reset</Capability>
+  <Capability Min="55" Max="59">Inclination position reset</Capability>
+  <Capability Min="60" Max="64" Preset="ResetZoom">Optical zoom reset</Capability>
+  <Capability Min="65" Max="69">Without function</Capability>
+  <Capability Min="70" Max="74" Preset="ResetAll">All functions reset</Capability>
+  <Capability Min="75" Max="79">Without function</Capability>
+  <Capability Min="80" Max="84">Inversion of rotation and inclination direction</Capability>
+  <Capability Min="85" Max="89">Inversion of rotation direction</Capability>
+  <Capability Min="90" Max="94">Inversion of inclination direction</Capability>
+  <Capability Min="95" Max="99">Cancel inversion of rotation direction</Capability>
+  <Capability Min="100" Max="104">Cancel inversion on inclination direction</Capability>
+  <Capability Min="105" Max="109">Cancel inversion of rotatin and inclination direction</Capability>
+  <Capability Min="110" Max="114">Movement speed normal</Capability>
+  <Capability Min="115" Max="119">Movement speed fast</Capability>
+  <Capability Min="120" Max="124">Movement speed slow</Capability>
+  <Capability Min="125" Max="129">Maximum fan speed</Capability>
+  <Capability Min="130" Max="134">Automatic fan speed</Capability>
+  <Capability Min="135" Max="139">Dimmer speed fast</Capability>
+  <Capability Min="140" Max="144">Dimmer speed slow</Capability>
+  <Capability Min="145" Max="255">Without function</Capability>
+ </Channel>
+ <Channel Name="Preprogrammed movement pattern">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">No movement</Capability>
+  <Capability Min="8" Max="23">Movement pattern 1</Capability>
+  <Capability Min="24" Max="39">Movement pattern 2</Capability>
+  <Capability Min="40" Max="55">Movement pattern 3</Capability>
+  <Capability Min="56" Max="71">Movement pattern 4</Capability>
+  <Capability Min="72" Max="87">Movement pattern 5</Capability>
+  <Capability Min="88" Max="103">Movement pattern 6</Capability>
+  <Capability Min="104" Max="119">Movement pattern 7</Capability>
+  <Capability Min="120" Max="135">Movement pattern 8</Capability>
+  <Capability Min="136" Max="151">Movement pattern 1 with sound control</Capability>
+  <Capability Min="152" Max="167">Movement pattern 2 with sound control</Capability>
+  <Capability Min="168" Max="183">Movement pattern 3 with sound control</Capability>
+  <Capability Min="184" Max="199">Movement pattern 4 with sound control</Capability>
+  <Capability Min="200" Max="215">Movement pattern 5 with sound control</Capability>
+  <Capability Min="216" Max="231">Movement pattern 6 with sound control</Capability>
+  <Capability Min="232" Max="247">Movement pattern 7 with sound control</Capability>
+  <Capability Min="248" Max="255">Movement pattern 8 with sound control</Capability>
+ </Channel>
+ <Channel Name="Intensity Red, LED group 1" Preset="IntensityRed"/>
+ <Channel Name="Intensity Red, LED group 2" Preset="IntensityRed"/>
+ <Channel Name="Intensity Red, LED group 3" Preset="IntensityRed"/>
+ <Channel Name="Intensity Red, LED group 4" Preset="IntensityRed"/>
+ <Channel Name="Intensity Green, LED group 1" Preset="IntensityGreen"/>
+ <Channel Name="Intensity Green, LED group 2" Preset="IntensityGreen"/>
+ <Channel Name="Intensity Green, LED group 3" Preset="IntensityGreen"/>
+ <Channel Name="Intensity Green, LED group 4" Preset="IntensityGreen"/>
+ <Channel Name="Intensity Blue, LED group 1" Preset="IntensityBlue"/>
+ <Channel Name="Intensity Blue, LED group 2" Preset="IntensityBlue"/>
+ <Channel Name="Intensity Blue, LED group 3" Preset="IntensityBlue"/>
+ <Channel Name="Intensity Blue, LED group 4" Preset="IntensityBlue"/>
+ <Channel Name="Intensity White, LED group 1" Preset="IntensityWhite"/>
+ <Channel Name="Intensity White, LED group 2" Preset="IntensityWhite"/>
+ <Channel Name="Intensity White, LED group 3" Preset="IntensityWhite"/>
+ <Channel Name="Intensity White, LED group 4" Preset="IntensityWhite"/>
+ <Channel Name="Colour setting">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="4">Dark</Capability>
+  <Capability Min="5" Max="9" Preset="ColorMacro" Res1="#ffffff">Colour 1</Capability>
+  <Capability Min="10" Max="14" Preset="ColorMacro" Res1="#ffffe5">Colour 2</Capability>
+  <Capability Min="15" Max="19" Preset="ColorMacro" Res1="#ffe5e5">Colour 3</Capability>
+  <Capability Min="20" Max="24" Preset="ColorMacro" Res1="#ff40ff">Colour 4</Capability>
+  <Capability Min="25" Max="29" Preset="ColorMacro" Res1="#ff99cc">Colour 5</Capability>
+  <Capability Min="30" Max="34" Preset="ColorMacro" Res1="#ebebff">Colour 6</Capability>
+  <Capability Min="35" Max="39" Preset="ColorMacro" Res1="#f2f2ff">Colour 7</Capability>
+  <Capability Min="40" Max="44" Preset="ColorMacro" Res1="#80ffff">Colour 8</Capability>
+  <Capability Min="45" Max="49" Preset="ColorMacro" Res1="#1affff">Colour 9</Capability>
+  <Capability Min="50" Max="54" Preset="ColorMacro" Res1="#b2ffff">Colour 10</Capability>
+  <Capability Min="55" Max="59" Preset="ColorMacro" Res1="#33d9ff">Colour 11</Capability>
+  <Capability Min="60" Max="64" Preset="ColorMacro" Res1="#b2ffff">Colour 12</Capability>
+  <Capability Min="65" Max="69" Preset="ColorMacro" Res1="#f2ffff">Colour 13</Capability>
+  <Capability Min="70" Max="74" Preset="ColorMacro" Res1="#b2faf2">Colour 14</Capability>
+  <Capability Min="75" Max="79" Preset="ColorMacro" Res1="#e5ffff">Colour 15</Capability>
+  <Capability Min="80" Max="84" Preset="ColorMacro" Res1="#f0ffff">Colour 16</Capability>
+  <Capability Min="85" Max="89" Preset="ColorMacro" Res1="#f7ffff">Colour 17</Capability>
+  <Capability Min="90" Max="94" Preset="ColorMacro" Res1="#fcffff">Colour 18</Capability>
+  <Capability Min="95" Max="99" Preset="ColorMacro" Res1="#99ffcc">Colour 19</Capability>
+  <Capability Min="100" Max="104" Preset="ColorMacro" Res1="#a3edd1">Colour 20</Capability>
+  <Capability Min="105" Max="109" Preset="ColorMacro" Res1="#b2fa21">Colour 21</Capability>
+  <Capability Min="110" Max="114" Preset="ColorMacro" Res1="#bffa36">Colour 22</Capability>
+  <Capability Min="115" Max="119" Preset="ColorMacro" Res1="#d1fa6e">Colour 23</Capability>
+  <Capability Min="120" Max="124" Preset="ColorMacro" Res1="#defa9e">Colour 24</Capability>
+  <Capability Min="125" Max="129" Preset="ColorMacro" Res1="#bdfa5e">Colour 25</Capability>
+  <Capability Min="130" Max="134" Preset="ColorMacro" Res1="#ffffcc">Colour 26</Capability>
+  <Capability Min="135" Max="139" Preset="ColorMacro" Res1="#ffff66">Colour 27</Capability>
+  <Capability Min="140" Max="144" Preset="ColorMacro" Res1="#ffff99">Colour 28</Capability>
+  <Capability Min="145" Max="149" Preset="ColorMacro" Res1="#54fc17">Colour 29</Capability>
+  <Capability Min="150" Max="154" Preset="ColorMacro" Res1="#f5e01f">Colour 30</Capability>
+  <Capability Min="155" Max="159" Preset="ColorMacro" Res1="#f7e836">Colour 31</Capability>
+  <Capability Min="160" Max="164" Preset="ColorMacro" Res1="#f5ed6b">Colour 32</Capability>
+  <Capability Min="165" Max="169" Preset="ColorMacro" Res1="#f7c70d">Colour 33</Capability>
+  <Capability Min="170" Max="174" Preset="ColorMacro" Res1="#ffffff">Colour 34</Capability>
+  <Capability Min="175" Max="179">Dark</Capability>
+  <Capability Min="180" Max="201">Gradual colour change in ascending order, fast to slow</Capability>
+  <Capability Min="202" Max="207">Stop colour change</Capability>
+  <Capability Min="208" Max="229">Gradual colour change in descending order, fash to slow</Capability>
+  <Capability Min="230" Max="234">Dark</Capability>
+  <Capability Min="235" Max="249">Stepped colour change in ascending order, fast to slow</Capability>
+  <Capability Min="250" Max="255">Sound controled colour changing</Capability>
+ </Channel>
+ <Mode Name="14 Channel">
+  <Channel Number="0">Rotation</Channel>
+  <Channel Number="1">Inclination</Channel>
+  <Channel Number="2">Movement Speed (Fast to Slow)</Channel>
+  <Channel Number="3">Intensity Red</Channel>
+  <Channel Number="4">Intensity Green</Channel>
+  <Channel Number="5">Intersity Blue</Channel>
+  <Channel Number="6">Intensity White</Channel>
+  <Channel Number="7">Light Effects</Channel>
+  <Channel Number="8">Effect Speed</Channel>
+  <Channel Number="9">Dimmer</Channel>
+  <Channel Number="10">Shutter</Channel>
+  <Channel Number="11">Zoom</Channel>
+  <Channel Number="12">Special Settings</Channel>
+  <Channel Number="13">Preprogrammed movement pattern</Channel>
+ </Mode>
+ <Mode Name="29 Channel">
+  <Channel Number="0">Rotation</Channel>
+  <Channel Number="1">Rotation Fine</Channel>
+  <Channel Number="2">Inclination</Channel>
+  <Channel Number="3">Inclination Fine</Channel>
+  <Channel Number="4">Movement Speed (Fast to Slow)</Channel>
+  <Channel Number="5">Intensity Red, LED group 1</Channel>
+  <Channel Number="6">Intensity Green, LED group 1</Channel>
+  <Channel Number="7">Intensity Blue, LED group 1</Channel>
+  <Channel Number="8">Intensity White, LED group 1</Channel>
+  <Channel Number="9">Intensity Red, LED group 2</Channel>
+  <Channel Number="10">Intensity Green, LED group 2</Channel>
+  <Channel Number="11">Intensity Blue, LED group 2</Channel>
+  <Channel Number="12">Intensity White, LED group 2</Channel>
+  <Channel Number="13">Intensity Red, LED group 3</Channel>
+  <Channel Number="14">Intensity Green, LED group 3</Channel>
+  <Channel Number="15">Intensity Blue, LED group 3</Channel>
+  <Channel Number="16">Intensity White, LED group 3</Channel>
+  <Channel Number="17">Intensity Red, LED group 4</Channel>
+  <Channel Number="18">Intensity Green, LED group 4</Channel>
+  <Channel Number="19">Intensity Blue, LED group 4</Channel>
+  <Channel Number="20">Intensity White, LED group 4</Channel>
+  <Channel Number="21">Colour setting</Channel>
+  <Channel Number="22">Light Effects</Channel>
+  <Channel Number="23">Effect Speed</Channel>
+  <Channel Number="24">Dimmer</Channel>
+  <Channel Number="25">Shutter</Channel>
+  <Channel Number="26">Zoom</Channel>
+  <Channel Number="27">Special Settings</Channel>
+  <Channel Number="28">Preprogrammed movement pattern</Channel>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>6</Channel>
+   <Channel>5</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>11</Channel>
+   <Channel>10</Channel>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+   <Channel>16</Channel>
+   <Channel>15</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>19</Channel>
+   <Channel>18</Channel>
+   <Channel>17</Channel>
+   <Channel>20</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="2700" ColourTemperature="0"/>
+  <Dimensions Weight="8.7" Width="330" Height="230" Depth="380"/>
+  <Lens Name="Other" DegreesMin="10" DegreesMax="54"/>
+  <Focus Type="Fixed" PanMax="540" TiltMax="200"/>
+  <Layout Width="2" Height="2"/>
+  <Technical PowerConsumption="185" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

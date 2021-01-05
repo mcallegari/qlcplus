@@ -34,7 +34,7 @@ target.path = $$INSTALLROOT/$$PLUGINDIR
 INSTALLS   += target
 
 unix:!macx {
-   metainfo.path   = $$INSTALLROOT/share/appdata/
-   metainfo.files += qlcplus-loopback.metainfo.xml
-   INSTALLS       += metainfo 
+   metainfo.path   = $$METAINFODIR
+   metainfo.files += org.qlcplus.QLCPlus.loopback.metainfo.xml
+   INSTALLS       += metainfo
 }

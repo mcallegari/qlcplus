@@ -1,7 +1,7 @@
 /*
   Q Light Controller Plus
   simpledesk.js
-  
+
   Copyright (c) Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,22 +26,22 @@ function getPage(uni, page) {
 }
 
 window.onload = function() {
-   var url = 'ws://' + window.location.host + '/qlcplusWS';
+   var url = "ws://" + window.location.host + "/qlcplusWS";
    websocket = new WebSocket(url);
    websocket.onopen = function(ev) {
     getPage(1, 1);
    };
    websocket.onclose = function(ev) {
-    alert("QLC+ connection lost !");
+    alert("QLC+ connection lost!");
    };
    websocket.onerror = function(ev) {
     alert("QLC+ connection error!");
    };
    websocket.onmessage = function(ev) {
     //alert(ev.data);
-    var msgParams = ev.data.split('|');
-    if (msgParams[0] == "QLC+API") {
-      if (msgParams[1] == "getChannelsValues") {
+    var msgParams = ev.data.split("|");
+    if (msgParams[0] === "QLC+API") {
+      if (msgParams[1] === "getChannelsValues") {
         drawPage(ev.data);
       }
     }
@@ -49,38 +49,41 @@ window.onload = function() {
 };
 
 function getGroupIconName(grp) {
-   if (grp === 0) return "intensity.png";
-   else if (grp === 1) return "colorwheel.png";
-   else if (grp === 2) return "gobo.png";
-   else if (grp === 3) return "speed.png";
-   else if (grp === 4) return "pan.png";
-   else if (grp === 5) return "tilt.png";
-   else if (grp === 6) return "shutter.png";
-   else if (grp === 7) return "prism.png";
-   else if (grp === 8) return "beam.png";
-   else if (grp === 9) return "star.png";
-   else if (grp === 10) return "configure.png";
+   if (grp === 0) { return "intensity.png"; }
+   else if (grp === 1) { return "colorwheel.png"; }
+   else if (grp === 2) { return "gobo.png"; }
+   else if (grp === 3) { return "speed.png"; }
+   else if (grp === 4) { return "pan.png"; }
+   else if (grp === 5) { return "tilt.png"; }
+   else if (grp === 6) { return "shutter.png"; }
+   else if (grp === 7) { return "prism.png"; }
+   else if (grp === 8) { return "beam.png"; }
+   else if (grp === 9) { return "star.png"; }
+   else if (grp === 10) { return "configure.png"; }
    return "";
 }
 
 function getSliderTopCode(type) {
-   if (type == '')
-   return "<div style='width:34px; height:34px; margin:2px 0 0 1px; background:transparent;'></div>";
-   var aType = type.split('.');
-   if (aType.length == 1)
-     return "<img src=" + getGroupIconName(parseInt(type)) + " style='margin-left:2px;'>";
-   else {
-    if (aType[1] == '#000000')
-      return "<img src=" + getGroupIconName(0) + ">";
-    else
-      return "<div style='width:34px; height:34px; margin:2px 0 0 1px; background:" + aType[1] + ";'></div>";
+   if (type === "")
+   {
+      return "<div style='width:34px; height:34px; margin:2px 0 0 1px; background:transparent;'></div>";
+   }
+   var aType = type.split(".");
+   if (aType.length === 1) {
+      return "<img src=" + getGroupIconName(parseInt(type)) + " style='margin-left:2px;'>";
+   } else {
+      if (aType[1] === "#000000") {
+         return "<img src=" + getGroupIconName(0) + ">";
+      } else {
+         return "<div style='width:34px; height:34px; margin:2px 0 0 1px; background:" + aType[1] + ";'></div>";
+      }
    }
 }
 
 function drawPage(data) {
  var cObj = document.getElementById("slidersContainer");
  var code = "";
- var cVars = data.split('|');
+ var cVars = data.split("|");
  for (i = 2; i < cVars.length; i+=3) {
      var chNum = parseInt(cVars[i]);
      code += "<div class='sdSlider' style='width: 36px; height: 372px; background-color: #aaa; margin-left:2px;'>";
@@ -101,18 +104,20 @@ function drawPage(data) {
 
 function nextPage() {
  currentPage++;
- if (currentPage * channelsPerPage > 512)
+ if (currentPage * channelsPerPage > 512) {
    currentPage = 1;
+ }
  var pgObj = document.getElementById("pageDiv");
  pgObj.innerHTML = currentPage;
  getPage(currentUniverse, currentPage);
 }
 
 function previousPage() {
- if (currentPage === 1)
+ if (currentPage === 1) {
    currentPage = (512 / channelsPerPage);
- else
+ } else {
    currentPage--;
+ }
  var pgObj = document.getElementById("pageDiv");
  pgObj.innerHTML = currentPage;
  getPage(currentUniverse, currentPage);

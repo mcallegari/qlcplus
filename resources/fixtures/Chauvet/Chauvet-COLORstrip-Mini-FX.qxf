@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>John Thomas</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>COLORstrip Mini FX</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Laser Color">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">Blackout</Capability>
+  <Capability Min="11" Max="63">Auto programs with strobe</Capability>
+  <Capability Min="64" Max="127">Red laser</Capability>
+  <Capability Min="128" Max="191">Green laser</Capability>
+  <Capability Min="192" Max="255">Red + Green laser</Capability>
+ </Channel>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="6">Blackout</Capability>
+  <Capability Min="7" Max="13">Red</Capability>
+  <Capability Min="14" Max="20">Green</Capability>
+  <Capability Min="21" Max="27">Blue</Capability>
+  <Capability Min="28" Max="34">Yellow</Capability>
+  <Capability Min="35" Max="41">Purple</Capability>
+  <Capability Min="42" Max="48">Cyan</Capability>
+  <Capability Min="49" Max="55">White</Capability>
+  <Capability Min="56" Max="62">Red (Laser)</Capability>
+  <Capability Min="63" Max="69">Green (Laser)</Capability>
+  <Capability Min="70" Max="76">Red + Green (Laser)</Capability>
+  <Capability Min="77" Max="82">Color Change 1</Capability>
+  <Capability Min="83" Max="90">Color Change 2</Capability>
+  <Capability Min="91" Max="97">Color Change 3</Capability>
+  <Capability Min="98" Max="104">Color Change 4</Capability>
+  <Capability Min="105" Max="111">Color Change 5</Capability>
+  <Capability Min="112" Max="118">Color Change 6</Capability>
+  <Capability Min="119" Max="125">Color Change 1 (Laser + LED)</Capability>
+  <Capability Min="126" Max="132">Color Change 2 (Laser + LED)</Capability>
+  <Capability Min="133" Max="139">Color Change 3 (Laser + LED)</Capability>
+  <Capability Min="140" Max="146">Color Change 4 (Laser + LED)</Capability>
+  <Capability Min="147" Max="153">Color Change 5 (Laser + LED)</Capability>
+  <Capability Min="154" Max="160">Color Chase 1</Capability>
+  <Capability Min="161" Max="167">Color Chase 2</Capability>
+  <Capability Min="168" Max="174">Color Chase 3</Capability>
+  <Capability Min="175" Max="181">Color Chase 4</Capability>
+  <Capability Min="182" Max="188">Color Chase 5</Capability>
+  <Capability Min="189" Max="195">Color Chase 6</Capability>
+  <Capability Min="196" Max="202">Color Chase 7</Capability>
+  <Capability Min="203" Max="209">Color Chase 1 (Laser + LED)</Capability>
+  <Capability Min="210" Max="216">Color Chase 2 (Laser + LED)</Capability>
+  <Capability Min="217" Max="223">Color Chase 3 (Laser + LED)</Capability>
+  <Capability Min="224" Max="230">Color Chase 4 (Laser + LED)</Capability>
+  <Capability Min="231" Max="237">Color Chase 5 (Laser + LED)</Capability>
+  <Capability Min="238" Max="244">RGB Color Mix</Capability>
+  <Capability Min="245" Max="251">Color Fade</Capability>
+  <Capability Min="252" Max="255">Sound-Active (Auto Run)</Capability>
+ </Channel>
+ <Channel Name="Effect Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="127">Run speed Auto</Capability>
+  <Capability Min="128" Max="255">SOUND active</Capability>
+ </Channel>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="249" Preset="ShutterOpen">Strobe</Capability>
+  <Capability Min="250" Max="255" Preset="SilentModeOff">SOUND active</Capability>
+ </Channel>
+ <Channel Name="Laser (7ch)">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="39">NULL</Capability>
+  <Capability Min="40" Max="79">RED</Capability>
+  <Capability Min="80" Max="119">GRN</Capability>
+  <Capability Min="120" Max="159">R + GRN</Capability>
+  <Capability Min="160" Max="199">R + G Strobe</Capability>
+  <Capability Min="200" Max="239">G + R Strobe</Capability>
+  <Capability Min="240" Max="255">Alternating strobe</Capability>
+ </Channel>
+ <Channel Name="LASER Strobe Speed">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="LampOff">NULL</Capability>
+  <Capability Min="5" Max="249" Preset="StrobeSlowToFast">Slo to Fast</Capability>
+  <Capability Min="250" Max="255" Preset="SilentModeOff">SOUND active</Capability>
+ </Channel>
+ <Channel Name="Laser Pattern">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="19">Pattern 1</Capability>
+  <Capability Min="20" Max="39">Pattern 2</Capability>
+  <Capability Min="40" Max="59">Pattern 3</Capability>
+  <Capability Min="60" Max="79">Pattern 4</Capability>
+  <Capability Min="80" Max="99">Pattern 5</Capability>
+  <Capability Min="100" Max="119">Pattern 6</Capability>
+  <Capability Min="120" Max="255">Rotation Speed</Capability>
+ </Channel>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Laser Color</Channel>
+ </Mode>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Color</Channel>
+  <Channel Number="1">Effect Speed</Channel>
+  <Channel Number="2">Shutter</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Laser (7ch)</Channel>
+  <Channel Number="5">LASER Strobe Speed</Channel>
+  <Channel Number="6">Laser Pattern</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="444" ColourTemperature="0"/>
+  <Dimensions Weight="2" Width="482" Height="60" Depth="169"/>
+  <Lens Name="Other" DegreesMin="100" DegreesMax="100"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

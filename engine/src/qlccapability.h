@@ -21,6 +21,7 @@
 #ifndef QLCCAPABILITY_H
 #define QLCCAPABILITY_H
 
+#include <QVariantList>
 #include <QObject>
 #include <climits>
 #include <QColor>
@@ -39,9 +40,26 @@ class QFile;
 #define KXMLQLCCapability    "Capability"
 #define KXMLQLCCapabilityMin "Min"
 #define KXMLQLCCapabilityMax "Max"
+#define KXMLQLCCapabilityPreset "Preset"
+#define KXMLQLCCapabilityRes1 "Res1"
+#define KXMLQLCCapabilityRes2 "Res2"
+
+#define KXMLQLCCapabilityAlias "Alias"
+#define KXMLQLCCapabilityAliasMode "Mode"
+#define KXMLQLCCapabilityAliasSourceName "Channel"
+#define KXMLQLCCapabilityAliasTargetName "With"
+
+/** ****************** LEGACY ***************** */
 #define KXMLQLCCapabilityResource "Res"
 #define KXMLQLCCapabilityColor1 "Color"
 #define KXMLQLCCapabilityColor2 "Color2"
+
+typedef struct
+{
+    QString targetMode;     /** Name of the mode where this alias has effect */
+    QString sourceChannel;  /** Name of the channel to be replaced by targetChannel */
+    QString targetChannel;  /** Name of the channel that will replace sourceChannel */
+} AliasInfo;
 
 /**
  * QLCCapability represents one value range with a special meaning in a
@@ -58,9 +76,7 @@ class QLCCapability: public QObject
     Q_PROPERTY(QString name READ name CONSTANT)
     Q_PROPERTY(int min READ min CONSTANT)
     Q_PROPERTY(int max READ max CONSTANT)
-    Q_PROPERTY(QString resourceName READ resourceName CONSTANT)
-    Q_PROPERTY(QColor resourceColor1 READ resourceColor1 CONSTANT)
-    Q_PROPERTY(QColor resourceColor2 READ resourceColor2 CONSTANT)
+    Q_PROPERTY(QVariantList resources READ resources CONSTANT)
 
     /********************************************************************
      * Initialization
@@ -68,42 +84,162 @@ class QLCCapability: public QObject
 public:
     /** Default constructor */
     QLCCapability(uchar min = 0, uchar max = UCHAR_MAX,
-                  const QString& name = QString(), const QString& resource = QString(),
-                  const QColor &color1 = QColor(), const QColor &color2 = QColor(),
-                  QObject *parent = 0);
+                  const QString& name = QString(), QObject *parent = 0);
 
     QLCCapability *createCopy();
 
     /** Destructor */
     ~QLCCapability();
 
-    /** Assignment operator */
-    QLCCapability& operator=(const QLCCapability& capability);
-
     /** Comparing operator for qSort */
     bool operator<(const QLCCapability& capability) const;
+
+    /********************************************************************
+     * Presets
+     *
+     * please see
+     * https://github.com/mcallegari/qlcplus/wiki/Fixture-definition-presets
+     * when changing this list
+     ********************************************************************/
+public:
+    enum Preset
+    {
+        Custom = 0,
+        SlowToFast,
+        FastToSlow,
+        NearToFar,
+        FarToNear,
+        BigToSmall,
+        SmallToBig,
+        ShutterOpen,
+        ShutterClose,
+        StrobeSlowToFast,
+        StrobeFastToSlow,
+        StrobeRandom,
+        StrobeRandomSlowToFast,
+        StrobeRandomFastToSlow,
+        StrobeFrequency,        /** precise frequency value in hertz specified in m_resources */
+        StrobeFreqRange,        /** specified in m_resources as 0: min, 1: max hertz */
+        PulseSlowToFast,
+        PulseFastToSlow,
+        PulseFrequency,
+        PulseFreqRange,
+        RampUpSlowToFast,
+        RampUpFastToSlow,
+        RampDownSlowToFast,
+        RampDownFastToSlow,
+        RampUpFrequency,
+        RampUpFreqRange,
+        RampDownFrequency,
+        RampDownFreqRange,
+        RotationStop,
+        RotationIndexed,
+        RotationClockwise,
+        RotationClockwiseSlowToFast,
+        RotationClockwiseFastToSlow,
+        RotationCounterClockwise,
+        RotationCounterClockwiseSlowToFast,
+        RotationCounterClockwiseFastToSlow,
+        ColorMacro,
+        ColorDoubleMacro,
+        ColorWheelIndex,
+        GoboMacro,
+        GoboShakeMacro,
+        GenericPicture,
+        PrismEffectOn,
+        PrismEffectOff,
+        LampOn,
+        LampOff,
+        ResetAll,
+        ResetPanTilt,
+        ResetPan,
+        ResetTilt,
+        ResetMotors,
+        ResetGobo,
+        ResetColor,
+        ResetCMY,
+        ResetCTO,
+        ResetEffects,
+        ResetPrism,
+        ResetBlades,
+        ResetIris,
+        ResetFrost,
+        ResetZoom,
+        SilentModeOn,
+        SilentModeOff,
+        SilentModeAutomatic,
+        Alias,
+        LastPreset // dummy for cycles
+    };
+#if QT_VERSION >= 0x050500
+    Q_ENUM(Preset)
+#else
+    Q_ENUMS(Preset)
+#endif
+
+    enum PresetType
+    {
+        None,
+        SingleColor,
+        DoubleColor,
+        SingleValue,
+        DoubleValue,
+        Picture
+    };
+
+#if QT_VERSION >= 0x050500
+    Q_ENUM(PresetType)
+#else
+    Q_ENUMS(PresetType)
+#endif
+
+    /** String <-> value preset conversion helpers */
+    static QString presetToString(Preset preset);
+    static Preset stringToPreset(const QString &preset);
+
+    /** Get/Set the preset value for this capability */
+    Preset preset() const;
+    void setPreset(Preset preset);
+
+    /** Return the type of the current preset.
+     *  This is useful for the UI to understand the type
+     *  of resources this capability is exposing */
+    PresetType presetType() const;
+
+    /** Returns the value unit type of a preset as string */
+    QString presetUnits() const;
+
+protected:
+    Preset m_preset;
 
     /********************************************************************
      * Properties
      ********************************************************************/
 public:
+    /** Get/Set the capability range minimum value */
     uchar min() const;
     void setMin(uchar value);
 
+    /** Get/Set the capability range maximum value */
     uchar max() const;
     void setMax(uchar value);
 
+    /** Get the capability range middle value */
     uchar middle() const;
 
+    /** Get/Set the capability display name */
     QString name() const;
     void setName(const QString& name);
 
-    QString resourceName();
-    void setResourceName(const QString& name);
+    /** Get the resource at the provided index.
+     *  Returns an empty QVariant on failure */
+    QVariant resource(int index);
 
-    QColor resourceColor1();
-    QColor resourceColor2();
-    void setResourceColors(QColor col1, QColor col2);
+    /** Add or replace a resource value at the provided index */
+    void setResource(int index, QVariant value);
+
+    /** Get the complete list of resources for this capability */
+    QVariantList resources();
 
     /** Check, whether the given capability overlaps with this */
     bool overlaps(const QLCCapability* cap);
@@ -112,9 +248,26 @@ protected:
     uchar m_min;
     uchar m_max;
     QString m_name;
-    QString m_resourceName;
-    QColor m_resourceColor1;
-    QColor m_resourceColor2;
+    QVariantList m_resources;
+
+    /********************************************************************
+     * Aliases
+     ********************************************************************/
+public:
+    /** Get the full list of aliases defined by this capability */
+    QList<AliasInfo> aliasList();
+
+    /** Add a new alias to the aliases list */
+    void addAlias(AliasInfo alias);
+
+    /** Remove an existing alias matching the provided structure */
+    void removeAlias(AliasInfo alias);
+
+    /** Replace all the current aliases with the ones in the provided list */
+    void replaceAliases(QList<AliasInfo> list);
+
+protected:
+    QList<AliasInfo> m_aliases;
 
     /********************************************************************
      * Load & Save

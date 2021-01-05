@@ -18,8 +18,9 @@
 */
 
 import QtQuick 2.0
+import QtQuick.Layouts 1.1
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "GenericHelpers.js" as Helpers
 import "."
 
@@ -40,24 +41,47 @@ Rectangle
         height: parent.height
         z: 1
         radius: 3
-        gradient: Gradient
-        {
-            id: bgGradient
-            GradientStop { position: 0.75 ; color: "#999" }
-            GradientStop { position: 1 ; color: "#333" }
-        }
+        color: UISettings.bgLighter
         border.width: 2
         border.color: "#111"
 
-        Row
+        RowLayout
         {
             x: 8
-            spacing: 3
+            width: parent.width - 16
+            spacing: 5
+
+            Column
+            {
+                height: patchBox.height
+                spacing: 1
+
+                IconButton
+                {
+                    imgSource: checked ? "qrc:/pause.svg" : "qrc:/play.svg"
+                    bgColor: "green"
+                    checkedColor: "red"
+                    checkable: true
+                    checked: patch ? patch.paused : false
+                    tooltip: qsTr("Play/Pause this output patch")
+                    onToggled: if (patch) patch.paused = checked
+                }
+                IconButton
+                {
+                    faSource: checked ? FontAwesome.fa_eye_slash : FontAwesome.fa_eye
+                    faColor: UISettings.fgMain
+                    bgColor: "green"
+                    checkedColor: "red"
+                    checkable: true
+                    checked: patch ? patch.blackout : false
+                    tooltip: qsTr("Enable/Disable a blackout on this output patch")
+                    onToggled: if (patch) patch.blackout = checked
+                }
+            }
 
             Image
             {
-                id: pluginIcon
-                anchors.verticalCenter: parent.verticalCenter
+                Layout.alignment: Qt.AlignVCenter
                 height: patchBox.height * 0.75
                 width: height
                 source: patch ? Helpers.pluginIconFromName(patch.pluginName) : ""
@@ -67,7 +91,7 @@ Rectangle
             RobotoText
             {
                 height: patchBox.height
-                width: patchBox.width - pluginIcon.width - 6
+                Layout.fillWidth: true
                 label: patch ? patch.outputName : ""
                 labelColor: "black"
                 wrapText: true
@@ -97,7 +121,7 @@ Rectangle
         {
             id: outDropRect
             anchors.fill: parent
-            color: patchDropTarget.containsDrag ? "#33FF9B3E" : "transparent"
+            color: patchDropTarget.containsDrag ? "#7F00FF00" : "transparent"
         }
     }
 }

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Henk de Gunst</Author>
+ </Creator>
+ <Manufacturer>Showtec</Manufacturer>
+ <Model>Explorer 250 Pro MKII</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Lamp On, Off &amp; Reset">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="127">No function</Capability>
+  <Capability Min="128" Max="139">Lamp on after 3 seconds, reset</Capability>
+  <Capability Min="140" Max="229">No function</Capability>
+  <Capability Min="230" Max="239">Lamp off after 3 seconds</Capability>
+  <Capability Min="240" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Colourwheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15" Preset="ColorMacro" Res1="#ffffff">Open / white</Capability>
+  <Capability Min="16" Max="31" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="32" Max="47" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="48" Max="63" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="64" Max="79" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="80" Max="95" Preset="ColorMacro" Res1="#ff8000">Orange</Capability>
+  <Capability Min="96" Max="111" Preset="ColorMacro" Res1="#ff0080">Blue</Capability>
+  <Capability Min="112" Max="127" Preset="ColorMacro" Res1="#ffaaff">Pink</Capability>
+  <Capability Min="128" Max="255" Preset="GoboMacro" Res1="Others/rainbow.png">Forwards rainbow effect from fast to slow</Capability>
+ </Channel>
+ <Channel Name="Prism + Lambency">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">No function</Capability>
+  <Capability Min="128" Max="187">3-facet prism</Capability>
+  <Capability Min="188" Max="255">Lambency</Capability>
+ </Channel>
+ <Channel Name="Prism Rotating Control">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">No rotation</Capability>
+  <Capability Min="5" Max="127">Backwards rotation from slow to fast</Capability>
+  <Capability Min="128" Max="132">No rotation</Capability>
+  <Capability Min="133" Max="255">Forwards rotation from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Gobowheel 1 + Gobo Shake">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="31" Preset="GoboMacro" Res1="Others/open.svg">Open / white</Capability>
+  <Capability Min="32" Max="57" Preset="ColorMacro" Res1="#00aaff">1 (metal)</Capability>
+  <Capability Min="58" Max="73" Preset="ColorMacro" Res1="#00aaff">Shaking 1</Capability>
+  <Capability Min="74" Max="94" Preset="ColorMacro" Res1="#ff7f7f">2 (metal)</Capability>
+  <Capability Min="95" Max="110" Preset="ColorMacro" Res1="#ff7f7f">Shaking 2</Capability>
+  <Capability Min="111" Max="131" Preset="ColorMacro" Res1="#dcc17a">3 (glass)</Capability>
+  <Capability Min="132" Max="147" Preset="ColorMacro" Res1="#dcc17a">Shaking 3</Capability>
+  <Capability Min="148" Max="168" Preset="GoboMacro" Res1="SGM-Color/gobo00373.png">4 (glass)</Capability>
+  <Capability Min="169" Max="184" Preset="GoboShakeMacro" Res1="SGM-Color/gobo00373.png">Shaking 4</Capability>
+  <Capability Min="185" Max="205" Preset="GoboMacro" Res1="Others/gobo00016.svg">5 (glass)</Capability>
+  <Capability Min="206" Max="221" Preset="GoboShakeMacro" Res1="Others/gobo00016.svg">Shaking 5</Capability>
+  <Capability Min="222" Max="242" Preset="GoboMacro" Res1="Chauvet/gobo00067.svg">6 (glass)</Capability>
+  <Capability Min="243" Max="255" Preset="GoboShakeMacro" Res1="Chauvet/gobo00067.svg">Shaking 6</Capability>
+ </Channel>
+ <Channel Name="Gobowheel 2 + Gobo Shake">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="31" Preset="GoboMacro" Res1="Others/open.svg">Open / white</Capability>
+  <Capability Min="32" Max="47" Preset="GoboMacro" Res1="SGM/gobo00002.svg">1 (glass)</Capability>
+  <Capability Min="48" Max="63" Preset="GoboShakeMacro" Res1="SGM/gobo00002.svg">Shaking 1</Capability>
+  <Capability Min="64" Max="79" Preset="GoboMacro" Res1="Others/gobo00005.svg">2 (glass)</Capability>
+  <Capability Min="80" Max="95" Preset="GoboShakeMacro" Res1="Others/gobo00005.svg">Shaking 2</Capability>
+  <Capability Min="96" Max="111" Preset="GoboMacro" Res1="SGM-Color/gobo00395.png">3 (glass)</Capability>
+  <Capability Min="112" Max="127" Preset="GoboShakeMacro" Res1="SGM-Color/gobo00395.png">Shaking 3</Capability>
+  <Capability Min="128" Max="143" Preset="GoboMacro" Res1="SGM-Color/gobo00375.svg">4 (metal)</Capability>
+  <Capability Min="144" Max="159" Preset="GoboShakeMacro" Res1="SGM-Color/gobo00375.svg">Shaking 4</Capability>
+  <Capability Min="160" Max="175" Preset="GoboMacro" Res1="SGM-Color/gobo00557.png">5 (metal)</Capability>
+  <Capability Min="176" Max="191" Preset="GoboShakeMacro" Res1="SGM-Color/gobo00557.png">Shaking 5</Capability>
+  <Capability Min="192" Max="223">No</Capability>
+  <Capability Min="224" Max="255">Continuous rotation from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Gobowheel 2 Rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="60">Indexing</Capability>
+  <Capability Min="61" Max="158">Forwards rotation from fast to slow</Capability>
+  <Capability Min="159" Max="255">Backwards rotation from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Zoom, Frost, UV Filter">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="31">Zoom 15° (without focus correction)</Capability>
+  <Capability Min="32" Max="47">Zoom 18° (without focus correction)</Capability>
+  <Capability Min="48" Max="63">Zoom 21° (without focus correction)</Capability>
+  <Capability Min="64" Max="79">Zoom 24° (without focus correction)</Capability>
+  <Capability Min="80" Max="95">Zoom 26° (without focus correction)</Capability>
+  <Capability Min="96" Max="111">Frost</Capability>
+  <Capability Min="112" Max="127">UV-filter</Capability>
+  <Capability Min="128" Max="159">Zoom 15° (with focus correction)</Capability>
+  <Capability Min="160" Max="175">Zoom 18° (with focus correction)</Capability>
+  <Capability Min="176" Max="191">Zoom 21° (with focus correction)</Capability>
+  <Capability Min="192" Max="207">Zoom 24° (with focus correction)</Capability>
+  <Capability Min="208" Max="223">Zoom 26° (with focus correction)</Capability>
+  <Capability Min="224" Max="239">224-239 Frost°</Capability>
+  <Capability Min="240" Max="255">UV-filter</Capability>
+ </Channel>
+ <Channel Name="From Far Distance to Close Distance" Preset="BeamFocusFarNear"/>
+ <Channel Name="Shutter / Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31" Preset="ShutterClose">Shutter closed / blackout</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeFreqRange" Res1="0" Res2="10">Strobe effect, from slow to fast (0-10 flashes/sec.)</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="128" Max="159">Pulse-effect 1, in sequences from slow to fast</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Random strobe effect, from slow to fast</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">Shutter open</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Mode Name="16 Channels">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan Fine</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Pan/Tilt Speed</Channel>
+  <Channel Number="5">Lamp On, Off &amp; Reset</Channel>
+  <Channel Number="6">Colourwheel</Channel>
+  <Channel Number="7">Prism + Lambency</Channel>
+  <Channel Number="8">Prism Rotating Control</Channel>
+  <Channel Number="9">Gobowheel 1 + Gobo Shake</Channel>
+  <Channel Number="10">Gobowheel 2 + Gobo Shake</Channel>
+  <Channel Number="11">Gobowheel 2 Rotation</Channel>
+  <Channel Number="12">Zoom, Frost, UV Filter</Channel>
+  <Channel Number="13">From Far Distance to Close Distance</Channel>
+  <Channel Number="14">Shutter / Strobe</Channel>
+  <Channel Number="15">Dimmer</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="MSD 250W" Lumens="6700" ColourTemperature="0"/>
+  <Dimensions Weight="28.2" Width="350" Height="470" Depth="380"/>
+  <Lens Name="Other" DegreesMin="15" DegreesMax="26"/>
+  <Focus Type="Fixed" PanMax="530" TiltMax="280"/>
+  <Technical PowerConsumption="350" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

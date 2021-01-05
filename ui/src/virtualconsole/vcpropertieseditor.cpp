@@ -21,6 +21,7 @@
 #include <QSettings>
 #include <QCheckBox>
 #include <QSpinBox>
+#include <QAction>
 
 #include "qlcinputprofile.h"
 #include "qlcinputchannel.h"

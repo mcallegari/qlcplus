@@ -18,13 +18,15 @@
 */
 
 import QtQuick 2.0
+import QtQuick.Layouts 1.1
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "GenericHelpers.js" as Helpers
 import "."
 
 Rectangle
 {
+    id: ipRoot
     width: parent.width
     height: UISettings.bigItemHeight * 0.9
     color: "transparent"
@@ -32,21 +34,54 @@ Rectangle
     property int universeID
     property InputPatch patch
 
+    signal removeProfile()
+
+    Rectangle
+    {
+        id: profileBox
+        width: parent.width
+        height: UISettings.bigItemHeight * 0.85
+        visible: patch ? (patch.profileName === "None" ? false : true) : false
+
+        border.width: 2
+        border.color: "#222"
+        color: "#269ABA"
+        radius: 10
+
+        IconButton
+        {
+            y: 4
+            x: parent.width - width - 10
+            height: UISettings.bigItemHeight * 0.25
+            width: height
+            faSource: FontAwesome.fa_times
+            faColor: "white"
+            tooltip: qsTr("Remove this input profile")
+            onClicked: ipRoot.removeProfile()
+        }
+
+        RobotoText
+        {
+            x: 10
+            y: 3
+            height: UISettings.bigItemHeight * 0.3
+            width: parent.width - 20
+            label: patch ? patch.profileName : ""
+            labelColor: "black"
+            fontSize: UISettings.textSizeDefault
+        }
+    }
+
     Rectangle
     {
         id: patchBox
         width: profileBox.visible ? parent.width - 10 : parent.width
-        height: profileBox.visible ? UISettings.bigItemHeight * 0.6 : UISettings.bigItemHeight * 0.8
-        y: profileBox.visible ? UISettings.bigItemHeight * 0.2 : 0
+        height: profileBox.visible ? UISettings.bigItemHeight * 0.5 : UISettings.bigItemHeight * 0.8
+        y: profileBox.visible ? UISettings.bigItemHeight * 0.3 : 0
         x: profileBox.visible ? 5 : 0
         z: 1
         radius: 3
-        gradient: Gradient
-        {
-            id: bgGradient
-            GradientStop { position: 0.75 ; color: "#999" }
-            GradientStop { position: 1 ; color: "#333" }
-        }
+        color: UISettings.bgLighter
         border.width: 2
         border.color: "#111"
 
@@ -81,16 +116,16 @@ Rectangle
             }
         }
 
-        Row
+        RowLayout
         {
             x: 8
+            width: parent.width - 16
+            anchors.verticalCenter: parent.verticalCenter
             spacing: 3
 
             Image
             {
-                id: pluginIcon
-                anchors.verticalCenter: parent.verticalCenter
-                height: patchBox.height * 0.75
+                height: ipRoot.height * 0.75
                 width: height
                 source: patch ? Helpers.pluginIconFromName(patch.pluginName) : ""
                 sourceSize: Qt.size(width, height)
@@ -98,38 +133,13 @@ Rectangle
             }
             RobotoText
             {
-                height: patchBox.height
-                width: patchBox.width - pluginIcon.width - 6
+                height: ipRoot.height
+                Layout.fillWidth: true
                 label: patch ? patch.inputName : ""
                 labelColor: "black"
                 wrapText: true
                 fontSize: UISettings.textSizeDefault
             }
-        }
-    }
-
-    Rectangle
-    {
-        id: profileBox
-        width: parent.width
-        height: UISettings.bigItemHeight * 0.8
-        visible: patch ? (patch.profileName === "None" ? false : true) : false
-
-        border.width: 2
-        border.color: "#222"
-        color: "#269ABA"
-        radius: 10
-
-        RobotoText
-        {
-            x: 10
-            y: 3
-            height: UISettings.bigItemHeight * 0.2
-            width: parent.width - 20
-            label: patch ? patch.profileName : ""
-            labelColor: "black"
-            fontSize: height ? height * 0.7 : 20
-            //wrapText: true
         }
     }
 }

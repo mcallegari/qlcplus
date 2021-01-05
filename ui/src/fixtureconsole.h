@@ -81,6 +81,9 @@ public:
     /** Get the fixture that this console is controlling */
     quint32 fixture() const;
 
+protected slots:
+    void slotAliasChanged();
+
 protected:
     quint32 m_fixture;
 
@@ -130,7 +133,7 @@ signals:
 
 private:
     /** Get a console channel instance for the given relative channel */
-    ConsoleChannel* channel(quint32 ch) const;
+    ConsoleChannel *channel(quint32 ch) const;
 
 private:
     QList<ConsoleChannel*> m_channels;

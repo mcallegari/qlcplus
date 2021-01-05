@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Skye Peterson</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Emerald Scan</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pattern">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="14">Circle CW</Capability>
+  <Capability Min="15" Max="29">Rings/Target</Capability>
+  <Capability Min="30" Max="44">3 Rolling Rings CW</Capability>
+  <Capability Min="45" Max="59">Rolling Ring CCW</Capability>
+  <Capability Min="60" Max="74">Barrel</Capability>
+  <Capability Min="75" Max="89">Tri-Ring CW</Capability>
+  <Capability Min="90" Max="104">Tri-Ring CCW</Capability>
+  <Capability Min="105" Max="119">Intersecting Rings 1</Capability>
+  <Capability Min="120" Max="134">Intersecting Rings 2</Capability>
+  <Capability Min="135" Max="149">Intersecting Rings 3</Capability>
+  <Capability Min="150" Max="164">Line CCW Slow</Capability>
+  <Capability Min="165" Max="179">Tri-Blade</Capability>
+  <Capability Min="180" Max="194">Tri-Blade CW</Capability>
+  <Capability Min="195" Max="209">Tri-Blade CCW</Capability>
+  <Capability Min="210" Max="224">Line CW Fast</Capability>
+  <Capability Min="225" Max="239">Line CCW Fast</Capability>
+  <Capability Min="240" Max="254">Quad-Blade</Capability>
+  <Capability Min="255" Max="255">Circle CCW</Capability>
+ </Channel>
+ <Channel Name="Lazer Glitter">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">This increases and decreases the lazer line size and the gap size in the patterns</Capability>
+ </Channel>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pattern</Channel>
+  <Channel Number="3">Lazer Glitter</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="Green Lazer Diode" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3" Width="203" Height="407" Depth="140"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Head" PanMax="150" TiltMax="90"/>
+  <Technical PowerConsumption="240" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

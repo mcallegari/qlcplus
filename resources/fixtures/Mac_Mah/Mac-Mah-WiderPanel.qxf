@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Kevin Deldycke</Author>
+ </Creator>
+ <Manufacturer>Mac Mah</Manufacturer>
+ <Model>Wider Panel</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red intensity #1" Preset="IntensityRed"/>
+ <Channel Name="Red intensity #2" Preset="IntensityRed"/>
+ <Channel Name="Red intensity #3" Preset="IntensityRed"/>
+ <Channel Name="Red intensity #4" Preset="IntensityRed"/>
+ <Channel Name="Red intensity #5" Preset="IntensityRed"/>
+ <Channel Name="Red intensity #6" Preset="IntensityRed"/>
+ <Channel Name="Red intensity #7" Preset="IntensityRed"/>
+ <Channel Name="Red intensity #8" Preset="IntensityRed"/>
+ <Channel Name="Green intensity #1" Preset="IntensityGreen"/>
+ <Channel Name="Green intensity #2" Preset="IntensityGreen"/>
+ <Channel Name="Green intensity #3" Preset="IntensityGreen"/>
+ <Channel Name="Green intensity #4" Preset="IntensityGreen"/>
+ <Channel Name="Green intensity #5" Preset="IntensityGreen"/>
+ <Channel Name="Green intensity #6" Preset="IntensityGreen"/>
+ <Channel Name="Green intensity #7" Preset="IntensityGreen"/>
+ <Channel Name="Green intensity #8" Preset="IntensityGreen"/>
+ <Channel Name="Blue intensity #1" Preset="IntensityBlue"/>
+ <Channel Name="Blue intensity #2" Preset="IntensityBlue"/>
+ <Channel Name="Blue intensity #3" Preset="IntensityBlue"/>
+ <Channel Name="Blue intensity #4" Preset="IntensityBlue"/>
+ <Channel Name="Blue intensity #5" Preset="IntensityBlue"/>
+ <Channel Name="Blue intensity #6" Preset="IntensityBlue"/>
+ <Channel Name="Blue intensity #7" Preset="IntensityBlue"/>
+ <Channel Name="Blue intensity #8" Preset="IntensityBlue"/>
+ <Channel Name="Dimmer effect #1">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="4">Nothing</Capability>
+  <Capability Min="5" Max="5">Full intensity</Capability>
+  <Capability Min="6" Max="247">Different gradual effects</Capability>
+  <Capability Min="248" Max="255">Full intensity</Capability>
+ </Channel>
+ <Channel Name="Dimmer effect #2">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="4">Nothing</Capability>
+  <Capability Min="5" Max="5">Full intensity</Capability>
+  <Capability Min="6" Max="247">Different gradual effects</Capability>
+  <Capability Min="248" Max="255">Full intensity</Capability>
+ </Channel>
+ <Channel Name="Dimmer effect #3">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="4">Nothing</Capability>
+  <Capability Min="5" Max="5">Full intensity</Capability>
+  <Capability Min="6" Max="247">Different gradual effects</Capability>
+  <Capability Min="248" Max="255">Full intensity</Capability>
+ </Channel>
+ <Channel Name="Dimmer effect #4">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="4">Nothing</Capability>
+  <Capability Min="5" Max="5">Full intensity</Capability>
+  <Capability Min="6" Max="247">Different gradual effects</Capability>
+  <Capability Min="248" Max="255">Full intensity</Capability>
+ </Channel>
+ <Channel Name="Dimmer effect #5">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="4">Nothing</Capability>
+  <Capability Min="5" Max="5">Full intensity</Capability>
+  <Capability Min="6" Max="247">Different gradual effects</Capability>
+  <Capability Min="248" Max="255">Full intensity</Capability>
+ </Channel>
+ <Channel Name="Dimmer effect #6">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="4">Nothing</Capability>
+  <Capability Min="5" Max="5">Full intensity</Capability>
+  <Capability Min="6" Max="247">Different gradual effects</Capability>
+  <Capability Min="248" Max="255">Full intensity</Capability>
+ </Channel>
+ <Channel Name="Dimmer effect #7">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="4">Nothing</Capability>
+  <Capability Min="5" Max="5">Full intensity</Capability>
+  <Capability Min="6" Max="247">Different gradual effects</Capability>
+  <Capability Min="248" Max="255">Full intensity</Capability>
+ </Channel>
+ <Channel Name="Dimmer effect #8">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="4">Nothing</Capability>
+  <Capability Min="5" Max="5">Full intensity</Capability>
+  <Capability Min="6" Max="247">Different gradual effects</Capability>
+  <Capability Min="248" Max="255">Full intensity</Capability>
+ </Channel>
+ <Channel Name="Strobe #1">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterOpen">Nothing</Capability>
+  <Capability Min="5" Max="253" Preset="StrobeSlowToFast">Gradual strobe</Capability>
+  <Capability Min="254" Max="255" Preset="ShutterOpen">Full intensity</Capability>
+ </Channel>
+ <Channel Name="Strobe #2">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterOpen">Nothing</Capability>
+  <Capability Min="5" Max="253" Preset="StrobeSlowToFast">Gradual strobe</Capability>
+  <Capability Min="254" Max="255" Preset="ShutterOpen">Full intensity</Capability>
+ </Channel>
+ <Channel Name="Strobe #3">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterOpen">Nothing</Capability>
+  <Capability Min="5" Max="253" Preset="StrobeSlowToFast">Gradual strobe</Capability>
+  <Capability Min="254" Max="255" Preset="ShutterOpen">Full intensity</Capability>
+ </Channel>
+ <Channel Name="Strobe #4">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterOpen">Nothing</Capability>
+  <Capability Min="5" Max="253" Preset="StrobeSlowToFast">Gradual strobe</Capability>
+  <Capability Min="254" Max="255" Preset="ShutterOpen">Full intensity</Capability>
+ </Channel>
+ <Channel Name="Strobe #5">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterOpen">Nothing</Capability>
+  <Capability Min="5" Max="253" Preset="StrobeSlowToFast">Gradual strobe</Capability>
+  <Capability Min="254" Max="255" Preset="ShutterOpen">Full intensity</Capability>
+ </Channel>
+ <Channel Name="Strobe #6">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterOpen">Nothing</Capability>
+  <Capability Min="5" Max="253" Preset="StrobeSlowToFast">Gradual strobe</Capability>
+  <Capability Min="254" Max="255" Preset="ShutterOpen">Full intensity</Capability>
+ </Channel>
+ <Channel Name="Strobe #7">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterOpen">Nothing</Capability>
+  <Capability Min="5" Max="253" Preset="StrobeSlowToFast">Gradual strobe</Capability>
+  <Capability Min="254" Max="255" Preset="ShutterOpen">Full intensity</Capability>
+ </Channel>
+ <Channel Name="Strobe #8">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterOpen">Nothing</Capability>
+  <Capability Min="5" Max="253" Preset="StrobeSlowToFast">Gradual strobe</Capability>
+  <Capability Min="254" Max="255" Preset="ShutterOpen">Full intensity</Capability>
+ </Channel>
+ <Channel Name="Macros #1">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">Nothing</Capability>
+  <Capability Min="5" Max="30">Program #1</Capability>
+  <Capability Min="31" Max="60">Program #2</Capability>
+  <Capability Min="61" Max="90">Program #3</Capability>
+  <Capability Min="91" Max="120">Program #4</Capability>
+  <Capability Min="121" Max="150">Program #5</Capability>
+  <Capability Min="151" Max="180">Program #6</Capability>
+  <Capability Min="181" Max="210">Program #7</Capability>
+  <Capability Min="211" Max="240">Program #8</Capability>
+  <Capability Min="241" Max="255">Musical mode</Capability>
+ </Channel>
+ <Channel Name="Macros #2">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">Nothing</Capability>
+  <Capability Min="5" Max="30">Program #1</Capability>
+  <Capability Min="31" Max="60">Program #2</Capability>
+  <Capability Min="61" Max="90">Program #3</Capability>
+  <Capability Min="91" Max="120">Program #4</Capability>
+  <Capability Min="121" Max="150">Program #5</Capability>
+  <Capability Min="151" Max="180">Program #6</Capability>
+  <Capability Min="181" Max="210">Program #7</Capability>
+  <Capability Min="211" Max="240">Program #8</Capability>
+  <Capability Min="241" Max="255">Musical mode</Capability>
+ </Channel>
+ <Channel Name="Macros #3">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">Nothing</Capability>
+  <Capability Min="5" Max="30">Program #1</Capability>
+  <Capability Min="31" Max="60">Program #2</Capability>
+  <Capability Min="61" Max="90">Program #3</Capability>
+  <Capability Min="91" Max="120">Program #4</Capability>
+  <Capability Min="121" Max="150">Program #5</Capability>
+  <Capability Min="151" Max="180">Program #6</Capability>
+  <Capability Min="181" Max="210">Program #7</Capability>
+  <Capability Min="211" Max="240">Program #8</Capability>
+  <Capability Min="241" Max="255">Musical mode</Capability>
+ </Channel>
+ <Channel Name="Macros #4">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">Nothing</Capability>
+  <Capability Min="5" Max="30">Program #1</Capability>
+  <Capability Min="31" Max="60">Program #2</Capability>
+  <Capability Min="61" Max="90">Program #3</Capability>
+  <Capability Min="91" Max="120">Program #4</Capability>
+  <Capability Min="121" Max="150">Program #5</Capability>
+  <Capability Min="151" Max="180">Program #6</Capability>
+  <Capability Min="181" Max="210">Program #7</Capability>
+  <Capability Min="211" Max="240">Program #8</Capability>
+  <Capability Min="241" Max="255">Musical mode</Capability>
+ </Channel>
+ <Channel Name="Macros #5">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">Nothing</Capability>
+  <Capability Min="5" Max="30">Program #1</Capability>
+  <Capability Min="31" Max="60">Program #2</Capability>
+  <Capability Min="61" Max="90">Program #3</Capability>
+  <Capability Min="91" Max="120">Program #4</Capability>
+  <Capability Min="121" Max="150">Program #5</Capability>
+  <Capability Min="151" Max="180">Program #6</Capability>
+  <Capability Min="181" Max="210">Program #7</Capability>
+  <Capability Min="211" Max="240">Program #8</Capability>
+  <Capability Min="241" Max="255">Musical mode</Capability>
+ </Channel>
+ <Channel Name="Macros #6">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">Nothing</Capability>
+  <Capability Min="5" Max="30">Program #1</Capability>
+  <Capability Min="31" Max="60">Program #2</Capability>
+  <Capability Min="61" Max="90">Program #3</Capability>
+  <Capability Min="91" Max="120">Program #4</Capability>
+  <Capability Min="121" Max="150">Program #5</Capability>
+  <Capability Min="151" Max="180">Program #6</Capability>
+  <Capability Min="181" Max="210">Program #7</Capability>
+  <Capability Min="211" Max="240">Program #8</Capability>
+  <Capability Min="241" Max="255">Musical mode</Capability>
+ </Channel>
+ <Channel Name="Macros #7">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">Nothing</Capability>
+  <Capability Min="5" Max="30">Program #1</Capability>
+  <Capability Min="31" Max="60">Program #2</Capability>
+  <Capability Min="61" Max="90">Program #3</Capability>
+  <Capability Min="91" Max="120">Program #4</Capability>
+  <Capability Min="121" Max="150">Program #5</Capability>
+  <Capability Min="151" Max="180">Program #6</Capability>
+  <Capability Min="181" Max="210">Program #7</Capability>
+  <Capability Min="211" Max="240">Program #8</Capability>
+  <Capability Min="241" Max="255">Musical mode</Capability>
+ </Channel>
+ <Channel Name="Macros #8">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">Nothing</Capability>
+  <Capability Min="5" Max="30">Program #1</Capability>
+  <Capability Min="31" Max="60">Program #2</Capability>
+  <Capability Min="61" Max="90">Program #3</Capability>
+  <Capability Min="91" Max="120">Program #4</Capability>
+  <Capability Min="121" Max="150">Program #5</Capability>
+  <Capability Min="151" Max="180">Program #6</Capability>
+  <Capability Min="181" Max="210">Program #7</Capability>
+  <Capability Min="211" Max="240">Program #8</Capability>
+  <Capability Min="241" Max="255">Musical mode</Capability>
+ </Channel>
+ <Mode Name="Mode A1 - 3 channels, 1 groups of 8 blocs">
+  <Channel Number="0">Red intensity #1</Channel>
+  <Channel Number="1">Green intensity #1</Channel>
+  <Channel Number="2">Blue intensity #1</Channel>
+ </Mode>
+ <Mode Name="Mode A2 - 3 channels, 2 groups of 4 blocs">
+  <Channel Number="0">Red intensity #1</Channel>
+  <Channel Number="1">Green intensity #1</Channel>
+  <Channel Number="2">Blue intensity #1</Channel>
+  <Channel Number="3">Red intensity #2</Channel>
+  <Channel Number="4">Green intensity #2</Channel>
+  <Channel Number="5">Blue intensity #2</Channel>
+ </Mode>
+ <Mode Name="Mode A3 - 3 channels, 4 groups of 2 blocs">
+  <Channel Number="0">Red intensity #1</Channel>
+  <Channel Number="1">Green intensity #1</Channel>
+  <Channel Number="2">Blue intensity #1</Channel>
+  <Channel Number="3">Red intensity #2</Channel>
+  <Channel Number="4">Green intensity #2</Channel>
+  <Channel Number="5">Blue intensity #2</Channel>
+  <Channel Number="6">Red intensity #3</Channel>
+  <Channel Number="7">Green intensity #3</Channel>
+  <Channel Number="8">Blue intensity #3</Channel>
+  <Channel Number="9">Red intensity #4</Channel>
+  <Channel Number="10">Green intensity #4</Channel>
+  <Channel Number="11">Blue intensity #4</Channel>
+ </Mode>
+ <Mode Name="Mode A4 - 3 channels, 8 groups of 1 bloc">
+  <Channel Number="0">Red intensity #1</Channel>
+  <Channel Number="1">Green intensity #1</Channel>
+  <Channel Number="2">Blue intensity #1</Channel>
+  <Channel Number="3">Red intensity #2</Channel>
+  <Channel Number="4">Green intensity #2</Channel>
+  <Channel Number="5">Blue intensity #2</Channel>
+  <Channel Number="6">Red intensity #3</Channel>
+  <Channel Number="7">Green intensity #3</Channel>
+  <Channel Number="8">Blue intensity #3</Channel>
+  <Channel Number="9">Red intensity #4</Channel>
+  <Channel Number="10">Green intensity #4</Channel>
+  <Channel Number="11">Blue intensity #4</Channel>
+  <Channel Number="12">Red intensity #5</Channel>
+  <Channel Number="13">Green intensity #5</Channel>
+  <Channel Number="14">Blue intensity #5</Channel>
+  <Channel Number="15">Red intensity #6</Channel>
+  <Channel Number="16">Green intensity #6</Channel>
+  <Channel Number="17">Blue intensity #6</Channel>
+  <Channel Number="18">Red intensity #7</Channel>
+  <Channel Number="19">Green intensity #7</Channel>
+  <Channel Number="20">Blue intensity #7</Channel>
+  <Channel Number="21">Red intensity #8</Channel>
+  <Channel Number="22">Green intensity #8</Channel>
+  <Channel Number="23">Blue intensity #8</Channel>
+ </Mode>
+ <Mode Name="Mode B1 - 6 channels, 1 groups of 8 blocs">
+  <Channel Number="0">Dimmer effect #1</Channel>
+  <Channel Number="1">Red intensity #1</Channel>
+  <Channel Number="2">Green intensity #1</Channel>
+  <Channel Number="3">Blue intensity #1</Channel>
+  <Channel Number="4">Strobe #1</Channel>
+  <Channel Number="5">Macros #1</Channel>
+ </Mode>
+ <Mode Name="Mode B2 - 6 channels, 2 groups of 4 blocs">
+  <Channel Number="0">Dimmer effect #1</Channel>
+  <Channel Number="1">Red intensity #1</Channel>
+  <Channel Number="2">Green intensity #1</Channel>
+  <Channel Number="3">Blue intensity #1</Channel>
+  <Channel Number="4">Strobe #1</Channel>
+  <Channel Number="5">Macros #1</Channel>
+  <Channel Number="6">Dimmer effect #2</Channel>
+  <Channel Number="7">Red intensity #2</Channel>
+  <Channel Number="8">Green intensity #2</Channel>
+  <Channel Number="9">Blue intensity #2</Channel>
+  <Channel Number="10">Strobe #2</Channel>
+  <Channel Number="11">Macros #2</Channel>
+ </Mode>
+ <Mode Name="Mode B3 - 6 channels, 4 groups of 2 blocs">
+  <Channel Number="0">Dimmer effect #1</Channel>
+  <Channel Number="1">Red intensity #1</Channel>
+  <Channel Number="2">Green intensity #1</Channel>
+  <Channel Number="3">Blue intensity #1</Channel>
+  <Channel Number="4">Strobe #1</Channel>
+  <Channel Number="5">Macros #1</Channel>
+  <Channel Number="6">Dimmer effect #2</Channel>
+  <Channel Number="7">Red intensity #2</Channel>
+  <Channel Number="8">Green intensity #2</Channel>
+  <Channel Number="9">Blue intensity #2</Channel>
+  <Channel Number="10">Strobe #2</Channel>
+  <Channel Number="11">Macros #2</Channel>
+  <Channel Number="12">Dimmer effect #3</Channel>
+  <Channel Number="13">Red intensity #3</Channel>
+  <Channel Number="14">Green intensity #3</Channel>
+  <Channel Number="15">Blue intensity #3</Channel>
+  <Channel Number="16">Strobe #3</Channel>
+  <Channel Number="17">Macros #3</Channel>
+  <Channel Number="18">Dimmer effect #4</Channel>
+  <Channel Number="19">Red intensity #4</Channel>
+  <Channel Number="20">Green intensity #4</Channel>
+  <Channel Number="21">Blue intensity #4</Channel>
+  <Channel Number="22">Strobe #4</Channel>
+  <Channel Number="23">Macros #4</Channel>
+ </Mode>
+ <Mode Name="Mode B4 - 6 channels, 8 groups of 1 bloc">
+  <Channel Number="0">Dimmer effect #1</Channel>
+  <Channel Number="1">Red intensity #1</Channel>
+  <Channel Number="2">Green intensity #1</Channel>
+  <Channel Number="3">Blue intensity #1</Channel>
+  <Channel Number="4">Strobe #1</Channel>
+  <Channel Number="5">Macros #1</Channel>
+  <Channel Number="6">Dimmer effect #2</Channel>
+  <Channel Number="7">Red intensity #2</Channel>
+  <Channel Number="8">Green intensity #2</Channel>
+  <Channel Number="9">Blue intensity #2</Channel>
+  <Channel Number="10">Strobe #2</Channel>
+  <Channel Number="11">Macros #2</Channel>
+  <Channel Number="12">Dimmer effect #3</Channel>
+  <Channel Number="13">Red intensity #3</Channel>
+  <Channel Number="14">Green intensity #3</Channel>
+  <Channel Number="15">Blue intensity #3</Channel>
+  <Channel Number="16">Strobe #3</Channel>
+  <Channel Number="17">Macros #3</Channel>
+  <Channel Number="18">Dimmer effect #4</Channel>
+  <Channel Number="19">Red intensity #4</Channel>
+  <Channel Number="20">Green intensity #4</Channel>
+  <Channel Number="21">Blue intensity #4</Channel>
+  <Channel Number="22">Strobe #4</Channel>
+  <Channel Number="23">Macros #4</Channel>
+  <Channel Number="24">Dimmer effect #5</Channel>
+  <Channel Number="25">Red intensity #5</Channel>
+  <Channel Number="26">Green intensity #5</Channel>
+  <Channel Number="27">Blue intensity #5</Channel>
+  <Channel Number="28">Strobe #5</Channel>
+  <Channel Number="29">Macros #5</Channel>
+  <Channel Number="30">Dimmer effect #6</Channel>
+  <Channel Number="31">Red intensity #6</Channel>
+  <Channel Number="32">Green intensity #6</Channel>
+  <Channel Number="33">Blue intensity #6</Channel>
+  <Channel Number="34">Strobe #6</Channel>
+  <Channel Number="35">Macros #6</Channel>
+  <Channel Number="36">Dimmer effect #7</Channel>
+  <Channel Number="37">Red intensity #7</Channel>
+  <Channel Number="38">Green intensity #7</Channel>
+  <Channel Number="39">Blue intensity #7</Channel>
+  <Channel Number="40">Strobe #7</Channel>
+  <Channel Number="41">Macros #7</Channel>
+  <Channel Number="42">Dimmer effect #8</Channel>
+  <Channel Number="43">Red intensity #8</Channel>
+  <Channel Number="44">Green intensity #8</Channel>
+  <Channel Number="45">Blue intensity #8</Channel>
+  <Channel Number="46">Strobe #8</Channel>
+  <Channel Number="47">Macros #8</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5" Width="820" Height="117" Depth="73"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="70" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

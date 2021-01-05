@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>István Király</Author>
+ </Creator>
+ <Manufacturer>PR Lighting</Manufacturer>
+ <Model>XL 700 Spot (PR-2705)</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10" Preset="ShutterClose">Black</Capability>
+  <Capability Min="11" Max="25" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="26" Max="225" Preset="StrobeSlowToFast">Strobe speed from slow to fast</Capability>
+  <Capability Min="226" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="7">Black</Capability>
+  <Capability Min="8" Max="255">Dimming from dark to light (0-100%)</Capability>
+ </Channel>
+ <Channel Name="Dimmer Fine" Preset="IntensityDimmerFine"/>
+ <Channel Name="CYM Macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="16" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="17" Max="35" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="36" Max="54" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="55" Max="73" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="74" Max="92" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="93" Max="110" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="111" Max="128" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="129" Max="255">CYM colour mixing from slow to fast</Capability>
+ </Channel>
+ <Channel Name="CYM-Cyan" Preset="IntensityCyan"/>
+ <Channel Name="CYM-Cyan Fine" Preset="IntensityCyanFine"/>
+ <Channel Name="CYM-Yellow" Preset="IntensityYellow"/>
+ <Channel Name="CYM-Yellow Fine" Preset="IntensityYellowFine"/>
+ <Channel Name="CYM-Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="CYM-Magenta Fine" Preset="IntensityMagentaFine"/>
+ <Channel Name="Colour Wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="16">White</Capability>
+  <Capability Min="17" Max="24">White/colour 1</Capability>
+  <Capability Min="25" Max="32">Colour 1</Capability>
+  <Capability Min="33" Max="40">Colour 1/colour 2</Capability>
+  <Capability Min="41" Max="48">Colour 2</Capability>
+  <Capability Min="49" Max="56">Colour 2/colour 3</Capability>
+  <Capability Min="57" Max="64">Colour 3</Capability>
+  <Capability Min="65" Max="72">Colour 3/colour 4</Capability>
+  <Capability Min="73" Max="80">Colour 4</Capability>
+  <Capability Min="81" Max="88">Colour 4/colour 5</Capability>
+  <Capability Min="89" Max="96">Colour 5</Capability>
+  <Capability Min="97" Max="104">Colour 5/colour 6</Capability>
+  <Capability Min="105" Max="112">Colour 6</Capability>
+  <Capability Min="113" Max="120">Colour 6/colour 7</Capability>
+  <Capability Min="121" Max="127">white</Capability>
+  <Capability Min="128" Max="133">Rainbow rotation speed 1 (slowest)</Capability>
+  <Capability Min="134" Max="139">Rainbow rotation speed 2</Capability>
+  <Capability Min="140" Max="145">Rainbow rotation speed 3</Capability>
+  <Capability Min="146" Max="151">Rainbow rotation speed 4</Capability>
+  <Capability Min="152" Max="157">Rainbow rotation speed 5</Capability>
+  <Capability Min="158" Max="163">Rainbow rotation speed 6</Capability>
+  <Capability Min="164" Max="169">Rainbow rotation speed 7</Capability>
+  <Capability Min="170" Max="175">Rainbow rotation speed 8</Capability>
+  <Capability Min="176" Max="181">Rainbow rotation speed 9</Capability>
+  <Capability Min="182" Max="187">Rainbow rotation speed 10</Capability>
+  <Capability Min="188" Max="195">Stop in current position</Capability>
+  <Capability Min="196" Max="201">Rainbow reverse rotation speed 1(slowest)</Capability>
+  <Capability Min="202" Max="207">Rainbow reverse rotation speed 2</Capability>
+  <Capability Min="208" Max="213">Rainbow reverse rotation speed 3</Capability>
+  <Capability Min="214" Max="219">Rainbow reverse rotation speed 4</Capability>
+  <Capability Min="220" Max="225">Rainbow reverse rotation speed 5</Capability>
+  <Capability Min="226" Max="231">Rainbow reverse rotation speed 6</Capability>
+  <Capability Min="232" Max="237">Rainbow reverse rotation speed 7</Capability>
+  <Capability Min="238" Max="243">Rainbow reverse rotation speed 8</Capability>
+  <Capability Min="244" Max="249">Rainbow reverse rotation speed 9</Capability>
+  <Capability Min="250" Max="255">Rainbow reverse rotation speed 10</Capability>
+ </Channel>
+ <Channel Name="Iris">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="135">Iris from large to small (0-100%)</Capability>
+  <Capability Min="136" Max="231">Macro</Capability>
+  <Capability Min="232" Max="255">Minimal</Capability>
+ </Channel>
+ <Channel Name="Iris Fine" Preset="ShutterIrisFine"/>
+ <Channel Name="Fixed Gobo Wheel">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="16">Clear</Capability>
+  <Capability Min="17" Max="32">Gobo1</Capability>
+  <Capability Min="33" Max="48">Gobo 2</Capability>
+  <Capability Min="49" Max="64">Gobo 3</Capability>
+  <Capability Min="65" Max="80">Gobo 4</Capability>
+  <Capability Min="81" Max="96">Gobo 5</Capability>
+  <Capability Min="97" Max="112">Gobo 6</Capability>
+  <Capability Min="113" Max="127">Gobo 7</Capability>
+  <Capability Min="128" Max="132">Reverse rotation speed 1 (slowest)</Capability>
+  <Capability Min="133" Max="135">Reverse rotation speed 2</Capability>
+  <Capability Min="136" Max="138">Reverse rotation speed 3</Capability>
+  <Capability Min="139" Max="141">Reverse rotation speed 4</Capability>
+  <Capability Min="142" Max="144">Reverse rotation speed 5</Capability>
+  <Capability Min="145" Max="147">Reverse rotation speed 6</Capability>
+  <Capability Min="148" Max="150">Reverse rotation speed 7(fastest)</Capability>
+  <Capability Min="151" Max="153">Rotation speed 1 (slowest)</Capability>
+  <Capability Min="154" Max="156">Rotation speed 2</Capability>
+  <Capability Min="157" Max="159">Rotation speed 3</Capability>
+  <Capability Min="160" Max="162">Rotation speed 4</Capability>
+  <Capability Min="163" Max="165">Rotation speed 5</Capability>
+  <Capability Min="166" Max="168">Rotation speed 6</Capability>
+  <Capability Min="169" Max="171">Rotation speed 7(fastest)</Capability>
+  <Capability Min="172" Max="174">Gobo 1 shake 1(slowest)</Capability>
+  <Capability Min="175" Max="177">Gobo 1 shake 2</Capability>
+  <Capability Min="178" Max="180">Gobo 1 shake 3</Capability>
+  <Capability Min="181" Max="183">Gobo 1 shake 4(fastest)</Capability>
+  <Capability Min="184" Max="186">Gobo 2 shake 1(slowest)</Capability>
+  <Capability Min="187" Max="189">Gobo 2 shake 2</Capability>
+  <Capability Min="190" Max="192">Gobo 2 shake 3</Capability>
+  <Capability Min="193" Max="195">Gobo 2 shake 4(fastest)</Capability>
+  <Capability Min="196" Max="198">Gobo 3 shake 1(slowest)</Capability>
+  <Capability Min="199" Max="201">Gobo 3 shake 2</Capability>
+  <Capability Min="202" Max="204">Gobo 3 shake 3</Capability>
+  <Capability Min="205" Max="207">Gobo 3 shake 4(fastest)</Capability>
+  <Capability Min="208" Max="210">Gobo 4 shake 1(slowest)</Capability>
+  <Capability Min="211" Max="213">Gobo 4 shake 2</Capability>
+  <Capability Min="214" Max="216">Gobo 4 shake 3</Capability>
+  <Capability Min="217" Max="219">Gobo 4 shake 4(fastest)</Capability>
+  <Capability Min="220" Max="222">Gobo 5 shake 1(slowest)</Capability>
+  <Capability Min="223" Max="225">Gobo 5 shake 2</Capability>
+  <Capability Min="226" Max="228">Gobo 5 shake 3</Capability>
+  <Capability Min="229" Max="231">Gobo 5 shake 4(fastest)</Capability>
+  <Capability Min="232" Max="234">Gobo 6 shake 1(slowest)</Capability>
+  <Capability Min="235" Max="237">Gobo 6 shake 2</Capability>
+  <Capability Min="238" Max="240">Gobo 6 shake 3</Capability>
+  <Capability Min="241" Max="243">Gobo 6 shake 4(fastest)</Capability>
+  <Capability Min="244" Max="246">Gobo 7 shake 1(slowest)</Capability>
+  <Capability Min="247" Max="249">Gobo 7 shake 2</Capability>
+  <Capability Min="250" Max="252">Gobo 7 shake 3</Capability>
+  <Capability Min="253" Max="255">Gobo 7 shake 4(fastest)</Capability>
+ </Channel>
+ <Channel Name="Rotating Gobo Wheel">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="21">white</Capability>
+  <Capability Min="22" Max="42">Gobo1</Capability>
+  <Capability Min="43" Max="64">Gobo 2</Capability>
+  <Capability Min="65" Max="85">Gobo 3</Capability>
+  <Capability Min="86" Max="106">Gobo 4</Capability>
+  <Capability Min="107" Max="127">Gobo 5</Capability>
+  <Capability Min="128" Max="134">Rotation speed 1 (slowest)</Capability>
+  <Capability Min="135" Max="142">Rotation speed 2</Capability>
+  <Capability Min="143" Max="149">Rotation speed 3</Capability>
+  <Capability Min="150" Max="156">Rotation speed 4 (fastest)</Capability>
+  <Capability Min="157" Max="163">Reverse rotation speed 1 (slowest)</Capability>
+  <Capability Min="164" Max="170">Reverse rotation speed 2</Capability>
+  <Capability Min="171" Max="177">Reverse rotation speed 3</Capability>
+  <Capability Min="178" Max="184">Reverse rotation speed 4(fastest)</Capability>
+  <Capability Min="185" Max="191">Gobo 1 shake slow</Capability>
+  <Capability Min="192" Max="198">Gobo 1 shake fast</Capability>
+  <Capability Min="199" Max="205">Gobo 2 shake slow</Capability>
+  <Capability Min="206" Max="212">Gobo 2 shake fast</Capability>
+  <Capability Min="213" Max="219">Gobo 3 shake slow</Capability>
+  <Capability Min="220" Max="226">Gobo 3 shake fast</Capability>
+  <Capability Min="227" Max="233">Gobo 4 shake slow</Capability>
+  <Capability Min="234" Max="240">Gobo 4 shake fast</Capability>
+  <Capability Min="241" Max="247">Gobo 5 shake slow</Capability>
+  <Capability Min="248" Max="255">Gobo 5 shake fast</Capability>
+ </Channel>
+ <Channel Name="Gobo rotation">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="120">0~540°index</Capability>
+  <Capability Min="121" Max="127">Rotation speed 1 (slowest)</Capability>
+  <Capability Min="128" Max="135">Rotation speed 2</Capability>
+  <Capability Min="136" Max="143">Rotation speed 3</Capability>
+  <Capability Min="144" Max="151">Rotation speed 4</Capability>
+  <Capability Min="152" Max="159">Rotation speed 5</Capability>
+  <Capability Min="160" Max="167">Rotation speed 6</Capability>
+  <Capability Min="168" Max="175">Rotation speed 7</Capability>
+  <Capability Min="176" Max="183">Rotation speed 8 (fastest)</Capability>
+  <Capability Min="184" Max="191">Stop rotating</Capability>
+  <Capability Min="192" Max="199">Reverse rotation speed 1 (slowest)</Capability>
+  <Capability Min="200" Max="207">Reverse rotation speed 2</Capability>
+  <Capability Min="208" Max="215">Reverse rotation speed 3</Capability>
+  <Capability Min="216" Max="223">Reverse rotation speed 4</Capability>
+  <Capability Min="224" Max="231">Reverse rotation speed 5</Capability>
+  <Capability Min="232" Max="239">Reverse rotation speed 6</Capability>
+  <Capability Min="240" Max="247">Reverse rotation speed 7</Capability>
+  <Capability Min="248" Max="255">Reverse rotation speed 8 (fastest)</Capability>
+ </Channel>
+ <Channel Name="Gobo rotation Fine">
+  <Group Byte="1">Gobo</Group>
+  <Capability Min="0" Max="255">Gobo rotation in 16-bit precision</Capability>
+ </Channel>
+ <Channel Name="Prism / Frost">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="51">Clear</Capability>
+  <Capability Min="52" Max="102">CTO</Capability>
+  <Capability Min="103" Max="153">Frost</Capability>
+  <Capability Min="154" Max="204">Prism 1</Capability>
+  <Capability Min="205" Max="255">Prism 2</Capability>
+ </Channel>
+ <Channel Name="Prism rotation">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="120">Prism index (0~540°)</Capability>
+  <Capability Min="121" Max="127">Reverse rotation speed 1 (slowest)</Capability>
+  <Capability Min="128" Max="135">Reverse rotation speed 2</Capability>
+  <Capability Min="136" Max="143">Reverse rotation speed 3</Capability>
+  <Capability Min="144" Max="151">Reverse rotation speed 4</Capability>
+  <Capability Min="152" Max="159">Reverse rotation speed 5</Capability>
+  <Capability Min="160" Max="167">Reverse rotation speed 6</Capability>
+  <Capability Min="168" Max="175">Reverse rotation speed 7</Capability>
+  <Capability Min="176" Max="183">Reverse rotation speed 8 (fastest)</Capability>
+  <Capability Min="184" Max="191">Stop in current position</Capability>
+  <Capability Min="192" Max="199">Rotation speed 1 (slowest)</Capability>
+  <Capability Min="200" Max="207">Rotation speed 2</Capability>
+  <Capability Min="208" Max="215">Rotation speed 3</Capability>
+  <Capability Min="216" Max="223">Rotation speed 4</Capability>
+  <Capability Min="224" Max="231">Rotation speed 5</Capability>
+  <Capability Min="232" Max="239">Rotation speed 6</Capability>
+  <Capability Min="240" Max="247">Rotation speed 7</Capability>
+  <Capability Min="248" Max="255">Rotation speed 8 (fastest)</Capability>
+ </Channel>
+ <Channel Name="Effect Wheel">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">white</Capability>
+ </Channel>
+ <Channel Name="Effect Wheel Rotation">
+  <Group Byte="1">Effect</Group>
+  <Capability Min="0" Max="125">Rotation speed from fast to slow</Capability>
+  <Capability Min="126" Max="141">Stop in current position</Capability>
+  <Capability Min="142" Max="255">Reverse rotation speed from slow to fast</Capability>
+ </Channel>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
+ <Channel Name="Focus Fine">
+  <Group Byte="1">Beam</Group>
+  <Capability Min="0" Max="255">Focus in 16-bit precision</Capability>
+ </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomBigSmall"/>
+ <Channel Name="Zoom Fine">
+  <Group Byte="1">Beam</Group>
+  <Capability Min="0" Max="255">Zoom in 16-bit precision</Capability>
+ </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan and Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Channel Name="Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="48">Reserved</Capability>
+  <Capability Min="49" Max="80" Preset="ResetAll">Reset</Capability>
+  <Capability Min="81" Max="112">Reserved</Capability>
+  <Capability Min="113" Max="144" Preset="LampOff">Lamp off (stop in DMX value for 10s)</Capability>
+  <Capability Min="145" Max="168">Reserved</Capability>
+  <Capability Min="169" Max="200" Preset="LampOn">Lamp power reduced to 50%</Capability>
+  <Capability Min="201" Max="223">Reserved</Capability>
+  <Capability Min="224" Max="255" Preset="LampOn">Lamp on</Capability>
+ </Channel>
+ <Mode Name="Short">
+  <Channel Number="0">Strobe</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">CYM Macro</Channel>
+  <Channel Number="3">CYM-Cyan</Channel>
+  <Channel Number="4">CYM-Yellow</Channel>
+  <Channel Number="5">CYM-Magenta</Channel>
+  <Channel Number="6">Colour Wheel</Channel>
+  <Channel Number="7">Iris</Channel>
+  <Channel Number="8">Fixed Gobo Wheel</Channel>
+  <Channel Number="9">Rotating Gobo Wheel</Channel>
+  <Channel Number="10">Gobo rotation</Channel>
+  <Channel Number="11">Prism / Frost</Channel>
+  <Channel Number="12">Prism rotation</Channel>
+  <Channel Number="13">Effect Wheel</Channel>
+  <Channel Number="14">Effect Wheel Rotation</Channel>
+  <Channel Number="15">Focus</Channel>
+  <Channel Number="16">Zoom</Channel>
+  <Channel Number="17">Pan</Channel>
+  <Channel Number="18">Tilt</Channel>
+  <Channel Number="19">Control</Channel>
+ </Mode>
+ <Mode Name="Standard">
+  <Channel Number="0">Strobe</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">CYM Macro</Channel>
+  <Channel Number="3">CYM-Cyan</Channel>
+  <Channel Number="4">CYM-Yellow</Channel>
+  <Channel Number="5">CYM-Magenta</Channel>
+  <Channel Number="6">Colour Wheel</Channel>
+  <Channel Number="7">Iris</Channel>
+  <Channel Number="8">Fixed Gobo Wheel</Channel>
+  <Channel Number="9">Rotating Gobo Wheel</Channel>
+  <Channel Number="10">Gobo rotation</Channel>
+  <Channel Number="11">Gobo rotation Fine</Channel>
+  <Channel Number="12">Prism / Frost</Channel>
+  <Channel Number="13">Prism rotation</Channel>
+  <Channel Number="14">Effect Wheel</Channel>
+  <Channel Number="15">Effect Wheel Rotation</Channel>
+  <Channel Number="16">Focus</Channel>
+  <Channel Number="17">Zoom</Channel>
+  <Channel Number="18">Pan</Channel>
+  <Channel Number="19">Pan Fine</Channel>
+  <Channel Number="20">Tilt</Channel>
+  <Channel Number="21">Tilt Fine</Channel>
+  <Channel Number="22">Pan and Tilt Speed</Channel>
+  <Channel Number="23">Control</Channel>
+ </Mode>
+ <Mode Name="Extended">
+  <Channel Number="0">Strobe</Channel>
+  <Channel Number="1">Dimmer</Channel>
+  <Channel Number="2">Dimmer Fine</Channel>
+  <Channel Number="3">CYM Macro</Channel>
+  <Channel Number="4">CYM-Cyan</Channel>
+  <Channel Number="5">CYM-Cyan Fine</Channel>
+  <Channel Number="6">CYM-Yellow</Channel>
+  <Channel Number="7">CYM-Yellow Fine</Channel>
+  <Channel Number="8">CYM-Magenta</Channel>
+  <Channel Number="9">CYM-Magenta Fine</Channel>
+  <Channel Number="10">Colour Wheel</Channel>
+  <Channel Number="11">Iris</Channel>
+  <Channel Number="12">Iris Fine</Channel>
+  <Channel Number="13">Fixed Gobo Wheel</Channel>
+  <Channel Number="14">Rotating Gobo Wheel</Channel>
+  <Channel Number="15">Gobo rotation</Channel>
+  <Channel Number="16">Gobo rotation Fine</Channel>
+  <Channel Number="17">Prism / Frost</Channel>
+  <Channel Number="18">Prism rotation</Channel>
+  <Channel Number="19">Effect Wheel</Channel>
+  <Channel Number="20">Effect Wheel Rotation</Channel>
+  <Channel Number="21">Focus</Channel>
+  <Channel Number="22">Focus Fine</Channel>
+  <Channel Number="23">Zoom</Channel>
+  <Channel Number="24">Zoom Fine</Channel>
+  <Channel Number="25">Pan</Channel>
+  <Channel Number="26">Pan Fine</Channel>
+  <Channel Number="27">Tilt</Channel>
+  <Channel Number="28">Tilt Fine</Channel>
+  <Channel Number="29">Pan and Tilt Speed</Channel>
+  <Channel Number="30">Control</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="MSR 700W" Lumens="0" ColourTemperature="6000"/>
+  <Dimensions Weight="30" Width="480" Height="708" Depth="424"/>
+  <Lens Name="Other" DegreesMin="12" DegreesMax="34"/>
+  <Focus Type="Head" PanMax="450" TiltMax="270"/>
+  <Technical PowerConsumption="820" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

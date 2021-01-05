@@ -23,6 +23,7 @@
 #include <QHeaderView>
 #include <QSettings>
 #include <QDebug>
+#include <QAction>
 
 #include "qlcfixturemode.h"
 #include "qlcinputchannel.h"
@@ -201,6 +202,12 @@ VCXYPadProperties::~VCXYPadProperties()
     QSettings settings;
     settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
     m_doc->masterTimer()->unregisterDMXSource(this);
+    foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
+    {
+        if (!fader.isNull())
+            fader->requestDelete();
+    }
+    m_fadersMap.clear();
 
     delete m_presetInputWidget;
 }
@@ -479,7 +486,17 @@ void VCXYPadProperties::writeDMX(MasterTimer *timer, QList<Universe *> universes
         QVariant var((*it)->data(KColumnFixture, Qt::UserRole));
         VCXYPadFixture fixture(m_doc, var);
         fixture.arm();
-        fixture.writeDMX(x, y, universes);
+        quint32 universe = fixture.universe();
+        if (universe == Universe::invalid())
+            continue;
+
+        QSharedPointer<GenericFader> fader = m_fadersMap.value(universe, QSharedPointer<GenericFader>());
+        if (fader.isNull())
+        {
+            fader = universes[universe]->requestFader();
+            m_fadersMap[universe] = fader;
+        }
+        fixture.writeDMX(x, y, fader, universes[universe]);
         fixture.disarm();
         ++it;
     }
@@ -764,7 +781,7 @@ void VCXYPadProperties::slotAddFixtureGroupClicked()
         if (selectedGH.isEmpty())
         {
             QMessageBox::critical(this, tr("Error"),
-                                  tr("Please select at least one fixture or head to create this type of preset !"),
+                                  tr("Please select at least one fixture or head to create this type of preset!"),
                                   QMessageBox::Close);
             return;
         }
@@ -851,7 +868,7 @@ void VCXYPadProperties::slotPresetSelectionChanged()
             m_xyArea->enableEFXPreview(true);
             m_xyArea->setEnabled(false);
             m_xyArea->setEFXPolygons(polygon, fixturePoints);
-            m_xyArea->setEFXInterval(efx->duration() / polygon.size());
+            m_xyArea->setEFXInterval(efx->duration());
         }
         else if (preset->m_type == VCXYPadPreset::Position)
         {

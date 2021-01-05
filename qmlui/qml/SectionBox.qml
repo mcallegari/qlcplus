@@ -75,7 +75,7 @@ Rectangle
         {
             id: sectionLoader
             width: parent.width
-            sourceComponent: boxRoot.sectionContents
+            sourceComponent: isExpanded ? boxRoot.sectionContents : null
         }
     }
 }

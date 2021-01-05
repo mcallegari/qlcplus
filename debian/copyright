@@ -5,15 +5,8 @@ Source: http://www.qlcplus.org/downloads.html
 
 Files: *
 Copyright:
- Massimo Callegari <massimocallegari@yahoo.it>
- Heikki Junnila <hjunnila@users.sf.net>
-License: Apache2
-
-Files: debian/*
-Copyright:
- 2016 Olivier Humbert <trebmuh@tuxfamily.org>
- 2005 Heikki Junnila <hjunnila@users.sf.net>
-License: Apache2
+ 2012- Massimo Callegari <massimocallegari@yahoo.it>
+ 2002-2012 Heikki Junnila <hjunnila@users.sf.net>
 
 License: Apache2
  Unless required by applicable law or agreed to in writing, Licensor provides
@@ -25,5 +18,5 @@ License: Apache2
  redistributing the Work and assume any risks associated with Your exercise of
  permissions under this License.
 Comment:
- On a Debian system, you can find the full license text at :
+ On a Debian system, you can find the full license text in
  /usr/share/common-licenses/Apache-2.0

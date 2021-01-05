@@ -41,9 +41,11 @@ class RGBScript : public RGBAlgorithm
      * Initialization
      ************************************************************************/
 public:
-    RGBScript(Doc * doc);
+    RGBScript(Doc *doc);
     RGBScript(const RGBScript& s);
     ~RGBScript();
+
+    RGBScript& operator=(const RGBScript& s);
 
     /** Comparison operator. Uses simply fileName() == s.fileName(). */
     bool operator==(const RGBScript& s) const;
@@ -65,8 +67,8 @@ public:
     bool evaluate();
 
 private:
-    static QScriptEngine* s_engine; //! The engine that runs all scripts
-    static QMutex* s_engineMutex;   //! Protection
+    static QScriptEngine *s_engine; //! The engine that runs all scripts
+    static QMutex *s_engineMutex;   //! Protection
     QString m_fileName;             //! The file name that contains this script
     QString m_contents;             //! The file's contents
 
@@ -82,7 +84,7 @@ public:
     int rgbMapStepCount(const QSize& size);
 
     /** @reimp */
-    RGBMap rgbMap(const QSize& size, uint rgb, int step);
+    void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map);
 
     /** @reimp */
     QString name() const;
@@ -125,7 +127,7 @@ public:
     bool setProperty(QString propertyName, QString value);
 
     /** Read the value of the property with the given name */
-    QString property(QString propertyName);
+    QString property(QString propertyName) const;
 
 private:
     /** Load the script properties if any is available */

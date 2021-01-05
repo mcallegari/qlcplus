@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>BuiDH</Author>
+ </Creator>
+ <Manufacturer>Litecraft</Manufacturer>
+ <Model>Mini PAR AT10</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Macro Color">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="13">no macro</Capability>
+  <Capability Min="14" Max="255">pre-programmed colors</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="15" Preset="ShutterOpen">no strobe</Capability>
+  <Capability Min="16" Max="30">Strobe 1</Capability>
+  <Capability Min="31" Max="45">Strobe 2</Capability>
+  <Capability Min="46" Max="60">Strobe 3</Capability>
+  <Capability Min="61" Max="75">Strobe 4</Capability>
+  <Capability Min="76" Max="90">Strobe 5</Capability>
+  <Capability Min="91" Max="105">Strobe 6</Capability>
+  <Capability Min="106" Max="120">Strobe 7</Capability>
+  <Capability Min="121" Max="135">Strobe 8</Capability>
+  <Capability Min="136" Max="150">Strobe 9</Capability>
+  <Capability Min="151" Max="165">Strobe 10</Capability>
+  <Capability Min="166" Max="180">Strobe 11</Capability>
+  <Capability Min="181" Max="195">Strobe 12</Capability>
+  <Capability Min="196" Max="210">Strobe 13</Capability>
+  <Capability Min="211" Max="225">Strobe 14</Capability>
+  <Capability Min="226" Max="240">Strobe 15</Capability>
+  <Capability Min="241" Max="255">Strobe 16</Capability>
+ </Channel>
+ <Channel Name="Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="35">no function</Capability>
+  <Capability Min="36" Max="71">automatic ramp up (speed Ch 6, color Ch 1-4)</Capability>
+  <Capability Min="72" Max="107">automatic ramp down (speed Ch 6, color Ch 1-4)</Capability>
+  <Capability Min="108" Max="143">automatic ramp up/down (speed Ch 6, color Ch 1-4)</Capability>
+  <Capability Min="144" Max="179">automatic color mix mode</Capability>
+  <Capability Min="180" Max="215">random 3-colors (color Ch 1-4)</Capability>
+  <Capability Min="216" Max="251">random 7-colors (color Ch 1-4)</Capability>
+  <Capability Min="252" Max="255">Audio mode</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Amber</Channel>
+  <Channel Number="4">Macro Color</Channel>
+  <Channel Number="5">Strobe</Channel>
+  <Channel Number="6">Mode</Channel>
+  <Channel Number="7">Dimmer</Channel>
+ </Mode>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Macro Color</Channel>
+ </Mode>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Macro Color</Channel>
+  <Channel Number="1">Dimmer</Channel>
+ </Mode>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Amber</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="1.9" Width="145" Height="185" Depth="250"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="70" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

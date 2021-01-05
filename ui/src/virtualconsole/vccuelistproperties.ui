@@ -25,7 +25,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>570</width>
+    <width>581</width>
     <height>442</height>
    </rect>
   </property>
@@ -273,7 +273,7 @@
      </widget>
      <widget class="QWidget" name="SideSliders">
       <attribute name="title">
-       <string>Side Faders</string>
+       <string>Side Fader</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_4">
        <item>
@@ -289,12 +289,22 @@
            <number>4</number>
           </property>
           <item>
+           <widget class="QRadioButton" name="m_noneRadio">
+            <property name="text">
+             <string>None</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QRadioButton" name="m_crossFadeRadio">
             <property name="text">
              <string>Crossfade</string>
             </property>
             <property name="checked">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
            </widget>
           </item>

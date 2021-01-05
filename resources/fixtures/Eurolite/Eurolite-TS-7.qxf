@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Büro</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>TS-7</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="17">White</Capability>
+  <Capability Min="18" Max="35">Red</Capability>
+  <Capability Min="36" Max="53">Yellow</Capability>
+  <Capability Min="54" Max="71">Violet</Capability>
+  <Capability Min="72" Max="89">Green</Capability>
+  <Capability Min="90" Max="107">Orange</Capability>
+  <Capability Min="108" Max="125">Blue</Capability>
+  <Capability Min="126" Max="143">Pink</Capability>
+  <Capability Min="144" Max="161">Light green</Capability>
+  <Capability Min="162" Max="179">Light blue</Capability>
+  <Capability Min="180" Max="197">Orange</Capability>
+  <Capability Min="198" Max="215">Light yellow</Capability>
+  <Capability Min="216" Max="233">Magenta</Capability>
+  <Capability Min="234" Max="251">Red/blue</Capability>
+  <Capability Min="252" Max="255">Yellow/green</Capability>
+ </Channel>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="17">Open</Capability>
+  <Capability Min="18" Max="35">Gobo 1</Capability>
+  <Capability Min="36" Max="53">Gobo 2</Capability>
+  <Capability Min="54" Max="71">Gobo 3</Capability>
+  <Capability Min="72" Max="89">Gobo 4</Capability>
+  <Capability Min="90" Max="107">Gobo 5</Capability>
+  <Capability Min="108" Max="125">Gobo 6</Capability>
+  <Capability Min="126" Max="143">Gobo 7</Capability>
+  <Capability Min="144" Max="161">Gobo 8</Capability>
+  <Capability Min="162" Max="179">Gobo 9</Capability>
+  <Capability Min="180" Max="197">Gobo 10</Capability>
+  <Capability Min="198" Max="215">Gobo 11</Capability>
+  <Capability Min="216" Max="233">Gobo 12</Capability>
+  <Capability Min="234" Max="251">Gobo 13</Capability>
+  <Capability Min="252" Max="255">Gobo 14</Capability>
+ </Channel>
+ <Channel Name="Shutter, strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="14" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="15" Max="15" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="16" Max="250" Preset="StrobeSlowToFast">Strobe slow to fast</Capability>
+  <Capability Min="251" Max="255" Preset="ShutterOpen">Shutter open</Capability>
+ </Channel>
+ <Mode Name="Normal">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Colour</Channel>
+  <Channel Number="3">Gobo</Channel>
+  <Channel Number="4">Shutter, strobe</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="ELC 250W" Lumens="5000" ColourTemperature="3200"/>
+  <Dimensions Weight="8" Width="285" Height="555" Depth="270"/>
+  <Lens Name="Other" DegreesMin="18" DegreesMax="18"/>
+  <Focus Type="Mirror" PanMax="180" TiltMax="90"/>
+  <Technical PowerConsumption="250" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

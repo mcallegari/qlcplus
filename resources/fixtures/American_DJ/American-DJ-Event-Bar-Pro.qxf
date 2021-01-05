@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>MaBonzo</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Event Bar Pro</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan (Head 1)" Preset="PositionPan"/>
+ <Channel Name="Pan Fine (Head 1)" Preset="PositionPanFine"/>
+ <Channel Name="Tilt (Head 1)" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine (Head 1)" Preset="PositionTiltFine"/>
+ <Channel Name="Pan (Head 2)" Preset="PositionPan"/>
+ <Channel Name="Pan Fine (Head 2)" Preset="PositionPanFine"/>
+ <Channel Name="Tilt (Head 2)" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine (Head 2)" Preset="PositionTiltFine"/>
+ <Channel Name="Pan (Head 3)" Preset="PositionPan"/>
+ <Channel Name="Pan Fine (Head 3)" Preset="PositionPanFine"/>
+ <Channel Name="Tilt (Head 3)" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine (Head 3)" Preset="PositionTiltFine"/>
+ <Channel Name="Pan (Head 4)" Preset="PositionPan"/>
+ <Channel Name="Pan Fine (Head 4)" Preset="PositionPanFine"/>
+ <Channel Name="Tilt (Head 4)" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine (Head 4)" Preset="PositionTiltFine"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="1" Max="5">Reset</Capability>
+  <Capability Min="6" Max="255" Preset="SlowToFast">Slow - fast</Capability>
+ </Channel>
+ <Channel Name="Head 1 Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Head 2 Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Head 3 Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Head 4 Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Shows">
+  <Group Byte="0">Effect</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="7">Blackout</Capability>
+  <Capability Min="8" Max="37">Show 1</Capability>
+  <Capability Min="38" Max="67">Show 2</Capability>
+  <Capability Min="68" Max="97">Show 3</Capability>
+  <Capability Min="98" Max="127">Show 4</Capability>
+  <Capability Min="128" Max="157">Show 5</Capability>
+  <Capability Min="158" Max="187">Show 6</Capability>
+  <Capability Min="188" Max="217">Show 7</Capability>
+  <Capability Min="218" Max="247">Show 8</Capability>
+  <Capability Min="248" Max="254">Random show</Capability>
+  <Capability Min="255" Max="255">Sound active</Capability>
+ </Channel>
+ <Channel Name="Show Speed/Sound Sensitivity">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed slow - fast/Sensitivity least - most</Capability>
+ </Channel>
+ <Channel Name="Dimmer Curves">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="20">Standard</Capability>
+  <Capability Min="21" Max="40">Stage</Capability>
+  <Capability Min="41" Max="60">TV</Capability>
+  <Capability Min="61" Max="80">Architectural</Capability>
+  <Capability Min="81" Max="100">Theater</Capability>
+  <Capability Min="101" Max="255">Default to unit curve setting</Capability>
+ </Channel>
+ <Mode Name="22 channel">
+  <Channel Number="0">Pan (Head 1)</Channel>
+  <Channel Number="1">Pan Fine (Head 1)</Channel>
+  <Channel Number="2">Tilt (Head 1)</Channel>
+  <Channel Number="3">Tilt Fine (Head 1)</Channel>
+  <Channel Number="4">Head 1 Dimmer</Channel>
+  <Channel Number="5">Pan (Head 2)</Channel>
+  <Channel Number="6">Pan Fine (Head 2)</Channel>
+  <Channel Number="7">Tilt (Head 2)</Channel>
+  <Channel Number="8">Tilt Fine (Head 2)</Channel>
+  <Channel Number="9">Head 2 Dimmer</Channel>
+  <Channel Number="10">Pan (Head 3)</Channel>
+  <Channel Number="11">Pan Fine (Head 3)</Channel>
+  <Channel Number="12">Tilt (Head 3)</Channel>
+  <Channel Number="13">Tilt Fine (Head 3)</Channel>
+  <Channel Number="14">Head 3 Dimmer</Channel>
+  <Channel Number="15">Pan (Head 4)</Channel>
+  <Channel Number="16">Pan Fine (Head 4)</Channel>
+  <Channel Number="17">Tilt (Head 4)</Channel>
+  <Channel Number="18">Tilt Fine (Head 4)</Channel>
+  <Channel Number="19">Head 4 Dimmer</Channel>
+  <Channel Number="20">Master Dimmer</Channel>
+  <Channel Number="21">Strobe</Channel>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>19</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="25 channel">
+  <Channel Number="0">Pan (Head 1)</Channel>
+  <Channel Number="1">Pan Fine (Head 1)</Channel>
+  <Channel Number="2">Tilt (Head 1)</Channel>
+  <Channel Number="3">Tilt Fine (Head 1)</Channel>
+  <Channel Number="4">Head 1 Dimmer</Channel>
+  <Channel Number="5">Pan (Head 2)</Channel>
+  <Channel Number="6">Pan Fine (Head 2)</Channel>
+  <Channel Number="7">Tilt (Head 2)</Channel>
+  <Channel Number="8">Tilt Fine (Head 2)</Channel>
+  <Channel Number="9">Head 2 Dimmer</Channel>
+  <Channel Number="10">Pan (Head 3)</Channel>
+  <Channel Number="11">Pan Fine (Head 3)</Channel>
+  <Channel Number="12">Tilt (Head 3)</Channel>
+  <Channel Number="13">Tilt Fine (Head 3)</Channel>
+  <Channel Number="14">Head 3 Dimmer</Channel>
+  <Channel Number="15">Pan (Head 4)</Channel>
+  <Channel Number="16">Pan Fine (Head 4)</Channel>
+  <Channel Number="17">Tilt (Head 4)</Channel>
+  <Channel Number="18">Tilt Fine (Head 4)</Channel>
+  <Channel Number="19">Head 4 Dimmer</Channel>
+  <Channel Number="20">Master Dimmer</Channel>
+  <Channel Number="21">Strobe</Channel>
+  <Channel Number="22">Shows</Channel>
+  <Channel Number="23">Show Speed/Sound Sensitivity</Channel>
+  <Channel Number="24">Dimmer Curves</Channel>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>19</Channel>
+   <Channel>15</Channel>
+   <Channel>16</Channel>
+   <Channel>17</Channel>
+   <Channel>18</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="2 channel">
+  <Channel Number="0">Shows</Channel>
+  <Channel Number="1">Show Speed/Sound Sensitivity</Channel>
+ </Mode>
+ <Mode Name="17 channel">
+  <Channel Number="0">Pan (Head 1)</Channel>
+  <Channel Number="1">Pan Fine (Head 1)</Channel>
+  <Channel Number="2">Tilt (Head 1)</Channel>
+  <Channel Number="3">Tilt Fine (Head 1)</Channel>
+  <Channel Number="4">Pan (Head 2)</Channel>
+  <Channel Number="5">Pan Fine (Head 2)</Channel>
+  <Channel Number="6">Tilt (Head 2)</Channel>
+  <Channel Number="7">Tilt Fine (Head 2)</Channel>
+  <Channel Number="8">Pan (Head 3)</Channel>
+  <Channel Number="9">Pan Fine (Head 3)</Channel>
+  <Channel Number="10">Tilt (Head 3)</Channel>
+  <Channel Number="11">Tilt Fine (Head 3)</Channel>
+  <Channel Number="12">Pan (Head 4)</Channel>
+  <Channel Number="13">Pan Fine (Head 4)</Channel>
+  <Channel Number="14">Tilt (Head 4)</Channel>
+  <Channel Number="15">Tilt Fine (Head 4)</Channel>
+  <Channel Number="16">Master Dimmer</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="10000"/>
+  <Dimensions Weight="11" Width="1033" Height="270" Depth="83"/>
+  <Lens Name="Other" DegreesMin="3" DegreesMax="3"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="85" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

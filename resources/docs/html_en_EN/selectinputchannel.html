@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - Select Input Channel</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>Select Input Channel</H1>
+<P>
+Whenever an Input Channel needs to be selected, for example when manually
+attaching a channel from an <A HREF="file:concept.html#InputPlugins">Input Plugin</A>
+to a <A HREF="file:virtualconsole.html">Virtual Console</A> widget, the Select
+Input Channel dialog is used.
+</P>
+
+<P>
+The dialog is very straightforward; there is a list of input universes and each
+universe that has an <A HREF="file:concept.html#Input">Input Line</A> attached to it,
+displays the line's (or the attached device's) name after the universe number.
+Under each operational universe, there is a list of channels provided by that
+universe. You can choose from these channels or select one manually.
+</P>
+
+<P>
+If you have an <A HREF="file:concept.html#InputProfiles">Input Profile</A> attached
+to the universe, you see the individual channel names and numbers for the device.
+If there isn't a Profile attached to an input universe, you will need to type
+the channel number manually, by double-clicking the item that tells you to do that
+and then type in the channel number manually. See also the
+<A HREF="file:howto-input-profiles.html">tutorial on input profiles</A>
+</P>
+
+<P>
+<B>NOTE:</B> All <A HREF="file:virtualconsole.html">Virtual Console</A> widgets that
+have been made <I>external-input-aware</I>, provide an option for
+automatically detecting the input channel as well, so that you don't need do this
+selection manually.
+</P>
+
+</BODY>
+</HTML>

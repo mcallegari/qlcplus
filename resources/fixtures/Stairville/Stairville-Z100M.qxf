@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Stefan</Author>
+ </Creator>
+ <Manufacturer>Stairville</Manufacturer>
+ <Model>Z100M</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Stroboscope">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="15" Preset="ShutterOpen">Strobe Effect</Capability>
+  <Capability Min="16" Max="95" Preset="StrobeFreqRange" Res1="1" Res2="25">Stroboscope Effect, Speed increasing (1 Hz ... 25 Hz)</Capability>
+  <Capability Min="96" Max="175" Preset="StrobeFrequency" Res1="1">Stroboscope Effect, Speed increasing (1 Hz)</Capability>
+  <Capability Min="176" Max="255" Preset="StrobeRandom">Stroboscope Effect, random speed</Capability>
+ </Channel>
+ <Channel Name="Fine Dimmer" Preset="IntensityMasterDimmerFine"/>
+ <Mode Name="1-Channel">
+  <Channel Number="0">Dimmer</Channel>
+ </Mode>
+ <Mode Name="2-Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Stroboscope</Channel>
+ </Mode>
+ <Mode Name="3-Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Fine Dimmer</Channel>
+  <Channel Number="2">Stroboscope</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="3000"/>
+  <Dimensions Weight="3.4" Width="275" Height="224" Depth="491"/>
+  <Lens Name="Other" DegreesMin="11" DegreesMax="35"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="115" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

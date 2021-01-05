@@ -45,9 +45,6 @@
 
 #define KXMLQLCAudioSource "Source"
 #define KXMLQLCAudioDevice "Device"
-#define KXMLQLCAudioStartTime "StartTime"
-#define KXMLQLCAudioColor "Color"
-#define KXMLQLCAudioLocked "Locked"
 
 /*****************************************************************************
  * Initialization
@@ -59,9 +56,6 @@ Audio::Audio(Doc* doc)
   , m_decoder(NULL)
   , m_audio_out(NULL)
   , m_audioDevice(QString())
-  , m_startTime(UINT_MAX)
-  , m_color(96, 128, 83)
-  , m_locked(false)
   , m_sourceFileName("")
   , m_audioDuration(0)
 {
@@ -120,7 +114,6 @@ bool Audio::copyFrom(const Function* function)
 
     setSourceFileName(aud->m_sourceFileName);
     m_audioDuration = aud->m_audioDuration;
-    m_color = aud->m_color;
 
     return Function::copyFrom(function);
 }
@@ -133,16 +126,6 @@ QStringList Audio::getCapabilities()
 /*********************************************************************
  * Properties
  *********************************************************************/
-void Audio::setStartTime(quint32 time)
-{
-    m_startTime = time;
-}
-
-quint32 Audio::getStartTime() const
-{
-    return m_startTime;
-}
-
 quint32 Audio::totalDuration()
 {
     return (quint32)m_audioDuration;
@@ -154,26 +137,6 @@ void Audio::setTotalDuration(quint32 msec)
     m_audioDuration = msec;
 
     emit totalDurationChanged();
-}
-
-void Audio::setColor(QColor color)
-{
-    m_color = color;
-}
-
-QColor Audio::getColor()
-{
-    return m_color;
-}
-
-void Audio::setLocked(bool locked)
-{
-    m_locked = locked;
-}
-
-bool Audio::isLocked()
-{
-    return m_locked;
 }
 
 bool Audio::setSourceFileName(QString filename)
@@ -190,12 +153,13 @@ bool Audio::setSourceFileName(QString filename)
 
     m_sourceFileName = filename;
 
-    //QMessageBox::warning(0,"Warning", QString("File complete path: %1").arg(m_sourceFileName));
-
     if (QFile(m_sourceFileName).exists())
+    {
         setName(QFileInfo(m_sourceFileName).fileName());
+    }
     else
     {
+        doc()->appendToErrorLog(tr("Audio file <b>%1</b> not found").arg(m_sourceFileName));
         setName(tr("File not found"));
         //m_audioDuration = 0;
         emit changed(id());
@@ -204,6 +168,7 @@ bool Audio::setSourceFileName(QString filename)
     emit sourceFilenameChanged();
 
     m_decoder = m_doc->audioPluginCache()->getDecoderForFile(m_sourceFileName);
+
     if (m_decoder == NULL)
         return false;
 
@@ -234,11 +199,14 @@ QString Audio::audioDevice()
     return m_audioDevice;
 }
 
-void Audio::adjustAttribute(qreal fraction, int attributeIndex)
+int Audio::adjustAttribute(qreal fraction, int attributeId)
 {
-    if (m_audio_out != NULL && attributeIndex == Intensity)
-        m_audio_out->adjustIntensity(fraction);
-    Function::adjustAttribute(fraction, attributeIndex);
+    int attrIndex = Function::adjustAttribute(fraction, attributeId);
+
+    if (m_audio_out != NULL && attrIndex == Intensity)
+        m_audio_out->adjustIntensity(getAttributeValue(Function::Intensity));
+
+    return attrIndex;
 }
 
 void Audio::slotEndOfStream()
@@ -316,14 +284,10 @@ bool Audio::loadXML(QXmlStreamReader &root)
         if (root.name() == KXMLQLCAudioSource)
         {
             QXmlStreamAttributes attrs = root.attributes();
+
             if (attrs.hasAttribute(KXMLQLCAudioDevice))
                 setAudioDevice(attrs.value(KXMLQLCAudioDevice).toString());
-            if (attrs.hasAttribute(KXMLQLCAudioStartTime))
-                setStartTime(attrs.value(KXMLQLCAudioStartTime).toString().toUInt());
-            if (attrs.hasAttribute(KXMLQLCAudioColor))
-                setColor(QColor(attrs.value(KXMLQLCAudioColor).toString()));
-            if (attrs.hasAttribute(KXMLQLCAudioLocked))
-                setLocked(true);
+
             setSourceFileName(m_doc->denormalizeComponentPath(root.readElementText()));
         }
         else if (root.name() == KXMLQLCFunctionSpeed)
@@ -370,7 +334,7 @@ void Audio::preRun(MasterTimer* timer)
  #endif
         m_audio_out->moveToThread(QCoreApplication::instance()->thread());
 #else
-        m_audio_out = new AudioRendererQt(m_audioDevice);
+        m_audio_out = new AudioRendererQt(m_audioDevice, doc());
 #endif
         m_audio_out->setDecoder(m_decoder);
         m_audio_out->initialize(ap.sampleRate(), ap.channels(), ap.format());

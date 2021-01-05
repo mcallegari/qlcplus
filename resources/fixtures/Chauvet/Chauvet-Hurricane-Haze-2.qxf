@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>3.2.0-3-r2623</Version>
+  <Author>Christopher Enoch</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Hurricane Haze 2</Model>
+ <Type>Hazer</Type>
+ <Channel Name="Blower Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Blower Speed</Capability>
+ </Channel>
+ <Channel Name="Haze Volume">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Haze Volume</Capability>
+ </Channel>
+ <Mode Name="Generic">
+  <Channel Number="0">Blower Speed</Channel>
+  <Channel Number="1">Haze Volume</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
+   <Dimensions Width="267" Height="350" Weight="8.5" Depth="285"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="533" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

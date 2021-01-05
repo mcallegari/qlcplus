@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1 GIT</Version>
+  <Author>boxr</Author>
+ </Creator>
+ <Manufacturer>BoomToneDJ</Manufacturer>
+ <Model>Quattro Scan LED</Model>
+ <Type>Scanner</Type>
+ <Channel Name="Total dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Mode">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="63">9 channel mode</Capability>
+  <Capability Min="64" Max="127">15 channel mode</Capability>
+  <Capability Min="128" Max="170">1 channel - sound control mode 1</Capability>
+  <Capability Min="171" Max="213">1 channel - sound control mode 2</Capability>
+  <Capability Min="214" Max="255">1 channel - automatic mode</Capability>
+ </Channel>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="X-axis position" Preset="PositionPan"/>
+ <Channel Name="Y-axis position" Preset="PositionTilt"/>
+ <Channel Name="Light 1 - static colours" Preset="ColorMacro"/>
+ <Channel Name="Light 2 - static colours" Preset="ColorMacro"/>
+ <Channel Name="Light 3 - static colours" Preset="ColorMacro"/>
+ <Channel Name="Light 4 - static colours" Preset="ColorMacro"/>
+ <Channel Name="Light 1 - X-axis position" Preset="PositionPan"/>
+ <Channel Name="Light 1 - Y-axis position" Preset="PositionTilt"/>
+ <Channel Name="Light 2 - X-axis position" Preset="PositionPan"/>
+ <Channel Name="Light 2 - Y-axis position" Preset="PositionTilt"/>
+ <Channel Name="Light 3 - X-axis position" Preset="PositionPan"/>
+ <Channel Name="Light 3 - Y-axis position" Preset="PositionTilt"/>
+ <Channel Name="Light 4 - X-axis position" Preset="PositionPan"/>
+ <Channel Name="Light 4 - Y-axis position" Preset="PositionTilt"/>
+ <Mode Name="Single channel mode">
+  <Channel Number="0">Mode</Channel>
+ </Mode>
+ <Mode Name="9 channel mode">
+  <Channel Number="0">Mode</Channel>
+  <Channel Number="1">Total dimmer</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Red</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Blue</Channel>
+  <Channel Number="6">White</Channel>
+  <Channel Number="7">X-axis position</Channel>
+  <Channel Number="8">Y-axis position</Channel>
+ </Mode>
+ <Mode Name="15 channel mode">
+  <Channel Number="0">Mode</Channel>
+  <Channel Number="1">Total dimmer</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Light 1 - static colours</Channel>
+  <Channel Number="4">Light 2 - static colours</Channel>
+  <Channel Number="5">Light 3 - static colours</Channel>
+  <Channel Number="6">Light 4 - static colours</Channel>
+  <Channel Number="7">Light 1 - X-axis position</Channel>
+  <Channel Number="8">Light 1 - Y-axis position</Channel>
+  <Channel Number="9">Light 2 - X-axis position</Channel>
+  <Channel Number="10">Light 2 - Y-axis position</Channel>
+  <Channel Number="11">Light 3 - X-axis position</Channel>
+  <Channel Number="12">Light 3 - Y-axis position</Channel>
+  <Channel Number="13">Light 4 - X-axis position</Channel>
+  <Channel Number="14">Light 4 - Y-axis position</Channel>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>7</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>9</Channel>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>5</Channel>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+   <Channel>6</Channel>
+   <Channel>14</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="9" Width="544" Height="175" Depth="496"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Mirror" PanMax="170" TiltMax="170"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="90" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

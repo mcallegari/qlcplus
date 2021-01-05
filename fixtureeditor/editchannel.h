@@ -37,7 +37,7 @@ class EditChannel : public QDialog, public Ui_EditChannel
 {
     Q_OBJECT
 public:
-    EditChannel(QWidget* parent, QLCChannel* channel = NULL);
+    EditChannel(QWidget *parent, QLCChannel *channel = NULL);
     ~EditChannel();
 
 protected:
@@ -49,47 +49,49 @@ protected:
      *********************************************************************/
 public:
     /** Get the channel that was edited. */
-    QLCChannel* channel() {
-        return m_channel;
-    }
+    QLCChannel *channel();
 
 protected:
-    QLCChannel* m_channel;
+    QLCChannel *m_channel;
 
     /*********************************************************************
      * Basic channel info
      *********************************************************************/
 protected slots:
     void slotNameChanged(const QString& name);
-    void slotGroupActivated(const QString& group);
+    void slotPresetActivated(int index);
+    void slotGroupActivated(int index);
+    void slotDefaultValueChanged(int val);
     void slotMsbRadioToggled(bool toggled);
     void slotLsbRadioToggled(bool toggled);
-    void slotColourActivated(const QString& colour);
 
     /*********************************************************************
      * Capabilities
      *********************************************************************/
 protected slots:
-    void slotCapabilityListSelectionChanged(QTreeWidgetItem* item);
-    void slotAddCapabilityClicked();
+    void slotCapabilityCellChanged(int row, int column);
+    void slotCapabilityCellSelected(int currentRow, int currentColumn,
+                                    int previousRow, int previousColumn);
     void slotRemoveCapabilityClicked();
     void slotEditCapabilityClicked();
     void slotWizardClicked();
 
-    void slotMinSpinChanged(int value);
-    void slotMaxSpinChanged(int value);
-    void slotDescriptionEdited(const QString& text);
+    void slotCapabilityPresetActivated(int index);
     void slotPictureButtonPressed();
     void slotColor1ButtonPressed();
     void slotColor2ButtonPressed();
+    void slotValue1SpinChanged(double value);
+    void slotValue2SpinChanged(double value);
 
 protected:
     void refreshCapabilities();
-    QLCCapability* currentCapability();
-    int currentCapabilityIndex();
+    QLCCapability *currentCapability();
+    QLCCapability *getRowCapability(int row);
+    void updateCapabilityPresetGroup(bool show);
+    void checkOverlapping();
 
 protected:
-    QLCCapability* m_currentCapability;
+    QLCCapability *m_currentCapability;
 };
 
 /** @} */

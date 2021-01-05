@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Dag Stenstad</Author>
+ </Creator>
+ <Manufacturer>Pro-Lights</Manufacturer>
+ <Model>GoboMix</Model>
+ <Type>Flower</Type>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Strobe (Slow to Fast)</Capability>
+ </Channel>
+ <Channel Name="Gobo Rotating">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="63">Gobos rotating, mirror dish rotating</Capability>
+  <Capability Min="64" Max="127">Gobos rotating, mirror dish static</Capability>
+  <Capability Min="128" Max="191">Gobos static, mirror dish rotating</Capability>
+  <Capability Min="192" Max="255">Gobo static, mirror dish static</Capability>
+ </Channel>
+ <Mode Name="3-Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Gobo Rotating</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="1200" ColourTemperature="0"/>
+  <Dimensions Weight="2.5" Width="236" Height="108" Depth="205"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -18,7 +18,6 @@
   limitations under the License.
 */
 
-#include <QDesktopWidget>
 #include <QApplication>
 #include <QActionGroup>
 #include <QFontDialog>
@@ -31,6 +30,7 @@
 #include <QToolBar>
 #include <QSpinBox>
 #include <QAction>
+#include <QScreen>
 #include <QLabel>
 #include <QDebug>
 #include <QFont>
@@ -243,13 +243,13 @@ void Monitor::fillGraphicsView()
         m_unitsCombo->setCurrentIndex(1);
     }
 
-    m_gridWSpin->setValue(m_props->gridSize().width());
-    m_gridHSpin->setValue(m_props->gridSize().height());
+    m_gridWSpin->setValue(m_props->gridSize().x());
+    m_gridHSpin->setValue(m_props->gridSize().z());
     m_gridWSpin->blockSignals(false);
     m_gridHSpin->blockSignals(false);
     m_unitsCombo->blockSignals(false);
 
-    m_graphicsView->setGridSize(m_props->gridSize());
+    m_graphicsView->setGridSize(QSize(m_props->gridSize().x(), m_props->gridSize().z()));
     m_graphicsView->setBackgroundImage(m_props->commonBackgroundImage());
     m_graphicsView->showFixturesLabels(m_props->labelsVisible());
 
@@ -257,12 +257,11 @@ void Monitor::fillGraphicsView()
     {
         if (m_doc->fixture(fid) != NULL)
         {
-            QVector3D pos = m_props->fixturePosition(fid);
-            QVector3D rot = m_props->fixtureRotation(fid);
-            m_graphicsView->addFixture(fid, QPointF(pos.x(), pos.y()));
-            qDebug() << "Gel color:" << m_props->fixtureGelColor(fid);
-            m_graphicsView->setFixtureGelColor(fid, m_props->fixtureGelColor(fid));
-            m_graphicsView->setFixtureRotation(fid, rot.y());
+            PreviewItem item = m_props->fixtureItem(fid, 0, 0);
+            m_graphicsView->addFixture(fid, QPointF(item.m_position.x(), item.m_position.y()));
+            qDebug() << "Gel color:" << item.m_color;
+            m_graphicsView->setFixtureGelColor(fid, item.m_color);
+            m_graphicsView->setFixtureRotation(fid, item.m_rotation.y());
         }
     }
 }
@@ -343,7 +342,8 @@ void Monitor::createAndShow(QWidget* parent, Doc* doc)
             window->restoreGeometry(var.toByteArray());
         else
         {
-            QRect rect = qApp->desktop()->screenGeometry();
+            QScreen *screen = QGuiApplication::screens().first();
+            QRect rect = screen->availableGeometry();
             int rWd = rect.width() / 4;
             int rHd = rect.height() / 4;
             window->resize(rWd * 3, rHd * 3);
@@ -459,7 +459,7 @@ void Monitor::initDMXToolbar()
             this, SLOT(slotUniverseSelected(int)));
     m_DMXToolBar->addWidget(uniCombo);
 
-    if (QLCFile::isRaspberry() == true)
+    if (QLCFile::hasWindowManager() == false)
     {
         QWidget* widget = new QWidget(this);
         widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
@@ -495,11 +495,11 @@ void Monitor::initGraphicsToolbar()
     label->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     m_graphicsToolBar->addWidget(label);
 
-    QSize gridSize = m_props->gridSize();
+    QVector3D gridSize = m_props->gridSize();
 
     m_gridWSpin = new QSpinBox();
     m_gridWSpin->setMinimum(1);
-    m_gridWSpin->setValue(gridSize.width());
+    m_gridWSpin->setValue(gridSize.x());
     m_graphicsToolBar->addWidget(m_gridWSpin);
     connect(m_gridWSpin, SIGNAL(valueChanged(int)),
             this, SLOT(slotGridWidthChanged(int)));
@@ -509,7 +509,7 @@ void Monitor::initGraphicsToolbar()
     m_graphicsToolBar->addWidget(xlabel);
     m_gridHSpin = new QSpinBox();
     m_gridHSpin->setMinimum(1);
-    m_gridHSpin->setValue(gridSize.height());
+    m_gridHSpin->setValue(gridSize.z());
     m_graphicsToolBar->addWidget(m_gridHSpin);
     connect(m_gridHSpin, SIGNAL(valueChanged(int)),
             this, SLOT(slotGridHeightChanged(int)));
@@ -540,7 +540,7 @@ void Monitor::initGraphicsToolbar()
     m_labelsAction->setChecked(m_props->labelsVisible());
     connect(m_labelsAction, SIGNAL(triggered(bool)), this, SLOT(slotShowLabels(bool)));
 
-    if (QLCFile::isRaspberry() == true)
+    if (QLCFile::hasWindowManager() == false)
     {
         QWidget* widget = new QWidget(this);
         widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
@@ -665,7 +665,7 @@ void Monitor::slotFixtureRemoved(quint32 fxi_id)
 
 void Monitor::slotUniverseSelected(int index)
 {
-    QComboBox *combo = (QComboBox *)sender();
+    QComboBox *combo = qobject_cast<QComboBox *>(sender());
     m_currentUniverse = combo->itemData(index).toUInt();
 
     for (quint32 i = 0; i < m_doc->inputOutputMap()->universesCount(); i++)
@@ -689,7 +689,7 @@ void Monitor::slotGridWidthChanged(int value)
     Q_ASSERT(m_graphicsView != NULL);
 
     m_graphicsView->setGridSize(QSize(value, m_gridHSpin->value()));
-    m_props->setGridSize(QSize(value, m_gridHSpin->value()));
+    m_props->setGridSize(QVector3D(value, m_props->gridSize().y(), m_gridHSpin->value()));
 }
 
 void Monitor::slotGridHeightChanged(int value)
@@ -697,7 +697,7 @@ void Monitor::slotGridHeightChanged(int value)
     Q_ASSERT(m_graphicsView != NULL);
 
     m_graphicsView->setGridSize(QSize(m_gridWSpin->value(), value));
-    m_props->setGridSize(QSize(m_gridWSpin->value(), value));
+    m_props->setGridSize(QVector3D(m_gridWSpin->value(), m_props->gridSize().y(), value));
 }
 
 void Monitor::slotGridUnitsChanged(int index)
@@ -735,7 +735,8 @@ void Monitor::slotAddFixture()
         {
             quint32 fid = it.next();
             m_graphicsView->addFixture(fid);
-            m_props->setFixturePosition(fid, QVector3D(0, 0, 0));
+            m_props->setFixturePosition(fid, 0, 0, QVector3D(0, 0, 0));
+            m_props->setFixtureFlags(fid, 0, 0, 0);
             m_doc->setModified();
         }
     }
@@ -782,7 +783,7 @@ void Monitor::slotFixtureMoved(quint32 fid, QPointF pos)
     Q_ASSERT(m_graphicsView != NULL);
 
     showFixtureItemEditor();
-    m_props->setFixturePosition(fid, QVector3D(pos.x(), pos.y(), 0));
+    m_props->setFixturePosition(fid, 0, 0, QVector3D(pos.x(), pos.y(), 0));
     m_doc->setModified();
 }
 

@@ -103,7 +103,7 @@ void ShowEditor::updateFunctionList()
 
     if (m_show == NULL)
     {
-        qDebug() << Q_FUNC_INFO << "Invalid show !";
+        qDebug() << Q_FUNC_INFO << "Invalid show!";
         return;
     }
 
@@ -146,9 +146,9 @@ void ShowEditor::updateFunctionList()
             fItem->setText(NAME_COL, func->name());
             fItem->setData(NAME_COL, PROP_ID, func->id());
             fItem->setText(TIME_COL, Function::speedToString(sf->startTime()));
-            fItem->setText(DUR_COL, Function::speedToString(sf->duration()));
-            if (sf->startTime() + sf->duration() > totalDuration)
-                totalDuration = sf->startTime() + sf->duration();
+            fItem->setText(DUR_COL, Function::speedToString(sf->duration(m_doc)));
+            if (sf->startTime() + sf->duration(m_doc) > totalDuration)
+                totalDuration = sf->startTime() + sf->duration(m_doc);
 
             if (func->type() == Function::ChaserType)
             {

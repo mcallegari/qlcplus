@@ -41,9 +41,9 @@ void ClickAndGoSlider::setShadowLevel(int level)
     update();
 }
 
-void ClickAndGoSlider::mousePressEvent(QMouseEvent *event)
+void ClickAndGoSlider::mousePressEvent(QMouseEvent *e)
 {
-    if (event->modifiers() == Qt::ControlModifier)
+    if (e->modifiers() == Qt::ControlModifier)
     {
         emit controlClicked();
         return;
@@ -53,26 +53,44 @@ void ClickAndGoSlider::mousePressEvent(QMouseEvent *event)
     initStyleOption(&opt);
     QRect sr = style()->subControlRect(QStyle::CC_Slider, &opt, QStyle::SC_SliderHandle, this);
 
-    if (event->button() == Qt::LeftButton && // react only to left button press
-        sr.contains(event->pos()) == false) // check if the click is not over the slider's handle
+    if (e->button() == Qt::LeftButton && // react only to left button press
+        sr.contains(e->pos()) == false) // check if the click is not over the slider's handle
     {
         int newVal = 0;
         if (orientation() == Qt::Vertical)
-            newVal = minimum() + ((maximum() - minimum()) * (height() - event->y())) / height();
+            newVal = minimum() + ((maximum() - minimum()) * (height() - e->y())) / height();
         else
-            newVal = minimum() + ((maximum() - minimum()) * event->x()) / width();
+            newVal = minimum() + ((maximum() - minimum()) * e->x()) / width();
 
+        setSliderDown(true);
         if (invertedAppearance() == true)
-            setValue( maximum() - newVal );
+            setValue(maximum() - newVal);
         else
             setValue(newVal);
+        setSliderDown(false);
 
-        event->accept();
+        e->accept();
     }
-    QSlider::mousePressEvent(event);
+    QSlider::mousePressEvent(e);
 }
 
-void ClickAndGoSlider::paintEvent(QPaintEvent *ev)
+void ClickAndGoSlider::wheelEvent(QWheelEvent *e)
+{
+    setSliderDown(true);
+    QSlider::wheelEvent(e);
+    setSliderDown(false);
+}
+
+void ClickAndGoSlider::keyPressEvent(QKeyEvent *e)
+{
+    if (e->key() == Qt::Key_Up || e->key() == Qt::Key_Down)
+        setSliderDown(true);
+    QSlider::keyPressEvent(e);
+    if (e->key() == Qt::Key_Up || e->key() == Qt::Key_Down)
+        setSliderDown(false);
+}
+
+void ClickAndGoSlider::paintEvent(QPaintEvent *e)
 {
     if (m_shadowLevel >= 0)
     {
@@ -86,7 +104,7 @@ void ClickAndGoSlider::paintEvent(QPaintEvent *ev)
             p.fillRect(width() - 5, height() - levHeight, width() - 1, height(), QColor(Qt::green));
     }
 
-    QSlider::paintEvent(ev);
+    QSlider::paintEvent(e);
 }
 
 void ClickAndGoSlider::showEvent(QShowEvent *)

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="addon">
+  <id>org.qlcplus.QLCPlus.enttecwing</id>
+  <extends>org.qlcplus.QLCPlus</extends>
+  <name>Enttec Wing</name>
+  <summary>Enttec Wing plugin for QLC+</summary>
+  <url type="homepage">https://www.qlcplus.org/</url>
+  <url type="bugtracker">https://github.com/mcallegari/qlcplus/issues/new?title=[enttecwing]:</url>
+  <metadata_license>CC-BY-SA-3.0</metadata_license>
+  <project_license>Apache-2.0</project_license>
+</component>

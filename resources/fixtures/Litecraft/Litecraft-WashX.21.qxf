@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Hannes Braun</Author>
+ </Creator>
+ <Manufacturer>Litecraft</Manufacturer>
+ <Model>WashX.21</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer Red" Preset="IntensityRed"/>
+ <Channel Name="Dimmer Green" Preset="IntensityGreen"/>
+ <Channel Name="Dimmer Blue" Preset="IntensityBlue"/>
+ <Channel Name="Dimmer White" Preset="IntensityWhite"/>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Flash Rate (6 Channel Mode)">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Flash rate (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Flash Rate (11 Channel Mode)">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="30" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="31" Max="100" Preset="StrobeSlowToFast">Flash rate (slow to fast)</Capability>
+  <Capability Min="101" Max="130" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="131" Max="200" Preset="StrobeRandomSlowToFast">Random strobe (slow to fast)</Capability>
+  <Capability Min="201" Max="255" Preset="ShutterOpen">No function</Capability>
+ </Channel>
+ <Channel Name="Color Macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="30">Red=100-0%/Green=100-0%/Blue=100%</Capability>
+  <Capability Min="31" Max="50">Red=100-0%/Green=100%/Blue=0%</Capability>
+  <Capability Min="51" Max="70">Red=0%/Green=100%/Blue=0-100%</Capability>
+  <Capability Min="71" Max="90">Red=0%/Green=100-0%/Blue=100%</Capability>
+  <Capability Min="91" Max="110">Red=0-100%/Green=0%/Blue=100%</Capability>
+  <Capability Min="111" Max="130">Red=100%/Green=0%/Blue=100-0%</Capability>
+  <Capability Min="131" Max="150">Red=100%/Green=0-100%/Blue=0-100%</Capability>
+  <Capability Min="151" Max="170">Red=100-0%/Green=100-0%/Blue=100%</Capability>
+  <Capability Min="171" Max="200">Red=100%, Green=100%/Blue=100%/White=100%</Capability>
+  <Capability Min="201" Max="205">Color 1</Capability>
+  <Capability Min="206" Max="210">Color 2</Capability>
+  <Capability Min="211" Max="215">Color 3</Capability>
+  <Capability Min="216" Max="220">Color 4</Capability>
+  <Capability Min="221" Max="225">Color 5</Capability>
+  <Capability Min="226" Max="230">Color 6</Capability>
+  <Capability Min="231" Max="235">Color 7</Capability>
+  <Capability Min="236" Max="240">Color 8</Capability>
+  <Capability Min="241" Max="245">Color 9</Capability>
+  <Capability Min="246" Max="250">Color 10</Capability>
+  <Capability Min="251" Max="255">Color 11</Capability>
+ </Channel>
+ <Channel Name="Color Temperature">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="5">No function</Capability>
+  <Capability Min="6" Max="29">3.000 K</Capability>
+  <Capability Min="30" Max="53">4.000 K</Capability>
+  <Capability Min="54" Max="77">4.200 K</Capability>
+  <Capability Min="78" Max="101">5.000 K</Capability>
+  <Capability Min="102" Max="125">5.600 K</Capability>
+  <Capability Min="126" Max="149">6.000 K</Capability>
+  <Capability Min="150" Max="173">7.000 K</Capability>
+  <Capability Min="174" Max="197">8.000 K</Capability>
+  <Capability Min="198" Max="221">9.000 K</Capability>
+  <Capability Min="222" Max="245">10.000 K</Capability>
+  <Capability Min="246" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Auto Program">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="60">Program auto 1</Capability>
+  <Capability Min="61" Max="110">Program auto 2</Capability>
+  <Capability Min="111" Max="160">Program auto 3</Capability>
+  <Capability Min="161" Max="210">Program auto 4</Capability>
+  <Capability Min="211" Max="255">Program auto 5 (1-4)</Capability>
+ </Channel>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Stepless speed</Capability>
+ </Channel>
+ <Channel Name="Dimmer Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="51">Mode set on display</Capability>
+  <Capability Min="52" Max="101">Off</Capability>
+  <Capability Min="102" Max="152">Dimmer 1 (fast)</Capability>
+  <Capability Min="153" Max="203">Dimmer 2 (medium)</Capability>
+  <Capability Min="204" Max="255">Dimmer 3 (slow)</Capability>
+ </Channel>
+ <Mode Name="4 Channel">
+  <Channel Number="0">Dimmer Red</Channel>
+  <Channel Number="1">Dimmer Green</Channel>
+  <Channel Number="2">Dimmer Blue</Channel>
+  <Channel Number="3">Dimmer White</Channel>
+ </Mode>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Dimmer Red</Channel>
+  <Channel Number="2">Dimmer Green</Channel>
+  <Channel Number="3">Dimmer Blue</Channel>
+  <Channel Number="4">Dimmer White</Channel>
+  <Channel Number="5">Flash Rate (6 Channel Mode)</Channel>
+ </Mode>
+ <Mode Name="11 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Dimmer Red</Channel>
+  <Channel Number="2">Dimmer Green</Channel>
+  <Channel Number="3">Dimmer Blue</Channel>
+  <Channel Number="4">Dimmer White</Channel>
+  <Channel Number="5">Flash Rate (11 Channel Mode)</Channel>
+  <Channel Number="6">Color Macro</Channel>
+  <Channel Number="7">Color Temperature</Channel>
+  <Channel Number="8">Auto Program</Channel>
+  <Channel Number="9">Speed</Channel>
+  <Channel Number="10">Dimmer Mode</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="8.8" Width="493" Height="320" Depth="99"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="184" DmxConnector="5-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -132,7 +132,6 @@ void VCXYPad_Test::copy()
     VCFrame parent(&w, m_doc);
     VCXYPad pad(&parent, m_doc);
     pad.setCaption("Dingdong");
-    QSize size(80, 80);
     QPointF pt(50, 30);
     pad.m_area->setPosition(pt);
 

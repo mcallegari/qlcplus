@@ -1,0 +1,371 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
+  <Author>Robert Box</Author>
+ </Creator>
+ <Manufacturer>SGM</Manufacturer>
+ <Model>G-Profile</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="7">Closed</Capability>
+  <Capability Min="8" Max="15">Open 1 ('pre heat' enabled)</Capability>
+  <Capability Min="16" Max="151">Strobe, slow -&gt; fast</Capability>
+  <Capability Min="152" Max="175">Pulse - open, slow -&gt; fast</Capability>
+  <Capability Min="176" Max="199">Pulse - close, slow -&gt; fast</Capability>
+  <Capability Min="200" Max="244">Strobe - random, slow -&gt; fast</Capability>
+  <Capability Min="245" Max="255">Open 2 ('pre-heat' enabled)</Capability>
+ </Channel>
+ <Channel Name="Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="CTC">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">No CTC (raw)</Capability>
+  <Capability Min="5" Max="5" Color="#ff8912">≈2000°K</Capability>
+  <Capability Min="6" Max="14">No function</Capability>
+  <Capability Min="15" Max="15" Color="#ff932c">≈2200°K</Capability>
+  <Capability Min="16" Max="39">No function</Capability>
+  <Capability Min="40" Max="40" Color="#ffa957">≈2700°K</Capability>
+  <Capability Min="41" Max="53">No function</Capability>
+  <Capability Min="54" Max="54" Color="#ffb46b">≈3000°K</Capability>
+  <Capability Min="55" Max="64">No function</Capability>
+  <Capability Min="65" Max="65" Color="#ffbb78">≈3200°K</Capability>
+  <Capability Min="66" Max="104">No function</Capability>
+  <Capability Min="105" Max="105" Color="#ffd1a3">≈4000°K</Capability>
+  <Capability Min="106" Max="114">No function</Capability>
+  <Capability Min="115" Max="115" Color="#ffd5ad">≈4200°K</Capability>
+  <Capability Min="116" Max="176">No function</Capability>
+  <Capability Min="177" Max="177" Color="#ffece0">≈5500°K</Capability>
+  <Capability Min="178" Max="215">No function</Capability>
+  <Capability Min="216" Max="216" Color="#fff6f8">≈6300°K</Capability>
+  <Capability Min="217" Max="237">No function</Capability>
+  <Capability Min="238" Max="238" Color="#e3e9ff">≈8000°K</Capability>
+  <Capability Min="239" Max="254">No function</Capability>
+  <Capability Min="255" Max="255" Color="#ccdbff">≈10000°K</Capability>
+ </Channel>
+ <Channel Name="Pan (Coarse)" Preset="PositionPan"/>
+ <Channel Name="Tilt (Coarse)" Preset="PositionTilt"/>
+ <Channel Name="Gobo Wheel 1">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="20" Res="Others/open.svg">Open</Capability>
+  <Capability Min="21" Max="41" Res="Robe/gobo00067.svg">Gobo 1 - position 1</Capability>
+  <Capability Min="42" Max="62" Res="SGM/gobo00133.svg">Gobo 1 - position 2</Capability>
+  <Capability Min="63" Max="83" Res="SGM/gobo00257.png">Gobo 1 - position 3</Capability>
+  <Capability Min="84" Max="104" Res="Robe/gobo00064.svg">Gobo 1 - position 4</Capability>
+  <Capability Min="105" Max="127" Res="ClayPaky/gobo00081.png">Gobo 1 - position 5</Capability>
+  <Capability Min="128" Max="191">Continuous rotation CW</Capability>
+  <Capability Min="192" Max="192">No rotation</Capability>
+  <Capability Min="193" Max="255">Continuous rotation CCW</Capability>
+ </Channel>
+ <Channel Name="Gobo Wheel 1 Indexing/Rotation/Shake (Coarse)">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="255">Gobo wheel 1 indexing/rotation/shake (coarse)</Capability>
+ </Channel>
+ <Channel Name="Gobo Wheel 1 Indexing/Rotation/Shake (Fine)">
+  <Group Byte="1">Gobo</Group>
+  <Capability Min="0" Max="255">Gobo wheel 1 indexing/rotation/shake (fine)</Capability>
+ </Channel>
+ <Channel Name="Blade 1 In">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255">Out -&gt; In</Capability>
+ </Channel>
+ <Channel Name="Blade 2 In">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255">Out -&gt; In</Capability>
+ </Channel>
+ <Channel Name="Blade 3 In">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255">Out -&gt; In</Capability>
+ </Channel>
+ <Channel Name="Blade 4 In">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255">Out -&gt; In</Capability>
+ </Channel>
+ <Channel Name="Blade 1 Angle">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255">-30° -&gt; +30°</Capability>
+ </Channel>
+ <Channel Name="Blade 2 Angle">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255">-30° -&gt; +30°</Capability>
+ </Channel>
+ <Channel Name="Blade 3 Angle">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255">-30° -&gt; +30°</Capability>
+ </Channel>
+ <Channel Name="Blade 4 Angle">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255">-30° -&gt; +30°</Capability>
+ </Channel>
+ <Channel Name="Blade Assembly Rotate">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255">-45° -&gt; +45°</Capability>
+ </Channel>
+ <Channel Name="Effect Wheel (Coarse)">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Effect wheel (coarse)</Capability>
+ </Channel>
+ <Channel Name="Effect Wheel (Fine)">
+  <Group Byte="1">Effect</Group>
+  <Capability Min="0" Max="255">Effect wheel (fine)</Capability>
+ </Channel>
+ <Channel Name="Iris">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="200">Open -&gt; close</Capability>
+  <Capability Min="201" Max="205">Effect - "open fast / close slow"</Capability>
+  <Capability Min="206" Max="210">Effect - "open slow / close fast"</Capability>
+  <Capability Min="211" Max="215">Effect - "open / close"</Capability>
+  <Capability Min="216" Max="255">Effect - "random close / open", slow -&gt; fast</Capability>
+ </Channel>
+ <Channel Name="Prism">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="4">Open</Capability>
+  <Capability Min="5" Max="129">Continuous rotation CW, fast -&gt; slow</Capability>
+  <Capability Min="130" Max="130">No rotation</Capability>
+  <Capability Min="131" Max="255">Continuous rotation CCW, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Frost">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">Open</Capability>
+  <Capability Min="6" Max="255">No frost -&gt; maximum frost</Capability>
+ </Channel>
+ <Channel Name="Zoom" Preset="BeamZoomBigSmall"/>
+ <Channel Name="Focus" Preset="BeamFocusFarNear"/>
+ <Channel Name="Effect Channel">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">No effect</Capability>
+  <Capability Min="5" Max="15">Reserved (no function)</Capability>
+  <Capability Min="16" Max="26">Reserved (no function)</Capability>
+  <Capability Min="27" Max="32">Shutter black = red</Capability>
+  <Capability Min="33" Max="38">Shutter black = green</Capability>
+  <Capability Min="39" Max="44">Shutter black = blue</Capability>
+  <Capability Min="45" Max="50">Shutter black = white</Capability>
+  <Capability Min="51" Max="56">Shutter black = magenta</Capability>
+  <Capability Min="57" Max="62">Shutter black = yellow</Capability>
+  <Capability Min="63" Max="68">Shutter black = cyan</Capability>
+  <Capability Min="69" Max="255">Reserved (no function)</Capability>
+ </Channel>
+ <Channel Name="Control Channel">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="4">No function</Capability>
+  <Capability Min="5" Max="9">Full reset</Capability>
+  <Capability Min="10" Max="14">Pan reset</Capability>
+  <Capability Min="15" Max="19">Tilt reset</Capability>
+  <Capability Min="20" Max="24">Gobo reset</Capability>
+  <Capability Min="25" Max="29">Zoom reset</Capability>
+  <Capability Min="30" Max="34">Sleep mode</Capability>
+  <Capability Min="35" Max="39">Display off</Capability>
+  <Capability Min="40" Max="44">Display on</Capability>
+  <Capability Min="45" Max="115">LED frequency (100kHz - 1.41kHz)</Capability>
+  <Capability Min="116" Max="119">Capture scene 1</Capability>
+  <Capability Min="120" Max="123">Capture scene 2</Capability>
+  <Capability Min="124" Max="127">Capture scene 3</Capability>
+  <Capability Min="128" Max="131">Capture scene 4</Capability>
+  <Capability Min="132" Max="135">Capture scene 5</Capability>
+  <Capability Min="136" Max="139">Capture scene 6</Capability>
+  <Capability Min="140" Max="143">Capture scene 7</Capability>
+  <Capability Min="144" Max="147">Capture scene 8</Capability>
+  <Capability Min="148" Max="151">Capture scene 9</Capability>
+  <Capability Min="152" Max="155">Capture scene 10</Capability>
+  <Capability Min="156" Max="159">Capture scene 11</Capability>
+  <Capability Min="160" Max="163">Capture scene 12</Capability>
+  <Capability Min="164" Max="167">Capture scene 13</Capability>
+  <Capability Min="168" Max="171">Capture scene 14</Capability>
+  <Capability Min="172" Max="175">Capture scene 15</Capability>
+  <Capability Min="176" Max="179">Capture scene 16</Capability>
+  <Capability Min="180" Max="183">Capture scene 17</Capability>
+  <Capability Min="184" Max="187">Capture scene 18</Capability>
+  <Capability Min="188" Max="191">Capture scene 19</Capability>
+  <Capability Min="192" Max="195">Capture scene 20</Capability>
+  <Capability Min="196" Max="199">Capture scene 21</Capability>
+  <Capability Min="200" Max="203">Capture scene 22</Capability>
+  <Capability Min="204" Max="207">Capture scene 23</Capability>
+  <Capability Min="208" Max="211">Capture scene 24</Capability>
+  <Capability Min="212" Max="255">Reserved (no function)</Capability>
+ </Channel>
+ <Channel Name="Pan (Fine)" Preset="PositionPanFine"/>
+ <Channel Name="Tilt (Fine)" Preset="PositionTiltFine"/>
+ <Channel Name="Red (Fine)" Preset="IntensityRedFine"/>
+ <Channel Name="Green (Fine)" Preset="IntensityGreenFine"/>
+ <Channel Name="Blue (Fine)" Preset="IntensityBlueFine"/>
+ <Channel Name="Intensity (Fine)" Preset="IntensityDimmerFine"/>
+ <Channel Name="Blade 1 In (Fine)">
+  <Group Byte="1">Shutter</Group>
+  <Capability Min="0" Max="255">Out -&gt; In</Capability>
+ </Channel>
+ <Channel Name="Blade 2 In (Fine)">
+  <Group Byte="1">Shutter</Group>
+  <Capability Min="0" Max="255">Out -&gt; In</Capability>
+ </Channel>
+ <Channel Name="Blade 3 In (Fine)">
+  <Group Byte="1">Shutter</Group>
+  <Capability Min="0" Max="255">Out -&gt; In</Capability>
+ </Channel>
+ <Channel Name="Blade 4 In (Fine)">
+  <Group Byte="1">Shutter</Group>
+  <Capability Min="0" Max="255">Out -&gt; In</Capability>
+ </Channel>
+ <Channel Name="Blade 1 Angle (Fine)">
+  <Group Byte="1">Shutter</Group>
+  <Capability Min="0" Max="255">-30° -&gt; +30°</Capability>
+ </Channel>
+ <Channel Name="Blade 2 Angle (Fine)">
+  <Group Byte="1">Shutter</Group>
+  <Capability Min="0" Max="255">-30° -&gt; +30°</Capability>
+ </Channel>
+ <Channel Name="Blade 3 Angle (Fine)">
+  <Group Byte="1">Shutter</Group>
+  <Capability Min="0" Max="255">-30° -&gt; +30°</Capability>
+ </Channel>
+ <Channel Name="Blade 4 Angle (Fine)">
+  <Group Byte="1">Shutter</Group>
+  <Capability Min="0" Max="255">-30° -&gt; +30°</Capability>
+ </Channel>
+ <Channel Name="Blade Assembly Rotate (Fine)">
+  <Group Byte="1">Shutter</Group>
+  <Capability Min="0" Max="255">-45° -&gt; +45°</Capability>
+ </Channel>
+ <Channel Name="Zoom (Fine)">
+  <Group Byte="1">Beam</Group>
+  <Capability Min="0" Max="255">Wide -&gt; narrow</Capability>
+ </Channel>
+ <Channel Name="Focus (Fine)">
+  <Group Byte="1">Beam</Group>
+  <Capability Min="0" Max="255">Far -&gt; near</Capability>
+ </Channel>
+ <Channel Name="Red (Coarse)" Preset="IntensityRed"/>
+ <Channel Name="Green (Coarse)" Preset="IntensityGreen"/>
+ <Channel Name="Blue (Coarse)" Preset="IntensityBlue"/>
+ <Channel Name="Intensity (Coarse)" Preset="IntensityDimmer"/>
+ <Channel Name="Blade 1 In (Coarse)">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255">Out -&gt; In</Capability>
+ </Channel>
+ <Channel Name="Blade 2 In (Coarse)">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255">Out -&gt; In</Capability>
+ </Channel>
+ <Channel Name="Blade 3 In (Coarse)">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255">Out -&gt; In</Capability>
+ </Channel>
+ <Channel Name="Blade 4 In (Coarse)">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255">Out -&gt; In</Capability>
+ </Channel>
+ <Channel Name="Blade 1 Angle (Coarse)">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255">-30° -&gt; +30°</Capability>
+ </Channel>
+ <Channel Name="Blade 2 Angle (Coarse)">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255">-30° -&gt; +30°</Capability>
+ </Channel>
+ <Channel Name="Blade 3 Angle (Coarse)">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255">-30° -&gt; +30°</Capability>
+ </Channel>
+ <Channel Name="Blade 4 Angle (Coarse)">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255">-30° -&gt; +30°</Capability>
+ </Channel>
+ <Channel Name="Blade Assembly Rotate (Coarse)">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255">-45° -&gt; +45°</Capability>
+ </Channel>
+ <Channel Name="Zoom (Coarse)" Preset="BeamZoomBigSmall"/>
+ <Channel Name="Focus (Coarse)" Preset="BeamFocusFarNear"/>
+ <Mode Name="Standard (31 Channels)">
+  <Channel Number="0">Shutter</Channel>
+  <Channel Number="1">Intensity</Channel>
+  <Channel Number="2">Red</Channel>
+  <Channel Number="3">Green</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">CTC</Channel>
+  <Channel Number="6">Pan (Coarse)</Channel>
+  <Channel Number="7">Pan (Fine)</Channel>
+  <Channel Number="8">Tilt (Coarse)</Channel>
+  <Channel Number="9">Tilt (Fine)</Channel>
+  <Channel Number="10">Gobo Wheel 1</Channel>
+  <Channel Number="11">Gobo Wheel 1 Indexing/Rotation/Shake (Coarse)</Channel>
+  <Channel Number="12">Gobo Wheel 1 Indexing/Rotation/Shake (Fine)</Channel>
+  <Channel Number="13">Blade 1 In</Channel>
+  <Channel Number="14">Blade 1 Angle</Channel>
+  <Channel Number="15">Blade 2 In</Channel>
+  <Channel Number="16">Blade 2 Angle</Channel>
+  <Channel Number="17">Blade 3 In</Channel>
+  <Channel Number="18">Blade 3 Angle</Channel>
+  <Channel Number="19">Blade 4 In</Channel>
+  <Channel Number="20">Blade 4 Angle</Channel>
+  <Channel Number="21">Blade Assembly Rotate</Channel>
+  <Channel Number="22">Effect Wheel (Coarse)</Channel>
+  <Channel Number="23">Effect Wheel (Fine)</Channel>
+  <Channel Number="24">Iris</Channel>
+  <Channel Number="25">Prism</Channel>
+  <Channel Number="26">Frost</Channel>
+  <Channel Number="27">Zoom</Channel>
+  <Channel Number="28">Focus</Channel>
+  <Channel Number="29">Effect Channel</Channel>
+  <Channel Number="30">Control Channel</Channel>
+ </Mode>
+ <Mode Name="Extended (46 Channels)">
+  <Channel Number="0">Shutter</Channel>
+  <Channel Number="1">Intensity (Coarse)</Channel>
+  <Channel Number="2">Intensity (Fine)</Channel>
+  <Channel Number="3">Red (Coarse)</Channel>
+  <Channel Number="4">Red (Fine)</Channel>
+  <Channel Number="5">Green (Coarse)</Channel>
+  <Channel Number="6">Green (Fine)</Channel>
+  <Channel Number="7">Blue (Coarse)</Channel>
+  <Channel Number="8">Blue (Fine)</Channel>
+  <Channel Number="9">CTC</Channel>
+  <Channel Number="10">Pan (Coarse)</Channel>
+  <Channel Number="11">Pan (Fine)</Channel>
+  <Channel Number="12">Tilt (Coarse)</Channel>
+  <Channel Number="13">Tilt (Fine)</Channel>
+  <Channel Number="14">Gobo Wheel 1</Channel>
+  <Channel Number="15">Gobo Wheel 1 Indexing/Rotation/Shake (Coarse)</Channel>
+  <Channel Number="16">Gobo Wheel 1 Indexing/Rotation/Shake (Fine)</Channel>
+  <Channel Number="17">Blade 1 In (Coarse)</Channel>
+  <Channel Number="18">Blade 1 In (Fine)</Channel>
+  <Channel Number="19">Blade 1 Angle (Coarse)</Channel>
+  <Channel Number="20">Blade 1 Angle (Fine)</Channel>
+  <Channel Number="21">Blade 2 In (Coarse)</Channel>
+  <Channel Number="22">Blade 2 In (Fine)</Channel>
+  <Channel Number="23">Blade 2 Angle (Coarse)</Channel>
+  <Channel Number="24">Blade 2 Angle (Fine)</Channel>
+  <Channel Number="25">Blade 3 In (Coarse)</Channel>
+  <Channel Number="26">Blade 3 In (Fine)</Channel>
+  <Channel Number="27">Blade 3 Angle (Coarse)</Channel>
+  <Channel Number="28">Blade 3 Angle (Fine)</Channel>
+  <Channel Number="29">Blade 4 In (Coarse)</Channel>
+  <Channel Number="30">Blade 4 In (Fine)</Channel>
+  <Channel Number="31">Blade 4 Angle (Coarse)</Channel>
+  <Channel Number="32">Blade 4 Angle (Fine)</Channel>
+  <Channel Number="33">Blade Assembly Rotate (Coarse)</Channel>
+  <Channel Number="34">Blade Assembly Rotate (Fine)</Channel>
+  <Channel Number="35">Effect Wheel (Coarse)</Channel>
+  <Channel Number="36">Effect Wheel (Fine)</Channel>
+  <Channel Number="37">Iris</Channel>
+  <Channel Number="38">Prism</Channel>
+  <Channel Number="39">Frost</Channel>
+  <Channel Number="40">Zoom (Coarse)</Channel>
+  <Channel Number="41">Zoom (Fine)</Channel>
+  <Channel Number="42">Focus (Coarse)</Channel>
+  <Channel Number="43">Focus (Fine)</Channel>
+  <Channel Number="44">Effect Channel</Channel>
+  <Channel Number="45">Control Channel</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="170000" ColourTemperature="0"/>
+   <Dimensions Weight="52" Width="492" Height="821" Depth="585"/>
+   <Lens Name="Other" DegreesMin="8" DegreesMax="43"/>
+   <Focus Type="Head" PanMax="540" TiltMax="240"/>
+   <Technical PowerConsumption="11000" DmxConnector="5-pin"/>
+  </Physical>
+</FixtureDefinition>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Francois Blanchette</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Hemisphere 5.1</Model>
+ <Type>Flower</Type>
+ <Channel Name="Auto Programs">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#fc0107">Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#21ff06">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#fecc66">Amber</Capability>
+  <Capability Min="60" Max="69" Preset="ColorDoubleMacro" Res1="#fc0107" Res2="#21ff06">Red/Green</Capability>
+  <Capability Min="70" Max="79" Preset="ColorDoubleMacro" Res1="#fc0107" Res2="#0000ff">Red/Blue</Capability>
+  <Capability Min="80" Max="89" Preset="ColorDoubleMacro" Res1="#fc0107" Res2="#ffffff">Red/White</Capability>
+  <Capability Min="90" Max="99" Preset="ColorDoubleMacro" Res1="#fc0107" Res2="#fecc66">Red/Amber</Capability>
+  <Capability Min="100" Max="109" Preset="ColorDoubleMacro" Res1="#21ff06" Res2="#0000ff">Green/Blue</Capability>
+  <Capability Min="110" Max="119" Preset="ColorDoubleMacro" Res1="#21ff06" Res2="#ffffff">Green/White</Capability>
+  <Capability Min="120" Max="129" Preset="ColorDoubleMacro" Res1="#21ff06" Res2="#fecc66">Green/Amber</Capability>
+  <Capability Min="130" Max="139" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue/White</Capability>
+  <Capability Min="140" Max="149" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#fecc66">Blue/Amber</Capability>
+  <Capability Min="150" Max="159" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#fecc66">White/Amber</Capability>
+  <Capability Min="160" Max="169">Red/Green/Blue</Capability>
+  <Capability Min="170" Max="179" Preset="ColorMacro" Res1="#ffffff">Red/Green/Blue/White</Capability>
+  <Capability Min="180" Max="189" Preset="ColorMacro" Res1="#ffffff">Red/Green/Blue/Amber</Capability>
+  <Capability Min="190" Max="199" Preset="ColorMacro" Res1="#ffffff">Red/Green/Blue/White/Amber</Capability>
+  <Capability Min="200" Max="229">Auto Program</Capability>
+  <Capability Min="230" Max="255">Sound-Active Mode</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="13">Strobe (0-13 Hz)</Capability>
+ </Channel>
+ <Channel Name="Auto Program Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">0~100% (Ch. 1: 200~229)</Capability>
+ </Channel>
+ <Channel Name="Rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Stop</Capability>
+  <Capability Min="10" Max="119">Rotate left (slow to fast)</Capability>
+  <Capability Min="120" Max="129">Stop</Capability>
+  <Capability Min="130" Max="255">Rotate right (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Auto Programs</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Auto Program Speed</Channel>
+  <Channel Number="3">Rotation</Channel>
+  <Channel Number="4">Dimmer</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.9" Width="272" Height="254" Depth="272"/>
+  <Lens Name="Other" DegreesMin="360" DegreesMax="360"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="38" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

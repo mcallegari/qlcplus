@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - Fixture Manager</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1><img src="qrc:/fixture.png" width=32 align="absmiddle"> Fixture Manager</H1>
+<P>
+The fixture manager is the heart of QLC+'s fixture-oriented architecture. As
+its name already says, you can manage  (add, remove and edit) your lighting
+fixtures from the fixture manager. On the left side of the manager there is a
+list that displays all of the fixtures in the current workspace. When a fixture
+is selected, the right side of the window displays the details of the selected fixture.
+When a <A HREF="file:concept.html#FixtureGroup">Fixture Group</A> is selected,
+the right side of the window is occupied by the <A HREF="file:fixturegroupeditor.html">Fixture Group Editor</A>.
+</P>
+
+<H3>Controls</H3>
+
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD><IMG SRC="qrc:/edit_add.png"></TD>
+  <TD>
+   Add new <A HREF="file:concept.html#Fixtures">Fixture</A>(s) to the workspace with
+   the <A HREF="file:addeditfixtures.html">Add/Edit Fixture</A> dialog.
+  </TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/rgbpanel.png"></TD>
+  <TD>
+   Add a RGB panel to the workspace with with the
+   <A HREF="file:addrgbpanel.html">Add RGB Panel</A> dialog.
+  </TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/edit_remove.png"></TD>
+  <TD>
+   Remove the selected fixtures from the workspace. This also removes the fixtures from ALL
+   groups they have been assigned to.
+  </TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/configure.png"></TD>
+  <TD>
+   Edit the currently selected fixture's properties with the
+   <A HREF="file:addeditfixtures.html">Add/Edit Fixture</A> dialog.
+  </TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/fade.png"></TD>
+  <TD>
+   Opens the <a href="channelproperties.html">Channel Properties Configuration</a> window.
+  </TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/group.png"></TD>
+  <TD>
+   Assign the selected fixtures to a <A HREF="file:concept.html#FixtureGroup">Fixture Group</A>
+   displayed in a popup menu. If you have no groups defined yet, you can choose to create
+   a new one from the menu that opens when this button is clicked.
+  </TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/ungroup.png"></TD>
+  <TD>
+   Resign (remove) the selected fixtures from the group they are currently in. Note that
+   removing fixtures from a group will NOT destroy the fixtures completely. Also, removal
+   from one group will not affect the fixtures' memberships to other groups.
+  </TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/up.png"></TD>
+  <TD>Move the selected Channel Group up</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/down.png"></TD>
+  <TD>Move the selected Channel Group down</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/fileimport.png"></TD>
+  <TD>
+   Imports a fixture list file (.qxfl) into QLC+. Please note that
+   fixture addresses conflicts are not handled, so it is suggested to use this functionality
+   on an empty project.
+  </TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/fileexport.png"></TD>
+  <TD>
+   Exports the list of fixtures currently available on a QLC+ project
+   into a file with extension .qxfl. This file can be used afterward with the import functionality.
+  </TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/remap.png"></TD>
+  <TD>
+   Opens the <a href="fixturesremap.html">Fixtures remapping</a> window.
+  </TD>
+ </TR>
+</TABLE>
+
+</BODY>
+</HTML>

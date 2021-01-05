@@ -105,6 +105,8 @@ SceneEditor::SceneEditor(QWidget* parent, Scene* scene, Doc* doc, bool applyValu
     if (showDial.isNull() == false && showDial.toBool() == true)
         m_speedDialAction->setChecked(true);
 
+    connect(m_doc, SIGNAL(fixtureRemoved(quint32)), this, SLOT(slotFixtureRemoved(quint32)));
+
     m_initFinished = true;
 
     // Set focus to the editor
@@ -141,22 +143,39 @@ void SceneEditor::slotFunctionManagerActive(bool active)
 
 void SceneEditor::slotSetSceneValues(QList <SceneValue>&sceneValues)
 {
-    FixtureConsole* fc;
-    Fixture* fixture;
-
     QListIterator <SceneValue> it(sceneValues);
 
     while (it.hasNext() == true)
     {
         SceneValue sv(it.next());
 
-        fixture = m_doc->fixture(sv.fxi);
+        Fixture *fixture = m_doc->fixture(sv.fxi);
         Q_ASSERT(fixture != NULL);
 
-        fc = fixtureConsole(fixture);
+        FixtureConsole *fc = fixtureConsole(fixture);
         if (fc != NULL)
+        {
+            fc->blockSignals(true);
             fc->setSceneValue(sv);
+            fc->blockSignals(false);
+        }
     }
+}
+
+void SceneEditor::slotFixtureRemoved(quint32 id)
+{
+    removeFixtureTab(id);
+    removeFixtureItem(id);
+
+    QListIterator <SceneValue> it(m_scene->values());
+
+    while (it.hasNext() == true)
+    {
+        SceneValue sv(it.next());
+        if (sv.fxi == id)
+            m_scene->unsetValue(id, sv.channel);
+    }
+    m_scene->removeFixture(id);
 }
 
 void SceneEditor::init(bool applyValues)
@@ -609,7 +628,7 @@ void SceneEditor::slotPositionTool()
                      {
                         v += qreal(fc->value(panLsbChannel)) / qreal(256);
                      }
- 
+
                      pos.setX(v);
                  }
              }
@@ -625,7 +644,7 @@ void SceneEditor::slotPositionTool()
                      {
                         v += qreal(fc->value(tiltLsbChannel)) / qreal(256);
                      }
- 
+
                      pos.setY(v);
                  }
              }
@@ -727,7 +746,7 @@ QColor SceneEditor::slotColorSelectorChanged(const QColor& color)
         {
             Fixture* fxi = m_doc->fixture(cc->fixture());
             Q_ASSERT(fxi != NULL);
-            const QLCChannel *ch = fxi->channel(cc->channel());
+            const QLCChannel *ch = fxi->channel(cc->channelIndex());
             if (ch->group() == QLCChannel::Intensity)
             {
                 if (ch->colour() == QLCChannel::Red)
@@ -807,7 +826,7 @@ void SceneEditor::slotPositionSelectorChanged(const QPointF& position)
         {
             Fixture* fxi = m_doc->fixture(cc->fixture());
             Q_ASSERT(fxi != NULL);
-            const QLCChannel *ch = fxi->channel(cc->channel());
+            const QLCChannel *ch = fxi->channel(cc->channelIndex());
             if (ch->group() == QLCChannel::Pan)
             {
                 if (ch->controlByte() == QLCChannel::MSB)
@@ -1046,7 +1065,7 @@ bool SceneEditor::isColorToolAvailable()
         {
             fxi = m_doc->fixture(cc->fixture());
             Q_ASSERT(fxi != NULL);
-            const QLCChannel *ch = fxi->channel(cc->channel());
+            const QLCChannel *ch = fxi->channel(cc->channelIndex());
             if (ch->group() == QLCChannel::Intensity)
             {
                 if (ch->colour() == QLCChannel::Red)
@@ -1098,7 +1117,7 @@ bool SceneEditor::isPositionToolAvailable()
                 return true;
             if (fxi->channelNumber(QLCChannel::Tilt, QLCChannel::MSB, i) != QLCChannel::invalid())
                 return true;
-        } 
+        }
     }
 
     GroupsConsole* gc = groupConsoleTab(m_currentTab);
@@ -1108,7 +1127,7 @@ bool SceneEditor::isPositionToolAvailable()
         {
             fxi = m_doc->fixture(cc->fixture());
             Q_ASSERT(fxi != NULL);
-            const QLCChannel *ch = fxi->channel(cc->channel());
+            const QLCChannel *ch = fxi->channel(cc->channelIndex());
             if (ch->group() == QLCChannel::Pan || ch->group() == QLCChannel::Tilt)
                 return true;
         }
@@ -1230,13 +1249,11 @@ bool SceneEditor::addFixtureItem(Fixture* fixture)
     return true;
 }
 
-void SceneEditor::removeFixtureItem(Fixture* fixture)
+void SceneEditor::removeFixtureItem(quint32 fixtureID)
 {
-    QTreeWidgetItem* item;
+    QTreeWidgetItem *item;
 
-    Q_ASSERT(fixture != NULL);
-
-    item = fixtureItem(fixture->id());
+    item = fixtureItem(fixtureID);
     delete item;
 }
 
@@ -1265,12 +1282,10 @@ void SceneEditor::slotAddFixtureClicked()
     fs.setDisabledFixtures(disabled);
     if (fs.exec() == QDialog::Accepted)
     {
-        Fixture* fixture;
-
         QListIterator <quint32> it(fs.selection());
         while (it.hasNext() == true)
         {
-            fixture = m_doc->fixture(it.next());
+            Fixture *fixture = m_doc->fixture(it.next());
             Q_ASSERT(fixture != NULL);
 
             addFixtureItem(fixture);
@@ -1297,8 +1312,8 @@ void SceneEditor::slotRemoveFixtureClicked()
             Fixture* fixture = it.next();
             Q_ASSERT(fixture != NULL);
 
-            removeFixtureTab(fixture);
-            removeFixtureItem(fixture);
+            removeFixtureTab(fixture->id());
+            removeFixtureItem(fixture->id());
 
             /* Remove all values associated to the fixture */
             for (quint32 i = 0; i < fixture->channels(); i++)
@@ -1525,15 +1540,13 @@ void SceneEditor::addFixtureTab(Fixture* fixture, quint32 channel)
         console->setChecked(true, channel);
 }
 
-void SceneEditor::removeFixtureTab(Fixture* fixture)
+void SceneEditor::removeFixtureTab(quint32 fixtureID)
 {
-    Q_ASSERT(fixture != NULL);
-
     /* Start searching from the first fixture tab */
     for (int i = m_fixtureFirstTabIndex; i < m_tab->count(); i++)
     {
         FixtureConsole* fc = fixtureConsoleTab(i);
-        if (fc != NULL && fc->fixture() == fixture->id())
+        if (fc != NULL && fc->fixture() == fixtureID)
         {
             /* First remove the tab because otherwise Qt might
                remove two tabs -- undocumented feature, which
@@ -1541,7 +1554,7 @@ void SceneEditor::removeFixtureTab(Fixture* fixture)
             QScrollArea* area = qobject_cast<QScrollArea*> (m_tab->widget(i));
             Q_ASSERT(area != NULL);
             m_tab->removeTab(i);
-            m_consoleList.take(fixture->id());
+            m_consoleList.take(fixtureID);
             delete area; // Deletes also FixtureConsole
             break;
         }

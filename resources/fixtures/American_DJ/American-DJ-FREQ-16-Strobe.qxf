@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1 GIT</Version>
+  <Author>David Kuder</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>FREQ 16 Strobe</Model>
+ <Type>LED Bar (Pixels)</Type>
+ <Channel Name="Dimmer 1" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 2" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 3" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 4" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 5" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 6" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 7" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 8" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 9" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 10" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 11" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 12" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 13" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 14" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 15" Preset="IntensityDimmer"/>
+ <Channel Name="Dimmer 16" Preset="IntensityDimmer"/>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobing">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="8" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="9" Max="131" Preset="StrobeSlowToFast">Strobing Slow - Fast</Capability>
+  <Capability Min="132" Max="139" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="140" Max="181" Preset="RampUpSlowToFast">Slow Open - Fast Close</Capability>
+  <Capability Min="182" Max="189" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="190" Max="231" Preset="RampDownSlowToFast">Fast Open - Slow Close</Capability>
+  <Capability Min="232" Max="239" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="240" Max="247">Sound Active</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">No function</Capability>
+ </Channel>
+ <Channel Name="Shows">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">Blackout</Capability>
+  <Capability Min="8" Max="27">Show 1</Capability>
+  <Capability Min="28" Max="47">Show 2</Capability>
+  <Capability Min="48" Max="67">Show 3</Capability>
+  <Capability Min="68" Max="87">Show 4</Capability>
+  <Capability Min="88" Max="107">Show 5</Capability>
+  <Capability Min="108" Max="127">Show 6</Capability>
+  <Capability Min="128" Max="147">Show 7</Capability>
+  <Capability Min="148" Max="167">Show 8</Capability>
+  <Capability Min="168" Max="187">Show 9</Capability>
+  <Capability Min="188" Max="207">Show 10</Capability>
+  <Capability Min="208" Max="227">Show 11</Capability>
+  <Capability Min="228" Max="247">Show 12</Capability>
+  <Capability Min="248" Max="255">Random show</Capability>
+ </Channel>
+ <Channel Name="Strobing simple">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="8" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="9" Max="255" Preset="StrobeSlowToFast">Strobing Slow to fast</Capability>
+ </Channel>
+ <Mode Name="18 Channels">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Dimmer 2</Channel>
+  <Channel Number="2">Dimmer 3</Channel>
+  <Channel Number="3">Dimmer 4</Channel>
+  <Channel Number="4">Dimmer 5</Channel>
+  <Channel Number="5">Dimmer 6</Channel>
+  <Channel Number="6">Dimmer 7</Channel>
+  <Channel Number="7">Dimmer 8</Channel>
+  <Channel Number="8">Dimmer 9</Channel>
+  <Channel Number="9">Dimmer 10</Channel>
+  <Channel Number="10">Dimmer 11</Channel>
+  <Channel Number="11">Dimmer 12</Channel>
+  <Channel Number="12">Dimmer 13</Channel>
+  <Channel Number="13">Dimmer 14</Channel>
+  <Channel Number="14">Dimmer 15</Channel>
+  <Channel Number="15">Dimmer 16</Channel>
+  <Channel Number="16">Master Dimmer</Channel>
+  <Channel Number="17">Strobing</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="16 Channel">
+  <Channel Number="0">Dimmer 1</Channel>
+  <Channel Number="1">Dimmer 2</Channel>
+  <Channel Number="2">Dimmer 3</Channel>
+  <Channel Number="3">Dimmer 4</Channel>
+  <Channel Number="4">Dimmer 5</Channel>
+  <Channel Number="5">Dimmer 6</Channel>
+  <Channel Number="6">Dimmer 7</Channel>
+  <Channel Number="7">Dimmer 8</Channel>
+  <Channel Number="8">Dimmer 9</Channel>
+  <Channel Number="9">Dimmer 10</Channel>
+  <Channel Number="10">Dimmer 11</Channel>
+  <Channel Number="11">Dimmer 12</Channel>
+  <Channel Number="12">Dimmer 13</Channel>
+  <Channel Number="13">Dimmer 14</Channel>
+  <Channel Number="14">Dimmer 15</Channel>
+  <Channel Number="15">Dimmer 16</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+  </Head>
+  <Head>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>15</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Master Dimmer</Channel>
+  <Channel Number="1">Strobing simple</Channel>
+ </Mode>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Shows</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3.6" Width="1025" Height="65" Depth="88"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="16" Height="1"/>
+  <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

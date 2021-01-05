@@ -45,11 +45,11 @@ void GenericFader_Test::initTestCase()
 
 void GenericFader_Test::init()
 {
-    Fixture* fxi = new Fixture(m_doc);
-    QLCFixtureDef* def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
+    Fixture *fxi = new Fixture(m_doc);
+    QLCFixtureDef *def = m_doc->fixtureDefCache()->fixtureDef("Futurelight", "DJScan250");
     QVERIFY(def != NULL);
 
-    QLCFixtureMode* mode = def->mode("Mode 1");
+    QLCFixtureMode *mode = def->mode("Mode 1");
     QVERIFY(mode != NULL);
 
     fxi->setFixtureDefinition(def, mode);
@@ -64,7 +64,8 @@ void GenericFader_Test::cleanup()
 
 void GenericFader_Test::addRemove()
 {
-    GenericFader fader(m_doc);
+    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
+    QSharedPointer<GenericFader> fader = QSharedPointer<GenericFader>(new GenericFader());
 
     FadeChannel fc;
     fc.setFixture(m_doc, 0);
@@ -72,61 +73,65 @@ void GenericFader_Test::addRemove()
 
     FadeChannel wrong;
     fc.setFixture(m_doc, 0);
+    quint32 chHash = GenericFader::channelHash(fc.fixture(), fc.channel());
 
-    QCOMPARE(fader.m_channels.count(), 0);
-    QVERIFY(fader.m_channels.contains(fc) == false);
+    QCOMPARE(fader->m_channels.count(), 0);
+    QVERIFY(fader->m_channels.contains(chHash) == false);
 
-    fader.add(fc);
-    QVERIFY(fader.m_channels.contains(fc) == true);
-    QCOMPARE(fader.m_channels.count(), 1);
+    fader->add(fc);
+    QVERIFY(fader->m_channels.contains(chHash) == true);
+    QCOMPARE(fader->m_channels.count(), 1);
 
-    fader.remove(wrong);
-    QVERIFY(fader.m_channels.contains(fc) == true);
-    QCOMPARE(fader.m_channels.count(), 1);
+    fader->remove(&wrong);
+    QVERIFY(fader->m_channels.contains(chHash) == true);
+    QCOMPARE(fader->m_channels.count(), 1);
 
-    fader.remove(fc);
-    QVERIFY(fader.m_channels.contains(fc) == false);
-    QCOMPARE(fader.m_channels.count(), 0);
+    FadeChannel *fc1 = fader->getChannelFader(m_doc, ua[0], 0, 0);
+    fader->remove(fc1);
+    QVERIFY(fader->m_channels.contains(chHash) == false);
+    QCOMPARE(fader->m_channels.count(), 0);
 
     fc.setChannel(m_doc, 0);
-    fader.add(fc);
-    QVERIFY(fader.m_channels.contains(fc) == true);
+    fader->add(fc);
+    QVERIFY(fader->m_channels.contains(chHash) == true);
 
     fc.setChannel(m_doc, 1);
-    fader.add(fc);
-    QVERIFY(fader.m_channels.contains(fc) == true);
+    fader->add(fc);
+    chHash = GenericFader::channelHash(fc.fixture(), fc.channel());
+    QVERIFY(fader->m_channels.contains(chHash) == true);
 
     fc.setChannel(m_doc, 2);
-    fader.add(fc);
-    QVERIFY(fader.m_channels.contains(fc) == true);
-    QCOMPARE(fader.m_channels.count(), 3);
+    fader->add(fc);
+    chHash = GenericFader::channelHash(fc.fixture(), fc.channel());
+    QVERIFY(fader->m_channels.contains(chHash) == true);
+    QCOMPARE(fader->m_channels.count(), 3);
 
-    fader.removeAll();
-    QCOMPARE(fader.m_channels.count(), 0);
+    fader->removeAll();
+    QCOMPARE(fader->m_channels.count(), 0);
 
     fc.setFixture(m_doc, 0);
     fc.setChannel(m_doc, 0);
     fc.setTarget(127);
-    fader.add(fc);
-    QCOMPARE(fader.m_channels.size(), 1);
-    QCOMPARE(fader.m_channels[fc].target(), uchar(127));
+    fader->add(fc);
+    chHash = GenericFader::channelHash(fc.fixture(), fc.channel());
+    QCOMPARE(fader->m_channels.size(), 1);
+    QCOMPARE(fader->m_channels[chHash].target(), uchar(127));
 
     fc.setTarget(63);
-    fader.add(fc);
-    QCOMPARE(fader.m_channels.size(), 1);
-    QCOMPARE(fader.m_channels[fc].target(), uchar(63));
+    fader->add(fc);
+    QCOMPARE(fader->m_channels.size(), 1);
+    QCOMPARE(fader->m_channels[chHash].target(), uchar(63));
 
     fc.setCurrent(63);
-    fader.add(fc);
-    QCOMPARE(fader.m_channels.size(), 1);
-    QCOMPARE(fader.m_channels[fc].target(), uchar(63));
+    fader->add(fc);
+    QCOMPARE(fader->m_channels.size(), 1);
+    QCOMPARE(fader->m_channels[chHash].target(), uchar(63));
 }
 
 void GenericFader_Test::writeZeroFade()
 {
-    QList<Universe*> ua;
-    ua.append(new Universe(0, new GrandMaster()));
-    GenericFader fader(m_doc);
+    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
+    QSharedPointer<GenericFader> fader = ua[0]->requestFader();
 
     FadeChannel fc;
     fc.setFixture(m_doc, 0);
@@ -135,17 +140,16 @@ void GenericFader_Test::writeZeroFade()
     fc.setTarget(255);
     fc.setFadeTime(0);
 
-    fader.add(fc);
+    fader->add(fc);
     QCOMPARE(ua[0]->preGMValues()[15], (char) 0);
-    fader.write(ua);
+    fader->write(ua[0]);
     QCOMPARE(ua[0]->preGMValues()[15], (char) 255);
 }
 
 void GenericFader_Test::writeLoop()
 {
-    QList<Universe*> ua;
-    ua.append(new Universe(0, new GrandMaster()));
-    GenericFader fader(m_doc);
+    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
+    QSharedPointer<GenericFader> fader = ua[0]->requestFader();
 
     FadeChannel fc;
     fc.setFixture(m_doc, 0);
@@ -153,7 +157,7 @@ void GenericFader_Test::writeLoop()
     fc.setStart(0);
     fc.setTarget(250);
     fc.setFadeTime(1000);
-    fader.add(fc);
+    fader->add(fc);
 
     QCOMPARE(ua[0]->preGMValues()[15], (char) 0);
 
@@ -161,7 +165,7 @@ void GenericFader_Test::writeLoop()
     for (int i = MasterTimer::tick(); i <= 1000; i += MasterTimer::tick())
     {
         ua[0]->zeroIntensityChannels();
-        fader.write(ua);
+        fader->write(ua[0]);
 
         int actual = uchar(ua[0]->preGMValues()[15]);
         expected += 5;
@@ -171,9 +175,8 @@ void GenericFader_Test::writeLoop()
 
 void GenericFader_Test::adjustIntensity()
 {
-    QList<Universe*> ua;
-    ua.append(new Universe(0, new GrandMaster()));
-    GenericFader fader(m_doc);
+    QList<Universe*> ua = m_doc->inputOutputMap()->universes();
+    QSharedPointer<GenericFader> fader = ua[0]->requestFader();
 
     FadeChannel fc;
 
@@ -183,21 +186,21 @@ void GenericFader_Test::adjustIntensity()
     fc.setStart(0);
     fc.setTarget(250);
     fc.setFadeTime(1000);
-    fader.add(fc);
+    fader->add(fc);
 
     // LTP channel
     fc.setChannel(m_doc, 0);
-    fader.add(fc);
+    fader->add(fc);
 
     qreal intensity = 0.5;
-    fader.adjustIntensity(intensity);
-    QCOMPARE(fader.intensity(), intensity);
+    fader->adjustIntensity(intensity);
+    QCOMPARE(fader->intensity(), intensity);
 
     int expected = 0;
     for (int i = MasterTimer::tick(); i <= 1000; i += MasterTimer::tick())
     {
         ua[0]->zeroIntensityChannels();
-        fader.write(ua);
+        fader->write(ua[0]);
 
         expected += 5;
 

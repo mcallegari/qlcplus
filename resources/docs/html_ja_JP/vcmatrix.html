@@ -1,0 +1,133 @@
+<html dir="ltr">
+<head>
+<title>Q Light Controller Plus - アニメーション</title>
+<script src="utility.js" type="text/javascript"></script>
+<link href="style.css" rel="stylesheet" type="text/css"></link>
+  <meta charset="utf-8">
+</head>
+<BODY onLoad="replaceqrc()">
+
+
+<h1><IMG SRC="qrc:/animation.png" ALIGN="absmiddle"> アニメーション</h1>
+
+<p>　アニメーションはバーチャルコンソールから<a href="concept.html#Function">RGBマトリックス</a>をコントロールするための機能です。<br><br>
+　実際のオペレートでは、事前に作成しておいたプリセットを再生することが多いです。
+</p>
+
+<h2>導入</h2>
+　アイコン <img src="qrc:/animation.png">をクリックするとアニメーションを作成できます。<br>
+　デフォルトでウィジェット上には４つのパーツが表示されます。<ul>
+ <li>左には、プレイバックスライダー(サブマスター)が表示されます。<br>このスライダーには外部入力を設定できます。<br>詳しくは<a href="vcslider.html">スライダー</a>を参照してください。
+ </li>
+ <li>右には２つの<a href="concept.html#ClickAndGo">Click &amp; Go</a> ボタンが表示されています。<a href="concept.html#Modes">本番モード</a>にするとこのボタンはカラーピッカーとして機能します。
+ </li>
+ <li>ドロップダウンメニューからアニメーションの種類を選択できます。
+ </li>
+</ul>　また、プリセットを作成してる場合は下に並んで表示されます。プリセットはウィジェットのプロパティーを開きCostom controlsタブから作成できます。<br>これらのプリセットボタンを呼び出すためにキーボードや外部入力を割り当てることができます。
+
+
+<h2>各種設定</h2>
+
+<p>ウィジェットのプロパティーを開くにはアイコン<IMG SRC="qrc:/edit.png" ALIGN="bottom">をクリックするかダブルクリックしてください。
+</p>
+
+<h3>全般タブ</h3>
+
+<table border="1" class="qlcTable">
+ <tr>
+  <td>
+   <b>名前</b>
+  </td>
+  <td>
+　お好きな名前を設定できます。ここで設定した名前はバーチャルコンソール上のウィジェット上部に表示されます。</td>
+ </tr>
+ <tr>
+  <td>
+   <b>RGB Matrix Function</b>
+  </td>
+  <td>
+　ウィジェットに作成済みの<a href="jconcept.html#RGBMatrix">RGBマトリックス</a>を割り当てます。
+   <p>
+    <IMG SRC="qrc:/attach.png" ALIGN="absmiddle"> 割り当てたいRGBマトリックスを選択できます。<br>
+    <IMG SRC="qrc:/detach.png" ALIGN="absmiddle"> 割り当て済みのRGBマトリックスを解除します。</p>
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>Apply color and preset changes immediately</b>
+  </td>
+  <td>
+　ウィジェット内で色の変更を行った際即時に変更をするか、再生中のアニメーションが一周し終わったタイミングで変更するかを選べます。</td>
+ </tr>
+ <tr>
+  <td><b>外部入力</b></td>
+  <td>
+　スライダーに外部入力を割り当てます。
+   <ul>
+    <li>Input universe: 外部入力のUniverse名が表示されます。</li>
+    <li>Input channel: 外部入力のチャンネルが表示されます。</li>
+    <li>自動判別: クリックした後、外部入力に割り当てたいチャンネルを動かすことで外部入力を設定できます。うまくいかない場合は入出力設定を確認してみてください。</li>
+    <li><a href="selectinputchannel.html">選択</a>: 外部入力を手動設定します</li>
+   </ul>
+  </td>
+ </tr>
+</table>
+
+<h3>Custom Controls タブ</h3>
+
+<p>
+　プリセットを作成することができます。<br>
+　<a href="rgbmatrixeditor.html">RGBマトリックスエディター</a>と扱い方は同じです。ただ違うことは、フィクスチャーグループがすでに設定されており、変更できないことです。<br>
+　このタブでは、ウィジェットを好きにカスタマイズし、オペレートしやすいようにプリセットなどを好きに追加・編集できます。<br>
+　ここで作成したプリセットの再生にはには個別にウィジェット上のボタンをクリックするほか、キーボード、外部入力を割り当てることができます。
+</p>
+
+<table border="1" class="qlcTable">
+ <tr>
+  <td>
+   <b><img src="qrc:/color.png" ALIGN="absmiddle"> Add start color</b>
+  </td>
+  <td>アニメーションにおける開始色のプリセット呼び出しボタンを追加できます。カラーピッカーを使用して設定できます。<br>
+　ここで色を設定すると左のリストのほか、ウィジェット上に表示されるボタンの背景色としても設定されます。またウィジェット上では開始色(Start)を表す<b>S</b>の文字が表示されています。</td>
+ </tr>
+ <tr>
+  <td>
+   <b><img src="qrc:/color.png" ALIGN="absmiddle"> Add end color</b>
+  </td>
+  <td>アニメーションにおける終了色のプリセット呼び出しボタンを追加できます。カラーピッカーを使用して設定できます。<br>
+　ここで色を設定すると左のリストのほか、ウィジェット上に表示されるボタンの背景色としても設定されます。またウィジェット上では終了色(End)を表す<b>E</b>の文字が表示されています。</td>
+ </tr>
+ <tr>
+  <td>
+   <b><img src="qrc:/fileclose.png" ALIGN="absmiddle"> Add end color reset</b>
+  </td>
+  <td>終了色のリセットボタンを追加できます。<br>
+　ウィジェット上に灰色の終了色をリセットするボタンが表示されます。</td>
+ </tr>
+ <tr>
+  <td>
+   <b><img src="qrc:/script.png" ALIGN="absmiddle"> Add preset</b>
+  </td>
+  <td>プリセット呼び出しボタンを追加できます。ダイアルログが表示され、プリセットを設定できます。<br>
+　ウィジェット上に灰色のプリセット呼び出しボタンが表示されます。
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b><img src="qrc:/fonts.png" ALIGN="absmiddle"> Add text</b>
+  </td>
+  <td>テキストを表示するアニメーションの再生ボタンを追加します。表示したいテキストを入力するダイアルログが表示され、お好きなテキストを設定できます。<br>
+　ウィジェット上に灰色のテキスト表示アニメーション呼び出しボタンが表示されます。
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>削除する</b>
+  </td>
+  <td>選択したアイテムを削除します。
+  </td>
+ </tr>
+</table>
+
+</BODY>
+</html>

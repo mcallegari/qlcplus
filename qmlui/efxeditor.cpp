@@ -21,18 +21,19 @@
 #include <QDebug>
 #include <QQmlEngine>
 
+#include "qlcfixturemode.h"
+#include "fixturemanager.h"
 #include "efxeditor.h"
 #include "listmodel.h"
-#include "qlcfixturemode.h"
-
+#include "tardis.h"
 #include "efx.h"
 #include "doc.h"
 #include "app.h"
 
 EFXEditor::EFXEditor(QQuickView *view, Doc *doc, QObject *parent)
     : FunctionEditor(view, doc, parent)
-    , m_efx(NULL)
-    , m_fixtureTree(NULL)
+    , m_efx(nullptr)
+    , m_fixtureTree(nullptr)
     , m_maxPanDegrees(360.0)
     , m_maxTiltDegrees(270.0)
 {
@@ -46,26 +47,46 @@ EFXEditor::EFXEditor(QQuickView *view, Doc *doc, QObject *parent)
 
 EFXEditor::~EFXEditor()
 {
-    m_view->rootContext()->setContextProperty("efxEditor", NULL);
+    m_view->rootContext()->setContextProperty("efxEditor", nullptr);
 }
 
 void EFXEditor::setFunctionID(quint32 id)
 {
     if (id == Function::invalidId())
     {
-        m_efx = NULL;
+        disconnect(m_efx, &EFX::attributeChanged, this, &EFXEditor::slotAttributeChanged);
+        m_efx = nullptr;
         return;
     }
 
     m_efx = qobject_cast<EFX *>(m_doc->function(id));
-    if (m_efx != NULL)
+    if (m_efx != nullptr)
     {
+        connect(m_efx, &EFX::attributeChanged, this, &EFXEditor::slotAttributeChanged);
         updateAlgorithmData();
         emit algorithmIndexChanged();
     }
 
     FunctionEditor::setFunctionID(id);
     updateFixtureList();
+}
+
+void EFXEditor::slotAttributeChanged(int attrIndex, qreal fraction)
+{
+    Q_UNUSED(fraction)
+
+    switch (attrIndex)
+    {
+        case EFX::Width: emit algorithmWidthChanged(); break;
+        case EFX::Height: emit algorithmHeightChanged(); break;
+        case EFX::Rotation: emit algorithmRotationChanged(); break;
+        case EFX::XOffset: emit algorithmXOffsetChanged(); break;
+        case EFX::YOffset: emit algorithmYOffsetChanged(); break;
+        case EFX::StartOffset: emit algorithmStartOffsetChanged(); break;
+        default: break;
+    }
+
+    updateAlgorithmData();
 }
 
 /************************************************************************
@@ -79,7 +100,7 @@ QStringList EFXEditor::algorithms() const
 
 int EFXEditor::algorithmIndex() const
 {
-    if (m_efx == NULL)
+    if (m_efx == nullptr)
         return 0;
 
     QStringList algoList = algorithms();
@@ -88,12 +109,10 @@ int EFXEditor::algorithmIndex() const
 
 void EFXEditor::setAlgorithmIndex(int algoIndex)
 {
-    if (m_efx == NULL)
+    if (m_efx == nullptr || algoIndex == m_efx->algorithm())
         return;
 
-    if (algoIndex == m_efx->algorithm())
-        return;
-
+    Tardis::instance()->enqueueAction(Tardis::EFXSetAlgorithmIndex, m_efx->id(), m_efx->algorithm(), algoIndex);
     m_efx->setAlgorithm(EFX::Algorithm(algoIndex));
     emit algorithmIndexChanged();
     updateAlgorithmData();
@@ -101,25 +120,32 @@ void EFXEditor::setAlgorithmIndex(int algoIndex)
 
 bool EFXEditor::isRelative() const
 {
-    if (m_efx == NULL)
+    if (m_efx == nullptr)
         return false;
 
     return m_efx->isRelative();
 }
 
-void EFXEditor::setIsRelative(bool val)
+void EFXEditor::setIsRelative(bool relative)
 {
-    if (m_efx == NULL || val == m_efx->isRelative())
+    if (m_efx == nullptr || relative == m_efx->isRelative())
         return;
 
-    m_efx->setIsRelative(val);
+    Tardis::instance()->enqueueAction(Tardis::EFXSetRelative, m_efx->id(), m_efx->isRelative(), relative);
+    m_efx->setIsRelative(relative);
+
+    if (relative)
+    {
+        setAlgorithmXOffset(127);
+        setAlgorithmYOffset(127);
+    }
     emit isRelativeChanged();
     updateAlgorithmData();
 }
 
 int EFXEditor::algorithmWidth() const
 {
-    if (m_efx == NULL)
+    if (m_efx == nullptr)
         return 0;
 
     return m_efx->width();
@@ -127,9 +153,10 @@ int EFXEditor::algorithmWidth() const
 
 void EFXEditor::setAlgorithmWidth(int algorithmWidth)
 {
-    if (m_efx == NULL || algorithmWidth == m_efx->width())
+    if (m_efx == nullptr || algorithmWidth == m_efx->width())
         return;
 
+    Tardis::instance()->enqueueAction(Tardis::EFXSetWidth, m_efx->id(), m_efx->width(), algorithmWidth);
     m_efx->setWidth(algorithmWidth);
     emit algorithmWidthChanged();
     updateAlgorithmData();
@@ -137,7 +164,7 @@ void EFXEditor::setAlgorithmWidth(int algorithmWidth)
 
 int EFXEditor::algorithmHeight() const
 {
-    if (m_efx == NULL)
+    if (m_efx == nullptr)
         return 0;
 
     return m_efx->height();
@@ -145,9 +172,10 @@ int EFXEditor::algorithmHeight() const
 
 void EFXEditor::setAlgorithmHeight(int algorithmHeight)
 {
-    if (m_efx == NULL || algorithmHeight == m_efx->height())
+    if (m_efx == nullptr || algorithmHeight == m_efx->height())
         return;
 
+    Tardis::instance()->enqueueAction(Tardis::EFXSetHeight, m_efx->id(), m_efx->height(), algorithmHeight);
     m_efx->setHeight(algorithmHeight);
     emit algorithmHeightChanged();
     updateAlgorithmData();
@@ -155,7 +183,7 @@ void EFXEditor::setAlgorithmHeight(int algorithmHeight)
 
 int EFXEditor::algorithmXOffset() const
 {
-    if (m_efx == NULL)
+    if (m_efx == nullptr)
         return 0;
 
     return m_efx->xOffset();
@@ -163,9 +191,10 @@ int EFXEditor::algorithmXOffset() const
 
 void EFXEditor::setAlgorithmXOffset(int algorithmXOffset)
 {
-    if (m_efx == NULL || algorithmXOffset == m_efx->xOffset())
+    if (m_efx == nullptr || algorithmXOffset == m_efx->xOffset())
         return;
 
+    Tardis::instance()->enqueueAction(Tardis::EFXSetXOffset, m_efx->id(), m_efx->xOffset(), algorithmXOffset);
     m_efx->setXOffset(algorithmXOffset);
     emit algorithmXOffsetChanged();
     updateAlgorithmData();
@@ -173,7 +202,7 @@ void EFXEditor::setAlgorithmXOffset(int algorithmXOffset)
 
 int EFXEditor::algorithmYOffset() const
 {
-    if (m_efx == NULL)
+    if (m_efx == nullptr)
         return 0;
 
     return m_efx->yOffset();
@@ -181,9 +210,10 @@ int EFXEditor::algorithmYOffset() const
 
 void EFXEditor::setAlgorithmYOffset(int algorithmYOffset)
 {
-    if (m_efx == NULL || algorithmYOffset == m_efx->yOffset())
+    if (m_efx == nullptr || algorithmYOffset == m_efx->yOffset())
         return;
 
+    Tardis::instance()->enqueueAction(Tardis::EFXSetYOffset, m_efx->id(), m_efx->yOffset(), algorithmYOffset);
     m_efx->setYOffset(algorithmYOffset);
     emit algorithmYOffsetChanged();
     updateAlgorithmData();
@@ -191,7 +221,7 @@ void EFXEditor::setAlgorithmYOffset(int algorithmYOffset)
 
 int EFXEditor::algorithmRotation() const
 {
-    if (m_efx == NULL)
+    if (m_efx == nullptr)
         return 0;
 
     return m_efx->rotation();
@@ -199,9 +229,10 @@ int EFXEditor::algorithmRotation() const
 
 void EFXEditor::setAlgorithmRotation(int algorithmRotation)
 {
-    if (m_efx == NULL || algorithmRotation == m_efx->rotation())
+    if (m_efx == nullptr || algorithmRotation == m_efx->rotation())
         return;
 
+    Tardis::instance()->enqueueAction(Tardis::EFXSetRotation, m_efx->id(), m_efx->rotation(), algorithmRotation);
     m_efx->setRotation(algorithmRotation);
     emit algorithmRotationChanged();
     updateAlgorithmData();
@@ -209,7 +240,7 @@ void EFXEditor::setAlgorithmRotation(int algorithmRotation)
 
 int EFXEditor::algorithmStartOffset() const
 {
-    if (m_efx == NULL)
+    if (m_efx == nullptr)
         return 0;
 
     return m_efx->startOffset();
@@ -217,9 +248,10 @@ int EFXEditor::algorithmStartOffset() const
 
 void EFXEditor::setAlgorithmStartOffset(int algorithmStartOffset)
 {
-    if (m_efx == NULL || algorithmStartOffset == m_efx->startOffset())
+    if (m_efx == nullptr || algorithmStartOffset == m_efx->startOffset())
         return;
 
+    Tardis::instance()->enqueueAction(Tardis::EFXSetStartOffset, m_efx->id(), m_efx->startOffset(), algorithmStartOffset);
     m_efx->setStartOffset(algorithmStartOffset);
     emit algorithmStartOffsetChanged();
     updateAlgorithmData();
@@ -227,7 +259,7 @@ void EFXEditor::setAlgorithmStartOffset(int algorithmStartOffset)
 
 int EFXEditor::algorithmXFrequency() const
 {
-    if (m_efx == NULL)
+    if (m_efx == nullptr)
         return 0;
 
     return m_efx->xFrequency();
@@ -235,9 +267,10 @@ int EFXEditor::algorithmXFrequency() const
 
 void EFXEditor::setAlgorithmXFrequency(int algorithmXFrequency)
 {
-    if (m_efx == NULL || algorithmXFrequency == m_efx->xFrequency())
+    if (m_efx == nullptr || algorithmXFrequency == m_efx->xFrequency())
         return;
 
+    Tardis::instance()->enqueueAction(Tardis::EFXSetXFrequency, m_efx->id(), m_efx->xFrequency(), algorithmXFrequency);
     m_efx->setXFrequency(algorithmXFrequency);
     emit algorithmXFrequencyChanged();
     updateAlgorithmData();
@@ -245,7 +278,7 @@ void EFXEditor::setAlgorithmXFrequency(int algorithmXFrequency)
 
 int EFXEditor::algorithmYFrequency() const
 {
-    if (m_efx == NULL)
+    if (m_efx == nullptr)
         return 0;
 
     return m_efx->yFrequency();
@@ -253,9 +286,10 @@ int EFXEditor::algorithmYFrequency() const
 
 void EFXEditor::setAlgorithmYFrequency(int algorithmYFrequency)
 {
-    if (m_efx == NULL || algorithmYFrequency == m_efx->yFrequency())
+    if (m_efx == nullptr || algorithmYFrequency == m_efx->yFrequency())
         return;
 
+    Tardis::instance()->enqueueAction(Tardis::EFXSetYFrequency, m_efx->id(), m_efx->yFrequency(), algorithmYFrequency);
     m_efx->setYFrequency(algorithmYFrequency);
     emit algorithmYFrequencyChanged();
     updateAlgorithmData();
@@ -263,7 +297,7 @@ void EFXEditor::setAlgorithmYFrequency(int algorithmYFrequency)
 
 int EFXEditor::algorithmXPhase() const
 {
-    if (m_efx == NULL)
+    if (m_efx == nullptr)
         return 0;
 
     return m_efx->xPhase();
@@ -271,9 +305,10 @@ int EFXEditor::algorithmXPhase() const
 
 void EFXEditor::setAlgorithmXPhase(int algorithmXPhase)
 {
-    if (m_efx == NULL || algorithmXPhase == m_efx->xPhase())
+    if (m_efx == nullptr || algorithmXPhase == m_efx->xPhase())
         return;
 
+    Tardis::instance()->enqueueAction(Tardis::EFXSetXPhase, m_efx->id(), m_efx->xPhase(), algorithmXPhase);
     m_efx->setXPhase(algorithmXPhase);
     emit algorithmXPhaseChanged();
     updateAlgorithmData();
@@ -281,7 +316,7 @@ void EFXEditor::setAlgorithmXPhase(int algorithmXPhase)
 
 int EFXEditor::algorithmYPhase() const
 {
-    if (m_efx == NULL)
+    if (m_efx == nullptr)
         return 0;
 
     return m_efx->yPhase();
@@ -289,9 +324,10 @@ int EFXEditor::algorithmYPhase() const
 
 void EFXEditor::setAlgorithmYPhase(int algorithmYPhase)
 {
-    if (m_efx == NULL || algorithmYPhase == m_efx->yPhase())
+    if (m_efx == nullptr || algorithmYPhase == m_efx->yPhase())
         return;
 
+    Tardis::instance()->enqueueAction(Tardis::EFXSetYPhase, m_efx->id(), m_efx->yPhase(), algorithmYPhase);
     m_efx->setYPhase(algorithmYPhase);
     emit algorithmYPhaseChanged();
     updateAlgorithmData();
@@ -308,7 +344,7 @@ QVariant EFXEditor::fixtureList() const
 
 QVariant EFXEditor::groupsTreeModel()
 {
-    if (m_fixtureTree == NULL)
+    if (m_fixtureTree == nullptr)
     {
         m_fixtureTree = new TreeModel(this);
         QQmlEngine::setObjectOwnership(m_fixtureTree, QQmlEngine::CppOwnership);
@@ -316,7 +352,7 @@ QVariant EFXEditor::groupsTreeModel()
         treeColumns << "classRef" << "type" << "id" << "subid" << "head";
         m_fixtureTree->setColumnNames(treeColumns);
         m_fixtureTree->enableSorting(false);
-        updateFixtureTree(m_doc, m_fixtureTree);
+        FixtureManager::updateGroupsTree(m_doc, m_fixtureTree); // TODO: search filter ?
     }
 
     return QVariant::fromValue(m_fixtureTree);
@@ -337,14 +373,14 @@ void EFXEditor::addGroup(QVariant reference)
     //qDebug() << "[EFXEditor::addGroup]" << reference;
     bool listChanged = false;
 
-    if (m_efx == NULL)
+    if (m_efx == nullptr)
         return;
 
     if (reference.canConvert<Universe *>())
     {
         Universe *uni = reference.value<Universe *>();
 
-        if (uni != NULL)
+        if (uni != nullptr)
         {
             qDebug() << "Adding a universe";
             for (Fixture *fixture : m_doc->fixtures()) // C++11
@@ -359,7 +395,7 @@ void EFXEditor::addGroup(QVariant reference)
 
                     if (panCh != QLCChannel::invalid() || tiltCh != QLCChannel::invalid())
                     {
-                        EFXFixture* ef = new EFXFixture(m_efx);
+                        EFXFixture *ef = new EFXFixture(m_efx);
                         GroupHead head(fixture->id(), headIdx);
                         ef->setHead(head);
 
@@ -376,13 +412,13 @@ void EFXEditor::addGroup(QVariant reference)
     {
         FixtureGroup *group = reference.value<FixtureGroup *>();
 
-        if (group != NULL)
+        if (group != nullptr)
         {
             qDebug() << "Adding a fixture group";
             for (GroupHead head : group->headList())
             {
-                Fixture* fixture = m_doc->fixture(head.fxi);
-                if (fixture == NULL)
+                Fixture *fixture = m_doc->fixture(head.fxi);
+                if (fixture == nullptr)
                     continue;
 
                 quint32 panCh = fixture->channelNumber(QLCChannel::Pan, QLCChannel::MSB, head.head);
@@ -390,12 +426,19 @@ void EFXEditor::addGroup(QVariant reference)
 
                 if (panCh != QLCChannel::invalid() || tiltCh != QLCChannel::invalid())
                 {
-                    EFXFixture* ef = new EFXFixture(m_efx);
+                    EFXFixture *ef = new EFXFixture(m_efx);
                     ef->setHead(head);
                     if (m_efx->addFixture(ef) == false)
+                    {
                         delete ef;
+                    }
                     else
+                    {
+                        Tardis::instance()->enqueueAction(Tardis::EFXAddFixture, m_efx->id(), QVariant(),
+                                                          Tardis::instance()->actionToByteArray(Tardis::EFXAddFixture, m_efx->id(),
+                                                                                                QVariant::fromValue((void *)ef)));
                         listChanged = true;
+                    }
                 }
             }
         }
@@ -407,7 +450,7 @@ void EFXEditor::addGroup(QVariant reference)
 
 void EFXEditor::addFixture(QVariant reference)
 {
-    if (m_efx == NULL)
+    if (m_efx == nullptr)
         return;
 
     if (reference.canConvert<Fixture *>() == false)
@@ -422,62 +465,72 @@ void EFXEditor::addFixture(QVariant reference)
 
         if (panCh != QLCChannel::invalid() || tiltCh != QLCChannel::invalid())
         {
-            EFXFixture* ef = new EFXFixture(m_efx);
+            EFXFixture *ef = new EFXFixture(m_efx);
             GroupHead head(fixture->id(), headIdx);
             ef->setHead(head);
 
             if (m_efx->addFixture(ef) == false)
+            {
                 delete ef;
+            }
             else
+            {
+                Tardis::instance()->enqueueAction(Tardis::EFXAddFixture, m_efx->id(), QVariant(),
+                                                  Tardis::instance()->actionToByteArray(Tardis::EFXAddFixture, m_efx->id(),
+                                                                                        QVariant::fromValue((void *)ef)));
                 updateFixtureList();
+            }
         }
     }
 }
 
 void EFXEditor::addHead(int fixtureID, int headIndex)
 {
-    if (m_efx == NULL)
+    if (m_efx == nullptr)
         return;
 
     GroupHead head(fixtureID, headIndex);
-    EFXFixture* ef = new EFXFixture(m_efx);
+    EFXFixture *ef = new EFXFixture(m_efx);
     ef->setHead(head);
 
     if (m_efx->addFixture(ef) == false)
+    {
         delete ef;
+    }
     else
+    {
+        Tardis::instance()->enqueueAction(Tardis::EFXAddFixture, m_efx->id(), QVariant(),
+                                          Tardis::instance()->actionToByteArray(Tardis::EFXAddFixture, m_efx->id(),
+                                                                                QVariant::fromValue((void *)ef)));
         updateFixtureList();
+    }
 }
 
 void EFXEditor::setFixtureReversed(quint32 fixtureID, int headIndex, bool reversed)
 {
-    if (m_efx == NULL)
+    if (m_efx == nullptr)
         return;
 
-    for (EFXFixture *efxFixture : m_efx->fixtures()) // C++11
+    EFXFixture *ef = m_efx->fixture(fixtureID, headIndex);
+
+    if (ef != nullptr)
     {
-        if (efxFixture->head().fxi != fixtureID || efxFixture->head().head != headIndex)
-            continue;
-
-        efxFixture->setDirection(reversed ? Function::Backward : Function::Forward);
+        ef->setDirection(reversed ? Function::Backward : Function::Forward);
         updateAlgorithmData();
-        return;
     }
 }
 
 void EFXEditor::setFixtureOffset(quint32 fixtureID, int headIndex, int offset)
 {
-    if (m_efx == NULL)
+    if (m_efx == nullptr)
         return;
 
-    for (EFXFixture *efxFixture : m_efx->fixtures()) // C++11
+    EFXFixture *ef = m_efx->fixture(fixtureID, headIndex);
+
+    if (ef != nullptr)
     {
-        if (efxFixture->head().fxi != fixtureID || efxFixture->head().head != headIndex)
-            continue;
-
-        efxFixture->setStartOffset(offset);
+        ef->setStartOffset(offset);
         updateAlgorithmData();
-        return;
     }
 }
 
@@ -485,7 +538,7 @@ void EFXEditor::updateFixtureList()
 {
     m_fixtureList->clear();
 
-    if (m_efx == NULL)
+    if (m_efx == nullptr)
         return;
 
     qreal oldPanDegrees = m_maxPanDegrees;
@@ -499,13 +552,13 @@ void EFXEditor::updateFixtureList()
         GroupHead head = ef->head();
         Fixture *fixture = m_doc->fixture(head.fxi);
 
-        if (fixture == NULL || head.isValid() == false)
+        if (fixture == nullptr || head.isValid() == false)
             continue;
 
-        if (fixture->fixtureMode() != NULL && fixture->fixtureMode()->physical().focusPanMax() > m_maxPanDegrees)
+        if (fixture->fixtureMode() != nullptr && fixture->fixtureMode()->physical().focusPanMax() > m_maxPanDegrees)
             m_maxPanDegrees = fixture->fixtureMode()->physical().focusPanMax();
 
-        if (fixture->fixtureMode() != NULL && fixture->fixtureMode()->physical().focusTiltMax() > m_maxTiltDegrees)
+        if (fixture->fixtureMode() != nullptr && fixture->fixtureMode()->physical().focusTiltMax() > m_maxTiltDegrees)
             m_maxTiltDegrees = fixture->fixtureMode()->physical().focusTiltMax();
 
         if (fixture->heads() > 1)
@@ -529,219 +582,6 @@ void EFXEditor::updateFixtureList()
     updateAlgorithmData();
 }
 
-void EFXEditor::updateFixtureTree(Doc *doc, TreeModel *treeModel)
-{
-    if (doc == NULL || treeModel == NULL)
-        return;
-
-    treeModel->clear();
-
-    QStringList uniNames = doc->inputOutputMap()->universeNames();
-
-    // add Fixture Groups first
-    for (FixtureGroup* grp : doc->fixtureGroups()) // C++11
-    {
-        foreach(quint32 fxID, grp->fixtureList())
-        {
-            Fixture *fixture = doc->fixture(fxID);
-            if (fixture == NULL)
-                continue;
-
-            QLCFixtureMode *mode = fixture->fixtureMode();
-            if (mode == NULL)
-                continue;
-
-            QString fxPath = QString("%1/%2").arg(grp->name()).arg(fixture->name());
-
-            for (int i = 0; i < fixture->heads(); i++)
-            {
-                QVariantList headParams;
-                headParams.append(QVariant::fromValue(NULL)); // classRef
-                headParams.append(App::HeadDragItem); // type
-                headParams.append(fixture->id()); // id
-                headParams.append(grp->id()); // subid
-                headParams.append(i); // head
-                treeModel->addItem(QString("%1 %2").arg(tr("Head")).arg(i + 1, 3, 10, QChar('0')), headParams, fxPath);
-            }
-
-            // when all the head 'leaves' have been added, set the parent node data
-            QVariantList fxParams;
-            fxParams.append(QVariant::fromValue(fixture)); // classRef
-            fxParams.append(App::FixtureDragItem); // type
-            fxParams.append(fixture->id()); // id
-            fxParams.append(grp->id()); // subid
-            fxParams.append(0); // head
-
-            treeModel->setPathData(fxPath, fxParams);
-        }
-        // add also the fixture group data
-        QVariantList grpParams;
-        grpParams.append(QVariant::fromValue(grp)); // classRef
-        grpParams.append(App::FixtureGroupDragItem); // type
-        grpParams.append(grp->id()); // id
-        grpParams.append(0); // subid
-        grpParams.append(0); // head
-
-        treeModel->setPathData(grp->name(), grpParams);
-    }
-
-    // add the current universes as groups
-    for (Fixture *fixture : doc->fixtures()) // C++11
-    {
-        if (fixture->universe() >= (quint32)uniNames.count())
-            continue;
-
-        QString fxPath = QString("%1/%2").arg(uniNames.at(fixture->universe())).arg(fixture->name());
-
-        for (int i = 0; i < fixture->heads(); i++)
-        {
-            QVariantList headParams;
-            headParams.append(QVariant::fromValue(NULL)); // classRef
-            headParams.append(App::HeadDragItem); // type
-            headParams.append(fixture->id()); // id
-            headParams.append(fixture->universe()); // subid
-            headParams.append(i); // head
-            treeModel->addItem(QString("%1 %2").arg(tr("Head")).arg(i + 1, 3, 10, QChar('0')), headParams, fxPath);
-        }
-
-        // when all the channel 'leaves' have been added, set the parent node data
-        QVariantList params;
-        params.append(QVariant::fromValue(fixture)); // classRef
-        params.append(App::FixtureDragItem); // type
-        params.append(fixture->id()); // id
-        params.append(fixture->universe()); // subid
-        params.append(0); // head
-
-        treeModel->setPathData(fxPath, params);
-    }
-
-    for (Universe *universe : m_doc->inputOutputMap()->universes())
-    {
-        // add also the fixture group data
-        QVariantList uniParams;
-        uniParams.append(QVariant::fromValue(universe)); // classRef
-        uniParams.append(App::UniverseDragItem); // type
-        uniParams.append(universe->id()); // id
-        uniParams.append(0); // subid
-        uniParams.append(0); // chIdx
-
-        treeModel->setPathData(universe->name(), uniParams);
-    }
-}
-
-/************************************************************************
- * Speed
- ************************************************************************/
-
-int EFXEditor::fadeInSpeed() const
-{
-    if (m_efx == NULL)
-        return Function::defaultSpeed();
-
-    return m_efx->fadeInSpeed();
-}
-
-void EFXEditor::setFadeInSpeed(int fadeInSpeed)
-{
-    if (m_efx == NULL)
-        return;
-
-    if (m_efx->fadeInSpeed() == (uint)fadeInSpeed)
-        return;
-
-    m_efx->setFadeInSpeed(fadeInSpeed);
-    emit fadeInSpeedChanged(fadeInSpeed);
-}
-
-int EFXEditor::holdSpeed() const
-{
-    if (m_efx == NULL)
-        return Function::defaultSpeed();
-
-    return m_efx->duration();
-}
-
-void EFXEditor::setHoldSpeed(int holdSpeed)
-{
-    if (m_efx == NULL)
-        return;
-
-    if (m_efx->duration() - m_efx->fadeInSpeed() == (uint)holdSpeed)
-        return;
-
-    uint duration = Function::speedAdd(m_efx->fadeInSpeed(), holdSpeed);
-    m_efx->setDuration(duration);
-
-    emit holdSpeedChanged(holdSpeed);
-    emit durationChanged(duration);
-}
-
-int EFXEditor::fadeOutSpeed() const
-{
-    if (m_efx == NULL)
-        return Function::defaultSpeed();
-
-    return m_efx->fadeOutSpeed();
-}
-
-void EFXEditor::setFadeOutSpeed(int fadeOutSpeed)
-{
-    if (m_efx == NULL)
-        return;
-
-    if (m_efx->fadeOutSpeed() == (uint)fadeOutSpeed)
-        return;
-
-    m_efx->setFadeOutSpeed(fadeOutSpeed);
-    emit fadeOutSpeedChanged(fadeOutSpeed);
-}
-
-int EFXEditor::duration() const
-{
-    if (m_efx == NULL)
-        return Function::defaultSpeed();
-
-    return m_efx->duration();
-}
-
-/************************************************************************
- * Run order and direction
- ************************************************************************/
-
-int EFXEditor::runOrder() const
-{
-    if (m_efx == NULL)
-        return Function::Loop;
-
-    return m_efx->runOrder();
-}
-
-void EFXEditor::setRunOrder(int runOrder)
-{
-    if (m_efx == NULL || m_efx->runOrder() == Function::RunOrder(runOrder))
-        return;
-
-    m_efx->setRunOrder(Function::RunOrder(runOrder));
-    emit runOrderChanged(runOrder);
-}
-
-int EFXEditor::direction() const
-{
-    if (m_efx == NULL)
-        return Function::Forward;
-
-    return m_efx->direction();
-}
-
-void EFXEditor::setDirection(int direction)
-{
-    if (m_efx == NULL || m_efx->direction() == Function::Direction(direction))
-        return;
-
-    m_efx->setDirection(Function::Direction(direction));
-    emit directionChanged(direction);
-}
-
 /************************************************************************
  * Preview
  ************************************************************************/
@@ -758,7 +598,7 @@ QVariantList EFXEditor::fixturesData()
 
 void EFXEditor::updateAlgorithmData()
 {
-    if (m_efx == NULL)
+    if (m_efx == nullptr)
         return;
 
     QPolygonF polygon;
@@ -767,8 +607,8 @@ void EFXEditor::updateAlgorithmData()
     m_algorithmData.clear();
     m_fixturesData.clear();
 
-    /** 1- fill a QVariantList or XY coordinates representing
-     *  the EFX algorithm */
+    /** 1- fill a QVariantList or XY coordinates in [0 - 255] range
+     *  representing the EFX algorithm */
     for (int i = 0; i < polygon.size(); i++)
     {
         QPointF pt = polygon.at(i);
@@ -782,9 +622,7 @@ void EFXEditor::updateAlgorithmData()
      *  NOTE: the data array is filled backward to display first fixtures on top */
     for (EFXFixture *fixture : m_efx->fixtures()) // C++11
     {
-        float distance = 1000.0;
         float x = 0, y = 0;
-        int pathIdx = 0;
 
         /** Append the delta to apply on each animation step */
         if (fixture->direction() == Function::Forward)
@@ -802,10 +640,13 @@ void EFXEditor::updateAlgorithmData()
         }
         else
         {
-            /** With a start offset, we need scan the algorithm points
+            int pathIdx = 0;
+            float distance = 1000.0;
+
+            /** With a start offset, we need to scan the algorithm points
              *  to find the index of the closest one */
             m_efx->calculatePoint(fixture->direction(), fixture->startOffset(), 0, &x, &y);
-            qDebug() << "Got position:" << x << y << fixture->startOffset();
+            //qDebug() << "Got position:" << x << y << fixture->startOffset();
 
             for (int i = 0; i < polygon.count(); i++)
             {

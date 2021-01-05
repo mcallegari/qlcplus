@@ -34,7 +34,7 @@
     <message>
         <location filename="hiddmxdevice.cpp" line="63"/>
         <source>Unable to open %1. Make sure the udev rule is installed.</source>
-        <translation>Impossible d&apos;ouvrir %1. Vérifiez que la règle udev soit bien installée</translation>
+        <translation>Impossible d&apos;ouvrir %1. Vérifiez que la règle udev soit bien installée.</translation>
     </message>
 </context>
 <context>

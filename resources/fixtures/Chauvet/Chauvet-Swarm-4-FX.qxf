@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>David Gianforte</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Swarm 4 FX</Model>
+ <Type>Flower</Type>
+ <Channel Name="Moonflower 1 Control">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9" Preset="ColorMacro" Res1="#000000">No function</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffbf00">Amber</Capability>
+  <Capability Min="50" Max="59" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red + green</Capability>
+  <Capability Min="60" Max="69" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red + blue</Capability>
+  <Capability Min="70" Max="79" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffbf00">Red + amber</Capability>
+  <Capability Min="80" Max="89" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green + blue</Capability>
+  <Capability Min="90" Max="99" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffbf00">Green + amber</Capability>
+  <Capability Min="100" Max="109" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffbf00">Blue + amber</Capability>
+  <Capability Min="110" Max="119" Preset="ColorMacro" Res1="#ffffff">Red + green + blue</Capability>
+  <Capability Min="120" Max="129" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ffbf00">Red + green + amber</Capability>
+  <Capability Min="130" Max="139" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ffbf00">Red + blue + amber</Capability>
+  <Capability Min="140" Max="149" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#ffbf00">Green + blue + amber</Capability>
+  <Capability Min="150" Max="159" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ffbf00">Red + green + blue + amber</Capability>
+  <Capability Min="160" Max="224">Auto single color loop</Capability>
+  <Capability Min="225" Max="255">Auto multicolor loop</Capability>
+ </Channel>
+ <Channel Name="Moonflower 1 Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="10" Max="159" Preset="StrobeSlowToFast">Strobe speed, slow to fast</Capability>
+  <Capability Min="160" Max="254">Program speed, slow to fast</Capability>
+  <Capability Min="255" Max="255">Sound-Active</Capability>
+ </Channel>
+ <Channel Name="Moonflower 1 Rotation">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="4" Preset="RotationStop">Stop</Capability>
+  <Capability Min="5" Max="127" Preset="RotationClockwiseSlowToFast">Rotate clockwise, slow to fast</Capability>
+  <Capability Min="128" Max="133" Preset="RotationStop">Stop</Capability>
+  <Capability Min="134" Max="255" Preset="RotationCounterClockwiseSlowToFast">Rotate counter-clockwise, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Moonflower 2 Control">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9" Preset="ColorMacro" Res1="#000000">No function</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffbf00">Amber</Capability>
+  <Capability Min="50" Max="59" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red + green</Capability>
+  <Capability Min="60" Max="69" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red + blue</Capability>
+  <Capability Min="70" Max="79" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffbf00">Red + amber</Capability>
+  <Capability Min="80" Max="89" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green + blue</Capability>
+  <Capability Min="90" Max="99" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffbf00">Green + amber</Capability>
+  <Capability Min="100" Max="109" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffbf00">Blue + amber</Capability>
+  <Capability Min="110" Max="119" Preset="ColorMacro" Res1="#ffffff">Red + green + blue</Capability>
+  <Capability Min="120" Max="129" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ffbf00">Red + green + amber</Capability>
+  <Capability Min="130" Max="139" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ffbf00">Red + blue + amber</Capability>
+  <Capability Min="140" Max="149" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#ffbf00">Green + blue + amber</Capability>
+  <Capability Min="150" Max="159" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ffbf00">Red + green + blue + amber</Capability>
+  <Capability Min="160" Max="224">Auto single color loop</Capability>
+  <Capability Min="225" Max="255">Auto multicolor loop</Capability>
+ </Channel>
+ <Channel Name="Moonflower 2 Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="10" Max="159" Preset="StrobeSlowToFast">Strobe speed, slow to fast</Capability>
+  <Capability Min="160" Max="254">Program speed, slow to fast</Capability>
+  <Capability Min="255" Max="255">Sound-Active</Capability>
+ </Channel>
+ <Channel Name="Moonflower 2 Rotation">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="4" Preset="RotationStop">Stop</Capability>
+  <Capability Min="5" Max="127" Preset="RotationClockwiseSlowToFast">Rotate clockwise, slow to fast</Capability>
+  <Capability Min="128" Max="133" Preset="RotationStop">Stop</Capability>
+  <Capability Min="134" Max="255" Preset="RotationCounterClockwiseSlowToFast">Rotate counter-clockwise, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Lasers">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="49" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="50" Max="89" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="90" Max="129" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red + green</Capability>
+  <Capability Min="130" Max="169" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red + green strobe</Capability>
+  <Capability Min="170" Max="209" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff0000">Green + red strobe</Capability>
+  <Capability Min="210" Max="255" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red + green (alternate strobe)</Capability>
+ </Channel>
+ <Channel Name="Laser Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="10" Max="254" Preset="StrobeSlowToFast">Strobe, slow to fast</Capability>
+  <Capability Min="255" Max="255">Sound-Active</Capability>
+ </Channel>
+ <Channel Name="Laser FX Rotation">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="4">No function</Capability>
+  <Capability Min="5" Max="127">Rotate clockwise, slow to fast</Capability>
+  <Capability Min="128" Max="133">Stop</Capability>
+  <Capability Min="134" Max="255">Rotate counter-clockwise, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Strobe Program">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="19">Solid on</Capability>
+  <Capability Min="20" Max="29">Program 1</Capability>
+  <Capability Min="30" Max="39">Program 2</Capability>
+  <Capability Min="40" Max="49">Program 3</Capability>
+  <Capability Min="50" Max="59">Program 4</Capability>
+  <Capability Min="60" Max="69">Program 5</Capability>
+  <Capability Min="70" Max="79">Program 6</Capability>
+  <Capability Min="80" Max="89">Program 7</Capability>
+  <Capability Min="90" Max="99">Program 8</Capability>
+  <Capability Min="100" Max="109">Program 9</Capability>
+  <Capability Min="110" Max="119">Program 10</Capability>
+  <Capability Min="120" Max="129">Program 11</Capability>
+  <Capability Min="130" Max="139">Program 12</Capability>
+  <Capability Min="140" Max="149">Program 13</Capability>
+  <Capability Min="150" Max="159">Program 14</Capability>
+  <Capability Min="160" Max="169">Program 15</Capability>
+  <Capability Min="170" Max="179">Program 16</Capability>
+  <Capability Min="180" Max="189">Program 17</Capability>
+  <Capability Min="190" Max="199">Program 18</Capability>
+  <Capability Min="200" Max="255">Program 19</Capability>
+ </Channel>
+ <Channel Name="Strobe Program Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Program speed, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Strobe Rate">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="10" Max="254" Preset="StrobeSlowToFast">Strobe, slow to fast</Capability>
+  <Capability Min="255" Max="255">Sound-Active</Capability>
+ </Channel>
+ <Channel Name="Program">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="21">Auto program 0</Capability>
+  <Capability Min="22" Max="33">Auto program 1</Capability>
+  <Capability Min="34" Max="45">Auto program 2</Capability>
+  <Capability Min="46" Max="57">Auto program 3</Capability>
+  <Capability Min="58" Max="69">Auto program 4</Capability>
+  <Capability Min="70" Max="81">Auto program 5</Capability>
+  <Capability Min="82" Max="93">Auto program 6</Capability>
+  <Capability Min="94" Max="105">Auto program 7</Capability>
+  <Capability Min="106" Max="117">Auto program 8</Capability>
+  <Capability Min="118" Max="127">Auto program 9</Capability>
+  <Capability Min="128" Max="140">Sound-Active program 0</Capability>
+  <Capability Min="141" Max="153">Sound-Active program 1</Capability>
+  <Capability Min="154" Max="166">Sound-Active program 2</Capability>
+  <Capability Min="167" Max="179">Sound-Active program 3</Capability>
+  <Capability Min="180" Max="192">Sound-Active program 4</Capability>
+  <Capability Min="193" Max="205">Sound-Active program 5</Capability>
+  <Capability Min="206" Max="218">Sound-Active program 6</Capability>
+  <Capability Min="219" Max="231">Sound-Active program 7</Capability>
+  <Capability Min="232" Max="244">Sound-Active program 8</Capability>
+  <Capability Min="245" Max="255">Sound-Active program 9</Capability>
+ </Channel>
+ <Channel Name="Program Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Slow to fast</Capability>
+ </Channel>
+ <Mode Name="12 Channel">
+  <Channel Number="0">Moonflower 1 Control</Channel>
+  <Channel Number="1">Moonflower 1 Strobe</Channel>
+  <Channel Number="2">Moonflower 1 Rotation</Channel>
+  <Channel Number="3">Moonflower 2 Control</Channel>
+  <Channel Number="4">Moonflower 2 Strobe</Channel>
+  <Channel Number="5">Moonflower 2 Rotation</Channel>
+  <Channel Number="6">Lasers</Channel>
+  <Channel Number="7">Laser Strobe</Channel>
+  <Channel Number="8">Laser FX Rotation</Channel>
+  <Channel Number="9">Strobe Program</Channel>
+  <Channel Number="10">Strobe Program Speed</Channel>
+  <Channel Number="11">Strobe Rate</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Program</Channel>
+  <Channel Number="1">Program Speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.5" Width="360" Height="107" Depth="290"/>
+  <Lens Name="Other" DegreesMin="54" DegreesMax="54"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="2"/>
+  <Technical PowerConsumption="47" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

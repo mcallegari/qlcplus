@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1 GIT</Version>
+  <Author>Lorenzo Andreani</Author>
+ </Creator>
+ <Manufacturer>Proel</Manufacturer>
+ <Model>Analogue Dimmer 6Ch</Model>
+ <Type>Dimmer</Type>
+ <Channel Name="Ch1 Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Ch2 Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Ch3 Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Ch4 Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Ch5 Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Ch6 Dimmer" Preset="IntensityDimmer"/>
+ <Mode Name="6Ch Mode">
+  <Channel Number="0">Ch1 Dimmer</Channel>
+  <Channel Number="1">Ch2 Dimmer</Channel>
+  <Channel Number="2">Ch3 Dimmer</Channel>
+  <Channel Number="3">Ch4 Dimmer</Channel>
+  <Channel Number="4">Ch5 Dimmer</Channel>
+  <Channel Number="5">Ch6 Dimmer</Channel>
+  <Head>
+   <Channel>0</Channel>
+  </Head>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="1Ch Group Mode">
+  <Channel Number="0">Ch1 Dimmer</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="7.1" Width="482" Height="85" Depth="370"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="3" Height="2"/>
+  <Technical PowerConsumption="1000" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

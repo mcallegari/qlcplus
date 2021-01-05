@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
+  <Author>Thierry Rodolfo</Author>
+ </Creator>
+ <Manufacturer>Starway</Manufacturer>
+ <Model>MaxKolor 18</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Macros">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="24">RGB Mode</Capability>
+  <Capability Min="25" Max="49">Macro 1</Capability>
+  <Capability Min="50" Max="74">Macro 2</Capability>
+  <Capability Min="75" Max="99">Macro 3</Capability>
+  <Capability Min="100" Max="124">Macro 4</Capability>
+  <Capability Min="125" Max="149">Macro 5</Capability>
+  <Capability Min="150" Max="174">Macro 6</Capability>
+  <Capability Min="175" Max="199">Macro 7</Capability>
+  <Capability Min="200" Max="224">Macro 8</Capability>
+  <Capability Min="225" Max="255">Macro 9</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Strobe/Macro Speed">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">None/Macro speed</Capability>
+  <Capability Min="16" Max="255">Fast to slow/Macro speed</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltFastSlow"/>
+ <Mode Name="16 Bit">
+  <Channel Number="0">Macros</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Strobe/Macro Speed</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Pan</Channel>
+  <Channel Number="7">Tilt</Channel>
+  <Channel Number="8">Pan/Tilt Speed</Channel>
+  <Channel Number="9">Pan Fine</Channel>
+  <Channel Number="10">Tilt Fine</Channel>
+ </Mode>
+ <Mode Name="8 Bit">
+  <Channel Number="0">Macros</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Strobe/Macro Speed</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Pan</Channel>
+  <Channel Number="7">Tilt</Channel>
+  <Channel Number="8">Pan/Tilt Speed</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="7" Width="250" Height="220" Depth="376"/>
+   <Lens Name="Other" DegreesMin="23" DegreesMax="23"/>
+   <Focus Type="Head" PanMax="540" TiltMax="230"/>
+   <Technical PowerConsumption="102" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

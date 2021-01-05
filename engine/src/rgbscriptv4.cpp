@@ -50,10 +50,31 @@ RGBScript::RGBScript(const RGBScript& s)
     , m_apiVersion(0)
 {
     evaluate();
+    foreach(RGBScriptProperty cap, s.m_properties)
+    {
+        setProperty(cap.m_name, s.property(cap.m_name));
+    }
 }
 
 RGBScript::~RGBScript()
 {
+}
+
+RGBScript &RGBScript::operator=(const RGBScript &s)
+{
+    if (this != &s)
+    {
+        m_fileName = s.m_fileName;
+        m_contents = s.m_contents;
+        m_apiVersion = s.m_apiVersion;
+        evaluate();
+        foreach(RGBScriptProperty cap, s.m_properties)
+        {
+            setProperty(cap.m_name, s.property(cap.m_name));
+        }
+    }
+
+    return *this;
 }
 
 bool RGBScript::operator==(const RGBScript& s) const
@@ -114,6 +135,12 @@ bool RGBScript::evaluate()
     m_rgbMap = QJSValue();
     m_rgbMapStepCount = QJSValue();
     m_apiVersion = 0;
+
+    if (m_fileName.isEmpty() || m_contents.isEmpty())
+    {
+        qWarning() << m_fileName << ": Script filename or content is empty, cannot parse";
+        return false;
+    }
 
     m_script = s_engine->evaluate(m_contents, m_fileName);
     if (m_script.isError())
@@ -183,40 +210,37 @@ int RGBScript::rgbMapStepCount(const QSize& size)
     return ret;
 }
 
-RGBMap RGBScript::rgbMap(const QSize& size, uint rgb, int step)
+void RGBScript::rgbMap(const QSize& size, uint rgb, int step, RGBMap &map)
 {
-    RGBMap map;
-
     QMutexLocker engineLocker(s_engineMutex);
 
     if (m_rgbMap.isUndefined() == true)
-        return map;
+        return;
 
     QJSValueList args;
     args << size.width() << size.height() << rgb << step;
-    QJSValue yarray = m_rgbMap.call(args);
+    QJSValue yarray(m_rgbMap.call(args));
+
     if (yarray.isArray() == true)
     {
-        int ylen = yarray.property("length").toInt();
-        map = RGBMap(ylen);
+        QVariantList yvArray = yarray.toVariant().toList();
+        int ylen = yvArray.length();
+        map.resize(ylen);
+
         for (int y = 0; y < ylen && y < size.height(); y++)
         {
-            QJSValue xarray = yarray.property(QString::number(y));
-            int xlen = xarray.property("length").toInt();
+            QVariantList xvArray = yvArray.at(y).toList();
+            int xlen = xvArray.length();
             map[y].resize(xlen);
+
             for (int x = 0; x < xlen && x < size.width(); x++)
-            {
-                QJSValue yx = xarray.property(QString::number(x));
-                map[y][x] = yx.toInt();
-            }
+                map[y][x] = xvArray.at(x).toUInt();
         }
     }
     else
     {
         qWarning() << "Returned value is not an array within an array!";
     }
-
-    return map;
 }
 
 QString RGBScript::name() const
@@ -335,7 +359,7 @@ bool RGBScript::setProperty(QString propertyName, QString value)
     return false;
 }
 
-QString RGBScript::property(QString propertyName)
+QString RGBScript::property(QString propertyName) const
 {
     QMutexLocker engineLocker(s_engineMutex);
 

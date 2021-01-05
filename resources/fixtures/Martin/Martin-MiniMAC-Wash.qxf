@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Heikki Junnila</Author>
+ </Creator>
+ <Manufacturer>Martin</Manufacturer>
+ <Model>MiniMAC Wash</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Shutter, strobe, reset, lamp">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="19" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="20" Max="38" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="39" Max="49" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="50" Max="112" Preset="StrobeFastToSlow">Strobe, fast -&gt; slow</Capability>
+  <Capability Min="113" Max="127" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="128" Max="157" Preset="StrobeRandomFastToSlow">Random strobe, fast -&gt; slow</Capability>
+  <Capability Min="158" Max="167" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="168" Max="177">Stand-alone, music trigger</Capability>
+  <Capability Min="178" Max="187">Stand-alone, auto trigger</Capability>
+  <Capability Min="188" Max="207" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="208" Max="217" Preset="ResetAll">Reset</Capability>
+  <Capability Min="218" Max="227" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="228" Max="237" Preset="LampOn">Lamp on</Capability>
+  <Capability Min="238" Max="247" Preset="ShutterOpen">Shutter open</Capability>
+  <Capability Min="248" Max="255" Preset="LampOff">Lamp off</Capability>
+ </Channel>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="11">White</Capability>
+  <Capability Min="12" Max="23">CTC 5500-&gt;3400</Capability>
+  <Capability Min="24" Max="35">Pink 312</Capability>
+  <Capability Min="36" Max="47">Red 301</Capability>
+  <Capability Min="48" Max="59">Green 206</Capability>
+  <Capability Min="60" Max="71">Cyan 104</Capability>
+  <Capability Min="72" Max="83">Yellow 603</Capability>
+  <Capability Min="84" Max="95">Magenta 507</Capability>
+  <Capability Min="96" Max="107">Blue 101</Capability>
+  <Capability Min="108" Max="119">Green 208</Capability>
+  <Capability Min="120" Max="131">Purple 502</Capability>
+  <Capability Min="132" Max="143">Orange 306</Capability>
+  <Capability Min="144" Max="150">Blue 108</Capability>
+  <Capability Min="151" Max="159">Blue 108</Capability>
+  <Capability Min="160" Max="163">Orange 306</Capability>
+  <Capability Min="164" Max="167">Purple 502</Capability>
+  <Capability Min="168" Max="171">Green 208</Capability>
+  <Capability Min="172" Max="175">Blue 101</Capability>
+  <Capability Min="176" Max="179">Magenta 507</Capability>
+  <Capability Min="180" Max="183">Yellow 603</Capability>
+  <Capability Min="184" Max="187">Cyan 104</Capability>
+  <Capability Min="188" Max="191">Green 206</Capability>
+  <Capability Min="192" Max="195">Red 301</Capability>
+  <Capability Min="196" Max="199">Pink 312</Capability>
+  <Capability Min="200" Max="203">CTC 5500-&gt;3400</Capability>
+  <Capability Min="204" Max="207">White</Capability>
+  <Capability Min="208" Max="245">CW rotation, fast -&gt; slow</Capability>
+  <Capability Min="246" Max="255">Random color, fast -&gt; slow</Capability>
+ </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Effect speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="2">Tracking mode</Capability>
+  <Capability Min="3" Max="251">Fast -&gt; slow</Capability>
+  <Capability Min="252" Max="255">Blackout while moving</Capability>
+ </Channel>
+ <Channel Name="Pan/tilt speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="2">Tracking mode</Capability>
+  <Capability Min="3" Max="245">Fast -&gt; slow</Capability>
+  <Capability Min="246" Max="248">Tracking, slow</Capability>
+  <Capability Min="249" Max="251">Tracking, fast</Capability>
+  <Capability Min="252" Max="255">Blackout while moving</Capability>
+ </Channel>
+ <Mode Name="Mode 1">
+  <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
+  <Channel Number="1">Color</Channel>
+  <Channel Number="2">Pan</Channel>
+  <Channel Number="3">Tilt</Channel>
+ </Mode>
+ <Mode Name="Mode 2">
+  <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
+  <Channel Number="1">Color</Channel>
+  <Channel Number="2">Pan</Channel>
+  <Channel Number="3">Pan fine</Channel>
+  <Channel Number="4">Tilt</Channel>
+  <Channel Number="5">Tilt fine</Channel>
+ </Mode>
+ <Mode Name="Mode 4">
+  <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
+  <Channel Number="1">Color</Channel>
+  <Channel Number="2">Pan</Channel>
+  <Channel Number="3">Pan fine</Channel>
+  <Channel Number="4">Tilt</Channel>
+  <Channel Number="5">Tilt fine</Channel>
+  <Channel Number="6">Pan/tilt speed</Channel>
+  <Channel Number="7">Effect speed</Channel>
+ </Mode>
+ <Mode Name="Mode 3">
+  <Channel Number="0">Shutter, strobe, reset, lamp</Channel>
+  <Channel Number="1">Color</Channel>
+  <Channel Number="2">Pan</Channel>
+  <Channel Number="3">Tilt</Channel>
+  <Channel Number="4">Pan/tilt speed</Channel>
+  <Channel Number="5">Effect speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="HTI 150W" Lumens="2600" ColourTemperature="6500"/>
+  <Dimensions Weight="12" Width="316" Height="390" Depth="415"/>
+  <Lens Name="Fresnel" DegreesMin="23" DegreesMax="40"/>
+  <Focus Type="Head" PanMax="540" TiltMax="270"/>
+  <Technical PowerConsumption="210" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

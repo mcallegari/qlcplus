@@ -29,19 +29,20 @@
 #include "qlcfixturedef.h"
 #include "qlccapability.h"
 #include "qlcchannel.h"
+#include "qlcconfig.h"
 #include "qlcfile.h"
 #include "fixture.h"
 
 QLCFixtureDef::QLCFixtureDef()
     : m_isLoaded(false)
-    , m_defFileAbsolutePath(QString())
+    , m_relativePath(QString())
     , m_type(Dimmer)
 {
 }
 
 QLCFixtureDef::QLCFixtureDef(const QLCFixtureDef* fixtureDef)
     : m_isLoaded(false)
-    , m_defFileAbsolutePath(QString())
+    , m_relativePath(QString())
     , m_type(Dimmer)
 {
     if (fixtureDef != NULL)
@@ -75,7 +76,7 @@ QLCFixtureDef& QLCFixtureDef::operator=(const QLCFixtureDef& fixture)
 
         /* Copy channels from the other fixture */
         while (chit.hasNext() == true)
-            m_channels.append(new QLCChannel(chit.next()));
+            m_channels.append(chit.next()->createCopy());
 
         /* Clear all modes */
         while (m_modes.isEmpty() == false)
@@ -91,12 +92,12 @@ QLCFixtureDef& QLCFixtureDef::operator=(const QLCFixtureDef& fixture)
 
 QString QLCFixtureDef::definitionSourceFile() const
 {
-    return m_defFileAbsolutePath;
+    return m_relativePath;
 }
 
 void QLCFixtureDef::setDefinitionSourceFile(const QString &absPath)
 {
-    m_defFileAbsolutePath = absPath;
+    m_relativePath = absPath;
     m_isLoaded = false;
 }
 
@@ -136,7 +137,6 @@ void QLCFixtureDef::setType(const FixtureType type)
 
 QLCFixtureDef::FixtureType QLCFixtureDef::type()
 {
-    checkLoaded();
     return m_type;
 }
 
@@ -153,7 +153,8 @@ QLCFixtureDef::FixtureType QLCFixtureDef::stringToType(const QString& type)
     else if (type == "Scanner") return Scanner;
     else if (type == "Smoke") return Smoke;
     else if (type == "Strobe") return Strobe;
-    else if (type == "LED Bar") return LEDBar;
+    else if (type == "LED Bar (Beams)") return LEDBarBeams;
+    else if (type == "LED Bar (Pixels)") return LEDBarPixels;
 
     return Other;
 }
@@ -173,7 +174,8 @@ QString QLCFixtureDef::typeToString(QLCFixtureDef::FixtureType type)
         case Scanner: return "Scanner";
         case Smoke: return "Smoke";
         case Strobe: return "Strobe";
-        case LEDBar: return "LED Bar";
+        case LEDBarBeams: return "LED Bar (Beams)";
+        case LEDBarPixels: return "LED Bar (Pixels)";
         default: return "Other";
     }
 }
@@ -185,11 +187,10 @@ void QLCFixtureDef::setAuthor(const QString& author)
 
 QString QLCFixtureDef::author()
 {
-    checkLoaded();
     return m_author;
 }
 
-void QLCFixtureDef::checkLoaded()
+void QLCFixtureDef::checkLoaded(QString mapPath)
 {
     // Already loaded ? Nothing to do
     if (m_isLoaded == true)
@@ -201,17 +202,19 @@ void QLCFixtureDef::checkLoaded()
         m_isLoaded = true;
         return;
     }
-    if (m_defFileAbsolutePath.isEmpty())
+    if (m_relativePath.isEmpty())
     {
         qWarning() << Q_FUNC_INFO << "Empty file path provided ! This is a trouble.";
         return;
     }
-    qDebug() << "Loading fixture definition now... " << m_defFileAbsolutePath;
-    bool error = loadXML(m_defFileAbsolutePath);
+
+    QString absPath = QString("%1%2%3").arg(mapPath).arg(QDir::separator()).arg(m_relativePath);
+    qDebug() << "Loading fixture definition now... " << absPath;
+    bool error = loadXML(absPath);
     if (error == false)
     {
         m_isLoaded = true;
-        m_defFileAbsolutePath = QString();
+        m_relativePath = QString();
     }
 }
 
@@ -326,6 +329,20 @@ QList <QLCFixtureMode*> QLCFixtureDef::modes()
 }
 
 /****************************************************************************
+ * Physical
+ ****************************************************************************/
+
+void QLCFixtureDef::setPhysical(const QLCPhysical& physical)
+{
+    m_physical = physical;
+}
+
+QLCPhysical QLCFixtureDef::physical() const
+{
+    return m_physical;
+}
+
+/****************************************************************************
  * XML operations
  ****************************************************************************/
 
@@ -361,6 +378,8 @@ QFile::FileError QLCFixtureDef::saveXML(const QString& fileName)
     QListIterator <QLCFixtureMode*> modeit(m_modes);
     while (modeit.hasNext() == true)
         modeit.next()->saveXML(&doc);
+
+    m_physical.saveXML(&doc);
 
     /* End the document and close all the open elements */
     error = QFile::NoError;
@@ -496,6 +515,13 @@ bool QLCFixtureDef::loadXML(QXmlStreamReader& doc)
                     /* Loading failed */
                     delete mode;
                 }
+            }
+            else if (doc.name() == KXMLQLCPhysical)
+            {
+                /* Global physical */
+                QLCPhysical physical;
+                physical.loadXML(doc);
+                setPhysical(physical);
             }
             else
             {

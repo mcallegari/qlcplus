@@ -80,6 +80,9 @@ public:
     bool setFlowControl();
 
     /** @reimpl */
+    bool setLowLatency(bool lowLatency);
+
+    /** @reimpl */
     bool clearRts();
 
     /** @reimpl */

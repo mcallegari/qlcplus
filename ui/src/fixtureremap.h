@@ -44,11 +44,11 @@ class FixtureRemap : public QDialog, public Ui_FixtureRemap
 {
     Q_OBJECT
     Q_DISABLE_COPY(FixtureRemap)
-    
+
 public:
     explicit FixtureRemap(Doc* doc, QWidget *parent = 0);
     ~FixtureRemap();
-    
+
 private:
     Doc* m_doc;
     Doc* m_targetDoc;
@@ -56,7 +56,7 @@ private:
     QList <RemapInfo> m_remapList;
 
 protected:
-    QTreeWidgetItem *getUniverseItem(quint32 universe, QTreeWidget *tree);
+    QTreeWidgetItem *getUniverseItem(Doc *doc, quint32 universe, QTreeWidget *tree);
 
     void fillFixturesTree(Doc *doc, QTreeWidget *tree);
 

@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>David PILATO</Author>
+ </Creator>
+ <Manufacturer>KOOLlight</Manufacturer>
+ <Model>3D RGB Laser</Model>
+ <Type>Laser</Type>
+ <Channel Name="Mode">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="73">Light Shut Off</Capability>
+  <Capability Min="74" Max="110">PRG Mode</Capability>
+  <Capability Min="111" Max="147">ILD Mode</Capability>
+  <Capability Min="148" Max="184">Audio</Capability>
+  <Capability Min="185" Max="221">Auto</Capability>
+  <Capability Min="222" Max="255">Manual Mode</Capability>
+ </Channel>
+ <Channel Name="Graphic/Folder">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="1">Graphic 1</Capability>
+  <Capability Min="2" Max="3">Graphic 2</Capability>
+  <Capability Min="4" Max="5">Graphic 3</Capability>
+  <Capability Min="6" Max="7">Graphic 4</Capability>
+  <Capability Min="8" Max="9">Triangle</Capability>
+  <Capability Min="10" Max="11">Graphic 6</Capability>
+  <Capability Min="12" Max="13">Graphic 7</Capability>
+  <Capability Min="14" Max="15">Graphic 8</Capability>
+  <Capability Min="16" Max="17">Graphic 9</Capability>
+  <Capability Min="18" Max="19">3 curved lines</Capability>
+  <Capability Min="20" Max="21">Graphic 11</Capability>
+  <Capability Min="22" Max="23">Graphic 12</Capability>
+  <Capability Min="24" Max="25">Heart</Capability>
+  <Capability Min="26" Max="27">Graphic 14</Capability>
+  <Capability Min="28" Max="29">Graphic 15</Capability>
+  <Capability Min="30" Max="31">Sine</Capability>
+  <Capability Min="32" Max="33">Graphic 17</Capability>
+  <Capability Min="34" Max="35">Graphic 18</Capability>
+  <Capability Min="36" Max="37">3 lines</Capability>
+  <Capability Min="38" Max="39">Star</Capability>
+  <Capability Min="40" Max="41">Graphic 21</Capability>
+  <Capability Min="42" Max="43">Cross</Capability>
+  <Capability Min="44" Max="45">Graphic 23</Capability>
+  <Capability Min="46" Max="47">Graphic 24</Capability>
+  <Capability Min="48" Max="49">Graphic 25</Capability>
+  <Capability Min="50" Max="51">Graphic 26</Capability>
+  <Capability Min="52" Max="53">Graphic 27</Capability>
+  <Capability Min="54" Max="55">Graphic 28</Capability>
+  <Capability Min="56" Max="57">Graphic 29</Capability>
+  <Capability Min="58" Max="59">Graphic 30</Capability>
+  <Capability Min="60" Max="61">Graphic 31</Capability>
+  <Capability Min="62" Max="63">Circle</Capability>
+  <Capability Min="64" Max="65">Graphic 33</Capability>
+  <Capability Min="66" Max="67">Graphic 34</Capability>
+  <Capability Min="68" Max="69">Graphic 35</Capability>
+  <Capability Min="70" Max="71">Graphic 36</Capability>
+  <Capability Min="72" Max="73">Graphic 37</Capability>
+  <Capability Min="74" Max="75">Graphic 38</Capability>
+  <Capability Min="76" Max="77">Graphic 39</Capability>
+  <Capability Min="78" Max="79">Graphic 40</Capability>
+  <Capability Min="80" Max="81">Graphic 41</Capability>
+  <Capability Min="82" Max="83">Graphic 42</Capability>
+  <Capability Min="84" Max="85">Graphic 43</Capability>
+  <Capability Min="86" Max="87">Graphic 44</Capability>
+  <Capability Min="88" Max="89">Graphic 45</Capability>
+  <Capability Min="90" Max="91">Graphic 46</Capability>
+  <Capability Min="92" Max="93">Graphic 47</Capability>
+  <Capability Min="94" Max="95">Graphic 48</Capability>
+  <Capability Min="96" Max="97">Graphic 49</Capability>
+  <Capability Min="98" Max="99">Graphic 50</Capability>
+  <Capability Min="100" Max="101">Graphic 51</Capability>
+  <Capability Min="102" Max="103">Graphic 52</Capability>
+  <Capability Min="104" Max="105">Graphic 53</Capability>
+  <Capability Min="106" Max="107">Graphic 54</Capability>
+  <Capability Min="108" Max="109">Graphic 55</Capability>
+  <Capability Min="110" Max="111">Graphic 56</Capability>
+  <Capability Min="112" Max="113">Graphic 57</Capability>
+  <Capability Min="114" Max="115">Graphic 58</Capability>
+  <Capability Min="116" Max="117">Graphic 59</Capability>
+  <Capability Min="118" Max="119">Graphic 60</Capability>
+  <Capability Min="120" Max="121">Graphic 61</Capability>
+  <Capability Min="122" Max="123">Graphic 62</Capability>
+  <Capability Min="124" Max="125">Graphic 63</Capability>
+  <Capability Min="126" Max="127">Graphic 64</Capability>
+  <Capability Min="128" Max="129">Graphic 65</Capability>
+  <Capability Min="130" Max="131">Graphic 66</Capability>
+  <Capability Min="132" Max="133">Graphic 67</Capability>
+  <Capability Min="134" Max="135">Graphic 68</Capability>
+  <Capability Min="136" Max="137">Graphic 69</Capability>
+  <Capability Min="138" Max="139">Graphic 70</Capability>
+  <Capability Min="140" Max="141">Graphic 71</Capability>
+  <Capability Min="142" Max="143">Graphic 72</Capability>
+  <Capability Min="144" Max="145">Graphic 73</Capability>
+  <Capability Min="146" Max="147">Graphic 74</Capability>
+  <Capability Min="148" Max="149">Graphic 75</Capability>
+  <Capability Min="150" Max="151">Graphic 76</Capability>
+  <Capability Min="152" Max="153">Graphic 77</Capability>
+  <Capability Min="154" Max="155">Graphic 78</Capability>
+  <Capability Min="156" Max="157">Graphic 79</Capability>
+  <Capability Min="158" Max="159">2 H lines</Capability>
+  <Capability Min="160" Max="161">Graphic 81</Capability>
+  <Capability Min="162" Max="163">Graphic 82</Capability>
+  <Capability Min="164" Max="165">Graphic 83</Capability>
+  <Capability Min="166" Max="167">Graphic 84</Capability>
+  <Capability Min="168" Max="169">2 V lines</Capability>
+  <Capability Min="170" Max="171">Graphic 86</Capability>
+  <Capability Min="172" Max="173">Graphic 87</Capability>
+  <Capability Min="174" Max="175">Graphic 88</Capability>
+  <Capability Min="176" Max="177">Graphic 89</Capability>
+  <Capability Min="178" Max="179">Graphic 90</Capability>
+  <Capability Min="180" Max="181">Graphic 91</Capability>
+  <Capability Min="182" Max="183">Graphic 92</Capability>
+  <Capability Min="184" Max="185">Graphic 93</Capability>
+  <Capability Min="186" Max="187">Graphic 94</Capability>
+  <Capability Min="188" Max="189">Graphic 95</Capability>
+  <Capability Min="190" Max="191">Graphic 96</Capability>
+  <Capability Min="192" Max="193">Graphic 97</Capability>
+  <Capability Min="194" Max="195">Graphic 98</Capability>
+  <Capability Min="196" Max="197">Graphic 99</Capability>
+  <Capability Min="198" Max="199">Graphic 100</Capability>
+  <Capability Min="200" Max="201">Graphic 101</Capability>
+  <Capability Min="202" Max="203">Graphic 102</Capability>
+  <Capability Min="204" Max="205">Graphic 103</Capability>
+  <Capability Min="206" Max="207">Graphic 104</Capability>
+  <Capability Min="208" Max="209">Graphic 105</Capability>
+  <Capability Min="210" Max="211">Graphic 106</Capability>
+  <Capability Min="212" Max="213">Graphic 107</Capability>
+  <Capability Min="214" Max="215">Graphic 108</Capability>
+  <Capability Min="216" Max="217">Graphic 109</Capability>
+  <Capability Min="218" Max="219">Graphic 110</Capability>
+  <Capability Min="220" Max="221">Graphic 111</Capability>
+  <Capability Min="222" Max="223">Graphic 112</Capability>
+  <Capability Min="224" Max="225">Graphic 113</Capability>
+  <Capability Min="226" Max="227">Graphic 114</Capability>
+  <Capability Min="228" Max="229">Graphic 115</Capability>
+  <Capability Min="230" Max="231">Graphic 116</Capability>
+  <Capability Min="232" Max="233">Graphic 117</Capability>
+  <Capability Min="234" Max="235">Graphic 118</Capability>
+  <Capability Min="236" Max="237">Graphic 119</Capability>
+  <Capability Min="238" Max="239">Graphic 120</Capability>
+  <Capability Min="240" Max="241">Graphic 121</Capability>
+  <Capability Min="242" Max="243">Graphic 122</Capability>
+  <Capability Min="244" Max="245">Graphic 123</Capability>
+  <Capability Min="246" Max="247">Graphic 124</Capability>
+  <Capability Min="248" Max="249">Graphic 125</Capability>
+  <Capability Min="250" Max="251">Graphic 126</Capability>
+  <Capability Min="252" Max="253">Graphic 127</Capability>
+  <Capability Min="254" Max="255">Graphic 128</Capability>
+ </Channel>
+ <Channel Name="Strobe/Folder">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">No Strobe</Capability>
+  <Capability Min="11" Max="199">Auto Strobe</Capability>
+  <Capability Min="200" Max="255">Audio Strobe</Capability>
+ </Channel>
+ <Channel Name="X Axis">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="125">Manual</Capability>
+  <Capability Min="126" Max="185">Auto left and right cycle</Capability>
+  <Capability Min="186" Max="225">Auto jump left and right cycle</Capability>
+  <Capability Min="226" Max="245">Auto without rule jump</Capability>
+  <Capability Min="246" Max="255">Audio without rule jump</Capability>
+ </Channel>
+ <Channel Name="Y Axis">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="125">Manual</Capability>
+  <Capability Min="126" Max="185">Auto up and down cycle</Capability>
+  <Capability Min="186" Max="225">Auto jump up and down cycle</Capability>
+  <Capability Min="226" Max="245">Auto without rule jump</Capability>
+  <Capability Min="246" Max="255">Audio without rule jump</Capability>
+ </Channel>
+ <Channel Name="Zoom">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="10">Without zoom</Capability>
+  <Capability Min="11" Max="100">Manually adjust the size</Capability>
+  <Capability Min="101" Max="150">Enlarge</Capability>
+  <Capability Min="151" Max="200">Shrink</Capability>
+  <Capability Min="201" Max="255">Cycle Shrink</Capability>
+ </Channel>
+ <Channel Name="X Rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">Without rotation</Capability>
+  <Capability Min="11" Max="110">Manual adjust</Capability>
+  <Capability Min="111" Max="255">Auto rotation</Capability>
+ </Channel>
+ <Channel Name="Y Rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">Without rotation</Capability>
+  <Capability Min="11" Max="110">Manual adjust</Capability>
+  <Capability Min="111" Max="255">Auto rotation</Capability>
+ </Channel>
+ <Channel Name="Center Rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">Without rotation</Capability>
+  <Capability Min="1" Max="180">Manual adjust</Capability>
+  <Capability Min="181" Max="217">Auto clockwise rotation</Capability>
+  <Capability Min="218" Max="255">Auto counterclockwise rotation</Capability>
+ </Channel>
+ <Channel Name="Drawing">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">Without change</Capability>
+  <Capability Min="11" Max="74">Manual adjust rotation</Capability>
+  <Capability Min="75" Max="104">Auto drawing (add)</Capability>
+  <Capability Min="105" Max="144">Auto drawing (substract)</Capability>
+  <Capability Min="145" Max="184">Auto drawing (cycle)</Capability>
+  <Capability Min="185" Max="224">Auto end to end drawing (add)</Capability>
+  <Capability Min="225" Max="255">Auto end to end drawing (substract)</Capability>
+ </Channel>
+ <Channel Name="Waving">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Without waving</Capability>
+  <Capability Min="10" Max="199">Waving speed can adjust</Capability>
+  <Capability Min="200" Max="255">Waving width can adjust</Capability>
+ </Channel>
+ <Channel Name="RGB">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="16" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="17" Max="33" Preset="ColorMacro" Res1="#ff2200">Red</Capability>
+  <Capability Min="34" Max="50" Preset="ColorMacro" Res1="#13ff00">Green</Capability>
+  <Capability Min="51" Max="67" Preset="ColorMacro" Res1="#0700ff">Blue</Capability>
+  <Capability Min="68" Max="84" Preset="ColorMacro" Res1="#ffe400">Yellow</Capability>
+  <Capability Min="85" Max="101" Preset="ColorMacro" Res1="#8e0074">Violet</Capability>
+  <Capability Min="102" Max="118" Preset="ColorMacro" Res1="#00e4ff">Cyan</Capability>
+  <Capability Min="119" Max="135">White, Red, Green, Blue</Capability>
+  <Capability Min="136" Max="152">Blue, Yellow, Violet, Cyan</Capability>
+  <Capability Min="153" Max="169">White, Red, Green, Blue, Yellow, Violet, Cyan</Capability>
+  <Capability Min="170" Max="186">White, Red, Green, Blue flow</Capability>
+  <Capability Min="187" Max="203">Blue, Yellow, Violet, Cyan flow</Capability>
+  <Capability Min="204" Max="220">White, Red, Green, Blue, Yellow, Violet, Cyan flow</Capability>
+  <Capability Min="221" Max="237">According breakpoint partition display</Capability>
+  <Capability Min="238" Max="255">Audio discolor</Capability>
+ </Channel>
+ <Channel Name="Display Mode">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="63">Normal</Capability>
+  <Capability Min="64" Max="127">Highlights</Capability>
+  <Capability Min="128" Max="191">Partition</Capability>
+  <Capability Min="192" Max="255">Point</Capability>
+ </Channel>
+ <Mode Name="13 Channel">
+  <Channel Number="0">Mode</Channel>
+  <Channel Number="1">Graphic/Folder</Channel>
+  <Channel Number="2">Strobe/Folder</Channel>
+  <Channel Number="3">X Axis</Channel>
+  <Channel Number="4">Y Axis</Channel>
+  <Channel Number="5">Zoom</Channel>
+  <Channel Number="6">X Rotation</Channel>
+  <Channel Number="7">Y Rotation</Channel>
+  <Channel Number="8">Center Rotation</Channel>
+  <Channel Number="9">Drawing</Channel>
+  <Channel Number="10">Waving</Channel>
+  <Channel Number="11">RGB</Channel>
+  <Channel Number="12">Display Mode</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3" Width="230" Height="100" Depth="220"/>
+  <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+  <Focus Type="Fixed" PanMax="90" TiltMax="90"/>
+  <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

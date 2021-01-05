@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1 GIT</Version>
+  <Author>Mitsch</Author>
+ </Creator>
+ <Manufacturer>IMG Stageline</Manufacturer>
+ <Model>PARL-40SET</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="first spotlight: red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">brightness of red</Capability>
+ </Channel>
+ <Channel Name="first spotlight: green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">brightness of green</Capability>
+ </Channel>
+ <Channel Name="first spotlight: blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">brightness of blue</Capability>
+ </Channel>
+ <Channel Name="second spotlight: red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">brightness of red</Capability>
+ </Channel>
+ <Channel Name="second spotlight: green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">brightness of green</Capability>
+ </Channel>
+ <Channel Name="second spotlight: blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">brightness of blue</Capability>
+ </Channel>
+ <Channel Name="third spotlight: red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">brightness of red</Capability>
+ </Channel>
+ <Channel Name="third spotlight: green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">brightness of green</Capability>
+ </Channel>
+ <Channel Name="third spotlight: blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">brightness of blue</Capability>
+ </Channel>
+ <Channel Name="fourth spotlight: red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">brightness of red</Capability>
+ </Channel>
+ <Channel Name="fourth spotlight: green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">brightness of green</Capability>
+ </Channel>
+ <Channel Name="fourth spotlight: blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">brightness of blue</Capability>
+ </Channel>
+ <Channel Name="first spotlight: dimmer and stroboscope">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">dimmer</Capability>
+  <Capability Min="128" Max="227" Preset="StrobeSlowToFast">stroboscope: slow → fast</Capability>
+  <Capability Min="228" Max="255">maximum brightness, stroboscope off</Capability>
+ </Channel>
+ <Channel Name="second spotlight: dimmer and stroboscope">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">dimmer</Capability>
+  <Capability Min="128" Max="227" Preset="StrobeSlowToFast">stroboscope: slow → fast</Capability>
+  <Capability Min="228" Max="255">maximum brightness, stroboscope off</Capability>
+ </Channel>
+ <Channel Name="third spotlight: dimmer and stroboscope">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">dimmer</Capability>
+  <Capability Min="128" Max="227" Preset="StrobeSlowToFast">stroboscope: slow → fast</Capability>
+  <Capability Min="228" Max="255">maximum brightness, stroboscope off</Capability>
+ </Channel>
+ <Channel Name="fourth spotlight: dimmer and stroboscope">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">dimmer</Capability>
+  <Capability Min="128" Max="227" Preset="StrobeSlowToFast">stroboscope: slow → fast</Capability>
+  <Capability Min="228" Max="255">maximum brightness, stroboscope off</Capability>
+ </Channel>
+ <Mode Name="D">
+  <Channel Number="0">first spotlight: red</Channel>
+  <Channel Number="1">first spotlight: green</Channel>
+  <Channel Number="2">first spotlight: blue</Channel>
+  <Channel Number="3">first spotlight: dimmer and stroboscope</Channel>
+  <Channel Number="4">second spotlight: red</Channel>
+  <Channel Number="5">second spotlight: green</Channel>
+  <Channel Number="6">second spotlight: blue</Channel>
+  <Channel Number="7">second spotlight: dimmer and stroboscope</Channel>
+  <Channel Number="8">third spotlight: red</Channel>
+  <Channel Number="9">third spotlight: green</Channel>
+  <Channel Number="10">third spotlight: blue</Channel>
+  <Channel Number="11">third spotlight: dimmer and stroboscope</Channel>
+  <Channel Number="12">fourth spotlight: red</Channel>
+  <Channel Number="13">fourth spotlight: green</Channel>
+  <Channel Number="14">fourth spotlight: blue</Channel>
+  <Channel Number="15">fourth spotlight: dimmer and stroboscope</Channel>
+  <Head>
+   <Channel>1</Channel>
+   <Channel>0</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>5</Channel>
+   <Channel>4</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>8</Channel>
+   <Channel>11</Channel>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>13</Channel>
+   <Channel>12</Channel>
+   <Channel>15</Channel>
+   <Channel>14</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="DR">
+  <Channel Number="0">fourth spotlight: red</Channel>
+  <Channel Number="1">fourth spotlight: green</Channel>
+  <Channel Number="2">fourth spotlight: blue</Channel>
+  <Channel Number="3">fourth spotlight: dimmer and stroboscope</Channel>
+  <Channel Number="4">third spotlight: red</Channel>
+  <Channel Number="5">third spotlight: green</Channel>
+  <Channel Number="6">third spotlight: blue</Channel>
+  <Channel Number="7">third spotlight: dimmer and stroboscope</Channel>
+  <Channel Number="8">second spotlight: red</Channel>
+  <Channel Number="9">second spotlight: green</Channel>
+  <Channel Number="10">second spotlight: blue</Channel>
+  <Channel Number="11">second spotlight: dimmer and stroboscope</Channel>
+  <Channel Number="12">first spotlight: red</Channel>
+  <Channel Number="13">first spotlight: green</Channel>
+  <Channel Number="14">first spotlight: blue</Channel>
+  <Channel Number="15">first spotlight: dimmer and stroboscope</Channel>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="9.1" Width="915" Height="275" Depth="62"/>
+  <Lens Name="Other" DegreesMin="20" DegreesMax="20"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="70" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

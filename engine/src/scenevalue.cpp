@@ -50,6 +50,18 @@ bool SceneValue::isValid() const
         return true;
 }
 
+SceneValue &SceneValue::operator=(const SceneValue &scv)
+{
+    if (this != &scv)
+    {
+        fxi = scv.fxi;
+        channel = scv.channel;
+        value = scv.value;
+    }
+
+    return *this;
+}
+
 bool SceneValue::operator<(const SceneValue& scv) const
 {
     if (fxi < scv.fxi)
@@ -107,4 +119,10 @@ bool SceneValue::saveXML(QXmlStreamWriter *doc) const
     doc->writeEndElement();
 
     return true;
+}
+
+QDebug operator<<(QDebug debug, const SceneValue &sv)
+{
+    debug.nospace() << "SceneValue(" << sv.fxi << ", " << sv.channel << ", " << sv.value << ")";
+    return debug;
 }

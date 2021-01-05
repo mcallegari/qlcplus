@@ -18,11 +18,16 @@
 */
 
 #include <QApplication>
+#include <QSurfaceFormat>
 #include <QCommandLineParser>
 #include <QQmlApplicationEngine>
 
 #include "app.h"
 #include "qlcconfig.h"
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
+#define endl Qt::endl
+#endif
 
 void debugMessageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
@@ -37,14 +42,38 @@ void debugMessageHandler(QtMsgType type, const QMessageLogContext &context, cons
     }
 }
 
+/**
+ * Prints the application version
+ */
+void printVersion()
+{
+    QTextStream cout(stdout, QIODevice::WriteOnly);
+
+    cout << endl;
+    cout << APPNAME << " " << "version " << APPVERSION << endl;
+    cout << "This program is licensed under the terms of the ";
+    cout << "Apache 2.0 license." << endl;
+    cout << "Copyright (c) Heikki Junnila (hjunnila@users.sf.net)" << endl;
+    cout << "Copyright (c) Massimo Callegari (massimocallegari@yahoo.it)" << endl;
+    cout << endl;
+}
+
 int main(int argc, char *argv[])
 {
+    QSurfaceFormat format;
+    format.setMajorVersion(3);
+    format.setMinorVersion(3);
+    format.setProfile(QSurfaceFormat::CoreProfile);
+    QSurfaceFormat::setDefaultFormat(format);
+
     QApplication app(argc, argv);
 
     QApplication::setOrganizationName("qlcplus");
     QApplication::setOrganizationDomain("org");
     QApplication::setApplicationName(APPNAME);
     QApplication::setApplicationVersion(QString(APPVERSION));
+
+    printVersion();
 
     QCommandLineParser parser;
     parser.setApplicationDescription("Q Light Controller Plus");
@@ -60,12 +89,28 @@ int main(int argc, char *argv[])
                                       "filename", "");
     parser.addOption(openFileOption);
 
+    QCommandLineOption kioskOption(QStringList() << "k" << "kiosk",
+                                      "Enable kiosk mode (only Virtual Console)");
+    parser.addOption(kioskOption);
+
+    QCommandLineOption localeOption(QStringList() << "l" << "locale",
+                                      "Specify a language to use.",
+                                      "locale", "");
+    parser.addOption(localeOption);
+
     parser.process(app);
 
     if (parser.isSet(debugOption))
         qInstallMessageHandler(debugMessageHandler);
 
+    QString locale = parser.value(localeOption);
+
     App qlcplusApp;
+    qlcplusApp.setLanguage(locale);
+
+    if (parser.isSet(kioskOption))
+        qlcplusApp.enableKioskMode();
+
     qlcplusApp.startup();
     qlcplusApp.show();
 

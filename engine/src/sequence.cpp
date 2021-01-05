@@ -89,6 +89,14 @@ quint32 Sequence::boundSceneID() const
     return m_boundSceneID;
 }
 
+QList<quint32> Sequence::components()
+{
+    QList<quint32> ids;
+    if (m_boundSceneID != Function::invalidId())
+        ids.append(m_boundSceneID);
+    return ids;
+}
+
 /*****************************************************************************
  * Save & Load
  *****************************************************************************/
@@ -122,13 +130,8 @@ bool Sequence::saveXML(QXmlStreamWriter *doc)
     doc->writeEndElement();
 
     /* Steps */
-    int stepNumber = 0;
-    QListIterator <ChaserStep> it(m_steps);
-    while (it.hasNext() == true)
-    {
-        ChaserStep step(it.next());
-        step.saveXML(doc, stepNumber++, true);
-    }
+    for (int i = 0; i < m_steps.count(); i++)
+        m_steps.at(i).saveXML(doc, i, true);
 
     /* End the <Function> tag */
     doc->writeEndElement();
@@ -166,7 +169,7 @@ bool Sequence::loadXML(QXmlStreamReader &root)
     if (scene != NULL)
     {
         sceneValues = scene->values();
-        qSort(sceneValues.begin(), sceneValues.end());
+        std::sort(sceneValues.begin(), sceneValues.end());
         m_needFixup = false;
     }
 
@@ -198,7 +201,7 @@ bool Sequence::loadXML(QXmlStreamReader &root)
             if (sceneValues.isEmpty() == false)
                 step.values = sceneValues;
 
-            if (step.loadXML(root, stepNumber) == true)
+            if (step.loadXML(root, stepNumber, doc()) == true)
             {
                 step.fid = boundSceneID();
 
@@ -231,7 +234,24 @@ void Sequence::postLoad()
     if (scene != NULL)
     {
         sceneValues = scene->values();
-        qSort(sceneValues.begin(), sceneValues.end());
+
+        if (sceneValues.count() == 0)
+        {
+            qDebug() << "The bound Scene is empty ! This should never happen. Trying to fix it...";
+            if (stepsCount())
+            {
+                foreach (SceneValue value, m_steps.at(0).values)
+                {
+                    value.value = 0;
+                    if (doc->fixture(value.fxi) != NULL)
+                        scene->setValue(value);
+                }
+            }
+            m_needFixup = false;
+            return;
+        }
+
+        std::sort(sceneValues.begin(), sceneValues.end());
     }
 
     int stepIndex = 0;
@@ -249,7 +269,12 @@ void Sequence::postLoad()
         QList <SceneValue> tmpList = step.values;
         step.values = sceneValues;
         for (int i = 0; i < tmpList.count(); i++)
-            step.values.replace(step.values.indexOf(tmpList.at(i)), tmpList.at(i));
+        {
+            int tmpIndex = step.values.indexOf(tmpList.at(i));
+            if (tmpIndex == -1)
+                continue;
+            step.values.replace(tmpIndex, tmpList.at(i));
+        }
 
         replaceStep(step, stepIndex);
         stepIndex++;

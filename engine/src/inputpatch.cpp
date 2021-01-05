@@ -75,6 +75,10 @@ bool InputPatch::set(QLCIOPlugin* plugin, quint32 input, QLCInputProfile* profil
 {
     bool result = false;
 
+    qDebug() << "InputPatch::set - plugin:" << ((plugin == NULL)?"None":plugin->name())
+             << ", line:" << input
+             << ", profile:" << ((profile == NULL)?"None":profile->name());
+
     if (m_plugin != NULL && m_pluginLine != QLCIOPlugin::invalidLine())
     {
         disconnect(m_plugin, SIGNAL(valueChanged(quint32,quint32,quint32,uchar,QString)),
@@ -116,10 +120,10 @@ bool InputPatch::set(QLCInputProfile *profile)
     m_profile = profile;
 
     if (m_profile != NULL)
-    {
         setProfilePageControls();
-        emit profileNameChanged();
-    }
+
+    emit profileNameChanged();
+
     return true;
 }
 
@@ -162,10 +166,7 @@ QString InputPatch::pluginName() const
 
 quint32 InputPatch::input() const
 {
-    if (m_plugin != NULL && m_pluginLine < quint32(m_plugin->inputs().count()))
-        return m_pluginLine;
-    else
-        return QLCIOPlugin::invalidLine();
+    return m_pluginLine;
 }
 
 QString InputPatch::inputName() const
@@ -218,7 +219,7 @@ void InputPatch::slotValueChanged(quint32 universe, quint32 input, quint32 chann
     // such values that belong to this particular patch.
     if (input == m_pluginLine)
     {
-        if (universe == UINT_MAX || (universe != UINT_MAX && universe == m_universe))
+        if (universe == UINT_MAX || universe == m_universe)
         {
             QMutexLocker inputBufferLocker(&m_inputBufferMutex);
             InputValue val(value, key);
@@ -280,7 +281,7 @@ void InputPatch::setProfilePageControls()
 
 void InputPatch::flush(quint32 universe)
 {
-    if (universe == UINT_MAX || (universe != UINT_MAX && universe == m_universe))
+    if (universe == UINT_MAX || universe == m_universe)
     {
         QMutexLocker inputBufferLocker(&m_inputBufferMutex);
         for (QHash<quint32, InputValue>::const_iterator it = m_inputBuffer.begin(); it != m_inputBuffer.end(); ++it)

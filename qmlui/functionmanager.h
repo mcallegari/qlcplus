@@ -32,6 +32,7 @@ class Doc;
 class Function;
 class SceneEditor;
 class FunctionEditor;
+class GenericDMXSource;
 
 typedef struct
 {
@@ -43,10 +44,13 @@ class FunctionManager : public QObject
 {
     Q_OBJECT
 
+    Q_PROPERTY(quint32 startupFunctionID READ startupFunctionID WRITE setStartupFunctionID NOTIFY startupFunctionIDChanged)
+
     Q_PROPERTY(QVariant functionsList READ functionsList NOTIFY functionsListChanged)
     Q_PROPERTY(int functionsFilter READ functionsFilter CONSTANT)
     Q_PROPERTY(QString searchFilter READ searchFilter WRITE setSearchFilter NOTIFY searchFilterChanged)
-    Q_PROPERTY(int selectionCount READ selectionCount NOTIFY selectionCountChanged)
+    Q_PROPERTY(int selectedFunctionCount READ selectedFunctionCount NOTIFY selectedFunctionCountChanged)
+    Q_PROPERTY(int selectedFolderCount READ selectedFolderCount NOTIFY selectedFolderCountChanged)
     Q_PROPERTY(bool isEditing READ isEditing NOTIFY isEditingChanged)
     Q_PROPERTY(int viewPosition READ viewPosition WRITE setViewPosition NOTIFY viewPositionChanged)
 
@@ -61,22 +65,35 @@ class FunctionManager : public QObject
     Q_PROPERTY(int audioCount READ audioCount NOTIFY audioCountChanged)
     Q_PROPERTY(int videoCount READ videoCount NOTIFY videoCountChanged)
 
-    Q_PROPERTY(int dumpValuesCount READ dumpValuesCount NOTIFY dumpValuesCountChanged)
+    Q_PROPERTY(QStringList audioExtensions READ audioExtensions CONSTANT)
+    Q_PROPERTY(QStringList pictureExtensions READ pictureExtensions CONSTANT)
+    Q_PROPERTY(QStringList videoExtensions READ videoExtensions CONSTANT)
 
 public:
     FunctionManager(QQuickView *view, Doc *doc, QObject *parent = 0);
+    ~FunctionManager();
+
+    quint32 startupFunctionID() const;
+    void setStartupFunctionID(quint32 fid);
+
+signals:
+    void startupFunctionIDChanged();
 
     /*********************************************************************
      * Functions
      *********************************************************************/
+public:
     /** Read only property to expose the function tree to the QML UI */
     QVariant functionsList();
+
+    /** Get a list of Functions that use $fid */
+    Q_INVOKABLE QVariantList usageList(quint32 fid);
 
     /** Get a list of the currently selected Function IDs, suitable to be used in QML */
     Q_INVOKABLE QVariantList selectedFunctionsID();
 
-    /** Get a list of the currently selected Function names, suitable to be used in QML */
-    Q_INVOKABLE QStringList selectedFunctionsName();
+    /** Get a list of the currently selected item names, suitable to be used in QML */
+    Q_INVOKABLE QStringList selectedItemNames();
 
     /** Enable/disable the display of a Function type in the functions tree */
     Q_INVOKABLE void setFunctionFilter(quint32 filter, bool enable);
@@ -87,13 +104,15 @@ public:
     void setSearchFilter(QString searchFilter);
 
     /** Create a new Function with the specified $type */
-    Q_INVOKABLE quint32 createFunction(int type);
+    Q_INVOKABLE quint32 createFunction(int type, QStringList fileList = QStringList());
 
     /** Return a reference to a Function with the specified $id */
     Q_INVOKABLE Function *getFunction(quint32 id);
 
     /** Return the associated qrc icon resource for the specified Function $type */
     Q_INVOKABLE QString functionIcon(int type);
+
+    Q_INVOKABLE QString functionPath(quint32 id);
 
     /** Enable/disable the Function preview feature */
     Q_INVOKABLE void setPreview(bool enable);
@@ -102,28 +121,43 @@ public:
      *  considering $multiSelection as an append/replace action */
     Q_INVOKABLE void selectFunctionID(quint32 fID, bool multiSelection);
 
-    /** Get the QML resource for a Function editor that can handle $type */
-    Q_INVOKABLE QString getEditorResource(int type);
+    /** Get the QML resource for a Function editor that can edit $funcID */
+    Q_INVOKABLE QString getEditorResource(int funcID);
 
     /** Set $fID as the current Function ID being edited */
-    Q_INVOKABLE void setEditorFunction(quint32 fID, bool requestUI);
+    Q_INVOKABLE void setEditorFunction(quint32 fID, bool requestUI, bool back);
+
+    /** Return a reference of the currently open Function editor */
+    FunctionEditor *currentEditor() const;
 
     /** Returns if the UI is editing a Function */
     bool isEditing() const;
 
+    void deleteFunction(quint32 fid);
+
     /** Delete the list of Function IDs in $IDList. This happens AFTER a popup confirmation */
-    void deleteFunctions(QVariantList IDList);
+    Q_INVOKABLE void deleteFunctions(QVariantList IDList);
+
+    /** Move the currently selected Function to the specified $newPath */
+    Q_INVOKABLE void moveFunctions(QString newPath);
+
+    /** Clone the currently selected Functions */
+    Q_INVOKABLE void cloneFunctions();
 
     /** Generic method to delete a list of item IDs specified in $list.
      *  This is used from within a Function editor and items can be of any type
      *  such as Functions, Fixtures, etc. as long as they have an ID.
      *  This happens AFTER a popup confirmation */
-    void deleteEditorItems(QVariantList list);
+    Q_INVOKABLE void deleteEditorItems(QVariantList list);
 
-    Q_INVOKABLE void renameFunctions(QVariantList IDList, QString newName, int startNumber, int digits);
+    /** Rename the currently selected items (functions and/or folders)
+     *  with the provided $newName.
+     *  If $numbering is true, then $startNumber and $digits will compose
+     *  a progress number following $newName */
+    Q_INVOKABLE void renameSelectedItems(QString newName, bool numbering, int startNumber, int digits);
 
     /** Returns the number of the currently selected Functions */
-    int selectionCount() const;
+    int selectedFunctionCount() const;
 
     int sceneCount() const { return m_sceneCount; }
     int chaserCount() const { return m_chaserCount; }
@@ -136,12 +170,19 @@ public:
     int audioCount() const { return m_audioCount; }
     int videoCount() const { return m_videoCount; }
 
+    QStringList audioExtensions() const;
+    QStringList pictureExtensions() const;
+    QStringList videoExtensions() const;
+
     void setViewPosition(int viewPosition);
     int viewPosition() const;
 
 protected:
+    quint32 addFunctiontoDoc(Function *func, QString name, bool select);
+    void addFunctionTreeItem(Function *func);
     void updateFunctionsTree();
     void clearTree();
+    void moveFunction(quint32 fID, QString newPath);
 
 signals:
     void functionsListChanged();
@@ -156,13 +197,13 @@ signals:
     void showCountChanged();
     void audioCountChanged();
     void videoCountChanged();
-    void selectionCountChanged(int count);
+    void selectedFunctionCountChanged(int count);
     void isEditingChanged(bool editing);
     void viewPositionChanged(int viewPosition);
 
 public slots:
     void slotDocLoaded();
-    void slotFunctionAdded();
+    void slotFunctionAdded(quint32 fid);
 
 private:
     /** Reference of the QML view */
@@ -188,33 +229,64 @@ private:
     int m_showCount, m_audioCount, m_videoCount;
 
     FunctionEditor *m_currentEditor;
+    FunctionEditor *m_sceneEditor;
+
+    /*********************************************************************
+     * Folders
+     *********************************************************************/
+public:
+    /** Select a folder with the given $path */
+    Q_INVOKABLE void selectFolder(QString path, bool multiSelection);
+
+    /** Return the number of currently selected folders */
+    int selectedFolderCount() const;
+
+    /** Change the path of an existing folder and all its children */
+    Q_INVOKABLE void setFolderPath(QString oldAbsPath, QString newPath, bool isRelative);
+
+    /** Create an empty folder with path starting from the currently
+     *  selected item */
+    Q_INVOKABLE void createFolder();
+
+    /** Delete the currently selected folders. If a folder is not empty,
+     *  delete also all the sub items in it */
+    Q_INVOKABLE void deleteSelectedFolders();
+
+signals:
+    void selectedFolderCountChanged(int count);
+
+private:
+    /** List of the folder paths that don't include any Function yet */
+    QStringList m_emptyFolderList;
+    /** List of the folders currently selected */
+    QStringList m_selectedFolderList;
 
     /*********************************************************************
      * DMX values (dumping and Scene editor)
      *********************************************************************/
 public:
-    /** Store a channel value for Scene dumping */
-    void setDumpValue(quint32 fxID, quint32 channel, uchar value);
 
     /** Return the currently set channel values */
-    QMap <QPair<quint32,quint32>,uchar> dumpValues() const;
-
-    /** Return the number of DMX channels currently available for dumping */
-    int dumpValuesCount() const;
+    QList <SceneValue> dumpValues() const;
 
     /** Reset the currently set channel values */
     void resetDumpValues();
 
-    void dumpOnNewScene(QList<quint32> selectedFixtures);
+    /** Dump DMX values provided by $dumpValues, filtered by the provided $selectedFixtures
+     *  and the provided $channelMask.
+     *  The new Scene will be named with $name if not empty, otherwise with an autogenerated name */
+    void dumpOnNewScene(QList<SceneValue> dumpValues, QList<quint32> selectedFixtures,
+                        quint32 channelMask, QString name);
 
-    void setChannelValue(quint32 fxID, quint32 channel, uchar value);
+    /** Dump DMX values provided by $dumpValues, filtered by the provided $selectedFixtures
+     *  and the provided $channelMask. Values are dumped on an existing Scene with $sceneID */
+    void dumpOnScene(QList<SceneValue> dumpValues, QList<quint32> selectedFixtures,
+                     quint32 channelMask, quint32 sceneID);
 
-signals:
-    void dumpValuesCountChanged();
+    Q_INVOKABLE void setChannelValue(quint32 fxID, quint32 channel, uchar value);
 
-private:
-    /** Map of the values available for dumping to a Scene */
-    QMap <QPair<quint32,quint32>,uchar> m_dumpValues;
+protected:
+    quint32 getChannelTypeMask(quint32 fxID, quint32 channel);
 };
 
 #endif // FUNCTIONMANAGER_H

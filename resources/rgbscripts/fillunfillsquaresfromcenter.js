@@ -1,7 +1,7 @@
 /*
   Q Light Controller Plus
   fillunfillsquaresfromcenter.js
-  
+
   Copyright (c) David Garyga
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,8 +32,8 @@ var testAlgo;
         {
             var widthCenter = Math.floor((parseInt(width) + 1) / 2) - 1;
             var heightCenter = Math.floor((parseInt(height) + 1) / 2) - 1;
-            var isWidthEven = (width % 2 == 0);
-            var isHeightEven = (height % 2 == 0);
+            var isWidthEven = (width % 2 === 0);
+            var isHeightEven = (height % 2 === 0);
             var centerStep = (widthCenter > heightCenter ? widthCenter : heightCenter) + 1;
 
             var map = new Array(height);
@@ -45,19 +45,21 @@ var testAlgo;
                     if (step < centerStep)
                     {
                         if ((x <= widthCenter + step + (isWidthEven ? 1 : 0 ) && x >= widthCenter - step) &&
-                                (y <= heightCenter + step + (isHeightEven ? 1 : 0) && y >= heightCenter - step))
+                            (y <= heightCenter + step + (isHeightEven ? 1 : 0) && y >= heightCenter - step)) {
                             map[y][x] = rgb;
-                        else
+                        } else {
                             map[y][x] = 0;
+                        }
                     }
                     else
                     {
                         var step2 = step - centerStep;
                         if ((x <= widthCenter + step2 + (isWidthEven ? 1 : 0 ) && x >= widthCenter - step2) &&
-                                (y <= heightCenter + step2 + (isHeightEven ? 1 : 0) && y >= heightCenter - step2))
+                            (y <= heightCenter + step2 + (isHeightEven ? 1 : 0) && y >= heightCenter - step2)) {
                             map[y][x] = 0;
-                        else
+                        } else {
                             map[y][x] = rgb;
+                        }
                     }
                 }
             }

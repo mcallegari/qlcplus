@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.7.0</Version>
+  <Author>Steven</Author>
+ </Creator>
+ <Manufacturer>Botex</Manufacturer>
+ <Model>DSP-405</Model>
+ <Type>Dimmer</Type>
+ <Channel Name="Ch1">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Channel 1</Capability>
+ </Channel>
+ <Channel Name="Ch2">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Channel 2</Capability>
+ </Channel>
+ <Channel Name="Ch3">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Channel 3</Capability>
+ </Channel>
+ <Channel Name="Ch4">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Channel 4</Capability>
+ </Channel>
+ <Mode Name="4 Channels">
+  <Channel Number="0">Ch1</Channel>
+  <Channel Number="1">Ch2</Channel>
+  <Channel Number="2">Ch3</Channel>
+  <Channel Number="3">Ch4</Channel>
+ </Mode>
+ <Mode Name="2 Channels">
+  <Channel Number="0">Ch1</Channel>
+  <Channel Number="1">Ch2</Channel>
+ </Mode>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Ch1</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
+   <Dimensions Width="260" Height="210" Weight="2.6" Depth="53"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="1000" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

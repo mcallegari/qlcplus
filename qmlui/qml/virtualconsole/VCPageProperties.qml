@@ -21,16 +21,26 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "."
 
 Rectangle
 {
+    id: propsRoot
     color: "transparent"
     height: gridContents.height
 
     property VCFrame widgetRef: null
     property int gridItemsHeight: UISettings.listItemHeight
+
+    onWidgetRefChanged:
+    {
+        if (widgetRef === null)
+            return
+
+        widthSpin.value = widgetRef.geometry.width
+        heightSpin.value = widgetRef.geometry.height
+    }
 
     GridLayout
     {
@@ -44,6 +54,46 @@ Rectangle
         RobotoText
         {
             height: gridItemsHeight
+            label: qsTr("Width")
+        }
+        CustomSpinBox
+        {
+            id: widthSpin
+            Layout.fillWidth: true
+            suffix: "px"
+            from: 1
+            to: 100000
+            onValueChanged:
+            {
+                if (widgetRef)
+                    widgetRef.geometry = Qt.rect(0, 0, value, widgetRef.geometry.height)
+            }
+        }
+
+        // row 2
+        RobotoText
+        {
+            height: gridItemsHeight
+            label: qsTr("Height")
+        }
+        CustomSpinBox
+        {
+            id: heightSpin
+            Layout.fillWidth: true
+            suffix: "px"
+            from: 1
+            to: 100000
+            onValueChanged:
+            {
+                if (widgetRef)
+                    widgetRef.geometry = Qt.rect(0, 0, widgetRef.geometry.width, value)
+            }
+        }
+
+        // row 3
+        RobotoText
+        {
+            height: gridItemsHeight
             label: qsTr("Security")
         }
 
@@ -53,36 +103,52 @@ Rectangle
             height: gridItemsHeight
             autoHeight: true
             label: qsTr("Set a PIN")
-            onClicked:
-            {
-                var page = [ virtualConsole.selectedPage ]
+            onClicked: pinSetupPopup.open()
 
-                actionManager.requestActionPopup(ActionManager.SetVCPagePIN,
-                                                 "qrc:/PopupPINSetup.qml",
-                                                 ActionManager.OK | ActionManager.Cancel, page)
+            PopupPINSetup
+            {
+                id: pinSetupPopup
+                onAccepted:
+                {
+                    if (virtualConsole.setPagePIN(virtualConsole.selectedPage, currentPIN, newPIN) === false)
+                        pinErrorPopup.open()
+                }
+            }
+
+            CustomPopupDialog
+            {
+                id: pinErrorPopup
+                title: qsTr("Error")
+                message: qsTr("The entered PINs are either invalid or incorrect")
             }
         }
 
-        // row 2
-        GenericButton
+        // row 4
+        RowLayout
         {
+            Layout.columnSpan: 2
             Layout.fillWidth: true
-            height: gridItemsHeight
-            autoHeight: true
-            label: qsTr("Add page to the left")
-            onClicked: virtualConsole.addPage(virtualConsole.selectedPage)
+
+            GenericButton
+            {
+                Layout.fillWidth: true
+                height: gridItemsHeight
+                autoHeight: true
+                label: qsTr("Add page to the left")
+                onClicked: virtualConsole.addPage(virtualConsole.selectedPage)
+            }
+
+            GenericButton
+            {
+                Layout.fillWidth: true
+                height: gridItemsHeight
+                autoHeight: true
+                label: qsTr("Add page to the right")
+                onClicked: virtualConsole.addPage(virtualConsole.selectedPage + 1)
+            }
         }
 
-        GenericButton
-        {
-            Layout.fillWidth: true
-            height: gridItemsHeight
-            autoHeight: true
-            label: qsTr("Add page to the right")
-            onClicked: virtualConsole.addPage(virtualConsole.selectedPage + 1)
-        }
-
-        // row 3
+        // row 5
         GenericButton
         {
             Layout.columnSpan: 2
@@ -91,15 +157,15 @@ Rectangle
             hoverColor: "red"
             height: gridItemsHeight
             autoHeight: true
-            label: qsTr("Remove this page")
-            onClicked:
-            {
-                var page = []
-                page[0] = virtualConsole.selectedPage
+            label: qsTr("Delete this page")
+            onClicked: deletePagePopup.open()
 
-                actionManager.requestActionPopup(ActionManager.DeleteVCPage,
-                                                 qsTr("Are you sure you want to remove the selected page ?"),
-                                                 ActionManager.OK | ActionManager.Cancel, page)
+            CustomPopupDialog
+            {
+                id: deletePagePopup
+                title: qsTr("Delete page")
+                message: qsTr("Are you sure you want to delete the selected page?")
+                onAccepted: virtualConsole.deletePage(virtualConsole.selectedPage)
             }
         }
     }

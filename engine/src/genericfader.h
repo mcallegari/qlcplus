@@ -20,23 +20,43 @@
 #ifndef GENERICFADER
 #define GENERICFADER
 
+#include <QObject>
 #include <QList>
 #include <QHash>
 
 #include "universe.h"
 
 class FadeChannel;
-class Doc;
 
 /** @addtogroup engine Engine
  * @{
  */
 
-class GenericFader
+class GenericFader : public QObject
 {
+    Q_OBJECT
+
 public:
-    GenericFader(Doc* doc);
+    GenericFader(QObject *parent = 0);
     ~GenericFader();
+
+    /** Get/Set an arbitrary name for this fader */
+    QString name() const;
+    void setName(QString name);
+
+    /** Get/Set the ID of the Function controlling this fader.
+     *  VC widgets won't set this. */
+    quint32 parentFunctionID() const;
+    void setParentFunctionID(quint32 fid);
+
+    /** Get/Set a priority for this fader.
+     *  The Universe class is in charge of sorting faders by priority */
+    int priority() const;
+    void setPriority(int priority);
+
+    /** Build a hash for a fader channel which is unique in a Universe.
+     *  This is used to map channels and access them quickly */
+    static quint32 channelHash(quint32 fixtureID, quint32 channel);
 
     /**
      * Add a channel that shall be faded from ch.start() to ch.target() within
@@ -45,7 +65,7 @@ public:
      *
      * If the fader already contains the same channel, the one whose current
      * value is higher remains in the fader. With LTP channels this might result
-     * in the value jumping ina weird way but LTP channels are rarely faded anyway.
+     * in the value jumping in a weird way but LTP channels are rarely faded anyway.
      * With HTP channels the lower value has no meaning in the first place.
      *
      * @param ch The channel to fade
@@ -53,41 +73,59 @@ public:
     void add(const FadeChannel& ch);
 
     /** Replace an existing FaderChannel */
-    void forceAdd(const FadeChannel& ch);
+    void replace(const FadeChannel& ch);
 
     /** Remove a channel whose fixture & channel match with $fc's */
-    void remove(const FadeChannel& fc);
+    void remove(FadeChannel *ch);
 
-    /**
-     * Remove all channels.
-     */
+    /** Remove all channels */
     void removeAll();
 
+    /** Get/Set a request of deletion of this fader */
+    bool deleteRequested();
+    void requestDelete();
+
+    /** Returns a reference of a FadeChannel for the provided $fixtureID and $channel.
+     *  If no FadeChannel is found, a new one is created and added to m_channels.
+     *  Also, new channels will have a start value set depending on their type */
+    FadeChannel *getChannelFader(const Doc *doc, Universe *universe, quint32 fixtureID, quint32 channel);
+
     /** Get all channels in a non-modifiable hashmap */
-    const QHash <FadeChannel,FadeChannel>& channels() const;
+    const QHash <quint32,FadeChannel>& channels() const;
+
+    /** Return the number of channel added to this fader */
+    int channelsCount() const;
 
     /**
      * Run the channels forward by one step and write their current values to
-     * the given UniverseArray.
+     * the given Universe
      *
-     * @param universes The universe array that receives channel data.
-     * @param paused Request a pause state, so the fader doesn't have to advance its transition
+     * @param universe The universe that receives channel data.
      */
-    void write(QList<Universe *> universes, bool paused = false);
+    void write(Universe *universe);
 
-    /**
-     * Adjust the intensities of all channels by $fraction
-     *
-     * @param fraction 0.0 - 1.0
-     */
+    /** Get/Set the intensities of all channels in a 0.0 - 1.0 range */
+    qreal intensity() const;
     void adjustIntensity(qreal fraction);
 
-    /**
-     * Get the overall intensity adjustment
-     *
-     * @return 0.0 - 1.0
-     */
-    qreal intensity() const;
+    /** Get/Set an optional intensity for the fader parent Function */
+    qreal parentIntensity() const;
+    void setParentIntensity(qreal fraction);
+
+    /** Get/Set the pause state of this fader */
+    bool isPaused() const;
+    void setPaused(bool paused);
+
+    /** Get/Set the enable state of this fader */
+    bool isEnabled() const;
+    void setEnabled(bool enable);
+
+    /** Get the fade out status of this fader */
+    bool isFadingOut() const;
+
+    /** Set this fader to fade out. If $fadeTime is non-zero,
+      * all the intensity channels will be updated */
+    void setFadeOut(bool enable, uint fadeTime);
 
     /**
      * Set the blend mode to be applied in the write method
@@ -96,11 +134,29 @@ public:
      */
     void setBlendMode(Universe::BlendMode mode);
 
+    /** Enable/disable universe monitoring before writing new data */
+    void setMonitoring(bool enable);
+
+    void resetCrossfade();
+
+signals:
+    /** Signal emitted when monitoring is enabled.
+     *  Data is preGM and includes the whole universe */
+    void preWriteData(quint32 index, const QByteArray& universeData);
+
 private:
-    QHash <FadeChannel,FadeChannel> m_channels;
+    QString m_name;
+    quint32 m_fid;
+    int m_priority;
+    QHash <quint32,FadeChannel> m_channels;
     qreal m_intensity;
+    qreal m_parentIntensity;
+    bool m_paused;
+    bool m_enabled;
+    bool m_fadeOut;
+    bool m_deleteRequest;
     Universe::BlendMode m_blendMode;
-    Doc* m_doc;
+    bool m_monitoring;
 };
 
 /** @} */

@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.1 GIT</Version>
+  <Author>René Brixel</Author>
+ </Creator>
+ <Manufacturer>Cameo</Manufacturer>
+ <Model>LED Colour Bar RGBA (CLBAR10RGBA)</Model>
+ <Type>LED Bar (Pixels)</Type>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Colour-Macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="16" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="17" Max="33" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="34" Max="50" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="51" Max="67" Preset="ColorMacro" Res1="#ffbf00">Amber</Capability>
+  <Capability Min="68" Max="84" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="85" Max="101" Preset="ColorMacro" Res1="#00ffff">Cyan</Capability>
+  <Capability Min="102" Max="118" Preset="ColorMacro" Res1="#e6e6fa">Lavender</Capability>
+  <Capability Min="119" Max="135" Preset="ColorMacro" Res1="#ffc0cb">Pink</Capability>
+  <Capability Min="136" Max="152" Preset="ColorMacro" Res1="#7fff7f">Light Green</Capability>
+  <Capability Min="153" Max="169" Preset="ColorMacro" Res1="#ff00ff">Magenta</Capability>
+  <Capability Min="170" Max="186" Preset="ColorMacro" Res1="#40e0d0">Turquoise</Capability>
+  <Capability Min="187" Max="203" Preset="ColorMacro" Res1="#ffa500">Orange</Capability>
+  <Capability Min="204" Max="220" Preset="ColorMacro" Res1="#ffaaff">Bright Magenta</Capability>
+  <Capability Min="221" Max="237" Preset="ColorMacro" Res1="#e5faff">Cold White</Capability>
+  <Capability Min="238" Max="255" Preset="ColorMacro" Res1="#fffae5">Warm White</Capability>
+ </Channel>
+ <Channel Name="Strobe speed">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255" Preset="StrobeFreqRange" Res1="1" Res2="20">Strobe Speed (1Hz - 20Hz)</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">ON (refers to CH1 - CH5)</Capability>
+  <Capability Min="1" Max="5">Sound (refers to Sound Control Mode)</Capability>
+  <Capability Min="6" Max="10">ON (refers to CH1 - CH5)</Capability>
+  <Capability Min="11" Max="255">Strobe (refers to CH1 - CH5)</Capability>
+ </Channel>
+ <Channel Name="Colour Macros">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5" Preset="ColorMacro" Res1="#ff0000">R</Capability>
+  <Capability Min="6" Max="11" Preset="ColorMacro" Res1="#00ff00">G</Capability>
+  <Capability Min="12" Max="17" Preset="ColorMacro" Res1="#0000ff">B</Capability>
+  <Capability Min="18" Max="23" Preset="ColorMacro" Res1="#ffbf00">A</Capability>
+  <Capability Min="24" Max="29" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffbf00">RA</Capability>
+  <Capability Min="30" Max="35" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">RG</Capability>
+  <Capability Min="36" Max="41" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">RB</Capability>
+  <Capability Min="42" Max="47" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">GB</Capability>
+  <Capability Min="48" Max="53" Preset="ColorDoubleMacro" Res1="#ffbf00" Res2="#0000ff">AB</Capability>
+  <Capability Min="54" Max="59" Preset="ColorDoubleMacro" Res1="#ffbf00" Res2="#00ff00">AG</Capability>
+  <Capability Min="60" Max="65" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#0000ff">RGB</Capability>
+  <Capability Min="66" Max="71" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ffbf00">RGA</Capability>
+  <Capability Min="72" Max="77" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ffbf00">RBA</Capability>
+  <Capability Min="78" Max="83" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#ffbf00">GBA</Capability>
+  <Capability Min="84" Max="89" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ffbf00">RGBA</Capability>
+  <Capability Min="90" Max="100">Colour jumping</Capability>
+  <Capability Min="101" Max="110">Colour fading</Capability>
+  <Capability Min="111" Max="120">Dreaming</Capability>
+  <Capability Min="121" Max="130">Colour flow</Capability>
+  <Capability Min="131" Max="140">Overlap flow</Capability>
+  <Capability Min="141" Max="150">Colour chase</Capability>
+  <Capability Min="151" Max="160">Multi colour</Capability>
+  <Capability Min="161" Max="170">Fade flow</Capability>
+  <Capability Min="171" Max="180">Two flow</Capability>
+  <Capability Min="181" Max="190">One way</Capability>
+  <Capability Min="191" Max="200">Two way</Capability>
+  <Capability Min="201" Max="210">Two colour</Capability>
+  <Capability Min="211" Max="255">Sound control</Capability>
+ </Channel>
+ <Channel Name="Dimmer/Speed">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Dimmer/Speed</Capability>
+ </Channel>
+ <Channel Name="Color Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">Blackout</Capability>
+  <Capability Min="6" Max="10">Dimmer RGBA</Capability>
+  <Capability Min="11" Max="15">Dimmer RGBA 1-4</Capability>
+  <Capability Min="16" Max="20" Preset="ColorMacro" Res1="#ff0000">R</Capability>
+  <Capability Min="21" Max="25" Preset="ColorMacro" Res1="#00ff00">G</Capability>
+  <Capability Min="26" Max="30" Preset="ColorMacro" Res1="#0000ff">B</Capability>
+  <Capability Min="31" Max="35" Preset="ColorMacro" Res1="#ffbf00">A</Capability>
+  <Capability Min="36" Max="40" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffbf00">RA</Capability>
+  <Capability Min="41" Max="45" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">RG</Capability>
+  <Capability Min="46" Max="50" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">RB</Capability>
+  <Capability Min="51" Max="55" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">GB</Capability>
+  <Capability Min="56" Max="60" Preset="ColorDoubleMacro" Res1="#ffbf00" Res2="#0000ff">AB</Capability>
+  <Capability Min="61" Max="65" Preset="ColorDoubleMacro" Res1="#ffbf00" Res2="#00ff00">AG</Capability>
+  <Capability Min="66" Max="70" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#0000ff">RGB</Capability>
+  <Capability Min="71" Max="75" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ffbf00">RGA</Capability>
+  <Capability Min="76" Max="80" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ffbf00">RBA</Capability>
+  <Capability Min="81" Max="85" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#ffbf00">GBA</Capability>
+  <Capability Min="86" Max="90" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ffbf00">RGBA</Capability>
+  <Capability Min="91" Max="100">Color Jump</Capability>
+  <Capability Min="101" Max="110">Color Fade</Capability>
+  <Capability Min="111" Max="120">Dreaming</Capability>
+  <Capability Min="121" Max="130">Color Flow</Capability>
+  <Capability Min="131" Max="140">Overlap Flow</Capability>
+  <Capability Min="141" Max="150">Color Chase</Capability>
+  <Capability Min="151" Max="160">Multi Color</Capability>
+  <Capability Min="161" Max="170">Fade Flow</Capability>
+  <Capability Min="171" Max="180">Two Flow</Capability>
+  <Capability Min="181" Max="190">One Way</Capability>
+  <Capability Min="191" Max="200">Two Way</Capability>
+  <Capability Min="201" Max="210">Two Color</Capability>
+  <Capability Min="211" Max="255">Sound Control</Capability>
+ </Channel>
+ <Channel Name="Dimmer/Speed/Sens">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Dimmer/Speed/Sens</Capability>
+ </Channel>
+ <Channel Name="R1/R/Color select">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">R/R1/Color select</Capability>
+ </Channel>
+ <Channel Name="G1/G/Color select">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">G/G1/Color select</Capability>
+ </Channel>
+ <Channel Name="B1/B">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">B/B1</Capability>
+ </Channel>
+ <Channel Name="A1/A">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Amber</Colour>
+  <Capability Min="0" Max="255">A/A1</Capability>
+ </Channel>
+ <Channel Name="R2">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">R2</Capability>
+ </Channel>
+ <Channel Name="G2">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">G2</Capability>
+ </Channel>
+ <Channel Name="B2">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="255">B2</Capability>
+ </Channel>
+ <Channel Name="A2">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Amber</Colour>
+  <Capability Min="0" Max="255">A2</Capability>
+ </Channel>
+ <Channel Name="R3">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="255">R3</Capability>
+ </Channel>
+ <Channel Name="G3">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="255">G3</Capability>
+ </Channel>
+ <Channel Name="B3" Preset="IntensityBlue"/>
+ <Channel Name="A3" Preset="IntensityAmber"/>
+ <Channel Name="R4" Preset="IntensityRed"/>
+ <Channel Name="G4" Preset="IntensityGreen"/>
+ <Channel Name="B4" Preset="IntensityBlue"/>
+ <Channel Name="A4" Preset="IntensityAmber"/>
+ <Mode Name="2-Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Colour-Macro</Channel>
+ </Mode>
+ <Mode Name="4-Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Amber</Channel>
+ </Mode>
+ <Mode Name="6-Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Amber</Channel>
+  <Channel Number="4">Dimmer</Channel>
+  <Channel Number="5">Mode</Channel>
+ </Mode>
+ <Mode Name="3-Channel">
+  <Channel Number="0">Colour Macros</Channel>
+  <Channel Number="1">Dimmer/Speed</Channel>
+  <Channel Number="2">Strobe speed</Channel>
+ </Mode>
+ <Mode Name="19-Channel">
+  <Channel Number="0">Color Mode</Channel>
+  <Channel Number="1">Dimmer/Speed/Sens</Channel>
+  <Channel Number="2">Strobe speed</Channel>
+  <Channel Number="3">R1/R/Color select</Channel>
+  <Channel Number="4">G1/G/Color select</Channel>
+  <Channel Number="5">B1/B</Channel>
+  <Channel Number="6">A1/A</Channel>
+  <Channel Number="7">R2</Channel>
+  <Channel Number="8">G2</Channel>
+  <Channel Number="9">B2</Channel>
+  <Channel Number="10">A2</Channel>
+  <Channel Number="11">R3</Channel>
+  <Channel Number="12">G3</Channel>
+  <Channel Number="13">B3</Channel>
+  <Channel Number="14">A3</Channel>
+  <Channel Number="15">R4</Channel>
+  <Channel Number="16">G4</Channel>
+  <Channel Number="17">B4</Channel>
+  <Channel Number="18">A4</Channel>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>5</Channel>
+   <Channel>4</Channel>
+   <Channel>6</Channel>
+  </Head>
+  <Head>
+   <Channel>7</Channel>
+   <Channel>9</Channel>
+   <Channel>8</Channel>
+   <Channel>10</Channel>
+  </Head>
+  <Head>
+   <Channel>11</Channel>
+   <Channel>13</Channel>
+   <Channel>12</Channel>
+   <Channel>14</Channel>
+  </Head>
+  <Head>
+   <Channel>17</Channel>
+   <Channel>16</Channel>
+   <Channel>18</Channel>
+   <Channel>15</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.5" Width="1018" Height="63" Depth="87"/>
+  <Lens Name="Other" DegreesMin="30" DegreesMax="30"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="40" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

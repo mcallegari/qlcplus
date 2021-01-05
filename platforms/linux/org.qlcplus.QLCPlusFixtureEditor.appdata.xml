@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2015 Dave Olsthoorn <dave.olsthoorn@gmail.com> -->
+<component type="desktop">
+ <id>org.qlcplus.QLCPlusFixtureEditor</id>
+ <metadata_license>CC-BY-SA-3.0</metadata_license>
+ <project_license>Apache-2.0</project_license>
+ <name>QLC+ Fixture Definition Editor</name>
+ <summary>Fixture Editor for QLC+</summary>
+ <summary xml:lang="fr">Editeur de définition d'appareil pour QLC+</summary>
+ <summary xml:lang="nl">Armatuur Editor voor QLC+</summary>
+ <summary xml:lang="it">Editor di definizioni di fixture per QLC+</summary>
+ <summary xml:lang="es">Editor de definiciones de fixtures para QLC+</summary>
+ <summary xml:lang="ca">Editor de definicions de fixtures per QLC+</summary>
+ <summary xml:lang="de">Editor für QLC+ Gerätedefinitionen</summary>
+ <description>
+  <p>
+   This is the Fixture Definition Editor for QLC+.
+  </p>
+  <p xml:lang="fr">
+   Ceci est l'éditeur de définition d'appareil pour QLC+.
+  </p>
+  <p xml:lang="nl">
+   Dit is de Armatuur Editor voor QLC+.
+  </p>
+  <p xml:lang="it">
+   Questo è l'editor di definizioni di fixture per QLC+.
+  </p>
+  <p xml:lang="es">
+   Éste es el editor de definiciones de fixtures para QLC+.
+  </p>
+  <p xml:lang="ca">
+   Aquest es l'editor de definicions de fixtures per QLC+.
+  </p>
+  <p xml:lang="de">
+   Editor zum Bearbeiten und Erstellen von Gerätedefinitionen für QLC+.
+  </p>
+ </description>
+ <screenshots>
+  <screenshot type="default">
+   <image>http://www.qlcplus.org/shots/qlcplus_fixtureeditor.png</image>
+   <caption>Fixture Definition Editor</caption>
+  </screenshot>
+ </screenshots>
+ <url type="homepage">https://www.qlcplus.org/</url>
+ <url type="bugtracker">https://github.com/mcallegari/qlcplus/issues</url>
+ <launchable type="desktop-id">qlcplus-fixtureeditor.desktop</launchable>
+ <provides>
+  <binary>qlcplus-fixtureeditor</binary>
+ </provides>
+</component>

@@ -1,0 +1,190 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
+  <Author>Robert - extension by Freasy</Author>
+ </Creator>
+ <Manufacturer>Briteq</Manufacturer>
+ <Model>Spectra 3D Laser</Model>
+ <Type>Laser</Type>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="234">Slow to fast</Capability>
+  <Capability Min="235" Max="255">Original speed</Capability>
+ </Channel>
+ <Channel Name="Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="18" Color="#000000">Laser off</Capability>
+  <Capability Min="19" Max="36">AUT - auto show with mixed 5 effect</Capability>
+  <Capability Min="37" Max="54">A3D - laser 3D effect auto show</Capability>
+  <Capability Min="55" Max="72">AUB - scanned beam effect auto show</Capability>
+  <Capability Min="73" Max="90">AUL - laser lumina effect auto show</Capability>
+  <Capability Min="91" Max="108">AUN - burst grating effect auto show</Capability>
+  <Capability Min="109" Max="126">AUO - laser universal effect auto show</Capability>
+  <Capability Min="127" Max="144">SOU - sound show with mixed 5 effect</Capability>
+  <Capability Min="145" Max="162">S3D - sound show with laser 3D</Capability>
+  <Capability Min="163" Max="180">SOB - sound show with scanned beam</Capability>
+  <Capability Min="181" Max="198">SOL - sound show with laser lumia</Capability>
+  <Capability Min="199" Max="216">SON - sound show with burst grating</Capability>
+  <Capability Min="217" Max="234">SOO - sound show with laser universal</Capability>
+  <Capability Min="235" Max="255">SOU - sound show with mixed 5 effect</Capability>
+ </Channel>
+ <Channel Name="Mode 19">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="18" Color="#000000">Laser off</Capability>
+  <Capability Min="19" Max="36">AUT - auto show with mixed 5 effect</Capability>
+  <Capability Min="37" Max="54">A3D - laser 3D effect auto show</Capability>
+  <Capability Min="55" Max="72">AUB - scanned beam effect auto show</Capability>
+  <Capability Min="73" Max="90">AUL - laser lumina effect auto show</Capability>
+  <Capability Min="91" Max="108">AUN - burst grating effect auto show</Capability>
+  <Capability Min="109" Max="126">AUO - laser universal effect auto show</Capability>
+  <Capability Min="127" Max="144">SOU - sound show with mixed 5 effect</Capability>
+  <Capability Min="145" Max="162">S3D - sound show with laser 3D</Capability>
+  <Capability Min="163" Max="180">SOB - sound show with scanned beam</Capability>
+  <Capability Min="181" Max="198">SOL - sound show with laser lumia</Capability>
+  <Capability Min="199" Max="216">SON - sound show with burst grating</Capability>
+  <Capability Min="217" Max="234">SOO - sound show with laser universal</Capability>
+  <Capability Min="235" Max="255">DMX mode</Capability>
+ </Channel>
+ <Channel Name="Group">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="51">Group 1 patterns</Capability>
+  <Capability Min="52" Max="103">Group 2 patterns</Capability>
+  <Capability Min="104" Max="155">Group 3 patterns</Capability>
+  <Capability Min="156" Max="207">Group 4 patterns</Capability>
+  <Capability Min="208" Max="255">Group 5 patterns</Capability>
+ </Channel>
+ <Channel Name="Pattern Group">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">16 per pattern per pattern group, total 80 patterns</Capability>
+ </Channel>
+ <Channel Name="Colour">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">Original</Capability>
+  <Capability Min="8" Max="15" Color="#ff0000">Red</Capability>
+  <Capability Min="16" Max="23" Color="#00ff00">Green</Capability>
+  <Capability Min="24" Max="31" Color="#ffff00">Yellow</Capability>
+  <Capability Min="32" Max="39" Color="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="47" Color="#ff00ff">Purple</Capability>
+  <Capability Min="48" Max="55" Color="#00ffff">Light blue</Capability>
+  <Capability Min="56" Max="63" Color="#ffffff">White</Capability>
+  <Capability Min="64" Max="111">Colour rolling</Capability>
+  <Capability Min="112" Max="159">Colour jumping</Capability>
+  <Capability Min="160" Max="207">Colour moving</Capability>
+  <Capability Min="208" Max="255">Strobing</Capability>
+ </Channel>
+ <Channel Name="Clipping">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">Full pattern without clipping</Capability>
+  <Capability Min="1" Max="127">0-99% fixed pattern clipped</Capability>
+  <Capability Min="128" Max="255">Clipping speed</Capability>
+ </Channel>
+ <Channel Name="Zooming">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">100-5% fixed pattern zoomed</Capability>
+  <Capability Min="128" Max="169">Zooming in</Capability>
+  <Capability Min="170" Max="209">Zooming out</Capability>
+  <Capability Min="210" Max="255">Alternate zooming</Capability>
+ </Channel>
+ <Channel Name="Zoom Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Fast to slow</Capability>
+ </Channel>
+ <Channel Name="Y-Axis Rolling">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">0-359 degree fixed Y-axis rolling</Capability>
+  <Capability Min="128" Max="191">Clockwise rolling</Capability>
+  <Capability Min="192" Max="255">Anticlockwise rolling</Capability>
+ </Channel>
+ <Channel Name="Y-Axis Roll Speed" Preset="SpeedTiltFastSlow"/>
+ <Channel Name="X-Axis Rolling">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">0-359 degree fixed X-axis rolled</Capability>
+  <Capability Min="128" Max="191">Clockwise rolling</Capability>
+  <Capability Min="192" Max="255">Anticlockwise rolling</Capability>
+ </Channel>
+ <Channel Name="X-Axis Roll Speed" Preset="SpeedPanFastSlow"/>
+ <Channel Name="Z-Axis Rolling">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">0-359 degree fixed Z-axis rolled</Capability>
+  <Capability Min="128" Max="191">Clockwise rolling</Capability>
+  <Capability Min="192" Max="255">Anticlockwise rolling</Capability>
+ </Channel>
+ <Channel Name="Z Axis Roll Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Fast to slow</Capability>
+ </Channel>
+ <Channel Name="Y-Axis Moving">
+  <Group Byte="0">Tilt</Group>
+  <Capability Min="0" Max="127">128 different fixed positions on Y-axis</Capability>
+  <Capability Min="128" Max="191">Clockwise moving</Capability>
+  <Capability Min="192" Max="255">Anticlockwise moving</Capability>
+ </Channel>
+ <Channel Name="Y-Axis Move Speed" Preset="SpeedTiltFastSlow"/>
+ <Channel Name="X Axis Moving">
+  <Group Byte="0">Pan</Group>
+  <Capability Min="0" Max="127">128 different fixed positions on X-axis</Capability>
+  <Capability Min="128" Max="191">Clockwise moving</Capability>
+  <Capability Min="192" Max="255">Anticlockwise moving</Capability>
+ </Channel>
+ <Channel Name="X-Axis Move Speed" Preset="SpeedPanFastSlow"/>
+ <Channel Name="Grating Rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">No grating rotation</Capability>
+  <Capability Min="5" Max="127">Clockwise grating rotation</Capability>
+  <Capability Min="128" Max="133">No grating rotation</Capability>
+  <Capability Min="134" Max="255">Anticlockwise grating rotation</Capability>
+ </Channel>
+ <Channel Name="Grating Effect">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="31">Laser 3D effect</Capability>
+  <Capability Min="32" Max="63">Scanned beam effect (pattern effect)</Capability>
+  <Capability Min="64" Max="95">Laser lumina effect</Capability>
+  <Capability Min="96" Max="127">Scanned beam effect (pattern effect)</Capability>
+  <Capability Min="128" Max="159">Burst grating effect</Capability>
+  <Capability Min="160" Max="191">Scanned beam effect (pattern effect)</Capability>
+  <Capability Min="192" Max="223">Laser universal effect</Capability>
+  <Capability Min="224" Max="255">Scanned beam effect (pattern effect)</Capability>
+ </Channel>
+ <Mode Name="1CH without ILDA">
+  <Channel Number="0">Mode</Channel>
+ </Mode>
+ <Mode Name="2CH without ILDA">
+  <Channel Number="0">Mode</Channel>
+  <Channel Number="1">Speed</Channel>
+ </Mode>
+ <Mode Name="19CH without ILDA">
+  <Channel Number="0">Mode 19</Channel>
+  <Channel Number="1">Group</Channel>
+  <Channel Number="2">Pattern Group</Channel>
+  <Channel Number="3">Colour</Channel>
+  <Channel Number="4">Clipping</Channel>
+  <Channel Number="5">Zooming</Channel>
+  <Channel Number="6">Zoom Speed</Channel>
+  <Channel Number="7">Y-Axis Rolling</Channel>
+  <Channel Number="8">Y-Axis Roll Speed</Channel>
+  <Channel Number="9">X-Axis Rolling</Channel>
+  <Channel Number="10">X-Axis Roll Speed</Channel>
+  <Channel Number="11">Z-Axis Rolling</Channel>
+  <Channel Number="12">Z Axis Roll Speed</Channel>
+  <Channel Number="13">Y-Axis Moving</Channel>
+  <Channel Number="14">Y-Axis Move Speed</Channel>
+  <Channel Number="15">X Axis Moving</Channel>
+  <Channel Number="16">X-Axis Move Speed</Channel>
+  <Channel Number="17">Grating Rotation</Channel>
+  <Channel Number="18">Grating Effect</Channel>
+ </Mode>
+ <Mode Name="2CH with ILDA">
+  <Channel Number="0">Grating Rotation</Channel>
+  <Channel Number="1">Grating Effect</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="RGB Laser" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="4.5" Width="290" Height="110" Depth="240"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="90" TiltMax="90"/>
+   <Technical PowerConsumption="40" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

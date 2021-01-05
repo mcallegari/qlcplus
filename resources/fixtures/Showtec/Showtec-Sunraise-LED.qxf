@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.11.3 GIT</Version>
+  <Author>Felix Edelmann</Author>
+ </Creator>
+ <Manufacturer>Showtec</Manufacturer>
+ <Model>Sunraise LED</Model>
+ <Type>Flower</Type>
+ <Channel Name="Color Macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="19" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="20" Max="29" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="30" Max="39" Preset="ColorMacro" Res1="#0000bb">Blue</Capability>
+  <Capability Min="40" Max="49" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="50" Max="59" Preset="ColorMacro" Res1="#ffbf00">Amber</Capability>
+  <Capability Min="60" Max="69" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red + Green</Capability>
+  <Capability Min="70" Max="79" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red + Blue</Capability>
+  <Capability Min="80" Max="89" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">Red + White</Capability>
+  <Capability Min="90" Max="99" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffbf00">Red + Amber</Capability>
+  <Capability Min="100" Max="109" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green + Blue</Capability>
+  <Capability Min="110" Max="119" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffffff">Green + White</Capability>
+  <Capability Min="120" Max="129" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffbf00">Green + Amber</Capability>
+  <Capability Min="130" Max="139" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue + White</Capability>
+  <Capability Min="140" Max="149" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffbf00">Blue + Amber</Capability>
+  <Capability Min="150" Max="159" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ffbf00">White + Amber</Capability>
+  <Capability Min="160" Max="169" Preset="ColorMacro" Res1="#eeeeee">Red + Green + Blue</Capability>
+  <Capability Min="170" Max="179" Preset="ColorMacro" Res1="#ffffff">Red + Green + Blue + White</Capability>
+  <Capability Min="180" Max="189" Preset="ColorDoubleMacro" Res1="#eeeeee" Res2="#ffbf00">Red + Green + Blue + Amber</Capability>
+  <Capability Min="190" Max="199" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ffbf00">Red + Green + Blue + White + Amber</Capability>
+  <Capability Min="200" Max="229">Auto</Capability>
+  <Capability Min="230" Max="255">Sound-controlled mode</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="12">Strobe 0-12Hz</Capability>
+ </Channel>
+ <Channel Name="Auto Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="255">Speed slow-fast</Capability>
+ </Channel>
+ <Channel Name="Motor Rotation">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="119">Rotation CW slow-fast</Capability>
+  <Capability Min="120" Max="129">Stop</Capability>
+  <Capability Min="130" Max="255">Rotation CCW slow-fast</Capability>
+ </Channel>
+ <Mode Name="4-channel">
+  <Channel Number="0">Color Macros</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">Auto Speed</Channel>
+  <Channel Number="3">Motor Rotation</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="55 x 3W RGBWA LEDs" Lumens="1000" ColourTemperature="0"/>
+  <Dimensions Weight="2.8" Width="266" Height="260" Depth="266"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="35" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

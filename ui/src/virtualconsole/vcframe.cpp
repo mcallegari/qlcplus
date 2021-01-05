@@ -357,6 +357,9 @@ void VCFrame::createHeader()
 
 void VCFrame::setMultipageMode(bool enable)
 {
+    if (m_multiPageMode == enable)
+        return;
+
     if (enable == true)
     {
         if (m_prevPageBtn != NULL && m_nextPageBtn != NULL && m_pageCombo != NULL)
@@ -379,9 +382,14 @@ void VCFrame::setMultipageMode(bool enable)
         m_pageCombo->setFixedHeight(32);
         m_pageCombo->setFocusPolicy(Qt::NoFocus);
 
+        /** Add a single shortcut until setTotalPagesNumber kicks in */
+        addShortcut();
+
         m_pageCombo->setStyleSheet("QComboBox { background-color: black; color: red; margin-left: 2px; padding: 3px; }");
         if (m_hasCustomFont)
+        {
             m_pageCombo->setFont(font());
+        }
         else
         {
             QFont m_font = QApplication::font();
@@ -430,6 +438,7 @@ void VCFrame::setMultipageMode(bool enable)
     {
         if (m_prevPageBtn == NULL && m_nextPageBtn == NULL && m_pageCombo == NULL)
             return;
+
         resetShortcuts();
         m_hbox->removeWidget(m_prevPageBtn);
         m_hbox->removeWidget(m_pageCombo);
@@ -634,12 +643,12 @@ void VCFrame::slotModeChanged(Doc::Mode mode)
 void VCFrame::slotSubmasterValueChanged(qreal value)
 {
     qDebug() << Q_FUNC_INFO << "val:" << value;
-    VCSlider *submaster = (VCSlider *)sender();
+    VCSlider *submaster = qobject_cast<VCSlider *>(sender());
     QListIterator <VCWidget*> it(this->findChildren<VCWidget*>());
     while (it.hasNext() == true)
     {
-        VCWidget* child = it.next();
-        if (child->parent() == this && child != submaster)
+        VCWidget *child = it.next();
+        if (child->parent() == this && child->page() == this->currentPage() && child != submaster)
             child->adjustIntensity(value);
     }
 }
@@ -664,8 +673,8 @@ void VCFrame::adjustIntensity(qreal val)
     QListIterator <VCWidget*> it(this->findChildren<VCWidget*>());
     while (it.hasNext() == true)
     {
-        VCWidget* child = it.next();
-        if (child->parent() == this)
+        VCWidget *child = it.next();
+        if (child->parent() == this && child->page() == this->currentPage())
             child->adjustIntensity(val);
     }
     VCWidget::adjustIntensity(val);
@@ -732,9 +741,17 @@ void VCFrame::updateFeedback()
     if (!src.isNull() && src->isValid() == true)
     {
         if (m_disableState == false)
+        {
             sendFeedback(src->upperValue(), enableInputSourceId);
+        }
         else
+        {
+            // temporarily revert the disabled state otherwise this
+            // feedback will never go through (cause of acceptsInput)
+            m_disableState = false;
             sendFeedback(src->lowerValue(), enableInputSourceId);
+            m_disableState = true;
+        }
     }
 
     foreach (VCFramePageShortcut* shortcut, m_pageShortcuts)
@@ -820,7 +837,7 @@ bool VCFrame::copyFrom(const VCWidget* widget)
     setTotalPagesNumber(frame->m_totalPagesNumber);
 
     setPagesLoop(frame->m_pagesLoop);
-  
+
     setEnableKeySequence(frame->m_enableKeySequence);
     setNextPageKeySequence(frame->m_nextPageKeySequence);
     setPreviousPageKeySequence(frame->m_previousPageKeySequence);
@@ -851,7 +868,7 @@ bool VCFrame::copyFrom(const VCWidget* widget)
 
             if (childCopy->type() == VCWidget::SliderWidget)
             {
-                VCSlider *slider = (VCSlider*)childCopy;
+                VCSlider *slider = qobject_cast<VCSlider*>(childCopy);
                 // always connect a slider as it it was a submaster
                 // cause this signal is emitted only when a slider is
                 // a submaster
@@ -1153,12 +1170,14 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
             /* Create a new slider into its parent */
             VCSlider* slider = new VCSlider(this, m_doc);
             if (slider->loadXML(root) == false)
+            {
                 delete slider;
+            }
             else
             {
                 addWidgetToPageMap(slider);
                 slider->show();
-                // always connect a slider as it it was a submaster
+                // always connect a slider as if it was a submaster
                 // cause this signal is emitted only when a slider is
                 // a submaster
                 connect(slider, SIGNAL(submasterValueChanged(qreal)),
@@ -1461,4 +1480,10 @@ void VCFrame::mouseMoveEvent(QMouseEvent* e)
         VCWidget::mouseMoveEvent(e);
     else
         QWidget::mouseMoveEvent(e);
+
+    if (isCollapsed() == false)
+    {
+        m_width = this->width();
+        m_height = this->height();
+    }
 }

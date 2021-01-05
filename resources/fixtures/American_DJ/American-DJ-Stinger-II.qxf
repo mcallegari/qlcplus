@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Robert Box</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Stinger II</Model>
+ <Type>Flower</Type>
+ <Channel Name="UV LEDs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="10" Max="134">UV output position</Capability>
+  <Capability Min="135" Max="255">UV chase</Capability>
+ </Channel>
+ <Channel Name="UV LED Strobe &amp; Chase Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="127">Slow - fast (no strobe)</Capability>
+  <Capability Min="128" Max="255">Slow - fast (strobing)</Capability>
+ </Channel>
+ <Channel Name="Lasers">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="10" Max="49" Preset="ColorMacro" Res1="#ff0000">Red laser</Capability>
+  <Capability Min="50" Max="89" Preset="ColorMacro" Res1="#00ff00">Green laser</Capability>
+  <Capability Min="90" Max="129" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red &amp; green lasers</Capability>
+  <Capability Min="130" Max="169" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red &amp; green lasers flicker</Capability>
+  <Capability Min="170" Max="209" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ff0000">Green &amp; red lasers flicker lasers</Capability>
+  <Capability Min="210" Max="249" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red &amp; green lasers flicker sync</Capability>
+  <Capability Min="250" Max="255" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red &amp; green lasers alternative flicker</Capability>
+ </Channel>
+ <Channel Name="Laser Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="10" Max="244" Preset="StrobeSlowToFast">Slow - fast</Capability>
+  <Capability Min="245" Max="255" Preset="SilentModeOff">Sound active</Capability>
+ </Channel>
+ <Channel Name="LED Rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">No rotation</Capability>
+  <Capability Min="10" Max="127">Clockwise rotation slow - fast</Capability>
+  <Capability Min="128" Max="255">Counter-clockwise rotation slow - fast</Capability>
+ </Channel>
+ <Channel Name="Laser Rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Patterns</Capability>
+  <Capability Min="128" Max="255">Pattern chase slow - fast</Capability>
+ </Channel>
+ <Channel Name="Show Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="44">Show 1</Capability>
+  <Capability Min="45" Max="79">Show 2</Capability>
+  <Capability Min="80" Max="114">Show 3</Capability>
+  <Capability Min="115" Max="149">Show 4</Capability>
+  <Capability Min="150" Max="184">Show 5</Capability>
+  <Capability Min="185" Max="219">Show 6</Capability>
+  <Capability Min="220" Max="255">Random show</Capability>
+ </Channel>
+ <Channel Name="Color Macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="198">Color change</Capability>
+  <Capability Min="199" Max="225">Color fade 1</Capability>
+  <Capability Min="226" Max="255">Color fade 2</Capability>
+ </Channel>
+ <Channel Name="LED Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="10" Max="244" Preset="StrobeSlowToFast">Slow - fast</Capability>
+  <Capability Min="245" Max="255" Preset="SilentModeOff">Sound active</Capability>
+ </Channel>
+ <Channel Name="Show Speed/Sound Sense">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="247">Show speed slow - fast</Capability>
+  <Capability Min="248" Max="255">Sound active</Capability>
+ </Channel>
+ <Mode Name="9 Channel">
+  <Channel Number="0">Show Mode</Channel>
+  <Channel Number="1">Color Macro</Channel>
+  <Channel Number="2">LED Strobe</Channel>
+  <Channel Number="3">UV LEDs</Channel>
+  <Channel Number="4">UV LED Strobe &amp; Chase Speed</Channel>
+  <Channel Number="5">Lasers</Channel>
+  <Channel Number="6">Laser Strobe</Channel>
+  <Channel Number="7">LED Rotation</Channel>
+  <Channel Number="8">Laser Rotation</Channel>
+ </Mode>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Show Mode</Channel>
+  <Channel Number="1">Show Speed/Sound Sense</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED/laser" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="5" Width="231" Height="248" Depth="304"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="70" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

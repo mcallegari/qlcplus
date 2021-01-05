@@ -20,7 +20,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "."
 
 Column
@@ -91,6 +91,34 @@ Column
 
                 onClicked: virtualConsole.createAndDetectInputKey(objRef)
             }
+
+            IconButton
+            {
+                id: addManualSource
+
+                width: height * 2
+                height: parent.height
+                faSource: FontAwesome.fa_hand_o_up
+                faColor: UISettings.fgMain
+                tooltip: qsTr("Manually select an input source")
+
+                Image
+                {
+                    anchors.right: parent.right
+                    width: parent.height / 2
+                    height: width
+                    source: "qrc:/add.svg"
+                    sourceSize: Qt.size(width, height)
+                }
+
+                onClicked: manualInputPopup.open()
+
+                PopupManualInputSource
+                {
+                    id: manualInputPopup
+                    wRef: objRef
+                }
+            }
         }
     }
 
@@ -112,6 +140,8 @@ Column
                 {
                     item.dObjRef = objRef
                     item.controlID = modelData.id
+                    item.controlIndex = modelData.cIndex
+
                     if (modelData.invalid)
                         item.invalid = modelData.invalid
 

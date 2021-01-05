@@ -1,0 +1,543 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - Fixture Definition Editor</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1><img src="qrc:/qlcplus-fixtureeditor.png" width=32 align="absmiddle"> Fixture Definition Editor</H1>
+<P>
+Fixture Definition Editor is a separate application bundled together with QLC+ for creating and modifying
+<A HREF="file:concept.html#Fixtures">fixture definitions</A> used by QLC+. The
+definitions tell QLC+ (and users) important details about fixtures, such as
+which channel is used for pan movement, what value in which channel changes
+the beam color to green, how the fixture is reset etc...
+</P>
+
+<P>
+The main window in the Fixture Editor is just an empty workspace that contains
+the actual editor windows used to edit fixture definitions.
+</P>
+
+<P>
+<B>Important note: for many reasons, you SHOULD NOT save or copy your custom fixtures in the
+QLC+ system fixtures folder. The most important is that when you uninstall QLC+, the system
+fixtures folder gets deleted, so your fixtures.<br>
+You are recommended to save them in the user fixtures folder. To find it, please refer to the
+<A HREF="file:questionsandanswers.html">Q & A section</A> of this documentation.</B>
+</P>
+
+<H2>Main toolbar</H2>
+
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD><IMG SRC="qrc:/filenew.png"/></TD>
+  <TD>Create a new fixture definition. Opens an empty Fixture Editor window.</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/fileopen.png"/></TD>
+  <TD>Open an existing fixture definiton. Opens the fixture definition in a Fixture Editor window.</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/filesave.png"/></TD>
+  <TD>Save the fixture definition in the currently active Fixture Editor window.</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/filesaveas.png"/></TD>
+  <TD>Save the fixture definition with a given name in the currently active Fixture Editor window.</TD>
+ </TR>
+</TABLE>
+
+<H1>Fixture Editor</H1>
+<P>
+Fixture Editor windows contain everything needed to edit one Fixture Definition
+at a time. The windows are separated in five tabs: <A href="#general"><B>General</B></A>,
+<A href="#physical"><B>Physical</B></A>, <A href="#channels"><B>Channels</B></A>,
+<A href="#modes"><B>Modes</B></A> and <A href="#aliases"><B>Aliases</B></A>.<BR>
+Tabs are organized in a logical order that should be followed from left to right
+when creating a new fixture definition.
+</P>
+
+<H2 id="general">General Tab</H2>
+
+<P>
+This is the section where the Fixture general information is provided.
+</P>
+
+<TABLE>
+ <TR>
+  <TD><IMG SRC="file:../images/fixtureeditor_general.png" WIDTH="700"/>
+  <TD>
+   <TABLE BORDER=1 class="qlcTable">
+    <TR>
+     <TD><B>Manufacturer</B></TD>
+     <TD>The fixture's manufacturer name. For example "FooCompany".
+       Please note that if you're adding a definition of a manufacturer already
+       present in the QLC+ library, you should adopt the same exact name adopted by
+       the other creators. For example, "IMG Stageline" is not "img stageline" or "IMG-Stageline"
+     </TD>
+    </TR>
+    <TR>
+     <TD><B>Model</B></TD>
+     <TD>The fixture's model name. For example "FooZapper 2000". Please stick to the
+       product manual to fill in this information. No need to specify the LED configuration like
+       "PAR64 MKII 8x1W LED RGBWAUV USB". It's just "PAR64 MKII"
+     </TD>
+    </TR>
+    <TR>
+     <TD><B>Type</B></TD>
+     <TD>The fixture's category type. For an accurate preview, it is important
+       to fill in the proper category. For example, while a moving head is most likely a color
+       changer too, the type should be set to "Moving Head"
+     </TD>
+    </TR>
+    <TR>
+     <TD><B>Author</B></TD>
+     <TD>The fixture definition author name. Please do not submit email addresses
+       or references to some website. They will be removed anyway during review.
+     </TD>
+    </TR>
+   </TABLE>
+  </TD>
+ </TR>
+</TABLE>
+
+<H2 id="physical">Physical Tab</H2>
+
+<P>
+This is the section where the <I>global</I> physical information of the fixture is provided.<BR>
+An identical section is also present in each mode, in case the fixture allows its physical
+properties (e.g. pan/tilt range) to be altered depending on the mode. In that case,
+the global physical information can be overridden by <I>per-mode</I> physical information.
+</P>
+
+<TABLE>
+ <TR>
+  <TD><IMG SRC="file:../images/fixtureeditor_physical.png" WIDTH="700" />
+  <TD>
+   <TABLE BORDER=1 class="qlcTable">
+    <TR>
+     <TD><B>Bulb</B></TD>
+     <TD>
+      <UL>
+       <LI>Type: The type of the actual light source within the fixture.</LI>
+       <LI>Lumens: The light source's total luminous output in lumens.</LI>
+       <LI>Color Temperature (K): The light source's color temperature in
+           <A HREF="https://en.wikipedia.org/wiki/Kelvin">Kelvins</A></LI>
+      </UL>
+     </TD>
+    </TR>
+    <TR>
+     <TD><B>Lens</B></TD>
+     <TD>
+      <UL>
+       <LI>Name: The type/name of the lens, if applicable.</LI>
+       <LI>Min. degrees: The fixture's minimum beam angle in
+           <A HREF="https://en.wikipedia.org/wiki/Degree_(angle)">degrees</A>.</LI>
+       <LI>Max. degrees: The fixture's maximum beam angle in
+           <A HREF="https://en.wikipedia.org/wiki/Degree_(angle)">degrees</A>.</LI>
+      </UL>
+     </TR>
+    </TR>
+    <TR>
+     <TD><B>Electrical</B></TD>
+     <TD>
+      <UL>
+       <LI>Power Consumption: The fixture's total power consumption in
+           <A HREF="https://en.wikipedia.org/wiki/Watt">Watts</A>.</LI>
+       <LI>DMX Connector: The type of the fixture's DMX connector.</LI>
+      </UL>
+     </TD>
+    </TR>
+    <TR>
+     <TD><B>Dimensions</B></TD>
+     <TD>
+      <UL>
+       <LI>Weight: The fixture's total weight in
+           <A HREF="https://en.wikipedia.org/wiki/Kilogram">Kilograms</A>.</LI>
+       <LI>Width: The fixture's total horizontal width in
+           <A HREF="https://en.wikipedia.org/wiki/Millimeter">millimeters</A>.</LI>
+       <LI>Height: The fixture's total vertical height in
+           <A HREF="https://en.wikipedia.org/wiki/Millimeter">millimeters</A>.</LI>
+       <LI>Depth: The fixture's total depth in
+           <A HREF="https://en.wikipedia.org/wiki/Millimeter">millimeters</A>.</LI>
+      </UL>
+     </TD>
+    </TR>
+    <TR>
+     <TD><B>Head(s)</B></TD>
+     <TD>
+      <UL>
+       <LI>Type: The method of focusing the beam on different areas. For stationary
+           fixtures this can be set to Fixed.</LI>
+       <LI>Pan Max Degrees: The maximum pan width in
+           <A HREF="https://en.wikipedia.org/wiki/Degree_(angle)">degrees</A>.</LI>
+       <LI>Tilt Max Degrees: The maximum tilt height in
+           <A HREF="https://en.wikipedia.org/wiki/Degree_(angle)">degrees</A>.</LI>
+      </UL>
+     </TD>
+    </TR>
+   </TABLE>
+  </TD>
+ </TR>
+</TABLE>
+
+<H2 id="channels">Channels Tab</H2>
+
+<P>
+The channels tab contains all possible channels that the fixture understands
+in all of its modes. The channel order doesn't matter in this tab at all. Instead,
+channels are arranged in certain order in each mode in the <B>Mode</B> tab. On
+the <B>Channel</B> tab, only the channel names, their <B>capabilities</B>
+(i.e. value ranges and their purpose) matters.
+</P>
+
+<TABLE>
+ <TR>
+  <TD><IMG SRC="file:../images/fixtureeditor_channels.png" WIDTH="700"/>
+  <TD valign="top">
+   <TABLE BORDER=1 class="qlcTable">
+    <TR>
+     <TD><IMG SRC="qrc:/edit_add.png"/></TD>
+     <TD>Add a new channel to the fixture using the <A HREF="#channel_editor">Channel Editor</A></TD>
+    </TR>
+    <TR>
+     <TD><IMG SRC="qrc:/edit_remove.png"/></TD>
+     <TD>Remove the selected channels from the fixture <B>and from all modes</B></TD>
+    </TR>
+    <TR>
+     <TD><IMG SRC="qrc:/edit.png"/></TD>
+     <TD>Edit the currently selected channel using the <A HREF="#channel_editor">Channel Editor</A></TD>
+    </TR>
+    <TR>
+     <TD><IMG SRC="qrc:/editcopy.png"/></TD>
+     <TD>Copy the currently selected channel to the clipboard. Channels in the clipboard
+         can also be pasted to other fixture definition windows
+     </TD>
+    </TR>
+    <TR>
+     <TD><IMG SRC="qrc:/editpaste.png"/></TD>
+     <TD>Paste a channel from clipboard to the fixture definition. Channels in the
+         clipboard can also be pasted to other fixture definition windows
+     </TD>
+    </TR>
+    <TR>
+     <TD><IMG SRC="qrc:/check.png"/></TD>
+     <TD>Expand or collapse all the channel nodes in the channel list</TD>
+    </TR>
+   </TABLE>
+  </TD>
+ </TR>
+</TABLE>
+
+<H3 id="channel_editor">Channel Editor</H3>
+<P>
+The Channel Editor is used to edit individual channels and the DMX value ranges of
+each capability (a green color, a certain gobo, prism rotation, etc.) that a
+fixture channel provides. Refer to your fixture's manual to get a detailed
+list of the fixture's channels and DMX values.
+</P>
+<P>
+Here's a few screenshots showing the possible scenarios that can be encountered
+while editing a Fixture channel.
+</P>
+
+<TABLE>
+ <TR>
+  <TD><IMG SRC="file:../images/fixtureeditor_channel_preset.png" width="600"/></TD>
+  <TD><IMG SRC="file:../images/fixtureeditor_channel_shutter.png" width="600"/></TD>
+ </TR>
+ <TR>
+  <TD>Fig. 1</TD>
+  <TD>Fig. 2</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="file:../images/fixtureeditor_channel_color.png" width="600"/></TD>
+  <TD><IMG SRC="file:../images/fixtureeditor_channel_gobo.png" width="600"/></TD>
+ </TR>
+ <TR>
+  <TD>Fig. 3</TD>
+  <TD>Fig. 4</TD>
+ </TR>
+</TABLE>
+
+<P>
+Following, the description of the settings that appear in the Channel Editor.
+Reference to the above figures will be done to point you to a visual context.
+</P>
+
+<TABLE BORDER=1 class="qlcTable">
+ <TR>
+  <TD><B>Name</B></TD>
+  <TD>The channel name. When selecting a channel preset (single capability channel), a channel name will be
+      automatically suggested, with the possibility to customize it.</TD>
+ </TR>
+ <TR>
+  <TD><B>Preset</B></TD>
+  <TD>A preset is a sort of shortcut to speed up the definition creation. It also provides to the QLC+
+   engine, useful information to recognize and properly treat a DMX channel.<br>
+   It frequently happens that a Fixture has some RGB or CMY channels. A LED bar might have dozens of them.
+   Therefore, selecting a color preset will fill in for you all the necessary information that QLC+ needs,
+   with a single mouse click. (See Fig. 1)<br>
+   It is also frequent to find a channel to control Pan/Tilt speed. Some presets are available for
+   that purpose, indicating also if the speed is from slow to fast or from fast to slow. Just pick the
+   preset that is more suitable for the definition you're creating.<br>
+   When a preset is selected, all the rest of the editor become inactive. If a channel has multiple DMX
+   ranges (capabilities), just leave "Preset" to "Custom" and proceed further with this reading.
+ </TR>
+ <TR>
+  <TD><B>Type</B></TD>
+  <TD>
+   <P>This indicated the channel's type (its role in the fixture). Selecting a type, implicitely defines also
+    the channel precedence (<A HREF="file:concept.html#LTP">LTP</A> or <A HREF="file:concept.html#HTP">HTP</A>).
+    It is therefore very important to pick the correct type here, to avoid undesired behaviours within QLC+.<br>
+    All the intensity/color channel types obey to the <B>HTP</B> rule: <B>Intensity, Red, Green, Blue,
+    Cyan, Magenta, Yellow, White, Amber, UV, Lime and Indigo</B>.<br>
+    All the other types obey to the <B>LTP</B> rule: <B>Beam, Color, Effect, Gobo, Maintenance, Nothing, Pan, Tilt,
+    Prism, Shutter and Speed</B>.<br>
+
+   <LI><B>Intensity</B> is used for dimmer / master dimmer channels.<br></LI>
+   <LI><B>Primary colors</B> (Red, Cyan, White, etc) are used to control single color channels. Please
+       do not confuse these types with the "Color" type (see below)<br>
+       Note that the <A HREF="file:concept.html#GrandMaster">Grand Master</A> controls only Intensity
+       and primary color channels by default. Note also that the Color Tool
+       in <A HREF="file:sceneeditor.html">Scene Editor</A> is available only if a fixture provides
+       <B>Primary color</B> channels for RGBAWUV/CMY.</LI>
+   <LI>The <B>Color</B> type is used to control a fixed color
+       wheel or pre-defined color macros. <I>Don't</I> assign individual RGBAW/CMY color channels
+       to the </B>Color</B> type but instead use the <B>primary color</B> types as described above
+       </LI>
+   <LI>The <B>Gobo</B> type is used to control gobo wheel position or indexing. </LI>
+   <LI>The <B>Speed</B> type is used to control something related to speed
+       (gobo rotation, rainbow speed, tracking speed).</LI>
+   <LI>The <B>Prism</B> type is used to control a prism.</LI>
+   <LI>The <B>Shutter</B> type is used to control a shutter, a strobe or an iris.</LI>
+   <LI>The <B>Beam</B> type is used to control a beam shaper (such as a zoom feature).</LI>
+   <LI>The <B>Effect</B> type is used to control something that doesn't quite fit into any of the other groups.</LI>
+   <LI>The <B>Maintenance</B> type is used to control feature such as resetting or a cooling fan
+       or something similar.</LI>
+   <LI>The <B>Nothing</B> type is used as a channel spacer or a place holder. Some channels
+       of this type might be replaced with the <A HREF="">alias</A> feature.</LI>
+   <LI>The <B>Pan</B> and <B>Tilt</B> types are used to control Pan/Tilt (or X/Y) features of
+       moving heads or lasers</LI>
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Default value</B></TD>
+  <TD>Specify the DMX value (0 to 255) to which a channel is set on power up. For example, some moving heads
+      position their Pan/Tilt motors half way, which means the initial DMX channel value is equal to 127.
+  </TD>
+ </TR>
+ <TR>
+  <TD><B>Role</B></TD>
+  <TD>
+   Applicable to channel pairs that make 16 bit values, usually <B>Pan</B> or <B>Tilt</B> group, but some newer fixtures
+   support 16 bit dimmer or even RGB, gobo or focus channels.<BR />
+   For 8 bit values (e.g. when the fixture supports only 8bit movement, only one channel for each movement),
+   assign the <B>Coarse (MSB)</B> control byte to the channel. If, however, the fixture supports 16bit
+   (two channels for each feature), you should assign the <B>Coarse (MSB)</B> byte to the channels that
+   provide coarse value and the <B>Fine (LSB)</B> byte to the channels that provide fine value adjustment.
+   If you are not sure, use <B>Coarse MSB</B>.</LI>
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Capabilities</B>
+  </TD>
+  <TD>
+   Displays the list of DMX value ranges for the currently edited channel. If a
+   channel provides only one capability (for example pan or dimmer) you should use a channel preset (see above).
+   For more elaborate capabilities, such as colors or gobos, you should create
+   capability ranges for each of the colors (for example 0-15 white, 16-32 blue...).<br>
+   Specific ranges for each channel can be found in the product manual under the name "DMX chart".<br>
+   Entering DMX ranges is pretty straight forward. The entry area is organized as a spreadsheet
+   where range values and descriptions can be entered continuously just by pressing the TAB key.<br>
+  </TD>
+ </TR>
+ <TR>
+  <TD>
+   <B>Preset</B>
+  </TD>
+  <TD>
+   Each capability can be enriched with a so called "preset", which tells the QLC+ engine
+   more useful information about a range of DMX values.<br>
+   For example if the capability is "Shutter open", a preset called "ShutterOpen" is available so
+   that QLC+ knows exactly how to treat the range.<br>
+   Depending on the preset type, one or more additional information could be entered:
+   <UL>
+    <LI>ColorMacro: allows to pick a single color used tyipically on color wheels</LI>
+    <LI>ColorDoubleMacro: allows to pick two colors to represent an intermediate
+        position of a color wheel (Fig. 3)</LI>
+    <LI>GoboMacro: allows to select a gobo picture to be used when entering the capability range (Fig. 4)</LI>
+    <LI>StrobeFrequency: allows to enter a precise frequency (in Hertz) for a strobe feature</LI>
+    <LI>StrobeFreqRange: allows to enter 2 values (minimum and maximum) to represent the range
+        of frequencies (in Hertz) to simulate a strobo effect (Fig. 2)</LI>
+    <LI>Alias: This is a special capability preset to indicate that when in this range, an alias
+        should be triggered. An alias is a replacement of a channel. See the <A HREF="#aliases">Aliases tab</A>
+        to understand how to define aliases</LI>
+   </UL>
+  </TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/edit_remove.png"/></TD>
+  <TD>Remove the selected capabilities from the channel.</TD>
+ </TR>
+ <TR>
+  <TD><IMG SRC="qrc:/wizard.png"/></TD>
+  <TD>
+   Create new capabilities quickly with the capability wizard.
+  </TD>
+ </TR>
+</TABLE>
+
+<H3 id="cap_wizard">Capbility wizard</H3>
+<P>
+Capability Wizard is a handy tool for creating multiple capability value
+ranges of the same size. Usually this applies to fixed colors, gobo indices
+and various macro channels.
+</P>
+
+<TABLE>
+ <TR>
+  <TD><IMG SRC="file:../images/fixtureeditor_channel_wizard.png"/>
+  <TD>
+   <TABLE BORDER=1 class="qlcTable">
+    <TR>
+     <TD><B>Start</B></TD>
+     <TD>The starting value for new capabilities. Sometimes there might be other
+       capabilities at the start of the channel's value range that you can skip
+       by adjusting this value.
+     </TD>
+    </TR>
+    <TR>
+     <TD><B>Width</B></TD>
+     <TD>The size of each value range.</TD>
+    </TR>
+    <TR>
+     <TD><B>Amount</B></TD>
+     <TD>Number of capabilities to create.</TD>
+    </TR>
+    <TR>
+     <TD><B>Name</B></TD>
+     <TD>The common name for each capability. You can use the hash mark # to denote
+       a place for an index number (i.e. "Gobo #" creates Gobo 1, Gobo 2, Gobo 3...)
+     </TD>
+    </TR>
+    <TR>
+     <TD><B>Sample</B></TD>
+     <TD>Every time you change a parameter in the wizard, this list is updated to
+       show you a sample of what kinds of capabilities will be created once you
+       click OK.
+     </TD>
+    </TR>
+   </TABLE>
+  </TD>
+ </TR>
+</TABLE>
+
+<H2 id="modes">Modes Tab</H2>
+
+<P>
+The modes tab contains all <A HREF="file:concept.html#FixtureMode">modes</A> the
+fixture can be configured to.
+</P>
+
+<TABLE>
+ <TR>
+  <TD><IMG SRC="file:../images/fixtureeditor_modes.png" WIDTH="700"/>
+  <TD>
+   <TABLE BORDER=1 class="qlcTable">
+    <TR>
+     <TD><B>Mode list</B></TD>
+     <TD>Displays all modes for the currently edited fixture. Each mode item can be
+       opened to display the set and order of channels in that mode.
+       <LI>Name: The name of the mode (each name must be unique)</LI>
+       <LI>Channels: Number of channels in each mode</LI>
+       <LI>Heads: The number of light sources each mode supports</LI>
+     </TD>
+    </TR>
+    <TR>
+     <TD><IMG SRC="qrc:/edit_add.png"/></TD>
+     <TD>Create a new mode for the fixture, using the <A HREF="file:modeeditor.html">Mode Editor</A>.</TD>
+    </TR>
+    <TR>
+     <TD><IMG SRC="qrc:/edit_remove.png"/></TD>
+     <TD>Remove the currently selected mode from the fixture. Removing a mode does not
+        destroy any channels or other modes.
+     </TD>
+    </TR>
+    <TR>
+     <TD><IMG SRC="qrc:/edit.png"/></TD>
+     <TD>Edit the currently selected mode, using the <A HREF="file:modeeditor.html">Mode Editor</A>.</TD>
+    </TR>
+    <TR>
+     <TD><IMG SRC="qrc:/editcopy.png"/></TD>
+     <TD>Create a copy of the currently selected mode to the same fixture. Since modes
+       are tightly coupled to a certain fixture's channels, modes cannot be copied
+       across fixtures.
+     </TD>
+    </TR>
+    <TR>
+     <TD><IMG SRC="qrc:/check.png"/></TD>
+     <TD>Open or close all mode items.</TD>
+    </TR>
+   </TABLE>
+  </TD>
+ </TR>
+</TABLE>
+
+<H2 id="aliases">Aliases Tab</H2>
+
+<P>
+In this tab it is possible to define the rules of replacement triggered by capabilities set as "Alias" preset.<BR>
+Let's make an example. A fixture has channel 5 named "Effects" which controls the behavior of channel 6.
+Channel 5 has 2 capabilities: "Speed on channel 6" and "Sound sensitivity on channel 6".
+The latter have been set to the "Alias" preset. By default, when DMX value of channel 5 is 0,
+channel 6 acts as speed control. When DMX value of channel 5 enters the "sound sensitivity" capability,
+channel 6 becomes a sound sensitivity adjustment.<BR>
+To cope with this case, you need to define 2 channels: "Speed" and "Sound sensitivity". In the fixture mode
+add only "Speed", since it will the default behavior when DMX value of channel 5 is equal to 0.<BR>
+Then you need to define just one alias: the one that will replace the default channel "Speed"
+with "Sound sensitivity". QLC+ will then know what to do when the DMX value
+of channel 5 enters or exits the alias.
+</P>
+
+<TABLE>
+ <TR>
+  <TD><IMG SRC="file:../images/fixtureeditor_aliases.png" WIDTH="700"/>
+  <TD>
+   <TABLE BORDER=1 class="qlcTable">
+    <TR>
+     <TD><B>Alias</B></TD>
+     <TD>Shows the list of all capabilities of all channels set as "Alias" preset.
+        The string is in the form [Channel name] - [Capability name] [DMX value range]</TD>
+    </TR>
+    <TR>
+     <TD><B>In mode</B></TD>
+     <TD>Select the mode where the alias must have effect</TD>
+    </TR>
+    <TR>
+     <TD><B>replace</B></TD>
+     <TD>Select the mode channel to be replaced when the alias is triggered</TD>
+    </TR>
+    <TR>
+     <TD><B>with</B></TD>
+     <TD>Select the channel that will substitute the "replace" channel when the alias is triggered</TD>
+    </TR>
+    <TR>
+     <TD><IMG SRC="qrc:/edit_add.png"/></TD>
+     <TD>Add the triplet <I>In mode</I> X, <I>replace</I> Y <I>with</I> Z to the known aliases list</TD>
+    </TR>
+    <TR>
+     <TD><IMG SRC="qrc:/edit_remove.png"/></TD>
+     <TD>Remove the selected alias from the aliases list</TD>
+    </TR>
+   </TABLE>
+  </TD>
+ </TR>
+</TABLE>
+
+</BODY>
+</HTML>

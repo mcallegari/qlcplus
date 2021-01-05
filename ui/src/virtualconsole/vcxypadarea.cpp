@@ -76,52 +76,52 @@ void VCXYPadArea::setMode(Doc::Mode mode)
 
 QPointF VCXYPadArea::position(bool resetChanged) const
 {
-    m_mutex.lock();
+    QMutexLocker locker(&m_mutex);
     QPointF pos(m_dmxPos);
     if (resetChanged)
         m_changed = false;
-    m_mutex.unlock();
     return pos;
 }
 
 void VCXYPadArea::setPosition(const QPointF& point)
 {
-    m_mutex.lock();
-    if (m_dmxPos != point)
     {
-        m_dmxPos = point;
+        QMutexLocker locker(&m_mutex);
 
-        if (m_dmxPos.x() > MAX_DMX_VALUE)
-            m_dmxPos.setX(MAX_DMX_VALUE);
-        if (m_dmxPos.y() > MAX_DMX_VALUE)
-            m_dmxPos.setY(MAX_DMX_VALUE);
+        if (m_dmxPos != point)
+        {
+            m_dmxPos = point;
 
-        m_changed = true;
+            if (m_dmxPos.x() > MAX_DMX_VALUE)
+                m_dmxPos.setX(MAX_DMX_VALUE);
+            if (m_dmxPos.y() > MAX_DMX_VALUE)
+                m_dmxPos.setY(MAX_DMX_VALUE);
+
+            m_changed = true;
+        }
     }
-    m_mutex.unlock();
 
     emit positionChanged(point);
 }
 
 void VCXYPadArea::nudgePosition(qreal dx, qreal dy)
 {
-    m_mutex.lock();
-    m_dmxPos.setX(CLAMP(m_dmxPos.x() + dx, qreal(0), MAX_DMX_VALUE));
-    m_dmxPos.setY(CLAMP(m_dmxPos.y() + dy, qreal(0), MAX_DMX_VALUE));
+    {
+        QMutexLocker locker(&m_mutex);
 
-    m_changed = true;
+        m_dmxPos.setX(CLAMP(m_dmxPos.x() + dx, qreal(0), MAX_DMX_VALUE));
+        m_dmxPos.setY(CLAMP(m_dmxPos.y() + dy, qreal(0), MAX_DMX_VALUE));
 
-    m_mutex.unlock();
+        m_changed = true;
+    }
 
     emit positionChanged(m_dmxPos);
 }
 
 bool VCXYPadArea::hasPositionChanged()
 {
-    m_mutex.lock();
-    bool changed = m_changed;
-    m_mutex.unlock();
-    return changed;
+    QMutexLocker locker(&m_mutex);
+    return m_changed;
 }
 
 void VCXYPadArea::slotFixturePositions(const QVariantList positions)
@@ -186,7 +186,7 @@ QString VCXYPadArea::angleString() const
             .arg(pos.x() * 100 / MAX_DMX_VALUE, 7, 'f', 3, '0')
             .arg(pos.y() * 100 / MAX_DMX_VALUE, 7, 'f', 3, '0');
     }
-    
+
 }
 
 /*************************************************************************
@@ -263,9 +263,9 @@ void VCXYPadArea::setEFXPolygons(const QPolygonF &pattern, const QVector<QPolygo
     m_previewArea->setFixturePolygons(fixtures);
 }
 
-void VCXYPadArea::setEFXInterval(int interval)
+void VCXYPadArea::setEFXInterval(uint duration)
 {
-    m_previewArea->draw(interval);
+    m_previewArea->draw(duration / m_previewArea->polygonsCount());
 }
 
 /*****************************************************************************
@@ -320,7 +320,7 @@ void VCXYPadArea::paintEvent(QPaintEvent* e)
     }
 
     updateWindowPos();
-    
+
     if (m_previewArea == NULL)
     {
         foreach(QVariant pos, m_fixturePositions)
@@ -404,7 +404,7 @@ void VCXYPadArea::keyPressEvent(QKeyEvent *e)
             step *= 10;
         if (e->modifiers().testFlag(Qt::ShiftModifier))
             step /= 256;
-        
+
         if (e->key() == Qt::Key_Left)
         {
             nudgePosition(-step , 0);

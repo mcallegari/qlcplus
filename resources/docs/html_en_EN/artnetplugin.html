@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - ArtNet Plugin</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>ArtNet input/output plugin</H1>
+
+<H2>Introduction</H2>
+
+<P>
+QLC+ supports the <a href="https://en.wikipedia.org/wiki/Art-Net">ArtNet protocol</a> through an input/output plugin
+that receives and transmits packets on the network.<br>
+No extra requirements are needed, since QLC+ has a native implementation of the ArtNet protocol
+that works on Linux, Windows and macOS systems.<br>
+The ArtNet plugin can send and receive packets from multiple network cards, virtual addresses,
+the loopback device (127.0.0.1) and multiple universes per network interface.<br>
+By default, ArtNet packets are transmitted as UDP, using the default port 6454 and the broadcast address of
+the selected inteface (e.g. 192.168.0.255). When using the loopback device packets are always transmitted
+using address 127.0.0.1.<br>
+When transmitting multiple universes on the same interface, the packets will be sent by default with an ArtNet
+Universe ID equal to the QLC+ universe number minus 1.<br>
+<br>
+For example:<br>
+QLC+ Universe 1 --> ArtNet Universe 0<br>
+QLC+ Universe 2 --> ArtNet Universe 1<br>
+...<br>
+QLC+ Universe 8 --> ArtNet Universe 7<br>
+<br>
+This choice is due to some facts:<br>
+1- The first valid ArtNet universe is 0 and not 1<br>
+2- The first universe accepted by commercial ArtNet-DMX devices like eDMX and ODE is 0, so
+to have QLC+ to work out of the box, the first ArtNet universe must be 0.<br>
+<br>
+If the above settings don't meet the requirements of your network, please read the following chapter.
+</P>
+
+<H2>Configuration</H2>
+
+<P>
+When clicking on the <IMG SRC="qrc:/configure.png" width=32> configuration button,
+a small dialog will be displayed, showing 2 tabs: the Universes Configuration and the Nodes Tree.<br><br>
+<b>Universes Configuration</b>: <u>after</u> a QLC+ universe is patched with an ArtNet input or output,
+an entry will be displayed in this list, allowing to manually configure the desired parameters to be used by
+the ArtNet plugin.<br>
+Input lines do not have particular parameters, while an output line can be configured wth the following:<br>
+<ul>
+ <li><b>IP Address</b>: This is the destination IP address where the ArtNet plugin will transmit packets to. By default
+     a broadcast address is used (so ending with .255) and by setting this in the 1-254 range, ArtNet will
+     transmit a QLC+ universe in unicast mode. If your ArtNet network uses a simple hub, the output IP address is
+     irrelevant, as broadcast or unicast doesn't make any difference. However, if you use a network switch, unicast
+     is fundamental to balance the network congestion, as every port of the switch is associated to a network IP and
+     will receive only the packets with its destination IP.<br>
+     <b>Note</b>: Do not set the output IP address with the same IP address of your transmitting node (e.g. the PC where
+     QLC+ is running) as it is just wrong and can cause a network loop. If you need to communicate with an ArtNet node
+     running in the same machine where QLC+ is running, use the loopback device instead (127.0.0.1).
+  </li>
+  <li><b>ArtNet Universe</b>: This is the ArtNet universe that will be actually written in every packet transmitted.
+     By setting this parameter, you can use any QLC+ universe to transmit to the desired ArtNet universe.
+  </li>
+  <li><b>Transmission Mode</b>: Here you can select if QLC+ should transmit full or partial universes.<br>
+     'Full' means that all the 512 DMX channels of a universe are transmitted at the speed rate of the QLC+
+     internal clock (50Hz), producing a fixed bitrate of about 200Kbit/s.<br>
+     'Partial', instead, means that QLC+ will transmit only the DMX channel actually used in a universe,
+     starting from channel 1. For example if you raise channel 3 of a fixture with address 50, the ArtNet plugin
+     will transmit only 53 DMX channels, thus limiting the trasnmission bitrate. Use this setting only if the
+     receiving ArtNet node supports partial transmission.
+  </li>
+</ul>
+Settings that are different from the plugin defaults, will be stored in your QLC+ workspace, to increase the
+portability of a project across different platforms, such as different operating systems or a PC and a Raspberry Pi.
+<br>
+<br>
+<b>Nodes Tree</b>: This tab displays the ArtNet nodes discovered on the network, grouped by network interface.<br>
+QLC+ will always appear in this list as a node participating to the network.<br>
+ArtNet nodes are added to this list if they support the ArtPoll/ArtPollReply message, otherwise they won't appear.
+This doesn't mean you will not able to communicate with them.
+</P>
+
+<H2>DMXKing eDMX and ENTTEC ODE</H2>
+
+<P>
+If you own one of these devices, they both have configuration tools that might come handy
+when working with QLC+. With them you can set several parameters to match the best
+configuration to input/output data from/to QLC+.<br>
+For example if you want QLC+ universe 3 to output data on the first port of a eDMX,
+you need to use the tool below to change the device universe address to 2.<br>
+<br>
+Here the links to download the tools:<br>
+<A href="https://dmxking.com/downloads/eDMX_Configuration.zip">DMXKing eDMX Configuration tool</A><br>
+<A href="https://www.enttec.com/?main_menu=Products&pn=79001">ENTTEC Node Management Utility</A><br>
+</P>
+
+<H2>Compatibility</H2>
+
+<P>
+QLC+ has been tested with the following ArtNet softwares/devices:
+<ul>
+ <li><a href="https://dmxking.com/artnetsacn/edmx1">DMXking eDMX1 TX</a> - 1 Output device</li>
+ <li><a href="https://dmxking.com/artnetsacn/edmx2-tx-rdm">DMXking eDMX2 TX</a> - 2 Outputs device</li>
+ <li><a href="https://www.enttec.com/index.php?main_menu=Products&pn=70305">Enttec Open DMX Ethernet (ODE)</a> - Input/Output device</li>
+ <li><a href="https://www.opendmx.net/index.php/Open_Lighting_Architecture">OLA - Open Lighting Architecture</a> - Input/Output software node</li>
+ <li><a href="https://sites.google.com/site/artnetcontroller/">ArtNet Controller LITE</a> - Input controller for Android</li>
+ <li><a href="https://play.google.com/store/apps/details?id=com.litux.art_net_controller_lite">Art-Net Controller LITE</a> - Input controller for Android</li>
+ <li><a href="http://www.garagecube.com/modul8/">Modul8</a>
+ <li><a href="http://www.live-leds.de/">Jinx!</a> - LED Matrix Control</li>
+</ul>
+</P>
+
+</BODY>
+</HTML>

@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.9.1</Version>
+  <Author>Robert Box</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>LED PAR 64 Tri-B</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Color Macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Max="15" Min="0">No function</Capability>
+  <Capability Max="255" Min="16">Color macros</Capability>
+ </Channel>
+ <Channel Name="Speed/Strobe">
+  <Group Byte="0">Effect</Group>
+  <Capability Max="15" Min="0">Slow~fast/No function</Capability>
+  <Capability Max="255" Min="16">Slow~fast/Slow~fast (6Hz ~ 18Hz)</Capability>
+ </Channel>
+ <Channel Name="Operating Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Max="31" Min="0">RGB</Capability>
+  <Capability Max="63" Min="32">Pulse effect 0%~100% (using RGB faders)</Capability>
+  <Capability Max="95" Min="64">Pulse effect 100%~0% (using RGB faders)</Capability>
+  <Capability Max="127" Min="96">Pulse effect 100%~0%~100% (using RGB faders)</Capability>
+  <Capability Max="159" Min="128">Auto fade transition</Capability>
+  <Capability Max="191" Min="160">Auto snap transition (3 colors)</Capability>
+  <Capability Max="223" Min="192">Auto snap transition (7 colors)</Capability>
+  <Capability Max="255" Min="224">Sound triggering</Capability>
+ </Channel>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Mode Name="7-Channel Personality">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Color Macros</Channel>
+  <Channel Number="4">Speed/Strobe</Channel>
+  <Channel Number="5">Operating Mode</Channel>
+  <Channel Number="6">Dimmer</Channel>
+ </Mode>
+ <Mode Name="3-Channel Personality">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="LED" ColourTemperature="0" Lumens="0"/>
+   <Dimensions Width="251" Depth="383" Height="302" Weight="2.9"/>
+   <Lens Name="Other" DegreesMin="22" DegreesMax="22"/>
+   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
+   <Technical DmxConnector="3-pin" PowerConsumption="60"/>
+  </Physical>
+</FixtureDefinition>

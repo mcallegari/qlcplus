@@ -18,80 +18,98 @@
 */
 
 import QtQuick 2.0
+import QtQuick.Controls 2.1
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "."
 
-Rectangle
+Popup
 {
     id: menuRoot
-    width: addFuncMenuEntries.width
-    height: addFuncMenuEntries.height
-    color: UISettings.bgMedium
+    padding: 0
+
+    signal requestFolder()
     signal entryClicked(int fType)
+
+    background:
+        Rectangle
+        {
+            color: UISettings.bgMedium
+        }
 
     Column
     {
         id: addFuncMenuEntries
         ContextMenuEntry
         {
+            imgSource: "qrc:/folder.svg"
+            entryText: qsTr("New folder")
+            onClicked:
+            {
+                functionManager.createFolder()
+                menuRoot.close()
+            }
+        }
+
+        ContextMenuEntry
+        {
             imgSource: "qrc:/scene.svg"
             entryText: qsTr("New Scene")
-            onClicked: entryClicked(Function.SceneType)
+            onClicked: entryClicked(QLCFunction.SceneType)
         }
         ContextMenuEntry
         {
             imgSource: "qrc:/chaser.svg"
             entryText: qsTr("New Chaser")
-            onClicked: entryClicked(Function.ChaserType)
+            onClicked: entryClicked(QLCFunction.ChaserType)
         }
         ContextMenuEntry
         {
             imgSource: "qrc:/sequence.svg"
             entryText: qsTr("New Sequence")
-            onClicked: entryClicked(Function.SequenceType)
+            onClicked: entryClicked(QLCFunction.SequenceType)
         }
         ContextMenuEntry
         {
             imgSource: "qrc:/efx.svg"
             entryText: qsTr("New EFX")
-            onClicked: entryClicked(Function.EFXType)
+            onClicked: entryClicked(QLCFunction.EFXType)
         }
         ContextMenuEntry
         {
             imgSource: "qrc:/collection.svg"
             entryText: qsTr("New Collection")
-            onClicked: entryClicked(Function.CollectionType)
+            onClicked: entryClicked(QLCFunction.CollectionType)
         }
         ContextMenuEntry
         {
             imgSource: "qrc:/rgbmatrix.svg"
             entryText: qsTr("New RGB Matrix")
-            onClicked: entryClicked(Function.RGBMatrixType)
+            onClicked: entryClicked(QLCFunction.RGBMatrixType)
         }
         ContextMenuEntry
         {
             imgSource: "qrc:/showmanager.svg"
             entryText: qsTr("New Show")
-            onClicked: entryClicked(Function.ShowType)
+            onClicked: entryClicked(QLCFunction.ShowType)
         }
         ContextMenuEntry
         {
             imgSource: "qrc:/script.svg"
             entryText: qsTr("New Script")
-            onClicked: entryClicked(Function.ScriptType)
+            onClicked: entryClicked(QLCFunction.ScriptType)
         }
         ContextMenuEntry
         {
             imgSource: "qrc:/audio.svg"
             entryText: qsTr("New Audio")
-            onClicked: entryClicked(Function.AudioType)
+            onClicked: entryClicked(QLCFunction.AudioType)
         }
         ContextMenuEntry
         {
             imgSource: "qrc:/video.svg"
             entryText: qsTr("New Video")
-            onClicked: entryClicked(Function.VideoType)
+            onClicked: entryClicked(QLCFunction.VideoType)
         }
     }
 }

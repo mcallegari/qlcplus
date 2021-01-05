@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Fredje Gallon</Author>
+ </Creator>
+ <Manufacturer>Contest</Manufacturer>
+ <Model>Mini-Head 10W</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Shows">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">Blackout</Capability>
+  <Capability Min="8" Max="15">Show 0 (audio off)</Capability>
+  <Capability Min="16" Max="63">Show 1</Capability>
+  <Capability Min="64" Max="111">Show 2</Capability>
+  <Capability Min="112" Max="159">Show 3</Capability>
+  <Capability Min="160" Max="207">Show 4</Capability>
+  <Capability Min="208" Max="255">Show 0 (audio on)</Capability>
+ </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="7">Black out</Capability>
+  <Capability Min="8" Max="255">Dim 0-100%</Capability>
+ </Channel>
+ <Channel Name="Color wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="15">Open</Capability>
+  <Capability Min="16" Max="50" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="51" Max="85" Preset="ColorMacro" Res1="#ffaa00">Orange</Capability>
+  <Capability Min="86" Max="115" Preset="ColorMacro" Res1="#bd3f91">Purple</Capability>
+  <Capability Min="116" Max="150" Preset="ColorMacro" Res1="#015daa">Blue sky</Capability>
+  <Capability Min="151" Max="185" Preset="ColorMacro" Res1="#cd60a1">Violet</Capability>
+  <Capability Min="186" Max="215" Preset="ColorMacro" Res1="#019a3f">Green</Capability>
+  <Capability Min="216" Max="255" Preset="ColorMacro" Res1="#f2e500">Yellow</Capability>
+ </Channel>
+ <Channel Name="Gobos">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="14" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="15" Max="50" Preset="GoboMacro" Res1="Chauvet/gobo00024.svg">Circle small</Capability>
+  <Capability Min="51" Max="85" Preset="GoboMacro" Res1="Others/gobo00038.svg">Twist</Capability>
+  <Capability Min="86" Max="115" Preset="GoboMacro" Res1="Robe/gobo00051.png">Scratch</Capability>
+  <Capability Min="116" Max="150" Preset="GoboMacro" Res1="Robe/gobo00038.svg">Line</Capability>
+  <Capability Min="151" Max="185" Preset="GoboMacro" Res1="Others/gobo00027.svg">Triangle</Capability>
+  <Capability Min="186" Max="215" Preset="GoboMacro" Res1="Others/gobo00014.svg">Circle open</Capability>
+  <Capability Min="216" Max="255" Preset="GoboMacro" Res1="Others/gobo00012.svg">Star open</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="15" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="16" Max="131" Preset="StrobeRandom">Strobe 0-100%</Capability>
+  <Capability Min="132" Max="139" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="140" Max="181" Preset="PulseSlowToFast">Pulse</Capability>
+  <Capability Min="182" Max="189" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="190" Max="231" Preset="PulseSlowToFast">Pulse inv.</Capability>
+  <Capability Min="232" Max="239" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="240" Max="247" Preset="StrobeRandom">Strobe random</Capability>
+  <Capability Min="248" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Special functions">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="69">Noop</Capability>
+  <Capability Min="70" Max="79">Blackout during pan/tilt</Capability>
+  <Capability Min="80" Max="89">Noop</Capability>
+  <Capability Min="90" Max="99">Blackout during colorchange</Capability>
+  <Capability Min="100" Max="109">Noop</Capability>
+  <Capability Min="110" Max="119">Blackout during gobo-change</Capability>
+  <Capability Min="120" Max="199">Noop</Capability>
+  <Capability Min="200" Max="209" Preset="ResetAll">General reset</Capability>
+  <Capability Min="210" Max="255">Noop</Capability>
+ </Channel>
+ <Mode Name="1 channel">
+  <Channel Number="0">Shows</Channel>
+ </Mode>
+ <Mode Name="8 channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Dimmer</Channel>
+  <Channel Number="3">Strobe</Channel>
+  <Channel Number="4">Color wheel</Channel>
+  <Channel Number="5">Gobos</Channel>
+  <Channel Number="6">Special functions</Channel>
+  <Channel Number="7">Shows</Channel>
+ </Mode>
+ <Mode Name="10 channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Dimmer</Channel>
+  <Channel Number="5">Strobe</Channel>
+  <Channel Number="6">Color wheel</Channel>
+  <Channel Number="7">Gobos</Channel>
+  <Channel Number="8">Special functions</Channel>
+  <Channel Number="9">Shows</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="625" ColourTemperature="6000"/>
+  <Dimensions Weight="2.7" Width="175" Height="258" Depth="141"/>
+  <Lens Name="Other" DegreesMin="14" DegreesMax="14"/>
+  <Focus Type="Fixed" PanMax="610" TiltMax="220"/>
+  <Technical PowerConsumption="20" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

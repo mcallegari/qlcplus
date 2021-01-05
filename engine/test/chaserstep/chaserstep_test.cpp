@@ -161,7 +161,7 @@ void ChaserStep_Test::load()
     buffer.open(QIODevice::ReadOnly | QIODevice::Text);
     QXmlStreamReader xmlReader(&buffer);
 
-    QVERIFY(step.loadXML(xmlReader, number) == false);
+    QVERIFY(step.loadXML(xmlReader, number, NULL) == false);
     QCOMPARE(number, -1);
 
     buffer.close();
@@ -184,7 +184,7 @@ void ChaserStep_Test::load()
     xmlReader.setDevice(&buffer);
     xmlReader.readNextStartElement();
 
-    QVERIFY(step.loadXML(xmlReader, number) == true);
+    QVERIFY(step.loadXML(xmlReader, number, NULL) == true);
     QCOMPARE(number, 5);
     QCOMPARE(step.fadeIn, uint(10));
     QCOMPARE(step.hold, uint(15));
@@ -220,7 +220,7 @@ void ChaserStep_Test::load_sequence()
     xmlReader.setDevice(&buffer);
     xmlReader.readNextStartElement();
 
-    QVERIFY(step.loadXML(xmlReader, number) == true);
+    QVERIFY(step.loadXML(xmlReader, number, NULL) == true);
     QCOMPARE(number, 1);
     QCOMPARE(step.fadeIn, uint(10));
     QCOMPARE(step.hold, uint(15));
@@ -265,7 +265,7 @@ void ChaserStep_Test::load_legacy_sequence()
     xmlReader.setDevice(&buffer);
     xmlReader.readNextStartElement();
 
-    QVERIFY(step.loadXML(xmlReader, number) == true);
+    QVERIFY(step.loadXML(xmlReader, number, NULL) == true);
     QCOMPARE(number, 1);
     QCOMPARE(step.fadeIn, uint(10));
     QCOMPARE(step.hold, uint(15));

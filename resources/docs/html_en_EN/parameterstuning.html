@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - Parameters Tuning</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>Parameters tuning</H1>
+<P>
+This section explains how to manually get at and tune some QLC+ parameters not available from the UI.<br>
+Keep in mind that if you cannot change them from the UI, it means there is a good reason for it.
+<H2>Warning: DO NOT edit the configuration files manually unless you know what you're doing. Any misplaced change can cause
+program crashes or awkward instability.</H2>
+</P>
+
+<H1 id="location">1 QLC+ configuration location</H1>
+
+<H2>Linux</H2>
+<P>
+Configuration files are located in your user $HOME directory, in the .config/qlcplus folder.<br>
+Here's the quick command to access it from a terminal:<br>
+<code>cd $HOME/.config/qlcplus</code><br>
+You will find both QLC+ and Fixture editor configuration files.
+</P>
+
+<H2>Windows</H2>
+<P>
+Configuration parameters are stored in the Windows registry.<br>
+To access it, run the "regedit" tool and search for the key named "qlcplus".<br>
+</P>
+
+<H2>Mac OSX</H2>
+<P>
+Configuration files are located in your user $HOME directory, in the Library/Preferences folder,
+which is by default hidden by OSX.<br>
+Here's the quick command to access it from a terminal:<br>
+<code>cd $HOME/Library/Preferences</code><br>
+The QLC+ configuration file is called <code>net.sf.Q Light Controller Plus.plist</code> while the Fixture editor
+configuration file is called <code>net.sf.Fixture Definition Editor.plist</code>.<br><br>
+<B>Please note that preferences are cached!</B> Basically OSX loads all the plist files in memory at boot,
+and if you change them manually it will ignore the changes. Even worse, periodically it refreshes the files,
+so it overwrites your changes.<br>
+The solution is, after changing a .plist file, open a terminal and type this:<br>
+<code>killall -u yourusername cfprefsd</code><br>
+Where <code>yourusername</code> is the name of the user you use to access your Mac. The command forces OSX
+to reload the preferences, including your changes.
+</P>
+
+<H1 id="reset">2 Configuration Reset</H1>
+<P>
+Sometimes it might be necessary to reset the QLC+ configuration and bring QLC+ to a "Factory defaults" state.<br>
+To do so, locate the configuration as explained in the first paragraph, then do the following:
+<ul>
+ <li>On Linux and OSX use the <code>rm 'filename'</code> command to delete the configuration file</li>
+ <li>On Windows delete the whole 'qlcplus' KEY using regedit</li>
+</ul>
+</P>
+
+<H1 id="syntax">3 Parameters syntax</H1>
+<P>
+Due to Qt differences on different platforms, parameters are stored in different ways depending on
+your Operating System.
+
+<H2>Linux</H2>
+Parameters are stored in a plain text file that you can modify with a plain text
+editor like gedit, kwrite, kate, nano, vim or similar. They are presented as follows:
+<PRE>
+    [category]
+    name=value
+</PRE>
+
+<H2>Windows</H2>
+Parameters are stored in the Windows registry and can be modified with the regedit tool
+included in every Windows version. They are presented as follows:
+<PRE>
+    "category" is displayed as a folder
+    "parameter" is contained in "category" and is represented as a key. It is most likely that all QLC+ keys are an integer type.
+    "value" is the actual value of "parameter"
+</PRE>
+
+<H2>Mac OSX</H2>
+Parameters are stored in a plain text file that you can modify with a plain text
+editor like <a href="https://www.barebones.com/products/textwrangler/">TextWrangler</a> or similar. They are presented as follows:
+<PRE>
+    &lt;key&gt;category.name&lt;/key&gt;
+    &lt;string&gt;value&lt;/string&gt;
+    or
+    &lt;integer&gt;42&lt;/integer&gt;
+</PRE>
+</P>
+
+<H1 id="list">4 Parameters list</H1>
+<P>
+Most likely you will not find the following parameters in a standard QLC+
+configuration. To make them effective, you need to <B>add</B> them at the end
+of your configuration file.
+
+<H3 id="SimpleDesk">4.1 Simple Desk</H3>
+<PRE>
+<B>Category:</B> simpledesk
+<B>Name:</B> channelsperpage
+<B>Type:</B> integer
+<B>Description:</B> Set the number of DMX channel sliders displayed per page
+<B>Default:</B> 32
+</PRE>
+<PRE>
+<B>Category:</B> simpledesk
+<B>Name:</B> playbacksperpage
+<B>Type:</B> integer
+<B>Description:</B> set the number of playback sliders displayed per page
+<B>Default:</B> 15
+</PRE>
+
+<H3 id="EnttecOpenChannels">4.2 DMX USB Enttec Open channels number</H3>
+<PRE>
+<B>Category:</B> enttecdmxusbopen
+<B>Name:</B> channels
+<B>Type:</B> integer
+<B>Description:</B> Set the maximum number of DMX channels transmitted by Enttec Open (and similar) devices.
+In some cases this could solve flickering issues. For example you might try with 256.
+<B>Default:</B> 512
+</PRE>
+
+<H3 id="uDMX">4.3 uDMX frequency</H3>
+<PRE>
+<B>Category:</B> udmx
+<B>Name:</B> frequency
+<B>Type:</B> integer
+<B>Description:</B> Set the DMX frame frequency in Hertz for uDMX devices
+<B>Default:</B> 30
+</PRE>
+
+<H3 id="uDMXChannels">4.4 uDMX channels number</H3>
+<PRE>
+<B>Category:</B> udmx
+<B>Name:</B> channels
+<B>Type:</B> integer
+<B>Description:</B> Set the maximum number of DMX channels transmitted by uDMX devices.
+In some cases this could solve flickering issues. For example you might try with 128.
+<B>Default:</B> 512
+</PRE>
+
+<H3 id="MasterTimer">4.5 Master Timer frequency</H3>
+<PRE>
+<B>Category:</B> mastertimer
+<B>Name:</B> frequency
+<B>Type:</B> integer
+<B>Description:</B> Set the QLC+ core timer frequency in Hertz
+<B>Default:</B> 50
+</PRE>
+
+</BODY>
+</HTML>

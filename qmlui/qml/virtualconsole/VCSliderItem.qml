@@ -20,7 +20,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "."
 
 VCWidgetItem
@@ -28,6 +28,7 @@ VCWidgetItem
     id: sliderRoot
     property VCSlider sliderObj: null
     property int sliderValue: sliderObj ? sliderObj.value : 0
+    property int sliderMode: sliderObj ? sliderObj.sliderMode : VCSlider.Adjust
 
     radius: 2
 
@@ -56,6 +57,48 @@ VCWidgetItem
         GradientStop { position: 1.0; color: "#333333" }
     }
 
+    Gradient
+    {
+        id: grandMasterHandleGradient
+        GradientStop { position: 0; color: "#A81919" }
+        GradientStop { position: 0.45; color: "#DB2020" }
+        GradientStop { position: 0.50; color: "#000" }
+        GradientStop { position: 0.55; color: "#DB2020" }
+        GradientStop { position: 1.0; color: "#A81919" }
+    }
+
+    Gradient
+    {
+        id: grandMasterHandleGradientHover
+        GradientStop { position: 0; color: "#DB2020" }
+        GradientStop { position: 0.45; color: "#F51C1C" }
+        GradientStop { position: 0.50; color: "#FFF" }
+        GradientStop { position: 0.55; color: "#F51C1C" }
+        GradientStop { position: 1.0; color: "#DB2020" }
+    }
+
+    Rectangle
+    {
+        visible: sliderObj && sliderObj.monitorEnabled
+        y: slFader.y
+        x: parent.width - width
+        height: slFader.height
+        width: UISettings.listItemHeight * 0.2
+        rotation: sliderObj ? (sliderObj.invertedAppearance ? 0 : 180) : 180
+        color: UISettings.bgLight
+        border.width: 1
+        border.color: UISettings.bgStrong
+
+        Rectangle
+        {
+            x: 1
+            y: 1
+            color: "#00FF00"
+            height: sliderObj ? parent.height * (sliderObj.monitorValue / 255) : 0
+            width: parent.width - 2
+        }
+    }
+
     ColumnLayout
     {
         anchors.fill: parent
@@ -64,7 +107,7 @@ VCWidgetItem
         // value text box
         Text
         {
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignHCenter
             height: UISettings.listItemHeight
             font: sliderObj ? sliderObj.font : ""
             text: sliderObj ? (sliderObj.valueDisplayStyle === VCSlider.DMXValue ?
@@ -77,37 +120,36 @@ VCWidgetItem
         {
             id: slFader
             visible: sliderObj ? sliderObj.widgetStyle === VCSlider.WSlider : false
-            anchors.horizontalCenter: parent.horizontalCenter
+            enabled: visible
+            Layout.alignment: Qt.AlignHCenter
             Layout.fillHeight: true
             width: parent.width
             rotation: sliderObj ? (sliderObj.invertedAppearance ? 180 : 0) : 0
-            from: sliderObj ? (sliderObj.sliderMode === VCSlider.Level ? sliderObj.levelLowLimit : 0) : 0
-            to: sliderObj ? (sliderObj.sliderMode === VCSlider.Level ? sliderObj.levelHighLimit : 255) : 255
+            from: sliderObj ? sliderObj.rangeLowLimit : 0
+            to: sliderObj ? sliderObj.rangeHighLimit : 255
             value: sliderValue
-            handleGradient: sliderObj ? (sliderObj.sliderMode === VCSlider.Submaster ? submasterHandleGradient : defaultGradient) : defaultGradient
-            handleGradientHover: sliderObj ? (sliderObj.sliderMode === VCSlider.Submaster ? submasterHandleGradientHover : defaultGradientHover) : defaultGradientHover
-            trackColor: sliderObj ? (sliderObj.sliderMode === VCSlider.Submaster ? "#77DD73" : defaultTrackColor) : defaultTrackColor
+            handleGradient: sliderMode === VCSlider.Submaster ? submasterHandleGradient :
+                            (sliderMode === VCSlider.GrandMaster ? grandMasterHandleGradient : defaultGradient)
+            handleGradientHover: sliderMode === VCSlider.Submaster ? submasterHandleGradientHover :
+                                 (sliderMode === VCSlider.GrandMaster ? grandMasterHandleGradientHover : defaultGradientHover)
+            trackColor: sliderMode === VCSlider.Submaster ? "#77DD73" : defaultTrackColor
 
-            onTouchPressedChanged:
-            {
-                console.log("Slider touch pressed: " + touchPressed)
-                // QML tends to propagate touch events, so temporarily disable
-                // the page Flickable interactivity during this operation
-                virtualConsole.setPageInteraction(!touchPressed)
-            }
-            onPositionChanged: if (sliderObj) sliderObj.value = valueAt(position)
+            onMoved: if (sliderObj) sliderObj.value = valueAt(position)
         }
 
         QLCPlusKnob
         {
             id: slKnob
             visible: sliderObj ? sliderObj.widgetStyle === VCSlider.WKnob : false
-            anchors.horizontalCenter: parent.horizontalCenter
+            enabled: visible
+            Layout.alignment: Qt.AlignHCenter
             Layout.fillHeight: true
             //width: parent.width
+            from: sliderObj ? sliderObj.rangeLowLimit : 0
+            to: sliderObj ? sliderObj.rangeHighLimit : 255
             value: sliderValue
 
-            onPositionChanged: if (sliderObj) sliderObj.value = position * 255
+            onMoved: if (sliderObj) sliderObj.value = value // position * 255
         }
 
         // widget name text box
@@ -140,6 +182,130 @@ VCWidgetItem
             onFontChanged: calculateTextHeight()
             onTextChanged: calculateTextHeight()
         }
+
+        // Override reset button
+        IconButton
+        {
+            visible: sliderObj ? sliderObj.monitorEnabled : false
+            Layout.alignment: Qt.AlignHCenter
+            faSource: FontAwesome.fa_remove
+            faColor: UISettings.bgControl
+            bgColor: sliderObj && sliderObj.isOverriding ? "red" : UISettings.bgLight
+            onClicked: if (sliderObj) sliderObj.isOverriding = false
+        }
+
+        // Click & Go button
+        IconButton
+        {
+            id: clickAndGoButton
+            visible: cngType
+            width: UISettings.iconSizeDefault * 1.2
+            height: width
+            Layout.alignment: Qt.AlignHCenter
+
+            property int cngType: sliderObj ? sliderObj.clickAndGoType : VCSlider.CnGNone
+            property string cngResource: sliderObj ? sliderObj.cngPresetResource : ""
+
+            onCngTypeChanged:
+            {
+                switch(cngType)
+                {
+                    case VCSlider.CnGNone: colorToolLoader.source = ""; break;
+                    case VCSlider.CnGColors: colorToolLoader.source = "qrc:/ColorTool.qml"; break;
+                    case VCSlider.CnGPreset: colorToolLoader.source = "qrc:/PresetsTool.qml"; break;
+                }
+            }
+
+            onCngResourceChanged:
+            {
+                if (cngResource === "")
+                {
+                    colorPreviewBox.biColor = false
+                    presetPreviewBox.visible = false
+                    presetImageBox.source = ""
+                    return
+                }
+
+                presetPreviewBox.visible = true
+                if (Qt.platform.os === "android")
+                    presetImageBox.source = cngResource
+                else
+                    presetImageBox.source = "file:/" + cngResource
+            }
+
+            onClicked: colorToolLoader.toggleVisibility()
+
+            MultiColorBox
+            {
+                id: colorPreviewBox
+                anchors.fill: parent
+                anchors.margins: 5
+                primary: sliderObj ? sliderObj.cngPrimaryColor : "black"
+                secondary: sliderObj ? sliderObj.cngSecondaryColor : "black"
+
+                onSecondaryChanged:
+                {
+                    if (clickAndGoButton.cngType == VCSlider.CnGPreset && secondary != "#000000")
+                        biColor = true
+                    else
+                        biColor = false
+                }
+            }
+
+            Rectangle
+            {
+                id: presetPreviewBox
+                visible: false
+                anchors.fill: parent
+                anchors.margins: 5
+
+                Image
+                {
+                    id: presetImageBox
+                    anchors.fill: parent
+                }
+            }
+
+            Loader
+            {
+                id: colorToolLoader
+
+                function toggleVisibility()
+                {
+                    item.visible = !item.visible
+                    if (sliderObj && clickAndGoButton.cngType == VCSlider.CnGPreset)
+                        item.updatePresets(sliderObj.clickAndGoPresetsList)
+                }
+
+                onLoaded:
+                {
+                    item.y = parent.height
+                    item.visible = false
+                    item.closeOnSelect = true
+                }
+
+                Connections
+                {
+                    ignoreUnknownSignals: true
+                    target: colorToolLoader.item
+                    onColorChanged:
+                    {
+                        if (sliderObj)
+                            sliderObj.setClickAndGoColors(Qt.rgba(r, g, b, 1.0), Qt.rgba(w, a, uv, 1.0))
+                    }
+                }
+                Connections
+                {
+                    ignoreUnknownSignals: true
+                    target: colorToolLoader.item
+                    onPresetSelected:
+                    {
+                        if (sliderObj)
+                            sliderObj.setClickAndGoPresetValue(value)
+                    }
+                }
+            }
+        }
     }
 
     DropArea
@@ -155,7 +321,7 @@ VCWidgetItem
         {
             // attach function here
             if (drag.source.hasOwnProperty("fromFunctionManager"))
-                sliderObj.playbackFunction = drag.source.itemsList[0]
+                sliderObj.controlledFunction = drag.source.itemsList[0]
         }
 
         states: [
@@ -165,7 +331,7 @@ VCWidgetItem
                 PropertyChanges
                 {
                     target: sliderRoot
-                    color: "#9DFF52"
+                    color: UISettings.activeDropArea
                 }
             }
         ]

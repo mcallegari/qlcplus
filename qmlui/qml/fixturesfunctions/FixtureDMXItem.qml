@@ -18,7 +18,7 @@
 */
 
 import QtQuick 2.2
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "."
 
 Rectangle
@@ -27,6 +27,8 @@ Rectangle
     property Fixture fixtureObj
     property variant values
     property bool isSelected: false
+
+    //signal requestTool(var item, var fixtureID, var chIndex, var value)
 
     onValuesChanged:
     {
@@ -40,9 +42,18 @@ Rectangle
         }
     }
 
+    function updateChannels()
+    {
+        if (fxColumn.visible == false)
+            consoleLoader.item.updateChannels()
+
+        for (var i = 0; i < channelsRpt.count; i++)
+            channelsRpt.itemAt(i).updateChannel()
+    }
+
     width: channelsRow.width
     height: fxColumn.height
-    color: "#777"
+    color: UISettings.bgLighter
     border.width: 1
     border.color: "#222"
 
@@ -78,29 +89,50 @@ Rectangle
                     {
                         color: "transparent"
                         width: UISettings.iconSizeMedium
-                        height: fxChIcon.height + fxChVal.height
+                        height: chColumn.height
 
                         property string dmxValue: "0"
 
-                        Image
+                        function updateChannel()
                         {
-                            id: fxChIcon
+                            fxChIcon.source = fixtureObj ? fixtureManager.channelIcon(fixtureObj.id, index) : ""
+                        }
+
+                        Column
+                        {
+                            id: chColumn
                             width: parent.width
-                            height: width
-                            sourceSize: Qt.size(width, height)
-                            source: fixtureObj ? fixtureManager.channelIcon(fixtureObj.id, index) : ""
+
+                            Image
+                            {
+                                id: fxChIcon
+                                width: parent.width
+                                height: width
+                                sourceSize: Qt.size(width, height)
+                                source: fixtureObj ? fixtureManager.channelIcon(fixtureObj.id, index) : ""
+                            }
+                            RobotoText
+                            {
+                                id: fxChAddress
+                                visible: ViewDMX.showAddresses
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                height: UISettings.listItemHeight * 0.75
+                                fontSize: UISettings.textSizeDefault
+                                labelColor: "black"
+                                fontBold: true
+                                label: ViewDMX.relativeAddresses ? (index + 1) : (fixtureObj ? fixtureObj.address + index + 1 : 0)
+                            }
+                            RobotoText
+                            {
+                                id: fxChVal
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                height: UISettings.listItemHeight * 0.75
+                                fontSize: UISettings.textSizeDefault
+                                labelColor: "black"
+                                label: dmxValue
+                            }
                         }
-                        RobotoText
-                        {
-                            id: fxChVal
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            y: fxChIcon.height
-                            //width: 30
-                            height: UISettings.listItemHeight * 0.75
-                            fontSize: UISettings.textSizeDefault
-                            labelColor: "black"
-                            label: dmxValue
-                        }
+
                         // vertical divider between channels
                         Rectangle
                         {
@@ -123,7 +155,7 @@ Rectangle
         onTriggered:
         {
             isSelected = !isSelected
-            contextManager.setFixtureSelection(fixtureObj.id, isSelected)
+            contextManager.setFixtureIDSelection(fixtureObj.id, isSelected)
         }
     }
 
@@ -180,6 +212,12 @@ Rectangle
              {
                  //console.log("Channel " + chIndex + " value changed " + value)
                  channelsRpt.itemAt(chIndex).dmxValue = value
+             }
+
+             onRequestTool:
+             {
+                 //dmxItemRoot.requestTool(item, fixtureID, chIndex, value)
+                 dmxItemRoot.parent.loadTool(item, fixtureID, chIndex, value)
              }
         }
     }

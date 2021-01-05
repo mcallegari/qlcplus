@@ -40,13 +40,14 @@ Rectangle
     property variant efxData
     property variant fixturesData
     property int animationInterval: 0
+    property bool isRelative: false
 
     property bool sphereView: false
     property int sphereRadius: 20
     property int sphereRings: 17
     property int sphereSlices: 16
     property int sphereRotationX: 0
-    property int sphereRotationY: 0
+    property int sphereRotationY: 90
     property bool isRotating: false
 
     onEfxDataChanged: patternLayer.requestPaint()
@@ -61,9 +62,9 @@ Rectangle
 
     /** The EFX preview can be switched between 'legacy' 2D plain and 'fake' 3D sphere view
       * Therefore there are 3 Canvas layers here, to avoid wasting an awful amount of CPU:
-      * 1- background: in 2D it is a white rectangle, in 3D it's a wireframe sphere
-      * 2- EFX path: the plain or projected path of the selected EFX pattern
-      * 3- Heads: numbered circles moving across the EFX path
+      * 1- Background (bgLayer): in 2D it is a white rectangle, in 3D it's a wireframe sphere
+      * 2- EFX path (patternLayer): the plain or projected path of the selected EFX pattern
+      * 3- Heads (headsLayer): numbered circles moving across the EFX path
       */
     Canvas
     {
@@ -215,7 +216,7 @@ Rectangle
             anchors.margins: 2
             height: fontSize
             visible: !sphereView
-            label: "Pan (" + maxPanDegrees + "°)"
+            label: "Pan (" + (isRelative ? "+" + maxPanDegrees / 2 : maxPanDegrees) + "°)"
             labelColor: UISettings.fgMedium
             fontSize: UISettings.textSizeDefault * 0.6
         }
@@ -227,7 +228,19 @@ Rectangle
             anchors.margins: 2
             height: fontSize
             visible: !sphereView
-            label: "Tilt (" + maxTiltDegrees + "°)"
+            label: "Tilt (" + (isRelative ? "+" + maxTiltDegrees / 2 : maxTiltDegrees) + "°)"
+            labelColor: UISettings.fgMedium
+            fontSize: UISettings.textSizeDefault * 0.6
+        }
+
+        RobotoText
+        {
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.margins: 2
+            height: fontSize * 2
+            visible: isRelative && !sphereView
+            label: "Pan (-" + maxPanDegrees / 2 + "°)\nTilt (-" + maxTiltDegrees / 2 + "°)"
             labelColor: UISettings.fgMedium
             fontSize: UISettings.textSizeDefault * 0.6
         }
@@ -249,7 +262,6 @@ Rectangle
         {
             context.globalAlpha = 1.0;
             context.fillStyle = "transparent";
-            context.lineWidth = 1;
 
             context.clearRect(0, 0, width, height);
             context.fillRect(0, 0, width, height);
@@ -261,6 +273,7 @@ Rectangle
             {
                 var scaleFactor = height / 255;
                 context.strokeStyle = "black";
+                context.lineWidth = 1;
 
                 context.beginPath();
 
@@ -305,15 +318,23 @@ Rectangle
                 if (efxData.length < 4)
                     return;
 
-                vertex1 = DrawFuncs.getSphereVertex(efxData[0] * xScaleFactor, efxData[1] * yScaleFactor, halfTiltDegrees, sphereRadius, rotation);
-                x1 = DrawFuncs.projection(vertex1.x, vertex1.z, width/2.0, 100.0, distance);
-                y1 = DrawFuncs.projection(vertex1.y, vertex1.z, height/2.0, 100.0, distance);
+                // tune Y degrees offset to render upside down
+                var yOffset = halfTiltDegrees + 180;
+
+                if (isRelative)
+                    yOffset -= 90;
+
+                vertex1 = DrawFuncs.getSphereVertex(efxData[0] * xScaleFactor, efxData[1] * yScaleFactor,
+                                                    yOffset, sphereRadius, rotation);
+                x1 = DrawFuncs.projection(vertex1.x, vertex1.z, width / 2.0, 100.0, distance);
+                y1 = DrawFuncs.projection(vertex1.y, vertex1.z, height / 2.0, 100.0, distance);
 
                 for (i = 2; i < efxData.length; i+=2)
                 {
-                    vertex2 = DrawFuncs.getSphereVertex(efxData[i] * xScaleFactor, efxData[i + 1] * yScaleFactor, halfTiltDegrees, sphereRadius, rotation);
-                    x2 = DrawFuncs.projection(vertex2.x, vertex2.z, width/2.0, 100.0, distance);
-                    y2 = DrawFuncs.projection(vertex2.y, vertex2.z, height/2.0, 100.0, distance);
+                    vertex2 = DrawFuncs.getSphereVertex(efxData[i] * xScaleFactor, efxData[i + 1] * yScaleFactor,
+                                                        yOffset, sphereRadius, rotation);
+                    x2 = DrawFuncs.projection(vertex2.x, vertex2.z, width / 2.0, 100.0, distance);
+                    y2 = DrawFuncs.projection(vertex2.y, vertex2.z, height / 2.0, 100.0, distance);
 
                     //console.log("Drawing: " + vertex1.x + "," + vertex1.y + "," + vertex1.z)
 
@@ -334,7 +355,8 @@ Rectangle
                 }
 
                 // stroke the last segment to close the path
-                vertex2 = DrawFuncs.getSphereVertex(efxData[0] * xScaleFactor, efxData[1] * yScaleFactor, halfTiltDegrees, sphereRadius, rotation);
+                vertex2 = DrawFuncs.getSphereVertex(efxData[0] * xScaleFactor, efxData[1] * yScaleFactor,
+                                                    yOffset, sphereRadius, rotation);
                 x2 = DrawFuncs.projection(vertex2.x, vertex2.z, width/2.0, 100.0, distance);
                 y2 = DrawFuncs.projection(vertex2.y, vertex2.z, height/2.0, 100.0, distance);
 
@@ -400,7 +422,13 @@ Rectangle
 
                 if (sphereView == true)
                 {
-                    var vertex = DrawFuncs.getSphereVertex(x, y, halfTiltDegrees, sphereRadius, rotation);
+                    // tune Y degrees offset to render upside down
+                    var yOffset = halfTiltDegrees + 180;
+
+                    if (isRelative)
+                        yOffset -= 90;
+
+                    var vertex = DrawFuncs.getSphereVertex(x, y, yOffset, sphereRadius, rotation);
 
                     x = DrawFuncs.projection(vertex.x, vertex.z, width/2.0, 100.0, distance);
                     y = DrawFuncs.projection(vertex.y, vertex.z, height/2.0, 100.0, distance);
@@ -463,6 +491,7 @@ Rectangle
                 else
                     sphereRotationY++
             }
+            /*
             else
             {
                 if (mouse.y < lastYPos)
@@ -470,6 +499,7 @@ Rectangle
                 else
                     sphereRotationX++
             }
+            */
             lastXPos = mouse.x
             lastYPos = mouse.y
             bgLayer.requestPaint()

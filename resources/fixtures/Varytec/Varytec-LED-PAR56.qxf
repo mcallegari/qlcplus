@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.9.0 GIT</Version>
+  <Author>Habefaro</Author>
+ </Creator>
+ <Manufacturer>Varytec</Manufacturer>
+ <Model>LED PAR56</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="0">Off</Capability>
+  <Capability Min="1" Max="15">Dimmer/off (channel 6&gt;31 and &lt;128)</Capability>
+  <Capability Min="16" Max="255">Dimmer/on (channel 6&gt;31 and &lt;128)</Capability>
+ </Channel>
+ <Channel Name="Macro">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">Macro Off</Capability>
+  <Capability Min="16" Max="255">Macro On</Capability>
+ </Channel>
+ <Channel Name="Speed/Strobe">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="15">Strobe off/Speed slow - fast (channel 6&gt;31 and &lt;224)</Capability>
+  <Capability Min="16" Max="255">Strobe with 16 adjustable speeds/Speed slow - fast (channel 6&gt;31 and &lt;224)</Capability>
+ </Channel>
+ <Channel Name="Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="31">Color Setting</Capability>
+  <Capability Min="32" Max="63">Lightness decreasing (Fade Out)</Capability>
+  <Capability Min="64" Max="95">Lightness increasing (Fade In)</Capability>
+  <Capability Min="96" Max="127">Fade Out and In mode</Capability>
+  <Capability Min="128" Max="159">Mix color automatically</Capability>
+  <Capability Min="160" Max="191">3-Color flash in turn (Chasing)</Capability>
+  <Capability Min="192" Max="223">7-Color flash in turn (Chasing)</Capability>
+  <Capability Min="224" Max="255">Sound Action</Capability>
+ </Channel>
+ <Channel Name="Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="0">Off</Capability>
+  <Capability Min="1" Max="15">Dimmer/off (channel 6&gt;31 and &lt;128)</Capability>
+  <Capability Min="16" Max="255">Dimmer/on (channel 6&gt;31 and &lt;128)</Capability>
+ </Channel>
+ <Channel Name="Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="0">Off</Capability>
+  <Capability Min="1" Max="15">Dimmer/off (channel 6&gt;31 and &lt;128)</Capability>
+  <Capability Min="16" Max="255">Dimmer/on (channel 6&gt;31 and &lt;128)</Capability>
+ </Channel>
+ <Mode Name="6 DMX channels">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Macro</Channel>
+  <Channel Number="4">Speed/Strobe</Channel>
+  <Channel Number="5">Mode</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="210" Height="210" Weight="1.2" Depth="300"/>
+   <Lens DegreesMax="30" Name="Other" DegreesMin="30"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="20" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

@@ -1,0 +1,37 @@
+<html dir="ltr">
+<head>
+  <title>Q Light Controller Plus - 本番モード中の編集</title>
+  <script src="utility.js" type="text/javascript"></script>
+  <link href="style.css" rel="stylesheet" type="text/css"></link>
+  <meta charset="utf-8">
+</head>
+
+<BODY onLoad="replaceqrc()">
+
+
+  <h1><img src="qrc:/liveedit.png" width="32"> 本番モード中の編集</h1>
+
+  <p>この機能はQLC+4.5.0から実装されました。
+    <a href="./concept.html#Modes">本番モード</a>のままで、いくつかの<a href="concept.html#Functions">ファンクション</a>の編集を行うことができます。<br>
+    <img src="qrc:/liveedit.png" width="32">Live Editアイコンは上部のバーの<img src="qrc:/add_dump.png" width="32"><a href="dmxdump.html">DMX ダンプ</a>の横にあります。<br> 　アイコンをクリックすると、
+    <a href="selectfunction.html">ファンクション一覧</a>が表示され、編集したいファンクションを選択することができます。<br> ファンクション洗濯後、OKをクリックするとファンクションに応じたエディターが表示されます。
+    <br> 現在のバージョンでは、Live Editで以下の機能がサポートされています。
+    <ul>
+      <li><img src="qrc:/scene.png" width="32"> <a href="concept.html#Scene">シーン</a>
+        <a href="sceneeditor.html">シーンエディタ</a>が表示されます。<br> 　※ 本番モード時、現在再生していないファンクションを編集しようとすると、自動で"ブラインド編集”モードになります。(実際にDMX値は出力されません)一方、現在再生中のファンクションを編集しようとすると、デフォルトで"ライブモード"になります。(編集中のDMX値が出力されます。)
+      </li>
+      <li><img src="qrc:/chaser.png" width="32"> <a href="concept.html#Chaser">チェイス</a>
+        <a href="chasereditor.html">チェイスエディター</a>が表示されます。</li>
+      <li><img src="qrc:/efx.png" width="32"> <a href="concept.html#EFX">EFX</a>
+        <a href="efxeditor.html">EFXエディターが表示されます。</a></li>
+      <li><img src="qrc:/rgbmatrix.png" width="32"> <a href="concept.html#RGBMatrix">RGB マトリックス</a>
+        <a href="rgbmatrixeditor.html">RGBマトリックスエディター</a>が表示されます。<br><br>
+
+        <a href="selectfunction.html">ファンクションリスト</a>は、ファンクションの種類ごとに表示され、チェックボックスを用いて目的のファンクションを探しやすくすることができます。<br> 現在再生中のファンクションのみを表示させることもできます。
+        <br><br> 　※ 現在再生中のファンクションが複数ある場合は、編集ファンクションとの兼ね合いで、HTPモードでDMX値が出力されます。</li>
+    </ul>
+  </p>
+
+</BODY>
+
+</html>

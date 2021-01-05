@@ -58,6 +58,7 @@ DmxDumpFactory::DmxDumpFactory(Doc *doc, DmxDumpFactoryProperties *props, QWidge
 
     m_fixturesTree = new FixtureTreeWidget(m_doc, treeFlags, this);
     m_fixturesTree->setIconSize(QSize(24, 24));
+    m_fixturesTree->setSortingEnabled(false);
 
     m_treeLayout->addWidget(m_fixturesTree);
     m_fixturesTree->setChannelsMask(m_properties->channelsMask());
@@ -170,12 +171,12 @@ QList<VCWidget *> DmxDumpFactory::getChildren(VCWidget *obj, int type)
 void DmxDumpFactory::updateWidgetsTree(int type)
 {
     m_addtoTree->clear();
-    VCFrame* contents = VirtualConsole::instance()->contents();
+    VCFrame *contents = VirtualConsole::instance()->contents();
     QList<VCWidget *> widgetsList = getChildren((VCWidget *)contents, type);
 
     foreach (QObject *object, widgetsList)
     {
-        VCWidget *widget = (VCWidget *)object;
+        VCWidget *widget = qobject_cast<VCWidget *>(object);
 
         QTreeWidgetItem *item = new QTreeWidgetItem(m_addtoTree);
         item->setText(KColumnTargetName, widget->caption());

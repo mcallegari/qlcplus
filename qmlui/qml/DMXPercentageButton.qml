@@ -23,7 +23,7 @@ import "."
 Rectangle
 {
     id: buttonRoot
-    width: 50
+    width: UISettings.iconSizeDefault * 1.1
     height: UISettings.listItemHeight
     border.width: 2
     border.color: "white"
@@ -35,6 +35,7 @@ Rectangle
 
     RobotoText
     {
+        id: text
         height: parent.height
         anchors.horizontalCenter: parent.horizontalCenter
         label: dmxMode ? "DMX" : "%"

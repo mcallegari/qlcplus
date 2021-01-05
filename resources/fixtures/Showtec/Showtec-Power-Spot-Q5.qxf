@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Lukas Jähn</Author>
+ </Creator>
+ <Manufacturer>Showtec</Manufacturer>
+ <Model>Power Spot 9 Q5</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Program Modes">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">Manual mode</Capability>
+  <Capability Min="1" Max="22">Static color mode/Program 1</Capability>
+  <Capability Min="23" Max="45">Program 2</Capability>
+  <Capability Min="46" Max="68">Program 3</Capability>
+  <Capability Min="69" Max="91">Program 4</Capability>
+  <Capability Min="92" Max="114">Program 5</Capability>
+  <Capability Min="115" Max="137">Program 6</Capability>
+  <Capability Min="138" Max="160">Program 7</Capability>
+  <Capability Min="161" Max="183">Program 8</Capability>
+  <Capability Min="184" Max="206">Program 9</Capability>
+  <Capability Min="207" Max="229">Program 10</Capability>
+  <Capability Min="230" Max="252">Program 11</Capability>
+  <Capability Min="253" Max="255">Sound-controlled mode</Capability>
+ </Channel>
+ <Channel Name="Static Colors/Program Speed/Sound Sensitivity">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="12">No function</Capability>
+  <Capability Min="13" Max="25" Preset="ColorMacro" Res1="#ffffff">R+G+B/Slow to fast/Less sensitive to highly sensitive</Capability>
+  <Capability Min="26" Max="38" Preset="ColorMacro" Res1="#ff0000">R/Slow to fast/Less sensitive to highly sensitive</Capability>
+  <Capability Min="39" Max="51" Preset="ColorMacro" Res1="#00ff00">G/Slow to fast/Less sensitive to highly sensitive</Capability>
+  <Capability Min="52" Max="64" Preset="ColorMacro" Res1="#0000ff">B/Slow to fast/Less sensitive to highly sensitive</Capability>
+  <Capability Min="65" Max="77" Preset="ColorMacro" Res1="#ffffff">W/Slow to fast/Less sensitive to highly sensitive</Capability>
+  <Capability Min="78" Max="90">A/Slow to fast/Less sensitive to highly sensitive</Capability>
+  <Capability Min="91" Max="103" Preset="ColorMacro" Res1="#ffff00">R+G/Slow to fast/Less sensitive to highly sensitive</Capability>
+  <Capability Min="104" Max="116">R+A/Slow to fast/Less sensitive to highly sensitive</Capability>
+  <Capability Min="117" Max="129" Preset="ColorMacro" Res1="#ff00ff">R+B/Slow to fast/Less sensitive to highly sensitive</Capability>
+  <Capability Min="130" Max="142">Purple/Slow to fast/Less sensitive to highly sensitive</Capability>
+  <Capability Min="143" Max="155" Preset="ColorMacro" Res1="#00ffff">G+B/Slow to fast/Less sensitive to highly sensitive</Capability>
+  <Capability Min="156" Max="168">R+W/Slow to fast/Less sensitive to highly sensitive</Capability>
+  <Capability Min="169" Max="181">G+W/Slow to fast/Less sensitive to highly sensitive</Capability>
+  <Capability Min="182" Max="194">B+W/Slow to fast/Less sensitive to highly sensitive</Capability>
+  <Capability Min="195" Max="207">R+A/Slow to fast/Less sensitive to highly sensitive</Capability>
+  <Capability Min="208" Max="220">G+A/Slow to fast/Less sensitive to highly sensitive</Capability>
+  <Capability Min="221" Max="233">B+A/Slow to fast/Less sensitive to highly sensitive</Capability>
+  <Capability Min="234" Max="246">W+A/Slow to fast/Less sensitive to highly sensitive</Capability>
+  <Capability Min="247" Max="255">R+G+B+W+A/Slow to fast/Less sensitive to highly sensitive</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="0" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="1" Max="255" Preset="StrobeSlowToFast">Frequency, from slow to fast</Capability>
+ </Channel>
+ <Mode Name="5-Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+ </Mode>
+ <Mode Name="7-Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">Dimmer</Channel>
+  <Channel Number="6">Strobe</Channel>
+ </Mode>
+ <Mode Name="9-Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">Amber</Channel>
+  <Channel Number="6">Program Modes</Channel>
+  <Channel Number="7">Static Colors/Program Speed/Sound Sensitivity</Channel>
+  <Channel Number="8">Strobe</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.9" Width="270" Height="300" Depth="90"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="62" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

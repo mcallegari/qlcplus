@@ -20,9 +20,10 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.1
-import QtQuick.Controls 1.2
+import QtQuick.Controls 1.2 as QC1
+import QtQuick.Controls 2.1
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "."
 
 Rectangle
@@ -42,7 +43,7 @@ Rectangle
         wPropsLoader.active = false
         wPropsLoader.source = wObj ? wObj.propertiesResource : ""
         wPropsLoader.active = true
-        vcRightPanel.width = vcRightPanel.width - sideLoader.width
+        rightSidePanel.width = rightSidePanel.width - sideLoader.width
         sideLoader.source = ""
         sideLoader.width = 0
     }
@@ -59,10 +60,11 @@ Rectangle
     {
         id: bgColTool
         parent: mainView
-        x: vcRightPanel.x - width
+        x: rightSidePanel.x - width
         y: 100
         visible: false
-        selectedColor: wObj ? wObj.backgroundColor : "black"
+        currentRGB: wObj ? wObj.backgroundColor : "black"
+        showPalette: false
 
         onColorChanged:
         {
@@ -77,10 +79,11 @@ Rectangle
     {
         id: fgColTool
         parent: mainView
-        x: vcRightPanel.x - width
+        x: rightSidePanel.x - width
         y: 100
         visible: false
-        selectedColor: wObj ? wObj.foregroundColor : "black"
+        currentRGB: wObj ? wObj.foregroundColor : "black"
+        showPalette: false
 
         onColorChanged:
         {
@@ -91,7 +94,7 @@ Rectangle
         }
     }
 
-    SplitView
+    QC1.SplitView
     {
         anchors.fill: parent
         Loader
@@ -146,10 +149,50 @@ Rectangle
                 width: parent.width - (wpBar.visible ? wpBar.width : 0)
                 spacing: 5
 
+                Rectangle
+                {
+                    id: selectToolBar
+                    width: parent.width
+                    height: UISettings.listItemHeight
+                    z: 10
+                    gradient:
+                        Gradient
+                        {
+                            id: cBarGradient
+                            GradientStop { position: 0; color: UISettings.toolbarStartSub }
+                            GradientStop { position: 1; color: UISettings.toolbarEnd }
+                        }
+
+                    MenuBarEntry
+                    {
+                        id: settingsView
+                        width: parent.width / 2
+                        entryText: qsTr("Settings")
+                        checked: true
+                        autoExclusive: true
+                        checkedColor: UISettings.toolbarSelectionSub
+                        bgGradient: cBarGradient
+                        mFontSize: UISettings.textSizeDefault
+                    }
+
+                    MenuBarEntry
+                    {
+                        id: controlsView
+                        width: parent.width / 2
+                        anchors.left: settingsView.right
+                        entryText: qsTr("External controls")
+                        autoExclusive: true
+                        checkedColor: UISettings.toolbarSelectionSub
+                        bgGradient: cBarGradient
+                        mFontSize: UISettings.textSizeDefault
+                    }
+                }
+
                 SectionBox
                 {
+                    id: commonProps
                     width: parent.width
-                    visible: wObj ? true : false
+                    visible: settingsView.checked ? true : false
                     sectionLabel: qsTr("Basic properties")
 
                     sectionContents:
@@ -172,11 +215,14 @@ Rectangle
                             Layout.fillWidth: true
                             height: UISettings.listItemHeight
                             color: UISettings.bgMedium
-                            inputText: wObj ? wObj.caption : ""
+                            text: wObj ? wObj.caption : ""
 
                             onTextChanged:
                             {
-                                if(wObj && selectedWidgetsCount < 2)
+                                if (!wObj)
+                                    return
+
+                                if (selectedWidgetsCount < 2)
                                     wObj.caption = text
                                 else
                                     virtualConsole.setWidgetsCaption(text)
@@ -320,7 +366,7 @@ Rectangle
                                     id: fileDialog
                                     visible: false
                                     title: qsTr("Select an image")
-                                    nameFilters: [ "Image files (*.png *.bmp *.jpg *.jpeg *.gif)", "All files (*)" ]
+                                    nameFilters: [ "Image files (*.png *.bmp *.jpg *.jpeg *.gif *.svg)", "All files (*)" ]
 
                                     onAccepted:
                                     {
@@ -393,7 +439,7 @@ Rectangle
                 {
                     id: wPropsLoader
                     width: parent.width
-                    visible: wObj ? true : false
+                    visible: settingsView.checked ? true : false
                     //source: wObj && virtualConsole.selectedWidgetsCount < 2 ? wObj.propertiesResource : ""
 
                     onLoaded: item.widgetRef = wObj
@@ -402,21 +448,20 @@ Rectangle
                 SectionBox
                 {
                     width: parent.width
-                    visible: wObj ? true : false
+                    visible: controlsView.checked ? true : false
                     sectionLabel: qsTr("External Controls")
-                    isExpanded: false
+                    //isExpanded: false
 
                     sectionContents:
                         ExternalControls
                         {
                             width: parent.width
-
                             objRef: wObj
                         }
                 }
               } // end of properties column
+              ScrollBar.vertical: CustomScrollBar { id: wpBar }
             } // end of flickable
-            CustomScrollBar { id: wpBar; flickable: propsFlickable }
         } // end of Rectangle
     } // end of SplitView
 }

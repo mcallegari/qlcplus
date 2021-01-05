@@ -72,8 +72,8 @@ public:
     /** Maximum step count for rgbMap() function. */
     virtual int rgbMapStepCount(const QSize& size) = 0;
 
-    /** Get the RGBMap for the given step. */
-    virtual RGBMap rgbMap(const QSize& size, uint rgb, int step) = 0;
+    /** Load a RGBMap for the given step. */
+    virtual void rgbMap(const QSize& size, uint rgb, int step, RGBMap &map) = 0;
 
     /** Release resources that may have been acquired in rgbMap() */
     virtual void postRun() {}

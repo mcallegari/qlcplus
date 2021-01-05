@@ -1,7 +1,7 @@
 /*
   Q Light Controller Plus
   virtualconsole.js
-  
+
   Copyright (c) Massimo Callegari
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,41 +18,64 @@
 */
 
 /* VCButton */
-function buttonClick(id) {
+function buttonPress(id) {
+ websocket.send(id + "|255");
+}
+
+function buttonRelease(id) {
+ websocket.send(id + "|0");
+}
+
+function wsSetButtonState(id, state) {
  var obj = document.getElementById(id);
- if (obj.value == "0" || obj.value == undefined) {
+ if (state === "255") {
   obj.value = "255";
   obj.style.border = "3px solid #00E600";
- }
- else {
+ } else if (state === "127") {
+  obj.value = "127";
+  obj.style.border = "3px solid #FFAA00";
+ } else {
   obj.value = "0";
   obj.style.border = "3px solid #A0A0A0";
  }
- websocket.send(id + "|" + obj.value);
 }
+
+window.addEventListener("load",() => {
+    var buttons = document.getElementsByClassName("vcbutton");
+    for (var btn of buttons) {
+        btn.addEventListener("touchstart", (event) => {
+                event.preventDefault();
+                buttonPress(event.target.id);
+        }, false);
+        btn.addEventListener("touchend", (event) => {
+                event.preventDefault();
+                buttonRelease(event.target.id);
+        }, false);
+    }
+});
 
 /* VCCueList */
 var cueListsIndices = new Array();
 
 function setCueIndex(id, idx) {
  var oldIdx = cueListsIndices[id];
- if (oldIdx != undefined && oldIdx != -1) {
+ if (oldIdx != undefined && oldIdx !== "-1") {
    var oldCueObj = document.getElementById(id + "_" + oldIdx);
    oldCueObj.style.backgroundColor="#FFFFFF";
  }
  cueListsIndices[id] = idx;
  var currCueObj = document.getElementById(id + "_" + idx);
- if (idx != "-1") {
+ if (idx !== "-1") {
    currCueObj.style.backgroundColor="#5E7FDF";
  }
 }
 
 function sendCueCmd(id, cmd) {
- if (cmd == "PLAY") {
+ if (cmd === "PLAY") {
    var obj = document.getElementById("play" + id);
-   if (cueListsIndices[id] == -1) {
+   if (cueListsIndices[id] === "-1") {
      obj.innerHTML = "<img src=\"player_pause.png\" width=\"27\">";
-     setCueIndex(id, 0);
+     setCueIndex(id, "0");
    }
    else {
      obj.innerHTML = "<img src=\"player_play.png\" width=\"27\">";
@@ -78,6 +101,17 @@ function enableCue(id, idx) {
  websocket.send(id + "|STEP|" + idx);
 }
 
+function wsSetCueIndex(id, idx) {
+ setCueIndex(id, idx);
+ var playObj = document.getElementById("play" + id);
+ if (idx === "-1") {
+    playObj.innerHTML = "<img src=\"player_play.png\" width=\"27\">";
+ }
+ else {
+    playObj.innerHTML = "<img src=\"player_pause.png\" width=\"27\">";
+ }
+}
+
 /* VCFrame */
 var framesWidth = new Array();
 var framesHeight = new Array();
@@ -96,7 +130,7 @@ function frameToggleCollapse(id) {
   var origWidth = framesWidth[id];
   var origHeight = framesHeight[id];
 
-  if (frameObj.clientWidth == origWidth)
+  if (frameObj.clientWidth === origWidth)
   {
     frameObj.style.width = "200px";
     if (mpHeader) {
@@ -111,7 +145,7 @@ function frameToggleCollapse(id) {
     }
   }
 
-  if (frameObj.clientHeight == origHeight) {
+  if (frameObj.clientHeight === origHeight) {
     frameObj.style.height = "36px";
   }
   else {
@@ -120,35 +154,16 @@ function frameToggleCollapse(id) {
 }
 
 function frameNextPage(id) {
- var currPage = framesCurrentPage[id];
- var pagesNum = framesTotalPages[id];
- if (currPage + 1 < pagesNum) {
-  var framePageObj = document.getElementById("fp" + id + "_" + currPage);
-  framePageObj.style.visibility = "hidden";
-  framesCurrentPage[id]++;
-  var frameNextPageObj = document.getElementById("fp" + id + "_" + framesCurrentPage[id]);
-  frameNextPageObj.style.visibility = "visible";
-  updateFrameLabel(id);
-  websocket.send(id + "|NEXT_PG");
- }
+ websocket.send(id + "|NEXT_PG");
 }
 
 function framePreviousPage(id) {
- var currPage = framesCurrentPage[id];
- if (currPage - 1 >= 0) {
-  var framePageObj = document.getElementById("fp" + id + "_" + currPage);
-  framePageObj.style.visibility = "hidden";
-  framesCurrentPage[id]--;
-  var framePrevPageObj = document.getElementById("fp" + id + "_" + framesCurrentPage[id]);
-  framePrevPageObj.style.visibility = "visible";
-  updateFrameLabel(id);
-  websocket.send(id + "|PREV_PG");
- }
+ websocket.send(id + "|PREV_PG");
 }
 
 function setFramePage(id, page) {
  var iPage = parseInt(page);
- if (framesCurrentPage[id] == iPage || iPage >= framesTotalPages[id]) return;
+ if (framesCurrentPage[id] === iPage || iPage >= framesTotalPages[id]) { return; }
  var framePageObj = document.getElementById("fp" + id + "_" + framesCurrentPage[id]);
  framePageObj.style.visibility = "hidden";
  framesCurrentPage[id] = iPage;
@@ -160,16 +175,33 @@ function setFramePage(id, page) {
 /* VCSlider */
 function slVchange(id) {
  var slObj = document.getElementById(id);
- var obj = document.getElementById("slv" + id);
- obj.innerHTML = slObj.value;
  var sldMsg = id + "|" + slObj.value;
  websocket.send(sldMsg);
+}
+
+function wsSetSliderValue(id, sliderValue, displayValue) {
+ var obj = document.getElementById(id);
+ obj.value = sliderValue;
+ var labelObj = document.getElementById("slv" + id);
+ labelObj.innerHTML = displayValue;
 }
 
 /* VCAudioTriggers */
 function atButtonClick(id) {
  var obj = document.getElementById(id);
- if (obj.value == "0" || obj.value == undefined) {
+ if (obj.value === "0" || obj.value == undefined) {
+  obj.value = "255";
+ }
+ else {
+  obj.value = "0";
+ }
+ var btnMsg = id + "|" + obj.value;
+ websocket.send(btnMsg);
+}
+
+function wsSetAudioTriggersEnabled(id, enabled) {
+ var obj = document.getElementById(id);
+ if (enabled === "255") {
   obj.value = "255";
   obj.style.border = "3px solid #00E600";
   obj.style.backgroundColor = "#D7DE75";
@@ -179,6 +211,4 @@ function atButtonClick(id) {
   obj.style.border = "3px solid #A0A0A0";
   obj.style.backgroundColor = "#D6D2D0";
  }
- var btnMsg = id + "|" + obj.value;
- websocket.send(btnMsg);
 }

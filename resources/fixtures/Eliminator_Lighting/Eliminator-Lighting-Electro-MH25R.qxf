@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.4.2</Version>
+  <Author>LightOp</Author>
+ </Creator>
+ <Manufacturer>Eliminator Lighting</Manufacturer>
+ <Model>Electro MH25R</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="16bit Pan" Preset="PositionPanFine"/>
+ <Channel Name="16bit Tilt" Preset="PositionTiltFine"/>
+ <Channel Name="Pan/Tilt Speed" Preset="SpeedPanTiltSlowFast"/>
+ <Channel Name="Color wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="4" Color="#ffffff">White</Capability>
+  <Capability Min="5" Max="9" Color="#ffff00">Yellow</Capability>
+  <Capability Min="10" Max="14" Color="#ffaaff">Pink</Capability>
+  <Capability Min="15" Max="19" Color="#00ff00">Green</Capability>
+  <Capability Min="20" Max="24" Color="#ff00bb">Rose</Capability>
+  <Capability Min="25" Max="29" Color="#55aaff">Light Blue</Capability>
+  <Capability Min="30" Max="34" Color="#55ff00">Yellow Green</Capability>
+  <Capability Min="35" Max="39" Color="#ff5500">Orange Red</Capability>
+  <Capability Min="40" Max="44" Color="#0000ff">Navy Blue</Capability>
+  <Capability Res="Others/rainbow.png" Min="45" Max="127">Color Continue</Capability>
+  <Capability Res="Others/rainbow.png" Min="128" Max="191">Rainbow Counter-Clockwise</Capability>
+  <Capability Res="Others/rainbow.png" Min="192" Max="255">Rainbow Clockwise Rotation</Capability>
+ </Channel>
+ <Channel Name="Strobing">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="39">ON</Capability>
+  <Capability Min="40" Max="249">Strobing Slow &gt; Fast</Capability>
+  <Capability Min="250" Max="255">ON</Capability>
+ </Channel>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Gobo wheel">
+  <Group Byte="0">Gobo</Group>
+  <Capability Res="Others/open.svg" Min="0" Max="4">Spot</Capability>
+  <Capability Res="Others/gobo00001.svg" Min="5" Max="9">Gobo 1 (Purple w/ Dots)</Capability>
+  <Capability Res="Others/gobo00034.png" Min="10" Max="14">Gobo 2 (Ice)</Capability>
+  <Capability Res="Others/gobo00038.svg" Min="15" Max="19">Gobo 3 (Swirl)</Capability>
+  <Capability Res="Others/gobo00039.svg" Min="20" Max="24">Gobo 4 (Viral)</Capability>
+  <Capability Res="ClayPaky/gobo00060.svg" Min="25" Max="29">Gobo 5 (Rose)</Capability>
+  <Capability Res="Others/gobo00040.svg" Min="30" Max="34">Gobo 6 (Tri Hatch)</Capability>
+  <Capability Res="Others/gobo00041.svg" Min="35" Max="39">Gobo 7 (Dot Swirl)</Capability>
+  <Capability Res="Others/open.svg" Min="40" Max="54">Spot</Capability>
+  <Capability Res="Others/gobo00001.svg" Min="55" Max="69">Gobo 1 Shake</Capability>
+  <Capability Res="Others/gobo00034.png" Min="70" Max="84">Gobo 2 Shake</Capability>
+  <Capability Res="Others/gobo00038.svg" Min="85" Max="99">Gobo 3 Shake</Capability>
+  <Capability Res="Others/gobo00039.svg" Min="100" Max="114">Gobo 4 Shake</Capability>
+  <Capability Res="ClayPaky/gobo00060.svg" Min="115" Max="129">Gobo 5 Shake</Capability>
+  <Capability Res="Others/gobo00040.svg" Min="130" Max="144">Gobo 6 Shake</Capability>
+  <Capability Res="Others/gobo00041.svg" Min="145" Max="159">Gobo 7 Shake</Capability>
+  <Capability Min="160" Max="207">Gobo Wheel Clockwise Slow &gt; Fast</Capability>
+  <Capability Min="208" Max="255">Gobo Wheel Counter-Clockwise Slow &gt; Fast</Capability>
+ </Channel>
+ <Channel Name="Gobo rotation">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="127">Gobo Manual Rotation</Capability>
+  <Capability Min="128" Max="191">Counter-Clockwise Rotation</Capability>
+  <Capability Min="192" Max="255">Clockwise Rotation</Capability>
+ </Channel>
+ <Channel Name="Moving Blackout and Reposition Function">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="29">Moving Blackout Closed</Capability>
+  <Capability Min="30" Max="59">XY Moving Blackout</Capability>
+  <Capability Min="60" Max="89">Color Moving Blackout</Capability>
+  <Capability Min="90" Max="119">Gobo Moving Blackout</Capability>
+  <Capability Min="120" Max="149">XY Color Moving Blackout</Capability>
+  <Capability Min="150" Max="179">XY Gobo Moving Blackout</Capability>
+  <Capability Min="180" Max="209">Color/Gobo Moving Blackout</Capability>
+  <Capability Min="210" Max="239">XY/Color/Gobo Moving Blackout</Capability>
+  <Capability Min="240" Max="244">Moving Blackout Closed</Capability>
+  <Capability Min="245" Max="250">Moving Blackout Closed, Delay Repositioning</Capability>
+  <Capability Min="251" Max="255">Moving Blackout Closed</Capability>
+ </Channel>
+ <Channel Name="Program function">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="10">Controller</Capability>
+  <Capability Min="11" Max="250">Program Auto Run Slow &gt; Fast</Capability>
+  <Capability Min="251" Max="255">Program Runs By Sound Active</Capability>
+ </Channel>
+ <Mode Name="12 Channels">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">16bit Pan</Channel>
+  <Channel Number="3">16bit Tilt</Channel>
+  <Channel Number="4">Pan/Tilt Speed</Channel>
+  <Channel Number="5">Color wheel</Channel>
+  <Channel Number="6">Strobing</Channel>
+  <Channel Number="7">Master dimmer</Channel>
+  <Channel Number="8">Gobo wheel</Channel>
+  <Channel Number="9">Gobo rotation</Channel>
+  <Channel Number="10">Moving Blackout and Reposition Function</Channel>
+  <Channel Number="11">Program function</Channel>
+ </Mode>
+ <Mode Name="8 Channels">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Tilt</Channel>
+  <Channel Number="2">Pan/Tilt Speed</Channel>
+  <Channel Number="3">Color wheel</Channel>
+  <Channel Number="4">Gobo wheel</Channel>
+  <Channel Number="5">Gobo rotation</Channel>
+  <Channel Number="6">Strobing</Channel>
+  <Channel Number="7">Master dimmer</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="266" Height="304" Weight="18.6" Depth="254"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="540" Type="Fixed" TiltMax="270"/>
+   <Technical PowerConsumption="250" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

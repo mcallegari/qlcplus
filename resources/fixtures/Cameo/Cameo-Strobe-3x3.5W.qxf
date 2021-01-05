@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.11.3 GIT</Version>
+  <Author>Janosch Frank</Author>
+ </Creator>
+ <Manufacturer>Cameo</Manufacturer>
+ <Model>Strobe 3x3.5W</Model>
+ <Type>Strobe</Type>
+ <Channel Name="Flash Frequency">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="255" Preset="StrobeFreqRange" Res1="0" Res2="20">Flash frequency (0-20Hz)</Capability>
+ </Channel>
+ <Channel Name="Brightness">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="255">Brightness (0-100%)</Capability>
+ </Channel>
+ <Mode Name="2-Channel Mode">
+  <Channel Number="0">Flash Frequency</Channel>
+  <Channel Number="1">Brightness</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="2.3" Width="380" Height="95" Depth="165"/>
+  <Lens Name="Other" DegreesMin="80" DegreesMax="80"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="30" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

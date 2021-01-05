@@ -92,6 +92,7 @@ private slots:
     void slotMapItemChanged(QTreeWidgetItem* item, int col);
     void slotConfigureInputClicked();
     void slotPluginConfigurationChanged(const QString& pluginName, bool success);
+    void slotHotpluggingChanged(bool checked);
 
     /************************************************************************
      * Profile page

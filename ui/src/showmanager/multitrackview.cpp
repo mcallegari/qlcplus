@@ -40,7 +40,7 @@ MultiTrackView::MultiTrackView(QWidget *parent) :
     m_scene->setSceneRect(0, 0, VIEW_DEFAULT_WIDTH, VIEW_DEFAULT_HEIGHT);
     setSceneRect(0, 0, VIEW_DEFAULT_WIDTH, VIEW_DEFAULT_HEIGHT);
     setScene(m_scene);
-	
+
     m_timeSlider = new QSlider(Qt::Horizontal);
     m_timeSlider->setRange(1, 15);
     m_timeSlider->setValue(3);
@@ -578,7 +578,7 @@ void MultiTrackView::slotItemMoved(QGraphicsSceneMouseEvent *event, ShowItem *it
     }
     else if (shift < 3) // a drag of less than 3 pixel doesn't move the item
     {
-        qDebug() << "Drag too short (" << shift << "px) not allowed !";
+        //qDebug() << "Drag too short (" << shift << "px) not allowed!";
         item->setPos(item->getDraggingPos());
         s_time = item->getStartTime();
         moved = false;
@@ -587,13 +587,13 @@ void MultiTrackView::slotItemMoved(QGraphicsSceneMouseEvent *event, ShowItem *it
     {
         float step = m_header->getTimeDivisionStep();
         float gridPos = ((int)(item->x() / step) * step);
-        item->setPos(gridPos, ypos);
+        item->setPos(gridPos + 2, ypos);
         s_time = getTimeFromPosition(gridPos);
     }
     else
     {
         item->setPos(item->x(), ypos);
-        s_time = getTimeFromPosition(item->x());
+        s_time = getTimeFromPosition(item->x() - 2);
     }
 
     item->setStartTime(s_time);

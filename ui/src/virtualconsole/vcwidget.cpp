@@ -62,6 +62,7 @@ VCWidget::VCWidget(QWidget* parent, Doc* doc)
     , m_page(0)
     , m_allowChildren(false)
     , m_allowResize(true)
+    , m_intensityOverrideId(Function::invalidAttributeId())
     , m_intensity(1.0)
     , m_liveEdit(VirtualConsole::instance()->liveEdit())
 {
@@ -516,15 +517,37 @@ void VCWidget::editProperties()
  * Intensity
  *********************************************************************/
 
+void VCWidget::adjustFunctionIntensity(Function *f, qreal value)
+{
+    if (f == NULL)
+        return;
+
+    //qDebug() << "adjustFunctionIntensity" << caption() << "value" << value;
+
+    if (m_intensityOverrideId == Function::invalidAttributeId())
+        m_intensityOverrideId = f->requestAttributeOverride(Function::Intensity, value);
+    else
+        f->adjustAttribute(value, m_intensityOverrideId);
+}
+
+void VCWidget::resetIntensityOverrideAttribute()
+{
+    m_intensityOverrideId = Function::invalidAttributeId();
+}
+
 void VCWidget::adjustIntensity(qreal val)
 {
     m_intensity = val;
 }
 
-qreal VCWidget::intensity()
+qreal VCWidget::intensity() const
 {
     return m_intensity;
 }
+
+/*****************************************************************************
+ * External input
+ *****************************************************************************/
 
 bool VCWidget::acceptsInput()
 {
@@ -533,10 +556,6 @@ bool VCWidget::acceptsInput()
 
     return true;
 }
-
-/*****************************************************************************
- * External input
- *****************************************************************************/
 
 bool VCWidget::checkInputSource(quint32 universe, quint32 channel,
                                 uchar value, QObject *sender, quint32 id)
@@ -671,7 +690,7 @@ void VCWidget::sendFeedback(int value, QSharedPointer<QLCInputSource> src)
     if (src->needsUpdate())
         src->updateOuputValue(value);
 
-    if (acceptsInput() == false && isHidden())
+    if (acceptsInput() == false)
         return;
 
     QString chName = QString();
@@ -1380,4 +1399,3 @@ void VCWidget::mouseMoveEvent(QMouseEvent* e)
         QWidget::mouseMoveEvent(e);
     }
 }
-

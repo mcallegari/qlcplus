@@ -47,6 +47,29 @@
 #define DMXKING_SEND_DMX_PORT1          char(0x64)
 #define DMXKING_SEND_DMX_PORT2          char(0x65)
 
+class EnttecDMXUSBProInput : public QThread
+{
+    Q_OBJECT
+
+public:
+    EnttecDMXUSBProInput(DMXInterface *interface);
+    ~EnttecDMXUSBProInput();
+
+private:
+    void run();
+
+    /** Stop this thread */
+    void stopInputThread();
+
+signals:
+    /** Inform the listeners that some dat is ready */
+    void dataReady(QByteArray data, bool isMidi);
+
+private:
+    DMXInterface *m_interface;
+    bool m_running;
+};
+
 /**
  * This is the base interface class for ENTTEC USB DMX Pro widgets.
  */
@@ -66,30 +89,30 @@ public:
     /** @reimp */
     Type type() const;
 
+    /** Set the number of MIDI I/O lines supported by this widget */
     void setMidiPortsNumber(int inputs, int outputs);
 
+    /** Set a special flag to use DMXKing specific commands */
     void setDMXKingMode();
 
     /** @reimp */
     QString additionalInfo() const;
 
 private:
-    QHash<quint32, ushort> m_midiInputsMap;
-    QHash<quint32, ushort> m_mididOutputsMap;
     bool m_dmxKingMode;
 
     /****************************************************************************
      * Open & Close
      ****************************************************************************/
 private:
-     bool configureLine(ushort dmxLine, ushort midiLine);
+     bool configureLine(ushort dmxLine, bool isMidi);
 
 public:
     /** @reimp */
     virtual bool open(quint32 line, bool input = false);
 
-     /** @reimp */
-     virtual bool close(quint32 line = 0, bool input = false);
+    /** @reimp */
+    virtual bool close(quint32 line = 0, bool input = false);
 
     /************************************************************************
      * Name & Serial
@@ -106,33 +129,34 @@ private:
     QString m_proSerial;
 
     /************************************************************************
-     * DMX reception
+     * Input
      ************************************************************************/
 signals:
     /** Tells that the value of a received DMX channel has changed */
     void valueChanged(quint32 universe, quint32 input, quint32 channel, uchar value);
 
-private:
-    /** Stop DMX receiver thread */
-    void stopThread();
-
-    /** DMX receiver thread worker method */
-    void run();
+protected slots:
+    void slotDataReceived(QByteArray data, bool isMidi);
 
 private:
-    bool m_running;
-    QMutex m_mutex;
-    QByteArray m_universe;
+    EnttecDMXUSBProInput *m_inputThread;
 
     /************************************************************************
-     * Write universe
+     * Output
      ************************************************************************/
 public:
     /** @reimp */
     bool writeUniverse(quint32 universe, quint32 output, const QByteArray& data);
 
 private:
-    QByteArray m_outUniverse;
+    /** Stop output thread */
+    void stopOutputThread();
+
+    /** Output thread worker method */
+    void run();
+
+private:
+    bool m_outputRunning;
 };
 
 #endif

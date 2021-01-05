@@ -30,6 +30,7 @@
 #include <QPoint>
 #include <QDebug>
 #include <QSize>
+#include <QAction>
 
 #include "addchannelsdialog.h"
 #include "qlcfixturemode.h"
@@ -38,6 +39,7 @@
 #include "qlcphysical.h"
 #include "qlcchannel.h"
 
+#include "editphysical.h"
 #include "editmode.h"
 #include "edithead.h"
 #include "util.h"
@@ -48,8 +50,9 @@
 #define PROP_PTR Qt::UserRole
 #define COL_NUM  0
 #define COL_NAME 1
+#define COL_ACTS_ON 2
 
-EditMode::EditMode(QWidget* parent, QLCFixtureMode* mode)
+EditMode::EditMode(QWidget *parent, QLCFixtureMode *mode)
     : QDialog(parent)
     , m_mode(new QLCFixtureMode(mode->fixtureDef(), mode))
 {
@@ -58,7 +61,7 @@ EditMode::EditMode(QWidget* parent, QLCFixtureMode* mode)
     init();
 }
 
-EditMode::EditMode(QWidget* parent, QLCFixtureDef* fixtureDef)
+EditMode::EditMode(QWidget *parent, QLCFixtureDef *fixtureDef)
     : QDialog(parent)
     , m_mode(new QLCFixtureMode(fixtureDef))
 {
@@ -77,65 +80,42 @@ EditMode::~EditMode()
 
 void EditMode::init()
 {
-    QString str;
-    QLCPhysical physical = m_mode->physical();
-
     /* Channels page */
-    connect(m_addChannelButton, SIGNAL(clicked()),
-            this, SLOT(slotAddChannelClicked()));
-    connect(m_removeChannelButton, SIGNAL(clicked()),
-            this, SLOT(slotRemoveChannelClicked()));
-    connect(m_raiseChannelButton, SIGNAL(clicked()),
-            this, SLOT(slotRaiseChannelClicked()));
-    connect(m_lowerChannelButton, SIGNAL(clicked()),
-            this, SLOT(slotLowerChannelClicked()));
+    connect(m_addChannelButton, SIGNAL(clicked()), this, SLOT(slotAddChannelClicked()));
+    connect(m_removeChannelButton, SIGNAL(clicked()), this, SLOT(slotRemoveChannelClicked()));
+    connect(m_raiseChannelButton, SIGNAL(clicked()), this, SLOT(slotRaiseChannelClicked()));
+    connect(m_lowerChannelButton, SIGNAL(clicked()), this, SLOT(slotLowerChannelClicked()));
 
     m_modeNameEdit->setText(m_mode->name());
     m_modeNameEdit->setValidator(CAPS_VALIDATOR(this));
     refreshChannelList();
 
     /* Heads page */
-    connect(m_addHeadButton, SIGNAL(clicked()),
-            this, SLOT(slotAddHeadClicked()));
-    connect(m_removeHeadButton, SIGNAL(clicked()),
-            this, SLOT(slotRemoveHeadClicked()));
-    connect(m_editHeadButton, SIGNAL(clicked()),
-            this, SLOT(slotEditHeadClicked()));
-    connect(m_raiseHeadButton, SIGNAL(clicked()),
-            this, SLOT(slotRaiseHeadClicked()));
-    connect(m_lowerHeadButton, SIGNAL(clicked()),
-            this, SLOT(slotLowerHeadClicked()));
+    connect(m_addHeadButton, SIGNAL(clicked()), this, SLOT(slotAddHeadClicked()));
+    connect(m_removeHeadButton, SIGNAL(clicked()), this, SLOT(slotRemoveHeadClicked()));
+    connect(m_editHeadButton, SIGNAL(clicked()), this, SLOT(slotEditHeadClicked()));
+    connect(m_raiseHeadButton, SIGNAL(clicked()), this, SLOT(slotRaiseHeadClicked()));
+    connect(m_lowerHeadButton, SIGNAL(clicked()), this, SLOT(slotLowerHeadClicked()));
 
     refreshHeadList();
 
     /* Physical page */
-    m_bulbTypeCombo->setEditText(physical.bulbType());
-    m_bulbLumensSpin->setValue(physical.bulbLumens());
-    m_bulbTempCombo->setEditText(str.setNum(physical.bulbColourTemperature()));
+    m_phyEdit = new EditPhysical(m_mode->physical(), this);
+    m_phyEdit->show();
+    physicalLayout->addWidget(m_phyEdit);
 
-    m_weightSpin->setValue(physical.weight());
-    m_widthSpin->setValue(physical.width());
-    m_heightSpin->setValue(physical.height());
-    m_depthSpin->setValue(physical.depth());
+    if (m_mode->useGlobalPhysical() == false)
+        m_overridePhyCheck->setChecked(true);
+    slotPhysicalModeChanged();
 
-    m_lensNameCombo->setEditText(physical.lensName());
-    m_lensDegreesMinSpin->setValue(physical.lensDegreesMin());
-    m_lensDegreesMaxSpin->setValue(physical.lensDegreesMax());
-
-    m_focusTypeCombo->setEditText(physical.focusType());
-    m_panMaxSpin->setValue(physical.focusPanMax());
-    m_tiltMaxSpin->setValue(physical.focusTiltMax());
-
-    m_powerConsumptionSpin->setValue(physical.powerConsumption());
-    m_dmxConnectorCombo->setEditText(physical.dmxConnector());
-
-    connect(copyClipboardButton, SIGNAL(clicked()),
-            this, SLOT(slotCopyToClipboard()));
-    connect(pasteClipboardButton, SIGNAL(clicked()),
-            this, SLOT(slotPasteFromClipboard()));
+    connect(m_globalPhyCheck, SIGNAL(clicked(bool)), this, SLOT(slotPhysicalModeChanged()));
+    connect(m_overridePhyCheck, SIGNAL(clicked(bool)), this, SLOT(slotPhysicalModeChanged()));
+    /* Forward copy/paste requests up to reach the main FixtureEditor clipboard */
+    connect(m_phyEdit, SIGNAL(copyToClipboard(QLCPhysical)), this, SIGNAL(copyToClipboard(QLCPhysical)));
+    connect(m_phyEdit, SIGNAL(requestPasteFromClipboard()), this, SIGNAL(requestPasteFromClipboard()));
 
     // Close shortcut
-    QAction* action = new QAction(this);
+    QAction *action = new QAction(this);
     action->setShortcut(QKeySequence(QKeySequence::Close));
     connect(action, SIGNAL(triggered(bool)), this, SLOT(reject()));
     addAction(action);
@@ -145,6 +125,11 @@ void EditMode::init()
     QVariant var = settings.value(KSettingsGeometry);
     if (var.isValid() == true)
         restoreGeometry(var.toByteArray());
+}
+
+QLCFixtureMode *EditMode::mode()
+{
+    return m_mode;
 }
 
 /****************************************************************************
@@ -157,13 +142,13 @@ void EditMode::slotAddChannelClicked()
     if (ach.exec() != QDialog::Accepted)
         return;
 
-    QList <QLCChannel *> newChannelList = ach.getModeChannelsList();
+    QList<QLCChannel *> newChannelList = ach.getModeChannelsList();
 
     // clear the previous list
     m_mode->removeAllChannels();
 
     // Append the channels
-    foreach(QLCChannel *ch, newChannelList)
+    foreach (QLCChannel *ch, newChannelList)
         m_mode->insertChannel(ch, m_mode->channels().size());
 
     // Easier to refresh the whole list
@@ -172,11 +157,11 @@ void EditMode::slotAddChannelClicked()
 
 void EditMode::slotRemoveChannelClicked()
 {
-    QLCChannel* ch = currentChannel();
+    QLCChannel *ch = currentChannel();
 
     if (ch != NULL)
     {
-        QTreeWidgetItem* item;
+        QTreeWidgetItem *item;
         QString select;
 
         // Pick the item above or below to be selected next
@@ -201,7 +186,7 @@ void EditMode::slotRemoveChannelClicked()
 
 void EditMode::slotRaiseChannelClicked()
 {
-    QLCChannel* ch = currentChannel();
+    QLCChannel *ch = currentChannel();
     int index = 0;
 
     if (ch == NULL)
@@ -222,7 +207,7 @@ void EditMode::slotRaiseChannelClicked()
 
 void EditMode::slotLowerChannelClicked()
 {
-    QLCChannel* ch = currentChannel();
+    QLCChannel *ch = currentChannel();
     int index = 0;
 
     if (ch == NULL)
@@ -241,35 +226,70 @@ void EditMode::slotLowerChannelClicked()
     selectChannel(ch->name());
 }
 
+void EditMode::slotActsOnChannelChanged(QLCChannel *newActsOnChannel)
+{
+    QLCChannel *channel = currentChannel();
+
+    if (channel == NULL)
+        return;
+
+    m_mode->updateActsOnChannel(channel, newActsOnChannel);
+    refreshChannelList();
+}
+
 void EditMode::refreshChannelList()
 {
     m_channelList->clear();
 
     for (int i = 0; i < m_mode->channels().size(); i++)
     {
-        QTreeWidgetItem* item = new QTreeWidgetItem(m_channelList);
-        QLCChannel* ch = m_mode->channel(i);
+        QTreeWidgetItem *item = new QTreeWidgetItem(m_channelList);
+        QLCChannel *ch = m_mode->channel(i);
+
+        int actsOnChannelIndex = m_mode->channels().indexOf(m_mode->actsOnChannelsList().value(ch));
+
         Q_ASSERT(ch != NULL);
 
         QString str;
-        str.sprintf("%.3d", (i + 1));
-        item->setText(COL_NUM, str);
+        item->setText(COL_NUM, str.asprintf("%.3d", (i + 1)));
         item->setText(COL_NAME, ch->name());
         item->setIcon(COL_NAME, ch->getIcon());
         item->setData(COL_NAME, PROP_PTR, (qulonglong) ch);
+
+        QStringList comboList;
+
+        comboList << "-";
+
+        for (int index = 0; index < m_mode->channels().size(); index++)
+        {
+            QLCChannel *currentChannel = m_mode->channels().at(index);
+            comboList << QString::number(index) + " - " + currentChannel->name();
+        }
+
+        QComboBox *comboBox = new QComboBox(this);
+        comboBox->addItems(comboList);
+
+        if (actsOnChannelIndex >= 0)
+            comboBox->setCurrentIndex(actsOnChannelIndex + 1);
+        else
+            comboBox->setCurrentIndex(0);
+
+        m_channelList->setItemWidget(item, COL_ACTS_ON, comboBox);
+
+        connect(comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(setActsOnChannel(int)));
     }
     m_channelList->header()->resizeSections(QHeaderView::ResizeToContents);
 }
 
 QLCChannel* EditMode::currentChannel()
 {
-    QTreeWidgetItem* item;
-    QLCChannel* ch = NULL;
+    QTreeWidgetItem *item;
+    QLCChannel *ch = NULL;
 
     // Convert the string-form ulong to a QLCChannel pointer and return it
     item = m_channelList->currentItem();
     if (item != NULL)
-        ch = (QLCChannel*) item->data(COL_NAME, PROP_PTR).toULongLong();
+        ch = (QLCChannel*)item->data(COL_NAME, PROP_PTR).toULongLong();
 
     return ch;
 }
@@ -289,6 +309,18 @@ void EditMode::selectChannel(const QString &name)
     }
 }
 
+void EditMode::setActsOnChannel(int index)
+{
+    int channelNumber = index - 1;
+
+    QLCChannel *actsOnChannel = NULL;
+
+    if (channelNumber >= 0)
+        actsOnChannel = m_mode->channels().at(channelNumber);
+
+    slotActsOnChannelChanged(actsOnChannel);
+}
+
 /****************************************************************************
  * Heads page
  ****************************************************************************/
@@ -305,7 +337,7 @@ void EditMode::slotAddHeadClicked()
 
 void EditMode::slotRemoveHeadClicked()
 {
-    QTreeWidgetItem* item = m_headList->currentItem();
+    QTreeWidgetItem *item = m_headList->currentItem();
     if (item == NULL)
         return;
 
@@ -316,7 +348,7 @@ void EditMode::slotRemoveHeadClicked()
 
 void EditMode::slotEditHeadClicked()
 {
-    QTreeWidgetItem* item = m_headList->currentItem();
+    QTreeWidgetItem *item = m_headList->currentItem();
     if (item == NULL)
         return;
 
@@ -331,7 +363,7 @@ void EditMode::slotEditHeadClicked()
 
 void EditMode::slotRaiseHeadClicked()
 {
-    QTreeWidgetItem* item = m_headList->currentItem();
+    QTreeWidgetItem *item = m_headList->currentItem();
     if (item == NULL)
         return;
 
@@ -351,7 +383,7 @@ void EditMode::slotRaiseHeadClicked()
 
 void EditMode::slotLowerHeadClicked()
 {
-    QTreeWidgetItem* item = m_headList->currentItem();
+    QTreeWidgetItem *item = m_headList->currentItem();
     if (item == NULL)
         return;
 
@@ -375,26 +407,24 @@ void EditMode::refreshHeadList()
 
     for (int i = 0; i < m_mode->heads().size(); i++)
     {
-        QTreeWidgetItem* item = new QTreeWidgetItem(m_headList);
-
+        QTreeWidgetItem *item = new QTreeWidgetItem(m_headList);
         QLCFixtureHead head = m_mode->heads().at(i);
-
         QList <quint32> channels(head.channels());
-        qSort(channels.begin(), channels.end());
-
         QString summary;
+
+        std::sort(channels.begin(), channels.end());      
 
         QListIterator <quint32> it(channels);
         while (it.hasNext() == true)
         {
             quint32 chnum = it.next();
-            const QLCChannel* ch = m_mode->channel(chnum);
-            QTreeWidgetItem* chitem = new QTreeWidgetItem(item);
+            const QLCChannel *ch = m_mode->channel(chnum);
+            QTreeWidgetItem *chitem = new QTreeWidgetItem(item);
             if (ch != NULL)
                 chitem->setText(0, QString("%1: %2").arg(chnum + 1).arg(ch->name()));
             else
                 chitem->setText(0, QString("%1: INVALID!"));
-            chitem->setFlags(0); // Disable channel selection inside heads
+            chitem->setFlags(Qt::NoItemFlags); // Disable channel selection inside heads
 
             summary += QString::number(chnum + 1);
             if (it.hasNext() == true)
@@ -408,7 +438,7 @@ void EditMode::refreshHeadList()
 
 QLCFixtureHead EditMode::currentHead()
 {
-    QTreeWidgetItem* item = m_headList->currentItem();
+    QTreeWidgetItem *item = m_headList->currentItem();
     if (item == NULL)
         return QLCFixtureHead();
 
@@ -421,64 +451,23 @@ void EditMode::selectHead(int index)
     if (index >= m_headList->topLevelItemCount())
         return;
 
-    QTreeWidgetItem* item = m_headList->topLevelItem(index);
+    QTreeWidgetItem *item = m_headList->topLevelItem(index);
     m_headList->setCurrentItem(item);
 }
 
-/*********************************************************************
- * Clipboard
- *********************************************************************/
-
-QLCPhysical EditMode::getClipboard()
+void EditMode::pasteFromClipboard(QLCPhysical clipboard)
 {
-    return m_clipboard;
+    m_phyEdit->pasteFromClipboard(clipboard);
 }
 
-void EditMode::setClipboard(QLCPhysical physical)
+void EditMode::slotPhysicalModeChanged()
 {
-    m_clipboard = physical;
+    m_phyEdit->setEnabled(m_globalPhyCheck->isChecked() ? false : true);
+    if (m_globalPhyCheck->isChecked())
+        m_mode->resetPhysical();
+    else
+        m_mode->setPhysical(m_phyEdit->physical());
 }
-
-void EditMode::slotCopyToClipboard()
-{
-    m_clipboard.setBulbType(m_bulbTypeCombo->currentText());
-    m_clipboard.setBulbLumens(m_bulbLumensSpin->value());
-    m_clipboard.setBulbColourTemperature(m_bulbTempCombo->currentText().toInt());
-    m_clipboard.setWeight(m_weightSpin->value());
-    m_clipboard.setWidth(m_widthSpin->value());
-    m_clipboard.setHeight(m_heightSpin->value());
-    m_clipboard.setDepth(m_depthSpin->value());
-    m_clipboard.setLensName(m_lensNameCombo->currentText());
-    m_clipboard.setLensDegreesMin(m_lensDegreesMinSpin->value());
-    m_clipboard.setLensDegreesMax(m_lensDegreesMaxSpin->value());
-    m_clipboard.setFocusType(m_focusTypeCombo->currentText());
-    m_clipboard.setFocusPanMax(m_panMaxSpin->value());
-    m_clipboard.setFocusTiltMax(m_tiltMaxSpin->value());
-    m_clipboard.setPowerConsumption(m_powerConsumptionSpin->value());
-    m_clipboard.setDmxConnector(m_dmxConnectorCombo->currentText());
-}
-
-void EditMode::slotPasteFromClipboard()
-{
-    m_bulbLumensSpin->setValue(m_clipboard.bulbLumens());
-    m_weightSpin->setValue(m_clipboard.weight());
-    m_widthSpin->setValue(m_clipboard.width());
-    m_heightSpin->setValue(m_clipboard.height());
-    m_depthSpin->setValue(m_clipboard.depth());
-    m_lensDegreesMinSpin->setValue(m_clipboard.lensDegreesMin());
-    m_lensDegreesMaxSpin->setValue(m_clipboard.lensDegreesMax());
-    m_panMaxSpin->setValue(m_clipboard.focusPanMax());
-    m_tiltMaxSpin->setValue(m_clipboard.focusTiltMax());
-    m_powerConsumptionSpin->setValue(m_clipboard.powerConsumption());
-
-    m_bulbTypeCombo->setEditText(m_clipboard.bulbType());
-    m_bulbTempCombo->setEditText(QString::number(m_clipboard.bulbColourTemperature()));
-    m_lensNameCombo->setEditText(m_clipboard.lensName());
-    m_focusTypeCombo->setEditText(m_clipboard.focusType());
-    m_dmxConnectorCombo->setEditText(m_clipboard.dmxConnector());
-}
-
-
 
 /*****************************************************************************
  * Accept
@@ -486,26 +475,9 @@ void EditMode::slotPasteFromClipboard()
 
 void EditMode::accept()
 {
-    QLCPhysical physical = m_mode->physical();
-
-    physical.setBulbType(m_bulbTypeCombo->currentText());
-    physical.setBulbLumens(m_bulbLumensSpin->value());
-    physical.setBulbColourTemperature(m_bulbTempCombo->currentText().toInt());
-    physical.setWeight(m_weightSpin->value());
-    physical.setWidth(m_widthSpin->value());
-    physical.setHeight(m_heightSpin->value());
-    physical.setDepth(m_depthSpin->value());
-    physical.setLensName(m_lensNameCombo->currentText());
-    physical.setLensDegreesMin(m_lensDegreesMinSpin->value());
-    physical.setLensDegreesMax(m_lensDegreesMaxSpin->value());
-    physical.setFocusType(m_focusTypeCombo->currentText());
-    physical.setFocusPanMax(m_panMaxSpin->value());
-    physical.setFocusTiltMax(m_tiltMaxSpin->value());
-    physical.setPowerConsumption(m_powerConsumptionSpin->value());
-    physical.setDmxConnector(m_dmxConnectorCombo->currentText());
-
-    m_mode->setPhysical(physical);
     m_mode->setName(m_modeNameEdit->text());
+    if (m_overridePhyCheck->isChecked())
+        m_mode->setPhysical(m_phyEdit->physical());
 
     QDialog::accept();
 }

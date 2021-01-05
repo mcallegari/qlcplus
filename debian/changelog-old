@@ -783,7 +783,7 @@ qlcplus (4.3.0) stable; urgency=low
 
 qlcplus (4.2.2) stable; urgency=low
 
-  * Rewritten OSX audio renderer code. Tested on various OSX versions and should finally work fine !
+  * Rewritten OSX audio renderer code. Tested on various OSX versions and should finally work fine!
   * Fixed crash when ArtNet plugin is in output mode and receives DMX data
   * Fixed crash when changing ArtNet configuration
   * Fixed ArtNet plugin output on OSX (big thanks to David Geldreich)

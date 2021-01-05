@@ -84,6 +84,13 @@ private:
      * Blackout
      *********************************************************************/
 public:
+    enum BlackoutRequest
+    {
+        BlackoutRequestNone,
+        BlackoutRequestOn,
+        BlackoutRequestOff
+    };
+
     /**
      * Toggle blackout between on and off.
      *
@@ -95,8 +102,20 @@ public:
      * Set blackout on or off
      *
      * @param blackout If true, set blackout ON, otherwise OFF
+     * @return true if blackout state changed
      */
-    void setBlackout(bool blackout);
+    bool setBlackout(bool blackout);
+
+    /**
+     * Schedule blackout on or off
+     *
+     * Scripts toggling blackout cannot wait for m_UniverseMutex to unlock
+     * since they are within locked mutex. The solution is to toggle the blackout
+     * later during dumpUniverses()
+     *
+     * @param blackout If true, set blackout ON, otherwise OFF
+     */
+    void requestBlackout(BlackoutRequest blackout);
 
     /**
      * Get blackout state
@@ -142,6 +161,11 @@ public:
      * Remove all the universes in the current universes list
      */
     bool removeAllUniverses();
+
+    /**
+     * Start all the Universe threads
+     */
+    void startUniverses();
 
     /**
      * Get the unique ID of the universe at the given index
@@ -218,6 +242,12 @@ public:
     QList<Universe*> universes() const;
 
     /**
+     * Get a reference to a Universe from the given Universe ID
+     * Return NULL if no Universe is found
+     */
+    Universe *universe(quint32 id);
+
+    /**
      * Claim access to a universe. This is declared virtual to make
      * unit testing a bit easier.
      */
@@ -232,12 +262,6 @@ public:
     virtual void releaseUniverses(bool changed = true);
 
     /**
-     * Write current universe array data to plugins, each universe within
-     * the array to its assigned plugin.
-     */
-    void dumpUniverses();
-
-    /**
      * Reset all universes (useful when starting from scratch)
      */
     void resetUniverses();
@@ -245,7 +269,7 @@ public:
 signals:
     void universeAdded(quint32 id);
     void universeRemoved(quint32 id);
-    void universesWritten(int index, const QByteArray& universesCount);
+    void universeWritten(quint32 index, const QByteArray& universesData);
 
 private:
     /** The values of all universes */

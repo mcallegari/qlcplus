@@ -19,7 +19,7 @@
 
 import QtQuick 2.0
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "."
 
 Item
@@ -29,6 +29,7 @@ Item
     /** Generic list of items that this component represents */
     property var itemsList: []
     property bool multipleItems: itemsList.length > 1 ? true : false
+    property int modifiers: 0
 
     Rectangle
     {

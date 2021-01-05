@@ -23,7 +23,7 @@
 #include <QTextBrowser>
 #include <QPushButton>
 #include <QMainWindow>
-#include <QTime>
+#include <QElapsedTimer>
 
 class QToolBar;
 class QAction;
@@ -47,7 +47,7 @@ protected:
     bool event(QEvent* ev);
 
 private:
-    QTime m_hysteresis;
+    QElapsedTimer m_hysteresis;
 };
 
 /****************************************************************************

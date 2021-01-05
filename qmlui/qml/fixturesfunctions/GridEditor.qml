@@ -18,6 +18,10 @@
 */
 
 import QtQuick 2.0
+import QtQuick.Layouts 1.2
+import QtQuick.Controls 1.2
+import QtQuick.Controls.Private 1.0
+
 import "."
 
 Rectangle
@@ -29,10 +33,13 @@ Rectangle
     color: "transparent"
 
     /** The size of the universe grid to render */
-    property size gridSize: Qt.size(1,1)
+    property size gridSize: Qt.size(1, 1)
 
     /** The resize constrain to fill the view */
     property int fillDirection: Qt.Horizontal
+
+    /** The minimum size in pixels of a cell */
+    property int mininumCellSize: 0
 
     /** An array of data organized as follows: Item ID | Absolute Index | isOdd | item type */
     property variant gridData
@@ -61,10 +68,9 @@ Rectangle
     property bool externalDrag: itemDropArea.containsDrag
 
     onGridSizeChanged: calculateCellSize()
-    onGridDataChanged: { selectionData = null; dataCanvas.requestPaint() }
-    onGridLabelsChanged: gridCanvas.requestPaint()
+    onGridDataChanged: { selectionData = null; updateViewData() }
+    onGridLabelsChanged: updateViewLabels()
     onWidthChanged: repaintTimer.restart()
-    onValidSelectionChanged: dataCanvas.requestPaint()
 
     signal pressed(int xPos, int yPos, int mods)
     signal positionChanged(int xPos, int yPos, int offset, int mods)
@@ -90,6 +96,12 @@ Rectangle
         var horSize = width / gridSize.width
         var vertSize = height / gridSize.height
 
+        if (mininumCellSize)
+        {
+            horSize = Math.max(horSize, mininumCellSize)
+            vertSize = Math.max(vertSize, mininumCellSize)
+        }
+
         if (fillDirection == Qt.Vertical)
             cellSize = vertSize
         if (fillDirection == Qt.Horizontal)
@@ -97,17 +109,104 @@ Rectangle
         else
             cellSize = Math.min(Math.min(horSize, vertSize), UISettings.bigItemHeight)
 
-        gridRoot.height = cellSize * gridSize.height
+        // autosize width/height only if it needs to exceed the initial height
+        if (cellSize * gridSize.height > height)
+            height = cellSize * gridSize.height
+        if (cellSize * gridSize.width > width)
+            width = cellSize * gridSize.width
 
-        //console.log("Grid View cell size: " + cellSize)
-        dataCanvas.requestPaint()
-        gridCanvas.requestPaint()
+        console.log("Grid View cell size: " + cellSize)
+        updateViewData()
+        updateViewLabels()
+    }
+
+    function updateViewData()
+    {
+        var isOdd = 0
+        var subIndex = 0
+        var dataIdx = 0
+
+        for (var i = 0; i < gridItems.count; i++)
+        {
+            var item = gridItems.itemAt(i)
+            if (item === null)
+                continue;
+
+            if (dataIdx < gridData.length && i === gridData[dataIdx + 1])
+            {
+                if (gridData[dataIdx + 2] !== isOdd)
+                {
+                    subIndex = 0
+                    isOdd = gridData[dataIdx + 2]
+                }
+
+                var itemType = gridData[dataIdx + 3]
+
+                item.itemID = gridData[dataIdx]
+                item.color = isOdd ? oddColor : evenColor
+                if (itemType >= 0)
+                    item.icon = getItemIcon(item.itemID, subIndex)
+
+                subIndex++
+                dataIdx += 4
+            }
+            else
+            {
+                item.color = "#7F7F7F"
+                item.icon = ""
+            }
+        }
+    }
+
+    function updateViewLabels()
+    {
+        var dataIdx = 0
+
+        for (var i = 0; i < gridItems.count; i++)
+        {
+            var item = gridItems.itemAt(i)
+            if (item === null)
+                continue;
+
+            if (dataIdx < gridLabels.length && i === gridLabels[dataIdx + 1])
+            {
+                item.label = gridLabels[dataIdx + 3]
+                item.labelWidth = cellSize * gridLabels[dataIdx + 2]
+                dataIdx += 4
+            }
+            else
+                item.label = ""
+        }
     }
 
     function setSelectionData(data)
     {
         selectionData = data
-        dataCanvas.requestPaint()
+        updateViewSelection(0)
+    }
+
+    function updateViewSelection(offset)
+    {
+        var dataIdx = 0
+
+        for (var i = 0; i < gridItems.count; i++)
+        {
+            var item = gridItems.itemAt(i)
+            if (item === null)
+                continue;
+
+            if (selectionData !== null &&
+                dataIdx < selectionData.length &&
+                i === selectionData[dataIdx] + offset)
+            {
+                item.overColor = validSelection ? "green" : "red"
+                dataIdx++
+            }
+            else
+            {
+                item.overColor = "transparent"
+            }
+        }
     }
 
     Timer
@@ -119,377 +218,210 @@ Rectangle
         onTriggered: calculateCellSize()
     }
 
-    Canvas
+    Timer
     {
-        id: dataCanvas
-        width: parent.width
-        height: parent.height
-        x: 0
-        y: 0
-        z: 0
-        contextType: "2d"
-
-        property int selectionOffset: 0
-        property int mouseOrigX: -1
-        property int mouseOrigY: -1
-        property int mouseLastX: -1
-        property int mouseLastY: -1
-        property bool movingSelection: false
-        property variant iconsCache: []
-
-        onWidthChanged: repaintTimer.restart()
-
-        function checkPosition(mouse)
+        id: ttTimer
+        interval: 1000
+        running: gridMouseArea.containsMouse
+        onTriggered:
         {
-            var xCell = parseInt(mouse.x / cellSize)
-            var yCell = parseInt(mouse.y / cellSize)
-
-            if (xCell < 0 || xCell >= gridSize.width || yCell < 0 || yCell >= gridSize.height)
-                return
-
-            if (mouseOrigX == -1 || mouseOrigY == -1)
-            {
-                mouseOrigX = xCell
-                mouseOrigY = yCell
-            }
-
-            if (xCell !== mouseLastX || yCell !== mouseLastY)
-            {
-                mouseLastX = xCell
-                mouseLastY = yCell
-                return true
-            }
-
-            return false
-        }
-
-        function getPressedItemID(itemAbsIndex)
-        {
-            if (gridData === null)
-                return -1
-
-            for (var idx = 0; idx < gridData.length; idx+=4)
-            {
-                if (gridData[idx + 1] === itemAbsIndex)
-                    return gridData[idx]
-            }
-            return -1
-        }
-
-        function setSelectionOffset()
-        {
-            dataCanvas.selectionOffset =
-                    ((dataCanvas.mouseLastY - dataCanvas.mouseOrigY) * gridSize.width) +
-                      dataCanvas.mouseLastX - dataCanvas.mouseOrigX
-        }
-
-        function checkIconCache(itemID, subIndex, itemType)
-        {
-            if (itemID === -1)
-                return false
-
-            if (dataCanvas.iconsCache[itemType] === undefined)
-            {
-                var iconSource = getItemIcon(itemID, subIndex)
-                var imgObject = Qt.createQmlObject('import QtQuick 2.0; Image { source: "' + iconSource + '"; ' +
-                                                   'width: gridRoot.cellSize * 0.5; ' +
-                                                   'height: gridRoot.cellSize * 0.5; ' +
-                                                   'sourceSize: Qt.size(width, height); visible: false }', dataCanvas)
-
-                console.log("Caching icon: " + iconSource)
-                //dataCanvas.loadImage(imgObject)
-                dataCanvas.iconsCache[itemType] = imgObject
-                return true
-            }
-            return false
-        }
-
-        function fillCell(absIdx, color, itemType)
-        {
-            var yCell = parseInt(absIdx / gridSize.width)
-            var xCell = absIdx - (yCell * gridSize.width)
-            context.fillStyle = color
-            context.fillRect(xCell * cellSize, yCell * cellSize, cellSize, cellSize)
-            if (itemType >= 0)
-            {
-                context.drawImage(dataCanvas.iconsCache[itemType],
-                              (xCell * cellSize) + (cellSize / 2), (yCell * cellSize) + (cellSize / 2),
-                              cellSize * 0.5, cellSize * 0.5)
-            }
-        }
-
-        onPaint:
-        {
-            if (repaintTimer.running === true)
-                return
-
-            var needRepaint = false
-            // an array acting as map for quick lookup of item types per absolute index
-            var typesMap = []
-
-            context.fillStyle = "#7f7f7f"
-            context.clearRect(0, 0, width, height)
-            context.fillRect(0, 0, cellSize * gridSize.width, cellSize * gridSize.height)
-
-            if (gridData && gridData.length)
-            {
-                console.log("[GridEditor] Full repaint data length: " + gridData.length)
-                var isOdd = 0
-                var subIndex = 0
-
-                for (var idx = 0; idx < gridData.length; idx+=4)
-                {
-                    if (gridData[idx + 2] !== isOdd)
-                    {
-                        subIndex = 0
-                        isOdd = gridData[idx + 2]
-                    }
-                    //console.log("Item ID: " + gridData[idx] + ", subIndex: " + gridData[idx + 1]);
-                    if (checkIconCache(gridData[idx], subIndex, gridData[idx + 3]) === true)
-                        needRepaint = true
-
-                    typesMap[gridData[idx + 1]] = gridData[idx + 3]
-
-                    if (gridData[idx + 2])
-                        fillCell(gridData[idx + 1], oddColor, gridData[idx + 3])
-                    else
-                        fillCell(gridData[idx + 1], evenColor, gridData[idx + 3])
-
-                    subIndex++
-                }
-            }
-
-            if (selectionData && selectionData.length)
-            {
-                // if the selection has an offset, clear the original position first
-                if (selectionOffset != 0)
-                {
-                    for (var cIdx = 0; cIdx < selectionData.length; cIdx++)
-                    {
-                        var clearIdx = selectionData[cIdx]
-                        fillCell(clearIdx, "#7f7f7f", -1)
-                    }
-                }
-                for (var selIdx = 0; selIdx < selectionData.length; selIdx++)
-                {
-                    var gridIdx = selectionData[selIdx] + selectionOffset
-                    //console.log("Update selection gridIdx: " + gridIdx)
-
-                    // retrieve the item type from the types map array,
-                    // unless it comes from an external drag
-                    var itemType = itemDropArea.containsDrag ? -1 : typesMap[selectionData[selIdx]] //gridData[(selectionData[selIdx] * 4) + 3]
-                    if (validSelection)
-                        fillCell(gridIdx, "green", itemType)
-                    else
-                        fillCell(gridIdx, "red", itemType)
-                }
-            }
-            if (needRepaint === true)
-            {
-                console.log("A further repaint is needed after icon caching")
-                repaintTimer.restart()
-            }
-        }
-
-        MouseArea
-        {
-            anchors.fill: parent
-
-            onPressed:
-            {
-                if (dataCanvas.checkPosition(mouse))
-                {
-                    var itemAbsIndex = (dataCanvas.mouseLastY * gridSize.width) + dataCanvas.mouseLastX
-                    currentItemID = dataCanvas.getPressedItemID(itemAbsIndex)
-                    gridRoot.pressed(dataCanvas.mouseLastX, dataCanvas.mouseLastY, mouse.modifiers)
-                    if (currentItemID === -1)
-                        return
-                    dataCanvas.setSelectionOffset()
-                    console.log("Clicked item ID: " + currentItemID)
-                    dataCanvas.movingSelection = true
-                }
-            }
-            onPositionChanged:
-            {
-                if (dataCanvas.movingSelection && dataCanvas.checkPosition(mouse))
-                {
-                    dataCanvas.setSelectionOffset()
-                    gridRoot.positionChanged(dataCanvas.mouseLastX, dataCanvas.mouseLastY,
-                                             dataCanvas.selectionOffset, mouse.modifiers)
-                    dataCanvas.requestPaint()
-                }
-            }
-            onReleased:
-            {
-                if (dataCanvas.selectionOffset != 0 && selectionData && selectionData.length)
-                {
-                    gridRoot.released(dataCanvas.mouseLastX, dataCanvas.mouseLastY, dataCanvas.selectionOffset, mouse.modifiers)
-                }
-                dataCanvas.mouseOrigX = -1
-                dataCanvas.mouseOrigY = -1
-                dataCanvas.mouseLastX = -1
-                dataCanvas.mouseLastY = -1
-                dataCanvas.selectionOffset = 0
-                dataCanvas.movingSelection = false
-                validSelection = true
-            }
-        }
-
-        DropArea
-        {
-            id: itemDropArea
-            anchors.fill: parent
-            onEntered:
-            {
-                dataCanvas.checkPosition(drag)
-                gridRoot.dragEntered(dataCanvas.mouseLastX, dataCanvas.mouseLastY, drag)
-            }
-
-            onPositionChanged:
-            {
-                if (dataCanvas.checkPosition(drag))
-                {
-                    console.log("Drag position changed: " + dataCanvas.mouseLastX + " " + dataCanvas.mouseLastY)
-                    dataCanvas.setSelectionOffset()
-                    gridRoot.dragPositionChanged(dataCanvas.mouseLastX, dataCanvas.mouseLastY,
-                                                 dataCanvas.selectionOffset, drag)
-                    dataCanvas.requestPaint()
-                }
-            }
-
-            onExited:
-            {
-                dataCanvas.mouseOrigX = -1
-                dataCanvas.mouseOrigY = -1
-                dataCanvas.mouseLastX = -1
-                dataCanvas.mouseLastY = -1
-                dataCanvas.selectionOffset = 0
-                selectionData = []
-                dataCanvas.requestPaint()
-            }
-
-            onDropped:
-            {
-                gridRoot.dragDropped(dataCanvas.mouseLastX, dataCanvas.mouseLastY, drag)
-                dataCanvas.mouseOrigX = -1
-                dataCanvas.mouseOrigY = -1
-                dataCanvas.mouseLastX = -1
-                dataCanvas.mouseLastY = -1
-                dataCanvas.selectionOffset = 0
-                selectionData = []
-            }
+            var xPos = parseInt(gridMouseArea.mouseX / cellSize)
+            var yPos = parseInt(gridMouseArea.mouseY / cellSize)
+            var tooltip = getTooltip(xPos, yPos)
+            Tooltip.showText(gridMouseArea, Qt.point(gridMouseArea.mouseX, gridMouseArea.mouseY), tooltip)
         }
     }
 
-    // a top layer Canvas that draws only the things that don't change:
-    // 1) a grid with a size determined by gridSize
-    // 2) DMX channel numbers
-    // 3) Item labels if present in gridLabels
-    Canvas
+    GridLayout
     {
-        id: gridCanvas
-        width: parent.width
-        height: parent.height
-        x: 0
-        y: 0
-        z: 1
+        width: cellSize * gridSize.width
+        height: cellSize * gridSize.height
+        columns: gridSize.width
+        rows: gridSize.height
+        columnSpacing: 1
+        rowSpacing: 1
 
-        antialiasing: true
-        contextType: "2d"
-
-        onWidthChanged: repaintTimer.restart()
-
-        function drawLabel(x, y, text, fontSize, color)
+        Repeater
         {
-            context.fillStyle = color
+            id: gridItems
+            model: showIndices ? showIndices : gridSize.width * gridSize.height
 
-            //console.log("absIdx: " + absIdx + ", x: " + xCell + ", y: " + yCell + ", label: " + text)
-
-            var yOffset = fontSize
-            var labelLines = text.split("\n")
-            for (var l = 0; l < labelLines.length; l++)
-            {
-                context.fillText(labelLines[l], x + 2, y + yOffset)
-                yOffset += fontSize
-            }
-        }
-
-        onPaint:
-        {
-            if (repaintTimer.running === true)
-                return
-
-            var context = gridCanvas.getContext('2d')
-            context.fillStyle = "#1A1A1A"
-            context.strokeStyle = "black"
-            context.lineWidth = 1
-
-            context.rect(0, 0, cellSize * gridSize.width, cellSize * gridSize.height)
-            context.clearRect(0, 0, cellSize * gridSize.width, cellSize * gridSize.height)
-
-            var cWidth = cellSize * gridSize.width
-            context.font = labelsFontSize + "px \"" + UISettings.robotoFontName + "\""
-
-            context.beginPath()
-            /* Paint the grid vertical lines */
-            for (var vl = 1; vl < gridSize.width; vl++)
-            {
-                var xPos = cellSize * vl
-                context.moveTo(xPos, 0)
-                context.lineTo(xPos, height)
-            }
-
-            /* Paint the grid horizontal lines */
-            for (var hl = 1; hl < gridSize.height; hl++)
-            {
-                var yPos = cellSize * hl
-                context.moveTo(0, yPos)
-                context.lineTo(cWidth, yPos)
-            }
-
-            context.closePath()
-            context.stroke()
-
-            /* Paint the indices if needed */
-            if (showIndices)
-            {
-                var xpos = 1
-                var ypos = cellSize - 10
-                var rowCount = 0
-
-                for(var idx = 1; idx <= showIndices; idx++)
+            delegate:
+                Rectangle
                 {
-                    context.fillText(idx, xpos, ypos)
-                    xpos += cellSize
-                    rowCount++
-                    if (rowCount === gridSize.width)
+                    color: "#7F7F7F"
+                    implicitHeight: cellSize
+                    implicitWidth: cellSize
+                    z: (gridSize.width * gridSize.height) - index
+
+                    property int itemID
+                    property alias overColor: colorLayer.color
+                    property alias icon: itemIcon.source
+                    property alias label: itemLabel.label
+                    property alias labelWidth: itemLabel.width
+
+                    Rectangle
                     {
-                        xpos = 1
-                        rowCount = 0
-                        ypos += cellSize
+                        id: colorLayer
+                        anchors.fill: parent
+                        color: "transparent"
+                    }
+
+                    RobotoText
+                    {
+                        id: itemLabel
+                        x: 1
+                        height: cellSize * 0.5
+                        fontSize: labelsFontSize
+                    }
+
+                    RobotoText
+                    {
+                        visible: showIndices
+                        anchors.bottom: parent.bottom
+                        anchors.right: parent.right
+                        height: labelsFontSize
+                        label: index + 1
+                        labelColor: "black"
+                        fontSize: labelsFontSize
+                    }
+
+                    Image
+                    {
+                        id: itemIcon
+                        x: 2
+                        y: parent.height - height
+                        width: gridRoot.cellSize * 0.5
+                        height: gridRoot.cellSize * 0.5
+                        sourceSize: Qt.size(width, height)
                     }
                 }
-            }
+        } // Repeater
+    } // GridLayout
 
-            /* Paint the labels if needed */
-            if (gridLabels && gridLabels.length)
-            {
-                for (var li = 0; li < gridLabels.length; li += 4)
-                {
-                    var yCell = parseInt(gridLabels[li + 1] / gridSize.width)
-                    var xCell = gridLabels[li + 1] - (yCell * gridSize.width)
-                    var x = xCell * cellSize
-                    var y = yCell * cellSize
+    MouseArea
+    {
+        id: gridMouseArea
+        anchors.fill: parent
+        hoverEnabled: true
 
-                    context.save()
-                    context.beginPath()
-                    // create a clipping region in case the label is too long
-                    context.rect(x, y, cellSize * gridLabels[li + 2], cellSize)
-                    context.clip()
-                    drawLabel(x, y, gridLabels[li + 3], labelsFontSize, "white")
-                    context.restore()
-                }
-            }
+        property int startX: -1
+        property int startY: -1
+        property int lastX: -1
+        property int lastY: -1
+        property bool movingSelection: false
+        property int selectionOffset: 0
+
+        onPressed:
+        {
+            startX = parseInt(mouse.x / cellSize)
+            startY = parseInt(mouse.y / cellSize)
+            var absStart = (startY * gridSize.width) + startX
+            var item = gridItems.itemAt(absStart)
+            if (item !== null)
+                currentItemID = item.itemID
+            selectionOffset = 0
+            movingSelection = true
+            gridRoot.pressed(startX, startY, mouse.modifiers)
+        }
+
+        onReleased:
+        {
+            if (selectionOffset != 0)
+                gridRoot.released(lastX, lastY, selectionOffset, mouse.modifiers)
+
+            movingSelection = false
+            validSelection = true
+            startX = startY = lastX = lastY = -1
+            updateViewSelection(0)
+        }
+
+        onPositionChanged:
+        {
+            ttTimer.restart()
+
+            if (movingSelection == false)
+                return
+
+            lastX = parseInt(mouse.x / cellSize)
+            lastY = parseInt(mouse.y / cellSize)
+            var absLast = (lastY * gridSize.width) + lastX
+            var absStart = (startY * gridSize.width) + startX
+
+            if (absLast - absStart == selectionOffset)
+                return
+
+            selectionOffset = absLast - absStart
+            //console.log("Mouse entered on " + lastX + ", " + lastY + ", offset: " + selectionOffset)
+
+            // now find the real starting point of the selection
+            var realAbs = selectionData[0] + selectionOffset
+            var realY = parseInt(realAbs / gridSize.width)
+            var realX = realAbs - (realY * gridSize.width)
+
+            gridRoot.positionChanged(realX, realY, selectionOffset, mouse.modifiers)
+            updateViewSelection(selectionOffset)
+        }
+
+        onExited: Tooltip.hideText()
+        onCanceled: Tooltip.hideText()
+    }
+
+    DropArea
+    {
+        id: itemDropArea
+        anchors.fill: parent
+
+        property int startX: -1
+        property int startY: -1
+        property int lastX: -1
+        property int lastY: -1
+        property bool movingSelection: false
+        property int selectionOffset: 0
+
+        onEntered:
+        {
+            startX = parseInt(drag.x / cellSize)
+            startY = parseInt(drag.y / cellSize)
+            gridRoot.dragEntered(startX, startY, drag)
+
+            selectionOffset = 0
+            movingSelection = true
+        }
+
+        onPositionChanged:
+        {
+            if (movingSelection == false)
+                return
+
+            lastX = parseInt(drag.x / cellSize)
+            lastY = parseInt(drag.y / cellSize)
+            var absLast = (lastY * gridSize.width) + lastX
+            var absStart = (startY * gridSize.width) + startX
+
+            if (absLast - absStart == selectionOffset)
+                return
+
+            selectionOffset = absLast - absStart
+            gridRoot.dragPositionChanged(lastX, lastY, selectionOffset, drag)
+            updateViewSelection(selectionOffset)
+        }
+
+        onExited:
+        {
+            startX = startY = lastX = lastY = -1
+            selectionOffset = 0
+            selectionData = null
+            updateViewSelection(0)
+        }
+
+        onDropped:
+        {
+            gridRoot.dragDropped(lastX, lastY, drag)
+            startX = startY = lastX = lastY = -1
+            selectionOffset = 0
+            selectionData = null
+            updateViewSelection(0)
         }
     }
 }

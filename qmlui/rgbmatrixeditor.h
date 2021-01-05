@@ -20,7 +20,7 @@
 #ifndef RGBMATRIXEDITOR_H
 #define RGBMATRIXEDITOR_H
 
-#include "functioneditor.h" 
+#include "functioneditor.h"
 
 class Doc;
 class RGBMatrix;
@@ -43,9 +43,8 @@ class RGBMatrixEditor : public FunctionEditor
     Q_PROPERTY(QColor endColor READ endColor WRITE setEndColor NOTIFY endColorChanged)
     Q_PROPERTY(bool hasEndColor READ hasEndColor WRITE setHasEndColor NOTIFY hasEndColorChanged)
 
-    Q_PROPERTY(int fadeInSpeed READ fadeInSpeed WRITE setFadeInSpeed NOTIFY fadeInSpeedChanged)
-    Q_PROPERTY(int holdSpeed READ holdSpeed WRITE setHoldSpeed NOTIFY holdSpeedChanged)
-    Q_PROPERTY(int fadeOutSpeed READ fadeOutSpeed WRITE setFadeOutSpeed NOTIFY fadeOutSpeedChanged)
+    Q_PROPERTY(int blendMode READ blendMode WRITE setBlendMode NOTIFY blendModeChanged)
+    Q_PROPERTY(int controlMode READ controlMode WRITE setControlMode NOTIFY controlModeChanged)
 
     // Text Algorithm specific properties
     Q_PROPERTY(QString algoText READ algoText WRITE setAlgoText NOTIFY algoTextChanged)
@@ -56,9 +55,6 @@ class RGBMatrixEditor : public FunctionEditor
     Q_PROPERTY(int animationStyle READ animationStyle WRITE setAnimationStyle NOTIFY animationStyleChanged)
     Q_PROPERTY(QSize algoOffset READ algoOffset WRITE setAlgoOffset NOTIFY algoOffsetChanged)
 
-    Q_PROPERTY(int runOrder READ runOrder WRITE setRunOrder NOTIFY runOrderChanged)
-    Q_PROPERTY(int direction READ direction WRITE setDirection NOTIFY directionChanged)
-    
 public:
     RGBMatrixEditor(QQuickView *view, Doc *doc, QObject *parent = 0);
     ~RGBMatrixEditor();
@@ -70,7 +66,7 @@ public:
     void setFixtureGroup(int fixtureGroup);
 
 signals:
-    void fixtureGroupChanged(int fixtureGroup);  
+    void fixtureGroupChanged(int fixtureGroup);
 
 private:
     /** Reference of the RGBMatrix currently being edited */
@@ -146,38 +142,24 @@ signals:
     void animationStyleChanged(int style);
 
     /************************************************************************
-     * Speed
+     * Blend mode
      ************************************************************************/
 public:
-    int fadeInSpeed() const;
-    void setFadeInSpeed(int fadeInSpeed);
-
-    int holdSpeed() const;
-    void setHoldSpeed(int holdSpeed);
-
-    int fadeOutSpeed() const;
-    void setFadeOutSpeed(int fadeOutSpeed);
+    int blendMode() const;
+    void setBlendMode(int mode);
 
 signals:
-    void fadeInSpeedChanged(int fadeInSpeed);
-    void holdSpeedChanged(int holdSpeed);
-    void fadeOutSpeedChanged(int fadeOutSpeed);
+    void blendModeChanged();
 
     /************************************************************************
-     * Run order and direction
+     * Control mode
      ************************************************************************/
 public:
-    /** RGB Matrix run order getter/setter */
-    int runOrder() const;
-    void setRunOrder(int runOrder);
-
-    /** RGB Matrix direction getter/setter */
-    int direction() const;
-    void setDirection(int direction);
+    int controlMode() const;
+    void setControlMode(int mode);
 
 signals:
-    void runOrderChanged(int runOrder);
-    void directionChanged(int direction);
+    void controlModeChanged();
 
     /************************************************************************
      * Preview
@@ -203,6 +185,7 @@ private:
     uint m_previewElapsed;
     RGBMatrixStep *m_previewStepHandler;
     bool m_gotBeat;
+    QMutex m_previewMutex;
 
     /** exchange variable with the QML world */
     QVariantList m_previewData;

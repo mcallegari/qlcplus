@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller</Name>
+  <Version>3.1.0</Version>
+  <Author>Heikki Junnila</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>LED PAR56</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Colour macro">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">Manual Mix</Capability>
+  <Capability Min="8" Max="15">Orange 1</Capability>
+  <Capability Min="16" Max="23">Orange 2</Capability>
+  <Capability Min="24" Max="31">Orange 3</Capability>
+  <Capability Min="32" Max="39">Yellow 1</Capability>
+  <Capability Min="40" Max="47">Yellow 2</Capability>
+  <Capability Min="48" Max="55">Green</Capability>
+  <Capability Min="56" Max="63">Cyan 1</Capability>
+  <Capability Min="64" Max="71">Cyan 2</Capability>
+  <Capability Min="72" Max="79">Cyan 3</Capability>
+  <Capability Min="80" Max="87">Blue 1</Capability>
+  <Capability Min="88" Max="95">Blue 2</Capability>
+  <Capability Min="96" Max="103">Blue 3</Capability>
+  <Capability Min="104" Max="111">Magenta 1</Capability>
+  <Capability Min="112" Max="119">Magenta 2</Capability>
+  <Capability Min="120" Max="127">Magenta 3</Capability>
+  <Capability Min="128" Max="135">Pink 1</Capability>
+  <Capability Min="136" Max="143">Pink 2</Capability>
+  <Capability Min="144" Max="151">Pink 3</Capability>
+  <Capability Min="152" Max="159">White 1</Capability>
+  <Capability Min="160" Max="167">White 2</Capability>
+  <Capability Min="168" Max="175">White 3</Capability>
+  <Capability Min="176" Max="183">Macro 1</Capability>
+  <Capability Min="184" Max="191">Macro 2</Capability>
+  <Capability Min="192" Max="199">Macro 3</Capability>
+  <Capability Min="200" Max="207">Macro 4</Capability>
+  <Capability Min="208" Max="215">Macro 5</Capability>
+  <Capability Min="216" Max="223">Macro 6</Capability>
+  <Capability Min="224" Max="231">Macro 7</Capability>
+  <Capability Min="232" Max="239">Macro 8</Capability>
+  <Capability Min="240" Max="247">Macro 9</Capability>
+  <Capability Min="248" Max="255">Macro 10</Capability>
+ </Channel>
+ <Channel Name="Speed/strobe">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Speed</Capability>
+ </Channel>
+ <Channel Name="Mode">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="31">Dimmer</Capability>
+  <Capability Min="32" Max="63">Decreasing brightness</Capability>
+  <Capability Min="64" Max="95">Increasing brightness</Capability>
+  <Capability Min="96" Max="127">Pulse fade</Capability>
+  <Capability Min="128" Max="159">Auto color mix</Capability>
+  <Capability Min="160" Max="191">3-color flash</Capability>
+  <Capability Min="192" Max="223">7-color flash</Capability>
+  <Capability Min="224" Max="255">Sound control</Capability>
+ </Channel>
+ <Mode Name="Mode 1">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Colour macro</Channel>
+  <Channel Number="4">Speed/strobe</Channel>
+  <Channel Number="5">Mode</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="4500"/>
+   <Dimensions Width="40" Height="40" Weight="2" Depth="30"/>
+   <Lens DegreesMax="15" Name="Other" DegreesMin="15"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="100" DmxConnector="5-pin"/>
+  </Physical>
+</FixtureDefinition>

@@ -26,6 +26,9 @@
 #include <QList>
 #include <QTime>
 #include <QDir>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
+#include <QRandomGenerator>
+#endif
 
 #include "qlcfixturemode.h"
 #include "qlcfixturedef.h"
@@ -35,13 +38,13 @@
 #include "audioplugincache.h"
 #include "rgbscriptscache.h"
 #include "channelsgroup.h"
+#include "scriptwrapper.h"
 #include "collection.h"
 #include "function.h"
 #include "universe.h"
 #include "sequence.h"
 #include "fixture.h"
 #include "chaser.h"
-#include "script.h"
 #include "scene.h"
 #include "show.h"
 #include "efx.h"
@@ -79,12 +82,16 @@ Doc::Doc(QObject* parent, int universes)
     , m_latestFixtureId(0)
     , m_latestFixtureGroupId(0)
     , m_latestChannelsGroupId(0)
+    , m_latestPaletteId(0)
     , m_latestFunctionId(0)
     , m_startupFunctionId(Function::invalidId())
 {
     Bus::init(this);
     resetModified();
+#if QT_VERSION < QT_VERSION_CHECK(5, 10, 0)
     qsrand(QTime::currentTime().msec());
+#endif
+    
 }
 
 Doc::~Doc()
@@ -134,7 +141,16 @@ void Doc::clearContents()
         delete func;
     }
 
-    // Delete all channels groups
+    // Delete all palettes
+    QListIterator <quint32> palIt(m_palettes.keys());
+    while (palIt.hasNext() == true)
+    {
+        QLCPalette *palette = m_palettes.take(palIt.next());
+        emit paletteRemoved(palette->id());
+        delete palette;
+    }
+
+    // Delete all channel groups
     QListIterator <quint32> grpchans(m_channelsGroups.keys());
     while (grpchans.hasNext() == true)
     {
@@ -170,6 +186,7 @@ void Doc::clearContents()
     m_latestFixtureId = 0;
     m_latestFixtureGroupId = 0;
     m_latestChannelsGroupId = 0;
+    m_latestPaletteId = 0;
     m_addresses.clear();
     m_loadStatus = Cleared;
 
@@ -218,6 +235,11 @@ QString Doc::denormalizeComponentPath(const QString& filePath) const
 QLCFixtureDefCache* Doc::fixtureDefCache() const
 {
     return m_fixtureDefCache;
+}
+
+void Doc::setFixtureDefinitionCache(QLCFixtureDefCache *cache)
+{
+    m_fixtureDefCache = cache;
 }
 
 QLCModifiersCache* Doc::modifiersCache() const
@@ -382,6 +404,9 @@ bool Doc::addFixture(Fixture* fixture, quint32 id)
 {
     Q_ASSERT(fixture != NULL);
 
+    quint32 i;
+    quint32 uni = fixture->universe();
+
     // No ID given, this method can assign one
     if (id == Fixture::invalidId())
         id = createFixtureId();
@@ -393,8 +418,8 @@ bool Doc::addFixture(Fixture* fixture, quint32 id)
     }
 
     /* Check for overlapping address */
-    for (uint i = fixture->universeAddress();
-            i < fixture->universeAddress() + fixture->channels(); i++)
+    for (i = fixture->universeAddress();
+         i < fixture->universeAddress() + fixture->channels(); i++)
     {
         if (m_addresses.contains(i))
         {
@@ -412,34 +437,44 @@ bool Doc::addFixture(Fixture* fixture, quint32 id)
             this, SLOT(slotFixtureChanged(quint32)));
 
     /* Keep track of fixture addresses */
-    for (uint i = fixture->universeAddress();
-            i < fixture->universeAddress() + fixture->channels(); i++)
+    for (i = fixture->universeAddress();
+         i < fixture->universeAddress() + fixture->channels(); i++)
     {
         m_addresses[i] = id;
     }
 
+    if (uni >= inputOutputMap()->universesCount())
+    {
+        for (i = inputOutputMap()->universesCount(); i <= uni; i++)
+            inputOutputMap()->addUniverse(i);
+        inputOutputMap()->startUniverses();
+    }
+
     // Add the fixture channels capabilities to the universe they belong
     QList<Universe *> universes = inputOutputMap()->claimUniverses();
-    int uni = fixture->universe();
 
-    // TODO !!! if a universe for this fixture doesn't exist, add it !!!
     QList<int> forcedHTP = fixture->forcedHTPChannels();
     QList<int> forcedLTP = fixture->forcedLTPChannels();
+    quint32 fxAddress = fixture->address();
 
-    for (quint32 i = 0 ; i < fixture->channels(); i++)
+    for (i = 0 ; i < fixture->channels(); i++)
     {
-        const QLCChannel* channel(fixture->channel(i));
+        const QLCChannel *channel(fixture->channel(i));
+
+        // Inform Universe of any HTP/LTP forcing
         if (forcedHTP.contains(i))
-            universes.at(uni)->setChannelCapability(fixture->address() + i,
-                    channel->group(), Universe::HTP);
+            universes.at(uni)->setChannelCapability(fxAddress + i, channel->group(), Universe::HTP);
         else if (forcedLTP.contains(i))
-            universes.at(uni)->setChannelCapability(fixture->address() + i,
-                    channel->group(), Universe::LTP);
+            universes.at(uni)->setChannelCapability(fxAddress + i, channel->group(), Universe::LTP);
         else
-            universes.at(uni)->setChannelCapability(fixture->address() + i,
-                    channel->group());
+            universes.at(uni)->setChannelCapability(fxAddress + i, channel->group());
+
+        // Apply the default value BEFORE modifiers
+        universes.at(uni)->setChannelDefaultValue(fxAddress + i, channel->defaultValue());
+
+        // Apply a channel modifier, if defined
         ChannelModifier *mod = fixture->channelModifier(i);
-        universes.at(uni)->setChannelModifier(fixture->address() + i, mod);
+        universes.at(uni)->setChannelModifier(fxAddress + i, mod);
     }
     inputOutputMap()->releaseUniverses(true);
 
@@ -514,7 +549,20 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
             (fixture->fixtureDef()->manufacturer() == KXMLFixtureGeneric &&
              fixture->fixtureDef()->model() == KXMLFixtureGeneric))
         {
+            // Generic dimmers just need to know the number of channels
             newFixture->setChannels(fixture->channels());
+        }
+        else if (fixture->fixtureDef() == NULL ||
+            (fixture->fixtureDef()->manufacturer() == KXMLFixtureGeneric &&
+             fixture->fixtureDef()->model() == KXMLFixtureRGBPanel))
+        {
+            // RGB Panels definitions are not cached or shared, so
+            // let's make a deep copy of them
+            QLCFixtureDef *fixtureDef = new QLCFixtureDef();
+            *fixtureDef = *fixture->fixtureDef();
+            QLCFixtureMode *mode = new QLCFixtureMode(fixtureDef);
+            *mode = *fixture->fixtureMode();
+            newFixture->setFixtureDefinition(fixtureDef, mode);
         }
         else
         {
@@ -547,58 +595,45 @@ bool Doc::replaceFixtures(QList<Fixture*> newFixturesList)
 
 bool Doc::updateFixtureChannelCapabilities(quint32 id, QList<int> forcedHTP, QList<int> forcedLTP)
 {
-    if (m_fixtures.contains(id) == true)
+    if (m_fixtures.contains(id) == false)
+        return false;
+
+    Fixture* fixture = m_fixtures[id];
+    // get exclusive access to the universes list
+    QList<Universe *> universes = inputOutputMap()->claimUniverses();
+    Universe *universe = universes.at(fixture->universe());
+    quint32 fxAddress = fixture->address();
+
+    // Set forced HTP channels
+    fixture->setForcedHTPChannels(forcedHTP);
+
+    // Set forced LTP channels
+    fixture->setForcedLTPChannels(forcedLTP);
+
+    // Update the Fixture Universe with the current channel states
+    for (quint32 i = 0 ; i < fixture->channels(); i++)
     {
-        Fixture* fixture = m_fixtures[id];
-        // get exclusive access to the universes list
-        QList<Universe *> universes = inputOutputMap()->claimUniverses();
-        int uni = fixture->universe();
+        const QLCChannel *channel(fixture->channel(i));
 
-        // Set forced HTP channels
-        if (!forcedHTP.isEmpty())
-        {
-            fixture->setForcedHTPChannels(forcedHTP);
+        // Inform Universe of any HTP/LTP forcing
+        if (forcedHTP.contains(i))
+            universe->setChannelCapability(fxAddress + i, channel->group(), Universe::HTP);
+        else if (forcedLTP.contains(i))
+            universe->setChannelCapability(fxAddress + i, channel->group(), Universe::LTP);
+        else
+            universe->setChannelCapability(fxAddress + i, channel->group());
 
-            for(int i = 0; i < forcedHTP.count(); i++)
-            {
-                int chIdx = forcedHTP.at(i);
-                const QLCChannel* channel(fixture->channel(chIdx));
+        // Apply the default value BEFORE modifiers
+        universe->setChannelDefaultValue(fxAddress + i, channel->defaultValue());
 
-                if (channel->group() == QLCChannel::Intensity)
-                    universes.at(uni)->setChannelCapability(fixture->address() + chIdx,
-                                                            channel->group(),
-                                                            Universe::ChannelType(Universe::HTP | Universe::Intensity));
-                else
-                    universes.at(uni)->setChannelCapability(fixture->address() + chIdx,
-                                                            channel->group(),
-                                                            Universe::HTP);
-            }
-        }
-        // Set forced LTP channels
-        if (!forcedLTP.isEmpty())
-        {
-            fixture->setForcedLTPChannels(forcedLTP);
-
-            for(int i = 0; i < forcedLTP.count(); i++)
-            {
-                int chIdx = forcedLTP.at(i);
-                const QLCChannel* channel(fixture->channel(chIdx));
-                universes.at(uni)->setChannelCapability(fixture->address() + chIdx, channel->group(), Universe::LTP);
-            }
-        }
-
-        // set channels modifiers
-        for (quint32 i = 0; i < fixture->channels(); i++)
-        {
-            ChannelModifier *mod = fixture->channelModifier(i);
-            universes.at(uni)->setChannelModifier(fixture->address() + i, mod);
-        }
-        inputOutputMap()->releaseUniverses(true);
-
-        return true;
+        // Apply a channel modifier, if defined
+        ChannelModifier *mod = fixture->channelModifier(i);
+        universe->setChannelModifier(fxAddress + i, mod);
     }
 
-    return false;
+    inputOutputMap()->releaseUniverses(true);
+
+    return true;
 }
 
 QList<Fixture*> const& Doc::fixtures() const
@@ -872,6 +907,79 @@ quint32 Doc::createChannelsGroupId()
     return m_latestChannelsGroupId;
 }
 
+/*********************************************************************
+ * Palettes
+ *********************************************************************/
+
+bool Doc::addPalette(QLCPalette *palette, quint32 id)
+{
+    Q_ASSERT(palette != NULL);
+
+    // No ID given, this method can assign one
+    if (id == QLCPalette::invalidId())
+        id = createPaletteId();
+
+    if (m_palettes.contains(id) == true || id == QLCPalette::invalidId())
+    {
+        qWarning() << Q_FUNC_INFO << "a palette with ID" << id << "already exists!";
+        return false;
+    }
+    else
+    {
+        palette->setID(id);
+        m_palettes[id] = palette;
+
+        emit paletteAdded(id);
+        setModified();
+    }
+
+    return true;
+}
+
+bool Doc::deletePalette(quint32 id)
+{
+    if (m_palettes.contains(id) == true)
+    {
+        QLCPalette *palette = m_palettes.take(id);
+        Q_ASSERT(palette != NULL);
+
+        emit paletteRemoved(id);
+        setModified();
+        delete palette;
+
+        return true;
+    }
+    else
+    {
+        qWarning() << Q_FUNC_INFO << "No palette with id" << id;
+        return false;
+    }
+}
+
+QLCPalette *Doc::palette(quint32 id) const
+{
+    if (m_palettes.contains(id) == true)
+        return m_palettes[id];
+    else
+        return NULL;
+}
+
+QList<QLCPalette *> Doc::palettes() const
+{
+    return m_palettes.values();
+}
+
+quint32 Doc::createPaletteId()
+{
+    while (m_palettes.contains(m_latestPaletteId) == true ||
+           m_latestPaletteId == FixtureGroup::invalidId())
+    {
+        m_latestPaletteId++;
+    }
+
+    return m_latestPaletteId;
+}
+
 /*****************************************************************************
  * Functions
  *****************************************************************************/
@@ -1104,71 +1212,6 @@ MonitorProperties *Doc::monitorProperties()
     return m_monitorProps;
 }
 
-QPointF Doc::getAvailable2DPosition(QRectF &fxRect)
-{
-    if (m_monitorProps == NULL)
-        return QPointF(0, 0);
-
-    qreal xPos = fxRect.x(), yPos = fxRect.y();
-    qreal maxYOffset = 0;
-
-    QSize gridSize = m_monitorProps->gridSize();
-    float gridUnits = 1000.0;
-    if (m_monitorProps->gridUnits() == MonitorProperties::Feet)
-        gridUnits = 304.8;
-
-    QRectF gridArea(0, 0, (float)gridSize.width() * gridUnits, (float)gridSize.height() * gridUnits);
-
-    qreal origWidth = fxRect.width();
-    qreal origHeight = fxRect.height();
-
-    foreach(Fixture* fixture, fixtures())
-    {
-        if (m_monitorProps->hasFixturePosition(fixture->id()) == false)
-            continue;
-
-        QVector3D fxPos = m_monitorProps->fixturePosition(fixture->id());
-        QLCFixtureMode *fxMode = fixture->fixtureMode();
-
-        qreal itemXPos = fxPos.x();
-        qreal itemYPos = fxPos.y();
-        qreal itemWidth = 0, itemHeight = 0;
-        if (fxMode != NULL)
-        {
-            itemWidth = fxMode->physical().width();
-            itemHeight = fxMode->physical().height();
-        }
-        if (itemWidth == 0) itemWidth = 300;
-        if (itemHeight == 0) itemHeight = 300;
-
-        // store the next Y row in case we need to lower down
-        if (itemYPos + itemHeight > maxYOffset )
-            maxYOffset = itemYPos + itemHeight;
-
-        QRectF itemRect(itemXPos, itemYPos, itemWidth, itemHeight);
-
-        //qDebug() << "item rect:" << itemRect << "fxRect:" << fxRect;
-
-        if (fxRect.intersects(itemRect) == true)
-        {
-            xPos = itemXPos + itemWidth + 50; //add an extra 50mm spacing
-            if (xPos + fxRect.width() > gridArea.width())
-            {
-                xPos = 0;
-                yPos = maxYOffset + 50;
-                maxYOffset = 0;
-            }
-            fxRect.setX(xPos);
-            fxRect.setY(yPos);
-            // restore width and height as setX and setY mess them
-            fxRect.setWidth(origWidth);
-            fxRect.setHeight(origHeight);
-        }
-    }
-
-    return QPointF(xPos, yPos);
-}
-
 /*****************************************************************************
  * Load & Save
  *****************************************************************************/
@@ -1207,6 +1250,11 @@ bool Doc::loadXML(QXmlStreamReader &doc)
         else if (doc.name() == KXMLQLCChannelsGroup)
         {
             ChannelsGroup::loader(doc, this);
+        }
+        else if (doc.name() == KXMLQLCPalette)
+        {
+            QLCPalette::loader(doc, this);
+            doc.skipCurrentElement();
         }
         else if (doc.name() == KXMLQLCFunction)
         {
@@ -1247,10 +1295,9 @@ bool Doc::saveXML(QXmlStreamWriter *doc)
 
     /* Create the master Engine node */
     doc->writeStartElement(KXMLQLCEngine);
+
     if (startupFunction() != Function::invalidId())
-    {
         doc->writeAttribute(KXMLQLCStartupFunction, QString::number(startupFunction()));
-    }
 
     m_ioMap->saveXML(doc);
 
@@ -1258,7 +1305,7 @@ bool Doc::saveXML(QXmlStreamWriter *doc)
     QListIterator <Fixture*> fxit(fixtures());
     while (fxit.hasNext() == true)
     {
-        Fixture* fxi(fxit.next());
+        Fixture *fxi(fxit.next());
         Q_ASSERT(fxi != NULL);
         fxi->saveXML(doc);
     }
@@ -1267,7 +1314,7 @@ bool Doc::saveXML(QXmlStreamWriter *doc)
     QListIterator <FixtureGroup*> grpit(fixtureGroups());
     while (grpit.hasNext() == true)
     {
-        FixtureGroup* grp(grpit.next());
+        FixtureGroup *grp(grpit.next());
         Q_ASSERT(grp != NULL);
         grp->saveXML(doc);
     }
@@ -1276,16 +1323,25 @@ bool Doc::saveXML(QXmlStreamWriter *doc)
     QListIterator <ChannelsGroup*> chanGroups(channelsGroups());
     while (chanGroups.hasNext() == true)
     {
-        ChannelsGroup* grp(chanGroups.next());
+        ChannelsGroup *grp(chanGroups.next());
         Q_ASSERT(grp != NULL);
         grp->saveXML(doc);
+    }
+
+    /* Write palettes into an XML document */
+    QListIterator <QLCPalette*> paletteIt(palettes());
+    while (paletteIt.hasNext() == true)
+    {
+        QLCPalette *palette(paletteIt.next());
+        Q_ASSERT(palette != NULL);
+        palette->saveXML(doc);
     }
 
     /* Write functions into an XML document */
     QListIterator <Function*> funcit(functions());
     while (funcit.hasNext() == true)
     {
-        Function* func(funcit.next());
+        Function *func(funcit.next());
         Q_ASSERT(func != NULL);
         func->saveXML(doc);
     }

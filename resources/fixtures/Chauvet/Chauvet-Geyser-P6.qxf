@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Andrew</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Geyser P6</Model>
+ <Type>Smoke</Type>
+ <Channel Name="Fog">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="2">No function</Capability>
+  <Capability Min="3" Max="255">Fog output on</Capability>
+ </Channel>
+ <Channel Name="Red">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Red</Colour>
+  <Capability Min="0" Max="2">No function</Capability>
+  <Capability Min="3" Max="255">0-100%</Capability>
+ </Channel>
+ <Channel Name="Green">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Green</Colour>
+  <Capability Min="0" Max="2">No function</Capability>
+  <Capability Min="3" Max="255">0-100%</Capability>
+ </Channel>
+ <Channel Name="Blue">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Blue</Colour>
+  <Capability Min="0" Max="2">No function</Capability>
+  <Capability Min="3" Max="255">0-100%</Capability>
+ </Channel>
+ <Channel Name="Amber">
+  <Group Byte="0">Intensity</Group>
+  <Colour>Amber</Colour>
+  <Capability Min="0" Max="2">No function</Capability>
+  <Capability Min="3" Max="255">0-100%</Capability>
+ </Channel>
+ <Channel Name="UV">
+  <Group Byte="0">Intensity</Group>
+  <Colour>UV</Colour>
+  <Capability Min="0" Max="2">No function</Capability>
+  <Capability Min="3" Max="255">0-100%</Capability>
+ </Channel>
+ <Channel Name="Color Macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="17">Color macro 1</Capability>
+  <Capability Min="18" Max="25">Color macro 2</Capability>
+  <Capability Min="26" Max="33">Color macro 3</Capability>
+  <Capability Min="34" Max="41">Color macro 4</Capability>
+  <Capability Min="42" Max="49">Color macro 5</Capability>
+  <Capability Min="50" Max="57">Color macro 6</Capability>
+  <Capability Min="58" Max="65">Color macro 7</Capability>
+  <Capability Min="66" Max="73">Color macro 8</Capability>
+  <Capability Min="74" Max="81">Color macro 9</Capability>
+  <Capability Min="82" Max="89">Color macro 10</Capability>
+  <Capability Min="90" Max="97">Color macro 11</Capability>
+  <Capability Min="98" Max="105">Color macro 12</Capability>
+  <Capability Min="106" Max="113">Color macro 13</Capability>
+  <Capability Min="114" Max="121">Color macro 14</Capability>
+  <Capability Min="122" Max="129">Color macro 15</Capability>
+  <Capability Min="130" Max="137">Color macro 16</Capability>
+  <Capability Min="138" Max="145">Color macro 17</Capability>
+  <Capability Min="146" Max="153">Color macro 18</Capability>
+  <Capability Min="154" Max="161">Color macro 19</Capability>
+  <Capability Min="162" Max="169">Color macro 20</Capability>
+  <Capability Min="170" Max="177">Color macro 21</Capability>
+  <Capability Min="178" Max="185">Color macro 22</Capability>
+  <Capability Min="186" Max="193">Color macro 23</Capability>
+  <Capability Min="194" Max="201">Color macro 24</Capability>
+  <Capability Min="202" Max="209">Color macro 25</Capability>
+  <Capability Min="210" Max="217">No function</Capability>
+  <Capability Min="218" Max="225">Color macro 26</Capability>
+  <Capability Min="226" Max="233">Color macro 27</Capability>
+  <Capability Min="234" Max="241">Color macro 28</Capability>
+  <Capability Min="242" Max="249">Color macro 29</Capability>
+  <Capability Min="250" Max="255">Color macro 30</Capability>
+ </Channel>
+ <Channel Name="Color Macro Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="255">Speed, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Strobe, slow to fast</Capability>
+ </Channel>
+ <Channel Name="Dimmer">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="2">No function</Capability>
+  <Capability Min="3" Max="255">0-100%</Capability>
+ </Channel>
+ <Mode Name="10 Channel">
+  <Channel Number="0">Fog</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">UV</Channel>
+  <Channel Number="6">Color Macros</Channel>
+  <Channel Number="7">Color Macro Speed</Channel>
+  <Channel Number="8">Strobe</Channel>
+  <Channel Number="9">Dimmer</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="8.8" Width="310" Height="175" Depth="442"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="1610" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Robert Box</Author>
+ </Creator>
+ <Manufacturer>JB Systems</Manufacturer>
+ <Model>COB-4BAR</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe Modes">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="7" Preset="ShutterOpen">No strobe</Capability>
+  <Capability Min="8" Max="37" Preset="StrobeRandom">Random strobe</Capability>
+  <Capability Min="38" Max="67">Sound strobe</Capability>
+  <Capability Min="68" Max="255" Preset="StrobeSlowToFast">Strobe speed (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Color macros and automatic color modes">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15" Preset="ColorMacro" Res1="#000000">Off</Capability>
+  <Capability Min="16" Max="23" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="24" Max="31" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="32" Max="39" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="40" Max="47" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red &amp; Green</Capability>
+  <Capability Min="48" Max="55" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green &amp; Blue</Capability>
+  <Capability Min="56" Max="63" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red &amp; Blue</Capability>
+  <Capability Min="64" Max="71" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="72" Max="79">Color 1</Capability>
+  <Capability Min="80" Max="87">Color 2</Capability>
+  <Capability Min="88" Max="95">Color 3</Capability>
+  <Capability Min="96" Max="103">Color 4</Capability>
+  <Capability Min="104" Max="111">Color 5</Capability>
+  <Capability Min="112" Max="119">Color 6</Capability>
+  <Capability Min="120" Max="127">Color 7</Capability>
+  <Capability Min="128" Max="135">Color 8</Capability>
+  <Capability Min="136" Max="143">Color Fade</Capability>
+  <Capability Min="144" Max="151">Color Chase 1</Capability>
+  <Capability Min="152" Max="159">Color Chase 2</Capability>
+  <Capability Min="160" Max="167">Color Chase 3</Capability>
+  <Capability Min="168" Max="175">Color Chase 4</Capability>
+  <Capability Min="176" Max="183">Color Chase 5</Capability>
+  <Capability Min="184" Max="191">Color Chase 6</Capability>
+  <Capability Min="192" Max="199">Color Chase 7</Capability>
+  <Capability Min="200" Max="207">Color Chase 8</Capability>
+  <Capability Min="208" Max="215">Color Chase 9</Capability>
+  <Capability Min="216" Max="223">Color Chase 10</Capability>
+  <Capability Min="224" Max="231">Color Chase 11</Capability>
+  <Capability Min="232" Max="239">Color Chase 12</Capability>
+  <Capability Min="240" Max="255">Sound Active</Capability>
+ </Channel>
+ <Channel Name="Red 1 &amp; 2" Preset="IntensityRed"/>
+ <Channel Name="Red 3 &amp; 4" Preset="IntensityRed"/>
+ <Channel Name="Red 3/not used" Preset="IntensityRed"/>
+ <Channel Name="Red 4/not used" Preset="IntensityRed"/>
+ <Channel Name="Green 1 &amp; 2" Preset="IntensityGreen"/>
+ <Channel Name="Green 3 &amp; 4" Preset="IntensityGreen"/>
+ <Channel Name="Green 3/not used" Preset="IntensityGreen"/>
+ <Channel Name="Green 4/not used" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1 &amp; 2" Preset="IntensityBlue"/>
+ <Channel Name="Blue 3 &amp; 4" Preset="IntensityBlue"/>
+ <Channel Name="Blue 3/not used" Preset="IntensityBlue"/>
+ <Channel Name="Blue 4/not used" Preset="IntensityBlue"/>
+ <Channel Name="Extra power output 1">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="127">Power off</Capability>
+  <Capability Min="128" Max="255">Power on</Capability>
+ </Channel>
+ <Channel Name="Extra power output 2">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="127">Power off</Capability>
+  <Capability Min="128" Max="255">Power on</Capability>
+ </Channel>
+ <Channel Name="Red 1 (effect color 1/not used)" Preset="IntensityRed"/>
+ <Channel Name="Green 1 (effect color 2/not used)" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1/not used" Preset="IntensityBlue"/>
+ <Channel Name="Red 2/not used" Preset="IntensityRed"/>
+ <Channel Name="Green 2/not used" Preset="IntensityGreen"/>
+ <Channel Name="Blue 2/not used" Preset="IntensityBlue"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Effect speed (from slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Automatic color mode">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">No automatic mode</Capability>
+  <Capability Min="8" Max="247">Color fade speed (slow to fast)</Capability>
+  <Capability Min="248" Max="255">Sound chase</Capability>
+ </Channel>
+ <Channel Name="Dimmer/speed/sound">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="255">Master dimmer/effect speed/sound (0-100%, from slow to fast, sensitivity from low to high))</Capability>
+ </Channel>
+ <Channel Name="Dim strobe music mode 1">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="8" Max="190">Master dimmer (0-100%)</Capability>
+  <Capability Min="191" Max="200">Automatic sound controlled mode</Capability>
+  <Capability Min="201" Max="247">Strobe speed (slow to fast)</Capability>
+  <Capability Min="248" Max="255">Maximum master dimmer level</Capability>
+ </Channel>
+ <Channel Name="Dim strobe music mode 2">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="8" Max="190">Master dimmer (0-100%)</Capability>
+  <Capability Min="191" Max="200">Automatic sound controlled mode</Capability>
+  <Capability Min="201" Max="247">Strobe speed (slow to fast)</Capability>
+  <Capability Min="248" Max="255">Maximum master dimmer level</Capability>
+ </Channel>
+ <Channel Name="Dim strobe music mode 3">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="8" Max="190">Master dimmer (0-100%)</Capability>
+  <Capability Min="191" Max="200">Automatic sound controlled mode</Capability>
+  <Capability Min="201" Max="247">Strobe speed (slow to fast)</Capability>
+  <Capability Min="248" Max="255">Maximum master dimmer level</Capability>
+ </Channel>
+ <Channel Name="Dim strobe music mode 4">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="8" Max="190">Master dimmer (0-100%)</Capability>
+  <Capability Min="191" Max="200">Automatic sound controlled mode</Capability>
+  <Capability Min="201" Max="247">Strobe speed (slow to fast)</Capability>
+  <Capability Min="248" Max="255">Maximum master dimmer level</Capability>
+ </Channel>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="5 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Extra power output 1</Channel>
+  <Channel Number="4">Extra power output 2</Channel>
+ </Mode>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe Modes</Channel>
+  <Channel Number="2">Automatic color mode</Channel>
+  <Channel Number="3">Red</Channel>
+  <Channel Number="4">Green</Channel>
+  <Channel Number="5">Blue</Channel>
+  <Channel Number="6">Extra power output 1</Channel>
+  <Channel Number="7">Extra power output 2</Channel>
+ </Mode>
+ <Mode Name="12 Channel">
+  <Channel Number="0">Red 1 (effect color 1/not used)</Channel>
+  <Channel Number="1">Green 1 (effect color 2/not used)</Channel>
+  <Channel Number="2">Blue 1/not used</Channel>
+  <Channel Number="3">Red 2/not used</Channel>
+  <Channel Number="4">Green 2/not used</Channel>
+  <Channel Number="5">Blue 2/not used</Channel>
+  <Channel Number="6">Red 3/not used</Channel>
+  <Channel Number="7">Green 3/not used</Channel>
+  <Channel Number="8">Blue 3/not used</Channel>
+  <Channel Number="9">Red 4/not used</Channel>
+  <Channel Number="10">Green 4/not used</Channel>
+  <Channel Number="11">Blue 4/not used</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="17 Channel">
+  <Channel Number="0">Color macros and automatic color modes</Channel>
+  <Channel Number="1">Dimmer/speed/sound</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Red 1 (effect color 1/not used)</Channel>
+  <Channel Number="4">Green 1 (effect color 2/not used)</Channel>
+  <Channel Number="5">Blue 1/not used</Channel>
+  <Channel Number="6">Red 2/not used</Channel>
+  <Channel Number="7">Green 2/not used</Channel>
+  <Channel Number="8">Blue 2/not used</Channel>
+  <Channel Number="9">Red 3/not used</Channel>
+  <Channel Number="10">Green 3/not used</Channel>
+  <Channel Number="11">Blue 3/not used</Channel>
+  <Channel Number="12">Red 4/not used</Channel>
+  <Channel Number="13">Green 4/not used</Channel>
+  <Channel Number="14">Blue 4/not used</Channel>
+  <Channel Number="15">Extra power output 1</Channel>
+  <Channel Number="16">Extra power output 2</Channel>
+  <Head>
+   <Channel>3</Channel>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Red 1 &amp; 2</Channel>
+  <Channel Number="1">Green 1 &amp; 2</Channel>
+  <Channel Number="2">Blue 1 &amp; 2</Channel>
+  <Channel Number="3">Red 3 &amp; 4</Channel>
+  <Channel Number="4">Green 3 &amp; 4</Channel>
+  <Channel Number="5">Blue 3 &amp; 4</Channel>
+ </Mode>
+ <Mode Name="18 Channel">
+  <Channel Number="0">Red 1 (effect color 1/not used)</Channel>
+  <Channel Number="1">Green 1 (effect color 2/not used)</Channel>
+  <Channel Number="2">Blue 1/not used</Channel>
+  <Channel Number="3">Dim strobe music mode 1</Channel>
+  <Channel Number="4">Red 2/not used</Channel>
+  <Channel Number="5">Green 2/not used</Channel>
+  <Channel Number="6">Blue 2/not used</Channel>
+  <Channel Number="7">Dim strobe music mode 2</Channel>
+  <Channel Number="8">Red 3/not used</Channel>
+  <Channel Number="9">Green 3/not used</Channel>
+  <Channel Number="10">Blue 3/not used</Channel>
+  <Channel Number="11">Dim strobe music mode 3</Channel>
+  <Channel Number="12">Red 4/not used</Channel>
+  <Channel Number="13">Green 4/not used</Channel>
+  <Channel Number="14">Blue 4/not used</Channel>
+  <Channel Number="15">Dim strobe music mode 4</Channel>
+  <Channel Number="16">Extra power output 1</Channel>
+  <Channel Number="17">Extra power output 2</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+  </Head>
+  <Head>
+   <Channel>8</Channel>
+   <Channel>9</Channel>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+  </Head>
+  <Head>
+   <Channel>12</Channel>
+   <Channel>13</Channel>
+   <Channel>14</Channel>
+   <Channel>15</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="7.6" Width="1000" Height="320" Depth="82"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="120" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

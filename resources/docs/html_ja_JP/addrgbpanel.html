@@ -1,0 +1,122 @@
+<html dir="ltr">
+<head>
+<title>Q Light Controller Plus - RGBパネルを追加</title>
+<script src="utility.js" type="text/javascript"></script>
+<link href="style.css" rel="stylesheet" type="text/css"></link>
+  <meta charset="utf-8">
+</head>
+<BODY onLoad="replaceqrc()">
+
+
+<h1><img src="qrc:/rgbpanel.png" width="32"> RGBパネルを追加</h1>
+<p>
+今、フィクスチャーをディスプレイのように扱えるRGBパネル（もしくはマトリックス）が一般にも売られており、簡単に入手することができます。このダイアログでは、RGBパネルの作成と設定をすばやく行うことができます。これは、RGBパネル(マトリックス)のフィクスチャーの配置に合わせてQLC+にフィクスチャーを追加する作業を支援するものです。
+<br>一度、この機能で登録したフィクスチャーはこの機能では修正できません。一つ一つのフィクスチャーを修正してください。
+</p>
+
+<h2>パネル作成</h2>
+<p>この機能では、２つのことを自動で作成します<br>
+<ul>
+<li>パネルに対応するフィクスチャーを追加します。複数のフィクスチャーで構成されるパネルをQLC+上では１つのパネルとして操作できます。</li>
+<li>追加したフィクスチャーをグループとして追加します。</li>
+</ul>
+ RGBパネルを作成した後は<a href="functionmanager.html">ファンクションマネージャー</a>から<a href="./concept.html#RGBMatrix">RGB マトリックス</a>から、ファンクションを作成することができます。
+<br><br>パネルのオプション一覧</p>
+
+<table border="1" class="qlcTable">
+ <tr>
+  <td colspan="2" style="text-align:center"><b>RGBパネルの追加</b></td>
+ </tr>
+ <tr>
+  <td><b>名前</b></td>
+  <td>RGBパネルに名前をつけることができます。</td>
+ </tr>
+ <tr>
+  <td><b>universe</b></td>
+  <td>RGBパネルを追加するuniverseを選択します。一つのuniverseでは足りない場合は自動的に次のユニバースに跨って設定されます。</td>
+ </tr>
+ <tr>
+  <td><b>スタートアドレス</b></td>
+  <td>RGBパネルのスタートアドレスを設定します</td>
+ </tr>
+
+ <tr>
+  <td colspan="2" style="text-align:center"><b>サイズ</b></td>
+ </tr>
+ <tr>
+  <td><b>列</b></td>
+  <td>RGBパネルに含まれるフィクスチャーの列数を設定します。</td>
+ </tr>
+ <tr>
+  <td><b>行</b></td>
+  <td>RGBパネルに含まれるフィクスチャーの行数を設定します。</td>
+ </tr>
+
+ <tr>
+  <td colspan="2" style="text-align:center"><b>実際の大きさ</b></td>
+ </tr>
+ <tr>
+  <td><b>幅</b></td>
+  <td>RGBパネルの実際の横幅を設定します。(単位はmm)</td>
+ </tr>
+ <tr>
+  <td><b>高さ</b></td>
+  <td>RGBパネルの実際の高さを設定します。(単位はmm)</td>
+ </tr>
+
+ <tr>
+  <td colspan="2" style="text-align:center"><b>方向</b></td>
+ </tr>
+ <tr>
+  <td><b>左上から
+</b></td>
+  <td>パネルの左上から順にフィクスチャーのチャンネルを振り当てます</td>
+ </tr>
+ <tr>
+  <td><b>右上から</b></td>
+  <td>パネルの右上から順にフィクスチャーのチャンネルを振り当てます</td>
+ </tr>
+ <tr>
+  <td><b>左下から</b></td>
+  <td>パネルの左下から順にフィクスチャーのチャンネルを振り当てます</td>
+ </tr>
+ <tr>
+  <td><b>右下から</b></td>
+  <td>パネルの右下から順にフィクスチャーのチャンネルを振り当てます</td>
+ </tr>
+
+ <tr>
+  <td colspan="2" style="text-align:center"><b>配置</b></td>
+ </tr>
+ <tr>
+  <td><b>蛇行</b></td>
+  <td>フィクスチャーを両端で折り返すように並べます。これは列（行）の最後のフィクスチャーが次の列（行）と隣り合うようなセッティングになります。
+(例)
+1→2→3→4
+8←7←6←5</td>
+ </tr>
+ <tr>
+  <td><b>ジグザグ</b></td>
+  <td>フィクスチャーをジクザグになるように並べます。これは、列（行）の始めのフィクスチャーが一つの列（行）に揃うようなセッティングになります。
+
+(例)
+1→2→3→4
+5→6→7→8</td>
+ </tr>
+
+ <tr>
+  <td colspan="2" style="text-align:center"><b>Direction</b></td>
+ </tr>
+ <tr>
+  <td><b>Horizontal</b></td>
+  <td>フィクスチャーを水平方向へ並べます。</td>
+ </tr>
+ <tr>
+  <td><b>Vertical</b></td>
+  <td>フィクスチャーを垂直方向へ並べます。</td>
+ </tr>
+
+</table>
+
+</BODY>
+</html>

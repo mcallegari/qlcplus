@@ -439,6 +439,7 @@ QtObject
     readonly property string fa_search_plus             : "\uf00e"
     readonly property string fa_send                    : "\uf1d8"
     readonly property string fa_send_o                  : "\uf1d9"
+    readonly property string fa_server                  : "\uf233"
     readonly property string fa_share                   : "\uf064"
     readonly property string fa_share_alt               : "\uf1e0"
     readonly property string fa_share_alt_square        : "\uf1e1"

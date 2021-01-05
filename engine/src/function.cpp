@@ -28,13 +28,13 @@
 #include "qlcmacros.h"
 #include "qlcfile.h"
 
+#include "scriptwrapper.h"
 #include "mastertimer.h"
 #include "collection.h"
 #include "rgbmatrix.h"
 #include "function.h"
 #include "sequence.h"
 #include "chaser.h"
-#include "script.h"
 #include "audio.h"
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include "video.h"
@@ -43,6 +43,8 @@
 #include "show.h"
 #include "efx.h"
 #include "doc.h"
+
+#define OVERRIDE_ATTRIBUTE_START_ID     128
 
 const QString KSceneString      (      "Scene" );
 const QString KChaserString     (     "Chaser" );
@@ -96,6 +98,8 @@ Function::Function(QObject *parent)
     , m_stop(true)
     , m_running(false)
     , m_paused(false)
+    , m_lastOverrideAttributeId(OVERRIDE_ATTRIBUTE_START_ID)
+    , m_preserveAttributes(false)
     , m_blendMode(Universe::NormalBlend)
 {
 
@@ -124,10 +128,12 @@ Function::Function(Doc* doc, Type t)
     , m_stop(true)
     , m_running(false)
     , m_paused(false)
+    , m_lastOverrideAttributeId(OVERRIDE_ATTRIBUTE_START_ID)
+    , m_preserveAttributes(false)
     , m_blendMode(Universe::NormalBlend)
 {
     Q_ASSERT(doc != NULL);
-    registerAttribute(tr("Intensity"));
+    registerAttribute(tr("Intensity"), Multiply | Single);
 }
 
 Function::~Function()
@@ -947,23 +953,38 @@ void Function::postLoad()
     /* NOP */
 }
 
+bool Function::contains(quint32 functionId)
+{
+    Q_UNUSED(functionId);
+    return false;
+}
+
+QList<quint32> Function::components()
+{
+    return QList<quint32>();
+}
+
 /*****************************************************************************
  * Flash
  *****************************************************************************/
 
-void Function::flash(MasterTimer* timer)
+void Function::flash(MasterTimer *timer)
 {
     Q_UNUSED(timer);
+
     if (m_flashing == false)
         emit flashing(m_id, true);
+
     m_flashing = true;
 }
 
-void Function::unFlash(MasterTimer* timer)
+void Function::unFlash(MasterTimer *timer)
 {
     Q_UNUSED(timer);
+
     if (m_flashing == true)
         emit flashing(m_id, false);
+
     m_flashing = false;
 }
 
@@ -976,11 +997,11 @@ bool Function::flashing() const
  * Running
  *****************************************************************************/
 
-void Function::preRun(MasterTimer* timer)
+void Function::preRun(MasterTimer *timer)
 {
     Q_UNUSED(timer);
 
-    qDebug() << "Function preRun. Name:" << m_name << "ID: " << m_id;
+    qDebug() << "Function preRun. Name:" << m_name << "ID:" << m_id << "type:" << typeToString(type());
     m_running = true;
 
     emit running(m_id);
@@ -992,21 +1013,39 @@ void Function::write(MasterTimer *timer, QList<Universe *> universes)
     Q_UNUSED(universes);
 }
 
-void Function::postRun(MasterTimer* timer, QList<Universe *> universes)
+void Function::postRun(MasterTimer *timer, QList<Universe *> universes)
 {
     Q_UNUSED(timer);
     Q_UNUSED(universes);
 
     qDebug() << "Function postRun. Name:" << m_name << "ID: " << m_id;
-    m_stopMutex.lock();
-    resetElapsed();
-    resetAttributes();
 
-    m_functionStopped.wakeAll();
-    m_stopMutex.unlock();
+    {
+        QMutexLocker locker(&m_stopMutex);
+
+        resetElapsed();
+        if (m_preserveAttributes == false)
+            resetAttributes();
+
+        m_functionStopped.wakeAll();
+    }
 
     m_running = false;
     emit stopped(m_id);
+}
+
+void Function::dismissAllFaders()
+{
+    QMapIterator <quint32, QSharedPointer<GenericFader> > it(m_fadersMap);
+    while (it.hasNext() == true)
+    {
+        it.next();
+        QSharedPointer<GenericFader> fader = it.value();
+        if (!fader.isNull())
+            fader->requestDelete();
+    }
+
+    m_fadersMap.clear();
 }
 
 bool Function::isRunning() const
@@ -1109,7 +1148,7 @@ void Function::setPause(bool enable)
     m_paused = enable;
 }
 
-void Function::stop(FunctionParent source)
+void Function::stop(FunctionParent source, bool preserveAttributes)
 {
     qDebug() << "Function stop(). Name:" << m_name << "ID: " << m_id << "source:" << source.type() << source.id();
 
@@ -1130,6 +1169,7 @@ void Function::stop(FunctionParent source)
     {
         m_paused = false;
         m_stop = true;
+        m_preserveAttributes = preserveAttributes;
     }
 }
 
@@ -1149,11 +1189,15 @@ bool Function::startedAsChild() const
     return false;
 }
 
+int Function::invalidAttributeId()
+{
+    return -1;
+}
+
 bool Function::stopAndWait()
 {
-    bool result = true;
+    QMutexLocker locker(&m_stopMutex);
 
-    m_stopMutex.lock();
     stop(FunctionParent::master());
 
     QElapsedTimer watchdog;
@@ -1163,45 +1207,111 @@ bool Function::stopAndWait()
     while (m_running == true)
     {
         if (watchdog.elapsed() > 2000)
-        {
-              result = false;
-              break;
-        }
+            return false;
 
         // wait until the function has stopped
         m_functionStopped.wait(&m_stopMutex, 100);
     }
 
-    m_stopMutex.unlock();
-    return result;
+    return true;
 }
 
 /*****************************************************************************
  * Attributes
  *****************************************************************************/
-int Function::registerAttribute(QString name, qreal value)
+
+int Function::registerAttribute(QString name, int flags, qreal min, qreal max, qreal value)
 {
-    for( int i = 0; i < m_attributes.count(); i++)
+    for (int i = 0; i < m_attributes.count(); i++)
     {
-        if (m_attributes[i].name == name)
+        if (m_attributes[i].m_name == name)
         {
-            m_attributes[i].value = value;
+            m_attributes[i].m_min = min;
+            m_attributes[i].m_max = max;
+            m_attributes[i].m_value = value;
+            m_attributes[i].m_flags = flags;
+            m_attributes[i].m_isOverridden = false;
+            m_attributes[i].m_overrideValue = 0.0;
             return i;
         }
     }
     Attribute newAttr;
-    newAttr.name = name;
-    newAttr.value = value;
+    newAttr.m_name = name;
+    newAttr.m_min = min;
+    newAttr.m_max = max;
+    newAttr.m_value = value;
+    newAttr.m_flags = flags;
+    newAttr.m_isOverridden = false;
+    newAttr.m_overrideValue = 0.0;
     m_attributes.append(newAttr);
 
     return m_attributes.count() - 1;
 }
 
+int Function::requestAttributeOverride(int attributeIndex, qreal value)
+{
+    if (attributeIndex < 0 || attributeIndex >= m_attributes.count())
+        return -1;
+
+    int attributeID = invalidAttributeId();
+
+    if (m_attributes.at(attributeIndex).m_flags & Single)
+    {
+        foreach (int id, m_overrideMap.keys())
+        {
+            if (m_overrideMap[id].m_attrIndex == attributeIndex)
+            {
+                attributeID = id;
+                break;
+            }
+        }
+    }
+
+    if (attributeID == invalidAttributeId())
+    {
+        AttributeOverride override;
+        override.m_attrIndex = attributeIndex;
+        override.m_value = 0.0;
+
+        attributeID = m_lastOverrideAttributeId;
+        m_overrideMap[attributeID] = override;
+
+        qDebug() << name() << "Override requested for attribute" << attributeIndex << "value" << value << "new ID" << attributeID;
+
+        calculateOverrideValue(attributeIndex);
+
+        m_lastOverrideAttributeId++;
+    }
+    else
+    {
+        qDebug() << name() << "Override requested for attribute" << attributeIndex << "value" << value << "single ID" << attributeID;
+    }
+
+    // actually apply the new override value
+    adjustAttribute(value, attributeID);
+
+    return attributeID;
+}
+
+void Function::releaseAttributeOverride(int attributeId)
+{
+    if (m_overrideMap.contains(attributeId) == false)
+        return;
+
+    int attributeIndex = m_overrideMap[attributeId].m_attrIndex;
+
+    m_overrideMap.remove(attributeId);
+
+    calculateOverrideValue(attributeIndex);
+
+    qDebug() << name() << "Attribute override released" << attributeId;
+}
+
 bool Function::unregisterAttribute(QString name)
 {
-    for( int i = 0; i < m_attributes.count(); i++)
+    for (int i = 0; i < m_attributes.count(); i++)
     {
-        if (m_attributes[i].name == name)
+        if (m_attributes[i].m_name == name)
         {
             m_attributes.removeAt(i);
             return true;
@@ -1214,25 +1324,56 @@ bool Function::renameAttribute(int idx, QString newName)
 {
     if (idx < 0 || idx >= m_attributes.count())
         return false;
-    m_attributes[idx].name = newName;
+    m_attributes[idx].m_name = newName;
 
     return true;
 }
 
-void Function::adjustAttribute(qreal fraction, int attributeIndex)
+int Function::adjustAttribute(qreal value, int attributeId)
 {
-    if (attributeIndex >= m_attributes.count())
-        return;
+    if (attributeId < 0)
+        return -1;
 
-    //qDebug() << Q_FUNC_INFO << "idx:" << attributeIndex << ", val:" << fraction;
-    m_attributes[attributeIndex].value = CLAMP(fraction, 0.0, 1.0);
-    emit attributeChanged(attributeIndex, m_attributes[attributeIndex].value);
+    int attrIndex;
+
+    //qDebug() << name() << "Attribute ID:" << attributeId << ", val:" << value;
+
+    if (attributeId < OVERRIDE_ATTRIBUTE_START_ID)
+    {
+        if (attributeId >= m_attributes.count() || m_attributes[attributeId].m_value == value)
+            return -1;
+
+        // Adjust the original value of an attribute. Only Function editors should do this !
+        m_attributes[attributeId].m_value = CLAMP(value, m_attributes[attributeId].m_min, m_attributes[attributeId].m_max);
+        attrIndex = attributeId;
+    }
+    else
+    {
+        if (m_overrideMap.contains(attributeId) == false || m_overrideMap[attributeId].m_value == value)
+            return -1;
+
+        // Adjust an attribute override value and recalculate the final overridden value
+        m_overrideMap[attributeId].m_value = value;
+        attrIndex = m_overrideMap[attributeId].m_attrIndex;
+        calculateOverrideValue(attrIndex);
+    }
+
+    emit attributeChanged(attrIndex, m_attributes[attrIndex].m_isOverridden ?
+                                     m_attributes[attrIndex].m_overrideValue :
+                                     m_attributes[attrIndex].m_value);
+
+    return attrIndex;
 }
 
 void Function::resetAttributes()
 {
     for (int i = 0; i < m_attributes.count(); i++)
-        m_attributes[i].value = 1.0;
+    {
+        m_attributes[i].m_isOverridden = false;
+        m_attributes[i].m_overrideValue = 0.0;
+    }
+    m_overrideMap.clear();
+    m_lastOverrideAttributeId = OVERRIDE_ATTRIBUTE_START_ID;
 }
 
 qreal Function::getAttributeValue(int attributeIndex) const
@@ -1240,29 +1381,54 @@ qreal Function::getAttributeValue(int attributeIndex) const
     if (attributeIndex >= m_attributes.count())
         return 0.0;
 
-    return m_attributes[attributeIndex].value;
+    return m_attributes[attributeIndex].m_isOverridden ?
+                m_attributes[attributeIndex].m_overrideValue :
+                m_attributes[attributeIndex].m_value;
 }
 
 int Function::getAttributeIndex(QString name) const
 {
-    for(int i = 0; i < m_attributes.count(); i++)
+    for (int i = 0; i < m_attributes.count(); i++)
     {
         Attribute attr = m_attributes.at(i);
-        if(attr.name == name)
+        if(attr.m_name == name)
             return i;
     }
     return -1;
 }
 
-QList<Attribute> Function::attributes()
+QList<Attribute> Function::attributes() const
 {
     return m_attributes;
 }
 
-bool Function::contains(quint32 functionId)
+void Function::calculateOverrideValue(int attributeIndex)
 {
-    Q_UNUSED(functionId);
-    return false;
+    if (attributeIndex >= m_attributes.count())
+        return;
+
+    qreal finalValue = 0.0;
+    bool found = false;
+    Attribute origAttr = m_attributes.at(attributeIndex);
+
+    if (origAttr.m_flags & Multiply)
+        finalValue = origAttr.m_value;
+
+    foreach (AttributeOverride attr, m_overrideMap.values())
+    {
+        if (attr.m_attrIndex != attributeIndex)
+            continue;
+
+        found = true;
+
+        if (origAttr.m_flags & Multiply)
+            finalValue = finalValue * attr.m_value;
+        else if (origAttr.m_flags & LastWins)
+            finalValue = attr.m_value;
+    }
+
+    m_attributes[attributeIndex].m_overrideValue = finalValue;
+    m_attributes[attributeIndex].m_isOverridden = found;
 }
 
 /*************************************************************************

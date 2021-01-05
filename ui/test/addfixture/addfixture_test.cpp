@@ -160,7 +160,7 @@ void AddFixture_Test::initialNoFixture()
         else
         {
             QCOMPARE(i, af.m_tree->topLevelItemCount() - 1); // Generic should be last
-            QCOMPARE(top->childCount(), 3);
+            QCOMPARE(top->childCount(), 4);
             QCOMPARE(top->child(0)->text(0), QString(KXMLFixtureGeneric));
 
             QStringList models(m_doc->fixtureDefCache()->models(top->text(0)));
@@ -251,7 +251,7 @@ void AddFixture_Test::initialDimmer()
         else
         {
             QCOMPARE(i, af.m_tree->topLevelItemCount() - 1); // Generic should be last
-            QCOMPARE(top->childCount(), 3);
+            QCOMPARE(top->childCount(), 4);
             QCOMPARE(top->child(0)->text(0), QString(KXMLFixtureGeneric));
 
             QStringList models(m_doc->fixtureDefCache()->models(top->text(0)));
@@ -351,7 +351,7 @@ void AddFixture_Test::initialScanner()
         else
         {
             QCOMPARE(i, af.m_tree->topLevelItemCount() - 1); // Generic should be last
-            QCOMPARE(top->childCount(), 3);
+            QCOMPARE(top->childCount(), 4);
             QCOMPARE(top->child(0)->text(0), QString(KXMLFixtureGeneric));
 
             QStringList models(m_doc->fixtureDefCache()->models(top->text(0)));
@@ -447,7 +447,7 @@ void AddFixture_Test::selectionGeneric()
     QTreeWidgetItem* item = af.m_tree->topLevelItem(af.m_tree->topLevelItemCount() - 1);
     QVERIFY(item != NULL);
     // First, select the parent node so that selectionChanged() fires
-    QCOMPARE(item->childCount(), 3);
+    QCOMPARE(item->childCount(), 4);
     af.m_tree->setCurrentItem(item);
     // Then, select the child to fire again
     item = item->child(0);

@@ -404,7 +404,7 @@ void VCSpeedDial::resetPresets()
 QList<VCSpeedDialPreset*> VCSpeedDial::presets() const
 {
     QList<VCSpeedDialPreset*> presetsList = m_presets.values();
-    qSort(presetsList.begin(), presetsList.end(), VCSpeedDialPreset::compare);
+    std::sort(presetsList.begin(), presetsList.end(), VCSpeedDialPreset::compare);
     return presetsList;
 }
 
@@ -807,9 +807,9 @@ bool VCSpeedDial::loadXML(QXmlStreamReader &root)
     if (root.attributes().hasAttribute(KXMLQLCVCSpeedDialSpeedTypes))
     {
         SpeedTypes speedTypes = SpeedTypes(root.attributes().value(KXMLQLCVCSpeedDialSpeedTypes).toString().toInt());
-        defaultFadeInMultiplier = speedTypes & FadeIn ? VCSpeedDialFunction::One : VCSpeedDialFunction::None;
-        defaultFadeOutMultiplier = speedTypes & FadeOut ? VCSpeedDialFunction::One : VCSpeedDialFunction::None;
-        defaultDurationMultiplier = speedTypes & Duration ? VCSpeedDialFunction::One : VCSpeedDialFunction::None;
+        defaultFadeInMultiplier = (speedTypes & FadeIn) ? VCSpeedDialFunction::One : VCSpeedDialFunction::None;
+        defaultFadeOutMultiplier = (speedTypes & FadeOut) ? VCSpeedDialFunction::One : VCSpeedDialFunction::None;
+        defaultDurationMultiplier = (speedTypes & Duration) ? VCSpeedDialFunction::One : VCSpeedDialFunction::None;
     }
 
     // Sorted list for new presets
@@ -921,7 +921,7 @@ bool VCSpeedDial::loadXML(QXmlStreamReader &root)
         {
             VCSpeedDialPreset preset(0xff);
             if (preset.loadXML(root))
-                newPresets.insert(qLowerBound(newPresets.begin(), newPresets.end(), preset), preset);
+                newPresets.insert(std::lower_bound(newPresets.begin(), newPresets.end(), preset), preset);
         }
         else if (root.name() == KXMLQLCVCSpeedDialVisibilityMask)
         {

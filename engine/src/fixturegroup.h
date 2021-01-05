@@ -24,7 +24,7 @@
 #include <QObject>
 #include <QList>
 #include <QSize>
-#include <QHash>
+#include <QMap>
 
 #include "grouphead.h"
 #include "qlcpoint.h"
@@ -38,10 +38,14 @@ class Doc;
  */
 
 #define KXMLQLCFixtureGroup "FixtureGroup"
+#define KXMLQLCFixtureGroupID "ID"
 
 class FixtureGroup : public QObject
 {
     Q_OBJECT
+
+    Q_PROPERTY(quint32 id READ id CONSTANT)
+    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
 
     /************************************************************************
      * Initialization
@@ -86,6 +90,9 @@ public:
     /** Get the name of a fixture group */
     QString name() const;
 
+signals:
+    void nameChanged();
+
 private:
     QString m_name;
 
@@ -99,8 +106,10 @@ public:
      *
      * @param id The ID of the fixture to add
      * @param point The point to start from
+     *
+     * @return true if at least one fixture head was added, otherwise false
      */
-    void assignFixture(quint32 id, const QLCPoint& pt = QLCPoint());
+    bool assignFixture(quint32 id, const QLCPoint& pt = QLCPoint());
 
     /**
      * Assign a fixture head to a group at the given point. If point is null,
@@ -111,8 +120,10 @@ public:
      *
      * @param pt The point to assign to
      * @param head The fixture head to assign
+     *
+     * @return true if head was added, otherwise false
      */
-    void assignHead(const QLCPoint& pt, const GroupHead& head);
+    bool assignHead(const QLCPoint& pt, const GroupHead& head);
 
     /**
      * Resign a fixture, along with all of its heads from a group.
@@ -154,7 +165,7 @@ public:
     QList <GroupHead> headList() const;
 
     /** Get the fixture head hash */
-    QHash <QLCPoint,GroupHead> headHash() const;
+    QMap <QLCPoint,GroupHead> headsMap() const;
 
     /** Get a list of fixture IDs assigned to the group */
     QList <quint32> fixtureList() const;
@@ -164,7 +175,7 @@ private slots:
     void slotFixtureRemoved(quint32 id);
 
 private:
-    QHash <QLCPoint,GroupHead> m_heads;
+    QMap <QLCPoint,GroupHead> m_heads;
 
     /************************************************************************
      * Size

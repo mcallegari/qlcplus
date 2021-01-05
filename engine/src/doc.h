@@ -34,6 +34,7 @@
 #include "fixturegroup.h"
 #include "qlcclipboard.h"
 #include "mastertimer.h"
+#include "qlcpalette.h"
 #include "function.h"
 #include "fixture.h"
 
@@ -90,7 +91,7 @@ public:
      */
     QString normalizeComponentPath(const QString& filePath) const;
 
-    /** If filePath is relative path, it is resolved relative to the workspace 
+    /** If filePath is relative path, it is resolved relative to the workspace
      *  directory (absolute path is returned).
      *  If filePath is absolute, it is returned unchanged (symlinks and .. are resolved).
      *
@@ -119,25 +120,31 @@ signals:
      *********************************************************************/
 public:
     /** Get the fixture definition cache object */
-    QLCFixtureDefCache* fixtureDefCache() const;
+    QLCFixtureDefCache *fixtureDefCache() const;
+
+    /** Set the fixure definition cache reference. This is useful
+     *  to share a cache between different Docs.
+     *  Note: deletion of an existing cache must be performed before calling
+     *        this method, otherwise it creates a memory leak */
+    void setFixtureDefinitionCache(QLCFixtureDefCache *cache);
 
     /** Get the channel modifiers cache object */
-    QLCModifiersCache* modifiersCache() const;
+    QLCModifiersCache *modifiersCache() const;
 
     /** Get the RGB scripts cache object */
-    RGBScriptsCache* rgbScriptsCache() const;
+    RGBScriptsCache *rgbScriptsCache() const;
 
     /** Get the I/O plugin cache object */
-    IOPluginCache* ioPluginCache() const;
+    IOPluginCache *ioPluginCache() const;
 
     /** Get the audio decoder plugin cache object */
-    AudioPluginCache* audioPluginCache() const;
+    AudioPluginCache *audioPluginCache() const;
 
     /** Get the DMX output map object */
-    InputOutputMap* inputOutputMap() const;
+    InputOutputMap *inputOutputMap() const;
 
     /** Get the MasterTimer object that runs the show */
-    MasterTimer* masterTimer() const;
+    MasterTimer *masterTimer() const;
 
     /** Get the audio input capture object */
     QSharedPointer<AudioCapture> audioInputCapture();
@@ -385,7 +392,7 @@ private:
      *********************************************************************/
 public:
     /** Add a new channels group. Doc takes ownership of the group. */
-    bool addChannelsGroup(ChannelsGroup *grp, quint32 id = FixtureGroup::invalidId());
+    bool addChannelsGroup(ChannelsGroup *grp, quint32 id = ChannelsGroup::invalidId());
 
     /**
      * Remove and delete a channels group.
@@ -421,8 +428,45 @@ private:
      *  in the Fixture Manager panel */
     QList <quint32> m_orderedGroups;
 
-    /** Latest assigned fixture group ID */
+    /** Latest assigned channel group ID */
     quint32 m_latestChannelsGroupId;
+
+    /*********************************************************************
+     * Palettes
+     *********************************************************************/
+public:
+    /** Add a new palette. Doc takes ownership of it */
+    bool addPalette(QLCPalette *palette, quint32 id = QLCPalette::invalidId());
+
+    /**
+     * Remove and delete a palette.
+     * The Palette pointer is invalid after this call.
+     */
+    bool deletePalette(quint32 id);
+
+    /** Get a palette by id */
+    QLCPalette *palette(quint32 id) const;
+
+    /** Get a list of Doc's palettes */
+    QList <QLCPalette*> palettes() const;
+
+private:
+    /** Create a new palette ID */
+    quint32 createPaletteId();
+
+signals:
+    /** Inform the listeners that a new palette has been added */
+    void paletteAdded(quint32 id);
+
+    /** Inform the listeners that a new palette has been removed */
+    void paletteRemoved(quint32 id);
+
+private:
+    /** Palettes */
+    QMap <quint32,QLCPalette*> m_palettes;
+
+    /** Latest assigned palette ID */
+    quint32 m_latestPaletteId;
 
     /*********************************************************************
      * Functions
@@ -552,11 +596,6 @@ protected:
 public:
     /** Returns a reference to the monitor properties instance */
     MonitorProperties *monitorProperties();
-
-    /** Returns the first available space (in mm) for a rectangle
-     * of the given width and height.
-     * This method works with the monitor properties and the fixtures list */
-    QPointF getAvailable2DPosition(QRectF& fxRect);
 
     /*********************************************************************
      * Load & Save

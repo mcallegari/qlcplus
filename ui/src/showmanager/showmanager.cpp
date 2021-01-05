@@ -149,7 +149,7 @@ ShowManager::ShowManager(QWidget* parent, Doc* doc)
     container->setLayout(new QVBoxLayout);
     container->layout()->setContentsMargins(0, 0, 0, 0);
     m_splitter->widget(1)->hide();
-    
+
     connect(m_doc, SIGNAL(clearing()), this, SLOT(slotDocClearing()));
     connect(m_doc, SIGNAL(functionRemoved(quint32)), this, SLOT(slotFunctionRemoved(quint32)));
     connect(m_doc, SIGNAL(loaded()), this, SLOT(slotDocLoaded()));
@@ -184,6 +184,8 @@ ShowManager* ShowManager::instance()
 
 void ShowManager::clearContents()
 {
+    hideRightEditor();
+    showSceneEditor(NULL);
     m_showview->resetView();
     m_showsCombo->clear();
     m_show = NULL;
@@ -450,10 +452,10 @@ void ShowManager::showSceneEditor(Scene *scene)
 {
     if (m_sceneEditor != NULL)
     {
-        emit functionManagerActive(false);
+        emit functionManagerActive(false);       
         m_splitter->widget(1)->layout()->removeWidget(m_sceneEditor);
         m_splitter->widget(1)->hide();
-        m_sceneEditor->deleteLater();
+        delete m_sceneEditor;
         m_sceneEditor = NULL;
     }
 
@@ -467,7 +469,7 @@ void ShowManager::showSceneEditor(Scene *scene)
         {
             m_splitter->widget(1)->layout()->addWidget(m_sceneEditor);
             m_splitter->widget(1)->show();
-            //m_scene_editor->show();
+
             connect(this, SIGNAL(functionManagerActive(bool)),
                     m_sceneEditor, SLOT(slotFunctionManagerActive(bool)));
         }
@@ -480,7 +482,7 @@ void ShowManager::hideRightEditor()
     {
         m_vsplitter->widget(1)->layout()->removeWidget(m_currentEditor);
         m_vsplitter->widget(1)->hide();
-        m_currentEditor->deleteLater();
+        delete m_currentEditor;
         m_currentEditor = NULL;
         m_editorFunctionID = Function::invalidId();
     }
@@ -691,8 +693,6 @@ void ShowManager::slotAddItem()
                     {
                         Sequence *newSequence = qobject_cast<Sequence*>(sequence->createCopy(m_doc, true));
                         newSequence->setName(sequence->name() + tr(" (Copy)"));
-                        // Invalidate start time so the sequence will be created at the cursor position
-                        newSequence->setStartTime(UINT_MAX);
                         newSequence->setDirection(Function::Forward);
                         newSequence->setRunOrder(Function::SingleShot);
                         m_showview->addSequence(newSequence, track);
@@ -811,8 +811,6 @@ void ShowManager::slotAddItem()
                 Sequence *sequence = qobject_cast<Sequence*>(selectedFunc);
                 Sequence *newSequence = qobject_cast<Sequence*>(sequence->createCopy(m_doc, true));
                 newSequence->setName(sequence->name() + tr(" (Copy)"));
-                // Invalidate start time so the sequence will be created at the cursor position
-                newSequence->setStartTime(UINT_MAX);
                 newSequence->setDirection(Function::Forward);
                 newSequence->setRunOrder(Function::SingleShot);
                 m_showview->addSequence(newSequence, m_currentTrack);
@@ -961,7 +959,7 @@ void ShowManager::slotAddVideo()
     //dialog.selectFile(fileName());
 
     /* Append file filters to the dialog */
-    QStringList extList = Video::getCapabilities();
+    QStringList extList = Video::getVideoCapabilities();
 
     QStringList filters;
     qDebug() << Q_FUNC_INFO << "Extensions: " << extList.join(" ");
@@ -1050,8 +1048,6 @@ void ShowManager::slotPaste()
         {
             Chaser *chaser = qobject_cast<Chaser*>(newCopy);
 
-            // Invalidate start time so the chaser will be pasted at the cursor position
-            chaser->setStartTime(UINT_MAX);
             if (m_doc->addFunction(newCopy) == false)
             {
                 delete newCopy;
@@ -1101,8 +1097,6 @@ void ShowManager::slotPaste()
             // Bind the sequence to the track Scene ID
             sequence->setBoundSceneID(m_currentScene->id());
 
-            // Invalidate start time so the sequence will be pasted at the cursor position
-            sequence->setStartTime(UINT_MAX);
             if (m_doc->addFunction(newCopy) == false)
             {
                 delete newCopy;
@@ -1306,27 +1300,39 @@ void ShowManager::slotShowItemMoved(ShowItem *item, quint32 time, bool moved)
     if (sequence != NULL)
     {
         quint32 sceneID = sequence->boundSceneID();
-
         Function *sf = m_doc->function(sceneID);
-        Scene *newScene = NULL;
-        if (sf != NULL)
-            newScene = qobject_cast<Scene*>(sf);
 
-        if (newScene != m_currentScene || m_sceneEditor == NULL)
+        if (sf == NULL)
         {
-            m_currentScene = newScene;
-            showSceneEditor(m_currentScene);
+            // The bound Scene no longer exists. Invalidate the Sequence
+            sequence->setBoundSceneID(Function::invalidId());
         }
-
-        /* activate the new track */
-        m_currentTrack = m_show->getTrackFromSceneID(sceneID);
-        m_showview->activateTrack(m_currentTrack);
-        showRightEditor(f);
-
-        if (m_currentEditor != NULL)
+        else
         {
-            ChaserEditor *editor = qobject_cast<ChaserEditor*>(m_currentEditor);
-            editor->selectStepAtTime(time - item->getStartTime());
+            Scene *boundScene = qobject_cast<Scene*>(sf);
+
+            // if the clicked item represents another Sequence,
+            // destroy the Scene editor cause they might share
+            // the same bound Scene and Scene values might be overwritten
+            if (fid != m_editorFunctionID)
+                showSceneEditor(NULL);
+
+            if (boundScene != m_currentScene || m_sceneEditor == NULL)
+            {
+                m_currentScene = boundScene;
+                showSceneEditor(m_currentScene);
+            }
+
+            /* activate the new track */
+            m_currentTrack = m_show->getTrackFromSceneID(sceneID);
+            m_showview->activateTrack(m_currentTrack);
+            showRightEditor(f);
+
+            if (m_currentEditor != NULL)
+            {
+                ChaserEditor *editor = qobject_cast<ChaserEditor*>(m_currentEditor);
+                editor->selectStepAtTime(time - item->getStartTime());
+            }
         }
     }
     else
@@ -1542,7 +1548,7 @@ void ShowManager::slotDocClearing()
     if (m_currentEditor != NULL)
     {
         m_vsplitter->widget(1)->layout()->removeWidget(m_currentEditor);
-        m_currentEditor->deleteLater();
+        delete m_currentEditor;
         m_currentEditor = NULL;
     }
     m_vsplitter->widget(1)->hide();
@@ -1551,7 +1557,7 @@ void ShowManager::slotDocClearing()
     {
         emit functionManagerActive(false);
         m_splitter->widget(1)->layout()->removeWidget(m_sceneEditor);
-        m_sceneEditor->deleteLater();
+        delete m_sceneEditor;
         m_sceneEditor = NULL;
     }
     m_splitter->widget(1)->hide();
@@ -1609,10 +1615,12 @@ void ShowManager::slotFunctionRemoved(quint32 id)
             foreach (ShowFunction *sf, track->showFunctions())
             {
                 if (sf->functionID() == id)
-                {
                     m_showview->deleteShowItem(track, sf);
-                }
             }
+
+            // check if the Function being removed is a Scene bound to a Track
+            if (track->getSceneID() == id)
+                track->setSceneID(Function::invalidId());
         }
     }
 
@@ -1637,7 +1645,7 @@ void ShowManager::updateMultiTrackView()
     m_show = qobject_cast<Show *>(m_doc->function(showID));
     if (m_show == NULL)
     {
-        qDebug() << Q_FUNC_INFO << "Invalid show !";
+        qDebug() << Q_FUNC_INFO << "Invalid show!";
         return;
     }
 
@@ -1661,6 +1669,14 @@ void ShowManager::updateMultiTrackView()
     {
         if (firstTrack == NULL)
             firstTrack = track;
+
+        quint32 boundSceneID = track->getSceneID();
+        if (boundSceneID != Function::invalidId())
+        {
+            Function *f = m_doc->function(boundSceneID);
+            if (f == NULL || f->type() != Function::SceneType)
+                track->setSceneID(Function::invalidId());
+        }
 
         m_showview->addTrack(track);
 
@@ -1776,17 +1792,22 @@ void ShowManager::hideEvent(QHideEvent* ev)
     {
         m_vsplitter->widget(1)->layout()->removeWidget(m_currentEditor);
         m_vsplitter->widget(1)->hide();
-        m_currentEditor->deleteLater();
+        delete m_currentEditor;
         m_currentEditor = NULL;
+        m_editorFunctionID = Function::invalidId();
     }
 
     if (m_sceneEditor != NULL)
     {
         m_splitter->widget(1)->layout()->removeWidget(m_sceneEditor);
         m_splitter->widget(1)->hide();
-        m_sceneEditor->deleteLater();
+        delete m_sceneEditor;
         m_sceneEditor = NULL;
     }
+
+    ShowItem *item = m_showview->getSelectedItem();
+    if (item != NULL)
+        item->setSelected(false);
 }
 
 FunctionParent ShowManager::functionParent() const

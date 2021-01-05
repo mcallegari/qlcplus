@@ -115,6 +115,7 @@ App::App()
 
     , m_helpIndexAction(NULL)
     , m_helpAboutAction(NULL)
+    , m_quitAction(NULL)
     , m_fileOpenMenu(NULL)
     , m_fadeAndStopMenu(NULL)
 
@@ -135,7 +136,7 @@ App::~App()
     QSettings settings;
 
     // Don't save kiosk-mode window geometry because that will screw things up
-    if (m_doc->isKiosk() == false && QLCFile::isRaspberry() == false)
+    if (m_doc->isKiosk() == false && QLCFile::hasWindowManager())
         settings.setValue(SETTINGS_GEOMETRY, saveGeometry());
     else
         settings.setValue(SETTINGS_GEOMETRY, QVariant());
@@ -216,8 +217,6 @@ void App::init()
 #if defined(__APPLE__) || defined(Q_OS_MAC)
     qt_set_sequence_auto_mnemonic(true);
 #endif
-    
-    QLCFile::checkRaspberry();
 
     QVariant var = settings.value(SETTINGS_GEOMETRY);
     if (var.isValid() == true)
@@ -229,12 +228,15 @@ void App::init()
         /* Application geometry and window state */
         QSize size = settings.value("/workspace/size").toSize();
         if (size.isValid() == true)
+        {
             resize(size);
+        }
         else
         {
-            if (QLCFile::isRaspberry())
+            if (QLCFile::hasWindowManager() == false)
             {
-                QRect geometry = qApp->desktop()->availableGeometry();
+                QScreen *screen = QGuiApplication::screens().first();
+                QRect geometry = screen->geometry();
                 if (m_noGui == true)
                 {
                     setGeometry(geometry.width(), geometry.height(), 1, 1);
@@ -245,12 +247,11 @@ void App::init()
                     int h = geometry.height();
                     if (m_overscan == true)
                     {
-                        // if we're on a Raspberry Pi, introduce a 5% margin
+                        // if overscan is requested, introduce a 5% margin
                         w = (float)geometry.width() * 0.95;
                         h = (float)geometry.height() * 0.95;
                     }
-                    setGeometry((geometry.width() - w) / 2, (geometry.height() - h) / 2,
-                                w, h);
+                    setGeometry((geometry.width() - w) / 2, (geometry.height() - h) / 2, w, h);
                 }
             }
             else
@@ -290,12 +291,17 @@ void App::init()
     w = new InputOutputManager(m_tab, m_doc);
     m_tab->addTab(w, QIcon(":/input_output.png"), tr("Inputs/Outputs"));
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 6, 0)
+    /* Detach the tab's widget onto a new window on doubleClick */
+    connect(m_tab, SIGNAL(tabBarDoubleClicked(int)), this, SLOT(slotDetachContext(int)));
+#endif
+
     // Listen to blackout changes and toggle m_controlBlackoutAction
     connect(m_doc->inputOutputMap(), SIGNAL(blackoutChanged(bool)), this, SLOT(slotBlackoutChanged(bool)));
 
     // Listen to DMX value changes and update each Fixture values array
-    connect(m_doc->inputOutputMap(), SIGNAL(universesWritten(int, const QByteArray&)),
-            this, SLOT(slotUniversesWritten(int, const QByteArray&)));
+    connect(m_doc->inputOutputMap(), SIGNAL(universeWritten(quint32, const QByteArray&)),
+            this, SLOT(slotUniverseWritten(quint32, const QByteArray&)));
 
     // Enable/Disable panic button
     connect(m_doc->masterTimer(), SIGNAL(functionListChanged()), this, SLOT(slotRunningFunctionsChanged()));
@@ -359,8 +365,6 @@ bool App::nativeEvent(const QByteArray &eventType, void *message, long *result)
 
 void App::closeEvent(QCloseEvent* e)
 {
-    int result = 0;
-
     if (m_doc->mode() == Doc::Operate && m_doc->isKiosk() == false)
     {
         QMessageBox::warning(this,
@@ -387,9 +391,9 @@ void App::closeEvent(QCloseEvent* e)
     {
         if (m_doc->isKiosk() == true)
         {
-            result = QMessageBox::warning(this, tr("Close the application?"),
-                                          tr("Do you wish to close the application?"),
-                                          QMessageBox::Yes, QMessageBox::No);
+            int result = QMessageBox::warning(this, tr("Close the application?"),
+                                              tr("Do you wish to close the application?"),
+                                              QMessageBox::Yes, QMessageBox::No);
             if (result == QMessageBox::No)
             {
                 e->ignore();
@@ -443,14 +447,15 @@ void App::clearDocument()
 {
     m_doc->masterTimer()->stop();
     VirtualConsole::instance()->resetContents();
+    ShowManager::instance()->clearContents();
     m_doc->clearContents();
     if (Monitor::instance() != NULL)
         Monitor::instance()->updateView();
     SimpleDesk::instance()->clearContents();
-    ShowManager::instance()->clearContents();
     m_doc->inputOutputMap()->resetUniverses();
     setFileName(QString());
     m_doc->resetModified();
+    m_doc->inputOutputMap()->startUniverses();
     m_doc->masterTimer()->start();
 }
 
@@ -504,6 +509,7 @@ void App::initDoc()
     qDebug() << "[App] Doc initialization took" << speedTime.elapsed() << "ms";
 #endif
 
+    m_doc->inputOutputMap()->startUniverses();
     m_doc->masterTimer()->start();
 }
 
@@ -522,11 +528,11 @@ void App::slotDocModified(bool state)
         setWindowTitle(caption);
 }
 
-void App::slotUniversesWritten(int idx, const QByteArray &ua)
+void App::slotUniverseWritten(quint32 idx, const QByteArray &ua)
 {
     foreach(Fixture *fixture, m_doc->fixtures())
     {
-        if (fixture->universe() != (quint32)idx)
+        if (fixture->universe() != idx)
             continue;
 
         fixture->setChannelValues(ua);
@@ -728,7 +734,7 @@ void App::initActions()
     m_helpAboutAction = new QAction(QIcon(":/qlcplus.png"), tr("&About QLC+"), this);
     connect(m_helpAboutAction, SIGNAL(triggered(bool)), this, SLOT(slotHelpAbout()));
 
-    if (QLCFile::isRaspberry())
+    if (QLCFile::hasWindowManager() == false)
     {
         m_quitAction = new QAction(QIcon(":/exit.png"), tr("Quit QLC+"), this);
         m_quitAction->setShortcut(QKeySequence("CTRL+ALT+Backspace"));
@@ -755,7 +761,7 @@ void App::initToolBar()
     m_toolbar->addAction(m_controlFullScreenAction);
     m_toolbar->addAction(m_helpIndexAction);
     m_toolbar->addAction(m_helpAboutAction);
-    if (QLCFile::isRaspberry())
+    if (QLCFile::hasWindowManager() == false)
         m_toolbar->addAction(m_quitAction);
 
     /* Create an empty widget between help items to flush them to the right */
@@ -792,33 +798,33 @@ bool App::handleFileError(QFile::FileError error)
 
     switch (error)
     {
-    case QFile::NoError:
-        return true;
+        case QFile::NoError:
+            return true;
         break;
-    case QFile::ReadError:
-        msg = tr("Unable to read from file");
+        case QFile::ReadError:
+            msg = tr("Unable to read from file");
         break;
-    case QFile::WriteError:
-        msg = tr("Unable to write to file");
+        case QFile::WriteError:
+            msg = tr("Unable to write to file");
         break;
-    case QFile::FatalError:
-        msg = tr("A fatal error occurred");
+        case QFile::FatalError:
+            msg = tr("A fatal error occurred");
         break;
-    case QFile::ResourceError:
-        msg = tr("Unable to access resource");
+        case QFile::ResourceError:
+            msg = tr("Unable to access resource");
         break;
-    case QFile::OpenError:
-        msg = tr("Unable to open file for reading or writing");
+        case QFile::OpenError:
+            msg = tr("Unable to open file for reading or writing");
         break;
-    case QFile::AbortError:
-        msg = tr("Operation was aborted");
+        case QFile::AbortError:
+            msg = tr("Operation was aborted");
         break;
-    case QFile::TimeOutError:
-        msg = tr("Operation timed out");
+        case QFile::TimeOutError:
+            msg = tr("Operation timed out");
         break;
-    default:
-    case QFile::UnspecifiedError:
-        msg = tr("An unspecified error has occurred. Nice.");
+        default:
+        case QFile::UnspecifiedError:
+            msg = tr("An unspecified error has occurred. Nice.");
         break;
     }
 
@@ -841,10 +847,10 @@ bool App::saveModifiedDoc(const QString & title, const QString & message)
     if (result == QMessageBox::Yes)
     {
         slotFileSave();
-        // we check whether m_doc is not modified anymore, rather than 
+        // we check whether m_doc is not modified anymore, rather than
         // result of slotFileSave() since the latter returns NoError
         // in cases like when the user pressed cancel in the save dialog
-        if (m_doc->isModified() == false) 
+        if (m_doc->isModified() == false)
         {
             return true;
         }
@@ -1146,6 +1152,41 @@ void App::slotLiveEditVirtualConsole()
     VirtualConsole::instance()->toggleLiveEdit();
 }
 
+void App::slotDetachContext(int index)
+{
+    /* Get the widget that has been double-clicked */
+    QWidget *context = m_tab->widget(index);
+    context->setProperty("tabIndex", index);
+    context->setProperty("tabIcon", QVariant::fromValue(m_tab->tabIcon(index)));
+    context->setProperty("tabLabel", m_tab->tabText(index));
+
+    qDebug() << "Detaching context" << context;
+
+    DetachedContext *detachedWindow = new DetachedContext();
+    detachedWindow->setCentralWidget(context);
+    detachedWindow->resize(800, 600);
+    detachedWindow->show();
+    context->show();
+
+    connect(detachedWindow, SIGNAL(closing()),
+            this, SLOT(slotReattachContext()));
+}
+
+void App::slotReattachContext()
+{
+    DetachedContext *window = qobject_cast<DetachedContext *>(sender());
+
+    QWidget *context = window->centralWidget();
+    int tabIndex = context->property("tabIndex").toInt();
+    QIcon tabIcon = context->property("tabIcon").value<QIcon>();
+    QString tabLabel = context->property("tabLabel").toString();
+
+    qDebug() << "Reattaching context" << tabIndex << tabLabel << context;
+
+    context->setParent(m_tab);
+    m_tab->insertTab(tabIndex, context, tabIcon, tabLabel);
+}
+
 void App::slotControlFullScreen()
 {
     static int wstate = windowState();
@@ -1173,8 +1214,8 @@ void App::slotControlFullScreen(bool usingGeometry)
 {
     if (usingGeometry == true)
     {
-        QDesktopWidget dw;
-        setGeometry(dw.availableGeometry());
+        QScreen *screen = QGuiApplication::screens().first();
+        setGeometry(screen->geometry());
     }
     else
     {
@@ -1207,7 +1248,7 @@ void App::slotRecentFileClicked(QAction *recent)
     if (testFile.exists() == false)
     {
         QMessageBox::critical(this, tr("Error"),
-                              tr("File not found !\nThe selected file has been moved or deleted."),
+                              tr("File not found!\nThe selected file has been moved or deleted."),
                               QMessageBox::Close);
         return;
     }
@@ -1392,6 +1433,8 @@ bool App::loadXML(QXmlStreamReader& doc, bool goToConsole, bool fromMemory)
         layout->addItem(horizontalSpacer, layout->rowCount(), 0, 1, layout->columnCount());
         msg.exec();
     }
+
+    m_doc->inputOutputMap()->startUniverses();
 
     return true;
 }

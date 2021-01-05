@@ -12,8 +12,7 @@ if [ ! -d rpm ]; then
 	exit 1;
 fi
 
-VERSION=`head -1 debian/changelog | sed 's/.*(\(.*\)).*/\1/'`
-SOURCES=qlcplus
+VERSION=$(head -1 debian/changelog | sed 's/.*(\(.*\)).*/\1/')
 RPMBUILD=~/rpmbuild
 
 # Prepare RPM build directory hierarchy

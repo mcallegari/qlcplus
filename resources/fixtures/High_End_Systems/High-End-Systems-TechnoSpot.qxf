@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Tom Moeller</Author>
+ </Creator>
+ <Manufacturer>High End Systems</Manufacturer>
+ <Model>TechnoSpot</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Color Mix Function">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="47">Pure mix</Capability>
+  <Capability Min="48" Max="63">Cycle</Capability>
+  <Capability Min="64" Max="79">Random</Capability>
+  <Capability Min="80" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Cyan">
+  <Group Byte="0">Colour</Group>
+  <Colour>Cyan</Colour>
+  <Capability Min="0" Max="255" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#ffffff">Full saturation to open (white)</Capability>
+ </Channel>
+ <Channel Name="Magenta">
+  <Group Byte="0">Colour</Group>
+  <Colour>Magenta</Colour>
+  <Capability Min="0" Max="255" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ffffff">Full saturation to open (white)</Capability>
+ </Channel>
+ <Channel Name="Yellow">
+  <Group Byte="0">Colour</Group>
+  <Colour>Yellow</Colour>
+  <Capability Min="0" Max="255" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#ffffff">Full saturation to open (white)</Capability>
+ </Channel>
+ <Channel Name="Static Color Function">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">Indexed</Capability>
+  <Capability Min="16" Max="31">Forward spin</Capability>
+  <Capability Min="32" Max="47">Reverse spin</Capability>
+  <Capability Min="48" Max="63">Continuous</Capability>
+  <Capability Min="64" Max="79">Fast scan</Capability>
+  <Capability Min="80" Max="95">Random</Capability>
+  <Capability Min="96" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Static Color Position/Wheel Motion/Wheel Position">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="24" Preset="GoboMacro" Res1="Others/open.svg">White (open)</Capability>
+  <Capability Min="25" Max="49" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="50" Max="74" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="75" Max="99" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="100" Max="124" Preset="ColorMacro" Res1="#ffff00">Yellow</Capability>
+  <Capability Min="125" Max="149" Preset="ColorMacro" Res1="#ffc000">Amber</Capability>
+  <Capability Min="150" Max="174" Preset="ColorMacro" Res1="#ffaaff">Pink</Capability>
+  <Capability Min="175" Max="199" Preset="ColorMacro" Res1="#400080">Indigo</Capability>
+  <Capability Min="200" Max="224" Preset="ColorMacro" Res1="#ffd66c">CTO</Capability>
+  <Capability Min="225" Max="255" Preset="GoboMacro" Res1="Others/open.svg">White (open)</Capability>
+ </Channel>
+ <Channel Name="Gobo 1 Function">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="15">Indexed</Capability>
+  <Capability Min="16" Max="31">Forward wheel spin</Capability>
+  <Capability Min="32" Max="47">Reverse wheel spin</Capability>
+  <Capability Min="48" Max="63">Scan</Capability>
+  <Capability Min="64" Max="79">Random</Capability>
+  <Capability Min="80" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Gobo 1 Position">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="15" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="16" Max="47" Preset="GoboMacro" Res1="SGM/gobo00084.svg">1 - dense foliage</Capability>
+  <Capability Min="48" Max="79" Preset="GoboMacro" Res1="ClayPaky/gobo00038.png">2 - fracture</Capability>
+  <Capability Min="80" Max="111" Preset="GoboMacro" Res1="SGM-Color/gobo00426.png">3 - psy spin, red</Capability>
+  <Capability Min="112" Max="143" Preset="GoboMacro" Res1="SGM/gobo00130.svg">4 - skull or hollywood stars</Capability>
+  <Capability Min="144" Max="175" Preset="GoboMacro" Res1="Robe/gobo00060.png">5 - lava</Capability>
+  <Capability Min="176" Max="207" Preset="GoboMacro" Res1="Robe/gobo00037.svg">6 - triangle</Capability>
+  <Capability Min="208" Max="255" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+ </Channel>
+ <Channel Name="Gobo 1 Rotate Function">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="15">Indexed</Capability>
+  <Capability Min="16" Max="31">Forward rotate</Capability>
+  <Capability Min="32" Max="47">Reverse rotate</Capability>
+  <Capability Min="48" Max="63">Forward animate</Capability>
+  <Capability Min="64" Max="79">Reverse animate</Capability>
+  <Capability Min="80" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Gobo 1 Rotate Position/Speed - Coarse">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="255">Indexed/Rotation speed from slowest to fastest</Capability>
+ </Channel>
+ <Channel Name="Gobo 1 Rotate Position/Speed - Fine">
+  <Group Byte="1">Gobo</Group>
+  <Capability Min="0" Max="255">Indexed/Rotation speed from slowest to fastest</Capability>
+ </Channel>
+ <Channel Name="Gobo 2 Function">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="15">Indexed</Capability>
+  <Capability Min="16" Max="31">Forward wheel spin</Capability>
+  <Capability Min="32" Max="47">Reverse wheel spin</Capability>
+  <Capability Min="48" Max="63">Scan</Capability>
+  <Capability Min="64" Max="79">Random</Capability>
+  <Capability Min="80" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Gobo 2 Position">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="15" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+  <Capability Min="16" Max="47" Preset="GoboMacro" Res1="Others/gobo00051.svg">1 - red chicklet</Capability>
+  <Capability Min="48" Max="79" Preset="GoboMacro" Res1="Robe/gobo00055.svg">2 - animated litho</Capability>
+  <Capability Min="80" Max="111" Preset="GoboMacro" Res1="SGM-Color/gobo00562.png">3 - fusion fire, clear</Capability>
+  <Capability Min="112" Max="143" Preset="GoboMacro" Res1="SGM/gobo00032.png">4 - valiant</Capability>
+  <Capability Min="144" Max="175" Preset="GoboMacro" Res1="SGM-Color/gobo00395.png">5 - Gatlin gun, indigo</Capability>
+  <Capability Min="176" Max="207" Preset="GoboMacro" Res1="Robe/gobo00016.svg">6 - multidot</Capability>
+  <Capability Min="208" Max="255" Preset="GoboMacro" Res1="Others/open.svg">Open</Capability>
+ </Channel>
+ <Channel Name="Gobo 2 Rotate Function">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="15">Indexed</Capability>
+  <Capability Min="16" Max="31">Forward rotate</Capability>
+  <Capability Min="32" Max="47">Reverse rotate</Capability>
+  <Capability Min="48" Max="63">Forward animate</Capability>
+  <Capability Min="64" Max="79">Reverse animate</Capability>
+  <Capability Min="80" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Gobo 2 Rotate Position/Speed - Coarse">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="255">Indexed/Rotation speed from slowest to fastest</Capability>
+ </Channel>
+ <Channel Name="Gobo 2 Rotate Position/Speed - Fine">
+  <Group Byte="1">Gobo</Group>
+  <Capability Min="0" Max="255">Indexed/Rotation speed from slowest to fastest</Capability>
+ </Channel>
+ <Channel Name="Prism Function">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="31">Disengaged</Capability>
+  <Capability Min="32" Max="47">Forward spin</Capability>
+  <Capability Min="48" Max="63">Reverse spin</Capability>
+  <Capability Min="64" Max="79">Forward animate</Capability>
+  <Capability Min="80" Max="95">Reverse animate</Capability>
+  <Capability Min="96" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Prism Rotate Position/Speed">
+  <Group Byte="0">Prism</Group>
+  <Capability Min="0" Max="0">Stop</Capability>
+  <Capability Min="1" Max="255">Set rotation speed from slowest to fastest</Capability>
+ </Channel>
+ <Channel Name="Animation Function">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">Disengage</Capability>
+  <Capability Min="16" Max="31">Continuous</Capability>
+  <Capability Min="32" Max="47">Forward spin</Capability>
+  <Capability Min="48" Max="63">Reverse spin</Capability>
+  <Capability Min="64" Max="79">Forward animate</Capability>
+  <Capability Min="80" Max="95">Reverse animate</Capability>
+  <Capability Min="96" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Animation Rotate Position/Speed">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">Position/Stop</Capability>
+  <Capability Min="1" Max="255">Position/Speed from slowest to fastest</Capability>
+ </Channel>
+ <Channel Name="Frost">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">Open (hard edge)</Capability>
+  <Capability Min="16" Max="31">Full frost</Capability>
+  <Capability Min="32" Max="97">Periodic strobe</Capability>
+  <Capability Min="98" Max="163">Random strobe</Capability>
+  <Capability Min="164" Max="255">Open (hard edge)</Capability>
+ </Channel>
+ <Channel Name="Focus - Coarse">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">0=in 255=out</Capability>
+ </Channel>
+ <Channel Name="Focus - Fine">
+  <Group Byte="1">Beam</Group>
+  <Capability Min="0" Max="255">0=in 255=out</Capability>
+ </Channel>
+ <Channel Name="Zoom - Coarse">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">0=in 255=out</Capability>
+ </Channel>
+ <Channel Name="Zoom - Fine">
+  <Group Byte="1">Beam</Group>
+  <Capability Min="0" Max="255">0=in 255=out</Capability>
+ </Channel>
+ <Channel Name="Iris">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">Closed - open</Capability>
+ </Channel>
+ <Channel Name="Shutter">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="23" Preset="ShutterClose">Closed</Capability>
+  <Capability Min="24" Max="229" Preset="StrobeSlowToFast">Set strobe rate from slowest to fastest</Capability>
+  <Capability Min="230" Max="255" Preset="ShutterOpen">open</Capability>
+ </Channel>
+ <Channel Name="Dim" Preset="IntensityDimmer"/>
+ <Channel Name="Motor Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="3">Disable</Capability>
+  <Capability Min="4" Max="255">Longest (252.7 sec.) to shortest (0.15 sec.) duration</Capability>
+ </Channel>
+ <Channel Name="Control functions">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="9">Safe</Capability>
+  <Capability Min="10" Max="19">No function</Capability>
+  <Capability Min="20" Max="28">Display off</Capability>
+  <Capability Min="29" Max="39">No function</Capability>
+  <Capability Min="40" Max="48">Display on</Capability>
+  <Capability Min="49" Max="59">No function</Capability>
+  <Capability Min="60" Max="68">Home all</Capability>
+  <Capability Min="69" Max="79">No function</Capability>
+  <Capability Min="80" Max="88" Preset="LampOn">Lamp on</Capability>
+  <Capability Min="89" Max="89">No function</Capability>
+  <Capability Min="90" Max="98" Preset="LampOff">Lamp off</Capability>
+  <Capability Min="99" Max="119">No function</Capability>
+  <Capability Min="120" Max="130" Preset="ResetAll">Shutdown</Capability>
+  <Capability Min="131" Max="140" Preset="ResetPanTilt">Pan and tilt home</Capability>
+  <Capability Min="141" Max="150" Preset="ResetColor">Color home</Capability>
+  <Capability Min="151" Max="160" Preset="ResetGobo">Gobo home</Capability>
+  <Capability Min="161" Max="170">Shutter &amp; dimmer home</Capability>
+  <Capability Min="171" Max="180" Preset="ResetMotors">Other motor home</Capability>
+  <Capability Min="181" Max="190">Audio sync</Capability>
+  <Capability Min="191" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Indigo Highlighter Function">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="15">Continuous fixture dimming</Capability>
+  <Capability Min="16" Max="41">Periodic fixture dimming strobe from slowest to fastest</Capability>
+  <Capability Min="42" Max="127">No function</Capability>
+  <Capability Min="128" Max="143">Continuous independent</Capability>
+  <Capability Min="144" Max="169">Periodic independent strobe from slowest to fastest</Capability>
+  <Capability Min="170" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Indigo Highlighter Dim" Preset="IntensityIndigo"/>
+ <Channel Name="Shutter Functions">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31" Preset="ShutterOpen">Normal shutter functions</Capability>
+  <Capability Min="32" Max="63" Preset="StrobeRandom">Random strobe</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeRandom">Synchronous random strobe</Capability>
+  <Capability Min="96" Max="255" Preset="ShutterOpen">Normal shutter functions</Capability>
+ </Channel>
+ <Mode Name="37Channel">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Color Mix Function</Channel>
+  <Channel Number="5">Cyan</Channel>
+  <Channel Number="6">Magenta</Channel>
+  <Channel Number="7">Yellow</Channel>
+  <Channel Number="8">Static Color Function</Channel>
+  <Channel Number="9">Static Color Position/Wheel Motion/Wheel Position</Channel>
+  <Channel Number="10">Gobo 1 Function</Channel>
+  <Channel Number="11">Gobo 1 Position</Channel>
+  <Channel Number="12">Gobo 1 Rotate Function</Channel>
+  <Channel Number="13">Gobo 1 Rotate Position/Speed - Coarse</Channel>
+  <Channel Number="14">Gobo 1 Rotate Position/Speed - Fine</Channel>
+  <Channel Number="15">Gobo 2 Function</Channel>
+  <Channel Number="16">Gobo 2 Position</Channel>
+  <Channel Number="17">Gobo 2 Rotate Function</Channel>
+  <Channel Number="18">Gobo 2 Rotate Position/Speed - Coarse</Channel>
+  <Channel Number="19">Gobo 2 Rotate Position/Speed - Fine</Channel>
+  <Channel Number="20">Prism Function</Channel>
+  <Channel Number="21">Prism Rotate Position/Speed</Channel>
+  <Channel Number="22">Animation Function</Channel>
+  <Channel Number="23">Animation Rotate Position/Speed</Channel>
+  <Channel Number="24">Frost</Channel>
+  <Channel Number="25">Focus - Coarse</Channel>
+  <Channel Number="26">Focus - Fine</Channel>
+  <Channel Number="27">Zoom - Coarse</Channel>
+  <Channel Number="28">Zoom - Fine</Channel>
+  <Channel Number="29">Iris</Channel>
+  <Channel Number="30">Shutter Functions</Channel>
+  <Channel Number="31">Shutter</Channel>
+  <Channel Number="32">Dim</Channel>
+  <Channel Number="33">Motor Speed</Channel>
+  <Channel Number="34">Control functions</Channel>
+  <Channel Number="35">Indigo Highlighter Function</Channel>
+  <Channel Number="36">Indigo Highlighter Dim</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="MSR 575W" Lumens="12000" ColourTemperature="7000"/>
+  <Dimensions Weight="41" Width="483" Height="348" Depth="793"/>
+  <Lens Name="Other" DegreesMin="11" DegreesMax="34"/>
+  <Focus Type="Head" PanMax="540" TiltMax="245"/>
+  <Technical PowerConsumption="850" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

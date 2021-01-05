@@ -18,12 +18,12 @@
 */
 
 #include <QComboBox>
-#include <QDesktopWidget>
 #include <QStyleFactory>
 #include <QApplication>
 #include <QSettings>
 #include <QLocale>
 #include <QWidget>
+#include <QScreen>
 #include <QStyle>
 #include <QRect>
 
@@ -33,22 +33,21 @@
  * Widget visibility helper
  ****************************************************************************/
 
-void AppUtil::ensureWidgetIsVisible(QWidget* widget)
+void AppUtil::ensureWidgetIsVisible(QWidget *widget)
 {
     if (widget == NULL)
         return;
 
-    QWidget* parent = widget->parentWidget();
+    QWidget *parent = widget->parentWidget();
     if (widget->windowFlags() & Qt::Window)
     {
         // The widget is a top-level window (a dialog, for instance)
         // @todo Use the screen where the main application currently is?
-        QDesktopWidget dw;
-        QWidget* screen(dw.screen());
+        QScreen *screen = QGuiApplication::screens().first();
         if (screen != NULL)
         {
             // Move the widget to the center of the default screen
-            const QRect screenRect(screen->rect());
+            const QRect screenRect(screen->availableGeometry());
             if (screenRect.contains(widget->pos()) == false)
             {
                 QRect widgetRect(widget->rect());

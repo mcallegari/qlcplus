@@ -137,11 +137,6 @@ table.hovertable td {
  height: 100%;
 }
 
-.vcsoloframe {
- position: absolute;
- border-radius: 4px;
-}
-
 .vcsoloframeHeader {
  background: linear-gradient(to bottom, #BC0A0A 0%, #370303 100%);
  background: -ms-linear-gradient(top, #BC0A0A 0%, #370303 100%);
@@ -153,7 +148,6 @@ table.hovertable td {
  margin: 2px 2px 0 36px;
  padding: 0 0 0 3px;
  height: 32px;
- font:normal 18px/1.0em sans-serif;
 }
 
 .vclabel-wrapper { position: absolute; }

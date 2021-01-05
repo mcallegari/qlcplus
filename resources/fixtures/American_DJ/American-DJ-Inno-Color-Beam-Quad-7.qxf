@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Massimo Callegari</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Inno Color Beam Quad 7</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Shows">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="7">Blackout</Capability>
+  <Capability Min="8" Max="67">Show 1</Capability>
+  <Capability Min="68" Max="127">Show 2</Capability>
+  <Capability Min="128" Max="187">Show 3</Capability>
+  <Capability Min="188" Max="247">Show 4</Capability>
+  <Capability Min="248" Max="255">Random show</Capability>
+ </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan Fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt Fine" Preset="PositionTiltFine"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Shutter/Strobing">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31" Preset="ShutterClose">Shutter closed</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Strobing (slow to fast)</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="128" Max="159">Slow open - Fast close</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">Open</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Random strobe (slow to fast)</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">Open</Capability>
+ </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Rainbow">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9">No function</Capability>
+  <Capability Min="10" Max="39">Rainbow colors 1</Capability>
+  <Capability Min="40" Max="71">Rainbow colors 2</Capability>
+  <Capability Min="72" Max="103">Rainbow colors 3</Capability>
+  <Capability Min="104" Max="135">Rainbow colors 4</Capability>
+  <Capability Min="136" Max="167">Rainbow colors 5</Capability>
+  <Capability Min="168" Max="199">Rainbow colors 6</Capability>
+  <Capability Min="200" Max="231">Rainbow colors 7</Capability>
+  <Capability Min="232" Max="255">Crossfading colors (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Pan/Tilt speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="225">Max. - Min. movement speed</Capability>
+  <Capability Min="226" Max="235">Blackout by movement</Capability>
+  <Capability Min="236" Max="255">No function</Capability>
+ </Channel>
+ <Channel Name="Open/Reset/Internal programs">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="79">Normal</Capability>
+  <Capability Min="80" Max="84" Preset="ResetMotors">All motor reset</Capability>
+  <Capability Min="85" Max="99">No function</Capability>
+  <Capability Min="100" Max="119">Internal program 1</Capability>
+  <Capability Min="120" Max="139">Internal program 2</Capability>
+  <Capability Min="140" Max="159">Internal program 3</Capability>
+  <Capability Min="160" Max="179">Internal program 4</Capability>
+  <Capability Min="180" Max="199">Internal program 5</Capability>
+  <Capability Min="200" Max="219">Internal program 6</Capability>
+  <Capability Min="220" Max="239">Internal program 7</Capability>
+  <Capability Min="240" Max="255">Sound active program</Capability>
+ </Channel>
+ <Mode Name="1 channel mode">
+  <Channel Number="0">Shows</Channel>
+ </Mode>
+ <Mode Name="13 Channels mode">
+  <Channel Number="0">Pan</Channel>
+  <Channel Number="1">Pan Fine</Channel>
+  <Channel Number="2">Tilt</Channel>
+  <Channel Number="3">Tilt Fine</Channel>
+  <Channel Number="4">Red</Channel>
+  <Channel Number="5">Green</Channel>
+  <Channel Number="6">Blue</Channel>
+  <Channel Number="7">White</Channel>
+  <Channel Number="8">Shutter/Strobing</Channel>
+  <Channel Number="9">Master Dimmer</Channel>
+  <Channel Number="10">Rainbow</Channel>
+  <Channel Number="11">Pan/Tilt speed</Channel>
+  <Channel Number="12">Open/Reset/Internal programs</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="6" Width="260" Height="304" Depth="168"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="10"/>
+  <Focus Type="Head" PanMax="570" TiltMax="240"/>
+  <Technical PowerConsumption="130" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

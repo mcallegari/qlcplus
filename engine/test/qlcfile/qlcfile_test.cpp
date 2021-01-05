@@ -153,4 +153,12 @@ void QLCFile_Test::version()
     QVERIFY(QLCFile::getQtRuntimeVersion() > 40000);
 }
 
+void QLCFile_Test::windowManager()
+{
+    QVERIFY(QLCFile::hasWindowManager() == true);
+
+    QLCFile::setHasWindowManager(false);
+    QVERIFY(QLCFile::hasWindowManager() == false);
+}
+
 QTEST_APPLESS_MAIN(QLCFile_Test)

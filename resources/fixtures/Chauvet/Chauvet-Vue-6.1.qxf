@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>eklynx</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Vue 6.1</Model>
+ <Type>Effect</Type>
+ <Channel Name="Control/Operating Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="24">Dimmer mode</Capability>
+  <Capability Min="25" Max="49">Stand-alone mode 1 (automatic)</Capability>
+  <Capability Min="50" Max="74">Stand-alone mode 2 (automatic)</Capability>
+  <Capability Min="75" Max="99">Stand-alone mode 3 (automatic)</Capability>
+  <Capability Min="100" Max="124">Stand-alone mode 4 (automatic)</Capability>
+  <Capability Min="125" Max="149">Stand-alone mode 5 (automatic)</Capability>
+  <Capability Min="150" Max="174">Stand-alone mode 6 (automatic)</Capability>
+  <Capability Min="175" Max="199">Stand-alone mode 7 (automatic)</Capability>
+  <Capability Min="200" Max="224">Stand-alone mode 8 (automatic)</Capability>
+  <Capability Min="225" Max="249">Stand-alone mode 9 (automatic)</Capability>
+  <Capability Min="250" Max="255">Stand-alone (sound active)</Capability>
+ </Channel>
+ <Channel Name="Pod 1">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="4">Blackout</Capability>
+  <Capability Min="5" Max="9">Red</Capability>
+  <Capability Min="10" Max="14">Yellow</Capability>
+  <Capability Min="15" Max="19">Green</Capability>
+  <Capability Min="20" Max="24">Blue</Capability>
+  <Capability Min="25" Max="29">Purple</Capability>
+  <Capability Min="30" Max="34">Cyan</Capability>
+  <Capability Min="35" Max="39">White</Capability>
+  <Capability Min="40" Max="44">Auto 1</Capability>
+  <Capability Min="45" Max="49">Auto 2</Capability>
+  <Capability Min="50" Max="54">Auto 3</Capability>
+  <Capability Min="55" Max="59">Auto 4</Capability>
+  <Capability Min="60" Max="64">Auto 5</Capability>
+  <Capability Min="65" Max="69">Auto 6</Capability>
+  <Capability Min="70" Max="74">Auto 7</Capability>
+  <Capability Min="75" Max="79">Auto 8</Capability>
+  <Capability Min="80" Max="84">Auto 9</Capability>
+  <Capability Min="85" Max="89">Auto 10</Capability>
+  <Capability Min="90" Max="94">Auto 11</Capability>
+  <Capability Min="95" Max="99">Auto 12</Capability>
+  <Capability Min="100" Max="104">Auto 13</Capability>
+  <Capability Min="105" Max="109">Auto 14</Capability>
+  <Capability Min="110" Max="114">Auto 15</Capability>
+  <Capability Min="115" Max="119">Auto 16</Capability>
+  <Capability Min="120" Max="124">Auto 17</Capability>
+  <Capability Min="125" Max="129">Auto 18</Capability>
+  <Capability Min="130" Max="134">Auto 19</Capability>
+  <Capability Min="135" Max="139">Auto 20</Capability>
+  <Capability Min="140" Max="144">Auto 21</Capability>
+  <Capability Min="145" Max="149">Auto 22</Capability>
+  <Capability Min="150" Max="154">Auto 23</Capability>
+  <Capability Min="155" Max="159">Auto 24</Capability>
+  <Capability Min="160" Max="164">Auto 25</Capability>
+  <Capability Min="165" Max="169">Auto 26</Capability>
+  <Capability Min="170" Max="255">Auto 27</Capability>
+ </Channel>
+ <Channel Name="Pod 2">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="4">Blackout</Capability>
+  <Capability Min="5" Max="9">Red</Capability>
+  <Capability Min="10" Max="14">Yellow</Capability>
+  <Capability Min="15" Max="19">Green</Capability>
+  <Capability Min="20" Max="24">Blue</Capability>
+  <Capability Min="25" Max="29">Purple</Capability>
+  <Capability Min="30" Max="34">Cyan</Capability>
+  <Capability Min="35" Max="39">White</Capability>
+  <Capability Min="40" Max="44">Auto 1</Capability>
+  <Capability Min="45" Max="49">Auto 2</Capability>
+  <Capability Min="50" Max="54">Auto 3</Capability>
+  <Capability Min="55" Max="59">Auto 4</Capability>
+  <Capability Min="60" Max="64">Auto 5</Capability>
+  <Capability Min="65" Max="69">Auto 6</Capability>
+  <Capability Min="70" Max="74">Auto 7</Capability>
+  <Capability Min="75" Max="79">Auto 8</Capability>
+  <Capability Min="80" Max="84">Auto 9</Capability>
+  <Capability Min="85" Max="89">Auto 10</Capability>
+  <Capability Min="90" Max="94">Auto 11</Capability>
+  <Capability Min="95" Max="99">Auto 12</Capability>
+  <Capability Min="100" Max="104">Auto 13</Capability>
+  <Capability Min="105" Max="109">Auto 14</Capability>
+  <Capability Min="110" Max="114">Auto 15</Capability>
+  <Capability Min="115" Max="119">Auto 16</Capability>
+  <Capability Min="120" Max="124">Auto 17</Capability>
+  <Capability Min="125" Max="129">Auto 18</Capability>
+  <Capability Min="130" Max="134">Auto 19</Capability>
+  <Capability Min="135" Max="139">Auto 20</Capability>
+  <Capability Min="140" Max="144">Auto 21</Capability>
+  <Capability Min="145" Max="149">Auto 22</Capability>
+  <Capability Min="150" Max="154">Auto 23</Capability>
+  <Capability Min="155" Max="159">Auto 24</Capability>
+  <Capability Min="160" Max="164">Auto 25</Capability>
+  <Capability Min="165" Max="169">Auto 26</Capability>
+  <Capability Min="170" Max="255">Auto 27</Capability>
+ </Channel>
+ <Channel Name="Pod 3">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="4">Blackout</Capability>
+  <Capability Min="5" Max="9">Red</Capability>
+  <Capability Min="10" Max="14">Yellow</Capability>
+  <Capability Min="15" Max="19">Green</Capability>
+  <Capability Min="20" Max="24">Blue</Capability>
+  <Capability Min="25" Max="29">Purple</Capability>
+  <Capability Min="30" Max="34">Cyan</Capability>
+  <Capability Min="35" Max="39">White</Capability>
+  <Capability Min="40" Max="44">Auto 1</Capability>
+  <Capability Min="45" Max="49">Auto 2</Capability>
+  <Capability Min="50" Max="54">Auto 3</Capability>
+  <Capability Min="55" Max="59">Auto 4</Capability>
+  <Capability Min="60" Max="64">Auto 5</Capability>
+  <Capability Min="65" Max="69">Auto 6</Capability>
+  <Capability Min="70" Max="74">Auto 7</Capability>
+  <Capability Min="75" Max="79">Auto 8</Capability>
+  <Capability Min="80" Max="84">Auto 9</Capability>
+  <Capability Min="85" Max="89">Auto 10</Capability>
+  <Capability Min="90" Max="94">Auto 11</Capability>
+  <Capability Min="95" Max="99">Auto 12</Capability>
+  <Capability Min="100" Max="104">Auto 13</Capability>
+  <Capability Min="105" Max="109">Auto 14</Capability>
+  <Capability Min="110" Max="114">Auto 15</Capability>
+  <Capability Min="115" Max="119">Auto 16</Capability>
+  <Capability Min="120" Max="124">Auto 17</Capability>
+  <Capability Min="125" Max="129">Auto 18</Capability>
+  <Capability Min="130" Max="134">Auto 19</Capability>
+  <Capability Min="135" Max="139">Auto 20</Capability>
+  <Capability Min="140" Max="144">Auto 21</Capability>
+  <Capability Min="145" Max="149">Auto 22</Capability>
+  <Capability Min="150" Max="154">Auto 23</Capability>
+  <Capability Min="155" Max="159">Auto 24</Capability>
+  <Capability Min="160" Max="164">Auto 25</Capability>
+  <Capability Min="165" Max="169">Auto 26</Capability>
+  <Capability Min="170" Max="255">Auto 27</Capability>
+ </Channel>
+ <Channel Name="Strobing Speed (Dimmer Mode)">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="5" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="6" Max="255" Preset="StrobeSlowToFast">Slow -&gt; Fast</Capability>
+ </Channel>
+ <Channel Name="Motor Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="5">Stop</Capability>
+  <Capability Min="6" Max="255">Slow -&gt; Fast</Capability>
+ </Channel>
+ <Mode Name="6 Channel Mode">
+  <Channel Number="0">Control/Operating Mode</Channel>
+  <Channel Number="1">Pod 1</Channel>
+  <Channel Number="2">Pod 2</Channel>
+  <Channel Number="3">Pod 3</Channel>
+  <Channel Number="4">Strobing Speed (Dimmer Mode)</Channel>
+  <Channel Number="5">Motor Speed</Channel>
+  <Head>
+   <Channel>1</Channel>
+  </Head>
+  <Head>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>3</Channel>
+  </Head>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4" Width="330" Height="330" Depth="330"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="40" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

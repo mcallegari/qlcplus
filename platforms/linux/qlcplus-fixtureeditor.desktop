@@ -11,6 +11,7 @@ GenericName[it]=Editor di Fixture
 GenericName[nl]=Bewerker voor armaturen
 GenericName[es]=Editor de Fixtures
 GenericName[ca]=Editor de Fixtures
+Keywords=qlc;light;controller;fixture;
 Exec=qlcplus-fixtureeditor --open %f
 Icon=qlcplus-fixtureeditor
 MimeType=application/x-qlc-fixture;

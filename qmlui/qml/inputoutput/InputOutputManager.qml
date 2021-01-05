@@ -18,6 +18,8 @@
 */
 
 import QtQuick 2.0
+import QtQuick.Controls 2.1
+
 import "."
 
 Rectangle
@@ -46,6 +48,7 @@ Rectangle
 
     Flickable
     {
+        id: mainFlickable
         width: parent.width - leftPanel.width - rightPanel.width
         height: parent.height
         x: leftPanel.width
@@ -60,6 +63,8 @@ Rectangle
             width: parent.width
             AudioIOItem
             {
+                id: audioItem
+
                 onSelected:
                 {
                     leftPanel.showPluginsButton = false
@@ -74,7 +79,7 @@ Rectangle
                 delegate:
                     UniverseIOItem
                     {
-                        universe: model.modelData
+                        universe: modelData.classRef
 
                         onSelected:
                         {
@@ -84,6 +89,8 @@ Rectangle
                             rightPanel.universeIndex = index
                             rightPanel.showPluginsButton = true
                             rightPanel.showAudioButton = false
+
+                            audioItem.isSelected = false
                         }
                         onPatchDragging:
                         {
@@ -92,6 +99,7 @@ Rectangle
                     }
             }
         }
+        ScrollBar.vertical: CustomScrollBar { }
     }
 
     /* Bottom container to drag a patch and delete it */

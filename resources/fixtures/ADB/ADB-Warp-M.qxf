@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.0 GIT</Version>
+  <Author>Thorben</Author>
+ </Creator>
+ <Manufacturer>ADB</Manufacturer>
+ <Model>Warp M</Model>
+ <Type>Moving Head</Type>
+ <Channel Name="Control">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="20">Fire</Capability>
+  <Capability Min="21" Max="25">Park</Capability>
+  <Capability Min="26" Max="30">Online</Capability>
+  <Capability Min="31" Max="35">Not used</Capability>
+  <Capability Min="36" Max="40">Stealth Mode</Capability>
+  <Capability Min="41" Max="45">Quiet Mode</Capability>
+  <Capability Min="46" Max="50">Fast Mode</Capability>
+  <Capability Min="51" Max="55">Reset all</Capability>
+  <Capability Min="56" Max="60">Reset all Shutters</Capability>
+  <Capability Min="61" Max="65">Reset Gobo 1</Capability>
+  <Capability Min="66" Max="70">Reset Gobo 2/Iris</Capability>
+  <Capability Min="71" Max="75">Reset Zoom</Capability>
+  <Capability Min="76" Max="80">Reset Focus</Capability>
+  <Capability Min="81" Max="85">Reset Pan</Capability>
+  <Capability Min="86" Max="90">Reset Tilt</Capability>
+  <Capability Min="91" Max="95">Not Used</Capability>
+  <Capability Min="96" Max="100">Calibration lens</Capability>
+  <Capability Min="101" Max="105">Calibration Of Shutters</Capability>
+  <Capability Min="106" Max="110">Calibration of Pan/Tilt</Capability>
+  <Capability Min="111" Max="115">Calibration of Iris/Gobo (only without accessory!)</Capability>
+  <Capability Min="116" Max="120">Not used</Capability>
+  <Capability Min="121" Max="125">Pan invert On</Capability>
+  <Capability Min="126" Max="130">Pan invert Off</Capability>
+  <Capability Min="131" Max="135">Tilt invert On</Capability>
+  <Capability Min="136" Max="140">Tilt Off</Capability>
+  <Capability Min="141" Max="145">Pan/Tilt swap On</Capability>
+  <Capability Min="146" Max="150">Pan/Tilt swap Off</Capability>
+  <Capability Min="151" Max="155">Display On</Capability>
+  <Capability Min="156" Max="160">Display Off</Capability>
+  <Capability Min="161" Max="165">Factory default setting (reserved)</Capability>
+  <Capability Min="166" Max="170">User setting 1 (reserved)</Capability>
+  <Capability Min="171" Max="175">User setting 2 (reserved)</Capability>
+  <Capability Min="176" Max="180">User setting 3 (reserved)</Capability>
+  <Capability Min="181" Max="185">Not used</Capability>
+  <Capability Min="186" Max="190">DMX address setting (reserved)</Capability>
+  <Capability Min="191" Max="195">Accessory change</Capability>
+  <Capability Min="196" Max="200">Gobo mode indexed</Capability>
+  <Capability Min="201" Max="205">Gobo mode indexed and endless rotation</Capability>
+  <Capability Min="206" Max="240">Not used</Capability>
+  <Capability Min="241" Max="255">Arm</Capability>
+ </Channel>
+ <Channel Name="Pan" Preset="PositionPan"/>
+ <Channel Name="Pan fine" Preset="PositionPanFine"/>
+ <Channel Name="Tilt" Preset="PositionTilt"/>
+ <Channel Name="Tilt fine" Preset="PositionTiltFine"/>
+ <Channel Name="Zoom" Preset="BeamZoomSmallBig"/>
+ <Channel Name="Focus" Preset="BeamFocusNearFar"/>
+ <Channel Name="Shutter A Rotation/Index Coarse">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">Shutter A Rotation/Index Coarse</Capability>
+ </Channel>
+ <Channel Name="Shutter A Rotation/Index Fine">
+  <Group Byte="1">Beam</Group>
+  <Capability Min="0" Max="255">Shutter A Rotation/Index Fine</Capability>
+ </Channel>
+ <Channel Name="Shutter A In/Out">
+  <Group Byte="1">Beam</Group>
+  <Capability Min="0" Max="255">Shutter A In/Out</Capability>
+ </Channel>
+ <Channel Name="Shutter B Rotation/Index Coarse">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">Shutter B Rotation/Index Coarse</Capability>
+ </Channel>
+ <Channel Name="Shutter C Rotation/Index Coarse">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">Shutter C Rotation/Index Coarse</Capability>
+ </Channel>
+ <Channel Name="Shutter D Rotation/Index Coarse">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">Shutter D Rotation/Index Coarse</Capability>
+ </Channel>
+ <Channel Name="Shutter B Rotation/Index Fine">
+  <Group Byte="1">Beam</Group>
+  <Capability Min="0" Max="255">Shutter B Rotation/Index Fine</Capability>
+ </Channel>
+ <Channel Name="Shutter C Rotation/Index Fine">
+  <Group Byte="1">Beam</Group>
+  <Capability Min="0" Max="255">Shutter C Rotation/Index Fine</Capability>
+ </Channel>
+ <Channel Name="Shutter D Rotation/Index Fine">
+  <Group Byte="1">Beam</Group>
+  <Capability Min="0" Max="255">Shutter D Rotation/Index Fine</Capability>
+ </Channel>
+ <Channel Name="Shutter B In/Out">
+  <Group Byte="1">Beam</Group>
+  <Capability Min="0" Max="255">Shutter B In/Out</Capability>
+ </Channel>
+ <Channel Name="Shutter C In/Out">
+  <Group Byte="1">Beam</Group>
+  <Capability Min="0" Max="255">Shutter C In/Out</Capability>
+ </Channel>
+ <Channel Name="Shutter D In/Out 3">
+  <Group Byte="1">Beam</Group>
+  <Capability Min="0" Max="255">Shutter D In/Out</Capability>
+ </Channel>
+ <Channel Name="Shutter All rotation offset Coarse">
+  <Group Byte="0">Beam</Group>
+  <Capability Min="0" Max="255">Shutter All rotation offset Coarse</Capability>
+ </Channel>
+ <Channel Name="Shutter All rotation offset Fine">
+  <Group Byte="1">Beam</Group>
+  <Capability Min="0" Max="255">Shutter All rotation offset Fine</Capability>
+ </Channel>
+ <Channel Name="Gobo 1 rotation Coarse">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="255">Gobo 1 rotation Coarse</Capability>
+ </Channel>
+ <Channel Name="Gobo 1 rotation Fine">
+  <Group Byte="1">Gobo</Group>
+  <Capability Min="0" Max="255">Gobo 1 rotation Fine</Capability>
+ </Channel>
+ <Channel Name="Iris coarse, or coarse rotation of Gobo 2">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="255">Iris coarse, or coarse rotation of Gobo 2</Capability>
+ </Channel>
+ <Channel Name="Iris fine, or fine rotation of Gobo 2">
+  <Group Byte="1">Gobo</Group>
+  <Capability Min="0" Max="255">Iris fine, or fine rotation of Gobo 2</Capability>
+ </Channel>
+ <Channel Name="External dimmer (optional)" Preset="IntensityDimmer"/>
+ <Channel Name="External DMX output (e.g. color changer) (Channel 1)">
+  <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="255">External DMX output (e.g. color changer) (Channel 1)</Capability>
+ </Channel>
+ <Channel Name="External DMX output (e.g. color changer) (Channe 2)">
+  <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="255">External DMX output (e.g. color changer) (Channel 2)</Capability>
+ </Channel>
+ <Channel Name="External DMX output (e.g. color changer) (Channel 3)">
+  <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="255">External DMX output (e.g. color changer) (Channel 1)</Capability>
+ </Channel>
+ <Channel Name="External DMX output (e.g. color changer) (Channel 4)">
+  <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="255">External DMX output (e.g. color changer) (Channel 4)</Capability>
+ </Channel>
+ <Channel Name="External DMX output (e.g. color changer) (Channel 5)">
+  <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="255">External DMX output (e.g. color changer) (Channel 5)</Capability>
+ </Channel>
+ <Channel Name="External DMX output (e.g. color changer) (Channel 6)">
+  <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="255">External DMX output (e.g. color changer) (Channel 6)</Capability>
+ </Channel>
+ <Channel Name="External DMX output (e.g. color changer) (Channel 7)">
+  <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="255">External DMX output (e.g. color changer) (Channel 7)</Capability>
+ </Channel>
+ <Channel Name="External DMX output (e.g. color changer) (Channel 8)">
+  <Group Byte="0">Nothing</Group>
+  <Capability Min="0" Max="255">External DMX output (e.g. color changer) (Channel 8)</Capability>
+ </Channel>
+ <Mode Name="34 Channel">
+  <Channel Number="0">Control</Channel>
+  <Channel Number="1">Pan</Channel>
+  <Channel Number="2">Pan fine</Channel>
+  <Channel Number="3">Tilt</Channel>
+  <Channel Number="4">Tilt fine</Channel>
+  <Channel Number="5">Zoom</Channel>
+  <Channel Number="6">Focus</Channel>
+  <Channel Number="7">Shutter A Rotation/Index Coarse</Channel>
+  <Channel Number="8">Shutter A Rotation/Index Fine</Channel>
+  <Channel Number="9">Shutter A In/Out</Channel>
+  <Channel Number="10">Shutter B Rotation/Index Coarse</Channel>
+  <Channel Number="11">Shutter C Rotation/Index Coarse</Channel>
+  <Channel Number="12">Shutter D Rotation/Index Coarse</Channel>
+  <Channel Number="13">Shutter B Rotation/Index Fine</Channel>
+  <Channel Number="14">Shutter C Rotation/Index Fine</Channel>
+  <Channel Number="15">Shutter D Rotation/Index Fine</Channel>
+  <Channel Number="16">Shutter B In/Out</Channel>
+  <Channel Number="17">Shutter C In/Out</Channel>
+  <Channel Number="18">Shutter D In/Out 3</Channel>
+  <Channel Number="19">Shutter All rotation offset Coarse</Channel>
+  <Channel Number="20">Shutter All rotation offset Fine</Channel>
+  <Channel Number="21">Gobo 1 rotation Coarse</Channel>
+  <Channel Number="22">Gobo 1 rotation Fine</Channel>
+  <Channel Number="23">Iris coarse, or coarse rotation of Gobo 2</Channel>
+  <Channel Number="24">Iris fine, or fine rotation of Gobo 2</Channel>
+  <Channel Number="25">External dimmer (optional)</Channel>
+  <Channel Number="26">External DMX output (e.g. color changer) (Channel 1)</Channel>
+  <Channel Number="27">External DMX output (e.g. color changer) (Channe 2)</Channel>
+  <Channel Number="28">External DMX output (e.g. color changer) (Channel 3)</Channel>
+  <Channel Number="29">External DMX output (e.g. color changer) (Channel 4)</Channel>
+  <Channel Number="30">External DMX output (e.g. color changer) (Channel 5)</Channel>
+  <Channel Number="31">External DMX output (e.g. color changer) (Channel 6)</Channel>
+  <Channel Number="32">External DMX output (e.g. color changer) (Channel 7)</Channel>
+  <Channel Number="33">External DMX output (e.g. color changer) (Channel 8)</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="MSR 1200W" Lumens="0" ColourTemperature="3200"/>
+  <Dimensions Weight="11.5" Width="379" Height="495" Depth="748"/>
+  <Lens Name="Other" DegreesMin="12" DegreesMax="30"/>
+  <Focus Type="Head" PanMax="400" TiltMax="275"/>
+  <Technical PowerConsumption="1200" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

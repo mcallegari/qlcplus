@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="addon">
+  <id>org.qlcplus.QLCPlus.e131</id>
+  <extends>org.qlcplus.QLCPlus</extends>
+  <name>E1.31</name>
+  <summary>E1.31 plugin for QLC+</summary>
+  <url type="homepage">https://www.qlcplus.org/</url>
+  <url type="bugtracker">https://github.com/mcallegari/qlcplus/issues/new?title=[e1.31]:</url>
+  <metadata_license>CC-BY-SA-3.0</metadata_license>
+  <project_license>Apache-2.0</project_license>
+</component>

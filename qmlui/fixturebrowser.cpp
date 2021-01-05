@@ -20,6 +20,7 @@
 #include <QQmlEngine>
 #include <QQuickItem>
 #include <QQmlContext>
+#include <QDebug>
 
 #include "fixturebrowser.h"
 #include "qlcfixturemode.h"
@@ -38,22 +39,29 @@ FixtureBrowser::FixtureBrowser(QQuickView *view, Doc *doc, QObject *parent)
     , m_fixtureName(QString())
     , m_selectedMode(QString())
     , m_modeChannelsCount(1)
-    , m_definition(NULL)
-    , m_mode(NULL)
+    , m_definition(nullptr)
+    , m_mode(nullptr)
     , m_searchFilter(QString())
 {
-    Q_ASSERT(m_doc != NULL);
-    Q_ASSERT(m_view != NULL);
+    Q_ASSERT(m_doc != nullptr);
+    Q_ASSERT(m_view != nullptr);
+
+    m_view->rootContext()->setContextProperty("fixtureBrowser", this);
 
     m_searchTree = new TreeModel(this);
     QQmlEngine::setObjectOwnership(m_searchTree, QQmlEngine::CppOwnership);
     m_searchTree->enableSorting(true);
 }
 
+FixtureBrowser::~FixtureBrowser()
+{
+    m_view->rootContext()->setContextProperty("fixtureBrowser", nullptr);
+}
+
 QStringList FixtureBrowser::manufacturers()
 {
     QStringList mfList = m_doc->fixtureDefCache()->manufacturers();
-    mfList.sort();
+    mfList.sort(Qt::CaseInsensitive);
     m_manufacturerIndex = mfList.indexOf("Generic");
     emit manufacturerIndexChanged(m_manufacturerIndex);
     return mfList;
@@ -76,7 +84,7 @@ void FixtureBrowser::setSelectedManufacturer(QString selectedManufacturer)
 
 QStringList FixtureBrowser::modelsList()
 {
-    qDebug() << "[FixtureBrowser] Fixtures list for" << m_selectedManufacturer;
+    qDebug() << "[FixtureBrowser] Models list for" << m_selectedManufacturer;
     QStringList fxList = m_doc->fixtureDefCache()->models(m_selectedManufacturer);
     if (m_selectedManufacturer == "Generic")
     {
@@ -84,7 +92,7 @@ QStringList FixtureBrowser::modelsList()
         fxList << "Generic RGB Panel";
     }
 
-    fxList.sort();
+    fxList.sort(Qt::CaseInsensitive);
     return fxList;
 }
 
@@ -100,8 +108,12 @@ void FixtureBrowser::setSelectedModel(QString selectedModel)
 
     m_selectedModel = selectedModel;
     setFixtureName(m_selectedModel);
+    m_selectedMode = QString();
+    m_modeChannelsCount = 1;
     emit selectedModelChanged(selectedModel);
     emit modesListChanged();
+    emit modeChannelsCountChanged();
+    emit modeChannelListChanged();
 }
 
 QString FixtureBrowser::fixtureName() const
@@ -120,15 +132,24 @@ void FixtureBrowser::setFixtureName(QString fixtureName)
 
 QStringList FixtureBrowser::modesList()
 {
+    qDebug() << "[FixtureBrowser] Modes list for" << m_selectedManufacturer << m_selectedModel;
+
     QStringList modesList;
 
     m_definition = m_doc->fixtureDefCache()->fixtureDef(m_selectedManufacturer, m_selectedModel);
 
-    if (m_definition != NULL)
+    if (m_definition != nullptr)
     {
         QList<QLCFixtureMode *> fxModesList = m_definition->modes();
         foreach(QLCFixtureMode *mode, fxModesList)
+        {
             modesList.append(mode->name());
+            if (m_selectedMode.isEmpty())
+            {
+                m_selectedMode = mode->name();
+                m_modeChannelsCount = mode->channels().count();
+            }
+        }
     }
     return modesList;
 }
@@ -140,10 +161,19 @@ QString FixtureBrowser::selectedMode() const
 
 void FixtureBrowser::setSelectedMode(QString selectedMode)
 {
+    qDebug() << "[FixtureBrowser] Select mode for" << m_selectedManufacturer << m_selectedModel << selectedMode;
+
     if (m_selectedMode == selectedMode)
         return;
 
     m_selectedMode = selectedMode;
+
+    if (m_definition != nullptr)
+    {
+        m_mode = m_definition->mode(m_selectedMode);
+        if (m_mode)
+            m_modeChannelsCount = m_mode->channels().count();
+    }
     emit selectedModeChanged(selectedMode);
     emit modeChannelsCountChanged();
     emit modeChannelListChanged();
@@ -151,11 +181,11 @@ void FixtureBrowser::setSelectedMode(QString selectedMode)
 
 int FixtureBrowser::modeChannelsCount()
 {
-    if (m_definition != NULL)
+    if (m_definition != nullptr)
     {
         m_mode = m_definition->mode(m_selectedMode);
 
-        if (m_mode != NULL)
+        if (m_mode != nullptr)
             return m_mode->channels().count();
     }
     return m_modeChannelsCount;
@@ -174,7 +204,7 @@ QVariant FixtureBrowser::modeChannelList() const
 {
     QVariantList channelList;
 
-    if (m_mode != NULL)
+    if (m_mode != nullptr)
     {
         int i = 1;
         for (QLCChannel *channel : m_mode->channels()) // C++11
@@ -259,7 +289,7 @@ int FixtureBrowser::availableChannel(quint32 fixtureID, int requested)
     bool isAvailable = true;
 
     Fixture *fixture = m_doc->fixture(fixtureID);
-    if (fixture == NULL)
+    if (fixture == nullptr)
         return -1;
 
     quint32 channels = fixture->channels();

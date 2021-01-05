@@ -35,6 +35,7 @@ private slots:
 
     void initial();
     void functions();
+    void contains();
     void functionRemoval();
 
     void loadSuccess();

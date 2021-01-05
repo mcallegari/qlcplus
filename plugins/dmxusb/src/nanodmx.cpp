@@ -23,12 +23,15 @@
 #include <QDir>
 
 NanoDMX::NanoDMX(DMXInterface *interface, quint32 outputLine)
-    : DMXUSBWidget(interface, outputLine)
+    : DMXUSBWidget(interface, outputLine, DEFAULT_OUTPUT_FREQUENCY)
+    , m_running(false)
 {
 }
 
 NanoDMX::~NanoDMX()
 {
+    stop();
+
 #ifdef QTSERIAL
     if (isOpen())
         DMXUSBWidget::close();
@@ -75,7 +78,7 @@ bool NanoDMX::sendChannelValue(int channel, uchar value)
 {
     QByteArray chanMsg;
     QString msg;
-    chanMsg.append(msg.sprintf("C%03dL%03d", channel, value));
+    chanMsg.append(msg.asprintf("C%03dL%03d", channel, value).toUtf8());
     return interface()->write(chanMsg);
 }
 
@@ -161,8 +164,6 @@ bool NanoDMX::open(quint32 line, bool input)
     }
 #endif
 
-    m_universe.fill(0, 512);
-
     QByteArray initSequence;
 
     /* Check connection */
@@ -192,6 +193,9 @@ bool NanoDMX::open(quint32 line, bool input)
             qWarning() << Q_FUNC_INFO << name() << "Channels initialization failed";
     }
 
+    // start the output thread
+    start();
+
     return true;
 }
 
@@ -199,6 +203,8 @@ bool NanoDMX::close(quint32 line, bool input)
 {
     Q_UNUSED(line)
     Q_UNUSED(input)
+
+    stop();
 
 #ifdef QTSERIAL
     if (isOpen())
@@ -260,10 +266,48 @@ bool NanoDMX::writeUniverse(quint32 universe, quint32 output, const QByteArray& 
 
     //qDebug() << "Writing universe...";
 
-    for (int i = 0; i < data.size(); i++)
+    if (m_outputLines[0].m_universeData.size() == 0)
+        m_outputLines[0].m_universeData.append(data);
+    else
+        m_outputLines[0].m_universeData.replace(0, data.size(), data);
+
+    return true;
+}
+
+void NanoDMX::stop()
+{
+    if (isRunning() == true)
     {
-        if (data[i] != m_universe[i])
+        m_running = false;
+        wait();
+    }
+}
+
+void NanoDMX::run()
+{
+    qDebug() << "OUTPUT thread started";
+
+    QElapsedTimer timer;
+
+    m_running = true;
+
+    if (m_outputLines[0].m_compareData.size() == 0)
+        m_outputLines[0].m_compareData.fill(0, 512);
+
+    // Wait for device to settle in case the device was opened just recently
+    usleep(1000);
+
+    while (m_running == true)
+    {
+        timer.restart();
+
+        for (int i = 0; i < m_outputLines[0].m_universeData.length(); i++)
         {
+            uchar val = uchar(m_outputLines[0].m_universeData[i]);
+
+            if (val == m_outputLines[0].m_compareData[i])
+                continue;
+
             //qDebug() << "Writing value at index" << i;
             QByteArray fastTrans;
             if (i < 256)
@@ -276,7 +320,7 @@ bool NanoDMX::writeUniverse(quint32 universe, quint32 output, const QByteArray& 
                 fastTrans.append((char)0xE3);
                 fastTrans.append((char)(i - 256));
             }
-            fastTrans.append(data[i]);
+            fastTrans.append(val);
 #ifdef QTSERIAL
             if (interface()->write(fastTrans) == false)
 #else
@@ -287,20 +331,24 @@ bool NanoDMX::writeUniverse(quint32 universe, quint32 output, const QByteArray& 
 #ifdef QTSERIAL
                 interface()->purgeBuffers();
 #endif
-                return false;
+                continue;
             }
             else
             {
-                m_universe[i] = data[i];
+                m_outputLines[0].m_compareData[i] = val;
 #ifdef QTSERIAL
                 if (checkReply() == false)
                     interface()->purgeBuffers();
 #endif
             }
         }
-    }
 
-    return true;
+        int timetoSleep = m_frameTimeUs - (timer.nsecsElapsed() / 1000);
+        if (timetoSleep < 0)
+            qWarning() << "DMX output is running late !";
+        else
+            usleep(timetoSleep);
+    }
 }
 
 

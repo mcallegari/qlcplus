@@ -20,6 +20,7 @@
 #include <QTreeWidgetItem>
 #include <QTreeWidget>
 #include <QDebug>
+#include <QAction>
 
 #include "qlcfixturehead.h"
 #include "qlcfixturemode.h"
@@ -68,7 +69,7 @@ void EditHead::fillChannelTree(const QLCFixtureMode* mode)
         if (ch->group() == QLCChannel::Intensity && ch->colour() == QLCChannel::NoColour)
             item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
         else if (m_head.channels().contains(i) == false && mode->headForChannel(i) != -1)
-            item->setFlags(0);
+            item->setFlags(Qt::NoItemFlags);
         else
             item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
 

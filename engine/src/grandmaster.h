@@ -29,7 +29,7 @@
  */
 
 /** Contains settings for Grand Master
- *  
+ *
  *  Changing properties in Operate mode is not supported.
  *  If the need arises, Universe::slotGMValueChanged() needs to be fixed (recompute
  *  all channels, for the case when mode is changed from AllChannels to Intensity)
@@ -45,19 +45,25 @@ public:
 
     /** Destructor */
     virtual ~GrandMaster();
-    
+
 public:
     enum ValueMode
     {
         Limit, /** Limit maximum values to current GM value */
         Reduce /** Reduce channel values by a fraction (0-100%) */
     };
+#if QT_VERSION >= 0x050500
+    Q_ENUM(ValueMode)
+#endif
 
     enum ChannelMode
     {
         Intensity,  /** GM applied only for Intensity channels */
         AllChannels /** GM applied for all channels */
     };
+#if QT_VERSION >= 0x050500
+    Q_ENUM(ChannelMode)
+#endif
 
     enum SliderMode
     {
@@ -128,7 +134,7 @@ public:
 
 signals:
     void valueChanged(uchar value);
-    
+
 protected:
     ValueMode m_valueMode;
     ChannelMode m_channelMode;

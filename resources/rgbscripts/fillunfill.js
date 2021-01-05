@@ -34,18 +34,14 @@ var testAlgo;
 
     algo.setOrientation = function(_orientation)
     {
-      if (_orientation == "Vertical")
-        algo.orientation = 1;
-      else
-        algo.orientation = 0;
+      if (_orientation === "Vertical") { algo.orientation = 1; }
+      else { algo.orientation = 0; }
     };
 
     algo.getOrientation = function()
     {
-      if (algo.orientation == 1)
-        return "Vertical";
-      else
-        return "Horizontal";
+      if (algo.orientation === 1) { return "Vertical"; }
+      else { return "Horizontal"; }
     };
 
     algo.rgbMap = function(width, height, rgb, step)
@@ -56,38 +52,42 @@ var testAlgo;
         map[y] = new Array();
         for (var x = 0; x < width; x++)
         {
-          if (algo.orientation == 1)
+          if (algo.orientation === 1)
           {
             if (step < height)
             {
-              if (y <= step)
+              if (y <= step) {
                   map[y][x] = rgb;
-              else
+              } else {
                   map[y][x] = 0;
+              }
             }
             else
             {
-              if (y > step - height)
+              if (y > step - height) {
                   map[y][x] = rgb;
-              else
+              } else {
                   map[y][x] = 0;
+              }
             }
           }
           else
           {
             if (step < width)
             {
-              if (x <= step)
+              if (x <= step) {
                   map[y][x] = rgb;
-              else
+              } else {
                   map[y][x] = 0;
+              }
             }
             else
             {
-              if (x > step - width)
+              if (x > step - width) {
                   map[y][x] = rgb;
-              else
+              } else {
                   map[y][x] = 0;
+              }
             }
           }
         }
@@ -98,10 +98,11 @@ var testAlgo;
 
     algo.rgbMapStepCount = function(width, height)
     {
-      if (algo.orientation == 0)
+      if (algo.orientation === 0) {
           return (width * 2) - 1;
-      else
+      } else {
           return (height * 2) - 1;
+      }
     };
 
     // Development tool access

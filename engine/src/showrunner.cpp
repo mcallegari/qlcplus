@@ -68,28 +68,29 @@ ShowRunner::ShowRunner(const Doc* doc, quint32 showID, quint32 startTime)
         // get all the functions of the track and append them to the runner queue
         foreach(ShowFunction *sfunc, track->showFunctions())
         {
-            if (sfunc->startTime() + sfunc->duration() <= startTime)
+            if (sfunc->startTime() + sfunc->duration(m_doc) <= startTime)
                 continue;
+
             Function *f = m_doc->function(sfunc->functionID());
             if (f == NULL)
                 continue;
 
             m_functions.append(sfunc);
 
-            if (sfunc->startTime() + sfunc->duration() > m_totalRunTime)
-                m_totalRunTime = sfunc->startTime() + sfunc->duration();
+            if (sfunc->startTime() + sfunc->duration(m_doc) > m_totalRunTime)
+                m_totalRunTime = sfunc->startTime() + sfunc->duration(m_doc);
         }
 
         // Initialize the intensity map
         m_intensityMap[track->id()] = 1.0;
     }
 
-    qSort(m_functions.begin(), m_functions.end(), compareShowFunctions);
+    std::sort(m_functions.begin(), m_functions.end(), compareShowFunctions);
 
 #if 1
     qDebug() << "Ordered list of ShowFunctions:";
     foreach (ShowFunction *sfunc, m_functions)
-        qDebug() << "ID:" << sfunc->functionID() << "st:" << sfunc->startTime() << "dur:" << sfunc->duration();
+        qDebug() << "ID:" << sfunc->functionID() << "st:" << sfunc->startTime() << "dur:" << sfunc->duration(m_doc);
 #endif
     m_runningQueue.clear();
 
@@ -164,13 +165,15 @@ void ShowRunner::write()
             {
                 if (track->showFunctions().contains(sf))
                 {
-                    f->adjustAttribute(m_intensityMap[track->id()], Function::Intensity);
+                    int intOverrideId = f->requestAttributeOverride(Function::Intensity, m_intensityMap[track->id()]);
+                    //f->adjustAttribute(m_intensityMap[track->id()], Function::Intensity);
+                    sf->setIntensityOverrideId(intOverrideId);
                     break;
                 }
             }
 
             f->start(m_doc->masterTimer(), functionParent(), functionTimeOffset);
-            m_runningQueue.append(QPair<Function *, quint32>(f, sf->startTime() + sf->duration()));
+            m_runningQueue.append(QPair<Function *, quint32>(f, sf->startTime() + sf->duration(m_doc)));
             m_currentFunctionIndex++;
         }
         else
@@ -178,7 +181,7 @@ void ShowRunner::write()
     }
 
     // Phase 2. Check if we need to stop some running Functions
-    // It is done in reverse order for two reason:
+    // It is done in reverse order for two reasons:
     // 1- m_runningQueue is not ordered by stop time
     // 2- to avoid messing up with indices when an entry is removed
     for(int i = m_runningQueue.count() - 1; i >= 0; i--)
@@ -231,7 +234,7 @@ void ShowRunner::adjustIntensity(qreal fraction, Track *track)
         {
             Function *rf = m_runningQueue.at(i).first;
             if (f == rf)
-                f->adjustAttribute(fraction, Function::Intensity);
+                f->adjustAttribute(fraction, sf->intensityOverrideId());
         }
     }
 }

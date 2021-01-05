@@ -1,0 +1,129 @@
+<html dir="ltr">
+<head>
+<title>Q Light Controller Plus - パラメータチューニング</title>
+<script src="utility.js" type="text/javascript"></script>
+<link href="style.css" rel="stylesheet" type="text/css"></link>
+  <meta charset="utf-8">
+</head>
+<BODY onLoad="replaceqrc()">
+
+
+<h1>パラメータチューニング</h1>
+<p>
+パラメーターチューニングでは、QLC+上に設定画面が表示されない応用的な項目の設定を変更することができます。<br>
+なぜQLC+上に設定画面がないのかを考えてから設定していきましょう。
+<h2>パラメーターチューニングで変更できる設定にはQLC+の重要な項目である可能性があります。れらの項目の設定を変更すると起動できなくなったり、動作が不安定になる場合があります。十分理解した上で設定して下さい。</h2>
+</p>
+
+<h1 id="location">1 設定ファイルの場所</h1>
+
+<h2>Linux</h2>
+<p>
+QLC+とフィクスチャーエディターの設定ファイルは以下のパスに保存されています。<br><br>
+<code>$HOME/.config/qlcplus</code><br>QLC+とフィクスチャーエディターの2つの設定ファイルがあります。
+</p>
+
+<h2>Windows</h2>
+<p>
+レジストリを書き換えることで設定を変更できます。<br>レジストリエディタを起動しqlcplusで検索してみてください。<br>
+</p>
+
+<h2>Mac OSX</h2>
+<p>
+設定ファイルは以下のパスに保存されています。<br>通常このディレクトリは不可視ファイルになっているため、Finderのメニューから直接アクセスして下さい。<br>
+<code>$HOME/Library/Preferences</code><br>QLC+の設定ファイルは<code>net.sf.Q Light Controller Plus.plist、フィクスチャーエディターの設定ファイルはnet.sf.Fixture Definition Editor.plistです。<br><br>
+<b>これらの設定ファイルはシステムにキャッシュされています。</b> 一般的にmacOSはシステム起動時に全ての設定ファイルを読み込みます、従って設定を変更しても即時に反映されないことがあります。その時は以下のコマンドから設定ファイルを再読み込みして下さい。<br><br>
+<code>killall -u {yourusername} cfprefsd</code><br>
+<code>{yourusername}</code>にはmacOSにログインしているユーザー名を入力して下さい、このコマンドで設定ファイルを強制的に再読み込みさせることができます。
+</p>
+
+<h1 id="reset"> 2 変更した設定をデフォルトに戻す</h1>
+<p>
+全ての設定をデフォルトに戻したい場合は以下の手順に従って下さい。<br>
+設定ファイルの場所については上で解説しています、まずはそちらをお読み下さい。<ul>
+ <li>LinuxとmacOSの場合は<code>設定ファイル</code>を削除して下さい。</li>
+ <li>Windowsの場合はqlcplusのレジストリを削除して下さい。</li>
+</ul>
+</p>
+
+<h1 id="syntax">3 設定ファイルの書式</h1>
+<p>Qtの仕様から、お使いのシステムにより設定ファイルの形式が異なります。
+
+<h2>Linux</h2>
+設定ファイルはプレーンテキストなのでお好きなテキストエディタで編集することができます。書式は以下の通りです<pre>
+    [category]
+    name=value
+</pre>
+
+<h2>Windows</h2>
+設定ファイルはなく、レジストリを書き換えます。windowsのバージョンによりレジストリエディタの使い方は異なりますが、できることは同じです。<pre>
+
+レジストリは階層構造を持ち、categoryはレジストリのディレクトリに相当します。レジストリのディレクトリのなかにparameterに相当するものが入っており、その設定の値がvalueに相当します。</pre>
+
+<h2>Mac OSX</h2>設定ファイルはプレーンテキストなのでお好きなテキストエディタで編集可能です。設定ファイルの書式は以下の通りです。<pre>
+    &lt;key&gt;category.name&lt;/key&gt;
+    &lt;string&gt;value&lt;/string&gt;
+    or
+    &lt;integer&gt;42&lt;/integer&gt;
+</pre>
+</p>
+
+<h1 id="list">4 パラメータの一覧</h1>
+<p>
+以下のパラメータが設定ファイル内にない場合は最後に追記して下さい。
+
+<h3 id="SimpleDesk">4.1 Simple Desk</h3>
+<pre>
+<b>Category:</b> simpledesk
+<b>Name:</b> channelsperpage
+<b>Type:</b> integer
+<b>Description:</b> シンプルデスクの1ページに表示するスライダーの本数を設定できます。
+<b>Default:</b> 32
+</pre>
+<pre>
+<b>Category:</b> simpledesk
+<b>Name:</b> playbacksperpage
+<b>Type:</b> integer
+<b>Description:</b> set the number of playback sliders displayed per page
+<b>Default:</b> 15
+</pre>
+
+<h3 id="EnttecOpen">4.2 DMX USB Enttec Open frequency</h3>
+<pre>
+<b>Category:</b> enttecdmxusbopen
+<b>Name:</b> frequency
+<b>Type:</b> integer
+<b>Description:</b> プレイバックに表示するスライダーの本数を設定できます。
+<b>Default:</b> 30
+</pre>
+
+<h3 id="EnttecOpenChannels">4.3 DMX USB Enttec Open channels number</h3>
+<pre>
+<b>Category:</b> enttecdmxusbopen
+<b>Name:</b> channels
+<b>Type:</b> integer
+<b>Description:</b> Enttec社のOpenDMXなどが出力するDMXを何chまで送信するかを設定できます。機器によってはリフレッシュレートを高めるために256chなどの512に満たないch数で送信しても動作できる場合があります。
+<b>Default:</b> 512
+</pre>
+
+<h3 id="uDMX">4.4 uDMX frequency</h3>
+<pre>
+<b>Category:</b> udmx
+<b>Name:</b> frequency
+<b>Type:</b> integer
+<b>Description:</b> uDMXが出力するDMXのリフレッシュレートを設定できます。
+<b>Default:</b> 30
+</pre>
+
+<h3 id="MasterTimer">4.5 Master Timer frequency</h3>
+<pre>
+<b>Category:</b> mastertimer
+<b>Name:</b> frequency
+<b>Type:</b> integer
+<b>Description:</b> QLC+内部で動作する時計のクロック周波数を設定できます。
+<b>Default:</b> 50
+</pre>
+
+</p>
+</BODY>
+</html>

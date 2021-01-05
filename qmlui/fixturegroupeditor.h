@@ -23,6 +23,8 @@
 #include <QQuickView>
 #include <QObject>
 
+#include <qlcpoint.h>
+
 class Doc;
 class Fixture;
 class FixtureGroup;
@@ -32,7 +34,8 @@ class FixtureGroupEditor : public QObject
     Q_OBJECT
 
     Q_PROPERTY(QVariant groupsListModel READ groupsListModel NOTIFY groupsListModelChanged)
-    Q_PROPERTY(QString groupName READ groupName NOTIFY groupNameChanged)
+    Q_PROPERTY(quint32 groupID READ groupID CONSTANT)
+    Q_PROPERTY(QString groupName READ groupName WRITE setGroupName NOTIFY groupNameChanged)
     Q_PROPERTY(QSize groupSize READ groupSize WRITE setGroupSize NOTIFY groupSizeChanged)
     Q_PROPERTY(QVariantList groupMap READ groupMap NOTIFY groupMapChanged)
     Q_PROPERTY(QVariantList groupLabels READ groupLabels NOTIFY groupLabelsChanged)
@@ -40,6 +43,7 @@ class FixtureGroupEditor : public QObject
 
 public:
     FixtureGroupEditor(QQuickView *view, Doc *doc, QObject *parent = 0);
+    ~FixtureGroupEditor();
 
     /** Returns the data model to display a list of FixtureGroups with icons */
     QVariant groupsListModel();
@@ -80,8 +84,11 @@ public:
     /** Set the reference of a FixtureGroup for editing */
     Q_INVOKABLE void setEditGroup(QVariant reference);
 
-    /** Get the name of the Fixture Group currently being edited */
+    quint32 groupID() const;
+
+    /** Get/Set the name of the Fixture Group currently being edited */
     QString groupName() const;
+    void setGroupName(QString name);
 
     /** Get/Set the size of the Fixture Group currently being edited */
     QSize groupSize() const;
@@ -96,14 +103,24 @@ public:
     /** Returns a list of indices with the selected heads */
     QVariantList selectionData();
 
-    /** Check the head at the provide $x,$y position and
+    /** Resets the currently selected items */
+    Q_INVOKABLE void resetSelection();
+
+    /** Check the head at the provided $x,$y position and
      *  returns a list of indices with the selected heads */
     Q_INVOKABLE QVariantList groupSelection(int x, int y, int mouseMods);
 
-    /** Returns a selection array from the provide $reference */
-    Q_INVOKABLE QVariantList dragSelection(QVariant reference, int x, int y, int mouseMods);
+    /** Returns a selection array from the provided $reference */
+    Q_INVOKABLE QVariantList fixtureSelection(QVariant reference, int x, int y, int mouseMods);
 
-    Q_INVOKABLE void addFixture(QVariant reference, int x, int y);
+    /** Returns a selection array from the provided $itemID and $headIndex */
+    Q_INVOKABLE QVariantList headSelection(int x, int y, int mouseMods);
+
+    /** Add a Fixture with the provided $reference to x,y position */
+    Q_INVOKABLE bool addFixture(QVariant reference, int x, int y);
+
+    /** Add a Fixture head of the provided $itemID and $headIndex to x,y position */
+    Q_INVOKABLE bool addHead(quint32 itemID, int headIndex, int x, int y);
 
     /** Check if the current selection can be moved by $offset cells */
     Q_INVOKABLE bool checkSelection(int x, int y, int offset);
@@ -111,11 +128,18 @@ public:
     /** Move the current selection by $offset cells */
     Q_INVOKABLE void moveSelection(int x, int y, int offset);
 
+    /** Delete the currently selected items */
+    Q_INVOKABLE void deleteSelection();
+
     /** Rotate the current selection by $degrees */
     Q_INVOKABLE void transformSelection(int transformation);
 
+    /** Get a string to be displayed as tooltip for a head at position x,y */
+    Q_INVOKABLE QString getTooltip(int x, int y);
+
 private:
     void updateGroupMap();
+    QLCPoint pointFromAbsolute(int absoluteIndex);
 
 signals:
     void groupSizeChanged();

@@ -44,14 +44,22 @@ Rectangle
 
     property string originalText
 
-    function enableEditing()
+    function enableEditing(enable)
     {
-        originalText = etbTextEdit.text
-        etbTextEdit.readOnly = false
-        etbTextEdit.forceActiveFocus()
-        etbTextEdit.cursorVisible = true
-        etbTextEdit.cursorPosition = etbTextEdit.text.length
-        etbMouseArea.enabled = false
+        if (enable === true)
+        {
+            originalText = etbTextEdit.text
+            etbTextEdit.forceActiveFocus()
+            etbTextEdit.cursorVisible = true
+            etbTextEdit.cursorPosition = etbTextEdit.text.length
+        }
+        else
+        {
+            etbTextEdit.select(0, 0)
+        }
+
+        etbTextEdit.readOnly = !enable
+        etbMouseArea.enabled = !enable
     }
 
     TextEdit
@@ -74,9 +82,7 @@ Rectangle
 
         onEditingFinished:
         {
-            select(0, 0)
-            readOnly = true
-            etbMouseArea.enabled = true
+            etbRoot.enableEditing(false)
             if (text !== "")
                 etbRoot.textChanged(text)
             else
@@ -84,9 +90,7 @@ Rectangle
         }
         Keys.onReturnPressed:
         {
-            select(0, 0)
-            readOnly = true
-            etbMouseArea.enabled = true
+            etbRoot.enableEditing(false)
             if (text !== "")
                 etbRoot.textChanged(text)
             else
@@ -94,10 +98,8 @@ Rectangle
         }
         Keys.onEscapePressed:
         {
-            select(0, 0)
+            etbRoot.enableEditing(false)
             text = etbRoot.originalText
-            readOnly = true
-            etbMouseArea.enabled = true
         }
     }
 
@@ -108,6 +110,6 @@ Rectangle
         z: 1
 
         onClicked: etbRoot.clicked()
-        onDoubleClicked: etbRoot.enableEditing()
+        onDoubleClicked: etbRoot.enableEditing(true)
     }
 }

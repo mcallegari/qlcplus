@@ -23,7 +23,7 @@ import "."
 Rectangle
 {
     id: rtRoot
-    width: wrapText ? 100 : textBox.width
+    width: wrapText ? 100 : textBox.paintedWidth + rightMargin
     height: UISettings.iconSizeDefault
 
     color: "transparent"
@@ -36,18 +36,20 @@ Rectangle
     property bool wrapText: false
     property int textHAlign: Text.AlignLeft
     property int textVAlign: wrapText ? Text.AlignVCenter : Text.AlignTop
+    property alias leftMargin: textBox.x
+    property real rightMargin: 0
 
     Text
     {
         id: textBox
-        width: wrapText ? parent.width : Text.paintedWidth
+        width: parent.width
         height: wrapText ? parent.height : Text.paintedHeight
         anchors.verticalCenter: parent.verticalCenter
         text: label
         font.family: UISettings.robotoFontName
         font.pixelSize: fontSize ? fontSize : 12
         font.bold: fontBold
-        color: labelColor
+        color: rtRoot.enabled ? labelColor : Qt.darker(labelColor, 2.0)
         wrapMode: wrapText ? Text.Wrap : Text.NoWrap
         horizontalAlignment: textHAlign
         verticalAlignment: textVAlign

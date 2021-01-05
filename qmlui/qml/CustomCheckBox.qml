@@ -18,71 +18,72 @@
 */
 
 import QtQuick 2.0
-import QtQuick.Controls 1.2
-import QtQuick.Controls.Private 1.0
+import QtQuick.Controls 2.14
 
 import "."
 
-Rectangle
+RadioButton
 {
-    id: checkBoxRoot
-    width: UISettings.iconSizeDefault
-    height: UISettings.iconSizeDefault
+    id: controlRoot
+    implicitWidth: UISettings.iconSizeDefault
+    implicitHeight: UISettings.iconSizeDefault
+    hoverEnabled: true
+    autoExclusive: false
+    focusPolicy: Qt.StrongFocus
 
-    property color bgColor: UISettings.bgMedium
+    property color bgColor: UISettings.bgControl
     property color hoverColor: UISettings.bgLight
-    property color pressColor: "#054A9E"
+    property color pressColor: UISettings.highlightPressed
     property string tooltip: ""
 
-    property bool checked: false
-
-    property ExclusiveGroup exclusiveGroup: null
-
-    signal toggle(bool status)
-
-    color: bgColor
-    radius: 5
-    border.color: "#1D1D1D"
-    border.width: 2
-
-    onExclusiveGroupChanged:
+    Rectangle
     {
-        if (exclusiveGroup)
-            exclusiveGroup.bindCheckable(checkBoxRoot)
-    }
-
-    Image
-    {
-        id: cbIcon
-        visible: checked
         anchors.fill: parent
-        anchors.margins: 3
-        source: "qrc:/apply.svg"
-        sourceSize: Qt.size(width, height)
+        z: 3
+        color: "black"
+        opacity: 0.4
+        visible: !controlRoot.enabled
     }
 
-    MouseArea
+    ToolTip
     {
-        id: mouseArea1
-        anchors.fill: parent
-        hoverEnabled: true
-        onEntered: { checkBoxRoot.color = hoverColor }
-        onExited: { checkBoxRoot.color = bgColor; Tooltip.hideText() }
-        onReleased:
-        {
-            if (exclusiveGroup && checked == true)
-                return
-
-            checked = !checked
-            checkBoxRoot.toggle(checked)
-        }
-        onCanceled: Tooltip.hideText()
-
-        Timer
-        {
-           interval: 1000
-           running: mouseArea1.containsMouse && tooltip.length
-           onTriggered: Tooltip.showText(mouseArea1, Qt.point(mouseArea1.mouseX, mouseArea1.mouseY), tooltip)
-        }
+        visible: tooltip && hovered
+        text: tooltip
+        delay: 1000
+        timeout: 5000
+        background:
+            Rectangle
+            {
+                color: UISettings.bgMain
+                border.width: 1
+                border.color: UISettings.bgLight
+            }
+        contentItem:
+            Text
+            {
+              text: tooltip
+              color: "white"
+          }
     }
+
+    background:
+        Rectangle
+        {
+            id: cbBody
+            color: hovered ? hoverColor : bgColor
+            radius: 5
+            border.color: controlRoot.focus ? UISettings.highlight : UISettings.bgStrong
+            border.width: 2
+        }
+
+    indicator:
+        Image
+        {
+            id: cbIcon
+            visible: checked
+            anchors.fill: parent
+            anchors.margins: 3
+            source: "qrc:/apply.svg"
+            sourceSize: Qt.size(width, height)
+        }
 }

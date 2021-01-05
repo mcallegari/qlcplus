@@ -34,6 +34,7 @@ class ClickAndGoWidget;
 class QXmlStreamReader;
 class QXmlStreamWriter;
 class FlowLayout;
+class RGBMatrix;
 
 /** @addtogroup ui_vc_widgets
  * @{
@@ -82,7 +83,6 @@ public:
     void setID(quint32 id);
 
 private:
-    quint32 m_matrixID;
     ClickAndGoSlider *m_slider;
     bool m_sliderExternalMovement;
     QLabel *m_label;
@@ -125,6 +125,13 @@ public:
     /** Edit this widget's properties */
     void editProperties();
 
+    /*************************************************************************
+     * VCWidget-inherited
+     *************************************************************************/
+public:
+    /** @reimp */
+    void adjustIntensity(qreal val);
+
     /*********************************************************************
      * Function attachment
      *********************************************************************/
@@ -151,8 +158,6 @@ public:
 private slots:
     /** Update slider when function stops. */
     void slotFunctionStopped();
-    /** Update slider when function starts. */
-    void slotFunctionAttributeChanged(int attrIndex, qreal fraction);
     /** Update widget when function changes. */
     void slotFunctionChanged();
     void slotUpdate();
@@ -161,6 +166,8 @@ private:
     FunctionParent functionParent() const;
 
 private:
+    /** ID of the RGB Matrix that this widget is controlling */
+    quint32 m_matrixID;
     /** timer for updating the controls */
     QTimer* m_updateTimer;
 

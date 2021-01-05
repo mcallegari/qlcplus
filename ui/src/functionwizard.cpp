@@ -21,6 +21,7 @@
 #include <QString>
 #include <QDebug>
 #include <QHash>
+#include <QAction>
 
 #include "palettegenerator.h"
 #include "fixtureselection.h"
@@ -455,7 +456,7 @@ void FunctionWizard::updateWidgetsTree()
             frame->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::FrameWidget));
             frame->setData(KWidgetName, Qt::UserRole, VCWidget::FrameWidget);
         }
-        frame->setData(KWidgetName, Qt::UserRole + 1, qVariantFromValue((void *)palette));
+        frame->setData(KWidgetName, Qt::UserRole + 1, QVariant::fromValue((void *)palette));
         frame->setFlags(frame->flags() | Qt::ItemIsUserCheckable | Qt::ItemIsTristate);
         frame->setCheckState(KWidgetName, Qt::Unchecked);
 
@@ -481,7 +482,7 @@ void FunctionWizard::updateWidgetsTree()
             item->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::ButtonWidget));
             item->setCheckState(KWidgetName, Qt::Unchecked);
             item->setData(KWidgetName, Qt::UserRole, VCWidget::ButtonWidget);
-            item->setData(KWidgetName, Qt::UserRole + 1, qVariantFromValue((void *)scene));
+            item->setData(KWidgetName, Qt::UserRole + 1, QVariant::fromValue((void *)scene));
 
         }
         foreach(Chaser *chaser, palette->chasers())
@@ -492,7 +493,7 @@ void FunctionWizard::updateWidgetsTree()
             item->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::CueListWidget));
             item->setCheckState(KWidgetName, Qt::Unchecked);
             item->setData(KWidgetName, Qt::UserRole, VCWidget::CueListWidget);
-            item->setData(KWidgetName, Qt::UserRole + 1, qVariantFromValue((void *)chaser));
+            item->setData(KWidgetName, Qt::UserRole + 1, QVariant::fromValue((void *)chaser));
         }
 
         foreach(RGBMatrix *matrix, palette->matrices())
@@ -507,7 +508,7 @@ void FunctionWizard::updateWidgetsTree()
             item->setIcon(KWidgetName, VCWidget::typeToIcon(VCWidget::ButtonWidget));
             item->setCheckState(KWidgetName, Qt::Unchecked);
             item->setData(KWidgetName, Qt::UserRole, VCWidget::ButtonWidget);
-            item->setData(KWidgetName, Qt::UserRole + 1, qVariantFromValue((void *)matrix));
+            item->setData(KWidgetName, Qt::UserRole + 1, QVariant::fromValue((void *)matrix));
         }
 
         if (palette->scenes().count() > 0)
@@ -526,7 +527,7 @@ void FunctionWizard::updateWidgetsTree()
             item->setCheckState(KWidgetName, Qt::Unchecked);
             item->setData(KWidgetName, Qt::UserRole, VCWidget::SliderWidget);
             Scene *firstScene = palette->scenes().at(0);
-            item->setData(KWidgetName, Qt::UserRole + 1, qVariantFromValue((void *)firstScene));
+            item->setData(KWidgetName, Qt::UserRole + 1, QVariant::fromValue((void *)firstScene));
         }
     }
 }
@@ -630,9 +631,9 @@ VCWidget *FunctionWizard::createWidget(int type, VCWidget *parent, int xpos, int
                     if (channel->group() == QLCChannel::Gobo)
                     {
                         QLCCapability *cap = channel->searchCapability(scv.value);
-                        if (cap->resourceName().isEmpty() == false)
+                        if (cap->resource(0).isValid())
                         {
-                            widget->setBackgroundImage(cap->resourceName());
+                            widget->setBackgroundImage(cap->resource(0).toString());
                             break;
                         }
                     }

@@ -44,6 +44,11 @@ class QString;
 #define KExtWorkspace        ".qxw"  // 'Q'LC+ 'X'ml 'W'orkspace
 #define KExtInputProfile     ".qxi"  // 'Q'LC+ 'X'ml 'I'nput profile
 #define KExtModifierTemplate ".qxmt" // 'Q'LC+ 'X'ml 'M'odifier 'T'emplate
+
+#ifdef QMLUI
+#define KExtColorFilters     ".qxcf" // 'Q'LC+ 'X'ml 'C'olor 'F'ilters
+#endif
+
 #if defined(WIN32) || defined(Q_OS_WIN)
 #   define KExtPlugin    ".dll" // Dynamic-Link Library
 #elif defined(__APPLE__) || defined(Q_OS_MAC)
@@ -108,14 +113,14 @@ public:
     static QString currentUserName();
 
     /**
-     * Method called just once to set the m_isRaspberry flag
+     * Method called just once to set the m_hasWindowManager flag
      */
-    static void checkRaspberry();
+    static void setHasWindowManager(bool enable);
 
     /**
-     * Return if the current platform is a Raspberry Pi
+     * Return if the current platform provides a window manager
      */
-    static bool isRaspberry();
+    static bool hasWindowManager();
 
     /**
      * @brief systemDirectory returns a system dependant QDir based
@@ -135,13 +140,17 @@ public:
      */
     static QDir userDirectory(QString path, QString fallBackPath, QStringList extensions);
 
+    /** @brief Return a OS dependent prefix used for local file URLs.
+      *        Linux and macOS needs "file://", while Windows needs "file:///" */
+    static QString fileUrlPrefix();
+
     /**
      * @brief getQtVersion get the runtime Qt version as number. E.g. 50602
      */
     static quint32 getQtRuntimeVersion();
 
 private:
-    static bool m_isRaspberry;
+    static bool m_hasWindowManager;
 };
 
 /** @} */

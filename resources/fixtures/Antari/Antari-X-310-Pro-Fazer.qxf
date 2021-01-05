@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.4 GIT</Version>
+  <Author>Flox Garden</Author>
+ </Creator>
+ <Manufacturer>Antari</Manufacturer>
+ <Model>X-310 Pro Fazer</Model>
+ <Type>Smoke</Type>
+ <Channel Name="Fan speed">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="85">Slow</Capability>
+  <Capability Min="86" Max="170">Medium</Capability>
+  <Capability Min="171" Max="255">Fast</Capability>
+ </Channel>
+ <Channel Name="Volume control">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="5">Off</Capability>
+  <Capability Min="6" Max="255">Volume control</Capability>
+ </Channel>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Fan speed</Channel>
+  <Channel Number="1">Volume control</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="18" Width="635" Height="281" Depth="275"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="1000" DmxConnector="3-pin and 5-pin"/>
+  </Physical>
+</FixtureDefinition>

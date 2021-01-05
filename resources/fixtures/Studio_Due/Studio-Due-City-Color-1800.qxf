@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.7.2 GIT</Version>
+  <Author>root</Author>
+ </Creator>
+ <Manufacturer>Studio Due</Manufacturer>
+ <Model>City Color 1800</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Motor Speed">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="63">Slow</Capability>
+  <Capability Min="64" Max="127">Mid 2</Capability>
+  <Capability Min="128" Max="191">Mid 1</Capability>
+  <Capability Min="192" Max="255">Fast</Capability>
+ </Channel>
+ <Channel Name="Cyan" Preset="IntensityCyan"/>
+ <Channel Name="Yellow" Preset="IntensityYellow"/>
+ <Channel Name="Magenta" Preset="IntensityMagenta"/>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Macro Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="25">Color Mixing</Capability>
+  <Capability Min="26" Max="51" Color="#3f95ff">Cyan</Capability>
+  <Capability Min="52" Max="77" Color="#ffdb22">Yellow</Capability>
+  <Capability Min="78" Max="103" Color="#ff0267">Magenta</Capability>
+  <Capability Min="104" Max="129" Color="#2724ff">Blue</Capability>
+  <Capability Min="130" Max="155" Color="#ff0000">Red</Capability>
+  <Capability Min="156" Max="181" Color="#0ea800">Green</Capability>
+  <Capability Min="182" Max="207">Color mix sequence (slow)</Capability>
+  <Capability Min="208" Max="233">Color mix sequence (mid)</Capability>
+  <Capability Min="234" Max="255">Color mix sequence (fast)</Capability>
+ </Channel>
+ <Channel Name="Reset / Lamp Off">
+  <Group Byte="0">Maintenance</Group>
+  <Capability Min="0" Max="127">Normal</Capability>
+  <Capability Min="128" Max="191">Reset (Delay)</Capability>
+  <Capability Min="192" Max="250">Normal</Capability>
+  <Capability Min="251" Max="255">Lamp Off (Delay)</Capability>
+ </Channel>
+ <Mode Name="7 Channels">
+  <Channel Number="0">Motor Speed</Channel>
+  <Channel Number="1">Cyan</Channel>
+  <Channel Number="2">Yellow</Channel>
+  <Channel Number="3">Magenta</Channel>
+  <Channel Number="4">Dimmer</Channel>
+  <Channel Number="5">Macro Color</Channel>
+  <Channel Number="6">Reset / Lamp Off</Channel>
+ </Mode>
+ <Mode Name="6 Channels">
+  <Channel Number="0">Motor Speed</Channel>
+  <Channel Number="1">Cyan</Channel>
+  <Channel Number="2">Yellow</Channel>
+  <Channel Number="3">Magenta</Channel>
+  <Channel Number="4">Dimmer</Channel>
+  <Channel Number="5">Macro Color</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="180000" Type="MHN/SA 1800W Philips" ColourTemperature="5600"/>
+   <Dimensions Width="780" Height="720" Weight="56" Depth="560"/>
+   <Lens DegreesMax="52" Name="Other" DegreesMin="50"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="2000" DmxConnector="5-pin"/>
+  </Physical>
+</FixtureDefinition>

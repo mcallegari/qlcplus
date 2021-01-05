@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.4.1</Version>
+  <Author>aschmitz</Author>
+ </Creator>
+ <Manufacturer>lightmaXX</Manufacturer>
+ <Model>LED MEGA PAR 64 RGBW 18x8 W</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Strobe" Preset="ShutterStrobeSlowFast"/>
+ <Channel Name="red" Preset="IntensityRed"/>
+ <Channel Name="green" Preset="IntensityGreen"/>
+ <Channel Name="blue" Preset="IntensityBlue"/>
+ <Channel Name="white" Preset="IntensityWhite"/>
+ <Channel Name="effect">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">sound</Capability>
+  <Capability Min="5" Max="80">color macro</Capability>
+  <Capability Min="81" Max="150">color change</Capability>
+  <Capability Min="151" Max="255">color dream</Capability>
+ </Channel>
+ <Mode Name="3 channel">
+  <Channel Number="0">red</Channel>
+  <Channel Number="1">green</Channel>
+  <Channel Number="2">blue</Channel>
+ </Mode>
+ <Mode Name="4 channel">
+  <Channel Number="0">red</Channel>
+  <Channel Number="1">green</Channel>
+  <Channel Number="2">blue</Channel>
+  <Channel Number="3">white</Channel>
+ </Mode>
+ <Mode Name="7 channel full">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Strobe</Channel>
+  <Channel Number="2">red</Channel>
+  <Channel Number="3">green</Channel>
+  <Channel Number="4">blue</Channel>
+  <Channel Number="5">white</Channel>
+  <Channel Number="6">effect</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="LED" ColourTemperature="0"/>
+   <Dimensions Width="300" Height="310" Weight="2.5" Depth="270"/>
+   <Lens DegreesMax="25" Name="Other" DegreesMin="25"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="170" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

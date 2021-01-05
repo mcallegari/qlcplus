@@ -20,6 +20,7 @@
 
 #include <QCoreApplication>
 #include <QXmlStreamReader>
+#include <QMetaEnum>
 #include <QString>
 #include <QDebug>
 #include <QFile>
@@ -33,43 +34,29 @@
  * Initialization
  ************************************************************************/
 
-QLCCapability::QLCCapability(uchar min, uchar max, const QString& name,
-                             const QString &resource, const QColor &color1,
-                             const QColor &color2, QObject *parent)
+QLCCapability::QLCCapability(uchar min, uchar max, const QString& name, QObject *parent)
     : QObject(parent)
+    , m_preset(Custom)
     , m_min(min)
     , m_max(max)
     , m_name(name)
-    , m_resourceName(resource)
-    , m_resourceColor1(color1)
-    , m_resourceColor2(color2)
 {
 }
 
 QLCCapability *QLCCapability::createCopy()
 {
-    QLCCapability* copy = new QLCCapability(m_min, m_max, m_name, m_resourceName,
-                                            m_resourceColor1, m_resourceColor2);
+    QLCCapability *copy = new QLCCapability(m_min, m_max, m_name);
+    copy->setPreset(preset());
+    for (int i = 0; i < m_resources.count(); i++)
+        copy->setResource(i, m_resources.at(i));
+    foreach (AliasInfo alias, m_aliases)
+        copy->addAlias(alias);
+
     return copy;
 }
 
 QLCCapability::~QLCCapability()
 {
-}
-
-QLCCapability& QLCCapability::operator=(const QLCCapability& capability)
-{
-    if (this != &capability)
-    {
-        m_min = capability.m_min;
-        m_max = capability.m_max;
-        m_name = capability.m_name;
-        m_resourceName = capability.m_resourceName;
-        m_resourceColor1 = capability.m_resourceColor1;
-        m_resourceColor2 = capability.m_resourceColor2;
-    }
-
-    return *this;
 }
 
 bool QLCCapability::operator<(const QLCCapability& capability) const
@@ -78,6 +65,87 @@ bool QLCCapability::operator<(const QLCCapability& capability) const
         return true;
     else
         return false;
+}
+
+QString QLCCapability::presetToString(QLCCapability::Preset preset)
+{
+    int index = staticMetaObject.indexOfEnumerator("Preset");
+    return staticMetaObject.enumerator(index).valueToKey(preset);
+}
+
+QLCCapability::Preset QLCCapability::stringToPreset(const QString &preset)
+{
+    int index = staticMetaObject.indexOfEnumerator("Preset");
+    return Preset(staticMetaObject.enumerator(index).keyToValue(preset.toStdString().c_str()));
+}
+
+QLCCapability::Preset QLCCapability::preset() const
+{
+    return m_preset;
+}
+
+void QLCCapability::setPreset(QLCCapability::Preset preset)
+{
+    if (preset == m_preset)
+        return;
+
+    m_preset = preset;
+}
+
+/* please see
+https://github.com/mcallegari/qlcplus/wiki/Fixture-definition-presets
+when changing this function */
+QLCCapability::PresetType QLCCapability::presetType() const
+{
+    switch (m_preset)
+    {
+        case StrobeFrequency:
+        case PulseFrequency:
+        case RampUpFrequency:
+        case RampDownFrequency:
+        case PrismEffectOn:
+            return SingleValue;
+        case StrobeFreqRange:
+        case PulseFreqRange:
+        case RampUpFreqRange:
+        case RampDownFreqRange:
+            return DoubleValue;
+        case ColorMacro:
+            return SingleColor;
+        case ColorDoubleMacro:
+            return DoubleColor;
+        case GoboMacro:
+        case GoboShakeMacro:
+        case GenericPicture:
+            return Picture;
+        default: return None;
+    }
+}
+
+/* please see
+https://github.com/mcallegari/qlcplus/wiki/Fixture-definition-presets
+when changing this function */
+QString QLCCapability::presetUnits() const
+{
+    switch (m_preset)
+    {
+        case StrobeFrequency:
+        case PulseFrequency:
+        case RampUpFrequency:
+        case RampDownFrequency:
+        case StrobeFreqRange:
+        case PulseFreqRange:
+        case RampUpFreqRange:
+        case RampDownFreqRange:
+            return "Hz";
+        break;
+        case PrismEffectOn:
+            return "Faces";
+        break;
+        default:
+        break;
+    }
+    return QString();
 }
 
 /************************************************************************
@@ -119,35 +187,27 @@ void QLCCapability::setName(const QString& name)
     m_name = name;
 }
 
-QString QLCCapability::resourceName()
+QVariant QLCCapability::resource(int index)
 {
-    return m_resourceName;
+    if (index < 0 || index >= m_resources.count())
+        return QVariant();
+
+    return m_resources.at(index);
 }
 
-void QLCCapability::setResourceName(const QString& name)
+void QLCCapability::setResource(int index, QVariant value)
 {
-    m_resourceName = name;
-    // invalidate any previous color set
-    m_resourceColor1 = QColor();
-    m_resourceColor2 = QColor();
+    if (index < 0)
+        return;
+    else if (index < m_resources.count())
+        m_resources[index] = value;
+    else
+        m_resources.append(value);
 }
 
-QColor QLCCapability::resourceColor1()
+QVariantList QLCCapability::resources()
 {
-    return m_resourceColor1;
-}
-
-QColor QLCCapability::resourceColor2()
-{
-    return m_resourceColor2;
-}
-
-void QLCCapability::setResourceColors(QColor col1, QColor col2)
-{
-    m_resourceColor1 = col1;
-    m_resourceColor2 = col2;
-    // invalidate any previous resource path set
-    m_resourceName = "";
+    return m_resources;
 }
 
 bool QLCCapability::overlaps(const QLCCapability *cap)
@@ -160,6 +220,43 @@ bool QLCCapability::overlaps(const QLCCapability *cap)
         return true;
     else
         return false;
+}
+
+/********************************************************************
+ * Aliases
+ ********************************************************************/
+
+QList<AliasInfo> QLCCapability::aliasList()
+{
+    return m_aliases;
+}
+
+void QLCCapability::addAlias(AliasInfo alias)
+{
+    m_aliases.append(alias);
+}
+
+void QLCCapability::removeAlias(AliasInfo alias)
+{
+    for (int i = 0; i < m_aliases.count(); i++)
+    {
+        AliasInfo info = m_aliases.at(i);
+
+        if (alias.targetMode == info.targetMode &&
+            alias.sourceChannel == info.sourceChannel &&
+            alias.targetChannel == info.targetChannel)
+        {
+            m_aliases.takeAt(i);
+            return;
+        }
+    }
+}
+
+void QLCCapability::replaceAliases(QList<AliasInfo> list)
+{
+    m_aliases.clear();
+    foreach (AliasInfo info, list)
+        m_aliases.append(info);
 }
 
 /************************************************************************
@@ -179,36 +276,74 @@ bool QLCCapability::saveXML(QXmlStreamWriter *doc)
     /* Max limit attribute */
     doc->writeAttribute(KXMLQLCCapabilityMax, QString::number(m_max));
 
-    /* Resource file attribute */
-    if (m_resourceName.isEmpty() == false)
-    {
-        QString modFilename = m_resourceName;
-        QDir dir = QDir::cleanPath(QLCFile::systemDirectory(GOBODIR).path());
+    /* Preset attribute if not custom */
+    if (m_preset != Custom)
+        doc->writeAttribute(KXMLQLCCapabilityPreset, presetToString(m_preset));
 
-        if (modFilename.contains(dir.path()))
+    /* Resource attributes */
+    for (int i = 0; i < m_resources.count(); i++)
+    {
+        switch (presetType())
         {
-            modFilename.remove(dir.path());
-            // The following line is a dirty workaround for an issue raised on Windows
-            // When building with MinGW, dir.path() is something like "C:/QLC+/Gobos"
-            // while QDir::separator() returns "\"
-            // So, to avoid any string mismatch I remove the first character
-            // no matter what it is
-            modFilename.remove(0, 1);
-        }
+            case Picture:
+            {
+                QString modFilename = resource(i).toString();
+                QDir dir = QDir::cleanPath(QLCFile::systemDirectory(GOBODIR).path());
 
-        doc->writeAttribute(KXMLQLCCapabilityResource, modFilename);
-    }
-    if (m_resourceColor1.isValid())
-    {
-        doc->writeAttribute(KXMLQLCCapabilityColor1, m_resourceColor1.name());
-    }
-    if (m_resourceColor2.isValid())
-    {
-        doc->writeAttribute(KXMLQLCCapabilityColor2, m_resourceColor2.name());
+                if (modFilename.contains(dir.path()))
+                {
+                    modFilename.remove(dir.path());
+                    // The following line is a dirty workaround for an issue raised on Windows
+                    // When building with MinGW, dir.path() is something like "C:/QLC+/Gobos"
+                    // while QDir::separator() returns "\"
+                    // So, to avoid any string mismatch I remove the first character
+                    // no matter what it is
+                    modFilename.remove(0, 1);
+                }
+
+                doc->writeAttribute(KXMLQLCCapabilityRes1, modFilename);
+            }
+            break;
+            case SingleColor:
+            case DoubleColor:
+            {
+                QColor col = resource(i).value<QColor>();
+                if (i == 0 && col.isValid())
+                    doc->writeAttribute(KXMLQLCCapabilityRes1, col.name());
+                else if (i == 1 && col.isValid())
+                    doc->writeAttribute(KXMLQLCCapabilityRes2, col.name());
+            }
+            break;
+            case SingleValue:
+            case DoubleValue:
+            {
+                if (i == 0)
+                    doc->writeAttribute(KXMLQLCCapabilityRes1, QString::number(resource(i).toFloat()));
+                else if (i == 1)
+                    doc->writeAttribute(KXMLQLCCapabilityRes2, QString::number(resource(i).toFloat()));
+            }
+            break;
+            default:
+            break;
+        }
     }
 
     /* Name */
-    doc->writeCharacters(m_name);
+    if (m_aliases.isEmpty())
+        doc->writeCharacters(m_name);
+    else
+        doc->writeCharacters(QString("%1\n   ").arg(m_name)); // to preserve indentation
+
+    /* Aliases */
+    foreach (AliasInfo info, m_aliases)
+    {
+        doc->writeStartElement(KXMLQLCCapabilityAlias);
+        doc->writeAttribute(KXMLQLCCapabilityAliasMode, info.targetMode);
+        doc->writeAttribute(KXMLQLCCapabilityAliasSourceName, info.sourceChannel);
+        doc->writeAttribute(KXMLQLCCapabilityAliasTargetName, info.targetChannel);
+        doc->writeEndElement();
+    }
+
     doc->writeEndElement();
 
     return true;
@@ -226,7 +361,7 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
         return false;
     }
 
-    /* Get low limit attribute (critical) */
+    /* Get low limit attribute (mandatory) */
     QXmlStreamAttributes attrs = doc.attributes();
     str = attrs.value(KXMLQLCCapabilityMin).toString();
     if (str.isEmpty() == true)
@@ -239,7 +374,7 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
         min = CLAMP(str.toInt(), 0, (int)UCHAR_MAX);
     }
 
-    /* Get high limit attribute (critical) */
+    /* Get high limit attribute (mandatory) */
     str = attrs.value(KXMLQLCCapabilityMax).toString();
     if (str.isEmpty() == true)
     {
@@ -251,6 +386,60 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
         max = CLAMP(str.toInt(), 0, (int)UCHAR_MAX);
     }
 
+    if (attrs.hasAttribute(KXMLQLCCapabilityPreset))
+    {
+        str = attrs.value(KXMLQLCCapabilityPreset).toString();
+        setPreset(stringToPreset(str));
+    }
+
+    switch(presetType())
+    {
+        case Picture:
+        {
+            QString path = attrs.value(KXMLQLCCapabilityRes1).toString();
+            if (QFileInfo(path).isRelative())
+            {
+                QDir dir = QLCFile::systemDirectory(GOBODIR);
+                path = dir.path() + QDir::separator() + path;
+            }
+            setResource(0, path);
+        }
+        break;
+        case SingleColor:
+        case DoubleColor:
+        {
+            QColor col1 = QColor(attrs.value(KXMLQLCCapabilityRes1).toString());
+            QColor col2 = QColor();
+            if (attrs.hasAttribute(KXMLQLCCapabilityRes2))
+                col2 = QColor(attrs.value(KXMLQLCCapabilityRes2).toString());
+
+            if (col1.isValid())
+            {
+                setResource(0, col1);
+                if (col2.isValid())
+                    setResource(1, col2);
+            }
+        }
+        break;
+        case SingleValue:
+        case DoubleValue:
+        {
+            float value = attrs.value(KXMLQLCCapabilityRes1).toString().toFloat();
+            setResource(0, value);
+
+            if (attrs.hasAttribute(KXMLQLCCapabilityRes2))
+            {
+                value = attrs.value(KXMLQLCCapabilityRes2).toString().toFloat();
+                setResource(1, value);
+            }
+        }
+        break;
+        default:
+        break;
+    }
+
+    /* ************************* LEGACY ATTRIBUTES ************************* */
+
     /* Get (optional) resource name for gobo/effect/... */
     if(attrs.hasAttribute(KXMLQLCCapabilityResource))
     {
@@ -259,8 +448,11 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
         {
             QDir dir = QLCFile::systemDirectory(GOBODIR);
             path = dir.path() + QDir::separator() + path;
+            setPreset(GoboMacro);
         }
-        setResourceName(path);
+        else
+            setPreset(GenericPicture);
+        setResource(0, path);
     }
 
     /* Get (optional) color resource for color presets */
@@ -270,17 +462,34 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
         QColor col2 = QColor();
         if (attrs.hasAttribute(KXMLQLCCapabilityColor2))
             col2 = QColor(attrs.value(KXMLQLCCapabilityColor2).toString());
+
         if (col1.isValid())
-            setResourceColors(col1, col2);
+        {
+            setResource(0, col1);
+
+            if (col2.isValid())
+            {
+                setResource(1, col2);
+                setPreset(ColorDoubleMacro);
+            }
+            else
+            {
+                setPreset(ColorMacro);
+            }
+        }
     }
 
     if (min <= max)
     {
-        setName(doc.readElementText());
+        doc.readNext();
+        setName(doc.text().toString().simplified());
         setMin(min);
         setMax(max);
-
-        return true;
+        if (name().isEmpty())
+        {
+            qWarning() << "Empty description provided. This should be fixed in the definition!";
+            return true;
+        }
     }
     else
     {
@@ -288,5 +497,29 @@ bool QLCCapability::loadXML(QXmlStreamReader &doc)
                    << ") is greater than max(" << max << ")";
         return false;
     }
+
+    /* Subtags */
+    while (doc.readNextStartElement())
+    {
+        if (doc.name() == KXMLQLCCapabilityAlias)
+        {
+            AliasInfo alias;
+            QXmlStreamAttributes attrs = doc.attributes();
+
+            alias.targetMode = attrs.value(KXMLQLCCapabilityAliasMode).toString();
+            alias.sourceChannel = attrs.value(KXMLQLCCapabilityAliasSourceName).toString();
+            alias.targetChannel = attrs.value(KXMLQLCCapabilityAliasTargetName).toString();
+            addAlias(alias);
+
+            //qDebug() << "Alias found for mode" << alias.targetMode;
+        }
+        else
+        {
+            qWarning() << Q_FUNC_INFO << "Unknown capability tag: " << doc.name();
+        }
+        doc.skipCurrentElement();
+    }
+
+    return true;
 }
 

@@ -33,6 +33,8 @@ public:
     GroupHead(const GroupHead& another);
     ~GroupHead();
 
+    GroupHead& operator=(const GroupHead& grp);
+
     bool isValid() const;
     bool operator==(const GroupHead& another) const;
 

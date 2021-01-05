@@ -22,11 +22,13 @@
 #include <QQmlEngine>
 #include <QDebug>
 
+#include "tardis.h"
 #include "vcframe.h"
 #include "vclabel.h"
 #include "vcclock.h"
 #include "vcbutton.h"
 #include "vcslider.h"
+#include "vccuelist.h"
 #include "vcsoloframe.h"
 #include "virtualconsole.h"
 
@@ -57,16 +59,25 @@ VCFrame::VCFrame(Doc *doc, VirtualConsole *vc, QObject *parent)
 VCFrame::~VCFrame()
 {
     deleteChildren();
+
+    if (m_item)
+        delete m_item;
 }
 
 QString VCFrame::defaultCaption()
 {
-    return tr("Frame %1").arg(id());
+    return tr("Frame %1").arg(id() + 1);
+}
+
+void VCFrame::setupLookAndFeel(qreal pixelDensity, int page)
+{
+    setPage(page);
+    setDefaultFontSize(pixelDensity * 3.5);
 }
 
 void VCFrame::render(QQuickView *view, QQuickItem *parent)
 {
-    if (view == NULL || parent == NULL)
+    if (view == nullptr || parent == nullptr)
         return;
 
     QQmlComponent *component = new QQmlComponent(view->engine(), QUrl("qrc:/VCFrameItem.qml"));
@@ -77,15 +88,15 @@ void VCFrame::render(QQuickView *view, QQuickItem *parent)
         return;
     }
 
-    QQuickItem *item = qobject_cast<QQuickItem*>(component->create());
+    m_item = qobject_cast<QQuickItem*>(component->create());
 
-    item->setParentItem(parent);
-    item->setProperty("frameObj", QVariant::fromValue(this));
+    m_item->setParentItem(parent);
+    m_item->setProperty("frameObj", QVariant::fromValue(this));
 
     if (m_pagesMap.count() > 0)
     {
         QString chName = QString("frameDropArea%1").arg(id());
-        QQuickItem *childrenArea = qobject_cast<QQuickItem*>(item->findChild<QObject *>(chName));
+        QQuickItem *childrenArea = qobject_cast<QQuickItem*>(m_item->findChild<QObject *>(chName));
 
         foreach(VCWidget *child, m_pagesMap.keys())
             child->render(view, childrenArea);
@@ -100,6 +111,66 @@ QString VCFrame::propertiesResource() const
         return QString("qrc:/VCPageProperties.qml");
 
     return QString("qrc:/VCFrameProperties.qml");
+}
+
+VCWidget *VCFrame::createCopy(VCWidget *parent)
+{
+    Q_ASSERT(parent != nullptr);
+
+    VCFrame *frame = new VCFrame(m_doc, m_vc, parent);
+    if (frame->copyFrom(this) == false)
+    {
+        delete frame;
+        frame = nullptr;
+    }
+
+    return frame;
+}
+
+bool VCFrame::copyFrom(const VCWidget *widget)
+{
+    const VCFrame *frame = qobject_cast<const VCFrame*> (widget);
+    if (frame == nullptr)
+        return false;
+
+    setShowHeader(frame->showHeader());
+    setShowEnable(frame->showEnable());
+
+    setMultiPageMode(frame->multiPageMode());
+    setTotalPagesNumber(frame->totalPagesNumber());
+    setPagesLoop(frame->pagesLoop());
+
+    QListIterator <VCWidget*> it(widget->findChildren<VCWidget*>());
+    while (it.hasNext() == true)
+    {
+        VCWidget *child = it.next();
+        VCWidget *childCopy = nullptr;
+
+        /* findChildren() is recursive, so the list contains all
+           possible child widgets below this frame. Each frame must
+           save only its direct children to preserve hierarchy, so
+           save only such widgets that have this widget as their
+           direct parent. */
+        if (child->parent() == widget)
+        {
+            childCopy = child->createCopy(this);
+            m_vc->addWidgetToMap(childCopy);
+
+            qDebug() << "Child copy in parent:" << childCopy->caption() << ", page:" << childCopy->page();
+        }
+
+        if (childCopy != nullptr)
+        {
+            addWidgetToPageMap(childCopy);
+            checkSubmasterConnection(childCopy);
+        }
+    }
+
+    if (multiPageMode())
+        setPage(frame->currentPage());
+
+    /* Copy common stuff */
+    return VCWidget::copyFrom(widget);
 }
 
 bool VCFrame::hasChildren()
@@ -139,15 +210,23 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
 
     VCWidget::WidgetType type = stringToType(wType);
 
+    if (m_vc->snapping())
+    {
+        pos.setX(qRound((qreal)pos.x() / m_vc->snappingSize()) * m_vc->snappingSize());
+        pos.setY(qRound((qreal)pos.y() / m_vc->snappingSize()) * m_vc->snappingSize());
+    }
+
     switch (type)
     {
         case FrameWidget:
         {
             VCFrame *frame = new VCFrame(m_doc, m_vc, this);
             QQmlEngine::setObjectOwnership(frame, QQmlEngine::CppOwnership);
-            frame->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 50, m_vc->pixelDensity() * 50));
-            setupWidget(frame);
             m_vc->addWidgetToMap(frame);
+            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, frame->id()));
+            frame->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 50, m_vc->pixelDensity() * 50));
+            setupWidget(frame, currentPage());
             frame->render(m_vc->view(), parent);
         }
         break;
@@ -155,9 +234,11 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
         {
             VCSoloFrame *soloframe = new VCSoloFrame(m_doc, m_vc, this);
             QQmlEngine::setObjectOwnership(soloframe, QQmlEngine::CppOwnership);
-            soloframe->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 50, m_vc->pixelDensity() * 50));
-            setupWidget(soloframe);
             m_vc->addWidgetToMap(soloframe);
+            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, soloframe->id()));
+            soloframe->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 50, m_vc->pixelDensity() * 50));
+            setupWidget(soloframe, currentPage());
             soloframe->render(m_vc->view(), parent);
         }
         break;
@@ -165,9 +246,11 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
         {
             VCButton *button = new VCButton(m_doc, this);
             QQmlEngine::setObjectOwnership(button, QQmlEngine::CppOwnership);
-            button->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 17, m_vc->pixelDensity() * 17));
-            setupWidget(button);
             m_vc->addWidgetToMap(button);
+            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, button->id()));
+            button->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 17, m_vc->pixelDensity() * 17));
+            setupWidget(button, currentPage());
             button->render(m_vc->view(), parent);
         }
         break;
@@ -175,10 +258,11 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
         {
             VCLabel *label = new VCLabel(m_doc, this);
             QQmlEngine::setObjectOwnership(label, QQmlEngine::CppOwnership);
-            label->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 25, m_vc->pixelDensity() * 8));
-            setupWidget(label);
-            label->setDefaultFontSize(m_vc->pixelDensity() * 3.5);
             m_vc->addWidgetToMap(label);
+            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, label->id()));
+            label->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 25, m_vc->pixelDensity() * 8));
+            setupWidget(label, currentPage());
             label->render(m_vc->view(), parent);
         }
         break;
@@ -186,16 +270,18 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
         {
             VCSlider *slider = new VCSlider(m_doc, this);
             QQmlEngine::setObjectOwnership(slider, QQmlEngine::CppOwnership);
+            m_vc->addWidgetToMap(slider);
+            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, slider->id()));
             if (wType == "Knob")
             {
                 slider->setWidgetStyle(VCSlider::WKnob);
+                slider->setCaption(slider->defaultCaption());
                 slider->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 15, m_vc->pixelDensity() * 22));
             }
             else
                 slider->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 10, m_vc->pixelDensity() * 35));
-            setupWidget(slider);
-            slider->setDefaultFontSize(m_vc->pixelDensity() * 3.5);
-            m_vc->addWidgetToMap(slider);
+            setupWidget(slider, currentPage());
             slider->render(m_vc->view(), parent);
         }
         break;
@@ -203,15 +289,121 @@ void VCFrame::addWidget(QQuickItem *parent, QString wType, QPoint pos)
         {
             VCClock *clock = new VCClock(m_doc, this);
             QQmlEngine::setObjectOwnership(clock, QQmlEngine::CppOwnership);
-            clock->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 25, m_vc->pixelDensity() * 8));
-            setupWidget(clock);
-            clock->setDefaultFontSize(m_vc->pixelDensity() * 5.0);
             m_vc->addWidgetToMap(clock);
+            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, clock->id()));
+            clock->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 25, m_vc->pixelDensity() * 8));
+            setupWidget(clock, currentPage());
             clock->render(m_vc->view(), parent);
+        }
+        break;
+        case CueListWidget:
+        {
+            VCCueList *cuelist = new VCCueList(m_doc, this);
+            QQmlEngine::setObjectOwnership(cuelist, QQmlEngine::CppOwnership);
+            m_vc->addWidgetToMap(cuelist);
+            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, cuelist->id()));
+            cuelist->setGeometry(QRect(pos.x(), pos.y(), m_vc->pixelDensity() * 80, m_vc->pixelDensity() * 50));
+            setupWidget(cuelist, currentPage());
+            cuelist->render(m_vc->view(), parent);
         }
         break;
         default:
         break;
+    }
+}
+
+void VCFrame::addWidget(QQuickItem *parent, VCWidget *widget, QPoint pos)
+{
+    if (m_vc->snapping())
+    {
+        pos.setX(qRound((qreal)pos.x() / m_vc->snappingSize()) * m_vc->snappingSize());
+        pos.setY(qRound((qreal)pos.y() / m_vc->snappingSize()) * m_vc->snappingSize());
+    }
+
+    QQmlEngine::setObjectOwnership(widget, QQmlEngine::CppOwnership);
+    m_vc->addWidgetToMap(widget);
+    Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
+                                      Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, widget->id()));
+    widget->setGeometry(QRect(pos.x(), pos.y(), widget->geometry().width(), widget->geometry().height()));
+    addWidgetToPageMap(widget);
+    checkSubmasterConnection(widget);
+    widget->render(m_vc->view(), parent);
+}
+
+void VCFrame::addWidgetMatrix(QQuickItem *parent, QString matrixType, QPoint pos, QSize matrixSize, QSize widgetSize, bool soloFrame)
+{
+    VCFrame *frame;
+    int totalWidth = (matrixSize.width() * widgetSize.width()) + (m_vc->pixelDensity() * 2);
+    int totalHeight = (matrixSize.height() * widgetSize.height()) + (m_vc->pixelDensity() * 2);
+    int yPos = m_vc->pixelDensity();
+
+    qDebug() << "Matrix size" << matrixSize << "widget size" << widgetSize;
+    qDebug() << "Frame total width" << totalWidth << ", height" << totalHeight;
+
+    if (soloFrame)
+    {
+        VCSoloFrame *solo = new VCSoloFrame(m_doc, m_vc, this);
+        frame = qobject_cast<VCFrame *>(solo);
+    }
+    else
+    {
+        frame = new VCFrame(m_doc, m_vc, this);
+    }
+
+    if (m_vc->snapping())
+    {
+        pos.setX(qRound((qreal)pos.x() / m_vc->snappingSize()) * m_vc->snappingSize());
+        pos.setY(qRound((qreal)pos.y() / m_vc->snappingSize()) * m_vc->snappingSize());
+    }
+
+    QQmlEngine::setObjectOwnership(frame, QQmlEngine::CppOwnership);
+    m_vc->addWidgetToMap(frame);
+    Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
+                                      Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, frame->id()));
+    frame->setGeometry(QRect(pos.x(), pos.y(), totalWidth, totalHeight));
+    frame->setShowHeader(false);
+    setupWidget(frame, currentPage());
+
+    for (int row = 0; row < matrixSize.height(); row++)
+    {
+        int xPos = m_vc->pixelDensity();
+
+        for (int col = 0; col < matrixSize.width(); col++)
+        {
+            frame->addWidget(nullptr, matrixType == "buttonmatrix" ? typeToString(ButtonWidget) : typeToString(SliderWidget), QPoint(xPos, yPos));
+            xPos += widgetSize.width();
+        }
+        yPos += widgetSize.height();
+    }
+
+    frame->render(m_vc->view(), parent);
+}
+
+void VCFrame::addWidgetsFromClipboard(QQuickItem *parent, QVariantList idsList, QPoint pos)
+{
+    // reset all the drop targets, otherwise two overlapping
+    // frames can get the same drop event
+    m_vc->resetDropTargets(true);
+
+    QPoint currPos = pos;
+
+    for (QVariant wID : idsList)
+    {
+        VCWidget *widget = m_vc->widget(wID.toUInt());
+        if (widget == nullptr)
+            continue;
+
+        VCWidget *copy = widget->createCopy(this);
+        addWidget(parent, copy, currPos);
+
+        currPos.setX(currPos.x() + copy->geometry().width());
+        if (currPos.x() >= geometry().width())
+        {
+            currPos.setX(pos.x());
+            currPos.setY(currPos.y() + copy->geometry().height());
+        }
     }
 }
 
@@ -223,6 +415,12 @@ void VCFrame::addFunctions(QQuickItem *parent, QVariantList idsList, QPoint pos,
 
     //qDebug() << "modifiers:" << QString::number(keyModifiers, 16);
 
+    if (m_vc->snapping())
+    {
+        pos.setX(qRound((qreal)pos.x() / m_vc->snappingSize()) * m_vc->snappingSize());
+        pos.setY(qRound((qreal)pos.y() / m_vc->snappingSize()) * m_vc->snappingSize());
+    }
+
     QPoint currPos = pos;
 
     for (QVariant vID : idsList) // C++11
@@ -230,18 +428,21 @@ void VCFrame::addFunctions(QQuickItem *parent, QVariantList idsList, QPoint pos,
         quint32 funcID = vID.toUInt();
         Function *func = m_doc->function(funcID);
 
-        if (func == NULL)
+        if (func == nullptr)
             continue;
 
         if (keyModifiers & Qt::ShiftModifier)
         {
             VCSlider *slider = new VCSlider(m_doc, this);
             QQmlEngine::setObjectOwnership(slider, QQmlEngine::CppOwnership);
+            m_vc->addWidgetToMap(slider);
+            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, slider->id()));
             slider->setGeometry(QRect(currPos.x(), currPos.y(), m_vc->pixelDensity() * 10, m_vc->pixelDensity() * 35));
             slider->setCaption(func->name());
-            slider->setPlaybackFunction(funcID);
-            setupWidget(slider);
-            m_vc->addWidgetToMap(slider);
+            slider->setControlledFunction(funcID);
+            setupWidget(slider, currentPage());
+
             slider->render(m_vc->view(), parent);
 
             currPos.setX(currPos.x() + slider->geometry().width());
@@ -251,15 +452,44 @@ void VCFrame::addFunctions(QQuickItem *parent, QVariantList idsList, QPoint pos,
                 currPos.setY(currPos.y() + slider->geometry().height());
             }
         }
+        else if (keyModifiers & Qt::ControlModifier)
+        {
+            Function *f = m_doc->function(funcID);
+            if (f->type() != Function::ChaserType)
+                return;
+
+            VCCueList *cuelist = new VCCueList(m_doc, this);
+            QQmlEngine::setObjectOwnership(cuelist, QQmlEngine::CppOwnership);
+            m_vc->addWidgetToMap(cuelist);
+
+            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, cuelist->id()));
+            cuelist->setGeometry(QRect(currPos.x(), currPos.y(), m_vc->pixelDensity() * 80, m_vc->pixelDensity() * 50));
+            cuelist->setCaption(func->name());
+            cuelist->setChaserID(funcID);
+            setupWidget(cuelist, currentPage());
+
+            cuelist->render(m_vc->view(), parent);
+
+            currPos.setX(currPos.x() + cuelist->geometry().width());
+            if (currPos.x() >= geometry().width())
+            {
+                currPos.setX(pos.x());
+                currPos.setY(currPos.y() + cuelist->geometry().height());
+            }
+        }
         else
         {
             VCButton *button = new VCButton(m_doc, this);
             QQmlEngine::setObjectOwnership(button, QQmlEngine::CppOwnership);
+            m_vc->addWidgetToMap(button);
+            Tardis::instance()->enqueueAction(Tardis::VCWidgetCreate, this->id(), QVariant(),
+                                              Tardis::instance()->actionToByteArray(Tardis::VCWidgetCreate, button->id()));
             button->setGeometry(QRect(currPos.x(), currPos.y(), m_vc->pixelDensity() * 17, m_vc->pixelDensity() * 17));
             button->setCaption(func->name());
             button->setFunctionID(funcID);
-            setupWidget(button);
-            m_vc->addWidgetToMap(button);
+            setupWidget(button, currentPage());
+
             button->render(m_vc->view(), parent);
 
             currPos.setX(currPos.x() + button->geometry().width());
@@ -295,11 +525,25 @@ void VCFrame::deleteChildren()
     }
 }
 
-void VCFrame::setupWidget(VCWidget *widget)
+void VCFrame::setupWidget(VCWidget *widget, int page)
 {
-    widget->setDefaultFontSize(m_vc->pixelDensity() * 2.7);
+    if (m_vc->loadStatus() != VirtualConsole::Loading)
+        widget->setupLookAndFeel(m_vc->pixelDensity(), page);
 
     addWidgetToPageMap(widget);
+    checkSubmasterConnection(widget);
+}
+
+void VCFrame::checkSubmasterConnection(VCWidget *widget)
+{
+    if (widget->type() == VCWidget::SliderWidget)
+    {
+        VCSlider *slider = qobject_cast<VCSlider *>(widget);
+
+        // always connect a slider in case it emits a submaster signal
+        connect(slider, SIGNAL(submasterValueChanged(qreal)),
+                this, SLOT(slotSubmasterValueChanged(qreal)));
+    }
 }
 
 void VCFrame::addWidgetToPageMap(VCWidget *widget)
@@ -430,7 +674,11 @@ void VCFrame::setMultiPageMode(bool multiPageMode)
 
 void VCFrame::setTotalPagesNumber(int num)
 {
+    if (m_totalPagesNumber == num)
+        return;
+
     m_totalPagesNumber = num;
+    emit totalPagesNumberChanged(num);
 }
 
 int VCFrame::totalPagesNumber() const
@@ -476,7 +724,11 @@ void VCFrame::setCurrentPage(int pageNum)
 
 void VCFrame::setPagesLoop(bool pagesLoop)
 {
+    if (m_pagesLoop == pagesLoop)
+        return;
+
     m_pagesLoop = pagesLoop;
+    emit pagesLoopChanged(pagesLoop);
 }
 
 bool VCFrame::pagesLoop() const
@@ -491,7 +743,7 @@ void VCFrame::gotoPreviousPage()
     else
         setCurrentPage(m_currentPage - 1);
 
-    //sendFeedback(m_currentPage, previousPageInputSourceId);
+    sendFeedback(m_currentPage, INPUT_PREVIOUS_PAGE_ID);
 }
 
 void VCFrame::gotoNextPage()
@@ -501,7 +753,7 @@ void VCFrame::gotoNextPage()
     else
         setCurrentPage(m_currentPage + 1);
 
-    //sendFeedback(m_currentPage, nextPageInputSourceId);
+    sendFeedback(m_currentPage, INPUT_NEXT_PAGE_ID);
 }
 
 /*********************************************************************
@@ -515,12 +767,33 @@ void VCFrame::slotFunctionStarting(VCWidget *widget, quint32 fid, qreal fIntensi
     Q_UNUSED(fIntensity)
 
     if (xmlTagName() == KXMLQLCVCFrame)
-        qDebug() << "[VCFrame] ERROR ! This should never happen !";
+        qDebug() << "[VCFrame] ERROR ! This should never happen!";
 }
+
+/*********************************************************************
+ * Submasters
+ *********************************************************************/
+
+void VCFrame::slotSubmasterValueChanged(qreal value)
+{
+    qDebug() << Q_FUNC_INFO << "val:" << value;
+    VCSlider *submaster = qobject_cast<VCSlider *>(sender());
+    QListIterator <VCWidget*> it(this->findChildren<VCWidget*>());
+    while (it.hasNext() == true)
+    {
+        VCWidget* child = it.next();
+        if (child->parent() == this && child != submaster)
+            child->adjustIntensity(value);
+    }
+}
+
+/*********************************************************************
+ * External input
+ *********************************************************************/
 
 void VCFrame::slotInputValueChanged(quint8 id, uchar value)
 {
-    if (value != 255)
+    if (value != UCHAR_MAX)
         return;
 
     switch(id)
@@ -547,6 +820,122 @@ void VCFrame::slotInputValueChanged(quint8 id, uchar value)
 QString VCFrame::xmlTagName() const
 {
     return KXMLQLCVCFrame;
+}
+
+bool VCFrame::loadWidgetXML(QXmlStreamReader &root, bool render)
+{
+    if (root.name() == KXMLQLCVCFrame)
+    {
+        /* Create a new frame into its parent */
+        VCFrame* frame = new VCFrame(m_doc, m_vc, this);
+
+        if (frame->loadXML(root) == false)
+            delete frame;
+        else
+        {
+            QQmlEngine::setObjectOwnership(frame, QQmlEngine::CppOwnership);
+            setupWidget(frame, frame->page());
+            m_vc->addWidgetToMap(frame);
+            if (render && m_item)
+                frame->render(m_vc->view(), m_item);
+        }
+    }
+    else if (root.name() == KXMLQLCVCSoloFrame)
+    {
+        /* Create a new frame into its parent */
+        VCSoloFrame *soloframe = new VCSoloFrame(m_doc, m_vc, this);
+        if (soloframe->loadXML(root) == false)
+            delete soloframe;
+        else
+        {
+            QQmlEngine::setObjectOwnership(soloframe, QQmlEngine::CppOwnership);
+            setupWidget(soloframe, soloframe->page());
+            m_vc->addWidgetToMap(soloframe);
+            if (render && m_item)
+                soloframe->render(m_vc->view(), m_item);
+        }
+    }
+    else if (root.name() == KXMLQLCVCButton)
+    {
+        /* Create a new button into its parent */
+        VCButton *button = new VCButton(m_doc, this);
+        if (button->loadXML(root) == false)
+            delete button;
+        else
+        {
+            QQmlEngine::setObjectOwnership(button, QQmlEngine::CppOwnership);
+            setupWidget(button, button->page());
+            m_vc->addWidgetToMap(button);
+            if (render && m_item)
+                button->render(m_vc->view(), m_item);
+        }
+    }
+    else if (root.name() == KXMLQLCVCLabel)
+    {
+        /* Create a new label into its parent */
+        VCLabel *label = new VCLabel(m_doc, this);
+        if (label->loadXML(root) == false)
+            delete label;
+        else
+        {
+            QQmlEngine::setObjectOwnership(label, QQmlEngine::CppOwnership);
+            setupWidget(label, label->page());
+            m_vc->addWidgetToMap(label);
+            if (render && m_item)
+                label->render(m_vc->view(), m_item);
+        }
+    }
+    else if (root.name() == KXMLQLCVCSlider)
+    {
+        /* Create a new slider into its parent */
+        VCSlider *slider = new VCSlider(m_doc, this);
+        if (slider->loadXML(root) == false)
+            delete slider;
+        else
+        {
+            QQmlEngine::setObjectOwnership(slider, QQmlEngine::CppOwnership);
+            setupWidget(slider, slider->page());
+            m_vc->addWidgetToMap(slider);
+            if (render && m_item)
+                slider->render(m_vc->view(), m_item);
+        }
+    }
+    else if (root.name() == KXMLQLCVCClock)
+    {
+        /* Create a new clock into its parent */
+        VCClock *clock = new VCClock(m_doc, this);
+        if (clock->loadXML(root) == false)
+            delete clock;
+        else
+        {
+            QQmlEngine::setObjectOwnership(clock, QQmlEngine::CppOwnership);
+            setupWidget(clock, clock->page());
+            m_vc->addWidgetToMap(clock);
+            if (render && m_item)
+                clock->render(m_vc->view(), m_item);
+        }
+    }
+    else if (root.name() == KXMLQLCVCCueList)
+    {
+        /* Create a new cue list into its parent */
+        VCCueList *cuelist = new VCCueList(m_doc, this);
+        if (cuelist->loadXML(root) == false)
+            delete cuelist;
+        else
+        {
+            QQmlEngine::setObjectOwnership(cuelist, QQmlEngine::CppOwnership);
+            setupWidget(cuelist, cuelist->page());
+            m_vc->addWidgetToMap(cuelist);
+            if (render && m_item)
+                cuelist->render(m_vc->view(), m_item);
+        }
+    }
+    else
+    {
+        return false;
+    }
+
+    return true;
 }
 
 bool VCFrame::loadXML(QXmlStreamReader &root)
@@ -607,94 +996,47 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
 
             if(attrs.hasAttribute(KXMLQLCVCFrameCurrentPage))
                 currentPage = attrs.value(KXMLQLCVCFrameCurrentPage).toInt();
+
+            if(attrs.hasAttribute(KXMLQLCVCFramePagesLoop))
+                setPagesLoop(true);
+
             root.skipCurrentElement();
         }
-
-        /** ***************** children widgets *************************** */
-
-        else if (root.name() == KXMLQLCVCFrame)
+#if 0
+        else if (root.name() == KXMLQLCVCSoloFrameMixing && this->type() == SoloFrameWidget)
         {
-            /* Create a new frame into its parent */
-            VCFrame* frame = new VCFrame(m_doc, m_vc, this);
-
-            if (frame->loadXML(root) == false)
-                delete frame;
+            if (root.readElementText() == KXMLQLCTrue)
+                reinterpret_cast<VCSoloFrame*>(this)->setSoloframeMixing(true);
             else
-            {
-                QQmlEngine::setObjectOwnership(frame, QQmlEngine::CppOwnership);
-                setupWidget(frame);
-                m_vc->addWidgetToMap(frame);
-            }
+                reinterpret_cast<VCSoloFrame*>(this)->setSoloframeMixing(false);
         }
-        else if (root.name() == KXMLQLCVCSoloFrame)
+#endif
+        else if (root.name() == KXMLQLCVCFrameEnableSource)
         {
-            /* Create a new frame into its parent */
-            VCSoloFrame* soloframe = new VCSoloFrame(m_doc, m_vc, this);
-            if (soloframe->loadXML(root) == false)
-                delete soloframe;
-            else
-            {
-                QQmlEngine::setObjectOwnership(soloframe, QQmlEngine::CppOwnership);
-                setupWidget(soloframe);
-                m_vc->addWidgetToMap(soloframe);
-            }
+            loadXMLSources(root, INPUT_ENABLE_ID);
         }
-        else if (root.name() == KXMLQLCVCButton)
+        else if (root.name() == KXMLQLCVCFrameNext)
         {
-            /* Create a new button into its parent */
-            VCButton* button = new VCButton(m_doc, this);
-            if (button->loadXML(root) == false)
-                delete button;
-            else
-            {
-                QQmlEngine::setObjectOwnership(button, QQmlEngine::CppOwnership);
-                setupWidget(button);
-                m_vc->addWidgetToMap(button);
-            }
+            loadXMLSources(root, INPUT_NEXT_PAGE_ID);
         }
-        else if (root.name() == KXMLQLCVCLabel)
+        else if (root.name() == KXMLQLCVCFramePrevious)
         {
-            /* Create a new label into its parent */
-            VCLabel* label = new VCLabel(m_doc, this);
-            if (label->loadXML(root) == false)
-                delete label;
-            else
-            {
-                QQmlEngine::setObjectOwnership(label, QQmlEngine::CppOwnership);
-                setupWidget(label);
-                m_vc->addWidgetToMap(label);
-            }
+            loadXMLSources(root, INPUT_PREVIOUS_PAGE_ID);
         }
-        else if (root.name() == KXMLQLCVCSlider)
+        else if (root.name() == KXMLQLCVCFramePagesLoop) // LEGACY
         {
-            /* Create a new slider into its parent */
-            VCSlider* slider = new VCSlider(m_doc, this);
-            if (slider->loadXML(root) == false)
-                delete slider;
+            if (root.readElementText() == KXMLQLCTrue)
+                setPagesLoop(true);
             else
-            {
-                QQmlEngine::setObjectOwnership(slider, QQmlEngine::CppOwnership);
-                setupWidget(slider);
-                m_vc->addWidgetToMap(slider);
-            }
-        }
-        else if (root.name() == KXMLQLCVCClock)
-        {
-            /* Create a new clock into its parent */
-            VCClock* clock = new VCClock(m_doc, this);
-            if (clock->loadXML(root) == false)
-                delete clock;
-            else
-            {
-                QQmlEngine::setObjectOwnership(clock, QQmlEngine::CppOwnership);
-                setupWidget(clock);
-                m_vc->addWidgetToMap(clock);
-            }
+                setPagesLoop(false);
         }
         else
         {
-            qWarning() << Q_FUNC_INFO << "Unknown frame tag:" << root.name().toString();
-            root.skipCurrentElement();
+            if (loadWidgetXML(root) == false)
+            {
+                qWarning() << Q_FUNC_INFO << "Unknown frame tag:" << root.name().toString();
+                root.skipCurrentElement();
+            }
         }
     }
 
@@ -706,7 +1048,7 @@ bool VCFrame::loadXML(QXmlStreamReader &root)
 
 bool VCFrame::saveXML(QXmlStreamWriter *doc)
 {
-    Q_ASSERT(doc != NULL);
+    Q_ASSERT(doc != nullptr);
 
     /* VC Frame entry */
     doc->writeStartElement(xmlTagName());
@@ -744,56 +1086,21 @@ bool VCFrame::saveXML(QXmlStreamWriter *doc)
     /* Disabled */
     doc->writeTextElement(KXMLQLCVCFrameIsDisabled, isDisabled() ? KXMLQLCTrue : KXMLQLCFalse);
 
-#if 0 // TODO
     /* Enable control */
-    QString keySeq = m_enableKeySequence.toString();
-    QSharedPointer<QLCInputSource> enableSrc = inputSource(enableInputSourceId);
+    saveXMLInputControl(doc, INPUT_ENABLE_ID, KXMLQLCVCFrameEnableSource);
 
-    if (keySeq.isEmpty() == false || (!enableSrc.isNull() && enableSrc->isValid()))
-    {
-        doc->writeStartElement(KXMLQLCVCFrameEnableSource);
-        if (keySeq.isEmpty() == false)
-            doc->writeTextElement(KXMLQLCVCWidgetKey, keySeq);
-        saveXMLInput(doc, enableSrc);
-        doc->writeEndElement();
-    }
-#endif
     /* Multipage mode */
     if (multiPageMode() == true)
     {
         doc->writeStartElement(KXMLQLCVCFrameMultipage);
         doc->writeAttribute(KXMLQLCVCFramePagesNumber, QString::number(totalPagesNumber()));
         doc->writeAttribute(KXMLQLCVCFrameCurrentPage, QString::number(currentPage()));
+        if (pagesLoop())
+            doc->writeAttribute(KXMLQLCVCFramePagesLoop, KXMLQLCTrue);
         doc->writeEndElement();
-#if 0 // TODO
-        /* Next page */
-        keySeq = m_nextPageKeySequence.toString();
-        QSharedPointer<QLCInputSource> nextSrc = inputSource(nextPageInputSourceId);
 
-        if (keySeq.isEmpty() == false || (!nextSrc.isNull() && nextSrc->isValid()))
-        {
-            doc->writeStartElement(KXMLQLCVCFrameNext);
-            if (keySeq.isEmpty() == false)
-                doc->writeTextElement(KXMLQLCVCWidgetKey, keySeq);
-            saveXMLInput(doc, nextSrc);
-            doc->writeEndElement();
-        }
-
-        /* Previous page */
-        keySeq = m_previousPageKeySequence.toString();
-        QSharedPointer<QLCInputSource> prevSrc = inputSource(previousPageInputSourceId);
-
-        if (keySeq.isEmpty() == false || (!prevSrc.isNull() && prevSrc->isValid()))
-        {
-            doc->writeStartElement(KXMLQLCVCFramePrevious);
-            if (keySeq.isEmpty() == false)
-                doc->writeTextElement(KXMLQLCVCWidgetKey, keySeq);
-            saveXMLInput(doc, prevSrc);
-            doc->writeEndElement();
-        }
-#endif
-        /* Pages Loop */
-        doc->writeTextElement(KXMLQLCVCFramePagesLoop, m_pagesLoop ? KXMLQLCTrue : KXMLQLCFalse);
+        saveXMLInputControl(doc, INPUT_NEXT_PAGE_ID, KXMLQLCVCFrameNext);
+        saveXMLInputControl(doc, INPUT_PREVIOUS_PAGE_ID, KXMLQLCVCFramePrevious);
     }
 
     /* Save children */

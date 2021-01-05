@@ -17,8 +17,8 @@
   limitations under the License.
 */
 
-import QtQuick 2.3
-import QtQuick.Controls 1.2
+import QtQuick 2.8
+import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.1
 
 import "."
@@ -36,6 +36,8 @@ Rectangle
     // for dynamic items creation
     property string currentView: "2D"
     //property bool docLoaded: qlcplus.docLoaded
+
+    Component.onCompleted: contextManager.updateFixturesCapabilities()
 
     function enableContext(ctx, setChecked)
     {
@@ -55,6 +57,17 @@ Rectangle
             if (setChecked)
                 item.checked = true
         }
+        settingsButton.checked = false
+    }
+
+    function loadContext(checked, qmlres, ctx)
+    {
+        if (checked === false)
+            return
+
+        settingsButton.checked = false
+        currentViewQML = qmlres
+        currentView = ctx
     }
 
     LeftPanel
@@ -108,25 +121,18 @@ Rectangle
                 id: rowLayout1
                 anchors.fill: parent
                 spacing: 5
-                ExclusiveGroup { id: menuBarGroup2 }
+                ButtonGroup { id: ffMenuBarGroup }
 
                 MenuBarEntry
                 {
                     id: uniView
                     imgSource: "uniview.svg"
                     entryText: qsTr("Universe View")
-                    checkable: true
                     checkedColor: UISettings.toolbarSelectionSub
                     bgGradient: ffMenuGradient
-                    exclusiveGroup: menuBarGroup2
-                    onCheckedChanged:
-                    {
-                        if (checked == true)
-                        {
-                            currentViewQML = "qrc:/UniverseGridView.qml"
-                            currentView = "UNIGRID"
-                        }
-                    }
+                    ButtonGroup.group: ffMenuBarGroup
+
+                    onCheckedChanged: loadContext(checked, "qrc:/UniverseGridView.qml", "UNIGRID")
                     onRightClicked:
                     {
                         uniView.visible = false
@@ -138,18 +144,11 @@ Rectangle
                     id: dmxView
                     imgSource: "dmxview.svg"
                     entryText: qsTr("DMX View")
-                    checkable: true
                     checkedColor: UISettings.toolbarSelectionSub
                     bgGradient: ffMenuGradient
-                    exclusiveGroup: menuBarGroup2
-                    onCheckedChanged:
-                    {
-                        if (checked == true)
-                        {
-                            currentViewQML = "qrc:/DMXView.qml"
-                            currentView = "DMX"
-                        }
-                    }
+                    ButtonGroup.group: ffMenuBarGroup
+
+                    onCheckedChanged: loadContext(checked, "qrc:/DMXView.qml", "DMX")
                     onRightClicked:
                     {
                         dmxView.visible = false
@@ -161,19 +160,12 @@ Rectangle
                     id: twodView
                     imgSource: "2dview.svg"
                     entryText: qsTr("2D View")
-                    checkable: true
                     checked: true
                     checkedColor: UISettings.toolbarSelectionSub
                     bgGradient: ffMenuGradient
-                    exclusiveGroup: menuBarGroup2
-                    onCheckedChanged:
-                    {
-                        if (checked == true)
-                        {
-                            currentViewQML = "qrc:/2DView.qml"
-                            currentView = "2D"
-                        }
-                    }
+                    ButtonGroup.group: ffMenuBarGroup
+
+                    onCheckedChanged: loadContext(checked, "qrc:/2DView.qml", "2D")
                     onRightClicked:
                     {
                         twodView.visible = false
@@ -185,16 +177,18 @@ Rectangle
                     id: threedView
                     imgSource: "3dview.svg"
                     entryText: qsTr("3D View")
-                    checkable: true
                     checkedColor: UISettings.toolbarSelectionSub
                     bgGradient: ffMenuGradient
-                    exclusiveGroup: menuBarGroup2
+                    ButtonGroup.group: ffMenuBarGroup
+
                     onCheckedChanged:
                     {
-                        if (checked == true)
+                        if (checked)
                         {
-                            currentViewQML = "qrc:/3DView.qml"
-                            currentView = "3D"
+                            if (qlcplus.is3DSupported)
+                                loadContext(checked, "qrc:/3DView.qml", "3D")
+                            else
+                                loadContext(checked, "qrc:/3DViewUnsupported.qml", "3D")
                         }
                     }
                     onRightClicked:
@@ -211,10 +205,10 @@ Rectangle
                     height: viewToolbar.height - 4
                     anchors.margins: 1
                     model: ioManager.universesListModel
+                    currValue: contextManager.universeFilter
 
                     onValueChanged:
                     {
-                        // set the universe filter here
                         contextManager.universeFilter = value
                         fixtureManager.universeFilter = value
                     }
@@ -222,22 +216,24 @@ Rectangle
 
                 Rectangle { Layout.fillWidth: true; color: "transparent" }
 
-                IconButton
-                {
-                    id: settingsButton
-                    height: viewToolbar.height - 2
-                    checkable: true
-                    imgSource: "qrc:/configure.svg"
-                    onToggled: previewLoader.item.showSettings(checked)
-                }
-
                 ZoomItem
                 {
                     width: UISettings.iconSizeMedium * 2
-                    height: viewToolbar.height - 2
-                    fontColor: "#222"
+                    implicitHeight: viewToolbar.height - 2
+                    fontColor: UISettings.bgStrong
                     onZoomOutClicked: previewLoader.item.setZoom(-0.5)
                     onZoomInClicked: previewLoader.item.setZoom(0.5)
+                }
+
+                IconButton
+                {
+                    id: settingsButton
+                    implicitHeight: viewToolbar.height - 2
+                    checkable: true
+                    tooltip: qsTr("Show/hide the view settings")
+                    faColor: "white"
+                    faSource: FontAwesome.fa_bars
+                    onToggled: previewLoader.item.showSettings(checked)
                 }
             }
         }

@@ -1,0 +1,45 @@
+<html dir="ltr">
+<head>
+<title>Q Light Controller Plus Documentation - サウンドコントロールのチュートリアル</title>
+<script src="utility.js" type="text/javascript"></script>
+<link href="style.css" rel="stylesheet" type="text/css"></link>
+  <meta charset="utf-8">
+</head>
+<BODY onLoad="replaceqrc()">
+
+
+<h1>サウンドコントロールのチュートリアル</h1>
+
+<p>
+　このチュートリアルでは、サウンドコントロール(サウンドアクティブ)ができるようになるためのものです。</p>
+
+<h2>手順</h2>
+
+<ol>
+
+<li><IMG SRC="qrc:/function.png" ALIGN="absmiddle">ファンクションマネージャで<IMG SRC="qrc:/chaser.png" ALIGN="absmiddle">全てのステップの継続時間が無限の<a href="concept.html#Chaser" name="Chaser">チェイス</a>を作りましょう。</li>
+
+<li><IMG SRC="qrc:/virtualconsole.png" ALIGN="absmiddle">バーチャルコンソール<IMG SRC="qrc:/cuelist.png" ALIGN="absmiddle">に<a href="vccuelist.html">キューリスト</a>を作りましょう。</li>
+
+<li><IMG SRC="qrc:/audioinput.png" ALIGN="absmiddle">バーチャルコンソールに<a href="audiotriggers.html">オーディオトリガー</a>ウィジェットを追加しましょう。</li>
+
+<li>オーディオトリガーウィジェットのプロパティー画面を開き
+  <IMG SRC="qrc:/virtualconsole.png" ALIGN="absmiddle">対応させる<IMG SRC="qrc:/cuelist.png" ALIGN="absmiddle">キューリストを設定しましょう。設定できたら<IMG src="qrc:/forward.png" ALIGN="absmiddle">"next"ボタンをクリックしてください。</li>
+
+<li>オーディオトリガーのプロパティーを設定していきましょう。<ul>
+    <li>有効になる閾値: この値を超えると設定したファンクションが再生されます。</li>
+    <li>無効になる閾値: この値を超えると設定したファンクションの再生が停止されます。この設定をしっかりと行うことで音声のリズムにあった照明演出をすることができます。</li>
+    <li>divisor: オーディオの拍とQLC+上のファンクションのイベントが発火するタイミングの調整です、何拍で１回発火するかを設定できます。</li>
+    </ul>
+</li>
+
+<li>プロパティーを閉じ、実際に本番モードにして使って見ましょう。</li>
+
+</ol>
+
+<p>文書だけのチュートリアルでは不満ですか？大丈夫です、<a href="https://www.youtube.com/watch?v=ITnbZgXqfU0">ビデオチュートリアル</a>もあります。</p>
+
+<p>オーディオトリガーウィジェットを使いこなせば複雑な演出でも、簡単に扱うことができます。詳しくは<a href="audiotriggers.html">こちらを参照</a>してください。</p>
+
+</BODY>
+</html>

@@ -61,6 +61,21 @@ VCProperties::~VCProperties()
 {
 }
 
+VCProperties &VCProperties::operator=(const VCProperties &props)
+{
+    if (this != &props)
+    {
+        m_size = props.m_size;
+        m_gmChannelMode = props.m_gmChannelMode;
+        m_gmValueMode = props.m_gmValueMode;
+        m_gmSliderMode = props.m_gmSliderMode;
+        m_gmInputUniverse = props.m_gmInputUniverse;
+        m_gmInputChannel = props.m_gmInputChannel;
+    }
+
+    return *this;
+}
+
 /*****************************************************************************
  * Size
  *****************************************************************************/

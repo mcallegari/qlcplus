@@ -21,7 +21,7 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "TimeUtils.js" as TimeUtils
 import "."
 
@@ -32,97 +32,9 @@ Rectangle
     color: "transparent"
 
     property int functionID: -1
-    property int editStepIndex: -1
-    property int editStepType
+    property bool isSequence: chaserEditor.isSequence
 
     signal requestView(int ID, string qmlSrc)
-
-    function editStepTime(stepIndex, stepItem, type)
-    {
-        var title, timeValueString
-
-        cStepsList.currentIndex = stepIndex
-
-        if (stepItem.isSelected === false)
-            ceSelector.selectItem(stepIndex, cStepsList.model, false)
-
-        editStepIndex = stepIndex
-        editStepType = type
-
-        timeEditTool.tempoType = chaserEditor.tempoType
-        timeEditTool.indexInList = stepIndex
-
-        if (type === Function.FadeIn)
-        {
-            title = "#" + (stepIndex + 1) + " " + fInCol.label
-            timeValueString = stepItem.stepFadeIn
-            timeEditTool.allowFractions = Function.AllFractions
-        }
-        else if (type === Function.Hold)
-        {
-            title = "#" + (stepIndex + 1) + " " + holdCol.label
-            timeValueString = stepItem.stepHold
-            timeEditTool.allowFractions = Function.NoFractions
-        }
-        else if (type === Function.FadeOut)
-        {
-            title = "#" + (stepIndex + 1) + " " + fOutCol.label
-            timeValueString = stepItem.stepFadeOut
-            timeEditTool.allowFractions = Function.AllFractions
-        }
-        else if (type === Function.Duration)
-        {
-            title = "#" + (stepIndex + 1) + " " + durCol.label
-            timeValueString = stepItem.stepDuration
-            timeEditTool.allowFractions = Function.NoFractions
-        }
-
-        timeEditTool.show(-1, stepItem.mapToItem(mainView, 0, 0).y, title, timeValueString, type)
-    }
-
-    ModelSelector
-    {
-        id: ceSelector
-        onItemsCountChanged: console.log("Chaser Editor selected items changed !")
-    }
-
-    TimeEditTool
-    {
-        id: timeEditTool
-        parent: mainView
-        x: rightSidePanel.x - width
-        z: 99
-        visible: false
-
-        onValueChanged: chaserEditor.setStepSpeed(indexInList, val, speedType)
-        onClosed: editStepIndex = -1
-        onTabPressed:
-        {
-            var typeArray = [ Function.FadeIn, Function.Hold, Function.FadeOut, Function.Duration ]
-            var currType = editStepType + (forward ? 1 : -1)
-
-            if (currType < 0)
-            {
-                // need to select the previous step
-                if (cStepsList.currentIndex > 0)
-                {
-                    cStepsList.currentIndex--
-                    editStepTime(cStepsList.currentIndex, cStepsList.currentItem, Function.Duration)
-                }
-            }
-            else if (currType >= typeArray.length)
-            {
-                // need to select the next step
-                cStepsList.currentIndex++
-                editStepTime(cStepsList.currentIndex, cStepsList.currentItem, Function.FadeIn)
-            }
-            else
-            {
-                // same step, other field
-                editStepTime(editStepIndex, cStepsList.currentItem, currType)
-            }
-        }
-    }
 
     SplitView
     {
@@ -151,6 +63,8 @@ Rectangle
 
             EditorTopBar
             {
+                id: topbar
+                visible: !isSequence
                 text: chaserEditor.functionName
                 onTextChanged: chaserEditor.functionName = text
 
@@ -163,8 +77,9 @@ Rectangle
                         rightSidePanel.width = rightSidePanel.width / 2
                     }
 
-                    functionManager.setEditorFunction(-1, false)
-                    requestView(-1, "qrc:/FunctionManager.qml")
+                    var prevID = chaserEditor.previousID
+                    functionManager.setEditorFunction(prevID, false, true)
+                    requestView(prevID, functionManager.getEditorResource(prevID))
                 }
 
                 IconButton
@@ -174,7 +89,8 @@ Rectangle
                     height: UISettings.iconSizeMedium - 2
                     imgSource: "qrc:/add.svg"
                     checkable: true
-                    tooltip: qsTr("Add a function")
+                    tooltip: qsTr("Add a new step")
+
                     onCheckedChanged:
                     {
                         if (checked)
@@ -198,322 +114,55 @@ Rectangle
                     width: height
                     height: UISettings.iconSizeMedium - 2
                     imgSource: "qrc:/remove.svg"
-                    tooltip: qsTr("Remove the selected functions")
-                    onClicked: {   }
+                    tooltip: qsTr("Remove the selected steps")
+                    onClicked: deleteItemsPopup.open()
+
+                    CustomPopupDialog
+                    {
+                        id: deleteItemsPopup
+                        title: qsTr("Delete steps")
+                        message: qsTr("Are you sure you want to remove the selected steps?")
+                        onAccepted: functionManager.deleteEditorItems(chWidget.selector.itemsList())
+                    }
                 }
-            }
 
-            Rectangle
-            {
-                id: chListHeader
-                width: parent.width
-                height: UISettings.listItemHeight
-                color: UISettings.bgLight
-                property int fSize: UISettings.textSizeDefault * 0.75
-
-                Row
+                IconButton
                 {
-                    height: UISettings.listItemHeight
-                    spacing: 2
-
-                    // Step number column
-                    RobotoText
+                    id: printButton
+                    width: height
+                    height: UISettings.iconSizeMedium - 2
+                    imgSource: "qrc:/printer.svg"
+                    tooltip: qsTr("Print the Chaser steps")
+                    onClicked:
                     {
-                        id: numCol
-                        width: UISettings.iconSizeMedium
-                        height: parent.height
-                        label: "#"
-                        wrapText: true
-                        textHAlign: Text.AlignHCenter
-                        fontSize: chListHeader.fSize
-                    }
-                    Rectangle { height: parent.height; width: 1; color: UISettings.fgMedium }
-
-                    // Step Function name column
-                    RobotoText
-                    {
-                        id: nameCol
-                        width: UISettings.bigItemHeight * 1.5
-                        height: parent.height
-                        label: qsTr("Function")
-                        wrapText: true
-                        textHAlign: Text.AlignHCenter
-                        fontSize: chListHeader.fSize
-                    }
-                    Rectangle
-                    {
-                        id: nameColDrag
-                        height: parent.height
-                        width: 1
-                        color: UISettings.fgMedium
-
-                        MouseArea
-                        {
-                            anchors.fill: parent
-                            cursorShape: Qt.SizeHorCursor
-                            onPressed:
-                            {
-                                drag.target = nameColDrag
-                                drag.minimumX = 0
-                                drag.axis = Drag.XAxis
-                            }
-                            onPositionChanged:
-                            {
-                                if (drag.target === null)
-                                    return;
-                                nameCol.width = nameColDrag.x - nameCol.x - 1
-                            }
-                            onReleased: drag.target = null
-                        }
-                    }
-
-                    // Step fade in column
-                    RobotoText
-                    {
-                        id: fInCol
-                        width: UISettings.bigItemHeight * 0.5
-                        height: parent.height
-                        label: qsTr("Fade In")
-                        wrapText: true
-                        textHAlign: Text.AlignHCenter
-                        fontSize: chListHeader.fSize
-                    }
-                    Rectangle
-                    {
-                        id: fInColDrag
-                        height: parent.height
-                        width: 1
-                        color: UISettings.fgMedium
-
-                        MouseArea
-                        {
-                            anchors.fill: parent
-                            cursorShape: Qt.SizeHorCursor
-                            onPressed:
-                            {
-                                drag.target = fInColDrag
-                                drag.minimumX = 0
-                                drag.axis = Drag.XAxis
-                            }
-                            onPositionChanged:
-                            {
-                                if (drag.target === null)
-                                    return;
-                                fInCol.width = fInColDrag.x - fInCol.x - 1
-                            }
-                            onReleased: drag.target = null
-                        }
-                    }
-
-                    // Step hold column
-                    RobotoText
-                    {
-                        id: holdCol
-                        width: UISettings.bigItemHeight * 0.5
-                        height: parent.height
-                        label: qsTr("Hold")
-                        wrapText: true
-                        textHAlign: Text.AlignHCenter
-                        fontSize: chListHeader.fSize
-                    }
-                    Rectangle
-                    {
-                        id: holdColDrag
-                        height: parent.height
-                        width: 1
-                        color: UISettings.fgMedium
-
-                        MouseArea
-                        {
-                            anchors.fill: parent
-                            cursorShape: Qt.SizeHorCursor
-                            onPressed:
-                            {
-                                drag.target = holdColDrag
-                                drag.minimumX = 0
-                                drag.axis = Drag.XAxis
-                            }
-                            onPositionChanged:
-                            {
-                                if (drag.target === null)
-                                    return;
-                                holdCol.width = holdColDrag.x - holdCol.x - 1
-                            }
-                            onReleased: drag.target = null
-                        }
-                    }
-
-                    // Step fade out column
-                    RobotoText
-                    {
-                        id: fOutCol
-                        width: UISettings.bigItemHeight * 0.5
-                        height: parent.height
-                        label: qsTr("Fade Out")
-                        wrapText: true
-                        textHAlign: Text.AlignHCenter
-                        fontSize: chListHeader.fSize
-                    }
-                    Rectangle
-                    {
-                        id: fOutColDrag
-                        height: parent.height
-                        width: 1
-                        color: UISettings.fgMedium
-
-                        MouseArea
-                        {
-                            anchors.fill: parent
-                            cursorShape: Qt.SizeHorCursor
-                            onPressed:
-                            {
-                                drag.target = fOutColDrag
-                                drag.minimumX = 0
-                                drag.axis = Drag.XAxis
-                            }
-                            onPositionChanged:
-                            {
-                                if (drag.target === null)
-                                    return;
-                                fOutCol.width = fOutColDrag.x - fOutCol.x - 1
-                            }
-                            onReleased: drag.target = null
-                        }
-                    }
-
-                    // Step duration column
-                    RobotoText
-                    {
-                        id: durCol
-                        width: UISettings.bigItemHeight * 0.5
-                        height: parent.height
-                        label: qsTr("Duration")
-                        wrapText: true
-                        textHAlign: Text.AlignHCenter
-                        fontSize: chListHeader.fSize
-                    }
-                    Rectangle
-                    {
-                        id: durColDrag
-                        height: parent.height
-                        width: 1
-                        color: UISettings.fgMedium
-
-                        MouseArea
-                        {
-                            anchors.fill: parent
-                            cursorShape: Qt.SizeHorCursor
-                            onPressed:
-                            {
-                                drag.target = durColDrag
-                                drag.minimumX = 0
-                                drag.axis = Drag.XAxis
-                            }
-                            onPositionChanged:
-                            {
-                                if (drag.target === null)
-                                    return;
-                                durCol.width = durColDrag.x - durCol.x - 1
-                            }
-                            onReleased: drag.target = null
-                        }
-                    }
-
-                    // Step note column
-                    RobotoText
-                    {
-                        id: noteCol
-                        width: UISettings.bigItemHeight * 2
-                        height: parent.height
-                        label: qsTr("Note")
-                        fontSize: chListHeader.fSize
-                        //Layout.fillWidth: true
+                        chWidget.isPrinting = true
+                        qlcplus.printItem(chWidget)
                     }
                 }
             }
 
-            ListView
+            ChaserWidget
             {
-                id: cStepsList
-                width: parent.width
-                height: ceContainer.height - UISettings.iconSizeDefault - chListHeader.height - chModes.height
-                boundsBehavior: Flickable.StopAtBounds
-                clip: true
-
-                property int dragInsertIndex: -1
-                property int playbackIndex: chaserEditor.playbackIndex
-
+                id: chWidget
+                isSequence: ceContainer.isSequence
+                width: ceContainer.width
+                height: ceContainer.height - (topbar.visible ? topbar.height : 0) - chModes.height
                 model: chaserEditor.stepsList
+                playbackIndex: chaserEditor.playbackIndex
+                speedType: chaserEditor.stepsDuration
+                tempoType: chaserEditor.tempoType
+                isRunning: chaserEditor.previewEnabled
 
-                onPlaybackIndexChanged:
+                onIndexChanged: chaserEditor.playbackIndex = index
+                onStepValueChanged: chaserEditor.setStepSpeed(index, value, type)
+                onNoteTextChanged: chaserEditor.setStepNote(index, text)
+                onAddFunctions: chaserEditor.addFunctions(list, index)
+                onMoveSteps: chaserEditor.moveSteps(list, index)
+                onRequestEditor:
                 {
-                    if (chaserEditor.previewEnabled)
-                        ceSelector.selectItem(playbackIndex, model, 0)
+                    functionManager.setEditorFunction(funcID, false, false)
+                    requestView(funcID, functionManager.getEditorResource(funcID))
                 }
-
-                delegate:
-                    ChaserStepDelegate
-                    {
-                        width: ceContainer.width
-                        functionID: model.funcID
-                        isSelected: model.isSelected
-                        stepFadeIn: TimeUtils.timeToQlcString(model.fadeIn, chaserEditor.tempoType)
-                        stepHold: TimeUtils.timeToQlcString(model.hold, chaserEditor.tempoType)
-                        stepFadeOut: TimeUtils.timeToQlcString(model.fadeOut, chaserEditor.tempoType)
-                        stepDuration: TimeUtils.timeToQlcString(model.duration, chaserEditor.tempoType)
-                        stepNote: model.note
-
-                        col1Width: numCol.width
-                        col2Width: nameCol.width
-                        col3Width: fInCol.width
-                        col4Width: holdCol.width
-                        col5Width: fOutCol.width
-                        col6Width: durCol.width
-
-                        indexInList: index
-                        highlightIndex: cStepsList.dragInsertIndex
-                        highlightEditTime: editStepIndex === index ? editStepType : -1
-
-                        onClicked:
-                        {
-                            ceSelector.selectItem(indexInList, cStepsList.model, mouseMods & Qt.ControlModifier)
-                            if (mouseMods & Qt.ControlModifier === false)
-                                chaserEditor.playbackIndex = index
-                        }
-
-                        onDoubleClicked:
-                        {
-                            console.log("Double clicked: " + indexInList + ", " + type)
-                            ceContainer.editStepTime(indexInList, this, type)
-                        }
-                    }
-
-                DropArea
-                {
-                    anchors.fill: parent
-                    // accept only functions
-                    keys: [ "function" ]
-
-                    onDropped:
-                    {
-                        console.log("Item dropped here. x: " + drag.x + " y: " + drag.y)
-
-                        /* Check if the dragging was started from a Function Manager */
-                        if (drag.source.hasOwnProperty("fromFunctionManager"))
-                        {
-                            chaserEditor.addFunctions(drag.source.itemsList, cStepsList.dragInsertIndex)
-                            cStepsList.dragInsertIndex = -1
-                        }
-                    }
-                    onPositionChanged:
-                    {
-                        var idx = cStepsList.indexAt(drag.x, drag.y)
-                        //console.log("Item index:" + idx)
-                        cStepsList.dragInsertIndex = idx
-                    }
-                    onExited: cStepsList.dragInsertIndex = -1
-                }
-                CustomScrollBar { flickable: cStepsList }
             }
 
             SectionBox
@@ -538,14 +187,14 @@ Rectangle
                         ListModel
                         {
                             id: runOrderModel
-                            ListElement { mLabel: qsTr("Loop"); mIcon: "qrc:/loop.svg"; mValue: Function.Loop }
-                            ListElement { mLabel: qsTr("Single Shot"); mIcon: "qrc:/arrow-end.svg"; mValue: Function.SingleShot }
-                            ListElement { mLabel: qsTr("Ping Pong"); mIcon: "qrc:/pingpong.svg"; mValue: Function.PingPong }
-                            ListElement { mLabel: qsTr("Random"); mIcon: "qrc:/random.svg"; mValue: Function.Random }
+                            ListElement { mLabel: qsTr("Loop"); mIcon: "qrc:/loop.svg"; mValue: QLCFunction.Loop }
+                            ListElement { mLabel: qsTr("Single Shot"); mIcon: "qrc:/arrow-end.svg"; mValue: QLCFunction.SingleShot }
+                            ListElement { mLabel: qsTr("Ping Pong"); mIcon: "qrc:/pingpong.svg"; mValue: QLCFunction.PingPong }
+                            ListElement { mLabel: qsTr("Random"); mIcon: "qrc:/random.svg"; mValue: QLCFunction.Random }
                         }
                         model: runOrderModel
 
-                        currentValue: chaserEditor.runOrder
+                        currValue: chaserEditor.runOrder
                         onValueChanged: chaserEditor.runOrder = value
                     }
                     RobotoText
@@ -559,12 +208,12 @@ Rectangle
                         ListModel
                         {
                             id: directionModel
-                            ListElement { mLabel: qsTr("Forward"); mIcon: "qrc:/forward.svg"; mValue: Function.Forward }
-                            ListElement { mLabel: qsTr("Backward"); mIcon: "qrc:/back.svg"; mValue: Function.Backward }
+                            ListElement { mLabel: qsTr("Forward"); mIcon: "qrc:/forward.svg"; mValue: QLCFunction.Forward }
+                            ListElement { mLabel: qsTr("Backward"); mIcon: "qrc:/back.svg"; mValue: QLCFunction.Backward }
                         }
                         model: directionModel
 
-                        currentValue: chaserEditor.direction
+                        currValue: chaserEditor.direction
                         onValueChanged: chaserEditor.direction = value
                     }
                     RobotoText
@@ -578,12 +227,12 @@ Rectangle
                         ListModel
                         {
                             id: tempoModel
-                            ListElement { mLabel: qsTr("Time"); mTextIcon: "T"; mValue: Function.Time }
-                            ListElement { mLabel: qsTr("Beats"); mTextIcon: "B"; mValue: Function.Beats }
+                            ListElement { mLabel: qsTr("Time"); mTextIcon: "T"; mValue: QLCFunction.Time }
+                            ListElement { mLabel: qsTr("Beats"); mTextIcon: "B"; mValue: QLCFunction.Beats }
                         }
                         model: tempoModel
 
-                        currentValue: chaserEditor.tempoType
+                        currValue: chaserEditor.tempoType
                         onValueChanged: chaserEditor.tempoType = value
                     }
                     RobotoText
@@ -604,7 +253,7 @@ Rectangle
                         }
                         model: fadeInModel
 
-                        currentValue: chaserEditor.stepsFadeIn
+                        currValue: chaserEditor.stepsFadeIn
                         onValueChanged: chaserEditor.stepsFadeIn = value
                     }
                     RobotoText
@@ -624,7 +273,7 @@ Rectangle
                         }
                         model: fadeOutModel
 
-                        currentValue: chaserEditor.stepsFadeOut
+                        currValue: chaserEditor.stepsFadeOut
                         onValueChanged: chaserEditor.stepsFadeOut = value
                     }
                     RobotoText
@@ -643,7 +292,7 @@ Rectangle
                         }
                         model: durationModel
 
-                        currentValue: chaserEditor.stepsDuration
+                        currValue: chaserEditor.stepsDuration
                         onValueChanged: chaserEditor.stepsDuration = value
                     }
                     RobotoText
@@ -652,7 +301,7 @@ Rectangle
                         Layout.fillWidth: true
                     }
                 } // end of GridLayout
-            } // end of Rectangle
+            } // end of SectionBox
         } // end of Column
     } // end of SplitView
 }

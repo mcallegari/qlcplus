@@ -28,7 +28,7 @@
     Github page: https://github.com/mcallegari/qlcplus/
  */
 
-/** \defgroup engine Engine 
+/** \defgroup engine Engine
  *  @{
  */
 

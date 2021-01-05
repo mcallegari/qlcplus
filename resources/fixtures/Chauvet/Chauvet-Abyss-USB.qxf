@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
+  <Author>Robert Box</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>Abyss USB</Model>
+ <Type>Flower</Type>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Color Wheel">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="21" Color="#ffffff">White</Capability>
+  <Capability Min="22" Max="42" Color="#55007f">Purple</Capability>
+  <Capability Min="43" Max="63" Color="#ffff00">Yellow</Capability>
+  <Capability Min="64" Max="84" Color="#0000ff">Blue</Capability>
+  <Capability Min="85" Max="105" Color="#00ff00">Green</Capability>
+  <Capability Min="106" Max="127" Color="#ff7f00">Orange</Capability>
+  <Capability Min="128" Max="188" Res="Others/rainbow.png">Left rotation (fast to slow)</Capability>
+  <Capability Min="189" Max="194" Res="Others/rainbow.png">Stop</Capability>
+  <Capability Min="195" Max="255" Res="Others/rainbow.png">Right rotation (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Wave Effect Wheel">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="0">Stop</Capability>
+  <Capability Min="1" Max="122">Left rotation (slow to fast)</Capability>
+  <Capability Min="123" Max="133">Stop</Capability>
+  <Capability Min="134" Max="255">Right rotation (fast to slow)</Capability>
+ </Channel>
+ <Mode Name="3-Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Color Wheel</Channel>
+  <Channel Number="2">Wave Effect Wheel</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="LED" Lumens="2876" ColourTemperature="0"/>
+   <Dimensions Weight="2.7" Width="228" Height="246" Depth="195"/>
+   <Lens Name="Other" DegreesMin="59" DegreesMax="59"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="38" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

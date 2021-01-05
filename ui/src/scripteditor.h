@@ -69,6 +69,7 @@ private slots:
 
     void slotAddStartFunction();
     void slotAddStopFunction();
+    void slotAddBlackout();
     void slotAddWait();
     void slotAddWaitKey();
     void slotAddSetHtp();
@@ -86,6 +87,7 @@ private:
 private:
     QAction* m_addStartFunctionAction;
     QAction* m_addStopFunctionAction;
+    QAction* m_addBlackoutAction;
     QAction* m_addWaitAction;
     QAction* m_addWaitKeyAction;
     QAction* m_addSetHtpAction;

@@ -26,37 +26,29 @@ Rectangle
 {
     id: baseMenuEntry
     width: parent ? (parent.width > itemWidth) ? parent.width : itemWidth : 400
-    height: imgSize + 4
+    height: iconHeight + 4
 
-    property int imgSize: UISettings.iconSizeDefault
+    property int iconHeight: UISettings.iconSizeDefault
+    property int iconWidth: iconHeight
     property string imgSource: ""
     property string entryText: ""
     property color bgColor: "transparent"
     property color hoverColor: UISettings.highlight
     property color pressColor: UISettings.highlightPressed
-    property int itemWidth: imgSize + (textBox ? textBox.width : 100) + 15
+    property int itemWidth: btnIcon.width + (textBox ? textBox.width : 100) + 15
 
     signal clicked
     signal entered
     signal exited
 
-    color: "transparent"
-    border.color: "#1D1D1D"
+    color: bgColor
+    border.color: UISettings.bgLight
     border.width: 1
 
     states: [
         State
         {
-            when: checked
-            PropertyChanges
-            {
-                target: baseMenuEntry
-                color: checkedColor
-            }
-        },
-        State
-        {
-            when: mouseArea1.pressed
+            when: entryMouseArea.pressed
             PropertyChanges
             {
                 target: baseMenuEntry
@@ -65,7 +57,7 @@ Rectangle
         },
         State
         {
-            when: mouseArea1.containsMouse
+            when: entryMouseArea.containsMouse
             PropertyChanges
             {
                 target: baseMenuEntry
@@ -77,8 +69,8 @@ Rectangle
     Image
     {
         id: btnIcon
-        height: imgSource ? imgSize : 0
-        width: height
+        height: imgSource ? iconHeight : 0
+        width: imgSource ? iconWidth : 0
         x: 5
         y: 2
         source: imgSource
@@ -88,7 +80,7 @@ Rectangle
     RobotoText
     {
         id: textBox
-        x: btnIcon.width + 7
+        x: btnIcon.x + btnIcon.width + 2
         y: 0
         label: entryText
         height: baseMenuEntry.height
@@ -98,11 +90,19 @@ Rectangle
 
     MouseArea
     {
-        id: mouseArea1
+        id: entryMouseArea
         anchors.fill: parent
-        hoverEnabled: true
+        hoverEnabled: baseMenuEntry.visible
         onEntered: baseMenuEntry.entered()
         onExited: baseMenuEntry.exited()
         onReleased: baseMenuEntry.clicked()
+    }
+
+    Rectangle
+    {
+        anchors.fill: parent
+        color: "black"
+        opacity: 0.6
+        visible: !parent.enabled
     }
 }

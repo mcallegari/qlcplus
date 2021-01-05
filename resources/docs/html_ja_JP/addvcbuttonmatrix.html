@@ -1,0 +1,67 @@
+<html dir="ltr">
+<head>
+<title>Q Light Controller Plus - 複数ボタンの追加</title>
+<script src="utility.js" type="text/javascript"></script>
+<link href="style.css" rel="stylesheet" type="text/css"></link>
+  <meta charset="utf-8">
+</head>
+<BODY onLoad="replaceqrc()">
+
+
+<h1>複数ボタンの追加</h1>
+<p><a href="./virtualconsole.html">バーチャルコンソール</a>で複数ボタンの追加したい場合は、「 <a href="./vcbuttonmatrix.html">複数ボタンの</a>の追加」ダイアログを使用して複数ボタンの追加します。
+</p>
+
+<table border="1" class="qlcTable">
+ <tr>
+  <td>
+   <b>ファンクション一覧</b>
+  </td>
+  <td>各ボタンに割り当てられるファンクションの一覧です。この一覧の上のものから順に、バーチャルコンソール上のボタンに左上から順に割り当てて行きます。
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <img src="qrc:/edit_add.png">
+  </td>
+  <td>ファンクションリストに<a href="./concept.html#Function">ファンクション</a>を追加します
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <img src="qrc:/edit_remove.png">
+  </td>
+  <td>ファンクションリストからファンクションを削除します
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>配置</b>
+  </td>
+  <td>
+   <ul>
+    <li>横方向: 作成するボタンの列数を設定します。</li>
+    <li>縦方向: 作成するボタンの行数を設定します。</li>
+    <li>大きさ: ボタンの大きさを設定します(ボタンは正方形で作成されます)
+</li>
+    <li>ファンクション数 / ボタン数: 現在ファンクションリストに設定されているファンクションの数と作成されるボタンの数を表示しています。
+    ファンクション数よりボタン数の方が少ない場合はボタン数だけ作成し、ボタン数よりも大きい部分のファンクションは作成されません。
+    ボタン数の方がファンクション数よりも多い場合は、ファンクションが何も割り当てられていない空のボタンが作成されます。</li>
+   </ul>
+  </td>
+ </tr>
+ <tr>
+  <td>
+   <b>フレーム</b>
+  </td>
+  <td>
+   <ul>
+    <li>通常: <a href="./vcframe.html;">ON/OFF切り替え</a>のボタンが作成されます</li>
+    <li>ソロ: <a href="./vcsoloframe.html">Solo Frame</a>のボタンが作成されます。</li>
+   </ul>
+  </td>
+ </tr>
+</table>
+
+</BODY>
+</html>

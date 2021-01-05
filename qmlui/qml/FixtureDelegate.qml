@@ -18,8 +18,9 @@
 */
 
 import QtQuick 2.0
+import QtQuick.Layouts 1.0
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "."
 
 Rectangle
@@ -32,7 +33,10 @@ Rectangle
 
     property Fixture cRef
     property string textLabel: cRef ? cRef.name : ""
+    property int itemType: App.FixtureDragItem
     property bool isSelected: false
+    property bool isCheckable: false
+    property bool isChecked: false
     property Item dragItem
 
     signal mouseEvent(int type, int iID, int iType, var qItem, int mouseMods)
@@ -45,28 +49,43 @@ Rectangle
         visible: isSelected
     }
 
-    IconTextEntry
+    RowLayout
     {
-        id: fxEntry
-        width: parent.width
-        height: parent.height
-        tLabel: textLabel
-        iSrc: cRef ? cRef.iconResource(true) : ""
+        anchors.fill: parent
+
+        CustomCheckBox
+        {
+            id: chCheckBox
+            visible: isCheckable
+            implicitWidth: UISettings.listItemHeight
+            implicitHeight: implicitWidth
+            checked: isChecked
+            onCheckedChanged: fxDelegate.mouseEvent(App.Checked, cRef.id, checked, fxDelegate, 0)
+        }
+
+        IconTextEntry
+        {
+            Layout.fillWidth: true
+            height: fxDelegate.height
+            tLabel: fxDelegate.textLabel
+            iSrc: cRef ? cRef.iconResource(true) : ""
+
+            MouseArea
+            {
+                anchors.fill: parent
+                hoverEnabled: true
+
+                onClicked: fxDelegate.mouseEvent(App.Clicked, cRef.id, cRef.type, fxDelegate, mouse.modifiers)
+                onDoubleClicked: fxDelegate.mouseEvent(App.DoubleClicked, cRef.id, cRef.type, fxDelegate, -1)
+            }
+        }
     }
+
     Rectangle
     {
         width: parent.width
         height: 1
         y: parent.height - 1
-        color: "#666"
-    }
-
-    MouseArea
-    {
-        anchors.fill: parent
-        hoverEnabled: true
-
-        onClicked: fxDelegate.mouseEvent(App.Clicked, cRef.id, cRef.type, fxDelegate, mouse.modifiers)
-        onDoubleClicked: fxDelegate.mouseEvent(App.DoubleClicked, cRef.id, cRef.type, fxDelegate, -1)
+        color: UISettings.bgLight
     }
 }

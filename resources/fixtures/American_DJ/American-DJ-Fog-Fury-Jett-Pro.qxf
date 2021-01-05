@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.2 GIT</Version>
+  <Author>Dávid Czirók</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Fog Fury Jett Pro</Model>
+ <Type>Smoke</Type>
+ <Channel Name="Fog">
+  <Group Byte="0">Intensity</Group>
+  <Capability Min="0" Max="31">Fog off</Capability>
+  <Capability Min="32" Max="255">Max fog</Capability>
+ </Channel>
+ <Channel Name="Color macros">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">off</Capability>
+  <Capability Min="8" Max="15">color 1</Capability>
+  <Capability Min="16" Max="23">color 2</Capability>
+  <Capability Min="24" Max="31">color 3</Capability>
+  <Capability Min="32" Max="39">color 4</Capability>
+  <Capability Min="40" Max="47">color 5</Capability>
+  <Capability Min="48" Max="55">color 6</Capability>
+  <Capability Min="56" Max="63">color 7</Capability>
+  <Capability Min="64" Max="71">color 8</Capability>
+  <Capability Min="72" Max="79">color 9</Capability>
+  <Capability Min="80" Max="87">color 10</Capability>
+  <Capability Min="88" Max="95">color 11</Capability>
+  <Capability Min="96" Max="103">color 12</Capability>
+  <Capability Min="104" Max="111">color 13</Capability>
+  <Capability Min="112" Max="119">color 14</Capability>
+  <Capability Min="120" Max="127">color 15</Capability>
+  <Capability Min="128" Max="135">color 16</Capability>
+  <Capability Min="136" Max="143">color 17</Capability>
+  <Capability Min="144" Max="151">color 18</Capability>
+  <Capability Min="152" Max="159">color 19</Capability>
+  <Capability Min="160" Max="167">color 20</Capability>
+  <Capability Min="168" Max="175">color 21</Capability>
+  <Capability Min="176" Max="183">color 22</Capability>
+  <Capability Min="184" Max="191">color 23</Capability>
+  <Capability Min="192" Max="199">color 24</Capability>
+  <Capability Min="200" Max="207">color 25</Capability>
+  <Capability Min="208" Max="215">color 26</Capability>
+  <Capability Min="216" Max="223">color 27</Capability>
+  <Capability Min="224" Max="231">color 28</Capability>
+  <Capability Min="232" Max="239">color 29</Capability>
+  <Capability Min="240" Max="247">random_1</Capability>
+  <Capability Min="248" Max="255">random_2</Capability>
+ </Channel>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green 1 (outer leds)" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Green 2 (inner leds)" Preset="IntensityGreen"/>
+ <Channel Name="UV" Preset="IntensityUV"/>
+ <Channel Name="Strobing">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31" Preset="ShutterOpen">Off</Capability>
+  <Capability Min="32" Max="95" Preset="StrobeSlowToFast">Strobing slow-fast</Capability>
+  <Capability Min="96" Max="159" Preset="PulseSlowToFast">Pulse effect</Capability>
+  <Capability Min="160" Max="255" Preset="StrobeRandomSlowToFast">Random strobe slow-fast</Capability>
+ </Channel>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Fog and random color change">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="31">off</Capability>
+  <Capability Min="32" Max="255">max fog and color change</Capability>
+ </Channel>
+ <Mode Name="1 Channel">
+  <Channel Number="0">Fog and random color change</Channel>
+ </Mode>
+ <Mode Name="2 Channel">
+  <Channel Number="0">Fog</Channel>
+  <Channel Number="1">Color macros</Channel>
+ </Mode>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Fog</Channel>
+  <Channel Number="1">Color macros</Channel>
+  <Channel Number="2">Strobing</Channel>
+ </Mode>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Fog</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green 1 (outer leds)</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">Green 2 (inner leds)</Channel>
+  <Channel Number="6">UV</Channel>
+ </Mode>
+ <Mode Name="9 Channel">
+  <Channel Number="0">Fog</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green 1 (outer leds)</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">Green 2 (inner leds)</Channel>
+  <Channel Number="6">UV</Channel>
+  <Channel Number="7">Strobing</Channel>
+  <Channel Number="8">Master dimmer</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="9.5" Width="315" Height="206" Depth="419"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="1550" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

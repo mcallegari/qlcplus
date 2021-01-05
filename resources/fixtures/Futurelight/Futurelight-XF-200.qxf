@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.10.2 GIT</Version>
+  <Author>Heikki Junnila</Author>
+ </Creator>
+ <Manufacturer>Futurelight</Manufacturer>
+ <Model>XF-200</Model>
+ <Type>Flower</Type>
+ <Channel Name="Gobo">
+  <Group Byte="0">Gobo</Group>
+  <Capability Min="0" Max="10">Blackout</Capability>
+  <Capability Min="11" Max="21">Open</Capability>
+  <Capability Min="22" Max="32">Gobo 1</Capability>
+  <Capability Min="33" Max="43">Gobo 2</Capability>
+  <Capability Min="44" Max="54">Gobo 3</Capability>
+  <Capability Min="55" Max="65">Gobo 4</Capability>
+  <Capability Min="66" Max="76">Gobo 5</Capability>
+  <Capability Min="77" Max="87">Gobo 6</Capability>
+  <Capability Min="88" Max="98">Gobo 7</Capability>
+  <Capability Min="99" Max="109">Gobo 8</Capability>
+  <Capability Min="110" Max="120">Gobo 9</Capability>
+  <Capability Min="121" Max="131">Gobo 10</Capability>
+  <Capability Min="132" Max="193">Backward gobo rainbow speed</Capability>
+  <Capability Min="194" Max="255">Forward gobo rainbow speed</Capability>
+ </Channel>
+ <Channel Name="Color">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="240">Color combinations</Capability>
+  <Capability Min="241" Max="250" Res="Others/rainbow.png">Rainbow</Capability>
+  <Capability Min="251" Max="255">Sound activation</Capability>
+ </Channel>
+ <Channel Name="Flower reflector">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="15">Stop</Capability>
+  <Capability Min="16" Max="130">Clockwise rotation speed</Capability>
+  <Capability Min="131" Max="245">Anti-clockwise rotation speed</Capability>
+  <Capability Min="246" Max="255">Sound activation</Capability>
+ </Channel>
+ <Mode Name="Mode 1">
+  <Channel Number="0">Gobo</Channel>
+  <Channel Number="1">Color</Channel>
+  <Channel Number="2">Flower reflector</Channel>
+ </Mode>
+<Physical>
+   <Bulb Type="MSD 250W" Lumens="0" ColourTemperature="0"/>
+   <Dimensions Weight="11.6" Width="385" Height="230" Depth="265"/>
+   <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+   <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+   <Technical PowerConsumption="450" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

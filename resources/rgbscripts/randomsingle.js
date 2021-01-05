@@ -1,7 +1,7 @@
 /*
   Q Light Controller Plus
   randomsingle.js
-  
+
   Copyright (c) David Garyga
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -68,10 +68,11 @@ var testAlgo;
                 map[y] = new Array(width);
                 for (var x = 0; x < width; x++)
                 {
-                    if (sy == y && sx == x)
+                    if (sy === y && sx === x) {
                         map[y][x] = 1;
-                    else
+                    } else {
                         map[y][x] = 0;
+                    }
                 }
             }
 
@@ -89,10 +90,11 @@ var testAlgo;
                 map[y] = new Array(width);
                 for (var x = 0; x < width; x++)
                 {
-                    if (step[y][x] != 0)
+                    if (step[y][x] !== 0) {
                         map[y][x] = rgb;
-                    else
+                    } else {
                         map[y][x] = 0;
+                    }
                 }
             }
 
@@ -112,7 +114,7 @@ var testAlgo;
             // Create a new step list only when attributes change to keep the
             // script running with as little extra overhead as possible.
             // Create a new step list each new iteration of the loop so it does not look repetitive
-            if (algo.width != width || algo.height != height || parseInt(step) == 0)
+            if (algo.width !== width || algo.height !== height || parseInt(step) === 0)
             {
                 // To ensure that ALL points are included in the steps exactly
                 // once, a list of possible steps is created (from (0,0) to (w-1,h-1)).

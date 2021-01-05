@@ -1,0 +1,45 @@
+<html dir="ltr">
+<head>
+<title>Q Light Controller Plus - HID Plugin</title>
+<script src="utility.js" type="text/javascript"></script>
+<link href="style.css" rel="stylesheet" type="text/css"></link>
+  <meta charset="utf-8">
+</head>
+<BODY onLoad="replaceqrc()">
+
+
+<h1>HID plugin</h1>
+
+<h1>1.Introduction</h1>
+<p>
+QLC+のWindows版とLinux版では、<a href="https://en.wikipedia.org/wiki/Human_interface_device">HID(ヒューマン・インターフェイス・デバイス)</a>でのコントロールをサポートしています。<br>
+　このプラグインを使うことで、ゲーム用のコントローラーやタッチパッド、特殊なキーボードやマウスでコントロールすることができます。<br>
+※ HIDプラグインでは、ジョイスティックとFX5 USB DMX アダプターでの動作を確認しています。
+</p>
+
+<h1>2.要求事項</h1>
+<p>
+　このプラグインには、別途ハードウェアは必要ありません。お使いのコンピューターがデバイスを正しく認識しているか確認してください。Linuxではカーネルモジュールを、Windowsではデバイスドライバを別途インストールするする必要があるかもしれません。お使いのデバイスの説明書を参照してください。
+</p>
+
+<h1>3.ジョイスティック</h1>
+<p>
+　QLC+ではバーチャルコンソールのXYパッドなどウィジェットでジョイスティックでのコントロールができるように、自動的に検出を行います。<br>
+　ジョイスティックとボタンを検出すると以下のように表示されます。<br>
+<ul>
+ <li>channel 1: X-axis</li>
+ <li>channel 2: Y-axis</li>
+ <li>channel 3: Button 1</li>
+ <li>channel 4: Button 2</li>
+ <li>channel 5: Button 3</li>
+ <li>channel 6: Button 4</li>
+</ul>
+</p>
+
+<h1>4.FX5 USB DMX</h1>
+<p>
+<a href="https://fx5.de/">FX5 USB DMX</a>アダプターでのDMX IN に対応しています。デバイスとの接続等でお困りの場合は、デバイスの説明書を参照してください。
+</p>
+
+</BODY>
+</html>

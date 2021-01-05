@@ -18,9 +18,10 @@
 */
 
 import QtQuick 2.0
-import QtQuick.Controls 1.1
+import QtQuick.Layouts 1.3
+import QtQuick.Controls 2.1
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "."
 
 Rectangle
@@ -32,48 +33,70 @@ Rectangle
     property int manufacturerIndex: fixtureBrowser.manufacturerIndex
     property string selectedModel
 
-    Rectangle
+    RowLayout
     {
-        id: searchBox
+        id: toolBar
         z: 1
+        width: parent.width
         height: UISettings.iconSizeMedium
-        anchors.right: parent.right
-        anchors.rightMargin: 8
-        anchors.left: parent.left
-        anchors.leftMargin: 8
-        color: UISettings.bgMain
-        radius: 5
-        border.width: 2
-        border.color: "#111"
 
-        Text
+        Rectangle
         {
-            id: searchIcon
-            x: 3
-            y: 3
-            width: height
-            height: parent.height - 6
-            color: "gray"
-            font.family: "FontAwesome"
-            font.pixelSize: height
-            text: FontAwesome.fa_search
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            color: UISettings.bgMain
+            radius: 5
+            border.width: 2
+            border.color: "#111"
+
+            Text
+            {
+                id: searchIcon
+                x: 3
+                width: height
+                height: parent.height - 6
+                anchors.verticalCenter: parent.verticalCenter
+                color: "gray"
+                font.family: "FontAwesome"
+                font.pixelSize: height - 6
+                text: FontAwesome.fa_search
+            }
+
+            TextInput
+            {
+                x: searchIcon.width + 13
+                y: 3
+                height: parent.height - 6
+                width: parent.width - searchIcon.width - 10
+                color: UISettings.fgMain
+                text: fixtureBrowser.searchFilter
+                font.family: "Roboto Condensed"
+                font.pixelSize: height - 6
+                selectionColor: UISettings.highlightPressed
+                selectByMouse: true
+
+                onTextChanged: fixtureBrowser.searchFilter = text
+            }
         }
 
-        TextInput
+        IconButton
         {
-            id: textEdit1
-            x: searchIcon.width + 10
-            y: 3
-            height: parent.height - 6
-            width: searchBox.width - searchIcon.width - 10
-            color: UISettings.fgMain
-            text: fixtureBrowser.searchFilter
-            font.family: "Roboto Condensed"
-            font.pixelSize: height
-            selectionColor: UISettings.highlightPressed
-            selectByMouse: true
+            width: height
+            height: toolBar.height - 2
+            imgSource: "qrc:/add.svg"
+            tooltip: qsTr("Add a new fixture definition")
+            onClicked: qlcplus.createFixture()
+        }
 
-            onTextChanged: fixtureBrowser.searchFilter = text
+        IconButton
+        {
+            id: editButton
+            enabled: fixtureBrowser.selectedModel.length ? true : false
+            width: height
+            height: toolBar.height - 2
+            imgSource: "qrc:/edit.svg"
+            tooltip: qsTr("Edit the selected fixture definition")
+            onClicked: qlcplus.editFixture(fixtureBrowser.selectedManufacturer, fixtureBrowser.selectedModel)
         }
     }
 
@@ -82,8 +105,8 @@ Rectangle
         id: manufacturerList
         x: 8
         z: 0
-        visible: fixtureBrowser.selectedManufacturer.length == 0 && fixtureBrowser.searchFilter.length < 3
-        anchors.top: searchBox.bottom
+        visible: fixtureBrowser.selectedManufacturer.length === 0 && fixtureBrowser.searchFilter.length < 3
+        anchors.top: toolBar.bottom
         anchors.topMargin: 6
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 6
@@ -128,7 +151,7 @@ Rectangle
 
         Component.onCompleted: manufacturerList.positionViewAtIndex(manufacturerIndex, ListView.Center)
 
-        CustomScrollBar { flickable: manufacturerList }
+        ScrollBar.vertical: CustomScrollBar { }
     }
 
     Rectangle
@@ -138,8 +161,8 @@ Rectangle
         color: "transparent"
 
         width: parent.width
-        height: parent.height - searchBox.height - (fxPropsRect.visible ? fxPropsRect.height : 0)
-        anchors.top: searchBox.bottom
+        height: parent.height - toolBar.height - (fxPropsRect.visible ? fxPropsRect.height : 0)
+        anchors.top: toolBar.bottom
         anchors.margins: 6
 
         Rectangle
@@ -160,8 +183,8 @@ Rectangle
                 anchors.verticalCenter: parent.verticalCenter
                 source: "qrc:/arrow-right.svg"
                 sourceSize: Qt.size(width, height)
-                height: 26
-                width: 18
+                height: parent.height
+                width: height * 0.8
             }
 
             RobotoText
@@ -185,6 +208,7 @@ Rectangle
                     fxPropsRect.visible = false
                     panelPropsRect.visible = false
                     fixtureBrowser.selectedManufacturer = ""
+                    editButton.enabled = false
                 }
             }
         }
@@ -235,10 +259,11 @@ Rectangle
                             panelPropsRect.visible = false
                             fxPropsRect.visible = true
                         }
+                        editButton.enabled = true
                     }
                 }
             }
-            CustomScrollBar { flickable: modelsList }
+            ScrollBar.vertical: CustomScrollBar { }
         }
     }
 
@@ -247,12 +272,13 @@ Rectangle
         id: searchRect
         clip: true
         visible: fixtureBrowser.searchFilter.length >= 3 ? true : false
+        boundsBehavior: Flickable.StopAtBounds
 
         contentHeight: searchColumn.height
 
         width: parent.width
-        height: parent.height - searchBox.height - (fxPropsRect.visible ? fxPropsRect.height : 0) - 12
-        anchors.top: searchBox.bottom
+        height: parent.height - toolBar.height - (fxPropsRect.visible ? fxPropsRect.height : 0) - 12
+        anchors.top: toolBar.bottom
         anchors.margins: 6
 
         Column
@@ -305,8 +331,9 @@ Rectangle
                     }
             } // end of Repeater
         } // end of Column
+
+        ScrollBar.vertical: CustomScrollBar { }
     } // end of Flickable
-    CustomScrollBar { flickable: searchRect }
 
     FixtureProperties
     {

@@ -215,17 +215,18 @@ qint32 PreviewThread::getSample(unsigned char *data, quint32 idx, int sampleSize
 {
     qint32 value = 0;
     if (sampleSize == 1)
-        value = (qint32)data[idx];
-    if (sampleSize == 2)
     {
-        qint16 *tmpdata = (qint16 *)data;
-        qint16 twobytes = tmpdata[idx];
-        value = twobytes;
+        value = (qint32)data[idx];
+    }
+    else if (sampleSize == 2)
+    {
+        qint16 *array = (qint16 *)data;
+        value = array[idx / 2];
     }
     else if (sampleSize == 3 || sampleSize == 4)
     {
-        value = ((qint32)data[idx] << 24) + ((qint32)data[idx + 1] << 16) + ((qint32)data[idx + 2] << 8) + (qint32)data[idx + 3];
-        value = value >> 16;
+        qint32 *array = (qint32 *)data;
+        value = array[idx / 4] >> 16;
     }
     //qDebug() << "sampleValue:" << value;
     return value;
@@ -236,7 +237,7 @@ void PreviewThread::run()
     bool left = m_item->m_previewLeftAction->isChecked() | m_item->m_previewStereoAction->isChecked();
     bool right = m_item->m_previewRightAction->isChecked() | m_item->m_previewStereoAction->isChecked();
 
-    if ((left == true || right == true) && m_item->m_audio->getAudioDecoder() != NULL)
+    if ((left || right) && m_item->m_audio->getAudioDecoder() != NULL)
     {
         AudioDecoder *ad = m_item->m_audio->doc()->audioPluginCache()->getDecoderForFile(m_item->m_audio->getSourceFileName());
         AudioParameters ap = ad->audioParameters();
@@ -253,7 +254,7 @@ void PreviewThread::run()
         if (sampleSize > 2)
             sampleSize = 2;
 
-        if (left == true && right == true)
+        if (left && right)
             maxValue = 0x7F << (8 * (sampleSize - 1));
         else
             maxValue = 0x3F << (8 * (sampleSize - 1));
@@ -269,10 +270,10 @@ void PreviewThread::run()
         QPainter p(preview);
         int xpos = 0;
 
-        qDebug() << "Audio duration: " << m_item->m_audio->totalDuration() <<
-                    ", pixmap width: " << preview->width() <<
-                    ", maxValue: " << maxValue << ", samples:" << sampleSize;
-        qDebug() << "Samples per second: " << oneSecondSamples << ", for one pixel: " << onePixelSamples <<
+        qDebug() << "Audio duration:" << m_item->m_audio->totalDuration() <<
+                    ", channels:" << channels << ", pixmap width:" << preview->width() <<
+                    ", maxValue:" << maxValue << ", samples:" << sampleSize;
+        qDebug() << "Samples per second:" << oneSecondSamples << ", for one pixel:" << onePixelSamples <<
                     ", onePixelReadLen:" << onePixelReadLen;
 
         delete m_item->m_preview;
@@ -315,20 +316,21 @@ void PreviewThread::run()
                 bool done = false;
                 while (!done)
                 {
-                    if (left == true)
+                    if (left)
                     {
                         qint32 sampleVal = getSample(audioData, i, sampleSize);
                         rmsLeft += (sampleVal * sampleVal);
-                        i+=sampleSize;
                     }
+                    i += sampleSize;
+
                     if (channels == 2)
                     {
-                        if (right == true)
+                        if (right)
                         {
                             qint32 sampleVal = getSample(audioData, i, sampleSize);
                             rmsRight += (sampleVal * sampleVal);
                         }
-                        i+=sampleSize;
+                        i += sampleSize;
                     }
 
                     if (i >= dataRead)
@@ -338,21 +340,21 @@ void PreviewThread::run()
                     }
                 }
 
-                if (left == true)
+                if (left)
                     rmsLeft = sqrt(rmsLeft / onePixelSamples);
-                if (right == true)
+                if (right)
                     rmsRight = sqrt(rmsRight / onePixelSamples);
-                //qDebug() << "RMS right:" << rmsRight << ", RMS left:" << rmsLeft;
+                //qDebug() << "sample" << i << "RMS right:" << rmsRight << ", RMS left:" << rmsLeft;
 
                 // 3- Draw the actual waveform
                 unsigned short lineHeightLeft = 0, lineHeightRight = 0;
 
-                if (left == true)
+                if (left)
                     lineHeightLeft = (76 * rmsLeft) / maxValue;
-                if (right == true)
+                if (right)
                     lineHeightRight = (76 * rmsRight) / maxValue;
 
-                if (left == true && right == true)
+                if (left && right)
                 {
                     if (lineHeightLeft > 1)
                         p.drawLine(xpos, 19 - (lineHeightLeft / 2), xpos, 19 + (lineHeightLeft / 2));
@@ -366,11 +368,8 @@ void PreviewThread::run()
                 }
                 else
                 {
-                    unsigned short lineHeight = 0;
-                    if (left == true)
-                        lineHeight = lineHeightLeft;
-                    else
-                        lineHeight = lineHeightRight;
+                    unsigned short lineHeight = left ? lineHeightLeft : lineHeightRight;
+
                     if (lineHeight > 1)
                         p.drawLine(xpos, 38 - (lineHeight / 2), xpos, 38 + (lineHeight / 2));
                     else

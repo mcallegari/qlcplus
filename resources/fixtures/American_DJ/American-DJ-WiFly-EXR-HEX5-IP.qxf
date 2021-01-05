@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Robert Box</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>WiFly EXR HEX5 IP</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Color Macros/Programs/Auto Run">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="3" Preset="ColorMacro" Res1="#000000">Off/Color change/fade 1/Slow to fast</Capability>
+  <Capability Min="4" Max="7" Preset="ColorMacro" Res1="#ffce8f">Red/Color change/fade 1/Slow to fast</Capability>
+  <Capability Min="8" Max="11" Preset="ColorMacro" Res1="#00ff00">Green/Color change/fade 1/Slow to fast</Capability>
+  <Capability Min="12" Max="15" Preset="ColorMacro" Res1="#0000ff">Blue/Color change/fade 1/Slow to fast</Capability>
+  <Capability Min="16" Max="19" Preset="ColorMacro" Res1="#ffffff">White/Color change/fade 2/Slow to fast</Capability>
+  <Capability Min="20" Max="23" Preset="ColorMacro" Res1="#ffbf00">Amber/Color change/fade 2/Slow to fast</Capability>
+  <Capability Min="24" Max="27" Preset="ColorMacro" Res1="#9400d3">UV/Color change/fade 2/Slow to fast</Capability>
+  <Capability Min="28" Max="31" Preset="ColorMacro" Res1="#ffff00">R+G/Color change/fade 2/Slow to fast</Capability>
+  <Capability Min="32" Max="35" Preset="ColorMacro" Res1="#ff00ff">R+B/Color change/fade 3/Slow to fast</Capability>
+  <Capability Min="36" Max="39" Preset="ColorMacro" Res1="#ff8080">R+W/Color change/fade 3/Slow to fast</Capability>
+  <Capability Min="40" Max="43" Preset="ColorMacro" Res1="#ff6000">R+A/Color change/fade 3/Slow to fast</Capability>
+  <Capability Min="44" Max="47" Preset="ColorMacro" Res1="#ff0086">R+UV/Color change/fade 3/Slow to fast</Capability>
+  <Capability Min="48" Max="51" Preset="ColorMacro" Res1="#00ffff">G+B/Color change/fade 4/Slow to fast</Capability>
+  <Capability Min="52" Max="55" Preset="ColorMacro" Res1="#80ff80">G+W/Color change/fade 4/Slow to fast</Capability>
+  <Capability Min="56" Max="59" Preset="ColorMacro" Res1="#92ff00">G+A/Color change/fade 4/Slow to fast</Capability>
+  <Capability Min="60" Max="63" Preset="ColorMacro" Res1="#94ffd4">G+UV/Color change/fade 4/Slow to fast</Capability>
+  <Capability Min="64" Max="67" Preset="ColorMacro" Res1="#8080ff">B+W/Color change/fade 5/Slow to fast</Capability>
+  <Capability Min="68" Max="71" Preset="ColorMacro" Res1="#ffbfff">B+A/Color change/fade 5/Slow to fast</Capability>
+  <Capability Min="72" Max="75" Preset="ColorMacro" Res1="#5100ff">B+UV/Color change/fade 5/Slow to fast</Capability>
+  <Capability Min="76" Max="79" Preset="ColorMacro" Res1="#ffdf80">W+A/Color change/fade 5/Slow to fast</Capability>
+  <Capability Min="80" Max="83" Preset="ColorMacro" Res1="#dc8bff">W+UV/Color change/fade 6/Slow to fast</Capability>
+  <Capability Min="84" Max="87" Preset="ColorMacro" Res1="#ff7986">A+UV/Color change/fade 6/Slow to fast</Capability>
+  <Capability Min="88" Max="91" Preset="ColorMacro" Res1="#ffffff">R+G+B/Color change/fade 6/Slow to fast</Capability>
+  <Capability Min="92" Max="95" Preset="ColorMacro" Res1="#ffff80">R+G+W/Color change/fade 6/Slow to fast</Capability>
+  <Capability Min="96" Max="99" Preset="ColorMacro" Res1="#ffdf00">R+G+A/Color change/fade 7/Slow to fast</Capability>
+  <Capability Min="100" Max="103" Preset="ColorMacro" Res1="#ffa186">R+G+UV/Color change/fade 7/Slow to fast</Capability>
+  <Capability Min="104" Max="107" Preset="ColorMacro" Res1="#ff80ff">R+B+W/Color change/fade 7/Slow to fast</Capability>
+  <Capability Min="108" Max="111" Preset="ColorMacro" Res1="#ff6080">R+B+A/Color change/fade 7/Slow to fast</Capability>
+  <Capability Min="112" Max="115" Preset="ColorMacro" Res1="#dc00ff">R+B+UV/Color change/fade 8/Slow to fast</Capability>
+  <Capability Min="116" Max="119" Preset="ColorMacro" Res1="#ff9555">R+W+A/Color change/fade 8/Slow to fast</Capability>
+  <Capability Min="120" Max="123" Preset="ColorMacro" Res1="#ff63b5">R+W+UV/Color change/fade 8/Slow to fast</Capability>
+  <Capability Min="124" Max="127" Preset="ColorMacro" Res1="#ff4a52">R+A+UV/Color change/fade 8/Slow to fast</Capability>
+  <Capability Min="128" Max="131" Preset="ColorMacro" Res1="#80ffff">G+B+W/Color change/fade 9/Slow to fast</Capability>
+  <Capability Min="132" Max="135" Preset="ColorMacro" Res1="#92ff92">G+B+A/Color change/fade 9/Slow to fast</Capability>
+  <Capability Min="136" Max="139" Preset="ColorMacro" Res1="#518bff">G+B+UV/Color change/fade 9/Slow to fast</Capability>
+  <Capability Min="140" Max="143" Preset="ColorMacro" Res1="#b9ff5d">G+W+A/Color change/fade 9/Slow to fast</Capability>
+  <Capability Min="144" Max="147" Preset="ColorMacro" Res1="#c9ffe9">G+W+UV/Color change/fade 10/Slow to fast</Capability>
+  <Capability Min="148" Max="151" Preset="ColorMacro" Res1="#e6ff79">G+A+UV/Color change/fade 10/Slow to fast</Capability>
+  <Capability Min="152" Max="155" Preset="ColorMacro" Res1="#ffdfff">B+W+A/Color change/fade 10/Slow to fast</Capability>
+  <Capability Min="156" Max="159" Preset="ColorMacro" Res1="#8e5aff">B+W+UV/Color change/fade 10/Slow to fast</Capability>
+  <Capability Min="160" Max="163" Preset="ColorMacro" Res1="#dc69ff">B+A+UV/Color change/fade 11/Slow to fast</Capability>
+  <Capability Min="164" Max="167" Preset="ColorMacro" Res1="#ffadb5">W+A+UV/Color change/fade 11/Slow to fast</Capability>
+  <Capability Min="168" Max="171" Preset="ColorMacro" Res1="#ffffff">R+G+B+W/Color change/fade 11/Slow to fast</Capability>
+  <Capability Min="172" Max="175" Preset="ColorMacro" Res1="#ffdf80">R+G+B+A/Color change/fade 11/Slow to fast</Capability>
+  <Capability Min="176" Max="179" Preset="ColorMacro" Res1="#dc8bff">R+G+B+UV/Color change/fade 12/Slow to fast</Capability>
+  <Capability Min="180" Max="183" Preset="ColorMacro" Res1="#ffea55">R+G+W+A/Color change/fade 12/Slow to fast</Capability>
+  <Capability Min="184" Max="187" Preset="ColorMacro" Res1="#ffc6b5">R+G+W+UV/Color change/fade 12/Slow to fast</Capability>
+  <Capability Min="188" Max="191" Preset="ColorMacro" Res1="#ffad52">R+G+A+UV/Color change/fade 12/Slow to fast</Capability>
+  <Capability Min="192" Max="195" Preset="ColorMacro" Res1="#ff95aa">R+B+W+A/Color change/fade 13/Slow to fast</Capability>
+  <Capability Min="196" Max="199" Preset="ColorMacro" Res1="#e85aff">R+B+W+UV/Color change/fade 13/Slow to fast</Capability>
+  <Capability Min="200" Max="203" Preset="ColorMacro" Res1="#ff4ab5">R+B+A+UV/Color change/fade 13/Slow to fast</Capability>
+  <Capability Min="204" Max="207" Preset="ColorMacro" Res1="#ff7d82">R+W+A+UV/Color change/fade 13/Slow to fast</Capability>
+  <Capability Min="208" Max="211" Preset="ColorMacro" Res1="#b9ffb9">G+B+W+A/Color change/fade 14/Slow to fast</Capability>
+  <Capability Min="212" Max="215" Preset="ColorMacro" Res1="#8eb4ff">G+B+W+UV/Color change/fade 14/Slow to fast</Capability>
+  <Capability Min="216" Max="219" Preset="ColorMacro" Res1="#dcf4ff">G+B+A+UV/Color change/fade 14/Slow to fast</Capability>
+  <Capability Min="220" Max="223" Preset="ColorMacro" Res1="#efffaa">G+W+A+UV/Color change/fade 14/Slow to fast</Capability>
+  <Capability Min="224" Max="227" Preset="ColorMacro" Res1="#e89eff">B+W+A+UV/Color change/fade 15/Slow to fast</Capability>
+  <Capability Min="228" Max="231" Preset="ColorMacro" Res1="#ffeaaa">R+G+B+W+A/Color change/fade 15/Slow to fast</Capability>
+  <Capability Min="232" Max="235" Preset="ColorMacro" Res1="#e8b4ff">R+G+B+W+UV/Color change/fade 15/Slow to fast</Capability>
+  <Capability Min="236" Max="239" Preset="ColorMacro" Res1="#ffadb5">R+G+B+A+UV/Color change/fade 15/Slow to fast</Capability>
+  <Capability Min="240" Max="243" Preset="ColorMacro" Res1="#ffc482">R+G+W+A+UV/Color change/fade 16/Slow to fast</Capability>
+  <Capability Min="244" Max="247" Preset="ColorMacro" Res1="#ff7dca">R+B+W+A+UV/Color change/fade 16/Slow to fast</Capability>
+  <Capability Min="248" Max="251" Preset="ColorMacro" Res1="#e8f8ff">G+B+W+A+UV/Color change/fade 16/Slow to fast</Capability>
+  <Capability Min="252" Max="255" Preset="ColorMacro" Res1="#ffc4ca">R+G+B+W+A+UV/Color change/fade 16/Slow to fast</Capability>
+ </Channel>
+ <Channel Name="Strobing">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="31" Preset="ShutterClose">LED Off</Capability>
+  <Capability Min="32" Max="63" Preset="ShutterOpen">LED on</Capability>
+  <Capability Min="64" Max="95" Preset="StrobeSlowToFast">Strobing slow - fast</Capability>
+  <Capability Min="96" Max="127" Preset="ShutterOpen">LED on</Capability>
+  <Capability Min="128" Max="159" Preset="PulseSlowToFast">Pulse strobing slow - fast</Capability>
+  <Capability Min="160" Max="191" Preset="ShutterOpen">LED on</Capability>
+  <Capability Min="192" Max="223" Preset="StrobeRandomSlowToFast">Random strobing slow - fast</Capability>
+  <Capability Min="224" Max="255" Preset="ShutterOpen">LED on</Capability>
+ </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Dimmer Curves">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="20">Standard</Capability>
+  <Capability Min="21" Max="40">Stage</Capability>
+  <Capability Min="41" Max="60">TV</Capability>
+  <Capability Min="61" Max="80">Architectural</Capability>
+  <Capability Min="81" Max="100">Theatre</Capability>
+  <Capability Min="101" Max="255">Default to unit setting</Capability>
+ </Channel>
+ <Channel Name="Program Selection Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="51">Dimming mode</Capability>
+  <Capability Min="52" Max="102">Color macro mode</Capability>
+  <Capability Min="103" Max="153">Color change mode</Capability>
+  <Capability Min="154" Max="204">Color fade mode</Capability>
+  <Capability Min="205" Max="255">Auto run mode</Capability>
+ </Channel>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="UV" Preset="IntensityUV"/>
+ <Channel Name="Program &amp; Auto Run Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Slow - fast</Capability>
+ </Channel>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">UV</Channel>
+ </Mode>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">UV</Channel>
+  <Channel Number="6">Master Dimmer</Channel>
+ </Mode>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">UV</Channel>
+  <Channel Number="6">Master Dimmer</Channel>
+  <Channel Number="7">Strobing</Channel>
+ </Mode>
+ <Mode Name="11 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">UV</Channel>
+  <Channel Number="6">Master Dimmer</Channel>
+  <Channel Number="7">Strobing</Channel>
+  <Channel Number="8">Program Selection Mode</Channel>
+  <Channel Number="9">Color Macros/Programs/Auto Run</Channel>
+  <Channel Number="10">Program &amp; Auto Run Speed</Channel>
+ </Mode>
+ <Mode Name="12 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">White</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">UV</Channel>
+  <Channel Number="6">Master Dimmer</Channel>
+  <Channel Number="7">Strobing</Channel>
+  <Channel Number="8">Program Selection Mode</Channel>
+  <Channel Number="9">Color Macros/Programs/Auto Run</Channel>
+  <Channel Number="10">Program &amp; Auto Run Speed</Channel>
+  <Channel Number="11">Dimmer Curves</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="1600" ColourTemperature="0"/>
+  <Dimensions Weight="5.4" Width="280" Height="194" Depth="310"/>
+  <Lens Name="Other" DegreesMin="40" DegreesMax="40"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="56" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

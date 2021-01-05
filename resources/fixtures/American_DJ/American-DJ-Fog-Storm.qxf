@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.4.2</Version>
+  <Author>X</Author>
+ </Creator>
+ <Manufacturer>American DJ</Manufacturer>
+ <Model>Fog Storm (with FS-DMXT Timer Remote)</Model>
+ <Type>Smoke</Type>
+ <Channel Name="Duration">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="15">FOG OFF</Capability>
+  <Capability Min="16" Max="31">CONST FOG</Capability>
+  <Capability Min="32" Max="34">0.5 Secs.</Capability>
+  <Capability Min="35" Max="39">0.7 Secs.</Capability>
+  <Capability Min="40" Max="44">1 Secs.</Capability>
+  <Capability Min="45" Max="49">1.5 Secs.</Capability>
+  <Capability Min="50" Max="54">1.6 Secs.</Capability>
+  <Capability Min="55" Max="59">1.8 Secs.</Capability>
+  <Capability Min="60" Max="64">2 Secs.</Capability>
+  <Capability Min="65" Max="69">2.3 Secs.</Capability>
+  <Capability Min="70" Max="74">2.5 Secs.</Capability>
+  <Capability Min="75" Max="79">2.8 Secs.</Capability>
+  <Capability Min="80" Max="84">3 Secs.</Capability>
+  <Capability Min="85" Max="89">3.3 Secs.</Capability>
+  <Capability Min="90" Max="94">3.7 Secs.</Capability>
+  <Capability Min="95" Max="99">4 Secs.</Capability>
+  <Capability Min="100" Max="104">4.2 Secs.</Capability>
+  <Capability Min="105" Max="109">4.4 Secs.</Capability>
+  <Capability Min="110" Max="114">4.8 Secs.</Capability>
+  <Capability Min="115" Max="119">5 Secs.</Capability>
+  <Capability Min="120" Max="124">5.2 Secs.</Capability>
+  <Capability Min="125" Max="129">5.5 Secs.</Capability>
+  <Capability Min="130" Max="134">5.7 Secs.</Capability>
+  <Capability Min="135" Max="139">6 Secs.</Capability>
+  <Capability Min="140" Max="144">6.2 Secs.</Capability>
+  <Capability Min="145" Max="149">6.5 Secs.</Capability>
+  <Capability Min="150" Max="154">7 Secs.</Capability>
+  <Capability Min="155" Max="159">7.2 Secs.</Capability>
+  <Capability Min="160" Max="164">7.6 Secs.</Capability>
+  <Capability Min="165" Max="169">7.8 Secs.</Capability>
+  <Capability Min="170" Max="174">8 Secs.</Capability>
+  <Capability Min="175" Max="179">8.4 Secs.</Capability>
+  <Capability Min="180" Max="184">8.6 Secs.</Capability>
+  <Capability Min="185" Max="189">8.8 Secs.</Capability>
+  <Capability Min="190" Max="194">9 Secs.</Capability>
+  <Capability Min="195" Max="199">9.5 Secs.</Capability>
+  <Capability Min="200" Max="204">9.8 Secs.</Capability>
+  <Capability Min="205" Max="209">10 Secs.</Capability>
+  <Capability Min="210" Max="214">10.2 Secs.</Capability>
+  <Capability Min="215" Max="219">10.5 Secs.</Capability>
+  <Capability Min="220" Max="224">10.8 Secs.</Capability>
+  <Capability Min="225" Max="229">11 Secs.</Capability>
+  <Capability Min="230" Max="234">11.3 Secs.</Capability>
+  <Capability Min="235" Max="239">11.5 Secs.</Capability>
+  <Capability Min="240" Max="244">11.8 Secs.</Capability>
+  <Capability Min="245" Max="249">12 Secs.</Capability>
+  <Capability Min="250" Max="254">12.5 Secs.</Capability>
+  <Capability Min="255" Max="255">12.7 Secs.</Capability>
+ </Channel>
+ <Channel Name="Interval">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="15">9 Secs.</Capability>
+  <Capability Min="16" Max="31">10 Secs.</Capability>
+  <Capability Min="32" Max="47">20 - 23 Secs.</Capability>
+  <Capability Min="48" Max="63">33 - 36 Secs.</Capability>
+  <Capability Min="64" Max="79">46 - 49 Secs.</Capability>
+  <Capability Min="80" Max="95">60 - 63 Secs.</Capability>
+  <Capability Min="96" Max="111">75 - 78 Secs.</Capability>
+  <Capability Min="112" Max="127">92 - 96 Secs.</Capability>
+  <Capability Min="128" Max="143">110 - 114 Secs.</Capability>
+  <Capability Min="144" Max="159">130 - 133 Secs.</Capability>
+  <Capability Min="160" Max="175">150 - 154 Secs.</Capability>
+  <Capability Min="176" Max="191">170 - 176 Secs.</Capability>
+  <Capability Min="192" Max="207">193 - 200 Secs.</Capability>
+  <Capability Min="208" Max="223">213 - 220 Secs.</Capability>
+  <Capability Min="224" Max="239">233 - 248 Secs.</Capability>
+  <Capability Min="240" Max="255">268 - 278 Secs.</Capability>
+ </Channel>
+ <Mode Name="Fog Storm 1200HD">
+  <Channel Number="0">Duration</Channel>
+  <Channel Number="1">Interval</Channel>
+ </Mode>
+ <Mode Name="Fog Storm 1700HD">
+  <Physical>
+   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
+   <Dimensions Width="280" Height="290" Weight="10" Depth="435"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="1700" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Duration</Channel>
+  <Channel Number="1">Interval</Channel>
+ </Mode>
+<Physical>
+   <Bulb Lumens="0" Type="" ColourTemperature="0"/>
+   <Dimensions Width="220" Height="160" Weight="5.4" Depth="300"/>
+   <Lens DegreesMax="0" Name="Other" DegreesMin="0"/>
+   <Focus PanMax="0" Type="Fixed" TiltMax="0"/>
+   <Technical PowerConsumption="1200" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

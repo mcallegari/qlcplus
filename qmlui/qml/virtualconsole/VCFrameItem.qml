@@ -20,7 +20,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "."
 
 VCWidgetItem
@@ -31,7 +31,7 @@ VCWidgetItem
     property bool isSolo: false
     property bool isCollapsed: frameObj ? frameObj.isCollapsed : false
 
-    color: dropActive ? "#9DFF52" : (frameObj ? frameObj.backgroundColor : "darkgray")
+    color: dropActive ? UISettings.activeDropArea : (frameObj ? frameObj.backgroundColor : "darkgray")
     clip: true
 
     onFrameObjChanged:
@@ -50,6 +50,7 @@ VCWidgetItem
     // Frame header
     Rectangle
     {
+        id: frameHeader
         width: parent.width
         height: UISettings.listItemHeight
         color: "transparent"
@@ -114,7 +115,9 @@ VCWidgetItem
                 tooltip: qsTr("Enable/Disable this frame")
                 imgSource: "qrc:/apply.svg"
                 imgMargins: 1
+                checked: frameObj ? !frameObj.isDisabled : true
                 visible: frameObj ? frameObj.showEnable : true
+                onToggled: if (frameObj) frameObj.isDisabled = !checked
             }
 
             // multi page controls
@@ -197,7 +200,12 @@ VCWidgetItem
             if (drop.keys[0] === "vcwidget")
             {
                 if (drag.source.widgetType)
-                    frameObj.addWidget(dropArea, drag.source.widgetType, pos)
+                {
+                    if (drag.source.widgetType === "buttonmatrix" || drag.source.widgetType === "slidermatrix")
+                        virtualConsole.requestAddMatrixPopup(frameObj, dropArea, drag.source.widgetType, pos)
+                    else
+                        frameObj.addWidget(dropArea, drag.source.widgetType, pos)
+                }
                 else
                 {
                     // reparent the QML item first
@@ -210,8 +218,24 @@ VCWidgetItem
             {
                 frameObj.addFunctions(dropArea, drag.source.itemsList, pos, drag.source.modifiers)
             }
+            else if (drop.keys[0] === "pasteWidgets")
+            {
+                frameObj.addWidgetsFromClipboard(dropArea, virtualConsole.clipboardItemsList(), pos);
+            }
         }
 
-        keys: [ "vcwidget", "function" ]
+        keys: [ "vcwidget", "function", "pasteWidgets" ]
+    }
+
+    // disable layer
+    Rectangle
+    {
+        y: frameHeader.height
+        width: parent.width
+        height: parent.height - y
+        z: 5
+        visible: frameObj ? frameObj.isDisabled : false
+        opacity: 0.4
+        color: "black"
     }
 }

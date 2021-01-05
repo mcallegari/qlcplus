@@ -18,6 +18,8 @@
 */
 
 import QtQuick 2.0
+import QtQuick.Layouts 1.0
+
 import "."
 
 SidePanel
@@ -51,9 +53,11 @@ SidePanel
         color: "transparent"
         z: 2
 
-        Column
+        ColumnLayout
         {
             anchors.horizontalCenter: parent.horizontalCenter
+            height: parent.height
+            width: iconSize
             spacing: 3
 
             IconButton
@@ -90,6 +94,59 @@ SidePanel
                         loaderSource = "qrc:/PluginsList.qml"
                     animatePanel(checked)
                 }
+            }
+
+            IconButton
+            {
+                faSource: checked ? FontAwesome.fa_eye_slash : FontAwesome.fa_eye
+                faColor: UISettings.fgMain
+                bgColor: "green"
+                checkedColor: "red"
+                checkable: true
+                checked: ioManager.blackout
+                tooltip: qsTr("Enable/Disable blackout on all the output patches")
+                onToggled: ioManager.blackout = checked
+            }
+
+            IconButton
+            {
+                id: outputConfigureButton
+                z: 2
+                visible: ioManager.outputCanConfigure
+                width: iconSize
+                height: iconSize
+                imgSource: "qrc:/configure.svg"
+                tooltip: qsTr("Open the plugin configuration")
+                onClicked: ioManager.configurePlugin(false)
+            }
+
+            /* filler object */
+            Rectangle
+            {
+                Layout.fillHeight: true
+                width: iconSize
+                color: "transparent"
+            }
+
+            IconButton
+            {
+                z: 2
+                width: iconSize
+                height: iconSize
+                imgSource: "qrc:/add.svg"
+                tooltip: qsTr("Add a new universe")
+                onClicked: ioManager.addUniverse()
+            }
+
+            IconButton
+            {
+                z: 2
+                visible: ioManager.selectedIndex === ioManager.universeNames.length - 1
+                width: iconSize
+                height: iconSize
+                imgSource: "qrc:/remove.svg"
+                tooltip: qsTr("Remove the selected universe")
+                onClicked: ioManager.removeLastUniverse()
             }
         }
     }

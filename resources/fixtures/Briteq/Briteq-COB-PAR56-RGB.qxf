@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.9.0 GIT</Version>
+  <Author>Giacomo</Author>
+ </Creator>
+ <Manufacturer>Briteq</Manufacturer>
+ <Model>COB PAR56 RGB</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Effect-5CH">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="4">ON</Capability>
+  <Capability Min="5" Max="24">Sound Control (7 colors)</Capability>
+  <Capability Min="25" Max="34">ON</Capability>
+  <Capability Min="35" Max="255">Strobe (increasing)</Capability>
+ </Channel>
+ <Channel Name="Effect-4CH">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="190">Master Dimmer</Capability>
+  <Capability Min="191" Max="200">Sound Control (7 colors)</Capability>
+  <Capability Min="201" Max="247">Strobe (increasing)</Capability>
+  <Capability Min="248" Max="255">Master Dimmer</Capability>
+ </Channel>
+ <Mode Name="5-Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Dimmer</Channel>
+  <Channel Number="4">Effect-5CH</Channel>
+ </Mode>
+ <Mode Name="3-Channel">
+  <Physical>
+   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
+   <Dimensions Depth="400" Height="2400" Weight="2.9" Width="240"/>
+   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
+   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
+   <Technical PowerConsumption="120" DmxConnector="3-pin"/>
+  </Physical>
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="4-Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Effect-4CH</Channel>
+ </Mode>
+<Physical>
+   <Bulb ColourTemperature="0" Type="LED" Lumens="0"/>
+   <Dimensions Depth="400" Height="240" Weight="2.9" Width="240"/>
+   <Lens DegreesMin="0" DegreesMax="0" Name="Other"/>
+   <Focus Type="Fixed" TiltMax="0" PanMax="0"/>
+   <Technical PowerConsumption="120" DmxConnector="3-pin"/>
+  </Physical>
+</FixtureDefinition>

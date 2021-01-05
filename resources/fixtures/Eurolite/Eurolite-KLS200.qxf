@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Heikki Junnila</Author>
+ </Creator>
+ <Manufacturer>Eurolite</Manufacturer>
+ <Model>KLS200</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Internal Programs, Auto Mode, Sound Countrolled Mode">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Off</Capability>
+  <Capability Min="10" Max="29">Program 1</Capability>
+  <Capability Min="30" Max="49">Program 2</Capability>
+  <Capability Min="50" Max="69">Program 3</Capability>
+  <Capability Min="70" Max="89">Program 4</Capability>
+  <Capability Min="90" Max="109">Program 5</Capability>
+  <Capability Min="110" Max="129">Program 6</Capability>
+  <Capability Min="130" Max="149">Program 7</Capability>
+  <Capability Min="150" Max="169">Program 8</Capability>
+  <Capability Min="170" Max="189">Program 9</Capability>
+  <Capability Min="190" Max="209">Program 10</Capability>
+  <Capability Min="210" Max="229">Program 11</Capability>
+  <Capability Min="230" Max="249">Automatic control</Capability>
+  <Capability Min="250" Max="255">Music control</Capability>
+ </Channel>
+ <Channel Name="Master Dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="9" Preset="ShutterOpen">Off</Capability>
+  <Capability Min="10" Max="255" Preset="StrobeSlowToFast">Flash, with increasing speed</Capability>
+ </Channel>
+ <Channel Name="Spot 1: Red" Preset="IntensityRed"/>
+ <Channel Name="Spot 1: Green" Preset="IntensityGreen"/>
+ <Channel Name="Spot 1: Blue" Preset="IntensityBlue"/>
+ <Channel Name="Spot 2: Red" Preset="IntensityRed"/>
+ <Channel Name="Spot 2: Green" Preset="IntensityGreen"/>
+ <Channel Name="Spot 2: Blue" Preset="IntensityBlue"/>
+ <Channel Name="Spot 3: Red" Preset="IntensityRed"/>
+ <Channel Name="Spot 3: Green" Preset="IntensityGreen"/>
+ <Channel Name="Spot 3: Blue" Preset="IntensityBlue"/>
+ <Channel Name="Spot 4: Red" Preset="IntensityRed"/>
+ <Channel Name="Spot 4: Green" Preset="IntensityGreen"/>
+ <Channel Name="Spot 4: Blue" Preset="IntensityBlue"/>
+ <Mode Name="Mode 1">
+  <Channel Number="0">Internal Programs, Auto Mode, Sound Countrolled Mode</Channel>
+  <Channel Number="1">Master Dimmer</Channel>
+  <Channel Number="2">Strobe</Channel>
+  <Channel Number="3">Spot 1: Red</Channel>
+  <Channel Number="4">Spot 1: Green</Channel>
+  <Channel Number="5">Spot 1: Blue</Channel>
+  <Channel Number="6">Spot 2: Red</Channel>
+  <Channel Number="7">Spot 2: Green</Channel>
+  <Channel Number="8">Spot 2: Blue</Channel>
+  <Channel Number="9">Spot 3: Red</Channel>
+  <Channel Number="10">Spot 3: Green</Channel>
+  <Channel Number="11">Spot 3: Blue</Channel>
+  <Channel Number="12">Spot 4: Red</Channel>
+  <Channel Number="13">Spot 4: Green</Channel>
+  <Channel Number="14">Spot 4: Blue</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="3" Width="1110" Height="295" Depth="59"/>
+  <Lens Name="Other" DegreesMin="25" DegreesMax="25"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="55" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

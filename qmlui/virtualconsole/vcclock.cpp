@@ -49,11 +49,6 @@ VCClock::VCClock(Doc *doc, QObject *parent)
     , m_enableSchedule(false)
 {
     setType(VCWidget::ClockWidget);
-    setForegroundColor(Qt::white);
-    QFont wFont = font();
-    wFont.setBold(true);
-    wFont.setPointSize(28);
-    setFont(wFont);
 
     m_timer = new QTimer(this);
     connect(m_timer, SIGNAL(timeout()), this, SLOT(slotTimerTimeout()));
@@ -70,24 +65,28 @@ VCClock::~VCClock()
         VCClockSchedule *sch = m_scheduleList.takeLast();
         delete sch;
     }
-}
 
-void VCClock::setID(quint32 id)
-{
-    VCWidget::setID(id);
-
-    if (caption().isEmpty())
-        setCaption(defaultCaption());
+    if (m_item)
+        delete m_item;
 }
 
 QString VCClock::defaultCaption()
 {
-    return tr("Clock %1").arg(id());
+    return tr("Clock %1").arg(id() + 1);
+}
+
+void VCClock::setupLookAndFeel(qreal pixelDensity, int page)
+{
+    setPage(page);
+    QFont wFont = font();
+    wFont.setBold(true);
+    wFont.setPointSize(pixelDensity * 5.0);
+    setFont(wFont);
 }
 
 void VCClock::render(QQuickView *view, QQuickItem *parent)
 {
-    if (view == NULL || parent == NULL)
+    if (view == nullptr || parent == nullptr)
         return;
 
     QQmlComponent *component = new QQmlComponent(view->engine(), QUrl("qrc:/VCClockItem.qml"));
@@ -98,15 +97,54 @@ void VCClock::render(QQuickView *view, QQuickItem *parent)
         return;
     }
 
-    QQuickItem *item = qobject_cast<QQuickItem*>(component->create());
+    m_item = qobject_cast<QQuickItem*>(component->create());
 
-    item->setParentItem(parent);
-    item->setProperty("clockObj", QVariant::fromValue(this));
+    m_item->setParentItem(parent);
+    m_item->setProperty("clockObj", QVariant::fromValue(this));
 }
 
 QString VCClock::propertiesResource() const
 {
     return QString("qrc:/VCClockProperties.qml");
+}
+
+VCWidget *VCClock::createCopy(VCWidget *parent)
+{
+    Q_ASSERT(parent != nullptr);
+
+    VCClock *clock = new VCClock(m_doc, parent);
+    if (clock->copyFrom(this) == false)
+    {
+        delete clock;
+        clock = nullptr;
+    }
+
+    return clock;
+}
+
+bool VCClock::copyFrom(const VCWidget *widget)
+{
+    const VCClock *clock = qobject_cast<const VCClock*> (widget);
+    if (clock == nullptr)
+        return false;
+
+    /* Clock type */
+    setClockType(clock->clockType());
+    setEnableSchedule(clock->enableSchedule());
+
+    /* Copy schedules */
+    for (VCClockSchedule *sch : clock->schedules())
+    {
+        VCClockSchedule *dst = new VCClockSchedule();
+        dst->setFunctionID(sch->functionID());
+        dst->setStartTime(sch->startTime());
+        dst->setStopTime(sch->stopTime());
+        dst->setWeekFlags(sch->weekFlags());
+        addSchedule(dst);
+    }
+
+    /* Common stuff */
+    return VCWidget::copyFrom(widget);
 }
 
 FunctionParent VCClock::functionParent() const
@@ -205,7 +243,7 @@ void VCClock::slotTimerTimeout()
         if (sch->m_cachedDuration == -1)
         {
             Function *f = m_doc->function(sch->functionID());
-            if (f != NULL)
+            if (f != nullptr)
                 sch->m_cachedDuration = f->totalDuration() / 1000;
         }
 
@@ -228,7 +266,7 @@ void VCClock::slotTimerTimeout()
 
             // check for existing Function
             Function *f = m_doc->function(sch->functionID());
-            if (f == NULL)
+            if (f == nullptr)
                 continue;
 
             // case #3 and #4
@@ -292,7 +330,7 @@ void VCClock::setEnableSchedule(bool enableSchedule)
         for(VCClockSchedule *sch : m_scheduleList) // C++11
         {
             Function *f = m_doc->function(sch->functionID());
-            if (f != NULL && f->isRunning())
+            if (f != nullptr && f->isRunning())
                 f->stop(functionParent());
             sch->m_canPlay = true;
         }
@@ -310,11 +348,16 @@ QVariantList VCClock::scheduleList()
     return list;
 }
 
+QList<VCClockSchedule *> VCClock::schedules() const
+{
+    return m_scheduleList;
+}
+
 void VCClock::addSchedule(VCClockSchedule *schedule)
 {
     if (schedule->functionID() != Function::invalidId())
         m_scheduleList.append(schedule);
-    qSort(m_scheduleList);
+    std::sort(m_scheduleList.begin(), m_scheduleList.end());
     QQmlEngine::setObjectOwnership(schedule, QQmlEngine::CppOwnership);
     emit scheduleListChanged();
 }
@@ -324,7 +367,7 @@ void VCClock::addSchedules(QVariantList idsList)
     for (QVariant vID : idsList) // C++11
     {
         quint32 funcID = vID.toUInt();
-        if (m_doc->function(funcID) == NULL)
+        if (m_doc->function(funcID) == nullptr)
             continue;
 
         VCClockSchedule *sch = new VCClockSchedule();
@@ -333,7 +376,7 @@ void VCClock::addSchedules(QVariantList idsList)
         m_scheduleList.append(sch);
     }
 
-    qSort(m_scheduleList);
+    std::sort(m_scheduleList.begin(), m_scheduleList.end());
     emit scheduleListChanged();
 }
 
@@ -344,7 +387,7 @@ void VCClock::removeSchedule(int index)
 
     VCClockSchedule *sch = m_scheduleList.takeAt(index);
     Function *f = m_doc->function(sch->functionID());
-    if (f != NULL && f->isRunning())
+    if (f != nullptr && f->isRunning())
         f->stop(functionParent());
     delete sch;
     emit scheduleListChanged();
@@ -435,7 +478,7 @@ bool VCClock::loadXML(QXmlStreamReader &root)
 
 bool VCClock::saveXML(QXmlStreamWriter *doc)
 {
-    Q_ASSERT(doc != NULL);
+    Q_ASSERT(doc != nullptr);
 
     /* VC Clock entry */
     doc->writeStartElement(KXMLQLCVCClock);

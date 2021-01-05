@@ -18,7 +18,7 @@
 */
 
 import QtQuick 2.0
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "."
 
 Rectangle
@@ -30,7 +30,7 @@ Rectangle
     color: "transparent"
 
     property int functionID: -1
-    property Function func
+    property QLCFunction func
     property string textLabel
     property bool isSelected: false
     property int indexInList: -1
@@ -41,17 +41,6 @@ Rectangle
         func = functionManager.getFunction(functionID)
         textLabel = func.name
         funcEntry.functionType = func.type
-    }
-
-    onHighlightIndexChanged:
-    {
-        if (Drag.active == true)
-            return
-
-        if (indexInList >= 0 && highlightIndex == indexInList)
-            topDragLine.visible = true
-        else
-            topDragLine.visible = false
     }
 
     Rectangle
@@ -76,14 +65,13 @@ Rectangle
         width: parent.width
         height: 1
         y: parent.height - 1
-        color: "#666"
+        color: UISettings.bgLight
     }
 
     // top line drag highlight
     Rectangle
     {
-        id: topDragLine
-        visible: false
+        visible: highlightIndex == indexInList
         width: parent.width
         height: 2
         z: 1

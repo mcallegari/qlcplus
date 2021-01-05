@@ -252,10 +252,9 @@ bool Collection::contains(quint32 functionId)
     Doc* doc = qobject_cast <Doc*> (parent());
     Q_ASSERT(doc != NULL);
 
-    QListIterator <quint32> it(m_functions);
-    while (it.hasNext() == true)
+    foreach (quint32 fid, m_functions)
     {
-        Function* function = doc->function(it.next());
+        Function* function = doc->function(fid);
         // contains() can be called during init, function may be NULL
         if (function == NULL)
             continue;
@@ -269,6 +268,11 @@ bool Collection::contains(quint32 functionId)
     return false;
 }
 
+QList<quint32> Collection::components()
+{
+    return m_functions;
+}
+
 /*****************************************************************************
  * Running
  *****************************************************************************/
@@ -278,24 +282,26 @@ FunctionParent Collection::functionParent() const
     return FunctionParent(FunctionParent::Function, id());
 }
 
-void Collection::preRun(MasterTimer* timer)
+void Collection::preRun(MasterTimer *timer)
 {
-    Doc* doc = this->doc();
+    Doc *doc = this->doc();
     Q_ASSERT(doc != NULL);
     {
         QMutexLocker locker(&m_functionListMutex);
         m_runningChildren.clear();
-        foreach(QVariant fid, m_functions)
+        foreach (quint32 fid, m_functions)
         {
-            Function* function = doc->function(fid.toUInt());
+            Function *function = doc->function(fid);
             Q_ASSERT(function != NULL);
+
+            m_intensityOverrideIds << function->requestAttributeOverride(Function::Intensity, getAttributeValue(Function::Intensity));
 
             // Append the IDs of all functions started by this collection
             // to a set so that we can track which of them are still controlled
             // by this collection which are not.
             m_runningChildren << function->id();
 
-            // Listen to the children's stopped signals so that this collection
+            // Listen to the children's stopped signals so that this Collection
             // can give up its rights to stop the function later.
             connect(function, SIGNAL(stopped(quint32)),
                     this, SLOT(slotChildStopped(quint32)));
@@ -305,7 +311,7 @@ void Collection::preRun(MasterTimer* timer)
             connect(function, SIGNAL(running(quint32)),
                     this, SLOT(slotChildStarted(quint32)));
 
-            function->adjustAttribute(getAttributeValue(Function::Intensity), Function::Intensity);
+            //function->adjustAttribute(getAttributeValue(Function::Intensity), Function::Intensity);
             function->start(timer, functionParent(), 0, overrideFadeInSpeed(), overrideFadeOutSpeed(), overrideDuration());
         }
         m_tick = 1;
@@ -315,18 +321,18 @@ void Collection::preRun(MasterTimer* timer)
 
 void Collection::setPause(bool enable)
 {
-    Doc* doc = this->doc();
+    Doc *doc = this->doc();
     Q_ASSERT(doc != NULL);
     foreach (quint32 fid, m_runningChildren)
     {
-        Function* function = doc->function(fid);
+        Function *function = doc->function(fid);
         Q_ASSERT(function != NULL);
         function->setPause(enable);
     }
     Function::setPause(enable);
 }
 
-void Collection::write(MasterTimer* timer, QList<Universe *> universes)
+void Collection::write(MasterTimer *timer, QList<Universe *> universes)
 {
     Q_UNUSED(timer);
     Q_UNUSED(universes);
@@ -340,13 +346,13 @@ void Collection::write(MasterTimer* timer, QList<Universe *> universes)
     else if (m_tick == 2)
     {
         m_tick = 0;
-        Doc* doc = this->doc();
+        Doc *doc = this->doc();
         Q_ASSERT(doc != NULL);
 
         QMutexLocker locker(&m_functionListMutex);
         foreach (quint32 fid, m_runningChildren)
         {
-            Function* function = doc->function(fid);
+            Function *function = doc->function(fid);
             Q_ASSERT(function != NULL);
 
             // First tick may correspond to this collection starting the function
@@ -386,9 +392,9 @@ void Collection::postRun(MasterTimer* timer, QList<Universe *> universes)
 
         m_runningChildren.clear();
 
-        foreach(QVariant fid, m_functions)
+        for (int i = 0; i < m_functions.count(); i++)
         {
-            Function* function = doc->function(fid.toUInt());
+            Function* function = doc->function(m_functions.at(i));
             Q_ASSERT(function != NULL);
 
             disconnect(function, SIGNAL(stopped(quint32)),
@@ -399,6 +405,8 @@ void Collection::postRun(MasterTimer* timer, QList<Universe *> universes)
                         this, SLOT(slotChildStarted(quint32)));
             }
         }
+
+        m_intensityOverrideIds.clear();
     }
 
     Function::postRun(timer, universes);
@@ -416,20 +424,44 @@ void Collection::slotChildStarted(quint32 fid)
     m_runningChildren << fid;
 }
 
-void Collection::adjustAttribute(qreal fraction, int attributeIndex)
+int Collection::adjustAttribute(qreal fraction, int attributeId)
 {
-    if (isRunning() && attributeIndex == Intensity)
+    int attrIndex = Function::adjustAttribute(fraction, attributeId);
+
+    if (isRunning() && attrIndex == Intensity)
     {
         Doc* document = doc();
         Q_ASSERT(document != NULL);
 
         QMutexLocker locker(&m_functionListMutex);
-        foreach(QVariant fid, m_functions)
+
+        for (int i = 0; i < m_functions.count(); i++)
         {
-            Function* function = document->function(fid.toUInt());
+            Function* function = document->function(m_functions.at(i));
             Q_ASSERT(function != NULL);
-            function->adjustAttribute(getAttributeValue(Function::Intensity), Function::Intensity);
+            function->adjustAttribute(getAttributeValue(Function::Intensity), m_intensityOverrideIds.at(i));
         }
     }
-    Function::adjustAttribute(fraction, attributeIndex);
+
+    return attrIndex;
+}
+
+void Collection::setBlendMode(Universe::BlendMode mode)
+{
+    if (mode == blendMode())
+        return;
+
+    qDebug() << "Collection" << name() << "blend mode set to" << Universe::blendModeToString(mode);
+
+    if (isRunning())
+    {
+        for (int i = 0; i < m_functions.count(); i++)
+        {
+            Function* function = doc()->function(m_functions.at(i));
+            Q_ASSERT(function != NULL);
+            function->setBlendMode(mode);
+        }
+    }
+
+    Function::setBlendMode(mode);
 }

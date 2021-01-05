@@ -17,13 +17,15 @@
   limitations under the License.
 */
 
+#include "audioplugincache.h"
 #include "audioeditor.h"
+#include "tardis.h"
 #include "audio.h"
 #include "doc.h"
 
 AudioEditor::AudioEditor(QQuickView *view, Doc *doc, QObject *parent)
     : FunctionEditor(view, doc, parent)
-    , m_audio(NULL)
+    , m_audio(nullptr)
 {
     m_view->rootContext()->setContextProperty("audioEditor", this);
 }
@@ -32,14 +34,14 @@ void AudioEditor::setFunctionID(quint32 ID)
 {
     m_audio = qobject_cast<Audio *>(m_doc->function(ID));
     FunctionEditor::setFunctionID(ID);
-    if (m_audio != NULL)
+    if (m_audio != nullptr)
         connect(m_audio, SIGNAL(totalDurationChanged()),
                 this, SIGNAL(mediaInfoChanged()));
 }
 
 QString AudioEditor::sourceFileName() const
 {
-    if (m_audio == NULL)
+    if (m_audio == nullptr)
         return "";
 
     return m_audio->getSourceFileName();
@@ -47,9 +49,13 @@ QString AudioEditor::sourceFileName() const
 
 void AudioEditor::setSourceFileName(QString sourceFileName)
 {
-    if (m_audio == NULL || m_audio->getSourceFileName() == sourceFileName)
+    if (sourceFileName.startsWith("file:"))
+        sourceFileName = QUrl(sourceFileName).toLocalFile();
+
+    if (m_audio == nullptr || m_audio->getSourceFileName() == sourceFileName)
         return;
 
+    Tardis::instance()->enqueueAction(Tardis::AudioSetSource, m_audio->id(), m_audio->getSourceFileName(), sourceFileName);
     m_audio->setSourceFileName(sourceFileName);
     emit sourceFileNameChanged(sourceFileName);
     emit mediaInfoChanged();
@@ -57,9 +63,9 @@ void AudioEditor::setSourceFileName(QString sourceFileName)
     emit loopedChanged();
 }
 
-QStringList AudioEditor::mimeTypes() const
+QStringList AudioEditor::audioExtensions() const
 {
-    if (m_audio == NULL)
+    if (m_audio == nullptr)
         return QStringList();
 
     return m_audio->getCapabilities();
@@ -69,26 +75,25 @@ QVariant AudioEditor::mediaInfo() const
 {
     QVariantMap infoMap;
 
-    if (m_audio != NULL)
-    {
-        AudioDecoder *adec = m_audio->getAudioDecoder();
-        if (adec != NULL)
-        {
-            AudioParameters ap = adec->audioParameters();
+    if (m_audio == nullptr)
+        return QVariant();
 
-            infoMap.insert("duration", Function::speedToString(m_audio->totalDuration()));
-            infoMap.insert("sampleRate", QString("%1 Hz").arg(ap.sampleRate()));
-            infoMap.insert("channels", ap.channels());
-            infoMap.insert("bitrate", QString("%1 kb/s").arg(adec->bitrate()));
-        }
-    }
+    AudioDecoder *adec = m_audio->getAudioDecoder();
+    if (adec == nullptr)
+        return QVariant();
+
+    AudioParameters ap = adec->audioParameters();
+    infoMap.insert("duration", Function::speedToString(m_audio->totalDuration()));
+    infoMap.insert("sampleRate", QString("%1 Hz").arg(ap.sampleRate()));
+    infoMap.insert("channels", ap.channels());
+    infoMap.insert("bitrate", QString("%1 kb/s").arg(adec->bitrate()));
 
     return QVariant::fromValue(infoMap);
 }
 
 bool AudioEditor::isLooped()
 {
-    if (m_audio != NULL)
+    if (m_audio != nullptr)
         return m_audio->runOrder() == Audio::Loop;
 
     return false;
@@ -96,11 +101,71 @@ bool AudioEditor::isLooped()
 
 void AudioEditor::setLooped(bool looped)
 {
-    if (m_audio != NULL)
+    if (m_audio != nullptr)
     {
+        Tardis::instance()->enqueueAction(Tardis::FunctionSetRunOrder, m_audio->id(), m_audio->runOrder(),
+                                          looped ? Audio::Loop : Audio::SingleShot);
+
         if (looped)
             m_audio->setRunOrder(Audio::Loop);
         else
             m_audio->setRunOrder(Audio::SingleShot);
+    }
+}
+
+int AudioEditor::cardLineIndex() const
+{
+    if (m_audio == nullptr || m_audio->audioDevice().isEmpty())
+        return 0;
+
+    QList<AudioDeviceInfo> devList = m_doc->audioPluginCache()->audioDevicesList();
+    int i = 1;
+    QString device = m_audio->audioDevice();
+
+    foreach(AudioDeviceInfo info, devList)
+    {
+        if (info.capabilities & AUDIO_CAP_OUTPUT)
+        {
+            if (info.privateName == device)
+                return i;
+            i++;
+        }
+
+    }
+    return 0;
+}
+
+void AudioEditor::setCardLineIndex(int cardLineIndex)
+{
+    if (m_audio == nullptr)
+        return;
+
+    if (cardLineIndex == 0)
+    {
+        if (m_audio->audioDevice().isEmpty() == false)
+            emit cardLineIndexChanged(cardLineIndex);
+
+        m_audio->setAudioDevice("");
+        return;
+    }
+
+    QList<AudioDeviceInfo> devList = m_doc->audioPluginCache()->audioDevicesList();
+    int i = 1;
+
+    foreach(AudioDeviceInfo info, devList)
+    {
+        if (info.capabilities & AUDIO_CAP_OUTPUT)
+        {
+            if (i == cardLineIndex)
+            {
+                if (m_audio->audioDevice() != info.privateName)
+                    emit cardLineIndexChanged(cardLineIndex);
+
+                m_audio->setAudioDevice(info.privateName);
+                return;
+            }
+            i++;
+        }
+
     }
 }

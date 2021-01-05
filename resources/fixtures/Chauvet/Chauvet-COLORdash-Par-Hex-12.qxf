@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>Robert Box</Author>
+ </Creator>
+ <Manufacturer>Chauvet</Manufacturer>
+ <Model>COLORdash Par-Hex 12</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Dimmer" Preset="IntensityDimmer"/>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Amber" Preset="IntensityAmber"/>
+ <Channel Name="Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="10" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="11" Max="255" Preset="StrobeSlowToFast">Slow to fast</Capability>
+ </Channel>
+ <Channel Name="Color Macro + White Balance">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="30" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffff00">R: 100% G: 0–100% B: 0</Capability>
+  <Capability Min="31" Max="50" Preset="ColorDoubleMacro" Res1="#ffff00" Res2="#00ff00">R: 100%–0 G: 100% B: 0</Capability>
+  <Capability Min="51" Max="70" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#00ffff">R: 0 G: 100% B: 0–100%</Capability>
+  <Capability Min="71" Max="90" Preset="ColorDoubleMacro" Res1="#00ffff" Res2="#0000ff">R: 0 G: 100%–0 B: 100%</Capability>
+  <Capability Min="91" Max="110" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ff00ff">R: 0–100% G: 0 B: 100%</Capability>
+  <Capability Min="111" Max="130" Preset="ColorDoubleMacro" Res1="#ff00ff" Res2="#ff0000">R: 100% G: 0 B: 100%–0</Capability>
+  <Capability Min="131" Max="150" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#ffffff">R: 100% G: 0–100% B: 0–100%</Capability>
+  <Capability Min="151" Max="170" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#0000ff">R: 100%–0 G: 100%–0 B: 100%</Capability>
+  <Capability Min="171" Max="200" Preset="ColorMacro" Res1="#ffdf80">R: 100% G: 100% B: 100% A: 100%</Capability>
+  <Capability Min="201" Max="205" Preset="ColorMacro" Res1="#ffad5e">White 1</Capability>
+  <Capability Min="206" Max="210" Preset="ColorMacro" Res1="#ffc489">White 2</Capability>
+  <Capability Min="211" Max="215" Preset="ColorMacro" Res1="#ffd5ad">White 3</Capability>
+  <Capability Min="216" Max="220" Preset="ColorMacro" Res1="#ffe4ce">White 4</Capability>
+  <Capability Min="221" Max="225" Preset="ColorMacro" Res1="#ffefe6">White 5</Capability>
+  <Capability Min="226" Max="230" Preset="ColorMacro" Res1="#fff8fb">White 6</Capability>
+  <Capability Min="231" Max="235" Preset="ColorMacro" Res1="#f3f2ff">White 7</Capability>
+  <Capability Min="236" Max="240" Preset="ColorMacro" Res1="#e6ebff">White 8</Capability>
+  <Capability Min="241" Max="245" Preset="ColorMacro" Res1="#dae4ff">White 9</Capability>
+  <Capability Min="246" Max="250" Preset="ColorMacro" Res1="#d2dfff">White 10</Capability>
+  <Capability Min="251" Max="255" Preset="ColorMacro" Res1="#ccdbff">White 11</Capability>
+ </Channel>
+ <Channel Name="Auto programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="10">No function</Capability>
+  <Capability Min="11" Max="60">Auto program 1</Capability>
+  <Capability Min="61" Max="120">Auto program 2</Capability>
+  <Capability Min="121" Max="180">Auto program 3</Capability>
+  <Capability Min="181" Max="240">Auto program 4</Capability>
+  <Capability Min="241" Max="255">Auto program 0 (auto 1-4)</Capability>
+ </Channel>
+ <Channel Name="Auto speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">Slow to fast</Capability>
+ </Channel>
+ <Channel Name="Dimmer speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="51">Preset dimmer speed from display menu</Capability>
+  <Capability Min="52" Max="101">Dimming curve off (linear dimmer)</Capability>
+  <Capability Min="102" Max="152">Nonlinear dimming curve 1 (fastest)</Capability>
+  <Capability Min="153" Max="203">Nonlinear dimming curve 2</Capability>
+  <Capability Min="204" Max="255">Nonlinear dimming curve 3 (slowest)</Capability>
+ </Channel>
+ <Channel Name="White" Preset="IntensityWhite"/>
+ <Channel Name="Hue" Preset="IntensityHue"/>
+ <Channel Name="Saturation" Preset="IntensitySaturation"/>
+ <Channel Name="Value" Preset="IntensityValue"/>
+ <Channel Name="Intensity" Preset="IntensityDimmer"/>
+ <Channel Name="UV" Preset="IntensityUV"/>
+ <Channel Name="Fine Red" Preset="IntensityRedFine"/>
+ <Channel Name="Fine Green" Preset="IntensityGreenFine"/>
+ <Channel Name="Fine Blue" Preset="IntensityBlueFine"/>
+ <Channel Name="Fine Amber" Preset="IntensityAmberFine"/>
+ <Channel Name="Fine White" Preset="IntensityWhiteFine"/>
+ <Channel Name="Fine UV" Preset="IntensityUVFine"/>
+ <Mode Name="6 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Amber</Channel>
+  <Channel Number="4">White</Channel>
+  <Channel Number="5">UV</Channel>
+ </Mode>
+ <Mode Name="8 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">White</Channel>
+  <Channel Number="6">UV</Channel>
+  <Channel Number="7">Strobe</Channel>
+ </Mode>
+ <Mode Name="13 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Fine Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Fine Green</Channel>
+  <Channel Number="4">Blue</Channel>
+  <Channel Number="5">Fine Blue</Channel>
+  <Channel Number="6">Amber</Channel>
+  <Channel Number="7">Fine Amber</Channel>
+  <Channel Number="8">White</Channel>
+  <Channel Number="9">Fine White</Channel>
+  <Channel Number="10">UV</Channel>
+  <Channel Number="11">Fine UV</Channel>
+  <Channel Number="12">Dimmer speed</Channel>
+ </Mode>
+ <Mode Name="HSV">
+  <Channel Number="0">Hue</Channel>
+  <Channel Number="1">Saturation</Channel>
+  <Channel Number="2">Value</Channel>
+ </Mode>
+ <Mode Name="HSI">
+  <Channel Number="0">Hue</Channel>
+  <Channel Number="1">Saturation</Channel>
+  <Channel Number="2">Intensity</Channel>
+ </Mode>
+ <Mode Name="12 Channel">
+  <Channel Number="0">Dimmer</Channel>
+  <Channel Number="1">Red</Channel>
+  <Channel Number="2">Green</Channel>
+  <Channel Number="3">Blue</Channel>
+  <Channel Number="4">Amber</Channel>
+  <Channel Number="5">White</Channel>
+  <Channel Number="6">UV</Channel>
+  <Channel Number="7">Strobe</Channel>
+  <Channel Number="8">Color Macro + White Balance</Channel>
+  <Channel Number="9">Auto programs</Channel>
+  <Channel Number="10">Auto speed</Channel>
+  <Channel Number="11">Dimmer speed</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="2264" ColourTemperature="0"/>
+  <Dimensions Weight="4.54" Width="298" Height="323" Depth="112"/>
+  <Lens Name="Other" DegreesMin="20" DegreesMax="20"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="96" DmxConnector="3-pin and 5-pin"/>
+ </Physical>
+</FixtureDefinition>

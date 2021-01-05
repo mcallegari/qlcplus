@@ -234,6 +234,24 @@ void Sequence_Test::loadWithScene()
     xmlWriter.setDevice(NULL);
     buffer.close();
 
+    Fixture* fxi1 = new Fixture(m_doc);
+    fxi1->setAddress(0);
+    fxi1->setUniverse(0);
+    fxi1->setChannels(8);
+    m_doc->addFixture(fxi1);
+
+    Fixture* fxi2 = new Fixture(m_doc);
+    fxi2->setAddress(10);
+    fxi2->setUniverse(0);
+    fxi2->setChannels(8);
+    m_doc->addFixture(fxi2);
+
+    Fixture* fxi3 = new Fixture(m_doc);
+    fxi3->setAddress(20);
+    fxi3->setUniverse(0);
+    fxi3->setChannels(8);
+    m_doc->addFixture(fxi3);
+
     /* prepare a Scene bound to the Sequence */
     Scene *s = new Scene(m_doc);
     s->addFixture(0);
@@ -391,6 +409,24 @@ void Sequence_Test::loadWithoutScene()
     buffer.open(QIODevice::ReadOnly | QIODevice::Text);
     QXmlStreamReader xmlReader(&buffer);
     xmlReader.readNextStartElement();
+
+    Fixture* fxi1 = new Fixture(m_doc);
+    fxi1->setAddress(0);
+    fxi1->setUniverse(0);
+    fxi1->setChannels(8);
+    m_doc->addFixture(fxi1);
+
+    Fixture* fxi2 = new Fixture(m_doc);
+    fxi2->setAddress(10);
+    fxi2->setUniverse(0);
+    fxi2->setChannels(8);
+    m_doc->addFixture(fxi2);
+
+    Fixture* fxi3 = new Fixture(m_doc);
+    fxi3->setAddress(20);
+    fxi3->setUniverse(0);
+    fxi3->setChannels(8);
+    m_doc->addFixture(fxi3);
 
     Sequence *seq = new Sequence(m_doc);
 

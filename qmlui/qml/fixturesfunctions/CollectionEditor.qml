@@ -21,7 +21,7 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.2
 
-import com.qlcplus.classes 1.0
+import org.qlcplus.classes 1.0
 import "."
 
 Rectangle
@@ -37,7 +37,7 @@ Rectangle
     ModelSelector
     {
         id: ceSelector
-        //onItemsCountChanged: console.log("Collection Editor selected items changed !")
+        //onItemsCountChanged: console.log("Collection Editor selected items changed!")
     }
 
     SplitView
@@ -50,6 +50,12 @@ Rectangle
             width: 0
             height: ceContainer.height
             source: ""
+
+            onLoaded:
+            {
+                if (source)
+                    item.allowEditing = false
+            }
 
             Rectangle
             {
@@ -78,8 +84,9 @@ Rectangle
                         rightSidePanel.width = rightSidePanel.width / 2
                     }
 
-                    functionManager.setEditorFunction(-1, false)
-                    requestView(-1, "qrc:/FunctionManager.qml")
+                    var prevID = collectionEditor.previousID
+                    functionManager.setEditorFunction(prevID, false, true)
+                    requestView(prevID, functionManager.getEditorResource(prevID))
                 }
 
                 IconButton
@@ -94,8 +101,8 @@ Rectangle
                     {
                         if (checked)
                         {
-                            rightSidePanel.width += 350
-                            funcMgrLoader.width = 350
+                            rightSidePanel.width += UISettings.sidePanelWidth
+                            funcMgrLoader.width = UISettings.sidePanelWidth
                             funcMgrLoader.source = "qrc:/FunctionManager.qml"
                         }
                         else
@@ -114,12 +121,14 @@ Rectangle
                     height: UISettings.iconSizeMedium
                     imgSource: "qrc:/remove.svg"
                     tooltip: qsTr("Remove the selected function")
-                    onClicked:
+                    onClicked: deleteItemsPopup.open()
+
+                    CustomPopupDialog
                     {
-                        actionManager.requestActionPopup(ActionManager.DeleteEditorItems,
-                                                         qsTr("Are you sure you want to remove the selected functions ?"),
-                                                         ActionManager.OK | ActionManager.Cancel,
-                                                         ceSelector.itemsList())
+                        id: deleteItemsPopup
+                        title: qsTr("Delete functions")
+                        message: qsTr("Are you sure you want to remove the selected functions?")
+                        onAccepted: functionManager.deleteEditorItems(ceSelector.itemsList())
                     }
                 }
             }
@@ -150,7 +159,12 @@ Rectangle
                             drag.target: cfDelegate
                             drag.threshold: height / 2
 
-                            onClicked: ceSelector.selectItem(index, cFunctionList.model, mouse.modifiers & Qt.ControlModifier)
+                            onPressed: ceSelector.selectItem(index, cFunctionList.model, mouse.modifiers & Qt.ControlModifier)
+                            onDoubleClicked:
+                            {
+                                functionManager.setEditorFunction(model.funcID, false, false)
+                                requestView(model.funcID, functionManager.getEditorResource(model.funcID))
+                            }
 
                             onReleased:
                             {
@@ -199,7 +213,7 @@ Rectangle
                         {
                             var insertIndex = cFunctionList.dragInsertIndex
                             if (insertIndex == -1)
-                                insertIndex = 0
+                                insertIndex = cFunctionList.count
 
                             for (var i = 0; i < drag.source.itemsList.length; i++)
                             {

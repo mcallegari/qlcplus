@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Q Light Controller Plus - GUI style customization</TITLE>
+<SCRIPT SRC="utility.js" TYPE="text/javascript"></SCRIPT>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<BODY onLoad="replaceqrc()">
+
+<H1>GUI style customization</H1>
+
+<P>Starting from version 4.5.0, QLC+ can read a user custom file to change the GUI
+appearance in a very accessible way.<BR>
+If no file is found, QLC+ will start with the default style.</P>
+
+<H2>The GUI style file</H2>
+
+<P>The file name is hardcoded into QLC+ and must be: <CODE>qlcplusStyle.qss</CODE><BR>
+The style file must also be placed in a specific path which is:<BR>
+<UL>
+ <LI><b>Linux</b>: $HOME/.qlcplus</LI>
+ <LI><b>Windows</b>: Your user folder/QLC+</LI>
+ <LI><b>OSX</b>: Library/Application Support/QLC+</LI>
+</UL>
+
+The style file must have a CSS syntax. If you're comfortable with web designing, you should
+find the creation of this file very easy!<BR>
+Since the style file is strictly related to the inner Qt objects, you might want
+to read the following articles to find out the elements' names and the additional
+CSS properties the Qt team added to the default CSS syntax.<br>
+<A HREF="https://doc.qt.io/qt-5/stylesheet-syntax.html">Qt Style Sheets</A><BR>
+<A HREF="https://doc.qt.io/archives/qt-4.8/stylesheet-examples.html">Qt Style Sheets Examples</A><BR>
+It is up to your imagination how you prefer to customize the QLC+ GUI appearance! If you find
+a style worth sharing, don't forget to send in your contribution by posting it online in the
+<A HREF="https://www.qlcplus.org/forum/viewforum.php?f=5">QLC+ forum</A>
+</P>
+
+<H2>QLC+ dark blue style example</H2>
+<P>Just to give you an example of how easy this process is, here's a blue-ish dark style for QLC+.<BR>
+If you copy the following lines into <CODE>qlcplusStyle.qss</CODE> in the right location as explained above,
+you will see it immediately applied to QLC+.</P>
+
+<PRE>
+QMainWindow, QDialog
+{
+ background-color: #404B57;
+ color: #E6E6E6;
+}
+
+QTreeWidget
+{
+ background-color: #3A444F;
+ alternate-background-color: #404B57;
+ color: #E6E6E6;
+}
+
+QTextBrowser
+{
+ background-color: #3A444F;
+ color: #E6E6E6;
+}
+</PRE>
+
+</BODY>
+</HTML>

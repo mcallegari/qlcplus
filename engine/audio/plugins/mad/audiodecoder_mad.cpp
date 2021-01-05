@@ -53,6 +53,11 @@ AudioDecoder *AudioDecoderMAD::createCopy()
     return qobject_cast<AudioDecoder *>(copy);
 }
 
+int AudioDecoderMAD::priority() const
+{
+    return 20;
+}
+
 bool AudioDecoderMAD::initialize(const QString &path)
 {
     m_inited = false;
@@ -77,6 +82,9 @@ bool AudioDecoderMAD::initialize(const QString &path)
     m_right_dither.error[0] = 0;
     m_right_dither.error[1] = 0;
     m_right_dither.error[2] = 0;
+
+    if (path.isEmpty())
+        return false;
 
     m_input.setFileName(path);
 
@@ -209,16 +217,15 @@ bool AudioDecoderMAD::findHeader()
     bool is_vbr = false;
     mad_timer_t duration = mad_timer_zero;
     struct mad_header header;
-    mad_header_init (&header);
+    mad_header_init(&header);
 
     forever
     {
-        m_input_bytes = 0;
         if (m_stream.error == MAD_ERROR_BUFLEN || !m_stream.buffer)
         {
             size_t remaining = 0;
 
-            if (!m_stream.next_frame)
+            if (m_stream.next_frame)
             {
                 remaining = m_stream.bufend - m_stream.next_frame;
                 memmove (m_input_buf, m_stream.next_frame, remaining);
@@ -228,7 +235,11 @@ bool AudioDecoderMAD::findHeader()
 
             if (m_input_bytes <= 0)
             {
-                qDebug() << "Cannot read data from file";
+                qDebug() << "End of file reached";
+
+                if (is_vbr)
+                    break;
+
                 return false;
             }
 
@@ -243,32 +254,34 @@ bool AudioDecoderMAD::findHeader()
                 uint tagSize = findID3v2((uchar *)m_stream.this_frame,
                                          (ulong) (m_stream.bufend - m_stream.this_frame));
                 if (tagSize > 0)
+                {
                     mad_stream_skip(&m_stream, tagSize);
+                    qDebug() << "Skipping ID3 tag bytes" << tagSize;
+                }
                 continue;
             }
             else if (m_stream.error == MAD_ERROR_BUFLEN || MAD_RECOVERABLE(m_stream.error))
+            {
                 continue;
+            }
             else
             {
                 qDebug ("DecoderMAD: Can't decode header: %s", mad_stream_errorstr(&m_stream));
                 break;
             }
         }
+
         result = true;
+        count++;
 
-        if (m_input.isSequential())
-        {
-            qDebug() << "Not a sequential file";
-            break;
-        }
+        //qDebug() << "Detecting header" << count << m_stream.error << m_stream.sync << header.bitrate << header.layer;
 
-        count ++;
-        //try to detect xing header
+        // try to detect xing header
         if (count == 1)
         {
             m_frame.header = header;
             if (mad_frame_decode(&m_frame, &m_stream) != -1 &&
-                    findXingHeader(m_stream.anc_ptr, m_stream.anc_bitlen))
+                findXingHeader(m_stream.anc_ptr, m_stream.anc_bitlen))
             {
                 is_vbr = true;
 
@@ -282,6 +295,7 @@ bool AudioDecoderMAD::findHeader()
                 }
             }
         }
+
         //try to detect VBR
         if (!is_vbr && !(count > 15))
         {
@@ -311,11 +325,11 @@ bool AudioDecoderMAD::findHeader()
     {
         double time = (m_input.size() * 8.0) / (header.bitrate);
         double timefrac = (double)time - ((long)(time));
-        mad_timer_set(&duration, (long)time, (long)(timefrac*100), 100);
+        mad_timer_set(&duration, (long)time, (long)(timefrac * 100), 100);
     }
     else if (has_xing)
     {
-        mad_timer_multiply (&header.duration, count);
+        mad_timer_multiply(&header.duration, count);
         duration = header.duration;
     }
 

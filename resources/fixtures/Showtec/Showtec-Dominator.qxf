@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.11.3 GIT</Version>
+  <Author>Felix Edelmann</Author>
+ </Creator>
+ <Manufacturer>Showtec</Manufacturer>
+ <Model>Dominator</Model>
+ <Type>Laser</Type>
+ <Channel Name="Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="24">Auto 1 (Strobe, Derby, Laser)</Capability>
+  <Capability Min="25" Max="39">Auto 2 (Derby, Laser)</Capability>
+  <Capability Min="40" Max="54">Auto 3 (Strobe, Laser)</Capability>
+  <Capability Min="55" Max="69">Auto 4 (Derby, Laser)</Capability>
+  <Capability Min="70" Max="84">Auto 5 (Derby)</Capability>
+  <Capability Min="85" Max="99">Auto 6 (Laser)</Capability>
+  <Capability Min="100" Max="114">Auto 7 (Strobe)</Capability>
+  <Capability Min="115" Max="129">Sound 1 (Strobe, Derby, Laser)</Capability>
+  <Capability Min="130" Max="144">Sound 2 (Derby, Laser)</Capability>
+  <Capability Min="145" Max="159">Sound 3 (Strobe, Laser)</Capability>
+  <Capability Min="160" Max="174">Sound 4 (Derby, Laser)</Capability>
+  <Capability Min="175" Max="189">Sound 5 (Derby)</Capability>
+  <Capability Min="190" Max="204">Sound 6 (Laser)</Capability>
+  <Capability Min="205" Max="219">Sound 7 (Strobe)</Capability>
+  <Capability Min="220" Max="255">DMX mode</Capability>
+ </Channel>
+ <Channel Name="Derby Colors">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="10" Max="14" Preset="ColorMacro" Res1="#ff0000">Red</Capability>
+  <Capability Min="15" Max="19" Preset="ColorMacro" Res1="#00ff00">Green</Capability>
+  <Capability Min="20" Max="24" Preset="ColorMacro" Res1="#0000ff">Blue</Capability>
+  <Capability Min="25" Max="29" Preset="ColorMacro" Res1="#ffaa00">Amber</Capability>
+  <Capability Min="30" Max="34" Preset="ColorMacro" Res1="#ffffff">White</Capability>
+  <Capability Min="35" Max="39" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#ff0000">White + Red</Capability>
+  <Capability Min="40" Max="44" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red + Green</Capability>
+  <Capability Min="45" Max="49" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#0000ff">Green + Blue</Capability>
+  <Capability Min="50" Max="54" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffaa00">Blue + Amber</Capability>
+  <Capability Min="55" Max="59" Preset="ColorDoubleMacro" Res1="#ffaa00" Res2="#ffffff">Amber + White</Capability>
+  <Capability Min="60" Max="64" Preset="ColorDoubleMacro" Res1="#ffffff" Res2="#00ff00">White + Green</Capability>
+  <Capability Min="65" Max="69" Preset="ColorDoubleMacro" Res1="#00ff00" Res2="#ffaa00">Green + Amber</Capability>
+  <Capability Min="70" Max="74" Preset="ColorDoubleMacro" Res1="#ffaa00" Res2="#ff0000">Amber + Red</Capability>
+  <Capability Min="75" Max="79" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#0000ff">Red + Blue</Capability>
+  <Capability Min="80" Max="84" Preset="ColorDoubleMacro" Res1="#0000ff" Res2="#ffffff">Blue + White</Capability>
+  <Capability Min="85" Max="89">Red + Green + Blue</Capability>
+  <Capability Min="90" Max="94">Red + Green + Amber</Capability>
+  <Capability Min="95" Max="99">Red + Green + White</Capability>
+  <Capability Min="100" Max="104">Red + Amber + Blue</Capability>
+  <Capability Min="105" Max="109">Red + Blue + White</Capability>
+  <Capability Min="110" Max="114">Red + Amber + White</Capability>
+  <Capability Min="115" Max="119">Amber + Green + Blue</Capability>
+  <Capability Min="120" Max="124">Green + Blue + White</Capability>
+  <Capability Min="125" Max="129">Amber + Green + White</Capability>
+  <Capability Min="130" Max="134">Amber + White + Blue</Capability>
+  <Capability Min="135" Max="139">Red + Green + Blue + Amber</Capability>
+  <Capability Min="140" Max="144">Red + Green + Blue + White</Capability>
+  <Capability Min="145" Max="149">Green + Blue + White + Amber</Capability>
+  <Capability Min="150" Max="154">Red + Green + White + Amber</Capability>
+  <Capability Min="155" Max="159">Red + Blue + White + Amber</Capability>
+  <Capability Min="160" Max="164">Red + Green + Blue + White + Amber</Capability>
+  <Capability Min="165" Max="209">Automatic (single color)</Capability>
+  <Capability Min="210" Max="255">Automatic (two colors)</Capability>
+ </Channel>
+ <Channel Name="Derby Speed">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="255">0-100%</Capability>
+ </Channel>
+ <Channel Name="LED Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="6" Preset="ShutterClose">Close</Capability>
+  <Capability Min="7" Max="254" Preset="StrobeFreqRange" Res1="30" Res2="0">Strobe 30-0Hz</Capability>
+  <Capability Min="255" Max="255">Sound activated strobe</Capability>
+ </Channel>
+ <Channel Name="LED Programs">
+  <Group Byte="0">Effect</Group>
+  <Capability Min="0" Max="9">Blackout</Capability>
+  <Capability Min="10" Max="19">Program 1 fast-slow</Capability>
+  <Capability Min="20" Max="29">Program 2 fast-slow</Capability>
+  <Capability Min="30" Max="39">Program 3 fast-slow</Capability>
+  <Capability Min="40" Max="49">Program 4 fast-slow</Capability>
+  <Capability Min="50" Max="59">Program 5 fast-slow</Capability>
+  <Capability Min="60" Max="69">Program 6 fast-slow</Capability>
+  <Capability Min="70" Max="79">Program 7 fast-slow</Capability>
+  <Capability Min="80" Max="89">Program 8 fast-slow</Capability>
+  <Capability Min="90" Max="99">Program 9 fast-slow</Capability>
+  <Capability Min="100" Max="109">Program 10 fast-slow</Capability>
+  <Capability Min="110" Max="255">Full on</Capability>
+ </Channel>
+ <Channel Name="Laser">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="9" Preset="ColorMacro" Res1="#000000">Blackout</Capability>
+  <Capability Min="10" Max="49" Preset="ColorMacro" Res1="#ff0000">Red laser</Capability>
+  <Capability Min="50" Max="89" Preset="ColorMacro" Res1="#00ff00">Green laser</Capability>
+  <Capability Min="90" Max="129" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red + Green alternating</Capability>
+  <Capability Min="130" Max="169" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red + Green Strobe</Capability>
+  <Capability Min="170" Max="209" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red Strobe + Green</Capability>
+  <Capability Min="210" Max="255" Preset="ColorDoubleMacro" Res1="#ff0000" Res2="#00ff00">Red Strobe + Green Strobe</Capability>
+ </Channel>
+ <Channel Name="Laser Strobe">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="4" Preset="ShutterClose">Blackout</Capability>
+  <Capability Min="5" Max="254" Preset="StrobeFreqRange" Res1="0" Res2="30">Strobe 0-30Hz</Capability>
+  <Capability Min="255" Max="255">Sound activated strobe</Capability>
+ </Channel>
+ <Channel Name="Rotating Derby">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="4">Stop</Capability>
+  <Capability Min="5" Max="127">Rotate CW slow-fast</Capability>
+  <Capability Min="128" Max="133">Stop</Capability>
+  <Capability Min="134" Max="255">Rotate CCW slow-fast</Capability>
+ </Channel>
+ <Channel Name="Rotating Laser">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="4">Stop</Capability>
+  <Capability Min="5" Max="127">Rotate CW slow-fast</Capability>
+  <Capability Min="128" Max="133">Stop</Capability>
+  <Capability Min="134" Max="255">Rotate CCW slow-fast</Capability>
+ </Channel>
+ <Mode Name="9-channel Version 1">
+  <Channel Number="0">Programs</Channel>
+  <Channel Number="1">Derby Colors</Channel>
+  <Channel Number="2">Derby Speed</Channel>
+  <Channel Number="3">LED Strobe</Channel>
+  <Channel Number="4">LED Programs</Channel>
+  <Channel Number="5">Laser</Channel>
+  <Channel Number="6">Laser Strobe</Channel>
+  <Channel Number="7">Rotating Derby</Channel>
+  <Channel Number="8">Rotating Laser</Channel>
+ </Mode>
+ <Mode Name="9-channel Version 2">
+  <Channel Number="0">Programs</Channel>
+  <Channel Number="1">Derby Colors</Channel>
+  <Channel Number="2">Derby Speed</Channel>
+  <Channel Number="3">LED Strobe</Channel>
+  <Channel Number="4">LED Programs</Channel>
+  <Channel Number="5">Laser</Channel>
+  <Channel Number="6">Laser Strobe</Channel>
+  <Channel Number="7">Rotating Derby</Channel>
+  <Channel Number="8">Rotating Laser</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="5x3W LEDs" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="4.06" Width="298" Height="310" Depth="225"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Technical PowerConsumption="66" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FixtureDefinition>
+<FixtureDefinition xmlns="http://www.qlcplus.org/FixtureDefinition">
+ <Creator>
+  <Name>Q Light Controller Plus</Name>
+  <Version>4.12.3 GIT</Version>
+  <Author>eigenaardiger</Author>
+ </Creator>
+ <Manufacturer>Ayra</Manufacturer>
+ <Model>Compar Kit 1</Model>
+ <Type>Color Changer</Type>
+ <Channel Name="Red" Preset="IntensityRed"/>
+ <Channel Name="Green" Preset="IntensityGreen"/>
+ <Channel Name="Blue" Preset="IntensityBlue"/>
+ <Channel Name="Master dimmer" Preset="IntensityMasterDimmer"/>
+ <Channel Name="Strobing">
+  <Group Byte="0">Shutter</Group>
+  <Capability Min="0" Max="7" Preset="ShutterOpen">No function</Capability>
+  <Capability Min="8" Max="247" Preset="StrobeSlowToFast">Strobe ( Slow to Fast )</Capability>
+  <Capability Min="248" Max="255" Preset="StrobeRandom">Sound Strobe</Capability>
+ </Channel>
+ <Channel Name="Color Macros and Programs">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7">Manual</Capability>
+  <Capability Min="8" Max="22">Color Chase 1</Capability>
+  <Capability Min="23" Max="37">Color Chase 2</Capability>
+  <Capability Min="38" Max="52">Color Chase 3</Capability>
+  <Capability Min="53" Max="67">Color Chase 4</Capability>
+  <Capability Min="68" Max="82">Color Chase 5</Capability>
+  <Capability Min="83" Max="97">Color Chase 6</Capability>
+  <Capability Min="98" Max="112">Color Chase 7</Capability>
+  <Capability Min="113" Max="127">Color Chase 8</Capability>
+  <Capability Min="128" Max="142">Color Chase 9</Capability>
+  <Capability Min="143" Max="157">Color Chase 10</Capability>
+  <Capability Min="158" Max="172">Color Chase 11</Capability>
+  <Capability Min="173" Max="187">Color Chase 12</Capability>
+  <Capability Min="188" Max="202">Color Chase 13</Capability>
+  <Capability Min="203" Max="217">Color Chase 14</Capability>
+  <Capability Min="218" Max="232">Color Chase 15</Capability>
+  <Capability Min="233" Max="247">Color Chase 16</Capability>
+  <Capability Min="248" Max="255">Stand Alone</Capability>
+ </Channel>
+ <Channel Name="Program Speed/Sound Sense">
+  <Group Byte="0">Speed</Group>
+  <Capability Min="0" Max="7">Hold</Capability>
+  <Capability Min="8" Max="255">Program Speed (slow to fast)</Capability>
+ </Channel>
+ <Channel Name="Red 1" Preset="IntensityRed"/>
+ <Channel Name="Red 2" Preset="IntensityRed"/>
+ <Channel Name="Red 3" Preset="IntensityRed"/>
+ <Channel Name="Red 4" Preset="IntensityRed"/>
+ <Channel Name="Green 1" Preset="IntensityGreen"/>
+ <Channel Name="Green 2" Preset="IntensityGreen"/>
+ <Channel Name="Green 3" Preset="IntensityGreen"/>
+ <Channel Name="Green 4" Preset="IntensityGreen"/>
+ <Channel Name="Blue 1" Preset="IntensityBlue"/>
+ <Channel Name="Blue 2" Preset="IntensityBlue"/>
+ <Channel Name="Blue 3" Preset="IntensityBlue"/>
+ <Channel Name="Blue 4" Preset="IntensityBlue"/>
+ <Channel Name="Shows">
+  <Group Byte="0">Colour</Group>
+  <Capability Min="0" Max="7" Preset="ColorDoubleMacro" Res1="#000000" Res2="#000000">Blackout</Capability>
+  <Capability Min="8" Max="37">Show 01</Capability>
+  <Capability Min="38" Max="67">Show 02</Capability>
+  <Capability Min="68" Max="97">Show 03</Capability>
+  <Capability Min="98" Max="127">Show 04</Capability>
+  <Capability Min="128" Max="157">Show 05</Capability>
+  <Capability Min="158" Max="187">Show 06</Capability>
+  <Capability Min="188" Max="217">Show 07</Capability>
+  <Capability Min="218" Max="247">Show 08</Capability>
+  <Capability Min="248" Max="255">Random Show</Capability>
+ </Channel>
+ <Mode Name="3 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+ </Mode>
+ <Mode Name="7 Channel">
+  <Channel Number="0">Red</Channel>
+  <Channel Number="1">Green</Channel>
+  <Channel Number="2">Blue</Channel>
+  <Channel Number="3">Master dimmer</Channel>
+  <Channel Number="4">Strobing</Channel>
+  <Channel Number="5">Color Macros and Programs</Channel>
+  <Channel Number="6">Program Speed/Sound Sense</Channel>
+ </Mode>
+ <Mode Name="12 Channel">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">Red 2</Channel>
+  <Channel Number="4">Green 2</Channel>
+  <Channel Number="5">Blue 2</Channel>
+  <Channel Number="6">Red 3</Channel>
+  <Channel Number="7">Green 3</Channel>
+  <Channel Number="8">Blue 3</Channel>
+  <Channel Number="9">Red 4</Channel>
+  <Channel Number="10">Green 4</Channel>
+  <Channel Number="11">Blue 4</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>9</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="16 Channel">
+  <Channel Number="0">Red 1</Channel>
+  <Channel Number="1">Green 1</Channel>
+  <Channel Number="2">Blue 1</Channel>
+  <Channel Number="3">Red 2</Channel>
+  <Channel Number="4">Green 2</Channel>
+  <Channel Number="5">Blue 2</Channel>
+  <Channel Number="6">Red 3</Channel>
+  <Channel Number="7">Green 3</Channel>
+  <Channel Number="8">Blue 3</Channel>
+  <Channel Number="9">Red 4</Channel>
+  <Channel Number="10">Green 4</Channel>
+  <Channel Number="11">Blue 4</Channel>
+  <Channel Number="12">Master dimmer</Channel>
+  <Channel Number="13">Strobing</Channel>
+  <Channel Number="14">Color Macros and Programs</Channel>
+  <Channel Number="15">Program Speed/Sound Sense</Channel>
+  <Head>
+   <Channel>0</Channel>
+   <Channel>1</Channel>
+   <Channel>2</Channel>
+  </Head>
+  <Head>
+   <Channel>4</Channel>
+   <Channel>5</Channel>
+   <Channel>3</Channel>
+  </Head>
+  <Head>
+   <Channel>6</Channel>
+   <Channel>7</Channel>
+   <Channel>8</Channel>
+  </Head>
+  <Head>
+   <Channel>10</Channel>
+   <Channel>11</Channel>
+   <Channel>9</Channel>
+  </Head>
+ </Mode>
+ <Mode Name="1 Channel ( shows )">
+  <Channel Number="0">Shows</Channel>
+ </Mode>
+ <Physical>
+  <Bulb Type="LED" Lumens="0" ColourTemperature="0"/>
+  <Dimensions Weight="10.5" Width="1200" Height="300" Depth="140"/>
+  <Lens Name="Other" DegreesMin="0" DegreesMax="0"/>
+  <Focus Type="Fixed" PanMax="0" TiltMax="0"/>
+  <Layout Width="4" Height="1"/>
+  <Technical PowerConsumption="80" DmxConnector="3-pin"/>
+ </Physical>
+</FixtureDefinition>

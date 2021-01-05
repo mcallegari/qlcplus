@@ -40,81 +40,61 @@ var testAlgo;
     util.pixelMap = new Array();
     util.initialized = false;
     util.circlesMaxSize = 0;
-    
+
     var circles = new Array();
-    
+
     function Circle(x, y, step)
     {
       this.xCenter = x;
       this.yCenter = y;
       this.step = step;
     }
-    
+
     algo.setAmount = function(_amount)
     {
       algo.circlesAmount = _amount;
       util.initialized = false;
     };
-    
+
     algo.getAmount = function()
     {
       return algo.circlesAmount;
     };
-    
+
     algo.setFade = function(_fade)
     {
-      if (_fade == "Fade In")
-        algo.fadeMode = 1;
-      else if (_fade == "Fade Out")
-        algo.fadeMode = 2;
-      else
-        algo.fadeMode = 0;
+      if (_fade === "Fade In") { algo.fadeMode = 1; }
+      else if (_fade === "Fade Out") { algo.fadeMode = 2; }
+      else { algo.fadeMode = 0; }
     };
 
     algo.getFade = function()
     {
-      if (algo.fadeMode == 1)
-        return "Fade In";
-      else if (algo.fadeMode == 2)
-         return "Fade Out";
-      else
-        return "Don't Fade";
+      if (algo.fadeMode === 1) { return "Fade In"; }
+      else if (algo.fadeMode === 2) { return "Fade Out"; }
+      else { return "Don't Fade"; }
     };
-/*
-    algo.setFill = function(_fill)
-    {
-      if (_fill == "Yes")
-        algo.fillCircles = 1;
-      else
-        algo.fillCircles = 0;
-    }
 
-    algo.getFill = function()
-    {
-      if (algo.fillCircles == 1)
-        return "Yes";
-      else
-        return "No";
-    }
-*/
     util.initialize = function(size)
     {
-      if (size > 0)
+      if (size > 0) {
         util.circlesMaxSize = size;
+      }
 
       circles = new Array();
-      for (var i = 0; i < algo.circlesAmount; i++)
-      {
+      for (var i = 0; i < algo.circlesAmount; i++) {
         circles[i] = new Circle(-1, -1, 0);
       }
 
       util.initialized = true;
     };
-    
+
     util.getColor = function(step, rgb)
     {
-      if (algo.fadeMode == 0)
+      if (algo.fadeMode === 0)
+      {
         return rgb;
+      }
       else
       {
         var r = (rgb >> 16) & 0x00FF;
@@ -123,9 +103,9 @@ var testAlgo;
 
         var stepCount = Math.floor(util.circlesMaxSize / 2);
         var fadeStep = step;
-        if (algo.fadeMode == 2)
+        if (algo.fadeMode === 2) {
           fadeStep = stepCount - step;
-
+        }
         var newR = (r / stepCount) * fadeStep;
         var newG = (g / stepCount) * fadeStep;
         var newB = (b / stepCount) * fadeStep;
@@ -140,60 +120,45 @@ var testAlgo;
       //cy = cy.toFixed(0);
       cx = Math.round(cx);
       cy = Math.round(cy);
-      if (cx >= 0 && cx < width && cy >= 0 && cy < height)
+      if (cx >= 0 && cx < width && cy >= 0 && cy < height) {
         util.pixelMap[cy][cx] = color;
+      }
     };
 
     util.getNextStep = function(width, height, rgb)
     {
+      var x, y;
       // create an empty, black pixelMap
       util.pixelMap = new Array(height);
-      for (var y = 0; y < height; y++)
+      for (y = 0; y < height; y++)
       {
         util.pixelMap[y] = new Array(width);
-        for (var x = 0; x < width; x++)
+        for (x = 0; x < width; x++) {
           util.pixelMap[y][x] = 0;
+        }
       }
 
       for (var i = 0; i < algo.circlesAmount; i++)
       {
         var color = util.getColor(circles[i].step, rgb);
         //alert("Circle " + i + " xCenter: " + circles[i].xCenter + " color: " + color.toString(16));
-        if (circles[i].xCenter == -1)
+        if (circles[i].xCenter === -1)
         {
-          var seed = Math.floor(Math.random()*100)
-                if (seed > 50) continue;
+          var seed = Math.floor(Math.random()*100);
+          if (seed > 50) { continue; }
           circles[i].xCenter = Math.floor(Math.random() * width);
           circles[i].yCenter = Math.floor(Math.random() * height);
           util.pixelMap[circles[i].yCenter][circles[i].xCenter] = color;
         }
         else
         {
-          /*
-          var radius = circles[i].step;
-          var radius2 = radius * radius;
-          for (var x = -radius; x <= radius; x++) 
-          {
-            var y = Math.floor(Math.sqrt(radius2 - x*x) + 0.5);
-            var cx = circles[i].xCenter + x;
-            var cy1 = circles[i].yCenter + y;
-            var cy2 = circles[i].yCenter - y;
-            if (cx >= 0 && cx < width)
-            {
-              if (cy1 >= 0 && cy1 < height)
-                map[cy1][cx] = color;
-              if (cy2 >= 0 && cy2 < height)
-                map[cy2][cx] = color;
-            }
-          }
-          */
           var l = circles[i].step * Math.cos(Math.PI / 4);
           var radius2 = circles[i].step * circles[i].step;
           l = l.toFixed(0);
 
-          for (var x = 0; x <= l; x++) 
+          for (x = 0; x <= l; x++)
           {
-            var y = Math.sqrt(radius2 - (x * x));
+            y = Math.sqrt(radius2 - (x * x));
 
             util.drawPixel(circles[i].xCenter + x, circles[i].yCenter + y, color, width, height);
             util.drawPixel(circles[i].xCenter + x, circles[i].yCenter - y, color, width, height);
@@ -221,12 +186,13 @@ var testAlgo;
 
     algo.rgbMap = function(width, height, rgb, step)
     {
-      if (util.initialized == false)
+      if (util.initialized === false)
       {
-        if (height < width)
+        if (height < width) {
           util.initialize(height);
-        else
+        } else {
           util.initialize(width);
+        }
       }
 
       return util.getNextStep(width, height, rgb);

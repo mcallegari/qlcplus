@@ -190,6 +190,7 @@ public slots:
     void slotPositionChanged(const QPointF& pt);
     void slotSliderValueChanged();
     void slotRangeValueChanged();
+    void slotUniverseWritten(quint32 idx, const QByteArray& universeData);
 
 signals:
     void fixturePositions(const QVariantList positions);
@@ -198,6 +199,9 @@ private:
     bool m_padInteraction;
     bool m_sliderInteraction;
     bool m_inputValueChanged;
+
+    /** Map used to lookup a GenericFader instance for a Universe ID */
+    QMap<quint32, QSharedPointer<GenericFader> > m_fadersMap;
 
     /*********************************************************************
      * Presets
@@ -208,17 +212,26 @@ public:
     QList<VCXYPadPreset *> presets() const;
 
 protected:
+    void updateSceneChannel(FadeChannel *fc, uchar value);
     void writeScenePositions(MasterTimer* timer, QList<Universe*> universes);
 
 protected slots:
     void slotPresetClicked(bool checked);
+    void slotEFXDurationChanged(uint duration);
 
 private:
     FunctionParent functionParent() const;
 
 protected:
     QHash<QWidget *, VCXYPadPreset *> m_presets;
+    /** Reference to an EFX Function when an EFX Preset is pressed */
     EFX *m_efx;
+    /** Attribute override IDs for a running EFX preset */
+    int m_efxStartXOverrideId;
+    int m_efxStartYOverrideId;
+    int m_efxWidthOverrideId;
+    int m_efxHeightOverrideId;
+
     Scene *m_scene;
     QList<SceneChannel> m_sceneChannels;
 
